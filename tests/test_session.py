@@ -1,0 +1,178 @@
+import random
+from datetime import datetime, timedelta
+
+import pytest
+
+from fixtures import make_vault
+from tutorlib import experiments, policy, session, store
+
+T0 = datetime.fromisoformat("2026-09-29T17:00:00+08:00")  # Almanac week 5
+
+
+class Clock:
+    def __init__(self, t):
+        self.t = t
+
+    def __call__(self):
+        return self.t
+
+
+@pytest.fixture
+def tutor(tmp_path):
+    clock = Clock(T0)
+    t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=clock)
+    t.clock = clock
+    return t
+
+
+# ---------- policy ----------
+def test_current_week_from_plan():
+    plan = {"start": "2026-09-01", "week2_monday": "2026-09-07"}
+    assert policy.current_week(plan, datetime.fromisoformat("2026-09-03T10:00:00+08:00")) == 1
+    assert policy.current_week(plan, T0) == 5
+
+
+@pytest.mark.parametrize("kc_type,theta,mis,expected", [
+    ("procedural", 0.0, [], "worked_faded"),
+    ("conceptual", 0.0, [], "pretest_explain"),
+    ("factual", 0.0, [], "pretest_explain"),
+    ("conceptual", 0.9, [], "problem_first"),
+    ("procedural", 0.9, [], "problem_first"),
+    ("procedural", 0.9, ["m2"], "refutation"),
+])
+def test_default_method_policy(kc_type, theta, mis, expected):
+    assert policy.default_method({"type": kc_type}, {"theta": theta, "active_misconceptions": mis}) == expected
+
+
+# ---------- session flow ----------
+def test_autopilot_plan_learns_prerequisite_first(tutor):
+    plan = tutor.start("autopilot", minutes=50)
+    learn = [b for b in plan["blocks"] if b["kind"] == "learn"]
+    assert [b["kc"] for b in learn][:2] == ["9702-2.1.1", "9702-2.1.4"]
+    assert plan["blocks"][-1]["kind"] == "exit"
+
+
+def test_pretest_questions_hide_answers(tutor):
+    tutor.start("autopilot", minutes=50)
+    act = tutor.next()
+    assert act["activity"] == "questions" and act["phase"] == "pretest"
+    for q in act["items"]:
+        assert "answer" not in q and "distractors" not in q and "explanation" not in q
+        assert q["n"] >= 1 and q["stem"]
+
+
+def test_answer_reveals_key_logs_event_and_updates_state(tutor):
+    tutor.start("autopilot", minutes=50)
+    act = tutor.next()
+    q = act["items"][0]
+    fb = tutor.answer(f"{q['n']}A4" if q["kind"] == "mcq" else f"{q['n']} = 1 ~2")
+    assert fb["results"][0]["n"] == q["n"] and "answer" in fb["results"][0]
+    assert any(e["type"] == "answer" for e in tutor.vault.events())
+    assert tutor.state["kcs"]["9702-2.1.1"]["n"] == 1
+
+
+def _answer_all(tutor, act, good=True):
+    parts = []
+    for q in act["items"]:
+        inst = tutor.session["presented"][str(q["n"])]["inst"]
+        if q["kind"] == "mcq":
+            parts.append(f"{q['n']}{inst['answer'] if good else next(k for k in inst['options'] if k != inst['answer'])}3")
+        else:
+            v = inst["answer"]["value"] if good else inst["answer"]["value"] * 7.3
+            parts.append(f"{q['n']} = {v:.3g} {inst['answer'].get('unit', '')} ~3")
+    return tutor.answer(", ".join(parts))
+
+
+def test_after_pretest_method_is_chosen_and_teaching_follows(tutor):
+    tutor.start("autopilot", minutes=50)
+    _answer_all(tutor, tutor.next(), good=False)
+    act = tutor.next()
+    assert act["activity"] == "teach"
+    assert act["method"] == "pretest_explain"  # conceptual KC, novice
+    assert act["note"].endswith(".md") and "card" in act
+    assert any(e["type"] == "method" for e in tutor.vault.events())
+
+
+def test_pending_items_are_re_served_until_answered(tutor):
+    tutor.start("autopilot", minutes=50)
+    first = tutor.next()
+    again = tutor.next()
+    assert again["activity"] == "awaiting" and [q["n"] for q in again["items"]] == [q["n"] for q in first["items"]]
+
+
+def test_full_session_reaches_exit_and_end(tutor):
+    tutor.start("autopilot", minutes=50)
+    seen = []
+    for _ in range(40):
+        act = tutor.next()
+        seen.append((act["activity"], act.get("block")))
+        if act["activity"] == "end":
+            break
+        if act["activity"] in ("questions", "awaiting"):
+            _answer_all(tutor, act, good=True)
+    assert seen[-1][0] == "end"
+    assert ("questions", "exit") in seen
+    summary = tutor.end()
+    assert summary["answered"] > 0
+    assert tutor.session is None
+    assert any(e["type"] == "session_end" for e in tutor.vault.events())
+
+
+def test_hint_marks_item_hinted_and_is_refused_in_exit(tutor):
+    tutor.start("autopilot", minutes=50)
+    act = tutor.next()
+    n = act["items"][0]["n"]
+    h = tutor.hint(n)
+    assert h["level"] == 1 and h["hint"]
+    assert tutor.session["presented"][str(n)]["hinted"] is True
+    tutor.session["presented"][str(n)]["unassisted"] = True
+    assert "refused" in tutor.hint(n)
+
+
+def test_review_block_when_kc_due(tutor):
+    tutor.start("autopilot", minutes=50)
+    _answer_all(tutor, tutor.next(), good=True)
+    tutor.end()
+    tutor.clock.t = T0 + timedelta(days=30)
+    plan = tutor.start("autopilot", minutes=50)
+    assert plan["blocks"][0]["kind"] == "review" and "9702-2.1.1" in plan["blocks"][0]["kcs"]
+
+
+def test_short_answer_needing_judgement_stays_pending_until_judged(tutor):
+    item = {"id": "s1", "kcs": ["9702-2.1.1"], "kind": "short", "difficulty": 3, "marks": 2, "stem": "Define displacement.",
+            "rubric": [{"point": "distance", "keywords": [["distance"]]}, {"point": "direction", "keywords": [["direction"]]}]}
+    tutor.start("review", minutes=10)
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    fb = tutor.answer(f"{n} = the distance moved")
+    assert fb["results"][0]["pending_judgement"]
+    assert str(n) in tutor.session["presented"]
+    fb = tutor.answer(f"{n} = the distance moved", judge={n: 0.5})
+    assert fb["results"][0]["score"] == 0.5 and str(n) not in tutor.session["presented"]
+
+
+def test_experiment_retest_scores_after_three_items(tutor):
+    tutor.start("autopilot", minutes=50)
+    tutor.end()
+    tutor.log({"type": "exp_start", "exp": "E1", "subject": "phys", "arms": ["worked_faded", "problem_first"],
+               "eligible": {"types": ["conceptual"]}, "target_pairs": 4})
+    tutor.log({"type": "exp_assign", "exp": "E1", "kc": "9702-2.1.1", "arm": "worked_faded", "pair": 0})
+    tutor.clock.t = T0 + timedelta(days=8)
+    plan = tutor.start("autopilot", minutes=50)
+    assert plan["blocks"][0]["kind"] == "retest"
+    for _ in range(3):
+        act = tutor.next()
+        assert act["block"] == "retest" and all(q["unassisted"] for q in act["items"])
+        _answer_all(tutor, act, good=True)
+        if any(e["type"] == "exp_score" for e in tutor.vault.events()):
+            break
+    scores = [e for e in tutor.vault.events() if e["type"] == "exp_score"]
+    assert scores and scores[0]["kc"] == "9702-2.1.1" and scores[0]["score"] == 1.0
+    assert experiments.retests_due(tutor.state, tutor.clock.t) == []
+
+
+def test_state_survives_rebuild(tutor):
+    tutor.start("autopilot", minutes=50)
+    _answer_all(tutor, tutor.next(), good=True)
+    before = tutor.state["kcs"]
+    tutor.rebuild()
+    assert tutor.state["kcs"] == before
