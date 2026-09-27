@@ -1,0 +1,77 @@
+import json
+import random
+from datetime import datetime, timedelta
+
+import pytest
+
+from fixtures import make_vault
+from tutorlib import report, session, store
+
+T0 = datetime.fromisoformat("2026-09-29T17:00:00+08:00")
+
+
+@pytest.fixture
+def tutor(tmp_path):
+    return session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=lambda: T0)
+
+
+def _study(tutor, wrong=False):
+    tutor.start("autopilot", minutes=50)
+    act = tutor.next()
+    parts = []
+    for q in act["items"]:
+        inst = tutor.session["presented"][str(q["n"])]["inst"]
+        if q["kind"] == "mcq":
+            pick = "A" if wrong and inst["answer"] != "A" else inst["answer"]
+            parts.append(f"{q['n']}{pick}4")
+        else:
+            parts.append(f"{q['n']} = {inst['answer']['value'] * (5 if wrong else 1):.3g} {inst['answer'].get('unit', '')} ~4")
+    tutor.answer(", ".join(parts))
+    return tutor.end()
+
+
+def test_brief_is_compact_and_informative(tutor):
+    b = report.brief(tutor)
+    assert b["week"] == 5
+    assert b["next_sitting"]["label"] == "9702-AS" and b["next_sitting"]["days"] > 200
+    assert "Kinematics" in " ".join(b["week_objectives"])
+    assert len(json.dumps(b)) < 900
+
+
+def test_session_note_written_with_callouts(tutor):
+    summary = _study(tutor)
+    path = report.session_note(tutor, summary["session"])
+    text = (tutor.vault.root / path).read_text()
+    assert path.startswith("Sessions/") and ("> [!success]" in text or "> [!failure]" in text) and "Accuracy" in text
+
+
+def test_profile_note_contains_traits_and_is_lint_clean(tutor):
+    from tutorlib import lint
+    _study(tutor, wrong=True)
+    path = report.profile_note(tutor)
+    text = (tutor.vault.root / path).read_text()
+    for heading in ("Calibration", "Error families", "Experiments", "What the tutor adjusted"):
+        assert heading in text
+    assert lint.lint(text) == []
+
+
+def test_today_note_lists_plan(tutor):
+    path = report.today_note(tutor)
+    text = (tutor.vault.root / path).read_text()
+    assert "Learn" in text and "9702-2.1.1" in text
+
+
+def test_almanac_sync_merges_into_latest_export(tutor):
+    folder = tutor.vault.root / "Almanac"
+    folder.mkdir()
+    (folder / "almanac-progress-2026-09-28.json").write_text(json.dumps(
+        {"done": {"1-math1": 1}, "err": {"Could not recall": 2}, "wall": {"2026-09-20": 1}, "rag": {"phys-1": "g"}}))
+    _study(tutor, wrong=True)
+    r = report.almanac_sync(tutor)
+    out = json.loads((tutor.vault.root / r["path"]).read_text())
+    assert out["done"] == {"1-math1": 1}
+    assert out["wall"]["2026-09-29"] == 1 and out["wall"]["2026-09-20"] == 1
+    assert sum(out["err"].values()) >= 2
+    again = report.almanac_sync(tutor)  # no double counting
+    out2 = json.loads((tutor.vault.root / again["path"]).read_text())
+    assert out2["err"] == out["err"]

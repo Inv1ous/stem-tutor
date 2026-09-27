@@ -176,3 +176,13 @@ def test_state_survives_rebuild(tutor):
     before = tutor.state["kcs"]
     tutor.rebuild()
     assert tutor.state["kcs"] == before
+
+
+def test_mismatched_response_kind_is_rejected_and_kept_open(tutor):
+    tutor.start("autopilot", minutes=50)
+    act = tutor.next()
+    mcq = next(q for q in act["items"] if q["kind"] == "mcq")
+    fb = tutor.answer(f"{mcq['n']} = 19.6 m ~3")
+    assert "expects" in fb["results"][0]["error"]
+    assert str(mcq["n"]) in tutor.session["presented"]
+    assert not any(e["type"] == "answer" for e in tutor.vault.events())

@@ -9,7 +9,7 @@ import random
 import uuid
 from datetime import datetime
 
-from . import grade, model, policy
+from . import diagnose, grade, model, policy
 from .packs import Packs, instantiate
 from .store import Vault, read_json, write_json
 
@@ -160,6 +160,35 @@ class Tutor:
         items = [it for kc in batch if (it := self._pick(kc, 0.75))]
         return self._questions(b, idx, items, unassisted=True) if batch else None
 
+    def _step_bracket(self, b: dict, idx: int) -> dict | None:
+        st = b.setdefault("st", {kc: {"asked": [], "errors": [], "mis": [], "items": []} for kc in b["kcs"]})
+        items = []
+        for kc, rec in st.items():
+            want = diagnose.next_difficulty([tuple(a) for a in rec["asked"]])
+            it = diagnose.pick(self.packs, kc, want, set(rec["items"])) if want else None
+            if it:
+                rec["items"].append(it["id"])
+                items.append(it)
+            if len(items) == 2:
+                break
+        if items:
+            act = self._questions(b, idx, items, phase="diagnose", unassisted=True)
+            act["say"] = "Diagnostic: no hints, no teaching yet. 'Don't know' is a valid answer."
+            return act
+        results = {kc: diagnose.classify([tuple(a) for a in r["asked"]], r["errors"], r["mis"]) for kc, r in st.items()}
+        gaps = [kc for kc, r in results.items() if diagnose.needs_repair(r)]
+        self.log({"type": "diagnosis", "results": results})
+        if gaps:
+            self.log({"type": "gaps", "add": gaps})
+        n = max(1, int(0.75 * max(0, self.session["minutes"] - 12) / 18))
+        repair = [{"kind": "learn", "kc": kc, "gap_type": results[kc]["gap_type"]} for kc in gaps[:n]]
+        old = [kc for kc, k in self.state["kcs"].items()
+               if kc not in st and k["n"] > 0 and kc in self.packs.kcs and self.packs.items_for(kc)][:3]
+        extra = repair + ([{"kind": "practice", "kcs": old}] if old else [])
+        extra.append({"kind": "exit", "kcs": (gaps[:n] or list(st))[:3]})
+        self.session["blocks"][idx + 1:idx + 1] = extra
+        return None
+
     def _retest_target(self, kc: str) -> int:
         items = self.packs.items_for(kc)
         return 3 if any(i.get("template") for i in items) else min(3, len(items))
@@ -285,6 +314,11 @@ class Tutor:
                 results.append({"n": r["n"], "error": "not an open question"})
                 continue
             inst = p["inst"]
+            expected = _expected_kind(inst["kind"])
+            if r["kind"] != "idk" and r["kind"] not in expected:
+                results.append({"n": r["n"], "error": f"question {r['n']} expects {' or '.join(expected)}; "
+                                                     "resend in the right form (it stays open)"})
+                continue
             g = grade.grade_item(inst, r)
             if r["n"] in judge:
                 sc = float(judge[r["n"]])
@@ -307,10 +341,17 @@ class Tutor:
                        "difficulty": p["difficulty"], "conf": r.get("conf"), "hinted": p["hinted"], "seconds": round(seconds),
                        "marks": p["marks"], "grade": {k: g[k] for k in ("correct", "score", "error", "misconception")},
                        "credit": credit, "pos": s["answered"], "block": p["block"], "phase": p["phase"],
-                       "params": inst.get("params")})
+                       "params": inst.get("params"), "response": r["value"] if r["kind"] != "idk" else "don't know"})
         del s["presented"][key]
         s["answered"] += 1
         s["correct"] += 1 if g["correct"] else 0
+        if p["block"] == "bracket":
+            rec = s["blocks"][p["block_idx"]]["st"][p["kcs"][0]]
+            rec["asked"].append([p["difficulty"], g["correct"]])
+            if g["error"]:
+                rec["errors"].append(g["error"])
+            if g.get("misconception"):
+                rec["mis"].append(g["misconception"])
         if p["phase"] == "faded" and not g["correct"] and p["block_idx"] is not None:
             s["blocks"][p["block_idx"]]["walkthrough"] = True
         if p["exp"]:
@@ -341,6 +382,10 @@ class Tutor:
         self._save()
         return {"n": n, "level": p["hint_level"], "hint": hints[p["hint_level"] - 1],
                 "say": "Give only this hint, in your words; do not add the next step."}
+
+
+def _expected_kind(kind: str) -> tuple[str, ...]:
+    return {"mcq": ("choice",), "structured": ("points",)}.get(kind, ("value", "points"))
 
 
 def _display_answer(inst: dict) -> str:

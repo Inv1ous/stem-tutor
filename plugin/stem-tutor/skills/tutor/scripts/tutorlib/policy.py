@@ -118,6 +118,8 @@ def missing_packs(packs, now: datetime) -> list[str]:
 
 def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "autopilot",
                  focus: list[str] | None = None) -> list[dict]:
+    if mode == "diagnose":
+        return [{"kind": "bracket", "kcs": [k for k in (focus or []) if k in packs.kcs][:8]}]
     blocks: list[dict] = []
     used = 0
     retests = experiments.retests_due(state, now)

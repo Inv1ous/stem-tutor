@@ -176,6 +176,8 @@ def apply(state: dict, e: dict) -> dict:
             k["fsrs"]["due"] = datetime.fromisoformat(e["due"]).astimezone(timezone.utc).isoformat()
     elif kind == "session_start":
         state["traits"]["sessions"] += 1
+    elif kind == "anki_export":
+        state.setdefault("anki_exported", []).extend(e["cards"])
     elif kind.startswith("exp_"):
         from . import experiments
 
