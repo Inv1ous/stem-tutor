@@ -91,3 +91,8 @@ def test_paper_cli(tmp_path):
     v = make_vault(tmp_path)
     assert run(v, "paper", "list")["papers"][0]["id"] == "9702_s23_qp_22"
     assert run(v, "paper", "score", "9702_s23_qp_22", "1a=2/2, 1b=3/3")["percent"] == 100.0
+
+
+def test_taught_lists_plan_kcs_up_to_current_week(tmp_path):
+    v = make_vault(tmp_path)
+    assert run(v, "taught") == {"phys": ["9702-2.1.1", "9702-2.1.4"]}

@@ -193,6 +193,17 @@ def profile_note(tutor) -> str:
 
 
 # ---------------- Almanac two-way sync ----------------
+MATH_UNITS = {"WMA11": "P1", "WMA12": "P2", "WMA13": "P3", "WMA14": "P4", "WST01": "S1", "WST02": "S2",
+              "WST03": "S3", "WME01": "M1", "WDM11": "D1", "WFM01": "FP1", "WFM02": "FP2", "WFM03": "FP3"}
+
+
+def _almanac_score_key(paper: dict) -> str | None:
+    """Almanac mark-bank keys: chem-P2, phys-P4, math-S1 (best recent full-paper-equivalent score)."""
+    if paper["code"] in ("9701", "9702"):
+        return f"{'chem' if paper['code'] == '9701' else 'phys'}-P{str(paper['component'])[0]}"
+    unit = MATH_UNITS.get(paper["code"])
+    return f"math-{unit}" if unit else None
+
 def almanac_sync(tutor) -> dict:
     folder = tutor.vault.root / "Almanac"
     exports = sorted(folder.glob("almanac-progress-*.json")) if folder.exists() else []
@@ -220,7 +231,17 @@ def almanac_sync(tutor) -> dict:
         if key and seen and not rag.get(f"{key}-{num}") and len(seen) * 2 >= len(kcs):
             ratio = sum(model.is_mastered(k) for k in seen) / len(kcs)
             rag[f"{key}-{num}"] = "g" if ratio >= 0.8 else "a" if ratio > 0 else "r"
-    out = {**base, "err": {k: v for k, v in err.items() if v}, "wall": wall, "rag": rag,
+    scores = dict(base.get("scores", {}))
+    results: dict[str, list[float]] = {}
+    for e in tutor.vault.events():
+        if e["type"] == "paper_result" and e.get("max"):
+            paper = next((x for x in p.papers if x["id"] == e["paper"]), None)
+            key = _almanac_score_key(paper) if paper else None
+            if key:
+                results.setdefault(key, []).append(round(e["score"] / e["max"] * paper["marks"]))
+    for key, vals in results.items():
+        scores[key] = max(vals[-3:])
+    out = {**base, "err": {k: v for k, v in err.items() if v}, "wall": wall, "rag": rag, "scores": scores,
            "tutor_sync": {"err_added": dict(totals), "at": tutor.now().isoformat()}}
     rel = f"Almanac/almanac-import-{tutor.now():%Y-%m-%d}.json"
     write_json(tutor.vault.root / rel, out)

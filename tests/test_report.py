@@ -75,3 +75,10 @@ def test_almanac_sync_merges_into_latest_export(tutor):
     again = report.almanac_sync(tutor)  # no double counting
     out2 = json.loads((tutor.vault.root / again["path"]).read_text())
     assert out2["err"] == out["err"]
+
+
+def test_almanac_sync_writes_best_recent_paper_scores(tutor):
+    tutor.paper_score("9702_s23_qp_22", "1a=1/2, 1b=2/3")
+    tutor.paper_score("9702_s23_qp_22", "1a=2/2, 1b=3/3")
+    out = json.loads((tutor.vault.root / report.almanac_sync(tutor)["path"]).read_text())
+    assert out["scores"]["phys-P2"] == 60  # full-paper equivalent: 100% of 60 marks

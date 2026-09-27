@@ -13,6 +13,7 @@
   paper list [--code C]            past papers available in the vault
   paper score ID "1a=2/3, 1b=1/2"  log a self-marked past paper per question
   tag EVENT CODE                   reclassify an answer's error (RECALL MISREAD CONCEPT PROCEDURE STRATEGY SLIP NOTATION TIME)
+  taught                           KCs the Almanac has covered up to this week, per subject (for baselines)
   find TEXT                        search KCs by title/glossary
   kc ID                            KC details + pack summary
   diagnose map [--title T]         brain dump on stdin -> candidate KCs + echoed misconceptions
@@ -147,6 +148,20 @@ def cmd_tag(args) -> None:
     with v.lock():
         e = tutor(v).log({"type": "tag", "target": args.event, "error": args.code.upper()})
         out({"ok": True, "event": e["id"]})
+
+
+def cmd_taught(args) -> None:
+    from tutorlib import policy
+    t = tutor(vault())
+    week = policy.current_week(t.packs.plan, t.now())
+    res: dict[str, list[str]] = {}
+    for w, objs in sorted(t.packs.plan.get("weeks", {}).items(), key=lambda x: int(x[0])):
+        if int(w) <= week:
+            for o in objs:
+                for kc in o.get("kcs", []):
+                    if kc in t.packs.kcs and t.packs.items_for(kc) and kc not in res.get(o["subject"], []):
+                        res.setdefault(o["subject"], []).append(kc)
+    out(res)
 
 
 def cmd_find(args) -> None:
@@ -285,6 +300,7 @@ def main(argv=None) -> None:
     p = sub.add_parser("paper"); p.add_argument("action", choices=["list", "score"]); p.add_argument("id", nargs="?")
     p.add_argument("marks", nargs="?"); p.add_argument("--code"); p.set_defaults(fn=cmd_paper)
     p = sub.add_parser("tag"); p.add_argument("event"); p.add_argument("code"); p.set_defaults(fn=cmd_tag)
+    sub.add_parser("taught").set_defaults(fn=cmd_taught)
     p = sub.add_parser("find"); p.add_argument("text"); p.set_defaults(fn=cmd_find)
     p = sub.add_parser("kc"); p.add_argument("id"); p.set_defaults(fn=cmd_kc)
     p = sub.add_parser("diagnose"); p.add_argument("action", choices=["map"]); p.add_argument("--title")
