@@ -56,9 +56,19 @@ PACK = {
          "source": {"type": "generated"}, "stem": "A runner completes one lap of a 400 m track in 80 s. What is the average velocity?",
          "options": {"A": "5.0 m/s", "B": "0 m/s", "C": "2.5 m/s", "D": "10 m/s"}, "answer": "B",
          "distractors": {"A": "m1"}, "marks": 1},
+        {"id": "9702-2.1-i05", "kcs": ["9702-2.1.4"], "kind": "structured", "difficulty": 4, "command_word": "Calculate",
+         "source": {"type": "generated"}, "marks": 3,
+         "stem": "A stone is thrown vertically up at $12\\,\\mathrm{m\\,s^{-1}}$. Calculate the maximum height.",
+         "scheme": [{"mark": "M1", "point": "uses v^2 = u^2 + 2as with v = 0"},
+                    {"mark": "A1", "point": "s = 7.3 m", "check": {"kind": "numeric", "answer": {"value": 7.34, "unit": "m", "sf_ok": [2, 3]}}},
+                    {"mark": "B1", "point": "states direction/upward"}]},
     ],
     "flashcards": [{"id": "fc1", "kc": "9702-2.1.1", "front": "Define displacement.", "back": "Distance in a stated direction ($\\vec s$)."}],
 }
+
+PAPERS = {"papers": [{"id": "9702_s23_qp_22", "code": "9702", "component": "22", "series": "s23", "marks": 60,
+                       "qp": "Papers/9702/9702_s23_qp_22.pdf", "ms": "Papers/9702/9702_s23_ms_22.pdf",
+                       "questions": [{"q": "1a", "marks": 2, "kcs": ["9702-2.1.1"]}, {"q": "1b", "marks": 3, "kcs": ["9702-2.1.4"]}]}]}
 
 PLAN = {
     "start": "2026-09-01", "week2_monday": "2026-09-07",
@@ -77,4 +87,5 @@ def make_vault(tmp_path) -> Path:
     (t / "packs" / "v1" / "specs" / "9702" / "graph.json").write_text(json.dumps(GRAPH))
     (t / "packs" / "v1" / "specs" / "9702" / "packs" / "9702-2.1.json").write_text(json.dumps(PACK))
     (t / "packs" / "v1" / "plan.json").write_text(json.dumps(PLAN))
+    (t / "packs" / "v1" / "papers.json").write_text(json.dumps(PAPERS))
     return root

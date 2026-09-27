@@ -4,11 +4,14 @@
   doctor [--quiet]                 check vault, packs, deps, iCloud placeholders
   hook                             SessionStart: brief if a tutor folder is connected, else silent
   brief [--minutes N]              status + suggested session
-  session start [--mode M] [--minutes N] [--kcs A,B]   modes: autopilot review learn diagnose repair
+  session start [--mode M] [--minutes N] [--kcs A,B]   modes: autopilot review learn diagnose repair long
   session end                      close session, write session note
   next                             next activity (questions never include answers)
   answer "<entries>" [--judge JSON]  e.g. "1B3, 2 = 4.5 m s-1 ~2, 3?, 4 pts=1,2"
   hint N                           next hint level for open question N
+  scheme N                         mark scheme of open structured question N (only after the attempt is uploaded)
+  paper list [--code C]            past papers available in the vault
+  paper score ID "1a=2/3, 1b=1/2"  log a self-marked past paper per question
   tag EVENT CODE                   reclassify an answer's error (RECALL MISREAD CONCEPT PROCEDURE STRATEGY SLIP NOTATION TIME)
   find TEXT                        search KCs by title/glossary
   kc ID                            KC details + pack summary
@@ -123,6 +126,22 @@ def cmd_hint(args) -> None:
         out(tutor(v).hint(args.n))
 
 
+def cmd_scheme(args) -> None:
+    v = vault()
+    with v.lock():
+        out(tutor(v).scheme(args.n))
+
+
+def cmd_paper(args) -> None:
+    v = vault()
+    with v.lock():
+        t = tutor(v)
+        if args.action == "list":
+            out({"papers": t.paper_list(args.code)})
+        else:
+            out(t.paper_score(args.id, args.marks))
+
+
 def cmd_tag(args) -> None:
     v = vault()
     with v.lock():
@@ -222,8 +241,10 @@ def cmd_week(args) -> None:
     with v.lock():
         t = tutor(v)
         started = _maybe_start_experiments(t)
-        res = {"today": report.today_note(t), "profile": report.profile_note(t), "experiments_started": started,
-               "anki": anki.export(t)}
+        res = {"today": report.today_note(t), "profile": report.profile_note(t), "experiments_started": started}
+        last = max((e["ts"] for e in v.events() if e["type"] == "anki_export"), default=None)
+        if last is None or (t.now() - datetime.fromisoformat(last)).days >= 6:
+            res["anki"] = anki.export(t)
         if (v.root / "Almanac").exists() and any((v.root / "Almanac").glob("almanac-progress-*.json")):
             res["almanac"] = report.almanac_sync(t)
         out(res)
@@ -255,11 +276,14 @@ def main(argv=None) -> None:
     sub.add_parser("hook").set_defaults(fn=cmd_hook)
     p = sub.add_parser("brief"); p.add_argument("--minutes", type=int, default=50); p.set_defaults(fn=cmd_brief)
     p = sub.add_parser("session"); p.add_argument("action", choices=["start", "end"])
-    p.add_argument("--mode", default="autopilot", choices=["autopilot", "review", "learn", "diagnose", "repair"])
+    p.add_argument("--mode", default="autopilot", choices=["autopilot", "review", "learn", "diagnose", "repair", "long"])
     p.add_argument("--minutes", type=int, default=50); p.add_argument("--kcs"); p.set_defaults(fn=cmd_session)
     sub.add_parser("next").set_defaults(fn=cmd_next)
     p = sub.add_parser("answer"); p.add_argument("text"); p.add_argument("--judge"); p.set_defaults(fn=cmd_answer)
     p = sub.add_parser("hint"); p.add_argument("n", type=int); p.set_defaults(fn=cmd_hint)
+    p = sub.add_parser("scheme"); p.add_argument("n", type=int); p.set_defaults(fn=cmd_scheme)
+    p = sub.add_parser("paper"); p.add_argument("action", choices=["list", "score"]); p.add_argument("id", nargs="?")
+    p.add_argument("marks", nargs="?"); p.add_argument("--code"); p.set_defaults(fn=cmd_paper)
     p = sub.add_parser("tag"); p.add_argument("event"); p.add_argument("code"); p.set_defaults(fn=cmd_tag)
     p = sub.add_parser("find"); p.add_argument("text"); p.set_defaults(fn=cmd_find)
     p = sub.add_parser("kc"); p.add_argument("id"); p.set_defaults(fn=cmd_kc)

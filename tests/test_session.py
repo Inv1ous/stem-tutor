@@ -186,3 +186,24 @@ def test_mismatched_response_kind_is_rejected_and_kept_open(tutor):
     assert "expects" in fb["results"][0]["error"]
     assert str(mcq["n"]) in tutor.session["presented"]
     assert not any(e["type"] == "answer" for e in tutor.vault.events())
+
+
+def test_long_mode_presents_structured_and_scheme_after_attempt(tutor):
+    tutor.start("long", minutes=20, focus=["9702-2.1.4"])
+    act = tutor.next()
+    q = act["items"][0]
+    assert q["kind"] == "structured" and q["scheme_points"] == 3 and "scheme" not in q
+    sch = tutor.scheme(q["n"])
+    assert [p["i"] for p in sch["scheme"]] == [1, 2, 3] and sch["scheme"][0]["mark"] == "M1"
+    fb = tutor.answer(f"{q['n']} pts=1,2")
+    assert fb["results"][0]["score"] == pytest.approx(2 / 3, abs=0.01)
+
+
+def test_paper_list_and_score_logs_per_question(tutor):
+    papers = tutor.paper_list("9702")
+    assert papers[0]["id"] == "9702_s23_qp_22"
+    r = tutor.paper_score("9702_s23_qp_22", "1a=2/2, 1b=1/3")
+    assert r["score"] == 3 and r["max"] == 5 and r["weakest"][0]["kc"] == "9702-2.1.4"
+    evs = [e for e in tutor.vault.events() if e["type"] == "answer" and e["block"] == "paper"]
+    assert len(evs) == 2 and evs[1]["grade"]["score"] == pytest.approx(1 / 3, abs=0.01)
+    assert any(e["type"] == "paper_result" for e in tutor.vault.events())

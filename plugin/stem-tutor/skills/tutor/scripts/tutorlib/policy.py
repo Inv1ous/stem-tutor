@@ -118,6 +118,9 @@ def missing_packs(packs, now: datetime) -> list[str]:
 
 def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "autopilot",
                  focus: list[str] | None = None) -> list[dict]:
+    if mode == "long":
+        pool = focus or model.due_kcs(state, now) or [k for k, v in state["kcs"].items() if v["n"] > 0]
+        return [{"kind": "long", "kcs": [k for k in pool if k in packs.kcs][: max(1, minutes // 15)]}]
     if mode == "diagnose":
         return [{"kind": "bracket", "kcs": [k for k in (focus or []) if k in packs.kcs][:8]}]
     blocks: list[dict] = []

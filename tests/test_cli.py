@@ -85,3 +85,9 @@ def test_deps_extracts_wheel(tmp_path, monkeypatch):
     deps.ensure("fakepkg")
     import fakepkg
     assert fakepkg.VALUE == 42
+
+
+def test_paper_cli(tmp_path):
+    v = make_vault(tmp_path)
+    assert run(v, "paper", "list")["papers"][0]["id"] == "9702_s23_qp_22"
+    assert run(v, "paper", "score", "9702_s23_qp_22", "1a=2/2, 1b=3/3")["percent"] == 100.0

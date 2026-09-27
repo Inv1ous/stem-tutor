@@ -6,6 +6,7 @@ returns after an attempt. Every graded attempt becomes an event; state is a fold
 from __future__ import annotations
 
 import random
+import re
 import uuid
 from datetime import datetime
 
@@ -189,6 +190,20 @@ class Tutor:
         self.session["blocks"][idx + 1:idx + 1] = extra
         return None
 
+    def _step_long(self, b: dict, idx: int) -> dict | None:
+        i = b.setdefault("i", 0)
+        while i < len(b["kcs"]):
+            kc = b["kcs"][i]
+            i += 1
+            b["i"] = i
+            it = self._pick(kc, 0.5, kinds=("structured",))
+            if it:
+                act = self._questions(b, idx, [it], phase="long")
+                act["say"] = ("Long question: they write full working on the iPad and export it to Inbox as "
+                              f"'{act['items'][0]['n']}.pdf'. Wait for the upload, then use the mark flow.")
+                return act
+        return None
+
     def _retest_target(self, kc: str) -> int:
         items = self.packs.items_for(kc)
         return 3 if any(i.get("template") for i in items) else min(3, len(items))
@@ -368,6 +383,53 @@ class Tutor:
         if r.get("conf") and r["conf"] >= 3 and not g["correct"]:
             fb["hypercorrect"] = "Confident but wrong: spend a turn on why; this is the best moment to fix it."
         return fb
+
+    def scheme(self, n: int) -> dict:
+        p = (self.session or {}).get("presented", {}).get(str(n))
+        if not p or p["inst"]["kind"] != "structured":
+            return {"error": "no open structured question with that number"}
+        p["scheme_shown"] = True
+        self._save()
+        return {"n": n, "marks": p["marks"],
+                "scheme": [{"i": i, "mark": pt.get("mark", ""), "point": pt.get("point", "")}
+                           for i, pt in enumerate(p["inst"]["scheme"], 1)],
+                "say": "Learner ticks the points they earned first (self-mark), then the marker audits."}
+
+    # ---------- past papers ----------
+    def paper_list(self, code: str | None = None) -> list[dict]:
+        done = {e["paper"] for e in self.vault.events() if e["type"] == "paper_result"}
+        return [{"id": p["id"], "qp": p["qp"], "ms": p["ms"], "marks": p["marks"], "done": p["id"] in done}
+                for p in self.packs.papers if not code or p["code"] == code]
+
+    def paper_score(self, paper_id: str, text: str) -> dict:
+        paper = next((p for p in self.packs.papers if p["id"] == paper_id), None)
+        if not paper:
+            return {"error": f"unknown paper {paper_id}"}
+        qmap = {q["q"].lower(): q for q in paper["questions"]}
+        got = {m[1].lower(): (float(m[2]), float(m[3])) for m in
+               re.finditer(r"(\w+)\s*=\s*([\d.]+)\s*/\s*([\d.]+)", text)}
+        unknown = sorted(set(got) - set(qmap))
+        sid = "paper-" + uuid.uuid4().hex[:6]
+        per_kc: dict[str, list[float]] = {}
+        for q, (score, out_of) in got.items():
+            if q not in qmap:
+                continue
+            meta = qmap[q]
+            kcs = [k for k in meta["kcs"] if k in self.packs.kcs] or meta["kcs"]
+            frac = score / out_of if out_of else 0.0
+            self.log({"type": "answer", "session": sid, "item": f"{paper_id}:{q}", "kcs": kcs,
+                      "subject": self.packs.kc(kcs[0])["subject"] if kcs and kcs[0] in self.packs.kcs else None,
+                      "difficulty": 4, "conf": None, "hinted": False, "marks": out_of, "block": "paper", "phase": None,
+                      "grade": {"correct": frac >= 1.0, "score": round(frac, 3), "error": None, "misconception": None},
+                      "credit": [], "pos": 0, "response": f"{score:g}/{out_of:g}"})
+            for k in kcs:
+                per_kc.setdefault(k, []).append(frac)
+        total, maximum = sum(v[0] for q, v in got.items() if q in qmap), sum(v[1] for q, v in got.items() if q in qmap)
+        self.log({"type": "paper_result", "paper": paper_id, "score": total, "max": maximum, "session": sid})
+        weakest = sorted(({"kc": k, "score": round(sum(v) / len(v), 2)} for k, v in per_kc.items()), key=lambda x: x["score"])
+        return {"paper": paper_id, "score": total, "max": maximum,
+                "percent": round(100 * total / maximum, 1) if maximum else None,
+                "weakest": weakest[:5], "unknown_questions": unknown, "session": sid}
 
     def hint(self, n: int) -> dict:
         p = (self.session or {}).get("presented", {}).get(str(n))

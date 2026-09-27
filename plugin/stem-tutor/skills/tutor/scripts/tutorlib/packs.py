@@ -130,6 +130,7 @@ class Packs:
             for k in g["kcs"]:
                 self.kcs[k["id"]] = {**k, "spec": spec, "subject": g["subject"]}
         self._packs: dict[str, dict | None] = {}
+        self.papers = (read_json(self.root / "papers.json") or {}).get("papers", [])
 
     def kc(self, kc_id: str) -> dict:
         return self.kcs[kc_id]
