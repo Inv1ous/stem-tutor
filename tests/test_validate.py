@@ -119,3 +119,24 @@ def test_worked_step_check_verified():
     p = good_pack()
     p["worked"][0]["steps"][2]["check"]["answer"]["unit"] = "zz"
     assert "unit" in errs(p)
+
+
+def test_hint_that_states_the_mcq_answer_is_flagged():
+    p = good_pack()
+    it = p["items"][0]  # answer B: "displacement"
+    it["hints"] = ["Think about direction.", "Vectors have magnitude and direction.", "So the answer is displacement."]
+    assert "hint-leak" in errs(p)
+
+
+def test_hint_that_states_the_numeric_answer_is_flagged():
+    p = good_pack()
+    fixed = next(i for i in p["items"] if i["id"] == "9702-2.1-i03")  # 4.0 m s-2
+    fixed["hints"] = ["Use v^2 = u^2 + 2as.", "Rearrange for a.", "You should get a deceleration of 4.0 m s^-2."]
+    fixed["explanation"] = "x"
+    assert "hint-leak" in errs(p)
+
+
+def test_hints_that_share_words_with_every_option_are_fine():
+    p = good_pack()
+    p["items"][0]["hints"] = ["distance or displacement?", "which one has direction?", "speed and time have no direction"]
+    assert "hint-leak" not in errs(p)

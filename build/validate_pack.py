@@ -14,6 +14,7 @@ import ast
 import json
 import math
 import random
+import re
 import sys
 from pathlib import Path
 
@@ -62,6 +63,31 @@ def _check_answer(ans: dict, where: str, out: list, need_value: bool = True) -> 
             out.append(_e("unit", where, str(exc)))
     if not (ans.get("sf") or ans.get("sf_ok")) and not ans.get("exact"):
         out.append(_e("numeric", where, "state sf or sf_ok (or exact: true)"))
+
+
+def _words(text: str) -> set[str]:
+    return {w for w in re.findall(r"[a-z0-9]{3,}", text.lower())}
+
+
+def _hint_leak(it: dict) -> str | None:
+    """A hint must never state the answer: the correct option's words, or the numeric answer itself."""
+    hints = it.get("hints") or []
+    if not hints:
+        return None
+    if it["kind"] == "mcq" and it.get("options") and it.get("answer") in it["options"]:
+        right = _words(it["options"][it["answer"]])
+        others = [_words(v) for k, v in it["options"].items() if k != it["answer"]]
+        for h in hints:
+            hw = _words(h)
+            if right and right <= hw and not any(o and o <= hw for o in others):
+                return f"hint names the correct option: {h[:60]}"
+    if it["kind"] == "numeric" and isinstance((it.get("answer") or {}).get("value"), (int, float)):
+        v = float(it["answer"]["value"])
+        for h in hints:
+            for n in re.findall(r"-?\d+(?:\.\d+)?(?:e-?\d+)?", h):
+                if v and abs(float(n) - v) <= 0.005 * abs(v):
+                    return f"hint contains the answer {v:g}: {h[:60]}"
+    return None
 
 
 def _texts(pack: dict):
@@ -119,6 +145,9 @@ def validate(pack: dict, graph: dict, min_variants: int = MIN_VARIANTS) -> list[
                 out.append(_e("hints", where, "generated items need exactly 3 hints"))
             if not it.get("explanation"):
                 out.append(_e("explanation", where))
+        leak = _hint_leak(it)
+        if leak:
+            out.append(_e("hint-leak", where, leak))
         if it["kind"] == "mcq":
             opts = it.get("options")
             if opts is None and it.get("image"):
