@@ -23,6 +23,9 @@ SYMBOL = {0xB4: "×", 0x6D: "μ", 0x6C: "λ", 0x71: "θ", 0x44: "Δ", 0x57: "Ω"
           0x74: "τ", 0xB9: "≠", 0xBB: "≈", 0xD6: "√", 0xB5: "∝", 0xA5: "∞", 0x2B: "+", 0x3D: "=", 0x3C: "<",
           0x3E: ">", 0xD7: "·", 0x44: "Δ", 0x53: "Σ", 0x46: "Φ", 0x6B: "κ", 0x68: "η", 0x6A: "φ", 0xA2: "′",
           0xB2: "″", 0x5B: "[", 0x5D: "]", 0x28: "(", 0x29: ")", 0x2F: "/", 0x2C: ",", 0x2E: ".", 0x20: " "}
+BOILER = re.compile(r"Permission to reproduce|Copyright Acknowledgements|Cambridge Assessment International Education is part|"
+                    r"Cambridge International Education is part|reasonable effort has been made|BLANK PAGE")
+FOOTER = re.compile(r"^(© UCLES \d{4}|\d{4}/\d{2}/[A-Z]/[A-Z]/\d{2}|\[Turn over)")
 SUP = str.maketrans("0123456789+-–−=()n", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁻⁻⁼⁽⁾ⁿ")
 SUB = str.maketrans("0123456789+-–−=()aehklmnopstx", "₀₁₂₃₄₅₆₇₈₉₊₋₋₋₌₍₎ₐₑₕₖₗₘₙₒₚₛₜₓ")
 SUPOK = set("0123456789+-–−=()n ")
@@ -96,7 +99,14 @@ def mine_paper(qp: Path, ms: Path, code: str) -> list[dict]:
         y1 = nxt[1] - 4 if nxt and nxt[0] == pno else 770
         rect = pymupdf.Rect(40, y0 - 4, page.rect.width - 40, y1)
         lines, ok, opts, cur = [], True, {}, None
-        for b in page.get_text("dict", clip=rect)["blocks"]:
+        blocks = page.get_text("dict", clip=rect)["blocks"]
+        for b in blocks:  # copyright notice below the last question: keep it out of the crop too
+            if BOILER.search(" ".join(s["text"] for ln in b.get("lines", []) for s in ln["spans"])) and b["bbox"][1] > y0 + 20:
+                rect.y1 = min(rect.y1, b["bbox"][1] - 2)
+        for b in blocks:
+            btext = " ".join(s["text"] for ln in b.get("lines", []) for s in ln["spans"])
+            if BOILER.search(btext) or FOOTER.match(btext.strip()):
+                continue
             for ln in b.get("lines", []):
                 t, good = _line_text(ln)
                 ok &= good
