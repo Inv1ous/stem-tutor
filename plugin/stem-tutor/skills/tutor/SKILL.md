@@ -51,7 +51,7 @@ When a teach, worked, walkthrough or refute activity is done (they have answered
 
 ## Ask
 
-Show every stem in chat exactly as given; LaTeX renders there. If an item has `image`, give its path in the tutor folder.
+Show every stem in chat exactly as given; LaTeX renders there. The engine also mirrors the open questions, with any figures, into `Question Sheets/Current.md`, which Obsidian updates live: when an item has `image`, ask the learner to look at that note for the diagram.
 
 - **mcq**: one AskUserQuestion call covers two items; each item gets two questions: the answer (options `A`–`D`, text in the label when it is plain words, otherwise show options in chat and label them by letter) and confidence (`Certain`, `Fairly sure`, `Unsure`, `Guess`). "Don't know" is typed in Other.
 - **numeric / expression / short**: they type the answer in chat with units; ask confidence in the same message ("add ~1–4: guess … certain").
