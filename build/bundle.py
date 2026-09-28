@@ -64,10 +64,14 @@ def bundle(subtopic: str) -> Path:
     if const:
         L += ["## Constants (use exactly these)", "", const, ""]
     mcqs = _mcqs(spec, ids)
-    L += [f"## Past-paper MCQs tagged to these KCs ({len(mcqs)})", "",
-          "Use the best of these as `source: past` items (keep id as `ref`, original options and key). "
-          "If `image` is given, the question needs its figure: set the item's `image` to that path.", ""]
-    for m in sorted(mcqs, key=lambda m: m["id"], reverse=True):
+    shown = sorted(mcqs, key=lambda m: ("er" in m, m["id"][5:8].replace("w", "z"), m["id"]), reverse=True)[:30]
+    L += [f"## Past-paper MCQs tagged to these KCs ({len(mcqs)} in the bank, {len(shown)} most informative shown)", "",
+          "Pick the 12 best of these (cover every KC, favour ones with examiner comments) as `source: past` items: "
+          "item id `<subtopic>-p<NN>`, `ref` = the question id, original options and key, `image` when given. "
+          "Each needs an `explanation` that also says why the popular wrong option is wrong, and `distractors` mapped to "
+          "your misconceptions where the examiner comment shows one. The rest of the bank is added automatically as "
+          "extra practice, so do not list them.", ""]
+    for m in shown:
         opts = " / ".join(f"{k}: {v}" for k, v in (m.get("options") or {}).items()) or "(options in figure)"
         L.append(f"- `{m['id']}` {m['ref']} · KCs {', '.join(m['kcs'])} · key **{m['answer']}**"
                  + (f" · image `{m['image']}`" if m.get("image") else ""))

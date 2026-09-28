@@ -83,3 +83,14 @@ def test_template_evaluator_rejects_non_arithmetic():
     with pytest.raises(ValueError):
         packs._eval("t.__class__", {"t": 1.0})
     assert packs._eval("sqrt(2*g*h) > 1 and h < 5", {"g": 9.81, "h": 2.0}) == 1.0
+
+
+def test_extra_tier_items_only_used_after_explained_ones(P):
+    extra = dict(P.items_for("9702-2.1.1")[0], id="9702-2.1-x99", tier="extra", explanation=None, difficulty=2)
+    P.pack("9702-2.1")["items"].append(extra)
+    state = model.new_state()
+    first = P.select_item("9702-2.1.1", state, target_p=0.8, rng=random.Random(0))
+    assert first["id"] != "9702-2.1-x99"
+    only_extra = P.select_item("9702-2.1.1", state, target_p=0.8, rng=random.Random(0),
+                               exclude={"9702-2.1-i01", "9702-2.1-i04"})
+    assert only_extra["id"] == "9702-2.1-x99"

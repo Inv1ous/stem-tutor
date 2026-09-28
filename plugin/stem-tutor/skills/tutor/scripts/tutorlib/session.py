@@ -381,6 +381,10 @@ class Tutor:
         fb = {"n": int(key), "event": ev["id"], "correct": g["correct"], "score": g["score"], "error": g["error"],
               "answer": _display_answer(inst), "explanation": inst.get("explanation"),
               "needs_judgement": g["needs_judgement"], "detail": g.get("detail")}
+        if inst.get("tier") == "extra":
+            fb["official_key_only"] = True
+            if inst.get("examiner"):
+                fb["examiner"] = inst["examiner"]
         if g.get("misconception") and p["kcs"][0] in self.packs.kcs:
             fb["misconception"] = self.packs.misconception(self.packs.kc(p["kcs"][0])["subtopic"], g["misconception"])
         if r.get("conf") and r["conf"] >= 3 and not g["correct"]:

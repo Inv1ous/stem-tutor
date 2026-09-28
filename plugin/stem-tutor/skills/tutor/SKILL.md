@@ -69,6 +69,7 @@ For each entry in `results`:
 
 - `correct` → one sentence on why it is right (use `explanation`).
 - not correct → state `answer` and the key reason. If `misconception` is present, name it, then give its `refutation` and `contrast`.
+- `official_key_only` → a past-paper question without a written explanation: explain from the official key and the `examiner` comment if present; if you are not certain why the key is right, say so plainly instead of guessing.
 - `hypercorrect` → spend one extra turn: ask what made them sure, then fix that idea.
 - `needs_judgement` → slip test: ask them to re-check one named step, without giving the answer. Fixed alone → `tag <event> SLIP`; otherwise tag the best code: RECALL, MISREAD, CONCEPT, PROCEDURE, STRATEGY, NOTATION, TIME.
 - `pending_judgement` → compare their words with the `unmatched` rubric points, choose a score 0–1, and resend that entry with `--judge '{"N": score}'`.

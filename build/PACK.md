@@ -49,7 +49,7 @@ Common fields: `id` (`<subtopic>-i01`, `-i02` … unique), `kcs` (1–2 KC ids),
 ### Coverage per KC (the validator enforces the number)
 
 - At least 6 retrieval variants (a template counts 3): mix recall, procedure, concept-with-misconception-distractors and one exam-style item (difficulty 4–5).
-- Use genuine past MCQs from the bundle first (they are the real standard), then generate to fill gaps; never copy a past question and present it as generated.
+- Use the 12 best genuine past MCQs from the bundle (they are the real standard), then generate to fill gaps; never copy a past question and present it as generated. The rest of the bank is appended automatically as unexplained "extra" items.
 - Every `procedural` KC gets a worked example with a faded version.
 - Every `factual` KC gets flashcards whose back uses mark-scheme wording (definitions exactly as Cambridge/Pearson credit them).
 - Two to five misconceptions per subtopic, from examiner comments where possible (`source` = the ER ref), otherwise well-documented research (`source` = "research").

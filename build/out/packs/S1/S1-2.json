@@ -1,0 +1,1272 @@
+{
+ "subtopic": "S1-2",
+ "spec": "S1",
+ "version": 1,
+ "note": "Subjects/Maths/S1 Statistics 1/2 Representation and summary of data.md",
+ "outline": "Displaying data: histograms use $\\text{frequency density}=\\text{frequency}\\div\\text{class width}$ so that *area* (not height) shows frequency; stem-and-leaf diagrams keep the raw values; box plots show the five-figure summary (min, $Q_1$, median, $Q_3$, max). Locating data: mean $\\bar x=\\Sigma x/n$, median (middle value), mode (most common); coding $y=(x-a)/b$ gives $\\bar x=a+b\\bar y$. Spreading data: variance $\\mathrm{Var}(X)=S_{xx}/n=\\Sigma x^2/n-\\bar x^2$, $\\mathrm{sd}=\\sqrt{\\mathrm{Var}}$, range (largest $-$ smallest), $\\mathrm{IQR}=Q_3-Q_1$ and interpercentile ranges such as $P_{90}-P_{10}$ (interpolate for grouped data); coding scales variance by $b^2$ only. Shape: compare mean, median, mode to describe skew, and flag outliers using a stated IQR rule.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "S1-2.1",
+   "statement": "The height of a histogram bar represents the frequency of that class.",
+   "refutation": "The height represents frequency density ($\\text{frequency}\\div\\text{class width}$); it is the *area* of the bar (height $\\times$ width) that represents frequency, which matters as soon as class widths differ.",
+   "contrast": "Two classes with the same frequency but different widths have different heights: the wider class must be shorter to have the same area.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "S1-2.2",
+   "statement": "To reverse the coding $y=(x-a)/b$, students compute $\\bar x=b\\bar y$ and forget to add $a$ back.",
+   "refutation": "Coding must be undone in the same order it was applied, in reverse: multiply by $b$, then add $a$, so $\\bar x=a+b\\bar y$.",
+   "contrast": "With $a=40$, $b=5$, $\\bar y=2.6$: the correct $\\bar x=40+5(2.6)=53$, not $5(2.6)=13$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "S1-2.3",
+   "statement": "Standard deviation is calculated by dividing by $n-1$.",
+   "refutation": "This spec defines variance as $S_{xx}/n=\\Sigma(x-\\bar x)^2/n$ (dividing by $n$); the $n-1$ divisor belongs to a sample estimator used in later statistics units, not here.",
+   "contrast": "For $\\Sigma x^2=3475$, $n=20$, $\\bar x=12.25$: $\\mathrm{Var}=3475/20-12.25^2=23.6875$, not $3475/19-12.25^2$.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "S1-2.4",
+   "statement": "If the mean is greater than the median, the distribution must be negatively skewed.",
+   "refutation": "It is the opposite: a longer right-hand tail pulls the mean above the median, so $\\bar x>\\text{median}$ signals *positive* (right) skew.",
+   "contrast": "Data $1,2,2,2,10$: median $=2$, mean $=3.4>2$, and the single high value $10$ creates a right tail, i.e. positive skew.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "S1-2.3",
+   "statement": "The additive constant in coding $y=(x-a)/b$ also changes the variance, e.g. $\\mathrm{Var}(X)=b^2\\mathrm{Var}(Y)+a$.",
+   "refutation": "Variance measures spread, which an additive shift $a$ never changes; only the scale factor $b$ affects it, so $\\mathrm{Var}(X)=b^2\\mathrm{Var}(Y)$ exactly, with no $+a$ term.",
+   "contrast": "Shifting every value in a data set up by 40 (e.g. re-zeroing a thermometer) moves the mean but leaves the spread, and so the variance, unchanged.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "S1-2.1",
+   "problem": "In a grouped frequency table the class $20 \\le t < 35$ (minutes) has frequency $18$. Calculate the frequency density for this class, the value plotted as the bar's height on a histogram.",
+   "steps": [
+    {
+     "do": "Find the class width: $35-20=15$.",
+     "why": "Frequency density needs the width of the class, not just its frequency."
+    },
+    {
+     "do": "Divide frequency by width: $\\text{f.d.} = 18 \\div 15 = 1.2$.",
+     "why": "Frequency density $=\\text{frequency}\\div\\text{class width}$, so that area $=$ height $\\times$ width gives back the frequency.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.2,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "The class $10 \\le t < 15$ (minutes) has frequency $9$. Calculate its frequency density.",
+    "answer": {
+     "value": 1.8,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "S1-2.2",
+   "problem": "The marks, $x$, of 50 students are coded as $y=(x-40)/5$. Given $\\Sigma y = 130$, find $\\bar x$.",
+   "steps": [
+    {
+     "do": "Find the mean of the coded variable: $\\bar y = \\Sigma y / n = 130 \\div 50 = 2.6$.",
+     "why": "The mean is the total divided by the count, applied to the coded data first."
+    },
+    {
+     "do": "Reverse the coding: $\\bar x = a + b\\bar y = 40 + 5(2.6) = 53$.",
+     "why": "Coding is linear, so the mean undoes the transform the same way every value does: multiply by $b$, then add $a$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 53.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Marks are coded as $y=(x-30)/4$ with $\\Sigma y = 96$ and $n=40$. Find $\\bar x$.",
+    "answer": {
+     "value": 39.6,
+     "unit": "",
+     "sf_ok": [
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "S1-2.3",
+   "problem": "The table shows the number of texts sent, $x$, by 20 students in a day.\n\n| $x$ | 5 | 10 | 15 | 20 |\n|---|---|---|---|---|\n| $f$ | 4 | 6 | 7 | 3 |\n\nCalculate the mean and the standard deviation.",
+   "steps": [
+    {
+     "do": "Find $\\Sigma f x$ and $\\Sigma f x^2$: $\\Sigma fx = 4(5)+6(10)+7(15)+3(20)=245$; $\\Sigma fx^2 = 4(25)+6(100)+7(225)+3(400)=3475$.",
+     "why": "The variance formula needs both totals, not just the mean."
+    },
+    {
+     "do": "Find the mean: $\\bar x = \\Sigma fx / n = 245 \\div 20 = 12.25$.",
+     "why": "Mean is total divided by count, using $n=\\Sigma f=20$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 12.25,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Find the variance then square root it: $\\mathrm{Var}(X)=\\Sigma fx^2/n-\\bar x^2 = 3475/20 - 12.25^2 = 23.6875$, so $\\mathrm{sd}=\\sqrt{23.6875}=4.87$.",
+     "why": "Variance is mean-of-squares minus square-of-mean; standard deviation is its square root, in the original units.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.8669805834829,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "For the table $x: 5,15,25$ with $f: 3,5,2$, find the mean and standard deviation.",
+    "answer": {
+     "value": 7.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "S1-2-i01",
+   "kcs": [
+    "S1-2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A histogram is drawn for classes of unequal width. What does the **height** of each bar represent?",
+   "options": {
+    "A": "Frequency density",
+    "B": "Frequency",
+    "C": "Cumulative frequency",
+    "D": "Relative frequency"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1"
+   },
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "Height $=$ frequency density $=$ frequency $\\div$ class width; only the bar's *area* equals frequency once widths differ.",
+   "hints": [
+    "Think about what would have to change if two classes had the same frequency but different widths.",
+    "The quantity that stays comparable across different widths is frequency $\\div$ width.",
+    "That ratio is what the height plots — not the frequency by itself."
+   ]
+  },
+  {
+   "id": "S1-2-i02",
+   "kcs": [
+    "S1-2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A class in a grouped frequency table has frequency [[freq]] and class width [[width]]. Calculate its frequency density.",
+   "template": {
+    "params": {
+     "freq": {
+      "min": 6,
+      "max": 40,
+      "step": 2
+     },
+     "width": {
+      "choices": [
+       4,
+       5,
+       8,
+       10,
+       12,
+       15,
+       20
+      ]
+     }
+    },
+    "answer": "freq/width",
+    "distractors": [
+     {
+      "expr": "freq",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "width > 1"
+    ]
+   },
+   "answer": {
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 2,
+   "explanation": "Frequency density $=$ frequency $\\div$ class width.",
+   "hints": [
+    "Frequency density is not the frequency on its own.",
+    "You need to divide by something — what does a histogram bar's width represent?",
+    "Divide the frequency by the class width."
+   ]
+  },
+  {
+   "id": "S1-2-i03",
+   "kcs": [
+    "S1-2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Interpret",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Box plot A (heights of Team A, cm): min 150, $Q_1$ 160, median 168, $Q_3$ 176, max 190. Box plot B (heights of Team B, cm): min 155, $Q_1$ 165, median 170, $Q_3$ 172, max 180. Compare the two teams' heights, using the median and a measure of spread.",
+   "rubric": [
+    {
+     "point": "compares medians in context",
+     "keywords": [
+      [
+       "median"
+      ],
+      [
+       "higher",
+       "greater",
+       "taller",
+       "larger",
+       "similar",
+       "close"
+      ]
+     ]
+    },
+    {
+     "point": "compares spread (IQR or range) in context",
+     "keywords": [
+      [
+       "IQR",
+       "interquartile range",
+       "spread",
+       "range"
+      ],
+      [
+       "more",
+       "less",
+       "wider",
+       "greater",
+       "smaller",
+       "larger"
+      ]
+     ]
+    }
+   ],
+   "marks": 2,
+   "explanation": "Team B's median (170 cm) is close to Team A's (168 cm), but Team A's IQR ($176-160=16$ cm) is more than twice Team B's ($172-165=7$ cm), so Team A's heights are much more varied.",
+   "hints": [
+    "Read off the median from each box plot first: are they similar or very different?",
+    "Now find each team's IQR ($Q_3-Q_1$) to compare how spread out the heights are.",
+    "Write one sentence comparing medians and one sentence comparing IQRs, both in the context of height."
+   ]
+  },
+  {
+   "id": "S1-2-i04",
+   "kcs": [
+    "S1-2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "In a back-to-back stem-and-leaf diagram comparing two data sets, what is shared between the left and right sides?",
+   "options": {
+    "A": "The stem (middle column)",
+    "B": "The leaves",
+    "C": "The key",
+    "D": "The frequency"
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "Both sides read off the same central column of stems; each side then has its own leaves (and its own key describing how to read them).",
+   "hints": [
+    "Picture the diagram: there's one column in the middle and leaves fanning out on both sides.",
+    "The leaves themselves are different for each group — so what's common is the column between them.",
+    "It's the stem."
+   ]
+  },
+  {
+   "id": "S1-2-i05",
+   "kcs": [
+    "S1-2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A judge records scores (to 1 decimal place) for 30 gymnasts and wants to show the distribution's shape while keeping every individual value visible. Which diagram is most appropriate?",
+   "options": {
+    "A": "Stem-and-leaf diagram",
+    "B": "Box plot",
+    "C": "Histogram",
+    "D": "Bar chart"
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "A stem-and-leaf diagram retains every raw value (as a leaf) while still arranging them to show the distribution's shape; a box plot and histogram both summarise the data and lose individual values.",
+   "hints": [
+    "A box plot only shows five summary values — does that keep every individual score visible?",
+    "A histogram groups data into classes — individual values are lost there too.",
+    "Which diagram writes down every value while still arranging them in order?"
+   ]
+  },
+  {
+   "id": "S1-2-i06",
+   "kcs": [
+    "S1-2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A holiday company records the number of bedrooms in each property it lets; most properties have 2 or 3 bedrooms, but a handful of large villas have 8 or more. Which average best describes a 'typical' property, and why?",
+   "options": {
+    "A": "Median, because it is not affected by the few very large villas",
+    "B": "Mean, because it uses every value in the data set",
+    "C": "Mode, because the number of bedrooms is always a whole number",
+    "D": "Range, because it shows how spread out the data are"
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "The villas are outliers that would pull the mean upward; the median depends only on the middle value(s), so it is not distorted by a few extreme properties.",
+   "hints": [
+    "The villas are extreme, unusual values — which average is sensitive to extreme values?",
+    "The mean uses every value, so a few very large ones drag it up.",
+    "The median only depends on the middle of the ordered data, so it stays 'typical'."
+   ]
+  },
+  {
+   "id": "S1-2-i07",
+   "kcs": [
+    "S1-2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Marks are coded using $y=(x-[[a]])/[[b]]$. Given $\\Sigma y=[[sumy]]$ for $n=[[n]]$ students, find $\\bar x$.",
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       10,
+       20,
+       30,
+       40,
+       50
+      ]
+     },
+     "b": {
+      "choices": [
+       2,
+       3,
+       4,
+       5
+      ]
+     },
+     "sumy": {
+      "min": 40,
+      "max": 300,
+      "step": 5
+     },
+     "n": {
+      "choices": [
+       20,
+       25,
+       30,
+       40,
+       50
+      ]
+     }
+    },
+    "derived": {
+     "ybar": "sumy/n"
+    },
+    "answer": "a + b*ybar",
+    "distractors": [
+     {
+      "expr": "b*ybar",
+      "misconception": "m2"
+     }
+    ]
+   },
+   "answer": {
+    "unit": "",
+    "sf_ok": [
+     3,
+     4
+    ]
+   },
+   "marks": 2,
+   "explanation": "First find $\\bar y=\\Sigma y/n$, then reverse the coding: $\\bar x=a+b\\bar y$.",
+   "hints": [
+    "Start by finding the mean of the coded variable, $\\bar y = \\Sigma y \\div n$.",
+    "Coding must be undone in reverse order: multiply by $b$ first, then add $a$.",
+    "$\\bar x = a + b\\bar y$."
+   ]
+  },
+  {
+   "id": "S1-2-i08",
+   "kcs": [
+    "S1-2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A small firm's 9 employees earn (£000s): 22, 23, 24, 24, 25, 26, 27, 28, 30. The owner, earning £250,000, is added as a tenth 'employee'. Which measure of location increases the most as a result?",
+   "options": {
+    "A": "Mean",
+    "B": "Median",
+    "C": "Mode",
+    "D": "They increase by the same amount"
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "The mean uses every value, so one very large addition pulls it up a lot (from about £25,400 to £47,900); the median only depends on the middle two values, so it barely moves (from £25,000 to £25,500).",
+   "hints": [
+    "Work out roughly how much each average would change if you added one very large value.",
+    "One of these averages adds the new value into everyone's total — a huge single value drags that total a long way.",
+    "The median only cares about the position in the middle of the ordered list."
+   ]
+  },
+  {
+   "id": "S1-2-i09",
+   "kcs": [
+    "S1-2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Interpret",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A survey of house prices in a town gives mean price £310,000 and median price £265,000. Interpret what this tells you about the shape of the distribution of house prices.",
+   "rubric": [
+    {
+     "point": "identifies mean greater than median",
+     "keywords": [
+      [
+       "mean"
+      ],
+      [
+       "greater",
+       "higher",
+       "more",
+       "above"
+      ],
+      [
+       "median"
+      ]
+     ]
+    },
+    {
+     "point": "links this to positive/right skew caused by a few expensive houses",
+     "keywords": [
+      [
+       "skew",
+       "tail",
+       "spread"
+      ],
+      [
+       "right",
+       "positive",
+       "high",
+       "expensive",
+       "large"
+      ]
+     ]
+    }
+   ],
+   "marks": 2,
+   "explanation": "Since the mean (£310,000) is well above the median (£265,000), a small number of very expensive houses are pulling the mean up; the distribution of house prices is positively (right) skewed.",
+   "hints": [
+    "Compare the mean and the median: which is bigger, and by how much?",
+    "What kind of values (a few very high, or a few very low) would pull the mean above the median?",
+    "State the direction of skew that a few very expensive houses would cause."
+   ]
+  },
+  {
+   "id": "S1-2-i10",
+   "kcs": [
+    "S1-2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A shoe shop wants to know which shoe size to stock the most of. Which average should it use?",
+   "options": {
+    "A": "Mode",
+    "B": "Mean",
+    "C": "Median",
+    "D": "Range"
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "The mode is the most frequently occurring value, which directly answers 'which size sells the most' — shoe sizes are discrete categories, not something to average arithmetically.",
+   "hints": [
+    "Shoe size isn't really something you'd want to 'average' numerically — you want the most common one.",
+    "Which average literally means 'the most frequently occurring value'?",
+    "Identify the size that appears most often in the shop's sales."
+   ]
+  },
+  {
+   "id": "S1-2-i11",
+   "kcs": [
+    "S1-2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which formula gives the variance of a data set on this specification?",
+   "options": {
+    "A": "$\\dfrac{\\Sigma(x-\\bar x)^2}{n-1}$",
+    "B": "$\\dfrac{\\Sigma(x-\\bar x)^2}{n}$",
+    "C": "$\\Sigma(x-\\bar x)^2$",
+    "D": "$\\dfrac{\\Sigma(x-\\bar x)}{n}$"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m3"
+   },
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "This specification defines variance as $S_{xx}/n=\\Sigma(x-\\bar x)^2/n$, dividing by $n$; dividing by $n-1$ belongs to a sample estimator used in later statistics units, not here.",
+   "hints": [
+    "Variance needs squared deviations from the mean — does option D square anything?",
+    "You need to divide the total squared deviation by something — but which?",
+    "This spec divides by $n$, the number of data values, not $n-1$."
+   ]
+  },
+  {
+   "id": "S1-2-i12",
+   "kcs": [
+    "S1-2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A data set is coded using $y=(x-[[a]])/[[b]]$. Given $\\mathrm{Var}(Y)=[[vary:.2f]]$, find $\\mathrm{Var}(X)$.",
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       10,
+       20,
+       30,
+       40
+      ]
+     },
+     "b": {
+      "choices": [
+       2,
+       3,
+       4,
+       5
+      ]
+     },
+     "vary": {
+      "min": 1.0,
+      "max": 6.0,
+      "step": 0.5
+     }
+    },
+    "answer": "vary*b**2",
+    "distractors": [
+     {
+      "expr": "vary*b**2 + a",
+      "misconception": "m5"
+     }
+    ]
+   },
+   "answer": {
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 2,
+   "explanation": "Coding by $y=(x-a)/b$ scales the variance by $b^2$ only: $\\mathrm{Var}(X)=b^2\\mathrm{Var}(Y)$. The additive constant $a$ shifts values but never changes their spread.",
+   "hints": [
+    "Does adding or subtracting a constant change how spread out a data set is?",
+    "Only the scaling factor $b$ affects variance, and it affects it by a factor of $b^2$.",
+    "$\\mathrm{Var}(X) = b^2\\,\\mathrm{Var}(Y)$, with no extra term for $a$."
+   ]
+  },
+  {
+   "id": "S1-2-i13",
+   "kcs": [
+    "S1-2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The table shows the delivery times, $t$ minutes, for 40 parcels.\n\n| $t$ (min) | $10\\le t<20$ | $20\\le t<25$ | $25\\le t<40$ | $40\\le t<60$ |\n|---|---|---|---|---|\n| Frequency | 8 | 12 | 15 | 5 |\n\nUse linear interpolation to estimate the upper quartile, $Q_3$.",
+   "answer": {
+    "value": 35.0,
+    "unit": "min",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "explanation": "$Q_3$ is the $\\tfrac{3n}{4}=30$th value. The cumulative frequencies are $8,20,35,40$, so the 30th value falls in the class $25\\le t<40$ (which ends exactly at the 35th value): $Q_3=25+\\dfrac{30-20}{15}\\times15=35$ min.",
+   "hints": [
+    "First find the cumulative frequencies, then locate the class containing the $\\tfrac{3n}{4}$th value.",
+    "Use $Q_3 = L + \\dfrac{\\frac{3n}{4}-\\text{cf before}}{f}\\times w$, where $L$ is the class's lower boundary and $w$ its width.",
+    "Here $\\tfrac{3n}{4}=30$, the class before it has cumulative frequency 20, the class has frequency 15 and width 15."
+   ]
+  },
+  {
+   "id": "S1-2-i14",
+   "kcs": [
+    "S1-2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Interpret",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Class A's test scores have standard deviation 4.2; Class B's have standard deviation 9.6, and both classes have the same mean. What does this tell you?",
+   "options": {
+    "A": "Class B's scores are more spread out about the mean than Class A's.",
+    "B": "Class B's mean score is higher than Class A's.",
+    "C": "Class B has more students than Class A.",
+    "D": "Class A's scores are more spread out about the mean than Class B's."
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "Standard deviation measures spread about the mean; a larger value (9.6 vs 4.2) means the data are more spread out, not that the mean, or the number of students, differs.",
+   "hints": [
+    "Standard deviation is a measure of spread, not of average or of sample size.",
+    "A bigger standard deviation means values are typically further from the mean.",
+    "9.6 is bigger than 4.2, so Class B's scores are more spread out."
+   ]
+  },
+  {
+   "id": "S1-2-i15",
+   "kcs": [
+    "S1-2.3"
+   ],
+   "kind": "structured",
+   "difficulty": 5,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The table shows the times, $t$ minutes, taken by 40 students to complete an exercise.\n\n| $t$ (min) | $0\\le t<10$ | $10\\le t<20$ | $20\\le t<30$ | $30\\le t<40$ | $40\\le t<50$ |\n|---|---|---|---|---|---|\n| Frequency | 5 | 9 | 12 | 10 | 4 |\n\nUse linear interpolation to find (a) an estimate of the median, (b) an estimate of the interquartile range.",
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "identifies the median class ($20\\le t<30$) using the cumulative frequencies $5,14,26,36,40$ and the 20th value"
+    },
+    {
+     "mark": "A1",
+     "point": "median $=20+\\dfrac{20-14}{12}\\times10=25$ min",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 25.0,
+       "unit": "min",
+       "exact": true
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "finds $Q_1$ and $Q_3$ by interpolation using positions $\\tfrac{n}{4}=10$ and $\\tfrac{3n}{4}=30$"
+    },
+    {
+     "mark": "A1",
+     "point": "$Q_1=10+\\dfrac{10-5}{9}\\times10=15.6$, $Q_3=30+\\dfrac{30-26}{10}\\times10=34$, so IQR $=34-15.6=18.4$ min (3 s.f.)",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 18.444444444444,
+       "unit": "min",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "marks": 4,
+   "explanation": "Median class is $20\\le t<30$ (cumulative frequency reaches 20 within it); $Q_1$ falls in $10\\le t<20$ and $Q_3$ in $30\\le t<40$."
+  },
+  {
+   "id": "S1-2-i21",
+   "kcs": [
+    "S1-2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "One extra, extremely large value is added to a data set of 200 values. Which measure of spread is changed the most by this single value?",
+   "options": {
+    "A": "The range",
+    "B": "The interquartile range",
+    "C": "The 10–90 interpercentile range",
+    "D": "All three change by the same amount"
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "The range is largest value $-$ smallest value, so it takes the new extreme value directly and grows by a lot. The IQR ($Q_3-Q_1$) and the 10–90 interpercentile range ($P_{90}-P_{10}$) use percentiles inside the data, which shift by at most one position when one value is added, so they barely change.",
+   "hints": [
+    "Think about which values each measure actually uses.",
+    "One of these measures is built from the two most extreme values; the others ignore the tails.",
+    "Ask of each measure: does it use the single largest value directly, or a value from inside the ordered data?"
+   ]
+  },
+  {
+   "id": "S1-2-i16",
+   "kcs": [
+    "S1-2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Interpret",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A data set has mean 42 and median 35. What does this indicate about the skewness of the distribution?",
+   "options": {
+    "A": "Positive (right) skew",
+    "B": "Negative (left) skew",
+    "C": "No skew (symmetric)",
+    "D": "Cannot be determined from this information"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m4"
+   },
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "The mean (42) is above the median (35): a longer right-hand tail is pulling the mean upward, which is the signature of positive (right) skew.",
+   "hints": [
+    "Compare the mean and the median: which is bigger?",
+    "A tail on the right pulls the mean above the median; a tail on the left pulls it below.",
+    "Here the mean is above the median, so the tail is on the right."
+   ]
+  },
+  {
+   "id": "S1-2-i17",
+   "kcs": [
+    "S1-2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Interpret",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A box plot has a short left whisker, a median close to $Q_1$, and a long right whisker. How would you describe the skewness?",
+   "options": {
+    "A": "Positive (right) skew",
+    "B": "Negative (left) skew",
+    "C": "Symmetric",
+    "D": "Bimodal"
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "A long right whisker together with the median sitting close to $Q_1$ shows the upper half of the data is much more spread out than the lower half — the signature shape of positive (right) skew.",
+   "hints": [
+    "Look at which whisker is longer, and where the median sits within the box.",
+    "A longer section on the high-value side points to a tail in that direction.",
+    "Name the direction that tail points — that direction names the skew."
+   ]
+  },
+  {
+   "id": "S1-2-i18",
+   "kcs": [
+    "S1-2.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A box plot has $Q_1=[[Q1]]$ and $Q_3=[[Q3]]$. A value is defined as an outlier if it lies more than $[[k]]\\times\\mathrm{IQR}$ above $Q_3$. Find this upper boundary.",
+   "template": {
+    "params": {
+     "Q1": {
+      "min": 5,
+      "max": 20,
+      "step": 1
+     },
+     "Q3": {
+      "min": 24,
+      "max": 50,
+      "step": 1
+     },
+     "k": {
+      "choices": [
+       1.5,
+       2
+      ]
+     }
+    },
+    "derived": {
+     "iqr": "Q3-Q1"
+    },
+    "answer": "Q3 + k*iqr",
+    "distractors": [
+     {
+      "expr": "Q1 - k*iqr"
+     }
+    ],
+    "constraints": [
+     "Q3 - Q1 > 4"
+    ]
+   },
+   "answer": {
+    "unit": "",
+    "sf_ok": [
+     3,
+     4
+    ]
+   },
+   "marks": 2,
+   "explanation": "First find $\\mathrm{IQR}=Q_3-Q_1$, then add $k\\times\\mathrm{IQR}$ onto $Q_3$ (not $Q_1$) to get the upper boundary.",
+   "hints": [
+    "Find the interquartile range first: $Q_3-Q_1$.",
+    "The upper boundary is measured out from $Q_3$, the upper quartile.",
+    "Upper boundary $=Q_3+k\\times\\mathrm{IQR}$."
+   ]
+  },
+  {
+   "id": "S1-2-i19",
+   "kcs": [
+    "S1-2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A histogram has a tall peak near the low values and a long, low tail stretching towards high values. What skewness does this show?",
+   "options": {
+    "A": "Positive (right) skew",
+    "B": "Negative (left) skew",
+    "C": "Symmetric",
+    "D": "No skewness can be inferred from a histogram"
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "The tail — the long, low stretch of the distribution — points towards high values, which is exactly what positive (right) skew means.",
+   "hints": [
+    "The direction of skew is named after the direction the *tail* points, not the peak.",
+    "Here the tail stretches towards high values.",
+    "Match that tail direction to the matching term for skewness among the options."
+   ]
+  },
+  {
+   "id": "S1-2-i20",
+   "kcs": [
+    "S1-2.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A box plot for weekly wages (£) shows: min 280, $Q_1$ 340, median 350, $Q_3$ 380, with the highest non-outlier wage at 420; one employee's wage of 900 is plotted as a separate point beyond the upper whisker. Explain what the diagram shows about outliers and skewness.",
+   "rubric": [
+    {
+     "point": "identifies 900 as an outlier beyond the fence/whisker",
+     "keywords": [
+      [
+       "900"
+      ],
+      [
+       "outlier",
+       "fence",
+       "whisker",
+       "beyond"
+      ]
+     ]
+    },
+    {
+     "point": "identifies positive/right skew from the box shape and the high outlier",
+     "keywords": [
+      [
+       "skew"
+      ],
+      [
+       "positive",
+       "right"
+      ]
+     ]
+    }
+   ],
+   "marks": 2,
+   "explanation": "The upper fence is $Q_3+1.5\\times\\mathrm{IQR}=380+1.5(40)=440$; since 900 is far above this, it is an outlier. Within the box the median (350) sits closer to $Q_1$ (340) than to $Q_3$ (380), and the extreme high wage stretches the distribution's right-hand tail, so the wages are positively (right) skewed.",
+   "hints": [
+    "Work out the upper fence using $Q_3+1.5\\times\\mathrm{IQR}$ and compare it with 900.",
+    "Look at where the median sits within the box — closer to $Q_1$ or to $Q_3$?",
+    "A value that sits far above the fence, together with a box that's longer on the upper side, indicates positive skew."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "S1-2.1",
+   "front": "Define frequency density.",
+   "back": "Frequency density $=\\text{frequency}\\div\\text{class width}$."
+  },
+  {
+   "id": "fc2",
+   "kc": "S1-2.1",
+   "front": "What does the area of a histogram bar represent?",
+   "back": "Frequency (area $=$ frequency density $\\times$ class width)."
+  },
+  {
+   "id": "fc3",
+   "kc": "S1-2.1",
+   "front": "What is shared between the two sides of a back-to-back stem-and-leaf diagram?",
+   "back": "The stem (middle column); each side has its own leaves and its own key."
+  },
+  {
+   "id": "fc4",
+   "kc": "S1-2.1",
+   "front": "What five values does a box plot show?",
+   "back": "Minimum, lower quartile $Q_1$, median, upper quartile $Q_3$, maximum. If an outlier is plotted separately, the whisker ends at the largest (or smallest) value that is not an outlier."
+  },
+  {
+   "id": "fc5",
+   "kc": "S1-2.2",
+   "front": "Define the median of a data set.",
+   "back": "The middle value when the data are arranged in ascending order (the mean of the two middle values if $n$ is even)."
+  },
+  {
+   "id": "fc6",
+   "kc": "S1-2.2",
+   "front": "How do you reverse the coding $y=(x-a)/b$ to get $\\bar x$ from $\\bar y$?",
+   "back": "$\\bar x = a + b\\bar y$."
+  },
+  {
+   "id": "fc7",
+   "kc": "S1-2.3",
+   "front": "State the formula for variance used in this spec.",
+   "back": "$\\mathrm{Var}(X) = S_{xx}/n = \\Sigma x^2/n - \\bar x^2$."
+  },
+  {
+   "id": "fc8",
+   "kc": "S1-2.3",
+   "front": "How does the coding $y=(x-a)/b$ affect the variance?",
+   "back": "$\\mathrm{Var}(X) = b^2\\,\\mathrm{Var}(Y)$; the additive constant $a$ has no effect on variance."
+  },
+  {
+   "id": "fc9",
+   "kc": "S1-2.3",
+   "front": "Define the interquartile range.",
+   "back": "$\\mathrm{IQR} = Q_3 - Q_1$, the range of the middle 50% of the data."
+  },
+  {
+   "id": "fc13",
+   "kc": "S1-2.3",
+   "front": "Define the range and an interpercentile range.",
+   "back": "Range $=$ largest value $-$ smallest value. An interpercentile range is the difference between two percentiles, e.g. the 10–90 interpercentile range $=P_{90}-P_{10}$ (the IQR is the 25–75 case)."
+  },
+  {
+   "id": "fc10",
+   "kc": "S1-2.4",
+   "front": "What does positive skew mean?",
+   "back": "A longer tail on the right (higher-value side); typically $\\text{mean} > \\text{median} > \\text{mode}$."
+  },
+  {
+   "id": "fc11",
+   "kc": "S1-2.4",
+   "front": "How is a value identified as an outlier using an IQR rule?",
+   "back": "It lies more than the stated multiple of the IQR beyond the nearer quartile; the multiple is always given in the question."
+  },
+  {
+   "id": "fc12",
+   "kc": "S1-2.4",
+   "front": "How can skewness be read from a box plot?",
+   "back": "Compare whisker lengths and the median's position in the box: a longer right side indicates positive skew, a longer left side indicates negative skew."
+  }
+ ],
+ "diagrams": [
+  {
+   "file": "Assets/S1/S1-2-boxplot-outlier.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        4,
+        1
+       ],
+       [
+        10,
+        1
+       ]
+      ]
+     },
+     {
+      "points": [
+       [
+        10,
+        0.7
+       ],
+       [
+        10,
+        1.3
+       ],
+       [
+        18,
+        1.3
+       ],
+       [
+        18,
+        0.7
+       ],
+       [
+        10,
+        0.7
+       ]
+      ]
+     },
+     {
+      "points": [
+       [
+        14,
+        0.7
+       ],
+       [
+        14,
+        1.3
+       ]
+      ]
+     },
+     {
+      "points": [
+       [
+        18,
+        1
+       ],
+       [
+        24,
+        1
+       ]
+      ]
+     },
+     {
+      "points": [
+       [
+        34,
+        0.95
+       ],
+       [
+        34,
+        1.05
+       ]
+      ],
+      "color": "#d9480f"
+     }
+    ],
+    "annotations": [
+     {
+      "text": "min = 4",
+      "xy": [
+       4,
+       1
+      ],
+      "xytext": [
+       2.5,
+       0.3
+      ]
+     },
+     {
+      "text": "Q1 = 10",
+      "xy": [
+       10,
+       0.7
+      ],
+      "xytext": [
+       8.5,
+       0.25
+      ]
+     },
+     {
+      "text": "median = 14",
+      "xy": [
+       14,
+       1.3
+      ],
+      "xytext": [
+       12,
+       1.8
+      ]
+     },
+     {
+      "text": "Q3 = 18",
+      "xy": [
+       18,
+       1.3
+      ],
+      "xytext": [
+       19.5,
+       1.8
+      ]
+     },
+     {
+      "text": "upper whisker = 24",
+      "xy": [
+       24,
+       1
+      ],
+      "xytext": [
+       25,
+       0.3
+      ]
+     },
+     {
+      "text": "outlier (max) = 34",
+      "xy": [
+       34,
+       1
+      ],
+      "xytext": [
+       29,
+       1.6
+      ]
+     }
+    ],
+    "xlabel": "value"
+   }
+  },
+  {
+   "file": "Assets/S1/S1-2-skew-shapes.svg",
+   "type": "function_plot",
+   "params": {
+    "functions": [
+     {
+      "expr": "x*exp(-x/2)",
+      "domain": [
+       0,
+       12
+      ],
+      "label": "positive skew: mean > median > mode"
+     },
+     {
+      "expr": "(12-x)*exp(-(12-x)/2)",
+      "domain": [
+       0,
+       12
+      ],
+      "label": "negative skew: mean < median < mode"
+     }
+    ],
+    "xlabel": "value",
+    "ylabel": "frequency"
+   }
+  }
+ ]
+}

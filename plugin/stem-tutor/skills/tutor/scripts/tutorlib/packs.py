@@ -168,7 +168,8 @@ class Packs:
             stale = bool(seen) and not item.get("template") and (
                 cutoff is None or datetime.fromisoformat(seen) > cutoff)
             gap = abs(model.p_correct(theta, item.get("difficulty", 3)) - target_p)
-            scored.append((stale, round(gap, 2), bool(seen), rng.random(), item))
+            extra = item.get("tier") == "extra"  # unexplained bank questions: only after explained ones
+            scored.append((stale, extra, round(gap, 2), bool(seen), rng.random(), item))
         if not scored:
             return None
-        return min(scored, key=lambda s: s[:4])[4]
+        return min(scored, key=lambda s: s[:5])[5]
