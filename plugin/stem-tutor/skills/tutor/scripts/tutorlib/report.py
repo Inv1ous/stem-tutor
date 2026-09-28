@@ -59,7 +59,7 @@ def brief(tutor, minutes: int = 50) -> dict:
         "mastered": sum(model.is_mastered(s["kcs"][k]) for k in introduced),
         "introduced": len(introduced),
         "experiments": [n for n, e in s["experiments"].items() if e["status"] == "running"],
-        "missing_packs": policy.missing_packs(p, now),
+        "missing_packs": (lambda m: {"count": len(m), "next": m[:5]} if m else [])(policy.missing_packs(p, now)),
         "suggest": f"{minutes} min: {_plan_summary(blocks)}",
         "open_session": bool(tutor.session),
     }

@@ -82,3 +82,10 @@ def test_almanac_sync_writes_best_recent_paper_scores(tutor):
     tutor.paper_score("9702_s23_qp_22", "1a=2/2, 1b=3/3")
     out = json.loads((tutor.vault.root / report.almanac_sync(tutor)["path"]).read_text())
     assert out["scores"]["phys-P2"] == 60  # full-paper equivalent: 100% of 60 marks
+
+
+def test_brief_caps_missing_pack_list(tutor, monkeypatch):
+    from tutorlib import policy
+    monkeypatch.setattr(policy, "missing_packs", lambda p, now: [f"X-{i}" for i in range(50)])
+    b = report.brief(tutor)
+    assert b["missing_packs"] == {"count": 50, "next": ["X-0", "X-1", "X-2", "X-3", "X-4"]}
