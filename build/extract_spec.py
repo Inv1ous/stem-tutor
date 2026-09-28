@@ -111,7 +111,9 @@ def ial(pdf: Path) -> dict:
                 continue
             m_item = re.fullmatch(r"(\d{1,2})\.(\d{1,2})", t)
             if m_item and x < 80 and section:
-                item = {"id": t, "text": "", "guidance": ""}
+                used = {i["id"] for sec in unit["sections"] for i in sec["items"]}
+                iid = t if int(m_item[1]) == section["n"] and t not in used else f"{section['n']}.{len(section['items']) + 1}"
+                item = {"id": iid, "text": "", "guidance": ""}  # official spec has numbering typos (S1 §6, FP2 §7)
                 section["items"].append(item)
                 continue
             if item is None or t in ("What students need to learn:", "Guidance"):

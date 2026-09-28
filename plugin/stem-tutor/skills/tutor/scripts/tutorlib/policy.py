@@ -85,7 +85,8 @@ def new_kcs(state: dict, packs, now: datetime, limit: int) -> list[str]:
     ordered: list[str] = []
     for w in [w for w in weeks if w <= week] + [w for w in weeks if w == week + 1]:
         for obj in packs.plan["weeks"][str(w)]:
-            ordered.extend(obj.get("kcs", []))
+            if obj.get("type", "NEW") == "NEW":
+                ordered.extend(obj.get("kcs", []))
     out: list[str] = []
 
     def add(kc: str, depth: int = 0):

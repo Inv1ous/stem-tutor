@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RAW, WORK, OUT = ROOT / "build/raw", ROOT / "build/work/graph", ROOT / "build/out"
 UNITS = ["P1", "P2", "P3", "P4", "FP1", "FP2", "FP3", "M1", "S1", "S2", "S3", "D1"]
 TYPES = {"factual", "conceptual", "procedural"}
-CHUNKS = {"9701-AS": ("9701", range(1, 23)), "9701-A2": ("9701", range(23, 38)),
+CHUNKS = {"9701-AS1": ("9701", range(1, 13)), "9701-AS2": ("9701", range(13, 23)), "9701-A2": ("9701", range(23, 38)),
           "9702-AS": ("9702", range(1, 12)), "9702-A2": ("9702", range(12, 26)),
           "maths-pure": ("math", ["P1", "P2", "P3", "P4"]), "maths-fp": ("math", ["FP1", "FP2", "FP3"]),
           "maths-applied": ("math", ["M1", "S1", "S2", "S3", "D1"])}
@@ -93,13 +93,30 @@ def _cycle(graph: dict[str, list[str]]) -> list[str] | None:
     return None
 
 
+def _placeholder(k: dict) -> dict:
+    """Heuristic stand-in for chunks enriched later (A2 content is built just in time)."""
+    verb = k["raw"].split()[0].lower() if k["raw"] else ""
+    kind = ("factual" if verb in ("state", "recall", "define", "give", "name", "list") else
+            "procedural" if verb in ("calculate", "use", "determine", "solve", "derive", "sketch", "apply", "construct",
+                                     "deduce", "perform", "find", "draw", "carry") else "conceptual")
+    words = [w for w in re.findall(r"[a-z][a-z\-]{4,}", k["raw"].lower())][:6]
+    return {"id": k["id"], "title": " ".join(k["raw"].split()[:8]), "statement": k["raw"], "type": kind,
+            "prereqs": [], "glossary": words or [k["id"]], "enriched": False}
+
+
 def merge() -> None:
     specs = json.loads((WORK / "skeletons.json").read_text())
     enriched: dict[str, dict] = {}
+    partial = "--partial" in sys.argv
     for chunk in CHUNKS:
         f = WORK / f"{chunk}.enriched.json"
         if not f.exists():
-            sys.exit(f"missing {f.name}")
+            if not partial:
+                sys.exit(f"missing {f.name}")
+            print(f"{chunk}: not enriched yet, using placeholders (enriched: false)")
+            for k in json.loads((WORK / f"{chunk}.input.json").read_text()):
+                enriched[k["id"]] = _placeholder(k)
+            continue
         for e in json.loads(f.read_text()):
             enriched[e["id"]] = e
     ids = {k["id"] for s in specs.values() for k in s["kcs"]}
@@ -115,7 +132,7 @@ def merge() -> None:
             bad = [p for p in e.get("prereqs", []) if p not in ids]
             if bad:
                 errors.append(f"{k['id']}: unknown prereqs {bad}")
-            if not e.get("title") or not e.get("statement") or len(e.get("glossary", [])) < 2:
+            if e.get("enriched") is not False and (not e.get("title") or not e.get("statement") or len(e.get("glossary", [])) < 2):
                 errors.append(f"{k['id']}: missing title/statement/glossary")
             graph[k["id"]] = [p for p in e.get("prereqs", []) if p in ids]
     cyc = _cycle(graph)
@@ -131,7 +148,8 @@ def merge() -> None:
             e = enriched[k["id"]]
             kcs.append({"id": k["id"], "subtopic": k["subtopic"], "level": k["level"], "title": e["title"],
                         "statement": e["statement"], "raw": k["raw"], "type": e["type"], "prereqs": e.get("prereqs", []),
-                        "glossary": e["glossary"], **({"guidance": e["guidance"]} if e.get("guidance") else {})})
+                        "glossary": e["glossary"], **({"guidance": e["guidance"]} if e.get("guidance") else {}),
+                        **({"enriched": False} if e.get("enriched") is False else {})})
         out = {**{f: s[f] for f in ("spec", "subject", "title", "version", "topics", "subtopics")},
                "command_words": cmd.get(name, cmd.get("math", {})), "kcs": kcs}
         path = OUT / "specs" / name / "graph.json"

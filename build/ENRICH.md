@@ -4,7 +4,7 @@ You are enriching syllabus knowledge components (KCs) for an A-Level tutor. Each
 
 ## Input
 
-`build/work/graph/<chunk>.input.json`: an array of `{id, subtopic, level, raw, guidance?, context}`. `raw` is the PDF text of the outcome; PDF extraction has broken superscripts, subscripts and fractions (e.g. `am × an = am + n` means $a^m \times a^n = a^{m+n}$). `build/work/graph/all-ids.txt` lists every KC id in all specs with its context, for cross-spec prerequisites.
+`build/work/graph/<chunk>.input.json`: an array of `{id, subtopic, level, raw, guidance?, context}`. `raw` is the PDF text of the outcome; PDF extraction has broken superscripts, subscripts and fractions (e.g. `am × an = am + n` means $a^m \times a^n = a^{m+n}$). `build/work/graph/all-ids.txt` lists every KC id in all specs with its context (tab-separated). It is large: never read it whole; `grep` it for the candidates you need (e.g. `grep -P '^P1-' all-ids.txt`, `grep -i 'logarithm' all-ids.txt`).
 
 ## Output
 
@@ -53,4 +53,8 @@ print("ok", len(out))
 EOF
 ```
 
-(Replace CHUNK with your chunk name.) Write the output in several passes if it is long, but the final file must be one valid JSON array.
+(Replace CHUNK with your chunk name.)
+
+## Writing the output
+
+Work in batches of at most 30 KCs: write each batch as its own file `build/work/graph/<chunk>.part<N>.json` (a JSON array) as soon as it is done, then move to the next batch. When every batch exists, combine them in order with a short python script into `<chunk>.enriched.json`, delete the part files, and run the check. Writing as you go means no work is lost if you are interrupted; if part files already exist when you start, continue from the next KC after the last one written.

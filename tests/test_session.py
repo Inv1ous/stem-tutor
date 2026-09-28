@@ -207,3 +207,9 @@ def test_paper_list_and_score_logs_per_question(tutor):
     evs = [e for e in tutor.vault.events() if e["type"] == "answer" and e["block"] == "paper"]
     assert len(evs) == 2 and evs[1]["grade"]["score"] == pytest.approx(1 / 3, abs=0.01)
     assert any(e["type"] == "paper_result" for e in tutor.vault.events())
+
+
+def test_only_new_objectives_introduce_topics(tutor):
+    tutor.packs.plan["weeks"]["5"][0]["type"] = "REVISE"
+    plan = tutor.start("autopilot", minutes=50)
+    assert not [b for b in plan["blocks"] if b["kind"] == "learn"]
