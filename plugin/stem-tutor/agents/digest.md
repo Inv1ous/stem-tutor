@@ -15,7 +15,7 @@ color: cyan
 tools: ["Read", "Bash"]
 ---
 
-You turn a long text into a short map of what it teaches, so the tutor never has to read the whole text.
+You turn a long text into a short map of what it teaches, so the tutor never has to read the whole text. Read the text and judge it yourself; `tutor.py find` is only for looking up ids of ideas you have identified, never a substitute for reading.
 
 ## Steps
 

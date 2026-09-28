@@ -1,0 +1,1207 @@
+[
+ {
+  "id": "M1-1.1",
+  "title": "Mechanics modelling assumptions",
+  "statement": "The basic ideas of mathematical modelling as applied in Mechanics.",
+  "type": "factual",
+  "prereqs": [],
+  "glossary": [
+   "particle",
+   "lamina",
+   "rigid body",
+   "light string",
+   "smooth surface",
+   "rough surface",
+   "light pulley",
+   "peg"
+  ],
+  "guidance": "Students should be familiar with the terms: particle, lamina, rigid body, rod (light, uniform, non-uniform), inextensible string, smooth and rough surface, light smooth pulley, bead, wire, peg. Students should be familiar with the assumptions made in using these models."
+ },
+ {
+  "id": "M1-2.1",
+  "title": "Magnitude, direction and resultant vectors",
+  "statement": "Magnitude and direction of a vector. Resultant of vectors may also be required.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-1.1"
+  ],
+  "glossary": [
+   "magnitude",
+   "direction",
+   "resultant vector",
+   "vector diagram",
+   "unit vectors i and j",
+   "resolving a vector"
+  ],
+  "guidance": "Students may be required to resolve a vector into two components or use a vector diagram. Questions may be set involving the unit vectors $\\mathbf{i}$ and $\\mathbf{j}$."
+ },
+ {
+  "id": "M1-2.2",
+  "title": "Vectors for displacement, velocity, force",
+  "statement": "Application of vectors to displacements, velocities, accelerations and forces in a plane.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-2.1"
+  ],
+  "glossary": [
+   "displacement vector",
+   "velocity vector",
+   "acceleration vector",
+   "force vector",
+   "constant velocity",
+   "constant acceleration"
+  ],
+  "guidance": "Use of $\\text{velocity} = \\dfrac{\\text{change of displacement}}{\\text{time}}$ in the case of constant velocity, and of $\\text{acceleration} = \\dfrac{\\text{change of velocity}}{\\text{time}}$ in the case of constant acceleration, will be required."
+ },
+ {
+  "id": "M1-3.1",
+  "title": "Constant acceleration in a straight line",
+  "statement": "Motion in a straight line with constant acceleration.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-2.2",
+   "P1-1.5"
+  ],
+  "glossary": [
+   "suvat equations",
+   "v = u + at",
+   "s = ut + 1/2 at^2",
+   "v^2 = u^2 + 2as",
+   "displacement-time graph",
+   "velocity-time graph"
+  ],
+  "guidance": "Graphical solutions may be required, including displacement-time, velocity-time, speed-time and acceleration-time graphs. Knowledge and use of formulae for constant acceleration will be required."
+ },
+ {
+  "id": "M1-4.1",
+  "title": "Newton's laws of motion",
+  "statement": "The concept of a force. Newton's laws of motion.",
+  "type": "conceptual",
+  "prereqs": [
+   "M1-3.1"
+  ],
+  "glossary": [
+   "force",
+   "newton's first law",
+   "newton's second law",
+   "newton's third law",
+   "f = ma"
+  ],
+  "guidance": "Simple problems involving constant acceleration in scalar form or as a vector of the form $a\\mathbf{i} + b\\mathbf{j}$."
+ },
+ {
+  "id": "M1-4.2",
+  "title": "Connected particles and inclined planes",
+  "statement": "Simple applications including the motion of two connected particles.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-4.1",
+   "P1-1.6"
+  ],
+  "glossary": [
+   "connected particles",
+   "smooth pulley",
+   "peg",
+   "inclined plane",
+   "tension"
+  ],
+  "guidance": "Problems may include: (i) the motion of two connected particles moving in a straight line or under gravity when the forces on each particle are constant; problems involving smooth fixed pulleys and/or pegs may be set; (ii) motion under a force which changes from one fixed value to another, e.g. a particle hitting the ground; (iii) motion directly up or down a smooth or rough inclined plane."
+ },
+ {
+  "id": "M1-4.3",
+  "title": "Momentum, impulse and collisions",
+  "statement": "Momentum and impulse. The impulse-momentum principle. The principle of conservation of momentum applied to two particles colliding directly.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-4.1"
+  ],
+  "glossary": [
+   "momentum",
+   "impulse",
+   "impulse-momentum principle",
+   "conservation of momentum",
+   "direct collision"
+  ],
+  "guidance": "Knowledge of Newton's law of restitution is not required. Problems will be confined to those of a one-dimensional nature."
+ },
+ {
+  "id": "M1-4.4",
+  "title": "Coefficient of friction in motion",
+  "statement": "Coefficient of friction.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-4.1",
+   "M1-2.2"
+  ],
+  "glossary": [
+   "coefficient of friction",
+   "normal reaction",
+   "f = μr",
+   "rough surface",
+   "limiting friction"
+  ],
+  "guidance": "An understanding of $F = \\mu R$ when a particle is moving."
+ },
+ {
+  "id": "M1-5.1",
+  "title": "Resolving forces as vectors",
+  "statement": "Forces treated as vectors. Resolution of forces.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-2.2",
+   "M1-4.1"
+  ],
+  "glossary": [
+   "force as a vector",
+   "resolving forces",
+   "component of a force",
+   "coplanar forces"
+  ]
+ },
+ {
+  "id": "M1-5.2",
+  "title": "Equilibrium of a particle",
+  "statement": "Equilibrium of a particle under coplanar forces. Weight, normal reaction, tension and thrust, friction.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-5.1"
+  ],
+  "glossary": [
+   "equilibrium",
+   "weight",
+   "normal reaction",
+   "tension",
+   "thrust",
+   "friction"
+  ],
+  "guidance": "Only simple cases of the application of the conditions for equilibrium to uncomplicated systems will be required."
+ },
+ {
+  "id": "M1-5.3",
+  "title": "Friction in equilibrium",
+  "statement": "Coefficient of friction.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-5.2",
+   "M1-4.4"
+  ],
+  "glossary": [
+   "coefficient of friction",
+   "limiting equilibrium",
+   "f ≤ μr",
+   "normal reaction"
+  ],
+  "guidance": "An understanding of $F \\le \\mu R$ in a situation of equilibrium."
+ },
+ {
+  "id": "M1-6.1",
+  "title": "Moments and equilibrium of a body",
+  "statement": "Moment of a force.",
+  "type": "procedural",
+  "prereqs": [
+   "M1-5.2"
+  ],
+  "glossary": [
+   "moment of a force",
+   "coplanar parallel forces",
+   "equilibrium",
+   "turning effect"
+  ],
+  "guidance": "Simple problems involving coplanar parallel forces acting on a body and conditions for equilibrium in such situations."
+ },
+ {
+  "id": "S1-1.1",
+  "title": "Modelling in probability and statistics",
+  "statement": "The basic ideas of mathematical modelling as applied in probability and statistics.",
+  "type": "factual",
+  "prereqs": [],
+  "glossary": [
+   "statistical model",
+   "population",
+   "sample",
+   "random variable",
+   "assumptions"
+  ]
+ },
+ {
+  "id": "S1-2.1",
+  "title": "Histograms, stem-and-leaf, box plots",
+  "statement": "Histograms, stem and leaf diagrams, box plots.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-1.1"
+  ],
+  "glossary": [
+   "histogram",
+   "stem-and-leaf diagram",
+   "box plot",
+   "back-to-back stem-and-leaf diagram",
+   "frequency density"
+  ],
+  "guidance": "Using histograms, stem and leaf diagrams and box plots to compare distributions. Back-to-back stem and leaf diagrams may be required. Drawing of histograms, stem and leaf diagrams or box plots will not be the direct focus of examination questions."
+ },
+ {
+  "id": "S1-2.2",
+  "title": "Mean, median and mode",
+  "statement": "Measures of location – mean, median, mode.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-2.1"
+  ],
+  "glossary": [
+   "mean",
+   "median",
+   "mode",
+   "coding",
+   "grouped data"
+  ],
+  "guidance": "Calculation of mean, mode and median, range and interquartile range will not be the direct focus of examination questions. Students will be expected to draw simple inferences and give interpretations to measures of location and dispersion. Significance tests will not be expected. Data may be discrete, continuous, grouped or ungrouped. Understanding and use of coding."
+ },
+ {
+  "id": "S1-2.3",
+  "title": "Variance, standard deviation, IQR",
+  "statement": "Measures of dispersion – variance, standard deviation, range and interpercentile ranges.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-2.2"
+  ],
+  "glossary": [
+   "variance",
+   "standard deviation",
+   "range",
+   "interpercentile range",
+   "interquartile range",
+   "interpolation"
+  ],
+  "guidance": "Simple interpolation may be required. Interpretation of measures of location and dispersion."
+ },
+ {
+  "id": "S1-2.4",
+  "title": "Skewness and outliers",
+  "statement": "Skewness. Concepts of outliers.",
+  "type": "conceptual",
+  "prereqs": [
+   "S1-2.3",
+   "S1-2.1"
+  ],
+  "glossary": [
+   "skewness",
+   "positive skew",
+   "negative skew",
+   "outlier",
+   "box plot"
+  ],
+  "guidance": "Students may be asked to illustrate the location of outliers on a box plot. Any rule to identify outliers will be specified in the question."
+ },
+ {
+  "id": "S1-3.1",
+  "title": "Elementary probability",
+  "statement": "Elementary probability.",
+  "type": "factual",
+  "prereqs": [
+   "S1-1.1"
+  ],
+  "glossary": [
+   "probability",
+   "equally likely outcomes",
+   "probability scale",
+   "event"
+  ]
+ },
+ {
+  "id": "S1-3.2",
+  "title": "Conditional and complementary probability",
+  "statement": "Sample space. Exclusive and complementary events. Conditional probability.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-3.1"
+  ],
+  "glossary": [
+   "sample space",
+   "mutually exclusive events",
+   "complementary event",
+   "conditional probability",
+   "p(a|b)"
+  ],
+  "guidance": "Understanding and use of $P(A') = 1 - P(A)$, $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$, $P(A \\cap B) = P(A)\\,P(B \\mid A)$."
+ },
+ {
+  "id": "S1-3.3",
+  "title": "Independent events",
+  "statement": "Independence of two events.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-3.2"
+  ],
+  "glossary": [
+   "independent events",
+   "p(b|a) = p(b)",
+   "p(a ∩ b) = p(a)p(b)"
+  ],
+  "guidance": "$P(B \\mid A) = P(B)$, $P(A \\mid B) = P(A)$, $P(A \\cap B) = P(A)\\,P(B)$."
+ },
+ {
+  "id": "S1-3.4",
+  "title": "Tree diagrams and Venn diagrams",
+  "statement": "Sum and product laws.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-3.2",
+   "S1-3.3"
+  ],
+  "glossary": [
+   "sum law",
+   "product law",
+   "tree diagram",
+   "venn diagram",
+   "sampling with replacement",
+   "sampling without replacement"
+  ],
+  "guidance": "Use of tree diagrams and Venn diagrams. Sampling with and without replacement."
+ },
+ {
+  "id": "S1-4.1",
+  "title": "Linear regression by least squares",
+  "statement": "Scatter diagrams. Linear regression. Calculation of the equation of a linear regression line using the method of least squares.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-2.2"
+  ],
+  "glossary": [
+   "scatter diagram",
+   "linear regression",
+   "least squares",
+   "regression line"
+  ],
+  "guidance": "Students may be required to draw this regression line on a scatter diagram."
+ },
+ {
+  "id": "S1-4.2",
+  "title": "Explanatory and response variables",
+  "statement": "Explanatory (independent) and response (dependent) variables. Applications and interpretations.",
+  "type": "conceptual",
+  "prereqs": [
+   "S1-4.1"
+  ],
+  "glossary": [
+   "explanatory variable",
+   "response variable",
+   "independent variable",
+   "dependent variable",
+   "extrapolation"
+  ],
+  "guidance": "Use to make predictions within the range of values of the explanatory variable and the dangers of extrapolation. Derivations will not be required. Variables other than $x$ and $y$ may be used. Linear change of variable may be required."
+ },
+ {
+  "id": "S1-4.3",
+  "title": "Product moment correlation coefficient",
+  "statement": "The product moment correlation coefficient, its use, interpretation and limitations.",
+  "type": "conceptual",
+  "prereqs": [
+   "S1-4.1"
+  ],
+  "glossary": [
+   "product moment correlation coefficient",
+   "pmcc",
+   "correlation",
+   "linear association"
+  ],
+  "guidance": "Derivations and tests of significance will not be required."
+ },
+ {
+  "id": "S1-5.1",
+  "title": "Discrete random variable",
+  "statement": "The concept of a discrete random variable.",
+  "type": "conceptual",
+  "prereqs": [
+   "S1-3.1"
+  ],
+  "glossary": [
+   "discrete random variable",
+   "random variable",
+   "probability distribution"
+  ]
+ },
+ {
+  "id": "S1-5.2",
+  "title": "Probability and cumulative distribution functions",
+  "statement": "The probability function and the cumulative distribution function for a discrete random variable.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-5.1"
+  ],
+  "glossary": [
+   "probability function",
+   "p(x) = p(x = x)",
+   "cumulative distribution function",
+   "f(x0) = p(x ≤ x0)"
+  ],
+  "guidance": "Simple uses of the probability function $p(x)$ where $p(x) = P(X = x)$. Use of the cumulative distribution function $F(x_0) = P(X \\le x_0) = \\sum_{x \\le x_0} p(x)$."
+ },
+ {
+  "id": "S1-5.3",
+  "title": "Mean and variance of a discrete RV",
+  "statement": "Mean and variance of a discrete random variable.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-5.2"
+  ],
+  "glossary": [
+   "e(x)",
+   "var(x)",
+   "e(ax+b) = ae(x)+b",
+   "var(ax+b) = a^2var(x)"
+  ],
+  "guidance": "Use of $E(X)$, $E(X^2)$ for calculating the variance of $X$. Knowledge and use of $E(aX+b) = aE(X)+b$, $\\operatorname{Var}(aX+b) = a^2\\operatorname{Var}(X)$."
+ },
+ {
+  "id": "S1-5.4",
+  "title": "Discrete uniform distribution",
+  "statement": "The discrete uniform distribution.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-5.3"
+  ],
+  "glossary": [
+   "discrete uniform distribution",
+   "mean of discrete uniform distribution",
+   "variance of discrete uniform distribution"
+  ],
+  "guidance": "The mean and variance of this distribution."
+ },
+ {
+  "id": "S1-6.1",
+  "title": "The Normal distribution",
+  "statement": "The Normal distribution including the mean, variance and use of tables of the cumulative distribution function.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-5.3",
+   "S1-2.3"
+  ],
+  "glossary": [
+   "normal distribution",
+   "standard normal tables",
+   "symmetry",
+   "probability density function",
+   "simultaneous equations"
+  ],
+  "guidance": "Knowledge of the shape and the symmetry of the distribution is required. Knowledge of the probability density function is not required. Derivation of the mean, variance and cumulative distribution function is not required. Interpolation is not necessary. Questions may involve the solution of simultaneous equations."
+ },
+ {
+  "id": "S2-1.1",
+  "title": "Binomial and Poisson distributions",
+  "statement": "The binomial and Poisson distributions.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-5.4",
+   "P2-4.5"
+  ],
+  "glossary": [
+   "binomial distribution",
+   "poisson distribution",
+   "cumulative probabilities",
+   "additive property of poisson"
+  ],
+  "guidance": "Students will be expected to use these distributions to model a real-world situation and to comment critically on their appropriateness. Cumulative probabilities by calculation or by reference to tables. Students will be expected to use the additive property of the Poisson distribution, e.g. if the number of events per minute $\\sim \\text{Po}(\\lambda)$ then the number of events per 5 minutes $\\sim \\text{Po}(5\\lambda)$."
+ },
+ {
+  "id": "S2-1.2",
+  "title": "Mean and variance of binomial, Poisson",
+  "statement": "The mean and variance of the binomial and Poisson distributions.",
+  "type": "procedural",
+  "prereqs": [
+   "S2-1.1",
+   "S1-5.3"
+  ],
+  "glossary": [
+   "mean of binomial distribution",
+   "variance of binomial distribution",
+   "mean of poisson distribution",
+   "variance of poisson distribution"
+  ],
+  "guidance": "No derivations will be required."
+ },
+ {
+  "id": "S2-1.3",
+  "title": "Poisson approximation to binomial",
+  "statement": "The use of the Poisson distribution as an approximation to the binomial distribution.",
+  "type": "procedural",
+  "prereqs": [
+   "S2-1.1",
+   "S2-1.2"
+  ],
+  "glossary": [
+   "poisson approximation",
+   "large n small p",
+   "binomial distribution",
+   "poisson distribution"
+  ]
+ },
+ {
+  "id": "S2-2.1",
+  "title": "Continuous random variable",
+  "statement": "The concept of a continuous random variable.",
+  "type": "conceptual",
+  "prereqs": [
+   "S1-5.1"
+  ],
+  "glossary": [
+   "continuous random variable",
+   "random variable",
+   "probability density"
+  ]
+ },
+ {
+  "id": "S2-2.2",
+  "title": "Probability density and distribution functions",
+  "statement": "The probability density function and the cumulative distribution function for a continuous random variable.",
+  "type": "procedural",
+  "prereqs": [
+   "S2-2.1"
+  ],
+  "glossary": [
+   "probability density function",
+   "cumulative distribution function",
+   "f(x)",
+   "piecewise function"
+  ],
+  "guidance": "Use of the probability density function $f(x)$, where $P(a < X \\le b) = \\displaystyle\\int_a^b f(x)\\,dx$. Use of the cumulative distribution function $F(x_0) = P(X \\le x_0) = \\displaystyle\\int_{-\\infty}^{x_0} f(x)\\,dx$. The formulae used in defining $f(x)$ will be restricted to simple polynomials which may be expressed piecewise."
+ },
+ {
+  "id": "S2-2.3",
+  "title": "Relating pdf and cdf",
+  "statement": "Relationship between density and distribution functions.",
+  "type": "procedural",
+  "prereqs": [
+   "S2-2.2",
+   "P1-4.1"
+  ],
+  "glossary": [
+   "f(x) = df(x)/dx",
+   "probability density function",
+   "cumulative distribution function",
+   "differentiation"
+  ],
+  "guidance": "$f(x) = \\dfrac{dF(x)}{dx}$."
+ },
+ {
+  "id": "S2-2.4",
+  "title": "Mean and variance of a continuous RV",
+  "statement": "Mean and variance of continuous random variables.",
+  "type": "procedural",
+  "prereqs": [
+   "S2-2.2",
+   "P1-5.1"
+  ],
+  "glossary": [
+   "e(x)",
+   "var(x)",
+   "continuous random variable",
+   "integration"
+  ]
+ },
+ {
+  "id": "S2-2.5",
+  "title": "Mode, median, quartiles of a continuous RV",
+  "statement": "Mode, median and quartiles of continuous random variables.",
+  "type": "procedural",
+  "prereqs": [
+   "S2-2.4"
+  ],
+  "glossary": [
+   "mode",
+   "median",
+   "quartiles",
+   "continuous random variable"
+  ]
+ },
+ {
+  "id": "S2-3.1",
+  "title": "Continuous uniform distribution",
+  "statement": "The continuous uniform (rectangular) distribution.",
+  "type": "procedural",
+  "prereqs": [
+   "S2-2.4"
+  ],
+  "glossary": [
+   "continuous uniform distribution",
+   "rectangular distribution",
+   "mean and variance derivation"
+  ],
+  "guidance": "Including the derivation of the mean, variance and cumulative distribution function."
+ },
+ {
+  "id": "S2-3.2",
+  "title": "Normal approximation with continuity correction",
+  "statement": "Use of the Normal distribution as an approximation to the binomial distribution and the Poisson distribution, with the application of the continuity correction.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-6.1",
+   "S2-1.1"
+  ],
+  "glossary": [
+   "continuity correction",
+   "normal approximation",
+   "binomial distribution",
+   "poisson distribution"
+  ]
+ },
+ {
+  "id": "S2-4.1",
+  "title": "Population, census and sampling frame",
+  "statement": "Population, census and sample. Sampling unit, sampling frame.",
+  "type": "factual",
+  "prereqs": [
+   "S1-1.1"
+  ],
+  "glossary": [
+   "population",
+   "census",
+   "sample",
+   "sampling unit",
+   "sampling frame"
+  ],
+  "guidance": "Students will be expected to know the advantages and disadvantages associated with a census and a sample survey."
+ },
+ {
+  "id": "S2-4.2",
+  "title": "Statistic and sampling distribution",
+  "statement": "Concepts of a statistic and its sampling distribution.",
+  "type": "conceptual",
+  "prereqs": [
+   "S2-4.1"
+  ],
+  "glossary": [
+   "statistic",
+   "sampling distribution",
+   "sample statistic",
+   "estimator"
+  ]
+ },
+ {
+  "id": "S2-4.3",
+  "title": "Hypothesis test, null and alternative",
+  "statement": "Concept and interpretation of a hypothesis test. Null and alternative hypotheses.",
+  "type": "conceptual",
+  "prereqs": [
+   "S2-4.2"
+  ],
+  "glossary": [
+   "hypothesis test",
+   "null hypothesis",
+   "alternative hypothesis"
+  ],
+  "guidance": "Use of hypothesis tests for refinement of mathematical models."
+ },
+ {
+  "id": "S2-4.4",
+  "title": "Critical region and test statistic",
+  "statement": "Critical region.",
+  "type": "conceptual",
+  "prereqs": [
+   "S2-4.3"
+  ],
+  "glossary": [
+   "critical region",
+   "test statistic",
+   "significance level"
+  ],
+  "guidance": "Use of a statistic as a test statistic."
+ },
+ {
+  "id": "S2-4.5",
+  "title": "One-tailed and two-tailed tests",
+  "statement": "One-tailed and two-tailed tests.",
+  "type": "conceptual",
+  "prereqs": [
+   "S2-4.4"
+  ],
+  "glossary": [
+   "one-tailed test",
+   "two-tailed test",
+   "significance level"
+  ]
+ },
+ {
+  "id": "S2-4.6",
+  "title": "Hypothesis tests for p and Poisson mean",
+  "statement": "Hypothesis tests for the parameter p of a binomial distribution and for the mean of a Poisson distribution.",
+  "type": "procedural",
+  "prereqs": [
+   "S2-4.5",
+   "S2-1.1"
+  ],
+  "glossary": [
+   "hypothesis test for p",
+   "hypothesis test for poisson mean",
+   "normal approximation"
+  ],
+  "guidance": "Students are expected to know how to use tables to carry out these tests. Questions may also be set not involving tabular values. Tests for the parameter $p$ of a binomial distribution may involve the use of a normal approximation to calculate probabilities."
+ },
+ {
+  "id": "S3-1.1",
+  "title": "Linear combinations of Normal variables",
+  "statement": "Distribution of linear combinations of independent Normal random variables.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-6.1"
+  ],
+  "glossary": [
+   "linear combination",
+   "independent normal random variables",
+   "ax ± by"
+  ],
+  "guidance": "If $X \\sim N(\\mu_x, \\sigma_x^2)$ and $Y \\sim N(\\mu_y, \\sigma_y^2)$ independently, then $aX \\pm bY \\sim N(a\\mu_x \\pm b\\mu_y,\\ a^2\\sigma_x^2 + b^2\\sigma_y^2)$. No proofs required."
+ },
+ {
+  "id": "S3-2.1",
+  "title": "Simple random sampling",
+  "statement": "Methods for collecting data. Simple random sampling. Use of random numbers for sampling.",
+  "type": "factual",
+  "prereqs": [
+   "S2-4.1"
+  ],
+  "glossary": [
+   "simple random sampling",
+   "random number table",
+   "sampling frame"
+  ]
+ },
+ {
+  "id": "S3-2.2",
+  "title": "Stratified, systematic, quota sampling",
+  "statement": "Other methods of sampling: stratified, systematic, quota.",
+  "type": "conceptual",
+  "prereqs": [
+   "S3-2.1"
+  ],
+  "glossary": [
+   "stratified sampling",
+   "systematic sampling",
+   "quota sampling"
+  ],
+  "guidance": "The circumstances in which they might be used. Their advantages and disadvantages."
+ },
+ {
+  "id": "S3-3.1",
+  "title": "Standard error, estimator, bias",
+  "statement": "Concepts of standard error, estimator, bias.",
+  "type": "conceptual",
+  "prereqs": [
+   "S1-2.3",
+   "S2-4.2"
+  ],
+  "glossary": [
+   "standard error",
+   "unbiased estimator",
+   "bias",
+   "sample variance"
+  ],
+  "guidance": "The sample mean, $\\bar{x}$, and the sample variance, $s^2 = \\dfrac{1}{n-1}\\displaystyle\\sum_{i=1}^n (x_i - \\bar{x})^2$, as unbiased estimates of the corresponding population parameters."
+ },
+ {
+  "id": "S3-3.2",
+  "title": "Distribution of the sample mean",
+  "statement": "The distribution of the sample mean $\\bar{X}$.",
+  "type": "procedural",
+  "prereqs": [
+   "S3-3.1",
+   "S3-1.1"
+  ],
+  "glossary": [
+   "sample mean",
+   "standard error of the mean",
+   "distribution of the sample mean"
+  ],
+  "guidance": "$\\bar X$ has mean $\\mu$ and variance $\\dfrac{\\sigma^2}{n}$. If $X \\sim N(\\mu, \\sigma^2)$ then $\\bar X \\sim N\\left(\\mu, \\dfrac{\\sigma^2}{n}\\right)$. No proofs required."
+ },
+ {
+  "id": "S3-3.3",
+  "title": "Confidence interval concept",
+  "statement": "Concept of a confidence interval and its interpretation.",
+  "type": "conceptual",
+  "prereqs": [
+   "S3-3.2",
+   "S2-4.3"
+  ],
+  "glossary": [
+   "confidence interval",
+   "confidence level",
+   "interval estimate"
+  ],
+  "guidance": "Link with hypothesis tests."
+ },
+ {
+  "id": "S3-3.4",
+  "title": "Confidence interval for a Normal mean",
+  "statement": "Confidence limits for a Normal mean, with variance known.",
+  "type": "procedural",
+  "prereqs": [
+   "S3-3.3"
+  ],
+  "glossary": [
+   "confidence limits",
+   "normal mean",
+   "standard error"
+  ],
+  "guidance": "Students will be expected to know how to apply the Normal distribution and use the standard error and obtain confidence intervals for the mean, rather than be concerned with any theoretical derivations."
+ },
+ {
+  "id": "S3-3.5",
+  "title": "Hypothesis test for a Normal mean",
+  "statement": "Hypothesis tests for the mean of a Normal distribution with variance known.",
+  "type": "procedural",
+  "prereqs": [
+   "S3-3.2",
+   "S2-4.3"
+  ],
+  "glossary": [
+   "hypothesis test for the mean",
+   "test statistic",
+   "standard error"
+  ],
+  "guidance": "Use of $\\dfrac{\\bar X - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0,1)$."
+ },
+ {
+  "id": "S3-3.6",
+  "title": "Central Limit Theorem for large samples",
+  "statement": "Use of Central Limit theorem to extend hypothesis tests and confidence intervals to samples from non-Normal distributions. Use of large sample results to extend to the case in which the variance is unknown.",
+  "type": "procedural",
+  "prereqs": [
+   "S3-3.5",
+   "S3-3.1"
+  ],
+  "glossary": [
+   "central limit theorem",
+   "large sample",
+   "variance unknown"
+  ],
+  "guidance": "$\\dfrac{\\bar X - \\mu}{S/\\sqrt{n}}$ can be treated as $N(0,1)$ when $n$ is large. A knowledge of the $t$-distribution is not required."
+ },
+ {
+  "id": "S3-3.7",
+  "title": "Comparing two Normal means, variances known",
+  "statement": "Hypothesis test for the difference between the means of two Normal distributions with variances known.",
+  "type": "procedural",
+  "prereqs": [
+   "S3-3.5"
+  ],
+  "glossary": [
+   "two-sample test",
+   "difference of means",
+   "variances known"
+  ],
+  "guidance": "Use of $\\dfrac{(\\bar X - \\bar Y) - (\\mu_x - \\mu_y)}{\\sqrt{\\dfrac{\\sigma_x^2}{n_x} + \\dfrac{\\sigma_y^2}{n_y}}} \\sim N(0,1)$."
+ },
+ {
+  "id": "S3-3.8",
+  "title": "Comparing two means, variances unknown",
+  "statement": "Use of large sample results to extend to the case in which the population variances are unknown.",
+  "type": "procedural",
+  "prereqs": [
+   "S3-3.7",
+   "S3-3.6"
+  ],
+  "glossary": [
+   "two-sample test",
+   "variances unknown",
+   "large sample"
+  ],
+  "guidance": "Use of $\\dfrac{(\\bar X - \\bar Y) - (\\mu_x - \\mu_y)}{\\sqrt{\\dfrac{S_x^2}{n_x} + \\dfrac{S_y^2}{n_y}}} \\sim N(0,1)$. A knowledge of the $t$-distribution is not required."
+ },
+ {
+  "id": "S3-4.1",
+  "title": "Chi-squared goodness of fit statistic",
+  "statement": "The null and alternative hypotheses. The use of $\\sum_{i=1}^n \\dfrac{(O_i - E_i)^2}{E_i}$ as an approximate $\\chi^2$ statistic.",
+  "type": "procedural",
+  "prereqs": [
+   "S2-4.3"
+  ],
+  "glossary": [
+   "chi-squared statistic",
+   "observed frequency",
+   "expected frequency",
+   "goodness of fit"
+  ],
+  "guidance": "Applications to include the discrete uniform, binomial, Normal, Poisson and continuous uniform (rectangular) distributions. Lengthy calculations will not be required."
+ },
+ {
+  "id": "S3-4.2",
+  "title": "Degrees of freedom",
+  "statement": "Degrees of freedom.",
+  "type": "procedural",
+  "prereqs": [
+   "S3-4.1"
+  ],
+  "glossary": [
+   "degrees of freedom",
+   "combining cells",
+   "yates' correction"
+  ],
+  "guidance": "Students will be expected to determine the degrees of freedom when one or more parameters are estimated from the data. Cells should be combined when $E_i < 5$. Yates' correction is not required."
+ },
+ {
+  "id": "S3-5.1",
+  "title": "Spearman's rank correlation",
+  "statement": "Spearman's rank correlation coefficient, its use, interpretation and limitations.",
+  "type": "procedural",
+  "prereqs": [
+   "S1-4.3"
+  ],
+  "glossary": [
+   "spearman's rank correlation coefficient",
+   "ranking",
+   "tied ranks"
+  ],
+  "guidance": "Numerical questions involving ties will not be set. Some understanding of how to deal with ties will be expected."
+ },
+ {
+  "id": "S3-5.2",
+  "title": "Testing for zero correlation",
+  "statement": "Testing the hypothesis that a correlation is zero.",
+  "type": "procedural",
+  "prereqs": [
+   "S3-5.1",
+   "S2-4.3"
+  ],
+  "glossary": [
+   "hypothesis test for correlation",
+   "spearman's coefficient",
+   "product moment correlation coefficient"
+  ],
+  "guidance": "Use of tables for Spearman's and product moment correlation coefficients."
+ },
+ {
+  "id": "D1-1.1",
+  "title": "Algorithms as flow charts or text",
+  "statement": "The general ideas of algorithms and the implementation of an algorithm given by a flow chart or text.",
+  "type": "procedural",
+  "prereqs": [],
+  "glossary": [
+   "algorithm",
+   "flow chart",
+   "middle item of a list"
+  ],
+  "guidance": "The order of an algorithm is not expected. Whenever finding the middle item of any list, the method defined in the glossary must be used: the middle item of a list of $N$ items is at position $\\left[\\tfrac{1}{2}(N+1)\\right]$ if $N$ is odd, and $\\left[\\tfrac{1}{2}(N+2)\\right]$ if $N$ is even."
+ },
+ {
+  "id": "D1-1.2",
+  "title": "Bin packing and sorting algorithms",
+  "statement": "Students should be familiar with bin packing, bubble sort, quick sort, binary search.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-1.1"
+  ],
+  "glossary": [
+   "bin packing",
+   "bubble sort",
+   "quick sort",
+   "binary search",
+   "pivot"
+  ],
+  "guidance": "When using the quick sort algorithm, the pivot should be chosen as the middle item of the list."
+ },
+ {
+  "id": "D1-2.1",
+  "title": "Minimum spanning tree algorithms",
+  "statement": "The minimum spanning tree (minimum connector) problem. Prim's and Kruskal's algorithm.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-1.1"
+  ],
+  "glossary": [
+   "minimum spanning tree",
+   "minimum connector",
+   "prim's algorithm",
+   "kruskal's algorithm",
+   "weighted network"
+  ],
+  "guidance": "Matrix representation for Prim's algorithm is expected. Drawing a network from a given matrix and writing down the matrix associated with a network will be involved."
+ },
+ {
+  "id": "D1-2.2",
+  "title": "Dijkstra's shortest path algorithm",
+  "statement": "Dijkstra's algorithm for finding the shortest path.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-2.1"
+  ],
+  "glossary": [
+   "dijkstra's algorithm",
+   "shortest path",
+   "weighted network"
+  ]
+ },
+ {
+  "id": "D1-3.1",
+  "title": "Route inspection (Chinese postman) problem",
+  "statement": "Algorithm for finding the shortest route around a network, travelling along every edge at least once and ending at the start vertex. The network will have up to four odd nodes.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-2.2"
+  ],
+  "glossary": [
+   "route inspection problem",
+   "chinese postman problem",
+   "odd node",
+   "pairing odd vertices"
+  ],
+  "guidance": "Also known as the 'Chinese postman' problem. Students will be expected to use inspection to consider all possible pairings of odd nodes. (The application of Floyd's algorithm to the odd nodes is not required.)"
+ },
+ {
+  "id": "D1-3.2",
+  "title": "Travelling salesman problem",
+  "statement": "The practical and classical Travelling Salesman problems. The classical problem for complete graphs satisfying the triangle inequality.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-3.1"
+  ],
+  "glossary": [
+   "travelling salesman problem",
+   "classical problem",
+   "practical problem",
+   "complete graph",
+   "triangle inequality"
+  ],
+  "guidance": "The use of short cuts to improve upper bound is included."
+ },
+ {
+  "id": "D1-3.3",
+  "title": "Upper and lower bounds for TSP",
+  "statement": "Determination of upper and lower bounds using minimum spanning tree methods.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-2.1",
+   "D1-3.2"
+  ],
+  "glossary": [
+   "upper bound",
+   "lower bound",
+   "minimum spanning tree",
+   "complete network of shortest distances"
+  ],
+  "guidance": "The conversion of a network into a complete network of shortest 'distances' is included."
+ },
+ {
+  "id": "D1-3.4",
+  "title": "Nearest neighbour algorithm",
+  "statement": "The nearest neighbour algorithm.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-3.2"
+  ],
+  "glossary": [
+   "nearest neighbour algorithm",
+   "upper bound",
+   "travelling salesman problem"
+  ]
+ },
+ {
+  "id": "D1-4.1",
+  "title": "Activity networks from precedence tables",
+  "statement": "Modelling of a project by an activity network, from a precedence table.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-1.1"
+  ],
+  "glossary": [
+   "activity network",
+   "precedence table",
+   "activity on arc",
+   "dummy activity",
+   "immediate predecessor"
+  ],
+  "guidance": "Activity on arc will be used. The use of dummies is included. In a precedence network, precedence tables will only show immediate predecessors."
+ },
+ {
+  "id": "D1-4.2",
+  "title": "Precedence tables from activity networks",
+  "statement": "Completion of the precedence table for a given activity network.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-4.1"
+  ],
+  "glossary": [
+   "precedence table",
+   "activity network",
+   "immediate predecessor"
+  ]
+ },
+ {
+  "id": "D1-4.3",
+  "title": "Critical path algorithm",
+  "statement": "Algorithm for finding the critical path. Earliest and latest event times. Earliest and latest start and finish times for activities.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-4.1"
+  ],
+  "glossary": [
+   "critical path",
+   "earliest event time",
+   "latest event time",
+   "earliest start time",
+   "latest finish time"
+  ]
+ },
+ {
+  "id": "D1-4.4",
+  "title": "Total float and Gantt charts",
+  "statement": "Total float. Gantt (cascade) charts. Scheduling.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-4.3"
+  ],
+  "glossary": [
+   "total float",
+   "f(i,j) = lj - ei - duration(i,j)",
+   "gantt chart",
+   "cascade chart",
+   "scheduling"
+  ],
+  "guidance": "The total float $F(i,j)$ of activity $(i,j)$ is defined to be $F(i,j) = l_j - e_i - \\text{duration}(i,j)$, where $e_i$ is the earliest time for event $i$ and $l_j$ is the latest time for event $j$."
+ },
+ {
+  "id": "D1-5.1",
+  "title": "Formulating linear programs",
+  "statement": "Formulation of problems as linear programs.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-1.1"
+  ],
+  "glossary": [
+   "linear programming",
+   "objective function",
+   "constraint",
+   "decision variable"
+  ]
+ },
+ {
+  "id": "D1-5.2",
+  "title": "Graphical solution of linear programs",
+  "statement": "Graphical solution of two variable problems using ruler and vertex methods.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-5.1"
+  ],
+  "glossary": [
+   "feasible region",
+   "ruler method",
+   "vertex method",
+   "objective line"
+  ]
+ },
+ {
+  "id": "D1-5.3",
+  "title": "Integer solutions to linear programs",
+  "statement": "Consideration of problems where solutions must have integer values.",
+  "type": "procedural",
+  "prereqs": [
+   "D1-5.2"
+  ],
+  "glossary": [
+   "integer programming",
+   "feasible region",
+   "integer-valued solution"
+  ]
+ }
+]

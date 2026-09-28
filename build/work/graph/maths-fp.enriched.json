@@ -1,0 +1,1099 @@
+[
+ {
+  "id": "FP1-1.1",
+  "title": "Definition and notation of complex numbers",
+  "statement": "Definition of complex numbers in the form $a + ib$ and $r\\cos\\theta + ir\\sin\\theta$.",
+  "type": "factual",
+  "prereqs": [],
+  "glossary": [
+   "complex number",
+   "a + ib",
+   "modulus",
+   "argument",
+   "conjugate",
+   "real part",
+   "imaginary part"
+  ],
+  "guidance": "The meaning of conjugate, modulus, argument, real part, imaginary part and equality of complex numbers should be known."
+ },
+ {
+  "id": "FP1-1.2",
+  "title": "Sum, product and quotient of complex numbers",
+  "statement": "Sum, product and quotient of complex numbers.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-1.1"
+  ],
+  "glossary": [
+   "complex number",
+   "modulus",
+   "product of complex numbers",
+   "quotient of complex numbers",
+   "sum of complex numbers"
+  ],
+  "guidance": "$|z_1 z_2| = |z_1||z_2|$. Knowledge of the result $\\arg(z_1 z_2) = \\arg z_1 + \\arg z_2$ is not required."
+ },
+ {
+  "id": "FP1-1.3",
+  "title": "Argand diagram representation of complex numbers",
+  "statement": "Geometrical representation of complex numbers in the Argand diagram. Geometrical representation of sums, products and quotients of complex numbers.",
+  "type": "conceptual",
+  "prereqs": [
+   "FP1-1.2"
+  ],
+  "glossary": [
+   "argand diagram",
+   "complex plane",
+   "geometrical representation",
+   "vector addition of complex numbers"
+  ]
+ },
+ {
+  "id": "FP1-1.4",
+  "title": "Complex roots of quadratic equations",
+  "statement": "Complex solutions of quadratic equations with real coefficients.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-1.1",
+   "P1-1.5"
+  ],
+  "glossary": [
+   "complex roots",
+   "quadratic formula",
+   "discriminant",
+   "conjugate pair"
+  ]
+ },
+ {
+  "id": "FP1-1.5",
+  "title": "Conjugate roots of cubic equations",
+  "statement": "Finding conjugate complex roots and a real root of a cubic equation with integer coefficients.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-1.4"
+  ],
+  "glossary": [
+   "conjugate root theorem",
+   "cubic equation",
+   "complex conjugate",
+   "z*"
+  ],
+  "guidance": "Knowledge that if $z_1$ is a root of $f(z) = 0$ then $z_1^*$ is also a root."
+ },
+ {
+  "id": "FP1-1.6",
+  "title": "Conjugate roots of quartic equations",
+  "statement": "Finding conjugate complex roots and/or real roots of a quartic equation with real coefficients.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-1.5"
+  ],
+  "glossary": [
+   "quartic equation",
+   "conjugate root theorem",
+   "factor theorem",
+   "complex roots"
+  ],
+  "guidance": "For example, (i) $f(x) = x^4 - x^3 - 5x^2 + 7x + 10$. Given that $x = 2 + i$ is a root of $f(x) = 0$, use algebra to find the three other roots of $f(x) = 0$. (ii) $g(x) = x^4 - x^3 + 6x^2 + 14x - 20$. Given $g(1) = 0$ and $g(-2) = 0$, use algebra to solve $g(x) = 0$ completely."
+ },
+ {
+  "id": "FP1-2.1",
+  "title": "Sum and product of quadratic roots",
+  "statement": "Sum of roots and product of roots of a quadratic equation.",
+  "type": "factual",
+  "prereqs": [
+   "P1-1.5"
+  ],
+  "glossary": [
+   "sum of roots",
+   "product of roots",
+   "alpha and beta",
+   "-b/a",
+   "c/a"
+  ],
+  "guidance": "For the equation $ax^2 + bx + c = 0$, whose roots are $\\alpha$ and $\\beta$, $\\alpha + \\beta = -\\dfrac{b}{a}$, $\\alpha\\beta = \\dfrac{c}{a}$."
+ },
+ {
+  "id": "FP1-2.2",
+  "title": "Manipulating symmetric root expressions",
+  "statement": "Manipulation of expressions involving the sum of roots and product of roots.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-2.1"
+  ],
+  "glossary": [
+   "symmetric functions of roots",
+   "alpha cubed plus beta cubed",
+   "root manipulation",
+   "sum and product of roots"
+  ],
+  "guidance": "Knowledge of the identity $\\alpha^3 + \\beta^3 \\equiv (\\alpha+\\beta)^3 - 3\\alpha\\beta(\\alpha+\\beta)$."
+ },
+ {
+  "id": "FP1-2.3",
+  "title": "Forming quadratics with transformed roots",
+  "statement": "Forming quadratic equations with new roots.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-2.2"
+  ],
+  "glossary": [
+   "new quadratic equation",
+   "transformed roots",
+   "sum and product of new roots"
+  ],
+  "guidance": "For example, with roots $\\alpha^3, \\beta^3$; $\\dfrac{1}{\\alpha}, \\dfrac{1}{\\beta}$; $\\alpha + \\dfrac{2}{\\alpha}, \\beta + \\dfrac{2}{\\beta}$; etc."
+ },
+ {
+  "id": "FP1-3.1",
+  "title": "Numerical solution of equations",
+  "statement": "Equations of the form $f(x) = 0$ solved numerically by: (i) interval bisection, (ii) linear interpolation, (iii) the Newton-Raphson process.",
+  "type": "procedural",
+  "prereqs": [
+   "P1-4.2"
+  ],
+  "glossary": [
+   "interval bisection",
+   "linear interpolation",
+   "newton-raphson process",
+   "root of f(x) = 0",
+   "numerical methods"
+  ],
+  "guidance": "$f(x)$ will involve only functions used in P1 and P2. For the Newton-Raphson process, the only differentiation required will be as defined in unit P1 and P2."
+ },
+ {
+  "id": "FP1-4.1",
+  "title": "Parabola and rectangular hyperbola equations",
+  "statement": "Cartesian equations for the parabola and rectangular hyperbola.",
+  "type": "factual",
+  "prereqs": [
+   "P1-1.11",
+   "P1-2.1"
+  ],
+  "glossary": [
+   "parabola",
+   "rectangular hyperbola",
+   "y^2 = 4ax",
+   "parametric form",
+   "xy = c^2"
+  ],
+  "guidance": "Students should be familiar with the equations: $y^2 = 4ax$ or $x = at^2, y = 2at$ and $xy = c^2$ or $x = ct, y = \\dfrac{c}{t}$."
+ },
+ {
+  "id": "FP1-4.2",
+  "title": "Parametric point on the parabola",
+  "statement": "Idea of parametric equation for parabola and rectangular hyperbola.",
+  "type": "conceptual",
+  "prereqs": [
+   "FP1-4.1"
+  ],
+  "glossary": [
+   "parametric equations",
+   "general point at^2 2at",
+   "parameter t"
+  ],
+  "guidance": "The idea of $(at^2, 2at)$ as a general point on the parabola is all that is required."
+ },
+ {
+  "id": "FP1-4.3",
+  "title": "Focus-directrix property of the parabola",
+  "statement": "The focus-directrix property of the parabola.",
+  "type": "conceptual",
+  "prereqs": [
+   "FP1-4.1"
+  ],
+  "glossary": [
+   "focus",
+   "directrix",
+   "locus",
+   "parabola",
+   "equidistant"
+  ],
+  "guidance": "Concept of focus and directrix and parabola as locus of points equidistant from focus and directrix."
+ },
+ {
+  "id": "FP1-4.4",
+  "title": "Tangents and normals to these curves",
+  "statement": "Tangents and normals to these curves.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-4.1",
+   "P1-4.3"
+  ],
+  "glossary": [
+   "tangent",
+   "normal",
+   "implicit differentiation",
+   "parabola",
+   "rectangular hyperbola"
+  ],
+  "guidance": "Differentiation of $y^2 = 4ax$ to give $\\dfrac{dy}{dx} = \\dfrac{2a}{y}$, and of $xy = c^2$ to give $\\dfrac{dy}{dx} = -\\dfrac{c^2}{x^2}$. Parametric differentiation is not required."
+ },
+ {
+  "id": "FP1-5.1",
+  "title": "Addition and subtraction of matrices",
+  "statement": "Addition and subtraction of matrices.",
+  "type": "procedural",
+  "prereqs": [],
+  "glossary": [
+   "matrix",
+   "matrix addition",
+   "matrix subtraction",
+   "conformable matrices"
+  ]
+ },
+ {
+  "id": "FP1-5.2",
+  "title": "Scalar multiplication of a matrix",
+  "statement": "Multiplication of a matrix by a scalar.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-5.1"
+  ],
+  "glossary": [
+   "scalar multiplication",
+   "matrix",
+   "scalar"
+  ]
+ },
+ {
+  "id": "FP1-5.3",
+  "title": "Multiplying matrices together",
+  "statement": "Products of matrices.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-5.1"
+  ],
+  "glossary": [
+   "matrix multiplication",
+   "matrix product",
+   "conformability",
+   "row by column"
+  ]
+ },
+ {
+  "id": "FP1-5.4",
+  "title": "Evaluating 2x2 determinants",
+  "statement": "Evaluation of $2 \\times 2$ determinants.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-5.1"
+  ],
+  "glossary": [
+   "determinant",
+   "singular matrix",
+   "non-singular matrix",
+   "2x2 matrix"
+  ],
+  "guidance": "Singular and non-singular matrices."
+ },
+ {
+  "id": "FP1-5.5",
+  "title": "Inverse of 2x2 matrices",
+  "statement": "Inverse of $2 \\times 2$ matrices.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-5.4",
+   "FP1-5.3"
+  ],
+  "glossary": [
+   "inverse of a matrix",
+   "2x2 matrix",
+   "(ab)^-1 = b^-1 a^-1",
+   "determinant"
+  ],
+  "guidance": "Use of the relation $(AB)^{-1} = B^{-1}A^{-1}$."
+ },
+ {
+  "id": "FP1-6.1",
+  "title": "Matrix representation of linear transformations",
+  "statement": "Linear transformations of column vectors in two dimensions and their matrix representation.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-5.3"
+  ],
+  "glossary": [
+   "linear transformation",
+   "column vector",
+   "matrix representation",
+   "composition of transformations"
+  ],
+  "guidance": "The transformation represented by $AB$ is the transformation represented by $B$ followed by the transformation represented by $A$."
+ },
+ {
+  "id": "FP1-6.2",
+  "title": "Matrices for geometric transformations",
+  "statement": "Applications of $2 \\times 2$ matrices to represent geometrical transformations.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-6.1"
+  ],
+  "glossary": [
+   "reflection matrix",
+   "rotation matrix",
+   "stretch",
+   "enlargement",
+   "scale factor"
+  ],
+  "guidance": "Identification and use of the matrix representation of single transformations from: reflection in coordinate axes and lines $y = \\pm x$; rotation through any angle about $(0,0)$; stretches parallel to the $x$-axis and $y$-axis; and enlargement about centre $(0,0)$ with scale factor $k$ ($k \\neq 0$), where $k \\in \\mathbb{R}$."
+ },
+ {
+  "id": "FP1-6.3",
+  "title": "Combining matrix transformations",
+  "statement": "Combinations of transformations.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-6.2"
+  ],
+  "glossary": [
+   "combined transformation",
+   "matrix product",
+   "composite transformation"
+  ],
+  "guidance": "Identification and use of the matrix representation of combined transformations."
+ },
+ {
+  "id": "FP1-6.4",
+  "title": "Inverse of combined transformations",
+  "statement": "The inverse (when it exists) of a given transformation or combination of transformations.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-6.3",
+   "FP1-5.5"
+  ],
+  "glossary": [
+   "inverse transformation",
+   "determinant",
+   "area scale factor",
+   "singular matrix"
+  ],
+  "guidance": "Idea of the determinant as an area scale factor in transformations."
+ },
+ {
+  "id": "FP1-7.1",
+  "title": "Summing simple finite series",
+  "statement": "Summation of simple finite series.",
+  "type": "procedural",
+  "prereqs": [
+   "P2-4.2"
+  ],
+  "glossary": [
+   "sigma notation",
+   "sum of squares formula",
+   "sum of cubes formula",
+   "finite series"
+  ],
+  "guidance": "Students should be able to sum series such as $\\displaystyle\\sum_{r=1}^{n} r^2$, $\\displaystyle\\sum_{r=1}^{n} r^3$ and $\\displaystyle\\sum_{r=1}^{n} r(r+2)$. The method of differences is not required."
+ },
+ {
+  "id": "FP1-8.1",
+  "title": "Proof by mathematical induction",
+  "statement": "Proof by mathematical induction.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-7.1",
+   "FP1-5.3"
+  ],
+  "glossary": [
+   "mathematical induction",
+   "inductive step",
+   "base case",
+   "divisibility proof",
+   "induction with matrices"
+  ],
+  "guidance": "To include induction proofs for (i) summation of series, e.g. show $\\displaystyle\\sum_{r=1}^n r^3 = \\dfrac{1}{4}n^2(n+1)^2$ or $\\displaystyle\\sum_{r=1}^n r(r+1) = \\dfrac{1}{3}n(n+1)(n+2)$ (ii) divisibility, e.g. show $3^{2n+1} + 1$ is divisible by 4 (iii) finding general terms in a sequence, e.g. if $u_{n+1} = 3u_n + 4$ with $u_1 = 1$, prove that $u_n = 3^n - 2$ (iv) matrix products, e.g. show that $A^n$ for a given $2\\times 2$ matrix $A$ can be found in terms of $n$."
+ },
+ {
+  "id": "FP2-1.1",
+  "title": "Solving algebraic and modulus inequalities",
+  "statement": "The manipulation and solution of algebraic inequalities and inequations, including those involving the modulus sign.",
+  "type": "procedural",
+  "prereqs": [
+   "P1-1.9",
+   "P3-1.3"
+  ],
+  "glossary": [
+   "modulus inequality",
+   "algebraic inequality",
+   "inequation",
+   "critical values"
+  ],
+  "guidance": "The solution of inequalities such as $\\dfrac{1}{x} > x$, $|x^2 - 1| > 2(x+1)$ and $\\dfrac{1}{x-a} > \\dfrac{1}{x-b}$."
+ },
+ {
+  "id": "FP2-2.1",
+  "title": "Method of differences for series",
+  "statement": "Summation of simple finite series using the method of differences.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-7.1",
+   "P4-2.1"
+  ],
+  "glossary": [
+   "method of differences",
+   "telescoping series",
+   "partial fractions",
+   "sigma notation"
+  ],
+  "guidance": "Students should be able to sum series such as $\\displaystyle\\sum_{r=1}^{n} \\dfrac{1}{r(r+1)}$ using partial fractions such as $\\dfrac{1}{r(r+1)} = \\dfrac{1}{r} - \\dfrac{1}{r+1}$."
+ },
+ {
+  "id": "FP2-3.1",
+  "title": "Euler's relation for complex exponentials",
+  "statement": "Euler's relation $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$.",
+  "type": "factual",
+  "prereqs": [
+   "FP1-1.1"
+  ],
+  "glossary": [
+   "euler's relation",
+   "e^(i theta)",
+   "complex exponential form",
+   "cos theta identity",
+   "sin theta identity"
+  ],
+  "guidance": "Students should be familiar with $\\cos\\theta = \\dfrac{1}{2}(e^{i\\theta} + e^{-i\\theta})$ and $\\sin\\theta = \\dfrac{1}{2i}(e^{i\\theta} - e^{-i\\theta})$."
+ },
+ {
+  "id": "FP2-3.2",
+  "title": "De Moivre's theorem and applications",
+  "statement": "De Moivre's theorem and its application to trigonometric identities and to roots of a complex number.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-3.1",
+   "FP1-1.2"
+  ],
+  "glossary": [
+   "de moivre's theorem",
+   "multiple angle formulae",
+   "nth roots of a complex number",
+   "trigonometric identities"
+  ],
+  "guidance": "To include finding $\\cos n\\theta$ and $\\sin n\\theta$ in terms of powers of $\\sin\\theta$ and $\\cos\\theta$ and also powers of $\\sin\\theta$ and $\\cos\\theta$ in terms of multiple angles. Students should be able to prove De Moivre's theorem for any integer $n$."
+ },
+ {
+  "id": "FP2-3.3",
+  "title": "Loci and regions in Argand diagram",
+  "statement": "Loci and regions in the Argand diagram.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-1.3"
+  ],
+  "glossary": [
+   "locus",
+   "argand diagram",
+   "modulus-argument form",
+   "region",
+   "perpendicular bisector locus"
+  ],
+  "guidance": "Loci such as $|z-a| = b$, $|z-a| = k|z-b|$, $\\arg(z-a) = \\beta$, $\\arg\\left(\\dfrac{z-a}{z-b}\\right) = \\beta$, and regions such as $|z-a| \\leqslant |z-b|$ and $|z-a| \\leqslant b$."
+ },
+ {
+  "id": "FP2-3.4",
+  "title": "Transformations from z-plane to w-plane",
+  "statement": "Elementary transformations from the $z$-plane to the $w$-plane.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-3.3"
+  ],
+  "glossary": [
+   "z-plane",
+   "w-plane",
+   "mobius transformation",
+   "complex mapping"
+  ],
+  "guidance": "Transformations such as $w = z^2$ and $w = \\dfrac{az+b}{cz+d}$, where $a, b, c, d \\in \\mathbb{C}$, may be set."
+ },
+ {
+  "id": "FP2-4.1",
+  "title": "Separable first order differential equations",
+  "statement": "Further solution of first order differential equations with separable variables.",
+  "type": "procedural",
+  "prereqs": [
+   "P4-6.4",
+   "P4-5.2"
+  ],
+  "glossary": [
+   "separable variables",
+   "differential equation",
+   "particular solution",
+   "family of solution curves"
+  ],
+  "guidance": "The formation of the differential equation may be required. Students will be expected to obtain particular solutions and also sketch members of the family of solution curves."
+ },
+ {
+  "id": "FP2-4.2",
+  "title": "Linear first order differential equations",
+  "statement": "First order linear differential equations of the form $\\dfrac{dy}{dx} + Py = Q$ where $P$ and $Q$ are functions of $x$.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-4.1"
+  ],
+  "glossary": [
+   "integrating factor",
+   "linear differential equation",
+   "first order de",
+   "e to the integral of p dx"
+  ],
+  "guidance": "The integrating factor $e^{\\int P \\, dx}$ may be quoted without proof."
+ },
+ {
+  "id": "FP2-4.3",
+  "title": "Differential equations reducible by substitution",
+  "statement": "Differential equations reducible to the above types by means of a given substitution.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-4.2"
+  ],
+  "glossary": [
+   "substitution method",
+   "reducible differential equation",
+   "given substitution"
+  ]
+ },
+ {
+  "id": "FP2-5.1",
+  "title": "Second order linear differential equations",
+  "statement": "The linear second order differential equation $a\\dfrac{d^2y}{dx^2} + b\\dfrac{dy}{dx} + cy = f(x)$ where $a$, $b$ and $c$ are real constants and the particular integral can be found by inspection or trial.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-4.2",
+   "FP1-1.4"
+  ],
+  "glossary": [
+   "auxiliary equation",
+   "complementary function",
+   "particular integral",
+   "second order differential equation"
+  ],
+  "guidance": "The auxiliary equation may have real distinct, equal or complex roots. $f(x)$ will have one of the forms $ke^{px}$, $A + Bx$, $p + qx + cx^2$ or $m\\cos\\omega x + n\\sin\\omega x$. Students should be familiar with the terms 'complementary function' and 'particular integral'. Students should be able to solve equations of the form $\\dfrac{d^2y}{dx^2} + 4y = \\sin 2x$."
+ },
+ {
+  "id": "FP2-5.2",
+  "title": "Second order DEs reducible by substitution",
+  "statement": "Differential equations reducible to the above types by means of a given substitution.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-5.1"
+  ],
+  "glossary": [
+   "substitution method",
+   "second order differential equation",
+   "reducible equation"
+  ]
+ },
+ {
+  "id": "FP2-6.1",
+  "title": "Third and higher order derivatives",
+  "statement": "Third and higher order derivatives.",
+  "type": "procedural",
+  "prereqs": [
+   "P3-4.2"
+  ],
+  "glossary": [
+   "higher order derivative",
+   "third derivative",
+   "nth derivative",
+   "d^n y/dx^n"
+  ]
+ },
+ {
+  "id": "FP2-6.2",
+  "title": "Maclaurin series derivation and use",
+  "statement": "Derivation and use of Maclaurin series.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-6.1",
+   "P4-4.1"
+  ],
+  "glossary": [
+   "maclaurin series",
+   "series expansion",
+   "e^x expansion",
+   "ln(1+x) expansion"
+  ],
+  "guidance": "The derivation of the series expansion of $e^x$, $\\sin x$, $\\cos x$, $\\ln(1+x)$ and other simple functions may be required."
+ },
+ {
+  "id": "FP2-6.3",
+  "title": "Taylor series derivation and use",
+  "statement": "Derivation and use of Taylor series.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-6.2"
+  ],
+  "glossary": [
+   "taylor series",
+   "expansion about a point",
+   "ascending powers"
+  ],
+  "guidance": "The derivation, for example, of the expansion of $\\sin x$ in ascending powers of $(x - \\pi)$ up to and including the term in $(x-\\pi)^3$."
+ },
+ {
+  "id": "FP2-6.4",
+  "title": "Series solutions of differential equations",
+  "statement": "Use of Taylor series method for series solutions of differential equations.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-6.3",
+   "FP2-5.1"
+  ],
+  "glossary": [
+   "series solution",
+   "taylor series method",
+   "power series",
+   "initial conditions"
+  ],
+  "guidance": "Students may, for example, be required to find the solution in powers of $x$ as far as the term in $x^4$, of the differential equation $\\dfrac{d^2y}{dx^2} + x\\dfrac{dy}{dx} + y = 0$, such that $y = 1$, $\\dfrac{dy}{dx} = 0$ at $x = 0$."
+ },
+ {
+  "id": "FP2-7.1",
+  "title": "Polar coordinates and curve sketching",
+  "statement": "Polar coordinates $(r, \\theta)$, $r \\geqslant 0$.",
+  "type": "procedural",
+  "prereqs": [
+   "P1-3.2"
+  ],
+  "glossary": [
+   "polar coordinates",
+   "polar curve",
+   "r = a cos 2theta",
+   "polar equation"
+  ],
+  "guidance": "The sketching of curves such as $\\theta = \\alpha$, $r = p\\sec(\\alpha - \\theta)$, $r = a$, $r = 2a\\cos\\theta$, $r = k\\theta$, $r = a(1 \\pm \\cos\\theta)$, $r = a(3 + 2\\cos\\theta)$, $r = a\\cos 2\\theta$ and $r^2 = a^2\\cos 2\\theta$ may be set."
+ },
+ {
+  "id": "FP2-7.2",
+  "title": "Area enclosed by a polar curve",
+  "statement": "Use of the formula $\\dfrac{1}{2}\\displaystyle\\int_{\\alpha}^{\\beta} r^2 \\, d\\theta$ for area.",
+  "type": "procedural",
+  "prereqs": [
+   "FP2-7.1",
+   "P2-8.2"
+  ],
+  "glossary": [
+   "polar area formula",
+   "integral of r squared",
+   "initial line",
+   "tangent to a polar curve"
+  ],
+  "guidance": "The ability to find tangents parallel to, or at right angles to, the initial line is expected."
+ },
+ {
+  "id": "FP3-1.1",
+  "title": "Definitions and identities of hyperbolic functions",
+  "statement": "Definition of the six hyperbolic functions in terms of exponentials. Graphs and properties of the hyperbolic functions.",
+  "type": "factual",
+  "prereqs": [
+   "P3-3.1"
+  ],
+  "glossary": [
+   "hyperbolic functions",
+   "cosh x",
+   "sinh x",
+   "cosh^2 x - sinh^2 x = 1",
+   "tanh x"
+  ],
+  "guidance": "For example, $\\cosh x = \\dfrac{1}{2}(e^x + e^{-x})$, $\\operatorname{sech} x = \\dfrac{1}{\\cosh x} = \\dfrac{2}{e^x + e^{-x}}$. Students should be able to derive and use simple identities such as $\\cosh^2 x - \\sinh^2 x \\equiv 1$ and $\\cosh^2 x + \\sinh^2 x \\equiv \\cosh 2x$ and to solve equations such as $a\\cosh x + b\\sinh x = c$."
+ },
+ {
+  "id": "FP3-1.2",
+  "title": "Inverse hyperbolic functions and logarithmic forms",
+  "statement": "Inverse hyperbolic functions, their graphs, properties and logarithmic equivalents.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-1.1",
+   "P3-3.2"
+  ],
+  "glossary": [
+   "arsinh",
+   "arcosh",
+   "artanh",
+   "logarithmic equivalent",
+   "inverse hyperbolic function"
+  ],
+  "guidance": "For example, $\\operatorname{arsinh} x = \\ln\\left(x + \\sqrt{1+x^2}\\right)$. Students may be required to prove this and similar results."
+ },
+ {
+  "id": "FP3-2.1",
+  "title": "Ellipse and hyperbola equations",
+  "statement": "Cartesian and parametric equations for the ellipse and hyperbola.",
+  "type": "factual",
+  "prereqs": [
+   "FP1-4.1",
+   "FP3-1.1"
+  ],
+  "glossary": [
+   "ellipse",
+   "hyperbola",
+   "parametric equations",
+   "eccentricity",
+   "x^2/a^2 + y^2/b^2 = 1"
+  ],
+  "guidance": "Extension of work from FP1. Students should be familiar with the equations: $\\dfrac{x^2}{a^2} + \\dfrac{y^2}{b^2} = 1$; $x = a\\cos t, y = b\\sin t$. $\\dfrac{x^2}{a^2} - \\dfrac{y^2}{b^2} = 1$; $x = a\\sec t, y = b\\tan t$; $x = a\\cosh t, y = b\\sinh t$."
+ },
+ {
+  "id": "FP3-2.2",
+  "title": "Focus-directrix properties of ellipse and hyperbola",
+  "statement": "The focus-directrix properties of the ellipse and hyperbola, including the eccentricity.",
+  "type": "conceptual",
+  "prereqs": [
+   "FP3-2.1",
+   "FP1-4.3"
+  ],
+  "glossary": [
+   "eccentricity",
+   "focus",
+   "directrix",
+   "b^2 = a^2(1 - e^2)",
+   "foci"
+  ],
+  "guidance": "For example, students should know that, for the ellipse, $b^2 = a^2(1-e^2)$, the foci are $(ae, 0)$ and $(-ae, 0)$ and the equations of the directrices are $x = \\dfrac{a}{e}$ and $x = -\\dfrac{a}{e}$."
+ },
+ {
+  "id": "FP3-2.3",
+  "title": "Tangents and normals to ellipse and hyperbola",
+  "statement": "Tangents and normals to these curves.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-2.1",
+   "FP1-4.4"
+  ],
+  "glossary": [
+   "tangent condition",
+   "y = mx + c",
+   "normal to a curve",
+   "ellipse",
+   "hyperbola"
+  ],
+  "guidance": "The condition for $y = mx + c$ to be a tangent to these curves is expected to be known."
+ },
+ {
+  "id": "FP3-2.4",
+  "title": "Loci problems with conics",
+  "statement": "Simple loci problems.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-2.2"
+  ],
+  "glossary": [
+   "locus",
+   "conic section",
+   "ellipse",
+   "hyperbola"
+  ]
+ },
+ {
+  "id": "FP3-3.1",
+  "title": "Differentiating hyperbolic function expressions",
+  "statement": "Differentiation of hyperbolic functions and expressions involving them.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-1.1",
+   "P3-4.2"
+  ],
+  "glossary": [
+   "derivative of tanh x",
+   "derivative of sinh x",
+   "derivative of cosh x",
+   "product rule",
+   "quotient rule"
+  ],
+  "guidance": "For example, $\\tanh 3x$, $x\\sinh^2 x$, $\\dfrac{\\cosh 2x}{(x+1)^2}$."
+ },
+ {
+  "id": "FP3-3.2",
+  "title": "Differentiating inverse trig and hyperbolic functions",
+  "statement": "Differentiation of inverse functions, including trigonometric and hyperbolic functions.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-3.1",
+   "P3-2.1"
+  ],
+  "glossary": [
+   "arcsin derivative",
+   "artanh derivative",
+   "inverse trigonometric function",
+   "inverse hyperbolic function"
+  ],
+  "guidance": "For example, $\\arcsin x + \\dfrac{x}{\\sqrt{1-x^2}}$, $\\dfrac{1}{2}\\operatorname{artanh}(x^2)$."
+ },
+ {
+  "id": "FP3-4.1",
+  "title": "Integrating hyperbolic function expressions",
+  "statement": "Integration of hyperbolic functions and expressions involving them.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-3.1",
+   "P3-5.1"
+  ],
+  "glossary": [
+   "integral of sinh x",
+   "integral of cosh x",
+   "integral of tanh x",
+   "hyperbolic function integration"
+  ]
+ },
+ {
+  "id": "FP3-4.2",
+  "title": "Integrating inverse trig and hyperbolic functions",
+  "statement": "Integration of inverse trigonometric and hyperbolic functions.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-4.1",
+   "FP3-3.2"
+  ],
+  "glossary": [
+   "integration by parts",
+   "arsinh integral",
+   "arctan integral",
+   "inverse function integration"
+  ],
+  "guidance": "For example, $\\displaystyle\\int \\operatorname{arsinh} x \\, dx$, $\\displaystyle\\int \\arctan x \\, dx$."
+ },
+ {
+  "id": "FP3-4.3",
+  "title": "Hyperbolic and trigonometric substitution integrals",
+  "statement": "Integration using hyperbolic and trigonometric substitutions.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-4.1"
+  ],
+  "glossary": [
+   "trigonometric substitution",
+   "hyperbolic substitution",
+   "standard integral forms",
+   "arsinh substitution"
+  ],
+  "guidance": "To include the integrals of $\\dfrac{1}{\\sqrt{a^2+x^2}}$, $\\dfrac{1}{\\sqrt{a^2-x^2}}$, $\\dfrac{1}{a^2+x^2}$ and $\\dfrac{1}{\\sqrt{x^2-a^2}}$."
+ },
+ {
+  "id": "FP3-4.4",
+  "title": "Integrals involving quadratic surds",
+  "statement": "Use of substitution for integrals involving quadratic surds.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-4.3"
+  ],
+  "glossary": [
+   "quadratic surd",
+   "substitution",
+   "given substitution"
+  ],
+  "guidance": "In more complicated cases, substitutions will be given."
+ },
+ {
+  "id": "FP3-4.5",
+  "title": "Deriving reduction formulae for integrals",
+  "statement": "The derivation and use of simple reduction formulae.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-4.1",
+   "P3-5.2"
+  ],
+  "glossary": [
+   "reduction formula",
+   "recurrence relation for integrals",
+   "integration by parts",
+   "i_n notation"
+  ],
+  "guidance": "Students should be able to derive formulae such as $nI_n = (n-1)I_{n-2}$, $n \\geqslant 2$, for $I_n = \\displaystyle\\int_0^{\\pi/2} \\sin^n x \\, dx$, and $I_n = I_{n-2} + \\dfrac{2\\sin((n-1)x)}{n-1}$ for $I_n = \\displaystyle\\int \\dfrac{\\sin nx}{\\sin x} \\, dx$, $n > 0$."
+ },
+ {
+  "id": "FP3-4.6",
+  "title": "Arc length and surface of revolution",
+  "statement": "The calculation of arc length and the area of a surface of revolution.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-4.5",
+   "P4-6.1"
+  ],
+  "glossary": [
+   "arc length",
+   "surface of revolution",
+   "parametric form",
+   "cartesian form"
+  ],
+  "guidance": "The equation of the curve may be given in Cartesian or parametric form. Equations in polar form will not be set."
+ },
+ {
+  "id": "FP3-5.1",
+  "title": "Vector product and triple scalar product",
+  "statement": "The vector product $\\mathbf{a} \\times \\mathbf{b}$ and the triple scalar product $\\mathbf{a} \\cdot \\mathbf{b} \\times \\mathbf{c}$.",
+  "type": "procedural",
+  "prereqs": [
+   "P4-7.3",
+   "P4-7.7"
+  ],
+  "glossary": [
+   "vector product",
+   "cross product",
+   "triple scalar product",
+   "scalar triple product",
+   "area interpretation"
+  ],
+  "guidance": "The interpretation of $|\\mathbf{a} \\times \\mathbf{b}|$ as an area and $\\mathbf{a} \\cdot \\mathbf{b} \\times \\mathbf{c}$ as a volume."
+ },
+ {
+  "id": "FP3-5.2",
+  "title": "Vector equations of lines and planes",
+  "statement": "Use of vectors in problems involving points, lines and planes. The equation of a line in the form $(\\mathbf{r} - \\mathbf{a}) \\times \\mathbf{b} = \\mathbf{0}$.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-5.1",
+   "P4-7.6"
+  ],
+  "glossary": [
+   "skew lines",
+   "line of intersection",
+   "distance from point to plane",
+   "vector equation of a line"
+  ],
+  "guidance": "Students may be required to use equivalent Cartesian forms also. Applications to include (i) distance from a point to a plane, (ii) line of intersection of two planes, (iii) shortest distance between two skew lines."
+ },
+ {
+  "id": "FP3-5.3",
+  "title": "Vector and cartesian equations of planes",
+  "statement": "The equation of a plane in the forms $\\mathbf{r} \\cdot \\mathbf{n} = p$, $\\mathbf{r} = \\mathbf{a} + s\\mathbf{b} + t\\mathbf{c}$.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-5.2"
+  ],
+  "glossary": [
+   "equation of a plane",
+   "normal vector form",
+   "parametric plane equation",
+   "r.n = p"
+  ],
+  "guidance": "Students may be required to use equivalent Cartesian forms also."
+ },
+ {
+  "id": "FP3-6.1",
+  "title": "Matrix transformations in three dimensions",
+  "statement": "Linear transformations of column vectors in two and three dimensions and their matrix representation.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-6.1",
+   "P4-7.1"
+  ],
+  "glossary": [
+   "3d transformation",
+   "column vector",
+   "matrix representation",
+   "linear transformation"
+  ],
+  "guidance": "Extension of work from FP1 to 3 dimensions."
+ },
+ {
+  "id": "FP3-6.2",
+  "title": "Combining 3D matrix transformations",
+  "statement": "Combination of transformations. Products of matrices.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-6.1",
+   "FP1-6.3"
+  ],
+  "glossary": [
+   "combined transformation",
+   "matrix product",
+   "3d transformation"
+  ],
+  "guidance": "The transformation represented by $AB$ is the transformation represented by $B$ followed by the transformation represented by $A$."
+ },
+ {
+  "id": "FP3-6.3",
+  "title": "Transpose of a matrix",
+  "statement": "Transpose of a matrix.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-6.2"
+  ],
+  "glossary": [
+   "transpose",
+   "matrix transpose",
+   "(ab)^t = b^t a^t"
+  ],
+  "guidance": "Use of the relation $(AB)^T = B^T A^T$."
+ },
+ {
+  "id": "FP3-6.4",
+  "title": "Evaluating 3x3 determinants",
+  "statement": "Evaluation of $3 \\times 3$ determinants.",
+  "type": "procedural",
+  "prereqs": [
+   "FP1-5.4"
+  ],
+  "glossary": [
+   "determinant",
+   "3x3 matrix",
+   "singular matrix",
+   "cofactor expansion"
+  ],
+  "guidance": "Singular and non-singular matrices."
+ },
+ {
+  "id": "FP3-6.5",
+  "title": "Inverse of 3x3 matrices",
+  "statement": "Inverse of $3 \\times 3$ matrices.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-6.4",
+   "FP1-5.5"
+  ],
+  "glossary": [
+   "inverse matrix",
+   "adjugate matrix",
+   "3x3 matrix",
+   "(ab)^-1 = b^-1 a^-1"
+  ],
+  "guidance": "Use of the relation $(AB)^{-1} = B^{-1}A^{-1}$."
+ },
+ {
+  "id": "FP3-6.6",
+  "title": "Inverse of 3D transformations",
+  "statement": "The inverse (when it exists) of a given transformation or combination of transformations.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-6.5",
+   "FP3-6.2"
+  ],
+  "glossary": [
+   "inverse transformation",
+   "3d transformation",
+   "combination of transformations"
+  ]
+ },
+ {
+  "id": "FP3-6.7",
+  "title": "Eigenvalues and eigenvectors of matrices",
+  "statement": "Eigenvalues and eigenvectors of $2 \\times 2$ and $3 \\times 3$ matrices.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-6.5"
+  ],
+  "glossary": [
+   "eigenvalue",
+   "eigenvector",
+   "characteristic equation",
+   "normalised vector"
+  ],
+  "guidance": "Normalised vectors may be required."
+ },
+ {
+  "id": "FP3-6.8",
+  "title": "Diagonalising symmetric matrices",
+  "statement": "Reduction of symmetric matrices to diagonal form.",
+  "type": "procedural",
+  "prereqs": [
+   "FP3-6.7",
+   "FP3-6.3"
+  ],
+  "glossary": [
+   "diagonalisation",
+   "orthogonal matrix",
+   "symmetric matrix",
+   "p^t a p"
+  ],
+  "guidance": "Students should be able to find an orthogonal matrix $P$ such that $P^TAP$ is diagonal."
+ }
+]
