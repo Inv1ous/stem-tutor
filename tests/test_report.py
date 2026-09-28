@@ -89,3 +89,8 @@ def test_brief_caps_missing_pack_list(tutor, monkeypatch):
     monkeypatch.setattr(policy, "missing_packs", lambda p, now: [f"X-{i}" for i in range(50)])
     b = report.brief(tutor)
     assert b["missing_packs"] == {"count": 50, "next": ["X-0", "X-1", "X-2", "X-3", "X-4"]}
+
+
+def test_unicode_scripts_become_latex_for_notes():
+    assert report.to_note_math("H₂SO₄ and 8 × 10² kg m⁻³") == "H$_{2}$SO$_{4}$ and 8 × 10$^{2}$ kg m$^{-3}$"
+    assert report.to_note_math("plain $x^2$ stays") == "plain $x^2$ stays"

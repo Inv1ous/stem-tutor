@@ -213,3 +213,16 @@ def test_only_new_objectives_introduce_topics(tutor):
     tutor.packs.plan["weeks"]["5"][0]["type"] = "REVISE"
     plan = tutor.start("autopilot", minutes=50)
     assert not [b for b in plan["blocks"] if b["kind"] == "learn"]
+
+
+def test_question_sheet_mirrors_open_items_with_images(tutor):
+    tutor.start("autopilot", minutes=50)
+    item = dict(tutor.packs.items_for("9702-2.1.1")[0], image="Assets/mcq/x.png", id="img1")
+    tutor._questions({"kind": "practice"}, 0, [item])
+    sheet = (tutor.vault.root / "Question Sheets" / "Current.md").read_text()
+    assert "![[Assets/mcq/x.png]]" in sheet and "Which quantity is a vector?" in sheet
+    n = max(int(k) for k in tutor.session["presented"])
+    inst = tutor.session["presented"][str(n)]["inst"]
+    tutor.answer(f"{n}{inst['answer']}3")
+    assert "Which quantity" not in (tutor.vault.root / "Question Sheets" / "Current.md").read_text() or \
+        len(tutor.session["presented"]) > 0

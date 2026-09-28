@@ -45,6 +45,9 @@ class Tutor:
 
     def _save(self) -> None:
         write_json(self.state_path, self.state)
+        if self.session is not None or (self.vault.root / "Question Sheets" / "Current.md").exists():
+            from . import report
+            report.question_sheet(self)
         if self.session:
             write_json(self.session_path, self.session)
         else:

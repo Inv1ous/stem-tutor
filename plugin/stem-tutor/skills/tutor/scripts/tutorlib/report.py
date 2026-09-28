@@ -1,6 +1,7 @@
 """Human-facing outputs written by code (zero model tokens): brief, Today, Profile, session notes, Almanac sync."""
 from __future__ import annotations
 
+import re
 from collections import Counter
 from datetime import date, datetime
 
@@ -12,6 +13,41 @@ ERRFAM = {"RECALL": "Could not recall", "MISREAD": "Misread the question", "CONC
           "PROCEDURE": "Wrong method", "STRATEGY": "Wrong method", "NOTATION": "Careless arithmetic",
           "TIME": "Ran out of time"}
 CONF_WORD = {1: "guess", 2: "unsure", 3: "fairly sure", 4: "certain"}
+
+
+_SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ", "0123456789+-=()n")
+_SUB = str.maketrans("₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₒₓₕₖₗₘₙₚₛₜ", "0123456789+-=()aeoxhklmnpst")
+
+
+def to_note_math(text: str) -> str:
+    """Unicode super/subscripts (from mined papers) -> inline LaTeX, since note fonts may lack the glyphs."""
+    parts = re.split(r"(\$[^$]*\$)", text)
+    for i, part in enumerate(parts):
+        if part.startswith("$"):
+            continue
+        part = re.sub(r"[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ]+", lambda m: "$^{" + m.group(0).translate(_SUP) + "}$", part)
+        parts[i] = re.sub(r"[₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₒₓₕₖₗₘₙₚₛₜ]+", lambda m: "$_{" + m.group(0).translate(_SUB) + "}$", part)
+    return "".join(parts)
+
+
+def question_sheet(tutor) -> str:
+    """Mirror the open questions into Question Sheets/Current.md (Obsidian live-reloads it)."""
+    s = tutor.session or {}
+    lines = [f"# Current questions", f"_Updated {tutor.now():%H:%M}. Answer in the Cowork chat._", ""]
+    for n in sorted(s.get("presented", {}), key=int):
+        p = s["presented"][n]
+        inst = p["inst"]
+        flag = " · no hints" if p.get("unassisted") else ""
+        src = f" · {inst['source']['ref']}" if inst.get("source", {}).get("type") == "past" else ""
+        lines += [f"## Q{n}{flag}{src}", "", to_note_math(inst.get("stem", "")), ""]
+        if inst.get("image"):
+            lines += [f"![[{inst['image']}]]", ""]
+        for k, v in (inst.get("options") or {}).items():
+            lines.append(f"- **{k}** {to_note_math(v)}")
+        lines.append("")
+    if not s.get("presented"):
+        lines.append("No open questions.")
+    return _write(tutor, "Question Sheets/Current.md", "\n".join(lines) + "\n")
 
 
 def _errfam(code: str, subject: str) -> str:
@@ -98,7 +134,7 @@ def session_note(tutor, session_id: str) -> str:
         kind = "success" if g["correct"] else "failure"
         tag = f" · {g['error']}" if g.get("error") else ""
         lines.append(f"> [!{kind}]- Q{i} · {', '.join(a['kcs'])} · {a.get('phase') or a.get('block')}{tag}")
-        for l in _item_stem(tutor, a["item"], a.get("params")).split("\n"):
+        for l in to_note_math(_item_stem(tutor, a["item"], a.get("params"))).split("\n"):
             lines.append(f"> {l}")
         conf = CONF_WORD.get(a.get("conf"), "–")
         lines.append(f"> **Your answer:** {a.get('response', '–')} ({conf}) · score {g['score']}")
