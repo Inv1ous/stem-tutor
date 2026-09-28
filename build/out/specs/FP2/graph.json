@@ -1,0 +1,393 @@
+{
+ "spec": "FP2",
+ "subject": "math",
+ "title": "Edexcel IAL Further Pure Mathematics 2",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "FP2",
+   "title": "Further Pure Mathematics 2",
+   "level": "FP2"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "FP2-1",
+   "title": "Inequalities",
+   "topic": "FP2"
+  },
+  {
+   "id": "FP2-2",
+   "title": "Series",
+   "topic": "FP2"
+  },
+  {
+   "id": "FP2-3",
+   "title": "Further complex numbers",
+   "topic": "FP2"
+  },
+  {
+   "id": "FP2-4",
+   "title": "First order differential equations",
+   "topic": "FP2"
+  },
+  {
+   "id": "FP2-5",
+   "title": "Second order differential equations",
+   "topic": "FP2"
+  },
+  {
+   "id": "FP2-6",
+   "title": "Maclaurin and Taylor series",
+   "topic": "FP2"
+  },
+  {
+   "id": "FP2-7",
+   "title": "Polar coordinates",
+   "topic": "FP2"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "FP2-1.1",
+   "subtopic": "FP2-1",
+   "level": "FP2",
+   "title": "Solving algebraic and modulus inequalities",
+   "statement": "The manipulation and solution of algebraic inequalities and inequations, including those involving the modulus sign.",
+   "raw": "The manipulation and solution of algebraic inequalities and inequations, including those involving the modulus sign.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.9",
+    "P3-1.3"
+   ],
+   "glossary": [
+    "modulus inequality",
+    "algebraic inequality",
+    "inequation",
+    "critical values"
+   ],
+   "guidance": "The solution of inequalities such as $\\dfrac{1}{x} > x$, $|x^2 - 1| > 2(x+1)$ and $\\dfrac{1}{x-a} > \\dfrac{1}{x-b}$."
+  },
+  {
+   "id": "FP2-2.1",
+   "subtopic": "FP2-2",
+   "level": "FP2",
+   "title": "Method of differences for series",
+   "statement": "Summation of simple finite series using the method of differences.",
+   "raw": "Summation of simple finite series using the method of differences.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-7.1",
+    "P4-2.1"
+   ],
+   "glossary": [
+    "method of differences",
+    "telescoping series",
+    "partial fractions",
+    "sigma notation"
+   ],
+   "guidance": "Students should be able to sum series such as $\\displaystyle\\sum_{r=1}^{n} \\dfrac{1}{r(r+1)}$ using partial fractions such as $\\dfrac{1}{r(r+1)} = \\dfrac{1}{r} - \\dfrac{1}{r+1}$."
+  },
+  {
+   "id": "FP2-3.1",
+   "subtopic": "FP2-3",
+   "level": "FP2",
+   "title": "Euler's relation for complex exponentials",
+   "statement": "Euler's relation $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$.",
+   "raw": "Euler’s relation eiθ = cos θ + i sin θ.",
+   "type": "factual",
+   "prereqs": [
+    "FP1-1.1"
+   ],
+   "glossary": [
+    "euler's relation",
+    "e^(i theta)",
+    "complex exponential form",
+    "cos theta identity",
+    "sin theta identity"
+   ],
+   "guidance": "Students should be familiar with $\\cos\\theta = \\dfrac{1}{2}(e^{i\\theta} + e^{-i\\theta})$ and $\\sin\\theta = \\dfrac{1}{2i}(e^{i\\theta} - e^{-i\\theta})$."
+  },
+  {
+   "id": "FP2-3.2",
+   "subtopic": "FP2-3",
+   "level": "FP2",
+   "title": "De Moivre's theorem and applications",
+   "statement": "De Moivre's theorem and its application to trigonometric identities and to roots of a complex number.",
+   "raw": "De Moivre’s theorem and its application to trigonometric identities and to roots of a complex number.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-3.1",
+    "FP1-1.2"
+   ],
+   "glossary": [
+    "de moivre's theorem",
+    "multiple angle formulae",
+    "nth roots of a complex number",
+    "trigonometric identities"
+   ],
+   "guidance": "To include finding $\\cos n\\theta$ and $\\sin n\\theta$ in terms of powers of $\\sin\\theta$ and $\\cos\\theta$ and also powers of $\\sin\\theta$ and $\\cos\\theta$ in terms of multiple angles. Students should be able to prove De Moivre's theorem for any integer $n$."
+  },
+  {
+   "id": "FP2-3.3",
+   "subtopic": "FP2-3",
+   "level": "FP2",
+   "title": "Loci and regions in Argand diagram",
+   "statement": "Loci and regions in the Argand diagram.",
+   "raw": "Loci and regions in the Argand diagram.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-1.3"
+   ],
+   "glossary": [
+    "locus",
+    "argand diagram",
+    "modulus-argument form",
+    "region",
+    "perpendicular bisector locus"
+   ],
+   "guidance": "Loci such as $|z-a| = b$, $|z-a| = k|z-b|$, $\\arg(z-a) = \\beta$, $\\arg\\left(\\dfrac{z-a}{z-b}\\right) = \\beta$, and regions such as $|z-a| \\leqslant |z-b|$ and $|z-a| \\leqslant b$."
+  },
+  {
+   "id": "FP2-3.4",
+   "subtopic": "FP2-3",
+   "level": "FP2",
+   "title": "Transformations from z-plane to w-plane",
+   "statement": "Elementary transformations from the $z$-plane to the $w$-plane.",
+   "raw": "Elementary transformations from the z-plane to the w-plane.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-3.3"
+   ],
+   "glossary": [
+    "z-plane",
+    "w-plane",
+    "mobius transformation",
+    "complex mapping"
+   ],
+   "guidance": "Transformations such as $w = z^2$ and $w = \\dfrac{az+b}{cz+d}$, where $a, b, c, d \\in \\mathbb{C}$, may be set."
+  },
+  {
+   "id": "FP2-4.1",
+   "subtopic": "FP2-4",
+   "level": "FP2",
+   "title": "Separable first order differential equations",
+   "statement": "Further solution of first order differential equations with separable variables.",
+   "raw": "Further solution of first order differential equations with separable variables.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-6.4",
+    "P4-5.2"
+   ],
+   "glossary": [
+    "separable variables",
+    "differential equation",
+    "particular solution",
+    "family of solution curves"
+   ],
+   "guidance": "The formation of the differential equation may be required. Students will be expected to obtain particular solutions and also sketch members of the family of solution curves."
+  },
+  {
+   "id": "FP2-4.2",
+   "subtopic": "FP2-4",
+   "level": "FP2",
+   "title": "Linear first order differential equations",
+   "statement": "First order linear differential equations of the form $\\dfrac{dy}{dx} + Py = Q$ where $P$ and $Q$ are functions of $x$.",
+   "raw": "First order linear differential equations of the form d y x + Py = Q d where P and Q are functions of x.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-4.1"
+   ],
+   "glossary": [
+    "integrating factor",
+    "linear differential equation",
+    "first order de",
+    "e to the integral of p dx"
+   ],
+   "guidance": "The integrating factor $e^{\\int P \\, dx}$ may be quoted without proof."
+  },
+  {
+   "id": "FP2-4.3",
+   "subtopic": "FP2-4",
+   "level": "FP2",
+   "title": "Differential equations reducible by substitution",
+   "statement": "Differential equations reducible to the above types by means of a given substitution.",
+   "raw": "Differential equations reducible to the above types by means of a given substitution.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-4.2"
+   ],
+   "glossary": [
+    "substitution method",
+    "reducible differential equation",
+    "given substitution"
+   ]
+  },
+  {
+   "id": "FP2-5.1",
+   "subtopic": "FP2-5",
+   "level": "FP2",
+   "title": "Second order linear differential equations",
+   "statement": "The linear second order differential equation $a\\dfrac{d^2y}{dx^2} + b\\dfrac{dy}{dx} + cy = f(x)$ where $a$, $b$ and $c$ are real constants and the particular integral can be found by inspection or trial.",
+   "raw": "The linear second order differential x + b d y 2 y d equation a x + cy  = f(x) d 2 d where a, b and c are real constants and the particular integral can be found by inspection or trial.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-4.2",
+    "FP1-1.4"
+   ],
+   "glossary": [
+    "auxiliary equation",
+    "complementary function",
+    "particular integral",
+    "second order differential equation"
+   ],
+   "guidance": "The auxiliary equation may have real distinct, equal or complex roots. $f(x)$ will have one of the forms $ke^{px}$, $A + Bx$, $p + qx + cx^2$ or $m\\cos\\omega x + n\\sin\\omega x$. Students should be familiar with the terms 'complementary function' and 'particular integral'. Students should be able to solve equations of the form $\\dfrac{d^2y}{dx^2} + 4y = \\sin 2x$."
+  },
+  {
+   "id": "FP2-5.2",
+   "subtopic": "FP2-5",
+   "level": "FP2",
+   "title": "Second order DEs reducible by substitution",
+   "statement": "Differential equations reducible to the above types by means of a given substitution.",
+   "raw": "Differential equations reducible to the above types by means of a given substitution.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-5.1"
+   ],
+   "glossary": [
+    "substitution method",
+    "second order differential equation",
+    "reducible equation"
+   ]
+  },
+  {
+   "id": "FP2-6.1",
+   "subtopic": "FP2-6",
+   "level": "FP2",
+   "title": "Third and higher order derivatives",
+   "statement": "Third and higher order derivatives.",
+   "raw": "Third and higher order derivatives.",
+   "type": "procedural",
+   "prereqs": [
+    "P3-4.2"
+   ],
+   "glossary": [
+    "higher order derivative",
+    "third derivative",
+    "nth derivative",
+    "d^n y/dx^n"
+   ]
+  },
+  {
+   "id": "FP2-6.2",
+   "subtopic": "FP2-6",
+   "level": "FP2",
+   "title": "Maclaurin series derivation and use",
+   "statement": "Derivation and use of Maclaurin series.",
+   "raw": "Derivation and use of Maclaurin series.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-6.1",
+    "P4-4.1"
+   ],
+   "glossary": [
+    "maclaurin series",
+    "series expansion",
+    "e^x expansion",
+    "ln(1+x) expansion"
+   ],
+   "guidance": "The derivation of the series expansion of $e^x$, $\\sin x$, $\\cos x$, $\\ln(1+x)$ and other simple functions may be required."
+  },
+  {
+   "id": "FP2-6.3",
+   "subtopic": "FP2-6",
+   "level": "FP2",
+   "title": "Taylor series derivation and use",
+   "statement": "Derivation and use of Taylor series.",
+   "raw": "Derivation and use of Taylor series.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-6.2"
+   ],
+   "glossary": [
+    "taylor series",
+    "expansion about a point",
+    "ascending powers"
+   ],
+   "guidance": "The derivation, for example, of the expansion of $\\sin x$ in ascending powers of $(x - \\pi)$ up to and including the term in $(x-\\pi)^3$."
+  },
+  {
+   "id": "FP2-6.4",
+   "subtopic": "FP2-6",
+   "level": "FP2",
+   "title": "Series solutions of differential equations",
+   "statement": "Use of Taylor series method for series solutions of differential equations.",
+   "raw": "Use of Taylor series method for series solutions of differential equations.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-6.3",
+    "FP2-5.1"
+   ],
+   "glossary": [
+    "series solution",
+    "taylor series method",
+    "power series",
+    "initial conditions"
+   ],
+   "guidance": "Students may, for example, be required to find the solution in powers of $x$ as far as the term in $x^4$, of the differential equation $\\dfrac{d^2y}{dx^2} + x\\dfrac{dy}{dx} + y = 0$, such that $y = 1$, $\\dfrac{dy}{dx} = 0$ at $x = 0$."
+  },
+  {
+   "id": "FP2-7.1",
+   "subtopic": "FP2-7",
+   "level": "FP2",
+   "title": "Polar coordinates and curve sketching",
+   "statement": "Polar coordinates $(r, \\theta)$, $r \\geqslant 0$.",
+   "raw": "Polar coordinates (r, θ), r  0.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-3.2"
+   ],
+   "glossary": [
+    "polar coordinates",
+    "polar curve",
+    "r = a cos 2theta",
+    "polar equation"
+   ],
+   "guidance": "The sketching of curves such as $\\theta = \\alpha$, $r = p\\sec(\\alpha - \\theta)$, $r = a$, $r = 2a\\cos\\theta$, $r = k\\theta$, $r = a(1 \\pm \\cos\\theta)$, $r = a(3 + 2\\cos\\theta)$, $r = a\\cos 2\\theta$ and $r^2 = a^2\\cos 2\\theta$ may be set."
+  },
+  {
+   "id": "FP2-7.2",
+   "subtopic": "FP2-7",
+   "level": "FP2",
+   "title": "Area enclosed by a polar curve",
+   "statement": "Use of the formula $\\dfrac{1}{2}\\displaystyle\\int_{\\alpha}^{\\beta} r^2 \\, d\\theta$ for area.",
+   "raw": "β ∫ Use of the formula r 2 d θ 1 2 α for area.",
+   "type": "procedural",
+   "prereqs": [
+    "FP2-7.1",
+    "P2-8.2"
+   ],
+   "glossary": [
+    "polar area formula",
+    "integral of r squared",
+    "initial line",
+    "tangent to a polar curve"
+   ],
+   "guidance": "The ability to find tangents parallel to, or at right angles to, the initial line is expected."
+  }
+ ]
+}

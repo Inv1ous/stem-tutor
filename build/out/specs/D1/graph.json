@@ -1,0 +1,349 @@
+{
+ "spec": "D1",
+ "subject": "math",
+ "title": "Edexcel IAL Decision Mathematics 1",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "D1",
+   "title": "Decision Mathematics 1",
+   "level": "D1"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "D1-1",
+   "title": "Algorithms",
+   "topic": "D1"
+  },
+  {
+   "id": "D1-2",
+   "title": "Algorithms on graphs",
+   "topic": "D1"
+  },
+  {
+   "id": "D1-3",
+   "title": "Algorithms on graphs II",
+   "topic": "D1"
+  },
+  {
+   "id": "D1-4",
+   "title": "Critical path analysis",
+   "topic": "D1"
+  },
+  {
+   "id": "D1-5",
+   "title": "Linear programming",
+   "topic": "D1"
+  },
+  {
+   "id": "D1-1",
+   "title": "Algorithms",
+   "topic": "D1"
+  },
+  {
+   "id": "D1-2",
+   "title": "Algorithms on graphs",
+   "topic": "D1"
+  },
+  {
+   "id": "D1-3",
+   "title": "Critical path analysis",
+   "topic": "D1"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "D1-1.1",
+   "subtopic": "D1-1",
+   "level": "D1",
+   "title": "Algorithms as flow charts or text",
+   "statement": "The general ideas of algorithms and the implementation of an algorithm given by a flow chart or text.",
+   "raw": "The general ideas of algorithms and the implementation of an algorithm given by a flow chart or text.",
+   "type": "procedural",
+   "prereqs": [],
+   "glossary": [
+    "algorithm",
+    "flow chart",
+    "middle item of a list"
+   ],
+   "guidance": "The order of an algorithm is not expected. Whenever finding the middle item of any list, the method defined in the glossary must be used: the middle item of a list of $N$ items is at position $\\left[\\tfrac{1}{2}(N+1)\\right]$ if $N$ is odd, and $\\left[\\tfrac{1}{2}(N+2)\\right]$ if $N$ is even."
+  },
+  {
+   "id": "D1-1.2",
+   "subtopic": "D1-1",
+   "level": "D1",
+   "title": "Bin packing and sorting algorithms",
+   "statement": "Students should be familiar with bin packing, bubble sort, quick sort, binary search.",
+   "raw": "Students should be familiar with bin packing, bubble sort, quick sort, binary search.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-1.1"
+   ],
+   "glossary": [
+    "bin packing",
+    "bubble sort",
+    "quick sort",
+    "binary search",
+    "pivot"
+   ],
+   "guidance": "When using the quick sort algorithm, the pivot should be chosen as the middle item of the list."
+  },
+  {
+   "id": "D1-2.1",
+   "subtopic": "D1-2",
+   "level": "D1",
+   "title": "Minimum spanning tree algorithms",
+   "statement": "The minimum spanning tree (minimum connector) problem. Prim's and Kruskal's algorithm.",
+   "raw": "The minimum spanning tree (minimum connector) problem. Prim’s and Kruskal’s algorithm.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-1.1"
+   ],
+   "glossary": [
+    "minimum spanning tree",
+    "minimum connector",
+    "prim's algorithm",
+    "kruskal's algorithm",
+    "weighted network"
+   ],
+   "guidance": "Matrix representation for Prim's algorithm is expected. Drawing a network from a given matrix and writing down the matrix associated with a network will be involved."
+  },
+  {
+   "id": "D1-2.2",
+   "subtopic": "D1-2",
+   "level": "D1",
+   "title": "Dijkstra's shortest path algorithm",
+   "statement": "Dijkstra's algorithm for finding the shortest path.",
+   "raw": "Dijkstra’s algorithm for finding the shortest path.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-2.1"
+   ],
+   "glossary": [
+    "dijkstra's algorithm",
+    "shortest path",
+    "weighted network"
+   ]
+  },
+  {
+   "id": "D1-3.1",
+   "subtopic": "D1-3",
+   "level": "D1",
+   "title": "Route inspection (Chinese postman) problem",
+   "statement": "Algorithm for finding the shortest route around a network, travelling along every edge at least once and ending at the start vertex. The network will have up to four odd nodes.",
+   "raw": "Algorithm for finding the shortest route around a network, travelling along every edge at least once and ending at the start vertex. The network will have up to four odd nodes.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-2.2"
+   ],
+   "glossary": [
+    "route inspection problem",
+    "chinese postman problem",
+    "odd node",
+    "pairing odd vertices"
+   ],
+   "guidance": "Also known as the 'Chinese postman' problem. Students will be expected to use inspection to consider all possible pairings of odd nodes. (The application of Floyd's algorithm to the odd nodes is not required.)"
+  },
+  {
+   "id": "D1-3.2",
+   "subtopic": "D1-3",
+   "level": "D1",
+   "title": "Travelling salesman problem",
+   "statement": "The practical and classical Travelling Salesman problems. The classical problem for complete graphs satisfying the triangle inequality.",
+   "raw": "The practical and classical Travelling Salesman problems. The classical problem for complete graphs satisfying the triangle inequality.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-3.1"
+   ],
+   "glossary": [
+    "travelling salesman problem",
+    "classical problem",
+    "practical problem",
+    "complete graph",
+    "triangle inequality"
+   ],
+   "guidance": "The use of short cuts to improve upper bound is included."
+  },
+  {
+   "id": "D1-3.3",
+   "subtopic": "D1-3",
+   "level": "D1",
+   "title": "Upper and lower bounds for TSP",
+   "statement": "Determination of upper and lower bounds using minimum spanning tree methods.",
+   "raw": "Determination of upper and lower bounds using minimum spanning tree methods.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-2.1",
+    "D1-3.2"
+   ],
+   "glossary": [
+    "upper bound",
+    "lower bound",
+    "minimum spanning tree",
+    "complete network of shortest distances"
+   ],
+   "guidance": "The conversion of a network into a complete network of shortest 'distances' is included."
+  },
+  {
+   "id": "D1-3.4",
+   "subtopic": "D1-3",
+   "level": "D1",
+   "title": "Nearest neighbour algorithm",
+   "statement": "The nearest neighbour algorithm.",
+   "raw": "The nearest neighbour algorithm.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-3.2"
+   ],
+   "glossary": [
+    "nearest neighbour algorithm",
+    "upper bound",
+    "travelling salesman problem"
+   ]
+  },
+  {
+   "id": "D1-4.1",
+   "subtopic": "D1-4",
+   "level": "D1",
+   "title": "Activity networks from precedence tables",
+   "statement": "Modelling of a project by an activity network, from a precedence table.",
+   "raw": "Modelling of a project by an activity network, from a precedence table.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-1.1"
+   ],
+   "glossary": [
+    "activity network",
+    "precedence table",
+    "activity on arc",
+    "dummy activity",
+    "immediate predecessor"
+   ],
+   "guidance": "Activity on arc will be used. The use of dummies is included. In a precedence network, precedence tables will only show immediate predecessors."
+  },
+  {
+   "id": "D1-4.2",
+   "subtopic": "D1-4",
+   "level": "D1",
+   "title": "Precedence tables from activity networks",
+   "statement": "Completion of the precedence table for a given activity network.",
+   "raw": "Completion of the precedence table for a given activity network.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-4.1"
+   ],
+   "glossary": [
+    "precedence table",
+    "activity network",
+    "immediate predecessor"
+   ]
+  },
+  {
+   "id": "D1-4.3",
+   "subtopic": "D1-4",
+   "level": "D1",
+   "title": "Critical path algorithm",
+   "statement": "Algorithm for finding the critical path. Earliest and latest event times. Earliest and latest start and finish times for activities.",
+   "raw": "Algorithm for finding the critical path. Earliest and latest event times. Earliest and latest start and finish times for activities.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-4.1"
+   ],
+   "glossary": [
+    "critical path",
+    "earliest event time",
+    "latest event time",
+    "earliest start time",
+    "latest finish time"
+   ]
+  },
+  {
+   "id": "D1-4.4",
+   "subtopic": "D1-4",
+   "level": "D1",
+   "title": "Total float and Gantt charts",
+   "statement": "Total float. Gantt (cascade) charts. Scheduling.",
+   "raw": "Total float. Gantt (cascade) charts. Scheduling.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-4.3"
+   ],
+   "glossary": [
+    "total float",
+    "f(i,j) = lj - ei - duration(i,j)",
+    "gantt chart",
+    "cascade chart",
+    "scheduling"
+   ],
+   "guidance": "The total float $F(i,j)$ of activity $(i,j)$ is defined to be $F(i,j) = l_j - e_i - \\text{duration}(i,j)$, where $e_i$ is the earliest time for event $i$ and $l_j$ is the latest time for event $j$."
+  },
+  {
+   "id": "D1-5.1",
+   "subtopic": "D1-5",
+   "level": "D1",
+   "title": "Formulating linear programs",
+   "statement": "Formulation of problems as linear programs.",
+   "raw": "Formulation of problems as linear programs.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-1.1"
+   ],
+   "glossary": [
+    "linear programming",
+    "objective function",
+    "constraint",
+    "decision variable"
+   ]
+  },
+  {
+   "id": "D1-5.2",
+   "subtopic": "D1-5",
+   "level": "D1",
+   "title": "Graphical solution of linear programs",
+   "statement": "Graphical solution of two variable problems using ruler and vertex methods.",
+   "raw": "Graphical solution of two variable problems using ruler and vertex methods.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-5.1"
+   ],
+   "glossary": [
+    "feasible region",
+    "ruler method",
+    "vertex method",
+    "objective line"
+   ]
+  },
+  {
+   "id": "D1-5.3",
+   "subtopic": "D1-5",
+   "level": "D1",
+   "title": "Integer solutions to linear programs",
+   "statement": "Consideration of problems where solutions must have integer values.",
+   "raw": "Consideration of problems where solutions must have integer values. Glossary for D1 In a list containing N items the ‘middle’ item has position [ so that if N = 9, the middle item is the 5th and if N = 6 it is the 4th. A graph G consists of points (vertices or nodes) which are connected by lines (edges or arcs). A subgraph of G is a graph, each of whose vertices belongs to G and each of whose edges belongs to G. If a graph has a number associated with each edge (usually called its weight) then the graph is called a weighted graph or network. The degree or valency of a vertex is the number of edges incident to it. A vertex is odd (even) if it has odd (even) degree. A path is a finite sequence of edges, such that the end vertex of one edge in the sequence is the start vertex of the next, and in which no vertex appears more than once. A cycle (circuit) is a closed path, i.e. the end vertex of the last edge is the start vertex of the first edge. Two vertices are connected if there is a path between them. A graph is connected if all its vertices are connected. If the edges of a graph have a direction associated with them they are known as directed edges and the graph is known as a digraph. A tree is a connected graph with no cycles. A spanning tree of a graph G is a subgraph which includes all the vertices of G and is also a tree. A minimum spanning tree (MST) is a spanning tree such that the total length of its arcs is as small as possible. (MST is sometimes called a minimum connector.) A graph in which each of the n vertices is connected to every other vertex is called a complete graph. The travelling salesman problem is ‘find a route of minimum length which visits every vertex in an undirected network’. In the ‘classical’ problem, each vertex is visited once only. In the ‘practical’ problem, a vertex may be revisited. For three vertices A, B and C, the triangular inequality is ‘length AB  length AC + length CB’, where AB is a longest length. A walk in a network is a finite sequence of edges such that the end vertex of one edge is the start vertex of the next. A walk which visits every vertex, returning to its starting vertex, is called a tour. The total float F(i, j) of activity (i, j) is defined to be F(i, j) = lj − ei − duration (i, j), where ei is the earliest time for event i and lj is the latest time for event j.",
+   "type": "procedural",
+   "prereqs": [
+    "D1-5.2"
+   ],
+   "glossary": [
+    "integer programming",
+    "feasible region",
+    "integer-valued solution"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,350 @@
+{
+ "spec": "S2",
+ "subject": "math",
+ "title": "Edexcel IAL Statistics 2",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "S2",
+   "title": "Statistics 2",
+   "level": "S2"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "S2-1",
+   "title": "The Binomial and Poisson distributions",
+   "topic": "S2"
+  },
+  {
+   "id": "S2-2",
+   "title": "Continuous random variables",
+   "topic": "S2"
+  },
+  {
+   "id": "S2-3",
+   "title": "Continuous distributions",
+   "topic": "S2"
+  },
+  {
+   "id": "S2-4",
+   "title": "Hypothesis tests",
+   "topic": "S2"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "S2-1.1",
+   "subtopic": "S2-1",
+   "level": "S2",
+   "title": "Binomial and Poisson distributions",
+   "statement": "The binomial and Poisson distributions.",
+   "raw": "The binomial and Poisson distributions.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-5.4",
+    "P2-4.5"
+   ],
+   "glossary": [
+    "binomial distribution",
+    "poisson distribution",
+    "cumulative probabilities",
+    "additive property of poisson"
+   ],
+   "guidance": "Students will be expected to use these distributions to model a real-world situation and to comment critically on their appropriateness. Cumulative probabilities by calculation or by reference to tables. Students will be expected to use the additive property of the Poisson distribution, e.g. if the number of events per minute $\\sim \\text{Po}(\\lambda)$ then the number of events per 5 minutes $\\sim \\text{Po}(5\\lambda)$."
+  },
+  {
+   "id": "S2-1.2",
+   "subtopic": "S2-1",
+   "level": "S2",
+   "title": "Mean and variance of binomial, Poisson",
+   "statement": "The mean and variance of the binomial and Poisson distributions.",
+   "raw": "The mean and variance of the binomial and Poisson distributions.",
+   "type": "procedural",
+   "prereqs": [
+    "S2-1.1",
+    "S1-5.3"
+   ],
+   "glossary": [
+    "mean of binomial distribution",
+    "variance of binomial distribution",
+    "mean of poisson distribution",
+    "variance of poisson distribution"
+   ],
+   "guidance": "No derivations will be required."
+  },
+  {
+   "id": "S2-1.3",
+   "subtopic": "S2-1",
+   "level": "S2",
+   "title": "Poisson approximation to binomial",
+   "statement": "The use of the Poisson distribution as an approximation to the binomial distribution.",
+   "raw": "The use of the Poisson distribution as an approximation to the binomial distribution.",
+   "type": "procedural",
+   "prereqs": [
+    "S2-1.1",
+    "S2-1.2"
+   ],
+   "glossary": [
+    "poisson approximation",
+    "large n small p",
+    "binomial distribution",
+    "poisson distribution"
+   ]
+  },
+  {
+   "id": "S2-2.1",
+   "subtopic": "S2-2",
+   "level": "S2",
+   "title": "Continuous random variable",
+   "statement": "The concept of a continuous random variable.",
+   "raw": "The concept of a continuous random variable.",
+   "type": "conceptual",
+   "prereqs": [
+    "S1-5.1"
+   ],
+   "glossary": [
+    "continuous random variable",
+    "random variable",
+    "probability density"
+   ]
+  },
+  {
+   "id": "S2-2.2",
+   "subtopic": "S2-2",
+   "level": "S2",
+   "title": "Probability density and distribution functions",
+   "statement": "The probability density function and the cumulative distribution function for a continuous random variable.",
+   "raw": "The probability density function and the cumulative distribution function for a continuous random variable.",
+   "type": "procedural",
+   "prereqs": [
+    "S2-2.1"
+   ],
+   "glossary": [
+    "probability density function",
+    "cumulative distribution function",
+    "f(x)",
+    "piecewise function"
+   ],
+   "guidance": "Use of the probability density function $f(x)$, where $P(a < X \\le b) = \\displaystyle\\int_a^b f(x)\\,dx$. Use of the cumulative distribution function $F(x_0) = P(X \\le x_0) = \\displaystyle\\int_{-\\infty}^{x_0} f(x)\\,dx$. The formulae used in defining $f(x)$ will be restricted to simple polynomials which may be expressed piecewise."
+  },
+  {
+   "id": "S2-2.3",
+   "subtopic": "S2-2",
+   "level": "S2",
+   "title": "Relating pdf and cdf",
+   "statement": "Relationship between density and distribution functions.",
+   "raw": "Relationship between density and distribution functions.",
+   "type": "procedural",
+   "prereqs": [
+    "S2-2.2",
+    "P1-4.1"
+   ],
+   "glossary": [
+    "f(x) = df(x)/dx",
+    "probability density function",
+    "cumulative distribution function",
+    "differentiation"
+   ],
+   "guidance": "$f(x) = \\dfrac{dF(x)}{dx}$."
+  },
+  {
+   "id": "S2-2.4",
+   "subtopic": "S2-2",
+   "level": "S2",
+   "title": "Mean and variance of a continuous RV",
+   "statement": "Mean and variance of continuous random variables.",
+   "raw": "Mean and variance of continuous random variables.",
+   "type": "procedural",
+   "prereqs": [
+    "S2-2.2",
+    "P1-5.1"
+   ],
+   "glossary": [
+    "e(x)",
+    "var(x)",
+    "continuous random variable",
+    "integration"
+   ]
+  },
+  {
+   "id": "S2-2.5",
+   "subtopic": "S2-2",
+   "level": "S2",
+   "title": "Mode, median, quartiles of a continuous RV",
+   "statement": "Mode, median and quartiles of continuous random variables.",
+   "raw": "Mode, median and quartiles of continuous random variables.",
+   "type": "procedural",
+   "prereqs": [
+    "S2-2.4"
+   ],
+   "glossary": [
+    "mode",
+    "median",
+    "quartiles",
+    "continuous random variable"
+   ]
+  },
+  {
+   "id": "S2-3.1",
+   "subtopic": "S2-3",
+   "level": "S2",
+   "title": "Continuous uniform distribution",
+   "statement": "The continuous uniform (rectangular) distribution.",
+   "raw": "The continuous uniform (rectangular) distribution.",
+   "type": "procedural",
+   "prereqs": [
+    "S2-2.4"
+   ],
+   "glossary": [
+    "continuous uniform distribution",
+    "rectangular distribution",
+    "mean and variance derivation"
+   ],
+   "guidance": "Including the derivation of the mean, variance and cumulative distribution function."
+  },
+  {
+   "id": "S2-3.2",
+   "subtopic": "S2-3",
+   "level": "S2",
+   "title": "Normal approximation with continuity correction",
+   "statement": "Use of the Normal distribution as an approximation to the binomial distribution and the Poisson distribution, with the application of the continuity correction.",
+   "raw": "Use of the Normal distribution as an approximation to the binomial distribution and the Poisson distribution, with the application of the continuity correction.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-6.1",
+    "S2-1.1"
+   ],
+   "glossary": [
+    "continuity correction",
+    "normal approximation",
+    "binomial distribution",
+    "poisson distribution"
+   ]
+  },
+  {
+   "id": "S2-4.1",
+   "subtopic": "S2-4",
+   "level": "S2",
+   "title": "Population, census and sampling frame",
+   "statement": "Population, census and sample. Sampling unit, sampling frame.",
+   "raw": "Population, census and sample. Sampling unit, sampling frame.",
+   "type": "factual",
+   "prereqs": [
+    "S1-1.1"
+   ],
+   "glossary": [
+    "population",
+    "census",
+    "sample",
+    "sampling unit",
+    "sampling frame"
+   ],
+   "guidance": "Students will be expected to know the advantages and disadvantages associated with a census and a sample survey."
+  },
+  {
+   "id": "S2-4.2",
+   "subtopic": "S2-4",
+   "level": "S2",
+   "title": "Statistic and sampling distribution",
+   "statement": "Concepts of a statistic and its sampling distribution.",
+   "raw": "Concepts of a statistic and its sampling distribution.",
+   "type": "conceptual",
+   "prereqs": [
+    "S2-4.1"
+   ],
+   "glossary": [
+    "statistic",
+    "sampling distribution",
+    "sample statistic",
+    "estimator"
+   ]
+  },
+  {
+   "id": "S2-4.3",
+   "subtopic": "S2-4",
+   "level": "S2",
+   "title": "Hypothesis test, null and alternative",
+   "statement": "Concept and interpretation of a hypothesis test. Null and alternative hypotheses.",
+   "raw": "Concept and interpretation of a hypothesis test. Null and alternative hypotheses.",
+   "type": "conceptual",
+   "prereqs": [
+    "S2-4.2"
+   ],
+   "glossary": [
+    "hypothesis test",
+    "null hypothesis",
+    "alternative hypothesis"
+   ],
+   "guidance": "Use of hypothesis tests for refinement of mathematical models."
+  },
+  {
+   "id": "S2-4.4",
+   "subtopic": "S2-4",
+   "level": "S2",
+   "title": "Critical region and test statistic",
+   "statement": "Critical region.",
+   "raw": "Critical region.",
+   "type": "conceptual",
+   "prereqs": [
+    "S2-4.3"
+   ],
+   "glossary": [
+    "critical region",
+    "test statistic",
+    "significance level"
+   ],
+   "guidance": "Use of a statistic as a test statistic."
+  },
+  {
+   "id": "S2-4.5",
+   "subtopic": "S2-4",
+   "level": "S2",
+   "title": "One-tailed and two-tailed tests",
+   "statement": "One-tailed and two-tailed tests.",
+   "raw": "One-tailed and two-tailed tests.",
+   "type": "conceptual",
+   "prereqs": [
+    "S2-4.4"
+   ],
+   "glossary": [
+    "one-tailed test",
+    "two-tailed test",
+    "significance level"
+   ]
+  },
+  {
+   "id": "S2-4.6",
+   "subtopic": "S2-4",
+   "level": "S2",
+   "title": "Hypothesis tests for p and Poisson mean",
+   "statement": "Hypothesis tests for the parameter p of a binomial distribution and for the mean of a Poisson distribution.",
+   "raw": "Hypothesis tests for the parameter p of a binomial distribution and for the mean of a Poisson distribution.",
+   "type": "procedural",
+   "prereqs": [
+    "S2-4.5",
+    "S2-1.1"
+   ],
+   "glossary": [
+    "hypothesis test for p",
+    "hypothesis test for poisson mean",
+    "normal approximation"
+   ],
+   "guidance": "Students are expected to know how to use tables to carry out these tests. Questions may also be set not involving tabular values. Tests for the parameter $p$ of a binomial distribution may involve the use of a normal approximation to calculate probabilities."
+  }
+ ]
+}

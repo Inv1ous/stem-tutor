@@ -1,0 +1,553 @@
+{
+ "spec": "FP3",
+ "subject": "math",
+ "title": "Edexcel IAL Further Pure Mathematics 3",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "FP3",
+   "title": "Further Pure Mathematics 3",
+   "level": "FP3"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "FP3-1",
+   "title": "Hyperbolic functions",
+   "topic": "FP3"
+  },
+  {
+   "id": "FP3-2",
+   "title": "Further coordinate systems",
+   "topic": "FP3"
+  },
+  {
+   "id": "FP3-3",
+   "title": "Differentiation",
+   "topic": "FP3"
+  },
+  {
+   "id": "FP3-4",
+   "title": "Integration",
+   "topic": "FP3"
+  },
+  {
+   "id": "FP3-5",
+   "title": "Vectors",
+   "topic": "FP3"
+  },
+  {
+   "id": "FP3-6",
+   "title": "Further matrix algebra",
+   "topic": "FP3"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "FP3-1.1",
+   "subtopic": "FP3-1",
+   "level": "FP3",
+   "title": "Definitions and identities of hyperbolic functions",
+   "statement": "Definition of the six hyperbolic functions in terms of exponentials. Graphs and properties of the hyperbolic functions.",
+   "raw": "Definition of the six hyperbolic functions in terms of exponentials. Graphs and properties of the hyperbolic functions.",
+   "type": "factual",
+   "prereqs": [
+    "P3-3.1"
+   ],
+   "glossary": [
+    "hyperbolic functions",
+    "cosh x",
+    "sinh x",
+    "cosh^2 x - sinh^2 x = 1",
+    "tanh x"
+   ],
+   "guidance": "For example, $\\cosh x = \\dfrac{1}{2}(e^x + e^{-x})$, $\\operatorname{sech} x = \\dfrac{1}{\\cosh x} = \\dfrac{2}{e^x + e^{-x}}$. Students should be able to derive and use simple identities such as $\\cosh^2 x - \\sinh^2 x \\equiv 1$ and $\\cosh^2 x + \\sinh^2 x \\equiv \\cosh 2x$ and to solve equations such as $a\\cosh x + b\\sinh x = c$."
+  },
+  {
+   "id": "FP3-1.2",
+   "subtopic": "FP3-1",
+   "level": "FP3",
+   "title": "Inverse hyperbolic functions and logarithmic forms",
+   "statement": "Inverse hyperbolic functions, their graphs, properties and logarithmic equivalents.",
+   "raw": "Inverse hyperbolic functions, their graphs, properties and logarithmic equivalents.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-1.1",
+    "P3-3.2"
+   ],
+   "glossary": [
+    "arsinh",
+    "arcosh",
+    "artanh",
+    "logarithmic equivalent",
+    "inverse hyperbolic function"
+   ],
+   "guidance": "For example, $\\operatorname{arsinh} x = \\ln\\left(x + \\sqrt{1+x^2}\\right)$. Students may be required to prove this and similar results."
+  },
+  {
+   "id": "FP3-2.1",
+   "subtopic": "FP3-2",
+   "level": "FP3",
+   "title": "Ellipse and hyperbola equations",
+   "statement": "Cartesian and parametric equations for the ellipse and hyperbola.",
+   "raw": "Cartesian and parametric equations for the ellipse and hyperbola.",
+   "type": "factual",
+   "prereqs": [
+    "FP1-4.1",
+    "FP3-1.1"
+   ],
+   "glossary": [
+    "ellipse",
+    "hyperbola",
+    "parametric equations",
+    "eccentricity",
+    "x^2/a^2 + y^2/b^2 = 1"
+   ],
+   "guidance": "Extension of work from FP1. Students should be familiar with the equations: $\\dfrac{x^2}{a^2} + \\dfrac{y^2}{b^2} = 1$; $x = a\\cos t, y = b\\sin t$. $\\dfrac{x^2}{a^2} - \\dfrac{y^2}{b^2} = 1$; $x = a\\sec t, y = b\\tan t$; $x = a\\cosh t, y = b\\sinh t$."
+  },
+  {
+   "id": "FP3-2.2",
+   "subtopic": "FP3-2",
+   "level": "FP3",
+   "title": "Focus-directrix properties of ellipse and hyperbola",
+   "statement": "The focus-directrix properties of the ellipse and hyperbola, including the eccentricity.",
+   "raw": "The focus-directrix properties of the ellipse and hyperbola, including the eccentricity.",
+   "type": "conceptual",
+   "prereqs": [
+    "FP3-2.1",
+    "FP1-4.3"
+   ],
+   "glossary": [
+    "eccentricity",
+    "focus",
+    "directrix",
+    "b^2 = a^2(1 - e^2)",
+    "foci"
+   ],
+   "guidance": "For example, students should know that, for the ellipse, $b^2 = a^2(1-e^2)$, the foci are $(ae, 0)$ and $(-ae, 0)$ and the equations of the directrices are $x = \\dfrac{a}{e}$ and $x = -\\dfrac{a}{e}$."
+  },
+  {
+   "id": "FP3-2.3",
+   "subtopic": "FP3-2",
+   "level": "FP3",
+   "title": "Tangents and normals to ellipse and hyperbola",
+   "statement": "Tangents and normals to these curves.",
+   "raw": "Tangents and normals to these curves.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-2.1",
+    "FP1-4.4"
+   ],
+   "glossary": [
+    "tangent condition",
+    "y = mx + c",
+    "normal to a curve",
+    "ellipse",
+    "hyperbola"
+   ],
+   "guidance": "The condition for $y = mx + c$ to be a tangent to these curves is expected to be known."
+  },
+  {
+   "id": "FP3-2.4",
+   "subtopic": "FP3-2",
+   "level": "FP3",
+   "title": "Loci problems with conics",
+   "statement": "Simple loci problems.",
+   "raw": "Simple loci problems.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-2.2"
+   ],
+   "glossary": [
+    "locus",
+    "conic section",
+    "ellipse",
+    "hyperbola"
+   ]
+  },
+  {
+   "id": "FP3-3.1",
+   "subtopic": "FP3-3",
+   "level": "FP3",
+   "title": "Differentiating hyperbolic function expressions",
+   "statement": "Differentiation of hyperbolic functions and expressions involving them.",
+   "raw": "Differentiation of hyperbolic functions and expressions involving them.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-1.1",
+    "P3-4.2"
+   ],
+   "glossary": [
+    "derivative of tanh x",
+    "derivative of sinh x",
+    "derivative of cosh x",
+    "product rule",
+    "quotient rule"
+   ],
+   "guidance": "For example, $\\tanh 3x$, $x\\sinh^2 x$, $\\dfrac{\\cosh 2x}{(x+1)^2}$."
+  },
+  {
+   "id": "FP3-3.2",
+   "subtopic": "FP3-3",
+   "level": "FP3",
+   "title": "Differentiating inverse trig and hyperbolic functions",
+   "statement": "Differentiation of inverse functions, including trigonometric and hyperbolic functions.",
+   "raw": "Differentiation of inverse functions, including trigonometric and hyperbolic functions.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-3.1",
+    "P3-2.1"
+   ],
+   "glossary": [
+    "arcsin derivative",
+    "artanh derivative",
+    "inverse trigonometric function",
+    "inverse hyperbolic function"
+   ],
+   "guidance": "For example, $\\arcsin x + \\dfrac{x}{\\sqrt{1-x^2}}$, $\\dfrac{1}{2}\\operatorname{artanh}(x^2)$."
+  },
+  {
+   "id": "FP3-4.1",
+   "subtopic": "FP3-4",
+   "level": "FP3",
+   "title": "Integrating hyperbolic function expressions",
+   "statement": "Integration of hyperbolic functions and expressions involving them.",
+   "raw": "Integration of hyperbolic functions and expressions involving them.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-3.1",
+    "P3-5.1"
+   ],
+   "glossary": [
+    "integral of sinh x",
+    "integral of cosh x",
+    "integral of tanh x",
+    "hyperbolic function integration"
+   ]
+  },
+  {
+   "id": "FP3-4.2",
+   "subtopic": "FP3-4",
+   "level": "FP3",
+   "title": "Integrating inverse trig and hyperbolic functions",
+   "statement": "Integration of inverse trigonometric and hyperbolic functions.",
+   "raw": "Integration of inverse trigonometric and hyperbolic functions.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-4.1",
+    "FP3-3.2"
+   ],
+   "glossary": [
+    "integration by parts",
+    "arsinh integral",
+    "arctan integral",
+    "inverse function integration"
+   ],
+   "guidance": "For example, $\\displaystyle\\int \\operatorname{arsinh} x \\, dx$, $\\displaystyle\\int \\arctan x \\, dx$."
+  },
+  {
+   "id": "FP3-4.3",
+   "subtopic": "FP3-4",
+   "level": "FP3",
+   "title": "Hyperbolic and trigonometric substitution integrals",
+   "statement": "Integration using hyperbolic and trigonometric substitutions.",
+   "raw": "Integration using hyperbolic and trigonometric substitutions.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-4.1"
+   ],
+   "glossary": [
+    "trigonometric substitution",
+    "hyperbolic substitution",
+    "standard integral forms",
+    "arsinh substitution"
+   ],
+   "guidance": "To include the integrals of $\\dfrac{1}{\\sqrt{a^2+x^2}}$, $\\dfrac{1}{\\sqrt{a^2-x^2}}$, $\\dfrac{1}{a^2+x^2}$ and $\\dfrac{1}{\\sqrt{x^2-a^2}}$."
+  },
+  {
+   "id": "FP3-4.4",
+   "subtopic": "FP3-4",
+   "level": "FP3",
+   "title": "Integrals involving quadratic surds",
+   "statement": "Use of substitution for integrals involving quadratic surds.",
+   "raw": "Use of substitution for integrals involving quadratic surds.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-4.3"
+   ],
+   "glossary": [
+    "quadratic surd",
+    "substitution",
+    "given substitution"
+   ],
+   "guidance": "In more complicated cases, substitutions will be given."
+  },
+  {
+   "id": "FP3-4.5",
+   "subtopic": "FP3-4",
+   "level": "FP3",
+   "title": "Deriving reduction formulae for integrals",
+   "statement": "The derivation and use of simple reduction formulae.",
+   "raw": "The derivation and use of simple reduction formulae.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-4.1",
+    "P3-5.2"
+   ],
+   "glossary": [
+    "reduction formula",
+    "recurrence relation for integrals",
+    "integration by parts",
+    "i_n notation"
+   ],
+   "guidance": "Students should be able to derive formulae such as $nI_n = (n-1)I_{n-2}$, $n \\geqslant 2$, for $I_n = \\displaystyle\\int_0^{\\pi/2} \\sin^n x \\, dx$, and $I_n = I_{n-2} + \\dfrac{2\\sin((n-1)x)}{n-1}$ for $I_n = \\displaystyle\\int \\dfrac{\\sin nx}{\\sin x} \\, dx$, $n > 0$."
+  },
+  {
+   "id": "FP3-4.6",
+   "subtopic": "FP3-4",
+   "level": "FP3",
+   "title": "Arc length and surface of revolution",
+   "statement": "The calculation of arc length and the area of a surface of revolution.",
+   "raw": "The calculation of arc length and the area of a surface of revolution.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-4.5",
+    "P4-6.1"
+   ],
+   "glossary": [
+    "arc length",
+    "surface of revolution",
+    "parametric form",
+    "cartesian form"
+   ],
+   "guidance": "The equation of the curve may be given in Cartesian or parametric form. Equations in polar form will not be set."
+  },
+  {
+   "id": "FP3-5.1",
+   "subtopic": "FP3-5",
+   "level": "FP3",
+   "title": "Vector product and triple scalar product",
+   "statement": "The vector product $\\mathbf{a} \\times \\mathbf{b}$ and the triple scalar product $\\mathbf{a} \\cdot \\mathbf{b} \\times \\mathbf{c}$.",
+   "raw": "The vector product a × b and the triple scalar product a . b × c.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-7.3",
+    "P4-7.7"
+   ],
+   "glossary": [
+    "vector product",
+    "cross product",
+    "triple scalar product",
+    "scalar triple product",
+    "area interpretation"
+   ],
+   "guidance": "The interpretation of $|\\mathbf{a} \\times \\mathbf{b}|$ as an area and $\\mathbf{a} \\cdot \\mathbf{b} \\times \\mathbf{c}$ as a volume."
+  },
+  {
+   "id": "FP3-5.2",
+   "subtopic": "FP3-5",
+   "level": "FP3",
+   "title": "Vector equations of lines and planes",
+   "statement": "Use of vectors in problems involving points, lines and planes. The equation of a line in the form $(\\mathbf{r} - \\mathbf{a}) \\times \\mathbf{b} = \\mathbf{0}$.",
+   "raw": "Use of vectors in problems involving points, lines and planes. The equation of a line in the form (r − a) × b = 0.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-5.1",
+    "P4-7.6"
+   ],
+   "glossary": [
+    "skew lines",
+    "line of intersection",
+    "distance from point to plane",
+    "vector equation of a line"
+   ],
+   "guidance": "Students may be required to use equivalent Cartesian forms also. Applications to include (i) distance from a point to a plane, (ii) line of intersection of two planes, (iii) shortest distance between two skew lines."
+  },
+  {
+   "id": "FP3-5.3",
+   "subtopic": "FP3-5",
+   "level": "FP3",
+   "title": "Vector and cartesian equations of planes",
+   "statement": "The equation of a plane in the forms $\\mathbf{r} \\cdot \\mathbf{n} = p$, $\\mathbf{r} = \\mathbf{a} + s\\mathbf{b} + t\\mathbf{c}$.",
+   "raw": "The equation of a plane in the forms r.n = p, r = a + sb + tc.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-5.2"
+   ],
+   "glossary": [
+    "equation of a plane",
+    "normal vector form",
+    "parametric plane equation",
+    "r.n = p"
+   ],
+   "guidance": "Students may be required to use equivalent Cartesian forms also."
+  },
+  {
+   "id": "FP3-6.1",
+   "subtopic": "FP3-6",
+   "level": "FP3",
+   "title": "Matrix transformations in three dimensions",
+   "statement": "Linear transformations of column vectors in two and three dimensions and their matrix representation.",
+   "raw": "Linear transformations of column vectors in two and three dimensions and their matrix representation.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-6.1",
+    "P4-7.1"
+   ],
+   "glossary": [
+    "3d transformation",
+    "column vector",
+    "matrix representation",
+    "linear transformation"
+   ],
+   "guidance": "Extension of work from FP1 to 3 dimensions."
+  },
+  {
+   "id": "FP3-6.2",
+   "subtopic": "FP3-6",
+   "level": "FP3",
+   "title": "Combining 3D matrix transformations",
+   "statement": "Combination of transformations. Products of matrices.",
+   "raw": "Combination of transformations. Products of matrices.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-6.1",
+    "FP1-6.3"
+   ],
+   "glossary": [
+    "combined transformation",
+    "matrix product",
+    "3d transformation"
+   ],
+   "guidance": "The transformation represented by $AB$ is the transformation represented by $B$ followed by the transformation represented by $A$."
+  },
+  {
+   "id": "FP3-6.3",
+   "subtopic": "FP3-6",
+   "level": "FP3",
+   "title": "Transpose of a matrix",
+   "statement": "Transpose of a matrix.",
+   "raw": "Transpose of a matrix.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-6.2"
+   ],
+   "glossary": [
+    "transpose",
+    "matrix transpose",
+    "(ab)^t = b^t a^t"
+   ],
+   "guidance": "Use of the relation $(AB)^T = B^T A^T$."
+  },
+  {
+   "id": "FP3-6.4",
+   "subtopic": "FP3-6",
+   "level": "FP3",
+   "title": "Evaluating 3x3 determinants",
+   "statement": "Evaluation of $3 \\times 3$ determinants.",
+   "raw": "Evaluation of 3 × 3 determinants.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-5.4"
+   ],
+   "glossary": [
+    "determinant",
+    "3x3 matrix",
+    "singular matrix",
+    "cofactor expansion"
+   ],
+   "guidance": "Singular and non-singular matrices."
+  },
+  {
+   "id": "FP3-6.5",
+   "subtopic": "FP3-6",
+   "level": "FP3",
+   "title": "Inverse of 3x3 matrices",
+   "statement": "Inverse of $3 \\times 3$ matrices.",
+   "raw": "Inverse of 3 × 3 matrices.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-6.4",
+    "FP1-5.5"
+   ],
+   "glossary": [
+    "inverse matrix",
+    "adjugate matrix",
+    "3x3 matrix",
+    "(ab)^-1 = b^-1 a^-1"
+   ],
+   "guidance": "Use of the relation $(AB)^{-1} = B^{-1}A^{-1}$."
+  },
+  {
+   "id": "FP3-6.6",
+   "subtopic": "FP3-6",
+   "level": "FP3",
+   "title": "Inverse of 3D transformations",
+   "statement": "The inverse (when it exists) of a given transformation or combination of transformations.",
+   "raw": "The inverse (when it exists) of a given transformation or combination of transformations.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-6.5",
+    "FP3-6.2"
+   ],
+   "glossary": [
+    "inverse transformation",
+    "3d transformation",
+    "combination of transformations"
+   ]
+  },
+  {
+   "id": "FP3-6.7",
+   "subtopic": "FP3-6",
+   "level": "FP3",
+   "title": "Eigenvalues and eigenvectors of matrices",
+   "statement": "Eigenvalues and eigenvectors of $2 \\times 2$ and $3 \\times 3$ matrices.",
+   "raw": "Eigenvalues and eigenvectors of 2 × 2 and 3 × 3 matrices.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-6.5"
+   ],
+   "glossary": [
+    "eigenvalue",
+    "eigenvector",
+    "characteristic equation",
+    "normalised vector"
+   ],
+   "guidance": "Normalised vectors may be required."
+  },
+  {
+   "id": "FP3-6.8",
+   "subtopic": "FP3-6",
+   "level": "FP3",
+   "title": "Diagonalising symmetric matrices",
+   "statement": "Reduction of symmetric matrices to diagonal form.",
+   "raw": "Reduction of symmetric matrices to diagonal form.",
+   "type": "procedural",
+   "prereqs": [
+    "FP3-6.7",
+    "FP3-6.3"
+   ],
+   "glossary": [
+    "diagonalisation",
+    "orthogonal matrix",
+    "symmetric matrix",
+    "p^t a p"
+   ],
+   "guidance": "Students should be able to find an orthogonal matrix $P$ such that $P^TAP$ is diagonal."
+  }
+ ]
+}

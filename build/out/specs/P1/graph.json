@@ -1,0 +1,484 @@
+{
+ "spec": "P1",
+ "subject": "math",
+ "title": "Edexcel IAL Pure Mathematics 1",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "P1",
+   "title": "Pure Mathematics 1",
+   "level": "P1"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "P1-1",
+   "title": "Algebra and functions",
+   "topic": "P1"
+  },
+  {
+   "id": "P1-2",
+   "title": "Coordinate geometry in the (x, y) plane",
+   "topic": "P1"
+  },
+  {
+   "id": "P1-3",
+   "title": "Trigonometry",
+   "topic": "P1"
+  },
+  {
+   "id": "P1-4",
+   "title": "Differentiation",
+   "topic": "P1"
+  },
+  {
+   "id": "P1-5",
+   "title": "Integration",
+   "topic": "P1"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "P1-1.1",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Laws of indices",
+   "statement": "Laws of indices for all rational exponents.",
+   "raw": "Laws of indices for all rational exponents.",
+   "type": "procedural",
+   "prereqs": [],
+   "glossary": [
+    "laws of indices",
+    "rational exponents",
+    "index laws",
+    "fractional indices",
+    "surd equivalence"
+   ],
+   "guidance": "$a^m \\times a^n = a^{m+n}$, $a^m \\div a^n = a^{m-n}$, $(a^m)^n = a^{mn}$. The equivalence of $a^{\\frac{1}{n}}$ and $\\sqrt[n]{a}$, and of $a^{\\frac{m}{n}}$ and $(\\sqrt[n]{a})^m$, should be known."
+  },
+  {
+   "id": "P1-1.2",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Manipulating surds",
+   "statement": "Use and manipulation of surds.",
+   "raw": "Use and manipulation of surds.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.1"
+   ],
+   "glossary": [
+    "surd",
+    "rationalise the denominator",
+    "irrational number",
+    "simplifying surds",
+    "surd form"
+   ],
+   "guidance": "Students should be able to rationalise denominators."
+  },
+  {
+   "id": "P1-1.3",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Quadratic functions and graphs",
+   "statement": "Quadratic functions and their graphs.",
+   "raw": "Quadratic functions and their graphs.",
+   "type": "procedural",
+   "prereqs": [],
+   "glossary": [
+    "quadratic function",
+    "parabola",
+    "turning point",
+    "vertex",
+    "quadratic graph"
+   ]
+  },
+  {
+   "id": "P1-1.4",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "The discriminant",
+   "statement": "The discriminant of a quadratic function.",
+   "raw": "The discriminant of a quadratic function.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.3"
+   ],
+   "glossary": [
+    "discriminant",
+    "real roots",
+    "repeated root",
+    "no real roots",
+    "nature of roots"
+   ],
+   "guidance": "Need to know and to use $b^2-4ac>0$, $b^2-4ac=0$ and $b^2-4ac<0$."
+  },
+  {
+   "id": "P1-1.5",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Solving quadratic equations",
+   "statement": "Completing the square. Solution of quadratic equations.",
+   "raw": "Completing the square. Solution of quadratic equations.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.3",
+    "P1-1.4"
+   ],
+   "glossary": [
+    "completing the square",
+    "quadratic formula",
+    "factorising quadratics",
+    "solving quadratic equations",
+    "vertex form"
+   ],
+   "guidance": "Solution of quadratic equations by factorisation, use of the formula, use of a calculator and completing the square: $ax^2+bx+c = a\\left(x+\\dfrac{b}{2a}\\right)^2 + c - \\dfrac{b^2}{4a}$."
+  },
+  {
+   "id": "P1-1.6",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Simultaneous equations by substitution",
+   "statement": "Solve simultaneous equations; analytical solution by substitution.",
+   "raw": "Solve simultaneous equations; analytical solution by substitution.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.5"
+   ],
+   "glossary": [
+    "simultaneous equations",
+    "substitution method",
+    "linear and quadratic simultaneous equations",
+    "elimination"
+   ]
+  },
+  {
+   "id": "P1-1.7",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Interpreting inequalities graphically",
+   "statement": "Interpret linear and quadratic inequalities graphically.",
+   "raw": "Interpret linear and quadratic inequalities graphically.",
+   "type": "conceptual",
+   "prereqs": [
+    "P1-1.3"
+   ],
+   "glossary": [
+    "linear inequality",
+    "quadratic inequality",
+    "graphical interpretation",
+    "intersection of graphs",
+    "inequality regions"
+   ],
+   "guidance": "For example, $ax+b>cx+d$, $px^2+qx+r \\geq 0$, $px^2+qx+r<ax+b$. Interpreting the third inequality as the range of $x$ for which the curve $y=px^2+qx+r$ is below the line with equation $y=ax+b$. Including inequalities with brackets and fractions; these are reducible to linear or quadratic inequalities, e.g. $\\dfrac{a}{x}<b$ becomes $ax<bx^2$, $x \\neq 0$."
+  },
+  {
+   "id": "P1-1.8",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Graphing inequality regions",
+   "statement": "Represent linear and quadratic inequalities graphically.",
+   "raw": "Represent linear and quadratic inequalities graphically.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.7"
+   ],
+   "glossary": [
+    "shading regions",
+    "dotted line convention",
+    "solid line convention",
+    "inequality regions",
+    "graphing inequalities"
+   ],
+   "guidance": "Represent linear and quadratic inequalities such as $y>x+r$ and $y>ax^2+bx+c$ graphically. Shading and use of dotted and solid line convention is required."
+  },
+  {
+   "id": "P1-1.9",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Solving linear and quadratic inequalities",
+   "statement": "Solutions of linear and quadratic inequalities.",
+   "raw": "Solutions of linear and quadratic inequalities.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.4",
+    "P1-1.7"
+   ],
+   "glossary": [
+    "solving inequalities",
+    "quadratic inequality",
+    "linear inequality",
+    "critical values",
+    "sign diagram"
+   ],
+   "guidance": "For example, solving $ax+b>cx+d$, $px^2+qx+r \\geq 0$, $px^2+qx+r<ax+b$."
+  },
+  {
+   "id": "P1-1.10",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Manipulating and factorising polynomials",
+   "statement": "Algebraic manipulation of polynomials, including expanding brackets and collecting like terms, factorisation.",
+   "raw": "Algebraic manipulation of polynomials, including expanding brackets and collecting like terms, factorisation.",
+   "type": "procedural",
+   "prereqs": [],
+   "glossary": [
+    "expanding brackets",
+    "collecting like terms",
+    "factorising polynomials",
+    "function notation f(x)",
+    "polynomial"
+   ],
+   "guidance": "Students should be able to expand brackets and collect like terms. Factorisation of polynomials of degree $n$, $n \\leq 3$, e.g. $x^3+4x^2+3x$. The notation $f(x)$ may be used."
+  },
+  {
+   "id": "P1-1.11",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Sketching curves and using intersections",
+   "statement": "Graphs of functions; sketching curves defined by simple equations. Geometrical interpretation of algebraic solution of equations. Use of intersection points of graphs of functions to solve equations.",
+   "raw": "Graphs of functions; sketching curves defined by simple equations. Geometrical interpretation of algebraic solution of equations. Use of intersection points of graphs of functions to solve equations.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.3",
+    "P1-1.10"
+   ],
+   "glossary": [
+    "sketching curves",
+    "asymptote",
+    "reciprocal function",
+    "cubic function",
+    "intersection points",
+    "solving equations graphically"
+   ],
+   "guidance": "Functions to include simple cubic functions and the reciprocal functions $y=\\dfrac{k}{x}$ and $y=\\dfrac{k}{x^2}$ with $x \\neq 0$. Knowledge of the term asymptote is expected. Also, trigonometric graphs."
+  },
+  {
+   "id": "P1-1.12",
+   "subtopic": "P1-1",
+   "level": "P1",
+   "title": "Graph transformations",
+   "statement": "Knowledge of the effect of simple transformations on the graph of $y=f(x)$ as represented by $y=af(x)$, $y=f(x)+a$, $y=f(x+a)$, $y=f(ax)$.",
+   "raw": "Knowledge of the effect of simple transformations on the graph of y = f(x) as represented by y = af(x), y = f(x) + a, y = f(x + a), y = f(ax).",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.11"
+   ],
+   "glossary": [
+    "graph transformations",
+    "translation",
+    "stretch",
+    "y = af(x)",
+    "reflection"
+   ],
+   "guidance": "Students should be able to apply one of these transformations to any of the above functions (quadratics, cubics, reciprocals, sine, cosine, and tangent) and sketch the resulting graphs. Given the graph of any function $y=f(x)$, students should be able to sketch the graph resulting from one of these transformations."
+  },
+  {
+   "id": "P1-2.1",
+   "subtopic": "P1-2",
+   "level": "P1",
+   "title": "Equations of straight lines",
+   "statement": "Equation of a straight line, including the forms $y-y_1=m(x-x_1)$ and $ax+by+c=0$.",
+   "raw": "Equation of a straight line, including the forms y − y1 = m(x − x1) and ax + by + c = 0.",
+   "type": "procedural",
+   "prereqs": [],
+   "glossary": [
+    "equation of a straight line",
+    "gradient",
+    "y - y1 = m(x - x1)",
+    "ax + by + c = 0",
+    "line through two points"
+   ],
+   "guidance": "To include: (i) the equation of a line through two given points; (ii) the equation of a line parallel (or perpendicular) to a given line through a given point. For example, the line perpendicular to the line $3x+4y=18$ through the point $(2,3)$ has equation $y-3=\\dfrac{4}{3}(x-2)$."
+  },
+  {
+   "id": "P1-2.2",
+   "subtopic": "P1-2",
+   "level": "P1",
+   "title": "Parallel and perpendicular lines",
+   "statement": "Conditions for two straight lines to be parallel or perpendicular to each other.",
+   "raw": "Conditions for two straight lines to be parallel or perpendicular to each other.",
+   "type": "conceptual",
+   "prereqs": [
+    "P1-2.1"
+   ],
+   "glossary": [
+    "parallel lines",
+    "perpendicular lines",
+    "gradient condition",
+    "m1 = m2",
+    "m1 m2 = -1"
+   ]
+  },
+  {
+   "id": "P1-3.1",
+   "subtopic": "P1-3",
+   "level": "P1",
+   "title": "Sine rule, cosine rule and triangle area",
+   "statement": "The sine and cosine rules, and the area of a triangle in the form $\\frac{1}{2}ab\\sin C$.",
+   "raw": "The sine and cosine rules, and the area of a triangle in the form 1 2 ab sin C.",
+   "type": "procedural",
+   "prereqs": [],
+   "glossary": [
+    "sine rule",
+    "cosine rule",
+    "ambiguous case",
+    "area of a triangle",
+    "1/2 ab sin C"
+   ],
+   "guidance": "Including the ambiguous case of the sine rule."
+  },
+  {
+   "id": "P1-3.2",
+   "subtopic": "P1-3",
+   "level": "P1",
+   "title": "Radians, arc length and sector area",
+   "statement": "Radian measure, including use for arc length and area of sector.",
+   "raw": "Radian measure, including use for arc length and area of sector.",
+   "type": "procedural",
+   "prereqs": [],
+   "glossary": [
+    "radian measure",
+    "arc length",
+    "s = rθ",
+    "area of a sector",
+    "A = 1/2 r^2 θ"
+   ],
+   "guidance": "Use of the formulae $s=r\\theta$ and $A=\\frac{1}{2}r^2\\theta$."
+  },
+  {
+   "id": "P1-3.3",
+   "subtopic": "P1-3",
+   "level": "P1",
+   "title": "Trig function graphs and periodicity",
+   "statement": "Sine, cosine and tangent functions. Their graphs, symmetries and periodicity.",
+   "raw": "Sine, cosine and tangent functions. Their graphs, symmetries and periodicity.",
+   "type": "procedural",
+   "prereqs": [],
+   "glossary": [
+    "periodicity",
+    "amplitude",
+    "sine graph",
+    "cosine graph",
+    "tangent graph",
+    "symmetry of trig graphs"
+   ],
+   "guidance": "Knowledge of graphs of curves with equations such as $y=3\\sin x$, $y=\\sin\\left(x+\\frac{\\pi}{6}\\right)$, $y=\\sin 2x$ is expected."
+  },
+  {
+   "id": "P1-4.1",
+   "subtopic": "P1-4",
+   "level": "P1",
+   "title": "Derivative as gradient and rate of change",
+   "statement": "The derivative of $f(x)$ as the gradient of the tangent to the graph of $y=f(x)$ at a point; the gradient of the tangent as a limit; interpretation as a rate of change; second order derivatives.",
+   "raw": "The derivative of f(x) as the gradient of the tangent to the graph of y = f(x) at a point; the gradient of the tangent as a limit; interpretation as a rate of change; second order derivatives.",
+   "type": "conceptual",
+   "prereqs": [
+    "P1-1.11"
+   ],
+   "glossary": [
+    "derivative",
+    "gradient of a tangent",
+    "rate of change",
+    "dy/dx",
+    "second derivative",
+    "f'(x)"
+   ],
+   "guidance": "For example, knowledge that $\\dfrac{dy}{dx}$ is the rate of change of $y$ with respect to $x$. Knowledge of the chain rule is not required. The notation $f'(x)$ and $f''(x)$ may be used."
+  },
+  {
+   "id": "P1-4.2",
+   "subtopic": "P1-4",
+   "level": "P1",
+   "title": "Differentiating powers of x",
+   "statement": "Differentiation of $x^n$, and related sums, differences and constant multiples.",
+   "raw": "Differentiation of xn, and related sums, differences and constant multiples.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-4.1",
+    "P1-1.10"
+   ],
+   "glossary": [
+    "differentiating x^n",
+    "power rule",
+    "sums and differences",
+    "constant multiple rule",
+    "d/dx(x^n) = nx^{n-1}"
+   ],
+   "guidance": "The ability to differentiate expressions such as $(2x+5)(x-1)$ and $\\dfrac{2x^2+5x-3}{3x}$ is expected."
+  },
+  {
+   "id": "P1-4.3",
+   "subtopic": "P1-4",
+   "level": "P1",
+   "title": "Tangents and normals",
+   "statement": "Applications of differentiation to gradients, tangents and normals.",
+   "raw": "Applications of differentiation to gradients, tangents and normals.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-4.2",
+    "P1-2.1"
+   ],
+   "glossary": [
+    "tangent to a curve",
+    "normal to a curve",
+    "gradient at a point",
+    "equation of a tangent",
+    "equation of a normal"
+   ],
+   "guidance": "Use of differentiation to find equations of tangents and normals at specific points on a curve."
+  },
+  {
+   "id": "P1-5.1",
+   "subtopic": "P1-5",
+   "level": "P1",
+   "title": "Integration as reverse of differentiation",
+   "statement": "Indefinite integration as the reverse of differentiation.",
+   "raw": "Indefinite integration as the reverse of differentiation.",
+   "type": "conceptual",
+   "prereqs": [
+    "P1-4.2"
+   ],
+   "glossary": [
+    "indefinite integration",
+    "constant of integration",
+    "antiderivative",
+    "reverse of differentiation"
+   ],
+   "guidance": "Students should know that a constant of integration is required."
+  },
+  {
+   "id": "P1-5.2",
+   "subtopic": "P1-5",
+   "level": "P1",
+   "title": "Integrating powers of x",
+   "statement": "Integration of $x^n$ and related sums, differences and constant multiples.",
+   "raw": "Integration of xn and related sums, differences and constant multiples.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-5.1"
+   ],
+   "glossary": [
+    "integrating x^n",
+    "constant of integration",
+    "finding equation of a curve",
+    "power rule for integration"
+   ],
+   "guidance": "(Excluding $n=-1$, and related sums, differences and multiples). For example, the ability to integrate expressions such as $(x+2)^2$ and $\\dfrac{3x-1}{2x^2}$ is expected. Given $f'(x)$ and a point on the curve, students should be able to find an equation of the curve in the form $y=f(x)$."
+  }
+ ]
+}

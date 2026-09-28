@@ -1,0 +1,390 @@
+{
+ "spec": "S1",
+ "subject": "math",
+ "title": "Edexcel IAL Statistics 1",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "S1",
+   "title": "Statistics 1",
+   "level": "S1"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "S1-1",
+   "title": "Mathematical models in probability and statistics",
+   "topic": "S1"
+  },
+  {
+   "id": "S1-2",
+   "title": "Representation and summary of data",
+   "topic": "S1"
+  },
+  {
+   "id": "S1-3",
+   "title": "Probability",
+   "topic": "S1"
+  },
+  {
+   "id": "S1-4",
+   "title": "Correlation and regression",
+   "topic": "S1"
+  },
+  {
+   "id": "S1-5",
+   "title": "Discrete random variables",
+   "topic": "S1"
+  },
+  {
+   "id": "S1-6",
+   "title": "The Normal distribution",
+   "topic": "S1"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "S1-1.1",
+   "subtopic": "S1-1",
+   "level": "S1",
+   "title": "Modelling in probability and statistics",
+   "statement": "The basic ideas of mathematical modelling as applied in probability and statistics.",
+   "raw": "The basic ideas of mathematical modelling as applied in probability and statistics.",
+   "type": "factual",
+   "prereqs": [],
+   "glossary": [
+    "statistical model",
+    "population",
+    "sample",
+    "random variable",
+    "assumptions"
+   ]
+  },
+  {
+   "id": "S1-2.1",
+   "subtopic": "S1-2",
+   "level": "S1",
+   "title": "Histograms, stem-and-leaf, box plots",
+   "statement": "Histograms, stem and leaf diagrams, box plots.",
+   "raw": "Histograms, stem and leaf diagrams, box plots.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-1.1"
+   ],
+   "glossary": [
+    "histogram",
+    "stem-and-leaf diagram",
+    "box plot",
+    "back-to-back stem-and-leaf diagram",
+    "frequency density"
+   ],
+   "guidance": "Using histograms, stem and leaf diagrams and box plots to compare distributions. Back-to-back stem and leaf diagrams may be required. Drawing of histograms, stem and leaf diagrams or box plots will not be the direct focus of examination questions."
+  },
+  {
+   "id": "S1-2.2",
+   "subtopic": "S1-2",
+   "level": "S1",
+   "title": "Mean, median and mode",
+   "statement": "Measures of location – mean, median, mode.",
+   "raw": "Measures of location – mean, median, mode.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-2.1"
+   ],
+   "glossary": [
+    "mean",
+    "median",
+    "mode",
+    "coding",
+    "grouped data"
+   ],
+   "guidance": "Calculation of mean, mode and median, range and interquartile range will not be the direct focus of examination questions. Students will be expected to draw simple inferences and give interpretations to measures of location and dispersion. Significance tests will not be expected. Data may be discrete, continuous, grouped or ungrouped. Understanding and use of coding."
+  },
+  {
+   "id": "S1-2.3",
+   "subtopic": "S1-2",
+   "level": "S1",
+   "title": "Variance, standard deviation, IQR",
+   "statement": "Measures of dispersion – variance, standard deviation, range and interpercentile ranges.",
+   "raw": "Measures of dispersion – variance, standard deviation, range and interpercentile ranges.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-2.2"
+   ],
+   "glossary": [
+    "variance",
+    "standard deviation",
+    "range",
+    "interpercentile range",
+    "interquartile range",
+    "interpolation"
+   ],
+   "guidance": "Simple interpolation may be required. Interpretation of measures of location and dispersion."
+  },
+  {
+   "id": "S1-2.4",
+   "subtopic": "S1-2",
+   "level": "S1",
+   "title": "Skewness and outliers",
+   "statement": "Skewness. Concepts of outliers.",
+   "raw": "Skewness. Concepts of outliers.",
+   "type": "conceptual",
+   "prereqs": [
+    "S1-2.3",
+    "S1-2.1"
+   ],
+   "glossary": [
+    "skewness",
+    "positive skew",
+    "negative skew",
+    "outlier",
+    "box plot"
+   ],
+   "guidance": "Students may be asked to illustrate the location of outliers on a box plot. Any rule to identify outliers will be specified in the question."
+  },
+  {
+   "id": "S1-3.1",
+   "subtopic": "S1-3",
+   "level": "S1",
+   "title": "Elementary probability",
+   "statement": "Elementary probability.",
+   "raw": "Elementary probability.",
+   "type": "factual",
+   "prereqs": [
+    "S1-1.1"
+   ],
+   "glossary": [
+    "probability",
+    "equally likely outcomes",
+    "probability scale",
+    "event"
+   ]
+  },
+  {
+   "id": "S1-3.2",
+   "subtopic": "S1-3",
+   "level": "S1",
+   "title": "Conditional and complementary probability",
+   "statement": "Sample space. Exclusive and complementary events. Conditional probability.",
+   "raw": "Sample space. Exclusive and complementary events. Conditional probability.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-3.1"
+   ],
+   "glossary": [
+    "sample space",
+    "mutually exclusive events",
+    "complementary event",
+    "conditional probability",
+    "p(a|b)"
+   ],
+   "guidance": "Understanding and use of $P(A') = 1 - P(A)$, $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$, $P(A \\cap B) = P(A)\\,P(B \\mid A)$."
+  },
+  {
+   "id": "S1-3.3",
+   "subtopic": "S1-3",
+   "level": "S1",
+   "title": "Independent events",
+   "statement": "Independence of two events.",
+   "raw": "Independence of two events.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-3.2"
+   ],
+   "glossary": [
+    "independent events",
+    "p(b|a) = p(b)",
+    "p(a ∩ b) = p(a)p(b)"
+   ],
+   "guidance": "$P(B \\mid A) = P(B)$, $P(A \\mid B) = P(A)$, $P(A \\cap B) = P(A)\\,P(B)$."
+  },
+  {
+   "id": "S1-3.4",
+   "subtopic": "S1-3",
+   "level": "S1",
+   "title": "Tree diagrams and Venn diagrams",
+   "statement": "Sum and product laws.",
+   "raw": "Sum and product laws.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-3.2",
+    "S1-3.3"
+   ],
+   "glossary": [
+    "sum law",
+    "product law",
+    "tree diagram",
+    "venn diagram",
+    "sampling with replacement",
+    "sampling without replacement"
+   ],
+   "guidance": "Use of tree diagrams and Venn diagrams. Sampling with and without replacement."
+  },
+  {
+   "id": "S1-4.1",
+   "subtopic": "S1-4",
+   "level": "S1",
+   "title": "Linear regression by least squares",
+   "statement": "Scatter diagrams. Linear regression. Calculation of the equation of a linear regression line using the method of least squares.",
+   "raw": "Scatter diagrams. Linear regression. Calculation of the equation of a linear regression line using",
+   "type": "procedural",
+   "prereqs": [
+    "S1-2.2"
+   ],
+   "glossary": [
+    "scatter diagram",
+    "linear regression",
+    "least squares",
+    "regression line"
+   ],
+   "guidance": "Students may be required to draw this regression line on a scatter diagram."
+  },
+  {
+   "id": "S1-4.2",
+   "subtopic": "S1-4",
+   "level": "S1",
+   "title": "Explanatory and response variables",
+   "statement": "Explanatory (independent) and response (dependent) variables. Applications and interpretations.",
+   "raw": "Explanatory (independent) and response (dependent) variables. Applications and interpretations.",
+   "type": "conceptual",
+   "prereqs": [
+    "S1-4.1"
+   ],
+   "glossary": [
+    "explanatory variable",
+    "response variable",
+    "independent variable",
+    "dependent variable",
+    "extrapolation"
+   ],
+   "guidance": "Use to make predictions within the range of values of the explanatory variable and the dangers of extrapolation. Derivations will not be required. Variables other than $x$ and $y$ may be used. Linear change of variable may be required."
+  },
+  {
+   "id": "S1-4.3",
+   "subtopic": "S1-4",
+   "level": "S1",
+   "title": "Product moment correlation coefficient",
+   "statement": "The product moment correlation coefficient, its use, interpretation and limitations.",
+   "raw": "The product moment correlation coefficient, its use, interpretation and limitations.",
+   "type": "conceptual",
+   "prereqs": [
+    "S1-4.1"
+   ],
+   "glossary": [
+    "product moment correlation coefficient",
+    "pmcc",
+    "correlation",
+    "linear association"
+   ],
+   "guidance": "Derivations and tests of significance will not be required."
+  },
+  {
+   "id": "S1-5.1",
+   "subtopic": "S1-5",
+   "level": "S1",
+   "title": "Discrete random variable",
+   "statement": "The concept of a discrete random variable.",
+   "raw": "The concept of a discrete random variable.",
+   "type": "conceptual",
+   "prereqs": [
+    "S1-3.1"
+   ],
+   "glossary": [
+    "discrete random variable",
+    "random variable",
+    "probability distribution"
+   ]
+  },
+  {
+   "id": "S1-5.2",
+   "subtopic": "S1-5",
+   "level": "S1",
+   "title": "Probability and cumulative distribution functions",
+   "statement": "The probability function and the cumulative distribution function for a discrete random variable.",
+   "raw": "The probability function and the cumulative distribution function for a discrete random variable.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-5.1"
+   ],
+   "glossary": [
+    "probability function",
+    "p(x) = p(x = x)",
+    "cumulative distribution function",
+    "f(x0) = p(x ≤ x0)"
+   ],
+   "guidance": "Simple uses of the probability function $p(x)$ where $p(x) = P(X = x)$. Use of the cumulative distribution function $F(x_0) = P(X \\le x_0) = \\sum_{x \\le x_0} p(x)$."
+  },
+  {
+   "id": "S1-5.3",
+   "subtopic": "S1-5",
+   "level": "S1",
+   "title": "Mean and variance of a discrete RV",
+   "statement": "Mean and variance of a discrete random variable.",
+   "raw": "Mean and variance of a discrete random variable.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-5.2"
+   ],
+   "glossary": [
+    "e(x)",
+    "var(x)",
+    "e(ax+b) = ae(x)+b",
+    "var(ax+b) = a^2var(x)"
+   ],
+   "guidance": "Use of $E(X)$, $E(X^2)$ for calculating the variance of $X$. Knowledge and use of $E(aX+b) = aE(X)+b$, $\\operatorname{Var}(aX+b) = a^2\\operatorname{Var}(X)$."
+  },
+  {
+   "id": "S1-5.4",
+   "subtopic": "S1-5",
+   "level": "S1",
+   "title": "Discrete uniform distribution",
+   "statement": "The discrete uniform distribution.",
+   "raw": "The discrete uniform distribution.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-5.3"
+   ],
+   "glossary": [
+    "discrete uniform distribution",
+    "mean of discrete uniform distribution",
+    "variance of discrete uniform distribution"
+   ],
+   "guidance": "The mean and variance of this distribution."
+  },
+  {
+   "id": "S1-6.1",
+   "subtopic": "S1-6",
+   "level": "S1",
+   "title": "The Normal distribution",
+   "statement": "The Normal distribution including the mean, variance and use of tables of the cumulative distribution function.",
+   "raw": "The Normal distribution including the mean, variance and use of tables of the cumulative distribution function.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-5.3",
+    "S1-2.3"
+   ],
+   "glossary": [
+    "normal distribution",
+    "standard normal tables",
+    "symmetry",
+    "probability density function",
+    "simultaneous equations"
+   ],
+   "guidance": "Knowledge of the shape and the symmetry of the distribution is required. Knowledge of the probability density function is not required. Derivation of the mean, variance and cumulative distribution function is not required. Interpolation is not necessary. Questions may involve the solution of simultaneous equations."
+  }
+ ]
+}

@@ -1,0 +1,307 @@
+{
+ "spec": "M1",
+ "subject": "math",
+ "title": "Edexcel IAL Mechanics 1",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "M1",
+   "title": "Mechanics 1",
+   "level": "M1"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "M1-1",
+   "title": "Mathematical models in mechanics",
+   "topic": "M1"
+  },
+  {
+   "id": "M1-2",
+   "title": "Vectors in mechanics",
+   "topic": "M1"
+  },
+  {
+   "id": "M1-3",
+   "title": "Kinematics of a particle moving in a straight line",
+   "topic": "M1"
+  },
+  {
+   "id": "M1-4",
+   "title": "Dynamics of a particle moving in a straight line or plane",
+   "topic": "M1"
+  },
+  {
+   "id": "M1-5",
+   "title": "Statics of a particle",
+   "topic": "M1"
+  },
+  {
+   "id": "M1-6",
+   "title": "Moments",
+   "topic": "M1"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "M1-1.1",
+   "subtopic": "M1-1",
+   "level": "M1",
+   "title": "Mechanics modelling assumptions",
+   "statement": "The basic ideas of mathematical modelling as applied in Mechanics.",
+   "raw": "The basic ideas of mathematical modelling as applied in Mechanics.",
+   "type": "factual",
+   "prereqs": [],
+   "glossary": [
+    "particle",
+    "lamina",
+    "rigid body",
+    "light string",
+    "smooth surface",
+    "rough surface",
+    "light pulley",
+    "peg"
+   ],
+   "guidance": "Students should be familiar with the terms: particle, lamina, rigid body, rod (light, uniform, non-uniform), inextensible string, smooth and rough surface, light smooth pulley, bead, wire, peg. Students should be familiar with the assumptions made in using these models."
+  },
+  {
+   "id": "M1-2.1",
+   "subtopic": "M1-2",
+   "level": "M1",
+   "title": "Magnitude, direction and resultant vectors",
+   "statement": "Magnitude and direction of a vector. Resultant of vectors may also be required.",
+   "raw": "Magnitude and direction of a vector. Resultant of vectors may also be required.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-1.1"
+   ],
+   "glossary": [
+    "magnitude",
+    "direction",
+    "resultant vector",
+    "vector diagram",
+    "unit vectors i and j",
+    "resolving a vector"
+   ],
+   "guidance": "Students may be required to resolve a vector into two components or use a vector diagram. Questions may be set involving the unit vectors $\\mathbf{i}$ and $\\mathbf{j}$."
+  },
+  {
+   "id": "M1-2.2",
+   "subtopic": "M1-2",
+   "level": "M1",
+   "title": "Vectors for displacement, velocity, force",
+   "statement": "Application of vectors to displacements, velocities, accelerations and forces in a plane.",
+   "raw": "Application of vectors to displacements, velocities, accelerations and forces in a plane.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-2.1"
+   ],
+   "glossary": [
+    "displacement vector",
+    "velocity vector",
+    "acceleration vector",
+    "force vector",
+    "constant velocity",
+    "constant acceleration"
+   ],
+   "guidance": "Use of $\\text{velocity} = \\dfrac{\\text{change of displacement}}{\\text{time}}$ in the case of constant velocity, and of $\\text{acceleration} = \\dfrac{\\text{change of velocity}}{\\text{time}}$ in the case of constant acceleration, will be required."
+  },
+  {
+   "id": "M1-3.1",
+   "subtopic": "M1-3",
+   "level": "M1",
+   "title": "Constant acceleration in a straight line",
+   "statement": "Motion in a straight line with constant acceleration.",
+   "raw": "Motion in a straight line with constant acceleration.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-2.2",
+    "P1-1.5"
+   ],
+   "glossary": [
+    "suvat equations",
+    "v = u + at",
+    "s = ut + 1/2 at^2",
+    "v^2 = u^2 + 2as",
+    "displacement-time graph",
+    "velocity-time graph"
+   ],
+   "guidance": "Graphical solutions may be required, including displacement-time, velocity-time, speed-time and acceleration-time graphs. Knowledge and use of formulae for constant acceleration will be required."
+  },
+  {
+   "id": "M1-4.1",
+   "subtopic": "M1-4",
+   "level": "M1",
+   "title": "Newton's laws of motion",
+   "statement": "The concept of a force. Newton's laws of motion.",
+   "raw": "The concept of a force. Newton’s laws of motion.",
+   "type": "conceptual",
+   "prereqs": [
+    "M1-3.1"
+   ],
+   "glossary": [
+    "force",
+    "newton's first law",
+    "newton's second law",
+    "newton's third law",
+    "f = ma"
+   ],
+   "guidance": "Simple problems involving constant acceleration in scalar form or as a vector of the form $a\\mathbf{i} + b\\mathbf{j}$."
+  },
+  {
+   "id": "M1-4.2",
+   "subtopic": "M1-4",
+   "level": "M1",
+   "title": "Connected particles and inclined planes",
+   "statement": "Simple applications including the motion of two connected particles.",
+   "raw": "Simple applications including the motion of two connected particles.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-4.1",
+    "P1-1.6"
+   ],
+   "glossary": [
+    "connected particles",
+    "smooth pulley",
+    "peg",
+    "inclined plane",
+    "tension"
+   ],
+   "guidance": "Problems may include: (i) the motion of two connected particles moving in a straight line or under gravity when the forces on each particle are constant; problems involving smooth fixed pulleys and/or pegs may be set; (ii) motion under a force which changes from one fixed value to another, e.g. a particle hitting the ground; (iii) motion directly up or down a smooth or rough inclined plane."
+  },
+  {
+   "id": "M1-4.3",
+   "subtopic": "M1-4",
+   "level": "M1",
+   "title": "Momentum, impulse and collisions",
+   "statement": "Momentum and impulse. The impulse-momentum principle. The principle of conservation of momentum applied to two particles colliding directly.",
+   "raw": "Momentum and impulse. The impulse-momentum principle. The principle of conservation of momentum applied to two particles colliding directly.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-4.1"
+   ],
+   "glossary": [
+    "momentum",
+    "impulse",
+    "impulse-momentum principle",
+    "conservation of momentum",
+    "direct collision"
+   ],
+   "guidance": "Knowledge of Newton's law of restitution is not required. Problems will be confined to those of a one-dimensional nature."
+  },
+  {
+   "id": "M1-4.4",
+   "subtopic": "M1-4",
+   "level": "M1",
+   "title": "Coefficient of friction in motion",
+   "statement": "Coefficient of friction.",
+   "raw": "Coefficient of friction.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-4.1",
+    "M1-2.2"
+   ],
+   "glossary": [
+    "coefficient of friction",
+    "normal reaction",
+    "f = μr",
+    "rough surface",
+    "limiting friction"
+   ],
+   "guidance": "An understanding of $F = \\mu R$ when a particle is moving."
+  },
+  {
+   "id": "M1-5.1",
+   "subtopic": "M1-5",
+   "level": "M1",
+   "title": "Resolving forces as vectors",
+   "statement": "Forces treated as vectors. Resolution of forces.",
+   "raw": "Forces treated as vectors. Resolution of forces.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-2.2",
+    "M1-4.1"
+   ],
+   "glossary": [
+    "force as a vector",
+    "resolving forces",
+    "component of a force",
+    "coplanar forces"
+   ]
+  },
+  {
+   "id": "M1-5.2",
+   "subtopic": "M1-5",
+   "level": "M1",
+   "title": "Equilibrium of a particle",
+   "statement": "Equilibrium of a particle under coplanar forces. Weight, normal reaction, tension and thrust, friction.",
+   "raw": "Equilibrium of a particle under coplanar forces. Weight, normal reaction, tension and thrust, friction.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-5.1"
+   ],
+   "glossary": [
+    "equilibrium",
+    "weight",
+    "normal reaction",
+    "tension",
+    "thrust",
+    "friction"
+   ],
+   "guidance": "Only simple cases of the application of the conditions for equilibrium to uncomplicated systems will be required."
+  },
+  {
+   "id": "M1-5.3",
+   "subtopic": "M1-5",
+   "level": "M1",
+   "title": "Friction in equilibrium",
+   "statement": "Coefficient of friction.",
+   "raw": "Coefficient of friction.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-5.2",
+    "M1-4.4"
+   ],
+   "glossary": [
+    "coefficient of friction",
+    "limiting equilibrium",
+    "f ≤ μr",
+    "normal reaction"
+   ],
+   "guidance": "An understanding of $F \\le \\mu R$ in a situation of equilibrium."
+  },
+  {
+   "id": "M1-6.1",
+   "subtopic": "M1-6",
+   "level": "M1",
+   "title": "Moments and equilibrium of a body",
+   "statement": "Moment of a force.",
+   "raw": "Moment of a force.",
+   "type": "procedural",
+   "prereqs": [
+    "M1-5.2"
+   ],
+   "glossary": [
+    "moment of a force",
+    "coplanar parallel forces",
+    "equilibrium",
+    "turning effect"
+   ],
+   "guidance": "Simple problems involving coplanar parallel forces acting on a body and conditions for equilibrium in such situations."
+  }
+ ]
+}

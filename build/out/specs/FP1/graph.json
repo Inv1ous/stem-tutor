@@ -1,0 +1,550 @@
+{
+ "spec": "FP1",
+ "subject": "math",
+ "title": "Edexcel IAL Further Pure Mathematics 1",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "FP1",
+   "title": "Further Pure Mathematics 1",
+   "level": "FP1"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "FP1-1",
+   "title": "Complex numbers",
+   "topic": "FP1"
+  },
+  {
+   "id": "FP1-2",
+   "title": "Roots of quadratic equations",
+   "topic": "FP1"
+  },
+  {
+   "id": "FP1-3",
+   "title": "Numerical solution of equations",
+   "topic": "FP1"
+  },
+  {
+   "id": "FP1-4",
+   "title": "Coordinate systems",
+   "topic": "FP1"
+  },
+  {
+   "id": "FP1-5",
+   "title": "Matrix algebra integration",
+   "topic": "FP1"
+  },
+  {
+   "id": "FP1-6",
+   "title": "Transformations using matrices",
+   "topic": "FP1"
+  },
+  {
+   "id": "FP1-7",
+   "title": "Series",
+   "topic": "FP1"
+  },
+  {
+   "id": "FP1-8",
+   "title": "Proof",
+   "topic": "FP1"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "FP1-1.1",
+   "subtopic": "FP1-1",
+   "level": "FP1",
+   "title": "Definition and notation of complex numbers",
+   "statement": "Definition of complex numbers in the form $a + ib$ and $r\\cos\\theta + ir\\sin\\theta$.",
+   "raw": "Definition of complex numbers in the form a + ib and r cos θ + i r sin θ.",
+   "type": "factual",
+   "prereqs": [],
+   "glossary": [
+    "complex number",
+    "a + ib",
+    "modulus",
+    "argument",
+    "conjugate",
+    "real part",
+    "imaginary part"
+   ],
+   "guidance": "The meaning of conjugate, modulus, argument, real part, imaginary part and equality of complex numbers should be known."
+  },
+  {
+   "id": "FP1-1.2",
+   "subtopic": "FP1-1",
+   "level": "FP1",
+   "title": "Sum, product and quotient of complex numbers",
+   "statement": "Sum, product and quotient of complex numbers.",
+   "raw": "Sum, product and quotient of complex numbers.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-1.1"
+   ],
+   "glossary": [
+    "complex number",
+    "modulus",
+    "product of complex numbers",
+    "quotient of complex numbers",
+    "sum of complex numbers"
+   ],
+   "guidance": "$|z_1 z_2| = |z_1||z_2|$. Knowledge of the result $\\arg(z_1 z_2) = \\arg z_1 + \\arg z_2$ is not required."
+  },
+  {
+   "id": "FP1-1.3",
+   "subtopic": "FP1-1",
+   "level": "FP1",
+   "title": "Argand diagram representation of complex numbers",
+   "statement": "Geometrical representation of complex numbers in the Argand diagram. Geometrical representation of sums, products and quotients of complex numbers.",
+   "raw": "Geometrical representation of complex numbers in the Argand diagram. Geometrical representation of sums, products and quotients of complex numbers.",
+   "type": "conceptual",
+   "prereqs": [
+    "FP1-1.2"
+   ],
+   "glossary": [
+    "argand diagram",
+    "complex plane",
+    "geometrical representation",
+    "vector addition of complex numbers"
+   ]
+  },
+  {
+   "id": "FP1-1.4",
+   "subtopic": "FP1-1",
+   "level": "FP1",
+   "title": "Complex roots of quadratic equations",
+   "statement": "Complex solutions of quadratic equations with real coefficients.",
+   "raw": "Complex solutions of quadratic equations with real coefficients.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-1.1",
+    "P1-1.5"
+   ],
+   "glossary": [
+    "complex roots",
+    "quadratic formula",
+    "discriminant",
+    "conjugate pair"
+   ]
+  },
+  {
+   "id": "FP1-1.5",
+   "subtopic": "FP1-1",
+   "level": "FP1",
+   "title": "Conjugate roots of cubic equations",
+   "statement": "Finding conjugate complex roots and a real root of a cubic equation with integer coefficients.",
+   "raw": "Finding conjugate complex roots and a real root of a cubic equation with integer coefficients.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-1.4"
+   ],
+   "glossary": [
+    "conjugate root theorem",
+    "cubic equation",
+    "complex conjugate",
+    "z*"
+   ],
+   "guidance": "Knowledge that if $z_1$ is a root of $f(z) = 0$ then $z_1^*$ is also a root."
+  },
+  {
+   "id": "FP1-1.6",
+   "subtopic": "FP1-1",
+   "level": "FP1",
+   "title": "Conjugate roots of quartic equations",
+   "statement": "Finding conjugate complex roots and/or real roots of a quartic equation with real coefficients.",
+   "raw": "Finding conjugate complex roots and/or real roots of a quartic equation with real coefficients.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-1.5"
+   ],
+   "glossary": [
+    "quartic equation",
+    "conjugate root theorem",
+    "factor theorem",
+    "complex roots"
+   ],
+   "guidance": "For example, (i) $f(x) = x^4 - x^3 - 5x^2 + 7x + 10$. Given that $x = 2 + i$ is a root of $f(x) = 0$, use algebra to find the three other roots of $f(x) = 0$. (ii) $g(x) = x^4 - x^3 + 6x^2 + 14x - 20$. Given $g(1) = 0$ and $g(-2) = 0$, use algebra to solve $g(x) = 0$ completely."
+  },
+  {
+   "id": "FP1-2.1",
+   "subtopic": "FP1-2",
+   "level": "FP1",
+   "title": "Sum and product of quadratic roots",
+   "statement": "Sum of roots and product of roots of a quadratic equation.",
+   "raw": "Sum of roots and product of roots of a quadratic equation.",
+   "type": "factual",
+   "prereqs": [
+    "P1-1.5"
+   ],
+   "glossary": [
+    "sum of roots",
+    "product of roots",
+    "alpha and beta",
+    "-b/a",
+    "c/a"
+   ],
+   "guidance": "For the equation $ax^2 + bx + c = 0$, whose roots are $\\alpha$ and $\\beta$, $\\alpha + \\beta = -\\dfrac{b}{a}$, $\\alpha\\beta = \\dfrac{c}{a}$."
+  },
+  {
+   "id": "FP1-2.2",
+   "subtopic": "FP1-2",
+   "level": "FP1",
+   "title": "Manipulating symmetric root expressions",
+   "statement": "Manipulation of expressions involving the sum of roots and product of roots.",
+   "raw": "Manipulation of expressions involving the sum of roots and product of roots.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-2.1"
+   ],
+   "glossary": [
+    "symmetric functions of roots",
+    "alpha cubed plus beta cubed",
+    "root manipulation",
+    "sum and product of roots"
+   ],
+   "guidance": "Knowledge of the identity $\\alpha^3 + \\beta^3 \\equiv (\\alpha+\\beta)^3 - 3\\alpha\\beta(\\alpha+\\beta)$."
+  },
+  {
+   "id": "FP1-2.3",
+   "subtopic": "FP1-2",
+   "level": "FP1",
+   "title": "Forming quadratics with transformed roots",
+   "statement": "Forming quadratic equations with new roots.",
+   "raw": "Forming quadratic equations with new roots.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-2.2"
+   ],
+   "glossary": [
+    "new quadratic equation",
+    "transformed roots",
+    "sum and product of new roots"
+   ],
+   "guidance": "For example, with roots $\\alpha^3, \\beta^3$; $\\dfrac{1}{\\alpha}, \\dfrac{1}{\\beta}$; $\\alpha + \\dfrac{2}{\\alpha}, \\beta + \\dfrac{2}{\\beta}$; etc."
+  },
+  {
+   "id": "FP1-3.1",
+   "subtopic": "FP1-3",
+   "level": "FP1",
+   "title": "Numerical solution of equations",
+   "statement": "Equations of the form $f(x) = 0$ solved numerically by: (i) interval bisection, (ii) linear interpolation, (iii) the Newton-Raphson process.",
+   "raw": "Equations of the form f(x) = 0 solved numerically by: (i) interval bisection, (ii) linear interpolation, (iii) the Newton-Raphson process.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-4.2"
+   ],
+   "glossary": [
+    "interval bisection",
+    "linear interpolation",
+    "newton-raphson process",
+    "root of f(x) = 0",
+    "numerical methods"
+   ],
+   "guidance": "$f(x)$ will involve only functions used in P1 and P2. For the Newton-Raphson process, the only differentiation required will be as defined in unit P1 and P2."
+  },
+  {
+   "id": "FP1-4.1",
+   "subtopic": "FP1-4",
+   "level": "FP1",
+   "title": "Parabola and rectangular hyperbola equations",
+   "statement": "Cartesian equations for the parabola and rectangular hyperbola.",
+   "raw": "Cartesian equations for the parabola and rectangular hyperbola.",
+   "type": "factual",
+   "prereqs": [
+    "P1-1.11",
+    "P1-2.1"
+   ],
+   "glossary": [
+    "parabola",
+    "rectangular hyperbola",
+    "y^2 = 4ax",
+    "parametric form",
+    "xy = c^2"
+   ],
+   "guidance": "Students should be familiar with the equations: $y^2 = 4ax$ or $x = at^2, y = 2at$ and $xy = c^2$ or $x = ct, y = \\dfrac{c}{t}$."
+  },
+  {
+   "id": "FP1-4.2",
+   "subtopic": "FP1-4",
+   "level": "FP1",
+   "title": "Parametric point on the parabola",
+   "statement": "Idea of parametric equation for parabola and rectangular hyperbola.",
+   "raw": "Idea of parametric equation for parabola and rectangular hyperbola.",
+   "type": "conceptual",
+   "prereqs": [
+    "FP1-4.1"
+   ],
+   "glossary": [
+    "parametric equations",
+    "general point at^2 2at",
+    "parameter t"
+   ],
+   "guidance": "The idea of $(at^2, 2at)$ as a general point on the parabola is all that is required."
+  },
+  {
+   "id": "FP1-4.3",
+   "subtopic": "FP1-4",
+   "level": "FP1",
+   "title": "Focus-directrix property of the parabola",
+   "statement": "The focus-directrix property of the parabola.",
+   "raw": "The focus-directrix property of the parabola.",
+   "type": "conceptual",
+   "prereqs": [
+    "FP1-4.1"
+   ],
+   "glossary": [
+    "focus",
+    "directrix",
+    "locus",
+    "parabola",
+    "equidistant"
+   ],
+   "guidance": "Concept of focus and directrix and parabola as locus of points equidistant from focus and directrix."
+  },
+  {
+   "id": "FP1-4.4",
+   "subtopic": "FP1-4",
+   "level": "FP1",
+   "title": "Tangents and normals to these curves",
+   "statement": "Tangents and normals to these curves.",
+   "raw": "Tangents and normals to these curves.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-4.1",
+    "P1-4.3"
+   ],
+   "glossary": [
+    "tangent",
+    "normal",
+    "implicit differentiation",
+    "parabola",
+    "rectangular hyperbola"
+   ],
+   "guidance": "Differentiation of $y^2 = 4ax$ to give $\\dfrac{dy}{dx} = \\dfrac{2a}{y}$, and of $xy = c^2$ to give $\\dfrac{dy}{dx} = -\\dfrac{c^2}{x^2}$. Parametric differentiation is not required."
+  },
+  {
+   "id": "FP1-5.1",
+   "subtopic": "FP1-5",
+   "level": "FP1",
+   "title": "Addition and subtraction of matrices",
+   "statement": "Addition and subtraction of matrices.",
+   "raw": "Addition and subtraction of matrices.",
+   "type": "procedural",
+   "prereqs": [],
+   "glossary": [
+    "matrix",
+    "matrix addition",
+    "matrix subtraction",
+    "conformable matrices"
+   ]
+  },
+  {
+   "id": "FP1-5.2",
+   "subtopic": "FP1-5",
+   "level": "FP1",
+   "title": "Scalar multiplication of a matrix",
+   "statement": "Multiplication of a matrix by a scalar.",
+   "raw": "Multiplication of a matrix by a scalar.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-5.1"
+   ],
+   "glossary": [
+    "scalar multiplication",
+    "matrix",
+    "scalar"
+   ]
+  },
+  {
+   "id": "FP1-5.3",
+   "subtopic": "FP1-5",
+   "level": "FP1",
+   "title": "Multiplying matrices together",
+   "statement": "Products of matrices.",
+   "raw": "Products of matrices.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-5.1"
+   ],
+   "glossary": [
+    "matrix multiplication",
+    "matrix product",
+    "conformability",
+    "row by column"
+   ]
+  },
+  {
+   "id": "FP1-5.4",
+   "subtopic": "FP1-5",
+   "level": "FP1",
+   "title": "Evaluating 2x2 determinants",
+   "statement": "Evaluation of $2 \\times 2$ determinants.",
+   "raw": "Evaluation of 2 × 2 determinants.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-5.1"
+   ],
+   "glossary": [
+    "determinant",
+    "singular matrix",
+    "non-singular matrix",
+    "2x2 matrix"
+   ],
+   "guidance": "Singular and non-singular matrices."
+  },
+  {
+   "id": "FP1-5.5",
+   "subtopic": "FP1-5",
+   "level": "FP1",
+   "title": "Inverse of 2x2 matrices",
+   "statement": "Inverse of $2 \\times 2$ matrices.",
+   "raw": "Inverse of 2 × 2 matrices.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-5.4",
+    "FP1-5.3"
+   ],
+   "glossary": [
+    "inverse of a matrix",
+    "2x2 matrix",
+    "(ab)^-1 = b^-1 a^-1",
+    "determinant"
+   ],
+   "guidance": "Use of the relation $(AB)^{-1} = B^{-1}A^{-1}$."
+  },
+  {
+   "id": "FP1-6.1",
+   "subtopic": "FP1-6",
+   "level": "FP1",
+   "title": "Matrix representation of linear transformations",
+   "statement": "Linear transformations of column vectors in two dimensions and their matrix representation.",
+   "raw": "Linear transformations of column vectors in two dimensions and their matrix representation.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-5.3"
+   ],
+   "glossary": [
+    "linear transformation",
+    "column vector",
+    "matrix representation",
+    "composition of transformations"
+   ],
+   "guidance": "The transformation represented by $AB$ is the transformation represented by $B$ followed by the transformation represented by $A$."
+  },
+  {
+   "id": "FP1-6.2",
+   "subtopic": "FP1-6",
+   "level": "FP1",
+   "title": "Matrices for geometric transformations",
+   "statement": "Applications of $2 \\times 2$ matrices to represent geometrical transformations.",
+   "raw": "Applications of 2 × 2 matrices to represent geometrical transformations.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-6.1"
+   ],
+   "glossary": [
+    "reflection matrix",
+    "rotation matrix",
+    "stretch",
+    "enlargement",
+    "scale factor"
+   ],
+   "guidance": "Identification and use of the matrix representation of single transformations from: reflection in coordinate axes and lines $y = \\pm x$; rotation through any angle about $(0,0)$; stretches parallel to the $x$-axis and $y$-axis; and enlargement about centre $(0,0)$ with scale factor $k$ ($k \\neq 0$), where $k \\in \\mathbb{R}$."
+  },
+  {
+   "id": "FP1-6.3",
+   "subtopic": "FP1-6",
+   "level": "FP1",
+   "title": "Combining matrix transformations",
+   "statement": "Combinations of transformations.",
+   "raw": "Combinations of transformations.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-6.2"
+   ],
+   "glossary": [
+    "combined transformation",
+    "matrix product",
+    "composite transformation"
+   ],
+   "guidance": "Identification and use of the matrix representation of combined transformations."
+  },
+  {
+   "id": "FP1-6.4",
+   "subtopic": "FP1-6",
+   "level": "FP1",
+   "title": "Inverse of combined transformations",
+   "statement": "The inverse (when it exists) of a given transformation or combination of transformations.",
+   "raw": "The inverse (when it exists) of a given transformation or combination of transformations.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-6.3",
+    "FP1-5.5"
+   ],
+   "glossary": [
+    "inverse transformation",
+    "determinant",
+    "area scale factor",
+    "singular matrix"
+   ],
+   "guidance": "Idea of the determinant as an area scale factor in transformations."
+  },
+  {
+   "id": "FP1-7.1",
+   "subtopic": "FP1-7",
+   "level": "FP1",
+   "title": "Summing simple finite series",
+   "statement": "Summation of simple finite series.",
+   "raw": "Summation of simple finite series.",
+   "type": "procedural",
+   "prereqs": [
+    "P2-4.2"
+   ],
+   "glossary": [
+    "sigma notation",
+    "sum of squares formula",
+    "sum of cubes formula",
+    "finite series"
+   ],
+   "guidance": "Students should be able to sum series such as $\\displaystyle\\sum_{r=1}^{n} r^2$, $\\displaystyle\\sum_{r=1}^{n} r^3$ and $\\displaystyle\\sum_{r=1}^{n} r(r+2)$. The method of differences is not required."
+  },
+  {
+   "id": "FP1-8.1",
+   "subtopic": "FP1-8",
+   "level": "FP1",
+   "title": "Proof by mathematical induction",
+   "statement": "Proof by mathematical induction.",
+   "raw": "Proof by mathematical induction.",
+   "type": "procedural",
+   "prereqs": [
+    "FP1-7.1",
+    "FP1-5.3"
+   ],
+   "glossary": [
+    "mathematical induction",
+    "inductive step",
+    "base case",
+    "divisibility proof",
+    "induction with matrices"
+   ],
+   "guidance": "To include induction proofs for (i) summation of series, e.g. show $\\displaystyle\\sum_{r=1}^n r^3 = \\dfrac{1}{4}n^2(n+1)^2$ or $\\displaystyle\\sum_{r=1}^n r(r+1) = \\dfrac{1}{3}n(n+1)(n+2)$ (ii) divisibility, e.g. show $3^{2n+1} + 1$ is divisible by 4 (iii) finding general terms in a sequence, e.g. if $u_{n+1} = 3u_n + 4$ with $u_1 = 1$, prove that $u_n = 3^n - 2$ (iv) matrix products, e.g. show that $A^n$ for a given $2\\times 2$ matrix $A$ can be found in terms of $n$."
+  }
+ ]
+}

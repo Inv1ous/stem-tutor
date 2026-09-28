@@ -1,0 +1,334 @@
+{
+ "spec": "S3",
+ "subject": "math",
+ "title": "Edexcel IAL Statistics 3",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "S3",
+   "title": "Statistics 3",
+   "level": "S3"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "S3-1",
+   "title": "Combinations of random variables",
+   "topic": "S3"
+  },
+  {
+   "id": "S3-2",
+   "title": "Sampling",
+   "topic": "S3"
+  },
+  {
+   "id": "S3-3",
+   "title": "Estimation, confidence intervals and tests",
+   "topic": "S3"
+  },
+  {
+   "id": "S3-4",
+   "title": "Goodness of fit and contingency tables",
+   "topic": "S3"
+  },
+  {
+   "id": "S3-5",
+   "title": "Regression and correlation",
+   "topic": "S3"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "S3-1.1",
+   "subtopic": "S3-1",
+   "level": "S3",
+   "title": "Linear combinations of Normal variables",
+   "statement": "Distribution of linear combinations of independent Normal random variables.",
+   "raw": "Distribution of linear combinations of independent Normal random variables.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-6.1"
+   ],
+   "glossary": [
+    "linear combination",
+    "independent normal random variables",
+    "ax ± by"
+   ],
+   "guidance": "If $X \\sim N(\\mu_x, \\sigma_x^2)$ and $Y \\sim N(\\mu_y, \\sigma_y^2)$ independently, then $aX \\pm bY \\sim N(a\\mu_x \\pm b\\mu_y,\\ a^2\\sigma_x^2 + b^2\\sigma_y^2)$. No proofs required."
+  },
+  {
+   "id": "S3-2.1",
+   "subtopic": "S3-2",
+   "level": "S3",
+   "title": "Simple random sampling",
+   "statement": "Methods for collecting data. Simple random sampling. Use of random numbers for sampling.",
+   "raw": "Methods for collecting data. Simple random sampling. Use of random numbers for sampling.",
+   "type": "factual",
+   "prereqs": [
+    "S2-4.1"
+   ],
+   "glossary": [
+    "simple random sampling",
+    "random number table",
+    "sampling frame"
+   ]
+  },
+  {
+   "id": "S3-2.2",
+   "subtopic": "S3-2",
+   "level": "S3",
+   "title": "Stratified, systematic, quota sampling",
+   "statement": "Other methods of sampling: stratified, systematic, quota.",
+   "raw": "Other methods of sampling: stratified, systematic, quota.",
+   "type": "conceptual",
+   "prereqs": [
+    "S3-2.1"
+   ],
+   "glossary": [
+    "stratified sampling",
+    "systematic sampling",
+    "quota sampling"
+   ],
+   "guidance": "The circumstances in which they might be used. Their advantages and disadvantages."
+  },
+  {
+   "id": "S3-3.1",
+   "subtopic": "S3-3",
+   "level": "S3",
+   "title": "Standard error, estimator, bias",
+   "statement": "Concepts of standard error, estimator, bias.",
+   "raw": "Concepts of standard error, estimator, bias.",
+   "type": "conceptual",
+   "prereqs": [
+    "S1-2.3",
+    "S2-4.2"
+   ],
+   "glossary": [
+    "standard error",
+    "unbiased estimator",
+    "bias",
+    "sample variance"
+   ],
+   "guidance": "The sample mean, $\\bar{x}$, and the sample variance, $s^2 = \\dfrac{1}{n-1}\\displaystyle\\sum_{i=1}^n (x_i - \\bar{x})^2$, as unbiased estimates of the corresponding population parameters."
+  },
+  {
+   "id": "S3-3.2",
+   "subtopic": "S3-3",
+   "level": "S3",
+   "title": "Distribution of the sample mean",
+   "statement": "The distribution of the sample mean $\\bar{X}$.",
+   "raw": "The distribution of the sample mean X .",
+   "type": "procedural",
+   "prereqs": [
+    "S3-3.1",
+    "S3-1.1"
+   ],
+   "glossary": [
+    "sample mean",
+    "standard error of the mean",
+    "distribution of the sample mean"
+   ],
+   "guidance": "$\\bar X$ has mean $\\mu$ and variance $\\dfrac{\\sigma^2}{n}$. If $X \\sim N(\\mu, \\sigma^2)$ then $\\bar X \\sim N\\left(\\mu, \\dfrac{\\sigma^2}{n}\\right)$. No proofs required."
+  },
+  {
+   "id": "S3-3.3",
+   "subtopic": "S3-3",
+   "level": "S3",
+   "title": "Confidence interval concept",
+   "statement": "Concept of a confidence interval and its interpretation.",
+   "raw": "Concept of a confidence interval and its interpretation.",
+   "type": "conceptual",
+   "prereqs": [
+    "S3-3.2",
+    "S2-4.3"
+   ],
+   "glossary": [
+    "confidence interval",
+    "confidence level",
+    "interval estimate"
+   ],
+   "guidance": "Link with hypothesis tests."
+  },
+  {
+   "id": "S3-3.4",
+   "subtopic": "S3-3",
+   "level": "S3",
+   "title": "Confidence interval for a Normal mean",
+   "statement": "Confidence limits for a Normal mean, with variance known.",
+   "raw": "Confidence limits for a Normal mean, with variance known.",
+   "type": "procedural",
+   "prereqs": [
+    "S3-3.3"
+   ],
+   "glossary": [
+    "confidence limits",
+    "normal mean",
+    "standard error"
+   ],
+   "guidance": "Students will be expected to know how to apply the Normal distribution and use the standard error and obtain confidence intervals for the mean, rather than be concerned with any theoretical derivations."
+  },
+  {
+   "id": "S3-3.5",
+   "subtopic": "S3-3",
+   "level": "S3",
+   "title": "Hypothesis test for a Normal mean",
+   "statement": "Hypothesis tests for the mean of a Normal distribution with variance known.",
+   "raw": "Hypothesis tests for the mean of a Normal distribution with variance known.",
+   "type": "procedural",
+   "prereqs": [
+    "S3-3.2",
+    "S2-4.3"
+   ],
+   "glossary": [
+    "hypothesis test for the mean",
+    "test statistic",
+    "standard error"
+   ],
+   "guidance": "Use of $\\dfrac{\\bar X - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0,1)$."
+  },
+  {
+   "id": "S3-3.6",
+   "subtopic": "S3-3",
+   "level": "S3",
+   "title": "Central Limit Theorem for large samples",
+   "statement": "Use of Central Limit theorem to extend hypothesis tests and confidence intervals to samples from non-Normal distributions. Use of large sample results to extend to the case in which the variance is unknown.",
+   "raw": "Use of Central Limit theorem to extend hypothesis tests and confidence intervals to samples from non-Normal distributions. Use of large sample results to extend to the case in which the variance is unknown.",
+   "type": "procedural",
+   "prereqs": [
+    "S3-3.5",
+    "S3-3.1"
+   ],
+   "glossary": [
+    "central limit theorem",
+    "large sample",
+    "variance unknown"
+   ],
+   "guidance": "$\\dfrac{\\bar X - \\mu}{S/\\sqrt{n}}$ can be treated as $N(0,1)$ when $n$ is large. A knowledge of the $t$-distribution is not required."
+  },
+  {
+   "id": "S3-3.7",
+   "subtopic": "S3-3",
+   "level": "S3",
+   "title": "Comparing two Normal means, variances known",
+   "statement": "Hypothesis test for the difference between the means of two Normal distributions with variances known.",
+   "raw": "Hypothesis test for the difference between the means of two Normal distributions with variances known.",
+   "type": "procedural",
+   "prereqs": [
+    "S3-3.5"
+   ],
+   "glossary": [
+    "two-sample test",
+    "difference of means",
+    "variances known"
+   ],
+   "guidance": "Use of $\\dfrac{(\\bar X - \\bar Y) - (\\mu_x - \\mu_y)}{\\sqrt{\\dfrac{\\sigma_x^2}{n_x} + \\dfrac{\\sigma_y^2}{n_y}}} \\sim N(0,1)$."
+  },
+  {
+   "id": "S3-3.8",
+   "subtopic": "S3-3",
+   "level": "S3",
+   "title": "Comparing two means, variances unknown",
+   "statement": "Use of large sample results to extend to the case in which the population variances are unknown.",
+   "raw": "Use of large sample results to extend to the case in which the population variances are unknown.",
+   "type": "procedural",
+   "prereqs": [
+    "S3-3.7",
+    "S3-3.6"
+   ],
+   "glossary": [
+    "two-sample test",
+    "variances unknown",
+    "large sample"
+   ],
+   "guidance": "Use of $\\dfrac{(\\bar X - \\bar Y) - (\\mu_x - \\mu_y)}{\\sqrt{\\dfrac{S_x^2}{n_x} + \\dfrac{S_y^2}{n_y}}} \\sim N(0,1)$. A knowledge of the $t$-distribution is not required."
+  },
+  {
+   "id": "S3-4.1",
+   "subtopic": "S3-4",
+   "level": "S3",
+   "title": "Chi-squared goodness of fit statistic",
+   "statement": "The null and alternative hypotheses. The use of $\\sum_{i=1}^n \\dfrac{(O_i - E_i)^2}{E_i}$ as an approximate $\\chi^2$ statistic.",
+   "raw": "The null and alternative hypotheses. ( O E ) 2 n − ∑ The use of as an i i E i = 1 i approximate χ2 statistic.",
+   "type": "procedural",
+   "prereqs": [
+    "S2-4.3"
+   ],
+   "glossary": [
+    "chi-squared statistic",
+    "observed frequency",
+    "expected frequency",
+    "goodness of fit"
+   ],
+   "guidance": "Applications to include the discrete uniform, binomial, Normal, Poisson and continuous uniform (rectangular) distributions. Lengthy calculations will not be required."
+  },
+  {
+   "id": "S3-4.2",
+   "subtopic": "S3-4",
+   "level": "S3",
+   "title": "Degrees of freedom",
+   "statement": "Degrees of freedom.",
+   "raw": "Degrees of freedom.",
+   "type": "procedural",
+   "prereqs": [
+    "S3-4.1"
+   ],
+   "glossary": [
+    "degrees of freedom",
+    "combining cells",
+    "yates' correction"
+   ],
+   "guidance": "Students will be expected to determine the degrees of freedom when one or more parameters are estimated from the data. Cells should be combined when $E_i < 5$. Yates' correction is not required."
+  },
+  {
+   "id": "S3-5.1",
+   "subtopic": "S3-5",
+   "level": "S3",
+   "title": "Spearman's rank correlation",
+   "statement": "Spearman's rank correlation coefficient, its use, interpretation and limitations.",
+   "raw": "Spearman’s rank correlation coefficient, its use, interpretation and limitations.",
+   "type": "procedural",
+   "prereqs": [
+    "S1-4.3"
+   ],
+   "glossary": [
+    "spearman's rank correlation coefficient",
+    "ranking",
+    "tied ranks"
+   ],
+   "guidance": "Numerical questions involving ties will not be set. Some understanding of how to deal with ties will be expected."
+  },
+  {
+   "id": "S3-5.2",
+   "subtopic": "S3-5",
+   "level": "S3",
+   "title": "Testing for zero correlation",
+   "statement": "Testing the hypothesis that a correlation is zero.",
+   "raw": "Testing the hypothesis that a correlation is zero.",
+   "type": "procedural",
+   "prereqs": [
+    "S3-5.1",
+    "S2-4.3"
+   ],
+   "glossary": [
+    "hypothesis test for correlation",
+    "spearman's coefficient",
+    "product moment correlation coefficient"
+   ],
+   "guidance": "Use of tables for Spearman's and product moment correlation coefficients."
+  }
+ ]
+}

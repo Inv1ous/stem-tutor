@@ -1,0 +1,425 @@
+{
+ "spec": "P3",
+ "subject": "math",
+ "title": "Edexcel IAL Pure Mathematics 3",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "P3",
+   "title": "Pure Mathematics 3",
+   "level": "P3"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "P3-1",
+   "title": "Algebra and functions",
+   "topic": "P3"
+  },
+  {
+   "id": "P3-2",
+   "title": "Trigonometry",
+   "topic": "P3"
+  },
+  {
+   "id": "P3-3",
+   "title": "Exponential and logarithms",
+   "topic": "P3"
+  },
+  {
+   "id": "P3-4",
+   "title": "Differentiation",
+   "topic": "P3"
+  },
+  {
+   "id": "P3-5",
+   "title": "Integration",
+   "topic": "P3"
+  },
+  {
+   "id": "P3-6",
+   "title": "Numerical methods",
+   "topic": "P3"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "P3-1.1",
+   "subtopic": "P3-1",
+   "level": "P3",
+   "title": "Simplifying rational expressions",
+   "statement": "Simplification of rational expressions including factorising and cancelling, and algebraic division.",
+   "raw": "Simplification of rational expressions including factorising and cancelling, and algebraic division.",
+   "type": "procedural",
+   "prereqs": [
+    "P2-2.1"
+   ],
+   "glossary": [
+    "rational expression",
+    "algebraic fraction",
+    "factorising and cancelling",
+    "algebraic division"
+   ],
+   "guidance": "Denominators of rational expressions will be linear or quadratic, e.g. $\\dfrac{1}{ax+b}$, $\\dfrac{x^3+1}{px^2+qx+r}$, $\\dfrac{x-1}{x^2}$."
+  },
+  {
+   "id": "P3-1.2",
+   "subtopic": "P3-1",
+   "level": "P3",
+   "title": "Functions, domain, range and inverses",
+   "statement": "Definition of a function. Domain and range of functions. Composition of functions. Inverse functions and their graphs.",
+   "raw": "Definition of a function. Domain and range of functions. Composition of functions. Inverse functions and their graphs.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.11"
+   ],
+   "glossary": [
+    "domain",
+    "range",
+    "composite function",
+    "inverse function",
+    "one-one function",
+    "many-one function"
+   ],
+   "guidance": "The concept of a function as a one-one or many-one mapping from $\\mathbb{R}$ (or a subset of $\\mathbb{R}$) to $\\mathbb{R}$ will be used. The notation $f:x \\mapsto f(x)$ may be used. Students should know that $fg$ means 'do $g$ first, then $f$'. Students should know that if $f^{-1}$ exists, then $f^{-1}f(x) = ff^{-1}(x) = x$."
+  },
+  {
+   "id": "P3-1.3",
+   "subtopic": "P3-1",
+   "level": "P3",
+   "title": "The modulus function",
+   "statement": "The modulus function.",
+   "raw": "The modulus function.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.12",
+    "P3-1.2"
+   ],
+   "glossary": [
+    "modulus function",
+    "|ax + b|",
+    "y = |f(x)|",
+    "y = f(|x|)",
+    "modulus equations and inequalities"
+   ],
+   "guidance": "Students should be able to sketch the graphs of $y=|ax+b|$ and the graphs of $y=|f(x)|$ and $y=f(|x|)$, given the graph of $y=f(x)$. For example, sketch the graph with equation $y=|2x-1|$ and use the graph to solve the equation $|2x-1|=x+5$ or the inequality $|2x-1|>x+5$."
+  },
+  {
+   "id": "P3-1.4",
+   "subtopic": "P3-1",
+   "level": "P3",
+   "title": "Combined graph transformations",
+   "statement": "Combinations of the transformations $y=f(x)$ as represented by $y=af(x)$, $y=f(x)+a$, $y=f(x+a)$, $y=f(ax)$.",
+   "raw": "Combinations of the transformations y = f(x) as represented by y = af(x), y = f(x) + a, y = f(x + a), y = f(ax).",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.12"
+   ],
+   "glossary": [
+    "combined transformations",
+    "y = 2f(3x)",
+    "graph sketching",
+    "successive transformations"
+   ],
+   "guidance": "Students should be able to sketch the graph of, for example, $y=2f(3x)$, $y=f(-x)+1$, given the graph of $y=f(x)$, or the graph of, for example, $y=3+\\sin 2x$, $y=-\\cos\\left(x+\\dfrac{\\pi}{4}\\right)$. The graph of $y=f(ax+b)$ will not be required."
+  },
+  {
+   "id": "P3-2.1",
+   "subtopic": "P3-2",
+   "level": "P3",
+   "title": "Reciprocal and inverse trig functions",
+   "statement": "Knowledge of secant, cosecant and cotangent and of arcsin, arccos and arctan. Their relationships to sine, cosine and tangent. Understanding of their graphs and appropriate restricted domains.",
+   "raw": "Knowledge of secant, cosecant and cotangent and of arcsin, arccos and arctan. Their relationships to sine, cosine and tangent. Understanding of their graphs and appropriate restricted domains.",
+   "type": "conceptual",
+   "prereqs": [
+    "P2-6.1"
+   ],
+   "glossary": [
+    "secant",
+    "cosecant",
+    "cotangent",
+    "arcsin",
+    "arccos",
+    "arctan",
+    "restricted domain"
+   ],
+   "guidance": "Angles measured in both degrees and radians."
+  },
+  {
+   "id": "P3-2.2",
+   "subtopic": "P3-2",
+   "level": "P3",
+   "title": "Sec² and cosec² identities",
+   "statement": "Knowledge and use of $\\sec^2\\theta = 1+\\tan^2\\theta$ and $\\csc^2\\theta = 1+\\cot^2\\theta$.",
+   "raw": "Knowledge and use of sec2 θ = 1 + tan2 θ  and cosec2 θ = 1 + cot2 θ.",
+   "type": "conceptual",
+   "prereqs": [
+    "P3-2.1",
+    "P2-6.1"
+   ],
+   "glossary": [
+    "sec^2 θ = 1 + tan^2 θ",
+    "cosec^2 θ = 1 + cot^2 θ",
+    "trigonometric identity",
+    "pythagorean identities"
+   ]
+  },
+  {
+   "id": "P3-2.3",
+   "subtopic": "P3-2",
+   "level": "P3",
+   "title": "Compound and double angle formulae",
+   "statement": "Knowledge and use of double angle formulae; use of formulae for $\\sin(A \\pm B)$, $\\cos(A \\pm B)$ and $\\tan(A \\pm B)$ and of expressions for $a\\cos\\theta+b\\sin\\theta$ in the equivalent forms of $r\\cos(\\theta \\pm \\alpha)$ or $r\\sin(\\theta \\pm \\alpha)$.",
+   "raw": "Knowledge and use of double angle formulae; use of formulae for sin (A ± B), cos (A ± B) and tan (A ± B) and of expressions for a cos θ + b sin θ in the equivalent forms of r cos (θ  ± a) or r sin (θ ± a).",
+   "type": "procedural",
+   "prereqs": [
+    "P3-2.1",
+    "P2-6.2"
+   ],
+   "glossary": [
+    "double angle formulae",
+    "compound angle formulae",
+    "R cos(θ ± α) form",
+    "sin(A ± B)",
+    "half angle"
+   ],
+   "guidance": "To include application to half angles. Knowledge of the $t=\\tan\\frac{1}{2}\\theta$ formulae will not be required. Students should be able to solve equations such as $a\\cos\\theta+b\\sin\\theta=c$ in a given interval, and to prove identities such as $\\cos x\\cos 2x+\\sin x\\sin 2x \\equiv \\cos x$."
+  },
+  {
+   "id": "P3-3.1",
+   "subtopic": "P3-3",
+   "level": "P3",
+   "title": "The exponential function e^x",
+   "statement": "The function $e^x$ and its graph.",
+   "raw": "The function ex and its graph.",
+   "type": "conceptual",
+   "prereqs": [
+    "P2-5.1"
+   ],
+   "glossary": [
+    "e^x",
+    "exponential function",
+    "y = e^{ax+b}+c",
+    "natural exponential graph"
+   ],
+   "guidance": "To include the graph of $y=e^{ax+b}+c$. Solution of equations of the form $e^{ax+b}=p$ and"
+  },
+  {
+   "id": "P3-3.2",
+   "subtopic": "P3-3",
+   "level": "P3",
+   "title": "The natural logarithm ln x",
+   "statement": "The function $\\ln x$ and its graph; $\\ln x$ as the inverse function of $e^x$.",
+   "raw": "The function ln x and its graph; ln x as the inverse function of ex.",
+   "type": "conceptual",
+   "prereqs": [
+    "P3-3.1",
+    "P3-1.2"
+   ],
+   "glossary": [
+    "ln x",
+    "natural logarithm",
+    "inverse of e^x",
+    "ln(ax+b) = q"
+   ],
+   "guidance": "$\\ln(ax+b)=q$ is expected."
+  },
+  {
+   "id": "P3-3.3",
+   "subtopic": "P3-3",
+   "level": "P3",
+   "title": "Using logarithmic graphs to fit models",
+   "statement": "Use logarithmic graphs to estimate parameters in relationships of the form $y=ax^n$ and $y=kb^x$.",
+   "raw": "Use logarithmic graphs to estimate parameters in relationships of the form y = axn and y = kbx.",
+   "type": "procedural",
+   "prereqs": [
+    "P2-5.2",
+    "P1-2.1"
+   ],
+   "glossary": [
+    "log y against log x",
+    "log-linear graph",
+    "y = ax^n",
+    "y = kb^x",
+    "estimating parameters"
+   ],
+   "guidance": "Plot $\\log y$ against $\\log x$ and obtain a straight line where the intercept is $\\log a$ and the gradient is $n$. Plot $\\log y$ against $x$ and obtain a straight line where the intercept is $\\log k$ and the gradient is $\\log b$."
+  },
+  {
+   "id": "P3-4.1",
+   "subtopic": "P3-4",
+   "level": "P3",
+   "title": "Differentiating exponential, log and trig functions",
+   "statement": "Differentiation of $e^{kx}$, $\\ln kx$, $\\sin kx$, $\\cos kx$, $\\tan kx$ and their sums and differences.",
+   "raw": "Differentiation of ekx, ln kx, sin kx, cos kx, tan kx and their sums and differences.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-4.2",
+    "P3-3.1",
+    "P3-3.2",
+    "P1-3.3"
+   ],
+   "glossary": [
+    "d/dx(e^{kx})",
+    "d/dx(ln kx)",
+    "differentiating sin kx",
+    "differentiating cos kx",
+    "differentiating tan kx"
+   ]
+  },
+  {
+   "id": "P3-4.2",
+   "subtopic": "P3-4",
+   "level": "P3",
+   "title": "Product, quotient and chain rules",
+   "statement": "Differentiation using the product rule, the quotient rule and the chain rule.",
+   "raw": "Differentiation using the product rule, the quotient rule and the chain rule.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-4.2",
+    "P3-4.1"
+   ],
+   "glossary": [
+    "product rule",
+    "quotient rule",
+    "chain rule",
+    "differentiating cosec x",
+    "differentiating cot x",
+    "differentiating sec x"
+   ],
+   "guidance": "Differentiation of $\\csc x$, $\\cot x$ and $\\sec x$ is required. Skill will be expected in the differentiation of functions generated from standard functions using products, quotients and composition, such as $3e^x\\sin x$, $\\dfrac{2x^4}{\\cos x}$, $\\cos(x^2)$ and $\\tan^2 2x$."
+  },
+  {
+   "id": "P3-4.3",
+   "subtopic": "P3-4",
+   "level": "P3",
+   "title": "Differentiating using dy/dx = 1/(dx/dy)",
+   "statement": "The use of $\\dfrac{dy}{dx} = \\dfrac{1}{dx/dy}$.",
+   "raw": "d y 1 = The use of d x  d x    d y  ",
+   "type": "procedural",
+   "prereqs": [
+    "P3-4.2"
+   ],
+   "glossary": [
+    "dy/dx = 1/(dx/dy)",
+    "differentiating inverse relations",
+    "implicit differentiation setup"
+   ],
+   "guidance": "For example, finding $\\dfrac{dy}{dx}$ for $x=\\sin 3y$."
+  },
+  {
+   "id": "P3-4.4",
+   "subtopic": "P3-4",
+   "level": "P3",
+   "title": "Exponential growth and decay",
+   "statement": "Understand and use exponential growth and decay.",
+   "raw": "Understand and use exponential growth and decay.",
+   "type": "conceptual",
+   "prereqs": [
+    "P3-3.1",
+    "P3-4.1"
+   ],
+   "glossary": [
+    "exponential growth",
+    "exponential decay",
+    "d/dx(a^x) = a^x ln a",
+    "initial value",
+    "modelling"
+   ],
+   "guidance": "Students should be familiar with terms such as 'initial', meaning when $t=0$. Students may need to explore the behaviour for large values of $t$ or to consider whether the range of values predicted is appropriate. Consideration of a second, improved model may be required. Knowledge and use of the result $\\dfrac{d}{dx}(a^x) = a^x \\ln a$ is expected."
+  },
+  {
+   "id": "P3-5.1",
+   "subtopic": "P3-5",
+   "level": "P3",
+   "title": "Integrating exponential, log and trig functions",
+   "statement": "Integration of $e^{kx}$, $\\dfrac{1}{nx}$, $\\sin kx$, $\\cos kx$ and their sums and differences.",
+   "raw": "Integration of ekx, 1 nx , sin kx, cos kx and their sums and differences.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-5.2",
+    "P3-4.1"
+   ],
+   "glossary": [
+    "integrating e^{kx}",
+    "integrating 1/(nx)",
+    "integrating sin kx",
+    "integrating cos kx"
+   ],
+   "guidance": "To include integration of standard functions such as $\\sin 3x$, $e^{5x}$, $\\dfrac{1}{2x}$."
+  },
+  {
+   "id": "P3-5.2",
+   "subtopic": "P3-5",
+   "level": "P3",
+   "title": "Integration by recognition",
+   "statement": "Integration by recognition of known derivatives to include integrals of the form $\\displaystyle\\int \\dfrac{f'(x)}{f(x)}\\,dx = \\ln|f(x)|+c$ and $\\displaystyle\\int f'(x)[f(x)]^n\\,dx = \\dfrac{[f(x)]^{n+1}}{n+1}+c$.",
+   "raw": "Integration by recognition of known derivatives to include integrals of the form ′∫ f ( ) x d x = ln (f(x)) + c and f ( ) x = [ ] 1 n + ′∫ f ( ) x n + c f ( )[f ( )] d x x x n + 1",
+   "type": "procedural",
+   "prereqs": [
+    "P3-5.1",
+    "P3-4.2"
+   ],
+   "glossary": [
+    "integration by recognition",
+    "integral of f'(x)/f(x)",
+    "integral of f'(x)[f(x)]^n",
+    "integrating tan x",
+    "integrating sec^2 x"
+   ],
+   "guidance": "For example, to include integration of $\\tan x$, $\\sec^2 2x$. Students are expected to be able to use trigonometric identities to integrate, for example, $\\sin^2 x$, $\\tan^2 x$, $\\cos^2 3x$."
+  },
+  {
+   "id": "P3-6.1",
+   "subtopic": "P3-6",
+   "level": "P3",
+   "title": "Locating roots by sign change",
+   "statement": "Location of roots of $f(x) = 0$ by considering changes of sign of $f(x)$ in an interval of $x$ in which $f(x)$ is continuous.",
+   "raw": "Location of roots of f(x) = 0 by considering changes of sign of f(x) in an interval of x in which f(x) is continuous.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.10"
+   ],
+   "glossary": [
+    "sign change",
+    "root location",
+    "continuous function",
+    "f(x) = 0"
+   ]
+  },
+  {
+   "id": "P3-6.2",
+   "subtopic": "P3-6",
+   "level": "P3",
+   "title": "Iterative methods for equations",
+   "statement": "Approximate solution of equations using simple iterative methods, including recurrence relations of the form $x_{n+1}=f(x_n)$.",
+   "raw": "Approximate solution of equations using simple iterative methods, including recurrence relations of the form xn + 1 = f(xn)",
+   "type": "procedural",
+   "prereqs": [
+    "P3-6.1",
+    "P2-4.1"
+   ],
+   "glossary": [
+    "iteration",
+    "x_{n+1} = f(x_n)",
+    "converging sequence",
+    "approximate root"
+   ],
+   "guidance": "Solution of equations by use of iterative procedures, for which leads will be given."
+  }
+ ]
+}

@@ -1,0 +1,418 @@
+{
+ "spec": "P4",
+ "subject": "math",
+ "title": "Edexcel IAL Pure Mathematics 4",
+ "version": "2018 Issue 3",
+ "topics": [
+  {
+   "id": "P4",
+   "title": "Pure Mathematics 4",
+   "level": "P4"
+  }
+ ],
+ "subtopics": [
+  {
+   "id": "P4-1",
+   "title": "Proof",
+   "topic": "P4"
+  },
+  {
+   "id": "P4-2",
+   "title": "Algebra and functions",
+   "topic": "P4"
+  },
+  {
+   "id": "P4-3",
+   "title": "Coordinate geometry in the (x, y) plane",
+   "topic": "P4"
+  },
+  {
+   "id": "P4-4",
+   "title": "Binomial expansion",
+   "topic": "P4"
+  },
+  {
+   "id": "P4-5",
+   "title": "Differentiation",
+   "topic": "P4"
+  },
+  {
+   "id": "P4-6",
+   "title": "Integration",
+   "topic": "P4"
+  },
+  {
+   "id": "P4-7",
+   "title": "Vectors",
+   "topic": "P4"
+  }
+ ],
+ "command_words": {
+  "Show that": "Prove a given result; every step must be shown (answer given).",
+  "Hence": "Use the previous result to reach the answer.",
+  "Hence or otherwise": "Using the previous result is expected, but any valid method earns the marks.",
+  "Find": "Work out; method marks need working.",
+  "Calculate": "Work out from given facts; show working.",
+  "Prove": "Give a complete logical argument.",
+  "Sketch": "Draw the shape with key features labelled (intercepts, asymptotes, turning points), not to scale.",
+  "Exact": "Give the answer in surd, fraction, pi or ln form, not a decimal.",
+  "Verify": "Show that given values satisfy the statement.",
+  "State": "Give the answer without working.",
+  "Explain": "Give reasons in context.",
+  "Interpret": "Explain the meaning of a result in the context of the question."
+ },
+ "kcs": [
+  {
+   "id": "P4-1.1",
+   "subtopic": "P4-1",
+   "level": "P4",
+   "title": "Proof by contradiction",
+   "statement": "Proof by contradiction",
+   "raw": "Proof by contradiction",
+   "type": "procedural",
+   "prereqs": [
+    "P2-1.1",
+    "P2-1.3"
+   ],
+   "glossary": [
+    "proof by contradiction",
+    "irrationality of √2",
+    "infinitude of primes",
+    "reductio ad absurdum"
+   ],
+   "guidance": "Including proof of the irrationality of $\\sqrt{2}$ and the infinity of primes, and application to unfamiliar proofs."
+  },
+  {
+   "id": "P4-2.1",
+   "subtopic": "P4-2",
+   "level": "P4",
+   "title": "Partial fractions",
+   "statement": "Decompose rational functions into partial fractions (denominators not more complicated than repeated linear terms).",
+   "raw": "Decompose rational functions into partial fractions (denominators not more complicated than repeated linear terms).",
+   "type": "procedural",
+   "prereqs": [
+    "P2-2.1",
+    "P3-1.1"
+   ],
+   "glossary": [
+    "partial fractions",
+    "repeated linear factor",
+    "(ax+b)(cx+d)(ex+f)",
+    "improper fraction decomposition"
+   ],
+   "guidance": "Partial fractions to include denominators such as $(ax+b)(cx+d)(ex+f)$ and $(ax+b)(cx+d)^2$. The degree of the numerator may equal or exceed the degree of the denominator. Applications to integration, differentiation and series expansions. Quadratic factors in the denominator such as $(x^2+a)$, $a>0$, are not required."
+  },
+  {
+   "id": "P4-3.1",
+   "subtopic": "P4-3",
+   "level": "P4",
+   "title": "Parametric equations of curves",
+   "statement": "Parametric equations of curves and conversion between cartesian and parametric forms.",
+   "raw": "Parametric equations of curves and conversion between cartesian and parametric forms.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-1.11",
+    "P1-3.3"
+   ],
+   "glossary": [
+    "parametric equations",
+    "cartesian equation",
+    "parameter t",
+    "converting parametric to cartesian"
+   ]
+  },
+  {
+   "id": "P4-4.1",
+   "subtopic": "P4-4",
+   "level": "P4",
+   "title": "Binomial series for rational n",
+   "statement": "Binomial Series for any rational $n$.",
+   "raw": "Binomial Series for any rational n.",
+   "type": "procedural",
+   "prereqs": [
+    "P2-4.5",
+    "P4-2.1"
+   ],
+   "glossary": [
+    "binomial series",
+    "rational index",
+    "|x| < b/a",
+    "(ax+b)^n expansion",
+    "range of validity"
+   ],
+   "guidance": "For $|x| < \\dfrac{b}{a}$, students should be able to obtain the expansion of $(ax+b)^n$, and the expansion of rational functions by decomposition into partial fractions."
+  },
+  {
+   "id": "P4-5.1",
+   "subtopic": "P4-5",
+   "level": "P4",
+   "title": "Implicit and parametric differentiation",
+   "statement": "Differentiation of simple functions defined implicitly or parametrically.",
+   "raw": "Differentiation of simple functions defined implicitly or parametrically.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-3.1",
+    "P3-4.2",
+    "P3-4.3"
+   ],
+   "glossary": [
+    "implicit differentiation",
+    "parametric differentiation",
+    "tangents and normals",
+    "dy/dx from parametric equations"
+   ],
+   "guidance": "The finding of equations of tangents and normals to curves given parametrically or implicitly is required."
+  },
+  {
+   "id": "P4-5.2",
+   "subtopic": "P4-5",
+   "level": "P4",
+   "title": "Forming differential equations",
+   "statement": "Formation of simple differential equations.",
+   "raw": "Formation of simple differential equations.",
+   "type": "procedural",
+   "prereqs": [
+    "P1-4.1",
+    "P4-5.1"
+   ],
+   "glossary": [
+    "differential equation",
+    "connected rates of change",
+    "forming a model",
+    "rate of change equation"
+   ],
+   "guidance": "Questions involving connected rates of change may be set."
+  },
+  {
+   "id": "P4-6.1",
+   "subtopic": "P4-6",
+   "level": "P4",
+   "title": "Volume of revolution",
+   "statement": "Evaluation of volume of revolution.",
+   "raw": "Evaluation of volume of revolution.",
+   "type": "procedural",
+   "prereqs": [
+    "P2-8.1",
+    "P4-3.1"
+   ],
+   "glossary": [
+    "volume of revolution",
+    "π ∫ y^2 dx",
+    "rotation about the x-axis",
+    "parametric volume"
+   ],
+   "guidance": "$\\pi\\displaystyle\\int y^2\\,dx$ is required, but not $\\pi\\displaystyle\\int x^2\\,dy$. Students should be able to find a volume of revolution, given parametric equations."
+  },
+  {
+   "id": "P4-6.2",
+   "subtopic": "P4-6",
+   "level": "P4",
+   "title": "Integration by substitution and by parts",
+   "statement": "Simple cases of integration by substitution and integration by parts. Understand these methods as the reverse processes of the chain and product rules respectively.",
+   "raw": "Simple cases of integration by substitution and integration by parts. Understand these methods as the reverse processes of the chain and product rules respectively.",
+   "type": "procedural",
+   "prereqs": [
+    "P3-5.1",
+    "P3-4.2"
+   ],
+   "glossary": [
+    "integration by substitution",
+    "integration by parts",
+    "integral of ln x",
+    "reverse chain rule",
+    "reverse product rule"
+   ],
+   "guidance": "Students will be expected to use a substitution to find, e.g. $\\displaystyle\\int x\\sqrt{x-2}\\,dx$. The substitution will be given in more complicated integrals. The integral $\\displaystyle\\int \\ln x\\,dx$ is required. More than one application of integration by parts may be required, for example, $\\displaystyle\\int x^2 e^x\\,dx$, $\\displaystyle\\int e^x \\sin x\\,dx$."
+  },
+  {
+   "id": "P4-6.3",
+   "subtopic": "P4-6",
+   "level": "P4",
+   "title": "Integration using partial fractions",
+   "statement": "Simple cases of integration using partial fractions.",
+   "raw": "Simple cases of integration using partial fractions.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-2.1",
+    "P3-5.1"
+   ],
+   "glossary": [
+    "integrating partial fractions",
+    "rational expression integration",
+    "1/(ax+b)^n",
+    "decomposition before integrating"
+   ],
+   "guidance": "Integration of rational expressions such as those arising from partial fractions, e.g. $\\dfrac{3}{(x-1)^2}$, $\\dfrac{2}{3x+5}$. Note that the integration of other rational expressions, such as $\\dfrac{2x}{(2x-1)^4}$ and $\\dfrac{5}{4x+2}$, is also required (see P3 section 5.2)."
+  },
+  {
+   "id": "P4-6.4",
+   "subtopic": "P4-6",
+   "level": "P4",
+   "title": "Separable differential equations",
+   "statement": "Analytical solution of simple first order differential equations with separable variables.",
+   "raw": "Analytical solution of simple first order differential equations with separable variables.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-5.2",
+    "P4-6.2"
+   ],
+   "glossary": [
+    "separable variables",
+    "general solution",
+    "particular solution",
+    "first order differential equation"
+   ],
+   "guidance": "General and particular solutions will be required."
+  },
+  {
+   "id": "P4-6.5",
+   "subtopic": "P4-6",
+   "level": "P4",
+   "title": "Area under a parametric curve",
+   "statement": "Use integration to find the area under a curve given its parametric equations.",
+   "raw": "Use integration to find the area under a curve given its parametric equations.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-3.1",
+    "P2-8.2"
+   ],
+   "glossary": [
+    "area under a parametric curve",
+    "parametric integration",
+    "area under a curve",
+    "bounded region"
+   ],
+   "guidance": "Students should be able to find the area under a curve given its parametric equations. Students will not be expected to sketch a curve from its parametric equations."
+  },
+  {
+   "id": "P4-7.1",
+   "subtopic": "P4-7",
+   "level": "P4",
+   "title": "Vectors in 2D and 3D",
+   "statement": "Vectors in two and three dimensions.",
+   "raw": "Vectors in two and three dimensions.",
+   "type": "conceptual",
+   "prereqs": [],
+   "glossary": [
+    "vector",
+    "2D vector",
+    "3D vector",
+    "i, j, k components"
+   ]
+  },
+  {
+   "id": "P4-7.2",
+   "subtopic": "P4-7",
+   "level": "P4",
+   "title": "Magnitude and unit vectors",
+   "statement": "Magnitude of a vector.",
+   "raw": "Magnitude of a vector.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-7.1"
+   ],
+   "glossary": [
+    "magnitude of a vector",
+    "|a|",
+    "unit vector",
+    "vector direction"
+   ],
+   "guidance": "Students should be able to find a unit vector in the direction of $\\mathbf{a}$, and be familiar with $|\\mathbf{a}|$."
+  },
+  {
+   "id": "P4-7.3",
+   "subtopic": "P4-7",
+   "level": "P4",
+   "title": "Vector addition and scalar multiples",
+   "statement": "Algebraic operations of vector addition and multiplication by scalars, and their geometrical interpretations.",
+   "raw": "Algebraic operations of vector addition and multiplication by scalars, and their geometrical interpretations.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-7.1"
+   ],
+   "glossary": [
+    "vector addition",
+    "scalar multiplication",
+    "parallelogram law",
+    "geometric interpretation of vectors"
+   ]
+  },
+  {
+   "id": "P4-7.4",
+   "subtopic": "P4-7",
+   "level": "P4",
+   "title": "Position vectors",
+   "statement": "Position vectors.",
+   "raw": "Position vectors.",
+   "type": "conceptual",
+   "prereqs": [
+    "P4-7.3"
+   ],
+   "glossary": [
+    "position vector",
+    "AB = b - a",
+    "vector between two points"
+   ],
+   "guidance": "$\\overrightarrow{OB} - \\overrightarrow{OA} = \\overrightarrow{AB} = \\mathbf{b}-\\mathbf{a}$."
+  },
+  {
+   "id": "P4-7.5",
+   "subtopic": "P4-7",
+   "level": "P4",
+   "title": "Distance between two points in 3D",
+   "statement": "The distance between two points.",
+   "raw": "The distance between two points.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-7.2"
+   ],
+   "glossary": [
+    "distance formula",
+    "3D coordinates",
+    "distance between two points"
+   ],
+   "guidance": "The distance $d$ between two points $(x_1,y_1,z_1)$ and $(x_2,y_2,z_2)$ is given by $d^2=(x_1-x_2)^2+(y_1-y_2)^2+(z_1-z_2)^2$."
+  },
+  {
+   "id": "P4-7.6",
+   "subtopic": "P4-7",
+   "level": "P4",
+   "title": "Vector equations of lines",
+   "statement": "Vector equations of lines.",
+   "raw": "Vector equations of lines.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-7.4"
+   ],
+   "glossary": [
+    "vector equation of a line",
+    "r = a + tb",
+    "parallel lines",
+    "skew lines",
+    "intersecting lines"
+   ],
+   "guidance": "To include the forms $\\mathbf{r}=\\mathbf{a}+t\\mathbf{b}$ and $\\mathbf{r}=\\mathbf{c}+t(\\mathbf{d}-\\mathbf{c})$. Conditions for two lines to be parallel, intersecting or skew."
+  },
+  {
+   "id": "P4-7.7",
+   "subtopic": "P4-7",
+   "level": "P4",
+   "title": "Scalar product and angle between lines",
+   "statement": "The scalar product. Its use for calculating the angle between two lines.",
+   "raw": "The scalar product. Its use for calculating the angle between two lines.",
+   "type": "procedural",
+   "prereqs": [
+    "P4-7.2",
+    "P4-7.6"
+   ],
+   "glossary": [
+    "scalar product",
+    "dot product",
+    "a.b = a1b1+a2b2+a3b3",
+    "angle between two lines",
+    "perpendicular vectors"
+   ],
+   "guidance": "Students should know that for $\\overrightarrow{OA}=\\mathbf{a}=a_1\\mathbf{i}+a_2\\mathbf{j}+a_3\\mathbf{k}$ and $\\overrightarrow{OB}=\\mathbf{b}=b_1\\mathbf{i}+b_2\\mathbf{j}+b_3\\mathbf{k}$, then $\\mathbf{a}\\cdot\\mathbf{b}=a_1b_1+a_2b_2+a_3b_3$ and $\\cos\\angle AOB = \\dfrac{\\mathbf{a}\\cdot\\mathbf{b}}{|\\mathbf{a}||\\mathbf{b}|}$. Students should know that if $\\mathbf{a}\\cdot\\mathbf{b}=0$, and $\\mathbf{a}$ and $\\mathbf{b}$ are non-zero vectors, then $\\mathbf{a}$ and $\\mathbf{b}$ are perpendicular."
+  }
+ ]
+}
