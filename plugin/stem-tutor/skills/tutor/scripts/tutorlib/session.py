@@ -99,7 +99,19 @@ class Tutor:
                                   "difficulty": item.get("difficulty", 3), "marks": item.get("marks", 1),
                                   "block": block, "block_idx": block_idx, "phase": phase, "shown_at": self.now().isoformat(),
                                   "hinted": False, "hint_level": 0, "unassisted": unassisted, "exp": exp}
+        self._audit("present", n, inst)
         return self._view(n)
+
+    def _audit(self, event: str, n: int, inst: dict) -> None:
+        """Evaluation-only trail (STEM_TUTOR_AUDIT=1): when each question was shown and answered, with its key."""
+        import json
+        import os
+        if not os.environ.get("STEM_TUTOR_AUDIT"):
+            return
+        row = {"event": event, "n": n, "turn": int(os.environ.get("STEM_TUTOR_TURN", "0")),
+               "item": inst.get("id"), "key": _display_answer(inst), "kind": inst["kind"]}
+        with open(self.vault.tutor / "audit.jsonl", "a", encoding="utf-8") as f:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
     def _view(self, n: int) -> dict:
         p = self.session["presented"][str(n)]
@@ -360,6 +372,7 @@ class Tutor:
                        "marks": p["marks"], "grade": {k: g[k] for k in ("correct", "score", "error", "misconception")},
                        "credit": credit, "pos": s["answered"], "block": p["block"], "phase": p["phase"],
                        "params": inst.get("params"), "response": r["value"] if r["kind"] != "idk" else "don't know"})
+        self._audit("answer", int(key), inst)
         del s["presented"][key]
         s["answered"] += 1
         s["correct"] += 1 if g["correct"] else 0

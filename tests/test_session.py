@@ -226,3 +226,19 @@ def test_question_sheet_mirrors_open_items_with_images(tutor):
     tutor.answer(f"{n}{inst['answer']}3")
     assert "Which quantity" not in (tutor.vault.root / "Question Sheets" / "Current.md").read_text() or \
         len(tutor.session["presented"]) > 0
+
+
+def test_audit_log_records_presentations_and_answers_with_turn(tutor, monkeypatch):
+    monkeypatch.setenv("STEM_TUTOR_AUDIT", "1")
+    monkeypatch.setenv("STEM_TUTOR_TURN", "3")
+    tutor.start("autopilot", minutes=50)
+    act = tutor.next()
+    q = act["items"][0]
+    inst = tutor.session["presented"][str(q["n"])]["inst"]
+    monkeypatch.setenv("STEM_TUTOR_TURN", "4")
+    tutor.answer(f"{q['n']}{inst['answer']}3" if q["kind"] == "mcq" else f"{q['n']} = 1 ~2")
+    import json
+    rows = [json.loads(l) for l in (tutor.vault.tutor / "audit.jsonl").read_text().splitlines()]
+    present = next(r for r in rows if r["event"] == "present" and r["n"] == q["n"])
+    answered = next(r for r in rows if r["event"] == "answer" and r["n"] == q["n"])
+    assert present["turn"] == 3 and answered["turn"] == 4 and present["key"]
