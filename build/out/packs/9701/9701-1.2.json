@@ -3,7 +3,7 @@
  "spec": "9701",
  "version": 1,
  "note": "Subjects/9701 Chemistry/01 Atomic structure/1.2 Isotopes.md",
- "outline": "Isotopes are atoms of the same element with the same number of protons but different numbers of neutrons. In ${}^{x}_{y}\\mathrm{A}$, $x$ is the nucleon number (protons + neutrons) and $y$ the proton number, so neutrons $=x-y$ and, for an ion of charge $q+$, electrons $=y-q$. Nuclear equations balance both the top and bottom numbers. Isotopes have the same electron configuration, so the same chemical properties; they have different numbers of neutrons, so different masses and densities.",
+ "outline": "Isotopes are atoms of the same element with the same number of protons but different numbers of neutrons. In ${}^{x}_{y}\\mathrm{A}$, $x$ is the nucleon number (protons + neutrons) and $y$ the proton number, so neutrons $=x-y$ and, for an ion, electrons $=y-(\\text{charge})$ (a $2-$ ion has $y+2$). Neutral atoms of isotopes have the same number of electrons and the same electron configuration, so the same chemical properties; they have different numbers of neutrons, so different masses and densities.",
  "misconceptions": [
   {
    "id": "m1",
@@ -42,7 +42,7 @@
    "kc": "9701-1.2.4",
    "statement": "Isotopes are the same element, so all their properties are identical, including mass and density.",
    "refutation": "Extra neutrons add mass, so isotopes have different atomic masses. Any physical property that depends on mass, such as the density of a sample, then differs slightly.",
-   "contrast": "$\\mathrm{D_2O}$ (made from $^{2}\\mathrm{H}$) is denser than $\\mathrm{H_2O}$ although both react chemically in the same way.",
+   "contrast": "At the same temperature and pressure, $^{37}\\mathrm{Cl_2}$ gas is denser than $^{35}\\mathrm{Cl_2}$ gas, although both react chemically in the same way.",
    "source": "research"
   }
  ],
@@ -78,7 +78,7 @@
     },
     {
      "do": "Electrons = protons + 1 $=17+1=18$.",
-     "why": "A charge of $1-$ means one extra electron was gained; the charge changes electrons only.",
+     "why": "The minus sign on $\\mathrm{Cl}^{-}$ means one extra electron was gained; the charge changes the electrons only.",
      "check": {
       "kind": "numeric",
       "answer": {
@@ -98,51 +98,6 @@
      "exact": true
     },
     "blank_from": 2
-   }
-  },
-  {
-   "id": "we2",
-   "kc": "9701-1.2.2",
-   "problem": "Particle X is formed in the nuclear reaction $^{27}_{13}\\mathrm{Al}+{}^{4}_{2}\\mathrm{He}\\to{}^{30}_{15}\\mathrm{P}+\\mathrm{X}$. Deduce the nucleon number and the proton number of X, and identify X.",
-   "steps": [
-    {
-     "do": "Balance the top numbers: $27+4=31$, and $31=30+x$, so $x=1$.",
-     "why": "Nucleon numbers must add to the same total on both sides.",
-     "check": {
-      "kind": "numeric",
-      "answer": {
-       "value": 1,
-       "unit": "",
-       "exact": true
-      }
-     }
-    },
-    {
-     "do": "Balance the bottom numbers: $13+2=15$, and $15=15+y$, so $y=0$.",
-     "why": "Proton numbers (charges) must balance separately from the nucleon numbers. Do not stop after one balance.",
-     "check": {
-      "kind": "numeric",
-      "answer": {
-       "value": 0,
-       "unit": "",
-       "exact": true
-      }
-     }
-    },
-    {
-     "do": "Nucleon number 1 and proton number 0 is a neutron, $^{1}_{0}\\mathrm{n}$.",
-     "why": "Only a neutron has one nucleon and no charge; an electron has nucleon number 0 and a proton has proton number 1."
-    }
-   ],
-   "faded": {
-    "id": "we2f",
-    "problem": "Particle X is formed in $^{35}_{17}\\mathrm{Cl}+{}^{1}_{0}\\mathrm{n}\\to{}^{35}_{16}\\mathrm{S}+\\mathrm{X}$. Deduce the proton number of X.",
-    "answer": {
-     "value": 1,
-     "unit": "",
-     "exact": true
-    },
-    "blank_from": 1
    }
   }
  ],
@@ -171,7 +126,7 @@
    "hints": [
     "Which particle count decides which element an atom belongs to?",
     "Isotopes are all atoms of one element, so one of the particle counts must stay fixed and another must vary.",
-    "Keep the protons fixed and let the neutrons change."
+    "Test each option: would the two atoms it describes still be atoms of the same element?"
    ],
    "distractors": {
     "B": "m2",
@@ -197,11 +152,13 @@
      "point": "same number of protons / same atomic (proton) number (atoms of the same element)",
      "keywords": [
       [
-       "same"
-      ],
-      [
-       "proton",
-       "atomic number"
+       "same number of proton",
+       "same numbers of proton",
+       "same proton",
+       "same atomic number",
+       "equal number of proton",
+       "equal numbers of proton",
+       "same element"
       ]
      ]
     },
@@ -209,10 +166,11 @@
      "point": "different number of neutrons (so different nucleon / mass number)",
      "keywords": [
       [
-       "different"
-      ],
-      [
-       "neutron"
+       "different number of neutron",
+       "different numbers of neutron",
+       "different neutron",
+       "differing number of neutron",
+       "differing numbers of neutron"
       ]
      ]
     }
@@ -389,11 +347,10 @@
    "hints": [
     "Read the top and bottom numbers of each symbol carefully.",
     "Isotopes need the same proton number. Do these three have it?",
-    "Only one number is shared by all three symbols: identify which particle count it describes."
+    "For each option, work out that particle count for all three atoms before deciding."
    ],
    "distractors": {
-    "D": "m1",
-    "B": "m1"
+    "D": "m1"
    },
    "shuffle": true
   },
@@ -419,7 +376,7 @@
    },
    "answer": "A",
    "marks": 1,
-   "explanation": "The two isotopes differ in neutrons, so they have different masses (1) and different nucleon numbers (2), yet the same electron configuration gives the same chemical reactions (3). The popular wrong choice B leaves out statement 3, assuming that extra neutrons must change the chemistry.",
+   "explanation": "The two isotopes differ in neutrons, so they have different masses (1) and different nucleon numbers (2), yet the same electron configuration gives the same chemical reactions (3). Option B is wrong because statement 3 is also true: extra neutrons do not change the chemistry.",
    "hints": [
     "Take each numbered statement on its own and decide true or false.",
     "Think about which particles change between isotopes, and which particles control chemical reactions.",
@@ -436,7 +393,7 @@
     "9701-1.2.2"
    ],
    "kind": "numeric",
-   "difficulty": 3,
+   "difficulty": 2,
    "command_word": "Calculate",
    "source": {
     "type": "generated"
@@ -484,7 +441,7 @@
     "unit": "",
     "exact": true
    },
-   "marks": 2,
+   "marks": 1,
    "explanation": "A neutral atom has as many electrons as protons. A positive ion has lost $q$ electrons, so electrons = proton number − charge. The nucleon number is not needed.",
    "hints": [
     "Which particles does the charge on an ion change?",
@@ -516,7 +473,7 @@
    "hints": [
     "One number is bigger than the other for a reason: which of them counts more particles?",
     "The nucleus contains protons and neutrons; one number counts both, the other counts only one type.",
-    "The larger, upper number counts all nucleons; the lower one counts protons."
+    "Ask which of the two numbers could include both kinds of particle in the nucleus."
    ],
    "shuffle": true
   },
@@ -549,45 +506,13 @@
    "shuffle": true
   },
   {
-   "id": "9701-1.2-i10",
-   "kcs": [
-    "9701-1.2.2"
-   ],
-   "kind": "mcq",
-   "difficulty": 4,
-   "command_word": "Deduce",
-   "source": {
-    "type": "generated"
-   },
-   "stem": "A nuclear reaction is written $^{14}_{7}\\mathrm{N}+{}^{1}_{0}\\mathrm{n}\\to{}^{14}_{6}\\mathrm{C}+\\mathrm{X}$. What is particle X?",
-   "options": {
-    "A": "a neutron",
-    "B": "an electron",
-    "C": "a proton",
-    "D": "an alpha particle, $^{4}_{2}\\mathrm{He}$"
-   },
-   "answer": "C",
-   "marks": 1,
-   "explanation": "Balance the top numbers: $14+1=15$, so X has nucleon number $15-14=1$. Balance the bottom numbers: $7+0=7$, so X has proton number $7-6=1$. Nucleon number 1 and proton number 1 is a proton. A neutron balances only the top numbers and an electron balances neither.",
-   "hints": [
-    "Nuclear equations need two separate balances.",
-    "Add up the top numbers on each side, then the bottom numbers on each side.",
-    "After balancing the top row, X has one nucleon; the bottom row then tells you whether it carries a charge."
-   ],
-   "distractors": {
-    "A": "m3",
-    "B": "m3"
-   },
-   "shuffle": true
-  },
-  {
    "id": "9701-1.2-i11",
    "kcs": [
     "9701-1.2.2",
     "9701-1.2.1"
    ],
    "kind": "structured",
-   "difficulty": 4,
+   "difficulty": 3,
    "command_word": "Deduce",
    "source": {
     "type": "generated"
@@ -632,7 +557,7 @@
     }
    ],
    "marks": 3,
-   "explanation": "Protons = bottom number; neutrons = top − bottom; electrons = protons − charge (a negative charge adds electrons).",
+   "explanation": "Protons = bottom number; neutrons = top − bottom; electrons = protons − (charge), so a $2+$ ion has two fewer electrons than protons and a $2-$ ion has two more.",
    "hints": [
     "Handle the columns in order: protons, neutrons, then electrons.",
     "Protons and neutrons ignore the charge; only the electrons depend on it.",
@@ -664,7 +589,7 @@
    "hints": [
     "Write the reaction as a nuclear equation with top and bottom numbers.",
     "Balance the top numbers and the bottom numbers separately, remembering the emitted proton is a product.",
-    "X needs one nucleon but no charge."
+    "Subtract the reactant totals from the product totals to get the nucleon number and proton number of X, then match them to a particle."
    ],
    "distractors": {
     "B": "m3",
@@ -689,10 +614,15 @@
      "point": "same number of electrons / same electron configuration",
      "keywords": [
       [
-       "same"
-      ],
-      [
-       "electron"
+       "same number of electron",
+       "same numbers of electron",
+       "same electron configuration",
+       "same electronic configuration",
+       "same electron arrangement",
+       "same arrangement of electron",
+       "same electronic structure",
+       "same electron structure",
+       "identical electron"
       ]
      ]
     },
@@ -712,11 +642,11 @@
     }
    ],
    "marks": 2,
-   "explanation": "Chemical properties depend on the number and arrangement of electrons, especially the outer electrons. Isotopes have the same electron configuration, because they have the same number of protons.",
+   "explanation": "Chemical properties depend on the number and arrangement of electrons, especially the outer electrons. Neutral atoms of isotopes have the same number of electrons and the same electron configuration, because they have the same number of protons.",
    "hints": [
     "Ask which particles take part when atoms react.",
     "Compare the electrons of the two isotopes, not their masses.",
-    "Same protons means same electrons, so the same electron configuration; neutrons do not affect this."
+    "Link the proton number of each isotope to the number of electrons in its neutral atom, then say what controls reactions."
    ]
   },
   {
@@ -744,12 +674,12 @@
    "hints": [
     "Decide which of the properties depend on the nucleus and which on the electrons.",
     "The isotopes differ in their neutrons: cross out anything that depends on neutrons.",
-    "The remaining property depends on the number of protons and electrons."
+    "For each option, ask whether it would change if the nucleus gained two neutrons."
    ],
    "distractors": {
     "A": "m5",
     "D": "m5",
-    "B": "m4"
+    "B": "m2"
    },
    "shuffle": true
   },
@@ -782,7 +712,7 @@
    "distractors": {
     "B": "m4",
     "C": "m1",
-    "D": "m4"
+    "D": "m2"
    },
    "shuffle": true
   },
@@ -798,7 +728,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "Molecules of $^{35}\\mathrm{Cl}_2$ and $^{37}\\mathrm{Cl}_2$ are compared. Which statement is correct?",
+   "stem": "Samples of gaseous $^{35}\\mathrm{Cl}_2$ and $^{37}\\mathrm{Cl}_2$ are compared at the same temperature and pressure. Which statement is correct?",
    "options": {
     "A": "They have the same chemical properties and the same density.",
     "B": "They have the same chemical properties but different densities.",
@@ -837,10 +767,15 @@
      "point": "isotopes have the same number of electrons / electron configuration",
      "keywords": [
       [
-       "same"
-      ],
-      [
-       "electron"
+       "same number of electron",
+       "same numbers of electron",
+       "same electron configuration",
+       "same electronic configuration",
+       "same electron arrangement",
+       "same arrangement of electron",
+       "same electronic structure",
+       "same electron structure",
+       "identical electron"
       ]
      ]
     },
@@ -864,11 +799,11 @@
     }
    ],
    "marks": 2,
-   "explanation": "Both isotopes have six protons and six electrons in the same configuration, and neutrons do not take part in reactions, so the chemical behaviour is the same.",
+   "explanation": "Neutral atoms of both isotopes have six protons and six electrons in the same configuration, and neutrons do not take part in reactions, so the chemical behaviour is the same.",
    "hints": [
     "Which particles decide how an atom reacts?",
     "Compare the number and arrangement of electrons in the two isotopes.",
-    "Extra neutrons change the mass but not the electrons, so they do not change how the atom reacts."
+    "Say what the two extra neutrons do change, then check whether they change the particles involved in reactions."
    ]
   },
   {
@@ -878,7 +813,7 @@
     "9701-1.2.4"
    ],
    "kind": "structured",
-   "difficulty": 5,
+   "difficulty": 3,
    "command_word": "Explain",
    "source": {
     "type": "generated"
@@ -907,7 +842,7 @@
    "hints": [
     "Answer (a) in terms of electrons and (b) in terms of neutrons.",
     "For (b) name a physical property linked to mass, then trace it back to the nucleus.",
-    "Different neutron number gives different mass, so density (of a sample) changes as well."
+    "In (b), link the difference in the nucleus to a quantity you could measure for a sample."
    ]
   },
   {
@@ -921,20 +856,20 @@
    "source": {
     "type": "generated"
    },
-   "stem": "Heavy water, $\\mathrm{D_2O}$ (made from $^{2}\\mathrm{H}$), is denser than $\\mathrm{H_2O}$ at the same temperature. What is the best explanation?",
+   "stem": "At the same temperature and pressure, $^{37}\\mathrm{Cl}_2$ gas is denser than $^{35}\\mathrm{Cl}_2$ gas. What is the best explanation?",
    "options": {
-    "A": "Deuterium atoms have more protons than hydrogen atoms.",
-    "B": "Deuterium atoms have an extra neutron, so each molecule has a greater mass but occupies about the same volume.",
-    "C": "Deuterium atoms have more electrons than hydrogen atoms.",
-    "D": "Deuterium atoms have a different electron configuration, so they form stronger bonds."
+    "A": "$^{37}\\mathrm{Cl}$ atoms have more protons than $^{35}\\mathrm{Cl}$ atoms.",
+    "B": "Each $^{37}\\mathrm{Cl}_2$ molecule has a greater mass, and equal volumes of the two gases contain equal numbers of molecules.",
+    "C": "$^{37}\\mathrm{Cl}$ atoms have more electrons than $^{35}\\mathrm{Cl}$ atoms.",
+    "D": "$^{37}\\mathrm{Cl}$ atoms have a different electron configuration, so they form stronger Cl–Cl bonds."
    },
    "answer": "B",
    "marks": 1,
-   "explanation": "The extra neutron increases mass per molecule without changing the electrons that control size, so mass ÷ volume increases. Deuterium is an isotope of hydrogen with the same proton number and electron configuration (A, C, D).",
+   "explanation": "Each $^{37}\\mathrm{Cl}$ atom has two more neutrons, so each molecule is heavier, while equal volumes of gases at the same temperature and pressure hold the same number of molecules; mass ÷ volume is therefore larger. The isotopes have the same proton number and the same electron configuration (A, C, D are false).",
    "hints": [
     "Density is mass divided by volume. Which of these does the extra particle change?",
     "Isotopes have the same numbers of protons and electrons, so cross out anything that changes those.",
-    "Look for the option that adds mass without changing the electrons."
+    "For the options left, check that the statement about mass and about volume are both true for gases at the same temperature and pressure."
    ],
    "distractors": {
     "A": "m2",
@@ -1067,7 +1002,7 @@
    "hints": [
     "Which of these depends on mass, and which on protons and electrons?",
     "The two gases differ only in the number of neutrons in the nuclei.",
-    "Extra neutrons change mass, so look for the property that involves mass."
+    "For each option, ask whether it would change if every nucleus gained two neutrons."
    ],
    "distractors": {
     "A": "m2",
@@ -1124,7 +1059,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "Deuterium, $^{2}_{1}\\mathrm{H}$, is an isotope of hydrogen, $^{1}_{1}\\mathrm{H}$.\n\n(a) State the number of neutrons in one atom of deuterium.\n\n(b) Deuterium gas, $\\mathrm{D_2}$, has a molar mass of $4.00\\ \\mathrm{g\\,mol^{-1}}$. Calculate its density at r.t.p., in $\\mathrm{g\\,dm^{-3}}$.\n\n(c) Explain why $\\mathrm{D_2}$ has the same chemical properties as $\\mathrm{H_2}$ but a different density.",
+   "stem": "Deuterium, $^{2}_{1}\\mathrm{H}$, is an isotope of hydrogen, $^{1}_{1}\\mathrm{H}$.\n\n(a) State the number of neutrons in one atom of deuterium.\n\n(b) Deuterium gas, $\\mathrm{D_2}$, has a molar mass of $4.00\\ \\mathrm{g\\,mol^{-1}}$. Calculate its density at r.t.p., in $\\mathrm{g\\,dm^{-3}}$. Take the molar volume at r.t.p. as $24.0\\ \\mathrm{dm^3\\,mol^{-1}}$.\n\n(c) Explain why $\\mathrm{D_2}$ has the same chemical properties as $\\mathrm{H_2}$ but a different density.",
    "scheme": [
     {
      "mark": "B1",
@@ -1158,16 +1093,46 @@
     },
     {
      "mark": "B1",
-     "point": "same electron configuration so same chemical properties; different mass (extra neutron) so different density"
+     "point": "same number of electrons / same electron configuration, so same chemical properties"
+    },
+    {
+     "mark": "B1",
+     "point": "extra neutron gives a greater mass (per molecule), so a different (greater) density"
     }
    ],
-   "marks": 4,
+   "marks": 5,
    "explanation": "Neutrons $=2-1=1$. Density $=4.00/24.0=0.167\\ \\mathrm{g\\,dm^{-3}}$. The isotopes have the same electrons (same chemistry) but different masses (different density).",
    "hints": [
     "Part (a) uses nucleon number and proton number; part (b) is density = mass ÷ volume for one mole.",
-    "In (b) the molar volume at r.t.p. is given in the spec's data; use one mole of D$_2$.",
+    "In (b) use one mole of D$_2$ and the molar volume at r.t.p., $24.0\\ \\mathrm{dm^3\\,mol^{-1}}$.",
     "For (c) contrast electrons with neutrons: which set is the same, and which set changes mass?"
    ]
+  },
+  {
+   "id": "9701-1.2-x001",
+   "kcs": [
+    "9701-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q3",
+    "qid": "9701_w20_13_q3"
+   },
+   "stem": "A single ³²P nucleus can be produced when a single ³²S nucleus joins with particle X. In the\nprocess a proton is emitted.\nWhat is particle X?",
+   "options": {
+    "A": "a deuteron, + H 2 1",
+    "B": "an electron",
+    "C": "a neutron",
+    "D": "a proton"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w20_13_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
   }
  ],
  "flashcards": [
@@ -1192,14 +1157,14 @@
   {
    "id": "fc4",
    "kc": "9701-1.2.2",
-   "front": "How do you find the numbers of neutrons and electrons from $^{x}_{y}\\mathrm{A}^{q+}$?",
-   "back": "Neutrons $=x-y$; electrons $=y-q$ (a negative charge adds electrons)."
+   "front": "How do you find the numbers of neutrons and electrons in an ion from $^{x}_{y}\\mathrm{A}$ and its charge?",
+   "back": "Neutrons $=x-y$; electrons $=y-(\\text{charge})$, so a $2+$ ion has $y-2$ electrons and a $2-$ ion has $y+2$."
   },
   {
    "id": "fc5",
    "kc": "9701-1.2.3",
    "front": "State and explain why isotopes have the same chemical properties.",
-   "back": "Isotopes have the same number of electrons and the same electron configuration; chemical properties depend on the electrons, not the neutrons."
+   "back": "Neutral atoms of isotopes have the same number of electrons and the same electron configuration; chemical properties depend on the electrons, not the neutrons."
   },
   {
    "id": "fc6",

@@ -117,8 +117,28 @@ def missing_packs(packs, now: datetime) -> list[str]:
     return sorted(missing)
 
 
+def expand_focus(packs, focus: list[str] | None) -> list[str] | None:
+    """KC ids pass through; a subtopic or topic prefix ("9702-2.1", "9702-1") expands to its KCs in syllabus order."""
+    if not focus:
+        return focus
+    out: list[str] = []
+    for f in focus:
+        hits = [f] if f in packs.kcs else [k for k in packs.kcs if k.startswith(f.rstrip(".") + ".")]
+        out += [k for k in hits if k not in out]
+    return out
+
+
 def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "autopilot",
                  focus: list[str] | None = None) -> list[dict]:
+    focus = expand_focus(packs, focus)
+    if mode == "test":
+        groups: dict[str, list[str]] = {}
+        for k in focus or []:
+            if packs.items_for(k):
+                groups.setdefault(packs.kc(k)["subtopic"], []).append(k)
+        cols = list(groups.values())
+        order = [g[i] for i in range(max(map(len, cols), default=0)) for g in cols if i < len(g)]
+        return [{"kind": "sweep", "kcs": order}] if order else []
     if mode == "long":
         pool = focus or model.due_kcs(state, now) or [k for k, v in state["kcs"].items() if v["n"] > 0]
         return [{"kind": "long", "kcs": [k for k in pool if k in packs.kcs][: max(1, minutes // 15)]}]

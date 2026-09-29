@@ -44,7 +44,7 @@ def collect() -> dict:
 def mark() -> int:
     existing = [set(c["words"]) for cards in json.loads(OUT.read_text()).values() for c in cards]
     marked = 0
-    for pack_path in (ROOT / "build/out/packs").rglob("*.json"):
+    for pack_path in (ROOT / "build/out/packs").glob("*/*.json"):
         pack = json.loads(pack_path.read_text())
         changed = False
         for card in pack.get("flashcards", []):

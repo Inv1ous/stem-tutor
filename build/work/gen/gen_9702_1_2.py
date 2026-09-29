@@ -109,8 +109,8 @@ past("9702_w24_12_q1", [K1], 2, "Identify",
      "The ampere is the unit of current, not of charge; charge is measured in coulomb ($\\mathrm{C}=\\mathrm{A\\,s}$). Option A is a trap: the gram is a valid unit of mass even though the SI base unit is the kilogram.",
      ["Check each row separately: is the unit one that measures that quantity?",
       "Recall which base quantity goes with each of the five base units.",
-      "Three rows pair a quantity with a unit that measures it; one pairs it with the unit of a different quantity."],
-     {"A": "m1"}, image="Assets/mcq/9702_w24_12_q1.png")
+      "Exactly one row pairs a quantity with a unit that does not measure it."],
+     {}, image="Assets/mcq/9702_w24_12_q1.png")
 
 # 1.2.2 past: derived units
 sig_opts = [V(kg=1, s=-2, K=-4), V(kg=1, s=-3, K=-4), V(kg=1, m=-1, s=-2, K=-4), V(kg=1, m=-1, s=-3, K=-4)]
@@ -138,7 +138,7 @@ past("9702_w19_13_q2", [K2], 3, "Identify", "Which two units are **not** equival
      "$\\mathrm{Pa}=\\mathrm{N\\,m^{-2}}=\\mathrm{kg\\,m^{-1}\\,s^{-2}}$, whereas $\\mathrm{kg\\,m\\,s^{-2}}$ is the newton, so D is not an equivalent pair. The other three pairs are equivalent: $\\mathrm{N\\,m}=\\mathrm{J}=\\mathrm{kg\\,m^2\\,s^{-2}}$, $\\mathrm{N\\,s}=\\mathrm{kg\\,m\\,s^{-1}}$ (impulse equals momentum) and $\\mathrm{J\\,s^{-1}}=\\mathrm{W}=\\mathrm{kg\\,m^2\\,s^{-3}}$. The pascal is a force per unit area, so its base units contain $\\mathrm{m^{-1}}$ not $\\mathrm{m}$.",
      ["Convert both units in each pair to base units, then compare them.",
       "Use $\\mathrm{N}=\\mathrm{kg\\,m\\,s^{-2}}$, $\\mathrm{J}=\\mathrm{N\\,m}$, $\\mathrm{W}=\\mathrm{J\\,s^{-1}}$ and $\\mathrm{Pa}=\\mathrm{N\\,m^{-2}}$.",
-      "Three pairs match exactly; look for the pair where a division by area has been forgotten."],
+      "One pair differs by one power of m."],
      {})
 mob_opts = [V(A=1, kg=-1), V(A=1, s=2, kg=-1), V(A=1, s=1, kg=-1), V(A=1, s=-2, kg=-1)]
 mob = div(mul(mul(A, S), S), KG)
@@ -175,7 +175,7 @@ past("9702_s25_12_q4", [K3], 3, "Determine",
 past("9702_w19_11_q2", [K3], 3, "Identify",
      "The speed of a wave in deep water depends on its wavelength $L$ and the acceleration of free fall $g$. What is a possible equation for the speed $v$ of the wave?",
      {"A": "$v=\\sqrt{\\dfrac{gL}{2\\pi}}$", "B": "$v=\\dfrac{gL}{4\\pi^2}$", "C": "$v=2\\pi\\sqrt{\\dfrac{g}{L}}$", "D": "$v=\\dfrac{2\\pi g}{L}$"}, "A",
-     "$gL$ has base units $\\mathrm{m^2\\,s^{-2}}$, so $\\sqrt{gL}$ has $\\mathrm{m\\,s^{-1}}$, the units of speed; $2\\pi$ has no units. B has units $\\mathrm{m^2\\,s^{-2}}$ (no square root), while C and D both have units $\\mathrm{s^{-1}}$.",
+     "$gL$ has base units $\\mathrm{m^2\\,s^{-2}}$, so $\\sqrt{gL}$ has $\\mathrm{m\\,s^{-1}}$, the units of speed; $2\\pi$ has no units. B has units $\\mathrm{m^2\\,s^{-2}}$ (no square root), C has units $\\mathrm{s^{-1}}$ and D has units $\\mathrm{s^{-2}}$; only A has units $\\mathrm{m\\,s^{-1}}$.",
      ["Speed has base units $\\mathrm{m\\,s^{-1}}$; test each option against this.",
       "A square root halves each power of a unit; numbers such as $2\\pi$ and $4\\pi^2$ carry no units.",
       "$gL$ has base units $\\mathrm{m^2\\,s^{-2}}$; look for the option that turns this into the units of speed."],
@@ -283,7 +283,7 @@ gen([K3], "mcq", 3, "Identify", "Which equation is homogeneous? ($s$ is distance
     "$s=ut+\\tfrac12at^2$: each term has base unit $\\mathrm{m}$ (since $\\mathrm{m\\,s^{-2}}\\times\\mathrm{s^2}=\\mathrm{m}$). In A, $\\tfrac12at$ is in $\\mathrm{m\\,s^{-1}}$; in B, $at^2$ is in m rather than $\\mathrm{m\\,s^{-1}}$; in D, $2as^2$ is in $\\mathrm{m^3\\,s^{-2}}$ but $v^2$ is in $\\mathrm{m^2\\,s^{-2}}$.",
     ["Find the base units of every term, not just one side.",
      "Terms added or subtracted must all have the same base units as the other side.",
-     "Multiplying acceleration by $t^2$ turns $\\mathrm{s^{-2}}$ into $\\mathrm{s^{0}}$."],
+     "Check the base units of each term in each option, starting with the term that contains $t$."],
     options={"A": "$s=ut+\\tfrac12at$", "B": "$v=u+at^2$", "C": "$s=ut+\\tfrac12at^2$", "D": "$v^2=u^2+2as^2$"},
     answer="C", distractors={})
 gen([K3], "mcq", 3, "Comment",

@@ -232,14 +232,12 @@
    },
    "answer": "C",
    "marks": 1,
-   "distractors": {
-    "A": "m1"
-   },
+   "distractors": {},
    "explanation": "The ampere is the unit of current, not of charge; charge is measured in coulomb ($\\mathrm{C}=\\mathrm{A\\,s}$). Option A is a trap: the gram is a valid unit of mass even though the SI base unit is the kilogram.",
    "hints": [
     "Check each row separately: is the unit one that measures that quantity?",
     "Recall which base quantity goes with each of the five base units.",
-    "Three rows pair a quantity with a unit that measures it; one pairs it with the unit of a different quantity."
+    "Exactly one row pairs a quantity with a unit that does not measure it."
    ],
    "image": "Assets/mcq/9702_w24_12_q1.png"
   },
@@ -335,7 +333,7 @@
    "hints": [
     "Convert both units in each pair to base units, then compare them.",
     "Use $\\mathrm{N}=\\mathrm{kg\\,m\\,s^{-2}}$, $\\mathrm{J}=\\mathrm{N\\,m}$, $\\mathrm{W}=\\mathrm{J\\,s^{-1}}$ and $\\mathrm{Pa}=\\mathrm{N\\,m^{-2}}$.",
-    "Three pairs match exactly; look for the pair where a division by area has been forgotten."
+    "One pair differs by one power of m."
    ]
   },
   {
@@ -453,7 +451,7 @@
    "answer": "A",
    "marks": 1,
    "distractors": {},
-   "explanation": "$gL$ has base units $\\mathrm{m^2\\,s^{-2}}$, so $\\sqrt{gL}$ has $\\mathrm{m\\,s^{-1}}$, the units of speed; $2\\pi$ has no units. B has units $\\mathrm{m^2\\,s^{-2}}$ (no square root), while C and D both have units $\\mathrm{s^{-1}}$.",
+   "explanation": "$gL$ has base units $\\mathrm{m^2\\,s^{-2}}$, so $\\sqrt{gL}$ has $\\mathrm{m\\,s^{-1}}$, the units of speed; $2\\pi$ has no units. B has units $\\mathrm{m^2\\,s^{-2}}$ (no square root), C has units $\\mathrm{s^{-1}}$ and D has units $\\mathrm{s^{-2}}$; only A has units $\\mathrm{m\\,s^{-1}}$.",
    "hints": [
     "Speed has base units $\\mathrm{m\\,s^{-1}}$; test each option against this.",
     "A square root halves each power of a unit; numbers such as $2\\pi$ and $4\\pi^2$ carry no units.",
@@ -918,7 +916,7 @@
    "hints": [
     "Find the base units of every term, not just one side.",
     "Terms added or subtracted must all have the same base units as the other side.",
-    "Multiplying acceleration by $t^2$ turns $\\mathrm{s^{-2}}$ into $\\mathrm{s^{0}}$."
+    "Check the base units of each term in each option, starting with the term that contains $t$."
    ],
    "shuffle": true
   },
@@ -1195,6 +1193,968 @@
     "The smallest prefix here is pico; the largest is milli."
    ],
    "shuffle": true
+  },
+  {
+   "id": "9702-1.2-x001",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q1",
+    "qid": "9702_s19_11_q1"
+   },
+   "stem": "Which unit can be expressed in base units as kg m²\ns⁻²?",
+   "options": {
+    "A": "joule",
+    "B": "newton",
+    "C": "pascal",
+    "D": "watt"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x002",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q2",
+    "qid": "9702_s19_11_q2"
+   },
+   "stem": "The luminosity L of a star is given by\nL = 4πr ²σT ⁴\nwhere\nr is the radius of the star,\nT is the temperature of the star and\nσ is a constant with units W m⁻²\nK⁻⁴.\nWhat are the SI base units of L ?",
+   "options": {
+    "A": "kg m² s⁻¹",
+    "B": "kg m² s⁻²",
+    "C": "kg m² s⁻³",
+    "D": "kg m² s⁻⁴"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x003",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q1",
+    "qid": "9702_s19_12_q1"
+   },
+   "stem": "What is equivalent to 2000 microvolts?",
+   "options": {
+    "A": "2 µJ C⁻¹",
+    "B": "2 mV",
+    "C": "2 pV",
+    "D": "2000 mV"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x004",
+   "kcs": [
+    "9702-1.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q3",
+    "qid": "9702_s19_12_q3"
+   },
+   "stem": "The Planck constant h has SI units J s.\nWhich equation could be used to calculate the Planck constant?",
+   "options": {
+    "A": "v E D h = where D is distance, E is energy and v is velocity",
+    "B": "D v h = where v is velocity and D is distance",
+    "C": "E h π = 4 1 where E is electric field strength",
+    "D": "m Fr h 2 = where F is force, r is radius and m is mass"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_12_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x005",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q2",
+    "qid": "9702_s19_13_q2"
+   },
+   "stem": "Osmium, a naturally occurring element, has a density of 23 000 kg m⁻³.\nWhat is also a value of the density of osmium?",
+   "options": {
+    "A": "2.3 × 10⁴ µg cm⁻³",
+    "B": "2.3 × 10⁴ g cm⁻³",
+    "C": "2.3 kg cm⁻³",
+    "D": "2.3 × 10⁻² kg cm⁻³"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x006",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q5",
+    "qid": "9702_s19_13_q5"
+   },
+   "stem": "The diagram shows the reading on an analogue ammeter.\nmilliamperes (mA)\n0\n15\n10\nWhich digital ammeter reading is the same as the reading on the analogue ammeter?\ndisplay units\ndisplay reading",
+   "options": {
+    "A": "µA 1600",
+    "B": "µA 160",
+    "C": "mA 16.0",
+    "D": "A 1.60"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x007",
+   "kcs": [
+    "9702-1.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q2",
+    "qid": "9702_w19_12_q2"
+   },
+   "stem": "Which expression gives an SI base quantity?",
+   "options": {
+    "A": "charge per unit time",
+    "B": "force per unit area",
+    "C": "mass per unit volume",
+    "D": "work done per unit distance"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x008",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q1",
+    "qid": "9702_w19_13_q1"
+   },
+   "stem": "Which quantity with its unit is correct?",
+   "options": {
+    "A": "acceleration of a bicycle = 1.4 m s⁻¹",
+    "B": "electric current in a lamp = 0.25 A s⁻¹",
+    "C": "electric potential difference across a battery = 8.0 J C⁻¹",
+    "D": "kinetic energy of a car = 4500 N m⁻¹"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x009",
+   "kcs": [
+    "9702-1.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q2",
+    "qid": "9702_s20_11_q2"
+   },
+   "stem": "The frequency f of vibration of a mass m supported by a spring with spring constant k is given by\nthe equation\nf = Cm pk q\nwhere C is a constant with no units.\nWhat are the values of p and q?\np\nq",
+   "options": {
+    "A": "– ¹ ₂ – ¹ ₂",
+    "B": "– ¹ ₂ 1 ₂",
+    "C": "1 ₂ – ¹ ₂",
+    "D": "1 ₂ 1 ₂"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_11_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x010",
+   "kcs": [
+    "9702-1.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q2",
+    "qid": "9702_w20_13_q2"
+   },
+   "stem": "What is not an SI base unit?",
+   "options": {
+    "A": "coulomb",
+    "B": "kelvin",
+    "C": "kilogram",
+    "D": "second"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x011",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q2",
+    "qid": "9702_s21_11_q2"
+   },
+   "stem": "Which combination of units could be used for expressing the power dissipated in a resistor?",
+   "options": {
+    "A": "newton per second (N s⁻¹)",
+    "B": "newton second (N s)",
+    "C": "newton metre (N m)",
+    "D": "newton metre per second (N m s⁻¹)"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x012",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q2",
+    "qid": "9702_s21_12_q2"
+   },
+   "stem": "Which quantity could have units of N m V⁻¹?",
+   "options": {
+    "A": "acceleration",
+    "B": "charge",
+    "C": "current",
+    "D": "resistance"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x013",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q2",
+    "qid": "9702_w21_12_q2"
+   },
+   "stem": "What is an alternative way of expressing an energy of 43 dJ?",
+   "options": {
+    "A": "4.3 × 10³ mJ",
+    "B": "4.3 × 10³ MJ",
+    "C": "4.3 × 10⁻³ mJ",
+    "D": "4.3 × 10⁻³ MJ"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x014",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q2",
+    "qid": "9702_w21_13_q2"
+   },
+   "stem": "What is the unit of resistance when expressed in SI base units?",
+   "options": {
+    "A": "kg⁻¹ m⁻² s A²",
+    "B": "kg⁻¹ m⁻² s³ A²",
+    "C": "kg m² s⁻¹ A⁻²",
+    "D": "kg m² s⁻³ A⁻²"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x015",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q2",
+    "qid": "9702_s22_11_q2"
+   },
+   "stem": "Which two units are identical when expressed in terms of SI base units?",
+   "options": {
+    "A": "J C⁻¹ and kg m² A⁻¹ s⁻²",
+    "B": "J s and kg m² s⁻¹",
+    "C": "N m and kg m³ s⁻²",
+    "D": "N s and kg m s⁻³"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x016",
+   "kcs": [
+    "9702-1.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q2",
+    "qid": "9702_s22_12_q2"
+   },
+   "stem": "What is the symbol for the SI base unit of temperature?",
+   "options": {
+    "A": "C",
+    "B": "K",
+    "C": "°C",
+    "D": "°K"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x017",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q2",
+    "qid": "9702_s22_13_q2"
+   },
+   "stem": "Which list of unit prefixes decreases in magnitude from left to right?",
+   "options": {
+    "A": "centi, deci, milli",
+    "B": "deci, milli, centi",
+    "C": "pico, kilo, milli",
+    "D": "kilo, milli, pico"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x018",
+   "kcs": [
+    "9702-1.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q3",
+    "qid": "9702_s22_13_q3"
+   },
+   "stem": "The drag coefficient Cd is a number with no units. It is used to compare the drag on different cars\nat different speeds. Cd is given by the equation\nCd =\nA\nv\nF\nⁿρ\n2\nwhere F is the drag force on the car, ρ is the density of the air, A is the cross-sectional area of the\ncar and v is the speed of the car.\nWhat is the value of n?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "",
+    "D": "4"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_13_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x019",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q2",
+    "qid": "9702_w22_12_q2"
+   },
+   "stem": "What is a power of 3.7 MW when expressed in kilowatts?",
+   "options": {
+    "A": "3.7 × 10⁻³ kW",
+    "B": "3.7 × 10⁻³ KW",
+    "C": "3.7 × 10³ kW",
+    "D": "3.7 × 10³ KW"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x020",
+   "kcs": [
+    "9702-1.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q1",
+    "qid": "9702_s23_11_q1"
+   },
+   "stem": "Which unit is not an SI base unit?",
+   "options": {
+    "A": "A",
+    "B": "kg",
+    "C": "C",
+    "D": "s"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x021",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q2",
+    "qid": "9702_s23_12_q2"
+   },
+   "stem": "Gm, Tm, μm and pm are all units of length.\nWhich unit is the largest and which unit is the smallest?\nlargest\nunit\nsmallest\nunit",
+   "options": {
+    "A": "Gm μm",
+    "B": "Gm pm",
+    "C": "Tm μm",
+    "D": "Tm pm"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_12_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x022",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q2",
+    "qid": "9702_s23_13_q2"
+   },
+   "stem": "What is the ohm expressed in SI base units?",
+   "options": {
+    "A": "kg m² s⁻³ A⁻²",
+    "B": "kg⁻¹ m⁻² s³ A²",
+    "C": "J C⁻¹ A⁻¹",
+    "D": "W A⁻²"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x023",
+   "kcs": [
+    "9702-1.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q2",
+    "qid": "9702_w23_11_q2"
+   },
+   "stem": "Which quantity is not an SI base quantity?",
+   "options": {
+    "A": "charge",
+    "B": "mass",
+    "C": "temperature",
+    "D": "time"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x024",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q2",
+    "qid": "9702_w23_13_q2"
+   },
+   "stem": "In an electric circuit, an ammeter reads 2 μA.\nIn a second circuit, the ammeter reads 1 mA.\nHow many times larger is the current in the second circuit compared with the current in the first\ncircuit?",
+   "options": {
+    "A": "500",
+    "B": "5000",
+    "C": "500 000",
+    "D": "5 000 000"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_13_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x025",
+   "kcs": [
+    "9702-1.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q1",
+    "qid": "9702_s24_11_q1"
+   },
+   "stem": "Which unit is an SI base unit?",
+   "options": {
+    "A": "ampere",
+    "B": "coulomb",
+    "C": "degree Celsius",
+    "D": "gram"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x026",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q2",
+    "qid": "9702_s24_11_q2"
+   },
+   "stem": "Which of the following could have the same units as force?",
+   "options": {
+    "A": "distance energy",
+    "B": "time energy",
+    "C": "momentum × distance",
+    "D": "momentum × time"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x027",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q8",
+    "qid": "9702_s24_11_q8"
+   },
+   "stem": "An aircraft flies from London to Sydney in a time of 21 hours 40 minutes.\nThe distance travelled is 17 000 km.\nWhat is the average speed of the aircraft?",
+   "options": {
+    "A": "2.2 m s⁻¹",
+    "B": "2.2 × 10⁷ μm s⁻¹",
+    "C": "2.2 × 10¹¹ nm s⁻¹",
+    "D": "2.2 × 10⁶ mm s⁻¹"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x028",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q25",
+    "qid": "9702_s24_11_q25"
+   },
+   "stem": "An electromagnetic wave is travelling through a vacuum.\nWhat could be the wavelength and period of the electromagnetic wave?\nwavelength\nperiod",
+   "options": {
+    "A": "1.2 × 10⁻¹⁰ Tm 2.5 Ms",
+    "B": "1.2 pm 2.5 × 10¹¹ Gs",
+    "C": "1.2 × 10² pm 4.0 × 10⁻¹⁰ ns",
+    "D": "1.2 × 10³ μm 4.0 ns"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x029",
+   "kcs": [
+    "9702-1.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q1",
+    "qid": "9702_s24_13_q1"
+   },
+   "stem": "What is equal to 0.000005 J?",
+   "options": {
+    "A": "5 mJ",
+    "B": "5 MJ",
+    "C": "5 μJ",
+    "D": "5 nJ"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x030",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q1",
+    "qid": "9702_w24_11_q1"
+   },
+   "stem": "What are the SI base units for the moment of a force?",
+   "options": {
+    "A": "kg m⁻¹ s²",
+    "B": "kg s⁻²",
+    "C": "kg m s⁻²",
+    "D": "kg m² s⁻²"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x031",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q19",
+    "qid": "9702_w24_12_q19"
+   },
+   "stem": "What is a unit for stress?",
+   "options": {
+    "A": "kg m⁻¹ s⁻²",
+    "B": "kg m⁻² s⁻²",
+    "C": "N m⁻¹",
+    "D": "N m"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x032",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q4",
+    "qid": "9702_s25_13_q4"
+   },
+   "stem": "A sample of material has cross-sectional area A and length L. The temperatures at the two sides\nof the sample are T₁ and T₂. Thermal energy Q is transferred through the sample in time t.\nThese quantities are related by\nt\nQ =\nL\nT\nT\nA\nk\n)\n(\n2\n₁ –\n×\n×\nwhere k is a constant.\nWhat are the SI base units of k ?",
+   "options": {
+    "A": "kg m s⁻³ °C⁻¹",
+    "B": "kg m s⁻³ K⁻¹",
+    "C": "kg m s⁻¹ °C⁻¹",
+    "D": "kg m s⁻¹ K⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_13_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x033",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q3",
+    "qid": "9702_w25_11_q3"
+   },
+   "stem": "What are the SI base units of the watt?",
+   "options": {
+    "A": "J s⁻¹",
+    "B": "kg m² s⁻³",
+    "C": "kg m² s⁻¹",
+    "D": "N m s⁻¹"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x034",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q22",
+    "qid": "9702_w25_11_q22"
+   },
+   "stem": "What are the SI base units of stress?",
+   "options": {
+    "A": "kg m s⁻²",
+    "B": "kg m⁻¹ s⁻²",
+    "C": "kg m⁻² s⁻²",
+    "D": "kg m⁻³ s⁻²"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x035",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q3",
+    "qid": "9702_w25_12_q3"
+   },
+   "stem": "Which physical quantity could have units of N s²\nm⁻¹?",
+   "options": {
+    "A": "acceleration",
+    "B": "force",
+    "C": "mass",
+    "D": "momentum"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x036",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q3",
+    "qid": "9702_w25_13_q3"
+   },
+   "stem": "What are the SI base units of the watt?",
+   "options": {
+    "A": "J s⁻¹",
+    "B": "kg m² s⁻³",
+    "C": "kg m² s⁻¹",
+    "D": "N m s⁻¹"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.2-x037",
+   "kcs": [
+    "9702-1.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q22",
+    "qid": "9702_w25_13_q22"
+   },
+   "stem": "What are the SI base units of stress?",
+   "options": {
+    "A": "kg m s⁻²",
+    "B": "kg m⁻¹ s⁻²",
+    "C": "kg m⁻² s⁻²",
+    "D": "kg m⁻³ s⁻²"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
   }
  ],
  "flashcards": [
@@ -1202,7 +2162,8 @@
    "id": "fc1",
    "kc": "9702-1.2.1",
    "front": "What is the SI base unit of mass?",
-   "back": "kilogram (kg)"
+   "back": "kilogram (kg)",
+   "in_anki": true
   },
   {
    "id": "fc2",
@@ -1220,13 +2181,15 @@
    "id": "fc4",
    "kc": "9702-1.2.1",
    "front": "What is the SI base unit of current?",
-   "back": "ampere (A)"
+   "back": "ampere (A)",
+   "in_anki": true
   },
   {
    "id": "fc5",
    "kc": "9702-1.2.1",
    "front": "What is the SI base unit of thermodynamic temperature?",
-   "back": "kelvin (K)"
+   "back": "kelvin (K)",
+   "in_anki": true
   },
   {
    "id": "fc6",

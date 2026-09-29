@@ -28,10 +28,11 @@ If `doctor` cannot find the tutor folder but the learner says it is connected, l
 | "study", "what now", nothing specific | `session start` (autopilot) | – |
 | learn / teach me <topic> | `find <topic>`, then `session start --mode learn --kcs <ids>` | – |
 | review, quiz me, revise | `session start --mode review` | – |
+| test or exam soon on <topics> | `find`, then `session start --mode test --minutes N --kcs <topic or subtopic ids>`: one question per syllabus point, then repair of misses, then a no-hints check. Later sessions: `--mode repair` | – |
 | after a video, lesson or lecture | after-video | `references/mode-after-video.md` |
 | long question, handwritten working, mark my work | long / mark | `references/mode-mark.md` |
 | past paper | paper | `references/mode-paper.md` |
-| first session ever (`doctor` shows `events: 0`) | onboarding | `references/mode-onboarding.md` |
+| first session ever (`doctor` shows `events: 0`) and no specific request | onboarding | `references/mode-onboarding.md` |
 | progress, profile, weak topics | `brief`, then summarise `Profile.md` in the tutor folder | – |
 
 3. State the plan from `session start` in one line (its blocks in order), then begin the loop.

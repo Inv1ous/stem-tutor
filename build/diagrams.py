@@ -43,7 +43,8 @@ def graph_sketch(p: dict):
     for i, line in enumerate(p["lines"]):
         xs, ys = zip(*line["points"])
         ax.plot(xs, ys, color=line.get("color", colors[i % 4]), lw=2.2,
-                ls="--" if line.get("style") == "dashed" else "-", label=line.get("label"))
+                ls="--" if line.get("style") == "dashed" else "-", label=line.get("label"),
+                marker=line.get("marker"), ms=5)
     if p.get("shade", {}).get("polygon"):
         ax.fill(*zip(*p["shade"]["polygon"]), color=BLUE, alpha=0.15, lw=0)
     elif p.get("shade"):
@@ -55,9 +56,14 @@ def graph_sketch(p: dict):
     ax.set_xlabel(p.get("xlabel", "")); ax.set_ylabel(p.get("ylabel", ""))
     if not p.get("ticks", False):
         ax.set_xticks([]); ax.set_yticks([])
+    if p.get("xticklabels"):
+        ax.set_xticks([t[0] for t in p["xticklabels"]], [t[1] for t in p["xticklabels"]])
     if any(l.get("label") for l in p["lines"]):
         ax.legend(frameon=False)
-    ax.axhline(0, color=INK, lw=0.8)
+    if p.get("ylim"):
+        ax.set_ylim(*p["ylim"])
+    else:
+        ax.axhline(0, color=INK, lw=0.8)
     return fig
 
 

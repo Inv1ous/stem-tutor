@@ -21,8 +21,8 @@ def add(pack_path: Path) -> int:
     bank = ROOT / f"build/work/mcq/{spec}.tagged.json"
     if not bank.exists():
         return 0
-    used = {(it.get("source") or {}).get("ref") for it in pack["items"]} | {it["id"] for it in pack["items"]}
     pack["items"] = [it for it in pack["items"] if it.get("tier") != "extra"]  # idempotent rebuild
+    used = {(it.get("source") or {}).get("ref") for it in pack["items"]} | {it["id"] for it in pack["items"]}
     n = 0
     for m in json.loads(bank.read_text()):
         kcs = [k for k in m.get("kcs") or [] if k.startswith(sub + ".")]

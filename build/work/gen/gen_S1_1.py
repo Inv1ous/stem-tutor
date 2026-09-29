@@ -32,7 +32,7 @@ worked = [{"id": "we1", "kc": K,
   {"do": "Find the differences from 20: $2,3,1,0,4,2$. The largest is $4$, for the score 5.",
    "why": "Compare every observed value with the prediction, not just the highest one.",
    "check": {"kind": "numeric", "answer": {"value": 4.0, "unit": "", "exact": True}}},
-  {"do": "Conclude in context: all the differences are small compared with 20, which is consistent with chance variation, so the fair-die model is suitable and there is no evidence to reject it.",
+  {"do": "Conclude in context: no score differs systematically or by a large amount, and the differences lie both above and below 20, which is consistent with chance variation, so the fair-die model is suitable and there is no evidence to reject it.",
    "why": "A comment needs a reason from the numbers and a conclusion about the model, not just 'close'."}],
  "faded": {"id": "we1f",
   "problem": "A die is thrown 90 times: scores $1$ to $6$ occur $14,17,15,13,16,15$ times. The model says each score is equally likely. Find the largest difference between an observed frequency and the frequency the model predicts.",
@@ -63,8 +63,8 @@ misc = [
   "refutation": "An assumption is a simplifying statement taken to be true so the model can be built. It may be only approximately true, so it must be stated and later tested against data. The predictions are only as reliable as the assumptions.",
   "contrast": "'The coin is fair' is an assumption of a coin-tossing model. If 100 tosses give 80 heads, the data challenge the assumption and the model must be refined.",
   "source": "research"},
- {"id": "m5", "kc": K, "statement": "A random variable $X$ is an unknown number to be found by solving an equation.",
-  "refutation": "A random variable is a variable whose numerical value depends on the outcome of a chance event. It can take several values, each with its own probability. The capital $X$ names the variable and a lower-case $x$ is one particular value.",
+ {"id": "m5", "kc": K, "statement": "A random variable $X$ is a fixed thing, such as an unknown number to be found by solving an equation or the data already collected, rather than a variable whose value depends on chance.",
+  "refutation": "A random variable is a variable whose numerical value depends on the outcome of a chance event. It can take several values, each with its own probability. The capital $X$ names the variable and a lower-case $x$ is one particular value. The data collected are observed values of $X$, not $X$ itself.",
   "contrast": "$X$ = score on a fair die: $X$ can be $1,2,\\dots,6$, and $P(X=4)=\\tfrac16$ describes the chance that it takes the value $x=4$. Nothing is being solved for.",
   "source": "research"},
 ]
@@ -75,7 +75,7 @@ items = [
   "The model gives $P(\\text{six})=\\tfrac16$ on each throw, so the predicted (expected) number of sixes is $n\\times\\tfrac16$. This is a long-run average, not a guaranteed count.",
   hints("The model says each of the six faces is equally likely, so first decide the probability of one particular face.",
         "The predicted count is the number of throws multiplied by the probability for a single throw.",
-        "Divide the number of throws by the number of faces."),
+        "What fraction of the throws would you expect to show a six?"),
   template={"params": {"n": {"choices": [60, 90, 120, 150, 240, 300]}}, "answer": "n/6",
             "distractors": [{"expr": "n*6"}, {"expr": "5*n/6"}, {"expr": "n/3"}]},
   answer={"unit": "", "exact": True}, marks=2),
@@ -93,7 +93,7 @@ items = [
  item(3, "mcq", 2, "State",
   "A council wants to find the mean weekly rent paid by all 4200 tenants in a town. It surveys 150 of the tenants, chosen at random. What is the population?",
   "The population is the whole set of items of interest, here all 4200 tenants. The 150 surveyed tenants are the sample, which is used to estimate the population value.",
-  hints("Ask who the council wants to know about, not who it actually asked.",
+  hints("Which group is the council ultimately interested in?",
         "The population is the complete set of interest; the sample is a selection taken from it.",
         "Decide which group in the question is the complete set and which is the selection."),
   options={"A": "All 4200 tenants in the town",
@@ -122,25 +122,25 @@ items = [
            "B": "$X$ is an unknown number found by solving an equation",
            "C": "$X$ always equals the average score",
            "D": "$X$ is the whole set of throws made by one student"},
-  answer="A", distractors={"B": "m5", "D": "m2"}, marks=1, shuffle=True),
+  answer="A", distractors={"B": "m5", "D": "m5"}, marks=1, shuffle=True),
  item(6, "short", 3, "State",
   "Sami models the number of heads when a coin is tossed 20 times. State two assumptions that Sami's model relies on.",
   "The usual modelling assumptions for coin tossing are that heads and tails are equally likely on each toss (the coin is fair) and that the tosses are independent, so one toss does not affect another.",
   hints("Think about what would have to be true of the coin itself.",
         "Think about how one toss relates to the next toss.",
         "One assumption concerns the coin, the other concerns how the tosses relate to each other."),
-  rubric=[{"point": "the coin is fair / heads and tails are equally likely on each toss (the probability of a head is the same each time)",
-           "keywords": [["fair", "equally likely", "unbiased", "equal probability", "equal chance", "same probability of", "probability of a head is the same", "probability of heads is the same", "probability of a head is constant", "constant probability"]]},
-          {"point": "tosses are independent (one toss does not affect another)",
-           "keywords": [["independent", "not affect", "no effect", "does not influence", "not influence", "unaffected"]]}],
+  rubric=[{"point": "heads and tails are equally likely on each toss (the coin is fair). Also accept: the probability of a head is the same on every toss",
+           "keywords": [["coin is fair", "a fair coin", "equally likely", "unbiased", "equal probability", "equal chance", "same probability of", "probability of a head is the same", "probability of heads is the same", "probability of a head is constant", "probability of heads is constant", "constant probability"]]},
+          {"point": "the tosses are independent (one toss does not affect the next)",
+           "keywords": [["independent", "toss does not affect", "tosses do not affect", "toss doesn't affect", "tosses don't affect", "toss does not influence", "tosses do not influence", "toss has no effect", "tosses have no effect"]]}],
   marks=2),
  item(7, "structured", 4, "Interpret",
   "A fair-die model says each score $1$ to $6$ is equally likely. A student throws a die 120 times.\n\n| Score | 1 | 2 | 3 | 4 | 5 | 6 |\n|---|---|---|---|---|---|---|\n| Frequency | 22 | 17 | 19 | 20 | 24 | 18 |\n\n(a) Calculate the frequency of each score that the model predicts.\n(b) Find the largest difference between an observed frequency and the predicted frequency.\n(c) Comment on whether the model is suitable for this die.\n(d) State one assumption of the model, in context.\n(e) Suggest how the model could be refined if the data had shown a much larger difference.",
-  "The model predicts $120\\times\\tfrac16=20$ for each score. The largest difference is $|24-20|=4$ for the score 5, which is small for 120 throws, so the data are consistent with the model.",
+  "The model predicts $120\\times\\tfrac16=20$ for each score. The largest difference is $|24-20|=4$ for the score 5, and the differences lie both above and below 20 with no systematic pattern, so the data are consistent with chance variation about the model.",
   scheme=[
    {"mark": "B1", "point": "(a) predicted frequency $120\\times\\tfrac16=20$ for each score", "check": {"kind": "numeric", "answer": {"value": 20.0, "unit": "", "exact": True}}},
    {"mark": "B1", "point": "(b) largest difference is $|24-20|=4$ (the score 5)", "check": {"kind": "numeric", "answer": {"value": 4.0, "unit": "", "exact": True}}},
-   {"mark": "B1", "point": "(c) all differences are small compared with 20, consistent with chance variation, so the model is suitable / there is no evidence to reject it"},
+   {"mark": "B1", "point": "(c) no score differs systematically or by a large amount (differences are both above and below 20, the largest only 4), consistent with chance variation, so the model is suitable / there is no evidence to reject it"},
    {"mark": "B1", "point": "(d) any of: each score equally likely (the die is fair); throws are independent; the probability of each score is constant"},
    {"mark": "B1", "point": "(e) any of: use the observed relative frequencies as the probabilities; change the model to allow unequal probabilities for the scores"}],
   marks=5),
@@ -156,7 +156,7 @@ flash = [
  ("State the stages of the modelling process.", "Recognise the real-world situation, devise a model using assumptions, use the model to make predictions, compare the predictions with observed data, then refine the model if it is a poor fit."),
  ("Give advantages of using a model.", "It simplifies a complex situation, it is quicker and cheaper than experimenting, and it allows predictions to be made."),
  ("Give a limitation of a model.", "It is a simplification, so its predictions are only as reliable as its assumptions and may differ from what is observed."),
- ("State two assumptions when modelling the number of heads in repeated coin tosses.", "The probability of a head is the same on every toss (fair coin), and the tosses are independent."),
+ ("State two assumptions when modelling the number of heads in repeated coin tosses.", "Heads and tails are equally likely on each toss (the coin is fair), and the tosses are independent (one toss does not affect the next)."),
 ]
 pack = {"subtopic": SUB, "spec": "S1", "version": 1, "note": NOTE,
  "outline": "A statistical model is a simplified mathematical description of a real situation, built on stated assumptions and used to describe it and to make predictions. The modelling process is: recognise the situation, devise a model with assumptions, use it to predict, compare the predictions with observed data, then refine. Key terms: the **population** is the whole set of interest and a **sample** is a selection from it. A **random variable** $X$ has numerical values that depend on chance, with $x$ a particular value. Data vary by chance about the model's prediction, so small gaps are expected and only large, systematic gaps suggest refining. Assumptions such as a fair die, $P(\\text{each face})=\\tfrac16$, and independent throws must be stated in context.",
@@ -219,7 +219,7 @@ graph LR
 >    *(Each score has probability $\tfrac16$ under the model, so multiply by the number of throws.)*
 > 2. Find the differences from 20: $2,3,1,0,4,2$. The largest is $4$, for the score 5.
 >    *(Compare every observed value with the prediction, not just the highest one.)*
-> 3. Conclude in context: all the differences are small compared with 20, which is consistent with chance variation, so the fair-die model is suitable and there is no evidence to reject it.
+> 3. Conclude in context: no score differs systematically or by a large amount, and the differences lie both above and below 20, which is consistent with chance variation, so the fair-die model is suitable and there is no evidence to reject it.
 >    *(A comment needs a reason from the numbers and a conclusion about the model, not just "close".)*
 
 ## Traps
@@ -234,7 +234,7 @@ graph LR
 
 - *State* an assumption in context ("the die is fair", "the tosses are independent") rather than saying "the model is random".
 - *Comment* or *Explain* on suitability needs a reason using the numbers, then a conclusion about the model.
-- A refinement must say what to change in the model, such as using observed relative frequencies as the probabilities. Collecting more data only re-tests the model.
+- A refinement must say what to change in the model, such as using observed relative frequencies as the probabilities. On its own, collecting more data does not refine the model.
 - Avoid "the model is perfect" or "the model is useless": a model is judged by how well it fits, not by being exact.
 - Use the wording of the question (die, coin, tenants) in every answer, not a general phrase.
 

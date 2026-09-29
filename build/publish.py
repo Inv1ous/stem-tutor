@@ -33,11 +33,16 @@ def publish(vault: Path) -> dict:
     version = f"v{(versions[-1] + 1) if versions else 1}"
     target = packs / version
     specs = sorted(p.name for p in (BUILD / "specs").iterdir() if (p / "graph.json").exists())
+    hold_f = BUILD / "packs" / "HOLD.json"  # subtopics whose review is unfinished stay out of the vault
+    hold = json.loads(hold_f.read_text()) if hold_f.exists() else {}
+    held_notes = {json.loads(pk.read_text())["note"] for pk in (BUILD / "packs").glob("*/*.json") if pk.stem in hold}
     n_packs = 0
     for spec in specs:
         (target / "specs" / spec / "packs").mkdir(parents=True, exist_ok=True)
         shutil.copy2(BUILD / "specs" / spec / "graph.json", target / "specs" / spec / "graph.json")
         for pk in sorted((BUILD / "packs" / spec).glob("*.json")) if (BUILD / "packs" / spec).exists() else []:
+            if pk.stem in hold:
+                continue
             shutil.copy2(pk, target / "specs" / spec / "packs" / pk.name)
             n_packs += 1
     shutil.copy2(BUILD / "plan.json", target / "plan.json")
@@ -50,7 +55,7 @@ def publish(vault: Path) -> dict:
         if not src_root.exists():
             continue
         for f in src_root.rglob("*"):
-            if f.is_file():
+            if f.is_file() and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
                 d = dest / f.relative_to(src_root)
                 if not d.exists() or d.stat().st_mtime < f.stat().st_mtime:
                     d.parent.mkdir(parents=True, exist_ok=True)
@@ -59,7 +64,7 @@ def publish(vault: Path) -> dict:
     (packs / "CURRENT").write_text(version)  # flip last
     for old in sorted(p for p in packs.glob("v*") if p.name != version)[:-2]:
         shutil.rmtree(old)  # keep the two previous versions for rollback
-    return {"version": version, "specs": len(specs), "packs": n_packs, "files_copied": copied}
+    return {"version": version, "specs": len(specs), "packs": n_packs, "held": sorted(hold), "files_copied": copied}
 
 
 if __name__ == "__main__":

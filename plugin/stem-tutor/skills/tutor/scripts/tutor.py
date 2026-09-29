@@ -4,7 +4,7 @@
   doctor [--quiet]                 check vault, packs, deps, iCloud placeholders
   hook                             SessionStart: brief if a tutor folder is connected, else silent
   brief [--minutes N]              status + suggested session
-  session start [--mode M] [--minutes N] [--kcs A,B]   modes: autopilot review learn diagnose repair long
+  session start [--mode M] [--minutes N] [--kcs A,B]   modes: autopilot review learn diagnose repair long test
   session end                      close session, write session note
   next                             next activity (questions never include answers)
   answer "<entries>" [--judge JSON]  e.g. "1B3, 2 = 4.5 m s-1 ~2, 3?, 4 pts=1,2"
@@ -291,7 +291,7 @@ def main(argv=None) -> None:
     sub.add_parser("hook").set_defaults(fn=cmd_hook)
     p = sub.add_parser("brief"); p.add_argument("--minutes", type=int, default=50); p.set_defaults(fn=cmd_brief)
     p = sub.add_parser("session"); p.add_argument("action", choices=["start", "end"])
-    p.add_argument("--mode", default="autopilot", choices=["autopilot", "review", "learn", "diagnose", "repair", "long"])
+    p.add_argument("--mode", default="autopilot", choices=["autopilot", "review", "learn", "diagnose", "repair", "long", "test"])
     p.add_argument("--minutes", type=int, default=50); p.add_argument("--kcs"); p.set_defaults(fn=cmd_session)
     sub.add_parser("next").set_defaults(fn=cmd_next)
     p = sub.add_parser("answer"); p.add_argument("text"); p.add_argument("--judge"); p.set_defaults(fn=cmd_answer)

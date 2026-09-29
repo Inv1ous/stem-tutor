@@ -242,3 +242,46 @@ def test_audit_log_records_presentations_and_answers_with_turn(tutor, monkeypatc
     present = next(r for r in rows if r["event"] == "present" and r["n"] == q["n"])
     answered = next(r for r in rows if r["event"] == "answer" and r["n"] == q["n"])
     assert present["turn"] == 3 and answered["turn"] == 4 and present["key"]
+
+
+# ---------- test-prep mode ----------
+def test_test_mode_expands_subtopic_and_sweeps_each_kc_once(tutor):
+    plan = tutor.start("test", minutes=60, focus=["9702-2.1"])
+    assert plan["blocks"] == [{"kind": "sweep", "kcs": ["9702-2.1.1", "9702-2.1.4"]}]
+    act = tutor.next()
+    assert act["block"] == "sweep" and len(act["items"]) == 2 and all(q["unassisted"] for q in act["items"])
+    assert sorted(tutor.session["presented"][str(q["n"])]["kcs"][0] for q in act["items"]) == ["9702-2.1.1", "9702-2.1.4"]
+
+
+def test_test_mode_repairs_missed_kcs_then_exit(tutor):
+    tutor.start("test", minutes=60, focus=["9702-2.1"])
+    _answer_all(tutor, tutor.next(), good=False)
+    act = tutor.next()
+    kinds = [b["kind"] for b in tutor.session["blocks"]]
+    assert kinds[:3] == ["sweep", "learn", "learn"] and kinds[-1] == "exit"
+    assert act["activity"] in ("teach", "refute", "worked")  # sweep served as the pretest
+    assert set(tutor.state["gaps"]) == {"9702-2.1.1", "9702-2.1.4"}
+
+
+def test_test_mode_confident_success_skips_repair_and_stretches(tutor):
+    tutor.start("test", minutes=60, focus=["9702-2.1"])
+    act = tutor.next()
+    parts = []
+    for q in act["items"]:
+        inst = tutor.session["presented"][str(q["n"])]["inst"]
+        parts.append(f"{q['n']}{inst['answer']}4" if q["kind"] == "mcq" else f"{q['n']} = {inst['answer']['value']:.3g} {inst['answer'].get('unit', '')} ~4")
+    tutor.answer(", ".join(parts))
+    tutor.next()
+    blocks = tutor.session["blocks"]
+    assert not [b for b in blocks if b["kind"] == "learn"]
+    assert blocks[1]["kind"] == "practice" and blocks[1]["target"] < 0.8
+
+
+def test_unassisted_success_closes_a_gap(tutor):
+    tutor.log({"type": "gaps", "add": ["9702-2.1.1"]})
+    tutor.start("review", minutes=10)
+    item = tutor.packs.items_for("9702-2.1.1")[0]
+    n = tutor._present(item, block="exit", phase=None, unassisted=True)["n"]
+    inst = tutor.session["presented"][str(n)]["inst"]
+    tutor.answer(f"{n}{inst['answer']}3")
+    assert "9702-2.1.1" not in tutor.state["gaps"]

@@ -51,7 +51,7 @@ graph LR
 >    *(Each score has probability $\tfrac16$ under the model, so multiply by the number of throws.)*
 > 2. Find the differences from 20: $2,3,1,0,4,2$. The largest is $4$, for the score 5.
 >    *(Compare every observed value with the prediction, not just the highest one.)*
-> 3. Conclude in context: all the differences are small compared with 20, which is consistent with chance variation, so the fair-die model is suitable and there is no evidence to reject it.
+> 3. Conclude in context: no score differs systematically or by a large amount, and the differences lie both above and below 20, which is consistent with chance variation, so the fair-die model is suitable and there is no evidence to reject it.
 >    *(A comment needs a reason from the numbers and a conclusion about the model, not just "close".)*
 
 ## Traps
@@ -66,7 +66,7 @@ graph LR
 
 - *State* an assumption in context ("the die is fair", "the tosses are independent") rather than saying "the model is random".
 - *Comment* or *Explain* on suitability needs a reason using the numbers, then a conclusion about the model.
-- A refinement must say what to change in the model, such as using observed relative frequencies as the probabilities. Collecting more data only re-tests the model.
+- A refinement must say what to change in the model, such as using observed relative frequencies as the probabilities. On its own, collecting more data does not refine the model.
 - Avoid "the model is perfect" or "the model is useless": a model is judged by how well it fits, not by being exact.
 - Use the wording of the question (die, coin, tenants) in every answer, not a general phrase.
 

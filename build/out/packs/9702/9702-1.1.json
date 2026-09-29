@@ -183,7 +183,7 @@
    "hints": [
     "Ask of each option: is this something I measure, or the unit I measure it in?",
     "A physical quantity is the thing measured and it comes with a unit; a unit is only the yardstick.",
-    "For each option, try to write a sensible value with a unit, such as '3 of it'; which ones make sense?"
+    "Which options would you write after a number, as the unit in a measurement, rather than measure?"
    ],
    "distractors": {
     "B": "m1",
@@ -219,7 +219,7 @@
    ],
    "distractors": {
     "A": "m1",
-    "B": "m4",
+    "B": "m1",
     "C": "m1"
    }
   },
@@ -279,7 +279,7 @@
    "explanation": "Number density of charge carriers has a magnitude and a unit ($\\mathrm{m^{-3}}$). Atomic number, efficiency and strain are pure numbers or ratios with no unit, so under the CAIE 9702 convention (magnitude and unit) they are not accepted as physical quantities.",
    "hints": [
     "A physical quantity needs both parts: numerical magnitude and unit.",
-    "Ratios and counts cancel their units.",
+    "Write down how each option is defined or calculated.",
     "For each option, ask what unit its value would be quoted in, if any."
    ],
    "distractors": {
@@ -313,7 +313,7 @@
    "hints": [
     "Test each column with a scalar such as mass or time.",
     "Does a mass of $5\\ \\mathrm{kg}$ point anywhere?",
-    "Select the row that ticks exactly the two things every quantity has."
+    "Check each column against both a scalar and a vector; a column that every quantity needs must apply to both."
    ],
    "distractors": {
     "A": "m3",
@@ -345,7 +345,7 @@
    "explanation": "Convert each to $\\mathrm{m\\,s^{-1}}$. B is $0.1\\ \\mathrm{km\\,s^{-1}} = 100\\ \\mathrm{m\\,s^{-1}}$, far above a sprinter's roughly $10\\ \\mathrm{m\\,s^{-1}}$. C, the popular wrong choice, is $9000\\ \\mathrm{cm\\,s^{-1}} = 90\\ \\mathrm{m\\,s^{-1}}$, about $320\\ \\mathrm{km\\,h^{-1}}$, which is reasonable for a racing car.",
    "hints": [
     "Put every speed into the same unit before comparing.",
-    "You know typical speeds: a sprinter is about ten metres every second.",
+    "Recall a typical speed for each object named in the options.",
     "Convert every option to $\\mathrm{m\\,s^{-1}}$ and compare each with the speed you expect for that object."
    ],
    "distractors": {
@@ -433,11 +433,11 @@
    },
    "answer": "D",
    "marks": 1,
-   "explanation": "A racehorse has a mass of several hundred kilograms, so its weight is a few thousand newtons, not $6\\times10^{2}\\ \\mathrm{N}$ (that is the weight of a person). The popular wrong choice C is reasonable: $20\\,000\\ \\mathrm{kg}\\times25\\ \\mathrm{m\\,s^{-1}} = 5\\times10^{5}\\ \\mathrm{N\\,s}$.",
+   "explanation": "A racehorse has a mass of several hundred kilograms, so its weight is a few thousand newtons, not $6\\times10^{2}\\ \\mathrm{N}$ (that is closer to the weight of a person, about $8\\times10^{2}\\ \\mathrm{N}$ for 80 kg). The popular wrong choice C is reasonable: $20\\,000\\ \\mathrm{kg}\\times25\\ \\mathrm{m\\,s^{-1}} = 5\\times10^{5}\\ \\mathrm{N\\,s}$.",
    "hints": [
     "Estimate each quantity from familiar masses, speeds and sizes.",
     "For each option, estimate the mass, speed or size involved and work out the quantity yourself.",
-    "Weight is mass times $g$; is a horse only as heavy as a person?"
+    "Weight is mass times $g$; estimate the mass of each object named and compare its weight with the value given."
    ]
   },
   {
@@ -565,7 +565,7 @@
     "exact": true
    },
    "marks": 1,
-   "explanation": "The quantity is the number times the unit and stays the same: $1\\ \\mathrm{m} = 1000\\ \\mathrm{mm}$, so the smaller unit needs a larger number, $L = 1000a$ in mm.",
+   "explanation": "The quantity is the number times the unit and stays the same: $1\\ \\mathrm{m} = 1000\\ \\mathrm{mm}$, so the smaller unit needs a larger number: multiply the number of metres by 1000 (for example, $1.2\\ \\mathrm{m} = 1200\\ \\mathrm{mm}$).",
    "hints": [
     "The length itself does not change, only how it is written.",
     "A millimetre is a smaller unit than a metre, so more of them are needed.",
@@ -583,12 +583,12 @@
    "source": {
     "type": "generated"
    },
-   "stem": "A student records the current in a lamp as 'the current was 0.35'. Which statement is correct?",
+   "stem": "A student records the mass of a stone as 'the mass was 0.35'. Which statement is correct?",
    "options": {
-    "A": "The record is complete because the number gives the current.",
+    "A": "The record is complete because the number gives the mass.",
     "B": "The record is incomplete because it has no unit.",
     "C": "The record is incomplete because it has no direction.",
-    "D": "The record is incomplete because it does not use an SI base unit."
+    "D": "The record is incomplete because the unit must be an SI base unit."
    },
    "answer": "B",
    "distractors": {
@@ -597,7 +597,7 @@
    },
    "marks": 1,
    "shuffle": true,
-   "explanation": "A physical quantity consists of a numerical magnitude and a unit, and this record has only the number. Direction is not needed for a scalar, and the unit need not be an SI base unit: 0.35 A or 350 mA would both be complete.",
+   "explanation": "A physical quantity consists of a numerical magnitude and a unit, and this record has only the number. Mass is a scalar, so no direction is needed, and the unit need not be an SI base unit: 0.35 kg or 350 g would both be complete.",
    "hints": [
     "Compare the record with the two parts every physical quantity has.",
     "Ask which of those two parts the student wrote down.",
@@ -639,6 +639,14 @@
      "keywords": [
       [
        "temperature"
+      ],
+      [
+       "of temperature",
+       "for temperature",
+       "measure",
+       "quantity",
+       "temperature is",
+       "thermodynamic"
       ]
      ]
     },
@@ -660,7 +668,12 @@
        "missing",
        "on its own",
        "by itself",
-       "alone"
+       "alone",
+       "and a unit",
+       "and unit",
+       "with a unit",
+       "as well as",
+       "plus a unit"
       ]
      ]
     }
@@ -751,7 +764,7 @@
     "tol_rel": 0.15
    },
    "marks": 3,
-   "explanation": "Convert the side to metres, $s\\times10^{-2}\\ \\mathrm{m}$, and cube it to get the volume in $\\mathrm{m^3}$. Divide by the volume of one atom, $(10^{-10})^3 = 10^{-30}\\ \\mathrm{m^3}$, so $N = (s\\times10^{-2})^3/10^{-30}$.",
+   "explanation": "Convert the side from centimetres to metres by multiplying by $10^{-2}$, then cube it to get the volume in $\\mathrm{m^3}$. Divide by the volume of one atom, $(10^{-10})^3 = 10^{-30}\\ \\mathrm{m^3}$. For example, a 2.0 cm cube has volume $(2.0\\times10^{-2})^3 = 8.0\\times10^{-6}\\ \\mathrm{m^3}$, so it holds about $8\\times10^{24}$ atoms.",
    "hints": [
     "Number of atoms is the volume of the cube divided by the volume of one atom.",
     "Convert centimetres to metres before cubing, and cube the atomic diameter as well.",
@@ -810,7 +823,7 @@
     ]
    },
    "marks": 2,
-   "explanation": "Convert the speed first: $v/3.6$ gives $\\mathrm{m\\,s^{-1}}$. Then $E_k = \\tfrac{1}{2}mv^2$ with $v$ in $\\mathrm{m\\,s^{-1}}$.",
+   "explanation": "Convert the speed first: divide the speed in $\\mathrm{km\\,h^{-1}}$ by 3.6 to get $\\mathrm{m\\,s^{-1}}$ (for example, $72\\ \\mathrm{km\\,h^{-1}} = 20\\ \\mathrm{m\\,s^{-1}}$). Then use $E_k = \\tfrac{1}{2}mv^2$, where $m$ is the mass in kg and $v$ is the speed in $\\mathrm{m\\,s^{-1}}$.",
    "hints": [
     "Kinetic energy formulas need speed in SI units.",
     "Divide a speed in $\\mathrm{km\\,h^{-1}}$ by 3.6 to get $\\mathrm{m\\,s^{-1}}$.",
@@ -936,6 +949,579 @@
    ],
    "marks": 3,
    "explanation": "A classroom is about $8\\ \\mathrm{m}\\times6\\ \\mathrm{m}\\times3\\ \\mathrm{m} = 144\\ \\mathrm{m^3}$, so $m = \\rho V = 1.2\\times144 \\approx 170\\ \\mathrm{kg}$, about the mass of two adults."
+  },
+  {
+   "id": "9702-1.1-x001",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q4",
+    "qid": "9702_s19_13_q4"
+   },
+   "stem": "What is the approximate kinetic energy of an Olympic athlete when running at maximum speed\nduring a 100 m race?",
+   "options": {
+    "A": "400 J",
+    "B": "4000 J",
+    "C": "40 000 J",
+    "D": "400 000 J"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x002",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q1",
+    "qid": "9702_w19_11_q1"
+   },
+   "stem": "For which quantity is the magnitude a reasonable estimate?",
+   "options": {
+    "A": "frequency of a radio wave 500 pHz",
+    "B": "mass of an atom 500 µg",
+    "C": "the Young modulus of a metal 500 kPa",
+    "D": "wavelength of green light 500 nm"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x003",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q1",
+    "qid": "9702_s20_11_q1"
+   },
+   "stem": "What is a reasonable estimate of the kinetic energy of a car travelling at a speed of 30 m s⁻¹?",
+   "options": {
+    "A": "10² J",
+    "B": "10⁴ J",
+    "C": "10⁶ J",
+    "D": "10⁸ J"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_11_q1.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x004",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q1",
+    "qid": "9702_s20_12_q1"
+   },
+   "stem": "What is a reasonable estimate of the mass of a raindrop?",
+   "options": {
+    "A": "10¹ kg",
+    "B": "10⁻¹ kg",
+    "C": "10⁻³ kg",
+    "D": "10⁻⁵ kg"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_12_q1.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x005",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q1",
+    "qid": "9702_s20_13_q1"
+   },
+   "stem": "A man is running a race in a straight line.\nWhat is an approximate value of his kinetic energy?",
+   "options": {
+    "A": "10 J",
+    "B": "100 J",
+    "C": "1000 J",
+    "D": "10 000 J"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x006",
+   "kcs": [
+    "9702-1.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q1",
+    "qid": "9702_w21_11_q1"
+   },
+   "stem": "What is essential when recording a measurement of a physical quantity?",
+   "options": {
+    "A": "the measurement has an SI unit",
+    "B": "the measurement has a unit and a number",
+    "C": "the measurement has a unit given as a base unit",
+    "D": "the measurement is from an analogue scale"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x007",
+   "kcs": [
+    "9702-1.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q1",
+    "qid": "9702_s22_11_q1"
+   },
+   "stem": "Which term represents a physical quantity?",
+   "options": {
+    "A": "metre",
+    "B": "percentage uncertainty",
+    "C": "quark flavour",
+    "D": "spring constant"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates should understand that all physical quantities consist of a numerical magnitude and a unit. Very few candidates selected B or C, but many candidates selected A suggesting confusion distinguishing between units and quantities. The correct answer was D as spring constant has a magnitude and a unit. Principal Examiner Report for Teachers"
+  },
+  {
+   "id": "9702-1.1-x008",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q1",
+    "qid": "9702_s22_12_q1"
+   },
+   "stem": "Which estimate is reasonable?",
+   "options": {
+    "A": "1 × 10⁻³ kg for the mass of a grain of sand",
+    "B": "1 × 10⁻² m³ for the volume of a tennis ball",
+    "C": "1 × 10⁰ J for the work done lifting an apple from waist height to head height",
+    "D": "1 × 10⁴ W for the power of a light bulb in a house"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x009",
+   "kcs": [
+    "9702-1.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q1",
+    "qid": "9702_w22_11_q1"
+   },
+   "stem": "What is needed to accurately represent all physical quantities?",
+   "options": {
+    "A": "a base unit and a number",
+    "B": "a unit and a number expressed in standard form (scientific notation)",
+    "C": "a unit and a numerical magnitude",
+    "D": "an SI unit and a numerical magnitude"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x010",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q1",
+    "qid": "9702_w23_11_q1"
+   },
+   "stem": "What is a reasonable estimate of the cross-sectional area of the wire in a paper clip?",
+   "options": {
+    "A": "1 × 10⁻³ m²",
+    "B": "8 × 10⁻⁵ m²",
+    "C": "8 × 10⁻⁷ m²",
+    "D": "1 × 10⁻⁹ m²"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x011",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q17",
+    "qid": "9702_w23_11_q17"
+   },
+   "stem": "A builder holding a brick of mass 3000 g drops the brick on his foot.\nWhat is a reasonable estimate of the change in gravitational potential energy of the brick?",
+   "options": {
+    "A": "30 J",
+    "B": "300 J",
+    "C": "3000 J",
+    "D": "30 000 J"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x012",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q1",
+    "qid": "9702_w23_13_q1"
+   },
+   "stem": "What is the best estimate of the wavelength of green light?",
+   "options": {
+    "A": "260 nm",
+    "B": "540 nm",
+    "C": "780 nm",
+    "D": "920 nm"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x013",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q8",
+    "qid": "9702_s24_12_q8"
+   },
+   "stem": "What is a reasonable estimate of the momentum of a family car travelling at 25 kilometres per\nhour?",
+   "options": {
+    "A": "1 × 10⁴ kg m s⁻¹",
+    "B": "1 × 10⁵ kg m s⁻¹",
+    "C": "1 × 10⁶ kg m s⁻¹",
+    "D": "1 × 10⁷ kg m s⁻¹"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x014",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q4",
+    "qid": "9702_w24_11_q4"
+   },
+   "stem": "What is a reasonable estimate of the volume of one page from this examination paper?",
+   "options": {
+    "A": "60 mm³",
+    "B": "600 mm³",
+    "C": "6000 mm³",
+    "D": "60 000 mm³"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x015",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q2",
+    "qid": "9702_w24_12_q2"
+   },
+   "stem": "A small car travels in a town.\nWhat is a reasonable estimate of the kinetic energy of the car?",
+   "options": {
+    "A": "5 × 10⁴ J",
+    "B": "5 × 10⁷ J",
+    "C": "5 × 10¹⁰ J",
+    "D": "5 × 10¹³ J"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x016",
+   "kcs": [
+    "9702-1.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q1",
+    "qid": "9702_w24_13_q1"
+   },
+   "stem": "Which statement about physical quantities is correct?",
+   "options": {
+    "A": "A physical quantity does not always have a magnitude or a unit.",
+    "B": "A physical quantity must always have a magnitude but does not always have a unit.",
+    "C": "A physical quantity must always have a unit but does not always have a magnitude.",
+    "D": "A physical quantity must always have a magnitude and a unit."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x017",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q2",
+    "qid": "9702_w24_13_q2"
+   },
+   "stem": "What is a reasonable estimate of the mass of a solid sphere of copper that has a diameter of\n60 cm?",
+   "options": {
+    "A": "0.1 kg",
+    "B": "10 kg",
+    "C": "1000 kg",
+    "D": "100 000 kg"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x018",
+   "kcs": [
+    "9702-1.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q1",
+    "qid": "9702_s25_12_q1"
+   },
+   "stem": "What must all physical quantities have?",
+   "options": {
+    "A": "a direction and a magnitude",
+    "B": "a direction and a unit",
+    "C": "a magnitude and a prefix",
+    "D": "a magnitude and a unit"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x019",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q2",
+    "qid": "9702_s25_13_q2"
+   },
+   "stem": "What is a reasonable estimate of the current in an electric kettle that is in use?",
+   "options": {
+    "A": "8 μA",
+    "B": "8 mA",
+    "C": "8 A",
+    "D": "8 kA"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x020",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q15",
+    "qid": "9702_w25_11_q15"
+   },
+   "stem": "A man of weight 600 N stands with both feet flat on the ground.\nWhat is a reasonable estimate of the pressure exerted on the ground by the weight of the man?",
+   "options": {
+    "A": "1 × 10⁰ Pa",
+    "B": "1 × 10² Pa",
+    "C": "1 × 10⁴ Pa",
+    "D": "1 × 10⁶ Pa"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x021",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q1",
+    "qid": "9702_w25_12_q1"
+   },
+   "stem": "What is a reasonable estimate of the weight of an adult human?",
+   "options": {
+    "A": "7 × 10⁰ N",
+    "B": "7 × 10² N",
+    "C": "7 × 10⁴ N",
+    "D": "7 × 10⁶ N"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.1-x022",
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q15",
+    "qid": "9702_w25_13_q15"
+   },
+   "stem": "A man of weight 600 N stands with both feet flat on the ground.\nWhat is a reasonable estimate of the pressure exerted on the ground by the weight of the man?",
+   "options": {
+    "A": "1 × 10⁰ Pa",
+    "B": "1 × 10² Pa",
+    "C": "1 × 10⁴ Pa",
+    "D": "1 × 10⁶ Pa"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
   }
  ],
  "flashcards": [
@@ -1003,7 +1589,7 @@
    "id": "fc11",
    "kc": "9702-1.1.2",
    "front": "Density of water and of air, and typical weight of an adult.",
-   "back": "Water $1000\\ \\mathrm{kg\\,m^{-3}}$; air about $1.2\\ \\mathrm{kg\\,m^{-3}}$; adult weight about 700 N."
+   "back": "Water $1000\\ \\mathrm{kg\\,m^{-3}}$; air about $1.2\\ \\mathrm{kg\\,m^{-3}}$; adult weight about 800 N (80 kg)."
   }
  ],
  "diagrams": []

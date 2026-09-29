@@ -74,7 +74,9 @@ class Tutor:
                         "kcs_learned": [], "retest": {}}
         self.log({"type": "session_start", "session": self.session["id"], "mode": mode, "minutes": minutes,
                   "blocks": [b["kind"] for b in blocks]})
-        return {"session": self.session["id"], "blocks": blocks, "missing_packs": policy.missing_packs(self.packs, self.now())}
+        missing = policy.missing_packs(self.packs, self.now())
+        return {"session": self.session["id"], "blocks": blocks,
+                "missing_packs": {"count": len(missing), "next": missing[:5]} if missing else []}
 
     def end(self, abandoned: bool = False) -> dict:
         s = self.session or {}
@@ -163,7 +165,7 @@ class Tutor:
         i = b.setdefault("i", 0)
         batch = b["kcs"][i:i + 2]
         b["i"] = i + len(batch)
-        items = [it for kc in batch if (it := self._pick(kc, 0.8))]
+        items = [it for kc in batch if (it := self._pick(kc, b.get("target", 0.8)))]
         return self._questions(b, idx, items) if batch else None
 
     def _step_practice(self, b: dict, idx: int) -> dict | None:
@@ -202,6 +204,38 @@ class Tutor:
                if kc not in st and k["n"] > 0 and kc in self.packs.kcs and self.packs.items_for(kc)][:3]
         extra = repair + ([{"kind": "practice", "kcs": old}] if old else [])
         extra.append({"kind": "exit", "kcs": (gaps[:n] or list(st))[:3]})
+        self.session["blocks"][idx + 1:idx + 1] = extra
+        return None
+
+    def _step_sweep(self, b: dict, idx: int) -> dict | None:
+        """Test prep: one exam-level question per KC, interleaved across subtopics; then repair only what was missed."""
+        asked = b.setdefault("asked", {})
+        while b.setdefault("i", 0) < len(b["kcs"]):
+            batch = b["kcs"][b["i"]:b["i"] + 2]
+            b["i"] += len(batch)
+            items = []
+            for kc in batch:
+                it = self._pick(kc, 0.6)
+                if it:
+                    asked[it["id"]] = kc
+                    items.append(it)
+            act = self._questions(b, idx, items, phase="sweep", unassisted=True)
+            if act:
+                act["say"] = "Test check: one question per syllabus point, no hints until answered. 'Don't know' is a fine answer."
+                return act
+        res = b.get("res", {})
+        wrong = [kc for kc in b["kcs"] if kc in res and not res[kc]["ok"]]
+        unsure = [kc for kc in b["kcs"] if kc in res and res[kc]["ok"] and (res[kc]["conf"] or 0) <= 2]
+        if wrong:
+            self.log({"type": "gaps", "add": wrong})
+        n = max(1, int(max(0, self.session["minutes"] - 2 * len(b["kcs"]) - 10) / 12)) if wrong else 0
+        extra: list[dict] = [{"kind": "learn", "kc": kc, "pretested": True} for kc in wrong[:n]]
+        pool = wrong[n:] + unsure
+        if pool:
+            extra.append({"kind": "practice", "kcs": pool})
+        if not wrong and not unsure:
+            extra.append({"kind": "practice", "kcs": list(b["kcs"]), "target": 0.5})
+        extra.append({"kind": "exit", "kcs": (wrong[:n] or unsure or list(b["kcs"]))[:3]})
         self.session["blocks"][idx + 1:idx + 1] = extra
         return None
 
@@ -383,6 +417,14 @@ class Tutor:
                 rec["errors"].append(g["error"])
             if g.get("misconception"):
                 rec["mis"].append(g["misconception"])
+        if p["block"] == "sweep":
+            blk = s["blocks"][p["block_idx"]]
+            kc = blk.get("asked", {}).get(p["item"], p["kcs"][0])
+            blk.setdefault("res", {})[kc] = {"ok": g["correct"], "conf": r.get("conf")}
+        if p["unassisted"] and g["correct"] and not p["hinted"]:
+            closed = [kc for kc in p["kcs"] if kc in self.state["gaps"]]
+            if closed:
+                self.log({"type": "gaps", "remove": closed})
         if p["phase"] == "faded" and not g["correct"] and p["block_idx"] is not None:
             s["blocks"][p["block_idx"]]["walkthrough"] = True
         if p["exp"]:

@@ -20,7 +20,7 @@ from tutorlib import lint  # noqa: E402
 def main() -> int:
     bad = 0
     rows = []
-    for pack_path in sorted((ROOT / "build/out/packs").rglob("*.json")):
+    for pack_path in sorted((ROOT / "build/out/packs").glob("*/*.json")):
         extras = add_past.add(pack_path)
         pack = json.loads(pack_path.read_text())
         graph = json.loads((ROOT / f"build/out/specs/{pack['spec']}/graph.json").read_text())

@@ -40,8 +40,8 @@
   {
    "id": "m5",
    "kc": "S1-1.1",
-   "statement": "A random variable $X$ is an unknown number to be found by solving an equation.",
-   "refutation": "A random variable is a variable whose numerical value depends on the outcome of a chance event. It can take several values, each with its own probability. The capital $X$ names the variable and a lower-case $x$ is one particular value.",
+   "statement": "A random variable $X$ is a fixed thing, such as an unknown number to be found by solving an equation or the data already collected, rather than a variable whose value depends on chance.",
+   "refutation": "A random variable is a variable whose numerical value depends on the outcome of a chance event. It can take several values, each with its own probability. The capital $X$ names the variable and a lower-case $x$ is one particular value. The data collected are observed values of $X$, not $X$ itself.",
    "contrast": "$X$ = score on a fair die: $X$ can be $1,2,\\dots,6$, and $P(X=4)=\\tfrac16$ describes the chance that it takes the value $x=4$. Nothing is being solved for.",
    "source": "research"
   }
@@ -77,7 +77,7 @@
      }
     },
     {
-     "do": "Conclude in context: all the differences are small compared with 20, which is consistent with chance variation, so the fair-die model is suitable and there is no evidence to reject it.",
+     "do": "Conclude in context: no score differs systematically or by a large amount, and the differences lie both above and below 20, which is consistent with chance variation, so the fair-die model is suitable and there is no evidence to reject it.",
      "why": "A comment needs a reason from the numbers and a conclusion about the model, not just 'close'."
     }
    ],
@@ -141,7 +141,7 @@
    "hints": [
     "The model says each of the six faces is equally likely, so first decide the probability of one particular face.",
     "The predicted count is the number of throws multiplied by the probability for a single throw.",
-    "Divide the number of throws by the number of faces."
+    "What fraction of the throws would you expect to show a six?"
    ]
   },
   {
@@ -204,7 +204,7 @@
    "shuffle": true,
    "explanation": "The population is the whole set of items of interest, here all 4200 tenants. The 150 surveyed tenants are the sample, which is used to estimate the population value.",
    "hints": [
-    "Ask who the council wants to know about, not who it actually asked.",
+    "Which group is the council ultimately interested in?",
     "The population is the complete set of interest; the sample is a selection taken from it.",
     "Decide which group in the question is the complete set and which is the selection."
    ]
@@ -263,7 +263,7 @@
    "answer": "A",
    "distractors": {
     "B": "m5",
-    "D": "m2"
+    "D": "m5"
    },
    "marks": 1,
    "shuffle": true,
@@ -288,10 +288,11 @@
    "stem": "Sami models the number of heads when a coin is tossed 20 times. State two assumptions that Sami's model relies on.",
    "rubric": [
     {
-     "point": "the coin is fair / heads and tails are equally likely on each toss (the probability of a head is the same each time)",
+     "point": "heads and tails are equally likely on each toss (the coin is fair). Also accept: the probability of a head is the same on every toss",
      "keywords": [
       [
-       "fair",
+       "coin is fair",
+       "a fair coin",
        "equally likely",
        "unbiased",
        "equal probability",
@@ -300,20 +301,24 @@
        "probability of a head is the same",
        "probability of heads is the same",
        "probability of a head is constant",
+       "probability of heads is constant",
        "constant probability"
       ]
      ]
     },
     {
-     "point": "tosses are independent (one toss does not affect another)",
+     "point": "the tosses are independent (one toss does not affect the next)",
      "keywords": [
       [
        "independent",
-       "not affect",
-       "no effect",
-       "does not influence",
-       "not influence",
-       "unaffected"
+       "toss does not affect",
+       "tosses do not affect",
+       "toss doesn't affect",
+       "tosses don't affect",
+       "toss does not influence",
+       "tosses do not influence",
+       "toss has no effect",
+       "tosses have no effect"
       ]
      ]
     }
@@ -365,7 +370,7 @@
     },
     {
      "mark": "B1",
-     "point": "(c) all differences are small compared with 20, consistent with chance variation, so the model is suitable / there is no evidence to reject it"
+     "point": "(c) no score differs systematically or by a large amount (differences are both above and below 20, the largest only 4), consistent with chance variation, so the model is suitable / there is no evidence to reject it"
     },
     {
      "mark": "B1",
@@ -377,7 +382,7 @@
     }
    ],
    "marks": 5,
-   "explanation": "The model predicts $120\\times\\tfrac16=20$ for each score. The largest difference is $|24-20|=4$ for the score 5, which is small for 120 throws, so the data are consistent with the model."
+   "explanation": "The model predicts $120\\times\\tfrac16=20$ for each score. The largest difference is $|24-20|=4$ for the score 5, and the differences lie both above and below 20 with no systematic pattern, so the data are consistent with chance variation about the model."
   }
  ],
  "flashcards": [
@@ -403,7 +408,8 @@
    "id": "fc4",
    "kc": "S1-1.1",
    "front": "Define a random variable.",
-   "back": "A variable whose numerical value depends on the outcome of a chance event. A capital letter (such as $X$) names the variable and a lower-case letter (such as $x$) is a particular value."
+   "back": "A variable whose numerical value depends on the outcome of a chance event. A capital letter (such as $X$) names the variable and a lower-case letter (such as $x$) is a particular value.",
+   "in_anki": true
   },
   {
    "id": "fc5",
@@ -433,7 +439,7 @@
    "id": "fc9",
    "kc": "S1-1.1",
    "front": "State two assumptions when modelling the number of heads in repeated coin tosses.",
-   "back": "The probability of a head is the same on every toss (fair coin), and the tosses are independent."
+   "back": "Heads and tails are equally likely on each toss (the coin is fair), and the tosses are independent (one toss does not affect the next)."
   }
  ],
  "diagrams": []

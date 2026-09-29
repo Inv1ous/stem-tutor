@@ -72,7 +72,7 @@
      "why": "Percentage uncertainties are the ones that can be added when quantities are multiplied or divided; absolute uncertainties cannot be mixed across different units."
     },
     {
-     "do": "Add them, doubling the one for $T$: $\\dfrac{\\Delta g}{g}=0.48\\%+2\\times1.54\\%=3.6\\%$.",
+     "do": "Add them, doubling the one for $T$: $\\dfrac{\\Delta g}{g}=0.48\\%+2\\times1.54\\%=3.55\\%$ (keep an extra figure until the final answer).",
      "why": "$T$ is squared, so it appears twice in the product and its percentage uncertainty is counted twice; this is the step most students skip.",
      "check": {
       "kind": "numeric",
@@ -87,22 +87,23 @@
      }
     },
     {
-     "do": "Convert back to an absolute uncertainty: $\\Delta g=3.6\\%\\times9.81=0.35\\ \\mathrm{m\\,s^{-2}}$.",
+     "do": "Convert back to an absolute uncertainty: $\\Delta g=3.55\\%\\times9.81=0.348\\ \\mathrm{m\\,s^{-2}}$.",
      "why": "The question asks for an absolute uncertainty, so multiply the fractional uncertainty by the calculated value.",
      "check": {
       "kind": "numeric",
       "answer": {
-       "value": 0.35,
+       "value": 0.348,
        "unit": "m s^-2",
        "sf_ok": [
-        2
+        2,
+        3
        ]
       }
      }
     },
     {
      "do": "Round the uncertainty to 1 s.f. and match the decimal places of $g$: $g=(9.8\\pm0.3)\\ \\mathrm{m\\,s^{-2}}$.",
-     "why": "An uncertainty is only known to about one significant figure, and the value must not show more decimal places than its uncertainty."
+     "why": "An uncertainty is only known to about one significant figure ($0.348\\to0.3$; rounding early to $3.6\\%$ would give $0.353\\to0.4$, which is why intermediate values keep an extra figure), and the value must not show more decimal places than its uncertainty."
     }
    ],
    "faded": {
@@ -1143,6 +1144,1103 @@
     "Which quantity in the formula is squared, and what does that do to its contribution?",
     "Convert the total percentage uncertainty into an absolute one using the value of $\\rho$, and give the uncertainty to 1 significant figure."
    ]
+  },
+  {
+   "id": "9702-1.3-x001",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q5",
+    "qid": "9702_s19_11_q5"
+   },
+   "stem": "The speed shown on a car’s speedometer is proportional to the rate of rotation of the tyres.\nThe variation of the diameter of a tyre as it wears introduces an error in the speed shown on the\nspeedometer.\nA car has new tyres of diameter 600 mm. The speedometer is accurately calibrated for this\ndiameter.\nThe tyres wear as shown, with 6 mm of material being removed from the outer surface.\n6 mm\nnot to scale\nnew tyre\nworn tyre\nWhat is the error in the speed shown on the speedometer after this wear has taken place?",
+   "options": {
+    "A": "The speed shown is too high by 1%.",
+    "B": "The speed shown is too high by 2%.",
+    "C": "The speed shown is too low by 1%.",
+    "D": "The speed shown is too low by 2%."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The majority of candidates recognised that, as the car tyres wear, the rate of rotation of the tyres must increase for the car to travel at the same speed, and this would mean the speed displayed by the car’s speedometer (which is proportional to the rate of rotation of the tyres) would increase, i.e. be greater than the true speed of the car. When calculating the percentage error in the speedometer reading, many candidates used a value of 6 mm rather than 12 mm for the change in diameter of the tyres, obtaining a value of 1% for the error in the speedometer reading (answer A) rather than the "
+  },
+  {
+   "id": "9702-1.3-x002",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q6",
+    "qid": "9702_s19_12_q6"
+   },
+   "stem": "Two quantities p and q are directly proportional to each other.\nExperimental results are taken and plotted in a graph of q against p.\nWhich graph shows there were random errors in the measurements of p and q?\nq\n0\n0\nq",
+   "options": {
+    "A": "p",
+    "B": "p 0 0 q",
+    "C": "p 0 0 q",
+    "D": "p 0 0"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_12_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x003",
+   "kcs": [
+    "9702-1.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q7",
+    "qid": "9702_s19_12_q7"
+   },
+   "stem": "A man of mass 75.2 kg uses a set of weighing scales to measure his mass three times. He\nobtains the following readings.\nmass / kg\nreading 1\n80.2\nreading 2\n80.1\nreading 3\n80.2\nWhich statement best describes the precision and accuracy of the weighing scales?",
+   "options": {
+    "A": "not precise to ± 0.1 kg and accurate to ± 0.1 kg",
+    "B": "not precise to ± 0.1 kg and not accurate to ± 0.1 kg",
+    "C": "precise to ± 0.1 kg and accurate to ± 0.1 kg",
+    "D": "precise to ± 0.1 kg and not accurate to ± 0.1 kg"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x004",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q6",
+    "qid": "9702_s19_13_q6"
+   },
+   "stem": "A micrometer screw gauge is used to measure the diameter of a small uniform steel sphere. The\nmicrometer reading is 5.00 mm ± 0.01 mm.\nWhat will be the percentage uncertainty in a calculation of the volume of the sphere, using these\nvalues?",
+   "options": {
+    "A": "0.2%",
+    "B": "0.4%",
+    "C": "0.6%",
+    "D": "1.2%"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Around half of the candidates calculated the percentage uncertainty in the volume of the sphere correctly. Others calculated the percentage uncertainty in the diameter of the sphere correctly, but did not then calculate three times this value as the percentage uncertainty in the volume of the sphere, not recognising that the volume of the sphere is proportional to the cube of the diameter."
+  },
+  {
+   "id": "9702-1.3-x005",
+   "kcs": [
+    "9702-1.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q4",
+    "qid": "9702_w19_11_q4"
+   },
+   "stem": "A student intends to measure accurately the diameter of a wire (known to be approximately\n1 mm) and the internal diameter of a pipe (known to be approximately 2 cm).\nWhat are the most appropriate instruments for the student to use to make these measurements?\nwire\npipe",
+   "options": {
+    "A": "calipers calipers",
+    "B": "calipers micrometer",
+    "C": "micrometer calipers",
+    "D": "micrometer micrometer"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x006",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q5",
+    "qid": "9702_w19_11_q5"
+   },
+   "stem": "The power P dissipated in a resistor of resistance R is calculated using the expression\nP = R\nV ²\nwhere V is the potential difference (p.d.) across the resistor. The percentage uncertainty in V is\n5% and in R is 2%.\nWhat is the percentage uncertainty in P ?",
+   "options": {
+    "A": "3%",
+    "B": "7%",
+    "C": "8%",
+    "D": "12%"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x007",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q4",
+    "qid": "9702_w19_12_q4"
+   },
+   "stem": "A micrometer is used to measure the 28.50 mm width of a plastic ruler. The micrometer reads to\nthe nearest 0.01 mm.\nWhat is the correct way to record this reading?",
+   "options": {
+    "A": "0.02850 ± 0.01 m",
+    "B": "0.0285 ± 0.001 m",
+    "C": "(2.850 ± 0.001) × 10⁻² m",
+    "D": "(2.850 ± 0.001) × 10⁻³ m"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x008",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q5",
+    "qid": "9702_w19_12_q5"
+   },
+   "stem": "The sides of a wooden block are measured with calipers. The lengths of the sides are measured\nas 20.0 mm, 40.0 mm and 10.0 mm.\n20.0 mm\n10.0 mm\n40.0 mm\nThe calipers can measure with an absolute uncertainty of ± 0.1 mm.\nWhat is the percentage uncertainty in the calculated volume of the block?",
+   "options": {
+    "A": "0.3%",
+    "B": "1.8%",
+    "C": "3.8%",
+    "D": "30%"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x009",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q5",
+    "qid": "9702_w19_13_q5"
+   },
+   "stem": "The power loss P in a resistor is calculated using the formula P =\n2\nV\nR .\nThe percentage uncertainty in the potential difference V is 3% and the percentage uncertainty in\nthe resistance R is 2%.\nWhat is the percentage uncertainty in P ?",
+   "options": {
+    "A": "4%",
+    "B": "7%",
+    "C": "8%",
+    "D": "11%"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x010",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q5",
+    "qid": "9702_s20_11_q5"
+   },
+   "stem": "A measurement is taken correctly but with a ruler at a significantly higher temperature than that at\nwhich the ruler was calibrated. The higher temperature causes the ruler to expand.\nWhat describes the effect on the measurement caused by the higher temperature and how the\nmeasurement may be improved?",
+   "options": {
+    "A": "The measurement will be subject to a random error. The measurement can be made more accurate by taking the average of several repeated measurements.",
+    "B": "The measurement will be subject to a random error. The measurement can be made more precise by taking the average of several repeated measurements.",
+    "C": "The measurement will be subject to a systematic error. The measurement can be made more accurate by taking the average of several repeated measurements.",
+    "D": "The measurement will be subject to a systematic error. The measurement can be made more precise by taking the average of several repeated measurements."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x011",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q4",
+    "qid": "9702_s20_12_q4"
+   },
+   "stem": "Readings are made of the current I for different voltages V across a fixed resistor. The results are\nplotted on a graph to show the variation of I with V.\n0\n0\nI\nV\nWhat is the best description of the errors in the readings?",
+   "options": {
+    "A": "both systematic and random",
+    "B": "neither systematic nor random",
+    "C": "random only",
+    "D": "systematic only"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_12_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x012",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q5",
+    "qid": "9702_s20_13_q5"
+   },
+   "stem": "Two liquid-in-glass thermometers in a well-mixed liquid are individually observed by 10 different\nstudents. All agree that one thermometer reads 21 °C and the other thermometer reads 23 °C.\nWhat is a possible explanation for the difference?",
+   "options": {
+    "A": "The liquid is not all at the same temperature.",
+    "B": "The readings are not precise.",
+    "C": "There is a random error affecting the readings.",
+    "D": "Th i t ti ff ti th di"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x013",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q5",
+    "qid": "9702_w20_11_q5"
+   },
+   "stem": "The diameter of a spherical golf ball is measured with calipers and found to be (4.11 ± 0.01) cm.\nThe volume of a sphere is V = ¹\n₆ πd ³, where d is the diameter of the sphere.\nWhat is the volume of the golf ball?",
+   "options": {
+    "A": "(36.35 ± 0.01) cm³",
+    "B": "(36.35 ± 0.03) cm³",
+    "C": "(36.35 ± 0.09) cm³",
+    "D": "(36.4 ± 0.3) cm³"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x014",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q5",
+    "qid": "9702_w20_12_q5"
+   },
+   "stem": "A steel ball is dropped and falls through a vertical height h. The time t taken to fall is measured\nusing light gates.\nThe results are given in the table.\nh\n(4.05 ± 0.01) m\nt\n(0.91 ± 0.02) s\nThe acceleration of free fall g is calculated using the equation shown.\nh = ¹\n2\n2\ngt\nWhat is the percentage uncertainty in the value of g?",
+   "options": {
+    "A": "2.4%",
+    "B": "4.6%",
+    "C": "5.1%",
+    "D": "9.3%"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x015",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q4",
+    "qid": "9702_w20_13_q4"
+   },
+   "stem": "A calibration curve is shown for an ammeter whose scale is inaccurate.\n0.6\n0.5\n0.4\n0.3\n0.2\n0.1\n0\n0\n0.1\n0.2\n0.3\n0.4\n0.5\n0.6\ncurrent / mA\nammeter\nreading\n/ mA\nTwo readings taken on the meter at different times during an experiment are 0.13 mA and\n0.47 mA.\nBy how much did the current really increase between taking the two readings?",
+   "options": {
+    "A": "0.30 mA",
+    "B": "0.34 mA",
+    "C": "0.40 mA",
+    "D": "0.44 mA"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_13_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x016",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q5",
+    "qid": "9702_w20_13_q5"
+   },
+   "stem": "A student measures the length l and the period T of oscillation of a simple pendulum. He then\nuses the equation shown to calculate the acceleration of free fall g.\nT = 2π\ng\nl\nHis measurements are shown.\nl\n(87.3 ± 0.2) cm\nT\n(1.9 ± 0.05) s\nWhat is the percentage uncertainty in his calculated value of g ?",
+   "options": {
+    "A": "2.4%",
+    "B": "2.9%",
+    "C": "5.5%",
+    "D": "7.2%"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x017",
+   "kcs": [
+    "9702-1.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q4",
+    "qid": "9702_s21_12_q4"
+   },
+   "stem": "An analogue ammeter with a range of 0–250 mA is connected into an electrical circuit. The\ndiagram shows the ammeter’s display.\n10\n0\n5\nWhat is the reading on the ammeter?",
+   "options": {
+    "A": "76 mA",
+    "B": "165 mA",
+    "C": "183 mA",
+    "D": "190 mA"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_12_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x018",
+   "kcs": [
+    "9702-1.3.1",
+    "9702-1.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q5",
+    "qid": "9702_s21_12_q5"
+   },
+   "stem": "Students take readings of the volume of a liquid using three different pieces of measuring\nequipment X, Y and Z.\nThe true value of the volume of the liquid is V.\nThe students’ results are shown.\n0\nV\nX\n0\nvolume\nnumber of\nreadings\n0\nV\nY\n0\nvolume\nnumber of\nreadings\n0\nV\nZ\n0\nvolume\nnumber of\nreadings\nHow many pieces of equipment are precise and how many are accurate?\nnumber of precise\npieces of equipment\nnumber of accurate\npieces of equipment",
+   "options": {
+    "A": "1 1",
+    "B": "1 2",
+    "C": "2 1",
+    "D": "2 2"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x019",
+   "kcs": [
+    "9702-1.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q4",
+    "qid": "9702_s21_13_q4"
+   },
+   "stem": "The diagram shows two readings on a micrometer.\n0\n0\n5\n10\n10\n15\n45\n40\n0\nreading 1\nreading 2\nWhat is the difference between the two readings?",
+   "options": {
+    "A": "10.34 mm",
+    "B": "11.84 mm",
+    "C": "12.34 mm",
+    "D": "12.84 mm"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_13_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x020",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q5",
+    "qid": "9702_s21_13_q5"
+   },
+   "stem": "The diameter of a circular disc is measured as (7.0 ± 0.1) mm.\nWhat is the area of the disc and the absolute uncertainty in the area?\narea of disc\n/ mm²\nabsolute\nuncertainty / mm²",
+   "options": {
+    "A": "38.5 ± 0.5",
+    "B": "38 ± 1",
+    "C": "154 ± 2",
+    "D": "154 ± 4"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Almost all the candidates calculated the area of the circular disc correctly (answers A or B) but many estimated the absolute uncertainty incorrectly. One approach is to calculate the largest and smallest possible values for the area, and the absolute uncertainty is then ± half the difference between these two values. Another method is to use the fact that the percentage uncertainty in the area must be twice the percentage uncertainty in the diameter. Either of these methods will lead to answer B."
+  },
+  {
+   "id": "9702-1.3-x021",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q5",
+    "qid": "9702_w21_12_q5"
+   },
+   "stem": "A student measures the time T for one complete oscillation of a pendulum of length l.\nHer results are shown in the table.\nl / m\nT / s\n0.420 ± 0.001\n1.3 ± 0.1\nShe uses the formula\nT = 2π\ng\nl\nto calculate the acceleration of free fall g.\nWhat is the best estimate of the percentage uncertainty in the value of g ?",
+   "options": {
+    "A": "0.02%",
+    "B": "4%",
+    "C": "8%",
+    "D": "16%"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates answered this question correctly. A common incorrect method was to add the percentage uncertainty in T to the percentage uncertainty in l but then ignore the square root."
+  },
+  {
+   "id": "9702-1.3-x022",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q1",
+    "qid": "9702_w21_13_q1"
+   },
+   "stem": "A paperback book contains 210 sheets of paper (pages). Its thickness is measured with a ruler,\nas shown.\n0 cm\n2\n3\n4\n5\n6\nbook\nWhat is the average thickness of one sheet of the paper in the book?",
+   "options": {
+    "A": "0.013 mm",
+    "B": "0.017 mm",
+    "C": "0.13 mm",
+    "D": "0.17 mm"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w21_13_q1.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x023",
+   "kcs": [
+    "9702-1.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q3",
+    "qid": "9702_s22_11_q3"
+   },
+   "stem": "A value for the acceleration of free fall on Earth is given as (10 ± 2) m s⁻².\nWhich statement is correct?",
+   "options": {
+    "A": "The value is accurate but not precise.",
+    "B": "The value is both precise and accurate.",
+    "C": "The value is neither precise nor accurate.",
+    "D": "The value is precise but not accurate."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x024",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q3",
+    "qid": "9702_s22_12_q3"
+   },
+   "stem": "Which statement about systematic errors is not correct?",
+   "options": {
+    "A": "A systematic error can be caused by using an incorrectly calibrated instrument.",
+    "B": "One particular type of systematic error can affect all the measurements by the same amount.",
+    "C": "The effect of a systematic error can be reduced by repeating and averaging the measurements.",
+    "D": "Zero error is a type of systematic error."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x025",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q3",
+    "qid": "9702_w22_11_q3"
+   },
+   "stem": "In an experiment to determine the acceleration of free fall g, the time t taken for a ball to fall\nthrough distance s is measured. The percentage uncertainty in the measurement of s is 2%. The\npercentage uncertainty in the measurement of t is 3%.\nThe value of g is determined using the equation shown.\n2\n2\nt\ns\ng =\nWhat is the percentage uncertainty in the calculated value of g?",
+   "options": {
+    "A": "1%",
+    "B": "5%",
+    "C": "8%",
+    "D": "11%"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_11_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x026",
+   "kcs": [
+    "9702-1.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q3",
+    "qid": "9702_s23_11_q3"
+   },
+   "stem": "A copper pipe has a true diameter of 42.03 mm.\nA builder measures the diameter of the pipe five times using digital calipers. The measurements\nare shown.\ndiameter / mm\n48.01\n47.99\n48.01\n48.00\n47.99\nWhat describes the builder’s measurements?",
+   "options": {
+    "A": "accurate and precise",
+    "B": "accurate but not precise",
+    "C": "not precise and not accurate",
+    "D": "precise but not accurate"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_11_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x027",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q3",
+    "qid": "9702_s23_12_q3"
+   },
+   "stem": "Two measurements for a solid sphere are shown.\nmass = (32.5 ± 0.1) g\ndiameter = (1.87 ± 0.04) cm\nThese values are used to determine the density of the sphere.\nWhat is the percentage uncertainty in the density?",
+   "options": {
+    "A": "2.4%",
+    "B": "4.6%",
+    "C": "6.1%",
+    "D": "6.7%"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x028",
+   "kcs": [
+    "9702-1.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q3",
+    "qid": "9702_s23_13_q3"
+   },
+   "stem": "A desk has a true width of 50.0 cm.\nTwo students, X and Y, measure the width of the desk.\nStudent X uses a tape measure and records a width of (49.5 ± 0.5) cm.\nStudent Y uses a metre rule and records a width of (51.4 ± 0.1) cm.\nWhich statement about the measurement of student X is correct?",
+   "options": {
+    "A": "It is less accurate and less precise than the measurement of student Y.",
+    "B": "It is less accurate but more precise than the measurement of student Y.",
+    "C": "It is more accurate and more precise than the measurement of student Y.",
+    "D": "It is more accurate but less precise than the measurement of student Y."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x029",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q3",
+    "qid": "9702_w23_11_q3"
+   },
+   "stem": "A student determines the acceleration of free fall by using a small metal ball, as shown.\nS\nelectromagnet\nP\nQ\nmetal ball\nelectronic timer\ntrapdoor\nWhen switch S is opened, the ball is released from an electromagnet and an electronic timer is\nstarted. The ball then falls vertically downwards. The timer stops when the ball hits a trapdoor.\nThe student measures the distance PQ between the electromagnet and the trapdoor. This\ndistance and the reading on the timer are then used to calculate the acceleration of free fall.\nWhich statement about errors in the experiment is correct?",
+   "options": {
+    "A": "The random error can be reduced by adding the diameter of the ball to the distance PQ.",
+    "B": "The random error can be reduced by subtracting the diameter of the ball from the distance PQ.",
+    "C": "The systematic error can be reduced by adding the diameter of the ball to the distance PQ.",
+    "D": "The systematic error can be reduced by subtracting the diameter of the ball from the distance PQ."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_11_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x030",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q6",
+    "qid": "9702_s24_11_q6"
+   },
+   "stem": "A thermometer can be read to an accuracy of ± 0.5 °C. This thermometer is used to measure a\ntemperature rise from 40 °C to 100 °C.\nWhat is the percentage uncertainty in the measurement of the temperature rise?",
+   "options": {
+    "A": "0.5%",
+    "B": "0.8%",
+    "C": "1.3%",
+    "D": "1.7%"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x031",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q2",
+    "qid": "9702_s24_12_q2"
+   },
+   "stem": "The value of quantity X has a percentage uncertainty of 2%.\nThe value of quantity Y has a percentage uncertainty of 4%.\nThe value of a quantity W is calculated from the values of X and Y.\nThe value of W has a percentage uncertainty of 8%.\nWhat could be the relationship between W, X and Y ?",
+   "options": {
+    "A": "W = XY",
+    "B": "W = 2XY",
+    "C": "W = Y X",
+    "D": "W = X Y"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x032",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q2",
+    "qid": "9702_s24_13_q2"
+   },
+   "stem": "The measurement of a physical quantity may be subject to random errors and to systematic\nerrors.\nWhich statement is correct?",
+   "options": {
+    "A": "A systematic error cannot be reduced by adjusting the apparatus.",
+    "B": "A systematic error results in a different reading each time the measurement is taken.",
+    "C": "Random errors are always caused by the person taking the measurement.",
+    "D": "Random errors can be reduced by taking the average of several measurements."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x033",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q3",
+    "qid": "9702_s24_13_q3"
+   },
+   "stem": "The Young modulus of the material of a wire is to be found. The Young modulus E is given by the\nequation shown.\nE =\nx\nd\nL\nF\n2\n4\nπ\nThe wire is extended by a known force and the following measurements are made.\nWhich measurement has the largest effect on the uncertainty in the value of the calculated Young\nmodulus?\nmeasurement\nsymbol\nvalue",
+   "options": {
+    "A": "length of wire before force applied L 2.043 ± 0.002 m",
+    "B": "diameter of wire d 0.54 ± 0.02 mm",
+    "C": "force applied F 19.62 ± 0.01 N",
+    "D": "extension of wire with force applied x 5.2 ± 0.2 mm"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_13_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x034",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q3",
+    "qid": "9702_w24_11_q3"
+   },
+   "stem": "The density of the material of a rectangular block is determined by measuring the mass and\nlinear dimensions of the block. The list shows the results obtained, together with their\nuncertainties.\nmass = (25.0 ± 0.1) g\nlength = (5.00 ± 0.01) cm\nwidth = (2.00 ± 0.01) cm\nheight = (1.00 ± 0.01) cm\nThe density is calculated to be 2.50 g cm⁻³.\nWhat is the uncertainty in this result?",
+   "options": {
+    "A": "± 0.01 g cm⁻³",
+    "B": "± 0.02 g cm⁻³",
+    "C": "± 0.05 g cm⁻³",
+    "D": "± 0.13 g cm⁻³"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x035",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q3",
+    "qid": "9702_w24_12_q3"
+   },
+   "stem": "A solid bar has a square cross-section. Its length is measured as 50.0 ± 0.2 cm and its width is\nmeasured as 2.00 ± 0.01 cm.\nThese values are used to calculate the volume of the bar.\nWhat is the percentage uncertainty in the calculated volume?",
+   "options": {
+    "A": "± 0.21%",
+    "B": "± 0.22%",
+    "C": "± 0.90%",
+    "D": "± 1.4%"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x036",
+   "kcs": [
+    "9702-1.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q2",
+    "qid": "9702_s25_11_q2"
+   },
+   "stem": "Four students, A, B, C and D, have completed an experiment to determine the acceleration of\nfree fall, g. Each student repeated the experiment three times. The determined values of g are\nshown in the table.\nWhich set of results has a high precision and a low accuracy?\nacceleration of free fall / m s⁻²\nexperiment 1\nexperiment 2\nexperiment 3",
+   "options": {
+    "A": "7.2 9.4 8.3",
+    "B": "9.5 9.8 10.2",
+    "C": "9.8 9.8 9.9",
+    "D": "10.1 10.2 10.1"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_11_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x037",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q3",
+    "qid": "9702_s25_11_q3"
+   },
+   "stem": "The diameter of a ball is measured as (5.26 ± 0.02) cm.\nWhat is the absolute uncertainty in the volume of the ball?",
+   "options": {
+    "A": "0.29 cm³",
+    "B": "0.87 cm³",
+    "C": "1.1 cm³",
+    "D": "7.0 cm³"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x038",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q3",
+    "qid": "9702_s25_12_q3"
+   },
+   "stem": "A student calculates the density of a solid steel cube in an experiment.\nThe measured mass is 975 g ± 10 g and the measured length of side is 50 mm ± 1 mm.\nWhat is the density of the steel?",
+   "options": {
+    "A": "7.8 g cm⁻³ ± 3.0%",
+    "B": "7.8 g cm⁻³ ± 7.0%",
+    "C": "7.8 g cm⁻³ ± 11%",
+    "D": "7.8 g cm⁻³ ± 13%"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x039",
+   "kcs": [
+    "9702-1.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q3",
+    "qid": "9702_s25_13_q3"
+   },
+   "stem": "Which statement about errors in measurements is correct?",
+   "options": {
+    "A": "An accurate set of measurements always has a small random error.",
+    "B": "A precise set of measurements always has a small systematic error.",
+    "C": "A random error can be reduced by taking an average of several measurements.",
+    "D": "A systematic error creates a random set of measurements spread out about the true value."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x040",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q2",
+    "qid": "9702_w25_11_q2"
+   },
+   "stem": "Two quantities are measured.\nL = 6.8 ± 0.1 cm\nT = 2.42 ± 0.08 s\nL and T are related to X by the equation shown.\nX =\n4\nT\nL\nπ\nWhat is the calculated value and uncertainty of X ?",
+   "options": {
+    "A": "45.8 ± 0.2 cm s⁻²",
+    "B": "45.8 ± 0.3 cm s⁻²",
+    "C": "46 ± 2 cm s⁻²",
+    "D": "46 ± 4 cm s⁻²"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_11_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x041",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q4",
+    "qid": "9702_w25_12_q4"
+   },
+   "stem": "A ball is released from rest. The distance the ball falls and the time the ball takes to fall that\ndistance are both measured.\nThe percentage uncertainty in the measured distance is negligible. The percentage uncertainty in\nthe measured time is 4%.\nThe distance and the time are then used to calculate the acceleration of free fall.\nAir resistance is negligible.\nWhat is the percentage uncertainty in the calculated value of the acceleration of free fall?",
+   "options": {
+    "A": "2%",
+    "B": "4%",
+    "C": "8%",
+    "D": "16%"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-1.3-x042",
+   "kcs": [
+    "9702-1.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q2",
+    "qid": "9702_w25_13_q2"
+   },
+   "stem": "Two quantities are measured.\nL = 6.8 ± 0.1 cm\nT = 2.42 ± 0.08 s\nL and T are related to X by the equation shown.\nX =\n4\nT\nL\nπ\nWhat is the calculated value and uncertainty of X ?",
+   "options": {
+    "A": "45.8 ± 0.2 cm s⁻²",
+    "B": "45.8 ± 0.3 cm s⁻²",
+    "C": "46 ± 2 cm s⁻²",
+    "D": "46 ± 4 cm s⁻²"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_13_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
   }
  ],
  "flashcards": [
@@ -1150,13 +2248,15 @@
    "id": "fc1",
    "kc": "9702-1.3.1",
    "front": "Define a systematic error.",
-   "back": "An error that makes every reading differ from the true value by the same amount in the same direction (always too high or always too low). Repeating and averaging does not reduce it."
+   "back": "An error that makes every reading differ from the true value by the same amount in the same direction (always too high or always too low). Repeating and averaging does not reduce it.",
+   "in_anki": true
   },
   {
    "id": "fc2",
    "kc": "9702-1.3.1",
    "front": "Define a random error.",
-   "back": "An error that makes readings scatter unpredictably above and below the true value. It can be reduced by taking repeated readings and averaging."
+   "back": "An error that makes readings scatter unpredictably above and below the true value. It can be reduced by taking repeated readings and averaging.",
+   "in_anki": true
   },
   {
    "id": "fc3",

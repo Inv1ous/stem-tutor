@@ -94,8 +94,8 @@ misc = [
   "refutation": "Mg to Al: the outer electron of Al is in a 3p subshell, which is slightly higher in energy and more shielded by the 3s electrons, so it is removed more easily. P to S: S has a pair of electrons in one 3p orbital, and spin-pair repulsion makes one of them easier to remove, even though the nuclear charge is greater. Cambridge credits these two reasons.",
   "contrast": "P is $3p^3$ (three unpaired electrons) and S is $3p^4$ (one pair). $IE_1$ of S ($1000$) is below that of P ($1012\\ \\mathrm{kJ\\,mol^{-1}}$). Writing 'S has a lower nuclear charge' is false: S has one more proton.",
   "source": "ER 9701 s22 P23 Q1"},
- {"id": "m5", "kc": K8, "statement": "The group of an element is found from how large the ionisation energies are, or from the electron number after the big jump.",
-  "refutation": "The group comes from the number of electrons **before** the big jump, which is the number of outer (valence) electrons. Large values alone do not fix the group. The next electron after the jump comes from an inner shell that is closer to the nucleus.",
+ {"id": "m5", "kc": K8, "statement": "The group of an element is found from how large the ionisation energies are, from how many values are given, or from the electron number after the big jump.",
+  "refutation": "The group comes from the number of electrons **before** the big jump, which is the number of outer (valence) electrons. Large values alone do not fix the group, and neither does the number of values listed in the question. The next electron after the jump comes from an inner shell that is closer to the nucleus.",
   "contrast": "A jump between the 6th and 7th values means 6 outer electrons (Group 16), not Group 17. Data with no big jump between the 5th and 8th values (all from one inner shell) fits silicon (Group 14), not chlorine.",
   "source": "ER 9701 s23 P11 Q12"},
 ]
@@ -110,7 +110,7 @@ A(mcq("i01", [K1], 2, "Identify", "Which statement gives the correct definition 
        "C": "The energy released when one electron is removed from each atom in one mole of gaseous atoms.",
        "D": "The energy required to remove one electron from each atom in one mole of the element in its standard state."},
       "A", "Both the state and the amount matter: every atom in one mole of **gaseous** atoms loses one electron, and energy has to be put in. That gives one mole of gaseous $1+$ ions.",
-      ["Check each option for the state of the atoms and for whether energy is put in or given out.", "A full definition mentions one electron, each atom, one mole, gaseous atoms and $1+$ ions.", "Rule out any option that says energy is released, and any that misses the gaseous state."],
+      ["Check each option for the state of the atoms and for whether energy is put in or given out.", "A full definition mentions one electron, each atom, one mole, gaseous atoms and $1+$ ions.", "Test every option against all of these: energy is supplied, the atoms are gaseous, and one electron comes from each atom in one mole."],
       {"B": "m1", "D": "m1"}))
 A({"id": f"{SUB}-i02", "kcs": [K1], "kind": "numeric", "difficulty": 3, "command_word": "Calculate", "source": {"type": "generated"},
    "stem": "The first ionisation energy of an element is [[ie]] kJ mol$^{-1}$. Calculate the energy, in units of $10^{-19}\\ \\mathrm{J}$, needed to remove one electron from a single gaseous atom of this element. Use $N_A = 6.02\\times10^{23}\\ \\mathrm{mol^{-1}}$.",
@@ -121,9 +121,9 @@ A({"id": f"{SUB}-i02", "kcs": [K1], "kind": "numeric", "difficulty": 3, "command
    "explanation": "$IE_1$ is per mole of atoms. Convert kJ to J ($\\times 1000$), then divide by $N_A$ to get the energy for one atom in J: $E = \\dfrac{IE_1\\times1000}{6.02\\times10^{23}}$. Finally express it in units of $10^{-19}\\ \\mathrm{J}$.",
    "hints": ["$IE_1$ refers to a whole mole of atoms, but the question asks about one atom.", "Convert kJ to J first, then divide by the number of atoms in a mole, then express the result in units of $10^{-19}\\ \\mathrm{J}$.", "Multiply the value by 1000, then divide by $6.02\\times10^{23}$."]})
 A(short("i03", [K1], 2, "Define", "Define the term *first ionisation energy*.",
-        [{"point": "energy required to remove one electron (from each atom)", "keywords": [["energy"], ["remov", "lose", "take"], ["electron"]]},
+        [{"point": "energy required to remove one electron (from each atom)", "keywords": [["energy"], ["remov", "lose", "take"], ["electron"], ["each atom", "every atom", "each", "every"]]},
          {"point": "one mole of gaseous atoms", "keywords": [["mole"], ["gaseous", "(g)", "gas "]]},
-         {"point": "to form one mole of gaseous $1+$ ions", "keywords": [["1+", "+1", "unipositive", "one positive", "single positive", "positive ion", "positive ions", "cation"]]}],
+         {"point": "to form one mole of gaseous $1+$ ions", "keywords": [["1+", "+1", "unipositive", "one positive", "single positive", "singly positive", "singly charged positive"]]}],
         "Mark scheme wording: the energy required to remove one electron from each atom in one mole of gaseous atoms to form one mole of gaseous $1+$ ions.",
         ["Start with what is put in and what is taken out of the atom.", "State the amount (one mole), the state (gaseous) and the ion formed.", "Write it as: energy required to remove ... from each atom in ... to form ..."]))
 A(struct("i04", [K1, K2], 4, "Define", "(a) Define the term *first ionisation energy*.\n(b) Write an equation, with state symbols, for the first ionisation energy of magnesium.\n(c) Explain why the first ionisation energy is always positive (endothermic).",
@@ -136,9 +136,9 @@ A(struct("i04", [K1, K2], 4, "Define", "(a) Define the term *first ionisation en
 
 # ================= KC 1.4.2 equations =================
 A(mcq("i05", [K2], 3, "Identify", "Which equation represents the third ionisation energy of aluminium?",
-      {"A": "$\\ce{Al2+(g) -> Al^3+(g) + e-}$", "B": "$\\ce{Al(g) -> Al^3+(g) + 3e-}$",
-       "C": "$\\ce{Al2+ -> Al^3+ + e-}$", "D": "$\\ce{Al^3+(g) -> Al^4+(g) + e-}$"},
-      "A", "The third ionisation removes the third electron, from $\\ce{Al2+(g)}$ to $\\ce{Al^3+(g)}$, one electron only and with state symbols.",
+      {"A": "$\\ce{Al^2+(g) -> Al^3+(g) + e-}$", "B": "$\\ce{Al(g) -> Al^3+(g) + 3e-}$",
+       "C": "$\\ce{Al^2+ -> Al^3+ + e-}$", "D": "$\\ce{Al^3+(g) -> Al^4+(g) + e-}$"},
+      "A", "The third ionisation removes the third electron, from $\\ce{Al^2+(g)}$ to $\\ce{Al^3+(g)}$, one electron only and with state symbols.",
       ["Count how many electrons have already been removed before the third one.", "The starting particle already has a $2+$ charge, and only one electron leaves.", "Write the species before and after with the right charges and state symbols."],
       {"B": "m2", "C": "m2", "D": "m2"}))
 A({"id": f"{SUB}-i06", "kcs": [K2], "kind": "numeric", "difficulty": 3, "command_word": "Calculate", "source": {"type": "generated"},
@@ -236,8 +236,7 @@ A(mcq("i19", [K5], 2, "Explain", "Why is energy needed to remove an electron fro
        "C": "The electron is attracted to the other electrons in the atom.",
        "D": "The electron is held in place by the neutrons."},
       "A", "Ionisation energy measures how strongly the negatively charged outer electron is attracted to the positively charged nucleus. Energy must overcome this electrostatic attraction.",
-      ["Think about the charges on the electron and the nucleus.", "What kind of force acts between opposite charges?", "Energy has to be put in to overcome that force."],
-      {"B": "m1"}))
+      ["Think about the charges on the electron and the nucleus.", "What kind of force acts between opposite charges?", "Energy has to be put in to overcome that force."]))
 A(mcq("i20", [K5], 3, "Identify", "Which change would increase the attraction between the nucleus and the outer electron of an atom?",
       {"A": "More protons in the nucleus with the outer electron in the same shell.",
        "B": "Adding an extra inner shell of electrons.",
@@ -257,19 +256,19 @@ A(mcq("i22", [K5], 4, "Explain", "Which statement about the first ionisation ene
        "C": "It depends only on the number of protons in the nucleus.",
        "D": "It depends only on the number of electrons in the outer shell."},
       "A", "Ionisation energy depends on the net attraction between the nucleus and the outer electron. This depends on nuclear charge, distance and shielding, not on one factor alone.",
-      ["Which particles attract each other to hold the outer electron?", "Several factors affect the attraction: it is more than a single count.", "Reject options that use 'only'."],
+      ["Which particles attract each other to hold the outer electron?", "Several factors affect the attraction: it is more than a single count.", "The outer electron is held by electrostatic attraction to the positive nucleus, and nuclear charge, distance and shielding all change how strong it is."],
       {"C": "m3"}))
 A(short("i23", [K5, K6], 4, "Explain", "The first ionisation energy of helium ($2372\\ \\mathrm{kJ\\,mol^{-1}}$) is much greater than that of lithium ($520\\ \\mathrm{kJ\\,mol^{-1}}$). Explain this difference in terms of the attraction between the nucleus and the outer electron.",
-        [{"point": "Li outer electron is in a shell further from the nucleus (second shell) than He (first shell)", "keywords": [["further", "more distant", "second shell", "2nd shell", "n=2", "n = 2", "greater distance", "larger"]]},
+        [{"point": "Li outer electron is in a shell further from the nucleus (second shell) than He (first shell)", "keywords": [["further", "more distant", "second shell", "2nd shell", "n=2", "n = 2", "greater distance"]]},
          {"point": "Li outer electron is shielded by the inner electrons (1s)", "keywords": [["shield"]]},
          {"point": "so there is a weaker attraction between the nucleus and the outer electron in Li", "keywords": [["attraction", "attracted"], ["weaker", "less", "lower", "smaller"]]}],
-        "The outer electron of helium is in the first shell, close to the nucleus and unshielded. The outer electron of lithium is in the second shell, further out and shielded by the inner electrons, so it is attracted less strongly.",
+        "The outer electron of helium is in the first shell, close to the nucleus, with negligible shielding (only the other $1s$ electron). The outer electron of lithium is in the second shell, further out and shielded by the inner electrons, so it is attracted less strongly.",
         ["Compare the shell that the outer electron is in for each atom.", "Consider whether other electrons come between the outer electron and the nucleus.", "Link both points to the strength of attraction."]))
-A(struct("i24", [K5], 4, "Describe", "Ionisation energy is the result of the electrostatic attraction between the nucleus and an outer electron.\n\n(a) State two factors that increase this attraction.\n(b) State two factors that decrease this attraction.",
-         [{"mark": "B1", "point": "greater nuclear charge (more protons)"},
-          {"mark": "B1", "point": "smaller distance between the nucleus and the outer electron (smaller atomic or ionic radius)"},
-          {"mark": "B1", "point": "more inner shells or subshells of electrons shielding the outer electron"},
-          {"mark": "B1", "point": "a larger distance (a bigger radius), or spin-pair repulsion between two electrons in one orbital"}],
+A(struct("i24", [K5], 4, "State", "Ionisation energy is the result of the electrostatic attraction between the nucleus and an outer electron.\n\n(a) State two factors that increase this attraction.\n(b) State two factors that decrease this attraction.",
+         [{"mark": "B1", "point": "(a) greater nuclear charge (more protons)"},
+          {"mark": "B1", "point": "(a) smaller distance between the nucleus and the outer electron (smaller atomic or ionic radius)"},
+          {"mark": "B1", "point": "(b) any two of: more shielding by inner shells or subshells of electrons; spin-pair repulsion between two electrons in one orbital; a larger distance (bigger radius). First factor"},
+          {"mark": "B1", "point": "(b) a second, different factor from the list above"}],
          "Attraction increases with nuclear charge and with a smaller distance; it decreases with more shielding, a larger radius, and spin-pair repulsion within an orbital.",
          ["Think of the nucleus and the electron as opposite charges and consider what changes their attraction.", "One factor is the number of protons; another is distance.", "Which electrons lie between the nucleus and the outer electron, and which pair repel?"]))
 
@@ -279,7 +278,7 @@ A(mcq("i25", [K6], 4, "Explain", "The first ionisation energy of oxygen is lower
        "B": "Oxygen has a lower nuclear charge than nitrogen.",
        "C": "Oxygen has more shielding by inner shells than nitrogen.",
        "D": "The half-filled 2p subshell in nitrogen is more stable, so it has a lower energy."},
-      "A", "N is $2p^3$ (three unpaired electrons) and O is $2p^4$ (one pair). Spin-pair repulsion raises the energy of an electron in the pair, so it is easier to remove. The nuclear charge of O is greater and the shielding is the same.",
+      "A", "N is $2p^3$ (three unpaired electrons) and O is $2p^4$ (one pair). Spin-pair repulsion raises the energy of an electron in the pair, so it is easier to remove. The nuclear charge of O is greater and the shielding is the same. 'A half-filled subshell is extra stable' is often taught, but it is not the reason the mark scheme accepts: the credited reason is spin-pair repulsion in the $2p^4$ pair of O.",
       ["Write the electron configurations of N and O.", "Oxygen has one more proton and the same inner shells as nitrogen, so those factors do not explain the drop.", "Look at how the 2p electrons are arranged in the orbitals."],
       {"D": "m4"}))
 A(mcq("i26", [K6], 3, "Explain", "The first ionisation energy of sodium is much lower than that of neon. Which statement explains this?",
@@ -355,7 +354,7 @@ P = "CAIE 9701 · "
 past_items = [
  past(1, "9701_w25_12_q2", P + "Nov 2025 · P12 · Q2", [K1], 2, "Which equation has an energy change that is equal to the first ionisation energy of bromine?",
       {"A": "Br(g) → Br⁺(g) + e⁻", "B": "Br(g) → Br⁻(g) – e⁻", "C": "½Br₂(g) → Br⁺(g) + e⁻", "D": "½Br₂(g) → Br⁻(g) – e⁻"}, "A",
-      "$IE_1$ starts from one gaseous atom and removes one electron to give a gaseous $1+$ ion. The options that begin with $\\ce{½Br2}$ include the atomisation of the molecule, and forming $\\ce{Br-}$ is not ionisation. Options C and D start from $\\ce{½Br2(g)}$, which adds the energy to break the bond, and option B forms $\\ce{Br-}$, which is not ionisation.",
+      "$IE_1$ starts from one gaseous atom and removes one electron to give a gaseous $1+$ ion, as in A. Options C and D start from $\\ce{½Br2(g)}$, so their energy change also includes breaking the Br–Br bond (atomisation). Options B and D form $\\ce{Br-}$: writing $-\\,e^-$ on the right is the same as adding an electron on the left, so this is electron gain, not ionisation.",
       {"B": "m2", "C": "m2", "D": "m2"}),
  past(2, "9701_w22_12_q1", P + "Nov 2022 · P12 · Q1", [K3], 3, "Why is the first ionisation energy of phosphorus greater than the first ionisation energy of silicon?",
       {"A": "A phosphorus atom has one more proton in its nucleus.", "B": "The atomic radius of a phosphorus atom is greater.",
@@ -413,7 +412,7 @@ worked = [
    {"do": "Count the electrons already removed: the first and second, so the third ionisation starts from $\\ce{Al^2+}$.", "why": "The $n$th ionisation acts on the ion left after $n-1$ electrons have gone, and students often start from the neutral atom.", "check": {"kind": "numeric", "answer": {"value": 2, "unit": "", "exact": True}}},
    {"do": "Remove one electron: the ion becomes $\\ce{Al^3+}$ and one electron $e^-$ is released.", "why": "Every ionisation energy is for the loss of exactly one electron, so the charge increases by one.", "check": {"kind": "numeric", "answer": {"value": 3, "unit": "", "exact": True}}},
    {"do": "Put state symbols on every species: $\\ce{Al^2+(g) -> Al^3+(g) + e-}$.", "why": "Ionisation energies are defined for gaseous species and the mark scheme requires (g) on the ions."}],
-  "faded": {"id": "we1f", "problem": "Write the equation for the third ionisation energy of phosphorus. What is the charge on the ion formed?", "answer": {"value": 3, "unit": "", "exact": True}, "blank_from": 1}},
+  "faded": {"id": "we1f", "problem": "What is the charge on the ion formed by the third ionisation of phosphorus?", "answer": {"value": 3, "unit": "", "exact": True}, "blank_from": 1}},
  {"id": "we2", "kc": K7, "problem": "The first six ionisation energies of magnesium are 738, 1451, 7733, 10 543, 13 630 and 18 020 kJ mol$^{-1}$. Deduce the outer electron configuration of magnesium.",
   "steps": [
    {"do": "Compare each value with the one before: $1451/738 \\approx 2.0$, then $7733/1451 \\approx 5.3$, then $10543/7733 \\approx 1.4$.", "why": "A big jump shows a change of shell, so look at the ratios.", "check": {"kind": "numeric", "answer": {"value": r32, "unit": "", "sf_ok": [2, 3]}}},
@@ -430,10 +429,11 @@ worked = [
 
 diagrams = [
  {"file": "Assets/9701/9701-1.4-period3-ie1.svg", "type": "graph_sketch", "params": {
-   "lines": [{"points": [[11 + i, v] for i, v in enumerate(P3.values())]}],
-   "annotations": [{"text": "Mg to Al: 3p higher in energy", "xy": [13, 578], "xytext": [11.2, 200]},
-                   {"text": "P to S: spin-pair repulsion", "xy": [16, 1000], "xytext": [13.6, 350]}],
-   "xlabel": "proton number (Na = 11 ... Ar = 18)", "ylabel": "first ionisation energy / kJ mol$^{-1}$", "ticks": True}},
+   "lines": [{"points": [[11 + i, v] for i, v in enumerate(P3.values())], "marker": "o"}],
+   "xticklabels": [[11 + i, el] for i, el in enumerate(P3)], "ylim": [400, 1600],
+   "annotations": [{"text": "Mg to Al: 3p higher in energy", "xy": [13, 578], "xytext": [13.4, 460]},
+                   {"text": "P to S: S slightly below P\n(spin-pair repulsion)", "xy": [16, 1000], "xytext": [13.2, 1380]}],
+   "xlabel": "element (proton number 11 to 18)", "ylabel": "first ionisation energy / kJ mol$^{-1}$", "ticks": True}},
  {"file": "Assets/9701/9701-1.4-log-ie-mg.svg", "type": "graph_sketch", "params": {
    "lines": [{"points": [[i + 1, v] for i, v in enumerate(lg)]}],
    "annotations": [{"text": "3rd electron: 2nd shell", "xy": [3, lg[2]], "xytext": [4.5, 3.2]},
