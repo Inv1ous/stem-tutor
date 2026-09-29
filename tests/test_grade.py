@@ -28,9 +28,8 @@ def test_parse_self_marked_points():
     assert r == {"n": 6, "kind": "points", "value": [1, 3], "conf": None}
 
 
-def test_parse_rejects_garbage():
-    with pytest.raises(grade.ParseError):
-        grade.parse_responses("hello there")
+def test_parse_marks_garbage_as_unreadable():
+    assert grade.parse_responses("hello there") == [{"n": None, "kind": "bad", "value": "hello there", "conf": None}]
 
 
 # ---------- numbers ----------
@@ -174,3 +173,19 @@ def test_self_marked_points_score():
     item = {"kind": "structured", "marks": 4, "scheme": [{"mark": "M1"}, {"mark": "A1"}, {"mark": "M1"}, {"mark": "A1"}]}
     g = grade.grade_item(item, {"kind": "points", "value": [1, 2, 3], "conf": None})
     assert g["score"] == pytest.approx(0.75) and g["self_marked"]
+
+
+@pytest.mark.parametrize("text,value", [("(−1)", -1.0), ("( -1 )", -1.0), ("−1", -1.0), ("= -1", -1.0), ("[2.5] m", 2.5)])
+def test_quantity_tolerates_brackets_equals_and_unicode_minus(text, value):
+    assert grade.parse_quantity(text)[0] == pytest.approx(value)
+
+
+def test_unreadable_entry_is_reported_not_raised():
+    rs = grade.parse_responses("1B3, 2 # what, 3?")
+    assert [r["kind"] for r in rs] == ["choice", "bad", "idk"] and rs[1]["n"] == 2
+
+
+def test_entries_split_on_question_numbers_but_not_thousands():
+    rs = grade.parse_responses("1 = (−1) ~3, 2 $x, 3 = 1,000 m ~2\n")
+    assert [(r["n"], r["kind"]) for r in rs] == [(1, "value"), (2, "bad"), (3, "value")]
+    assert rs[0]["conf"] == 3 and rs[2]["value"] == "1,000 m"

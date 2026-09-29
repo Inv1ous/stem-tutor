@@ -24,6 +24,10 @@ class VaultNotFound(Exception):
     pass
 
 
+NOT_FOUND_FIX = ("Run python3 ~/mnt/*/.tutor/engine/tutor.py <command> with device_bash, on the connected folder itself. "
+                 "If no STEM Tutor folder is attached to this session, ask the learner to attach Notes/01 Study/STEM Tutor.")
+
+
 class Locked(Exception):
     pass
 
@@ -34,7 +38,12 @@ def find_vault(globs: list[str] | None = None) -> Path:
         return Path(env)
     home = Path(__file__).resolve().parents[2]  # engine published into <vault>/.tutor/engine/
     if home.name == ".tutor" and (home / "config.json").exists():
-        return home.parent
+        root = home.parent
+        seen_as = Path(os.path.abspath(__file__)).parents[3]  # the path as invoked, before resolving symlinks
+        if any(r.parent.name == "mnt" or os.path.ismount(r) for r in (root, seen_as)):
+            return seen_as if seen_as.parent.name == "mnt" else root
+        raise VaultNotFound(f"This engine is inside a copy of the STEM Tutor folder ({root}); progress saved "
+                            "there never reaches the learner.")
     for pattern in MOUNT_GLOBS if globs is None else globs:
         for hit in sorted(glob.glob(os.path.join(pattern, ".tutor", "config.json"))):
             return Path(hit).parent.parent

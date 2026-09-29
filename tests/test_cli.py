@@ -149,3 +149,54 @@ def test_full_session_works_when_deleting_in_the_folder_is_forbidden(tmp_path):
     assert run(v, "next", env_extra=env)["activity"] == "no_session"
     run(v, "week", env_extra=env)
     assert not list((v / ".tutor").rglob("*.tmp"))
+
+
+def test_errors_come_back_as_json_not_tracebacks(tmp_path):
+    v = make_vault(tmp_path)
+    assert run(v, "kc", "9702-9.9.9")["ok"] is False
+    assert run(v, "answer", "1B3")["ok"] is False  # no session
+    assert run(v, "inbox", "done", "Inbox/7.pdf")["ok"] is False
+
+
+def test_answer_reads_entries_from_stdin(tmp_path):
+    v = make_vault(tmp_path)
+    run(v, "session", "start", "--mode", "test", "--minutes", "30", "--kcs", "9702-2.1")
+    act = run(v, "next")
+    fb = run(v, "answer", "-", stdin=", ".join(f"{q['n']}?" for q in act["items"]))
+    assert len(fb["results"]) == len(act["items"]) and all(r.get("event") for r in fb["results"])
+
+
+def test_find_maps_subject_words_and_topic_numbers(tmp_path):
+    v = make_vault(tmp_path)
+    hits = run(v, "find", "physics equations of motion")["matches"]
+    assert hits[0].get("subtopic") == "9702-2.1" and hits[0]["has_pack"]
+    assert run(v, "find", "physics topic 2")["matches"][0].get("topic") == "9702-2"
+
+
+def test_engine_refuses_to_run_on_a_copy_of_the_folder(tmp_path):
+    import shutil
+    v = make_vault(tmp_path)
+    copy = tmp_path / "elsewhere" / "STEM Tutor copy"
+    shutil.copytree(v, copy)
+    shutil.copytree(SCRIPT.parent, copy / ".tutor" / "engine", ignore=shutil.ignore_patterns("__pycache__"))
+    env = {k: val for k, val in os.environ.items() if k != "STEM_TUTOR_VAULT"}
+    env.update(STEM_TUTOR_MOUNTS=str(tmp_path / "nowhere/*"))
+    p = subprocess.run([sys.executable, str(copy / ".tutor/engine/tutor.py"), "doctor"], capture_output=True, text=True, env=env)
+    out = json.loads(p.stdout)
+    assert out["ok"] is False and "copy" in out["error"]
+
+
+def test_engine_accepts_a_symlinked_mount(tmp_path):
+    import shutil
+    real = tmp_path / "real" / "STEM Tutor"
+    real.parent.mkdir()
+    v = make_vault(tmp_path)
+    shutil.copytree(v, real)
+    shutil.copytree(SCRIPT.parent, real / ".tutor" / "engine", ignore=shutil.ignore_patterns("__pycache__"))
+    link = tmp_path / "home" / "mnt" / "STEM Tutor"
+    link.parent.mkdir(parents=True)
+    link.symlink_to(real)
+    env = {k: val for k, val in os.environ.items() if k != "STEM_TUTOR_VAULT"}
+    env.update(STEM_TUTOR_MOUNTS=str(tmp_path / "nowhere/*"))
+    p = subprocess.run([sys.executable, str(link / ".tutor/engine/tutor.py"), "doctor"], capture_output=True, text=True, env=env)
+    assert json.loads(p.stdout)["ok"] is True

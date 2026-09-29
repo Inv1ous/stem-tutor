@@ -63,10 +63,20 @@ class Tutor:
         return {"kcs": len(self.state["kcs"]), "events": sum(1 for _ in self.vault.events())}
 
     # ---------- session lifecycle ----------
-    def start(self, mode: str = "autopilot", minutes: int = 50, focus: list[str] | None = None) -> dict:
+    def start(self, mode: str = "autopilot", minutes: int = 50, focus: list[str] | None = None,
+              replace: bool = False) -> dict:
+        s = self.session
+        if s and s.get("answered") and not replace:
+            return {"ok": False, "error": f"A {s['mode']} session is in progress ({s['answered']} answered).",
+                    "open_session": {"mode": s["mode"], "answered": s["answered"], "started": s["started"]},
+                    "fix": "To continue it, run the engine command next. To start over, repeat session start with --replace."}
+        blocks = policy.plan_session(self.state, self.packs, self.now(), minutes, mode, focus)
+        if focus and mode in ("test", "learn", "diagnose", "long") and not any(
+                self.packs.items_for(k) for b in blocks for k in b.get("kcs", []) + [b.get("kc")] if k):
+            return {"ok": False, "error": f"No questions are built yet for {', '.join(focus)}.",
+                    "fix": "Use ids that find reports with has_pack true, or ask the learner to choose another topic."}
         if self.session:
             self.end(abandoned=True)
-        blocks = policy.plan_session(self.state, self.packs, self.now(), minutes, mode, focus)
         self.session = {"id": uuid.uuid4().hex[:8], "mode": mode, "minutes": minutes, "started": self.now().isoformat(),
                         "blocks": blocks, "cursor": 0, "presented": {}, "count": 0, "answered": 0, "correct": 0,
                         "kcs_learned": [], "retest": {}}
@@ -144,7 +154,7 @@ class Tutor:
     def next(self) -> dict:
         s = self.session
         if not s:
-            return {"activity": "no_session", "hint": "run: session start"}
+            return {"activity": "no_session", "hint": "engine command: session start"}
         if s["presented"]:
             return {"activity": "awaiting", "items": [self._view(int(n)) for n in s["presented"]]}
         while s["cursor"] < len(s["blocks"]):
@@ -155,7 +165,7 @@ class Tutor:
                 return act
             s["cursor"] += 1
         self._save()
-        return {"activity": "end", "hint": "run: session end"}
+        return {"activity": "end", "hint": "engine command: session end"}
 
     def _step_review(self, b: dict, idx: int) -> dict | None:
         i = b.setdefault("i", 0)
@@ -364,16 +374,28 @@ class Tutor:
     def answer(self, text: str, judge: dict | None = None) -> dict:
         s = self.session
         if not s:
-            return {"error": "no active session"}
+            return {"ok": False, "error": "no active session", "fix": "engine command: session start"}
         judge = {int(k): v for k, v in (judge or {}).items()}
         results = []
         for r in grade.parse_responses(text):
             key = str(r["n"])
+            if r["kind"] == "bad":
+                results.append({"n": r["n"], "error": f"could not read {r['value']!r}; resend it as "
+                                "'<n>B3' (option + confidence), '<n> = <value> <unit> ~3' or '<n>?'"})
+                continue
             p = s["presented"].get(key)
             if not p:
-                results.append({"n": r["n"], "error": "not an open question"})
+                results.append({"n": r["n"], "error": f"question {r['n']} is not open: it was already marked "
+                                "(the first answer stands) or was never asked"})
                 continue
             inst = p["inst"]
+            if inst["kind"] == "numeric" and r["kind"] == "value":
+                try:
+                    grade.parse_quantity(str(r["value"]))
+                except grade.ParseError:
+                    results.append({"n": r["n"], "error": f"could not read the value {r['value']!r}; resend it as "
+                                    f"'{r['n']} = <number> <unit> ~<1-4>' (it stays open)"})
+                    continue
             expected = _expected_kind(inst["kind"])
             if r["kind"] != "idk" and r["kind"] not in expected:
                 results.append({"n": r["n"], "error": f"question {r['n']} expects {' or '.join(expected)}; "
@@ -429,7 +451,7 @@ class Tutor:
             scores.append(g["score"])
             if len(scores) >= self._retest_target(kc):
                 self.log({"type": "exp_score", "exp": p["exp"], "kc": kc, "score": round(sum(scores) / len(scores), 3)})
-        fb = {"n": int(key), "event": ev["id"], "correct": g["correct"], "score": g["score"], "error": g["error"],
+        fb = {"n": int(key), "event": ev["id"], "correct": g["correct"], "score": g["score"], "error_code": g["error"],
               "answer": _display_answer(inst), "explanation": inst.get("explanation"),
               "needs_judgement": g["needs_judgement"], "detail": g.get("detail")}
         if inst.get("tier") == "extra":

@@ -22,34 +22,50 @@ class ParseError(ValueError):
     pass
 
 
-_ENTRY_START = re.compile(r"^\s*\d+\s*(pts\s*=|=|\?|[A-Da-d](?![A-Za-z]))")
+_ENTRY_START = re.compile(r"^\s*\d+\s*(pts\s*=|[=:]|\?|[A-Da-d](?![A-Za-z]))")
 _IDK = re.compile(r"^(\d+)\s*\?$")
 _POINTS = re.compile(r"^(\d+)\s*pts\s*=\s*([\d,\s]*)$")
 _CHOICE = re.compile(r"^(\d+)\s*([A-Da-d])\s*([1-4])?$")
-_VALUE = re.compile(r"^(\d+)\s*=\s*(.+?)\s*(?:~\s*([1-4]))?$")
+_VALUE = re.compile(r"^(\d+)\s*[=:]\s*(.+?)\s*(?:~\s*([1-4]))?$")
 
 
 def parse_responses(text: str) -> list[dict]:
     entries: list[str] = []
     for chunk in re.split(r"[,\n]", text):
-        if _ENTRY_START.match(chunk) or not entries:
+        if not chunk.strip():
+            continue
+        # a 1-2 digit number opens a new entry; a 3-digit group is a thousands separator ("1,000 m")
+        in_points = entries and _POINTS.match(entries[-1]) and re.fullmatch(r"\s*\d+\s*", chunk)
+        if not in_points and (_ENTRY_START.match(chunk) or re.match(r"^\s*[1-9]\d?(?![\d.])", chunk) or not entries):
             entries.append(chunk.strip())
         else:
             entries[-1] += "," + chunk.strip()
     out = []
     for e in entries:
-        if m := _IDK.match(e):
-            out.append({"n": int(m[1]), "kind": "idk", "value": None, "conf": None})
-        elif m := _POINTS.match(e):
-            pts = [int(p) for p in re.findall(r"\d+", m[2])]
-            out.append({"n": int(m[1]), "kind": "points", "value": pts, "conf": None})
-        elif m := _CHOICE.match(e):
-            out.append({"n": int(m[1]), "kind": "choice", "value": m[2].upper(), "conf": int(m[3]) if m[3] else None})
-        elif m := _VALUE.match(e):
-            out.append({"n": int(m[1]), "kind": "value", "value": m[2].strip(), "conf": int(m[3]) if m[3] else None})
-        else:
-            raise ParseError(f"Cannot read {e!r}. Use e.g. '1B3', '2 = 4.5 m s-1 ~2', '3?', '4 pts=1,2'.")
+        r = _parse_one(e)
+        if r is None and "," in e:  # a bad entry swallowed by the one before it
+            head, tail = e.split(",", 1)
+            if (rh := _parse_one(head.strip())) is not None:
+                out.append(rh)
+                e = tail.strip()
+                r = _parse_one(e)
+        if r is None:
+            m = re.match(r"\s*(\d+)", e)
+            r = {"n": int(m[1]) if m else None, "kind": "bad", "value": e, "conf": None}
+        out.append(r)
     return out
+
+
+def _parse_one(e: str) -> dict | None:
+    if m := _IDK.match(e):
+        return {"n": int(m[1]), "kind": "idk", "value": None, "conf": None}
+    if m := _POINTS.match(e):
+        return {"n": int(m[1]), "kind": "points", "value": [int(p) for p in re.findall(r"\d+", m[2])], "conf": None}
+    if m := _CHOICE.match(e):
+        return {"n": int(m[1]), "kind": "choice", "value": m[2].upper(), "conf": int(m[3]) if m[3] else None}
+    if m := _VALUE.match(e):
+        return {"n": int(m[1]), "kind": "value", "value": m[2].strip(), "conf": int(m[3]) if m[3] else None}
+    return None
 
 
 # ---------------- numbers ----------------
@@ -73,7 +89,8 @@ def _sig_figs(mant: str) -> int | None:
 
 
 def parse_quantity(text: str) -> tuple[float, str, int | None]:
-    t = text.translate(SUPERSCRIPT).replace("−", "-").strip()
+    t = text.translate(SUPERSCRIPT).replace("−", "-").replace("–", "-").strip().lstrip("=").strip()
+    t = re.sub(r"^[(\[]\s*([^)\]]*?)\s*[)\]]", r"\1", t)  # "(-1)", "[2.5] m"
     t = re.sub(r"(?<=\d),(?=\d{3}\b)", "", t)
     m = _NUM.match(t)
     if not m:

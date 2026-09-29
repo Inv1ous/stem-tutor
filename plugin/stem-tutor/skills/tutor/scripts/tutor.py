@@ -36,7 +36,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.dont_write_bytecode = True  # no __pycache__ inside the learner's synced folder
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # keep symlinked mount paths as given
 
 from tutorlib import anki, diagnose, experiments, lint, report, store  # noqa: E402
 from tutorlib.session import Tutor  # noqa: E402
@@ -68,7 +68,7 @@ def cmd_doctor(args) -> None:
         v = vault()
     except store.VaultNotFound as e:
         if not args.quiet:
-            out({"ok": False, "error": str(e)})
+            out({"ok": False, "error": str(e), "fix": store.NOT_FOUND_FIX})
         return
     t = tutor(v)
     wheels = sorted(p.name.split("-")[0] for p in (Path(__file__).parent / "wheels").glob("*.whl"))
@@ -101,7 +101,7 @@ def cmd_session(args) -> None:
         t = tutor(v)
         if args.action == "start":
             kcs = [k.strip() for k in (args.kcs or "").split(",") if k.strip()] or None
-            out(t.start(args.mode, args.minutes, kcs))
+            out(t.start(args.mode, args.minutes, kcs, replace=args.replace))
         else:
             sid = (t.session or {}).get("id")
             summary = t.end()
@@ -119,7 +119,7 @@ def cmd_answer(args) -> None:
     v = vault()
     with v.lock():
         judge = json.loads(args.judge) if args.judge else None
-        out(tutor(v).answer(args.text, judge))
+        out(tutor(v).answer(sys.stdin.read() if args.text == "-" else args.text, judge))
 
 
 def cmd_hint(args) -> None:
@@ -165,17 +165,66 @@ def cmd_taught(args) -> None:
     out(res)
 
 
+SUBJECT_WORDS = {"physics": "phys", "phys": "phys", "chemistry": "chem", "chem": "chem"}
+SPEC_PATTERNS = [(r"\b(?:further\s+pure|fp)\s*(\d)\b", "FP"), (r"\b(?:pure|p)\s*(\d)\b", "P"),
+                 (r"\b(?:stat(?:istic)?s?|s)\s*(\d)\b", "S"), (r"\b(?:mech(?:anics)?|m)\s*(\d)\b", "M"),
+                 (r"\b(?:decision|d)\s*(\d)\b", "D")]
+STOP = {"and", "the", "of", "a", "an", "in", "on", "for", "my", "to", "test", "exam", "topic", "topics", "chapter",
+        "chapters", "ch", "unit", "units", "physics", "phys", "chemistry", "chem", "maths", "math", "quiz", "revise"}
+
+
 def cmd_find(args) -> None:
+    """Map the learner's words to topic, subtopic or KC ids ("physics topic 2", "kinematics", "P1 quadratics")."""
     t = tutor(vault())
-    words = [w.lower() for w in args.text.split()]
-    hits = []
-    for kid, k in t.packs.kcs.items():
-        hay = " ".join([kid, k["title"], k.get("statement", ""), " ".join(k.get("glossary", []))]).lower()
-        score = sum(w in hay for w in words)
-        if score:
-            hits.append((-score, kid, {"kc": kid, "title": k["title"], "spec": k["spec"],
-                                       "has_pack": bool(t.packs.items_for(kid))}))
-    out({"matches": [h[2] for h in sorted(hits)[:10]]})
+    text = args.text.lower()
+    subjects = {v for w, v in SUBJECT_WORDS.items() if re.search(rf"\b{w}\b", text)}
+    specs = {s for s in {k["spec"] for k in t.packs.kcs.values()} if re.search(rf"\b{s.lower()}\b", text)}
+    for pat, prefix in SPEC_PATTERNS:
+        specs |= {prefix + m for m in re.findall(pat, text)}
+    specs &= {k["spec"] for k in t.packs.kcs.values()}
+    in_scope = lambda spec, subject: (not specs or spec in specs) and (not subjects or subject in subjects)  # noqa: E731
+
+    def entry(kind: str, id_: str, title: str, spec: str) -> dict:
+        kcs = [k for k in t.packs.kcs if k == id_ or k.startswith(id_ + ".")]
+        return {kind: id_, "title": title, "spec": spec, "kcs": len(kcs), "has_pack": any(t.packs.items_for(k) for k in kcs)}
+
+    hits: list[tuple[float, str, dict]] = []
+    ids = {i.lower(): i for i in [*t.packs.topics, *t.packs.subtopics, *t.packs.kcs]}
+    for tok in re.findall(r"[a-z0-9]+-[\d.]*\d", text):
+        if (i := ids.get(tok)) is not None:
+            if i in t.packs.kcs:
+                k = t.packs.kcs[i]
+                hits.append((-20.0, i, {"kc": i, "title": k["title"], "spec": k["spec"], "has_pack": bool(t.packs.items_for(i))}))
+            else:
+                tp = t.packs.topics.get(i) or t.packs.subtopics[i]
+                hits.append((-20.0, i, entry("topic" if i in t.packs.topics else "subtopic", i, tp["title"], tp["spec"])))
+    for n in re.findall(r"\b(?:topic|chapter|ch\.?|unit)s?\s*(\d+(?:\.\d+)?)", text) + re.findall(r"\band\s+(\d+)\b", text):
+        for tid, tp in {**t.packs.topics, **t.packs.subtopics}.items():
+            if tid.split("-", 1)[-1] == n and in_scope(tp["spec"], tp.get("subject") or t.packs.kcs.get(
+                    next((k for k in t.packs.kcs if k.startswith(tid + ".")), ""), {}).get("subject")):
+                kind = "topic" if tid in t.packs.topics else "subtopic"
+                hits.append((-10.0, tid, entry(kind, tid, tp["title"], tp["spec"])))
+    words = [w for w in re.findall(r"[a-z][a-z'-]+", text) if w not in STOP]
+    if words:
+        for tid, tp in {**t.packs.topics, **t.packs.subtopics}.items():
+            subject = tp.get("subject") or next((k["subject"] for k in t.packs.kcs.values() if k["spec"] == tp["spec"]), None)
+            score = sum(w in tp["title"].lower() for w in words)
+            if score and in_scope(tp["spec"], subject):
+                kind = "topic" if tid in t.packs.topics else "subtopic"
+                hits.append((-(score + 0.5), tid, entry(kind, tid, tp["title"], tp["spec"])))
+        for kid, k in t.packs.kcs.items():
+            hay = " ".join([k["title"], k.get("statement", ""), " ".join(k.get("glossary", []))]).lower()
+            score = sum(w in hay for w in words)
+            if score and in_scope(k["spec"], k["subject"]):
+                hits.append((-score, kid, {"kc": kid, "title": k["title"], "spec": k["spec"],
+                                           "has_pack": bool(t.packs.items_for(kid))}))
+    seen, ranked = set(), []
+    for score, id_, h in sorted(hits, key=lambda x: (x[0], not x[2]["has_pack"], x[1])):
+        if id_ not in seen:
+            seen.add(id_)
+            ranked.append(h)
+    out({"matches": ranked[:12], "truncated": len(ranked) > 12,
+         "say": "Pass topic or subtopic ids straight to --kcs; they cover all their syllabus points."})
 
 
 def cmd_kc(args) -> None:
@@ -195,7 +244,7 @@ def cmd_diagnose(args) -> None:
     if args.title:
         text = args.title + "\n" + text
     res = diagnose.map_dump(text, t.packs)
-    res["next"] = "Confirm the KC list with the learner, then: session start --mode diagnose --kcs " + \
+    res["next"] = "Confirm the KC list with the learner, then engine command: session start --mode diagnose --kcs " + \
                   ",".join(k["kc"] for k in res["kcs"][:6])
     out(res)
 
@@ -206,6 +255,8 @@ def cmd_inbox(args) -> None:
     folder.mkdir(exist_ok=True)
     if args.action == "done":
         src = v.root / args.file
+        if not src.is_file():
+            raise FileNotFoundError(args.file)
         dest = folder / "Marked" / src.name
         dest.parent.mkdir(exist_ok=True)
         src.rename(dest)
@@ -280,6 +331,7 @@ def cmd_lint(args) -> None:
         pass
     findings = []
     for f in args.files:
+        f = str(root / f) if root and not Path(f).is_absolute() and not Path(f).exists() else f
         for x in lint.lint(Path(f).read_text(encoding="utf-8"), vault_root=root):
             findings.append({"file": f, **x})
     out({"findings": findings, "ok": not findings})
@@ -293,7 +345,8 @@ def main(argv=None) -> None:
     p = sub.add_parser("brief"); p.add_argument("--minutes", type=int, default=50); p.set_defaults(fn=cmd_brief)
     p = sub.add_parser("session"); p.add_argument("action", choices=["start", "end"])
     p.add_argument("--mode", default="autopilot", choices=["autopilot", "review", "learn", "diagnose", "repair", "long", "test"])
-    p.add_argument("--minutes", type=int, default=50); p.add_argument("--kcs"); p.set_defaults(fn=cmd_session)
+    p.add_argument("--minutes", type=int, default=50); p.add_argument("--kcs"); p.add_argument("--replace", action="store_true")
+    p.set_defaults(fn=cmd_session)
     sub.add_parser("next").set_defaults(fn=cmd_next)
     p = sub.add_parser("answer"); p.add_argument("text"); p.add_argument("--judge"); p.set_defaults(fn=cmd_answer)
     p = sub.add_parser("hint"); p.add_argument("n", type=int); p.set_defaults(fn=cmd_hint)
@@ -320,7 +373,10 @@ def main(argv=None) -> None:
     try:
         args.fn(args)
     except store.VaultNotFound as e:
-        out({"ok": False, "error": str(e)})
+        out({"ok": False, "error": str(e), "fix": store.NOT_FOUND_FIX})
+    except (KeyError, FileNotFoundError, ValueError, json.JSONDecodeError) as e:
+        out({"ok": False, "error": f"{type(e).__name__}: {e}",
+             "fix": "Check the id, file path or arguments (ids from find; paths relative to the STEM Tutor folder)."})
     except store.Locked as e:
         out({"ok": False, "error": str(e), "fix": "Another tutor command is still running; wait a few seconds and retry."})
 

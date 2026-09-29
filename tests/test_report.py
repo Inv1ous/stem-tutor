@@ -88,7 +88,8 @@ def test_brief_caps_missing_pack_list(tutor, monkeypatch):
     from tutorlib import policy
     monkeypatch.setattr(policy, "missing_packs", lambda p, now: [f"X-{i}" for i in range(50)])
     b = report.brief(tutor)
-    assert b["missing_packs"] == {"count": 50, "next": ["X-0", "X-1", "X-2", "X-3", "X-4"]}
+    m = b["unbuilt_subtopics_all_subjects"]
+    assert m["count"] == 50 and m["next"] == ["X-0", "X-1", "X-2", "X-3", "X-4"] and "unrelated" in m["say"]
 
 
 def test_unicode_scripts_become_latex_for_notes():

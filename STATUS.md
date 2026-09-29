@@ -21,6 +21,18 @@
 - Workflow `tag-caie-mcqs`: tag → audit → fix for 12 chunks; then `python build/tag_mcq.py merge`.
 - Workflow `build-content-packs` pilot on P1-1, S1-2 (draft → blind-solve → adjudicate).
 
+## Remote Cowork (verified 2026-09-29)
+Cowork sessions run in a cloud container; `device_bash` runs in the Mac's VM with connected folders at
+`$HOME/mnt/<folder>/`, and rm/unlink there fail until the learner grants deletion. The engine therefore ships
+inside the vault (`.tutor/engine/`, copied by publish.py) and runs as `python3 ~/mnt/*/.tutor/engine/tutor.py`.
+It never deletes (flock lock in the temp dir, closed session written as null) and refuses to run on a copy.
+
+## Deferred audit findings (remote Cowork)
+- digest agent + after-video transcript fallback cannot see device files: add `diagnose map --file`, stage via device_stage_files.
+- /profile reads Profile.md that the container cannot see: add a `profile` engine command.
+- mark mode: `inbox` should return absolute device paths for device_stage_files; name uploads <session>-<n>.pdf.
+- paper mode: papers.json empty; say so, and stage paper + mark scheme before marking.
+
 ## Next
 1. Review pilot packs; tune PACK.md; run `build-content-packs` over batch 1 (74 subtopics, weeks 1–10).
 2. Anki: mark pack flashcards already in the learner's existing decks (dedupe) before first export.

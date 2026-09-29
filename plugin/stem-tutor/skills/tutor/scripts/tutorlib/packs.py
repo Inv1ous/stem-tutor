@@ -123,8 +123,11 @@ class Packs:
         self.plan = read_json(self.root / "plan.json") or {}
         self.kcs: dict[str, dict] = {}
         self.subtopics: dict[str, dict] = {}
+        self.topics: dict[str, dict] = {}
         for spec in self.manifest.get("specs", []):
             g = read_json(self.root / "specs" / spec / "graph.json")
+            for tp in g.get("topics", []):
+                self.topics[tp["id"]] = {**tp, "spec": spec, "subject": g["subject"]}
             for st in g["subtopics"]:
                 self.subtopics[st["id"]] = {**st, "spec": spec}
             for k in g["kcs"]:

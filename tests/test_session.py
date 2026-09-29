@@ -285,3 +285,39 @@ def test_unassisted_success_closes_a_gap(tutor):
     inst = tutor.session["presented"][str(n)]["inst"]
     tutor.answer(f"{n}{inst['answer']}3")
     assert "9702-2.1.1" not in tutor.state["gaps"]
+
+
+def test_unreadable_numeric_answer_stays_open_and_others_are_graded(tutor):
+    tutor.start("long", minutes=20, focus=["9702-2.1.4"])
+    item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["kind"] == "numeric")
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    fb = tutor.answer(f"{n} = about twenty")
+    assert "resend" in fb["results"][0]["error"] and str(n) in tutor.session["presented"]
+    inst = tutor.session["presented"][str(n)]["inst"]
+    fb = tutor.answer(f"{n} = ({inst['answer']['value']:.3g}) {inst['answer'].get('unit', '')} ~3")
+    assert fb["results"][0]["correct"] and "error" not in fb["results"][0]
+
+
+def test_feedback_names_the_error_code_separately_from_request_errors(tutor):
+    tutor.start("test", minutes=30, focus=["9702-2.1"])
+    act = tutor.next()
+    fb = _answer_all(tutor, act, good=False)
+    assert all("error" not in r and "error_code" in r for r in fb["results"])
+    again = tutor.answer(f"{act['items'][0]['n']}A3")
+    assert "already" in again["results"][0]["error"]
+
+
+def test_start_refuses_topics_without_questions_and_keeps_open_session(tutor):
+    tutor.start("test", minutes=30, focus=["9702-2.1"])
+    sid = tutor.session["id"]
+    out = tutor.start("test", minutes=30, focus=["9702-3"])
+    assert out["ok"] is False and "No questions" in out["error"] and tutor.session["id"] == sid
+
+
+def test_start_does_not_discard_a_session_in_progress_unless_replaced(tutor):
+    tutor.start("test", minutes=30, focus=["9702-2.1"])
+    _answer_all(tutor, tutor.next(), good=True)
+    sid = tutor.session["id"]
+    out = tutor.start("review", minutes=30)
+    assert out["ok"] is False and out["open_session"]["answered"] == 2 and tutor.session["id"] == sid
+    assert tutor.start("review", minutes=30, replace=True)["session"] != sid

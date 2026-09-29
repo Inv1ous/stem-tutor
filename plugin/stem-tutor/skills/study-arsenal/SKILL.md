@@ -35,4 +35,4 @@ Ask the exam board and level only when the request does not make them clear: thi
 
 - Haiku handles tutoring; the engine's scripts do scheduling, grading and reports at no token cost.
 - Subagents only where isolation saves tokens: `marker` for handwriting images, `digest` for long transcripts or documents.
-- One Cowork session per study block; past about 40 turns, suggest a fresh session. Keep only the STEM Tutor folder connected, and turn off connectors the study Project does not use.
+- One Cowork session per study block; past about 40 turns, suggest a fresh chat where they type "continue". Keep only the STEM Tutor folder connected, and turn off connectors the study Project does not use.
