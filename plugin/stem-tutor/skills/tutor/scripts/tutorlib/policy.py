@@ -131,6 +131,18 @@ def expand_focus(packs, focus: list[str] | None) -> list[str] | None:
 def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "autopilot",
                  focus: list[str] | None = None) -> list[dict]:
     focus = expand_focus(packs, focus)
+    if mode == "lesson":
+        kcs = [k for k in focus or [] if k in packs.kcs]
+        if not kcs:
+            return []
+        subs = [packs.kc(k)["subtopic"] for k in kcs]
+        sub = max(set(subs), key=subs.count)
+        kcs = [k for k in kcs if packs.kc(k)["subtopic"] == sub]
+        pre = [p for k in kcs for p in packs.kc(k).get("prereqs", [])
+               if p not in kcs and p in packs.kcs and packs.kc(p)["spec"] == packs.kc(k)["spec"]]
+        probe = [k for k in dict.fromkeys(pre[:3] + kcs) if packs.items_for(k)]
+        return [{"kind": "goal", "subtopic": sub}, {"kind": "sweep", "kcs": probe, "lesson_probe": True},
+                {"kind": "plan", "kcs": kcs, "subtopic": sub}]
     if mode == "test":
         groups: dict[str, list[str]] = {}
         for k in focus or []:

@@ -344,7 +344,7 @@ def main(argv=None) -> None:
     sub.add_parser("hook").set_defaults(fn=cmd_hook)
     p = sub.add_parser("brief"); p.add_argument("--minutes", type=int, default=50); p.set_defaults(fn=cmd_brief)
     p = sub.add_parser("session"); p.add_argument("action", choices=["start", "end"])
-    p.add_argument("--mode", default="autopilot", choices=["autopilot", "review", "learn", "diagnose", "repair", "long", "test"])
+    p.add_argument("--mode", default="autopilot", choices=["autopilot", "review", "learn", "diagnose", "repair", "long", "test", "lesson"])
     p.add_argument("--minutes", type=int, default=50); p.add_argument("--kcs"); p.add_argument("--replace", action="store_true")
     p.set_defaults(fn=cmd_session)
     sub.add_parser("next").set_defaults(fn=cmd_next)

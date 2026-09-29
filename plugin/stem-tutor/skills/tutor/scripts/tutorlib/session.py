@@ -10,7 +10,8 @@ import re
 import uuid
 from datetime import datetime
 
-from . import diagnose, grade, model, policy
+from . import diagnose, grade, model, policy, views
+from .lesson import LessonMixin
 from .packs import Packs, instantiate
 from .store import Vault, read_json, write_json
 
@@ -22,7 +23,7 @@ GENERIC_HINTS = [
 ]
 
 
-class Tutor:
+class Tutor(LessonMixin):
     def __init__(self, vault: Vault, rng: random.Random | None = None, now=None):
         self.vault = vault
         self.packs = Packs(vault)
@@ -45,9 +46,8 @@ class Tutor:
 
     def _save(self) -> None:
         write_json(self.state_path, self.state)
-        if self.session is not None or (self.vault.root / "Question Sheets" / "Current.md").exists():
-            from . import report
-            report.question_sheet(self)
+        if self.session is not None or (self.vault.root / "Now.md").exists():
+            self._write_now()
         if self.session or self.session_path.exists():
             write_json(self.session_path, self.session)  # null when closed: deleting is not allowed in Cowork
 
@@ -56,6 +56,56 @@ class Tutor:
         model.apply(self.state, e)
         self._save()
         return e
+
+    # ---------- Obsidian views ----------
+    def _lesson_log(self) -> views.LessonLog | None:
+        rel = (self.session or {}).get("log")
+        return views.LessonLog(self.vault.root, rel) if rel else None
+
+    def _set_now(self, activity: dict | None = None) -> None:
+        if self.session is not None:
+            self.session["now"] = activity
+            self.session.pop("last_feedback", None) if activity and activity.get("activity") != "feedback" else None
+
+    def _write_now(self) -> None:
+        s = self.session
+        if not s:
+            views.write_now(self.vault.root, f"No session running · {self.now():%H:%M}",
+                            ["Start the tutor to begin. Your last lessons are in the Lessons folder."])
+            return
+        blocks = []
+        for fb in s.get("last_feedback", []):
+            kind = "success" if fb.get("correct") else "failure"
+            body = f"Answer: {fb.get('answer', '')}" + (f"\n\n{fb['explanation']}" if fb.get("explanation") else "")
+            blocks.append(views.callout(kind, f"Q{fb['n']} — {'correct ✓' if fb.get('correct') else 'not quite ✗'}", body))
+        act = s.get("now") or {}
+        kind = act.get("activity")
+        if kind == "explain":
+            blocks.append(views.callout("abstract", act["title"], act["text"]))
+        elif kind == "plan":
+            ticks = "\n".join(f"- [{' ' if n['kc'] in act['default_teach'] else 'x'}] {n['title']}" for n in act["nodes"])
+            blocks.append(views.callout("abstract", f"Plan: {act['title']}", act["approach"]) + "\n\n" + act["map"]
+                          + "\n\n" + ticks)
+        elif kind == "choose":
+            blocks.append(views.callout("question", act["question"],
+                                        "\n".join(f"- {v}" for v in act["options"].values())))
+        elif kind == "worked":
+            shown = act.get("revealed", 0)
+            steps = "\n".join(f"{i}. {st['do']}" for i, st in enumerate(act["steps"][:shown], 1))
+            blocks.append(views.callout("example", "Worked example", act["problem"] + ("\n\n" + steps if steps else "")))
+        elif kind == "refute":
+            m = act["misconceptions"][0]
+            blocks.append(views.callout("warning", "Trap: " + m["statement"],
+                                        m.get("refutation", "") + ("\n\n" + m["contrast"] if m.get("contrast") else "")))
+        elif kind in ("own_words", "stuck"):
+            blocks.append(views.callout("tip", act.get("title", ""), act.get("prompt") or act.get("say", "")))
+        for n in sorted(s.get("presented", {}), key=int):
+            blocks.append(views.question_block(self._view(int(n))))
+        sub = s.get("subtopic")
+        notes = views.notes_rel(self.packs, sub) if sub and (self.vault.root / views.notes_rel(self.packs, sub)).exists() else None
+        title = self.packs.subtopics.get(sub, {}).get("title", "") if sub else ""
+        views.write_now(self.vault.root, " · ".join(x for x in (title, s.get("mode", ""), f"{self.now():%H:%M}") if x),
+                        blocks or ["Working…"], notes)
 
     def rebuild(self) -> dict:
         self.state = self._fold()
@@ -71,7 +121,7 @@ class Tutor:
                     "open_session": {"mode": s["mode"], "answered": s["answered"], "started": s["started"]},
                     "fix": "To continue it, run the engine command next. To start over, repeat session start with --replace."}
         blocks = policy.plan_session(self.state, self.packs, self.now(), minutes, mode, focus)
-        if focus and mode in ("test", "learn", "diagnose", "long") and not any(
+        if focus and mode in ("test", "learn", "diagnose", "long", "lesson") and not any(
                 self.packs.items_for(k) for b in blocks for k in b.get("kcs", []) + [b.get("kc")] if k):
             return {"ok": False, "error": f"No questions are built yet for {', '.join(focus)}.",
                     "fix": "Use ids that find reports with has_pack true, or ask the learner to choose another topic."}
@@ -80,6 +130,11 @@ class Tutor:
         self.session = {"id": uuid.uuid4().hex[:8], "mode": mode, "minutes": minutes, "started": self.now().isoformat(),
                         "blocks": blocks, "cursor": 0, "presented": {}, "count": 0, "answered": 0, "correct": 0,
                         "kcs_learned": [], "retest": {}}
+        sub = next((b["subtopic"] for b in blocks if b.get("subtopic")), None)
+        if sub:
+            self.session["subtopic"] = sub
+        label = (self.packs.subtopics.get(sub, {}).get("title") if sub else None) or ", ".join(focus or []) or mode
+        self.session["log"] = views.LessonLog.create(self.vault.root, f"{mode.title()} - {label}", self.now()).rel
         self.log({"type": "session_start", "session": self.session["id"], "mode": mode, "minutes": minutes,
                   "blocks": [b["kind"] for b in blocks]})
         return {"session": self.session["id"], "blocks": blocks}
@@ -91,8 +146,21 @@ class Tutor:
                    "kcs_learned": s.get("kcs_learned", []), "unanswered": len(s.get("presented", {})),
                    "abandoned": abandoned}
         self.log({"type": "session_end", **summary})
+        if (log := self._lesson_log()) and not abandoned:
+            log.tutor(f"Answered {summary['answered']}, correct {summary['correct']}"
+                      + (f"; learned: {', '.join(self.packs.kcs[k]['title'] for k in summary['kcs_learned'] if k in self.packs.kcs)}"
+                         if summary["kcs_learned"] else "") + ".", title="Session summary")
+        touched = {self.packs.kcs[k]["subtopic"] for p in s.get("presented", {}).values() for k in p.get("kcs", [])
+                   if k in self.packs.kcs} | {self.packs.kcs[k]["subtopic"] for k in summary["kcs_learned"] if k in self.packs.kcs}
+        if s.get("subtopic"):
+            touched.add(s["subtopic"])
         self.session = None
         self._save()
+        for sub in touched:
+            views.refresh_status(self.vault.root, self.packs, self.state, sub)
+        recent = sorted((str(f.relative_to(self.vault.root)) for f in (self.vault.root / "Lessons").glob("*.md")),
+                        reverse=True) if (self.vault.root / "Lessons").exists() else []
+        views.write_home(self.vault.root, self.packs, self.state, self.now(), recent)
         return summary
 
     # ---------- presenting ----------
@@ -108,6 +176,8 @@ class Tutor:
                                   "block": block, "block_idx": block_idx, "phase": phase, "shown_at": self.now().isoformat(),
                                   "hinted": False, "hint_level": 0, "unassisted": unassisted, "exp": exp}
         self._audit("present", n, inst)
+        if (log := self._lesson_log()):
+            log.question(self._view(n), label=phase or "")
         return self._view(n)
 
     def _audit(self, event: str, n: int, inst: dict) -> None:
@@ -140,14 +210,15 @@ class Tutor:
 
     def _questions(self, block: dict, idx: int, items: list[dict], phase: str | None = None,
                    unassisted: bool = False, exp: str | None = None) -> dict | None:
-        views = []
+        shown = []
         for it in items:
             self.session.setdefault("used", []).append(it["id"])
-            views.append(self._present(it, block["kind"], phase, unassisted, idx, exp))
-        if not views:
+            shown.append(self._present(it, block["kind"], phase, unassisted, idx, exp))
+        if not shown:
             return None
+        self._set_now({"activity": "questions"})
         self._save()
-        return {"activity": "questions", "block": block["kind"], "phase": phase, "items": views,
+        return {"activity": "questions", "block": block["kind"], "phase": phase, "items": shown,
                 "ask": "Stems may contain LaTeX: show them in chat. Collect answer + confidence (1 guess .. 4 certain)."}
 
     # ---------- next ----------
@@ -155,6 +226,8 @@ class Tutor:
         s = self.session
         if not s:
             return {"activity": "no_session", "hint": "engine command: session start"}
+        if s.get("awaiting"):
+            return s["awaiting"]
         if s["presented"]:
             return {"activity": "awaiting", "items": [self._view(int(n)) for n in s["presented"]]}
         while s["cursor"] < len(s["blocks"]):
@@ -230,6 +303,9 @@ class Tutor:
                 act["say"] = "Test check: one question per syllabus point, no hints until answered. 'Don't know' is a fine answer."
                 return act
         res = b.get("res", {})
+        if b.get("lesson_probe"):
+            self.session["probe"] = res
+            return None
         wrong = [kc for kc in b["kcs"] if kc in res and not res[kc]["ok"]]
         unsure = [kc for kc in b["kcs"] if kc in res and res[kc]["ok"] and (res[kc]["conf"] or 0) <= 2]
         if wrong:
@@ -411,6 +487,10 @@ class Tutor:
                                 "say": "Judge the unmatched points, then resend with judge {n: score 0..1}."})
                 continue
             results.append(self._record(key, p, r, g))
+        done = [fb for fb in results if fb.get("event")]
+        if done:
+            s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "answer", "explanation")} for fb in done]
+            s["now"] = {"activity": "feedback"}
         self._save()
         return {"results": results, "remaining": len(s["presented"])}
 
@@ -460,6 +540,12 @@ class Tutor:
                 fb["examiner"] = inst["examiner"]
         if g.get("misconception") and p["kcs"][0] in self.packs.kcs:
             fb["misconception"] = self.packs.misconception(self.packs.kc(p["kcs"][0])["subtopic"], g["misconception"])
+        your = ("?" if r["kind"] == "idk" else f"{r['value']}" if r["kind"] != "points" else
+                "points " + ",".join(map(str, r["value"]))) + (f" (confidence {r['conf']})" if r.get("conf") else "")
+        if (log := self._lesson_log()):
+            log.answer(fb, your)
+        if p["block"] == "node" and p["phase"] == "check" and p["block_idx"] is not None:
+            self._node_check_result(s["blocks"][p["block_idx"]], g, fb, "?" if r["kind"] == "idk" else str(r["value"]))
         if r.get("conf") and r["conf"] >= 3 and not g["correct"]:
             fb["hypercorrect"] = "Confident but wrong: spend a turn on why; this is the best moment to fix it."
         return fb
@@ -533,7 +619,8 @@ def _expected_kind(kind: str) -> tuple[str, ...]:
 def _display_answer(inst: dict) -> str:
     kind = inst["kind"]
     if kind == "mcq":
-        return f"{inst['answer']}: {inst['options'][inst['answer']]}"
+        opts = inst.get("options") or {}  # image-only past-paper options have no text
+        return f"{inst['answer']}: {opts[inst['answer']]}" if inst["answer"] in opts else inst["answer"]
     if kind == "numeric":
         a = inst["answer"]
         sf = (a.get("sf_ok") or [a.get("sf") or 3])[-1]

@@ -15,7 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / "build/out"
-DEFAULT_VAULT = Path("/Users/sora/Library/Mobile Documents/iCloud~md~obsidian/Documents/Notes/01 Study/STEM Tutor")
+DEFAULT_VAULT = ROOT.parent / "STEM Tutor"  # local vault (moved out of iCloud 2026-09-29)
 FOLDERS = ["Subjects", "Assets", "Sessions", "Question Sheets", "Inbox", "Inbox/Marked", "Anki", "Almanac", "Papers"]
 
 

@@ -215,17 +215,17 @@ def test_only_new_objectives_introduce_topics(tutor):
     assert not [b for b in plan["blocks"] if b["kind"] == "learn"]
 
 
-def test_question_sheet_mirrors_open_items_with_images(tutor):
+def test_now_note_mirrors_open_items_with_images_then_feedback(tutor):
     tutor.start("autopilot", minutes=50)
     item = dict(tutor.packs.items_for("9702-2.1.1")[0], image="Assets/mcq/x.png", id="img1")
     tutor._questions({"kind": "practice"}, 0, [item])
-    sheet = (tutor.vault.root / "Question Sheets" / "Current.md").read_text()
-    assert "![[Assets/mcq/x.png]]" in sheet and "Which quantity is a vector?" in sheet
+    now = (tutor.vault.root / "Now.md").read_text()
+    assert "![[Assets/mcq/x.png]]" in now and "Which quantity is a vector?" in now
     n = max(int(k) for k in tutor.session["presented"])
     inst = tutor.session["presented"][str(n)]["inst"]
     tutor.answer(f"{n}{inst['answer']}3")
-    assert "Which quantity" not in (tutor.vault.root / "Question Sheets" / "Current.md").read_text() or \
-        len(tutor.session["presented"]) > 0
+    now = (tutor.vault.root / "Now.md").read_text()
+    assert f"Q{n} — correct" in now
 
 
 def test_audit_log_records_presentations_and_answers_with_turn(tutor, monkeypatch):
@@ -321,3 +321,82 @@ def test_start_does_not_discard_a_session_in_progress_unless_replaced(tutor):
     out = tutor.start("review", minutes=30)
     assert out["ok"] is False and out["open_session"]["answered"] == 2 and tutor.session["id"] == sid
     assert tutor.start("review", minutes=30, replace=True)["session"] != sid
+
+
+# ---------- lesson mode (probe → plan → teach, notes grow) ----------
+def _drive_lesson(tutor, first_wrong=True, own_words="Displacement has a direction; distance does not."):
+    seen, wrong_left = [], {"9702-2.1.1": first_wrong, "9702-2.1.4": first_wrong}
+    for _ in range(80):
+        act = tutor.next()
+        kind = act["activity"]
+        seen.append((kind, act.get("phase") or act.get("part") or act.get("purpose")))
+        if kind == "end":
+            break
+        if kind == "choose":
+            tutor.respond({"choice": "gaps"})
+        elif kind == "plan":
+            tutor.respond({"teach": act["default_teach"]})
+        elif kind == "own_words":
+            tutor.respond({"text": own_words})
+        elif kind == "worked":
+            for i in range(1, len(act["steps"]) + 1):
+                tutor.respond({"step": i})
+            tutor.respond({"done": True})
+        elif kind in ("explain", "refute", "stuck"):
+            tutor.respond({})
+        elif kind in ("questions", "awaiting"):
+            kc = tutor.session["presented"][str(act["items"][0]["n"])]["kcs"][0]
+            bad = act.get("phase") == "sweep" or (act.get("phase") == "check" and wrong_left.get(kc))
+            if bad:
+                wrong_left[kc] = False
+            _answer_all(tutor, act, good=not bad)
+    return seen
+
+
+def test_lesson_runs_goal_probe_plan_then_each_idea(tutor):
+    plan = tutor.start("lesson", minutes=40, focus=["9702-2.1"])
+    assert [b["kind"] for b in plan["blocks"]] == ["goal", "sweep", "plan"]
+    seen = _drive_lesson(tutor)
+    kinds = [k for k, _ in seen]
+    assert kinds[0] == "choose" and "plan" in kinds and kinds[-1] == "end"
+    assert ("explain", "motivate") in seen and ("explain", "establish") in seen and ("questions", "check") in seen
+    assert kinds.index("plan") < kinds.index("explain")
+    assert any(e["type"] == "node_done" and e["kc"] == "9702-2.1.1" for e in tutor.vault.events())
+
+
+def test_lesson_grows_my_notes_with_own_words_and_mistakes(tutor):
+    tutor.start("lesson", minutes=40, focus=["9702-2.1"])
+    _drive_lesson(tutor)
+    notes = next((tutor.vault.root / "My Notes").rglob("*.md")).read_text()
+    assert "```mermaid" in notes and "Distance, displacement, speed, velocity" in notes
+    assert "In your words" in notes and "Displacement has a direction" in notes
+    assert "Watch out (your mistakes)" in notes
+    assert notes.index("stem-tutor:node 9702-2.1.1") < notes.index("stem-tutor:node 9702-2.1.4")
+
+
+def test_lesson_log_never_shows_a_key_before_the_answer(tutor):
+    tutor.start("lesson", minutes=40, focus=["9702-2.1"])
+    _drive_lesson(tutor)
+    log = next((tutor.vault.root / "Lessons").glob("*.md")).read_text()
+    blocks = log.split("\n\n")
+    questions = [b for b in blocks if b.startswith("> [!question] Q")]
+    assert questions and not any("Correct answer" in b for b in questions)
+    first_q = log.index("> [!question] Q1 ·")
+    assert log.index("Q1 — ") > first_q  # the answer callout comes after the question
+
+
+def test_goal_scratch_skips_the_probe_and_teaches_everything(tutor):
+    tutor.start("lesson", minutes=40, focus=["9702-2.1"])
+    tutor.next()
+    tutor.respond({"choice": "scratch"})
+    act = tutor.next()
+    assert act["activity"] == "plan" and act["default_teach"] == ["9702-2.1.1", "9702-2.1.4"]
+
+
+def test_image_only_mcq_feedback_shows_the_letter(tutor):
+    tutor.start("review", minutes=10)
+    item = {"id": "img", "kcs": ["9702-2.1.1"], "kind": "mcq", "stem": "See figure.", "options": None, "answer": "C",
+            "image": "Assets/mcq/x.png", "difficulty": 3, "marks": 1, "tier": "extra"}
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    fb = tutor.answer(f"{n}C3")
+    assert fb["results"][0]["correct"] and fb["results"][0]["answer"] == "C"
