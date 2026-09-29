@@ -32,12 +32,16 @@ BASE = {
     "L": (1e-3, _d(m=3)),
     "l": (1e-3, _d(m=3)),
     "min": (60.0, _d(s=1)),
+    "hour": (3600.0, _d(s=1)),
     "atm": (101325.0, _d(m=-1, kg=1, s=-2)),
     "u": (1.66053906660e-27, _d(kg=1)),
     "rad": (1.0, _d()),
     "sr": (1.0, _d()),
     "%": (0.01, _d()),
 }
+# spelled-out time units a student may type ("35 minutes"): read as the symbol they name
+ALIASES = {"mins": "min", "minute": "min", "minutes": "min", "sec": "s", "secs": "s", "second": "s",
+           "seconds": "s", "h": "hour", "hr": "hour", "hrs": "hour", "hours": "hour"}
 PREFIX = {"G": 1e9, "M": 1e6, "k": 1e3, "d": 1e-1, "c": 1e-2, "m": 1e-3, "μ": 1e-6, "µ": 1e-6, "u": 1e-6, "n": 1e-9, "p": 1e-12}
 
 SUPERSCRIPT = str.maketrans("⁻⁺⁰¹²³⁴⁵⁶⁷⁸⁹", "-+0123456789")
@@ -45,6 +49,7 @@ TOKEN = re.compile(r"^([A-Za-zΩμµ%°]+)\^?\(?([+-]?\d+)?\)?$")
 
 
 def _symbol(sym: str):
+    sym = ALIASES.get(sym, sym)
     if sym in BASE:
         return BASE[sym]
     if len(sym) > 1 and sym[0] in PREFIX and sym[1:] in BASE:

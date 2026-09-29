@@ -75,6 +75,10 @@ def test_unit_split_from_number():
         ("cm3", "dm3", 1e-3),
         ("N m", "J", 1.0),
         ("ms⁻²", "m s-2", 1.0),
+        ("minutes", "min", 1.0),
+        ("mins", "min", 1.0),
+        ("hours", "min", 60.0),
+        ("seconds", "min", 1 / 60),
     ],
 )
 def test_unit_conversion_factor(a, b, factor):
