@@ -48,10 +48,8 @@ class Tutor:
         if self.session is not None or (self.vault.root / "Question Sheets" / "Current.md").exists():
             from . import report
             report.question_sheet(self)
-        if self.session:
-            write_json(self.session_path, self.session)
-        else:
-            self.session_path.unlink(missing_ok=True)
+        if self.session or self.session_path.exists():
+            write_json(self.session_path, self.session)  # null when closed: deleting is not allowed in Cowork
 
     def log(self, event: dict) -> dict:
         e = self.vault.append_event(event, now=self.now())
@@ -74,9 +72,7 @@ class Tutor:
                         "kcs_learned": [], "retest": {}}
         self.log({"type": "session_start", "session": self.session["id"], "mode": mode, "minutes": minutes,
                   "blocks": [b["kind"] for b in blocks]})
-        missing = policy.missing_packs(self.packs, self.now())
-        return {"session": self.session["id"], "blocks": blocks,
-                "missing_packs": {"count": len(missing), "next": missing[:5]} if missing else []}
+        return {"session": self.session["id"], "blocks": blocks}
 
     def end(self, abandoned: bool = False) -> dict:
         s = self.session or {}

@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import glob
+import hashlib
 import json
 import os
+import tempfile
 import time
 import uuid
 from contextlib import contextmanager
@@ -53,8 +55,16 @@ def write_json(path: Path, data) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex[:8]}.tmp")
-    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
-    os.replace(tmp, path)
+    text = json.dumps(data, ensure_ascii=False, indent=1)
+    tmp.write_text(text, encoding="utf-8")
+    try:
+        os.replace(tmp, path)
+    except OSError:  # some mounts refuse replacing a file: write in place instead
+        path.write_text(text, encoding="utf-8")
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
 
 
 class Vault:
@@ -88,20 +98,31 @@ class Vault:
 
     # --- single writer ---
     @contextmanager
-    def lock(self, stale_seconds: int = 4 * 3600):
-        path = self.tutor / ".lock"
-        if path.exists() and time.time() - path.stat().st_mtime > stale_seconds:
-            path.unlink()
+    def lock(self, wait_seconds: float = 15.0):
+        """flock on a file outside the folder: Cowork's device_bash forbids deleting files in connected
+        folders, and a flock is released by the kernel even if the process dies, so it can never go stale."""
         try:
-            fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-        except FileExistsError:
-            raise Locked("Another tutor process holds the lock (.tutor/.lock).") from None
+            import fcntl
+        except ImportError:  # not on POSIX: single user, run unlocked
+            yield
+            return
+        key = hashlib.sha1(str(self.root.resolve()).encode()).hexdigest()[:12]
+        fd = os.open(os.path.join(tempfile.gettempdir(), f"stem-tutor-{key}.lock"), os.O_CREAT | os.O_RDWR, 0o600)
         try:
-            os.write(fd, str(os.getpid()).encode())
-            os.close(fd)
+            deadline = time.monotonic() + wait_seconds
+            while True:
+                try:
+                    fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    break
+                except BlockingIOError:
+                    if time.monotonic() > deadline:
+                        raise Locked("Another tutor command is still running.") from None
+                    time.sleep(0.2)
+                except OSError:  # filesystem without flock support: run unlocked
+                    break
             yield
         finally:
-            path.unlink(missing_ok=True)
+            os.close(fd)
 
     def placeholders(self) -> list[str]:
         """iCloud-evicted files show up as `.name.icloud` stubs."""

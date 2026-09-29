@@ -60,19 +60,19 @@ def test_lock_is_exclusive(tmp_path):
     v = store.Vault(make_vault(tmp_path))
     with v.lock():
         with pytest.raises(store.Locked):
-            with store.Vault(v.root).lock(stale_seconds=3600):
+            with store.Vault(v.root).lock(wait_seconds=0.3):
                 pass
     with v.lock():  # released after exit
         pass
 
 
-def test_stale_lock_is_broken(tmp_path):
+def test_lock_leaves_nothing_in_the_folder_and_ignores_old_lock_files(tmp_path):
     v = store.Vault(make_vault(tmp_path))
-    (v.tutor / ".lock").write_text("old")
-    import os
-    os.utime(v.tutor / ".lock", (0, 0))
-    with v.lock(stale_seconds=60):
+    (v.tutor / ".lock").write_text("5")  # left behind by the old engine, undeletable in Cowork
+    before = sorted(p.name for p in v.tutor.iterdir())
+    with v.lock():
         pass
+    assert sorted(p.name for p in v.tutor.iterdir()) == before
 
 
 def test_icloud_placeholders_detected(tmp_path):

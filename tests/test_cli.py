@@ -110,3 +110,42 @@ def test_engine_copied_into_vault_finds_its_own_vault(tmp_path):
     assert p.returncode == 0, p.stderr
     out = json.loads(p.stdout)
     assert out["ok"] and Path(out["vault"]).resolve() == v.resolve()
+
+
+NO_DELETE = '''
+import os, errno
+_root = os.path.realpath(os.environ["NO_DELETE_UNDER"])
+def _guard(fn):
+    def wrapped(path, *a, **k):
+        p = os.path.realpath(os.fspath(path) if not isinstance(path, int) else "")
+        if p.startswith(_root):
+            raise PermissionError(errno.EPERM, "Operation not permitted", os.fspath(path))
+        return fn(path, *a, **k)
+    return wrapped
+os.unlink = _guard(os.unlink); os.remove = _guard(os.remove); os.rmdir = _guard(os.rmdir)
+'''
+
+
+def test_full_session_works_when_deleting_in_the_folder_is_forbidden(tmp_path):
+    """Cowork device_bash: rm/unlink in a connected folder fail with EPERM; mv and in-place writes work."""
+    v = make_vault(tmp_path)
+    shim = tmp_path / "shim"
+    shim.mkdir()
+    (shim / "sitecustomize.py").write_text(NO_DELETE)
+    env = {"PYTHONPATH": str(shim), "NO_DELETE_UNDER": str(v)}
+    run(v, "doctor", env_extra=env)
+    run(v, "session", "start", "--mode", "test", "--minutes", "30", "--kcs", "9702-2.1", env_extra=env)
+    for _ in range(30):
+        act = run(v, "next", env_extra=env)
+        if act["activity"] == "end":
+            break
+        if act["activity"] in ("questions", "awaiting"):
+            parts = [f"{q['n']}?" for q in act["items"]]
+            fb = run(v, "answer", ", ".join(parts), env_extra=env)
+            assert all(r.get("event") for r in fb["results"]), fb  # every answer logged
+    assert act["activity"] == "end"
+    summary = run(v, "session", "end", env_extra=env)
+    assert summary["answered"] > 0
+    assert run(v, "next", env_extra=env)["activity"] == "no_session"
+    run(v, "week", env_extra=env)
+    assert not list((v / ".tutor").rglob("*.tmp"))

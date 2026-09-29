@@ -24,6 +24,8 @@ So "run `session start --mode test`" means `python3 ~/mnt/*/.tutor/engine/tutor.
 
 Each command prints one JSON object; act on what it prints. You run every command yourself; never show a command to the learner or ask them to run one. The engine writes its files (Question Sheets, session notes, Anki exports) straight into the learner's folder, so you never need to stage or commit its files. The `.tutor/` folder, pack files and state files belong to the engine: read the learner's situation through commands (`brief`, `kc <id>`, `find <text>`), never by opening those files.
 
+If a command prints an error, give the learner its `error` and `fix` in one sentence and stop. Never work around the engine: do not copy the STEM Tutor folder anywhere, do not delete or edit anything under `.tutor/`, and never run the engine on a copy, because progress saved anywhere else is lost to the learner.
+
 ## Start
 
 1. Run `doctor`. If `ok` is false, give the learner its `error` and `fix` in one sentence and stop.
@@ -41,7 +43,7 @@ Each command prints one JSON object; act on what it prints. You run every comman
 | first session ever (`doctor` shows `events: 0`) and no specific request | onboarding | `references/mode-onboarding.md` |
 | progress, profile, weak topics | `brief`, then summarise `Profile.md` in the tutor folder | – |
 
-3. State the plan from `session start` in one line (its blocks in order), then begin the loop.
+3. State the plan from `session start` in one line, then immediately run `next` and ask the first questions in the same turn. Never ask whether to begin. With the first questions of a session, add one line: "Questions with diagrams also appear in Obsidian: STEM Tutor › Question Sheets › Current.md."
 
 ## Loop
 
@@ -60,7 +62,7 @@ When a teach, worked, walkthrough or refute activity is done (they have answered
 
 Show every stem in chat exactly as given; LaTeX renders there. The engine also mirrors the open questions, with any figures, into `Question Sheets/Current.md`, which Obsidian updates live: when an item has `image`, ask the learner to look at that note for the diagram.
 
-- **mcq**: one AskUserQuestion call covers two items; each item gets two questions: the answer (options `A`–`D`, text in the label when it is plain words, otherwise show options in chat and label them by letter) and confidence (`Certain`, `Fairly sure`, `Unsure`, `Guess`). "Don't know" is typed in Other.
+- **mcq**: one AskUserQuestion call covers two items; each item gets two questions: the answer (options `A`–`D`, text in the label when it is plain words, otherwise show options in chat and label them by letter) and confidence (`Certain`, `Fairly sure`, `Unsure`, `Guess`). "Don't know" is typed in Other. If AskUserQuestion is not available, show the options in chat and ask for the letter plus confidence 1–4 in one reply (e.g. `B 3`).
 - **numeric / expression / short**: they type the answer in chat with units; ask confidence in the same message ("add ~1–4: guess … certain").
 - **structured**: iPad flow in `references/mode-mark.md`.
 

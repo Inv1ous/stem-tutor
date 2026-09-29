@@ -35,6 +35,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+sys.dont_write_bytecode = True  # no __pycache__ inside the learner's synced folder
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tutorlib import anki, diagnose, experiments, lint, report, store  # noqa: E402
@@ -74,7 +75,7 @@ def cmd_doctor(args) -> None:
     report_ = {"ok": True, "vault": str(v.root), "packs": (v.tutor / "packs" / "CURRENT").read_text().strip(),
                "kcs": len(t.packs.kcs), "events": sum(1 for _ in v.events()), "open_session": bool(t.session),
                "icloud_placeholders": v.placeholders()[:10], "wheels": wheels,
-               "locked": (v.tutor / ".lock").exists(), "python": sys.version.split()[0]}
+               "python": sys.version.split()[0]}
     if report_["icloud_placeholders"]:
         report_["fix"] = "Some files are evicted by iCloud: in Finder right-click the STEM Tutor folder → Keep Downloaded."
     if not args.quiet:
@@ -311,13 +312,17 @@ def main(argv=None) -> None:
     sub.add_parser("week").set_defaults(fn=cmd_week)
     sub.add_parser("rebuild").set_defaults(fn=cmd_rebuild)
     p = sub.add_parser("lint"); p.add_argument("files", nargs="+"); p.set_defaults(fn=cmd_lint)
+    if (argv if argv is not None else sys.argv[1:])[:1] and str((argv or sys.argv[1:])[0]).endswith("tutor.py"):
+        out({"ok": False, "error": "The ~/mnt/*/ pattern matched more than one tutor folder.",
+             "fix": "Run the engine from the connected STEM Tutor folder's own .tutor/engine/tutor.py path."})
+        return
     args = ap.parse_args(argv)
     try:
         args.fn(args)
     except store.VaultNotFound as e:
         out({"ok": False, "error": str(e)})
     except store.Locked as e:
-        out({"ok": False, "error": str(e), "fix": "Another command is running; retry. If none is, delete .tutor/.lock."})
+        out({"ok": False, "error": str(e), "fix": "Another tutor command is still running; wait a few seconds and retry."})
 
 
 if __name__ == "__main__":
