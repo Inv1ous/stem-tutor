@@ -1,0 +1,6434 @@
+{
+ "subtopic": "9702-2.1",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/02 Kinematics/2.1 Equations of motion.md",
+ "outline": "Distance and speed are scalars; displacement, velocity and acceleration are vectors, with velocity the rate of change of displacement and acceleration the rate of change of velocity. On a displacement-time graph the gradient is velocity; on a velocity-time graph the gradient is acceleration and the area is displacement (below the axis is negative). For uniform acceleration in a straight line, $v=u+at$, $s=\\tfrac12(u+v)t$, $s=ut+\\tfrac12at^2$ and $v^2=u^2+2as$ follow from the definitions. Choose a positive direction, list $s,u,v,a,t$, and pick the equation missing the unwanted variable. For free fall $a=9.81\\ \\mathrm{m\\,s^{-2}}$ downwards; $g$ can be found from the gradient of $h$ against $t^2$. A projectile's horizontal and vertical motions are independent: constant horizontal velocity, uniform vertical acceleration.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-2.1.1",
+   "statement": "Ignoring direction: using distance for displacement and average speed for average velocity, or subtracting speeds to find a change in velocity when the direction reverses.",
+   "refutation": "Displacement and velocity are vectors. Average velocity is displacement divided by time, and displacement is the straight-line change in position from start to finish, so it can be much smaller than the distance travelled. A change in velocity is final minus initial, with signs for direction.",
+   "contrast": "A toy car goes once round a circular track in $40\\ \\mathrm{s}$: its average speed is $0.50\\ \\mathrm{m\\,s^{-1}}$ but its average velocity over the whole lap is zero, because it returns to its starting point.",
+   "source": "ER 9702 w22 P12 Q5"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-2.1.1",
+   "statement": "Tying acceleration to speed instead of change of velocity: 'constant speed means no acceleration' or 'at the top of its flight the velocity is zero, so the acceleration is zero'.",
+   "refutation": "Acceleration is the rate of change of velocity, a vector. A body going round a bend at constant speed changes direction, so its velocity changes and it accelerates. A ball at the top of its flight has zero velocity for an instant, but its velocity is still changing at $9.81\\ \\mathrm{m\\,s^{-2}}$ downwards.",
+   "contrast": "A ball thrown straight up has $v=0$ at the top but $a=9.81\\ \\mathrm{m\\,s^{-2}}$ downwards throughout; if $a$ were zero there it would stay there.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-2.1.3",
+   "statement": "Adding the area below the time axis to the area above it when finding displacement from a velocity-time graph.",
+   "refutation": "Area above the time axis is displacement in the positive direction; area below is displacement in the opposite direction, so it is subtracted. The sum of the two magnitudes is the total distance, not the displacement.",
+   "contrast": "A stone thrown up at $20\\ \\mathrm{m\\,s^{-1}}$: the area above the axis is $20\\ \\mathrm{m}$ and the area below the axis, from $2.0\\ \\mathrm{s}$ to $3.0\\ \\mathrm{s}$, is $5\\ \\mathrm{m}$. Displacement $=15\\ \\mathrm{m}$ above the start (not $25\\ \\mathrm{m}$); distance travelled $=25\\ \\mathrm{m}$.",
+   "source": "ER 9702 w20 P12 Q6"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-2.1.5",
+   "statement": "Reading gradients wrongly from a graph: counting grid squares instead of using the axis scale, or dividing a single value by a single time (like $v/t$) instead of using the change in each, or not comparing the graph with its equation, so that the gradient of $h$ against $t^2$ is taken as $g$ instead of $\\tfrac12g$.",
+   "refutation": "A gradient is change in $y$ divided by change in $x$, read from the labelled axes with a large triangle. Grid squares are not equal to units unless the scale says so, and a single point gives $v/t$ only if the line passes through the origin. To see what a gradient means, compare the equation with $y=mx$: from $h=\\tfrac12gt^2$ the gradient of $h$ against $t^2$ is $\\tfrac12g$.",
+   "contrast": "A line from $(2.0\\ \\mathrm{s},\\ 6.0\\ \\mathrm{m\\,s^{-1}})$ to $(6.0\\ \\mathrm{s},\\ 14\\ \\mathrm{m\\,s^{-1}})$ has gradient $8.0/4.0=2.0\\ \\mathrm{m\\,s^{-2}}$, not $14/6=2.3$.",
+   "source": "ER 9702 w21 P12 Q6"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-2.1.7",
+   "statement": "Answering only half a trip: finding the time to reach the top of a vertical throw and forgetting to double it for the whole flight.",
+   "refutation": "With no air resistance, the ascent and descent to the same level take equal times, so the time in the air is twice the time to the highest point. Check what the question asks for: 'time to the top' or 'total time in the air'.",
+   "contrast": "A ball rising $12.7\\ \\mathrm{m}$ takes $1.61\\ \\mathrm{s}$ to reach the top, so its total time in the air is $3.22\\ \\mathrm{s}$.",
+   "source": "ER 9702 w19 P12 Q6"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-2.1.7",
+   "statement": "Sign errors in suvat: using $+9.81$ for a body moving upwards when upwards is positive, or mixing the signs of $u$, $a$ and $s$.",
+   "refutation": "Choose one direction as positive at the start and keep it. If upwards is positive then $a=-9.81\\ \\mathrm{m\\,s^{-2}}$, $u$ is positive for an upward throw and the displacement $s$ is negative when the object ends below its start.",
+   "contrast": "Thrown upwards from a $25\\ \\mathrm{m}$ cliff, the ball lands at $s=-25\\ \\mathrm{m}$ with $a=-9.81\\ \\mathrm{m\\,s^{-2}}$; writing $s=+25$ gives a different, wrong equation.",
+   "source": "ER 9702 w20 P23 Q3"
+  },
+  {
+   "id": "m7",
+   "kc": "9702-2.1.9",
+   "statement": "Believing a force is needed in the direction of motion, so that a projectile in flight has a 'forward force' or an 'upward force' that runs out at the top.",
+   "refutation": "A force is needed to change velocity, not to maintain it. Once a projectile has left the thrower its only forces are weight (down) and, in air, drag (opposite to the velocity). The forward motion is due to the initial horizontal velocity, which is unchanged when there is no drag.",
+   "contrast": "At the top of its flight the velocity is horizontal, so drag acts backwards and weight acts downwards. No arrow points forwards.",
+   "source": "ER 9702 s22 P11 Q9"
+  },
+  {
+   "id": "m8",
+   "kc": "9702-2.1.9",
+   "statement": "Not treating horizontal and vertical motion separately: adding the components as magnitudes instead of using Pythagoras, using the launch speed as the vertical component, or thinking a larger horizontal speed changes the time of fall.",
+   "refutation": "The two perpendicular motions are independent. Resolve the launch velocity, apply suvat to each direction separately, and join them only by time. Recombine perpendicular components with $v=\\sqrt{v_x^2+v_y^2}$.",
+   "contrast": "A ball kicked horizontally and one dropped from the same height land together: the vertical motion is the same, whatever the horizontal speed.",
+   "source": "ER 9702 w23 P12 Q6"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-2.1.1",
+   "problem": "A cyclist rides $300\\ \\mathrm{m}$ due east then $400\\ \\mathrm{m}$ due north in $100\\ \\mathrm{s}$. Determine (a) the average speed and (b) the magnitude of the average velocity.",
+   "steps": [
+    {
+     "do": "Average speed uses the total distance: $\\dfrac{300+400}{100}=7.0\\ \\mathrm{m\\,s^{-1}}$.",
+     "why": "Speed is distance travelled divided by time and has no direction, so the route length is added.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 7.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Displacement is the straight line from start to finish: $\\sqrt{300^2+400^2}=500\\ \\mathrm{m}$, at $53^\\circ$ north of east.",
+     "why": "The two legs are perpendicular, so Pythagoras applies; displacement is a vector and needs a direction.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 500.0,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Average velocity $=\\dfrac{500}{100}=5.0\\ \\mathrm{m\\,s^{-1}}$ at $53^\\circ$ north of east.",
+     "why": "Average velocity is displacement over time, so it is smaller than the average speed ($7.0$) unless the path is straight.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 5.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A runner goes $240\\ \\mathrm{m}$ due east then $70\\ \\mathrm{m}$ due north in $25\\ \\mathrm{s}$. Determine the magnitude of the average velocity.",
+    "answer": {
+     "value": 10.0,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-2.1.2",
+   "problem": "A lift starts from rest, accelerates uniformly at $1.5\\ \\mathrm{m\\,s^{-2}}$ for $4.0\\ \\mathrm{s}$, moves at constant velocity for $6.0\\ \\mathrm{s}$, then slows uniformly to rest in $3.0\\ \\mathrm{s}$. Sketch its velocity-time graph and find its greatest speed and the size of the final acceleration.",
+   "steps": [
+    {
+     "do": "First section: a straight line from the origin, gradient $1.5\\ \\mathrm{m\\,s^{-2}}$, ending at $v=at=1.5\\times4.0=6.0\\ \\mathrm{m\\,s^{-1}}$ at $t=4.0\\ \\mathrm{s}$.",
+     "why": "Uniform acceleration is a straight line whose gradient is the acceleration; the end value comes from $v=u+at$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Second section: a horizontal line at $6.0\\ \\mathrm{m\\,s^{-1}}$ from $t=4.0\\ \\mathrm{s}$ to $10\\ \\mathrm{s}$.",
+     "why": "Constant velocity means zero gradient, so no acceleration."
+    },
+    {
+     "do": "Third section: a straight line down to zero at $t=13\\ \\mathrm{s}$; gradient $=-6.0/3.0$, magnitude $2.0\\ \\mathrm{m\\,s^{-2}}$.",
+     "why": "Acceleration is the gradient, change in velocity divided by change in time; the negative sign shows deceleration.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.0,
+       "unit": "m s^-2",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A lift starts from rest, accelerates uniformly at $2.5\\ \\mathrm{m\\,s^{-2}}$ for $4.0\\ \\mathrm{s}$, then moves at constant velocity. Determine its constant speed.",
+    "answer": {
+     "value": 10.0,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-2.1.3",
+   "problem": "The velocity of a trolley changes uniformly from $+6.0\\ \\mathrm{m\\,s^{-1}}$ at $t=0$ to $-4.0\\ \\mathrm{m\\,s^{-1}}$ at $t=5.0\\ \\mathrm{s}$. Determine its displacement at $t=5.0\\ \\mathrm{s}$ and the total distance travelled.",
+   "steps": [
+    {
+     "do": "Find where the graph crosses the axis: the velocity falls by $10\\ \\mathrm{m\\,s^{-1}}$ in $5.0\\ \\mathrm{s}$, so it reaches zero at $t=3.0\\ \\mathrm{s}$.",
+     "why": "The graph is a straight line from $+6.0$ to $-4.0$; the crossing point splits the area into a triangle above the axis and one below."
+    },
+    {
+     "do": "Area above: $\\tfrac12\\times3.0\\times6.0=9.0\\ \\mathrm{m}$. Area below: $\\tfrac12\\times2.0\\times4.0=4.0\\ \\mathrm{m}$ (opposite direction).",
+     "why": "Each triangle is $\\tfrac12\\times$ base $\\times$ height, with the base measured along the time axis."
+    },
+    {
+     "do": "Displacement $=9.0-4.0=+5.0\\ \\mathrm{m}$. Distance travelled $=9.0+4.0=13\\ \\mathrm{m}$.",
+     "why": "The area below the axis is displacement in the opposite direction, so it is subtracted for displacement but added for distance.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 5.0,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "The velocity of a trolley changes uniformly from $+8.0\\ \\mathrm{m\\,s^{-1}}$ at $t=0$ to $-2.0\\ \\mathrm{m\\,s^{-1}}$ at $t=5.0\\ \\mathrm{s}$. Determine its displacement at $t=5.0\\ \\mathrm{s}$.",
+    "answer": {
+     "value": 15.0,
+     "unit": "m",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "9702-2.1.4",
+   "problem": "The displacement-time graph of a trolley is a curve. A tangent drawn at $t=3.0\\ \\mathrm{s}$ passes through the points $(2.0\\ \\mathrm{s},\\ 3.0\\ \\mathrm{m})$ and $(4.0\\ \\mathrm{s},\\ 15.0\\ \\mathrm{m})$. Determine the velocity of the trolley at $t=3.0\\ \\mathrm{s}$.",
+   "steps": [
+    {
+     "do": "Velocity is the gradient of the displacement-time graph, so use the tangent at $t=3.0\\ \\mathrm{s}$, not the curve.",
+     "why": "On a curve the gradient changes; the tangent gives the gradient at that instant."
+    },
+    {
+     "do": "Take two points on the tangent, far apart: $\\Delta s=15.0-3.0=12.0\\ \\mathrm{m}$ and $\\Delta t=4.0-2.0=2.0\\ \\mathrm{s}$.",
+     "why": "A large triangle reduces reading errors; use the values on the axes.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 12.0,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "$v=\\dfrac{\\Delta s}{\\Delta t}=\\dfrac{12.0}{2.0}=6.0\\ \\mathrm{m\\,s^{-1}}$.",
+     "why": "Gradient is change in $y$ over change in $x$, and the unit is $\\mathrm{m\\,s^{-1}}$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "A tangent to a displacement-time curve at $t=2.0\\ \\mathrm{s}$ passes through $(1.0\\ \\mathrm{s},\\ 0\\ \\mathrm{m})$ and $(3.0\\ \\mathrm{s},\\ 8.0\\ \\mathrm{m})$. Determine the velocity at $t=2.0\\ \\mathrm{s}$.",
+    "answer": {
+     "value": 4.0,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we5",
+   "kc": "9702-2.1.5",
+   "problem": "A car's velocity-time graph is a straight line from $24\\ \\mathrm{m\\,s^{-1}}$ at $t=3.0\\ \\mathrm{s}$ to $6.0\\ \\mathrm{m\\,s^{-1}}$ at $t=9.0\\ \\mathrm{s}$. Determine its acceleration.",
+   "steps": [
+    {
+     "do": "Acceleration is the gradient: $a=\\dfrac{\\Delta v}{\\Delta t}$.",
+     "why": "The quantity is defined as rate of change of velocity, which is the gradient of a velocity-time graph."
+    },
+    {
+     "do": "$\\Delta v=6.0-24=-18\\ \\mathrm{m\\,s^{-1}}$ and $\\Delta t=9.0-3.0=6.0\\ \\mathrm{s}$.",
+     "why": "Use final minus initial for each and keep the sign; do not use $24/3.0$, because the line does not start at the origin."
+    },
+    {
+     "do": "$a=\\dfrac{-18}{6.0}=-3.0\\ \\mathrm{m\\,s^{-2}}$: the car decelerates at $3.0\\ \\mathrm{m\\,s^{-2}}$.",
+     "why": "A negative gradient with positive velocity means the velocity is decreasing.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -3.0,
+       "unit": "m s^-2",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "A car's velocity-time graph is a straight line from $20\\ \\mathrm{m\\,s^{-1}}$ at $t=2.0\\ \\mathrm{s}$ to $5.0\\ \\mathrm{m\\,s^{-1}}$ at $t=8.0\\ \\mathrm{s}$. Determine its acceleration.",
+    "answer": {
+     "value": -2.5,
+     "unit": "m s^-2",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we6",
+   "kc": "9702-2.1.6",
+   "problem": "Derive $s=ut+\\tfrac12at^2$ for uniform acceleration and check it with $u=2.0\\ \\mathrm{m\\,s^{-1}}$, $a=3.0\\ \\mathrm{m\\,s^{-2}}$, $t=4.0\\ \\mathrm{s}$.",
+   "steps": [
+    {
+     "do": "Definition of acceleration: $a=\\dfrac{v-u}{t}$, so $v=u+at$.",
+     "why": "This is the starting point; every suvat equation is built from definitions."
+    },
+    {
+     "do": "For uniform acceleration the average velocity is $\\tfrac12(u+v)$, so $s=\\tfrac12(u+v)t$ (the area of a trapezium).",
+     "why": "The mean of the two velocities is the average only when the velocity changes steadily."
+    },
+    {
+     "do": "Substitute $v=u+at$: $s=\\tfrac12(2u+at)t=ut+\\tfrac12at^2$.",
+     "why": "Eliminating $v$ leaves an equation in the given quantities $u$, $a$, $t$."
+    },
+    {
+     "do": "Check: $v=2.0+3.0\\times4.0=14\\ \\mathrm{m\\,s^{-1}}$; $s=2.0\\times4.0+\\tfrac12\\times3.0\\times4.0^2=32\\ \\mathrm{m}$, and $\\tfrac12(2.0+14)\\times4.0=32\\ \\mathrm{m}$ agrees.",
+     "why": "Two routes giving the same value confirm the algebra.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 32.0,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we6f",
+    "problem": "A body has $u=3.0\\ \\mathrm{m\\,s^{-1}}$ and uniform acceleration $2.0\\ \\mathrm{m\\,s^{-2}}$ for $5.0\\ \\mathrm{s}$. Determine its displacement.",
+    "answer": {
+     "value": 40.0,
+     "unit": "m",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we7",
+   "kc": "9702-2.1.7",
+   "problem": "A stone is thrown vertically upwards at $12\\ \\mathrm{m\\,s^{-1}}$ from ground level. Determine (a) the maximum height and (b) the time taken to return to the ground. Take $g=9.81\\ \\mathrm{m\\,s^{-2}}$.",
+   "steps": [
+    {
+     "do": "Upwards positive: $u=+12\\ \\mathrm{m\\,s^{-1}}$, $a=-9.81\\ \\mathrm{m\\,s^{-2}}$. At the top $v=0$.",
+     "why": "Fixing the direction and signs first avoids mixing $+g$ and $-g$ (the most frequent error)."
+    },
+    {
+     "do": "No time is wanted, so use $v^2=u^2+2as$: $0=12^2-2\\times9.81\\,s$, so $s=\\dfrac{144}{19.62}=7.3\\ \\mathrm{m}$.",
+     "why": "Choose the equation that contains the three known quantities and the unknown, and no other unknown.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 7.339449541284403,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Return to the ground means $v=-12\\ \\mathrm{m\\,s^{-1}}$: $t=\\dfrac{v-u}{a}=\\dfrac{-12-12}{-9.81}=2.4\\ \\mathrm{s}$.",
+     "why": "Rising and falling take equal times, so the total time is twice the time to the top ($1.22\\ \\mathrm{s}$).",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.4464831804281344,
+       "unit": "s",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we7f",
+    "problem": "A stone is thrown vertically upwards at $15\\ \\mathrm{m\\,s^{-1}}$ from ground level. Determine the maximum height. Take $g=9.81\\ \\mathrm{m\\,s^{-2}}$.",
+    "answer": {
+     "value": 11.46788990825688,
+     "unit": "m",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we8",
+   "kc": "9702-2.1.8",
+   "problem": "In a free-fall experiment a graph of height $h$ against $t^2$ is a straight line through the origin passing through the point $(0.200\\ \\mathrm{s^2},\\ 0.98\\ \\mathrm{m})$. Determine the acceleration of free fall.",
+   "steps": [
+    {
+     "do": "For a ball released from rest $h=\\tfrac12gt^2$, which has the form $y=mx$ with $y=h$, $x=t^2$ and gradient $m=\\tfrac12g$.",
+     "why": "Comparing with $y=mx$ shows what the gradient means, and why a graph of $h$ against $t^2$ is a straight line."
+    },
+    {
+     "do": "Gradient $=\\dfrac{0.98}{0.200}=4.90\\ \\mathrm{m\\,s^{-2}}$.",
+     "why": "The line goes through the origin, so one point is enough.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.8999999999999995,
+       "unit": "m s^-2",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "$g=2\\times$ gradient $=2\\times4.90=9.8\\ \\mathrm{m\\,s^{-2}}$.",
+     "why": "The gradient is $g/2$, not $g$: do not forget the factor of 2.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 9.799999999999999,
+       "unit": "m s^-2",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we8f",
+    "problem": "A graph of $h$ against $t^2$ is a straight line through the origin passing through $(0.250\\ \\mathrm{s^2},\\ 1.20\\ \\mathrm{m})$. Determine the acceleration of free fall.",
+    "answer": {
+     "value": 9.6,
+     "unit": "m s^-2",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-2.1-p01",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q5",
+    "qid": "9702_w22_12_q5"
+   },
+   "stem": "A toy car travels on a circular track at a constant speed of $0.50\\ \\mathrm{m\\,s^{-1}}$. It passes a point on the track at time $t=0$ and takes $40\\ \\mathrm{s}$ to travel once around the track. The magnitude of the average velocity of the car between $t=0$ and $t=20\\ \\mathrm{s}$ is $v_{20}$. The magnitude of the average velocity between $t=0$ and $t=40\\ \\mathrm{s}$ is $v_{40}$. What are $v_{20}$ and $v_{40}$, in $\\mathrm{m\\,s^{-1}}$?",
+   "options": {
+    "A": "$v_{20}=0.32$, $v_{40}=0$",
+    "B": "$v_{20}=0.32$, $v_{40}=0.32$",
+    "C": "$v_{20}=0.50$, $v_{40}=0$",
+    "D": "$v_{20}=0.50$, $v_{40}=0.50$"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Average velocity is displacement divided by time. In $20\\ \\mathrm{s}$ the car travels $10\\ \\mathrm{m}$ (half the circumference) but its displacement is the diameter, $20/\\pi=6.4\\ \\mathrm{m}$, so $v_{20}=6.4/20=0.32\\ \\mathrm{m\\,s^{-1}}$. After a full lap the displacement is zero, so $v_{40}=0$. The popular wrong options C and D give the average speed, $0.50\\ \\mathrm{m\\,s^{-1}}$, which ignores direction.",
+   "image": "Assets/mcq/9702_w22_12_q5.png",
+   "distractors": {
+    "C": "m1",
+    "D": "m1"
+   }
+  },
+  {
+   "id": "9702-2.1-p02",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q6",
+    "qid": "9702_w21_13_q6"
+   },
+   "stem": "The graph shows the variation with time of the acceleration of a car. What must the shaded area under the graph represent?",
+   "options": {
+    "A": "the average velocity of the car",
+    "B": "the change in velocity of the car",
+    "C": "the final velocity of the car",
+    "D": "the initial velocity of the car"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Acceleration is change in velocity per unit time, so acceleration multiplied by time (the area under an acceleration-time graph) is change in velocity, $v-u=at$. Some candidates chose A, the average velocity, but the area is $at=v-u$, a change in velocity. It equals the final velocity only if the car starts from rest, and the average velocity only by coincidence, so it need not be either: the question asks what it must represent.",
+   "image": "Assets/mcq/9702_w21_13_q6.png"
+  },
+  {
+   "id": "9702-2.1-p03",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q6",
+    "qid": "9702_w20_12_q6"
+   },
+   "stem": "A stone is thrown vertically upwards from a point X at time $t=0$. The variation with time $t$ of the velocity $v$ of the stone is shown. What is the displacement of the stone from point X at time $t=3.0\\ \\mathrm{s}$?",
+   "options": {
+    "A": "15 m above X",
+    "B": "15 m below X",
+    "C": "25 m above X",
+    "D": "25 m below X"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The stone is thrown up at $20\\ \\mathrm{m\\,s^{-1}}$ and its velocity is zero at $2.0\\ \\mathrm{s}$, so the area above the axis is $\\tfrac12\\times2.0\\times20=20\\ \\mathrm{m}$ upwards. The area below the axis from $2.0\\ \\mathrm{s}$ to $3.0\\ \\mathrm{s}$ is $\\tfrac12\\times1.0\\times10=5\\ \\mathrm{m}$ downwards, so the displacement is $20-5=15\\ \\mathrm{m}$ above X. Many candidates chose B, giving the right size with the wrong direction: the positive area is the larger one, so the stone is above X. C (25 m) adds the areas.",
+   "image": "Assets/mcq/9702_w20_12_q6.png",
+   "distractors": {
+    "C": "m3"
+   }
+  },
+  {
+   "id": "9702-2.1-p04",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q6",
+    "qid": "9702_w21_12_q6"
+   },
+   "stem": "The graph shows the variation with time $t$ of the velocity of a vehicle moving in a straight line. The vehicle, moving at $4.0\\ \\mathrm{m\\,s^{-1}}$, begins to accelerate at time $t=0$. What is the vehicle's acceleration at time $t=3.0\\ \\mathrm{s}$?",
+   "options": {
+    "A": "$0.67\\ \\mathrm{m\\,s^{-2}}$",
+    "B": "$1.0\\ \\mathrm{m\\,s^{-2}}$",
+    "C": "$1.3\\ \\mathrm{m\\,s^{-2}}$",
+    "D": "$2.0\\ \\mathrm{m\\,s^{-2}}$"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The velocity-time graph is a curve, so the acceleration at $3.0\\ \\mathrm{s}$ is the gradient of the tangent there: $\\Delta v/\\Delta t=8\\ \\mathrm{m\\,s^{-1}}/6.0\\ \\mathrm{s}=1.3\\ \\mathrm{m\\,s^{-2}}$. Many candidates chose A ($0.67$) because they counted grid squares ($4/6$) instead of reading the values on the labelled axes. D ($2.0$) divides the single reading $6.0\\ \\mathrm{m\\,s^{-1}}$ by $3.0\\ \\mathrm{s}$, which gives the gradient only for a straight line through the origin.",
+   "image": "Assets/mcq/9702_w21_12_q6.png",
+   "distractors": {
+    "A": "m4",
+    "D": "m4"
+   }
+  },
+  {
+   "id": "9702-2.1-p05",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q7",
+    "qid": "9702_s21_11_q7"
+   },
+   "stem": "A train, initially at rest at a station, has a uniform acceleration of $0.20\\ \\mathrm{m\\,s^{-2}}$ until it reaches a speed of $20\\ \\mathrm{m\\,s^{-1}}$. It travels for a time at this constant speed and then has a uniform deceleration of $0.40\\ \\mathrm{m\\,s^{-2}}$ until it comes to rest at the next station. The distance between the two stations is $3000\\ \\mathrm{m}$. What is the time taken by the train to travel between the two stations?",
+   "options": {
+    "A": "75 s",
+    "B": "150 s",
+    "C": "230 s",
+    "D": "300 s"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Sketch the velocity-time graph: acceleration takes $20/0.20=100\\ \\mathrm{s}$ (distance $1000\\ \\mathrm{m}$) and deceleration takes $20/0.40=50\\ \\mathrm{s}$ (distance $500\\ \\mathrm{m}$). The remaining $1500\\ \\mathrm{m}$ at $20\\ \\mathrm{m\\,s^{-1}}$ takes $75\\ \\mathrm{s}$, so the total time is $100+75+50=225\\ \\mathrm{s}\\approx230\\ \\mathrm{s}$. Option A, $75\\ \\mathrm{s}$, is only the constant-speed part."
+  },
+  {
+   "id": "9702-2.1-p06",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q6",
+    "qid": "9702_w19_12_q6"
+   },
+   "stem": "A ball is thrown vertically upwards from ground level and reaches a maximum height of $12.7\\ \\mathrm{m}$ before falling back to ground level. Assume that air resistance is negligible. What is the total time for which the ball is in the air?",
+   "options": {
+    "A": "1.61 s",
+    "B": "3.22 s",
+    "C": "3.88 s",
+    "D": "5.18 s"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Time to fall $12.7\\ \\mathrm{m}$ from rest: $t=\\sqrt{2h/g}=\\sqrt{2\\times12.7/9.81}=1.61\\ \\mathrm{s}$. Rising and falling take equal times, so the total is $2\\times1.61=3.22\\ \\mathrm{s}$. Option A, the most popular wrong answer, is the time to the top only: the doubling was forgotten.",
+   "distractors": {
+    "A": "m5"
+   }
+  },
+  {
+   "id": "9702-2.1-p07",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q6",
+    "qid": "9702_w23_13_q6"
+   },
+   "stem": "The time taken for an object to fall from rest through a certain distance on Mars is $T_\\mathrm{M}$. The time taken for the same object to fall from rest through the same distance on Earth is $T_\\mathrm{E}$. The acceleration of free fall on Mars is $3.71\\ \\mathrm{m\\,s^{-2}}$. Assume that air resistance is negligible on both Earth and Mars. What is the ratio $T_\\mathrm{M}/T_\\mathrm{E}$?",
+   "options": {
+    "A": "0.378",
+    "B": "0.615",
+    "C": "1.63",
+    "D": "2.64"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "From $h=\\tfrac12gT^2$ the time is $T=\\sqrt{2h/g}$, so for the same $h$ the times are in the ratio $T_\\mathrm{M}/T_\\mathrm{E}=\\sqrt{g_\\mathrm{E}/g_\\mathrm{M}}=\\sqrt{9.81/3.71}=1.63$. Option A ($0.378$) is the most popular wrong answer, $g_\\mathrm{M}/g_\\mathrm{E}$: it is the wrong way up (Mars has the weaker gravity, so the fall takes longer, ratio above 1) and has no square root. Option D ($2.64$) forgets the square root.",
+   "image": "Assets/mcq/9702_w23_13_q6.png"
+  },
+  {
+   "id": "9702-2.1-p08",
+   "kcs": [
+    "9702-2.1.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q7",
+    "qid": "9702_s21_13_q7"
+   },
+   "stem": "A steel ball is dropped from rest from a height $h$ above the ground. The ball hits the ground after a time $t$. This is repeated for a number of different heights. The graph shows the variation of $h$ with $t^2$ for the ball, a straight line through the origin. The gradient of the graph is $G$. Which expression gives the acceleration of the ball?",
+   "options": {
+    "A": "$G/2$",
+    "B": "$G$",
+    "C": "$2G$",
+    "D": "$G^2$"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "For a ball released from rest $h=\\tfrac12at^2$, so a graph of $h$ against $t^2$ has gradient $\\tfrac12a$. If the gradient is $G$ then $a=2G$. Taking $G$ itself as the acceleration (B) forgets the factor $\\tfrac12$ in $s=ut+\\tfrac12at^2$.",
+   "image": "Assets/mcq/9702_s21_13_q7.png",
+   "distractors": {
+    "B": "m4"
+   }
+  },
+  {
+   "id": "9702-2.1-p09",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q6",
+    "qid": "9702_w23_12_q6"
+   },
+   "stem": "An astronaut on the Moon, where there is no air resistance, throws a ball. The ball's initial velocity has a vertical component of $8.00\\ \\mathrm{m\\,s^{-1}}$ and a horizontal component of $4.00\\ \\mathrm{m\\,s^{-1}}$. The acceleration of free fall on the Moon is $1.62\\ \\mathrm{m\\,s^{-2}}$. What is the speed of the ball $9.00\\ \\mathrm{s}$ after being thrown?",
+   "options": {
+    "A": "$6.58\\ \\mathrm{m\\,s^{-1}}$",
+    "B": "$7.70\\ \\mathrm{m\\,s^{-1}}$",
+    "C": "$10.6\\ \\mathrm{m\\,s^{-1}}$",
+    "D": "$14.6\\ \\mathrm{m\\,s^{-1}}$"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Horizontally there is no acceleration, so $v_x=4.00\\ \\mathrm{m\\,s^{-1}}$. Vertically $v_y=u+at=8.00-1.62\\times9.00=-6.58\\ \\mathrm{m\\,s^{-1}}$. The speed is $\\sqrt{4.00^2+6.58^2}=7.70\\ \\mathrm{m\\,s^{-1}}$. C ($10.6$) adds the magnitudes of the two components instead of using Pythagoras; A ($6.58$) is only the vertical component.",
+   "image": "Assets/mcq/9702_w23_12_q6.png",
+   "distractors": {
+    "C": "m8"
+   }
+  },
+  {
+   "id": "9702-2.1-p10",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q6",
+    "qid": "9702_s22_11_q6"
+   },
+   "stem": "A ball is thrown horizontally with a speed of $10.0\\ \\mathrm{m\\,s^{-1}}$ above horizontal ground. The ball hits the ground after a time of $3.0\\ \\mathrm{s}$. Air resistance is negligible. What is the speed of the ball just before it hits the ground?",
+   "options": {
+    "A": "$10\\ \\mathrm{m\\,s^{-1}}$",
+    "B": "$29\\ \\mathrm{m\\,s^{-1}}$",
+    "C": "$31\\ \\mathrm{m\\,s^{-1}}$",
+    "D": "$39\\ \\mathrm{m\\,s^{-1}}$"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The horizontal component stays $10.0\\ \\mathrm{m\\,s^{-1}}$. The vertical component is $v_y=0+9.81\\times3.0=29\\ \\mathrm{m\\,s^{-1}}$. The speed is the magnitude of the resultant, $\\sqrt{10.0^2+29.4^2}=31\\ \\mathrm{m\\,s^{-1}}$. Option D ($39$) adds the two components ($10+29$) instead of using Pythagoras.",
+   "distractors": {
+    "D": "m8"
+   }
+  },
+  {
+   "id": "9702-2.1-p11",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q9",
+    "qid": "9702_s22_11_q9"
+   },
+   "stem": "A projectile is launched at an angle above horizontal ground and travels through the air. The projectile reaches its maximum height at position X. Assume that no upthrust acts on the projectile. Which diagram shows the directions of the force or forces acting on the projectile at position X?",
+   "answer": "B",
+   "marks": 1,
+   "explanation": "At X the projectile is moving horizontally, and it is moving through air, so two forces act: its weight, vertically downwards, and air resistance, horizontally in the direction opposite to its motion. Almost half of candidates chose A, which has a forwards force along the direction of motion: nothing pushes the projectile forward once it has left the launcher, and a force is not needed to keep it moving. C shows only a forwards force and no weight.",
+   "image": "Assets/mcq/9702_s22_11_q9.png",
+   "distractors": {
+    "A": "m7",
+    "C": "m7"
+   }
+  },
+  {
+   "id": "9702-2.1-p12",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q7",
+    "qid": "9702_w22_12_q7"
+   },
+   "stem": "A goods train passes through a station at a steady speed of $10\\ \\mathrm{m\\,s^{-1}}$ at time $t=0$. An express train is at rest at the station. The express train leaves the station with a uniform acceleration of $0.5\\ \\mathrm{m\\,s^{-2}}$ just as the goods train goes past. Both trains move in the same direction on straight, parallel tracks. At which time $t$ does the express train overtake the goods train?",
+   "options": {
+    "A": "6 s",
+    "B": "10 s",
+    "C": "20 s",
+    "D": "40 s"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "They have travelled the same distance when they meet: $10T=\\tfrac12\\times0.5\\times T^2$, so $T=40\\ \\mathrm{s}$. Option C, $20\\ \\mathrm{s}$, is when the express train reaches the goods train's speed ($0.5\\times20=10\\ \\mathrm{m\\,s^{-1}}$), when the gap is largest; equal speeds do not mean equal positions."
+  },
+  {
+   "id": "9702-2.1-i01",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define velocity and acceleration.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "velocity is the rate of change of displacement",
+     "keywords": [
+      [
+       "rate of change of displacement",
+       "change in displacement per unit time",
+       "displacement per unit time",
+       "displacement divided by time",
+       "displacement / time",
+       "displacement/time",
+       "change of displacement per"
+      ]
+     ]
+    },
+    {
+     "point": "acceleration is the rate of change of velocity",
+     "keywords": [
+      [
+       "rate of change of velocity",
+       "change in velocity per unit time",
+       "velocity per unit time",
+       "change of velocity per",
+       "velocity divided by time",
+       "change in velocity / time",
+       "change in velocity divided by time"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Velocity is the rate of change of displacement; acceleration is the rate of change of velocity. Both are vectors.",
+   "hints": [
+    "Each quantity is defined as a rate of change of another quantity: which one?",
+    "Velocity is linked to displacement, and acceleration is linked to velocity.",
+    "Say 'rate of change of ...' for each, naming the correct quantity (displacement or distance, velocity or speed)."
+   ]
+  },
+  {
+   "id": "9702-2.1-i02",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A car travels at a constant speed along a semicircular road of radius [[r]] m, from one end of a diameter to the other, in [[t]] s. Calculate the magnitude of the average velocity of the car.",
+   "answer": {
+    "unit": "m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "r": {
+      "choices": [
+       40,
+       50,
+       60,
+       75,
+       80
+      ]
+     },
+     "t": {
+      "choices": [
+       10,
+       12,
+       15,
+       20,
+       25
+      ]
+     }
+    },
+    "answer": "2*r/t",
+    "distractors": [
+     {
+      "expr": "pi*r/t",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "Average velocity is displacement divided by time. The displacement is the diameter, $2r$, so $v=2r/t$. Using the length of the road, $\\pi r$, gives the average speed, which is a different quantity.",
+   "hints": [
+    "Velocity uses displacement, not the distance along the road.",
+    "Sketch the semicircle: what is the straight-line change in position between the two ends?",
+    "Which straight-line distance links the two ends of the semicircle, in terms of $r$?"
+   ]
+  },
+  {
+   "id": "9702-2.1-i03",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A car moves round a roundabout at a constant speed of $12\\ \\mathrm{m\\,s^{-1}}$. Which statement is correct?",
+   "answer": "C",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "Its acceleration is zero because its speed is constant.",
+    "B": "Its velocity is constant because its speed is constant.",
+    "C": "Its velocity is changing because its direction is changing, so it is accelerating.",
+    "D": "Its displacement from its starting point increases at a constant rate."
+   },
+   "distractors": {
+    "A": "m2",
+    "B": "m2"
+   },
+   "explanation": "Velocity is a vector, so a change in direction is a change in velocity even when the speed is constant. The car is therefore accelerating. The statements saying the acceleration is zero or the velocity is constant mistake constant speed for constant velocity.",
+   "hints": [
+    "Speed and velocity are not the same kind of quantity: which has a direction?",
+    "Acceleration is the rate of change of velocity: does the roundabout change the car's velocity?",
+    "Ask whether the car's direction of travel stays the same as it goes round."
+   ]
+  },
+  {
+   "id": "9702-2.1-i04",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball travelling at [[u]] m s$^{-1}$ towards a wall rebounds along the same line at [[v]] m s$^{-1}$. It is in contact with the wall for [[t]] ms. Calculate the magnitude of the average acceleration of the ball during the contact.",
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       8,
+       10,
+       12,
+       15,
+       20
+      ]
+     },
+     "v": {
+      "choices": [
+       4,
+       5,
+       6,
+       9
+      ]
+     },
+     "t": {
+      "choices": [
+       5,
+       8,
+       10,
+       12,
+       20
+      ]
+     }
+    },
+    "answer": "(u + v)/T",
+    "derived": {
+     "T": "t/1000"
+    },
+    "distractors": [
+     {
+      "expr": "(u - v)/T",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "Take the initial direction as positive: $\\Delta v=(-v)-(+u)$, magnitude $u+v$. The acceleration is $\\Delta v/\\Delta t=(u+v)/\\Delta t$, with the time converted to seconds. Subtracting the speeds ignores the reversal of direction.",
+   "hints": [
+    "Velocity is a vector and the ball reverses direction.",
+    "Choose one direction as positive and give the final velocity its sign.",
+    "Change in velocity is final minus initial with signs; then divide by the time in seconds."
+   ]
+  },
+  {
+   "id": "9702-2.1-i05",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For an object moving in a straight line, which row shows what the gradient and the area under a velocity-time graph represent?",
+   "answer": "B",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "gradient: displacement; area: acceleration",
+    "B": "gradient: acceleration; area: displacement",
+    "C": "gradient: acceleration; area: velocity",
+    "D": "gradient: displacement; area: velocity"
+   },
+   "explanation": "The gradient of a velocity-time graph is change in velocity divided by time, which is acceleration, and the area under it is velocity multiplied by time, which is displacement. Taking the area as velocity or acceleration is wrong because velocity multiplied by time is displacement, and taking the gradient as displacement is wrong because velocity divided by time is acceleration.",
+   "hints": [
+    "Work out the units: velocity divided by time, and velocity multiplied by time.",
+    "The units of gradient ($\\mathrm{m\\,s^{-1}}\\ /\\ \\mathrm{s}$) and of area ($\\mathrm{m\\,s^{-1}}\\times\\mathrm{s}$) identify each quantity.",
+    "Match the unit of the gradient to a quantity, then the unit of the area to another."
+   ]
+  },
+  {
+   "id": "9702-2.1-i06",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe what a horizontal straight line represents on (i) a displacement-time graph and (ii) a velocity-time graph.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "displacement-time: stationary / at rest",
+     "keywords": [
+      [
+       "stationary",
+       "at rest",
+       "not moving",
+       "zero velocity",
+       "remains at the same",
+       "no velocity"
+      ]
+     ]
+    },
+    {
+     "point": "velocity-time: constant velocity / zero acceleration",
+     "keywords": [
+      [
+       "constant velocity",
+       "constant speed",
+       "uniform velocity",
+       "zero acceleration",
+       "not accelerating",
+       "no acceleration",
+       "steady"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A horizontal line on a displacement-time graph has zero gradient, so zero velocity: the object is at rest. A horizontal line on a velocity-time graph has zero gradient, so zero acceleration: constant velocity.",
+   "hints": [
+    "Each graph's gradient represents a different quantity.",
+    "A horizontal line has zero gradient: zero what, for each graph?",
+    "Name the quantity that the gradient represents on each graph, and then say what it being zero means."
+   ]
+  },
+  {
+   "id": "9702-2.1-i07",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball is thrown vertically upwards, rises, and falls back to the ground, air resistance being negligible. Taking upwards as positive, which describes the velocity-time graph from launch to the moment before landing?",
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "one straight line with a negative gradient, crossing the time axis at the highest point",
+    "B": "a curve with zero gradient at the highest point",
+    "C": "one straight line with a positive gradient",
+    "D": "a straight line falling to zero and then rising again to positive values"
+   },
+   "explanation": "The acceleration is constant at $-9.81\\ \\mathrm{m\\,s^{-2}}$, so the velocity-time graph is a single straight line with a negative gradient. It is positive on the way up, passes through zero at the highest point and is negative on the way down. A curve is the displacement-time graph, and a V-shape is a speed-time graph.",
+   "hints": [
+    "The acceleration is constant: what shape is a velocity-time graph if the acceleration is constant?",
+    "Decide the sign of the velocity on the way up and on the way down when upwards is positive.",
+    "The velocity is zero at the highest point: where does the graph cross the time axis?"
+   ]
+  },
+  {
+   "id": "9702-2.1-i08",
+   "kcs": [
+    "9702-2.1.2",
+    "9702-2.1.3"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A car starts from rest and accelerates uniformly at $2.0\\ \\mathrm{m\\,s^{-2}}$ for $5.0\\ \\mathrm{s}$. It then travels at constant velocity for $10\\ \\mathrm{s}$ before braking uniformly to rest in $4.0\\ \\mathrm{s}$. (a) Sketch the velocity-time graph for the whole journey. (b) Determine the total distance travelled.",
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "sketch: straight line from the origin up to $10\\ \\mathrm{m\\,s^{-1}}$ at $5.0\\ \\mathrm{s}$, horizontal to $15\\ \\mathrm{s}$, then a straight line down to zero at $19\\ \\mathrm{s}$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 10.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "distance is the area under the velocity-time graph (triangle + rectangle + triangle)"
+    },
+    {
+     "mark": "A1",
+     "point": "total distance $=\\tfrac12\\times5.0\\times10+10\\times10+\\tfrac12\\times4.0\\times10=145\\ \\mathrm{m}$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 145.0,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "marks": 3,
+   "explanation": "The maximum speed is $at=2.0\\times5.0=10\\ \\mathrm{m\\,s^{-1}}$. Uniform acceleration gives straight lines, constant velocity a horizontal line, and the distance is the total area beneath the graph.",
+   "hints": [
+    "Uniform acceleration means straight-line sections on a velocity-time graph.",
+    "Find the speed at the end of the first section with $v=u+at$, then draw the three sections in order.",
+    "The distance is the area under the graph: split it into two triangles and a rectangle."
+   ]
+  },
+  {
+   "id": "9702-2.1-i09",
+   "kcs": [
+    "9702-2.1.5",
+    "9702-2.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The velocity of a trolley changes uniformly from [[u]] m s$^{-1}$ to [[v]] m s$^{-1}$ in [[t]] s, so its velocity-time graph is a straight line. Determine the acceleration of the trolley.",
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 2,
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     },
+     "v": {
+      "choices": [
+       9,
+       12,
+       14,
+       18
+      ]
+     },
+     "t": {
+      "choices": [
+       2,
+       3,
+       4,
+       5
+      ]
+     }
+    },
+    "answer": "(v - u)/t",
+    "distractors": [
+     {
+      "expr": "v/t",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "The acceleration is the gradient of the velocity-time graph: change in velocity divided by change in time, $(v-u)/t$. Dividing the final velocity by the time works only if the line starts at the origin.",
+   "hints": [
+    "Acceleration is what the gradient of a velocity-time graph represents.",
+    "A gradient uses the change in each quantity, not a single value.",
+    "Find the change in velocity first, then divide by the time taken."
+   ]
+  },
+  {
+   "id": "9702-2.1-i10",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The velocity-time graph of a cyclist is a horizontal line at [[v]] m s$^{-1}$ for [[a]] s, followed by a straight line falling uniformly to zero over a further [[b]] s. Determine the total displacement of the cyclist.",
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "v": {
+      "choices": [
+       6,
+       8,
+       10,
+       12
+      ]
+     },
+     "a": {
+      "choices": [
+       4,
+       5,
+       6,
+       8
+      ]
+     },
+     "b": {
+      "choices": [
+       3,
+       4,
+       5,
+       6
+      ]
+     }
+    },
+    "answer": "v*a + 0.5*v*b",
+    "distractors": [
+     {
+      "expr": "v*(a + b)"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "Displacement is the area under the velocity-time graph: a rectangle $vt_1$ plus a triangle $\\tfrac12vt_2$.",
+   "hints": [
+    "Displacement is found from the area under a velocity-time graph.",
+    "Split the graph into two shapes: what are they?",
+    "Find the area of the rectangle and the area of the triangle, then add them (both are above the axis)."
+   ]
+  },
+  {
+   "id": "9702-2.1-i11",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The velocity of an object moving along a straight line changes uniformly from [[a]] m s$^{-1}$ in one direction at $t=0$ to [[b]] m s$^{-1}$ in the opposite direction at $t=[[T]]$ s. Determine its displacement from its starting point at $t=[[T]]$ s, in the direction of the initial velocity.",
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       8,
+       10,
+       12
+      ]
+     },
+     "b": {
+      "choices": [
+       2,
+       4,
+       6
+      ]
+     },
+     "T": {
+      "choices": [
+       4,
+       6,
+       8,
+       10
+      ]
+     }
+    },
+    "answer": "T*(a - b)/2",
+    "distractors": [
+     {
+      "expr": "T*(a**2 + b**2)/(2*(a + b))",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": [
+     "a > b"
+    ]
+   },
+   "explanation": "Taking the initial direction as positive, the graph goes from $+a$ to $-b$. The signed area is the displacement: $\\tfrac12(a-b)T$, the average velocity times the time. Adding the two areas' magnitudes gives the distance travelled, which is larger.",
+   "hints": [
+    "Give the velocity at the end a negative sign.",
+    "The area below the time axis counts as displacement in the opposite direction.",
+    "For a straight-line graph the displacement is the average velocity multiplied by time: find the average of the signed end values."
+   ]
+  },
+  {
+   "id": "9702-2.1-i12",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what is represented by the area under a velocity-time graph, and how an area below the time axis should be treated.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "area under v-t graph = displacement",
+     "keywords": [
+      [
+       "displacement",
+       "change in position",
+       "change in displacement"
+      ]
+     ]
+    },
+    {
+     "point": "area below the axis is negative / subtracted (opposite direction)",
+     "keywords": [
+      [
+       "below"
+      ],
+      [
+       "negative",
+       "subtract",
+       "opposite direction",
+       "opposite way",
+       "minus",
+       "backwards"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The area under a velocity-time graph is the displacement. An area below the time axis is negative (displacement in the opposite direction) and is subtracted from the areas above it.",
+   "hints": [
+    "Consider the units: velocity multiplied by time.",
+    "The graph can go below the time axis when the object turns round.",
+    "Area = displacement; think about what a negative velocity does to that displacement."
+   ]
+  },
+  {
+   "id": "9702-2.1-i13",
+   "kcs": [
+    "9702-2.1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The displacement-time graph of a runner is a straight line passing through the points ([[t1]] s, [[s1]] m) and ([[t2]] s, [[s2]] m). Determine the velocity of the runner.",
+   "answer": {
+    "unit": "m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 2,
+   "template": {
+    "params": {
+     "t1": {
+      "choices": [
+       2,
+       3
+      ]
+     },
+     "t2": {
+      "choices": [
+       6,
+       8,
+       10
+      ]
+     },
+     "s1": {
+      "choices": [
+       2,
+       4
+      ]
+     },
+     "s2": {
+      "choices": [
+       30,
+       36,
+       40
+      ]
+     }
+    },
+    "answer": "(s2 - s1)/(t2 - t1)",
+    "distractors": [
+     {
+      "expr": "s2/t2",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": [
+     "(s2*t1 - s1*t2)/(s2*(t2 - t1)) > 0.05"
+    ]
+   },
+   "explanation": "Velocity is the gradient of a displacement-time graph: $(s_2-s_1)/(t_2-t_1)$. Dividing one displacement by one time gives the gradient only for a line through the origin.",
+   "hints": [
+    "Velocity is what the gradient of a displacement-time graph represents.",
+    "A gradient needs a change in $s$ over a change in $t$: use both points.",
+    "Subtract the two displacements and subtract the two times, then divide."
+   ]
+  },
+  {
+   "id": "9702-2.1-i14",
+   "kcs": [
+    "9702-2.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The displacement-time graph for an object is a curve whose gradient increases steadily with time. What does this show?",
+   "answer": "B",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "The object moves with constant velocity.",
+    "B": "The velocity of the object is increasing.",
+    "C": "The velocity of the object is decreasing.",
+    "D": "The object is at rest."
+   },
+   "explanation": "The velocity is the gradient of the displacement-time graph. An increasing gradient means an increasing velocity, so the object is speeding up. A constant velocity would give a straight line.",
+   "hints": [
+    "Velocity is the gradient of a displacement-time graph.",
+    "The gradient is getting steeper: what is happening to the velocity?",
+    "Compare with a straight line, which has a constant gradient."
+   ]
+  },
+  {
+   "id": "9702-2.1-i15",
+   "kcs": [
+    "9702-2.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how the instantaneous velocity at time $t$ is found from a displacement-time graph that is a curve.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "draw a tangent to the curve at that time",
+     "keywords": [
+      [
+       "tangent"
+      ]
+     ]
+    },
+    {
+     "point": "gradient of the tangent = change in displacement / change in time",
+     "keywords": [
+      [
+       "gradient",
+       "slope"
+      ],
+      [
+       "change in displacement",
+       "displacement divided by",
+       "displacement /",
+       "displacement/",
+       "rise over run",
+       "vertical",
+       "Δs",
+       "∆s",
+       "ds/dt"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Draw a tangent to the curve at time $t$. The gradient of the tangent, change in displacement divided by change in time (using a large triangle), is the instantaneous velocity.",
+   "hints": [
+    "The gradient changes along a curve, so the gradient at one instant needs a special line.",
+    "Draw a line that just touches the curve at the required time.",
+    "Find the gradient of that line using a large triangle."
+   ]
+  },
+  {
+   "id": "9702-2.1-i16",
+   "kcs": [
+    "9702-2.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The displacement-time graph for an object is a straight line sloping downwards from the top left to the bottom right. What does this show?",
+   "answer": "C",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "The object is at rest.",
+    "B": "The object is moving with constant velocity in the positive direction.",
+    "C": "The object is moving with constant velocity in the negative direction.",
+    "D": "The object is moving with constant acceleration in the negative direction."
+   },
+   "explanation": "A straight line has a constant gradient, so the velocity is constant; a downward slope means the gradient is negative, so the object moves in the negative direction at constant velocity.",
+   "hints": [
+    "A straight line has the same gradient everywhere.",
+    "Constant gradient on a displacement-time graph means what for velocity?",
+    "Now consider what a negative gradient means for the direction of motion."
+   ]
+  },
+  {
+   "id": "9702-2.1-i17",
+   "kcs": [
+    "9702-2.1.4"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The displacement-time graph of a trolley is a curve. A tangent drawn to the curve at $t=4.0\\ \\mathrm{s}$ passes through the points $(1.0\\ \\mathrm{s},\\ 2.0\\ \\mathrm{m})$ and $(7.0\\ \\mathrm{s},\\ 20.0\\ \\mathrm{m})$. (a) Determine the velocity of the trolley at $t=4.0\\ \\mathrm{s}$. (b) State what the graph would look like if the velocity were constant.",
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "velocity = gradient of the tangent = change in displacement / change in time"
+    },
+    {
+     "mark": "A1",
+     "point": "$v=(20.0-2.0)/(7.0-1.0)=3.0\\ \\mathrm{m\\,s^{-1}}$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "a straight line (constant gradient) on the displacement-time graph"
+    }
+   ],
+   "marks": 3,
+   "explanation": "The velocity at an instant is the gradient of the tangent at that instant. Use the two points on the tangent, not a point on the curve. A constant velocity gives a constant gradient, a straight line.",
+   "hints": [
+    "Velocity is the gradient of a displacement-time graph.",
+    "The gradient at an instant is the gradient of the tangent, and two points on the tangent are given.",
+    "Use change in displacement divided by change in time between the two points."
+   ]
+  },
+  {
+   "id": "9702-2.1-i18",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A car moving in the positive direction slows uniformly from $12\\ \\mathrm{m\\,s^{-1}}$ to $4.0\\ \\mathrm{m\\,s^{-1}}$ in $2.0\\ \\mathrm{s}$. Determine its acceleration.",
+   "answer": "B",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "$+4.0\\ \\mathrm{m\\,s^{-2}}$",
+    "B": "$-4.0\\ \\mathrm{m\\,s^{-2}}$",
+    "C": "$-8.0\\ \\mathrm{m\\,s^{-2}}$",
+    "D": "$-6.0\\ \\mathrm{m\\,s^{-2}}$"
+   },
+   "distractors": {
+    "A": "m6",
+    "D": "m4"
+   },
+   "explanation": "Acceleration is $(v-u)/t=(4.0-12)/2.0=-4.0\\ \\mathrm{m\\,s^{-2}}$: negative because the velocity is decreasing in the positive direction. Using the initial velocity alone ($12/2.0$) or ignoring the sign gives wrong values.",
+   "hints": [
+    "Acceleration is change in velocity divided by time, with signs.",
+    "Find the change in velocity: final minus initial.",
+    "Then divide by the time taken and think about the sign of the result."
+   ]
+  },
+  {
+   "id": "9702-2.1-i19",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State how the acceleration is found from a velocity-time graph, and what a negative gradient shows for an object moving in the positive direction.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "acceleration = gradient of the velocity-time graph",
+     "keywords": [
+      [
+       "gradient",
+       "slope"
+      ]
+     ]
+    },
+    {
+     "point": "negative gradient: decreasing velocity / deceleration",
+     "keywords": [
+      [
+       "negative"
+      ],
+      [
+       "deceleration",
+       "decelerating",
+       "slowing",
+       "decreasing",
+       "slows",
+       "opposite direction",
+       "negative direction",
+       "decelerat"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Acceleration is the gradient of the velocity-time graph (of the tangent, if it is curved). A negative gradient means the velocity is decreasing, so the object is decelerating.",
+   "hints": [
+    "Think about the units of the gradient of a velocity-time graph.",
+    "Gradient = change in velocity divided by change in time.",
+    "Negative gradient: is the velocity getting larger or smaller for an object moving in the positive direction?"
+   ]
+  },
+  {
+   "id": "9702-2.1-i20",
+   "kcs": [
+    "9702-2.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Derive",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Use the definition of acceleration to derive $v=u+at$ for uniform acceleration from initial velocity $u$ to final velocity $v$ in time $t$.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "$a=(v-u)/t$: acceleration = change in velocity / time",
+     "keywords": [
+      [
+       "change in velocity",
+       "(v-u)",
+       "v-u",
+       "v - u",
+       "v − u",
+       "(v − u)",
+       "v−u"
+      ],
+      [
+       "time",
+       "/t",
+       "÷ t",
+       "divided by t",
+       "over t"
+      ]
+     ]
+    },
+    {
+     "point": "rearranged to $v=u+at$",
+     "keywords": [
+      [
+       "v = u + at",
+       "v=u+at",
+       "v = u+at",
+       "v = at + u",
+       "v=at+u",
+       "at + u",
+       "u + at",
+       "u+at"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Acceleration is change in velocity divided by time, $a=(v-u)/t$. Multiplying by $t$ and adding $u$ gives $v=u+at$.",
+   "hints": [
+    "Start from the definition: acceleration is a rate of change of a particular quantity.",
+    "Write the change in velocity in terms of $u$ and $v$, divided by the time taken.",
+    "Rearrange $a=(v-u)/t$ to make $v$ the subject."
+   ]
+  },
+  {
+   "id": "9702-2.1-i21",
+   "kcs": [
+    "9702-2.1.6"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Show",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A body moves in a straight line with uniform acceleration $a$. Its velocity increases from $u$ to $v$ in time $t$ and its displacement is $s$. Show that $s=ut+\\tfrac12at^2$.",
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "for uniform acceleration the average velocity is $\\tfrac12(u+v)$, so $s=\\tfrac12(u+v)t$ (area of the trapezium under the velocity-time graph)"
+    },
+    {
+     "mark": "M1",
+     "point": "substitute $v=u+at$ into $s=\\tfrac12(u+v)t$"
+    },
+    {
+     "mark": "A1",
+     "point": "$s=\\tfrac12(2u+at)t=ut+\\tfrac12at^2$, with the algebra shown"
+    }
+   ],
+   "marks": 3,
+   "explanation": "The average velocity is the mean of $u$ and $v$ only because the acceleration is uniform. Substituting $v=u+at$ and simplifying gives the result.",
+   "hints": [
+    "The displacement is the area under the velocity-time graph for uniform acceleration.",
+    "The area is a trapezium: write $s$ in terms of $u$, $v$ and $t$.",
+    "Eliminate $v$ using $v=u+at$, then simplify."
+   ]
+  },
+  {
+   "id": "9702-2.1-i22",
+   "kcs": [
+    "9702-2.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The equation $s=\\tfrac12(u+v)t$ uses $\\tfrac12(u+v)$ as the average velocity. Why is this valid only for uniform acceleration?",
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "Uniform acceleration means the velocity changes at a constant rate, so the average velocity is halfway between $u$ and $v$.",
+    "B": "Uniform acceleration means the acceleration equals $9.81\\ \\mathrm{m\\,s^{-2}}$.",
+    "C": "Uniform acceleration means the velocity is constant, so $u=v$.",
+    "D": "Uniform acceleration means the object is moving in a straight line, whatever the acceleration."
+   },
+   "explanation": "When the acceleration is uniform the velocity increases at a constant rate, so the mean of the initial and final velocities is the average velocity. If the acceleration changes, the average velocity is no longer halfway between them.",
+   "hints": [
+    "The mean of two values is the average only when the change between them is steady.",
+    "Think about the shape of the velocity-time graph between $u$ and $v$ for uniform acceleration.",
+    "Is the graph a straight line when the acceleration is uniform, and does the trapezium area then equal the mean height multiplied by the width?"
+   ]
+  },
+  {
+   "id": "9702-2.1-i23",
+   "kcs": [
+    "9702-2.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A body has uniform acceleration. Its velocity-time graph is a straight line from $u$ at $t=0$ to $v$ at time $t$. Which expression gives the area under the graph, the displacement?",
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "$\\tfrac12(u+v)t$",
+    "B": "$\\tfrac12vt$",
+    "C": "$(u+v)t$",
+    "D": "$\\tfrac12(v-u)t$"
+   },
+   "explanation": "The area is a trapezium with parallel sides $u$ and $v$ and width $t$: $\\tfrac12(u+v)t$. A triangle only ($\\tfrac12vt$) ignores the starting velocity, and $\\tfrac12(v-u)t$ is just the triangle above the rectangle.",
+   "hints": [
+    "The graph is a straight line that does not start at the origin.",
+    "Sketch it: which shape lies under the line?",
+    "Area of a trapezium = average of the two parallel sides multiplied by the width."
+   ]
+  },
+  {
+   "id": "9702-2.1-i24",
+   "kcs": [
+    "9702-2.1.6"
+   ],
+   "kind": "expression",
+   "difficulty": 5,
+   "command_word": "Derive",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For uniform acceleration $a$, use $v=u+at$ and $s=\\tfrac12(u+v)t$ to eliminate $t$ and write $v^2$ in terms of $u$, $a$ and $s$.",
+   "answer": {
+    "expr": "u**2 + 2*a*s"
+   },
+   "marks": 3,
+   "explanation": "From $v=u+at$, $t=(v-u)/a$. Then $s=\\tfrac12(u+v)(v-u)/a=(v^2-u^2)/(2a)$, so $v^2=u^2+2as$.",
+   "hints": [
+    "You need an equation with no $t$: make $t$ the subject of one equation.",
+    "Substitute $t=(v-u)/a$ into $s=\\tfrac12(u+v)t$.",
+    "Look for a difference of two squares in the product $(u+v)(v-u)$."
+   ]
+  },
+  {
+   "id": "9702-2.1-i25",
+   "kcs": [
+    "9702-2.1.6",
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A car accelerates uniformly. Its initial velocity, final velocity and displacement are known and its acceleration is required. Which equation should be used, because the time is neither given nor asked for?",
+   "answer": "C",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "$v=u+at$",
+    "B": "$s=ut+\\tfrac12at^2$",
+    "C": "$v^2=u^2+2as$",
+    "D": "$s=\\tfrac12(u+v)t$"
+   },
+   "explanation": "The equation with no $t$ is $v^2=u^2+2as$, which links exactly the four quantities in the question. The other equations all contain $t$.",
+   "hints": [
+    "List the quantities you know and the one you want.",
+    "Only one of the four equations does not contain the time $t$.",
+    "Which of $s$, $u$, $v$, $a$ and $t$ is missing from your list of knowns and unknowns? Rule out every option that contains it."
+   ]
+  },
+  {
+   "id": "9702-2.1-i26",
+   "kcs": [
+    "9702-2.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the conditions under which the equations of motion $v=u+at$ and $s=ut+\\tfrac12at^2$ can be used.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "uniform / constant acceleration",
+     "keywords": [
+      [
+       "uniform",
+       "constant acceleration",
+       "constant",
+       "same acceleration"
+      ]
+     ]
+    },
+    {
+     "point": "motion in a straight line",
+     "keywords": [
+      [
+       "straight line",
+       "one dimension",
+       "in a line",
+       "linear",
+       "one direction",
+       "straight path"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The equations apply only when the acceleration is constant (uniform) and the motion is in a straight line.",
+   "hints": [
+    "The equations were derived using an average velocity.",
+    "One condition concerns the acceleration; the other concerns the path of the motion.",
+    "The acceleration must be what, and the motion must be along what kind of line?"
+   ]
+  },
+  {
+   "id": "9702-2.1-i27",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A stone is dropped from rest from a bridge [[h]] m above a river. Air resistance is negligible. Calculate the time taken for the stone to reach the river.",
+   "answer": {
+    "unit": "s",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 2,
+   "template": {
+    "params": {
+     "h": {
+      "choices": [
+       5,
+       8,
+       12,
+       15,
+       20,
+       30,
+       45
+      ]
+     }
+    },
+    "answer": "sqrt(2*h/9.81)",
+    "distractors": [
+     {
+      "expr": "sqrt(h/9.81)"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "Take downwards as positive: $u=0$, $a=9.81\\ \\mathrm{m\\,s^{-2}}$, $s=h$, so $s=\\tfrac12at^2$ gives $t=\\sqrt{2h/g}$.",
+   "hints": [
+    "List $s$, $u$, $a$ and $t$: which are known?",
+    "The stone starts from rest: which suvat equation contains $s$, $u$, $a$ and $t$?",
+    "Use $s=ut+\\tfrac12at^2$ with $u=0$ and rearrange for $t$."
+   ]
+  },
+  {
+   "id": "9702-2.1-i28",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball is thrown vertically upwards at [[u]] m s$^{-1}$ from ground level. Air resistance is negligible. Calculate the maximum height reached by the ball.",
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       6,
+       8,
+       10,
+       12,
+       15,
+       18,
+       20
+      ]
+     }
+    },
+    "answer": "u**2/(2*9.81)",
+    "distractors": [
+     {
+      "expr": "u**2/9.81"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "At the highest point $v=0$. Taking up as positive, $v^2=u^2+2as$ with $a=-9.81\\ \\mathrm{m\\,s^{-2}}$ gives $0=u^2-2gs$, so $s=u^2/(2g)$.",
+   "hints": [
+    "What is the velocity of the ball at its highest point?",
+    "You know $u$, $v$ and $a$ but not the time: choose the equation with no $t$.",
+    "Use $v^2=u^2+2as$ with $v=0$ and a negative $a$ (upwards positive)."
+   ]
+  },
+  {
+   "id": "9702-2.1-i29",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball is thrown vertically upwards at [[u]] m s$^{-1}$ from ground level and returns to ground level. Air resistance is negligible. Calculate the total time for which the ball is in the air.",
+   "answer": {
+    "unit": "s",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       6,
+       8,
+       10,
+       12,
+       15,
+       18,
+       20
+      ]
+     }
+    },
+    "answer": "2*u/9.81",
+    "distractors": [
+     {
+      "expr": "u/9.81",
+      "misconception": "m5"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "Taking up as positive, the displacement is zero on return: $0=ut-\\tfrac12gt^2$, so $t=2u/g$. This is twice the time to the top, $u/g$.",
+   "hints": [
+    "The ball finishes at the same level from which it started.",
+    "What is the displacement when it returns to its starting level?",
+    "Use $s=ut+\\tfrac12at^2$ with $s=0$ and $a=-9.81$, or find the time to the top and double it."
+   ]
+  },
+  {
+   "id": "9702-2.1-i30",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A car travelling at [[u]] m s$^{-1}$ brakes with uniform deceleration and stops in a distance of [[s]] m. Calculate the magnitude of the deceleration.",
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       12,
+       15,
+       20,
+       25,
+       30
+      ]
+     },
+     "s": {
+      "choices": [
+       30,
+       40,
+       50,
+       60,
+       80
+      ]
+     }
+    },
+    "answer": "u**2/(2*s)",
+    "distractors": [
+     {
+      "expr": "u**2/s"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "With $v=0$, $v^2=u^2+2as$ gives $a=-u^2/(2s)$, magnitude $u^2/(2s)$. The time is not needed.",
+   "hints": [
+    "You know $u$, $v$ (zero at rest) and $s$, and want $a$.",
+    "Choose the equation that has no time in it.",
+    "Use $v^2=u^2+2as$ with $v=0$ and make $a$ the subject."
+   ]
+  },
+  {
+   "id": "9702-2.1-i31",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "structured",
+   "difficulty": 5,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball is thrown vertically upwards at $14\\ \\mathrm{m\\,s^{-1}}$ from the top of a cliff. The ball lands at the foot of the cliff, $25\\ \\mathrm{m}$ below the point of projection. Air resistance is negligible and $g=9.81\\ \\mathrm{m\\,s^{-2}}$. (a) Calculate the time taken for the ball to reach the foot of the cliff. (b) Calculate the speed of the ball as it lands.",
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "upwards positive: $u=+14\\ \\mathrm{m\\,s^{-1}}$, $a=-9.81\\ \\mathrm{m\\,s^{-2}}$, $s=-25\\ \\mathrm{m}$"
+    },
+    {
+     "mark": "M1",
+     "point": "$s=ut+\\tfrac12at^2$: $-25=14t-4.905t^2$, solved as a quadratic (the positive root is chosen)"
+    },
+    {
+     "mark": "A1",
+     "point": "$t=4.1\\ \\mathrm{s}$ ($4.10\\ \\mathrm{s}$)",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.097976046192437,
+       "unit": "s",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "$v^2=u^2+2as=14^2+2\\times9.81\\times25$ (or $v=u+at$)"
+    },
+    {
+     "mark": "A1",
+     "point": "speed $=26\\ \\mathrm{m\\,s^{-1}}$ ($26.2$)",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 26.201145013147805,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "marks": 5,
+   "explanation": "With upwards positive, $s=-25\\ \\mathrm{m}$ because the ball ends below its start. The equation $4.905t^2-14t-25=0$ has one positive root, $4.10\\ \\mathrm{s}$; the negative root is unphysical. The landing speed follows from $v^2=u^2+2as$, taking the positive square root.",
+   "hints": [
+    "Choose upwards as positive and write down the sign of $u$, $a$ and $s$.",
+    "The ball ends below where it started, so the displacement is negative and you must solve a quadratic in $t$.",
+    "Use $s=ut+\\tfrac12at^2$ and reject the negative root, then find the speed with an equation that avoids $t$."
+   ]
+  },
+  {
+   "id": "9702-2.1-i32",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball is thrown vertically upwards. Air resistance is negligible. Which row gives the velocity and acceleration of the ball at its highest point?",
+   "answer": "B",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "velocity zero, acceleration zero",
+    "B": "velocity zero, acceleration $9.81\\ \\mathrm{m\\,s^{-2}}$ downwards",
+    "C": "velocity zero, acceleration $9.81\\ \\mathrm{m\\,s^{-2}}$ upwards",
+    "D": "velocity $9.81\\ \\mathrm{m\\,s^{-1}}$ downwards, acceleration zero"
+   },
+   "distractors": {
+    "A": "m2",
+    "C": "m6"
+   },
+   "explanation": "At the highest point the velocity is momentarily zero, but the ball is still accelerating downwards at $g$ because gravity still acts, and the acceleration is constant for the whole flight.",
+   "hints": [
+    "The acceleration comes from the force of gravity: does this force stop acting at the top?",
+    "Velocity is the rate of change of position; acceleration is the rate of change of velocity.",
+    "The velocity changes from upwards to downwards, so what is the direction of the acceleration?"
+   ]
+  },
+  {
+   "id": "9702-2.1-i33",
+   "kcs": [
+    "9702-2.1.8"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe an experiment to determine the acceleration of free fall using a falling object.",
+   "marks": 5,
+   "rubric": [
+    {
+     "point": "release a small dense object (e.g. steel ball) from rest, e.g. with an electromagnet or a clamp",
+     "keywords": [
+      [
+       "electromagnet",
+       "released",
+       "release",
+       "dropped",
+       "drop",
+       "from rest"
+      ]
+     ]
+    },
+    {
+     "point": "measure the height fallen with a metre rule / tape / ruler",
+     "keywords": [
+      [
+       "metre rule",
+       "meter rule",
+       "ruler",
+       "tape measure",
+       "tape",
+       "metre stick"
+      ],
+      [
+       "height",
+       "distance",
+       "fall"
+      ]
+     ]
+    },
+    {
+     "point": "measure the time of fall with an electronic timer started when the electromagnet is switched off and stopped by a trapdoor or light gate",
+     "keywords": [
+      [
+       "timer",
+       "stopwatch",
+       "light gate",
+       "light-gate",
+       "data logger",
+       "datalogger",
+       "trapdoor",
+       "stop clock"
+      ]
+     ]
+    },
+    {
+     "point": "repeat for different heights (and repeat times to find an average)",
+     "keywords": [
+      [
+       "different heights",
+       "range of heights",
+       "vary the height",
+       "varying height",
+       "several heights",
+       "change the height",
+       "various heights",
+       "different distances"
+      ]
+     ]
+    },
+    {
+     "point": "plot $h$ against $t^2$; the gradient is $g/2$ so $g=2\\times$gradient",
+     "keywords": [
+      [
+       "t2",
+       "t²",
+       "t^2",
+       "t squared",
+       "time squared",
+       "t*t"
+      ],
+      [
+       "gradient",
+       "slope"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Release a steel ball from rest with an electromagnet (switching it off starts the timer), stop the timer when the ball opens a trapdoor or passes a light gate, measure the height with a metre rule, repeat for several heights and plot $h$ against $t^2$. The gradient is $g/2$, so $g$ is twice the gradient.",
+   "hints": [
+    "Think about what you would measure and how: a distance and a time.",
+    "Vary the height and repeat, so that you can plot a graph.",
+    "Which two quantities are plotted so that the gradient is proportional to $g$, and how is $g$ found from it?"
+   ]
+  },
+  {
+   "id": "9702-2.1-i34",
+   "kcs": [
+    "9702-2.1.8"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "In a free-fall experiment a steel ball is released from rest at different heights $h$ and the time $t$ of fall is measured. The graph of $h$ against $t^2$ is a straight line through the origin with gradient [[G:.2f]] m s$^{-2}$. Determine the acceleration of free fall.",
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "G": {
+      "choices": [
+       4.6,
+       4.7,
+       4.8,
+       4.9,
+       5.0,
+       5.1
+      ]
+     }
+    },
+    "answer": "2*G",
+    "distractors": [
+     {
+      "expr": "G",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "From $h=\\tfrac12gt^2$ the graph of $h$ against $t^2$ has gradient $g/2$, so $g=2\\times$ gradient.",
+   "hints": [
+    "Compare $h=\\tfrac12gt^2$ with the straight line $y=mx$.",
+    "Which quantity is on the $y$-axis, which on the $x$-axis, and what does the gradient then equal?",
+    "The gradient equals $\\tfrac12 g$: rearrange for $g$."
+   ]
+  },
+  {
+   "id": "9702-2.1-i35",
+   "kcs": [
+    "9702-2.1.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A steel ball is released from rest and falls a height $h$ in time $t$. Which graph gives a straight line whose gradient can be used to find the acceleration of free fall?",
+   "answer": "B",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "$h$ against $t$",
+    "B": "$h$ against $t^2$",
+    "C": "$h^2$ against $t$",
+    "D": "$t$ against $h$"
+   },
+   "explanation": "From $h=\\tfrac12gt^2$, $h$ is proportional to $t^2$, so a graph of $h$ against $t^2$ is straight with gradient $g/2$. The other graphs are curves, since $h$ is not proportional to $t$.",
+   "hints": [
+    "Start from $h=\\tfrac12gt^2$: what type of relationship links $h$ and $t$?",
+    "For a straight line you need one plotted quantity proportional to the other.",
+    "Look for the pair in which one quantity is directly proportional to the other."
+   ]
+  },
+  {
+   "id": "9702-2.1-i36",
+   "kcs": [
+    "9702-2.1.8"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Suggest",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Suggest two ways to reduce the uncertainty in the value of the acceleration of free fall found in a free-fall experiment.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "repeat readings and average",
+     "keywords": [
+      [
+       "repeat",
+       "average",
+       "mean",
+       "several readings",
+       "many readings"
+      ]
+     ]
+    },
+    {
+     "point": "electronic timing (light gates / data logger) or a larger fall height",
+     "keywords": [
+      [
+       "light gate",
+       "light-gate",
+       "electronic",
+       "data logger",
+       "datalogger",
+       "electromagnet",
+       "automatic",
+       "greater height",
+       "larger height",
+       "increase the height",
+       "greater distance",
+       "longer time",
+       "photogate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Repeating the timing and averaging reduces random error; using electronic timing, or a larger fall height so that the time is longer, reduces the percentage uncertainty in the time.",
+   "hints": [
+    "Consider the main source of uncertainty: the measurement of a short time.",
+    "One improvement concerns how many readings you take; another concerns how the time is measured or how long it is.",
+    "Repeat and average, and use a method that removes human reaction time or makes the time larger."
+   ]
+  },
+  {
+   "id": "9702-2.1-i37",
+   "kcs": [
+    "9702-2.1.8"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "In a free-fall experiment a steel ball released from rest falls a distance of [[h]] m in a time of [[t:.2f]] s. Calculate the acceleration of free fall.",
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "h": {
+      "choices": [
+       1.0,
+       1.5,
+       2.0,
+       2.5
+      ]
+     },
+     "gt": {
+      "choices": [
+       9.6,
+       9.8,
+       10.0
+      ]
+     }
+    },
+    "answer": "2*h/t**2",
+    "derived": {
+     "t": "round(sqrt(2*h/gt), 2)"
+    },
+    "distractors": [
+     {
+      "expr": "h/t**2"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "For $u=0$, $s=\\tfrac12gt^2$, so $g=2s/t^2$.",
+   "hints": [
+    "The ball starts from rest.",
+    "Choose the suvat equation with $s$, $u$, $a$ and $t$.",
+    "Use $s=\\tfrac12at^2$ and make the acceleration the subject."
+   ]
+  },
+  {
+   "id": "9702-2.1-i38",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball is kicked horizontally at [[u]] m s$^{-1}$ from the top of a cliff [[H]] m high. Air resistance is negligible. Calculate the horizontal distance from the foot of the cliff to where the ball lands.",
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       6,
+       8,
+       10,
+       12
+      ]
+     },
+     "H": {
+      "choices": [
+       20,
+       30,
+       45,
+       80
+      ]
+     }
+    },
+    "answer": "u*sqrt(2*H/9.81)",
+    "distractors": [
+     {
+      "expr": "u*sqrt(H/9.81)"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "The vertical motion starts from rest: $H=\\tfrac12gt^2$, so $t=\\sqrt{2H/g}$. The horizontal velocity is constant, so the distance is $ut$.",
+   "hints": [
+    "Treat the horizontal and vertical motion separately.",
+    "The time of fall depends only on the vertical motion: the ball has no initial vertical velocity.",
+    "Find the time to fall $H$ from rest, then multiply by the constant horizontal velocity."
+   ]
+  },
+  {
+   "id": "9702-2.1-i39",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball is kicked from level ground at [[v]] m s$^{-1}$ at [[t]]$^\\circ$ above the horizontal. Air resistance is negligible. Calculate the maximum height reached by the ball.",
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "template": {
+    "params": {
+     "v": {
+      "choices": [
+       12,
+       15,
+       18,
+       20,
+       25
+      ]
+     },
+     "t": {
+      "choices": [
+       30,
+       35,
+       40,
+       45,
+       50,
+       55,
+       60
+      ]
+     }
+    },
+    "answer": "(v*sin(radians(t)))**2/(2*9.81)",
+    "distractors": [
+     {
+      "expr": "v**2/(2*9.81)",
+      "misconception": "m8"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "Only the vertical component matters: $u_y=v\\sin\\theta$. At the top $v_y=0$, so $H=u_y^2/(2g)=(v\\sin\\theta)^2/(2g)$. Using $v$ instead of $v\\sin\\theta$ overestimates the height.",
+   "hints": [
+    "Resolve the launch velocity into horizontal and vertical components.",
+    "The height depends only on the vertical component: what is the vertical velocity at the top?",
+    "Use $v_y^2=u_y^2-2gs$ with $v_y=0$ and $u_y=v\\sin\\theta$."
+   ]
+  },
+  {
+   "id": "9702-2.1-i40",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Ball A is dropped from rest from the top of a tower. At the same instant ball B is fired horizontally from the same point with a large speed. Air resistance is negligible. Which statement is correct?",
+   "answer": "C",
+   "shuffle": true,
+   "marks": 1,
+   "options": {
+    "A": "A lands first because B has further to travel.",
+    "B": "B lands first because it has a horizontal velocity as well.",
+    "C": "They land at the same time because their vertical motions are identical.",
+    "D": "Which lands first depends on the horizontal speed of B."
+   },
+   "distractors": {
+    "A": "m8",
+    "B": "m8",
+    "D": "m8"
+   },
+   "explanation": "The vertical motion of each ball is the same: zero initial vertical velocity and acceleration $g$. The horizontal velocity of B does not affect its vertical motion, so both balls land together.",
+   "hints": [
+    "Consider the vertical motion of each ball on its own.",
+    "What is the initial vertical velocity of each ball and the acceleration in the vertical direction?",
+    "Does the horizontal velocity of B change its vertical motion?"
+   ]
+  },
+  {
+   "id": "9702-2.1-i41",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the path of a projectile launched at an angle in a uniform gravitational field is a parabola. Air resistance is negligible.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "horizontal velocity is constant (no horizontal force or acceleration)",
+     "keywords": [
+      [
+       "horizontal"
+      ],
+      [
+       "constant velocity",
+       "constant speed",
+       "no acceleration",
+       "no force",
+       "uniform velocity",
+       "does not change",
+       "remains constant",
+       "stays constant",
+       "is constant",
+       "unchanged"
+      ]
+     ]
+    },
+    {
+     "point": "vertical acceleration is constant (downwards, $g$)",
+     "keywords": [
+      [
+       "vertical"
+      ],
+      [
+       "constant acceleration",
+       "uniform acceleration",
+       "acceleration of free fall",
+       "accelerates downwards",
+       "constant downward",
+       "acceleration is constant",
+       "constant downwards"
+      ]
+     ]
+    },
+    {
+     "point": "the two motions are independent (perpendicular), so the vertical displacement is proportional to $t^2$ while horizontal is proportional to $t$",
+     "keywords": [
+      [
+       "independent",
+       "separately",
+       "perpendicular",
+       "right angles",
+       "at right angle"
+      ]
+     ]
+    }
+   ],
+   "explanation": "There is no horizontal force, so the horizontal velocity is constant and the horizontal distance is proportional to $t$. The vertical acceleration is constant ($g$), so the vertical displacement contains a $t^2$ term. Since the two motions are independent, eliminating $t$ gives a vertical displacement that is quadratic in horizontal distance: a parabola.",
+   "hints": [
+    "Split the motion into a horizontal and a vertical part and describe each.",
+    "One part has constant velocity; the other has constant acceleration. How does each displacement depend on $t$?",
+    "Combine: one displacement is proportional to $t$, the other has a term in $t^2$."
+   ]
+  },
+  {
+   "id": "9702-2.1-i42",
+   "kcs": [
+    "9702-2.1.9",
+    "9702-2.1.7"
+   ],
+   "kind": "structured",
+   "difficulty": 5,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball is kicked from level ground with speed $20\\ \\mathrm{m\\,s^{-1}}$ at $40^\\circ$ above the horizontal. Air resistance is negligible and $g=9.81\\ \\mathrm{m\\,s^{-2}}$. (a) Calculate the horizontal and vertical components of the initial velocity. (b) Calculate the time for which the ball is in the air. (c) Calculate the horizontal distance travelled before it lands.",
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "$u_x=20\\cos40^\\circ=15.3\\ \\mathrm{m\\,s^{-1}}$ and $u_y=20\\sin40^\\circ=12.9\\ \\mathrm{m\\,s^{-1}}$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 12.855752193730785,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "vertical: displacement zero on landing, so $0=u_yt-\\tfrac12gt^2$ (or $t=2u_y/g$)"
+    },
+    {
+     "mark": "A1",
+     "point": "$t=2.6\\ \\mathrm{s}$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.620948459476205,
+       "unit": "s",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "horizontal: constant velocity, so distance $=u_xt$"
+    },
+    {
+     "mark": "A1",
+     "point": "distance $=15.3\\times2.62=40\\ \\mathrm{m}$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 40.15526006165985,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "marks": 5,
+   "explanation": "Resolve the launch velocity, then treat the vertical motion (uniform acceleration, zero net displacement) and the horizontal motion (constant velocity) separately. They are joined only by the common time of flight.",
+   "hints": [
+    "Resolve the launch velocity into two perpendicular components first.",
+    "The time of flight is decided by the vertical motion alone: what is the vertical displacement at landing?",
+    "Once you have the time, the horizontal distance uses the constant horizontal velocity."
+   ]
+  },
+  {
+   "id": "9702-2.1-x001",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q6",
+    "qid": "9702_s19_11_q6"
+   },
+   "stem": "A car travels along a straight horizontal road. The graph shows the variation of the velocity v of\nthe car with time t for 6.0 s of its journey.\n30\n20\n10\n0\nv / m s⁻¹\nt / s\n0\n1.0\n2.0\n3.0\n4.0\n5.0\n6.0\nThe brakes of the car are applied from t = 1.0 s to t = 4.0 s.\nHow far does the car travel while the brakes are applied?",
+   "options": {
+    "A": "21 m",
+    "B": "45 m",
+    "C": "67 m",
+    "D": "83 m"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x002",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q7",
+    "qid": "9702_s19_11_q7"
+   },
+   "stem": "A stone is thrown horizontally from the top of a cliff and falls into the sea some time later. Air\nresistance is negligible.\nWhich graph shows how the vertical component vv of velocity of this stone varies with its\nhorizontal component vₕ of velocity as it moves through the air?\nvv\nvₕ\n0\n0",
+   "options": {
+    "A": "vv vₕ 0 0",
+    "B": "vv vₕ 0 0",
+    "C": "vv vₕ 0 0",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "A significant number of candidates chose A or B rather than the correct answer D. As air resistance is negligible, there are no forces acting horizontally on the stone. This means that the horizontal component of velocity of the stone remains constant, so the only possible graph is D."
+  },
+  {
+   "id": "9702-2.1-x003",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q8",
+    "qid": "9702_s19_12_q8"
+   },
+   "stem": "The graph shows how a physical quantity varies with time.\nquantity\ntime\n0\n0\nWhich event could best be represented by the graph?",
+   "options": {
+    "A": "the acceleration of a firework rising to a maximum height and falling to the ground",
+    "B": "the acceleration of a skydiver leaving an aircraft, falling, opening a parachute and falling to the ground",
+    "C": "the speed of a javelin as it leaves an athlete’s hand, falls and sinks into the ground",
+    "D": "the speed of a high jump athlete leaving the ground, jumping over a bar and descending to the ground"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_12_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The majority of candidates chose the correct answer to this question (answer B). The key feature of the graph is the sudden change in the value of the quantity being plotted from zero to a large (negative) value. The changes in the acceleration of a firework, the speed of a javelin or the speed of a high jump athlete are all gradual; the only sudden changes occur when they hit the ground and the value of the quantity becomes zero."
+  },
+  {
+   "id": "9702-2.1-x004",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q7",
+    "qid": "9702_s19_13_q7"
+   },
+   "stem": "The graph shows the variation of velocity v with time t for an object.\n24.0\n20.0\n16.0\n12.0\n8.0\n4.0\n0\n0\n1.0\n2.0\n3.0\n4.0\n5.0\nv / m s⁻¹\nt / s\nThe object passes a fixed point at time t = 0.\nWhat is the displacement of the object from the fixed point at time t = 5.0 s and what is the\nacceleration of the object?\ndisplacement\n/ m\nacceleration\n/ m s⁻²",
+   "options": {
+    "A": "60 4.0",
+    "B": "70 4.0",
+    "C": "60 4.8",
+    "D": "70 4.8"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_13_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Almost all candidates calculated the acceleration of the object as 4.0 m s–2 (the gradient of the graph), though some miscalculated the displacement of the object (the area under the graph) after 5.0 s."
+  },
+  {
+   "id": "9702-2.1-x005",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q6",
+    "qid": "9702_w19_11_q6"
+   },
+   "stem": "The velocity-time graph for an object of mass 2.5 kg is shown.\n12.0\n10.0\n8.0\n6.0\n4.0\n2.0\n0\n0\n5.0\n10.0\n15.0\nvelocity\n/ m s⁻¹\ntime / s\nWhat is the resultant force acting on the object?",
+   "options": {
+    "A": "0.60 N",
+    "B": "0.80 N",
+    "C": "1.5 N",
+    "D": "2.0 N"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x006",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q6",
+    "qid": "9702_w19_13_q6"
+   },
+   "stem": "A lead sphere is released from rest at point X, a long way above the surface of a planet. The\nsphere falls in a vacuum. After a time of 4.0 s, it has fallen through a vertical distance of 3.0 m.\nAssume the acceleration of free fall is constant.\nHow far will the sphere have fallen from point X at a time of 20 s after its release?",
+   "options": {
+    "A": "15 m",
+    "B": "75 m",
+    "C": "80 m",
+    "D": "2000 m"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x007",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q6",
+    "qid": "9702_s20_11_q6"
+   },
+   "stem": "The velocity of an electric car changes as shown.\n150\n100\n50\n0\n0\n1\n2\n3\n4\ntime / s\nvelocity\n/ km h⁻¹\nWhat is the acceleration of the car?",
+   "options": {
+    "A": "210 m s⁻²",
+    "B": "58 m s⁻²",
+    "C": "26 m s⁻²",
+    "D": "7.3 m s⁻²"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x008",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q7",
+    "qid": "9702_s20_11_q7"
+   },
+   "stem": "A projectile is fired from point P with velocity V at an angle θ to the horizontal. It lands at point Q,\na horizontal distance R from P, after time T.\nP\nQ\nθ\npath of projectile\nhorizontal\nV\nR\nThe acceleration of free fall is g. Air resistance is negligible.\nWhich equation is correct?",
+   "options": {
+    "A": "R = VT cos θ",
+    "B": "R = VT sin θ",
+    "C": "R = VT cos θ – ¹ ₂ gT ²",
+    "D": "R = VT sin θ – ¹ ₂ gT ²"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x009",
+   "kcs": [
+    "9702-2.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q8",
+    "qid": "9702_s20_11_q8"
+   },
+   "stem": "A car accelerates from rest in a straight line with constant acceleration.\nWhich graph best represents the variation of the momentum p of the car with the distance s\ntravelled by the car?\np\ns\n0\n0\np\ns\n0",
+   "options": {
+    "A": "",
+    "B": "0 p s 0",
+    "C": "0 p s 0",
+    "D": "0"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x010",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q18",
+    "qid": "9702_s20_11_q18"
+   },
+   "stem": "A ball is dropped from rest and falls towards the ground. Air resistance is negligible.\nWhich graph shows the variation with speed of the height of the ball above the ground?\nheight\nabove\nground\nspeed\n0\n0",
+   "options": {
+    "A": "height above ground speed 0 0",
+    "B": "height above ground speed 0 0",
+    "C": "height above ground speed 0 0",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_11_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x011",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q5",
+    "qid": "9702_s20_12_q5"
+   },
+   "stem": "A stone is dropped from a height of 20 m above water. The graph shows the variation with time of\nthe velocity of the stone.\n0\n2\n4\n0\n20\ntime / s\nvelocity / m s⁻¹\nWhich statement describes the approximate position of the stone four seconds after it is\ndropped?",
+   "options": {
+    "A": "It is at a distance of 10 m above the surface of the water.",
+    "B": "It is at a distance of 10 m below the surface of the water.",
+    "C": "It is at a distance of 20 m below the surface of the water.",
+    "D": "It is at a distance of 30 m below the surface of the water."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x012",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q6",
+    "qid": "9702_s20_12_q6"
+   },
+   "stem": "A car X is travelling at a constant speed u along a straight road. At time t = 0 a second car Y is a\ndistance d₀ behind car X and travelling at a speed v in the same direction. Speed v is less than\nspeed u.\ncar Y\ncar X\nv\nd₀\nu\nAt time t = 0 car Y begins to accelerate with a constant acceleration.\nCar Y overtakes car X at time t = T.\nWhich graph could best show the variation with time t of the distance d between the cars?\nd\nt\nd₀\n0\n0\nT\nd\nt\nd₀",
+   "options": {
+    "A": "",
+    "B": "0 0 T d t d₀",
+    "C": "0 0 T d t d₀",
+    "D": "0 0 T"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_12_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x013",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q6",
+    "qid": "9702_s20_13_q6"
+   },
+   "stem": "The graph shows how the velocity of a ball varies with time from the moment it is hit vertically\nupwards from the ground.\n20\n15\n10\n5\n0\n–5\n–10\n1\n0\n2\n3\nvelocity\n/ m s⁻¹\ntime / s\nWhat is the displacement of the ball from the ground after a time of 3.0 s?",
+   "options": {
+    "A": "15 m",
+    "B": "25 m",
+    "C": "30 m",
+    "D": "45 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x014",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q7",
+    "qid": "9702_s20_13_q7"
+   },
+   "stem": "Two students each throw a ball horizontally from the top of a tower. The two balls are released at\nthe same time.\nThe first student throws her ball with a speed of 20 m s⁻¹ and the second student throws his ball\nwith a speed of 10 m s⁻¹.\nAssume air resistance is negligible and that the balls land on horizontal ground.\nWhich row describes the horizontal distances travelled and the landing times of the two balls on\nthe ground?\nhorizontal\ndistances\nlanding times",
+   "options": {
+    "A": "same same",
+    "B": "same different",
+    "C": "different same",
+    "D": "different different"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_13_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x015",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q6",
+    "qid": "9702_w20_11_q6"
+   },
+   "stem": "A student cycles uphill from home to a shop, taking 10 minutes. The student then spends\n5 minutes in the shop, before cycling home downhill at twice the initial speed.\nWhich graph could show the variation with time of the distance travelled by the cyclist?\n0\ndistance\n/ km\ntime / minutes\n0\ndistance\n/ km\ntime / minutes\n0",
+   "options": {
+    "A": "5 10 15 20 2 1 0",
+    "B": "5 10 15 20 2 1 0 distance / km time / minutes 0",
+    "C": "5 10 15 20 2 1 0",
+    "D": "5 10 15 20 2 1 0 distance / km time / minutes"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x016",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q7",
+    "qid": "9702_w20_11_q7"
+   },
+   "stem": "Two cars X and Y are travelling along the same straight road. Car X is travelling at a constant\nspeed of 6.0 m s⁻¹. Car Y has a constant acceleration of 0.50 m s⁻².\nAt the instant shown, car X is a distance d ahead of car Y. Car Y is travelling at a speed of\n4.0 m s⁻¹.\nd\ncar Y\ncar X\n4.0 m s⁻¹\n6.0 m s⁻¹\nCar Y is level with car X after a time of 20 seconds.\nWhat is the distance d ?",
+   "options": {
+    "A": "40 m",
+    "B": "60 m",
+    "C": "180 m",
+    "D": "300 m"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x017",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q7",
+    "qid": "9702_w20_12_q7"
+   },
+   "stem": "A mass of 5.0 kg is released from rest on a frictionless surface inclined at 30° to the horizontal. Air\nresistance is negligible.\n30°\nfrictionless\nsurface\nmass 5.0 kg\nhorizontal\nHow far does the mass travel in a time of 0.80 s?",
+   "options": {
+    "A": "1.6 m",
+    "B": "2.0 m",
+    "C": "2.7 m",
+    "D": "3.1 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Less than half of the candidates answered this question correctly, with many selecting C or D rather than the correct answer A. Applying F = ma down the slope, the acceleration a of the mass down the slope is given by the equation 5.0 g sin 30° = 5.0 a which then gives a = 4.91 m s–2. The distance moved is then obtained using s = ½at2."
+  },
+  {
+   "id": "9702-2.1-x018",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q6",
+    "qid": "9702_w20_13_q6"
+   },
+   "stem": "An object moves in a straight line. The graph shows the variation with time t of the velocity v of\nthe object.\n8\n4\n2\n0\n–2\n0\n0.2\n0.4\n0.6\n0.8\n1.0\nv / m s⁻¹\nt / s\nAt time t = 0 the object is at point X.\nWhat is the displacement of the object from point X at time t = 0.80 s?",
+   "options": {
+    "A": "1.6 m",
+    "B": "1.8 m",
+    "C": "2.0 m",
+    "D": "3.2 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The majority of the candidates answered this question correctly, though some candidates must have added the area of the graph below the x-axis rather than subtracting it."
+  },
+  {
+   "id": "9702-2.1-x019",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q7",
+    "qid": "9702_w20_13_q7"
+   },
+   "stem": "An object accelerates uniformly from rest to speed v. It then moves at constant speed v for a time\nof 8.0 s before decelerating uniformly to rest. The total time taken is 12.0 s, and the total distance\ntravelled is 60 m.\nWhat is the speed v ?",
+   "options": {
+    "A": "3.0 m s⁻¹",
+    "B": "5.0 m s⁻¹",
+    "C": "6.0 m s⁻¹",
+    "D": "15 m s⁻¹"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x020",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q8",
+    "qid": "9702_w20_13_q8"
+   },
+   "stem": "A device for spraying paint consists of a box with its axes horizontal and vertical. One of its\nvertical faces contains small holes. Paint is fed into the box under pressure via a vertical tube and\nexits through the holes as fine streams moving horizontally.\npaint in\npaint out through holes\n(only a few holes are shown)\nThe paint is ejected at a speed of 2.5 m s⁻¹ through 400 holes, each of area 0.4 mm². The density\nof the paint is 900 kg m⁻³.\nWhat is the horizontal force required to hold the device stationary as it ejects the paint?",
+   "options": {
+    "A": "0.36 N",
+    "B": "0.90 N",
+    "C": "2.3 N",
+    "D": "900 N"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_13_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult, with many selecting A or C rather than the correct answer B. Care needs to be taken to ensure consistent units are used in calculations and especially, in this question, when converting mm2 to m2. The values needed are: volume of paint ejected in one second = 400 × 2.5 × (0.4 × 10–6) = 4.0 × 10–4 m3 mass of paint ejected in one second = 900 × 4.0 × 10–4 = 0.36 kg change of momentum per unit time = 0.36 × 2.5 = 0.90 N."
+  },
+  {
+   "id": "9702-2.1-x021",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q6",
+    "qid": "9702_s21_11_q6"
+   },
+   "stem": "A projectile is launched at an angle to the horizontal at time t = 0. It travels over horizontal\nground, as shown.\npath of projectile\nground\nAir resistance is negligible.\nWhich graph best shows the variation with t of the speed of the projectile from when it is launched\nto when it lands on the ground?\n0\n0",
+   "options": {
+    "A": "speed t 0 0",
+    "B": "speed t 0 0",
+    "C": "speed t 0 0",
+    "D": "speed t"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "A simple approach to this question is to consider the energy changes taking place. As the projectile rises it is gaining gravitational potential energy and therefore losing kinetic energy and hence speed, eliminating A as the answer. The projectile will never come to rest as it always has a constant horizontal velocity (air resistance is negligible) eliminating B and D as possible answers, leaving C as the correct answer."
+  },
+  {
+   "id": "9702-2.1-x022",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q6",
+    "qid": "9702_s21_12_q6"
+   },
+   "stem": "Which graph shows the variation with time t of the velocity v of an object falling vertically\ndownwards in a vacuum?\n0\n0\nv\nt",
+   "options": {
+    "A": "v t",
+    "B": "v t",
+    "C": "v t",
+    "D": "0 0 0 0 0 0"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_12_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x023",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q7",
+    "qid": "9702_s21_12_q7"
+   },
+   "stem": "A projectile is fired from point P with velocity V at an angle θ to the horizontal. It lands at point Q,\na horizontal distance R from P. Air resistance is negligible.\nP\nQ\n\u0002\npath of projectile\nhorizontal\nV\nR\nThe acceleration of free fall is g.\nWhich equation for R is correct?",
+   "options": {
+    "A": "R = ²sin cos V g θ θ",
+    "B": "R = 2 2 sin cos V g θ θ",
+    "C": "R = ²sin cos 2 V g θ θ",
+    "D": "R = ² sin cos 2 g V θ θ"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult, with less than half of the candidates answering the question correctly. One approach is to apply the equation s = ut + ½at2 from P to Q in the horizontal and vertical directions, noting that the vertical displacement from P to Q is zero. If the time taken for the projectile to travel from P to Q is T, then: vertically: 0 = V sin θ × T – ½gT2 horizontally: R = V cos θ × T Eliminating T from these equations gives 2 2 sin 2 sin cos cos V V R V g g θ θ θ θ = × = ."
+  },
+  {
+   "id": "9702-2.1-x024",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q6",
+    "qid": "9702_s21_13_q6"
+   },
+   "stem": "The diagram shows a velocity–time graph for a car.\n12\n10\n8\n4\n2\n0\n0\n1\n2\n3\n4\ntime / s\nvelocity\n/ m s⁻¹\nWhat is the distance travelled during the first 4.0 s?",
+   "options": {
+    "A": "2.5 m",
+    "B": "3.0 m",
+    "C": "20 m",
+    "D": "28 m"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x025",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q6",
+    "qid": "9702_w21_11_q6"
+   },
+   "stem": "An archer shoots an arrow at a target. The diagram shows the path of the arrow.\narcher\ntarget\npath of arrow\nAir resistance is negligible.\nThe graphs show how three different quantities p, q and r vary with time.\n0\n0\np\ntime\n0\n0\nq\ntime\n0\n0\nr\ntime\nWhich quantity could be the horizontal component of displacement and which quantity could be\nthe vertical component of displacement of the arrow?\nhorizontal\ncomponent of\ndisplacement\nvertical\ncomponent of\ndisplacement",
+   "options": {
+    "A": "p q",
+    "B": "q r",
+    "C": "r p",
+    "D": "r q"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x026",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q7",
+    "qid": "9702_w21_11_q7"
+   },
+   "stem": "Two cars X and Y are positioned as shown at time t = 0.\nThey are travelling in the same direction.\nX is 50 m behind Y and has a constant velocity of 30 m s⁻¹. Y has a constant velocity of 20 m s⁻¹.\nX\nY\n30 m s⁻¹\n50 m\n20 m s⁻¹\nWhat is the value of t when X is level with Y?",
+   "options": {
+    "A": "1.0 s",
+    "B": "1.7 s",
+    "C": "2.5 s",
+    "D": "5.0 s"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x027",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q7",
+    "qid": "9702_w21_12_q7"
+   },
+   "stem": "A stone is projected vertically upwards from the ground at an initial speed of 15 m s⁻¹. Air\nresistance is negligible.\nWhat is the maximum height reached by the stone?",
+   "options": {
+    "A": "0.76 m",
+    "B": "11 m",
+    "C": "23 m",
+    "D": "110 m"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x028",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q7",
+    "qid": "9702_w21_13_q7"
+   },
+   "stem": "A stone is thrown horizontally off a cliff and then lands in the sea. Air resistance is negligible.\nWhich statement about the stone’s motion is not correct?",
+   "options": {
+    "A": "The final displacement of the stone depends upon its initial horizontal velocity.",
+    "B": "The stone travels with a constant horizontal component of velocity until it hits the water.",
+    "C": "The stone travels with an increasing vertical component of velocity.",
+    "D": "The time taken for the stone to hit the surface of the water depends on its initial horizontal velocity."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x029",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q5",
+    "qid": "9702_s22_11_q5"
+   },
+   "stem": "The curved line PQR is the velocity–time graph for a car starting from rest.\nvelocity\ntime / s\n0\n0\nQ\nP\nS\nR\nWhat is the average acceleration of the car over the first 5 s?",
+   "options": {
+    "A": "the area below the curve PQ",
+    "B": "the area of the triangle PQS",
+    "C": "the gradient of the straight line PQ",
+    "D": "the gradient of the tangent at Q"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x030",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q5",
+    "qid": "9702_s22_12_q5"
+   },
+   "stem": "A car travels anticlockwise along a horizontal circular road of radius 12 m, as shown.\nThe car takes a time of 4.0 s to move from position P to position Q.\nP\nQ\n12 m\nroad\ndirection of\ntravel of car\nWhat is the magnitude of the average velocity of the car for the journey from P to Q?",
+   "options": {
+    "A": "4.2 m s⁻¹",
+    "B": "4.7 m s⁻¹",
+    "C": "6.0 m s⁻¹",
+    "D": "14 m s⁻¹"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "This question was found to be difficult, with many candidates selecting the incorrect answer D. The magnitude of an object’s instantaneous velocity is its speed, and so the average magnitude of velocity (i.e. average speed) for this car as it travels from P to Q would be: average speed = total distance / time taken = (2π × 12 × 3/4) / 4 = 14 m s–1 (option D). However, the question asks for the magnitude of the average velocity. The first step for candidates should be to determine the average velocity, which is given by total displacement / time taken. Since only the magnitude is required, cand"
+  },
+  {
+   "id": "9702-2.1-x031",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q6",
+    "qid": "9702_s22_12_q6"
+   },
+   "stem": "The water surface in a deep well is 78.0 m below the top of the well. A person at the top of the\nwell drops a heavy stone down the well.\nAir resistance is negligible. The speed of sound in the air is 330 m s⁻¹.\nWhat is the time interval between the person dropping the stone and hearing it hitting the water?",
+   "options": {
+    "A": "3.75 s",
+    "B": "3.99 s",
+    "C": "4.19 s",
+    "D": "4.22 s"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x032",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q6",
+    "qid": "9702_s22_13_q6"
+   },
+   "stem": "Two projectiles, X and Y, are fired into the air from the same place on level ground and reach the\nsame maximum height, as shown.\npath of X\nground\npath of Y\nProjectile X is fired vertically upwards and projectile Y is fired at an angle to the horizontal.\nAir resistance is negligible.\nWhich statement is correct?",
+   "options": {
+    "A": "X and Y are at rest at their maximum heights.",
+    "B": "X and Y are fired with the same speed.",
+    "C": "X and Y take the same time to return to the ground.",
+    "D": "X and Y travel the same distance."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x033",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q7",
+    "qid": "9702_s22_13_q7"
+   },
+   "stem": "A small glider moves along a horizontal air track as shown.\nglider\nbuffer\nair track\nair\nAt each end of the air track, the glider has a perfectly elastic collision with a fixed buffer.\nThe glider moves at a constant speed between collisions.\nWhich graph represents the variation with time t of the velocity v of the glider as it moves\nbetween the two buffers?\nv\nt\nv\nt\nv\nt\nv\nt",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "0 0 0 0 0 0 0 0"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_13_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x034",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q5",
+    "qid": "9702_w22_11_q5"
+   },
+   "stem": "A particle accelerates from rest.\nThe graph shows the variation of the velocity v of the particle with time t.\n0\n0\nv\nt\nWhich graph shows the variation of the velocity v with the acceleration a of the particle?\n0\n0\nv\na\n0",
+   "options": {
+    "A": "",
+    "B": "0 v a 0",
+    "C": "0 v a 0",
+    "D": "0 v a"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x035",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q6",
+    "qid": "9702_w22_11_q6"
+   },
+   "stem": "The graph shows the vertical velocity of a parachutist during the first 20 s of her jump.\n60\n40\n20\n0\n0\n5\n10\n15\ntime / s\nvelocity\n/ m s⁻¹\n20\nApproximately how far does she fall before opening the parachute?",
+   "options": {
+    "A": "390 m",
+    "B": "570 m",
+    "C": "710 m",
+    "D": "770 m"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x036",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q6",
+    "qid": "9702_w22_12_q6"
+   },
+   "stem": "The graph shows how the velocity v of an object moving in a straight line varies with time t from\nt = 0 to t = T.\n0\n0\nv\nT\nt\nWhich graph could represent the displacement s of the object from time t = 0 to t = T ?\ns\nt",
+   "options": {
+    "A": "s t",
+    "B": "s",
+    "C": "s",
+    "D": "T T T t T t 0 0 0 0 0 0 0 0"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_12_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x037",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q24",
+    "qid": "9702_w22_12_q24"
+   },
+   "stem": "A miniature loudspeaker, initially at rest, falls vertically from a window in a high building. When\nthe speaker has fallen a distance of 10.0 m, it emits a very short pulse of sound of constant\nfrequency 256 Hz in all directions. The pulse of sound, travelling at a speed of 330 m s⁻¹, is heard\nby a person leaning out of the window.\nAir resistance is negligible.\nWhat is the frequency of the pulse of sound heard by the person?",
+   "options": {
+    "A": "246 Hz",
+    "B": "249 Hz",
+    "C": "267 Hz",
+    "D": "313 Hz"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x038",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q5",
+    "qid": "9702_w22_13_q5"
+   },
+   "stem": "A stone is projected horizontally at time t = 0 and falls. Air resistance is negligible. The stone has\na horizontal component of velocity vH and a vertical component of velocity vV.\nWhich graph shows how vH and vV vary with time t ?",
+   "options": {
+    "A": "0 0 t velocity vH vV",
+    "C": "0 0 t velocity vH vV",
+    "B": "0 0 t velocity vV vH",
+    "D": "0 0 t velocity vH vV"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates recognised that the vertical component of velocity vv of the stone increases and the horizontal component of velocity vH is constant, eliminating B and D. In the absence of air resistance, the stone falls with a constant acceleration g, and therefore vv increases linearly with time, so graph A rather than graph C is correct."
+  },
+  {
+   "id": "9702-2.1-x039",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q6",
+    "qid": "9702_w22_13_q6"
+   },
+   "stem": "On the Earth, an object takes time TE to fall from rest through a vertical distance h.\nOn the Moon, the same object takes time TM to fall from rest through the same vertical distance h.\nThe ratio\nMoon\nthe\non\nfall\nfree\nof\non\naccelerati\nEarth\nthe\non\nfall\nfree\nof\non\naccelerati\nis equal to 6.\nAir resistance is negligible for the object on the Earth and on the Moon.\nWhat is the ratio\nM\nE\nT\nT ?",
+   "options": {
+    "A": "1",
+    "B": "1",
+    "C": "",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x040",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q5",
+    "qid": "9702_s23_11_q5"
+   },
+   "stem": "One object moves directly from P to R.\nP\nR\nQ\nIn a shorter time, a second object moves from P to Q to R.\nWhich statement about the two objects is correct for the journey from P to R?",
+   "options": {
+    "A": "They have the same average speed.",
+    "B": "They have the same average velocity.",
+    "C": "They have the same displacement.",
+    "D": "They travel the same distance."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x041",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q6",
+    "qid": "9702_s23_11_q6"
+   },
+   "stem": "A ball is kicked so that it has an initial velocity of 12 m s⁻¹ at an angle of 50° to horizontal ground.\nAssume that air resistance is negligible.\n50\u0001\n12 m s⁻¹\nWhat is the maximum height above the ground that is reached by the ball?",
+   "options": {
+    "A": "0.47 m",
+    "B": "3.0 m",
+    "C": "4.3 m",
+    "D": "7.3 m"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates mostly answered this question correctly. Candidates who were incorrect frequently used 12 m s–1 as the vertical component of the velocity of the ball rather than 12 sin 50° m s–1."
+  },
+  {
+   "id": "9702-2.1-x042",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q5",
+    "qid": "9702_s23_12_q5"
+   },
+   "stem": "A ball travels from point X to point Y around a semicircular track of radius 1.0 m, as shown.\nX\nY\n1.0 m\nball\nnorth\nsouth\neast\nwest\nWhat is the displacement of the ball from X to Y?",
+   "options": {
+    "A": "2.0 m",
+    "B": "2.0 m due south",
+    "C": "3.1 m",
+    "D": "3.1 m due south"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x043",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q6",
+    "qid": "9702_s23_12_q6"
+   },
+   "stem": "A rock is launched vertically upwards from the surface of the Earth and an identical rock is\nlaunched vertically upwards from the surface of Mars. Each rock is launched with an initial\nvelocity of 12 m s⁻¹.\nEach rock then reaches its maximum height above the surface before returning back down to the\nsurface. The velocity–time graph for each rock is shown. In both cases, air resistance is\nnegligible.\nvelocity\n/ m s⁻¹\n15\n10\n5\n0\n–5\n–10\n–15\n0\n2.0\n4.0\n6.0\n8.0\ntime / s\nEarth\nMars\nWhat is the difference in the maximum heights of the two rocks?",
+   "options": {
+    "A": "12 m",
+    "B": "15 m",
+    "C": "19 m",
+    "D": "24 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_12_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates answered this question correctly, though candidates who answered incorrectly frequently chose answer D. When either rock reaches its maximum height, its velocity is zero. The maximum height is the area under the velocity-time graph from time t = 0 to the first time at which the rock has zero velocity. This is 7.2 m for Earth and 19.2 m for Mars. The difference in the two heights reached is 19.2 – 7.2 = 12 m (answer A)."
+  },
+  {
+   "id": "9702-2.1-x044",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q17",
+    "qid": "9702_s23_12_q17"
+   },
+   "stem": "A block is released from rest and slides a distance x down a straight slope.\nThe slope is at an angle θ to the horizontal.\nslope\nblock\nx\n\u0002\nThe slope is frictionless and air resistance is negligible.\nThe acceleration of free fall is g.\nWhich expression gives the final speed of the block?",
+   "options": {
+    "A": "2 sin θ gx",
+    "B": "θ sin 2gx",
+    "C": "gx 2",
+    "D": "2gx sin θ"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_12_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x045",
+   "kcs": [
+    "9702-2.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q5",
+    "qid": "9702_s23_13_q5"
+   },
+   "stem": "Which equation, representing uniformly accelerated motion in a straight line, can be determined\nusing only the definition of acceleration?",
+   "options": {
+    "A": "s = ut + 2 2 ¹ at",
+    "B": "s = t v u ) ( + 2 1",
+    "C": "v = u + at",
+    "D": "v ² = u ² + 2as"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x046",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q6",
+    "qid": "9702_s23_13_q6"
+   },
+   "stem": "An object moves from rest with uniform velocity horizontally and uniform acceleration vertically.\nWhich graph showing the variation with time of the displacement of the object from its initial\nposition is correct?\n0",
+   "options": {
+    "A": "0 time horizontal displacement 0",
+    "B": "0 time vertical displacement 0",
+    "C": "0 time horizontal displacement 0",
+    "D": "0 time vertical displacement"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x047",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q5",
+    "qid": "9702_w23_11_q5"
+   },
+   "stem": "A parachutist falls from a stationary balloon at time t = 0. The velocity–time graph for the\nparachutist from time t = 0 until the time when he is just above the ground is shown.\nvelocity\n0\nP\nQ\nR\nS\n0\ntime\nWhich graph best shows the variation with time of the acceleration of the parachutist?\nacceleration\n0\nP\nQ\nacceleration\n0\nP\nQ",
+   "options": {
+    "A": "R S 0 time acceleration 0 P Q",
+    "B": "R S 0 time",
+    "C": "R S 0 time acceleration 0 P Q",
+    "D": "R S 0 time"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w23_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x048",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q6",
+    "qid": "9702_w23_11_q6"
+   },
+   "stem": "A projectile is fired from point P with velocity V at an angle θ to the horizontal. It lands at point Q,\na horizontal distance R from P, after time T.\nP\nQ\n\u0001\npath of projectile\nhorizontal\nV\nR\nThe acceleration of free fall is g. Air resistance is negligible.\nWhich equation is correct?",
+   "options": {
+    "A": "R = VT cos θ",
+    "B": "R = VT sin θ",
+    "C": "R = VT cos θ – ¹ ₂ gT ²",
+    "D": "R = VT sin θ – ¹ ₂ gT ²"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The incorrect answer C was the most popular with weaker candidates. The horizontal component of the velocity of the particle is V cos θ and does not change as air resistance is negligible. The horizontal distance travelled in time T (the range R) is therefore VT cos θ (answer A). Principal Examiner Report for Teachers"
+  },
+  {
+   "id": "9702-2.1-x049",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q5",
+    "qid": "9702_w23_12_q5"
+   },
+   "stem": "What is the definition of acceleration?",
+   "options": {
+    "A": "the rate of change of displacement",
+    "B": "the rate of change of kinetic energy",
+    "C": "the rate of change of momentum",
+    "D": "the rate of change of velocity"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x050",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q5",
+    "qid": "9702_w23_13_q5"
+   },
+   "stem": "A student walks at a constant speed for a distance of 50 m in a time of 40 s. The student rests for\na time of 10 s and then walks back to the starting point at a constant speed in a time of 30 s.\nWhat is the distance–time graph for the motion of the student?\n100\n50\n0\n0\n20\n40\ndistance / m\ntime / s\n100\n50\n0\n0\n20\n40\ndistance / m\ntime / s\n100\n50\n0\n0\n20\n40",
+   "options": {
+    "A": "60 80",
+    "B": "60 80 distance / m time / s 100 50 0 0 20 40",
+    "C": "60 80",
+    "D": "60 80 distance / m time / s"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x051",
+   "kcs": [
+    "9702-2.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q4",
+    "qid": "9702_s24_11_q4"
+   },
+   "stem": "An object is moving with initial velocity u. The object then moves with uniform acceleration a for\ntime t until it reaches final velocity v.\nWhich equation describes the motion of the object?",
+   "options": {
+    "A": "u = v – 2at",
+    "B": "u = v – at",
+    "C": "v = u + at ²",
+    "D": "v = u + 2at ²"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x052",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q7",
+    "qid": "9702_s24_11_q7"
+   },
+   "stem": "The diagram shows the path of a golf ball.\nWhich row describes changes in the horizontal and vertical components of the golf ball’s velocity\nwhen air resistance is ignored?\nhorizontal\nvertical",
+   "options": {
+    "A": "constant deceleration constant acceleration downwards",
+    "B": "constant deceleration acceleration decreases upwards then increases downwards",
+    "C": "constant velocity constant acceleration downwards",
+    "D": "constant velocity acceleration decreases upwards then increases downwards"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x053",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q8",
+    "qid": "9702_s24_11_q8"
+   },
+   "stem": "An aircraft flies from London to Sydney in a time of 21 hours 40 minutes.\nThe distance travelled is 17 000 km.\nWhat is the average speed of the aircraft?",
+   "options": {
+    "A": "2.2 m s⁻¹",
+    "B": "2.2 × 10⁷ μm s⁻¹",
+    "C": "2.2 × 10¹¹ nm s⁻¹",
+    "D": "2.2 × 10⁶ mm s⁻¹"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x054",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q4",
+    "qid": "9702_s24_12_q4"
+   },
+   "stem": "Which statement is not correct?",
+   "options": {
+    "A": "Acceleration can be determined from the gradient of a velocity–time graph.",
+    "B": "Acceleration is the rate of change of velocity.",
+    "C": "Displacement can be determined from the area under a velocity–time graph.",
+    "D": "Velocity is the rate of change of distance."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x055",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q5",
+    "qid": "9702_s24_12_q5"
+   },
+   "stem": "The diagram shows a laboratory experiment in which a feather falls from rest in a long evacuated\nvertical tube of length L.\nL\nfeather\nvacuum\nThe feather takes time T to fall from the top to the bottom of the tube.\nHow far does the feather fall from the top of the tube in time 0.50T ?",
+   "options": {
+    "A": "0.13L",
+    "B": "0.25L",
+    "C": "0.38L",
+    "D": "0.50L"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x056",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q6",
+    "qid": "9702_s24_12_q6"
+   },
+   "stem": "A car travels along a straight horizontal road. The graph shows the variation of the velocity v of\nthe car with time t for 6.0 s of its journey.\n30\n20\n10\n0\nv / m s⁻¹\nt / s\n0\n1.0\n2.0\n3.0\n4.0\n5.0\n6.0\nThe brakes of the car are applied from t = 1.0 s to t = 4.0 s.\nHow far does the car travel while the brakes are applied?",
+   "options": {
+    "A": "21 m",
+    "B": "45 m",
+    "C": "67 m",
+    "D": "83 m"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_12_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x057",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q5",
+    "qid": "9702_s24_13_q5"
+   },
+   "stem": "The diagram shows a velocity–time graph for an object moving in a straight line.\n12\n9\n6\n3\n0\n0\n1\n2\n3\n4\nvelocity / m s⁻¹\ntime / s\nWhat is the displacement during the last 2 seconds of the motion?",
+   "options": {
+    "A": "6 m",
+    "B": "12 m",
+    "C": "18 m",
+    "D": "24 m"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x058",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q5",
+    "qid": "9702_w24_11_q5"
+   },
+   "stem": "An object is projected from horizontal ground at a velocity of magnitude u and angle θ to the\nhorizontal. It hits the ground at a time t after it is projected. Assume air resistance is negligible.\nu\n\u0001\nWhich statement does not describe the motion of this object?",
+   "options": {
+    "A": "The horizontal component of the object’s velocity is constant and has the value ucosθ.",
+    "B": "The horizontal distance travelled by the object is tucosθ.",
+    "C": "The time taken for the object to reach maximum height is 2 t .",
+    "D": "The vertical component of the object’s velocity is constant and has the value usinθ."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w24_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x059",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q6",
+    "qid": "9702_w24_11_q6"
+   },
+   "stem": "A person, travelling on a motorway a total distance of 200 km, travels the first 90 km at an\naverage speed of 80 km h⁻¹.\nWhich average speed must be obtained for the rest of the journey if the person is to reach the\ndestination in a total time of 2 hours 0 minutes?",
+   "options": {
+    "A": "110 km h⁻¹",
+    "B": "120 km h⁻¹",
+    "C": "122 km h⁻¹",
+    "D": "126 km h⁻¹"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x060",
+   "kcs": [
+    "9702-2.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q9",
+    "qid": "9702_w24_11_q9"
+   },
+   "stem": "A toy parachute is dropped from a bridge and falls vertically through the air.\nThe graph shows the distance travelled by the parachute against time.\nWhich region of the graph shows when the parachute is at terminal velocity?\n8\n7\n6\n5\n4\n3\n2\n1\n0\n0\n0.5\n1\n1.5\n2\n2.5\n3",
+   "options": {
+    "C": "",
+    "D": "time / s distance travelled / m",
+    "A": "",
+    "B": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_11_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x061",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q13",
+    "qid": "9702_w24_11_q13"
+   },
+   "stem": "An object is dropped from rest on the Earth from a height of 2.0 m.\nThe same object is dropped from rest on the Moon from twice the height.\nThe acceleration of free fall on the Moon is approximately 16% of the value on the Earth.\nAssume that there are no resistive forces acting on the object.\nWhat is the ratio\nMoon\nthe\non\nsurface\nthe\nhitting\nbefore\njust\nobject\nthe\nof\nspeed\nEarth\nthe\non\nsurface\nthe\nhitting\nbefore\njust\nobject\nthe\nof\nspeed\n?",
+   "options": {
+    "A": "1.8",
+    "B": "2.5",
+    "C": "3.1",
+    "D": "3.5"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x062",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q14",
+    "qid": "9702_w24_11_q14"
+   },
+   "stem": "The graph shows how velocity v varies with time t for a bungee jumper.\n0\n0\nv\nt\nP\nQ\nR\nAt which point is the bungee jumper momentarily at rest and at which point does she have zero\nacceleration?\njumper at rest\njumper with zero\nacceleration",
+   "options": {
+    "A": "Q P",
+    "B": "Q R",
+    "C": "R Q",
+    "D": "R R"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_11_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x063",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q4",
+    "qid": "9702_w24_12_q4"
+   },
+   "stem": "The graph shows how the acceleration of an object moving in a straight line varies with time.\nacceleration\ntime\n0\n0\nThe object starts from rest.\nWhich graph shows the variation with time of the velocity of the object over the same time\ninterval?\nvelocity\ntime",
+   "options": {
+    "A": "velocity time",
+    "B": "velocity time",
+    "C": "velocity time",
+    "D": "0 0 0 0 0 0 0 0"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_12_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x064",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q5",
+    "qid": "9702_w24_12_q5"
+   },
+   "stem": "A stone falls vertically from rest. Air resistance is negligible.\nWhat is the speed of the stone when it has fallen through a distance of 0.40 m?",
+   "options": {
+    "A": "2.0 m s⁻¹",
+    "B": "2.8 m s⁻¹",
+    "C": "3.9 m s⁻¹",
+    "D": "7.8 m s⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x065",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q6",
+    "qid": "9702_w24_12_q6"
+   },
+   "stem": "A ball is thrown horizontally off a tall building. The ground is horizontal. Air resistance is\nnegligible.\nWhich statement about the motion of the ball is correct?",
+   "options": {
+    "A": "The acceleration of the ball is always at right angles to the path of the ball.",
+    "B": "The ball follows a circular path until it hits the ground.",
+    "C": "The ball has constant acceleration.",
+    "D": "The ball’s time in the air is proportional to the velocity at which the ball is thrown."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x066",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q4",
+    "qid": "9702_w24_13_q4"
+   },
+   "stem": "A boy throws a stone with a horizontal velocity of 10 m s⁻¹ from the top of a building. The height\nof the building is 8.0 m. The stone travels along a curved path until it hits the horizontal ground,\nas shown.\nbuilding\n8.0 m\n10 m s⁻¹\nground\nAir resistance is negligible.\nHow long does it take the stone to reach the ground?",
+   "options": {
+    "A": "0.61 s",
+    "B": "0.80 s",
+    "C": "1.3 s",
+    "D": "1.6 s"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_13_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x067",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q5",
+    "qid": "9702_s25_11_q5"
+   },
+   "stem": "A ball is projected vertically downwards with an initial velocity of 20 m s⁻¹. Air resistance is\nnegligible.\nWhat is the displacement from its initial position of the ball after a time of 1.5 s?",
+   "options": {
+    "A": "11 m",
+    "B": "19 m",
+    "C": "37 m",
+    "D": "41 m"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x068",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q6",
+    "qid": "9702_s25_11_q6"
+   },
+   "stem": "A surveyor’s device emits a pulse of light. The light is reflected from a wall 150 m away.\nWhat is the total time taken for the pulse to travel from the device to the wall and then back to the\ndevice?",
+   "options": {
+    "A": "0.05 ns",
+    "B": "0.10 ns",
+    "C": "0.50 μs",
+    "D": "1.0 μs"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x069",
+   "kcs": [
+    "9702-2.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q7",
+    "qid": "9702_s25_11_q7"
+   },
+   "stem": "Which equation of uniformly accelerated motion can be derived using only the gradient of a\nvelocity–time graph?",
+   "options": {
+    "A": "s = t v u ) + ( 2 1",
+    "B": "s = ut + 2 2 ¹ at",
+    "C": "v = u + at",
+    "D": "v ² = u ² + 2as"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x070",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q8",
+    "qid": "9702_s25_11_q8"
+   },
+   "stem": "An object is projected horizontally from a table at time t = 0. The object falls in a uniform\ngravitational field. Air resistance is negligible.\nGraphs P, Q, R and S are velocity–time graphs.\n0\n0\nP\nv\nt\n0\n0\nQ\nv\nt\n0\n0\nR\nv\nt\n0\n0\nS\nv\nt\nWhich graphs represent the horizontal and vertical components of the velocity of the object?\nhorizontal\nvertical",
+   "options": {
+    "A": "Q P",
+    "B": "Q S",
+    "C": "R P",
+    "D": "R S"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x071",
+   "kcs": [
+    "9702-2.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q5",
+    "qid": "9702_s25_12_q5"
+   },
+   "stem": "Radio waves can be used to measure the distance between Earth and the planet Jupiter.\nA pulse of radio waves is emitted from the surface of Earth. The pulse reflects from the surface of\nJupiter and is detected again on Earth.\nThe time between emitting and receiving the pulse is 3960 s.\nWhat is the distance between Earth and Jupiter?",
+   "options": {
+    "A": "5.94 × 10⁸ km",
+    "B": "1.19 × 10⁹ km",
+    "C": "5.94 × 10¹¹ km",
+    "D": "1.19 × 10¹² km"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x072",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q6",
+    "qid": "9702_s25_12_q6"
+   },
+   "stem": "The graph shows the variation with time of the velocity of a car.\n12\n0\n0\n1\n2\n3\n4\n5\n7\n8\n9\ntime / s\nvelocity\n/ m s⁻¹\n10\nWhich statement is correct?",
+   "options": {
+    "A": "The car accelerates for 2 s, then stops for 4 s and then reverses.",
+    "B": "The car accelerates at 12 m s⁻² for 2 s.",
+    "C": "The car travels a distance of 36 m in the first 4 s.",
+    "D": "The car travels a distance of 48 m in the last 4 s."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_12_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x073",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q8",
+    "qid": "9702_s25_12_q8"
+   },
+   "stem": "A stone is thrown upwards and follows a curved path.\nAir resistance is negligible.\nWhy does the path have this shape?",
+   "options": {
+    "A": "The stone has a constant horizontal acceleration and constant vertical velocity.",
+    "B": "The stone has a constant horizontal velocity and constant vertical acceleration.",
+    "C": "The stone has a constant upward acceleration followed by a constant downward acceleration.",
+    "D": "The stone has a constant upward velocity followed by a constant downward velocity."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_12_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x074",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q5",
+    "qid": "9702_s25_13_q5"
+   },
+   "stem": "The graph shows the variation of velocity with time t of an object moving in a straight line.\n4\n3\n2\n1\n0\n–1\n–2\n–3\n–4\nvelocity / m s⁻¹\nt / s\n0\n4\n8\n12\n16\n20\n24\n28\n32\nAt t = 0, the displacement of the object is zero.\nWhat is the displacement of the object at t = 20 s?",
+   "options": {
+    "A": "–3 m",
+    "B": "21 m",
+    "C": "24 m",
+    "D": "27 m"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x075",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q6",
+    "qid": "9702_s25_13_q6"
+   },
+   "stem": "A science museum designs an experiment to show the fall of a feather in a vertical glass vacuum\ntube.\nThe time of fall from rest in the vacuum is to be close to 0.5 s.\nWhich length of tube is required?",
+   "options": {
+    "A": "1.2 m",
+    "B": "2.5 m",
+    "C": "4.9 m",
+    "D": "9.8 m"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x076",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q7",
+    "qid": "9702_s25_13_q7"
+   },
+   "stem": "Two coins are projected from a horizontal table at the same initial speed u.\nCoin X is projected horizontally.\nCoin Y is projected upwards at an angle of 30° to the horizontal.\nu\nu\ncoin X\ncoin Y\n30°\nBoth coins hit the horizontal ground without bouncing.\nAssume the air resistance on each coin is negligible.\nWhich statement about the motion of the coins is correct?",
+   "options": {
+    "A": "Both coins hit the ground with the same speed.",
+    "B": "Both coins travel the same vertical distance.",
+    "C": "Coin Y hits the ground before coin X.",
+    "D": "Coin Y has a smaller vertical acceleration."
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_13_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x077",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q5",
+    "qid": "9702_w25_11_q5"
+   },
+   "stem": "A goods train passes through a station at a constant speed of 10 m s⁻¹ at time t = 0. An express\ntrain is at rest at the station. The express train leaves the station with a uniform acceleration of\n0.5 m s⁻² just as the goods train goes past. Both trains move in the same direction on straight,\nparallel tracks.\nAt which time t does the express train overtake the goods train?",
+   "options": {
+    "A": "6 s",
+    "B": "10 s",
+    "C": "20 s",
+    "D": "40 s"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x078",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q6",
+    "qid": "9702_w25_11_q6"
+   },
+   "stem": "A ball is held above the ground and released. It falls to the ground and bounces several times.\nThe graph shows the variation with time t of the velocity v of the ball.\n0\n0\nv\nt\nP\nQ\nS\nR\nFour points on the graph are labelled P, Q, R and S.\nWhich statement is not correct?",
+   "options": {
+    "A": "The area under line PQ represents the initial height of the ball.",
+    "B": "The collisions of the ball with the ground are inelastic.",
+    "C": "The gradient of the line RS represents the acceleration due to free fall.",
+    "D": "The maximum upwards velocity of the ball is reached at point P."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x079",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q7",
+    "qid": "9702_w25_11_q7"
+   },
+   "stem": "An object is projected horizontally. The object falls a vertical distance y and travels a horizontal\ndistance x before landing on the ground.\nhorizontal\ndistance\nvertical\ndistance\ndirection of\nprojection\nlanding\npoint\nA second object is projected horizontally with the same initial velocity and falls a vertical distance\n4y before landing on the ground.\nAssume that air resistance is negligible.\nWhich horizontal distance does the second object travel?",
+   "options": {
+    "A": "x",
+    "B": "2x",
+    "C": "4x",
+    "D": "16x"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w25_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x080",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q5",
+    "qid": "9702_w25_12_q5"
+   },
+   "stem": "A car has an initial velocity u. The car then moves with constant acceleration a in a straight line\nthrough a displacement d. The car reaches a final velocity v.\nWhich expression gives the initial velocity u of the car?",
+   "options": {
+    "A": "v – ad",
+    "B": "ad v 2 – 2",
+    "C": "v + ad",
+    "D": "v – 2 2 ¹ ad"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w25_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x081",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q6",
+    "qid": "9702_w25_12_q6"
+   },
+   "stem": "A bicycle brakes so that it undergoes uniform deceleration from a speed of 8 m s⁻¹ to 6 m s⁻¹ over\na distance of 7 m.\nThe deceleration of the bicycle remains constant.\nWhich further distance will the bicycle travel before coming to rest?",
+   "options": {
+    "A": "7 m",
+    "B": "9 m",
+    "C": "16 m",
+    "D": "21 m"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x082",
+   "kcs": [
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q7",
+    "qid": "9702_w25_12_q7"
+   },
+   "stem": "The velocity–time graph for an object is shown.\n0\n0\nvelocity\ntime\narea 1\narea 2\nWhich expression gives the total displacement of the object?",
+   "options": {
+    "A": "area 1 – area 2",
+    "B": "( ) 2 2 area + 1 area",
+    "C": "area 1 + area 2",
+    "D": "area 2 – area 1"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w25_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x083",
+   "kcs": [
+    "9702-2.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q5",
+    "qid": "9702_w25_13_q5"
+   },
+   "stem": "A goods train passes through a station at a constant speed of 10 m s⁻¹ at time t = 0. An express\ntrain is at rest at the station. The express train leaves the station with a uniform acceleration of\n0.5 m s⁻² just as the goods train goes past. Both trains move in the same direction on straight,\nparallel tracks.\nAt which time t does the express train overtake the goods train?",
+   "options": {
+    "A": "6 s",
+    "B": "10 s",
+    "C": "20 s",
+    "D": "40 s"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x084",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q6",
+    "qid": "9702_w25_13_q6"
+   },
+   "stem": "A ball is held above the ground and released. It falls to the ground and bounces several times.\nThe graph shows the variation with time t of the velocity v of the ball.\n0\n0\nv\nt\nP\nQ\nS\nR\nFour points on the graph are labelled P, Q, R and S.\nWhich statement is not correct?",
+   "options": {
+    "A": "The area under line PQ represents the initial height of the ball.",
+    "B": "The collisions of the ball with the ground are inelastic.",
+    "C": "The gradient of the line RS represents the acceleration due to free fall.",
+    "D": "The maximum upwards velocity of the ball is reached at point P."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-2.1-x085",
+   "kcs": [
+    "9702-2.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q7",
+    "qid": "9702_w25_13_q7"
+   },
+   "stem": "An object is projected horizontally. The object falls a vertical distance y and travels a horizontal\ndistance x before landing on the ground.\nhorizontal\ndistance\nvertical\ndistance\ndirection of\nprojection\nlanding\npoint\nA second object is projected horizontally with the same initial velocity and falls a vertical distance\n4y before landing on the ground.\nAssume that air resistance is negligible.\nWhich horizontal distance does the second object travel?",
+   "options": {
+    "A": "x",
+    "B": "2x",
+    "C": "4x",
+    "D": "16x"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w25_13_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-2.1.1",
+   "front": "Define distance.",
+   "back": "Distance is the total length of the path travelled by an object; it is a scalar.",
+   "in_anki": true
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-2.1.1",
+   "front": "Define displacement.",
+   "back": "Displacement is the straight-line distance from the start point to the end point in a stated direction; it is a vector.",
+   "in_anki": true
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-2.1.1",
+   "front": "Define speed and velocity.",
+   "back": "Speed is the rate of change of distance. Velocity is the rate of change of displacement."
+  },
+  {
+   "id": "fc4",
+   "kc": "9702-2.1.1",
+   "front": "Define acceleration.",
+   "back": "Acceleration is the rate of change of velocity.",
+   "in_anki": true
+  },
+  {
+   "id": "fc5",
+   "kc": "9702-2.1.2",
+   "front": "What do the gradient and area of a velocity-time graph represent?",
+   "back": "Gradient = acceleration; area under the graph = displacement (area below the axis is negative)."
+  },
+  {
+   "id": "fc6",
+   "kc": "9702-2.1.4",
+   "front": "What does the gradient of a displacement-time graph represent?",
+   "back": "The velocity (for a curve, the gradient of the tangent gives the instantaneous velocity).",
+   "in_anki": true
+  },
+  {
+   "id": "fc7",
+   "kc": "9702-2.1.5",
+   "front": "What does the gradient of a velocity-time graph represent?",
+   "back": "The acceleration (for a curve, the gradient of the tangent at the instant).",
+   "in_anki": true
+  },
+  {
+   "id": "fc8",
+   "kc": "9702-2.1.6",
+   "front": "List the four equations of motion for uniform acceleration.",
+   "back": "$v=u+at$, $s=ut+\\tfrac12at^2$, $v^2=u^2+2as$, $s=\\tfrac12(u+v)t$."
+  },
+  {
+   "id": "fc9",
+   "kc": "9702-2.1.6",
+   "front": "State the conditions for the equations of motion.",
+   "back": "The acceleration is uniform (constant) and the motion is in a straight line."
+  },
+  {
+   "id": "fc10",
+   "kc": "9702-2.1.7",
+   "front": "What is the acceleration of free fall, and when does it apply?",
+   "back": "$g=9.81\\ \\mathrm{m\\,s^{-2}}$ downwards near the Earth's surface; every object falls with it when air resistance is negligible."
+  },
+  {
+   "id": "fc11",
+   "kc": "9702-2.1.8",
+   "front": "How is $g$ found from a graph in a free-fall experiment?",
+   "back": "Plot $h$ against $t^2$ for a ball released from rest; the gradient is $g/2$, so $g=2\\times$ gradient."
+  },
+  {
+   "id": "fc12",
+   "kc": "9702-2.1.9",
+   "front": "State the principle for projectile motion.",
+   "back": "Horizontal and vertical motions are independent: constant velocity horizontally, uniform acceleration $g$ vertically (no air resistance)."
+  }
+ ],
+ "diagrams": [
+  {
+   "file": "Assets/9702/9702-2.1-vt-graph.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        5,
+        10
+       ],
+       [
+        15,
+        10
+       ],
+       [
+        19,
+        0
+       ]
+      ],
+      "color": "#1f6feb"
+     }
+    ],
+    "shade": {
+     "line": 0
+    },
+    "ticks": true,
+    "ylim": [
+     0,
+     14
+    ],
+    "xticklabels": [
+     [
+      0,
+      "0"
+     ],
+     [
+      5,
+      "5"
+     ],
+     [
+      10,
+      "10"
+     ],
+     [
+      15,
+      "15"
+     ],
+     [
+      20,
+      "20"
+     ]
+    ],
+    "xlabel": "$t$ / s",
+    "ylabel": "$v$ / $\\mathrm{m\\,s^{-1}}$",
+    "annotations": [
+     {
+      "text": "gradient $= a$",
+      "xy": [
+       2.5,
+       5.0
+      ],
+      "xytext": [
+       0.2,
+       12.2
+      ]
+     },
+     {
+      "text": "area $= s$",
+      "xy": [
+       8.0,
+       4.2
+      ]
+     },
+     {
+      "text": "$a=0$",
+      "xy": [
+       8.5,
+       10.5
+      ]
+     },
+     {
+      "text": "gradient $<0$",
+      "xy": [
+       17.0,
+       5.0
+      ],
+      "xytext": [
+       14.4,
+       12.2
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "file": "Assets/9702/9702-2.1-st-graph.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0.0,
+        0.0
+       ],
+       [
+        0.1,
+        0.01
+       ],
+       [
+        0.2,
+        0.04
+       ],
+       [
+        0.3,
+        0.09
+       ],
+       [
+        0.4,
+        0.16
+       ],
+       [
+        0.5,
+        0.25
+       ],
+       [
+        0.6,
+        0.36
+       ],
+       [
+        0.7,
+        0.49
+       ],
+       [
+        0.8,
+        0.64
+       ],
+       [
+        0.9,
+        0.81
+       ],
+       [
+        1.0,
+        1.0
+       ],
+       [
+        1.1,
+        1.21
+       ],
+       [
+        1.2,
+        1.44
+       ],
+       [
+        1.3,
+        1.69
+       ],
+       [
+        1.4,
+        1.96
+       ],
+       [
+        1.5,
+        2.25
+       ],
+       [
+        1.6,
+        2.56
+       ],
+       [
+        1.7,
+        2.89
+       ],
+       [
+        1.8,
+        3.24
+       ],
+       [
+        1.9,
+        3.61
+       ],
+       [
+        2.0,
+        4.0
+       ],
+       [
+        2.1,
+        4.41
+       ],
+       [
+        2.2,
+        4.84
+       ],
+       [
+        2.3,
+        5.29
+       ],
+       [
+        2.4,
+        5.76
+       ],
+       [
+        2.5,
+        6.25
+       ],
+       [
+        2.6,
+        6.76
+       ],
+       [
+        2.7,
+        7.29
+       ],
+       [
+        2.8,
+        7.84
+       ],
+       [
+        2.9,
+        8.41
+       ],
+       [
+        3.0,
+        9.0
+       ],
+       [
+        3.1,
+        9.61
+       ],
+       [
+        3.2,
+        10.24
+       ],
+       [
+        3.3,
+        10.89
+       ],
+       [
+        3.4,
+        11.56
+       ],
+       [
+        3.5,
+        12.25
+       ],
+       [
+        3.6,
+        12.96
+       ],
+       [
+        3.7,
+        13.69
+       ],
+       [
+        3.8,
+        14.44
+       ],
+       [
+        3.9,
+        15.21
+       ],
+       [
+        4.0,
+        16.0
+       ],
+       [
+        4.1,
+        16.81
+       ],
+       [
+        4.2,
+        17.64
+       ],
+       [
+        4.3,
+        18.49
+       ],
+       [
+        4.4,
+        19.36
+       ],
+       [
+        4.5,
+        20.25
+       ]
+      ],
+      "color": "#1f2328"
+     },
+     {
+      "points": [
+       [
+        1.5,
+        0
+       ],
+       [
+        4.5,
+        18
+       ]
+      ],
+      "color": "#d9480f",
+      "style": "dashed"
+     },
+     {
+      "points": [
+       [
+        3,
+        9
+       ]
+      ],
+      "color": "#1f6feb",
+      "marker": "o"
+     }
+    ],
+    "ticks": true,
+    "ylim": [
+     0,
+     21
+    ],
+    "xlabel": "$t$ / s",
+    "ylabel": "$s$ / m",
+    "annotations": [
+     {
+      "text": "curve: gradient changes",
+      "xy": [
+       0.2,
+       15.5
+      ]
+     },
+     {
+      "text": "tangent at $t=3.0$ s: gradient $= v$",
+      "xy": [
+       0.2,
+       18.5
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "file": "Assets/9702/9702-2.1-projectile.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0.0,
+        0.0
+       ],
+       [
+        0.202,
+        0.168
+       ],
+       [
+        0.404,
+        0.335
+       ],
+       [
+        0.605,
+        0.5
+       ],
+       [
+        0.807,
+        0.664
+       ],
+       [
+        1.009,
+        0.825
+       ],
+       [
+        1.211,
+        0.985
+       ],
+       [
+        1.412,
+        1.144
+       ],
+       [
+        1.614,
+        1.3
+       ],
+       [
+        1.816,
+        1.455
+       ],
+       [
+        2.018,
+        1.608
+       ],
+       [
+        2.22,
+        1.76
+       ],
+       [
+        2.421,
+        1.909
+       ],
+       [
+        2.623,
+        2.057
+       ],
+       [
+        2.825,
+        2.204
+       ],
+       [
+        3.027,
+        2.348
+       ],
+       [
+        3.229,
+        2.491
+       ],
+       [
+        3.43,
+        2.633
+       ],
+       [
+        3.632,
+        2.772
+       ],
+       [
+        3.834,
+        2.91
+       ],
+       [
+        4.036,
+        3.046
+       ],
+       [
+        4.237,
+        3.18
+       ],
+       [
+        4.439,
+        3.313
+       ],
+       [
+        4.641,
+        3.444
+       ],
+       [
+        4.843,
+        3.574
+       ],
+       [
+        5.045,
+        3.701
+       ],
+       [
+        5.246,
+        3.827
+       ],
+       [
+        5.448,
+        3.951
+       ],
+       [
+        5.65,
+        4.074
+       ],
+       [
+        5.852,
+        4.195
+       ],
+       [
+        6.054,
+        4.314
+       ],
+       [
+        6.255,
+        4.431
+       ],
+       [
+        6.457,
+        4.547
+       ],
+       [
+        6.659,
+        4.661
+       ],
+       [
+        6.861,
+        4.773
+       ],
+       [
+        7.062,
+        4.884
+       ],
+       [
+        7.264,
+        4.993
+       ],
+       [
+        7.466,
+        5.1
+       ],
+       [
+        7.668,
+        5.205
+       ],
+       [
+        7.87,
+        5.309
+       ],
+       [
+        8.071,
+        5.411
+       ],
+       [
+        8.273,
+        5.512
+       ],
+       [
+        8.475,
+        5.61
+       ],
+       [
+        8.677,
+        5.707
+       ],
+       [
+        8.879,
+        5.803
+       ],
+       [
+        9.08,
+        5.896
+       ],
+       [
+        9.282,
+        5.988
+       ],
+       [
+        9.484,
+        6.078
+       ],
+       [
+        9.686,
+        6.167
+       ],
+       [
+        9.887,
+        6.254
+       ],
+       [
+        10.089,
+        6.339
+       ],
+       [
+        10.291,
+        6.422
+       ],
+       [
+        10.493,
+        6.504
+       ],
+       [
+        10.695,
+        6.584
+       ],
+       [
+        10.896,
+        6.662
+       ],
+       [
+        11.098,
+        6.739
+       ],
+       [
+        11.3,
+        6.814
+       ],
+       [
+        11.502,
+        6.887
+       ],
+       [
+        11.704,
+        6.958
+       ],
+       [
+        11.905,
+        7.028
+       ],
+       [
+        12.107,
+        7.096
+       ],
+       [
+        12.309,
+        7.162
+       ],
+       [
+        12.511,
+        7.227
+       ],
+       [
+        12.712,
+        7.29
+       ],
+       [
+        12.914,
+        7.351
+       ],
+       [
+        13.116,
+        7.411
+       ],
+       [
+        13.318,
+        7.469
+       ],
+       [
+        13.52,
+        7.525
+       ],
+       [
+        13.721,
+        7.579
+       ],
+       [
+        13.923,
+        7.632
+       ],
+       [
+        14.125,
+        7.683
+       ],
+       [
+        14.327,
+        7.732
+       ],
+       [
+        14.529,
+        7.78
+       ],
+       [
+        14.73,
+        7.826
+       ],
+       [
+        14.932,
+        7.87
+       ],
+       [
+        15.134,
+        7.913
+       ],
+       [
+        15.336,
+        7.954
+       ],
+       [
+        15.537,
+        7.993
+       ],
+       [
+        15.739,
+        8.03
+       ],
+       [
+        15.941,
+        8.066
+       ],
+       [
+        16.143,
+        8.1
+       ],
+       [
+        16.345,
+        8.132
+       ],
+       [
+        16.546,
+        8.163
+       ],
+       [
+        16.748,
+        8.192
+       ],
+       [
+        16.95,
+        8.219
+       ],
+       [
+        17.152,
+        8.245
+       ],
+       [
+        17.354,
+        8.268
+       ],
+       [
+        17.555,
+        8.291
+       ],
+       [
+        17.757,
+        8.311
+       ],
+       [
+        17.959,
+        8.33
+       ],
+       [
+        18.161,
+        8.347
+       ],
+       [
+        18.362,
+        8.362
+       ],
+       [
+        18.564,
+        8.376
+       ],
+       [
+        18.766,
+        8.388
+       ],
+       [
+        18.968,
+        8.398
+       ],
+       [
+        19.17,
+        8.406
+       ],
+       [
+        19.371,
+        8.413
+       ],
+       [
+        19.573,
+        8.418
+       ],
+       [
+        19.775,
+        8.422
+       ],
+       [
+        19.977,
+        8.423
+       ],
+       [
+        20.179,
+        8.423
+       ],
+       [
+        20.38,
+        8.422
+       ],
+       [
+        20.582,
+        8.418
+       ],
+       [
+        20.784,
+        8.413
+       ],
+       [
+        20.986,
+        8.406
+       ],
+       [
+        21.187,
+        8.398
+       ],
+       [
+        21.389,
+        8.388
+       ],
+       [
+        21.591,
+        8.376
+       ],
+       [
+        21.793,
+        8.362
+       ],
+       [
+        21.995,
+        8.347
+       ],
+       [
+        22.196,
+        8.33
+       ],
+       [
+        22.398,
+        8.311
+       ],
+       [
+        22.6,
+        8.291
+       ],
+       [
+        22.802,
+        8.268
+       ],
+       [
+        23.004,
+        8.245
+       ],
+       [
+        23.205,
+        8.219
+       ],
+       [
+        23.407,
+        8.192
+       ],
+       [
+        23.609,
+        8.163
+       ],
+       [
+        23.811,
+        8.132
+       ],
+       [
+        24.012,
+        8.1
+       ],
+       [
+        24.214,
+        8.066
+       ],
+       [
+        24.416,
+        8.03
+       ],
+       [
+        24.618,
+        7.993
+       ],
+       [
+        24.82,
+        7.954
+       ],
+       [
+        25.021,
+        7.913
+       ],
+       [
+        25.223,
+        7.87
+       ],
+       [
+        25.425,
+        7.826
+       ],
+       [
+        25.627,
+        7.78
+       ],
+       [
+        25.829,
+        7.732
+       ],
+       [
+        26.03,
+        7.683
+       ],
+       [
+        26.232,
+        7.632
+       ],
+       [
+        26.434,
+        7.579
+       ],
+       [
+        26.636,
+        7.525
+       ],
+       [
+        26.837,
+        7.469
+       ],
+       [
+        27.039,
+        7.411
+       ],
+       [
+        27.241,
+        7.351
+       ],
+       [
+        27.443,
+        7.29
+       ],
+       [
+        27.645,
+        7.227
+       ],
+       [
+        27.846,
+        7.162
+       ],
+       [
+        28.048,
+        7.096
+       ],
+       [
+        28.25,
+        7.028
+       ],
+       [
+        28.452,
+        6.958
+       ],
+       [
+        28.654,
+        6.887
+       ],
+       [
+        28.855,
+        6.814
+       ],
+       [
+        29.057,
+        6.739
+       ],
+       [
+        29.259,
+        6.662
+       ],
+       [
+        29.461,
+        6.584
+       ],
+       [
+        29.662,
+        6.504
+       ],
+       [
+        29.864,
+        6.422
+       ],
+       [
+        30.066,
+        6.339
+       ],
+       [
+        30.268,
+        6.254
+       ],
+       [
+        30.47,
+        6.167
+       ],
+       [
+        30.671,
+        6.078
+       ],
+       [
+        30.873,
+        5.988
+       ],
+       [
+        31.075,
+        5.896
+       ],
+       [
+        31.277,
+        5.803
+       ],
+       [
+        31.478,
+        5.707
+       ],
+       [
+        31.68,
+        5.61
+       ],
+       [
+        31.882,
+        5.512
+       ],
+       [
+        32.084,
+        5.411
+       ],
+       [
+        32.286,
+        5.309
+       ],
+       [
+        32.487,
+        5.205
+       ],
+       [
+        32.689,
+        5.1
+       ],
+       [
+        32.891,
+        4.993
+       ],
+       [
+        33.093,
+        4.884
+       ],
+       [
+        33.295,
+        4.773
+       ],
+       [
+        33.496,
+        4.661
+       ],
+       [
+        33.698,
+        4.547
+       ],
+       [
+        33.9,
+        4.431
+       ],
+       [
+        34.102,
+        4.314
+       ],
+       [
+        34.303,
+        4.195
+       ],
+       [
+        34.505,
+        4.074
+       ],
+       [
+        34.707,
+        3.951
+       ],
+       [
+        34.909,
+        3.827
+       ],
+       [
+        35.111,
+        3.701
+       ],
+       [
+        35.312,
+        3.574
+       ],
+       [
+        35.514,
+        3.444
+       ],
+       [
+        35.716,
+        3.313
+       ],
+       [
+        35.918,
+        3.18
+       ],
+       [
+        36.12,
+        3.046
+       ],
+       [
+        36.321,
+        2.91
+       ],
+       [
+        36.523,
+        2.772
+       ],
+       [
+        36.725,
+        2.633
+       ],
+       [
+        36.927,
+        2.491
+       ],
+       [
+        37.128,
+        2.348
+       ],
+       [
+        37.33,
+        2.204
+       ],
+       [
+        37.532,
+        2.057
+       ],
+       [
+        37.734,
+        1.909
+       ],
+       [
+        37.936,
+        1.76
+       ],
+       [
+        38.137,
+        1.608
+       ],
+       [
+        38.339,
+        1.455
+       ],
+       [
+        38.541,
+        1.3
+       ],
+       [
+        38.743,
+        1.144
+       ],
+       [
+        38.945,
+        0.985
+       ],
+       [
+        39.146,
+        0.825
+       ],
+       [
+        39.348,
+        0.664
+       ],
+       [
+        39.55,
+        0.5
+       ],
+       [
+        39.752,
+        0.335
+       ],
+       [
+        39.953,
+        0.168
+       ],
+       [
+        40.155,
+        0.0
+       ]
+      ],
+      "color": "#1f6feb"
+     }
+    ],
+    "ticks": false,
+    "ylim": [
+     -1.5,
+     11
+    ],
+    "xlim": [
+     -8,
+     43
+    ],
+    "xlabel": "horizontal distance",
+    "ylabel": "height",
+    "annotations": [
+     {
+      "text": "",
+      "xy": [
+       26.077630030829926,
+       9.323565976891636
+      ],
+      "xytext": [
+       21.077630030829926,
+       9.323565976891636
+      ]
+     },
+     {
+      "text": "$v_x$ constant",
+      "xy": [
+       21.077630030829926,
+       9.723565976891637
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       20.077630030829926,
+       4.423565976891636
+      ],
+      "xytext": [
+       20.077630030829926,
+       7.523565976891636
+      ]
+     },
+     {
+      "text": "$a=g$ downwards",
+      "xy": [
+       14.577630030829926,
+       3.223565976891636
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       6.894399988070802,
+       5.785088487178854
+      ],
+      "xytext": [
+       0,
+       0
+      ]
+     },
+     {
+      "text": "$v$",
+      "xy": [
+       5.294399988070802,
+       5.985088487178854
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       6.894399988070802,
+       0
+      ],
+      "xytext": [
+       0,
+       0
+      ]
+     },
+     {
+      "text": "$v\\cos\\theta$",
+      "xy": [
+       0.2,
+       -1.2
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       0,
+       5.785088487178854
+      ],
+      "xytext": [
+       0,
+       0
+      ]
+     },
+     {
+      "text": "$v\\sin\\theta$",
+      "xy": [
+       -7.6,
+       4.785088487178854
+      ]
+     },
+     {
+      "text": "$\\theta$",
+      "xy": [
+       2.6,
+       0.35
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}
