@@ -25,7 +25,7 @@
    "id": "m3",
    "kc": "S1-2.3",
    "statement": "Standard deviation is calculated by dividing by $n-1$.",
-   "refutation": "This spec defines variance as $S_{xx}/n=\\Sigma(x-\\bar x)^2/n$ (dividing by $n$); the $n-1$ divisor belongs to a sample estimator used in later statistics units, not here.",
+   "refutation": "On this specification variance is $S_{xx}/n=\\Sigma(x-\\bar x)^2/n$, dividing by $n$, the number of data values.",
    "contrast": "For $\\Sigma x^2=3475$, $n=20$, $\\bar x=12.25$: $\\mathrm{Var}=3475/20-12.25^2=23.6875$, not $3475/19-12.25^2$.",
    "source": "research"
   },
@@ -154,14 +154,11 @@
    ],
    "faded": {
     "id": "we3f",
-    "problem": "For the table $x: 5,15,25$ with $f: 3,5,2$, find the mean and standard deviation.",
+    "problem": "The table shows the number of emails, $x$, received by 10 office workers in an hour.\n\n| $x$ | 5 | 15 | 25 |\n|---|---|---|---|\n| $f$ | 3 | 5 | 2 |\n\nCalculate the standard deviation of $x$ (you will need the mean first).",
     "answer": {
      "value": 7.0,
      "unit": "",
-     "sf_ok": [
-      2,
-      3
-     ]
+     "exact": true
     },
     "blank_from": 1
    }
@@ -194,9 +191,9 @@
    "shuffle": true,
    "explanation": "Height $=$ frequency density $=$ frequency $\\div$ class width; only the bar's *area* equals frequency once widths differ.",
    "hints": [
-    "Think about what would have to change if two classes had the same frequency but different widths.",
-    "The quantity that stays comparable across different widths is frequency $\\div$ width.",
-    "That ratio is what the height plots — not the frequency by itself."
+    "Think about two classes with the same frequency but different widths.",
+    "If both bars must show the same frequency, what has to happen to the height of the wider bar?",
+    "The bar's area gives the frequency, so its height must be frequency divided by something about the class."
    ]
   },
   {
@@ -270,7 +267,7 @@
    "stem": "Box plot A (heights of Team A, cm): min 150, $Q_1$ 160, median 168, $Q_3$ 176, max 190. Box plot B (heights of Team B, cm): min 155, $Q_1$ 165, median 170, $Q_3$ 172, max 180. Compare the two teams' heights, using the median and a measure of spread.",
    "rubric": [
     {
-     "point": "compares medians in context",
+     "point": "compares medians in context (which team is taller on average)",
      "keywords": [
       [
        "median"
@@ -280,19 +277,37 @@
        "greater",
        "taller",
        "larger",
+       "lower",
+       "smaller",
+       "shorter",
        "similar",
        "close"
+      ],
+      [
+       "team a",
+       "team b",
+       "a's",
+       "b's"
+      ],
+      [
+       "height",
+       "tall",
+       "cm",
+       "short"
       ]
      ]
     },
     {
-     "point": "compares spread (IQR or range) in context",
+     "point": "compares spread (IQR or range) in context (which team's heights vary more)",
      "keywords": [
       [
-       "IQR",
+       "iqr",
        "interquartile range",
+       "range",
        "spread",
-       "range"
+       "varied",
+       "variable",
+       "consistent"
       ],
       [
        "more",
@@ -301,6 +316,18 @@
        "greater",
        "smaller",
        "larger"
+      ],
+      [
+       "team a",
+       "team b",
+       "a's",
+       "b's"
+      ],
+      [
+       "height",
+       "tall",
+       "cm",
+       "short"
       ]
      ]
     }
@@ -382,18 +409,18 @@
    "source": {
     "type": "generated"
    },
-   "stem": "A holiday company records the number of bedrooms in each property it lets; most properties have 2 or 3 bedrooms, but a handful of large villas have 8 or more. Which average best describes a 'typical' property, and why?",
+   "stem": "A holiday company records the number of bedrooms in each property it lets; most properties have 2 or 3 bedrooms, but a handful of large villas have 8 or more. The company must quote either the mean or the median as the 'typical' number of bedrooms. Which should it quote, and why?",
    "options": {
     "A": "Median, because it is not affected by the few very large villas",
     "B": "Mean, because it uses every value in the data set",
-    "C": "Mode, because the number of bedrooms is always a whole number",
-    "D": "Range, because it shows how spread out the data are"
+    "C": "Median, because it is always one of the data values",
+    "D": "Mean, because the villas pull it towards the most common value"
    },
    "answer": "A",
    "distractors": {},
    "marks": 1,
    "shuffle": true,
-   "explanation": "The villas are outliers that would pull the mean upward; the median depends only on the middle value(s), so it is not distorted by a few extreme properties.",
+   "explanation": "The villas are extreme values that pull the mean upward, away from the 2 or 3 bedrooms most properties have; the median depends only on the middle value(s), so it is not distorted. Using every value (B) is exactly why the mean is distorted here, and the median need not be a data value (C) when $n$ is even.",
    "hints": [
     "The villas are extreme, unusual values — which average is sensitive to extreme values?",
     "The mean uses every value, so a few very large ones drag it up.",
@@ -532,19 +559,15 @@
      ]
     },
     {
-     "point": "links this to positive/right skew caused by a few expensive houses",
+     "point": "links this to positive (right) skew caused by a few very expensive houses",
      "keywords": [
       [
        "skew",
-       "tail",
-       "spread"
+       "tail"
       ],
       [
        "right",
-       "positive",
-       "high",
-       "expensive",
-       "large"
+       "positive"
       ]
      ]
     }
@@ -579,11 +602,11 @@
    "distractors": {},
    "marks": 1,
    "shuffle": true,
-   "explanation": "The mode is the most frequently occurring value, which directly answers 'which size sells the most' — shoe sizes are discrete categories, not something to average arithmetically.",
+   "explanation": "The mode is the most common size, which is what the shop needs to stock the most of; a mean or median could be a size that few customers, or none, actually buy.",
    "hints": [
     "Shoe size isn't really something you'd want to 'average' numerically — you want the most common one.",
     "Which average literally means 'the most frequently occurring value'?",
-    "Identify the size that appears most often in the shop's sales."
+    "Tally the sizes sold last month: the shop should order most of the size with the biggest tally. Which average picks that out?"
    ]
   },
   {
@@ -610,11 +633,11 @@
    },
    "marks": 1,
    "shuffle": true,
-   "explanation": "This specification defines variance as $S_{xx}/n=\\Sigma(x-\\bar x)^2/n$, dividing by $n$; dividing by $n-1$ belongs to a sample estimator used in later statistics units, not here.",
+   "explanation": "On this specification variance is $S_{xx}/n=\\Sigma(x-\\bar x)^2/n$: the mean of the squared deviations, so the divisor is $n$, the number of data values.",
    "hints": [
     "Variance needs squared deviations from the mean — does option D square anything?",
     "You need to divide the total squared deviation by something — but which?",
-    "This spec divides by $n$, the number of data values, not $n-1$."
+    "Variance is the *mean* of the squared deviations: to find a mean you divide a total by how many values there are."
    ]
   },
   {
@@ -687,21 +710,20 @@
    "source": {
     "type": "generated"
    },
-   "stem": "The table shows the delivery times, $t$ minutes, for 40 parcels.\n\n| $t$ (min) | $10\\le t<20$ | $20\\le t<25$ | $25\\le t<40$ | $40\\le t<60$ |\n|---|---|---|---|---|\n| Frequency | 8 | 12 | 15 | 5 |\n\nUse linear interpolation to estimate the upper quartile, $Q_3$.",
+   "stem": "The table shows the delivery times, $t$ minutes, for 40 parcels.\n\n| $t$ (min) | $10\\le t<20$ | $20\\le t<25$ | $25\\le t<40$ | $40\\le t<60$ |\n|---|---|---|---|---|\n| Frequency | 8 | 12 | 12 | 8 |\n\nUse linear interpolation to estimate the upper quartile, $Q_3$.",
    "answer": {
-    "value": 35.0,
+    "value": 37.5,
     "unit": "min",
     "sf_ok": [
-     2,
      3
     ]
    },
    "marks": 3,
-   "explanation": "$Q_3$ is the $\\tfrac{3n}{4}=30$th value. The cumulative frequencies are $8,20,35,40$, so the 30th value falls in the class $25\\le t<40$ (which ends exactly at the 35th value): $Q_3=25+\\dfrac{30-20}{15}\\times15=35$ min.",
+   "explanation": "$Q_3$ is the $\\tfrac{3n}{4}=30$th value. The cumulative frequencies are $8,20,32,40$, so the 30th value lies in the class $25\\le t<40$: $Q_3=25+\\dfrac{30-20}{12}\\times15=37.5$ min.",
    "hints": [
     "First find the cumulative frequencies, then locate the class containing the $\\tfrac{3n}{4}$th value.",
     "Use $Q_3 = L + \\dfrac{\\frac{3n}{4}-\\text{cf before}}{f}\\times w$, where $L$ is the class's lower boundary and $w$ its width.",
-    "Here $\\tfrac{3n}{4}=30$, the class before it has cumulative frequency 20, the class has frequency 15 and width 15."
+    "Here $\\tfrac{3n}{4}=30$, the classes before it have cumulative frequency 20, and the class has frequency 12 and width 15."
    ]
   },
   {
@@ -786,35 +808,6 @@
    "explanation": "Median class is $20\\le t<30$ (cumulative frequency reaches 20 within it); $Q_1$ falls in $10\\le t<20$ and $Q_3$ in $30\\le t<40$."
   },
   {
-   "id": "S1-2-i21",
-   "kcs": [
-    "S1-2.3"
-   ],
-   "kind": "mcq",
-   "difficulty": 2,
-   "command_word": "State",
-   "source": {
-    "type": "generated"
-   },
-   "stem": "One extra, extremely large value is added to a data set of 200 values. Which measure of spread is changed the most by this single value?",
-   "options": {
-    "A": "The range",
-    "B": "The interquartile range",
-    "C": "The 10–90 interpercentile range",
-    "D": "All three change by the same amount"
-   },
-   "answer": "A",
-   "distractors": {},
-   "marks": 1,
-   "shuffle": true,
-   "explanation": "The range is largest value $-$ smallest value, so it takes the new extreme value directly and grows by a lot. The IQR ($Q_3-Q_1$) and the 10–90 interpercentile range ($P_{90}-P_{10}$) use percentiles inside the data, which shift by at most one position when one value is added, so they barely change.",
-   "hints": [
-    "Think about which values each measure actually uses.",
-    "One of these measures is built from the two most extreme values; the others ignore the tails.",
-    "Ask of each measure: does it use the single largest value directly, or a value from inside the ordered data?"
-   ]
-  },
-  {
    "id": "S1-2-i16",
    "kcs": [
     "S1-2.4"
@@ -871,7 +864,7 @@
    "hints": [
     "Look at which whisker is longer, and where the median sits within the box.",
     "A longer section on the high-value side points to a tail in that direction.",
-    "Name the direction that tail points — that direction names the skew."
+    "Compare $Q_2-Q_1$ with $Q_3-Q_2$: here the upper part of the box and the upper whisker are longer, so the high values are stretched out. Skew is named after the side with the stretched-out values."
    ]
   },
   {
@@ -915,15 +908,12 @@
      }
     ],
     "constraints": [
-     "Q3 - Q1 > 4"
+     "(k*iqr) % 1 == 0"
     ]
    },
    "answer": {
     "unit": "",
-    "sf_ok": [
-     3,
-     4
-    ]
+    "exact": true
    },
    "marks": 2,
    "explanation": "First find $\\mathrm{IQR}=Q_3-Q_1$, then add $k\\times\\mathrm{IQR}$ onto $Q_3$ (not $Q_1$) to get the upper boundary.",
@@ -959,7 +949,7 @@
    "hints": [
     "The direction of skew is named after the direction the *tail* points, not the peak.",
     "Here the tail stretches towards high values.",
-    "Match that tail direction to the matching term for skewness among the options."
+    "Skew is named after the tail: a tail towards low values is negative (left) skew, a tail towards high values is the other one. Which way does this tail stretch?"
    ]
   },
   {
@@ -973,24 +963,29 @@
    "source": {
     "type": "generated"
    },
-   "stem": "A box plot for weekly wages (£) shows: min 280, $Q_1$ 340, median 350, $Q_3$ 380, with the highest non-outlier wage at 420; one employee's wage of 900 is plotted as a separate point beyond the upper whisker. Explain what the diagram shows about outliers and skewness.",
+   "stem": "A box plot for weekly wages (£) shows: lowest wage 320, $Q_1$ 340, median 350, $Q_3$ 380, and the upper whisker ends at 420. One employee's wage of 900 is plotted as a separate point. A value is an outlier if it is more than $1.5\\times\\mathrm{IQR}$ above $Q_3$ or more than $1.5\\times\\mathrm{IQR}$ below $Q_1$.\n\n(a) Show that 900 is an outlier.\n(b) Describe, giving a reason, the skewness of the wages.",
    "rubric": [
     {
-     "point": "identifies 900 as an outlier beyond the fence/whisker",
+     "point": "upper limit $Q_3+1.5\\times\\mathrm{IQR}=380+1.5(40)=440$",
+     "keywords": [
+      [
+       "440"
+      ]
+     ]
+    },
+    {
+     "point": "$900>440$, so 900 is an outlier",
      "keywords": [
       [
        "900"
       ],
       [
-       "outlier",
-       "fence",
-       "whisker",
-       "beyond"
+       "outlier"
       ]
      ]
     },
     {
-     "point": "identifies positive/right skew from the box shape and the high outlier",
+     "point": "positive skew, with a reason (e.g. $Q_2-Q_1=10<Q_3-Q_2=30$, or longer upper whisker)",
      "keywords": [
       [
        "skew"
@@ -998,16 +993,55 @@
       [
        "positive",
        "right"
+      ],
+      [
+       "median",
+       "q1",
+       "q3",
+       "q2",
+       "quartile",
+       "whisker",
+       "box",
+       "tail"
       ]
      ]
     }
    ],
-   "marks": 2,
-   "explanation": "The upper fence is $Q_3+1.5\\times\\mathrm{IQR}=380+1.5(40)=440$; since 900 is far above this, it is an outlier. Within the box the median (350) sits closer to $Q_1$ (340) than to $Q_3$ (380), and the extreme high wage stretches the distribution's right-hand tail, so the wages are positively (right) skewed.",
+   "marks": 3,
+   "explanation": "$\\mathrm{IQR}=380-340=40$, so the upper limit is $380+1.5\\times40=440$ and $900>440$ is an outlier. $Q_2-Q_1=10$ is less than $Q_3-Q_2=30$ and the upper whisker (40) is longer than the lower (20), so the upper half of the wages is more spread out: positive (right) skew.",
    "hints": [
-    "Work out the upper fence using $Q_3+1.5\\times\\mathrm{IQR}$ and compare it with 900.",
-    "Look at where the median sits within the box — closer to $Q_1$ or to $Q_3$?",
-    "A value that sits far above the fence, together with a box that's longer on the upper side, indicates positive skew."
+    "Use the rule given in the question: you need the IQR first.",
+    "Work out $Q_3+1.5\\times\\mathrm{IQR}$ and compare it with 900. For the skew, compare the two halves of the box.",
+    "Find $Q_2-Q_1$ and $Q_3-Q_2$: the longer side shows where the values are stretched out, and skew is named after that side."
+   ]
+  },
+  {
+   "id": "S1-2-i21",
+   "kcs": [
+    "S1-2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "One extra, extremely large value is added to a data set of 200 values. Which measure of spread is changed the most by this single value?",
+   "options": {
+    "A": "The range",
+    "B": "The interquartile range",
+    "C": "The 10–90 interpercentile range",
+    "D": "All three change by the same amount"
+   },
+   "answer": "A",
+   "distractors": {},
+   "marks": 1,
+   "shuffle": true,
+   "explanation": "The range is largest value $-$ smallest value, so it takes the new extreme value directly and grows by a lot. The IQR ($Q_3-Q_1$) and the 10–90 interpercentile range ($P_{90}-P_{10}$) use percentiles inside the data, which shift by at most one position when one value is added, so they barely change.",
+   "hints": [
+    "Think about which values each measure actually uses.",
+    "One of these measures is built from the two most extreme values; the others ignore the tails.",
+    "Ask of each measure: does it use the single largest value directly, or a value from inside the ordered data?"
    ]
   }
  ],
@@ -1067,12 +1101,6 @@
    "back": "$\\mathrm{IQR} = Q_3 - Q_1$, the range of the middle 50% of the data."
   },
   {
-   "id": "fc13",
-   "kc": "S1-2.3",
-   "front": "Define the range and an interpercentile range.",
-   "back": "Range $=$ largest value $-$ smallest value. An interpercentile range is the difference between two percentiles, e.g. the 10–90 interpercentile range $=P_{90}-P_{10}$ (the IQR is the 25–75 case)."
-  },
-  {
    "id": "fc10",
    "kc": "S1-2.4",
    "front": "What does positive skew mean?",
@@ -1088,184 +1116,69 @@
    "id": "fc12",
    "kc": "S1-2.4",
    "front": "How can skewness be read from a box plot?",
-   "back": "Compare whisker lengths and the median's position in the box: a longer right side indicates positive skew, a longer left side indicates negative skew."
+   "back": "Compare $Q_2-Q_1$ with $Q_3-Q_2$: if $Q_2-Q_1<Q_3-Q_2$ the skew is positive; if $Q_2-Q_1>Q_3-Q_2$ it is negative; if they are about equal the data are symmetric. Longer whiskers on one side support the same conclusion."
+  },
+  {
+   "id": "fc13",
+   "kc": "S1-2.3",
+   "front": "Define the range and an interpercentile range.",
+   "back": "Range $=$ largest value $-$ smallest value. An interpercentile range is the difference between two percentiles, e.g. the 10–90 interpercentile range $=P_{90}-P_{10}$ (the IQR is the 25–75 case)."
   }
  ],
  "diagrams": [
   {
    "file": "Assets/S1/S1-2-boxplot-outlier.svg",
-   "type": "graph_sketch",
+   "type": "box_plot",
    "params": {
-    "lines": [
-     {
-      "points": [
-       [
-        4,
-        1
-       ],
-       [
-        10,
-        1
-       ]
-      ]
-     },
-     {
-      "points": [
-       [
-        10,
-        0.7
-       ],
-       [
-        10,
-        1.3
-       ],
-       [
-        18,
-        1.3
-       ],
-       [
-        18,
-        0.7
-       ],
-       [
-        10,
-        0.7
-       ]
-      ]
-     },
-     {
-      "points": [
-       [
-        14,
-        0.7
-       ],
-       [
-        14,
-        1.3
-       ]
-      ]
-     },
-     {
-      "points": [
-       [
-        18,
-        1
-       ],
-       [
-        24,
-        1
-       ]
-      ]
-     },
-     {
-      "points": [
-       [
-        34,
-        0.95
-       ],
-       [
-        34,
-        1.05
-       ]
-      ],
-      "color": "#d9480f"
-     }
+    "min": 4,
+    "q1": 10,
+    "median": 14,
+    "q3": 18,
+    "max": 24,
+    "outliers": [
+     34
     ],
-    "annotations": [
-     {
-      "text": "min = 4",
-      "xy": [
-       4,
-       1
-      ],
-      "xytext": [
-       2.5,
-       0.3
-      ]
-     },
-     {
-      "text": "Q1 = 10",
-      "xy": [
-       10,
-       0.7
-      ],
-      "xytext": [
-       8.5,
-       0.25
-      ]
-     },
-     {
-      "text": "median = 14",
-      "xy": [
-       14,
-       1.3
-      ],
-      "xytext": [
-       12,
-       1.8
-      ]
-     },
-     {
-      "text": "Q3 = 18",
-      "xy": [
-       18,
-       1.3
-      ],
-      "xytext": [
-       19.5,
-       1.8
-      ]
-     },
-     {
-      "text": "upper whisker = 24",
-      "xy": [
-       24,
-       1
-      ],
-      "xytext": [
-       25,
-       0.3
-      ]
-     },
-     {
-      "text": "outlier (max) = 34",
-      "xy": [
-       34,
-       1
-      ],
-      "xytext": [
-       29,
-       1.6
-      ]
-     }
+    "xlabel": "value",
+    "ticks": [
+     0,
+     5,
+     10,
+     15,
+     20,
+     25,
+     30,
+     35,
+     40
     ],
-    "xlabel": "value"
+    "labels": true,
+    "outlier_label": "outlier = 34\n(the maximum)",
+    "whisker_label": "whisker ends at 24\n(largest non-outlier)"
    }
   },
   {
    "file": "Assets/S1/S1-2-skew-shapes.svg",
-   "type": "function_plot",
+   "type": "density_panels",
    "params": {
-    "functions": [
+    "panels": [
      {
       "expr": "x*exp(-x/2)",
       "domain": [
        0,
-       12
+       18
       ],
-      "label": "positive skew: mean > median > mode"
+      "title": "Positive skew: mode < median < mean"
      },
      {
-      "expr": "(12-x)*exp(-(12-x)/2)",
+      "expr": "(18-x)*exp(-(18-x)/2)",
       "domain": [
        0,
-       12
+       18
       ],
-      "label": "negative skew: mean < median < mode"
+      "title": "Negative skew: mean < median < mode"
      }
     ],
-    "xlabel": "value",
-    "ylabel": "frequency"
+    "mark_centres": true,
+    "xlabel": "value"
    }
   }
  ]

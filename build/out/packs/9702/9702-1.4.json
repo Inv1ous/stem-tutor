@@ -1,0 +1,1313 @@
+{
+ "subtopic": "9702-1.4",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/01 Physical quantities and units/1.4 Scalars and vectors.md",
+ "outline": "A scalar has magnitude only; a vector has magnitude and direction. Adding vectors means joining them head to tail (a vector triangle) and reading off the resultant; subtracting $\\mathbf{Y}$ means adding $-\\mathbf{Y}$, so a change is always final minus initial, $\\Delta\\mathbf{v}=\\mathbf{v}_\\mathrm{f}-\\mathbf{v}_\\mathrm{i}$. Any coplanar vector can be resolved into two perpendicular components: $F_x=F\\cos\\theta$ next to the angle and $F_y=F\\sin\\theta$ opposite it. Perpendicular components act independently, so combine them separately then use $F=\\sqrt{F_x^2+F_y^2}$ and $\\tan\\theta=F_y/F_x$. Direction is part of the answer.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-1.4.1",
+   "statement": "A quantity is a vector if it can be positive or negative (temperature in °C, electric charge), or if it 'points' forwards in time.",
+   "refutation": "A vector needs a direction in space. A plus or minus sign only tells you which of two opposite senses along a chosen axis, or which type of charge; it is not a direction in space, so temperature, charge and time are scalars.",
+   "contrast": "Weight of $5\\ \\mathrm{N}$ downwards is a vector (magnitude and direction). A temperature of $-5\\,^\\circ\\mathrm{C}$ has only a size and a sign, so it is a scalar.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-1.4.1",
+   "statement": "Sorting quantities by how they 'feel': upthrust is called a scalar, or pressure, work and energy are called vectors because they involve forces.",
+   "refutation": "Upthrust is a force, so it is a vector. Pressure ($F/A$), work and energy are scalars: they have no single direction. A scalar can be calculated from vectors (work is force times displacement in the direction of the force) without becoming a vector.",
+   "contrast": "Upthrust acts upwards on a floating object (vector); the work it does is just a number of joules (scalar).",
+   "source": "ER 9702 w23 P23 Q1"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-1.4.2",
+   "statement": "Combining vectors by adding or subtracting their magnitudes and ignoring directions (or using Pythagoras whatever the angle is).",
+   "refutation": "Magnitudes only add directly when the vectors are in the same direction. Opposite directions partly cancel, so a velocity of $8\\ \\mathrm{m\\,s^{-1}}$ right and one of $3\\ \\mathrm{m\\,s^{-1}}$ left differ by $11\\ \\mathrm{m\\,s^{-1}}$, not $5$. Pythagoras works only when the vectors are perpendicular.",
+   "contrast": "Two forces of $6.0\\ \\mathrm{N}$ at $60^\\circ$ give a resultant of $10\\ \\mathrm{N}$, not $12\\ \\mathrm{N}$ (aligned) and not $8.5\\ \\mathrm{N}$ (perpendicular).",
+   "source": "ER 9702 s21 P22 Q2"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-1.4.2",
+   "statement": "Treating vector subtraction as addition: for a change in velocity, drawing $v_\\mathrm{f}+v_\\mathrm{i}$, or subtracting in the wrong order.",
+   "refutation": "The change in a quantity is final minus initial: $\\Delta\\mathbf{v}=\\mathbf{v}_\\mathrm{f}-\\mathbf{v}_\\mathrm{i}$. Subtracting a vector means adding its reverse, so reverse the initial velocity first and only then add.",
+   "contrast": "Initial $4.0\\ \\mathrm{m\\,s^{-1}}$ right, final $3.0\\ \\mathrm{m\\,s^{-1}}$ down: the sum points down-right, but the change points down-left with magnitude $5.0\\ \\mathrm{m\\,s^{-1}}$.",
+   "source": "ER 9702 s22 P12 Q4"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-1.4.3",
+   "statement": "Swapping sin and cos when resolving: using $F\\sin\\theta$ for the component next to the angle, or $F\\cos\\theta$ for the component opposite it.",
+   "refutation": "The component adjacent to the angle $\\theta$ is $F\\cos\\theta$; the component opposite it is $F\\sin\\theta$. Always ask which side of the right-angled triangle touches the angle, and check limits: at $\\theta=0$ the whole force lies along the axis, so its component is $F$.",
+   "contrast": "A force of $10\\ \\mathrm{N}$ at $30^\\circ$ above the horizontal has horizontal component $10\\cos30^\\circ=8.7\\ \\mathrm{N}$ (the larger one), not $10\\sin30^\\circ=5.0\\ \\mathrm{N}$.",
+   "source": "ER 9702 w23 P12 Q4"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-1.4.2",
+   "problem": "A boat is steered at $3.0\\ \\mathrm{m\\,s^{-1}}$ directly across a river. The river flows at $1.2\\ \\mathrm{m\\,s^{-1}}$ parallel to the banks. Determine the magnitude and direction of the boat's velocity relative to the bank.",
+   "steps": [
+    {
+     "do": "Sketch the vector triangle: draw the river's velocity ($1.2\\ \\mathrm{m\\,s^{-1}}$ along the bank) and add the boat's velocity ($3.0\\ \\mathrm{m\\,s^{-1}}$ across) head to tail. The resultant runs from the start of the first arrow to the end of the second.",
+     "why": "A sketch shows the two vectors are perpendicular, so the triangle is right-angled and Pythagoras applies; without it students add the magnitudes to get $4.2\\ \\mathrm{m\\,s^{-1}}$."
+    },
+    {
+     "do": "Magnitude: $v=\\sqrt{3.0^2+1.2^2}=3.2\\ \\mathrm{m\\,s^{-1}}$.",
+     "why": "Perpendicular vectors combine by Pythagoras, giving a speed larger than either but less than their sum.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.2310988842807022,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Direction: $\\tan\\theta=\\dfrac{3.0}{1.2}$, so $\\theta=68^\\circ$ to the bank, pointing downstream and across.",
+     "why": "State the angle from a named reference line (here the bank); a magnitude alone does not specify a vector."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A boat is steered at $4.0\\ \\mathrm{m\\,s^{-1}}$ directly across a river flowing at $1.5\\ \\mathrm{m\\,s^{-1}}$. Determine the magnitude of its velocity relative to the bank.",
+    "answer": {
+     "value": 4.272001872658765,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-1.4.2",
+   "problem": "An object moving at $4.0\\ \\mathrm{m\\,s^{-1}}$ to the right changes direction so that it moves at $3.0\\ \\mathrm{m\\,s^{-1}}$ downwards. Determine the magnitude and direction of the change in velocity.",
+   "steps": [
+    {
+     "do": "Write the change as $\\Delta\\mathbf{v}=\\mathbf{v}_\\mathrm{f}-\\mathbf{v}_\\mathrm{i}$ and reverse the initial velocity: $-\\mathbf{v}_\\mathrm{i}$ is $4.0\\ \\mathrm{m\\,s^{-1}}$ to the left.",
+     "why": "Subtracting a vector means adding its reverse. Adding $\\mathbf{v}_\\mathrm{i}$ instead gives the resultant of the two velocities, not the change."
+    },
+    {
+     "do": "Add $-\\mathbf{v}_\\mathrm{i}$ (left, $4.0$) to $\\mathbf{v}_\\mathrm{f}$ (down, $3.0$) head to tail. These are perpendicular, so $|\\Delta\\mathbf{v}|=\\sqrt{4.0^2+3.0^2}=5.0\\ \\mathrm{m\\,s^{-1}}$.",
+     "why": "The two vectors are at $90^\\circ$, so Pythagoras applies.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 5.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Direction: $\\tan\\alpha=\\dfrac{3.0}{4.0}$, so $\\alpha=37^\\circ$ below the leftward horizontal.",
+     "why": "Give the direction relative to a stated axis; the change points down and to the left."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "An object moving at $6.0\\ \\mathrm{m\\,s^{-1}}$ to the right changes direction so that it moves at $8.0\\ \\mathrm{m\\,s^{-1}}$ upwards. Determine the magnitude of the change in velocity.",
+    "answer": {
+     "value": 10.0,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-1.4.3",
+   "problem": "A force of $25\\ \\mathrm{N}$ acts at $35^\\circ$ above the horizontal. Determine its horizontal and vertical components.",
+   "steps": [
+    {
+     "do": "Draw the force as the hypotenuse of a right-angled triangle, with the $35^\\circ$ angle between the force and the horizontal side.",
+     "why": "The sketch shows which side is adjacent to the angle; sin and cos are then chosen by geometry, not by guesswork."
+    },
+    {
+     "do": "Horizontal (adjacent to $\\theta$): $F_x=F\\cos\\theta=25\\cos35^\\circ=20\\ \\mathrm{N}$.",
+     "why": "The adjacent side is hypotenuse $\\times\\cos\\theta$. Sense-check: at small angles most of the force is horizontal.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 20.478801107224793,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Vertical (opposite $\\theta$): $F_y=F\\sin\\theta=25\\sin35^\\circ=14\\ \\mathrm{N}$.",
+     "why": "Check by Pythagoras: $\\sqrt{20.5^2+14.3^2}=25\\ \\mathrm{N}$, the original magnitude.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 14.339410908776152,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A force of $40\\ \\mathrm{N}$ acts at $20^\\circ$ above the horizontal. Determine its horizontal component.",
+    "answer": {
+     "value": 37.58770483143634,
+     "unit": "N",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-1.4-p01",
+   "kcs": [
+    "9702-1.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 1,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q1",
+    "qid": "9702_w25_13_q1"
+   },
+   "stem": "The table lists four physical quantities: acceleration, charge, kinetic energy and wavelength. Which row correctly identifies them, in that order, as scalars or vectors?",
+   "options": {
+    "A": "scalar, vector, vector, scalar",
+    "B": "vector, vector, scalar, scalar",
+    "C": "scalar, scalar, scalar, vector",
+    "D": "vector, scalar, scalar, scalar"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Acceleration is the rate of change of velocity, so it has a direction: a vector. Charge, kinetic energy and wavelength have magnitude only: scalars. Option B is wrong because it calls charge a vector: charge has a sign (positive or negative), but a sign is not a direction in space.",
+   "image": "Assets/mcq/9702_w25_13_q1.png",
+   "distractors": {
+    "B": "m1"
+   }
+  },
+  {
+   "id": "9702-1.4-p02",
+   "kcs": [
+    "9702-1.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q2",
+    "qid": "9702_w24_11_q2"
+   },
+   "stem": "Which statement about vector quantities is correct?",
+   "options": {
+    "A": "Acceleration of free fall is a vector quantity because it has a constant magnitude.",
+    "B": "Temperature in °C is a vector quantity because it can be positive or negative.",
+    "C": "Time is a vector quantity because it can only go in the forwards direction.",
+    "D": "Weight is a vector quantity because it has a direction."
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "A vector quantity is defined by having a direction as well as a magnitude, and weight is a force acting towards the centre of the Earth. B is wrong: a quantity being positive or negative does not make it a vector (temperature is a scalar). C is wrong: time has no direction in space. A gives the wrong reason: g is a vector because it has a direction, not because its magnitude is constant.",
+   "distractors": {
+    "B": "m1"
+   }
+  },
+  {
+   "id": "9702-1.4-p03",
+   "kcs": [
+    "9702-1.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q3",
+    "qid": "9702_w21_13_q3"
+   },
+   "stem": "Which list consists only of scalar quantities?",
+   "options": {
+    "A": "acceleration, displacement, force, weight",
+    "B": "density, energy, frequency, velocity",
+    "C": "distance, pressure, temperature, time",
+    "D": "momentum, power, volume, wavelength"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Distance, pressure, temperature and time all have magnitude only. Pressure acts equally in all directions on a surface, so although it is force divided by area it is a scalar. A contains displacement, force and weight; B contains velocity; D contains momentum: all vectors.",
+   "distractors": {
+    "D": "m2"
+   }
+  },
+  {
+   "id": "9702-1.4-p04",
+   "kcs": [
+    "9702-1.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q4",
+    "qid": "9702_s24_13_q4"
+   },
+   "stem": "Two physical quantities combined together as a product can produce a scalar quantity or a vector quantity. Which product of two quantities produces a scalar quantity?",
+   "options": {
+    "A": "(force) × (displacement of an object in the direction of the force)",
+    "B": "(mass) × (acceleration of the mass)",
+    "C": "(pressure) × (area on which the pressure acts)",
+    "D": "(velocity) × (time for which an object has that velocity)"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Force multiplied by the displacement in the direction of the force is work done, which is a scalar (energy transferred). B is force (mass times acceleration), C is force (pressure times area) and D is displacement (velocity times time): all vectors. A scalar can be built from vectors without having a direction itself.",
+   "distractors": {
+    "C": "m2"
+   }
+  },
+  {
+   "id": "9702-1.4-p05",
+   "kcs": [
+    "9702-1.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q4",
+    "qid": "9702_s22_12_q4"
+   },
+   "stem": "An object has an initial velocity of $4.0\\ \\mathrm{m\\,s^{-1}}$ to the right. Its velocity changes so that its final velocity is $3.0\\ \\mathrm{m\\,s^{-1}}$ downwards, as shown. Which arrow represents the change in velocity of the object?",
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The change in velocity is final minus initial, so reverse the initial velocity (left, $4.0\\ \\mathrm{m\\,s^{-1}}$) and add the final velocity (down, $3.0\\ \\mathrm{m\\,s^{-1}}$): an arrow pointing down and to the left, B. Over half of candidates chose A, which is the simple sum of the two velocities, the resultant, when the question asks for the change.",
+   "image": "Assets/mcq/9702_s22_12_q4.png",
+   "distractors": {
+    "A": "m4"
+   }
+  },
+  {
+   "id": "9702-1.4-p06",
+   "kcs": [
+    "9702-1.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q4",
+    "qid": "9702_s23_13_q4"
+   },
+   "stem": "The diagram shows two vectors, X and Y, drawn to scale. If $X = Y - Z$, which diagram represents the vector Z?",
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Rearranging, $Z = Y - X$: reverse X and add it to Y, which gives an arrow pointing down and to the right, A. B shows $X - Y$ (the order is reversed), C shows $X + Y$ and D shows $-X - Y$.",
+   "image": "Assets/mcq/9702_s23_13_q4.png",
+   "distractors": {
+    "B": "m4",
+    "C": "m4"
+   }
+  },
+  {
+   "id": "9702-1.4-p07",
+   "kcs": [
+    "9702-1.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q4",
+    "qid": "9702_w25_13_q4"
+   },
+   "stem": "The diagram shows two forces of $6.0\\ \\mathrm{N}$ acting on an object. The angle between the lines of action of the two forces is $60^\\circ$. What is the magnitude of the resultant force?",
+   "options": {
+    "A": "6.0 N",
+    "B": "7.9 N",
+    "C": "10 N",
+    "D": "12 N"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Components along the bisector add: $R = 2\\times6.0\\cos30^\\circ = 10.4\\ \\mathrm{N} \\approx 10\\ \\mathrm{N}$. D ($12\\ \\mathrm{N}$) simply adds the magnitudes, which is correct only when the forces act in the same direction. A ($6.0\\ \\mathrm{N}$) would be the resultant if the angle were $120^\\circ$.",
+   "image": "Assets/mcq/9702_w25_13_q4.png",
+   "distractors": {
+    "D": "m3"
+   }
+  },
+  {
+   "id": "9702-1.4-p08",
+   "kcs": [
+    "9702-1.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q4",
+    "qid": "9702_w23_13_q4"
+   },
+   "stem": "A boat crosses a river in which the water moves at $4.0\\ \\mathrm{m\\,s^{-1}}$ from left to right. In still water the boat's speed is $6.0\\ \\mathrm{m\\,s^{-1}}$. The boat is directed at angle $\\theta$ to the line perpendicular to the banks, and its resultant velocity $v$ is perpendicular to the banks. What are $\\theta$ and $v$?",
+   "options": {
+    "A": "$\\theta = 42^\\circ$, $v = 4.5\\ \\mathrm{m\\,s^{-1}}$",
+    "B": "$\\theta = 42^\\circ$, $v = 7.2\\ \\mathrm{m\\,s^{-1}}$",
+    "C": "$\\theta = 48^\\circ$, $v = 4.5\\ \\mathrm{m\\,s^{-1}}$",
+    "D": "$\\theta = 48^\\circ$, $v = 7.2\\ \\mathrm{m\\,s^{-1}}$"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "For the resultant to be straight across, the boat's component along the bank must cancel the water: $6.0\\sin\\theta = 4.0$, so $\\theta = 42^\\circ$. The velocity across is then $v = 6.0\\cos\\theta = \\sqrt{6.0^2-4.0^2} = 4.5\\ \\mathrm{m\\,s^{-1}}$. C has the right speed but $\\theta = 48^\\circ$, from swapping sin and cos; B and D have $7.2$, which is $\\sqrt{6.0^2+4.0^2}$, wrongly treating the $6.0$ as a side rather than the hypotenuse.",
+   "image": "Assets/mcq/9702_w23_13_q4.png",
+   "distractors": {
+    "C": "m5"
+   }
+  },
+  {
+   "id": "9702-1.4-p09",
+   "kcs": [
+    "9702-1.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q4",
+    "qid": "9702_w23_12_q4"
+   },
+   "stem": "An aeroplane moves at constant speed in a straight line at angle $\\theta$ to the horizontal. Four forces act: thrust $T$ along its path, weight $W$, lift $L$ perpendicular to its path and resistive force $R$ opposite to its motion. Which two equations must be correct?",
+   "options": {
+    "A": "$L = W\\cos\\theta$ and $T = R + W\\sin\\theta$",
+    "B": "$L = W\\sin\\theta$ and $T = R + W\\cos\\theta$",
+    "C": "$L = W\\cos\\theta$ and $T = R - W\\sin\\theta$",
+    "D": "$L = W\\sin\\theta$ and $T = R - W\\cos\\theta$"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Resolve along and perpendicular to the path (no acceleration, so forces balance). Perpendicular: $L = W\\cos\\theta$. Along the path, $T$ balances $R$ plus the component of weight down the path: $T = R + W\\sin\\theta$. Options B and D swap sin and cos, and C has the wrong sign for the weight component.",
+   "image": "Assets/mcq/9702_w23_12_q4.png",
+   "distractors": {
+    "B": "m5",
+    "D": "m5"
+   }
+  },
+  {
+   "id": "9702-1.4-p10",
+   "kcs": [
+    "9702-1.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q3",
+    "qid": "9702_w21_12_q3"
+   },
+   "stem": "A tennis ball leaves a racket with velocity $v$ at an angle $\\theta$ to the horizontal. The vertical component of the velocity is $v_y$. What is the magnitude of the horizontal component of $v$?",
+   "options": {
+    "A": "$v\\sin\\theta$",
+    "B": "$v_y\\cos\\theta$",
+    "C": "$v_y\\sin\\theta$",
+    "D": "$\\sqrt{v^2-v_y^2}$"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The horizontal and vertical components are the perpendicular sides of a right-angled triangle whose hypotenuse is $v$, so $v_x=\\sqrt{v^2-v_y^2}$. Option B, $v_y\\cos\\theta$, was a common wrong answer: it confuses $v_y\\cos\\theta$ with $v\\cos\\theta$, since $\\cos\\theta$ multiplies the full velocity $v$, not one of its components.",
+   "image": "Assets/mcq/9702_w21_12_q3.png",
+   "distractors": {
+    "B": "m5"
+   }
+  },
+  {
+   "id": "9702-1.4-p11",
+   "kcs": [
+    "9702-1.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q3",
+    "qid": "9702_s21_11_q3"
+   },
+   "stem": "A force of $10\\ \\mathrm{N}$ and a force of $5\\ \\mathrm{N}$ act on an object. The angle between the forces is $150^\\circ$. The resultant force can be resolved into a pair of perpendicular components. Which row gives numerical expressions for a possible pair of perpendicular components, in newtons?",
+   "options": {
+    "A": "$10\\cos30^\\circ - 5$ and $10\\cos30^\\circ$",
+    "B": "$10\\sin30^\\circ - 5$ and $10\\cos30^\\circ$",
+    "C": "$10 - 5\\cos30^\\circ$ and $5\\sin30^\\circ$",
+    "D": "$10 - 5\\sin30^\\circ$ and $5\\cos30^\\circ$"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Take the $10\\ \\mathrm{N}$ force along $x$. The $5\\ \\mathrm{N}$ force is at $150^\\circ$ to it, so the components are $x$: $10 + 5\\cos150^\\circ = 10 - 5\\cos30^\\circ$ and $y$: $5\\sin150^\\circ = 5\\sin30^\\circ$, which is C. Option A has the correct $x$-component but $10\\cos30^\\circ$ for $y$, and B swaps sin and cos, the examiners' commonest errors.",
+   "image": "Assets/mcq/9702_s21_11_q3.png",
+   "distractors": {
+    "A": "m5",
+    "B": "m5"
+   }
+  },
+  {
+   "id": "9702-1.4-p12",
+   "kcs": [
+    "9702-1.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q3",
+    "qid": "9702_w19_13_q3"
+   },
+   "stem": "The arrow represents a vector R, pointing up and to the right at a shallow angle. Which diagram does not represent R as two perpendicular components?",
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Two perpendicular components must add (by the triangle or parallelogram rule) to give R. In C the two arrows are perpendicular, but the one perpendicular to R's direction points the wrong way (down instead of up), so their sum falls below R and cannot equal it. The other diagrams are all pairs of perpendicular components of R.",
+   "image": "Assets/mcq/9702_w19_13_q3.png"
+  },
+  {
+   "id": "9702-1.4-i01",
+   "kcs": [
+    "9702-1.4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A cyclist rides [[a]] m due east along a straight road, then turns round and rides [[b]] m due west along the same road. Calculate the magnitude of the cyclist's displacement from the starting point.",
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       80,
+       100,
+       120,
+       150,
+       180,
+       200
+      ]
+     },
+     "b": {
+      "choices": [
+       20,
+       30,
+       40,
+       50,
+       60
+      ]
+     }
+    },
+    "answer": "a - b",
+    "distractors": [
+     {
+      "expr": "a + b",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": [
+     "a > b + 20"
+    ]
+   },
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 2,
+   "explanation": "Displacement is a vector, so the westward leg reverses part of the eastward one: magnitude $a-b$. The total distance travelled, $a+b$, is a scalar and is not what was asked.",
+   "hints": [
+    "Distance and displacement are different quantities: which one has a direction?",
+    "Displacement is the straight-line change in position, measured from the start to the finish.",
+    "The two legs point in opposite directions, so treat them as opposing: subtract, do not add."
+   ]
+  },
+  {
+   "id": "9702-1.4-i02",
+   "kcs": [
+    "9702-1.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define a vector quantity and a scalar quantity, and give one example of each.",
+   "rubric": [
+    {
+     "point": "scalar quantity has magnitude only",
+     "keywords": [
+      [
+       "scalar"
+      ],
+      [
+       "magnitude",
+       "size"
+      ],
+      [
+       "only",
+       "no direction",
+       "without direction",
+       "not direction"
+      ]
+     ]
+    },
+    {
+     "point": "vector quantity has magnitude and direction",
+     "keywords": [
+      [
+       "vector"
+      ],
+      [
+       "magnitude",
+       "size"
+      ],
+      [
+       "direction"
+      ]
+     ]
+    },
+    {
+     "point": "one correct example of each",
+     "keywords": [
+      [
+       "mass",
+       "speed",
+       "distance",
+       "energy",
+       "time",
+       "temperature",
+       "density",
+       "power",
+       "work",
+       "pressure",
+       "volume"
+      ],
+      [
+       "force",
+       "velocity",
+       "displacement",
+       "acceleration",
+       "weight",
+       "momentum",
+       "field"
+      ]
+     ]
+    }
+   ],
+   "marks": 3,
+   "explanation": "A scalar quantity has magnitude only; a vector quantity has both magnitude and direction. For example, speed or mass is a scalar; velocity or force is a vector.",
+   "hints": [
+    "Think about what information you need to give to fully describe each type of quantity.",
+    "One type needs only a size (with a unit); the other needs a size and something more.",
+    "Name the extra property that a vector has, then choose examples from speed/velocity or distance/displacement pairs."
+   ]
+  },
+  {
+   "id": "9702-1.4-i03",
+   "kcs": [
+    "9702-1.4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Two forces of [[a]] N and [[b]] N act on an object. The angle between the forces is $[[t]]^\\circ$. Determine the magnitude of the resultant force.",
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       5,
+       6,
+       8,
+       10,
+       12
+      ]
+     },
+     "b": {
+      "choices": [
+       4,
+       5,
+       6,
+       9
+      ]
+     },
+     "t": {
+      "choices": [
+       60,
+       120
+      ]
+     }
+    },
+    "answer": "sqrt(a**2 + b**2 + 2*a*b*cos(radians(t)))",
+    "distractors": [
+     {
+      "expr": "a + b",
+      "misconception": "m3"
+     },
+     {
+      "expr": "sqrt(a**2 + b**2)",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": [
+     "a > b"
+    ]
+   },
+   "answer": {
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 3,
+   "explanation": "Resolve along the first force: $R_x=a+b\\cos t$ and $R_y=b\\sin t$, then $R=\\sqrt{R_x^2+R_y^2}=\\sqrt{a^2+b^2+2ab\\cos t}$. Adding the magnitudes ($a+b$) or using Pythagoras only works for $0^\\circ$ and $90^\\circ$ respectively.",
+   "hints": [
+    "The resultant is not just the sum of the magnitudes unless the forces point the same way.",
+    "Put the first force along the $x$-axis and resolve the second force into $x$ and $y$ components.",
+    "Add the components in each direction, then combine them with Pythagoras to get the magnitude."
+   ]
+  },
+  {
+   "id": "9702-1.4-i04",
+   "kcs": [
+    "9702-1.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball moving at $12\\ \\mathrm{m\\,s^{-1}}$ to the right hits a wall and rebounds at $9.0\\ \\mathrm{m\\,s^{-1}}$ to the left. What is the magnitude of the change in velocity of the ball?",
+   "answer": "A",
+   "options": {
+    "A": "$21\\ \\mathrm{m\\,s^{-1}}$",
+    "B": "$3.0\\ \\mathrm{m\\,s^{-1}}$",
+    "C": "$15\\ \\mathrm{m\\,s^{-1}}$",
+    "D": "$9.0\\ \\mathrm{m\\,s^{-1}}$"
+   },
+   "distractors": {
+    "B": "m3"
+   },
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Take right as positive: $\\Delta v = v_\\mathrm{f}-v_\\mathrm{i} = (-9.0)-(+12) = -21\\ \\mathrm{m\\,s^{-1}}$, a magnitude of $21\\ \\mathrm{m\\,s^{-1}}$ to the left. Subtracting the magnitudes ($3.0$) ignores that the velocity reversed direction.",
+   "hints": [
+    "Velocity is a vector: the ball changes direction as well as speed.",
+    "Choose one direction as positive, then write the final and initial velocities with signs.",
+    "Change $=$ final $-$ initial, and a negative velocity minus a positive one adds the magnitudes."
+   ]
+  },
+  {
+   "id": "9702-1.4-i05",
+   "kcs": [
+    "9702-1.4.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A force of [[F]] N acts on a box at an angle of $[[t]]^\\circ$ above the horizontal. Calculate the horizontal component of the force.",
+   "template": {
+    "params": {
+     "F": {
+      "choices": [
+       12,
+       15,
+       20,
+       25,
+       30,
+       40,
+       50
+      ]
+     },
+     "t": {
+      "choices": [
+       20,
+       25,
+       30,
+       35,
+       55,
+       60,
+       65,
+       70
+      ]
+     }
+    },
+    "answer": "F*cos(radians(t))",
+    "distractors": [
+     {
+      "expr": "F*sin(radians(t))",
+      "misconception": "m5"
+     }
+    ],
+    "constraints": [
+     "F > 0"
+    ]
+   },
+   "answer": {
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "marks": 2,
+   "explanation": "The horizontal component is adjacent to the angle, so it is $F\\cos\\theta$. The vertical component (opposite the angle) is $F\\sin\\theta$.",
+   "hints": [
+    "Sketch the force as the hypotenuse of a right-angled triangle with a horizontal and a vertical side.",
+    "Decide which side of the triangle is next to the given angle.",
+    "The side adjacent to the angle is the hypotenuse multiplied by cosine of the angle."
+   ]
+  },
+  {
+   "id": "9702-1.4-i06",
+   "kcs": [
+    "9702-1.4.3",
+    "9702-1.4.2"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A box of mass $4.0\\ \\mathrm{kg}$ rests on a smooth slope inclined at $25^\\circ$ to the horizontal. (a) Calculate the weight of the box. (b) Calculate the component of the weight parallel to the slope. (c) Calculate the component of the weight perpendicular to the slope.",
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "weight $W=mg=4.0\\times9.81=39\\ \\mathrm{N}$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 39.24,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "component parallel to the slope is $W\\sin25^\\circ$ (angle between weight and the perpendicular to the slope is $25^\\circ$)"
+    },
+    {
+     "mark": "A1",
+     "point": "parallel component $=39.2\\sin25^\\circ=17\\ \\mathrm{N}$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 16.58354059070505,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "A1",
+     "point": "perpendicular component $=W\\cos25^\\circ=36\\ \\mathrm{N}$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 35.56351756331814,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "marks": 4,
+   "explanation": "The weight acts vertically downwards. Tilting the axes to lie along and perpendicular to the slope, the angle between the weight and the perpendicular to the slope equals the slope angle $25^\\circ$, so the parallel component is $W\\sin25^\\circ$ and the perpendicular component $W\\cos25^\\circ$."
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-1.4.1",
+   "front": "Define a scalar quantity.",
+   "back": "A scalar quantity has magnitude only (no direction)."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-1.4.1",
+   "front": "Define a vector quantity.",
+   "back": "A vector quantity has both magnitude and direction."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-1.4.1",
+   "front": "Give four scalar quantities from the syllabus.",
+   "back": "Any four of: distance, speed, mass, time, energy, work, power, temperature, density, pressure, volume."
+  },
+  {
+   "id": "fc4",
+   "kc": "9702-1.4.1",
+   "front": "Give five vector quantities from the syllabus.",
+   "back": "Any five of: displacement, velocity, acceleration, force, weight, momentum, field strength (gravitational or electric)."
+  },
+  {
+   "id": "fc5",
+   "kc": "9702-1.4.1",
+   "front": "Why is temperature in °C a scalar although it can be negative?",
+   "back": "A negative sign is not a direction in space; temperature has magnitude only."
+  },
+  {
+   "id": "fc6",
+   "kc": "9702-1.4.2",
+   "front": "What is the resultant of two vectors?",
+   "back": "The single vector that has the same effect as the two vectors together: their vector sum."
+  },
+  {
+   "id": "fc7",
+   "kc": "9702-1.4.2",
+   "front": "How do you add two vectors using a vector triangle?",
+   "back": "Draw them to scale head to tail; the resultant joins the tail of the first to the head of the second."
+  },
+  {
+   "id": "fc8",
+   "kc": "9702-1.4.2",
+   "front": "How do you subtract vector $\\mathbf{Y}$ from $\\mathbf{X}$?",
+   "back": "$\\mathbf{X}-\\mathbf{Y}=\\mathbf{X}+(-\\mathbf{Y})$: add the vector equal in magnitude but opposite in direction to $\\mathbf{Y}$."
+  },
+  {
+   "id": "fc9",
+   "kc": "9702-1.4.2",
+   "front": "Write the change in velocity in terms of final and initial velocity.",
+   "back": "$\\Delta\\mathbf{v}=\\mathbf{v}_\\mathrm{f}-\\mathbf{v}_\\mathrm{i}$ (final minus initial, as vectors)."
+  },
+  {
+   "id": "fc10",
+   "kc": "9702-1.4.3",
+   "front": "State the two perpendicular components of a vector $F$ at angle $\\theta$ to the $x$-axis.",
+   "back": "$F_x=F\\cos\\theta$ (adjacent to $\\theta$) and $F_y=F\\sin\\theta$ (opposite $\\theta$)."
+  },
+  {
+   "id": "fc11",
+   "kc": "9702-1.4.3",
+   "front": "How do you find the magnitude of a vector from its perpendicular components?",
+   "back": "$F=\\sqrt{F_x^2+F_y^2}$, with $\\tan\\theta=F_y/F_x$ giving the angle to the $x$-axis."
+  }
+ ],
+ "diagrams": [
+  {
+   "file": "Assets/9702/9702-1.4-components.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        -0.6,
+        -1.0
+       ],
+       [
+        5.0,
+        3.8
+       ]
+      ],
+      "color": "white"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        4,
+        0
+       ]
+      ],
+      "color": "#1f6feb"
+     },
+     {
+      "points": [
+       [
+        4,
+        0
+       ],
+       [
+        4,
+        3
+       ]
+      ],
+      "color": "#d9480f"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        4,
+        3
+       ]
+      ],
+      "color": "#1f2328"
+     }
+    ],
+    "annotations": [
+     {
+      "text": "",
+      "xy": [
+       4,
+       3
+      ],
+      "xytext": [
+       0,
+       0
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       4,
+       0
+      ],
+      "xytext": [
+       0,
+       0.0
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       4,
+       3
+      ],
+      "xytext": [
+       4,
+       0
+      ]
+     },
+     {
+      "text": "$F$",
+      "xy": [
+       1.7,
+       1.75
+      ]
+     },
+     {
+      "text": "$F_x = F\\cos\\theta$",
+      "xy": [
+       1.3,
+       -0.45
+      ]
+     },
+     {
+      "text": "$F_y = F\\sin\\theta$",
+      "xy": [
+       4.15,
+       1.4
+      ]
+     },
+     {
+      "text": "$\\theta$",
+      "xy": [
+       0.9,
+       0.2
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "file": "Assets/9702/9702-1.4-velocity-change.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        -0.5,
+        -3.6
+       ],
+       [
+        5,
+        0.8
+       ]
+      ],
+      "color": "white"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        -3
+       ]
+      ],
+      "color": "#d9480f"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        4,
+        0
+       ]
+      ],
+      "color": "#1f6feb"
+     },
+     {
+      "points": [
+       [
+        4,
+        0
+       ],
+       [
+        0,
+        -3
+       ]
+      ],
+      "color": "#1f2328",
+      "style": "dashed"
+     }
+    ],
+    "annotations": [
+     {
+      "text": "",
+      "xy": [
+       4,
+       0
+      ],
+      "xytext": [
+       0,
+       0
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       0,
+       -3
+      ],
+      "xytext": [
+       0,
+       0
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       0,
+       -3
+      ],
+      "xytext": [
+       4,
+       0
+      ]
+     },
+     {
+      "text": "$\\mathbf{v}_i$ (4.0 m/s)",
+      "xy": [
+       1.2,
+       0.3
+      ]
+     },
+     {
+      "text": "$\\mathbf{v}_f$ (3.0 m/s)",
+      "xy": [
+       0.15,
+       -1.6
+      ]
+     },
+     {
+      "text": "$\\Delta\\mathbf{v}=\\mathbf{v}_f-\\mathbf{v}_i$",
+      "xy": [
+       2.3,
+       -1.9
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "file": "Assets/9702/9702-1.4-vector-triangle.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        -0.5,
+        -1.0
+       ],
+       [
+        2.4,
+        4.6
+       ]
+      ],
+      "color": "white"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        1.6,
+        0
+       ]
+      ],
+      "color": "#1f6feb"
+     },
+     {
+      "points": [
+       [
+        1.6,
+        0
+       ],
+       [
+        1.6,
+        4.0
+       ]
+      ],
+      "color": "#d9480f"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        1.6,
+        4.0
+       ]
+      ],
+      "color": "#1f2328"
+     }
+    ],
+    "annotations": [
+     {
+      "text": "",
+      "xy": [
+       1.6,
+       0
+      ],
+      "xytext": [
+       0,
+       0
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       1.6,
+       4.0
+      ],
+      "xytext": [
+       1.6,
+       0
+      ]
+     },
+     {
+      "text": "",
+      "xy": [
+       1.6,
+       4.0
+      ],
+      "xytext": [
+       0,
+       0
+      ]
+     },
+     {
+      "text": "river 1.2 m/s",
+      "xy": [
+       0.15,
+       -0.65
+      ]
+     },
+     {
+      "text": "boat 3.0 m/s",
+      "xy": [
+       1.68,
+       1.9
+      ]
+     },
+     {
+      "text": "resultant 3.2 m/s",
+      "xy": [
+       -0.35,
+       2.7
+      ]
+     },
+     {
+      "text": "$\\theta$",
+      "xy": [
+       0.42,
+       0.2
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

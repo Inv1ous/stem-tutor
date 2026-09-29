@@ -3,7 +3,7 @@
  "spec": "P1",
  "version": 1,
  "note": "Subjects/Maths/P1 Pure Mathematics 1/1 Algebra and functions.md",
- "outline": "Indices: $a^m\\times a^n=a^{m+n}$, $(a^m)^n=a^{mn}$, and $a^{1/n}=\\sqrt[n]{a}$, $a^{m/n}=(\\sqrt[n]{a})^m$. Surds: simplify and rationalise denominators by multiplying by a suitable form of 1. Quadratics: complete the square $ax^2+bx+c=a(x+\\tfrac{b}{2a})^2+c-\\tfrac{b^2}{4a}$ to find the vertex; the discriminant $b^2-4ac$ tells the number of real roots; solve by factorising, the formula, or completing the square. Simultaneous equations: substitute the linear equation into the quadratic to get a single-variable quadratic, then pair each $x$ with its $y$. Inequalities: sketch both graphs and read off the $x$-range where one lies above/below the other; a quadratic $\\ge0$/$>0$ holds outside its roots if it opens upward, between them if it opens downward. Polynomials: expand, collect terms, factorise (take out a common factor first). Curve sketching: cubics and reciprocals $y=k/x$, $y=k/x^2$ have asymptotes; intersections of graphs solve equations. Transformations of $y=f(x)$: $y=f(x)+a$ translates up by $a$; $y=f(x+a)$ translates *left* by $a$; $y=af(x)$ stretches vertically by factor $a$; $y=f(ax)$ stretches horizontally by factor $1/a$.",
+ "outline": "Indices: $a^m\\times a^n=a^{m+n}$, $a^m\\div a^n=a^{m-n}$, $(a^m)^n=a^{mn}$, $a^{-n}=\\dfrac{1}{a^n}$, $a^{m/n}=(\\sqrt[n]{a})^m$. Surds: rationalise denominators by multiplying by a suitable form of 1. Quadratics: complete the square $ax^2+bx+c=a(x+\\tfrac{b}{2a})^2+c-\\tfrac{b^2}{4a}$ to find the turning point; the discriminant $b^2-4ac$ decides two distinct real roots ($>0$), equal roots ($=0$) or no real roots ($<0$); solve by factorising, the formula or completing the square. Simultaneous equations: substitute the linear equation into the quadratic, then pair each $x$ with its $y$. Inequalities: find critical values, sketch, and read off the $x$-range; regions use dotted lines for strict and solid lines for inclusive inequalities. Polynomials: expand, collect terms, factorise (common factor first). Curves: cubics, $y=k/x$, $y=k/x^2$ and their asymptotes; intersections solve equations. Transformations: $y=f(x)+a$ translates by $\\begin{pmatrix}0\\\\a\\end{pmatrix}$; $y=f(x+a)$ by $\\begin{pmatrix}-a\\\\0\\end{pmatrix}$; $y=af(x)$ stretches parallel to the $y$-axis, scale factor $a$; $y=f(ax)$ stretches parallel to the $x$-axis, scale factor $\\tfrac1a$.",
  "misconceptions": [
   {
    "id": "m1",
@@ -40,7 +40,7 @@
   {
    "id": "m5",
    "kc": "P1-1.12",
-   "statement": "Students believe $y=f(x+a)$ (with $a>0$) translates the graph of $y=f(x)$ to the *right* by $a$, the same direction as $y=f(x)-a$ moves down.",
+   "statement": "Students believe $y=f(x+a)$ (with $a>0$) translates the graph of $y=f(x)$ to the *right* by $a$, because of the plus sign.",
    "refutation": "Replacing $x$ with $x+a$ means every output that used to appear at $x$ now appears $a$ units *earlier*, i.e. at $x-a$: the graph shifts *left* by $a$. Only $y=f(x-a)$ shifts right by $a$.",
    "contrast": "If $y=f(x)$ has a root at $x=2$, then $y=f(x+3)$ has that root at $x=2-3=-1$ (left), while $y=f(x-3)$ has it at $x=2+3=5$ (right).",
    "source": "research"
@@ -91,7 +91,7 @@
     },
     {
      "do": "Evaluate: $\\dfrac{5\\sqrt3}{3}\\approx2.89$ (3 s.f.).",
-     "why": "The exact surd form $\\tfrac{5\\sqrt3}{3}$ is the preferred final answer unless a decimal is asked for.",
+     "why": "The exact form $\\tfrac{5\\sqrt3}{3}$ is what rationalising produces and is the answer an *exact* question wants; this question also asks for the decimal, so give $2.89$ (3 s.f.) as well.",
      "check": {
       "kind": "numeric",
       "answer": {
@@ -133,8 +133,8 @@
      "why": "Add and subtract $(4/2)^2=4$ so the bracket becomes a perfect square without changing the expression's value."
     },
     {
-     "do": "Multiply out and simplify: $y=2(x-2)^2-8+3=2(x-2)^2-5$. The vertex is at $(2,-5)$.",
-     "why": "In the form $y=a(x-p)^2+q$, the vertex is $(p,q)$ directly — here $p=2$, $q=-5$.",
+     "do": "Multiply out and simplify: $y=2(x-2)^2-8+3=2(x-2)^2-5$. The squared term is smallest (zero) when $x=2$, so the turning point has $x$-coordinate $2$.",
+     "why": "In the form $y=a(x-p)^2+q$ the turning point is at $x=p$, where the bracket is zero.",
      "check": {
       "kind": "numeric",
       "answer": {
@@ -143,13 +143,25 @@
        "exact": true
       }
      }
+    },
+    {
+     "do": "At $x=2$, $y=2(0)^2-5=-5$, so the turning point is $(2,-5)$.",
+     "why": "The constant $q$ left over is the $y$-coordinate; a coordinate answer needs both values.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -5.0,
+       "unit": "",
+       "exact": true
+      }
+     }
     }
    ],
    "faded": {
     "id": "we3f",
-    "problem": "Find the coordinates of the turning point of $y=3x^2+6x+4$ by completing the square.",
+    "problem": "By completing the square, find the turning point of $y=3x^2+6x+4$ and state its $y$-coordinate.",
     "answer": {
-     "value": -1.0,
+     "value": 1.0,
      "unit": "",
      "exact": true
     },
@@ -163,11 +175,7 @@
    "steps": [
     {
      "do": "Identify $a=2$, $b=-5$, $c=7$, then substitute into $b^2-4ac$: $(-5)^2-4(2)(7)=25-56=-31$.",
-     "why": "The discriminant only needs the coefficients — the equation does not need to be solved."
-    },
-    {
-     "do": "Since $-31<0$, the equation has no real roots.",
-     "why": "A negative discriminant means $\\sqrt{b^2-4ac}$ is not a real number, so the quadratic formula gives no real solutions.",
+     "why": "The discriminant only needs the coefficients — the equation does not need to be solved.",
      "check": {
       "kind": "numeric",
       "answer": {
@@ -176,13 +184,25 @@
        "exact": true
       }
      }
+    },
+    {
+     "do": "Since $-31<0$, the equation has no real roots (the number of real roots is $0$).",
+     "why": "A negative discriminant means $\\sqrt{b^2-4ac}$ is not a real number, so the quadratic formula gives no real solutions.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.0,
+       "unit": "",
+       "exact": true
+      }
+     }
     }
    ],
    "faded": {
     "id": "we4f",
-    "problem": "Calculate the discriminant of $3x^2+2x-5=0$ and state how many real roots the equation has.",
+    "problem": "By calculating the discriminant, find the number of distinct real roots of $3x^2+2x-5=0$.",
     "answer": {
-     "value": 64.0,
+     "value": 2.0,
      "unit": "",
      "exact": true
     },
@@ -232,16 +252,24 @@
      "why": "Substitution replaces $y$ everywhere with the same expression, turning two equations into one, in a single variable."
     },
     {
-     "do": "Rearrange to standard form and factorise: $x^2-x-6=0\\Rightarrow(x-3)(x+2)=0$, so $x=3$ or $x=-2$.",
-     "why": "Once one variable is eliminated, the result is an ordinary quadratic, solved the usual way."
-    },
-    {
-     "do": "Substitute each $x$ back into $y=x+2$ to find its matching $y$: for $x=3$, $y=5$. The larger $x$-value gives the point $(3,5)$.",
-     "why": "A solution to simultaneous equations is a *pair* $(x,y)$ — the $x$-value alone is not a complete answer.",
+     "do": "Rearrange to standard form and factorise: $x^2-x-6=0\\Rightarrow(x-3)(x+2)=0$, so $x=3$ or $x=-2$. The larger value is $x=3$.",
+     "why": "Once one variable is eliminated, the result is an ordinary quadratic, solved the usual way.",
      "check": {
       "kind": "numeric",
       "answer": {
        "value": 3.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Substitute $x=3$ back into $y=x+2$ to find its matching $y$: $y=5$. The larger $x$-value gives the point $(3,5)$.",
+     "why": "A solution to simultaneous equations is a *pair* $(x,y)$ — the $x$-value alone is not a complete answer.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 5.0,
        "unit": "",
        "exact": true
       }
@@ -299,15 +327,7 @@
    "steps": [
     {
      "do": "Factorise: $x^2-5x+6=(x-2)(x-3)$, so the critical values are $x=2$ and $x=3$.",
-     "why": "The critical values are where the expression equals zero — they split the number line into regions to test.",
-     "check": {
-      "kind": "numeric",
-      "answer": {
-       "value": 2.0,
-       "unit": "",
-       "exact": true
-      }
-     }
+     "why": "The critical values are where the expression equals zero — they split the number line into regions to test."
     },
     {
      "do": "Sketch $y=(x-2)(x-3)$: it is an upward parabola, so it is $\\ge0$ outside its roots. The solution is $x\\le2$ or $x\\ge3$.",
@@ -316,9 +336,9 @@
    ],
    "faded": {
     "id": "we8f",
-    "problem": "Solve the inequality $x^2-3x-4\\le0$.",
+    "problem": "Solve the inequality $x^2-3x-4\\le0$, and state the largest value of $x$ that satisfies it.",
     "answer": {
-     "value": -1.0,
+     "value": 4.0,
      "unit": "",
      "exact": true
     },
@@ -405,12 +425,24 @@
      "why": "Only the input to $f$ has changed, so the shape of the graph is preserved, but its position moves horizontally."
     },
     {
-     "do": "$y=f(x-4)$ translates the graph *right* by 4 (opposite to the sign inside the bracket), so the minimum moves to $(3+4,-2)=(7,-2)$; the $y$-coordinate is unaffected.",
-     "why": "$f(x-a)$ reaches the value that $f(x)$ had $a$ units earlier, one step later — so the graph shifts right.",
+     "do": "$y=f(x-4)$ translates the graph *right* by 4 (opposite to the sign inside the bracket), so the minimum's $x$-coordinate becomes $3+4=7$.",
+     "why": "$f(x-a)$ at $x$ gives the value $f$ had at $x-a$, so every feature of the graph appears $a$ units further right.",
      "check": {
       "kind": "numeric",
       "answer": {
        "value": 7.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "The $y$-coordinate is unchanged, so the minimum point is $(7,-2)$.",
+     "why": "Only the input to $f$ changed, so every output value, including the minimum value $-2$, is the same.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -2.0,
        "unit": "",
        "exact": true
       }
@@ -458,7 +490,7 @@
    "hints": [
     "Think of $a^m$ as $m$ copies of $a$ multiplied together, and $a^n$ as $n$ more copies.",
     "Multiplying those copies together gives one long string of $a$'s — how many in total?",
-    "Add the exponents: $a^{m+n}$."
+    "Write out $a^2\\times a^3$ as $(a\\cdot a)(a\\cdot a\\cdot a)$ and count the factors of $a$; the same counting works for $m$ and $n$."
    ]
   },
   {
@@ -489,7 +521,7 @@
    "hints": [
     "$(a^m)^n$ means $a^m$ multiplied by itself $n$ times.",
     "Each of those $n$ copies contributes $m$ factors of $a$.",
-    "Multiply, don't add: $a^{mn}$."
+    "Write out $(a^2)^3$ as $a^2\\cdot a^2\\cdot a^2$ and count the factors of $a$; the same counting works for $m$ and $n$."
    ]
   },
   {
@@ -517,6 +549,9 @@
       "step": 1
      }
     },
+    "constraints": [
+     "m != 2 or n != 2"
+    ],
     "answer": "m + n",
     "distractors": [
      {
@@ -534,7 +569,7 @@
    "hints": [
     "The base is the same ($a$) on both factors, so a law of indices applies directly.",
     "Multiplying same-base powers means adding exponents, not multiplying them.",
-    "$k=m+n$."
+    "Write out a small case such as $a^2\\times a^3$ as $(a\\cdot a)(a\\cdot a\\cdot a)$, count the factors, then apply the same rule to your indices."
    ]
   },
   {
@@ -562,6 +597,9 @@
       "step": 1
      }
     },
+    "constraints": [
+     "m != 2 or n != 2"
+    ],
     "answer": "m * n",
     "distractors": [
      {
@@ -579,7 +617,7 @@
    "hints": [
     "This is a power raised to another power, not two powers multiplied together.",
     "That rule multiplies the exponents rather than adding them.",
-    "$k=mn$."
+    "Write out a small case such as $(a^2)^3$ as $a^2\\cdot a^2\\cdot a^2$, count the factors, then apply the same rule to your indices."
    ]
   },
   {
@@ -629,7 +667,7 @@
    "hints": [
     "Write both sides as powers of the same base.",
     "$27$ is a power of 3 — which one?",
-    "Once the bases match, set the exponents equal and solve: $2x-1=3$."
+    "Once the bases match, set the exponents equal to each other and solve the resulting linear equation."
    ]
   },
   {
@@ -654,11 +692,11 @@
    "distractors": {},
    "marks": 1,
    "shuffle": true,
-   "explanation": "Multiplying top and bottom by $\\sqrt7$ gives $\\dfrac{\\sqrt7}{7}$; simply dropping the root, as in option B, is not a valid operation.",
+   "explanation": "Multiplying top and bottom by $\\sqrt7$ gives $\\dfrac{\\sqrt7}{7}$; simply dropping the root to get $\\dfrac17$ is not a valid operation, and $\\dfrac{7}{\\sqrt7}$ still has a surd in the denominator.",
    "hints": [
     "To rationalise, multiply top and bottom by the surd in the denominator.",
     "$\\sqrt7\\times\\sqrt7=7$, a rational number, which is exactly what you want on the bottom.",
-    "$\\dfrac{1}{\\sqrt7}\\times\\dfrac{\\sqrt7}{\\sqrt7}=\\dfrac{\\sqrt7}{7}$."
+    "Multiply the numerator and the denominator by $\\sqrt7$, then simplify the denominator."
    ]
   },
   {
@@ -689,7 +727,7 @@
    "hints": [
     "Evaluate each square root separately first.",
     "$\\sqrt9=3$ and $\\sqrt{16}=4$ — do not add what's inside the roots together.",
-    "Add the two separate square roots: $3+4$."
+    "Work out $\\sqrt9$ and $\\sqrt{16}$ as whole numbers before you add anything."
    ]
   },
   {
@@ -809,6 +847,9 @@
       "expr": "sqrt(a + b)",
       "misconception": "m2"
      }
+    ],
+    "constraints": [
+     "a != b"
     ]
    },
    "answer": {
@@ -823,7 +864,7 @@
    "hints": [
     "Find each square root on its own before doing anything else.",
     "Square roots do not distribute over addition, so don't add inside one root.",
-    "$\\sqrt a+\\sqrt b$, evaluated separately then summed."
+    "Use your calculator on $\\sqrt a$ and $\\sqrt b$ separately, add, then round to 3 s.f."
    ]
   },
   {
@@ -848,7 +889,7 @@
    "hints": [
     "Rationalise the left-hand side first, by multiplying top and bottom by $\\sqrt3$.",
     "$\\dfrac{6\\sqrt3}{3}$ simplifies to a whole number times $\\sqrt3$.",
-    "Compare $2\\sqrt3$ with $a\\sqrt3$ to read off $a$."
+    "Compare your rationalised form with $a\\sqrt3$ to read off the whole-number coefficient $a$."
    ]
   },
   {
@@ -877,7 +918,7 @@
    "hints": [
     "Think about what happens to $y$ for very large positive and very large negative $x$.",
     "With $a>0$, $ax^2$ dominates and is always positive for large $|x|$.",
-    "The graph opens upward, giving a minimum point."
+    "Try a large value such as $x=100$: is $y$ large and positive or large and negative?"
    ]
   },
   {
@@ -906,7 +947,7 @@
    "hints": [
     "Use $x=-\\dfrac{b}{2a}$, being careful with the sign of $b$.",
     "Here $a=1$ and $b=-6$, so $-b=6$.",
-    "$x=6\\div2$."
+    "Substitute $a=1$ and $b=-6$ into $-\\dfrac{b}{2a}$, taking care with the two minus signs."
    ]
   },
   {
@@ -920,7 +961,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "Find the $x$-coordinate of the turning point of $y=x^2+[[b]]x+[[c]]$.",
+   "stem": "Find the $x$-coordinate of the turning point of $y=x^2[[b:+g]]x+[[c]]$.",
    "template": {
     "params": {
      "b": {
@@ -946,17 +987,14 @@
    },
    "answer": {
     "unit": "",
-    "sf_ok": [
-     2,
-     3
-    ]
+    "exact": true
    },
    "marks": 2,
    "explanation": "With $a=1$, the vertex is at $x=-b/2$; keep track of the minus sign.",
    "hints": [
     "Use the vertex formula $x=-\\dfrac{b}{2a}$.",
     "Here $a=1$, so it simplifies to $x=-\\dfrac{b}{2}$.",
-    "Don't forget the negative sign in front of $b$."
+    "Substitute your value of $b$, with its sign, into $-\\dfrac{b}{2}$."
    ]
   },
   {
@@ -970,7 +1008,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "$y=2x^2+[[b]]x+[[c]]$ is written in the form $y=2(x+p)^2+q$. Find the value of $q$.",
+   "stem": "$y=2x^2[[b:+g]]x+[[c]]$ is written in the form $y=2(x+p)^2+q$. Find the value of $q$.",
    "template": {
     "params": {
      "b": {
@@ -1000,17 +1038,14 @@
    },
    "answer": {
     "unit": "",
-    "sf_ok": [
-     2,
-     3
-    ]
+    "exact": true
    },
    "marks": 3,
    "explanation": "Factor out the 2, complete the square inside the bracket, then multiply the subtracted term back out by 2 before combining with $c$: $2x^2+bx+c=2\\left(x+\\tfrac b4\\right)^2-\\tfrac{b^2}{8}+c$.",
    "hints": [
     "Factor 2 out of the $x^2$ and $x$ terms before completing the square.",
     "Inside the bracket you'll get $\\left(x+\\tfrac b4\\right)^2$ — but remember to multiply the constant you subtract back out by 2.",
-    "$q=c-\\dfrac{b^2}{8}$."
+    "Write $2x^2+bx+c=2\\left(x^2+\\tfrac b2x\\right)+c$, complete the square inside the bracket, then expand the $2$ back over the subtracted constant."
    ]
   },
   {
@@ -1018,24 +1053,41 @@
    "kcs": [
     "P1-1.3"
    ],
-   "kind": "numeric",
+   "kind": "structured",
    "difficulty": 5,
-   "command_word": "Hence",
+   "command_word": "Show that",
    "source": {
     "type": "generated"
    },
    "stem": "Show that $y=x^2-4x+7$ can be written as $(x-2)^2+3$, and hence state the minimum value of $y$.",
-   "answer": {
-    "value": 3.0,
-    "unit": "",
-    "exact": true
-   },
    "marks": 3,
    "explanation": "Expanding $(x-2)^2+3=x^2-4x+4+3=x^2-4x+7$ confirms the identity; since a square is never negative, $y$ is smallest when $(x-2)^2=0$, giving minimum value $3$.",
    "hints": [
-    "Expand $(x-2)^2+3$ to confirm it matches $x^2-4x+7$.",
+    "Expand the given completed-square form to confirm it matches the original expression.",
     "A squared term $(x-2)^2$ can never be negative — its smallest possible value is 0.",
-    "The minimum of $y$ occurs when the squared term is 0, leaving just the constant."
+    "Ask what value of $x$ makes $(x-2)^2$ as small as possible, and what $y$ is then."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "expands $(x-2)^2+3$ (or completes the square on $x^2-4x+7$): $x^2-4x+4+3$"
+    },
+    {
+     "mark": "A1",
+     "point": "reaches $x^2-4x+7$ with every step shown, so $y=(x-2)^2+3$"
+    },
+    {
+     "mark": "B1",
+     "point": "minimum value of $y$ is $3$ (since $(x-2)^2\\ge0$), occurring at $x=2$",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
    ]
   },
   {
@@ -1066,7 +1118,7 @@
    "hints": [
     "It's the part of the quadratic formula that sits under the square root sign.",
     "That formula is $x=\\dfrac{-b\\pm\\sqrt{b^2-4ac}}{2a}$.",
-    "The discriminant is $b^2-4ac$."
+    "Write down the quadratic formula and look at the expression under the square root sign."
    ]
   },
   {
@@ -1095,7 +1147,7 @@
    "hints": [
     "Substitute $b^2-4ac=0$ into the quadratic formula and see what's left.",
     "$\\sqrt0=0$, so the $\\pm$ part of the formula disappears.",
-    "Only one value of $x$ remains — it is a real root, repeated."
+    "With no plus-or-minus choice there is only one value of $x$; decide what the mark scheme calls a root like that."
    ]
   },
   {
@@ -1109,17 +1161,15 @@
    "source": {
     "type": "generated"
    },
-   "stem": "Calculate the discriminant of $[[a]]x^2+[[b]]x+[[c]]=0$.",
+   "stem": "Calculate the discriminant of $[[a]]x^2[[b:+g]]x[[c:+g]]=0$.",
    "template": {
     "params": {
      "a": {
       "choices": [
-       1,
        2,
        3,
        4,
        5,
-       -1,
        -2,
        -3
       ]
@@ -1135,6 +1185,10 @@
       "step": 1
      }
     },
+    "constraints": [
+     "c != 0",
+     "abs(b) > 1"
+    ],
     "answer": "b**2 - 4*a*c",
     "distractors": [
      {
@@ -1166,7 +1220,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "Find the value of $k$ for which $x^2+[[b]]x+k=0$ has a repeated root.",
+   "stem": "Find the value of $k$ for which $x^2[[b:+g]]x+k=0$ has a repeated root.",
    "template": {
     "params": {
      "b": {
@@ -1195,17 +1249,14 @@
    },
    "answer": {
     "unit": "",
-    "sf_ok": [
-     2,
-     3
-    ]
+    "exact": true
    },
    "marks": 3,
    "explanation": "A repeated root occurs when the discriminant is 0: $b^2-4(1)(k)=0\\Rightarrow k=b^2/4$.",
    "hints": [
     "A repeated root means the discriminant equals zero.",
     "Set $b^2-4ac=0$ with $a=1$ and $c=k$, then rearrange for $k$.",
-    "$k=\\dfrac{b^2}{4}$."
+    "Substitute $a=1$, your $b$ and $c=k$ into $b^2-4ac=0$ and rearrange for $k$."
    ]
   },
   {
@@ -1279,7 +1330,7 @@
    "hints": [
     "The formula comes from completing the square on $ax^2+bx+c=0$ in general.",
     "The numerator starts with $-b$, not $b$.",
-    "$x=\\dfrac{-b\\pm\\sqrt{b^2-4ac}}{2a}$."
+    "Complete the square on $ax^2+bx+c=0$ after dividing by $a$, and look at the sign that ends up in front of $b$."
    ]
   },
   {
@@ -1301,16 +1352,14 @@
     "D": "No mistake — this is correct"
    },
    "answer": "A",
-   "distractors": {
-    "D": "m4"
-   },
+   "distractors": {},
    "marks": 1,
    "shuffle": true,
    "explanation": "$(x+4)^2=x^2+8x+16$, which is 13 more than the original expression; the extra 16 must be subtracted back out: $x^2+8x+3=(x+4)^2-16+3=(x+4)^2-13$.",
    "hints": [
     "Expand $(x+4)^2$ and compare it with the original expression.",
     "$(x+4)^2$ contains an extra constant term that wasn't in $x^2+8x+3$.",
-    "That extra constant, 16, must be subtracted back out."
+    "Compare the constant term of your expansion of $(x+4)^2+3$ with the $3$ in the original."
    ]
   },
   {
@@ -1375,7 +1424,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "Use the quadratic formula to solve $x^2+[[b]]x+[[c]]=0$, giving the positive root correct to 3 s.f.",
+   "stem": "Use the quadratic formula to solve $x^2[[b:+g]]x[[c:+g]]=0$, giving the positive root correct to 3 s.f.",
    "template": {
     "params": {
      "b": {
@@ -1472,7 +1521,7 @@
    "hints": [
     "Both right-hand sides are expressions for the same quantity, $y$.",
     "If two things both equal $y$, they equal each other.",
-    "Set the two expressions for $y$ equal, keeping every term."
+    "Look for the option that replaces $y$ without changing or dropping any term of either equation."
    ]
   },
   {
@@ -1491,17 +1540,17 @@
     "A": "Substitute each $x$-value into $y=x+2$ to find the matching $y$-values",
     "B": "Nothing further is needed",
     "C": "Add the two $x$-values together",
-    "D": "Substitute both $x$-values into the quadratic only"
+    "D": "Substitute both $x$-values into $x+2=x^2-4$ again"
    },
    "answer": "A",
    "distractors": {},
    "marks": 1,
    "shuffle": true,
-   "explanation": "A solution to simultaneous equations is a pair $(x,y)$, not just an $x$-value; each $x$ must be substituted into one of the original equations to find its $y$.",
+   "explanation": "A solution to simultaneous equations is a pair $(x,y)$, not just an $x$-value; each $x$ must be substituted into one of the original equations to find its $y$, and the linear equation $y=x+2$ is the quickest. Substituting back into $x+2=x^2-4$ only checks the $x$-values and never gives $y$.",
    "hints": [
     "What does a solution to a pair of simultaneous equations actually consist of?",
     "It's a coordinate pair, not a single number.",
-    "Substitute each $x$-value into the linear equation to find its $y$."
+    "Which of the original equations gives $y$ most quickly once $x$ is known?"
    ]
   },
   {
@@ -1665,7 +1714,7 @@
    "hints": [
     "Each side of the inequality is an expression for $y$ in a different graph.",
     "Sketch a graph for each side of the inequality.",
-    "$y=px^2+qx+r$ and $y=ax+b$."
+    "Write the left-hand side as $y=\\ldots$ for one graph and the right-hand side as $y=\\ldots$ for the other."
    ]
   },
   {
@@ -1684,7 +1733,7 @@
     "A": "$x<-2$ or $x>2$",
     "B": "$x=-2$ or $x=2$",
     "C": "$-2<x<2$",
-    "D": "$x>-2$ and $x<2$"
+    "D": "$x>2$ only"
    },
    "answer": "A",
    "distractors": {},
@@ -1694,7 +1743,7 @@
    "hints": [
     "The intersection points are the boundaries of the answer, not the answer itself.",
     "Sketch $y=x^2-4$: where is the curve above the $x$-axis?",
-    "It's above the axis outside the two roots, i.e. $x<-2$ or $x>2$."
+    "Test one value in each region, e.g. $x=-3$, $x=0$ and $x=3$, in $x^2-4$."
    ]
   },
   {
@@ -1708,7 +1757,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "The line $y=2x+3$ and curve $y=x^2$ intersect at $x=-1$ and $x=3$, with the curve below the line between these points. What is the solution set of $x^2<2x+3$?",
+   "stem": "The line $y=2x+3$ and the curve $y=x^2$ intersect at $x=-1$ and $x=3$. Using a sketch of both graphs, find the solution set of $x^2<2x+3$.",
    "options": {
     "A": "$-1<x<3$",
     "B": "$x<-1$ or $x>3$",
@@ -1719,11 +1768,11 @@
    "distractors": {},
    "marks": 1,
    "shuffle": true,
-   "explanation": "The curve is below the line exactly *between* the two intersection points, so the solution is $-1<x<3$ (strict, since the inequality itself is strict).",
+   "explanation": "On a sketch, the upward parabola $y=x^2$ lies below the line $y=2x+3$ only between the two intersection points, so the solution is $-1<x<3$ (strict, since the inequality itself is strict).",
    "hints": [
-    "You're told exactly where the curve is below the line — use that directly.",
-    "\"Between the intersection points\" means an interval, not outside it.",
-    "$-1<x<3$."
+    "Sketch the upward parabola $y=x^2$ and the straight line through the two intersection points.",
+    "The inequality asks where the curve is *below* the line.",
+    "Test a value between the intersections, e.g. $x=0$: compare $0^2$ with $2(0)+3$."
    ]
   },
   {
@@ -1752,7 +1801,7 @@
    "hints": [
     "An upward parabola dips below the axis only between its roots.",
     "Since the inequality includes 'equal to', the boundary values themselves are included too.",
-    "$-1\\le x\\le3$."
+    "Decide whether $x=-1$ and $x=3$ themselves satisfy the inequality, then choose the matching symbols."
    ]
   },
   {
@@ -1811,7 +1860,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "Written as a single inequality reducible to a quadratic, $\\dfrac{a}{x}<b$ (with $x\\neq0$, $x>0$) becomes which of these after multiplying both sides by $x^2$?",
+   "stem": "Given that $x\\neq0$, multiplying both sides of $\\dfrac{a}{x}<b$ by $x^2$ gives which inequality?",
    "options": {
     "A": "$ax<bx^2$",
     "B": "$a<bx$",
@@ -1822,11 +1871,11 @@
    "distractors": {},
    "marks": 1,
    "shuffle": true,
-   "explanation": "Multiplying both sides by $x^2$ (always positive, so the inequality direction is unchanged) turns $\\dfrac{a}{x}<b$ into $ax<bx^2$, a quadratic inequality.",
+   "explanation": "$x^2>0$ for every $x\\neq0$, so multiplying by $x^2$ never reverses the inequality: $\\dfrac{a}{x}\\times x^2=ax$ and $b\\times x^2=bx^2$, giving $ax<bx^2$. Multiplying by $x$ instead would be wrong whenever $x<0$, because the sign would have to reverse.",
    "hints": [
-    "Multiplying by $x^2$ (rather than just $x$) keeps the inequality direction safe, since $x^2>0$.",
-    "$\\dfrac{a}{x}\\times x^2=ax$, and $b\\times x^2=bx^2$.",
-    "$ax<bx^2$."
+    "Multiply each side by $x^2$ separately.",
+    "$x$ could be negative, but $x^2$ is always positive, so the inequality sign does not change.",
+    "Simplify $\\dfrac{a}{x}\\times x^2$: one factor of $x$ cancels."
    ]
   },
   {
@@ -1855,7 +1904,7 @@
    "hints": [
     "Check the sign of the leading coefficient before applying any 'outside the roots' rule.",
     "A downward-opening parabola is highest in the middle, between its roots.",
-    "It is $\\ge0$ between $\\alpha$ and $\\beta$, not outside them."
+    "Picture a downward parabola crossing the axis at $\\alpha$ and $\\beta$: where is it on or above the axis?"
    ]
   },
   {
@@ -1871,20 +1920,20 @@
    },
    "stem": "When graphing the region satisfying the strict inequality $y>2x+1$, what type of boundary line is drawn for $y=2x+1$?",
    "options": {
-    "A": "Dashed (points on the line are not included)",
-    "B": "Solid (points on the line are included)",
-    "C": "Dotted with arrows at both ends",
+    "A": "Dotted (dashed) line: points on the line are not included",
+    "B": "Solid line: points on the line are included",
+    "C": "Dotted (dashed) line: points on the line are included",
     "D": "No line is drawn"
    },
    "answer": "A",
    "distractors": {},
    "marks": 1,
    "shuffle": true,
-   "explanation": "A strict inequality ($>$ or $<$) excludes the boundary itself, so it is drawn dashed; only $\\ge$ or $\\le$ use a solid line.",
+   "explanation": "A strict inequality ($>$ or $<$) excludes the boundary itself, so it is drawn as a dotted (dashed) line; a solid line is used only for $\\ge$ or $\\le$, where the boundary is included.",
    "hints": [
     "Does the inequality include 'or equal to'?",
     "$y>2x+1$ is strict, so points exactly on the line don't satisfy it.",
-    "A dashed line shows the boundary is not included."
+    "Decide whether points exactly on $y=2x+1$ belong to the region, then recall which line style shows that."
    ]
   },
   {
@@ -1901,9 +1950,9 @@
    "stem": "When graphing $y\\le3x-2$, what type of boundary line is used, and which side is shaded?",
    "options": {
     "A": "Solid line; shade below the line",
-    "B": "Dashed line; shade below the line",
+    "B": "Dotted (dashed) line; shade below the line",
     "C": "Solid line; shade above the line",
-    "D": "Dashed line; shade above the line"
+    "D": "Dotted (dashed) line; shade above the line"
    },
    "answer": "A",
    "distractors": {},
@@ -1913,7 +1962,7 @@
    "hints": [
     "Check whether the inequality includes 'or equal to' for the line style.",
     "\"$y\\le$\" means $y$-values that are on or below the line.",
-    "Solid line, shade the region below it."
+    "Test the origin: is $0\\le3(0)-2$? The origin lies above the line, so that tells you which side to shade."
    ]
   },
   {
@@ -1942,7 +1991,7 @@
    "hints": [
     "A point is only inside the region if it satisfies *both* inequalities.",
     "Check each option against both inequalities in turn — don't stop after just one.",
-    "$(1,4)$ satisfies $y\\ge x$ (since $4\\ge1$) and $y<6-x$ (since $4<5$)."
+    "Substitute each point into $y\\ge x$ first, then check the survivors in $y<6-x$."
    ]
   },
   {
@@ -1982,17 +2031,14 @@
    },
    "answer": {
     "unit": "",
-    "sf_ok": [
-     2,
-     3
-    ]
+    "exact": true
    },
    "marks": 2,
    "explanation": "At the intersection both lines give the same $y$: $x+a=-x+b\\Rightarrow2x=b-a$.",
    "hints": [
     "At the point of intersection, both lines have the same $x$ and $y$.",
     "Set the two right-hand sides equal to each other and solve for $x$.",
-    "$x=\\dfrac{b-a}{2}$."
+    "Collect the $x$ terms on one side and the constants on the other, then divide."
    ]
   },
   {
@@ -2025,21 +2071,21 @@
      {
       "expr": "(b - a) / 3"
      }
+    ],
+    "constraints": [
+     "(a + b) % 3 == 0"
     ]
    },
    "answer": {
     "unit": "",
-    "sf_ok": [
-     2,
-     3
-    ]
+    "exact": true
    },
    "marks": 2,
    "explanation": "Set the two expressions for $y$ equal: $2x-a=b-x\\Rightarrow3x=a+b$.",
    "hints": [
     "Set the two lines' expressions for $y$ equal to each other.",
     "Collect all the $x$ terms on one side of the equation.",
-    "$x=\\dfrac{a+b}{3}$."
+    "Add $x$ to both sides and add the constant to both sides, then divide by the coefficient of $x$."
    ]
   },
   {
@@ -2056,9 +2102,10 @@
    "stem": "Describe the region satisfying $y<x^2$ and $y>-2$, including the type of boundary curve/line used for each.",
    "rubric": [
     {
-     "point": "identifies a dashed curve for $y=x^2$ (region below it, since $y<x^2$ is strict)",
+     "point": "identifies a dotted (dashed) curve for $y=x^2$ (region below it, since $y<x^2$ is strict)",
      "keywords": [
       [
+       "dotted",
        "dashed",
        "not included",
        "strict"
@@ -2071,9 +2118,10 @@
      ]
     },
     {
-     "point": "identifies a dashed line for $y=-2$ (region above it, since $y>-2$ is strict)",
+     "point": "identifies a dotted (dashed) line for $y=-2$ (region above it, since $y>-2$ is strict)",
      "keywords": [
       [
+       "dotted",
        "dashed",
        "not included",
        "strict"
@@ -2086,11 +2134,11 @@
     }
    ],
    "marks": 2,
-   "explanation": "Both inequalities are strict, so both boundaries are dashed: the parabola $y=x^2$ (shading below it) and the horizontal line $y=-2$ (shading above it); the region is where both shaded areas overlap.",
+   "explanation": "Both inequalities are strict, so both boundaries are dotted (dashed): the parabola $y=x^2$ (region below it) and the horizontal line $y=-2$ (region above it); the region is where both overlap.",
    "hints": [
     "Both inequalities use strict $<$ or $>$ — what does that mean for the line style?",
     "Sketch the parabola $y=x^2$ and the horizontal line $y=-2$ separately first.",
-    "Both boundaries should be dashed, since neither inequality includes 'or equal to'."
+    "For each boundary, test a point such as $(0,-1)$ to decide which side of it is wanted."
    ]
   },
   {
@@ -2119,7 +2167,7 @@
    "hints": [
     "Finding the roots alone doesn't answer an inequality question — it only finds where it equals zero.",
     "You need those roots to identify regions, then decide which region(s) fit the inequality.",
-    "Factorise, find the critical values, then sketch."
+    "Think about what the roots of $x^2-2x-8=0$ tell you, and what else you need to know about the graph between and outside them."
    ]
   },
   {
@@ -2148,7 +2196,7 @@
    "hints": [
     "Sketch an upward parabola through $x=2$ and $x=4$.",
     "Where is the curve on or below the $x$-axis?",
-    "Between the two roots, inclusive: $2\\le x\\le4$."
+    "Test $x=3$ in $x^2-6x+8$: is it negative? Then decide whether $x=2$ and $x=4$ are included."
    ]
   },
   {
@@ -2170,16 +2218,14 @@
     "D": "$x>4$"
    },
    "answer": "A",
-   "distractors": {
-    "B": "m5"
-   },
+   "distractors": {},
    "marks": 1,
    "shuffle": true,
    "explanation": "Dividing both sides by $-3$ (a negative number) reverses the inequality: $-3x>12\\Rightarrow x<-4$, not $x>-4$.",
    "hints": [
     "You need to divide both sides by $-3$ to isolate $x$.",
     "Dividing (or multiplying) an inequality by a negative number reverses its direction.",
-    "$-3x>12\\Rightarrow x<-4$."
+    "Divide both sides by $-3$ and decide what happens to the $>$ sign."
    ]
   },
   {
@@ -2193,7 +2239,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "Find the smaller critical value used to solve $x^2-[[s]]x+[[p]]\\ge0$.",
+   "stem": "Find the smaller critical value used to solve $x^2[[mb:+g]]x[[p:+g]]\\ge0$.",
    "template": {
     "params": {
      "r1": {
@@ -2208,7 +2254,7 @@
      }
     },
     "derived": {
-     "s": "r1 + r2",
+     "mb": "-(r1 + r2)",
      "p": "r1 * r2"
     },
     "answer": "min(r1, r2)",
@@ -2216,6 +2262,9 @@
      {
       "expr": "max(r1, r2)"
      }
+    ],
+    "constraints": [
+     "abs(r1 + r2) > 1"
     ]
    },
    "answer": {
@@ -2223,7 +2272,7 @@
     "exact": true
    },
    "marks": 2,
-   "explanation": "Factorise $x^2-sx+p$ to find the two critical values, then take the smaller one.",
+   "explanation": "Factorise the quadratic to find the two critical values (its roots), then take the smaller one.",
    "hints": [
     "Factorise the quadratic to find its two roots.",
     "Those roots are the critical values for the inequality.",
@@ -2235,24 +2284,35 @@
    "kcs": [
     "P1-1.9"
    ],
-   "kind": "numeric",
-   "difficulty": 4,
+   "kind": "mcq",
+   "difficulty": 3,
    "command_word": "Find",
    "source": {
     "type": "generated"
    },
-   "stem": "Solve the linear inequality $[[a]]-[[b]]x\\le[[c]]$, giving the boundary value of $x$ correct to 3 s.f.",
+   "stem": "Solve the linear inequality $[[a]]-[[b]]x\\le[[c]]$.",
    "template": {
     "params": {
-     "a": {
-      "min": 5,
-      "max": 30,
-      "step": 1
-     },
      "b": {
       "min": 2,
       "max": 8,
       "step": 1
+     },
+     "x0": {
+      "choices": [
+       -6,
+       -5,
+       -4,
+       -3,
+       -2,
+       -1,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
      },
      "c": {
       "min": -10,
@@ -2260,26 +2320,29 @@
       "step": 1
      }
     },
-    "answer": "(a - c) / b",
-    "distractors": [
-     {
-      "expr": "-(a - c) / b"
-     }
+    "derived": {
+     "a": "c + b * x0",
+     "nx0": "-x0"
+    },
+    "constraints": [
+     "a != 0"
     ]
    },
-   "answer": {
-    "unit": "",
-    "sf_ok": [
-     3,
-     4
-    ]
+   "options": {
+    "A": "$x\\ge[[x0]]$",
+    "B": "$x\\le[[x0]]$",
+    "C": "$x\\ge[[nx0]]$",
+    "D": "$x\\le[[nx0]]$"
    },
-   "marks": 3,
-   "explanation": "Rearranging $a-bx\\le c$ gives $-bx\\le c-a$, then dividing by $-b$ (negative) flips the inequality: $x\\ge\\dfrac{a-c}{b}$ — the boundary value is $(a-c)/b$.",
+   "answer": "A",
+   "distractors": {},
+   "marks": 2,
+   "shuffle": true,
+   "explanation": "Subtract the constant from both sides to get $-bx\\le c-a$, then divide by $-b$: dividing by a negative number reverses the inequality, giving $x\\ge\\dfrac{a-c}{b}$. Keeping $\\le$ is the classic slip of forgetting to reverse the sign.",
    "hints": [
     "Get the $x$-term on its own on one side first.",
-    "You'll need to divide by a negative coefficient of $x$ — remember what that does to the inequality.",
-    "The boundary value is $\\dfrac{a-c}{b}$."
+    "You will divide by the negative coefficient of $x$ — remember what that does to the inequality sign.",
+    "Subtract the constant term from both sides, then divide both sides by the coefficient of $x$."
    ]
   },
   {
@@ -2352,7 +2415,7 @@
    "hints": [
     "Multiply every term in the first bracket by every term in the second.",
     "Combine the two middle ($x$) terms: $-5x+2x$.",
-    "$x^2-3x-10$."
+    "Multiply out all four products: $x\\cdot x$, $x\\cdot(-5)$, $2\\cdot x$ and $2\\cdot(-5)$, then collect like terms."
    ]
   },
   {
@@ -2377,11 +2440,11 @@
    "distractors": {},
    "marks": 1,
    "shuffle": true,
-   "explanation": "$x^3-9x=x(x^2-9)=x(x-3)(x+3)$; option D takes out the common factor $x$ but leaves $x^2-9$ un-factorised, so it is not the *full* factorisation, and option C is missing the factor of $x$ altogether.",
+   "explanation": "$x^3-9x=x(x^2-9)=x(x-3)(x+3)$; $x(x^2-9)$ takes out the common factor $x$ but leaves $x^2-9$ un-factorised, so it is not the *full* factorisation, and $(x-3)(x+3)$ is missing the factor of $x$ altogether.",
    "hints": [
     "First take out the common factor of $x$.",
     "What remains, $x^2-9$, is a difference of two squares — it factorises further.",
-    "$x(x-3)(x+3)$."
+    "Factorise $x^2-9$ as a difference of two squares, $x^2-3^2$, and keep the $x$ you took out."
    ]
   },
   {
@@ -2425,7 +2488,7 @@
    "hints": [
     "The constant term comes from multiplying the two constants in the brackets.",
     "Keep track of the signs: one bracket has $+a$, the other has $-b$.",
-    "$q=-ab$."
+    "Multiply the two constant terms, $+a$ and $-b$, with their signs."
    ]
   },
   {
@@ -2453,6 +2516,9 @@
       "step": 1
      }
     },
+    "constraints": [
+     "a != b"
+    ],
     "answer": "a - b",
     "distractors": [
      {
@@ -2469,7 +2535,7 @@
    "hints": [
     "The $x$ coefficient comes from adding the 'outer' and 'inner' products' constants.",
     "Add the two bracket constants, keeping their signs: $+a$ and $-b$.",
-    "$p=a-b$."
+    "Add the outer and inner products, $x\\cdot(-b)$ and $a\\cdot x$, and collect."
    ]
   },
   {
@@ -2494,7 +2560,7 @@
    "hints": [
     "Take out the common factor of $x$ first.",
     "Factorise the remaining quadratic: find two numbers multiplying to $-15$ and adding to $2$.",
-    "Sum the three roots: $0+(-5)+3$."
+    "Set each factor equal to zero to list the three roots, then add them."
    ]
   },
   {
@@ -2523,7 +2589,7 @@
    "hints": [
     "Think about what happens to a fraction $k/x$ as $x$ gets very large.",
     "The fraction gets smaller and smaller, approaching (but never reaching) a fixed value.",
-    "That fixed value is $y=0$."
+    "Try $x=10$, $x=100$ and $x=1000$ in $\\dfrac{k}{x}$ and watch the trend."
    ]
   },
   {
@@ -2552,7 +2618,7 @@
    "hints": [
     "A fraction is undefined whenever its denominator is zero.",
     "Here the denominator is $x^2$.",
-    "$x^2=0$ only when $x=0$."
+    "Solve $x^2=0$."
    ]
   },
   {
@@ -2581,7 +2647,7 @@
    "hints": [
     "The curve crosses the $x$-axis wherever $y=0$.",
     "Use the factorised form to find every value of $x$ that makes it zero.",
-    "Each of the three factors gives one root: $x=0,2,-2$."
+    "Set each factor equal to zero and count how many different values of $x$ you get."
    ]
   },
   {
@@ -2610,7 +2676,7 @@
      }
     },
     "constraints": [
-     "r1 + r2 > 0"
+     "r1 + r2 > 1"
     ],
     "derived": {
      "a": "r1 + r2",
@@ -2660,6 +2726,9 @@
       "step": 1
      }
     },
+    "constraints": [
+     "k != c"
+    ],
     "answer": "sqrt(k / c)",
     "distractors": [
      {
@@ -2679,7 +2748,7 @@
    "hints": [
     "You're given $x^2=k/c$ directly — but the question asks for $x$, not $x^2$.",
     "Take the square root of both sides.",
-    "$x=\\sqrt{k/c}$."
+    "Take the positive square root of your value of $\\dfrac{k}{c}$."
    ]
   },
   {
@@ -2704,7 +2773,7 @@
    "hints": [
     "Use the factorised form to identify each root.",
     "Each linear factor gives one $x$-intercept.",
-    "Sum the three roots: $0,4,-1$."
+    "Set each factor equal to zero to list the roots, then add them."
    ]
   },
   {
@@ -2733,7 +2802,7 @@
    "hints": [
     "This transformation is added *outside* the function, to the output.",
     "Changes outside the function affect $y$-values (vertical position).",
-    "Adding 5 to every output moves the graph up by 5."
+    "Pick a point on $y=f(x)$, say $(x_0,y_0)$, and work out where it goes on $y=f(x)+5$."
    ]
   },
   {
@@ -2764,7 +2833,7 @@
    "hints": [
     "Changes *inside* the function's brackets affect $x$-values (horizontal position).",
     "$f(x+a)$ shifts the graph left by $a$, the opposite direction to what you might expect.",
-    "$x=2-3=-1$."
+    "Find the value of $x$ that makes the input $x+3$ equal to $2$."
    ]
   },
   {
@@ -2780,20 +2849,20 @@
    },
    "stem": "Which transformation maps $y=f(x)$ to $y=3f(x)$?",
    "options": {
-    "A": "Vertical stretch, scale factor 3, from the $x$-axis",
-    "B": "Horizontal stretch, scale factor 3",
-    "C": "Vertical translation up by 3",
-    "D": "Vertical stretch, scale factor $\\frac13$"
+    "A": "Stretch parallel to the $y$-axis, scale factor 3",
+    "B": "Stretch parallel to the $x$-axis, scale factor 3",
+    "C": "Translation by $\\begin{pmatrix}0\\\\3\\end{pmatrix}$",
+    "D": "Stretch parallel to the $y$-axis, scale factor $\\frac13$"
    },
    "answer": "A",
    "distractors": {},
    "marks": 1,
    "shuffle": true,
-   "explanation": "Multiplying the output of $f$ by 3 multiplies every $y$-value by 3, stretching the graph vertically (away from the $x$-axis) by scale factor 3.",
+   "explanation": "Multiplying the output of $f$ by 3 multiplies every $y$-value by 3: a stretch parallel to the $y$-axis, scale factor 3. Stretching parallel to the $x$-axis would need a change inside the bracket, $f(ax)$.",
    "hints": [
     "This transformation multiplies the *output* of the function.",
     "Multiplying $y$-values by a constant is a vertical stretch.",
-    "The scale factor is 3, matching the multiplier."
+    "Take a point $(x_0,y_0)$ on $y=f(x)$ and find its image on $y=3f(x)$: which coordinate changed, and by what factor?"
    ]
   },
   {
@@ -2843,7 +2912,7 @@
    "hints": [
     "$f(x-a)$ (with a minus sign inside) shifts the graph right by $a$.",
     "Only the $x$-coordinate of the point changes; the $y$-coordinate stays the same.",
-    "New $x$-coordinate $=p+a$."
+    "Find the value of $x$ that makes the input $x-a$ equal to $p$."
    ]
   },
   {
@@ -2857,7 +2926,7 @@
    "source": {
     "type": "generated"
    },
-   "stem": "The graph of $y=f(x)$ has a turning point at $([[p]],[[q]])$. State the $y$-coordinate of the turning point on the graph of $y=[[k]]f(x)+[[c]]$.",
+   "stem": "The graph of $y=f(x)$ has a turning point at $([[p]],[[q]])$. State the $y$-coordinate of the turning point on the graph of $y=[[k]]f(x)[[c:+g]]$.",
    "template": {
     "params": {
      "p": {
@@ -2886,7 +2955,8 @@
      }
     },
     "constraints": [
-     "q != 0"
+     "q != 0",
+     "c != 0"
     ],
     "answer": "k * q + c",
     "distractors": [
@@ -2897,17 +2967,14 @@
    },
    "answer": {
     "unit": "",
-    "sf_ok": [
-     2,
-     3
-    ]
+    "exact": true
    },
    "marks": 2,
    "explanation": "Apply the transformations in order: multiply the $y$-coordinate by $k$ first, then add $c$: new $y=kq+c$.",
    "hints": [
     "Two things happen to the output: it gets multiplied, then a constant is added.",
     "Apply them to the $y$-coordinate in that same order.",
-    "New $y=kq+c$."
+    "Multiply the old $y$-coordinate $q$ by $k$ first, then add $c$."
    ]
   },
   {
@@ -2917,27 +2984,28 @@
    ],
    "kind": "short",
    "difficulty": 5,
-   "command_word": "Explain",
+   "command_word": "State",
    "source": {
     "type": "generated"
    },
    "stem": "Describe fully the single transformation that maps the graph of $y=f(x)$ onto the graph of $y=f(x)-7$.",
    "rubric": [
     {
-     "point": "identifies a vertical translation",
+     "point": "identifies a translation",
      "keywords": [
       [
-       "vertical",
        "translation",
-       "translated"
+       "translate"
       ]
      ]
     },
     {
-     "point": "gives the correct direction and magnitude: down by 7",
+     "point": "gives the vector $\\begin{pmatrix}0\\\\-7\\end{pmatrix}$, i.e. 7 units down (parallel to the $y$-axis)",
      "keywords": [
       [
-       "down"
+       "down",
+       "-7",
+       "−7"
       ],
       [
        "7"
@@ -2946,11 +3014,11 @@
     }
    ],
    "marks": 2,
-   "explanation": "Subtracting 7 from the output of $f$ shifts every $y$-value down by 7: a vertical translation by $\\begin{pmatrix}0\\\\-7\\end{pmatrix}$.",
+   "explanation": "Subtracting 7 from the output of $f$ moves every $y$-value down by 7: a translation by $\\begin{pmatrix}0\\\\-7\\end{pmatrix}$.",
    "hints": [
     "The change is applied outside the function, to the output.",
     "Changes outside the function move the graph vertically.",
-    "Subtracting 7 moves every point down by 7."
+    "Take a point $(x_0,y_0)$ on $y=f(x)$ and find where it goes on $y=f(x)-7$; describe that movement as a vector."
    ]
   }
  ],
@@ -2975,7 +3043,7 @@
   },
   {
    "id": "fc4",
-   "kc": "P1-1.3",
+   "kc": "P1-1.5",
    "front": "Give the completed-square form of $ax^2+bx+c$.",
    "back": "$a\\left(x+\\dfrac{b}{2a}\\right)^2+c-\\dfrac{b^2}{4a}$; the vertex is at $x=-\\dfrac{b}{2a}$."
   },
@@ -2983,7 +3051,7 @@
    "id": "fc5",
    "kc": "P1-1.4",
    "front": "State the discriminant and what its sign tells you.",
-   "back": "$b^2-4ac$: positive gives two distinct real roots, zero gives one repeated real root, negative gives no real roots."
+   "back": "$b^2-4ac$: $b^2-4ac>0$ gives two distinct real roots; $b^2-4ac=0$ gives equal (repeated) roots; $b^2-4ac<0$ gives no real roots."
   },
   {
    "id": "fc6",
@@ -3012,8 +3080,8 @@
   {
    "id": "fc10",
    "kc": "P1-1.8",
-   "front": "When is an inequality's boundary line drawn dashed rather than solid?",
-   "back": "Dashed for strict inequalities ($<$ or $>$, boundary not included); solid for $\\le$ or $\\ge$ (boundary included)."
+   "front": "When is an inequality's boundary drawn as a dotted (dashed) line rather than a solid line?",
+   "back": "Dotted (dashed) for strict inequalities ($<$ or $>$): points on the boundary are not included. Solid for $\\le$ or $\\ge$: points on the boundary are included."
   },
   {
    "id": "fc11",
@@ -3031,7 +3099,7 @@
    "id": "fc13",
    "kc": "P1-1.11",
    "front": "Define asymptote.",
-   "back": "A line that a curve approaches ever more closely but never touches or crosses, as $x$ or $y$ tends to infinity."
+   "back": "A straight line that the curve approaches (gets closer and closer to) as $x$ or $y$ tends to infinity."
   },
   {
    "id": "fc14",
@@ -3043,7 +3111,7 @@
    "id": "fc15",
    "kc": "P1-1.12",
    "front": "State the effect of each transformation of $y=f(x)$: $y=af(x)$, $y=f(x)+a$, $y=f(x+a)$, $y=f(ax)$.",
-   "back": "$y=af(x)$: vertical stretch, factor $a$. $y=f(x)+a$: translation up by $a$. $y=f(x+a)$: translation left by $a$. $y=f(ax)$: horizontal stretch, factor $1/a$."
+   "back": "$y=af(x)$: stretch parallel to the $y$-axis, scale factor $a$. $y=f(x)+a$: translation by $\\begin{pmatrix}0\\\\a\\end{pmatrix}$ (up $a$). $y=f(x+a)$: translation by $\\begin{pmatrix}-a\\\\0\\end{pmatrix}$ (left $a$). $y=f(ax)$: stretch parallel to the $x$-axis, scale factor $\\tfrac1a$."
   },
   {
    "id": "fc16",
@@ -3096,7 +3164,8 @@
         6
        ]
       ],
-      "label": "y = x - 1"
+      "label": "y = x - 1 (dotted: y > x - 1)",
+      "style": "dashed"
      },
      {
       "points": [
@@ -3109,19 +3178,42 @@
         -6
        ]
       ],
-      "label": "y = -2x + 8"
+      "label": "y = -2x + 8 (solid: y ≤ -2x + 8)"
      }
     ],
+    "shade": {
+     "polygon": [
+      [
+       -1,
+       -2
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       -1,
+       10
+      ]
+     ]
+    },
     "annotations": [
      {
-      "text": "intersection (3, 2)",
+      "text": "region R",
+      "xy": [
+       0.3,
+       3.5
+      ]
+     },
+     {
+      "text": "vertex (3, 2)",
       "xy": [
        3,
        2
       ],
       "xytext": [
-       3.5,
-       -1
+       4.2,
+       5
       ]
      }
     ],

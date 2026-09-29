@@ -1,0 +1,730 @@
+"""Generator for pack 9701-1.1 (Particles in the atom and atomic radius). Content lives here as data;
+every numeric answer is computed (and asserted) with sympy / plain arithmetic."""
+import json
+import random
+from pathlib import Path
+
+import sympy as sp
+
+ROOT = Path(__file__).resolve().parents[3]
+SUB = "9701-1.1"
+K1, K2, K3, K4, K5, K6, K7 = [f"9701-1.1.{i}" for i in range(1, 8)]
+PACK = ROOT / "build/out/packs/9701/9701-1.1.json"
+NOTE_REL = "Subjects/9701 Chemistry/01 Atomic structure/1.1 Particles in the atom and atomic radius.md"
+NOTE = ROOT / "build/out/notes" / NOTE_REL
+
+# ---------- verified chemistry facts ----------
+Z = {"H": 1, "C": 6, "N": 7, "O": 8, "Na": 11, "Mg": 12, "Al": 13, "S": 16, "Cl": 17, "K": 19, "Fe": 26,
+     "Br": 35, "I": 53, "Te": 52, "Ar": 18, "Ca": 20, "P": 15, "Tc": 43, "Se": 34, "Zn": 30}
+
+
+def pne(sym, A, q=0):
+    return Z[sym], A - Z[sym], Z[sym] - q  # protons, neutrons, electrons
+
+
+assert pne("I", 131, -1) == (53, 78, 54)
+assert pne("Br", 79, -1) == (35, 44, 36)
+assert pne("Al", 27, 3) == (13, 14, 10)
+assert pne("S", 32, -2) == (16, 16, 18)
+assert pne("Fe", 56, 3) == (26, 30, 23)
+assert pne("Fe", 60)[1] == 34
+assert pne("Tc", 99)[1] == 56
+assert pne("Ar", 40) == (18, 22, 18) and pne("K", 40) == (19, 21, 19) and pne("Ca", 40) == (20, 20, 20)
+azide = 3 * Z["N"] + 1
+assert azide == 22 and Z["Na"] - 1 == 10
+assert sum([Z["N"], 4 * 1]) == 11 and 21 - 11 == 10  # NH4+ of Mr 21: 11 p, 10 n, 10 e
+so4 = Z["S"] + 4 * Z["O"] + 2
+po4 = Z["P"] + 4 * Z["O"] + 3
+co3 = Z["C"] + 3 * Z["O"] + 2
+assert (so4, po4, co3) == (50, 50, 32)
+assert Z["Cl"] + 4 * Z["O"] + 1 == 50 and 2 + Z["S"] + 4 * Z["O"] == 50 and Z["Te"] + 2 == 54
+pct = float(100 / (1 + sp.Rational(1, 1836)))
+assert round(pct, 2) == 99.95
+assert Z["Cl"] + 1 == 18 and Z["S"] - 2 == 14 and Z["K"] == 19
+# charge-to-mass: proton 1, 2H+ 1/2, 4He2+ 1/2, 4He+ 1/4
+qm = {"p": sp.Rational(1, 1), "d": sp.Rational(1, 2), "a": sp.Rational(2, 4), "he+": sp.Rational(1, 4)}
+assert min(qm, key=qm.get) == "he+"
+# period-3 atomic radii (CAIE data booklet, nm)
+RAD = [(11, 0.186), (12, 0.160), (13, 0.143), (14, 0.117), (15, 0.110), (16, 0.104), (17, 0.099)]
+
+
+def hints(a, b, c):
+    return [a, b, c]
+
+
+items, ctr = [], {"i": 0, "p": 0}
+
+
+def add(it, past=False):
+    key = "p" if past else "i"
+    ctr[key] += 1
+    it["id"] = f"{SUB}-{key}{ctr[key]:02d}"
+    items.append(it)
+
+
+def gen(kcs, kind, d, cw, stem, marks, expl, hs, **kw):
+    it = {"kcs": kcs, "kind": kind, "difficulty": d, "command_word": cw, "source": {"type": "generated"},
+          "stem": stem, "marks": marks, "explanation": expl, "hints": hs, **kw}
+    add(it)
+
+
+def mcq(kcs, d, cw, stem, opts, ans, expl, hs, dist=None, marks=1):
+    gen(kcs, "mcq", d, cw, stem, marks, expl, hs, options=dict(zip("ABCD", opts)), answer=ans,
+        distractors=dist or {}, shuffle=True)
+
+
+def short(kcs, d, cw, stem, rubric, marks, expl, hs):
+    gen(kcs, "short", d, cw, stem, marks, expl, hs, rubric=[{"point": p, "keywords": k} for p, k in rubric])
+
+
+def structured(kcs, d, cw, stem, scheme, expl, hs):
+    gen(kcs, "structured", d, cw, stem, len(scheme), expl, hs,
+        scheme=[{"mark": m, "point": p, **({"check": c} if c else {})} for m, p, c in scheme])
+
+
+def numeric(kcs, d, cw, stem, ans, expl, hs, **kw):
+    gen(kcs, "numeric", d, cw, stem, 1, expl, hs, answer=ans, **kw)
+
+
+EX = {"unit": "", "exact": True}
+
+
+def past(kcs, d, ref, stem, opts, ans, expl, hs, dist=None, image=None):
+    add({"kcs": kcs, "kind": "mcq", "difficulty": d, "command_word": "Identify",
+         "source": {"type": "past", "ref": ref}, "stem": stem, "options": dict(zip("ABCD", opts)), "answer": ans,
+         "distractors": dist or {}, "marks": 1, "explanation": expl, "hints": hs,
+         **({"image": image} if image else {})}, past=True)
+
+
+# ======================= misconceptions =======================
+misconceptions = [
+    {"id": "m1", "kc": K7, "statement": "An atom with more protons must be bigger, so atomic radius is thought to increase with proton number, even across a period.",
+     "refutation": "Across a period the electrons are added to the same shell and shielding barely changes, so the growing nuclear charge pulls the outer electrons in more strongly and the radius falls. Radius only jumps up when a new shell is started, as in moving to the next period or down a group.",
+     "contrast": "Sodium (11 protons) has a larger radius than chlorine (17 protons), $0.186\\ \\mathrm{nm}$ against $0.099\\ \\mathrm{nm}$: six more protons but a much smaller atom.",
+     "source": "ER 9701 s23 P11 Q1"},
+    {"id": "m2", "kc": K7, "statement": "The size of an ion is thought to depend on the size of its charge or the trend in atomic radius, rather than on the number of shells and the nuclear charge.",
+     "refutation": "A cation is smaller than its atom because it has lost its outer shell, while an anion is larger because extra electrons repel each other while the nuclear charge stays the same. For ions with the same number of electrons, the one with more protons pulls them in more and is smaller.",
+     "contrast": "$\\ce{Mg^2+}$ (12 protons, 10 electrons) is smaller than $\\ce{Na+}$ (11 protons, 10 electrons) even though its charge is bigger, and $\\ce{S^2-}$ (16 protons) is larger than $\\ce{K+}$ (19 protons) though both have 18 electrons.",
+     "source": "research"},
+    {"id": "m3", "kc": K6, "statement": "The sign of an ion's charge is applied the wrong way round when counting electrons, so a negative ion is thought to have fewer electrons than protons and a positive ion more.",
+     "refutation": "A negative ion has gained electrons, so electrons = protons + size of charge. A positive ion has lost electrons, so electrons = protons - size of charge. The numbers of protons and neutrons do not change when an ion forms.",
+     "contrast": "$\\ce{Cl-}$ has 17 protons and 18 electrons (not 16), and $\\ce{Na+}$ has 11 protons and 10 electrons (not 12).",
+     "source": "research"},
+    {"id": "m4", "kc": K5, "statement": "Heavier particles are thought to be deflected more in an electric field, or deflection is thought to depend only on charge, or neutrons are thought to be deflected too.",
+     "refutation": "Deflection depends on the charge-to-mass ratio: a bigger charge gives a bigger force, and a bigger mass gives a smaller acceleration from that force. Neutrons have no charge, so they are not deflected at all.",
+     "contrast": "An electron has the same size of charge as a proton but about $\\frac{1}{1836}$ of the mass, so it is deflected much more than a proton, and towards the opposite plate.",
+     "source": "research"},
+    {"id": "m5", "kc": K1, "statement": "The nucleus is thought to fill most of the atom, or the atom is pictured as a solid ball, or electrons are thought to carry a large share of the mass.",
+     "refutation": "The nucleus is tiny compared with the atom but holds the protons and neutrons, so it carries almost all the mass. The electrons are in shells in the space around it, and the rest of the atom is empty space.",
+     "contrast": "If the nucleus were the size of a pea, the atom would be several hundred metres across, yet the pea would hold almost all of the atom's mass.",
+     "source": "research"},
+]
+
+# ======================= worked examples =======================
+worked = [
+    {"id": "we1", "kc": K6, "problem": r"Determine the numbers of protons, neutrons and electrons in ${}^{79}_{35}\mathrm{Br}^{-}$.",
+     "steps": [
+         {"do": r"Read off the proton number: the subscript $35$ is the number of protons.",
+          "why": "The proton number (bottom left) defines the element and is the number of protons in the nucleus, so it is the first thing to state.",
+          "check": {"kind": "numeric", "answer": {"value": 35, "unit": "", "exact": True}}},
+         {"do": r"Neutrons $=$ nucleon number $-$ proton number $=79-35=44$.",
+          "why": "The nucleon number (top left) counts protons plus neutrons, so subtracting the protons leaves the neutrons. Students often quote $79$ as the neutrons.",
+          "check": {"kind": "numeric", "answer": {"value": 44, "unit": "", "exact": True}}},
+         {"do": r"The ion has a charge of $1-$, so it has gained one electron: electrons $=35+1=36$.",
+          "why": "A negative ion has more electrons than protons. Adding the charge, not subtracting it, is the step most often reversed.",
+          "check": {"kind": "numeric", "answer": {"value": 36, "unit": "", "exact": True}}}],
+     "faded": {"id": "we1f", "problem": r"Determine the number of electrons in ${}^{27}_{13}\mathrm{Al}^{3+}$.",
+               "answer": {"value": 10, "unit": "", "exact": True}, "blank_from": 1}},
+    {"id": "we2", "kc": K6, "problem": r"Calculate the total number of electrons in one sulfate ion, $\ce{SO4^2-}$. The proton numbers are S $=16$ and O $=8$.",
+     "steps": [
+         {"do": r"Electrons in the neutral atoms: S has $16$; the four O atoms have $4\times8=32$.",
+          "why": "A neutral atom has as many electrons as protons, and each atom in the formula must be counted, including the subscript on oxygen.",
+          "check": {"kind": "numeric", "answer": {"value": 48, "unit": "", "exact": True}}},
+         {"do": r"The ion has a $2-$ charge, so it has gained two electrons: $48+2=50$.",
+          "why": "A negative charge means extra electrons, so the charge is added to the total.",
+          "check": {"kind": "numeric", "answer": {"value": 50, "unit": "", "exact": True}}}],
+     "faded": {"id": "we2f", "problem": r"Calculate the total number of electrons in one phosphate ion, $\ce{PO4^3-}$. The proton numbers are P $=15$ and O $=8$.",
+               "answer": {"value": 50, "unit": "", "exact": True}, "blank_from": 1}},
+]
+
+# ======================= items: KC 1.1.1 =======================
+mcq([K1], 1, "State", "Which statement about the structure of an atom is correct?",
+    ["The nucleus contains protons and electrons and takes up most of the volume of the atom.",
+     "Protons and neutrons are in a small, dense nucleus and the electrons are in shells in the space around it.",
+     "Protons, neutrons and electrons are packed evenly throughout the atom.",
+     "The nucleus contains only protons, and the neutrons and electrons are in shells around it."], "B",
+    "The nucleus is a very small, dense region holding the protons and neutrons; the electrons are in shells in the empty space around it.",
+    hints("Think about what sits at the centre of the atom and what sits around it.",
+          "Only two of the three types of subatomic particle are in the centre.",
+          "The electrons are outside the centre, in shells."),
+    {"A": "m5", "C": "m5"})
+short([K1], 2, "Describe", "Describe the structure of an atom, in terms of its nucleus and the positions of the protons, neutrons and electrons.",
+      [("the nucleus is very small and dense", [["small", "tiny"], ["dense", "heavy", "massive"]]),
+       ("the nucleus contains protons and neutrons", [["nucleus"], ["proton"], ["neutron"]]),
+       ("electrons are in shells around the nucleus", [["electron"], ["shell"]]),
+       ("the rest of the atom is empty space", [["empty", "no matter", "nothing", "vacuum"]])], 4,
+      "A tiny, dense nucleus of protons and neutrons sits at the centre, with electrons in shells in the mostly empty space around it.",
+      hints("Start with the centre of the atom, then move outwards.",
+            "Name the particles in the centre and say what is special about its size and density.",
+            "Finish with where the electrons are and what lies between them and the centre."))
+mcq([K1], 2, "Identify", "Which particles are found in the nucleus of an atom?",
+    ["protons only", "protons and neutrons", "protons and electrons", "neutrons and electrons"], "B",
+    "The nucleus contains the protons and neutrons; the electrons are found in shells outside it.",
+    hints("Two of the three particles are found in the nucleus.",
+          "The nucleus holds the particles that make up almost all of the atom's mass.",
+          "One of the three has a negligible mass and is not in the nucleus."))
+mcq([K1], 3, "Identify", "Which statement compares the size of the nucleus with the size of the whole atom?",
+    ["The nucleus is about the same size as the atom.",
+     "The nucleus is very much smaller than the atom, and most of the atom is empty space.",
+     "The nucleus is about half the diameter of the atom.",
+     "The nucleus is larger than the atom because it contains the protons and neutrons."], "B",
+    "The nucleus is tiny compared with the atom. The electrons are in shells at a large distance from it and nothing lies between them.",
+    hints("Compare the diameter of the nucleus with the diameter of the whole atom.",
+          "The electron shells are far from the nucleus.",
+          "What is found in the region between the nucleus and the shells?"),
+    {"A": "m5"})
+short([K1], 3, "Explain", "Explain what is meant by the statement 'an atom is mostly empty space'.",
+      [("the nucleus is very small compared with the whole atom", [["nucleus"], ["small", "tiny"]]),
+       ("the electrons are in shells at a distance from the nucleus", [["electron"], ["shell"], ["outside", "around", "far", "distance"]]),
+       ("there is no matter between the nucleus and the electrons", [["empty", "no matter", "nothing", "no particles", "vacuum"]])], 3,
+      "The nucleus is tiny and the electrons are in shells far from it, with no particles between them, so most of the volume of the atom is empty.",
+      hints("Compare the size of the nucleus with the size of the atom.",
+            "Say where the electrons are relative to the nucleus.",
+            "Say what fills the region between the nucleus and the electron shells."))
+structured([K1, K4], 4, "Explain",
+           "An atom of lithium has 3 protons, 4 neutrons and 3 electrons. (a) State where the protons and neutrons are found. (b) State where the electrons are found. (c) Explain why almost all of the mass of the atom is in one region.",
+           [("B1", "protons and neutrons are in the nucleus (at the centre of the atom)", None),
+            ("B1", "electrons are in shells outside the nucleus (in the empty space around it)", None),
+            ("B1", "protons and neutrons each have a relative mass of 1", None),
+            ("B1", "electrons have a negligible relative mass (1/1836), so almost all the mass is in the nucleus", None)],
+           "The nucleus holds the protons and neutrons, each of relative mass 1, while the electrons in shells outside have a negligible mass.",
+           hints("Part (c) is about comparing the relative masses of the particles.",
+                 "Which of the three particles is much lighter than the other two?",
+                 "Link where the heavy particles are found to where the mass of the atom is."))
+
+# ======================= items: KC 1.1.2 =======================
+mcq([K2], 1, "State", "Which row gives the relative charge and the relative mass of a neutron?",
+    ["relative charge 0, relative mass 1", "relative charge +1, relative mass 1",
+     "relative charge 0, relative mass 1/1836", "relative charge -1, relative mass 1/1836"], "A",
+    "A neutron has no charge and has almost the same mass as a proton, so its relative mass is 1.",
+    hints("The name of the particle is a clue to its charge.",
+          "Compare the mass of a neutron with the mass of a proton.",
+          "A neutron is about as heavy as a proton."))
+mcq([K2], 2, "Identify", "Which statement about protons, neutrons and electrons is correct?",
+    ["A proton and an electron have the same mass but opposite charges.",
+     "A proton and a neutron have almost the same mass, and only the proton is charged.",
+     "A neutron and an electron have the same mass and neither is charged.",
+     "An electron is heavier than a neutron and has the opposite charge to a proton."], "B",
+    "Protons and neutrons both have a relative mass of 1, but the neutron is uncharged. The electron is much lighter and has a relative charge of -1.",
+    hints("List the relative mass and relative charge of each particle first.",
+          "One particle is far lighter than the other two.",
+          "Check each statement against your list, one at a time."))
+short([K2], 1, "State", "State the relative charge and the relative mass of an electron.",
+      [("the relative charge of an electron is -1", [["-1", "−1", "1-", "negative", "minus"]]),
+       ("the relative mass is 1/1836 (negligible)", [["1/1836", "1/1840", "negligible", "0.0005", "very small", "1/2000"]])], 2,
+      "An electron has a relative charge of -1 and a relative mass of about 1/1836, which is negligible.",
+      hints("Give one value for charge and one value for mass.",
+            "The charge is the opposite of a proton's.",
+            "The mass is a very small fraction of the mass of a proton."))
+numeric([K2], 2, "Calculate",
+        "The relative mass of an electron is $\\frac{1}{1836}$, compared with $1$ for a proton. Approximately how many electrons have the same total mass as one proton?",
+        {"value": 1836, "unit": "", "sf_ok": [3, 4], "tol_rel": 0.01},
+        "One proton has a relative mass of 1 and each electron has 1/1836, so the number of electrons is 1 divided by 1/1836.",
+        hints("The relative mass of an electron is a fraction of the mass of a proton.",
+              "To find how many small masses make up one large mass, divide the large by the small.",
+              "Divide 1 by the relative mass of one electron."))
+mcq([K2], 2, "Identify", "Which row is correct for an electron?",
+    ["relative charge +1, relative mass 1/1836", "relative charge -1, relative mass 1",
+     "relative charge -1, relative mass 1/1836", "relative charge 0, relative mass 1/1836"], "C",
+    "The electron carries the smallest negative charge, -1, and has a relative mass of about 1/1836.",
+    hints("The sign of an electron's charge is opposite to a proton's.",
+          "The mass of an electron is much less than the mass of a proton.",
+          "Combine both facts: a negative charge and a very small mass."))
+gen([K2], "numeric", 2, "Calculate",
+    "A particle contains [[p]] protons, [[n]] neutrons and [[e]] electrons. Calculate the overall relative charge of the particle, including its sign.", 1,
+    "Each proton is +1 and each electron is -1, and neutrons carry no charge, so the overall charge is the number of protons minus the number of electrons.",
+    hints("Only two of the three types of particle contribute to the charge.",
+          "Protons are +1 and electrons are -1.",
+          "Subtract the number of electrons from the number of protons."),
+    template={"params": {"p": {"min": 5, "max": 30, "step": 1}, "n": {"min": 5, "max": 40, "step": 1},
+                         "c": {"choices": [-3, -2, -1, 1, 2, 3]}},
+              "derived": {"e": "p - c"}, "constraints": ["e >= 1"], "answer": "p - e",
+              "distractors": [{"expr": "e - p", "misconception": "m3"}, {"expr": "p + e"}, {"expr": "p + n - e"}]},
+    answer=EX)
+structured([K2], 4, "Calculate",
+           "A helium ion has two protons, two neutrons and one electron. (a) Calculate the overall relative charge of the ion. (b) Calculate the total relative mass of the protons and neutrons. (c) Explain why the electron can be ignored when giving the relative mass of the ion.",
+           [("B1", "overall relative charge = (+2) + (-1) = +1", {"kind": "numeric", "answer": {"value": 1, "unit": "", "exact": True}}),
+            ("B1", "relative mass of protons and neutrons = 2 + 2 = 4", {"kind": "numeric", "answer": {"value": 4, "unit": "", "exact": True}}),
+            ("B1", "the relative mass of an electron (1/1836) is negligible compared with 4", None)],
+           "Two protons (+2) and one electron (-1) give +1; the four protons and neutrons give a mass of 4, and one electron adds only 1/1836.",
+           hints("Add up the charges of every particle, using the sign of each.",
+                 "Protons and neutrons each have a relative mass of 1.",
+                 "Compare the mass of an electron with the total mass of the other particles."))
+
+# ======================= items: KC 1.1.3 =======================
+short([K3], 1, "Define", "Define the term proton number (atomic number).",
+      [("the number of protons in the nucleus of an atom", [["number of protons", "number of proton"], ["nucleus", "atom"]])], 1,
+      "The proton number is the number of protons in the nucleus of an atom, which identifies the element.",
+      hints("The name of the quantity tells you what it counts.",
+            "Say which particle is counted and where it is found.",
+            "Mention the nucleus of an atom."))
+short([K3], 1, "Define", "Define the term nucleon number (mass number).",
+      [("the total number of protons and neutrons in the nucleus of an atom",
+        [["total", "sum", "number of protons and neutrons", "protons plus neutrons", "protons + neutrons"], ["nucleus", "atom"]])], 1,
+      "The nucleon number is the total number of protons and neutrons in the nucleus of an atom.",
+      hints("A nucleon is a particle found in the nucleus.",
+            "Two types of particle are counted, not one.",
+            "Give a total of both types in the nucleus of an atom."))
+gen([K3], "numeric", 2, "Determine",
+    "An atom of element X has [[p]] protons and [[n]] neutrons. Determine the nucleon number of X.", 1,
+    "The nucleon number is the total number of protons and neutrons in the nucleus.",
+    hints("The nucleon number counts particles in the nucleus.",
+          "Both protons and neutrons are nucleons.",
+          "Add the number of protons to the number of neutrons."),
+    template={"params": {"p": {"min": 3, "max": 40, "step": 1}, "n": {"min": 4, "max": 60, "step": 1}},
+              "answer": "p + n", "distractors": [{"expr": "p"}, {"expr": "n"}, {"expr": "p + n + p"}]}, answer=EX)
+mcq([K3], 2, "Identify", "Which quantity is always the same for every atom of a particular element?",
+    ["the nucleon number", "the number of neutrons", "the proton number", "the number of electrons in an ion of the element"], "C",
+    "The proton number defines the element. Atoms of one element can have different numbers of neutrons, so different nucleon numbers.",
+    hints("Think about which number decides which element an atom belongs to.",
+          "Atoms of one element can differ in how many neutrons they have.",
+          "It is a count of particles in the nucleus that never changes for one element."))
+structured([K3, K6], 4, "Deduce",
+           r"${}^{40}\mathrm{Ar}$, ${}^{40}\mathrm{K}$ and ${}^{40}\mathrm{Ca}$ are atoms of three different elements with proton numbers 18, 19 and 20. (a) State what these three atoms have in common. (b) Give the numbers of protons, neutrons and electrons in each atom.",
+           [("B1", "they have the same nucleon number (40), the same total number of protons and neutrons", None),
+            ("B1", "Ar: 18 protons, 22 neutrons, 18 electrons", None),
+            ("B1", "K: 19 protons, 21 neutrons, 19 electrons", None),
+            ("B1", "Ca: 20 protons, 20 neutrons, 20 electrons", None)],
+           "All three have a nucleon number of 40. Protons equal the proton number, neutrons are 40 minus that, and each neutral atom has as many electrons as protons.",
+           hints("The number 40 written on each symbol is a clue to what they share.",
+                 "Neutrons are found by subtracting the proton number from the nucleon number.",
+                 "Each atom is neutral, so electrons equal protons."))
+
+# ======================= items: KC 1.1.4 =======================
+mcq([K4], 2, "Identify", "Which statement describes the distribution of mass and charge in an atom?",
+    ["The mass is in the nucleus and the positive charge is in the electron shells.",
+     "Nearly all of the mass and all of the positive charge are in the nucleus.",
+     "The mass is spread evenly through the atom and the positive charge is in the nucleus.",
+     "Nearly all of the mass is in the electron shells and the positive charge is in the nucleus."], "B",
+    "The nucleus holds the protons (positive) and neutrons, so it has nearly all the mass and all the positive charge; the electrons carry the negative charge.",
+    hints("Which particles are in the nucleus, and which of them are charged?",
+          "The electrons have a negligible mass.",
+          "Put the heavy particles and the positive particles in the same place."),
+    {"C": "m5", "D": "m5"})
+short([K4], 3, "Describe", "Describe the distribution of mass and charge within an atom.",
+      [("nearly all of the mass is in the nucleus", [["mass"], ["nucleus"]]),
+       ("the positive charge is in the nucleus, due to the protons", [["positive"], ["nucleus", "proton"]]),
+       ("the negative charge is due to the electrons in shells outside the nucleus", [["negative"], ["electron"], ["shell", "outside", "around"]]),
+       ("the atom is neutral because the numbers of protons and electrons are equal", [["neutral", "equal number", "same number", "no overall charge"]])], 4,
+      "Almost all the mass and all the positive charge are in the nucleus, and the negative electrons are in shells around it; an atom is neutral overall.",
+      hints("Treat mass and charge separately.",
+            "Say which region holds the positive charge and which holds the negative charge.",
+            "Finish with the overall charge of an atom."))
+numeric([K4], 3, "Calculate",
+        "A hydrogen-1 atom has a nucleus of one proton (relative mass 1) and one electron (relative mass $\\frac{1}{1836}$). Calculate the percentage of the mass of the atom that is in the nucleus. Give your answer to 4 significant figures.",
+        {"value": round(pct, 2), "unit": "", "sf_ok": [3, 4]},
+        "The total relative mass is 1 + 1/1836, so the nucleus contributes 1 divided by that total, expressed as a percentage.",
+        hints("Find the total relative mass of the atom first.",
+              "The fraction in the nucleus is the nucleus's mass divided by the total.",
+              "Convert the fraction to a percentage and check that it is just under the maximum possible."))
+mcq([K4], 2, "Explain", "Why does an atom have no overall electric charge?",
+    ["It contains equal numbers of protons and neutrons.", "It contains equal numbers of protons and electrons.",
+     "The neutrons cancel out the charge of the protons.", "Protons and electrons have the same relative mass."], "B",
+    "Each proton has a charge of +1 and each electron -1, so equal numbers give a total charge of zero. Neutrons carry no charge.",
+    hints("Think about which particles carry charge.",
+          "The charges of the two charged particles are equal in size and opposite in sign.",
+          "What must be true about their numbers for the charges to cancel?"))
+mcq([K4], 3, "Deduce", "The nucleus of an atom of element Y has a relative charge of +9 and contains 10 neutrons. Which row is correct for the atom?",
+    ["9 electrons; nucleus relative mass 19", "9 electrons; nucleus relative mass 10",
+     "19 electrons; nucleus relative mass 19", "10 electrons; nucleus relative mass 19"], "A",
+    "A charge of +9 means 9 protons, so the neutral atom has 9 electrons. The nucleus has 9 protons and 10 neutrons, so its relative mass is 19.",
+    hints("The charge of the nucleus tells you how many protons there are.",
+          "The atom is neutral, so its electrons balance the protons.",
+          "The relative mass of the nucleus counts both types of particle in it."))
+short([K4, K1], 4, "Explain",
+      "A student says: 'Most of the volume of an atom is the nucleus, and most of its mass is in the electrons.' Explain why both parts of this statement are wrong.",
+      [("the nucleus is very small compared with the atom (the electron shells and empty space make up most of the volume)", [["nucleus"], ["small", "tiny"]]),
+       ("electrons have a negligible relative mass (1/1836)", [["electron"], ["negligible", "1/1836", "very small", "tiny mass", "small mass", "lighter"]]),
+       ("nearly all of the mass is in the protons and neutrons in the nucleus", [["mass"], ["nucleus"], ["proton"]])], 3,
+      "The nucleus is tiny compared with the atom, and the protons and neutrons in it carry almost all the mass because electrons are so light.",
+      hints("Take the two claims one at a time: volume, then mass.",
+            "Compare the size of the nucleus with the region the electrons occupy.",
+            "Compare the relative mass of an electron with that of a proton or neutron."))
+
+# ======================= items: KC 1.1.5 =======================
+mcq([K5], 3, "Predict", "Beams of protons, neutrons and electrons, all travelling at the same velocity, pass between a positive plate and a negative plate. Which row describes their behaviour?",
+    ["Protons are deflected towards the negative plate, neutrons are not deflected, and electrons are deflected towards the positive plate by a larger angle than protons.",
+     "Protons are deflected towards the positive plate, neutrons are not deflected, and electrons are deflected towards the negative plate.",
+     "Protons are deflected towards the negative plate, neutrons are not deflected, and electrons are deflected towards the positive plate by a smaller angle than protons.",
+     "Protons and electrons are deflected through the same angle in opposite directions, and neutrons are not deflected."], "A",
+    "Protons are positive so they move towards the negative plate; electrons are negative and move the other way. An electron has the same size of charge but far less mass, so it is deflected more, and neutrons are uncharged so go straight.",
+    hints("Decide the direction for each charged particle from its sign; then decide the size of the deflection.",
+          "Deflection depends on both the size of the charge and the mass.",
+          "Compare how heavy an electron is with a proton when the charges are equal in size."),
+    {"C": "m4", "D": "m4"})
+short([K5], 3, "Describe", "Describe the behaviour of beams of protons, neutrons and electrons, all moving at the same velocity, in an electric field between a positive and a negative plate.",
+      [("protons are deflected towards the negative plate", [["proton"], ["negative"]]),
+       ("electrons are deflected towards the positive plate", [["electron"], ["positive"]]),
+       ("neutrons are not deflected", [["neutron"], ["not deflected", "undeflected", "no deflection", "straight", "unaffected", "not affected", "unchanged"]]),
+       ("electrons are deflected through a larger angle than protons", [["electron"], ["more", "greater", "larger", "bigger"]])], 4,
+      "Protons go towards the negative plate, electrons towards the positive plate by a larger amount, and neutrons are not deflected.",
+      hints("Go through the three particles one at a time.",
+            "Neutrons have no charge; protons and electrons have opposite charges.",
+            "Finish by comparing the amount of deflection of the two charged beams."))
+gen([K5], "numeric", 3, "Calculate",
+    "An ion has a charge of +[[z]] (in units of the charge on a proton) and a relative mass of [[m]]. The ion and a proton travel at the same velocity through the same uniform electric field. The deflection is proportional to charge divided by mass. Calculate the deflection of the ion as a fraction of the deflection of the proton. Give your answer to 2 significant figures.", 1,
+    "The proton has a charge of 1 and a relative mass of 1, so its charge-to-mass ratio is 1. The ion's ratio is its charge divided by its mass, which is the fraction asked for.",
+    hints("Deflection depends on both the charge and the mass of the particle.",
+          "For the proton both values are 1, so the proton's ratio is 1.",
+          "Divide the ion's charge by its relative mass."),
+    template={"params": {"z": {"choices": [1, 2, 3]}, "m": {"choices": [7, 9, 11, 12, 14, 16, 19, 23, 24, 27, 31, 35, 40]}},
+              "answer": "z / m", "distractors": [{"expr": "m / z"}, {"expr": "z", "misconception": "m4"}, {"expr": "z * m"}]},
+    answer={"unit": "", "sf_ok": [2, 3]})
+mcq([K5], 4, "Deduce", "The particles below all travel at the same velocity through the same electric field. Which is deflected by the smallest amount?",
+    [r"${}^{1}\mathrm{H}^{+}$ (relative mass 1)", r"${}^{2}\mathrm{H}^{+}$ (relative mass 2)",
+     r"${}^{4}\mathrm{He}^{2+}$ (relative mass 4)", r"${}^{4}\mathrm{He}^{+}$ (relative mass 4)"], "D",
+    "Deflection depends on charge divided by mass. The ratios are 1, 1/2, 2/4 = 1/2 and 1/4, so the smallest is for the ion with a single positive charge and mass 4.",
+    hints("Work out charge divided by relative mass for each particle.",
+          "Two of the options have the same relative mass, so compare their charges.",
+          "The smallest charge-to-mass ratio gives the smallest deflection."),
+    {"C": "m4"})
+short([K5], 4, "Explain", "Explain why, at the same velocity, an electron is deflected much more than a proton in the same electric field, and in the opposite direction.",
+      [("the electron has the opposite (negative) charge, so it is deflected towards the positive plate", [["opposite", "negative"], ["positive plate", "towards the positive", "toward the positive", "direction"]]),
+       ("the electron has a much smaller mass than the proton", [["mass"], ["smaller", "less", "lighter", "negligible", "1/1836"]]),
+       ("the electron has a much greater charge-to-mass ratio, so a larger deflection", [["ratio"], ["charge"], ["mass"]])], 3,
+      "The opposite charge reverses the direction; the same-sized charge on a far smaller mass gives a much larger charge-to-mass ratio.",
+      hints("Two things differ between an electron and a proton: the sign of the charge and the mass.",
+            "The sign decides the direction; the mass affects the size of the deflection.",
+            "Combine charge and mass into one ratio."))
+
+# ======================= items: KC 1.1.6 =======================
+gen([K6], "numeric", 2, "Determine",
+    "An atom of element X has proton number [[Z]] and nucleon number [[A]]. Determine the number of neutrons in one atom of X.", 1,
+    "The number of neutrons is the nucleon number minus the proton number.",
+    hints("The nucleon number counts protons and neutrons together.",
+          "The proton number gives the number of protons.",
+          "Subtract the proton number from the nucleon number."),
+    template={"params": {"Z": {"min": 5, "max": 50, "step": 1}, "N": {"min": 6, "max": 75, "step": 1}},
+              "derived": {"A": "Z + N"}, "constraints": ["abs(N - Z) >= 2"], "answer": "A - Z",
+              "distractors": [{"expr": "A"}, {"expr": "A + Z"}, {"expr": "Z"}]}, answer=EX)
+gen([K6], "numeric", 3, "Determine",
+    "An ion of element X has proton number [[Z]] and a charge of [[q:+d]]. Determine the number of electrons in one ion of X.", 1,
+    "A positive ion has lost electrons and a negative ion has gained them, so the number of electrons is the proton number minus the charge.",
+    hints("A neutral atom has as many electrons as protons.",
+          "Decide whether the ion has gained or lost electrons from the sign of its charge.",
+          "Electrons = protons minus the charge, keeping the sign of the charge."),
+    template={"params": {"Z": {"min": 8, "max": 36, "step": 1}, "q": {"choices": [-3, -2, -1, 1, 2, 3]}},
+              "answer": "Z - q", "distractors": [{"expr": "Z + q", "misconception": "m3"}, {"expr": "Z"}]}, answer=EX)
+gen([K6], "numeric", 4, "Calculate",
+    "An ion has nucleon number [[A]], [[N]] neutrons and [[e]] electrons. Calculate the charge on the ion in units of the charge of a proton, including its sign.", 1,
+    "The number of protons is the nucleon number minus the neutrons; the charge is the number of protons minus the number of electrons.",
+    hints("First find the number of protons in the ion.",
+          "The charge depends on how the numbers of protons and electrons compare.",
+          "Charge = protons minus electrons, so more electrons than protons means a negative charge."),
+    template={"params": {"Z": {"min": 8, "max": 35, "step": 1}, "N": {"min": 8, "max": 45, "step": 1},
+                         "q": {"choices": [-3, -2, -1, 1, 2, 3]}},
+              "derived": {"A": "Z + N", "e": "Z - q"}, "answer": "A - N - e",
+              "distractors": [{"expr": "e - (A - N)", "misconception": "m3"}, {"expr": "A - e"}]}, answer=EX)
+numeric([K6], 4, "Calculate", r"Calculate the total number of electrons in one carbonate ion, $\ce{CO3^2-}$. The proton numbers are C $=6$ and O $=8$.",
+        {"value": co3, "unit": "", "exact": True},
+        "Neutral atoms give 6 + 3 x 8 electrons, and the 2- charge means two extra electrons.",
+        hints("Count the electrons in each atom in the formula first.",
+              "Remember that there are three oxygen atoms.",
+              "A negative charge means electrons have been added."))
+mcq([K6], 3, "Identify", "Which species has the same number of electrons as an atom of argon (proton number 18)?",
+    [r"$\ce{Cl-}$", r"$\ce{S^2+}$", r"$\ce{K}$", r"$\ce{Na}$"], "A",
+    "Argon has 18 electrons. Cl- has 17 + 1 = 18 electrons, while S2+ has 16 - 2 = 14, K has 19 and Na has 11.",
+    hints("Work out the number of electrons in each species, one at a time.",
+          "A positive charge means electrons were lost; a negative charge means electrons were gained.",
+          "Start from the proton number of each element."),
+    {"B": "m3"})
+structured([K6], 5, "Determine",
+           r"Give the numbers of protons, neutrons and electrons in each of these species. (a) ${}^{27}_{13}\mathrm{Al}^{3+}$ (b) ${}^{79}_{35}\mathrm{Br}^{-}$ (c) ${}^{32}_{16}\mathrm{S}^{2-}$ (d) ${}^{56}_{26}\mathrm{Fe}^{3+}$",
+           [("B1", "Al3+: 13 protons, 14 neutrons, 10 electrons", None), ("B1", "Br-: 35 protons, 44 neutrons, 36 electrons", None),
+            ("B1", "S2-: 16 protons, 16 neutrons, 18 electrons", None), ("B1", "Fe3+: 26 protons, 30 neutrons, 23 electrons", None)],
+           "Protons are the bottom number, neutrons are top minus bottom, and electrons are protons minus the charge.",
+           hints("Read the two numbers on the left of each symbol before looking at the charge.",
+                 "The neutrons never depend on the charge.",
+                 "The charge changes only the number of electrons."))
+
+# ======================= items: KC 1.1.7 =======================
+mcq([K7], 2, "Identify", "Which statement about atomic radius across Period 3, from Na to Cl, is correct?",
+    ["It increases because the number of protons increases.", "It decreases because the nuclear charge increases while the electrons are added to the same shell.",
+     "It stays the same because all the atoms have three shells.", "It decreases because the atoms lose electrons."], "B",
+    "Across the period the electrons enter the same shell, so shielding is similar while the nuclear charge rises; the outer electrons are pulled closer.",
+    hints("Think about what changes across the period and what stays the same.",
+          "The number of shells is the same but the number of protons is not.",
+          "A stronger pull from the nucleus on the outer electrons has what effect on the radius?"),
+    {"A": "m1"})
+short([K7], 3, "Explain", "Explain why the atomic radius decreases from sodium to chlorine across Period 3.",
+      [("nuclear charge (number of protons) increases across the period", [["nuclear charge", "protons"], ["increase", "more", "greater"]]),
+       ("electrons are added to the same shell, so the shielding is similar", [["same shell", "same energy level", "same principal quantum shell", "similar shielding", "same shielding"]]),
+       ("stronger attraction between the nucleus and the outer electrons pulls them closer", [["attract", "pull"], ["stronger", "greater", "more"]])], 3,
+      "More protons pull on outer electrons in the same shell with similar shielding, so the electrons are drawn in.",
+      hints("Say what changes in the nucleus, then what stays the same in the electron shells.",
+            "Compare the shell that is being filled for each element across the period.",
+            "Finish with the effect on the attraction between the nucleus and outer electrons."))
+short([K7], 3, "Explain", "Explain why atomic radius increases down Group 2 from beryllium to barium.",
+      [("the number of electron shells increases down the group", [["shell", "energy level"], ["more", "increase", "additional", "extra"]]),
+       ("the outer electrons are further from the nucleus", [["outer", "valence"], ["further", "farther", "greater distance", "away"]]),
+       ("more shielding by inner electrons outweighs the increased nuclear charge, so the attraction is weaker", [["shield"], ["attraction", "pull", "attract"]])], 3,
+      "Each element down the group has an extra shell, so the outer electrons are further away and more shielded from the nuclear charge.",
+      hints("Compare the number of shells in beryllium and in barium.",
+            "Think about the distance of the outer electrons from the nucleus.",
+            "The extra protons are not enough to cancel the effect of the extra shells; say why."))
+short([K7], 3, "Explain", "Explain why the ionic radius of $\\ce{Na+}$ is smaller than the atomic radius of Na.",
+      [("a sodium ion has one fewer shell of electrons than the atom", [["shell"], ["fewer", "lost", "lose", "one less", "two shells", "2 shells"]]),
+       ("the same nuclear charge attracts fewer electrons, so they are pulled in more strongly", [["proton", "nuclear charge", "nucleus"], ["same", "more strongly", "stronger", "greater attraction"]])], 2,
+      "The atom loses its whole outer shell to form the ion, and the same 11 protons then pull the remaining electrons closer.",
+      hints("Compare the number of shells of electrons in the atom and in the ion.",
+            "The number of protons is unchanged when the ion forms.",
+            "Link the loss of the outer shell to the attraction from the nucleus."))
+short([K7], 4, "Explain", "Both $\\ce{S^2-}$ and $\\ce{K+}$ contain 18 electrons. Explain why the radius of the $\\ce{S^2-}$ ion is larger than the radius of the $\\ce{K+}$ ion.",
+      [("both ions have the same number of electrons (and shells)", [["same", "both", "18"], ["electron", "shell"]]),
+       ("the potassium ion has more protons (greater nuclear charge)", [["more", "greater", "19"], ["proton", "nuclear charge"]]),
+       ("so the attraction on the electrons is stronger and they are pulled in closer", [["attract", "pull"], ["stronger", "greater", "more"]])], 3,
+      "With the same electron arrangement, the ion with 19 protons pulls the electrons in more strongly than the ion with 16.",
+      hints("Count the protons in each ion and compare the number of electrons.",
+            "The electron arrangements are identical.",
+            "The difference is in how strongly the nucleus attracts these electrons."))
+mcq([K7], 3, "Compare", r"Which ion has the largest radius?",
+    [r"$\ce{Al^3+}$", r"$\ce{Mg^2+}$", r"$\ce{Na+}$", r"$\ce{F-}$"], "D",
+    "All four ions have 10 electrons, so the one with the fewest protons (9 in F-) has the weakest pull on them and the largest radius.",
+    hints("Count the electrons in each ion.",
+          "When the electron arrangements are the same, compare the number of protons.",
+          "The ion with the least nuclear charge holds its electrons least tightly."),
+    {"A": "m2"})
+mcq([K7], 4, "Deduce", r"Which row shows the ions $\ce{Mg^2+}$, $\ce{Al^3+}$, $\ce{Na+}$ and $\ce{O^2-}$ in order of increasing radius?",
+    [r"$\ce{Al^3+} < \ce{Mg^2+} < \ce{Na+} < \ce{O^2-}$", r"$\ce{Na+} < \ce{Mg^2+} < \ce{Al^3+} < \ce{O^2-}$",
+     r"$\ce{O^2-} < \ce{Na+} < \ce{Mg^2+} < \ce{Al^3+}$", r"$\ce{Al^3+} < \ce{Na+} < \ce{Mg^2+} < \ce{O^2-}$"], "A",
+    "All four have 10 electrons, so the radius falls as the number of protons rises: Al3+ (13) is smallest and O2- (8) is largest.",
+    hints("Count the electrons in every ion before comparing them.",
+          "Rank them by proton number, not by the size of the charge.",
+          "More protons means a smaller ion when the electrons are the same."),
+    {"B": "m2"})
+structured([K7], 5, "Explain",
+           "The atomic radius of sodium is 0.186 nm and that of chlorine is 0.099 nm. (a) Explain why chlorine has a smaller atomic radius than sodium. (b) Explain why a sodium ion is smaller than a sodium atom. (c) Explain why a chloride ion is larger than a chlorine atom.",
+           [("B1", "chlorine has more protons (greater nuclear charge, 17 against 11)", None),
+            ("B1", "the electrons are in the same shell (third shell) with similar shielding", None),
+            ("B1", "so the attraction between the nucleus and the outer electrons is stronger in chlorine", None),
+            ("B1", "the sodium ion has lost its outer (third) shell, so it has one fewer shell", None),
+            ("B1", "the remaining electrons are attracted by the same 11 protons, so are pulled in more strongly", None),
+            ("B1", "the chloride ion has 18 electrons but the same 17 protons, so there is more repulsion between electrons", None),
+            ("B1", "the nuclear attraction per electron is weaker, so the electrons spread out and the radius is larger", None)],
+           "Part (a) is about nuclear charge in one shell, (b) is about losing a shell, and (c) is about extra electron repulsion with unchanged protons.",
+           hints("Each part uses a different idea: nuclear charge, shells, electron repulsion.",
+                 "In part (b) compare the number of shells; in part (c) compare the number of electrons with the number of protons.",
+                 "Say what changes and what stays the same for each pair."))
+
+# ======================= past-paper MCQs =======================
+IMG = "Assets/mcq/{}.png"
+past([K7], 4, "CAIE 9701 · Jun 2023 · P11 · Q1", "Element X has six more protons than element Y. Which statement must be correct?",
+     ["Atoms of element Y are smaller than atoms of element X.", "Element X has a full shell of electrons.",
+      "Element X and element Y are in the same group.", "Element X and element Y are in the same period."], "B",
+     "The smallest possible values are Y = 1 and X = 7, so X always has at least 7 electrons and its first shell (2 electrons) must be full. Option A is the common wrong choice: more protons does not mean a larger atom, because radius decreases across a period (for example Na to Cl).",
+     hints("Try a few pairs of elements whose proton numbers differ by six.",
+           "Test each statement with a counter-example before accepting it.",
+           "What is the smallest possible number of electrons in X?"), {"A": "m1"}, IMG.format("9701_s23_11_q1"))
+past([K7], 3, "CAIE 9701 · Nov 2022 · P13 · Q18", "Which row describes the relative sizes of the ionic radii of Na+, Mg2+ and S2-, from smallest to largest?",
+     [r"$\ce{Na+}$, $\ce{Mg^2+}$, $\ce{S^2-}$", r"$\ce{Mg^2+}$, $\ce{Na+}$, $\ce{S^2-}$", r"$\ce{S^2-}$, $\ce{Na+}$, $\ce{Mg^2+}$", r"$\ce{S^2-}$, $\ce{Mg^2+}$, $\ce{Na+}$"], "B",
+     "Na+ and Mg2+ both have 10 electrons, and Mg2+ has more protons so it is smaller. S2- has 18 electrons in three shells, so it is the largest. Option A wrongly ranks the ions by increasing proton number.",
+     hints("Count the electrons and shells in each ion.",
+           "Two of the ions have the same electron arrangement; compare their proton numbers.",
+           "The ion with an extra shell is biggest."), {"A": "m2"}, IMG.format("9701_w22_13_q18"))
+past([K3], 2, "CAIE 9701 · Nov 2021 · P12 · Q3", "Technetium (Tc) is a second row transition element that does not occur naturally on Earth. One of its isotopes has 56 neutrons. What is the nucleon number of this isotope?",
+     ["43", "56", "99", "112"], "C",
+     "Technetium has proton number 43, so the nucleon number is 43 + 56 = 99. The other options give only the proton number (43), only the neutrons (56) or twice the neutrons (112).",
+     hints("Look up the proton number of technetium in the Periodic Table.",
+           "The nucleon number counts more than one type of particle.",
+           "Add the neutrons to the protons."), {}, IMG.format("9701_w21_12_q3"))
+past([K6], 2, "CAIE 9701 · Jun 2025 · P12 · Q2", "How many neutrons are contained in an atom of iron with a mass number of 60?",
+     ["26", "30", "34", "60"], "C",
+     "Iron has proton number 26, so the neutrons are 60 - 26 = 34. Option A is the proton number and option D is the mass number.",
+     hints("Find the proton number of iron in the Periodic Table.",
+           "The mass number counts protons and neutrons together.",
+           "Subtract the protons from the mass number."), {}, IMG.format("9701_s25_12_q2"))
+past([K5], 4, "CAIE 9701 · Jun 2025 · P12 · Q14", "A helium ion contains two protons, two neutrons and one electron. This helium ion and a proton are passed separately through a uniform electric field, travelling at the same velocity. Which arrow describes the path of each particle? The positive plate is on the left and the negative plate on the right; arrows 1 and 2 bend towards the positive plate, 3 is undeflected, and 4 and 5 bend towards the negative plate, with 5 bending more than 4.",
+     ["helium ion 1, proton 2", "helium ion 2, proton 1", "helium ion 4, proton 5", "helium ion 5, proton 4"], "C",
+     "Both particles are positive so both bend towards the negative plate. The proton has the greater charge-to-mass ratio (1 against 1/4 for the helium ion), so the proton is deflected more (5) and the helium ion less (4). Option D reverses this by ignoring the extra mass.",
+     hints("Decide which plate positive particles move towards.",
+           "Compare the charge-to-mass ratio of the two particles.",
+           "The particle with the larger ratio is deflected more."), {"D": "m4"}, IMG.format("9701_s25_12_q14"))
+past([K6], 4, "CAIE 9701 · Jun 2024 · P13 · Q3", "What is the total number of protons, neutrons and electrons present in an ammonium ion with a relative formula mass of 21?",
+     ["protons 11, neutrons 10, electrons 10", "protons 10, neutrons 11, electrons 11", "protons 10, neutrons 11, electrons 10", "protons 11, neutrons 10, electrons 11"], "A",
+     "NH4+ has 7 + 4 = 11 protons. It is a positive ion, so it has one fewer electron: 10. The neutrons make up the rest of the mass of 21: 21 - 11 = 10. Option D forgets to remove an electron.",
+     hints("Add up the protons of all the atoms in the formula.",
+           "A positive ion has lost an electron.",
+           "Neutrons = total mass minus the number of protons."), {"D": "m3"}, IMG.format("9701_s24_13_q3"))
+past([K6], 3, "CAIE 9701 · Jun 2024 · P11 · Q4", r"Which statement about ${}^{131}_{53}\mathrm{I}$ is correct?",
+     [r"A negative ion of ${}^{131}_{53}\mathrm{I}$ contains 53 neutrons and 52 electrons.", r"A negative ion of ${}^{131}_{53}\mathrm{I}$ contains 53 neutrons and 54 electrons.",
+      r"A negative ion of ${}^{131}_{53}\mathrm{I}$ contains 78 neutrons and 52 electrons.", r"A negative ion of ${}^{131}_{53}\mathrm{I}$ contains 78 neutrons and 54 electrons."], "D",
+     "Neutrons = 131 - 53 = 78. A negative ion has gained an electron, so it has 53 + 1 = 54 electrons. Options A and C subtract an electron for a negative ion, and A and B give 53 as the neutrons.",
+     hints("Find the neutrons from the two numbers on the symbol.",
+           "A negative ion has more electrons than protons.",
+           "Check that both the neutron number and the electron number in the option agree with your working."), {"A": "m3", "C": "m3"}, IMG.format("9701_s24_11_q4"))
+past([K6], 3, "CAIE 9701 · Nov 2023 · P11 · Q1", "Sodium azide, NaN3, is an explosive used to inflate airbags in cars when they crash. It consists of positive sodium ions and negative azide ions. What are the numbers of electrons in the sodium ion and the azide ion?",
+     ["sodium ion 10, azide ion 20", "sodium ion 10, azide ion 22", "sodium ion 12, azide ion 20", "sodium ion 12, azide ion 22"], "B",
+     "Na+ has 11 - 1 = 10 electrons. The azide ion is N3-, with 3 x 7 = 21 electrons in the atoms plus 1 gained: 22. Options A, C and D come from applying the charge in the wrong direction.",
+     hints("Find the electrons in the neutral atoms first, using the proton numbers.",
+           "Sodium ions are positive: electrons have been lost.",
+           "The azide ion is negative: electrons have been gained."), {"A": "m3", "C": "m3", "D": "m3"}, IMG.format("9701_w23_11_q1"))
+past([K6], 3, "CAIE 9701 · Nov 2024 · P12 · Q1", "Which species contains a different number of electrons from the other three?",
+     [r"$\ce{ClO4-}$", r"$\ce{H2SO4}$", r"$\ce{SO4^2-}$", r"$\ce{Te^2-}$"], "D",
+     "ClO4- has 17 + 32 + 1 = 50 electrons, H2SO4 has 2 + 16 + 32 = 50, SO4 2- has 16 + 32 + 2 = 50, but Te2- has 52 + 2 = 54.",
+     hints("Add up the electrons of every atom in the formula using proton numbers.",
+           "Then add the electrons gained by a negative ion.",
+           "Three of the four species should give the same total."), {}, IMG.format("9701_w24_12_q1"))
+past([K7], 4, "CAIE 9701 · Nov 2025 · P11 · Q16",
+     "The atomic radii and ionic radii for three elements in Period 3 are shown: element X has an atomic radius of 0.118 nm and an ionic radius of 0.053 nm; element Y has 0.099 nm and 0.180 nm; element Z has 0.160 nm and 0.072 nm. Using this data, which statement is correct?",
+     ["Element X has lower electrical conductivity than element Y.", "Element Y has a higher melting point than element X.",
+      "Element Y and element Z react to form an ionic compound.", "Element Z forms ionic compounds by gaining electrons."], "C",
+     "The ionic radius of Y is larger than its atom, so Y forms an anion (a non-metal); Z and X have ions smaller than their atoms, so they form cations (metals). A metal and a non-metal form an ionic compound. Option D is wrong because Z loses electrons, and A and B fail because X, a metal, conducts better and melts higher than the non-metal Y.",
+     hints("Decide which elements form cations and which form an anion from the size change.",
+           "Use the ion sizes to decide which are metals.",
+           "Consider which two elements would have opposite charges."), {}, IMG.format("9701_w25_11_q16"))
+past([K7], 4, "CAIE 9701 · Jun 2025 · P13 · Q23", "In which row do the particles increase in size, from smallest to largest?",
+     ["N, O, F", r"$\ce{N^3-}$, $\ce{O^2-}$, $\ce{F-}$", r"$\ce{Na+}$, $\ce{Mg^2+}$, $\ce{Al^3+}$", r"$\ce{Na+}$, Ne, $\ce{F-}$"], "D",
+     "Na+, Ne and F- all have 10 electrons, and the number of protons falls (11, 10, 9), so the size increases. Options A, B and C each show a series that decreases in size, because more protons pull the same electrons in more.",
+     hints("Count the electrons in each particle in every row.",
+           "Where the electron arrangements are identical, compare the number of protons.",
+           "Check whether each row goes up or down in size."), {"B": "m2", "C": "m2"}, IMG.format("9701_s25_13_q23"))
+past([K7], 4, "CAIE 9701 · Jun 2022 · P12 · Q18", "Why is the ionic radius of a sulfide ion larger than the ionic radius of a potassium ion?",
+     ["Ionic radius always decreases with increasing atomic number.", "Positive ions always have smaller radii than negative ions.",
+      "The potassium ion has more protons in its nucleus than the sulfide ion.", "The sulfide ion is doubly charged; the potassium ion is singly charged."], "C",
+     "Both ions have 18 electrons in the same shells, so the ion with 19 protons pulls them in more than the ion with 16. Options A, B and D talk about trends or charge, but neither charge nor atomic number alone decides the size.",
+     hints("Count the electrons in each ion.",
+           "Compare the numbers of protons in the two nuclei.",
+           "When the electrons are the same, the nuclear charge decides the size."), {"A": "m2", "D": "m2"}, None)
+
+# ======================= flashcards =======================
+fc = [
+    (K1, "Where are protons and neutrons found in an atom?", "In the nucleus: a very small, dense region at the centre of the atom."),
+    (K1, "Where are electrons found in an atom?", "In shells in the (empty) space around the nucleus."),
+    (K1, "What is meant by 'an atom is mostly empty space'?", "The nucleus is very small compared with the atom and the electrons are in shells at a distance from it, with nothing in between."),
+    (K2, "Give the relative charge and relative mass of a proton.", "Relative charge +1; relative mass 1."),
+    (K2, "Give the relative charge and relative mass of a neutron.", "Relative charge 0; relative mass 1."),
+    (K2, "Give the relative charge and relative mass of an electron.", "Relative charge -1; relative mass 1/1836 (negligible)."),
+    (K3, "Define proton number (atomic number).", "The number of protons in the nucleus of an atom."),
+    (K3, "Define nucleon number (mass number).", "The total number of protons and neutrons in the nucleus of an atom."),
+    (K3, "How do you find the number of neutrons in an atom?", "Neutrons = nucleon number - proton number."),
+    (K4, "Where are the mass and the charges in an atom?", "Nearly all the mass and all the positive charge are in the nucleus; the negative charge is in the electron shells; the atom is neutral overall."),
+    (K5, "How do beams of protons, neutrons and electrons behave in an electric field?", "Protons are deflected towards the negative plate, electrons towards the positive plate (by a larger angle), and neutrons are not deflected."),
+    (K5, "What decides the size of deflection in an electric field at a given velocity?", "The charge-to-mass ratio: a larger ratio gives a larger deflection."),
+    (K6, "How many electrons are in a positive ion and a negative ion?", "Positive ion: electrons = protons - charge. Negative ion: electrons = protons + size of the charge."),
+    (K7, "How does atomic radius change across a period, and why?", "It decreases: the nuclear charge increases while electrons are added to the same shell with similar shielding, so the outer electrons are pulled closer."),
+    (K7, "How does atomic radius change down a group, and why?", "It increases: there are more shells, so the outer electrons are further from the nucleus and more shielded."),
+    (K7, "Why is a cation smaller than its atom and an anion larger?", "A cation has lost its outer shell, so the same protons pull fewer electrons closer; an anion has more electrons repelling each other with the same nuclear charge."),
+]
+flashcards = [{"id": f"fc{i}", "kc": k, "front": f, "back": b} for i, (k, f, b) in enumerate(fc, 1)]
+
+# ======================= diagrams =======================
+rad_pts = [[z, r] for z, r in RAD]
+dr = 10
+prot = [[0.028 * s * s, dr - s] for s in [i * 0.5 for i in range(0, 21)]]
+elec = [[-0.22 * s * s, dr - s] for s in [i * 0.5 for i in range(0, 14)] if 0.22 * s * s <= 3.0]
+diagrams = [
+    {"file": "Assets/9701/9701-1.1-atomic-radius-period3.svg", "type": "graph_sketch",
+     "params": {"lines": [{"points": rad_pts, "label": "atomic radius"}], "xlabel": "proton number (Na to Cl)",
+                "ylabel": "atomic radius / nm", "ticks": True,
+                "annotations": [{"text": "Na 0.186", "xy": [11, 0.186], "xytext": [11.6, 0.19]},
+                                {"text": "Cl 0.099", "xy": [17, 0.099], "xytext": [15.3, 0.135]}]}},
+    {"file": "Assets/9701/9701-1.1-beam-deflection.svg", "type": "graph_sketch",
+     "params": {"lines": [{"points": [[0, dr], [0, 0]], "label": "neutrons: not deflected", "style": "dashed", "color": "#8c959f"},
+                          {"points": prot, "label": "protons: towards negative plate"},
+                          {"points": elec, "label": "electrons: towards positive plate, deflected more"},
+                          {"points": [[-3, 0], [-3, dr - 4]], "color": "#1f2328"}, {"points": [[3, 0], [3, dr - 4]], "color": "#1f2328"}],
+                "annotations": [{"text": "+", "xy": [-3.3, 4.5]}, {"text": "−", "xy": [3.2, 4.5]}],
+                "xlabel": "plates: positive (left), negative (right); not to scale", "ylabel": "distance travelled"}},
+]
+
+outline = ("An atom has a tiny, dense nucleus of protons and neutrons, with electrons in shells in the empty space around it. Relative charge and mass: proton $+1$ and $1$, neutron $0$ and $1$, electron $-1$ and $\\frac{1}{1836}$, so almost all the mass and all the positive charge are in the nucleus. "
+           "Proton number $Z$ is the number of protons; nucleon number $A$ is protons plus neutrons, so neutrons $=A-Z$. In an atom electrons $=Z$; in an ion electrons $=Z-\\text{charge}$. "
+           "In an electric field at equal velocity, protons go towards the negative plate, electrons towards the positive plate and are deflected more (larger charge-to-mass ratio), and neutrons are not deflected. "
+           "Atomic radius falls across a period (more protons, same shell) and rises down a group (more shells). Cations are smaller than their atoms; anions are larger; for ions with the same electrons, more protons means smaller.")
+assert len(outline.split()) <= 150, len(outline.split())
+
+pack = {"subtopic": SUB, "spec": "9701", "version": 1, "note": NOTE_REL, "outline": outline,
+        "misconceptions": misconceptions, "worked": worked, "items": items, "flashcards": flashcards, "diagrams": diagrams}
+PACK.parent.mkdir(parents=True, exist_ok=True)
+PACK.write_text(json.dumps(pack, ensure_ascii=False, indent=1))
+
+# ======================= lesson note =======================
+note = r'''---
+tags: [stem-tutor/lesson, 9701]
+spec: "9701"
+subtopic: "9701-1.1"
+kcs: ["9701-1.1.1", "9701-1.1.2", "9701-1.1.3", "9701-1.1.4", "9701-1.1.5", "9701-1.1.6", "9701-1.1.7"]
+---
+# 1.1 Particles in the atom and atomic radius
+
+> [!abstract] In one breath
+> An atom is a tiny, dense nucleus of protons and neutrons surrounded by electron shells in mostly empty space, so almost all the mass sits in the nucleus. Counting the particles in atoms and ions, and comparing sizes across a period, down a group and between ions, all come from proton number, nucleon number and electron shells.
+
+## Key ideas
+
+**Structure.** Atoms are mostly empty space around a very small, dense **nucleus** that contains **protons** and **neutrons**. **Electrons** are found in **shells** in the empty space around the nucleus.
+
+| Particle | Relative charge | Relative mass |
+|---|---|---|
+| proton | $+1$ | $1$ |
+| neutron | $0$ | $1$ |
+| electron | $-1$ | $\frac{1}{1836}$ (negligible) |
+
+**Distribution.** Nearly all the mass and all the positive charge are in the nucleus; the negative charge is in the electron shells, and an atom is neutral because protons and electrons are equal in number.
+
+**Proton number** (atomic number) $Z$ is the number of protons in the nucleus of an atom. **Nucleon number** (mass number) $A$ is the total number of protons and neutrons in the nucleus of an atom.
+
+**Electric field.** Beams of protons, neutrons and electrons at the same velocity behave differently: protons are deflected towards the negative plate, electrons towards the positive plate by a **larger** angle, and neutrons are not deflected. Deflection depends on charge divided by mass.
+
+![[Assets/9701/9701-1.1-beam-deflection.svg]]
+
+**Radius trends.** Across a period the atomic radius **decreases**: nuclear charge rises while electrons enter the same shell with similar shielding. Down a group it **increases**: extra shells put the outer electrons further away and more shielded. A cation is smaller than its atom (a shell is lost); an anion is larger than its atom (more electron repulsion, same nuclear charge). For ions with the same number of electrons, more protons means a smaller ion.
+
+![[Assets/9701/9701-1.1-atomic-radius-period3.svg]]
+
+## Method
+
+**Counting particles in an atom or ion**
+1. Protons $=Z$ (the bottom number).
+2. Neutrons $=A-Z$.
+3. Electrons in an atom $=Z$. In an ion: electrons $=Z-\text{charge}$, so add the size of a negative charge and subtract a positive one.
+4. For a compound ion add the electrons of every atom in the formula, then apply the charge.
+
+**Comparing sizes**
+1. Count electrons and shells for each particle.
+2. Same shells: more protons gives a smaller radius.
+3. More shells (or more electrons with the same protons) gives a larger radius.
+
+> [!example]- Worked example
+> Determine the numbers of protons, neutrons and electrons in ${}^{79}_{35}\mathrm{Br}^{-}$.
+>
+> 1. Protons $=35$.
+>    *(The proton number defines the element.)*
+> 2. Neutrons:
+> $$79-35=44$$
+>    *(The nucleon number counts protons and neutrons together.)*
+> 3. Electrons: the ion has gained one electron, so
+> $$35+1=36$$
+>    *(A negative ion has more electrons than protons.)*
+
+## Traps
+
+- **Trap:** More protons means a bigger atom. **Why it's wrong:** across a period the extra protons pull the electrons in more strongly and the radius falls. **Instead:** ask whether a new shell has been started.
+- **Trap:** A bigger ion charge means a bigger ion. **Why it's wrong:** $\ce{Mg^2+}$ is smaller than $\ce{Na+}$; the number of protons and electrons decides the size. **Instead:** count electrons, then compare protons.
+- **Trap:** Applying the charge the wrong way round, so $\ce{Cl-}$ gets 16 electrons. **Why it's wrong:** a negative ion has gained electrons. **Instead:** electrons $=Z-\text{charge}$ with the sign included.
+- **Trap:** Heavier particles are deflected more. **Why it's wrong:** deflection depends on charge divided by mass, so an electron is deflected far more than a proton. **Instead:** work out the charge-to-mass ratio.
+- **Trap:** The nucleus fills most of the atom. **Why it's wrong:** it is tiny; the atom is mostly empty space. **Instead:** say it is small but holds nearly all the mass.
+
+## Exam technique
+
+- *Define* needs the formal wording: proton number is the number of protons in the nucleus of an atom; nucleon number is the total number of protons and neutrons in the nucleus of an atom.
+- *Explain* radius trends with three linked points: nuclear charge or number of shells, shielding, and the strength of attraction on the outer electrons.
+- Use the Periodic Table in the paper for proton numbers, and show the electron count for each atom of a compound ion.
+- Say "towards the negative plate" or "towards the positive plate" in deflection answers, and mention that neutrons are not deflected.
+
+## Links
+Leads to [[1.2 Isotopes]] · [[1.3 Electrons, energy levels and atomic orbitals]] · [[1.4 Ionisation energy]]
+'''
+NOTE.parent.mkdir(parents=True, exist_ok=True)
+NOTE.write_text(note, encoding="utf-8")
+print(len(items), "items;", len(flashcards), "flashcards;", len(note.split()), "note words")

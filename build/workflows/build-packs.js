@@ -6,6 +6,7 @@ export const meta = {
     { title: 'Draft', detail: 'Sonnet drafts pack + lesson note per PACK.md; write once, fix with small edits', model: 'sonnet' },
     { title: 'Blind-solve', detail: 'independent Sonnet solver answers every item without keys; fact review', model: 'sonnet' },
     { title: 'Adjudicate', detail: 'resolve disagreements and fact errors, re-validate (only when needed)' },
+    { title: 'Recheck', detail: 'fresh blind solve of items changed during adjudication', model: 'sonnet' },
   ],
 }
 
@@ -32,6 +33,13 @@ const ADJ = { type: 'object', properties: {
   validator_ok: { type: 'boolean' }, lint_ok: { type: 'boolean' }, remaining: { type: 'array', items: { type: 'string' } } },
   required: ['validator_ok', 'lint_ok', 'remaining'] }
 
+const RECHK = { type: 'object', properties: { rechecked: { type: 'number' }, agreed: { type: 'number' }, fixed: { type: 'number' },
+  remaining: { type: 'array', items: { type: 'string' } } }, required: ['rechecked', 'agreed', 'remaining'] }
+const RECHECK = (s, pack) => `Working directory: ${ROOT}. Some questions in pack ${pack} (subtopic ${s}) changed after they were blind-solved. ` +
+  `1. Run \`${PY} build/blind.py stale ${pack} build/work/blind/${s}.answers.json\` — it prints only the ids that need a fresh solve (no answers). If it prints nothing, return rechecked 0. ` +
+  `2. Run \`${PY} build/blind.py strip ${pack} --ids <those ids> > build/work/blind/${s}.recheck.questions.json\`, read ONLY that file, and solve each question yourself with full working (python/sympy). ` +
+  `3. Write {"<id>": "<answer>"} to build/work/blind/${s}.recheck.json, then merge it into build/work/blind/${s}.answers.json (replace those ids) and run \`${PY} build/blind.py compare ${pack} build/work/blind/${s}.answers.json --ids <those ids>\`. ` +
+  `4. For any remaining disagreement, now open the pack, work it from scratch and decide: fix the key/question if wrong (then re-run the validator), or record that your own answer was wrong. Report counts and anything unresolved. Aim for at most 20 tool calls.`
 const LEAN = 'Work economically: write each file once (a pack generator script in build/work/gen/ that holds the content as data and computes every numeric answer is ideal), then fix problems with small targeted edits — never regenerate a whole file. Aim for at most 30 tool calls.'
 
 const results = await pipeline(
@@ -66,6 +74,8 @@ const results = await pipeline(
       `Report what changed and anything unresolved. ${LEAN}`,
       { label: `adjudicate ${s}`, phase: 'Adjudicate', effort: 'high', schema: ADJ }).then(a => ({ sub: s, draft: d, solve: v, adj: a }))
   },
+  (r, s) => (!r || !r.adj) ? r : agent(RECHECK(s, r.draft.pack_path), { label: `recheck ${s}`, phase: 'Recheck', model: 'sonnet', effort: 'high', schema: RECHK })
+    .then(k => ({ ...r, recheck: k })),
 )
 
 return results.map((r, i) => r ? {
@@ -74,5 +84,6 @@ return results.map((r, i) => r ? {
   fact_errors: r.solve && r.solve.fact_issues.filter(f => f.severity === 'error').length,
   key_fixed: r.adj && r.adj.key_fixed, solver_wrong: r.adj && r.adj.solver_wrong, facts_fixed: r.adj && r.adj.facts_fixed,
   final_ok: r.adj ? (r.adj.validator_ok && r.adj.lint_ok) : (r.draft && r.draft.validator_ok && r.draft.lint_ok),
+  recheck: r.recheck ? { n: r.recheck.rechecked, agreed: r.recheck.agreed, fixed: r.recheck.fixed || 0, remaining: r.recheck.remaining } : null,
   remaining: r.adj ? r.adj.remaining : [], concerns: r.draft && r.draft.concerns, error: r.error || null,
 } : { sub: subs[i], error: 'failed' })

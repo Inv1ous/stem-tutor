@@ -44,7 +44,9 @@ def graph_sketch(p: dict):
         xs, ys = zip(*line["points"])
         ax.plot(xs, ys, color=line.get("color", colors[i % 4]), lw=2.2,
                 ls="--" if line.get("style") == "dashed" else "-", label=line.get("label"))
-    if p.get("shade"):
+    if p.get("shade", {}).get("polygon"):
+        ax.fill(*zip(*p["shade"]["polygon"]), color=BLUE, alpha=0.15, lw=0)
+    elif p.get("shade"):
         xs, ys = zip(*p["lines"][p["shade"].get("line", 0)]["points"])
         ax.fill_between(xs, ys, 0, color=BLUE, alpha=0.15)
     for a in p.get("annotations", []):
@@ -90,6 +92,83 @@ def function_plot(p: dict):
     ax.set_xlabel(p.get("xlabel", "x"), loc="right"); ax.set_ylabel(p.get("ylabel", "y"), loc="top", rotation=0)
     if any(f.get("label") for f in p["functions"]):
         ax.legend(frameon=False, loc="best")
+    return fig
+
+
+def box_plot(p: dict):
+    """Horizontal box plot on a real value axis; outliers drawn as crosses beyond the whiskers."""
+    fig, ax = plt.subplots(figsize=(6.4, 2.4))
+    ax.set_facecolor("white")
+    for side in ("top", "right", "left"):
+        ax.spines[side].set_visible(False)
+    lo, q1, med, q3, hi = p["min"], p["q1"], p["median"], p["q3"], p["max"]
+    y, h = 0.5, 0.18
+    ax.add_patch(matplotlib.patches.Rectangle((q1, y - h), q3 - q1, 2 * h, fill=False, ec=BLUE, lw=2.2))
+    ax.plot([med, med], [y - h, y + h], color=BLUE, lw=2.2)
+    for a, b in ((lo, q1), (q3, hi)):
+        ax.plot([a, b], [y, y], color=BLUE, lw=2.2)
+    for end in (lo, hi):
+        ax.plot([end, end], [y - h / 2, y + h / 2], color=BLUE, lw=2.2)
+    for o in p.get("outliers", []):
+        ax.plot(o, y, marker="x", color=ORANGE, ms=10, mew=2.4, ls="none")
+    if p.get("labels", True):
+        above, below = y + h + 0.1, y - h - 0.1
+        ax.text(q1, above, f"$Q_1$ = {q1:g}", ha="center", va="bottom", color=INK)
+        ax.text(med, below, f"median = {med:g}", ha="center", va="top", color=INK)
+        ax.text(q3, above, f"$Q_3$ = {q3:g}", ha="center", va="bottom", color=INK)
+        ax.text(lo, below, f"min = {lo:g}", ha="center", va="top", color=INK)
+        ax.text(hi, below, p.get("whisker_label", f"{hi:g}"), ha="center", va="top", color=INK)
+        for o in p.get("outliers", []):
+            ax.text(o, above, p.get("outlier_label", f"outlier = {o:g}"), ha="center", va="bottom", color=ORANGE)
+    ticks = p.get("ticks")
+    if ticks:
+        ax.set_xticks(ticks)
+        ax.set_xlim(ticks[0], ticks[-1])
+    ax.set_yticks([])
+    ax.set_ylim(-0.08, 1.05)
+    ax.set_xlabel(p.get("xlabel", ""))
+    return fig
+
+
+def density_panels(p: dict):
+    """Side-by-side smooth distribution shapes; optionally marks mode, median and mean (computed numerically)."""
+    panels = p["panels"]
+    fig, axes = plt.subplots(1, len(panels), figsize=(3.4 * len(panels), 2.8), sharey=True)
+    axes = list(axes) if len(panels) > 1 else [axes]
+    for ax, pan in zip(axes, panels):
+        ax.set_facecolor("white")
+        for side in ("top", "right", "left"):
+            ax.spines[side].set_visible(False)
+        lo, hi = pan["domain"]
+        n = 2000
+        xs = [lo + (hi - lo) * k / n for k in range(n + 1)]
+        ys = [max(_eval(pan["expr"], {"x": x}), 0.0) for x in xs]
+        ax.plot(xs, ys, color=BLUE, lw=2.2)
+        ax.fill_between(xs, ys, 0, color=BLUE, alpha=0.10)
+        if p.get("mark_centres", True):
+            dx = (hi - lo) / n
+            area = sum(ys) * dx
+            mean = sum(x * y for x, y in zip(xs, ys)) * dx / area
+            run, median = 0.0, xs[-1]
+            for x, y in zip(xs, ys):
+                run += y * dx
+                if run >= area / 2:
+                    median = x
+                    break
+            mode = xs[max(range(len(ys)), key=ys.__getitem__)]
+            top = max(ys)
+            for x, name, style in ((mode, "mode", ":"), (median, "median", "--"), (mean, "mean", "-")):
+                ax.plot([x, x], [0, top * 1.05], color=ORANGE if name == "mean" else INK, lw=1.3, ls=style)
+            order = sorted(((mode, "mode"), (median, "median"), (mean, "mean")))
+            for j, (x, name) in enumerate(order):
+                ax.text(x, top * (1.12 + 0.13 * j), name, ha="center", va="bottom", fontsize=9,
+                        color=ORANGE if name == "mean" else INK)
+            ax.set_ylim(0, top * 1.55)
+        ax.set_yticks([])
+        ax.set_xticks([])
+        ax.set_xlim(lo, hi)
+        ax.set_xlabel(p.get("xlabel", ""))
+        ax.set_title(pan.get("title", ""), fontsize=10, color=INK)
     return fig
 
 
@@ -211,7 +290,8 @@ def circuit(p: dict):
 
 
 RENDER = {"graph_sketch": graph_sketch, "function_plot": function_plot, "free_body": free_body,
-          "energy_profile": energy_profile, "maxwell_boltzmann": maxwell_boltzmann, "wave": wave, "circuit": circuit}
+          "energy_profile": energy_profile, "maxwell_boltzmann": maxwell_boltzmann, "wave": wave, "circuit": circuit,
+          "box_plot": box_plot, "density_panels": density_panels}
 
 
 def render(req: dict) -> Path:

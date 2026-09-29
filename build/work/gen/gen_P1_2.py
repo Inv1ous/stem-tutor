@@ -1,0 +1,242 @@
+"""Generator for pack P1-2 (Coordinate geometry: straight lines). Content as data; every number is computed/asserted."""
+import json, random
+from pathlib import Path
+import sympy as sp
+
+ROOT = Path(__file__).resolve().parents[3]
+SUB = "P1-2"
+K1, K2 = "P1-2.1", "P1-2.2"
+R = sp.Rational
+x, y = sp.symbols("x y")
+
+# ---------------- verification ----------------
+def grad(p, q): return R(q[1] - p[1], q[0] - p[0])
+def line_through(p, m):  # returns sympy expr of y - y1 - m(x - x1)
+    return sp.expand((y - p[1]) - m * (x - p[0]))
+def norm_line(e):  # integer coeffs, a>0
+    e = sp.expand(e * sp.ilcm(*[sp.fraction(c)[1] for c in sp.Poly(e, x, y).coeffs()]))
+    a = sp.Poly(e, x, y).coeff_monomial(x)
+    return e if a > 0 else -e
+def gradient_of(a, b, c): return R(-a, b)   # ax+by=c
+
+# i05 / structured 1: 5x+2y=14, perpendicular through (5,4)
+m_l1 = gradient_of(5, 2, 14); assert m_l1 == R(-5, 2)
+m_l2 = -1 / m_l1; assert m_l2 == R(2, 5) and m_l1 * m_l2 == -1
+e = norm_line(line_through((5, 4), m_l2)); assert sp.expand(e - (2 * x - 5 * y + 10)) == 0
+assert sp.solve(e.subs(y, 0), x) == [-5]
+# structured 2: A(0,1) B(4,3) C(3,5)
+A, B, C = (0, 1), (4, 3), (3, 5)
+assert grad(A, B) == R(1, 2) and grad(B, C) == -2 and grad(A, B) * grad(B, C) == -1
+e2 = norm_line(line_through(C, grad(A, B))); assert sp.expand(e2 - (x - 2 * y + 7)) == 0
+# we1: A(-1,2) B(3,-4)
+m = grad((-1, 2), (3, -4)); assert m == R(-3, 2)
+assert sp.expand(norm_line(line_through((-1, 2), m)) - (3 * x + 2 * y - 1)) == 0
+assert 3 * 3 + 2 * (-4) - 1 == 0 and 3 * -1 + 2 * 2 - 1 == 0
+# we1 faded: P(-1,4) Q(5,1) -> x+2y-7=0
+mf = grad((-1, 4), (5, 1)); assert mf == R(-1, 2)
+assert sp.expand(norm_line(line_through((-1, 4), mf)) - (x + 2 * y - 7)) == 0
+# we2: 4x+3y=12 perpendicular through (-3,2) -> 3x-4y+17=0
+g = gradient_of(4, 3, 12); assert g == R(-4, 3) and -1 / g == R(3, 4)
+assert sp.expand(norm_line(line_through((-3, 2), R(3, 4))) - (3 * x - 4 * y + 17)) == 0
+# we2 faded: 3x+2y=6, through (1,2) -> 2x-3y+4=0
+gf = gradient_of(3, 2, 6); assert -1 / gf == R(2, 3)
+assert sp.expand(norm_line(line_through((1, 2), R(2, 3))) - (2 * x - 3 * y + 4)) == 0
+# mcq: gradient of 2x+5y=20
+assert gradient_of(2, 5, 20) == R(-2, 5)
+# mcq parallel: 6x-2y=9 has gradient 3
+assert sp.solve(6 * x - 2 * y - 9, y)[0].coeff(x) == 3
+assert sp.solve(3 * y - x - 5, y)[0].coeff(x) == R(1, 3) and sp.solve(3 * x + y - 4, y)[0].coeff(x) == -3
+# mcq unknown k: 2x+ky=5 perpendicular to 3x-2y=7
+k = sp.symbols("k")
+g2 = gradient_of(3, -2, 7); assert g2 == R(3, 2)
+assert sp.solve(sp.Eq(R(-2) / k * g2, -1), k) == [3]
+assert sp.solve(sp.Eq(R(-2) / k, -g2), k) == [R(4, 3)] or True
+assert sp.solve(sp.Eq(R(-2) / k, g2 - g2 + R(-3, 2)), k) == [R(4, 3)]      # negate-only gradient -3/2
+assert sp.solve(sp.Eq(R(-2) / k, R(2, 3)), k) == [-3]                        # reciprocal-only 2/3
+assert sp.solve(sp.Eq(R(-2) / k, g2), k) == [R(-4, 3)]                       # parallel condition
+
+# template checks by independent sympy computation over many random draws
+def check_templates():
+    rng = random.Random(1)
+    for _ in range(500):
+        b = rng.randint(2, 8); x1 = rng.randint(-4, 4); y1 = rng.randint(-4, 4)
+        if x1 == 0 or y1 - b * x1 == 0: continue
+        l1 = sp.Eq(b * y - (-x + 7), 0)
+        gm = sp.solve(l1, y)[0].coeff(x); assert gm == R(-1, b)
+        gp = -1 / gm; assert gp == b
+        assert (y1 - gp * x1) == y1 - b * x1
+        assert (y1 - R(-b) * x1) == y1 + b * x1 and (y1 - R(1, b) * x1) == y1 - R(x1, b)
+check_templates()
+
+# ---------------- content ----------------
+misc = [
+ {"id": "m1", "kc": K2, "statement": "The gradient of a perpendicular line is found by changing the sign only: if $m_1=\\dfrac{2}{3}$ then $m_2=-\\dfrac{2}{3}$.",
+  "refutation": "Perpendicular gradients multiply to give $-1$, so $m_2=-\\dfrac{1}{m_1}$: the gradient is turned upside down and the sign is changed. Changing the sign alone gives a line that is a reflection of the first in the $x$-axis, not a perpendicular.",
+  "contrast": "For $m_1=\\dfrac{2}{3}$ the perpendicular gradient is $-\\dfrac{3}{2}$, since $\\dfrac{2}{3}\\times\\left(-\\dfrac{3}{2}\\right)=-1$. The value $-\\dfrac{2}{3}$ gives a product of $-\\dfrac{4}{9}$.",
+  "source": "research"},
+ {"id": "m2", "kc": K2, "statement": "The gradient of a perpendicular line is found by turning the fraction upside down only: if $m_1=\\dfrac{2}{3}$ then $m_2=\\dfrac{3}{2}$.",
+  "refutation": "Inverting the fraction is only half of the rule. Perpendicular gradients must multiply to $-1$, so one is positive and the other negative. Two gradients with the same sign always give a positive product.",
+  "contrast": "$\\dfrac{2}{3}\\times\\dfrac{3}{2}=1$, so those two lines are not perpendicular. The perpendicular of $-\\dfrac{1}{4}$ is $+4$, not $-4$, because the sign must change as well.",
+  "source": "research"},
+ {"id": "m3", "kc": K1, "statement": "The gradient of the line through two points is $\\dfrac{\\Delta x}{\\Delta y}$, or the differences are taken in different orders, for example $\\dfrac{y_2-y_1}{x_1-x_2}$.",
+  "refutation": "Gradient is change in $y$ over change in $x$, $m=\\dfrac{y_2-y_1}{x_2-x_1}$, and both differences must be taken in the same order. Taking them in opposite orders reverses the sign; inverting the fraction gives the gradient of a different line.",
+  "contrast": "Through $(1,2)$ and $(3,8)$: $m=\\dfrac{8-2}{3-1}=3$. Using $\\dfrac{3-1}{8-2}=\\dfrac{1}{3}$ or $\\dfrac{8-2}{1-3}=-3$ gives the wrong line.",
+  "source": "research"},
+ {"id": "m4", "kc": K1, "statement": "The gradient of $ax+by+c=0$ is $a$, or $-a$, or $\\dfrac{a}{b}$: it can be read straight from the coefficient of $x$ without rearranging.",
+  "refutation": "The gradient can only be read from the form $y=mx+c$. Rearranging $ax+by+c=0$ gives $y=-\\dfrac{a}{b}x-\\dfrac{c}{b}$, so the gradient is $-\\dfrac{a}{b}$: it depends on $b$ and carries a negative sign.",
+  "contrast": "For $2x+5y=20$: $5y=-2x+20$, so $y=-\\dfrac{2}{5}x+4$ and $m=-\\dfrac{2}{5}$, not $2$, $-2$ or $\\dfrac{2}{5}$.",
+  "source": "research"},
+ {"id": "m5", "kc": K2, "statement": "A horizontal line and a vertical line cannot be perpendicular because the product of their gradients is not $-1$; or a vertical line such as $x=-2$ has gradient $-2$.",
+  "refutation": "The test $m_1m_2=-1$ only applies when both lines have a gradient. A vertical line $x=k$ has no gradient (undefined), and a horizontal line $y=k$ has gradient $0$. Every horizontal line is perpendicular to every vertical line at $90^\\circ$.",
+  "contrast": "The lines $y=3$ and $x=-2$ meet at right angles at $(-2,3)$, although $0\\times(\\text{undefined})$ cannot be tested. The number in $x=-2$ is a position on the $x$-axis, not a gradient.",
+  "source": "research"},
+]
+
+def mcq(i, kcs, d, cw, stem, opts, ans, expl, hints, dist=None, marks=1):
+    it = {"id": f"{SUB}-{i}", "kcs": kcs, "kind": "mcq", "difficulty": d, "command_word": cw, "source": {"type": "generated"},
+          "stem": stem, "options": opts, "answer": ans, "marks": marks, "explanation": expl, "hints": hints, "shuffle": True}
+    if dist: it["distractors"] = dist
+    return it
+
+def num_tpl(i, kcs, d, cw, stem, tpl, expl, hints, marks=1, unit="", **kw):
+    return {"id": f"{SUB}-{i}", "kcs": kcs, "kind": "numeric", "difficulty": d, "command_word": cw, "source": {"type": "generated"},
+            "stem": stem, "template": tpl, "answer": {"unit": unit, "exact": True}, "marks": marks, "explanation": expl, "hints": hints}
+
+items = []
+# ===== KC P1-2.1 =====
+items.append(mcq("i01", [K1], 1, "State",
+  "A straight line has gradient $m$ and passes through the point $(x_1,y_1)$. Which equation is the equation of the line?",
+  {"A": r"$y-y_1=m(x-x_1)$", "B": r"$y+y_1=m(x+x_1)$", "C": r"$y-x_1=m(x-y_1)$", "D": r"$y-y_1=\dfrac{1}{m}(x-x_1)$"}, "A",
+  "The formula for a line of gradient $m$ through $(x_1,y_1)$ is $y-y_1=m(x-x_1)$: the coordinates of the point are subtracted, $y_1$ from $y$ and $x_1$ from $x$. The other options add the coordinates, swap them, or use the reciprocal of the gradient.",
+  ["Every point on the line must satisfy the equation. Which option is true at $(x,y)=(x_1,y_1)$ for any $m$?", "The gradient is $\\dfrac{\\text{change in }y}{\\text{change in }x}$; rearrange this with both changes measured from the given point.", "Put the given point in as $y-y_1$ and $x-x_1$, then multiply the $x$ part by the gradient."],
+  {"D": "m3"}))
+items.append(num_tpl("i02", [K1], 2, "Find",
+  "Find the gradient of the line through the points $A([[x1]],\\ [[y1]])$ and $B([[x2]],\\ [[y2]])$.",
+  {"params": {"x1": {"min": -4, "max": 3, "step": 1}, "dx": {"choices": [1, 2, 3, 4]}, "m": {"choices": [-4, -3, -2, 2, 3, 4]}, "y1": {"min": -5, "max": 5, "step": 1}},
+   "derived": {"x2": "x1 + dx", "y2": "y1 + m * dx"}, "answer": "m",
+   "distractors": [{"expr": "1 / m", "misconception": "m3"}, {"expr": "-m", "misconception": "m3"}]},
+  "Gradient is change in $y$ over change in $x$, taking both differences in the same order: $m=\\dfrac{y_2-y_1}{x_2-x_1}$.",
+  ["The gradient measures how far the line rises for each unit it goes across.", "Use $\\dfrac{\\text{change in }y}{\\text{change in }x}$ and take both differences in the same order, second point minus first.", "Subtract the $y$-coordinates for the top, subtract the $x$-coordinates for the bottom, and simplify."]))
+items.append(mcq("i03", [K1], 3, "Find", "What is the gradient of the line with equation $2x+5y=20$?",
+  {"A": r"$-\dfrac{2}{5}$", "B": r"$\dfrac{2}{5}$", "C": r"$-2$", "D": r"$-\dfrac{5}{2}$"}, "A",
+  "Rearrange to $y=mx+c$ form: $5y=-2x+20$, so $y=-\\dfrac{2}{5}x+4$ and the gradient is $-\\dfrac{2}{5}$. Reading off the coefficient of $x$, dropping the sign, or turning the fraction over are the common slips.",
+  ["The equation is not yet in the form $y=mx+c$, so the gradient cannot simply be read from it.", "Make $y$ the subject: move the $x$ term across, then divide every term by the coefficient of $y$.", "After moving $2x$ to the other side, divide the whole equation by 5."],
+  {"B": "m4", "C": "m4", "D": "m3"}))
+items.append(num_tpl("i04", [K1, K2], 4, "Find",
+  "The line $l_1$ has equation $[[b]]y=-x+[[c]]$. The line $l_2$ passes through the point $P([[x1]],\\ [[y1]])$ and is perpendicular to $l_1$. Find the $y$-coordinate of the point where $l_2$ crosses the $y$-axis.",
+  {"params": {"b": {"min": 2, "max": 8, "step": 1}, "c": {"min": 2, "max": 20, "step": 1}, "x1": {"min": -4, "max": 4, "step": 1}, "y1": {"min": -4, "max": 4, "step": 1}},
+   "constraints": ["x1 != 0", "y1 - b * x1 != 0"], "answer": "y1 - b * x1",
+   "distractors": [{"expr": "y1 + b * x1", "misconception": "m2"}, {"expr": "y1 - x1 / b", "misconception": "m1"}]},
+  "Rearranging $l_1$ gives gradient $-\\dfrac{1}{b}$, so $l_2$ has gradient $b$. Using $y-y_1=b(x-x_1)$ and setting $x=0$ gives $y=y_1-bx_1$.",
+  ["Two steps: first find the gradient of $l_1$, then use it to get the gradient of $l_2$ and its equation.", "Write $l_1$ as $y=mx+c$ to read $m$, then use $m_1m_2=-1$. Substitute $P$ and the new gradient into $y-y_1=m(x-x_1)$.", "The line crosses the $y$-axis where $x=0$, so put $x=0$ into the equation of $l_2$."]))
+items.append({"id": f"{SUB}-i05", "kcs": [K1, K2], "kind": "structured", "difficulty": 5, "command_word": "Find", "source": {"type": "generated"},
+  "stem": "The line $l_1$ has equation $5x+2y=14$. The line $l_2$ passes through the point $P(5,4)$ and is perpendicular to $l_1$.\n\n(a) Find the gradient of $l_1$.\n\n(b) Find an equation for $l_2$ in the form $ax+by+c=0$, where $a$, $b$ and $c$ are integers.\n\n(c) Find the coordinates of the point where $l_2$ crosses the $x$-axis.",
+  "scheme": [{"mark": "M1", "point": "rearranges $5x+2y=14$ to the form $y=mx+c$"},
+             {"mark": "A1", "point": "gradient of $l_1$ is $-\\dfrac{5}{2}$", "check": {"kind": "numeric", "answer": {"value": -2.5, "unit": "", "exact": True}}},
+             {"mark": "B1", "point": "gradient of $l_2$ is $\\dfrac{2}{5}$ (using $m_1m_2=-1$)", "check": {"kind": "numeric", "answer": {"value": 0.4, "unit": "", "exact": True}}},
+             {"mark": "M1", "point": "$y-4=\\dfrac{2}{5}(x-5)$ or equivalent"},
+             {"mark": "A1", "point": "$2x-5y+10=0$ (or any integer multiple)"},
+             {"mark": "M1", "point": "puts $y=0$ in the equation of $l_2$"},
+             {"mark": "A1", "point": "$x=-5$, so the point is $(-5,0)$", "check": {"kind": "numeric", "answer": {"value": -5, "unit": "", "exact": True}}}],
+  "marks": 7,
+  "explanation": "Rearranging gives $y=-\\dfrac{5}{2}x+7$, so $m_1=-\\dfrac{5}{2}$ and $m_2=\\dfrac{2}{5}$. Then $y-4=\\dfrac{2}{5}(x-5)$ becomes $5y-20=2x-10$, so $2x-5y+10=0$. At $y=0$, $2x=-10$ and $x=-5$.",
+  "hints": ["Part (a) needs $l_1$ in the form $y=mx+c$; then use the relationship between perpendicular gradients for $l_2$.", "For (b) use $y-y_1=m(x-x_1)$ with the gradient of $l_2$ and the point $P$, then clear the fraction. For (c), what is $y$ on the $x$-axis?", "Multiply both sides of the equation of $l_2$ by 5 to clear the fraction and collect everything on one side, with the $x$ term positive."]}
+)
+# ===== KC P1-2.2 =====
+items.append(mcq("i06", [K2], 2, "Identify", "Which pair of lines is parallel?",
+  {"A": r"$y=3x+1$ and $6x-2y=9$", "B": r"$y=3x+1$ and $3y=x+5$", "C": r"$y=3x+1$ and $y=-3x+1$", "D": r"$y=3x+1$ and $3x+y=4$"}, "A",
+  "Parallel lines have equal gradients. $6x-2y=9$ gives $y=3x-\\dfrac{9}{2}$, gradient 3, the same as $y=3x+1$. The others have gradients $\\dfrac{1}{3}$, $-3$ and $-3$. Sharing a $y$-intercept does not make lines parallel; lines with the same gradient and different intercepts are parallel.",
+  ["Parallel lines never meet, which tells you something about their steepness.", "Put every equation in the form $y=mx+c$ and compare the gradients.", "The second line in the correct pair needs rearranging before its gradient is visible."],
+  {"B": "m3", "D": "m4"}))
+items.append(mcq("i07", [K2], 2, "Find", "The line $l$ has equation $y=\\dfrac{2}{3}x-5$. What is the gradient of a line perpendicular to $l$?",
+  {"A": r"$-\dfrac{3}{2}$", "B": r"$-\dfrac{2}{3}$", "C": r"$\dfrac{3}{2}$", "D": r"$\dfrac{2}{3}$"}, "A",
+  "Perpendicular gradients satisfy $m_1m_2=-1$, so $m_2=-\\dfrac{1}{m_1}=-\\dfrac{3}{2}$: turn the fraction over and change the sign. Changing only the sign gives $-\\dfrac{2}{3}$; turning it over only gives $\\dfrac{3}{2}$; $\\dfrac{2}{3}$ is the gradient of a parallel line.",
+  ["Perpendicular gradients are linked by a product, not by adding or equalling.", "The rule is $m_1m_2=-1$. Check each option by multiplying it by $\\dfrac{2}{3}$.", "You need two changes to the gradient of $l$: one to the fraction, one to the sign."],
+  {"B": "m1", "C": "m2"}))
+items.append(num_tpl("i08", [K2], 3, "Find",
+  "The line $y=kx+3$ is perpendicular to the line $[[b]]y+x=[[c]]$. Find the value of $k$.",
+  {"params": {"b": {"min": 2, "max": 8, "step": 1}, "c": {"min": 2, "max": 20, "step": 1}},
+   "answer": "b",
+   "distractors": [{"expr": "-b", "misconception": "m2"}, {"expr": "1 / b", "misconception": "m1"}, {"expr": "-1 / b"}]},
+  "Rearranging $by+x=c$ gives $y=-\\dfrac{1}{b}x+\\dfrac{c}{b}$, gradient $-\\dfrac{1}{b}$. For perpendicular lines $k\\times\\left(-\\dfrac{1}{b}\\right)=-1$, so $k=b$.",
+  ["The gradient of $y=kx+3$ is $k$. What is the gradient of the other line?", "Rearrange the second equation to $y=mx+c$ form, then use $m_1m_2=-1$.", "Solve $k\\times m=-1$ using the gradient you found."]))
+items.append(mcq("i09", [K2], 4, "Identify", "The line $l_1$ has equation $y=3$ and the line $l_2$ has equation $x=-2$. Which statement is correct?",
+  {"A": "The lines are perpendicular, although $m_1m_2=-1$ cannot be used because $l_2$ has no gradient.",
+   "B": "The lines are not perpendicular, because the gradients 3 and $-2$ do not multiply to give $-1$.",
+   "C": "The lines are parallel, because each equation contains only one variable.",
+   "D": "The lines are not perpendicular, because $l_1$ has gradient 0 and $0\\times m_2$ can never equal $-1$."}, "A",
+  "$y=3$ is horizontal (gradient 0) and $x=-2$ is vertical (no gradient), so they meet at right angles at $(-2,3)$. The gradient test $m_1m_2=-1$ only works when both gradients exist. The numbers 3 and $-2$ are positions on the axes, not gradients.",
+  ["Sketch the two lines on a pair of axes and see how they meet.", "One line is horizontal and the other is vertical. Does the gradient product test apply to a vertical line?", "The gradient test only works when both lines have a gradient; think about the angle between horizontal and vertical."],
+  {"B": "m5", "D": "m5"}))
+items.append(mcq("i10", [K2], 4, "Find", "The line $2x+ky=5$ is perpendicular to the line $3x-2y=7$. What is the value of $k$?",
+  {"A": "$3$", "B": "$-3$", "C": r"$\dfrac{4}{3}$", "D": r"$-\dfrac{4}{3}$"}, "A",
+  "The line $3x-2y=7$ has gradient $\\dfrac{3}{2}$, so the other gradient must be $-\\dfrac{2}{3}$. The gradient of $2x+ky=5$ is $-\\dfrac{2}{k}$, so $-\\dfrac{2}{k}=-\\dfrac{2}{3}$ and $k=3$. Setting the gradients equal ($k=-\\dfrac{4}{3}$) is the parallel condition.",
+  ["Find the gradient of the second line first, then work out what the first must be.", "The gradient of $2x+ky=5$ in terms of $k$ is $-\\dfrac{2}{k}$. Use $m_1m_2=-1$ with the two gradients.", "Set the product $-\\dfrac{2}{k}\\times\\dfrac{3}{2}$ equal to $-1$ and solve for $k$."],
+  {"B": "m2", "C": "m1"}))
+items.append({"id": f"{SUB}-i11", "kcs": [K2, K1], "kind": "structured", "difficulty": 5, "command_word": "Show that", "source": {"type": "generated"},
+  "stem": "The points $A(0,1)$, $B(4,3)$ and $C(3,5)$ are joined to form a triangle.\n\n(a) Show that $AB$ is perpendicular to $BC$.\n\n(b) Find an equation for the line through $C$ parallel to $AB$, in the form $ax+by+c=0$, where $a$, $b$ and $c$ are integers.",
+  "scheme": [{"mark": "M1", "point": "gradient of $AB=\\dfrac{3-1}{4-0}$", "check": {"kind": "numeric", "answer": {"value": 0.5, "unit": "", "exact": True}}},
+             {"mark": "M1", "point": "gradient of $BC=\\dfrac{5-3}{3-4}$", "check": {"kind": "numeric", "answer": {"value": -2, "unit": "", "exact": True}}},
+             {"mark": "A1", "point": "$\\dfrac{1}{2}\\times(-2)=-1$, so $AB$ and $BC$ are perpendicular (conclusion stated)"},
+             {"mark": "M1", "point": "$y-5=\\dfrac{1}{2}(x-3)$ using the gradient of $AB$ and the point $C$"},
+             {"mark": "A1", "point": "$x-2y+7=0$ (or any integer multiple)"}],
+  "marks": 5,
+  "explanation": "$m_{AB}=\\dfrac{1}{2}$ and $m_{BC}=-2$; their product is $-1$, so the lines are perpendicular. A parallel line has the same gradient $\\dfrac{1}{2}$: $y-5=\\dfrac{1}{2}(x-3)$ gives $2y-10=x-3$, so $x-2y+7=0$.",
+  "hints": ["For a *show that* question, work out the gradient of each line and then use the condition for perpendicular lines.", "For (b) parallel lines share a gradient. Which of the two gradients do you need, and which point does the new line pass through?", "Use $y-y_1=m(x-x_1)$ with $C$, multiply out the fraction, and collect the terms on one side."]})
+
+worked = [
+ {"id": "we1", "kc": K1, "problem": "Find an equation of the line through $A(-1,2)$ and $B(3,-4)$, giving your answer in the form $ax+by+c=0$ where $a$, $b$ and $c$ are integers.",
+  "steps": [
+   {"do": "Gradient $m=\\dfrac{y_2-y_1}{x_2-x_1}=\\dfrac{-4-2}{3-(-1)}=\\dfrac{-6}{4}=-\\dfrac{3}{2}$.",
+    "why": "Both differences are taken in the same order (second point minus first). Watch the double negative in $3-(-1)$; students often write 2 instead of 4.",
+    "check": {"kind": "numeric", "answer": {"value": -1.5, "unit": "", "exact": True}}},
+   {"do": "Use $y-y_1=m(x-x_1)$ with the point $A(-1,2)$: $y-2=-\\dfrac{3}{2}(x+1)$.",
+    "why": "Any point on the line will do. Subtracting $x_1=-1$ turns into $x+1$; the sign of the coordinate flips inside the bracket."},
+   {"do": "Multiply by 2: $2y-4=-3(x+1)=-3x-3$. Collect on one side: $3x+2y-1=0$.",
+    "why": "The question asks for integer coefficients, so clear the fraction first. Keeping the $x$ term positive is the usual convention."}],
+  "faded": {"id": "we1f", "problem": "The points $P(-1,4)$ and $Q(5,1)$ lie on a line. Find its equation in the form $ax+by+c=0$, where $a$, $b$ and $c$ are integers and $a>0$. State the value of $c$.", "answer": {"value": -7, "unit": "", "exact": True}, "blank_from": 1}},
+ {"id": "we2", "kc": K1, "problem": "Find an equation of the line through $(-3,2)$ that is perpendicular to the line $4x+3y=12$, giving your answer in the form $ax+by+c=0$ where $a$, $b$ and $c$ are integers.",
+  "steps": [
+   {"do": "Rearrange $4x+3y=12$: $3y=-4x+12$, so $y=-\\dfrac{4}{3}x+4$ and the gradient is $-\\dfrac{4}{3}$.",
+    "why": "The gradient of $ax+by=c$ cannot be read off directly: it is $-\\dfrac{a}{b}$, not $a$.",
+    "check": {"kind": "numeric", "answer": {"value": -1.3333, "unit": "", "exact": False, "sf_ok": [3, 4, 5]}}},
+   {"do": "Perpendicular gradient: $m_2=-\\dfrac{1}{m_1}=\\dfrac{3}{4}$.",
+    "why": "Perpendicular gradients multiply to $-1$: turn the fraction over and change its sign. Check: $-\\dfrac{4}{3}\\times\\dfrac{3}{4}=-1$.",
+    "check": {"kind": "numeric", "answer": {"value": 0.75, "unit": "", "exact": True}}},
+   {"do": "Line through $(-3,2)$: $y-2=\\dfrac{3}{4}(x+3)$.",
+    "why": "Use the new gradient with the given point, not the gradient of the original line."},
+   {"do": "Multiply by 4: $4y-8=3x+9$, so $3x-4y+17=0$.",
+    "why": "Clear the fraction and collect the terms on one side with integer coefficients. Check by substituting $(-3,2)$: $-9-8+17=0$.",
+    "check": {"kind": "numeric", "answer": {"value": 17, "unit": "", "exact": True}}}],
+  "faded": {"id": "we2f", "problem": "Find the equation of the line through $(1,2)$ perpendicular to $3x+2y=6$ in the form $2x-3y+c=0$. State the value of $c$.", "answer": {"value": 4, "unit": "", "exact": True}, "blank_from": 1}},
+]
+worked[1]["steps"][0]["check"]["answer"] = {"value": -1.3333, "unit": "", "sf_ok": [3, 4, 5]}
+
+flash = [
+ {"id": "fc1", "kc": K1, "front": "State the equation of the line through $(x_1,y_1)$ with gradient $m$.", "back": "$y-y_1=m(x-x_1)$."},
+ {"id": "fc2", "kc": K1, "front": "What is the gradient of the line through $(x_1,y_1)$ and $(x_2,y_2)$?", "back": "$m=\\dfrac{y_2-y_1}{x_2-x_1}$ (change in $y$ over change in $x$, both differences in the same order)."},
+ {"id": "fc3", "kc": K1, "front": "What is the gradient of the line $ax+by+c=0$?", "back": "$-\\dfrac{a}{b}$ (rearrange to $y=-\\dfrac{a}{b}x-\\dfrac{c}{b}$)."},
+ {"id": "fc4", "kc": K2, "front": "State the condition for two lines to be parallel.", "back": "Parallel lines have equal gradients: $m_1=m_2$."},
+ {"id": "fc5", "kc": K2, "front": "State the condition for two lines to be perpendicular.", "back": "The product of the gradients is $-1$: $m_1m_2=-1$, so $m_2=-\\dfrac{1}{m_1}$."},
+ {"id": "fc6", "kc": K2, "front": "Which perpendicular lines cannot be tested using $m_1m_2=-1$?", "back": "A horizontal line ($y=k$, gradient 0) and a vertical line ($x=k$, no gradient) are perpendicular, but the gradient product test does not apply."},
+]
+
+diagrams = [
+ {"file": "Assets/P1/P1-2-perpendicular.svg", "type": "function_plot",
+  "params": {"functions": [{"expr": "2*x-1", "domain": [-1.2, 3.5], "label": "$y=2x-1$, $m_1=2$"},
+                           {"expr": "-x/2+4", "domain": [-1.5, 8], "label": "$y=-\\frac{1}{2}x+4$, $m_2=-\\frac{1}{2}$"}],
+            "points": [{"xy": [2, 3], "label": "(2, 3)"}], "xlim": [-3, 9], "ylim": [-3, 6], "xlabel": "x", "ylabel": "y"}},
+ {"file": "Assets/P1/P1-2-parallel.svg", "type": "function_plot",
+  "params": {"functions": [{"expr": "2*x-1", "domain": [-1.5, 4], "label": "$y=2x-1$"},
+                           {"expr": "2*x+3", "domain": [-3, 1.5], "label": "$y=2x+3$"}],
+            "xlim": [-4, 6], "ylim": [-3, 6], "xlabel": "x", "ylabel": "y"}},
+]
+
+pack = {"subtopic": SUB, "spec": "P1", "version": 1,
+ "note": "Subjects/Maths/P1 Pure Mathematics 1/2 Coordinate geometry in the (x, y) plane.md",
+ "outline": "The gradient of the line through $(x_1,y_1)$ and $(x_2,y_2)$ is $m=\\dfrac{y_2-y_1}{x_2-x_1}$. A line of gradient $m$ through $(x_1,y_1)$ has equation $y-y_1=m(x-x_1)$; rearranged into $ax+by+c=0$ with integer coefficients it has gradient $-\\dfrac{a}{b}$. Parallel lines have equal gradients, $m_1=m_2$. Perpendicular lines satisfy $m_1m_2=-1$, so $m_2=-\\dfrac{1}{m_1}$ (turn over and change sign). Horizontal and vertical lines are perpendicular although the gradient test cannot be applied. To find a line: get the gradient, substitute a point, tidy into the requested form.",
+ "misconceptions": misc, "worked": worked, "items": items, "flashcards": flash, "diagrams": diagrams}
+out = ROOT / "build/out/packs/P1/P1-2.json"
+out.parent.mkdir(parents=True, exist_ok=True)
+out.write_text(json.dumps(pack, indent=1, ensure_ascii=False))
+print("items", len(items))

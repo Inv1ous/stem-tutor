@@ -52,7 +52,7 @@ Common fields: `id` (`<subtopic>-i01`, `-i02` … unique), `kcs` (1–2 KC ids),
 - Use the 12 best genuine past MCQs from the bundle (they are the real standard), then generate to fill gaps; never copy a past question and present it as generated. The rest of the bank is appended automatically as unexplained "extra" items.
 - Every `procedural` KC gets a worked example with a faded version.
 - Every `factual` KC gets flashcards whose back uses mark-scheme wording (definitions exactly as Cambridge/Pearson credit them).
-- Two to five misconceptions per subtopic, from examiner comments where possible (`source` = the ER ref), otherwise well-documented research (`source` = "research").
+- Two to five misconceptions per subtopic (up to eight when it has more than six KCs), from examiner comments where possible (`source` = the ER ref), otherwise well-documented research (`source` = "research"). Map every distractor that encodes a known error to one.
 
 ## Conventions
 
@@ -97,3 +97,21 @@ Builds on [[1.3 Errors and uncertainties]] · Leads to [[3.1 Momentum and Newton
 ```
 
 Diagrams: request them in `diagrams` and embed with `![[Assets/…svg]]`. Use Mermaid only for concept or process maps (quote labels that contain brackets).
+
+## Diagram types (`build/diagrams.py`)
+
+Each request is `{"file": "Assets/<spec>/<subtopic>-<name>.svg", "type": …, "params": {…}}`. Look at the rendered SVG (convert with `qlmanage -t -s 600 -o /tmp <svg>` and view it) before finishing.
+
+| type | params |
+|---|---|
+| `graph_sketch` | `lines` [{`points` [[x,y],…], `label`, `style`: "solid"/"dashed"}], `xlabel`, `ylabel`, `shade` {`line`: i} (area under a line) or {`polygon`: [[x,y],…]}, `annotations` [{`xy`, `text`, `xytext`}], `ticks` bool |
+| `function_plot` | `functions` [{`expr` in x, `domain` [a,b], `label`}], `asymptotes` {`x`: […], `y`: […]}, `points` [{`xy`, `label`}], `xlim`, `ylim`, `xlabel`, `ylabel` |
+| `box_plot` | `min`, `q1`, `median`, `q3`, `max`, `outliers` […], `labels`, `whisker_label`, `outlier_label`, `xlabel`, `ticks` |
+| `density_panels` | `panels` [{`expr` in x, `domain` [a,b], `title`}], `mark_centres` bool (mode/median/mean), `xlabel` |
+| `free_body` | `body` "box"/"dot", `incline_deg`, `forces` [{`label`, `angle` (degrees from +x), `length`}] |
+| `energy_profile` | `reactants`, `products`, `ea`, `catalysed_ea`, `reactants_label`, `products_label`, `ea_label`, `dh_label` |
+| `maxwell_boltzmann` | `temps` […], `labels` […], `ea`, `shade_ea` |
+| `wave` | `amplitude`, `wavelength`, `cycles`, `show_amplitude`, `show_wavelength`, `xlabel`, `ylabel` |
+| `circuit` | `elements` [{`type`: battery/cell/resistor/lamp/ammeter/voltmeter/switch/ldr/thermistor/diode/variable_resistor/potentiometer, `label`}] drawn as one series loop in CAIE (IEC) symbols |
+
+A figure the table cannot draw (apparatus, molecular structures, mechanisms): describe it in words in the note and flag it in `concerns`; never hand-write SVG coordinates.

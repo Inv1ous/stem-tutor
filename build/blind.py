@@ -1,7 +1,8 @@
 """Blind-solve support: strip answer keys from a pack, then grade an independent solver's answers.
 
   python build/blind.py strip <pack.json> > questions.json     questions only (templates instantiated, seed 0)
-  python build/blind.py compare <pack.json> <answers.json>      disagreements between key and solver
+  python build/blind.py compare <pack.json> <answers.json> [--ids a,b]   disagreements between key and solver
+  python build/blind.py stale <pack.json> <answers.json>      ids needing a fresh solve (no keys shown)
 
 answers.json: {"<item id>": "<answer in tutor syntax: letter, value with unit, or expression>", ...}
 plus "<worked id>.faded" for faded examples. A disagreement means the key or the question is suspect.
@@ -62,9 +63,24 @@ def compare(pack: dict, answers: dict) -> dict:
     return {"agreed": agreed, "disagreements": disagreements, "missing": missing}
 
 
+def _ids_arg() -> set[str] | None:
+    if "--ids" in sys.argv:
+        return set(sys.argv[sys.argv.index("--ids") + 1].split(","))
+    return None
+
+
 if __name__ == "__main__":
+    # strip <pack> [--ids a,b]        stale <pack> <answers>  (ids only, no keys)        compare <pack> <answers> [--ids a,b]
     pack = json.loads(Path(sys.argv[2]).read_text())
+    ids = _ids_arg()
     if sys.argv[1] == "strip":
-        print(json.dumps(strip(pack), ensure_ascii=False, indent=1))
+        print(json.dumps([q for q in strip(pack) if ids is None or q["id"] in ids], ensure_ascii=False, indent=1))
+    elif sys.argv[1] == "stale":
+        res = compare(pack, json.loads(Path(sys.argv[3]).read_text()))
+        print(",".join([d["id"] for d in res["disagreements"]] + res["missing"]))
     else:
-        print(json.dumps(compare(pack, json.loads(Path(sys.argv[3]).read_text())), ensure_ascii=False, indent=1))
+        res = compare(pack, json.loads(Path(sys.argv[3]).read_text()))
+        if ids is not None:
+            res = {"agreed": res["agreed"], "disagreements": [d for d in res["disagreements"] if d["id"] in ids],
+                   "missing": [m for m in res["missing"] if m in ids]}
+        print(json.dumps(res, ensure_ascii=False, indent=1))
