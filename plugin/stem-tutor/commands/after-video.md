@@ -1,6 +1,6 @@
 ---
-description: Consolidate after a video or lesson: brain dump, diagnose, repair
-argument-hint: <title or link>
+description: "Consolidate after a video or lesson: brain dump, diagnose, repair"
+argument-hint: "<title or link>"
 model: haiku
 ---
 

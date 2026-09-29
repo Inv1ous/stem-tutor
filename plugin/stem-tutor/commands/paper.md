@@ -1,6 +1,6 @@
 ---
-description: Past-paper practice and scoring
-argument-hint: <code e.g. 9702, WMA11>
+description: "Past-paper practice and scoring"
+argument-hint: "<code e.g. 9702, WMA11>"
 model: haiku
 ---
 

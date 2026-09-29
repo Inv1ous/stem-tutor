@@ -1,6 +1,6 @@
 ---
-description: Autopilot study session: reviews, next topic, practice, exit ticket
-argument-hint: [minutes]
+description: "Autopilot study session: reviews, next topic, practice, exit ticket"
+argument-hint: "[minutes]"
 model: haiku
 ---
 

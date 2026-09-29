@@ -1,5 +1,5 @@
 ---
-description: Progress, weak topics and what the tutor has learned about you
+description: "Progress, weak topics and what the tutor has learned about you"
 model: haiku
 ---
 

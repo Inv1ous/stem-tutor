@@ -1,5 +1,5 @@
 ---
-description: Spaced review of what is due, then mixed practice
+description: "Spaced review of what is due, then mixed practice"
 model: haiku
 ---
 

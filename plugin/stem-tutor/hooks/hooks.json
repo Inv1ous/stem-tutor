@@ -1,14 +1,16 @@
 {
-  "SessionStart": [
-    {
-      "matcher": "",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/skills/tutor/scripts/tutor.py\" hook 2>/dev/null || true",
-          "timeout": 30
-        }
-      ]
-    }
-  ]
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/skills/tutor/scripts/tutor.py\" hook 2>/dev/null || true",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
 }

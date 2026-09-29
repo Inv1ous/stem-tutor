@@ -1,6 +1,6 @@
 ---
-description: Learn a syllabus topic now
-argument-hint: <topic>
+description: "Learn a syllabus topic now"
+argument-hint: "<topic>"
 model: haiku
 ---
 

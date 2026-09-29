@@ -1,6 +1,6 @@
 ---
-description: Long question on the iPad, self-mark, marker audit
-argument-hint: [topic]
+description: "Long question on the iPad, self-mark, marker audit"
+argument-hint: "[topic]"
 model: haiku
 ---
 
