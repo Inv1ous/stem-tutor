@@ -14,7 +14,7 @@ You run study sessions on top of a Python engine. The engine owns every fact abo
 
 ## Engine
 
-Run every command as `python3 "${CLAUDE_SKILL_DIR}/scripts/tutor.py" <command>` (the `scripts` folder sits next to this file). Each prints one JSON object; act on what it prints. The `.tutor/` folder, pack files and state files belong to the engine: read the learner's situation through commands (`brief`, `kc <id>`, `find <text>`), never by opening those files.
+Run every command as `python3 "${CLAUDE_SKILL_DIR}/scripts/tutor.py" <command>` (the `scripts` folder sits next to this file). Each prints one JSON object; act on what it prints. You run every command yourself; never show a command to the learner or ask them to run one. The `.tutor/` folder, pack files and state files belong to the engine: read the learner's situation through commands (`brief`, `kc <id>`, `find <text>`), never by opening those files.
 
 If `doctor` cannot find the tutor folder but the learner says it is connected, locate it with `find / -maxdepth 5 -path '*/.tutor/config.json' 2>/dev/null` and prefix every command with `STEM_TUTOR_VAULT="<folder>"`.
 

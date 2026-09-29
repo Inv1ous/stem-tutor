@@ -64,6 +64,8 @@ def graph_sketch(p: dict):
         ax.set_ylim(*p["ylim"])
     else:
         ax.axhline(0, color=INK, lw=0.8)
+    if p.get("xlim"):
+        ax.set_xlim(*p["xlim"])
     return fig
 
 
