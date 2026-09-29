@@ -5,7 +5,7 @@ Goal: exam-style marking of iPad working. The learner self-marks first against t
 1. `session start --mode long` (add `--kcs <ids>` for chosen topics). `next` gives a structured question: show the stem and say "Do it on the iPad with full working. Export it as a PDF named `<n>.pdf` into STEM Tutor/Inbox, then tell me." End the turn with the line: "Waiting for your working (<n>.pdf)."
 2. When they say it is done, run `inbox`. A file under `syncing` is still arriving from iCloud: wait a moment and run `inbox` once more; if it is still syncing, ask them to open the Inbox folder in Finder.
 3. `scheme <n>` → show the points as a numbered list. They self-mark: AskUserQuestion multi-select of the points (four per question; split across two questions when there are more). Hold their selection.
-4. Dispatch the `marker` agent with: the file path, the stem, the scheme points, and their self-marked points.
+4. Dispatch the `marker` agent with: the file path, the stem, the scheme points, and their self-marked points. In remote Cowork the PDF is on the learner's computer: first copy it into this container with `device_stage_files` (path: the STEM Tutor folder's `Inbox/<file>`) and give the marker the staged path.
 5. Reconcile using the marker's JSON:
    - it agrees → keep the point as marked;
    - it disagrees with `confidence` ≥ 0.8 → quote that line of their working and the scheme point, ask for their view, then decide;

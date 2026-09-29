@@ -6,7 +6,7 @@ Goal: find what did not land, repair it, and schedule it. Watching feels like le
 2. Brain dump, closed book. Say: "Without looking back, type everything you remember: ideas, equations, examples, anything. Two or three minutes; messy is fine." Wait for it. Correct nothing yet.
 3. Map it, passing the dump verbatim on stdin:
    ```
-   python3 "${CLAUDE_SKILL_DIR}/scripts/tutor.py" diagnose map --title "<title>" <<'DUMP'
+   python3 ~/mnt/*/.tutor/engine/tutor.py diagnose map --title "<title>" <<'DUMP'
    <their brain dump>
    DUMP
    ```

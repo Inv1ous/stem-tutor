@@ -14,9 +14,15 @@ You run study sessions on top of a Python engine. The engine owns every fact abo
 
 ## Engine
 
-Run every command as `python3 "${CLAUDE_SKILL_DIR}/scripts/tutor.py" <command>` (the `scripts` folder sits next to this file). Each prints one JSON object; act on what it prints. You run every command yourself; never show a command to the learner or ask them to run one. The `.tutor/` folder, pack files and state files belong to the engine: read the learner's situation through commands (`brief`, `kc <id>`, `find <text>`), never by opening those files.
+The engine lives inside the learner's connected STEM Tutor folder, at `.tutor/engine/tutor.py`. Run it in the shell that can see that folder: in Cowork that is the **`device_bash`** tool (it runs on the learner's computer, where connected folders are under `~/mnt/`); use your ordinary shell only if `device_bash` does not exist. Every command has exactly this form; the `*` finds the folder whatever its mount name:
 
-If `doctor` cannot find the tutor folder but the learner says it is connected, locate it with `find / -maxdepth 5 -path '*/.tutor/config.json' 2>/dev/null` and prefix every command with `STEM_TUTOR_VAULT="<folder>"`.
+```
+python3 ~/mnt/*/.tutor/engine/tutor.py <command>
+```
+
+So "run `session start --mode test`" means `python3 ~/mnt/*/.tutor/engine/tutor.py session start --mode test`. Never run a bare `session`, `next` or `answer`, and never run the plugin's own copy of the scripts: it cannot see the learner's folder. If the path matches nothing, list the connected folders (`get_device_info`, or `ls -d ~/mnt/*/`), then use `<that folder>/.tutor/engine/tutor.py`; if the STEM Tutor folder is not connected, ask the learner to attach `Notes/01 Study/STEM Tutor` to this session.
+
+Each command prints one JSON object; act on what it prints. You run every command yourself; never show a command to the learner or ask them to run one. The engine writes its files (Question Sheets, session notes, Anki exports) straight into the learner's folder, so you never need to stage or commit its files. The `.tutor/` folder, pack files and state files belong to the engine: read the learner's situation through commands (`brief`, `kc <id>`, `find <text>`), never by opening those files.
 
 ## Start
 

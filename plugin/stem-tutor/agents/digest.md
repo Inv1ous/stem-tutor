@@ -21,7 +21,7 @@ You turn a long text into a short map of what it teaches, so the tutor never has
 
 1. Read the file at the given path.
 2. List its main ideas: at most 12 short claims, plus any equations exactly as stated.
-3. For each idea, search the syllabus with `python3 "<scripts dir>/tutor.py" find "<2-4 key words>"` (the tutor gives the scripts dir). Keep the best-matching KC id per idea.
+3. For each idea, search the syllabus with `python3 ~/mnt/*/.tutor/engine/tutor.py find "<2-4 key words>"` (run with `device_bash` when you have it). Keep the best-matching KC id per idea.
 4. Note any claim in the source that contradicts standard A-Level content.
 
 ## Output

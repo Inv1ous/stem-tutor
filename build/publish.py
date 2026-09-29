@@ -61,6 +61,9 @@ def publish(vault: Path) -> dict:
                     d.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(f, d)
                     copied += 1
+    engine = tutor / "engine"  # remote Cowork runs the engine inside the connected folder (device_bash)
+    shutil.rmtree(engine, ignore_errors=True)
+    shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", engine, ignore=shutil.ignore_patterns("__pycache__"))
     (packs / "CURRENT").write_text(version)  # flip last
     for old in sorted(p for p in packs.glob("v*") if p.name != version)[:-2]:
         shutil.rmtree(old)  # keep the two previous versions for rollback

@@ -96,3 +96,17 @@ def test_paper_cli(tmp_path):
 def test_taught_lists_plan_kcs_up_to_current_week(tmp_path):
     v = make_vault(tmp_path)
     assert run(v, "taught") == {"phys": ["9702-2.1.1", "9702-2.1.4"]}
+
+
+def test_engine_copied_into_vault_finds_its_own_vault(tmp_path):
+    """Remote Cowork runs the engine from the connected folder (device_bash, ~/mnt/<folder>/.tutor/engine)."""
+    import shutil
+    v = make_vault(tmp_path)
+    eng = v / ".tutor" / "engine"
+    shutil.copytree(SCRIPT.parent, eng, ignore=shutil.ignore_patterns("__pycache__"))
+    env = {k: val for k, val in os.environ.items() if k != "STEM_TUTOR_VAULT"}
+    env.update(STEM_TUTOR_MOUNTS=str(tmp_path / "nowhere/*"), STEM_TUTOR_NOW="2026-09-29T17:00:00+08:00")
+    p = subprocess.run([sys.executable, str(eng / "tutor.py"), "doctor"], capture_output=True, text=True, env=env, cwd=tmp_path)
+    assert p.returncode == 0, p.stderr
+    out = json.loads(p.stdout)
+    assert out["ok"] and Path(out["vault"]).resolve() == v.resolve()

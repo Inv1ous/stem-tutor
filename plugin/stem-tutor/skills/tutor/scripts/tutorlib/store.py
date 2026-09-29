@@ -30,6 +30,9 @@ def find_vault(globs: list[str] | None = None) -> Path:
     env = os.environ.get("STEM_TUTOR_VAULT")
     if env and (Path(env) / ".tutor" / "config.json").exists():
         return Path(env)
+    home = Path(__file__).resolve().parents[2]  # engine published into <vault>/.tutor/engine/
+    if home.name == ".tutor" and (home / "config.json").exists():
+        return home.parent
     for pattern in MOUNT_GLOBS if globs is None else globs:
         for hit in sorted(glob.glob(os.path.join(pattern, ".tutor", "config.json"))):
             return Path(hit).parent.parent
