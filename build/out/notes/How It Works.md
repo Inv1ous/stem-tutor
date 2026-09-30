@@ -23,15 +23,15 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 ## 1. Setting up (once)
 
-1. **Open this folder as a vault in Obsidian.** In Obsidian: *Open another vault → Open folder as vault →* choose **STEM Tutor** (it is in `Miscellaneous › 02 Education › ~~ AI Workflow`). This lets the tutor show its pages automatically.
+1. **Open this folder as a vault in Obsidian.** In Obsidian: *Open another vault → Open folder as vault →* choose **STEM Tutor** (it is in `Miscellaneous › 02 Education › AI Workflow`). This lets the tutor show its pages automatically.
 2. **Sign in the AI (optional but recommended).** Open the Terminal app, type `claude auth login` and follow the steps with your normal Claude account. This lets the tutor answer your questions and explain things in new ways. Everything else works without it.
 3. **Check everything.** In Terminal, run the tutor's check:
-   `"$HOME/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/bin/tutor" doctor`
+   `"$HOME/Miscellaneous/02 Education/AI Workflow/stem-tutor/bin/tutor" doctor`
    Every line should show ✅. Anything with ❌ tells you exactly what to do.
 
 > [!info] Want to start it by typing `tutor`?
 > Run this once in Terminal, then open a new Terminal window:
-> `echo 'alias tutor="$HOME/Miscellaneous/02\ Education/~~\ AI\ Workflow/stem-tutor/bin/tutor"' >> ~/.zshrc`
+> `echo 'alias tutor="$HOME/Miscellaneous/02\ Education/AI\ Workflow/stem-tutor/bin/tutor"' >> ~/.zshrc`
 
 This folder lives on your Mac only, not iCloud, so nothing needs to be "kept downloaded". Your progress is saved in the hidden `.tutor` folder inside it.
 
@@ -275,8 +275,8 @@ The tutor uses methods with good evidence behind them, and is honest about how s
 
 ## 15. Where everything lives
 
-- **This vault (your data):** `Miscellaneous › 02 Education › ~~ AI Workflow › STEM Tutor`. Everything you see in Obsidian, plus the hidden `.tutor` folder with your progress. Every answer you've ever given is recorded there, so nothing is lost. Don't edit `.tutor` by hand. If a file in it is ever damaged (for example by a crash mid-save), the tutor skips the damaged line and carries on.
-- **The program:** `~~ AI Workflow › stem-tutor`. You don't need to open it.
+- **This vault (your data):** `Miscellaneous › 02 Education › AI Workflow › STEM Tutor`. Everything you see in Obsidian, plus the hidden `.tutor` folder with your progress. Every answer you've ever given is recorded there, so nothing is lost. Don't edit `.tutor` by hand. If a file in it is ever damaged (for example by a crash mid-save), the tutor skips the damaged line and carries on.
+- **The program:** `AI Workflow › stem-tutor`. You don't need to open it.
 - **iPad inbox:** `iCloud Drive › STEM Tutor Inbox`, only for PDFs from the iPad.
 - The old copy in your main Obsidian vault (`Notes › 01 Study › STEM Tutor`) is no longer used; it has a MOVED note. You can delete it once you're happy.
 

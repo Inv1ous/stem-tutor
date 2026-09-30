@@ -14,7 +14,7 @@ typing, audit fixes (engine + app), performance (cached schedulers, no menu refo
 Next: content only (adjudicate held packs 9701-1.x, P1-2, S1-1; build more packs + teach cards with a lower-tier agent).
 
 ## Overnight build (2026-09-29 → 30) — terminal app; plan: ~/.claude/plans/can-you-continue-what-polished-swing.md
-- [x] 1 Vault moved to `~~ AI Workflow/STEM Tutor` (local vault, Obsidian config, publish default, iCloud inbox)
+- [x] 1 Vault moved to `AI Workflow/STEM Tutor` (local vault, Obsidian config, publish default, iCloud inbox)
 - [x] 2 Engine: texmath, views (Now/Lessons/My Notes/Home), lesson flow, teach-card fallback, inbox import (+tests)
 - [x] 3 AI client (persistent headless Claude, lean flags) + prompts (+fake-claude tests)
 - [x] 4 Textual app (+pilot tests, screenshots)
@@ -23,7 +23,7 @@ Next: content only (adjudicate held packs 9701-1.x, P1-2, S1-1; build more packs
 - [x] 7 How It Works.md, Home.md, README, memory
 - [x] 8 Final offline E2E, commit, morning summary
 
-Learner to do once: open `~~ AI Workflow/STEM Tutor` as an Obsidian vault; run `claude auth login` (AI stays off
+Learner to do once: open `AI Workflow/STEM Tutor` as an Obsidian vault; run `claude auth login` (AI stays off
 until then); `bin/tutor doctor` should then be all ✅. Held packs (9701-1.x, P1-2, S1-1) still need adjudication.
 
 

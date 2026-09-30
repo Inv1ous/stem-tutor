@@ -10,7 +10,7 @@ export const meta = {
   ],
 }
 
-const ROOT = '/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor'
+const ROOT = '/Users/sora/Miscellaneous/02 Education/AI Workflow/stem-tutor'
 const PY = '.venv/bin/python'
 const subs = Array.isArray(args) ? args : []
 if (!subs.length) throw new Error('pass subtopic ids as args')

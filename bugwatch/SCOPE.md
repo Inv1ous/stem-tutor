@@ -30,7 +30,7 @@ optional chat/explanations. Python 3.13, repo venv `.venv/`.
 ## Running things safely
 
 ```bash
-R="/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor"
+R="/Users/sora/Miscellaneous/02 Education/AI Workflow/stem-tutor"
 bash "$R/bugwatch/check.sh"                        # whole suite, writes nothing in the repo
 bash "$R/bugwatch/check.sh" tests/test_v110.py -q  # part of it
 bash "$R/bugwatch/sandbox.sh"                      # scratch vault in /tmp/stem-tutor-bugwatch (prints env exports)

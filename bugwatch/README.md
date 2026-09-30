@@ -25,13 +25,13 @@ They talk through two append-only logs. **Each file has exactly one writer**, so
    write (besides `/tmp`) is `BUGS.md`'s folder:
 
    ```bash
-   cd "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/bugwatch/codex"
+   cd "/Users/sora/Miscellaneous/02 Education/AI Workflow/stem-tutor/bugwatch/codex"
    codex --sandbox workspace-write --ask-for-approval never
    ```
    (flag names as in the Codex CLI docs; run `codex --help` if your version differs). Then paste `CODEX_PROMPT.md`.
 3. **Watch progress** in a third terminal (works from any folder; it needs nothing but Python 3):
    ```bash
-   python3 "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/bugwatch/bugs.py" --watch
+   python3 "/Users/sora/Miscellaneous/02 Education/AI Workflow/stem-tutor/bugwatch/bugs.py" --watch
    ```
 
 ## Entry formats
