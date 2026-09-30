@@ -7,7 +7,7 @@ export const meta = {
   ],
 }
 
-const ROOT = '/Users/sora/Miscellaneous/02 Education/AI Workflow/stem-tutor'
+const ROOT = '/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor'
 const PLUGIN = `${ROOT}/plugin/stem-tutor`
 const SCRIPTS = `${PLUGIN}/skills/tutor/scripts`
 const { sessions, personas, turns } = args          // sessions: [{persona, model, vault}]

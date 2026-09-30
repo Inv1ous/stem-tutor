@@ -3,7 +3,7 @@ export const meta = {
   description: 'Fresh blind solve of pack items changed after their first blind solve',
   phases: [{ title: 'Recheck', detail: 'Sonnet re-solves only the stale ids, then resolves disagreements', model: 'sonnet' }],
 }
-const ROOT = '/Users/sora/Miscellaneous/02 Education/AI Workflow/stem-tutor'
+const ROOT = '/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor'
 const PY = '.venv/bin/python'
 const RECHK = { type: 'object', properties: { rechecked: { type: 'number' }, agreed: { type: 'number' }, fixed: { type: 'number' },
   remaining: { type: 'array', items: { type: 'string' } } }, required: ['rechecked', 'agreed', 'remaining'] }

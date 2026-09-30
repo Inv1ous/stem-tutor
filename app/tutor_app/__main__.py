@@ -11,7 +11,7 @@ from . import config, mac
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="tutor", description="STEM Tutor: study in the terminal, notes in Obsidian.")
     ap.add_argument("command", nargs="?", choices=["doctor"], help="doctor = check the setup")
-    ap.add_argument("--vault", type=Path, help="tutor folder (default: AI Workflow/STEM Tutor)")
+    ap.add_argument("--vault", type=Path, help="tutor folder (default: ~~ AI Workflow/STEM Tutor)")
     args = ap.parse_args(argv)
     vault = args.vault or config.vault_path()
     if args.command == "doctor":
