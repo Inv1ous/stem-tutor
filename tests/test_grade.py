@@ -228,6 +228,9 @@ def test_expression_power_tower_is_refused_not_computed():
     ("ln(x^2)", "2*ln(x)"),
     ("sqrt(x) sqrt(y)", "sqrt(x*y)"),
     ("(x^2 - 1)/(x - 1)", "x + 1"),
+    ("ln(8)", "3*ln(2)"),
+    ("sqrt(8)", "2*sqrt(2)"),
+    ("e^(e^x)", "exp(exp(x))"),
     ("log(x, 10)", "log(x)/log(10)"),
 ])
 def test_expression_equivalent_forms_still_match(given, expected):
@@ -338,3 +341,19 @@ def test_percent_sign_on_a_plain_number_answer_is_fine():
 def test_identities_true_only_for_positive_values_are_rejected(given, expected):  # B-021
     item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
     assert not grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"]
+
+
+def test_expression_grading_time_is_bounded():  # B-023
+    code = ("import sys, time\nfrom tutorlib import grade\n"
+            "for s in sys.argv[1:]:\n"
+            "    t = time.perf_counter()\n"
+            "    g = grade.grade_item({'kind': 'expression', 'answer': {'expr': 'x'}}, {'kind': 'value', 'value': s})\n"
+            "    print(repr(s), g['correct'], round(time.perf_counter() - t, 2))\n")
+    inputs = ["Pow(2, 1000000000)", "2Pow(2, 10^9)", "Integer(10)^10^9", "(x+1)^10000", "(x+1)^1000 - x^1000",
+              "x^x^x^x", "exp(exp(exp(x)))", "e^(e^(e^x))", "x^(x^x)", "sin(10^100 x)"]
+    env = {**os.environ, "PYTHONPATH": os.pathsep.join(sys.path), "PYTHONDONTWRITEBYTECODE": "1"}
+    out = subprocess.run([sys.executable, "-c", code, *inputs], capture_output=True, text=True, timeout=90, env=env)
+    rows = [line.rsplit(" ", 2) for line in out.stdout.splitlines()]
+    assert len(rows) == len(inputs), out.stderr[-400:]
+    for s, correct, secs in rows:
+        assert correct == "False" and float(secs) < 2, (s, secs)

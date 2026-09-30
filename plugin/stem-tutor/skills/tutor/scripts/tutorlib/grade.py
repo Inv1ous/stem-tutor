@@ -11,7 +11,6 @@ from __future__ import annotations
 import math
 import random
 import re
-from fractions import Fraction
 
 from .units import SUPERSCRIPT, unit_factor
 
@@ -212,21 +211,29 @@ def _grade_numeric(item, resp):
 _EXPR_TEXT = re.compile(r"[0-9A-Za-z\s+\-*/^().,]{1,200}")
 _EXPR_FUNCS = ("sin", "cos", "tan", "sec", "csc", "cot", "asin", "acos", "atan", "sinh", "cosh", "tanh",
                "exp", "log", "sqrt")
-_MAX_POWER = 10_000  # nested exponents multiply; beyond this sympy would grind on numbers with millions of digits
+_BUILDERS = re.compile(r"(?<![A-Za-z])(Symbol|Function|Number|Integer|Float|Rational|Add|Mul|Pow)(?![A-Za-z])")
+_MAX_POWER = 1_000  # nested exponents multiply; A-level needs far less, and sympy grinds on huge powers
 
 
 def _check_size(sympy, tree) -> None:
+    """Refuse work sympy could take minutes over: a power beyond _MAX_POWER, or exponentials stacked three deep."""
     degree: dict = {}
+    height: dict = {}
     for node in sympy.postorder_traversal(tree):
         d = max((degree.get(a, 1) for a in node.args), default=1)
+        h = max((height.get(a, 0) for a in node.args), default=0)
         if isinstance(node, sympy.Pow) and not node.exp.free_symbols:
             try:
                 d = degree.get(node.base, 1) * max(1.0, abs(complex(node.exp.evalf())))
             except (TypeError, ValueError):
                 d = math.inf
-        if not d <= _MAX_POWER:
-            raise ParseError("exponent too large")
-        degree[node] = d
+        elif isinstance(node, sympy.Pow):
+            h = max(height.get(node.base, 0), 1 + height.get(node.exp, 0))
+        elif isinstance(node, sympy.exp):
+            h = 1 + height.get(node.args[0], 0)
+        if not d <= _MAX_POWER or h >= 3:
+            raise ParseError("too large to check")
+        degree[node], height[node] = d, h
 
 
 def _sympy():
@@ -238,13 +245,13 @@ def _sympy():
                                             parse_expr, standard_transformations)
 
     tr = standard_transformations + (implicit_multiplication_application, convert_xor)
-    names = {n: getattr(sympy, n) for n in ("Symbol", "Function", "Number", "Integer", "Float", "Rational", "Add", "Mul",
-                                            "Pow", *_EXPR_FUNCS)}
+    names = {n: getattr(sympy, n) for n in ("Symbol", "Function", "Number", "Integer", "Float", "Rational", "Add",
+                                            "Mul", "Pow", *_EXPR_FUNCS)}
     names.update(__builtins__={}, abs=sympy.Abs, ln=sympy.log)
 
     def parse(s: str):
         s = s.replace("\\", "")
-        if not _EXPR_TEXT.fullmatch(s) or "." in re.sub(r"\d*\.\d+|\d+\.", "", s):
+        if not _EXPR_TEXT.fullmatch(s) or "." in re.sub(r"\d*\.\d+|\d+\.", "", s) or _BUILDERS.search(s):
             raise ParseError(f"not a plain maths expression: {s[:40]!r}")
         for evaluate in (False, True):  # build unevaluated first so a huge power is refused before it is computed
             expr = parse_expr(s, local_dict={"e": sympy.E, "pi": sympy.pi}, global_dict=dict(names),
@@ -261,7 +268,7 @@ def _real_at(sympy, expr, point) -> float | None:
     there (sqrt(x)·sqrt(y) at x, y < 0 is real, but only by passing through imaginary numbers)."""
     def real(e):
         try:
-            v = complex(e.subs(point).evalf())
+            v = complex(e.evalf(subs=point))  # numeric: exact substitution expands 8.5^(8.5^8.5) digit by digit
         except (TypeError, ValueError, ArithmeticError):
             return None
         return v.real if math.isfinite(abs(v)) and abs(v.imag) <= 1e-9 * max(1.0, abs(v.real)) else None
@@ -275,23 +282,23 @@ def _real_at(sympy, expr, point) -> float | None:
 def expressions_equal(a: str, b: str) -> bool:
     sympy, parse = _sympy()
     ea, eb = parse(a), parse(b)
-    if sympy.simplify(ea - eb) == 0:
+    if ea - eb == 0:  # same once sympy has put both in canonical order; everything else is checked by value
         return True
     syms = sorted(ea.free_symbols | eb.free_symbols, key=str)
     rng = random.Random(7)
     agreed = 0
-    for i in range(12):
+    for i in range(12 if syms else 1):
         # all positive, all negative, then alternating signs: abs(x) and x agree only for x > 0. A point outside
         # either side's real domain is skipped, so ln(x^2) = 2 ln(x) still holds on the positive values
-        point = {s: (1 if i < 4 else -1 if i < 6 else (-1) ** (i + j)) * Fraction(rng.randint(3, 17), rng.randint(2, 5))
-                 for j, s in enumerate(syms)}
+        point = {s: (1 if i < 4 else -1 if i < 6 else (-1) ** (i + j))
+                 * sympy.Rational(rng.randint(3, 17), rng.randint(2, 5)) for j, s in enumerate(syms)}
         va, vb = _real_at(sympy, ea, point), _real_at(sympy, eb, point)
         if va is None or vb is None:
             continue
         if abs(va - vb) > 1e-9 * max(1.0, abs(va), abs(vb)):
             return False
         agreed += 1
-    return bool(syms) and agreed >= 3
+    return agreed >= (3 if syms else 1)
 
 
 def _grade_expression(item, resp):
