@@ -70,7 +70,8 @@ def _splits(sym: str):
                 yield [head] + rest
 
 
-def _normalise(text: str) -> list[tuple[str, int]]:
+def _normalise(text: str) -> list[tuple[str, int, int]]:
+    """(symbol run, exponent, +1 above the line or -1 below it) per token."""
     text = text.translate(SUPERSCRIPT).replace("·", " ").replace("*", " ").replace(".", " ").strip()
     text = re.sub(r"\s*/\s*", " / ", text)
     tokens, sign = [], 1
@@ -81,7 +82,7 @@ def _normalise(text: str) -> list[tuple[str, int]]:
         m = TOKEN.match(raw)
         if not m:
             raise ValueError(f"unit token {raw!r}")
-        tokens.append((m.group(1), sign * int(m.group(2) or 1)))
+        tokens.append((m.group(1), sign * int(m.group(2) or 1), sign))
     return tokens
 
 
@@ -90,14 +91,14 @@ def parse_unit(text: str) -> list[tuple[float, tuple]]:
     if not text or not text.strip():
         return [(1.0, _d())]
     options = [(1.0, _d())]
-    for sym, exp in _normalise(text):
+    for sym, exp, sign in _normalise(text):
         readings = []
         std = _symbol(sym)
         if std:
             readings.append([(std, exp)])
         for split in _splits(sym):
             if len(split) > 1:
-                readings.append([(u, 1) for u in split[:-1]] + [(split[-1], exp)])
+                readings.append([(u, sign) for u in split[:-1]] + [(split[-1], exp)])  # kg/ms2: m is below the line
         if not readings:
             raise ValueError(f"unknown unit {sym!r}")
         new = []

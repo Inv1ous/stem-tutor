@@ -282,3 +282,18 @@ def test_trailing_zero_is_read_strictly_for_rounding():
 ])
 def test_rounding_is_judged_at_the_answers_magnitude(value, text, ok):
     assert _num(value, text, sf_ok=[2, 3])["correct"] is ok
+
+
+# ---------- units after a slash (B-022) ----------
+@pytest.mark.parametrize("given,expected,factor", [
+    ("kg/ms2", "Pa", 1.0), ("kg/ms2", "N", None), ("J/molK", "J mol^-1 K^-1", 1.0), ("J/molK", "J mol K^-1", None),
+    ("N/m2", "Pa", 1.0), ("kg/m3", "g cm-3", 1e-3), ("ms-2", "m s^-2", 1.0), ("kg m/s2", "N", 1.0),
+])
+def test_joined_units_after_a_slash_are_all_below_the_line(given, expected, factor):
+    got = grade.unit_factor(given, expected)
+    assert got == (pytest.approx(factor) if factor else None)
+
+
+def test_compact_denominator_unit_is_not_a_force():
+    g = grade.grade_item({"kind": "numeric", "answer": {"value": 1, "unit": "N"}}, {"kind": "value", "value": "1 kg/ms2"})
+    assert not g["correct"]
