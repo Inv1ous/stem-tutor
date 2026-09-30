@@ -202,7 +202,7 @@ def _apply_answer(state: dict, e: dict) -> None:
 
 def _time_block(when: datetime) -> str:
     h = when.hour
-    return "morning" if 5 <= h < 12 else "afternoon" if h < 17 else "evening" if h < 22 else "late night"
+    return "morning" if 5 <= h < 12 else "afternoon" if 12 <= h < 17 else "evening" if 17 <= h < 22 else "late night"
 
 
 def _apply_tag(state: dict, e: dict) -> None:

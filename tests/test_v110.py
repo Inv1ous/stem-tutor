@@ -291,3 +291,10 @@ def test_same_title_lessons_in_one_minute_get_separate_logs(tutor):  # B-010
     c = views.LessonLog.create(tutor.vault.root, "Collision probe", t + timedelta(seconds=59))
     assert len({a.rel, b.rel, c.rel}) == 3
     assert "KEEP FIRST SESSION NOTES" in (tutor.vault.root / a.rel).read_text()
+
+
+@pytest.mark.parametrize("hour,block", [(0, "late night"), (2, "late night"), (4, "late night"), (5, "morning"),
+                                        (11, "morning"), (12, "afternoon"), (16, "afternoon"), (17, "evening"),
+                                        (22, "late night"), (23, "late night")])
+def test_time_blocks_cover_the_small_hours(hour, block):  # B-006
+    assert model._time_block(T0.replace(hour=hour)) == block
