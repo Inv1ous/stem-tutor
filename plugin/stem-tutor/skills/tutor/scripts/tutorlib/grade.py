@@ -238,8 +238,8 @@ def _sympy():
                                             parse_expr, standard_transformations)
 
     tr = standard_transformations + (implicit_multiplication_application, convert_xor)
-    names = {n: getattr(sympy, n) for n in ("Symbol", "Function", "Integer", "Float", "Rational", "Add", "Mul", "Pow",
-                                            *_EXPR_FUNCS)}
+    names = {n: getattr(sympy, n) for n in ("Symbol", "Function", "Number", "Integer", "Float", "Rational", "Add", "Mul",
+                                            "Pow", *_EXPR_FUNCS)}
     names.update(__builtins__={}, abs=sympy.Abs, ln=sympy.log)
 
     def parse(s: str):
@@ -256,22 +256,42 @@ def _sympy():
     return sympy, parse
 
 
+def _real_at(sympy, expr, point) -> float | None:
+    """The value at `point`, or None outside the real domain: any function or fractional power inside is not real
+    there (sqrt(x)·sqrt(y) at x, y < 0 is real, but only by passing through imaginary numbers)."""
+    def real(e):
+        try:
+            v = complex(e.subs(point).evalf())
+        except (TypeError, ValueError, ArithmeticError):
+            return None
+        return v.real if math.isfinite(abs(v)) and abs(v.imag) <= 1e-9 * max(1.0, abs(v.real)) else None
+
+    for sub in sympy.preorder_traversal(expr):
+        if (isinstance(sub, sympy.Function) or (sub.is_Pow and not sub.exp.is_integer)) and real(sub) is None:
+            return None
+    return real(expr)
+
+
 def expressions_equal(a: str, b: str) -> bool:
     sympy, parse = _sympy()
     ea, eb = parse(a), parse(b)
-    diff = sympy.simplify(ea - eb)
-    if diff == 0:
+    if sympy.simplify(ea - eb) == 0:
         return True
-    syms = sorted(diff.free_symbols, key=str)
+    syms = sorted(ea.free_symbols | eb.free_symbols, key=str)
     rng = random.Random(7)
-    for _ in range(6):
-        point = {s: Fraction(rng.randint(3, 17), rng.randint(2, 5)) for s in syms}
-        try:
-            if abs(complex(diff.subs(point).evalf())) > 1e-9:
-                return False
-        except (TypeError, ValueError):
+    agreed = 0
+    for i in range(12):
+        # all positive, all negative, then alternating signs: abs(x) and x agree only for x > 0. A point outside
+        # either side's real domain is skipped, so ln(x^2) = 2 ln(x) still holds on the positive values
+        point = {s: (1 if i < 4 else -1 if i < 6 else (-1) ** (i + j)) * Fraction(rng.randint(3, 17), rng.randint(2, 5))
+                 for j, s in enumerate(syms)}
+        va, vb = _real_at(sympy, ea, point), _real_at(sympy, eb, point)
+        if va is None or vb is None:
+            continue
+        if abs(va - vb) > 1e-9 * max(1.0, abs(va), abs(vb)):
             return False
-    return bool(syms)
+        agreed += 1
+    return bool(syms) and agreed >= 3
 
 
 def _grade_expression(item, resp):

@@ -224,7 +224,10 @@ def test_expression_power_tower_is_refused_not_computed():
     ("0.5 m v^2", "m*v**2/2"),
     ("pi r^2", "pi*r**2"),
     ("sqrt(2 g h)", "(2*g*h)**0.5"),
-    ("abs(-x) + 10^3", "x + 1000"),
+    ("abs(-x) + 10^3", "abs(x) + 1000"),
+    ("ln(x^2)", "2*ln(x)"),
+    ("sqrt(x) sqrt(y)", "sqrt(x*y)"),
+    ("(x^2 - 1)/(x - 1)", "x + 1"),
     ("log(x, 10)", "log(x)/log(10)"),
 ])
 def test_expression_equivalent_forms_still_match(given, expected):
@@ -327,3 +330,11 @@ def test_unit_on_a_plain_number_answer_earns_no_credit(text):
 def test_percent_sign_on_a_plain_number_answer_is_fine():
     assert _num(85, "85%", sf_ok=[2, 3])["score"] == 1.0
     assert grade.value_problem({"kind": "numeric", "answer": {"value": 85, "unit": ""}}, "85 %") is None
+
+
+@pytest.mark.parametrize("given,expected", [
+    ("abs(x)", "x"), ("sqrt(x^2)", "x"), ("abs(-x) + 1000", "x + 1000"), ("abs(x y)", "x*y"), ("x^2/abs(x)", "x"),
+])
+def test_identities_true_only_for_positive_values_are_rejected(given, expected):  # B-021
+    item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
+    assert not grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"]
