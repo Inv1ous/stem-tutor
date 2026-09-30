@@ -484,11 +484,14 @@ class Tutor(LessonMixin):
                 continue
             inst = p["inst"]
             if inst["kind"] == "numeric" and r["kind"] == "value":
-                try:
-                    grade.parse_quantity(str(r["value"]))
-                except grade.ParseError:
+                problem = grade.value_problem(inst, str(r["value"]))
+                if problem == "unreadable":
                     results.append({"n": r["n"], "error": f"could not read the value {r['value']!r}; resend it as "
                                     f"'{r['n']} = <number> <unit> ~<1-4>' (it stays open)"})
+                    continue
+                if problem == "unit":
+                    results.append({"n": r["n"], "error": f"question {r['n']} wants a plain number, no unit; resend "
+                                    f"it as '{r['n']} = <number> ~<1-4>' (it stays open)"})
                     continue
             expected = _expected_kind(inst["kind"])
             if r["kind"] != "idk" and r["kind"] not in expected:

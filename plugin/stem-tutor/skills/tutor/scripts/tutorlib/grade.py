@@ -113,8 +113,20 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
         raise ParseError(f"cannot use the number in {text!r}") from None
     if not math.isfinite(value):
         raise ParseError(f"number out of range in {text!r}")
+    unit = m["unit"].strip()
+    if unit and not (unit[0].isalpha() or unit[0] in "%°/"):  # "500 + 1", "2^10", "5 000": not one number
+        raise ParseError(f"more than a number in {text!r}")
     digits = None if m["den"] else len(m["mant"].lstrip("+-").replace(".", "").lstrip("0")) or 1
-    return value, m["unit"].strip(), sf, digits
+    return value, unit, sf, digits
+
+
+def value_problem(item: dict, text: str) -> str | None:
+    """Why a typed value can't be marked for this numeric item ("unreadable" or "unit"), else None."""
+    try:
+        unit = _parse(text)[1]
+    except ParseError:
+        return "unreadable"
+    return "unit" if not item["answer"].get("unit") and unit not in ("", "%") else None
 
 
 # ---------------- grading ----------------
@@ -159,6 +171,8 @@ def _grade_numeric(item, resp):
         return _result(False, 0, needs_judgement=True)
     tol = 1e-9 if ans.get("exact") else ans.get("tol_rel", 0.01)  # exact: counts, conversions; 1e-9 absorbs float noise
     want_unit = ans.get("unit") or ""
+    if not want_unit and unit not in ("", "%"):  # a plain number: "500 kg" is not 500
+        return _result(False, 0, needs_judgement=True, detail="expected a plain number")
     notation = None
     if want_unit:
         if not unit:

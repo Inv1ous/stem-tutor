@@ -308,3 +308,22 @@ def test_extreme_unit_exponent_is_a_wrong_unit_not_a_crash(text):  # B-003
 def test_value_overflowing_on_unit_conversion_is_not_a_crash():  # B-003
     g = grade.grade_item({"kind": "numeric", "answer": {"value": 9.81, "unit": "pm"}}, {"kind": "value", "value": "1e305 Gm"})
     assert not g["correct"] and g["score"] == 0
+
+
+# ---------- plain-number answers (B-001) ----------
+@pytest.mark.parametrize("text", ["500 + 1", "500+1", "2^10", "5 000", "500 - 1", "117 * 1", "9.81 (m s-2)"])
+def test_arithmetic_after_the_number_is_unreadable(text):
+    with pytest.raises(grade.ParseError):
+        grade.parse_quantity(text)
+
+
+@pytest.mark.parametrize("text", ["500 kg", "500 mm", "500 banana"])
+def test_unit_on_a_plain_number_answer_earns_no_credit(text):
+    g = _num(500, text, exact=True)
+    assert not g["correct"] and g["score"] == 0 and g["needs_judgement"]
+    assert grade.value_problem({"kind": "numeric", "answer": {"value": 500, "unit": ""}}, text) == "unit"
+
+
+def test_percent_sign_on_a_plain_number_answer_is_fine():
+    assert _num(85, "85%", sf_ok=[2, 3])["score"] == 1.0
+    assert grade.value_problem({"kind": "numeric", "answer": {"value": 85, "unit": ""}}, "85 %") is None

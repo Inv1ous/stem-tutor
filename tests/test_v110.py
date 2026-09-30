@@ -259,3 +259,15 @@ def test_plan_with_nothing_to_teach_gives_a_practice_check(tutor):
     tutor.respond({"teach": []})
     kinds = [b["kind"] for b in tutor.session["blocks"]]
     assert kinds[-1] == "practice" and "exit" not in kinds and "node" not in kinds
+
+
+def test_unit_on_a_plain_number_question_keeps_it_open(tutor):  # B-001
+    tutor.start("review", minutes=10)
+    base = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["kind"] == "numeric")
+    item = {**{k: v for k, v in base.items() if k != "template"}, "id": "unitless-probe",
+            "answer": {"value": 500, "unit": "", "exact": True}}
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    r = tutor.answer(f"{n} = 500 kg ~3")["results"][0]
+    assert "no unit" in r["error"] and str(n) in tutor.session["presented"]
+    r = tutor.answer(f"{n} = 500 ~3")["results"][0]
+    assert r["correct"]
