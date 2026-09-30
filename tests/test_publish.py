@@ -10,3 +10,16 @@ def test_pruning_keeps_the_two_newest_previous_versions_past_v9(tmp_path):  # B-
         (tmp_path / f"v{n}").mkdir()
     publish.prune_versions(tmp_path, "v12")
     assert sorted(p.name for p in tmp_path.iterdir()) == ["v10", "v11", "v12"]
+
+
+def test_the_plan_records_which_almanac_it_was_built_from(tmp_path, monkeypatch):
+    import hashlib
+    import plan
+    alm = tmp_path / "A-Levels.html"
+    alm.write_text('<script>const OBJ = [[1, "phys", "Learn", "Physical quantities", "9702 §1 · AS", "-", 1, "NEW", '
+                   '"A"]]; const PAPERS = []; const PHASES = []; const STAGES = [];</script>', encoding="utf-8")
+    monkeypatch.setattr(plan, "ALMANAC", alm)
+    p = plan.build()
+    assert p["source_path"] == str(alm)
+    assert p["source_sha256"] == hashlib.sha256(alm.read_bytes()).hexdigest()
+    assert p["weeks"]["1"][0]["kcs"]  # the objective still maps to syllabus ideas

@@ -1,6 +1,7 @@
 """Mac helpers: Obsidian, the iPad inbox, and the health check (`tutor doctor`)."""
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 import subprocess
@@ -67,6 +68,17 @@ def inbox_blocked(inbox: Path) -> bool:
     except OSError:
         return True
     return False
+
+
+def almanac_changed(plan: dict) -> bool:
+    """True when the Almanac file the plan was built from has changed since, so the tutor still follows the old plan."""
+    src, digest = plan.get("source_path"), plan.get("source_sha256")
+    if not (src and digest):
+        return False
+    try:
+        return hashlib.sha256(Path(src).read_bytes()).hexdigest() != digest
+    except OSError:  # moved or unreadable: nothing to compare
+        return False
 
 
 def _unused(folder: Path, name: str) -> Path:

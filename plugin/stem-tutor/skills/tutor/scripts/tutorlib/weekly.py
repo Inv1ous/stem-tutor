@@ -32,8 +32,9 @@ def start_experiments(t) -> list[str]:
     return started
 
 
-def run(t) -> dict:
-    res = {"today": report.today_note(t), "profile": report.profile_note(t), "experiments_started": start_experiments(t)}
+def run(t, minutes: int = 50) -> dict:
+    res = {"today": report.today_note(t, minutes), "profile": report.profile_note(t),
+           "experiments_started": start_experiments(t)}
     last = t.state.get("anki_last")
     if last is None or (t.now() - datetime.fromisoformat(last)).days >= 6:
         res["anki"] = anki.export(t)

@@ -9,6 +9,7 @@ year-1 exam-preparation weeks, P3 leaves the F6 unit lists, and the stale "do no
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -128,7 +129,9 @@ def build() -> dict:
                        "marks": marks, "date": date or None})
         if date:
             sittings[f"{short} ({code.split('/')[0]})"] = date
-    return {"source": ALMANAC.name, "start": "2026-09-01", "week2_monday": "2026-09-07", "weeks": weeks,
+    return {"source": ALMANAC.name, "source_path": str(ALMANAC),
+            "source_sha256": hashlib.sha256(ALMANAC.read_bytes()).hexdigest(),
+            "start": "2026-09-01", "week2_monday": "2026-09-07", "weeks": weeks,
             "sittings": sittings, "papers": papers, "added_by_tutor": added, "sitting_2027_units": sorted(SITTING_2027),
             "phases": [{"n": p[0], "name": p[1], "from": p[2], "to": p[3], "job": p[5]} for p in alm["PHASES"]],
             "stages": [{"name": s[0], "note": s[1]} for s in alm["STAGES"]]}

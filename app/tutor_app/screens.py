@@ -14,7 +14,7 @@ from textual.widgets import Button, Footer, Input, Markdown, OptionList, Select,
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
-from tutorlib import model, views
+from tutorlib import model, policy, report, views
 from tutorlib.lesson import GOALS
 
 from . import ai as ai_mod
@@ -35,6 +35,10 @@ def bar(done: int, total: int, width: int = 12) -> str:
 
 
 # ============================ Home ============================
+MODE_NAMES = {"autopilot": "today's plan"}
+SUBJECTS = {"math": "Maths", "chem": "Chem", "phys": "Phys", "exam": "Exam"}
+
+
 class HomeScreen(Screen):
     BINDINGS = [Binding("question_mark", "app.help", "Help"), Binding("f2", "app.settings", "Settings"),
                 Binding("q", "app.quit", "Quit")]
@@ -55,6 +59,7 @@ class HomeScreen(Screen):
         views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(),
                          sorted((str(f.relative_to(app.vault)) for f in lessons.glob("*.md")), reverse=True)
                          if lessons.exists() else [])
+        report.today_note(app.tutor, app.settings.minutes)  # Today.md: this week's plan and what's due
         self.refresh_home()
 
     def refresh_home(self) -> None:
@@ -69,8 +74,11 @@ class HomeScreen(Screen):
         items = []
         if t.session:
             s = t.session
-            items.append(("resume", f"▶  Resume your {s['mode']} session ({s.get('answered', 0)} answered)"))
-        items += [("learn", "◆  Learn a topic (lesson)"),
+            items.append(("resume", f"▶  Resume your {MODE_NAMES.get(s['mode'], s['mode'])} session "
+                                    f"({s.get('answered', 0)} answered)"))
+        week = policy.current_week(t.packs.plan, now) if t.packs.plan.get("weeks") else 0
+        items += [("today", f"★  Today's plan{f' (Almanac week {week})' if week else ''}"),
+                  ("learn", "◆  Learn a topic (lesson)"),
                   ("review", f"↻  Review what's due ({len(due)})"),
                   ("test", "◎  Test prep: check a chapter, fix what's weak"),
                   ("long", "✎  Long questions (typed or iPad)"),
@@ -100,6 +108,24 @@ class HomeScreen(Screen):
                           if date.fromisoformat(v) >= now.date())
         if sittings:
             out.append(f"⏳ {sittings[0][1]}: {(sittings[0][0] - now.date()).days} days\n\n", style="#94e2d5")
+        week = policy.current_week(t.packs.plan, now)
+        objectives = (t.packs.plan.get("weeks") or {}).get(str(week), [])
+        if objectives:
+            out.append(f"📅 Almanac week {week}\n", style="bold #94e2d5")
+            for o in objectives[:6]:
+                kcs = o.get("kcs", [])
+                ready = sum(1 for k in kcs if k in t.packs.kcs and t.packs.items_for(k))
+                title = o["title"] if o.get("type", "NEW") == "NEW" else f"{o.get('verb', '')} {o['title']}".strip()
+                title = title[:36] + ("…" if len(title) > 36 else "")
+                out.append(f"{SUBJECTS.get(o['subject'], o['subject']):<6}{title}", style="#cdd6f4")
+                if kcs:
+                    status = "ready" if ready == len(kcs) else f"{ready}/{len(kcs)} ready" if ready else "not built yet"
+                    out.append(" " + status, style="#a6e3a1" if ready == len(kcs) else "#6c7086")
+                out.append("\n")
+            out.append("\n")
+        if mac.almanac_changed(t.packs.plan):
+            out.append("⚠ Your Almanac has changed since the tutor read it: ask Claude Code to refresh the plan.\n\n",
+                       style="#f9e2af")
         out.append("Your topics\n", style="bold")
         for sub in sorted(s for s in t.packs.subtopics if t.packs.pack(s)):
             kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
@@ -121,7 +147,7 @@ class HomeScreen(Screen):
         key = event.option.id
         app = self.app
         s = app.tutor.session
-        if key in ("learn", "review", "test", "long", "blurt") and s and s.get("answered"):
+        if key in ("today", "learn", "review", "test", "long", "blurt") and s and s.get("answered"):
             def decided(choice: str | None) -> None:
                 if choice == "resume":
                     app.push_screen(SessionScreen(None))
@@ -129,7 +155,8 @@ class HomeScreen(Screen):
                     app.tutor.end(abandoned=True)
                     self.refresh_home()
                     self._start(key)
-            app.push_screen(ConfirmScreen(f"You have an unfinished {s['mode']} session ({s['answered']} answered).",
+            name = MODE_NAMES.get(s["mode"], s["mode"])
+            app.push_screen(ConfirmScreen(f"You have an unfinished {name} session ({s['answered']} answered).",
                                           [("resume", "Resume it"), ("new", "Abandon it and start this"),
                                            ("cancel", "Cancel")]), decided)
             return
@@ -139,6 +166,12 @@ class HomeScreen(Screen):
         app = self.app
         if key == "resume":
             app.push_screen(SessionScreen(None))
+        elif key == "today":  # the engine's autopilot: what's due first, then the Almanac's topics in week order
+            if not policy.plan_session(app.tutor.state, app.tutor.packs, app.tutor.now(), app.settings.minutes):
+                app.notify("Nothing to plan right now: no reviews are due and every Almanac topic with questions so "
+                           "far is done. The next topics aren't built yet; try a blurt or long questions.", timeout=8)
+                return
+            app.push_screen(SessionScreen({"mode": "autopilot", "focus": None, "minutes": app.settings.minutes}))
         elif key == "learn":
             app.push_screen(PickerScreen("lesson"), lambda r: r and app.push_screen(
                 SessionScreen({"mode": "lesson", "focus": r, "minutes": app.settings.minutes})))
@@ -683,7 +716,8 @@ class SessionScreen(Screen):
         summary = self.tutor.end()
         try:
             from tutorlib import weekly
-            summary["week"] = weekly.run(self.tutor)  # Today/Profile notes, experiments, Anki export when due
+            # Today/Profile notes, experiments, Anki export when due
+            summary["week"] = weekly.run(self.tutor, self.app.settings.minutes)
         except Exception as exc:  # bookkeeping must never cost you the session
             summary["week"] = {"error": str(exc)}
         self.app.switch_screen(SummaryScreen(summary))  # closing the summary lands back on the menu

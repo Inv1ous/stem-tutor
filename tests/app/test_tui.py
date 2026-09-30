@@ -77,7 +77,7 @@ def test_home_menu_and_a_whole_lesson_by_keyboard(tmp_path, monkeypatch):
             await pilot.pause()
             await shot(pilot, "home")
             assert app.screen.__class__.__name__ == "HomeScreen"
-            await pilot.press("enter")  # Learn a topic
+            await pilot.press("down", "enter")  # Learn a topic (after Today's plan)
             await pilot.pause()
             assert app.screen.__class__.__name__ == "PickerScreen"
             await pilot.press("enter")  # the only subtopic
@@ -202,7 +202,7 @@ def test_ctrl_keys_work_while_typing_and_ctrl_q_returns_to_menu(tmp_path, monkey
     async def go():
         async with app.run_test(size=(120, 40)) as pilot:
             await pilot.pause()
-            await pilot.press("enter", "enter")  # learn -> the only subtopic
+            await pilot.press("down", "enter", "enter")  # learn -> the only subtopic
             await pilot.pause()
             for _ in range(20):  # walk to the first typed-answer panel
                 panel = next(iter(app.screen.query("#panel > *")), None)
@@ -441,3 +441,66 @@ def test_app_starts_when_macos_blocks_the_ipad_inbox(tmp_path, monkeypatch):
         asyncio.run(go())
     finally:
         inbox.chmod(0o755)
+
+
+def pin_clock(monkeypatch, iso="2026-09-29T17:00:00+08:00"):  # Almanac week 5; the app's clock ignores STEM_TUTOR_NOW
+    from datetime import datetime
+    from tutorlib import store
+    monkeypatch.setattr(store.Vault, "now", lambda self: datetime.fromisoformat(iso))
+
+
+def test_the_home_screen_shows_this_weeks_almanac_plan_and_starts_it(tmp_path, monkeypatch):
+    pin_clock(monkeypatch)
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            home = app.screen
+            stats = home.stats_text(app.tutor.now(), []).plain
+            assert "Almanac week 5" in stats and "Kinematics" in stats and "ready" in stats
+            assert "changed" not in stats
+            today = (v / "Today.md").read_text()  # the plan is in Obsidian before any session
+            assert "Almanac week 5" in today and f"Suggested {app.settings.minutes}-minute session" in today
+            menu = home.query_one("#menu")
+            assert menu.get_option_at_index(0).id == "today"
+            home._start("today")
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "SessionScreen"
+            assert app.tutor.session["mode"] == "autopilot" and "Today" in app.tutor.session["log"]
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_todays_plan_says_why_when_nothing_is_planned(tmp_path, monkeypatch):
+    pin_clock(monkeypatch)
+    from tutorlib import policy
+    app, v = app_for(tmp_path, monkeypatch)
+    said = []
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            monkeypatch.setattr(policy, "plan_session", lambda *a, **k: [])
+            monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+            app.screen._start("today")
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "HomeScreen" and any("Almanac" in m for m in said)
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_the_home_screen_says_when_the_almanac_changed_since_the_plan_was_built(tmp_path, monkeypatch):
+    pin_clock(monkeypatch)
+    import fixtures
+    alm = tmp_path / "A-Levels.html"
+    alm.write_text("<script>edited since</script>")
+    monkeypatch.setattr(fixtures, "PLAN", {**fixtures.PLAN, "source_path": str(alm), "source_sha256": "0" * 64})
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            assert "Almanac has changed" in app.screen.stats_text(app.tutor.now(), []).plain
+            await app.ai.close()
+    asyncio.run(go())
