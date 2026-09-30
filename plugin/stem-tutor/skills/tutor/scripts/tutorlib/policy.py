@@ -72,6 +72,7 @@ def choose_method(state: dict, packs, kc: str, rng, fresh: bool = False) -> tupl
             if not already and experiments.eligible(exp, meta, ks):
                 a = experiments.assign(state, name, kc, rng)
                 return a["arm"], {"exp": name, "kc": kc, **a}
+        return experiments.preferred(state, meta, ks, default_method(meta, ks, fresh)), None
     return default_method(meta, ks, fresh), None
 
 

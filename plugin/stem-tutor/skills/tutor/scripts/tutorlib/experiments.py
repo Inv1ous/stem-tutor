@@ -90,6 +90,17 @@ def eligible(exp: dict, kc_meta: dict, kc_state: dict) -> bool:
             and kc_state.get("theta", 0.0) >= rule.get("theta_min", -99))
 
 
+def preferred(state: dict, kc_meta: dict, kc_state: dict, method: str) -> str:
+    """The method a finished experiment found better for this kind of idea, when it compared `method` (the default)
+    with another; otherwise `method`."""
+    for exp in state["experiments"].values():
+        won = (exp.get("result") or {}).get("decision")
+        if (exp["status"] == "done" and won in exp["arms"] and method in exp["arms"]
+                and eligible(exp, kc_meta, kc_state)):
+            method = won
+    return method
+
+
 def assign(state: dict, exp_name: str, kc: str, rng) -> dict:
     exp = state["experiments"][exp_name]
     for i, pair in enumerate(exp["pairs"]):

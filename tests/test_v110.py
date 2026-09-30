@@ -339,3 +339,18 @@ def test_restart_resumes_the_repair_worked_example_where_it_was(tmp_path):  # B-
     assert act["activity"] == "worked" and act["revealed"] == 1
     assert again.respond({"done": True})["ok"]
     assert again.next()["activity"] != "worked"
+
+
+def test_a_finished_experiment_decides_the_method(tutor):  # B-009
+    s, kc = model.new_state(), "9702-2.1.4"  # procedural physics, never taught: default worked_faded
+    exp = {"status": "done", "subject": "phys", "arms": ["worked_faded", "problem_first"], "pairs": [],
+           "eligible": {"types": ["procedural"]}, "result": {"decision": "problem_first"}}
+    s["experiments"]["phys-1"] = exp
+    assert policy.choose_method(s, tutor.packs, kc, random.Random(1)) == ("problem_first", None)
+    exp["result"] = {"decision": "no_difference"}
+    assert policy.choose_method(s, tutor.packs, kc, random.Random(1)) == ("worked_faded", None)
+    exp["result"], exp["eligible"] = {"decision": "problem_first"}, {"types": ["conceptual"]}  # not this kind of idea
+    assert policy.choose_method(s, tutor.packs, kc, random.Random(1)) == ("worked_faded", None)
+    exp["eligible"] = {"types": ["procedural"]}
+    s["kcs"][kc] = {**model._new_kc(), "n": 3, "active_misconceptions": ["m2"]}  # a misconception still wins
+    assert policy.choose_method(s, tutor.packs, kc, random.Random(1)) == ("refutation", None)
