@@ -230,3 +230,17 @@ def test_expression_power_tower_is_refused_not_computed():
 def test_expression_equivalent_forms_still_match(given, expected):
     item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
     assert grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"]
+
+
+# ---------- numeric precision rules (B-002, B-004) ----------
+def _num(value, text, **answer):
+    item = {"kind": "numeric", "answer": {"value": value, "unit": answer.pop("unit", ""), **answer}}
+    return grade.grade_item(item, {"kind": "value", "value": text, "conf": 3})
+
+
+@pytest.mark.parametrize("value,text,ok", [
+    (117, "118", False), (117, "117", True), (117, "117.0", True), (500, "501", False), (500, "499.9", False),
+    (0.1 * 3, "0.3", True), (3, "3.01", False),
+])
+def test_exact_answers_allow_no_error(value, text, ok):
+    assert _num(value, text, exact=True)["correct"] is ok

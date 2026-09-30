@@ -144,7 +144,7 @@ def _grade_numeric(item, resp):
         value, unit, sf = parse_quantity(str(resp["value"]))
     except ParseError:
         return _result(False, 0, needs_judgement=True)
-    tol = ans.get("tol_rel", 0.01)
+    tol = 1e-9 if ans.get("exact") else ans.get("tol_rel", 0.01)  # exact: counts, conversions; 1e-9 absorbs float noise
     want_unit = ans.get("unit") or ""
     notation = None
     if want_unit:
