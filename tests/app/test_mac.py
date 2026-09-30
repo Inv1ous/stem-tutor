@@ -42,3 +42,28 @@ def test_a_vault_opened_from_its_parent_folder_counts_as_known(tmp_path, monkeyp
     assert mac.obsidian_vault_registered(vault) == "exact"
     cfg.write_text(json.dumps({"vaults": {"a": {"path": str(tmp_path / "elsewhere")}}}))
     assert not mac.obsidian_vault_registered(vault)
+
+
+def test_one_unreadable_file_is_skipped_not_the_whole_import(tmp_path):
+    vault, inbox = tmp_path / "vault", tmp_path / "ipad"
+    vault.mkdir()
+    inbox.mkdir()
+    (inbox / "a.pdf").write_text("A")
+    (inbox / "b.pdf").write_text("B")
+    (inbox / "a.pdf").chmod(0)  # e.g. an iCloud file still downloading
+    try:
+        assert mac.import_ipad_inbox(vault, inbox) == ["b.pdf"]
+        assert (inbox / "a.pdf").exists()
+    finally:
+        (inbox / "a.pdf").chmod(0o644)
+
+
+def test_a_blocked_inbox_is_reported(tmp_path):
+    inbox = tmp_path / "ipad"
+    inbox.mkdir()
+    assert not mac.inbox_blocked(inbox) and not mac.inbox_blocked(tmp_path / "missing")
+    inbox.chmod(0)  # what macOS privacy settings do to iCloud Drive for Terminal
+    try:
+        assert mac.inbox_blocked(inbox)
+    finally:
+        inbox.chmod(0o755)

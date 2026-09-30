@@ -9,6 +9,9 @@ from pathlib import Path
 from urllib.parse import quote
 
 OBSIDIAN_CONFIG = Path.home() / "Library/Application Support/obsidian/obsidian.json"
+INBOX_HELP = ("macOS isn't letting the tutor open your iPad inbox in iCloud Drive. To allow it: System Settings › "
+              "Privacy & Security › Files & Folders › Terminal › turn on iCloud Drive (or add Terminal under Full Disk "
+              "Access), then restart the tutor. Everything else works meanwhile.")
 
 
 def obsidian_vault_registered(vault: Path) -> str | None:
@@ -42,14 +45,28 @@ def import_ipad_inbox(vault: Path, inbox: Path) -> list[str]:
     moved = []
     dest = vault / "Inbox"
     dest.mkdir(exist_ok=True)
-    for f in sorted(inbox.iterdir()):
+    for f in sorted(inbox.iterdir()):  # raises if macOS privacy settings block iCloud Drive: the caller warns
         if f.is_file() and f.suffix.lower() in (".pdf", ".png", ".jpg", ".jpeg", ".heic") and not f.name.startswith("."):
             target = _unused(dest, f.name)
-            shutil.copy2(f, target)
+            try:
+                shutil.copy2(f, target)
+            except OSError:  # unreadable (still downloading from iCloud?): leave it for next time
+                target.unlink(missing_ok=True)
+                continue
             (inbox / "Imported").mkdir(exist_ok=True)
             f.rename(_unused(inbox / "Imported", f.name))
             moved.append(target.name)
     return moved
+
+
+def inbox_blocked(inbox: Path) -> bool:
+    """True when the inbox exists but can't be listed (macOS privacy settings for iCloud Drive)."""
+    try:
+        if inbox.exists():
+            next(inbox.iterdir(), None)
+    except OSError:
+        return True
+    return False
 
 
 def _unused(folder: Path, name: str) -> Path:
@@ -86,6 +103,10 @@ def doctor(vault: Path) -> list[tuple[bool, str, str]]:
     reg = obsidian_vault_registered(vault)
     rows.append((bool(reg), "Obsidian can show these notes" + (" (inside a larger vault)" if reg == "inside" else ""),
                  "" if reg else "In Obsidian: Open another vault → Open folder as vault → choose the 'STEM Tutor' folder."))
+    from . import config
+    blocked = inbox_blocked(config.ICLOUD_INBOX)
+    rows.append((not blocked, "iPad inbox in iCloud Drive: " + ("blocked by macOS" if blocked else "ready"
+                 if config.ICLOUD_INBOX.exists() else "not set up (optional)"), INBOX_HELP if blocked else ""))
     cs = claude_status()
     rows.append((cs["installed"], "Claude Code is installed (for AI help)", "" if cs["installed"] else
                  "Install Claude Code; the tutor still works without AI."))

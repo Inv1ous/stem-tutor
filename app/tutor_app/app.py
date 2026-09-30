@@ -85,7 +85,11 @@ class TutorApp(App):
             except Exception:
                 pass
         threading.Thread(target=warm, daemon=True).start()
-        imported = mac.import_ipad_inbox(self.vault, config.ICLOUD_INBOX)
+        try:
+            imported = mac.import_ipad_inbox(self.vault, config.ICLOUD_INBOX)
+        except OSError:  # macOS privacy settings can block iCloud Drive: start anyway and say how to allow it
+            imported = []
+            self.notify(mac.INBOX_HELP, severity="warning", timeout=15)
         if imported:
             self.notify(f"Imported from your iPad inbox: {', '.join(imported)}")
         from .screens import HomeScreen

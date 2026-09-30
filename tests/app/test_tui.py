@@ -418,3 +418,26 @@ def test_the_menu_picks_up_chapters_published_while_the_app_is_open(tmp_path, mo
             assert app.tutor.packs.root.name == "v2" and any("Forces" in m for m in seen)
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_app_starts_when_macos_blocks_the_ipad_inbox(tmp_path, monkeypatch):
+    from tutor_app import config
+    inbox = tmp_path / "blocked-inbox"
+    inbox.mkdir()
+    (inbox / "work.pdf").write_text("X")
+    inbox.chmod(0)
+    monkeypatch.setattr(config, "ICLOUD_INBOX", inbox)
+    app, v = app_for(tmp_path, monkeypatch)
+    said = []
+    monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "HomeScreen"
+            assert any("iCloud Drive" in m for m in said)
+            await app.ai.close()
+    try:
+        asyncio.run(go())
+    finally:
+        inbox.chmod(0o755)
