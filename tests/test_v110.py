@@ -298,3 +298,23 @@ def test_same_title_lessons_in_one_minute_get_separate_logs(tutor):  # B-010
                                         (22, "late night"), (23, "late night")])
 def test_time_blocks_cover_the_small_hours(hour, block):  # B-006
     assert model._time_block(T0.replace(hour=hour)) == block
+
+
+@pytest.mark.parametrize("hour,block", [(0, "late night"), (2, "late night"), (4, "late night"), (5, "morning"),
+                                        (11, "morning"), (12, "afternoon"), (16, "afternoon"), (17, "evening"),
+                                        (22, "late night"), (23, "late night")])
+def test_time_blocks_cover_the_small_hours(hour, block):  # B-006
+    assert model._time_block(T0.replace(hour=hour)) == block
+
+
+def test_hinted_answers_do_not_clear_a_misconception():  # B-007
+    s = model.new_state()
+    miss = {"correct": False, "score": 0, "error": "CONCEPT", "misconception": "m"}
+    right = {"correct": True, "score": 1.0, "error": None, "misconception": None}
+    model.apply(s, answer(grade=miss))
+    for i in (1, 2):
+        model.apply(s, answer(ts=T0 + timedelta(minutes=i), grade=right, hinted=True))
+    assert s["kcs"]["9702-2.1.1"]["active_misconceptions"] == ["m"]
+    for i in (3, 4):
+        model.apply(s, answer(ts=T0 + timedelta(minutes=i), grade=right))
+    assert s["kcs"]["9702-2.1.1"]["active_misconceptions"] == []

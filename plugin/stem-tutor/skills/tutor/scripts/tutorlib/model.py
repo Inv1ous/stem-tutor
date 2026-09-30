@@ -144,7 +144,7 @@ def _apply_answer(state: dict, e: dict) -> None:
                 k["active_misconceptions"].append(mis)
             _count(k["mis_counts"], mis)
             k["mis_streak"][mis] = 0
-        elif g["score"] >= SUCCESS:
+        elif success:  # two right answers without hints clear a misconception; a hinted one proves nothing
             for m in list(k["active_misconceptions"]):
                 k["mis_streak"][m] = k["mis_streak"].get(m, 0) + 1
                 if k["mis_streak"][m] >= 2:
