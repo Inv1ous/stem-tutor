@@ -36,7 +36,7 @@ def test_export_only_introduced_kcs_and_only_once(tmp_path):
     rows = _notes(t.vault.root / r["path"])
     assert len(rows) == 1 and "\\(\\vec s\\)" in rows[0][1] and "stem-tutor" in rows[0][2]
     assert anki.export(t)["cards"] == 0
-    assert rows[0][0] == anki.guid("fc1")
+    assert rows[0][0] == anki.guid("9702-2.1:fc1")
 
 
 def test_second_export_in_the_same_minute_keeps_the_first(tmp_path):  # B-013
@@ -49,3 +49,27 @@ def test_second_export_in_the_same_minute_keeps_the_first(tmp_path):  # B-013
     r = anki.export(t)
     assert r["cards"] == 1 and r["path"] != f"Anki/{first.name}" and first.read_bytes() == b"FIRST BATCH"
     assert len(_notes(t.vault.root / r["path"])) == 1
+
+
+def test_same_card_id_in_two_packs_exports_both(tmp_path):  # B-028
+    import json
+    from fixtures import GRAPH, PACK
+    root = make_vault(tmp_path)
+    spec = root / ".tutor" / "packs" / "v1" / "specs" / "9702"
+    graph = json.loads(json.dumps(GRAPH))
+    graph["subtopics"].append({"id": "9702-2.2", "title": "Forces", "topic": "9702-2"})
+    graph["kcs"].append({**graph["kcs"][0], "id": "9702-2.2.1", "subtopic": "9702-2.2", "prereqs": []})
+    (spec / "graph.json").write_text(json.dumps(graph))
+    pack = {**PACK, "subtopic": "9702-2.2", "items": [], "worked": [], "misconceptions": [],
+            "note": "Subjects/9702 Physics/02 Kinematics/2.2 Forces.md",
+            "flashcards": [{"id": "fc1", "kc": "9702-2.2.1", "front": "What is a force?", "back": "A push or pull."}]}
+    (spec / "packs" / "9702-2.2.json").write_text(json.dumps(pack))
+    t = session.Tutor(store.Vault(root), rng=random.Random(0), now=lambda: T0)
+    guids = []
+    for kc in ("9702-2.1.1", "9702-2.2.1"):
+        t.log({"type": "answer", "item": "x", "kcs": [kc], "subject": "phys", "difficulty": 3, "conf": 3, "hinted": False,
+               "marks": 1, "grade": {"correct": True, "score": 1.0, "error": None, "misconception": None}})
+        r = anki.export(t)
+        assert r["cards"] == 1, kc
+        guids += [g for g, _f, _t in _notes(t.vault.root / r["path"])]
+    assert len(set(guids)) == 2

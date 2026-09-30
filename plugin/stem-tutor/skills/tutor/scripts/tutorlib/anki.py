@@ -1,7 +1,7 @@
 """Export pack flashcards for introduced KCs as an .apkg (Anki owns facts; its FSRS schedules them).
 
 Obsidian uses $…$/$$…$$ but Anki's MathJax uses \\(…\\)/\\[…\\], so text is converted on export.
-GUIDs are stable per card id, so re-importing updates notes instead of duplicating them.
+GUIDs are stable per pack and card id, so re-importing updates notes instead of duplicating them.
 """
 from __future__ import annotations
 
@@ -52,17 +52,17 @@ def export(tutor) -> dict:
     for subtopic in sorted({packs.kc(kc)["subtopic"] for kc, k in state["kcs"].items() if k["n"] > 0 and kc in packs.kcs}):
         pack = packs.pack(subtopic) or {}
         for card in pack.get("flashcards", []):
-            kc = card["kc"]
-            if card["id"] in done or state["kcs"].get(kc, {}).get("n", 0) == 0 or card.get("in_anki"):
+            kc, uid = card["kc"], f"{subtopic}:{card['id']}"  # packs reuse fc1, fc2…: the pack makes an id unique
+            if uid in done or state["kcs"].get(kc, {}).get("n", 0) == 0 or card.get("in_anki"):
                 continue
             meta = packs.kc(kc)
             topic = next((t for t in packs.subtopics.values() if t["id"] == subtopic), {})
             name = f"STEM Tutor::{meta['spec']}::{topic.get('title', subtopic)}"
             deck = decks.setdefault(name, genanki.Deck(_deck_id(name), name))
-            deck.add_note(genanki.Note(model=model, guid=guid(card["id"]),
+            deck.add_note(genanki.Note(model=model, guid=guid(uid),
                                        fields=[to_anki(card["front"]), to_anki(card["back"]), kc, card.get("source", "")],
                                        tags=["stem-tutor", meta["spec"], kc.replace(".", "_")]))
-            new_ids.append(card["id"])
+            new_ids.append(uid)
     if not new_ids:
         return {"cards": 0, "path": None}
     now = tutor.now()
