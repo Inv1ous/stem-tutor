@@ -66,7 +66,11 @@ def export(tutor) -> dict:
     if not new_ids:
         return {"cards": 0, "path": None}
     now = tutor.now()
-    rel = f"Anki/STEM Tutor {now:%Y-%m-%d %H%M}.apkg"
+    stem, k = f"Anki/STEM Tutor {now:%Y-%m-%d %H%M}", 1
+    rel = f"{stem}.apkg"
+    while (tutor.vault.root / rel).exists():  # a second batch this minute: the first may not be imported yet
+        k += 1
+        rel = f"{stem} ({k}).apkg"
     out = tutor.vault.root / rel
     out.parent.mkdir(parents=True, exist_ok=True)
     genanki.Package(list(decks.values())).write_to_file(str(out))

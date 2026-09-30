@@ -37,3 +37,15 @@ def test_export_only_introduced_kcs_and_only_once(tmp_path):
     assert len(rows) == 1 and "\\(\\vec s\\)" in rows[0][1] and "stem-tutor" in rows[0][2]
     assert anki.export(t)["cards"] == 0
     assert rows[0][0] == anki.guid("fc1")
+
+
+def test_second_export_in_the_same_minute_keeps_the_first(tmp_path):  # B-013
+    t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=lambda: T0)
+    first = t.vault.root / "Anki" / f"STEM Tutor {T0:%Y-%m-%d %H%M}.apkg"
+    first.parent.mkdir(parents=True)
+    first.write_bytes(b"FIRST BATCH")  # an earlier export this minute
+    t.log({"type": "answer", "item": "x", "kcs": ["9702-2.1.1"], "subject": "phys", "difficulty": 3, "conf": 3,
+           "hinted": False, "marks": 1, "grade": {"correct": True, "score": 1.0, "error": None, "misconception": None}})
+    r = anki.export(t)
+    assert r["cards"] == 1 and r["path"] != f"Anki/{first.name}" and first.read_bytes() == b"FIRST BATCH"
+    assert len(_notes(t.vault.root / r["path"])) == 1
