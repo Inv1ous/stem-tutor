@@ -5,6 +5,7 @@ GUIDs are stable per pack and card id, so re-importing updates notes instead of 
 """
 from __future__ import annotations
 
+import html
 import re
 import zlib
 
@@ -16,7 +17,7 @@ TEMPLATE_CSS = ".card{font-family:-apple-system,Helvetica,sans-serif;font-size:2
 
 
 def to_anki(md: str) -> str:
-    s = md.replace("\\$", "\x00")
+    s = html.escape(md, quote=False).replace("\\$", "\x00")  # Anki fields are HTML: "a<b" would open a tag
     s = re.sub(r"\$\$(.+?)\$\$", lambda m: "\\[" + m.group(1) + "\\]", s, flags=re.S)
     s = re.sub(r"\$(.+?)\$", lambda m: "\\(" + m.group(1) + "\\)", s)
     s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)

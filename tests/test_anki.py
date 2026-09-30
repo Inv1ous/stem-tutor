@@ -73,3 +73,22 @@ def test_same_card_id_in_two_packs_exports_both(tmp_path):  # B-028
         assert r["cards"] == 1, kc
         guids += [g for g, _f, _t in _notes(t.vault.root / r["path"])]
     assert len(set(guids)) == 2
+
+
+def test_inequalities_and_arrows_survive_as_html():  # B-029
+    from html.parser import HTMLParser
+
+    class Text(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.text = ""
+
+        def handle_data(self, data):
+            self.text += data
+
+    for md, want in [("How do you interpret $px^2+qx+r<ax+b$ graphically?", "\\(px^2+qx+r<ax+b\\)"),
+                     ("$\\ce{X(g) -> X+(g) + e-}$ & **more**", "\\(\\ce{X(g) -> X+(g) + e-}\\) & more")]:
+        p = Text()
+        p.feed(anki.to_anki(md))
+        p.close()
+        assert want in p.text, p.text
