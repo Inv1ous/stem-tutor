@@ -330,9 +330,14 @@ def test_unit_on_a_plain_number_answer_earns_no_credit(text):
     assert grade.value_problem({"kind": "numeric", "answer": {"value": 500, "unit": ""}}, text) == "unit"
 
 
-def test_percent_sign_on_a_plain_number_answer_is_fine():
-    assert _num(85, "85%", sf_ok=[2, 3])["score"] == 1.0
-    assert grade.value_problem({"kind": "numeric", "answer": {"value": 85, "unit": ""}}, "85 %") is None
+def test_percent_sign_only_where_the_question_asks_for_a_percentage():  # B-001 reopened
+    pct = {"kind": "numeric", "stem": "Calculate the percentage of the mass in the nucleus.",
+           "answer": {"value": 99.95, "unit": "", "sf_ok": [3, 4]}}
+    mm = {"kind": "numeric", "stem": "Give the length of the wire in millimetres.", "answer": {"value": 500, "unit": ""}}
+    assert grade.grade_item(pct, {"kind": "value", "value": "99.95%"})["score"] == 1.0
+    assert grade.value_problem(pct, "99.95 %") is None
+    assert not grade.grade_item(mm, {"kind": "value", "value": "500%"})["correct"]
+    assert grade.value_problem(mm, "500%") == "unit"
 
 
 @pytest.mark.parametrize("given,expected", [

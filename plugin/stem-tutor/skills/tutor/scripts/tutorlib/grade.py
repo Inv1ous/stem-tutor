@@ -120,13 +120,18 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
     return value, unit, sf, digits
 
 
+def _unit_on_plain_number(item: dict, unit: str) -> bool:
+    """A unit typed on an answer that is a plain number; "%" is fine only where the question asks for a percentage."""
+    return bool(unit) and not (unit == "%" and re.search(r"percent|%", item.get("stem") or "", re.I))
+
+
 def value_problem(item: dict, text: str) -> str | None:
     """Why a typed value can't be marked for this numeric item ("unreadable" or "unit"), else None."""
     try:
         unit = _parse(text)[1]
     except ParseError:
         return "unreadable"
-    return "unit" if not item["answer"].get("unit") and unit not in ("", "%") else None
+    return "unit" if not item["answer"].get("unit") and _unit_on_plain_number(item, unit) else None
 
 
 # ---------------- grading ----------------
@@ -171,7 +176,7 @@ def _grade_numeric(item, resp):
         return _result(False, 0, needs_judgement=True)
     tol = 1e-9 if ans.get("exact") else ans.get("tol_rel", 0.01)  # exact: counts, conversions; 1e-9 absorbs float noise
     want_unit = ans.get("unit") or ""
-    if not want_unit and unit not in ("", "%"):  # a plain number: "500 kg" is not 500
+    if not want_unit and _unit_on_plain_number(item, unit):  # a plain number: "500 kg" is not 500
         return _result(False, 0, needs_judgement=True, detail="expected a plain number")
     notation = None
     if want_unit:
