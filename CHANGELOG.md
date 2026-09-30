@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.4 — 2026-09-30
+
+- **The app always starts.** Opened from `Start Tutor.command`, it runs under Terminal, and macOS privacy settings
+  can stop Terminal reading iCloud Drive; listing the iPad inbox then crashed the app at start-up. It now starts
+  anyway and says how to allow access; a file still downloading from iCloud is left for next time instead of
+  stopping the import; `tutor doctor` shows whether the inbox can be read.
+
 ## 1.1.3 — 2026-09-30
 
 - **Chapters reach you as soon as they are done.** Signing a chapter in the foundry publishes it into the vault,

@@ -1,5 +1,11 @@
 # Build status
 
+## v1.1.4 (2026-09-30) — done
+- v1.1.3: a chapter signed in the foundry is published to the vault, committed and announced at once; the app loads
+  new chapters when you are back at its menu.
+- v1.1.4: the app starts even when macOS stops Terminal reading iCloud Drive (iPad inbox); it says how to allow
+  access, and `tutor doctor` reports it.
+
 ## v1.1.2 (2026-09-30) — done
 - Bug hunt (`bugwatch/`): 34 Codex findings fixed with tests (v1.1.1), then a Haiku review pass; see `bugwatch/FIXES.md`.
 - Content: 23 repeated past-paper questions removed; `validate_pack.py` rejects repeats. Vault `Assets/mcq` duplicates
