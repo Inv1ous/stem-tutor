@@ -70,9 +70,16 @@ def publish(vault: Path) -> dict:
                         f'exec "{ROOT / "bin" / "tutor"}"\n')
     launcher.chmod(0o755)
     (packs / "CURRENT").write_text(version)  # flip last
-    for old in sorted(p for p in packs.glob("v*") if p.name != version)[:-2]:
-        shutil.rmtree(old)  # keep the two previous versions for rollback
+    prune_versions(packs, version)
     return {"version": version, "specs": len(specs), "packs": n_packs, "held": sorted(hold), "files_copied": copied}
+
+
+
+def prune_versions(packs: Path, current: str) -> None:
+    """Keep the two previous versions for rollback, newest by number: v10 is newer than v9."""
+    old = sorted((p for p in packs.glob("v*") if p.name != current and p.name[1:].isdigit()), key=lambda p: int(p.name[1:]))
+    for p in old[:-2]:
+        shutil.rmtree(p)
 
 
 if __name__ == "__main__":
