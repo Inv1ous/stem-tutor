@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.1.0_
+_Version 1.1.2_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -9,7 +9,18 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose "Learn a topic" and follow the prompts. Press **?** at any time for help.
 
-> [!example] What's new in 1.1.0
+> [!example] What's new in 1.1.1 and 1.1.2
+> - **Fairer marking.** A number correctly rounded to 2 significant figures now counts where the question allows it; formulas typed the way the app shows them (`u² + 2as`, `2πr`, `√(2gh)`) are accepted; a formula that is only right for positive numbers (like `√(x²)` for `x`) no longer gets full marks.
+> - **Nothing is marked wrong by accident.** If a question wants just a number and you add a unit, or the tutor can't read a formula, it asks you to type it again instead of marking it wrong.
+> - **Written answers are always checked properly**, by the AI examiner or by your own ticks, never just by spotting key words.
+> - **Asking the AI during a question counts as a hint**, and on no-hint checks it waits until you've answered.
+> - **Nothing of yours gets overwritten**: lesson records, Anki files and iPad PDFs made at the same moment all keep their own copy, every paragraph of your own words survives re-teaching, and long-answer working is saved in the lesson record.
+> - **Pick up where you left off**: after a restart, an explanation or worked example comes back at the step you reached.
+> - **Anki**: cards from every topic you study now arrive, and maths with < or > shows correctly.
+> - **No repeated questions**: past-paper questions that Cambridge printed in two different papers now appear once.
+> - The first time you open 1.1.1 or later, your progress is re-counted once from your answer history with the corrected rules. Full list: `stem-tutor/CHANGELOG.md`.
+
+> [!example]- What came in 1.1.0
 > - **Blurt**: write everything you remember about a topic; the tutor shows what you left out and schedules it.
 > - **Smarter reviews**: the ideas you're closest to forgetting come first, mixed across topics, and reviews tighten as an exam gets close.
 > - **Second chances**: an idea you miss in a review comes back a few questions later, so you finish the session getting it right.
@@ -23,7 +34,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 ## 1. Setting up (once)
 
-1. **Open this folder as a vault in Obsidian.** In Obsidian: *Open another vault → Open folder as vault →* choose **STEM Tutor** (it is in `Miscellaneous › 02 Education › ~~ AI Workflow`). This lets the tutor show its pages automatically.
+1. **Open this folder as a vault in Obsidian.** In Obsidian: *Open another vault → Open folder as vault →* choose **STEM Tutor** (it is in `Miscellaneous › 02 Education › ~~ AI Workflow`), or a folder that contains it. This lets the tutor show its pages automatically.
 2. **Sign in the AI (optional but recommended).** Open the Terminal app, type `claude auth login` and follow the steps with your normal Claude account. This lets the tutor answer your questions and explain things in new ways. Everything else works without it.
 3. **Check everything.** In Terminal, run the tutor's check:
    `"$HOME/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/bin/tutor" doctor`
@@ -92,7 +103,8 @@ A lesson works like a good private tutor, and every step has a reason.
 - **Multiple choice:** move with **↑ ↓** and press **⏎**, or press the letter **A–D**. Press **0** for *I don't know*.
 - **How sure are you?** After choosing, rate your confidence **1–4**: 1 guess, 2 unsure, 3 fairly sure, 4 certain. Changed your mind? Press **Esc** to go back to the options. Be honest. A *confident* wrong answer is the best moment to fix a misunderstanding, so the tutor makes a point of it. A right answer you were unsure about comes back sooner than one you were certain of.
 - **Optional note:** under the options you can type why you chose it (**Tab** to reach the box). It goes into the lesson record.
-- **Number answers:** type the value **with its unit**, e.g. `19.6 m s-1` or `4.5e-3 mol dm-3`, then ⏎ and your confidence. Brackets and minus signs like `(−1)` are fine. The tutor checks the value, the unit and significant figures. A right value with a missing unit or the wrong number of significant figures shows as **"Right value, but a mark lost"**, just like in the exam.
+- **Number answers:** type the value **with its unit**, e.g. `19.6 m s-1` or `4.5e-3 mol dm-3`, then ⏎ and your confidence. Brackets and minus signs like `(−1)` are fine. The tutor checks the value, the unit and significant figures. A right value with a missing unit or the wrong number of significant figures shows as **"Right value, but a mark lost"**, just like in the exam. Type the final number, not a sum (`500 + 1` isn't worked out). If a question wants just a number (a count, a ratio, a value "in mm"), type only the number: add a unit and the tutor asks you to send it again, with no mark lost.
+- **Formula answers:** type them as you would write them: `u^2 + 2as`, `u² + 2as`, `2πr` and `√(2gh)` all work. If the tutor can't read one, it asks you to type it again.
 - **Written answers** (definitions, explanations): type them. The AI examiner always compares your wording with the mark points, because spotting the right words isn't enough ("velocity is the rate of change of velocity" has all the right words in the wrong places). Without AI, you tick which points you really covered.
 - **Long questions:** write your full working in the box, then **ctrl+s**. The mark scheme appears as a checklist: tick each mark you really earned with the space bar. Honest self-marking is itself excellent practice. You can also ask the **AI examiner** to check your marking.
   - Prefer paper or the iPad? Do it there, type `done on paper`, press ctrl+s, and self-mark from the scheme. PDFs you save on the iPad into **iCloud Drive › STEM Tutor Inbox** are copied into this folder's **Inbox** the next time the tutor starts, so your working is kept with your notes.
@@ -278,6 +290,7 @@ The tutor uses methods with good evidence behind them, and is honest about how s
 - **This vault (your data):** `Miscellaneous › 02 Education › ~~ AI Workflow › STEM Tutor`. Everything you see in Obsidian, plus the hidden `.tutor` folder with your progress. Every answer you've ever given is recorded there, so nothing is lost. Don't edit `.tutor` by hand. If a file in it is ever damaged (for example by a crash mid-save), the tutor skips the damaged line and carries on.
 - **The program:** `~~ AI Workflow › stem-tutor`. You don't need to open it.
 - **iPad inbox:** `iCloud Drive › STEM Tutor Inbox`, only for PDFs from the iPad.
+- **New chapters** are prepared in advance by a team of AIs and checked before they reach this vault (the "foundry": `stem-tutor › foundry › README.md`). Until a chapter has passed every check it stays out of the vault.
 - The old copy in your main Obsidian vault (`Notes › 01 Study › STEM Tutor`) is no longer used; it has a MOVED note. You can delete it once you're happy.
 
 ---

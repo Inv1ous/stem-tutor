@@ -1,6 +1,6 @@
 # STEM Tutor
 
-Version **1.1.0** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
+Version **1.1.2** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
 
 A-Level study system (CAIE 9701/9702, Edexcel IAL Maths/Further Maths): a terminal app for studying, an Obsidian
 vault for reading, and a pure-Python engine that does the teaching logic without AI.
@@ -14,6 +14,8 @@ vault for reading, and a pure-Python engine that does the teaching logic without
 | `plugin/stem-tutor/skills/tutor/scripts/tutorlib/` | engine: sessions, lesson mode (`lesson.py`), Obsidian views (`views.py`), grading, FSRS/Elo model, experiments, reports, weekly bookkeeping |
 | `plugin/stem-tutor/` | the older Cowork plugin (still works; the terminal app is now primary) |
 | `build/` | content pipeline: specs → graphs → packs (drafted, blind-solved, adjudicated), teach cards, publish to the vault |
+| `foundry/` | content foundry: chapters built by Codex and Haiku workers with Opus managing (`foundry/README.md`) |
+| `bugwatch/` | live two-agent bug hunt (Codex spots, Claude fixes; `bugwatch/README.md`) |
 | `bin/tutor` | launcher (`tutor`, `tutor doctor`, `tutor --setup`) |
 | `tests/` | pytest (engine) and `tests/app/` (AI client with a fake `claude`, Textual pilot tests) |
 

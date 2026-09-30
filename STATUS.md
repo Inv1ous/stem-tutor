@@ -1,6 +1,15 @@
 # Build status
 
-## Bug watch (set up 2026-09-30, not yet run)
+## v1.1.2 (2026-09-30) — done
+- Bug hunt (`bugwatch/`): 34 Codex findings fixed with tests (v1.1.1), then a Haiku review pass; see `bugwatch/FIXES.md`.
+- Content: 23 repeated past-paper questions removed; `validate_pack.py` rejects repeats. Vault `Assets/mcq` duplicates
+  ("… 2.png", 2,094 files) moved to the Bin.
+- **Content foundry** (`foundry/README.md`): Codex (draft/tiebreak/fix, headless via the ChatGPT app's Codex CLI) +
+  Haiku (blind solve/check) + Opus (manager). The six held chapters are on the board; S1-1 is at `check`.
+Next: run the foundry — finish the six held chapters, then batch 1 (74 bundles ready, weeks 1–10). Codex allowance
+resets 22:00 on 2026-09-30 (first live Codex job still to run).
+
+## Bug watch (run 2026-09-30: 34 findings, all fixed)
 `bugwatch/` = live two-agent bug hunt: Codex (spotter, writes only `bugwatch/codex/BUGS.md`) and Claude (fixer, writes
 `bugwatch/FIXES.md`). Start with `bugwatch/README.md`; board: `.venv/bin/python bugwatch/bugs.py --watch`;
 tests without side effects: `bash bugwatch/check.sh`; scratch vault: `bash bugwatch/sandbox.sh`.

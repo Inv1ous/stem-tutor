@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.2 — 2026-09-30
+
+### Content
+- Past-paper questions that Cambridge printed in two papers (the P11/P13 timezone variants, sometimes a later year)
+  were in the bank twice under different ids: 23 repeats removed, none lost. `add_past.py` now skips a question
+  already in the pack, files a question on two subtopics under its first one, and keeps ids stable;
+  `validate_pack.py` rejects a repeated question.
+- The vault's `Assets/mcq` held 2,094 old copies named "… 2.png" (from a Finder "keep both" merge, not the app) and
+  a stray copy of one Subjects note; moved to the Bin (49 MB).
+
+### Tools
+- **Content foundry** (`foundry/`): chapters built by Codex workers (draft, tiebreak, fix) and Claude Haiku workers
+  (blind solve, rule check), with Opus managing from a board and small packets; deterministic gates between steps.
+- The doctor accepts a vault opened from a parent folder in Obsidian.
+- Guide and README updated to this version.
+
 ## 1.1.1 — 2026-09-30
 
 Bug-hunt release: a second AI (Codex) searched for bugs live while Claude fixed them (`bugwatch/`), then a Haiku
