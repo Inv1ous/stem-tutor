@@ -27,3 +27,18 @@ def test_ipad_import_keeps_every_original_in_imported(tmp_path):
 def test_tests_never_see_the_real_ipad_inbox():
     from tutor_app import config
     assert "Mobile Documents" not in str(config.ICLOUD_INBOX)
+
+
+def test_a_vault_opened_from_its_parent_folder_counts_as_known(tmp_path, monkeypatch):
+    import json
+    parent = tmp_path / "AI Workflow"
+    vault = parent / "STEM Tutor"
+    vault.mkdir(parents=True)
+    cfg = tmp_path / "obsidian.json"
+    monkeypatch.setattr(mac, "OBSIDIAN_CONFIG", cfg)
+    cfg.write_text(json.dumps({"vaults": {"a": {"path": str(parent)}}}))
+    assert mac.obsidian_vault_registered(vault) == "inside"
+    cfg.write_text(json.dumps({"vaults": {"a": {"path": str(vault)}}}))
+    assert mac.obsidian_vault_registered(vault) == "exact"
+    cfg.write_text(json.dumps({"vaults": {"a": {"path": str(tmp_path / "elsewhere")}}}))
+    assert not mac.obsidian_vault_registered(vault)

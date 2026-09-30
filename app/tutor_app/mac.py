@@ -11,20 +11,23 @@ from urllib.parse import quote
 OBSIDIAN_CONFIG = Path.home() / "Library/Application Support/obsidian/obsidian.json"
 
 
-def obsidian_vault_registered(vault: Path) -> bool:
+def obsidian_vault_registered(vault: Path) -> str | None:
+    """"exact" when Obsidian has this folder as a vault, "inside" when it has a folder containing it (notes then open
+    by path and links still resolve), else None."""
     try:
         data = json.loads(OBSIDIAN_CONFIG.read_text())
     except (OSError, json.JSONDecodeError):
-        return False
-    target = str(vault.resolve())
-    return any(str(Path(v.get("path", "")).resolve()) == target for v in data.get("vaults", {}).values())
+        return None
+    target = vault.resolve()
+    paths = [Path(v.get("path", "")).resolve() for v in data.get("vaults", {}).values() if v.get("path")]
+    return "exact" if target in paths else "inside" if any(p in target.parents for p in paths) else None
 
 
 def open_in_obsidian(vault: Path, note: str = "Now", background: bool = True) -> bool:
     """Show a note in Obsidian. background=True keeps the terminal focused."""
     if sys.platform != "darwin" or not shutil.which("open"):
         return False
-    if obsidian_vault_registered(vault):
+    if obsidian_vault_registered(vault) == "exact":
         url = f"obsidian://open?vault={quote(vault.name)}&file={quote(note)}"
     else:
         url = f"obsidian://open?path={quote(str(vault / (note + '.md')))}"
@@ -81,7 +84,7 @@ def doctor(vault: Path) -> list[tuple[bool, str, str]]:
         events = sum(1 for f in (tutor_dir / "events").glob("*.jsonl") for _ in open(f, "rb")) if (tutor_dir / "events").exists() else 0
         rows.append((cur != "?", f"Content packs: {cur}; {events} study events recorded", ""))
     reg = obsidian_vault_registered(vault)
-    rows.append((reg, "Obsidian knows this folder as a vault",
+    rows.append((bool(reg), "Obsidian can show these notes" + (" (inside a larger vault)" if reg == "inside" else ""),
                  "" if reg else "In Obsidian: Open another vault → Open folder as vault → choose the 'STEM Tutor' folder."))
     cs = claude_status()
     rows.append((cs["installed"], "Claude Code is installed (for AI help)", "" if cs["installed"] else
