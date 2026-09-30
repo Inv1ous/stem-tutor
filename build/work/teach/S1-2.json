@@ -1,0 +1,74 @@
+{
+ "S1-2.1": {
+  "motivate": "Two classes can hold the same number of values yet have very different widths, so bar heights alone would mislead your eye. We need a rule that keeps comparisons fair when class widths differ.",
+  "discover": {
+   "stem": "Two classes in a grouped table contain the same number of data values, but one class is twice as wide as the other. The histogram is drawn so that bar **area** represents frequency. Which statement must be true?",
+   "options": {
+    "A": "The wider bar is twice as tall as the narrower bar.",
+    "B": "The wider bar is half as tall as the narrower bar.",
+    "C": "The wider bar is the same height as the narrower bar.",
+    "D": "The wider bar is four times as tall as the narrower bar."
+   },
+   "answer": "B",
+   "explanation": "Equal frequency means equal area. Area is height $\\times$ width, so doubling the width means the height must halve. Equal heights would give the wider bar twice the area, and so twice the frequency."
+  },
+  "establish": "Two facts we can accept immediately: a histogram must show how much data lies in each class, and a wider class catches more values simply by being wider. To remove that unfairness, we make the **area** of each bar equal to its frequency. Since area $=$ height $\\times$ width, the height has to be\n\n$$\\text{frequency density}=\\text{frequency}\\div\\text{class width}.$$\n\nExample: the class $20\\le t<35$ has frequency $18$. Width $=15$, so height $=18\\div15=1.2$. Check: $1.2\\times15=18$, the frequency again.\n\nOther displays trade shape against detail:\n- **Stem-and-leaf**: every raw value survives. A **back-to-back** diagram shares one stem column between two data sets; each side keeps its own leaves and its own key.\n- **Box plot**: only the minimum, $Q_1$, median, $Q_3$ and maximum. An outlier is plotted as a separate point and the whisker stops at the largest value that is not an outlier.\n\nIn the exam you will mostly read and compare these diagrams, not draw them.",
+  "connect": "This builds on the idea of a distribution from earlier work on modelling with data. Next you will summarise a distribution with a single \"middle\" value, the measures of location.",
+  "note": "- Frequency density $=\\text{frequency}\\div\\text{class width}$; it is the height of a histogram bar.\n- Area of a histogram bar $=$ frequency (height $\\times$ width).\n- Stem-and-leaf keeps every value; back-to-back shares the stem, each side has its own key.\n- Box plot: minimum, $Q_1$, median, $Q_3$, maximum; an outlier is plotted separately and the whisker ends at the largest non-outlier.",
+  "self_explain": "In your own words, why do we plot frequency density rather than frequency when class widths are unequal?"
+ },
+ "S1-2.2": {
+  "motivate": "A whole data set is too much to quote in one sentence. We need one number for the \"typical\" value, and a way to recover it when the raw values were shifted or scaled to make the arithmetic easier.",
+  "discover": {
+   "stem": "Every value in a data set is multiplied by $5$ and then has $40$ added. The original mean is $\\bar x$. Which expression gives the new mean?",
+   "options": {
+    "A": "$5\\bar x$",
+    "B": "$\\bar x+40$",
+    "C": "$5(\\bar x+40)$",
+    "D": "$5\\bar x+40$"
+   },
+   "answer": "D",
+   "explanation": "The mean is a total divided by a count, so it responds to the transformation exactly as each value does: the same operations in the same order. Multiplying by $5$ and then adding $40$ gives $5\\bar x+40$."
+  },
+  "establish": "Three measures of the \"middle\" of a data set:\n- **Mean** $\\bar x=\\Sigma x\\div n$, or $\\Sigma fx\\div\\Sigma f$ for a frequency table. For grouped data use class mid-points, so the answer is an **estimate**.\n- **Median**: the middle value of the ordered data, or the mean of the two middle values if $n$ is even.\n- **Mode**: the most frequent value. It is the only one that makes sense for categories such as favourite colour.\n\n**Coding** makes big numbers manageable. If $y=(x-a)/b$, the mean is a total divided by a count, so it follows every value through the same transformation. Undo the coding in reverse order: multiply by $b$, then add $a$.\n\n$$\\bar x=a+b\\bar y.$$\n\nExample: $y=(x-40)/5$ and $\\Sigma y=130$ for $50$ students. Then $\\bar y=130\\div50=2.6$, so $\\bar x=40+5(2.6)=53$.\n\nMean uses every value, so extremes drag it. Median ignores how far away the extremes are.",
+  "connect": "This rests on reading histograms and diagrams for the middle of a distribution. It sets up the next step: a \"middle\" alone says nothing about how spread out the data are.",
+  "note": "- Mean $\\bar x=\\Sigma x/n$, or $\\Sigma fx/\\Sigma f$ for a frequency table; grouped data uses mid-points, so the mean is an estimate.\n- Median: middle of the ordered data; mean of the two middle values if $n$ is even.\n- Mode: most frequent value (the only average for categorical data).\n- Coding $y=(x-a)/b$ gives $\\bar x=a+b\\bar y$ (multiply by $b$, then add $a$).\n- Extreme values pull the mean but barely move the median.",
+  "self_explain": "Explain why the mean of the original data can be recovered from the mean of coded data, and why the order of undoing matters."
+ },
+ "S1-2.3": {
+  "motivate": "Two classes can share a mean and still be very different, one tightly bunched and one wildly scattered. We need a number that measures spread, and to know what happens to it when data are coded.",
+  "discover": {
+   "stem": "Every value in a data set is increased by $40$ and nothing else changes. What happens to the standard deviation?",
+   "options": {
+    "A": "The standard deviation is unchanged.",
+    "B": "The standard deviation is multiplied by $40$.",
+    "C": "The standard deviation increases by $40$.",
+    "D": "The standard deviation increases by $\\sqrt{40}$."
+   },
+   "answer": "A",
+   "explanation": "Spread depends on how far each value lies from the mean. Adding $40$ to every value moves the mean by $40$ too, so every distance is exactly the same as before."
+  },
+  "establish": "Spread is about distances from the centre. Average distance is awkward, because deviations $x-\\bar x$ cancel to $0$. Squaring removes the cancelling, giving the **variance**, the mean of the squared deviations:\n\n$$\\mathrm{Var}(X)=\\frac{S_{xx}}{n}=\\frac{\\Sigma x^2}{n}-\\bar x^2,\\qquad S_{xx}=\\Sigma(x-\\bar x)^2.$$\n\nDivide by $n$ on this specification, not $n-1$. **Standard deviation** $=\\sqrt{\\mathrm{Var}(X)}$, which returns to the original units.\n\nExample: $\\Sigma fx^2=3475$, $n=20$, $\\bar x=12.25$. Then $\\mathrm{Var}=3475\\div20-12.25^2=23.6875$, so $\\mathrm{sd}=4.87$.\n\nOther measures:\n- **Range** $=$ largest $-$ smallest. It uses only the two extremes.\n- **IQR** $=Q_3-Q_1$: the spread of the middle $50\\%$.\n- **Interpercentile range**, e.g. $P_{90}-P_{10}$: the middle $80\\%$. Grouped data needs linear interpolation.\n\nCoding $y=(x-a)/b$: shifting by $a$ never changes spread; scaling by $b$ multiplies distances by $b$, so $\\mathrm{Var}(X)=b^2\\,\\mathrm{Var}(Y)$ with no $a$.",
+  "connect": "You already have the mean from the previous point, and the variance formula reuses it. Next, comparing the location and spread measures reveals the shape of a distribution.",
+  "note": "- $\\mathrm{Var}(X)=S_{xx}/n=\\Sigma x^2/n-\\bar x^2$ (divide by $n$, not $n-1$).\n- Standard deviation $=\\sqrt{\\mathrm{Var}(X)}$.\n- Range $=$ largest $-$ smallest; $\\mathrm{IQR}=Q_3-Q_1$; interpercentile range e.g. $P_{90}-P_{10}$.\n- Grouped quartiles and percentiles: linear interpolation.\n- Coding $y=(x-a)/b$: $\\mathrm{Var}(X)=b^2\\,\\mathrm{Var}(Y)$; $a$ has no effect on spread.",
+  "self_explain": "Why does adding a constant to every value leave the variance unchanged, while multiplying every value by $b$ multiplies it by $b^2$?"
+ },
+ "S1-2.4": {
+  "motivate": "Knowing the middle and the spread still does not say whether the data trail off to one side or contain a stray value. Shape and outliers tell you whether a summary can be trusted.",
+  "discover": {
+   "stem": "Several extremely large values are added to an otherwise symmetric data set. Which statement describes the effect on the mean and the median?",
+   "options": {
+    "A": "The mean rises by more than the median does.",
+    "B": "The median rises by more than the mean does.",
+    "C": "The mean and the median rise by the same amount.",
+    "D": "The mean stays the same while the median rises."
+   },
+   "answer": "A",
+   "explanation": "The mean uses the size of every value, so extremes pull it strongly. The median depends only on the position of the middle, so it shifts just a little. The mean ends up above the median."
+  },
+  "establish": "A distribution's **tail** is the side where the data stretch out. Skewness names which side:\n- **Positive (right) skew**: long tail to the right (high values).\n- **Negative (left) skew**: long tail to the left.\n- **Symmetric**: mean $\\approx$ median.\n\nThe mean uses the size of every value, so a tail pulls it towards the tail. The median only counts positions. Hence:\n\n$$\\text{positive skew: mean}>\\text{median},\\qquad\\text{negative skew: mean}<\\text{median}.$$\n\nExample: $1,2,2,2,10$. Median $=2$, mean $=3.4>2$, and the value $10$ makes a right tail.\n\nFrom a box plot compare $Q_2-Q_1$ with $Q_3-Q_2$: if the first is smaller, the skew is positive; if larger, negative.\n\nAn **outlier** is a value unusually far from the rest. It is flagged by a rule such as \"more than $k\\times\\mathrm{IQR}$ above $Q_3$ or below $Q_1$\". The question always states the rule, so never assume one. On a box plot the outlier is a separate point.",
+  "connect": "This combines the mean and median (location) with the IQR (spread) from earlier points. It also completes your toolkit for describing and comparing distributions in context.",
+  "note": "- Positive skew: long right tail, mean $>$ median $>$ mode (typically).\n- Negative skew: long left tail, mean $<$ median.\n- Box plot: $Q_2-Q_1<Q_3-Q_2$ means positive skew; $Q_2-Q_1>Q_3-Q_2$ means negative skew.\n- Outlier: beyond the stated multiple of the IQR from the nearer quartile; the rule is given in the question.\n- Plot outliers as separate points; the whisker stops at the last non-outlier.",
+  "self_explain": "Explain why a few very high values make the mean larger than the median, and what that tells you about the tail."
+ }
+}

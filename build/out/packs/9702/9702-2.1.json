@@ -6430,5 +6430,134 @@
     ]
    }
   }
- ]
+ ],
+ "teach": {
+  "9702-2.1.1": {
+   "motivate": "Before we can describe any journey we need words that say exactly how far, how fast and in which direction. Everyday \"speed\" hides direction, and direction matters the moment a path bends or reverses.",
+   "discover": {
+    "stem": "A toy car makes one complete lap of a circular track at constant speed. Which statement about the whole lap must be true?",
+    "options": {
+     "A": "Its average speed is non-zero but its average velocity is zero.",
+     "B": "Its average speed is zero but its average velocity is non-zero.",
+     "C": "Its average speed is zero and its average velocity is zero.",
+     "D": "Its average speed is non-zero and its average velocity is non-zero."
+    },
+    "answer": "A",
+    "explanation": "The car travels a full circumference, so its average speed is not zero. It finishes where it started, so its displacement, and hence its average velocity, is zero."
+   },
+   "establish": "Start with two things you can measure without argument.\n\n- **Distance** is the total length of the path travelled (a scalar).\n- **Displacement** is the straight-line distance from start to finish in a stated direction (a vector).\n\nNow ask \"how fast?\" for each:\n\n- **Speed** is the rate of change of distance.\n- **Velocity** is the rate of change of displacement: $v=\\dfrac{\\Delta s}{\\Delta t}$.\n- **Acceleration** is the rate of change of velocity: $a=\\dfrac{\\Delta v}{\\Delta t}$.\n\nExample: a cyclist rides $300\\ \\mathrm{m}$ east then $400\\ \\mathrm{m}$ north in $100\\ \\mathrm{s}$. Distance is $700\\ \\mathrm{m}$, so average speed is $7.0\\ \\mathrm{m\\,s^{-1}}$. Displacement is $\\sqrt{300^2+400^2}=500\\ \\mathrm{m}$, so average velocity is $5.0\\ \\mathrm{m\\,s^{-1}}$ at $53^\\circ$ north of east.\n\nBecause velocity is a vector, changing direction changes velocity, so it is an acceleration even at constant speed.",
+   "connect": "These definitions build directly on scalars and vectors from 1.4. They give us the quantities that every graph and every equation of motion in the rest of this topic is about.",
+   "note": "- Distance: total length of path travelled (scalar). Displacement: straight-line distance from start to finish in a stated direction (vector).\n- Speed: rate of change of distance. Velocity: rate of change of displacement, $v=\\Delta s/\\Delta t$.\n- Acceleration: rate of change of velocity, $a=\\Delta v/\\Delta t$ (vector).\n- Average velocity uses displacement, not distance: a full lap has zero average velocity.\n- Change in velocity = final $-$ initial, with signs for direction.",
+   "self_explain": "In your own words, why can an object move at constant speed and still be accelerating?",
+   "source": "pack"
+  },
+  "9702-2.1.2": {
+   "motivate": "A list of numbers cannot show how a journey unfolds: when it sped up, stopped or turned back. A graph shows the whole story at a glance, provided we know what its slope and height mean.",
+   "discover": {
+    "stem": "On a velocity-time graph an object's motion is drawn as a horizontal straight line at $+5\\ \\mathrm{m\\,s^{-1}}$. Which statement describes the motion?",
+    "options": {
+     "A": "Constant velocity of $5\\ \\mathrm{m\\,s^{-1}}$ and zero acceleration.",
+     "B": "Constant velocity of $5\\ \\mathrm{m\\,s^{-1}}$ and acceleration of $5\\ \\mathrm{m\\,s^{-2}}$.",
+     "C": "Zero velocity and constant acceleration of $5\\ \\mathrm{m\\,s^{-2}}$.",
+     "D": "Zero velocity and zero acceleration."
+    },
+    "answer": "A",
+    "explanation": "The height of the line is the velocity, $+5\\ \\mathrm{m\\,s^{-1}}$, and its gradient, which is the acceleration, is zero because the line is flat."
+   },
+   "establish": "Each graph plots one quantity against time, and the two questions to ask are \"what is the height?\" and \"what is the slope?\".\n\n- **Displacement-time:** height is displacement; gradient is velocity. Flat means at rest; a straight slope means constant velocity; a curve means the velocity is changing.\n- **Velocity-time:** height is velocity; gradient is acceleration. A flat line means constant velocity; a sloping straight line means uniform acceleration; below the axis means moving in the opposite direction.\n- **Acceleration-time:** height is acceleration.\n\nExample: a lift starts from rest and accelerates at $1.5\\ \\mathrm{m\\,s^{-2}}$ for $4.0\\ \\mathrm{s}$. Its velocity-time graph is a straight line from the origin up to $6.0\\ \\mathrm{m\\,s^{-1}}$. A flat section follows while it moves at constant velocity, then a sloping line down to zero as it stops.\n\nAlways label both axes with quantity and unit.",
+   "connect": "This turns the definitions from 2.1.1 into pictures. The next three points read numbers off them: area for displacement, gradients for velocity and acceleration.",
+   "note": "- Displacement-time graph: gradient = velocity. Velocity-time graph: gradient = acceleration.\n- Straight line on a velocity-time graph: uniform acceleration; horizontal line: constant velocity.\n- Curve on a displacement-time graph: velocity changing; horizontal line: at rest.\n- Velocity below the time axis: motion in the opposite direction.\n- Distance-time graph: gradient = speed (never negative). Label axes with quantity and unit.",
+   "self_explain": "Explain how you would tell, from a velocity-time graph alone, whether an object is speeding up, slowing down or moving at constant velocity.",
+   "source": "pack"
+  },
+  "9702-2.1.3": {
+   "motivate": "We know velocity tells us how fast displacement changes. To find how far something has actually moved from a graph of its velocity, we need to run that idea backwards.",
+   "discover": {
+    "stem": "The velocity of a trolley is positive for the first part of its motion and negative for the rest. On its velocity-time graph the area above the time axis is $12\\ \\mathrm{m}$ and the area below is $5\\ \\mathrm{m}$. What is its displacement at the end?",
+    "options": {
+     "A": "$7\\ \\mathrm{m}$ in the positive direction.",
+     "B": "$17\\ \\mathrm{m}$ in the positive direction.",
+     "C": "$7\\ \\mathrm{m}$ in the negative direction.",
+     "D": "$12\\ \\mathrm{m}$ in the positive direction."
+    },
+    "answer": "A",
+    "explanation": "Area above the axis is positive displacement and area below is displacement in the opposite direction, so the displacement is $12-5=7\\ \\mathrm{m}$ in the positive direction. Adding gives the distance travelled, $17\\ \\mathrm{m}$."
+   },
+   "establish": "Start from the definition $v=\\dfrac{\\Delta s}{\\Delta t}$. Rearranged, $\\Delta s=v\\,\\Delta t$.\n\n- If the velocity is constant, $v\\,\\Delta t$ is the area of a rectangle: height $v$ times width $\\Delta t$.\n- If the velocity changes, slice the time into thin strips. In each strip the velocity is almost constant, so its displacement is the area of that strip. Adding the strips gives the **area under the velocity-time graph = displacement**.\n\nFor straight-line sections use areas you know: rectangle $=\\text{base}\\times\\text{height}$, triangle $=\\tfrac12\\times\\text{base}\\times\\text{height}$, trapezium $=\\tfrac12(a+b)h$.\n\nExample: a car accelerates uniformly from rest to $6.0\\ \\mathrm{m\\,s^{-1}}$ in $4.0\\ \\mathrm{s}$. The graph is a triangle, so displacement $=\\tfrac12\\times4.0\\times6.0=12\\ \\mathrm{m}$.\n\nArea below the axis is displacement in the negative direction, so it is subtracted for displacement but added for distance.",
+   "connect": "This uses the graphs from 2.1.2 and the definition of velocity from 2.1.1. It is also the first step towards deriving $s=\\tfrac12(u+v)t$ in 2.1.6, where the area is a trapezium.",
+   "note": "- Displacement = area under a velocity-time graph.\n- Area above the time axis is positive; area below is negative (opposite direction).\n- Displacement: subtract the area below the axis. Distance travelled: add the areas.\n- Rectangle $=bh$; triangle $=\\tfrac12bh$; trapezium $=\\tfrac12(a+b)h$.\n- For a curve, count squares or split into strips and state the scale used.",
+   "self_explain": "Explain why the area under a velocity-time graph gives displacement, and why area below the axis needs different treatment for displacement and distance.",
+   "source": "pack"
+  },
+  "9702-2.1.4": {
+   "motivate": "A displacement-time graph is a curve when the velocity keeps changing. We still want the velocity at one instant, so we need a way to read a single number from a bending line.",
+   "establish": "Velocity is the rate of change of displacement, $v=\\dfrac{\\Delta s}{\\Delta t}$. On a graph of $s$ against $t$, \"change in $s$ over change in $t$\" is exactly the **gradient**.\n\n- Straight line: the gradient is the same everywhere, so the velocity is constant.\n- Curve: the gradient changes from point to point. Over a very short interval the curve is almost straight, so the gradient at one instant is the gradient of the **tangent** there. This gives the instantaneous velocity.\n\nMethod: draw the tangent at the required time, choose two points far apart on it, and read them from the axis scales.\n\nExample: a tangent at $t=3.0\\ \\mathrm{s}$ passes through $(2.0\\ \\mathrm{s},\\ 3.0\\ \\mathrm{m})$ and $(4.0\\ \\mathrm{s},\\ 15.0\\ \\mathrm{m})$. Then $v=\\dfrac{15.0-3.0}{4.0-2.0}=6.0\\ \\mathrm{m\\,s^{-1}}$.\n\nDo not count grid squares: use the labelled scale.",
+   "connect": "This applies the graph idea from 2.1.2 to velocity. The same tangent method finds acceleration from a velocity-time graph in the next point.",
+   "note": "- Gradient of a displacement-time graph = velocity.\n- For a curve, velocity at an instant = gradient of the tangent at that time.\n- Draw a large triangle using points on the tangent; $v=\\Delta s/\\Delta t$ using the axis scales.\n- Straight line: constant velocity; horizontal line: at rest; steepening curve: velocity increasing.",
+   "self_explain": "Explain why the gradient of the tangent, rather than the gradient between two points on the curve, gives the velocity at one instant.",
+   "source": "pack"
+  },
+  "9702-2.1.5": {
+   "motivate": "Velocity changes with time whenever something speeds up or slows down. We need a way to read that rate of change from a graph, rather than only knowing the start and finish values.",
+   "establish": "Acceleration is the rate of change of velocity, $a=\\dfrac{\\Delta v}{\\Delta t}$. On a graph of $v$ against $t$ that is the **gradient**.\n\n- Straight sloping line: constant gradient, so uniform acceleration.\n- Horizontal line: gradient zero, so constant velocity.\n- Curve: use the gradient of the tangent at that time.\n- Negative gradient: velocity is decreasing, or acceleration is in the negative direction.\n\nExample: a line from $(2.0\\ \\mathrm{s},\\ 6.0\\ \\mathrm{m\\,s^{-1}})$ to $(6.0\\ \\mathrm{s},\\ 14.0\\ \\mathrm{m\\,s^{-1}})$ has gradient $\\dfrac{14.0-6.0}{6.0-2.0}=2.0\\ \\mathrm{m\\,s^{-2}}$.\n\nTake the change in each axis. Dividing a single value $v$ by a single time $t$ works only if the line starts at the origin.",
+   "connect": "Together with the area rule (2.1.3) and the displacement-time gradient (2.1.4), this completes the graph toolkit. The trapezium and gradient ideas here are the starting point for deriving the equations in 2.1.6.",
+   "note": "- Gradient of a velocity-time graph = acceleration, $a=\\Delta v/\\Delta t$.\n- Curve: acceleration at an instant = gradient of the tangent.\n- Use a large triangle with values read from the labelled axes; never count grid squares.\n- Negative gradient means acceleration in the negative direction; it is slowing down only if the velocity is positive.",
+   "self_explain": "Explain how you would find the acceleration at one instant from a curved velocity-time graph, and why dividing $v$ by $t$ for a single point is wrong unless the line starts at the origin.",
+   "source": "pack"
+  },
+  "9702-2.1.6": {
+   "motivate": "Reading graphs is slow, and a graph may not be available. When the acceleration stays constant we can instead use short equations that link the five quantities of the motion directly.",
+   "establish": "Take a straight-line motion with **uniform acceleration**: velocity changes from $u$ (initial) to $v$ (final) in time $t$, with displacement $s$.\n\n1. From the definition of acceleration, $a=\\dfrac{v-u}{t}$, so $v=u+at$.\n2. Velocity rises steadily, so the average velocity is the midpoint, $\\tfrac12(u+v)$. The area under the graph is a trapezium, so $s=\\tfrac12(u+v)t$.\n3. Put $v=u+at$ into step 2: $s=ut+\\tfrac12at^2$.\n4. Put $t=\\dfrac{v-u}{a}$ into step 2: $s=\\dfrac{v^2-u^2}{2a}$, so $v^2=u^2+2as$.\n\nEach equation leaves out one of the five quantities: $s$ is missing from the first, $a$ from the second, $v$ from the third and $t$ from the fourth.\n\nThey apply only when acceleration is constant and the motion is in a straight line.",
+   "connect": "This builds on the definitions (2.1.1), the gradient of a velocity-time graph (2.1.5) and the area under it (2.1.3). It unlocks solving problems, which comes next.",
+   "note": "- Conditions: constant acceleration, straight-line motion.\n- $v=u+at$ (from $a=\\Delta v/\\Delta t$).\n- $s=\\tfrac12(u+v)t$ (average velocity $\\times$ time; area of trapezium).\n- $s=ut+\\tfrac12at^2$ (eliminate $v$). $v^2=u^2+2as$ (eliminate $t$).\n- \"Show that\" answers must show each algebraic step.",
+   "self_explain": "Explain why the average velocity is $\\tfrac12(u+v)$ when the acceleration is uniform, and why this would fail if the acceleration changed.",
+   "source": "pack"
+  },
+  "9702-2.1.7": {
+   "motivate": "We now have four equations, but a real problem gives a story, not a list. We need a routine that turns any straight-line motion into the right equation, including things thrown upwards.",
+   "discover": {
+    "stem": "A ball is thrown vertically upwards and moves without air resistance. At the instant it reaches its highest point, which statement is true?",
+    "options": {
+     "A": "Its velocity is zero and its acceleration is $9.81\\ \\mathrm{m\\,s^{-2}}$ downwards.",
+     "B": "Its velocity is zero and its acceleration is zero.",
+     "C": "Its velocity is zero and its acceleration is $9.81\\ \\mathrm{m\\,s^{-2}}$ upwards.",
+     "D": "Its velocity is $9.81\\ \\mathrm{m\\,s^{-1}}$ downwards and its acceleration is zero."
+    },
+    "answer": "A",
+    "explanation": "The only force is weight, so the acceleration is $9.81\\ \\mathrm{m\\,s^{-2}}$ downwards throughout the flight. The velocity is zero only for an instant while it changes from upwards to downwards."
+   },
+   "establish": "Free fall without air resistance is uniform acceleration $g=9.81\\ \\mathrm{m\\,s^{-2}}$ downwards, so the equations of 2.1.6 apply.\n\n1. Sketch, and choose one positive direction. Keep it.\n2. List $s,u,v,a,t$ with signs; mark the three known and the one wanted.\n3. Pick the equation that contains those four and leaves out the fifth.\n4. Substitute with units and solve. A quadratic gives two roots: reject the unphysical one.\n\nExample: a stone is dropped from rest into a $20\\ \\mathrm{m}$ well. Downwards positive: $u=0$, $a=+9.81$, $s=20$. Use $s=ut+\\tfrac12at^2$: $20=\\tfrac12(9.81)t^2$, so $t=2.0\\ \\mathrm{s}$.\n\nWithout air resistance, rising and falling between the same levels take equal times. If upwards is positive, $a=-9.81\\ \\mathrm{m\\,s^{-2}}$.",
+   "connect": "This applies the four equations from 2.1.6, with $g$ as the acceleration, and needs the quadratic-solving skills from P1. It is the tool used in the free-fall experiment and for projectiles next.",
+   "note": "- Free fall (no air resistance): $a=g=9.81\\ \\mathrm{m\\,s^{-2}}$ downwards, for every object.\n- Method: sketch, choose positive direction, list $s,u,v,a,t$, choose the equation missing the unwanted quantity.\n- If upwards is positive, $a=-9.81\\ \\mathrm{m\\,s^{-2}}$; $s$ is negative if the object ends below its start.\n- At the highest point $v=0$ but $a$ is still $9.81\\ \\mathrm{m\\,s^{-2}}$ downwards.\n- Time up equals time down; check whether the question asks for time to the top or total time.",
+   "self_explain": "Explain why the acceleration of a ball thrown upwards is not zero at the top of its flight, using the definition of acceleration.",
+   "source": "pack"
+  },
+  "9702-2.1.8": {
+   "motivate": "We have been quoting $g=9.81\\ \\mathrm{m\\,s^{-2}}$ as if it were a fact of nature. An experiment lets us measure it ourselves, and shows how a graph turns an equation into a number.",
+   "establish": "We need to measure the fall time $t$ from a known height $h$, releasing the object from rest.\n\n**Method.**\n- Hold a steel ball with an electromagnet. Switching the magnet off releases the ball and starts the electronic timer.\n- The timer stops when the ball opens a trapdoor or passes a light gate.\n- Measure the height $h$ with a metre rule.\n- Repeat for several different values of $h$.\n\n**Analysis.** With $u=0$ and $a=g$, $s=ut+\\tfrac12at^2$ becomes $h=\\tfrac12gt^2$. Compare with $y=mx$: plotting $h$ on the $y$-axis against $t^2$ on the $x$-axis gives a straight line through the origin with gradient $\\tfrac12g$.\n\nSo $g=2\\times\\text{gradient}$.\n\nTaking the gradient of $h$ against $t^2$ as $g$ itself is a common mistake: the factor of a half must be included.",
+   "connect": "This applies the equation $s=ut+\\tfrac12at^2$ from 2.1.6 with $u=0$, and uses the gradient skill from 2.1.5 on a straight-line graph of a rearranged equation.",
+   "note": "- Release a steel ball from rest with an electromagnet; switching it off starts the timer.\n- Timer stops when the ball opens a trapdoor or passes a light gate; measure $h$ with a metre rule.\n- Vary $h$ and record $t$ for each.\n- $h=\\tfrac12gt^2$: plot $h$ against $t^2$; gradient $=g/2$, so $g=2\\times$ gradient.\n- Read the gradient from a large triangle using the axis scales.",
+   "self_explain": "Explain why plotting $h$ against $t^2$ gives a straight line, and what the gradient of that line tells you about $g$.",
+   "source": "pack"
+  },
+  "9702-2.1.9": {
+   "motivate": "Real objects such as a kicked ball move sideways and fall at the same time. To predict where they land we must know whether the two motions interfere with each other.",
+   "discover": {
+    "stem": "Two identical balls leave the edge of a high table at the same instant. One is thrown horizontally and the other is dropped. Air resistance is negligible. Which statement is true?",
+    "options": {
+     "A": "Both balls land at the same time.",
+     "B": "The ball thrown horizontally lands first.",
+     "C": "The ball that is dropped lands first.",
+     "D": "The order depends on the launch speed."
+    },
+    "answer": "A",
+    "explanation": "Gravity acts only downwards, so both balls have the same vertical motion: zero initial vertical velocity and acceleration $g$. The horizontal velocity does not affect the vertical motion or the time of fall."
+   },
+   "establish": "Start with one fact: the only force on the projectile (no air resistance) is its weight, which acts vertically downwards.\n\n- Vertically: uniform acceleration $g$ downwards.\n- Horizontally: no force, so no acceleration and **constant velocity**.\n\nThe two directions are perpendicular, so one does not change the other. Treat them separately with the equations from 2.1.6 and link them only through the **time** they share.\n\nExample: a ball is launched at $20\\ \\mathrm{m\\,s^{-1}}$ at $30^\\circ$ above the horizontal. Resolve: $v_x=20\\cos30^\\circ=17.3\\ \\mathrm{m\\,s^{-1}}$, $v_y=20\\sin30^\\circ=10\\ \\mathrm{m\\,s^{-1}}$. Horizontal velocity stays $17.3$; vertical velocity changes at $9.81\\ \\mathrm{m\\,s^{-2}}$. Speed at any time is $\\sqrt{v_x^2+v_y^2}$.\n\nThe path is a parabola.",
+   "connect": "This combines the equations of motion (2.1.7) with resolving vectors into components (1.4). It shows a force is needed to change velocity, not to keep it going.",
+   "note": "- Horizontal and vertical motions are independent; link them only through time.\n- Horizontal: constant velocity $v\\cos\\theta$ (no air resistance). Vertical: uniform acceleration $g$ downwards, initial velocity $v\\sin\\theta$.\n- Only weight acts on the projectile; there is no \"forward force\".\n- Speed $=\\sqrt{v_x^2+v_y^2}$ (Pythagoras, not adding magnitudes).\n- Path is a parabola; time of fall depends only on the vertical motion.",
+   "self_explain": "Explain why a ball thrown horizontally and one dropped from the same height land together, and what happens to the horizontal velocity of the thrown ball.",
+   "source": "pack"
+  }
+ }
 }

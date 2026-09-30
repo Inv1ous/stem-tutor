@@ -135,8 +135,8 @@ class LongPanel(Panel):
         self.n = n
 
     def compose(self) -> ComposeResult:
-        yield _hint(f"Q{self.n}: write your full working and answer (units!). ctrl+s to submit. "
-                    "Or do it on the iPad and export a PDF to 'STEM Tutor Inbox', then type 'ipad'.")
+        yield _hint(f"Q{self.n}: write your full working and answer (units!), then ctrl+s. "
+                    "Working on paper or the iPad instead? Type 'done on paper', ctrl+s, and self-mark from the scheme.")
         yield TextArea(id="long", soft_wrap=True, tab_behavior="indent")
         yield Button("Submit (ctrl+s)", id="submit", variant="primary")
 
