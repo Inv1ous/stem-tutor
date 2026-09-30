@@ -373,7 +373,10 @@ class Tutor(LessonMixin):
                 if not items:
                     b["given"][kc] = self._retest_target(kc)
                     continue
-                return self._questions(b, idx, items, phase="retest", unassisted=True, exp=b["exp"][kc])
+                act = self._questions(b, idx, items, phase="retest", unassisted=True, exp=b["exp"][kc])
+                for q in act["items"]:  # an item may cover several ideas: its score belongs to the one retested
+                    self.session["presented"][str(q["n"])]["exp_kc"] = kc
+                return act
         return None
 
     def _step_learn(self, b: dict, idx: int) -> dict | None:
@@ -599,7 +602,7 @@ class Tutor(LessonMixin):
         if p["phase"] == "faded" and not g["correct"] and p["block_idx"] is not None:
             s["blocks"][p["block_idx"]]["walkthrough"] = True
         if p["exp"]:
-            kc = p["kcs"][0]
+            kc = p.get("exp_kc") or p["kcs"][0]
             scores = s["retest"].setdefault(kc, [])
             scores.append(g["score"])
             if len(scores) >= self._retest_target(kc):

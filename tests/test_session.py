@@ -411,3 +411,23 @@ def test_short_answer_with_every_keyword_still_waits_for_judgement(tutor):  # B-
     n = tutor._present(item, block="practice", phase=None)["n"]
     r = tutor.answer(f"{n} = distance without a direction")["results"][0]
     assert r["pending_judgement"] and r["matched_score"] == 1.0 and str(n) in tutor.session["presented"]
+
+
+def test_retest_score_goes_to_the_idea_retested_even_on_a_multi_idea_item(tutor):  # B-027
+    for it in tutor.packs.items_for("9702-2.1.4"):  # every item for it now lists another idea first
+        it["kcs"] = ["9702-2.1.1", "9702-2.1.4"]
+    tutor.start("autopilot", minutes=50)
+    tutor.end()
+    tutor.log({"type": "exp_start", "exp": "E1", "subject": "phys", "arms": ["worked_faded", "problem_first"],
+               "eligible": {"types": ["procedural"]}, "target_pairs": 4})
+    tutor.log({"type": "exp_assign", "exp": "E1", "kc": "9702-2.1.4", "arm": "worked_faded", "pair": 0})
+    tutor.clock.t = T0 + timedelta(days=8)
+    assert tutor.start("autopilot", minutes=50)["blocks"][0]["kind"] == "retest"
+    for _ in range(4):
+        act = tutor.next()
+        if act.get("block") != "retest":
+            break
+        _answer_all(tutor, act, good=True)
+    scores = [e for e in tutor.vault.events() if e["type"] == "exp_score"]
+    assert [s["kc"] for s in scores] == ["9702-2.1.4"]
+    assert experiments.retests_due(tutor.state, tutor.clock.t) == []
