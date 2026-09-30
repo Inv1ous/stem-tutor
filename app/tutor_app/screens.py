@@ -595,6 +595,11 @@ class SessionScreen(Screen):
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
             return
+        if (help_ := self.tutor.ai_help()).get("refused"):  # help while a question is open is a hint, or not allowed
+            self.say(cards.card("hint", "No help on this one", help_["refused"]))
+            if then_continue:
+                self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
+            return
         self._stream(prompt, then_continue)
 
     @work(exclusive=True, group="ai")

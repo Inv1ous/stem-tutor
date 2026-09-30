@@ -442,3 +442,12 @@ def test_expression_answers_unicode_right_and_unreadable_stays_open(tutor):  # B
     assert "could not read" in r["error"] and str(n) in tutor.session["presented"]
     r = tutor.answer(f"{n} = u² + 2as ~3")["results"][0]
     assert r["correct"] and str(n) not in tutor.session["presented"]
+
+
+def test_ai_help_counts_as_a_hint_and_is_refused_on_no_help_checks(tutor):  # B-033
+    tutor.start("review", minutes=10)
+    items = [i for i in tutor.packs.items_for("9702-2.1.1") if i["kind"] == "mcq"]
+    n = tutor._present(items[0], block="practice", phase=None)["n"]
+    assert tutor.ai_help()["ok"] and tutor.session["presented"][str(n)]["hinted"]
+    m = tutor._present(items[1], block="exit", phase=None, unassisted=True)["n"]
+    assert "refused" in tutor.ai_help() and not tutor.session["presented"][str(m)]["hinted"]

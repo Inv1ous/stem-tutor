@@ -364,3 +364,33 @@ def test_ai_replies_are_guarded_for_every_open_question(tmp_path, monkeypatch): 
             assert leak not in (v / t.session["log"]).read_text()
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_asking_the_ai_is_refused_during_a_no_help_check(tmp_path, monkeypatch):  # B-033
+    from tutor_app.screens import SessionScreen
+    from textual.widgets import Input
+    app, v = app_for(tmp_path, monkeypatch)
+    calls = []
+
+    async def fake_stream(prompt):
+        calls.append(prompt)
+        yield "Think about the units."
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            scr = SessionScreen({"mode": "autopilot", "minutes": 50})
+            app.push_screen(scr)
+            await pilot.pause()
+            t = app.tutor
+            for n in list(t.session["presented"]):
+                t.session["presented"][n]["unassisted"] = True  # an exit ticket
+            monkeypatch.setattr(app.ai, "stream", fake_stream)
+            scr.action_ask()
+            await pilot.pause()
+            app.screen.query_one("#q", Input).value = "Can I have a hint?"
+            await pilot.press("enter")
+            await pilot.pause(0.2)
+            assert calls == [] and not any(p["hinted"] for p in t.session["presented"].values())
+            await app.ai.close()
+    asyncio.run(go())

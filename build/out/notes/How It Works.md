@@ -248,7 +248,7 @@ It runs quietly in the background, so the Claude app doesn't need to be open. It
 - If you **stop a reply part-way** (for example by asking something else), the next reply still comes out correctly.
 
 > [!warning] Questions that are still open
-> While a question is waiting for your answer, the AI won't give you the answer, even if you ask or ask for a re-explanation. Use a hint (ctrl+g) or answer first; then it will explain.
+> While a question is waiting for your answer, the AI won't give you the answer, even if you ask or ask for a re-explanation. Asking the AI then counts as using a hint, like ctrl+g, and on a no-hints check it waits until you've answered. Answer first; then it will explain.
 
 ---
 
