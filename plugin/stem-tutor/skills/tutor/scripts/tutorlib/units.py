@@ -115,11 +115,13 @@ def parse_unit(text: str) -> list[tuple[float, tuple]]:
 
 def unit_factor(given: str, expected: str) -> float | None:
     """Multiply a value in `given` units by this to express it in `expected` units."""
+    if given.replace(" ", "") == expected.replace(" ", ""):  # the same text: a match even if the symbol is unknown (°C)
+        return 1.0
     try:
-        exp_f, exp_d = parse_unit(expected)[0]
-        for f, d in parse_unit(given):
-            if d == exp_d:
-                return f / exp_f
+        for exp_f, exp_d in parse_unit(expected):  # "ms-1" reads as per-millisecond first, then as m s-1
+            for f, d in parse_unit(given):
+                if d == exp_d:
+                    return f / exp_f
     except (ValueError, ArithmeticError):  # unknown symbol, or an exponent like km9999 that overflows
         return None
     return None

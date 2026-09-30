@@ -414,3 +414,12 @@ def test_wildly_wrong_finite_values_grade_without_crashing(text):  # B-025
 def test_unicode_maths_is_read_like_ascii(given, expected):
     item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
     assert grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"], given
+
+
+@pytest.mark.parametrize("given,expected,factor", [
+    ("m/s", "ms-1", 1.0), ("m s-1", "ms-1", 1.0), ("°C", "°C", 1.0), ("° C", "°C", 1.0), ("rpm", "rpm", 1.0),
+    ("K", "°C", None),  # an offset, not a factor: never silently equal
+])
+def test_expected_units_read_every_way_and_identical_units_match(given, expected, factor):  # Haiku review
+    got = grade.unit_factor(given, expected)
+    assert got == (pytest.approx(factor) if factor else None)
