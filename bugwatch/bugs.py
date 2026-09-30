@@ -133,7 +133,7 @@ def main() -> None:
         while True:
             print("\033[2J\033[H", end="")  # clear the screen
             print(time.strftime("bug watch · %H:%M:%S") + "\n")
-            print(render(args))
+            print(render(args), flush=True)
             time.sleep(args.watch)
     except KeyboardInterrupt:
         sys.exit(0)

@@ -15,7 +15,7 @@ They talk through two append-only logs. **Each file has exactly one writer**, so
 | `CODEX_PROMPT.md` | human | The instruction to paste into Codex |
 | `check.sh` | – | Runs the test suite without writing anything into the repo |
 | `sandbox.sh` | – | Builds a scratch copy of the tutor vault in `/tmp` |
-| `bugs.py` | – | Live table of every finding and its status (`--watch` to keep it on screen) |
+| `bugs.py` | – | Live table of every finding and its status (`--watch` keeps it on screen; also `--all`, `--unseen`, `--check`) |
 
 ## How to start (human)
 
@@ -29,9 +29,9 @@ They talk through two append-only logs. **Each file has exactly one writer**, so
    codex --sandbox workspace-write --ask-for-approval never
    ```
    (flag names as in the Codex CLI docs; run `codex --help` if your version differs). Then paste `CODEX_PROMPT.md`.
-3. **Watch progress** in a third terminal:
+3. **Watch progress** in a third terminal (works from any folder; it needs nothing but Python 3):
    ```bash
-   .venv/bin/python bugwatch/bugs.py --watch
+   python3 "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/bugwatch/bugs.py" --watch
    ```
 
 ## Entry formats
