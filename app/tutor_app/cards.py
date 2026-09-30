@@ -6,7 +6,7 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.text import Text
 
-from .texmath import to_terminal
+from .texmath import pretty_units, to_terminal
 
 C = {"tutor": "#89b4fa", "question": "#cba6f7", "you": "#9399b2", "good": "#a6e3a1", "bad": "#f38ba8",
      "hint": "#f9e2af", "ai": "#f5c2e7", "accent": "#ffd500", "dim": "#6c7086", "plan": "#94e2d5"}
@@ -44,7 +44,7 @@ def feedback(fb: dict, your: str) -> Panel:
     dont_know = your.strip() in ("?", "I don't know")
     title = "I don't know — here's the answer" if dont_know else ("Correct ✓" if ok else "Not quite ✗")
     style = C["good"] if ok else (C["hint"] if dont_know else C["bad"])
-    body = [f"**Your answer:** {your}  ", f"**Answer:** {fb.get('answer', '')}  "]
+    body = [f"**Your answer:** {pretty_units(your)}  ", f"**Answer:** {pretty_units(str(fb.get('answer', '')))}  "]
     if fb.get("detail"):
         body.append(f"**Exam point:** {fb['detail']}  ")
     if fb.get("explanation"):

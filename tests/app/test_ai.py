@@ -103,6 +103,12 @@ def test_first_json_finds_embedded_object():
     (r"$\ce{H2SO4}$", "H₂SO₄"),
     (r"$0.48\%$", "0.48%"),
     ("plain text", "plain text"),
+    (r"$0.348\to0.3$", "0.348→0.3"),
 ])
 def test_terminal_maths(src, want):
     assert want in to_terminal(src)
+
+
+def test_pretty_units():
+    from tutor_app.texmath import pretty_units
+    assert pretty_units("0.27 m s^-2") == "0.27 m s⁻²" and pretty_units("kg m^{-3}") == "kg m⁻³"

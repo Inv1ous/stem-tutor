@@ -32,6 +32,7 @@ def _math(expr: str) -> str:
     e = e.replace(r"\%", "%").replace(r"\;", r"\,").replace(r"\:", r"\,").replace(r"\!", "").replace("~", r"\,")
     e = e.replace(r"\left", "").replace(r"\right", "").replace(r"\quad", r"\,\,")
     e = e.replace(r"\degree", "°").replace(r"^\circ", "°").replace(r"^{\circ}", "°")
+    e = re.sub(r"\\(?:to|rightarrow)(?![A-Za-z])", "→", e).replace(r"\Rightarrow", "⇒").replace(r"\leftarrow", "←")
     if _CONV is not None:
         try:
             return _CONV.convert(e)
@@ -46,3 +47,8 @@ def to_terminal(text: str) -> str:
         return ""
     text = re.sub(r"\$\$(.+?)\$\$", lambda m: _math(m.group(1).strip()), text, flags=re.S)
     return re.sub(r"(?<!\\)\$(.+?)(?<!\\)\$", lambda m: _math(m.group(1)), text, flags=re.S)
+
+
+def pretty_units(text: str) -> str:
+    """'m s^-2' → 'm s⁻²' for answers written in plain unit notation."""
+    return re.sub(r"\^\{?(-?\d+)\}?", lambda m: m.group(1).translate(_SUP), text or "")

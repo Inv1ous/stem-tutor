@@ -265,7 +265,8 @@ class SessionScreen(Screen):
                 kc = b["kc"]
                 glyph, style = ("✓", "#a6e3a1") if kc in s.get("kcs_learned", []) else \
                     ("▶", "bold #89b4fa") if kc == self.kc else ("○", "#6c7086")
-                m.append(f"{glyph} {t.packs.kcs[kc]['title'][:22]}  ", style=style)
+                name = t.packs.kcs[kc]["title"]
+                m.append(f"{glyph} {name if len(name) <= 24 else name[:23] + '…'}  ", style=style)
             self.query_one("#map", Static).update(m)
 
     # ---------- the loop ----------
