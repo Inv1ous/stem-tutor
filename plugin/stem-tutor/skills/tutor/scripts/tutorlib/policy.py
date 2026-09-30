@@ -201,6 +201,12 @@ def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "a
         return [{"kind": "long", "kcs": [k for k in pool if k in packs.kcs][: max(1, minutes // 15)]}]
     if mode == "diagnose":
         return [{"kind": "bracket", "kcs": [k for k in (focus or []) if k in packs.kcs][:8]}]
+    if mode == "weak":  # focus: weak spots, weakest first (insights.weak_spots); re-teach some, practise the rest
+        weak = [k for k in focus or [] if k in packs.kcs and packs.items_for(k)]
+        learn = weak[:max(1, int(0.75 * minutes / 18))]
+        rest = weak[len(learn):][:max(1, (minutes - 18 * len(learn)) // 3)]
+        return ([{"kind": "learn", "kc": k} for k in learn] + ([{"kind": "practice", "kcs": rest}] if rest else [])
+                + ([{"kind": "exit", "kcs": learn[:3]}] if learn else []))
     blocks: list[dict] = []
     used = 0
     retests = experiments.retests_due(state, now)
