@@ -80,3 +80,14 @@ def test_icloud_placeholders_detected(tmp_path):
     (v.root / "Subjects").mkdir()
     (v.root / "Subjects" / ".note.md.icloud").write_text("")
     assert v.placeholders() == ["Subjects/.note.md.icloud"]
+
+
+def test_event_after_a_torn_line_survives_replay(tmp_path):  # B-012
+    v = store.Vault(make_vault(tmp_path))
+    (v.tutor / "events").mkdir()
+    (v.tutor / "events" / "2026-08.jsonl").write_text('{"type": "answer", "item":')  # crash mid-append
+    t = datetime.fromisoformat("2026-08-30T12:00:00+08:00")
+    v.append_event({"type": "gaps", "add": ["9702-1.1.1"]}, now=t)
+    v.append_event({"type": "gaps", "add": ["9702-1.1.2"]}, now=t)
+    assert [e["add"] for e in v.events()] == [["9702-1.1.1"], ["9702-1.1.2"]]
+    assert v.bad_lines == ["2026-08.jsonl:1"]

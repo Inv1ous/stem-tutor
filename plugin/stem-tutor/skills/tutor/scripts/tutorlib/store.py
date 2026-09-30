@@ -103,8 +103,10 @@ class Vault:
         event = {"id": uuid.uuid4().hex[:12], "ts": now.isoformat(timespec="seconds"), **event}
         path = self.tutor / "events" / f"{now:%Y-%m}.jsonl"
         path.parent.mkdir(parents=True, exist_ok=True)
-        with open(path, "a", encoding="utf-8") as f:
-            f.write(json.dumps(event, ensure_ascii=False) + "\n")
+        with open(path, "ab+") as f:
+            torn = f.seek(0, os.SEEK_END) > 0 and f.seek(-1, os.SEEK_END) >= 0 and f.read(1) != b"\n"
+            # after a crash mid-append, end the torn line first so this event isn't glued to it and skipped too
+            f.write((("\n" if torn else "") + json.dumps(event, ensure_ascii=False) + "\n").encode("utf-8"))
         return event
 
     def events(self):
