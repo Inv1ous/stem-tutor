@@ -22,3 +22,8 @@ def test_ipad_import_keeps_every_original_in_imported(tmp_path):
         mac.import_ipad_inbox(vault, inbox)
     assert sorted(p.read_text() for p in (inbox / "Imported").iterdir()) == ["ONE", "TWO"]
     assert sorted(p.read_text() for p in (vault / "Inbox").iterdir()) == ["ONE", "TWO"]
+
+
+def test_tests_never_see_the_real_ipad_inbox():
+    from tutor_app import config
+    assert "Mobile Documents" not in str(config.ICLOUD_INBOX)
