@@ -35,12 +35,18 @@ reaches your vault.
 
 ## Using it
 
-Everything goes through one script (run from the `stem-tutor` folder):
+Everything goes through one command, `bin/foundry` in the `stem-tutor` folder, which works from any folder:
 
 ```bash
-.venv/bin/python foundry/foundry.py add 9702-2.2 9702-2.3   # put chapters on the board
-.venv/bin/python foundry/foundry.py board                    # where every chapter is
-.venv/bin/python foundry/foundry.py next                     # what each chapter needs now
+"$HOME/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/bin/foundry" board   # where every chapter is
+"$HOME/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/bin/foundry" next    # what each chapter needs now
+"$HOME/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/bin/foundry" watch   # live screen (Ctrl+C to close)
+```
+
+To type just `foundry watch`, run this once and open a new Terminal window:
+
+```bash
+echo 'alias foundry="$HOME/Miscellaneous/02\ Education/~~\ AI\ Workflow/stem-tutor/bin/foundry"' >> ~/.zshrc
 ```
 
 In practice you tell the Claude session: *"Run the foundry on 9702-2.2 to 9702-3.1"*, and it follows
@@ -51,8 +57,7 @@ app) and the Haiku workers as subagents, and asks you only if something needs a 
 and closed when the job ends; up to `max_parallel` (3) run at once across chapters. **Haiku runs in parallel too**:
 every solver shard and checker of every chapter that needs one can run at the same time.
 
-If you would rather watch a Codex job in the ChatGPT app, run `.venv/bin/python foundry/foundry.py prompt <role>
-<chapter>` (roles: drafter, tiebreak, fixer), paste the output into a new Codex task in the `stem-tutor` folder, and
+If you would rather watch a Codex job in the ChatGPT app, run `foundry prompt <role> <chapter>` (roles: drafter, tiebreak, fixer), paste the output into a new Codex task in the `stem-tutor` folder, and
 the foundry won't start that job itself. The prompt ends with the command that reports the job back.
 
 - 74 chapter bundles (weeks 1–10) are already prepared in `build/work/bundles/`.
@@ -62,7 +67,7 @@ the foundry won't start that job itself. The prompt ends with the command that r
 
 ## Seeing what's running
 
-- **Live screen:** `.venv/bin/python foundry/foundry.py watch` redraws every 5 seconds: each chapter's stage, every
+- **Live screen:** `foundry watch` redraws every 5 seconds: each chapter's stage, every
   Haiku worker (… working / ✓ done, with minutes elapsed) and every Codex worker with its model, minutes running and
   the last thing it did (for example the validator command it is running). Ctrl+C to close. When the Claude session
   starts workers it opens this for you in a terminal tab beside the chat.

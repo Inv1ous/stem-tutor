@@ -1,0 +1,4 @@
+#!/bin/sh
+# Run the content foundry from any folder: foundry watch | board | next | status <chapter> | …
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+exec "$ROOT/.venv/bin/python" "$ROOT/foundry/foundry.py" "$@"
