@@ -300,13 +300,6 @@ def test_time_blocks_cover_the_small_hours(hour, block):  # B-006
     assert model._time_block(T0.replace(hour=hour)) == block
 
 
-@pytest.mark.parametrize("hour,block", [(0, "late night"), (2, "late night"), (4, "late night"), (5, "morning"),
-                                        (11, "morning"), (12, "afternoon"), (16, "afternoon"), (17, "evening"),
-                                        (22, "late night"), (23, "late night")])
-def test_time_blocks_cover_the_small_hours(hour, block):  # B-006
-    assert model._time_block(T0.replace(hour=hour)) == block
-
-
 def test_hinted_answers_do_not_clear_a_misconception():  # B-007
     s = model.new_state()
     miss = {"correct": False, "score": 0, "error": "CONCEPT", "misconception": "m"}
