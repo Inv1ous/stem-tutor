@@ -1,3 +1,7 @@
+import os
+import subprocess
+import sys
+
 import pytest
 
 from tutorlib import grade
@@ -189,3 +193,40 @@ def test_entries_split_on_question_numbers_but_not_thousands():
     rs = grade.parse_responses("1 = (−1) ~3, 2 $x, 3 = 1,000 m ~2\n")
     assert [(r["n"], r["kind"]) for r in rs] == [(1, "value"), (2, "bad"), (3, "value")]
     assert rs[0]["conf"] == 3 and rs[2]["value"] == "1,000 m"
+
+
+# ---------- expression input is data, never code (B-005) ----------
+def test_expression_input_cannot_run_code(tmp_path):
+    item = {"kind": "expression", "answer": {"expr": "x"}, "marks": 1}
+    proof = tmp_path / "proof.txt"
+    for payload in (f"open({str(proof)!r}, 'w').write('X')",
+                    f"__import__('pathlib').Path({str(proof)!r}).touch()",
+                    "x.__class__", "(lambda: x)()", "[x][0]", "x if 1 else 2"):
+        g = grade.grade_item(item, {"kind": "value", "value": payload, "conf": 3})
+        assert not g["correct"] and g["needs_judgement"], payload
+    assert not proof.exists()
+
+
+def test_expression_power_tower_is_refused_not_computed():
+    code = ("import sys; from tutorlib import grade; "
+            "g = grade.grade_item({'kind': 'expression', 'answer': {'expr': 'x'}}, "
+            "{'kind': 'value', 'value': sys.argv[1]}); print(g['correct'], g['needs_judgement'])")
+    env = {**os.environ, "PYTHONPATH": os.pathsep.join(sys.path), "PYTHONDONTWRITEBYTECODE": "1"}
+    for tower in ("9^9^9^9", "((10^1000)^1000)^1000", "2^(10^6)"):
+        out = subprocess.run([sys.executable, "-c", code, tower], capture_output=True, text=True, timeout=20, env=env)
+        assert out.stdout.split() == ["False", "True"], (tower, out.stderr[-300:])
+
+
+@pytest.mark.parametrize("given,expected", [
+    ("u^2 + 2 a s", "u**2 + 2*a*s"),
+    ("sin(x)^2 + cos(x)^2", "1"),
+    ("ln(e^x)", "x"),
+    ("0.5 m v^2", "m*v**2/2"),
+    ("pi r^2", "pi*r**2"),
+    ("sqrt(2 g h)", "(2*g*h)**0.5"),
+    ("abs(-x) + 10^3", "x + 1000"),
+    ("log(x, 10)", "log(x)/log(10)"),
+])
+def test_expression_equivalent_forms_still_match(given, expected):
+    item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
+    assert grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"]

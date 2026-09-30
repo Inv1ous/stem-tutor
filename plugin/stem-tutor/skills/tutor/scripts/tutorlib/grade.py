@@ -175,6 +175,28 @@ def _grade_numeric(item, resp):
     return _result(False, 0, needs_judgement=True)
 
 
+# parse_expr runs eval(), so learner text is limited to plain maths before it gets there: these characters only,
+# a dot only inside a number, and names that resolve to nothing but the functions below (anything else is a symbol)
+_EXPR_TEXT = re.compile(r"[0-9A-Za-z\s+\-*/^().,]{1,200}")
+_EXPR_FUNCS = ("sin", "cos", "tan", "sec", "csc", "cot", "asin", "acos", "atan", "sinh", "cosh", "tanh",
+               "exp", "log", "sqrt")
+_MAX_POWER = 10_000  # nested exponents multiply; beyond this sympy would grind on numbers with millions of digits
+
+
+def _check_size(sympy, tree) -> None:
+    degree: dict = {}
+    for node in sympy.postorder_traversal(tree):
+        d = max((degree.get(a, 1) for a in node.args), default=1)
+        if isinstance(node, sympy.Pow) and not node.exp.free_symbols:
+            try:
+                d = degree.get(node.base, 1) * max(1.0, abs(complex(node.exp.evalf())))
+            except (TypeError, ValueError):
+                d = math.inf
+        if not d <= _MAX_POWER:
+            raise ParseError("exponent too large")
+        degree[node] = d
+
+
 def _sympy():
     from . import deps
 
@@ -184,8 +206,22 @@ def _sympy():
                                             parse_expr, standard_transformations)
 
     tr = standard_transformations + (implicit_multiplication_application, convert_xor)
-    return sympy, lambda s: parse_expr(s.replace("\\", ""), transformations=tr,
-                                       local_dict={"e": sympy.E, "pi": sympy.pi})
+    names = {n: getattr(sympy, n) for n in ("Symbol", "Function", "Integer", "Float", "Rational", "Add", "Mul", "Pow",
+                                            *_EXPR_FUNCS)}
+    names.update(__builtins__={}, abs=sympy.Abs, ln=sympy.log)
+
+    def parse(s: str):
+        s = s.replace("\\", "")
+        if not _EXPR_TEXT.fullmatch(s) or "." in re.sub(r"\d*\.\d+|\d+\.", "", s):
+            raise ParseError(f"not a plain maths expression: {s[:40]!r}")
+        for evaluate in (False, True):  # build unevaluated first so a huge power is refused before it is computed
+            expr = parse_expr(s, local_dict={"e": sympy.E, "pi": sympy.pi}, global_dict=dict(names),
+                              transformations=tr, evaluate=evaluate)
+            if not evaluate:
+                _check_size(sympy, expr)
+        return expr
+
+    return sympy, parse
 
 
 def expressions_equal(a: str, b: str) -> bool:
