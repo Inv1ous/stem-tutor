@@ -25,8 +25,12 @@ def _chem(body: str) -> str:
 def _math(expr: str) -> str:
     e = expr
     e = re.sub(r"\\ce\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: _chem(m.group(1)), e)
-    for _ in range(3):
-        e = re.sub(_TEXT_CMDS, r"\1", e)
+    for _ in range(3):  # keep text as a group, spaces kept: \times\text{IQR} is × IQR, not a command \timesIQR
+        e = re.sub(_TEXT_CMDS, lambda m: "{" + m.group(1).replace(" ", r"\,") + "}", e)
+    e = re.sub(r"\\begin\{[pb]matrix\}(.*?)\\end\{[pb]matrix\}",  # column vectors as (3; -4)
+               lambda m: "(" + r";\,".join(r.replace("&", " ").strip() for r in m.group(1).split("\\\\")) + ")", e,
+               flags=re.S)
+    e = re.sub(r"\\(le|ge|ne)(?![A-Za-z])", r"\\\1q", e).replace(r"\ldots", r"\dots")  # names flatlatex lacks
     e = re.sub(r"\\[dt]frac", r"\\frac", e)
     e = re.sub(r"\\frac\s*(\d)\s*(\d)", r"\\frac{\1}{\2}", e)  # \tfrac12
     e = e.replace(r"\%", "%").replace(r"\;", r"\,").replace(r"\:", r"\,").replace(r"\!", "").replace("~", r"\,")
@@ -53,4 +57,5 @@ def to_terminal(text: str) -> str:
 
 def pretty_units(text: str) -> str:
     """'m s^-2' → 'm s⁻²' for answers written in plain unit notation."""
-    return re.sub(r"\^\{?(-?\d+)\}?", lambda m: m.group(1).translate(_SUP), text or "")
+    return re.sub(r"\^(?:\{(-?\d+)\}|(-?\d+)(?![\d.]))", lambda m: (m.group(1) or m.group(2)).translate(_SUP),
+                  text or "")  # m^{1/2} or m^2.5 stay as typed rather than half-converted

@@ -177,3 +177,19 @@ def test_overlapping_requests_respect_the_daily_cap(tmp_path, monkeypatch):  # B
 
     asyncio.run(go())
     assert c.today()["replies"] == 1 and c.last.status == "cap"
+
+
+@pytest.mark.parametrize("tex,want", [  # published maths that reached the terminal as raw LaTeX
+    (r"$k\ge3$", "k≥3"), (r"$20 \le t < 35$", "20≤t<35"), (r"$a\ne b$", "a≠b"),
+    (r"$Q_3 + 1.5\times\text{IQR}$", "Q₃+1.5×IQR"),
+    (r"$\text{frequency density}=\text{frequency}\div\text{class width}$", "frequency density=frequency÷class width"),
+    (r"$1, 2, \ldots, n$", "1,2,…,n"), (r"$\begin{pmatrix}3\\-4\end{pmatrix}$", "(3; -4)"),
+])
+def test_terminal_maths_has_no_raw_latex_left(tex, want):
+    assert to_terminal(tex) == want
+
+
+def test_units_with_brace_exponents_are_left_readable():
+    from tutor_app.texmath import pretty_units
+    assert pretty_units("m s^-2") == "m s⁻²" and pretty_units("m^{-1}") == "m⁻¹"
+    assert pretty_units("x^{1/2}") == "x^{1/2}" and pretty_units("m^{2.0}") == "m^{2.0}"
