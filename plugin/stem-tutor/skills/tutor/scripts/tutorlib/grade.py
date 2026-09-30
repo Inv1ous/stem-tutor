@@ -89,6 +89,11 @@ def _sig_figs(mant: str) -> int | None:
 
 
 def parse_quantity(text: str) -> tuple[float, str, int | None]:
+    return _parse(text)[:3]
+
+
+def _parse(text: str) -> tuple[float, str, int | None, int | None]:
+    """(value, unit, s.f. or None when trailing zeros make it ambiguous, digits written or None for a fraction)"""
     t = text.translate(SUPERSCRIPT).replace("−", "-").replace("–", "-").strip().lstrip("=").strip()
     t = re.sub(r"^[(\[]\s*([^)\]]*?)\s*[)\]]", r"\1", t)  # "(-1)", "[2.5] m"
     t = re.sub(r"(?<=\d),(?=\d{3}\b)", "", t)
@@ -108,7 +113,8 @@ def parse_quantity(text: str) -> tuple[float, str, int | None]:
         raise ParseError(f"cannot use the number in {text!r}") from None
     if not math.isfinite(value):
         raise ParseError(f"number out of range in {text!r}")
-    return value, m["unit"].strip(), sf
+    digits = None if m["den"] else len(m["mant"].lstrip("+-").replace(".", "").lstrip("0")) or 1
+    return value, m["unit"].strip(), sf, digits
 
 
 # ---------------- grading ----------------
@@ -119,6 +125,13 @@ def _result(correct, score, error=None, misconception=None, needs_judgement=Fals
 
 def _close(a: float, b: float, tol_rel: float) -> bool:
     return abs(a - b) <= max(tol_rel * abs(b), 1e-12)
+
+
+def _rounded_to(value: float, target: float, digits: int) -> bool:
+    """`value` is `target` rounded to `digits` significant figures (a half may go either way)."""
+    if not digits or not target:
+        return False
+    return abs(value - target) <= 0.5 * 10 ** (math.floor(math.log10(abs(target))) - digits + 1) * (1 + 1e-9)
 
 
 def _distractor(entry) -> tuple[str | None, str]:
@@ -141,7 +154,7 @@ def _grade_mcq(item, resp):
 def _grade_numeric(item, resp):
     ans = item["answer"]
     try:
-        value, unit, sf = parse_quantity(str(resp["value"]))
+        value, unit, sf, digits = _parse(str(resp["value"]))
     except ParseError:
         return _result(False, 0, needs_judgement=True)
     tol = 1e-9 if ans.get("exact") else ans.get("tol_rel", 0.01)  # exact: counts, conversions; 1e-9 absorbs float noise
@@ -156,15 +169,18 @@ def _grade_numeric(item, resp):
                 return _result(False, 0, "NOTATION", detail="wrong unit")
             value *= f
     target = ans["value"]
-    if _close(value, target, tol):
-        allowed = ans.get("sf_ok") or ([ans["sf"]] if ans.get("sf") else None)
+    allowed = ans.get("sf_ok") or ([ans["sf"]] if ans.get("sf") else None)
+    # a value correctly rounded at the learner's own precision counts as right, reading "20" strictly as 2 s.f.;
+    # the s.f. rule below then sets the mark
+    n = digits if digits and not ans.get("exact") and (digits >= 2 or digits in (allowed or ())) else 0
+    if _close(value, target, tol) or _rounded_to(value, target, n):
         if allowed and sf is not None and sf not in allowed:
             notation = notation or f"{sf} s.f. (want {'/'.join(map(str, allowed))})"
         if notation:
             return _result(True, 0.5, "NOTATION", detail=notation)
         return _result(True, 1.0)
     for d in item.get("distractors") or []:
-        if _close(value, d["value"], tol):
+        if _close(value, d["value"], tol) or _rounded_to(value, d["value"], n):
             return _result(False, 0, d.get("error", "CONCEPT"), d.get("misconception"))
     if value and target:
         k = math.log10(abs(value / target))

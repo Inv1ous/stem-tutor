@@ -244,3 +244,41 @@ def _num(value, text, **answer):
 ])
 def test_exact_answers_allow_no_error(value, text, ok):
     assert _num(value, text, exact=True)["correct"] is ok
+
+
+@pytest.mark.parametrize("text,sf_ok,score", [
+    ("16 N", [2, 3], 1.0),      # B-004: correct to 2 s.f., which is allowed
+    ("16.5 N", [2, 3], 1.0),
+    ("17 N", [2, 3], 0),        # wrongly rounded
+    ("16 N", [3, 4], 0.5),      # right value, too few s.f.
+    ("2e1 N", [2, 3], 0),       # 1 s.f. is not allowed, so no rounding leeway
+    ("2e1 N", [1, 2], 1.0),
+    ("0.016 kN", [2, 3], 1.0),
+])
+def test_value_rounded_to_its_own_sig_figs_is_right(text, sf_ok, score):
+    g = _num(16.46207763315433, text, unit="N", sf_ok=sf_ok)
+    assert g["score"] == score and g["correct"] is (score > 0)
+
+
+def test_rounded_distractor_still_names_the_misconception():
+    item = {"kind": "numeric", "answer": {"value": 16.46, "unit": "N", "sf_ok": [2, 3]},
+            "distractors": [{"value": 1.049, "misconception": "m1"}]}
+    g = grade.grade_item(item, {"kind": "value", "value": "1.0 N", "conf": 3})
+    assert g["misconception"] == "m1"
+
+
+@pytest.mark.parametrize("value,text", [(10.392304845413266, "10 N"), (20.38735983690112, "20 N"), (19.78477, "20 N")])
+def test_trailing_zero_answer_rounded_correctly_is_right(value, text):  # published 9702-1.4-i03, 9702-2.1-i28/i38
+    assert _num(value, text, unit="N", sf_ok=[2, 3])["score"] == 1.0
+
+
+def test_trailing_zero_is_read_strictly_for_rounding():
+    assert not _num(16.46, "20 N", unit="N", sf_ok=[2, 3])["correct"]
+
+
+@pytest.mark.parametrize("value,text,ok", [
+    (9.6013, "10", False), (96, "1.0e2", False),  # coarser than 2 s.f. once the power of ten changes
+    (9.96, "10", True), (1050, "1.1e3", True),    # 2 s.f. rounding, halves rounded up
+])
+def test_rounding_is_judged_at_the_answers_magnitude(value, text, ok):
+    assert _num(value, text, sf_ok=[2, 3])["correct"] is ok
