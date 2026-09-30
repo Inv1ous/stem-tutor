@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import re
 from collections import Counter
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from . import experiments, model, policy
 from .packs import _fill
@@ -171,64 +171,162 @@ def today_note(tutor, minutes: int = 50) -> str:
     return _write(tutor, "Today.md", "\n".join(lines) + "\n")
 
 
-def profile_note(tutor) -> str:
-    from . import profile
-    s, now = tutor.state, tutor.now()
-    p = profile.summary(s, tutor.packs, now)
-    pct = lambda x: f"{x:.0%}"  # noqa: E731
-    L = ["# Your learner profile",
-         f"_Updated {now:%d %b %Y %H:%M}. Worked out from your answers, compared with what was expected for each "
-         "question. No 'learning styles': only what measurably helps you._", ""]
-    tips = profile.advice(p)
-    L += ["## What this means for you", ""] + ([f"- {x}" for x in tips] or
-                                              ["- Not enough answers yet: patterns appear after a few sessions."])
-    L += ["", "## How sure vs how right", ""]
-    cal = p["calibration"]
-    if cal["n"]:
-        verdict = ("overconfident" if cal["bias"] > 0.1 else "underconfident" if cal["bias"] < -0.1 else "well calibrated")
-        L += [f"{cal['n']} rated answers: you are **{verdict}**. Confidently-wrong answers so far: {cal['high_conf_errors']} "
-              "(the best moments to fix an idea).", "", "| You said | Answers | Actually right | A perfect judge |",
-              "|---|---|---|---|"]
-        L += [f"| {lv['level']} | {lv['n']} | {pct(lv['right'])} | {pct(lv['said'])} |" for lv in cal["levels"]]
+SURE = {"not enough data": "⚪", "early sign": "🟡", "likely": "🟢", "clear": "✅"}
+
+
+def load_ai_summary(tutor) -> dict | None:
+    """The latest AI-written summary of the findings, if the learner asked for one: {"text", "at"}."""
+    return read_json(tutor.vault.tutor / "profile_ai.json")
+
+
+def _pct(x: float | None) -> str:
+    return "–" if x is None else f"{x:.0%}"
+
+
+def insights_markdown(tutor, ai: dict | None = None) -> str:
+    """What the tutor knows about you: shared by Profile.md and the app's insights screen."""
+    from . import insights
+    f = insights.findings(tutor)
+    r = f["recorded"]
+    L = ["# What the tutor knows about you",
+         f"_Updated {tutor.now():%d %b %Y %H:%M}. Counted from your own answers: nothing here is guessed by AI._", "",
+         "## What the tutor has recorded", ""]
+    if r["answers"]:
+        L += [f"- **{r['answers']}** answers in {r['sessions']} sessions over {r['study_days']} study days "
+              f"({r['first']} to {r['latest']}).",
+              f"- {r['confidence_ratings']} confidence ratings · {r['hinted']} answers with a hint · "
+              f"{r['mistakes_classified']} mistakes sorted by kind · {r['misconceptions_spotted']} misconceptions "
+              "spotted.", f"- {r['blurts']} blurts · {r['papers']} past papers marked."]
     else:
-        L.append("No rated answers yet.")
-    L += ["", "## When you learn best", ""]
-    tod = [b for b in p["time_of_day"]["blocks"] if b["n"]]
-    L += [f"- {b['block'].title()}: {b['n']} answers, {b['residual']:+.0%} vs expected" for b in tod] or ["- No data yet."]
-    L += ["", "## Stamina in a session", ""]
-    L += [f"- Questions {b['items']}: {b['n']} answers, {b['residual']:+.0%} vs expected" for b in p["stamina"]["buckets"]] \
-        or ["- No data yet."]
-    L += ["", "## Mistakes by kind", ""]
-    L += [f"- {code.title()}: {n}" for code, n in p["errors"].items()] or ["- None recorded yet."]
-    L += ["", "## Remembering over time", ""]
-    L += [f"- {s}: {v['n']} spaced reviews; the memory model expected {pct(v['expected'])} recall and you got "
-          f"{pct(v['actual'])}" for s, v in p["forgetting"].items()] or ["- Not enough spaced reviews yet."]
-    L += ["", "## Pace and habits", ""]
-    L += [f"- {s}: {m:.1f} min per mark (exam pace is about 1.2)" for s, m in p["pace"].items()]
-    h = p["habits"]
-    L += [f"- Studied on {h['last_28']} of the last 28 days; current streak {h['streak']} day(s).",
-          f"- Reviews due over the next 7 days: {' · '.join(str(x) for x in p['workload'])}."]
-    L += ["", "## Teaching experiments on you", ""]
-    for e in p["experiments"]:
-        pf = "–" if e["p_first_better"] is None else pct(e["p_first_better"])
-        L.append(f"- **{e['name']}** ({e['subject']}): {e['arms'][0]} vs {e['arms'][1]}, {e['complete_pairs']}/"
-                 f"{e['target_pairs']} pairs, chance the first is better {pf}, decision: {e['decision']}")
-    if not p["experiments"]:
-        L.append("- None yet. The first starts once enough topics of one kind are being taught.")
-    kn = p["knobs"]
-    L += ["", "## What the tutor has adjusted for you", ""]
-    adj = [f"- {s}: reviews now aim for {r:.0%} recall, because your memory differs from the model's forecast."
-           for s, r in kn["desired_retention"].items()]
-    if kn["checking_routine"]:
-        adj.append("- Careless slips cost you many marks, so answer boxes now show a quick checking routine.")
-    if kn["confidence_training"]:
-        adj.append("- Your confidence is often off, so feedback now shows how often you're right at that confidence.")
-    if kn["attempt_before_hint"]:
-        adj.append("- You ask for hints often, so a hint now asks you to have a go first.")
-    if kn["max_items_before_break"]:
-        adj.append(f"- Your accuracy dips after about {kn['max_items_before_break']} questions, so a break is suggested there.")
-    L += adj or ["- Nothing yet: research-based defaults are in use."]
-    return _write(tutor, "Profile.md", "\n".join(L) + "\n")
+        L.append("- Nothing yet: every answer you give adds to this.")
+    L += ["", "> [!info] How sure the tutor is",
+          "> ⚪ **not enough data** · 🟡 **early sign**: some answers, not enough to act on · 🟢 **likely**: enough "
+          "for the tutor to act on · ✅ **clear**: three times that much", "", "## What it has worked out", ""]
+    for i in f["items"]:
+        L += [f"### {i['headline']}", f"{SURE[i['certainty']]} _{i['area']} · {i['certainty']}"
+              + (f", from {i['n']}_" if i["n"] else "_"), "", i["detail"]]
+        L += ["", f"**What the tutor does about it:** {i['action']}", ""] if i["action"] else [""]
+    L += ["## What the tutor has adjusted for you", ""]
+    L += [f"- {a}" for a in f["adjustments"]] or ["- Nothing yet: research-based defaults are in use."]
+    L += ["", "## Exam readiness", ""]
+    rows = insights.readiness(tutor)
+    if rows:
+        L += ["| Exam | Date | Ideas | Built | Started | Secure | If you stopped now | If you keep reviewing |",
+              "|---|---|---|---|---|---|---|---|"]
+        L += [f"| {x['exam']} | {x['date']}{' (estimated)' if x['estimated'] else ''}, in {x['days']} days | "
+              f"{x['ideas']} | {x['built']} | {x['started']} | {x['secure']} | {_pct(x['recall_if_stop'])} | "
+              f"{_pct(x['recall_if_keep'])} |" for x in rows]
+        L += ["", "The last two columns are predicted recall on the day for the ideas you have started: with no more "
+              "reviews, and with your review schedule kept up. Ideas not built yet can't be started."]
+    else:
+        L.append("- No upcoming exams in the plan.")
+    weak = insights.weak_spots(tutor)
+    L += ["", "## Weak spots", ""]
+    L += [f"- **{w['kc']} {w['title']}**: {'; '.join(w['reasons'])}" for w in weak[:12]] or ["- None right now."]
+    if len(weak) > 12:
+        L.append(f"- …and {len(weak) - 12} more.")
+    if weak:
+        L += ["", "**Fix my weak spots** in the tutor works through these, weakest first."]
+    if ai:
+        L += ["", "## AI summary", "", f"> [!quote] Written by the AI tutor on {ai['at'][:10]} from the findings above"]
+        L += [f"> {x}" if x.strip() else ">" for x in ai["text"].strip().splitlines()]
+    L += ["", "## What it never does", ""] + [f"- {x}" for x in f["never"]]
+    return "\n".join(L) + "\n"
+
+
+def profile_note(tutor) -> str:
+    return _write(tutor, "Profile.md", insights_markdown(tutor, load_ai_summary(tutor)))
+
+
+def _clip_math(text: str, n: int = 160) -> str:
+    """First line, at most n characters, never cutting a $…$ formula in half."""
+    line = (text or "").strip().splitlines()[0] if (text or "").strip() else ""
+    if len(line) <= n:
+        return line
+    cut = line[:n]
+    if cut.count("$") % 2:
+        cut = cut[:cut.rfind("$")]
+    return cut.rstrip() + "…"
+
+
+def _rebuilt_key(tutor, e: dict) -> str | None:
+    """The right answer for an answer logged before keys were recorded, re-created from the pack."""
+    from .packs import _eval
+    from .session import _display_answer
+    sub = e["item"].rsplit("-i", 1)[0]
+    it = next((i for i in (tutor.packs.pack(sub) or {}).get("items", []) if i["id"] == e["item"]), None)
+    if not it:
+        return None
+    inst, tpl = dict(it), it.get("template")
+    if tpl and e.get("params"):
+        env = dict(e["params"])
+        for name, expr in tpl.get("derived", {}).items():
+            env[name] = _eval(expr, env)
+        if "answer" in tpl:
+            inst["answer"] = {**it.get("answer", {}), "value": _eval(tpl["answer"], env)}
+        if "options" in it:
+            inst["options"] = {k: _fill(v, env) for k, v in it["options"].items()}
+    if it["kind"] == "mcq" and it.get("shuffle") and it.get("source", {}).get("type") != "past":
+        return (inst.get("options") or {}).get(inst["answer"], inst["answer"])  # letters were shuffled when shown
+    try:
+        return _display_answer(inst)
+    except (KeyError, TypeError, ValueError):  # a template answer without its logged values
+        return None
+
+
+def mistakes_note(tutor) -> str:
+    """Every question answered wrong or not known, by subtopic, newest first, with the right answer."""
+    from . import insights
+    answers = [e for e in tutor.vault.events() if e["type"] == "answer"]
+    right_later: set[str] = set()
+    groups: dict[str, list[list[str]]] = {}
+    fixed = 0
+    for e in reversed(answers):  # newest first, so "right since" means right after this mistake
+        if model.counts_as_right(e["grade"]):
+            right_later.add(e["item"])
+            continue
+        day, since = datetime.fromisoformat(e["ts"]).strftime("%d %b"), e["item"] in right_later
+        fixed += since
+        if ":" in e["item"]:
+            paper, q = e["item"].split(":", 1)
+            groups.setdefault("Past papers", []).append(
+                [f"- **{day}** · {paper} Q{q}: {e['response']} marks" + (" · ✓ full marks since" if since else "")])
+            continue
+        g, kc = e["grade"], (e.get("kcs") or [""])[0]
+        why = ("didn't know" if e.get("response") == "don't know"
+               else f"misconception: “{insights._mis_text(tutor.packs, kc, g['misconception'])}”" if g.get("misconception")
+               else insights.MISTAKES.get(g.get("error") or "", "wrong answer"))
+        stem = _item_stem(tutor, e["item"], e.get("params"))
+        key = e.get("key") or _rebuilt_key(tutor, e)
+        you = str(e.get("response", "")).replace("`", "'")
+        groups.setdefault(e["item"].rsplit("-i", 1)[0], []).append(
+            [f"- **{day}** · {why}" + (" · ✓ right since" if since else ""),
+             f"  - Question: {_clip_math(stem) if not stem.startswith('(item ') else 'no longer available'}",
+             f"  - You: `{you}` · Right answer: {key or 'not recorded'}"])
+    n = sum(len(v) for v in groups.values())
+    L = ["# Mistake journal", "_Every question you got wrong or didn't know, newest first, with the right answer. "
+         "Updated after each session._", "", f"{n} mistakes · {fixed} put right since." if n else "No mistakes yet."]
+    for sub in sorted(groups, key=lambda x: (x == "Past papers", x)):
+        title = tutor.packs.subtopics.get(sub, {}).get("title", "")
+        L += ["", f"## {sub} {title}".rstrip(), ""] + [line for entry in groups[sub] for line in entry]
+    return _write(tutor, "Mistakes.md", "\n".join(L) + "\n")
+
+
+def week_note(tutor, monday: date) -> str:
+    from . import insights
+    r = insights.week_report(tutor, monday)
+    L = [f"# Week in review · {r['week']}", f"_{monday:%a %d %b} to {monday + timedelta(days=6):%a %d %b %Y}_", "",
+         f"- Studied on **{r['days']}** day{'s' if r['days'] != 1 else ''} · {r['answers']} answers · "
+         f"{r['minutes']:g} minutes answering questions"]
+    if r["right"] is not None:
+        change = f" ({r['right_change']:+.0%} on the week before)" if r["right_change"] is not None else ""
+        L.append(f"- Answers right: **{r['right']:.0%}**{change}")
+    secured = [f"{k} {tutor.packs.kc(k)['title']}" for k in r["secured"] if k in tutor.packs.kcs]
+    L += [f"- Ideas newly secure: {', '.join(secured) or 'none this week'}",
+          f"- Misconceptions fixed: {'; '.join(r['fixed']) or 'none this week'}", "", "## What changed in your profile",
+          ""] + ([f"- {c}" for c in r["changes"]] or ["- Nothing changed this week."])
+    L += ["", "See also [[Profile]] (what the tutor knows about you) and [[Mistakes]] (your mistake journal)."]
+    return _write(tutor, f"Weekly/{r['week']}.md", "\n".join(L) + "\n")
 
 
 # ---------------- Almanac two-way sync ----------------

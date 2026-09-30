@@ -586,6 +586,7 @@ class Tutor(LessonMixin):
                        "marks": p["marks"], "grade": {k: g[k] for k in ("correct", "score", "error", "misconception")},
                        "credit": credit, "pos": s["answered"], "block": p["block"], "phase": p["phase"],
                        "params": inst.get("params"), "response": r["value"] if r["kind"] != "idk" else "don't know",
+                       "key": _display_answer(inst),
                        **({"retention": policy.target_retention(self.state, self.packs, kc0, self.now())} if known else {}),
                        **({"slip_likely": True} if slip else {})})
         self._audit("answer", int(key), inst)

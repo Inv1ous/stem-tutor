@@ -18,11 +18,12 @@ def tutor(tmp_path):
 
 
 def answer(t, kc="9702-2.1.1", right=True, conf=None, error=None, mis=None, item="9702-2.1-i01", response="B",
-           seconds=40, marks=1):
+           seconds=40, marks=1, params=None, score=None):
     return t.log({"type": "answer", "session": "s1", "item": item, "kcs": [kc], "subject": "phys", "difficulty": 3,
                   "conf": conf, "hinted": False, "seconds": seconds, "marks": marks,
-                  "grade": {"correct": right, "score": 1.0 if right else 0.0, "error": error, "misconception": mis},
-                  "credit": [], "pos": 0, "block": "review", "phase": None, "params": None, "response": response})
+                  "grade": {"correct": right, "score": score if score is not None else 1.0 if right else 0.0,
+                            "error": error, "misconception": mis},
+                  "credit": [], "pos": 0, "block": "review", "phase": None, "params": params, "response": response})
 
 
 def finding(f, area):
@@ -93,3 +94,35 @@ def test_week_report_counts_a_scripted_week(tutor):
     assert r["week"] == "2026-W40" and r["days"] == 2 and r["answers"] == 4 and r["minutes"] == 3.5
     assert r["right"] == 0.75 and r["right_change"] == -0.25
     assert any("Distance and displacement" in x for x in r["fixed"])
+
+
+def test_answers_log_the_key_as_it_was_shown(tutor):
+    tutor.start("autopilot", minutes=50)
+    q = tutor.next()["items"][0]
+    inst = tutor.session["presented"][str(q["n"])]["inst"]
+    tutor.answer(f"{q['n']}A4" if q["kind"] == "mcq" else f"{q['n']} = 1 ~4")
+    assert [e for e in tutor.vault.events() if e["type"] == "answer"][-1]["key"] == session._display_answer(inst)
+
+
+def test_mistake_journal_has_the_right_answer_and_right_since(tutor):
+    from tutorlib import lint, report
+    answer(tutor, kc="9702-2.1.4", right=False, item="9702-2.1-i02", params={"t": 1.5}, response="14.7",
+           error="PROCEDURE", marks=2)
+    answer(tutor, right=False, mis="m1", response="A")
+    answer(tutor, kc="9702-2.1.1", right=False, item="9702_s23_qp_22:1a", response="1/2", score=0.5)
+    tutor.clock["now"] = datetime.fromisoformat("2026-09-30T10:00:00+08:00")
+    answer(tutor)  # the vector question, right this time
+    text = (tutor.vault.root / report.mistakes_note(tutor)).read_text()
+    assert "Right answer: 11 m" in text  # 0.5 × 9.81 × 1.5², re-created from the logged template value
+    assert "Distance and displacement" in text and "displacement" in text and "✓ right since" in text
+    assert "method errors" in text and "9702_s23_qp_22 Q1a" in text and "1/2" in text
+    assert lint.lint(text) == []
+
+
+def test_week_note_is_written(tutor):
+    from tutorlib import lint, report
+    answer(tutor, right=False, mis="m1", response="A")
+    path = report.week_note(tutor, date(2026, 9, 28))
+    text = (tutor.vault.root / path).read_text()
+    assert path == "Weekly/2026-W40.md" and "Studied on **1** day" in text and "[[Mistakes]]" in text
+    assert lint.lint(text) == []
