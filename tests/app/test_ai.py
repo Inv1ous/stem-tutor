@@ -144,3 +144,24 @@ def test_ai_comes_back_after_a_limit_block(tmp_path, monkeypatch):
     assert not c.available
     c.blocked_until = datetime.now() - timedelta(seconds=1)
     assert c.available
+
+
+@pytest.mark.parametrize("reply,key,kind", [  # B-018: each gives the open answer away
+    ("B.", "B: 0.35 kg", "mcq"), ("(B)", "B: 0.35 kg", "mcq"), ("B) because the mass halves", "B: 0.35 kg", "mcq"),
+    ("Go with option B.", "B", "mcq"), ("The correct answer: B", "B", "mcq"),
+    ("The answer is x^2 + 2*x + 1", "x**2+2*x+1", "expression"), ("so v² = u² + 2as", "u**2 + 2*a*s", "expression"),
+    ("v^2 = 2as + u^2", "u**2 + 2*a*s", "expression"),
+    ("1000 m", "1e+03 m", "numeric"), ("it is 1.0 × 10^3 m", "1e+03 m", "numeric"), ("about 10^3 m", "1e+03 m", "numeric"),
+    ("that gives 1,000 m", "1e+03 m", "numeric"), ("so 4.2 × 10⁻³ mol", "0.0042 mol", "numeric"),
+])
+def test_leak_guard_catches_plain_disclosures(reply, key, kind):
+    assert ai.leaks(reply, key, kind)
+
+
+@pytest.mark.parametrize("reply,key,kind", [
+    ("A force is a push or a pull.", "A: 3 N", "mcq"), ("Compare the options carefully.", "B", "mcq"),
+    ("Which suvat equation has no t in it?", "u**2 + 2*a*s", "expression"),
+    ("use g = 9.81 and u = 12", "1e+03 m", "numeric"), ("start from v = u + at", "19.6 m s-1", "numeric"),
+])
+def test_leak_guard_lets_hints_through(reply, key, kind):
+    assert not ai.leaks(reply, key, kind)

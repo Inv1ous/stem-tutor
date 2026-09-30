@@ -16,6 +16,9 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import AsyncIterator
 
+from tutorlib import grade
+from tutorlib.units import SUPERSCRIPT
+
 LEAN = ["-p", "--safe-mode", "--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "",
         "--tools", "", "--no-session-persistence"]
 
@@ -287,27 +290,59 @@ def first_json(text: str) -> dict | None:
     return None
 
 
+_NUMBER = re.compile(r"(?P<pow>\b10\s*\^\s*[({]?\s*(?P<p>[+-]?\d+))|(?P<num>-?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
+                     r"(?:\s*(?:[eE][+-]?\d+|(?:[x×*·]|\\times)\s*10\s*\^?\s*[({]?\s*[+-]?\d+))?|-?\.\d+)")
+_SUPERSCRIPTS = re.compile(r"[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
+
+
+def _numbers(text: str):
+    """Every number written in `text`: 1000, 1,000, 1.0 × 10^3, 1e3, 10^3, 4.2 × 10⁻³."""
+    for m in _NUMBER.finditer(text.translate(SUPERSCRIPT).replace("−", "-")):
+        if m["pow"]:
+            yield 10.0 ** int(m["p"])
+            continue
+        try:
+            yield grade.parse_quantity(m["num"])[0]
+        except grade.ParseError:
+            continue
+
+
+def _flat(text: str) -> str:
+    """Maths with spacing, *, $ and braces removed and powers as ^: u² + 2·a·s and u**2 + 2*a*s both read u^2+2as."""
+    text = _SUPERSCRIPTS.sub(lambda m: "^" + m[0].translate(SUPERSCRIPT), text.replace("**", "^"))
+    return re.sub(r"[\s*$\\{}·×]", "", text)
+
+
 def leaks(reply: str, key: str, kind: str) -> bool:
-    """True when a reply gives away an open question's answer (letter, option text or final value)."""
+    """True when a reply gives away an open question's answer (letter, option text, expression or final value)."""
     if not key:
         return False
     text = re.sub(r"[*_`$\\]", "", reply)
     if kind == "mcq":
         letter, _, opt = key.partition(": ")
-        pats = [rf"\b(answer|option|choice|it)\s*(is|would be|must be|=|:)\s*\(?{re.escape(letter)}\b",
-                rf"\b\(?{re.escape(letter)}\)?\s+is\s+(correct|right|the answer)"]
-        if any(re.search(p, text, re.I) for p in pats):
+        L = f"(?-i:{re.escape(letter)})"  # the capital letter itself: "it is a vector" is not option A
+        pats = [rf"\b(answer|option|choice|it)\s*(is|would be|must be|=|:)\s*\(?{L}\b",
+                rf"\b\(?{L}\)?\s+is\s+(correct|right|the answer)",
+                rf"\b(option|choice|letter)\s*\(?{L}\)?(?![A-Za-z0-9])",
+                rf"^\W*\(?{L}\)?\s*(?:[.):\-–—]|$)"]  # the reply is, or starts by labelling, the letter
+        if any(re.search(p, text.strip(), re.I) for p in pats):
             return True
         clean = re.sub(r"[*_`$\\]", "", opt).strip().lower()
         return len(clean) > 6 and clean in text.lower()
-    m = re.match(r"-?\d+(?:\.\d+)?(?:e-?\d+)?", key.split()[0]) if key else None
-    if not m:
+    if kind == "expression":
+        if len(flat := _flat(key)) >= 4 and flat in _flat(reply):
+            return True
+        for part in re.split(r"=|\bis\b|:", reply)[1:]:  # each right-hand side, in any equivalent form
+            try:
+                if grade.expressions_equal(re.split(r"[\n;,]|\.(?:\s|$)", part.strip())[0], key):
+                    return True
+            except Exception:  # noqa: BLE001 - prose is not maths
+                continue
         return False
-    target = float(m.group(0))
-    for num in re.findall(r"-?\d+(?:\.\d+)?(?:e-?\d+)?", text):
-        try:
-            if abs(float(num) - target) <= max(abs(target) * 0.01, 1e-12):
-                return True
-        except ValueError:
-            continue
-    return False
+    if kind != "numeric":
+        return False
+    try:
+        target = grade.parse_quantity(key)[0]
+    except grade.ParseError:
+        return False
+    return any(abs(v - target) <= max(abs(target) * 0.01, 1e-12) for v in _numbers(text))
