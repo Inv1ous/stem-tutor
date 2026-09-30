@@ -109,8 +109,7 @@ def test_solver_prompt_is_short_and_never_includes_keys(fdy):
     assert "foundry/roles/solver.md" in prompt and len(prompt) < 600
     assert all(k not in prompt for k in ('"answer"', "distractors", "packs/", "bundles/"))
     assert f"build/work/blind/{SUB}.questions.json" in prompt and f"build/work/blind/{SUB}.answers.json" in prompt
-    with pytest.raises(SystemExit, match="Codex role"):
-        fdy.cmd_prompt("drafter", SUB)
+    assert "packs/" in fdy.role_prompt("drafter", SUB)  # only the blind roles are kept away from the keys
 
 
 def test_codex_worker_runs_in_the_background_and_is_collected(fdy, tmp_path, monkeypatch):
@@ -135,3 +134,53 @@ def test_codex_worker_runs_in_the_background_and_is_collected(fdy, tmp_path, mon
     assert st["stage"] == "solve" and st["jobs"]["drafter"]["exit"] == 0 and st["gates"]["ok"]
     cmd = fdy.config()["tiers"][fdy.config()["roles"]["drafter"]][0]
     assert st["jobs"]["drafter"]["model"].startswith(cmd)
+
+
+def test_a_big_chapter_is_split_across_parallel_solvers(fdy):
+    fdy.cmd_add([SUB])
+    shards = fdy.cmd_strip(SUB, size=5)
+    assert len(shards) >= 3
+    answers = keys(fdy)
+    for k in shards:  # each Haiku solver answers only its own shard
+        part = json.loads((fdy.BLIND / f"{SUB}.questions.part{k}.json").read_text())
+        assert f"questions.part{k}.json" in fdy.role_prompt("solver", SUB, k)
+        if k != shards[-1]:
+            (fdy.BLIND / f"{SUB}.answers.part{k}.json").write_text(json.dumps({q["id"]: answers[q["id"]] for q in part}))
+    with pytest.raises(SystemExit, match="unanswered"):
+        fdy.cmd_compare(SUB)  # the last solver hasn't finished
+    part = json.loads((fdy.BLIND / f"{SUB}.questions.part{shards[-1]}.json").read_text())
+    (fdy.BLIND / f"{SUB}.answers.part{shards[-1]}.json").write_text(json.dumps({q["id"]: answers[q["id"]] for q in part}))
+    fdy.cmd_compare(SUB)
+    assert fdy.load(SUB)["stage"] == "check"
+    fdy.cmd_strip(SUB, size=1000)  # re-stripping clears old shards, so they can't be merged by mistake
+    assert not list(fdy.BLIND.glob(f"{SUB}.*part*.json"))
+
+
+def test_the_checker_runs_alongside_the_solvers(fdy, capsys):
+    fdy.cmd_add([SUB])
+    capsys.readouterr()
+    fdy.cmd_dispatch(SUB)
+    jobs = json.loads(capsys.readouterr().out.split("\n", 1)[1])  # after the strip line
+    assert {j["role"] for j in jobs} == {"solver", "checker"}
+    fdy.WORK.mkdir(parents=True, exist_ok=True)
+    (fdy.WORK / f"{SUB}.check.json").write_text(json.dumps({"findings": []}))  # the checker finishes first
+    fdy.cmd_compare(SUB)
+    st = fdy.load(SUB)
+    assert st["stage"] == "solve" and st["checked"]
+    (fdy.BLIND / f"{SUB}.answers.json").write_text(json.dumps(keys(fdy)))
+    fdy.cmd_compare(SUB)
+    assert fdy.load(SUB)["stage"] == "sign"  # no disputes, no findings: straight to sign-off
+
+
+def test_a_codex_job_run_by_hand_is_not_duplicated_and_reports_back(fdy):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "fix"
+        st["fixes"] = [{"ref": "note", "instruction": "x", "status": "open"}]
+    fdy.cmd_prompt("fixer", SUB)  # printed for pasting into the Codex app
+    assert fdy._running(fdy.load(SUB)) == ["fixer"]
+    with pytest.raises(SystemExit, match="already working"):
+        fdy.cmd_codex("fixer", SUB)
+    fdy.cmd_collect("fixer", SUB, "-", "0")
+    st = fdy.load(SUB)
+    assert fdy._running(st) == [] and st["stage"] == "sign"

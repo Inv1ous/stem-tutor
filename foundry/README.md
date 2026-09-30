@@ -7,9 +7,9 @@ note in `Subjects/`) with a team of AI workers, where the expensive model only m
 |---|---|---|---|
 | **Manager** | Claude Opus (the session you talk to) | Plans batches, launches workers, decides disputes, signs chapters off, publishes | Judgement; reads only short summaries |
 | **Drafter** | Codex medium tier (`gpt-6-sol`) | Writes the chapter: pack + lesson note, computing every answer with Python | The long writing job, on your ChatGPT plan instead of Claude |
-| **Solver** | Claude Haiku | Answers every question **without seeing the answer key** | A different AI family from the drafter, so a wrong key shows up as a disagreement |
+| **Solver** | Claude Haiku, several at once | Answers every question **without seeing the answer key**; a big chapter is split into shards of 20 questions, one solver each | A different AI family from the drafter, so a wrong key shows up as a disagreement |
 | **Tiebreak** | Codex medium tier | Solves only the disputed questions, also blind | Settles most disputes without the manager |
-| **Checker** | Claude Haiku | Checks six fixed rules (hints that give the answer away, wrong definitions, two right options, wrong constants, note vs pack, off-syllabus) and quotes evidence | Narrow, rule-based reading that small models do well |
+| **Checker** | Claude Haiku, alongside the solvers | Checks six fixed rules (hints that give the answer away, wrong definitions, two right options, wrong constants, note vs pack, off-syllabus) and quotes evidence | Narrow, rule-based reading that small models do well |
 | **Fixer** | Codex low tier (`gpt-6-luna`) | Makes exactly the changes the manager wrote down | Mechanical edits |
 
 Between every step, **gates** run automatically at no token cost: the pack validator (formats, answers recomputed,
@@ -46,6 +46,14 @@ Everything goes through one script (run from the `stem-tutor` folder):
 In practice you tell the Claude session: *"Run the foundry on 9702-2.2 to 9702-3.1"*, and it follows
 `foundry/roles/manager.md`: it launches the Codex workers itself (headless, through the Codex CLI inside the ChatGPT
 app) and the Haiku workers as subagents, and asks you only if something needs a person.
+
+**You don't open any Codex sessions.** Each Codex job is its own separate headless session, started by the foundry
+and closed when the job ends; up to `max_parallel` (3) run at once across chapters. **Haiku runs in parallel too**:
+every solver shard and checker of every chapter that needs one can run at the same time.
+
+If you would rather watch a Codex job in the ChatGPT app, run `.venv/bin/python foundry/foundry.py prompt <role>
+<chapter>` (roles: drafter, tiebreak, fixer), paste the output into a new Codex task in the `stem-tutor` folder, and
+the foundry won't start that job itself. The prompt ends with the command that reports the job back.
 
 - 74 chapter bundles (weeks 1–10) are already prepared in `build/work/bundles/`.
 - The six held chapters (9701-1.1 to 1.4, P1-2, S1-1) can go straight in: `add` puts an existing pack at `solve`.

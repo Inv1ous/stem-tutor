@@ -10,8 +10,9 @@ a whole pack to know whether it is right.
   foundry.py board                        one line per chapter
   foundry.py next                         what to do now, per chapter (the manager's to-do list)
   foundry.py codex <role> <subtopic>      launch a headless Codex worker (drafter, tiebreak, fixer)
-  foundry.py prompt <role> <subtopic>     the short prompt for a Haiku subagent (solver, checker)
-  foundry.py strip <subtopic> [--changed] write the blind questions file for a solver (no answers in it)
+  foundry.py dispatch <subtopic>          every Haiku prompt the chapter needs now (solver shards + checker, in parallel)
+  foundry.py prompt <role> <subtopic> [--shard k]   one Haiku prompt (solver, checker)
+  foundry.py strip <subtopic> [--changed] write the blind questions file, split into solver shards (no answers in it)
   foundry.py compare <subtopic>           score solver answers against the keys; tiebreak answers settle disputes
   foundry.py packet <subtopic>            the manager's adjudication packet: open disputes and findings only
   foundry.py resolve <subtopic> <ref> keep|fix [instruction]
@@ -164,6 +165,12 @@ def cmd_add(subs: list[str], stage: str = "draft") -> None:
         print(f"{sub}: added at {start}")
 
 
+def _running(st: dict) -> list[str]:
+    """Roles working on this chapter now: headless workers still alive, or a job you run by hand not yet reported."""
+    return [r for r, j in st["jobs"].items()
+            if _alive(j.get("pid")) or (j.get("manual") and not j.get("finished"))]
+
+
 def _alive(pid: int | None) -> bool:
     if not pid:
         return False
@@ -184,7 +191,7 @@ def cmd_board() -> None:
         g = st.get("gates") or {}
         gate = "ok" if g.get("ok") else ("-" if not g else f"{g.get('validator', 0)}+{g.get('lint', 0)}")
         open_n = sum(d["status"] == "open" for d in st["disputes"]) + sum(f["status"] == "open" for f in st["findings"])
-        running = [r for r, j in st["jobs"].items() if _alive(j.get("pid"))]
+        running = _running(st)
         print(f"{st['sub']:<11} {st['stage']:<11} {gate:<6} {open_n:<5} "
               f"{STAGE_ROLE.get(st['stage'], '')}{' · running: ' + ', '.join(running) if running else ''}")
     oob = out_of_bounds()
@@ -194,17 +201,18 @@ def cmd_board() -> None:
 
 def action(st: dict) -> str:
     sub, stage = st["sub"], st["stage"]
-    running = [r for r, j in st["jobs"].items() if _alive(j.get("pid"))]
+    running = _running(st)
     if running:
         return f"wait: {', '.join(running)} running"
     return {
         "draft": f"foundry.py codex drafter {sub}",
-        "solve": f"foundry.py strip {sub}; Haiku: foundry.py prompt solver {sub}; then foundry.py compare {sub}",
+        "solve": f"foundry.py dispatch {sub} → launch every prompt as a Haiku agent, together; then foundry.py compare {sub}",
         "tiebreak": f"foundry.py codex tiebreak {sub}; then foundry.py compare {sub}",
-        "check": f"Haiku: foundry.py prompt checker {sub} (it writes the findings file); then foundry.py compare {sub}",
+        "check": (f"foundry.py compare {sub}" if load(sub).get("checked") else
+                  f"foundry.py dispatch {sub} → Haiku checker (if not already running); then foundry.py compare {sub}"),
         "adjudicate": f"manager: foundry.py packet {sub}; foundry.py resolve {sub} <ref> keep|fix \"…\"",
         "fix": f"foundry.py codex fixer {sub}",
-        "recheck": f"foundry.py strip {sub} --changed; Haiku: foundry.py prompt solver {sub}; foundry.py compare {sub}",
+        "recheck": f"foundry.py dispatch {sub} → Haiku solvers; then foundry.py compare {sub}",
         "sign": f"manager: foundry.py sign {sub}",
         "ready": "done (publish with build/publish.py)",
     }.get(stage, "?")
@@ -216,7 +224,12 @@ def cmd_next() -> None:
             print(f"{st['sub']:<11} {st['stage']:<11} → {action(st)}")
 
 
-def cmd_strip(sub: str, changed: bool = False) -> None:
+def _pfx(st: dict) -> str:
+    return "recheck." if st["stage"] == "recheck" else ""
+
+
+def cmd_strip(sub: str, changed: bool = False, size: int | None = None) -> list[int]:
+    """Write the blind questions file, split into shards so several Haiku solvers can work on one chapter at once."""
     import blind
 
     pack = json.loads(pack_path(sub).read_text())
@@ -226,9 +239,39 @@ def cmd_strip(sub: str, changed: bool = False) -> None:
         ids = {f["ref"] for f in st["fixes"]} | {d["id"] for d in st["disputes"] if d.get("resolution") == "fix"}
         questions = [q for q in questions if q["id"] in ids]
     BLIND.mkdir(parents=True, exist_ok=True)
-    out = BLIND / f"{sub}.{'recheck.' if changed else ''}questions.json"
+    pfx = "recheck." if changed else ""
+    for old in BLIND.glob(f"{sub}.{pfx}*.part*.json"):  # shards from an earlier strip would be merged by mistake
+        old.unlink()
+    out = BLIND / f"{sub}.{pfx}questions.json"
     out.write_text(json.dumps(questions, ensure_ascii=False, indent=1))
-    print(f"{out.relative_to(ROOT)}: {len(questions)} questions")
+    size = size or config().get("solver_shard_size", 20)
+    shards = [questions[i:i + size] for i in range(0, len(questions), size)] if len(questions) > size else []
+    for k, part in enumerate(shards, 1):
+        (BLIND / f"{sub}.{pfx}questions.part{k}.json").write_text(json.dumps(part, ensure_ascii=False, indent=1))
+    print(f"{out.relative_to(ROOT)}: {len(questions)} questions" + (f" in {len(shards)} shards" if shards else ""))
+    return list(range(1, len(shards) + 1))
+
+
+def _ingest_check(st: dict) -> bool:
+    """Take in the checker's findings once, whenever they arrive (the checker runs alongside the solvers)."""
+    f = WORK / f"{st['sub']}.check.json"
+    if st.get("checked") or not f.exists():
+        return False
+    found = json.loads(f.read_text())
+    st["findings"] = [{"ref": x.get("where", "?"), "rule": x.get("rule", ""), "evidence": x.get("evidence", ""),
+                       "suggested": x.get("fix", ""), "status": "open"} for x in found.get("findings", [])]
+    st["checked"] = True
+    return True
+
+
+def _after_solving(st: dict, note: str) -> None:
+    if any(d["status"] == "open" for d in st["disputes"]):
+        move(st, "tiebreak", note)
+    elif not st.get("checked"):
+        move(st, "check", note + "; waiting for the checker")
+    else:
+        move(st, "adjudicate" if any(f["status"] == "open" for f in st["findings"]) else "sign",
+             note + f"; {len(st['findings'])} checker findings")
 
 
 def cmd_compare(sub: str) -> None:
@@ -236,32 +279,37 @@ def cmd_compare(sub: str) -> None:
 
     pack = json.loads(pack_path(sub).read_text())
     with chapter(sub) as st:
-        answers_f = BLIND / f"{sub}.answers.json"
-        if st["stage"] in ("solve", "recheck") and answers_f.exists():
-            answers = json.loads(answers_f.read_text())
-            if st["stage"] == "recheck" and (BLIND / f"{sub}.recheck.answers.json").exists():
-                answers.update(json.loads((BLIND / f"{sub}.recheck.answers.json").read_text()))
+        fresh = _ingest_check(st)
+        pfx = _pfx(st)
+        files = [BLIND / f"{sub}.{pfx}answers.json"] + sorted(BLIND.glob(f"{sub}.{pfx}answers.part*.json"))
+        files = [f for f in files if f.exists()]
+        if st["stage"] in ("solve", "recheck") and files:
+            answers = json.loads((BLIND / f"{sub}.answers.json").read_text()) if pfx and \
+                (BLIND / f"{sub}.answers.json").exists() else {}
+            for f in files:  # every solver's shard
+                answers.update(json.loads(f.read_text()))
             res = blind.compare(pack, answers)
-            asked = json.loads((BLIND / f"{sub}.{'recheck.' if st['stage'] == 'recheck' else ''}questions.json")
-                               .read_text()) if (BLIND / f"{sub}.questions.json").exists() else []
-            skipped = [m for m in res["missing"] if m in {q["id"] for q in asked}]
+            qf = BLIND / f"{sub}.{pfx}questions.json"
+            asked = {q["id"] for q in json.loads(qf.read_text())} if qf.exists() else set()
+            skipped = [m for m in res["missing"] if m in asked]
             if skipped:  # an unfinished solve is not evidence: send the solver back
-                raise SystemExit(f"{sub}: {len(skipped)} questions unanswered ({', '.join(skipped[:5])}…); re-run the solver")
+                raise SystemExit(f"{sub}: {len(skipped)} questions unanswered ({', '.join(skipped[:5])}…); "
+                                 "re-run the solver for the shard that holds them")
             known = {d["id"]: d for d in st["disputes"]}
             for d in res["disagreements"]:
                 prev = known.get(d["id"])
-                if prev and prev["status"] != "open" and st["stage"] != "recheck":
+                if prev and prev["status"] != "open" and not pfx:
                     continue
                 known[d["id"]] = {"id": d["id"], "key": d.get("key"), "solver": d.get("solver"), "tiebreak": None,
                                   "status": "open"}
-            if st["stage"] == "recheck":  # a fixed item the fresh solver now agrees with is closed
+            if pfx:  # a fixed item the fresh solver now agrees with is closed
                 disagree = {d["id"] for d in res["disagreements"]}
                 for d in known.values():
                     if d["status"] == "fixed" and d["id"] not in disagree:
                         d["status"] = "closed"
             st["disputes"] = list(known.values())
             n_open = sum(d["status"] == "open" for d in st["disputes"])
-            move(st, "tiebreak" if n_open else "check", f"{res['agreed']} agreed, {n_open} disputed")
+            _after_solving(st, f"{res['agreed']} agreed, {n_open} disputed")
         elif st["stage"] == "tiebreak" and (BLIND / f"{sub}.tiebreak.json").exists():
             tb = json.loads((BLIND / f"{sub}.tiebreak.json").read_text())
             res = blind.compare(pack, tb)
@@ -272,16 +320,35 @@ def cmd_compare(sub: str) -> None:
                     if d["id"] not in wrong:  # a second, independent solver agrees with the key: the first erred
                         d["status"], d["resolution"] = "closed", "solver wrong (tiebreak agrees with key)"
             n_open = sum(d["status"] == "open" for d in st["disputes"])
-            move(st, "check", f"tiebreak closed {len(tb) - n_open}, {n_open} left for the manager")
-        elif st["stage"] == "check" and (WORK / f"{sub}.check.json").exists():
-            found = json.loads((WORK / f"{sub}.check.json").read_text())
-            st["findings"] = [{"ref": f.get("where", "?"), "rule": f.get("rule", ""), "evidence": f.get("evidence", ""),
-                               "suggested": f.get("fix", ""), "status": "open"} for f in found.get("findings", [])]
-            opened = [d for d in st["disputes"] if d["status"] == "open"] + st["findings"]
+            if n_open:  # what is still disputed goes to the manager, with the findings
+                if not st.get("checked"):
+                    move(st, "check", f"tiebreak left {n_open} for the manager; waiting for the checker")
+                else:
+                    move(st, "adjudicate", f"tiebreak left {n_open} for the manager")
+            else:
+                _after_solving(st, "tiebreak settled every dispute")
+        elif st["stage"] == "check" and st.get("checked"):
+            opened = [d for d in st["disputes"] if d["status"] == "open"] + \
+                     [f for f in st["findings"] if f["status"] == "open"]
             move(st, "adjudicate" if opened else "sign", f"{len(st['findings'])} checker findings")
+        elif fresh:
+            print(f"{sub}: checker findings recorded ({len(st['findings'])}); waiting for the solvers")
+            return
         else:
-            raise SystemExit(f"{sub}: nothing to compare at stage {st['stage']} (is the answers/findings file written?)")
+            raise SystemExit(f"{sub}: nothing to compare at stage {st['stage']} (are the answers/findings written?)")
         print(f"{sub}: now {st['stage']} ({st['history'][-1]['note']})")
+
+
+def cmd_dispatch(sub: str) -> None:
+    """Every Haiku job this chapter needs now, as prompts to launch together (one Agent call each, one message)."""
+    st = load(sub)
+    jobs = []
+    if st["stage"] in ("solve", "recheck"):
+        shards = cmd_strip(sub, changed=st["stage"] == "recheck")
+        jobs += [{"role": "solver", "shard": k, "prompt": role_prompt("solver", sub, k)} for k in shards or [None]]
+    if st["stage"] in ("solve", "check") and not st.get("checked"):
+        jobs.append({"role": "checker", "shard": None, "prompt": role_prompt("checker", sub)})
+    print(json.dumps(jobs, ensure_ascii=False, indent=1))
 
 
 def cmd_packet(sub: str) -> None:
@@ -345,15 +412,16 @@ def cmd_status(sub: str) -> None:
 
 
 # ---------------- workers ----------------
-def role_prompt(role: str, sub: str) -> str:
+def role_prompt(role: str, sub: str, shard: int | None = None) -> str:
     """Short on purpose: the worker reads the long instructions itself (its tokens, not the manager's)."""
     st = load(sub)
     lines = [f"You are the foundry {role} for chapter {sub}. Working directory: {REPO}.",
              f"Read foundry/roles/{role}.md and follow it exactly."]
     if role in ("solver", "tiebreak"):  # blind roles get their questions file only, never the paths of the keys
         re_ = "recheck." if role == "solver" and st["stage"] == "recheck" else ""
-        lines.append(f"Questions: build/work/blind/{sub}.{re_}questions.json. Write your answers to "
-                     f"build/work/blind/{sub}.{re_ + 'answers' if role == 'solver' else 'tiebreak'}.json.")
+        part = f".part{shard}" if shard else ""
+        lines.append(f"Questions: build/work/blind/{sub}.{re_}questions{part}.json. Write your answers to "
+                     f"build/work/blind/{sub}.{re_ + 'answers' + part if role == 'solver' else 'tiebreak'}.json.")
     else:
         lines.append(f"Chapter files: pack {pack_path(sub).relative_to(ROOT)}, bundle build/work/bundles/{sub}.md.")
     if role == "tiebreak":
@@ -366,17 +434,22 @@ def role_prompt(role: str, sub: str) -> str:
     return "\n".join(lines)
 
 
-def cmd_prompt(role: str, sub: str) -> None:
-    if ROLES.get(role) != "haiku":
-        raise SystemExit(f"{role} is a Codex role: use `foundry.py codex {role} {sub}`")
-    print(role_prompt(role, sub))
+def cmd_prompt(role: str, sub: str, shard: int | None = None) -> None:
+    if ROLES.get(role) == "codex":  # to paste into a Codex session you run yourself: mark it so nobody duplicates it
+        with chapter(sub) as st:
+            st["jobs"][role] = {"manual": True, "started": now()}
+        print(role_prompt(role, sub) + f"\nWhen you have finished, run: .venv/bin/python foundry/foundry.py collect {role} {sub} -")
+        return
+    print(role_prompt(role, sub, shard))
 
 
 def cmd_codex(role: str, sub: str) -> None:
     if ROLES.get(role) != "codex":
         raise SystemExit(f"{role} is not a Codex role (Codex roles: {[r for r, w in ROLES.items() if w == 'codex']})")
     cfg = config()
-    running = sum(_alive(j.get("pid")) for st in chapters() for j in st["jobs"].values())
+    running = sum(len(_running(st)) for st in chapters())
+    if role in _running(load(sub)):
+        raise SystemExit(f"{sub}: a {role} is already working on this chapter")
     if running >= cfg["max_parallel"]:
         raise SystemExit(f"{running} workers already running (max_parallel {cfg['max_parallel']}); try again later")
     model, effort = cfg["tiers"][cfg["roles"][role]]
@@ -398,9 +471,9 @@ def cmd_codex(role: str, sub: str) -> None:
 
 def cmd_collect(role: str, sub: str, out: str, code: str = "0") -> None:
     """Runs after a Codex worker exits: record its report, run the gates, move the chapter on."""
-    report = {}
+    report = {"manual": True} if out == "-" else {}  # "-": a session you ran by hand reports without a file
     try:
-        report = json.loads(Path(out).read_text())
+        report = report or json.loads(Path(out).read_text())
     except (OSError, ValueError):
         pass
     g = gates(sub)
@@ -453,7 +526,9 @@ def main(argv: list[str]) -> None:
     elif cmd == "status":
         cmd_status(rest[0])
     elif cmd == "prompt":
-        cmd_prompt(rest[0], rest[1])
+        cmd_prompt(rest[0], rest[1], int(rest[rest.index("--shard") + 1]) if "--shard" in rest else None)
+    elif cmd == "dispatch":
+        cmd_dispatch(rest[0])
     elif cmd == "codex":
         cmd_codex(rest[0], rest[1])
     elif cmd == "collect":

@@ -1,8 +1,19 @@
 {
  "max_parallel": 3,
  "tiers": {
-  "low": ["gpt-6-luna", "medium"],
-  "medium": ["gpt-6-sol", "medium"]
+  "low": [
+   "gpt-6-luna",
+   "medium"
+  ],
+  "medium": [
+   "gpt-6-sol",
+   "medium"
+  ]
  },
- "roles": {"drafter": "medium", "tiebreak": "medium", "fixer": "low"}
+ "roles": {
+  "drafter": "medium",
+  "tiebreak": "medium",
+  "fixer": "low"
+ },
+ "solver_shard_size": 20
 }
