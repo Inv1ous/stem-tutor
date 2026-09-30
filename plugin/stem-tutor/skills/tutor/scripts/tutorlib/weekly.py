@@ -34,7 +34,7 @@ def start_experiments(t) -> list[str]:
 
 def run(t) -> dict:
     res = {"today": report.today_note(t), "profile": report.profile_note(t), "experiments_started": start_experiments(t)}
-    last = max((e["ts"] for e in t.vault.events() if e["type"] == "anki_export"), default=None)
+    last = t.state.get("anki_last")
     if last is None or (t.now() - datetime.fromisoformat(last)).days >= 6:
         res["anki"] = anki.export(t)
     root = t.vault.root

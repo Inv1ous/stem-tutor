@@ -73,6 +73,16 @@ class TutorApp(App):
         self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None)
         self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json", daily_cap=self.settings.daily_cap)
+        import threading
+
+        def warm() -> None:  # load the maths library in the background so the first algebra answer isn't slow
+            try:
+                from tutorlib import deps
+                deps.ensure("sympy")
+                import sympy  # noqa: F401
+            except Exception:
+                pass
+        threading.Thread(target=warm, daemon=True).start()
         imported = mac.import_ipad_inbox(self.vault, config.ICLOUD_INBOX)
         if imported:
             self.notify(f"Imported from your iPad inbox: {', '.join(imported)}")

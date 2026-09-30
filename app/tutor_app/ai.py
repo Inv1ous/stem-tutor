@@ -87,8 +87,11 @@ class Claude:
 
     # ---------------- daily usage (kept in the vault so it survives restarts) ----------------
     def today(self) -> dict:
-        data = json.loads(self.usage_file.read_text()) if self.usage_file and self.usage_file.exists() else {}
-        return data.get(date.today().isoformat(), {"replies": 0, "input": 0, "cached": 0, "output": 0})
+        key = date.today().isoformat()
+        if getattr(self, "_today", (None,))[0] != key:  # read the file once a day, not every second
+            data = json.loads(self.usage_file.read_text()) if self.usage_file and self.usage_file.exists() else {}
+            self._today = (key, data.get(key, {"replies": 0, "input": 0, "cached": 0, "output": 0}))
+        return self._today[1]
 
     def _record_day(self, u: dict) -> None:
         if not self.usage_file:
@@ -101,6 +104,7 @@ class Claude:
         d["output"] += int(u.get("output_tokens") or 0)
         self.usage_file.parent.mkdir(parents=True, exist_ok=True)
         self.usage_file.write_text(json.dumps(dict(sorted(data.items())[-60:]), indent=1))
+        self._today = (date.today().isoformat(), d)
 
     @property
     def available(self) -> bool:

@@ -15,6 +15,8 @@ from . import deps
 MASTERY_THETA = 0.8
 CONF_P = {1: 0.25, 2: 0.5, 3: 0.75, 4: 0.95}
 SUCCESS = 0.75
+MODEL_VERSION = "1.1"  # bump when the fold changes; saved states from older versions are rebuilt from events once
+SLIP_DAMPING = 0.5  # a likely slip (fast miss on an item you almost always get) moves θ half as much
 
 
 def p_correct(theta: float, difficulty: int) -> float:
@@ -33,7 +35,11 @@ def new_state() -> dict:
             "fatigue": {},
             "retention": {},
             "sessions": 0,
+            "hours": {},
         },
+        "study_days": [],
+        "anki_last": None,
+        "model_version": MODEL_VERSION,
         "gaps": [],
         "items_seen": {},
         "answers": {},
@@ -54,16 +60,43 @@ def _fsrs():
     return fsrs
 
 
+_SCHEDULERS: dict[float, object] = {}
+
+
 def _scheduler(desired_retention: float):
+    """One FSRS scheduler per retention target (building one per review was the slowest part of a rebuild)."""
+    r = round(desired_retention, 3)
+    if r not in _SCHEDULERS:
+        fsrs = _fsrs()
+        _SCHEDULERS[r] = fsrs.Scheduler(desired_retention=r, learning_steps=(), relearning_steps=(),
+                                        enable_fuzzing=False)
+    return _SCHEDULERS[r]
+
+
+def fsrs_rating(success: bool, conf: int | None, prior_success_days: int) -> str:
+    """Map an attempt to FSRS's four grades. Wrong or hinted → again; right but guessing/unsure → hard;
+    right and certain on an idea already recalled on two earlier days → easy; otherwise good."""
+    if not success:
+        return "again"
+    if conf in (1, 2):
+        return "hard"
+    if conf == 4 and prior_success_days >= 2:
+        return "easy"
+    return "good"
+
+
+def retrievability(k: dict, now: datetime) -> float | None:
+    if not k.get("fsrs"):
+        return None
     fsrs = _fsrs()
-    return fsrs.Scheduler(desired_retention=desired_retention, learning_steps=(), relearning_steps=(),
-                          enable_fuzzing=False)
+    return float(_scheduler(0.9).get_card_retrievability(fsrs.Card.from_dict(k["fsrs"]), now.astimezone(timezone.utc)))
 
 
-def _review(state: dict, kc: str, good: bool, when: datetime, subject: str) -> None:
+def _review(state: dict, kc: str, good: bool, when: datetime, subject: str, rating: str | None = None,
+            retention: float | None = None) -> None:
     fsrs = _fsrs()
     k = state["kcs"][kc]
-    sched = _scheduler(knobs(state)["desired_retention"].get(subject, 0.9))
+    sched = _scheduler(retention or knobs(state)["desired_retention"].get(subject, 0.9))
     utc = when.astimezone(timezone.utc)
     if k["fsrs"]:
         card = fsrs.Card.from_dict(k["fsrs"])
@@ -74,10 +107,11 @@ def _review(state: dict, kc: str, good: bool, when: datetime, subject: str) -> N
             r[2] += 1.0 if good else 0.0
     else:
         card = fsrs.Card(card_id=zlib.crc32(kc.encode()))
-    card, _ = sched.review_card(card, fsrs.Rating.Good if good else fsrs.Rating.Again, utc)
+    rating = rating or ("good" if good else "again")
+    card, _ = sched.review_card(card, getattr(fsrs.Rating, rating.capitalize()), utc)
     k["fsrs"] = card.to_dict()
     k["reviews"] += 1
-    k["last_rating"] = "good" if good else "again"
+    k["last_rating"] = rating
     k["last_review_day"] = when.date().isoformat()
 
 
@@ -92,12 +126,16 @@ def _apply_answer(state: dict, e: dict) -> None:
     score = g["score"] * (0.7 if e.get("hinted") else 1.0)
     success = g["score"] >= SUCCESS and not e.get("hinted")
     subject = e.get("subject", "misc")
+    expected = []
     for kc in e["kcs"]:
         k = state["kcs"].setdefault(kc, _new_kc())
         k["first_seen"] = k["first_seen"] or e["ts"]
         p = p_correct(k["theta"], e.get("difficulty", 3))
-        k["theta"] += max(0.15, 0.6 / (1 + 0.1 * k["n"])) * (score - p)
+        expected.append(p)
+        step = max(0.15, 0.6 / (1 + 0.1 * k["n"])) * (SLIP_DAMPING if e.get("slip_likely") else 1.0)
+        k["theta"] += step * (score - p)
         k["n"] += 1
+        prior_days = len([d for d in k["succ_days"] if d != day])
         if success and day not in k["succ_days"]:
             k["succ_days"].append(day)
         mis = g.get("misconception")
@@ -114,16 +152,21 @@ def _apply_answer(state: dict, e: dict) -> None:
         if g.get("error"):
             _count(k["errors"], g["error"])
         if k["last_review_day"] != day:
-            _review(state, kc, success, when, subject)
+            _review(state, kc, success, when, subject, fsrs_rating(success, e.get("conf"), prior_days),
+                     e.get("retention"))
     for kc in e.get("credit", []):
         k = state["kcs"].get(kc)
         if k and k["fsrs"] and k["last_review_day"] != day and success:
             _review(state, kc, True, when, subject)
 
     t = state["traits"]
+    exp_p = sum(expected) / len(expected) if expected else 0.5
     if e.get("conf") is not None:
         c, acc = CONF_P[e["conf"]], 1.0 if g["correct"] else 0.0
         cal = t["calibration"]
+        lvl = cal.setdefault("by_conf", {}).setdefault(str(e["conf"]), [0, 0])
+        lvl[0] += 1
+        lvl[1] += 1 if g["correct"] else 0
         cal["n"] += 1
         cal["sum_conf"] += c
         cal["sum_acc"] += acc
@@ -134,16 +177,31 @@ def _apply_answer(state: dict, e: dict) -> None:
         _count(t["errors"].setdefault(subject, {}), g["error"])
     t["hints"]["n"] += 1
     t["hints"]["hinted"] += 1 if e.get("hinted") else 0
-    if e.get("seconds") and e.get("marks"):
+    if e.get("seconds") and e.get("marks") and e["seconds"] <= 1800 * e["marks"]:  # ignore questions left open for ages
         tm = t["time"].setdefault(subject, [0.0, 0])
         tm[0] += e["seconds"]
         tm[1] += e["marks"]
-    bucket = t["fatigue"].setdefault(str(e.get("pos", 0) // 5), [0, 0])
+    bucket = t["fatigue"].setdefault(str(e.get("pos", 0) // 5), [0, 0, 0.0])
+    if len(bucket) == 2:
+        bucket.append(0.0)
     bucket[0] += 1
     bucket[1] += 1 if g["correct"] else 0
+    bucket[2] += exp_p
+    hour = t.setdefault("hours", {}).setdefault(_time_block(when), [0, 0, 0.0])
+    hour[0] += 1
+    hour[1] += 1 if g["correct"] else 0
+    hour[2] += exp_p
     state["items_seen"][e["item"]] = e["ts"]
     if e.get("id"):
         state["answers"][e["id"]] = {"subject": subject, "error": g.get("error"), "kcs": e["kcs"]}
+        if len(state["answers"]) > 600:  # only recent answers can still be tagged; keep the state file small
+            for old in list(state["answers"])[:100]:
+                del state["answers"][old]
+
+
+def _time_block(when: datetime) -> str:
+    h = when.hour
+    return "morning" if 5 <= h < 12 else "afternoon" if h < 17 else "evening" if h < 22 else "late night"
 
 
 def _apply_tag(state: dict, e: dict) -> None:
@@ -176,8 +234,25 @@ def apply(state: dict, e: dict) -> dict:
             k["fsrs"]["due"] = datetime.fromisoformat(e["due"]).astimezone(timezone.utc).isoformat()
     elif kind == "session_start":
         state["traits"]["sessions"] += 1
+    elif kind == "session_end":
+        day = e["ts"][:10]
+        days = state.setdefault("study_days", [])
+        if e.get("answered") and not e.get("abandoned") and day not in days:
+            days.append(day)
+    elif kind == "blurt":  # free recall: ideas left out come due now; totals feed the profile
+        for kc in e.get("missed", []):
+            k = state["kcs"].get(kc)
+            if k and k["fsrs"]:
+                ts = datetime.fromisoformat(e["ts"]).astimezone(timezone.utc)
+                if datetime.fromisoformat(k["fsrs"]["due"]) > ts:
+                    k["fsrs"]["due"] = ts.isoformat()
+        b = state["traits"].setdefault("blurts", [0, 0, 0])
+        b[0] += 1
+        b[1] += len(e.get("recalled", []))
+        b[2] += len(e.get("recalled", [])) + len(e.get("missed", []))
     elif kind == "anki_export":
         state.setdefault("anki_exported", []).extend(e["cards"])
+        state["anki_last"] = e["ts"]
     elif kind.startswith("exp_"):
         from . import experiments
 
@@ -224,11 +299,14 @@ def knobs(state: dict) -> dict:
     cal = calibration(state)
     fatigue_items = None
     f = t["fatigue"]
+
+    def resid(v: list) -> float:  # accuracy above/below what the item difficulty predicted
+        return (v[1] - (v[2] if len(v) > 2 else 0.5 * v[0])) / v[0]
+
     if f.get("0", [0])[0] >= 10:
-        base = f["0"][1] / f["0"][0]
+        base = resid(f["0"])
         for b in sorted(f, key=int)[1:]:
-            n, c = f[b]
-            if n >= 10 and base - c / n >= 0.15:
+            if f[b][0] >= 10 and base - resid(f[b]) >= 0.15:
                 fatigue_items = int(b) * 5
                 break
     h = t["hints"]

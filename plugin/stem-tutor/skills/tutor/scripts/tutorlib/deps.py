@@ -36,7 +36,7 @@ def ensure(name: str) -> None:
                 if str(target) not in sys.path:
                     sys.path.insert(0, str(target))
         importlib.invalidate_caches()
-    if name == "genanki" and importlib.util.find_spec("yaml") is None:
+    if name == "genanki" and "yaml" not in sys.modules and importlib.util.find_spec("yaml") is None:
         # genanki imports yaml at module load but only uses it for string templates, which we never pass.
         sys.modules["yaml"] = types.ModuleType("yaml")
     if importlib.util.find_spec(name) is None:

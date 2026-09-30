@@ -19,7 +19,9 @@ from tutorlib.lesson import GOALS
 
 from . import ai as ai_mod
 from . import cards, mac, prompts
-from .panels import ChoicePanel, ChoosePanel, ContinuePanel, LongPanel, Panel, TextPanel, TickPanel, ValuePanel, WorkedPanel
+from . import __version__
+from .panels import (ChoicePanel, ChoosePanel, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel, TickPanel,
+                     ValuePanel, WorkedPanel)
 
 BANNER = r"""[b #ffd500]  ___ _____ ___ __  __   _____      _
  / __|_   _| __|  \/  | |_   _|  _| |_ ___ _ _
@@ -58,7 +60,6 @@ class HomeScreen(Screen):
     def refresh_home(self) -> None:
         app = self.app
         t = app.tutor
-        t.state = t._fold() if t.session is None else t.state
         now = t.now()
         due = model.due_kcs(t.state, now)
         menu = self.query_one("#menu", OptionList)
@@ -71,6 +72,7 @@ class HomeScreen(Screen):
                   ("review", f"↻  Review what's due ({len(due)})"),
                   ("test", "◎  Test prep: check a chapter, fix what's weak"),
                   ("long", "✎  Long questions (typed or iPad)"),
+                  ("blurt", "»  Blurt: write everything you remember"),
                   ("chat", "✦  Ask the tutor anything"),
                   ("progress", "▤  My progress"),
                   ("obsidian", "▣  Open my notes in Obsidian"),
@@ -86,7 +88,7 @@ class HomeScreen(Screen):
         t = app.tutor
         out = Text()
         out.append(f"{now:%A %d %B}\n", style="bold #ffd500")
-        days = {datetime.fromisoformat(e["ts"]).date() for e in t.vault.events() if e["type"] == "session_end"}
+        days = {date.fromisoformat(d) for d in t.state.get("study_days", [])}
         d = now.date() if now.date() in days else now.date() - timedelta(days=1)
         streak = 0
         while d in days:
@@ -109,6 +111,7 @@ class HomeScreen(Screen):
         state = ("on" if a.available else {"login": "sign-in needed", "limit": "paused (limit)", "off": "not installed",
                                            "cap": "today's allowance used"}.get(a.status, a.status)) if app.settings.ai else "off"
         out.append(f"\nAI tutor: {state} · {a.today()['replies']} replies today\n", style="#f5c2e7")
+        out.append(f"\nSTEM Tutor v{__version__}", style="#6c7086")
         return out
 
     @on(OptionList.OptionSelected, "#menu")
@@ -121,6 +124,10 @@ class HomeScreen(Screen):
             app.push_screen(PickerScreen("lesson"), lambda r: r and app.push_screen(
                 SessionScreen({"mode": "lesson", "focus": r, "minutes": app.settings.minutes})))
         elif key == "review":
+            if not model.due_kcs(app.tutor.state, app.tutor.now()):
+                app.notify("Nothing is due right now: your memory is on schedule. Try a lesson or a blurt instead.",
+                           timeout=6)
+                return
             app.push_screen(SessionScreen({"mode": "review", "focus": None, "minutes": app.settings.minutes}))
         elif key == "test":
             app.push_screen(PickerScreen("test"), lambda r: r and app.push_screen(
@@ -128,6 +135,8 @@ class HomeScreen(Screen):
         elif key == "long":
             app.push_screen(PickerScreen("long"), lambda r: r and app.push_screen(
                 SessionScreen({"mode": "long", "focus": r, "minutes": 30})))
+        elif key == "blurt":
+            app.push_screen(PickerScreen("blurt"), lambda r: r and app.push_screen(BlurtScreen(r[0])))
         elif key == "chat":
             app.push_screen(ChatScreen())
         elif key == "progress":
@@ -162,7 +171,8 @@ class PickerScreen(ModalScreen):
                 yield SelectionList[str](*[Selection(self._label(s), s) for s in built], id="subs")
                 yield Button("Start test prep", id="go", variant="primary")
             else:
-                word = "learn" if self.mode == "lesson" else "practise with long questions"
+                word = {"lesson": "learn", "long": "practise with long questions",
+                        "blurt": "blurt (write everything you remember about)"}.get(self.mode, "study")
                 yield Static(f"Which subtopic do you want to {word}? (⏎ to choose, Esc to go back)", classes="hint")
                 yield OptionList(*[Option(self._label(s), id=s) for s in built], id="subs")
 
@@ -331,12 +341,14 @@ class SessionScreen(Screen):
         self.answer_panel(view)
 
     def answer_panel(self, view: dict) -> None:
+        checking = model.knobs(self.tutor.state)["checking_routine"]
+        self.hint_armed = False
         if view["kind"] == "mcq":
             self.panel(ChoicePanel(view["n"], view.get("options")))
         elif view["kind"] == "structured":
-            self.panel(LongPanel(view["n"]))
+            self.panel(LongPanel(view["n"], checking=checking))
         else:
-            self.panel(ValuePanel(view["n"], view["kind"]))
+            self.panel(ValuePanel(view["n"], view["kind"], checking=checking))
 
     def respond(self, data: dict) -> None:
         if (self.tutor.session or {}).get("awaiting"):
@@ -348,6 +360,18 @@ class SessionScreen(Screen):
         data, kind = event.data, self.act.get("activity")
         if isinstance(event.panel, LongPanel):
             self.long_written(data)
+            return
+        if isinstance(event.panel, ReflectPanel):
+            if data.get("code") and getattr(self, "last_fb", {}).get("event"):
+                self.tutor.tag(self.last_fb["event"], data["code"])
+                self.say(cards.note(f"Noted: {ReflectPanel.CODES[data['code']].lower()}.", "dim"))
+            self.next_followup()
+            return
+        if data.get("button") == "breakok":
+            self.next_followup()
+            return
+        if data.get("button") == "leave":
+            self.action_leave()
             return
         if data.get("button") == "home":
             self.app.pop_screen()
@@ -426,9 +450,24 @@ class SessionScreen(Screen):
             if (log := t._lesson_log()):
                 log.you(f"Note on Q{view.get('n')}: {data['note']}")
         self.say(cards.feedback(r, data.get("your", "")))
-        buttons = [("next", "Next ⏎")] + ([("why", "Explain this answer (AI)")] if self.ai_ok() else []) + \
-                  [("ask", "Ask the tutor (t)")]
-        self.panel(ContinuePanel(buttons=buttons))
+        self.last_fb = r
+        self.followups = (["reflect"] if r.get("reflect") else []) + (["break"] if r.get("break_suggested") else [])
+        self.next_followup()
+
+    def next_followup(self) -> None:
+        """After feedback: why-did-I-miss-it, then a break suggestion if due, then the usual continue buttons."""
+        step = self.followups.pop(0) if getattr(self, "followups", None) else None
+        if step == "reflect":
+            self.panel(ReflectPanel(bool(self.last_fb.get("slip_likely"))))
+        elif step == "break":
+            self.say(cards.card("hint", "Time for a short break?",
+                                "Your accuracy has dipped below what's normal for you. A 5-minute break (water, stretch, "
+                                "no phone) usually brings it back. Your place is saved either way."))
+            self.panel(ContinuePanel(buttons=[("breakok", "Keep going ⏎"), ("leave", "Save and stop for now")]))
+        else:
+            buttons = [("next", "Next ⏎")] + ([("why", "Explain this answer (AI)")] if self.ai_ok() else []) + \
+                      [("ask", "Ask the tutor (t)")]
+            self.panel(ContinuePanel(buttons=buttons))
 
     # ---------- written answers ----------
     @work(exclusive=True, group="judge")
@@ -567,10 +606,17 @@ class SessionScreen(Screen):
 
     def action_explain(self) -> None:
         if self.kc:
-            self.stream(prompts.explain_again(self.tutor, self.kc))
+            open_n = self.view["n"] if (self.view and str(self.view["n"]) in (self.tutor.session or {}).get(
+                "presented", {})) else None
+            self.stream(prompts.explain_again(self.tutor, self.kc), open_n=open_n)
 
     def action_hint(self) -> None:
         if not self.view:
+            return
+        if model.knobs(self.tutor.state)["attempt_before_hint"] and not getattr(self, "hint_armed", False):
+            self.hint_armed = True
+            self.app.notify("Have a go first: write your first step or your best guess. Press h again for the hint.",
+                            timeout=6)
             return
         h = self.tutor.hint(self.view["n"])
         if "refused" in h or h.get("error"):
@@ -679,23 +725,88 @@ class ChatScreen(Screen):
 
 
 class ProgressScreen(Screen):
-    BINDINGS = [Binding("escape", "app.pop_screen", "Back"), Binding("o", "open", "Open in Obsidian")]
+    BINDINGS = [Binding("escape", "app.pop_screen", "Back"), Binding("o", "open", "Open Profile in Obsidian")]
 
     def compose(self) -> ComposeResult:
+        from tutorlib import profile
         t = self.app.tutor
-        rows = ["# My progress", "", "| Subtopic | Secure | Learning | Gaps |", "|---|---|---|---|"]
+        p = profile.summary(t.state, t.packs, t.now())
+        rows = ["# My progress", ""]
+        tips = profile.advice(p)
+        rows += ["## What the tutor has noticed", ""] + ([f"- {x}" for x in tips] or
+                                                        ["- Nothing definite yet: patterns show up after a few sessions."])
+        rows += ["", "## Topics", "", "| Subtopic | Secure | Learning | Gaps |", "|---|---|---|---|"]
         for sub in sorted(s for s in t.packs.subtopics if t.packs.pack(s)):
             kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
             st = [views.kc_status(t.state, k) for k in kcs]
             rows.append(f"| {sub} {t.packs.subtopics[sub]['title']} | {st.count('secure')}/{len(kcs)} | "
                         f"{st.count('learning')} | {st.count('gap')} |")
-        rows += ["", "Your full profile (what works for you, experiments) is in Obsidian: Profile.md. Esc to go back."]
+        cal = p["calibration"]
+        if cal["levels"]:
+            rows += ["", "## How sure vs how right", "", "| You said | Answers | Right |", "|---|---|---|"]
+            rows += [f"| {lv['level']} | {lv['n']} | {lv['right']:.0%} |" for lv in cal["levels"]]
+        h = p["habits"]
+        rows += ["", "## Habits", "", f"- Streak: {h['streak']} day(s); studied {h['last_28']} of the last 28 days.",
+                 f"- Reviews due in the next 7 days: {' · '.join(str(x) for x in p['workload'])}."]
+        rows += ["", "Esc to go back · o opens the full profile (Profile.md) in Obsidian."]
         with VerticalScroll():
             yield Markdown("\n".join(rows))
         yield Footer()
 
     def action_open(self) -> None:
-        mac.open_in_obsidian(self.app.vault, "Home", background=False)
+        from tutorlib import report
+        report.profile_note(self.app.tutor)
+        mac.open_in_obsidian(self.app.vault, "Profile", background=False)
+
+
+class BlurtScreen(Screen):
+    """Free recall: write everything you remember, then see what you left out."""
+    BINDINGS = [Binding("ctrl+s", "submit", "Check my blurt"), Binding("escape", "app.pop_screen", "Back")]
+
+    def __init__(self, subtopic: str) -> None:
+        super().__init__()
+        self.subtopic = subtopic
+
+    def compose(self) -> ComposeResult:
+        t = self.app.tutor
+        title = t.packs.subtopics[self.subtopic]["title"]
+        yield Static(Text(f" Blurt · {self.subtopic} {title} ", style="bold #1e1e2e on #ffd500"), id="bar")
+        with VerticalScroll(id="log"):
+            yield Static(cards.card("tutor", "Write everything you remember",
+                                    "Definitions, equations, units, examples, traps: anything about this topic. Don't "
+                                    "look anything up. About **3 minutes** is plenty. Recalling is what strengthens memory; "
+                                    "checking what you missed shows exactly what to review."), classes="entry")
+        with Container(id="panel"):
+            from textual.widgets import TextArea
+            yield TextArea(id="blurt", soft_wrap=True)
+            yield Button("Check my blurt (ctrl+s)", id="check", variant="primary")
+        yield Footer()
+
+    def on_mount(self) -> None:
+        self.query_one("#blurt").focus()
+
+    @on(Button.Pressed, "#check")
+    def action_submit(self) -> None:
+        from textual.widgets import TextArea
+        from tutorlib import lesson
+        text = self.query_one("#blurt", TextArea).text.strip()
+        if not text:
+            return
+        t = self.app.tutor
+        res = t.blurt(self.subtopic, text)
+        log = self.query_one("#log", VerticalScroll)
+        n, total = len(res["recalled"]), len(res["ideas"])
+        log.mount(Static(cards.card("good" if n == total else "hint", f"You recalled {n} of {total} ideas",
+                                    "Ideas you left out are now due for review, so they come up next time."),
+                         classes="entry"))
+        for kc, v in res["ideas"].items():
+            note = "" if v["recalled"] else lesson.teach_card(t, kc).get("note", "")
+            log.mount(Static(cards.card("good" if v["recalled"] else "bad",
+                                        f"{'✓' if v['recalled'] else '✗'} {v['title']}", note), classes="entry"))
+        log.scroll_end(animate=False)
+        box = self.query_one("#panel", Container)
+        box.remove_children()
+        box.mount(Static("Esc for the menu. Your blurt and results are saved in Lessons in Obsidian.", classes="hint"))
 
 
 class HelpScreen(ModalScreen):

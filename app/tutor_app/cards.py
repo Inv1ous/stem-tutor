@@ -58,6 +58,10 @@ def feedback(fb: dict, your: str) -> Panel:
         body += ["", fb.get("examiner") or "Past-paper question: official answer only (press e for an AI explanation)."]
     if fb.get("hypercorrect"):
         body += ["", "⚑ You were confident but wrong: this is the best moment to fix the idea. Ask why (t)."]
+    if fb.get("calibration_note"):
+        body += ["", f"◔ {fb['calibration_note']}"]
+    if fb.get("relearn"):
+        body += ["", "↻ This idea will come back in a few questions, so you can get it right before you finish."]
     return Panel(md("\n".join(body)), title=f"[b]Q{fb['n']} — {title}[/b]", title_align="left", border_style=style,
                  padding=(0, 1))
 

@@ -31,7 +31,10 @@ class Tutor(LessonMixin):
         self._now = now or vault.now
         self.state_path = vault.tutor / "state" / "learner.json"
         self.session_path = vault.tutor / "state" / "session.json"
-        self.state = read_json(self.state_path) or self._fold()
+        self.state = read_json(self.state_path)
+        if not self.state or self.state.get("model_version") != model.MODEL_VERSION:
+            self.state = self._fold()  # first run of a new model version: recompute everything from your history
+            self._dirty = True
         self.session = read_json(self.session_path)
 
     # ---------- persistence ----------
@@ -45,7 +48,9 @@ class Tutor(LessonMixin):
         return s
 
     def _save(self) -> None:
-        write_json(self.state_path, self.state)
+        if getattr(self, "_dirty", True):
+            write_json(self.state_path, self.state, indent=None)  # compact; only after something was learned
+            self._dirty = False
         if self.session is not None or (self.vault.root / "Now.md").exists():
             self._write_now()
         if self.session or self.session_path.exists():
@@ -54,6 +59,7 @@ class Tutor(LessonMixin):
     def log(self, event: dict) -> dict:
         e = self.vault.append_event(event, now=self.now())
         model.apply(self.state, e)
+        self._dirty = True
         self._save()
         return e
 
@@ -109,6 +115,7 @@ class Tutor(LessonMixin):
 
     def rebuild(self) -> dict:
         self.state = self._fold()
+        self._dirty = True
         self._save()
         return {"kcs": len(self.state["kcs"]), "events": sum(1 for _ in self.vault.events())}
 
@@ -143,7 +150,10 @@ class Tutor(LessonMixin):
         return {"session": self.session["id"], "blocks": blocks}
 
     def end(self, abandoned: bool = False) -> dict:
-        s = self.session or {}
+        if self.session is None:
+            return {"session": None, "answered": 0, "correct": 0, "accuracy": None, "kcs_learned": [],
+                    "unanswered": 0, "abandoned": abandoned}
+        s = self.session
         summary = {"session": s.get("id"), "answered": s.get("answered", 0), "correct": s.get("correct", 0),
                    "accuracy": round(s["correct"] / s["answered"], 2) if s.get("answered") else None,
                    "kcs_learned": s.get("kcs_learned", []), "unanswered": len(s.get("presented", {})),
@@ -244,21 +254,25 @@ class Tutor(LessonMixin):
         return {"activity": "end", "hint": "engine command: session end"}
 
     def _step_review(self, b: dict, idx: int) -> dict | None:
-        i = b.setdefault("i", 0)
-        batch = b["kcs"][i:i + 2]
-        b["i"] = i + len(batch)
-        items = [it for kc in batch if (it := self._pick(kc, b.get("target", 0.8)))]
-        return self._questions(b, idx, items) if batch else None
+        while b.setdefault("i", 0) < len(b["kcs"]):  # keep going past ideas with no usable question
+            batch = b["kcs"][b["i"]:b["i"] + 2]
+            b["i"] += len(batch)
+            items = [it for kc in batch if (it := self._pick(kc, b.get("target", 0.8)))]
+            if items:
+                return self._questions(b, idx, items)
+        return None
 
     def _step_practice(self, b: dict, idx: int) -> dict | None:
         return self._step_review(b, idx)
 
     def _step_exit(self, b: dict, idx: int) -> dict | None:
-        i = b.setdefault("i", 0)
-        batch = b["kcs"][i:i + 2]
-        b["i"] = i + len(batch)
-        items = [it for kc in batch if (it := self._pick(kc, 0.75))]
-        return self._questions(b, idx, items, unassisted=True) if batch else None
+        while b.setdefault("i", 0) < len(b["kcs"]):
+            batch = b["kcs"][b["i"]:b["i"] + 2]
+            b["i"] += len(batch)
+            items = [it for kc in batch if (it := self._pick(kc, 0.75))]
+            if items:
+                return self._questions(b, idx, items, unassisted=True)
+        return None
 
     def _step_bracket(self, b: dict, idx: int) -> dict | None:
         st = b.setdefault("st", {kc: {"asked": [], "errors": [], "mis": [], "items": []} for kc in b["kcs"]})
@@ -268,6 +282,7 @@ class Tutor(LessonMixin):
             it = diagnose.pick(self.packs, kc, want, set(rec["items"])) if want else None
             if it:
                 rec["items"].append(it["id"])
+                b.setdefault("asked_for", {})[it["id"]] = kc
                 items.append(it)
             if len(items) == 2:
                 break
@@ -497,22 +512,60 @@ class Tutor(LessonMixin):
         self._save()
         return {"results": results, "remaining": len(s["presented"])}
 
+    def _typical_seconds(self, subject: str | None) -> float | None:
+        sec, marks = self.state["traits"]["time"].get(subject or "", [0.0, 0])
+        return sec / marks if marks >= 10 else None
+
+    def blurt(self, subtopic: str, text: str) -> dict:
+        """Score a free-recall attempt, pull forgotten ideas forward for review, and keep a record in Lessons."""
+        from . import blurt as blurt_mod, lesson
+        res = blurt_mod.score(self.packs, subtopic, text)
+        self.log({"type": "blurt", "subtopic": subtopic, "recalled": res["recalled"], "missed": res["missed"],
+                  "words": res["words"]})
+        title = self.packs.subtopics.get(subtopic, {}).get("title", subtopic)
+        log = views.LessonLog.create(self.vault.root, f"Blurt - {title}", self.now())
+        log.you(text)
+        body = [f"Recalled {len(res['recalled'])} of {len(res['ideas'])} ideas."]
+        for kc, v in res["ideas"].items():
+            body.append(f"- {'✅' if v['recalled'] else '❌'} **{v['title']}**"
+                        + ("" if v["recalled"] else f": {' '.join(lesson.teach_card(self, kc).get('note', '').split())[:240]}"))
+        log.tutor("\n".join(body), title="What you remembered")
+        res["log"] = log.rel
+        return res
+
+    def tag(self, event_id: str, code: str) -> dict:
+        """Your own verdict on why an answer went wrong (careless slip, misread, didn't know, wrong method…)."""
+        return self.log({"type": "tag", "target": event_id, "error": code.upper()})
+
     def _record(self, key: str, p: dict, r: dict, g: dict) -> dict:
         s, inst = self.session, p["inst"]
         seconds = (self.now() - datetime.fromisoformat(p["shown_at"])).total_seconds()
+        kc0 = p["kcs"][0]
+        known = kc0 in self.packs.kcs
+        p_exp = model.p_correct(self.state["kcs"].get(kc0, {}).get("theta", 0.0), p["difficulty"])
+        typical = self._typical_seconds(p["subject"])
+        slip = bool(not g["correct"] and r["kind"] != "idk" and not g.get("misconception") and p_exp >= 0.85
+                    and typical and seconds <= 0.5 * typical * p["marks"])
+        conf_stats = self.state["traits"]["calibration"].get("by_conf", {}).get(str(r.get("conf")))
         credit = sorted({pre for kc in p["kcs"] if kc in self.packs.kcs for pre in self.packs.kc(kc).get("prereqs", [])
                          if self.state["kcs"].get(pre, {}).get("fsrs")})
         ev = self.log({"type": "answer", "session": s["id"], "item": p["item"], "kcs": p["kcs"], "subject": p["subject"],
                        "difficulty": p["difficulty"], "conf": r.get("conf"), "hinted": p["hinted"], "seconds": round(seconds),
                        "marks": p["marks"], "grade": {k: g[k] for k in ("correct", "score", "error", "misconception")},
                        "credit": credit, "pos": s["answered"], "block": p["block"], "phase": p["phase"],
-                       "params": inst.get("params"), "response": r["value"] if r["kind"] != "idk" else "don't know"})
+                       "params": inst.get("params"), "response": r["value"] if r["kind"] != "idk" else "don't know",
+                       **({"retention": policy.target_retention(self.state, self.packs, kc0, self.now())} if known else {}),
+                       **({"slip_likely": True} if slip else {})})
         self._audit("answer", int(key), inst)
         del s["presented"][key]
+        partial = g["correct"] and g["score"] < model.SUCCESS  # right value, mark lost (units, s.f.)
+        if partial:
+            g = {**g, "correct": False}
         s["answered"] += 1
         s["correct"] += 1 if g["correct"] else 0
         if p["block"] == "bracket":
-            rec = s["blocks"][p["block_idx"]]["st"][p["kcs"][0]]
+            blk = s["blocks"][p["block_idx"]]
+            rec = blk["st"][blk.get("asked_for", {}).get(p["item"], p["kcs"][0])]
             rec["asked"].append([p["difficulty"], g["correct"]])
             if g["error"]:
                 rec["errors"].append(g["error"])
@@ -526,6 +579,15 @@ class Tutor(LessonMixin):
             closed = [kc for kc in p["kcs"] if kc in self.state["gaps"]]
             if closed:
                 self.log({"type": "gaps", "remove": closed})
+        relearn = False
+        if p["block"] in ("review", "practice") and not g["correct"] and p["block_idx"] is not None:
+            blk = s["blocks"][p["block_idx"]]  # successive relearning: a missed idea comes back later this session
+            done = blk.setdefault("relearn", {})
+            if not done.get(kc0):
+                done[kc0] = 1
+                blk["kcs"].insert(min(blk.get("i", 0) + 2, len(blk["kcs"])), kc0)
+                relearn = True
+        s.setdefault("resid", []).append((1.0 if g["correct"] else 0.0) - p_exp)
         if p["phase"] == "faded" and not g["correct"] and p["block_idx"] is not None:
             s["blocks"][p["block_idx"]]["walkthrough"] = True
         if p["exp"]:
@@ -534,7 +596,8 @@ class Tutor(LessonMixin):
             scores.append(g["score"])
             if len(scores) >= self._retest_target(kc):
                 self.log({"type": "exp_score", "exp": p["exp"], "kc": kc, "score": round(sum(scores) / len(scores), 3)})
-        fb = {"n": int(key), "event": ev["id"], "correct": g["correct"], "score": g["score"], "error_code": g["error"],
+        fb = {"n": int(key), "event": ev["id"], "correct": g["correct"], "partial": partial, "score": g["score"],
+              "error_code": g["error"],
               "answer": _display_answer(inst), "explanation": inst.get("explanation"),
               "needs_judgement": g["needs_judgement"], "detail": g.get("detail")}
         if inst.get("tier") == "extra":
@@ -551,6 +614,22 @@ class Tutor(LessonMixin):
             self._node_check_result(s["blocks"][p["block_idx"]], g, fb, "?" if r["kind"] == "idk" else str(r["value"]))
         if r.get("conf") and r["conf"] >= 3 and not g["correct"]:
             fb["hypercorrect"] = "Confident but wrong: spend a turn on why; this is the best moment to fix it."
+        if relearn:
+            fb["relearn"] = True
+        if (not g["correct"] and not g.get("misconception") and r["kind"] != "idk"
+                and p["phase"] not in ("sweep", "pretest", "discover", "challenge") and s.get("reflections", 0) < 6):
+            s["reflections"] = s.get("reflections", 0) + 1
+            fb["reflect"] = True  # ask why it went wrong (feeds the mistake profile); capped so it never nags
+            fb["slip_likely"] = slip
+        knobs = model.knobs(self.state)
+        if knobs["confidence_training"] and conf_stats and conf_stats[0] >= 10:
+            fb["calibration_note"] = (f"When you say '{['', 'guess', 'unsure', 'fairly sure', 'certain'][r['conf']]}', "
+                                      f"you're right {conf_stats[1] / conf_stats[0]:.0%} of the time.")
+        recent = s["resid"][-8:]
+        if not s.get("break_offered") and ((len(s["resid"]) >= 12 and sum(recent) / len(recent) <= -0.3)
+                                           or (knobs["max_items_before_break"] and s["answered"] == knobs["max_items_before_break"])):
+            s["break_offered"] = True
+            fb["break_suggested"] = True
         return fb
 
     def scheme(self, n: int) -> dict:
@@ -576,7 +655,11 @@ class Tutor(LessonMixin):
             return {"error": f"unknown paper {paper_id}"}
         qmap = {q["q"].lower(): q for q in paper["questions"]}
         got = {m[1].lower(): (float(m[2]), float(m[3])) for m in
-               re.finditer(r"(\w+)\s*=\s*([\d.]+)\s*/\s*([\d.]+)", text)}
+               re.finditer(r"(\w+)\s*=\s*(\d+(?:\.\d+)?)\s*/\s*(\d+(?:\.\d+)?)", text)}
+        bad = [q for q, (sc, oo) in got.items() if oo <= 0 or sc > oo]
+        if bad:
+            return {"ok": False, "error": f"scores above the marks available: {', '.join(bad)}",
+                    "fix": "Give each question as got/out-of, e.g. 1a=2/3."}
         unknown = sorted(set(got) - set(qmap))
         sid = "paper-" + uuid.uuid4().hex[:6]
         per_kc: dict[str, list[float]] = {}
@@ -616,7 +699,7 @@ class Tutor(LessonMixin):
 
 
 def _expected_kind(kind: str) -> tuple[str, ...]:
-    return {"mcq": ("choice",), "structured": ("points",)}.get(kind, ("value", "points"))
+    return {"mcq": ("choice",), "structured": ("points",)}.get(kind, ("value",))
 
 
 def _display_answer(inst: dict) -> str:

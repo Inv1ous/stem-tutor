@@ -91,17 +91,22 @@ class ChoicePanel(Panel):
         return self.query_one("#note", Input).value.strip()
 
 
+CHECKING = "Before ⏎: units? significant figures? sign? did you answer exactly what was asked?"
+
+
 class ValuePanel(Panel):
     """Typed answer (number with unit, expression, or short words), then confidence."""
 
-    def __init__(self, n: int, kind: str, confidence: bool = True) -> None:
+    def __init__(self, n: int, kind: str, confidence: bool = True, checking: bool = False) -> None:
         super().__init__(classes="panel")
-        self.n, self.kind, self.ask_conf, self.value = n, kind, confidence, ""
+        self.n, self.kind, self.ask_conf, self.value, self.checking = n, kind, confidence, "", checking
 
     def compose(self) -> ComposeResult:
         tip = {"numeric": "value and unit, e.g. 19.6 m s-1 or 4.5e-3 mol dm-3",
                "expression": "an expression, e.g. 3*x**2 - 2*x", "short": "your answer in words"}.get(self.kind, "answer")
         yield _hint(f"Q{self.n}: type {tip}, then ⏎.  Type ? if you don't know.")
+        if self.checking:
+            yield Static("✔ " + CHECKING, classes="check")
         yield Input(placeholder=tip, id="value")
 
     @on(Input.Submitted, "#value")
@@ -130,13 +135,15 @@ class LongPanel(Panel):
     """A long / structured answer typed in full. ctrl+s submits."""
     BINDINGS = [Binding("ctrl+s", "submit", "Submit answer")]
 
-    def __init__(self, n: int) -> None:
+    def __init__(self, n: int, checking: bool = False) -> None:
         super().__init__(classes="panel tall")
-        self.n = n
+        self.n, self.checking = n, checking
 
     def compose(self) -> ComposeResult:
         yield _hint(f"Q{self.n}: write your full working and answer (units!), then ctrl+s. "
                     "Working on paper or the iPad instead? Type 'done on paper', ctrl+s, and self-mark from the scheme.")
+        if self.checking:
+            yield Static("✔ " + CHECKING, classes="check")
         yield TextArea(id="long", soft_wrap=True, tab_behavior="indent")
         yield Button("Submit (ctrl+s)", id="submit", variant="primary")
 
@@ -260,3 +267,35 @@ class WorkedPanel(Panel):
             self.finish({"done": True})
         else:
             self.query_one(".hint", Static).update(self._label())
+
+
+class ReflectPanel(Panel):
+    """One keypress: why did that answer go wrong? (Feeds your mistake profile.)"""
+    CODES = {"SLIP": "Careless slip", "MISREAD": "Misread the question", "RECALL": "Didn't know / forgot",
+             "PROCEDURE": "Wrong method", "CONCEPT": "Had the wrong idea"}
+    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 6)] + [Binding("escape", "skip", "Skip")]
+
+    def __init__(self, slip_likely: bool = False) -> None:
+        super().__init__(classes="panel")
+        self.slip_likely = slip_likely
+
+    def compose(self) -> ComposeResult:
+        yield _hint("Why did you miss it? (1–5, or Esc to skip) — this tunes your profile and advice."
+                    + ("  It was quick on an idea you usually get: a slip?" if self.slip_likely else ""))
+        yield OptionList(*[Option(f"{i}  {label}", id=code) for i, (code, label) in enumerate(self.CODES.items(), 1)],
+                         id="reflect")
+
+    def on_mount(self) -> None:
+        ol = self.query_one("#reflect", OptionList)
+        ol.highlighted = 0
+        ol.focus()
+
+    def action_pick(self, i: int) -> None:
+        self.finish({"code": list(self.CODES)[i - 1]})
+
+    def action_skip(self) -> None:
+        self.finish({"code": None})
+
+    @on(OptionList.OptionSelected, "#reflect")
+    def _picked(self, event: OptionList.OptionSelected) -> None:
+        self.finish({"code": event.option.id})

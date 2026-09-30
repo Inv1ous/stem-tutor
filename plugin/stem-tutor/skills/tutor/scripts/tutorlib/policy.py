@@ -5,6 +5,7 @@ pretesting for novices on conceptual material). Personal experiments override it
 """
 from __future__ import annotations
 
+import math
 from datetime import date, datetime
 
 from . import experiments, model
@@ -117,6 +118,49 @@ def missing_packs(packs, now: datetime) -> list[str]:
     return sorted(missing)
 
 
+# ---------------- exams and review priority ----------------
+AS_2027, A2_2028 = date(2027, 5, 15), date(2028, 5, 15)  # estimates when the planner has no paper date
+
+
+def exam_date(packs, kc: str) -> date:
+    """When this idea is next examined: the planner's paper date, else an estimate from the unit/level."""
+    k = packs.kc(kc)
+    spec, plan = k["spec"], packs.plan or {}
+    for label, d in (plan.get("sittings") or {}).items():
+        if label.split(" ")[0] == spec and d:
+            return date.fromisoformat(d)
+    for paper in plan.get("papers") or []:
+        if paper.get("short") == spec and paper.get("date"):
+            return date.fromisoformat(paper["date"])
+    if spec in (plan.get("sitting_2027_units") or []):
+        return AS_2027
+    if spec.isdigit():  # CAIE: AS ideas are examined in 2027, A2 ideas in 2028
+        return AS_2027 if k.get("level", "AS") == "AS" else A2_2028
+    return A2_2028
+
+
+def target_retention(state: dict, packs, kc: str, now: datetime) -> float:
+    """Aim higher as the exam gets close (more reviews, better recall on the day), lower when it is far away."""
+    base = model.knobs(state)["desired_retention"].get(packs.kc(kc).get("subject"), 0.9)
+    days = (exam_date(packs, kc) - now.date()).days
+    boost = 0.05 if days <= 14 else 0.03 if days <= 42 else 0.01 if days <= 120 else -0.02 if days > 400 else 0.0
+    return round(min(0.97, max(0.85, base + boost)), 3)
+
+
+def review_order(state: dict, packs, now: datetime, kcs: list[str]) -> list[str]:
+    """Most at risk first (lowest recall probability, weighted towards sooner exams), then mixed across subtopics."""
+    scored = []
+    for kc in kcs:
+        r = model.retrievability(state["kcs"][kc], now) if kc in state["kcs"] else None
+        days = max(0, (exam_date(packs, kc) - now.date()).days) if kc in packs.kcs else 365
+        scored.append(((1 - (r if r is not None else 0.0)) * (1 + 2 * math.exp(-days / 60)), kc))
+    groups: dict[str, list[str]] = {}
+    for _, kc in sorted(scored, key=lambda x: -x[0]):
+        groups.setdefault(packs.kc(kc)["subtopic"] if kc in packs.kcs else kc, []).append(kc)
+    cols = list(groups.values())
+    return [g[i] for i in range(max(map(len, cols), default=0)) for g in cols if i < len(g)]
+
+
 def expand_focus(packs, focus: list[str] | None) -> list[str] | None:
     """KC ids pass through; a subtopic or topic prefix ("9702-2.1", "9702-1") expands to its KCs in syllabus order."""
     if not focus:
@@ -164,7 +208,8 @@ def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "a
         used += 4 * len(retests)
     retest_kcs = {kc for _, kc in retests}
     if mode in ("autopilot", "review"):
-        due = [k for k in model.due_kcs(state, now) if k not in retest_kcs and packs.items_for(k)]
+        due = review_order(state, packs, now,
+                           [k for k in model.due_kcs(state, now) if k not in retest_kcs and packs.items_for(k)])
         cap = max(1, int(0.35 * minutes / 2)) if mode == "autopilot" else max(1, int(0.7 * minutes / 2))
         if due:
             blocks.append({"kind": "review", "kcs": due[:cap]})

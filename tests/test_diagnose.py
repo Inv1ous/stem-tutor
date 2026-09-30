@@ -47,7 +47,7 @@ def _answer(tutor, act, good):
             parts.append(f"{q['n']}{inst['answer'] if good else wrong}3")
         else:
             v = inst["answer"]["value"] * (1 if good else 3.7)
-            parts.append(f"{q['n']} = {v:.3g} {inst['answer'].get('unit', '')} ~3")
+            parts.append(f"{q['n']} = {v:#.3g} {inst['answer'].get('unit', '')} ~3")
     tutor.answer(", ".join(parts))
 
 

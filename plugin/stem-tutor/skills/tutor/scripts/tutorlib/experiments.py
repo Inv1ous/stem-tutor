@@ -102,6 +102,8 @@ def assign(state: dict, exp_name: str, kc: str, rng) -> dict:
 def retests_due(state: dict, now: datetime) -> list[tuple[str, str]]:
     out = []
     for name, exp in state["experiments"].items():
+        if exp.get("status", "running") != "running":
+            continue
         for pair in exp["pairs"]:
             for kc, ts in pair["taught"].items():
                 if kc not in pair["scores"] and datetime.fromisoformat(ts) + timedelta(days=RETEST_DAYS) <= now:

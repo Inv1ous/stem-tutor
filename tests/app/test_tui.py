@@ -6,7 +6,7 @@ import pytest
 
 from fixtures import make_vault
 from tutor_app.app import TutorApp
-from tutor_app.panels import ChoicePanel, ContinuePanel, TickPanel, ValuePanel, TextPanel, WorkedPanel, ChoosePanel
+from tutor_app.panels import ChoicePanel, ContinuePanel, TickPanel, ValuePanel, TextPanel, WorkedPanel, ChoosePanel, ReflectPanel
 
 FAKE = str(Path(__file__).with_name("fake_claude.py"))
 SHOTS = os.environ.get("TUI_SHOTS")
@@ -57,6 +57,8 @@ async def drive_lesson(pilot, app, max_steps=120):
         elif isinstance(panel, TickPanel):
             await shot(pilot, "tick-" + str(len(seen)))
             panel.query("Button").first().press()
+        elif isinstance(panel, ReflectPanel):
+            await pilot.press("1")
         elif isinstance(panel, WorkedPanel):
             await pilot.press("enter")
         elif isinstance(panel, TextPanel):

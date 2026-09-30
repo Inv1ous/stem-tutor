@@ -60,11 +60,21 @@ def read_json(path: Path, default=None):
         return default
 
 
-def write_json(path: Path, data) -> None:
+def write_json(path: Path, data, indent: int | None = 1) -> None:
+    write_text(path, json.dumps(data, ensure_ascii=False, indent=indent,
+                                separators=None if indent else (",", ":")))
+
+
+def write_text(path: Path, text: str) -> bool:
+    """Atomic write (temp file + rename, in-place fallback); skips the write when nothing changed."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        if path.exists() and path.read_text(encoding="utf-8") == text:
+            return False
+    except OSError:
+        pass
     tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex[:8]}.tmp")
-    text = json.dumps(data, ensure_ascii=False, indent=1)
     tmp.write_text(text, encoding="utf-8")
     try:
         os.replace(tmp, path)
@@ -74,6 +84,7 @@ def write_json(path: Path, data) -> None:
             tmp.unlink()
         except OSError:
             pass
+    return True
 
 
 class Vault:
@@ -100,10 +111,14 @@ class Vault:
         folder = self.tutor / "events"
         if not folder.exists():
             return
+        self.bad_lines = []
         for path in sorted(folder.glob("*.jsonl")):
-            for line in path.read_text(encoding="utf-8").splitlines():
+            for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
                 if line.strip():
-                    yield json.loads(line)
+                    try:
+                        yield json.loads(line)
+                    except ValueError:  # a half-written line (crash mid-save) must not lock you out of your history
+                        self.bad_lines.append(f"{path.name}:{n}")
 
     # --- single writer ---
     @contextmanager

@@ -12,6 +12,7 @@ from datetime import datetime
 from pathlib import Path
 
 from . import model
+from .store import write_text
 
 STATUS = {"secure": "✅", "learning": "🟡", "gap": "🔴", "new": "⚪"}
 _MAP_CLASS = {"secure": "done", "learning": "learning", "gap": "gap", "new": "todo"}
@@ -25,9 +26,7 @@ def callout(kind: str, title: str, body: str = "") -> str:
 
 
 def _write(root: Path, rel: str, text: str) -> str:
-    path = root / rel
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    write_text(root / rel, text)
     return rel
 
 
@@ -107,6 +106,13 @@ def notes_update(root: Path, packs, state: dict, subtopic: str, current: str | N
                   + concept_map(packs, state, subtopic, current))
     if node:
         kc = node["kc"]
+        if (old := _block(f"node {kc}").search(text)):  # re-taught: keep what you wrote before, merge mistakes
+            prev = old.group(0)
+            if not node.get("own_words") and (w := re.search(r"> \[!quote\] In your words\n((?:> .*\n?)+)", prev)):
+                node = {**node, "own_words": "\n".join(l[2:] for l in w.group(1).rstrip("\n").split("\n"))}
+            if (m := re.search(r"> \[!warning\] Watch out \(your mistakes\)\n((?:> - .*\n?)+)", prev)):
+                earlier = [l[4:] for l in m.group(1).rstrip("\n").split("\n")]
+                node = {**node, "mistakes": list(dict.fromkeys(earlier + list(node.get("mistakes") or [])))}
         body = [f"## {STATUS[kc_status(state, kc)]} {packs.kcs[kc]['title']}", "", node.get("note", "").strip(), ""]
         if node.get("own_words"):
             body += [callout("quote", "In your words", node["own_words"]), ""]
@@ -128,7 +134,7 @@ def refresh_status(root: Path, packs, state: dict, subtopic: str) -> str | None:
         if m := _block(f"node {k}").search(text):
             block = re.sub(r"^## \S+ ", f"## {STATUS[kc_status(state, k)]} ", m.group(0), count=1, flags=re.M)
             text = text[:m.start()] + block + text[m.end():]
-    path.write_text(text, encoding="utf-8")
+    write_text(path, text)
     return notes_update(root, packs, state, subtopic)
 
 

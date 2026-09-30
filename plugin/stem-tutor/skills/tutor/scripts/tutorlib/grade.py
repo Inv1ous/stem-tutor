@@ -95,14 +95,19 @@ def parse_quantity(text: str) -> tuple[float, str, int | None]:
     m = _NUM.match(t)
     if not m:
         raise ParseError(f"no number in {text!r}")
-    value = float(m["mant"])
-    sf = _sig_figs(m["mant"])
-    if m["den"]:
-        value /= float(m["den"])
-        sf = None
-    exp = m["e1"] or m["e2"]
-    if exp:
-        value *= 10 ** int(exp)
+    try:
+        value = float(m["mant"])
+        sf = _sig_figs(m["mant"])
+        if m["den"]:
+            value /= float(m["den"])
+            sf = None
+        exp = m["e1"] or m["e2"]
+        if exp:
+            value *= 10 ** int(exp)
+    except (ArithmeticError, ValueError):
+        raise ParseError(f"cannot use the number in {text!r}") from None
+    if not math.isfinite(value):
+        raise ParseError(f"number out of range in {text!r}")
     return value, m["unit"].strip(), sf
 
 
@@ -222,7 +227,9 @@ def _grade_rubric(item, resp):
 
 
 def _grade_points(item, resp):
-    total = len(item["scheme"])
+    total = len(item.get("scheme") or [])
+    if not total:
+        return _result(False, 0, needs_judgement=True)
     got = len({p for p in resp["value"] if 1 <= p <= total})
     return _result(got == total, got / total, self_marked=True)
 

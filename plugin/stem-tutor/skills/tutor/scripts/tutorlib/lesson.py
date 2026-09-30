@@ -123,9 +123,10 @@ class LessonMixin:
             teach = [k for k in act["nodes_all"] if k in set(data.get("teach", act["default_teach"]))]
             self._log_you("Plan approved: " + (", ".join(self.packs.kcs[k]["title"] for k in teach) or "nothing to teach"))
             new = [{"kind": "node", "kc": k} for k in teach]
-            if s.get("goal") == "test":
-                new.append({"kind": "practice", "kcs": act["nodes_all"]})
-            new.append({"kind": "exit", "kcs": (teach or act["nodes_all"])[:3]})
+            if s.get("goal") == "test" or not teach:  # nothing to teach: a harder mixed check instead
+                new.append({"kind": "practice", "kcs": act["nodes_all"], "target": 0.8 if teach else 0.5})
+            if teach:
+                new.append({"kind": "exit", "kcs": teach[:3]})
             s["blocks"][act["block_idx"] + 1:act["block_idx"] + 1] = new
         elif kind == "own_words":
             if data.get("text"):
@@ -180,16 +181,20 @@ class LessonMixin:
         s = self.session
         if "phases" not in b:
             card = teach_card(self, kc)
-            method, assignment = policy.choose_method(self.state, self.packs, kc, self.rng,
-                                                      self.state["kcs"].get(kc, {}).get("n", 0) == 0)
+            quick = s.get("goal") == "quick"
+            fresh = self.state["kcs"].get(kc, {}).get("n", 0) == 0
+            if quick:  # the quick path can't deliver every method, so it never joins an experiment
+                method, assignment = policy.default_method(self.packs.kc(kc), self.state["kcs"].get(kc, {}), fresh), None
+            else:
+                method, assignment = policy.choose_method(self.state, self.packs, kc, self.rng, fresh)
             self.log({"type": "method", "kc": kc, "method": method, "exp": assignment and assignment["exp"]})
             if assignment:
                 self.log({"type": "exp_assign", **assignment})
-            quick = s.get("goal") == "quick"
             socratic = bool(card.get("discover")) and not quick and method != "refutation"
             worked = bool(self.packs.worked_for(kc)) and method in ("worked_faded", "pretest_explain") and not quick
             b.update(card=card, method=method, i=0, misses=0, mistakes=[], phases=(
-                ["motivate"] + (["discover"] if socratic else []) + ["establish"] + (["worked"] if worked else [])
+                ["motivate"] + (["challenge"] if method == "problem_first" and not quick else [])
+                + (["discover"] if socratic else []) + ["establish"] + (["worked"] if worked else [])
                 + (["faded"] if worked and method == "worked_faded" else []) + ["check"]
                 + ([] if quick else ["own_words"]) + ["done"]))
             if (sub := self.packs.kcs[kc]["subtopic"]):
@@ -200,6 +205,11 @@ class LessonMixin:
             b["i"] += 1
             if phase == "motivate":
                 return self._explain(idx, kc, "Why this matters", card["motivate"], part="motivate")
+            if phase == "challenge":  # problem-first: attempt a harder question before being taught
+                it = self._pick(kc, 0.3)
+                if it and (act := self._questions(b, idx, [it], phase="challenge", unassisted=True)):
+                    act["say"] = "Try this before being taught: any approach counts, and struggling here helps."
+                    return act
             if phase == "discover":
                 d = card["discover"]
                 item = {"id": f"{kc}-discover", "kcs": [kc], "kind": "mcq", "stem": d["stem"], "options": d["options"],
@@ -286,5 +296,5 @@ class LessonMixin:
                                  "mistakes": b.get("mistakes")})
         self.log({"type": "node_done", "kc": kc, "method": b.get("method"), "misses": b.get("misses", 0),
                   "stuck": bool(b.get("stuck"))})
-        if kc not in self.session["kcs_learned"]:
+        if not b.get("stuck") and kc not in self.session["kcs_learned"]:
             self.session["kcs_learned"].append(kc)

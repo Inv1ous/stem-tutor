@@ -57,9 +57,8 @@ def _errfam(code: str, subject: str) -> str:
 
 
 def _write(tutor, rel: str, text: str) -> str:
-    path = tutor.vault.root / rel
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    from .store import write_text
+    write_text(tutor.vault.root / rel, text)
     return rel
 
 
@@ -173,61 +172,63 @@ def today_note(tutor, minutes: int = 50) -> str:
 
 
 def profile_note(tutor) -> str:
-    s, p, now = tutor.state, tutor.packs, tutor.now()
-    t, kn, cal = s["traits"], model.knobs(s), model.calibration(s)
-    lines = ["# Learner profile", f"_Updated {now:%Y-%m-%d %H:%M}. Measures what works for you from outcomes, never 'learning styles'._", ""]
-    lines += ["## Mastery", "", "| Spec | Introduced | Mastered | Mean θ |", "|---|---|---|---|"]
-    by_spec: dict[str, list] = {}
-    for kc, k in s["kcs"].items():
-        if k["n"] and kc in p.kcs:
-            by_spec.setdefault(p.kc(kc)["spec"], []).append(k)
-    for spec, ks in sorted(by_spec.items()):
-        lines.append(f"| {spec} | {len(ks)} | {sum(model.is_mastered(k) for k in ks)} | {sum(k['theta'] for k in ks) / len(ks):+.2f} |")
-    lines += ["", "## Calibration", ""]
+    from . import profile
+    s, now = tutor.state, tutor.now()
+    p = profile.summary(s, tutor.packs, now)
+    pct = lambda x: f"{x:.0%}"  # noqa: E731
+    L = ["# Your learner profile",
+         f"_Updated {now:%d %b %Y %H:%M}. Worked out from your answers, compared with what was expected for each "
+         "question. No 'learning styles': only what measurably helps you._", ""]
+    tips = profile.advice(p)
+    L += ["## What this means for you", ""] + ([f"- {x}" for x in tips] or
+                                              ["- Not enough answers yet: patterns appear after a few sessions."])
+    L += ["", "## How sure vs how right", ""]
+    cal = p["calibration"]
     if cal["n"]:
-        verdict = "overconfident" if cal["bias"] > 0.1 else "underconfident" if cal["bias"] < -0.1 else "well calibrated"
-        lines += [f"- {cal['n']} rated answers; you are **{verdict}** (confidence minus accuracy = {cal['bias']:+.2f}).",
-                  f"- Brier score {cal['brier']:.3f} (0 is perfect, 0.25 is coin-flip).",
-                  f"- Confident-but-wrong answers: {cal['high_conf_errors']} (each one is a prime fixing opportunity)."]
+        verdict = ("overconfident" if cal["bias"] > 0.1 else "underconfident" if cal["bias"] < -0.1 else "well calibrated")
+        L += [f"{cal['n']} rated answers: you are **{verdict}**. Confidently-wrong answers so far: {cal['high_conf_errors']} "
+              "(the best moments to fix an idea).", "", "| You said | Answers | Actually right | A perfect judge |",
+              "|---|---|---|---|"]
+        L += [f"| {lv['level']} | {lv['n']} | {pct(lv['right'])} | {pct(lv['said'])} |" for lv in cal["levels"]]
     else:
-        lines.append("- No rated answers yet.")
-    lines += ["", "## Error families", "", "| Subject | Code | Almanac family | Count |", "|---|---|---|---|"]
-    for subject, errs in sorted(t["errors"].items()):
-        for code, n in sorted(errs.items(), key=lambda x: -x[1]):
-            if n:
-                lines.append(f"| {subject} | {code} | {_errfam(code, subject)} | {n} |")
-    lines += ["", "## Forgetting", ""]
-    for subject, (n, pred, out) in sorted(t["retention"].items()):
-        lines.append(f"- {subject}: {n} spaced reviews; model expected {pred / n:.0%} recall, you got {out / n:.0%}.")
-    if not t["retention"]:
-        lines.append("- Not enough spaced reviews yet.")
-    lines += ["", "## Pace and stamina", ""]
-    for subject, (sec, marks) in sorted(t["time"].items()):
-        lines.append(f"- {subject}: {sec / marks / 60:.1f} min per mark (exam pace is about 1.2 min per mark).")
-    for b, (n, c) in sorted(t["fatigue"].items(), key=lambda x: int(x[0])):
-        lines.append(f"- Items {int(b) * 5 + 1}–{int(b) * 5 + 5} of a session: {c}/{n} correct.")
-    lines += ["", "## Experiments", ""]
-    for name, exp in s["experiments"].items():
-        r = experiments.analyze(exp)
-        pf = "–" if r["p_first_better"] is None else f"{r['p_first_better']:.0%}"
-        lines.append(f"- **{name}** ({exp['subject']}): {r['arms'][0]} vs {r['arms'][1]} · "
-                     f"{r['complete_pairs']}/{r['target_pairs']} pairs · P({r['arms'][0]} better) {pf} · decision: {r['decision']}")
-    if not s["experiments"]:
-        lines.append("- None running yet. The first starts once enough topics of one type are being taught.")
-    lines += ["", "## What the tutor adjusted", ""]
-    adj = []
-    for subject, r in kn["desired_retention"].items():
-        adj.append(f"- {subject}: review target retention set to {r:.0%} because your recall differs from the model's forecast.")
+        L.append("No rated answers yet.")
+    L += ["", "## When you learn best", ""]
+    tod = [b for b in p["time_of_day"]["blocks"] if b["n"]]
+    L += [f"- {b['block'].title()}: {b['n']} answers, {b['residual']:+.0%} vs expected" for b in tod] or ["- No data yet."]
+    L += ["", "## Stamina in a session", ""]
+    L += [f"- Questions {b['items']}: {b['n']} answers, {b['residual']:+.0%} vs expected" for b in p["stamina"]["buckets"]] \
+        or ["- No data yet."]
+    L += ["", "## Mistakes by kind", ""]
+    L += [f"- {code.title()}: {n}" for code, n in p["errors"].items()] or ["- None recorded yet."]
+    L += ["", "## Remembering over time", ""]
+    L += [f"- {s}: {v['n']} spaced reviews; the memory model expected {pct(v['expected'])} recall and you got "
+          f"{pct(v['actual'])}" for s, v in p["forgetting"].items()] or ["- Not enough spaced reviews yet."]
+    L += ["", "## Pace and habits", ""]
+    L += [f"- {s}: {m:.1f} min per mark (exam pace is about 1.2)" for s, m in p["pace"].items()]
+    h = p["habits"]
+    L += [f"- Studied on {h['last_28']} of the last 28 days; current streak {h['streak']} day(s).",
+          f"- Reviews due over the next 7 days: {' · '.join(str(x) for x in p['workload'])}."]
+    L += ["", "## Teaching experiments on you", ""]
+    for e in p["experiments"]:
+        pf = "–" if e["p_first_better"] is None else pct(e["p_first_better"])
+        L.append(f"- **{e['name']}** ({e['subject']}): {e['arms'][0]} vs {e['arms'][1]}, {e['complete_pairs']}/"
+                 f"{e['target_pairs']} pairs, chance the first is better {pf}, decision: {e['decision']}")
+    if not p["experiments"]:
+        L.append("- None yet. The first starts once enough topics of one kind are being taught.")
+    kn = p["knobs"]
+    L += ["", "## What the tutor has adjusted for you", ""]
+    adj = [f"- {s}: reviews now aim for {r:.0%} recall, because your memory differs from the model's forecast."
+           for s, r in kn["desired_retention"].items()]
     if kn["checking_routine"]:
-        adj.append("- Slips are a big share of lost marks, so answers now end with a 20-second checking routine.")
+        adj.append("- Careless slips cost you many marks, so answer boxes now show a quick checking routine.")
     if kn["confidence_training"]:
-        adj.append("- Your confidence ratings are off, so feedback now shows your confidence next to the result.")
+        adj.append("- Your confidence is often off, so feedback now shows how often you're right at that confidence.")
     if kn["attempt_before_hint"]:
-        adj.append("- You ask for hints often, so every hint now requires a first attempt.")
+        adj.append("- You ask for hints often, so a hint now asks you to have a go first.")
     if kn["max_items_before_break"]:
-        adj.append(f"- Accuracy drops after about {kn['max_items_before_break']} items, so sessions insert a break there.")
-    lines += adj or ["- Nothing yet: defaults from the research evidence are in use."]
-    return _write(tutor, "Profile.md", "\n".join(lines) + "\n")
+        adj.append(f"- Your accuracy dips after about {kn['max_items_before_break']} questions, so a break is suggested there.")
+    L += adj or ["- Nothing yet: research-based defaults are in use."]
+    return _write(tutor, "Profile.md", "\n".join(L) + "\n")
 
 
 # ---------------- Almanac two-way sync ----------------

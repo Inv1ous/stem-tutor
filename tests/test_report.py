@@ -50,7 +50,8 @@ def test_profile_note_contains_traits_and_is_lint_clean(tutor):
     _study(tutor, wrong=True)
     path = report.profile_note(tutor)
     text = (tutor.vault.root / path).read_text()
-    for heading in ("Calibration", "Error families", "Experiments", "What the tutor adjusted"):
+    for heading in ("How sure vs how right", "Mistakes by kind", "Teaching experiments", "What the tutor has adjusted",
+                    "When you learn best", "Stamina in a session"):
         assert heading in text
     assert lint.lint(text) == []
 
