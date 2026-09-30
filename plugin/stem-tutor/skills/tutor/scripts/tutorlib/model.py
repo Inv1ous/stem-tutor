@@ -73,11 +73,11 @@ def _scheduler(desired_retention: float):
     return _SCHEDULERS[r]
 
 
-def fsrs_rating(success: bool, conf: int | None, prior_success_days: int) -> str:
-    """Map an attempt to FSRS's four grades. Wrong or hinted → again; right but guessing/unsure → hard;
-    right and certain on an idea already recalled on two earlier days → easy; otherwise good."""
+def fsrs_rating(success: bool, conf: int | None, prior_success_days: int, assisted: bool = False) -> str:
+    """Map an attempt to FSRS's four grades. Wrong → again; right only with a hint, or right but guessing/unsure
+    → hard; right and certain on an idea already recalled on two earlier days → easy; otherwise good."""
     if not success:
-        return "again"
+        return "hard" if assisted else "again"
     if conf in (1, 2):
         return "hard"
     if conf == 4 and prior_success_days >= 2:
@@ -152,7 +152,8 @@ def _apply_answer(state: dict, e: dict) -> None:
         if g.get("error"):
             _count(k["errors"], g["error"])
         if k["last_review_day"] != day:
-            _review(state, kc, success, when, subject, fsrs_rating(success, e.get("conf"), prior_days),
+            assisted = bool(e.get("hinted")) and g["score"] >= SUCCESS
+            _review(state, kc, success, when, subject, fsrs_rating(success, e.get("conf"), prior_days, assisted),
                      e.get("retention"))
     for kc in e.get("credit", []):
         k = state["kcs"].get(kc)

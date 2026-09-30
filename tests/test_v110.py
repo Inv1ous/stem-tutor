@@ -32,6 +32,7 @@ def due_after(events):
 
 def test_rating_map():
     assert model.fsrs_rating(False, 4, 5) == "again"
+    assert model.fsrs_rating(False, 3, 0, assisted=True) == "hard"
     assert model.fsrs_rating(True, 1, 0) == "hard" and model.fsrs_rating(True, 2, 3) == "hard"
     assert model.fsrs_rating(True, 3, 0) == "good" and model.fsrs_rating(True, None, 0) == "good"
     assert model.fsrs_rating(True, 4, 1) == "good" and model.fsrs_rating(True, 4, 2) == "easy"

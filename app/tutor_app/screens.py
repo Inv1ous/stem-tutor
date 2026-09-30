@@ -502,7 +502,7 @@ class SessionScreen(Screen):
         elif step == "break":
             self.say(cards.card("hint", "Time for a short break?",
                                 "Your accuracy has dipped below what's normal for you. A 5-minute break (water, stretch, "
-                                "no phone) usually brings it back. Your place is saved either way."))
+                                "no phone) helps you feel fresher. Your place is saved either way."))
             self.panel(ContinuePanel(buttons=[("breakok", "Keep going ⏎"), ("leave", "Save and stop for now")]))
         else:
             buttons = [("next", "Next ⏎")] + ([("why", "Explain this answer (AI)")] if self.ai_ok() else []) + \

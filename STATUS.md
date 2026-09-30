@@ -1,5 +1,12 @@
 # Build status
 
+## v1.1.0 (2026-09-30) — done
+Algorithms (4-grade FSRS, exam-aware retention, risk-ordered interleaved reviews, successive relearning, slip damping,
+fatigue vs expectation, blurting), profile module + plain-English Profile.md, reflection prompt, keys that work while
+typing, audit fixes (engine + app), performance (cached schedulers, no menu refold, compact state saves), guide rewritten
+(How It Works 1.1.0), docs/RESEARCH.md, CHANGELOG.md. 250 tests. Tag v1.1.0.
+Next: content only (adjudicate held packs 9701-1.x, P1-2, S1-1; build more packs + teach cards with a lower-tier agent).
+
 ## Overnight build (2026-09-29 → 30) — terminal app; plan: ~/.claude/plans/can-you-continue-what-polished-swing.md
 - [x] 1 Vault moved to `~~ AI Workflow/STEM Tutor` (local vault, Obsidian config, publish default, iCloud inbox)
 - [x] 2 Engine: texmath, views (Now/Lessons/My Notes/Home), lesson flow, teach-card fallback, inbox import (+tests)

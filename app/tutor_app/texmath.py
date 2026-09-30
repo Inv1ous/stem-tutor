@@ -33,9 +33,11 @@ def _math(expr: str) -> str:
     e = e.replace(r"\left", "").replace(r"\right", "").replace(r"\quad", r"\,\,")
     e = e.replace(r"\degree", "°").replace(r"^\circ", "°").replace(r"^{\circ}", "°")
     e = re.sub(r"\\(?:to|rightarrow)(?![A-Za-z])", "→", e).replace(r"\Rightarrow", "⇒").replace(r"\leftarrow", "←")
+    e = re.sub(r"\\(arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp|lim|max|min)(?![A-Za-z])"
+               r"(\^\{?-?\d+\}?)?", r"\\,\1\2\\,", e)  # function names as words, powers attached: sin²θ
     if _CONV is not None:
         try:
-            return _CONV.convert(e)
+            return re.sub(r"(?<=\w)\[(\w+)\]", r"_\1", _CONV.convert(e))  # subscripts without a glyph: v_y
         except Exception:
             pass
     return re.sub(r"\\([A-Za-z]+)", r"\1", e).replace("{", "").replace("}", "")

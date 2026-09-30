@@ -104,6 +104,8 @@ def test_first_json_finds_embedded_object():
     (r"$0.48\%$", "0.48%"),
     ("plain text", "plain text"),
     (r"$0.348\to0.3$", "0.348→0.3"),
+    (r"$v\cos\theta$", "v cos θ"),
+    (r"$v_y$", "v_y"),
 ])
 def test_terminal_maths(src, want):
     assert want in to_terminal(src)

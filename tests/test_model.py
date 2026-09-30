@@ -52,9 +52,10 @@ def test_only_first_attempt_per_day_counts_as_review():
     assert s["kcs"]["K1"]["reviews"] == 1
 
 
-def test_hinted_attempt_rates_again():
+def test_hinted_correct_attempt_rates_hard_and_does_not_count_towards_secure():
     s = fold([ans(hinted=True)])
-    assert s["kcs"]["K1"]["last_rating"] == "again"
+    assert s["kcs"]["K1"]["last_rating"] == "hard"
+    assert s["kcs"]["K1"]["succ_days"] == []
 
 
 def test_mastery_needs_theta_and_two_spaced_successes():
