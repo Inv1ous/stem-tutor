@@ -1,5 +1,41 @@
 # Changelog
 
+## 1.1.1 — 2026-09-30
+
+Bug-hunt release: a second AI (Codex) searched for bugs live while Claude fixed them (`bugwatch/`), then a Haiku
+review pass checked each area once more. 34 Codex findings fixed with tests, plus 3 found while fixing and 3 from the
+Haiku pass; details in `bugwatch/FIXES.md`.
+
+### Marking
+- Numbers: `exact` answers allow no error (118 is not 117); a value correctly rounded to the learner's own s.f. is right
+  (16 N for 16.46 N), with the s.f. rule deciding full or half marks; "20" is read strictly as 2 s.f.; a unit or sum
+  after a plain-number answer ("500 kg", "500 + 1", "2^10") is refused and the question stays open ("%" only where the
+  question asks for a percentage); compact units after a slash ("kg/ms2") put every factor below the line; "ms-1" as
+  the expected unit also matches "m/s", and an identical unit (°C) always matches; extreme exponents and wildly wrong
+  values no longer crash grading.
+- Expressions: parsed as plain maths only (they could run Python before), can't freeze grading with huge powers, are
+  checked at negative values too (abs(x) is not x), read "as" and subscripts (R1, m2) as variables, accept Unicode maths
+  as the app displays it (u², 2×a×s, π, √), and an unreadable one stays open instead of being marked wrong.
+- Written answers are never marked right on keywords alone: every short answer is judged (AI examiner or self-mark).
+
+### Your work is kept
+- Lesson logs and Anki exports made in the same minute no longer overwrite each other; iPad imports never overwrite a
+  PDF; the event log survives a crash mid-save (even mid-character) and answers containing Unicode line separators;
+  re-teaching keeps every paragraph of your own words; long-answer working is saved to the lesson log; a failed AI
+  marking gives the tick list back. Tests can no longer touch the real iPad inbox.
+
+### Learner model and teaching
+- Study from midnight to 5 am counts as late night; hinted answers don't clear a misconception; lost-mark answers count
+  as misses in the profile and session notes (saved progress is rebuilt from the event log once, model 1.1.1).
+- Repair teaching, worked examples and trap cards in Test/repair sessions show in Now, are logged, and resume after a
+  restart; finished teaching experiments now pick the method; retest scores go to the idea being retested; My Notes
+  refreshes for every idea answered in a session.
+- AI help: replies are checked for the answer of every open question; asking the AI during a question counts as a hint,
+  and no-help checks refuse it; overlapping requests respect the daily cap.
+- Anki: cards from different topics no longer block each other; inequalities and arrows survive as HTML.
+- Terminal maths: no raw LaTeX left (≥, ≤, ≠, …, column vectors, words inside formulas).
+- Publishing keeps the two newest rollback versions after v9.
+
 ## 1.1.0 — 2026-09-30
 
 ### Learning algorithms
