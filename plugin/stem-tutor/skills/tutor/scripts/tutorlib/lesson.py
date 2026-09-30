@@ -103,7 +103,7 @@ class LessonMixin:
             return {"ok": False, "error": "nothing is waiting for a reply", "fix": "engine command: next"}
         act = s["awaiting"]
         kind = act["activity"]
-        if kind == "worked" and data.get("step") is not None and not data.get("done"):
+        if kind in ("worked", "walkthrough") and data.get("step") is not None and not data.get("done"):
             i = int(data["step"])
             act["revealed"] = max(act.get("revealed", 0), i)
             if (log := self._lesson_log()) and 1 <= i <= len(act["steps"]):

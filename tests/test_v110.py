@@ -319,3 +319,23 @@ def test_lost_mark_answers_count_as_wrong_in_the_profile():  # B-008
     t = s["traits"]
     assert t["calibration"]["by_conf"]["4"] == [1, 0] and t["calibration"]["high_conf_errors"] == 1
     assert t["fatigue"]["0"][1] == 0 and t["hours"][model._time_block(T0)][1] == 0
+
+
+def test_restart_resumes_the_repair_worked_example_where_it_was(tmp_path):  # B-020
+    root = make_vault(tmp_path)
+    t = session.Tutor(store.Vault(root), rng=random.Random(5), now=lambda: T0)
+    t.start("test", focus=["9702-2.1.4"], replace=True)
+    for _ in range(4):
+        act = t.next()
+        if act["activity"] == "questions":
+            t.answer(", ".join(f"{q['n']}?" for q in act["items"]))
+        elif act["activity"] == "worked":
+            break
+    assert act["activity"] == "worked"
+    assert t.respond({"step": 1})["ok"]
+
+    again = session.Tutor(store.Vault(root), rng=random.Random(5), now=lambda: T0)  # app restarted
+    act = again.next()
+    assert act["activity"] == "worked" and act["revealed"] == 1
+    assert again.respond({"done": True})["ok"]
+    assert again.next()["activity"] != "worked"

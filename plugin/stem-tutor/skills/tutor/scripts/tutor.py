@@ -108,7 +108,10 @@ def cmd_session(args) -> None:
 def cmd_next(args) -> None:
     v = vault()
     with v.lock():
-        out(tutor(v).next())
+        t = tutor(v)
+        if ((t.session or {}).get("awaiting") or {}).get("activity") in ("worked", "walkthrough"):
+            t.respond({"done": True})  # the skill runs `next` once a worked example is finished (there is no respond)
+        out(t.next())
 
 
 def cmd_answer(args) -> None:

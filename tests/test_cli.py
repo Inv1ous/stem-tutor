@@ -200,3 +200,17 @@ def test_engine_accepts_a_symlinked_mount(tmp_path):
     env.update(STEM_TUTOR_MOUNTS=str(tmp_path / "nowhere/*"))
     p = subprocess.run([sys.executable, str(link / ".tutor/engine/tutor.py"), "doctor"], capture_output=True, text=True, env=env)
     assert json.loads(p.stdout)["ok"] is True
+
+
+def test_next_after_a_worked_example_moves_on(tmp_path):  # B-020: in chat, `next` means the example is done
+    v = make_vault(tmp_path)
+    run(v, "session", "start", "--mode", "test", "--minutes", "30", "--kcs", "9702-2.1.4")
+    seen = []
+    for _ in range(6):
+        act = run(v, "next")
+        seen.append(act["activity"])
+        if act["activity"] == "questions":
+            run(v, "answer", ", ".join(f"{q['n']}?" for q in act["items"]))
+        if seen[-2:] == ["worked", "worked"] or act["activity"] == "end":
+            break
+    assert "worked" in seen and seen[seen.index("worked") + 1] != "worked"

@@ -110,6 +110,8 @@ def test_full_session_reaches_exit_and_end(tutor):
             break
         if act["activity"] in ("questions", "awaiting"):
             _answer_all(tutor, act, good=True)
+        elif act["activity"] in ("worked", "walkthrough"):
+            tutor.respond({"done": True})  # as the app does when the last step is shown
     assert seen[-1][0] == "end"
     assert ("questions", "exit") in seen
     summary = tutor.end()

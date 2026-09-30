@@ -400,10 +400,10 @@ class Tutor(LessonMixin):
         if b.get("walkthrough"):
             b["walkthrough"] = False
             wk = (self.packs.worked_for(kc) or [None])[0]
-            if wk:
-                return {"activity": "walkthrough", "block": "learn", "kc": kc, "steps": wk["steps"],
-                        "problem": wk.get("faded", {}).get("problem"),
-                        "say": "Walk from their first wrong step, one step per turn; they do each step."}
+            if wk:  # awaited, like the worked example below, so a restart resumes it at the same step
+                return self._await({"activity": "walkthrough", "block": "learn", "kc": kc, "steps": wk["steps"],
+                                    "problem": wk.get("faded", {}).get("problem"), "block_idx": idx,
+                                    "say": "Walk from their first wrong step, one step per turn; they do each step."})
         pack = self.packs.pack_for_kc(kc) or {}
         meta = self.packs.kc(kc)
         while b["si"] < len(b["steps"]):
@@ -416,9 +416,10 @@ class Tutor(LessonMixin):
                         "misconceptions": [m["statement"] for m in pack.get("misconceptions", []) if m["kc"] == kc]}
             if phase == "worked":
                 wk = (self.packs.worked_for(kc) or [None])[0]
-                if wk:
-                    return {"activity": "worked", "block": "learn", "kc": kc, "problem": wk["problem"], "steps": wk["steps"],
-                            "say": "One step per turn; ask for the next step before revealing it."}
+                if wk:  # awaited: a restart comes back to this example at the step reached, not past it
+                    return self._await({"activity": "worked", "block": "learn", "kc": kc, "problem": wk["problem"],
+                                        "steps": wk["steps"], "block_idx": idx,
+                                        "say": "One step per turn; ask for the next step before revealing it."})
             if phase == "faded":
                 wk = (self.packs.worked_for(kc) or [None])[0]
                 if wk and wk.get("faded"):
