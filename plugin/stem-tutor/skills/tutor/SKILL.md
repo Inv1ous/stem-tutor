@@ -22,7 +22,7 @@ python3 ~/mnt/*/.tutor/engine/tutor.py <command>
 
 So "run `session start --mode test`" means `python3 ~/mnt/*/.tutor/engine/tutor.py session start --mode test`. Never run a bare `session`, `next` or `answer`, and never run the plugin's own copy of the scripts: it cannot see the learner's folder. If the path matches nothing, list the connected folders (`get_device_info`, or `ls -d ~/mnt/*/`), then use `<that folder>/.tutor/engine/tutor.py`; if the STEM Tutor folder is not connected, ask the learner to attach `Notes/01 Study/STEM Tutor` to this session.
 
-Each command prints one JSON object; act on what it prints. You run every command yourself; never show a command to the learner or ask them to run one. The engine writes its files (Question Sheets, session notes, Anki exports) straight into the learner's folder, so you never need to stage or commit its files. The `.tutor/` folder, pack files and state files belong to the engine: read the learner's situation through commands (`brief`, `kc <id>`, `find <text>`), never by opening those files.
+Each command prints one JSON object; act on what it prints. You run every command yourself; never show a command to the learner or ask them to run one. The engine writes its files (Now.md, Lessons/, My Notes/, Anki exports) straight into the learner's folder, so you never need to stage or commit its files. The `.tutor/` folder, pack files and state files belong to the engine: read the learner's situation through commands (`brief`, `kc <id>`, `find <text>`), never by opening those files.
 
 Output is JSON, so backslashes appear doubled (`\\mathrm`); in chat write them single (`\mathrm`).
 
@@ -45,7 +45,7 @@ If a command's output has `"ok": false`, follow its `fix` (for example run `next
 | first session ever (`doctor` shows `events: 0`) and no specific request | onboarding | `references/mode-onboarding.md` |
 | progress, profile, weak topics | `brief`, then summarise `Profile.md` in the tutor folder | – |
 
-3. State the plan from `session start` in one line, then immediately run `next` and ask the first questions in the same turn. Never ask whether to begin. With the first questions of a session, add one line: "Questions with diagrams also appear in Obsidian: STEM Tutor › Question Sheets › Current.md."
+3. State the plan from `session start` in one line, then immediately run `next` and ask the first questions in the same turn. Never ask whether to begin. With the first questions of a session, add one line: "Questions with diagrams also appear in Obsidian: STEM Tutor › Now."
 
 ## Loop
 
@@ -62,7 +62,7 @@ When a teach, worked, walkthrough or refute activity is done (they have answered
 
 ## Ask
 
-Show every stem in chat exactly as given; LaTeX renders there. The engine also mirrors the open questions, with any figures, into `Question Sheets/Current.md`, which Obsidian updates live: when an item has `image`, ask the learner to look at that note for the diagram.
+Show every stem in chat exactly as given; LaTeX renders there. The engine also mirrors the open questions, with any figures, into `Now.md`, which Obsidian updates live: when an item has `image`, ask the learner to look at that note for the diagram.
 
 - **mcq**: one AskUserQuestion call covers two items; each item gets two questions: the answer (options `A`–`D`, text in the label when it is plain words, otherwise show options in chat and label them by letter) and confidence (`Certain`, `Fairly sure`, `Unsure`, `Guess`). "Don't know" is typed in Other. If AskUserQuestion is not available, show the options in chat and ask for the letter plus confidence 1–4 in one reply (e.g. `B 3`).
 - **numeric / expression / short**: they type the answer in chat. Show them exactly this form, with their question number: `6 = -1 ~3` or `7 = 4.5 m s-1 ~2` (value, unit if any, then `~` and confidence 1–4). Never invent another answer format.

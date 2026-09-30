@@ -6,9 +6,12 @@
 - [x] 3 AI client (persistent headless Claude, lean flags) + prompts (+fake-claude tests)
 - [x] 4 Textual app (+pilot tests, screenshots)
 - [x] 5 Launcher (`bin/tutor`, `Start Tutor.command`) + `doctor`
-- [ ] 6 Teach cards for the 7 packs (Sonnet) + validate + publish
-- [ ] 7 How It Works.md, Home.md, README, memory
-- [ ] 8 Final offline E2E, commit, morning summary
+- [x] 6 Teach cards for the 7 packs (Sonnet) + validate + publish
+- [x] 7 How It Works.md, Home.md, README, memory
+- [x] 8 Final offline E2E, commit, morning summary
+
+Learner to do once: open `~~ AI Workflow/STEM Tutor` as an Obsidian vault; run `claude auth login` (AI stays off
+until then); `bin/tutor doctor` should then be all ✅. Held packs (9701-1.x, P1-2, S1-1) still need adjudication.
 
 
 ## Done

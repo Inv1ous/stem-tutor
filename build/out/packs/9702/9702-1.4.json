@@ -2194,5 +2194,64 @@
     ]
    }
   }
- ]
+ ],
+ "teach": {
+  "9702-1.4.1": {
+   "motivate": "Some quantities are fully described by a number and unit; a force is not, unless you also say which way it acts. Sorting them matters because they combine by different rules.",
+   "discover": {
+    "stem": "A student says that any quantity which can be negative must be a vector. Which of these quantities can be negative but is still a scalar?",
+    "options": {
+     "A": "The velocity of a car",
+     "B": "The temperature of a car's engine, in $^\\circ\\mathrm{C}$",
+     "C": "The displacement of a car",
+     "D": "The force on a car"
+    },
+    "answer": "B",
+    "explanation": "Velocity, displacement and force each need a direction in space. A temperature has magnitude only: its sign says which side of zero it is on, not which way it points."
+   },
+   "establish": "Ask of any quantity: is a number and unit enough to describe it completely?\n\n- A **scalar** has **magnitude only**. 'The bag has mass $2.0\\ \\mathrm{kg}$' says everything. Examples: distance, speed, mass, time, energy, work, power, temperature, density, pressure.\n- A **vector** has **magnitude and direction**. 'A force of $5\\ \\mathrm{N}$' leaves us guessing whether it pushes up, down or sideways. Examples: displacement, velocity, acceleration, force, weight, momentum, field strength.\n\nThe direction must be a direction in space. A minus sign is not one: $-5\\ ^\\circ\\mathrm{C}$ tells us which side of zero, not which way, so temperature stays a scalar.\n\nA scalar can be built from vectors. Work is force times displacement in the direction of the force, but it has no direction of its own. Classify by the definition, not by whether forces are involved.\n\nDirection matters: walking $3\\ \\mathrm{m}$ east then $3\\ \\mathrm{m}$ west gives a distance of $6\\ \\mathrm{m}$ (scalar) but a displacement of zero (vector).",
+   "connect": "Builds on physical quantities from 1.1, each with a magnitude and a unit; direction is a new property to carry, which is why the addition and resolving rules that follow are needed.",
+   "note": "- Scalar quantity: magnitude only.\n- Vector quantity: magnitude and direction.\n- Scalars: distance, speed, mass, time, energy, work, power, temperature, density, pressure.\n- Vectors: displacement, velocity, acceleration, force, weight, momentum, field strength.\n- A sign is not a direction: temperature in $^\\circ\\mathrm{C}$ and charge are scalars.\n- Distance is scalar, displacement is vector: a there-and-back walk has displacement zero.",
+   "self_explain": "Explain in your own words what direction adds to a vector, using distance and displacement for a walk that returns to its start.",
+   "source": "pack"
+  },
+  "9702-1.4.2": {
+   "motivate": "Forces of $6\\ \\mathrm{N}$ and $8\\ \\mathrm{N}$ do not always give $14\\ \\mathrm{N}$; the result depends on how they are pointed. We need a method that keeps direction, or no combined force or velocity can be found.",
+   "discover": {
+    "stem": "Two forces of $6\\ \\mathrm{N}$ and $8\\ \\mathrm{N}$ act on the same object. The angle between them can be changed. Which value is impossible for the magnitude of the resultant force?",
+    "options": {
+     "A": "$2\\ \\mathrm{N}$",
+     "B": "$8\\ \\mathrm{N}$",
+     "C": "$10\\ \\mathrm{N}$",
+     "D": "$15\\ \\mathrm{N}$"
+    },
+    "answer": "D",
+    "explanation": "The resultant is largest when the forces point the same way ($14\\ \\mathrm{N}$) and smallest when they are opposite ($2\\ \\mathrm{N}$). Every angle between gives a value in that range, so $15\\ \\mathrm{N}$ cannot occur."
+   },
+   "establish": "The **resultant** is the single vector with the same effect as the vectors acting together.\n\nTwo cases we can trust: forces of $6\\ \\mathrm{N}$ and $8\\ \\mathrm{N}$ in the same direction give $14\\ \\mathrm{N}$; in opposite directions they partly cancel to give $2\\ \\mathrm{N}$. Any other angle lies between, so we need a construction.\n\nWalking $\\mathbf{a}$ then $\\mathbf{b}$ ends where one straight walk would. So draw the vectors **head to tail** (a vector triangle); the resultant runs from the tail of the first to the head of the last. If they are perpendicular the triangle is right-angled: $R=\\sqrt{a^2+b^2}$, $\\tan\\theta=\\dfrac{b}{a}$. A boat steered at $3.0\\ \\mathrm{m\\,s^{-1}}$ across a $1.2\\ \\mathrm{m\\,s^{-1}}$ current moves at $\\sqrt{3.0^2+1.2^2}=3.2\\ \\mathrm{m\\,s^{-1}}$.\n\n**Subtracting**: $\\mathbf{X}-\\mathbf{Y}=\\mathbf{X}+(-\\mathbf{Y})$, where $-\\mathbf{Y}$ has the same size but the opposite direction. A change is final minus initial: $\\Delta\\mathbf{v}=\\mathbf{v}_\\mathrm{f}-\\mathbf{v}_\\mathrm{i}$.",
+   "connect": "Uses the idea of a vector from 1.4.1. Resolving into components, next, turns any awkward angle into the perpendicular case where the right-angled triangle works.",
+   "note": "- Resultant: the single vector with the same effect as the vectors together (their vector sum).\n- Add vectors head to tail (vector triangle); the resultant joins the tail of the first to the head of the last.\n- Perpendicular vectors: $R=\\sqrt{a^2+b^2}$, $\\tan\\theta=b/a$; give the direction as well as the magnitude.\n- Magnitudes add directly only when vectors point the same way; Pythagoras only works at $90^\\circ$.\n- Subtract: $\\mathbf{X}-\\mathbf{Y}=\\mathbf{X}+(-\\mathbf{Y})$; reverse $\\mathbf{Y}$ then add.\n- Change in velocity: $\\Delta\\mathbf{v}=\\mathbf{v}_\\mathrm{f}-\\mathbf{v}_\\mathrm{i}$ (final minus initial).",
+   "self_explain": "A ball hits a wall at $8\\ \\mathrm{m\\,s^{-1}}$ and rebounds at $3\\ \\mathrm{m\\,s^{-1}}$. Explain why its change in velocity has magnitude $11\\ \\mathrm{m\\,s^{-1}}$, not $5\\ \\mathrm{m\\,s^{-1}}$.",
+   "source": "pack"
+  },
+  "9702-1.4.3": {
+   "motivate": "A force at $40^\\circ$ to the ground neither pushes purely forwards nor purely upwards. Splitting it into two perpendicular parts lets us treat each direction separately using simple arithmetic.",
+   "discover": {
+    "stem": "A force of $20\\ \\mathrm{N}$ acts at $70^\\circ$ above the horizontal. Which statement about its horizontal and vertical components is correct?",
+    "options": {
+     "A": "The horizontal component is larger than the vertical component.",
+     "B": "The vertical component is larger than the horizontal component.",
+     "C": "The horizontal and vertical components are equal in size.",
+     "D": "The two components add up to $20\\ \\mathrm{N}$ in size."
+    },
+    "answer": "B",
+    "explanation": "At $70^\\circ$ the force is closer to vertical than horizontal, so more of it acts vertically. Components at right angles combine by Pythagoras, so their sizes do not simply add to $20\\ \\mathrm{N}$."
+   },
+   "establish": "Reverse the addition. A vector $F$ at angle $\\theta$ to the $x$-axis is the resultant of two perpendicular vectors, one along $x$ and one along $y$. These **components** are the sides of a right-angled triangle whose hypotenuse is $F$.\n\nFrom the triangle:\n\n- side adjacent to $\\theta$: $F_x=F\\cos\\theta$\n- side opposite $\\theta$: $F_y=F\\sin\\theta$\n\nCheck the limit to avoid swapping them: at $\\theta=0$ the whole force lies along $x$, so $F_x$ must equal $F$, and $\\cos0=1$.\n\nA force along $y$ has no effect along $x$, so perpendicular components act independently and can be treated one direction at a time. To recombine: $F=\\sqrt{F_x^2+F_y^2}$ and $\\tan\\theta=\\dfrac{F_y}{F_x}$.\n\nExample: $30\\ \\mathrm{N}$ at $40^\\circ$ above the horizontal has $F_x=30\\cos40^\\circ=23\\ \\mathrm{N}$ and $F_y=30\\sin40^\\circ=19\\ \\mathrm{N}$.",
+   "connect": "This is vector addition (1.4.2) run backwards. You will use it constantly later, from projectile motion to forces on slopes and equilibrium.",
+   "note": "- Any vector $F$ at angle $\\theta$ to the $x$-axis has perpendicular components $F_x=F\\cos\\theta$ (adjacent) and $F_y=F\\sin\\theta$ (opposite).\n- Check with $\\theta=0$: the component along the axis must be the whole $F$.\n- Perpendicular components act independently: resolve, work in each direction, then recombine.\n- $F=\\sqrt{F_x^2+F_y^2}$ and $\\tan\\theta=F_y/F_x$ (state the angle from a named line).\n- Example: $30\\ \\mathrm{N}$ at $40^\\circ$ to the horizontal gives $23\\ \\mathrm{N}$ horizontal and $19\\ \\mathrm{N}$ vertical.",
+   "self_explain": "Explain why the component next to the angle uses cosine, using the case $\\theta=0$, and why perpendicular components can be treated independently.",
+   "source": "pack"
+  }
+ }
 }

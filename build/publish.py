@@ -16,7 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / "build/out"
 DEFAULT_VAULT = ROOT.parent / "STEM Tutor"  # local vault (moved out of iCloud 2026-09-29)
-FOLDERS = ["Subjects", "Assets", "Sessions", "Question Sheets", "Inbox", "Inbox/Marked", "Anki", "Almanac", "Papers"]
+FOLDERS = ["Subjects", "Assets", "Sessions", "Lessons", "My Notes", "Inbox", "Inbox/Marked", "Anki", "Almanac", "Papers"]
 
 
 def publish(vault: Path) -> dict:

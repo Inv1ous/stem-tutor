@@ -1,0 +1,56 @@
+{
+ "9702-1.3.1": {
+  "motivate": "Two students measure the same wire and disagree, and even one student's repeats differ. Before trusting a result we need to know why readings go wrong, because the cure depends on the type of error.",
+  "discover": {
+   "stem": "A newton meter reads $0.3\\ \\mathrm{N}$ with nothing hanging on it. A student hangs a stone on it and takes twenty readings of its weight, then calculates the mean. Which statement about the mean is correct?",
+   "options": {
+    "A": "The mean is equal to the true weight of the stone.",
+    "B": "The mean is $0.3\\ \\mathrm{N}$ below the true weight of the stone.",
+    "C": "The mean is $0.3\\ \\mathrm{N}$ above the true weight of the stone.",
+    "D": "The mean is much closer to the true weight than a single reading."
+   },
+   "answer": "C",
+   "explanation": "The zero error is the same in every reading, so it is a systematic error: each reading is $0.3\\ \\mathrm{N}$ too high and so is their mean. Averaging only reduces errors that scatter above and below the true value."
+  },
+  "establish": "Every reading differs from the true value by some **error**. Ask of any error: does it change unpredictably from one reading to the next?\n\n- **Random error**: yes. Readings scatter above *and* below the true value (for example, judging when to stop a stopwatch). High and low errors partly cancel in a **mean**, so repeating and averaging reduces random error.\n- **Systematic error**: no. Every reading is too high, or every reading is too low, by the same amount or factor. A **zero error** is an example: the instrument reads a non-zero value when the true value is zero. The mean of identical errors is that same error, so averaging cannot help. You must calibrate the instrument or correct the reading.\n\nCorrecting a zero error: corrected reading $=$ reading $-$ zero error, keeping the sign. A gauge with zero error $-0.05\\ \\mathrm{mm}$ that reads $1.03\\ \\mathrm{mm}$ gives $1.03-(-0.05)=1.08\\ \\mathrm{mm}$. The gauge reads too low, so the true value must be larger.",
+  "connect": "Every quantity measured in 1.1 and 1.2 carries such errors; the next two ideas describe how they show up in a set of results and how to carry them through a calculation.",
+  "note": "- Systematic error: every reading is too high or every reading too low by the same amount; a zero error is one. Not reduced by repeating and averaging; calibrate or correct.\n- Random error: readings scatter unpredictably above and below the true value; reduced by repeating and calculating a mean.\n- Zero error: a non-zero reading when the true value is zero.\n- Corrected reading = reading $-$ zero error, keeping the sign (zero error $-0.05\\ \\mathrm{mm}$, reading $1.03\\ \\mathrm{mm}$ gives $1.08\\ \\mathrm{mm}$).\n- Explain-mark: a mean cancels random errors, but a systematic error is identical in every reading.",
+  "self_explain": "Explain in your own words why taking a mean of many readings reduces random errors but leaves a zero error untouched."
+ },
+ "9702-1.3.2": {
+  "motivate": "A thermometer might give tightly grouped readings and still be wrong. 'A good measurement' is too vague, so physics uses two separate words for two separate qualities.",
+  "discover": {
+   "stem": "A thermometer is placed in water known to be at $100.0\\ ^\\circ\\mathrm{C}$. Five readings are $97.1,\\ 97.2,\\ 97.1,\\ 97.0$ and $97.2\\ ^\\circ\\mathrm{C}$. Which description of these readings is correct?",
+   "options": {
+    "A": "The readings are accurate but not precise.",
+    "B": "The readings are precise but not accurate.",
+    "C": "The readings are both precise and accurate.",
+    "D": "The readings are neither precise nor accurate."
+   },
+   "answer": "B",
+   "explanation": "The readings agree closely with each other (range $0.2\\ ^\\circ\\mathrm{C}$), so they are precise. Every one is about $2.9\\ ^\\circ\\mathrm{C}$ from the true value, so they are not accurate."
+  },
+  "establish": "Take repeated readings of a quantity whose true value is known. Two different questions can be asked.\n\n- Do the readings agree with **each other**? If the range (scatter) is small, the measurements are **precise**. Scatter comes from random error, so precision is about random error.\n- Does the value agree with the **true (accepted) value**? If it is close, the measurement is **accurate**. A systematic error moves every reading away from the true value, so it spoils accuracy.\n\nThe questions are independent, so all four combinations occur. If the true value is $9.81\\ \\mathrm{m\\,s^{-2}}$, readings $9.10,\\ 9.12,\\ 9.11$ are close together (precise) yet all about $0.7$ too low (not accurate). Readings $9.3,\\ 10.4,\\ 9.9$ are widely scattered (not precise) although their mean happens to be near the true value.\n\nPrecision needs only the readings; accuracy needs the true value as well.",
+  "connect": "These are the two error types from 1.3.1 seen in a set of results: random error limits precision, systematic error limits accuracy, which is why the fixes differ.",
+  "note": "- Precise: repeated readings are close to each other (small range or scatter). Linked to random error.\n- Accurate: reading is close to the true (accepted) value. Linked to systematic error.\n- Precise does not mean accurate: readings can be tightly grouped yet all wrong because of a systematic error.\n- Accuracy can only be judged against the true value; precision only needs the readings themselves.\n- Exam wording: precise = close to each other; accurate = close to the true value.",
+  "self_explain": "Explain how a set of readings can be precise but not accurate, and say which type of error causes this."
+ },
+ "9702-1.3.3": {
+  "motivate": "A value such as $g=9.81\\ \\mathrm{m\\,s^{-2}}$ means little without saying how far off it might be. Each measurement has an uncertainty, and we need a rule for what those do to a calculated result.",
+  "discover": {
+   "stem": "The side of a cube is measured as $(5.0\\pm0.1)\\ \\mathrm{cm}$. What is the percentage uncertainty in the volume of the cube?",
+   "options": {
+    "A": "$2\\%$",
+    "B": "$4\\%$",
+    "C": "$6\\%$",
+    "D": "$8\\%$"
+   },
+   "answer": "C",
+   "explanation": "The side has $0.1/5.0=2\\%$ uncertainty. Volume is side $\\times$ side $\\times$ side, so the three percentage uncertainties add: $2+2+2=6\\%$."
+  },
+  "establish": "A measurement $x\\pm\\Delta x$ has **absolute uncertainty** $\\Delta x$ and **percentage uncertainty** $\\dfrac{\\Delta x}{x}\\times100\\%$. Find the biggest and smallest results the readings allow.\n\n- **Sum or difference**: the largest possible $a-b$ uses the largest $a$ and the *smallest* $b$, giving $(a+\\Delta a)-(b-\\Delta b)$. So $\\Delta Q=\\Delta a+\\Delta b$: absolute uncertainties add, even for a difference.\n- **Product or quotient**: $(a+\\Delta a)(b+\\Delta b)\\approx ab\\left(1+\\dfrac{\\Delta a}{a}+\\dfrac{\\Delta b}{b}\\right)$, ignoring the tiny product of two small fractions. So percentage uncertainties add.\n- **Power**: $x^n$ is $x$ multiplied $n$ times, so $\\dfrac{\\Delta Q}{Q}=n\\dfrac{\\Delta x}{x}$.\n\nExample: lengths $(20.0\\pm0.1)\\ \\mathrm{cm}$ and $(5.0\\pm0.1)\\ \\mathrm{cm}$ give a difference $(15.0\\pm0.2)\\ \\mathrm{cm}$. Its percentage uncertainty is relative to $15.0$, not to either reading: $\\dfrac{0.2}{15.0}\\times100=1.3\\%$.\n\nConvert back with $\\Delta Q=\\dfrac{\\text{percentage}}{100}\\times Q$ and quote it to 1 s.f.",
+  "connect": "Uncertainties are the size of the errors from 1.3.1 that remain after careful work; this rule carries them into every calculated quantity you meet later, such as $g$, density or resistivity.",
+  "note": "- Percentage uncertainty $=\\dfrac{\\Delta x}{x}\\times100\\%$.\n- $Q=a\\pm b$: $\\Delta Q=\\Delta a+\\Delta b$ (add absolute uncertainties, also for a subtraction).\n- $Q=\\dfrac{ab}{c}$: $\\dfrac{\\Delta Q}{Q}=\\dfrac{\\Delta a}{a}+\\dfrac{\\Delta b}{b}+\\dfrac{\\Delta c}{c}$ (add percentage uncertainties).\n- $Q=x^n$: $\\dfrac{\\Delta Q}{Q}=n\\,\\dfrac{\\Delta x}{x}$ (multiply by the power).\n- For a difference, the percentage uncertainty is relative to the difference itself.\n- Convert back: $\\Delta Q=\\text{percentage}\\times Q$; give the uncertainty to 1 s.f. and the value to the same decimal place.",
+  "self_explain": "Explain why uncertainties add even when two readings are subtracted, and why a squared quantity has its percentage uncertainty doubled."
+ }
+}

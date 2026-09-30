@@ -2318,5 +2318,83 @@
    "back": "$10^{-6}\\ \\mathrm{m^2}$: the prefix is squared with the unit, $(10^{-3}\\ \\mathrm{m})^2$."
   }
  ],
- "diagrams": []
+ "diagrams": [],
+ "teach": {
+  "9702-1.2.1": {
+   "motivate": "Newtons, volts and pascals are only a few of many units. If each had its own independent definition the system would be a mess, so we need a small agreed set of building blocks for all the rest.",
+   "discover": {
+    "stem": "Electric charge is not one of the five SI base quantities. What follows for its unit, the coulomb?",
+    "options": {
+     "A": "It is a base unit defined independently of the ampere",
+     "B": "It is a derived unit written as a product of base units",
+     "C": "It is a base unit for a quantity that is not a base quantity",
+     "D": "It is a derived unit that cannot be written in base units"
+    },
+    "answer": "B",
+    "explanation": "Only the base quantities have base units; every other unit is derived, so it can be written as products or quotients of base units. The coulomb is $\\mathrm{A\\,s}$, current multiplied by time."
+   },
+   "establish": "Every quantity needs a unit, but a unit for speed is just length divided by time. So we choose a few independent quantities, define a unit for each (the **base units**), and build everything else from them.\n\nThe five **SI base quantities** you must recall:\n\n- mass: **kilogram** (kg)\n- length: **metre** (m)\n- time: **second** (s)\n- current: **ampere** (A)\n- temperature: **kelvin** (K)\n\nKeep the two ideas apart: a **quantity** is what is measured (time), a **unit** is what it is measured in (second). \"Second\" is not a base quantity.\n\nThe base unit of mass is the kilogram, not the gram, because $1\\ \\mathrm{g} = 10^{-3}\\ \\mathrm{kg}$. A mass of $350\\ \\mathrm{g}$ must be used as $0.350\\ \\mathrm{kg}$ in an equation needing SI base units.\n\nCharge is not a base quantity; its unit is derived: $\\mathrm{C} = \\mathrm{A\\,s}$.",
+   "connect": "This extends the quantity-versus-unit split from 1.1.1. It unlocks 1.2.2, where derived units are built from these five, and 1.2.4, where prefixes scale any of them.",
+   "note": "- SI base quantities and units: mass (kg), length (m), time (s), current (A), temperature (K).\n- A quantity is what is measured; a unit is what it is measured in (time, second).\n- The SI base unit of mass is the kilogram, not the gram: convert $\\mathrm{g}\\to\\mathrm{kg}$ before substituting.\n- Charge is not a base quantity; the coulomb is derived, $\\mathrm{C}=\\mathrm{A\\,s}$.",
+   "self_explain": "Explain why the coulomb is not a base unit even though charge is a very familiar quantity, and how you would write it using base units.",
+   "source": "pack"
+  },
+  "9702-1.2.2": {
+   "motivate": "Only five base units exist, yet we meet newtons, joules and volts. We need a reliable way to strip any unit down to base units, because that is how equations are checked later.",
+   "discover": {
+    "stem": "The joule is $\\mathrm{kg\\,m^{2}\\,s^{-2}}$, and power is the energy transferred per unit time. Which are the SI base units of the watt?",
+    "options": {
+     "A": "$\\mathrm{kg\\,m^{2}\\,s^{-3}}$",
+     "B": "$\\mathrm{kg\\,m^{2}\\,s^{-1}}$",
+     "C": "$\\mathrm{kg\\,m\\,s^{-3}}$",
+     "D": "$\\mathrm{kg\\,m^{2}\\,s^{-2}}$"
+    },
+    "answer": "A",
+    "explanation": "$\\mathrm{W}=\\mathrm{J\\,s^{-1}}=\\mathrm{kg\\,m^{2}\\,s^{-2}}\\times\\mathrm{s^{-1}}$. The $\\mathrm{s^{-2}}$ from the joule is kept and dividing by time subtracts one more from the power of s."
+   },
+   "establish": "A derived unit comes from a **defining equation**: multiplying quantities multiplies their units, and dividing divides them.\n\nMethod: write the equation, replace each quantity by its unit, replace derived units by base units, **add** powers when multiplying and **subtract** when dividing.\n\n- $F=ma$: $\\mathrm{N}=\\mathrm{kg}\\times\\mathrm{m\\,s^{-2}}=\\mathrm{kg\\,m\\,s^{-2}}$\n- $W=Fs$: $\\mathrm{J}=\\mathrm{N\\,m}=\\mathrm{kg\\,m^{2}\\,s^{-2}}$\n- $P=W/t$: $\\mathrm{W}=\\mathrm{J\\,s^{-1}}=\\mathrm{kg\\,m^{2}\\,s^{-3}}$\n- $p=F/A$: $\\mathrm{Pa}=\\mathrm{N\\,m^{-2}}=\\mathrm{kg\\,m^{-1}\\,s^{-2}}$\n- $Q=It$: $\\mathrm{C}=\\mathrm{A\\,s}$\n- $V=W/Q$: $\\mathrm{V}=\\mathrm{J\\,C^{-1}}=\\mathrm{kg\\,m^{2}\\,s^{-3}\\,A^{-1}}$\n- $R=V/I$: $\\Omega=\\mathrm{V\\,A^{-1}}=\\mathrm{kg\\,m^{2}\\,s^{-3}\\,A^{-2}}$\n\nEach unit builds on the one before it. Substitute step by step and keep every power.",
+   "connect": "This uses the five base units from 1.2.1. The base-unit forms you build here are exactly what the homogeneity check in 1.2.3 compares.",
+   "note": "- Derived units are products or quotients of base units: write the defining equation, substitute units, add powers (multiply) or subtract (divide).\n- $\\mathrm{N}=\\mathrm{kg\\,m\\,s^{-2}}$; $\\mathrm{J}=\\mathrm{N\\,m}=\\mathrm{kg\\,m^{2}\\,s^{-2}}$.\n- $\\mathrm{W}=\\mathrm{J\\,s^{-1}}=\\mathrm{kg\\,m^{2}\\,s^{-3}}$; $\\mathrm{Pa}=\\mathrm{N\\,m^{-2}}=\\mathrm{kg\\,m^{-1}\\,s^{-2}}$.\n- $\\mathrm{C}=\\mathrm{A\\,s}$; $\\mathrm{V}=\\mathrm{J\\,C^{-1}}=\\mathrm{kg\\,m^{2}\\,s^{-3}\\,A^{-1}}$; $\\Omega=\\mathrm{V\\,A^{-1}}=\\mathrm{kg\\,m^{2}\\,s^{-3}\\,A^{-2}}$.\n- \"Show that\" needs every substitution step written down.",
+   "self_explain": "Explain why the watt is $\\mathrm{kg\\,m^{2}\\,s^{-3}}$ and not $\\mathrm{kg\\,m^{2}\\,s^{-1}}$, starting from the definition of power.",
+   "source": "pack"
+  },
+  "9702-1.2.3": {
+   "motivate": "Equations get half-remembered or mis-copied, and unknown powers appear in exam questions. Base units give a quick test that catches wrong equations and finds missing powers without any first-principles derivation.",
+   "discover": {
+    "stem": "Two students test $E=\\tfrac12mv^{2}$ and $E=mv^{2}$ for homogeneity in base units. Both are found to be homogeneous. Which conclusion is justified?",
+    "options": {
+     "A": "The check shows that only the first equation is correct",
+     "B": "The check shows that only the second equation is correct",
+     "C": "The check shows that both equations are correct",
+     "D": "The check cannot show that either equation is correct"
+    },
+    "answer": "D",
+    "explanation": "A pure number such as $\\tfrac12$ has no units, so it cannot affect the base-unit check. Both forms pass, yet at most one is right, so homogeneity cannot prove an equation correct."
+   },
+   "establish": "You can only add or equate quantities of the same kind: $3\\ \\mathrm{m}+2\\ \\mathrm{s}$ is meaningless. So every term added or subtracted, and both sides of an equation, must have the same base units. Such an equation is **homogeneous**. Pure numbers ($\\tfrac12$, $2\\pi$) have no units.\n\n**Checking**: write the base units of each term. For $s=ut+\\tfrac12at^2$, $s$ is $\\mathrm{m}$, $ut$ is $\\mathrm{m\\,s^{-1}}\\times\\mathrm{s}=\\mathrm{m}$ and $at^2$ is $\\mathrm{m\\,s^{-2}}\\times\\mathrm{s^2}=\\mathrm{m}$. All match.\n\n**Finding powers**: for $v=Cg^{a}h^{b}$, $\\mathrm{m\\,s^{-1}}=\\mathrm{m^{a+b}\\,s^{-2a}}$. Equate powers: s gives $a=\\tfrac12$; m gives $a+b=1$, so $b=\\tfrac12$.\n\n**Limits**: a non-homogeneous equation is certainly wrong. A homogeneous one may still be wrong, because a missing or wrong factor such as $\\tfrac12$ or $2\\pi$ has no units.",
+   "connect": "This uses the base-unit forms from 1.2.2 for each term. It gives a check you can apply to equations throughout the course, starting with the equations of motion in 2.1.",
+   "note": "- An equation is homogeneous if every term on both sides has the same SI base units.\n- Numerical factors ($\\tfrac12$, $2\\pi$, $4\\pi^2$) have no units.\n- To check: write the base units of each term separately, then state that both sides match.\n- To find unknown powers: put base units on both sides and equate the power of each base unit.\n- Homogeneity is necessary but not sufficient: it cannot detect a wrong numerical factor, so a homogeneous equation may still be wrong.",
+   "self_explain": "Explain why a non-homogeneous equation is certainly wrong, but a homogeneous equation may still be wrong.",
+   "source": "pack"
+  },
+  "9702-1.2.4": {
+   "motivate": "Physics values run from atomic sizes to astronomical distances, and writing $0.000000001\\ \\mathrm{m}$ invites slips. Prefixes give a compact standard way to scale any unit by a power of ten.",
+   "discover": {
+    "stem": "A square plate has sides of length $2.0\\ \\mathrm{mm}$. Which is the area of one face in $\\mathrm{m^{2}}$?",
+    "options": {
+     "A": "$4.0\\times10^{-6}\\ \\mathrm{m^{2}}$",
+     "B": "$2.0\\times10^{-6}\\ \\mathrm{m^{2}}$",
+     "C": "$4.0\\times10^{-3}\\ \\mathrm{m^{2}}$",
+     "D": "$4.0\\times10^{-9}\\ \\mathrm{m^{2}}$"
+    },
+    "answer": "A",
+    "explanation": "The side is $2.0\\times10^{-3}\\ \\mathrm{m}$, so the area is $(2.0\\times10^{-3})^2 = 4.0\\times10^{-6}\\ \\mathrm{m^{2}}$. The prefix is part of the unit, so it is squared with the unit."
+   },
+   "establish": "A **prefix** is shorthand for a power of ten placed before a unit, base or derived. So $1\\ \\mathrm{km}=10^{3}\\ \\mathrm{m}$.\n\n| p | n | $\\mu$ | m | c | d | k | M | G | T |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| $10^{-12}$ | $10^{-9}$ | $10^{-6}$ | $10^{-3}$ | $10^{-2}$ | $10^{-1}$ | $10^{3}$ | $10^{6}$ | $10^{9}$ | $10^{12}$ |\n\n(pico, nano, micro, milli, centi, deci, kilo, mega, giga, tera)\n\n**Method**: replace the prefix by its power of ten. The prefix belongs to the unit, so any power on the unit applies to the prefix as well:\n$$1\\ \\mathrm{mm^2}=(10^{-3}\\ \\mathrm{m})^2=10^{-6}\\ \\mathrm{m^2}$$\n\nExample: $5\\ \\mathrm{G\\Omega}=5\\times10^{9}\\ \\Omega$ and $2\\ \\mathrm{pA}=2\\times10^{-12}\\ \\mathrm{A}$.\n\nThe base unit of mass, kg, already has a prefix, so $1\\ \\mathrm{g}=10^{-3}\\ \\mathrm{kg}$.",
+   "connect": "Prefixes work on the base units from 1.2.1 and on derived units from 1.2.2, and they make the unit conversions in 1.1.2 systematic. You will use them in almost every calculation.",
+   "note": "- Prefixes: p $10^{-12}$, n $10^{-9}$, $\\mu$ $10^{-6}$, m $10^{-3}$, c $10^{-2}$, d $10^{-1}$, k $10^{3}$, M $10^{6}$, G $10^{9}$, T $10^{12}$.\n- Prefixes apply to base and derived units.\n- Replace the prefix by its power of ten and apply the unit's power to it too: $1\\ \\mathrm{mm^2}=10^{-6}\\ \\mathrm{m^2}$.\n- $1\\ \\mathrm{g}=10^{-3}\\ \\mathrm{kg}$: convert before substituting into SI equations.",
+   "self_explain": "Explain why $1\\ \\mathrm{mm^2}$ is $10^{-6}\\ \\mathrm{m^2}$ rather than $10^{-3}\\ \\mathrm{m^2}$.",
+   "source": "pack"
+  }
+ }
 }

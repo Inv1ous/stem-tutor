@@ -1,0 +1,38 @@
+{
+ "9702-1.1.1": {
+  "motivate": "Two students record the same length as \"0.75\" and \"75\". Neither can be judged until we know what was measured and in what. We need a precise statement of what every measurement consists of.",
+  "discover": {
+   "stem": "The mass of a stone is measured as $0.35\\ \\mathrm{kg}$ and then quoted as $350\\ \\mathrm{g}$. The stone itself is unchanged. What is different between the two records?",
+   "options": {
+    "A": "The physical quantity and the unit",
+    "B": "The numerical magnitude and the unit",
+    "C": "The physical quantity and the numerical magnitude",
+    "D": "The physical quantity, the numerical magnitude and the unit"
+   },
+   "answer": "B",
+   "explanation": "Mass is still the quantity being measured. Changing to a smaller unit (g instead of kg) means a larger number is needed for the same mass, so the magnitude and the unit both change."
+  },
+  "establish": "What we measure is a **physical quantity**: length, mass, time, temperature, current.\n\n- \"0.75\" alone tells you nothing, but \"0.75 m\" does. So every record needs a **numerical magnitude** and a **unit**:\n$$Q = \\text{numerical magnitude} \\times \\text{unit},\\qquad \\text{e.g. } v = 12\\ \\mathrm{m\\,s^{-1}}$$\n- The **quantity** is what is measured; the **unit** is the agreed size it is measured in. Temperature is a quantity; kelvin is only a unit, so \"kelvin\" is not a physical quantity.\n- The same length is $0.75\\ \\mathrm{m} = 750\\ \\mathrm{mm}$. A smaller unit needs a larger number, and the quantity is unchanged. So the unit need not be an SI unit.\n- Only **vector** quantities (force, velocity) also need a direction. Mass, time and energy do not.\n- In CAIE 9702 MCQs, pure ratios such as strain or efficiency have no unit, so they are not accepted as physical quantities (in wider SI usage they are called dimensionless quantities).",
+  "connect": "This is the foundation for the whole course: every later quantity, from force to current, is a magnitude and a unit, and 1.2 fixes which units everything else is built from.",
+  "note": "- A physical quantity consists of a numerical magnitude and a unit: $Q = \\text{number}\\times\\text{unit}$.\n- The quantity is what is measured (temperature, length); the unit is what it is measured in (kelvin, metre). A unit alone is not a physical quantity.\n- A record needs a number and a unit; the unit need not be an SI or base unit (0.75 m = 750 mm).\n- Only vector quantities have a direction; scalars have magnitude and unit only.\n- CAIE 9702 MCQs treat unit-less ratios (efficiency, strain) as not physical quantities (e.g. Nov 2020 P11 Q1); in wider SI usage they are called dimensionless quantities.",
+  "self_explain": "Explain in your own words why the record \"length = 0.75\" is incomplete, and why \"0.75 m\" and \"750 mm\" are equally good records of the same length."
+ },
+ "9702-1.1.2": {
+  "motivate": "Some exam questions give no data and ask for a reasonable estimate. A slip of a power of ten then gives an absurd answer, so we need a method that gets the size right rather than the exact digits.",
+  "discover": {
+   "stem": "A box has a volume of $250\\ \\mathrm{cm^3}$. Which is the volume of the box in $\\mathrm{m^3}$?",
+   "options": {
+    "A": "$2.5\\times10^{-4}\\ \\mathrm{m^3}$",
+    "B": "$2.5\\ \\mathrm{m^3}$",
+    "C": "$0.25\\ \\mathrm{m^3}$",
+    "D": "$2.5\\times10^{-6}\\ \\mathrm{m^3}$"
+   },
+   "answer": "A",
+   "explanation": "$1\\ \\mathrm{cm} = 10^{-2}\\ \\mathrm{m}$, so $1\\ \\mathrm{cm^3} = (10^{-2})^3 = 10^{-6}\\ \\mathrm{m^3}$. Then $250\\times10^{-6} = 2.5\\times10^{-4}\\ \\mathrm{m^3}$."
+  },
+  "establish": "An estimate is judged on its **order of magnitude**, not its exact digits. So build it from values you already know.\n\n1. Break the quantity into known parts. For kinetic energy: $E_k = \\tfrac12 mv^2$.\n2. Choose **anchor values**: adult about $80\\ \\mathrm{kg}$; sprinter covers $100\\ \\mathrm{m}$ in about $10\\ \\mathrm{s}$, so $10\\ \\mathrm{m\\,s^{-1}}$; atom about $10^{-10}\\ \\mathrm{m}$ across; water $1000\\ \\mathrm{kg\\,m^{-3}}$.\n3. Convert to SI **before** substituting. Convert the length, then raise to the power: $1\\ \\mathrm{cm^3} = (10^{-2})^3\\ \\mathrm{m^3} = 10^{-6}\\ \\mathrm{m^3}$. Divide $\\mathrm{km\\,h^{-1}}$ by 3.6.\n4. Substitute: $E_k \\approx \\tfrac12\\times80\\times10^2 = 4\\times10^3\\ \\mathrm{J}$.\n5. Give 1 or 2 significant figures and sense-check the size.",
+  "connect": "An estimate is still a magnitude with a unit (1.1.1), so converting to SI correctly is what keeps the power of ten right. You will use this in every later topic.",
+  "note": "- Estimate: choose familiar anchors, convert to SI, use the equation, give 1 or 2 s.f., check the order of magnitude.\n- Anchors: adult about 80 kg; sprinter about $10\\ \\mathrm{m\\,s^{-1}}$; walking about $1.5\\ \\mathrm{m\\,s^{-1}}$; atom diameter about $10^{-10}\\ \\mathrm{m}$; visible light 400 to 700 nm.\n- Densities: water $1000\\ \\mathrm{kg\\,m^{-3}}$; air about $1.2\\ \\mathrm{kg\\,m^{-3}}$.\n- Convert the length, then cube: $1\\ \\mathrm{cm^3} = 10^{-6}\\ \\mathrm{m^3}$.\n- $\\mathrm{km\\,h^{-1}} \\div 3.6 = \\mathrm{m\\,s^{-1}}$.",
+  "self_explain": "Explain why we convert every value to SI units before substituting into an equation, and why $1\\ \\mathrm{cm^3}$ is $10^{-6}\\ \\mathrm{m^3}$ and not $10^{-2}\\ \\mathrm{m^3}$."
+ }
+}
