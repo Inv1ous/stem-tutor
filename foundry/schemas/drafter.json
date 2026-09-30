@@ -1,0 +1,43 @@
+{
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "pack_path",
+  "note_path",
+  "items",
+  "templates",
+  "worked",
+  "validator_ok",
+  "lint_ok",
+  "concerns"
+ ],
+ "properties": {
+  "pack_path": {
+   "type": "string"
+  },
+  "note_path": {
+   "type": "string"
+  },
+  "items": {
+   "type": "integer"
+  },
+  "templates": {
+   "type": "integer"
+  },
+  "worked": {
+   "type": "integer"
+  },
+  "validator_ok": {
+   "type": "boolean"
+  },
+  "lint_ok": {
+   "type": "boolean"
+  },
+  "concerns": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  }
+ }
+}
