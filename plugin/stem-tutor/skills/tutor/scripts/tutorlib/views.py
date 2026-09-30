@@ -146,7 +146,11 @@ class LessonLog:
 
     @classmethod
     def create(cls, root: Path, title: str, now: datetime, header: str = "") -> "LessonLog":
-        rel = f"Lessons/{now:%Y-%m-%d %H%M} {_safe(title)}.md"
+        stem, k = f"Lessons/{now:%Y-%m-%d %H%M} {_safe(title)}", 1
+        rel = f"{stem}.md"
+        while (root / rel).exists():  # the same lesson restarted within the minute: never overwrite the first log
+            k += 1
+            rel = f"{stem} ({k}).md"
         log = cls(root, rel)
         _write(root, rel, f"# {title}\n_{now:%A %d %B %Y, %H:%M}_\n\n{header}".rstrip() + "\n")
         return log

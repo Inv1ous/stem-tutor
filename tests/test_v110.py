@@ -281,3 +281,13 @@ def test_retaught_idea_keeps_every_paragraph_of_your_words(tutor):  # B-011
                            node={"kc": "9702-2.1.1", "note": "- n", "own_words": own})
     text = (tutor.vault.root / views.notes_rel(tutor.packs, sub)).read_text()
     assert views.callout("quote", "In your words", words) in text
+
+
+def test_same_title_lessons_in_one_minute_get_separate_logs(tutor):  # B-010
+    t = datetime.fromisoformat("2026-09-30T12:12:01+08:00")
+    a = views.LessonLog.create(tutor.vault.root, "Collision probe", t)
+    a.you("KEEP FIRST SESSION NOTES")
+    b = views.LessonLog.create(tutor.vault.root, "Collision probe", t + timedelta(seconds=58))
+    c = views.LessonLog.create(tutor.vault.root, "Collision probe", t + timedelta(seconds=59))
+    assert len({a.rel, b.rel, c.rel}) == 3
+    assert "KEEP FIRST SESSION NOTES" in (tutor.vault.root / a.rel).read_text()
