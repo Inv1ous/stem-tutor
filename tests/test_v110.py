@@ -384,3 +384,39 @@ def test_repair_teaching_is_shown_in_now_logged_and_resumed(tmp_path):  # B-032
     assert again.next()["activity"] == "teach"
     assert again.respond({})["ok"]
     assert again.next()["activity"] == "worked"
+
+
+def _publish_new_version(root, extra_pack=None):
+    """Simulate build/publish.py: copy the current version to v2 (optionally with one more pack) and flip CURRENT."""
+    import json
+    import shutil
+    packs_dir = root / ".tutor" / "packs"
+    cur = (packs_dir / "CURRENT").read_text().strip()
+    new = f"v{int(cur[1:]) + 1}"
+    shutil.copytree(packs_dir / cur, packs_dir / new)
+    if extra_pack:
+        (packs_dir / new / "specs" / "9702" / "packs" / f"{extra_pack['subtopic']}.json").write_text(json.dumps(extra_pack))
+    (packs_dir / "CURRENT").write_text(new)
+    return packs_dir / cur
+
+
+def test_new_content_is_picked_up_between_sessions(tmp_path):
+    import copy, json as _json
+    from fixtures import GRAPH, PACK
+    root = make_vault(tmp_path)
+    graph = copy.deepcopy(GRAPH)
+    graph["subtopics"].append({"id": "9702-2.2", "title": "Forces", "topic": "9702-2"})
+    (root / ".tutor/packs/v1/specs/9702/graph.json").write_text(_json.dumps(graph))
+    t = session.Tutor(store.Vault(root), rng=random.Random(0), now=lambda: T0)
+    assert t.refresh_content() == []  # nothing new
+    _publish_new_version(root, {**copy.deepcopy(PACK), "subtopic": "9702-2.2", "items": [], "worked": []})
+    assert t.refresh_content() == ["Forces"] and t.packs.root.name == "v2"
+
+
+def test_a_pruned_content_version_does_not_break_a_running_session(tmp_path):
+    import shutil
+    root = make_vault(tmp_path)
+    t = session.Tutor(store.Vault(root), rng=random.Random(0), now=lambda: T0)
+    old = _publish_new_version(root)
+    shutil.rmtree(old)  # publishing again pruned the version this app loaded
+    assert t.packs.pack("9702-2.1")["subtopic"] == "9702-2.1"

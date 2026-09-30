@@ -29,6 +29,8 @@ def fdy(tmp_path, monkeypatch):
     note.write_text("# 2.1 Equations of motion\n\nUse $v = u + at$.\n")
     monkeypatch.setenv("FOUNDRY_ROOT", str(tmp_path))
     monkeypatch.setenv("FOUNDRY_NOTIFY", "0")  # no Mac notifications from tests
+    monkeypatch.setenv("FOUNDRY_PUBLISH", "0")  # never publish into the real vault from tests
+    monkeypatch.setenv("FOUNDRY_COMMIT", "0")
     sys.path.insert(0, str(REPO / "foundry"))
     import foundry
     return importlib.reload(foundry)
@@ -212,3 +214,29 @@ def test_watch_shows_a_codex_worker_and_what_it_is_doing(fdy, tmp_path):
                                  "log": "foundry/logs/x.log"}
     text = fdy.watch_text()
     assert "Codex drafter (gpt-6-sol/medium) 0m: exec .venv/bin/python build/validate_pack.py" in text
+
+
+def test_signing_publishes_and_commits_the_chapter_at_once(fdy, monkeypatch):
+    calls = []
+    monkeypatch.setenv("FOUNDRY_PUBLISH", "1")
+    monkeypatch.setenv("FOUNDRY_COMMIT", "1")
+    monkeypatch.setattr(fdy.subprocess, "run", lambda args, **k: calls.append(args) or
+                        type("R", (), {"returncode": 0, "stdout": '{"version": "v2"}', "stderr": ""})())
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "sign"
+    fdy.cmd_sign(SUB)
+    publish = [c for c in calls if any(str(x).endswith("build/publish.py") for x in c)]
+    commit = [c for c in calls if "commit" in c]
+    assert publish and commit
+    assert any(str(x).endswith(f"{SUB}.json") for x in commit[0]) and "--" in commit[0]  # only this chapter's files
+
+
+def test_a_haiku_worker_that_never_reports_is_flagged_as_stalled(fdy):
+    fdy.cmd_add([SUB])
+    fdy.cmd_dispatch(SUB)
+    with fdy.chapter(SUB) as st:  # dispatched an hour ago; the Claude session ran out before the agents wrote anything
+        for j in st["jobs"].values():
+            j["started"] = "2020-01-01T00:00:00+08:00"
+    st = fdy.load(SUB)
+    assert fdy._stalled(st) and "re-dispatch" in fdy.action(st) and "stalled" in fdy.watch_text()

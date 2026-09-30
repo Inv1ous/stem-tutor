@@ -184,6 +184,13 @@ def _haiku(st: dict) -> tuple[list[str], list[str]]:
     return working, done
 
 
+def _stalled(st: dict) -> list[str]:
+    """Haiku jobs still without their output long after dispatch: the agent stopped (e.g. the session ran out)."""
+    limit = config().get("haiku_stall_minutes", 40) * 60
+    return [n for n in _haiku(st)[0]
+            if (datetime.now().astimezone() - datetime.fromisoformat(st["jobs"][n]["started"])).total_seconds() > limit]
+
+
 def _alive(pid: int | None) -> bool:
     if not pid:
         return False
@@ -218,6 +225,8 @@ def action(st: dict) -> str:
     if running:
         return f"wait: {', '.join(running)} running"
     working, done = _haiku(st)
+    if (stalled := _stalled(st)):
+        return f"re-dispatch: Haiku {', '.join(stalled)} stopped without writing its file → foundry.py dispatch {sub}"
     if working:
         return f"wait: Haiku {', '.join(working)} working ({len(done)}/{len(working) + len(done)} done)"
     return {
@@ -430,7 +439,35 @@ def cmd_sign(sub: str) -> None:
             raise SystemExit(f"{sub}: not ready (stage {st['stage']}, gates {g}, open {open_})")
         move(st, "ready", "signed off")
     hold(sub, None)
-    print(f"{sub}: ready (released from the hold list; publish with build/publish.py)")
+    release(sub)
+
+
+def chapter_paths(sub: str) -> list[str]:
+    """Everything that belongs to one chapter, relative to the repo: what a sign-off commits."""
+    pack = json.loads(pack_path(sub).read_text())
+    found = [pack_path(sub), NOTES / pack.get("note", ""), STATE / f"{sub}.json", HOLD]
+    found += list((ROOT / "build/work/gen").glob(f"{sub}*")) + list((ROOT / "build/out/Assets").glob(f"*/{sub}-*"))
+    found += list(BLIND.glob(f"{sub}.*")) + list(WORK.glob(f"{sub}.*"))
+    return [str(p.relative_to(ROOT)) for p in found if p.is_file()]
+
+
+def release(sub: str) -> None:
+    """Signed off: publish into the vault now, so the chapter can be studied straight away, and commit it, so the work
+    is safe even if the session stops. Each can be switched off in config.json."""
+    cfg = config()
+    if cfg.get("publish_on_sign", True) and os.environ.get("FOUNDRY_PUBLISH", "1") == "1":
+        r = subprocess.run([PY, str(REPO / "build/publish.py")], cwd=REPO, capture_output=True, text=True)
+        print(f"{sub}: " + (f"published into the vault {r.stdout.strip()[-120:]}" if r.returncode == 0
+                            else f"PUBLISH FAILED, run build/publish.py: {r.stderr.strip()[-300:]}"))
+    if cfg.get("commit_on_sign", True) and os.environ.get("FOUNDRY_COMMIT", "1") == "1":
+        paths = chapter_paths(sub)
+        subprocess.run(["git", "-C", str(ROOT), "add", "--", *paths], capture_output=True)
+        r = subprocess.run(["git", "-C", str(ROOT), "commit", "-q", "-m",
+                            f"content({sub}): signed off in the foundry\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>",
+                            "--", *paths], capture_output=True, text=True)
+        print(f"{sub}: " + ("committed" if r.returncode == 0 else f"commit skipped: {(r.stdout + r.stderr).strip()[-160:]}"))
+    notify(f"{sub} is ready to study in your vault")
+    print(f"{sub}: ready")
 
 
 def cmd_status(sub: str) -> None:
@@ -498,7 +535,7 @@ def cmd_codex(role: str, sub: str) -> None:
 
 def notify(text: str) -> None:
     """A macOS notification, only for workers the foundry launched (never from tests or by hand)."""
-    if os.environ.get("FOUNDRY_NOTIFY") == "1" and sys.platform == "darwin":
+    if os.environ.get("FOUNDRY_NOTIFY", "1") == "1" and sys.platform == "darwin":
         subprocess.run(["osascript", "-e", f"display notification {json.dumps(text)} with title \"STEM Tutor foundry\""],
                        capture_output=True)
 
@@ -526,7 +563,9 @@ def watch_text() -> str:
         for name, j in st["jobs"].items():
             if j.get("haiku") and not j.get("closed"):
                 working, _ = _haiku({"jobs": {name: j}})
-                workers.append(f"Haiku {name} {'… ' + _ago(j['started']) if working else '✓'}")
+                stalled = working and name in _stalled(st)
+                workers.append(f"Haiku {name} " + ("stalled, re-dispatch" if stalled else
+                                                   f"… {_ago(j['started'])}" if working else "✓"))
             elif _alive(j.get("pid")):
                 workers.append(f"Codex {name} ({j['model']}) {_ago(j['started'])}: {_last_line(ROOT / j['log'])}")
             elif j.get("manual") and not j.get("finished"):

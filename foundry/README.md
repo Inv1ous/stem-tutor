@@ -65,6 +65,21 @@ the foundry won't start that job itself. The prompt ends with the command that r
 - Codex jobs use your ChatGPT plan's Codex allowance. If it runs out, the log says so and the manager carries on
   with the Haiku work until it resets.
 
+## When a chapter is done, and when tokens run out
+
+- **Signed = in your vault.** The moment a chapter passes its last check, `sign` publishes it into the vault, commits
+  that chapter's files to git (a checkpoint nothing can undo) and pops up "… is ready to study in your vault". If the
+  tutor app is open, the next time you are back at its menu it loads the new chapter and says "New chapters ready: …".
+  Nothing else in the app changes, and a session you are in the middle of is never disturbed.
+- **Every step is saved as it happens.** The board (`foundry/state/`) is written to disk after every step, so a
+  session that stops mid-way (usage limit, closed laptop) loses nothing already done.
+- **Codex keeps going without Claude.** A Codex job that is running when the Claude session stops finishes on its own
+  and records its result; the next session finds it done.
+- **Haiku stops with Claude.** A Haiku worker cut off before it wrote its file shows as *stalled* after 40 minutes;
+  the next session sends that shard again (only that shard: each is 20 questions at most).
+- **Picking up again:** start a Claude session and say *"continue the foundry"*. It runs `foundry next`, which says
+  exactly where every chapter is.
+
 ## Seeing what's running
 
 - **Live screen:** `foundry watch` redraws every 5 seconds: each chapter's stage, every

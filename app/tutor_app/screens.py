@@ -60,6 +60,8 @@ class HomeScreen(Screen):
     def refresh_home(self) -> None:
         app = self.app
         t = app.tutor
+        if (arrived := t.refresh_content()):  # chapters published while the app was open, e.g. by the foundry
+            app.notify("New chapters ready: " + ", ".join(arrived), timeout=10)
         now = t.now()
         due = model.due_kcs(t.state, now)
         menu = self.query_one("#menu", OptionList)

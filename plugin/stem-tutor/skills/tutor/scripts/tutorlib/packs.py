@@ -116,7 +116,7 @@ def instantiate(item: dict, rng) -> dict:
 
 class Packs:
     def __init__(self, vault: Vault):
-        base = vault.tutor / "packs"
+        base = self.base = vault.tutor / "packs"
         version = (base / "CURRENT").read_text().strip()
         self.root = base / version
         self.manifest = read_json(self.root / "manifest.json") or {}
@@ -141,8 +141,14 @@ class Packs:
     def pack(self, subtopic: str) -> dict | None:
         if subtopic not in self._packs:
             spec = self.subtopics[subtopic]["spec"]
+            if not self.root.exists():  # a newer publish pruned the version this app loaded: read the current one
+                self.root = self.base / (self.base / "CURRENT").read_text().strip()
             self._packs[subtopic] = read_json(self.root / "specs" / spec / "packs" / f"{subtopic}.json")
         return self._packs[subtopic]
+
+    def published(self) -> set[str]:
+        """Subtopics that have a pack in this version."""
+        return {p.stem for p in self.root.glob("specs/*/packs/*.json")}
 
     def pack_for_kc(self, kc_id: str) -> dict | None:
         return self.pack(self.kcs[kc_id]["subtopic"])

@@ -37,6 +37,15 @@ class Tutor(LessonMixin):
             self._dirty = True
         self.session = read_json(self.session_path)
 
+    def refresh_content(self) -> list[str]:
+        """Between sessions, switch to newly published content: returns the titles of chapters that arrived."""
+        if self.session or (self.packs.base / "CURRENT").read_text().strip() == self.packs.root.name:
+            return []
+        before = self.packs.published()
+        self.packs = Packs(self.vault)
+        return [self.packs.subtopics[s]["title"] for s in sorted(self.packs.published() - before)
+                if s in self.packs.subtopics]
+
     # ---------- persistence ----------
     def now(self) -> datetime:
         return self._now()

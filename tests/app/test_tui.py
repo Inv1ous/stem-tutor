@@ -394,3 +394,27 @@ def test_asking_the_ai_is_refused_during_a_no_help_check(tmp_path, monkeypatch):
             assert calls == [] and not any(p["hinted"] for p in t.session["presented"].values())
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_the_menu_picks_up_chapters_published_while_the_app_is_open(tmp_path, monkeypatch):
+    import copy, json, shutil
+    from fixtures import GRAPH, PACK
+    app, v = app_for(tmp_path, monkeypatch)
+    graph = copy.deepcopy(GRAPH)
+    graph["subtopics"].append({"id": "9702-2.2", "title": "Forces", "topic": "9702-2"})
+    (v / ".tutor/packs/v1/specs/9702/graph.json").write_text(json.dumps(graph))
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            packs = v / ".tutor" / "packs"
+            shutil.copytree(packs / "v1", packs / "v2")  # the foundry signs a chapter and publishes it
+            (packs / "v2/specs/9702/packs/9702-2.2.json").write_text(
+                json.dumps({**copy.deepcopy(PACK), "subtopic": "9702-2.2", "items": [], "worked": []}))
+            (packs / "CURRENT").write_text("v2")
+            seen = []
+            monkeypatch.setattr(app, "notify", lambda msg, **k: seen.append(msg))
+            app.screen.refresh_home()
+            assert app.tutor.packs.root.name == "v2" and any("Forces" in m for m in seen)
+            await app.ai.close()
+    asyncio.run(go())

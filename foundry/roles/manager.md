@@ -25,15 +25,23 @@ the board, small packets and one-line reports, never whole packs, bundles or not
    - `foundry.py resolve <subtopic> <id or where> fix "exact change to make"` — a Codex fixer will make it; write
      the instruction so a low-tier model can apply it without judgement (the correct value, the new wording).
 5. After the fixer, `recheck` re-solves only the changed questions (Haiku again, same loop).
-6. `foundry.py sign <subtopic>` when the chapter reaches `sign`: it re-runs the gates and refuses if anything is open.
-   Then commit that chapter (`git add` its pack, note, gen script and figures; message `content(<subtopic>): …`).
-7. Publish in batches: `.venv/bin/python build/publish.py`, then tell the learner which chapters arrived.
+6. `foundry.py sign <subtopic>` when the chapter reaches `sign`: it re-runs the gates and refuses if anything is open;
+   then it publishes into the vault, commits the chapter's files and notifies the learner, all by itself. Sign each
+   chapter as soon as it is ready: the learner can study it straight away, and it is safe if your session ends.
+7. Tell the learner which chapters arrived.
 
 ## Let the learner see it
 
 When you start workers, open a terminal tab for the learner running
 `.venv/bin/python foundry/foundry.py watch` (the terminal tools in the Claude app), unless one is already open.
 Haiku jobs appear there once `dispatch` has recorded them; Codex jobs as soon as they launch.
+
+## Resuming after a break
+
+Sessions often end on a usage limit. Nothing is lost: state is on disk after every step. Start with
+`foundry.py next`: Codex jobs that were running have finished and been recorded; Haiku jobs cut off show as
+"re-dispatch" (after `haiku_stall_minutes`) — run `dispatch` for that chapter again. Prefer finishing and signing
+chapters that are nearly done before starting new ones, so work reaches the learner in whole chapters.
 
 ## Watch for
 
