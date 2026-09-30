@@ -1,5 +1,11 @@
 # Build status
 
+## Bug watch (set up 2026-09-30, not yet run)
+`bugwatch/` = live two-agent bug hunt: Codex (spotter, writes only `bugwatch/codex/BUGS.md`) and Claude (fixer, writes
+`bugwatch/FIXES.md`). Start with `bugwatch/README.md`; board: `.venv/bin/python bugwatch/bugs.py --watch`;
+tests without side effects: `bash bugwatch/check.sh`; scratch vault: `bash bugwatch/sandbox.sh`.
+Claude session start line: "Read bugwatch/README.md and bugwatch/SCOPE.md, then run the bug-fix loop."
+
 ## v1.1.0 (2026-09-30) — done
 Algorithms (4-grade FSRS, exam-aware retention, risk-ordered interleaved reviews, successive relearning, slip damping,
 fatigue vs expectation, blurting), profile module + plain-English Profile.md, reflection prompt, keys that work while
