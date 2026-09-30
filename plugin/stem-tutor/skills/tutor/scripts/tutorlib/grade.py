@@ -279,24 +279,38 @@ def _sympy():
     return sympy, parse
 
 
-def _real_at(sympy, expr, point) -> float | None:
-    """The value at `point`, or None outside the real domain: any function or fractional power inside is not real
-    there (sqrt(x)·sqrt(y) at x, y < 0 is real, but only by passing through imaginary numbers)."""
-    def real(e):
-        try:
-            v = complex(e.evalf(subs=point))  # numeric: exact substitution expands 8.5^(8.5^8.5) digit by digit
-        except (TypeError, ValueError, ArithmeticError):
-            return None
-        return v.real if math.isfinite(abs(v)) and abs(v.imag) <= 1e-9 * max(1.0, abs(v.real)) else None
+_FLOAT_FUNCS = {"sin": math.sin, "cos": math.cos, "tan": math.tan, "sec": lambda v: 1 / math.cos(v),
+                "csc": lambda v: 1 / math.sin(v), "cot": lambda v: 1 / math.tan(v), "asin": math.asin,
+                "acos": math.acos, "atan": math.atan, "sinh": math.sinh, "cosh": math.cosh, "tanh": math.tanh,
+                "exp": math.exp, "log": math.log, "Abs": abs}
 
-    for sub in sympy.preorder_traversal(expr):
-        if (isinstance(sub, sympy.Function) or (sub.is_Pow and not sub.exp.is_integer)) and real(sub) is None:
-            return None
-    return real(expr)
+
+def _value(e, point: dict) -> float:
+    """`e` at `point` in real floating point. Raises outside the real domain (sqrt or ln of a negative anywhere
+    inside), at a pole and on overflow, where exact arithmetic could grind on 8.5^(8.5^10) or evalf report noise."""
+    if e.is_Symbol:
+        return point[e]
+    if e.is_Add:
+        return math.fsum(_value(a, point) for a in e.args)
+    if e.is_Mul:
+        return math.prod(_value(a, point) for a in e.args)
+    if e.is_Pow:
+        return math.pow(_value(e.base, point), _value(e.exp, point))
+    if e.is_Function:
+        return _FLOAT_FUNCS[type(e).__name__](*(_value(a, point) for a in e.args))
+    return float(e)  # numbers, pi, E; zoo, nan and I raise
+
+
+def _real_at(expr, point: dict) -> float | None:
+    try:
+        v = _value(expr, point)
+    except (ArithmeticError, ValueError, TypeError, KeyError):
+        return None
+    return v if math.isfinite(v) else None
 
 
 def expressions_equal(a: str, b: str) -> bool:
-    sympy, parse = _sympy()
+    parse = _sympy()[1]
     ea, eb = parse(a), parse(b)
     if ea - eb == 0:  # same once sympy has put both in canonical order; everything else is checked by value
         return True
@@ -306,9 +320,9 @@ def expressions_equal(a: str, b: str) -> bool:
     for i in range(12 if syms else 1):
         # all positive, all negative, then alternating signs: abs(x) and x agree only for x > 0. A point outside
         # either side's real domain is skipped, so ln(x^2) = 2 ln(x) still holds on the positive values
-        point = {s: (1 if i < 4 else -1 if i < 6 else (-1) ** (i + j))
-                 * sympy.Rational(rng.randint(3, 17), rng.randint(2, 5)) for j, s in enumerate(syms)}
-        va, vb = _real_at(sympy, ea, point), _real_at(sympy, eb, point)
+        point = {s: (1 if i < 4 else -1 if i < 6 else (-1) ** (i + j)) * rng.randint(3, 17) / rng.randint(2, 5)
+                 for j, s in enumerate(syms)}
+        va, vb = _real_at(ea, point), _real_at(eb, point)
         if va is None or vb is None:
             continue
         if abs(va - vb) > 1e-9 * max(1.0, abs(va), abs(vb)):

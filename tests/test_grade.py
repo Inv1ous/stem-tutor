@@ -350,7 +350,7 @@ def test_expression_grading_time_is_bounded():  # B-023
             "    g = grade.grade_item({'kind': 'expression', 'answer': {'expr': 'x'}}, {'kind': 'value', 'value': s})\n"
             "    print(repr(s), g['correct'], round(time.perf_counter() - t, 2))\n")
     inputs = ["Pow(2, 1000000000)", "2Pow(2, 10^9)", "Integer(10)^10^9", "(x+1)^10000", "(x+1)^1000 - x^1000",
-              "x^x^x^x", "exp(exp(exp(x)))", "e^(e^(e^x))", "x^(x^x)", "sin(10^100 x)"]
+              "x^x^x^x", "exp(exp(exp(x)))", "e^(e^(e^x))", "x^(x^x)", "sin(10^100 x)", "x^(x^10)"]
     env = {**os.environ, "PYTHONPATH": os.pathsep.join(sys.path), "PYTHONDONTWRITEBYTECODE": "1"}
     out = subprocess.run([sys.executable, "-c", code, *inputs], capture_output=True, text=True, timeout=90, env=env)
     rows = [line.rsplit(" ", 2) for line in out.stdout.splitlines()]
@@ -378,3 +378,9 @@ def test_keywords_and_subscripted_names_are_variables(given, expected):
 def test_subscripted_names_are_not_numbers(given, expected):
     item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
     assert not grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"]
+
+
+@pytest.mark.parametrize("given,expected", [("1/(1/a + 1/b)", "a*b/(a + b)"), ("1/(1/R1 + 1/R2)", "R1*R2/(R1 + R2)")])
+def test_equivalence_survives_a_sample_on_a_pole(given, expected):  # a = 1, b = -1 is one of the sampled points
+    item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
+    assert grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"]
