@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.2.0 — 2026-10-01
+
+- **What the tutor knows about you** (menu, and Profile.md): every finding the tutor has worked out, with the
+  evidence, how sure it is (not enough data / early sign / likely / clear, tied to the thresholds at which the tutor
+  acts) and what it changed because of it; what was recorded; adjustments in force; what it never does. Press **a**
+  for a short AI summary of the findings (one reply; only the findings are sent).
+- **Fix my weak spots** (menu): a session on active misconceptions, gaps and ideas answered right under half the time.
+- **Exam readiness** per exam: syllabus built, started and secure; predicted recall on the day if reviews stopped now
+  vs kept up.
+- **Mistake journal** (`Mistakes.md`): every wrong or unknown answer with the right answer, marked when put right.
+  Answer events now log the key as shown.
+- **Week in review** (`Weekly/<year>-W<nn>.md`), written once when the app opens in a new week.
+- The guide starts with **Everything the tutor can do**, the full feature list.
+
 ## 1.1.5 — 2026-09-30
 
 - **Your Almanac plans your day in the app.** The terminal app could not reach the engine's Almanac-driven plan:

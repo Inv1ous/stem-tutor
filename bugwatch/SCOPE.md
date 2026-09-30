@@ -1,6 +1,6 @@
 # Scope: what the code is and where bugs likely hide
 
-STEM Tutor 1.1.5: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
+STEM Tutor 1.2.0: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
 (timezone `Asia/Hong_Kong`). A pure-Python learning engine does teaching, marking, scheduling and note-writing with no AI.
 A Textual terminal app sits on top, and Obsidian shows the notes. Claude (headless `claude -p`) is used only for
 optional chat/explanations. Python 3.13, repo venv `.venv/`.
@@ -18,7 +18,7 @@ optional chat/explanations. Python 3.13, repo venv `.venv/`.
 | `…/tutorlib/session.py` | `Tutor`: start/next/answer/hint/end/blurt/paper; saves state and the live Obsidian view |
 | `…/tutorlib/lesson.py` | Lesson mode state machine: goal → probe → plan → per-idea phases |
 | `…/tutorlib/views.py` | Writes `Now.md`, `Lessons/`, `My Notes/` (managed marker blocks around the learner's own text), `Home.md` |
-| `…/tutorlib/profile.py`, `report.py`, `weekly.py`, `blurt.py`, `experiments.py`, `anki.py`, `lint.py` | Profile, notes, weekly tasks, free-recall scoring, n-of-1 experiments, Anki export, Obsidian lint |
+| `…/tutorlib/profile.py`, `insights.py`, `report.py`, `weekly.py`, `blurt.py`, `experiments.py`, `anki.py`, `lint.py` | Profile, insights (findings, readiness, weak spots, week report), notes, weekly tasks, free-recall scoring, n-of-1 experiments, Anki export, Obsidian lint |
 | `…/tutorlib/store.py`, `deps.py` | Vault discovery, monthly JSONL event log, flock lock, atomic writes; vendored pure-Python wheels |
 | `app/tutor_app/` | `app.py`, `screens.py`, `panels.py`, `cards.py`, `ai.py` (persistent `claude -p` stream), `prompts.py`, `texmath.py` (LaTeX → Unicode), `mac.py`, `config.py` |
 | `build/` | Content pipeline (`publish.py`, `finalize.py`, `validate_pack.py`, `teach_cards.py`, …) |

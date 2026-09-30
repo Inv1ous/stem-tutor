@@ -10,7 +10,9 @@ weekly report; mistake journal. Also: a full feature list in the guide.
 - Certainty labels follow the engine's own action thresholds, so a label never claims more than the engine acts on:
   **not enough data** (nothing yet), **early sign** (some data, below the threshold at which the tutor acts),
   **likely** (at or above the threshold), **clear** (at least three times the threshold).
-- Nothing new is stored except the AI summary (`.tutor/profile_ai.json`) and the notes written into the vault.
+- Nothing new is stored except the AI summary (`.tutor/profile_ai.json`), the notes written into the vault, and
+  (added while building) the answer key as shown in each answer event, plus the question text for checks that are
+  not pack items, so the mistake journal is exact.
 
 ## Units
 

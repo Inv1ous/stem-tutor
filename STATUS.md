@@ -1,5 +1,11 @@
 # Build status
 
+## v1.2.0 (2026-10-01) — done
+- Learner insights (`tutorlib/insights.py`, menu "What the tutor knows about you", Profile.md), AI summary on request,
+  Fix my weak spots (session mode `weak`), exam readiness, mistake journal, week in review; full feature list in the
+  guide. Design and plan: `docs/superpowers/specs/2026-09-30-learner-insights-design.md`,
+  `docs/superpowers/plans/2026-10-01-learner-insights.md`.
+
 ## v1.1.5 (2026-09-30) — done
 - v1.1.3: a chapter signed in the foundry is published to the vault, committed and announced at once; the app loads
   new chapters when you are back at its menu.

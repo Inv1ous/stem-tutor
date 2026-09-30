@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.1.5_
+_Version 1.2.0_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -9,7 +9,13 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
-> [!example] What's new in 1.1.1 to 1.1.5
+> [!example] New in 1.2.0
+> - **What the tutor knows about you.** A new menu choice shows everything the tutor has worked out about you, with the evidence, how sure it is and what it changed because of it. Press **a** for a short AI summary (section 8).
+> - **Fix my weak spots.** A session on your active misconceptions, gaps and the ideas you keep getting wrong (section 3).
+> - **Exam readiness** for every exam, a **mistake journal** and a **week in review** page in Obsidian (sections 8 and 9).
+> - The full list of features is just below.
+
+> [!example] Earlier updates (1.1.1 to 1.1.5)
 > - **Your Almanac plans your day.** The menu now starts with **Today's plan**: ideas due for review first, then the next topics in your Almanac's week order. The home screen lists this week's Almanac objectives and which are ready to study, and **Today** in Obsidian shows the whole plan as soon as the tutor opens (section 3).
 > - **The tutor always starts.** If macOS stops it opening your iPad inbox in iCloud Drive, it starts anyway and tells you how to allow it (section 16).
 > - **New chapters arrive while you study.** As soon as a chapter has passed every check it is added to this vault; if the tutor is open, the menu says **New chapters ready: …** next time you are back at it. A session you are in the middle of is never disturbed.
@@ -32,6 +38,47 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > - **Break suggestions** when your accuracy dips, and a **checking routine** if careless slips cost you marks.
 > - **Keys that work while you type**: ctrl+t ask, ctrl+g hint, ctrl+r re-explain, ctrl+o Obsidian, ctrl+b menu.
 > - A clearer **profile** (Profile page and "My progress"), plus many fixes. Full list: `stem-tutor/CHANGELOG.md`.
+
+---
+
+## Everything the tutor can do
+
+**Plan your day**
+- **Today's plan**: ideas due for review first, then your Almanac's topics in week order, mixed practice and a short exit check (section 3).
+- **This week in your Almanac** on the home screen, with which topics are ready to study, and a countdown to your next exam (section 3).
+- **Today** page in Obsidian: the day's plan, what's due and what each Almanac objective needs to count as done (section 9).
+- **Exam readiness** for every exam: how much of its syllabus is built, started and secure, and your predicted recall on the day (section 8).
+
+**Learn**
+- **Lessons** built around you: your goal, a quick check of what you know, a plan you agree to, then each idea with a try-it-first question, a worked example, a no-hints check and your own words (section 4).
+- **Teaching that adapts**: misconceptions are tackled head-on, and teaching methods are tested on you fairly so the one that works better is kept (section 8).
+- **Subjects**: complete reference notes for every subtopic, and **My Notes**, which grow as you learn (section 9).
+
+**Practise and remember**
+- **Spaced reviews** timed to just before you would forget, most at risk first, topics mixed, sharper as exams get close, with second chances in the same session (section 7).
+- **Fix my weak spots**: active misconceptions, gaps and ideas you keep getting wrong, re-taught and practised (section 3).
+- **Test prep** for a school test on the chapters you choose (section 7).
+- **Blurting**: write everything you remember and see what you left out, checked without AI (section 6).
+- **Long questions and past papers** marked against the real mark scheme, typed or on the iPad (section 5).
+- **Anki flashcards** exported every week (section 10).
+
+**Answer and get marked**
+- Multiple choice with **confidence ratings**; numbers checked for value, unit and significant figures; formulas typed as you'd write them; written answers judged by the AI examiner (section 5).
+- **Why did you miss it?** questions after mistakes, and a **break** suggested when your accuracy drops (section 5).
+
+**Know yourself**
+- **What the tutor knows about you**: every finding with its evidence, how sure it is and what it changed; an **AI summary** when you ask (section 8).
+- **Mistake journal**: every question you got wrong, with the right answer (section 9).
+- **Week in review** every week (section 9), and **My progress** for a quick look at your topics (section 3).
+
+**AI help (optional)**
+- Ask anything (**ctrl+t**), have an idea explained another way (**ctrl+r**), hints (**ctrl+g**), a talk-through when you're stuck, and feedback on your own words, within a daily allowance you set (sections 11 to 13).
+
+**Behind the scenes**
+- **Nothing is lost**: every answer is saved the moment you give it, and an unfinished session can be resumed (sections 3 and 15).
+- **New chapters arrive while you study**, checked by a team of AIs before they reach you (sections 3 and 15).
+- **Your Almanac** stays in charge of the plan, and can exchange progress with the tutor (sections 3 and 15).
+- **iPad inbox** for handwritten work, and a **doctor check** that tells you how to fix anything that's wrong (sections 1, 5 and 15).
 
 ---
 
@@ -71,11 +118,13 @@ When new chapters have been added since you opened the tutor, the menu tells you
 | **Today's plan** | The tutor decides for you: ideas due for review first, then the next topics from your Almanac in week order (earlier weeks you haven't done come first), then mixed practice and a short exit check. Topics without questions yet are skipped. |
 | **Learn a topic** | A full lesson on one subtopic: a quick check of what you know, a plan you agree to, then each idea taught step by step. |
 | **Review what's due** | Mixed questions on ideas that are due to be refreshed (section 7). If nothing is due it tells you, instead of starting an empty session. |
+| **Fix my weak spots** | A session on what's weak right now: ideas with a misconception still active, gaps found by blurts, test prep or checks, and ideas you keep getting wrong. Each is re-taught (a misconception head-on, with a contrasting example), then practised with fresh questions. The number shows how many there are. |
 | **Test prep** | For a school test: one question on every point of the chapters you choose, then it fixes only what you got wrong. |
 | **Long questions** | Exam-style long questions. You write the answer, then mark it against the real mark scheme. |
 | **Blurt** | Write down everything you remember about a subtopic. The tutor shows what you left out (section 6). |
 | **Ask the tutor anything** | A free chat with the AI tutor. |
-| **My progress** | How secure each topic is, and what the tutor has noticed about how you learn. |
+| **What the tutor knows about you** | Everything the tutor has worked out about you, with the evidence, how sure it is, and what it changed because of it (section 8). |
+| **My progress** | A quick look: how secure each topic is, how sure vs how right, and your habits. |
 | **Open my notes in Obsidian** | Shows your Home page in Obsidian. |
 | **Settings / How it works / Quit** | As they say. |
 
@@ -151,29 +200,33 @@ An idea counts as **secure** when you have answered it correctly **without help 
 
 ---
 
-## 8. Your profile: how the tutor learns about you
+## 8. What the tutor knows about you
 
-Open **My progress** on the home screen, or the **Profile** page in Obsidian (press **o** on the My progress screen). Everything there is worked out from your answers and compared with **what was expected for those questions**, so a hard topic doesn't look like a bad day.
+Choose **What the tutor knows about you** on the home screen, or open the **Profile** page in Obsidian. Everything there is counted from your own answers and compared with **what was expected for those questions**, so a hard topic doesn't look like a bad day. Nothing is guessed by AI.
 
 | Part | What it tells you |
 |---|---|
-| **What this means for you** | Plain advice, only when there's enough evidence: for example "you tend to be overconfident: double-check units and signs when you feel sure". |
-| **How sure vs how right** | For each confidence level, how often you were actually right. A well-judged "certain" is right about 95% of the time. |
-| **When you learn best** | Morning, afternoon, evening or late night, compared with what was expected. Once there's a clear difference, it suggests putting new topics at your best time. |
-| **Stamina** | How your accuracy changes through a session. This decides when a break is suggested. |
-| **Mistakes by kind** | Careless slips, misreading, not remembering, wrong method, wrong idea, units and significant figures. |
-| **Remembering over time** | How much you recalled on spaced reviews, compared with what the memory model expected. If you forget faster or slower than expected, review timing adjusts. |
-| **Pace and habits** | Minutes per mark (exam pace is about 1.2), days studied in the last four weeks, your streak, and reviews coming up in the next 7 days. |
-| **Teaching experiments** | The tutor tests teaching methods on you fairly. It teaches similar ideas in two different ways and checks a week later which ones you remember better. When it is confident one works better for you, it uses that one. |
-| **What the tutor has adjusted** | Every change it has made for you, with the reason. |
+| **What the tutor has recorded** | What the findings are based on: answers, sessions, study days, confidence ratings, hints, mistakes sorted by kind, misconceptions spotted, blurts and past papers. |
+| **What it has worked out** | One finding per area, each with the evidence (the numbers), **how sure** the tutor is, and **what the tutor does about it**. The areas: memory in each subject, confidence vs accuracy, what costs you marks, misconceptions (still active and fixed, in their own words), time of day, stamina, pace, hints, teaching experiments, strongest and weakest topics, and study habits. |
+| **What the tutor has adjusted for you** | Every change currently in force, with the reason. |
+| **Exam readiness** | For each exam: how much of its syllabus is built, started and secure, and your predicted recall on the day, both if you stopped reviewing now and if you keep your reviews up. Exams without a date in your Almanac use an estimate and say so. |
+| **Weak spots** | What **Fix my weak spots** will work on, and why each one is there. |
+| **AI summary** | Only if you asked for one (below). |
+| **What it never does** | No learning styles, no AI guessing about you, no acting on one bad day, and nothing sent anywhere unless you ask. |
+
+**How sure it is.** ⚪ **not enough data** · 🟡 **early sign**: some answers, not yet enough for the tutor to act on · 🟢 **likely**: enough to act on · ✅ **clear**: three times that much. The tutor only changes something at 🟢 or ✅. For example, confidence needs 30 rated answers, review timing 10 spaced reviews in a subject, and a mistake pattern 8 mistakes sorted by kind.
+
+**AI summary.** Press **a** on that screen and the AI tutor turns the findings into a few lines: what's going well, the one change most likely to gain you marks, and what to do this week. It sees only the findings, never your answers, uses one reply from today's allowance, and says when the evidence is still early. The summary is saved with its date on the Profile page.
+
+**Keys on that screen:** **a** AI summary · **o** open it in Obsidian · **m** your mistake journal · **w** your latest week in review · **Esc** back.
 
 **Adjustments it can make** (only when your data supports them):
-
 - **Checking routine:** if careless slips cost you many marks, answer boxes show a quick reminder: units, significant figures, sign, and whether you answered what was actually asked.
 - **Confidence notes:** if your confidence is often off, feedback shows how often you are really right at the confidence you chose.
 - **Have a go first:** if you use hints a lot, the first press of the hint key asks you to try first, and the second press gives the hint.
 - **Break point:** if your accuracy reliably dips after a certain number of questions, a break is suggested there.
 - **Review timing:** if you forget faster or slower than the model predicts, your reviews move to match.
+- **Teaching method:** when an experiment finds that one way of teaching works better for you, lessons use it for that kind of idea.
 
 There are no "learning styles" here. The research is clear that they don't help. The tutor only uses what measurably works for you.
 
@@ -188,7 +241,10 @@ There are no "learning styles" here. The research is clear that they don't help.
 | **Lessons** | A full record of every session and blurt: explanations, every question (shown before you answer, never with the answer), your answers and the feedback. |
 | **Home** | A dashboard: progress per subtopic, reviews due, and links to your notes and recent lessons. |
 | **Subjects** | Complete reference notes for each subtopic, written in advance and checked. Read these whenever you want the whole topic in one place. |
-| **Profile** and **Today** | What the tutor has learned about you (section 8), and today's plan: what's due, this week's Almanac objectives with how many of their ideas you have mastered and what each needs to count as done, and which topics aren't built yet. Today is refreshed when the tutor opens and after each session; Profile after each session. |
+| **Profile** | What the tutor knows about you (section 8). Refreshed after each session. |
+| **Mistakes** | Your mistake journal: every question you got wrong or didn't know, by subtopic and newest first, with your answer, the right answer and the kind of mistake. ✓ marks the ones you have put right since. Refreshed after each session. |
+| **Weekly** | A week in review for each week you studied: days, answers and how many were right (compared with the week before), ideas newly secure, misconceptions fixed, and what changed in your profile. Written the first time the tutor opens in the following week. |
+| **Today** | Today's plan: what's due, this week's Almanac objectives with how many of their ideas you have mastered and what each needs to count as done, and which topics aren't built yet. Refreshed when the tutor opens and after each session. |
 | **Anki** | Flashcard files (section 10). |
 
 **Colours in the map and headings:** ✅ green = secure, 🟡 yellow = learning, 🔴 red = a gap to fix, ⚪ grey = not started, 🔵 blue = the idea you are on now.
@@ -257,7 +313,8 @@ The AI (Claude, on your normal Claude subscription) is only used when it genuine
 - short feedback on your **"in your own words"** answers (you can turn this off);
 - judging **written answers** and checking **long answers** (the AI examiner);
 - talking an idea through with you when you're **stuck**;
-- writing a teaching card for an idea that doesn't have one yet (done once, then saved).
+- writing a teaching card for an idea that doesn't have one yet (done once, then saved);
+- a short **summary of your profile**, only when you press **a** on *What the tutor knows about you*.
 
 It runs quietly in the background, so the Claude app doesn't need to be open. It uses the small, fast **Haiku** model by default, sends only the few lines it needs each time, and starts a fresh, short conversation for every new idea and every new part of a session. Each request stays small.
 
