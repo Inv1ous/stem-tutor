@@ -1,15 +1,16 @@
 # How STEM Tutor works
 
-_Version 1.1.4_
+_Version 1.1.5_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
 It is built around how memory actually works. It teaches one idea at a time, makes you *recall* things instead of re-reading them, brings each idea back just before you would forget it, and keeps track of what works best for **you**.
 
 > [!tip] The short version
-> Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose "Learn a topic" and follow the prompts. Press **?** at any time for help.
+> Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
-> [!example] What's new in 1.1.1 to 1.1.4
+> [!example] What's new in 1.1.1 to 1.1.5
+> - **Your Almanac plans your day.** The menu now starts with **Today's plan**: ideas due for review first, then the next topics in your Almanac's week order. The home screen lists this week's Almanac objectives and which are ready to study, and **Today** in Obsidian shows the whole plan as soon as the tutor opens (section 3).
 > - **The tutor always starts.** If macOS stops it opening your iPad inbox in iCloud Drive, it starts anyway and tells you how to allow it (section 16).
 > - **New chapters arrive while you study.** As soon as a chapter has passed every check it is added to this vault; if the tutor is open, the menu says **New chapters ready: …** next time you are back at it. A session you are in the middle of is never disturbed.
 > - **Fairer marking.** A number correctly rounded to 2 significant figures now counts where the question allows it; formulas typed the way the app shows them (`u² + 2as`, `2πr`, `√(2gh)`) are accepted; a formula that is only right for positive numbers (like `√(x²)` for `x`) no longer gets full marks.
@@ -67,6 +68,7 @@ When new chapters have been added since you opened the tutor, the menu tells you
 | Choice | What it does |
 |---|---|
 | **Resume** | Only appears if you left a session unfinished. Carries on where you stopped. |
+| **Today's plan** | The tutor decides for you: ideas due for review first, then the next topics from your Almanac in week order (earlier weeks you haven't done come first), then mixed practice and a short exit check. Topics without questions yet are skipped. |
 | **Learn a topic** | A full lesson on one subtopic: a quick check of what you know, a plan you agree to, then each idea taught step by step. |
 | **Review what's due** | Mixed questions on ideas that are due to be refreshed (section 7). If nothing is due it tells you, instead of starting an empty session. |
 | **Test prep** | For a school test: one question on every point of the chapters you choose, then it fixes only what you got wrong. |
@@ -79,7 +81,9 @@ When new chapters have been added since you opened the tutor, the menu tells you
 
 If you choose something new while a session is unfinished, the tutor asks first: **resume it**, or **abandon it and start**.
 
-The right side of the home screen shows today's date, your **streak** (days in a row you studied), how many ideas are **due**, the countdown to your next exam, a progress bar for each topic, and whether the AI is on.
+The right side of the home screen shows today's date, your **streak** (days in a row you studied), how many ideas are **due**, the countdown to your next exam, this week's **Almanac objectives** (each marked *ready*, partly ready or *not built yet*), a progress bar for each topic, and whether the AI is on.
+
+**Your Almanac.** The tutor follows your planner, `00 Important › 01 AS/A › A-Levels.html`: the objectives for each week and the exam dates. If you change the planner, the home screen says **Your Almanac has changed**: ask Claude Code to refresh the plan. Until then the tutor keeps following the plan it last read.
 
 ---
 
@@ -184,7 +188,7 @@ There are no "learning styles" here. The research is clear that they don't help.
 | **Lessons** | A full record of every session and blurt: explanations, every question (shown before you answer, never with the answer), your answers and the feedback. |
 | **Home** | A dashboard: progress per subtopic, reviews due, and links to your notes and recent lessons. |
 | **Subjects** | Complete reference notes for each subtopic, written in advance and checked. Read these whenever you want the whole topic in one place. |
-| **Profile** and **Today** | What the tutor has learned about you (section 8) and today's suggested plan. Updated after each session. |
+| **Profile** and **Today** | What the tutor has learned about you (section 8), and today's plan: what's due, this week's Almanac objectives with how many of their ideas you have mastered and what each needs to count as done, and which topics aren't built yet. Today is refreshed when the tutor opens and after each session; Profile after each session. |
 | **Anki** | Flashcard files (section 10). |
 
 **Colours in the map and headings:** ✅ green = secure, 🟡 yellow = learning, 🔴 red = a gap to fix, ⚪ grey = not started, 🔵 blue = the idea you are on now.
@@ -294,6 +298,7 @@ The tutor uses methods with good evidence behind them, and is honest about how s
 - **This vault (your data):** `Miscellaneous › 02 Education › ~~ AI Workflow › STEM Tutor`. Everything you see in Obsidian, plus the hidden `.tutor` folder with your progress. Every answer you've ever given is recorded there, so nothing is lost. Don't edit `.tutor` by hand. If a file in it is ever damaged (for example by a crash mid-save), the tutor skips the damaged line and carries on.
 - **The program:** `~~ AI Workflow › stem-tutor`. You don't need to open it.
 - **iPad inbox:** `iCloud Drive › STEM Tutor Inbox`, only for PDFs from the iPad.
+- **Your Almanac:** `00 Important › 01 AS/A › A-Levels.html` (section 3). Optional two-way exchange: press **Export** in the Almanac and save the file into this vault's **Almanac** folder. After your next session the tutor writes `almanac-import-<date>.json` there, with your study days, mistake types, topic ratings and paper scores added; open it with the Almanac's **Import** button. Your ticks in the Almanac are kept.
 - **New chapters** are prepared in advance by a team of AIs and checked before they reach this vault (the "foundry": `stem-tutor › foundry › README.md`). Until a chapter has passed every check it stays out of the vault.
 - The old copy in your main Obsidian vault (`Notes › 01 Study › STEM Tutor`) is no longer used; it has a MOVED note. You can delete it once you're happy.
 
@@ -311,6 +316,7 @@ The tutor uses methods with good evidence behind them, and is honest about how s
 | "Another STEM Tutor window is already open" | Use the other window, or close it first. Only one can run at a time so your progress can't get mixed up. |
 | "Your answer was read as several parts" | Avoid commas between numbers in one answer, then send it again. |
 | A question or answer looks wrong | Answer it anyway and press ctrl+t to ask why, then note it down; content can be corrected in the next update. |
+| "Your Almanac has changed since the tutor read it" | Ask Claude Code to refresh the Almanac plan. Until then the tutor keeps following the plan it last read. |
 | "macOS isn't letting the tutor open your iPad inbox" | System Settings › Privacy & Security › Files & Folders › **Terminal** › turn on **iCloud Drive** (or add Terminal under **Full Disk Access**), then restart the tutor. Everything else works in the meantime. |
 | Anything else | Run the doctor check (section 1). It tells you what's wrong and how to fix it. |
 

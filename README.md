@@ -1,6 +1,6 @@
 # STEM Tutor
 
-Version **1.1.4** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
+Version **1.1.5** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
 
 A-Level study system (CAIE 9701/9702, Edexcel IAL Maths/Further Maths): a terminal app for studying, an Obsidian
 vault for reading, and a pure-Python engine that does the teaching logic without AI.
@@ -24,6 +24,8 @@ vault for reading, and a pure-Python engine that does the teaching logic without
 - `bin/tutor doctor` — check vault, Obsidian registration, Claude sign-in, dependencies
 - `.venv/bin/python -m pytest tests -q` — tests
 - `.venv/bin/python build/publish.py` — publish packs, notes and the engine into the vault (`../STEM Tutor`)
+- `.venv/bin/python build/plan.py && .venv/bin/python build/publish.py` — refresh the Almanac plan after
+  `A-Levels.html` changes (the app says "Your Almanac has changed")
 
 AI calls use `claude -p --safe-mode --disable-slash-commands --strict-mcp-config --setting-sources "" --tools ""
 --system-prompt … --model haiku` so each request carries only the tutor brief and a small context packet.

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.5 — 2026-09-30
+
+- **Your Almanac plans your day in the app.** The terminal app could not reach the engine's Almanac-driven plan:
+  the menu now starts with **Today's plan** (due reviews, then the Almanac's topics in week order, practice, an exit
+  check). The home screen shows this week's Almanac objectives and which have questions yet; `Today.md` is written
+  when the app opens, not only after a session, and matches your session length; the home screen says when
+  `A-Levels.html` has changed since the plan was built (the plan now records the file's path and fingerprint).
+
 ## 1.1.4 — 2026-09-30
 
 - **The app always starts.** Opened from `Start Tutor.command`, it runs under Terminal, and macOS privacy settings
