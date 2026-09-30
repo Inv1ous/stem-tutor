@@ -41,14 +41,21 @@ def import_ipad_inbox(vault: Path, inbox: Path) -> list[str]:
     dest.mkdir(exist_ok=True)
     for f in sorted(inbox.iterdir()):
         if f.is_file() and f.suffix.lower() in (".pdf", ".png", ".jpg", ".jpeg", ".heic") and not f.name.startswith("."):
-            target = dest / f.name
-            if target.exists():
-                target = dest / f"{f.stem} {len(list(dest.glob(f.stem + '*')))}{f.suffix}"
+            target = _unused(dest, f.name)
             shutil.copy2(f, target)
             (inbox / "Imported").mkdir(exist_ok=True)
-            f.rename(inbox / "Imported" / f.name)
+            f.rename(_unused(inbox / "Imported", f.name))
             moved.append(target.name)
     return moved
+
+
+def _unused(folder: Path, name: str) -> Path:
+    """`name` in `folder`, or "name 2", "name 3"… when taken: an import never overwrites handwritten work."""
+    target, k = folder / name, 1
+    while target.exists():
+        k += 1
+        target = folder / f"{Path(name).stem} {k}{Path(name).suffix}"
+    return target
 
 
 def claude_status() -> dict:
