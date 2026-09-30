@@ -254,6 +254,8 @@ def _rebuilt_key(tutor, e: dict) -> str | None:
     from .packs import _eval
     from .session import _display_answer
     sub = e["item"].rsplit("-i", 1)[0]
+    if sub not in tutor.packs.subtopics:  # a check inside a lesson, or a chapter no longer published
+        return None
     it = next((i for i in (tutor.packs.pack(sub) or {}).get("items", []) if i["id"] == e["item"]), None)
     if not it:
         return None
@@ -296,12 +298,13 @@ def mistakes_note(tutor) -> str:
         why = ("didn't know" if e.get("response") == "don't know"
                else f"misconception: “{insights._mis_text(tutor.packs, kc, g['misconception'])}”" if g.get("misconception")
                else insights.MISTAKES.get(g.get("error") or "", "wrong answer"))
-        stem = _item_stem(tutor, e["item"], e.get("params"))
+        stem = e.get("stem") or _item_stem(tutor, e["item"], e.get("params"))
         key = e.get("key") or _rebuilt_key(tutor, e)
         you = str(e.get("response", "")).replace("`", "'")
-        groups.setdefault(e["item"].rsplit("-i", 1)[0], []).append(
+        sub = tutor.packs.kc(kc)["subtopic"] if kc in tutor.packs.kcs else e["item"].rsplit("-i", 1)[0]
+        groups.setdefault(sub, []).append(
             [f"- **{day}** · {why}" + (" · ✓ right since" if since else ""),
-             f"  - Question: {_clip_math(stem) if not stem.startswith('(item ') else 'no longer available'}",
+             f"  - Question: {_clip_math(stem) if not stem.startswith('(item ') else 'not recorded'}",
              f"  - You: `{you}` · Right answer: {key or 'not recorded'}"])
     n = sum(len(v) for v in groups.values())
     L = ["# Mistake journal", "_Every question you got wrong or didn't know, newest first, with the right answer. "
