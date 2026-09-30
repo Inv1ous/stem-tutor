@@ -16,6 +16,8 @@ if "stream-json" not in sys.argv:  # one-shot
     if mode == "login":
         out({"type": "result", "is_error": True, "result": "Failed to authenticate: OAuth session expired"}); sys.exit(1)
     data = {"points": [{"point": "p", "met": True, "why": "present"}], "feedback": "Good."}
+    if "learner profile" in prompt:
+        data = {"summary": "- Going well: you study most days.\n- One change: check units before answering."}
     if "teaching card" in prompt:
         data = {"motivate": "Why.", "establish": "Idea $x^2$.", "connect": "Builds on A.", "note": "- n1\n- n2",
                 "self_explain": "Explain it?"}

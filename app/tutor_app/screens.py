@@ -14,7 +14,7 @@ from textual.widgets import Button, Footer, Input, Markdown, OptionList, Select,
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
-from tutorlib import model, policy, report, views
+from tutorlib import insights, model, policy, report, views
 from tutorlib.lesson import GOALS
 
 from . import ai as ai_mod
@@ -35,7 +35,7 @@ def bar(done: int, total: int, width: int = 12) -> str:
 
 
 # ============================ Home ============================
-MODE_NAMES = {"autopilot": "today's plan"}
+MODE_NAMES = {"autopilot": "today's plan", "weak": "weak-spots"}
 SUBJECTS = {"math": "Maths", "chem": "Chem", "phys": "Phys", "exam": "Exam"}
 
 
@@ -60,7 +60,21 @@ class HomeScreen(Screen):
                          sorted((str(f.relative_to(app.vault)) for f in lessons.glob("*.md")), reverse=True)
                          if lessons.exists() else [])
         report.today_note(app.tutor, app.settings.minutes)  # Today.md: this week's plan and what's due
+        if (week := self._week_in_review()):
+            app.notify(f"Your week in review is ready: {week} in Obsidian.", timeout=10)
         self.refresh_home()
+
+    def _week_in_review(self) -> str | None:
+        """Last week's report, written once: the first time the app opens in a week that follows a week of study."""
+        t = self.app.tutor
+        today = t.now().date()
+        monday = today - timedelta(days=today.weekday() + 7)
+        year, week, _ = monday.isocalendar()
+        studied = any(e["type"] == "answer" and monday <= date.fromisoformat(e["ts"][:10]) < monday + timedelta(days=7)
+                      for e in t.vault.events())
+        if not studied or (self.app.vault / "Weekly" / f"{year}-W{week:02d}.md").exists():
+            return None
+        return report.week_note(t, monday)
 
     def refresh_home(self) -> None:
         app = self.app
@@ -80,10 +94,12 @@ class HomeScreen(Screen):
         items += [("today", f"★  Today's plan{f' (Almanac week {week})' if week else ''}"),
                   ("learn", "◆  Learn a topic (lesson)"),
                   ("review", f"↻  Review what's due ({len(due)})"),
+                  ("weak", f"✚  Fix my weak spots ({len(insights.weak_spots(t))})"),
                   ("test", "◎  Test prep: check a chapter, fix what's weak"),
                   ("long", "✎  Long questions (typed or iPad)"),
                   ("blurt", "»  Blurt: write everything you remember"),
                   ("chat", "✦  Ask the tutor anything"),
+                  ("insights", "◉  What the tutor knows about you"),
                   ("progress", "▤  My progress"),
                   ("obsidian", "▣  Open my notes in Obsidian"),
                   ("settings", "≡  Settings"), ("help", "?  How it works"), ("quit", "×  Quit")]
@@ -147,7 +163,7 @@ class HomeScreen(Screen):
         key = event.option.id
         app = self.app
         s = app.tutor.session
-        if key in ("today", "learn", "review", "test", "long", "blurt") and s and s.get("answered"):
+        if key in ("today", "learn", "review", "weak", "test", "long", "blurt") and s and s.get("answered"):
             def decided(choice: str | None) -> None:
                 if choice == "resume":
                     app.push_screen(SessionScreen(None))
@@ -172,6 +188,16 @@ class HomeScreen(Screen):
                            "far is done. The next topics aren't built yet; try a blurt or long questions.", timeout=8)
                 return
             app.push_screen(SessionScreen({"mode": "autopilot", "focus": None, "minutes": app.settings.minutes}))
+        elif key == "weak":
+            weak = insights.weak_spots(app.tutor)
+            if not weak:
+                app.notify("No weak spots right now: no active misconceptions, gaps, or ideas you keep getting wrong.",
+                           timeout=6)
+                return
+            app.push_screen(SessionScreen({"mode": "weak", "focus": [w["kc"] for w in weak],
+                                           "minutes": app.settings.minutes}))
+        elif key == "insights":
+            app.push_screen(InsightsScreen())
         elif key == "learn":
             app.push_screen(PickerScreen("lesson"), lambda r: r and app.push_screen(
                 SessionScreen({"mode": "lesson", "focus": r, "minutes": app.settings.minutes})))
@@ -828,6 +854,57 @@ class ChatScreen(Screen):
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
         self.query_one(TextPanel).query_one(Input).value = ""
+
+
+class InsightsScreen(Screen):
+    """What the tutor knows about you: each finding with its evidence, how sure it is, and what it changed."""
+    BINDINGS = [Binding("escape", "app.pop_screen", "Back"), Binding("a", "ai", "AI summary"),
+                Binding("o", "open('Profile')", "Profile"), Binding("m", "open('Mistakes')", "Mistakes"),
+                Binding("w", "weekly", "Last week")]
+
+    def compose(self) -> ComposeResult:
+        with VerticalScroll():
+            yield Markdown(self._text(), id="insights")
+        yield Footer()
+
+    def _text(self) -> str:
+        t = self.app.tutor
+        return (report.insights_markdown(t, report.load_ai_summary(t)) + "\n---\n\n**a** asks the AI tutor to explain "
+                "this in a few lines (one reply from today's allowance) · **o** opens it in Obsidian · **m** your "
+                "mistake journal · **w** your latest week in review · **Esc** back")
+
+    def action_ai(self) -> None:
+        if not (self.app.settings.ai and self.app.ai.available):
+            self.app.notify("The AI tutor is off or unavailable right now (Settings: F2 on the menu).",
+                            severity="warning")
+            return
+        self.app.notify("Asking the AI tutor to explain your profile…", timeout=4)
+        self._summarise()
+
+    @work(exclusive=True, group="profile-ai")
+    async def _summarise(self) -> None:
+        from tutorlib.store import write_json
+        t = self.app.tutor
+        data, res = await self.app.ai.one_shot(prompts.profile_summary(report.insights_markdown(t)),
+                                               schema=prompts.PROFILE)
+        if not (data and data.get("summary")):
+            self.app.notify(res.message or "The AI tutor couldn't write a summary just now.", severity="warning")
+            return
+        write_json(self.app.vault / ".tutor" / "profile_ai.json", {"text": data["summary"], "at": t.now().isoformat()})
+        report.profile_note(t)
+        self.query_one("#insights", Markdown).update(self._text())
+
+    def action_open(self, note: str) -> None:
+        {"Profile": report.profile_note, "Mistakes": report.mistakes_note}[note](self.app.tutor)
+        mac.open_in_obsidian(self.app.vault, note, background=False)
+
+    def action_weekly(self) -> None:
+        folder = self.app.vault / "Weekly"
+        weeks = sorted(folder.glob("*.md")) if folder.exists() else []
+        if not weeks:
+            self.app.notify("No week in review yet: the first appears when the tutor opens in a new week.", timeout=6)
+            return
+        mac.open_in_obsidian(self.app.vault, f"Weekly/{weeks[-1].stem}", background=False)
 
 
 class ProgressScreen(Screen):

@@ -154,8 +154,8 @@ class Tutor(LessonMixin):
             sub = subs.pop() if len(subs) == 1 else None
         if sub:
             self.session["subtopic"] = sub
-        label = ((self.packs.subtopics.get(sub, {}).get("title") if sub else None) or ", ".join(focus or [])
-                 or {"autopilot": "Today's plan"}.get(mode, mode))
+        label = ({"autopilot": "Today's plan", "weak": "Weak spots"}.get(mode)
+                 or (self.packs.subtopics.get(sub, {}).get("title") if sub else None) or ", ".join(focus or []) or mode)
         self.session["log"] = views.LessonLog.create(self.vault.root, f"{mode.title()} - {label}", self.now()).rel
         self.log({"type": "session_start", "session": self.session["id"], "mode": mode, "minutes": minutes,
                   "blocks": [b["kind"] for b in blocks]})

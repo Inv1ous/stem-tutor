@@ -62,6 +62,18 @@ def judge(stem: str, points: list[str], answer: str) -> str:
             "\"feedback\": <one or two sentences>}. A point is met only if its idea is clearly present.")
 
 
+PROFILE = {"type": "object", "properties": {"summary": {"type": "string"}}, "required": ["summary"]}
+
+
+def profile_summary(findings_md: str) -> str:
+    return ("Below is the learner profile the tutor has worked out from a student's own answers. Each finding says how "
+            "sure it is: not enough data, early sign, likely or clear.\n\n" + findings_md[:6000] + "\n\n"
+            "Return JSON with summary: at most 150 words of Markdown bullets ('- ' each), in British English, speaking "
+            "to the student: what is going well; the one change most likely to gain them marks; up to three specific "
+            "things to do this week. Use only these findings. Where the evidence is an early sign or less, say it is "
+            "too early to be sure. Never mention learning styles.")
+
+
 CARD = {"type": "object", "properties": {
     "motivate": {"type": "string"}, "establish": {"type": "string"}, "connect": {"type": "string"},
     "note": {"type": "string"}, "self_explain": {"type": "string"}},

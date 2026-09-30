@@ -504,3 +504,73 @@ def test_the_home_screen_says_when_the_almanac_changed_since_the_plan_was_built(
             assert "Almanac has changed" in app.screen.stats_text(app.tutor.now(), []).plain
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_insights_screen_and_ai_summary(tmp_path, monkeypatch):
+    import json
+    pin_clock(monkeypatch)
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            menu = app.screen.query_one("#menu")
+            ids = [menu.get_option_at_index(i).id for i in range(menu.option_count)]
+            assert "insights" in ids and "weak" in ids
+            app.screen._start("insights")
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "InsightsScreen"
+            await pilot.press("a")
+            saved = v / ".tutor" / "profile_ai.json"
+            for _ in range(60):
+                await pilot.pause(0.05)
+                if saved.exists():
+                    break
+            assert "Going well" in json.loads(saved.read_text())["text"]
+            assert "## AI summary" in (v / "Profile.md").read_text()
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_fix_my_weak_spots_says_so_when_there_are_none_and_starts_when_there_are(tmp_path, monkeypatch):
+    pin_clock(monkeypatch)
+    app, v = app_for(tmp_path, monkeypatch)
+    said = []
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+            app.screen._start("weak")
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "HomeScreen" and any("No weak spots" in m for m in said)
+            app.tutor.log({"type": "gaps", "add": ["9702-2.1.4"]})
+            app.screen._start("weak")
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "SessionScreen" and app.tutor.session["mode"] == "weak"
+            assert "Weak spots" in app.tutor.session["log"]
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_the_week_in_review_is_written_once_in_a_new_week(tmp_path, monkeypatch):
+    from datetime import datetime
+    from tutorlib import store
+    pin_clock(monkeypatch, "2026-10-06T09:00:00+08:00")  # Tuesday of the week after
+    app, v = app_for(tmp_path, monkeypatch)
+    store.Vault(v).append_event({"type": "answer", "session": "s0", "item": "9702-2.1-i01", "kcs": ["9702-2.1.1"],
+                                 "subject": "phys", "difficulty": 2, "conf": 3, "hinted": False, "seconds": 30,
+                                 "marks": 1, "grade": {"correct": True, "score": 1.0, "error": None,
+                                                       "misconception": None}, "credit": [], "pos": 0,
+                                 "block": "review", "phase": None, "params": None, "response": "B"},
+                                now=datetime.fromisoformat("2026-09-30T18:00:00+08:00"))
+    said = []
+    monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            assert (v / "Weekly" / "2026-W40.md").exists() and any("week in review" in m for m in said)
+            assert app.screen._week_in_review() is None  # only once
+            await app.ai.close()
+    asyncio.run(go())
