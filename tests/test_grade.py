@@ -389,3 +389,12 @@ def test_subscripted_names_are_not_numbers(given, expected):
 def test_equivalence_survives_a_sample_on_a_pole(given, expected):  # a = 1, b = -1 is one of the sampled points
     item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
     assert grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"]
+
+
+def test_keywords_alone_never_mark_a_short_answer_right():  # B-024
+    item = {"kind": "short", "marks": 2, "rubric": [
+        {"point": "velocity is the rate of change of displacement", "keywords": [["rate of change of displacement"]]},
+        {"point": "acceleration is the rate of change of velocity", "keywords": [["rate of change of velocity"]]}]}
+    swapped = "Velocity is the rate of change of velocity. Acceleration is the rate of change of displacement."
+    g = grade.grade_item(item, {"kind": "value", "value": swapped})
+    assert not g["correct"] and g["needs_judgement"] and g["score"] == 1.0  # every phrase is there: only a hint

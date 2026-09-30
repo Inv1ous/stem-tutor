@@ -402,3 +402,12 @@ def test_image_only_mcq_feedback_shows_the_letter(tutor):
     n = tutor._present(item, block="practice", phase=None)["n"]
     fb = tutor.answer(f"{n}C3")
     assert fb["results"][0]["correct"] and fb["results"][0]["answer"] == "C"
+
+
+def test_short_answer_with_every_keyword_still_waits_for_judgement(tutor):  # B-024
+    item = {"id": "s2", "kcs": ["9702-2.1.1"], "kind": "short", "difficulty": 3, "marks": 2, "stem": "Define displacement.",
+            "rubric": [{"point": "distance", "keywords": [["distance"]]}, {"point": "direction", "keywords": [["direction"]]}]}
+    tutor.start("review", minutes=10)
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    r = tutor.answer(f"{n} = distance without a direction")["results"][0]
+    assert r["pending_judgement"] and r["matched_score"] == 1.0 and str(n) in tutor.session["presented"]

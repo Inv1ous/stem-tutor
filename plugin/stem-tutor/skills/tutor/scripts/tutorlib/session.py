@@ -506,7 +506,9 @@ class Tutor(LessonMixin):
             elif inst["kind"] == "short" and g["needs_judgement"]:
                 results.append({"n": r["n"], "pending_judgement": True, "matched_score": g["score"],
                                 "unmatched": g.get("unmatched"), "rubric": [pt["point"] for pt in inst["rubric"]],
-                                "say": "Judge the unmatched points, then resend with judge {n: score 0..1}."})
+                                "say": "Judge every rubric point against their answer (keyword matches are only a hint: a "
+                                       "swapped or negated statement contains them too), then resend with judge "
+                                       "{n: score 0..1}."})
                 continue
             results.append(self._record(key, p, r, g))
         done = [fb for fb in results if fb.get("event")]

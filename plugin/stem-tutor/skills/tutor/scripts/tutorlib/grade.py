@@ -353,7 +353,9 @@ def _grade_rubric(item, resp):
         else:
             unmatched.append(point["point"])
     score = matched / len(item["rubric"])
-    return _result(score == 1.0, score, needs_judgement=bool(unmatched), unmatched=unmatched)
+    # only a hint for the judge: swapped or negated statements ("velocity is the rate of change of velocity")
+    # contain every keyword, so a short answer is never marked right on keywords alone
+    return _result(False, score, needs_judgement=True, unmatched=unmatched)
 
 
 def _grade_points(item, resp):

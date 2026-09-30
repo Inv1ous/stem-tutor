@@ -91,7 +91,7 @@ For each entry in `results`:
 - `official_key_only` → a past-paper question without a written explanation: explain from the official key and the `examiner` comment if present; if you are not certain why the key is right, say so plainly instead of guessing.
 - `hypercorrect` → give the answer and reason first (as for any wrong answer), then ask what made them sure; in your next turn, fix that idea before moving on.
 - `needs_judgement` → slip test: ask them to re-check one named step, without giving the answer. Fixed alone → `tag <event> SLIP`; otherwise tag the best code: RECALL, MISREAD, CONCEPT, PROCEDURE, STRATEGY, NOTATION, TIME.
-- `pending_judgement` → compare their words with the `unmatched` rubric points, choose a score 0–1, and resend that entry the same way with `answer - --judge '{"N": score}'` before the heredoc.
+- `pending_judgement` → compare their words with every `rubric` point (`matched_score` is only a keyword hint: a swapped or negated statement contains the keywords too), choose a score 0–1, and resend that entry the same way with `answer - --judge '{"N": score}'` before the heredoc.
 - `detail` such as "missing unit" or "4 s.f. (want 2/3)" → name the exam convention that costs the mark.
 - `error` (the question stays open) → ask them to resend that answer in the form the error names; if it says the question is not open, tell them their first answer stands.
 - `error_code` (RECALL, CONCEPT, NOTATION, …) is the engine's label for the mistake: use it to choose your words, never read it out as an error.
