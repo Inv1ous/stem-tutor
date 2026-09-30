@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.3 — 2026-09-30
+
+- **Chapters reach you as soon as they are done.** Signing a chapter in the foundry publishes it into the vault,
+  commits it and notifies you; the app picks it up at the menu ("New chapters ready: …") without a restart, and a
+  running session survives the old content version being pruned.
+- Foundry: progress survives a session that stops (state on disk after every step; Codex jobs finish on their own;
+  Haiku jobs that were cut off are flagged as stalled and re-sent); a live `foundry watch` screen, Mac notifications,
+  parallel Haiku solvers per chapter with the checker alongside, and `bin/foundry` that works from any folder.
+
 ## 1.1.2 — 2026-09-30
 
 ### Content

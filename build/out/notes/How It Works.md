@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.1.2_
+_Version 1.1.3_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -9,7 +9,8 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose "Learn a topic" and follow the prompts. Press **?** at any time for help.
 
-> [!example] What's new in 1.1.1 and 1.1.2
+> [!example] What's new in 1.1.1 to 1.1.3
+> - **New chapters arrive while you study.** As soon as a chapter has passed every check it is added to this vault; if the tutor is open, the menu says **New chapters ready: …** next time you are back at it. A session you are in the middle of is never disturbed.
 > - **Fairer marking.** A number correctly rounded to 2 significant figures now counts where the question allows it; formulas typed the way the app shows them (`u² + 2as`, `2πr`, `√(2gh)`) are accepted; a formula that is only right for positive numbers (like `√(x²)` for `x`) no longer gets full marks.
 > - **Nothing is marked wrong by accident.** If a question wants just a number and you add a unit, or the tutor can't read a formula, it asks you to type it again instead of marking it wrong.
 > - **Written answers are always checked properly**, by the AI examiner or by your own ticks, never just by spotting key words.
@@ -59,6 +60,8 @@ Everything is done with the keyboard (see section 11).
 ---
 
 ## 3. The home screen
+
+When new chapters have been added since you opened the tutor, the menu tells you ("New chapters ready: …") and they are available straight away.
 
 | Choice | What it does |
 |---|---|
