@@ -15,7 +15,7 @@ from . import deps
 MASTERY_THETA = 0.8
 CONF_P = {1: 0.25, 2: 0.5, 3: 0.75, 4: 0.95}
 SUCCESS = 0.75
-MODEL_VERSION = "1.1"  # bump when the fold changes; saved states from older versions are rebuilt from events once
+MODEL_VERSION = "1.1.1"  # bump when the fold changes; saved states from older versions are rebuilt from events once
 SLIP_DAMPING = 0.5  # a likely slip (fast miss on an item you almost always get) moves θ half as much
 
 
@@ -119,6 +119,11 @@ def _count(d: dict, key: str, by: int = 1) -> None:
     d[key] = d.get(key, 0) + by
 
 
+def counts_as_right(g: dict) -> bool:
+    """Right with the marks: a right value that lost its unit or s.f. mark is a miss, as the session reports it."""
+    return bool(g["correct"]) and g["score"] >= SUCCESS
+
+
 def _apply_answer(state: dict, e: dict) -> None:
     when = datetime.fromisoformat(e["ts"])
     day = when.date().isoformat()
@@ -162,17 +167,18 @@ def _apply_answer(state: dict, e: dict) -> None:
 
     t = state["traits"]
     exp_p = sum(expected) / len(expected) if expected else 0.5
+    right = counts_as_right(g)
     if e.get("conf") is not None:
-        c, acc = CONF_P[e["conf"]], 1.0 if g["correct"] else 0.0
+        c, acc = CONF_P[e["conf"]], 1.0 if right else 0.0
         cal = t["calibration"]
         lvl = cal.setdefault("by_conf", {}).setdefault(str(e["conf"]), [0, 0])
         lvl[0] += 1
-        lvl[1] += 1 if g["correct"] else 0
+        lvl[1] += 1 if right else 0
         cal["n"] += 1
         cal["sum_conf"] += c
         cal["sum_acc"] += acc
         cal["sum_brier"] += (c - acc) ** 2
-        if e["conf"] >= 3 and not g["correct"]:
+        if e["conf"] >= 3 and not right:
             cal["high_conf_errors"] += 1
     if g.get("error"):
         _count(t["errors"].setdefault(subject, {}), g["error"])
@@ -186,11 +192,11 @@ def _apply_answer(state: dict, e: dict) -> None:
     if len(bucket) == 2:
         bucket.append(0.0)
     bucket[0] += 1
-    bucket[1] += 1 if g["correct"] else 0
+    bucket[1] += 1 if right else 0
     bucket[2] += exp_p
     hour = t.setdefault("hours", {}).setdefault(_time_block(when), [0, 0, 0.0])
     hour[0] += 1
-    hour[1] += 1 if g["correct"] else 0
+    hour[1] += 1 if right else 0
     hour[2] += exp_p
     state["items_seen"][e["item"]] = e["ts"]
     if e.get("id"):

@@ -122,7 +122,7 @@ def session_note(tutor, session_id: str) -> str:
     start = next((e for e in evs if e["type"] == "session_start"), None)
     answers = [e for e in evs if e["type"] == "answer"]
     ts = datetime.fromisoformat(start["ts"] if start else tutor.now().isoformat())
-    correct = sum(1 for a in answers if a["grade"]["correct"])
+    correct = sum(1 for a in answers if model.counts_as_right(a["grade"]))
     learned = sorted({k for a in answers if a.get("block") == "learn" for k in a["kcs"]})
     acc = f"{100 * correct / len(answers):.0f}%" if answers else "–"
     lines = ["---", "tags: [stem-tutor/session]", f"date: {ts.date()}", f"mode: {start['mode'] if start else '?'}",
@@ -132,7 +132,7 @@ def session_note(tutor, session_id: str) -> str:
              f"| {len(answers)} | {correct} | {acc} | {', '.join(learned) or '–'} |", ""]
     for i, a in enumerate(answers, 1):
         g = a["grade"]
-        kind = "success" if g["correct"] else "failure"
+        kind = "success" if model.counts_as_right(g) else "failure"
         tag = f" · {g['error']}" if g.get("error") else ""
         lines.append(f"> [!{kind}]- Q{i} · {', '.join(a['kcs'])} · {a.get('phase') or a.get('block')}{tag}")
         for l in to_note_math(_item_stem(tutor, a["item"], a.get("params"))).split("\n"):

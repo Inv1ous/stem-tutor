@@ -96,3 +96,14 @@ def test_brief_caps_missing_pack_list(tutor, monkeypatch):
 def test_unicode_scripts_become_latex_for_notes():
     assert report.to_note_math("H₂SO₄ and 8 × 10² kg m⁻³") == "H$_{2}$SO$_{4}$ and 8 × 10$^{2}$ kg m$^{-3}$"
     assert report.to_note_math("plain $x^2$ stays") == "plain $x^2$ stays"
+
+
+def test_session_note_accuracy_counts_lost_marks_as_the_session_does(tutor):  # B-008
+    tutor.start("review", minutes=10)
+    item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["kind"] == "numeric")
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    value = tutor.session["presented"][str(n)]["inst"]["answer"]["value"]
+    tutor.answer(f"{n} = {value:.3g} ~4")  # right value, unit left off: the mark is lost
+    summary = tutor.end()
+    text = (tutor.vault.root / report.session_note(tutor, summary["session"])).read_text()
+    assert summary["accuracy"] == 0 and "accuracy: 0.0" in text and "> [!failure]" in text

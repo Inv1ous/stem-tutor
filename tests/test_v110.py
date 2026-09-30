@@ -311,3 +311,11 @@ def test_hinted_answers_do_not_clear_a_misconception():  # B-007
     for i in (3, 4):
         model.apply(s, answer(ts=T0 + timedelta(minutes=i), grade=right))
     assert s["kcs"]["9702-2.1.1"]["active_misconceptions"] == []
+
+
+def test_lost_mark_answers_count_as_wrong_in_the_profile():  # B-008
+    s = model.new_state()
+    model.apply(s, answer(conf=4, grade={"correct": True, "score": 0.5, "error": "NOTATION", "misconception": None}))
+    t = s["traits"]
+    assert t["calibration"]["by_conf"]["4"] == [1, 0] and t["calibration"]["high_conf_errors"] == 1
+    assert t["fatigue"]["0"][1] == 0 and t["hours"][model._time_block(T0)][1] == 0
