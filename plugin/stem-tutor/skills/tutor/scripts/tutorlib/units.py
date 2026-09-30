@@ -120,6 +120,6 @@ def unit_factor(given: str, expected: str) -> float | None:
         for f, d in parse_unit(given):
             if d == exp_d:
                 return f / exp_f
-    except ValueError:
+    except (ValueError, ArithmeticError):  # unknown symbol, or an exponent like km9999 that overflows
         return None
     return None

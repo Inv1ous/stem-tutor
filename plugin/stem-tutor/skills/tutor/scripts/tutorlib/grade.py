@@ -168,6 +168,8 @@ def _grade_numeric(item, resp):
             if f is None:
                 return _result(False, 0, "NOTATION", detail="wrong unit")
             value *= f
+            if not math.isfinite(value):
+                return _result(False, 0, needs_judgement=True, detail="number out of range")
     target = ans["value"]
     allowed = ans.get("sf_ok") or ([ans["sf"]] if ans.get("sf") else None)
     # a value correctly rounded at the learner's own precision counts as right, reading "20" strictly as 2 s.f.;

@@ -297,3 +297,14 @@ def test_joined_units_after_a_slash_are_all_below_the_line(given, expected, fact
 def test_compact_denominator_unit_is_not_a_force():
     g = grade.grade_item({"kind": "numeric", "answer": {"value": 1, "unit": "N"}}, {"kind": "value", "value": "1 kg/ms2"})
     assert not g["correct"]
+
+
+@pytest.mark.parametrize("text", ["1 km9999", "1e300 km99", "1 km-9999", "1e-300 mm99"])
+def test_extreme_unit_exponent_is_a_wrong_unit_not_a_crash(text):  # B-003
+    g = grade.grade_item({"kind": "numeric", "answer": {"value": 9.81, "unit": "m"}}, {"kind": "value", "value": text})
+    assert not g["correct"] and g["score"] == 0
+
+
+def test_value_overflowing_on_unit_conversion_is_not_a_crash():  # B-003
+    g = grade.grade_item({"kind": "numeric", "answer": {"value": 9.81, "unit": "pm"}}, {"kind": "value", "value": "1e305 Gm"})
+    assert not g["correct"] and g["score"] == 0
