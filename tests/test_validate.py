@@ -15,7 +15,7 @@ def good_pack():
     for kc in ("9702-2.1.1", "9702-2.1.4"):
         for i in range(6):
             p["items"].append({"id": f"9702-2.1-x{kc[-1]}{i}", "kcs": [kc], "kind": "mcq", "difficulty": 2,
-                               "command_word": "State", "source": {"type": "generated"}, "stem": "Pick B.",
+                               "command_word": "State", "source": {"type": "generated"}, "stem": f"Pick B ({kc} {i}).",
                                "options": {"A": "a", "B": "b", "C": "c", "D": "d"}, "answer": "B",
                                "distractors": {"A": "m1"}, "marks": 1, "explanation": "B.",
                                "hints": ["h1", "h2", "h3"]})
@@ -140,3 +140,11 @@ def test_hints_that_share_words_with_every_option_are_fine():
     p = good_pack()
     p["items"][0]["hints"] = ["distance or displacement?", "which one has direction?", "speed and time have no direction"]
     assert "hint-leak" not in errs(p)
+
+
+def test_the_same_question_twice_is_rejected():
+    p = good_pack()
+    twin = copy.deepcopy(next(i for i in p["items"] if i["kind"] == "mcq" and "template" not in i))
+    twin["id"], twin["source"] = "9702-2.1-x99", {"type": "past", "ref": "CAIE 9702 · Nov 2025 · P13 · Q1"}
+    p["items"].append(twin)
+    assert "duplicate-question" in errs(p)

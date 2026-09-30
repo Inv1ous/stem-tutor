@@ -20,6 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "plugin/stem-tutor/skills/tutor/scripts"))
 from tutorlib import grade, lint, packs, units  # noqa: E402
+from add_past import question_key  # noqa: E402  (build/ is on the path when run as a script or from tests)
 
 MIN_VARIANTS = 6
 KINDS = {"mcq", "numeric", "expression", "short", "structured"}
@@ -126,12 +127,17 @@ def validate(pack: dict, graph: dict, min_variants: int = MIN_VARIANTS) -> list[
         if m.get("kc") not in all_kcs:
             out.append(_e("unknown-kc", f"misconception {m.get('id')}", m.get("kc")))
     seen: set[str] = set()
+    questions: dict[str, str] = {}
     variants = {k: 0 for k in sub_kcs}
     for it in pack.get("items", []):
         where = f"item {it.get('id')}"
         if it.get("id") in seen:
             out.append(_e("duplicate-id", where))
         seen.add(it.get("id"))
+        if it.get("kind") == "mcq" and "template" not in it:  # CAIE reuses questions across paper variants and years
+            if (q := question_key(it)) in questions:
+                out.append(_e("duplicate-question", where, f"same question as {questions[q]}"))
+            questions.setdefault(q, it.get("id"))
         if it.get("kind") not in KINDS:
             out.append(_e("kind", where, str(it.get("kind"))))
             continue
