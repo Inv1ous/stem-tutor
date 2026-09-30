@@ -498,6 +498,10 @@ class Tutor(LessonMixin):
                     results.append({"n": r["n"], "error": f"question {r['n']} wants a plain number, no unit; resend "
                                     f"it as '{r['n']} = <number> ~<1-4>' (it stays open)"})
                     continue
+            if inst["kind"] == "expression" and r["kind"] == "value" and not grade.expression_readable(str(r["value"])):
+                results.append({"n": r["n"], "error": f"could not read the expression {r['value']!r}; use letters, "
+                                "numbers, + - * / ^ and brackets, then resend it (it stays open)"})
+                continue
             expected = _expected_kind(inst["kind"])
             if r["kind"] != "idk" and r["kind"] not in expected:
                 results.append({"n": r["n"], "error": f"question {r['n']} expects {' or '.join(expected)}; "

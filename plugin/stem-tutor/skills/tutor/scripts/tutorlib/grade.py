@@ -221,6 +221,28 @@ _BUILDERS = re.compile(r"(?<![A-Za-z])(Symbol|Function|Number|Integer|Float|Rati
 _MAX_POWER = 1_000  # nested exponents multiply; A-level needs far less, and sympy grinds on huge powers
 
 
+_UNICODE_MATHS = str.maketrans({
+    "×": "*", "·": "*", "⋅": "*", "÷": "/", "−": "-", "–": "-", "π": " pi ", "√": " sqrt ", "½": "(1/2)",
+    "α": " alpha ", "β": " beta ", "γ": " gamma ", "δ": " delta ", "Δ": " Delta ", "ε": " epsilon ", "θ": " theta ",
+    "λ": " lamda ", "μ": " mu ", "µ": " mu ", "ν": " nu ", "ρ": " rho ", "σ": " sigma ", "τ": " tau ", "φ": " phi ",
+    "ω": " omega ", "Ω": " Omega "})
+
+
+def _plain_maths(s: str) -> str:
+    """Maths as the app displays it, in plain ASCII: u² → u^(2), 2×a → 2*a, 2πr → 2 pi r, √(2gh) → sqrt (2gh)."""
+    s = re.sub(r"[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+", lambda m: "^(" + m[0].translate(SUPERSCRIPT) + ")", s)
+    return s.translate(_UNICODE_MATHS)
+
+
+def expression_readable(text: str) -> bool:
+    """Whether an expression answer can be read at all; one that can't is refused and the question stays open."""
+    try:
+        _sympy()[1](text)
+    except Exception:  # noqa: BLE001 - any parse failure means "type it again", never a wrong answer
+        return False
+    return True
+
+
 def _names(s: str) -> str:
     """Spell variable names so sympy reads them as the learner meant: a keyword such as the "as" of 2as is letters,
     lambda is the Greek letter, and digits after a letter are a subscript (R1 -> R_1, not R times 1) unless they are
@@ -270,7 +292,7 @@ def _sympy():
     names.update(__builtins__={}, abs=sympy.Abs, ln=sympy.log)
 
     def parse(s: str):
-        s = s.replace("\\", "")
+        s = _plain_maths(s.replace("\\", ""))
         if not _EXPR_TEXT.fullmatch(s) or "." in re.sub(r"\d*\.\d+|\d+\.", "", s) or _BUILDERS.search(s):
             raise ParseError(f"not a plain maths expression: {s[:40]!r}")
         s = _names(s)

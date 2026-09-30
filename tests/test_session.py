@@ -431,3 +431,14 @@ def test_retest_score_goes_to_the_idea_retested_even_on_a_multi_idea_item(tutor)
     scores = [e for e in tutor.vault.events() if e["type"] == "exp_score"]
     assert [s["kc"] for s in scores] == ["9702-2.1.4"]
     assert experiments.retests_due(tutor.state, tutor.clock.t) == []
+
+
+def test_expression_answers_unicode_right_and_unreadable_stays_open(tutor):  # B-034
+    item = {"id": "e1", "kcs": ["9702-2.1.4"], "kind": "expression", "difficulty": 3, "marks": 1,
+            "stem": "Write v^2 in terms of u, a and s.", "answer": {"expr": "u**2 + 2*a*s"}}
+    tutor.start("review", minutes=10)
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    r = tutor.answer(f"{n} = u² + 2as @@ ~3")["results"][0]
+    assert "could not read" in r["error"] and str(n) in tutor.session["presented"]
+    r = tutor.answer(f"{n} = u² + 2as ~3")["results"][0]
+    assert r["correct"] and str(n) not in tutor.session["presented"]

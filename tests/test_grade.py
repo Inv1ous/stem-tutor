@@ -404,3 +404,13 @@ def test_keywords_alone_never_mark_a_short_answer_right():  # B-024
 def test_wildly_wrong_finite_values_grade_without_crashing(text):  # B-025
     g = _num(7.5e-7, text, sf_ok=[1, 2, 3])
     assert not g["correct"] and g["score"] == 0
+
+
+@pytest.mark.parametrize("given,expected", [  # B-034: maths as the app displays it
+    ("u² + 2as", "u**2 + 2*a*s"), ("u^2 + 2×a×s", "u**2 + 2*a*s"), ("2πr", "2*pi*r"), ("√(2gh)", "sqrt(2*g*h)"),
+    ("x⁻¹", "1/x"), ("½mv²", "m*v**2/2"), ("mω²r", "m*omega**2*r"), ("hc/λ", "h*c/lambda"), ("F·Δt", "F*Delta*t"),
+    ("a − b", "a - b"), ("a ÷ b", "a/b"),
+])
+def test_unicode_maths_is_read_like_ascii(given, expected):
+    item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
+    assert grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"], given
