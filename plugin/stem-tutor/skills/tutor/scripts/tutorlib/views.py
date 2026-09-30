@@ -108,7 +108,8 @@ def notes_update(root: Path, packs, state: dict, subtopic: str, current: str | N
         kc = node["kc"]
         if (old := _block(f"node {kc}").search(text)):  # re-taught: keep what you wrote before, merge mistakes
             prev = old.group(0)
-            if not node.get("own_words") and (w := re.search(r"> \[!quote\] In your words\n((?:> .*\n?)+)", prev)):
+            # a blank line inside the callout is a bare ">", so paragraphs after the first are kept too
+            if not node.get("own_words") and (w := re.search(r"> \[!quote\] In your words\n((?:>(?: .*)?\n?)+)", prev)):
                 node = {**node, "own_words": "\n".join(l[2:] for l in w.group(1).rstrip("\n").split("\n"))}
             if (m := re.search(r"> \[!warning\] Watch out \(your mistakes\)\n((?:> - .*\n?)+)", prev)):
                 earlier = [l[4:] for l in m.group(1).rstrip("\n").split("\n")]

@@ -271,3 +271,13 @@ def test_unit_on_a_plain_number_question_keeps_it_open(tutor):  # B-001
     assert "no unit" in r["error"] and str(n) in tutor.session["presented"]
     r = tutor.answer(f"{n} = 500 ~3")["results"][0]
     assert r["correct"]
+
+
+def test_retaught_idea_keeps_every_paragraph_of_your_words(tutor):  # B-011
+    sub = "9702-2.1"
+    words = "FIRST PARAGRAPH\n\nSECOND PARAGRAPH\n\n\nTHIRD"
+    for own in (words, None, None):  # re-taught twice
+        views.notes_update(tutor.vault.root, tutor.packs, tutor.state, sub,
+                           node={"kc": "9702-2.1.1", "note": "- n", "own_words": own})
+    text = (tutor.vault.root / views.notes_rel(tutor.packs, sub)).read_text()
+    assert views.callout("quote", "In your words", words) in text
