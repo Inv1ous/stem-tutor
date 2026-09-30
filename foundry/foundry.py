@@ -19,6 +19,7 @@ a whole pack to know whether it is right.
   foundry.py gates <subtopic>             validator + note lint (also run automatically after every worker)
   foundry.py sign <subtopic>              everything green: release the chapter for publishing
   foundry.py status <subtopic>            the chapter's full state as JSON
+  foundry.py watch [seconds]              live view of every worker (Codex and Haiku), redrawn every few seconds
 
 Stages: draft → solve → (tiebreak) → check → (adjudicate → fix → recheck) → sign → ready.
 """
@@ -171,6 +172,18 @@ def _running(st: dict) -> list[str]:
             if _alive(j.get("pid")) or (j.get("manual") and not j.get("finished"))]
 
 
+def _haiku(st: dict) -> tuple[list[str], list[str]]:
+    """Dispatched Haiku jobs: (still working, finished). A job is finished once its output file is written."""
+    working, done = [], []
+    for name, j in st["jobs"].items():
+        if not j.get("haiku") or j.get("closed"):
+            continue
+        f = ROOT / j["expects"]
+        finished = f.exists() and f.stat().st_mtime >= datetime.fromisoformat(j["started"]).timestamp() - 1
+        (done if finished else working).append(name)
+    return working, done
+
+
 def _alive(pid: int | None) -> bool:
     if not pid:
         return False
@@ -191,7 +204,7 @@ def cmd_board() -> None:
         g = st.get("gates") or {}
         gate = "ok" if g.get("ok") else ("-" if not g else f"{g.get('validator', 0)}+{g.get('lint', 0)}")
         open_n = sum(d["status"] == "open" for d in st["disputes"]) + sum(f["status"] == "open" for f in st["findings"])
-        running = _running(st)
+        running = _running(st) + [f"Haiku {n}" for n in _haiku(st)[0]]
         print(f"{st['sub']:<11} {st['stage']:<11} {gate:<6} {open_n:<5} "
               f"{STAGE_ROLE.get(st['stage'], '')}{' · running: ' + ', '.join(running) if running else ''}")
     oob = out_of_bounds()
@@ -204,6 +217,9 @@ def action(st: dict) -> str:
     running = _running(st)
     if running:
         return f"wait: {', '.join(running)} running"
+    working, done = _haiku(st)
+    if working:
+        return f"wait: Haiku {', '.join(working)} working ({len(done)}/{len(working) + len(done)} done)"
     return {
         "draft": f"foundry.py codex drafter {sub}",
         "solve": f"foundry.py dispatch {sub} → launch every prompt as a Haiku agent, together; then foundry.py compare {sub}",
@@ -336,6 +352,8 @@ def cmd_compare(sub: str) -> None:
             return
         else:
             raise SystemExit(f"{sub}: nothing to compare at stage {st['stage']} (are the answers/findings written?)")
+        for name in _haiku(st)[1]:
+            st["jobs"][name]["closed"] = now()
         print(f"{sub}: now {st['stage']} ({st['history'][-1]['note']})")
 
 
@@ -348,6 +366,14 @@ def cmd_dispatch(sub: str) -> None:
         jobs += [{"role": "solver", "shard": k, "prompt": role_prompt("solver", sub, k)} for k in shards or [None]]
     if st["stage"] in ("solve", "check") and not st.get("checked"):
         jobs.append({"role": "checker", "shard": None, "prompt": role_prompt("checker", sub)})
+    pfx = "recheck." if st["stage"] == "recheck" else ""
+    with chapter(sub) as st:  # so the board and `watch` can show them working
+        for j in jobs:
+            part = f".part{j['shard']}" if j["shard"] else ""
+            expects = (f"build/work/blind/{sub}.{pfx}answers{part}.json" if j["role"] == "solver"
+                       else f"build/work/foundry/{sub}.check.json")
+            st["jobs"][j["role"] + (f"#{j['shard']}" if j["shard"] else "")] = {"haiku": True, "started": now(),
+                                                                                "expects": expects}
     print(json.dumps(jobs, ensure_ascii=False, indent=1))
 
 
@@ -457,16 +483,69 @@ def cmd_codex(role: str, sub: str) -> None:
     stamp = datetime.now().strftime("%m%d-%H%M%S")
     log, out = LOGS / f"{sub}.{role}.{stamp}.log", LOGS / f"{sub}.{role}.{stamp}.out.json"
     codex = [CODEX, "exec", "-m", model, "-c", f'model_reasoning_effort="{effort}"', "-c", 'approval_policy="never"',
-             "-s", "workspace-write", "-C", str(REPO), "--ephemeral", "--color", "never",
+             "-s", "workspace-write", "-C", str(REPO), "--color", "never",
              "--output-schema", str(HERE / "schemas" / f"{role}.json"), "-o", str(out), role_prompt(role, sub)]
     then = [PY, str(HERE / "foundry.py"), "collect", role, sub, str(out)]
     shell = f"{shlex.join(codex)} > {shlex.quote(str(log))} 2>&1; {shlex.join(then)} $? >> {shlex.quote(str(log))} 2>&1"
     proc = subprocess.Popen(["/bin/sh", "-c", shell], cwd=REPO, start_new_session=True,
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env={**os.environ, "FOUNDRY_ROOT": str(ROOT)})
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env={**os.environ, "FOUNDRY_ROOT": str(ROOT),
+                                                                    "FOUNDRY_NOTIFY": os.environ.get("FOUNDRY_NOTIFY", "1")})
     with chapter(sub) as st:
         st["jobs"][role] = {"pid": proc.pid, "model": f"{model}/{effort}", "started": now(),
                             "log": str(log.relative_to(ROOT)), "out": str(out.relative_to(ROOT))}
     print(f"{sub}: {role} started on {model} ({effort}); log {log.relative_to(ROOT)}")
+
+
+def notify(text: str) -> None:
+    """A macOS notification, only for workers the foundry launched (never from tests or by hand)."""
+    if os.environ.get("FOUNDRY_NOTIFY") == "1" and sys.platform == "darwin":
+        subprocess.run(["osascript", "-e", f"display notification {json.dumps(text)} with title \"STEM Tutor foundry\""],
+                       capture_output=True)
+
+
+def _last_line(log: Path) -> str:
+    try:
+        lines = [l.strip() for l in log.read_text(errors="ignore").splitlines()[-40:] if l.strip()]
+    except OSError:
+        return ""
+    return lines[-1][:90] if lines else ""
+
+
+def _ago(ts: str) -> str:
+    mins = int((datetime.now().astimezone() - datetime.fromisoformat(ts)).total_seconds() // 60)
+    return f"{mins}m" if mins < 90 else f"{mins // 60}h{mins % 60:02d}"
+
+
+def watch_text() -> str:
+    out = [f"STEM Tutor foundry · {datetime.now():%H:%M:%S}", ""]
+    rows = chapters()
+    for st in rows:
+        if st["stage"] == "ready":
+            continue
+        workers = []
+        for name, j in st["jobs"].items():
+            if j.get("haiku") and not j.get("closed"):
+                working, _ = _haiku({"jobs": {name: j}})
+                workers.append(f"Haiku {name} {'… ' + _ago(j['started']) if working else '✓'}")
+            elif _alive(j.get("pid")):
+                workers.append(f"Codex {name} ({j['model']}) {_ago(j['started'])}: {_last_line(ROOT / j['log'])}")
+            elif j.get("manual") and not j.get("finished"):
+                workers.append(f"Codex {name} (by hand) {_ago(j['started'])}")
+        out.append(f"{st['sub']:<11} {st['stage']:<11} " + (" · ".join(workers) if workers else "idle"))
+    recent = sorted(((h["t"], st["sub"], h["note"]) for st in rows for h in st["history"]), reverse=True)[:5]
+    if recent:
+        out += ["", "Recent:"] + [f"  {t[11:16]} {sub}: {note}" for t, sub, note in recent]
+    return "\n".join(out)
+
+
+def cmd_watch(every: float = 5) -> None:
+    import time
+    try:
+        while True:
+            print("\033[2J\033[H" + watch_text(), flush=True)
+            time.sleep(every)
+    except KeyboardInterrupt:
+        pass
 
 
 def cmd_collect(role: str, sub: str, out: str, code: str = "0") -> None:
@@ -477,6 +556,8 @@ def cmd_collect(role: str, sub: str, out: str, code: str = "0") -> None:
     except (OSError, ValueError):
         pass
     g = gates(sub)
+    notify(f"{sub}: {role} " + ("finished" if int(code) == 0 and report else "failed")
+           + (" · gates ok" if g.get("ok") else ""))
     with chapter(sub) as st:
         st["gates"] = g
         job = st["jobs"].get(role, {})
@@ -533,6 +614,8 @@ def main(argv: list[str]) -> None:
         cmd_codex(rest[0], rest[1])
     elif cmd == "collect":
         cmd_collect(*rest)
+    elif cmd == "watch":
+        cmd_watch(float(rest[0]) if rest else 5)
     else:
         raise SystemExit(f"unknown command {cmd!r}\n{__doc__}")
 

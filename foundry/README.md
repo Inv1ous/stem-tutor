@@ -60,6 +60,21 @@ the foundry won't start that job itself. The prompt ends with the command that r
 - Codex jobs use your ChatGPT plan's Codex allowance. If it runs out, the log says so and the manager carries on
   with the Haiku work until it resets.
 
+## Seeing what's running
+
+- **Live screen:** `.venv/bin/python foundry/foundry.py watch` redraws every 5 seconds: each chapter's stage, every
+  Haiku worker (… working / ✓ done, with minutes elapsed) and every Codex worker with its model, minutes running and
+  the last thing it did (for example the validator command it is running). Ctrl+C to close. When the Claude session
+  starts workers it opens this for you in a terminal tab beside the chat.
+- **Notifications:** each Codex job that ends pops up a Mac notification ("9702-2.2: drafter finished · gates ok",
+  or "failed").
+- **Haiku agents** also appear in the Claude app's task list while they run, and the session is told the moment
+  each one finishes.
+- **Codex logs:** `foundry/logs/<chapter>.<role>.<time>.log` is the worker's full transcript. The session is also
+  saved in Codex's history (`~/.codex/sessions`), so it can be reopened afterwards with `codex resume`.
+- **One-off:** `foundry.py board` (one line per chapter) and `foundry.py next` (what each chapter is waiting for,
+  e.g. "wait: Haiku solver#2, checker working (2/5 done)").
+
 ## Files
 
 | Path | What |

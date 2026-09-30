@@ -29,6 +29,12 @@ the board, small packets and one-line reports, never whole packs, bundles or not
    Then commit that chapter (`git add` its pack, note, gen script and figures; message `content(<subtopic>): …`).
 7. Publish in batches: `.venv/bin/python build/publish.py`, then tell the learner which chapters arrived.
 
+## Let the learner see it
+
+When you start workers, open a terminal tab for the learner running
+`.venv/bin/python foundry/foundry.py watch` (the terminal tools in the Claude app), unless one is already open.
+Haiku jobs appear there once `dispatch` has recorded them; Codex jobs as soon as they launch.
+
 ## Watch for
 
 - `foundry.py board` shows a ⚠ line when files outside the workers' lanes changed: look at `git status` and undo

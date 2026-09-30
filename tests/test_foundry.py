@@ -28,6 +28,7 @@ def fdy(tmp_path, monkeypatch):
     note.parent.mkdir(parents=True)
     note.write_text("# 2.1 Equations of motion\n\nUse $v = u + at$.\n")
     monkeypatch.setenv("FOUNDRY_ROOT", str(tmp_path))
+    monkeypatch.setenv("FOUNDRY_NOTIFY", "0")  # no Mac notifications from tests
     sys.path.insert(0, str(REPO / "foundry"))
     import foundry
     return importlib.reload(foundry)
@@ -184,3 +185,30 @@ def test_a_codex_job_run_by_hand_is_not_duplicated_and_reports_back(fdy):
     fdy.cmd_collect("fixer", SUB, "-", "0")
     st = fdy.load(SUB)
     assert fdy._running(st) == [] and st["stage"] == "sign"
+
+
+def test_dispatched_haiku_jobs_show_as_working_until_their_file_is_written(fdy, capsys):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["checked"] = True  # only the solver this time
+    fdy.cmd_dispatch(SUB)
+    st = fdy.load(SUB)
+    assert fdy._haiku(st) == (["solver"], []) and "Haiku solver working (0/1 done)" in fdy.action(st)
+    assert "Haiku solver …" in fdy.watch_text()
+    (fdy.BLIND / f"{SUB}.answers.json").write_text(json.dumps(keys(fdy)))
+    assert fdy._haiku(fdy.load(SUB)) == ([], ["solver"])
+    fdy.cmd_compare(SUB)
+    assert fdy._haiku(fdy.load(SUB)) == ([], [])  # closed once compared
+
+
+def test_watch_shows_a_codex_worker_and_what_it_is_doing(fdy, tmp_path):
+    import os
+    fdy.cmd_add([SUB])
+    log = tmp_path / "foundry/logs/x.log"
+    log.parent.mkdir(parents=True, exist_ok=True)
+    log.write_text("exec .venv/bin/python build/validate_pack.py build/out/packs/9702/9702-2.1.json\n")
+    with fdy.chapter(SUB) as st:
+        st["jobs"]["drafter"] = {"pid": os.getpid(), "model": "gpt-6-sol/medium", "started": fdy.now(),
+                                 "log": "foundry/logs/x.log"}
+    text = fdy.watch_text()
+    assert "Codex drafter (gpt-6-sol/medium) 0m: exec .venv/bin/python build/validate_pack.py" in text
