@@ -5,6 +5,7 @@ from textual import on
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
+from textual.markup import escape
 from textual.message import Message
 from textual.widgets import Button, Input, OptionList, SelectionList, Static, TextArea
 from textual.widgets.option_list import Option
@@ -38,7 +39,14 @@ def _hint(text: str) -> Static:
 
 
 class Confidence(OptionList):
-    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 5)]
+    """How sure are you? 1–4. Esc goes back to change your answer."""
+    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 5)] + [Binding("escape", "back", "Change answer")]
+
+    class Back(Message):
+        pass
+
+    def action_back(self) -> None:
+        self.post_message(self.Back())
 
     def __init__(self) -> None:
         super().__init__(*[Option(f"{i}  {CONF[i]}", id=str(i)) for i in (1, 2, 3, 4)], id="conf")
@@ -59,7 +67,7 @@ class ChoicePanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(f"Q{self.n}: choose with ↑↓ and ⏎ (or press A–D).  0 = I don't know.  Full question: Now in Obsidian (o).")
-        opts = [Option(f"[b]{k}[/b]  {to_terminal(v)}".rstrip(), id=k) for k, v in self.options.items()]
+        opts = [Option(f"[b]{k}[/b]  {escape(to_terminal(v))}".rstrip(), id=k) for k, v in self.options.items()]
         yield OptionList(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
         yield Input(placeholder="✎ optional note: why you chose it (Tab to reach, then ⏎ on the list)", id="note",
                     compact=True)
@@ -79,8 +87,17 @@ class ChoicePanel(Panel):
                          "your": "I don't know" if letter == DONT_KNOW else letter, "note": self._note()})
             return
         self.query_one("#choices").display = False
-        self.mount(_hint(f"You chose {letter}. How sure are you? (1–4)"), Confidence())
+        self.mount(_hint(f"You chose {letter}. How sure are you? (1–4, Esc to change your answer)"), Confidence())
         self.query_one(Confidence).focus()
+
+    @on(Confidence.Back)
+    def _back(self) -> None:
+        for w in list(self.query(Confidence)) + [h for h in self.query(".hint") if "How sure" in str(h.render())]:
+            w.remove()
+        self.choice = None
+        ol = self.query_one("#choices", OptionList)
+        ol.display = True
+        ol.focus()
 
     @on(OptionList.OptionSelected, "#conf")
     def _conf(self, event: OptionList.OptionSelected) -> None:
@@ -117,13 +134,23 @@ class ValuePanel(Panel):
         if v in ("?", "idk", "dunno"):
             self.finish({"entry": f"{self.n}?", "your": "I don't know"})
             return
+        if self.kind in ("short", "expression"):
+            v = v.replace(",", ";")  # a comma followed by a number would be read as a new answer
         self.value = v
         if not self.ask_conf:
             self.finish({"entry": f"{self.n} = {v}", "your": v})
             return
         event.input.disabled = True
-        self.mount(_hint("How sure are you? (1–4)"), Confidence())
+        self.mount(_hint("How sure are you? (1–4, Esc to edit your answer)"), Confidence())
         self.query_one(Confidence).focus()
+
+    @on(Confidence.Back)
+    def _back(self) -> None:
+        for w in list(self.query(Confidence)) + [h for h in self.query(".hint") if "How sure" in str(h.render())]:
+            w.remove()
+        box = self.query_one("#value", Input)
+        box.disabled = False
+        box.focus()
 
     @on(OptionList.OptionSelected, "#conf")
     def _conf(self, event: OptionList.OptionSelected) -> None:
@@ -166,7 +193,8 @@ class TickPanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(self.prompt)
-        yield SelectionList[str](*[Selection(to_terminal(label), value, on) for label, value, on in self.items], id="ticks")
+        yield SelectionList[str](*[Selection(escape(to_terminal(label)), value, on) for label, value, on in self.items],
+                                 id="ticks")
         with Horizontal(classes="buttons"):
             for bid, label in self.buttons:
                 yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")
@@ -185,7 +213,7 @@ class ChoosePanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(self.prompt)
-        yield OptionList(*[Option(v, id=k) for k, v in self.options.items()], id="choose")
+        yield OptionList(*[Option(escape(v), id=k) for k, v in self.options.items()], id="choose")
 
     @on(OptionList.OptionSelected, "#choose")
     def _picked(self, event: OptionList.OptionSelected) -> None:
@@ -199,8 +227,9 @@ class ContinuePanel(Panel):
     def __init__(self, prompt: str = "", buttons: list[tuple[str, str]] | None = None) -> None:
         super().__init__(classes="panel short")
         self.prompt = prompt
-        self.buttons = buttons or [("continue", "Continue ⏎"), ("explain", "Explain differently (e)"),
-                                   ("ask", "Ask the tutor (t)")]
+        self.buttons = buttons if buttons is not None else [("continue", "Continue ⏎"),
+                                                            ("explain", "Explain differently (ctrl+r)"),
+                                                            ("ask", "Ask the tutor (ctrl+t)")]
 
     def compose(self) -> ComposeResult:
         if self.prompt:
@@ -210,7 +239,8 @@ class ContinuePanel(Panel):
                 yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")
 
     def action_go(self) -> None:
-        self.finish({"button": self.buttons[0][0]})
+        if self.buttons:  # a waiting message has no buttons: ⏎ does nothing until it's replaced
+            self.finish({"button": self.buttons[0][0]})
 
     @on(Button.Pressed)
     def _pressed(self, event: Button.Pressed) -> None:
@@ -247,9 +277,9 @@ class TextPanel(Panel):
 class WorkedPanel(Panel):
     """Worked example: predict each step (optional), ⏎ reveals it."""
 
-    def __init__(self, total: int) -> None:
+    def __init__(self, total: int, start: int = 1) -> None:
         super().__init__(classes="panel")
-        self.total, self.i = total, 1
+        self.total, self.i = total, max(1, start)
 
     def compose(self) -> ComposeResult:
         yield _hint(self._label())

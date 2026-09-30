@@ -34,10 +34,11 @@ Screen { background: $background; }
 OptionList { height: auto; max-height: 12; border: none; }
 #note { margin-top: 1; }
 SelectionList { height: auto; max-height: 14; }
-TextArea { height: 12; }
+TextArea { height: 1fr; min-height: 4; max-height: 12; }
+.check { color: $warning; padding: 0 0 0 1; }
 #picker, #ask, #summary, #help, #settings { width: 90; max-width: 95%; height: auto; max-height: 90%;
   border: round $accent; background: $surface; padding: 1 2; }
-PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen { align: center middle; }
+PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
 #settings .row { height: auto; margin: 0 0 1 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
 """
@@ -46,7 +47,8 @@ PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen { align: cent
 class TutorApp(App):
     TITLE = "STEM Tutor"
     CSS = CSS
-    BINDINGS = [Binding("ctrl+c", "quit", "Quit", show=False)]
+    BINDINGS = [Binding("ctrl+c", "quit", "Quit", show=False),
+                Binding("ctrl+q", "smart_quit", "Quit", show=False, priority=True)]
 
     def __init__(self, vault: Path | None = None, claude_binary: str | None = None, open_obsidian: bool | None = None,
                  seed: int | None = None):
@@ -88,6 +90,16 @@ class TutorApp(App):
             self.notify(f"Imported from your iPad inbox: {', '.join(imported)}")
         from .screens import HomeScreen
         self.push_screen(HomeScreen())
+        if self.size.width < 90 or self.size.height < 28:
+            self.notify("Tip: make this window bigger (or full-screen) for the best view.", timeout=8)
+
+    def action_smart_quit(self) -> None:
+        """ctrl+q: inside a session it saves and returns to the menu; on the menu it quits."""
+        from .screens import SessionScreen
+        if isinstance(self.screen, SessionScreen):
+            self.screen.action_leave()
+        else:
+            self.exit()
 
     async def on_unmount(self) -> None:
         if hasattr(self, "ai"):

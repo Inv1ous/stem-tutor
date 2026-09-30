@@ -112,3 +112,33 @@ def test_terminal_maths(src, want):
 def test_pretty_units():
     from tutor_app.texmath import pretty_units
     assert pretty_units("0.27 m s^-2") == "0.27 m s⁻²" and pretty_units("kg m^{-3}") == "kg m⁻³"
+
+
+def test_stopping_a_reply_midway_does_not_corrupt_the_next(tmp_path, monkeypatch):
+    c = make(tmp_path, monkeypatch)
+
+    async def go():
+        gen = c.stream("first question")
+        async for _ in gen:
+            break  # the learner moved on before the reply finished
+        await gen.aclose()
+        r = await c.reply("second question")
+        await c.close()
+        return r
+    r = asyncio.run(go())
+    assert r.ok and r.text.endswith("second question")
+
+
+def test_leak_guard_catches_more_phrasings():
+    assert ai.leaks("**B** is correct here", "B: 0.35 kg", "mcq")
+    assert ai.leaks("so it's about 19.60 m/s", "19.6 m s-1", "numeric")
+    assert not ai.leaks("start from v = u + at with u = 0", "19.6 m s-1", "numeric")
+
+
+def test_ai_comes_back_after_a_limit_block(tmp_path, monkeypatch):
+    from datetime import datetime, timedelta
+    c = make(tmp_path, monkeypatch, mode="limit")
+    collect(c, "x")
+    assert not c.available
+    c.blocked_until = datetime.now() - timedelta(seconds=1)
+    assert c.available

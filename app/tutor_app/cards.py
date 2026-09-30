@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from rich.console import Group
 from rich.markdown import Markdown
+from rich.markup import escape
 from rich.panel import Panel
 from rich.text import Text
 
@@ -18,7 +19,7 @@ def md(text: str) -> Markdown:
 
 
 def card(kind: str, title: str, body: str = "", subtitle: str | None = None) -> Panel:
-    return Panel(md(body) if body else Text(""), title=f"[b]{title}[/b]", title_align="left",
+    return Panel(md(body) if body else Text(""), title=f"[b]{escape(title)}[/b]", title_align="left",
                  subtitle=subtitle, subtitle_align="right", border_style=C[kind], padding=(0, 1))
 
 
@@ -35,15 +36,17 @@ def question(view: dict) -> Panel:
         parts.append(Text("◆ This question has a figure: see Now in Obsidian (press o).", style=C["hint"]))
     if view.get("source"):
         parts.append(Text(view["source"], style=C["dim"]))
-    return Panel(Group(*parts), title=f"[b]Q{n}[/b] · {' · '.join(tags)}", title_align="left",
+    return Panel(Group(*parts), title=f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left",
                  border_style=C["question"], padding=(0, 1))
 
 
 def feedback(fb: dict, your: str) -> Panel:
     ok = fb.get("correct")
     dont_know = your.strip() in ("?", "I don't know")
-    title = "I don't know — here's the answer" if dont_know else ("Correct ✓" if ok else "Not quite ✗")
-    style = C["good"] if ok else (C["hint"] if dont_know else C["bad"])
+    partial = fb.get("partial")
+    title = ("I don't know — here's the answer" if dont_know else "Correct ✓" if ok else
+             "Right value, but a mark lost ✗" if partial else "Not quite ✗")
+    style = C["good"] if ok else (C["hint"] if dont_know or partial else C["bad"])
     body = [f"**Your answer:** {pretty_units(your)}  ", f"**Answer:** {pretty_units(str(fb.get('answer', '')))}  "]
     if fb.get("detail"):
         body.append(f"**Exam point:** {fb['detail']}  ")
@@ -55,7 +58,8 @@ def feedback(fb: dict, your: str) -> Panel:
         if mis.get("contrast"):
             body.append(f"_Compare:_ {mis['contrast']}")
     if fb.get("official_key_only") and not fb.get("explanation"):
-        body += ["", fb.get("examiner") or "Past-paper question: official answer only (press e for an AI explanation)."]
+        body += ["", fb.get("examiner") or "Past-paper question: official answer only (the 'Explain this answer' "
+                                             "button asks the AI tutor why)."]
     if fb.get("hypercorrect"):
         body += ["", "⚑ You were confident but wrong: this is the best moment to fix the idea. Ask why (t)."]
     if fb.get("calibration_note"):

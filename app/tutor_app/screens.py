@@ -118,6 +118,23 @@ class HomeScreen(Screen):
     def pick(self, event: OptionList.OptionSelected) -> None:
         key = event.option.id
         app = self.app
+        s = app.tutor.session
+        if key in ("learn", "review", "test", "long", "blurt") and s and s.get("answered"):
+            def decided(choice: str | None) -> None:
+                if choice == "resume":
+                    app.push_screen(SessionScreen(None))
+                elif choice == "new":
+                    app.tutor.end(abandoned=True)
+                    self.refresh_home()
+                    self._start(key)
+            app.push_screen(ConfirmScreen(f"You have an unfinished {s['mode']} session ({s['answered']} answered).",
+                                          [("resume", "Resume it"), ("new", "Abandon it and start this"),
+                                           ("cancel", "Cancel")]), decided)
+            return
+        self._start(key)
+
+    def _start(self, key: str) -> None:
+        app = self.app
         if key == "resume":
             app.push_screen(SessionScreen(None))
         elif key == "learn":
@@ -191,13 +208,18 @@ class PickerScreen(ModalScreen):
         chosen = list(self.query_one("#subs", SelectionList).selected)
         if chosen:
             self.dismiss(chosen)
+        else:
+            self.app.notify("Tick at least one subtopic (space), then Start.", timeout=5)
 
 
 # ============================ Session ============================
 class SessionScreen(Screen):
-    BINDINGS = [Binding("t", "ask", "Ask tutor"), Binding("e", "explain", "Explain differently"),
-                Binding("h", "hint", "Hint"), Binding("o", "obsidian", "Show in Obsidian"),
-                Binding("question_mark", "app.help", "Help"), Binding("ctrl+q", "leave", "Save & menu")]
+    BINDINGS = [Binding("ctrl+t", "ask", "Ask tutor", priority=True), Binding("ctrl+g", "hint", "Hint", priority=True),
+                Binding("ctrl+r", "explain", "Re-explain", priority=True),
+                Binding("ctrl+o", "obsidian", "Obsidian", priority=True),
+                Binding("ctrl+b", "leave", "Save & menu", priority=True),
+                Binding("t", "ask", show=False), Binding("e", "explain", show=False), Binding("h", "hint", show=False),
+                Binding("o", "obsidian", show=False), Binding("question_mark", "app.help", "Help")]
 
     def __init__(self, start: dict | None) -> None:
         super().__init__()
@@ -245,6 +267,12 @@ class SessionScreen(Screen):
                 "review": "Spaced review: the ideas that are due, mixed together. No hints on the first try.",
                 "test": "One question on every syllabus point, then we fix only what you miss.",
                 "long": "Exam-style long questions: write your answer, then mark it against the scheme."}.get(mode, "")))
+        elif t.session:  # resuming: say so, show where things were, keep the real elapsed time
+            from datetime import datetime as _dt
+            started = _dt.fromisoformat(t.session["started"])
+            self.started = time.monotonic() - max(0.0, (t.now() - started).total_seconds())
+            self.say(cards.card("tutor", "Welcome back",
+                                f"Carrying on your {t.session['mode']} session: {t.session.get('answered', 0)} answered so far."))
         if self.app.settings.open_obsidian:
             mac.open_in_obsidian(self.app.vault, "Now")
         self.set_interval(1, self.update_bar)
@@ -287,8 +315,10 @@ class SessionScreen(Screen):
         kind = act["activity"]
         kc = act.get("kc") or (t.session["presented"][str(act["items"][0]["n"])]["kcs"][0]
                                if kind in ("questions", "awaiting") and act.get("items") else self.kc)
-        if kind == "explain" and act.get("part") == "motivate":  # a new idea: fresh AI memory, cheaper context
-            self.run_worker(self.app.ai.reset(), group="reset")
+        cursor = (t.session or {}).get("cursor")
+        if (kind == "explain" and act.get("part") == "motivate") or cursor != getattr(self, "last_cursor", cursor):
+            self.run_worker(self.app.ai.reset(), group="reset")  # new idea or block: fresh AI memory, small context
+        self.last_cursor = cursor
         self.kc = kc
         self.update_bar()
         if kind in ("questions", "awaiting"):
@@ -307,12 +337,15 @@ class SessionScreen(Screen):
             lines = [act["approach"], ""] + [f"- {'✓ you know: ' if n['known'] else ''}{n['title']}" for n in act["nodes"]]
             self.say(cards.card("plan", f"Plan: {act['title']}", "\n".join(lines),
                                 subtitle="the concept map is in Obsidian → Now"))
+            self.prepare_cards(act["default_teach"])  # AI teaching cards (if needed) start while you read the plan
             self.panel(TickPanel("Ticked ideas will be taught (space to change). Then ⏎ on Start.",
                                  [(n["title"], n["kc"], n["kc"] in act["default_teach"]) for n in act["nodes"]],
                                  [("start", "Start lesson ⏎")]))
         elif kind in ("worked", "walkthrough"):
             self.say(cards.card("tutor", "Worked example", act.get("problem") or "Walk through it step by step."))
-            self.panel(WorkedPanel(len(act["steps"])))
+            for i, st in enumerate(act["steps"][:act.get("revealed", 0)], 1):  # steps already seen before a resume
+                self.say(cards.card("tutor", f"Step {i}", f"{st['do']}\n\n_{st.get('why', '')}_"))
+            self.panel(WorkedPanel(len(act["steps"]), start=act.get("revealed", 0) + 1))
         elif kind == "refute":
             m = act["misconceptions"][0]
             m = m if isinstance(m, dict) else {"statement": m}
@@ -400,6 +433,7 @@ class SessionScreen(Screen):
                 self.say(cards.you(data["text"]))
                 self.respond({"text": data["text"]})
                 if self.app.settings.own_words_feedback and self.ai_ok():
+                    self.panel(ContinuePanel("The tutor is reading your explanation…", buttons=[]))
                     self.stream(prompts.own_words(self.tutor, self.kc, data["text"]), then_continue=True)
                     return
             else:
@@ -407,7 +441,10 @@ class SessionScreen(Screen):
             self.advance()
         elif kind == "stuck" and data.get("button") == "talk":
             self.chatting = True
-            self.stream(prompts.stuck(self.tutor, self.kc, []))
+            blocks = (self.tutor.session or {}).get("blocks", [])
+            idx = self.act.get("block_idx")
+            mistakes = blocks[idx].get("mistakes", []) if idx is not None and idx < len(blocks) else []
+            self.stream(prompts.stuck(self.tutor, self.kc, mistakes))
             self.panel(TextPanel("Reply to the tutor (⏎ to send). Press the button when you're ready to move on.",
                                  done_label="I'm ready to move on"))
         elif self.chatting and data.get("text"):
@@ -437,6 +474,9 @@ class SessionScreen(Screen):
         if out.get("ok") is False:
             self.app.notify(out["error"], severity="error")
             return
+        if len(out["results"]) > 1:
+            self.app.notify("Your answer was read as several parts. Please avoid commas between numbers and try again.",
+                            severity="warning", timeout=7)
         r = out["results"][0]
         if r.get("error"):
             self.app.notify(r["error"], severity="warning", timeout=6)
@@ -466,7 +506,7 @@ class SessionScreen(Screen):
             self.panel(ContinuePanel(buttons=[("breakok", "Keep going ⏎"), ("leave", "Save and stop for now")]))
         else:
             buttons = [("next", "Next ⏎")] + ([("why", "Explain this answer (AI)")] if self.ai_ok() else []) + \
-                      [("ask", "Ask the tutor (t)")]
+                      [("ask", "Ask the tutor (ctrl+t)")]
             self.panel(ContinuePanel(buttons=buttons))
 
     # ---------- written answers ----------
@@ -475,7 +515,7 @@ class SessionScreen(Screen):
         n = view["n"]
         points = pending.get("rubric", [])
         if self.ai_ok():
-            self.say(cards.note("Checking your wording against the mark points…", "dim"))
+            self.panel(ContinuePanel("Checking your wording against the mark points…", buttons=[]))
             res, _ = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, data.get("your", "")),
                                                 schema=prompts.JUDGE)
             if res and res.get("points"):
@@ -486,7 +526,7 @@ class SessionScreen(Screen):
                 fb["explanation"] = (res.get("feedback", "") + "\n\n" + "\n".join(
                     f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}" for p in res["points"])).strip()
                 self.say(cards.feedback(fb, data.get("your", "")))
-                self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (t)")]))
+                self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")]))
                 return
         self.pending_short = (n, data, max(1, len(points)))
         self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ⏎ on Done.",
@@ -498,7 +538,7 @@ class SessionScreen(Screen):
             self.pending_short = None
             out = self.tutor.answer(d["entry"], judge={n: len(data["ticked"]) / total})
             self.say(cards.feedback(out["results"][0], d.get("your", "")))
-            self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (t)")]))
+            self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")]))
             return
         n = self.view["n"]
         if data.get("button") == "ai":
@@ -507,7 +547,7 @@ class SessionScreen(Screen):
         out = self.tutor.answer(f"{n} pts=" + ",".join(data["ticked"]) if data["ticked"] else f"{n} pts=")
         fb = out["results"][0]
         self.say(cards.feedback(fb, f"{len(data['ticked'])} mark point(s) claimed"))
-        self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (t)")]))
+        self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")]))
 
     def long_written(self, data: dict) -> None:
         text = data.get("text", "")
@@ -522,7 +562,7 @@ class SessionScreen(Screen):
 
     @work(exclusive=True, group="judge")
     async def ai_check_long(self, data: dict) -> None:
-        self.say(cards.note("The AI examiner is marking your answer…", "dim"))
+        self.panel(ContinuePanel("The AI examiner is marking your answer…", buttons=[]))
         points = [f"{p.get('mark', '')} {p.get('point', '')}" for p in self.scheme]
         res, r = await self.app.ai.one_shot(prompts.judge(self.view.get("stem", ""), points, self.long_text),
                                             schema=prompts.JUDGE)
@@ -573,7 +613,7 @@ class SessionScreen(Screen):
                 log.tutor(buf, title="Tutor (AI)")
         self.update_bar()
         if then_continue:
-            self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎"), ("ask", "Ask the tutor (t)")]))
+            self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎"), ("ask", "Ask the tutor (ctrl+t)")]))
 
     def prepare_cards(self, kcs: list[str]) -> None:
         """Ideas without a pre-built teaching card get one written by AI in the background (once, then cached)."""
@@ -668,6 +708,26 @@ class SummaryScreen(ModalScreen):
             yield Markdown(text)
 
 
+class ConfirmScreen(ModalScreen):
+    BINDINGS = [Binding("escape", "dismiss(None)", "Cancel")]
+
+    def __init__(self, question: str, choices: list[tuple[str, str]]) -> None:
+        super().__init__()
+        self.question, self.choices = question, choices
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="ask"):
+            yield Static(self.question, classes="hint")
+            yield OptionList(*[Option(label, id=cid) for cid, label in self.choices], id="confirm")
+
+    def on_mount(self) -> None:
+        self.query_one("#confirm", OptionList).focus()
+
+    @on(OptionList.OptionSelected, "#confirm")
+    def chose(self, event: OptionList.OptionSelected) -> None:
+        self.dismiss(event.option.id)
+
+
 class AskScreen(ModalScreen):
     BINDINGS = [Binding("escape", "dismiss(None)", "Cancel")]
 
@@ -694,6 +754,9 @@ class ChatScreen(Screen):
         with Container(id="panel"):
             yield TextPanel("Type a question and ⏎. Esc returns to the menu.")
         yield Footer()
+
+    def on_mount(self) -> None:
+        self.run_worker(self.app.ai.reset(), group="reset")  # chat never inherits a lesson's context
 
     @on(Panel.Done)
     def sent(self, event: Panel.Done) -> None:
@@ -818,8 +881,9 @@ class HelpScreen(ModalScreen):
 **↑ ↓** move · **⏎** choose / continue · **A–D** pick an option · **0** I don't know · **1–4** confidence
 (1 guess, 2 unsure, 3 fairly sure, 4 certain) · **space** tick a box
 
-**t** ask the tutor (AI) · **e** explain this idea differently (AI) · **h** hint (not on no-hints checks)
-**o** show the current question or explanation in Obsidian · **ctrl+q** save and go back to the menu
+**ctrl+t** ask the tutor (AI) · **ctrl+r** explain this idea again, differently (AI) · **ctrl+g** hint (not on
+no-hints checks) · **ctrl+o** show the current question or explanation in Obsidian · **ctrl+b** or **ctrl+q** save
+and go back to the menu. These work even while you are typing; when you are not typing, **t e h o** do the same.
 **?** this help · **F2** settings · **q** quit (from the menu)
 
 # Where to look
@@ -864,9 +928,17 @@ class SettingsScreen(ModalScreen):
         s = self.app.settings
         for key in ("ai", "own_words_feedback", "open_obsidian"):
             setattr(s, key, self.query_one(f"#{key}", Switch).value)
+        def num(wid: str, default: int, lo: int, hi: int) -> int:
+            try:
+                return min(hi, max(lo, int(self.query_one(wid, Input).value)))
+            except ValueError:
+                return default
+        old_model = s.model
         s.model = str(self.query_one("#model", Select).value)
-        s.daily_cap = int(self.query_one("#cap", Input).value or 80)
-        s.minutes = int(self.query_one("#minutes", Input).value or 40)
+        s.daily_cap = num("#cap", 80, 1, 500)
+        s.minutes = num("#minutes", 40, 5, 180)
         s.save(self.app.vault)
         self.app.ai.model, self.app.ai.daily_cap = s.model, s.daily_cap
+        if s.model != old_model:
+            self.run_worker(self.app.ai.reset(), group="reset")
         self.dismiss(None)

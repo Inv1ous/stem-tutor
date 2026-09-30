@@ -12,7 +12,7 @@ import os
 import re
 import shutil
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import AsyncIterator
 
@@ -89,26 +89,46 @@ class Claude:
     def today(self) -> dict:
         key = date.today().isoformat()
         if getattr(self, "_today", (None,))[0] != key:  # read the file once a day, not every second
-            data = json.loads(self.usage_file.read_text()) if self.usage_file and self.usage_file.exists() else {}
-            self._today = (key, data.get(key, {"replies": 0, "input": 0, "cached": 0, "output": 0}))
+            self._today = (key, self._load().get(key, {"replies": 0, "input": 0, "cached": 0, "output": 0}))
         return self._today[1]
+
+    def _load(self) -> dict:
+        try:
+            data = json.loads(self.usage_file.read_text()) if self.usage_file and self.usage_file.exists() else {}
+            return data if isinstance(data, dict) else {}
+        except (OSError, ValueError):  # a damaged counter file must never stop the app
+            return {}
 
     def _record_day(self, u: dict) -> None:
         if not self.usage_file:
             return
-        data = json.loads(self.usage_file.read_text()) if self.usage_file.exists() else {}
+        data = self._load()
         d = data.setdefault(date.today().isoformat(), {"replies": 0, "input": 0, "cached": 0, "output": 0})
         d["replies"] += 1
         d["input"] += int(u.get("input_tokens") or 0) + int(u.get("cache_creation_input_tokens") or 0)
         d["cached"] += int(u.get("cache_read_input_tokens") or 0)
         d["output"] += int(u.get("output_tokens") or 0)
-        self.usage_file.parent.mkdir(parents=True, exist_ok=True)
-        self.usage_file.write_text(json.dumps(dict(sorted(data.items())[-60:]), indent=1))
+        from tutorlib.store import write_text
+        write_text(self.usage_file, json.dumps(dict(sorted(data.items())[-60:]), indent=1))
         self._today = (date.today().isoformat(), d)
 
     @property
     def available(self) -> bool:
+        if self.status in ("login", "limit") and datetime.now() >= getattr(self, "blocked_until", datetime.max):
+            self.status, self.message = "ready", ""  # try again: you may have signed in, or the limit reset
         return self.status == "ready" and self.today()["replies"] < self.daily_cap
+
+    def _block(self, status: str, text: str) -> None:
+        now = datetime.now()
+        until = now + timedelta(minutes=3)
+        if status == "limit" and (when := reset_time(text)):
+            try:
+                t = datetime.strptime(when.replace(" ", "").upper(), "%I:%M%p" if ":" in when else "%I%p").time()
+                until = datetime.combine(now.date(), t)
+                until += timedelta(days=1) if until <= now else timedelta(0)
+            except ValueError:
+                until = now + timedelta(minutes=30)
+        self.blocked_until = until
 
     # ---------------- process ----------------
     async def _start(self) -> None:
@@ -153,49 +173,65 @@ class Claude:
                 self.proc = None
                 self.last = Result(ok=False, status="error", message="The AI process stopped; try again.")
                 return
-            parts, streamed = [], False
-            while True:
-                line = await proc.stdout.readline()
-                if not line:
-                    self.proc = None
-                    self.last = Result(ok=False, status="error", text="".join(parts),
-                                       message="The AI process ended unexpectedly; try again.")
+            parts, finished = [], False
+            try:
+                async for piece in self._read(proc, parts):
+                    yield piece
+                finished = True
+            except asyncio.TimeoutError:
+                self.last = Result(ok=False, status="error", text="".join(parts),
+                                   message="The AI took too long to answer; try again.")
+            finally:
+                if not finished:  # stopped mid-reply: the rest would leak into the next answer, so start fresh
+                    await self.reset()
+
+    async def _read(self, proc, parts: list) -> AsyncIterator[str]:
+        """Read one reply's events up to its result (sets self.last)."""
+        streamed = False
+        while True:
+            line = await asyncio.wait_for(proc.stdout.readline(), 120)
+            if not line:
+                self.proc = None
+                self.last = Result(ok=False, status="error", text="".join(parts),
+                                   message="The AI process ended unexpectedly; try again.")
+                return
+            try:
+                ev = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            kind = ev.get("type")
+            if kind == "stream_event":
+                e = ev.get("event", {})
+                if e.get("type") == "content_block_delta" and e.get("delta", {}).get("type") == "text_delta":
+                    streamed = True
+                    parts.append(e["delta"]["text"])
+                    yield e["delta"]["text"]
+            elif kind == "assistant" and not streamed:
+                for block in ev.get("message", {}).get("content", []) or []:
+                    if block.get("type") == "text" and block.get("text"):
+                        parts.append(block["text"])
+            elif kind == "result":
+                usage = ev.get("usage") or {}
+                if ev.get("is_error"):
+                    text = ev.get("result") or "".join(parts)
+                    status = classify(text)
+                    self.status = status if status in ("login", "limit") else "ready"
+                    if status in ("login", "limit"):
+                        self._block(status, text)
+                    when = reset_time(text)
+                    self.message = LOGIN_HELP if status == "login" else (
+                        f"Your Claude usage limit is reached{f' (resets {when})' if when else ''}; "
+                        "AI help pauses, everything else carries on." if status == "limit" else text)
+                    self.last = Result(ok=False, status=status, message=self.message, usage=usage)
+                    if status != "error":
+                        await self.reset()
                     return
-                try:
-                    ev = json.loads(line)
-                except json.JSONDecodeError:
-                    continue
-                kind = ev.get("type")
-                if kind == "stream_event":
-                    e = ev.get("event", {})
-                    if e.get("type") == "content_block_delta" and e.get("delta", {}).get("type") == "text_delta":
-                        streamed = True
-                        parts.append(e["delta"]["text"])
-                        yield e["delta"]["text"]
-                elif kind == "assistant" and not streamed:
-                    for block in ev.get("message", {}).get("content", []) or []:
-                        if block.get("type") == "text" and block.get("text"):
-                            parts.append(block["text"])
-                elif kind == "result":
-                    usage = ev.get("usage") or {}
-                    if ev.get("is_error"):
-                        text = ev.get("result") or "".join(parts)
-                        status = classify(text)
-                        self.status = status if status in ("login", "limit") else "ready"
-                        when = reset_time(text)
-                        self.message = LOGIN_HELP if status == "login" else (
-                            f"Your Claude usage limit is reached{f' (resets {when})' if when else ''}; "
-                            "AI help pauses, everything else carries on." if status == "limit" else text)
-                        self.last = Result(ok=False, status=status, message=self.message, usage=usage)
-                        if status != "error":
-                            await self.reset()
-                        return
-                    if not streamed and parts:
-                        yield "".join(parts)
-                    self.session.add(usage)
-                    self._record_day(usage)
-                    self.last = Result(text=ev.get("result") or "".join(parts), usage=usage)
-                    return
+                if not streamed and parts:
+                    yield "".join(parts)
+                self.session.add(usage)
+                self._record_day(usage)
+                self.last = Result(text=ev.get("result") or "".join(parts), usage=usage)
+                return
 
     async def reply(self, prompt: str) -> Result:
         async for _ in self.stream(prompt):
@@ -211,7 +247,11 @@ class Claude:
             args += ["--json-schema", json.dumps(schema)]
         proc = await asyncio.create_subprocess_exec(self.binary, *args, cwd=str(self.cwd), stdin=asyncio.subprocess.PIPE,
                                                     stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL)
-        out, _ = await proc.communicate(prompt.encode())
+        try:
+            out, _ = await asyncio.wait_for(proc.communicate(prompt.encode()), 120)
+        except (asyncio.TimeoutError, asyncio.CancelledError):
+            proc.kill()
+            return None, Result(ok=False, status="error", message="The AI took too long to answer.")
         try:
             ev = json.loads(out.decode() or "{}")
         except json.JSONDecodeError:
@@ -220,6 +260,7 @@ class Claude:
             status = classify(ev.get("result", ""))
             if status in ("login", "limit"):
                 self.status = status
+                self._block(status, ev.get("result", ""))
                 self.message = LOGIN_HELP if status == "login" else "Your Claude usage limit is reached."
             return None, Result(ok=False, status=status, message=ev.get("result", ""))
         usage = ev.get("usage") or {}
@@ -247,13 +288,26 @@ def first_json(text: str) -> dict | None:
 
 
 def leaks(reply: str, key: str, kind: str) -> bool:
-    """True when a reply gives away an open question's answer."""
+    """True when a reply gives away an open question's answer (letter, option text or final value)."""
     if not key:
         return False
+    text = re.sub(r"[*_`$\\]", "", reply)
     if kind == "mcq":
-        letter, _, text = key.partition(": ")
-        if re.search(rf"\b(answer|option|choice)\s+(is|would be|=)\s*\(?{re.escape(letter)}\b", reply, re.I):
+        letter, _, opt = key.partition(": ")
+        pats = [rf"\b(answer|option|choice|it)\s*(is|would be|must be|=|:)\s*\(?{re.escape(letter)}\b",
+                rf"\b\(?{re.escape(letter)}\)?\s+is\s+(correct|right|the answer)"]
+        if any(re.search(p, text, re.I) for p in pats):
             return True
-        return len(text) > 6 and text.strip().lower() in reply.lower()
-    num = key.split()[0]
-    return bool(re.match(r"-?\d", num)) and re.search(rf"(?<![\d.]){re.escape(num)}(?!\d)", reply) is not None
+        clean = re.sub(r"[*_`$\\]", "", opt).strip().lower()
+        return len(clean) > 6 and clean in text.lower()
+    m = re.match(r"-?\d+(?:\.\d+)?(?:e-?\d+)?", key.split()[0]) if key else None
+    if not m:
+        return False
+    target = float(m.group(0))
+    for num in re.findall(r"-?\d+(?:\.\d+)?(?:e-?\d+)?", text):
+        try:
+            if abs(float(num) - target) <= max(abs(target) * 0.01, 1e-12):
+                return True
+        except ValueError:
+            continue
+    return False

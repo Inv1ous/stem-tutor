@@ -189,3 +189,84 @@ def test_short_answer_self_judged_when_ai_is_off(tmp_path, monkeypatch):
             ev = [e for e in t.vault.events() if e["type"] == "answer"][-1]
             assert ev["grade"]["score"] == 0.5
     asyncio.run(go())
+
+
+def _menu(app, key):
+    menu = app.screen.query_one("#menu")
+    menu.highlighted = [o.id for o in menu.options].index(key)
+
+
+def test_ctrl_keys_work_while_typing_and_ctrl_q_returns_to_menu(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            await pilot.press("enter", "enter")  # learn -> the only subtopic
+            await pilot.pause()
+            for _ in range(20):  # walk to the first typed-answer panel
+                panel = next(iter(app.screen.query("#panel > *")), None)
+                if isinstance(panel, ValuePanel):
+                    break
+                if isinstance(panel, ChoosePanel):
+                    await pilot.press("enter")
+                elif isinstance(panel, ChoicePanel):
+                    await pilot.press("b"); await pilot.pause(); await pilot.press("3")
+                elif isinstance(panel, (ContinuePanel, TickPanel)):
+                    panel.query("Button").first().press()
+                elif isinstance(panel, ReflectPanel):
+                    await pilot.press("1")
+                elif isinstance(panel, WorkedPanel):
+                    await pilot.press("enter")
+                elif isinstance(panel, TextPanel):
+                    await pilot.press(*"words", "enter")
+                await pilot.pause()
+            assert isinstance(panel, ValuePanel)
+            await pilot.press("4", "ctrl+t")
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "AskScreen"
+            await pilot.press("escape")
+            await pilot.pause()
+            await pilot.press("ctrl+q")
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "HomeScreen" and app.is_running
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_blurt_shows_what_you_remembered(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            _menu(app, "blurt")
+            await pilot.press("enter")
+            await pilot.pause()
+            await pilot.press("enter")  # the only subtopic
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "BlurtScreen"
+            await pilot.press(*"displacement is a vector with direction", "ctrl+s")
+            await pilot.pause()
+            await shot(pilot, "blurt")
+            assert any(e["type"] == "blurt" for e in app.tutor.vault.events())
+            assert len(app.screen.query(".entry")) >= 3
+    asyncio.run(go())
+
+
+def test_starting_something_new_asks_before_abandoning(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            app.tutor.start("test", minutes=20, focus=["9702-2.1"])
+            act = app.tutor.next()
+            q = act["items"][0]
+            app.tutor.answer(f"{q['n']}?")
+            app.screen.refresh_home()
+            _menu(app, "learn")
+            await pilot.press("enter")
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "ConfirmScreen"
+    asyncio.run(go())

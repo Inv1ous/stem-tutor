@@ -27,10 +27,15 @@ class Settings:
     @classmethod
     def load(cls, vault: Path) -> "Settings":
         p = vault / ".tutor" / "app_settings.json"
-        data = json.loads(p.read_text()) if p.exists() else {}
-        return cls(**{k: v for k, v in data.items() if k in cls.__dataclass_fields__})
+        try:
+            data = json.loads(p.read_text()) if p.exists() else {}
+        except (OSError, ValueError):  # a damaged settings file falls back to defaults
+            data = {}
+        default = cls()
+        good = {k: v for k, v in (data if isinstance(data, dict) else {}).items()
+                if k in cls.__dataclass_fields__ and type(v) is type(getattr(default, k))}
+        return cls(**good)
 
     def save(self, vault: Path) -> None:
-        p = vault / ".tutor" / "app_settings.json"
-        p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps(asdict(self), indent=1))
+        from tutorlib.store import write_text
+        write_text(vault / ".tutor" / "app_settings.json", json.dumps(asdict(self), indent=1))
