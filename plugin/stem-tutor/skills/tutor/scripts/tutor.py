@@ -38,13 +38,9 @@ from pathlib import Path
 sys.dont_write_bytecode = True  # no __pycache__ inside the learner's synced folder
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # keep symlinked mount paths as given
 
-from tutorlib import anki, diagnose, experiments, lint, report, store  # noqa: E402
+from tutorlib import anki, diagnose, lint, report, store, weekly  # noqa: E402
 from tutorlib.session import Tutor  # noqa: E402
 
-EXPERIMENT_QUEUE = [
-    {"arms": ["worked_faded", "problem_first"], "eligible": {"types": ["conceptual", "procedural"], "theta_min": 0.3}},
-    {"arms": ["pretest_explain", "worked_faded"], "eligible": {"types": ["conceptual"]}},
-]
 UPLOAD = re.compile(r"\.(pdf|png|jpe?g|heic)$", re.I)
 
 
@@ -283,38 +279,10 @@ def cmd_anki(args) -> None:
         out(anki.export(tutor(v)))
 
 
-def _maybe_start_experiments(t: Tutor) -> list[str]:
-    started = []
-    for subject in ("chem", "phys", "math"):
-        if experiments.active(t.state, subject):
-            continue
-        done = [n for n, e in t.state["experiments"].items() if e["subject"] == subject]
-        introduced = [k for k, s in t.state["kcs"].items() if s["n"] and k in t.packs.kcs
-                      and t.packs.kc(k)["subject"] == subject]
-        if len(done) < len(EXPERIMENT_QUEUE) and len(introduced) >= 5:
-            name = f"{subject}-{len(done) + 1}"
-            t.log({"type": "exp_start", "exp": name, "subject": subject, "target_pairs": 12,
-                   **EXPERIMENT_QUEUE[len(done)]})
-            started.append(name)
-    for name, exp in t.state["experiments"].items():
-        r = experiments.analyze(exp)
-        if exp["status"] == "running" and r["decision"] not in ("pending",):
-            t.log({"type": "exp_end", "exp": name, "result": r})
-    return started
-
-
 def cmd_week(args) -> None:
     v = vault()
     with v.lock():
-        t = tutor(v)
-        started = _maybe_start_experiments(t)
-        res = {"today": report.today_note(t), "profile": report.profile_note(t), "experiments_started": started}
-        last = max((e["ts"] for e in v.events() if e["type"] == "anki_export"), default=None)
-        if last is None or (t.now() - datetime.fromisoformat(last)).days >= 6:
-            res["anki"] = anki.export(t)
-        if (v.root / "Almanac").exists() and any((v.root / "Almanac").glob("almanac-progress-*.json")):
-            res["almanac"] = report.almanac_sync(t)
-        out(res)
+        out(weekly.run(tutor(v)))
 
 
 def cmd_rebuild(args) -> None:

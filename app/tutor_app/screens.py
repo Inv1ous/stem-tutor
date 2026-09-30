@@ -48,6 +48,11 @@ class HomeScreen(Screen):
         self.refresh_home()
 
     def on_mount(self) -> None:
+        app = self.app
+        lessons = app.vault / "Lessons"
+        views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(),
+                         sorted((str(f.relative_to(app.vault)) for f in lessons.glob("*.md")), reverse=True)
+                         if lessons.exists() else [])
         self.refresh_home()
 
     def refresh_home(self) -> None:
@@ -578,6 +583,11 @@ class SessionScreen(Screen):
 
     def finish(self) -> None:
         summary = self.tutor.end()
+        try:
+            from tutorlib import weekly
+            summary["week"] = weekly.run(self.tutor)  # Today/Profile notes, experiments, Anki export when due
+        except Exception as exc:  # bookkeeping must never cost you the session
+            summary["week"] = {"error": str(exc)}
         self.app.switch_screen(SummaryScreen(summary))  # closing the summary lands back on the menu
 
 
@@ -601,6 +611,9 @@ class SummaryScreen(ModalScreen):
                 + f"**Due for review by tomorrow:** {len(due)} idea(s)\n\n"
                 + f"**AI used this session:** {a.session.replies} replies, "
                   f"{a.session.input_tokens + a.session.output_tokens} new tokens ({a.session.cached_tokens} cached)\n\n"
+                + (f"**New Anki cards ({(s.get('week') or {})['anki']['cards']}):** double-click "
+                   f"`{(s.get('week') or {})['anki']['path']}` in the tutor folder to import them.\n\n"
+                   if ((s.get("week") or {}).get("anki") or {}).get("path") else "")
                 + "Your notes and the full lesson are in Obsidian (Home → Recent lessons). Press ⏎ for the menu.")
         with Vertical(id="summary"):
             yield Markdown(text)

@@ -1,11 +1,11 @@
 # Build status
 
 ## Overnight build (2026-09-29 → 30) — terminal app; plan: ~/.claude/plans/can-you-continue-what-polished-swing.md
-- [ ] 1 Vault moved to `~~ AI Workflow/STEM Tutor` (local vault, Obsidian config, publish default, iCloud inbox)
-- [ ] 2 Engine: texmath, views (Now/Lessons/My Notes/Home), lesson flow, teach-card fallback, inbox import (+tests)
-- [ ] 3 AI client (persistent headless Claude, lean flags) + prompts (+fake-claude tests)
-- [ ] 4 Textual app (+pilot tests, screenshots)
-- [ ] 5 Launcher (`bin/tutor`, `Start Tutor.command`) + `doctor`
+- [x] 1 Vault moved to `~~ AI Workflow/STEM Tutor` (local vault, Obsidian config, publish default, iCloud inbox)
+- [x] 2 Engine: texmath, views (Now/Lessons/My Notes/Home), lesson flow, teach-card fallback, inbox import (+tests)
+- [x] 3 AI client (persistent headless Claude, lean flags) + prompts (+fake-claude tests)
+- [x] 4 Textual app (+pilot tests, screenshots)
+- [x] 5 Launcher (`bin/tutor`, `Start Tutor.command`) + `doctor`
 - [ ] 6 Teach cards for the 7 packs (Sonnet) + validate + publish
 - [ ] 7 How It Works.md, Home.md, README, memory
 - [ ] 8 Final offline E2E, commit, morning summary

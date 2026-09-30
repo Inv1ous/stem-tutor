@@ -64,6 +64,11 @@ def publish(vault: Path) -> dict:
     engine = tutor / "engine"  # remote Cowork runs the engine inside the connected folder (device_bash)
     shutil.rmtree(engine, ignore_errors=True)
     shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", engine, ignore=shutil.ignore_patterns("__pycache__"))
+    launcher = vault / "Start Tutor.command"  # double-click in Finder to open the terminal app
+    launcher.write_text("#!/bin/bash\n# Opens the STEM Tutor terminal app in a roomy Terminal window.\n"
+                        "printf '\\e[8;46;140t'\n"
+                        f'exec "{ROOT / "bin" / "tutor"}"\n')
+    launcher.chmod(0o755)
     (packs / "CURRENT").write_text(version)  # flip last
     for old in sorted(p for p in packs.glob("v*") if p.name != version)[:-2]:
         shutil.rmtree(old)  # keep the two previous versions for rollback
