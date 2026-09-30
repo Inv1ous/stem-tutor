@@ -204,7 +204,7 @@ def _grade_numeric(item, resp):
         if _close(value, d["value"], tol) or _rounded_to(value, d["value"], n):
             return _result(False, 0, d.get("error", "CONCEPT"), d.get("misconception"))
     if value and target:
-        k = math.log10(abs(value / target))
+        k = math.log10(abs(value)) - math.log10(abs(target))  # not log(value / target): 1e308 / 7.5e-7 overflows
         if abs(k - round(k)) < 0.01 and round(k) != 0 and value * target > 0:
             return _result(False, 0, "NOTATION", detail=f"power of ten off by {round(k)}")
         if _close(-value, target, tol):

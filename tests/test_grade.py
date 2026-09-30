@@ -398,3 +398,9 @@ def test_keywords_alone_never_mark_a_short_answer_right():  # B-024
     swapped = "Velocity is the rate of change of velocity. Acceleration is the rate of change of displacement."
     g = grade.grade_item(item, {"kind": "value", "value": swapped})
     assert not g["correct"] and g["needs_judgement"] and g["score"] == 1.0  # every phrase is there: only a hint
+
+
+@pytest.mark.parametrize("text", ["1e308", "-1e308", "1e-308", "5e-324"])
+def test_wildly_wrong_finite_values_grade_without_crashing(text):  # B-025
+    g = _num(7.5e-7, text, sf_ok=[1, 2, 3])
+    assert not g["correct"] and g["score"] == 0
