@@ -326,3 +326,41 @@ def test_failed_ai_marking_gives_the_tick_list_back(tmp_path, monkeypatch):  # B
             assert evs and 0 < evs[-1]["grade"]["score"] < 1
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_ai_replies_are_guarded_for_every_open_question(tmp_path, monkeypatch):  # B-031
+    from tutor_app import ai as ai_mod, config, prompts
+    from tutor_app.screens import SessionScreen
+    from textual.widgets import Input
+    monkeypatch.setattr(config, "ICLOUD_INBOX", tmp_path / "no-inbox")
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            scr = SessionScreen({"mode": "autopilot", "minutes": 50})
+            app.push_screen(scr)
+            await pilot.pause()
+            t = app.tutor
+            other = next(i for i in t.packs.items_for("9702-2.1.1") if i["kind"] == "mcq"
+                         and str(scr.view and scr.view.get("item")) != i["id"])
+            second = t._present(other, block="practice", phase=None)["n"]
+            key, kind = prompts.key_of(t, second)
+            leak = f"The answer is {key}."
+            assert ai_mod.leaks(leak, key, kind)
+            scr.submit({"entry": f"{scr.view['n']}?", "your": "I don't know"})  # answer the one on screen
+            await pilot.pause()
+
+            async def fake_stream(prompt):
+                app.ai.last = ai_mod.Result(text=leak)
+                yield leak
+            monkeypatch.setattr(app.ai, "stream", fake_stream)
+            scr.action_ask()
+            await pilot.pause()
+            app.screen.query_one("#q", Input).value = f"What is the answer to question {second}?"
+            await pilot.press("enter")
+            await pilot.pause(0.2)
+            assert str(second) in t.session["presented"]
+            assert leak not in (v / t.session["log"]).read_text()
+            await app.ai.close()
+    asyncio.run(go())

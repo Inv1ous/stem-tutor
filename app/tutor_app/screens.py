@@ -587,7 +587,7 @@ class SessionScreen(Screen):
     def ai_ok(self) -> bool:
         return self.app.settings.ai and self.app.ai.available
 
-    def stream(self, prompt: str, then_continue: bool = False, open_n: int | None = None) -> None:
+    def stream(self, prompt: str, then_continue: bool = False) -> None:
         if not self.ai_ok():
             a = self.app.ai
             msg = a.message or ("AI is switched off in Settings." if not self.app.settings.ai else "AI is unavailable.")
@@ -595,20 +595,21 @@ class SessionScreen(Screen):
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
             return
-        self._stream(prompt, then_continue, open_n)
+        self._stream(prompt, then_continue)
 
     @work(exclusive=True, group="ai")
-    async def _stream(self, prompt: str, then_continue: bool, open_n: int | None) -> None:
+    async def _stream(self, prompt: str, then_continue: bool) -> None:
         a = self.app.ai
         w = self.say(cards.ai("…"))
         buf = ""
-        key, kind = prompts.key_of(self.tutor, open_n) if open_n else ("", "")
+        # guard every question still open, not just the one on screen: from Q1's feedback, Q2 may still be unanswered
+        keys = [prompts.key_of(self.tutor, int(n)) for n in (self.tutor.session or {}).get("presented", {})]
         async for chunk in a.stream(prompt):
             buf += chunk
-            if not open_n:
+            if not keys:
                 w.update(cards.ai(buf))
                 self.query_one("#log", VerticalScroll).scroll_end(animate=False)
-        if open_n and ai_mod.leaks(buf, key, kind):
+        if any(ai_mod.leaks(buf, key, kind) for key, kind in keys):
             buf = "I can't give that away while the question is open. Try a hint (h), or answer first and I'll explain."
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
@@ -644,16 +645,12 @@ class SessionScreen(Screen):
                 self.say(cards.you(q))
                 if (log := self.tutor._lesson_log()):
                     log.you(q)
-                open_n = self.view["n"] if (self.view and str(self.view["n"]) in (self.tutor.session or {}).get(
-                    "presented", {})) else None
-                self.stream(prompts.ask(self.tutor, q, self.kc), open_n=open_n)
+                self.stream(prompts.ask(self.tutor, q, self.kc))
         self.app.push_screen(AskScreen(), got)
 
     def action_explain(self) -> None:
         if self.kc:
-            open_n = self.view["n"] if (self.view and str(self.view["n"]) in (self.tutor.session or {}).get(
-                "presented", {})) else None
-            self.stream(prompts.explain_again(self.tutor, self.kc), open_n=open_n)
+            self.stream(prompts.explain_again(self.tutor, self.kc))
 
     def action_hint(self) -> None:
         if not self.view:
