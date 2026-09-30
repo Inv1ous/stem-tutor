@@ -165,3 +165,15 @@ def test_leak_guard_catches_plain_disclosures(reply, key, kind):
 ])
 def test_leak_guard_lets_hints_through(reply, key, kind):
     assert not ai.leaks(reply, key, kind)
+
+
+def test_overlapping_requests_respect_the_daily_cap(tmp_path, monkeypatch):  # B-017
+    c = make(tmp_path, monkeypatch, cap=1)
+
+    async def go():
+        results = await asyncio.gather(c.reply("first"), c.reply("second"))
+        await c.close()
+        return results
+
+    asyncio.run(go())
+    assert c.today()["replies"] == 1 and c.last.status == "cap"

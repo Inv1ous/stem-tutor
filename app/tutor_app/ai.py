@@ -87,6 +87,7 @@ class Claude:
         self.usage_file, self.daily_cap = usage_file, daily_cap
         self.last = Result()
         self._lock = asyncio.Lock()
+        self._pending = 0  # one-shot calls in flight, counted against the daily cap before they finish
 
     # ---------------- daily usage (kept in the vault so it survives restarts) ----------------
     def today(self) -> dict:
@@ -164,6 +165,9 @@ class Claude:
             self.last = Result(ok=False, status="cap", message=f"Today's AI allowance ({self.daily_cap} replies) is used up.")
             return
         async with self._lock:
+            if self.today()["replies"] + self._pending >= self.daily_cap:  # re-check: a queued request may be over
+                self.last = Result(ok=False, status="cap", message=f"Today's AI allowance ({self.daily_cap} replies) is used up.")
+                return
             if self.proc is None or self.proc.returncode is not None:
                 await self._start()
             proc = self.proc
@@ -243,8 +247,15 @@ class Claude:
 
     async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None) -> tuple[dict | None, Result]:
         """A separate, memory-less call that must return JSON (judging an answer, writing a teach card)."""
-        if not self.available:
+        if not self.available or self.today()["replies"] + self._pending >= self.daily_cap:
             return None, Result(ok=False, status=self.status, message=self.message or "AI unavailable")
+        self._pending += 1
+        try:
+            return await self._one_shot(prompt, schema, model)
+        finally:
+            self._pending -= 1
+
+    async def _one_shot(self, prompt: str, schema: dict | None, model: str | None) -> tuple[dict | None, Result]:
         args = [*LEAN, "--model", model or self.model, "--system-prompt", self.system, "--output-format", "json"]
         if schema:
             args += ["--json-schema", json.dumps(schema)]
