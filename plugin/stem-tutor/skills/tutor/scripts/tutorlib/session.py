@@ -131,6 +131,9 @@ class Tutor(LessonMixin):
                         "blocks": blocks, "cursor": 0, "presented": {}, "count": 0, "answered": 0, "correct": 0,
                         "kcs_learned": [], "retest": {}}
         sub = next((b["subtopic"] for b in blocks if b.get("subtopic")), None)
+        if not sub and focus:
+            subs = {self.packs.kc(k)["subtopic"] for k in policy.expand_focus(self.packs, focus) or [] if k in self.packs.kcs}
+            sub = subs.pop() if len(subs) == 1 else None
         if sub:
             self.session["subtopic"] = sub
         label = (self.packs.subtopics.get(sub, {}).get("title") if sub else None) or ", ".join(focus or []) or mode
@@ -330,8 +333,8 @@ class Tutor(LessonMixin):
             it = self._pick(kc, 0.5, kinds=("structured",))
             if it:
                 act = self._questions(b, idx, [it], phase="long")
-                act["say"] = ("Long question: they write full working on the iPad and export it to Inbox as "
-                              f"'{act['items'][0]['n']}.pdf'. Wait for the upload, then use the mark flow.")
+                act["say"] = ("Long question: full working, units and a final answer; then mark it against the scheme "
+                              f"(handwritten on the iPad? name the PDF '{act['items'][0]['n']}.pdf').")
                 return act
         return None
 

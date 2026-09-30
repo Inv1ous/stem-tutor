@@ -250,7 +250,9 @@ class SessionScreen(Screen):
         ai_state = "AI ●" if (self.app.settings.ai and a.available) else "AI ○"
         txt = Text()
         txt.append(" STEM Tutor ", style="bold #1e1e2e on #ffd500")
-        txt.append(f" {title or s.get('mode', '').title()} · {s.get('mode', '')} ", style="bold")
+        mode = {"lesson": "Lesson", "review": "Review", "test": "Test prep", "long": "Long questions"}.get(
+            s.get("mode", ""), s.get("mode", "").title())
+        txt.append(f" {title + ' · ' if title else ''}{mode} ", style="bold")
         txt.append(f" ⏱ {mins:02d}:{secs:02d} ", style="#94e2d5")
         txt.append(f" ✓ {s.get('correct', 0)}/{s.get('answered', 0)} ", style="#a6e3a1")
         txt.append(f" {ai_state} {a.session.replies} replies · {a.session.output_tokens + a.session.input_tokens} tok ",

@@ -127,3 +127,63 @@ def test_ai_login_needed_is_explained_not_crashing(tmp_path, monkeypatch):
             assert app.ai.status == "login" and "claude auth login" in app.ai.message
             assert len(app.screen.query(".entry")) >= 2  # your question + the explanation card
     asyncio.run(go())
+
+
+def test_long_question_typed_then_self_marked(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+    from tutor_app.panels import LongPanel
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            menu = app.screen.query_one("#menu")
+            menu.highlighted = [o.id for o in menu.options].index("long")
+            await pilot.press("enter")
+            await pilot.pause()
+            await pilot.press("enter")  # the only subtopic
+            await pilot.pause()
+            panel = app.screen.query_one("#panel > *")
+            assert isinstance(panel, LongPanel)
+            await pilot.press(*"v = u + at = 19.6 m/s", "ctrl+s")
+            await pilot.pause()
+            tick = app.screen.query_one("#panel > *")
+            assert isinstance(tick, TickPanel)
+            await shot(pilot, "long-scheme")
+            await pilot.press("tab")  # to the list
+            tick.query_one("#ticks").select_all()
+            tick.query("Button").first().press()
+            await pilot.pause()
+            evs = [e for e in app.tutor.vault.events() if e["type"] == "answer"]
+            assert evs and evs[-1]["grade"]["score"] == 1.0
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_short_answer_self_judged_when_ai_is_off(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.ai = False
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            t = app.tutor
+            t.start("review", minutes=10)
+            item = {"id": "s1", "kcs": ["9702-2.1.1"], "kind": "short", "difficulty": 3, "marks": 2,
+                    "stem": "Define displacement.",
+                    "rubric": [{"point": "distance", "keywords": [["distance"]]}, {"point": "direction", "keywords": [["direction"]]}]}
+            n = t._present(item, block="practice", phase=None)["n"]
+            from tutor_app.screens import SessionScreen
+            await app.push_screen(SessionScreen(None))
+            await pilot.pause()
+            await pilot.press(*"how far it moved", "enter")
+            await pilot.pause()
+            await pilot.press("3")
+            await pilot.pause()
+            tick = app.screen.query_one("#panel > *")
+            assert isinstance(tick, TickPanel)
+            tick.query_one("#ticks").select(tick.query_one("#ticks").get_option_at_index(0))
+            tick.query("Button").first().press()
+            await pilot.pause()
+            ev = [e for e in t.vault.events() if e["type"] == "answer"][-1]
+            assert ev["grade"]["score"] == 0.5
+    asyncio.run(go())
