@@ -115,10 +115,12 @@ class Vault:
             return
         self.bad_lines = []
         for path in sorted(folder.glob("*.jsonl")):
-            for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            # split the bytes on "\n" only, then decode each line: a line torn mid-character is lost alone, and a
+            # U+2028 inside an answer (valid JSON) is not taken for a line break as str.splitlines() would
+            for n, line in enumerate(path.read_bytes().split(b"\n"), 1):
                 if line.strip():
                     try:
-                        yield json.loads(line)
+                        yield json.loads(line.decode("utf-8"))
                     except ValueError:  # a half-written line (crash mid-save) must not lock you out of your history
                         self.bad_lines.append(f"{path.name}:{n}")
 

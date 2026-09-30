@@ -78,7 +78,7 @@ def doctor(vault: Path) -> list[tuple[bool, str, str]]:
                  "" if tutor_dir.exists() else "Run the build's publish step, or set STEM_TUTOR_VAULT."))
     if tutor_dir.exists():
         cur = (tutor_dir / "packs" / "CURRENT").read_text().strip() if (tutor_dir / "packs" / "CURRENT").exists() else "?"
-        events = sum(1 for f in (tutor_dir / "events").glob("*.jsonl") for _ in open(f)) if (tutor_dir / "events").exists() else 0
+        events = sum(1 for f in (tutor_dir / "events").glob("*.jsonl") for _ in open(f, "rb")) if (tutor_dir / "events").exists() else 0
         rows.append((cur != "?", f"Content packs: {cur}; {events} study events recorded", ""))
     reg = obsidian_vault_registered(vault)
     rows.append((reg, "Obsidian knows this folder as a vault",

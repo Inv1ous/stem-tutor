@@ -91,3 +91,21 @@ def test_event_after_a_torn_line_survives_replay(tmp_path):  # B-012
     v.append_event({"type": "gaps", "add": ["9702-1.1.2"]}, now=t)
     assert [e["add"] for e in v.events()] == [["9702-1.1.1"], ["9702-1.1.2"]]
     assert v.bad_lines == ["2026-08.jsonl:1"]
+
+
+def test_a_torn_multibyte_character_loses_only_its_own_line(tmp_path):  # B-012 reopened
+    v = store.Vault(make_vault(tmp_path))
+    (v.tutor / "events").mkdir()
+    t = datetime.fromisoformat("2026-09-30T12:00:00+08:00")
+    v.append_event({"type": "gaps", "add": ["a"]}, now=t)
+    with open(v.tutor / "events" / "2026-09.jsonl", "ab") as f:
+        f.write(b'{"type": "answer", "response": "' + "μ".encode("utf-8")[:1])  # crash mid-character
+    v.append_event({"type": "gaps", "add": ["b"]}, now=t)
+    assert [e["add"] for e in v.events()] == [["a"], ["b"]] and v.bad_lines == ["2026-09.jsonl:2"]
+
+
+def test_unicode_line_separators_inside_an_answer_survive_replay(tmp_path):  # B-030
+    v = store.Vault(make_vault(tmp_path))
+    ev = v.append_event({"type": "answer", "response": "velocity displacement /time\x85\x0c"},
+                        now=datetime.fromisoformat("2026-09-30T12:00:00+08:00"))
+    assert list(v.events()) == [ev] and v.bad_lines == []
