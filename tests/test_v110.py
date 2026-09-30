@@ -354,3 +354,15 @@ def test_a_finished_experiment_decides_the_method(tutor):  # B-009
     exp["eligible"] = {"types": ["procedural"]}
     s["kcs"][kc] = {**model._new_kc(), "n": 3, "active_misconceptions": ["m2"]}  # a misconception still wins
     assert policy.choose_method(s, tutor.packs, kc, random.Random(1)) == ("refutation", None)
+
+
+def test_ending_a_session_refreshes_notes_for_every_idea_answered(tutor):  # B-026
+    rel = views.notes_update(tutor.vault.root, tutor.packs, tutor.state, "9702-2.1", node={"kc": "9702-2.1.1", "note": "- n"})
+    path = tutor.vault.root / rel
+    path.write_text(path.read_text().replace("Progress:", "Progress STALE:"))
+    tutor.start("autopilot", minutes=50)
+    item = next(i for i in tutor.packs.items_for("9702-2.1.1") if i["kind"] == "mcq")
+    n = tutor._present(item, block="review", phase=None)["n"]
+    tutor.answer(f"{n}{tutor.session['presented'][str(n)]['inst']['answer']}3")
+    tutor.end()
+    assert "STALE" not in path.read_text()

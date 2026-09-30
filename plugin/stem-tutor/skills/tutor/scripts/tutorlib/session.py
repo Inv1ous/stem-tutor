@@ -163,8 +163,9 @@ class Tutor(LessonMixin):
             log.tutor(f"Answered {summary['answered']}, correct {summary['correct']}"
                       + (f"; learned: {', '.join(self.packs.kcs[k]['title'] for k in summary['kcs_learned'] if k in self.packs.kcs)}"
                          if summary["kcs_learned"] else "") + ".", title="Session summary")
-        touched = {self.packs.kcs[k]["subtopic"] for p in s.get("presented", {}).values() for k in p.get("kcs", [])
-                   if k in self.packs.kcs} | {self.packs.kcs[k]["subtopic"] for k in summary["kcs_learned"] if k in self.packs.kcs}
+        kcs = [k for p in s.get("presented", {}).values() for k in p.get("kcs", [])] + summary["kcs_learned"] \
+            + s.get("kcs_answered", [])  # answered questions have left `presented`: a review changes mastery too
+        touched = {self.packs.kcs[k]["subtopic"] for k in kcs if k in self.packs.kcs}
         if s.get("subtopic"):
             touched.add(s["subtopic"])
         self.session = None
@@ -564,6 +565,7 @@ class Tutor(LessonMixin):
                        **({"slip_likely": True} if slip else {})})
         self._audit("answer", int(key), inst)
         del s["presented"][key]
+        s.setdefault("kcs_answered", []).extend(k for k in p["kcs"] if k not in s["kcs_answered"])
         partial = g["correct"] and g["score"] < model.SUCCESS  # right value, mark lost (units, s.f.)
         if partial:
             g = {**g, "correct": False}
