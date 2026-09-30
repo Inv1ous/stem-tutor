@@ -553,12 +553,17 @@ class SessionScreen(Screen):
         text = data.get("text", "")
         self.long_text = text
         self.say(cards.you(text))
+        if (log := self.tutor._lesson_log()):  # the transcript keeps your working, even if you leave before marking
+            log.you(f"Working for Q{self.view['n']}:\n\n{text}")
         sch = self.tutor.scheme(self.view["n"])
         self.scheme = sch.get("scheme", [])
         buttons = [("mine", "Submit my marks ⏎")] + ([("ai", "Ask the AI examiner to check")] if self.ai_ok() else [])
-        self.panel(TickPanel("Tick every mark point your answer earns (space). Honest self-marking is great practice.",
-                             [(f"{p.get('mark', '')} {p.get('point', '')}", str(p["i"]), False) for p in self.scheme],
-                             buttons))
+        self.mark_panel("Tick every mark point your answer earns (space). Honest self-marking is great practice.",
+                        (), buttons)
+
+    def mark_panel(self, prompt: str, ticked, buttons: list[tuple[str, str]]) -> None:
+        self.panel(TickPanel(prompt, [(f"{p.get('mark', '')} {p.get('point', '')}", str(p["i"]), str(p["i"]) in ticked)
+                                      for p in self.scheme], buttons))
 
     @work(exclusive=True, group="judge")
     async def ai_check_long(self, data: dict) -> None:
@@ -566,17 +571,17 @@ class SessionScreen(Screen):
         points = [f"{p.get('mark', '')} {p.get('point', '')}" for p in self.scheme]
         res, r = await self.app.ai.one_shot(prompts.judge(self.view.get("stem", ""), points, self.long_text),
                                             schema=prompts.JUDGE)
-        if not res:
+        if not res:  # give the tick list back, with your ticks, so you can still mark it yourself
             self.say(cards.card("hint", "AI check unavailable", r.message or "Mark it yourself."))
+            self.mark_panel("Tick every mark point your answer earns (space), then submit.", data["ticked"],
+                            [("mine", "Submit my marks ⏎")])
             return
         verdict = "\n".join(f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}: {p.get('why', '')}"
                             for p in res.get("points", []))
         self.say(cards.ai(f"{res.get('feedback', '')}\n\n{verdict}", "AI examiner"))
         met = {str(self.scheme[i]["i"]) for i, p in enumerate(res.get("points", [])) if p.get("met") and i < len(self.scheme)}
         ticked = sorted(set(data["ticked"]) | met) if data["ticked"] else sorted(met)
-        self.panel(TickPanel("Adjust if you disagree, then submit.",
-                             [(f"{p.get('mark', '')} {p.get('point', '')}", str(p["i"]), str(p["i"]) in ticked)
-                              for p in self.scheme], [("mine", "Submit ⏎")]))
+        self.mark_panel("Adjust if you disagree, then submit.", ticked, [("mine", "Submit ⏎")])
 
     # ---------- AI ----------
     def ai_ok(self) -> bool:

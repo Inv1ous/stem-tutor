@@ -270,3 +270,59 @@ def test_starting_something_new_asks_before_abandoning(tmp_path, monkeypatch):
             await pilot.pause()
             assert app.screen.__class__.__name__ == "ConfirmScreen"
     asyncio.run(go())
+
+
+async def _open_long_and_submit(pilot, app, text):
+    menu = app.screen.query_one("#menu")
+    menu.highlighted = [o.id for o in menu.options].index("long")
+    await pilot.press("enter")
+    await pilot.pause()
+    await pilot.press("enter")  # the only subtopic
+    await pilot.pause()
+    await pilot.press(*text, "ctrl+s")
+    await pilot.pause()
+    return app.screen.query_one("#panel > *")
+
+
+def test_long_answer_working_is_saved_in_the_lesson_log(tmp_path, monkeypatch):  # B-015
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            await _open_long_and_submit(pilot, app, "MY SUBMITTED WORK v = u + at")
+            log = app.tutor._lesson_log()
+            assert log and "MY SUBMITTED WORK v = u + at" in (v / log.rel).read_text()
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_failed_ai_marking_gives_the_tick_list_back(tmp_path, monkeypatch):  # B-014
+    app, v = app_for(tmp_path, monkeypatch)
+    from tutor_app import ai as ai_mod
+
+    async def no_ai(*a, **k):
+        return None, ai_mod.Result(ok=False, status="login", message="Sign in to use AI.")
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            tick = await _open_long_and_submit(pilot, app, "my working")
+            assert isinstance(tick, TickPanel)
+            monkeypatch.setattr(app.ai, "one_shot", no_ai)
+            ticks = tick.query_one("#ticks")
+            first = ticks.get_option_at_index(0).value
+            ticks.select(first)
+            next(b for b in tick.query("Button") if b.id == "ai").press()
+            for _ in range(20):
+                await pilot.pause(0.05)
+                panel = app.screen.query_one("#panel > *")
+                if isinstance(panel, TickPanel) and panel is not tick:
+                    break
+            assert isinstance(panel, TickPanel) and panel.query_one("#ticks").selected == [first]
+            panel.query("Button").first().press()
+            await pilot.pause()
+            evs = [e for e in app.tutor.vault.events() if e["type"] == "answer"]
+            assert evs and 0 < evs[-1]["grade"]["score"] < 1
+            await app.ai.close()
+    asyncio.run(go())
