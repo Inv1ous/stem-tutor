@@ -8,6 +8,7 @@ Compact response syntax (one entry per comma or line):
 """
 from __future__ import annotations
 
+import keyword
 import math
 import random
 import re
@@ -215,6 +216,20 @@ _BUILDERS = re.compile(r"(?<![A-Za-z])(Symbol|Function|Number|Integer|Float|Rati
 _MAX_POWER = 1_000  # nested exponents multiply; A-level needs far less, and sympy grinds on huge powers
 
 
+def _names(s: str) -> str:
+    """Spell variable names so sympy reads them as the learner meant: a keyword such as the "as" of 2as is letters,
+    lambda is the Greek letter, and digits after a letter are a subscript (R1 -> R_1, not R times 1) unless they are
+    the exponent of a number like 1e5."""
+    def subscript(m):
+        if m[1] in "eE" and m.start() and m.string[m.start() - 1] in "0123456789.":
+            return m[0]
+        return f" {m[1]}_{m[2]} "
+
+    s = re.sub(r"([A-Za-z])(\d+)", subscript, s)
+    return re.sub(r"[A-Za-z]+", lambda m: "lamda" if m[0] == "lambda" else " ".join(m[0])
+                  if keyword.iskeyword(m[0]) else m[0], s)
+
+
 def _check_size(sympy, tree) -> None:
     """Refuse work sympy could take minutes over: a power beyond _MAX_POWER, or exponentials stacked three deep."""
     degree: dict = {}
@@ -253,6 +268,7 @@ def _sympy():
         s = s.replace("\\", "")
         if not _EXPR_TEXT.fullmatch(s) or "." in re.sub(r"\d*\.\d+|\d+\.", "", s) or _BUILDERS.search(s):
             raise ParseError(f"not a plain maths expression: {s[:40]!r}")
+        s = _names(s)
         for evaluate in (False, True):  # build unevaluated first so a huge power is refused before it is computed
             expr = parse_expr(s, local_dict={"e": sympy.E, "pi": sympy.pi}, global_dict=dict(names),
                               transformations=tr, evaluate=evaluate)

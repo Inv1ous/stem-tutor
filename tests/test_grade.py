@@ -357,3 +357,24 @@ def test_expression_grading_time_is_bounded():  # B-023
     assert len(rows) == len(inputs), out.stderr[-400:]
     for s, correct, secs in rows:
         assert correct == "False" and float(secs) < 2, (s, secs)
+
+
+# ---------- variable names: keywords and subscripts ----------
+@pytest.mark.parametrize("given,expected", [
+    ("u^2 + 2as", "u**2 + 2*a*s"),              # published 9702-2.1-i24: "as" is a Python keyword
+    ("v^2 - u^2 = 2as".split(" = ")[1], "2*a*s"),
+    ("h c / lambda", "h*c/lambda"),
+    ("m1 v1 + m2 v2", "m1*v1 + m2*v2"),
+    ("m1v1", "m1*v1"),
+    ("mv0", "m*v0"),
+    ("1e3 x + 2.5e2 y", "1000*x + 250*y"),       # the e of a number is not a subscript
+])
+def test_keywords_and_subscripted_names_are_variables(given, expected):
+    item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
+    assert grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"]
+
+
+@pytest.mark.parametrize("given,expected", [("R2", "2*R1"), ("v1", "v"), ("x1 + x2", "3*x")])
+def test_subscripted_names_are_not_numbers(given, expected):
+    item = {"kind": "expression", "answer": {"expr": expected}, "marks": 1}
+    assert not grade.grade_item(item, {"kind": "value", "value": given, "conf": 3})["correct"]
