@@ -88,6 +88,8 @@ class Tutor(LessonMixin):
         kind = act.get("activity")
         if kind == "explain":
             blocks.append(views.callout("abstract", act["title"], act["text"]))
+        elif kind == "teach":
+            blocks.append(views.callout("abstract", act["kc_title"], _teach_text(act)))
         elif kind == "plan":
             ticks = "\n".join(f"- [{' ' if n['kc'] in act['default_teach'] else 'x'}] {n['title']}" for n in act["nodes"])
             blocks.append(views.callout("abstract", f"Plan: {act['title']}", act["approach"]) + "\n\n" + act["map"]
@@ -413,11 +415,14 @@ class Tutor(LessonMixin):
         while b["si"] < len(b["steps"]):
             phase = b["steps"][b["si"]]
             b["si"] += 1
-            if phase == "lesson":
-                return {"activity": "teach", "block": "learn", "kc": kc, "kc_title": meta["title"],
-                        "statement": meta.get("statement"), "method": b["method"], "card": policy.METHOD_CARDS[b["method"]],
-                        "note": pack.get("note", ""), "outline": pack.get("outline", ""),
-                        "misconceptions": [m["statement"] for m in pack.get("misconceptions", []) if m["kc"] == kc]}
+            if phase == "lesson":  # awaited like the worked example: shown in Now, logged, resumed after a restart
+                act = {"activity": "teach", "block": "learn", "kc": kc, "kc_title": meta["title"],
+                       "statement": meta.get("statement"), "method": b["method"], "card": policy.METHOD_CARDS[b["method"]],
+                       "note": pack.get("note", ""), "outline": pack.get("outline", ""), "block_idx": idx,
+                       "misconceptions": [m["statement"] for m in pack.get("misconceptions", []) if m["kc"] == kc]}
+                if (log := self._lesson_log()):
+                    log.tutor(_teach_text(act), title=act["kc_title"])
+                return self._await(act)
             if phase == "worked":
                 wk = (self.packs.worked_for(kc) or [None])[0]
                 if wk:  # awaited: a restart comes back to this example at the step reached, not past it
@@ -441,8 +446,11 @@ class Tutor(LessonMixin):
                 mis = [m for m in pack.get("misconceptions", [])
                        if m["id"] in self.state["kcs"].get(kc, {}).get("active_misconceptions", [])]
                 if mis:
-                    return {"activity": "refute", "block": "learn", "kc": kc, "card": policy.METHOD_CARDS["refutation"],
-                            "misconceptions": mis}
+                    if (log := self._lesson_log()):
+                        log.add(views.callout("warning", "Trap: " + mis[0]["statement"], mis[0].get("refutation", "")
+                                              + ("\n\n" + mis[0]["contrast"] if mis[0].get("contrast") else "")))
+                    return self._await({"activity": "refute", "block": "learn", "kc": kc, "block_idx": idx,
+                                        "card": policy.METHOD_CARDS["refutation"], "misconceptions": mis})
             if phase == "probe":
                 active = set(self.state["kcs"].get(kc, {}).get("active_misconceptions", []))
                 items = [i for i in self.packs.items_for(kc)
@@ -711,6 +719,10 @@ class Tutor(LessonMixin):
         self._save()
         return {"n": n, "level": p["hint_level"], "hint": hints[p["hint_level"] - 1],
                 "say": "Give only this hint, in your words; do not add the next step."}
+
+
+def _teach_text(act: dict) -> str:
+    return act.get("outline", "") + "".join(f"\n- Trap: {m}" for m in act.get("misconceptions", []))
 
 
 def _expected_kind(kind: str) -> tuple[str, ...]:

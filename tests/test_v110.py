@@ -329,6 +329,8 @@ def test_restart_resumes_the_repair_worked_example_where_it_was(tmp_path):  # B-
         act = t.next()
         if act["activity"] == "questions":
             t.answer(", ".join(f"{q['n']}?" for q in act["items"]))
+        elif act["activity"] == "teach":
+            t.respond({})
         elif act["activity"] == "worked":
             break
     assert act["activity"] == "worked"
@@ -366,3 +368,19 @@ def test_ending_a_session_refreshes_notes_for_every_idea_answered(tutor):  # B-0
     tutor.answer(f"{n}{tutor.session['presented'][str(n)]['inst']['answer']}3")
     tutor.end()
     assert "STALE" not in path.read_text()
+
+
+def test_repair_teaching_is_shown_in_now_logged_and_resumed(tmp_path):  # B-032
+    root = make_vault(tmp_path)
+    t = session.Tutor(store.Vault(root), rng=random.Random(5), now=lambda: T0)
+    t.start("test", focus=["9702-2.1.4"], replace=True)
+    act = t.next()
+    t.answer(", ".join(f"{q['n']}?" for q in act["items"]))
+    act = t.next()
+    assert act["activity"] == "teach"
+    assert act["kc_title"] in (root / "Now.md").read_text()
+    assert act["kc_title"] in (root / t.session["log"]).read_text()
+    again = session.Tutor(store.Vault(root), rng=random.Random(5), now=lambda: T0)  # app restarted mid-explanation
+    assert again.next()["activity"] == "teach"
+    assert again.respond({})["ok"]
+    assert again.next()["activity"] == "worked"
