@@ -762,6 +762,17 @@ def _to_sig_figs(value: float, sf: int) -> str:
     return f"{mantissa}e{int(exp)}"  # standard form, as the learner types it
 
 
+def _in_full(value: float) -> str:
+    """An exact answer written out: not rounded to 3 s.f., not padded, and free of float noise (0.1 + 0.2 is 0.3)."""
+    if not value:
+        return "0"
+    text = f"{value:.12g}"  # 12 figures: well inside the 1e-9 an exact answer is marked to, and short of the noise
+    if "e" not in text:
+        return text
+    mantissa, exp = text.split("e")
+    return f"{mantissa}e{int(exp)}"  # standard form, as the learner types it
+
+
 def _display_answer(inst: dict) -> str:
     kind = inst["kind"]
     if kind == "mcq":
@@ -770,7 +781,7 @@ def _display_answer(inst: dict) -> str:
     if kind == "numeric":
         a = inst["answer"]
         sf = (a.get("sf_ok") or [a.get("sf")])[-1]
-        number = _to_sig_figs(a["value"], sf) if sf else f"{a['value']:.3g}"  # an exact answer states no s.f.
+        number = _to_sig_figs(a["value"], sf) if sf else _in_full(a["value"])  # an exact answer states no s.f.
         return f"{number} {a.get('unit', '')}".strip()
     if kind == "expression":
         return inst["answer"]["expr"]

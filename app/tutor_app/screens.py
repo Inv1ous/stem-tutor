@@ -675,7 +675,7 @@ class SessionScreen(Screen):
             if not keys:
                 w.update(cards.ai(buf))
                 self.query_one("#log", VerticalScroll).scroll_end(animate=False)
-        if any(ai_mod.leaks(buf, key, kind) for key, kind in keys):
+        if any(ai_mod.leaks(buf, *k) for k in keys):
             buf = "I can't give that away while the question is open. Try a hint (h), or answer first and I'll explain."
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))

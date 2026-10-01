@@ -307,15 +307,17 @@ _SUPERSCRIPTS = re.compile(r"[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
 
 
 def _numbers(text: str):
-    """Every number written in `text`: 1000, 1,000, 1.0 × 10^3, 1e3, 10^3, 4.2 × 10⁻³."""
+    """Every number written in `text`, with the digits it was written to (None for a bare power of ten):
+    1000, 1,000, 1.0 × 10^3, 1e3, 10^3, 4.2 × 10⁻³."""
     for m in _NUMBER.finditer(text.translate(SUPERSCRIPT).replace("−", "-")):
         if m["pow"]:
-            yield 10.0 ** int(m["p"])
+            yield 10.0 ** int(m["p"]), None
             continue
         try:
-            yield grade.parse_quantity(m["num"])[0]
+            value, _, _, digits = grade._parse(m["num"])
         except grade.ParseError:
             continue
+        yield value, digits
 
 
 def _flat(text: str) -> str:
@@ -324,8 +326,11 @@ def _flat(text: str) -> str:
     return re.sub(r"[\s*$\\{}·×]", "", text)
 
 
-def leaks(reply: str, key: str, kind: str) -> bool:
-    """True when a reply gives away an open question's answer (letter, option text, expression or final value)."""
+def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
+    """True when a reply gives away an open question's answer (letter, option text, expression or final value).
+
+    `answer` is a numeric question's own answer: with it, a number counts at any precision the marking would accept,
+    not only near the rounded key that is shown (a key shown as 3.8 has the true value 3.75)."""
     if not key:
         return False
     text = re.sub(r"[*_`$\\]", "", reply)
@@ -352,8 +357,19 @@ def leaks(reply: str, key: str, kind: str) -> bool:
         return False
     if kind != "numeric":
         return False
+    targets = []
     try:
-        target = grade.parse_quantity(key)[0]
+        targets.append(grade.parse_quantity(key)[0])
     except grade.ParseError:
-        return False
-    return any(abs(v - target) <= max(abs(target) * 0.01, 1e-12) for v in _numbers(text))
+        pass
+    true = (answer or {}).get("value")
+    if true is not None:
+        targets.append(true)
+    rounded_ok = true is not None and not answer.get("exact")  # as marked: right when rounded at its own digits
+    allowed = (answer or {}).get("sf_ok") or [(answer or {}).get("sf")]
+    for v, digits in _numbers(text):
+        if any(abs(v - t) <= max(abs(t) * 0.01, 1e-12) for t in targets):
+            return True
+        if rounded_ok and digits and (digits >= 2 or digits in allowed) and grade._rounded_to(v, true, digits):
+            return True
+    return False

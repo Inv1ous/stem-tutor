@@ -488,9 +488,19 @@ def test_shown_exact_answer_is_not_padded(value, shown):
     assert _shown(value, exact=True) == shown
 
 
+@pytest.mark.parametrize("value,shown", [
+    (12.25, "12.25"), (1200.0, "1200"), (3500, "3500"), (123456.789, "123456.789"),  # not rounded to 3 s.f.
+    (0.1 + 0.2, "0.3"), (1.1 * 1.1, "1.21"), (-0.0, "0"),  # no float noise from template arithmetic
+    (2.5e-7, "2.5e-7"), (3e15, "3e15"),  # too small or too big for plain digits: standard form, as it is typed
+])
+def test_shown_exact_answer_is_in_full(value, shown):
+    assert _shown(value, exact=True) == shown
+
+
 @pytest.mark.parametrize("value,answer", [
     (1.5, {"unit": "mm", "sf_ok": [3]}), (7.0, {"unit": "N", "sf_ok": [2, 3]}), (40000.0, {"unit": "J", "sf_ok": [2, 3]}),
     (120, {"sf": 2}), (2.4e-6, {"unit": "m^2", "sf_ok": [1, 2, 3]}), (12.0, {"exact": True}),
+    (12.25, {"exact": True}), (1200.0, {"exact": True}), (0.1 + 0.2, {"exact": True}), (2.5e-7, {"unit": "m", "exact": True}),
 ])
 def test_shown_answer_typed_back_earns_full_marks(value, answer):
     item = {"kind": "numeric", "answer": {"value": value, **answer}}

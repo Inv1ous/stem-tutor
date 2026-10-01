@@ -345,9 +345,9 @@ def test_ai_replies_are_guarded_for_every_open_question(tmp_path, monkeypatch): 
             other = next(i for i in t.packs.items_for("9702-2.1.1") if i["kind"] == "mcq"
                          and str(scr.view and scr.view.get("item")) != i["id"])
             second = t._present(other, block="practice", phase=None)["n"]
-            key, kind = prompts.key_of(t, second)
+            key, kind, answer = prompts.key_of(t, second)
             leak = f"The answer is {key}."
-            assert ai_mod.leaks(leak, key, kind)
+            assert ai_mod.leaks(leak, key, kind, answer)
             scr.submit({"entry": f"{scr.view['n']}?", "your": "I don't know"})  # answer the one on screen
             await pilot.pause()
 

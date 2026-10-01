@@ -96,6 +96,10 @@ def teach_card(tutor, kc: str) -> str:
             "to explain the idea in their own words).")
 
 
-def key_of(tutor, n: int) -> tuple[str, str]:
+def key_of(tutor, n: int) -> tuple[str, str, dict | None]:
+    """An open question's answer as shown, its kind, and for a numeric one its answer (true value, s.f. rules)."""
     p = (tutor.session or {}).get("presented", {}).get(str(n))
-    return (_display_answer(p["inst"]), p["inst"]["kind"]) if p else ("", "")
+    if not p:
+        return "", "", None
+    inst = p["inst"]
+    return _display_answer(inst), inst["kind"], inst["answer"] if inst["kind"] == "numeric" else None

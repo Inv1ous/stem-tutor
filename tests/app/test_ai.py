@@ -167,6 +167,25 @@ def test_leak_guard_lets_hints_through(reply, key, kind):
     assert not ai.leaks(reply, key, kind)
 
 
+@pytest.mark.parametrize("reply,key,answer", [
+    ("so it is 3.75", "3.8 %", {"value": 3.75, "unit": "%", "sf_ok": [2]}),  # more figures than the key shows
+    ("so it is 0.0253906", "0.025 g cm^-3", {"value": 0.025390625, "unit": "g cm^-3", "sf_ok": [2]}),
+    ("about 0.025 kg", "0.0254 kg", {"value": 0.02539, "unit": "kg", "sf_ok": [2, 3]}),  # fewer: still marked right
+    ("it comes to 12.25", "12.25", {"value": 12.25, "exact": True}),
+])
+def test_leak_guard_catches_the_answer_at_any_precision(reply, key, answer):
+    assert ai.leaks(reply, key, "numeric", answer)
+
+
+@pytest.mark.parametrize("reply,key,answer", [
+    ("halve it: divide by 2", "1.96 m", {"value": 1.96, "unit": "m", "sf_ok": [3]}),  # "2" is 1 s.f., not the answer
+    ("use g = 9.81 and t = 2.0", "19.6 m s-1", {"value": 19.62, "unit": "m s-1", "sf_ok": [2, 3]}),
+    ("there are 12 of them", "12.25", {"value": 12.25, "exact": True}),  # an exact answer is not its rounding
+])
+def test_leak_guard_given_the_true_value_still_lets_hints_through(reply, key, answer):
+    assert not ai.leaks(reply, key, "numeric", answer)
+
+
 def test_overlapping_requests_respect_the_daily_cap(tmp_path, monkeypatch):  # B-017
     c = make(tmp_path, monkeypatch, cap=1)
 
