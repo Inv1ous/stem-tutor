@@ -33,10 +33,32 @@ class Tutor(LessonMixin):
         self.state_path = vault.tutor / "state" / "learner.json"
         self.session_path = vault.tutor / "state" / "session.json"
         self.state = read_json(self.state_path)
-        if not self.state or self.state.get("model_version") != model.MODEL_VERSION:
-            self.state = self._fold()  # first run of a new model version: recompute everything from your history
+        if (not self.state or self.state.get("model_version") != model.MODEL_VERSION
+                or self.state.get("last_event") != vault.last_event_id()):
+            # a new model version, or the log moved on after this state was saved (the app stopped between the
+            # two writes): recompute everything from your history
+            self.state = self._fold()
             self._dirty = True
         self.session = read_json(self.session_path)
+        self._recover()
+
+    def _recover(self) -> None:
+        """An answer is logged before the session is saved. If the app stopped in between, the question is still
+        open here though the log holds its answer: close it, so it is not asked and recorded a second time."""
+        s = self.session
+        if not s or not s.get("presented"):
+            return
+        for e in self.vault.events():
+            n = str(e.get("n"))
+            if e["type"] == "answer" and e.get("session") == s["id"] and s["presented"].get(n, {}).get("item") == e["item"]:
+                p = s["presented"].pop(n)
+                right = model.counts_as_right(e["grade"])
+                s["answered"] += 1
+                s["correct"] += 1 if right else 0
+                s.setdefault("kcs_answered", []).extend(k for k in p["kcs"] if k not in s["kcs_answered"])
+                s["last_feedback"] = [{"n": e["n"], "correct": right, "answer": _display_answer(p["inst"]),
+                                       "explanation": p["inst"].get("explanation")}]
+                s["now"] = {"activity": "feedback"}
 
     def refresh_content(self) -> list[str]:
         """Between sessions, switch to newly published content: returns the titles of chapters that arrived."""
@@ -605,7 +627,8 @@ class Tutor(LessonMixin):
         conf_stats = self.state["traits"]["calibration"].get("by_conf", {}).get(str(r.get("conf")))
         credit = sorted({pre for kc in p["kcs"] if kc in self.packs.kcs for pre in self.packs.kc(kc).get("prereqs", [])
                          if self.state["kcs"].get(pre, {}).get("fsrs")})
-        ev = self.log({"type": "answer", "session": s["id"], "item": p["item"], "kcs": p["kcs"], "subject": p["subject"],
+        ev = self.log({"type": "answer", "session": s["id"], "n": int(key), "item": p["item"], "kcs": p["kcs"],
+                       "subject": p["subject"],
                        "difficulty": p["difficulty"], "conf": r.get("conf"), "hinted": p["hinted"], "seconds": round(seconds),
                        "marks": p["marks"], "grade": {k: g[k] for k in ("correct", "score", "error", "misconception")},
                        "credit": credit, "pos": s["answered"], "block": p["block"], "phase": p["phase"],

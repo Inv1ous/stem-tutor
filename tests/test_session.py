@@ -535,6 +535,55 @@ def test_one_at_a_time_asks_the_same_questions_in_the_same_order(tmp_path):
     assert single == batch and all(batch[0])  # every session asked something
 
 
+# ---------- stopping between two saves (B-038) ----------
+def _stop(*_):
+    raise RuntimeError("the app stopped here")
+
+
+def _restart(tutor):
+    t = session.Tutor(tutor.vault, rng=random.Random(0), now=tutor.clock)
+    t.clock = tutor.clock
+    return t
+
+
+def test_an_answer_that_reached_the_log_but_no_save_is_kept_once(tutor, monkeypatch):
+    tutor.start("test", minutes=40, focus=["9702-2.1"])
+    first, second = tutor.next()["items"]
+    kc = tutor.session["presented"][str(first["n"])]["kcs"][0]
+    monkeypatch.setattr(tutor, "_save", _stop)  # the answer is appended to the log; nothing after it is saved
+    with pytest.raises(RuntimeError):
+        _answer_all(tutor, {"items": [first]})
+    t = _restart(tutor)
+    assert t.state == t._fold() and t.state["kcs"][kc]["n"] == 1  # the saved state is brought up to the log
+    assert list(t.session["presented"]) == [str(second["n"])]  # the answered question is closed, not asked again
+    assert (t.session["answered"], t.session["correct"]) == (1, 1)
+    assert "not open" in t.answer(f"{first['n']}?")["results"][0]["error"]
+    assert [q["n"] for q in t.next()["items"]] == [second["n"]]
+    _answer_all(t, {"items": [second]})
+    assert [e["n"] for e in t.vault.events() if e["type"] == "answer"] == [first["n"], second["n"]]
+    assert t.state == t._fold() == _restart(t).state
+
+
+def test_a_stop_after_the_state_was_saved_does_not_reopen_the_question(tutor, monkeypatch):
+    tutor.start("test", minutes=40, focus=["9702-2.1"])
+    first, second = tutor.next()["items"]
+    monkeypatch.setattr(tutor, "_audit", _stop)  # the answer and the state are saved; the session is caught mid-way
+    with pytest.raises(RuntimeError):
+        _answer_all(tutor, {"items": [first]}, good=False)
+    t = _restart(tutor)
+    assert list(t.session["presented"]) == [str(second["n"])] and (t.session["answered"], t.session["correct"]) == (1, 0)
+    assert [(fb["n"], fb["correct"]) for fb in t.session["last_feedback"]] == [(first["n"], False)]  # shown in Now
+    assert t.state == t._fold()
+
+
+def test_a_clean_restart_does_not_rebuild_the_state(tutor, monkeypatch):
+    tutor.start("test", minutes=40, focus=["9702-2.1"])
+    _answer_all(tutor, tutor.next())
+    folds = []
+    monkeypatch.setattr(session.Tutor, "_fold", lambda self: folds.append(1) or {})
+    assert _restart(tutor).state == tutor.state and not folds  # only a log that moved on forces a rebuild
+
+
 # ---------- the answer as shown ----------
 def _shown(value, **answer):
     return session._display_answer({"kind": "numeric", "answer": {"value": value, **answer}})

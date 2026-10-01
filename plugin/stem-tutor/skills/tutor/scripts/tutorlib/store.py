@@ -124,6 +124,18 @@ class Vault:
                     except ValueError:  # a half-written line (crash mid-save) must not lock you out of your history
                         self.bad_lines.append(f"{path.name}:{n}")
 
+    def last_event_id(self) -> str | None:
+        """Id of the newest event that replay would yield (a line torn by a crash is skipped, as in events())."""
+        folder = self.tutor / "events"
+        for path in sorted(folder.glob("*.jsonl"), reverse=True) if folder.exists() else []:
+            for line in reversed(path.read_bytes().split(b"\n")):
+                if line.strip():
+                    try:
+                        return json.loads(line.decode("utf-8")).get("id")
+                    except ValueError:
+                        continue
+        return None
+
     # --- single writer ---
     @contextmanager
     def lock(self, wait_seconds: float = 15.0):

@@ -109,3 +109,14 @@ def test_unicode_line_separators_inside_an_answer_survive_replay(tmp_path):  # B
     ev = v.append_event({"type": "answer", "response": "velocity displacement /time\x85\x0c"},
                         now=datetime.fromisoformat("2026-09-30T12:00:00+08:00"))
     assert list(v.events()) == [ev] and v.bad_lines == []
+
+
+def test_last_event_id_is_the_newest_readable_event(tmp_path):  # B-038
+    v = store.Vault(make_vault(tmp_path))
+    assert v.last_event_id() is None
+    a = v.append_event({"type": "note"}, now=datetime.fromisoformat("2026-09-30T23:59:00+08:00"))
+    b = v.append_event({"type": "note"}, now=datetime.fromisoformat("2026-10-01T00:01:00+08:00"))
+    assert a["id"] != b["id"] and v.last_event_id() == b["id"]
+    with open(v.tutor / "events" / "2026-10.jsonl", "ab") as f:
+        f.write(b'{"id": "torn", "type": "ans')  # a crash mid-append: replay skips this line, so it is not the newest
+    assert v.last_event_id() == b["id"]

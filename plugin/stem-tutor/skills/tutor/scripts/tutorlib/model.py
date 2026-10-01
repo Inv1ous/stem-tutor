@@ -40,6 +40,7 @@ def new_state() -> dict:
         "study_days": [],
         "anki_last": None,
         "model_version": MODEL_VERSION,
+        "last_event": None,  # the newest event folded in: a saved state that is behind the log is rebuilt
         "gaps": [],
         "items_seen": {},
         "answers": {},
@@ -264,6 +265,7 @@ def apply(state: dict, e: dict) -> dict:
         from . import experiments
 
         experiments.apply(state, e)
+    state["last_event"] = e.get("id")
     return state
 
 
