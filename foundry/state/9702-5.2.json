@@ -1,0 +1,152 @@
+{
+ "sub": "9702-5.2",
+ "stage": "ready",
+ "created": "2026-10-01T10:02:51+08:00",
+ "updated": "2026-10-01T10:36:56+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T10:20:33+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 51 items"
+  },
+  {
+   "t": "2026-10-01T10:28:03+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "45 agreed, 2 disputed"
+  },
+  {
+   "t": "2026-10-01T10:36:34+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 0 checker findings"
+  },
+  {
+   "t": "2026-10-01T10:36:56+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "items": 51,
+  "extra": 29
+ },
+ "disputes": [
+  {
+   "id": "9702-5.2-p06",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-5.2-x019",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 84954,
+   "model": "gpt-6-sol/medium",
+   "started": "2026-10-01T10:17:25+08:00",
+   "log": "foundry/logs/9702-5.2.drafter.1001-101725.log",
+   "out": "foundry/logs/9702-5.2.drafter.1001-101725.out.json",
+   "finished": "2026-10-01T10:20:33+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-5.2.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/05 Work, energy and power/5.2 Gravitational potential energy and kinetic energy.md",
+    "items": 51,
+    "templates": 2,
+    "worked": 4,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Some past-paper options have degraded extracted typography; their original images are attached."
+    ]
+   }
+  },
+  "solver#1": {
+   "haiku": true,
+   "started": "2026-10-01T10:24:13+08:00",
+   "expects": "build/work/blind/9702-5.2.answers.part1.json",
+   "closed": "2026-10-01T10:28:03+08:00"
+  },
+  "solver#2": {
+   "haiku": true,
+   "started": "2026-10-01T10:24:13+08:00",
+   "expects": "build/work/blind/9702-5.2.answers.part2.json",
+   "closed": "2026-10-01T10:28:03+08:00"
+  },
+  "solver#3": {
+   "haiku": true,
+   "started": "2026-10-01T10:24:13+08:00",
+   "expects": "build/work/blind/9702-5.2.answers.part3.json",
+   "closed": "2026-10-01T10:28:03+08:00"
+  },
+  "checker": {
+   "haiku": true,
+   "started": "2026-10-01T10:24:13+08:00",
+   "expects": "build/work/foundry/9702-5.2.check.json",
+   "closed": "2026-10-01T10:28:03+08:00"
+  },
+  "tiebreak": {
+   "pid": 93697,
+   "model": "gpt-6-sol/medium",
+   "started": "2026-10-01T10:33:28+08:00",
+   "log": "foundry/logs/9702-5.2.tiebreak.1001-103328.log",
+   "out": "foundry/logs/9702-5.2.tiebreak.1001-103328.out.json",
+   "finished": "2026-10-01T10:36:32+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 2,
+    "answers_path": "build/work/blind/9702-5.2.tiebreak.json",
+    "notes": []
+   }
+  }
+ },
+ "checked": true,
+ "extra_ids": {
+  "9702_s19_11_q18": "9702-5.2-x001",
+  "9702_s19_13_q17": "9702-5.2-x002",
+  "9702_s19_13_q18": "9702-5.2-x003",
+  "9702_w19_11_q17": "9702-5.2-x004",
+  "9702_w19_13_q18": "9702-5.2-x005",
+  "9702_s20_11_q17": "9702-5.2-x006",
+  "9702_w20_11_q8": "9702-5.2-x007",
+  "9702_w20_11_q17": "9702-5.2-x008",
+  "9702_s21_12_q17": "9702-5.2-x009",
+  "9702_w21_11_q16": "9702-5.2-x010",
+  "9702_w21_11_q17": "9702-5.2-x011",
+  "9702_s22_11_q18": "9702-5.2-x012",
+  "9702_s22_12_q18": "9702-5.2-x013",
+  "9702_s22_13_q19": "9702-5.2-x014",
+  "9702_w22_11_q10": "9702-5.2-x015",
+  "9702_w22_11_q17": "9702-5.2-x016",
+  "9702_w22_11_q18": "9702-5.2-x017",
+  "9702_w22_13_q1": "9702-5.2-x018",
+  "9702_s24_11_q20": "9702-5.2-x019",
+  "9702_s24_12_q10": "9702-5.2-x020",
+  "9702_s24_12_q16": "9702-5.2-x021",
+  "9702_s24_12_q17": "9702-5.2-x022",
+  "9702_s24_13_q17": "9702-5.2-x023",
+  "9702_s25_11_q17": "9702-5.2-x024",
+  "9702_s25_11_q19": "9702-5.2-x025",
+  "9702_s25_12_q19": "9702-5.2-x026",
+  "9702_s25_13_q16": "9702-5.2-x027",
+  "9702_s25_13_q19": "9702-5.2-x028",
+  "9702_w25_11_q17": "9702-5.2-x029"
+ }
+}

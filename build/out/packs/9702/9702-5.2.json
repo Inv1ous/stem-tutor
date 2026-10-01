@@ -1,0 +1,1867 @@
+{
+ "subtopic": "9702-5.2",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/05 Work, energy and power/5.2 Gravitational potential energy and kinetic energy.md",
+ "outline": "In a uniform gravitational field, work against weight changes gravitational potential energy: $W=Fs$ with $F=mg$ and vertical $s=\\Delta h$ gives $\\Delta E_P=mg\\Delta h$. Height, not path length, matters. For a constant resultant force, $W=Fs=mas$ and $v^2-u^2=2as$, so $W=\\tfrac12m(v^2-u^2)$ and $E_K=\\tfrac12mv^2$. Kinetic energy depends on speed squared. At constant falling speed it does not change, and a projectile at maximum height can still move horizontally.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-5.2.1",
+   "statement": "The distance along a slope is the height in $\\Delta E_P=mg\\Delta h$.",
+   "refutation": "Gravity acts vertically, so the energy change depends on vertical height, not path length.",
+   "contrast": "A longer frictionless ramp to the same height requires the same gain in gravitational potential energy.",
+   "source": "ER 9702 s22 P23 Q4"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-5.2.2",
+   "statement": "An object moving horizontally in a uniform vertical field gains gravitational potential energy.",
+   "refutation": "Its vertical displacement is zero, so $\\Delta E_P=mg(0)=0$.",
+   "contrast": "Only a change in height changes gravitational potential energy in this field.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-5.2.2",
+   "statement": "A falling object at constant speed gains kinetic energy as it loses gravitational potential energy.",
+   "refutation": "Constant speed means constant $E_K$; energy lost from the gravitational store is transferred to the surroundings through resistive forces.",
+   "contrast": "At terminal speed, the rate of gravitational energy loss is $mgv$ while $E_K$ stays fixed.",
+   "source": "ER 9702 s22 P23 Q4"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-5.2.3",
+   "statement": "The kinetic energy formula follows from $W=\\tfrac12 Fs$.",
+   "refutation": "Work by a constant force parallel to displacement is $W=Fs$; the half arises from $v^2-u^2=2as$.",
+   "contrast": "From rest, $s=v^2/(2a)$ and $Fs=ma\\,s=\\tfrac12 mv^2$.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-5.2.4",
+   "statement": "Doubling speed doubles kinetic energy.",
+   "refutation": "At fixed mass, $E_K$ is proportional to $v^2$, so doubling speed multiplies it by four.",
+   "contrast": "Halving mass and doubling speed doubles kinetic energy overall.",
+   "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-5.2.4",
+   "statement": "At the highest point of projectile motion, kinetic energy is zero.",
+   "refutation": "Only vertical velocity is zero there; horizontal velocity remains when air resistance is negligible.",
+   "contrast": "At the top, use the horizontal speed in $E_K=\\tfrac12 mv^2$.",
+   "source": "ER 9702 s23 P13 Q17"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-5.2.1",
+   "problem": "Derive the gain in gravitational potential energy for a 2.0 kg load raised 3.0 m at constant speed.",
+   "steps": [
+    {
+     "do": "At constant speed, lifting force equals weight: $F=mg$.",
+     "why": "Balanced forces mean no acceleration."
+    },
+    {
+     "do": "Write $W=Fs=mg\\Delta h$.",
+     "why": "The displacement against gravity is the vertical height."
+    },
+    {
+     "do": "$\\Delta E_P=(2.0)(9.81)(3.0)=58.86$ J.",
+     "why": "The work against gravity becomes gained gravitational potential energy.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 58.86,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Derive and calculate the gain for a 3.0 kg load raised 2.0 m at constant speed.",
+    "answer": {
+     "value": 58.86,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-5.2.2",
+   "problem": "Calculate the gain in gravitational potential energy of a 50 kg barrel raised 1.6 m.",
+   "steps": [
+    {
+     "do": "Use $\\Delta E_P=mg\\Delta h$.",
+     "why": "Only vertical height enters, even if a ramp is used."
+    },
+    {
+     "do": "$\\Delta E_P=50(9.81)(1.6)=784.8$ J.",
+     "why": "Substitute SI mass and height, then round appropriately.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 784.8000000000001,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find the gain for a 40 kg barrel raised 2.0 m.",
+    "answer": {
+     "value": 784.8000000000001,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-5.2.3",
+   "problem": "Derive the kinetic energy of a 3.0 kg body accelerated from rest to 4.0 m s$^{-1}$.",
+   "steps": [
+    {
+     "do": "Write $W=Fs$ and $F=ma$.",
+     "why": "The net work gives the kinetic energy gained."
+    },
+    {
+     "do": "From $v^2=u^2+2as$ with $u=0$, $s=v^2/(2a)$.",
+     "why": "This is where the factor one half enters."
+    },
+    {
+     "do": "$E_K=W=ma[v^2/(2a)]=\\tfrac12mv^2=24$ J.",
+     "why": "Acceleration cancels, leaving mass and speed.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 24.0,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Derive and calculate the kinetic energy of a 2.0 kg body accelerated from rest to 6.0 m s$^{-1}$.",
+    "answer": {
+     "value": 36.0,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "9702-5.2.4",
+   "problem": "Find the kinetic energy of a 0.40 kg projectile at maximum height when its horizontal speed is 12 m s$^{-1}$.",
+   "steps": [
+    {
+     "do": "At maximum height, vertical speed is zero but horizontal speed is 12 m s$^{-1}$.",
+     "why": "The projectile does not stop at its highest point."
+    },
+    {
+     "do": "Use $E_K=\\tfrac12mv^2$.",
+     "why": "Kinetic energy depends on the remaining speed."
+    },
+    {
+     "do": "$E_K=\\tfrac12(0.40)(12)^2=28.8$ J.",
+     "why": "Square speed before multiplying by half the mass.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 28.8,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "Find the kinetic energy at the top for a 0.50 kg projectile with horizontal speed 8.0 m s$^{-1}$.",
+    "answer": {
+     "value": 16.0,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-5.2-p01",
+   "kcs": [
+    "9702-5.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q17",
+    "qid": "9702_w23_12_q17"
+   },
+   "stem": "When an object of mass m is raised through a vertical height ∆h, the gain of its gravitational\npotential energy is ∆EP.\n∆EP and ∆h are related by the equation\n∆EP = mg∆h,\nwhere g is the acceleration of free fall.\nThe definition of which physical quantity is needed to derive this equation?",
+   "options": {
+    "A": "acceleration",
+    "B": "momentum",
+    "C": "power",
+    "D": "work done"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Work done is force times displacement. Raising the object against its weight gives $W=mg\\Delta h$, stored as gravitational potential energy.",
+   "distractors": {},
+   "image": "Assets/mcq/9702_w23_12_q17.png"
+  },
+  {
+   "id": "9702-5.2-p02",
+   "kcs": [
+    "9702-5.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q18",
+    "qid": "9702_w20_12_q18"
+   },
+   "stem": "The change in gravitational potential energy ∆E of an object of mass m when moving through\nheight ∆h near the surface of the Earth is given by the equation shown.\n∆E = mg∆h\nWhich equation is needed as part of the derivation of this expression?",
+   "options": {
+    "A": "kinetic energy = ¹ ₂ × mass × (speed)²",
+    "B": "moment = force × distance",
+    "C": "weight = mass × acceleration of free fall",
+    "D": "work done = power × time"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Weight is $mg$. Combined with $W=Fs$ for vertical displacement, this gives $\\Delta E_P=mg\\Delta h$. The power equation in D is not the required step.",
+   "distractors": {}
+  },
+  {
+   "id": "9702-5.2-p03",
+   "kcs": [
+    "9702-5.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q20",
+    "qid": "9702_w24_13_q20"
+   },
+   "stem": "The equation for kinetic energy EK can be derived using the equations of motion.\nFour equations relating to motion are listed.\n1\nW = Fs\n2\nF = ma\n3\nv ² = u ² + 2as\n4\nP =\nt\nW\nWhich three equations can be used to derive the equation for EK?",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1, 2 and 4",
+    "C": "1, 3 and 4",
+    "D": "2, 3 and 4"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Use $W=Fs$, $F=ma$ and $v^2=u^2+2as$ to obtain the kinetic energy gain. Power in equation 4 does not enter; B replaces the motion equation with power.",
+   "distractors": {},
+   "image": "Assets/mcq/9702_w24_13_q20.png"
+  },
+  {
+   "id": "9702-5.2-p04",
+   "kcs": [
+    "9702-5.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q17",
+    "qid": "9702_w25_12_q17"
+   },
+   "stem": "A student attempts to derive the formula for kinetic energy EK. She begins by considering an\nobject of mass m that is initially at rest. A constant force F applied to the object causes it to\naccelerate to final velocity v in displacement s. The kinetic energy gained by the object is equal to\nthe work done on the object by the force F.\nWhich equation does the student not need in order to derive the formula for EK?",
+   "options": {
+    "A": "F = ma",
+    "B": "W = Fs",
+    "C": "E = Fs 2 1",
+    "D": "v ² = u ² + 2as"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The work equation is $W=Fs$, not $E=\\tfrac12 Fs$. The factor one half emerges after substituting $s=v^2/(2a)$, so C is the equation not needed.",
+   "distractors": {},
+   "image": "Assets/mcq/9702_w25_12_q17.png"
+  },
+  {
+   "id": "9702-5.2-p05",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q19",
+    "qid": "9702_w22_12_q19"
+   },
+   "stem": "An object of mass m is dropped onto the surface of two planets, X and Y, which have no\natmosphere.\nThe height from which the object is dropped and the change in gravitational potential energy of\nthe object, for each planet, are given in the table.\nheight / m\nchange in gravitational\npotential energy\nplanet X\n3\n∆E\nplanet Y\n4\n4∆E\nThe acceleration of free fall near the surface of planet X is gX.\nWhat is the acceleration of free fall near the surface of planet Y?",
+   "options": {
+    "A": "X 4 3 g",
+    "B": "X 3 4 g",
+    "C": "3gX",
+    "D": "4gX"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "For X, $\\Delta E=3mg_X$; for Y, $4\\Delta E=4mg_Y$. Hence $g_Y=3g_X$, rather than D, which ignores the unequal heights.",
+   "distractors": {
+    "D": "m1"
+   },
+   "image": "Assets/mcq/9702_w22_12_q19.png"
+  },
+  {
+   "id": "9702-5.2-p06",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q17",
+    "qid": "9702_w23_13_q17"
+   },
+   "stem": "A parachutist is falling towards the ground at a constant speed v. The rate at which she is losing\ngravitational potential energy is R.\nThe acceleration of free fall is g.\nWhat is the mass of the parachutist?",
+   "options": {
+    "A": "R gv",
+    "B": "gv R",
+    "C": "2 2 v R",
+    "D": "R v 2 2"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "In time $t$, the fall is $vt$, so $R=mgvt/t=mgv$ and $m=R/(gv)$. C treats the energy loss as a change in kinetic energy despite constant speed.",
+   "distractors": {
+    "C": "m3"
+   },
+   "image": "Assets/mcq/9702_w23_13_q17.png"
+  },
+  {
+   "id": "9702-5.2-p07",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q18",
+    "qid": "9702_w22_13_q18"
+   },
+   "stem": "An object is displaced horizontally to the right in a uniform vertical gravitational field.\nWhich statement describes the change in the gravitational potential energy of the object?",
+   "options": {
+    "A": "It decreases in direct proportion to the displacement.",
+    "B": "It does not change with the displacement.",
+    "C": "It increases in direct proportion to the displacement.",
+    "D": "It increases in direct proportion to the square of the displacement."
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Horizontal displacement has $\\Delta h=0$, so gravitational potential energy is unchanged. C incorrectly treats horizontal distance as vertical height.",
+   "distractors": {
+    "C": "m2"
+   }
+  },
+  {
+   "id": "9702-5.2-p08",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q18",
+    "qid": "9702_w24_12_q18"
+   },
+   "stem": "A barrel of mass 50 kg is loaded onto the back of a lorry 1.6 m high by pushing it up a frictionless\nplank 3.4 m long.\n1.6 m\nplank\n3.4 m\nbarrel\nmass = 50 kg\nlorry\nWhat is the minimum work done?",
+   "options": {
+    "A": "80 J",
+    "B": "170 J",
+    "C": "780 J",
+    "D": "1700 J"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The minimum work is the gain in gravitational potential energy: $50(9.81)(1.6)=784.8$ J, or 780 J to two significant figures. D uses the 3.4 m plank length as the height.",
+   "distractors": {
+    "D": "m1"
+   },
+   "image": "Assets/mcq/9702_w24_12_q18.png"
+  },
+  {
+   "id": "9702-5.2-p09",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q17",
+    "qid": "9702_s23_13_q17"
+   },
+   "stem": "An object of mass 0.40 kg is projected into the air and follows a curved path above horizontal\nground.\npath of object\nground\n18 m\nobject,\nmass 0.40 kg\nThe object takes a time of 1.5 s to move along its path. The object lands a horizontal distance of\n18 m from its initial position. Air resistance is negligible.\nWhat is the kinetic energy of the object at its maximum height?",
+   "options": {
+    "A": "0 J",
+    "B": "2.4 J",
+    "C": "11 J",
+    "D": "29 J"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Horizontal speed remains $18/1.5=12$ m s$^{-1}$ at maximum height, so $E_K=\\tfrac12(0.40)(12)^2=28.8$ J. A ignores this horizontal motion.",
+   "distractors": {
+    "A": "m6"
+   },
+   "image": "Assets/mcq/9702_s23_13_q17.png"
+  },
+  {
+   "id": "9702-5.2-p10",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q7",
+    "qid": "9702_w24_11_q7"
+   },
+   "stem": "A car of mass 1200 kg has momentum 18 000 kg m s⁻¹.\nWhat is the kinetic energy of the car?",
+   "options": {
+    "A": "4.65 kJ",
+    "B": "6.57 kJ",
+    "C": "135 kJ",
+    "D": "270 kJ"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Speed is $p/m=18000/1200=15$ m s$^{-1}$, giving $E_K=\\tfrac12(1200)(15)^2=135000$ J. D omits the factor one half.",
+   "distractors": {
+    "D": "m4"
+   }
+  },
+  {
+   "id": "9702-5.2-p11",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q18",
+    "qid": "9702_w21_13_q18"
+   },
+   "stem": "Car P has kinetic energy 240 kJ.\nCar Q has half the mass and twice the speed of car P.\nWhat is the kinetic energy of car Q?",
+   "options": {
+    "A": "120 kJ",
+    "B": "240 kJ",
+    "C": "480 kJ",
+    "D": "960 kJ"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The energy ratio is $(1/2)(2)^2=2$, so car Q has 480 kJ. B counts only a single power of speed.",
+   "distractors": {
+    "B": "m5"
+   }
+  },
+  {
+   "id": "9702-5.2-p12",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q19",
+    "qid": "9702_w21_12_q19"
+   },
+   "stem": "Car X is travelling at half the speed of car Y. Car X has twice the mass of car Y.\nWhich statement is correct?",
+   "options": {
+    "A": "Car X has half the kinetic energy of car Y.",
+    "B": "Car X has one quarter of the kinetic energy of car Y.",
+    "C": "Car X has twice the kinetic energy of car Y.",
+    "D": "The two cars have the same kinetic energy."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The energy ratio is $2(1/2)^2=1/2$, so X has half the kinetic energy of Y. B accounts for speed but omits the doubled mass.",
+   "distractors": {
+    "B": "m5"
+   }
+  },
+  {
+   "id": "9702-5.2-i01",
+   "kcs": [
+    "9702-5.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Show (that)",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show that the gain in gravitational potential energy of mass $m$ raised by vertical height $\\Delta h$ in a uniform gravitational field is $mg\\Delta h$.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "State that the lifting force balances weight $mg$ at constant speed.",
+     "keywords": [
+      [
+       "force",
+       "weight"
+      ],
+      [
+       "mg"
+      ]
+     ]
+    },
+    {
+     "point": "Use work done $W=Fs$ over vertical displacement $\\Delta h$.",
+     "keywords": [
+      [
+       "work",
+       "W"
+      ],
+      [
+       "F"
+      ],
+      [
+       "height",
+       "displacement"
+      ]
+     ]
+    },
+    {
+     "point": "Equate work against gravity to gained potential energy.",
+     "keywords": [
+      [
+       "potential energy",
+       "E_P"
+      ],
+      [
+       "work"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At constant speed, the upward force is $mg$ and its work over vertical displacement $\\Delta h$ is $mg\\Delta h$. This is the potential energy gained.",
+   "hints": [
+    "Identify the relevant force, displacement, or change in speed.",
+    "Start with the work done or equation of motion required by the question.",
+    "Write the first equation, then substitute the physical quantity it represents."
+   ]
+  },
+  {
+   "id": "9702-5.2-i02",
+   "kcs": [
+    "9702-5.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Why does a frictionless longer ramp not change the gravitational potential energy gained in lifting a crate to a fixed height?",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The change in gravitational potential energy depends on vertical height.",
+     "keywords": [
+      [
+       "vertical",
+       "height"
+      ]
+     ]
+    },
+    {
+     "point": "The vertical rise and weight are unchanged, so the work against gravity is unchanged.",
+     "keywords": [
+      [
+       "work",
+       "energy"
+      ],
+      [
+       "same",
+       "unchanged"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Work against gravity is weight times vertical height, irrespective of ramp length.",
+   "hints": [
+    "Identify the relevant force, displacement, or change in speed.",
+    "Start with the work done or equation of motion required by the question.",
+    "Write the first equation, then substitute the physical quantity it represents."
+   ]
+  },
+  {
+   "id": "9702-5.2-i03",
+   "kcs": [
+    "9702-5.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Show (that)",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A mass is raised vertically at constant speed. Starting with $W=Fs$, show why the lifting force equals $mg$ and state the resulting energy change.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Zero acceleration means balanced forces, so lifting force equals weight $mg$.",
+     "keywords": [
+      [
+       "constant speed",
+       "zero acceleration"
+      ],
+      [
+       "balance",
+       "equal"
+      ],
+      [
+       "mg"
+      ]
+     ]
+    },
+    {
+     "point": "Substitute $F=mg$ and $s=\\Delta h$ into $W=Fs$.",
+     "keywords": [
+      [
+       "mg"
+      ],
+      [
+       "height",
+       "\\Delta h"
+      ],
+      [
+       "work",
+       "W"
+      ]
+     ]
+    },
+    {
+     "point": "The work is the increase in gravitational potential energy.",
+     "keywords": [
+      [
+       "potential energy"
+      ],
+      [
+       "increase",
+       "gain"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Balanced forces give $F=mg$; $W=F\\Delta h=mg\\Delta h$, stored as gravitational potential energy.",
+   "hints": [
+    "Identify the relevant force, displacement, or change in speed.",
+    "Start with the work done or equation of motion required by the question.",
+    "Write the first equation, then substitute the physical quantity it represents."
+   ]
+  },
+  {
+   "id": "9702-5.2-i04",
+   "kcs": [
+    "9702-5.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same vertical rise, explain why the work against gravity is independent of the path taken.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Weight acts vertically with magnitude $mg$.",
+     "keywords": [
+      [
+       "weight",
+       "gravity"
+      ],
+      [
+       "vertical"
+      ]
+     ]
+    },
+    {
+     "point": "Only vertical displacement contributes to work against gravity.",
+     "keywords": [
+      [
+       "vertical"
+      ],
+      [
+       "displacement",
+       "height"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The gravitational potential energy change is $mg\\Delta h$ for either path.",
+   "hints": [
+    "Identify the relevant force, displacement, or change in speed.",
+    "Start with the work done or equation of motion required by the question.",
+    "Write the first equation, then substitute the physical quantity it represents."
+   ]
+  },
+  {
+   "id": "9702-5.2-i05",
+   "kcs": [
+    "9702-5.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Show (that)",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Starting from $W=Fs$ and $v^2=u^2+2as$, derive the change in kinetic energy for a constant resultant force parallel to displacement.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Use $F=ma$ and $s=(v^2-u^2)/(2a)$.",
+     "keywords": [
+      [
+       "F=ma",
+       "force"
+      ],
+      [
+       "v^2",
+       "speed"
+      ],
+      [
+       "2a"
+      ]
+     ]
+    },
+    {
+     "point": "Substitute in $W=Fs$ to get $W=\\tfrac12m(v^2-u^2)$.",
+     "keywords": [
+      [
+       "work",
+       "W"
+      ],
+      [
+       "half",
+       "1/2",
+       "\\tfrac12"
+      ],
+      [
+       "v^2-u^2",
+       "v^2 - u^2"
+      ]
+     ]
+    },
+    {
+     "point": "Identify $E_K=\\tfrac12mv^2$ from the change in energy.",
+     "keywords": [
+      [
+       "kinetic energy",
+       "E_K"
+      ],
+      [
+       "mv^2"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The work is $ma(v^2-u^2)/(2a)=\\tfrac12m(v^2-u^2)$; hence kinetic energy at speed $v$ is $\\tfrac12mv^2$.",
+   "hints": [
+    "Identify the relevant force, displacement, or change in speed.",
+    "Start with the work done or equation of motion required by the question.",
+    "Write the first equation, then substitute the physical quantity it represents."
+   ]
+  },
+  {
+   "id": "9702-5.2-i06",
+   "kcs": [
+    "9702-5.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Where does the factor $\\tfrac12$ arise in deriving $E_K$ from equations of motion?",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The motion equation has the term $2as$.",
+     "keywords": [
+      [
+       "2as",
+       "two"
+      ]
+     ]
+    },
+    {
+     "point": "Rearranging for displacement introduces division by two.",
+     "keywords": [
+      [
+       "displacement",
+       "s"
+      ],
+      [
+       "divide",
+       "half",
+       "two"
+      ]
+     ]
+    }
+   ],
+   "explanation": "From rest, $v^2=2as$ gives $s=v^2/(2a)$; then $Fs=ma\\,s=\\tfrac12mv^2$.",
+   "hints": [
+    "Identify the relevant force, displacement, or change in speed.",
+    "Start with the work done or equation of motion required by the question.",
+    "Write the first equation, then substitute the physical quantity it represents."
+   ]
+  },
+  {
+   "id": "9702-5.2-i07",
+   "kcs": [
+    "9702-5.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Show (that)",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An object accelerates from rest under constant resultant force. Show the work done in reaching speed $v$ in terms of mass $m$.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Write $v^2=2as$ for $u=0$.",
+     "keywords": [
+      [
+       "v^2"
+      ],
+      [
+       "2as"
+      ]
+     ]
+    },
+    {
+     "point": "Use $F=ma$ and $W=Fs$.",
+     "keywords": [
+      [
+       "F=ma"
+      ],
+      [
+       "W=Fs",
+       "work"
+      ]
+     ]
+    },
+    {
+     "point": "Substitute $s=v^2/(2a)$ to obtain $W=\\tfrac12mv^2$.",
+     "keywords": [
+      [
+       "v^2"
+      ],
+      [
+       "half",
+       "1/2",
+       "\\tfrac12"
+      ],
+      [
+       "mv^2"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The motion equation supplies $s=v^2/(2a)$, so $W=ma(v^2/(2a))=\\tfrac12mv^2$.",
+   "hints": [
+    "Identify the relevant force, displacement, or change in speed.",
+    "Start with the work done or equation of motion required by the question.",
+    "Write the first equation, then substitute the physical quantity it represents."
+   ]
+  },
+  {
+   "id": "9702-5.2-i08",
+   "kcs": [
+    "9702-5.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Why must the force used in a work–energy derivation be the resultant force rather than one of several applied forces?",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "$F=ma$ applies to resultant force.",
+     "keywords": [
+      [
+       "resultant"
+      ],
+      [
+       "F=ma",
+       "acceleration"
+      ]
+     ]
+    },
+    {
+     "point": "Net work changes kinetic energy.",
+     "keywords": [
+      [
+       "net work",
+       "total work",
+       "resultant work"
+      ],
+      [
+       "kinetic energy"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Only the resultant force produces the acceleration in the motion equation; its work equals the kinetic energy change.",
+   "hints": [
+    "Identify the relevant force, displacement, or change in speed.",
+    "Start with the work done or equation of motion required by the question.",
+    "Write the first equation, then substitute the physical quantity it represents."
+   ]
+  },
+  {
+   "id": "9702-5.2-i09",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A [[m]] kg load is raised vertically by [[h]] m in a uniform field. Calculate its gain in gravitational potential energy, using $g=9.81\\,\\mathrm{m\\,s^{-2}}$.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "h": {
+      "choices": [
+       1.5,
+       2.5,
+       3.5
+      ]
+     }
+    },
+    "answer": "m*9.81*h",
+    "distractors": [
+     {
+      "expr": "m*9.81*(h+1)",
+      "misconception": "m1"
+     },
+     {
+      "expr": "m*h",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "answer": {
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The gain is weight times vertical height: $\\Delta E_P=mg\\Delta h$.",
+   "hints": [
+    "Identify which given quantity is mass and which is a vertical height or speed.",
+    "Write the energy equation before substituting.",
+    "Convert to SI units and substitute, keeping the square on speed where needed."
+   ]
+  },
+  {
+   "id": "9702-5.2-i10",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A body of mass [[m]] kg moves at [[v]] $\\mathrm{m\\,s^{-1}}$. Calculate its kinetic energy.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       3,
+       5
+      ]
+     },
+     "v": {
+      "choices": [
+       4,
+       6,
+       8
+      ]
+     }
+    },
+    "answer": "0.5*m*v**2",
+    "distractors": [
+     {
+      "expr": "m*v**2",
+      "misconception": "m4"
+     },
+     {
+      "expr": "0.5*m*v",
+      "misconception": "m5"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "answer": {
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Use $E_K=\\tfrac12mv^2$ with speed squared; the factor one half is essential.",
+   "hints": [
+    "Identify which given quantity is mass and which is a vertical height or speed.",
+    "Write the energy equation before substituting.",
+    "Convert to SI units and substitute, keeping the square on speed where needed."
+   ]
+  },
+  {
+   "id": "9702-5.2-x001",
+   "kcs": [
+    "9702-5.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q18",
+    "qid": "9702_s19_11_q18"
+   },
+   "stem": "The kinetic energy Eₖ of an object of mass m moving at speed v is given by the equation shown.\nEₖ = ₂\n¹ mv²\nWhich equation is not used in the derivation of this equation?",
+   "options": {
+    "A": "F = ma",
+    "B": "s = vt",
+    "C": "v² = u² + 2as",
+    "D": "W = Fs"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x002",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q17",
+    "qid": "9702_s19_13_q17"
+   },
+   "stem": "A lead pellet is shot vertically upwards into a clay block that is stationary at the moment of impact\nbut is able to rise freely after impact.\nlead pellet\nmass 5.0 g\nstationary clay\nblock\nmass 95 g\nimpact velocity\n200 m s⁻¹\nThe mass of the pellet is 5.0 g and the mass of the clay block is 95 g.\nThe pellet hits the block with an initial vertical velocity of 200 m s⁻¹. It embeds itself in the block\nand does not emerge.\nHow high above its initial position will the block rise?",
+   "options": {
+    "A": "5.1 m",
+    "B": "5.6 m",
+    "C": "10 m",
+    "D": "100 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_13_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Many candidates found it difficult to apply both conservation of momentum and energy laws correctly in order to answer this question. Applying the law of conservation of total momentum to the collision of the lead pellet with the stationary clay block: 5.0 × 10–3 × 200 = 100 × 10–3 × v v = 10.0 m s–1 where v is the velocity of the combined clay block and pellet immediately after the impact. The height h reached by the clay block and pellet can then be obtained using the law of conservation of energy: mgh = ½mv2 h = v2 / 2g This gives h = 5.1 m (answer A)."
+  },
+  {
+   "id": "9702-5.2-x003",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q18",
+    "qid": "9702_s19_13_q18"
+   },
+   "stem": "On the surface of a planet, 30 J of work is done against gravity to raise a mass of 1.0 kg through a\nheight of 10 m.\nHow much work must be done to raise a mass of 4.0 kg through a height of 5.0 m on this planet?",
+   "options": {
+    "A": "15 J",
+    "B": "60 J",
+    "C": "120 J",
+    "D": "200 J"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x004",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q17",
+    "qid": "9702_w19_11_q17"
+   },
+   "stem": "An object travelling with a speed of 10 m s⁻¹ has kinetic energy 1500 J.\nThe speed of the object is increased to 40 m s⁻¹.\nWhat is the new kinetic energy of the object?",
+   "options": {
+    "A": "4500 J",
+    "B": "6000 J",
+    "C": "24 000 J",
+    "D": "1 350 000 J"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x005",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q18",
+    "qid": "9702_w19_13_q18"
+   },
+   "stem": "Initially, four identical uniform blocks, each of mass m and thickness h, are spread on a table.\nh\nh\nThe acceleration of free fall is g.\nHow much work is done on the blocks in stacking them on top of one another?",
+   "options": {
+    "A": "3 mgh",
+    "B": "6 mgh",
+    "C": "8 mgh",
+    "D": "10 mgh"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_13_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x006",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q17",
+    "qid": "9702_s20_11_q17"
+   },
+   "stem": "A block of weight 80 N is pushed a distance of 60 cm up a slope inclined at 30° to the horizontal.\nThere is a frictional force of 25 N between the block and the surface of the slope.\n30°\n80 N\nweight\n60 cm\nhorizontal\nWhat is the work Wg done against the gravitational force and the work Wf done against the\nfrictional force?\nWg / J\nWf / J",
+   "options": {
+    "A": "24 7.5",
+    "B": "24 15",
+    "C": "48 7.5",
+    "D": "48 15"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_11_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x007",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q8",
+    "qid": "9702_w20_11_q8"
+   },
+   "stem": "The graph shows how quantity P varies with quantity Q for an object falling in air for a long time in\na uniform gravitational field.\n0\n0\nP\nQ\nWhat could be the identities of P and Q?\nP\nQ",
+   "options": {
+    "A": "force of air resistance acceleration",
+    "B": "kinetic energy time",
+    "C": "potential energy height",
+    "D": "work done against air resistance speed"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Half the candidates selected answer B (a graph of kinetic energy against time) rather than the correct answer C. An object falling in air for a long time will initially accelerate but eventually reach a constant (terminal) velocity. A graph of kinetic energy 2 1 2 mv       against time will initially have a positive gradient but eventually become horizontal when the velocity, and hence the kinetic energy, becomes constant. The gravitational potential energy (taking ground level as the ‘zero’ of gravitational potential energy) is mgh, where h is the height above the ground. A graph of gra"
+  },
+  {
+   "id": "9702-5.2-x008",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q17",
+    "qid": "9702_w20_11_q17"
+   },
+   "stem": "Which amount of energy is not 2400 J?",
+   "options": {
+    "A": "the decrease in gravitational potential energy of a mass of 60 kg when it moves vertically downwards through 40 m near the Earth’s surface",
+    "B": "the energy transferred in 15 s by a machine of power 160 W",
+    "C": "the kinetic energy of a mass of 12 kg moving at a speed of 20 m s⁻¹",
+    "D": "the work done by a gas expanding against a constant external pressure of 120 kPa when its volume increases by 0.020 m³"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x009",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q17",
+    "qid": "9702_s21_12_q17"
+   },
+   "stem": "A constant force F, acting on a car of mass m, moves the car up a slope through a distance s at\nconstant velocity v. The angle of the slope to the horizontal is α.\nα\nF\ns\nThe acceleration of free fall is g.\nWhat is the ratio\nF\nforce\nby\ndone\nwork\ncar\nby\ngained\nenergy\npotential\nnal\ngravitatio\n?",
+   "options": {
+    "A": "Fv mgs α sin",
+    "B": "Fs mv",
+    "C": "Fs mv 2 2",
+    "D": "F mg α sin"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_12_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x010",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q16",
+    "qid": "9702_w21_11_q16"
+   },
+   "stem": "A pulley of radius 0.40 m supports weights of 20 N and 15 N by means of a thin string, as shown.\n20 N\n15 N\nThe weights are moved by slowly rotating the pulley clockwise through an angle of 60°.\nWhat is the increase in the total gravitational potential energy of the weights?",
+   "options": {
+    "A": "0.33 J",
+    "B": "2.0 J",
+    "C": "2.1 J",
+    "D": "15 J"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w21_11_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x011",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q17",
+    "qid": "9702_w21_11_q17"
+   },
+   "stem": "A car of mass 1500 kg accelerates from an initial speed of 15 m s⁻¹. This acceleration causes the\ncar to gain 3.0 × 10⁵\nJ of kinetic energy.\nWhat is the change in the speed of the car?",
+   "options": {
+    "A": "5.4 m s⁻¹",
+    "B": "10 m s⁻¹",
+    "C": "20 m s⁻¹",
+    "D": "25 m s⁻¹"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x012",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q18",
+    "qid": "9702_s22_11_q18"
+   },
+   "stem": "Objects with different masses are placed on the horizontal surface of a table. The objects are\nthen raised to different heights above the table. The gain in gravitational potential energy of each\nobject is the same.\nWhich graph best shows the variation of the height h of the objects above the table with their\nmass m?\n0\n0\nh\nm",
+   "options": {
+    "A": "",
+    "B": "0 0 h m",
+    "C": "0 0 h m",
+    "D": "0 0 h m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_11_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x013",
+   "kcs": [
+    "9702-5.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q18",
+    "qid": "9702_s22_12_q18"
+   },
+   "stem": "A student attempts to derive the formula for kinetic energy EK. She begins by considering an\nobject of mass m which is initially at rest. A constant force F applied to the object causes it to\naccelerate to final velocity v in displacement s. The kinetic energy gained by the object is equal to\nthe work done on the object by the force F.\nWhich equation would the student not need in order to derive the formula for EK?",
+   "options": {
+    "A": "F = ma",
+    "B": "W = Fs",
+    "C": "E = Fs 2 1",
+    "D": "v ² = u ² + 2as"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_12_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x014",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q19",
+    "qid": "9702_s22_13_q19"
+   },
+   "stem": "The diagram shows the variation of a quantity y with a quantity x for objects in a uniform\ngravitational field.\n0\n0\ny\nx\nWhat could x and y represent?\nx\ny",
+   "options": {
+    "A": "mass for different objects moving at the same speed kinetic energy",
+    "B": "speed for an object of constant mass kinetic energy",
+    "C": "vertical distance fallen for an object of constant mass change of gravitational potential energy",
+    "D": "mass for different objects falling the same vertical distance change of gravitational potential energy"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_13_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x015",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q10",
+    "qid": "9702_w22_11_q10"
+   },
+   "stem": "Two trolleys are held together on a horizontal surface with a compressed spring between them.\n1 kg\n2 kg\nWhen they are released, the trolleys lose contact with the spring. The trolley of mass 2 kg moves\nto the left at a final speed of 2 m s⁻¹.\nHow much elastic potential energy was stored in the spring?",
+   "options": {
+    "A": "4 J",
+    "B": "6 J",
+    "C": "8 J",
+    "D": "12 J"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x016",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q17",
+    "qid": "9702_w22_11_q17"
+   },
+   "stem": "A man of mass 75 kg runs up a staircase consisting of 30 steps. Each step is 20 cm high.\nThe man takes a time of 7.0 s to run from the bottom of the staircase to the top.\nWhat is the average rate of increase of gravitational potential energy of the man?",
+   "options": {
+    "A": "64 W",
+    "B": "450 W",
+    "C": "630 W",
+    "D": "4400 W"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x017",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q18",
+    "qid": "9702_w22_11_q18"
+   },
+   "stem": "An alpha-particle has 2.2 × 10⁻¹³\nJ of kinetic energy.\nWhat is the speed of the alpha-particle?",
+   "options": {
+    "A": "4.1 × 10⁶ m s⁻¹",
+    "B": "5.8 × 10⁶ m s⁻¹",
+    "C": "8.1 × 10⁶ m s⁻¹",
+    "D": "1.2 × 10⁷ m s⁻¹"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x018",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q1",
+    "qid": "9702_w22_13_q1"
+   },
+   "stem": "A train of mass 600 000 kg moves with a speed of 100 km h⁻¹.\nWhat is the order of magnitude of the kinetic energy of the train?",
+   "options": {
+    "A": "10⁶ J",
+    "B": "10⁸ J",
+    "C": "10¹⁰ J",
+    "D": "10¹² J"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_13_q1.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x019",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q20",
+    "qid": "9702_s24_11_q20"
+   },
+   "stem": "A steel ball is falling at constant speed in oil.\nWhich graph shows the variation with time of the gravitational potential energy Eₚ and the kinetic\nenergy Eₖ of the ball?\n0",
+   "options": {
+    "A": "",
+    "C": "",
+    "B": "",
+    "D": "energy energy energy energy time time time time Eₖ Eₖ Eₖ Eₖ Eₚ Eₚ Eₚ Eₚ 0 0 0"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x020",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q10",
+    "qid": "9702_s24_12_q10"
+   },
+   "stem": "A lead pellet is shot vertically upwards into a clay block that is stationary at the moment of impact,\nbut is able to rise freely after impact.\nlead pellet\nmass 5.0 g\nstationary clay\nblock\nmass 95 g\nimpact velocity\n200 m s⁻¹\nThe mass of the pellet is 5.0 g and the mass of the clay block is 95 g.\nThe pellet hits the block with an initial vertical velocity of 200 m s⁻¹. It embeds itself in the block\nand does not emerge.\nHow high above its initial position will the block rise?",
+   "options": {
+    "A": "5.1 m",
+    "B": "5.6 m",
+    "C": "10 m",
+    "D": "100 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x021",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q16",
+    "qid": "9702_s24_12_q16"
+   },
+   "stem": "The kinetic energy of a particle is increased by a factor of 4.\nBy what factor does its speed increase?",
+   "options": {
+    "A": "2",
+    "B": "4",
+    "C": "8",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_12_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x022",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q17",
+    "qid": "9702_s24_12_q17"
+   },
+   "stem": "A mass of 28 g is raised vertically upwards through a distance of 4.6 m.\nWhat is the change in gravitational potential energy of the mass?",
+   "options": {
+    "A": "0.13 J",
+    "B": "1.3 J",
+    "C": "130 J",
+    "D": "1300 J"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x023",
+   "kcs": [
+    "9702-5.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q17",
+    "qid": "9702_s24_13_q17"
+   },
+   "stem": "An object is in a uniform gravitational field. The graph shows how the change in gravitational\npotential energy ∆EP of the object varies with the vertical distance x moved by the object from a\nfixed point.\n0\n0\n\u0002EP\nx\nWhich graph shows how the gravitational force F acting on the object varies with distance x?\n0\n0\nF\nx\n0",
+   "options": {
+    "A": "",
+    "B": "0 F x 0",
+    "C": "0 F x 0",
+    "D": "0 F x"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_13_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x024",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q17",
+    "qid": "9702_s25_11_q17"
+   },
+   "stem": "An object is falling in a uniform gravitational field.\nWhich two quantities are sufficient to calculate the change in gravitational potential energy?",
+   "options": {
+    "A": "mass and acceleration of free fall",
+    "B": "mass and change in vertical displacement",
+    "C": "weight and acceleration of free fall",
+    "D": "weight and change in vertical displacement"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x025",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q19",
+    "qid": "9702_s25_11_q19"
+   },
+   "stem": "The momentum of a car of mass m increases from p₁ to p₂.\nWhat is the increase in the kinetic energy of the car?",
+   "options": {
+    "A": "m p p 2 ) – ( 2 1 2 2",
+    "B": "m p p 2 ) – ( 2 1 2",
+    "C": "m p p 2 – 1 2",
+    "D": "m p p 2 – 2 1"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x026",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q19",
+    "qid": "9702_s25_12_q19"
+   },
+   "stem": "A box of mass 4.9 kg is pushed at a constant velocity from point P at the bottom of an inclined\nplane to point Q at the top.\nThe box is pushed by a force of 64 N acting parallel to the slope.\nThe slope is inclined at an angle of 20° to the horizontal and the box moves through a vertical\nheight of 5.8 m.\nQ\nP\n20°\n5.8 m\n64 N\nWhat is the work done against the frictional force acting on the block between P and Q?",
+   "options": {
+    "A": "280 J",
+    "B": "810 J",
+    "C": "960 J",
+    "D": "1100 J"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_12_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x027",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q16",
+    "qid": "9702_s25_13_q16"
+   },
+   "stem": "Four identical uniform blocks are spread on a table. Each block has mass m and thickness h.\nh\nh\nThe acceleration of free fall is g.\nHow much work is done on the blocks in stacking them on top of one another?",
+   "options": {
+    "A": "3mgh",
+    "B": "6mgh",
+    "C": "8mgh",
+    "D": "10mgh"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_13_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x028",
+   "kcs": [
+    "9702-5.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q19",
+    "qid": "9702_s25_13_q19"
+   },
+   "stem": "An object travelling with a speed of 10 m s⁻¹ has kinetic energy of 1500 J.\nThe speed of the object is increased to 40 m s⁻¹.\nWhat is the new kinetic energy of the object?",
+   "options": {
+    "A": "4500 J",
+    "B": "6000 J",
+    "C": "24 000 J",
+    "D": "1 350 000 J"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.2-x029",
+   "kcs": [
+    "9702-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q17",
+    "qid": "9702_w25_11_q17"
+   },
+   "stem": "An object with a mass of 100 g falls a vertical distance of 10 m.\nWhat is the change in the gravitational potential energy of the object?",
+   "options": {
+    "A": "1 J",
+    "B": "10 J",
+    "C": "100 J",
+    "D": "10 000 J"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [],
+ "diagrams": []
+}
