@@ -448,3 +448,22 @@ def test_unicode_maths_is_read_like_ascii(given, expected):
 def test_expected_units_read_every_way_and_identical_units_match(given, expected, factor):  # Haiku review
     got = grade.unit_factor(given, expected)
     assert got == (pytest.approx(factor) if factor else None)
+
+
+# ---------- a unit that is not a unit (B-035) ----------
+@pytest.mark.parametrize("given", ["m" * 30, "m" * 200, "m" * 29 + "z", "ms " * 40, "mms mms mms mms mms mms mms mms"])
+def test_a_long_run_of_unit_letters_is_refused_without_trying_every_split(given, monkeypatch):
+    from tutorlib import units
+    calls = []
+    symbol = units._symbol
+    monkeypatch.setattr(units, "_symbol", lambda sym: calls.append(1) or symbol(sym))
+    assert units.unit_factor(given, "m") is None
+    assert len(calls) < 20_000  # "m" * 30 took 1.3 million readings and froze the app while it marked
+
+
+@pytest.mark.parametrize("given,expected,factor", [
+    ("kgms-2", "N", 1.0), ("kg m^2 s^-3 A^-1", "V", 1.0), ("J mol-1 K-1", "kg m2 s-2 mol-1 K-1", 1.0),
+    ("kJ/molK", "J mol-1 K-1", 1000.0), ("minutes", "s", 60.0), ("mmol dm-3", "mol m-3", 1.0)])
+def test_real_units_are_still_read(given, expected, factor):
+    from tutorlib import units
+    assert units.unit_factor(given, expected) == pytest.approx(factor)

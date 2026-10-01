@@ -45,6 +45,9 @@ ALIASES = {"mins": "min", "minute": "min", "minutes": "min", "sec": "s", "secs":
 PREFIX = {"G": 1e9, "M": 1e6, "k": 1e3, "d": 1e-1, "c": 1e-2, "m": 1e-3, "μ": 1e-6, "µ": 1e-6, "u": 1e-6, "n": 1e-9, "p": 1e-12}
 
 SUPERSCRIPT = str.maketrans("⁻⁺⁰¹²³⁴⁵⁶⁷⁸⁹", "-+0123456789")
+# a run of letters is tried as every sequence of symbols ("kgms" = kg·m·s) and the readings of each token multiply:
+# both grow exponentially, so anything longer than a real unit is refused instead of being worked through
+MAX_RUN, MAX_READINGS = 12, 2_000
 TOKEN = re.compile(r"^([A-Za-zΩμµ%°]+)\^?\(?([+-]?\d+)?\)?$")
 
 
@@ -92,6 +95,8 @@ def parse_unit(text: str) -> list[tuple[float, tuple]]:
         return [(1.0, _d())]
     options = [(1.0, _d())]
     for sym, exp, sign in _normalise(text):
+        if len(sym) > MAX_RUN:
+            raise ValueError(f"unknown unit {sym!r}")
         readings = []
         std = _symbol(sym)
         if std:
@@ -101,6 +106,8 @@ def parse_unit(text: str) -> list[tuple[float, tuple]]:
                 readings.append([(u, sign) for u in split[:-1]] + [(split[-1], exp)])  # kg/ms2: m is below the line
         if not readings:
             raise ValueError(f"unknown unit {sym!r}")
+        if len(options) * len(readings) > MAX_READINGS:
+            raise ValueError(f"too many ways to read {text!r}")
         new = []
         for f0, d0 in options:
             for reading in readings:
