@@ -467,3 +467,40 @@ def test_a_long_run_of_unit_letters_is_refused_without_trying_every_split(given,
 def test_real_units_are_still_read(given, expected, factor):
     from tutorlib import units
     assert units.unit_factor(given, expected) == pytest.approx(factor)
+
+
+# ---------- "rounded at your own precision" is a rounding, not a window ----------
+@pytest.mark.parametrize("typed,true,sf_ok", [
+    ("96 N", 100.5, [2, 3]), ("98 N", 102.0, [2, 3]), ("9.8 N", 10.3, [2, 3]), ("0.95 N", 1.0, [2, 3]),
+    ("0.5 N", 1.0, [1, 2]), ("8 N", 12.0, [1, 2]), ("5e23 N", 1e24, [1, 2])])
+def test_a_value_in_the_decade_below_is_not_a_rounding_of_the_answer(typed, true, sf_ok):
+    """The check allowed half a unit of the answer's own scale either side, so just above a power of ten it took
+    values up to 5% (2 figures) or 50% (1 figure) too small as the answer correctly rounded."""
+    item = {"kind": "numeric", "answer": {"value": true, "unit": "N", "sf_ok": sf_ok}}
+    assert not grade.grade_item(item, {"kind": "value", "value": typed})["correct"]
+
+
+@pytest.mark.parametrize("typed,true,sf_ok", [
+    ("1.3 N", 1.2771, [2, 3]), ("10 N", 9.96, [2, 3]), ("1.0e2 N", 100.5, [2, 3]), ("0.10 N", 0.0996, [2, 3]),
+    ("2 N", 2.5, [1, 2]), ("3 N", 2.5, [1, 2]), ("1e24 N", 1.4e24, [1, 2])])
+def test_the_answer_rounded_at_your_own_figures_still_counts(typed, true, sf_ok):
+    item = {"kind": "numeric", "answer": {"value": true, "unit": "N", "sf_ok": sf_ok}}
+    assert grade.grade_item(item, {"kind": "value", "value": typed})["score"] == 1.0
+
+
+@pytest.mark.parametrize("typed,true,sf_ok", [
+    ("2400 N", 2375.0, [2, 3]), ("2380 N", 2375.0, [2, 3]), ("1500 N", 1540.0, [2, 3]), ("-200 N", -198.0, [2, 3]),
+    ("13000 N", 13376.0, [2, 3, 4]), ("1200 N", 1250.0, [2, 3]), ("1300 N", 1250.0, [2, 3]), ("2400 mN", 2.375, [2, 3]),
+    ("20 N", 24.3, [1, 2])])
+def test_a_rounded_whole_number_written_with_zeros_counts(typed, true, sf_ok):
+    """2375 to 2 s.f. is written 2400. Read as four figures it was 1% out and marked wrong."""
+    item = {"kind": "numeric", "answer": {"value": true, "unit": "N", "sf_ok": sf_ok}}
+    assert grade.grade_item(item, {"kind": "value", "value": typed})["score"] == 1.0
+
+
+@pytest.mark.parametrize("typed,true,sf_ok", [
+    ("2000 N", 2375.0, [2, 3]), ("2300 N", 2375.0, [2, 3]), ("20 N", 24.3, [2, 3]), ("1000 N", 1400.0, [2, 3]),
+    ("2400.0 N", 2375.0, [2, 3]), ("1.30 N", 1.2771, [2, 3])])
+def test_zeros_do_not_make_a_wrong_rounding_right(typed, true, sf_ok):
+    item = {"kind": "numeric", "answer": {"value": true, "unit": "N", "sf_ok": sf_ok}}
+    assert not grade.grade_item(item, {"kind": "value", "value": typed})["correct"]

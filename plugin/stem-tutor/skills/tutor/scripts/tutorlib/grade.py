@@ -159,7 +159,16 @@ def _rounded_to(value: float, target: float, digits: int) -> bool:
     """`value` is `target` rounded to `digits` significant figures (a half may go either way)."""
     if not digits or not target:
         return False
-    return abs(value - target) <= 0.5 * 10 ** (math.floor(math.log10(abs(target))) - digits + 1) * (1 + 1e-9)
+    unit = 10 ** (math.floor(math.log10(abs(target))) - digits + 1)  # one in the last figure kept
+    return abs(value - target) <= 0.5 * unit * (1 + 1e-9) and abs(value / unit - round(value / unit)) < 1e-6
+
+
+def rounding_of(value: float, target: float, sf: int | None, digits: int | None, allowed) -> bool:
+    """`value`, as typed, is `target` correctly rounded: at the digits written, or for a whole number ending in
+    zeros (2400) at any of them, since such a number does not show its figures. One figure counts only where the
+    question accepts one."""
+    written = range(1, (digits or 0) + 1) if sf is None else [digits]
+    return any(_rounded_to(value, target, d) for d in written if d and (d >= 2 or d in (allowed or ())))
 
 
 def _distractor(entry) -> tuple[str | None, str]:
@@ -202,17 +211,16 @@ def _grade_numeric(item, resp):
                 return _result(False, 0, needs_judgement=True, detail="number out of range")
     target = ans["value"]
     allowed = ans.get("sf_ok") or ([ans["sf"]] if ans.get("sf") else None)
-    # a value correctly rounded at the learner's own precision counts as right, reading "20" strictly as 2 s.f.;
-    # the s.f. rule below then sets the mark
-    n = digits if digits and not ans.get("exact") and (digits >= 2 or digits in (allowed or ())) else 0
-    if _close(value, target, tol) or _rounded_to(value, target, n):
+    # a value correctly rounded at the learner's own precision counts as right; the s.f. rule below then sets the mark
+    rounds = not ans.get("exact")
+    if _close(value, target, tol) or (rounds and rounding_of(value, target, sf, digits, allowed)):
         if allowed and sf is not None and sf not in allowed:
             notation = notation or f"{sf} s.f. (want {'/'.join(map(str, allowed))})"
         if notation:
             return _result(True, 0.5, "NOTATION", detail=notation)
         return _result(True, 1.0)
     for d in item.get("distractors") or []:
-        if _close(value, d["value"], tol) or _rounded_to(value, d["value"], n):
+        if _close(value, d["value"], tol) or (rounds and rounding_of(value, d["value"], sf, digits, allowed)):
             return _result(False, 0, d.get("error", "CONCEPT"), d.get("misconception"))
     if value and target:
         k = math.log10(abs(value)) - math.log10(abs(target))  # not log(value / target): 1e308 / 7.5e-7 overflows

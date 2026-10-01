@@ -307,17 +307,17 @@ _SUPERSCRIPTS = re.compile(r"[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
 
 
 def _numbers(text: str):
-    """Every number written in `text`, with the digits it was written to (None for a bare power of ten):
-    1000, 1,000, 1.0 × 10^3, 1e3, 10^3, 4.2 × 10⁻³."""
+    """Every number written in `text`, with its significant figures and the digits it was written to, as the marking
+    reads them (both None for a bare power of ten): 1000, 1,000, 1.0 × 10^3, 1e3, 10^3, 4.2 × 10⁻³."""
     for m in _NUMBER.finditer(grade.plain_powers(text).replace("−", "-")):
         if m["pow"]:
-            yield 10.0 ** int(m["p"]), None
+            yield 10.0 ** int(m["p"]), None, None
             continue
         try:
-            value, _, _, digits = grade._parse(m["num"])
+            value, _, sf, digits = grade._parse(m["num"])
         except grade.ParseError:
             continue
-        yield value, digits
+        yield value, sf, digits
 
 
 def _flat(text: str) -> str:
@@ -367,9 +367,9 @@ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
         targets.append(true)
     rounded_ok = true is not None and not answer.get("exact")  # as marked: right when rounded at its own digits
     allowed = (answer or {}).get("sf_ok") or [(answer or {}).get("sf")]
-    for v, digits in _numbers(text):
+    for v, sf, digits in _numbers(text):
         if any(abs(v - t) <= max(abs(t) * 0.01, 1e-12) for t in targets):
             return True
-        if rounded_ok and digits and (digits >= 2 or digits in allowed) and grade._rounded_to(v, true, digits):
+        if rounded_ok and grade.rounding_of(v, true, sf, digits, allowed):
             return True
     return False
