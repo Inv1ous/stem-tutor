@@ -171,6 +171,26 @@ def rounding_of(value: float, target: float, sf: int | None, digits: int | None,
     return any(_rounded_to(value, target, d) for d in written if d and (d >= 2 or d in (allowed or ())))
 
 
+_STATES_FIGURES = re.compile(r"significant fig|decimal place|to the nearest|\bs\.f\.|\bd\.p\.|\b\d\s?(?:sf|dp)\b", re.I)
+
+
+def _figures_count(item: dict, allowed: list, sf: int, exact: bool) -> bool:
+    """Whether a right value typed with `sf` figures, which is not one of the `allowed` counts, loses the mark.
+
+    Not when it is exactly the true value and shorter than asked: nothing was rounded away, so zeros would add
+    nothing to 9. (CAIE credits an answer that equals the mark scheme's once rounded to its figures; Edexcel asks
+    for 3 s.f. only of answers that are not exact.) The exceptions, where the figures carry meaning:
+    - the question fixes them: it says how many, or accepts one count only (a reading quoted to its instrument's
+      precision, 1.50 mm on a micrometer);
+    - too many of them: in the sciences that is an unrounded result (3 × 9.81 × 2.5 = 73.575 is 74 J). In maths
+      an exact value may be given in full."""
+    if not exact or len(allowed) == 1 or _STATES_FIGURES.search(item.get("stem") or ""):
+        return True
+    kc = (item.get("kcs") or [""])[0]
+    maths = bool(kc) and not kc[0].isdigit()  # CAIE science syllabuses are numbers (9702); Edexcel units are P1, S1…
+    return sf > max(allowed) and not maths
+
+
 def _distractor(entry) -> tuple[str | None, str]:
     if isinstance(entry, dict):
         return entry.get("misconception"), entry.get("error", "CONCEPT")
@@ -214,7 +234,8 @@ def _grade_numeric(item, resp):
     # a value correctly rounded at the learner's own precision counts as right; the s.f. rule below then sets the mark
     rounds = not ans.get("exact")
     if _close(value, target, tol) or (rounds and rounding_of(value, target, sf, digits, allowed)):
-        if allowed and sf is not None and sf not in allowed:
+        exact = _close(value, target, 1e-9)
+        if allowed and sf is not None and sf not in allowed and _figures_count(item, allowed, sf, exact):
             notation = notation or f"{sf} s.f. (want {'/'.join(map(str, allowed))})"
         if notation:
             return _result(True, 0.5, "NOTATION", detail=notation)

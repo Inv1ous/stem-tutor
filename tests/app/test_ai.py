@@ -227,8 +227,8 @@ def test_the_tutor_is_told_what_you_answered_and_why_a_mark_was_lost(tmp_path):
     t.start("long", minutes=20, focus=["9702-2.1.4"])
     item = next(i for i in t.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")  # 4.0 m s-2, 2 or 3 s.f.
     n = t._present(item, block="practice", phase=None)["n"]
-    t.answer(f"{n} = 4 m s-2 ~3")
-    assert (f"Just marked: Q{n}: they answered 4 m s-2; right value but a mark lost (1 s.f. (want 2/3)); "
+    t.answer(f"{n} = 4.0 ~3")
+    assert (f"Just marked: Q{n}: they answered 4.0; right value but a mark lost (missing unit); "
             "answer 4.00 m s-2.") in prompts.context(t)
     m = t._present(item, block="practice", phase=None)["n"]
     t.answer(f"{m}?")

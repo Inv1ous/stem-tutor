@@ -642,16 +642,26 @@ def test_answer_shown_after_a_mark_lost_for_sig_figs_has_the_figures_wanted(tuto
     tutor.start("long", minutes=20, focus=["9702-2.1.4"])
     item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")  # 4.0 m s-2, 2 or 3 s.f.
     n = tutor._present(item, block="practice", phase=None)["n"]
+    r = tutor.answer(f"{n} = 4.0000 m s-2 ~3")["results"][0]
+    assert r["partial"] and "5 s.f." in r["detail"] and r["answer"] == "4.00 m s-2"
+
+
+def test_an_exact_answer_typed_short_is_right(tutor):
+    """From the learner's lesson: 20² / (2 × 50) is exactly 4, and "4 m s-2" lost a mark for not being 4.0."""
+    tutor.start("long", minutes=20, focus=["9702-2.1.4"])
+    item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")  # 4.0 m s-2, 2 or 3 s.f.
+    n = tutor._present(item, block="practice", phase=None)["n"]
     r = tutor.answer(f"{n} = 4 m s-2 ~3")["results"][0]
-    assert r["partial"] and "1 s.f." in r["detail"] and r["answer"] == "4.00 m s-2"
+    assert r["correct"] and not r["partial"] and not r["detail"]
+    assert [e["grade"]["score"] for e in tutor.vault.events() if e["type"] == "answer"] == [1.0]
 
 
 def test_a_lost_mark_is_explained_in_now_and_in_the_lesson_log(tutor):
-    """From the learner's lesson: "9 ms-2" against "9.00 m s^-2" was logged as "incorrect" with no reason given."""
+    """From the learner's lesson: a right value that lost a mark was logged as "incorrect" with no reason given."""
     tutor.start("long", minutes=20, focus=["9702-2.1.4"])
     item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")
     n = tutor._present(item, block="practice", phase=None)["n"]
-    tutor.answer(f"{n} = 4 m s-2 ~3")
+    tutor.answer(f"{n} = 4.0 ~3")
     for text in ((tutor.vault.root / "Now.md").read_text(), (tutor.vault.root / tutor.session["log"]).read_text()):
-        assert f"Q{n} — right value, a mark lost ✗" in text and "Exam point: 1 s.f. (want 2/3)" in text
+        assert f"Q{n} — right value, a mark lost ✗" in text and "Exam point: missing unit" in text
         assert "incorrect" not in text and "not quite" not in text

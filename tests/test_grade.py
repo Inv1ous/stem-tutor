@@ -342,8 +342,8 @@ def test_a_power_that_is_not_a_power_of_ten_is_unreadable_not_misread(text):
 def test_a_power_of_ten_answer_is_marked_on_its_value():
     item = {"kind": "numeric", "stem": "A 40 W motor runs for 25 s. Calculate the energy.",
             "answer": {"value": 1000.0, "unit": "J", "sf_ok": [2, 3]}}
-    g = grade.grade_item(item, {"kind": "value", "value": "10³ J"})
-    assert g["correct"] and g["error"] == "NOTATION" and g["detail"].startswith("1 s.f.")  # right value, as 1×10³
+    assert grade.parse_quantity("10³ J") == (1000.0, "J", 1)  # read as 1×10³
+    assert grade.grade_item(item, {"kind": "value", "value": "10³ J"})["score"] == 1.0  # exactly 1000: no zeros needed
     assert grade.grade_item(item, {"kind": "value", "value": "1.0×10³ J"})["score"] == 1.0
     assert grade.value_problem(item, "5² J") == "unreadable"
 
@@ -504,3 +504,72 @@ def test_a_rounded_whole_number_written_with_zeros_counts(typed, true, sf_ok):
 def test_zeros_do_not_make_a_wrong_rounding_right(typed, true, sf_ok):
     item = {"kind": "numeric", "answer": {"value": true, "unit": "N", "sf_ok": sf_ok}}
     assert not grade.grade_item(item, {"kind": "value", "value": typed})["correct"]
+
+
+# ---------- an exact answer and its figures ----------
+BRAKING = "A car travelling at 30 m s$^{-1}$ brakes uniformly and stops in 50 m. Calculate the deceleration."
+
+
+def _q(value, sf_ok, unit="m s^-2", kc="9702-2.1.7", stem=BRAKING):
+    return {"kind": "numeric", "kcs": [kc], "stem": stem, "answer": {"value": value, "unit": unit, "sf_ok": sf_ok}}
+
+
+def _mark(item, typed):
+    g = grade.grade_item(item, {"kind": "value", "value": typed})
+    return g["score"], g.get("detail")
+
+
+@pytest.mark.parametrize("item,typed", [
+    (_q(9.0, [2, 3]), "9 m s-2"),  # the learner's own answer, 30² / (2 × 50): marked down for not writing 9.00
+    (_q(3.0, [2, 3]), "3 ms^-2"),
+    (_q(0.5, [2, 3], unit=""), "0.5"),
+    (_q(0.0, [2, 3], unit="m"), "0 m"),
+    (_q(500.0, [2, 3], unit="J"), "0.5 kJ"),
+    (_q(0.005, [2, 3], unit="m"), "5×10⁻³ m"),
+    (_q(1000.0, [2, 3], unit="J"), "10³ J"),
+    (_q(26.0, [3, 4], unit="", kc="S1-2.2", stem="Given $\\Sigma y=200$ for $n=25$, find $\\bar x$."), "26"),
+])
+def test_an_exact_answer_needs_no_zeros_added(item, typed):
+    """CAIE credits an answer that equals the mark scheme's once rounded to its figures; Edexcel asks for 3 s.f.
+    only of answers that are not exact. Nothing was rounded away, so zeros would add nothing."""
+    assert _mark(item, typed) == (1.0, None)
+
+
+@pytest.mark.parametrize("item,typed,detail", [
+    (_q(3.02, [2, 3]), "3 m s-2", "1 s.f. (want 2/3)"),  # within 1%, but a figure was rounded away
+    (_q(1.2771349, [2, 3], unit="s"), "1.2771 s", "5 s.f. (want 2/3)"),
+    (_q(1.2771349, [3, 4], unit="", kc="S1-2.4", stem="Find the standard deviation."), "1.27713", "6 s.f. (want 3/4)"),
+])
+def test_a_rounded_answer_is_still_marked_on_its_figures(item, typed, detail):
+    assert _mark(item, typed) == (0.5, detail)
+
+
+RATIO = "Calculate the deflection of the ion as a fraction of the proton's. Give your answer to 2 significant figures."
+ROOT = "Use the quadratic formula to solve $x^2+8x-9=0$, giving the positive root correct to 3 s.f."
+WIRE = "A micrometer reads $-0.04$ mm with its jaws closed and $1.46$ mm on a wire. Calculate the true diameter, in mm."
+LIFT = "A 3 kg load is raised vertically by 2.5 m. Calculate its gain in gravitational potential energy."
+
+
+@pytest.mark.parametrize("item,typed,detail", [
+    (_q(0.05, [2, 3], unit="", kc="9701-1.1.4", stem=RATIO), "0.05", "1 s.f. (want 2/3)"),  # the question says how many
+    (_q(1.0, [3, 4], unit="", kc="P1-1.6", stem=ROOT), "1", "1 s.f. (want 3/4)"),
+    (_q(2.5, [2, 3], unit="cm", stem="Find the length, to 2 d.p."), "2.5 cm", None),  # as asked: 2 s.f. is accepted
+    (_q(2.0, [2, 3], unit="cm", stem="Find the length to the nearest 0.1 cm."), "2 cm", "1 s.f. (want 2/3)"),
+    (_q(1.5, [3], unit="mm", kc="9702-1.3.2", stem=WIRE), "1.5 mm", "2 s.f. (want 3)"),  # a reading: 1.50 on a micrometer
+    (_q(73.575, [2, 3], unit="J", kc="9702-5.2.3", stem=LIFT), "73.575 J", "5 s.f. (want 2/3)"),  # 3 × 9.81 × 2.5, unrounded
+    (_q(9.0, [2, 3]), "9.000 m s-2", "4 s.f. (want 2/3)"),  # figures the data cannot support
+])
+def test_figures_still_count_where_they_carry_meaning(item, typed, detail):
+    assert _mark(item, typed) == ((0.5, detail) if detail else (1.0, None))
+
+
+def test_one_accepted_count_fixes_the_figures_however_it_is_written():
+    item = {"kind": "numeric", "kcs": ["9702-1.3.2"], "stem": WIRE, "answer": {"value": 1.5, "unit": "mm", "sf": 3}}
+    assert _mark(item, "1.5 mm") == (0.5, "2 s.f. (want 3)") and _mark(item, "1.50 mm") == (1.0, None)
+
+
+def test_in_maths_an_exact_answer_may_be_given_in_full():
+    coded = "A data set is coded using $y=(x-20)/5$. Given $\\mathrm{Var}(Y)=4.50$, find $\\mathrm{Var}(X)$."
+    assert _mark(_q(112.5, [2, 3], unit="", kc="S1-2.5", stem=coded), "112.5") == (1.0, None)
+    assert _mark(_q(19.375, [3, 4], unit="", kc="S1-2.2", stem="Find $\\bar x$."), "19.375") == (1.0, None)
+    assert _mark(_q(112.5, [2, 3], unit="J", stem="Calculate the work done."), "112.5 J") == (0.5, "4 s.f. (want 2/3)")
