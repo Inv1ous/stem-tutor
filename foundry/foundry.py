@@ -10,6 +10,7 @@ a whole pack to know whether it is right.
   foundry.py board                        one line per chapter
   foundry.py next                         what to do now, per chapter (the manager's to-do list)
   foundry.py codex <role> <subtopic>      launch a headless Codex worker (drafter, tiebreak, fixer)
+  foundry.py queue <role> <subtopics…>    launch that role for each chapter as slots free up (run it detached)
   foundry.py dispatch <subtopic>          every Haiku prompt the chapter needs now (solver shards + checker, in parallel)
   foundry.py prompt <role> <subtopic> [--shard k]   one Haiku prompt (solver, checker)
   foundry.py strip <subtopic> [--changed] write the blind questions file, split into solver shards (no answers in it)
@@ -32,6 +33,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import time
 from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
@@ -622,6 +624,22 @@ def cmd_watch(every: float = 5) -> None:
         pass
 
 
+def cmd_queue(role: str, subs: list[str], wait: int = 30, tries: int = 480) -> None:
+    """Start a Codex role on each chapter in turn, waiting for a free slot. Run it detached and drafting carries on
+    with no Claude session: `nohup bin/foundry queue drafter <chapters…> > foundry/logs/queue.log 2>&1 &`."""
+    for sub in subs:
+        cmd_add([sub])  # a chapter already on the board is left as it is
+        for _ in range(tries):
+            try:
+                cmd_codex(role, sub)
+                break
+            except SystemExit as e:
+                if "max_parallel" not in str(e):  # anything but a full house: this chapter can't start, move on
+                    print(f"{sub}: skipped ({e})")
+                    break
+                time.sleep(wait)
+
+
 def cmd_collect(role: str, sub: str, out: str, code: str = "0") -> None:
     """Runs after a Codex worker exits: record its report, run the gates, move the chapter on."""
     report = {"manual": True} if out == "-" else {}  # "-": a session you ran by hand reports without a file
@@ -689,6 +707,8 @@ def main(argv: list[str]) -> None:
         cmd_dispatch(rest[0])
     elif cmd == "codex":
         cmd_codex(rest[0], rest[1])
+    elif cmd == "queue":
+        cmd_queue(rest[0], rest[1:])
     elif cmd == "collect":
         cmd_collect(*rest)
     elif cmd == "watch":

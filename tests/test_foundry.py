@@ -324,3 +324,20 @@ def test_next_says_compare_once_the_tiebreak_has_finished(fdy):
     assert fdy.action(fdy.load(SUB)).startswith("wait")
     fdy.cmd_collect("tiebreak", SUB, "-")
     assert fdy.action(fdy.load(SUB)) == f"foundry.py compare {SUB}"  # not "launch the tiebreak" again
+
+
+def test_queue_waits_for_a_free_slot_and_skips_a_chapter_that_cannot_start(fdy, monkeypatch):
+    calls, full = [], [True, True]
+
+    def codex(role, sub):
+        calls.append(sub)
+        if sub == "bad":
+            raise SystemExit("bad: a drafter is already working on this chapter")
+        if full:
+            full.pop()
+            raise SystemExit("3 workers already running (max_parallel 3); try again later")
+
+    monkeypatch.setattr(fdy, "cmd_codex", codex)
+    monkeypatch.setattr(fdy, "cmd_add", lambda subs, stage="draft": None)
+    fdy.cmd_queue("drafter", [SUB, "bad", "next"], wait=0)
+    assert calls == [SUB, SUB, SUB, "bad", "next"]  # two full houses, then started; the bad one is skipped, not retried

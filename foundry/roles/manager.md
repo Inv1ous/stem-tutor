@@ -30,6 +30,13 @@ the board, small packets and one-line reports, never whole packs, bundles or not
    chapter as soon as it is ready: the learner can study it straight away, and it is safe if your session ends.
 7. Tell the learner which chapters arrived.
 
+## Keep Codex busy without you
+
+Drafting needs no Claude tokens. Before you stop (or while you adjudicate), queue the next chapters in Almanac order:
+`nohup bin/foundry queue drafter <chapters…> > foundry/logs/queue.log 2>&1 &`. It adds each chapter, waits for a free
+slot (`max_parallel`) and launches its drafter; the drafts are gated and wait at `solve` for the next session. Queue a
+dozen or so at a time: each uses the learner's Codex allowance.
+
 ## Let the learner see it
 
 When you start workers, open a terminal tab for the learner running

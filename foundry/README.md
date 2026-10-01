@@ -79,6 +79,9 @@ the foundry won't start that job itself. The prompt ends with the command that r
   the next session sends that shard again (only that shard: each is 20 questions at most).
 - **Picking up again:** start a Claude session and say *"continue the foundry"*. It runs `foundry next`, which says
   exactly where every chapter is.
+- **Drafting ahead with no Claude session:** `foundry queue drafter <chapters…>` (run detached) starts a Codex drafter
+  for each chapter as slots free up. The drafts are checked by the gates and wait, unpublished, for the next session
+  to blind-solve, check and sign them.
 
 ## Seeing what's running
 
