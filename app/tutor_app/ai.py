@@ -309,7 +309,7 @@ _SUPERSCRIPTS = re.compile(r"[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
 def _numbers(text: str):
     """Every number written in `text`, with the digits it was written to (None for a bare power of ten):
     1000, 1,000, 1.0 × 10^3, 1e3, 10^3, 4.2 × 10⁻³."""
-    for m in _NUMBER.finditer(text.translate(SUPERSCRIPT).replace("−", "-")):
+    for m in _NUMBER.finditer(grade.plain_powers(text).replace("−", "-")):
         if m["pow"]:
             yield 10.0 ** int(m["p"]), None
             continue

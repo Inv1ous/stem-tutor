@@ -323,6 +323,31 @@ def test_arithmetic_after_the_number_is_unreadable(text):
         grade.parse_quantity(text)
 
 
+# ---------- superscript powers (B-036) ----------
+@pytest.mark.parametrize("text,value,unit", [
+    ("10³ J", 1000.0, "J"), ("10^3 J", 1000.0, "J"), ("10⁻³ m", 1e-3, "m"), ("-10² N", -100.0, "N"),
+    ("10^(-3) m", 1e-3, "m"), ("2.5×10³ m", 2500.0, "m"), ("6.02 × 10²³", 6.02e23, ""),
+    ("1.5 × 10⁻³ mol dm⁻³", 1.5e-3, "mol dm-3"), ("3 m s⁻²", 3.0, "m s-2"), ("5 m²", 5.0, "m2")])
+def test_a_superscript_power_keeps_its_value(text, value, unit):
+    got, got_unit, _ = grade.parse_quantity(text)
+    assert got == pytest.approx(value) and got_unit == unit
+
+
+@pytest.mark.parametrize("text", ["5²", "2³ m", "100³ J", "1.5² m", "10³⁺² J"])
+def test_a_power_that_is_not_a_power_of_ten_is_unreadable_not_misread(text):
+    with pytest.raises(grade.ParseError):  # the question then stays open; before, 5² was marked as 52
+        grade.parse_quantity(text)
+
+
+def test_a_power_of_ten_answer_is_marked_on_its_value():
+    item = {"kind": "numeric", "stem": "A 40 W motor runs for 25 s. Calculate the energy.",
+            "answer": {"value": 1000.0, "unit": "J", "sf_ok": [2, 3]}}
+    g = grade.grade_item(item, {"kind": "value", "value": "10³ J"})
+    assert g["correct"] and g["error"] == "NOTATION" and g["detail"].startswith("1 s.f.")  # right value, as 1×10³
+    assert grade.grade_item(item, {"kind": "value", "value": "1.0×10³ J"})["score"] == 1.0
+    assert grade.value_problem(item, "5² J") == "unreadable"
+
+
 @pytest.mark.parametrize("text", ["500 kg", "500 mm", "500 banana"])
 def test_unit_on_a_plain_number_answer_earns_no_credit(text):
     g = _num(500, text, exact=True)

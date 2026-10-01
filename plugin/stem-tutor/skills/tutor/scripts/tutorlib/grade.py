@@ -88,15 +88,26 @@ def _sig_figs(mant: str) -> int | None:
     return len(stripped) or 1
 
 
+_POWER = re.compile(r"(?<=\d)[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
+_POWER_OF_TEN = re.compile(r"^([+-]?)10\s*\^\s*[({]?\s*([+-]?\d+)\s*[)}]?")
+
+
+def plain_powers(text: str) -> str:
+    """Superscripts as plain text. A power written on a number keeps a caret (10³ → 10^3, never 103); the powers
+    in a unit become bare digits (m s⁻² → m s-2)."""
+    return _POWER.sub(lambda m: "^" + m[0].translate(SUPERSCRIPT), text).translate(SUPERSCRIPT)
+
+
 def parse_quantity(text: str) -> tuple[float, str, int | None]:
     return _parse(text)[:3]
 
 
 def _parse(text: str) -> tuple[float, str, int | None, int | None]:
     """(value, unit, s.f. or None when trailing zeros make it ambiguous, digits written or None for a fraction)"""
-    t = text.translate(SUPERSCRIPT).replace("−", "-").replace("–", "-").strip().lstrip("=").strip()
+    t = plain_powers(text).replace("−", "-").replace("–", "-").strip().lstrip("=").strip()
     t = re.sub(r"^[(\[]\s*([^)\]]*?)\s*[)\]]", r"\1", t)  # "(-1)", "[2.5] m"
     t = re.sub(r"(?<=\d),(?=\d{3}\b)", "", t)
+    t = _POWER_OF_TEN.sub(r"\g<1>1e\2", t)  # a bare power of ten is a number (10^3, 10⁻³); any other power is not
     m = _NUM.match(t)
     if not m:
         raise ParseError(f"no number in {text!r}")

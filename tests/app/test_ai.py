@@ -153,6 +153,7 @@ def test_ai_comes_back_after_a_limit_block(tmp_path, monkeypatch):
     ("v^2 = 2as + u^2", "u**2 + 2*a*s", "expression"),
     ("1000 m", "1e+03 m", "numeric"), ("it is 1.0 × 10^3 m", "1e+03 m", "numeric"), ("about 10^3 m", "1e+03 m", "numeric"),
     ("that gives 1,000 m", "1e+03 m", "numeric"), ("so 4.2 × 10⁻³ mol", "0.0042 mol", "numeric"),
+    ("the energy is 10³ J", "1000 J", "numeric"), ("so 10⁻³ m", "0.001 m", "numeric"),  # B-036: not 103 and 10
 ])
 def test_leak_guard_catches_plain_disclosures(reply, key, kind):
     assert ai.leaks(reply, key, kind)
