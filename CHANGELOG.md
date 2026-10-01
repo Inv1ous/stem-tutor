@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.1 — 2026-10-01
+
+- **Shown answers.** A numeric model answer keeps the significant figures it states (11.0 m, 2.50, 0.0300, 4.69e5 J),
+  and an exact answer is shown in full (12.25, 1200) instead of rounded to 3 s.f.; typing back what is shown always
+  earns the marks.
+- **AI leak guard.** While a question is open, a reply stating its answer is blocked at any precision the marking
+  would accept, not only near the rounded key as shown (111 of 15,132 sampled instances got through before).
+
 ## 1.2.0 — 2026-10-01
 
 - **What the tutor knows about you** (menu, and Profile.md): every finding the tutor has worked out, with the

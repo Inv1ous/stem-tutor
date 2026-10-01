@@ -1,6 +1,7 @@
 # Build status
 
-## v1.2.0 (2026-10-01) — done
+## v1.2.1 (2026-10-01) — done
+- v1.2.1: shown answers keep their s.f. and exact answers are in full; the AI leak guard works at any precision.
 - Learner insights (`tutorlib/insights.py`, menu "What the tutor knows about you", Profile.md), AI summary on request,
   Fix my weak spots (session mode `weak`), exam readiness, mistake journal, week in review; full feature list in the
   guide. Design and plan: `docs/superpowers/specs/2026-09-30-learner-insights-design.md`,

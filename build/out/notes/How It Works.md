@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.2.0_
+_Version 1.2.1_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,10 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 1.2.1
+> - **The answer shown is the answer wanted.** Model answers keep their significant figures (`11.0 m`, `2.50`, `4.69e5 J`), and exact answers are shown in full (`12.25`, `1200`) instead of being rounded to three figures.
+> - **The AI can't let an answer slip at a different precision.** While a question is open, its answer is blocked at any number of figures, not only as shown.
 
 > [!example] New in 1.2.0
 > - **What the tutor knows about you.** A new menu choice shows everything the tutor has worked out about you, with the evidence, how sure it is and what it changed because of it. Press **a** for a short AI summary (section 8).
