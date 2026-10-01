@@ -778,16 +778,18 @@ class Tutor(LessonMixin):
         return {"n": n, "level": p["hint_level"], "hint": hints[p["hint_level"] - 1],
                 "say": "Give only this hint, in your words; do not add the next step."}
 
-    def ai_help(self) -> dict:
+    def ai_help(self, given: bool = True) -> dict:
         """The learner is asking the AI tutor. While a no-help check (exit ticket, retest, challenge) is open it is
-        refused; otherwise every open question counts as hinted, as with hint(): help is help, whoever gives it."""
+        refused; otherwise every open question counts as hinted, as with hint(): help is help, whoever gives it.
+        `given=False` only asks whether help is allowed: a reply that never reaches the learner is no help."""
         open_ = (self.session or {}).get("presented", {})
         if any(p["unassisted"] for p in open_.values()):
             return {"refused": "This is a no-help check: answer it first, then ask me anything."}
-        for p in open_.values():
-            p["hinted"] = True
-        if open_:
-            self._save()
+        if given:
+            for p in open_.values():
+                p["hinted"] = True
+            if open_:
+                self._save()
         return {"ok": True}
 
 

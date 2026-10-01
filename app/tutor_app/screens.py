@@ -656,7 +656,7 @@ class SessionScreen(Screen):
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
             return
-        if (help_ := self.tutor.ai_help()).get("refused"):  # help while a question is open is a hint, or not allowed
+        if (help_ := self.tutor.ai_help(given=False)).get("refused"):  # not allowed while a no-help check is open
             self.say(cards.card("hint", "No help on this one", help_["refused"]))
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
@@ -675,12 +675,15 @@ class SessionScreen(Screen):
             if not keys:
                 w.update(cards.ai(buf))
                 self.query_one("#log", VerticalScroll).scroll_end(animate=False)
-        if any(ai_mod.leaks(buf, *k) for k in keys):
+        withheld = any(ai_mod.leaks(buf, *k) for k in keys)
+        if withheld:
             buf = "I can't give that away while the question is open. Try a hint (h), or answer first and I'll explain."
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
         else:
             w.update(cards.ai(buf))
+            if buf and not withheld:
+                self.tutor.ai_help()  # help that reached you counts as a hint on every open question
             if (log := self.tutor._lesson_log()):
                 log.tutor(buf, title="Tutor (AI)")
         self.update_bar()

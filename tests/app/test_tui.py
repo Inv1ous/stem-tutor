@@ -396,6 +396,46 @@ def test_asking_the_ai_is_refused_during_a_no_help_check(tmp_path, monkeypatch):
     asyncio.run(go())
 
 
+def test_only_help_that_arrives_counts_as_a_hint(tmp_path, monkeypatch):  # B-039
+    from tutor_app import ai as ai_mod, prompts
+    from tutor_app.screens import SessionScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            scr = SessionScreen({"mode": "autopilot", "minutes": 50})  # opens with a pretest: hints are allowed
+            app.push_screen(scr)
+            await pilot.pause()
+            t = app.tutor
+            p = t.session["presented"][str(scr.view["n"])]
+            key = prompts.key_of(t, scr.view["n"])[0]
+
+            def reply(result, text=""):
+                async def fake_stream(prompt):
+                    app.ai.last = result
+                    for chunk in [text] if text else []:
+                        yield chunk
+                monkeypatch.setattr(app.ai, "stream", fake_stream)
+
+            async def ask():
+                scr.stream("Give me a hint")
+                await app.workers.wait_for_complete()
+                await pilot.pause()
+
+            reply(ai_mod.Result(ok=False, status="login", message="Sign in first."))
+            await ask()
+            assert not p["hinted"]  # the AI was signed out: nothing was said, so the answer is still your own
+            reply(ai_mod.Result(text=f"The answer is {key}."), f"The answer is {key}.")
+            await ask()
+            assert not p["hinted"]  # the reply gave the answer away and was withheld: again no help reached you
+            reply(ai_mod.Result(text="Think about direction."), "Think about direction.")
+            await ask()
+            assert p["hinted"]  # a hint you could read counts, whoever gives it
+            await app.ai.close()
+    asyncio.run(go())
+
+
 def test_a_marked_answer_can_be_asked_about_before_the_next_no_help_question(tmp_path, monkeypatch):
     """Reported by the learner: in a test check the questions come two at a time; after the first was marked, asking
     about it was refused ("answer it first") because the second, not yet on screen, was still open."""
