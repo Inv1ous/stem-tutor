@@ -1,0 +1,2009 @@
+{
+ "subtopic": "9702-6.2",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/06 Deformation of solids/6.2 Elastic and plastic behaviour.md",
+ "outline": "Elastic deformation is reversed when the force is removed; plastic deformation leaves a permanent change. The elastic limit is the boundary before plastic behaviour, distinct from the limit of proportionality. Work done in changing extension is the area under a force–extension graph over the relevant interval. For an elastic loading path, this work is stored elastic potential energy. Within the limit of proportionality, force rises linearly from zero, so $E_P=\\tfrac12Fx=\\tfrac12kx^2$. Extension must be measured from the natural length and converted to metres. A loading–unloading loop encloses energy dissipated as heat.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-6.2.1",
+   "statement": "Elastic limit and limit of proportionality are the same boundary.",
+   "refutation": "A sample may cease to obey Hooke’s law while still returning to its original dimensions after unloading.",
+   "contrast": "The limit of proportionality ends the straight-line region; the elastic limit marks the onset of permanent deformation.",
+   "source": "ER 9702 s22 P12 Q20"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-6.2.1",
+   "statement": "A sample that partly recovers has undergone elastic deformation only.",
+   "refutation": "A permanent change in length is evidence of plastic deformation, even if some of the change recovers.",
+   "contrast": "The recovered part is elastic and the residual part is plastic.",
+   "source": "ER 9702 w23 P23 Q4"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-6.2.2",
+   "statement": "The entire area from zero gives the extra work for an already extended wire.",
+   "refutation": "The extra work is the area only between the initial and final extensions.",
+   "contrast": "For a linear segment, use the trapezium area $\\tfrac12(F_1+F_2)(x_2-x_1)$.",
+   "source": "ER 9702 w20 P12 Q21"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-6.2.2",
+   "statement": "The area between loading and unloading curves is stored elastic energy.",
+   "refutation": "The loading area is work input and unloading area is recovered work; their difference is dissipated as thermal energy.",
+   "contrast": "Only a reversible loading path returns all the work.",
+   "source": "ER 9702 w20 P11 Q20"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-6.2.3",
+   "statement": "Area under a length–force graph can be found as $\\tfrac12 FL$ using total length.",
+   "refutation": "The deformation displacement is extension $x=L-L_0$, not the whole spring length.",
+   "contrast": "Within the linear region, $E_P=\\tfrac12 F(L-L_0)$.",
+   "source": "ER 9702 s23 P13 Q19"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-6.2.4",
+   "statement": "Elastic energy is $Fx$ for a spring obeying Hooke’s law.",
+   "refutation": "The force rises from zero to $F$, so the average force is $F/2$.",
+   "contrast": "The triangle under the graph gives $E_P=\\tfrac12 Fx$.",
+   "source": "ER 9702 w20 P13 Q21"
+  },
+  {
+   "id": "m7",
+   "kc": "9702-6.2.4",
+   "statement": "A compression in centimetres can be substituted directly into $\\tfrac12kx^2$ with $k$ in N m$^{-1}$.",
+   "refutation": "The extension or compression must be in metres to obtain joules.",
+   "contrast": "Convert centimetres to metres before squaring.",
+   "source": "ER 9702 w23 P22 Q3"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-6.2.3",
+   "problem": "A linear force–extension graph passes through (1.0 mm, 20 N) and (4.0 mm, 50 N). Find the additional elastic energy stored between these states.",
+   "steps": [
+    {
+     "do": "Read $F_1=20$ N, $F_2=50$ N, and $\\Delta x=(4.0-1.0)$ mm $=0.003$ m.",
+     "why": "The required energy change begins at the initial extension, not at zero."
+    },
+    {
+     "do": "Use the trapezium area: $\\Delta E_P=\\tfrac12(F_1+F_2)\\Delta x$.",
+     "why": "The force changes linearly, so its mean over this interval is the average of its endpoints."
+    },
+    {
+     "do": "$\\Delta E_P=\\tfrac12(20+50)(0.003)=0.105$ J.",
+     "why": "Area under a force–extension graph is work; within elastic behaviour it increases the stored energy.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.105,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "The force rises linearly from 30 N at 2.0 mm to 70 N at 5.0 mm. Find the additional elastic energy stored.",
+    "answer": {
+     "value": 0.15,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-6.2.4",
+   "problem": "A 320 N m$^{-1}$ spring is stretched 0.15 m within its limit of proportionality. Calculate its elastic potential energy.",
+   "steps": [
+    {
+     "do": "State $E_P=\\tfrac12kx^2$.",
+     "why": "Hooke’s law makes force proportional to extension, giving a triangular graph area."
+    },
+    {
+     "do": "Substitute $k=320$ N m$^{-1}$ and $x=0.15$ m.",
+     "why": "Metres with N m$^{-1}$ give energy in joules."
+    },
+    {
+     "do": "$E_P=\\tfrac12(320)(0.15)^2=3.60$ J.",
+     "why": "The extension is squared, and the half accounts for rising force.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.6,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A 250 N m$^{-1}$ spring is compressed by 0.12 m within its limit of proportionality. Calculate its elastic potential energy.",
+    "answer": {
+     "value": 1.8,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-6.2-p01",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q20",
+    "qid": "9702_s22_12_q20"
+   },
+   "stem": "A wire is being stretched by a tensile force.\nWhich statement about the elastic limit must be correct?",
+   "options": {
+    "A": "The deformation is plastic after the elastic limit has been reached.",
+    "B": "The deformation is plastic until the elastic limit is reached.",
+    "C": "The extension is proportional to the tensile force after the elastic limit has been reached.",
+    "D": "The extension is proportional to the tensile force until the elastic limit is reached."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "A is the only statement that must hold: beyond the elastic limit deformation is plastic. D confuses this with the limit of proportionality, which may be reached earlier.",
+   "distractors": {
+    "D": "m1"
+   }
+  },
+  {
+   "id": "9702-6.2-p02",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q19",
+    "qid": "9702_w23_13_q19"
+   },
+   "stem": "Compressive forces are applied normally to the end faces of a cylinder of initial length L. The\ncylinder is compressed by the forces so that its length decreases to 0.6L. After the compressive\nforces are removed, the cylinder’s length increases to 0.8L.\nL\ncylinder\nbefore compressive\nforces applied\n0.6L\ncompressive\nforces applied\n0.8L\nafter compressive\nforces removed\nWhat describes the deformation of the cylinder when its length was 0.6L?",
+   "options": {
+    "A": "both elastic and plastic",
+    "B": "elastic only",
+    "C": "plastic only",
+    "D": "neither elastic nor plastic"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_13_q19.png",
+   "marks": 1,
+   "explanation": "The length recovers from $0.6L$ to $0.8L$, an elastic recovery of $0.2L$, but remains $0.2L$ shorter than at first, so deformation is also plastic. Choosing elastic only ignores the permanent shortening.",
+   "distractors": {
+    "B": "m2"
+   }
+  },
+  {
+   "id": "9702-6.2-p03",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q23",
+    "qid": "9702_w25_13_q23"
+   },
+   "stem": "The diagram shows a force–extension graph for a rubber band as the band is extended and then\nthe stretching force is decreased to zero.\nforce\nextension\n0\n0\nrubber\nband\nextends\nrubber\nband\ncontracts\nWhat can be deduced from the graph?",
+   "options": {
+    "A": "The rubber band does not return to its original length when the force is decreased to zero.",
+    "B": "The rubber band obeys Hooke’s law for the extensions shown.",
+    "C": "The rubber band remains elastic for the extensions shown.",
+    "D": "The shaded area represents the work done in extending the rubber band."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w25_13_q23.png",
+   "marks": 1,
+   "explanation": "The band returns to zero extension when unloaded, so it remains elastic even though the loading and unloading curves differ. A mistakes hysteresis for permanent deformation.",
+   "distractors": {
+    "A": "m2",
+    "D": "m4"
+   }
+  },
+  {
+   "id": "9702-6.2-p04",
+   "kcs": [
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q21",
+    "qid": "9702_w20_12_q21"
+   },
+   "stem": "The graph shows the force–extension graph for a wire.\n0\n1.0\n2.0\n3.0\n4.0\n5.0\n100\n80\n60\n40\n20\n0\nforce / N\nextension / 10⁻³ m\nThe wire is already extended by a force of 60 N.\nHow much work is done to increase the extension of the wire by 2.0 mm?",
+   "options": {
+    "A": "0.040 J",
+    "B": "0.090 J",
+    "C": "0.16 J",
+    "D": "0.25 J"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_12_q21.png",
+   "marks": 1,
+   "explanation": "Use the area from 3.0 to 5.0 mm: $\\tfrac12(60+100)(2.0\times10^{-3})=0.16$ J. A instead calculates an area starting at zero extension.",
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9702-6.2-p05",
+   "kcs": [
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q20",
+    "qid": "9702_w20_11_q20"
+   },
+   "stem": "An unstretched rubber cord is stretched by a force. The force F is plotted against the extension x.\nF is slowly increased from zero, causing the cord to extend along path P. F is then reduced back\nto zero along path Q.\nF\nx\n0\n0\nP\nQ\nWhat is represented by the shaded area?",
+   "options": {
+    "A": "the elastic energy stored in the rubber cord",
+    "B": "the energy that causes plastic deformation",
+    "C": "the energy dissipated as heat",
+    "D": "the work done to extend the rubber cord"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_11_q20.png",
+   "marks": 1,
+   "explanation": "The difference between work input along P and recovered work along Q is energy dissipated as heat. D describes the full area under P, not the shaded difference.",
+   "distractors": {
+    "A": "m4",
+    "D": "m4"
+   }
+  },
+  {
+   "id": "9702-6.2-p06",
+   "kcs": [
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q19",
+    "qid": "9702_w19_12_q19"
+   },
+   "stem": "A rubber cord hangs from a rigid support. A weight attached to its lower end is gradually\nincreased from zero, and then gradually reduced to zero.\nforce\nextension\n00\nstretching\ncontraction\nrubber\ncord\nweight\nThe force–extension curve for contraction is below the force–extension curve for stretching.\nWhat does the shaded area between the curves represent?",
+   "options": {
+    "A": "the elastic potential energy stored in the rubber cord",
+    "B": "the thermal energy dissipated in the rubber cord",
+    "C": "the work done on the rubber cord during stretching",
+    "D": "the work done by the rubber cord during contraction"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_12_q19.png",
+   "marks": 1,
+   "explanation": "The area between the curves is the difference between work done in stretching and work returned on contraction; it becomes thermal energy. A confuses this loss with recoverable elastic energy.",
+   "distractors": {
+    "A": "m4"
+   }
+  },
+  {
+   "id": "9702-6.2-p07",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q19",
+    "qid": "9702_s23_12_q19"
+   },
+   "stem": "A child holds a thin metal wire that is attached to a kite. The graph shows how the extension of\nthe wire varies with its tension.\n150\n100\n50\n0\n0\n0.15\n0.30\n0.45\nextension / mm\ntension / N\nkite\nwire\nA gust of wind increases the tension from 100 N to 150 N.\nWhat is the change in the elastic potential energy of the wire caused by the gust of wind?",
+   "options": {
+    "A": "3.8 mJ",
+    "B": "19 mJ",
+    "C": "34 mJ",
+    "D": "38 mJ"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_12_q19.png",
+   "marks": 1,
+   "explanation": "The added energy is the trapezium from 0.30 to 0.45 mm: $\\tfrac12(100+150)(0.15\times10^{-3})=0.01875$ J, or 19 mJ. A uses too small an area rather than the full force range.",
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9702-6.2-p08",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q20",
+    "qid": "9702_w25_13_q20"
+   },
+   "stem": "A spring is fixed at one end. The length L of the spring is increased by applying a tensile force F\nto the other end.\nThe graph shows the variation of L with F.\n12\n8\n4\n0\n0\n2\n4\n6\nL / cm\nF / N\nWhat is the elastic potential energy of the spring when F is 6.0 N?",
+   "options": {
+    "A": "0.12 J",
+    "B": "0.24 J",
+    "C": "0.36 J",
+    "D": "0.60 J"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w25_13_q20.png",
+   "marks": 1,
+   "explanation": "The unstretched length is 4 cm; at 6 N the length is 8 cm, so extension is 4 cm. The triangular area is $\\tfrac12(6)(0.04)=0.12$ J. B doubles this by treating final force as the average.",
+   "distractors": {
+    "B": "m6",
+    "D": "m5"
+   }
+  },
+  {
+   "id": "9702-6.2-p09",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q19",
+    "qid": "9702_s23_13_q19"
+   },
+   "stem": "The graph shows how the length of a spring varies with the force applied to it.\nforce\n0\n0\nlength\nF\nL₀\nL₁\nThe spring has unstretched length L₀. When a force F is applied, the spring has length L₁.\nWhat is the work done in stretching the spring to length L₁?",
+   "options": {
+    "A": "1 ₂ FL¹",
+    "B": "1 ₂ F(L¹ – L⁰)",
+    "C": "FL₁",
+    "D": "F(L₁ – L₀)"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_13_q19.png",
+   "marks": 1,
+   "explanation": "Extension is $L_1-L_0$. The triangular area gives $\\tfrac12F(L_1-L_0)$; D omits the half and A uses length in place of extension.",
+   "distractors": {
+    "A": "m5",
+    "D": "m6"
+   }
+  },
+  {
+   "id": "9702-6.2-p10",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q21",
+    "qid": "9702_w20_13_q21"
+   },
+   "stem": "A tensile force of 7.00 MN is applied to a sample of steel. This causes the sample to extend by\n5.00 mm in the direction of the force. The sample obeys Hooke’s law.\nWhat is the work done to extend the sample?",
+   "options": {
+    "A": "17.5 J",
+    "B": "35.0 J",
+    "C": "17.5 kJ",
+    "D": "35.0 kJ"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "$E_P=\\tfrac12Fx=\\tfrac12(7.00\times10^6)(5.00\times10^{-3})=17.5$ kJ. D uses $Fx$ and is twice the correct work.",
+   "distractors": {
+    "D": "m6"
+   }
+  },
+  {
+   "id": "9702-6.2-p11",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q20",
+    "qid": "9702_s21_12_q20"
+   },
+   "stem": "Two guitar strings are stretched by tensile forces.\nString X is stretched by a tensile force F that causes an extension x.\nString Y is stretched by a tensile force 2F that causes an extension 2x.\nThe strings obey Hooke’s law.\nWhat is the ratio strain energy in stretched string X\nstrain energy in stretched string Y ?",
+   "options": {
+    "A": "4",
+    "B": "2",
+    "C": "2 ¹",
+    "D": "1 ₄"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_12_q20.png",
+   "marks": 1,
+   "explanation": "Each energy is $\\tfrac12Fx$; Y has twice both force and extension, so four times the energy. C accounts for doubling only one factor.",
+   "distractors": {
+    "C": "m6"
+   }
+  },
+  {
+   "id": "9702-6.2-p12",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q22",
+    "qid": "9702_w24_11_q22"
+   },
+   "stem": "A spring has an unstretched length of 0.30 m and a spring constant of 400 N m⁻¹. An object is\nsuspended from the spring and the spring is deformed within its limit of proportionality. The new\nlength of the spring is 0.50 m.\nWhat is the elastic potential energy stored in the spring?",
+   "options": {
+    "A": "8.0 J",
+    "B": "16 J",
+    "C": "40 J",
+    "D": "50 J"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "The extension is $0.50-0.30=0.20$ m, hence $E_P=\\tfrac12(400)(0.20)^2=8.0$ J. B omits the factor one half.",
+   "distractors": {
+    "B": "m6",
+    "C": "m5"
+   }
+  },
+  {
+   "id": "9702-6.2-i01",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define elastic deformation and plastic deformation.",
+   "marks": 2,
+   "explanation": "Elastic deformation is reversed on removal of the deforming force; plastic deformation leaves a permanent change.",
+   "hints": [
+    "Think about unloading.",
+    "Describe whether the original dimensions return.",
+    "State the outcome separately for each deformation."
+   ],
+   "rubric": [
+    {
+     "point": "Elastic deformation is reversed when the force is removed.",
+     "keywords": [
+      [
+       "reversed",
+       "recover",
+       "returns"
+      ],
+      [
+       "force",
+       "load"
+      ]
+     ]
+    },
+    {
+     "point": "Plastic deformation leaves a permanent change after force removal.",
+     "keywords": [
+      [
+       "permanent",
+       "remains",
+       "does not return"
+      ],
+      [
+       "force",
+       "load"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-6.2-i02",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A wire is no longer in the straight-line part of its force–extension graph but returns to its original length when unloaded. Which statement follows?",
+   "marks": 1,
+   "explanation": "The wire is still elastic, although force is no longer proportional to extension. The two limits need not coincide.",
+   "hints": [
+    "Compare the two limits.",
+    "Use what happens on unloading to decide whether deformation is elastic.",
+    "A curved graph can still describe recoverable deformation."
+   ],
+   "options": {
+    "A": "It has exceeded its elastic limit.",
+    "B": "It is elastic but beyond its limit of proportionality.",
+    "C": "It has plastically deformed.",
+    "D": "Its extension must be proportional to force."
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m1",
+    "C": "m2",
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-6.2-i03",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A rod of original length 100.0 mm is stretched to 104.0 mm. After unloading it measures 101.5 mm. Determine the recovered and permanent changes, and identify the two types of deformation.",
+   "marks": 4,
+   "explanation": "It recovers 2.5 mm and retains a permanent extension of 1.5 mm, so both elastic and plastic deformation occurred.",
+   "hints": [],
+   "scheme": [
+    {
+     "mark": "A1",
+     "point": "Recovered change $104.0-101.5=2.5$ mm.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.5,
+       "unit": "mm",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "A1",
+     "point": "Permanent extension $101.5-100.0=1.5$ mm.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.5,
+       "unit": "mm",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "Recovered change shows elastic deformation."
+    },
+    {
+     "mark": "B1",
+     "point": "Permanent extension shows plastic deformation."
+    }
+   ]
+  },
+  {
+   "id": "9702-6.2-i04",
+   "kcs": [
+    "9702-6.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A wire already has extension [[x1]] mm at force [[f1]] N. Force rises linearly to [[f2]] N as extension reaches [[x2]] mm. Calculate the additional work done.",
+   "marks": 1,
+   "explanation": "The required area is the trapezium between the initial and final extensions, in metres.",
+   "hints": [
+    "Identify the start and end extensions.",
+    "Use the mean of the two end forces.",
+    "Convert the change in extension from mm to m before finding area."
+   ],
+   "answer": {
+    "value": 0.1,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.06,
+     "misconception": "m3"
+    },
+    {
+     "value": 0.2,
+     "misconception": "m3"
+    }
+   ],
+   "template": {
+    "params": {
+     "x1": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "dx": {
+      "choices": [
+       2,
+       3
+      ]
+     },
+     "f1": {
+      "choices": [
+       40,
+       60,
+       80
+      ]
+     },
+     "df": {
+      "choices": [
+       20,
+       40
+      ]
+     }
+    },
+    "derived": {
+     "x2": "x1+dx",
+     "f2": "f1+df"
+    },
+    "answer": "0.5*(f1+f2)*dx/1000",
+    "distractors": [
+     {
+      "expr": "0.5*f2*dx/1000",
+      "misconception": "m3"
+     },
+     {
+      "expr": "0.5*(f1+f2)*x2/1000",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-6.2-i05",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A spring obeys Hooke’s law. Its unstretched length is [[L0]] cm; at force [[F]] N its length is [[L1]] cm. Use the force–extension graph area to find the elastic potential energy.",
+   "marks": 1,
+   "explanation": "The triangle has height $F$ and width equal to extension $L_1-L_0$, in metres.",
+   "hints": [
+    "Find extension, not full length.",
+    "The area under a linear force–extension graph is triangular.",
+    "Convert the extension from cm to m."
+   ],
+   "answer": {
+    "value": 0.12,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.24,
+     "misconception": "m6"
+    },
+    {
+     "value": 0.42,
+     "misconception": "m5"
+    }
+   ],
+   "template": {
+    "params": {
+     "L0": {
+      "choices": [
+       10,
+       12,
+       15
+      ]
+     },
+     "dx": {
+      "choices": [
+       4,
+       6,
+       8
+      ]
+     },
+     "F": {
+      "choices": [
+       6,
+       8,
+       10
+      ]
+     }
+    },
+    "derived": {
+     "L1": "L0+dx"
+    },
+    "answer": "0.5*F*dx/100",
+    "distractors": [
+     {
+      "expr": "F*dx/100",
+      "misconception": "m6"
+     },
+     {
+      "expr": "0.5*F*L1/100",
+      "misconception": "m5"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-6.2-i06",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A spring of stiffness [[k]] N m$^{-1}$ is compressed by [[x]] cm within its limit of proportionality. Calculate its elastic potential energy.",
+   "marks": 1,
+   "explanation": "Use $E_P=\\tfrac12kx^2$ with compression converted to metres before squaring.",
+   "hints": [
+    "Choose the stiffness form of the energy equation.",
+    "Square the compression after unit conversion.",
+    "Convert centimetres to metres first."
+   ],
+   "answer": {
+    "value": 0.16,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.32,
+     "misconception": "m6"
+    },
+    {
+     "value": 1600.0,
+     "misconception": "m7"
+    }
+   ],
+   "template": {
+    "params": {
+     "k": {
+      "choices": [
+       200,
+       300,
+       400
+      ]
+     },
+     "x": {
+      "choices": [
+       4,
+       6,
+       8
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "0.5*k*(x/100)**2",
+    "distractors": [
+     {
+      "expr": "k*(x/100)**2",
+      "misconception": "m6"
+     },
+     {
+      "expr": "0.5*k*x**2",
+      "misconception": "m7"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-6.2-x001",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q20",
+    "qid": "9702_s19_11_q20"
+   },
+   "stem": "A spring of original length 100 mm is compressed by a force. The graph shows the variation of the\ncompressing force F with the length L of the spring.\n12\n10\n8\n6\n4\n2\n0\n40\n50\n60\n70\n80\n90\n100\nF / N\nL / mm\nWhat is the energy stored in the spring when the length is 70 mm?",
+   "options": {
+    "A": "0 090J",
+    "B": "0 21J",
+    "C": "0 27J",
+    "D": "0 63J"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x002",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q20",
+    "qid": "9702_s19_12_q20"
+   },
+   "stem": "A wire X is stretched by a force and gains elastic potential energy E.\nThe same force is applied to wire Y of the same material, with the same initial length but twice the\ndiameter of wire X. Both wires obey Hooke’s law.\nWhat is the gain in elastic potential energy of wire Y?",
+   "options": {
+    "A": "0.25E",
+    "B": "0.5E",
+    "C": "2E",
+    "D": "4E"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Almost half the candidates calculated the elastic potential energy in wire Y correctly. Others thought that doubling the diameter of the wire would halve the stress on the wire and so halve the extension of wire Y as the same force is applied to both wires. Doubling the diameter increases the cross-sectional area by a factor of 4, reducing the stress on the wire by the same factor. As the length of the wire and the force applied to the wire do not change, the extension of wire Y is ¼ of the extension of wire X. The gain in elastic potential energy (½Fx) of wire Y is then 0.25E (answer A)."
+  },
+  {
+   "id": "9702-6.2-x003",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q22",
+    "qid": "9702_s19_12_q22"
+   },
+   "stem": "The stress-strain graphs for loading and unloading four different materials are shown.\nWhich material exhibits purely elastic behaviour?\n0\n0",
+   "options": {
+    "A": "strain stress 0 0",
+    "B": "strain stress 0 0",
+    "C": "strain stress 0 0",
+    "D": "strain stress loading loading loading loading unloading unloading unloading unloading"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x004",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q20",
+    "qid": "9702_s19_13_q20"
+   },
+   "stem": "A wire is attached at one end to a fixed point. A tensile force F is applied to the other end of the\nwire, causing it to extend. This is shown on the graph by the line OSP.\nThe force F is then gradually reduced to zero and the wire contracts. This is shown on the graph\nby the line PQ.\nF\nextension\nO\nT\nQ\nR\nP\nS\nWhich area on the graph represents the work done by the wire as it contracts?",
+   "options": {
+    "A": "OSTO",
+    "B": "OSPRO",
+    "C": "QPRQ",
+    "D": "OSPQO"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x005",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q20",
+    "qid": "9702_w19_11_q20"
+   },
+   "stem": "A wire is extended by a force. The graph shows how the extension of the wire varies with the\nforce applied.\n0\n0\nd\n2d\nW\n2W\nextension\nforce\nR\nM\nT\nS\nP\nO\nQ\nInitially a force W gives an extension d. The force is then increased to 2W. This increases the\nextension to 2d.\nWhich area of the graph represents the work done by the force when the force increases from W\nto 2W ?",
+   "options": {
+    "A": "ORQ",
+    "B": "OQRS",
+    "C": "ORS",
+    "D": "TMRS"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x006",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q20",
+    "qid": "9702_w19_13_q20"
+   },
+   "stem": "The diagram shows a force–extension graph for a rubber band as the band is extended and then\nthe stretching force is decreased to zero.\nforce\nextension\n0\n0\nrubber\nband\nextends\nrubber\nband\ncontracts\nWhat can be deduced from the graph?",
+   "options": {
+    "A": "The rubber band does not return to its original length when the force is decreased to zero.",
+    "B": "The rubber band obeys Hooke’s law for the extensions shown.",
+    "C": "The rubber band remains elastic for the extensions shown.",
+    "D": "The shaded area represents the work done in extending the rubber band."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x007",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q20",
+    "qid": "9702_s20_11_q20"
+   },
+   "stem": "A tensile force is used to extend a sample of a material. The force is then removed.\nThe variation with strain of the applied stress is shown on the graph.\nWhich point on the graph could represent the elastic limit for the material?\n0\n0\nstress\nstrain",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x008",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q21",
+    "qid": "9702_s20_11_q21"
+   },
+   "stem": "A tensile force is applied to an unstretched rubber band, causing it to stretch. The tensile force is\nthen removed.\nWhich statement about the rubber band must be correct?",
+   "options": {
+    "A": "If the rubber band stretches elastically and plastically, all the work done by the force is converted to thermal energy in the rubber.",
+    "B": "If the rubber band stretches elastically, it obeys Hooke’s law.",
+    "C": "If the rubber band stretches elastically, the gradient of the force–extension graph represents the work done by the force.",
+    "D": "If the rubber band stretches plastically, the rubber band will be longer after the force is removed than it was before the force is applied."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x009",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q16",
+    "qid": "9702_s20_12_q16"
+   },
+   "stem": "A spring is attached at one end to a fixed point. A mass is then hung from the other end of the\nspring. The spring has extension x when the system is in equilibrium.\nspring\nx\n0\nR\nS\nextension\nx\nQ\nP\ntension\n0\nThe variation of the tension in the spring with its extension is shown on the graph.\nWhich statement is correct?",
+   "options": {
+    "A": "Area SPR represents the energy stored in the spring which cannot be recovered.",
+    "B": "Area SPQR represents the energy stored in the spring which can be recovered.",
+    "C": "Area SPQ represents the loss of gravitational potential energy of the mass due to the extension of the spring.",
+    "D": "Area SQR represents the elastic potential energy stored in the spring."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_12_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x010",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q20",
+    "qid": "9702_s20_12_q20"
+   },
+   "stem": "Which statement describes what is meant by the plastic deformation of a material?",
+   "options": {
+    "A": "It always obeys Hooke’s law.",
+    "B": "It does not return to its original length when the extending force is removed.",
+    "C": "It never obeys Hooke’s law.",
+    "D": "It returns to its original length when the extending force is removed."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x011",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q21",
+    "qid": "9702_s20_13_q21"
+   },
+   "stem": "The Achilles tendon in a rabbit’s leg is stretched when the rabbit jumps.\nThe graph shows the variation with tension of the length of the tendon.\n40\n38\n36\n34\n32\n30\n0\n100\n200\n300\n400\n500\nlength / mm\ntension / N\nWhat is the strain energy in the tendon when the tension is 400 N?",
+   "options": {
+    "A": "0.40 J",
+    "B": "0.80 J",
+    "C": "2.4 J",
+    "D": "7.4 J"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_13_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x012",
+   "kcs": [
+    "9702-6.2.1",
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q20",
+    "qid": "9702_s21_11_q20"
+   },
+   "stem": "Forces are applied to the ends of a rod so that its length increases. The variation with force F of\nthe extension e of the rod is shown.\ne\n0\n0\nF\nP\nThe point P is the elastic limit.\nWhich shaded area represents the work done during the plastic deformation of the rod?\ne\n0\n0",
+   "options": {
+    "A": "F P e 0 0",
+    "B": "F P e 0 0",
+    "C": "F P e 0 0",
+    "D": "F P"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates recognised that the work done during plastic deformation is the shaded area beyond the elastic limit, but some did not notice that the extension e of the rod has been plotted on the y-axis and the applied force F on the x-axis, rather than the other way round. The work done during plastic deformation is the shaded area in graph C, not graph D."
+  },
+  {
+   "id": "9702-6.2-x013",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q16",
+    "qid": "9702_s21_13_q16"
+   },
+   "stem": "A spring is initially neither compressed nor extended.\nA force can be applied to this spring so that it is either compressed to a shorter length or\nextended to a longer length.\nWhat is the change in the elastic potential energy in the spring when it is extended and when it is\ncompressed?\nchange in the elastic potential energy\nspring is extended\nspring is compressed",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases increases",
+    "C": "increases decreases",
+    "D": "increases increases"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_13_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x014",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q21",
+    "qid": "9702_s21_13_q21"
+   },
+   "stem": "What is an example of plastic deformation?",
+   "options": {
+    "A": "A rubber ball is momentarily compressed every time it hits the ground.",
+    "B": "A spoon stirring some coffee in a ceramic mug hits its surface and makes a clinking sound.",
+    "C": "A toolbox is left on a horizontal plank. When the toolbox is removed, the plank is no longer straight.",
+    "D": "The spring in some bathroom weighing scales is compressed by a person standing on the scales."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x015",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q20",
+    "qid": "9702_w21_11_q20"
+   },
+   "stem": "Two identical springs are connected in parallel.\nA weight of 8.0 N is hung from the combination, as shown.\n8\n6\n4\n2\n0\nforce / N\nlength / cm\n8.0 N\n0\n2\n4\n6\n8\n10\nThe graph shows the variation with length of the force applied to one of the springs.\nWhat is the strain energy in one of the springs?",
+   "options": {
+    "A": "0.060 J",
+    "B": "0.12 J",
+    "C": "0.14 J",
+    "D": "0.24 J"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x016",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q22",
+    "qid": "9702_w21_12_q22"
+   },
+   "stem": "A length of metal wire is attached to a fixed point and hangs vertically. Masses are then\nsuspended from the wire. Assume that the cross-sectional area of the wire remains constant.\nfixed point\nmetal wire\nmasses\nA stress–strain graph for the wire is plotted, as shown.\n0\n0\nstress\nstrain\nWhat is represented by the shaded area under the graph?",
+   "options": {
+    "A": "strain energy in the wire",
+    "B": "wire the of area sectional - cross wire the in energy strain",
+    "C": "wire the of length original wire the in energy strain",
+    "D": "wire the of volume original wire the in energy strain"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "This proved to be a difficult question. The area under the stress–strain graph is: ½σε = ½ × (F / A) × (x / L) = (½Fx) / (AL) = (strain energy in the wire) / (original volume of the wire)."
+  },
+  {
+   "id": "9702-6.2-x017",
+   "kcs": [
+    "9702-6.2.1",
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q21",
+    "qid": "9702_w21_13_q21"
+   },
+   "stem": "A metal wire is stretched to breaking point and the force–extension graph is plotted.\nWhich graph is correctly labelled with the elastic region, the plastic region and the area\nrepresenting the work done to stretch the wire until it breaks?\nextension\nforce\nelastic\nregion\nplastic\nregion\nwork done\nforce\nelastic\nregion\nplastic\nregion\nwork done\n0\n0\n0",
+   "options": {
+    "A": "0 0 extension force plastic region elastic region",
+    "B": "extension",
+    "C": "extension force elastic region plastic region",
+    "D": "work done work done 0 0 0"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_13_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x018",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q20",
+    "qid": "9702_s22_11_q20"
+   },
+   "stem": "Which statement about elastic and plastic deformation must be correct?",
+   "options": {
+    "A": "Elastic deformation and plastic deformation are proportional to the applied force.",
+    "B": "Elastic deformation and plastic deformation cause no change in volume.",
+    "C": "Elastic deformation causes heating of the material but plastic deformation does not.",
+    "D": "Elastic deformation is reversible but plastic deformation is not."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x019",
+   "kcs": [
+    "9702-6.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q21",
+    "qid": "9702_s22_13_q21"
+   },
+   "stem": "The extension of a copper wire is measured for different forces applied to the wire. A graph is\nplotted to show the variation of the force on the wire against extension. The maximum force is\napplied at point P.\nforce\nextension\n0\n0\nT\nS\nR Q\nP\nWhich statement must be correct?",
+   "options": {
+    "A": "Point R is the limit of proportionality.",
+    "B": "The elastic potential energy of the wire at point S is given by the area under the graph between points T and S.",
+    "C": "There is no plastic deformation between points Q and P.",
+    "D": "The wire obeys Hooke’s law up to a point between R and Q."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_13_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x020",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q20",
+    "qid": "9702_w22_11_q20"
+   },
+   "stem": "An unstretched spring has a length of 2.0 cm.\nThe spring is then stretched within its limit of proportionality by a tensile force of 1.5 N so that the\nelastic potential energy stored in the spring is 0.045 J.\nWhat is the stretched length of the spring?",
+   "options": {
+    "A": "3.0 cm",
+    "B": "5.0 cm",
+    "C": "6.0 cm",
+    "D": "8.0 cm"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x021",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q21",
+    "qid": "9702_w22_12_q21"
+   },
+   "stem": "A wire is extended by different forces. The wire obeys Hooke’s law.\nA graph is plotted to show the variation of a quantity y with a quantity x.\n0\n0\ny\nx\nWhat could x and y represent?\nx\ny",
+   "options": {
+    "A": "elastic potential energy extension",
+    "B": "extension force",
+    "C": "force extension",
+    "D": "extension elastic potential energy"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_12_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult and approximately equal numbers of candidates chose incorrect answers B, C and D. As the wire obeys Hooke’s law, a graph of force against extension with either variable on the x-axis would be a straight line, so B and C can be rejected. The elastic potential energy E in a wire obeying Hooke’s law is E = ½kx2 where x is the extension and k is the spring constant for the wire. Rearranging this equation gives x = √(2E / k). If the extension is doubled, E would increase by a factor of 4, indicating that the correct graph is A rather than D."
+  },
+  {
+   "id": "9702-6.2-x022",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q20",
+    "qid": "9702_w22_13_q20"
+   },
+   "stem": "A spring has spring constant k. The spring obeys Hooke’s law and experiences extension x when\na force F is applied to it. The resulting elastic potential energy of the spring is EP.\nThe diagram shows two of these springs joined together in parallel and hanging from a fixed\nbeam.\nF\nspring\nWhat is the extension and total elastic potential energy of this arrangement when the same\nforce F is applied?\nextension\ntotal elastic\npotential energy",
+   "options": {
+    "A": "2 ¹ x 2 ¹ EP",
+    "B": "2 ¹ x 4 ¹ EP",
+    "C": "x 2 ¹ EP",
+    "D": "x 4 ¹ EP"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Less than half of the candidates answered this question correctly. Most candidates calculated the extension of the two springs correctly, but some calculated the elastic potential energy stored in just one spring rather than the total elastic potential energy in the two springs. For a single spring stretched a distance x by a force F, the elastic potential energy stored in the spring is EP = ½Fx. As the two springs are in parallel, the force exerted on each individual spring is F / 2. The extension of each spring is x / 2. The total elastic potential energy stored in the two springs is 2 × [½ "
+  },
+  {
+   "id": "9702-6.2-x023",
+   "kcs": [
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q19",
+    "qid": "9702_s23_11_q19"
+   },
+   "stem": "The force–extension graph for a spring is shown.\n0\n0\nextension\nforce\nWhat represents the work done to extend the spring?",
+   "options": {
+    "A": "the area under the graph",
+    "B": "the gradient of the graph",
+    "C": "the reciprocal of the gradient of the graph",
+    "D": "twice the area under the graph"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x024",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q19",
+    "qid": "9702_w23_11_q19"
+   },
+   "stem": "Which force–extension graph shows plastic deformation of a sample of material?\n0\n0",
+   "options": {
+    "A": "force extension 0 0",
+    "B": "force extension 0 0",
+    "C": "force extension 0 0",
+    "D": "force extension"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x025",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q23",
+    "qid": "9702_s24_11_q23"
+   },
+   "stem": "For a wire, Hooke’s law is obeyed for a tension F and extension x. The Young modulus for the\nmaterial of the wire is E.\nWhich expression represents the elastic potential energy stored in the wire?",
+   "options": {
+    "A": "Ex 2 1",
+    "B": "Ex",
+    "C": "Fx 2 1",
+    "D": "Fx"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x026",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q18",
+    "qid": "9702_s24_12_q18"
+   },
+   "stem": "A sample of metal is subjected to a force which increases to a maximum value and then\ndecreases back to zero. A force–extension graph for the sample is shown.\nextension\nforce\nX\nY\n0\n0\nWhen the sample contracts, it follows the same force–extension curve as when it was being\nstretched.\nWhat is the behaviour of the metal between X and Y?",
+   "options": {
+    "A": "both elastic and plastic",
+    "B": "not elastic and not plastic",
+    "C": "elastic but not plastic",
+    "D": "plastic but not elastic"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_12_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x027",
+   "kcs": [
+    "9702-6.2.2",
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q20",
+    "qid": "9702_s24_13_q20"
+   },
+   "stem": "A sample of material is stretched by a tensile force to a point beyond its elastic limit. The tensile\nforce is then reduced to zero. The force–extension graph is shown.\nforce\nextension\nX\nY\nZ\n0\n0\nWhich area represents the net work done on the sample?",
+   "options": {
+    "A": "X",
+    "B": "X + Y",
+    "C": "Y + Z",
+    "D": "Z"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x028",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q21",
+    "qid": "9702_s24_13_q21"
+   },
+   "stem": "A wire is fixed at one end and is extended by a force F₁ acting on the other end. This causes the\nwire to have an elastic potential energy of 0.15 J.\nThe force applied to the wire is now changed to a force F₂. This causes the wire to have a new\nelastic potential energy of 0.60 J.\nThe wire obeys Hooke’s law.\nWhat is the relationship between F₁ and F₂?",
+   "options": {
+    "A": "F₁ = 2F₂",
+    "B": "F₁ = 4F₂",
+    "C": "2F₁ = F₂",
+    "D": "4F₁ = F₂"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_13_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x029",
+   "kcs": [
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q21",
+    "qid": "9702_w24_11_q21"
+   },
+   "stem": "A wire is stretched by a gradually increasing force. The force–extension graph for the wire is\nshown.\nforce\nextension\n0\n0\nQ\nP\nR\nS\nWhich statement must be correct?",
+   "options": {
+    "A": "Point Q is the elastic limit.",
+    "B": "Point R is the limit of proportionality.",
+    "C": "The area under the graph from P to S is the elastic potential energy stored in the wire.",
+    "D": "The area under the graph from P to S is the work done in stretching the wire."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w24_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x030",
+   "kcs": [
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q22",
+    "qid": "9702_w24_12_q22"
+   },
+   "stem": "The graph shows how the length of a spring varies with the force applied to it. Two areas P and Q\nare labelled.\nlength\nforce\n0\n0\nQ\nP\nWhich area represents the work done in stretching the spring?",
+   "options": {
+    "A": "area P",
+    "B": "area Q",
+    "C": "area P + area Q",
+    "D": "area Q – area P"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x031",
+   "kcs": [
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q23",
+    "qid": "9702_w24_13_q23"
+   },
+   "stem": "A rubber cord hangs from a rigid support. A weight attached to its lower end is gradually\nincreased from zero, and then gradually reduced to zero.\nforce\nextension\n0\n0\nstretching\ncontraction\nrubber\ncord\nweight\nThe force–extension curve for contraction is below the force–extension curve for stretching.\nWhat does the shaded area between the curves represent?",
+   "options": {
+    "A": "the elastic potential energy stored in the rubber cord",
+    "B": "the thermal energy dissipated in the rubber cord",
+    "C": "the work done by the rubber cord during contraction",
+    "D": "the work done on the rubber cord during stretching"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_13_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x032",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q22",
+    "qid": "9702_s25_11_q22"
+   },
+   "stem": "The graph shows the variation with force of the extension of a wire.\n0\n0\nforce\nextension\nP\nQ\nR\nincreasing force\nforce decreasing\nThe force is gradually increased to a maximum at Q and then gradually decreased to zero at R.\nWhich statement is correct?",
+   "options": {
+    "A": "Along the line PQ, the wire obeys Hooke’s law.",
+    "B": "Along the line RP, the spring constant is equal to . force extension",
+    "C": "The wire has elastic deformation at point Q.",
+    "D": "The work done in stretching the wire to P is equal to (force × extension) at point P."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_11_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x033",
+   "kcs": [
+    "9702-6.2.3",
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q22",
+    "qid": "9702_s25_12_q22"
+   },
+   "stem": "Two springs X and Y stretch elastically. The graphs show the variation with extension x of the\nforce F applied to each spring.\n20\n0\n0\n10\nF / N\nspring X\n80\n0\n0\n5\nF / N\nx / cm\nx / cm\nspring Y\nWhich statement is correct?",
+   "options": {
+    "A": "When each spring is given the same extension, the energy stored in Y is 4 times the energy stored in X.",
+    "B": "When each spring is given the same extension, the energy stored in Y is 8 times the energy stored in X.",
+    "C": "When the same force is applied to each spring, the energy stored in Y is 4 times the energy stored in X.",
+    "D": "When the same force is applied to each spring, the energy stored in Y is 8 times the energy stored in X."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x034",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q23",
+    "qid": "9702_s25_12_q23"
+   },
+   "stem": "Which phrase describes the strain at the elastic limit on a stress–strain graph?",
+   "options": {
+    "A": "the maximum strain below which Hooke’s law is obeyed",
+    "B": "the maximum strain below which the deformation is plastic",
+    "C": "the minimum strain above which Hooke’s law is obeyed",
+    "D": "the minimum strain above which the deformation is plastic"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x035",
+   "kcs": [
+    "9702-6.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q21",
+    "qid": "9702_s25_13_q21"
+   },
+   "stem": "The force–extension graph for a metal wire is shown.\n0\n0\nforce\nextension\nWhich quantity is represented by the area under the graph?",
+   "options": {
+    "A": "power transferred to the wire",
+    "B": "temperature increase in the wire",
+    "C": "time taken for the wire to extend",
+    "D": "work done on the wire"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_13_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x036",
+   "kcs": [
+    "9702-6.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q23",
+    "qid": "9702_s25_13_q23"
+   },
+   "stem": "A wire of length L is stretched to determine its limit of proportionality.\nThe graph shows the variation of the extension x with the force F applied to the wire.\nP\n0\n0\nF\nx\nThe limit of proportionality is shown by point P on the graph.\nThe experiment is repeated with another wire of length 2L but of the same material and same\ndiameter as the first wire.\nWhich point on the graph shows the limit of proportionality for the new wire?\n0\n0\nP\nF\nx",
+   "options": {
+    "C": "",
+    "A": "",
+    "B": "",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_13_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.2-x037",
+   "kcs": [
+    "9702-6.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q23",
+    "qid": "9702_w25_12_q23"
+   },
+   "stem": "The graph shows how the extension of a spring varies with the force used to stretch it.\n10\n20\n30\n2.0\n4.0\nextension / cm\nforce / kN\n0\n0\nWhat is the elastic potential energy of the spring when the extension is 4.0 cm?",
+   "options": {
+    "A": "60 J",
+    "B": "120 J",
+    "C": "600 J",
+    "D": "1200 J"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w25_12_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-6.2.1",
+   "front": "Define elastic deformation.",
+   "back": "Deformation that is reversed when the deforming force is removed; the object returns to its original dimensions."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-6.2.1",
+   "front": "Define plastic deformation.",
+   "back": "Deformation that is not fully reversed when the deforming force is removed; a permanent change remains."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-6.2.1",
+   "front": "What is the elastic limit?",
+   "back": "The maximum force or stress before plastic deformation begins; beyond it the material does not fully return to its original dimensions when unloaded."
+  }
+ ],
+ "diagrams": [
+  {
+   "file": "Assets/9702/9702-6.2-force-extension.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        4,
+        4
+       ]
+      ],
+      "label": "linear elastic",
+      "style": "solid"
+     },
+     {
+      "points": [
+       [
+        4,
+        4
+       ],
+       [
+        6,
+        5.5
+       ],
+       [
+        8,
+        5.7
+       ]
+      ],
+      "label": "beyond proportional limit",
+      "style": "solid"
+     }
+    ],
+    "xlabel": "extension x",
+    "ylabel": "force F",
+    "shade": {
+     "polygon": [
+      [
+       0,
+       0
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       4
+      ]
+     ]
+    },
+    "annotations": [
+     {
+      "xy": [
+       4,
+       4
+      ],
+      "text": "limit of proportionality",
+      "xytext": [
+       5,
+       2
+      ]
+     }
+    ],
+    "ticks": false
+   }
+  }
+ ],
+ "teach": {
+  "9702-6.2.1": {
+   "motivate": "A wire may spring back after a load is removed, or it may remain longer. What it does on unloading tells you whether its deformation was elastic, plastic, or a mixture of both.",
+   "discover": {
+    "stem": "A wire's force–extension graph has become curved, but the wire returns to its original length when unloaded. Which conclusion is justified?",
+    "options": {
+     "A": "The wire has undergone plastic deformation.",
+     "B": "The wire is still elastically deformed, although force is no longer proportional to extension.",
+     "C": "The wire must have passed its elastic limit.",
+     "D": "The wire obeys Hooke's law throughout the curved region."
+    },
+    "answer": "B",
+    "explanation": "Returning to the original length shows elastic deformation. Curvature shows that the limit of proportionality has been passed, but this need not mean that the elastic limit has been passed."
+   },
+   "establish": "**Elastic deformation** is deformation reversed when the deforming force is removed: the object returns to its original dimensions. **Plastic deformation** is deformation not fully reversed when the force is removed: a permanent change remains. The **elastic limit** is the maximum force or stress before plastic deformation begins. A specimen can recover some change yet retain a permanent change; the recovered part is elastic and the residual part is plastic. Do not equate the elastic limit with the **limit of proportionality**. The latter marks where the force–extension graph stops being straight; the material can still return to its original dimensions beyond that point.",
+   "connect": "Hooke's law, $F=kx$, applies up to the limit of proportionality. Beyond that limit, a curved graph may still describe elastic behaviour. To decide whether deformation is plastic, consider the dimensions after the force has been removed.",
+   "note": "- Elastic: deformation reversed on removal of the force; original dimensions restored.\n- Plastic: deformation not fully reversed; a permanent change remains.\n- Elastic limit: maximum force or stress before plastic deformation begins.\n- Limit of proportionality: end of the straight force–extension region; it need not coincide with the elastic limit.",
+   "self_explain": "A rod recovers part of its extension on unloading but remains longer than before loading. Which part is elastic, which is plastic, and what observation proves that its elastic limit was exceeded?",
+   "source": "pack"
+  },
+  "9702-6.2.2": {
+   "motivate": "Stretching a wire takes work. If the required force grows as the wire extends, multiplying the final force by the whole extension overstates the work. The graph records how the force changes.",
+   "discover": {
+    "stem": "Force rises linearly from zero to $F$ as extension rises from zero to $x$. What is the work done in stretching the material?",
+    "options": {
+     "A": "$Fx$",
+     "B": "$F/x$",
+     "C": "$\\tfrac12Fx$",
+     "D": "$2Fx$"
+    },
+    "answer": "C",
+    "explanation": "Work done is the area under the force–extension graph. Here that area is a triangle of base $x$ and height $F$."
+   },
+   "establish": "The **area under a force–extension graph represents the work done** by the applied force in changing the extension. For a small change $\\Delta x$, the work is approximately $F\\Delta x$; adding these strips gives the area between the initial and final extensions. Force in newtons times extension in metres gives joules: $\\mathrm{N\\,m}=\\mathrm{J}$. Read the axes before choosing the area. For a straight graph from the origin the area is $\\tfrac12Fx$. If extension changes from $x_1$ to $x_2$, use only the region between those extensions. On a loading–unloading graph, loading area is work put in, unloading area is work returned, and the difference is energy dissipated.",
+   "connect": "This graph method extends the work rule, work $=$ force $\\times$ displacement, to a changing force. In the next step, when deformation is within the limit of proportionality, the loading work is the gain in elastic potential energy.",
+   "note": "- Area under a force–extension graph between two extensions = work done over that change.\n- Use extension in metres: $\\mathrm{N\\,m}=\\mathrm{J}$.\n- For a straight line from the origin, area = $\\tfrac12Fx$.\n- Loading area minus unloading area = energy dissipated.",
+   "self_explain": "A wire is already extended when a further force is applied. Why would the area from zero extension give the wrong value for the additional work?",
+   "source": "pack"
+  },
+  "9702-6.2.3": {
+   "motivate": "A spring stores energy as you stretch it. A force–extension graph lets you find that energy even when the force changes throughout the stretch.",
+   "discover": {
+    "stem": "A spring remains within its limit of proportionality. Its force rises from zero to $40$ N over an extension of $0.030$ m. What elastic potential energy is stored?",
+    "options": {
+     "A": "$0.60$ J",
+     "B": "$1.2$ J",
+     "C": "$40$ J",
+     "D": "$1330$ J"
+    },
+    "answer": "A",
+    "explanation": "The graph forms a triangle, so the stored energy is its area: $\\tfrac12(40)(0.030)=0.60$ J."
+   },
+   "establish": "For a material deformed **within its limit of proportionality**, the work done in stretching or compressing it is stored as **elastic potential energy**. Determine this energy from the **area under its force–extension graph**, from zero extension to the stated extension. First find extension from the natural length if the graph instead shows total length, then convert it to metres. Read the corresponding force in newtons. Since the graph is a straight line through the origin in this region, the area is triangular: $E_P=\\tfrac12Fx$. To find an **increase** in stored energy between two nonzero extensions on a straight graph, take only the area between them: $\\Delta E_P=\\tfrac12(F_1+F_2)(x_2-x_1)$. Give energy in joules.",
+   "connect": "The area is the work done established by the preceding graph rule. Within the proportional region, $F=kx$, so replacing $F$ in the triangular area also gives the spring-constant formula.",
+   "note": "- Within the limit of proportionality, graph area gives elastic potential energy gained.\n- From zero extension: triangle area $E_P=\\tfrac12Fx$.\n- Between two nonzero extensions: trapezium area $\\Delta E_P=\\tfrac12(F_1+F_2)(x_2-x_1)$.\n- Use extension from natural length, in metres; answer in joules.",
+   "self_explain": "A graph plots force against total spring length. What must you calculate before finding its triangular area, and why?",
+   "source": "pack"
+  },
+  "9702-6.2.4": {
+   "motivate": "Once a spring obeys Hooke's law, you can calculate its stored energy from either its final force and extension or its spring constant and extension.",
+   "discover": {
+    "stem": "A spring with stiffness $200$ N m$^{-1}$ is extended by $0.10$ m within its limit of proportionality. Which is its elastic potential energy?",
+    "options": {
+     "A": "$1.0$ J",
+     "B": "$2.0$ J",
+     "C": "$10$ J",
+     "D": "$20$ J"
+    },
+    "answer": "A",
+    "explanation": "Use $E_P=\\tfrac12kx^2=\\tfrac12(200)(0.10)^2=1.0$ J."
+   },
+   "establish": "For a material deformed **within its limit of proportionality**, recall and use $E_P=\\tfrac12Fx=\\tfrac12kx^2$. Here $E_P$ is elastic potential energy in joules, $F$ is the final force in newtons, $x$ is extension or compression from the natural length in metres, and $k$ is the spring constant in $\\mathrm{N\\,m^{-1}}$. The first form is the triangular area under the linear force–extension graph. Hooke's law gives $F=kx$; substituting it into $\\tfrac12Fx$ gives the second form. Convert centimetres or millimetres to metres **before squaring** $x$. The factor $\\tfrac12$ is needed because the force rises from zero to $F$, rather than staying at $F$ throughout the deformation.",
+   "connect": "Use the graph-area method when a graph is supplied. Use $\\tfrac12Fx$ when final force and extension are known, or $\\tfrac12kx^2$ when stiffness and extension are known. Both describe the same triangular area in the proportional region.",
+   "note": "- Within the limit of proportionality: $E_P=\\tfrac12Fx=\\tfrac12kx^2$.\n- $x$ is extension or compression from natural length, in metres.\n- $F$ is final force in newtons; $k$ is in $\\mathrm{N\\,m^{-1}}$.\n- Convert $x$ to metres before squaring; energy is in joules.",
+   "self_explain": "Why is the energy $\\tfrac12Fx$ rather than $Fx$, and how does $F=kx$ turn it into the spring-constant formula?",
+   "source": "pack"
+  }
+ }
+}

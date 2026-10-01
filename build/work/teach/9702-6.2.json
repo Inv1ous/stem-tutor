@@ -1,0 +1,74 @@
+{
+  "9702-6.2.1": {
+    "motivate": "A wire may spring back after a load is removed, or it may remain longer. What it does on unloading tells you whether its deformation was elastic, plastic, or a mixture of both.",
+    "discover": {
+      "stem": "A wire's force–extension graph has become curved, but the wire returns to its original length when unloaded. Which conclusion is justified?",
+      "options": {
+        "A": "The wire has undergone plastic deformation.",
+        "B": "The wire is still elastically deformed, although force is no longer proportional to extension.",
+        "C": "The wire must have passed its elastic limit.",
+        "D": "The wire obeys Hooke's law throughout the curved region."
+      },
+      "answer": "B",
+      "explanation": "Returning to the original length shows elastic deformation. Curvature shows that the limit of proportionality has been passed, but this need not mean that the elastic limit has been passed."
+    },
+    "establish": "**Elastic deformation** is deformation reversed when the deforming force is removed: the object returns to its original dimensions. **Plastic deformation** is deformation not fully reversed when the force is removed: a permanent change remains. The **elastic limit** is the maximum force or stress before plastic deformation begins. A specimen can recover some change yet retain a permanent change; the recovered part is elastic and the residual part is plastic. Do not equate the elastic limit with the **limit of proportionality**. The latter marks where the force–extension graph stops being straight; the material can still return to its original dimensions beyond that point.",
+    "connect": "Hooke's law, $F=kx$, applies up to the limit of proportionality. Beyond that limit, a curved graph may still describe elastic behaviour. To decide whether deformation is plastic, consider the dimensions after the force has been removed.",
+    "note": "- Elastic: deformation reversed on removal of the force; original dimensions restored.\n- Plastic: deformation not fully reversed; a permanent change remains.\n- Elastic limit: maximum force or stress before plastic deformation begins.\n- Limit of proportionality: end of the straight force–extension region; it need not coincide with the elastic limit.",
+    "self_explain": "A rod recovers part of its extension on unloading but remains longer than before loading. Which part is elastic, which is plastic, and what observation proves that its elastic limit was exceeded?"
+  },
+  "9702-6.2.2": {
+    "motivate": "Stretching a wire takes work. If the required force grows as the wire extends, multiplying the final force by the whole extension overstates the work. The graph records how the force changes.",
+    "discover": {
+      "stem": "Force rises linearly from zero to $F$ as extension rises from zero to $x$. What is the work done in stretching the material?",
+      "options": {
+        "A": "$Fx$",
+        "B": "$F/x$",
+        "C": "$\\tfrac12Fx$",
+        "D": "$2Fx$"
+      },
+      "answer": "C",
+      "explanation": "Work done is the area under the force–extension graph. Here that area is a triangle of base $x$ and height $F$."
+    },
+    "establish": "The **area under a force–extension graph represents the work done** by the applied force in changing the extension. For a small change $\\Delta x$, the work is approximately $F\\Delta x$; adding these strips gives the area between the initial and final extensions. Force in newtons times extension in metres gives joules: $\\mathrm{N\\,m}=\\mathrm{J}$. Read the axes before choosing the area. For a straight graph from the origin the area is $\\tfrac12Fx$. If extension changes from $x_1$ to $x_2$, use only the region between those extensions. On a loading–unloading graph, loading area is work put in, unloading area is work returned, and the difference is energy dissipated.",
+    "connect": "This graph method extends the work rule, work $=$ force $\\times$ displacement, to a changing force. In the next step, when deformation is within the limit of proportionality, the loading work is the gain in elastic potential energy.",
+    "note": "- Area under a force–extension graph between two extensions = work done over that change.\n- Use extension in metres: $\\mathrm{N\\,m}=\\mathrm{J}$.\n- For a straight line from the origin, area = $\\tfrac12Fx$.\n- Loading area minus unloading area = energy dissipated.",
+    "self_explain": "A wire is already extended when a further force is applied. Why would the area from zero extension give the wrong value for the additional work?"
+  },
+  "9702-6.2.3": {
+    "motivate": "A spring stores energy as you stretch it. A force–extension graph lets you find that energy even when the force changes throughout the stretch.",
+    "discover": {
+      "stem": "A spring remains within its limit of proportionality. Its force rises from zero to $40$ N over an extension of $0.030$ m. What elastic potential energy is stored?",
+      "options": {
+        "A": "$0.60$ J",
+        "B": "$1.2$ J",
+        "C": "$40$ J",
+        "D": "$1330$ J"
+      },
+      "answer": "A",
+      "explanation": "The graph forms a triangle, so the stored energy is its area: $\\tfrac12(40)(0.030)=0.60$ J."
+    },
+    "establish": "For a material deformed **within its limit of proportionality**, the work done in stretching or compressing it is stored as **elastic potential energy**. Determine this energy from the **area under its force–extension graph**, from zero extension to the stated extension. First find extension from the natural length if the graph instead shows total length, then convert it to metres. Read the corresponding force in newtons. Since the graph is a straight line through the origin in this region, the area is triangular: $E_P=\\tfrac12Fx$. To find an **increase** in stored energy between two nonzero extensions on a straight graph, take only the area between them: $\\Delta E_P=\\tfrac12(F_1+F_2)(x_2-x_1)$. Give energy in joules.",
+    "connect": "The area is the work done established by the preceding graph rule. Within the proportional region, $F=kx$, so replacing $F$ in the triangular area also gives the spring-constant formula.",
+    "note": "- Within the limit of proportionality, graph area gives elastic potential energy gained.\n- From zero extension: triangle area $E_P=\\tfrac12Fx$.\n- Between two nonzero extensions: trapezium area $\\Delta E_P=\\tfrac12(F_1+F_2)(x_2-x_1)$.\n- Use extension from natural length, in metres; answer in joules.",
+    "self_explain": "A graph plots force against total spring length. What must you calculate before finding its triangular area, and why?"
+  },
+  "9702-6.2.4": {
+    "motivate": "Once a spring obeys Hooke's law, you can calculate its stored energy from either its final force and extension or its spring constant and extension.",
+    "discover": {
+      "stem": "A spring with stiffness $200$ N m$^{-1}$ is extended by $0.10$ m within its limit of proportionality. Which is its elastic potential energy?",
+      "options": {
+        "A": "$1.0$ J",
+        "B": "$2.0$ J",
+        "C": "$10$ J",
+        "D": "$20$ J"
+      },
+      "answer": "A",
+      "explanation": "Use $E_P=\\tfrac12kx^2=\\tfrac12(200)(0.10)^2=1.0$ J."
+    },
+    "establish": "For a material deformed **within its limit of proportionality**, recall and use $E_P=\\tfrac12Fx=\\tfrac12kx^2$. Here $E_P$ is elastic potential energy in joules, $F$ is the final force in newtons, $x$ is extension or compression from the natural length in metres, and $k$ is the spring constant in $\\mathrm{N\\,m^{-1}}$. The first form is the triangular area under the linear force–extension graph. Hooke's law gives $F=kx$; substituting it into $\\tfrac12Fx$ gives the second form. Convert centimetres or millimetres to metres **before squaring** $x$. The factor $\\tfrac12$ is needed because the force rises from zero to $F$, rather than staying at $F$ throughout the deformation.",
+    "connect": "Use the graph-area method when a graph is supplied. Use $\\tfrac12Fx$ when final force and extension are known, or $\\tfrac12kx^2$ when stiffness and extension are known. Both describe the same triangular area in the proportional region.",
+    "note": "- Within the limit of proportionality: $E_P=\\tfrac12Fx=\\tfrac12kx^2$.\n- $x$ is extension or compression from natural length, in metres.\n- $F$ is final force in newtons; $k$ is in $\\mathrm{N\\,m^{-1}}$.\n- Convert $x$ to metres before squaring; energy is in joules.",
+    "self_explain": "Why is the energy $\\tfrac12Fx$ rather than $Fx$, and how does $F=kx$ turn it into the spring-constant formula?"
+  }
+}
