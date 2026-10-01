@@ -1,0 +1,2841 @@
+{
+ "subtopic": "9701-5.1",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/05 Chemical energetics/5.1 Enthalpy change, ΔH.md",
+ "outline": "Reactions transfer energy through bond breaking and making. Exothermic changes have $\\Delta H<0$; endothermic changes have $\\Delta H>0$. On a pathway diagram, activation energy reaches the peak from reactants, while $\\Delta H$ compares products with reactants. Standard conditions here are $298\\,\\mathrm K$ and $101\\,\\mathrm{kPa}$. Formation, combustion and neutralisation enthalpies refer to one mole of product, fuel and water respectively. Bond-energy estimates use energy of bonds broken minus energy of bonds formed; averages need not equal exact values. Calorimetry uses $q=mc\\Delta T$ for the solution, then $\\Delta H=-q/n$ for the reaction.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-5.1.1",
+   "statement": "A reaction that makes its surroundings warm has positive $\\Delta H$.",
+   "refutation": "Heat leaves an exothermic reacting system, so the products have lower enthalpy and $\\Delta H<0$.",
+   "contrast": "A heat pad warms the surroundings: its reaction is exothermic and has negative $\\Delta H$.",
+   "source": "ER 9701 w23 P22 Q2"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-5.1.2",
+   "statement": "Activation energy and enthalpy change are the same vertical gap on a pathway diagram.",
+   "refutation": "Activation energy goes from reactants to the peak; $\\Delta H$ goes from reactants to products.",
+   "contrast": "For an exothermic reaction, $E_{a,\\mathrm{reverse}}=E_{a,\\mathrm{forward}}-\\Delta H$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-5.1.3",
+   "statement": "Standard conditions alone define standard enthalpy of formation.",
+   "refutation": "The elements must also be in their standard states, and exactly one mole of product must form.",
+   "contrast": "Carbon in its standard state is graphite, not gaseous carbon atoms.",
+   "source": "ER 9701 s22 P22 Q1"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-5.1.3",
+   "statement": "Neutralisation enthalpy is quoted per mole of acid or per reaction as written.",
+   "refutation": "It is the enthalpy change when an acid and an alkali react to form one mole of water.",
+   "contrast": "If an equation forms two moles of water, divide its enthalpy change by two.",
+   "source": "ER 9701 s22 P11 Q10"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-5.1.4",
+   "statement": "Breaking bonds releases energy while making bonds takes in energy.",
+   "refutation": "Bond breaking requires energy; bond making releases energy.",
+   "contrast": "A reaction is exothermic when forming bonds releases more than breaking bonds absorbs.",
+   "source": "ER 9701 w25 P13 Q7"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-5.1.5",
+   "statement": "Bond energy calculations add the energies of bonds formed to those broken.",
+   "refutation": "Use $\\Delta H=\\sum E(\\text{broken})-\\sum E(\\text{formed})$ and count bonds using the balanced equation.",
+   "contrast": "For $\\ce{H2 + Cl2 -> 2HCl}$, break one H–H and one Cl–Cl, then form two H–Cl bonds.",
+   "source": "research"
+  },
+  {
+   "id": "m7",
+   "kc": "9701-5.1.6",
+   "statement": "Every C–H bond in every molecule has the same exact bond energy.",
+   "refutation": "Bond energy varies with molecular environment. A tabulated average bond energy averages values across compounds; a specified bond dissociation enthalpy is exact for that gaseous process.",
+   "contrast": "The mean of the four successive C–H dissociations in methane is not the first dissociation alone.",
+   "source": "ER 9701 s22 P13 Q9"
+  },
+  {
+   "id": "m8",
+   "kc": "9701-5.1.7",
+   "statement": "Use fuel mass in $q=mc\\Delta T$, or use Celsius temperature as an absolute temperature.",
+   "refutation": "Use the mass of the heated water or solution and the temperature difference. For a heat-releasing reaction, divide negative heat absorbed by moles reacted.",
+   "contrast": "A change of $10\\,^{\\circ}\\mathrm C$ is $10\\,\\mathrm K$, not $283\\,\\mathrm K$.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-5.1.2",
+   "problem": "A pathway has reactants at 20, products at 50 and peak at 100 kJ mol$^{-1}$. Find forward activation energy.",
+   "steps": [
+    {
+     "do": "Read the reactant and peak levels: 20 and 100 kJ mol$^{-1}$.",
+     "why": "Activation energy is measured from the starting level to the peak."
+    },
+    {
+     "do": "$E_a=100-20=80$ kJ mol$^{-1}$.",
+     "why": "Subtract the reactant level; a barrier cannot be negative.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 80,
+       "unit": "kJ mol^-1",
+       "sf_ok": [
+        2,
+        3,
+        4
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Reactants are at 30 and peak at 120 kJ mol$^{-1}$. Find forward activation energy.",
+    "answer": {
+     "value": 90,
+     "unit": "kJ mol^-1",
+     "sf_ok": [
+      2,
+      3,
+      4
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9701-5.1.5",
+   "problem": "Estimate $\\Delta H$ for $\\ce{H2 + Cl2 -> 2HCl}$ using 436, 242 and 431 kJ mol$^{-1}$ for H–H, Cl–Cl and H–Cl.",
+   "steps": [
+    {
+     "do": "Broken: one H–H and one Cl–Cl, so $436+242=678$ kJ mol$^{-1}$.",
+     "why": "The balanced equation fixes the bond counts."
+    },
+    {
+     "do": "Formed: two H–Cl, so $2(431)=862$ kJ mol$^{-1}$.",
+     "why": "Each product molecule contains one H–Cl bond."
+    },
+    {
+     "do": "$\\Delta H=678-862=-184$ kJ mol$^{-1}$.",
+     "why": "Energy absorbed for breaking minus energy released in forming sets the sign.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -184,
+       "unit": "kJ mol^-1",
+       "sf_ok": [
+        2,
+        3,
+        4
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "For the same reaction, use H–H = 440, Cl–Cl = 240 and H–Cl = 430 kJ mol$^{-1}$. Estimate $\\Delta H$.",
+    "answer": {
+     "value": -180,
+     "unit": "kJ mol^-1",
+     "sf_ok": [
+      2,
+      3,
+      4
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9701-5.1.7",
+   "problem": "A reaction warms 100 g of water by 5.0 K; 0.020 mol reacts. Calculate $\\Delta H$, with $c=4.18$ J g$^{-1}$ K$^{-1}$.",
+   "steps": [
+    {
+     "do": "$q=mc\\Delta T=100(4.18)(5.0)=2090$ J.",
+     "why": "Use the mass of water and the temperature difference."
+    },
+    {
+     "do": "$\\Delta H=-2090/(0.020\\times1000)=-104.5$ kJ mol$^{-1}$.",
+     "why": "The reaction releases the heat absorbed by water; divide by moles and convert to kJ.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -104.5,
+       "unit": "kJ mol^-1",
+       "sf_ok": [
+        2,
+        3,
+        4
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A reaction warms 150 g of water by 4.0 K; 0.025 mol reacts. Calculate $\\Delta H$ using $c=4.18$ J g$^{-1}$ K$^{-1}$.",
+    "answer": {
+     "value": -100.32,
+     "unit": "kJ mol^-1",
+     "sf_ok": [
+      2,
+      3,
+      4
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-5.1-p01",
+   "kcs": [
+    "9701-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q10",
+    "qid": "9701_w24_13_q10"
+   },
+   "stem": "Three processes are described.\n1\nH⁺(aq) + OH⁻(aq) → H₂O(l)\n2\nCH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(l)\n3\nNH₃(g) → NH₃(l)\nWhich statement is correct?",
+   "options": {
+    "A": "None of the processes have a positive enthalpy change.",
+    "B": "Only process 1 has a positive enthalpy change.",
+    "C": "Only process 2 has a positive enthalpy change.",
+    "D": "Only process 3 has a positive enthalpy change."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Neutralisation, combustion and condensation all release heat, so each has negative enthalpy change. B incorrectly calls neutralisation endothermic.",
+   "image": "Assets/mcq/9701_w24_13_q10.png",
+   "distractors": {
+    "B": "m1",
+    "C": "m1",
+    "D": "m1"
+   }
+  },
+  {
+   "id": "9701-5.1-p02",
+   "kcs": [
+    "9701-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q10",
+    "qid": "9701_w25_12_q10"
+   },
+   "stem": "One commercially available ‘heat pad’ contains iron, activated carbon and water. The ‘heat pad’\nis activated by air. This causes the pad to get hotter.\nWhich statement describes the chemical reaction occurring in the ‘heat pad’ when it is exposed to\nair?",
+   "options": {
+    "A": "The reaction is endothermic and iron gains electrons.",
+    "B": "The reaction is endothermic and iron loses electrons.",
+    "C": "The reaction is exothermic and iron gains electrons.",
+    "D": "The reaction is exothermic and iron loses electrons."
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The pad gets hotter because the reaction releases heat; iron is oxidised and loses electrons. C has the heat direction right but incorrectly says iron gains electrons.",
+   "distractors": {
+    "A": "m1",
+    "B": "m1"
+   }
+  },
+  {
+   "id": "9701-5.1-p03",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q10",
+    "qid": "9701_s22_11_q10"
+   },
+   "stem": "A reaction pathway diagram for the reaction of aqueous sodium hydroxide and dilute sulfuric acid\nis shown.\nenergy\nprogress of reaction\n2NaOH + H₂SO₄\nNa₂SO₄ + 2H₂O\ny\nx\nWhat is the value of the enthalpy change of neutralisation, ΔHₙₑuₜ?",
+   "options": {
+    "A": "x",
+    "B": "x – y",
+    "C": "x 2",
+    "D": "(x y) 2 −"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The diagram's $x$ is the enthalpy change for the equation as written. It produces two moles of water, so neutralisation enthalpy is $x/2$; A misses this division.",
+   "image": "Assets/mcq/9701_s22_11_q10.png",
+   "distractors": {
+    "A": "m4"
+   }
+  },
+  {
+   "id": "9701-5.1-p04",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q9",
+    "qid": "9701_w22_12_q9"
+   },
+   "stem": "The reaction pathway for the forward reaction of a reversible reaction is shown.\nenergy\n/ kJ mol⁻¹\nprogress of reaction\n30\n50\nWhich statement is correct?",
+   "options": {
+    "A": "The activation energy of the reverse reaction is +80 kJ mol⁻¹.",
+    "B": "The enthalpy change for the forward reaction is +30 kJ mol⁻¹.",
+    "C": "The enthalpy change for the forward reaction is +50 kJ mol⁻¹.",
+    "D": "The enthalpy change for the reverse reaction is +30 kJ mol⁻¹."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The reverse activation barrier is the forward barrier plus the vertical difference between reactants and products: $50+30=80$ kJ mol$^{-1}$. B mistakes the enthalpy gap for the forward reaction.",
+   "image": "Assets/mcq/9701_w22_12_q9.png",
+   "distractors": {
+    "B": "m2",
+    "C": "m2",
+    "D": "m2"
+   }
+  },
+  {
+   "id": "9701-5.1-p05",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q8",
+    "qid": "9701_w21_11_q8"
+   },
+   "stem": "Which equation represents the enthalpy change of atomisation of iodine?",
+   "options": {
+    "A": "2 ¹ I₂(g) → I(g)",
+    "B": "I₂(g) → 2I(g)",
+    "C": "2 ¹ I₂(s) → I(g)",
+    "D": "I₂(s) → 2I(g)"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Atomisation forms one mole of gaseous atoms from the element in its standard state, solid iodine. B starts with gaseous iodine and produces two moles of atoms.",
+   "image": "Assets/mcq/9701_w21_11_q8.png",
+   "distractors": {
+    "B": "m3",
+    "D": "m3"
+   }
+  },
+  {
+   "id": "9701-5.1-p06",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q9",
+    "qid": "9701_s22_13_q9"
+   },
+   "stem": "Which equation represents an enthalpy change that is the average bond energy of the C–H bond\nin methane?",
+   "options": {
+    "A": "4 ¹ C(g) + H(g) → ₄ ¹ CH₄(g)",
+    "B": "4 ¹ CH₄(g) → ₄ ¹ C(g) + H(g)",
+    "C": "CH₄(g) → C(g) + 4H(g)",
+    "D": "CH₄(g) → CH₃(g) + H(g)"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Breaking the four C–H bonds in methane and dividing the enthalpy by four gives their mean bond energy. C represents four times that mean, the common error.",
+   "image": "Assets/mcq/9701_s22_13_q9.png",
+   "distractors": {
+    "C": "m7"
+   }
+  },
+  {
+   "id": "9701-5.1-p07",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q9",
+    "qid": "9701_w24_12_q9"
+   },
+   "stem": "For which reaction is the enthalpy change an enthalpy change of formation?",
+   "options": {
+    "A": "C(g) + 2H₂(g) → CH₄(g)",
+    "B": "2 ¹ N₂(g) + ₂ ¹ O₂(g) → NO(g)",
+    "C": "Na₂O(s) + SO₃(g) → Na₂SO₄(s)",
+    "D": "PCl ₃(g) + Cl ₂(g) → PCl ₅(g)"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "B forms one mole of NO from nitrogen and oxygen in their standard states. A starts from gaseous carbon instead of graphite.",
+   "image": "Assets/mcq/9701_w24_12_q9.png",
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9701-5.1-p08",
+   "kcs": [
+    "9701-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q7",
+    "qid": "9701_w25_13_q7"
+   },
+   "stem": "When 1.0 mol of ethanoic acid, CH₃COOH, in aqueous solution is neutralised by an excess of\naqueous sodium hydroxide, 55 kJ mol⁻¹ of energy is released.\nWhich statement about this reaction is correct?",
+   "options": {
+    "A": "The reaction is exothermic because only bond breaking takes place.",
+    "B": "The reaction is exothermic because only bond forming takes place.",
+    "C": "The reaction is exothermic because more energy is given out in breaking bonds than is taken in to form bonds.",
+    "D": "The reaction is exothermic because more energy is given out in forming bonds than is taken in to break bonds."
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Making bonds releases energy and breaking them absorbs energy. The reaction is exothermic because bond formation releases more; C reverses these directions.",
+   "distractors": {
+    "A": "m5",
+    "B": "m5",
+    "C": "m5"
+   }
+  },
+  {
+   "id": "9701-5.1-p09",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q8",
+    "qid": "9701_w25_13_q8"
+   },
+   "stem": "In an experiment, 1.60 g of a fuel is burnt. 45.0% of the energy released is absorbed by 200 g of\nwater. The temperature of the water rises from 18.0 °C to 66.0 °C.\nWhat is the total energy released per gram of fuel burnt?",
+   "options": {
+    "A": "25 100 J",
+    "B": "55 700 J",
+    "C": "89 200 J",
+    "D": "143 000 J"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Water absorbs $200\\times4.18\\times48=40128$ J. Divide by $0.450$ and then by $1.60$ g to obtain about $55700$ J g$^{-1}$; A fails to account for the fraction absorbed.",
+   "distractors": {
+    "A": "m8"
+   }
+  },
+  {
+   "id": "9701-5.1-p10",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q9",
+    "qid": "9701_w25_12_q9"
+   },
+   "stem": "When 0.47 g of a hydrocarbon is completely burnt in air, the energy released heats 200 g of water\nfrom 23.7 °C to 41.0 °C.\nWhat is the amount of energy absorbed, in Joules, by the water?",
+   "options": {
+    "A": "0.47 × 4.18 × 17.3",
+    "B": "0.47 × 4.18 × (273 + 17.3)",
+    "C": "200 × 4.18 × 17.3",
+    "D": "200 × 4.18 × (273 + 17.3)"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "For the water, $q=mc\\Delta T$ uses $m=200$ g and $\\Delta T=41.0-23.7=17.3$ K. A uses the fuel mass and D uses absolute temperature instead of a temperature change.",
+   "distractors": {
+    "A": "m8",
+    "B": "m8",
+    "D": "m8"
+   }
+  },
+  {
+   "id": "9701-5.1-p11",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q10",
+    "qid": "9701_w22_13_q10"
+   },
+   "stem": "A student mixes 25.0 cm³ of 0.350 mol dm⁻³ sodium hydroxide solution with 25.0 cm³ of\n0.350 mol dm⁻³ hydrochloric acid. The temperature increases by 2.5 °C. No heat is lost to the\nsurroundings.\nThe final mixture has a specific heat capacity of 4.2 J cm⁻³\nK⁻¹.\nWhat is the molar enthalpy change for the reaction?",
+   "options": {
+    "A": "–150 kJ mol⁻¹",
+    "B": "–60 kJ mol⁻¹",
+    "C": "–30 kJ mol⁻¹",
+    "D": "–0.15 kJ mol⁻¹"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The mixture absorbs $50.0\\times4.2\\times2.5=525$ J. $n=0.0250\\times0.350=0.00875$ mol, hence $\\Delta H=-0.525/0.00875=-60$ kJ mol$^{-1}$; C effectively uses the wrong mole count.",
+   "distractors": {
+    "C": "m8"
+   }
+  },
+  {
+   "id": "9701-5.1-p12",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P13 · Q7",
+    "qid": "9701_w21_13_q7"
+   },
+   "stem": "In order to determine the enthalpy of neutralisation of a strong acid and a strong alkali, 25.0 cm³\nof 2.00 mol dm‒³ sodium hydroxide is added to 25.0 cm³ of 2.00 mol dm‒³ hydrochloric acid. The\nincrease in temperature is 12 °C.\nIn a second experiment, the same method is used, but 50.0 cm³ of 2.00 mol dm‒³\nsodium hydroxide is added to 50.0 cm³ of 2.00 mol dm‒³ hydrochloric acid.\nWhat is the increase in temperature in the second experiment?",
+   "options": {
+    "A": "6 °C",
+    "B": "12 °C",
+    "C": "24 °C",
+    "D": "48 °C"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Doubling both solution volumes doubles heat released and the mass warmed, so $\\Delta T$ remains $12\\,^{\\circ}\\mathrm C$. C doubles heat without doubling mass.",
+   "image": "Assets/mcq/9701_w21_13_q7.png",
+   "distractors": {
+    "C": "m8"
+   }
+  },
+  {
+   "id": "9701-5.1-i01",
+   "kcs": [
+    "9701-5.1.1",
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "In an exothermic reaction, how do product enthalpy and $\\Delta H$ compare with those of reactants?",
+   "options": {
+    "A": "Products lower; $\\Delta H$ negative.",
+    "B": "Products higher; $\\Delta H$ positive.",
+    "C": "Products lower; $\\Delta H$ positive.",
+    "D": "Products higher; $\\Delta H$ negative."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Exothermic means heat is released: products are lower in enthalpy, so products minus reactants is negative.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {
+    "B": "m1",
+    "C": "m1",
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i02",
+   "kcs": [
+    "9701-5.1.1",
+    "9701-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which description fits an endothermic chemical reaction?",
+   "options": {
+    "A": "It absorbs energy overall and has positive $\\Delta H$.",
+    "B": "It releases energy overall and has positive $\\Delta H$.",
+    "C": "It absorbs energy overall and has negative $\\Delta H$.",
+    "D": "No bonds are formed."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The products have higher enthalpy because net energy enters the system; bonds can both break and form.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {
+    "B": "m1",
+    "C": "m1",
+    "D": "m5"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i03",
+   "kcs": [
+    "9701-5.1.1",
+    "9701-5.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a reaction can be exothermic even though bonds must be broken.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Breaking bonds absorbs energy.",
+     "keywords": [
+      [
+       "break"
+      ],
+      [
+       "absorb",
+       "require",
+       "take in"
+      ]
+     ]
+    },
+    {
+     "point": "Making bonds releases more energy than breaking absorbs.",
+     "keywords": [
+      [
+       "form",
+       "mak"
+      ],
+      [
+       "releas",
+       "give out"
+      ],
+      [
+       "more"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both processes occur; greater energy release from bond formation makes the net change negative.",
+   "hints": [
+    "Start from the definition relevant to the question.",
+    "Give the direction of energy transfer and identify what changes.",
+    "Use the reactants and products to state the relationship precisely."
+   ]
+  },
+  {
+   "id": "9701-5.1-i04",
+   "kcs": [
+    "9701-5.1.1",
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "On a pathway diagram, products lie above reactants. Which statement is correct?",
+   "options": {
+    "A": "The forward reaction is endothermic; $\\Delta H>0$.",
+    "B": "The forward reaction is exothermic; $\\Delta H<0$.",
+    "C": "The forward activation energy is negative.",
+    "D": "The reverse reaction is endothermic."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Products above reactants have higher enthalpy; the forward enthalpy change is positive.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {
+    "B": "m1",
+    "C": "m2",
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i05",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A pathway diagram has reactants at [[r]] kJ mol$^{-1}$, products at [[p]] kJ mol$^{-1}$ and a peak at [[peak]] kJ mol$^{-1}$. Calculate the forward activation energy in kJ mol$^{-1}$.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "r": {
+      "choices": [
+       10,
+       20,
+       30
+      ]
+     },
+     "p": {
+      "choices": [
+       40,
+       50
+      ]
+     },
+     "peak": {
+      "choices": [
+       100,
+       120
+      ]
+     }
+    },
+    "answer": "peak-r",
+    "distractors": [
+     {
+      "expr": "peak-p",
+      "misconception": "m2"
+     },
+     {
+      "expr": "p-r",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "answer": {
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "explanation": "The forward activation energy is the vertical gap from reactants to the peak: peak minus reactant enthalpy.",
+   "hints": [
+    "Find the quantity per mole specified in the question.",
+    "Write the equation and keep track of the sign and units.",
+    "Substitute the given values before rounding."
+   ]
+  },
+  {
+   "id": "9701-5.1-i06",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A pathway has reactants at [[r]] kJ mol$^{-1}$, products at [[p]] kJ mol$^{-1}$, and a peak at [[peak]] kJ mol$^{-1}$. Calculate the reverse activation energy.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "r": {
+      "choices": [
+       10,
+       20
+      ]
+     },
+     "p": {
+      "choices": [
+       40,
+       50,
+       60
+      ]
+     },
+     "peak": {
+      "choices": [
+       100,
+       120
+      ]
+     }
+    },
+    "answer": "peak-p",
+    "distractors": [
+     {
+      "expr": "peak-r",
+      "misconception": "m2"
+     },
+     {
+      "expr": "p-r",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "answer": {
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "explanation": "For the reverse direction, the barrier is measured from the products to the peak: peak minus product enthalpy.",
+   "hints": [
+    "Find the quantity per mole specified in the question.",
+    "Write the equation and keep track of the sign and units.",
+    "Substitute the given values before rounding."
+   ]
+  },
+  {
+   "id": "9701-5.1-i07",
+   "kcs": [
+    "9701-5.1.2",
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A neutralisation equation makes two moles of water and has $\\Delta H=-114$ kJ. What is its enthalpy change of neutralisation?",
+   "options": {
+    "A": "$-57$ kJ mol$^{-1}$",
+    "B": "$-114$ kJ mol$^{-1}$",
+    "C": "$+57$ kJ mol$^{-1}$",
+    "D": "$-228$ kJ mol$^{-1}$"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Neutralisation enthalpy is per mole of water: $-114/2=-57$ kJ mol$^{-1}$.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {
+    "B": "m4",
+    "D": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i08",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "What conditions does $\\ominus$ mean in this syllabus?",
+   "options": {
+    "A": "$298$ K and $101$ kPa.",
+    "B": "$273$ K and $101$ kPa.",
+    "C": "$298$ K and $1$ kPa.",
+    "D": "Any temperature at $101$ kPa."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The syllabus uses 298 K and 101 kPa for standard conditions.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {},
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i09",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which equation represents standard enthalpy of formation of carbon dioxide?",
+   "options": {
+    "A": "$\\ce{C(s, graphite) + O2(g) -> CO2(g)}$",
+    "B": "$\\ce{C(g) + O2(g) -> CO2(g)}$",
+    "C": "$\\ce{CO(g) + 1/2O2(g) -> CO2(g)}$",
+    "D": "$\\ce{2C(s, graphite) + 2O2(g) -> 2CO2(g)}$"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Formation is of one mole of compound from elements in their standard states; graphite is standard carbon.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {
+    "B": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i10",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define standard enthalpy change of combustion.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Enthalpy change when one mole of a substance burns completely in oxygen.",
+     "keywords": [
+      [
+       "one mole",
+       "1 mole"
+      ],
+      [
+       "complet"
+      ],
+      [
+       "oxygen"
+      ]
+     ]
+    },
+    {
+     "point": "All substances are in standard states under standard conditions.",
+     "keywords": [
+      [
+       "standard state"
+      ],
+      [
+       "standard condition",
+       "298",
+       "101"
+      ]
+     ]
+    }
+   ],
+   "explanation": "One mole of substance is completely burned in oxygen, with all reactants and products in their standard states under standard conditions.",
+   "hints": [
+    "Start from the definition relevant to the question.",
+    "Give the direction of energy transfer and identify what changes.",
+    "Use the reactants and products to state the relationship precisely."
+   ]
+  },
+  {
+   "id": "9701-5.1-i11",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define standard enthalpy change of reaction and standard enthalpy change of formation.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Reaction: enthalpy change for the reaction as written under standard conditions, substances in standard states.",
+     "keywords": [
+      [
+       "reaction"
+      ],
+      [
+       "standard"
+      ]
+     ]
+    },
+    {
+     "point": "Formation: one mole of compound formed from constituent elements in standard states.",
+     "keywords": [
+      [
+       "one mole",
+       "1 mole"
+      ],
+      [
+       "element"
+      ],
+      [
+       "standard state"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Reaction refers to stoichiometric amounts in the equation; formation requires one mole of product from elements in their standard states.",
+   "hints": [
+    "Start from the definition relevant to the question.",
+    "Give the direction of energy transfer and identify what changes.",
+    "Use the reactants and products to state the relationship precisely."
+   ]
+  },
+  {
+   "id": "9701-5.1-i12",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define standard enthalpy change of neutralisation.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Enthalpy change when acid and alkali react in aqueous solution to produce one mole of water.",
+     "keywords": [
+      [
+       "acid"
+      ],
+      [
+       "alkali",
+       "base"
+      ],
+      [
+       "one mole",
+       "1 mole"
+      ],
+      [
+       "water"
+      ]
+     ]
+    },
+    {
+     "point": "Under standard conditions.",
+     "keywords": [
+      [
+       "standard condition",
+       "298",
+       "101"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The enthalpy change is per mole of water formed by an aqueous acid and an aqueous alkali under standard conditions.",
+   "hints": [
+    "Start from the definition relevant to the question.",
+    "Give the direction of energy transfer and identify what changes.",
+    "Use the reactants and products to state the relationship precisely."
+   ]
+  },
+  {
+   "id": "9701-5.1-i13",
+   "kcs": [
+    "9701-5.1.4",
+    "9701-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which energy flow accompanies bond breaking and bond making?",
+   "options": {
+    "A": "Breaking absorbs; making releases.",
+    "B": "Breaking releases; making absorbs.",
+    "C": "Both release.",
+    "D": "Both absorb."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Separating bonded atoms requires energy; formation of a bond releases energy.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {
+    "B": "m5",
+    "C": "m5",
+    "D": "m5"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i14",
+   "kcs": [
+    "9701-5.1.4",
+    "9701-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Why is $\\ce{H2 + Cl2 -> 2HCl}$ exothermic if its $\\Delta H$ is negative?",
+   "options": {
+    "A": "Two H–Cl bonds release more energy on forming than one H–H and one Cl–Cl require to break.",
+    "B": "Breaking H–H and Cl–Cl releases more energy than H–Cl formation absorbs.",
+    "C": "No bonds are broken.",
+    "D": "Only one H–Cl bond forms."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The balanced equation gives two product bonds. Net release requires bond formation energy to exceed bond breaking energy.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {
+    "B": "m5",
+    "C": "m5",
+    "D": "m6"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i15",
+   "kcs": [
+    "9701-5.1.4",
+    "9701-5.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why bond energy data often give only an approximate reaction enthalpy.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Average bond energies are averaged over bonds in different gaseous molecules.",
+     "keywords": [
+      [
+       "averag"
+      ],
+      [
+       "different",
+       "various"
+      ],
+      [
+       "molecule",
+       "compound"
+      ]
+     ]
+    },
+    {
+     "point": "The energy of a particular bond depends on its molecular environment.",
+     "keywords": [
+      [
+       "environment",
+       "surround",
+       "molecule"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Average bond energies vary across molecular environments; a mean may differ from the exact bond dissociation enthalpies in this reaction.",
+   "hints": [
+    "Start from the definition relevant to the question.",
+    "Give the direction of energy transfer and identify what changes.",
+    "Use the reactants and products to state the relationship precisely."
+   ]
+  },
+  {
+   "id": "9701-5.1-i16",
+   "kcs": [
+    "9701-5.1.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $\\ce{H2 + Cl2 -> 2HCl}$, use H–H = [[hh]], Cl–Cl = [[cc]] and H–Cl = [[hc]] kJ mol$^{-1}$. Calculate $\\Delta H$ in kJ mol$^{-1}$.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "hh": {
+      "choices": [
+       430,
+       436,
+       440
+      ]
+     },
+     "cc": {
+      "choices": [
+       240,
+       242,
+       244
+      ]
+     },
+     "hc": {
+      "choices": [
+       425,
+       430,
+       435
+      ]
+     }
+    },
+    "answer": "hh+cc-2*hc",
+    "distractors": [
+     {
+      "expr": "2*hc-hh-cc",
+      "misconception": "m6"
+     },
+     {
+      "expr": "hh+cc-hc",
+      "misconception": "m6"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "answer": {
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "explanation": "Break one H–H and one Cl–Cl bond; form two H–Cl bonds. Subtract the latter total from the former.",
+   "hints": [
+    "Find the quantity per mole specified in the question.",
+    "Write the equation and keep track of the sign and units.",
+    "Substitute the given values before rounding."
+   ]
+  },
+  {
+   "id": "9701-5.1-i17",
+   "kcs": [
+    "9701-5.1.5",
+    "9701-5.1.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $\\ce{CH4 + Cl2 -> CH3Cl + HCl}$, C–H = [[ch]], Cl–Cl = [[cc]], C–Cl = [[ccl]] and H–Cl = [[hcl]] kJ mol$^{-1}$. Calculate the bond-energy estimate of $\\Delta H$.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "ch": {
+      "choices": [
+       410,
+       415,
+       420
+      ]
+     },
+     "cc": {
+      "choices": [
+       240,
+       245
+      ]
+     },
+     "ccl": {
+      "choices": [
+       330,
+       335,
+       340
+      ]
+     },
+     "hcl": {
+      "choices": [
+       430,
+       435
+      ]
+     }
+    },
+    "answer": "ch+cc-ccl-hcl",
+    "distractors": [
+     {
+      "expr": "ccl+hcl-ch-cc",
+      "misconception": "m6"
+     },
+     {
+      "expr": "ch+cc-ccl",
+      "misconception": "m6"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "answer": {
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "explanation": "Only one C–H and one Cl–Cl bond break; one C–Cl and one H–Cl bond form. Average bond energies give an estimate.",
+   "hints": [
+    "Find the quantity per mole specified in the question.",
+    "Write the equation and keep track of the sign and units.",
+    "Substitute the given values before rounding."
+   ]
+  },
+  {
+   "id": "9701-5.1-i18",
+   "kcs": [
+    "9701-5.1.5",
+    "9701-5.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "If the four C–H bonds in gaseous methane require a total of $1660$ kJ mol$^{-1}$ to break, what is their mean bond energy?",
+   "options": {
+    "A": "$415$ kJ mol$^{-1}$",
+    "B": "$1660$ kJ mol$^{-1}$",
+    "C": "$-415$ kJ mol$^{-1}$",
+    "D": "$6640$ kJ mol$^{-1}$"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Divide the total energy by four bonds: $1660/4=415$ kJ mol$^{-1}$. The total is four times the mean.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {
+    "B": "m7",
+    "C": "m5"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i19",
+   "kcs": [
+    "9701-5.1.5",
+    "9701-5.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Contrast an exact bond dissociation enthalpy with an average bond energy.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Exact value belongs to breaking a specified bond in a specified gaseous molecule.",
+     "keywords": [
+      [
+       "specif",
+       "particular"
+      ],
+      [
+       "bond"
+      ],
+      [
+       "gaseous",
+       "gas"
+      ]
+     ]
+    },
+    {
+     "point": "Average value is the mean over the same bond type in different compounds or environments.",
+     "keywords": [
+      [
+       "averag",
+       "mean"
+      ],
+      [
+       "different",
+       "various"
+      ],
+      [
+       "compound",
+       "environment",
+       "molecule"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The first is process-specific; the second is a mean across molecular environments.",
+   "hints": [
+    "Start from the definition relevant to the question.",
+    "Give the direction of energy transfer and identify what changes.",
+    "Use the reactants and products to state the relationship precisely."
+   ]
+  },
+  {
+   "id": "9701-5.1-i20",
+   "kcs": [
+    "9701-5.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which statement about a tabulated average O–H bond energy is valid?",
+   "options": {
+    "A": "It is a mean and need not equal the exact value in every gaseous compound.",
+    "B": "It is identical for every O–H bond.",
+    "C": "It is the energy released when an O–H bond is broken.",
+    "D": "It applies directly to breaking an O–H bond in liquid water without other effects."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Tabulated average bond energies are means for gaseous bonds, whereas exact dissociation enthalpies depend on the molecule.",
+   "hints": [
+    "Identify the physical meaning of each quantity before choosing.",
+    "Apply the definition to the species and energy levels in the question.",
+    "Check the direction of energy transfer, the amount, and the units."
+   ],
+   "distractors": {
+    "B": "m7",
+    "C": "m5",
+    "D": "m7"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.1-i21",
+   "kcs": [
+    "9701-5.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Why can successive C–H bond dissociations from methane have different enthalpy changes?",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Each successive removal changes the molecule or radical environment.",
+     "keywords": [
+      [
+       "chang",
+       "different"
+      ],
+      [
+       "molecule",
+       "radical",
+       "environment"
+      ]
+     ]
+    },
+    {
+     "point": "Therefore each particular C–H bond-breaking process can have a different exact energy.",
+     "keywords": [
+      [
+       "different"
+      ],
+      [
+       "energ",
+       "enthalp"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Successive removal changes the species, so the exact bond dissociation enthalpies can differ.",
+   "hints": [
+    "Start from the definition relevant to the question.",
+    "Give the direction of energy transfer and identify what changes.",
+    "Use the reactants and products to state the relationship precisely."
+   ]
+  },
+  {
+   "id": "9701-5.1-i22",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "[[m]] g of water warms by [[dt]] K. Calculate the heat absorbed in J using $c=4.18$ J g$^{-1}$ K$^{-1}$.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       100,
+       150,
+       200
+      ]
+     },
+     "dt": {
+      "choices": [
+       8,
+       12,
+       16
+      ]
+     }
+    },
+    "answer": "m*4.18*dt",
+    "distractors": [
+     {
+      "expr": "m*dt",
+      "misconception": "m8"
+     },
+     {
+      "expr": "m*4.18*(273+dt)",
+      "misconception": "m8"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "answer": {
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "explanation": "Use the mass of water and the temperature change in $q=mc\\Delta T$.",
+   "hints": [
+    "Find the quantity per mole specified in the question.",
+    "Write the equation and keep track of the sign and units.",
+    "Substitute the given values before rounding."
+   ]
+  },
+  {
+   "id": "9701-5.1-i23",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "[[n]] mol of a fuel burns and heats [[m]] g of water by [[dt]] K. Assuming all heat enters the water, calculate the fuel's molar enthalpy of combustion in kJ mol$^{-1}$; $c=4.18$ J g$^{-1}$ K$^{-1}$.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "n": {
+      "choices": [
+       0.02,
+       0.04,
+       0.05
+      ]
+     },
+     "m": {
+      "choices": [
+       100,
+       150,
+       200
+      ]
+     },
+     "dt": {
+      "choices": [
+       5,
+       8,
+       10
+      ]
+     }
+    },
+    "answer": "-m*4.18*dt/(1000*n)",
+    "distractors": [
+     {
+      "expr": "m*4.18*dt/(1000*n)",
+      "misconception": "m1"
+     },
+     {
+      "expr": "-m*4.18*dt/1000",
+      "misconception": "m8"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "answer": {
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "explanation": "Water absorbs $mc\\Delta T$ J. The fuel releases that energy, so $\\Delta H=-q/n$, converted from J to kJ.",
+   "hints": [
+    "Find the quantity per mole specified in the question.",
+    "Write the equation and keep track of the sign and units.",
+    "Substitute the given values before rounding."
+   ]
+  },
+  {
+   "id": "9701-5.1-x001",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q33",
+    "qid": "9701_s19_11_q33"
+   },
+   "stem": "Which statements about enthalpy changes are correct?\n1\nThe enthalpy change of atomisation is always positive.\n2\nThe enthalpy change when a C–C bond is broken is positive.\n3\nThe enthalpy change of neutralisation of a weak acid is always negative.",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s19_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x002",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q8",
+    "qid": "9701_s19_12_q8"
+   },
+   "stem": "A reaction pathway diagram is shown.\nenergy\nprogress of reaction\nreactants\nproducts\nK\nL\nO\nM\nN\nP\nWhich row is correct?\nenthalpy change of\nthe forward reaction\nactivation energy of\nthe reverse reaction",
+   "options": {
+    "A": "K M",
+    "B": "K O",
+    "C": "L O",
+    "D": "P M"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s19_12_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x003",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q6",
+    "qid": "9701_s19_13_q6"
+   },
+   "stem": "The reaction pathway diagram for a chemical reaction is shown.\nenergy\nprogress of reaction\nWhich statement is correct?",
+   "options": {
+    "A": "The activation energy of the forward reaction and the enthalpy change of the backward reaction have the same sign.",
+    "B": "The activation energy of the forward reaction is more than twice the enthalpy change of the backward reaction and opposite in sign.",
+    "C": "The enthalpy change of the forward reaction and the activation energy of the backward reaction have the same sign.",
+    "D": "The enthalpy change of the forward reaction is more than twice the activation energy of the backward reaction."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s19_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x004",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q33",
+    "qid": "9701_s19_13_q33"
+   },
+   "stem": "For which enthalpy changes is the value of ∆H always negative?\n1\ncombustion\n2\nhydration\n3\nsolution",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s19_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect option was D. For most candidates this question depended on the validity of statement 2. The enthalpy change of hydration of any specified gaseous ion is always negative, so statement 2 is therefore true and the correct answer is option B."
+  },
+  {
+   "id": "9701-5.1-x005",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q8",
+    "qid": "9701_w19_11_q8"
+   },
+   "stem": "Sodium burns in oxygen giving out heat energy and forming the compound Na₂O. The equation\nfor this reaction is shown.\n2Na(s) +\n(g)\nO₂\n2\n1\n→ Na₂O(s)\nWhich statement about the reaction is correct?",
+   "options": {
+    "A": "∆H o for the reaction is equal to twice the bond energy of the Na–O bond.",
+    "B": "∆H o for the reaction is positive.",
+    "C": "The equation represents the standard enthalpy change of combustion of sodium.",
+    "D": "The equation represents the standard enthalpy change of formation of sodium oxide."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w19_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x006",
+   "kcs": [
+    "9701-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q6",
+    "qid": "9701_w19_12_q6"
+   },
+   "stem": "Which reaction is endothermic?",
+   "options": {
+    "A": "Ca(OH)₂(aq) + 2HCl (aq) → CaCl ₂(aq) + 2H₂O(l)",
+    "B": "2Cl (g) → Cl ₂(g)",
+    "C": "2Ca(s) + O₂(g) → 2CaO(s)",
+    "D": "CaCO₃(s) → CaO(s) + CO₂(g)"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x007",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q7",
+    "qid": "9701_w19_12_q7"
+   },
+   "stem": "Which equation correctly represents the standard enthalpy change of atomisation of the given\nelement?",
+   "options": {
+    "A": "2 ¹ I₂(g) → I(g)",
+    "B": "Na(s) → Na(g)",
+    "C": "Cl ₂(g) → 2Cl (g)",
+    "D": "Na(g) → Na⁺(g) + e⁻"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w19_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x008",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q34",
+    "qid": "9701_w19_12_q34"
+   },
+   "stem": "The reaction pathway diagram for a reversible reaction is shown.\nprogress of reaction\nenergy\n/ kJ mol⁻¹\n20\n50\nWhich statements are correct?\n1\nThe enthalpy change for the backward reaction is –20 kJ mol⁻¹.\n2\nThe forward reaction is endothermic.\n3\nThe activation energy for the forward reaction is +70 kJ mol⁻¹.",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w19_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x009",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q5",
+    "qid": "9701_s20_11_q5"
+   },
+   "stem": "Two reactions are shown.\nH₂(g) → 2H(g)\nCO(g) + ₂\n¹O₂(g) → CO₂(g)\nIf molar amounts are used, how can the two energy changes associated with these reactions be\ndescribed?",
+   "options": {
+    "A": "enthalpy of atomisation and enthalpy of combustion",
+    "B": "enthalpy of atomisation and enthalpy of formation",
+    "C": "bond energy and enthalpy of combustion",
+    "D": "bond energy and enthalpy of formation"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x010",
+   "kcs": [
+    "9701-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q34",
+    "qid": "9701_s20_11_q34"
+   },
+   "stem": "Carbon monoxide burns readily in oxygen to form carbon dioxide.\nWhat does this information suggest?\n1\nThe +4 oxidation state of carbon is more stable than the +2 state.\n2\nThe standard enthalpy change of formation of carbon dioxide is more negative than the\nstandard enthalpy change of formation of carbon monoxide.\n3\nThe value of the equilibrium constant for the reaction, 2CO(g) + O₂(g)\n2CO₂(g), is likely\nto be high.",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s20_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x011",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q4",
+    "qid": "9701_s20_12_q4"
+   },
+   "stem": "Solid sulfur consists of S₈ molecules.\nWhich equation represents the standard enthalpy of atomisation of sulfur?",
+   "options": {
+    "A": "8 ¹S₈(s) → S(g)",
+    "B": "8 ¹S₈(g) → S(g)",
+    "C": "S₈(s) → 8S(g)",
+    "D": "S₈(g) → 8S(g)"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s20_12_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x012",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q32",
+    "qid": "9701_s20_12_q32"
+   },
+   "stem": "Which reactions would have the reaction profile shown?\nenergy\nprogress of reaction\n1\nNaOH + HCl → NaCl + H₂O\n2\nCaCO₃ → CaO + CO₂\n3\n2MgO → 2Mg + O₂",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s20_12_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x013",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q6",
+    "qid": "9701_w20_11_q6"
+   },
+   "stem": "Which pair of standard enthalpy changes are numerically equal?",
+   "options": {
+    "A": "atomisation of CH₄(g) and formation of CH₄(g)",
+    "B": "combustion of CH₃OH(l) and combustion of graphite + 2(combustion of H₂(g))",
+    "C": "combustion of graphite and formation of CO₂(g)",
+    "D": "neutralisation of HCl (aq) with NaOH(aq) and formation of H₂O(l)"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x014",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q32",
+    "qid": "9701_w20_11_q32"
+   },
+   "stem": "Which statements are correct?\n1\nenthalpy of combustion of H₂ = enthalpy of formation of H₂O\n2\nenthalpy of formation of H₂ = –(enthalpy of atomisation of H₂)\n3\nenthalpy of solution of HCl = enthalpy of hydration of H⁺ + enthalpy of hydration of Cl ⁻",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_11_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was A. The correct answer is D. • Statement 1 is correct. The complete combustion of one mole of hydrogen produces one mole of water. • Statement 2 is incorrect. the enthalpy of formation of any element is defined as zero, while the enthalpy of atomisation of any element that consists of diatomic molecules requires the absorption of a finite and measurable amount of energy to break bonds. • The enthalpy of solution of HCl requires the breaking of the H–Cl bond as well as the hydration of the two ions mentioned, so statement 3 is also incorrect. Princip"
+  },
+  {
+   "id": "9701-5.1-x015",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q8",
+    "qid": "9701_w20_12_q8"
+   },
+   "stem": "Which pair of enthalpy changes will always share the same sign (i.e. both are always exothermic\nor both are always endothermic)?",
+   "options": {
+    "A": "enthalpy change of atomisation and enthalpy change of neutralisation",
+    "B": "enthalpy change of atomisation and enthalpy change of solution",
+    "C": "enthalpy change of combustion and enthalpy change of hydration",
+    "D": "enthalpy change of solution and enthalpy change of hydration"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x016",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q32",
+    "qid": "9701_w20_13_q32"
+   },
+   "stem": "Which statements are correct?\n1\nenthalpy of combustion of H₂ = enthalpy of formation of H₂O\n2\nenthalpy of formation of H₂ = –(enthalpy of atomisation of H₂)\n3\nenthalpy of solution of HCl = enthalpy of hydration of H⁺ + enthalpy of hydration of Cl ⁻",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_13_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Each of the answers was chosen by approximately equal numbers of candidates. • Statement 1 is correct. The complete combustion of one mole of hydrogen produces one mole of water. • Statement 2 is incorrect. The enthalpy of formation of any element is defined as zero, while the enthalpy of atomisation of any element that consists of diatomic molecules requires the absorption of a finite and measurable amount of energy to break bonds. • Statement 3 is also incorrect. The enthalpy of solution of HCl requires the breaking of the H–Cl bond as well as the hydration of the two ions mentioned."
+  },
+  {
+   "id": "9701-5.1-x017",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q32",
+    "qid": "9701_s21_11_q32"
+   },
+   "stem": "The diagram shows an incomplete energy profile diagram for a reaction.\nreactants\nproducts\nenthalpy\nprogress of reaction\nWhich reactions could this diagram refer to?\n1\nCaCO₃(s) → CaO(s) + CO₂(g)\n2\nH₂(g) → 2H(g)\n3\nCl ⁻(aq) → Cl ⁻(g) + aq",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s21_11_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x018",
+   "kcs": [
+    "9701-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q8",
+    "qid": "9701_s21_12_q8"
+   },
+   "stem": "Nitrogen and oxygen can react together to form nitrogen monoxide, NO.\nN₂ + O₂ → 2NO\nΔH = +180 kJ mol⁻¹\nWhat is the bond energy of the bond between the atoms in NO?",
+   "options": {
+    "A": "630 kJ mol⁻¹",
+    "B": "810 kJ mol⁻¹",
+    "C": "1260 kJ mol⁻¹",
+    "D": "1620 kJ mol⁻¹"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x019",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q9",
+    "qid": "9701_w21_12_q9"
+   },
+   "stem": "The equation for the formation of ammonium chloride is shown.\nNH₃(g) + HCl (g)\nNH₄Cl (s)\nΔH = –314 kJ mol⁻¹\nWhich diagram shows the correctly labelled reaction pathway diagram for the decomposition of\nammonium chloride?\nenergy\nprogress of reaction\nenergy\nprogress of reaction",
+   "options": {
+    "A": "NH₄Cl NH₃ + HCl ∆H EA",
+    "B": "",
+    "C": "NH₄Cl NH₃ + HCl ∆H EA energy progress of reaction",
+    "D": "NH₄Cl NH₃ + HCl ∆H EA energy progress of reaction NH₄Cl NH₃ + HCl ∆H EA"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w21_12_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x020",
+   "kcs": [
+    "9701-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q34",
+    "qid": "9701_w21_12_q34"
+   },
+   "stem": "When the liquid N₂F₄ is heated, it decomposes into a single product, X.\nWhich statements are correct?\n1\nN–F bonds are broken during this decomposition.\n2\nThe enthalpy change when N₂F₄ decomposes into X is approximately +160 kJ mol⁻¹.\n3\nMolecules of X are non-linear.",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w21_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x021",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q10",
+    "qid": "9701_s22_12_q10"
+   },
+   "stem": "Separate samples of 25.0 cm³ of 0.1 mol dm⁻³ NaOH(aq) are added to each of three different acid\nsolutions, as described. The temperature of each of the solutions was 298 K before mixing.\nsample\nacid\ntype of acid\nconcentration\n/ mol dm⁻³\nvolume\n/ cm³\n1\nH₂SO₄\nstrong\n0.05\n25.0\n2\nHCl\nstrong\n0.05\n25.0\n3\nCH₃CO₂H\nweak\n0.05\n25.0\nWhich statement describes the temperature rises that occur on mixing each of these three acids\nseparately with NaOH?",
+   "options": {
+    "A": "The temperature rise in all three mixtures is the same.",
+    "B": "The temperature rise using H₂SO₄ and HCl is the same.",
+    "C": "The temperature rise using CH₃CO₂H is greater than using HCl.",
+    "D": "The greatest temperature rise occurs using H₂SO₄."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s22_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x022",
+   "kcs": [
+    "9701-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q25",
+    "qid": "9701_s22_13_q25"
+   },
+   "stem": "At 550 °C nitrogen dioxide reacts with unburnt hydrocarbon fragments, such as CH₃, in the\ncatalytic converter of a motor vehicle.\n4CH₃ + 7NO₂ → 3\n2\n2\n¹ N + 4CO₂ + 6H₂O\nWhich row gives the energy change for this reaction and a possible reason for it?\nenergy change\nof reaction\nreason why the reaction is endothermic\nor exothermic",
+   "options": {
+    "A": "endothermic chemical energy is converted to heat energy",
+    "B": "endothermic the N�N bond energy is very high",
+    "C": "exothermic CO₂and H₂O have negative values",
+    "D": "exothermic double bonds are broken in NO₂"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s22_13_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x023",
+   "kcs": [
+    "9701-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q10",
+    "qid": "9701_w22_12_q10"
+   },
+   "stem": "The enthalpy changes for the possible reactions W, X, Y and Z are given.\nW NaOH(aq) + HCl (aq) → NaCl (aq) + H₂O(l)\nΔH o = –56 kJ mol⁻¹\nX\nNaCl (aq) + H₂O(l) → NaOH(aq) + HCl (aq)\nΔH o = +56 kJ mol⁻¹\nY\n2HI(g) → H₂(g) + I₂(g)\nΔH o = +11 kJ mol⁻¹\nZ\nH₂(g) + I₂(g) → 2HI(g)\nΔH o = –11 kJ mol⁻¹\nWhich statement about the activation energies of these reactions is correct?",
+   "options": {
+    "A": "X is greater than W; Z is greater than Y.",
+    "B": "X is greater than W; Y is greater than Z.",
+    "C": "W is greater than X; Z is greater than Y.",
+    "D": "W is greater than X; Y is greater than Z."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w22_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x024",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q9",
+    "qid": "9701_s23_12_q9"
+   },
+   "stem": "A student mixed 25.0cm³ of 4.00moldm⁻³ hydrochloric acid with an equal volume of 4.00moldm⁻³\nsodium hydroxide. The initial temperature of both solutions was 15.0°C. The maximum temperature\nrecorded was 30.0°C. The heat capacity of the final solution can be assumed to be 4.18JK⁻¹g⁻¹\nand the density of this solution can be assumed to be 1.00gcm⁻³.\nUsing these results, what is the enthalpy change of neutralisation of hydrochloric acid?\n–62.7kJmol⁻¹",
+   "options": {
+    "A": "–31.4kJmol⁻¹",
+    "B": "–15.7kJmol⁻¹",
+    "C": "–3.14kJmol⁻¹",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_12_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x025",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q10",
+    "qid": "9701_s23_13_q10"
+   },
+   "stem": "Which equation represents the reaction whose standard enthalpy change is the standard enthalpy\nchange of formation of water?\n2H₂(g) + O₂(g) →2H₂O(l)",
+   "options": {
+    "A": "H₂(g) + O₂(g) →H₂O(l)",
+    "B": "H⁺(aq) + OH⁻(aq) →H₂O(l)",
+    "C": "2H(g) + O(g) →H₂O(l)",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x026",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q12",
+    "qid": "9701_s23_13_q12"
+   },
+   "stem": "The enthalpy change for neutralisation of HNO₃(aq) with NaOH(aq) is –57.0kJmol⁻¹.\nIn an experiment, 20.0cm³ of 4.00moldm⁻³ HNO₃ is mixed with 30.0cm³ of 2.00moldm⁻³ NaOH\nin an insulated container. The initial temperature of both solutions is 25.0 °C.\nIt can be assumed that the heat capacity of the product mixture is 4.2Jcm⁻³°C⁻¹ and that there\nare no heat losses.\nWhat is the maximum final temperature of the mixture?\n52.1°C",
+   "options": {
+    "D": "46.7°C",
+    "C": "44.0°C",
+    "B": "41.3°C",
+    "A": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s23_13_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x027",
+   "kcs": [
+    "9701-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q13",
+    "qid": "9701_s23_13_q13"
+   },
+   "stem": "Some bond energies are listed.\nbond energy\n/kJmol⁻¹\nbond\n436\n463\n146\n496\nH–H\nO–H\nO–O\nO=O\nOne mole of hydrogen reacts with oxygen to give water vapour.\nUsing the bond energy data, what is the value for the enthalpy change of this reaction?\n+221kJmol⁻¹",
+   "options": {
+    "A": "+6kJmol⁻¹",
+    "B": "–242kJmol⁻¹",
+    "C": "–417kJmol⁻¹",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s23_13_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x028",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q19",
+    "qid": "9701_s23_13_q19"
+   },
+   "stem": "For a particular reversible reaction the backward reaction is endothermic. The activation energy of the backward reaction is 160 kJ mol⁻¹. It can be assumed that the backward reaction proceeds by a mechanism that is the exact reverse of the mechanism for the forward reaction. Which statement about the activation energy of the forward reaction is correct?",
+   "options": {
+    "A": "The activation energy of the forward reaction is equal to −160 kJ mol⁻¹.",
+    "B": "The activation energy of the forward reaction is [greater than] 0 kJ mol⁻¹ but less than +160 kJ mol⁻¹.",
+    "C": "The activation energy of the forward reaction is equal to +160 kJ mol⁻¹.",
+    "D": "The activation energy of the forward reaction is greater than +160 kJ mol⁻¹."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_13_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "The backward reaction is endothermic, so the forward reaction is exothermic. Both directions pass over the same energy barrier, so the backward activation energy equals the forward activation energy plus the size of the enthalpy change. The forward activation energy is therefore positive but less than 160 kJ mol⁻¹: B. (The printed option B has lost the words greater than.)"
+  },
+  {
+   "id": "9701-5.1-x029",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q9",
+    "qid": "9701_w23_11_q9"
+   },
+   "stem": "Which statement about enthalpy changes is correct?\nEnthalpy changes of reaction are always negative.",
+   "options": {
+    "A": "Enthalpy changes of combustion are always positive.",
+    "B": "Enthalpy changes of formation are always positive.",
+    "C": "Enthalpy changes of neutralisation are always negative.",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_11_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x030",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q10",
+    "qid": "9701_w23_11_q10"
+   },
+   "stem": "What is the definition of standard enthalpy change of neutralisation,\n?\nwhen one mole of an aqueous acid is neutralised by an aqueous alkali",
+   "options": {
+    "A": "when one mole of an aqueous alkali is neutralised by an aqueous acid",
+    "B": "when one mole of an aqueous acid is neutralised by one mole of an aqueous alkali",
+    "C": "when an aqueous acid and an aqueous alkali react together to produce one mole of water",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x031",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q15",
+    "qid": "9701_w23_11_q15"
+   },
+   "stem": "The forward reaction of a reversible reaction is exothermic and has an activation energy of\n+30kJmol⁻¹.\nThe reverse reaction proceeds by a mechanism that is the exact reverse of the mechanism of the\nforward reaction.\nWhich statement about the activation energy of the reverse reaction is correct?\nThe activation energy for the reverse reaction is equal to –30kJmol⁻¹.",
+   "options": {
+    "A": "The activation energy for the reverse reaction is greater than 0kJmol⁻¹ but less than +30kJmol⁻¹.",
+    "B": "The activation energy for the reverse reaction is equal to +30kJmol⁻¹.",
+    "C": "The activation energy for the reverse reaction is greater than +30kJmol⁻¹.",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_11_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x032",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q9",
+    "qid": "9701_w23_13_q9"
+   },
+   "stem": "Which statement about enthalpy changes is correct?\nEnthalpy changes of reaction are always negative.",
+   "options": {
+    "A": "Enthalpy changes of combustion are always positive.",
+    "B": "Enthalpy changes of formation are always positive.",
+    "C": "Enthalpy changes of neutralisation are always negative.",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_13_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x033",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q10",
+    "qid": "9701_w23_13_q10"
+   },
+   "stem": "What is the definition of standard enthalpy change of neutralisation,\n?\nwhen one mole of an aqueous acid is neutralised by an aqueous alkali",
+   "options": {
+    "A": "when one mole of an aqueous alkali is neutralised by an aqueous acid",
+    "B": "when one mole of an aqueous acid is neutralised by one mole of an aqueous alkali",
+    "C": "when an aqueous acid and an aqueous alkali react together to produce one mole of water",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x034",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q15",
+    "qid": "9701_w23_13_q15"
+   },
+   "stem": "The forward reaction of a reversible reaction is exothermic and has an activation energy of\n+30kJmol⁻¹.\nThe reverse reaction proceeds by a mechanism that is the exact reverse of the mechanism of the\nforward reaction.\nWhich statement about the activation energy of the reverse reaction is correct?\nThe activation energy for the reverse reaction is equal to –30kJmol⁻¹.",
+   "options": {
+    "A": "The activation energy for the reverse reaction is greater than 0kJmol⁻¹ but less than +30kJmol⁻¹.",
+    "B": "The activation energy for the reverse reaction is equal to +30kJmol⁻¹.",
+    "C": "The activation energy for the reverse reaction is greater than +30kJmol⁻¹.",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_13_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x035",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q10",
+    "qid": "9701_s24_11_q10"
+   },
+   "stem": "For a certain endothermic reaction, the activation energy is numerically equal to twice the\nenthalpy change of reaction.\nWhich reaction pathway diagram is correct for this reaction?\nenergy",
+   "options": {
+    "A": "progress of reaction energy",
+    "B": "progress of reaction energy",
+    "C": "progress of reaction energy",
+    "D": "progress of reaction"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s24_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x036",
+   "kcs": [
+    "9701-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q9",
+    "qid": "9701_s24_12_q9"
+   },
+   "stem": "Ethane can react with fluorine to produce 1,2-difluoroethane, C₂H₄F₂.\nC₂H₆ + 2F₂ → C₂H₄F₂ + 2HF\nΔH = –960 kJ mol⁻¹\nbond\nenergy\n/ kJ mol⁻¹\nC–H\n410\nC–C\n350\nF–F\n158\nH–F\n562\nWhat is the bond energy of the C–F bond in 1,2-difluoroethane?",
+   "options": {
+    "A": "407 kJ mol⁻¹",
+    "B": "474 kJ mol⁻¹",
+    "C": "486 kJ mol⁻¹",
+    "D": "972 kJ mol⁻¹"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s24_12_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x037",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q10",
+    "qid": "9701_s24_12_q10"
+   },
+   "stem": "Which equation has an enthalpy change equal to the standard enthalpy of formation of\nsodium oxide?",
+   "options": {
+    "A": "Na(s) + ₄ ¹ O₂(g) → ₂ ¹ Na₂O(s)",
+    "B": "Na(s) + O₂(g) → Na₂O(s)",
+    "C": "2Na(s) + ₂ ¹ O₂(g) → Na₂O(s)",
+    "D": "4Na(s) + O₂(g) → 2Na₂O(s)"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x038",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q9",
+    "qid": "9701_s24_13_q9"
+   },
+   "stem": "The apparatus used to determine a value for the enthalpy of combustion of butan-1-ol is shown.\nThe mass of 1.00 cm³ of water is 1.00 g.\n175 cm³ water\nbutan-1-ol in burner\nthermometer\ncopper can\ninitial mass of burner + butan-1-ol\n58.34 g\ninitial temperature of water\n17.6 °C\nfinal mass of burner + butan-1-ol\n57.85 g\nfinal temperature of water\n41.1 °C\nbutan-1-ol Mr = 74\nWhich value, to three significant figures, for the enthalpy of combustion of butan-1-ol can be\ncalculated from these data?",
+   "options": {
+    "A": "–114 J mol⁻¹",
+    "B": "–17.2 kJ mol⁻¹",
+    "C": "–2600 kJ mol⁻¹",
+    "D": "–4540 kJ mol⁻¹"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s24_13_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x039",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q10",
+    "qid": "9701_s24_13_q10"
+   },
+   "stem": "In the high temperatures of car engines, nitrogen reacts with oxygen to produce\nnitrogen monoxide.\n2\n¹ N₂(g) + ₂\n¹ O₂(g) → NO(g)\nΔH o = +90 kJ mol⁻¹\nThis reaction has activation energy Eₐ.\nWhich reaction pathway diagram correctly represents this reaction?\nenergy\nextent of reaction\nenergy\nNO(g)\nN₂(g) + O₂(g)\n1\n2\n1\n2\nN₂(g) + O₂(g)\n1\n2\n1\n2\nN₂(g) + O₂(g)\n1\n2\n1\n2\nN₂(g) + O₂(g)\n1\n2\n1\n2\nEₐ\n\u0001H o\nenergy\nNO(g)\nEₐ\n\u0001H o\nextent of reaction",
+   "options": {
+    "A": "NO(g) Eₐ \u0001H o energy extent of reaction",
+    "B": "NO(g) Eₐ \u0001H o",
+    "D": "extent of reaction",
+    "C": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s24_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x040",
+   "kcs": [
+    "9701-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q11",
+    "qid": "9701_s25_11_q11"
+   },
+   "stem": "50 cm³ of 1.0 mol dm⁻³ H₂SO₄ is added to 100 cm³ of 1.0 mol dm⁻³ NaOH in an insulated vessel.\nBoth solutions are at a temperature of 20 °C before mixing. After mixing, the temperature rises\nand the highest temperature reached is 29 °C.\nAssume that:\n●\nall the energy released in the reaction goes into raising the temperature of the\naqueous reaction mixture\n●\nthe specific heat capacity of the mixture is 4.2 J cm⁻³\nK⁻¹.\nWhat is the value of the enthalpy of neutralisation determined from this experiment?",
+   "options": {
+    "A": "–113.4 kJ mol⁻¹",
+    "B": "–56.7 kJ mol⁻¹",
+    "C": "–37.8 kJ mol⁻¹",
+    "D": "–18.9 kJ mol⁻¹"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x041",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q33",
+    "qid": "9701_s25_11_q33"
+   },
+   "stem": "A possible mechanism for the exothermic hydrolysis of 2-chloro-2-methylpropane is shown.\nCH₃\nC\nCl\nCH₃\nCH₃\nCH₃\nC\nCl ⁻\nCH₃\nCH₃\n+\nCH₃\nC\nCH₃\nCH₃\nCH₃\nC\nCH₃\nCH₃\nslow\nfast\nOH⁻\n+\nOH\n+\n+\nWhich diagram represents the reaction pathway diagram for this mechanism?\nreaction pathway\nenergy\nreaction pathway\nenergy\nreaction pathway\nenergy\nreaction pathway\nenergy",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x042",
+   "kcs": [
+    "9701-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q10",
+    "qid": "9701_s25_12_q10"
+   },
+   "stem": "The average intermolecular forces in water are much stronger than the average intermolecular\nforces in steam.\nThe average intermolecular forces in ice are slightly stronger than the average intermolecular\nforces in water.\nEnthalpy changes are associated with the equilibrium processes shown.\nH₂O(l)\nH₂O(g)\nΔHb\nH₂O(s)\nH₂O(l)\nΔHₘ\nWhich statements are correct?\n1\nΔHb and ΔHₘ are both negative.\n2\nΔHb is greater than ΔHₘ.\n3\nThe intermolecular forces in ice and water are of the same type.",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1 and 2 only",
+    "C": "1 and 3 only",
+    "D": "2 and 3 only"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s25_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x043",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q13",
+    "qid": "9701_s25_12_q13"
+   },
+   "stem": "Under certain conditions, CCl ₄ and H₂O react as shown. The activation energy for the reaction is\n+62 kJ mol⁻¹.\nCCl ₄ + 2H₂O → CO₂ + 4HCl\nΔH = –61.5 kJ mol⁻¹\nWhich enthalpy profile diagram best fits this reaction?\nenthalpy\nreaction path\nenthalpy\nreaction path",
+   "options": {
+    "A": "CCl ₄ + 2H₂O CO₂ + 4HCl enthalpy reaction path",
+    "B": "CCl ₄ + 2H₂O CO₂ + 4HCl",
+    "C": "CCl ₄ + 2H₂O CO₂ + 4HCl enthalpy reaction path",
+    "D": "CCl ₄ + 2H₂O CO₂ + 4HCl"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s25_12_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x044",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q2",
+    "qid": "9701_s25_13_q2"
+   },
+   "stem": "Diagram 1 shows the reaction pathway for a reaction.\nDiagram 2 shows a graph of concentration of reactant against time for the same reaction.\nreactants\nproducts\nEA\nenthalpy\nreaction progress\ndiagram 1\nconcentration\ntime\ndiagram 2\nWhich diagrams, drawn to the same scale, show the effect of increased temperature on this\nreaction?\nreactants\nproducts\nEA\nenthalpy",
+   "options": {
+    "A": "reaction progress concentration time reactants products EA enthalpy",
+    "B": "reaction progress concentration time reactants products EA enthalpy",
+    "C": "reaction progress concentration time reactants products EA enthalpy",
+    "D": "reaction progress concentration time"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_13_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "Raising the temperature does not change the energy profile: the activation energy and both enthalpy levels stay the same. More particles have at least the activation energy, so the reaction is faster and the reactant concentration falls more steeply. C shows the unchanged pathway with a steeper curve."
+  },
+  {
+   "id": "9701-5.1-x045",
+   "kcs": [
+    "9701-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q12",
+    "qid": "9701_s25_13_q12"
+   },
+   "stem": "The equation for the reaction of nitrogen with hydrogen is shown.\nN₂(g) + 3H₂(g)\n2NH₃(g)\n= –92.2 kJ mol⁻¹\nWhich statement is correct?",
+   "options": {
+    "A": "is measured at 298 °C.",
+    "B": "is measured at 101 kPa.",
+    "C": "represents the standard enthalpy change for the formation of ammonia gas.",
+    "D": "represents the enthalpy change when 1.0 mol of N₂(g) reacts with 1.0 mol of H₂(g)."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_13_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.1-x046",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q15",
+    "qid": "9701_w25_12_q15"
+   },
+   "stem": "Which reaction pathway diagram shows an endothermic reaction that occurs in two steps and in\nwhich the second step of the reaction is likely to be faster than the first?\nenergy\nextent of reaction",
+   "options": {
+    "A": "energy extent of reaction",
+    "B": "energy extent of reaction",
+    "C": "energy extent of reaction",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w25_12_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-5.1.1",
+   "front": "What does negative $\\Delta H$ mean?",
+   "back": "An exothermic reaction transfers energy to the surroundings; products have lower enthalpy than reactants."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-5.1.1",
+   "front": "What does positive $\\Delta H$ mean?",
+   "back": "An endothermic reaction absorbs energy from the surroundings; products have higher enthalpy than reactants."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-5.1.3",
+   "front": "What are standard conditions for this syllabus?",
+   "back": "$298\\,\\mathrm K$ and $101\\,\\mathrm{kPa}$, indicated by $\\ominus$."
+  },
+  {
+   "id": "fc4",
+   "kc": "9701-5.1.3",
+   "front": "Define standard enthalpy change of formation.",
+   "back": "Enthalpy change when one mole of a compound is formed from its constituent elements in their standard states under standard conditions."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-5.1.3",
+   "front": "Define standard enthalpy change of combustion.",
+   "back": "Enthalpy change when one mole of a substance is completely burned in oxygen under standard conditions, with substances in their standard states."
+  },
+  {
+   "id": "fc6",
+   "kc": "9701-5.1.3",
+   "front": "Define standard enthalpy change of neutralisation.",
+   "back": "Enthalpy change when an aqueous acid and aqueous alkali react to form one mole of water under standard conditions."
+  },
+  {
+   "id": "fc7",
+   "kc": "9701-5.1.3",
+   "front": "Define standard enthalpy change of reaction.",
+   "back": "Enthalpy change for the reaction in the stoichiometric amounts shown by its equation under standard conditions, with substances in their standard states."
+  }
+ ],
+ "diagrams": [
+  {
+   "file": "Assets/9701/9701-5.1-exothermic.svg",
+   "type": "energy_profile",
+   "params": {
+    "reactants": 80,
+    "products": 30,
+    "ea": 55,
+    "reactants_label": "reactants",
+    "products_label": "products",
+    "ea_label": "activation energy",
+    "dh_label": "enthalpy change"
+   }
+  }
+ ]
+}
