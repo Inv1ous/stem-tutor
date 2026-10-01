@@ -1,0 +1,3910 @@
+{
+ "subtopic": "9702-5.1",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/05 Work, energy and power/5.1 Energy conservation.md",
+ "outline": "Work done is force times displacement in the force direction: $W=Fs\\cos\\theta$. Total energy is conserved when all stores and transfers, including thermal losses, are counted. Efficiency is useful output divided by total input, using energies or powers over the same interval. Power is work done per unit time, $P=W/t$; when a force acts along motion, $W=Fs$ and $v=s/t$ give $P=Fv$. Resolve forces along a slope and distinguish engine thrust from resultant force.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-5.1.1",
+   "statement": "Multiplying force by the full path length when displacement is not along the force.",
+   "refutation": "Work done by a force is its component along the displacement multiplied by the displacement: $W=Fs\\cos\\theta$. A perpendicular force does zero work.",
+   "contrast": "A $10\\ \\mathrm{N}$ force at $60^\\circ$ to a $4.0\\ \\mathrm{m}$ displacement does $20\\ \\mathrm{J}$, not $40\\ \\mathrm{J}$.",
+   "source": "ER 9702 w19 P23 Q2"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-5.1.2",
+   "statement": "Assuming a fall at constant speed turns lost gravitational potential energy into kinetic energy.",
+   "refutation": "Constant speed means constant kinetic energy. Energy lost from the gravitational store is transferred to thermal energy of the object and surroundings by resistive forces.",
+   "contrast": "A stone at terminal speed loses gravitational potential energy while its kinetic energy stays unchanged.",
+   "source": "ER 9702 s22 P23 Q4"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-5.1.4",
+   "statement": "Multiplying useful output by efficiency to find the input.",
+   "refutation": "Efficiency is useful output divided by total input. Therefore input equals useful output divided by efficiency; losses equal input minus useful output.",
+   "contrast": "For $120\\ \\mathrm{W}$ useful output at $60\\%$ efficiency, input is $200\\ \\mathrm{W}$ and waste is $80\\ \\mathrm{W}$.",
+   "source": "ER 9702 w19 P11 Q15"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-5.1.5",
+   "statement": "Defining power as force times velocity or simply energy per unit time.",
+   "refutation": "The precise definition is work done per unit time, or energy transferred per unit time. $P=Fv$ follows only for a force component along the velocity.",
+   "contrast": "A $100\\ \\mathrm{J}$ energy transfer in $5.0\\ \\mathrm{s}$ gives $20\\ \\mathrm{W}$, regardless of how force and speed are described.",
+   "source": "ER 9702 s22 P21 Q3"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-5.1.7",
+   "statement": "Using the resultant force for the power supplied by an engine when resistance is present.",
+   "refutation": "Power supplied by a particular force is that force times the velocity component along it. The resultant force times velocity is the rate of change of kinetic energy.",
+   "contrast": "With $12\\,000\\ \\mathrm{N}$ thrust, $3000\\ \\mathrm{N}$ drag and $24\\ \\mathrm{m\\,s^{-1}}$, engine power is $288\\ \\mathrm{kW}$, while net mechanical power is $216\\ \\mathrm{kW}$.",
+   "source": "ER 9702 s22 P13 Q18"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-5.1.7",
+   "statement": "Ignoring the component of weight down a slope when calculating a vehicle’s driving force.",
+   "refutation": "At constant speed the driving force balances resistance plus the component of weight down the slope, $mg\\sin\\theta$ or $W\\sin\\theta$.",
+   "contrast": "A $1800\\ \\mathrm{N}$ weight on a $30^\\circ$ slope adds $900\\ \\mathrm{N}$ to the required driving force.",
+   "source": "ER 9702 w21 P12 Q20"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-5.1.1",
+   "problem": "A $40\\ \\mathrm{N}$ force acts at $60^\\circ$ to a $3.0\\ \\mathrm{m}$ displacement. Find its work.",
+   "steps": [
+    {
+     "do": "State $W=Fs\\cos\\theta$.",
+     "why": "Only the component along the displacement transfers energy.",
+     "check": null
+    },
+    {
+     "do": "Substitute $W=40\\times3.0\\times\\cos60^\\circ$.",
+     "why": "The angle is between force and displacement.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 60.0,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Give $W=60\\ \\mathrm{J}$.",
+     "why": "Work is measured in joules.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 60.0,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A $30\\ \\mathrm{N}$ force acts at $60^\\circ$ to a $4.0\\ \\mathrm{m}$ displacement. Find its work.",
+    "answer": {
+     "value": 60.000000000000014,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-5.1.2",
+   "problem": "A $0.30\\ \\mathrm{kg}$ object rises at $8.0\\ \\mathrm{m\\,s^{-1}}$ and stops $1.9\\ \\mathrm{m}$ above its launch point. Find work against air resistance.",
+   "steps": [
+    {
+     "do": "Write $E_{\\mathrm{k,initial}}=mgh+W_{\\mathrm{air}}$.",
+     "why": "Energy is conserved when the energy transferred by drag is included.",
+     "check": null
+    },
+    {
+     "do": "Find $E_{\\mathrm{k,initial}}=\\tfrac12(0.30)(8.0)^2=9.6\\ \\mathrm{J}$ and $mgh=(0.30)(9.81)(1.9)=5.59\\ \\mathrm{J}$.",
+     "why": "At the top, kinetic energy is zero.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 9.6,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Subtract: $W_{\\mathrm{air}}=9.6-5.59=4.0\\ \\mathrm{J}$ to two significant figures.",
+     "why": "The missing mechanical energy was transferred by drag.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.0,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A $0.20\\ \\mathrm{kg}$ ball launches upwards at $10\\ \\mathrm{m\\,s^{-1}}$ and stops $4.0\\ \\mathrm{m}$ higher. Find energy transferred by drag.",
+    "answer": {
+     "value": 2.1519999999999992,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-5.1.4",
+   "problem": "A motor has useful output power $120\\ \\mathrm{W}$ and efficiency $60\\%$. Find input and wasted power.",
+   "steps": [
+    {
+     "do": "Write $\\eta=P_{\\mathrm{useful}}/P_{\\mathrm{input}}$.",
+     "why": "Energy and power ratios are equal when measured over the same time.",
+     "check": null
+    },
+    {
+     "do": "Convert $60\\%=0.60$ and calculate $P_{\\mathrm{input}}=120/0.60=200\\ \\mathrm{W}$.",
+     "why": "Divide by efficiency when solving for total input.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 200.0,
+       "unit": "W",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Find waste $=200-120=80\\ \\mathrm{W}$.",
+     "why": "Input is partitioned into useful and wasted output.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 80.0,
+       "unit": "W",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A device supplies $150\\ \\mathrm{W}$ useful power at $75\\%$ efficiency. Find its input power.",
+    "answer": {
+     "value": 200.0,
+     "unit": "W",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "9702-5.1.6",
+   "problem": "A machine transfers $900\\ \\mathrm{J}$ of work in $30\\ \\mathrm{s}$. Find its average power.",
+   "steps": [
+    {
+     "do": "State $P=W/t$.",
+     "why": "Power is the rate of doing work.",
+     "check": null
+    },
+    {
+     "do": "Substitute $P=900/30$.",
+     "why": "Use consistent joule and second units.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 30.0,
+       "unit": "W",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Give $P=30\\ \\mathrm{W}$.",
+     "why": "One watt is one joule per second.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 30.0,
+       "unit": "W",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "A motor does $1200\\ \\mathrm{J}$ of work in $40\\ \\mathrm{s}$. Find average power.",
+    "answer": {
+     "value": 30.0,
+     "unit": "W",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we5",
+   "kc": "9702-5.1.7",
+   "problem": "A car travels at $24\\ \\mathrm{m\\,s^{-1}}$ with engine thrust $12\\,000\\ \\mathrm{N}$. Find the engine’s instantaneous power.",
+   "steps": [
+    {
+     "do": "Derive $P=W/t=(Fs)/t=Fv$.",
+     "why": "Speed $v=s/t$ for displacement along the force.",
+     "check": null
+    },
+    {
+     "do": "Substitute $P=12\\,000\\times24$.",
+     "why": "Use thrust for engine output, even if drag also acts.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 288000.0,
+       "unit": "W",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Convert $P=288\\ \\mathrm{kW}$.",
+     "why": "Divide watts by $1000$ to express kilowatts.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 288.0,
+       "unit": "kW",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "A locomotive exerts $15\\,000\\ \\mathrm{N}$ along its motion at $20\\ \\mathrm{m\\,s^{-1}}$. Find its power in kilowatts.",
+    "answer": {
+     "value": 300.0,
+     "unit": "kW",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-5.1-i01",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A force of [[F]] N acts in the direction of a [[s]] m displacement. Calculate its work.",
+   "marks": 2,
+   "answer": {
+    "value": 36.0,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 12,
+     "misconception": "m1"
+    }
+   ],
+   "template": {
+    "params": {
+     "F": {
+      "choices": [
+       12,
+       18,
+       24
+      ]
+     },
+     "s": {
+      "choices": [
+       3,
+       5,
+       7
+      ]
+     }
+    },
+    "answer": "F*s",
+    "distractors": [
+     {
+      "expr": "F",
+      "misconception": "m1"
+     }
+    ]
+   },
+   "explanation": "Work is the force component along displacement times displacement, $W=Fs$.",
+   "hints": [
+    "What direction is the displacement relative to the force?",
+    "Use the force-displacement definition of work.",
+    "Multiply the stated force by the displacement."
+   ]
+  },
+  {
+   "id": "9702-5.1-i02",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A [[F]] N force is [[a]]° to a [[s]] m displacement. Calculate the work done by the force.",
+   "marks": 2,
+   "answer": {
+    "value": 40.00000000000001,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 80,
+     "misconception": "m1"
+    }
+   ],
+   "template": {
+    "params": {
+     "F": {
+      "choices": [
+       20,
+       30,
+       40
+      ]
+     },
+     "a": {
+      "choices": [
+       60
+      ]
+     },
+     "s": {
+      "choices": [
+       4,
+       6,
+       8
+      ]
+     }
+    },
+    "answer": "F*s*cos(a*pi/180)",
+    "distractors": [
+     {
+      "expr": "F*s",
+      "misconception": "m1"
+     }
+    ]
+   },
+   "explanation": "Resolve the force along displacement: $W=Fs\\cos\\theta$.",
+   "hints": [
+    "Only one component of force does work.",
+    "Resolve the force along the displacement.",
+    "Write $W=Fs\\cos\\theta$."
+   ]
+  },
+  {
+   "id": "9702-5.1-i03",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A trolley has [[initial]] J of kinetic energy, loses [[gpe]] J of gravitational potential energy and transfers [[loss]] J to thermal energy. Calculate its final kinetic energy.",
+   "marks": 2,
+   "answer": {
+    "value": 70.0,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 80,
+     "misconception": "m2"
+    }
+   ],
+   "template": {
+    "params": {
+     "initial": {
+      "choices": [
+       20,
+       30,
+       40
+      ]
+     },
+     "gpe": {
+      "choices": [
+       60,
+       80
+      ]
+     },
+     "loss": {
+      "choices": [
+       10,
+       15
+      ]
+     }
+    },
+    "answer": "initial+gpe-loss",
+    "distractors": [
+     {
+      "expr": "initial+gpe",
+      "misconception": "m2"
+     }
+    ]
+   },
+   "explanation": "The lost gravitational potential energy increases kinetic energy except for the amount transferred thermally.",
+   "hints": [
+    "List initial and final energy stores.",
+    "Include the thermal transfer in conservation of energy.",
+    "Use final kinetic energy = initial kinetic + lost GPE − thermal loss."
+   ]
+  },
+  {
+   "id": "9702-5.1-i04",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A falling object loses [[gpe]] J of gravitational potential energy at constant speed. Calculate the energy transferred to thermal stores.",
+   "marks": 2,
+   "answer": {
+    "value": 40.0,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0,
+     "misconception": "m2"
+    }
+   ],
+   "template": {
+    "params": {
+     "gpe": {
+      "choices": [
+       40,
+       60,
+       80
+      ]
+     }
+    },
+    "answer": "gpe",
+    "distractors": [
+     {
+      "expr": "0",
+      "misconception": "m2"
+     }
+    ]
+   },
+   "explanation": "Its kinetic energy stays constant, so all lost gravitational potential energy is transferred by resistance.",
+   "hints": [
+    "What does constant speed tell you about kinetic energy?",
+    "Conserve total energy including the surroundings.",
+    "Set the thermal gain equal to the lost gravitational energy."
+   ]
+  },
+  {
+   "id": "9702-5.1-i05",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A device receives [[input]] J and gives [[useful]] J of useful energy. Calculate its efficiency as a decimal.",
+   "marks": 2,
+   "answer": {
+    "value": 0.3,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 3.3333333333333335,
+     "misconception": "m3"
+    }
+   ],
+   "template": {
+    "params": {
+     "input": {
+      "choices": [
+       200,
+       300,
+       400
+      ]
+     },
+     "useful": {
+      "choices": [
+       60,
+       80
+      ]
+     }
+    },
+    "answer": "useful/input",
+    "distractors": [
+     {
+      "expr": "input/useful",
+      "misconception": "m3"
+     }
+    ]
+   },
+   "explanation": "Efficiency is useful output divided by total input.",
+   "hints": [
+    "Identify which energy is useful.",
+    "Form a ratio of output to input.",
+    "Put useful output in the numerator."
+   ]
+  },
+  {
+   "id": "9702-5.1-i06",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A system has [[input]] J input and [[waste]] J wasted energy. Calculate its efficiency as a percentage.",
+   "marks": 2,
+   "answer": {
+    "value": 80.0,
+    "unit": "%",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 20.0,
+     "misconception": "m3"
+    }
+   ],
+   "template": {
+    "params": {
+     "input": {
+      "choices": [
+       200,
+       400,
+       600
+      ]
+     },
+     "waste": {
+      "choices": [
+       40,
+       60
+      ]
+     }
+    },
+    "answer": "100*(input-waste)/input",
+    "distractors": [
+     {
+      "expr": "100*waste/input",
+      "misconception": "m3"
+     }
+    ]
+   },
+   "explanation": "Useful energy is input minus waste; divide it by input and multiply by 100%.",
+   "hints": [
+    "First determine useful output.",
+    "Subtract waste from total input.",
+    "Divide useful output by total input, then multiply by 100."
+   ]
+  },
+  {
+   "id": "9702-5.1-i07",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A motor provides [[useful]] W useful output at [[eta]]% efficiency. Calculate its input power.",
+   "marks": 2,
+   "answer": {
+    "value": 300.0,
+    "unit": "W",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 48.0,
+     "misconception": "m3"
+    }
+   ],
+   "template": {
+    "params": {
+     "useful": {
+      "choices": [
+       120,
+       180,
+       240
+      ]
+     },
+     "eta": {
+      "choices": [
+       40,
+       60,
+       80
+      ]
+     }
+    },
+    "answer": "100*useful/eta",
+    "distractors": [
+     {
+      "expr": "useful*eta/100",
+      "misconception": "m3"
+     }
+    ]
+   },
+   "explanation": "Rearrange $\\eta=P_{\\mathrm{useful}}/P_{\\mathrm{input}}$ to find input.",
+   "hints": [
+    "Convert the percent to a decimal.",
+    "Rearrange the efficiency ratio for input.",
+    "Divide useful output by the decimal efficiency."
+   ]
+  },
+  {
+   "id": "9702-5.1-i08",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A machine receives [[input]] J and operates at [[eta]]% efficiency. Calculate its wasted energy.",
+   "marks": 2,
+   "answer": {
+    "value": 180.0,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 120.0,
+     "misconception": "m3"
+    }
+   ],
+   "template": {
+    "params": {
+     "input": {
+      "choices": [
+       300,
+       500,
+       700
+      ]
+     },
+     "eta": {
+      "choices": [
+       40,
+       60,
+       80
+      ]
+     }
+    },
+    "answer": "input*(100-eta)/100",
+    "distractors": [
+     {
+      "expr": "input*eta/100",
+      "misconception": "m3"
+     }
+    ]
+   },
+   "explanation": "Waste is total input minus useful output.",
+   "hints": [
+    "The useful and wasted parts add to input.",
+    "Find the fraction that is wasted.",
+    "Use $1-\\eta$ as the waste fraction."
+   ]
+  },
+  {
+   "id": "9702-5.1-i09",
+   "kcs": [
+    "9702-5.1.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A motor does [[W]] J of work in [[t]] s. Calculate its average power.",
+   "marks": 2,
+   "answer": {
+    "value": 30.0,
+    "unit": "W",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 12000,
+     "misconception": "m4"
+    }
+   ],
+   "template": {
+    "params": {
+     "W": {
+      "choices": [
+       600,
+       900,
+       1200
+      ]
+     },
+     "t": {
+      "choices": [
+       20,
+       30,
+       40
+      ]
+     }
+    },
+    "answer": "W/t",
+    "distractors": [
+     {
+      "expr": "W*t",
+      "misconception": "m4"
+     }
+    ]
+   },
+   "explanation": "Average power is work done divided by time.",
+   "hints": [
+    "Power measures a rate.",
+    "Use the definition of power.",
+    "Divide the work in joules by the time in seconds."
+   ]
+  },
+  {
+   "id": "9702-5.1-i10",
+   "kcs": [
+    "9702-5.1.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A motor delivers [[P]] W for [[t]] s. Calculate the work done.",
+   "marks": 2,
+   "answer": {
+    "value": 600.0,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 2.6666666666666665,
+     "misconception": "m4"
+    }
+   ],
+   "template": {
+    "params": {
+     "P": {
+      "choices": [
+       40,
+       60,
+       80
+      ]
+     },
+     "t": {
+      "choices": [
+       15,
+       25,
+       35
+      ]
+     }
+    },
+    "answer": "P*t",
+    "distractors": [
+     {
+      "expr": "P/t",
+      "misconception": "m4"
+     }
+    ]
+   },
+   "explanation": "Rearranging $P=W/t$ gives $W=Pt$.",
+   "hints": [
+    "Start from the definition of power.",
+    "Rearrange for work.",
+    "Multiply the power by elapsed time."
+   ]
+  },
+  {
+   "id": "9702-5.1-i11",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An engine exerts [[F]] N thrust along motion at [[v]] m s⁻¹. Calculate the power supplied by the engine.",
+   "marks": 2,
+   "answer": {
+    "value": 36000.0,
+    "unit": "W",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 250.0,
+     "misconception": "m5"
+    }
+   ],
+   "template": {
+    "params": {
+     "F": {
+      "choices": [
+       3000,
+       5000,
+       7000
+      ]
+     },
+     "v": {
+      "choices": [
+       12,
+       18,
+       24
+      ]
+     }
+    },
+    "answer": "F*v",
+    "distractors": [
+     {
+      "expr": "F/v",
+      "misconception": "m5"
+     }
+    ]
+   },
+   "explanation": "The instantaneous rate of work by thrust is $P=Fv$.",
+   "hints": [
+    "Which force supplies the requested power?",
+    "Use the force and speed relationship.",
+    "Multiply thrust by speed."
+   ]
+  },
+  {
+   "id": "9702-5.1-i12",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 5,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A vehicle climbs a [[angle]]° slope at constant speed [[v]] m s⁻¹. Its weight is [[weight]] N and resistance along the slope is [[drag]] N. Calculate the driving power.",
+   "marks": 2,
+   "answer": {
+    "value": 6400.0,
+    "unit": "W",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 2400,
+     "misconception": "m6"
+    },
+    {
+     "value": 3999.9999999999995,
+     "misconception": "m6"
+    }
+   ],
+   "template": {
+    "params": {
+     "angle": {
+      "choices": [
+       30
+      ]
+     },
+     "v": {
+      "choices": [
+       8,
+       12,
+       16
+      ]
+     },
+     "weight": {
+      "choices": [
+       1000,
+       1600,
+       2000
+      ]
+     },
+     "drag": {
+      "choices": [
+       300,
+       500
+      ]
+     }
+    },
+    "answer": "(drag+weight*sin(angle*pi/180))*v",
+    "distractors": [
+     {
+      "expr": "drag*v",
+      "misconception": "m6"
+     },
+     {
+      "expr": "weight*sin(angle*pi/180)*v",
+      "misconception": "m6"
+     }
+    ]
+   },
+   "explanation": "At constant speed, driving thrust balances resistance and the weight component down the slope; then $P=Fv$.",
+   "hints": [
+    "Draw the forces along the slope.",
+    "Resolve the weight parallel to the slope and balance forces.",
+    "Add drag and $W\\sin\\theta$ before multiplying by speed."
+   ]
+  },
+  {
+   "id": "9702-5.1-i13",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define power.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Power is work done per unit time.",
+     "keywords": [
+      [
+       "work done",
+       "work"
+      ],
+      [
+       "per unit time",
+       "rate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Power is work done per unit time.",
+   "hints": [
+    "Think of a rate rather than a total.",
+    "What happens to the amount of work as time changes?",
+    "Use work done divided by time in words."
+   ]
+  },
+  {
+   "id": "9702-5.1-i14",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the meaning of one watt.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "One watt is one joule of work done per second.",
+     "keywords": [
+      [
+       "one joule",
+       "1 j"
+      ],
+      [
+       "per second",
+       "each second"
+      ]
+     ]
+    }
+   ],
+   "explanation": "One watt is one joule of work done per second.",
+   "hints": [
+    "Think of a rate rather than a total.",
+    "What happens to the amount of work as time changes?",
+    "Use work done divided by time in words."
+   ]
+  },
+  {
+   "id": "9702-5.1-i15",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define power using energy transfer.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Power is energy transferred per unit time.",
+     "keywords": [
+      [
+       "energy transferred",
+       "transfer of energy"
+      ],
+      [
+       "per unit time",
+       "rate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Power is energy transferred per unit time.",
+   "hints": [
+    "Think of a rate rather than a total.",
+    "What happens to the amount of work as time changes?",
+    "Use work done divided by time in words."
+   ]
+  },
+  {
+   "id": "9702-5.1-i16",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $P=Fv$ does not by itself define power.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is a relationship for force and speed in the direction of motion; the definition is work done per unit time.",
+     "keywords": [
+      [
+       "work done",
+       "energy transferred"
+      ],
+      [
+       "per unit time",
+       "rate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is a relationship for force and speed in the direction of motion; the definition is work done per unit time.",
+   "hints": [
+    "Think of a rate rather than a total.",
+    "What happens to the amount of work as time changes?",
+    "Use work done divided by time in words."
+   ]
+  },
+  {
+   "id": "9702-5.1-i17",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the SI unit of power and express it in joules per second.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The unit is the watt, equal to one joule per second.",
+     "keywords": [
+      [
+       "watt",
+       "w"
+      ],
+      [
+       "joule per second",
+       "j s"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The unit is the watt, equal to one joule per second.",
+   "hints": [
+    "Think of a rate rather than a total.",
+    "What happens to the amount of work as time changes?",
+    "Use work done divided by time in words."
+   ]
+  },
+  {
+   "id": "9702-5.1-i18",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the quantity found by dividing work done by elapsed time.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The quotient is average power: work done per unit time.",
+     "keywords": [
+      [
+       "power"
+      ],
+      [
+       "work done per unit time",
+       "rate of doing work"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The quotient is average power: work done per unit time.",
+   "hints": [
+    "Think of a rate rather than a total.",
+    "What happens to the amount of work as time changes?",
+    "Use work done divided by time in words."
+   ]
+  },
+  {
+   "id": "9702-5.1-p01",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q19",
+    "qid": "9702_w24_13_q19"
+   },
+   "stem": "A weight W hangs from a trolley that runs along a rail. The trolley moves horizontally through a\ndistance p and simultaneously raises the weight through a height q.\nrail\ntrolley\nweight W\nX\nY\nq\np\nr\nAs a result, the weight moves through a distance r from X to Y. It starts and finishes at rest.\nHow much work is done on the weight during this process?",
+   "options": {
+    "A": "Wp",
+    "B": "W(p + q)",
+    "C": "Wq",
+    "D": "Wr"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Only the vertical displacement $q$ is in the direction opposite to weight, so the energy transferred to the weight is $Wq$. $Wp$ uses the horizontal displacement; $Wr$ uses the diagonal path.",
+   "image": "Assets/mcq/9702_w24_13_q19.png"
+  },
+  {
+   "id": "9702-5.1-p02",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q18",
+    "qid": "9702_w20_13_q18"
+   },
+   "stem": "An object of mass 0.30 kg is thrown vertically upwards from the ground with an initial velocity of\n8.0 m s⁻¹. The object reaches a maximum height of 1.9 m.\nHow much work is done against air resistance as the object rises to its maximum height?",
+   "options": {
+    "A": "4.0 J",
+    "B": "5.6 J",
+    "C": "9.6 J",
+    "D": "15 J"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Initial kinetic energy is $\\tfrac12(0.30)(8.0)^2=9.6\\ \\mathrm{J}$. GPE gain is $(0.30)(9.81)(1.9)=5.6\\ \\mathrm{J}$, leaving $4.0\\ \\mathrm{J}$ against drag. Option B gives the GPE gain alone."
+  },
+  {
+   "id": "9702-5.1-p03",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q16",
+    "qid": "9702_w20_13_q16"
+   },
+   "stem": "A ball drops onto a horizontal surface and bounces elastically.\nWhat happens to the kinetic energy of the ball during the very short time that it is in contact with\nthe surface?",
+   "options": {
+    "A": "Most of the kinetic energy is lost as heat and sound.",
+    "B": "The kinetic energy decreases to zero and then returns to its original value.",
+    "C": "The kinetic energy remains constant because it is an elastic collision.",
+    "D": "The kinetic energy remains constant in magnitude but changes direction."
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "During an elastic bounce the ball momentarily stops, so its kinetic energy falls to zero and returns to its original value. Option C confuses conservation over the whole collision with constant kinetic energy at every instant."
+  },
+  {
+   "id": "9702-5.1-p04",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q15",
+    "qid": "9702_w20_11_q15"
+   },
+   "stem": "A trolley runs from P to Q along a track. At Q its potential energy is 50 kJ less than at P.\ntrolley\nP\nQ\nAt P, the kinetic energy of the trolley is 5 kJ. Between P and Q, the trolley does 10 kJ of work\nagainst friction.\nWhat is the kinetic energy of the trolley at Q?",
+   "options": {
+    "A": "35 kJ",
+    "B": "45 kJ",
+    "C": "55 kJ",
+    "D": "65 kJ"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The trolley loses $50\\ \\mathrm{kJ}$ of GPE, starts with $5\\ \\mathrm{kJ}$ KE and transfers $10\\ \\mathrm{kJ}$ to friction: final KE $=50+5-10=45\\ \\mathrm{kJ}$. Option C omits friction.",
+   "image": "Assets/mcq/9702_w20_11_q15.png"
+  },
+  {
+   "id": "9702-5.1-p05",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q15",
+    "qid": "9702_w19_11_q15"
+   },
+   "stem": "An electric motor produces 120 W of useful mechanical output power. The efficiency of the motor\nis 60%.\nWhich row is correct?\nelectrical power\ninput / W\nwaste heat power\noutput / W",
+   "options": {
+    "A": "72 48",
+    "B": "192 72",
+    "C": "200 72",
+    "D": "200 80"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Input power is $120/0.60=200\\ \\mathrm{W}$ and waste is $200-120=80\\ \\mathrm{W}$. Option A multiplies output by efficiency to find input, reversing the ratio.",
+   "image": "Assets/mcq/9702_w19_11_q15.png"
+  },
+  {
+   "id": "9702-5.1-p06",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q18",
+    "qid": "9702_w24_13_q18"
+   },
+   "stem": "A student can run or walk up the stairs to her classroom.\nWhich statement describes the power required and the gravitational potential energy gained while\nrunning up the stairs compared to walking up them?",
+   "options": {
+    "A": "Running provides more gravitational potential energy and uses more power.",
+    "B": "Running provides more gravitational potential energy and uses the same power.",
+    "C": "Running provides the same gravitational potential energy and uses more power.",
+    "D": "Running provides the same gravitational potential energy and uses the same power."
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Both journeys gain the same GPE because the height is unchanged. Running takes less time, so power is greater. Option A incorrectly changes the energy gain as well."
+  },
+  {
+   "id": "9702-5.1-p07",
+   "kcs": [
+    "9702-5.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q19",
+    "qid": "9702_w21_13_q19"
+   },
+   "stem": "A water pump is driven by an engine. The pump raises a volume of 0.50 m³ of water in 1.0 minute\nfrom a depth of 30 m. The pump has an efficiency of 70%.\nThe density of water is 1000 kg m⁻³.\nWhat is the useful output power from the engine?",
+   "options": {
+    "A": "2.5 kW",
+    "B": "3.5 kW",
+    "C": "150 kW",
+    "D": "210 kW"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Lifting power is $(0.50)(1000)(9.81)(30)/60=2.45\\ \\mathrm{kW}$. Divide by $0.70$ to find the engine output, $3.5\\ \\mathrm{kW}$. Option A omits the pump efficiency."
+  },
+  {
+   "id": "9702-5.1-p08",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q20",
+    "qid": "9702_w21_12_q20"
+   },
+   "stem": "The total weight of a motorbike and rider is 1800 N. The motorbike travels in a straight line at\nconstant speed up a hill at an angle of 30° to the horizontal.\n30\u0002\nhorizontal\nThe useful output power of the motorbike is 36 000 W. The total resistive force due to air\nresistance and friction on the motorbike and rider is 2400 N.\nWhat is the speed of the motorbike?",
+   "options": {
+    "A": "8.6 m s⁻¹",
+    "B": "11 m s⁻¹",
+    "C": "15 m s⁻¹",
+    "D": "24 m s⁻¹"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "At steady speed the driving force is $2400+1800\\sin30^\\circ=3300\\ \\mathrm{N}$, so $v=36\\,000/3300=11\\ \\mathrm{m\\,s^{-1}}$. Option C ignores the weight component down the hill.",
+   "image": "Assets/mcq/9702_w21_12_q20.png"
+  },
+  {
+   "id": "9702-5.1-p09",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q18",
+    "qid": "9702_s22_13_q18"
+   },
+   "stem": "A car of weight 15 000 N is travelling along a horizontal road.\nthrust force\n12 000 N\nvelocity\n24 m s⁻¹\nresistive force\n3000 N\nAt one instant, the thrust force acting on the car from the engine is 12 000 N and the resistive\nforce acting on the car is 3000 N. The velocity of the car at this instant is 24 m s⁻¹.\nWhat is the power output from the engine?",
+   "options": {
+    "A": "72 kW",
+    "B": "220 kW",
+    "C": "290 kW",
+    "D": "360 kW"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Engine power uses thrust: $(12\\,000)(24)=288\\ \\mathrm{kW}\\approx290\\ \\mathrm{kW}$. Option B uses the resultant force after subtracting drag, which gives net power instead.",
+   "image": "Assets/mcq/9702_s22_13_q18.png"
+  },
+  {
+   "id": "9702-5.1-p10",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q15",
+    "qid": "9702_w23_12_q15"
+   },
+   "stem": "An electric car travels at a constant speed of 70 km h⁻¹ for 80 km on a straight horizontal road and\nuses energy E from its battery.\nThe total resistive force acting on the car is proportional to (speed)². Assume that the electric\nmotor is 100% efficient.\nHow much energy is used from the battery when the car travels at a constant speed of 60 km h⁻¹\nfor 80 km on the straight horizontal road?",
+   "options": {
+    "A": "0.73E",
+    "B": "0.86E",
+    "C": "1.2E",
+    "D": "1.4E"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "For the same distance, battery energy is work $Fs$; with $F\\propto v^2$, $E_{60}/E_{70}=(60/70)^2=0.73$. Option B uses only one factor of the speed ratio."
+  },
+  {
+   "id": "9702-5.1-p11",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q19",
+    "qid": "9702_s19_12_q19"
+   },
+   "stem": "A train on a mountain railway is carrying 200 people of average mass 70 kg up a slope at an\nangle of 30° to the horizontal and at a speed of 6.0 m s⁻¹. The train itself has a mass of 80 000 kg.\nThe percentage of the power from the engine which is used to raise the passengers and the train\nis 40%.\nWhat is the power of the engine?",
+   "options": {
+    "A": "1.1 MW",
+    "B": "2.8 MW",
+    "C": "6.9 MW",
+    "D": "14 MW"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Total mass is $80\\,000+200(70)=94\\,000\\ \\mathrm{kg}$. Useful climbing power is $mgv\\sin30^\\circ$; dividing by $0.40$ gives $6.9\\ \\mathrm{MW}$. Option B omits efficiency."
+  },
+  {
+   "id": "9702-5.1-p12",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q20",
+    "qid": "9702_w25_12_q20"
+   },
+   "stem": "The motor of a crane lifts a load of mass 600 kg. The load rises vertically at a constant speed of\n12 m per minute.\nWhat is the useful power output of the motor?",
+   "options": {
+    "A": "0.12 kW",
+    "B": "1.2 kW",
+    "C": "7.2 kW",
+    "D": "71 kW"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The rise speed is $12/60=0.20\\ \\mathrm{m\\,s^{-1}}$. At steady speed the lift force is $mg$, so useful power is $(600)(9.81)(0.20)=1.2\\ \\mathrm{kW}$. Option C fails to convert minutes to seconds."
+  },
+  {
+   "id": "9702-5.1-p13",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q16",
+    "qid": "9702_s23_12_q16"
+   },
+   "stem": "A variable force is applied to ensure that a constant power is supplied to a train.\nWhich graph best shows the variation of the force F applied with the velocity v of the train?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": null,
+   "image": "Assets/mcq/9702_s23_12_q16.png"
+  },
+  {
+   "id": "9702-5.1-p14",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q15",
+    "qid": "9702_s23_13_q15"
+   },
+   "stem": "An airport has a mechanical system for moving luggage. The system uses a horizontal conveyor\nbelt, a sloping conveyor belt, a lift and a frictionless slide. A suitcase is moved around the airport\nusing this system.\n8 m\n16 m\n10 m\n12 m\nResistive forces opposing the motion of the suitcase are negligible.\nFor which movement of the suitcase is the net work done on the suitcase greatest?",
+   "options": {
+    "A": "moving the suitcase a distance of 8 m at a constant speed up the sloping conveyor belt",
+    "B": "moving the suitcase a distance of 16 m at a constant speed along the horizontal conveyor belt",
+    "C": "moving the suitcase a distance of 10 m at a constant speed vertically upwards on the lift",
+    "D": "moving the suitcase a distance of 12 m at increasing speed downwards on the slide"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Official answer C. Here CAIE means the work done on the suitcase by the system, which equals the gain in its total energy (kinetic plus gravitational potential). The lift raises it 10 m at constant speed, so it gains mg x 10 m of potential energy. On the frictionless slide no energy is supplied: potential energy just becomes kinetic energy, so the total is unchanged. The horizontal belt at constant speed supplies none, and the sloping belt raises it by less than 8 m. Using net work = change in kinetic energy here would wrongly give D.",
+   "image": "Assets/mcq/9702_s23_13_q15.png"
+  },
+  {
+   "id": "9702-5.1-x001",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q17",
+    "qid": "9702_s19_11_q17"
+   },
+   "stem": "A rope is attached to a sledge and a boy uses the rope to pull the sledge along a horizontal\nsurface with a constant velocity. The tension in the rope is 100 N and the rope is held at 30° to\nthe horizontal.\n30°\nrope\nsledge\n100 N\nhorizontal\nsurface\nHow much work does the boy do on the sledge when he pulls it a distance of 5.0 m along the\nsurface?",
+   "options": {
+    "A": "250 J",
+    "B": "290 J",
+    "C": "430 J",
+    "D": "500 J"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_11_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x002",
+   "kcs": [
+    "9702-5.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q19",
+    "qid": "9702_s19_11_q19"
+   },
+   "stem": "A grasshopper of mass 0.12 g jumps vertically. It uses its back legs over a time of 0.020 s to jump,\nleaving the ground with a velocity of 3.0 m s⁻¹.\nWhat is the average power developed by the legs of the grasshopper?",
+   "options": {
+    "A": "9.0 × 10⁻³ W",
+    "B": "1.8 × 10⁻² W",
+    "C": "2.7 × 10⁻² W",
+    "D": "37 W"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x003",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q16",
+    "qid": "9702_s19_12_q16"
+   },
+   "stem": "A parachutist is falling at constant (terminal) velocity.\nWhich statement is not correct?",
+   "options": {
+    "A": "Gravitational potential energy is converted into kinetic energy of the air.",
+    "B": "Gravitational potential energy is converted into kinetic energy of the parachutist.",
+    "C": "Gravitational potential energy is converted into thermal energy of the air.",
+    "D": "Gravitational potential energy is converted into thermal energy of the parachutist."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Many candidates found this question difficult. The question asks which statement is not correct. As the parachutist is falling at constant (terminal) velocity the kinetic energy of the parachutist is constant, so statement B is the incorrect statement. Several candidates chose A for their answer, but A is true – as the parachute descends it is constantly colliding with air molecules, giving them additional kinetic energy (the air becomes a little warmer)."
+  },
+  {
+   "id": "9702-5.1-x004",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q17",
+    "qid": "9702_s19_12_q17"
+   },
+   "stem": "A combined heat and power (CHP) station generates electrical power and useful heat. The\ndiagram shows the input and output powers for a CHP station.\ninput power\nfrom fuel\nwasted power\n60 MW\nuseful heating power\n160 MW\nuseful electrical power\n100 MW\nWhat is the efficiency of the CHP station for producing useful power?",
+   "options": {
+    "A": "31%",
+    "B": "38%",
+    "C": "50%",
+    "D": "81%"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_12_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x005",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q18",
+    "qid": "9702_s19_12_q18"
+   },
+   "stem": "A bungee jumper jumps off a high bridge, when attached to it by a long elastic rope which obeys\nHooke’s law.\nThe gravitational potential energy of the jumper is measured relative to the lowest point reached\nby the jumper.\nWhich graph shows the variation of the gravitational potential energy of the jumper, and the\nelastic potential energy in the rope, with the vertical distance fallen from the top of the bridge?\n0\n0\nenergy\nvertical\ndistance fallen\nenergy\nvertical\ndistance fallen",
+   "options": {
+    "A": "elastic potential energy in rope gravitational potential energy of jumper 0 0 energy vertical distance fallen",
+    "B": "0 0",
+    "C": "0 0 energy vertical distance fallen",
+    "D": "key"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_12_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult. The gravitational potential energy of the jumper is mgh, where h is the height above the lowest point reached. A graph of gravitational potential energy against vertical distance fallen must vary linearly from mgh at the top of the jump to zero at the lowest point, eliminating graphs B and D. As the elastic rope obeys Hooke’s law, the elastic potential energy of the rope is ½kx2, where k is the spring constant of the rope and x the extension of the rope. From the moment the elastic rope becomes just taut, the elastic potential energy in the rope depend"
+  },
+  {
+   "id": "9702-5.1-x006",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q15",
+    "qid": "9702_s19_13_q15"
+   },
+   "stem": "Which statement about the principle of conservation of energy is correct?",
+   "options": {
+    "A": "Energy conversion helps to conserve energy sources.",
+    "B": "Energy is conserved only in systems with an efficiency of 100%.",
+    "C": "The supply of energy is limited so energy should be conserved.",
+    "D": "The total amount of energy in a closed system is constant."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x007",
+   "kcs": [
+    "9702-5.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q18",
+    "qid": "9702_w19_11_q18"
+   },
+   "stem": "The engine of a car exerts a force of 600 N in moving the car 1.0 km in 150 seconds.\nWhat is the average useful output power of the engine?",
+   "options": {
+    "A": "4.0 W",
+    "B": "4.0 kW",
+    "C": "90 kW",
+    "D": "90 MW"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x008",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q14",
+    "qid": "9702_w19_12_q14"
+   },
+   "stem": "The gas in an engine does work on a piston of cross-sectional area 80 cm². The pressure on the\npiston has a constant value of 4.6 × 10⁵\nPa.\ninitial position\nof piston\nfinal position\nof piston\n25 cm\nforce of gas\npushing piston\nHow much work is done by the gas on the piston when it moves through a distance of 25 cm?",
+   "options": {
+    "A": "9.2 × 10² J",
+    "B": "9.2 × 10⁴ J",
+    "C": "9.2 × 10⁶ J",
+    "D": "9.2 × 10⁸ J"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_12_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x009",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q15",
+    "qid": "9702_w19_12_q15"
+   },
+   "stem": "A power station using coal as fuel has an average power output of 3000 MW. Coal is supplied by\n20 trains each day. The efficiency of the station in converting the thermal energy released from\nthe coal to electrical energy is 26%.\nA mass of 1.0 kg of coal will release 33 MJ of thermal energy when burnt.\nWhich mass of coal does each train bring?",
+   "options": {
+    "A": "2.5 × 10⁴ kg",
+    "B": "6.3 × 10⁴ kg",
+    "C": "1.5 × 10⁶ kg",
+    "D": "3.0 × 10⁷ kg"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x010",
+   "kcs": [
+    "9702-5.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q14",
+    "qid": "9702_w19_13_q14"
+   },
+   "stem": "Trains supply coal to a power station. The table shows quantities describing the operation of the\npower station.\nsymbol\nunit\npower station average output\nP\nW\nnumber of trains per day\nN\nmass of coal on a train\nM\nkg\nenergy from 1 kg of coal\nE\nJ\nnumber of seconds in one day\nS\nWhich expression gives the efficiency of the power station?",
+   "options": {
+    "A": "PS NME",
+    "B": "PSN ME",
+    "C": "E NM PS",
+    "D": "NM PSE"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_13_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x011",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q15",
+    "qid": "9702_w19_13_q15"
+   },
+   "stem": "A piston in a gas supply pump has an area of 500 cm² and it moves a distance of 30 cm.\nThe pump moves the gas against a fixed pressure of 4000 Pa.\nHow much work is done by the piston?",
+   "options": {
+    "A": "60 J",
+    "B": "6.0 × 10³ J",
+    "C": "6.0 × 10⁵ J",
+    "D": "6.0 × 10⁷ J"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x012",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q16",
+    "qid": "9702_w19_13_q16"
+   },
+   "stem": "A steel ball is falling at constant speed in oil.\nWhich graph shows the variation with time of the gravitational potential energy Eₚ and the kinetic\nenergy Eₖ of the ball?\n0\n0\n0\n0",
+   "options": {
+    "A": "",
+    "C": "",
+    "B": "",
+    "D": "energy energy energy energy time time time time Eₖ Eₖ Eₖ Eₖ Eₚ Eₚ Eₚ Eₚ"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_13_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x013",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q17",
+    "qid": "9702_w19_13_q17"
+   },
+   "stem": "The maximum useful output power of a car travelling on a horizontal road is P. The total resistive\nforce acting on the car is kv², where v is the speed of the car and k is a constant.\nWhich equation is correct when the car is travelling at maximum speed?",
+   "options": {
+    "A": "v ³ = P k",
+    "B": "v ² = P k",
+    "C": "v = 2 P k      ",
+    "D": "v = 3 P k      "
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_13_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x014",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q16",
+    "qid": "9702_s20_11_q16"
+   },
+   "stem": "A mass attached to the lower end of a spring bounces up and down.\nAt which points in the path of the mass do the gravitational potential energy of the mass (GPE),\nthe elastic potential energy in the spring (EPE) and the kinetic energy of the mass (KE) have their\nhighest values?\nGPE\nEPE\nKE",
+   "options": {
+    "A": "bottom middle top",
+    "B": "bottom top middle",
+    "C": "top bottom middle",
+    "D": "top bottom top"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_11_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x015",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q19",
+    "qid": "9702_s20_11_q19"
+   },
+   "stem": "Power is transferred through a machine as shown.\nmachine\npower output PO\npower loss PL\npower input PI\nWhat is the efficiency of the machine?",
+   "options": {
+    "A": "L O P P P + I",
+    "B": "I P PL",
+    "C": "O L P P",
+    "D": "I P PO"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x016",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q14",
+    "qid": "9702_s20_12_q14"
+   },
+   "stem": "During an interval of time, fuel supplies energy X to a car.\nSome of this energy is converted into kinetic energy as the car accelerates.\nThe rest of the energy Y is lost as thermal energy.\nWhat is the efficiency of the car?",
+   "options": {
+    "A": "Y X X −",
+    "B": "Y X Y −",
+    "C": "X Y X −",
+    "D": "Y Y X −"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x017",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q15",
+    "qid": "9702_s20_12_q15"
+   },
+   "stem": "In which situation is work done on an object?",
+   "options": {
+    "A": "The object slides with a constant velocity along a horizontal frictionless surface in a vacuum.",
+    "B": "A person holds the object at arm’s length and at a fixed height above the ground.",
+    "C": "A person pushes the object up a frictionless ramp.",
+    "D": "The stationary object floats partially submerged in water."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x018",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q17",
+    "qid": "9702_s20_12_q17"
+   },
+   "stem": "An escalator in an underground station has 25 people standing on it and is moving with a speed\nof 4.3 m s⁻¹. The average mass of a person is 78 kg and the angle of the escalator to the\nhorizontal is 40°.\nWhat is the minimum power required to lift these people?",
+   "options": {
+    "A": "5.4 kW",
+    "B": "6.4 kW",
+    "C": "53 kW",
+    "D": "63 kW"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x019",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q16",
+    "qid": "9702_s20_13_q16"
+   },
+   "stem": "A trolley starts from rest at X. It rolls down to Y and eventually comes to rest at Z.\nX\nY\nZ\nWhich row is a possible summary of the energy changes during this process?\nX to Y\nY to Z",
+   "options": {
+    "A": "PE → KE KE → PE key",
+    "B": "PE → KE KE → PE + heat PE = potential energy",
+    "C": "PE → KE + heat KE → PE KE = kinetic energy",
+    "D": "PE → KE + heat KE → PE + heat"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_13_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x020",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q17",
+    "qid": "9702_s20_13_q17"
+   },
+   "stem": "A cylinder is heated, causing the air inside to expand at a constant pressure of 2.2 × 10⁵\nPa.\npiston raised\n0.50 m\npiston\ncylinder\nair pressure\n2.2 × 10⁵ Pa\nThe expansion of the air causes the piston to rise through a vertical distance of 0.50 m, doing\n11 kJ of work. Frictional forces are negligible.\nWhat is the cross-sectional area of the piston?",
+   "options": {
+    "A": "1.0 × 10⁻⁴ m²",
+    "B": "2.5 × 10⁻² m²",
+    "C": "5.0 × 10⁻² m²",
+    "D": "1.0 × 10⁻¹ m²"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_13_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x021",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q18",
+    "qid": "9702_s20_13_q18"
+   },
+   "stem": "A ball slides down a curved track, as shown.\nX\nY\n0.40 m\nPoint X is at a height of 0.40 m above point Y. The speed of the ball at point X is 2.5 m s⁻¹.\nFrictional forces are negligible.\nWhat is the speed of the ball at point Y?",
+   "options": {
+    "A": "2.8 m s⁻¹",
+    "B": "3.2 m s⁻¹",
+    "C": "3.8 m s⁻¹",
+    "D": "14 m s⁻¹"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_13_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x022",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q19",
+    "qid": "9702_s20_13_q19"
+   },
+   "stem": "The force diagram shows an aircraft accelerating. At the instant shown, the velocity of the aircraft\nis 40 m s⁻¹.\n600 kN lift\n500 kN\nengine thrust\n200 kN\nair resistance\n600 kN weight\nvelocity 40 m s⁻¹\nAt which rate is its kinetic energy increasing?",
+   "options": {
+    "A": "2.4 MW",
+    "B": "8.0 MW",
+    "C": "12 MW",
+    "D": "20 MW"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_13_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x023",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q16",
+    "qid": "9702_w20_11_q16"
+   },
+   "stem": "A hydroelectric power station uses the gravitational potential energy of water to generate\nelectrical energy.\nIn one particular power station, the mass of water flowing per unit time is 1.5 × 10⁵\nkg s⁻¹. The\nwater falls through a vertical height of 120 m.\nThe electrical power generated is 100 MW.\nWhat is the efficiency of the power station?",
+   "options": {
+    "A": "5.6%",
+    "B": "43%",
+    "C": "57%",
+    "D": "77%"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x024",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q18",
+    "qid": "9702_w20_11_q18"
+   },
+   "stem": "A train of mass 300 000 kg is accelerating at 0.80 m s⁻². At one instant, the speed of the train is\n5.0 m s⁻¹ and the resistive force to its motion is 15 kN.\nAt this instant, what is the rate of increase of kinetic energy of the train?",
+   "options": {
+    "A": "0.075 MW",
+    "B": "1.2 MW",
+    "C": "1.3 MW",
+    "D": "3.8 MW"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Only 2 of the 8 candidates answered this correctly, with the others selecting answer C or D rather than the correct answer B. If the output force of the train’s engine is F, then (using F = ma): F – 15×103 = 300 000 × 0.80 F = 2.55 × 105 N The output power of the train’s engine is ‘Fv’ = 2.55 × 105 × 5.0 = 1.3 × 106 W (answer C). Some of this output power is used against the resistive force; the rest accelerates the train, increasing its kinetic energy. = 1.3 × 106 – (15 × 103 × 5.0) = 1.2 × 106 W (answer B) (An alternative method: 2 6 d 1 d 300 000 5.0 0.80 1.2 10 W d 2 d v mv mv mva t t  ="
+  },
+  {
+   "id": "9702-5.1-x025",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q16",
+    "qid": "9702_w20_12_q16"
+   },
+   "stem": "A ball is thrown vertically upwards. Air resistance is negligible.\nWhich statement is correct?",
+   "options": {
+    "A": "By the principle of conservation of energy, the total energy of the ball is constant throughout its motion.",
+    "B": "By the principle of conservation of momentum, the momentum of the ball is constant throughout its motion.",
+    "C": "The kinetic energy of the ball is greatest at the greatest height attained.",
+    "D": "The potential energy of the ball increases at a constant rate during its ascent."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Many candidates found this question difficult, and many candidates selected D rather than the correct answer A. As air resistance is negligible, the combined kinetic energy and gravitational potential energy of the ball remains constant. For D to be true, the potential energy of the ball must increase at a constant rate (i.e. increase by equal amounts in equal times). This is true for an object moving upwards at constant speed but not when the speed is changing."
+  },
+  {
+   "id": "9702-5.1-x026",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q17",
+    "qid": "9702_w20_12_q17"
+   },
+   "stem": "A hammer with 10 J of kinetic energy hits a nail and pushes it 5.0 mm into a plank.\nBoth the hammer and nail come to rest after the collision.\nWhat is the approximate average force that acts on the nail while it moves through 5.0 mm?",
+   "options": {
+    "A": "0.050 N",
+    "B": "2.0 N",
+    "C": "50 N",
+    "D": "2000 N"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x027",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q19",
+    "qid": "9702_w20_12_q19"
+   },
+   "stem": "A racing car has an output power of 300 kW when travelling at a constant speed of 60 m s⁻¹.\nWhat is the total resistive force acting on the car?",
+   "options": {
+    "A": "5 kN",
+    "B": "10 kN",
+    "C": "50 kN",
+    "D": "100 kN"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x028",
+   "kcs": [
+    "9702-5.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q19",
+    "qid": "9702_w20_13_q19"
+   },
+   "stem": "A water pump raises a mass of 27 × 10³\nkg of water through a vertical distance of 80 m in a time\nof 1.0 hour.\nWhat is the average useful output power of the pump?",
+   "options": {
+    "A": "0.60 kW",
+    "B": "5.9 kW",
+    "C": "36 kW",
+    "D": "350 kW"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x029",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q15",
+    "qid": "9702_s21_11_q15"
+   },
+   "stem": "A rocket is fired upwards.\nAs it accelerates upwards after leaving the launch pad, which forms of energy are changing?",
+   "options": {
+    "A": "chemical energy, gravitational potential energy and kinetic energy",
+    "B": "chemical energy and gravitational potential energy only",
+    "C": "chemical energy and kinetic energy only",
+    "D": "gravitational potential energy and kinetic energy only"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x030",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q16",
+    "qid": "9702_s21_11_q16"
+   },
+   "stem": "A roll of tape of length 50 m requires a constant force of 20 N to unwrap it.\nroll of tape\ntape\n20 N\nWhat is the work done in unwrapping the whole roll?",
+   "options": {
+    "A": "0.4 J",
+    "B": "2.5 J",
+    "C": "500 J",
+    "D": "1000 J"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_11_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x031",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q17",
+    "qid": "9702_s21_11_q17"
+   },
+   "stem": "A trolley of mass 600 kg is initially at point P on a slope, at a height of 80 m above ground level,\nas shown. The trolley is released from rest and moves along the slope, first coming to rest at\npoint Q, at height h above ground level.\nh\n80 m\n1.5 km\nground level\nQ\nP\nslope\ntrolley\nmass 600 kg\nNOT TO\nSCALE\nThe total distance PQ moved by the trolley along the slope is 1.5 km. A constant resistive force of\n300 N opposes the motion of the trolley on the slope.\nWhat is h ?",
+   "options": {
+    "A": "3.5 m",
+    "B": "76 m",
+    "C": "79 m",
+    "D": "80 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_11_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The trolley is at rest at points P and Q, so the change in gravitational potential energy of the trolley must equal the work done against the resistive force: 600 × 9.81 × (80 – h) = 300 × 1.5 × 103 Solving this gives h = 3.5 m. Some candidates selected B which is the change in the height of the trolley, not the height h of the trolley above ground level at point Q."
+  },
+  {
+   "id": "9702-5.1-x032",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q18",
+    "qid": "9702_s21_11_q18"
+   },
+   "stem": "An object of weight 15.0 N is pulled along a horizontal surface at a constant velocity of 2.00 m s⁻¹.\nThe force pulling the object is 12.0 N at 30.0° to the horizontal, as shown.\n15.0 N\n2.00 m s⁻¹\n12.0 N\n30.0\u0001\nWhat is the power used to move the object?",
+   "options": {
+    "A": "12.0 W",
+    "B": "20.8 W",
+    "C": "24.0 W",
+    "D": "30.0 W"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_11_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x033",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q15",
+    "qid": "9702_s21_12_q15"
+   },
+   "stem": "A stone is falling vertically through the air at a constant (terminal) velocity.\nWhich energy change is occurring?",
+   "options": {
+    "A": "gravitational potential energy to thermal energy",
+    "B": "gravitational potential energy to kinetic energy of the stone",
+    "C": "kinetic energy to gravitational potential energy of the stone",
+    "D": "kinetic energy of the stone to thermal energy"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Just over half of the candidates answered this question correctly, with B a common incorrect answer. As the stone is falling at a constant velocity, the kinetic energy of the stone remains constant. The gravitational potential energy lost by the stone as it falls changes to thermal energy, i.e. the stone and the air become warmer."
+  },
+  {
+   "id": "9702-5.1-x034",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q16",
+    "qid": "9702_s21_12_q16"
+   },
+   "stem": "An object of weight 12 N rests on a platform on top of a container with two pistons, as shown. The\ncontainer contains a fixed mass of gas, and the pistons are free to move.\nobject\nplatform\npiston\npiston\ncontainer\nplunger\nThe plunger is slowly pushed 4.0 cm to the right. As a result, the object slowly moves upwards a\ndistance 0.50 cm.\nHow much work is done on the object?",
+   "options": {
+    "A": "0.060 J",
+    "B": "0.48 J",
+    "C": "6.0 J",
+    "D": "48 J"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_12_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x035",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q18",
+    "qid": "9702_s21_12_q18"
+   },
+   "stem": "What is the definition of power?",
+   "options": {
+    "A": "Power is the product of force and velocity.",
+    "B": "Power is the product of force and work done per unit time.",
+    "C": "Power is the product of force per unit time and velocity.",
+    "D": "Power is the rate at which work is done."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x036",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q17",
+    "qid": "9702_s21_13_q17"
+   },
+   "stem": "A sample of gas is sealed in a cylinder by a piston. The frictionless piston is free to move, so that\nthe pressure of the gas remains constant at 1.80 × 10⁵\nPa.\nThe gas initially occupies a volume of 2.40 × 10⁻⁴\nm³.\nThe gas now does 14.4 J of work.\nWhat is the volume of the gas after doing this work?",
+   "options": {
+    "A": "0.80 × 10⁻⁴ m³",
+    "B": "1.60 × 10⁻⁴ m³",
+    "C": "3.20 × 10⁻⁴ m³",
+    "D": "4.00 × 10⁻⁴ m³"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Almost all candidates calculated the change in volume of the gas in the cylinder correctly (0.80 × 10–4 m3), using the equation work done = p∆V. The question asks for the volume of the gas after doing this work. Since the gas is doing work rather than work being done on the gas, the gas must be expanding – the volume of the gas after doing work must be greater than the original volume. Answer A is the change in the volume of the gas, and B implies the gas is being compressed. The correct answer is C: initial volume + increase in volume = 2.40 × 10–4 + 0.80 × 10–4 = 3.20 × 10–4 m3."
+  },
+  {
+   "id": "9702-5.1-x037",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q18",
+    "qid": "9702_s21_13_q18"
+   },
+   "stem": "A car of mass 500 kg is at rest at point X on a slope, as shown.\nThe car’s brakes are released and the car rolls down the slope with its engine switched off. At\npoint Y the car has moved through a vertical height of 30 m and has a speed of 11 m s⁻¹.\nX\nY\nmass = 500 kg\nspeed = 0 m s⁻¹\nspeed = 11 m s⁻¹\n30 m\nWhat is the energy dissipated by frictional forces when the car moves from X to Y?",
+   "options": {
+    "A": "3.0 × 10⁴ J",
+    "B": "1.2 × 10⁵ J",
+    "C": "1.5 × 10⁵ J",
+    "D": "1.8 × 10⁵ J"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_13_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x038",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q19",
+    "qid": "9702_s21_13_q19"
+   },
+   "stem": "Which expression cannot be used to calculate power?",
+   "options": {
+    "A": "(force displacement) time ×",
+    "B": "force × velocity",
+    "C": "work done time",
+    "D": "work done × velocity"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x039",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q15",
+    "qid": "9702_w21_11_q15"
+   },
+   "stem": "Which statement about energy is not correct?",
+   "options": {
+    "A": "Energy is never lost but it may be transferred between different forms.",
+    "B": "In an inelastic collision, the total energy is constant.",
+    "C": "The efficiency of a system is the ratio of the useful energy output to the total energy input.",
+    "D": "When a machine does work, friction reduces the total energy."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x040",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q18",
+    "qid": "9702_w21_11_q18"
+   },
+   "stem": "A car of mass 1500 kg travels at a constant velocity of 30 m s⁻¹ down a slope. The slope is at an\nangle of 6.0° to the horizontal, as shown.\n6.0\u0002\nhorizontal\nslope\ncar,\nmass 1500 kg\nresistive force,\n2000 N\nconstant velocity\nof 30 m s⁻¹\nThe magnitude of the total resistive force acting on the car is 2000 N.\nWhat is the power output of the car’s engine?",
+   "options": {
+    "A": "14 kW",
+    "B": "60 kW",
+    "C": "110 kW",
+    "D": "380 kW"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_11_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x041",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q16",
+    "qid": "9702_w21_12_q16"
+   },
+   "stem": "A ball is thrown vertically upwards into the air. It rises to the top of its path before beginning to fall\nvertically downwards.\ntop of path\nmidpoint of path\nstarting position\nAssume that the gravitational potential energy of the ball is zero at its starting position.\nWhich statement about the ball is not correct?",
+   "options": {
+    "A": "As it rises, its kinetic energy is transferred to gravitational potential energy.",
+    "B": "At the midpoint of its path, its gravitational potential energy is equal to its initial kinetic energy.",
+    "C": "At the top of its path, its kinetic energy is zero.",
+    "D": "At the top of its path, its total energy is less than its initial total energy."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_12_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "As many candidates selected D as the correct answer B. The first line of the question makes it clear that the ball is being thrown vertically upwards in air, and therefore there is air resistance to be considered. At the top of its path the ball’s total energy will be less than its initial total energy as it will have lost some energy (as heat) because of air resistance, so D is a true statement and is therefore not the correct answer. Principal Examiner Report for Teachers"
+  },
+  {
+   "id": "9702-5.1-x042",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q17",
+    "qid": "9702_w21_12_q17"
+   },
+   "stem": "An object slides with constant velocity across a horizontal sheet of ice. Friction is negligible.\nA constant horizontal force of 2.1 N is then applied to the object as shown.\nX\n4.0 m\n2.1 N\n30\u0002\nobject\ninitial direction of\nmotion of object\nA short time after applying the force, the object reaches point X at a displacement of 4.0 m from\nits position when the force was first applied.\nWhat is the work done by the force on the object as it travels to point X?",
+   "options": {
+    "A": "4.2 J",
+    "B": "4.8 J",
+    "C": "7.3 J",
+    "D": "8.4 J"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w21_12_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x043",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q18",
+    "qid": "9702_w21_12_q18"
+   },
+   "stem": "The energy conversions inside a power station burning fossil fuel can be simplified as shown.\nchemical energy W → thermal energy X → electrical energy Y\nWhich expression gives the efficiency of the power station?",
+   "options": {
+    "A": "Y W",
+    "B": "( ) + Y W X",
+    "C": "Y X",
+    "D": "( ) + + Y W X Y"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x044",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q16",
+    "qid": "9702_w21_13_q16"
+   },
+   "stem": "A gas is contained inside a syringe, as shown.\nsyringe\ngas\nThe initial volume of the gas is 2.00 cm³.\nAtmospheric pressure is 101 kPa.\nWhat is the work done by the gas on the atmosphere when the gas is heated and expands to a\nvolume of 6.00 cm³?",
+   "options": {
+    "A": "404 μJ",
+    "B": "404 mJ",
+    "C": "404 J",
+    "D": "404 kJ"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_13_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x045",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q17",
+    "qid": "9702_w21_13_q17"
+   },
+   "stem": "A mechanical device does useful work at rate X and wastes energy at rate Y.\nWhich expression gives the efficiency of this device?",
+   "options": {
+    "A": "X Y",
+    "B": "( ) X Y Y −",
+    "C": "( ) X X Y +",
+    "D": "( ) ( ) X Y X Y − +"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x046",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q16",
+    "qid": "9702_s22_11_q16"
+   },
+   "stem": "A box slides down a rough ramp.\nThe change in the gravitational potential energy of the box is 16 J as it moves between positions\nX and Y. The box has 24 J of kinetic energy at X and 35 J of kinetic energy at Y.\nbox\nramp\nX\nY\nHow much work is done against the frictional force?",
+   "options": {
+    "A": "5 J",
+    "B": "19 J",
+    "C": "27 J",
+    "D": "43 J"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_11_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x047",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q17",
+    "qid": "9702_s22_11_q17"
+   },
+   "stem": "The total energy supplied to an electric motor is E. Energy Q is wasted and the remaining energy\ndoes useful work.\nWhat is the efficiency of the motor?",
+   "options": {
+    "A": "Q E",
+    "B": "Q E � � � � � � – 1",
+    "C": "1 – Q E � � � � � �",
+    "D": "(1 ) Q E −"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_11_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x048",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q16",
+    "qid": "9702_s22_12_q16"
+   },
+   "stem": "Which product of two quantities is equal to power?",
+   "options": {
+    "A": "force × distance",
+    "B": "force × velocity",
+    "C": "work done × time",
+    "D": "work done × velocity"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x049",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q17",
+    "qid": "9702_s22_12_q17"
+   },
+   "stem": "Researchers have developed a new type of filament lamp with an efficiency of 40%. Old-type\nfilament lamps have an efficiency of 5.0%. The two types of lamp produce the same useful output\npower.\nWhat is the ratio input power to new type of lamp\ninput power to old type of lamp ?",
+   "options": {
+    "A": "0.13",
+    "B": "0.63",
+    "C": "1.6",
+    "D": "8.0"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x050",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q17",
+    "qid": "9702_s22_13_q17"
+   },
+   "stem": "What is meant by the efficiency of a system?",
+   "options": {
+    "A": "the difference between the useful energy output from the system and the total energy input",
+    "B": "the difference between the useful energy output from the system and the wasted energy output",
+    "C": "the ratio of the useful energy output from the system to the total energy input",
+    "D": "the ratio of the useful energy output from the system to the wasted energy output"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x051",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q16",
+    "qid": "9702_w22_11_q16"
+   },
+   "stem": "A spring is compressed by a mass, as shown.\nbefore\nafter\nmass\nspring\nWhich statement describes the changes to the energy of the spring when it is compressed by the\nmass?",
+   "options": {
+    "A": "The spring gains both gravitational potential energy and elastic potential energy.",
+    "B": "The spring gains gravitational potential energy and loses elastic potential energy.",
+    "C": "The spring loses both gravitational potential energy and elastic potential energy.",
+    "D": "The spring loses gravitational potential energy and gains elastic potential energy."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_11_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x052",
+   "kcs": [
+    "9702-5.1.6",
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q17",
+    "qid": "9702_w22_12_q17"
+   },
+   "stem": "A motor is used to lift a load vertically upwards.\nThe load has weight W.\nThe motor produces useful power output P.\nThe load is lifted at constant velocity v.\nWhich expression gives the time taken for the motor to lift the load vertically upwards through a\ndistance d ?",
+   "options": {
+    "A": "Wd P",
+    "B": "P Wv",
+    "C": "P Wd",
+    "D": "W Pv"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x053",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q18",
+    "qid": "9702_w22_12_q18"
+   },
+   "stem": "A lamp is switched on for 2.0 hours. The power input to the lamp is 1.0 W. The energy given out\nby the lamp as light is 7.0 × 10³\nJ.\nHow much energy is converted to other forms by the lamp?",
+   "options": {
+    "A": "120 J",
+    "B": "200 J",
+    "C": "3400 J",
+    "D": "7200 J"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x054",
+   "kcs": [
+    "9702-5.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q16",
+    "qid": "9702_w22_13_q16"
+   },
+   "stem": "Which expression could be used to calculate power?",
+   "options": {
+    "A": "2 (current) resistance",
+    "B": "time nt displaceme force ×",
+    "C": "current × (resistance)²",
+    "D": "weight time"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_13_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x055",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q17",
+    "qid": "9702_w22_13_q17"
+   },
+   "stem": "A bungee jumper jumps from a platform and is decelerated by an elastic bungee cord, as shown.\nground\nbefore jumping\nground\nduring the jump\nplatform\nbungee cord\nbungee\ncord\nbungee\njumper\nNOT TO\nSCALE\nWhen the jumper makes the jump, his initial gravitational potential energy is converted into his\nkinetic energy and into elastic potential energy in the cord.\nAt which part of the jump are all three types of energy non-zero?",
+   "options": {
+    "A": "on the platform before the jump",
+    "B": "on the way down before the cord has started to extend",
+    "C": "on the way down as he decelerates",
+    "D": "at the bottom of the jump when he is stationary"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_13_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x056",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q16",
+    "qid": "9702_s23_11_q16"
+   },
+   "stem": "A man sits on a buggy that is pulled along by a wire attached to a kite. The wire is at an angle of\n40° to the horizontal and has a constant tension of 200 N. The man and buggy travel a distance of\n20 m along a straight horizontal path. The wire and the path of the buggy are in the same vertical\nplane.\n40\u0001\n200 N\nwire\nbuggy\nkite\nWhat is the work done by the tension force on the man and buggy?",
+   "options": {
+    "A": "2.6 kJ",
+    "B": "3.1 kJ",
+    "C": "3.4 kJ",
+    "D": "4.0 kJ"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_11_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x057",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q17",
+    "qid": "9702_s23_11_q17"
+   },
+   "stem": "A ball is thrown vertically upwards from the surface of the Earth.\nWhich statement describes the energy of the ball as it rises through the air?",
+   "options": {
+    "A": "The kinetic energy of the ball decreases as the gravitational potential energy decreases.",
+    "B": "The kinetic energy of the ball decreases as the gravitational potential energy increases.",
+    "C": "The kinetic energy of the ball increases as the gravitational potential energy decreases.",
+    "D": "The total energy of the ball increases."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x058",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q15",
+    "qid": "9702_s23_12_q15"
+   },
+   "stem": "A steam turbine is used to drive a generator. The input power to the turbine is PI and the output\npower is PO. The power loss in the turbine is PL, as shown.\ninput power PI\nturbine\noutput power PO\npower loss PL\ngenerator\nWhat is the efficiency of the turbine?",
+   "options": {
+    "A": "O L P P",
+    "B": "O P PI",
+    "C": "I P PL",
+    "D": "I P PO"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_12_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x059",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q16",
+    "qid": "9702_s23_13_q16"
+   },
+   "stem": "A car moves along a horizontal road with a constant velocity v against a resistive force F.\nThe engine of the car has an efficiency of 25%.\nWhat is the input power to the engine?",
+   "options": {
+    "A": "4.0 Fv",
+    "B": "Fv 4.0",
+    "C": "4.0Fv",
+    "D": "v F 4.0"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x060",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q15",
+    "qid": "9702_w23_11_q15"
+   },
+   "stem": "A crate of mass 50 kg is pushed a distance of 6.0 m along a horizontal surface against a constant\nresistive force of 70 N. The crate moves at a constant speed. It is then lifted, at a constant speed,\nthrough a vertical distance of 1.2 m onto the back of a lorry.\nWhat is the total work done in this process?",
+   "options": {
+    "A": "420 J",
+    "B": "480 J",
+    "C": "590 J",
+    "D": "1000 J"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x061",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q16",
+    "qid": "9702_w23_11_q16"
+   },
+   "stem": "The input power to a television is Piₙ. The useful sound and light power emitted by the television\nis Pₒuₜ.\nWhat is the efficiency of the television?",
+   "options": {
+    "A": "in out P P",
+    "B": "in out iₙ – P P P",
+    "C": "out in P P",
+    "D": "out in out – P P P"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_11_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x062",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q16",
+    "qid": "9702_w23_12_q16"
+   },
+   "stem": "What is meant by the efficiency of a system?",
+   "options": {
+    "A": "the total energy input to the system divided by the useful energy output by the system",
+    "B": "the useful energy output from the system divided by the energy wasted by the system",
+    "C": "the useful energy output from the system divided by the total energy input to the system",
+    "D": "the energy wasted by the system divided by the total energy input to the system"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x063",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q15",
+    "qid": "9702_w23_13_q15"
+   },
+   "stem": "A wooden cylinder floats partially submerged in a bath of water. A force F is applied to the\ncylinder until it is just fully submerged.\nwater\nwooden cylinder\nF\nWhich statement is not correct?",
+   "options": {
+    "A": "Some of the water gains gravitational potential energy.",
+    "B": "The cylinder loses gravitational potential energy.",
+    "C": "Work is done by force F on the cylinder.",
+    "D": "Work is done by the upthrust on the cylinder."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_13_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "• The wooden cylinder is partially submerged in a bath of water, so as the cylinder is pushed down into the water, some of the water must rise, gaining gravitational potential energy. (A) • As the cylinder is lowered it must lose gravitational potential energy. (B) • Work is done by force F since it moves in the direction of the force. (C) Statements A, B and C are all correct, leaving statement D as the incorrect statement."
+  },
+  {
+   "id": "9702-5.1-x064",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q16",
+    "qid": "9702_w23_13_q16"
+   },
+   "stem": "A system has a useful power output of 4.0 W and a wasted power of 16 W.\nWhat is the efficiency of the system?",
+   "options": {
+    "A": "5.0%",
+    "B": "20%",
+    "C": "25%",
+    "D": "80%"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x065",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q17",
+    "qid": "9702_s24_11_q17"
+   },
+   "stem": "A box of weight 40 N is pushed with a horizontal force of 20 N along level ground for a distance of\n2.4 m.\nThe box is then lifted at constant velocity through a height of 1.6 m by a vertical force.\nWhat is the total work done on the box by the two forces?",
+   "options": {
+    "A": "80 J",
+    "B": "110 J",
+    "C": "120 J",
+    "D": "160 J"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x066",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q18",
+    "qid": "9702_s24_11_q18"
+   },
+   "stem": "Which statement about efficiency is correct?",
+   "options": {
+    "A": "Efficiency does not have a unit.",
+    "B": "The joule is a unit of efficiency.",
+    "C": "The metre is a unit of efficiency.",
+    "D": "The watt is a unit of efficiency."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x067",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q14",
+    "qid": "9702_s24_12_q14"
+   },
+   "stem": "The force resisting the motion of a car is proportional to the square of the car’s speed. The\nmagnitude of the force at a speed of 20.0 m s⁻¹ is 800 N.\nWhat useful output power is required from the car’s engine to maintain a steady speed of\n40.0 m s⁻¹?",
+   "options": {
+    "A": "32 kW",
+    "B": "64 kW",
+    "C": "128 kW",
+    "D": "512 kW"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x068",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q15",
+    "qid": "9702_s24_12_q15"
+   },
+   "stem": "A box of weight W is pulled by a force P along a slope.\nThe length of the slope is d, and the box rises a height h.\nThe frictional force between the box and the slope is F.\nThe diagram shows the directions of the forces.\nd\nP\nh\nW\nF\nThe purpose of the slope is to raise the box vertically.\nWhich expression gives the efficiency of the slope?",
+   "options": {
+    "A": "Wh Fd",
+    "B": "Wh Pd",
+    "C": "Fd Wh",
+    "D": "Pd Wh"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_12_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x069",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q15",
+    "qid": "9702_s24_13_q15"
+   },
+   "stem": "In many filament lamps, as much as 92 J of energy is emitted as thermal energy for every 8 J of\nenergy emitted as light.\nWhat is the efficiency of a filament lamp, as the percentage of electrical energy converted to light\nenergy?",
+   "options": {
+    "A": "8%",
+    "B": "9%",
+    "C": "91%",
+    "D": "92%"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x070",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q16",
+    "qid": "9702_s24_13_q16"
+   },
+   "stem": "What is a unit of power?",
+   "options": {
+    "A": "J C⁻¹",
+    "B": "J m⁻¹",
+    "C": "J N⁻¹",
+    "D": "J s⁻¹"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x071",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q18",
+    "qid": "9702_s24_13_q18"
+   },
+   "stem": "A block of mass 2.0 kg is released from rest on a slope. It travels 7.0 m down the slope and falls a\nvertical distance of 3.0 m. The block experiences a frictional force parallel to the slope of 5.0 N.\n7.0 m\n3.0 m\n2.0 kg\nWhat is the speed of the block after falling this distance?",
+   "options": {
+    "A": "4.9 m s⁻¹",
+    "B": "6.6 m s⁻¹",
+    "C": "8.6 m s⁻¹",
+    "D": "10 m s⁻¹"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_13_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x072",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q18",
+    "qid": "9702_w24_11_q18"
+   },
+   "stem": "A ball of mass m is thrown up to height h in air with an initial velocity v, as shown.\nh\nv\nP\nQ\nAir resistance is negligible. The acceleration of free fall is g.\nWhat is the total work done by the gravitational force on the ball during its flight from P to Q?",
+   "options": {
+    "A": "zero",
+    "B": "2 2 ¹ mv",
+    "C": "mgh",
+    "D": "2mgh"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_11_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x073",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q19",
+    "qid": "9702_w24_11_q19"
+   },
+   "stem": "A spring of spring constant 30 N m⁻¹ is suspended vertically from its top. The spring obeys\nHooke’s law. Initially the spring is not compressed and not stretched. A mass of 0.50 kg is\nattached to the bottom of the spring. The mass is released from rest and falls.\nFrictional effects are negligible.\nIn the motion that follows, what is the maximum extension of the spring?",
+   "options": {
+    "A": "0.017 m",
+    "B": "0.033 m",
+    "C": "0.16 m",
+    "D": "0.33 m"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x074",
+   "kcs": [
+    "9702-5.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q15",
+    "qid": "9702_w24_12_q15"
+   },
+   "stem": "What is the definition of power?",
+   "options": {
+    "A": "work done in one second",
+    "B": "work done in unit time",
+    "C": "work done per second",
+    "D": "work done per unit time"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x075",
+   "kcs": [
+    "9702-5.1.4",
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q16",
+    "qid": "9702_w24_12_q16"
+   },
+   "stem": "A model car travels at a constant velocity of 12 m s⁻¹ in a straight horizontal line. The input power\nto the engine of the car is 800 W. The efficiency of the engine is 60%.\nWhat is the total horizontal resistive force on the car?",
+   "options": {
+    "A": "27 N",
+    "B": "40 N",
+    "C": "67 N",
+    "D": "110 N"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x076",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q17",
+    "qid": "9702_w24_12_q17"
+   },
+   "stem": "Which statement represents the principle of conservation of energy?",
+   "options": {
+    "A": "Energy cannot be used faster than it is created.",
+    "B": "The supply of energy is limited, so energy must be conserved.",
+    "C": "The total energy in a closed system is constant.",
+    "D": "The total energy input to a system is equal to the useful energy output."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x077",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q17",
+    "qid": "9702_w24_13_q17"
+   },
+   "stem": "A stone of mass 0.30 kg is thrown vertically downwards with a speed of 20 m s⁻¹ from a height of\n12 m above the ground. It falls vertically until it hits the ground. Air resistance is negligible.\nWhat is the kinetic energy of the stone just before it hits the ground?",
+   "options": {
+    "A": "25 J",
+    "B": "35 J",
+    "C": "60 J",
+    "D": "95 J"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x078",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q12",
+    "qid": "9702_s25_11_q12"
+   },
+   "stem": "Leonardo da Vinci proposed a flying machine that would work like a screw to lift the pilot into the\nair. The ‘screw’ is rotated by the pilot.\nThe machine and the pilot together have a total mass of 120 kg.\nWhich useful output power must the pilot provide to move vertically upwards at a constant speed\nof 2.5 m s⁻¹?",
+   "options": {
+    "A": "48 W",
+    "B": "300 W",
+    "C": "470 W",
+    "D": "2900 W"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_11_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x079",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q18",
+    "qid": "9702_s25_11_q18"
+   },
+   "stem": "The points X, Y and Z are on a rough, horizontal surface.\n3.0 m\nX\nY\nZ\nA box P is pushed across the surface from X to Y and then from Y to Z.\nThe distance from X to Y is 3.0 m. The work done against the frictional force in moving the box\nfrom X to Y is 150 J.\nThe work done against the frictional force in moving the box from Y to Z is 200 J.\nAn identical box Q is pushed in a straight line from X to Z.\nThe magnitude of the frictional force between the boxes and the surface is constant.\nHow much extra work is done against the frictional force in moving P than Q?",
+   "options": {
+    "A": "100 J",
+    "B": "250 J",
+    "C": "350 J",
+    "D": "600 J"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_11_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x080",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q18",
+    "qid": "9702_s25_12_q18"
+   },
+   "stem": "A ball of mass 1.2 kg travels horizontally at a speed of 3.0 m s⁻¹.\nThe ball hits a cushion and comes to rest over a horizontal distance of 0.020 m.\nWhat is the work done by the cushion on the ball to bring the ball to rest?",
+   "options": {
+    "A": "0.24 J",
+    "B": "1.8 J",
+    "C": "5.4 J",
+    "D": "11 J"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x081",
+   "kcs": [
+    "9702-5.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q20",
+    "qid": "9702_s25_12_q20"
+   },
+   "stem": "Which expression gives the efficiency of a system?",
+   "options": {
+    "A": "output energy useful input energy total",
+    "B": "input energy total output energy wasted + output energy useful",
+    "C": "input energy total output energy useful",
+    "D": "input energy total output energy wasted"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x082",
+   "kcs": [
+    "9702-5.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q17",
+    "qid": "9702_s25_13_q17"
+   },
+   "stem": "An electric motor uses 1.7 kW of power when operating normally.\nThe efficiency of the motor is 53%.\nWhat is the useful output power of the motor?",
+   "options": {
+    "A": "0.032 kW",
+    "B": "0.90 kW",
+    "C": "3.2 kW",
+    "D": "90 kW"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x083",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q18",
+    "qid": "9702_s25_13_q18"
+   },
+   "stem": "A ball is released from rest and falls vertically to the ground.\nThe kinetic energy EK of the ball varies as the height h of the ball above the ground changes.\nAir resistance is negligible.\nWhich graph shows the variation of EK with h?\n0",
+   "options": {
+    "A": "0 h EK 0",
+    "B": "0 h EK 0",
+    "C": "0 h EK 0",
+    "D": "0 h EK"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_13_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x084",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q18",
+    "qid": "9702_w25_11_q18"
+   },
+   "stem": "A bungee jumper jumps from a platform and is decelerated by an elastic bungee cord, as shown.\nground\nbefore jumping\nground\nduring the jump\nplatform\nbungee cord\nbungee\ncord\nbungee\njumper\nNOT TO SCALE\nWhen the jumper makes the jump, his initial gravitational potential energy relative to the ground is\nconverted into his kinetic energy and into elastic potential energy in the cord.\nAt which part of the jump are all three types of energy non-zero?",
+   "options": {
+    "A": "on the platform before the jump",
+    "B": "on the way down before the cord has started to extend",
+    "C": "on the way down as he decelerates",
+    "D": "at the bottom of the jump when he is stationary"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w25_11_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x085",
+   "kcs": [
+    "9702-5.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q19",
+    "qid": "9702_w25_11_q19"
+   },
+   "stem": "A sailboat is pushed by the wind at a constant velocity v across a lake.\nThe force of the wind and the velocity of the sailboat are in the same direction.\nWhich additional information is required to determine the work done per unit time by the wind\nacting on the sailboat?",
+   "options": {
+    "A": "the force exerted by the wind",
+    "B": "the distance travelled by the sailboat per unit time",
+    "C": "the total energy input to the sailboat by the wind",
+    "D": "the weight of the sailboat"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x086",
+   "kcs": [
+    "9702-5.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q18",
+    "qid": "9702_w25_12_q18"
+   },
+   "stem": "A ball falls towards the ground from point X. Point X is 2.4 m above the ground.\nThe ball rebounds from the ground and rises to point Y. Point Y is 1.8 m above the ground.\nA single value of the change in height Δh is used to calculate the change in gravitational potential\nenergy of the ball from X to Y.\nWhat is the magnitude of Δh?",
+   "options": {
+    "A": "0.6 m",
+    "B": "1.8 m",
+    "C": "2.4 m",
+    "D": "4.2 m"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-5.1-x087",
+   "kcs": [
+    "9702-5.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q19",
+    "qid": "9702_w25_12_q19"
+   },
+   "stem": "The diagram shows a block on a slope.\nh\n1.8 N\n8.0 m\nA constant force of 1.8 N in a direction parallel to the slope is exerted on the block. This causes\nthe block to move along the slope at a constant speed.\nThe block moves a distance of 8.0 m along the slope and gains height h. The work done against\nthe frictional force acting on the block is 4.8 J.\nThe weight of the block is 4.0 N.\nWhat is the value of h?",
+   "options": {
+    "A": "1.2 m",
+    "B": "2.4 m",
+    "C": "3.6 m",
+    "D": "4.8 m"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w25_12_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-5.1.5",
+   "front": "Define power.",
+   "back": "Power is work done per unit time."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-5.1.5",
+   "front": "Give the energy-transfer definition of power.",
+   "back": "Power is energy transferred per unit time."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-5.1.5",
+   "front": "What is one watt?",
+   "back": "One watt is one joule per second."
+  }
+ ],
+ "diagrams": []
+}

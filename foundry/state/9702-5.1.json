@@ -1,0 +1,322 @@
+{
+ "sub": "9702-5.1",
+ "stage": "ready",
+ "created": "2026-10-01T10:02:51+08:00",
+ "updated": "2026-10-01T10:33:27+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T10:10:41+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 122 items"
+  },
+  {
+   "t": "2026-10-01T10:17:25+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "113 agreed, 8 disputed"
+  },
+  {
+   "t": "2026-10-01T10:22:33+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-01T10:24:06+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-01T10:26:12+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-01T10:33:27+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "items": 119,
+  "extra": 87
+ },
+ "disputes": [
+  {
+   "id": "9702-5.1-p07",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-5.1-x012",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-5.1-x041",
+   "key": "D",
+   "solver": "B",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-5.1-x043",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-5.1-x055",
+   "key": "C",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-5.1-x063",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "keep: Official answer C (mark scheme and examiner report: 'answer C'). CAIE means the work done on the suitcase by the system = its gain in total energy: the lift adds mg x 10 m; the frictionless slide adds none (GPE becomes KE). Strict net work = change in KE would give D, which is why solver and tiebreak chose D. Explanation added via the fix list."
+  },
+  {
+   "id": "9702-5.1-x066",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-5.1-x086",
+   "key": "C",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9702-5.1-x062 options",
+   "rule": "two right options",
+   "evidence": "Options C and D both contain 'F v 0 0' - they are identical",
+   "suggested": "Ensure options C and D represent different graphs/solutions as intended",
+   "status": "fixed",
+   "resolution": "fix: Two edits, nothing else. (1) Item 9702-5.1-x062: the four options are graphs shown in the image, so set options A, B, C and D each to the empty string, and delete the trailing lines F, v, 0, 0, F, v, 0, 0 from the end of the stem so that it ends with 'velocity v of the train?'. (2) Item 9702-5.1-x063: set its explanation field to exactly: 'Official answer C. Here CAIE means the work done on the suitcase by the system, which equals the gain in its total energy (kinetic plus gravitational potential). The lift raises it 10 m at constant speed, so it gains mg x 10 m of potential energy. On the frictionless slide no energy is supplied: potential energy just becomes kinetic energy, so the total is unchanged. The horizontal belt at constant speed supplies none, and the sloping belt raises it by less than 8 m. Using net work = change in kinetic energy here would wrongly give D.' Do not change the stem, options or answer of x063, and do not list x063 as a changed question."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9702-5.1-x062 options",
+   "instruction": "Two edits, nothing else. (1) Item 9702-5.1-x062: the four options are graphs shown in the image, so set options A, B, C and D each to the empty string, and delete the trailing lines F, v, 0, 0, F, v, 0, 0 from the end of the stem so that it ends with 'velocity v of the train?'. (2) Item 9702-5.1-x063: set its explanation field to exactly: 'Official answer C. Here CAIE means the work done on the suitcase by the system, which equals the gain in its total energy (kinetic plus gravitational potential). The lift raises it 10 m at constant speed, so it gains mg x 10 m of potential energy. On the frictionless slide no energy is supplied: potential energy just becomes kinetic energy, so the total is unchanged. The horizontal belt at constant speed supplies none, and the sloping belt raises it by less than 8 m. Using net work = change in kinetic energy here would wrongly give D.' Do not change the stem, options or answer of x063, and do not list x063 as a changed question.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 77765,
+   "model": "gpt-6-sol/medium",
+   "started": "2026-10-01T10:06:51+08:00",
+   "log": "foundry/logs/9702-5.1.drafter.1001-100651.log",
+   "out": "foundry/logs/9702-5.1.drafter.1001-100651.out.json",
+   "finished": "2026-10-01T10:10:41+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-5.1.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/05 Work, energy and power/5.1 Energy conservation.md",
+    "items": 122,
+    "templates": 12,
+    "worked": 5,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   }
+  },
+  "solver#1": {
+   "haiku": true,
+   "started": "2026-10-01T10:14:09+08:00",
+   "expects": "build/work/blind/9702-5.1.answers.part1.json",
+   "closed": "2026-10-01T10:17:25+08:00"
+  },
+  "solver#2": {
+   "haiku": true,
+   "started": "2026-10-01T10:14:09+08:00",
+   "expects": "build/work/blind/9702-5.1.answers.part2.json",
+   "closed": "2026-10-01T10:17:25+08:00"
+  },
+  "solver#3": {
+   "haiku": true,
+   "started": "2026-10-01T10:14:09+08:00",
+   "expects": "build/work/blind/9702-5.1.answers.part3.json",
+   "closed": "2026-10-01T10:17:25+08:00"
+  },
+  "solver#4": {
+   "haiku": true,
+   "started": "2026-10-01T10:14:09+08:00",
+   "expects": "build/work/blind/9702-5.1.answers.part4.json",
+   "closed": "2026-10-01T10:17:25+08:00"
+  },
+  "solver#5": {
+   "haiku": true,
+   "started": "2026-10-01T10:14:09+08:00",
+   "expects": "build/work/blind/9702-5.1.answers.part5.json",
+   "closed": "2026-10-01T10:17:25+08:00"
+  },
+  "solver#6": {
+   "haiku": true,
+   "started": "2026-10-01T10:14:09+08:00",
+   "expects": "build/work/blind/9702-5.1.answers.part6.json",
+   "closed": "2026-10-01T10:17:25+08:00"
+  },
+  "solver#7": {
+   "haiku": true,
+   "started": "2026-10-01T10:14:09+08:00",
+   "expects": "build/work/blind/9702-5.1.answers.part7.json",
+   "closed": "2026-10-01T10:17:25+08:00"
+  },
+  "checker": {
+   "haiku": true,
+   "started": "2026-10-01T10:14:09+08:00",
+   "expects": "build/work/foundry/9702-5.1.check.json",
+   "closed": "2026-10-01T10:17:25+08:00"
+  },
+  "tiebreak": {
+   "pid": 85358,
+   "model": "gpt-6-sol/medium",
+   "started": "2026-10-01T10:17:41+08:00",
+   "log": "foundry/logs/9702-5.1.tiebreak.1001-101741.log",
+   "out": "foundry/logs/9702-5.1.tiebreak.1001-101741.out.json",
+   "finished": "2026-10-01T10:18:56+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 8,
+    "answers_path": "build/work/blind/9702-5.1.tiebreak.json",
+    "notes": []
+   }
+  },
+  "fixer": {
+   "pid": 88997,
+   "model": "gpt-6-luna/medium",
+   "started": "2026-10-01T10:24:13+08:00",
+   "log": "foundry/logs/9702-5.1.fixer.1001-102413.log",
+   "out": "foundry/logs/9702-5.1.fixer.1001-102413.out.json",
+   "finished": "2026-10-01T10:26:12+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 2,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   }
+  }
+ },
+ "checked": true,
+ "extra_ids": {
+  "9702_s19_11_q17": "9702-5.1-x001",
+  "9702_s19_11_q19": "9702-5.1-x002",
+  "9702_s19_12_q16": "9702-5.1-x003",
+  "9702_s19_12_q17": "9702-5.1-x004",
+  "9702_s19_12_q18": "9702-5.1-x005",
+  "9702_s19_13_q15": "9702-5.1-x006",
+  "9702_w19_11_q18": "9702-5.1-x007",
+  "9702_w19_12_q14": "9702-5.1-x008",
+  "9702_w19_12_q15": "9702-5.1-x009",
+  "9702_w19_13_q14": "9702-5.1-x010",
+  "9702_w19_13_q15": "9702-5.1-x011",
+  "9702_w19_13_q16": "9702-5.1-x012",
+  "9702_w19_13_q17": "9702-5.1-x013",
+  "9702_s20_11_q16": "9702-5.1-x014",
+  "9702_s20_11_q19": "9702-5.1-x015",
+  "9702_s20_12_q14": "9702-5.1-x016",
+  "9702_s20_12_q15": "9702-5.1-x017",
+  "9702_s20_12_q17": "9702-5.1-x018",
+  "9702_s20_13_q16": "9702-5.1-x019",
+  "9702_s20_13_q17": "9702-5.1-x020",
+  "9702_s20_13_q18": "9702-5.1-x021",
+  "9702_s20_13_q19": "9702-5.1-x022",
+  "9702_w20_11_q16": "9702-5.1-x023",
+  "9702_w20_11_q18": "9702-5.1-x024",
+  "9702_w20_12_q16": "9702-5.1-x025",
+  "9702_w20_12_q17": "9702-5.1-x026",
+  "9702_w20_12_q19": "9702-5.1-x027",
+  "9702_w20_13_q19": "9702-5.1-x028",
+  "9702_s21_11_q15": "9702-5.1-x029",
+  "9702_s21_11_q16": "9702-5.1-x030",
+  "9702_s21_11_q17": "9702-5.1-x031",
+  "9702_s21_11_q18": "9702-5.1-x032",
+  "9702_s21_12_q15": "9702-5.1-x033",
+  "9702_s21_12_q16": "9702-5.1-x034",
+  "9702_s21_12_q18": "9702-5.1-x035",
+  "9702_s21_13_q17": "9702-5.1-x036",
+  "9702_s21_13_q18": "9702-5.1-x037",
+  "9702_s21_13_q19": "9702-5.1-x038",
+  "9702_w21_11_q15": "9702-5.1-x039",
+  "9702_w21_11_q18": "9702-5.1-x040",
+  "9702_w21_12_q16": "9702-5.1-x041",
+  "9702_w21_12_q17": "9702-5.1-x042",
+  "9702_w21_12_q18": "9702-5.1-x043",
+  "9702_w21_13_q16": "9702-5.1-x044",
+  "9702_w21_13_q17": "9702-5.1-x045",
+  "9702_s22_11_q16": "9702-5.1-x046",
+  "9702_s22_11_q17": "9702-5.1-x047",
+  "9702_s22_12_q16": "9702-5.1-x048",
+  "9702_s22_12_q17": "9702-5.1-x049",
+  "9702_s22_13_q17": "9702-5.1-x050",
+  "9702_w22_11_q16": "9702-5.1-x051",
+  "9702_w22_12_q17": "9702-5.1-x052",
+  "9702_w22_12_q18": "9702-5.1-x053",
+  "9702_w22_13_q16": "9702-5.1-x054",
+  "9702_w22_13_q17": "9702-5.1-x055",
+  "9702_s23_11_q16": "9702-5.1-x056",
+  "9702_s23_11_q17": "9702-5.1-x057",
+  "9702_s23_12_q15": "9702-5.1-x058",
+  "9702_s23_13_q16": "9702-5.1-x059",
+  "9702_w23_11_q15": "9702-5.1-x060",
+  "9702_w23_11_q16": "9702-5.1-x061",
+  "9702_w23_12_q16": "9702-5.1-x062",
+  "9702_w23_13_q15": "9702-5.1-x063",
+  "9702_w23_13_q16": "9702-5.1-x064",
+  "9702_s24_11_q17": "9702-5.1-x065",
+  "9702_s24_11_q18": "9702-5.1-x066",
+  "9702_s24_12_q14": "9702-5.1-x067",
+  "9702_s24_12_q15": "9702-5.1-x068",
+  "9702_s24_13_q15": "9702-5.1-x069",
+  "9702_s24_13_q16": "9702-5.1-x070",
+  "9702_s24_13_q18": "9702-5.1-x071",
+  "9702_w24_11_q18": "9702-5.1-x072",
+  "9702_w24_11_q19": "9702-5.1-x073",
+  "9702_w24_12_q15": "9702-5.1-x074",
+  "9702_w24_12_q16": "9702-5.1-x075",
+  "9702_w24_12_q17": "9702-5.1-x076",
+  "9702_w24_13_q17": "9702-5.1-x077",
+  "9702_s25_11_q12": "9702-5.1-x078",
+  "9702_s25_11_q18": "9702-5.1-x079",
+  "9702_s25_12_q18": "9702-5.1-x080",
+  "9702_s25_12_q20": "9702-5.1-x081",
+  "9702_s25_13_q17": "9702-5.1-x082",
+  "9702_s25_13_q18": "9702-5.1-x083",
+  "9702_w25_11_q18": "9702-5.1-x084",
+  "9702_w25_11_q19": "9702-5.1-x085",
+  "9702_w25_12_q18": "9702-5.1-x086",
+  "9702_w25_12_q19": "9702-5.1-x087"
+ }
+}
