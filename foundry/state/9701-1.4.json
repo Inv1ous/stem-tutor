@@ -1,9 +1,28 @@
 {
  "sub": "9701-1.4",
- "stage": "solve",
+ "stage": "ready",
  "created": "2026-09-30T18:08:37+08:00",
- "updated": "2026-09-30T18:08:37+08:00",
- "history": [],
+ "updated": "2026-10-01T10:17:40+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T10:13:58+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "44 agreed, 13 disputed"
+  },
+  {
+   "t": "2026-10-01T10:17:24+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 0 checker findings"
+  },
+  {
+   "t": "2026-10-01T10:17:40+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
  "gates": {
   "ok": true,
   "validator": 0,
@@ -11,8 +30,153 @@
   "items": 67,
   "extra": 24
  },
- "disputes": [],
+ "disputes": [
+  {
+   "id": "9701-1.4-p11",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x001",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x002",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x004",
+   "key": "D",
+   "solver": "1",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x005",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x006",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x008",
+   "key": "D",
+   "solver": "1",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x009",
+   "key": "B",
+   "solver": "1 and 2",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x012",
+   "key": "D",
+   "solver": "B",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x015",
+   "key": "B",
+   "solver": "1 and 2 only",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x021",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x023",
+   "key": "C",
+   "solver": "B",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.4-x029",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
  "findings": [],
  "fixes": [],
- "jobs": {}
+ "jobs": {
+  "solver#1": {
+   "haiku": true,
+   "started": "2026-10-01T10:06:51+08:00",
+   "expects": "build/work/blind/9701-1.4.answers.part1.json",
+   "closed": "2026-10-01T10:13:58+08:00"
+  },
+  "solver#2": {
+   "haiku": true,
+   "started": "2026-10-01T10:06:51+08:00",
+   "expects": "build/work/blind/9701-1.4.answers.part2.json",
+   "closed": "2026-10-01T10:13:58+08:00"
+  },
+  "solver#3": {
+   "haiku": true,
+   "started": "2026-10-01T10:06:51+08:00",
+   "expects": "build/work/blind/9701-1.4.answers.part3.json",
+   "closed": "2026-10-01T10:13:58+08:00"
+  },
+  "checker": {
+   "haiku": true,
+   "started": "2026-10-01T10:06:51+08:00",
+   "expects": "build/work/foundry/9701-1.4.check.json",
+   "closed": "2026-10-01T10:13:58+08:00"
+  },
+  "tiebreak": {
+   "pid": 82409,
+   "model": "gpt-6-sol/medium",
+   "started": "2026-10-01T10:14:08+08:00",
+   "log": "foundry/logs/9701-1.4.tiebreak.1001-101408.log",
+   "out": "foundry/logs/9701-1.4.tiebreak.1001-101408.out.json",
+   "finished": "2026-10-01T10:14:55+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 13,
+    "answers_path": "build/work/blind/9701-1.4.tiebreak.json",
+    "notes": []
+   }
+  }
+ },
+ "checked": true
 }
