@@ -341,3 +341,11 @@ def test_queue_waits_for_a_free_slot_and_skips_a_chapter_that_cannot_start(fdy, 
     monkeypatch.setattr(fdy, "cmd_add", lambda subs, stage="draft": None)
     fdy.cmd_queue("drafter", [SUB, "bad", "next"], wait=0)
     assert calls == [SUB, SUB, SUB, "bad", "next"]  # two full houses, then started; the bad one is skipped, not retried
+
+
+def test_a_finished_job_does_not_count_as_running_even_if_its_process_lingers(fdy):
+    import os
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:  # a finished worker not yet reaped by its parent (the queue) still answers kill(pid, 0)
+        st["jobs"]["drafter"] = {"pid": os.getpid(), "started": fdy.now(), "finished": fdy.now(), "exit": 0}
+    assert fdy._running(fdy.load(SUB)) == []

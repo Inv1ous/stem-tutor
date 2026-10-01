@@ -190,8 +190,8 @@ def cmd_add(subs: list[str], stage: str = "draft") -> None:
 
 def _running(st: dict) -> list[str]:
     """Roles working on this chapter now: headless workers still alive, or a job you run by hand not yet reported."""
-    return [r for r, j in st["jobs"].items()
-            if _alive(j.get("pid")) or (j.get("manual") and not j.get("finished"))]
+    return [r for r, j in st["jobs"].items()  # a finished worker can linger as a zombie until its parent reaps it
+            if not j.get("finished") and (_alive(j.get("pid")) or j.get("manual"))]
 
 
 def _haiku(st: dict) -> tuple[list[str], list[str]]:
