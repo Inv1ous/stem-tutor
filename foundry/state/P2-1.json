@@ -1,0 +1,74 @@
+{
+ "sub": "P2-1",
+ "stage": "ready",
+ "created": "2026-10-01T10:44:10+08:00",
+ "updated": "2026-10-01T15:44:22+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T15:32:24+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 18 items"
+  },
+  {
+   "t": "2026-10-01T15:44:13+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "17 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-01T15:44:22+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 18,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 14546,
+   "model": "gpt-6-sol/medium",
+   "started": "2026-10-01T15:27:36+08:00",
+   "log": "foundry/logs/P2-1.drafter.1001-152736.log",
+   "out": "foundry/logs/P2-1.drafter.1001-152736.out.json",
+   "finished": "2026-10-01T15:32:24+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/P2/P2-1.json",
+    "note_path": "build/out/notes/Subjects/Maths/P2 Pure Mathematics 2/1 Proof.md",
+    "items": 18,
+    "templates": 0,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "The bundle’s exhaustion example says “odd integers less than 7,” which includes infinitely many negative integers. The finite-case proof explicitly uses positive odd integers."
+    ]
+   }
+  },
+  "solver": {
+   "haiku": true,
+   "started": "2026-10-01T15:39:57+08:00",
+   "expects": "build/work/blind/P2-1.answers.json",
+   "closed": "2026-10-01T15:44:13+08:00"
+  },
+  "checker": {
+   "haiku": true,
+   "started": "2026-10-01T15:39:57+08:00",
+   "expects": "build/work/foundry/P2-1.check.json",
+   "closed": "2026-10-01T15:44:13+08:00"
+  }
+ },
+ "extra_ids": {},
+ "checked": true
+}

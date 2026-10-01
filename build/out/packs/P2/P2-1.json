@@ -1,0 +1,887 @@
+{
+ "subtopic": "P2-1",
+ "spec": "P2",
+ "version": 1,
+ "note": "Subjects/Maths/P2 Pure Mathematics 2/1 Proof.md",
+ "outline": "A proof begins from stated assumptions and reaches a conclusion through justified logical steps. Proof by exhaustion identifies a complete finite domain and checks every case; for two chosen values, include equal-value pairs unless excluded. A universal claim is disproved by one counterexample that satisfies the assumptions and makes the conclusion false. Positive odd integers below 7 are $1,3,5$; their six unordered pairs all have even sums. For $n^2-n+1$, $n=5$ gives $21=3\\times7$, disproving the claim that it is always prime.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "P2-1.1",
+   "statement": "Several correct examples prove a claim about every integer.",
+   "refutation": "A universal claim needs an argument covering its whole domain. Any finite sample can miss an exception.",
+   "contrast": "Checking $n=1,2,3$ does not establish a claim for every integer; one valid counterexample can disprove it.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "P2-1.2",
+   "statement": "Testing a few cases is proof by exhaustion even when the domain has more cases.",
+   "refutation": "Exhaustion works only after the complete finite set of possible cases has been identified and every case checked.",
+   "contrast": "For positive odd integers below 7 the complete list is $1,3,5$; omitting 5 leaves the argument unfinished.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "P2-1.2",
+   "statement": "For two numbers, checking only pairs of distinct values covers every case.",
+   "refutation": "The two numbers may be equal unless the assumptions exclude equality. Repeated-value pairs must be included.",
+   "contrast": "The pair $(3,3)$ is allowed when $x$ and $y$ are positive odd integers below 7.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "P2-1.3",
+   "statement": "A single prime value proves a formula is prime for all positive integers.",
+   "refutation": "One instance supports only that instance. To disprove a universal prime claim, find one allowed input with a composite output.",
+   "contrast": "At $n=5$, $n^2-n+1=21=3\\times7$, so the universal prime claim is false.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "P2-1.3",
+   "statement": "A counterexample may be outside the stated domain or merely look suspicious.",
+   "refutation": "The input must satisfy every assumption, and the conclusion must demonstrably fail.",
+   "contrast": "If the claim is for positive integers, $n=-1$ is inadmissible; $n=5$ is admissible and gives a proven composite value.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "P2-1.2",
+   "problem": "Prove by exhaustion that $x+y$ is divisible by 2 when $x,y$ are positive odd integers less than 7.",
+   "steps": [
+    {
+     "do": "List the complete possibilities: $x,y\\in\\{1,3,5\\}$.",
+     "why": "Exhaustion needs a finite, complete domain."
+    },
+    {
+     "do": "Up to swapping, list $(1,1),(1,3),(1,5),(3,3),(3,5),(5,5)$.",
+     "why": "The sum is unchanged by swapping, but equal-value pairs still count."
+    },
+    {
+     "do": "Their sums are $2,4,6,6,8,10$, all divisible by 2.",
+     "why": "Checking every permitted pair establishes the universal conclusion for this domain."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "If $x,y$ are positive odd integers less than 5, how many unordered pairs must be checked in a proof by exhaustion?",
+    "answer": {
+     "value": 3,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "P2-1.3",
+   "problem": "Disprove the claim that $n^2-n+1$ is prime for every positive integer $n$.",
+   "steps": [
+    {
+     "do": "Choose the admissible input $n=5$.",
+     "why": "A universal claim needs only one valid counterexample to be false."
+    },
+    {
+     "do": "Calculate $5^2-5+1=21$.",
+     "why": "The output must be evaluated exactly before testing primality.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 21,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Factor $21=3\\times7$. Therefore 21 is composite, so the claim is false.",
+     "why": "A factorisation using factors greater than 1 proves the output is not prime."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Disprove the claim that $n^2-n+1$ is prime for every integer $n\\geq10$ by using $n=11$. Calculate the output and factor it.",
+    "answer": {
+     "value": 111,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "P2-1-i01",
+   "kcs": [
+    "P2-1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which sequence describes the structure of a mathematical proof?",
+   "options": {
+    "A": "Assumptions, justified logical steps, conclusion",
+    "B": "Conclusion, examples, assumption",
+    "C": "Guess, diagram, conclusion",
+    "D": "Examples, pattern, unproved conclusion"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "A proof starts with stated assumptions, makes each inference valid, and reaches the claimed conclusion. Examples alone cannot justify a universal conclusion.",
+   "hints": [
+    "Think about what may be used at the start.",
+    "Each line must follow from earlier lines or a stated fact.",
+    "Look for a chain from what is given to what is claimed."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "D": "m1"
+   }
+  },
+  {
+   "id": "P2-1-i02",
+   "kcs": [
+    "P2-1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A student checks that $n^2+n$ is even for $n=1,2,3$ and concludes it is even for every integer $n$. What is missing?",
+   "options": {
+    "A": "A step covering every integer",
+    "B": "One more positive example",
+    "C": "A decimal approximation",
+    "D": "A different order for the three examples"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Three examples do not cover all integers. A proof can write $n^2+n=n(n+1)$ and use the fact that consecutive integers include an even number.",
+   "hints": [
+    "Compare the number of tested inputs with the stated domain.",
+    "A universal statement needs a reason that applies to any allowed input.",
+    "Consider what remains untested after three substitutions."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m1"
+   }
+  },
+  {
+   "id": "P2-1-i03",
+   "kcs": [
+    "P2-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the statement of assumptions matters in a proof.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The assumptions specify the allowed domain or starting facts.",
+     "keywords": [
+      [
+       "domain",
+       "allowed",
+       "given"
+      ],
+      [
+       "starting",
+       "facts",
+       "values",
+       "inputs"
+      ]
+     ]
+    },
+    {
+     "point": "Each later step must follow from those assumptions or established results.",
+     "keywords": [
+      [
+       "step",
+       "conclusion",
+       "inference"
+      ],
+      [
+       "follow",
+       "justify",
+       "valid"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The assumptions fix exactly which cases are being considered. Logical steps then establish the conclusion for those cases.",
+   "hints": [
+    "Ask what the claim is about.",
+    "A proof needs a justified starting point and justified inferences.",
+    "Name the permitted inputs before considering the conclusion."
+   ]
+  },
+  {
+   "id": "P2-1-i04",
+   "kcs": [
+    "P2-1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Verify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which argument proves that $n(n+1)$ is even for every integer $n$?",
+   "options": {
+    "A": "Consecutive integers include an even integer; therefore their product is even.",
+    "B": "The result holds for $n=1,2,3$; therefore it holds for every integer.",
+    "C": "The product is usually even, so the exceptions can be ignored.",
+    "D": "Assume the product is even; therefore it is even."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Every integer and its successor are consecutive, so one factor is even and their product is even. The other arguments sample, ignore possible exceptions, or assume the conclusion.",
+   "hints": [
+    "Find an argument valid for any integer.",
+    "Use a property of two consecutive integers.",
+    "Check that the conclusion follows from a fact rather than being assumed."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m1"
+   }
+  },
+  {
+   "id": "P2-1-i05",
+   "kcs": [
+    "P2-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the conclusion reached from the assumptions '$n$ is an integer' and '$n=2k$ for some integer $k$' after calculating $n^2=4k^2$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$n^2$ is divisible by 4.",
+     "keywords": [
+      [
+       "n^2",
+       "square"
+      ],
+      [
+       "divisible",
+       "multiple"
+      ],
+      [
+       "4"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Since $k^2$ is an integer, $n^2=4k^2$ is a multiple of 4.",
+   "hints": [
+    "Interpret the displayed factor of 4.",
+    "An integer multiple of 4 is divisible by 4.",
+    "Use that $k^2$ remains an integer."
+   ]
+  },
+  {
+   "id": "P2-1-i06",
+   "kcs": [
+    "P2-1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A proposed proof begins, 'Let $n$ be any positive integer. Since $n=2k$, $n^2$ is divisible by 4.' Identify the flaw.",
+   "options": {
+    "A": "Not every positive integer has the form $2k$.",
+    "B": "Squaring $2k$ does not give $4k^2$.",
+    "C": "A multiple of 4 is never even.",
+    "D": "A proof may not begin with an arbitrary integer."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Writing $n=2k$ silently restricts $n$ to even integers, contrary to the original domain. The algebra is valid only under that added assumption.",
+   "hints": [
+    "Compare the chosen form of $n$ with its stated domain.",
+    "Test whether the form can represent an odd integer.",
+    "Find the first step that is not justified by the assumptions."
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "P2-1-i07",
+   "kcs": [
+    "P2-1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which set lists all positive odd integers less than 7?",
+   "options": {
+    "A": "$\\{1,3,5\\}$",
+    "B": "$\\{1,3\\}$",
+    "C": "$\\{1,3,5,7\\}$",
+    "D": "$\\{3,5\\}$"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The positive odd integers below 7 are 1, 3 and 5. Including 7 violates the strict bound; omitting 1 or 5 misses a case.",
+   "hints": [
+    "Start at the smallest positive odd integer.",
+    "Advance by two while staying below the bound.",
+    "Check whether the upper bound itself is allowed."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m2",
+    "D": "m2"
+   }
+  },
+  {
+   "id": "P2-1-i08",
+   "kcs": [
+    "P2-1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "How many unordered pairs $(x,y)$, allowing $x=y$, can be formed from $\\{1,3,5\\}$?",
+   "options": {
+    "A": "6",
+    "B": "3",
+    "C": "9",
+    "D": "5"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "There are three equal pairs and three pairs with distinct entries, so six unordered pairs. Counting only distinct pairs omits cases; counting all ordered pairs double counts swaps.",
+   "hints": [
+    "List pairs beginning with 1, then with 3, then with 5.",
+    "Remember that a number can be paired with itself.",
+    "Treat a swapped pair as the same pair here."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m3"
+   }
+  },
+  {
+   "id": "P2-1-i09",
+   "kcs": [
+    "P2-1.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Let $x$ and $y$ be positive odd integers less than 7. Prove by exhaustion that $x+y$ is divisible by 2.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Lists the complete allowed values $1,3,5$.",
+     "keywords": [
+      [
+       "1"
+      ],
+      [
+       "3"
+      ],
+      [
+       "5"
+      ]
+     ]
+    },
+    {
+     "point": "Checks all six unordered pairs, including equal pairs.",
+     "keywords": [
+      [
+       "six",
+       "6",
+       "all"
+      ],
+      [
+       "pairs",
+       "cases"
+      ],
+      [
+       "equal",
+       "same",
+       "repeated"
+      ]
+     ]
+    },
+    {
+     "point": "Concludes all sums are even or divisible by 2.",
+     "keywords": [
+      [
+       "sum",
+       "sums"
+      ],
+      [
+       "even",
+       "divisible by 2"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The unordered pairs are $(1,1),(1,3),(1,5),(3,3),(3,5),(5,5)$, with sums $2,4,6,6,8,10$. All six sums are multiples of 2.",
+   "hints": [
+    "First list every allowed value.",
+    "A swapped pair has the same sum, but an equal-value pair is still allowed.",
+    "Compute the sum for every unordered pair."
+   ]
+  },
+  {
+   "id": "P2-1-i10",
+   "kcs": [
+    "P2-1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Verify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A student checks $(1,1),(1,3),(1,5),(3,5),(5,5)$ for positive odd $x,y<7$. Is this exhaustive?",
+   "options": {
+    "A": "No: $(3,3)$ is missing.",
+    "B": "Yes: every distinct-value pair is present.",
+    "C": "No: $(7,7)$ is missing.",
+    "D": "No: there are infinitely many positive odd integers below 7."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The pair $(3,3)$ satisfies the assumptions and is missing. Equal values must be checked unless the problem requires distinct values.",
+   "hints": [
+    "Check the complete set of allowed values.",
+    "Try pairing the middle value with itself.",
+    "The strict bound rules out the endpoint."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m3"
+   }
+  },
+  {
+   "id": "P2-1-i11",
+   "kcs": [
+    "P2-1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why checking $n=1,2,3,4,5$ proves a statement for every integer $n$ with $1\\leq n\\leq5$, provided each check succeeds.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The assumptions leave exactly five possible integer values.",
+     "keywords": [
+      [
+       "five",
+       "5"
+      ],
+      [
+       "possible",
+       "allowed",
+       "integer"
+      ]
+     ]
+    },
+    {
+     "point": "Every case has been checked, so the conclusion holds throughout the domain.",
+     "keywords": [
+      [
+       "every",
+       "all"
+      ],
+      [
+       "checked",
+       "tested"
+      ],
+      [
+       "conclusion",
+       "statement",
+       "holds"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The domain is finite and consists exactly of those five integers. Successful checks for each one cover the entire claim.",
+   "hints": [
+    "Identify the domain first.",
+    "Ask whether any allowed integer remains unchecked.",
+    "Only a complete finite list supports exhaustion."
+   ]
+  },
+  {
+   "id": "P2-1-i12",
+   "kcs": [
+    "P2-1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A student writes, 'If $x,y$ are odd integers less than 7, then $x,y\\in\\{1,3,5\\}$; checking those values proves the claim.' Why is the argument incomplete as stated?",
+   "options": {
+    "A": "Negative odd integers also satisfy the assumptions.",
+    "B": "The three displayed numbers are not odd.",
+    "C": "The sum of two odd integers is never even.",
+    "D": "The number 7 must be included."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The phrase 'odd integers less than 7' includes negative odd integers, so the proposed finite list is not complete. Adding 'positive' makes that list exhaustive.",
+   "hints": [
+    "Read the domain literally.",
+    "Is there a lower bound on the integers?",
+    "Try an odd integer below zero."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m2"
+   }
+  },
+  {
+   "id": "P2-1-i13",
+   "kcs": [
+    "P2-1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "What is sufficient to disprove a claim that a property holds for every positive integer?",
+   "options": {
+    "A": "One allowed input for which the property fails",
+    "B": "Three allowed inputs for which it holds",
+    "C": "A guess that a failure exists",
+    "D": "An input outside the stated domain"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "A universal claim fails as soon as one admissible counterexample is established. Examples where it succeeds cannot disprove it.",
+   "hints": [
+    "Focus on the word 'every'.",
+    "Ask how many failures are needed to make 'every' false.",
+    "Check that any proposed input satisfies the assumptions."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "D": "m5"
+   }
+  },
+  {
+   "id": "P2-1-i14",
+   "kcs": [
+    "P2-1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $f(n)=n^2-n+1$, which value is $f(5)$?",
+   "options": {
+    "A": "21",
+    "B": "31",
+    "C": "20",
+    "D": "24"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Substitution gives $f(5)=25-5+1=21$. This is composite because $21=3\\times7$.",
+   "hints": [
+    "Substitute for every occurrence of $n$.",
+    "Square before subtracting.",
+    "Keep the final $+1$ term."
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "P2-1-i15",
+   "kcs": [
+    "P2-1.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Disprove the claim '$n^2-n+1$ is prime for every positive integer $n$'.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Chooses the admissible input $n=5$.",
+     "keywords": [
+      [
+       "n=5",
+       "n = 5",
+       "5"
+      ]
+     ]
+    },
+    {
+     "point": "Calculates $n^2-n+1=21$.",
+     "keywords": [
+      [
+       "21"
+      ]
+     ]
+    },
+    {
+     "point": "Shows $21=3\\times7$, so it is composite and the universal claim is false.",
+     "keywords": [
+      [
+       "3"
+      ],
+      [
+       "7"
+      ],
+      [
+       "composite",
+       "not prime"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For the positive integer $n=5$, the expression equals $25-5+1=21=3\\times7$. Since 21 is composite, the statement for every positive integer is false.",
+   "hints": [
+    "You need just one allowed failure.",
+    "Look for an input that makes the output divisible by 3.",
+    "After substitution, factor the output to establish that it is not prime."
+   ]
+  },
+  {
+   "id": "P2-1-i16",
+   "kcs": [
+    "P2-1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A student finds $f(4)=13$ for $f(n)=n^2-n+1$ and says this proves $f(n)$ is prime for every positive integer. What is the error?",
+   "options": {
+    "A": "One prime output cannot establish a universal claim.",
+    "B": "$13$ is composite.",
+    "C": "$4$ is not a positive integer.",
+    "D": "A counterexample must use a negative integer."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The calculation at $n=4$ is correct and 13 is prime, but it proves only that instance. The value $n=5$ yields 21, which is composite.",
+   "hints": [
+    "Separate checking one input from proving all inputs.",
+    "The calculation at 4 may be correct yet insufficient.",
+    "Test a neighboring positive integer."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m4"
+   }
+  },
+  {
+   "id": "P2-1-i17",
+   "kcs": [
+    "P2-1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Verify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which calculation is a valid counterexample to '$n^2-n+1$ is prime for every positive integer $n$'?",
+   "options": {
+    "A": "$n=5:\\ 21=3\\times7$",
+    "B": "$n=4:\\ 13$ is prime",
+    "C": "$n=6:\\ 31$ is prime",
+    "D": "$n=7:\\ 43$ is prime"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "At the allowed input $n=5$, the output is $21=3\\times7$, so it is not prime. The other calculations give prime values and cannot refute the universal claim.",
+   "hints": [
+    "A counterexample must make the claimed property fail.",
+    "Prime outputs support their individual cases.",
+    "Find the option with a factorisation into smaller integers."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m4"
+   }
+  },
+  {
+   "id": "P2-1-i18",
+   "kcs": [
+    "P2-1.3"
+   ],
+   "kind": "short",
+   "difficulty": 5,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A claim says '$n^2-n+1$ is prime for every positive integer $n$'. Explain why choosing $n=-1$ is not a valid counterexample, even if its output were composite.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "$-1$ is not a positive integer and so violates the assumption.",
+     "keywords": [
+      [
+       "-1"
+      ],
+      [
+       "not positive",
+       "negative",
+       "outside"
+      ]
+     ]
+    },
+    {
+     "point": "A counterexample must be within the stated domain and make the conclusion false.",
+     "keywords": [
+      [
+       "counterexample"
+      ],
+      [
+       "domain",
+       "allowed",
+       "assumption"
+      ],
+      [
+       "false",
+       "fail",
+       "composite"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The input $-1$ is outside the positive-integer domain, so it cannot refute the stated claim. A valid counterexample must satisfy the assumptions and violate the conclusion.",
+   "hints": [
+    "Look at the quantifier's domain.",
+    "Check whether the proposed input is admissible.",
+    "Only an allowed input can refute the stated universal claim."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "P2-1.1",
+   "front": "State the basic structure of a mathematical proof.",
+   "back": "State the assumptions, give justified logical steps, and reach the required conclusion."
+  },
+  {
+   "id": "fc2",
+   "kc": "P2-1.2",
+   "front": "When is proof by exhaustion valid?",
+   "back": "When all possible cases form a finite complete list and each case is checked."
+  },
+  {
+   "id": "fc3",
+   "kc": "P2-1.3",
+   "front": "What makes a valid counterexample to a universal statement?",
+   "back": "An input satisfying the assumptions for which the claimed conclusion is false."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "P2-1.1": {
+   "motivate": "A convincing pattern is not yet a proof. In an exam, a marker must be able to follow why the result holds for every value covered by the question.",
+   "discover": {
+    "stem": "A student checks three values and claims a statement holds for every integer. What is still needed?",
+    "options": {
+     "A": "A logical reason covering every integer",
+     "B": "Three more examples",
+     "C": "A sketch",
+     "D": "A decimal answer"
+    },
+    "answer": "A",
+    "explanation": "No finite sample covers every integer; the proof needs a valid general step."
+   },
+   "establish": "A mathematical proof starts from stated assumptions: the given facts and the domain of allowed values. Each following line must be a logical consequence of those assumptions or an established result. The final line states precisely the conclusion required. If a line quietly adds a new assumption, the argument may prove only a narrower statement. For example, from '$n$ is an integer' you cannot write $n=2k$ without also assuming that $n$ is even. Check the chain in both directions: does each step follow, and does the final conclusion answer the original claim?",
+   "connect": "Proof by exhaustion and disproof by counterexample use this same structure. In each, the stated domain determines which cases or inputs are allowed.",
+   "note": "- Start with the assumptions and the allowed domain.\n- Justify each logical step.\n- End with the exact conclusion claimed.",
+   "self_explain": "Which step of an argument would you challenge if it assumes an integer is even without saying so?",
+   "source": "pack"
+  },
+  "P2-1.2": {
+   "motivate": "When only finitely many possibilities are allowed, a complete list can be a rigorous proof. The hard part is showing that the list really is complete.",
+   "discover": {
+    "stem": "If $x,y\\in\\{1,3,5\\}$ and swapping them does not change the result, which pair is easy to omit?",
+    "options": {
+     "A": "$(3,3)$",
+     "B": "$(1,7)$",
+     "C": "$(7,7)$",
+     "D": "$(0,5)$"
+    },
+    "answer": "A",
+    "explanation": "Equal-value pairs are allowed; the other pairs contain values outside the domain."
+   },
+   "establish": "Proof by exhaustion means trying all possible cases. First establish a finite, complete list from the assumptions. Then check the conclusion in each case and state that every case has passed. For positive odd integers less than 7, the only values are $1,3,5$. If both $x$ and $y$ may take these values, the unordered pairs are $(1,1),(1,3),(1,5),(3,3),(3,5),(5,5)$. For the claim that $x+y$ is divisible by 2, their sums are $2,4,6,6,8,10$, all even. Swapping a pair gives the same sum, so unordered pairs suffice here. If the question merely says 'odd integers less than 7', negative odd integers are also allowed and this three-value list is incomplete.",
+   "connect": "Exhaustion depends on proof structure: the initial assumptions justify the case list, and the final conclusion follows only after every case is checked.",
+   "note": "- Identify a finite, complete set of cases.\n- Include equal-value cases unless excluded.\n- Check each case, then conclude for the whole domain.",
+   "self_explain": "Why is checking $(1,3)$ enough to cover $(3,1)$ for a sum, while $(3,3)$ still needs checking?",
+   "source": "pack"
+  },
+  "P2-1.3": {
+   "motivate": "A claim about every positive integer can collapse at one input. Finding and explaining that failure is often quicker than trying many successful examples.",
+   "discover": {
+    "stem": "Which result disproves '$n^2-n+1$ is prime for every positive integer $n$'?",
+    "options": {
+     "A": "$n=5$ gives $21=3\\times7$",
+     "B": "$n=4$ gives the prime 13",
+     "C": "$n=6$ gives the prime 31",
+     "D": "$n=7$ gives the prime 43"
+    },
+    "answer": "A",
+    "explanation": "The allowed input 5 gives a composite output, so the universal claim is false."
+   },
+   "establish": "Disproof by counterexample means giving one input that satisfies the assumptions but makes the claimed conclusion false. For '$n^2-n+1$ is prime for all positive integers $n$', choose $n=5$. Then $n^2-n+1=25-5+1=21=3\\times7$. Because 21 has factors other than 1 and itself, it is composite. Therefore the claim is false. A prime output at another input proves only that instance. The counterexample must lie inside the domain: a negative integer cannot refute a statement restricted to positive integers. Calculate and justify the failure explicitly; merely guessing that a value is not prime is insufficient.",
+   "connect": "A single valid counterexample disproves a universal claim. By contrast, proof by exhaustion establishes a claim only after every allowed case has succeeded.",
+   "note": "- Choose an input inside the stated domain.\n- Calculate the claimed expression exactly.\n- Show that the conclusion fails, then reject the universal claim.",
+   "self_explain": "Why does $n=5$ settle the prime claim, while $n=4$ does not prove it?",
+   "source": "pack"
+  }
+ }
+}

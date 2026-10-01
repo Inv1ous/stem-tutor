@@ -1,0 +1,177 @@
+[
+ {
+  "id": "P2-1-i01",
+  "kind": "mcq",
+  "stem": "Which sequence describes the structure of a mathematical proof?",
+  "options": {
+   "A": "Guess, diagram, conclusion",
+   "B": "Assumptions, justified logical steps, conclusion",
+   "C": "Conclusion, examples, assumption",
+   "D": "Examples, pattern, unproved conclusion"
+  }
+ },
+ {
+  "id": "P2-1-i02",
+  "kind": "mcq",
+  "stem": "A student checks that $n^2+n$ is even for $n=1,2,3$ and concludes it is even for every integer $n$. What is missing?",
+  "options": {
+   "A": "A decimal approximation",
+   "B": "A step covering every integer",
+   "C": "One more positive example",
+   "D": "A different order for the three examples"
+  }
+ },
+ {
+  "id": "P2-1-i04",
+  "kind": "mcq",
+  "stem": "Which argument proves that $n(n+1)$ is even for every integer $n$?",
+  "options": {
+   "A": "The product is usually even, so the exceptions can be ignored.",
+   "B": "Consecutive integers include an even integer; therefore their product is even.",
+   "C": "The result holds for $n=1,2,3$; therefore it holds for every integer.",
+   "D": "Assume the product is even; therefore it is even."
+  }
+ },
+ {
+  "id": "P2-1-i06",
+  "kind": "mcq",
+  "stem": "A proposed proof begins, 'Let $n$ be any positive integer. Since $n=2k$, $n^2$ is divisible by 4.' Identify the flaw.",
+  "options": {
+   "A": "A multiple of 4 is never even.",
+   "B": "Not every positive integer has the form $2k$.",
+   "C": "Squaring $2k$ does not give $4k^2$.",
+   "D": "A proof may not begin with an arbitrary integer."
+  }
+ },
+ {
+  "id": "P2-1-i07",
+  "kind": "mcq",
+  "stem": "Which set lists all positive odd integers less than 7?",
+  "options": {
+   "A": "$\\{1,3,5,7\\}$",
+   "B": "$\\{1,3,5\\}$",
+   "C": "$\\{1,3\\}$",
+   "D": "$\\{3,5\\}$"
+  }
+ },
+ {
+  "id": "P2-1-i08",
+  "kind": "mcq",
+  "stem": "How many unordered pairs $(x,y)$, allowing $x=y$, can be formed from $\\{1,3,5\\}$?",
+  "options": {
+   "A": "9",
+   "B": "6",
+   "C": "3",
+   "D": "5"
+  }
+ },
+ {
+  "id": "P2-1-i10",
+  "kind": "mcq",
+  "stem": "A student checks $(1,1),(1,3),(1,5),(3,5),(5,5)$ for positive odd $x,y<7$. Is this exhaustive?",
+  "options": {
+   "A": "No: $(7,7)$ is missing.",
+   "B": "No: $(3,3)$ is missing.",
+   "C": "Yes: every distinct-value pair is present.",
+   "D": "No: there are infinitely many positive odd integers below 7."
+  }
+ },
+ {
+  "id": "P2-1-i12",
+  "kind": "mcq",
+  "stem": "A student writes, 'If $x,y$ are odd integers less than 7, then $x,y\\in\\{1,3,5\\}$; checking those values proves the claim.' Why is the argument incomplete as stated?",
+  "options": {
+   "A": "The sum of two odd integers is never even.",
+   "B": "Negative odd integers also satisfy the assumptions.",
+   "C": "The three displayed numbers are not odd.",
+   "D": "The number 7 must be included."
+  }
+ },
+ {
+  "id": "P2-1-i13",
+  "kind": "mcq",
+  "stem": "What is sufficient to disprove a claim that a property holds for every positive integer?",
+  "options": {
+   "A": "A guess that a failure exists",
+   "B": "One allowed input for which the property fails",
+   "C": "Three allowed inputs for which it holds",
+   "D": "An input outside the stated domain"
+  }
+ },
+ {
+  "id": "P2-1-i14",
+  "kind": "mcq",
+  "stem": "For $f(n)=n^2-n+1$, which value is $f(5)$?",
+  "options": {
+   "A": "20",
+   "B": "21",
+   "C": "31",
+   "D": "24"
+  }
+ },
+ {
+  "id": "P2-1-i16",
+  "kind": "mcq",
+  "stem": "A student finds $f(4)=13$ for $f(n)=n^2-n+1$ and says this proves $f(n)$ is prime for every positive integer. What is the error?",
+  "options": {
+   "A": "$4$ is not a positive integer.",
+   "B": "One prime output cannot establish a universal claim.",
+   "C": "$13$ is composite.",
+   "D": "A counterexample must use a negative integer."
+  }
+ },
+ {
+  "id": "P2-1-i17",
+  "kind": "mcq",
+  "stem": "Which calculation is a valid counterexample to '$n^2-n+1$ is prime for every positive integer $n$'?",
+  "options": {
+   "A": "$n=6:\\ 31$ is prime",
+   "B": "$n=5:\\ 21=3\\times7$",
+   "C": "$n=4:\\ 13$ is prime",
+   "D": "$n=7:\\ 43$ is prime"
+  }
+ },
+ {
+  "id": "we1.faded",
+  "kind": "numeric",
+  "stem": "If $x,y$ are positive odd integers less than 5, how many unordered pairs must be checked in a proof by exhaustion?"
+ },
+ {
+  "id": "we2.faded",
+  "kind": "numeric",
+  "stem": "Disprove the claim that $n^2-n+1$ is prime for every integer $n\\geq10$ by using $n=11$. Calculate the output and factor it."
+ },
+ {
+  "id": "P2-1.1.discover",
+  "kind": "mcq",
+  "stem": "A student checks three values and claims a statement holds for every integer. What is still needed?",
+  "options": {
+   "A": "A logical reason covering every integer",
+   "B": "Three more examples",
+   "C": "A sketch",
+   "D": "A decimal answer"
+  }
+ },
+ {
+  "id": "P2-1.2.discover",
+  "kind": "mcq",
+  "stem": "If $x,y\\in\\{1,3,5\\}$ and swapping them does not change the result, which pair is easy to omit?",
+  "options": {
+   "A": "$(3,3)$",
+   "B": "$(1,7)$",
+   "C": "$(7,7)$",
+   "D": "$(0,5)$"
+  }
+ },
+ {
+  "id": "P2-1.3.discover",
+  "kind": "mcq",
+  "stem": "Which result disproves '$n^2-n+1$ is prime for every positive integer $n$'?",
+  "options": {
+   "A": "$n=5$ gives $21=3\\times7$",
+   "B": "$n=4$ gives the prime 13",
+   "C": "$n=6$ gives the prime 31",
+   "D": "$n=7$ gives the prime 43"
+  }
+ }
+]
