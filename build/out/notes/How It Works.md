@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.2.2_
+_Version 1.2.3_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,15 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 1.2.3
+> - **Ask about an answer as soon as it is marked.** In a check with no hints, the tutor had quietly lined up the next question, so asking the AI about the one just marked was refused ("answer it first"). Questions now come one at a time: once yours is marked, you can always ask (ctrl+t) or have it explained.
+> - **The AI tutor knows what you wrote.** When you ask about a marked answer, it is told your answer and why a mark was lost, so it can answer the question you actually have.
+> - **A lost mark says why.** Now and the lesson record used to say just "incorrect" for a right value that lost a mark. They now give the exam point, for example `1 s.f. (want 2/3)`: one significant figure was given and two or three were wanted.
+> - **Typed powers are read properly.** `10³ J` is a thousand joules (it was read as 103). A power the tutor can't use as a number, like `5²`, is asked for again instead of being marked.
+> - **Only help you received counts as a hint.** If the AI was signed out or over its limit when you asked, your answer still counts as your own.
+> - **Nothing is recorded twice.** If the tutor stops in the middle of saving an answer, it picks up exactly where the record ends.
+> - **The mistake journal shows past-paper questions** (it used to say "not recorded").
 
 > [!example] New in 1.2.2
 > - **Chapters are checked against the syllabus, outcome by outcome.** A new chapter can't reach you unless every syllabus learning outcome in it is taught, covered by the notes and asked the way the syllabus words it, and the whole syllabus is tracked so nothing is left out.
@@ -167,7 +176,7 @@ A lesson works like a good private tutor, and every step has a reason.
 - **Multiple choice:** move with **↑ ↓** and press **⏎**, or press the letter **A–D**. Press **0** for *I don't know*.
 - **How sure are you?** After choosing, rate your confidence **1–4**: 1 guess, 2 unsure, 3 fairly sure, 4 certain. Changed your mind? Press **Esc** to go back to the options. Be honest. A *confident* wrong answer is the best moment to fix a misunderstanding, so the tutor makes a point of it. A right answer you were unsure about comes back sooner than one you were certain of.
 - **Optional note:** under the options you can type why you chose it (**Tab** to reach the box). It goes into the lesson record.
-- **Number answers:** type the value **with its unit**, e.g. `19.6 m s-1` or `4.5e-3 mol dm-3`, then ⏎ and your confidence. Brackets and minus signs like `(−1)` are fine. The tutor checks the value, the unit and significant figures. A right value with a missing unit or the wrong number of significant figures shows as **"Right value, but a mark lost"**, just like in the exam. Type the final number, not a sum (`500 + 1` isn't worked out). If a question wants just a number (a count, a ratio, a value "in mm"), type only the number: add a unit and the tutor asks you to send it again, with no mark lost.
+- **Number answers:** type the value **with its unit**, e.g. `19.6 m s-1` or `4.5e-3 mol dm-3`, then ⏎ and your confidence. Brackets and minus signs like `(−1)` are fine. The tutor checks the value, the unit and significant figures. A right value with a missing unit or the wrong number of significant figures shows as **"Right value, but a mark lost"**, just like in the exam. Type the final number, not a sum (`500 + 1` isn't worked out); a power of ten is fine as `4.5e-3`, `4.5×10^-3` or `10³`. If a question wants just a number (a count, a ratio, a value "in mm"), type only the number: add a unit and the tutor asks you to send it again, with no mark lost.
 - **Formula answers:** type them as you would write them: `u^2 + 2as`, `u² + 2as`, `2πr` and `√(2gh)` all work. If the tutor can't read one, it asks you to type it again.
 - **Written answers** (definitions, explanations): type them. The AI examiner always compares your wording with the mark points, because spotting the right words isn't enough ("velocity is the rate of change of velocity" has all the right words in the wrong places). Without AI, you tick which points you really covered.
 - **Long questions:** write your full working in the box, then **ctrl+s**. The mark scheme appears as a checklist: tick each mark you really earned with the space bar. Honest self-marking is itself excellent practice. You can also ask the **AI examiner** to check your marking.

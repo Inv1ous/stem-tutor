@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.2.3 — 2026-10-01
+
+Bug hunt with Codex (`bugwatch/`, B-035 to B-039) and two bugs from the learner's own lesson.
+
+- **One question at a time in the app (reported by the learner).** The engine opened questions two at a time while
+  the app showed one. After the first was marked, the unseen second was still open: in a no-help check, asking the AI
+  about the marked answer was refused ("answer it first"); in an assisted pair the unseen question was silently marked
+  as hinted, and its time included the time spent on the first. The app now runs the engine with `one_at_a_time`: the
+  rest of a batch waits in `session["queue"]` and opens (clock, Now, lesson log, help rules, AI context) only when it
+  comes on screen. Same questions, same order; the chat interface is unchanged.
+- **A lost mark says why.** Now and the lesson log called a right value with a mark lost "incorrect" with no reason;
+  they now give the exam point. The AI's context for a marked answer carries what the learner wrote and that point.
+- **B-036** `10³ J` was read as 103 J (and missed by the AI leak guard). A typed power of ten is a number; any other
+  power (`5²`) is unreadable, so the question stays open.
+- **B-038** An answer that reached the log but no save (the app stopped in between) left the saved state behind the
+  log and the question open, to be recorded twice. The state records the newest event it holds and is rebuilt when the
+  log is ahead; a question whose answer is already logged is closed on start.
+- **B-039** AI help counted as a hint before the reply arrived, so a failed or withheld reply cost the credit for an
+  unaided answer. It counts once a reply is shown.
+- **B-037** The mistake journal and session note found only written questions (`-i01`); past-paper questions and
+  extras (778 of 1,249) showed "Question: not recorded".
+- **B-035** A long run of unit letters froze marking (every split was tried); such text is now refused at once.
+
 ## 1.2.2 — 2026-10-01
 
 - **Syllabus gate.** A chapter cannot be signed unless every syllabus outcome in it has a teaching card, is covered by

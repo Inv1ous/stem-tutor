@@ -1,5 +1,12 @@
 # Build status
 
+## v1.2.3 (2026-10-01) — done
+- Bug hunt 2 with Codex (B-035 to B-039, all fixed) plus two bugs from the learner's lesson: the app now opens one
+  question at a time (asking the AI about a marked answer was refused while the unseen next question was open), and a
+  lost mark says why in Now, the lesson log and the AI's context. 572 tests.
+- Open question for the learner: an exact answer written with fewer figures than the rule ("9 m s⁻²" for 9.0) loses a
+  mark, by design (guide section 5); CAIE's own mark scheme guidance would give it. Not changed without their say.
+
 ## v1.2.2 (2026-10-01) — done
 - v1.2.2: syllabus gate + `foundry coverage` + teaching cards in the foundry; `/foundry` runs the manager on Sonnet
   (medium) with an Opus adjudicator on call. 18 chapters signed; 14 lack teaching cards (left for the learner to

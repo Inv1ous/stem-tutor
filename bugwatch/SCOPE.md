@@ -1,6 +1,6 @@
 # Scope: what the code is and where bugs likely hide
 
-STEM Tutor 1.2.2: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
+STEM Tutor 1.2.3: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
 (timezone `Asia/Hong_Kong`). A pure-Python learning engine does teaching, marking, scheduling and note-writing with no AI.
 A Textual terminal app sits on top, and Obsidian shows the notes. Claude (headless `claude -p`) is used only for
 optional chat/explanations. Python 3.13, repo venv `.venv/`.
@@ -21,8 +21,9 @@ optional chat/explanations. Python 3.13, repo venv `.venv/`.
 | `…/tutorlib/profile.py`, `insights.py`, `report.py`, `weekly.py`, `blurt.py`, `experiments.py`, `anki.py`, `lint.py` | Profile, insights (findings, readiness, weak spots, week report), notes, weekly tasks, free-recall scoring, n-of-1 experiments, Anki export, Obsidian lint |
 | `…/tutorlib/store.py`, `deps.py` | Vault discovery, monthly JSONL event log, flock lock, atomic writes; vendored pure-Python wheels |
 | `app/tutor_app/` | `app.py`, `screens.py`, `panels.py`, `cards.py`, `ai.py` (persistent `claude -p` stream), `prompts.py`, `texmath.py` (LaTeX → Unicode), `mac.py`, `config.py` |
-| `build/` | Content pipeline (`publish.py`, `finalize.py`, `validate_pack.py`, `teach_cards.py`, …) |
-| `build/out/packs/<spec>/<subtopic>.json` | Published content packs (7 published; `HOLD.json` lists deliberately unpublished ones) |
+| `build/` | Content pipeline (`publish.py`, `finalize.py`, `validate_pack.py`, `teach_cards.py`, `syllabus.py`, `plan.py`, …) |
+| `foundry/foundry.py` | Runs the content pipeline per chapter (stages, gates, state files, Codex queue). Report only what could let wrong content reach the learner or lose a chapter's work |
+| `build/out/packs/<spec>/<subtopic>.json` | Content packs (22 published; `HOLD.json` lists the ones still being built) |
 | `build/out/notes/How It Works.md` | The learner's guide. **Its claims are the spec** for behaviour |
 | `tests/`, `tests/app/` | pytest for engine and app (`fake_claude.py` stands in for the Claude CLI; Textual pilot tests) |
 | `docs/RESEARCH.md`, `CHANGELOG.md` | What each feature is based on; what 1.1.0 changed |
@@ -69,11 +70,14 @@ must reproduce the live state.
 - The Textual layer: focus (which widget owns a key), priority bindings versus `Input`, panels replaced while a worker is running, two workers at once, window resize.
 - `views.py` marker regexes with odd characters in titles or the learner's text; concurrent writes from the app and Obsidian.
 - The AI client against the **real** Claude CLI protocol (see below).
+- New since the last hunt (1.1.3 to 1.2.2, `git log v1.1.2..HEAD -- app plugin`): Today's plan and the Almanac on the home screen (`mac.almanac_changed`, `report.today_note`), `tutorlib/insights.py` with the Profile, Mistakes and Weekly notes in `report.py`, session mode `weak`, shown answers (`session._display_answer`, `_in_full`), the AI leak guard (`ai.leaks`), `Tutor.refresh_content`, the iPad inbox when macOS blocks it.
+- One question at a time (1.2.3): the app runs the engine with `one_at_a_time=True`, so the rest of a batch waits in `session["queue"]` and is not open (no clock, no help rules, not in Now, the lesson log or the AI context) until `next()` shows it. The chat interface still opens whole batches. Crash recovery (`Tutor._recover`, `state["last_event"]`) is new too.
 
 ## Known and by design (do not report)
 
-- Packs 9701-1.1–1.4, P1-2 and S1-1 are deliberately not published (`build/out/packs/HOLD.json`). "No questions built" for other subtopics is expected.
-- Claude CLI is signed out on this machine, so real AI calls cannot be exercised. Review `ai.py` against the protocol by reading and mark such findings `Method: read`.
+- Chapters listed in `build/out/packs/HOLD.json` are still in the foundry and deliberately not published. "No questions built" for other subtopics is expected.
+- Real AI calls cannot be exercised from the spotter's sandbox (no network). Review `ai.py` against the protocol by reading and mark such findings `Method: read`.
+- 14 older chapters have no teaching cards (`pack["teach"]`), so their lessons use the generic fallback card; the learner knows.
 - `plugin/stem-tutor/` skills, commands and agents are the old Cowork interface. Report only if they break the engine the app uses.
 - Retention targets use estimated exam dates when the planner has none (AS 15 May 2027, A2 15 May 2028) on purpose.
 - Only one app instance can run at once (flock); the iPad inbox is imported only at start-up; "extra" past-paper questions have no written explanation.

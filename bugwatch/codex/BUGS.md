@@ -314,3 +314,48 @@ mismatch · **P3** minor.
 - 17:20 VERIFIED B-026 · the 242-test run includes notes refreshing for every answered idea at session end
 - 17:20 VERIFIED B-027 · the 242-test run includes multi-idea retest scores assigned to the selected experiment idea
 - 17:20 VERIFIED B-031 · the 242-test run includes AI reply guarding while a secondary question remains open
+- 20:57 SWEEP · 2026-10-01 refreshed baseline · ran bash bugwatch/check.sh: 528 passed in 42.30s at HEAD 5c7ea70 · clean
+### B-035 · P2 · units.py · A short malformed unit stalls synchronous grading with exponential splitting
+- **Found:** 20:58 · **Method:** ran · **Confidence:** high
+- **Where:** `plugin/stem-tutor/skills/tutor/scripts/tutorlib/units.py` · `_splits` / `parse_unit` · "for rest in _splits(sym[i:])" and "for split in _splits(sym)"
+- **Repro:** With sandbox.sh exports, run a subprocess calling `from tutorlib.units import unit_factor; unit_factor("m"*30, "m")`, with subprocess.run(..., timeout=2). A 16-character run returns in 0.029 s; 24 takes 0.661 s; 30 exceeds the two-second timeout and is killed. Equivalent student input is a numeric answer followed by thirty m characters.
+- **Expected:** An invalid unit should be rejected promptly, without enumerating every possible grouping of its letters.
+- **Actual:** Every m/mm decomposition is generated recursively and accumulated before dimension matching. Even this short malformed unit exceeds two seconds; longer input grows exponentially without a length/work bound.
+- **Impact:** A pasted or repeated-key unit can freeze the app while its synchronous answer handler grades it. This is separate from the fixed exponent-overflow and expression-parser bounds.
+### B-036 · P0 · grade.py · Bare superscript powers are silently read as decimal digits in numeric answers
+- **Found:** 20:59 · **Method:** ran · **Confidence:** high
+- **Where:** `plugin/stem-tutor/skills/tutor/scripts/tutorlib/grade.py` · `_parse` · "t = text.translate(SUPERSCRIPT)"; `session.py` · `Tutor.answer` · "problem = grade.value_problem(inst, str(r[\"value\"]))"
+- **Repro:** With sandbox.sh exports, instantiate published 9702-5.1-i10 with random.Random(4): a 40 W motor runs for 25 s, answer 1000 J. `grade.parse_quantity("10³ J")` returns `(103.0, "J", 3)`. `grade.value_problem(item, "10³ J")` returns None; grade_item with kind=value and that text returns correct=False, score=0. The same parser reads 10² as 102 and 10⁴ as 104.
+- **Expected:** Preserve the mathematical value of superscript notation, or refuse unsupported notation while keeping the question open. Any precision issue should not turn 1000 into 103.
+- **Actual:** Global superscript-to-digit translation concatenates exponent digits onto the mantissa. The answer is considered readable and receives an incorrect-value mark; numeric answers do not route needs_judgement through the short-answer review.
+- **Impact:** Normal pasted mathematical notation can record a false numerical error and alter the student's learning history. B-034 fixed expression normalization; numeric normalization still has this separate defect.
+- 20:59 VERIFIED B-034 · fresh baseline covers Unicode expressions and unreadable-expression retry; published expression key also passes direct grading
+- 20:59 SWEEP · (1) grade.py + units.py + packs.py · ran 2,130 allowed-precision answers across published packs, distractor probes, equivalent-unit checks, bounded malformed-unit subprocesses and Unicode-number probes · findings: B-035 B-036
+- 21:01 SWEEP · (2) model.py + policy.py + profile.py + experiments.py + weekly.py · read all five modules; ran 200 mixed-score/hint/confidence events with a JSON round trip after every event, four mode planners and profile workload; baseline includes prior experiment/model regressions · clean
+### B-037 · P1 · report.py · Past-paper mistakes lose their question text in the mistake journal
+- **Found:** 21:01 · **Method:** ran · **Confidence:** high
+- **Where:** `plugin/stem-tutor/skills/tutor/scripts/tutorlib/report.py` · `_item_stem` · "subtopic = item_id.rsplit(\"-i\", 1)[0]"; `session.py` · `Tutor._record` · "if inst.get(\"source\") else {\"stem\": inst.get(\"stem\", \"\")}"
+- **Repro:** With sandbox.sh exports, create Tutor, start Test focused on 9702-1.1, take published item 9702-1.1-p01, present it with `t._present(item, 'practice', None)`, answer its number with '?', then call `report.mistakes_note(t)` and read Mistakes.md. Also reproduced naturally in the four-goal lesson walk.
+- **Expected:** The journal includes the attempted question, 'Which quantity is a physical quantity?', alongside its right answer.
+- **Actual:** It writes 'Question: not recorded' and 'Right answer: D: potential difference'. Events omit stems whenever an item has a source, then reconstruction only recognizes the -i ID separator; published past-paper questions use -p. The original question remains available in the pack but is never found.
+- **Impact:** Normal mistakes on past-paper bank questions produce an incomplete revision journal with an answer detached from its question. The current lesson transcript still retains the question.
+- 21:02 VERIFIED B-032 · baseline passes the repair-teaching mirror/resume regression; four-goal lesson walk resumes every saved activity without state drift
+- 21:02 SWEEP · (3) session.py + lesson.py + views.py + report.py · read lifecycle, marking, lesson phases, notes and reports; ran four complete lesson goals with reload/fold checks after each activity and a published past-paper mistake-journal probe · findings: B-037
+### B-038 · P0 · session.py · An interrupted answer save permanently separates cached progress from its event log
+- **Found:** 21:02 · **Method:** ran · **Confidence:** high
+- **Where:** `plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py` · `Tutor.log` · "e = self.vault.append_event(event, now=self.now())" before "self._save()"; `Tutor.__init__` · "if not self.state or self.state.get(\"model_version\") != model.MODEL_VERSION"
+- **Repro:** Create a fresh vault with `bash "$R/bugwatch/sandbox.sh" /tmp/bugwatch-oct1-interrupt`, use its exports, and run `/tmp/bugwatch-scratch/interrupted_answer_probe.py`. It starts Test, submits the correct first MCQ, and injects an interruption at _save after the complete answer event was appended. It then constructs a new Tutor and answers the still-open question again.
+- **Expected:** On restart, reconcile the saved learner/session state with durable answer events, preserving the answer once and keeping live state equal to replay.
+- **Actual:** The event log contains one complete answer, but the restarted learner has n=0 while replay has n=1; the same question is still open. Answering again produces live n=1 and replay n=2, so ordinary subsequent saves preserve the divergence. The current model-version cache is trusted without checking whether events were appended since it was saved.
+- **Impact:** A process interruption or save error between separate writes loses recorded progress from the live model and permits duplicate attempts; a later rebuild changes history again. Individual atomic JSON files do not make the event/state/session transaction recoverable.
+- 21:03 VERIFIED B-028 · independent cross-pack export now emits 5 then 4 cards with nine distinct pack-qualified IDs
+- 21:03 VERIFIED B-029 · independent HTML parser receives the complete inequality after Anki conversion, including <ax+b
+- 21:03 SWEEP · (4) store.py + deps.py + anki.py + JSON round trips · read persistence/dependency/export code; ran interrupted-answer recovery, cross-pack export and inequality HTML probes; baseline covers torn bytes and Unicode event separators · findings: B-038
+- 21:03 REPLY B-028 · Correction to my preceding VERIFIED line: this run emitted 5 then 1 cards, six distinct IDs. The current pack marks fc1, fc2 and fc4 in_anki, so only fc3 is eligible. The cross-pack collision is still verified fixed; the earlier count of four was stale and was written before inspecting the run output.
+### B-039 · P1 · screens.py · Failed AI requests remove independent-answer credit despite delivering no help
+- **Found:** 21:04 · **Method:** ran · **Confidence:** high
+- **Where:** `app/tutor_app/screens.py` · `SessionScreen.stream` · "self.tutor.ai_help()" before "self._stream(prompt, then_continue)"; `_stream` · "if not a.last.ok" only displays the error
+- **Repro:** Create `/tmp/bugwatch-oct1-ai-fail` with sandbox.sh. Export R and app/engine PYTHONPATH, then run `bash "$R/bugwatch/check.sh" /tmp/bugwatch-scratch/test_failed_hint_probe.py -q -s`. The pilot presents exactly one assisted-allowed MCQ, asks a fake Claude configured to return a login error, then answers correctly. Inbox import and Obsidian launch are disabled in the probe.
+- **Expected:** If no AI help is delivered, the correct independent attempt retains its normal learning credit.
+- **Actual:** The AI result is ok=False, status=login, text='', but the presented question has already been saved with hinted=True. Its correct score=1 event stays hinted=True and adds no success day. Output: `AI outcome False login text '' hinted True` and `answer hinted True score 1.0 success days []`.
+- **Impact:** Authentication/network/usage failures can weaken ability updates and prevent mastery credit even though the student received no help. This uses only one open question and is separate from the already-in-progress unseen-second-question issue in FIXES.md.
