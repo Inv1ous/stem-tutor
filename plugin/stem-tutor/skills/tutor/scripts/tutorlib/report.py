@@ -104,16 +104,22 @@ def brief(tutor, minutes: int = 50) -> dict:
 
 
 # ---------------- notes ----------------
+def _pack_item(tutor, item_id: str) -> dict | None:
+    """A question as published: its id is its subtopic plus -i01 (written), -p01 (past paper) or -x001 (extra)."""
+    subtopic = item_id.rsplit("-", 1)[0]
+    if subtopic not in tutor.packs.subtopics:  # a check inside a lesson, or a chapter no longer published
+        return None
+    return next((i for i in (tutor.packs.pack(subtopic) or {}).get("items", []) if i["id"] == item_id), None)
+
+
 def _item_stem(tutor, item_id: str, params: dict | None) -> str:
-    subtopic = item_id.rsplit("-i", 1)[0]
-    if subtopic in tutor.packs.subtopics:
-        for it in (tutor.packs.pack(subtopic) or {}).get("items", []):
-            if it["id"] == item_id:
-                env = dict(params or {})
-                for name, expr in (it.get("template") or {}).get("derived", {}).items():
-                    from .packs import _eval
-                    env[name] = _eval(expr, env)
-                return _fill(it["stem"], env) if env else it["stem"]
+    it = _pack_item(tutor, item_id)
+    if it:
+        env = dict(params or {})
+        for name, expr in (it.get("template") or {}).get("derived", {}).items():
+            from .packs import _eval
+            env[name] = _eval(expr, env)
+        return _fill(it["stem"], env) if env else it["stem"]
     return f"(item {item_id})"
 
 
@@ -253,10 +259,7 @@ def _rebuilt_key(tutor, e: dict) -> str | None:
     """The right answer for an answer logged before keys were recorded, re-created from the pack."""
     from .packs import _eval
     from .session import _display_answer
-    sub = e["item"].rsplit("-i", 1)[0]
-    if sub not in tutor.packs.subtopics:  # a check inside a lesson, or a chapter no longer published
-        return None
-    it = next((i for i in (tutor.packs.pack(sub) or {}).get("items", []) if i["id"] == e["item"]), None)
+    it = _pack_item(tutor, e["item"])
     if not it:
         return None
     inst, tpl = dict(it), it.get("template")
@@ -301,7 +304,7 @@ def mistakes_note(tutor) -> str:
         stem = e.get("stem") or _item_stem(tutor, e["item"], e.get("params"))
         key = e.get("key") or _rebuilt_key(tutor, e)
         you = str(e.get("response", "")).replace("`", "'")
-        sub = tutor.packs.kc(kc)["subtopic"] if kc in tutor.packs.kcs else e["item"].rsplit("-i", 1)[0]
+        sub = tutor.packs.kc(kc)["subtopic"] if kc in tutor.packs.kcs else e["item"].rsplit("-", 1)[0]
         groups.setdefault(sub, []).append(
             [f"- **{day}** · {why}" + (" · ✓ right since" if since else ""),
              f"  - Question: {_clip_math(stem) if not stem.startswith('(item ') else 'not recorded'}",

@@ -107,3 +107,19 @@ def test_session_note_accuracy_counts_lost_marks_as_the_session_does(tutor):  # 
     summary = tutor.end()
     text = (tutor.vault.root / report.session_note(tutor, summary["session"])).read_text()
     assert summary["accuracy"] == 0 and "accuracy: 0.0" in text and "> [!failure]" in text
+
+
+@pytest.mark.parametrize("item_id", ["9702-2.1-p01", "9702-2.1-x001"])
+def test_past_paper_mistakes_keep_their_question(tutor, item_id):  # B-037: only ids with -i were looked up
+    past = {"id": item_id, "kcs": ["9702-2.1.1"], "kind": "mcq", "difficulty": 2, "marks": 1,
+            "stem": "Which quantity is a vector?", "options": {"A": "speed", "B": "mass", "C": "velocity", "D": "time"},
+            "answer": "C", "source": {"type": "past", "ref": "CAIE 9702 · Nov 2021 · P12 · Q3"}}
+    tutor.packs.pack("9702-2.1")["items"].append(past)
+    tutor.start("review", minutes=10)
+    n = tutor._present(past, block="practice", phase=None)["n"]
+    tutor.answer(f"{n}?")
+    summary = tutor.end()
+    journal = (tutor.vault.root / report.mistakes_note(tutor)).read_text()
+    assert "Question: Which quantity is a vector?" in journal and "Right answer: C: velocity" in journal
+    assert "## 9702-2.1 Equations of motion" in journal and "not recorded" not in journal
+    assert "Which quantity is a vector?" in (tutor.vault.root / report.session_note(tutor, summary["session"])).read_text()
