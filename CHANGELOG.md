@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.2 — 2026-10-01
+
+- **Syllabus gate.** A chapter cannot be signed unless every syllabus outcome in it has a teaching card, is covered by
+  the lesson note, has its definition or derivation where the syllabus asks for one, and (CAIE) is asked with the
+  syllabus's command words. Teaching cards are now part of the foundry (drafted, merged, their check questions
+  blind-solved); the checker reads for outcomes that are not really taught or tested.
+- **`foundry coverage`**: the whole syllabus against what is built (873 outcomes; holes in signed chapters; what to
+  build next), and an audit of the outcome list against the official syllabus documents. Fixed from it: D1 listed
+  three subtopics twice; 9701-2.4.1 had lost the syllabus's note on significant figures.
+- **The foundry runs on Sonnet.** `/foundry` runs the manager on Sonnet at medium effort for that turn; it calls an
+  Opus adjudicator (`foundry escalate`) for the decisions it must not make alone. `foundry wait`, `foundry queue`.
+- Fixed: the drafting queue stalled on finished workers; a refused sign now records which gates failed.
+
 ## 1.2.1 — 2026-10-01
 
 - **Shown answers.** A numeric model answer keeps the significant figures it states (11.0 m, 2.50, 0.0300, 4.69e5 J),

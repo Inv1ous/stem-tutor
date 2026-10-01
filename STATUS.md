@@ -1,6 +1,9 @@
 # Build status
 
-## v1.2.1 (2026-10-01) — done
+## v1.2.2 (2026-10-01) — done
+- v1.2.2: syllabus gate + `foundry coverage` + teaching cards in the foundry; `/foundry` runs the manager on Sonnet
+  (medium) with an Opus adjudicator on call. 18 chapters signed; 14 lack teaching cards (left for the learner to
+  decide); 217 chapters to build. Spec: `docs/superpowers/specs/2026-10-01-sonnet-foundry-syllabus-design.md`.
 - v1.2.1: shown answers keep their s.f. and exact answers are in full; the AI leak guard works at any precision.
 - Learner insights (`tutorlib/insights.py`, menu "What the tutor knows about you", Profile.md), AI summary on request,
   Fix my weak spots (session mode `weak`), exam readiness, mistake journal, week in review; full feature list in the
