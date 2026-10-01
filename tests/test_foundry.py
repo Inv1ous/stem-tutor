@@ -313,3 +313,14 @@ def test_extras_come_back_after_a_fixer_reruns_the_generator(fdy, tmp_path):
         st["stage"], st["fixes"] = "fix", []
     fdy.cmd_collect("fixer", SUB, "-")
     assert [i["id"] for i in json.loads(path.read_text())["items"]] == before and fdy.load(SUB)["stage"] == "sign"
+
+
+def test_next_says_compare_once_the_tiebreak_has_finished(fdy):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        fdy.move(st, "tiebreak", "1 disputed")
+    assert "codex tiebreak" in fdy.action(fdy.load(SUB))
+    fdy.cmd_prompt("tiebreak", SUB)  # taken by hand: now running
+    assert fdy.action(fdy.load(SUB)).startswith("wait")
+    fdy.cmd_collect("tiebreak", SUB, "-")
+    assert fdy.action(fdy.load(SUB)) == f"foundry.py compare {SUB}"  # not "launch the tiebreak" again

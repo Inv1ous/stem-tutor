@@ -239,6 +239,13 @@ def cmd_board() -> None:
         print(f"\n⚠ files changed outside the foundry's lanes: {', '.join(oob[:6])}")
 
 
+def _tiebroken(st: dict) -> bool:
+    """A tiebreak has finished cleanly since the chapter last entered that stage: its answers wait to be compared."""
+    job = st["jobs"].get("tiebreak", {})
+    since = next((h["t"] for h in reversed(st["history"]) if h["to"] == "tiebreak"), "")
+    return job.get("exit") == 0 and job.get("finished", "") >= since
+
+
 def action(st: dict) -> str:
     sub, stage = st["sub"], st["stage"]
     running = _running(st)
@@ -252,7 +259,8 @@ def action(st: dict) -> str:
     return {
         "draft": f"foundry.py codex drafter {sub}",
         "solve": f"foundry.py dispatch {sub} → launch every prompt as a Haiku agent, together; then foundry.py compare {sub}",
-        "tiebreak": f"foundry.py codex tiebreak {sub}; then foundry.py compare {sub}",
+        "tiebreak": (f"foundry.py compare {sub}" if _tiebroken(st) else
+                     f"foundry.py codex tiebreak {sub}; then foundry.py compare {sub}"),
         "check": (f"foundry.py compare {sub}" if load(sub).get("checked") else
                   f"foundry.py dispatch {sub} → Haiku checker (if not already running); then foundry.py compare {sub}"),
         "adjudicate": f"manager: foundry.py packet {sub}; foundry.py resolve {sub} <ref> keep|fix \"…\"",
