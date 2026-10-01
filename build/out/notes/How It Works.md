@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.2.3_
+_Version 1.2.4_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,11 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 1.2.4
+> - **An exact answer never needs zeros added.** `9 m s-2` used to lose a mark for not being `9.0`. The exam boards give the mark when nothing was rounded away, so the tutor now does too. The figures still count where they mean something: when the question says how many to give, for an instrument reading (a micrometer's `1.50 mm`), and for a long unrounded value in physics or chemistry (`73.575 J` is `74 J`). In maths an exact answer can be given in full (`112.5`).
+> - **A rounded whole number can be typed with zeros.** `2400` is now accepted for 2375. It used to be marked wrong; only `2.4×10^3` or `2380` counted.
+> - **A near miss is no longer taken for a rounding.** Just above a power of ten the tutor accepted answers up to 5% too small as "correctly rounded" (`96` for 100.5). It no longer does.
 
 > [!example] New in 1.2.3
 > - **Ask about an answer as soon as it is marked.** In a check with no hints, the tutor had quietly lined up the next question, so asking the AI about the one just marked was refused ("answer it first"). Questions now come one at a time: once yours is marked, you can always ask (ctrl+t) or have it explained.
@@ -176,7 +181,7 @@ A lesson works like a good private tutor, and every step has a reason.
 - **Multiple choice:** move with **↑ ↓** and press **⏎**, or press the letter **A–D**. Press **0** for *I don't know*.
 - **How sure are you?** After choosing, rate your confidence **1–4**: 1 guess, 2 unsure, 3 fairly sure, 4 certain. Changed your mind? Press **Esc** to go back to the options. Be honest. A *confident* wrong answer is the best moment to fix a misunderstanding, so the tutor makes a point of it. A right answer you were unsure about comes back sooner than one you were certain of.
 - **Optional note:** under the options you can type why you chose it (**Tab** to reach the box). It goes into the lesson record.
-- **Number answers:** type the value **with its unit**, e.g. `19.6 m s-1` or `4.5e-3 mol dm-3`, then ⏎ and your confidence. Brackets and minus signs like `(−1)` are fine. The tutor checks the value, the unit and significant figures. A right value with a missing unit or the wrong number of significant figures shows as **"Right value, but a mark lost"**, just like in the exam. Type the final number, not a sum (`500 + 1` isn't worked out); a power of ten is fine as `4.5e-3`, `4.5×10^-3` or `10³`. If a question wants just a number (a count, a ratio, a value "in mm"), type only the number: add a unit and the tutor asks you to send it again, with no mark lost.
+- **Number answers:** type the value **with its unit**, e.g. `19.6 m s-1` or `4.5e-3 mol dm-3`, then ⏎ and your confidence. Brackets and minus signs like `(−1)` are fine. The tutor checks the value, the unit and significant figures. A right value with a missing unit, or rounded to the wrong number of figures, shows as **"Right value, but a mark lost"**, and the **Exam point** line says what was wanted. An exact answer never needs zeros added: `9 m s-2` is right for 9.0, as it is in the exam. The figures still count when the question fixes them (it says how many, or the value is an instrument reading such as a micrometer's `1.50 mm`) and when there are too many in physics or chemistry (`73.575 J` should be `74 J`); in maths an exact answer may be given in full. A rounded whole number can be typed with zeros (`2400` for 2375). Type the final number, not a sum (`500 + 1` isn't worked out); a power of ten is fine as `4.5e-3`, `4.5×10^-3` or `10³`. If a question wants just a number (a count, a ratio, a value "in mm"), type only the number: add a unit and the tutor asks you to send it again, with no mark lost.
 - **Formula answers:** type them as you would write them: `u^2 + 2as`, `u² + 2as`, `2πr` and `√(2gh)` all work. If the tutor can't read one, it asks you to type it again.
 - **Written answers** (definitions, explanations): type them. The AI examiner always compares your wording with the mark points, because spotting the right words isn't enough ("velocity is the rate of change of velocity" has all the right words in the wrong places). Without AI, you tick which points you really covered.
 - **Long questions:** write your full working in the box, then **ctrl+s**. The mark scheme appears as a checklist: tick each mark you really earned with the space bar. Honest self-marking is itself excellent practice. You can also ask the **AI examiner** to check your marking.

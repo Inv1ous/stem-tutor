@@ -1,6 +1,6 @@
 # Scope: what the code is and where bugs likely hide
 
-STEM Tutor 1.2.3: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
+STEM Tutor 1.2.4: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
 (timezone `Asia/Hong_Kong`). A pure-Python learning engine does teaching, marking, scheduling and note-writing with no AI.
 A Textual terminal app sits on top, and Obsidian shows the notes. Claude (headless `claude -p`) is used only for
 optional chat/explanations. Python 3.13, repo venv `.venv/`.
@@ -58,7 +58,7 @@ must reproduce the live state.
 3. Every Obsidian file the engine writes passes `tutorlib.lint` and keeps the learner's own text (outside the `<!-- stem-tutor:… -->` markers, and inside "In your words").
 4. Nothing is written outside the vault; nothing is deleted anywhere in it (the engine must work where deleting is forbidden).
 5. A session saved mid-question resumes exactly (same open questions, same block cursor, same worked-example step).
-6. Marking: right value with a missing unit or wrong s.f. loses the mark everywhere consistently; hints and "don't know" never count as success.
+6. Marking: a right value with a missing unit, or rounded to figures the question does not accept, loses the mark everywhere consistently (an exact value typed shorter than asked keeps it unless the question fixes the figures: `grade._figures_count`); hints and "don't know" never count as success.
 7. The guide (`How It Works.md`) doesn't promise behaviour the code lacks.
 
 ## Where bugs are most likely

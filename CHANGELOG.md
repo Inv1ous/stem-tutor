@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.2.4 — 2026-10-01
+
+Numeric marking, asked for by the learner after "9 m s⁻²" lost a mark for not being 9.0.
+
+- **An exact answer needs no zeros added.** A right value typed with fewer figures than `sf_ok` asks keeps the mark
+  when it is exactly the true value (nothing was rounded away). CAIE's "Calculation specific guidance" credits an
+  answer that equals the mark scheme's once rounded to its figures; Edexcel asks for 3 s.f. only of answers that are
+  not exact. Exceptions, where the figures carry meaning (`grade._figures_count`):
+  - the question fixes them: its stem says how many, or one count only is accepted (`sf`, or a one-item `sf_ok`), as
+    for a reading quoted to its instrument's precision (1.50 mm on a micrometer);
+  - too many figures: in the sciences an unrounded result (3 × 9.81 × 2.5 = 73.575 J) still loses the mark; in maths
+    an exact value may be given in full (112.5).
+  In the published chapters: 18 questions now accept their short exact answer, 7 keep the rule (4 "correct to 3
+  s.f.", 2 "to 2 significant figures", the micrometer), 2 maths questions accept a long exact answer.
+- **A rounded answer is the rounding itself.** "Correctly rounded at your own figures" was a window of half a unit on
+  the answer's scale, so just above a power of ten it took values from the decade below as right (96 for 100.5; 0.5
+  for 1.0 where one figure is accepted): 26 published questions. The value must now be a whole number of units in
+  the last figure kept.
+- **A rounded whole number can be written with zeros.** 2400 for 2375 was read as four figures and marked wrong (18
+  published questions). A whole number ending in zeros may be the rounding at any of its figures. The AI leak guard
+  reads numbers the same way.
+
 ## 1.2.3 — 2026-10-01
 
 Bug hunt with Codex (`bugwatch/`, B-035 to B-039) and two bugs from the learner's own lesson.
