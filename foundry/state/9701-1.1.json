@@ -1,9 +1,34 @@
 {
  "sub": "9701-1.1",
- "stage": "solve",
+ "stage": "ready",
  "created": "2026-09-30T18:08:37+08:00",
- "updated": "2026-09-30T18:08:37+08:00",
- "history": [],
+ "updated": "2026-10-01T10:13:58+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T10:06:34+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "49 agreed, 14 disputed"
+  },
+  {
+   "t": "2026-10-01T10:09:40+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-01T10:13:58+08:00",
+   "from": "adjudicate",
+   "to": "sign",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-01T10:13:58+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
  "gates": {
   "ok": true,
   "validator": 0,
@@ -11,8 +36,169 @@
   "items": 79,
   "extra": 24
  },
- "disputes": [],
+ "disputes": [
+  {
+   "id": "9701-1.1-p01",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "?",
+   "status": "closed",
+   "resolution": "keep: X has at least 7 protons (Y>=1), so at least 7 electrons: its first shell is always full, so B must hold. D fails for F(9)/P(15), A for Na/Cl, C needs a difference of 8 or 18. The tiebreak read 'a full shell' as a full outer shell."
+  },
+  {
+   "id": "9701-1.1-p12",
+   "key": "C",
+   "solver": "B",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x002",
+   "key": "D",
+   "solver": "A",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x004",
+   "key": "D",
+   "solver": "A",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x005",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x006",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x007",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x009",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x010",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x013",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x018",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x020",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x022",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-1.1-x023",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
  "findings": [],
  "fixes": [],
- "jobs": {}
+ "jobs": {
+  "solver#1": {
+   "haiku": true,
+   "started": "2026-10-01T10:02:56+08:00",
+   "expects": "build/work/blind/9701-1.1.answers.part1.json",
+   "closed": "2026-10-01T10:06:34+08:00"
+  },
+  "solver#2": {
+   "haiku": true,
+   "started": "2026-10-01T10:02:56+08:00",
+   "expects": "build/work/blind/9701-1.1.answers.part2.json",
+   "closed": "2026-10-01T10:06:34+08:00"
+  },
+  "solver#3": {
+   "haiku": true,
+   "started": "2026-10-01T10:02:56+08:00",
+   "expects": "build/work/blind/9701-1.1.answers.part3.json",
+   "closed": "2026-10-01T10:06:34+08:00"
+  },
+  "solver#4": {
+   "haiku": true,
+   "started": "2026-10-01T10:02:56+08:00",
+   "expects": "build/work/blind/9701-1.1.answers.part4.json",
+   "closed": "2026-10-01T10:06:34+08:00"
+  },
+  "checker": {
+   "haiku": true,
+   "started": "2026-10-01T10:02:56+08:00",
+   "expects": "build/work/foundry/9701-1.1.check.json",
+   "closed": "2026-10-01T10:06:34+08:00"
+  },
+  "tiebreak": {
+   "pid": 77755,
+   "model": "gpt-6-sol/medium",
+   "started": "2026-10-01T10:06:51+08:00",
+   "log": "foundry/logs/9701-1.1.tiebreak.1001-100651.log",
+   "out": "foundry/logs/9701-1.1.tiebreak.1001-100651.out.json",
+   "finished": "2026-10-01T10:08:05+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 14,
+    "answers_path": "build/work/blind/9701-1.1.tiebreak.json",
+    "notes": [
+     "9701-1.1-p01: No option must be correct; marked ? in the answer file."
+    ]
+   }
+  }
+ },
+ "checked": true
 }
