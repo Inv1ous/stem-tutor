@@ -1,0 +1,67 @@
+{
+  "9701-6.1.1": {
+    "motivate": "Oxidation numbers let you track which atoms lose or gain electrons, even in equations that do not display electrons. They also reveal whether a proposed redox answer is possible.",
+    "discover": {
+      "stem": "The sum of oxidation numbers in $\\ce{NO3-}$ is $-1$. If each O is $-2$, what is N?",
+      "options": {"A": "$-5$", "B": "$-3$", "C": "$+3$", "D": "$+5$"},
+      "answer": "D",
+      "explanation": "Write $x+3(-2)=-1$; therefore $x=+5$. The sum equals the charge of the entire ion."
+    },
+    "establish": "To calculate an element's oxidation number in a compound or ion, assign known numbers first. An uncombined element is $0$; a monatomic ion has its ionic charge. Hydrogen is usually $+1$ (but $-1$ in metal hydrides), and oxygen is usually $-2$ (but $-1$ in peroxides). Multiply each assigned number by the count of that atom. Their algebraic sum is $0$ for a neutral compound and the overall charge for an ion. Call the unknown $x$ and solve. In $\\ce{NH4+}$, $x+4(+1)=+1$, giving N $-3$; in $\\ce{NO3-}$, $x+3(-2)=-1$, giving N $+5$. The signed change is $+5-(-3)=+8$, an increase.",
+    "connect": "The signed change identifies oxidation or reduction and sets the electron ratio when balancing an equation. Remember that different atoms of the same element can have different oxidation numbers; a formula calculation may give their average.",
+    "note": "- Elements alone: $0$; monatomic ions: ionic charge.\n- Usually H $+1$ and O $-2$; check hydrides and peroxides.\n- Sum across all atoms equals the species charge.\n- Final minus initial gives the signed change.",
+    "self_explain": "Why does N change by $+8$, rather than $+2$, when $\\ce{NH4+}$ becomes $\\ce{NO3-}$?"
+  },
+  "9701-6.1.2": {
+    "motivate": "Atom counting alone can leave an ionic equation with unequal charge. Oxidation-number changes tell you the required reactant ratio before you finish balancing atoms.",
+    "discover": {
+      "stem": "Cl rises from $+5$ to $+7$ and Mn falls from $+7$ to $+4$. What Cl:Mn atom ratio makes electron loss equal electron gain?",
+      "options": {"A": "$1:1$", "B": "$2:3$", "C": "$3:2$", "D": "$3:3$"},
+      "answer": "C",
+      "explanation": "Each Cl loses two electrons and each Mn gains three; $3(2)=2(3)=6$."
+    },
+    "establish": "Use changes in oxidation numbers to help balance chemical equations: identify the atoms oxidised and reduced, calculate each signed change, and multiply by the number of changing atoms in its formula. Choose the smallest whole-number coefficients that make total oxidation-number increase equal total decrease; this matches electrons lost and gained. Then balance the other atoms, using $\\ce{H2O}$ and $\\ce{H+}$ in acid or $\\ce{OH-}$ in alkaline conditions as appropriate. Finally check every atom and the total charge on both sides. For $\\ce{ClO3- -> ClO4-}$, Cl rises $+5$ to $+7$ (two electrons lost); for $\\ce{MnO4- -> MnO2}$, Mn falls $+7$ to $+4$ (three gained). The ratio is $3:2$. The balanced acidic equation is $\\ce{3ClO3- + 2MnO4- + 2H+ -> 3ClO4- + 2MnO2 + H2O}$; each side has charge $-3$.",
+    "connect": "Oxidation-number calculation supplies the changes; electron loss and gain explain why their totals must match. The same method works when the two changing elements occur in different numbers of atoms per species.",
+    "note": "- Find oxidation-number changes for each changing atom.\n- Match total rise and fall with the smallest coefficients.\n- Balance remaining O and H for the stated conditions.\n- Check every element and net charge on both sides.",
+    "self_explain": "Why must three chlorate ions react for every two manganate(VII) ions, and what extra check is needed after balancing atoms?"
+  },
+  "9701-6.1.3": {
+    "motivate": "Reaction labels can mislead: deciding whether a reaction is redox requires following electrons or comparing oxidation numbers on both sides.",
+    "discover": {
+      "stem": "In $\\ce{Cl2 + H2O <=> HOCl + H+ + Cl-}$, what happens to chlorine?",
+      "options": {"A": "It is only oxidised.", "B": "It is only reduced.", "C": "It is both oxidised and reduced.", "D": "Its oxidation number stays at $0$."},
+      "answer": "C",
+      "explanation": "Chlorine starts at $0$; it becomes $+1$ in $\\ce{HOCl}$ and $-1$ in $\\ce{Cl-}$. This is disproportionation."
+    },
+    "establish": "Oxidation is loss of electrons and an increase in oxidation number. Reduction is gain of electrons and a decrease in oxidation number. A redox reaction contains both processes: electrons lost by one species are gained by another. To explain a redox reaction, name the changing element and give its oxidation-number change or electron transfer in each direction. Disproportionation is the oxidation and reduction of the same element in a single reactant during the same reaction. For $\\ce{Cl2 + H2O <=> HOCl + H+ + Cl-}$, chlorine starts at $0$; one chlorine atom rises to $+1$ in $\\ce{HOCl}$ while another falls to $-1$ in $\\ce{Cl-}$. This is both redox and disproportionation. If two different elements change in opposite directions, the reaction is redox but that alone does not make it disproportionation.",
+    "connect": "A rise or fall in oxidation number lets you identify which species acts as a reducing or oxidising agent. The balancing method uses the equal electron loss and gain in any redox equation.",
+    "note": "- Oxidation: electron loss; oxidation number rises.\n- Reduction: electron gain; oxidation number falls.\n- Redox: oxidation and reduction occur together.\n- Disproportionation: one element in one reactant is both oxidised and reduced.",
+    "self_explain": "Why is the reaction of chlorine with water disproportionation, whereas $\\ce{Zn + Cu^{2+} -> Zn^{2+} + Cu}$ is only redox?"
+  },
+  "9701-6.1.4": {
+    "motivate": "The name of an agent describes what it does to another species. Tracking which species takes or gives electrons prevents reversing the agent labels.",
+    "discover": {
+      "stem": "In $\\ce{Zn + Cu^{2+} -> Zn^{2+} + Cu}$, which species is the oxidising agent?",
+      "options": {"A": "$\\ce{Zn}$", "B": "$\\ce{Zn^{2+}}$", "C": "$\\ce{Cu^{2+}}$", "D": "$\\ce{Cu}$"},
+      "answer": "C",
+      "explanation": "$\\ce{Cu^{2+}}$ accepts two electrons from Zn and is reduced to Cu, so it oxidises Zn."
+    },
+    "establish": "An oxidising agent oxidises another species by accepting its electrons; the oxidising agent is itself reduced and its oxidation number falls. A reducing agent reduces another species by donating electrons; the reducing agent is itself oxidised and its oxidation number rises. Use the reactant species as the agent name. In $\\ce{Zn + Cu^{2+} -> Zn^{2+} + Cu}$, Zn loses two electrons and changes from $0$ to $+2$, so Zn is the reducing agent. $\\ce{Cu^{2+}}$ gains two electrons and changes from $+2$ to $0$, so $\\ce{Cu^{2+}}$ is the oxidising agent. The agent's own change is opposite to the action named: an oxidising agent is reduced; a reducing agent is oxidised.",
+    "connect": "First use oxidation numbers to identify the electron donor and acceptor. Then label the donor as reducing agent and the acceptor as oxidising agent, even if the reaction looks unusual, such as hydrogen forming hydride.",
+    "note": "- Oxidising agent: accepts electrons, oxidises another species, is reduced.\n- Reducing agent: donates electrons, reduces another species, is oxidised.\n- Name the reactant acting as the agent.",
+    "self_explain": "How can $\\ce{Cu^{2+}}$ be the oxidising agent if its own oxidation number decreases?"
+  },
+  "9701-6.1.5": {
+    "motivate": "A Roman numeral in a chemical name distinguishes forms of an element with different oxidation numbers, such as iron(II) and iron(III) compounds.",
+    "discover": {
+      "stem": "Oxygen is $-2$ in $\\ce{Cu2O}$. Which name shows the oxidation number of each copper atom?",
+      "options": {"A": "copper(II) oxide", "B": "copper(I) oxide", "C": "copper(-I) oxide", "D": "dicopper(II) oxide"},
+      "answer": "B",
+      "explanation": "The two Cu oxidation numbers sum to $+2$, so each Cu is $+1$; the Roman numeral for magnitude one is I."
+    },
+    "establish": "Use a Roman numeral in parentheses immediately after an element's name to indicate the magnitude of that element's oxidation number in the compound or ion. Calculate the oxidation number from the formula, taking account of atom counts and the species charge, then convert its magnitude to I, II, III, IV and so on. For $\\ce{FeCl3}$, three chloride ions contribute $-3$, so Fe is $+3$ and the name is iron(III) chloride. For $\\ce{Cu2O}$, O is $-2$; the two Cu atoms total $+2$, making each Cu $+1$, so the name is copper(I) oxide. The numeral refers to one atom's oxidation number, not the number of atoms or the ion's overall charge.",
+    "connect": "The numeral provides a quick oxidation-number clue for redox questions: iron(III) changing to iron(II) means Fe falls from $+3$ to $+2$ and is reduced.",
+    "note": "- Roman numeral gives the magnitude of one element's oxidation number.\n- Put it in parentheses immediately after that element's name.\n- $\\ce{FeCl3}$ is iron(III) chloride; $\\ce{Cu2O}$ is copper(I) oxide.",
+    "self_explain": "Why is $\\ce{Cu2O}$ copper(I) oxide even though its formula contains two copper atoms?"
+  }
+}
