@@ -1,0 +1,2685 @@
+{
+ "subtopic": "9702-6.1",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/06 Deformation of solids/6.1 Stress and strain.md",
+ "outline": "Tensile forces pull and extend a specimen; compressive forces push and shorten it. Load is applied force, and extension or compression is the change from original length. Up to the limit of proportionality, Hooke’s law gives $F=kx$ for one spring. Spring constant $k=F/x$ has unit N m$^{-1}$. Tensile stress is $\\sigma=F/A$ in Pa, strain is $\\varepsilon=x/L$ with no unit, and Young modulus is $E=\\sigma/\\varepsilon=FL/(Ax)$ in Pa. For a wire, measure original gauge length, repeated diameter readings, and force–extension pairs in the straight-line region; $E=(L/A)$ times the force–extension gradient.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-6.1.1",
+   "statement": "A tensile force shortens a wire.",
+   "refutation": "Tension pulls outward along the wire and increases its length; compression pushes inward and shortens it.",
+   "contrast": "Name the force by what it does to the specimen in the one-dimensional direction.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-6.1.2",
+   "statement": "The limit of proportionality is necessarily the elastic limit.",
+   "refutation": "The limit of proportionality is the end of the straight-line part of the force–extension graph; elastic recovery can persist beyond it.",
+   "contrast": "A curved unloading response can still return to the original length.",
+   "source": "ER 9702 s22 P12 Q20"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-6.1.3",
+   "statement": "Hooke’s law means extension is proportional to the original length of a spring.",
+   "refutation": "For a given spring within its limit of proportionality, extension is proportional to applied force.",
+   "contrast": "Plot force against extension: the Hooke’s-law region is a straight line through the origin.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-6.1.4",
+   "statement": "The gradient of an extension–force graph is the spring constant.",
+   "refutation": "That gradient is extension divided by force, so it is $1/k$; a force–extension graph has gradient $k$.",
+   "contrast": "Always read the axes before taking the gradient.",
+   "source": "ER 9702 w23 P23 Q4"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-6.1.4",
+   "statement": "Millimetres or centimetres can be inserted directly into $k=F/x$ to obtain N m$^{-1}$.",
+   "refutation": "Extension must be in metres for $k$ in N m$^{-1}$.",
+   "contrast": "Convert $15$ cm to $0.15$ m before dividing force by extension.",
+   "source": "ER 9702 w19 P11 Q19"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-6.1.5",
+   "statement": "Doubling wire diameter doubles its cross-sectional area.",
+   "refutation": "Circular area is $A=\\pi d^2/4$, so doubling diameter quadruples area.",
+   "contrast": "For equal material and load, $x=FL/(AE)$ falls by a factor of four.",
+   "source": "ER 9702 s22 P11 Q19"
+  },
+  {
+   "id": "m7",
+   "kc": "9702-6.1.5",
+   "statement": "Strain is extension divided by final length, or stress is force divided by any surface area.",
+   "refutation": "Strain uses original length; tensile stress uses cross-sectional area perpendicular to the force.",
+   "contrast": "Use $\\varepsilon=x/L$ and $\\sigma=F/A$ before finding $E=\\sigma/\\varepsilon$.",
+   "source": "ER 9702 w20 P21 Q4"
+  },
+  {
+   "id": "m8",
+   "kc": "9702-6.1.6",
+   "statement": "A single loaded length gives the wire extension without a reference reading.",
+   "refutation": "Extension is the change from the original or reference length; a taut reference wire helps remove support movement.",
+   "contrast": "Record the initial and loaded positions for each load and subtract them.",
+   "source": "ER 9702 s23 P23 Q6"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we3",
+   "kc": "9702-6.1.3",
+   "problem": "A spring extends 2.0 cm at 4.0 N. Find its extension at 6.0 N while it obeys Hooke’s law.",
+   "steps": [
+    {
+     "do": "Write $x_2/x_1=F_2/F_1$.",
+     "why": "Hooke’s law gives direct proportionality within the limit."
+    },
+    {
+     "do": "$x_2=2.0(6.0/4.0)=3.0$ cm.",
+     "why": "Use the ratio of loads, not their difference.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.0,
+       "unit": "cm",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A spring extends 3.0 cm at 5.0 N. Find its extension at 10.0 N.",
+    "answer": {
+     "value": 6.0,
+     "unit": "cm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "9702-6.1.4",
+   "problem": "A spring extends 15 cm under 6.0 N. Find its spring constant.",
+   "steps": [
+    {
+     "do": "Write $k=F/x$.",
+     "why": "Spring constant is force per unit extension."
+    },
+    {
+     "do": "Convert $x=15$ cm to $0.15$ m.",
+     "why": "The requested unit is N m$^{-1}$."
+    },
+    {
+     "do": "$k=6.0/0.15=40$ N m$^{-1}$.",
+     "why": "Divide force by extension in metres.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 40.0,
+       "unit": "N m^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "A spring extends 8.0 cm under 4.0 N. Find $k$ in N m$^{-1}$.",
+    "answer": {
+     "value": 50.0,
+     "unit": "N m^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we5",
+   "kc": "9702-6.1.5",
+   "problem": "A 2.0 m wire of diameter 1.0 mm extends 1.0 mm under 40 N. Find its Young modulus.",
+   "steps": [
+    {
+     "do": "Write $E=\\sigma/\\varepsilon=FL/(Ax)$ and $A=\\pi d^2/4$.",
+     "why": "Use cross-sectional area and original length."
+    },
+    {
+     "do": "Convert $d=0.0010$ m and $x=0.0010$ m; $A=\\pi(0.0010)^2/4$.",
+     "why": "Square diameter after converting it to metres."
+    },
+    {
+     "do": "$E=40(2.0)/[\\pi(0.0010)^2(0.0010)/4]=1.02\\times10^{11}$ Pa.",
+     "why": "Substitute SI values and round to sensible significant figures.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 101859163578.81302,
+       "unit": "Pa",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "A 1.5 m wire of diameter 0.80 mm extends 1.2 mm under 30 N. Find $E$.",
+    "answer": {
+     "value": 74603879574.32596,
+     "unit": "Pa",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we6",
+   "kc": "9702-6.1.6",
+   "problem": "A wire has original gauge length 2.0 m and mean diameter 0.80 mm. Its straight-line force–extension graph shows 20 N at 1.0 mm extension. Determine $E$.",
+   "steps": [
+    {
+     "do": "Measure $L$ and mean $d$; calculate $A=\\pi d^2/4$.",
+     "why": "The area comes from several micrometer diameter measurements."
+    },
+    {
+     "do": "Record initial and loaded positions; from the straight-line graph, $F/x=20/0.0010$ N m$^{-1}$.",
+     "why": "A reference reading removes support movement, and the straight region gives a constant gradient."
+    },
+    {
+     "do": "$E=(L/A)(F/x)=2.0[20/0.0010]/[\\pi(0.00080)^2/4]=7.96\\times10^{10}$ Pa.",
+     "why": "Use the original gauge length and SI extension.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 79577471545.94766,
+       "unit": "Pa",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we6f",
+    "problem": "A wire has $L=1.5$ m and mean $d=1.0$ mm. Its straight-line graph shows 30 N at 1.0 mm extension. Find $E$.",
+    "answer": {
+     "value": 57295779513.08232,
+     "unit": "Pa",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-6.1-p01",
+   "kcs": [
+    "9702-6.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q21",
+    "qid": "9702_w25_12_q21"
+   },
+   "stem": "A platform is supported by a spring. A box is placed onto the platform. The diagram shows the\nspring before and after the box is placed onto it.\nx\nbefore\nspring\nafter\nbox\nWhat is the term for the quantity marked as x?",
+   "options": {
+    "A": "compression",
+    "B": "load",
+    "C": "strain",
+    "D": "stress"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The marked change is the shortening of the spring: compression. B names the applied load, not a change in length.",
+   "distractors": {
+    "B": "m1"
+   },
+   "image": "Assets/mcq/9702_w25_12_q21.png"
+  },
+  {
+   "id": "9702-6.1-p02",
+   "kcs": [
+    "9702-6.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q21",
+    "qid": "9702_w24_13_q21"
+   },
+   "stem": "The force–extension graph of a metal wire is shown.\nAt which point on the graph does the metal wire stop obeying Hooke’s law?\n0\n0\nforce\nextension",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Hooke’s law stops at the first departure from the straight-line force–extension region, labelled A. A later point may mark the elastic limit, which need not coincide with this limit.",
+   "distractors": {
+    "B": "m2"
+   },
+   "image": "Assets/mcq/9702_w24_13_q21.png"
+  },
+  {
+   "id": "9702-6.1-p03",
+   "kcs": [
+    "9702-6.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q18",
+    "qid": "9702_s23_11_q18"
+   },
+   "stem": "A lamp is suspended in equilibrium from a fixed support by three long identical wires.\nwires\nfixed support\nlamp\nThe weight of the lamp causes each wire to have an extension of 0.40 cm. The height h of the\nlamp above the floor is measured.\nThe middle wire suddenly breaks and the lamp falls a small distance as the extensions of the\nremaining two wires increase. The wires obey Hooke’s law.\nWhen the lamp is in equilibrium, the height h of the lamp above the floor is measured again.\nWhat is the difference between the two values of h?",
+   "options": {
+    "A": "0.20 cm",
+    "B": "0.27 cm",
+    "C": "0.40 cm",
+    "D": "0.60 cm"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The load per surviving wire changes from $W/3$ to $W/2$, so its extension becomes $0.40(3/2)=0.60$ cm. The lamp descends by $0.60-0.40=0.20$ cm; D confuses total extension with additional extension.",
+   "distractors": {
+    "D": "m3"
+   },
+   "image": "Assets/mcq/9702_s23_11_q18.png"
+  },
+  {
+   "id": "9702-6.1-p04",
+   "kcs": [
+    "9702-6.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q18",
+    "qid": "9702_w19_12_q18"
+   },
+   "stem": "The graph shows the effect of applying a force of up to 5.0 N to a spring.\nspring length / cm\nforce / N\n14\n11\n10\n0\n5.0\nThe spring obeys Hooke’s law for forces up to 7.0 N.\nWhat is the total extension of the spring produced by a 7.0 N force?",
+   "options": {
+    "A": "4.2 cm",
+    "B": "5.6 cm",
+    "C": "15 cm",
+    "D": "20 cm"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "At 5.0 N, extension is $14-11=3.0$ cm; proportionality gives $3.0(7.0/5.0)=4.2$ cm. C treats the spring length as extension.",
+   "distractors": {
+    "C": "m3"
+   },
+   "image": "Assets/mcq/9702_w19_12_q18.png"
+  },
+  {
+   "id": "9702-6.1-p05",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q18",
+    "qid": "9702_w23_12_q18"
+   },
+   "stem": "Three identical springs, each with the same spring constant, are connected together in four\ndifferent arrangements, as shown.\nWhich arrangement has the largest combined spring constant?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Parallel springs share extension and their constants add: B gives $3k$. D puts all three in series, giving $k/3$, the smallest combined constant.",
+   "distractors": {
+    "D": "m4"
+   },
+   "image": "Assets/mcq/9702_w23_12_q18.png"
+  },
+  {
+   "id": "9702-6.1-p06",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q19",
+    "qid": "9702_w19_11_q19"
+   },
+   "stem": "An extension–force graph for a spring is shown.\n15\nextension / cm\nforce / N\n0\n0\n6.0\nWhat is the spring constant of the spring?",
+   "options": {
+    "A": "0.025 N m⁻¹",
+    "B": "0.40 N m⁻¹",
+    "C": "2.5 N m⁻¹",
+    "D": "40 N m⁻¹"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The graph gives $F=6.0$ N at $x=0.15$ m, so $k=F/x=40$ N m$^{-1}$. C results from treating 15 cm as an unconverted length or reading the wrong slope.",
+   "distractors": {
+    "C": "m5"
+   },
+   "image": "Assets/mcq/9702_w19_11_q19.png"
+  },
+  {
+   "id": "9702-6.1-p07",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q20",
+    "qid": "9702_w20_12_q20"
+   },
+   "stem": "A mass of 60.0 g is suspended from a spring and the distance from the bottom of the spring to the\nfloor is measured to be 16.4 cm.\nThe mass is replaced with a 100.0 g mass and the distance from the bottom of the spring to the\nfloor is now measured to be 12.6 cm. The spring obeys Hooke’s law.\nWhat is the spring constant of the spring?",
+   "options": {
+    "A": "1.05 N m⁻¹",
+    "B": "1.35 N m⁻¹",
+    "C": "10.3 N m⁻¹",
+    "D": "103 N m⁻¹"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The extra force is $(0.100-0.060)9.81$ N and extra extension is $(16.4-12.6)$ cm, giving $k=10.3$ N m$^{-1}$. D is ten times too large because of a length conversion error.",
+   "distractors": {
+    "D": "m5"
+   }
+  },
+  {
+   "id": "9702-6.1-p08",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q19",
+    "qid": "9702_s22_11_q19"
+   },
+   "stem": "Two wires, P and Q, are made from the same metal and hang vertically from a steel girder.\nWire Q has half the length and twice the diameter of wire P.\nIdentical masses are attached to the bottom of each wire. Both wires obey Hooke’s law as they\nare stretched by the weight of the masses.\nWhat is the ratio\nQ\nwire\nof\nextension\nP\nwire\nof\nextension\n?",
+   "options": {
+    "A": "1 8",
+    "B": "1 4",
+    "C": "1 1",
+    "D": "2 1"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "At equal force and Young modulus, $x\\propto L/A$. Q has half P’s length and four times its area, so $x_Q/x_P=1/8$. B fails to square the doubled diameter.",
+   "distractors": {
+    "B": "m6"
+   },
+   "image": "Assets/mcq/9702_s22_11_q19.png"
+  },
+  {
+   "id": "9702-6.1-p09",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q18",
+    "qid": "9702_w23_13_q18"
+   },
+   "stem": "A copper wire of diameter 1.6 mm is stretched within its limit of proportionality by a tensile force of\n430 N.\nThe Young modulus of copper is 130 GPa.\nWhat is the strain in the wire?",
+   "options": {
+    "A": "4.1 × 10⁻⁴",
+    "B": "1.3 × 10⁻³",
+    "C": "1.6 × 10⁻³",
+    "D": "5.2 × 10⁻³"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "$A=\\pi(0.0016)^2/4$ and $\\varepsilon=F/(AE)=430/(A\\times130\\times10^9)=1.6\\times10^{-3}$. B follows an incorrect area or unit conversion.",
+   "distractors": {
+    "B": "m6"
+   }
+  },
+  {
+   "id": "9702-6.1-p10",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q20",
+    "qid": "9702_w22_12_q20"
+   },
+   "stem": "A known tensile force acts on a metal wire. The wire does not exceed its limit of proportionality.\nWhich two measurements enable the strain of the wire to be calculated?",
+   "options": {
+    "A": "the unstretched length of the wire and the cross-sectional area of the wire",
+    "B": "the unstretched length of the wire and the extension of the wire",
+    "C": "the Young modulus of the metal and the extension of the wire",
+    "D": "the Young modulus of the metal and the unstretched length of the wire"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Strain is extension divided by unstretched length, so both measurements in B are needed. Area in A is used for stress, not strain.",
+   "distractors": {
+    "A": "m7"
+   }
+  },
+  {
+   "id": "9702-6.1-p11",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q20",
+    "qid": "9702_w20_13_q20"
+   },
+   "stem": "A platform is suspended by four steel wires. Each wire is 5.0 m long and has a diameter of\n3.0 mm. The Young modulus of steel is 2.1 × 10¹¹\nPa.\n200 kg\nsteel wires\nsteel wires\nplatform\nThe wires obey Hooke’s law when a load of mass 200 kg is placed on the platform.\nHow far will the platform descend because of the extension of the wires?",
+   "options": {
+    "A": "1.7 × 10⁻⁴ m",
+    "B": "4.1 × 10⁻⁴ m",
+    "C": "1.7 × 10⁻³ m",
+    "D": "6.6 × 10⁻³ m"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Each of four wires supports a quarter of the platform weight. Using $x=FL/(AE)$ with $F=200(9.81)/4$ and $A=\\pi(0.0030)^2/4$ gives $1.7\\times10^{-3}$ m. D uses the whole weight in one wire.",
+   "distractors": {
+    "D": "m7"
+   },
+   "image": "Assets/mcq/9702_w20_13_q20.png"
+  },
+  {
+   "id": "9702-6.1-p12",
+   "kcs": [
+    "9702-6.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q3",
+    "qid": "9702_s24_13_q3"
+   },
+   "stem": "The Young modulus of the material of a wire is to be found. The Young modulus E is given by the\nequation shown.\nE =\nx\nd\nL\nF\n2\n4\nπ\nThe wire is extended by a known force and the following measurements are made.\nWhich measurement has the largest effect on the uncertainty in the value of the calculated Young\nmodulus?\nmeasurement\nsymbol\nvalue",
+   "options": {
+    "A": "length of wire before force applied L 2.043 ± 0.002 m",
+    "B": "diameter of wire d 0.54 ± 0.02 mm",
+    "C": "force applied F 19.62 ± 0.01 N",
+    "D": "extension of wire with force applied x 5.2 ± 0.2 mm"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The diameter contributes twice its fractional uncertainty because $E\\propto d^{-2}$: $2(0.02/0.54)=7.4\\%$, exceeding the extension contribution $0.2/5.2=3.8\\%$. D ignores the squared diameter.",
+   "distractors": {
+    "D": "m6"
+   },
+   "image": "Assets/mcq/9702_s24_13_q3.png"
+  },
+  {
+   "id": "9702-6.1-i01",
+   "kcs": [
+    "9702-6.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define tensile force acting on a straight specimen.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A tensile force pulls the specimen outward along its length.",
+     "keywords": [
+      [
+       "pull",
+       "tension"
+      ],
+      [
+       "outward",
+       "apart"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Tension is a pulling force along the specimen and tends to extend it.",
+   "hints": [
+    "Decide whether the forces pull outward or push inward.",
+    "Look at the change in length along the force.",
+    "Relate the force direction to extension or compression."
+   ]
+  },
+  {
+   "id": "9702-6.1-i02",
+   "kcs": [
+    "9702-6.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define compressive force acting on a straight specimen.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A compressive force pushes inward along the specimen.",
+     "keywords": [
+      [
+       "push",
+       "compression"
+      ],
+      [
+       "inward",
+       "together"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Compression pushes the specimen inward and tends to shorten it.",
+   "hints": [
+    "Decide whether the forces pull outward or push inward.",
+    "Look at the change in length along the force.",
+    "Relate the force direction to extension or compression."
+   ]
+  },
+  {
+   "id": "9702-6.1-i03",
+   "kcs": [
+    "9702-6.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A rod is pulled at opposite ends along its length. Predict the one-dimensional deformation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its length increases: it extends.",
+     "keywords": [
+      [
+       "longer",
+       "length increases",
+       "extends",
+       "extension"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Opposed outward pulls create tensile deformation.",
+   "hints": [
+    "Decide whether the forces pull outward or push inward.",
+    "Look at the change in length along the force.",
+    "Relate the force direction to extension or compression."
+   ]
+  },
+  {
+   "id": "9702-6.1-i04",
+   "kcs": [
+    "9702-6.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A straight column is squeezed along its axis. Predict its change in length.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its length decreases: it compresses.",
+     "keywords": [
+      [
+       "shorter",
+       "decreases",
+       "compression",
+       "contracts"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Opposed inward pushes create compressive deformation.",
+   "hints": [
+    "Decide whether the forces pull outward or push inward.",
+    "Look at the change in length along the force.",
+    "Relate the force direction to extension or compression."
+   ]
+  },
+  {
+   "id": "9702-6.1-i05",
+   "kcs": [
+    "9702-6.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a hanging load causes tensile deformation in its supporting wire.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The load pulls the wire along its axis.",
+     "keywords": [
+      [
+       "load",
+       "weight"
+      ],
+      [
+       "pull",
+       "tension"
+      ]
+     ]
+    },
+    {
+     "point": "The wire extends along its length.",
+     "keywords": [
+      [
+       "extend",
+       "longer",
+       "extension"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The load pulls the wire downward while the support pulls upward, stretching it along its axis.",
+   "hints": [
+    "Decide whether the forces pull outward or push inward.",
+    "Look at the change in length along the force.",
+    "Relate the force direction to extension or compression."
+   ]
+  },
+  {
+   "id": "9702-6.1-i06",
+   "kcs": [
+    "9702-6.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare one-dimensional tensile and compressive deformation.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Tension increases length.",
+     "keywords": [
+      [
+       "tension",
+       "tensile"
+      ],
+      [
+       "increase",
+       "longer",
+       "extension"
+      ]
+     ]
+    },
+    {
+     "point": "Compression decreases length.",
+     "keywords": [
+      [
+       "compression",
+       "compressive"
+      ],
+      [
+       "decrease",
+       "shorter"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both act along the specimen; tension lengthens it and compression shortens it.",
+   "hints": [
+    "Decide whether the forces pull outward or push inward.",
+    "Look at the change in length along the force.",
+    "Relate the force direction to extension or compression."
+   ]
+  },
+  {
+   "id": "9702-6.1-i07",
+   "kcs": [
+    "9702-6.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define load in a force–extension experiment.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The load is the applied force on the specimen.",
+     "keywords": [
+      [
+       "applied"
+      ],
+      [
+       "force"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Load is the force applied to the spring or wire.",
+   "hints": [
+    "Separate applied force from change in length.",
+    "Use the axes of a force–extension graph.",
+    "Locate where the straight segment first ends."
+   ]
+  },
+  {
+   "id": "9702-6.1-i08",
+   "kcs": [
+    "9702-6.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define extension of a wire.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Extension is the increase in length from its original length.",
+     "keywords": [
+      [
+       "increase",
+       "change"
+      ],
+      [
+       "length"
+      ],
+      [
+       "original",
+       "unstretched"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Extension is loaded length minus original length.",
+   "hints": [
+    "Separate applied force from change in length.",
+    "Use the axes of a force–extension graph.",
+    "Locate where the straight segment first ends."
+   ]
+  },
+  {
+   "id": "9702-6.1-i09",
+   "kcs": [
+    "9702-6.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define compression of a spring.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Compression is the decrease in length from the original length.",
+     "keywords": [
+      [
+       "decrease",
+       "shortening"
+      ],
+      [
+       "length"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Compression is the spring’s shortening due to a compressive load.",
+   "hints": [
+    "Separate applied force from change in length.",
+    "Use the axes of a force–extension graph.",
+    "Locate where the straight segment first ends."
+   ]
+  },
+  {
+   "id": "9702-6.1-i10",
+   "kcs": [
+    "9702-6.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define the limit of proportionality on a force–extension graph.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is the point beyond which force and extension cease to be directly proportional.",
+     "keywords": [
+      [
+       "force",
+       "load"
+      ],
+      [
+       "extension"
+      ],
+      [
+       "proportional",
+       "straight"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The limit of proportionality ends the straight-line region through the origin; it does not necessarily mark permanent deformation.",
+   "hints": [
+    "Separate applied force from change in length.",
+    "Use the axes of a force–extension graph.",
+    "Locate where the straight segment first ends."
+   ]
+  },
+  {
+   "id": "9702-6.1-i11",
+   "kcs": [
+    "9702-6.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State Hooke’s law and its condition of validity.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Extension is directly proportional to applied force.",
+     "keywords": [
+      [
+       "extension"
+      ],
+      [
+       "directly proportional",
+       "proportional"
+      ],
+      [
+       "force",
+       "load"
+      ]
+     ]
+    },
+    {
+     "point": "This applies up to the limit of proportionality.",
+     "keywords": [
+      [
+       "limit of proportionality"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For one spring, $F\\propto x$ until its limit of proportionality.",
+   "hints": [
+    "Think about proportionality for one specimen.",
+    "Write the relationship between load and extension.",
+    "Check that the graph passes through the origin."
+   ]
+  },
+  {
+   "id": "9702-6.1-i12",
+   "kcs": [
+    "9702-6.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A force–extension graph curves after an initial straight line. Explain whether Hooke’s law holds in the curved region.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Force and extension are no longer directly proportional.",
+     "keywords": [
+      [
+       "force"
+      ],
+      [
+       "extension"
+      ],
+      [
+       "not proportional",
+       "no longer proportional",
+       "curved"
+      ]
+     ]
+    },
+    {
+     "point": "Hooke’s law therefore does not hold beyond the limit of proportionality.",
+     "keywords": [
+      [
+       "Hooke"
+      ],
+      [
+       "limit of proportionality",
+       "does not hold"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Curvature means the ratio $F/x$ is not constant, so the limit of proportionality has been passed.",
+   "hints": [
+    "Think about proportionality for one specimen.",
+    "Write the relationship between load and extension.",
+    "Check that the graph passes through the origin."
+   ]
+  },
+  {
+   "id": "9702-6.1-i13",
+   "kcs": [
+    "9702-6.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A spring extends [[x]] cm under a load of [[F]] N while obeying Hooke’s law. Calculate its extension under a load of [[G]] N, in cm.",
+   "marks": 3,
+   "answer": {
+    "unit": "cm",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "x": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "F": {
+      "choices": [
+       4,
+       5
+      ]
+     },
+     "G": {
+      "choices": [
+       8,
+       10
+      ]
+     }
+    },
+    "answer": "x*G/F",
+    "distractors": [
+     {
+      "expr": "x*F/G",
+      "misconception": "m3"
+     },
+     {
+      "expr": "x*G/(100*F)",
+      "misconception": "m5"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "Since extension is proportional to force, $x_2=x_1F_2/F_1$.",
+   "hints": [
+    "Think about proportionality for one specimen.",
+    "Write the relationship between load and extension.",
+    "Check that the graph passes through the origin."
+   ]
+  },
+  {
+   "id": "9702-6.1-i14",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A spring extends [[x]] cm when its load is [[F]] N. Calculate its spring constant in N m$^{-1}$.",
+   "marks": 3,
+   "answer": {
+    "unit": "N m^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "x": {
+      "choices": [
+       4,
+       5,
+       8
+      ]
+     },
+     "F": {
+      "choices": [
+       2,
+       3,
+       6
+      ]
+     }
+    },
+    "answer": "100*F/x",
+    "distractors": [
+     {
+      "expr": "F/x",
+      "misconception": "m5"
+     },
+     {
+      "expr": "x/(100*F)",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "Convert centimetres to metres and use $k=F/x$.",
+   "hints": [
+    "Start with force divided by extension.",
+    "Convert extension to metres.",
+    "Write $k=F/x$ before substituting."
+   ]
+  },
+  {
+   "id": "9702-6.1-i15",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A wire of length [[L]] m and diameter [[d]] mm extends [[x]] mm under a tensile force of [[F]] N. Calculate its Young modulus in Pa.",
+   "marks": 3,
+   "answer": {
+    "unit": "Pa",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "L": {
+      "choices": [
+       1.5,
+       2.0
+      ]
+     },
+     "d": {
+      "choices": [
+       0.8,
+       1.0
+      ]
+     },
+     "x": {
+      "choices": [
+       1.0,
+       2.0
+      ]
+     },
+     "F": {
+      "choices": [
+       20,
+       30
+      ]
+     }
+    },
+    "answer": "F*L/(pi*(d*0.001)**2/4*(x*0.001))",
+    "distractors": [
+     {
+      "expr": "F*L/(pi*(d*0.001)**2*(x*0.001))",
+      "misconception": "m6"
+     },
+     {
+      "expr": "F*L/(pi*(d*0.001)**2/4*(x*0.001)*L)",
+      "misconception": "m7"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "explanation": "The circular area is $\\pi d^2/4$; use $E=FL/(Ax)$ with SI lengths.",
+   "hints": [
+    "Start from stress and strain.",
+    "Use the cross-sectional area and original length.",
+    "Write $E=FL/(Ax)$ and convert all lengths to metres."
+   ]
+  },
+  {
+   "id": "9702-6.1-i16",
+   "kcs": [
+    "9702-6.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the measurements required to determine Young modulus for a metal wire.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Measure the original gauge length.",
+     "keywords": [
+      [
+       "original",
+       "unstretched"
+      ],
+      [
+       "length"
+      ]
+     ]
+    },
+    {
+     "point": "Measure the wire diameter at several places and calculate its cross-sectional area.",
+     "keywords": [
+      [
+       "diameter"
+      ],
+      [
+       "several",
+       "multiple",
+       "different"
+      ],
+      [
+       "area"
+      ]
+     ]
+    },
+    {
+     "point": "Measure force and the corresponding extension.",
+     "keywords": [
+      [
+       "force",
+       "load"
+      ],
+      [
+       "extension"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use $L$, mean $d$ and $A=\\pi d^2/4$, plus pairs of load and extension.",
+   "hints": [
+    "List the measurements needed for $E=FL/(Ax)$.",
+    "Separate original length, diameter, applied force and extension.",
+    "Take an initial pointer reading before adding a load."
+   ]
+  },
+  {
+   "id": "9702-6.1-i17",
+   "kcs": [
+    "9702-6.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Why should the wire diameter be measured at several positions and orientations?",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The diameter can vary and measurements contain random error.",
+     "keywords": [
+      [
+       "diameter"
+      ],
+      [
+       "vary",
+       "variation",
+       "random error"
+      ]
+     ]
+    },
+    {
+     "point": "A mean improves the area estimate.",
+     "keywords": [
+      [
+       "mean",
+       "average"
+      ],
+      [
+       "area",
+       "cross-sectional"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Several micrometer readings reduce random error and detect nonuniform diameter.",
+   "hints": [
+    "List the measurements needed for $E=FL/(Ax)$.",
+    "Separate original length, diameter, applied force and extension.",
+    "Take an initial pointer reading before adding a load."
+   ]
+  },
+  {
+   "id": "9702-6.1-i18",
+   "kcs": [
+    "9702-6.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "How can a reference wire help measure the extension of a loaded test wire?",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Place an unloaded reference wire beside the test wire on the same support.",
+     "keywords": [
+      [
+       "reference"
+      ],
+      [
+       "same support",
+       "alongside"
+      ]
+     ]
+    },
+    {
+     "point": "Measure relative movement between markers to cancel support movement.",
+     "keywords": [
+      [
+       "relative",
+       "difference"
+      ],
+      [
+       "support",
+       "movement"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A reference wire tracks movement of the support, so relative pointer displacement better represents test-wire extension.",
+   "hints": [
+    "List the measurements needed for $E=FL/(Ax)$.",
+    "Separate original length, diameter, applied force and extension.",
+    "Take an initial pointer reading before adding a load."
+   ]
+  },
+  {
+   "id": "9702-6.1-i19",
+   "kcs": [
+    "9702-6.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Why should the initial position be recorded before loading the wire?",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Extension is the difference between loaded and initial positions.",
+     "keywords": [
+      [
+       "difference",
+       "subtract",
+       "change"
+      ],
+      [
+       "initial",
+       "original"
+      ],
+      [
+       "loaded"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A loaded position alone is not an extension.",
+   "hints": [
+    "List the measurements needed for $E=FL/(Ax)$.",
+    "Separate original length, diameter, applied force and extension.",
+    "Take an initial pointer reading before adding a load."
+   ]
+  },
+  {
+   "id": "9702-6.1-i20",
+   "kcs": [
+    "9702-6.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to obtain Young modulus from a force–extension graph for a wire of known original length and cross-sectional area.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Take the gradient $F/x$ of the straight-line region.",
+     "keywords": [
+      [
+       "gradient",
+       "slope"
+      ],
+      [
+       "force",
+       "F"
+      ],
+      [
+       "extension",
+       "x"
+      ]
+     ]
+    },
+    {
+     "point": "Multiply by original length and divide by cross-sectional area.",
+     "keywords": [
+      [
+       "original",
+       "initial"
+      ],
+      [
+       "length"
+      ],
+      [
+       "area"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For a force–extension graph, $E=(L/A)\\,(F/x)$ using the straight region.",
+   "hints": [
+    "List the measurements needed for $E=FL/(Ax)$.",
+    "Separate original length, diameter, applied force and extension.",
+    "Take an initial pointer reading before adding a load."
+   ]
+  },
+  {
+   "id": "9702-6.1-x001",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q21",
+    "qid": "9702_s19_11_q21"
+   },
+   "stem": "A 0.80 m length of steel wire and a 1.4 m length of brass wire are joined together. The combined\nwires are suspended from a fixed support and a force of 40 N is applied, as shown.\n40 N\nsteel\nbrass\nThe Young modulus of steel is 2.0 × 10¹¹\nPa.\nThe Young modulus of brass is 1.0 × 10¹¹\nPa.\nEach wire has a cross-sectional area of 2.4 × 10⁻⁶\nm².\nThe wires obey Hooke’s law.\nWhat is the total extension? Ignore the weights of the wires.",
+   "options": {
+    "A": "1.7 × 10⁻⁴ m",
+    "B": "3.0 × 10⁻⁴ m",
+    "C": "3.9 × 10⁻⁴ m",
+    "D": "9.0 × 10⁻⁴ m"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x002",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q19",
+    "qid": "9702_s19_13_q19"
+   },
+   "stem": "Four solid steel rods, each of length 2.0 m and cross-sectional area 250 mm², equally support an\nobject weighing 10 kN. The weight of the object causes the rods to contract by 0.10 mm. The rods\nobey Hooke’s law.\nWhat is the Young modulus of steel?",
+   "options": {
+    "A": "2.0 × 10⁸ N m⁻²",
+    "B": "2.0 × 10¹¹ N m⁻²",
+    "C": "8.0 × 10⁸ N m⁻²",
+    "D": "8.0 × 10¹¹ N m⁻²"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Many candidates answered this question correctly. Those who were not correct either omitted to convert the contraction of the rods from mm to m, or converted mm2 to m2 incorrectly, or did not take account of the presence of four rods supporting the object."
+  },
+  {
+   "id": "9702-6.1-x003",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q19",
+    "qid": "9702_w19_13_q19"
+   },
+   "stem": "The stress–strain graph for a wire is shown.\n2.1\n0\n0\n1.4\nstress / 10⁸ Pa\nstrain / 10⁻³\nWhat is the Young modulus of the material of the wire?",
+   "options": {
+    "A": "6.7 × 10⁻¹² Pa",
+    "B": "6.7 × 10⁻⁹ Pa",
+    "C": "1.5 × 10⁸ Pa",
+    "D": "1.5 × 10¹¹ Pa"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_13_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x004",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q18",
+    "qid": "9702_s20_12_q18"
+   },
+   "stem": "An elastic cord of unstretched total length 16.0 cm and cross-sectional area 2.0 × 10⁻⁶\nm² is held\nhorizontally by two smooth pins a distance 8.0 cm apart.\nThe cord obeys Hooke’s law. A load of mass 0.40 kg is suspended centrally on the cord. The\nangle between the two sides of the cord supporting the load is 60°.\n8.0 cm\n8.0 cm\n8.0 cm\nmass 0.40 kg\nunstretched cord\ncord\npin\npin\npin\npin\n60°\nWhat is the Young modulus of the cord material?",
+   "options": {
+    "A": "5.7 × 10⁵ Pa",
+    "B": "1.1 × 10⁶ Pa",
+    "C": "2.3 × 10⁶ Pa",
+    "D": "3.9 × 10⁶ Pa"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_12_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x005",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q19",
+    "qid": "9702_s20_12_q19"
+   },
+   "stem": "A student is investigating the mechanical properties of a metal. He applies different loads to a\nlong thin wire up to its breaking point, and measures the extension of the wire for each load. He\nthen plots a graph of stress against strain.\nstrain / 10⁻³\n0\n10\n20\n30\n40\n4\n3\n2\n1\n0\nstress\n/ 10⁶ Pa\nThe student repeats the experiment with a wire made from the same metal, with twice the original\nlength and half the diameter.\nWhich graph is obtained?\n4\n3\n2\n1\n0\nstress\n/ 10⁶ Pa\nstrain / 10⁻³\n0\n20\n40\n60\n80\nstress\n/ 10⁶ Pa\nstrain / 10⁻³\n0\n20\n40\n60\n80",
+   "options": {
+    "A": "4 3 2 1 0 stress / 10⁶ Pa strain / 10⁻³ 0 10 20 30 40",
+    "B": "16 12 8 4 0",
+    "C": "16 12 8 4 0 stress / 10⁶ Pa strain / 10⁻³ 0 10 20 30 40",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_12_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x006",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q20",
+    "qid": "9702_s20_13_q20"
+   },
+   "stem": "The diagram shows a simplified model of a building with four identical heavy floors.\ntop rods\nbottom rods\nmiddle rods\nfloors\nThe spacing of the bottom floor from the ground is twice that of the spacing between the floors.\nBetween each floor are equal numbers of vertical steel supporting rods of negligible mass\ncompared with the floors. The rods are of different diameters so that the stress in each rod is the\nsame.\nWhat is the ratio diameter of bottom rods\ndiameter of top rods\n?",
+   "options": {
+    "A": "2",
+    "B": "4",
+    "C": "8",
+    "D": "16"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x007",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q19",
+    "qid": "9702_w20_11_q19"
+   },
+   "stem": "A wire of circular cross-section, which obeys Hooke’s law, is used to suspend a basket as shown.\nwire\nbasket\nThe Young modulus for the material of the wire is 2.5 × 10¹¹\nPa.\nWhen a weight of 34 N is added to the basket, the strain in the wire increases by 6.0 × 10⁻⁵.\nWhat is the radius of the wire?",
+   "options": {
+    "A": "7.2 × 10⁻⁷ m",
+    "B": "2.3 × 10⁻⁶ m",
+    "C": "8.5 × 10⁻⁴ m",
+    "D": "1.7 × 10⁻³ m"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x008",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q19",
+    "qid": "9702_s21_11_q19"
+   },
+   "stem": "The spring constants of four springs are determined by plotting the following graphs of force F\nagainst extension x.\n10\n0\n0\n1\n5\nx / mm\nF / N\n20\n0\n0\n2\n4\nx / mm\nF / N\n100\n0\n0\n3\n0.1\nx / mm\nF / N\n10\n0\n0\n4\n0.5\nx / mm\nF / N\nWhich order of the graphs shows decreasing spring constants?",
+   "options": {
+    "A": "2 → 1 → 3 → 4",
+    "B": "3 → 4 → 2 → 1",
+    "C": "4 → 2 → 1 → 3",
+    "D": "4 → 3 → 2 → 1"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x009",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q19",
+    "qid": "9702_s21_12_q19"
+   },
+   "stem": "A steel bar of circular cross-section is under tension T, as shown.\nThe diameter of the wide portion is double the diameter of the narrow portion.\nT\nT\nWhat is the value of\nportion\nnarrow\nthe\nin\nstress\nportion\nwide\nthe\nin\nstress\n?",
+   "options": {
+    "A": "0.25",
+    "B": "0.50",
+    "C": "2.0",
+    "D": "4.0"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_12_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x010",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q20",
+    "qid": "9702_s21_13_q20"
+   },
+   "stem": "The stress σ in a material is given by the equation shown.\nσ = F\nA\nThe strain ε in the same material is given by the equation shown.\nε = x\nL\nWhich expression gives the Young modulus of the material?",
+   "options": {
+    "A": "ε σ",
+    "B": "Fx AL",
+    "C": "x L σ",
+    "D": "F Aε"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x011",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q19",
+    "qid": "9702_w21_11_q19"
+   },
+   "stem": "A metal wire, of cross-sectional area A and unstretched length l, is subjected to stress σ. As a\nresult it has strain ε.\nWhich expression gives the Young modulus of the metal?",
+   "options": {
+    "A": "ε σ",
+    "B": "A ε σl",
+    "C": "σ ε",
+    "D": "A σ ε l"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x012",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q21",
+    "qid": "9702_w21_12_q21"
+   },
+   "stem": "Three springs are arranged vertically as shown.\nP\nQ\nR\nW\nSprings P and Q are identical and each has spring constant k. Spring R has spring constant 3k.\nWhat is the increase in the overall length of the arrangement when a force W is applied as\nshown?",
+   "options": {
+    "A": "k W 6 5",
+    "B": "k W 3 4",
+    "C": "2 7 kW",
+    "D": "4 kW"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_12_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x013",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q20",
+    "qid": "9702_w21_13_q20"
+   },
+   "stem": "Which spring combination has an overall spring constant of 8.0 N m⁻¹?\nextension\n= 0.20 m\nextension\n= 0.20 m\n1.6 N\nextension\n= 0.075 m",
+   "options": {
+    "A": "extension = 0.075 m extension = 0.075 m 1.2 N",
+    "B": "",
+    "C": "",
+    "D": "extension = 0.075 m extension = 0.075 m extension = 0.075 m 2.4 N extension = 0.075 m extension = 0.15 m extension = 0.075 m 1.8 N"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w21_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "This question was also found to be difficult, with many candidates selecting B rather than the correct answer C. The overall spring constant k for each of the spring combinations is given by: k = (force applied to spring combination) / (extension of spring combination). Only C has the required spring constant of 8.0 N m–1."
+  },
+  {
+   "id": "9702-6.1-x014",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q13",
+    "qid": "9702_s22_12_q13"
+   },
+   "stem": "A diving board of length 5.0 m is hinged at one end and supported 2.0 m from this end by a spring\nof spring constant 10 kN m⁻¹. A child of mass 40 kg stands at the far end of the board.\nmass of child\n40 kg\n2.0 m\n5.0 m\ndiving board\nspring\nhinge\nWhat is the extra compression of the spring caused by the child standing on the end of the\nboard?",
+   "options": {
+    "A": "1.0 cm",
+    "B": "1.6 cm",
+    "C": "9.8 cm",
+    "D": "16 cm"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_12_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x015",
+   "kcs": [
+    "9702-6.1.5",
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q19",
+    "qid": "9702_s22_12_q19"
+   },
+   "stem": "A metal wire obeys Hooke’s law and has a Young modulus of 2.0 × 10¹¹\nPa. The wire has an\noriginal length of 1.6 m and a diameter of 0.48 × 10⁻³\nm.\nWhat is the spring constant of the wire?",
+   "options": {
+    "A": "7.2 × 10³ N m⁻¹",
+    "B": "2.3 × 10⁴ N m⁻¹",
+    "C": "2.9 × 10⁴ N m⁻¹",
+    "D": "9.0 × 10⁴ N m⁻¹"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x016",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q20",
+    "qid": "9702_s22_13_q20"
+   },
+   "stem": "A steel wire has a length of 300 cm and a cross-sectional area of 0.50 mm². The Young modulus\nof steel is 2.0 × 10¹¹\nPa.\nOne end of the wire is attached to a fixed point. A load of 10 N is hung from the other end. The\nwire obeys Hooke’s law.\nWhat is the extension of the wire?",
+   "options": {
+    "A": "3.0 × 10⁻⁷ m",
+    "B": "3.0 × 10⁻⁵ m",
+    "C": "3.0 × 10⁻⁴ m",
+    "D": "3.0 × 10⁻² m"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x017",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q19",
+    "qid": "9702_w22_11_q19"
+   },
+   "stem": "Identical springs are joined in four arrangements.\nWhich arrangement has the same spring constant as a single spring?\nload",
+   "options": {
+    "A": "load",
+    "B": "load",
+    "C": "load",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x018",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q19",
+    "qid": "9702_w22_13_q19"
+   },
+   "stem": "A copper wire of length 3.6 m and diameter 1.22 mm is stretched by a force of 37 N. The wire\nobeys Hooke’s law. The Young modulus of copper is 1.17 × 10¹¹\nPa.\nWhich extension is caused by this force?",
+   "options": {
+    "A": "0.24 mm",
+    "B": "0.76 mm",
+    "C": "0.97 mm",
+    "D": "3.1 mm"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x019",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q18",
+    "qid": "9702_s23_12_q18"
+   },
+   "stem": "What is meant by the spring constant of a spring?",
+   "options": {
+    "A": "extension per unit force",
+    "B": "2 ¹ × force × extension",
+    "C": "force × extension",
+    "D": "force per unit extension"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_12_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x020",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q18",
+    "qid": "9702_s23_13_q18"
+   },
+   "stem": "A metal wire has length 5.2 m and diameter 1.0 mm. The metal has Young modulus 360 GPa.\nThe wire is fixed at one end and a force is applied to the other end. The force extends the wire by\n7.2 mm. The wire obeys Hooke’s law.\nWhat is the force applied to the wire?",
+   "options": {
+    "A": "1.2 × 10² N",
+    "B": "3.9 × 10² N",
+    "C": "5.0 × 10² N",
+    "D": "1.6 × 10³ N"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x021",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q18",
+    "qid": "9702_w23_11_q18"
+   },
+   "stem": "An elastic cord of unstretched total length 16.0 cm and cross-sectional area 2.0 × 10⁻⁶\nm² is held\nhorizontally by two smooth pins a distance 8.0 cm apart.\nThe cord obeys Hooke’s law. A load of mass 0.40 kg is suspended centrally on the cord. The\nangle between the two sides of the cord supporting the load is 60°.\n8.0 cm\n8.0 cm\n8.0 cm\nmass 0.40 kg\nunstretched cord\ncord\npin\npin\npin\npin\n60\u0002\nWhat is the Young modulus of the cord material?",
+   "options": {
+    "A": "5.7 × 10⁵ Pa",
+    "B": "1.1 × 10⁶ Pa",
+    "C": "2.3 × 10⁶ Pa",
+    "D": "3.9 × 10⁶ Pa"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w23_11_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Care is needed in interpreting all the information provided in the question, ensuring units are consistent when carrying out the calculation. The initial length of the cord is 16.0 cm and the stretched length is 24.0 cm, making the extension of the cord 8.0 cm. If the tension in the cord is T, then resolving the forces supporting the load of mass 0.40 kg vertically: 2T cos 30 = 0.40g so T = 2.3 N The Young modulus E is given by: × × × –6 –2 –2 2.3 2.0 1 0 = = 8.0 1 0 16.0 1 0 E σ ε = 2.3 × 106 (Answer C)"
+  },
+  {
+   "id": "9702-6.1-x022",
+   "kcs": [
+    "9702-6.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q19",
+    "qid": "9702_w23_12_q19"
+   },
+   "stem": "The force–extension graph for a wire is shown.\nforce\nextension\n0\n0\nZ\nX\nY\nWhich row could identify the labels X, Y and Z?\nlimit of\nproportionality\nregion of elastic\ndeformation\nregion of plastic\ndeformation",
+   "options": {
+    "A": "X Y Z",
+    "B": "Z Y X",
+    "C": "Y Z X",
+    "D": "Z X Y"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_12_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x023",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q21",
+    "qid": "9702_s24_11_q21"
+   },
+   "stem": "When a force of 0.80 N is applied to a spring, the length of the spring is 90 mm.\nWhen a force of 1.30 N is applied to the same spring, its length is 115 mm.\nThe spring obeys Hooke’s law.\nWhat is the spring constant of the spring?",
+   "options": {
+    "A": "8.9 N m⁻¹",
+    "B": "10 N m⁻¹",
+    "C": "11 N m⁻¹",
+    "D": "20 N m⁻¹"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x024",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q22",
+    "qid": "9702_s24_11_q22"
+   },
+   "stem": "An experiment is carried out using a metal wire to investigate how it responds to a varying tensile\nforce. The cross-sectional area of the wire is constant.\nWhich graph has a gradient that is equal to the Young modulus of the metal?\nextension\nforce\n0",
+   "options": {
+    "A": "0 force extension 0",
+    "B": "0 stress strain 0",
+    "C": "0 strain stress 0",
+    "D": "0"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x025",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q19",
+    "qid": "9702_s24_12_q19"
+   },
+   "stem": "Two wires, P and Q, made of the same material, are stretched with an increasing force.\nA graph is plotted of the variation with force of the extension of each wire.\n4\n3\n2\n1\n0\n0\n1\n2\nforce / N\nextension\n/ mm\nP\nQ\nThe wires have the same original length but different diameters.\nWhat is the ratio\n?\nP\nwire\nof\ndiameter\nQ\nwire\nof\ndiameter",
+   "options": {
+    "A": "3 1",
+    "B": "3 1",
+    "C": "3",
+    "D": "3"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_12_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x026",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q20",
+    "qid": "9702_s24_12_q20"
+   },
+   "stem": "An extension–force graph for a spring is shown.\n15\nextension / cm\nforce / N\n0\n0\n6.0\nWhat is the spring constant of the spring?",
+   "options": {
+    "A": "0.025 N m⁻¹",
+    "B": "0.40 N m⁻¹",
+    "C": "2.5 N m⁻¹",
+    "D": "40 N m⁻¹"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_12_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x027",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q19",
+    "qid": "9702_s24_13_q19"
+   },
+   "stem": "Two wires, one made of brass and the other of steel, are stretched in an experiment. Both wires\nobey Hooke’s law during this experiment.\nThe Young modulus for brass is less than the Young modulus for steel.\nWhich graph shows how the stress varies with strain for both wires in this experiment?\n0\n0\nstress\nstrain",
+   "options": {
+    "A": "steel brass 0 0 stress strain",
+    "B": "steel brass 0 0 stress strain",
+    "C": "brass steel 0 0 stress strain",
+    "D": "brass steel"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_13_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x028",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q20",
+    "qid": "9702_w24_11_q20"
+   },
+   "stem": "A wire has original length L and cross-sectional area A. A tensile force F is applied to the wire\nwhich causes it to have extension x. The wire obeys Hooke’s law.\nWhat is an expression for the Young modulus of the material from which the wire is made?",
+   "options": {
+    "A": "E = (stress × x)/L",
+    "B": "E = F/(A × strain)",
+    "C": "E = (F × x)/(A × L)",
+    "D": "E = strain/stress"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "The Young modulus is stress divided by strain. Stress is F/A, so E = (F/A)/strain = F/(A × strain): B. C is F/(A × x/L) written wrongly: the correct form is FL/(Ax), with L on top. D is the ratio upside down, and A multiplies stress by extension, which is not strain."
+  },
+  {
+   "id": "9702-6.1-x029",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q23",
+    "qid": "9702_w24_11_q23"
+   },
+   "stem": "A wire consists of a 3.0 m length of metal X joined to a 1.0 m length of metal Y.\nThe cross-sectional area of the wire is uniform.\n3.0 m\n1.0 m\nX\nY\nload\nA load hung from the wire causes metal X to extend by 1.5 mm and metal Y to extend by 1.0 mm.\nThe same load is then hung from a second wire of the same cross-sectional area, consisting of a\n1.0 m length of metal X and a 3.0 m length of metal Y.\nBoth wires are extended within their limit of proportionality.\nWhat is the total extension of this second wire?",
+   "options": {
+    "A": "2.5 mm",
+    "B": "3.5 mm",
+    "C": "4.8 mm",
+    "D": "5.0 mm"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x030",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q19",
+    "qid": "9702_w24_12_q19"
+   },
+   "stem": "What is a unit for stress?",
+   "options": {
+    "A": "kg m⁻¹ s⁻²",
+    "B": "kg m⁻² s⁻²",
+    "C": "N m⁻¹",
+    "D": "N m"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x031",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q20",
+    "qid": "9702_w24_12_q20"
+   },
+   "stem": "The graph shows the relationship between stress and strain for three wires of the same linear\ndimensions but made from different materials.\nstress\nstrain\n0.1\n0\n0\n1.0\nP\nQ\nR\nWhich statements are correct?\n1\nThe extension of P is approximately twice that of Q for the same stress.\n2\nThe ratio of the Young modulus for P to that of Q is approximately two.\n3\nFor strain less than 0.1, R obeys Hooke’s law.",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1 and 3 only",
+    "C": "2 and 3 only",
+    "D": "2 only"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_12_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x032",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q21",
+    "qid": "9702_w24_12_q21"
+   },
+   "stem": "Four solid steel rods equally support an object weighing 10 kN. Each rod is of length 2.0 m and\ncross-sectional area 250 mm². The weight of the object causes the rods to contract by 0.10 mm.\nThe rods obey Hooke’s law.\nWhat is the Young modulus of steel?",
+   "options": {
+    "A": "2.0 × 10⁸ N m⁻²",
+    "B": "2.0 × 10¹¹ N m⁻²",
+    "C": "8.0 × 10⁸ N m⁻²",
+    "D": "8.0 × 10¹¹ N m⁻²"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x033",
+   "kcs": [
+    "9702-6.1.4",
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q22",
+    "qid": "9702_w24_13_q22"
+   },
+   "stem": "A uniform wire is made of a metal that has a Young modulus of 1.3 × 10¹¹\nPa.\nThe wire is 2.4 m long and has a spring constant of 2.7 × 10⁴\nN m⁻¹.\nWhat is the volume of the wire?",
+   "options": {
+    "A": "2.6 × 10⁻⁸ m³",
+    "B": "6.3 × 10⁻⁸ m³",
+    "C": "5.0 × 10⁻⁷ m³",
+    "D": "1.2 × 10⁻⁶ m³"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w24_13_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x034",
+   "kcs": [
+    "9702-6.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q21",
+    "qid": "9702_s25_11_q21"
+   },
+   "stem": "A student investigates a spring. The variation of the length of the spring with the force applied to\nthe spring is shown.\n0.60\n0.40\n0.20\n0\nlength / m\nforce / N\n0\n2.4\nWhat is the spring constant of the spring?",
+   "options": {
+    "A": "0.17 N m⁻¹",
+    "B": "0.25 N m⁻¹",
+    "C": "4.0 N m⁻¹",
+    "D": "6.0 N m⁻¹"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x035",
+   "kcs": [
+    "9702-6.1.4",
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q23",
+    "qid": "9702_s25_11_q23"
+   },
+   "stem": "A uniform metal wire of length L and diameter d has spring constant k.\nWhat is the Young modulus of the metal?",
+   "options": {
+    "A": "kL d 4 2 π",
+    "B": "kL d ² π",
+    "C": "2 d kL π",
+    "D": "2 4 d kL π"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x036",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q21",
+    "qid": "9702_s25_12_q21"
+   },
+   "stem": "A student has a copper wire and a steel wire with equal lengths and cross-sectional areas.\nThe student hangs identical loads on the two wires.\nThe extensions of the two wires are different.\nThe student calculates the stress, strain and Young modulus of each wire.\nWhich row identifies with a tick (\u0016) the calculated values that are equal for both wires?\nstress\nstrain\nYoung modulus",
+   "options": {
+    "A": "\u0016",
+    "B": "\u0016",
+    "C": "\u0016 \u0016",
+    "D": "\u0016 \u0016"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_12_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x037",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q20",
+    "qid": "9702_s25_13_q20"
+   },
+   "stem": "What are the units of stress, strain and the Young modulus?\nstress\nstrain\nYoung\nmodulus",
+   "options": {
+    "A": "newton metre pascal",
+    "B": "newton no unit newton",
+    "C": "pascal metre newton",
+    "D": "pascal no unit pascal"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x038",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q22",
+    "qid": "9702_s25_13_q22"
+   },
+   "stem": "A wire of length L₀ is attached at one end to a fixed point. A tensile force is applied to the other\nend so that the wire extends and has a new length L₁.\nWhat is the strain of the wire?",
+   "options": {
+    "A": "�� � �� � 0 1 L L – 1",
+    "B": "L₁ – L₀",
+    "C": "�� � �� � 0 1 L L + 1",
+    "D": "L₁ + L₀"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_13_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x039",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q21",
+    "qid": "9702_w25_11_q21"
+   },
+   "stem": "A wire has an unstretched length of 2.00 m.\nA stress of 1.6 × 10⁵\nPa is applied to the wire, and the new length of the wire is 2.10 m.\nThe wire obeys Hooke’s law.\nWhat is the Young modulus of the wire?",
+   "options": {
+    "A": "8.0 × 10³ Pa",
+    "B": "7.8 × 10⁴ Pa",
+    "C": "1.5 × 10⁵ Pa",
+    "D": "3.2 × 10⁶ Pa"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-6.1-x040",
+   "kcs": [
+    "9702-6.1.4",
+    "9702-6.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q22",
+    "qid": "9702_w25_12_q22"
+   },
+   "stem": "A copper wire has length 1.7 m and uniform diameter 0.64 mm.\nThe Young modulus of copper is 1.2 × 10¹¹\nPa.\nWhat is the spring constant of the wire?",
+   "options": {
+    "A": "2.3 × 10⁴ N m⁻¹",
+    "B": "9.1 × 10⁴ N m⁻¹",
+    "C": "4.5 × 10⁷ N m⁻¹",
+    "D": "7.1 × 10⁷ N m⁻¹"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-6.1.2",
+   "front": "What is load?",
+   "back": "The force applied to a specimen."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-6.1.2",
+   "front": "What is extension?",
+   "back": "The increase in length from the original length."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-6.1.2",
+   "front": "What is compression?",
+   "back": "The decrease in length from the original length."
+  },
+  {
+   "id": "fc4",
+   "kc": "9702-6.1.2",
+   "front": "What is the limit of proportionality?",
+   "back": "The point beyond which force and extension are no longer directly proportional."
+  },
+  {
+   "id": "fc5",
+   "kc": "9702-6.1.5",
+   "front": "Define Young modulus.",
+   "back": "Young modulus is the ratio of tensile stress to tensile strain."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-6.1.1": {
+   "motivate": "A wire can lengthen or shorten depending on which way forces act along it.",
+   "establish": "A tensile force pulls outward along a specimen and tends to increase its length. A compressive force pushes inward and tends to decrease its length. These describe deformation along the direction of the force.",
+   "connect": "Predict the length change before deciding whether the force is tensile or compressive.",
+   "note": "- Tension pulls outward along the specimen.\n- Tension causes extension.\n- Compression pushes inward.\n- Compression causes shortening.",
+   "self_explain": "How does the direction of the force determine the length change?",
+   "discover": {
+    "stem": "A rod is squeezed along its axis. What happens to its length?",
+    "options": {
+     "A": "It increases.",
+     "B": "It decreases.",
+     "C": "It stays fixed.",
+     "D": "It first increases then decreases."
+    },
+    "answer": "B",
+    "explanation": "An axial compressive force pushes inward and shortens the rod."
+   },
+   "source": "pack"
+  },
+  "9702-6.1.2": {
+   "motivate": "A force–extension graph tells us how a specimen changes as its load increases.",
+   "establish": "Load is the force applied to a specimen. Extension is its increase in length relative to its original length. On a force–extension graph, force and extension are proportional while the graph is a straight line through the origin. The point where this proportionality first ends is the limit of proportionality.",
+   "connect": "Find extension by comparing loaded and original lengths, then inspect the graph shape.",
+   "note": "- Load is the applied force.\n- Extension = loaded length − original length.\n- Proportionality is shown by a straight line through the origin.\n- Its endpoint is the limit of proportionality.",
+   "self_explain": "Why can the limit of proportionality differ from the elastic limit?",
+   "discover": {
+    "stem": "What marks the limit of proportionality on a force–extension graph?",
+    "options": {
+     "A": "The point where the straight-line relationship ends.",
+     "B": "The point where the specimen breaks.",
+     "C": "The point where force becomes zero.",
+     "D": "The point where extension is greatest."
+    },
+    "answer": "A",
+    "explanation": "Beyond this point, force and extension are no longer directly proportional."
+   },
+   "source": "pack"
+  },
+  "9702-6.1.3": {
+   "motivate": "Many springs respond predictably to a force, but only over part of their range.",
+   "establish": "Hooke’s law states that extension is directly proportional to applied force for a given spring, provided its limit of proportionality is not exceeded. In symbols, F is proportional to x and the force–extension graph is a straight line through the origin. Past the limit, the ratio F/x is no longer constant.",
+   "connect": "Check the proportionality condition before using a spring relationship.",
+   "note": "- Hooke’s law: F ∝ x.\n- It applies to a given spring.\n- Do not exceed the limit of proportionality.\n- The force–extension graph passes through the origin.",
+   "self_explain": "What graph evidence shows that Hooke’s law no longer applies?",
+   "discover": {
+    "stem": "A spring’s force–extension graph curves. What follows?",
+    "options": {
+     "A": "Extension remains proportional to force.",
+     "B": "Hooke’s law no longer applies.",
+     "C": "The spring constant is zero.",
+     "D": "The spring has no extension."
+    },
+    "answer": "B",
+    "explanation": "A curve means force and extension are no longer directly proportional."
+   },
+   "source": "pack"
+  },
+  "9702-6.1.4": {
+   "motivate": "Spring stiffness can be compared by measuring force for a known extension.",
+   "establish": "The spring constant k is the force required per unit extension: k = F/x. A larger k means a stiffer spring. Use extension in metres when reporting k in N m⁻¹. The gradient of a force–extension graph is k; reversing the axes gives gradient 1/k.",
+   "connect": "Read graph axes before finding a gradient or calculating k.",
+   "note": "- k = F/x.\n- Unit: N m⁻¹.\n- Larger k means stiffer spring.\n- Force–extension gradient equals k.",
+   "self_explain": "Why must centimetres be converted before finding k in N m⁻¹?",
+   "discover": {
+    "stem": "A force–extension graph has force on the vertical axis. What is its gradient?",
+    "options": {
+     "A": "1/k",
+     "B": "k",
+     "C": "x/F²",
+     "D": "F × x"
+    },
+    "answer": "B",
+    "explanation": "Gradient is force divided by extension, which is k."
+   },
+   "source": "pack"
+  },
+  "9702-6.1.5": {
+   "motivate": "A material property lets us compare wires with different dimensions.",
+   "establish": "Tensile stress is force per cross-sectional area, σ = F/A. Tensile strain is extension divided by original length, ε = x/L. Young modulus is the ratio of tensile stress to tensile strain, E = σ/ε. Thus E = FL/(Ax), measured in pascals; strain has no unit.",
+   "connect": "Build Young modulus from stress and strain, keeping original length and cross-sectional area clear.",
+   "note": "- Stress σ = F/A in Pa.\n- Strain ε = x/L, dimensionless.\n- Young modulus E = σ/ε.\n- E = FL/(Ax), in Pa.",
+   "self_explain": "How does using original length in strain affect the definition of E?",
+   "discover": {
+    "stem": "Which expression defines Young modulus?",
+    "options": {
+     "A": "strain/stress",
+     "B": "stress × strain",
+     "C": "stress/strain",
+     "D": "force × area"
+    },
+    "answer": "C",
+    "explanation": "Young modulus is tensile stress divided by tensile strain."
+   },
+   "source": "pack"
+  },
+  "9702-6.1.6": {
+   "motivate": "A wire’s small extension can reveal the stiffness of its material.",
+   "establish": "Measure the wire’s original gauge length and diameter, then apply known loads and measure corresponding extensions. Take diameter readings at several positions and orientations, and use their mean to find A = πd²/4. A reference wire can correct movement of the support. Use the straight-line force–extension gradient to find E = (L/A)(F/x).",
+   "connect": "Reliable modulus measurements depend on accurate dimensions and paired force and extension readings.",
+   "note": "- Measure original gauge length L.\n- Take repeated diameter readings.\n- Record force and corresponding extension.\n- Use E = (L/A) × force–extension gradient.",
+   "self_explain": "How does a reference wire improve the extension measurement?",
+   "discover": {
+    "stem": "Which measurements are needed to determine Young modulus of a wire?",
+    "options": {
+     "A": "Loaded length only.",
+     "B": "Original length, diameter, and force–extension data.",
+     "C": "Mass and final diameter only.",
+     "D": "Extension and final length only."
+    },
+    "answer": "B",
+    "explanation": "The calculation needs original length, cross-sectional area from diameter, force and extension."
+   },
+   "source": "pack"
+  }
+ }
+}

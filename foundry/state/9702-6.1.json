@@ -1,0 +1,263 @@
+{
+ "sub": "9702-6.1",
+ "stage": "ready",
+ "created": "2026-10-01T10:44:10+08:00",
+ "updated": "2026-10-01T15:58:25+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T10:47:52+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 72 items"
+  },
+  {
+   "t": "2026-10-01T15:39:47+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "50 agreed, 9 disputed"
+  },
+  {
+   "t": "2026-10-01T15:44:13+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-01T15:45:10+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-01T15:46:48+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-01T15:58:17+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "1 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-01T15:58:25+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 72,
+  "extra": 40
+ },
+ "disputes": [
+  {
+   "id": "9702-6.1-p02",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-6.1-p04",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-6.1-p05",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-6.1-x004",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-6.1-x005",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-6.1-x013",
+   "key": "C",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-6.1-x017",
+   "key": "C",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-6.1-x027",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-6.1-x028",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "fix: Key B is correct (E = stress/strain = (F/A)/strain = F/(A x strain)); extracted options lost their fraction bars. In build/work/mcq/overrides.json add under qid \"9702_w24_11_q20\" an \"options\" object (stem unchanged): {\"A\": \"E = (stress × x)/L\", \"B\": \"E = F/(A × strain)\", \"C\": \"E = (F × x)/(A × L)\", \"D\": \"E = strain/stress\"} and an \"explanation\": \"The Young modulus is stress divided by strain. Stress is F/A, so E = (F/A)/strain = F/(A × strain): B. C is F/(A × x/L) written wrongly: the correct form is FL/(Ax), with L on top. D is the ratio upside down, and A multiplies stress by extension, which is not strain.\""
+  }
+ ],
+ "findings": [],
+ "fixes": [
+  {
+   "ref": "9702-6.1-x028",
+   "instruction": "Key B is correct (E = stress/strain = (F/A)/strain = F/(A x strain)); extracted options lost their fraction bars. In build/work/mcq/overrides.json add under qid \"9702_w24_11_q20\" an \"options\" object (stem unchanged): {\"A\": \"E = (stress × x)/L\", \"B\": \"E = F/(A × strain)\", \"C\": \"E = (F × x)/(A × L)\", \"D\": \"E = strain/stress\"} and an \"explanation\": \"The Young modulus is stress divided by strain. Stress is F/A, so E = (F/A)/strain = F/(A × strain): B. C is F/(A × x/L) written wrongly: the correct form is FL/(Ax), with L on top. D is the ratio upside down, and A multiplies stress by extension, which is not strain.\"",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 98730,
+   "model": "gpt-6-sol/medium",
+   "started": "2026-10-01T10:44:10+08:00",
+   "log": "foundry/logs/9702-6.1.drafter.1001-104410.log",
+   "out": "foundry/logs/9702-6.1.drafter.1001-104410.out.json",
+   "finished": "2026-10-01T10:47:52+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-6.1.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/06 Deformation of solids/6.1 Stress and strain.md",
+    "items": 72,
+    "templates": 3,
+    "worked": 4,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   }
+  },
+  "solver#1": {
+   "haiku": true,
+   "started": "2026-10-01T15:27:36+08:00",
+   "expects": "build/work/blind/9702-6.1.answers.part1.json",
+   "closed": "2026-10-01T15:39:47+08:00"
+  },
+  "solver#2": {
+   "haiku": true,
+   "started": "2026-10-01T15:27:36+08:00",
+   "expects": "build/work/blind/9702-6.1.answers.part2.json",
+   "closed": "2026-10-01T15:39:47+08:00"
+  },
+  "solver#3": {
+   "haiku": true,
+   "started": "2026-10-01T15:27:36+08:00",
+   "expects": "build/work/blind/9702-6.1.answers.part3.json",
+   "closed": "2026-10-01T15:39:47+08:00"
+  },
+  "checker": {
+   "haiku": true,
+   "started": "2026-10-01T15:27:36+08:00",
+   "expects": "build/work/foundry/9702-6.1.check.json",
+   "closed": "2026-10-01T15:39:47+08:00"
+  },
+  "tiebreak": {
+   "pid": 20708,
+   "model": "gpt-6-sol/medium",
+   "started": "2026-10-01T15:39:57+08:00",
+   "log": "foundry/logs/9702-6.1.tiebreak.1001-153957.log",
+   "out": "foundry/logs/9702-6.1.tiebreak.1001-153957.out.json",
+   "finished": "2026-10-01T15:40:43+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 9,
+    "answers_path": "build/work/blind/9702-6.1.tiebreak.json",
+    "notes": []
+   }
+  },
+  "fixer": {
+   "pid": 23335,
+   "model": "gpt-6-luna/medium",
+   "started": "2026-10-01T15:45:17+08:00",
+   "log": "foundry/logs/9702-6.1.fixer.1001-154517.log",
+   "out": "foundry/logs/9702-6.1.fixer.1001-154517.out.json",
+   "finished": "2026-10-01T15:46:48+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 8,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   }
+  },
+  "solver": {
+   "haiku": true,
+   "started": "2026-10-01T15:50:56+08:00",
+   "expects": "build/work/blind/9702-6.1.recheck.answers.json",
+   "closed": "2026-10-01T15:58:17+08:00"
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q21": "9702-6.1-x001",
+  "9702_s19_13_q19": "9702-6.1-x002",
+  "9702_w19_13_q19": "9702-6.1-x003",
+  "9702_s20_12_q18": "9702-6.1-x004",
+  "9702_s20_12_q19": "9702-6.1-x005",
+  "9702_s20_13_q20": "9702-6.1-x006",
+  "9702_w20_11_q19": "9702-6.1-x007",
+  "9702_s21_11_q19": "9702-6.1-x008",
+  "9702_s21_12_q19": "9702-6.1-x009",
+  "9702_s21_13_q20": "9702-6.1-x010",
+  "9702_w21_11_q19": "9702-6.1-x011",
+  "9702_w21_12_q21": "9702-6.1-x012",
+  "9702_w21_13_q20": "9702-6.1-x013",
+  "9702_s22_12_q13": "9702-6.1-x014",
+  "9702_s22_12_q19": "9702-6.1-x015",
+  "9702_s22_13_q20": "9702-6.1-x016",
+  "9702_w22_11_q19": "9702-6.1-x017",
+  "9702_w22_13_q19": "9702-6.1-x018",
+  "9702_s23_12_q18": "9702-6.1-x019",
+  "9702_s23_13_q18": "9702-6.1-x020",
+  "9702_w23_11_q18": "9702-6.1-x021",
+  "9702_w23_12_q19": "9702-6.1-x022",
+  "9702_s24_11_q21": "9702-6.1-x023",
+  "9702_s24_11_q22": "9702-6.1-x024",
+  "9702_s24_12_q19": "9702-6.1-x025",
+  "9702_s24_12_q20": "9702-6.1-x026",
+  "9702_s24_13_q19": "9702-6.1-x027",
+  "9702_w24_11_q20": "9702-6.1-x028",
+  "9702_w24_11_q23": "9702-6.1-x029",
+  "9702_w24_12_q19": "9702-6.1-x030",
+  "9702_w24_12_q20": "9702-6.1-x031",
+  "9702_w24_12_q21": "9702-6.1-x032",
+  "9702_w24_13_q22": "9702-6.1-x033",
+  "9702_s25_11_q21": "9702-6.1-x034",
+  "9702_s25_11_q23": "9702-6.1-x035",
+  "9702_s25_12_q21": "9702-6.1-x036",
+  "9702_s25_13_q20": "9702-6.1-x037",
+  "9702_s25_13_q22": "9702-6.1-x038",
+  "9702_w25_11_q21": "9702-6.1-x039",
+  "9702_w25_12_q22": "9702-6.1-x040"
+ },
+ "checked": true
+}

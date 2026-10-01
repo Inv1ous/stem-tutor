@@ -1,0 +1,110 @@
+{
+  "9702-6.1.1": {
+    "motivate": "A wire can lengthen or shorten depending on which way forces act along it.",
+    "establish": "A tensile force pulls outward along a specimen and tends to increase its length. A compressive force pushes inward and tends to decrease its length. These describe deformation along the direction of the force.",
+    "connect": "Predict the length change before deciding whether the force is tensile or compressive.",
+    "note": "- Tension pulls outward along the specimen.\n- Tension causes extension.\n- Compression pushes inward.\n- Compression causes shortening.",
+    "self_explain": "How does the direction of the force determine the length change?",
+    "discover": {
+      "stem": "A rod is squeezed along its axis. What happens to its length?",
+      "options": {
+        "A": "It increases.",
+        "B": "It decreases.",
+        "C": "It stays fixed.",
+        "D": "It first increases then decreases."
+      },
+      "answer": "B",
+      "explanation": "An axial compressive force pushes inward and shortens the rod."
+    }
+  },
+  "9702-6.1.2": {
+    "motivate": "A force–extension graph tells us how a specimen changes as its load increases.",
+    "establish": "Load is the force applied to a specimen. Extension is its increase in length relative to its original length. On a force–extension graph, force and extension are proportional while the graph is a straight line through the origin. The point where this proportionality first ends is the limit of proportionality.",
+    "connect": "Find extension by comparing loaded and original lengths, then inspect the graph shape.",
+    "note": "- Load is the applied force.\n- Extension = loaded length − original length.\n- Proportionality is shown by a straight line through the origin.\n- Its endpoint is the limit of proportionality.",
+    "self_explain": "Why can the limit of proportionality differ from the elastic limit?",
+    "discover": {
+      "stem": "What marks the limit of proportionality on a force–extension graph?",
+      "options": {
+        "A": "The point where the straight-line relationship ends.",
+        "B": "The point where the specimen breaks.",
+        "C": "The point where force becomes zero.",
+        "D": "The point where extension is greatest."
+      },
+      "answer": "A",
+      "explanation": "Beyond this point, force and extension are no longer directly proportional."
+    }
+  },
+  "9702-6.1.3": {
+    "motivate": "Many springs respond predictably to a force, but only over part of their range.",
+    "establish": "Hooke’s law states that extension is directly proportional to applied force for a given spring, provided its limit of proportionality is not exceeded. In symbols, F is proportional to x and the force–extension graph is a straight line through the origin. Past the limit, the ratio F/x is no longer constant.",
+    "connect": "Check the proportionality condition before using a spring relationship.",
+    "note": "- Hooke’s law: F ∝ x.\n- It applies to a given spring.\n- Do not exceed the limit of proportionality.\n- The force–extension graph passes through the origin.",
+    "self_explain": "What graph evidence shows that Hooke’s law no longer applies?",
+    "discover": {
+      "stem": "A spring’s force–extension graph curves. What follows?",
+      "options": {
+        "A": "Extension remains proportional to force.",
+        "B": "Hooke’s law no longer applies.",
+        "C": "The spring constant is zero.",
+        "D": "The spring has no extension."
+      },
+      "answer": "B",
+      "explanation": "A curve means force and extension are no longer directly proportional."
+    }
+  },
+  "9702-6.1.4": {
+    "motivate": "Spring stiffness can be compared by measuring force for a known extension.",
+    "establish": "The spring constant k is the force required per unit extension: k = F/x. A larger k means a stiffer spring. Use extension in metres when reporting k in N m⁻¹. The gradient of a force–extension graph is k; reversing the axes gives gradient 1/k.",
+    "connect": "Read graph axes before finding a gradient or calculating k.",
+    "note": "- k = F/x.\n- Unit: N m⁻¹.\n- Larger k means stiffer spring.\n- Force–extension gradient equals k.",
+    "self_explain": "Why must centimetres be converted before finding k in N m⁻¹?",
+    "discover": {
+      "stem": "A force–extension graph has force on the vertical axis. What is its gradient?",
+      "options": {
+        "A": "1/k",
+        "B": "k",
+        "C": "x/F²",
+        "D": "F × x"
+      },
+      "answer": "B",
+      "explanation": "Gradient is force divided by extension, which is k."
+    }
+  },
+  "9702-6.1.5": {
+    "motivate": "A material property lets us compare wires with different dimensions.",
+    "establish": "Tensile stress is force per cross-sectional area, σ = F/A. Tensile strain is extension divided by original length, ε = x/L. Young modulus is the ratio of tensile stress to tensile strain, E = σ/ε. Thus E = FL/(Ax), measured in pascals; strain has no unit.",
+    "connect": "Build Young modulus from stress and strain, keeping original length and cross-sectional area clear.",
+    "note": "- Stress σ = F/A in Pa.\n- Strain ε = x/L, dimensionless.\n- Young modulus E = σ/ε.\n- E = FL/(Ax), in Pa.",
+    "self_explain": "How does using original length in strain affect the definition of E?",
+    "discover": {
+      "stem": "Which expression defines Young modulus?",
+      "options": {
+        "A": "strain/stress",
+        "B": "stress × strain",
+        "C": "stress/strain",
+        "D": "force × area"
+      },
+      "answer": "C",
+      "explanation": "Young modulus is tensile stress divided by tensile strain."
+    }
+  },
+  "9702-6.1.6": {
+    "motivate": "A wire’s small extension can reveal the stiffness of its material.",
+    "establish": "Measure the wire’s original gauge length and diameter, then apply known loads and measure corresponding extensions. Take diameter readings at several positions and orientations, and use their mean to find A = πd²/4. A reference wire can correct movement of the support. Use the straight-line force–extension gradient to find E = (L/A)(F/x).",
+    "connect": "Reliable modulus measurements depend on accurate dimensions and paired force and extension readings.",
+    "note": "- Measure original gauge length L.\n- Take repeated diameter readings.\n- Record force and corresponding extension.\n- Use E = (L/A) × force–extension gradient.",
+    "self_explain": "How does a reference wire improve the extension measurement?",
+    "discover": {
+      "stem": "Which measurements are needed to determine Young modulus of a wire?",
+      "options": {
+        "A": "Loaded length only.",
+        "B": "Original length, diameter, and force–extension data.",
+        "C": "Mass and final diameter only.",
+        "D": "Extension and final length only."
+      },
+      "answer": "B",
+      "explanation": "The calculation needs original length, cross-sectional area from diameter, force and extension."
+    }
+  }
+}
