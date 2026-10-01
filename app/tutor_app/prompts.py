@@ -23,7 +23,10 @@ def context(tutor, kc: str | None = None) -> str:
         opts = "; ".join(f"{k}) {v}" for k, v in (inst.get("options") or {}).items())
         lines.append(f"OPEN question {n} (do not reveal its answer): {_clip(inst.get('stem', ''), 400)} {opts}".rstrip())
     for fb in s.get("last_feedback", [])[-2:]:
-        lines.append(f"Just marked: Q{fb['n']} {'correct' if fb.get('correct') else 'wrong'}; answer {fb.get('answer')}. "
+        verdict = ("correct" if fb.get("correct") else
+                   f"right value but a mark lost ({fb['detail']})" if fb.get("partial") and fb.get("detail") else "wrong")
+        said = f": they answered {_clip(str(fb['response']), 200)}" if fb.get("response") is not None else ""
+        lines.append(f"Just marked: Q{fb['n']}{said}; {verdict}; answer {fb.get('answer')}. "
                      f"{_clip(fb.get('explanation') or '', 300)}")
     return "\n".join(lines)
 

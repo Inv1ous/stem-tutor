@@ -114,8 +114,11 @@ class Tutor(LessonMixin):
         blocks = []
         for fb in s.get("last_feedback", []):
             kind = "success" if fb.get("correct") else "failure"
-            body = f"Answer: {fb.get('answer', '')}" + (f"\n\n{fb['explanation']}" if fb.get("explanation") else "")
-            blocks.append(views.callout(kind, f"Q{fb['n']} — {'correct ✓' if fb.get('correct') else 'not quite ✗'}", body))
+            body = (f"Answer: {fb.get('answer', '')}" + (f"\nExam point: {fb['detail']}" if fb.get("detail") else "")
+                    + (f"\n\n{fb['explanation']}" if fb.get("explanation") else ""))
+            verdict = ("correct ✓" if fb.get("correct") else "right value, a mark lost ✗" if fb.get("partial")
+                       else "not quite ✗")
+            blocks.append(views.callout(kind, f"Q{fb['n']} — {verdict}", body))
         act = s.get("now") or {}
         kind = act.get("activity")
         if kind == "explain":
@@ -585,7 +588,8 @@ class Tutor(LessonMixin):
             results.append(self._record(key, p, r, g))
         done = [fb for fb in results if fb.get("event")]
         if done:
-            s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "answer", "explanation")} for fb in done]
+            s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "partial", "detail", "response", "answer", "explanation")}
+                                  for fb in done]
             s["now"] = {"activity": "feedback"}
         self._save()
         return {"results": results, "remaining": len(s["presented"])}
@@ -678,7 +682,7 @@ class Tutor(LessonMixin):
             if len(scores) >= self._retest_target(kc):
                 self.log({"type": "exp_score", "exp": p["exp"], "kc": kc, "score": round(sum(scores) / len(scores), 3)})
         fb = {"n": int(key), "event": ev["id"], "correct": g["correct"], "partial": partial, "score": g["score"],
-              "error_code": g["error"],
+              "error_code": g["error"], "response": ev["response"],
               "answer": _display_answer(inst), "explanation": inst.get("explanation"),
               "needs_judgement": g["needs_judgement"], "detail": g.get("detail")}
         if inst.get("tier") == "extra":

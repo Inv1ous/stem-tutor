@@ -180,8 +180,11 @@ class LessonLog:
     def answer(self, fb: dict, your: str) -> None:
         dont_know = your.strip() in ("?", "don't know")
         kind = "question" if dont_know else ("success" if fb.get("correct") else "failure")
-        title = f"Q{fb['n']} — " + ("I don't know" if dont_know else "correct ✓" if fb.get("correct") else "incorrect ✗")
+        title = f"Q{fb['n']} — " + ("I don't know" if dont_know else "correct ✓" if fb.get("correct") else
+                                    "right value, a mark lost ✗" if fb.get("partial") else "incorrect ✗")
         body = [f"Your answer: {your}", f"Correct answer: {fb.get('answer', '')}"]
+        if fb.get("detail"):
+            body.append(f"Exam point: {fb['detail']}")
         if fb.get("explanation"):
             body += ["", fb["explanation"]]
         mis = fb.get("misconception")
