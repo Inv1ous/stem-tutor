@@ -5,7 +5,8 @@ note in `Subjects/`) with a team of AI workers, where the expensive model only m
 
 | Who | Model | Does | Why this model |
 |---|---|---|---|
-| **Manager** | Claude Opus (the session you talk to) | Plans batches, launches workers, decides disputes, signs chapters off, publishes | Judgement; reads only short summaries |
+| **Manager** | Claude Sonnet at medium effort (type `/foundry`) | Runs the loop: launches workers, judges the simple cases, signs chapters off | Cheap to run; reads only short summaries |
+| **Adjudicator** | Claude Opus, called by the manager | Decides what the manager must not decide alone: a key both checkers dispute, a change to an answer or definition, missing teaching content | Judgement, used only where it matters |
 | **Drafter** | Codex medium tier (`gpt-6-sol`) | Writes the chapter: pack + lesson note, computing every answer with Python | The long writing job, on your ChatGPT plan instead of Claude |
 | **Solver** | Claude Haiku, several at once | Answers every question **without seeing the answer key**; a big chapter is split into shards of 20 questions, one solver each | A different AI family from the drafter, so a wrong key shows up as a disagreement |
 | **Tiebreak** | Codex medium tier | Solves only the disputed questions, also blind | Settles most disputes without the manager |
@@ -13,7 +14,21 @@ note in `Subjects/`) with a team of AI workers, where the expensive model only m
 | **Fixer** | Codex low tier (`gpt-6-luna`) | Makes exactly the changes the manager wrote down | Mechanical edits |
 
 Between every step, **gates** run automatically at no token cost: the pack validator (formats, answers recomputed,
-coverage, duplicate questions), the note linter (Obsidian syntax and maths), and the blind compare.
+enough questions per outcome, duplicate questions), the note linter (Obsidian syntax and maths), the blind compare,
+and the **syllabus gate** (below).
+
+## Following the syllabus
+
+- **Every outcome, every chapter.** A chapter cannot be signed unless each syllabus learning outcome in it has a
+  teaching card, is covered by the lesson note, has enough questions, has a definition card if the syllabus says
+  "define" and a worked derivation if it says "derive"; and, for CAIE, every question the drafter wrote uses a command
+  word from the syllabus's own list, as real papers do. The checker also reads for outcomes that are mentioned but
+  not really taught or tested (its rule 7).
+- **The whole syllabus.** `foundry coverage` shows, per syllabus, how many outcomes are in signed chapters, in
+  progress and not started; which signed chapters no longer pass the syllabus gate; and what to build next in Almanac
+  order (`foundry coverage --queue 12` drafts the next twelve). It also checks the outcome list itself against the
+  official syllabus documents: all 873 outcomes are present. The 2028–2030 CAIE syllabuses state that there are no
+  significant changes which affect teaching, so the A Level outcomes hold for the 2028 exams.
 
 ## A chapter's path
 
@@ -49,9 +64,12 @@ To type just `foundry watch`, run this once and open a new Terminal window:
 echo 'alias foundry="$HOME/Miscellaneous/02\ Education/~~\ AI\ Workflow/stem-tutor/bin/foundry"' >> ~/.zshrc
 ```
 
-In practice you tell the Claude session: *"Run the foundry on 9702-2.2 to 9702-3.1"*, and it follows
-`foundry/roles/manager.md`: it launches the Codex workers itself (headless, through the Codex CLI inside the ChatGPT
-app) and the Haiku workers as subagents, and asks you only if something needs a person.
+In practice you type **`/foundry`** in any Claude session (or `/foundry 9702-7.1 9702-7.2` for particular chapters,
+or `/foundry status`). That turn runs on **Sonnet at medium effort**, whatever model the session is set to, and
+follows `foundry/roles/manager.md`: it launches the Codex workers (headless, through the Codex CLI inside the
+ChatGPT app) and the Haiku workers as subagents, calls **Opus** itself for the decisions that need it, and asks you
+only if something needs a person. `/foundry` is installed by `foundry install-skill` (run it again if the
+`stem-tutor` folder moves).
 
 **You don't open any Codex sessions.** Each Codex job is its own separate headless session, started by the foundry
 and closed when the job ends; up to `max_parallel` (3) run at once across chapters. **Haiku runs in parallel too**:

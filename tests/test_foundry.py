@@ -11,6 +11,8 @@ from fixtures import GRAPH
 
 REPO = Path(__file__).resolve().parents[1]
 SUB = "9702-2.1"
+CARD = {"motivate": "Why this.", "establish": "The idea.", "connect": "Builds on that.", "note": "- one\n- two",
+        "self_explain": "Say it in your own words."}
 
 
 @pytest.fixture
@@ -18,6 +20,7 @@ def fdy(tmp_path, monkeypatch):
     sys.path.insert(0, str(REPO / "tests"))
     from test_validate import good_pack
     pack = good_pack()
+    pack["teach"] = {f"{SUB}.1": dict(CARD), f"{SUB}.4": dict(CARD)}  # a teaching card for each syllabus outcome
     (tmp_path / "build/out/packs/9702").mkdir(parents=True)
     (tmp_path / "build/out/specs/9702").mkdir(parents=True)
     (tmp_path / "build/work/bundles").mkdir(parents=True)
@@ -26,7 +29,8 @@ def fdy(tmp_path, monkeypatch):
     (tmp_path / "build/out/specs/9702/graph.json").write_text(json.dumps(GRAPH))
     note = tmp_path / "build/out/notes" / pack["note"]
     note.parent.mkdir(parents=True)
-    note.write_text("# 2.1 Equations of motion\n\nUse $v = u + at$.\n")
+    note.write_text("# 2.1 Equations of motion\n\nDisplacement is a vector and distance is a scalar. For uniform "
+                    "acceleration use the suvat equations such as $v = u + at$.\n")
     monkeypatch.setenv("FOUNDRY_ROOT", str(tmp_path))
     monkeypatch.setenv("FOUNDRY_NOTIFY", "0")  # no Mac notifications from tests
     monkeypatch.setenv("FOUNDRY_PUBLISH", "0")  # never publish into the real vault from tests
@@ -349,3 +353,111 @@ def test_a_finished_job_does_not_count_as_running_even_if_its_process_lingers(fd
     with fdy.chapter(SUB) as st:  # a finished worker not yet reaped by its parent (the queue) still answers kill(pid, 0)
         st["jobs"]["drafter"] = {"pid": os.getpid(), "started": fdy.now(), "finished": fdy.now(), "exit": 0}
     assert fdy._running(fdy.load(SUB)) == []
+
+
+def test_the_syllabus_gate_blocks_a_chapter_with_an_outcome_untaught(fdy):
+    fdy.cmd_add([SUB])
+    assert fdy.cmd_gates(SUB)["ok"]
+    pack = json.loads(fdy.pack_path(SUB).read_text())
+    del pack["teach"][f"{SUB}.4"]
+    fdy.pack_path(SUB).write_text(json.dumps(pack))
+    g = fdy.cmd_gates(SUB)
+    assert not g["ok"] and g["syllabus"] == 1 and any("no-teach-card" in x for x in g["first"])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "sign"
+    with pytest.raises(SystemExit):
+        fdy.cmd_sign(SUB)
+    assert not fdy.load(SUB)["gates"]["ok"]  # the refusal is recorded, so the drafter is told what to add
+    assert "no-teach-card" in fdy.role_prompt("drafter", SUB)
+
+
+def test_teaching_cards_are_merged_again_after_a_worker_rewrites_the_pack(fdy, tmp_path):
+    fdy.cmd_add([SUB])
+    teach = tmp_path / "build/work/teach"
+    teach.mkdir(parents=True)
+    (teach / f"{SUB}.json").write_text(json.dumps({f"{SUB}.1": CARD, f"{SUB}.4": {**CARD, "note": "not bullets"}}))
+    pack = json.loads(fdy.pack_path(SUB).read_text())
+    del pack["teach"]  # the generator re-ran: it writes the pack without the cards
+    fdy.pack_path(SUB).write_text(json.dumps(pack))
+    fdy.cmd_collect("drafter", SUB, "-")
+    merged = json.loads(fdy.pack_path(SUB).read_text())["teach"]
+    assert list(merged) == [f"{SUB}.1"] and merged[f"{SUB}.1"]["source"] == "pack"  # the malformed card stays out
+    assert not fdy.load(SUB)["gates"]["ok"]  # and the gate says an outcome has no card
+
+
+def test_blind_solvers_also_get_the_teaching_cards_check_questions(fdy):
+    import blind
+    pack = json.loads(fdy.pack_path(SUB).read_text())
+    pack["teach"][f"{SUB}.1"]["discover"] = {"stem": "Which is a vector?", "answer": "B", "explanation": "It has direction.",
+                                             "options": {"A": "speed", "B": "velocity", "C": "mass", "D": "time"}}
+    q = next(q for q in blind.strip(pack) if q["id"] == f"{SUB}.1.discover")
+    assert q["options"]["B"] == "velocity" and "answer" not in q
+
+
+def test_coverage_counts_outcomes_and_says_what_to_build_next(fdy, tmp_path, capsys):
+    graph = json.loads((tmp_path / "build/out/specs/9702/graph.json").read_text())
+    graph["subtopics"] += [{"id": "9702-3.1", "title": "Momentum", "topic": "9702-2"},
+                           {"id": "9702-2.2", "title": "Later", "topic": "9702-2"}]
+    graph["kcs"] += [{"id": "9702-3.1.1", "subtopic": "9702-3.1", "title": "Momentum", "statement": "define momentum"},
+                     {"id": "9702-2.2.1", "subtopic": "9702-2.2", "title": "Later", "statement": "use it"}]
+    (tmp_path / "build/out/specs/9702/graph.json").write_text(json.dumps(graph))
+    (tmp_path / "build/out/plan.json").write_text(json.dumps({"weeks": {
+        "3": [{"type": "NEW", "kcs": ["9702-3.1.1"]}], "9": [{"type": "NEW", "kcs": ["9702-2.2.1"]}]}}))
+    fdy.cmd_add([SUB])
+    c = fdy.coverage()
+    assert c["specs"]["9702"] == {"outcomes": 4, "ready": 0, "in_progress": 2, "not_started": 2,
+                                  "chapters": {"ready": 0, "in_progress": 1, "not_started": 2}}
+    assert c["next"] == ["9702-3.1", "9702-2.2"] and c["holes"] == {}  # Almanac week order, not id order
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "ready"
+    pack = json.loads(fdy.pack_path(SUB).read_text())
+    del pack["teach"][f"{SUB}.4"]
+    fdy.pack_path(SUB).write_text(json.dumps(pack))
+    graph["subtopics"].append(dict(graph["subtopics"][0]))  # a subtopic listed twice is counted once
+    (tmp_path / "build/out/specs/9702/graph.json").write_text(json.dumps(graph))
+    c = fdy.coverage()
+    assert c["specs"]["9702"]["ready"] == 2 and c["holes"] == {SUB: {"no-teach-card": 1}}
+    assert c["specs"]["9702"]["outcomes"] == 4 and sum(c["specs"]["9702"]["chapters"].values()) == 3
+    fdy.cmd_coverage([])
+    assert "9702-3.1" in capsys.readouterr().out
+
+
+def test_escalate_gives_the_manager_an_opus_adjudicator_prompt(fdy, capsys):
+    fdy.cmd_add([SUB])
+    capsys.readouterr()
+    fdy.cmd_escalate(SUB)
+    job = json.loads(capsys.readouterr().out)
+    assert job["model"] == "opus" and "foundry/roles/adjudicator.md" in job["prompt"] and SUB in job["prompt"]
+    assert (REPO / "foundry/roles/adjudicator.md").exists()
+
+
+def test_install_skill_sets_sonnet_at_medium_effort(fdy, tmp_path, monkeypatch):
+    monkeypatch.setenv("HOME", str(tmp_path / "home"))
+    fdy.cmd_install_skill()
+    text = (tmp_path / "home/.claude/skills/foundry/SKILL.md").read_text()
+    assert "model: sonnet" in text and "effort: medium" in text and "foundry/roles/manager.md" in text
+
+
+def test_wait_returns_when_no_codex_worker_is_running(fdy, capsys):
+    import os
+    fdy.cmd_add([SUB])
+    fdy.cmd_wait(timeout=5, every=0)  # nothing running: straight back
+    with fdy.chapter(SUB) as st:
+        st["jobs"]["drafter"] = {"pid": os.getpid(), "started": fdy.now()}  # a worker that never finishes
+    t0 = time.time()
+    fdy.cmd_wait(timeout=0.3, every=0.05)
+    assert 0.25 < time.time() - t0 < 3 and "still running" in capsys.readouterr().out
+
+
+def test_a_refused_sign_records_why_so_the_drafter_is_told(fdy):
+    fdy.cmd_add([SUB])
+    pack = json.loads(fdy.pack_path(SUB).read_text())
+    del pack["teach"][f"{SUB}.4"]
+    fdy.pack_path(SUB).write_text(json.dumps(pack))
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "sign"
+    assert fdy.load(SUB)["gates"] is None  # nothing has run the gates yet
+    with pytest.raises(SystemExit):
+        fdy.cmd_sign(SUB)
+    st = fdy.load(SUB)
+    assert st["stage"] == "sign" and st["gates"]["syllabus"] == 1 and "no-teach-card" in fdy.role_prompt("drafter", SUB)

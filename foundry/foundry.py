@@ -11,6 +11,10 @@ a whole pack to know whether it is right.
   foundry.py next                         what to do now, per chapter (the manager's to-do list)
   foundry.py codex <role> <subtopic>      launch a headless Codex worker (drafter, tiebreak, fixer)
   foundry.py queue <role> <subtopics…>    launch that role for each chapter as slots free up (run it detached)
+  foundry.py wait [seconds]               return when no Codex worker is running (default: up to 9 minutes)
+  foundry.py coverage [--queue N|--json]  the whole syllabus against what is built; holes; what to build next
+  foundry.py escalate <subtopic>          the prompt for an Opus adjudicator on the chapter's open items
+  foundry.py install-skill                install /foundry (the manager loop on Sonnet, medium effort)
   foundry.py dispatch <subtopic>          every Haiku prompt the chapter needs now (solver shards + checker, in parallel)
   foundry.py prompt <role> <subtopic> [--shard k]   one Haiku prompt (solver, checker)
   foundry.py strip <subtopic> [--changed] write the blind questions file, split into solver shards (no answers in it)
@@ -29,6 +33,7 @@ from __future__ import annotations
 import fcntl
 import json
 import os
+import re
 import shlex
 import shutil
 import subprocess
@@ -54,7 +59,8 @@ sys.path.insert(0, str(REPO / "build"))
 sys.path.insert(0, str(REPO / "plugin/stem-tutor/skills/tutor/scripts"))
 
 # who does what; tiers map to Codex models in foundry/config.json
-ROLES = {"drafter": "codex", "fixer": "codex", "tiebreak": "codex", "solver": "haiku", "checker": "haiku"}
+ROLES = {"drafter": "codex", "fixer": "codex", "tiebreak": "codex", "solver": "haiku", "checker": "haiku",
+         "adjudicator": "opus"}
 STAGE_ROLE = {"draft": "drafter", "solve": "solver", "tiebreak": "tiebreak", "check": "checker",
               "adjudicate": "manager", "fix": "fixer", "recheck": "solver", "sign": "manager"}
 
@@ -117,6 +123,14 @@ def hold(sub: str, reason: str | None) -> None:
 
 
 # ---------------- gates (deterministic, no tokens) ----------------
+def syllabus_gaps(sub: str, pack: dict, graph: dict, note: str) -> list[dict]:
+    """Where the chapter departs from its syllabus: an outcome not taught, not covered or not asked as worded."""
+    import syllabus
+    bundle = ROOT / "build/work/bundles" / f"{sub}.md"
+    words = syllabus.command_words(bundle.read_text(encoding="utf-8")) if bundle.is_file() else None
+    return syllabus.check(pack, graph, note, words)
+
+
 def gates(sub: str) -> dict:
     import validate_pack
     from tutorlib import lint
@@ -128,12 +142,16 @@ def gates(sub: str) -> dict:
     graph = json.loads((SPECS / spec_of(sub) / "graph.json").read_text())
     problems = validate_pack.validate(pack, graph)
     note = NOTES / pack.get("note", "")
-    findings = lint.lint(note.read_text(encoding="utf-8")) if note.is_file() else [{"rule": "note", "detail": "missing"}]
-    out = {"ok": not problems and not findings, "validator": len(problems), "lint": len(findings),
-           "items": len(pack.get("items", [])), "extra": sum(it.get("tier") == "extra" for it in pack.get("items", []))}
-    if problems or findings:  # enough for a fixer to act on, capped so the board stays small
+    text = note.read_text(encoding="utf-8") if note.is_file() else ""
+    findings = lint.lint(text) if note.is_file() else [{"rule": "note", "detail": "missing"}]
+    gaps = syllabus_gaps(sub, pack, graph, text)
+    out = {"ok": not problems and not findings and not gaps, "validator": len(problems), "lint": len(findings),
+           "syllabus": len(gaps), "items": len(pack.get("items", [])),
+           "extra": sum(it.get("tier") == "extra" for it in pack.get("items", []))}
+    if problems or findings or gaps:  # enough for a worker to act on, capped so the board stays small
         out["first"] = [f"{e['rule']} {e['where']} {e.get('detail', '')}"[:160] for e in problems[:8]] + \
-                       [f"lint {x.get('rule')} line {x.get('line')}: {x.get('detail', '')}"[:160] for x in findings[:4]]
+                       [f"lint {x.get('rule')} line {x.get('line')}: {x.get('detail', '')}"[:160] for x in findings[:4]] + \
+                       [f"syllabus {e['rule']} {e['where']} {e['detail']}"[:160] for e in gaps[:8]]
     return out
 
 
@@ -167,6 +185,114 @@ def restore_extras(sub: str, known: dict) -> dict:
     import add_past
     add_past.add(pack_path(sub), keep_ids=known, work=ROOT / "build/work/mcq")
     return {**known, **extra_ids(sub)}
+
+
+def merge_teach(sub: str) -> None:
+    """Put the chapter's teaching cards (build/work/teach/<sub>.json) into its pack: a re-run generator writes the
+    pack without them. Only well-formed cards for this chapter's outcomes go in; the syllabus gate reports the rest."""
+    cards, p = ROOT / "build/work/teach" / f"{sub}.json", pack_path(sub)
+    if not (cards.is_file() and p.exists()):
+        return
+    import teach_cards
+    pack = json.loads(p.read_text())
+    graph = json.loads((SPECS / spec_of(sub) / "graph.json").read_text())
+    kcs = {k["id"] for k in graph["kcs"] if k["subtopic"] == sub}
+    pack["teach"] = {kc: {**card, "source": "pack"} for kc, card in json.loads(cards.read_text()).items()
+                     if kc in kcs and not teach_cards.check_card(kc, card)}
+    p.write_text(json.dumps(pack, ensure_ascii=False, indent=1))
+
+
+def _natural(sub: str) -> list:
+    return [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", sub)]
+
+
+def coverage() -> dict:
+    """The whole syllabus against what is built. Per spec: outcomes in signed chapters, in progress and not started.
+    `holes`: signed chapters that do not pass the syllabus gate. `next`: chapters still to build, in Almanac order."""
+    import syllabus
+    held = json.loads(HOLD.read_text()) if HOLD.exists() else {}
+    plan = ROOT / "build/out/plan.json"
+    graphs = [json.loads(p.read_text()) for p in sorted(SPECS.glob("*/graph.json"))]
+    sub_of = {k["id"]: k["subtopic"] for g in graphs for k in g["kcs"]}
+    week: dict[str, int] = {}
+    for w, objectives in (json.loads(plan.read_text()).get("weeks", {}) if plan.exists() else {}).items():
+        for o in objectives:
+            for kc in o.get("kcs", []) if o.get("type", "NEW") == "NEW" else []:
+                if kc in sub_of:
+                    week[sub_of[kc]] = min(week.get(sub_of[kc], 999), int(w))
+
+    def status(sub: str) -> str:
+        if (STATE / f"{sub}.json").exists():
+            return "ready" if load(sub)["stage"] == "ready" else "in_progress"
+        return "not_started" if not pack_path(sub).exists() else "in_progress" if sub in held else "ready"
+
+    out: dict = {"specs": {}, "holes": {}, "next": [], "audit": {}}
+    for g in graphs:
+        tally = {"outcomes": len(g["kcs"]), "ready": 0, "in_progress": 0, "not_started": 0,
+                 "chapters": {"ready": 0, "in_progress": 0, "not_started": 0}}
+        for sub in dict.fromkeys(s["id"] for s in g["subtopics"]):
+            state = status(sub)
+            tally[state] += sum(1 for k in g["kcs"] if k["subtopic"] == sub)
+            tally["chapters"][state] += 1
+            if state == "not_started":
+                out["next"].append(sub)
+            elif state == "ready":
+                pack = json.loads(pack_path(sub).read_text())
+                note = NOTES / pack.get("note", "")
+                rules = [e["rule"] for e in syllabus_gaps(sub, pack, g, note.read_text(encoding="utf-8")
+                                                          if note.is_file() else "")]
+                if rules:
+                    out["holes"][sub] = {r: rules.count(r) for r in sorted(set(rules))}
+        out["specs"][g["spec"]] = tally
+        if (REPO / "build/raw").exists() and ROOT == REPO:  # the syllabus documents as extracted, outcome by outcome
+            official = syllabus.official(g["spec"])
+            problems = syllabus.audit(official, g) if official else [{"rule": "not-extracted", "where": g["spec"]}]
+            out["audit"][g["spec"]] = [f"{e['rule']} {e['where']}" for e in problems]
+    out["next"].sort(key=lambda sub: (week.get(sub, 999), _natural(sub)))
+    return out
+
+
+def cmd_coverage(args: list[str]) -> None:
+    c = coverage()
+    if "--json" in args:
+        print(json.dumps(c, ensure_ascii=False, indent=1))
+        return
+    print(f"{'SYLLABUS':<9} {'OUTCOMES':>8} {'SIGNED':>7} {'IN PROGRESS':>12} {'NOT STARTED':>12}   CHAPTERS SIGNED")
+    for spec, t in c["specs"].items():
+        ch = t["chapters"]
+        print(f"{spec:<9} {t['outcomes']:>8} {t['ready']:>7} {t['in_progress']:>12} {t['not_started']:>12}   "
+              f"{ch['ready']}/{sum(ch.values())}")
+    total = {k: sum(t[k] for t in c["specs"].values()) for k in ("outcomes", "ready", "in_progress", "not_started")}
+    print(f"{'ALL':<9} {total['outcomes']:>8} {total['ready']:>7} {total['in_progress']:>12} {total['not_started']:>12}")
+    if c["holes"]:
+        print("\nSigned chapters that do not pass the syllabus gate (reopen them to fix):")
+        for sub, rules in c["holes"].items():
+            print(f"  {sub}: " + ", ".join(f"{r} ×{n}" for r, n in rules.items()))
+    reviewed = config().get("audit_reviewed", [])  # wording differences already read and found to be tidying only
+    flagged = {spec: [p for p in probs if p.split()[-1] not in reviewed] for spec, probs in c["audit"].items()}
+    flagged = {spec: probs for spec, probs in flagged.items() if probs}
+    if c["audit"]:
+        print(f"\nAgainst the syllabus documents: {sum(t['outcomes'] for t in c['specs'].values())} outcomes in the "
+              "graphs" + ("; to check: " + "; ".join(p for probs in flagged.values() for p in probs)
+                          if flagged else ", every one present with its wording kept"))
+    n = int(args[args.index("--queue") + 1]) if "--queue" in args else 0
+    print(f"\nStill to build: {len(c['next'])} chapters. Next in Almanac order: {' '.join(c['next'][:max(n, 12)])}")
+    if n:
+        cmd_queue("drafter", c["next"][:n])
+
+
+def cmd_escalate(sub: str) -> None:
+    """The prompt for an Opus adjudicator on this chapter's open items: launch it as an Agent with model "opus"."""
+    load(sub)
+    print(json.dumps({"role": "adjudicator", "model": "opus", "prompt": role_prompt("adjudicator", sub)}, indent=1))
+
+
+def cmd_install_skill() -> None:
+    """Install /foundry for every Claude Code session on this Mac: the manager loop on Sonnet at medium effort."""
+    dest = Path.home() / ".claude/skills/foundry/SKILL.md"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text((HERE / "skill/SKILL.md").read_text().replace("{REPO}", str(REPO)))
+    print(f"installed {dest}")
 
 
 # ---------------- commands ----------------
@@ -465,9 +591,11 @@ def cmd_sign(sub: str) -> None:
         open_ = [d["id"] for d in st["disputes"] if d["status"] == "open"] + \
                 [f["ref"] for f in st["findings"] if f["status"] == "open"] + \
                 [f["ref"] for f in st["fixes"] if f["status"] == "open"]
-        if not g["ok"] or open_ or st["stage"] not in ("sign", "check"):
-            raise SystemExit(f"{sub}: not ready (stage {st['stage']}, gates {g}, open {open_})")
-        move(st, "ready", "signed off")
+        stage, ready = st["stage"], g["ok"] and not open_ and st["stage"] in ("sign", "check")
+        if ready:
+            move(st, "ready", "signed off")
+    if not ready:  # raised outside the block so the gate results are saved: the drafter's prompt lists the failures
+        raise SystemExit(f"{sub}: not ready (stage {stage}, gates {g}, open {open_})")
     hold(sub, None)
     release(sub)
 
@@ -476,7 +604,7 @@ def chapter_paths(sub: str) -> list[str]:
     """Everything that belongs to one chapter, relative to the repo: what a sign-off commits."""
     pack = json.loads(pack_path(sub).read_text())
     found = [pack_path(sub), NOTES / pack.get("note", ""), STATE / f"{sub}.json", HOLD,
-             ROOT / "build/work/mcq/overrides.json"]
+             ROOT / "build/work/mcq/overrides.json", ROOT / "build/work/teach" / f"{sub}.json"]
     found += list((ROOT / "build/work/gen").glob(f"{sub}*")) + list((ROOT / "build/out/Assets").glob(f"*/{sub}-*"))
     found += list(BLIND.glob(f"{sub}.*")) + list(WORK.glob(f"{sub}.*"))
     return [str(p.relative_to(ROOT)) for p in found if p.is_file()]
@@ -526,8 +654,10 @@ def role_prompt(role: str, sub: str, shard: int | None = None) -> str:
     if role == "fixer":
         lines.append("Fixes to make (from the manager):\n" + "\n".join(
             f"- {f['ref']}: {f['instruction']}" for f in st["fixes"] if f["status"] == "open"))
-    if role == "fixer" and st.get("gates") and not st["gates"].get("ok"):
+    if role in ("fixer", "drafter") and st.get("gates") and not st["gates"].get("ok"):
         lines.append("Gate failures to clear: " + "; ".join(st["gates"].get("first", [])))
+    if role == "adjudicator":
+        lines.append(f"Open items: run `.venv/bin/python foundry/foundry.py packet {sub}`.")
     return "\n".join(lines)
 
 
@@ -640,6 +770,17 @@ def cmd_queue(role: str, subs: list[str], wait: int = 30, tries: int = 480) -> N
                 time.sleep(wait)
 
 
+def cmd_wait(timeout: float = 540, every: float = 5) -> None:
+    """Return when no Codex worker is running (or after `timeout` seconds): one command instead of polling."""
+    end = time.time() + timeout
+    while (busy := [f"{st['sub']} {r}" for st in chapters() for r in _running(st) if not st["jobs"][r].get("haiku")]):
+        if time.time() >= end:
+            print("still running: " + ", ".join(busy))
+            return
+        time.sleep(every)
+    print("no Codex worker is running")
+
+
 def cmd_collect(role: str, sub: str, out: str, code: str = "0") -> None:
     """Runs after a Codex worker exits: record its report, run the gates, move the chapter on."""
     report = {"manual": True} if out == "-" else {}  # "-": a session you ran by hand reports without a file
@@ -647,9 +788,10 @@ def cmd_collect(role: str, sub: str, out: str, code: str = "0") -> None:
         report = report or json.loads(Path(out).read_text())
     except (OSError, ValueError):
         pass
-    if role in ("drafter", "fixer") and int(code) == 0:
+    if role in ("drafter", "fixer") and int(code) == 0:  # what a re-run generator leaves out of the pack
         with chapter(sub) as st:
             st["extra_ids"] = restore_extras(sub, st.get("extra_ids", {}))
+        merge_teach(sub)
     g = gates(sub)
     notify(f"{sub}: {role} " + ("finished" if int(code) == 0 and report else "failed")
            + (" · gates ok" if g.get("ok") else ""))
@@ -667,7 +809,7 @@ def cmd_collect(role: str, sub: str, out: str, code: str = "0") -> None:
             for f in st["fixes"]:
                 f["status"] = "done"
             ids = {it["id"] for it in json.loads(pack_path(sub).read_text()).get("items", [])}
-            changed_questions = any(f["ref"] in ids or f["ref"].endswith(".faded") for f in st["fixes"])
+            changed_questions = any(f["ref"] in ids or f["ref"].endswith((".faded", ".discover")) for f in st["fixes"])
             move(st, "recheck" if changed_questions else "sign", f"fixed; {len(st['fixes'])} fixes applied")
         elif role == "tiebreak":
             pass  # the manager runs compare, which reads the tiebreak answers
@@ -709,6 +851,14 @@ def main(argv: list[str]) -> None:
         cmd_codex(rest[0], rest[1])
     elif cmd == "queue":
         cmd_queue(rest[0], rest[1:])
+    elif cmd == "wait":
+        cmd_wait(*(float(x) for x in rest[:1]))
+    elif cmd == "coverage":
+        cmd_coverage(rest)
+    elif cmd == "escalate":
+        cmd_escalate(rest[0])
+    elif cmd == "install-skill":
+        cmd_install_skill()
     elif cmd == "collect":
         cmd_collect(*rest)
     elif cmd == "watch":

@@ -47,6 +47,8 @@ def skeleton_unit(unit: str) -> dict:
     u = next(x for x in raw["units"] if x["unit"] == unit)
     subtopics, kcs = [], []
     for sec in u["sections"]:
+        if not sec["items"]:  # a glossary heading the extraction read as a section (D1)
+            continue
         sid = f"{unit}-{sec['n']}"
         subtopics.append({"id": sid, "title": sec["title"], "topic": unit})
         for it in sec["items"]:

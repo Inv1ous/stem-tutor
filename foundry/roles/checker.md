@@ -18,6 +18,10 @@ findings is a good result; a finding without a quoted piece of evidence is not a
 5. **Note contradicts pack.** The lesson note states a result, method or value that disagrees with the pack's
    answers or worked examples.
 6. **Off syllabus.** Content clearly beyond the chapter's syllabus points (not just enrichment in a side remark).
+7. **Outcome not taught or not tested.** Go through the bundle's KC statements one by one. Report a statement that
+   the lesson note and its teaching card (`teach` in the pack) never actually teach, or that no question tests in the
+   way its wording asks (define, derive, recall and use, explain, describe). Quote the statement and say what is
+   missing. A passing mention of a key term is not teaching.
 
 Do not report style, wording preferences, missing extras, or anything you cannot quote.
 

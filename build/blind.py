@@ -29,6 +29,11 @@ def _instances(pack: dict):
         if f:
             kind = "numeric" if "value" in f["answer"] else "expression"
             yield f"{w['id']}.faded", {"kind": kind, "stem": f["problem"], "answer": f["answer"], "marks": 2}
+    for kc, card in (pack.get("teach") or {}).items():  # a teaching card's check question has a key too
+        d = card.get("discover")
+        if d:
+            yield f"{kc}.discover", {"kind": "mcq", "stem": d["stem"], "options": d["options"], "answer": d["answer"],
+                                     "marks": 1}
 
 
 def strip(pack: dict) -> list[dict]:
