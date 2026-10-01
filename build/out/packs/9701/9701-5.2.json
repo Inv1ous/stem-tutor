@@ -1,0 +1,1285 @@
+{
+ "subtopic": "9701-5.2",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/05 Chemical energetics/5.2 Hess’s law.md",
+ "outline": "Hess’s law says that enthalpy change depends only on initial and final states. Construct two routes connecting the same chemical states, then reverse arrows with a sign change and multiply enthalpies with equation coefficients. A formation cycle gives $\\Delta H_r^\\ominus=\\sum\\Delta H_f^\\ominus(\\text{products})-\\sum\\Delta H_f^\\ominus(\\text{reactants})$; elemental standard states contribute zero. A combustion cycle leads both routes to the same fully oxidised products. For gaseous bond-energy routes, $\\Delta H\\approx\\sum E(\\text{broken})-\\sum E(\\text{formed})$. Always match states, stoichiometry and the requested direction.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-5.2.1",
+   "statement": "Reverse a cycle arrow without changing its enthalpy sign.",
+   "refutation": "Reversing a reaction changes the sign of its enthalpy change.",
+   "contrast": "If $A\\to B$ is $-50$ kJ mol$^{-1}$, $B\\to A$ is $+50$ kJ mol$^{-1}$.",
+   "source": "ER 9701 w23 P22 Q3"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-5.2.2",
+   "statement": "Ignore equation coefficients when combining enthalpy changes.",
+   "refutation": "Multiplying an equation multiplies its enthalpy change by the same factor.",
+   "contrast": "Two moles of water formed contribute twice $\\Delta H_f^\\ominus(\\ce{H2O})$.",
+   "source": "ER 9701 w23 P22 Q3"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-5.2.2",
+   "statement": "Add reactant and product formation enthalpies.",
+   "refutation": "For a formation cycle, subtract the total formation enthalpy of reactants from that of products.",
+   "contrast": "$\\Delta H_r^\\ominus=\\sum\\Delta H_f^\\ominus(\\text{products})-\\sum\\Delta H_f^\\ominus(\\text{reactants})$.",
+   "source": "ER 9701 w23 P22 Q3"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-5.2.2",
+   "statement": "Treat bond energies as energies released on breaking bonds.",
+   "refutation": "Bond breaking absorbs energy; bond formation releases it. Use broken minus formed, with gaseous species.",
+   "contrast": "For $\\ce{H2 + Cl2 -> 2HCl}$, use $E(\\ce{H-H})+E(\\ce{Cl-Cl})-2E(\\ce{H-Cl})$.",
+   "source": "ER 9701 w23 P22 Q3"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-5.2.1",
+   "statement": "An element in its standard state has a nonzero standard enthalpy of formation.",
+   "refutation": "Its formation reaction makes the same substance from itself, so its standard enthalpy of formation is zero.",
+   "contrast": "$\\Delta H_f^\\ominus(\\ce{O2(g)})=0$; an oxygen bond energy is not needed in a formation-enthalpy cycle.",
+   "source": "ER 9701 w22 P13 Q9"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-5.2.1",
+   "problem": "Find $\\Delta H$ for $\\ce{C(s) + 1/2O2(g) -> CO(g)}$ from $\\Delta H_c^\\ominus(\\ce{C})=-394$ and $\\Delta H_c^\\ominus(\\ce{CO})=-283$ kJ mol$^{-1}$.",
+   "steps": [
+    {
+     "do": "Draw both routes from $\\ce{C(s) + O2(g)}$ to $\\ce{CO2(g)}$.",
+     "why": "The common end state lets Hess’s law compare the two paths."
+    },
+    {
+     "do": "Write $\\Delta H_f^\\ominus(\\ce{CO})+(-283)=-394$.",
+     "why": "The second leg is combustion of CO in the forward direction."
+    },
+    {
+     "do": "$\\Delta H_f^\\ominus(\\ce{CO})=-394-(-283)=-111$ kJ mol$^{-1}$.",
+     "why": "Subtract the CO combustion leg to isolate the target arrow.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -111.0,
+       "unit": "kJ mol^-1",
+       "sf_ok": [
+        2,
+        3,
+        4
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Use $\\Delta H_c^\\ominus(\\ce{C})=-394$ and $\\Delta H_c^\\ominus(\\ce{CO})=-280$ kJ mol$^{-1}$ to find formation enthalpy of CO(g).",
+    "answer": {
+     "value": -114.0,
+     "unit": "kJ mol^-1",
+     "sf_ok": [
+      2,
+      3,
+      4
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9701-5.2.2",
+   "problem": "Calculate $\\Delta H$ for $\\ce{2NO(g) + O2(g) -> 2NO2(g)}$ if formation enthalpies of NO and NO₂ are $+90$ and $+33$ kJ mol$^{-1}$.",
+   "steps": [
+    {
+     "do": "Write $\\Delta H_r^\\ominus=\\sum\\Delta H_f^\\ominus(\\text{products})-\\sum\\Delta H_f^\\ominus(\\text{reactants})$.",
+     "why": "Both routes connect the elements and the reaction species."
+    },
+    {
+     "do": "Substitute $2(33)-[2(90)+0]$.",
+     "why": "The coefficient two applies to both oxides; standard oxygen has zero formation enthalpy."
+    },
+    {
+     "do": "$\\Delta H_r^\\ominus=-114$ kJ mol$^{-1}$.",
+     "why": "Products minus reactants gives the signed answer for the equation as written.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -114.0,
+       "unit": "kJ mol^-1",
+       "sf_ok": [
+        2,
+        3,
+        4
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "For the same reaction, use $\\Delta H_f^\\ominus(\\ce{NO})=+91$ and $\\Delta H_f^\\ominus(\\ce{NO2})=+34$ kJ mol$^{-1}$. Calculate $\\Delta H_r^\\ominus$.",
+    "answer": {
+     "value": -114.0,
+     "unit": "kJ mol^-1",
+     "sf_ok": [
+      2,
+      3,
+      4
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9701-5.2.2",
+   "problem": "Estimate $\\Delta H$ for $\\ce{H2(g)+Cl2(g)->2HCl(g)}$ using H–H 436, Cl–Cl 242, H–Cl 431 kJ mol$^{-1}$.",
+   "steps": [
+    {
+     "do": "Broken bonds: $436+242=678$ kJ mol$^{-1}$.",
+     "why": "Breaking reactant bonds absorbs energy."
+    },
+    {
+     "do": "Formed bonds: $2(431)=862$ kJ mol$^{-1}$.",
+     "why": "The balanced equation makes two H–Cl bonds."
+    },
+    {
+     "do": "$\\Delta H=678-862=-184$ kJ mol$^{-1}$.",
+     "why": "Bond formation releases energy, so subtract its total.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -184.0,
+       "unit": "kJ mol^-1",
+       "sf_ok": [
+        2,
+        3,
+        4
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "For the same reaction use H–H 440, Cl–Cl 240, H–Cl 430 kJ mol$^{-1}$. Estimate $\\Delta H$.",
+    "answer": {
+     "value": -180.0,
+     "unit": "kJ mol^-1",
+     "sf_ok": [
+      2,
+      3,
+      4
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-5.2-p01",
+   "kcs": [
+    "9701-5.2.1",
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q8",
+    "qid": "9701_s19_11_q8"
+   },
+   "stem": "Two reactions and their enthalpy changes are shown.\n2C(s) + 2H₂(g) → C₂H₄(g)\n∆H o = +52.2 kJ mol⁻¹\nC₂H₂(g) + H₂(g) → C₂H₄(g)\n∆H o = –175.8 kJ mol⁻¹\nThese data can be used to calculate the enthalpy change for the reaction shown.\n2C(s) + H₂(g) → C₂H₂(g)\n∆H o = X\nWhat is the value of X?",
+   "options": {
+    "A": "–228.0 kJ mol⁻¹",
+    "B": "–123.6 kJ mol⁻¹",
+    "C": "+123.6 kJ mol⁻¹",
+    "D": "+228.0 kJ mol⁻¹"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Reverse the second equation: $52.2-(-175.8)=+228.0$ kJ mol$^{-1}$. A reverses the final sign.",
+   "image": "Assets/mcq/9701_s19_11_q8.png",
+   "distractors": {
+    "A": "m1"
+   }
+  },
+  {
+   "id": "9701-5.2-p02",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q7",
+    "qid": "9701_w19_11_q7"
+   },
+   "stem": "The following data are needed for this question.\n(N₂H₄(l)) = 50.6 kJ mol⁻¹\n(N₂O₄(g)) = 9.2 kJ mol⁻¹\n(H₂O(g)) = –241.8 kJ mol⁻¹\nHydrazine, N₂H₄(l), reacts with dinitrogen tetraoxide, N₂O₄(g), to form nitrogen gas and water\nvapour.\n2N₂H₄(l) + N₂O₄(g) → 3N₂(g) + 4H₂O(g)\nWhat is the enthalpy change for this reaction?",
+   "options": {
+    "A": "–1077.6 kJ mol⁻¹",
+    "B": "–856.8 kJ mol⁻¹",
+    "C": "–301.6 kJ mol⁻¹",
+    "D": "–182.0 kJ mol⁻¹"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Products minus reactants gives $4(-241.8)-[2(50.6)+9.2]=-1077.6$ kJ mol$^{-1}$. B misses a coefficient in the cycle.",
+   "image": "Assets/mcq/9701_w19_11_q7.png",
+   "distractors": {
+    "B": "m2"
+   }
+  },
+  {
+   "id": "9701-5.2-p03",
+   "kcs": [
+    "9701-5.2.1",
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q4",
+    "qid": "9701_s20_13_q4"
+   },
+   "stem": "The enthalpy changes of two reactions are shown.\nK₂CO₃(s) + 2HCl (aq) → 2KCl (aq) + H₂O(l) + CO₂(g)\n∆H = –34.0 kJ mol⁻¹\nKHCO₃(s) + HCl (aq) → KCl (aq) + H₂O(l) + CO₂(g)\n∆H = +32.8 kJ mol⁻¹\nWhat is the enthalpy change for the reaction shown?\n2KHCO₃(s) → K₂CO₃(s) + H₂O(l) + CO₂(g)",
+   "options": {
+    "A": "–31.6 kJ mol⁻¹",
+    "B": "1.2 kJ mol⁻¹",
+    "C": "66.8 kJ mol⁻¹",
+    "D": "99.6 kJ mol⁻¹"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Twice the hydrogencarbonate reaction, then reverse the carbonate reaction: $2(32.8)-(-34.0)=99.6$ kJ mol$^{-1}$. C omits the reversed carbonate step.",
+   "distractors": {
+    "C": "m1"
+   }
+  },
+  {
+   "id": "9701-5.2-p04",
+   "kcs": [
+    "9701-5.2.1",
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q7",
+    "qid": "9701_w20_11_q7"
+   },
+   "stem": "An energy cycle is drawn for the following reaction.\nBr₂(l) + 3F₂(g) → 2BrF₃(l)\n2Br(g) + 6F(g)\n2BrF₃(g)\n2BrF₃(l)\nBr₂(l) + 3F₂(g)\n+698 kJ\nThe standard enthalpy of formation of BrF₃(l) = –301 kJ mol⁻¹.\nThe enthalpy change of BrF₃(l) to BrF₃(g) is +44 kJ mol⁻¹.\nWhat is the average bond energy of the Br–F bond in BrF₃?",
+   "options": {
+    "A": "152 kJ mol⁻¹",
+    "B": "202 kJ mol⁻¹",
+    "C": "304 kJ mol⁻¹",
+    "D": "404 kJ mol⁻¹"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The atomisation route requires $698$ kJ and formation of two liquid products releases $602$ kJ; vaporising them requires $88$ kJ. The gaseous product to atoms step is $698-(-602+88)=1212$ kJ for six Br–F bonds, or $202$ kJ mol$^{-1}$. C uses an incorrect cycle sign.",
+   "image": "Assets/mcq/9701_w20_11_q7.png",
+   "distractors": {
+    "C": "m1"
+   }
+  },
+  {
+   "id": "9701-5.2-p05",
+   "kcs": [
+    "9701-5.2.1",
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q7",
+    "qid": "9701_s21_13_q7"
+   },
+   "stem": "Using the information in the table, what is the enthalpy change, q, for the reaction described?\nCs⁺(g) + Br ⁻(g) → CsBr(s)\n∆H = q kJ mol⁻¹\nstandard\nenthalpy change\nvalue\n/ kJ mol⁻¹\no\nsol\nH\nΔ\nCsBr(s)\n+25.9\no\nhyd\nH\nΔ\nCs⁺(g)\n–276\no\nhyd\nH\nΔ\nBr ⁻(g)\n–335",
+   "options": {
+    "A": "–636.9",
+    "B": "–585.1",
+    "C": "+585.1",
+    "D": "+636.9"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Hydrate the gaseous ions, then reverse dissolution: $-276-335-25.9=-636.9$ kJ mol$^{-1}$. B adds dissolution instead of reversing it.",
+   "image": "Assets/mcq/9701_s21_13_q7.png",
+   "distractors": {
+    "B": "m1"
+   }
+  },
+  {
+   "id": "9701-5.2-p06",
+   "kcs": [
+    "9701-5.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q8",
+    "qid": "9701_s21_13_q8"
+   },
+   "stem": "Which enthalpy change is indicated by X in the enthalpy cycle shown?\nC(s) + 2H₂(g) + 2O₂(g)\nCH₄(g) + 2O₂(g)\nCH₄(g)\nCH₄(g)\nCO₂(g) + 2H₂O(l)\nCO₂(g) + X",
+   "options": {
+    "A": "– 4 × the enthalpy of combustion of hydrogen",
+    "B": "+ 4 × the enthalpy of combustion of hydrogen",
+    "C": "– 2 × the enthalpy of formation of water",
+    "D": "+ 2 × the enthalpy of formation of water"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The marked route forms two moles of liquid water from its elements, so its enthalpy is twice the formation enthalpy of water. C reverses that arrow.",
+   "image": "Assets/mcq/9701_s21_13_q8.png",
+   "distractors": {
+    "C": "m1"
+   }
+  },
+  {
+   "id": "9701-5.2-p07",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q10",
+    "qid": "9701_s22_13_q10"
+   },
+   "stem": "Magnesium carbonate decomposes when heated in a Bunsen burner flame.\nValues for the standard enthalpies of formation, , of the species involved are shown.\nMgCO₃ = –1095.8 kJ mol⁻¹\nMgO = –601.7 kJ mol⁻¹\nCO₂ = –393.5 kJ mol⁻¹\nWhat is the standard enthalpy change for the decomposition of magnesium carbonate?",
+   "options": {
+    "A": "+100.6 kJ mol⁻¹",
+    "B": "+887.6 kJ mol⁻¹",
+    "C": "+1095.8 kJ mol⁻¹",
+    "D": "+2091 kJ mol⁻¹"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Products minus reactant is $-601.7-393.5-(-1095.8)=+100.6$ kJ mol$^{-1}$. C omits the product formation terms.",
+   "image": "Assets/mcq/9701_s22_13_q10.png",
+   "distractors": {
+    "C": "m3"
+   }
+  },
+  {
+   "id": "9701-5.2-p08",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q16",
+    "qid": "9701_w22_12_q16"
+   },
+   "stem": "Use relevant enthalpy changes from the tables to answer this question.\nreaction\nΔH / kJ mol⁻¹\nC(s) + 2H₂(g) → CH₄(g)\n–76\nCH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(g)\n–890\nCH₄(g) → C(g) + 4H(g)\n1648\n3C(s) + 4H₂(g) → C₃H₈(g)\n–105\nbond\nbond enthalpy\n/ kJ mol⁻¹\nH–H\n436\nC–C\n350\nC=C\n610\nC=O\n805\nWhich value can be calculated for the enthalpy change for the following reaction?\n2C(g) + 6H(g) → C₂H₆(g)",
+   "options": {
+    "A": "–2822 kJ mol⁻¹",
+    "B": "–2122 kJ mol⁻¹",
+    "C": "–1998 kJ mol⁻¹",
+    "D": "–1772 kJ mol⁻¹"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Methane atomisation gives $E(\\ce{C-H})=1648/4=412$ kJ mol$^{-1}$; forming six C–H and one C–C bond gives $-[6(412)+350]=-2822$ kJ mol$^{-1}$. C omits two C–H bonds.",
+   "image": "Assets/mcq/9701_w22_12_q16.png",
+   "distractors": {
+    "C": "m2"
+   }
+  },
+  {
+   "id": "9701-5.2-p09",
+   "kcs": [
+    "9701-5.2.1",
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q9",
+    "qid": "9701_w24_13_q9"
+   },
+   "stem": "The standard enthalpy change of combustion of carbon is –394 kJ mol⁻¹.\nThe standard enthalpy change of combustion of hydrogen is –286 kJ mol⁻¹.\nThe standard enthalpy change of formation of butane is –129 kJ mol⁻¹.\nWhat is the standard enthalpy change of combustion of butane?",
+   "options": {
+    "A": "–551 kJ mol⁻¹",
+    "B": "–2877 kJ mol⁻¹",
+    "C": "–3135 kJ mol⁻¹",
+    "D": "–4307 kJ mol⁻¹"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Combust the elements to the same products: $4(-394)+5(-286)-(-129)=-2877$ kJ mol$^{-1}$. C adds the formation enthalpy rather than reversing that route.",
+   "distractors": {
+    "C": "m1"
+   }
+  },
+  {
+   "id": "9701-5.2-p10",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q10",
+    "qid": "9701_w24_12_q10"
+   },
+   "stem": "Two standard enthalpy change of formation values are given.\n[VCl ₂] = –452 kJ mol⁻¹\n[VCl ₃] = –573 kJ mol⁻¹\nWhat is the enthalpy change for the reaction 3VCl ₂ → 2VCl ₃ + V ?",
+   "options": {
+    "A": "–210 kJ mol⁻¹",
+    "B": "–121 kJ mol⁻¹",
+    "C": "+121 kJ mol⁻¹",
+    "D": "+210 kJ mol⁻¹"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "$2(-573)-3(-452)=+210$ kJ mol$^{-1}$; vanadium metal has zero formation enthalpy. A reverses the overall sign.",
+   "image": "Assets/mcq/9701_w24_12_q10.png",
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9701-5.2-p11",
+   "kcs": [
+    "9701-5.2.1",
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q6",
+    "qid": "9701_s25_12_q6"
+   },
+   "stem": "Some standard enthalpy of combustion data are given.\nsubstance\nstandard enthalpy change\nof combustion / kJ mol⁻¹\nC(s)\n–394\nH₂(g)\n–286\nCH₃OH(l)\n–726\nUsing these data, what is the enthalpy change of formation of methanol?",
+   "options": {
+    "A": "–240 kJ mol⁻¹",
+    "B": "–46 kJ mol⁻¹",
+    "C": "46 kJ mol⁻¹",
+    "D": "240 kJ mol⁻¹"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Element combustion totals $-394+2(-286)=-966$ kJ mol$^{-1}$. Hence methanol formation is $-966-(-726)=-240$ kJ mol$^{-1}$; D loses the sign.",
+   "image": "Assets/mcq/9701_s25_12_q6.png",
+   "distractors": {
+    "D": "m1"
+   }
+  },
+  {
+   "id": "9701-5.2-p12",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q6",
+    "qid": "9701_s25_13_q6"
+   },
+   "stem": "The first stage in the industrial production of nitric acid from ammonia can be represented by the\nfollowing equation.\n4NH₃(g) + 5O₂(g)\n4NO(g) + 6H₂O(g)\nUsing the following standard enthalpy change of formation data, what is the value of the standard\nenthalpy change, ΔH o, for this reaction?\ncompound\nNH₃(g)\n–46.1\nNO(g)\n+90.3\nH₂O(g)\n–241.8",
+   "options": {
+    "A": "+905.2 kJ mol⁻¹",
+    "B": "–105.4 kJ mol⁻¹",
+    "C": "–905.2 kJ mol⁻¹",
+    "D": "–1274.0 kJ mol⁻¹"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Use formation enthalpies and the balanced coefficients: $4(90.3)+6(-241.8)-4(-46.1)=-905.2$ kJ mol$^{-1}$. A reverses the sign.",
+   "image": "Assets/mcq/9701_s25_13_q6.png",
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9701-5.2-i01",
+   "kcs": [
+    "9701-5.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A cycle gives $A\\to B=-80$ kJ mol$^{-1}$. What is the enthalpy change of $B\\to A$?",
+   "marks": 1,
+   "explanation": "A reversed path has the opposite sign.",
+   "hints": [
+    "Identify the starting and finishing chemical states.",
+    "Draw two routes between the same states and label each arrow.",
+    "Reverse arrows with a sign change and scale enthalpies with equation coefficients."
+   ],
+   "options": {
+    "A": "$-160$ kJ mol$^{-1}$",
+    "B": "$-80$ kJ mol$^{-1}$",
+    "C": "$+80$ kJ mol$^{-1}$",
+    "D": "$+160$ kJ mol$^{-1}$"
+   },
+   "answer": "C",
+   "distractors": {
+    "B": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.2-i02",
+   "kcs": [
+    "9701-5.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "In a formation-enthalpy cycle for $\\ce{2NO(g) + O2(g) -> 2NO2(g)}$, which starting level is used?",
+   "marks": 1,
+   "explanation": "Both routes start from the elements in their standard states, with enough material to form two moles of nitrogen dioxide.",
+   "hints": [
+    "Identify the starting and finishing chemical states.",
+    "Draw two routes between the same states and label each arrow.",
+    "Reverse arrows with a sign change and scale enthalpies with equation coefficients."
+   ],
+   "options": {
+    "A": "$\\ce{N2(g) + 2O2(g)}$",
+    "B": "$\\ce{2N(g) + 4O(g)}$",
+    "C": "$\\ce{N2(g) + O2(g)}$",
+    "D": "$\\ce{2NO(g) + O2(g)}$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m5",
+    "C": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-5.2-i03",
+   "kcs": [
+    "9701-5.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain Hess’s law and why two routes between identical chemical states have the same total enthalpy change.",
+   "marks": 2,
+   "explanation": "Enthalpy is a state function, so total enthalpy change depends only on initial and final states, provided physical states and conditions are the same.",
+   "hints": [
+    "Identify the starting and finishing chemical states.",
+    "Draw two routes between the same states and label each arrow.",
+    "Reverse arrows with a sign change and scale enthalpies with equation coefficients."
+   ],
+   "rubric": [
+    {
+     "point": "Enthalpy change is independent of the route taken.",
+     "keywords": [
+      [
+       "independent",
+       "does not depend"
+      ],
+      [
+       "route",
+       "path"
+      ]
+     ]
+    },
+    {
+     "point": "The initial and final chemical states must be the same.",
+     "keywords": [
+      [
+       "initial",
+       "start"
+      ],
+      [
+       "final",
+       "end"
+      ],
+      [
+       "state"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-5.2-i04",
+   "kcs": [
+    "9701-5.2.1",
+    "9701-5.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $\\ce{A -> C}$, the route $\\ce{A -> B}$ is [[ab]] and $\\ce{B -> C}$ is [[bc]] kJ mol$^{-1}$. Calculate the direct enthalpy change.",
+   "marks": 3,
+   "explanation": "Add signed enthalpy changes along the route from A to C.",
+   "hints": [
+    "Identify the starting and finishing chemical states.",
+    "Draw two routes between the same states and label each arrow.",
+    "Reverse arrows with a sign change and scale enthalpies with equation coefficients."
+   ],
+   "answer": {
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "template": {
+    "params": {
+     "ab": {
+      "choices": [
+       -80,
+       -100,
+       -120
+      ]
+     },
+     "bc": {
+      "choices": [
+       30,
+       40,
+       50
+      ]
+     }
+    },
+    "answer": "ab+bc",
+    "distractors": [
+     {
+      "expr": "ab-bc",
+      "misconception": "m1"
+     },
+     {
+      "expr": "-ab-bc",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "1>0"
+    ]
+   }
+  },
+  {
+   "id": "9701-5.2-i05",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $\\ce{X2 -> 2X}$, the enthalpy is [[atom]] kJ mol$^{-1}$. For $\\ce{2X + Y2 -> 2XY}$, the enthalpy is [[form]] kJ mol$^{-1}$. Calculate $\\Delta H$ for $\\ce{X2 + Y2 -> 2XY}$.",
+   "marks": 3,
+   "explanation": "Combine the two equations in the direction written and add their enthalpies.",
+   "hints": [
+    "Identify the starting and finishing chemical states.",
+    "Draw two routes between the same states and label each arrow.",
+    "Reverse arrows with a sign change and scale enthalpies with equation coefficients."
+   ],
+   "answer": {
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "template": {
+    "params": {
+     "atom": {
+      "choices": [
+       100,
+       120,
+       140
+      ]
+     },
+     "form": {
+      "choices": [
+       -200,
+       -240,
+       -280
+      ]
+     }
+    },
+    "answer": "atom+form",
+    "distractors": [
+     {
+      "expr": "atom-form",
+      "misconception": "m1"
+     },
+     {
+      "expr": "form/2+atom",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": [
+     "1>0"
+    ]
+   }
+  },
+  {
+   "id": "9701-5.2-i06",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $\\ce{2NO(g) + O2(g) -> 2NO2(g)}$, $\\Delta H_f^\\ominus(\\ce{NO})=[[no]]$ and $\\Delta H_f^\\ominus(\\ce{NO2})=[[no2]]$ kJ mol$^{-1}$. Calculate $\\Delta H_r^\\ominus$.",
+   "marks": 3,
+   "explanation": "Subtract the reactant formation total from the product formation total; oxygen contributes zero.",
+   "hints": [
+    "Identify the starting and finishing chemical states.",
+    "Draw two routes between the same states and label each arrow.",
+    "Reverse arrows with a sign change and scale enthalpies with equation coefficients."
+   ],
+   "answer": {
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "template": {
+    "params": {
+     "no": {
+      "choices": [
+       80,
+       90,
+       100
+      ]
+     },
+     "no2": {
+      "choices": [
+       20,
+       30,
+       40
+      ]
+     }
+    },
+    "answer": "2*no2-2*no",
+    "distractors": [
+     {
+      "expr": "no2-no",
+      "misconception": "m2"
+     },
+     {
+      "expr": "2*no2+2*no",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": [
+     "1>0"
+    ]
+   }
+  },
+  {
+   "id": "9701-5.2-i07",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Estimate $\\Delta H$ for $\\ce{H2(g) + Cl2(g) -> 2HCl(g)}$ from H–H = [[hh]], Cl–Cl = [[cc]], and H–Cl = [[hc]] kJ mol$^{-1}$.",
+   "marks": 3,
+   "explanation": "Break one H–H and one Cl–Cl; form two H–Cl bonds. Subtract energies of bonds formed.",
+   "hints": [
+    "Identify the starting and finishing chemical states.",
+    "Draw two routes between the same states and label each arrow.",
+    "Reverse arrows with a sign change and scale enthalpies with equation coefficients."
+   ],
+   "answer": {
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "template": {
+    "params": {
+     "hh": {
+      "choices": [
+       430,
+       436,
+       440
+      ]
+     },
+     "cc": {
+      "choices": [
+       240,
+       242,
+       244
+      ]
+     },
+     "hc": {
+      "choices": [
+       425,
+       430,
+       435
+      ]
+     }
+    },
+    "answer": "hh+cc-2*hc",
+    "distractors": [
+     {
+      "expr": "2*hc-hh-cc",
+      "misconception": "m4"
+     },
+     {
+      "expr": "hh+cc-hc",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": [
+     "1>0"
+    ]
+   }
+  },
+  {
+   "id": "9701-5.2-x001",
+   "kcs": [
+    "9701-5.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q33",
+    "qid": "9701_s20_13_q33"
+   },
+   "stem": "Gaseous sodium ions can be formed from sodium atoms.\nNa(s) → Na⁺(g)\nWhich quantities are required to calculate the enthalpy change of formation of Na⁺(g)?\n1\nfirst ionisation energy of sodium\n2\nenthalpy change of atomisation of sodium\n3\nenthalpy change of formation of sodium",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s20_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x002",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q31",
+    "qid": "9701_w20_11_q31"
+   },
+   "stem": "Nitrogen forms a number of oxides. Their enthalpies of formation are given.\n[NO(g)] = +90 kJ mol⁻¹\n[N₂O(g)] = +82 kJ mol⁻¹\n[NO₂(g)] = +33 kJ mol⁻¹\nWhich statements are correct?\n1\nIf N₂O(g) is oxidised by O₂(g) to NO₂(g), 16 kJ is released per mole of N₂O.\n2\nThe decomposition of N₂O(g) to N₂(g) and O₂(g) is exothermic.\n3\nThe reaction between NO and oxygen is exothermic.",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w20_11_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answers were B and C. The correct answer is A. • Statement 1 is correct. A Hess’ Law cycle allows us to calculate a ∆Ho of –16 kJ per mole of N2O. • Statement 2 is correct.∆Hof[N2O(g)] is endothermic. This means that the decomposition of N2O to its elements must be exothermic. • Statement 3 is correct. A Hess’ Law cycle allows us to calculate a ∆Ho of –57 kJ per mole of NO for the reaction described."
+  },
+  {
+   "id": "9701-5.2-x003",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q33",
+    "qid": "9701_w20_12_q33"
+   },
+   "stem": "The diagram illustrates the enthalpy changes of a set of reactions.\nR\n∆H = –134 kJ mol⁻¹\n∆H = –75 kJ mol⁻¹\n∆H = +92 kJ mol⁻¹\nS\nT\nU\nWhich statements are correct?\n1\nThe enthalpy change for the transformation U → R is + 42 kJ mol⁻¹.\n2\nThe enthalpy change for the transformation T → S is endothermic.\n3\nThe enthalpy change for the transformation R → T is – 33 kJ mol⁻¹.",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x004",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q7",
+    "qid": "9701_w20_13_q7"
+   },
+   "stem": "An energy cycle is drawn for the following reaction.\nBr₂(l) + 3F₂(g) → 2BrF₃(l)\n2Br(g) + 6F(g)\n2BrF₃(g)\n2BrF₃(l)\nBr₂(l) + 3F₂(g)\n+698 kJ\nThe standard enthalpy of formation of BrF₃(l) = –301 kJ mol⁻¹.\nThe enthalpy change of BrF₃(l) to BrF₃(g) is +44 kJ mol⁻¹.\nWhat is the average bond energy of the Br–F bond in BrF₃?",
+   "options": {
+    "A": "152 kJ mol⁻¹",
+    "B": "202 kJ mol⁻¹",
+    "C": "304 kJ mol⁻¹",
+    "D": "404 kJ mol⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w20_13_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x005",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q31",
+    "qid": "9701_w20_13_q31"
+   },
+   "stem": "Nitrogen forms a number of oxides. Their enthalpies of formation are given.\n[NO(g)] = +90 kJ mol⁻¹\n[N₂O(g)] = +82 kJ mol⁻¹\n[NO₂(g)] = +33 kJ mol⁻¹\nWhich statements are correct?\n1\nIf N₂O(g) is oxidised by O₂(g) to NO₂(g), 16 kJ is released per mole of N₂O.\n2\nThe decomposition of N₂O(g) to N₂(g) and O₂(g) is exothermic.\n3\nThe reaction between NO and oxygen is exothermic.",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w20_13_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answers was C. The correct answer is A. • Statement 1 is correct. A Hess’ Law cycle allows us to calculate a ∆Ho of –16 kJ per mole of N2O. • Statement 2 is correct. ∆Hof[N2O(g)] is endothermic. This means that the decomposition of N2O to its elements must be exothermic. • Statement 3 is correct. A Hess’ Law cycle allows us to calculate a ∆Ho of –57 kJ per mole of NO for the reaction described."
+  },
+  {
+   "id": "9701-5.2-x006",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q4",
+    "qid": "9701_s21_11_q4"
+   },
+   "stem": "is the standard enthalpy of formation of methane.\nis the standard enthalpy of combustion of carbon.\nis the standard enthalpy of combustion of hydrogen.\nCH₄(g) + 2O₂(g)\nCO₂(g) + 2H₂O(l)\nWhich expression is equivalent to ?",
+   "options": {
+    "A": "– +",
+    "B": "+ –",
+    "C": "– 2 2 –",
+    "D": "– +"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s21_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x007",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q9",
+    "qid": "9701_s22_11_q9"
+   },
+   "stem": "The equation for an enthalpy change is shown. The enthalpy change is Q.\nQ\n2C(s) + 3H₂(g) + 3.5O₂(g)\n2CO₂(g) + 3H₂O(l)\nWhat is the correct expression to calculate Q?",
+   "options": {
+    "A": "2 × [CO₂(g)] – 3 × [H₂(g)]",
+    "B": "3 × [H₂O(g)] + 2 × [CO₂(g)]",
+    "C": "2 × [CO₂(g)] – 3 × [H₂(g)]",
+    "D": "3 × [H₂O(l)] + 2 × [CO₂(g)]"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s22_11_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x008",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q9",
+    "qid": "9701_s22_12_q9"
+   },
+   "stem": "The standard enthalpy of formation of NO₂(g) is + 33.2 kJ mol⁻¹.\nThe standard enthalpy of formation of N₂O₄(g) is + 9.2 kJ mol⁻¹.\nWhat is the standard enthalpy change for the reaction 2NO₂(g) → N₂O₄(g)?",
+   "options": {
+    "A": "–57.2 kJ mol⁻¹",
+    "B": "–24.0 kJ mol⁻¹",
+    "C": "+42.4 kJ mol⁻¹",
+    "D": "+75.6 kJ mol⁻¹"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x009",
+   "kcs": [
+    "9701-5.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q9",
+    "qid": "9701_w22_11_q9"
+   },
+   "stem": "The enthalpy changes of formation, , of both PCl ₃ and PCl ₅ are exothermic.\nPCl ₃ reacts with chlorine.\nPCl ₃(l) + Cl ₂(g) → PCl ₅(s)\n= –124 kJ mol⁻¹\nWhich pair of statements is correct?\nstatement 1\nstatement 2\nis less negative than\nThe Cl ₂ bond energy is needed in calculating\n(PCl ₅).\nfrom enthalpies of formation.",
+   "options": {
+    "A": "is more negative than The Cl ₂ bond energy is needed in calculating (PCl ₅). from enthalpies of formation.",
+    "B": "is less negative than The Cl ₂ bond energy is not needed in calculating (PCl ₅). from enthalpies of formation.",
+    "C": "is more negative than The Cl ₂ bond energy is not needed in calculating (PCl ₅). from enthalpies of formation.",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w22_11_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "15 per cent of candidates chose the correct answer, C. The most commonly chosen incorrect answer was B. 44 per cent of candidates chose this answer. The question was best approached by an energy level diagram. It can be seen that ΔHreaction , which is –124, is less negative than ΔHf(PCl 5), which is Y, so statement 1 is correct for A and C. It can be seen that ΔHreaction can be calculated from the enthalpies of formation, X and Y, without using the Cl 2 bond energy, so statement 1 is correct for C and D. The correct answer is therefore C."
+  },
+  {
+   "id": "9701-5.2-x010",
+   "kcs": [
+    "9701-5.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q9",
+    "qid": "9701_w22_13_q9"
+   },
+   "stem": "The enthalpy changes of formation, , of both PCl ₃ and PCl ₅ are exothermic.\nPCl ₃ reacts with chlorine.\nPCl ₃(l) + Cl ₂(g) → PCl ₅(s)\n= –124 kJ mol⁻¹\nWhich pair of statements is correct?\nstatement 1\nstatement 2\nis less negative than\nThe Cl ₂ bond energy is needed in calculating\n(PCl ₅).\nfrom enthalpies of formation.",
+   "options": {
+    "A": "is more negative than The Cl ₂ bond energy is needed in calculating (PCl ₅). from enthalpies of formation.",
+    "B": "is less negative than The Cl ₂ bond energy is not needed in calculating (PCl ₅). from enthalpies of formation.",
+    "C": "is more negative than The Cl ₂ bond energy is not needed in calculating (PCl ₅). from enthalpies of formation.",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w22_13_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "39 per cent of candidates chose the correct answer, C. The most commonly chosen incorrect answer was A. 28 per cent of candidates chose this answer. The question was best approached by an energy level diagram. It can be seen that ΔHreaction, which is –124, is less negative than ΔHf(PCl 5), which is Y, so statement 1 is correct for A and C. It can be seen that ΔHreaction can be calculated from the enthalpies of formation, X and Y, without using the Cl 2 bond energy, so statement 1 is correct for C and D. The correct answer is therefore C."
+  },
+  {
+   "id": "9701-5.2-x011",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q5",
+    "qid": "9701_s23_11_q5"
+   },
+   "stem": "Calcium\u0003carbide,\u0003CaC₂,\u0003reacts\u0003with\u0003water,\u0003as\u0003shown.\u0003The\u0003data\u0003below\u0003the\u0003equation\u0003show,\u0003in\u0003kJ\u0003mol⁻¹,\u0003\nthe\u0003standard\u0003enthalpies\u0003of\u0003formation\u0003of\u0003the\u0003compounds\u0003involved.\nC₂H₂(g)\n+\nCaO(s)\n→\nH₂O(l)\n+\nCaC₂(s)\n+228\n–635\n–286\n–60\nWhat is the standard enthalpy change of the reaction shown?\n–753kJmol⁻¹",
+   "options": {
+    "A": "–61kJmol⁻¹",
+    "B": "+61kJmol⁻¹",
+    "C": "+753kJmol⁻¹",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x012",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q10",
+    "qid": "9701_s23_12_q10"
+   },
+   "stem": "Nitrogen monoxide is rapidly oxidised to nitrogen dioxide.\n2NO(g) + O₂(g) →2NO₂(g)\nNitrogen dioxide can then dimerise to form dinitrogen tetroxide.\n2NO₂(g)\nN₂O₄(g)\nΔH o = –58 kJ mol⁻¹\nΔH oNO = +91 kJ mol⁻¹ and ΔH oNO₂ = +34 kJ mol⁻¹\nf\nf\nWhat is the value of the standard enthalpy change for the reaction shown?\n2NO(g) + O₂(g) →N₂O₄(g)\n–172kJmol⁻¹",
+   "options": {
+    "D": "–115kJmol⁻¹",
+    "C": "–1kJmol⁻¹",
+    "B": "+56kJmol⁻¹",
+    "A": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x013",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q11",
+    "qid": "9701_w23_12_q11"
+   },
+   "stem": "Nitric acid is made industrially by the oxidation of ammonia. The overall equation for the process\nis shown.\nequation 1\nNH₃ + 2O₂ →HNO₃ + H₂O\nThe process happens in three stages. The equations and enthalpy changes for these stages are\ngiven.\nH = −904kJmol⁻¹\n4NH₃ + 5O₂ →4NO + 6H₂O\nstage 1\nH = −114kJmol⁻¹\n2NO + O₂ →2NO₂\nstage 2\nH = −348kJmol⁻¹\n4NO₂ + O₂ + 2H₂O →4HNO₃\nstage 3\nWhat is the enthalpy change of the process shown in equation 1?\n−1480kJmol⁻¹",
+   "options": {
+    "A": "−370kJmol⁻¹",
+    "B": "−341.5kJmol⁻¹",
+    "C": "+82kJmol⁻¹",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w23_12_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x014",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q9",
+    "qid": "9701_s24_11_q9"
+   },
+   "stem": "An energy cycle is shown.\nCH₄ + 2O₂\nC + 2H₂ + 2O₂\nCO₂ + 2H₂O\nX\nY\nZ\nThe energy changes involved are X, Y and Z.\nThe numerical value of energy change Y is either –890 or +890.\nThe numerical value of energy change Z is either –964 or +964.\nWhich of the three values are negative?",
+   "options": {
+    "A": "X and Z",
+    "B": "X only",
+    "C": "Y and Z",
+    "D": "Y only"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s24_11_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-5.2-x015",
+   "kcs": [
+    "9701-5.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q5",
+    "qid": "9701_s25_11_q5"
+   },
+   "stem": "The reaction of hydrogen with oxygen is shown.\n2H₂(g) + O₂(g) → 2H₂O(l)\nWhich expression corresponds to the standard enthalpy change of this reaction?",
+   "options": {
+    "A": "2 × (H₂O)",
+    "B": "(H₂O) – (H₂)",
+    "C": "(H₂)",
+    "D": "2 × (H₂O) + 2 × (H₂)"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s25_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-5.2.1",
+   "front": "State Hess’s law.",
+   "back": "The enthalpy change of a reaction is independent of the route taken, provided initial and final conditions are the same."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-5.2.2",
+   "front": "What is the formation-enthalpy cycle formula?",
+   "back": "$\\Delta H_r^\\ominus=\\sum\\Delta H_f^\\ominus(\\text{products})-\\sum\\Delta H_f^\\ominus(\\text{reactants})$, using stoichiometric coefficients."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-5.2.2",
+   "front": "What is the bond-energy estimate?",
+   "back": "$\\Delta H\\approx\\sum E(\\text{bonds broken})-\\sum E(\\text{bonds formed})$ for gaseous species."
+  }
+ ],
+ "diagrams": []
+}
