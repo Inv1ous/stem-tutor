@@ -47,7 +47,8 @@ class HomeScreen(Screen):
         yield Static(BANNER, id="banner")
         with Horizontal(id="home"):
             yield OptionList(id="menu")
-            yield Static(id="stats")
+            with VerticalScroll(id="stats"):  # more chapters than fit in the window: the box scrolls
+                yield Static(id="stats-text")
         yield Footer()
 
     def on_screen_resume(self) -> None:
@@ -107,7 +108,7 @@ class HomeScreen(Screen):
             menu.add_option(Option(label, id=key))
         menu.highlighted = 0
         menu.focus()
-        self.query_one("#stats", Static).update(self.stats_text(now, due))
+        self.query_one("#stats-text", Static).update(self.stats_text(now, due))
 
     def stats_text(self, now: datetime, due: list) -> Text:
         app = self.app

@@ -471,6 +471,81 @@ def test_a_marked_answer_can_be_asked_about_before_the_next_no_help_question(tmp
     asyncio.run(go())
 
 
+def test_at_half_a_screen_everything_lines_up_and_fits(tmp_path, monkeypatch):
+    """Reported by the learner: with the window at half the screen the right side broke up and boxes did not line up.
+    The "Ask the tutor" button also took the Ask pop-up's style (they share the id `ask`), 90 columns wide, so it ran
+    off the edge; the log's scrollbar sat one column in from the edge; cards and answer boxes ended a column apart."""
+    from tutor_app.screens import SessionScreen
+    from textual.widgets import Button, Input, OptionList
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(140, 46)) as pilot:
+            await pilot.pause()
+            scr = SessionScreen({"mode": "test", "minutes": 40, "focus": ["9702-2.1"]})
+            app.push_screen(scr)
+            await pilot.pause()
+            await pilot.resize_terminal(100, 24)  # the window dragged to half the screen, mid-session
+            await pilot.pause()
+            log = scr.query_one("#log")
+
+            def card_edge():
+                return {(e.region.x, e.region.right) for e in log.query(".entry")}
+
+            for kind in (OptionList, Input):  # a multiple-choice question, then a typed one
+                boxes = [w for w in scr.query("#panel OptionList, #panel Input") if w.display]
+                assert any(isinstance(w, kind) for w in boxes)
+                assert {(w.region.x, w.region.right) for w in boxes} == card_edge()  # answer boxes end where cards end
+                scr.submit({"entry": f"{scr.view['n']}?", "your": "I don't know"})
+                await pilot.pause()
+                buttons = list(scr.query("#panel Button"))
+                assert [b.id for b in buttons] == ["next", "why", "ask"]
+                assert {(b.region.y, b.region.height) for b in buttons} == {(buttons[0].region.y, 3)}  # one row of buttons
+                assert all(b.region.width <= max(16, len(str(b.label)) + 4) and b.region.right <= 100 for b in buttons)
+                assert len(card_edge()) == 1
+                scr.tutor.respond({})
+                scr.advance()
+                await pilot.pause()
+            assert log.show_vertical_scrollbar and log.vertical_scrollbar.region.right == 100  # flush with the edge
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_the_home_screens_side_box_fits_and_scrolls(tmp_path, monkeypatch):
+    """With 22 chapters the box of dates and topics ran off the bottom of the window: its bottom edge was gone, and
+    the AI line and the version under the topics could not be reached."""
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(100, 24)) as pilot:
+            await pilot.pause()
+            box, home = app.screen.query_one("#stats"), app.screen.query_one("#home")
+            assert box.region.bottom <= home.region.bottom  # the whole box, bottom edge included, is on screen
+            assert box.max_scroll_y > 0  # and what does not fit can be scrolled to
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_a_buttons_id_never_borrows_a_layout_style(tmp_path, monkeypatch):
+    """Buttons are named for what they do (`ask`, `home`); the same names style the Ask pop-up and the home screen."""
+    from tutor_app.panels import ContinuePanel
+    from tutor_app.screens import SessionScreen
+    from textual.widgets import Button
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            scr = SessionScreen({"mode": "test", "minutes": 40, "focus": ["9702-2.1"]})
+            app.push_screen(scr)
+            await pilot.pause()
+            scr.panel(ContinuePanel(buttons=[("home", "Back to menu ⏎"), ("ask", "Ask the tutor (ctrl+t)")]))
+            await pilot.pause()
+            assert [(b.region.height, b.region.width <= 30) for b in scr.query("#panel Button")] == [(3, True)] * 2
+            await app.ai.close()
+    asyncio.run(go())
+
+
 def test_the_menu_picks_up_chapters_published_while_the_app_is_open(tmp_path, monkeypatch):
     import copy, json, shutil
     from fixtures import GRAPH, PACK
