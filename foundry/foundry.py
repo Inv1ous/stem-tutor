@@ -147,6 +147,26 @@ def out_of_bounds() -> list[str]:
     return [p for p in paths if not p.startswith(allowed) and not p.endswith(".DS_Store")]
 
 
+def extra_ids(sub: str) -> dict:
+    """qid → id of the chapter's past-paper extras (the bank questions add_past appends after drafting)."""
+    try:
+        items = json.loads(pack_path(sub).read_text()).get("items", [])
+    except (OSError, ValueError):
+        return {}
+    return {(i.get("source") or {}).get("qid"): i["id"] for i in items if i.get("tier") == "extra"}
+
+
+def restore_extras(sub: str, known: dict) -> dict:
+    """Re-append the past-paper extras with the ids they had: a worker that re-runs the generator rewrites the pack
+    without them. Returns the ids to remember."""
+    if not pack_path(sub).exists():
+        return known
+    sys.path.insert(0, str(REPO / "build"))
+    import add_past
+    add_past.add(pack_path(sub), keep_ids=known, work=ROOT / "build/work/mcq")
+    return {**known, **extra_ids(sub)}
+
+
 # ---------------- commands ----------------
 def cmd_add(subs: list[str], stage: str = "draft") -> None:
     for sub in subs:
@@ -157,7 +177,7 @@ def cmd_add(subs: list[str], stage: str = "draft") -> None:
         STATE.mkdir(parents=True, exist_ok=True)
         start = "solve" if pack_path(sub).exists() and stage == "draft" else stage  # an existing pack is re-checked
         st = {"sub": sub, "stage": start, "created": now(), "updated": now(), "history": [], "gates": None,
-              "disputes": [], "findings": [], "fixes": [], "jobs": {}}
+              "disputes": [], "findings": [], "fixes": [], "jobs": {}, "extra_ids": extra_ids(sub)}
         path.write_text(json.dumps(st, indent=1))
         if not (ROOT / "build/work/bundles" / f"{sub}.md").exists() and (REPO / "build/bundle.py").exists():
             subprocess.run([PY, str(REPO / "build/bundle.py"), sub], cwd=ROOT, capture_output=True)
@@ -445,7 +465,8 @@ def cmd_sign(sub: str) -> None:
 def chapter_paths(sub: str) -> list[str]:
     """Everything that belongs to one chapter, relative to the repo: what a sign-off commits."""
     pack = json.loads(pack_path(sub).read_text())
-    found = [pack_path(sub), NOTES / pack.get("note", ""), STATE / f"{sub}.json", HOLD]
+    found = [pack_path(sub), NOTES / pack.get("note", ""), STATE / f"{sub}.json", HOLD,
+             ROOT / "build/work/mcq/overrides.json"]
     found += list((ROOT / "build/work/gen").glob(f"{sub}*")) + list((ROOT / "build/out/Assets").glob(f"*/{sub}-*"))
     found += list(BLIND.glob(f"{sub}.*")) + list(WORK.glob(f"{sub}.*"))
     return [str(p.relative_to(ROOT)) for p in found if p.is_file()]
@@ -504,6 +525,7 @@ def cmd_prompt(role: str, sub: str, shard: int | None = None) -> None:
     if ROLES.get(role) == "codex":  # to paste into a Codex session you run yourself: mark it so nobody duplicates it
         with chapter(sub) as st:
             st["jobs"][role] = {"manual": True, "started": now()}
+            st["extra_ids"] = {**st.get("extra_ids", {}), **extra_ids(sub)}
         print(role_prompt(role, sub) + f"\nWhen you have finished, run: .venv/bin/python foundry/foundry.py collect {role} {sub} -")
         return
     print(role_prompt(role, sub, shard))
@@ -519,6 +541,8 @@ def cmd_codex(role: str, sub: str) -> None:
     if running >= cfg["max_parallel"]:
         raise SystemExit(f"{running} workers already running (max_parallel {cfg['max_parallel']}); try again later")
     model, effort = cfg["tiers"][cfg["roles"][role]]
+    with chapter(sub) as st:  # so collect can put the extras back with the same ids if the worker rewrites the pack
+        st["extra_ids"] = {**st.get("extra_ids", {}), **extra_ids(sub)}
     LOGS.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now().strftime("%m%d-%H%M%S")
     log, out = LOGS / f"{sub}.{role}.{stamp}.log", LOGS / f"{sub}.{role}.{stamp}.out.json"
@@ -597,6 +621,9 @@ def cmd_collect(role: str, sub: str, out: str, code: str = "0") -> None:
         report = report or json.loads(Path(out).read_text())
     except (OSError, ValueError):
         pass
+    if role in ("drafter", "fixer") and int(code) == 0:
+        with chapter(sub) as st:
+            st["extra_ids"] = restore_extras(sub, st.get("extra_ids", {}))
     g = gates(sub)
     notify(f"{sub}: {role} " + ("finished" if int(code) == 0 and report else "failed")
            + (" · gates ok" if g.get("ok") else ""))

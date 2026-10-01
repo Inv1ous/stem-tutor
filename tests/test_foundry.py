@@ -263,3 +263,53 @@ def test_signing_commits_a_chapter_whose_figures_git_ignores(fdy, monkeypatch):
         st["stage"] = "sign"
     fdy.cmd_sign(SUB)
     assert f"content({SUB})" in git("log", "--format=%s") and not git("ls-files", "build/out/Assets")
+
+
+def bank(root, questions):
+    work = root / "build/work/mcq"
+    work.mkdir(parents=True, exist_ok=True)
+    (work / "9702.tagged.json").write_text(json.dumps(questions))
+    return work
+
+
+def past(n, **over):
+    return {"id": f"9702_s23_1{n}_q5", "ref": f"CAIE 9702 · Jun 2023 · P1{n} · Q5", "kcs": [f"{SUB}.1"],
+            "stem": f"Past question {n}?", "options": {"A": "a", "B": "b", "C": "c", "D": "d"}, "answer": "A", **over}
+
+
+def extras(path):
+    return {i["source"]["qid"]: i for i in json.loads(path.read_text())["items"] if i.get("tier") == "extra"}
+
+
+def test_extras_keep_their_ids_and_corrections_when_the_pack_is_rebuilt(fdy, tmp_path):
+    sys.path.insert(0, str(REPO / "build"))
+    import add_past
+    work = bank(tmp_path, [past(1), past(2)])
+    (work / "overrides.json").write_text(json.dumps({"9702_s23_12_q5": {"explanation": "Why A.", "answer": "B"}}))
+    path = fdy.pack_path(SUB)
+    plain = path.read_text()
+    assert add_past.add(path, work=work) == 2
+    first = extras(path)
+    assert first["9702_s23_12_q5"]["explanation"] == "Why A." and first["9702_s23_12_q5"]["answer"] == "B"
+    ids = {q: i["id"] for q, i in first.items()}
+    bank(tmp_path, [past(0), past(1), past(2)])  # a new question lands first in the bank
+    path.write_text(plain)  # the generator re-ran: the extras are gone from the pack
+    add_past.add(path, keep_ids=ids, work=work)
+    again = {q: i["id"] for q, i in extras(path).items()}
+    assert {q: again[q] for q in ids} == ids and again["9702_s23_10_q5"] not in ids.values()
+
+
+def test_extras_come_back_after_a_fixer_reruns_the_generator(fdy, tmp_path):
+    bank(tmp_path, [past(1), past(2)])
+    fdy.cmd_add([SUB])
+    fdy.cmd_collect("drafter", SUB, "-")  # as after drafting: the extras are appended and remembered
+    path = fdy.pack_path(SUB)
+    before = [i["id"] for i in json.loads(path.read_text())["items"]]
+    assert len(extras(path)) == 2
+    pack = json.loads(path.read_text())
+    pack["items"] = [i for i in pack["items"] if i.get("tier") != "extra"]
+    path.write_text(json.dumps(pack))  # a fixer edited the generator and re-ran it
+    with fdy.chapter(SUB) as st:
+        st["stage"], st["fixes"] = "fix", []
+    fdy.cmd_collect("fixer", SUB, "-")
+    assert [i["id"] for i in json.loads(path.read_text())["items"]] == before and fdy.load(SUB)["stage"] == "sign"

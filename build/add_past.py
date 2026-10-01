@@ -4,6 +4,9 @@ Drafted packs contain ~12 fully explained past MCQs; the rest of the bank still 
 retrieval practice. Extra items carry the official key and any examiner comment; the engine serves
 them only after the explained items.
 
+The extras are rebuilt from the bank on every run, so a correction to one (a stem with extraction debris, an
+explanation, a wrong key) goes in build/work/mcq/overrides.json as {"<qid>": {"<field>": value}}, never in the pack.
+
   python build/add_past.py <pack.json> [...]
 """
 from __future__ import annotations
@@ -16,6 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGES = ROOT / "build/out/Assets/mcq"
+WORK = ROOT / "build/work/mcq"  # <spec>.tagged.json (the bank) and overrides.json (corrections to bank questions)
 
 
 def question_key(it: dict) -> str:
@@ -28,13 +32,16 @@ def question_key(it: dict) -> str:
     return "txt:" + words(it.get("stem")) + "|" + words(it.get("options"))
 
 
-def add(pack_path: Path) -> int:
+def add(pack_path: Path, keep_ids: dict | None = None, work: Path = WORK) -> int:
+    """`keep_ids` (qid → id): the ids extras had before the pack was rewritten without them (a generator re-run)."""
     pack = json.loads(pack_path.read_text())
     spec, sub = pack["spec"], pack["subtopic"]
-    bank = ROOT / f"build/work/mcq/{spec}.tagged.json"
+    bank = work / f"{spec}.tagged.json"
     if not bank.exists():
         return 0
-    old_ids = {(it.get("source") or {}).get("qid"): it["id"] for it in pack["items"] if it.get("tier") == "extra"}
+    fixes = json.loads((work / "overrides.json").read_text()) if (work / "overrides.json").exists() else {}
+    old_ids = {**(keep_ids or {}),
+               **{(it.get("source") or {}).get("qid"): it["id"] for it in pack["items"] if it.get("tier") == "extra"}}
     pack["items"] = [it for it in pack["items"] if it.get("tier") != "extra"]  # idempotent rebuild
     used = {(it.get("source") or {}).get("ref") for it in pack["items"]} | {it["id"] for it in pack["items"]}
     seen = {question_key(it) for it in pack["items"] if it["kind"] == "mcq"}
@@ -60,6 +67,7 @@ def add(pack_path: Path) -> int:
             "source": {"type": "past", "ref": m["ref"], "qid": m["id"]}, "stem": m["stem"],
             "options": m.get("options"), "answer": m["answer"], "image": m.get("image"), "marks": 1,
             "tier": "extra", "explanation": None, **({"examiner": m["er"][:600]} if m.get("er") else {}),
+            **fixes.get(m["id"], {}),
         })
     pack_path.write_text(json.dumps(pack, ensure_ascii=False, indent=1))
     return n

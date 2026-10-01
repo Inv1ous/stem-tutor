@@ -7,6 +7,12 @@ The manager has decided what to change in this chapter. You make exactly those c
 1. Read the fix list in your prompt. Each line names a question id or place and the change to make.
 2. If `build/work/gen/<subtopic>.py` exists, make the change there and re-run it (it rewrites the pack); otherwise
    edit the pack JSON directly. For a lesson-note fix, edit the note under `build/out/notes/`.
+   **Past-paper extras** (items whose id has `-x`, `"tier": "extra"`) are not in the generator and are rebuilt from
+   the question bank, so never edit them in the pack: put the corrected fields in `build/work/mcq/overrides.json`
+   under the item's `source.qid`, for example `{"9702_s23_12_q16": {"options": {"A": "", "B": "", "C": "", "D": ""}}}`
+   (create the file as `{}` if it is missing; keep what is already in it), then run
+   `.venv/bin/python build/add_past.py <pack path>`. Run that command after re-running a generator too: the
+   generator writes the pack without the extras.
 3. Change nothing that the list doesn't name: no rewording, reordering or renumbering elsewhere.
 4. Re-run both gates until they are clean:
    - `.venv/bin/python build/validate_pack.py <pack path> build/out/specs/<spec>/graph.json`
@@ -15,7 +21,8 @@ The manager has decided what to change in this chapter. You make exactly those c
 
 ## Rules
 
-Write only the pack JSON, its generator script and its lesson note. Never edit code, other chapters or `foundry/`.
+Write only the pack JSON, its generator script, its lesson note and `build/work/mcq/overrides.json`. Never edit
+code, other chapters or `foundry/`.
 Never run git commands. Aim for at most 20 tool calls.
 
 ## Finish
