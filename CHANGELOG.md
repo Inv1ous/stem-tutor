@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.2.5 — 2026-10-01
+
+Layout, reported by the learner (window resized to half the screen).
+
+- **Button ids no longer borrow layout styles.** `Button#ask` matched the Ask pop-up's rule (`#ask`: 90 columns wide,
+  round orange border) and `Button#home` the home row's (`#home`: height 1fr), so "Ask the tutor" ran off the right
+  edge of a narrow window and "Back to menu" was as tall as the screen. The rules are now `Vertical#ask` and
+  `Horizontal#home`.
+- **One grid for the log and the answer area.** Textual puts a scrollbar inside the padding, so the log's sat one
+  column in from the edge and cards ended a column before the answer boxes. Boxes now span columns 1 to width-3 in
+  both; the scrollbar is on the last column, reserved (`scrollbar-gutter: stable`), its track the background colour.
+- **The home screen's side box scrolls.** With 22 chapters it ran off the bottom of the window (now a
+  `VerticalScroll`: mouse wheel, or Tab and the arrow keys).
+- "I don't know" is no longer shown as an exam point (card, Now, lesson log).
+- Checked in Textual's own renderer at 80, 100 and 140 columns and by layout tests that resize mid-session; not seen
+  in the learner's Terminal itself.
+
 ## 1.2.4 — 2026-10-01
 
 Numeric marking, asked for by the learner after "9 m s⁻²" lost a mark for not being 9.0.

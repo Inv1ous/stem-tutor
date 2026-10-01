@@ -1,5 +1,9 @@
 # Build status
 
+## v1.2.5 (2026-10-01) — done
+- Layout at half-screen width (learner-reported): button ids no longer take layout styles, the log and the answer
+  area share one grid with the scrollbar on the edge, the home side box scrolls. 628 tests.
+
 ## v1.2.4 (2026-10-01) — done
 - Numeric marking: an exact answer typed with fewer figures keeps the mark (exceptions: the question fixes the
   figures; too many figures in the sciences); a rounded answer must be the rounding itself (no window just above a

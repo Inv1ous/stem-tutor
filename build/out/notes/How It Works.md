@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.2.4_
+_Version 1.2.5_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,11 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 1.2.5
+> - **Half-screen windows look right.** With the window at half the screen, the "Ask the tutor" button turned into a wide orange box that ran off the right edge, the lesson's scrollbar sat one column in from the edge, and answer boxes ended a column away from the cards above them. Everything now shares one grid and the scrollbar sits on the edge.
+> - **The home screen's side panel scrolls.** With 22 chapters its list ran off the bottom of the window. It now fits: scroll it with the mouse wheel, or press **Tab** to move to it and use the arrow keys (**Tab** again returns to the menu).
+> - An "I don't know" answer no longer shows the line "Exam point: don't know".
 
 > [!example] New in 1.2.4
 > - **An exact answer never needs zeros added.** `9 m s-2` used to lose a mark for not being `9.0`. The exam boards give the mark when nothing was rounded away, so the tutor now does too. The figures still count where they mean something: when the question says how many to give, for an instrument reading (a micrometer's `1.50 mm`), and for a long unrounded value in physics or chemistry (`73.575 J` is `74 J`). In maths an exact answer can be given in full (`112.5`).
