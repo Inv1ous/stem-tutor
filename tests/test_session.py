@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import pytest
 
 from fixtures import make_vault
-from tutorlib import experiments, policy, session, store
+from tutorlib import experiments, grade, policy, session, store
 
 T0 = datetime.fromisoformat("2026-09-29T17:00:00+08:00")  # Almanac week 5
 
@@ -451,3 +451,55 @@ def test_ai_help_counts_as_a_hint_and_is_refused_on_no_help_checks(tutor):  # B-
     assert tutor.ai_help()["ok"] and tutor.session["presented"][str(n)]["hinted"]
     m = tutor._present(items[1], block="exit", phase=None, unassisted=True)["n"]
     assert "refused" in tutor.ai_help() and not tutor.session["presented"][str(m)]["hinted"]
+
+
+# ---------- the answer as shown ----------
+def _shown(value, **answer):
+    return session._display_answer({"kind": "numeric", "answer": {"value": value, **answer}})
+
+
+@pytest.mark.parametrize("value,answer,shown", [
+    (11.03625, {"unit": "m", "sf_ok": [2, 3]}, "11.0 m"),  # 0.5 × 9.81 × 1.5², shown at the most figures allowed
+    (2.5, {"sf": 3}, "2.50"),
+    (0.03, {"sf": 3}, "0.0300"),
+    (-0.5, {"unit": "m s^-2", "sf": 2}, "-0.50 m s^-2"),
+])
+def test_shown_answer_keeps_its_significant_zeros(value, answer, shown):
+    assert _shown(value, **answer) == shown
+
+
+@pytest.mark.parametrize("value,sf,shown", [
+    (120, 3, "120"), (100.0, 3, "100"), (99.96, 3, "100"), (37.0, 2, "37"), (5.0, 1, "5"), (0.0, 3, "0")])
+def test_shown_whole_number_has_no_decimal_point(value, sf, shown):
+    assert _shown(value, sf=sf) == shown
+
+
+@pytest.mark.parametrize("value,sf,shown", [
+    (120, 2, "1.2e2"),  # plain 120 cannot show that only two figures count
+    (4000.0, 2, "4.0e3"), (4000.0, 1, "4e3"), (468750.0, 3, "4.69e5"), (999.6, 3, "1.00e3"),
+    (1.2e-3, 3, "1.20e-3"), (2.4e-6, 3, "2.40e-6"),
+])
+def test_shown_answer_too_big_or_small_for_plain_digits_is_in_standard_form(value, sf, shown):
+    assert _shown(value, sf=sf) == shown
+
+
+@pytest.mark.parametrize("value,shown", [(5.0, "5"), (117, "117"), (0.5, "0.5"), (-3.0, "-3")])
+def test_shown_exact_answer_is_not_padded(value, shown):
+    assert _shown(value, exact=True) == shown
+
+
+@pytest.mark.parametrize("value,answer", [
+    (1.5, {"unit": "mm", "sf_ok": [3]}), (7.0, {"unit": "N", "sf_ok": [2, 3]}), (40000.0, {"unit": "J", "sf_ok": [2, 3]}),
+    (120, {"sf": 2}), (2.4e-6, {"unit": "m^2", "sf_ok": [1, 2, 3]}), (12.0, {"exact": True}),
+])
+def test_shown_answer_typed_back_earns_full_marks(value, answer):
+    item = {"kind": "numeric", "answer": {"value": value, **answer}}
+    assert grade.grade_item(item, {"kind": "value", "value": session._display_answer(item)})["score"] == 1.0
+
+
+def test_answer_shown_after_a_mark_lost_for_sig_figs_has_the_figures_wanted(tutor):
+    tutor.start("long", minutes=20, focus=["9702-2.1.4"])
+    item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")  # 4.0 m s-2, 2 or 3 s.f.
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    r = tutor.answer(f"{n} = 4 m s-2 ~3")["results"][0]
+    assert r["partial"] and "1 s.f." in r["detail"] and r["answer"] == "4.00 m s-2"

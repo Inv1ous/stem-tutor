@@ -752,6 +752,16 @@ def _expected_kind(kind: str) -> tuple[str, ...]:
     return {"mcq": ("choice",), "structured": ("points",)}.get(kind, ("value",))
 
 
+def _to_sig_figs(value: float, sf: int) -> str:
+    """`value` with exactly `sf` significant figures, zeros kept: 11.0, 2.50, 0.0300, 120, 1.20e-3, 4.69e5."""
+    if not value:
+        return "0"
+    mantissa, exp = f"{value:.{sf - 1}e}".split("e")
+    if -3 < int(exp) < sf:  # plain digits from 0.01 up, while they show those figures and no others
+        return f"{value:.{sf - 1 - int(exp)}f}"
+    return f"{mantissa}e{int(exp)}"  # standard form, as the learner types it
+
+
 def _display_answer(inst: dict) -> str:
     kind = inst["kind"]
     if kind == "mcq":
@@ -759,8 +769,9 @@ def _display_answer(inst: dict) -> str:
         return f"{inst['answer']}: {opts[inst['answer']]}" if inst["answer"] in opts else inst["answer"]
     if kind == "numeric":
         a = inst["answer"]
-        sf = (a.get("sf_ok") or [a.get("sf") or 3])[-1]
-        return f"{a['value']:.{sf}g} {a.get('unit', '')}".strip()
+        sf = (a.get("sf_ok") or [a.get("sf")])[-1]
+        number = _to_sig_figs(a["value"], sf) if sf else f"{a['value']:.3g}"  # an exact answer states no s.f.
+        return f"{number} {a.get('unit', '')}".strip()
     if kind == "expression":
         return inst["answer"]["expr"]
     if kind == "short":

@@ -114,7 +114,7 @@ def test_mistake_journal_has_the_right_answer_and_right_since(tutor):
     tutor.clock["now"] = datetime.fromisoformat("2026-09-30T10:00:00+08:00")
     answer(tutor)  # the vector question, right this time
     text = (tutor.vault.root / report.mistakes_note(tutor)).read_text()
-    assert "Right answer: 11 m" in text  # 0.5 × 9.81 × 1.5², re-created from the logged template value
+    assert "Right answer: 11.0 m" in text  # 0.5 × 9.81 × 1.5², re-created from the logged template value
     assert "Distance and displacement" in text and "displacement" in text and "✓ right since" in text
     assert "method errors" in text and "9702_s23_qp_22 Q1a" in text and "1/2" in text
     assert "## we1f" not in text and text.count("## 9702-2.1 Equations of motion") == 1
