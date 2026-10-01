@@ -646,6 +646,17 @@ def test_answer_shown_after_a_mark_lost_for_sig_figs_has_the_figures_wanted(tuto
     assert r["partial"] and "5 s.f." in r["detail"] and r["answer"] == "4.00 m s-2"
 
 
+def test_i_dont_know_is_not_shown_as_an_exam_point(tutor):
+    """Seen in the layout screenshots: every "I don't know" card carried the line "Exam point: don't know"."""
+    tutor.start("long", minutes=20, focus=["9702-2.1.4"])
+    item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    r = tutor.answer(f"{n}?")["results"][0]
+    assert r["detail"] is None
+    for text in ((tutor.vault.root / "Now.md").read_text(), (tutor.vault.root / tutor.session["log"]).read_text()):
+        assert "Exam point" not in text
+
+
 def test_an_exact_answer_typed_short_is_right(tutor):
     """From the learner's lesson: 20² / (2 × 50) is exactly 4, and "4 m s-2" lost a mark for not being 4.0."""
     tutor.start("long", minutes=20, focus=["9702-2.1.4"])

@@ -684,7 +684,7 @@ class Tutor(LessonMixin):
         fb = {"n": int(key), "event": ev["id"], "correct": g["correct"], "partial": partial, "score": g["score"],
               "error_code": g["error"], "response": ev["response"],
               "answer": _display_answer(inst), "explanation": inst.get("explanation"),
-              "needs_judgement": g["needs_judgement"], "detail": g.get("detail")}
+              "needs_judgement": g["needs_judgement"], "detail": None if r["kind"] == "idk" else g.get("detail")}
         if inst.get("tier") == "extra":
             fb["official_key_only"] = True
             if inst.get("examiner"):
