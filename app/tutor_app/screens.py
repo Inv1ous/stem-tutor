@@ -668,7 +668,7 @@ class SessionScreen(Screen):
         a = self.app.ai
         w = self.say(cards.ai("…"))
         buf = ""
-        # guard every question still open, not just the one on screen: from Q1's feedback, Q2 may still be unanswered
+        # guard every open question (normally just the one on screen; a session begun in the chat may hold more)
         keys = [prompts.key_of(self.tutor, int(n)) for n in (self.tutor.session or {}).get("presented", {})]
         async for chunk in a.stream(prompt):
             buf += chunk

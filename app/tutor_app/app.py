@@ -72,7 +72,7 @@ class TutorApp(App):
         except store.Locked:
             self.exit(message="Another STEM Tutor window is already open. Use that one (or close it first).")
             return
-        self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None)
+        self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None, one_at_a_time=True)
         self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json", daily_cap=self.settings.daily_cap)
         import threading

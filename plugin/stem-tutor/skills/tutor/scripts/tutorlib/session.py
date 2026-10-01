@@ -24,8 +24,9 @@ GENERIC_HINTS = [
 
 
 class Tutor(LessonMixin):
-    def __init__(self, vault: Vault, rng: random.Random | None = None, now=None):
+    def __init__(self, vault: Vault, rng: random.Random | None = None, now=None, one_at_a_time: bool = False):
         self.vault = vault
+        self.one_at_a_time = one_at_a_time  # the terminal app shows a batch one question at a time; the chat shows it whole
         self.packs = Packs(vault)
         self.rng = rng or random.Random()
         self._now = now or vault.now
@@ -192,19 +193,27 @@ class Tutor(LessonMixin):
     # ---------- presenting ----------
     def _present(self, item: dict, block: str, phase: str | None, unassisted: bool = False,
                  block_idx: int | None = None, exp: str | None = None) -> dict:
+        return self._open(*self._number(item, block, phase, unassisted, block_idx, exp))
+
+    def _number(self, item: dict, block: str, phase: str | None, unassisted: bool = False,
+                block_idx: int | None = None, exp: str | None = None) -> tuple[str, dict]:
+        """A question made ready (its values drawn, its number taken) but not yet shown."""
         inst = instantiate(item, self.rng)
-        s = self.session
-        s["count"] += 1
-        n = s["count"]
+        self.session["count"] += 1
         meta = self.packs.kc(item["kcs"][0]) if item["kcs"][0] in self.packs.kcs else {}
-        s["presented"][str(n)] = {"item": item["id"], "inst": inst, "kcs": item["kcs"], "subject": meta.get("subject"),
-                                  "difficulty": item.get("difficulty", 3), "marks": item.get("marks", 1),
-                                  "block": block, "block_idx": block_idx, "phase": phase, "shown_at": self.now().isoformat(),
-                                  "hinted": False, "hint_level": 0, "unassisted": unassisted, "exp": exp}
-        self._audit("present", n, inst)
+        return str(self.session["count"]), {
+            "item": item["id"], "inst": inst, "kcs": item["kcs"], "subject": meta.get("subject"),
+            "difficulty": item.get("difficulty", 3), "marks": item.get("marks", 1), "block": block,
+            "block_idx": block_idx, "phase": phase, "hinted": False, "hint_level": 0, "unassisted": unassisted, "exp": exp}
+
+    def _open(self, n: str, p: dict) -> dict:
+        """Show a question. From now it is open: its clock runs, the help rules apply, Now and the log have it."""
+        p["shown_at"] = self.now().isoformat()
+        self.session["presented"][n] = p
+        self._audit("present", int(n), p["inst"])
         if (log := self._lesson_log()):
-            log.question(self._view(n), label=phase or "")
-        return self._view(n)
+            log.question(self._view(int(n)), label=p["phase"] or "")
+        return self._view(int(n))
 
     def _audit(self, event: str, n: int, inst: dict) -> None:
         """Evaluation-only trail (STEM_TUTOR_AUDIT=1): when each question was shown and answered, with its key."""
@@ -236,15 +245,22 @@ class Tutor(LessonMixin):
 
     def _questions(self, block: dict, idx: int, items: list[dict], phase: str | None = None,
                    unassisted: bool = False, exp: str | None = None) -> dict | None:
-        shown = []
+        ready = []
         for it in items:
             self.session.setdefault("used", []).append(it["id"])
-            shown.append(self._present(it, block["kind"], phase, unassisted, idx, exp))
-        if not shown:
+            ready.append(self._number(it, block["kind"], phase, unassisted, idx, exp))
+        if not ready:
             return None
+        if self.one_at_a_time:  # the rest of the batch waits unseen; next() shows each once the one before is marked
+            self.session["queue"] = dict(ready[1:])
+            ready = ready[:1]
+        return self._ask(ready)
+
+    def _ask(self, ready: list[tuple[str, dict]]) -> dict:
+        shown = [self._open(n, p) for n, p in ready]
         self._set_now({"activity": "questions"})
         self._save()
-        return {"activity": "questions", "block": block["kind"], "phase": phase, "items": shown,
+        return {"activity": "questions", "block": ready[0][1]["block"], "phase": ready[0][1]["phase"], "items": shown,
                 "ask": "Stems may contain LaTeX: show them in chat. Collect answer + confidence (1 guess .. 4 certain)."}
 
     # ---------- next ----------
@@ -254,8 +270,15 @@ class Tutor(LessonMixin):
             return {"activity": "no_session", "hint": "engine command: session start"}
         if s.get("awaiting"):
             return s["awaiting"]
+        if self.one_at_a_time and len(s["presented"]) > 1:  # a batch opened whole (the chat, or the app before 1.2.3)
+            for n in sorted(s["presented"], key=int)[1:]:
+                s.setdefault("queue", {})[n] = s["presented"].pop(n)
+            self._save()
         if s["presented"]:
             return {"activity": "awaiting", "items": [self._view(int(n)) for n in s["presented"]]}
+        if s.get("queue"):
+            n = min(s["queue"], key=int)
+            return self._ask([(n, s["queue"].pop(n))])
         while s["cursor"] < len(s["blocks"]):
             idx = s["cursor"]
             act = getattr(self, "_step_" + s["blocks"][idx]["kind"])(s["blocks"][idx], idx)
@@ -386,8 +409,9 @@ class Tutor(LessonMixin):
                     b["given"][kc] = self._retest_target(kc)
                     continue
                 act = self._questions(b, idx, items, phase="retest", unassisted=True, exp=b["exp"][kc])
-                for q in act["items"]:  # an item may cover several ideas: its score belongs to the one retested
-                    self.session["presented"][str(q["n"])]["exp_kc"] = kc
+                # an item may cover several ideas: its score belongs to the one retested
+                for p in (*self.session["presented"].values(), *self.session.get("queue", {}).values()):
+                    p["exp_kc"] = kc
                 return act
         return None
 

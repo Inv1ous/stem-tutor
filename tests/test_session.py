@@ -413,7 +413,9 @@ def test_short_answer_with_every_keyword_still_waits_for_judgement(tutor):  # B-
     assert r["pending_judgement"] and r["matched_score"] == 1.0 and str(n) in tutor.session["presented"]
 
 
-def test_retest_score_goes_to_the_idea_retested_even_on_a_multi_idea_item(tutor):  # B-027
+@pytest.mark.parametrize("one_at_a_time", [False, True])
+def test_retest_score_goes_to_the_idea_retested_even_on_a_multi_idea_item(tutor, one_at_a_time):  # B-027
+    tutor.one_at_a_time = one_at_a_time
     for it in tutor.packs.items_for("9702-2.1.4"):  # every item for it now lists another idea first
         it["kcs"] = ["9702-2.1.1", "9702-2.1.4"]
     tutor.start("autopilot", minutes=50)
@@ -451,6 +453,86 @@ def test_ai_help_counts_as_a_hint_and_is_refused_on_no_help_checks(tutor):  # B-
     assert tutor.ai_help()["ok"] and tutor.session["presented"][str(n)]["hinted"]
     m = tutor._present(items[1], block="exit", phase=None, unassisted=True)["n"]
     assert "refused" in tutor.ai_help() and not tutor.session["presented"][str(m)]["hinted"]
+
+
+# ---------- one question at a time (the terminal app) ----------
+@pytest.fixture
+def app_tutor(tmp_path):
+    """The engine as the terminal app runs it: a batch of questions comes on screen one at a time."""
+    clock = Clock(T0)
+    t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=clock, one_at_a_time=True)
+    t.clock = clock
+    return t
+
+
+def test_one_at_a_time_a_question_is_open_only_once_it_is_on_screen(app_tutor):
+    t = app_tutor
+    t.start("test", minutes=40, focus=["9702-2.1"])
+    first, = t.next()["items"]  # a no-help check on two ideas: the app shows one question
+    (m, waiting), = t.session["queue"].items()
+    assert list(t.session["presented"]) == [str(first["n"])] and int(m) == first["n"] + 1
+    assert f"Q{m} " not in (t.vault.root / "Now.md").read_text() + (t.vault.root / t.session["log"]).read_text()
+    assert "refused" in t.ai_help()  # the no-help check on screen: no AI help until it is answered
+    t.clock.t = T0 + timedelta(minutes=5)
+    t.answer(f"{first['n']}?")
+    assert t.ai_help() == {"ok": True}  # marked: ask anything about it, though the next no-help question waits
+    assert not waiting["hinted"] and f"Q{m} " not in (t.vault.root / "Now.md").read_text()
+    second, = t.next()["items"]
+    assert str(second["n"]) == m and not t.session["queue"] and second["unassisted"]
+    assert f"Q{m} " in (t.vault.root / "Now.md").read_text() and f"Q{m} " in (t.vault.root / t.session["log"]).read_text()
+    t.clock.t = T0 + timedelta(minutes=6)
+    t.answer(f"{m}?")
+    assert [e["seconds"] for e in t.vault.events() if e["type"] == "answer"] == [300, 60]  # its clock starts when shown
+
+
+def test_one_at_a_time_help_on_one_question_does_not_count_against_the_next(app_tutor):
+    t = app_tutor
+    t.start("autopilot", minutes=50)
+    first, = t.next()["items"]  # a pretest: two questions on one idea, hints allowed
+    waiting, = t.session["queue"].values()
+    assert t.ai_help() == {"ok": True} and t.session["presented"][str(first["n"])]["hinted"]
+    _answer_all(t, {"items": [first]})
+    _answer_all(t, t.next())
+    assert [e["hinted"] for e in t.vault.events() if e["type"] == "answer"] == [True, False] and not waiting["hinted"]
+
+
+def test_one_at_a_time_takes_over_a_batch_opened_by_the_chat_interface(tutor):
+    tutor.start("test", minutes=40, focus=["9702-2.1"])
+    both = tutor.next()["items"]
+    assert len(both) == 2  # the chat interface (and the app before 1.2.3) opens the whole batch
+    t = session.Tutor(tutor.vault, rng=random.Random(0), now=tutor.clock, one_at_a_time=True)
+    first, = t.next()["items"]
+    assert first["n"] == both[0]["n"] and list(t.session["queue"]) == [str(both[1]["n"])]
+    t.answer(f"{first['n']}?")
+    assert t.ai_help() == {"ok": True}
+    assert t.next()["items"][0]["n"] == both[1]["n"]
+
+
+def test_one_at_a_time_asks_the_same_questions_in_the_same_order(tmp_path):
+    """Showing a batch one question at a time changes when each is seen, never which questions are asked."""
+    def run(one_at_a_time):
+        clock = Clock(T0)
+        t = session.Tutor(store.Vault(make_vault(tmp_path / str(one_at_a_time))), rng=random.Random(3), now=clock,
+                          one_at_a_time=one_at_a_time)
+        sessions = []
+        for day, mode, focus in [(0, "test", ["9702-2.1"]), (1, "diagnose", ["9702-2.1"]), (4, "autopilot", None),
+                                 (8, "review", None), (9, "lesson", ["9702-2.1"]), (15, "autopilot", None)]:
+            clock.t = T0 + timedelta(days=day)
+            t.start(mode, minutes=40, focus=focus)
+            for _ in range(120):
+                act = t.next()
+                if act["activity"] in ("end", "no_session"):
+                    break
+                if act["activity"] in ("questions", "awaiting"):
+                    for q in act["items"]:
+                        _answer_all(t, {"items": [q]}, good=q["n"] % 3 != 0)
+                else:
+                    t.respond({"done": True})
+            sessions.append(t.end()["answered"])
+        assert t.state == t._fold()
+        return sessions, [(e["item"], e["grade"]["score"], e["phase"]) for e in t.vault.events() if e["type"] == "answer"]
+    batch, single = run(False), run(True)
+    assert single == batch and all(batch[0])  # every session asked something
 
 
 # ---------- the answer as shown ----------

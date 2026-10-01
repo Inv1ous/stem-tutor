@@ -396,6 +396,41 @@ def test_asking_the_ai_is_refused_during_a_no_help_check(tmp_path, monkeypatch):
     asyncio.run(go())
 
 
+def test_a_marked_answer_can_be_asked_about_before_the_next_no_help_question(tmp_path, monkeypatch):
+    """Reported by the learner: in a test check the questions come two at a time; after the first was marked, asking
+    about it was refused ("answer it first") because the second, not yet on screen, was still open."""
+    from tutor_app.screens import SessionScreen
+    from textual.widgets import Input
+    app, v = app_for(tmp_path, monkeypatch)
+    calls = []
+
+    async def fake_stream(prompt):
+        calls.append(prompt)
+        yield "Because velocity has a direction."
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            scr = SessionScreen({"mode": "test", "minutes": 40, "focus": ["9702-2.1"]})
+            app.push_screen(scr)
+            await pilot.pause()
+            t = app.tutor
+            first = scr.view["n"]
+            assert t.session["presented"][str(first)]["unassisted"]  # a no-help check: one question per idea
+            scr.submit({"entry": f"{first}?", "your": "I don't know"})
+            await pilot.pause()
+            monkeypatch.setattr(app.ai, "stream", fake_stream)
+            scr.action_ask()
+            await pilot.pause()
+            app.screen.query_one("#q", Input).value = "Why is that the answer?"
+            await pilot.press("enter")
+            await pilot.pause(0.2)
+            assert len(calls) == 1 and f"Just marked: Q{first}" in calls[0]
+            assert "OPEN question" not in calls[0]  # the tutor is told nothing about a question you have not seen
+            await app.ai.close()
+    asyncio.run(go())
+
+
 def test_the_menu_picks_up_chapters_published_while_the_app_is_open(tmp_path, monkeypatch):
     import copy, json, shutil
     from fixtures import GRAPH, PACK
