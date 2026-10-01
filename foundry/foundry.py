@@ -461,6 +461,9 @@ def release(sub: str) -> None:
                             else f"PUBLISH FAILED, run build/publish.py: {r.stderr.strip()[-300:]}"))
     if cfg.get("commit_on_sign", True) and os.environ.get("FOUNDRY_COMMIT", "1") == "1":
         paths = chapter_paths(sub)
+        ignored = subprocess.run(["git", "-C", str(ROOT), "check-ignore", "-z", "--", *paths], capture_output=True,
+                                 text=True).stdout.split("\0")
+        paths = [p for p in paths if p not in ignored]  # figures are not kept in git: naming one aborts the commit
         subprocess.run(["git", "-C", str(ROOT), "add", "--", *paths], capture_output=True)
         r = subprocess.run(["git", "-C", str(ROOT), "commit", "-q", "-m",
                             f"content({sub}): signed off in the foundry\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>",

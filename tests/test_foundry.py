@@ -240,3 +240,26 @@ def test_a_haiku_worker_that_never_reports_is_flagged_as_stalled(fdy):
             j["started"] = "2020-01-01T00:00:00+08:00"
     st = fdy.load(SUB)
     assert fdy._stalled(st) and "re-dispatch" in fdy.action(st) and "stalled" in fdy.watch_text()
+
+
+def test_signing_commits_a_chapter_whose_figures_git_ignores(fdy, monkeypatch):
+    monkeypatch.setenv("FOUNDRY_COMMIT", "1")
+    root = fdy.ROOT
+
+    def git(*args):
+        return fdy.subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True, check=True).stdout
+
+    git("init", "-q")
+    git("config", "user.email", "test@example.com")
+    git("config", "user.name", "Test")
+    (root / ".gitignore").write_text("build/out/Assets/\n")  # figures are not kept in git
+    git("add", ".gitignore")
+    git("commit", "-q", "-m", "base")
+    fdy.cmd_add([SUB])
+    figure = root / "build/out/Assets" / SUB.split("-")[0] / f"{SUB}-figure.svg"
+    figure.parent.mkdir(parents=True, exist_ok=True)
+    figure.write_text("<svg/>")
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "sign"
+    fdy.cmd_sign(SUB)
+    assert f"content({SUB})" in git("log", "--format=%s") and not git("ls-files", "build/out/Assets")
