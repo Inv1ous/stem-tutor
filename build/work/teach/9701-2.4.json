@@ -1,0 +1,20 @@
+{
+ "9701-2.4.1": {
+  "motivate": "A chemical plant is asked for 10 tonnes of fertiliser. How much of each raw material should be weighed out, how much will actually come out of the reactor, and which ingredient will run out first? One calculation answers all three.",
+  "establish": "Every calculation in this syllabus point runs through the **amount in moles**. Three ways in: a mass gives $n = m/M_r$; a solution gives $n = cV$ with $V$ in $\\mathrm{dm^3}$; a gas at r.t.p. gives $n = V/24.0$, because one mole of any gas occupies $24.0\\ \\mathrm{dm^3\\,mol^{-1}}$ whatever its $M_r$. The balanced equation then converts the amount of one substance into the amount of another: multiply by (coefficient of what you want) ÷ (coefficient of what you have). Finally convert back the same three ways. When you are given amounts of **two** reactants, divide each amount by its coefficient; the smallest quotient is the **limiting reagent**, which is used up first and fixes every product amount, and the other reactant is **in excess**. The theoretical amount of product calculated this way is the benchmark for **percentage yield**, the actual amount divided by the theoretical amount, times 100. Running the chain backwards instead lets you deduce an unknown formula or an unknown reacting ratio from measured masses and volumes. Keep only the significant figures the data justify.",
+  "connect": "This builds directly on the mole and $N_A$ from 2.2 and on balancing equations from 2.3; it becomes the engine for titration work, for $pV = nRT$ in 4.1, and for yields in every organic synthesis later in the course.",
+  "note": "- $n = m/M_r$, $n = cV$ ($V$ in $\\mathrm{dm^3}$), $n = V/24.0$ at r.t.p.\n- Cross the balanced equation using the ratio of coefficients.\n- Limiting reagent: smallest (moles ÷ coefficient); it fixes all product amounts.\n- Percentage yield $=$ actual ÷ theoretical $\\times\\ 100$.\n- Gas volumes at the same temperature and pressure are in the same ratio as moles.\n- Water condenses at room conditions, so it is not part of a final gas volume there.",
+  "self_explain": "Two reactants are given as masses. Why is it not enough to compare their amounts in moles to find which one runs out first?",
+  "discover": {
+   "stem": "0.050 mol of $\\ce{CH4}$ is mixed with 0.075 mol of steam and they react: $\\ce{CH4(g) + 2H2O(g) -> CO2(g) + 4H2(g)}$. Which reactant is used up?",
+   "options": {
+    "A": "methane, because there is less of it in moles",
+    "B": "steam, because 0.050 mol of methane would need 0.100 mol of steam",
+    "C": "neither, because they are in the ratio given by the equation",
+    "D": "both, because the amounts differ by a factor of 1.5"
+   },
+   "answer": "B",
+   "explanation": "Divide by the coefficients: $0.050/1 = 0.050$ for methane but $0.075/2 = 0.038$ for steam, so the steam is limiting. Having more moles does not protect a reactant that is needed in a larger ratio."
+  }
+ }
+}

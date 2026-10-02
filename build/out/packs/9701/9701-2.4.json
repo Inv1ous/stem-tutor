@@ -1,0 +1,2847 @@
+{
+ "subtopic": "9701-2.4",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/02 Atoms, molecules and stoichiometry/2.4 Reacting masses and volumes (of solutions and gases).md",
+ "outline": "Every stoichiometry calculation has the same shape: convert the data to amounts in moles, cross the balanced equation using its coefficients, then convert back to the quantity asked for. Masses give $n = m/M_r$; solutions give $n = cV$ with $V$ in $\\mathrm{dm^3}$; gases at r.t.p. give $n = V/24.0$. When two reactant amounts are given, divide each by its coefficient: the smallest quotient is the limiting reagent and fixes every product amount, while the other reactant is in excess. Percentage yield compares the actual product with the theoretical product from the limiting reagent. Gas volumes measured at the same temperature and pressure are in the same ratio as moles, so volumes may be used directly; water counts as a gas only when the conditions keep it as steam. Answers carry the significant figures the data justify.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-2.4.1",
+   "statement": "The limiting reagent is whichever reactant is present in the smaller amount in moles.",
+   "refutation": "Divide each amount in mol by that reactant's coefficient in the balanced equation; the smallest quotient is the limiting reagent, so a reactant present in more moles can still run out first.",
+   "contrast": "With $\\ce{Mg + 2HCl -> MgCl2 + H2}$, $0.070\\ \\mathrm{mol}$ of Mg needs $0.14\\ \\mathrm{mol}$ of HCl, so $0.11\\ \\mathrm{mol}$ of HCl is limiting even though it is the larger number.",
+   "source": "ER 9701 s23 P11 Q13"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-2.4.1",
+   "statement": "Equal masses of two substances contain equal amounts in moles, so they give equal volumes of gas.",
+   "refutation": "Amount in moles is $m/M_r$, so the substance with the smaller $M_r$ gives more moles from the same mass and therefore more gas.",
+   "contrast": "$5.0\\ \\mathrm{g}$ of calcium is $0.12\\ \\mathrm{mol}$ and releases $0.12\\ \\mathrm{mol}$ of $\\ce{H2}$, while $5.0\\ \\mathrm{g}$ of potassium is $0.13\\ \\mathrm{mol}$ but releases only $0.064\\ \\mathrm{mol}$.",
+   "source": "ER 9701 s22 P11 Q3"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-2.4.1",
+   "statement": "Percentage yield is the mass of product divided by the mass of reactant, multiplied by 100.",
+   "refutation": "Percentage yield compares the actual amount of product with the theoretical amount calculated from the equation; masses of different substances may only be compared after converting to moles.",
+   "contrast": "$74.00\\ \\mathrm{g}$ of butan-2-ol ($1.00\\ \\mathrm{mol}$) giving $44.64\\ \\mathrm{g}$ of butanone ($0.62\\ \\mathrm{mol}$) is a $62\\%$ yield, not $60\\%$.",
+   "source": "ER 9701 s19 P12 Q39"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-2.4.1",
+   "statement": "Moles of one substance can be carried straight across to another in a 1:1 ratio.",
+   "refutation": "The coefficients of the balanced equation set the ratio; multiply or divide by them when moving from one substance to another.",
+   "contrast": "In $\\ce{CaCO3 + 2HCl -> CaCl2 + H2O + CO2}$, $0.040\\ \\mathrm{mol}$ of HCl gives $0.020\\ \\mathrm{mol}$ of $\\ce{CO2}$, not $0.040\\ \\mathrm{mol}$.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-2.4.1",
+   "statement": "Water formed in a combustion is part of the final gas volume measured at room conditions.",
+   "refutation": "At room conditions water is a liquid, so only gases left over and gaseous products such as $\\ce{CO2}$ are counted; water is only included when the stated temperature keeps it as steam.",
+   "contrast": "Burning $0.0500\\ \\mathrm{mol}$ of propane gives $0.200\\ \\mathrm{mol}$ of water, which condenses at r.t.p. but would add $4.80\\ \\mathrm{dm^3}$ at $120\\ \\mathrm{^\\circ C}$.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-2.4.1",
+   "problem": "3.00 g of calcium carbonate is added to 40.0 cm$^3$ of 1.00 mol dm$^{-3}$ hydrochloric acid. Calculate the volume of carbon dioxide produced, measured at r.t.p.",
+   "steps": [
+    {
+     "do": "Write the balanced equation: $\\ce{CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)}$.",
+     "why": "Every mole ratio in the calculation comes from this equation, so it is written before any numbers."
+    },
+    {
+     "do": "Amounts: $n(\\ce{CaCO3}) = 3.00/100.1 = 0.02997\\ \\mathrm{mol}$ and $n(\\ce{HCl}) = 0.0400 \\times 1.00 = 0.0400\\ \\mathrm{mol}$.",
+     "why": "Convert the volume to $\\mathrm{dm^3}$ before using $n=cV$; $40.0\\ \\mathrm{cm^3}$ is $0.0400\\ \\mathrm{dm^3}$."
+    },
+    {
+     "do": "Divide by the coefficients: $0.02997/1 = 0.02997$ for the carbonate and $0.0400/2 = 0.0200$ for the acid, so the acid is the limiting reagent.",
+     "why": "The acid is present in more moles than the carbonate, yet it still runs out first because two moles are needed per mole of carbonate."
+    },
+    {
+     "do": "$n(\\ce{CO2}) = 0.0400/2 = 0.0200\\ \\mathrm{mol}$, so $V = 0.0200 \\times 24.0 = 0.480\\ \\mathrm{dm^3}$.",
+     "why": "All product amounts follow from the limiting reagent, and the molar gas volume converts moles of gas to volume at r.t.p.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.48,
+       "unit": "dm^3",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "2.00 g of magnesium carbonate, $M_r = 84.3$, is added to 30.0 cm$^3$ of 1.00 mol dm$^{-3}$ hydrochloric acid. Calculate the volume of carbon dioxide produced, measured at r.t.p., in dm$^3$.",
+    "answer": {
+     "value": 0.36,
+     "unit": "dm^3",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9701-2.4.1",
+   "problem": "A 1.00 g sample of impure sodium carbonate is dissolved in water and made up to 250 cm$^3$. A 25.0 cm$^3$ portion of this solution requires 18.40 cm$^3$ of 0.0500 mol dm$^{-3}$ hydrochloric acid for complete reaction. Calculate the percentage by mass of sodium carbonate in the sample.",
+   "steps": [
+    {
+     "do": "$n(\\ce{HCl}) = 0.01840 \\times 0.0500 = 9.200e-04\\ \\mathrm{mol}$.",
+     "why": "The titre is the only reliable measurement, so the calculation starts from it."
+    },
+    {
+     "do": "From $\\ce{Na2CO3(aq) + 2HCl(aq) -> 2NaCl(aq) + H2O(l) + CO2(g)}$, $n(\\ce{Na2CO3})$ in the portion is $9.200e-04/2 = 4.600e-04\\ \\mathrm{mol}$.",
+     "why": "Carbonate is doubly basic; halving the acid amount is the step most often missed."
+    },
+    {
+     "do": "Scale to the flask: $\\times 250.0/25.0 = 4.600e-03\\ \\mathrm{mol}$ in the whole 250 cm$^3$.",
+     "why": "Only one tenth of the dissolved sample was titrated, so the amount found must be multiplied by ten."
+    },
+    {
+     "do": "Mass $= 4.600e-03 \\times 106.0 = 0.4876\\ \\mathrm{g}$, so the purity is $0.4876/1.00 \\times 100 = 48.8\\%$.",
+     "why": "A percentage by mass compares the mass of the pure substance found with the mass of sample weighed out.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 48.76,
+       "unit": "%",
+       "sf_ok": [
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A 2.00 g sample of impure sodium carbonate is dissolved and made up to 250 cm$^3$. A 25.0 cm$^3$ portion requires 22.00 cm$^3$ of 0.100 mol dm$^{-3}$ hydrochloric acid. Calculate the percentage by mass of sodium carbonate in the sample.",
+    "answer": {
+     "value": 58.3,
+     "unit": "%",
+     "sf_ok": [
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-2.4-p01",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q4",
+    "qid": "9701_w25_13_q4"
+   },
+   "stem": "Methane and steam react to produce hydrogen.\nCH₄(g) + 2H₂O(g) → CO₂(g) + 4H₂(g)\n0.80 g of methane and 1.35 g of steam react. One of the reactants is used up.\nWhich volume of hydrogen, measured at room conditions, will be produced?",
+   "options": {
+    "A": "1.80 dm³",
+    "B": "3.60 dm³",
+    "C": "4.80 dm³",
+    "D": "7.20 dm³"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "There is $0.050\\ \\mathrm{mol}$ of $\\ce{CH4}$ and $0.075\\ \\mathrm{mol}$ of steam, but $0.050\\ \\mathrm{mol}$ of $\\ce{CH4}$ would need $0.100\\ \\mathrm{mol}$ of steam, so steam is limiting and gives $0.075\\times 4/2 = 0.15\\ \\mathrm{mol}$ of $\\ce{H2}$, i.e. $0.15\\times 24.0 = 3.60\\ \\mathrm{dm^3}$. D ($7.20\\ \\mathrm{dm^3}$) comes from treating methane as limiting because it is the smaller number of moles.",
+   "distractors": {
+    "D": "m1",
+    "A": "m4"
+   }
+  },
+  {
+   "id": "9701-2.4-p02",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q23",
+    "qid": "9701_w24_13_q23"
+   },
+   "stem": "7.5 g of nitrogen monoxide reacts with 7.0 g of carbon monoxide on the surface of the catalytic\nconverter in the exhaust system of a car.\nWhat is the total volume of the product gases measured at room conditions?",
+   "options": {
+    "A": "3.0 dm³",
+    "B": "6.0 dm³",
+    "C": "9.0 dm³",
+    "D": "12.0 dm³"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Both reactants are $0.25\\ \\mathrm{mol}$ and $\\ce{2NO + 2CO -> N2 + 2CO2}$ consumes them together, giving $0.125\\ \\mathrm{mol}$ of $\\ce{N2}$ and $0.25\\ \\mathrm{mol}$ of $\\ce{CO2}$: $0.375\\times 24.0 = 9.0\\ \\mathrm{dm^3}$. B comes from counting only the $\\ce{CO2}$ and forgetting that nitrogen is also a gaseous product.",
+   "distractors": {
+    "B": "m4"
+   }
+  },
+  {
+   "id": "9701-2.4-p03",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q3",
+    "qid": "9701_s22_11_q3"
+   },
+   "stem": "In separate experiments, 5.0 g samples of each of four s-block metals are added to an excess of\nwater. The gas evolved is collected and its volume measured under the same conditions of\ntemperature and pressure for each sample.\nWhich metal produces the largest volume of gas?",
+   "options": {
+    "A": "calcium",
+    "B": "potassium",
+    "C": "rubidium",
+    "D": "strontium"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Calcium gives $5.0/40.1 = 0.12\\ \\mathrm{mol}$ of $\\ce{H2}$ because each atom releases one $\\ce{H2}$, while potassium gives only $0.5\\times 5.0/39.1 = 0.064\\ \\mathrm{mol}$; rubidium and strontium have larger $A_r$ and give less still. Candidates who chose another option assumed equal masses mean equal amounts in moles.",
+   "distractors": {
+    "B": "m2",
+    "C": "m2",
+    "D": "m2"
+   }
+  },
+  {
+   "id": "9701-2.4-p04",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Deduce",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q24",
+    "qid": "9701_s21_13_q24"
+   },
+   "stem": "A mixture of ethanol and methanol is burned in oxygen to produce 35 cm³ of CO₂ and 55 cm³ of\nH₂O.\nComplete combustion occurs and the volumes of both products are measured at 101 kPa and\n120 °C.\nWhat is the molar ratio, ethanol : methanol, in the mixture?",
+   "options": {
+    "A": "1 : 3",
+    "B": "2 : 3",
+    "C": "3 : 2",
+    "D": "3 : 1"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The products are in the ratio $35:55 = 7:11$. Three $\\ce{C2H5OH}$ and one $\\ce{CH3OH}$ give $7\\ce{CO2}$ and $11\\ce{H2O}$, which matches. B gives $7:12$ and C gives $8:13$, so neither fits; both were popular because candidates matched only the $\\ce{CO2}$ count.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-2.4-p05",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q6",
+    "qid": "9701_s19_12_q6"
+   },
+   "stem": "X, Y and Z are all gases that behave ideally and react according to the equation shown.\nX(g) + 2Y(g) → 2Z(g)\nWhen 3.0 mol of X and 3.0 mol of Y are placed inside a container with a volume of 1.0 dm³, they\nreact to form the maximum amount of Z.\nThe final temperature of the reaction vessel is 120 °C.\nWhat is the final pressure inside the reaction vessel?",
+   "options": {
+    "A": "4.49 × 10⁶ Pa",
+    "B": "9.80 × 10⁶ Pa",
+    "C": "1.47 × 10⁷ Pa",
+    "D": "1.96 × 10⁷ Pa"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Y is limiting: $3.0\\ \\mathrm{mol}$ of Y uses $1.5\\ \\mathrm{mol}$ of X and makes $3.0\\ \\mathrm{mol}$ of Z, leaving $4.5\\ \\mathrm{mol}$ of gas in total. Then $p = nRT/V = 4.5\\times 8.31\\times 393/(1.0\\times 10^{-3}) = 1.47e+07\\ \\mathrm{Pa}$. B and D were popular because they use the wrong total amount of gas, treating X as limiting or ignoring the unreacted X.",
+   "distractors": {
+    "B": "m1",
+    "D": "m1"
+   }
+  },
+  {
+   "id": "9701-2.4-p06",
+   "kcs": [
+    "9701-2.4.1",
+    "9701-6.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q12",
+    "qid": "9701_s22_13_q12"
+   },
+   "stem": "A student adds 3 mol of acidified K₂Cr₂O₇ to an excess of I⁻ ions.\nThe chromium is all reduced to Cr³⁺ and I⁻ ions are oxidised to I₂.\nThe I₂ released is reduced back to I⁻ ions by X mol of S₂O₃\n²⁻ ions.\n1 mol of I₂ is reduced by 2 mol of S₂O₃\n²⁻ ions.\nWhat is the value of X?",
+   "options": {
+    "A": "3",
+    "B": "6",
+    "C": "9",
+    "D": "18"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Three moles of $\\ce{K2Cr2O7}$ contain six moles of chromium(VI), which gain 18 moles of electrons; those 18 moles oxidise 18 moles of $\\ce{I-}$ to nine moles of $\\ce{I2}$, needing $2\\times 9 = 18$ moles of $\\ce{S2O3^{2-}}$. B follows the chain for one mole of dichromate instead of three.",
+   "distractors": {
+    "B": "m4"
+   },
+   "image": "Assets/mcq/9701_s22_13_q12.png"
+  },
+  {
+   "id": "9701-2.4-p07",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q26",
+    "qid": "9701_s25_13_q26"
+   },
+   "stem": "0.200 mol ethanenitrile reacts with an excess of dilute sodium hydroxide. The reaction produces\norganic compound S and ammonia gas only.\nThe reaction has an 80.0% yield.\nWhich mass of S is produced?",
+   "options": {
+    "A": "9.60 g",
+    "B": "13.1 g",
+    "C": "15.4 g",
+    "D": "16.4 g"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "$\\ce{CH3CN}$ is hydrolysed to sodium ethanoate, so a $100\\%$ yield would be $0.200\\ \\mathrm{mol}$; at $80.0\\%$ it is $0.160\\ \\mathrm{mol}$, and $0.160\\times 82.0 = 13.12\\ \\mathrm{g}$. D is the mass of $0.200\\ \\mathrm{mol}$ of sodium ethanoate, i.e. the theoretical yield with the $80.0\\%$ ignored.",
+   "distractors": {
+    "D": "m3"
+   }
+  },
+  {
+   "id": "9701-2.4-p08",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q13",
+    "qid": "9701_s25_13_q13"
+   },
+   "stem": "Hydrogen peroxide, H₂O₂, decomposes into water and oxygen when a suitable catalyst is added.\n20.0 cm³ of aqueous hydrogen peroxide decomposes to produce 600 cm³ of oxygen at room\nconditions.\nWhat is the concentration of the aqueous hydrogen peroxide?",
+   "options": {
+    "A": "5.00 mol dm⁻³",
+    "B": "2.50 mol dm⁻³",
+    "C": "1.25 mol dm⁻³",
+    "D": "0.625 mol dm⁻³"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "$600\\ \\mathrm{cm^3}$ of $\\ce{O2}$ is $0.600/24.0 = 0.0250\\ \\mathrm{mol}$, and $\\ce{2H2O2 -> 2H2O + O2}$ means $0.0500\\ \\mathrm{mol}$ of $\\ce{H2O2}$ decomposed. In $0.0200\\ \\mathrm{dm^3}$ that is $2.50\\ \\mathrm{mol\\,dm^{-3}}$. C comes from omitting the $2:1$ ratio between peroxide and oxygen.",
+   "distractors": {
+    "C": "m4"
+   }
+  },
+  {
+   "id": "9701-2.4-p09",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q15",
+    "qid": "9701_s25_13_q15"
+   },
+   "stem": "A washing powder contains sodium hydrogencarbonate, NaHCO₃, as one of the ingredients.\nIn a titration, a solution containing 1.00 g of this washing powder requires 7.15 cm³ of\n0.100 mol dm⁻³ sulfuric acid for complete reaction. The sodium hydrogencarbonate is the only\ningredient that reacts with the acid.\nWhat is the percentage by mass of sodium hydrogencarbonate in the washing powder?",
+   "options": {
+    "A": "3.0%",
+    "B": "6.0%",
+    "C": "12.0%",
+    "D": "24.0%"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The acid is $7.15\\times 10^{-4}\\ \\mathrm{mol}$, and $\\ce{2NaHCO3 + H2SO4 -> Na2SO4 + 2H2O + 2CO2}$ needs twice as much $\\ce{NaHCO3}$: $1.43\\times 10^{-3}\\ \\mathrm{mol}$, or $0.120\\ \\mathrm{g}$, which is $12.0\\%$ of $1.00\\ \\mathrm{g}$. B is what the $1:1$ ratio would give, and halves the correct answer.",
+   "distractors": {
+    "B": "m4"
+   }
+  },
+  {
+   "id": "9701-2.4-p10",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q28",
+    "qid": "9701_w21_11_q28"
+   },
+   "stem": "Citric acid is found in lemon juice.\ncitric acid\nHO₂CCH₂C(OH)(CO₂H)CH₂CO₂H\nWhich volume of 0.40 mol dm⁻³ sodium hydroxide solution is required to neutralise a solution\ncontaining 0.0050 mol of citric acid?",
+   "options": {
+    "A": "12.5 cm³",
+    "B": "25.0 cm³",
+    "C": "37.5 cm³",
+    "D": "50.0 cm³"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Citric acid has three $\\ce{-CO2H}$ groups, so $0.0050\\ \\mathrm{mol}$ needs $0.015\\ \\mathrm{mol}$ of $\\ce{NaOH}$, i.e. $0.015/0.40 = 0.0375\\ \\mathrm{dm^3} = 37.5\\ \\mathrm{cm^3}$. B assumes a $1:1$ reaction and only counts one acidic hydrogen per molecule.",
+   "distractors": {
+    "B": "m4"
+   }
+  },
+  {
+   "id": "9701-2.4-p11",
+   "kcs": [
+    "9701-2.4.1",
+    "9701-2.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Deduce",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q3",
+    "qid": "9701_w24_12_q3"
+   },
+   "stem": "A 0.216 g sample of aluminium carbide reacts with an excess of water to produce methane gas.\nThis is the only carbon-containing product formed in the reaction. This methane gas burns\ncompletely in O₂ to form H₂O and CO₂ only. The volume of CO₂ produced at room temperature\nand pressure is 108 cm³.\nWhat is the formula of aluminium carbide?",
+   "options": {
+    "A": "Al ₂C₃",
+    "B": "Al ₃C₂",
+    "C": "Al ₃C₄",
+    "D": "Al ₄C₃"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "$108\\ \\mathrm{cm^3}$ of $\\ce{CO2}$ is $0.0045\\ \\mathrm{mol}$, so the sample contains $0.0045\\ \\mathrm{mol}$ of carbon. Only $\\ce{Al4C3}$ fits: $M_r = 144.0$, so $0.216\\ \\mathrm{g}$ is $0.0015\\ \\mathrm{mol}$ and $3\\times 0.0015 = 0.0045\\ \\mathrm{mol}$ of carbon. A gives a carbon:formula ratio that needs $0.00144\\ \\mathrm{mol}$ of carbide and does not match the mass.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-2.4-p12",
+   "kcs": [
+    "9701-2.4.1",
+    "9701-11.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q21",
+    "qid": "9701_w25_12_q21"
+   },
+   "stem": "In an experiment, 0.600 mol of chlorine gas, Cl ₂, is reacted with an excess of hot aqueous\nsodium hydroxide. One of the products is NaCl O₃.\nWhich mass of NaCl O₃ is formed?",
+   "options": {
+    "A": "21.3 g",
+    "B": "44.7 g",
+    "C": "63.9 g",
+    "D": "128 g"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Hot alkali gives $\\ce{3Cl2 + 6NaOH -> 5NaCl + NaClO3 + 3H2O}$, so $0.600\\ \\mathrm{mol}$ of $\\ce{Cl2}$ makes $0.200\\ \\mathrm{mol}$ of $\\ce{NaClO3}$: $0.200\\times 106.5 = 21.3\\ \\mathrm{g}$. D assumes a $1:1$ ratio with chlorine and so is three times too large.",
+   "distractors": {
+    "D": "m4"
+   }
+  },
+  {
+   "id": "9701-2.4-i01",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A [[m:.2f]] g sample of magnesium is added to [[v:.1f]] cm$^3$ of [[c:.2f]] mol dm$^{-3}$ hydrochloric acid. Calculate the volume of hydrogen produced, measured at r.t.p., in dm$^3$.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       0.6,
+       0.72,
+       0.84,
+       0.96
+      ]
+     },
+     "v": {
+      "choices": [
+       40.0,
+       50.0
+      ]
+     },
+     "c": {
+      "choices": [
+       0.4,
+       0.5
+      ]
+     }
+    },
+    "derived": {
+     "n_mg": "m/24.3",
+     "n_hcl": "c*v/1000"
+    },
+    "answer": "n_hcl/2*24.0",
+    "distractors": [
+     {
+      "expr": "n_hcl*24.0",
+      "misconception": "m4"
+     },
+     {
+      "expr": "n_mg*24.0",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "n_hcl/2 < n_mg"
+    ]
+   },
+   "answer": {
+    "unit": "dm^3",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "$\\ce{Mg + 2HCl -> MgCl2 + H2}$. The acid supplies $cV$ mol of $\\ce{HCl}$, which is less than twice the amount of magnesium, so the acid is limiting; half as many moles of $\\ce{H2}$ form, and each occupies $24.0\\ \\mathrm{dm^3\\,mol^{-1}}$.",
+   "hints": [
+    "Only one reactant can run out; the other is in excess.",
+    "Divide each reactant's amount in mol by its coefficient in the balanced equation; the smallest value marks the limiting reagent, and all product amounts follow from it.",
+    "Find the amount, in mol, of both reactants before comparing them."
+   ]
+  },
+  {
+   "id": "9701-2.4-i02",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Ethanol is oxidised to ethanoic acid. When [[m:.2f]] g of ethanol is oxidised, [[y:.2f]] g of ethanoic acid is obtained. Calculate the percentage yield.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       4.6,
+       9.2,
+       13.8,
+       23.0
+      ]
+     },
+     "y": {
+      "choices": [
+       4.5,
+       6.0,
+       9.0,
+       12.0,
+       18.0,
+       24.0
+      ]
+     }
+    },
+    "derived": {
+     "theory": "m/46.0*60.0"
+    },
+    "answer": "y/theory*100",
+    "distractors": [
+     {
+      "expr": "y/m*100",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": [
+     "y < 0.96*theory",
+     "y > 0.5*theory"
+    ]
+   },
+   "answer": {
+    "unit": "%",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "$\\ce{C2H5OH + 2[O] -> CH3COOH + H2O}$ is $1:1$, so the theoretical mass of ethanoic acid is $(m/46.0)\\times 60.0$. The percentage yield is the actual mass divided by that theoretical mass, times 100.",
+   "hints": [
+    "A percentage yield compares what was actually made with the most that could have been made.",
+    "Work out the theoretical amount of product from the limiting reagent, then divide the actual amount by it and multiply by 100.",
+    "Convert the mass of the reactant into moles and use the equation ratio to get the theoretical amount of product."
+   ]
+  },
+  {
+   "id": "9701-2.4-i03",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "In a titration, [[v:.1f]] cm$^3$ of [[c:.3f]] mol dm$^{-3}$ sodium hydroxide exactly neutralises 25.0 cm$^3$ of dilute sulfuric acid. Calculate the concentration of the sulfuric acid in mol dm$^{-3}$.",
+   "marks": 3,
+   "template": {
+    "params": {
+     "v": {
+      "choices": [
+       20.0,
+       24.0,
+       25.0,
+       30.0
+      ]
+     },
+     "c": {
+      "choices": [
+       0.1,
+       0.2,
+       0.5
+      ]
+     }
+    },
+    "derived": {
+     "n_naoh": "c*v/1000"
+    },
+    "answer": "(n_naoh/2)/0.0250",
+    "distractors": [
+     {
+      "expr": "n_naoh/0.0250",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": [
+     "1 > 0"
+    ]
+   },
+   "answer": {
+    "unit": "mol dm^-3",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "$\\ce{2NaOH + H2SO4 -> Na2SO4 + 2H2O}$, so the amount of acid is half the amount of alkali. Divide that amount by $0.0250\\ \\mathrm{dm^3}$ to get the concentration.",
+   "hints": [
+    "Concentration links amount of substance to the volume of solution.",
+    "Use $n=cV$ with $V$ in $\\mathrm{dm^3}$, carry the moles through the equation ratio, then convert back.",
+    "Divide any volume given in $\\mathrm{cm^3}$ by 1000 before using it."
+   ]
+  },
+  {
+   "id": "9701-2.4-i04",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Equal masses of magnesium and of calcium are each added to an excess of dilute hydrochloric acid. Deduce which metal releases the larger volume of hydrogen, measured under the same conditions.",
+   "options": {
+    "A": "magnesium, because the same mass is a larger amount in moles",
+    "B": "calcium, because its relative atomic mass is larger",
+    "C": "neither, because the masses of metal are equal",
+    "D": "calcium, because each calcium atom transfers two electrons"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Each metal gives one mole of $\\ce{H2}$ per mole of metal, so the comparison is between amounts: $1/24.3 > 1/40.1$, and magnesium wins. The masses being equal does not make the amounts equal.",
+   "shuffle": true,
+   "hints": [
+    "At r.t.p. one mole of any gas occupies the same volume.",
+    "Find the amount, in mol, of the gas from the equation, then multiply by the molar gas volume.",
+    "Decide first which substances are gases under the stated conditions."
+   ],
+   "distractors": {
+    "B": "m2",
+    "C": "m2",
+    "D": "m2"
+   }
+  },
+  {
+   "id": "9701-2.4-i05",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "0.0500 mol of propane is burnt completely in 0.400 mol of oxygen. Calculate the final volume of gas, measured at room conditions.",
+   "options": {
+    "A": "3.60 dm$^3$",
+    "B": "7.20 dm$^3$",
+    "C": "12.00 dm$^3$",
+    "D": "13.20 dm$^3$"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "$\\ce{C3H8 + 5O2 -> 3CO2 + 4H2O}$ uses $0.250\\ \\mathrm{mol}$ of $\\ce{O2}$, leaving $0.150\\ \\mathrm{mol}$ unreacted, and makes $0.150\\ \\mathrm{mol}$ of $\\ce{CO2}$. The water condenses at room conditions, so $0.300\\times 24.0 = 7.20\\ \\mathrm{dm^3}$ of gas remains.",
+   "shuffle": true,
+   "hints": [
+    "At r.t.p. one mole of any gas occupies the same volume.",
+    "Find the amount, in mol, of the gas from the equation, then multiply by the molar gas volume.",
+    "Decide first which substances are gases under the stated conditions."
+   ],
+   "distractors": {
+    "C": "m5",
+    "A": "m4"
+   }
+  },
+  {
+   "id": "9701-2.4-i06",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Two reactants are mixed and the mass of each is given. Explain how to decide which one is the limiting reagent.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Convert each mass to an amount in moles using n = m/Mr.",
+     "keywords": [
+      [
+       "mole",
+       "mol",
+       "amount"
+      ],
+      [
+       "divid",
+       "m/m",
+       "mr",
+       "relative"
+      ]
+     ]
+    },
+    {
+     "point": "Divide each amount by its coefficient in the balanced equation.",
+     "keywords": [
+      [
+       "coefficient",
+       "ratio",
+       "balanc",
+       "equation"
+      ],
+      [
+       "divid",
+       "compar"
+      ]
+     ]
+    },
+    {
+     "point": "The reactant with the smallest value is limiting; the other is in excess, and all product amounts are calculated from the limiting reagent.",
+     "keywords": [
+      [
+       "smallest",
+       "least",
+       "lowest"
+      ],
+      [
+       "limiting"
+      ],
+      [
+       "excess"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Masses cannot be compared directly; only the amounts in moles divided by the equation coefficients can be, and the smallest of those quotients runs out first.",
+   "hints": [
+    "Only one reactant can run out; the other is in excess.",
+    "Divide each reactant's amount in mol by its coefficient in the balanced equation; the smallest value marks the limiting reagent, and all product amounts follow from it.",
+    "Find the amount, in mol, of both reactants before comparing them."
+   ]
+  },
+  {
+   "id": "9701-2.4-i07",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Ammonium sulfate, $\\ce{(NH4)2SO4}$, is used as a fertiliser. Calculate the percentage by mass of nitrogen in ammonium sulfate.",
+   "marks": 2,
+   "answer": {
+    "value": 21.196064,
+    "unit": "%",
+    "sf_ok": [
+     3
+    ]
+   },
+   "distractors": [],
+   "explanation": "$M_r[\\ce{(NH4)2SO4}] = 132.1$ and the two nitrogen atoms contribute $28.0$, so the percentage is $28.0/132.1\\times 100 = 21.2\\%$.",
+   "hints": [
+    "Every stoichiometry question starts by turning the given data into moles.",
+    "Convert each mass with $n=m/M_r$, each solution with $n=cV$ and each gas with $n=V/24.0$, then use the balanced equation.",
+    "Write the balanced equation and find the amount, in mol, of each substance you are given."
+   ]
+  },
+  {
+   "id": "9701-2.4-i08",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "structured",
+   "difficulty": 5,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Iron(III) oxide is reduced by carbon monoxide in a blast furnace.\n\n$$\\ce{Fe2O3(s) + 3CO(g) -> 2Fe(s) + 3CO2(g)}$$\n\n8.00 g of $\\ce{Fe2O3}$ is heated with 3.50 g of $\\ce{CO}$. The reaction yields 3.90 g of iron.\n\n(a) Determine the limiting reagent.\n(b) Calculate the maximum mass of iron that could be obtained.\n(c) Calculate the percentage yield of iron.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "n(Fe2O3) = 8.00/159.6 = 0.05013 mol and n(CO) = 3.50/28.0 = 0.1250 mol."
+    },
+    {
+     "mark": "A1",
+     "point": "CO is limiting: n(CO)/3 = 0.04167 is less than n(Fe2O3)/1 = 0.05013, so Fe2O3 is in excess."
+    },
+    {
+     "mark": "M1",
+     "point": "n(Fe) = (2/3) x 0.1250 = 0.08333 mol, so maximum mass = 0.08333 x 55.8 = 4.65 g.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.65,
+       "unit": "g",
+       "sf_ok": [
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "A1",
+     "point": "Percentage yield = 3.90/4.65 x 100 = 83.9%.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 83.9,
+       "unit": "%",
+       "sf_ok": [
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "explanation": "Dividing each amount by its coefficient shows $\\ce{CO}$ runs out first, which fixes the theoretical yield at $4.65\\ \\mathrm{g}$ of iron; the actual $3.90\\ \\mathrm{g}$ is $83.9\\%$ of that.",
+   "hints": [
+    "Only one reactant can run out; the other is in excess.",
+    "Divide each reactant's amount in mol by its coefficient in the balanced equation; the smallest value marks the limiting reagent, and all product amounts follow from it.",
+    "Find the amount, in mol, of both reactants before comparing them."
+   ]
+  },
+  {
+   "id": "9701-2.4-i09",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "0.243 g of magnesium reacts completely with 40.0 cm$^3$ of 0.500 mol dm$^{-3}$ hydrochloric acid, and neither reactant is left over. Deduce the number of moles of hydrochloric acid that react with one mole of magnesium.",
+   "marks": 2,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "sf_ok": [
+     1,
+     2
+    ]
+   },
+   "distractors": [
+    {
+     "value": 1.0,
+     "misconception": "m4"
+    }
+   ],
+   "explanation": "The magnesium is $0.243/24.3 = 0.0100\\ \\mathrm{mol}$ and the acid is $0.0400\\times 0.500 = 0.0200\\ \\mathrm{mol}$, so the ratio is $0.0200:0.0100$, that is 2 mol of $\\ce{HCl}$ per mole of $\\ce{Mg}$.",
+   "hints": [
+    "Every stoichiometry question starts by turning the given data into moles.",
+    "Convert each mass with $n=m/M_r$, each solution with $n=cV$ and each gas with $n=V/24.0$, then use the balanced equation.",
+    "Write the balanced equation and find the amount, in mol, of each substance you are given."
+   ]
+  },
+  {
+   "id": "9701-2.4-i10",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A student calculates the volume of a product gas by multiplying its amount in moles by 24.0 dm$^3$ mol$^{-1}$. State the condition under which this is valid.",
+   "options": {
+    "A": "the substance is a gas at room temperature and pressure",
+    "B": "the gas has a relative molecular mass of 24.0",
+    "C": "the gas is the limiting reagent in the reaction",
+    "D": "one mole of the reactant was used"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "One mole of any gas occupies $24.0\\ \\mathrm{dm^3}$ at r.t.p., whatever its $M_r$; the molar gas volume may only be applied to substances that are gaseous under the stated conditions.",
+   "shuffle": true,
+   "hints": [
+    "At r.t.p. one mole of any gas occupies the same volume.",
+    "Find the amount, in mol, of the gas from the equation, then multiply by the molar gas volume.",
+    "Decide first which substances are gases under the stated conditions."
+   ],
+   "distractors": {
+    "B": "m2"
+   }
+  },
+  {
+   "id": "9701-2.4-i11",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the volumes of two gases measured at the same temperature and pressure are in the same ratio as their amounts in moles.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Equal volumes of gases at the same temperature and pressure contain equal numbers of molecules.",
+     "keywords": [
+      [
+       "equal volume",
+       "same volume"
+      ],
+      [
+       "same number",
+       "equal number",
+       "equal amount"
+      ],
+      [
+       "molecul",
+       "particle"
+      ]
+     ]
+    },
+    {
+     "point": "So volume is proportional to the amount in moles, and the ratio of volumes equals the ratio in the balanced equation.",
+     "keywords": [
+      [
+       "proportional",
+       "proportion"
+      ],
+      [
+       "mole",
+       "amount"
+      ],
+      [
+       "ratio",
+       "equation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Avogadro's result that equal volumes of gases contain equal numbers of molecules makes volume proportional to amount, so gas volumes may be used directly as mole ratios.",
+   "hints": [
+    "At r.t.p. one mole of any gas occupies the same volume.",
+    "Find the amount, in mol, of the gas from the equation, then multiply by the molar gas volume.",
+    "Decide first which substances are gases under the stated conditions."
+   ]
+  },
+  {
+   "id": "9701-2.4-x001",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q12",
+    "qid": "9701_s19_11_q12"
+   },
+   "stem": "1.15 g of a metallic element needs 300 cm³ of oxygen for complete reaction, under room\nconditions, to form an oxide which contains O²⁻ ions.\nWhat could be the identity of this metallic element?",
+   "options": {
+    "A": "calcium",
+    "B": "magnesium",
+    "C": "potassium",
+    "D": "sodium"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x002",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q39",
+    "qid": "9701_s19_12_q39"
+   },
+   "stem": "In an organic synthesis, a 62% yield of product is achieved.\nWhich conversions are consistent with this information?\n1\n74.00 g of butan-2-ol → 44.64 g of butanone\n2\n74.00 g of butan-1-ol → 54.56 g of butanoic acid\n3\n74.00 g of 2-methylpropan-1-ol → 54.56 g of 2-methylpropanoic acid",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s19_12_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect option was D. However: • 74.00 g is 1.00 mole of butan-2-ol. 44.64 g is 0.62 mol of butanone. • 74.00 g is 1.00 mole of butan-1-ol. 54.56 g is 0.62 mol of butanoic acid. • 74.00 g is 1.00 mole of 2-methylpropan-1-ol. 54.56 g is 0.62 mol of 2-methylpropanoic acid. Each conversion gives a 62% yield of product. This means that statements 1, 2 and 3 are all true, so the correct answer is A. Principal Examiner Report for Teachers CHEMISTRY"
+  },
+  {
+   "id": "9701-2.4-x003",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q17",
+    "qid": "9701_s19_13_q17"
+   },
+   "stem": "An aqueous solution of a calcium compound is treated with a mixture of dilute aqueous nitric acid\nand aqueous silver nitrate. The resulting white precipitate dissolves when dilute aqueous\nammonia is added.\nWhat is the relative molecular mass, Mr, of the calcium compound?",
+   "options": {
+    "A": "54.0",
+    "B": "75.6",
+    "C": "111.1",
+    "D": "199.9"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s19_13_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x004",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q19",
+    "qid": "9701_s19_13_q19"
+   },
+   "stem": "In a catalytic converter 5.6 g of carbon monoxide reacts with an excess of nitrogen monoxide.\nWhat is produced in this reaction?",
+   "options": {
+    "A": "2.4 g of C and 6.0 g of NO₂",
+    "B": "2.4 g of C and 9.2 g of NO₂",
+    "C": "8.8 g of CO₂ and 1.4 g of N₂",
+    "D": "8.8 g of CO₂ and 2.8 g of N₂"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x005",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q14",
+    "qid": "9701_w19_11_q14"
+   },
+   "stem": "A 5.00 g sample of an anhydrous Group 2 metal nitrate loses 3.29 g in mass when heated\nstrongly.\nWhich metal is present?",
+   "options": {
+    "A": "magnesium",
+    "B": "calcium",
+    "C": "strontium",
+    "D": "barium"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x006",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q2",
+    "qid": "9701_w19_12_q2"
+   },
+   "stem": "In this question it should be assumed that (NH₄)₂CO₃.H₂O(s) dissolves in water without causing\nan increase in volume.\nWhich mass of (NH₄)₂CO₃.H₂O(s) should be added to 800 cm³ of water to form a 0.100 mol dm⁻³\nsolution of NH₄\n⁺ ions?",
+   "options": {
+    "A": "4.56 g",
+    "B": "7.13 g",
+    "C": "9.12 g",
+    "D": "14.3 g"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w19_12_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x007",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q25",
+    "qid": "9701_w19_12_q25"
+   },
+   "stem": "What is the smallest amount of oxygen molecules needed for the complete combustion of 40.0 g\nof methanol?",
+   "options": {
+    "A": "1.88 moles",
+    "B": "2.50 moles",
+    "C": "3.75 moles",
+    "D": "5.00 moles"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x008",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q4",
+    "qid": "9701_s20_11_q4"
+   },
+   "stem": "10 cm³ of ethane is burned in 45 cm³ of oxygen at a pressure of 101 kPa and a temperature of\n200 °C. Complete combustion takes place.\nWhat is the total volume of gas present when the reaction is complete, measured under the same\nconditions?",
+   "options": {
+    "A": "30 cm³",
+    "B": "50 cm³",
+    "C": "55 cm³",
+    "D": "60 cm³"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x009",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q11",
+    "qid": "9701_s20_11_q11"
+   },
+   "stem": "A sample of solid ammonium chloride decomposes on heating.\nsolid ammonium chloride → ammonia gas + hydrogen chloride gas\nA total of 2.4 × 10²¹ molecules of gas is formed.\nHow many hydrogen atoms are present in the gaseous products?",
+   "options": {
+    "A": "1.2 × 10²¹",
+    "B": "2.4 × 10²¹",
+    "C": "4.8 × 10²¹",
+    "D": "9.6 × 10²¹"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x010",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q13",
+    "qid": "9701_s20_11_q13"
+   },
+   "stem": "6.90 g of an ammonium salt is heated with an excess of aqueous sodium hydroxide. The volume\nof ammonia produced, measured under room conditions, is 2.51 dm³.\nWhich ammonium salt is used?",
+   "options": {
+    "A": "ammonium carbonate (Mr = 96.0)",
+    "B": "ammonium chloride (Mr = 53.5)",
+    "C": "ammonium nitrate (Mr = 80.0)",
+    "D": "ammonium sulfate (Mr = 132.1)"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s20_11_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x011",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q17",
+    "qid": "9701_s20_11_q17"
+   },
+   "stem": "0.25 g of anhydrous magnesium nitrate is heated strongly until it completely decomposes.\nWhat is the total volume of gas produced, measured under room conditions?",
+   "options": {
+    "A": "40 cm³",
+    "B": "81 cm³",
+    "C": "101 cm³",
+    "D": "202 cm³"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x012",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q2",
+    "qid": "9701_s20_12_q2"
+   },
+   "stem": "A copper ore contains 3.00% of copper carbonate, CuCO₃, by mass.\nWhich mass of copper would be obtained from 1 tonne of the ore?",
+   "options": {
+    "A": "1.91 kg",
+    "B": "3.71 kg",
+    "C": "15.4 kg",
+    "D": "58.4 kg"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x013",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q6",
+    "qid": "9701_s20_12_q6"
+   },
+   "stem": "In this question you should assume air contains 21% oxygen.\nWhat is the minimum volume of air required to ensure complete combustion of 10 cm³ of butane\ngas, under room conditions?",
+   "options": {
+    "A": "14 cm³",
+    "B": "27 cm³",
+    "C": "65 cm³",
+    "D": "310 cm³"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x014",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q9",
+    "qid": "9701_s20_12_q9"
+   },
+   "stem": "The complete combustion of 2 moles of an alkane produces 400 dm³ of carbon dioxide measured\nat 301 K and 1 × 10⁵\nPa. Carbon dioxide can be assumed to behave as an ideal gas under these\nconditions.\nWhat is the formula of the alkane?",
+   "options": {
+    "A": "C₈H₁₈",
+    "B": "C₁₆H₃₄",
+    "C": "C₂₀H₄₂",
+    "D": "C₄₀H₈₂"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x015",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q13",
+    "qid": "9701_s20_12_q13"
+   },
+   "stem": "Magnesium nitrate, Mg(NO₃)₂, decomposes when heated to give a white solid and a mixture of\ngases. One of the gases released is an oxide of nitrogen, X.\n7.4 g of anhydrous magnesium nitrate is heated until no further reaction takes place.\nWhat mass of X is produced?",
+   "options": {
+    "A": "1.5 g",
+    "B": "2.3 g",
+    "C": "3.0 g",
+    "D": "4.6 g"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x016",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q22",
+    "qid": "9701_s20_13_q22"
+   },
+   "stem": "There are many non-cyclic alcohols that cannot be oxidised by warm acidified MnO₄\n⁻ ions.\nAlcohol X is the member of this set of alcohols with the lowest molecular mass.\nHow many moles of oxygen are required for the complete combustion of 1.0 mol of alcohol X?",
+   "options": {
+    "A": "3.5 mol",
+    "B": "4.5 mol",
+    "C": "6.0 mol",
+    "D": "6.5 mol"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x017",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q29",
+    "qid": "9701_s20_13_q29"
+   },
+   "stem": "The ester ethyl methanoate is prepared in a school laboratory by reacting a carboxylic acid with\nan alcohol.\nDuring the reaction, only 50.0% of the alcohol is converted into the ester.\nWhich mass of alcohol is needed to prepare 10.0 g of the ester?",
+   "options": {
+    "A": "3.11 g",
+    "B": "8.65 g",
+    "C": "12.4 g",
+    "D": "32.2 g"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x018",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q31",
+    "qid": "9701_s20_13_q31"
+   },
+   "stem": "Which contain one mole of the underlined substance under room conditions?\n1\na balloon containing 24.0 dm³ of helium\n2\na block of calcium carbonate weighing 100.1 g\n3\n4000 cm³ of a 0.250 mol dm⁻³ solution of sulfuric acid",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s20_13_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x019",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q2",
+    "qid": "9701_w20_11_q2"
+   },
+   "stem": "Strontium metal can be extracted from strontium oxide, SrO, by reduction with aluminium. One of\nthe possible reactions is shown.\n6SrO + 2Al → 3Sr + Sr₃Al ₂O₆\nWhat is the maximum mass of strontium metal that can be produced from the reduction of 100 g\nof strontium oxide using this reaction?",
+   "options": {
+    "A": "41.3 g",
+    "B": "42.3 g",
+    "C": "84.6 g",
+    "D": "169.2 g"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x020",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q2",
+    "qid": "9701_w20_12_q2"
+   },
+   "stem": "An ore of manganese contains 4% by mass of MnO₂ and no other manganese compound.\nWhich mass of manganese would be obtained from 1 tonne of this ore?",
+   "options": {
+    "A": "25.3 kg",
+    "B": "40.0 kg",
+    "C": "63.3 kg",
+    "D": "632 kg"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x021",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q5",
+    "qid": "9701_w20_12_q5"
+   },
+   "stem": "A white powder is known to be a mixture of magnesium oxide and aluminium oxide.\n100 cm³ of 2 mol dm⁻³ NaOH(aq) is just enough to dissolve the aluminium oxide in x grams of the\nmixture.\nThe reaction is shown.\nAl ₂O₃ + 2OH⁻ + 3H₂O → 2Al (OH)₄\n⁻\n800 cm³ of 2 mol dm⁻³ HCl (aq) is just enough to dissolve all of the oxide in x grams of the mixture.\nThe reactions are shown.\nAl ₂O₃ + 6H⁺ → 2Al ³⁺ + 3H₂O\nMgO + 2H⁺ → Mg²⁺ + H₂O\nHow many moles of each oxide are present in x grams of the mixture?\naluminium\noxide\nmagnesium\noxide",
+   "options": {
+    "A": "0.05 0.25",
+    "B": "0.05 0.50",
+    "C": "0.10 0.25",
+    "D": "0.10 0.50"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x022",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q19",
+    "qid": "9701_w20_12_q19"
+   },
+   "stem": "Compound X is the oxide of a Period 3 element. Compound X reacts with water to give an acidic\nsolution.\nA solution is prepared by reacting 0.100 g of compound X with an excess of water. This solution is\nneutralised by exactly 25.0 cm³ of 0.100 mol dm⁻³ sodium hydroxide solution.\nWhat could be the identity of compound X?",
+   "options": {
+    "A": "Al ₂O₃",
+    "B": "MgO",
+    "C": "P₄O₁₀",
+    "D": "SO₃"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x023",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q6",
+    "qid": "9701_s21_11_q6"
+   },
+   "stem": "What is the minimum mass of oxygen required to ensure the complete combustion of 12 dm³ of\npropane measured under room conditions?",
+   "options": {
+    "A": "60 g",
+    "B": "80 g",
+    "C": "120 g",
+    "D": "160 g"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x024",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q19",
+    "qid": "9701_s21_11_q19"
+   },
+   "stem": "R is an oxide of Period 3 element T. 5.00 g of R contains 2.50 g of T.\nWhat is T?",
+   "options": {
+    "A": "magnesium",
+    "B": "aluminium",
+    "C": "silicon",
+    "D": "sulfur"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x025",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q2",
+    "qid": "9701_s21_13_q2"
+   },
+   "stem": "A sample of propane, C₃H₈, with a mass of 9.61 g is completely combusted in an excess of\noxygen under room conditions.\nWhich volume of carbon dioxide gas is produced?",
+   "options": {
+    "A": "4.89 dm³",
+    "B": "5.24 dm³",
+    "C": "14.7 dm³",
+    "D": "15.7 dm³"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x026",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q2",
+    "qid": "9701_w21_11_q2"
+   },
+   "stem": "2.0 g of ammonium nitrate, NH₄NO₃, decomposes to give 0.90 g of water and a single gas.\nWhat is the identity of the gas?",
+   "options": {
+    "A": "NO",
+    "B": "NO₂",
+    "C": "N₂O",
+    "D": "N₂"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x027",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q16",
+    "qid": "9701_s22_11_q16"
+   },
+   "stem": "A 3.0 g sample of Na₂CO₃ powder is stirred into 50 cm³ of 1.0 mol dm⁻³ HCl. The volume of CO₂\nproduced is 600 cm³.\nNa₂CO₃(s) + 2HCl (aq) → 2NaCl (aq) + CO₂(g) + H₂O(l)\n[Mr: Na₂CO₃, 106.0]\nWhich volume of CO₂ is produced if 1.0 g of Na₂CO₃ powder is stirred into 50 cm³ of\n1.0 mol dm⁻³ HCl under the same conditions?",
+   "options": {
+    "A": "600 cm³",
+    "B": "452 cm³",
+    "C": "226 cm³",
+    "D": "200 cm³"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s22_11_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x028",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q19",
+    "qid": "9701_s22_11_q19"
+   },
+   "stem": "A student reacts 0.100 mol of each of sodium, magnesium and phosphorus atoms separately with\nan excess of oxygen.\nWhich rows are correct?\noxide\nmass of oxide\nformed / g\n1\nsodium\n3.10\n2\nmagnesium\n4.03\n3\nphosphorus\n7.10",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1 and 2 only",
+    "C": "1 and 3 only",
+    "D": "2 and 3 only"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s22_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x029",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q24",
+    "qid": "9701_s22_11_q24"
+   },
+   "stem": "In a catalytic converter, 5.6 g of carbon monoxide react with an excess of nitrogen monoxide.\nWhat is produced in this reaction?",
+   "options": {
+    "A": "2.4 g of C and 6.0 g of NO₂",
+    "B": "2.4 g of C and 9.2 g of NO₂",
+    "C": "8.8 g of CO₂ and 1.4 g of N₂",
+    "D": "8.8 g of CO₂ and 2.8 g of N₂"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "5.6 g CO is 5.6/28.0 = 0.200 mol. In a catalytic converter CO reduces NO: 2CO + 2NO -> 2CO2 + N2, so the CO:CO2 ratio is 1:1 but the CO:N2 ratio is 2:1. That gives 0.200 mol CO2 = 0.200 x 44.0 = 8.8 g and 0.100 mol N2 = 0.100 x 28.0 = 2.8 g, which is D. C is the trap: it takes 1:1 for the nitrogen too (0.100 mol N2 halved to 0.050 mol, 1.4 g). A and B are wrong because NO is the oxidising agent here, so carbon is not deposited and NO2 is not formed."
+  },
+  {
+   "id": "9701-2.4-x030",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q33",
+    "qid": "9701_s22_11_q33"
+   },
+   "stem": "17.6 g of pentan-1-ol is completely combusted.\nWhich volume of gaseous products is formed when measured at s.t.p.?",
+   "options": {
+    "A": "22.4 dm³",
+    "B": "24.0 dm³",
+    "C": "49.3 dm³",
+    "D": "52.8 dm³"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x031",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q38",
+    "qid": "9701_s22_12_q38"
+   },
+   "stem": "Ethyl butanoate is a flavouring, with a fruity flavour.\nWhich row is correct?\nalcohol and acid that react\nto form ethyl butanoate\nthe mass of water formed\nwhen 2.32 g of ester is formed",
+   "options": {
+    "A": "O OH OH and 0.36 g",
+    "B": "O OH OH and 0.40 g",
+    "C": "O OH OH and 0.36 g",
+    "D": "O OH OH and 0.40 g"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s22_12_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x032",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q8",
+    "qid": "9701_s22_13_q8"
+   },
+   "stem": "A student reacts 1 mol of magnesium powder in a sealed 0.030 m³ container of oxygen at a\npressure of 2.0 × 10⁵\nPa and a temperature of 600 K. The magnesium reacts completely to form\nMgO.\nWhich percentage of the oxygen will be used up?",
+   "options": {
+    "A": "5.0%",
+    "B": "10%",
+    "C": "42%",
+    "D": "83%"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x033",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q21",
+    "qid": "9701_s22_13_q21"
+   },
+   "stem": "A 4.00 g sample of an anhydrous Group 2 metal nitrate, Z, is heated strongly until there is no\nfurther change of mass. A solid residue of mass 1.37 g is formed.\nWhich metal is present in Z?",
+   "options": {
+    "A": "barium",
+    "B": "calcium",
+    "C": "magnesium",
+    "D": "strontium"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x034",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q2",
+    "qid": "9701_w22_11_q2"
+   },
+   "stem": "Mixture R consists of one mole of C₃H₆ and one mole of C₄H₆.\nWhat is the minimum number of moles of oxygen molecules needed for complete combustion of\nmixture R?",
+   "options": {
+    "A": "6.5",
+    "B": "7",
+    "C": "10",
+    "D": "20"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w22_11_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x035",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q8",
+    "qid": "9701_w22_11_q8"
+   },
+   "stem": "The carbonate of an s-block element is reacted with an excess of hydrochloric acid.\n0.833 g of the carbonate releases 200 cm³ of gas, measured under room conditions.\nWhat is the identity of the metal carbonate?",
+   "options": {
+    "A": "Na₂CO₃",
+    "B": "K₂CO₃",
+    "C": "MgCO₃",
+    "D": "CaCO₃"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x036",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q2",
+    "qid": "9701_w22_12_q2"
+   },
+   "stem": "Sodium peroxide, Na₂O₂, is used to absorb carbon dioxide from the atmosphere and release\noxygen in closed environments such as space capsules and submarines.\n2Na₂O₂ + 2CO₂ → 2Na₂CO₃ + O₂\nWhich mass of sodium peroxide would be required to remove 2.4 dm³ of carbon dioxide from the\natmosphere at room temperature and pressure?",
+   "options": {
+    "A": "2.4 g",
+    "B": "3.9 g",
+    "C": "7.8 g",
+    "D": "15.6 g"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x037",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q4",
+    "qid": "9701_w22_12_q4"
+   },
+   "stem": "Calcium oxide and magnesium sulfide each react with acid.\nCaO(s) + 2H⁺(aq) → Ca²⁺(aq) + H₂O(l)\nMgS(s) + 2H⁺(aq) → Mg²⁺(aq) + H₂S(g)\nA mixture of these two compounds, X, reacts with exactly 0.125 mol of dilute hydrochloric acid.\nThe amount of hydrogen sulfide formed is 0.0250 mol.\nWhat was the mass of calcium oxide in mixture X?",
+   "options": {
+    "A": "1.4 g",
+    "B": "2.1 g",
+    "C": "2.8 g",
+    "D": "4.2 g"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x038",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q33",
+    "qid": "9701_w22_12_q33"
+   },
+   "stem": "1.0 mol of an organic compound, J, requires 6.0 mol of oxygen for complete combustion.\n1.0 mol of J reacts with sodium, producing 0.50 mol of a gas that gives a ‘pop’ with a lighted splint.\nJ reacts with an excess of hot acidified potassium manganate(VII) to produce an organic\ncompound which gives an orange-red precipitate with 2,4-DNPH reagent.\nWhich compound is J?",
+   "options": {
+    "A": "but-1-ene",
+    "B": "butan-2-ol",
+    "C": "propan-2-ol",
+    "D": "2-methylpropan-2-ol"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x039",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q2",
+    "qid": "9701_w22_13_q2"
+   },
+   "stem": "Mixture R consists of one mole of C₃H₆ and one mole of C₄H₆.\nWhat is the minimum number of moles of oxygen molecules needed for complete combustion of\nmixture R?",
+   "options": {
+    "A": "6.5",
+    "B": "7",
+    "C": "10",
+    "D": "20"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w22_13_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x040",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q13",
+    "qid": "9701_s23_11_q13"
+   },
+   "stem": "In this question you should assume that the gas formed behaves as an ideal gas.\nA 1.7g sample of Mg reacts with 50.0cm³ of 2.2moldm⁻³ HCl at 303K and 110400Pa.\nWhich volume of gas is produced, measured under these conditions?\n5.0dm³",
+   "options": {
+    "D": "2.5dm³",
+    "C": "1.6dm³",
+    "B": "1.3dm³",
+    "A": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s23_11_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most common incorrect answer was B. The data in the question can be used to calculate that 0.070 mol of Mg and 0.11 mol of HCl is present. This means that HCl is the limiting reagent as 0.070 mol of Mg would react with 0.14 mol of HCl as per the balanced equation. In this reaction 0.055 mol of H2 gas is produced. Under the conditions described in the question 0.055 mol of gas occupies a volume of 1.3 dm3 when given to two significant figures."
+  },
+  {
+   "id": "9701-2.4-x041",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q26",
+    "qid": "9701_s23_11_q26"
+   },
+   "stem": "An organic molecule W contains 3 carbon atoms. It requires 4.5 molecules of oxygen for complete\ncombustion.\nWhat could W be?\npropane",
+   "options": {
+    "A": "propanoic acid",
+    "B": "propanone",
+    "C": "propan-1-ol",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x042",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q4",
+    "qid": "9701_s23_12_q4"
+   },
+   "stem": "If 1 mole of hexane combusts in an excess of oxygen, how many moles of products are formed?\n14",
+   "options": {
+    "D": "13",
+    "C": "12",
+    "B": "11",
+    "A": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s23_12_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x043",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q5",
+    "qid": "9701_s23_12_q5"
+   },
+   "stem": "Separate samples, each of mass 1.0g, of the compounds listed are treated with an excess of dilute\nacid.\nWhich compound releases the largest amount of CO₂?\n1.0g Na₂CO₃",
+   "options": {
+    "D": "1.0g MgCO₃",
+    "C": "1.0g Li₂CO₃",
+    "B": "1.0g CaCO₃",
+    "A": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x044",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q23",
+    "qid": "9701_s23_12_q23"
+   },
+   "stem": "effect on pH of soil\nhigher percentage\nof nitrogen by mass\ndecrease\nammonium nitrate\nAmmonium sulfate, (NH₄)₂SO₄, and ammonium nitrate, NH₄NO₃, are used as fertilisers.\nThese salts have different percentages by mass of nitrogen. They have the same effect as each\nother on the pH of wet neutral soil.\nWhich row is correct?",
+   "options": {
+    "A": "increase ammonium nitrate",
+    "B": "decrease ammonium sulfate",
+    "C": "increase ammonium sulfate",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s23_12_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most common incorrect answer was B. This suggests that most candidates were able to work out that ammonium nitrate has a higher percentage of nitrogen than ammonium sulfate does. Since the ammonium ion is a proton donor it is a weak acid, so the correct answer is A."
+  },
+  {
+   "id": "9701-2.4-x045",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q3",
+    "qid": "9701_s23_13_q3"
+   },
+   "stem": "A piece of rock has a mass of 2.00g. It contains calcium carbonate, but no other basic substances.\nIt neutralises exactly 36.0cm³ of 0.500moldm⁻³ hydrochloric acid.\nWhat is the percentage by mass of calcium carbonate in the 2.00g piece of rock?\n90.1%",
+   "options": {
+    "D": "72.0%",
+    "C": "45.0%",
+    "B": "22.5%",
+    "A": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_13_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x046",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q11",
+    "qid": "9701_s23_13_q11"
+   },
+   "stem": "Which mixture will react to form exactly one mole of water?\nvolume 1.00moldm⁻³\nNaOH/cm³\n500\n250",
+   "options": {
+    "A": "1000 250",
+    "B": "500 500",
+    "C": "1000 500",
+    "D": "volume 2.00moldm⁻³ H₂SO₄/cm³"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_13_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x047",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q4",
+    "qid": "9701_w23_11_q4"
+   },
+   "stem": "A sample of 35.6g of hydrated sodium carbonate contains 25.84% sodium ions by mass.\nWhen this sample is heated, anhydrous sodium carbonate and water are formed.\nWhich mass of water is given off?\n21.2g",
+   "options": {
+    "D": "14.4g",
+    "C": "10.6g",
+    "B": "7.2g",
+    "A": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x048",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q4",
+    "qid": "9701_w23_12_q4"
+   },
+   "stem": "A 3.7g sample of copper(II) carbonate is added to 25cm³ of 2.0moldm⁻³ hydrochloric acid.\nWhich volume of gas is produced at room conditions?\n2.40dm³",
+   "options": {
+    "D": "1.20dm³",
+    "C": "0.72dm³",
+    "B": "0.60dm³",
+    "A": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w23_12_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x049",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q8",
+    "qid": "9701_w23_12_q8"
+   },
+   "stem": "In an experiment, 0.100mol of propan-1-ol is burnt completely in 12.0dm³ of oxygen, measured at\nroom conditions.\nWhat is the final volume of gas, measured at room conditions?\n18.00dm³",
+   "options": {
+    "D": "16.80dm³",
+    "C": "8.40dm³",
+    "B": "7.20dm³",
+    "A": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w23_12_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x050",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q4",
+    "qid": "9701_w23_13_q4"
+   },
+   "stem": "A sample of 35.6g of hydrated sodium carbonate contains 25.84% sodium ions by mass.\nWhen this sample is heated, anhydrous sodium carbonate and water are formed.\nWhich mass of water is given off?\n21.2g",
+   "options": {
+    "D": "14.4g",
+    "C": "10.6g",
+    "B": "7.2g",
+    "A": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_13_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x051",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q1",
+    "qid": "9701_s24_11_q1"
+   },
+   "stem": "Sample X is added to water and made up to a total volume of 200 cm³. This gives a solution of\n0.100 mol dm⁻³ HCl.\nWhat is X?",
+   "options": {
+    "A": "10 cm³ of 1.00 mol dm⁻³ HCl",
+    "B": "30 cm³ of 0.90 mol dm⁻³ HCl",
+    "C": "50 cm³ of 0.40 mol dm⁻³ HCl",
+    "D": "100 cm³ of 0.30 mol dm⁻³ HCl"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s24_11_q1.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x052",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q2",
+    "qid": "9701_s24_11_q2"
+   },
+   "stem": "A mixture of 10 cm³ of methane and 10 cm³ of ethane was sparked with an excess of\noxygen. After cooling, the residual gas was passed through aqueous potassium hydroxide.\nAll gas volumes were measured at the same temperature and pressure.\nWhich volume of gas was absorbed by the alkali?",
+   "options": {
+    "A": "15 cm³",
+    "B": "20 cm³",
+    "C": "30 cm³",
+    "D": "40 cm³"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x053",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q20",
+    "qid": "9701_s24_11_q20"
+   },
+   "stem": "What is the total volume of gas produced, measured at room conditions, when 0.010 mol of\nanhydrous magnesium nitrate is completely decomposed by heating?",
+   "options": {
+    "A": "240 cm³",
+    "B": "480 cm³",
+    "C": "600 cm³",
+    "D": "720 cm³"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x054",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q34",
+    "qid": "9701_s24_12_q34"
+   },
+   "stem": "The molecule of limonene, C₁₀H₁₆, contains a 6-membered ring. This is the only cyclic component\nin its structure.\nWhich volume of hydrogen, at room conditions, is required to react completely with the C=C\ndouble bonds in one mole of limonene?",
+   "options": {
+    "A": "12 dm³",
+    "B": "24 dm³",
+    "C": "48 dm³",
+    "D": "72 dm³"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x055",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q1",
+    "qid": "9701_s24_13_q1"
+   },
+   "stem": "X is an impure sample of a Group 2 metal carbonate, MCO₃. X contains 57% by mass of MCO₃.\nThe impurities in X do not react with hydrochloric acid.\n7.4 g of X is reacted with an excess of dilute hydrochloric acid.\n0.050 mol of the Group 2 metal chloride is produced.\nWhat is the identity of the Group 2 metal?",
+   "options": {
+    "A": "Mg",
+    "B": "Ca",
+    "C": "Sr",
+    "D": "Ba"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x056",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q19",
+    "qid": "9701_s24_13_q19"
+   },
+   "stem": "A sample consisting of 1.0 mol of anhydrous calcium nitrate is completely decomposed by strong\nheating.\nWhat is the total amount of gas produced in this reaction?",
+   "options": {
+    "A": "1.0 mol",
+    "B": "2.0 mol",
+    "C": "2.5 mol",
+    "D": "3.0 mol"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x057",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q24",
+    "qid": "9701_s24_13_q24"
+   },
+   "stem": "What is produced when 60 g of nitrogen monoxide reacts with an excess of carbon monoxide in a\ncatalytic converter?",
+   "options": {
+    "A": "12 g of carbon and 92 g of nitrogen dioxide",
+    "B": "24 g of carbon and 92 g of nitrogen dioxide",
+    "C": "88 g of carbon dioxide and 28 g of nitrogen",
+    "D": "88 g of carbon dioxide and 56 g of nitrogen"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x058",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q36",
+    "qid": "9701_s24_13_q36"
+   },
+   "stem": "A sample of propyl ethanoate is hydrolysed by heating under reflux with aqueous NaOH. The two\norganic products of the hydrolysis are separated, purified and weighed.\nOut of the total mass of products obtained, what is the percentage by mass of each product?",
+   "options": {
+    "A": "32.4% and 67.6%",
+    "B": "38.3% and 61.7%",
+    "C": "42.3% and 57.7%",
+    "D": "50.0% and 50.0%"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x059",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q39",
+    "qid": "9701_s24_13_q39"
+   },
+   "stem": "Compound X has the following properties.\n●\nWhen 0.20 mol of X undergoes complete combustion, 14.4 dm³ of carbon dioxide is\nproduced, measured under room conditions.\n●\nX reacts with 2,4-dinitrophenylhydrazine reagent to give an orange crystalline\nproduct.\n●\nX does not give a yellow precipitate with alkaline I₂(aq).\nWhat could be X?",
+   "options": {
+    "A": "hexan-3-one",
+    "B": "propanal",
+    "C": "propan-1-ol",
+    "D": "propanone"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x060",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P11 · Q3",
+    "qid": "9701_w24_11_q3"
+   },
+   "stem": "Glauber’s salt consists of crystals of hydrated sodium sulfate, Na₂SO₄•xH₂O, which can be used\nfor the manufacture of detergents.\nWhen a sample of Glauber’s salt was heated, 1.91 g of water was removed leaving 1.51 g of\nanhydrous Na₂SO₄.\nWhat is the value of x in Na₂SO₄•xH₂O?",
+   "options": {
+    "A": "1",
+    "B": "8.85",
+    "C": "10",
+    "D": "11.25"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w24_11_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x061",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P11 · Q30",
+    "qid": "9701_w24_11_q30"
+   },
+   "stem": "The structure of limonene is shown.\nlimonene\nWhat are the number of moles of carbon dioxide and water produced when a sample of limonene\nis completely combusted in oxygen?\nnumber of moles\nof carbon dioxide\nnumber of moles\nof water",
+   "options": {
+    "A": "4 3",
+    "B": "5 4",
+    "C": "5 8",
+    "D": "9 7"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w24_11_q30.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x062",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q37",
+    "qid": "9701_w24_12_q37"
+   },
+   "stem": "A sample of propanoic acid of mass 3.70 g reacts with an excess of magnesium.\nA second sample of propanoic acid of mass 3.70 g reacts with an excess of sodium.\nBoth reactions go to completion forming a gas.\nWhich row is correct?\nvolume of gas formed\nwith magnesium\nat s.t.p. / cm³\nvolume of gas formed\nwith sodium\nat s.t.p. / cm³",
+   "options": {
+    "A": "560 560",
+    "B": "560 1120",
+    "C": "1120 560",
+    "D": "1120 1120"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w24_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x063",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q12",
+    "qid": "9701_s25_11_q12"
+   },
+   "stem": "Barium dithionate, BaS₂O₆•2H₂O, is soluble in water.\nS₂O₆\n²⁻ ions slowly decompose in acidic solution.\nS₂O₆\n²⁻(aq) → SO₂(g) + SO₄\n²⁻(aq)\n3.513 g of BaS₂O₆•2H₂O is dissolved in water in a 100 cm³ volumetric flask and the solution made\nup to the mark with HCl (aq).\nAt time x min, a white precipitate of mass 0.661 g is present in the flask.\nWhat is the concentration of BaS₂O₆ in the volumetric flask at time x min?",
+   "options": {
+    "A": "0.0077 mol dm⁻³",
+    "B": "0.0090 mol dm⁻³",
+    "C": "0.077 mol dm⁻³",
+    "D": "0.090 mol dm⁻³"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x064",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q23",
+    "qid": "9701_s25_11_q23"
+   },
+   "stem": "Each mineral listed behaves as a mixture of two carbonate compounds. They can be used as\nfire retardants because they decompose in the heat, producing CO₂. This gas smothers the fire.\nbarytocite, BaCa(CO₃)₂\ndolomite, CaMg(CO₃)₂\nhuntite, Mg₃Ca(CO₃)₄\nWhat is the order of effectiveness as fire retardants, from best to worst?\nbest\nworst",
+   "options": {
+    "A": "dolomite barytocite huntite",
+    "B": "dolomite huntite barytocite",
+    "C": "huntite barytocite dolomite",
+    "D": "huntite dolomite barytocite"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s25_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x065",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q11",
+    "qid": "9701_s25_12_q11"
+   },
+   "stem": "An experiment is carried out to determine the value of x in hydrated lithium hydroxide,\nLiOH•xH₂O. A sample of the solid is heated in a crucible over a Bunsen flame.\nComplete dehydration takes place; decomposition does not occur.\nmass of empty crucible / g = Q\nmass of crucible with LiOH•xH₂O / g = R\nmass of crucible and residue after heating / g = S\nWhich equation gives the correct value of x?",
+   "options": {
+    "A": "18 – R S",
+    "B": "18 – S R",
+    "C": ") – 18( ) – 23.9( Q S S R",
+    "D": ") – 18( ) – 23.9( Q S R S"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_12_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x066",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q23",
+    "qid": "9701_s25_12_q23"
+   },
+   "stem": "1.0 g of each of four different compounds of Group 2 elements are thermally decomposed. The\nresidue in each decomposition is the oxide of the Group 2 element.\nThe volume of gas produced from each reaction is measured at room conditions.\nWhich substance produces the greatest volume of gas?",
+   "options": {
+    "A": "calcium carbonate",
+    "B": "calcium nitrate",
+    "C": "strontium carbonate",
+    "D": "strontium nitrate"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x067",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P11 · Q20",
+    "qid": "9701_w25_11_q20"
+   },
+   "stem": "Equal masses of CaCO₃, Ca(NO₃)₂, BaCO₃ and Ba(NO₃)₂ are thermally decomposed. The\nvolume of gas produced in each experiment is measured under the same conditions.\nWhich compound will produce the greatest volume of gas?",
+   "options": {
+    "A": "CaCO₃",
+    "B": "Ca(NO₃)₂",
+    "C": "BaCO₃",
+    "D": "Ba(NO₃)₂"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x068",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P11 · Q39",
+    "qid": "9701_w25_11_q39"
+   },
+   "stem": "Some properties of compound X are listed.\n●\n1.0 mol X reacts with exactly 8.5 mol oxygen when completely combusted.\n●\nX does not react when heated with acidified KMnO₄.\nWhat are the possible identities of X?\nOH\n1\n2\nHO\n3\n4\nOH\nO",
+   "options": {
+    "A": "1 and 3",
+    "B": "2 and 4",
+    "C": "3 only",
+    "D": "4 only"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w25_11_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.4-x069",
+   "kcs": [
+    "9701-2.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q38",
+    "qid": "9701_w25_12_q38"
+   },
+   "stem": "Butylamine can be produced by the reaction of butanenitrile with hydrogen in the presence of a\nsuitable catalyst.\nWhich volume of hydrogen, measured at room conditions, is required to react completely with\n0.500 g of butanenitrile?",
+   "options": {
+    "A": "145 cm³",
+    "B": "174 cm³",
+    "C": "289 cm³",
+    "D": "348 cm³"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-2.4.1",
+   "front": "What is meant by a reacting mass?",
+   "back": "The mass of a substance that takes part in a reaction, found from the amount in moles given by the balanced equation and the relative formula mass: $m = n \\times M_r$."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-2.4.1",
+   "front": "Define percentage yield.",
+   "back": "Percentage yield $=\\dfrac{\\text{actual amount (or mass) of product}}{\\text{theoretical amount (or mass) of product}} \\times 100$, where the theoretical value is calculated from the limiting reagent and the balanced equation."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-2.4.1",
+   "front": "Define the limiting reagent.",
+   "back": "The reactant that is completely used up first, so it determines the maximum amount of product; it is the reactant with the smallest value of (amount in moles / coefficient in the balanced equation). Any other reactant is in excess."
+  },
+  {
+   "id": "fc4",
+   "kc": "9701-2.4.1",
+   "front": "Define molar concentration and give its equation.",
+   "back": "The amount of solute, in mol, dissolved in $1\\ \\mathrm{dm^3}$ of solution: $c = n/V$ with $V$ in $\\mathrm{dm^3}$, so $n = cV$. Units $\\mathrm{mol\\,dm^{-3}}$."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-2.4.1",
+   "front": "State the molar gas volume at r.t.p. and how it is used.",
+   "back": "One mole of any gas occupies $24.0\\ \\mathrm{dm^3}$ at r.t.p., so $V = n \\times 24.0\\ \\mathrm{dm^3}$ (or $n \\times 24\\,000\\ \\mathrm{cm^3}$) for any gas, independent of its $M_r$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-2.4.1": {
+   "motivate": "A chemical plant is asked for 10 tonnes of fertiliser. How much of each raw material should be weighed out, how much will actually come out of the reactor, and which ingredient will run out first? One calculation answers all three.",
+   "establish": "Every calculation in this syllabus point runs through the **amount in moles**. Three ways in: a mass gives $n = m/M_r$; a solution gives $n = cV$ with $V$ in $\\mathrm{dm^3}$; a gas at r.t.p. gives $n = V/24.0$, because one mole of any gas occupies $24.0\\ \\mathrm{dm^3\\,mol^{-1}}$ whatever its $M_r$. The balanced equation then converts the amount of one substance into the amount of another: multiply by (coefficient of what you want) ÷ (coefficient of what you have). Finally convert back the same three ways. When you are given amounts of **two** reactants, divide each amount by its coefficient; the smallest quotient is the **limiting reagent**, which is used up first and fixes every product amount, and the other reactant is **in excess**. The theoretical amount of product calculated this way is the benchmark for **percentage yield**, the actual amount divided by the theoretical amount, times 100. Running the chain backwards instead lets you deduce an unknown formula or an unknown reacting ratio from measured masses and volumes. Keep only the significant figures the data justify.",
+   "connect": "This builds directly on the mole and $N_A$ from 2.2 and on balancing equations from 2.3; it becomes the engine for titration work, for $pV = nRT$ in 4.1, and for yields in every organic synthesis later in the course.",
+   "note": "- $n = m/M_r$, $n = cV$ ($V$ in $\\mathrm{dm^3}$), $n = V/24.0$ at r.t.p.\n- Cross the balanced equation using the ratio of coefficients.\n- Limiting reagent: smallest (moles ÷ coefficient); it fixes all product amounts.\n- Percentage yield $=$ actual ÷ theoretical $\\times\\ 100$.\n- Gas volumes at the same temperature and pressure are in the same ratio as moles.\n- Water condenses at room conditions, so it is not part of a final gas volume there.",
+   "self_explain": "Two reactants are given as masses. Why is it not enough to compare their amounts in moles to find which one runs out first?",
+   "discover": {
+    "stem": "0.050 mol of $\\ce{CH4}$ is mixed with 0.075 mol of steam and they react: $\\ce{CH4(g) + 2H2O(g) -> CO2(g) + 4H2(g)}$. Which reactant is used up?",
+    "options": {
+     "A": "methane, because there is less of it in moles",
+     "B": "steam, because 0.050 mol of methane would need 0.100 mol of steam",
+     "C": "neither, because they are in the ratio given by the equation",
+     "D": "both, because the amounts differ by a factor of 1.5"
+    },
+    "answer": "B",
+    "explanation": "Divide by the coefficients: $0.050/1 = 0.050$ for methane but $0.075/2 = 0.038$ for steam, so the steam is limiting. Having more moles does not protect a reactant that is needed in a larger ratio."
+   },
+   "source": "pack"
+  }
+ }
+}

@@ -1,0 +1,633 @@
+{
+ "sub": "9701-2.4",
+ "stage": "ready",
+ "created": "2026-10-01T18:36:41+08:00",
+ "updated": "2026-10-02T22:24:01+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T18:37:18+08:00",
+   "from": "draft",
+   "to": "draft",
+   "note": "drafter failed (exit 1); see foundry/logs/9701-2.4.drafter.1001-183711.log"
+  },
+  {
+   "t": "2026-10-02T22:08:51+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 92 items"
+  },
+  {
+   "t": "2026-10-02T22:16:56+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "57 agreed, 35 disputed"
+  },
+  {
+   "t": "2026-10-02T22:18:55+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-02T22:21:26+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-02T22:23:08+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-02T22:23:47+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "1 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-02T22:24:01+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 92,
+  "extra": 69
+ },
+ "disputes": [
+  {
+   "id": "9701-2.4-p03",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-p04",
+   "key": "D",
+   "solver": "B",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-p05",
+   "key": "C",
+   "solver": "B",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-p07",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-p08",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-p10",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-p12",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-i02",
+   "key": {
+    "unit": "%",
+    "sf_ok": [
+     2,
+     3
+    ],
+    "value": 66.66666666666666
+   },
+   "solver": "65.2%",
+   "tiebreak": "66.7%",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-i05",
+   "key": "C",
+   "solver": "7.20 dm^3",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x001",
+   "key": "D",
+   "solver": "B",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x002",
+   "key": "A",
+   "solver": "1 and 3",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x003",
+   "key": "C",
+   "solver": "B",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x005",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x006",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x007",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x008",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x012",
+   "key": "C",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x014",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x015",
+   "key": "D",
+   "solver": "B",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x016",
+   "key": "C",
+   "solver": "B",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x018",
+   "key": "A",
+   "solver": "1 and 3",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x021",
+   "key": "D",
+   "solver": "A",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x022",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x024",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x028",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x029",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "fix: Key D is correct and must not change. 9701-2.4-x029 is a past-paper extra, so do not edit the pack item: add the key \"9701_s22_11_q24\" to build/work/mcq/overrides.json with one field, \"explanation\", set to the text below, then run `.venv/bin/python build/add_past.py build/out/packs/9701/9701-2.4.json`. Set no other field (answer, stem and options stay exactly as they are). explanation = \"5.6 g CO is 5.6/28.0 = 0.200 mol. In a catalytic converter CO reduces NO: 2CO + 2NO -> 2CO2 + N2, so the CO:CO2 ratio is 1:1 but the CO:N2 ratio is 2:1. That gives 0.200 mol CO2 = 0.200 x 44.0 = 8.8 g and 0.100 mol N2 = 0.100 x 28.0 = 2.8 g, which is D. C is the trap: it takes 1:1 for the nitrogen too (0.100 mol N2 halved to 0.050 mol, 1.4 g). A and B are wrong because NO is the oxidising agent here, so carbon is not deposited and NO2 is not formed.\""
+  },
+  {
+   "id": "9701-2.4-x030",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x032",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x034",
+   "key": "C",
+   "solver": "B",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x035",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x036",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x037",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x039",
+   "key": "C",
+   "solver": "B",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x047",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-2.4-x050",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [
+  {
+   "ref": "9701-2.4-x029",
+   "instruction": "Key D is correct and must not change. 9701-2.4-x029 is a past-paper extra, so do not edit the pack item: add the key \"9701_s22_11_q24\" to build/work/mcq/overrides.json with one field, \"explanation\", set to the text below, then run `.venv/bin/python build/add_past.py build/out/packs/9701/9701-2.4.json`. Set no other field (answer, stem and options stay exactly as they are). explanation = \"5.6 g CO is 5.6/28.0 = 0.200 mol. In a catalytic converter CO reduces NO: 2CO + 2NO -> 2CO2 + N2, so the CO:CO2 ratio is 1:1 but the CO:N2 ratio is 2:1. That gives 0.200 mol CO2 = 0.200 x 44.0 = 8.8 g and 0.100 mol N2 = 0.100 x 28.0 = 2.8 g, which is D. C is the trap: it takes 1:1 for the nitrogen too (0.100 mol N2 halved to 0.050 mol, 1.4 g). A and B are wrong because NO is the oxidising agent here, so carbon is not deposited and NO2 is not formed.\"",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 47684,
+   "provider": "claude",
+   "model": "opus/low",
+   "rung": 0,
+   "started": "2026-10-02T21:59:24+08:00",
+   "log": "foundry/logs/9701-2.4.drafter.1002-215924.log",
+   "out": "foundry/logs/9701-2.4.drafter.1002-215924.out.json",
+   "finished": "2026-10-02T22:08:51+08:00",
+   "exit": 0,
+   "report": {
+    "concerns": [
+     "12 of the 97 bank questions tagged to 9701-2.4.1 have OCR-scrambled options (an empty option letter with the others shifted/reversed), so the official key no longer matches the option text: 9701_s23_12_q23, 9701_s23_11_q13, 9701_s19_12_q39, 9701_w23_12_q8, 9701_w23_12_q4 and 7 others. I excluded them from the 12 chosen past items and used clean questions instead, but they are still in the auto-appended extra bank and a checker should decide whether add_past.py ought to skip entries whose options are incomplete.",
+     "Three of the bundle's highlighted examiner-comment questions were among the scrambled set. Their teaching content is preserved indirectly: ER 9701 s23 P11 Q13 sources misconception m1, ER 9701 s19 P12 Q39 sources m3, and the s23 P12 Q23 fertiliser point became generated item i07 (percentage N in ammonium sulfate, 21.2%). Worth confirming that is adequate cover for part (a) of the syllabus statement.",
+     "Two past items I kept have a primary KC elsewhere (9701_s22_13_q12 is mainly 6.1.2 redox; 9701_w25_12_q21 is mainly 11.4.1). I tagged both with the secondary KC as the bundle does. They are genuinely good stoichiometric-chain questions but a checker may judge them off-topic for 2.4.",
+     "In generated MCQ i05 only the 12.00 dm^3 option is mapped to a misconception (m5, water counted as gas); the 3.60 and 13.20 options are mapped to m4 / left unmapped because they encode arithmetic slips rather than documented misconceptions.",
+     "No diagrams were requested or rendered. The subtopic is purely procedural and the note uses display maths rather than figures; nothing in build/diagrams.py fits a mole-calculation flow, so the method is given as numbered steps instead."
+    ],
+    "items": 92,
+    "lint_ok": true,
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/02 Atoms, molecules and stoichiometry/2.4 Reacting masses and volumes (of solutions and gases).md",
+    "pack_path": "build/out/packs/9701/9701-2.4.json",
+    "templates": 3,
+    "validator_ok": true,
+    "worked": 2
+   },
+   "ok": true,
+   "cost_usd": 2.886
+  },
+  "solver#1": {
+   "pid": 53806,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-02T22:13:37+08:00",
+   "log": "foundry/logs/9701-2.4.solver-1.1002-221337.log",
+   "out": "foundry/logs/9701-2.4.solver-1.1002-221337.out.json",
+   "expects": "build/work/blind/9701-2.4.answers.part1.json",
+   "finished": "2026-10-02T22:14:21+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [9701-2.4.answers.part1.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-2.4.answers.part1.json)."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 53808,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-02T22:13:37+08:00",
+   "log": "foundry/logs/9701-2.4.solver-2.1002-221337.log",
+   "out": "foundry/logs/9701-2.4.solver-2.1002-221337.out.json",
+   "expects": "build/work/blind/9701-2.4.answers.part2.json",
+   "finished": "2026-10-02T22:14:33+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote [9701-2.4.answers.part2.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-2.4.answers.part2.json)."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 53813,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-02T22:13:37+08:00",
+   "log": "foundry/logs/9701-2.4.solver-3.1002-221337.log",
+   "out": "foundry/logs/9701-2.4.solver-3.1002-221337.out.json",
+   "expects": "build/work/blind/9701-2.4.answers.part3.json",
+   "finished": "2026-10-02T22:14:52+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-2.4.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 52516,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-02T22:11:06+08:00",
+   "log": "foundry/logs/9701-2.4.checker.1002-221106.log",
+   "out": "foundry/logs/9701-2.4.checker.1002-221106.out.json",
+   "expects": "build/work/foundry/9701-2.4.check.json",
+   "finished": "2026-10-02T22:13:33+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings: build/work/foundry/9701-2.4.check.json"
+   },
+   "ok": true,
+   "cost_usd": 0.238
+  },
+  "solver#4": {
+   "pid": 54859,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-02T22:14:56+08:00",
+   "log": "foundry/logs/9701-2.4.solver-4.1002-221456.log",
+   "out": "foundry/logs/9701-2.4.solver-4.1002-221456.out.json",
+   "expects": "build/work/blind/9701-2.4.answers.part4.json",
+   "finished": "2026-10-02T22:16:05+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions. Wrote [9701-2.4.answers.part4.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-2.4.answers.part4.json)."
+   },
+   "ok": true
+  },
+  "solver#5": {
+   "pid": 54861,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-02T22:14:56+08:00",
+   "log": "foundry/logs/9701-2.4.solver-5.1002-221456.log",
+   "out": "foundry/logs/9701-2.4.solver-5.1002-221456.out.json",
+   "expects": "build/work/blind/9701-2.4.answers.part5.json",
+   "finished": "2026-10-02T22:16:54+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 12 questions and wrote [9701-2.4.answers.part5.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-2.4.answers.part5.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 55816,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-02T22:16:56+08:00",
+   "log": "foundry/logs/9701-2.4.tiebreak.1002-221656.log",
+   "out": "foundry/logs/9701-2.4.tiebreak.1002-221656.out.json",
+   "expects": "build/work/blind/9701-2.4.tiebreak.json",
+   "finished": "2026-10-02T22:18:52+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 35,
+    "answers_path": "build/work/blind/9701-2.4.tiebreak.json",
+    "notes": [
+     "9701-2.4-x030: At s.t.p., water condenses; I counted only CO₂ as gas."
+    ]
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 57434,
+   "provider": "claude",
+   "model": "opus/medium",
+   "rung": 0,
+   "started": "2026-10-02T22:20:38+08:00",
+   "log": "foundry/logs/9701-2.4.adjudicator.1002-222038.log",
+   "out": "foundry/logs/9701-2.4.adjudicator.1002-222038.out.json",
+   "finished": "2026-10-02T22:22:13+08:00",
+   "exit": 0,
+   "report": {
+    "text": "One open item, no checker findings. Chapter is now at stage `fix` with one fix queued.\n\n`9701-2.4-x029` **fix**: official key D stands (0.200 mol CO → 8.8 g CO₂ + 0.100 mol N₂ = 2.8 g); both solvers fell for C, so add the 2 : 1 CO : N₂ trap explanation via `overrides.json` under `9701_s22_11_q24`.\n\nTwo notes on what I did beyond the bare verdict: the item is a past-paper extra, so the recorded instruction routes the change to `build/work/mcq/overrides.json` (explanation field only) rather than the pack, and I amended that instruction in `foundry/state/9701-2.4.json` after recording it, because my first wording named the pack item and `resolve` has no amend command. Nothing else in the state file was touched."
+   },
+   "ok": true,
+   "cost_usd": 0.397
+  },
+  "fixer": {
+   "pid": 58153,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-02T22:22:21+08:00",
+   "log": "foundry/logs/9701-2.4.fixer.1002-222221.log",
+   "out": "foundry/logs/9701-2.4.fixer.1002-222221.out.json",
+   "finished": "2026-10-02T22:23:08+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 0.071
+  },
+  "solver": {
+   "pid": 58509,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-02T22:23:12+08:00",
+   "log": "foundry/logs/9701-2.4.solver.1002-222312.log",
+   "out": "foundry/logs/9701-2.4.solver.1002-222312.out.json",
+   "expects": "build/work/blind/9701-2.4.recheck.answers.json",
+   "finished": "2026-10-02T22:23:45+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question; wrote `build/work/blind/9701-2.4.recheck.answers.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_11_q12": "9701-2.4-x001",
+  "9701_s19_12_q39": "9701-2.4-x002",
+  "9701_s19_13_q17": "9701-2.4-x003",
+  "9701_s19_13_q19": "9701-2.4-x004",
+  "9701_w19_11_q14": "9701-2.4-x005",
+  "9701_w19_12_q2": "9701-2.4-x006",
+  "9701_w19_12_q25": "9701-2.4-x007",
+  "9701_s20_11_q4": "9701-2.4-x008",
+  "9701_s20_11_q11": "9701-2.4-x009",
+  "9701_s20_11_q13": "9701-2.4-x010",
+  "9701_s20_11_q17": "9701-2.4-x011",
+  "9701_s20_12_q2": "9701-2.4-x012",
+  "9701_s20_12_q6": "9701-2.4-x013",
+  "9701_s20_12_q9": "9701-2.4-x014",
+  "9701_s20_12_q13": "9701-2.4-x015",
+  "9701_s20_13_q22": "9701-2.4-x016",
+  "9701_s20_13_q29": "9701-2.4-x017",
+  "9701_s20_13_q31": "9701-2.4-x018",
+  "9701_w20_11_q2": "9701-2.4-x019",
+  "9701_w20_12_q2": "9701-2.4-x020",
+  "9701_w20_12_q5": "9701-2.4-x021",
+  "9701_w20_12_q19": "9701-2.4-x022",
+  "9701_s21_11_q6": "9701-2.4-x023",
+  "9701_s21_11_q19": "9701-2.4-x024",
+  "9701_s21_13_q2": "9701-2.4-x025",
+  "9701_w21_11_q2": "9701-2.4-x026",
+  "9701_s22_11_q16": "9701-2.4-x027",
+  "9701_s22_11_q19": "9701-2.4-x028",
+  "9701_s22_11_q24": "9701-2.4-x029",
+  "9701_s22_11_q33": "9701-2.4-x030",
+  "9701_s22_12_q38": "9701-2.4-x031",
+  "9701_s22_13_q8": "9701-2.4-x032",
+  "9701_s22_13_q21": "9701-2.4-x033",
+  "9701_w22_11_q2": "9701-2.4-x034",
+  "9701_w22_11_q8": "9701-2.4-x035",
+  "9701_w22_12_q2": "9701-2.4-x036",
+  "9701_w22_12_q4": "9701-2.4-x037",
+  "9701_w22_12_q33": "9701-2.4-x038",
+  "9701_w22_13_q2": "9701-2.4-x039",
+  "9701_s23_11_q13": "9701-2.4-x040",
+  "9701_s23_11_q26": "9701-2.4-x041",
+  "9701_s23_12_q4": "9701-2.4-x042",
+  "9701_s23_12_q5": "9701-2.4-x043",
+  "9701_s23_12_q23": "9701-2.4-x044",
+  "9701_s23_13_q3": "9701-2.4-x045",
+  "9701_s23_13_q11": "9701-2.4-x046",
+  "9701_w23_11_q4": "9701-2.4-x047",
+  "9701_w23_12_q4": "9701-2.4-x048",
+  "9701_w23_12_q8": "9701-2.4-x049",
+  "9701_w23_13_q4": "9701-2.4-x050",
+  "9701_s24_11_q1": "9701-2.4-x051",
+  "9701_s24_11_q2": "9701-2.4-x052",
+  "9701_s24_11_q20": "9701-2.4-x053",
+  "9701_s24_12_q34": "9701-2.4-x054",
+  "9701_s24_13_q1": "9701-2.4-x055",
+  "9701_s24_13_q19": "9701-2.4-x056",
+  "9701_s24_13_q24": "9701-2.4-x057",
+  "9701_s24_13_q36": "9701-2.4-x058",
+  "9701_s24_13_q39": "9701-2.4-x059",
+  "9701_w24_11_q3": "9701-2.4-x060",
+  "9701_w24_11_q30": "9701-2.4-x061",
+  "9701_w24_12_q37": "9701-2.4-x062",
+  "9701_s25_11_q12": "9701-2.4-x063",
+  "9701_s25_11_q23": "9701-2.4-x064",
+  "9701_s25_12_q11": "9701-2.4-x065",
+  "9701_s25_12_q23": "9701-2.4-x066",
+  "9701_w25_11_q20": "9701-2.4-x067",
+  "9701_w25_11_q39": "9701-2.4-x068",
+  "9701_w25_12_q38": "9701-2.4-x069"
+ },
+ "maker": "claude",
+ "checked": true
+}
