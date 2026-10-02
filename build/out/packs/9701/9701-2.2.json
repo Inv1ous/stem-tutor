@@ -1,0 +1,504 @@
+{
+ "subtopic": "9701-2.2",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/02 Atoms, molecules and stoichiometry/2.2 The mole and the Avogadro constant.md",
+ "outline": "The mole is an amount of substance containing $6.02\\times10^{23}$ specified entities. Use $N=nN_A$ and $n=N/N_A$. Always name the entity being counted. To count atoms within molecules or ions within formula units, multiply by the number of the named entities per formula.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-2.2.1",
+   "statement": "A mole is a mass of substance.",
+   "refutation": "The mole counts specified entities; their mass depends on molar mass.",
+   "contrast": "One mole of any specified entities contains the same number of them.",
+   "source": "ER 9701 s21 P21 Q1"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-2.2.1",
+   "statement": "One mole of molecules contains one mole of atoms.",
+   "refutation": "Multiply by atoms per molecule: one mole of methane contains five moles of atoms.",
+   "contrast": "Count molecules first, then count the atoms in each molecule.",
+   "source": "ER 9701 w21 P12 Q2"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-2.2.1",
+   "statement": "A formula unit of an ionic compound is one ion.",
+   "refutation": "A formula unit of KCl contains two ions.",
+   "contrast": "The named entity determines the count.",
+   "source": "ER 9701 w22 P13 Q1"
+  }
+ ],
+ "worked": [],
+ "items": [
+  {
+   "id": "9701-2.2-i01",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the number of atoms in 0.250 mol of neon.",
+   "marks": 1,
+   "answer": {
+    "value": 1.505e+23,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Each mole contains $6.02\\times10^{23}$ atoms, so multiply the amount by $N_A$.",
+   "hints": [
+    "Identify the specified entities.",
+    "Use the relationship between amount and particle number.",
+    "Write $N=nN_A$ or $n=N/N_A$ before substituting."
+   ],
+   "distractors": [
+    {
+     "value": 3.01e+23,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "9701-2.2-i02",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the amount, in mol, of $1.204\\times10^{24}$ water molecules.",
+   "marks": 1,
+   "answer": {
+    "value": 2.0,
+    "unit": "mol",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Divide the number of molecules by the Avogadro constant.",
+   "hints": [
+    "Identify the specified entities.",
+    "Use the relationship between amount and particle number.",
+    "Write $N=nN_A$ or $n=N/N_A$ before substituting."
+   ]
+  },
+  {
+   "id": "9701-2.2-i03",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the number of hydrogen atoms in 0.300 mol of water molecules.",
+   "marks": 1,
+   "answer": {
+    "value": 3.612e+23,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Each water molecule has two hydrogen atoms, so multiply the number of molecules by two.",
+   "hints": [
+    "Identify the specified entities.",
+    "Use the relationship between amount and particle number.",
+    "Write $N=nN_A$ or $n=N/N_A$ before substituting."
+   ],
+   "distractors": [
+    {
+     "value": 1.806e+23,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "9701-2.2-i04",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the number of ions in 0.150 mol of sodium chloride formula units.",
+   "marks": 1,
+   "answer": {
+    "value": 1.806e+23,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Each formula unit gives one sodium ion and one chloride ion.",
+   "hints": [
+    "Identify the specified entities.",
+    "Use the relationship between amount and particle number.",
+    "Write $N=nN_A$ or $n=N/N_A$ before substituting."
+   ],
+   "distractors": [
+    {
+     "value": 9.03e+22,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "9701-2.2-i05",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define the mole in terms of the Avogadro constant.",
+   "marks": 1,
+   "answer": null,
+   "explanation": "One mole contains $6.02\\times10^{23}$ specified elementary entities.",
+   "hints": [
+    "Identify the specified entities.",
+    "Use the relationship between amount and particle number.",
+    "Write $N=nN_A$ or $n=N/N_A$ before substituting."
+   ],
+   "rubric": [
+    {
+     "point": "One mole is the amount of substance containing $6.02\\times10^{23}$ specified entities.",
+     "keywords": [
+      [
+       "6.02"
+      ],
+      [
+       "10",
+       "23"
+      ],
+      [
+       "entities",
+       "particles",
+       "atoms",
+       "molecules",
+       "ions"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-2.2-i06",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the number of oxygen atoms in 0.400 mol of $\\ce{CO2}$ molecules.",
+   "marks": 1,
+   "answer": {
+    "value": 4.816e+23,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "There are two oxygen atoms per carbon dioxide molecule.",
+   "hints": [
+    "Identify the specified entities.",
+    "Use the relationship between amount and particle number.",
+    "Write $N=nN_A$ or $n=N/N_A$ before substituting."
+   ],
+   "distractors": [
+    {
+     "value": 2.408e+23,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "9701-2.2-p01",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q1",
+    "qid": "9701_w22_13_q1"
+   },
+   "stem": "Which sample contains the same number of the named species as the number of molecules in\n35.5 g of chlorine?",
+   "options": {
+    "A": "atoms in 16 g of sulfur",
+    "B": "atoms in 23 g of sodium",
+    "C": "ions in 74.5 g of potassium chloride",
+    "D": "molecules in 88 g of carbon dioxide"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Chlorine molecules and sulfur atoms are each 0.50 mol. Option B is 1.0 mol of sodium atoms.",
+   "distractors": {
+    "B": "m1",
+    "C": "m3"
+   }
+  },
+  {
+   "id": "9701-2.2-p02",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q2",
+    "qid": "9701_w21_12_q2"
+   },
+   "stem": "Which statement is correct?",
+   "options": {
+    "A": "1.0 g of hydrogen gas contains 3.0 × 10²³ atoms.",
+    "B": "4.0 g of helium gas contains 1.2 × 10²⁴ atoms.",
+    "C": "16 g of methane gas contains 3.0 × 10²⁴ atoms.",
+    "D": "44 g of carbon dioxide gas contains 6.0 × 10²³ atoms."
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "One mole of methane contains five moles of atoms. Option D counts carbon dioxide molecules rather than its three atoms per molecule.",
+   "distractors": {
+    "D": "m2"
+   }
+  },
+  {
+   "id": "9701-2.2-p03",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P13 · Q2",
+    "qid": "9701_w19_13_q2"
+   },
+   "stem": "Diamond is a pure form of carbon. The mass of a diamond can be measured in carats. One carat\nis 0.200 g of carbon.\nWhich expression gives the number of carats that contain 6.02 × 10²³ carbon atoms?",
+   "options": {
+    "A": "0.200 × 12.0",
+    "B": "0 . 12 200 . 0",
+    "C": "200 . 0 0 . 12",
+    "D": "23 10 6.02 0.200 × × 12.0"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "One mole of carbon has mass 12.0 g, which is 60 carats. Option B reverses the mass-to-carat conversion.",
+   "image": "Assets/mcq/9701_w19_13_q2.png"
+  },
+  {
+   "id": "9701-2.2-p04",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q3",
+    "qid": "9701_w25_13_q3"
+   },
+   "stem": "What contains 9.03 × 10²³ oxygen atoms?",
+   "options": {
+    "A": "0.25 mol aluminium oxide",
+    "B": "0.75 mol sulfur dioxide",
+    "C": "1.5 mol sulfur trioxide",
+    "D": "3.0 mol water"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "0.75 mol of sulfur dioxide has 1.50 mol of oxygen atoms. The other options give different oxygen-atom amounts."
+  },
+  {
+   "id": "9701-2.2-p05",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q4",
+    "qid": "9701_w24_13_q4"
+   },
+   "stem": "What contains the greatest number of the named particles?",
+   "options": {
+    "A": "6.0 dm³ of argon atoms at room conditions",
+    "B": "6.0 g of carbon dioxide molecules",
+    "C": "6.0 g of magnesium atoms",
+    "D": "6.0 g of water molecules"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Compare moles of the named particles; 6.0 g of water gives one third of a mole, the greatest amount. The argon sample gives one quarter of a mole."
+  },
+  {
+   "id": "9701-2.2-p06",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q2",
+    "qid": "9701_s24_13_q2"
+   },
+   "stem": "Which of these samples of gas contains the same number of atoms as 1 g of hydrogen gas?",
+   "options": {
+    "A": "22 g of carbon dioxide (Mr: CO₂, 44)",
+    "B": "8 g of methane (Mr: CH₄, 16)",
+    "C": "20 g of neon (Mr: Ne, 20)",
+    "D": "8 g of ozone (Mr: O₃, 48)"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "One gram of hydrogen gas has one mole of atoms; 20 g of neon is one mole of atoms. Carbon dioxide has three atoms per molecule, so option A gives 1.5 mol of atoms.",
+   "image": "Assets/mcq/9701_s24_13_q2.png"
+  },
+  {
+   "id": "9701-2.2-p07",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q2",
+    "qid": "9701_s24_12_q2"
+   },
+   "stem": "How many molecules are present in 62 g of solid white phosphorus, P₄?",
+   "options": {
+    "A": "L",
+    "B": "2L",
+    "C": "L",
+    "D": "4 L"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "62 g of $\\ce{P4}$ is 0.5 mol of molecules, so it contains half the Avogadro number of molecules. Counting phosphorus atoms instead gives four times as many entities.",
+   "image": "Assets/mcq/9701_s24_12_q2.png"
+  },
+  {
+   "id": "9701-2.2-p08",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q1",
+    "qid": "9701_s21_12_q1"
+   },
+   "stem": "Which statement about the Avogadro constant is correct?",
+   "options": {
+    "A": "It is the mass of one mole of any element.",
+    "B": "It is the mass of 6.02 × 10²³ atoms of any element.",
+    "C": "It is the number of atoms in one mole of neon.",
+    "D": "It is the number of atoms in 12 g of any element."
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The Avogadro constant counts specified entities in one mole; neon is monatomic. Option B describes a mass that varies with the element."
+  },
+  {
+   "id": "9701-2.2-p09",
+   "kcs": [
+    "9701-2.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q1",
+    "qid": "9701_s21_11_q1"
+   },
+   "stem": "Which contains the largest number of hydrogen atoms?",
+   "options": {
+    "A": "0.10 mol of pentane",
+    "B": "0.20 mol of but-2-ene",
+    "C": "1.00 mol of hydrogen molecules",
+    "D": "6.02 × 10²³ hydrogen atoms"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "One mole of hydrogen molecules contains two moles of hydrogen atoms. Pentane and but-2-ene supply fewer; option D supplies one mole of atoms."
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-2.2.1",
+   "front": "Define one mole in terms of the Avogadro constant.",
+   "back": "One mole is the amount of substance containing $6.02\\times10^{23}$ specified elementary entities."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-2.2.1",
+   "front": "State the value and unit of the Avogadro constant.",
+   "back": "$N_A=6.02\\times10^{23}\\ \\mathrm{mol^{-1}}$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-2.2.1": {
+   "motivate": "A tiny sample contains far too many particles to count one by one. The mole lets you count them by measuring an amount of substance, provided you say which particles you mean.",
+   "establish": "One mole is the amount of substance containing $6.02\\times10^{23}$ specified elementary entities. The Avogadro constant is $N_A=6.02\\times10^{23}\\ \\mathrm{mol^{-1}}$. The entities can be atoms, molecules, ions or formula units. If $n$ is the amount in mol and $N$ is the number of specified entities, $N=nN_A$ and $n=N/N_A$. First name the entity being counted. For example, one mole of $\\ce{H2O}$ molecules contains two moles of hydrogen atoms and one mole of oxygen atoms; one mole of $\\ce{NaCl}$ formula units contains two moles of ions in total. Multiply by the number of named atoms or ions per molecule or formula unit when the question asks for those entities. A mole fixes a count, while mass per mole depends on the substance.",
+   "connect": "Relative atomic and molecular masses give molar masses for converting a measured mass to an amount in mol. This particle-count relationship will then support formula and reaction calculations.",
+   "note": "- One mole contains $6.02\\times10^{23}$ specified entities.\n- $N_A=6.02\\times10^{23}\\ \\mathrm{mol^{-1}}$; $N=nN_A$.\n- Name the entity, then account for atoms or ions per formula.",
+   "self_explain": "Why does one mole of $\\ce{CO2}$ molecules contain three moles of atoms but only two moles of oxygen atoms?",
+   "discover": {
+    "stem": "One mole of $\\ce{H2O}$ molecules contains how many moles of hydrogen atoms?",
+    "options": {
+     "A": "0.5 mol",
+     "B": "1 mol",
+     "C": "2 mol",
+     "D": "3 mol"
+    },
+    "answer": "C",
+    "explanation": "Each water molecule has two hydrogen atoms, so multiply the molecule amount by two."
+   },
+   "source": "pack"
+  }
+ }
+}

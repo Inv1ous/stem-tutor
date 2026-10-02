@@ -1,0 +1,142 @@
+{
+ "sub": "9701-2.2",
+ "stage": "ready",
+ "created": "2026-10-01T18:36:41+08:00",
+ "updated": "2026-10-02T22:16:55+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T18:36:50+08:00",
+   "from": "draft",
+   "to": "draft",
+   "note": "drafter failed (exit 1); see foundry/logs/9701-2.2.drafter.1001-183641.log"
+  },
+  {
+   "t": "2026-10-02T22:02:43+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 15 items"
+  },
+  {
+   "t": "2026-10-02T22:11:06+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "14 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-02T22:14:56+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 0 checker findings"
+  },
+  {
+   "t": "2026-10-02T22:16:55+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 15,
+  "extra": 0
+ },
+ "disputes": [
+  {
+   "id": "9701-2.2-p07",
+   "key": "C",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 47675,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-02T21:59:24+08:00",
+   "log": "foundry/logs/9701-2.2.drafter.1002-215924.log",
+   "out": "foundry/logs/9701-2.2.drafter.1002-215924.out.json",
+   "finished": "2026-10-02T22:02:43+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-2.2.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/02 Atoms, molecules and stoichiometry/2.2 The mole and the Avogadro constant.md",
+    "items": 15,
+    "templates": 0,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "The main set contains 9 distinct past MCQs rather than 12 because the bundle repeats questions across paper variants. Two image-based questions have garbled extracted options; check their source images before use."
+    ]
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 51390,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-02T22:08:24+08:00",
+   "log": "foundry/logs/9701-2.2.solver.1002-220824.log",
+   "out": "foundry/logs/9701-2.2.solver.1002-220824.out.json",
+   "expects": "build/work/blind/9701-2.2.answers.json",
+   "finished": "2026-10-02T22:10:26+08:00",
+   "exit": 0,
+   "report": {
+    "text": "15 questions answered. Answers written to build/work/blind/9701-2.2.answers.json."
+   },
+   "ok": true,
+   "cost_usd": 0.145
+  },
+  "checker": {
+   "pid": 51392,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-02T22:08:24+08:00",
+   "log": "foundry/logs/9701-2.2.checker.1002-220824.log",
+   "out": "foundry/logs/9701-2.2.checker.1002-220824.out.json",
+   "expects": "build/work/foundry/9701-2.2.check.json",
+   "finished": "2026-10-02T22:10:45+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings in `/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/build/work/foundry/9701-2.2.check.json`"
+   },
+   "ok": true,
+   "cost_usd": 0.143
+  },
+  "tiebreak": {
+   "pid": 53804,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 0,
+   "started": "2026-10-02T22:13:37+08:00",
+   "log": "foundry/logs/9701-2.2.tiebreak.1002-221337.log",
+   "out": "foundry/logs/9701-2.2.tiebreak.1002-221337.out.json",
+   "expects": "build/work/blind/9701-2.2.tiebreak.json",
+   "finished": "2026-10-02T22:14:05+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9701-2.2.tiebreak.json",
+    "notes": [
+     "p07: 62g P4 / 124 g/mol = 0.5 mol → L/2 molecules, answer C. Confident."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 0.129
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true
+}
