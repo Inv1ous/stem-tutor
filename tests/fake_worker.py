@@ -2,6 +2,7 @@
 """Stands in for both the `codex` and the `claude` command in the foundry tests: no AI is ever started.
 
 FAKE_FAIL=<text>   print the text and exit 1
+FAKE_REJECT=<window>  a Claude run refused because that window (five_hour, seven_day) is used up
 FAKE_COPY=<file>   copy it to the file the job is expected to write ($FOUNDRY_EXPECTS); a checker writes no findings
 FAKE_REPORT=<json> the worker's final report
 FAKE_ARGV=<file>   save the command line there
@@ -17,6 +18,12 @@ if "app-server" in args:
     sys.exit(0)
 if os.environ.get("FAKE_ARGV"):
     open(os.environ["FAKE_ARGV"], "w").write(json.dumps(args))
+if os.environ.get("FAKE_REJECT") and "exec" not in args:  # Claude refuses the run: a named window is used up
+    print(json.dumps({"type": "rate_limit_event", "rate_limit_info": {
+        "status": "rejected", "rateLimitType": os.environ["FAKE_REJECT"], "resetsAt": 4102444800}}))
+    print(json.dumps({"type": "result", "subtype": "error", "is_error": True, "total_cost_usd": 0,
+                      "result": "Claude usage limit reached."}))
+    sys.exit(1)
 if os.environ.get("FAKE_FAIL"):
     print(os.environ["FAKE_FAIL"])
     sys.exit(1)

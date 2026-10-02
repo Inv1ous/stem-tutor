@@ -12,6 +12,7 @@ blind compare), so nobody has to read a whole pack to know whether it is right.
   foundry.py next                         what to do now, per chapter (the manager's to-do list)
   foundry.py step [subtopics…]            do all of that which needs no judgement: launch, compare, sign
   foundry.py usage                        what is left of the Claude and Codex allowances; where the next job goes
+  foundry.py reading claude five_hour <percent> [reset time]   pass on a figure Claude does not report to the foundry
   foundry.py run <role> <subtopic> [--on claude|codex]   launch one headless worker (drafter, fixer, tiebreak,
                                           solver, checker, adjudicator); `codex <role> <subtopic>` forces Codex
   foundry.py dispatch <subtopic>          launch the solvers (one per shard) and the checker the chapter needs now
@@ -870,6 +871,9 @@ def usage_lines() -> list[str]:
             out.append(f"{NAMES[p]:<7} {words.get(name, name):<10} {w['used']:>3.0f}% used  {resets}{kept}")
         if not u.get(p):
             out.append(f"{NAMES[p]:<7} not known yet (it is read from the first worker that runs)")
+        elif p == "claude" and "five_hour" not in u[p]:  # a headless run is told only of the limit nearest its end
+            out.append(f"{NAMES[p]:<7} {'5 hours':<10} not reported by Claude (pass it on: foundry reading claude "
+                       "five_hour <percent> <reset time>)")
     try:
         out.append(f"next job: {NAMES[router.pick('drafter', None, u, cfg, _busy())]} (more of its week left for the "
                    "time until it resets); a chapter's blind solve goes to the one that did not draft it")
@@ -880,6 +884,18 @@ def usage_lines() -> list[str]:
 
 def cmd_usage() -> None:
     print("\n".join(usage_lines()))
+
+
+def cmd_reading(provider: str, window: str, used: str, resets: str = "") -> None:
+    """Tell the foundry a figure it cannot read itself. Claude tells a headless run about one limit only, the one
+    nearest its end, so its five-hour window is usually unknown here; the Claude app's usage card shows it:
+    `foundry.py reading claude five_hour 74 2026-10-02T17:59:59Z`."""
+    if provider != "claude":
+        raise SystemExit("only Claude's figures need passing on: Codex is asked directly")
+    when = datetime.fromisoformat(resets.replace("Z", "+00:00")).timestamp() if resets else None
+    with notes() as n:
+        router._reading(n.setdefault("claude", {}), window, float(used), when, time.time())
+    cmd_usage()
 
 
 def watch_text() -> str:
@@ -1045,6 +1061,8 @@ def main(argv: list[str]) -> None:
         cmd_step(rest)
     elif cmd == "usage":
         cmd_usage()
+    elif cmd == "reading":
+        cmd_reading(*rest)
     elif cmd == "queue":
         cmd_queue(rest[0], rest[1:])
     elif cmd == "wait":

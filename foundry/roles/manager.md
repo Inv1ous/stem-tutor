@@ -33,6 +33,12 @@ worked out again before every job. Two rules come first:
 - **Each role starts on its cheapest model** and moves up only when that fails: a chapter's retry after its own
   failed job runs one tier higher, and a tier that fails a role twice running is not used for it again.
 
+- **Claude's five-hour window is not reported to the foundry.** A headless run is told only about the limit nearest
+  its end, which is usually the weekly one. If you have a tool that shows the plan's usage (in the Claude app:
+  `get_usage`), pass the five-hour figure on before the first `step` and about every half hour:
+  `bin/foundry reading claude five_hour <percent used> <reset time, ISO>`. Without it the foundry finds out when a
+  Claude job is refused, and then keeps Claude closed until that window resets.
+
 Leave both to the foundry. To start one job yourself: `bin/foundry run <role> <chapter>`. Add `--on claude` or
 `--on codex` only if the learner asks for it.
 

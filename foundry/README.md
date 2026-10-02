@@ -29,6 +29,7 @@ and the **syllabus gate** (below).
 ```
 Codex   5 hours     29% used  resets Fri 23:01
 Codex   week        84% used  resets Wed 17:00
+Claude  5 hours     74% used  resets Sat 01:59
 Claude  week        77% used  resets Wed 14:00 (5% kept back)
 next job: Claude (more of its week left for the time until it resets); …
 ```
@@ -50,8 +51,13 @@ next job: Claude (more of its week left for the time until it resets); …
   `reserve` in `foundry/config.json` to keep more or none.
 - **How the allowances are read.** Codex reports its own figures when asked, at no cost. Claude has no such command:
   the foundry uses what Claude Code last fetched (when a session started), what each Claude worker is told as it
-  runs, and what its workers have cost since. The figure for Claude can therefore lag a little; it is corrected by
+  runs, and what its workers have cost since. The weekly figure for Claude can therefore lag a little; it is corrected by
   the next worker.
+- **Claude's five-hour window is the blind spot.** A headless run is told about one limit only, the one nearest its
+  end, which is usually the weekly one. So the foundry often does not know how full Claude's five-hour window is,
+  and `foundry usage` says "not reported". The Claude app's usage card does show it: the manager passes it on
+  (`foundry reading claude five_hour <percent> <reset time>`), and so can you. Without it the foundry finds out when
+  a Claude job is refused; it then keeps Claude closed until that window resets and gives the work to Codex.
 
 ## Following the syllabus
 

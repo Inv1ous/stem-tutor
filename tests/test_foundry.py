@@ -679,3 +679,50 @@ def test_a_solver_the_tiebreak_keeps_overturning_is_on_too_weak_a_tier(fdy):
     assert notes["misses"]["solver/codex"] == 1
     fdy.router.record(notes, fdy.config(), "solver", "codex", 0, ok=True, judge=False)  # a shard merely finishing
     assert notes["misses"]["solver/codex"] == 1  # does not clear it
+
+
+def test_a_job_refused_by_claudes_five_hour_limit_closes_claude_until_that_window_resets(fdy, tmp_path, monkeypatch):
+    """Claude tells a headless run about one limit only, the one nearest its end, so its five-hour window is often
+    unknown until a job runs into it. The refusal names the window and when it reopens."""
+    r, cfg, notes, now = fdy.router, fdy.config(), {}, time.time()
+    facts = r.claude_events(json.dumps({"type": "rate_limit_event", "rate_limit_info": {
+        "status": "rejected", "rateLimitType": "five_hour", "resetsAt": now + 3600}}))
+    assert facts["limit"] and facts["windows"]["five_hour"]["used"] == 100.0
+    r.record(notes, cfg, "drafter", "claude", 0, ok=False, limit=True, windows=facts["windows"], now=now)
+    monkeypatch.delenv("FOUNDRY_USAGE_FILE")
+    monkeypatch.setenv("FOUNDRY_CLAUDE_STATE", str(tmp_path / "none.json"))
+    fake = str(REPO / "tests/fake_worker.py")
+    seen = r.usage(notes, fake, fake, now=now + 700)["claude"]  # past the ten-minute pause: the window still has not reset
+    closed, why = r.score("claude", seen, cfg, [], now=now + 700)
+    assert closed is None and "used up until" in why
+    assert r.score("claude", seen, cfg, [], now=now + 3700)[0] is not None  # reopened at its reset
+    assert notes["misses"].get("drafter/claude", 0) == 0  # and not held against the tier
+
+
+def test_a_figure_claude_does_not_report_can_be_passed_on(fdy, tmp_path, monkeypatch, capsys):
+    """Asked by the learner: why is Claude's own five-hour window not shown? A headless run is not told it. The Claude
+    app shows it, so the manager (or the learner) passes it on, and the router then counts it."""
+    monkeypatch.delenv("FOUNDRY_USAGE_FILE")
+    monkeypatch.setenv("FOUNDRY_CLAUDE_STATE", str(tmp_path / "none.json"))
+    fake = str(REPO / "tests/fake_worker.py")
+    fdy.cmd_usage()
+    assert "5 hours    not reported by Claude" in capsys.readouterr().out
+    fdy.cmd_reading("claude", "five_hour", "74", "2099-01-01T00:00:00Z")
+    out = capsys.readouterr().out
+    assert "5 hours     74% used" in out and "not reported" not in out
+    fdy.cmd_reading("claude", "five_hour", "97", "2099-01-01T00:00:00Z")
+    with fdy.notes() as n:
+        seen = fdy.router.usage(n, fake, fake)["claude"]
+    assert fdy.router.score("claude", seen, fdy.config(), [])[0] is None  # the last few percent are kept back
+
+
+def test_a_refused_claude_worker_is_recorded_as_a_limit_not_a_failure(fdy, monkeypatch):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "draft"
+    monkeypatch.setenv("FAKE_REJECT", "five_hour")
+    fdy.cmd_run("drafter", SUB, on="claude")
+    job = finished(fdy, "drafter")
+    notes = json.loads(fdy.USAGE.read_text())
+    assert job["limit"] and not job["ok"] and notes["claude"]["windows"]["five_hour"]["used"] == 100.0
+    assert notes["misses"].get("drafter/claude", 0) == 0 and fdy.load(SUB)["stage"] == "draft"

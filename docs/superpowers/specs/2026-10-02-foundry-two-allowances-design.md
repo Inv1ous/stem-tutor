@@ -65,3 +65,13 @@ allowances and where the next job would go.
   the adjudicator for the rest.
 - Reading the Claude limits from Anthropic's servers directly: there is no documented way.
 - Changing which models the tutor app itself uses.
+
+## Correction, the same evening: Claude's five-hour window
+
+"No five-hour cap active" above was wrong. Claude Code's cache had been fetched at the moment a new five-hour window
+began, so it read 0% and not active; the Claude app's usage card showed that window at 74% ninety minutes later. A
+headless run is told about one limit only (the one nearest its end: the weekly one here), its debug log holds no
+others, and `claude -p "/usage"` prints only what the usage came from. So the foundry cannot read this window. It
+now says so (`foundry usage`), takes the figure when it is passed on (`foundry reading claude five_hour …`, which the
+manager does from the app's usage tool), and otherwise learns of it when a Claude job is refused, keeping Claude
+closed until the reset time the refusal names.

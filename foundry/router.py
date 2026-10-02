@@ -24,7 +24,7 @@ PROVIDERS = ("codex", "claude")  # when the two are level, Codex takes the job
 NAMES = {"codex": "Codex", "claude": "Claude"}
 BLIND = ("solver", "tiebreak")
 MINUTES = {"five_hour": 300, "seven_day": 10080}
-RATE = {"five_hour": 6.0, "seven_day": 1.0}  # percent of a Claude window per dollar of work, until it has been learned
+RATE = {"five_hour": 7.0, "seven_day": 1.0}  # percent of a Claude window per dollar of work, until it has been learned
 LIMIT_WORDS = ("usage limit", "rate limit", "limit reached", "session limit", "weekly limit")
 UNKNOWN = -1.0
 
