@@ -23,3 +23,15 @@ def test_the_plan_records_which_almanac_it_was_built_from(tmp_path, monkeypatch)
     assert p["source_path"] == str(alm)
     assert p["source_sha256"] == hashlib.sha256(alm.read_bytes()).hexdigest()
     assert p["weeks"]["1"][0]["kcs"]  # the objective still maps to syllabus ideas
+
+
+def test_the_launcher_opens_the_tutor_in_the_study_profile(tmp_path):
+    """Asked by the learner: the double-click launcher should open in their Terminal profile "Study"."""
+    import subprocess
+    script = publish.launcher_script()
+    assert script.startswith("#!/bin/bash\n") and script.rstrip().endswith('/bin/tutor"')
+    assert 'settings set "Study"' in script and '"$(tty)"' in script  # this window only, and only if the profile exists
+    assert "Apple_Terminal" in script  # other terminals are asked nothing
+    path = tmp_path / "Start Tutor.command"
+    path.write_text(script)
+    assert subprocess.run(["bash", "-n", str(path)]).returncode == 0  # the shell can read it

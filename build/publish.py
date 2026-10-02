@@ -19,6 +19,30 @@ DEFAULT_VAULT = ROOT.parent / "STEM Tutor"  # local vault (moved out of iCloud 2
 FOLDERS = ["Subjects", "Assets", "Sessions", "Lessons", "My Notes", "Inbox", "Inbox/Marked", "Anki", "Almanac", "Papers"]
 
 
+PROFILE = "Study"  # the learner's Terminal profile for the tutor: its title bar shows the name only, its colours match
+
+# Terminal opens a .command file in its default profile. This moves the launcher's own window (found by its tty) to
+# the tutor's profile; with no such profile, or in another terminal, nothing happens.
+SWITCH_PROFILE = f'''on run argv
+    tell application "Terminal"
+        if not (exists settings set "{PROFILE}") then return
+        repeat with w in windows
+            repeat with t in tabs of w
+                if tty of t is (item 1 of argv) then set current settings of t to settings set "{PROFILE}"
+            end repeat
+        end repeat
+    end tell
+end run'''
+
+
+def launcher_script() -> str:
+    return ("#!/bin/bash\n# Opens the STEM Tutor terminal app in a roomy Terminal window.\n"
+            '[ "$TERM_PROGRAM" = "Apple_Terminal" ] && osascript - "$(tty)" >/dev/null 2>&1 <<\'APPLESCRIPT\'\n'
+            f"{SWITCH_PROFILE}\nAPPLESCRIPT\n"
+            "printf '\\e[8;46;140t'\n"
+            f'exec "{ROOT / "bin" / "tutor"}"\n')
+
+
 def publish(vault: Path) -> dict:
     tutor = vault / ".tutor"
     for f in FOLDERS:
@@ -65,9 +89,7 @@ def publish(vault: Path) -> dict:
     shutil.rmtree(engine, ignore_errors=True)
     shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", engine, ignore=shutil.ignore_patterns("__pycache__"))
     launcher = vault / "Start Tutor.command"  # double-click in Finder to open the terminal app
-    launcher.write_text("#!/bin/bash\n# Opens the STEM Tutor terminal app in a roomy Terminal window.\n"
-                        "printf '\\e[8;46;140t'\n"
-                        f'exec "{ROOT / "bin" / "tutor"}"\n')
+    launcher.write_text(launcher_script())
     launcher.chmod(0o755)
     (packs / "CURRENT").write_text(version)  # flip last
     prune_versions(packs, version)
