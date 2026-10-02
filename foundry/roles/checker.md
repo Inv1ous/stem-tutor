@@ -1,4 +1,4 @@
-# Checker (Claude Haiku subagent)
+# Checker
 
 You check one chapter against a short, fixed list of rules. Report only what breaks a rule, with evidence. Zero
 findings is a good result; a finding without a quoted piece of evidence is not allowed.

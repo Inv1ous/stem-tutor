@@ -1,4 +1,5 @@
-"""The content foundry's board, gates and hand-offs, on a scratch copy of the build tree with a fake Codex."""
+"""The content foundry's board, gates, hand-offs and its split of work between the Claude and Codex allowances, on a
+scratch copy of the build tree. The workers are fakes: no AI is started and the learner's real usage is never read."""
 import importlib
 import json
 import sys
@@ -35,9 +36,34 @@ def fdy(tmp_path, monkeypatch):
     monkeypatch.setenv("FOUNDRY_NOTIFY", "0")  # no Mac notifications from tests
     monkeypatch.setenv("FOUNDRY_PUBLISH", "0")  # never publish into the real vault from tests
     monkeypatch.setenv("FOUNDRY_COMMIT", "0")
+    fake = str(REPO / "tests/fake_worker.py")
+    monkeypatch.setenv("FOUNDRY_CODEX", fake)
+    monkeypatch.setenv("FOUNDRY_CLAUDE", fake)
+    (tmp_path / "usage-now.json").write_text(json.dumps(usage(50, 50)))  # read instead of the real allowances
+    monkeypatch.setenv("FOUNDRY_USAGE_FILE", str(tmp_path / "usage-now.json"))
+    for name in ("FAKE_FAIL", "FAKE_COPY", "FAKE_REPORT", "FAKE_ARGV", "FAKE_UTILIZATION"):
+        monkeypatch.delenv(name, raising=False)
     sys.path.insert(0, str(REPO / "foundry"))
     import foundry
     return importlib.reload(foundry)
+
+
+def usage(claude_week, codex_week, codex_now=10, claude_days=4.0, codex_days=4.0):
+    """Both allowances as the foundry reads them: percent used, and when each window resets."""
+    now = time.time()
+    return {"claude": {"seven_day": {"used": claude_week, "resets": now + claude_days * 86400}},
+            "codex": {"five_hour": {"used": codex_now, "resets": now + 3 * 3600},
+                      "seven_day": {"used": codex_week, "resets": now + codex_days * 86400}}}
+
+
+def finished(fdy, name, tries=150):
+    """Wait until a background worker has been collected."""
+    for _ in range(tries):
+        job = fdy.load(SUB)["jobs"].get(name, {})
+        if job.get("finished"):
+            return job
+        time.sleep(0.1)
+    raise AssertionError(f"{name} was never collected: {fdy.load(SUB)['jobs']}")
 
 
 def keys(fdy):
@@ -119,30 +145,6 @@ def test_solver_prompt_is_short_and_never_includes_keys(fdy):
     assert "packs/" in fdy.role_prompt("drafter", SUB)  # only the blind roles are kept away from the keys
 
 
-def test_codex_worker_runs_in_the_background_and_is_collected(fdy, tmp_path, monkeypatch):
-    fake = tmp_path / "fake_codex.py"
-    fake.write_text("#!/usr/bin/env python3\nimport json, sys\na = sys.argv\n"
-                    "open(a[a.index('-o') + 1], 'w').write(json.dumps({'pack_path': 'p', 'note_path': 'n', 'items': 1,"
-                    " 'templates': 0, 'worked': 0, 'validator_ok': True, 'lint_ok': True, 'concerns': []}))\n")
-    fake.chmod(0o755)
-    monkeypatch.setattr(fdy, "CODEX", str(fake))
-    monkeypatch.setenv("FOUNDRY_CODEX", str(fake))
-    fdy.cmd_add([SUB], stage="draft")
-    fdy.pack_path(SUB).rename(tmp_path / "held.json")  # a new chapter: no pack yet
-    with fdy.chapter(SUB) as st:
-        st["stage"] = "draft"
-    (tmp_path / "held.json").rename(fdy.pack_path(SUB))  # the "drafter" leaves a valid pack behind
-    fdy.cmd_codex("drafter", SUB)
-    for _ in range(100):
-        if fdy.load(SUB)["stage"] != "draft":
-            break
-        time.sleep(0.1)
-    st = fdy.load(SUB)
-    assert st["stage"] == "solve" and st["jobs"]["drafter"]["exit"] == 0 and st["gates"]["ok"]
-    cmd = fdy.config()["tiers"][fdy.config()["roles"]["drafter"]][0]
-    assert st["jobs"]["drafter"]["model"].startswith(cmd)
-
-
 def test_a_big_chapter_is_split_across_parallel_solvers(fdy):
     fdy.cmd_add([SUB])
     shards = fdy.cmd_strip(SUB, size=5)
@@ -163,22 +165,6 @@ def test_a_big_chapter_is_split_across_parallel_solvers(fdy):
     assert not list(fdy.BLIND.glob(f"{SUB}.*part*.json"))
 
 
-def test_the_checker_runs_alongside_the_solvers(fdy, capsys):
-    fdy.cmd_add([SUB])
-    capsys.readouterr()
-    fdy.cmd_dispatch(SUB)
-    jobs = json.loads(capsys.readouterr().out.split("\n", 1)[1])  # after the strip line
-    assert {j["role"] for j in jobs} == {"solver", "checker"}
-    fdy.WORK.mkdir(parents=True, exist_ok=True)
-    (fdy.WORK / f"{SUB}.check.json").write_text(json.dumps({"findings": []}))  # the checker finishes first
-    fdy.cmd_compare(SUB)
-    st = fdy.load(SUB)
-    assert st["stage"] == "solve" and st["checked"]
-    (fdy.BLIND / f"{SUB}.answers.json").write_text(json.dumps(keys(fdy)))
-    fdy.cmd_compare(SUB)
-    assert fdy.load(SUB)["stage"] == "sign"  # no disputes, no findings: straight to sign-off
-
-
 def test_a_codex_job_run_by_hand_is_not_duplicated_and_reports_back(fdy):
     fdy.cmd_add([SUB])
     with fdy.chapter(SUB) as st:
@@ -187,24 +173,10 @@ def test_a_codex_job_run_by_hand_is_not_duplicated_and_reports_back(fdy):
     fdy.cmd_prompt("fixer", SUB)  # printed for pasting into the Codex app
     assert fdy._running(fdy.load(SUB)) == ["fixer"]
     with pytest.raises(SystemExit, match="already working"):
-        fdy.cmd_codex("fixer", SUB)
+        fdy.cmd_run("fixer", SUB)
     fdy.cmd_collect("fixer", SUB, "-", "0")
     st = fdy.load(SUB)
     assert fdy._running(st) == [] and st["stage"] == "sign"
-
-
-def test_dispatched_haiku_jobs_show_as_working_until_their_file_is_written(fdy, capsys):
-    fdy.cmd_add([SUB])
-    with fdy.chapter(SUB) as st:
-        st["checked"] = True  # only the solver this time
-    fdy.cmd_dispatch(SUB)
-    st = fdy.load(SUB)
-    assert fdy._haiku(st) == (["solver"], []) and "Haiku solver working (0/1 done)" in fdy.action(st)
-    assert "Haiku solver …" in fdy.watch_text()
-    (fdy.BLIND / f"{SUB}.answers.json").write_text(json.dumps(keys(fdy)))
-    assert fdy._haiku(fdy.load(SUB)) == ([], ["solver"])
-    fdy.cmd_compare(SUB)
-    assert fdy._haiku(fdy.load(SUB)) == ([], [])  # closed once compared
 
 
 def test_watch_shows_a_codex_worker_and_what_it_is_doing(fdy, tmp_path):
@@ -234,16 +206,6 @@ def test_signing_publishes_and_commits_the_chapter_at_once(fdy, monkeypatch):
     commit = [c for c in calls if "commit" in c]
     assert publish and commit
     assert any(str(x).endswith(f"{SUB}.json") for x in commit[0]) and "--" in commit[0]  # only this chapter's files
-
-
-def test_a_haiku_worker_that_never_reports_is_flagged_as_stalled(fdy):
-    fdy.cmd_add([SUB])
-    fdy.cmd_dispatch(SUB)
-    with fdy.chapter(SUB) as st:  # dispatched an hour ago; the Claude session ran out before the agents wrote anything
-        for j in st["jobs"].values():
-            j["started"] = "2020-01-01T00:00:00+08:00"
-    st = fdy.load(SUB)
-    assert fdy._stalled(st) and "re-dispatch" in fdy.action(st) and "stalled" in fdy.watch_text()
 
 
 def test_signing_commits_a_chapter_whose_figures_git_ignores(fdy, monkeypatch):
@@ -323,7 +285,7 @@ def test_next_says_compare_once_the_tiebreak_has_finished(fdy):
     fdy.cmd_add([SUB])
     with fdy.chapter(SUB) as st:
         fdy.move(st, "tiebreak", "1 disputed")
-    assert "codex tiebreak" in fdy.action(fdy.load(SUB))
+    assert "run tiebreak" in fdy.action(fdy.load(SUB))
     fdy.cmd_prompt("tiebreak", SUB)  # taken by hand: now running
     assert fdy.action(fdy.load(SUB)).startswith("wait")
     fdy.cmd_collect("tiebreak", SUB, "-")
@@ -333,15 +295,15 @@ def test_next_says_compare_once_the_tiebreak_has_finished(fdy):
 def test_queue_waits_for_a_free_slot_and_skips_a_chapter_that_cannot_start(fdy, monkeypatch):
     calls, full = [], [True, True]
 
-    def codex(role, sub):
+    def run(role, sub):
         calls.append(sub)
         if sub == "bad":
             raise SystemExit("bad: a drafter is already working on this chapter")
         if full:
             full.pop()
-            raise SystemExit("3 workers already running (max_parallel 3); try again later")
+            raise fdy.router.Wait("no allowance can take a drafter now: 3 workers already running on each")
 
-    monkeypatch.setattr(fdy, "cmd_codex", codex)
+    monkeypatch.setattr(fdy, "cmd_run", run)
     monkeypatch.setattr(fdy, "cmd_add", lambda subs, stage="draft": None)
     fdy.cmd_queue("drafter", [SUB, "bad", "next"], wait=0)
     assert calls == [SUB, SUB, SUB, "bad", "next"]  # two full houses, then started; the bad one is skipped, not retried
@@ -422,15 +384,6 @@ def test_coverage_counts_outcomes_and_says_what_to_build_next(fdy, tmp_path, cap
     assert "9702-3.1" in capsys.readouterr().out
 
 
-def test_escalate_gives_the_manager_an_opus_adjudicator_prompt(fdy, capsys):
-    fdy.cmd_add([SUB])
-    capsys.readouterr()
-    fdy.cmd_escalate(SUB)
-    job = json.loads(capsys.readouterr().out)
-    assert job["model"] == "opus" and "foundry/roles/adjudicator.md" in job["prompt"] and SUB in job["prompt"]
-    assert (REPO / "foundry/roles/adjudicator.md").exists()
-
-
 def test_install_skill_sets_sonnet_at_medium_effort(fdy, tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path / "home"))
     fdy.cmd_install_skill()
@@ -438,7 +391,7 @@ def test_install_skill_sets_sonnet_at_medium_effort(fdy, tmp_path, monkeypatch):
     assert "model: sonnet" in text and "effort: medium" in text and "foundry/roles/manager.md" in text
 
 
-def test_wait_returns_when_no_codex_worker_is_running(fdy, capsys):
+def test_wait_returns_when_no_worker_is_running(fdy, capsys):
     import os
     fdy.cmd_add([SUB])
     fdy.cmd_wait(timeout=5, every=0)  # nothing running: straight back
@@ -480,3 +433,202 @@ def test_coverage_builds_what_the_learner_has_not_ticked_off_first(fdy, tmp_path
     (vault / "Almanac/almanac-progress-2026-10-02.json").write_text(json.dumps({"done": {"3-phys1": 1}}))
     monkeypatch.setenv("STEM_TUTOR_VAULT", str(vault))
     assert fdy.coverage()["next"] == ["9702-2.2", "9702-3.1"]
+
+
+# ---------------- two allowances: who does each job, and on which one ----------------
+def test_every_role_can_run_on_either_allowance_cheapest_tier_first(fdy):
+    cfg = fdy.config()
+    assert set(cfg["ladders"]) == {"drafter", "fixer", "tiebreak", "solver", "checker", "adjudicator"}
+    for role, ladders in cfg["ladders"].items():
+        assert set(ladders) == {"claude", "codex"}, role
+        for provider, rungs in ladders.items():
+            assert len(rungs) >= 2 and all(len(r) == 2 for r in rungs), (role, provider)
+    assert cfg["ladders"]["drafter"]["claude"][0] == ["opus", "low"]  # asked by the learner: Opus at its lowest effort
+
+
+def test_work_goes_to_the_allowance_with_more_of_its_week_left(fdy):
+    """Asked by the learner: split the work so both limits run out together, whichever starts with less."""
+    pick, cfg = fdy.router.pick, fdy.config()
+    assert pick("drafter", None, usage(50, 80), cfg, {}) == "claude"
+    assert pick("drafter", None, usage(80, 50), cfg, {}) == "codex"
+    assert pick("drafter", None, usage(50, 50, codex_days=1), cfg, {}) == "codex"  # the same left, but it resets sooner
+    assert pick("drafter", None, usage(50, 20, codex_now=100), cfg, {}) == "claude"  # Codex's five hours are used up
+    assert pick("drafter", None, usage(96, 99), cfg, {}) == "codex"  # the last of Claude's week is kept for the tutor
+    with pytest.raises(fdy.router.Wait, match="used up"):
+        pick("drafter", None, usage(100, 100), cfg, {})
+
+
+def test_a_different_ai_family_checks_what_the_maker_wrote(fdy):
+    pick, cfg = fdy.router.pick, fdy.config()
+    left = usage(10, 90)  # Claude has far more left
+    assert pick("solver", "claude", left, cfg, {}) == "codex"  # but Claude wrote the chapter
+    assert pick("tiebreak", "claude", left, cfg, {}) == "codex"
+    assert pick("solver", None, left, cfg, {}) == "claude"  # an old chapter with no known maker: the usual rule
+    assert pick("fixer", "claude", left, cfg, {}) == "claude"  # only the blind roles are bound
+    with pytest.raises(fdy.router.Wait, match="Codex"):
+        pick("solver", "claude", usage(10, 100), cfg, {})  # the chapter waits for Codex rather than check itself
+
+
+def test_jobs_already_running_count_against_an_allowance(fdy):
+    pick, cfg = fdy.router.pick, fdy.config()
+    assert pick("drafter", None, usage(45, 50), cfg, {}) == "codex"  # level, with Claude's reserve: Codex by default
+    assert pick("drafter", None, usage(50, 54), cfg, {}) == "codex"  # a little more of Codex's week is left
+    assert pick("drafter", None, usage(50, 54), cfg, {"codex": ["drafter", "drafter"]}) == "claude"  # two drafts on it
+    full = {"codex": ["solver"] * cfg["max_parallel"]["codex"]}
+    assert pick("drafter", None, usage(90, 10), cfg, full) == "claude"  # no free slot on Codex
+    with pytest.raises(fdy.router.Wait, match="running"):
+        pick("drafter", None, usage(50, 50), cfg, {**full, "claude": ["solver"] * cfg["max_parallel"]["claude"]})
+
+
+def test_each_role_starts_on_its_cheapest_tier_and_climbs_only_when_that_fails(fdy):
+    """Asked by the learner: the least model that gives consistent output, for every job."""
+    r, cfg, notes = fdy.router, fdy.config(), {}
+    assert r.rung(notes, cfg, "drafter", "codex") == 0
+    r.record(notes, cfg, "drafter", "codex", 0, ok=False)
+    assert r.rung(notes, cfg, "drafter", "codex") == 0  # one failure is not a pattern
+    assert r.rung(notes, cfg, "drafter", "codex", retry=0) == 1  # though the same chapter's retry goes one up
+    r.record(notes, cfg, "drafter", "codex", 0, ok=False)
+    assert r.rung(notes, cfg, "drafter", "codex") == 1  # twice running: this tier is not enough for the role
+    assert r.rung(notes, cfg, "drafter", "claude") == 0 and r.rung(notes, cfg, "fixer", "codex") == 0
+    r.record(notes, cfg, "drafter", "codex", 1, ok=False, limit=True)
+    r.record(notes, cfg, "drafter", "codex", 1, ok=False, limit=True)
+    assert r.rung(notes, cfg, "drafter", "codex") == 1  # a usage limit says nothing about the tier
+    assert r.rung(notes, cfg, "drafter", "codex", retry=9) == len(cfg["ladders"]["drafter"]["codex"]) - 1
+
+
+def test_a_codex_worker_runs_in_the_background_and_is_collected(fdy, monkeypatch):
+    monkeypatch.setenv("FAKE_REPORT", json.dumps({"pack_path": "p", "note_path": "n", "items": 1, "templates": 0,
+                                                  "worked": 0, "validator_ok": True, "lint_ok": True, "concerns": []}))
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "draft"  # the "drafter" finds a valid pack already there
+    fdy.cmd_run("drafter", SUB, on="codex")
+    job = finished(fdy, "drafter")
+    st = fdy.load(SUB)
+    assert st["stage"] == "solve" and job["exit"] == 0 and st["gates"]["ok"]
+    model, effort = fdy.config()["ladders"]["drafter"]["codex"][0]
+    assert job["provider"] == "codex" and job["model"] == f"{model}/{effort}" and st["maker"] == "codex"
+
+
+def test_a_claude_worker_runs_lean_and_reports_what_is_left(fdy, tmp_path, monkeypatch):
+    """Opus at its lowest effort drafts in Codex's place: headless, with none of the learner's plugins or skills."""
+    monkeypatch.setenv("FAKE_ARGV", str(tmp_path / "argv.json"))
+    monkeypatch.setenv("FAKE_UTILIZATION", "0.64")
+    monkeypatch.setenv("FAKE_REPORT", json.dumps({"items": 12, "concerns": []}))
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "draft"
+    fdy.cmd_run("drafter", SUB, on="claude")
+    job = finished(fdy, "drafter")
+    st = fdy.load(SUB)
+    assert st["stage"] == "solve" and st["maker"] == "claude" and job["report"] == {"items": 12, "concerns": []}
+    argv = json.loads((tmp_path / "argv.json").read_text())
+    assert argv[argv.index("--model") + 1] == "opus" and argv[argv.index("--effort") + 1] == "low"
+    assert "--safe-mode" in argv and argv[argv.index("--setting-sources") + 1] == ""
+    assert "pack_path" in argv[argv.index("--json-schema") + 1]  # the report format the Codex drafter is held to
+    week = json.loads(fdy.USAGE.read_text())["claude"]["windows"]["seven_day"]
+    assert week["used"] == 64.0  # what the worker itself reported is now the newest reading
+
+
+def test_a_chapters_retry_goes_one_tier_up(fdy, monkeypatch):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "draft"
+    monkeypatch.setenv("FAKE_FAIL", "the model lost its way")
+    fdy.cmd_run("drafter", SUB, on="codex")
+    assert finished(fdy, "drafter")["exit"] == 1 and fdy.load(SUB)["stage"] == "draft"
+    monkeypatch.delenv("FAKE_FAIL")
+    fdy.cmd_run("drafter", SUB, on="codex")
+    assert finished(fdy, "drafter")["model"] == "/".join(fdy.config()["ladders"]["drafter"]["codex"][1])
+
+
+def test_a_usage_limit_closes_the_allowance_and_is_not_held_against_the_tier(fdy, monkeypatch):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "draft"
+    monkeypatch.setenv("FAKE_FAIL", "ERROR: You've hit your usage limit. Upgrade to Pro or try again at 8:27 PM.")
+    fdy.cmd_run("drafter", SUB, on="codex")
+    finished(fdy, "drafter")
+    monkeypatch.delenv("FAKE_FAIL")
+    fdy.cmd_run("drafter", SUB)  # the router's own choice: level allowances would mean Codex
+    job = finished(fdy, "drafter")
+    assert job["provider"] == "claude" and job["rung"] == 0
+    assert "usage limit" in " ".join(h["note"] for h in fdy.load(SUB)["history"])
+
+
+def test_dispatch_starts_the_solver_and_the_checker_and_step_finishes_the_chapter(fdy, tmp_path, monkeypatch):
+    fdy.cmd_add([SUB])
+    right = tmp_path / "right.json"
+    right.write_text(json.dumps(keys(fdy)))
+    monkeypatch.setenv("FAKE_COPY", str(right))
+    fdy.cmd_dispatch(SUB)
+    st = fdy.load(SUB)
+    assert sorted(st["jobs"]) == ["checker", "solver"] and fdy.action(st).startswith("wait")
+    finished(fdy, "solver"), finished(fdy, "checker")
+    fdy.cmd_dispatch(SUB)  # asked again: nothing is started twice
+    assert fdy._running(fdy.load(SUB)) == []
+    fdy.cmd_step()  # compares: no disputes and no findings
+    assert fdy.load(SUB)["stage"] == "sign"
+    fdy.cmd_step()  # signs
+    assert fdy.load(SUB)["stage"] == "ready"
+
+
+def test_the_checker_can_finish_before_the_solvers(fdy):
+    fdy.cmd_add([SUB])
+    fdy.cmd_strip(SUB)
+    fdy.WORK.mkdir(parents=True, exist_ok=True)
+    (fdy.WORK / f"{SUB}.check.json").write_text(json.dumps({"findings": []}))
+    fdy.cmd_compare(SUB)
+    st = fdy.load(SUB)
+    assert st["stage"] == "solve" and st["checked"]
+    (fdy.BLIND / f"{SUB}.answers.json").write_text(json.dumps(keys(fdy)))
+    fdy.cmd_compare(SUB)
+    assert fdy.load(SUB)["stage"] == "sign"  # no disputes, no findings: straight to sign-off
+
+
+def test_a_worker_that_died_without_reporting_is_started_again(fdy):
+    fdy.cmd_add([SUB])
+    fdy.cmd_strip(SUB)
+    with fdy.chapter(SUB) as st:  # its process is gone and nothing was collected (the Mac slept, the job was killed)
+        st["jobs"]["solver"] = {"pid": 999999, "provider": "claude", "started": fdy.now(),
+                                "expects": f"build/work/blind/{SUB}.answers.json"}
+    st = fdy.load(SUB)
+    assert fdy._running(st) == [] and fdy.action(st) == f"foundry.py dispatch {SUB}"
+
+
+def test_escalate_starts_the_adjudicator_on_its_first_tier(fdy):
+    fdy.cmd_add([SUB])
+    fdy.cmd_escalate(SUB)
+    job = finished(fdy, "adjudicator")
+    assert job["model"] == "/".join(fdy.config()["ladders"]["adjudicator"][job["provider"]][0])
+    assert (REPO / "foundry/roles/adjudicator.md").exists()
+
+
+def test_usage_shows_both_allowances_and_where_the_next_job_goes(fdy, tmp_path, capsys):
+    (tmp_path / "usage-now.json").write_text(json.dumps(usage(77, 84, codex_now=29)))
+    fdy.cmd_usage()
+    out = capsys.readouterr().out
+    assert "Claude" in out and "77%" in out and "Codex" in out and "84%" in out and "29%" in out
+    assert "next job: Claude" in out  # more of its week is left, even with some kept back for the tutor
+
+
+def test_a_stale_claude_reading_is_refreshed_by_asking_claude_itself(fdy, tmp_path, monkeypatch):
+    """Claude has no command that reports its limits. Claude Code's own note of them is refreshed only when a session
+    starts, so it can be hours behind; every headless run is told the current figure, so a one-word run is the way
+    to ask (a fraction of a cent)."""
+    fake = str(REPO / "tests/fake_worker.py")
+    monkeypatch.delenv("FOUNDRY_USAGE_FILE")
+    cache = tmp_path / "claude.json"
+    week = {"kind": "weekly_all", "percent": 72, "is_active": True, "resets_at": "2099-01-01T00:00:00+00:00"}
+    cache.write_text(json.dumps({"cachedUsageUtilization": {"fetchedAtMs": (time.time() - 1200) * 1000, "utilization": {
+        "limits": [{"kind": "session", "percent": 0, "is_active": False, "resets_at": None}, week]}}}))
+    monkeypatch.setenv("FOUNDRY_CLAUDE_STATE", str(cache))
+    monkeypatch.setenv("FAKE_UTILIZATION", "0.81")
+    notes = {}
+    now = fdy.router.usage(notes, fake, fake)
+    assert now["codex"] is None  # this fake has no app server: nothing is known, which is not the same as nothing left
+    assert now["claude"]["seven_day"]["used"] == 81.0 and list(now["claude"]) == ["seven_day"]  # no five-hour cap in force
+    asked = notes["claude"]["probed"]
+    monkeypatch.setenv("FAKE_UTILIZATION", "0.99")
+    assert fdy.router.usage(notes, fake, fake)["claude"]["seven_day"]["used"] == 81.0  # fresh: not asked again
+    assert notes["claude"]["probed"] == asked

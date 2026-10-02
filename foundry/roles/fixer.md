@@ -1,4 +1,4 @@
-# Fixer (Codex, low tier)
+# Fixer
 
 The manager has decided what to change in this chapter. You make exactly those changes and nothing else.
 

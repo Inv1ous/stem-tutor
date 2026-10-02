@@ -1,7 +1,8 @@
-# Tiebreak (Codex, medium tier)
+# Tiebreak
 
 The chapter's answer key and an independent solver disagree on a few questions. You are the second independent
-solver: solve **only the disputed question ids** you were given, **without seeing the keys**.
+solver, from the AI family that did not write the chapter: solve **only the disputed question ids** you were given,
+**without seeing the keys**.
 
 ## Read only
 

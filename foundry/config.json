@@ -1,24 +1,49 @@
 {
- "max_parallel": 3,
- "tiers": {
-  "low": [
-   "gpt-6-luna",
-   "medium"
-  ],
-  "medium": [
-   "gpt-6-sol",
-   "medium"
-  ]
+ "max_parallel": {
+  "codex": 3,
+  "claude": 4
  },
- "roles": {
-  "drafter": "medium",
-  "tiebreak": "medium",
-  "fixer": "low"
+ "reserve": {
+  "codex": 0,
+  "claude": 5
+ },
+ "ladders": {
+  "drafter": {
+   "codex": [["gpt-6-sol", "low"], ["gpt-6-sol", "medium"]],
+   "claude": [["opus", "low"], ["opus", "medium"]]
+  },
+  "fixer": {
+   "codex": [["gpt-6-luna", "low"], ["gpt-6-luna", "medium"]],
+   "claude": [["haiku", ""], ["sonnet", "low"]]
+  },
+  "solver": {
+   "codex": [["gpt-6-luna", "low"], ["gpt-6-luna", "medium"]],
+   "claude": [["haiku", ""], ["sonnet", "low"]]
+  },
+  "tiebreak": {
+   "codex": [["gpt-6-sol", "low"], ["gpt-6-sol", "medium"]],
+   "claude": [["sonnet", "low"], ["sonnet", "medium"]]
+  },
+  "checker": {
+   "codex": [["gpt-6-luna", "medium"], ["gpt-6-sol", "low"]],
+   "claude": [["haiku", ""], ["sonnet", "low"]]
+  },
+  "adjudicator": {
+   "codex": [["gpt-6-astra", "medium"], ["gpt-6-astra", "high"]],
+   "claude": [["opus", "medium"], ["opus", "high"]]
+  }
+ },
+ "weights": {
+  "drafter": 4,
+  "adjudicator": 2,
+  "checker": 1,
+  "tiebreak": 1,
+  "solver": 0.7,
+  "fixer": 0.5
  },
  "solver_shard_size": 20,
  "publish_on_sign": true,
  "commit_on_sign": true,
- "haiku_stall_minutes": 40,
  "audit_reviewed": [
   "D1-5.3",
   "FP2-3.1",
