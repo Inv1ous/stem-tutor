@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.1 — 2026-10-02
+
+Asked by the learner: why does `foundry usage` not show Claude's own five-hour window?
+
+- **It was not known, and 1.3.0 wrongly took that for "no five-hour cap".** Claude Code's cache had been fetched as a
+  new five-hour window began (0%, not active), and a headless run is told about one limit only, the one nearest its
+  end (the weekly one). The Claude app's usage card showed the window at 74%.
+- `foundry usage` now says "not reported by Claude" for that window when it does not know it.
+- `foundry reading claude five_hour <percent> [reset time]` passes the figure on; the manager does so from the app's
+  usage tool before the first `step` and about every half hour. The router then counts it like any other window.
+- A Claude job refused by a limit was already recorded as a limit, not a failure of its tier, and closes Claude until
+  the reset time the refusal names; that path is now tested, for the five-hour window too.
+
 ## 1.3.0 — 2026-10-02
 
 Asked by the learner: the foundry should use the Claude and Codex usage limits together, split so that both run out
