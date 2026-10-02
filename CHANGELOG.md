@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.6 — 2026-10-02
+
+- **The terminal window is named.** The app sends its title (`OSC 0`) before it takes the screen and hands it back
+  when it ends; Textual sends none, so Terminal showed only the folder, launcher, process and window size.
+
 ## 1.2.5 — 2026-10-01
 
 Layout, reported by the learner (window resized to half the screen).

@@ -1,5 +1,8 @@
 # Build status
 
+## v1.2.6 (2026-10-02) — done
+- The terminal window is named STEM Tutor while the app runs. 629 tests.
+
 ## v1.2.5 (2026-10-01) — done
 - Layout at half-screen width (learner-reported): button ids no longer take layout styles, the log and the answer
   area share one grid with the scrollbar on the edge, the home side box scrolls. 628 tests.
