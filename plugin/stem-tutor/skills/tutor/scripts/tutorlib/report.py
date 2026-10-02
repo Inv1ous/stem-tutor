@@ -5,7 +5,7 @@ import re
 from collections import Counter
 from datetime import date, datetime, timedelta
 
-from . import experiments, model, policy
+from . import almanac, experiments, model, policy
 from .packs import _fill
 from .store import read_json, write_json
 
@@ -80,16 +80,18 @@ def _plan_summary(blocks: list[dict]) -> str:
 
 
 def brief(tutor, minutes: int = 50) -> dict:
-    now, s, p = tutor.now(), tutor.state, tutor.packs
+    now, s, p, ticked = tutor.now(), tutor.state, tutor.packs, tutor.ticks()
     week = policy.current_week(p.plan, now)
-    blocks = policy.plan_session(s, p, now, minutes)
+    focus = policy.focus_week(p.plan, s, ticked, now)  # past the calendar week once everything in it is done
+    blocks = policy.plan_session(s, p, now, minutes, ticked=ticked)
     introduced = [k for k, v in s["kcs"].items() if v["n"] > 0]
     out = {
         "week": week,
         "due": len(model.due_kcs(s, now)),
         "retests": len(experiments.retests_due(s, now)),
         "gaps": len(s["gaps"]),
-        "week_objectives": [f"{o['subject']}: {o['title']}" for o in p.plan.get("weeks", {}).get(str(week), [])][:5],
+        "week_objectives": [f"{o['subject']}: {o['title']}" for o in p.plan.get("weeks", {}).get(str(focus), [])
+                            if not policy.is_done(o, s, ticked)][:5],
         "next_sitting": _next_sitting(p.plan, now),
         "mastered": sum(model.is_mastered(s["kcs"][k]) for k in introduced),
         "introduced": len(introduced),
@@ -151,9 +153,10 @@ def session_note(tutor, session_id: str) -> str:
 
 
 def today_note(tutor, minutes: int = 50) -> str:
-    now, s, p = tutor.now(), tutor.state, tutor.packs
+    now, s, p, ticked = tutor.now(), tutor.state, tutor.packs, tutor.ticks()
     week = policy.current_week(p.plan, now)
-    blocks = policy.plan_session(s, p, now, minutes)
+    focus = policy.focus_week(p.plan, s, ticked, now)
+    blocks = policy.plan_session(s, p, now, minutes, ticked=ticked)
     lines = [f"# Today · {now:%a %d %b %Y} · Almanac week {week}", ""]
     ns = _next_sitting(p.plan, now)
     if ns:
@@ -162,12 +165,14 @@ def today_note(tutor, minutes: int = 50) -> str:
     for b in blocks:
         kcs = [b["kc"]] if "kc" in b else b.get("kcs", [])
         names = ", ".join(f"{k} {p.kc(k)['title']}" for k in kcs if k in p.kcs)
-        lines.append(f"- **{b['kind'].capitalize()}**: {names}")
-    lines += ["", "## This week's Almanac objectives", ""]
-    for o in p.plan.get("weeks", {}).get(str(week), []):
+        lines.append(f"- **{'Check what you ticked' if b.get('claimed') else b['kind'].capitalize()}**: {names}")
+    lines += ["", "## This week's Almanac objectives" if focus == week else
+              f"## Almanac week {focus}: you are ahead (the calendar is on week {week})", ""]
+    for o in p.plan.get("weeks", {}).get(str(focus), []):
         kcs = o.get("kcs", [])
         mastered = sum(model.is_mastered(s["kcs"][k]) for k in kcs if k in s["kcs"])
-        mark = " ✅ evidence says done — tick it in the Almanac" if kcs and mastered == len(kcs) else ""
+        mark = (" ✅ ticked in your Almanac" if o.get("id") in ticked else
+                " ✅ evidence says done — tick it in the Almanac" if kcs and mastered == len(kcs) else "")
         lines.append(f"- {o['subject']} · {o['title']} ({mastered}/{len(kcs)} KCs mastered){mark}")
         if o.get("done"):
             lines.append(f"  - Done when: {o['done']}")
@@ -348,8 +353,8 @@ def _almanac_score_key(paper: dict) -> str | None:
     return f"math-{unit}" if unit else None
 
 def almanac_sync(tutor) -> dict:
-    folder = tutor.vault.root / "Almanac"
-    exports = sorted(folder.glob("almanac-progress-*.json")) if folder.exists() else []
+    latest = almanac.latest_export(tutor.vault.root)
+    exports = [latest] if latest else []
     base = read_json(exports[-1]) if exports else {}
     base = base or {}
     totals: Counter = Counter()

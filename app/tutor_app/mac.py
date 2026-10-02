@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -13,6 +14,9 @@ OBSIDIAN_CONFIG = Path.home() / "Library/Application Support/obsidian/obsidian.j
 INBOX_HELP = ("macOS isn't letting the tutor open your iPad inbox in iCloud Drive. To allow it: System Settings › "
               "Privacy & Security › Files & Folders › Terminal › turn on iCloud Drive (or add Terminal under Full Disk "
               "Access), then restart the tutor. Everything else works meanwhile.")
+DOWNLOADS_HELP = ("macOS isn't letting the tutor look in Downloads for your Almanac export, so your ticks aren't "
+                  "counted. Either allow it (System Settings › Privacy & Security › Files & Folders › Terminal › "
+                  "Downloads Folder) or move the exported file into this vault's Almanac folder yourself.")
 
 
 def obsidian_vault_registered(vault: Path) -> str | None:
@@ -56,6 +60,20 @@ def import_ipad_inbox(vault: Path, inbox: Path) -> list[str]:
                 continue
             (inbox / "Imported").mkdir(exist_ok=True)
             f.rename(_unused(inbox / "Imported", f.name))
+            moved.append(target.name)
+    return moved
+
+
+def import_almanac_exports(vault: Path, downloads: Path) -> list[str]:
+    """Move the Almanac's progress files (its Export button saves them into Downloads) into the vault's Almanac
+    folder, where the tutor reads your ticks. Nothing there is overwritten. Raises OSError when macOS privacy settings
+    keep the tutor out of Downloads: the caller says how to allow it."""
+    moved = []
+    for name in sorted(os.listdir(downloads)) if downloads.is_dir() else []:
+        if name.startswith("almanac-progress-") and name.endswith(".json"):
+            (vault / "Almanac").mkdir(parents=True, exist_ok=True)
+            target = _unused(vault / "Almanac", name)
+            shutil.move(str(downloads / name), target)  # keeps the time it was saved: the newest export counts
             moved.append(target.name)
     return moved
 

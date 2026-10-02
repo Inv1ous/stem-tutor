@@ -1,3 +1,7 @@
+from pathlib import Path
+
+import pytest
+
 from tutor_app import mac
 
 
@@ -80,3 +84,34 @@ def test_the_terminal_window_is_named_while_the_app_runs(tmp_path, monkeypatch, 
     assert cli.main(["--vault", str(make_vault(tmp_path))]) == 0
     assert during == ["\x1b]0;STEM Tutor\x07"]  # named before the app takes the screen
     assert capsys.readouterr().out == "\x1b]0;\x07"  # and the title handed back when it ends
+
+
+def test_almanac_exports_in_downloads_move_into_the_vault(tmp_path):
+    """The Almanac's Export button saves into Downloads; the tutor reads ticks from the vault's Almanac folder."""
+    vault, downloads = tmp_path / "vault", tmp_path / "Downloads"
+    (vault / "Almanac").mkdir(parents=True)
+    downloads.mkdir()
+    (vault / "Almanac" / "almanac-progress-2026-10-02.json").write_text("OLD")
+    (downloads / "almanac-progress-2026-10-02.json").write_text("NEW")
+    (downloads / "holiday.json").write_text("not the planner's")
+    assert mac.import_almanac_exports(vault, downloads) == ["almanac-progress-2026-10-02 2.json"]
+    assert [p.name for p in downloads.iterdir()] == ["holiday.json"]  # only the planner's files are moved
+    got = {p.name: p.read_text() for p in (vault / "Almanac").iterdir()}
+    assert got == {"almanac-progress-2026-10-02.json": "OLD", "almanac-progress-2026-10-02 2.json": "NEW"}
+    assert mac.import_almanac_exports(tmp_path / "new vault", tmp_path / "no such folder") == []
+
+
+def test_a_blocked_downloads_folder_is_an_error_not_silence(tmp_path):
+    downloads = tmp_path / "Downloads"
+    downloads.mkdir()
+    downloads.chmod(0)  # what macOS privacy settings do to Downloads for Terminal
+    try:
+        with pytest.raises(OSError):
+            mac.import_almanac_exports(tmp_path, downloads)
+    finally:
+        downloads.chmod(0o755)
+
+
+def test_tests_never_see_the_real_downloads_folder():
+    from tutor_app import config
+    assert config.DOWNLOADS != Path.home() / "Downloads"

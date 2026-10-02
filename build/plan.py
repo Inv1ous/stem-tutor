@@ -90,6 +90,8 @@ def _fill_gaps(rows: list[dict], skel: dict) -> list[dict]:
                 (r for r, _ in same), key=lambda r: r["week"]))
             target["kcs"] = target["kcs"] + ids
             target.setdefault("added_by_tutor", []).extend(ids)
+            if not exact:  # from a section the planner never scheduled: ticking the objective does not cover it
+                target.setdefault("outside", []).extend(ids)
             added.append({"spec": spec, "part": part, "kcs": ids, "week": target["week"], "objective": target["title"]})
     return added
 
@@ -98,7 +100,10 @@ def build() -> dict:
     alm = load_almanac()
     skel = json.loads((ROOT / "build/work/graph/skeletons.json").read_text())
     rows = []
+    nth: dict[tuple, int] = {}
     for w, subj, verb, title, ref, done, hours, kind, prio in alm["OBJ"]:
+        nth[w, subj] = nth.get((w, subj), 0) + 1
+        oid = f"{w}-{subj}{nth[w, subj]}"  # the Almanac's own id (its ticks are kept under it), before any correction
         if subj == "exam" and verb == "Hold" and "P3" in title:
             continue  # stale: P3 is taught in weeks 18-25 and sat in June 2027
         if "WMA13/01" in ref and w in P3_PAPER_WEEKS:
@@ -106,7 +111,7 @@ def build() -> dict:
         if "WMA13" in ref and " · " in ref and w >= 42:
             ref = " · ".join(p for p in ref.split(" · ") if p != "WMA13")
             title = title.replace("P3 and P4", "P4").replace("seven F6 units", "six F6 units")
-        rows.append({"week": w, "subject": subj, "verb": verb, "title": title, "ref": ref, "done": done,
+        rows.append({"id": oid, "week": w, "subject": subj, "verb": verb, "title": title, "ref": ref, "done": done,
                      "hours": hours, "type": kind, "priority": prio, "kcs": kcs_for(ref, title, skel)})
     groups: dict[tuple, list[dict]] = {}
     for r in rows:

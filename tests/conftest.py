@@ -18,3 +18,4 @@ def _no_real_ipad_inbox(tmp_path, monkeypatch):
     except ImportError:
         return
     monkeypatch.setattr(config, "ICLOUD_INBOX", tmp_path / "ipad-inbox")
+    monkeypatch.setattr(config, "DOWNLOADS", tmp_path / "downloads", raising=False)  # nor their Downloads

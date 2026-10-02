@@ -745,3 +745,51 @@ def test_the_week_in_review_is_written_once_in_a_new_week(tmp_path, monkeypatch)
             assert app.screen._week_in_review() is None  # only once
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_home_counts_almanac_ticks_and_follows_you_ahead(tmp_path, monkeypatch):
+    """Asked by the learner: the home screen showed the calendar week whatever they had ticked in the Almanac, and
+    Today's plan taught ticked objectives again. An export left in Downloads is read when the tutor opens."""
+    import json
+    from tutor_app import config
+    pin_clock(monkeypatch)
+    app, v = app_for(tmp_path, monkeypatch)
+    plan_file = v / ".tutor/packs/v1/plan.json"
+    plan = json.loads(plan_file.read_text())
+    plan["weeks"]["6"] = [{"id": "6-phys1", "subject": "phys", "title": "Dynamics", "kcs": [], "type": "NEW"}]
+    plan_file.write_text(json.dumps(plan))
+    config.DOWNLOADS.mkdir()
+    (config.DOWNLOADS / "almanac-progress-2026-09-29.json").write_text(json.dumps({"done": {"5-phys1": 1}}))
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            home = app.screen
+            assert not list(config.DOWNLOADS.iterdir())  # the export was moved into the vault
+            assert (v / "Almanac/almanac-progress-2026-09-29.json").exists()
+            stats = home.stats_text(app.tutor.now(), []).plain
+            assert "Almanac week 6" in stats and "Dynamics" in stats and "ahead" in stats
+            assert "week 6" in str(home.query_one("#menu").get_option("today").prompt)
+            assert "Almanac week 6" in (v / "Today.md").read_text()
+            home._start("today")
+            await pilot.pause()
+            blocks = app.tutor.session["blocks"]
+            assert blocks[0].get("claimed") and not [b for b in blocks if b["kind"] == "learn"]
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_home_says_how_to_make_ticks_count_until_an_export_has_been_read(tmp_path, monkeypatch):
+    pin_clock(monkeypatch)
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            assert "Export" in app.screen.stats_text(app.tutor.now(), []).plain
+            (v / "Almanac").mkdir(exist_ok=True)
+            (v / "Almanac/almanac-progress-2026-09-29.json").write_text('{"done": {}}')
+            stats = app.screen.stats_text(app.tutor.now(), []).plain
+            assert "Ticks read from your export" in stats and "press Export" not in stats
+            await app.ai.close()
+    asyncio.run(go())

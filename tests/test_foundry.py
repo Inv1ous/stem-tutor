@@ -461,3 +461,22 @@ def test_a_refused_sign_records_why_so_the_drafter_is_told(fdy):
         fdy.cmd_sign(SUB)
     st = fdy.load(SUB)
     assert st["stage"] == "sign" and st["gates"]["syllabus"] == 1 and "no-teach-card" in fdy.role_prompt("drafter", SUB)
+
+
+def test_coverage_builds_what_the_learner_has_not_ticked_off_first(fdy, tmp_path, monkeypatch):
+    """A learner ahead of the Almanac needs the chapters in front of them before the ones already ticked off there."""
+    graph = json.loads((tmp_path / "build/out/specs/9702/graph.json").read_text())
+    graph["subtopics"] += [{"id": "9702-3.1", "title": "Momentum", "topic": "9702-2"},
+                           {"id": "9702-2.2", "title": "Later", "topic": "9702-2"}]
+    graph["kcs"] += [{"id": "9702-3.1.1", "subtopic": "9702-3.1", "title": "Momentum", "statement": "define momentum"},
+                     {"id": "9702-2.2.1", "subtopic": "9702-2.2", "title": "Later", "statement": "use it"}]
+    (tmp_path / "build/out/specs/9702/graph.json").write_text(json.dumps(graph))
+    (tmp_path / "build/out/plan.json").write_text(json.dumps({"weeks": {
+        "3": [{"id": "3-phys1", "type": "NEW", "kcs": ["9702-3.1.1"]}],
+        "9": [{"id": "9-phys1", "type": "NEW", "kcs": ["9702-2.2.1"]}]}}))
+    assert fdy.coverage()["next"] == ["9702-3.1", "9702-2.2"]  # nothing ticked: Almanac order
+    vault = tmp_path / "vault"
+    (vault / "Almanac").mkdir(parents=True)
+    (vault / "Almanac/almanac-progress-2026-10-02.json").write_text(json.dumps({"done": {"3-phys1": 1}}))
+    monkeypatch.setenv("STEM_TUTOR_VAULT", str(vault))
+    assert fdy.coverage()["next"] == ["9702-2.2", "9702-3.1"]

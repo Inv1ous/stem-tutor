@@ -208,18 +208,27 @@ def _natural(sub: str) -> list:
 
 def coverage() -> dict:
     """The whole syllabus against what is built. Per spec: outcomes in signed chapters, in progress and not started.
-    `holes`: signed chapters that do not pass the syllabus gate. `next`: chapters still to build, in Almanac order."""
+    `holes`: signed chapters that do not pass the syllabus gate. `next`: chapters still to build, in Almanac order,
+    those the learner has ticked off in the Almanac last (they are ahead: what is in front of them comes first)."""
     import syllabus
+    from tutorlib import almanac, policy
     held = json.loads(HOLD.read_text()) if HOLD.exists() else {}
-    plan = ROOT / "build/out/plan.json"
+    plan_file = ROOT / "build/out/plan.json"
+    plan = json.loads(plan_file.read_text()) if plan_file.exists() else {}
     graphs = [json.loads(p.read_text()) for p in sorted(SPECS.glob("*/graph.json"))]
     sub_of = {k["id"]: k["subtopic"] for g in graphs for k in g["kcs"]}
     week: dict[str, int] = {}
-    for w, objectives in (json.loads(plan.read_text()).get("weeks", {}) if plan.exists() else {}).items():
+    for w, objectives in plan.get("weeks", {}).items():
         for o in objectives:
             for kc in o.get("kcs", []) if o.get("type", "NEW") == "NEW" else []:
                 if kc in sub_of:
                     week[sub_of[kc]] = min(week.get(sub_of[kc], 999), int(w))
+    vault = Path(os.environ.get("STEM_TUTOR_VAULT") or ROOT.parent / "STEM Tutor")
+    ticked = set(policy.claimed(plan, almanac.ticks(vault)))
+
+    def ticked_off(sub: str) -> bool:
+        kcs = [k for k, s in sub_of.items() if s == sub]
+        return bool(kcs) and all(k in ticked for k in kcs)
 
     def status(sub: str) -> str:
         if (STATE / f"{sub}.json").exists():
@@ -248,7 +257,8 @@ def coverage() -> dict:
             official = syllabus.official(g["spec"])
             problems = syllabus.audit(official, g) if official else [{"rule": "not-extracted", "where": g["spec"]}]
             out["audit"][g["spec"]] = [f"{e['rule']} {e['where']}" for e in problems]
-    out["next"].sort(key=lambda sub: (week.get(sub, 999), _natural(sub)))
+    out["next"].sort(key=lambda sub: (ticked_off(sub), week.get(sub, 999), _natural(sub)))
+    out["ticked_off"] = sum(map(ticked_off, out["next"]))
     return out
 
 
@@ -276,7 +286,9 @@ def cmd_coverage(args: list[str]) -> None:
               "graphs" + ("; to check: " + "; ".join(p for probs in flagged.values() for p in probs)
                           if flagged else ", every one present with its wording kept"))
     n = int(args[args.index("--queue") + 1]) if "--queue" in args else 0
-    print(f"\nStill to build: {len(c['next'])} chapters. Next in Almanac order: {' '.join(c['next'][:max(n, 12)])}")
+    print(f"\nStill to build: {len(c['next'])} chapters. Next in Almanac order"
+          + (f" ({c['ticked_off']} you ticked off in the Almanac come last)" if c["ticked_off"] else "")
+          + f": {' '.join(c['next'][:max(n, 12)])}")
     if n:
         cmd_queue("drafter", c["next"][:n])
 

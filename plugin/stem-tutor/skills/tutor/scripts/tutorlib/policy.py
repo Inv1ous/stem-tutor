@@ -53,6 +53,35 @@ def current_week(plan: dict, now: datetime) -> int:
     return 2 + (today - mon2).days // 7
 
 
+# ---------------- ticks in the Almanac ----------------
+def is_done(objective: dict, state: dict, ticked: frozenset = frozenset()) -> bool:
+    """Ticked in the Almanac, or every idea in it is secure here."""
+    kcs = objective.get("kcs", [])
+    return objective.get("id") in ticked or (bool(kcs) and all(
+        kc in state["kcs"] and model.is_mastered(state["kcs"][kc]) for kc in kcs))
+
+
+def focus_week(plan: dict, state: dict, ticked: frozenset, now: datetime) -> int:
+    """The week to show: the calendar's, or once everything in it is done, the next week with something left."""
+    week = current_week(plan, now)
+    for w in sorted(int(w) for w in plan.get("weeks", {})):
+        if w >= week and not all(is_done(o, state, ticked) for o in plan["weeks"][str(w)]):
+            return w
+    return week
+
+
+def claimed(plan: dict, ticked: frozenset) -> list[str]:
+    """Ideas of the objectives ticked in the Almanac, in week order: learned elsewhere, so checked here rather than
+    taught. A tick covers the syllabus section the objective refers to, not ideas the tutor attached to it from a
+    section the planner never scheduled (`outside`)."""
+    out: list[str] = []
+    for w in sorted(plan.get("weeks", {}), key=int) if ticked else []:
+        for o in plan["weeks"][w]:
+            if o.get("id") in ticked:
+                out += [k for k in o.get("kcs", []) if k not in o.get("outside", []) and k not in out]
+    return out
+
+
 def default_method(kc_meta: dict, kc_state: dict, fresh: bool = False) -> str:
     """`fresh`: KC never taught before this block, so pretest misconceptions are handled inside teaching."""
     if kc_state.get("active_misconceptions") and not fresh:
@@ -81,18 +110,19 @@ def _introduced(state: dict, kc: str) -> bool:
     return state["kcs"].get(kc, {}).get("n", 0) > 0
 
 
-def new_kcs(state: dict, packs, now: datetime, limit: int) -> list[str]:
-    week = current_week(packs.plan, now)
-    weeks = sorted(int(w) for w in packs.plan.get("weeks", {}))
+def new_kcs(state: dict, packs, limit: int, ticked: frozenset = frozenset()) -> list[str]:
+    """Ideas to teach next: the Almanac's NEW objectives in week order, as far ahead of the calendar as the learner
+    has got. Ideas of a ticked objective are not taught: they are checked (`to_check`)."""
+    known = set(claimed(packs.plan, ticked))
     ordered: list[str] = []
-    for w in [w for w in weeks if w <= week] + [w for w in weeks if w == week + 1]:
-        for obj in packs.plan["weeks"][str(w)]:
+    for w in sorted(packs.plan.get("weeks", {}), key=int):
+        for obj in packs.plan["weeks"][w]:
             if obj.get("type", "NEW") == "NEW":
                 ordered.extend(obj.get("kcs", []))
     out: list[str] = []
 
     def add(kc: str, depth: int = 0):
-        if kc in out or kc not in packs.kcs or _introduced(state, kc) or depth > 6:
+        if kc in out or kc in known or kc not in packs.kcs or _introduced(state, kc) or depth > 6:
             return
         for p in packs.kc(kc).get("prereqs", []):
             add(p, depth + 1)
@@ -105,6 +135,12 @@ def new_kcs(state: dict, packs, now: datetime, limit: int) -> list[str]:
             break
         add(kc)
     return out[:limit]
+
+
+def to_check(state: dict, packs, ticked: frozenset) -> list[str]:
+    """Ideas ticked in the Almanac that have never been answered here and have questions."""
+    return [kc for kc in claimed(packs.plan, ticked)
+            if kc in packs.kcs and not _introduced(state, kc) and packs.items_for(kc)]
 
 
 def missing_packs(packs, now: datetime) -> list[str]:
@@ -174,7 +210,7 @@ def expand_focus(packs, focus: list[str] | None) -> list[str] | None:
 
 
 def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "autopilot",
-                 focus: list[str] | None = None) -> list[dict]:
+                 focus: list[str] | None = None, ticked: frozenset = frozenset()) -> list[dict]:
     focus = expand_focus(packs, focus)
     if mode == "lesson":
         kcs = [k for k in focus or [] if k in packs.kcs]
@@ -226,10 +262,18 @@ def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "a
         learn = [k for k in focus if k in packs.kcs]
     elif mode in ("autopilot", "repair"):
         remaining = max(0, minutes - used)
+        waiting = to_check(state, packs, ticked) if mode == "autopilot" else []
+        check = waiting[:max(2, int(0.3 * remaining / 2))]  # ticked in the Almanac: two minutes each, no lesson
+        remaining = max(0, remaining - 2 * len(check))
         n = max(1 if remaining >= 20 else 0, int(0.75 * remaining / 18))
         learn = [k for k in state["gaps"] if k in packs.kcs][:n]
         if mode == "autopilot":
-            learn += new_kcs(state, packs, now, n - len(learn))
+            learn += new_kcs(state, packs, n - len(learn), ticked)
+        if check and not learn:  # nothing to teach: the lesson time goes to more checks
+            check = waiting[:max(len(check), int(0.6 * (minutes - used) / 2))]
+        if check:
+            blocks.append({"kind": "sweep", "kcs": check, "claimed": True})
+            used += 2 * len(check)
     for kc in learn:
         blocks.append({"kind": "learn", "kc": kc})
         used += 18

@@ -9,6 +9,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 DEFAULT_VAULT = REPO.parent / "STEM Tutor"
 ICLOUD_INBOX = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/STEM Tutor Inbox"
+DOWNLOADS = Path.home() / "Downloads"  # where the browser saves the progress file the Almanac exports
 
 
 def vault_path() -> Path:

@@ -123,3 +123,21 @@ def test_past_paper_mistakes_keep_their_question(tutor, item_id):  # B-037: only
     assert "Question: Which quantity is a vector?" in journal and "Right answer: C: velocity" in journal
     assert "## 9702-2.1 Equations of motion" in journal and "not recorded" not in journal
     assert "Which quantity is a vector?" in (tutor.vault.root / report.session_note(tutor, summary["session"])).read_text()
+
+
+def test_today_note_counts_almanac_ticks_and_follows_you_ahead(tutor):
+    """Asked by the learner: ticked objectives were not counted as done, and only the calendar week was shown."""
+    plan = tutor.packs.plan
+    plan["weeks"]["5"].append({"id": "5-exam1", "subject": "exam", "title": "D28 review", "kcs": [], "type": "REVIEW"})
+    plan["weeks"]["6"] = [{"id": "6-phys1", "subject": "phys", "title": "Dynamics", "kcs": [], "type": "NEW"}]
+    folder = tutor.vault.root / "Almanac"
+    folder.mkdir()
+    export = folder / "almanac-progress-2026-09-29.json"
+    export.write_text(json.dumps({"done": {"5-phys1": 1}}))
+    text = (tutor.vault.root / report.today_note(tutor)).read_text()
+    assert "This week's Almanac objectives" in text and "Kinematics (0/2 KCs mastered) ✅ ticked in your Almanac" in text
+    assert "Check what you ticked" in text and "**Learn**" not in text  # a ticked objective is checked, not taught
+    export.write_text(json.dumps({"done": {"5-phys1": 1, "5-exam1": 1}}))  # the whole week ticked: you are ahead
+    text = (tutor.vault.root / report.today_note(tutor)).read_text()
+    assert "Almanac week 6" in text and "ahead" in text and "Dynamics" in text
+    assert "Kinematics" not in text.split("## ")[-1]  # week 5's objectives are no longer the ones listed

@@ -14,11 +14,11 @@ from textual.widgets import Button, Footer, Input, Markdown, OptionList, Select,
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
-from tutorlib import insights, model, policy, report, views
+from tutorlib import almanac, insights, model, policy, report, views
 from tutorlib.lesson import GOALS
 
 from . import ai as ai_mod
-from . import cards, mac, prompts
+from . import cards, config, mac, prompts
 from . import __version__
 from .panels import (ChoicePanel, ChoosePanel, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel, TickPanel,
                      ValuePanel, WorkedPanel)
@@ -52,10 +52,27 @@ class HomeScreen(Screen):
         yield Footer()
 
     def on_screen_resume(self) -> None:
+        if self._read_almanac():  # exported while the tutor was open: the plan in Obsidian follows
+            report.today_note(self.app.tutor, self.app.settings.minutes)
         self.refresh_home()
+
+    def _read_almanac(self) -> list[str]:
+        """Progress files the Almanac's Export button left in Downloads go into the vault, where ticks are read."""
+        app = self.app
+        try:
+            moved = mac.import_almanac_exports(app.vault, config.DOWNLOADS)
+        except OSError:
+            if not getattr(app, "downloads_blocked", False):  # said once, not at every return to the menu
+                app.downloads_blocked = True
+                app.notify(mac.DOWNLOADS_HELP, severity="warning", timeout=15)
+            return []
+        if moved:
+            app.notify("Read your ticks from the Almanac export in Downloads.", timeout=6)
+        return moved
 
     def on_mount(self) -> None:
         app = self.app
+        self._read_almanac()
         lessons = app.vault / "Lessons"
         views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(),
                          sorted((str(f.relative_to(app.vault)) for f in lessons.glob("*.md")), reverse=True)
@@ -91,7 +108,7 @@ class HomeScreen(Screen):
             s = t.session
             items.append(("resume", f"▶  Resume your {MODE_NAMES.get(s['mode'], s['mode'])} session "
                                     f"({s.get('answered', 0)} answered)"))
-        week = policy.current_week(t.packs.plan, now) if t.packs.plan.get("weeks") else 0
+        week = policy.focus_week(t.packs.plan, t.state, t.ticks(), now) if t.packs.plan.get("weeks") else 0
         items += [("today", f"★  Today's plan{f' (Almanac week {week})' if week else ''}"),
                   ("learn", "◆  Learn a topic (lesson)"),
                   ("review", f"↻  Review what's due ({len(due)})"),
@@ -125,21 +142,30 @@ class HomeScreen(Screen):
                           if date.fromisoformat(v) >= now.date())
         if sittings:
             out.append(f"⏳ {sittings[0][1]}: {(sittings[0][0] - now.date()).days} days\n\n", style="#94e2d5")
+        ticked = t.ticks()
         week = policy.current_week(t.packs.plan, now)
-        objectives = (t.packs.plan.get("weeks") or {}).get(str(week), [])
+        focus = policy.focus_week(t.packs.plan, t.state, ticked, now)  # past the calendar once this week is done
+        objectives = (t.packs.plan.get("weeks") or {}).get(str(focus), [])
         if objectives:
-            out.append(f"📅 Almanac week {week}\n", style="bold #94e2d5")
-            for o in objectives[:6]:
+            done = [policy.is_done(o, t.state, ticked) for o in objectives]
+            out.append(f"📅 Almanac week {focus}" + (f" · {sum(done)} of {len(done)} done" if any(done) else "") + "\n",
+                       style="bold #94e2d5")
+            if focus > week:
+                out.append(f"You're ahead: the calendar is on week {week}.\n", style="#a6e3a1")
+            for o, finished in list(zip(objectives, done))[:6]:
                 kcs = o.get("kcs", [])
                 ready = sum(1 for k in kcs if k in t.packs.kcs and t.packs.items_for(k))
                 title = o["title"] if o.get("type", "NEW") == "NEW" else f"{o.get('verb', '')} {o['title']}".strip()
                 title = title[:36] + ("…" if len(title) > 36 else "")
-                out.append(f"{SUBJECTS.get(o['subject'], o['subject']):<6}{title}", style="#cdd6f4")
-                if kcs:
+                out.append(f"{'✓' if finished else ' '} {SUBJECTS.get(o['subject'], o['subject']):<6}{title}",
+                           style="#6c7086" if finished else "#cdd6f4")
+                if kcs and not finished:
                     status = "ready" if ready == len(kcs) else f"{ready}/{len(kcs)} ready" if ready else "not built yet"
                     out.append(" " + status, style="#a6e3a1" if ready == len(kcs) else "#6c7086")
                 out.append("\n")
-            out.append("\n")
+            export = almanac.latest_export(app.vault)
+            out.append((f"Ticks read from your export of {datetime.fromtimestamp(export.stat().st_mtime):%-d %b %H:%M}."
+                        if export else "To count your ticks: press Export in your Almanac.") + "\n\n", style="#6c7086")
         if mac.almanac_changed(t.packs.plan):
             out.append("⚠ Your Almanac has changed since the tutor read it: ask Claude Code to refresh the plan.\n\n",
                        style="#f9e2af")
@@ -184,7 +210,8 @@ class HomeScreen(Screen):
         if key == "resume":
             app.push_screen(SessionScreen(None))
         elif key == "today":  # the engine's autopilot: what's due first, then the Almanac's topics in week order
-            if not policy.plan_session(app.tutor.state, app.tutor.packs, app.tutor.now(), app.settings.minutes):
+            if not policy.plan_session(app.tutor.state, app.tutor.packs, app.tutor.now(), app.settings.minutes,
+                                       ticked=app.tutor.ticks()):
                 app.notify("Nothing to plan right now: no reviews are due and every Almanac topic with questions so "
                            "far is done. The next topics aren't built yet; try a blurt or long questions.", timeout=8)
                 return

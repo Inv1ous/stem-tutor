@@ -73,7 +73,7 @@ PAPERS = {"papers": [{"id": "9702_s23_qp_22", "code": "9702", "component": "22",
 
 PLAN = {
     "start": "2026-09-01", "week2_monday": "2026-09-07",
-    "weeks": {"5": [{"subject": "phys", "title": "Kinematics", "kcs": ["9702-2.1.1", "9702-2.1.4"], "type": "NEW", "priority": "A"}]},
+    "weeks": {"5": [{"id": "5-phys1", "subject": "phys", "title": "Kinematics", "kcs": ["9702-2.1.1", "9702-2.1.4"], "type": "NEW", "priority": "A"}]},
     "sittings": {"9702-AS": "2027-05-10"},
 }
 

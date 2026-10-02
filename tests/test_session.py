@@ -676,3 +676,84 @@ def test_a_lost_mark_is_explained_in_now_and_in_the_lesson_log(tutor):
     for text in ((tutor.vault.root / "Now.md").read_text(), (tutor.vault.root / tutor.session["log"]).read_text()):
         assert f"Q{n} — right value, a mark lost ✗" in text and "Exam point: missing unit" in text
         assert "incorrect" not in text and "not quite" not in text
+
+
+# ---------- the Almanac: ticks, and being ahead of it ----------
+def _export(tutor, done, name="almanac-progress-2026-09-29.json"):
+    """What the Almanac's Export button saves: its whole state, ticked objectives under `done`."""
+    import json
+    folder = tutor.vault.root / "Almanac"
+    folder.mkdir(exist_ok=True)
+    (folder / name).write_text(json.dumps({"done": {k: 1 for k in done}, "stage": 2}))
+    return folder / name
+
+
+def _finish(tutor):
+    """Answer "don't know" to everything until the session has nothing more to ask."""
+    for _ in range(40):
+        act = tutor.next()
+        if act["activity"] != "questions":
+            break
+        tutor.answer(", ".join(f"{q['n']}?" for q in act["items"]))
+    return tutor.end()
+
+
+def test_ticks_are_read_from_the_newest_export(tutor):
+    import os
+    assert tutor.ticks() == frozenset()  # no export yet
+    newer = _export(tutor, ["1-math1", "5-phys1"], "almanac-progress-2026-09-29 2.json")  # sorts before the older name
+    older = _export(tutor, ["1-math1"], "almanac-progress-2026-09-29.json")
+    os.utime(older, (1_000, 1_000))
+    os.utime(newer, (2_000, 2_000))
+    assert tutor.ticks() == {"1-math1", "5-phys1"}
+    newer.write_text("{half a file")  # a damaged export gives no ticks, and the tutor still runs
+    assert tutor.ticks() == frozenset()
+
+
+def test_a_ticked_objective_is_checked_not_taught(tutor):
+    """Asked by the learner: objectives ticked in the Almanac were still taught from the start by Today's plan."""
+    _export(tutor, ["5-phys1"])
+    plan = tutor.start("autopilot", minutes=40)
+    assert not [b for b in plan["blocks"] if b["kind"] == "learn"]
+    check = next(b for b in plan["blocks"] if b.get("claimed"))
+    assert check["kind"] == "sweep" and check["kcs"] == ["9702-2.1.1", "9702-2.1.4"]
+    act = tutor.next()
+    assert "ticked" in act["say"] and all(q["unassisted"] for q in act["items"])  # a check: no hints, no lesson
+
+
+def test_a_missed_check_is_taught_next_time_and_a_passed_one_is_never_taught(tutor):
+    _export(tutor, ["5-phys1"])
+    tutor.start("autopilot", minutes=40)
+    act = tutor.next()
+    q1, q2 = act["items"]
+    key = tutor.session["presented"][str(q1["n"])]["inst"]["answer"]
+    tutor.answer(f"{q1['n']}{key}4, {q2['n']}?")  # the first idea known, the second not
+    _finish(tutor)
+    assert tutor.state["gaps"] == ["9702-2.1.4"]
+    plan = tutor.start("autopilot", minutes=40)
+    assert [b["kc"] for b in plan["blocks"] if b["kind"] == "learn"] == ["9702-2.1.4"]
+    assert not [b for b in plan["blocks"] if b.get("claimed")]  # both have been answered: nothing left to check
+
+
+def test_a_tick_does_not_claim_ideas_from_a_section_the_planner_never_scheduled(tutor):
+    tutor.packs.plan["weeks"]["5"][0]["outside"] = ["9702-2.1.4"]  # attached by the tutor from another section
+    _export(tutor, ["5-phys1"])
+    plan = tutor.start("autopilot", minutes=40)
+    assert next(b for b in plan["blocks"] if b.get("claimed"))["kcs"] == ["9702-2.1.1"]
+    assert [b["kc"] for b in plan["blocks"] if b["kind"] == "learn"] == ["9702-2.1.4"]
+
+
+def test_the_plan_reaches_past_the_calendar_week_when_you_are_ahead(tutor):
+    """Asked by the learner: the plan stopped at the calendar week however far ahead of it they were."""
+    weeks = tutor.packs.plan["weeks"]
+    weeks["9"] = weeks.pop("5")  # the next objective is four weeks ahead of the calendar (week 5)
+    plan = tutor.start("autopilot", minutes=50)
+    assert [b["kc"] for b in plan["blocks"] if b["kind"] == "learn"][:1] == ["9702-2.1.1"]
+
+
+def test_the_week_shown_moves_on_once_this_week_is_done(tutor):
+    plan = tutor.packs.plan
+    plan["weeks"]["6"] = [{"id": "6-phys1", "subject": "phys", "title": "Dynamics", "kcs": [], "type": "NEW"}]
+    assert policy.focus_week(plan, tutor.state, frozenset(), T0) == 5  # nothing done: the calendar week
+    assert policy.focus_week(plan, tutor.state, frozenset({"5-phys1"}), T0) == 6  # week 5 ticked: on to week 6
+    assert policy.focus_week(plan, tutor.state, frozenset({"5-phys1", "6-phys1"}), T0) == 5  # nothing left anywhere

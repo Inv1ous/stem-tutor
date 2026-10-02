@@ -10,7 +10,7 @@ import re
 import uuid
 from datetime import datetime
 
-from . import diagnose, grade, model, policy, views
+from . import almanac, diagnose, grade, model, policy, views
 from .lesson import LessonMixin
 from .packs import Packs, instantiate
 from .store import Vault, read_json, write_json
@@ -68,6 +68,10 @@ class Tutor(LessonMixin):
         self.packs = Packs(self.vault)
         return [self.packs.subtopics[s]["title"] for s in sorted(self.packs.published() - before)
                 if s in self.packs.subtopics]
+
+    def ticks(self) -> frozenset[str]:
+        """Objectives ticked in the Almanac planner, from its newest progress file in the vault's Almanac folder."""
+        return almanac.ticks(self.vault.root)
 
     # ---------- persistence ----------
     def now(self) -> datetime:
@@ -164,7 +168,7 @@ class Tutor(LessonMixin):
             return {"ok": False, "error": f"A {s['mode']} session is in progress ({s['answered']} answered).",
                     "open_session": {"mode": s["mode"], "answered": s["answered"], "started": s["started"]},
                     "fix": "To continue it, run the engine command next. To start over, repeat session start with --replace."}
-        blocks = policy.plan_session(self.state, self.packs, self.now(), minutes, mode, focus)
+        blocks = policy.plan_session(self.state, self.packs, self.now(), minutes, mode, focus, self.ticks())
         if focus and mode in ("test", "learn", "diagnose", "long", "lesson") and not any(
                 self.packs.items_for(k) for b in blocks for k in b.get("kcs", []) + [b.get("kc")] if k):
             return {"ok": False, "error": f"No questions are built yet for {', '.join(focus)}.",
@@ -379,7 +383,9 @@ class Tutor(LessonMixin):
                     items.append(it)
             act = self._questions(b, idx, items, phase="sweep", unassisted=True)
             if act:
-                act["say"] = "Test check: one question per syllabus point, no hints until answered. 'Don't know' is a fine answer."
+                act["say"] = ("A quick check of what you ticked in your Almanac: one question per idea, no hints until "
+                              "answered. 'Don't know' is a fine answer." if b.get("claimed") else
+                              "Test check: one question per syllabus point, no hints until answered. 'Don't know' is a fine answer.")
                 return act
         res = b.get("res", {})
         if b.get("lesson_probe"):
@@ -389,6 +395,8 @@ class Tutor(LessonMixin):
         unsure = [kc for kc in b["kcs"] if kc in res and res[kc]["ok"] and (res[kc]["conf"] or 0) <= 2]
         if wrong:
             self.log({"type": "gaps", "add": wrong})
+        if b.get("claimed"):  # the day's plan carries on; what was missed is a gap, taught first next time
+            return None
         n = max(1, int(max(0, self.session["minutes"] - 2 * len(b["kcs"]) - 10) / 12)) if wrong else 0
         extra: list[dict] = [{"kind": "learn", "kc": kc, "pretested": True} for kc in wrong[:n]]
         pool = wrong[n:] + unsure
