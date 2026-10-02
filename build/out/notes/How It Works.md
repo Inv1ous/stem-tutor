@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.2.7_
+_Version 1.2.8_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,12 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 1.2.8
+> - **Your Almanac ticks count.** Tick objectives in your Almanac as usual, then press **Export** there. The tutor finds the exported file in your Downloads folder the next time it opens (or when you come back to its menu) and reads your ticks from it. A ticked objective is no longer taught from the start: **Today's plan** asks one quick check question on each of its ideas instead. Get it right and the idea joins your reviews; miss it and it becomes your next lesson.
+> - **The plan follows you when you are ahead.** Once everything in this week's Almanac is ticked (or secure in the tutor), the home screen and **Today** move on to the next week with something left, and Today's plan teaches from there, however far ahead of the calendar that is.
+> - **Chapters you need come first.** New chapters are now built in the order you need them: the ones in front of you before the ones you have ticked off.
+> - macOS may ask once whether Terminal may look in your Downloads folder. Allow it, or move the exported file into this vault's **Almanac** folder yourself.
 
 > [!example] New in 1.2.7
 > - **No more leftovers at the right edge.** After you resized the window, bits of the old screen (pieces of border and scrollbar, stray letters) stayed in the strip between the tutor and Terminal's own scrollbar. The tutor now wipes them every time the window changes size.
@@ -77,8 +83,8 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 ## Everything the tutor can do
 
 **Plan your day**
-- **Today's plan**: ideas due for review first, then your Almanac's topics in week order, mixed practice and a short exit check (section 3).
-- **This week in your Almanac** on the home screen, with which topics are ready to study, and a countdown to your next exam (section 3).
+- **Today's plan**: ideas due for review first, a quick check of what you have ticked in your Almanac, then your Almanac's next topics (however far ahead you are), mixed practice and a short exit check (section 3).
+- **Your Almanac week** on the home screen: what you have ticked, which topics are ready to study, the next week once this one is done, and a countdown to your next exam (section 3).
 - **Today** page in Obsidian: the day's plan, what's due and what each Almanac objective needs to count as done (section 9).
 - **Exam readiness** for every exam: how much of its syllabus is built, started and secure, and your predicted recall on the day (section 8).
 
@@ -148,7 +154,7 @@ When new chapters have been added since you opened the tutor, the menu tells you
 | Choice | What it does |
 |---|---|
 | **Resume** | Only appears if you left a session unfinished. Carries on where you stopped. |
-| **Today's plan** | The tutor decides for you: ideas due for review first, then the next topics from your Almanac in week order (earlier weeks you haven't done come first), then mixed practice and a short exit check. Topics without questions yet are skipped. |
+| **Today's plan** | The tutor decides for you: ideas due for review first, then a quick check of ideas you have ticked in your Almanac but never answered here, then the next topics from your Almanac in week order (earlier weeks you haven't done come first, and it carries on past the calendar week when you are ahead), then mixed practice and a short exit check. Topics without questions yet are skipped. |
 | **Learn a topic** | A full lesson on one subtopic: a quick check of what you know, a plan you agree to, then each idea taught step by step. |
 | **Review what's due** | Mixed questions on ideas that are due to be refreshed (section 7). If nothing is due it tells you, instead of starting an empty session. |
 | **Fix my weak spots** | A session on what's weak right now: ideas with a misconception still active, gaps found by blurts, test prep or checks, and ideas you keep getting wrong. Each is re-taught (a misconception head-on, with a contrasting example), then practised with fresh questions. The number shows how many there are. |
@@ -163,9 +169,16 @@ When new chapters have been added since you opened the tutor, the menu tells you
 
 If you choose something new while a session is unfinished, the tutor asks first: **resume it**, or **abandon it and start**.
 
-The right side of the home screen shows today's date, your **streak** (days in a row you studied), how many ideas are **due**, the countdown to your next exam, this week's **Almanac objectives** (each marked *ready*, partly ready or *not built yet*), a progress bar for each topic, and whether the AI is on.
+The right side of the home screen shows today's date, your **streak** (days in a row you studied), how many ideas are **due**, the countdown to your next exam, your **Almanac week** (each objective marked ✓ when it is done, otherwise *ready*, partly ready or *not built yet*), a progress bar for each topic, and whether the AI is on. When everything in the calendar week is done, the next week with something left is shown instead, with a line saying you are ahead.
 
 **Your Almanac.** The tutor follows your planner, `00 Important › 01 AS/A › A-Levels.html`: the objectives for each week and the exam dates. If you change the planner, the home screen says **Your Almanac has changed**: ask Claude Code to refresh the plan. Until then the tutor keeps following the plan it last read.
+
+**Your ticks.** The Almanac keeps its ticks inside your browser, where the tutor can't see them. To pass them on, press **Export** in the Almanac after ticking: the browser saves a small file in Downloads, and the tutor picks it up the next time it opens or you come back to its menu (it moves the file into this vault's **Almanac** folder). The home screen says which export your ticks were read from. An objective counts as done when you have ticked it, or when every idea in it is secure in the tutor. Ticking does two things:
+
+- **No lesson for what you have ticked.** Today's plan asks one check question on each ticked idea instead (no hints, a few per session). Right: the idea joins your review schedule. Wrong or "don't know": it becomes a gap and is taught first next time.
+- **The plan moves on.** When the whole week is done, the home screen and **Today** show the next week with something left, and Today's plan teaches from there.
+
+A tick covers the syllabus section the objective refers to. A few ideas from sections the Almanac never schedules are attached to the nearest objective; those are still taught.
 
 ---
 
@@ -277,7 +290,7 @@ There are no "learning styles" here. The research is clear that they don't help.
 | **Profile** | What the tutor knows about you (section 8). Refreshed after each session. |
 | **Mistakes** | Your mistake journal: every question you got wrong or didn't know, by subtopic and newest first, with your answer, the right answer and the kind of mistake. ✓ marks the ones you have put right since. Refreshed after each session. |
 | **Weekly** | A week in review for each week you studied: days, answers and how many were right (compared with the week before), ideas newly secure, misconceptions fixed, and what changed in your profile. Written the first time the tutor opens in the following week. |
-| **Today** | Today's plan: what's due, this week's Almanac objectives with how many of their ideas you have mastered and what each needs to count as done, and which topics aren't built yet. Refreshed when the tutor opens and after each session. |
+| **Today** | Today's plan: what's due, your Almanac week's objectives (the next week when you are ahead) with which are ticked, how many of their ideas you have mastered and what each needs to count as done, and which topics aren't built yet. Refreshed when the tutor opens, when it reads a new export, and after each session. |
 | **Anki** | Flashcard files (section 10). |
 
 **Colours in the map and headings:** ✅ green = secure, 🟡 yellow = learning, 🔴 red = a gap to fix, ⚪ grey = not started, 🔵 blue = the idea you are on now.
@@ -388,7 +401,7 @@ The tutor uses methods with good evidence behind them, and is honest about how s
 - **This vault (your data):** `Miscellaneous › 02 Education › ~~ AI Workflow › STEM Tutor`. Everything you see in Obsidian, plus the hidden `.tutor` folder with your progress. Every answer you've ever given is recorded there, so nothing is lost. Don't edit `.tutor` by hand. If a file in it is ever damaged (for example by a crash mid-save), the tutor skips the damaged line and carries on.
 - **The program:** `~~ AI Workflow › stem-tutor`. You don't need to open it.
 - **iPad inbox:** `iCloud Drive › STEM Tutor Inbox`, only for PDFs from the iPad.
-- **Your Almanac:** `00 Important › 01 AS/A › A-Levels.html` (section 3). Optional two-way exchange: press **Export** in the Almanac and save the file into this vault's **Almanac** folder. After your next session the tutor writes `almanac-import-<date>.json` there, with your study days, mistake types, topic ratings and paper scores added; open it with the Almanac's **Import** button. Your ticks in the Almanac are kept.
+- **Your Almanac:** `00 Important › 01 AS/A › A-Levels.html` (section 3). Press **Export** in the Almanac whenever you have ticked something: the tutor reads your ticks from that file (it looks in Downloads and in this vault's **Almanac** folder). After your next session the tutor writes `almanac-import-<date>.json` there, with your study days, mistake types, topic ratings and paper scores added; open it with the Almanac's **Import** button. Your ticks in the Almanac are kept.
 - **New chapters** are prepared in advance by a team of AIs and checked before they reach this vault (the "foundry": `stem-tutor › foundry › README.md`). Until a chapter has passed every check it stays out of the vault.
 - The old copy in your main Obsidian vault (`Notes › 01 Study › STEM Tutor`) is no longer used; it has a MOVED note. You can delete it once you're happy.
 
@@ -406,6 +419,7 @@ The tutor uses methods with good evidence behind them, and is honest about how s
 | "Another STEM Tutor window is already open" | Use the other window, or close it first. Only one can run at a time so your progress can't get mixed up. |
 | "Your answer was read as several parts" | Avoid commas between numbers in one answer, then send it again. |
 | A question or answer looks wrong | Answer it anyway and press ctrl+t to ask why, then note it down; content can be corrected in the next update. |
+| My Almanac ticks aren't counted | Press **Export** in the Almanac, then open the tutor or go back to its menu. If macOS asked whether Terminal may access your Downloads folder and you chose *Don't Allow*: System Settings › Privacy & Security › Files & Folders › Terminal › turn on Downloads Folder, or move the exported file into this vault's **Almanac** folder. |
 | "Your Almanac has changed since the tutor read it" | Ask Claude Code to refresh the Almanac plan. Until then the tutor keeps following the plan it last read. |
 | "macOS isn't letting the tutor open your iPad inbox" | System Settings › Privacy & Security › Files & Folders › **Terminal** › turn on **iCloud Drive** (or add Terminal under **Full Disk Access**), then restart the tutor. Everything else works in the meantime. |
 | Anything else | Run the doctor check (section 1). It tells you what's wrong and how to fix it. |

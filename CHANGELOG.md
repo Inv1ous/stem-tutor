@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.2.8 — 2026-10-02
+
+Asked by the learner: Today's plan showed only the calendar week however far ahead they were, and objectives ticked
+in the Almanac were not counted, so the plan kept teaching them.
+
+- **Ticks reach the tutor.** The Almanac keeps ticks in the browser (`S.done`, keyed `week-subjectN`); they leave it
+  only through its Export button. `build/plan.py` now gives every objective that id, `tutorlib/almanac.py` reads the
+  newest `almanac-progress-*.json` in the vault's `Almanac/` folder, and the app moves exports from `~/Downloads`
+  into that folder when it opens and at each return to the menu (`mac.import_almanac_exports`).
+- **A ticked objective is checked, not taught.** Its ideas (`policy.claimed`) never enter `new_kcs`; autopilot adds a
+  `sweep` block flagged `claimed` over those never answered here. A miss becomes a gap and is taught first next time.
+  A tick covers the section the objective refers to, not ideas attached from unscheduled sections (`outside`).
+- **Ahead of the calendar.** `new_kcs` walks every week in order instead of stopping at the calendar week plus one,
+  and `policy.focus_week` moves the home panel, the menu label and `Today.md` to the next week with something left.
+- **The foundry builds what is in front of the learner first:** `coverage` puts chapters whose ideas are all ticked
+  last.
+
 ## 1.2.7 — 2026-10-02
 
 - **A resize clears what Terminal kept beyond the new edge.** The learner's original layout report: Terminal keeps

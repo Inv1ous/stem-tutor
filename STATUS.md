@@ -1,5 +1,10 @@
 # Build status
 
+## v1.2.8 (2026-10-02) — done
+- Almanac ticks count (read from the planner's export, found in Downloads): ticked objectives are checked instead of
+  taught, the plan and the home screen follow the learner past the calendar week, and the foundry builds the chapters
+  in front of them first. Checked on a scratch copy of the published content. 646 tests.
+
 ## v1.2.7 (2026-10-02) — done
 - A resize clears the leftovers Terminal showed beside its scrollbar (the learner's original layout report); the
   launcher opens in the learner's "Study" Terminal profile. Both checked in Terminal itself. 631 tests.
