@@ -198,14 +198,14 @@ def score(provider: str, windows: dict | None, cfg: dict, running: list[str], mo
         return None, f"{len(running)} workers already running on {NAMES[provider]}"
     if not windows:
         return UNKNOWN, ""
-    pending = sum(cfg["weights"].get(r.split("#")[0], 1.0) for r in running)  # in percent of a five-hour window
+    pending = sum(cfg["weights"][provider].get(r.split("#")[0], 0.2) for r in running)  # in percent of the week
     longest = None
     for name, w in windows.items():
         if name.endswith(("_opus", "_sonnet")) and not name.endswith("_" + model):
             continue  # a cap on another model
         mins = MINUTES.get(name, 10080)
         over = w.get("resets") is not None and w["resets"] <= now  # the window has reset since it was read
-        room = 100.0 - cfg["reserve"].get(provider, 0) - (0.0 if over else w["used"]) - pending / (1 if mins <= 300 else 7)
+        room = 100.0 - cfg["reserve"].get(provider, 0) - (0.0 if over else w["used"]) - pending * (7 if mins <= 300 else 1)
         if room <= 0:
             when = f" until {datetime.fromtimestamp(w['resets']):%a %H:%M}" if w.get("resets") and not over else ""
             return None, f"{NAMES[provider]}'s allowance is used up{when}"

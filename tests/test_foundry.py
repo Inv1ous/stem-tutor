@@ -522,6 +522,7 @@ def test_a_claude_worker_runs_lean_and_reports_what_is_left(fdy, tmp_path, monke
     job = finished(fdy, "drafter")
     st = fdy.load(SUB)
     assert st["stage"] == "solve" and st["maker"] == "claude" and job["report"] == {"items": 12, "concerns": []}
+    assert job["cost_usd"] == 0.5  # what the job cost is kept with it
     argv = json.loads((tmp_path / "argv.json").read_text())
     assert argv[argv.index("--model") + 1] == "opus" and argv[argv.index("--effort") + 1] == "low"
     assert "--safe-mode" in argv and argv[argv.index("--setting-sources") + 1] == ""
@@ -567,7 +568,9 @@ def test_dispatch_starts_the_solver_and_the_checker_and_step_finishes_the_chapte
     finished(fdy, "solver"), finished(fdy, "checker")
     fdy.cmd_dispatch(SUB)  # asked again: nothing is started twice
     assert fdy._running(fdy.load(SUB)) == []
-    fdy.cmd_step()  # compares: no disputes and no findings
+    fdy.cmd_step(["another-chapter"])  # only the chapters named are touched
+    assert fdy.load(SUB)["stage"] == "solve"
+    fdy.cmd_step([SUB])  # compares: no disputes and no findings
     assert fdy.load(SUB)["stage"] == "sign"
     fdy.cmd_step()  # signs
     assert fdy.load(SUB)["stage"] == "ready"

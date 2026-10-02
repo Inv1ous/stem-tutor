@@ -10,7 +10,7 @@ blind compare), so nobody has to read a whole pack to know whether it is right.
   foundry.py add <subtopic>...            register chapters (bundle them, hold them back from publishing)
   foundry.py board                        one line per chapter
   foundry.py next                         what to do now, per chapter (the manager's to-do list)
-  foundry.py step                         do all of that which needs no judgement: launch, compare, sign
+  foundry.py step [subtopics…]            do all of that which needs no judgement: launch, compare, sign
   foundry.py usage                        what is left of the Claude and Codex allowances; where the next job goes
   foundry.py run <role> <subtopic> [--on claude|codex]   launch one headless worker (drafter, fixer, tiebreak,
                                           solver, checker, adjudicator); `codex <role> <subtopic>` forces Codex
@@ -460,11 +460,13 @@ def cmd_next() -> None:
             print(f"{st['sub']:<11} {st['stage']:<11} → {action(st)}")
 
 
-def cmd_step() -> None:
-    """One pass over every chapter doing whatever needs no judgement: start the workers that can run now, compare
-    finished solves, sign what is green. What it leaves is the manager's: decisions, and waiting."""
+def cmd_step(only: list[str] | None = None) -> None:
+    """One pass over every chapter (or only those named) doing whatever needs no judgement: start the workers that can
+    run now, compare finished solves, sign what is green. What it leaves is the manager's: decisions, and waiting."""
     for st in chapters():
         sub, (verb, *rest) = st["sub"], todo(st)
+        if only and sub not in only:
+            continue
         try:
             if verb == "run":
                 cmd_run(rest[0], sub)
@@ -970,7 +972,8 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
         if g is not None:
             st["gates"] = g
         job = st["jobs"].get(name, {})
-        job.update(finished=now(), exit=exit_code, report=report, ok=ok, **({"limit": True} if limit else {}))
+        job.update(finished=now(), exit=exit_code, report=report, ok=ok, **({"limit": True} if limit else {}),
+                   **({"cost_usd": round(facts["cost"], 3)} if facts.get("cost") else {}))
         if exit_code != 0 or not report or not wrote:
             why = (f"stopped by a usage limit on {NAMES[provider]}" if limit else
                    f"failed (exit {code})" if exit_code or not report else "finished without writing its file")
@@ -1021,7 +1024,7 @@ def main(argv: list[str]) -> None:
     elif cmd in ("run", "codex"):
         cmd_run(rest[0], rest[1], on="codex" if cmd == "codex" else rest[rest.index("--on") + 1] if "--on" in rest else None)
     elif cmd == "step":
-        cmd_step()
+        cmd_step(rest)
     elif cmd == "usage":
         cmd_usage()
     elif cmd == "queue":

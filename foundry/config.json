@@ -9,37 +9,83 @@
  },
  "ladders": {
   "drafter": {
-   "codex": [["gpt-6-sol", "low"], ["gpt-6-sol", "medium"]],
-   "claude": [["opus", "low"], ["opus", "medium"]]
+   "codex": [
+    ["gpt-6-sol", "low"],
+    ["gpt-6-sol", "medium"]
+   ],
+   "claude": [
+    ["opus", "low"],
+    ["opus", "medium"]
+   ]
   },
   "fixer": {
-   "codex": [["gpt-6-luna", "low"], ["gpt-6-luna", "medium"]],
-   "claude": [["haiku", ""], ["sonnet", "low"]]
+   "codex": [
+    ["gpt-6-luna", "low"],
+    ["gpt-6-luna", "medium"]
+   ],
+   "claude": [
+    ["haiku", ""],
+    ["sonnet", "low"]
+   ]
   },
   "solver": {
-   "codex": [["gpt-6-luna", "low"], ["gpt-6-luna", "medium"]],
-   "claude": [["haiku", ""], ["sonnet", "low"]]
+   "codex": [
+    ["gpt-6-luna", "low"],
+    ["gpt-6-luna", "medium"]
+   ],
+   "claude": [
+    ["haiku", ""],
+    ["sonnet", "low"]
+   ]
   },
   "tiebreak": {
-   "codex": [["gpt-6-sol", "low"], ["gpt-6-sol", "medium"]],
-   "claude": [["sonnet", "low"], ["sonnet", "medium"]]
+   "codex": [
+    ["gpt-6-sol", "low"],
+    ["gpt-6-sol", "medium"]
+   ],
+   "claude": [
+    ["sonnet", "low"],
+    ["sonnet", "medium"]
+   ]
   },
   "checker": {
-   "codex": [["gpt-6-luna", "medium"], ["gpt-6-sol", "low"]],
-   "claude": [["haiku", ""], ["sonnet", "low"]]
+   "codex": [
+    ["gpt-6-luna", "medium"],
+    ["gpt-6-sol", "low"]
+   ],
+   "claude": [
+    ["haiku", ""],
+    ["sonnet", "low"]
+   ]
   },
   "adjudicator": {
-   "codex": [["gpt-6-astra", "medium"], ["gpt-6-astra", "high"]],
-   "claude": [["opus", "medium"], ["opus", "high"]]
+   "codex": [
+    ["gpt-6-astra", "medium"],
+    ["gpt-6-astra", "high"]
+   ],
+   "claude": [
+    ["opus", "medium"],
+    ["opus", "high"]
+   ]
   }
  },
  "weights": {
-  "drafter": 4,
-  "adjudicator": 2,
-  "checker": 1,
-  "tiebreak": 1,
-  "solver": 0.7,
-  "fixer": 0.5
+  "codex": {
+   "drafter": 0.6,
+   "adjudicator": 0.4,
+   "checker": 0.2,
+   "tiebreak": 0.15,
+   "solver": 0.15,
+   "fixer": 0.1
+  },
+  "claude": {
+   "drafter": 2.0,
+   "adjudicator": 0.8,
+   "checker": 0.2,
+   "tiebreak": 0.2,
+   "solver": 0.15,
+   "fixer": 0.1
+  }
  },
  "solver_shard_size": 20,
  "publish_on_sign": true,

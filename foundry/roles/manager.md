@@ -8,7 +8,7 @@ you must not judge alone. Read the board, small packets and one-line reports: ne
 
 ## The loop
 
-1. `bin/foundry step` does, for every chapter, whatever needs no judgement: it starts the workers that can run now,
+1. `bin/foundry step` does, for every chapter (or only for those you name after it), whatever needs no judgement: it starts the workers that can run now,
    compares finished blind solves with the keys, and signs what is green. It prints one line for each chapter that
    is waiting or needs you.
 2. `bin/foundry wait` returns when the running workers have finished (or after nine minutes). Then `step` again.
