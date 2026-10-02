@@ -3,7 +3,7 @@
 ## v1.3.1 (2026-10-02) — done
 - The foundry no longer mistakes "Claude's five-hour window is unknown" for "there is none": it says when it does not
   know, takes the figure passed on from the Claude app (`foundry reading`), and closes Claude until the reset when a
-  job is refused. 661 tests.
+  job is refused; a job goes only where it fits. 662 tests.
 
 ## v1.3.0 (2026-10-02) — done
 - The foundry runs on both allowances: every role is a headless Claude or Codex worker, each job goes to the allowance

@@ -190,15 +190,16 @@ def usage(notes: dict, codex: str, claude: str, now: float | None = None) -> dic
 
 # ---------------- where a job goes ----------------
 def score(provider: str, windows: dict | None, cfg: dict, running: list[str], model: str = "",
-          now: float | None = None) -> tuple[float | None, str]:
+          now: float | None = None, own: float = 0.0) -> tuple[float | None, str]:
     """Percent of this allowance's longest window left per hour until it resets. (None, why) when it is closed:
-    no free slot, or some window has no room once the jobs already running on it are counted."""
+    no free slot, or some window has no room once the jobs already running on it, and this one (`own`, its nominal
+    cost in percent of the week), are counted."""
     now = now or time.time()
     if len(running) >= cfg["max_parallel"][provider]:
         return None, f"{len(running)} workers already running on {NAMES[provider]}"
     if not windows:
         return UNKNOWN, ""
-    pending = sum(cfg["weights"][provider].get(r.split("#")[0], 0.2) for r in running)  # in percent of the week
+    pending = own + sum(cfg["weights"][provider].get(r.split("#")[0], 0.2) for r in running)  # percent of the week
     longest = None
     for name, w in windows.items():
         if name.endswith(("_opus", "_sonnet")) and not name.endswith("_" + model):
@@ -222,7 +223,8 @@ def pick(role: str, maker: str | None, usage: dict, cfg: dict, busy: dict, now: 
     for p in PROVIDERS:
         if p not in cfg["ladders"][role] or (role in BLIND and p == maker):
             continue
-        s, why = score(p, usage.get(p), cfg, busy.get(p, []), cfg["ladders"][role][p][0][0], now)
+        s, why = score(p, usage.get(p), cfg, busy.get(p, []), cfg["ladders"][role][p][0][0], now,
+                       own=cfg["weights"][p].get(role, 0.2))
         if s is None:
             closed.append(why)
         else:

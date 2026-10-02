@@ -10,6 +10,8 @@ Asked by the learner: why does `foundry usage` not show Claude's own five-hour w
 - `foundry usage` now says "not reported by Claude" for that window when it does not know it.
 - `foundry reading claude five_hour <percent> [reset time]` passes the figure on; the manager does so from the app's
   usage tool before the first `step` and about every half hour. The router then counts it like any other window.
+- **A job goes only where there is room for it.** The router now counts the job's own nominal cost before calling an
+  allowance open: with 18% of Claude's five-hour window left it no longer starts an Opus draft (about 21% of one).
 - A Claude job refused by a limit was already recorded as a limit, not a failure of its tier, and closes Claude until
   the reset time the refusal names; that path is now tested, for the five-hour window too.
 

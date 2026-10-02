@@ -453,7 +453,7 @@ def test_work_goes_to_the_allowance_with_more_of_its_week_left(fdy):
     assert pick("drafter", None, usage(80, 50), cfg, {}) == "codex"
     assert pick("drafter", None, usage(50, 50, codex_days=1), cfg, {}) == "codex"  # the same left, but it resets sooner
     assert pick("drafter", None, usage(50, 20, codex_now=100), cfg, {}) == "claude"  # Codex's five hours are used up
-    assert pick("drafter", None, usage(96, 99), cfg, {}) == "codex"  # the last of Claude's week is kept for the tutor
+    assert pick("drafter", None, usage(96, 97), cfg, {}) == "codex"  # the last of Claude's week is kept for the tutor
     with pytest.raises(fdy.router.Wait, match="used up"):
         pick("drafter", None, usage(100, 100), cfg, {})
 
@@ -471,9 +471,8 @@ def test_a_different_ai_family_checks_what_the_maker_wrote(fdy):
 
 def test_jobs_already_running_count_against_an_allowance(fdy):
     pick, cfg = fdy.router.pick, fdy.config()
-    assert pick("drafter", None, usage(45, 50), cfg, {}) == "codex"  # level, with Claude's reserve: Codex by default
-    assert pick("drafter", None, usage(50, 54), cfg, {}) == "codex"  # a little more of Codex's week is left
-    assert pick("drafter", None, usage(50, 54), cfg, {"codex": ["drafter", "drafter"]}) == "claude"  # two drafts on it
+    assert pick("drafter", None, usage(46, 52), cfg, {}) == "codex"  # a little more left once the draft is counted
+    assert pick("drafter", None, usage(46, 52), cfg, {"codex": ["drafter", "drafter"]}) == "claude"  # two drafts on it
     full = {"codex": ["solver"] * cfg["max_parallel"]["codex"]}
     assert pick("drafter", None, usage(90, 10), cfg, full) == "claude"  # no free slot on Codex
     with pytest.raises(fdy.router.Wait, match="running"):
@@ -608,10 +607,10 @@ def test_escalate_starts_the_adjudicator_on_its_first_tier(fdy):
 
 
 def test_usage_shows_both_allowances_and_where_the_next_job_goes(fdy, tmp_path, capsys):
-    (tmp_path / "usage-now.json").write_text(json.dumps(usage(77, 84, codex_now=29)))
+    (tmp_path / "usage-now.json").write_text(json.dumps(usage(70, 84, codex_now=29)))
     fdy.cmd_usage()
     out = capsys.readouterr().out
-    assert "Claude" in out and "77%" in out and "Codex" in out and "84%" in out and "29%" in out
+    assert "Claude" in out and "70%" in out and "Codex" in out and "84%" in out and "29%" in out
     assert "next job: Claude" in out  # more of its week is left, even with some kept back for the tutor
 
 
@@ -726,3 +725,13 @@ def test_a_refused_claude_worker_is_recorded_as_a_limit_not_a_failure(fdy, monke
     notes = json.loads(fdy.USAGE.read_text())
     assert job["limit"] and not job["ok"] and notes["claude"]["windows"]["five_hour"]["used"] == 100.0
     assert notes["misses"].get("drafter/claude", 0) == 0 and fdy.load(SUB)["stage"] == "draft"
+
+
+def test_a_job_goes_only_where_there_is_room_for_it(fdy):
+    """Seen on the learner's own figures: 18% of Claude's five-hour window was left and a draft by Opus takes about
+    21% of one, so the draft would have run into the limit part-way through. Small jobs still fit."""
+    pick, cfg = fdy.router.pick, fdy.config()
+    seen = usage(60, 80)
+    seen["claude"]["five_hour"] = {"used": 77, "resets": time.time() + 3 * 3600}
+    assert pick("drafter", None, seen, cfg, {}) == "codex"  # by the week alone it would be Claude
+    assert pick("solver", None, seen, cfg, {}) == "claude"  # a blind solve is small enough
