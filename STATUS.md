@@ -1,5 +1,9 @@
 # Build status
 
+## v1.2.7 (2026-10-02) — done
+- A resize clears the leftovers Terminal showed beside its scrollbar (the learner's original layout report); the
+  launcher opens in the learner's "Study" Terminal profile. Both checked in Terminal itself. 631 tests.
+
 ## v1.2.6 (2026-10-02) — done
 - The terminal window is named STEM Tutor while the app runs. 629 tests.
 

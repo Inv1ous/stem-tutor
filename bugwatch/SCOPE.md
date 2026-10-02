@@ -1,6 +1,6 @@
 # Scope: what the code is and where bugs likely hide
 
-STEM Tutor 1.2.6: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
+STEM Tutor 1.2.7: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
 (timezone `Asia/Hong_Kong`). A pure-Python learning engine does teaching, marking, scheduling and note-writing with no AI.
 A Textual terminal app sits on top, and Obsidian shows the notes. Claude (headless `claude -p`) is used only for
 optional chat/explanations. Python 3.13, repo venv `.venv/`.

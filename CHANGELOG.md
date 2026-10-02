@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.7 — 2026-10-02
+
+- **A resize clears what Terminal kept beyond the new edge.** The learner's original layout report: Terminal keeps
+  the columns beyond a narrowed window's right edge and shows them in the strip beside its scrollbar (old borders,
+  scrollbar pieces, letters). `TutorApp.on_resize` clears the display in the screen's colour (`ED 2`) and repaints.
+  Found by reading pixels in the learner's screenshot, reproduced and checked in Terminal itself with a scratch copy
+  of the app. (1.2.5 fixed real layout faults, but not this.)
+- **The launcher opens in the "Study" Terminal profile** when there is one (`publish.launcher_script`: an AppleScript
+  moves the launcher's own window, found by its tty). The learner's profile shows only the title the app sends and
+  uses the app's colours.
+
 ## 1.2.6 — 2026-10-02
 
 - **The terminal window is named.** The app sends its title (`OSC 0`) before it takes the screen and hands it back
