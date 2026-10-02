@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.2.8_
+_Version 1.3.0_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,11 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 1.3.0
+> - **New chapters are built on both of your allowances at once.** The foundry (the workshop that builds chapters) now splits its work between your Claude allowance and your Codex allowance. Before every job it reads what is left of each and gives the job to the one with more left, so the two run out together instead of one sitting unused. `foundry usage` shows both, and `foundry watch` shows them live.
+> - **The smallest model that does the job.** Every kind of job starts on the cheapest model and moves up only when that proves not enough. The AI family that writes a chapter never checks it: the other one does.
+> - **Two new chapters**, built this way as the first run: **9701-2.2 The mole and the Avogadro constant** and **9701-2.4 Reacting masses and volumes**.
 
 > [!example] New in 1.2.8
 > - **Your Almanac ticks count.** Tick objectives in your Almanac as usual, then press **Export** there. The tutor finds the exported file in your Downloads folder the next time it opens (or when you come back to its menu) and reads your ticks from it. A ticked objective is no longer taught from the start: **Today's plan** asks one quick check question on each of its ideas instead. Get it right and the idea joins your reviews; miss it and it becomes your next lesson.
@@ -402,7 +407,7 @@ The tutor uses methods with good evidence behind them, and is honest about how s
 - **The program:** `~~ AI Workflow › stem-tutor`. You don't need to open it.
 - **iPad inbox:** `iCloud Drive › STEM Tutor Inbox`, only for PDFs from the iPad.
 - **Your Almanac:** `00 Important › 01 AS/A › A-Levels.html` (section 3). Press **Export** in the Almanac whenever you have ticked something: the tutor reads your ticks from that file (it looks in Downloads and in this vault's **Almanac** folder). After your next session the tutor writes `almanac-import-<date>.json` there, with your study days, mistake types, topic ratings and paper scores added; open it with the Almanac's **Import** button. Your ticks in the Almanac are kept.
-- **New chapters** are prepared in advance by a team of AIs and checked before they reach this vault (the "foundry": `stem-tutor › foundry › README.md`). Until a chapter has passed every check it stays out of the vault.
+- **New chapters** are prepared in advance by a team of AIs, paid for by your Claude and Codex allowances together, and checked before they reach this vault (the "foundry": `stem-tutor › foundry › README.md`). Until a chapter has passed every check it stays out of the vault.
 - The old copy in your main Obsidian vault (`Notes › 01 Study › STEM Tutor`) is no longer used; it has a MOVED note. You can delete it once you're happy.
 
 ---

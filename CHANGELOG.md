@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.3.0 — 2026-10-02
+
+Asked by the learner: the foundry should use the Claude and Codex usage limits together, split so that both run out
+at the same time and adapting as it goes; any model may do any job; each job gets the least model that gives
+consistent output. Design: `docs/superpowers/specs/2026-10-02-foundry-two-allowances-design.md`.
+
+- **One launcher for every role, on either allowance.** `foundry run <role> <chapter>` starts a headless worker:
+  `codex exec`, or `claude -p` with plugins, skills, hooks and MCP servers left out. Solvers and the checker are no
+  longer the manager's subagents, so they finish without it.
+- **`foundry/router.py` decides where each job goes**, afresh before every job: the allowance with more of its
+  longest window left per hour until it resets. Codex is read from its app server; Claude from Claude Code's cache,
+  from what each worker is told, and from a one-word run when both are over ten minutes old.
+- **The family that drafts a chapter never blind-solves or tiebreaks it.**
+- **Ladders of models per role and allowance** (`foundry/config.json`): a job starts on the lowest rung that has not
+  failed the role twice running; a chapter's retry goes one up; a usage limit closes the allowance and is not held
+  against the tier; a solver is judged by how often the tiebreak overturns it.
+- **`foundry step`** does everything that needs no judgement in one pass; **`foundry usage`** shows both allowances.
+- **First real run** (9701-2.2 drafted by `gpt-6-sol` low, 9701-2.4 by Opus at low effort; both signed): each first
+  rung passed its gates except the Codex solver, where `gpt-6-luna` low slipped on 34 of 92 questions, so its ladder
+  now starts at medium. The run also showed that asking again for a big chapter's remaining shards discarded the
+  finished ones; fixed.
+
 ## 1.2.8 — 2026-10-02
 
 Asked by the learner: Today's plan showed only the calendar week however far ahead they were, and objectives ticked

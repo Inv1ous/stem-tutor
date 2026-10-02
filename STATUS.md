@@ -1,5 +1,11 @@
 # Build status
 
+## v1.3.0 (2026-10-02) — done
+- The foundry runs on both allowances: every role is a headless Claude or Codex worker, each job goes to the allowance
+  with more left (read before every job), the family that drafts never checks, and each role starts on its cheapest
+  model. `foundry step`, `foundry usage`. First real run signed 9701-2.2 and 9701-2.4 (24 chapters, 111 of 873
+  outcomes). 658 tests.
+
 ## v1.2.8 (2026-10-02) — done
 - Almanac ticks count (read from the planner's export, found in Downloads): ticked objectives are checked instead of
   taught, the plan and the home screen follow the learner past the calendar week, and the foundry builds the chapters
