@@ -11,7 +11,7 @@ first rung.
 | Who | On Claude, first rung → next | On Codex, first rung → next | Does |
 |---|---|---|---|
 | **Drafter** | Opus, low effort → medium | `gpt-6-sol` low → medium | Writes the chapter: pack + lesson note, computing every answer with Python |
-| **Solver** | Haiku → Sonnet low | `gpt-6-luna` low → medium | Answers every question **without seeing the answer key**; a big chapter is split into shards of 20 questions, one solver each |
+| **Solver** | Haiku → Sonnet low | `gpt-6-luna` medium → `gpt-6-sol` low | Answers every question **without seeing the answer key**; a big chapter is split into shards of 20 questions, one solver each |
 | **Tiebreak** | Sonnet low → medium | `gpt-6-sol` low → medium | Solves only the disputed questions, also blind, at a stronger tier than the solver |
 | **Checker** | Haiku → Sonnet low | `gpt-6-luna` medium → `gpt-6-sol` low | Checks seven fixed rules (hints that give the answer away, wrong definitions, two right options, wrong constants, note vs pack, off-syllabus, outcomes not taught) and quotes evidence |
 | **Fixer** | Haiku → Sonnet low | `gpt-6-luna` low → medium | Makes exactly the changes that were decided |
@@ -43,7 +43,9 @@ next job: Claude (more of its week left for the time until it resets); …
   different AI families. If the other allowance is used up, that chapter waits for it.
 - **The least model that works.** A role starts on the first rung of its ladder. If a job fails (the worker stops,
   writes nothing, or leaves the gates red), that chapter's retry runs one rung up. A rung that fails a role twice
-  running is not used for it again. A usage limit is not counted as a failure.
+  running is not used for it again. A usage limit is not counted as a failure. A blind solver is judged by its
+  answers, not by finishing: if the tiebreak sides with the key against it on more than 15% of a chapter's
+  questions, that counts as a failure of its tier.
 - **Some of Claude's week is kept back** (5%), because the tutor's own AI help uses the same allowance. Change
   `reserve` in `foundry/config.json` to keep more or none.
 - **How the allowances are read.** Codex reports its own figures when asked, at no cost. Claude has no such command:

@@ -635,3 +635,47 @@ def test_a_stale_claude_reading_is_refreshed_by_asking_claude_itself(fdy, tmp_pa
     monkeypatch.setenv("FAKE_UTILIZATION", "0.99")
     assert fdy.router.usage(notes, fake, fake)["claude"]["seven_day"]["used"] == 81.0  # fresh: not asked again
     assert notes["claude"]["probed"] == asked
+
+
+def test_asking_for_the_rest_of_a_big_chapter_keeps_the_shards_already_solved(fdy, tmp_path, monkeypatch):
+    """Seen on the first real run: three of five shards were solved, the other two had no free slot, and asking again
+    wrote the questions afresh, which threw the three finished answer files away and solved them a second time."""
+    cfg = {**fdy.config(), "solver_shard_size": 5, "max_parallel": {"codex": 1, "claude": 1}}
+    monkeypatch.setattr(fdy, "config", lambda: cfg)
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["checked"] = True  # the solvers only
+    right = tmp_path / "right.json"
+    right.write_text(json.dumps(keys(fdy)))
+    monkeypatch.setenv("FAKE_COPY", str(right))
+    fdy.cmd_dispatch(SUB)  # one slot on each allowance: two shards start, the rest wait
+    first = {n: j["started"] for n, j in fdy.load(SUB)["jobs"].items()}
+    assert sorted(first) == ["solver#1", "solver#2"]
+    finished(fdy, "solver#1"), finished(fdy, "solver#2")
+    time.sleep(1.1)  # so that a job started again would show a later time
+    fdy.cmd_dispatch(SUB)
+    jobs = fdy.load(SUB)["jobs"]
+    assert (fdy.BLIND / f"{SUB}.answers.part1.json").exists() and (fdy.BLIND / f"{SUB}.answers.part2.json").exists()
+    assert {n: jobs[n]["started"] for n in first} == first and len(jobs) == 4  # two more started, none again
+
+
+def test_a_solver_the_tiebreak_keeps_overturning_is_on_too_weak_a_tier(fdy):
+    """Seen on the first real run: the cheapest Codex solver "succeeded" on every shard and was wrong on 34 of 92
+    questions. Finishing is not enough for a blind solver: what counts is how often the tiebreak sides with the key."""
+    fdy.cmd_add([SUB])
+    fdy.cmd_strip(SUB)
+    answers = keys(fdy)
+    for qid in list(answers)[:4]:  # four slips
+        answers[qid] = {"A": "B", "B": "C", "C": "D", "D": "A"}.get(answers[qid], "999")
+    (fdy.BLIND / f"{SUB}.answers.json").write_text(json.dumps(answers))
+    with fdy.chapter(SUB) as st:
+        st["checked"] = True
+        st["jobs"]["solver"] = {"provider": "codex", "rung": 0, "started": fdy.now(), "finished": fdy.now(), "exit": 0}
+    fdy.cmd_compare(SUB)
+    assert fdy.load(SUB)["stage"] == "tiebreak"
+    (fdy.BLIND / f"{SUB}.tiebreak.json").write_text(json.dumps({q: keys(fdy)[q] for q in list(answers)[:4]}))
+    fdy.cmd_compare(SUB)  # the tiebreak agrees with the key every time: the solver slipped four times
+    notes = json.loads(fdy.USAGE.read_text())
+    assert notes["misses"]["solver/codex"] == 1
+    fdy.router.record(notes, fdy.config(), "solver", "codex", 0, ok=True, judge=False)  # a shard merely finishing
+    assert notes["misses"]["solver/codex"] == 1  # does not clear it

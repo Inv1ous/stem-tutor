@@ -244,13 +244,16 @@ def rung(notes: dict, cfg: dict, role: str, provider: str, retry: int | None = N
 
 
 def record(notes: dict, cfg: dict, role: str, provider: str, at_rung: int, ok: bool, limit: bool = False,
-           cost: float = 0.0, windows: dict | None = None, now: float | None = None) -> None:
+           cost: float = 0.0, windows: dict | None = None, now: float | None = None, judge: bool = True) -> None:
     """Note how a finished job went: for the tier (two failures running raise the role's floor), for the allowance
-    (a usage limit closes it for ten minutes and is not held against the tier), and for the Claude readings."""
+    (a usage limit closes it for ten minutes and is not held against the tier), and for the Claude readings.
+    `judge=False` leaves the tier out of it: a solver shard that merely finished says nothing of how well it solved."""
     now = now or time.time()
     key, misses = f"{role}/{provider}", notes.setdefault("misses", {})
     if limit:
         notes.setdefault(provider, {})["closed_until"] = now + 600
+    elif not judge:
+        pass
     elif ok:
         misses[key] = 0
     else:

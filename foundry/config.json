@@ -30,8 +30,8 @@
   },
   "solver": {
    "codex": [
-    ["gpt-6-luna", "low"],
-    ["gpt-6-luna", "medium"]
+    ["gpt-6-luna", "medium"],
+    ["gpt-6-sol", "low"]
    ],
    "claude": [
     ["haiku", ""],
@@ -71,7 +71,7 @@
  },
  "weights": {
   "codex": {
-   "drafter": 0.6,
+   "drafter": 1.0,
    "adjudicator": 0.4,
    "checker": 0.2,
    "tiebreak": 0.15,
@@ -79,7 +79,7 @@
    "fixer": 0.1
   },
   "claude": {
-   "drafter": 2.0,
+   "drafter": 3.0,
    "adjudicator": 0.8,
    "checker": 0.2,
    "tiebreak": 0.2,

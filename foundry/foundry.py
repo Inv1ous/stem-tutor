@@ -533,10 +533,20 @@ def _after_solving(st: dict, note: str) -> None:
              note + f"; {len(st['findings'])} checker findings")
 
 
+def _solver_tier(st: dict, good: bool) -> None:
+    """Tell the router how the blind solve went. Every shard can finish and the solver still be on too weak a tier:
+    what counts is how often the tiebreak sides with the key against it."""
+    job = next((j for n, j in st["jobs"].items() if n.startswith("solver") and j.get("provider")), None)
+    if job:
+        with notes() as n:
+            router.record(n, config(), "solver", job["provider"], job.get("rung", 0), ok=good)
+
+
 def cmd_compare(sub: str) -> None:
     import blind
 
     pack = json.loads(pack_path(sub).read_text())
+    solved_well = None
     with chapter(sub) as st:
         fresh = _ingest_check(st)
         pfx = _pfx(st)
@@ -568,16 +578,20 @@ def cmd_compare(sub: str) -> None:
                         d["status"] = "closed"
             st["disputes"] = list(known.values())
             n_open = sum(d["status"] == "open" for d in st["disputes"])
+            solved_well = True if not n_open else None  # with disputes, the tiebreak says whose slips they were
             _after_solving(st, f"{res['agreed']} agreed, {n_open} disputed")
         elif st["stage"] == "tiebreak" and (BLIND / f"{sub}.tiebreak.json").exists():
             tb = json.loads((BLIND / f"{sub}.tiebreak.json").read_text())
             res = blind.compare(pack, tb)
             wrong = {d["id"] for d in res["disagreements"]}
+            slips = 0
             for d in st["disputes"]:
                 if d["status"] == "open" and d["id"] in tb:
                     d["tiebreak"] = tb[d["id"]]
                     if d["id"] not in wrong:  # a second, independent solver agrees with the key: the first erred
                         d["status"], d["resolution"] = "closed", "solver wrong (tiebreak agrees with key)"
+                        slips += 1
+            solved_well = slips <= max(2, 0.15 * len(blind.strip(pack)))  # more than that is not the odd slip
             n_open = sum(d["status"] == "open" for d in st["disputes"])
             if n_open:  # what is still disputed goes to the manager, with the findings
                 if not st.get("checked"):
@@ -596,6 +610,8 @@ def cmd_compare(sub: str) -> None:
         else:
             raise SystemExit(f"{sub}: nothing to compare at stage {st['stage']} (are the answers/findings written?)")
         print(f"{sub}: now {st['stage']} ({st['history'][-1]['note']})")
+    if solved_well is not None:
+        _solver_tier(load(sub), solved_well)
 
 
 def cmd_dispatch(sub: str) -> None:
@@ -604,8 +620,9 @@ def cmd_dispatch(sub: str) -> None:
     st = load(sub)
     wanted: list[tuple[str, int | None]] = []
     if st["stage"] in ("solve", "recheck"):
-        if not any(n.startswith("solver") for n in _running(st)):  # never rewrite the questions under a solver
-            cmd_strip(sub, changed=st["stage"] == "recheck")
+        questions = BLIND / f"{sub}.{_pfx(st)}questions.json"
+        if not questions.exists() or questions.stat().st_mtime < _since(st) - 1:
+            cmd_strip(sub, changed=st["stage"] == "recheck")  # once a round: stripping again discards finished shards
         wanted += [("solver", int(n.split("#")[1]) if "#" in n else None) for n in _solver_jobs(st)]
     if st["stage"] in ("solve", "check") and not st.get("checked") and not (WORK / f"{sub}.check.json").exists():
         wanted.append(("checker", None))
@@ -964,7 +981,8 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
     if out != "-":
         with notes() as n:
             router.record(n, config(), role, provider, job.get("rung", 0), ok=ok, limit=limit,
-                          cost=facts.get("cost", 0.0), windows=facts.get("windows"))
+                          cost=facts.get("cost", 0.0), windows=facts.get("windows"),
+                          judge=not (role == "solver" and ok))  # a solver is judged by its answers, at compare
     if role not in ("solver", "checker"):
         notify(f"{sub}: {role} " + ("finished" if exit_code == 0 and report else "failed")
                + (" · gates ok" if g and g.get("ok") else ""))
