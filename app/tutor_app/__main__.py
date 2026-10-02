@@ -23,7 +23,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     from .app import TutorApp
     app = TutorApp(vault)
-    app.run()
+    print(f"\x1b]0;{app.TITLE}\x07", end="", flush=True)  # name the terminal window: a terminal shows what it is told
+    try:
+        app.run()
+    finally:
+        print("\x1b]0;\x07", end="", flush=True)  # hand the title back
     return 0
 
 

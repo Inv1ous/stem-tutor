@@ -67,3 +67,16 @@ def test_a_blocked_inbox_is_reported(tmp_path):
         assert mac.inbox_blocked(inbox)
     finally:
         inbox.chmod(0o755)
+
+
+def test_the_terminal_window_is_named_while_the_app_runs(tmp_path, monkeypatch, capsys):
+    """Asked by the learner: the Terminal title bar showed only the folder, the command and the window size. A terminal
+    is told its title with an escape sequence, and Textual sends none."""
+    from fixtures import make_vault
+    from tutor_app import __main__ as cli
+    from tutor_app.app import TutorApp
+    during = []
+    monkeypatch.setattr(TutorApp, "run", lambda self: during.append(capsys.readouterr().out))
+    assert cli.main(["--vault", str(make_vault(tmp_path))]) == 0
+    assert during == ["\x1b]0;STEM Tutor\x07"]  # named before the app takes the screen
+    assert capsys.readouterr().out == "\x1b]0;\x07"  # and the title handed back when it ends
