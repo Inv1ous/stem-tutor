@@ -511,6 +511,27 @@ def test_at_half_a_screen_everything_lines_up_and_fits(tmp_path, monkeypatch):
     asyncio.run(go())
 
 
+def test_a_resize_clears_what_the_terminal_kept_beyond_the_new_edge(tmp_path, monkeypatch):
+    """Reported by the learner, and seen in their Terminal: after the window is made narrower, Terminal keeps what was
+    drawn beyond the new right edge and shows it in the strip beside its own scrollbar (old borders, pieces of
+    scrollbar, letters). The app can only draw inside the window, so it clears the display, then redraws."""
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(140, 46)) as pilot:
+            await pilot.pause()
+            written, repaints = [], []
+            monkeypatch.setattr(app._driver, "write", written.append)
+            monkeypatch.setattr(app.screen, "refresh", lambda *a, **k: repaints.append(1))
+            await pilot.resize_terminal(120, 46)
+            await pilot.pause()
+            r, g, b = app.screen.styles.background.rgb
+            assert f"\x1b[48;2;{r};{g};{b}m\x1b[2J\x1b[0m" in written  # cleared in the screen's own colour
+            assert repaints  # and everything is drawn again
+            await app.ai.close()
+    asyncio.run(go())
+
+
 def test_the_home_screens_side_box_fits_and_scrolls(tmp_path, monkeypatch):
     """With 22 chapters the box of dates and topics ran off the bottom of the window: its bottom edge was gone, and
     the AI line and the version under the topics could not be reached."""

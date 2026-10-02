@@ -100,6 +100,15 @@ class TutorApp(App):
         if self.size.width < 90 or self.size.height < 28:
             self.notify("Tip: make this window bigger (or full-screen) for the best view.", timeout=8)
 
+    def on_resize(self) -> None:
+        """Terminal keeps what was drawn beyond a narrowed window's new right edge and shows it in the strip beside its
+        own scrollbar: old borders, pieces of scrollbar, letters. The app can only draw inside the window, so it
+        clears the display (in the screen's colour, so nothing flashes) and draws everything again."""
+        if self._driver is not None:
+            r, g, b = self.screen.styles.background.rgb
+            self._driver.write(f"\x1b[48;2;{r};{g};{b}m\x1b[2J\x1b[0m")
+            self.screen.refresh()
+
     def action_smart_quit(self) -> None:
         """ctrl+q: inside a session it saves and returns to the menu; on the menu it quits."""
         from .screens import SessionScreen
