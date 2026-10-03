@@ -1,5 +1,5 @@
 """Weekly bookkeeping (no AI): refresh Today.md and Profile.md, start/finish personal experiments,
-export new Anki cards when a week has passed, and sync the Almanac planner when it has left an export."""
+export new Anki cards when a week has passed, and bring the Almanac planner's file up to date."""
 from __future__ import annotations
 
 from datetime import datetime
@@ -38,7 +38,5 @@ def run(t, minutes: int = 50) -> dict:
     last = t.state.get("anki_last")
     if last is None or (t.now() - datetime.fromisoformat(last)).days >= 6:
         res["anki"] = anki.export(t)
-    root = t.vault.root
-    if (root / "Almanac").exists() and any((root / "Almanac").glob("almanac-progress-*.json")):
-        res["almanac"] = report.almanac_sync(t)
+    res["almanac"] = report.almanac_push(t)
     return res

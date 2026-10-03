@@ -77,14 +77,14 @@ class Claude:
     """A persistent streaming conversation. `stream(prompt)` yields text as it arrives; `last` holds the outcome."""
 
     def __init__(self, cwd: Path, model: str = "haiku", system: str = SYSTEM, binary: str | None = None,
-                 usage_file: Path | None = None, daily_cap: int = 80):
+                 usage_file: Path | None = None):
         self.cwd, self.model, self.system = Path(cwd), model, system
         self.binary = binary or os.environ.get("STEM_TUTOR_CLAUDE") or shutil.which("claude") or "claude"
         self.proc: asyncio.subprocess.Process | None = None
         self.status = "ready" if shutil.which(self.binary) or Path(self.binary).exists() else "off"
         self.message = "" if self.status != "off" else "Claude Code is not installed, so AI help is off."
         self.session = Usage()
-        self.usage_file, self.daily_cap = usage_file, daily_cap
+        self.usage_file = usage_file
         self.last = Result()
         self._lock = asyncio.Lock()
         self._pending = 0  # one-shot calls in flight, counted against the daily cap before they finish
@@ -120,7 +120,7 @@ class Claude:
     def available(self) -> bool:
         if self.status in ("login", "limit") and datetime.now() >= getattr(self, "blocked_until", datetime.max):
             self.status, self.message = "ready", ""  # try again: you may have signed in, or the limit reset
-        return self.status == "ready" and self.today()["replies"] < self.daily_cap
+        return self.status == "ready"
 
     def _block(self, status: str, text: str) -> None:
         now = datetime.now()
@@ -161,13 +161,7 @@ class Claude:
         if self.status == "off":
             self.last = Result(ok=False, status="off", message=self.message)
             return
-        if self.today()["replies"] >= self.daily_cap:
-            self.last = Result(ok=False, status="cap", message=f"Today's AI allowance ({self.daily_cap} replies) is used up.")
-            return
         async with self._lock:
-            if self.today()["replies"] + self._pending >= self.daily_cap:  # re-check: a queued request may be over
-                self.last = Result(ok=False, status="cap", message=f"Today's AI allowance ({self.daily_cap} replies) is used up.")
-                return
             if self.proc is None or self.proc.returncode is not None:
                 await self._start()
             proc = self.proc
@@ -247,7 +241,7 @@ class Claude:
 
     async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None) -> tuple[dict | None, Result]:
         """A separate, memory-less call that must return JSON (judging an answer, writing a teach card)."""
-        if not self.available or self.today()["replies"] + self._pending >= self.daily_cap:
+        if not self.available:
             return None, Result(ok=False, status=self.status, message=self.message or "AI unavailable")
         self._pending += 1
         try:

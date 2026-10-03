@@ -77,7 +77,7 @@ class TutorApp(App):
             return
         self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None, one_at_a_time=True)
         self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
-                         usage_file=self.vault / ".tutor" / "ai_usage.json", daily_cap=self.settings.daily_cap)
+                         usage_file=self.vault / ".tutor" / "ai_usage.json")
         import threading
 
         def warm() -> None:  # load the maths library in the background so the first algebra answer isn't slow

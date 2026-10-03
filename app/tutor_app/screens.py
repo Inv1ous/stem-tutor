@@ -67,6 +67,7 @@ class HomeScreen(Screen):
                 app.notify(mac.DOWNLOADS_HELP, severity="warning", timeout=15)
             return []
         if moved:
+            app.tutor.read_almanac()  # the exam dates entered there, too
             app.notify("Read your ticks from the Almanac export in Downloads.", timeout=6)
         return moved
 
@@ -99,6 +100,10 @@ class HomeScreen(Screen):
         t = app.tutor
         if (arrived := t.refresh_content()):  # chapters published while the app was open, e.g. by the foundry
             app.notify("New chapters ready: " + ", ".join(arrived), timeout=10)
+        try:
+            report.almanac_push(t)  # the Almanac page picks it up: ticks, colours, the wall, the retrospective
+        except OSError:
+            pass  # the planner's folder can't be written: the tutor itself is unaffected
         now = t.now()
         due = model.due_kcs(t.state, now)
         menu = self.query_one("#menu", OptionList)
@@ -179,8 +184,8 @@ class HomeScreen(Screen):
             out.append(bar(sec, len(kcs), 10), style=colour)
             out.append(f" {sec}/{len(kcs)} {t.packs.subtopics[sub]['title'][:26]}\n", style="#9399b2")
         a = app.ai
-        state = ("on" if a.available else {"login": "sign-in needed", "limit": "paused (limit)", "off": "not installed",
-                                           "cap": "today's allowance used"}.get(a.status, a.status)) if app.settings.ai else "off"
+        state = ("on" if a.available else {"login": "sign-in needed", "limit": "paused (limit)",
+                                           "off": "not installed"}.get(a.status, a.status)) if app.settings.ai else "off"
         out.append(f"\nAI tutor: {state} · {a.today()['replies']} replies today\n", style="#f5c2e7")
         out.append(f"\nSTEM Tutor v{__version__}", style="#6c7086")
         return out
@@ -1067,9 +1072,6 @@ class SettingsScreen(ModalScreen):
                 yield Select([("Haiku (cheapest, fast)", "haiku"), ("Sonnet (clearer, ~3x usage)", "sonnet")],
                              value=s.model, id="model", allow_blank=False)
             with Horizontal(classes="row"):
-                yield Static("AI replies per day (protects your usage limit): ")
-                yield Input(str(s.daily_cap), id="cap", type="integer")
-            with Horizontal(classes="row"):
                 yield Static("Session length (minutes): ")
                 yield Input(str(s.minutes), id="minutes", type="integer")
             yield Button("Save", id="save", variant="primary")
@@ -1086,10 +1088,9 @@ class SettingsScreen(ModalScreen):
                 return default
         old_model = s.model
         s.model = str(self.query_one("#model", Select).value)
-        s.daily_cap = num("#cap", 80, 1, 500)
         s.minutes = num("#minutes", 40, 5, 180)
         s.save(self.app.vault)
-        self.app.ai.model, self.app.ai.daily_cap = s.model, s.daily_cap
+        self.app.ai.model = s.model
         if s.model != old_model:
             self.run_worker(self.app.ai.reset(), group="reset")
         self.dismiss(None)

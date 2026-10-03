@@ -757,3 +757,64 @@ def test_the_week_shown_moves_on_once_this_week_is_done(tutor):
     assert policy.focus_week(plan, tutor.state, frozenset(), T0) == 5  # nothing done: the calendar week
     assert policy.focus_week(plan, tutor.state, frozenset({"5-phys1"}), T0) == 6  # week 5 ticked: on to week 6
     assert policy.focus_week(plan, tutor.state, frozenset({"5-phys1", "6-phys1"}), T0) == 5  # nothing left anywhere
+
+
+# ---------- what the tutor ticks in the Almanac, and the colour of each topic ----------
+def _know(tutor, kc, days=("2026-09-28",), theta=1.0):
+    """Give an idea a history: answered right without help on these days."""
+    from tutorlib import model
+    k = tutor.state["kcs"].setdefault(kc, model._new_kc())
+    k.update(n=len(days), theta=theta, succ_days=list(days))
+
+
+def test_an_objective_is_ticked_once_each_of_its_ideas_has_been_answered_right_unaided(tutor):
+    """Asked by the learner: check objectives off in the Almanac for me when I have done them."""
+    plan = tutor.packs.plan
+    assert policy.earned(plan, tutor.state, tutor.packs) == frozenset()
+    _know(tutor, "9702-2.1.1")
+    assert policy.earned(plan, tutor.state, tutor.packs) == frozenset()  # one idea of the two
+    _know(tutor, "9702-2.1.4")
+    assert policy.earned(plan, tutor.state, tutor.packs) == {"5-phys1"}
+    assert "5-phys1" in tutor.ticks()  # counted with the learner's own ticks from then on
+
+
+def test_a_review_or_gate_is_ticked_when_the_ideas_it_covers_are_secure(tutor):
+    plan = tutor.packs.plan
+    plan["weeks"]["9"] = [
+        {"id": "9-exam1", "subject": "exam", "title": "D28 review of week 5 content", "kcs": [], "type": "REVISE",
+         "done": "recalled cold with ≤2 errors"},
+        {"id": "9-exam2", "subject": "exam", "title": "Practical graph skills", "kcs": [], "type": "PRACTICAL"},
+        {"id": "9-phys1", "subject": "phys", "title": "Kinematics full mixed set", "type": "GATE",
+         "kcs": ["9702-2.1.1", "9702-2.1.4"], "done": "≥30/60 on a paper equivalent"}]
+    for kc in ("9702-2.1.1", "9702-2.1.4"):
+        _know(tutor, kc)  # right once: learned, not yet shown to have stuck
+    assert policy.earned(plan, tutor.state, tutor.packs) == {"5-phys1"}
+    _know(tutor, "9702-2.1.1", days=("2026-09-25", "2026-09-28"))
+    assert policy.earned(plan, tutor.state, tutor.packs) == {"5-phys1", "9-phys1"}  # the gate asks for half
+    _know(tutor, "9702-2.1.4", days=("2026-09-25", "2026-09-28"))
+    assert policy.earned(plan, tutor.state, tutor.packs) == {"5-phys1", "9-phys1", "9-exam1"}  # a practical: never
+
+
+def test_every_syllabus_topic_gets_a_colour_from_what_the_answers_show(tutor):
+    """Asked by the learner: fill in the Almanac's Green/Amber/Red for me; I can't rate myself honestly."""
+    assert policy.rag(tutor.state, tutor.packs) == {"phys-2": "r"}  # nothing shown yet
+    assert policy.rag(tutor.state, tutor.packs, ["9702-2.1.1"]) == {"phys-2": "a"}  # ticked in the Almanac, unchecked
+    _know(tutor, "9702-2.1.1")
+    assert policy.rag(tutor.state, tutor.packs) == {"phys-2": "a"}  # under way
+    for kc in ("9702-2.1.1", "9702-2.1.4"):
+        _know(tutor, kc, days=("2026-09-25", "2026-09-28"))
+    assert policy.rag(tutor.state, tutor.packs) == {"phys-2": "g"}
+    for kc in ("9702-2.1.1", "9702-2.1.4"):
+        tutor.state["kcs"][kc].update(theta=-1.0, succ_days=[])
+    assert policy.rag(tutor.state, tutor.packs) == {"phys-2": "r"}  # tried, and going wrong
+
+
+def test_exam_dates_entered_in_the_almanac_replace_the_plans(tutor):
+    import json
+    plan = tutor.packs.plan
+    plan["papers"] = [{"code": "9702/22", "short": "AS", "date": None}]
+    (tutor.vault.root / "Almanac").mkdir()
+    (tutor.vault.root / "Almanac/almanac-progress-2026-09-29.json").write_text(
+        json.dumps({"dates": {"0": "2027-05-20", "7": "2027-06-01", "x": "soon"}}))
+    tutor.read_almanac()
+    assert plan["papers"][0]["date"] == "2027-05-20" and plan["sittings"] == {"AS (9702)": "2027-05-20"}

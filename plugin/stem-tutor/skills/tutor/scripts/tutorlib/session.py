@@ -41,6 +41,7 @@ class Tutor(LessonMixin):
             self._dirty = True
         self.session = read_json(self.session_path)
         self._recover()
+        self.read_almanac()
 
     def _recover(self) -> None:
         """An answer is logged before the session is saved. If the app stopped in between, the question is still
@@ -66,12 +67,18 @@ class Tutor(LessonMixin):
             return []
         before = self.packs.published()
         self.packs = Packs(self.vault)
+        self.read_almanac()
         return [self.packs.subtopics[s]["title"] for s in sorted(self.packs.published() - before)
                 if s in self.packs.subtopics]
 
     def ticks(self) -> frozenset[str]:
-        """Objectives ticked in the Almanac planner, from its newest progress file in the vault's Almanac folder."""
-        return almanac.ticks(self.vault.root)
+        """Objectives that count as done: ticked by the learner in the Almanac (its newest progress file in the
+        vault's Almanac folder), or earned here by what their answers show."""
+        return almanac.ticks(self.vault.root) | policy.earned(self.packs.plan, self.state, self.packs)
+
+    def read_almanac(self) -> None:
+        """Take from the Almanac what only it knows: the exam dates entered in its statement of entry."""
+        almanac.apply_dates(self.packs.plan, almanac.exam_dates(self.vault.root))
 
     # ---------- persistence ----------
     def now(self) -> datetime:

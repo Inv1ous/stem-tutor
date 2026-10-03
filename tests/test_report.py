@@ -62,29 +62,6 @@ def test_today_note_lists_plan(tutor):
     assert "Learn" in text and "9702-2.1.1" in text
 
 
-def test_almanac_sync_merges_into_latest_export(tutor):
-    folder = tutor.vault.root / "Almanac"
-    folder.mkdir()
-    (folder / "almanac-progress-2026-09-28.json").write_text(json.dumps(
-        {"done": {"1-math1": 1}, "err": {"Could not recall": 2}, "wall": {"2026-09-20": 1}, "rag": {"phys-1": "g"}}))
-    _study(tutor, wrong=True)
-    r = report.almanac_sync(tutor)
-    out = json.loads((tutor.vault.root / r["path"]).read_text())
-    assert out["done"] == {"1-math1": 1}
-    assert out["wall"]["2026-09-29"] == 1 and out["wall"]["2026-09-20"] == 1
-    assert sum(out["err"].values()) >= 2
-    again = report.almanac_sync(tutor)  # no double counting
-    out2 = json.loads((tutor.vault.root / again["path"]).read_text())
-    assert out2["err"] == out["err"]
-
-
-def test_almanac_sync_writes_best_recent_paper_scores(tutor):
-    tutor.paper_score("9702_s23_qp_22", "1a=1/2, 1b=2/3")
-    tutor.paper_score("9702_s23_qp_22", "1a=2/2, 1b=3/3")
-    out = json.loads((tutor.vault.root / report.almanac_sync(tutor)["path"]).read_text())
-    assert out["scores"]["phys-P2"] == 60  # full-paper equivalent: 100% of 60 marks
-
-
 def test_brief_caps_missing_pack_list(tutor, monkeypatch):
     from tutorlib import policy
     monkeypatch.setattr(policy, "missing_packs", lambda p, now: [f"X-{i}" for i in range(50)])
@@ -141,3 +118,32 @@ def test_today_note_counts_almanac_ticks_and_follows_you_ahead(tutor):
     text = (tutor.vault.root / report.today_note(tutor)).read_text()
     assert "Almanac week 6" in text and "ahead" in text and "Dynamics" in text
     assert "Kinematics" not in text.split("## ")[-1]  # week 5's objectives are no longer the ones listed
+
+
+def test_the_almanac_file_holds_everything_the_tutor_knows(tutor, tmp_path):
+    """Asked by the learner: fill in the whole Almanac for me (ticks, colours, the wall, mistakes, the week's
+    retrospective, the paper stage) and keep it up to date as I study."""
+    planner = tmp_path / "A-Levels.html"
+    planner.write_text("<html></html>")
+    tutor.packs.plan["source_path"] = str(planner)
+    first = report.almanac_payload(tutor)
+    assert first["rag"] == {"phys-2": "r"} and first["done"] == {} and first["wall"] == {} and first["retro"] == {}
+    _study(tutor, wrong=True)
+    assert report.almanac_push(tutor) == str(tmp_path / "A-Levels.tutor.js")
+    text = (tmp_path / "A-Levels.tutor.js").read_text()
+    assert text.startswith("window.TUTOR_SYNC = ") and text.rstrip().endswith(";")
+    data = json.loads(text[len("window.TUTOR_SYNC = "):].rstrip().rstrip(";"))
+    assert data["wall"] == {"2026-09-29": 1} and data["stage"] == 0
+    assert set(data["err"]) <= {"Algebra slip", "Misread the question", "Wrong method", "Ran out of time",
+                                "Could not recall", "Careless arithmetic"}  # the Almanac's own six families
+    assert "answers" in data["retro"]["5"]["broke"] and data["retro"]["5"]["fix"]  # Almanac week 5
+    assert data["stamp"] == report.almanac_payload(tutor)["stamp"] != first["stamp"]  # same facts, same stamp
+
+
+def test_nothing_is_written_when_the_planner_is_not_on_this_machine(tutor):
+    assert report.almanac_push(tutor) is None
+
+
+def test_paper_results_fill_the_almanacs_mark_bank(tutor):
+    tutor.paper_score("9702_s23_qp_22", "1a=2/2, 1b=1/3")
+    assert report.almanac_payload(tutor)["scores"] == {"phys-P2": 36}  # 3 of 5, on the bank's 60 marks

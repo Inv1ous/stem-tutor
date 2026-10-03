@@ -11,10 +11,10 @@ from tutor_app.texmath import to_terminal
 FAKE = str(Path(__file__).with_name("fake_claude.py"))
 
 
-def make(tmp_path, monkeypatch, mode="ok", cap=80):
+def make(tmp_path, monkeypatch, mode="ok"):
     monkeypatch.setenv("FAKE_CLAUDE_MODE", mode)
     monkeypatch.setenv("FAKE_CLAUDE_LOG", str(tmp_path / "argv.log"))
-    return ai.Claude(tmp_path, binary=FAKE, usage_file=tmp_path / "usage.json", daily_cap=cap)
+    return ai.Claude(tmp_path, binary=FAKE, usage_file=tmp_path / "usage.json")
 
 
 def collect(c, prompt):
@@ -66,11 +66,20 @@ def test_usage_limit_pauses_ai_with_reset_time(tmp_path, monkeypatch):
     assert c.status == "limit" and "10:30pm" in c.message
 
 
-def test_daily_cap_stops_calls(tmp_path, monkeypatch):
-    c = make(tmp_path, monkeypatch, cap=1)
-    collect(c, "x")
-    collect(c, "y")
-    assert c.last.status == "cap"
+def test_replies_are_not_capped(tmp_path, monkeypatch):
+    """Asked by the learner: no limit of the tutor's own on AI replies in a day."""
+    c = make(tmp_path, monkeypatch)
+    for _ in range(4):
+        collect(c, "x")
+    assert c.last.ok and c.today()["replies"] == 4 and c.available and not hasattr(c, "daily_cap")
+
+
+def test_a_settings_file_saved_with_the_old_cap_still_loads(tmp_path):
+    from tutor_app import config
+    (tmp_path / ".tutor").mkdir()
+    (tmp_path / ".tutor/app_settings.json").write_text('{"daily_cap": 5, "minutes": 30}')
+    s = config.Settings.load(tmp_path)
+    assert s.minutes == 30 and not hasattr(s, "daily_cap")
 
 
 def test_missing_binary_means_offline(tmp_path):
@@ -187,18 +196,6 @@ def test_leak_guard_catches_the_answer_at_any_precision(reply, key, answer):
 ])
 def test_leak_guard_given_the_true_value_still_lets_hints_through(reply, key, answer):
     assert not ai.leaks(reply, key, "numeric", answer)
-
-
-def test_overlapping_requests_respect_the_daily_cap(tmp_path, monkeypatch):  # B-017
-    c = make(tmp_path, monkeypatch, cap=1)
-
-    async def go():
-        results = await asyncio.gather(c.reply("first"), c.reply("second"))
-        await c.close()
-        return results
-
-    asyncio.run(go())
-    assert c.today()["replies"] == 1 and c.last.status == "cap"
 
 
 @pytest.mark.parametrize("tex,want", [  # published maths that reached the terminal as raw LaTeX

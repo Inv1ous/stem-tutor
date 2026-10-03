@@ -20,7 +20,6 @@ def vault_path() -> Path:
 class Settings:
     ai: bool = True                 # use Claude for asking, explaining differently, judging written answers
     model: str = "haiku"            # haiku is cheapest; sonnet explains better but uses ~3x more of your limit
-    daily_cap: int = 80             # most AI replies per day (protects your Claude usage limit)
     own_words_feedback: bool = True  # AI comments on your "in your own words" answers
     open_obsidian: bool = True      # show Now.md in Obsidian when a session starts
     minutes: int = 40               # default session length

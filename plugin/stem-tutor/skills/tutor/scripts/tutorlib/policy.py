@@ -6,6 +6,7 @@ pretesting for novices on conceptual material). Personal experiments override it
 from __future__ import annotations
 
 import math
+import re
 from datetime import date, datetime
 
 from . import experiments, model
@@ -82,6 +83,81 @@ def claimed(plan: dict, ticked: frozenset) -> list[str]:
     return out
 
 
+_WEEKS = re.compile(r"\bweeks?\s+(\d+)(?:\s*[-–]\s*(\d+))?", re.I)
+_PHASE_GATE = re.compile(r"\bPhase\s+([IVX]+)\s+gate", re.I)
+_NEED = re.compile(r"≥\s*(\d+)\s*/\s*(\d+)|≥\s*(\d+)(?:-\d+)?\s*%")
+
+
+def about(objective: dict, plan: dict) -> list[str]:
+    """The ideas an objective is about: its own, or for a review, check or gate that names weeks ("D28 review of week
+    1 content", "check of weeks 1-3") or a phase ("Phase I gate"), the ideas first taught in those weeks."""
+    own = [k for k in objective.get("kcs", []) if k not in objective.get("outside", [])]
+    title, span = objective.get("title", ""), None
+    if own:
+        return own
+    if (m := _WEEKS.search(title)):
+        span = (int(m[1]), int(m[2] or m[1]))
+    elif (m := _PHASE_GATE.search(title)):
+        span = next(((p["from"], p["to"]) for p in plan.get("phases", []) if p.get("n") == m[1].upper()), None)
+    out: list[str] = []
+    for w in range(span[0], span[1] + 1) if span else []:
+        for o in plan.get("weeks", {}).get(str(w), []):
+            if o.get("type", "NEW") == "NEW":
+                out += [k for k in o.get("kcs", []) if k not in o.get("outside", []) and k not in out]
+    return out
+
+
+def earned(plan: dict, state: dict, packs) -> frozenset:
+    """Objectives the learner has finished here, by what their answers show; the tutor ticks these in the Almanac.
+    Learning an objective counts once each of its ideas has been answered right without help. A review, check or gate
+    counts when the ideas it covers are secure (right on two different days): all of them, or in every subject the
+    share its "done when" line asks for. What the tutor cannot see into (practicals, paper routines, anything that
+    names no ideas) is left to the learner's own tick."""
+    out = set()
+    for objectives in plan.get("weeks", {}).values():
+        for o in objectives:
+            kcs = [k for k in about(o, plan) if k in packs.kcs]
+            if not o.get("id") or not kcs:
+                continue
+            if o.get("type", "NEW") == "NEW":
+                done = all(state["kcs"].get(k, {}).get("succ_days") for k in kcs)
+            else:
+                m = _NEED.search(o.get("done", ""))
+                need = min(1.0, max(0.5, int(m[1]) / int(m[2]) if m[1] else int(m[3]) / 100)) if m else 1.0
+                subjects: dict[str, list[bool]] = {}
+                for k in kcs:
+                    subjects.setdefault(packs.kc(k)["subject"], []).append(
+                        k in state["kcs"] and model.is_mastered(state["kcs"][k]))
+                done = all(sum(secure) >= need * len(secure) for secure in subjects.values())
+            if done:
+                out.add(o["id"])
+    return frozenset(out)
+
+
+def rag(state: dict, packs, claimed_kcs=()) -> dict[str, str]:
+    """A colour for every topic in the Almanac's syllabus section (each CAIE topic, each maths unit), from what the
+    answers show. Green: at least 80% of the topic's ideas are secure. Red: nothing in it has been shown yet and
+    nothing ticked, or most of what was tried is going wrong. Amber: between (under way, or ticked but unchecked)."""
+    topics: dict[str, list[str]] = {}
+    for kc, meta in packs.kcs.items():
+        key = (f"{meta['subject']}-{meta['subtopic'].split('-')[1].split('.')[0]}"
+               if meta["subject"] in ("chem", "phys") else f"math-{meta['spec']}")
+        topics.setdefault(key, []).append(kc)
+    claimed_kcs, out = set(claimed_kcs), {}
+    for key, kcs in topics.items():
+        tried = [kc for kc in kcs if state["kcs"].get(kc, {}).get("n")]
+        secure = sum(model.is_mastered(state["kcs"][kc]) for kc in tried)
+        wrong = sum(1 for kc in tried if kc in state["gaps"] or state["kcs"][kc]["active_misconceptions"]
+                    or not state["kcs"][kc]["succ_days"])
+        if secure >= 0.8 * len(kcs):
+            out[key] = "g"
+        elif (not tried and not claimed_kcs.intersection(kcs)) or wrong > len(tried) / 2:
+            out[key] = "r"
+        else:
+            out[key] = "a"
+    return out
+
+
 def default_method(kc_meta: dict, kc_state: dict, fresh: bool = False) -> str:
     """`fresh`: KC never taught before this block, so pretest misconceptions are handled inside teaching."""
     if kc_state.get("active_misconceptions") and not fresh:
@@ -116,7 +192,7 @@ def new_kcs(state: dict, packs, limit: int, ticked: frozenset = frozenset()) -> 
     known = set(claimed(packs.plan, ticked))
     ordered: list[str] = []
     for w in sorted(packs.plan.get("weeks", {}), key=int):
-        for obj in packs.plan["weeks"][w]:
+        for obj in sorted(packs.plan["weeks"][w], key=lambda o: str(o.get("priority", "A"))[:1]):  # A, then B, then C
             if obj.get("type", "NEW") == "NEW":
                 ordered.extend(obj.get("kcs", []))
     out: list[str] = []

@@ -1,13 +1,17 @@
 """Human-facing outputs written by code (zero model tokens): brief, Today, Profile, session notes, Almanac sync."""
 from __future__ import annotations
 
+import hashlib
+import json
 import re
 from collections import Counter
 from datetime import date, datetime, timedelta
+from pathlib import Path
 
 from . import almanac, experiments, model, policy
 from .packs import _fill
 from .store import read_json, write_json
+from .store import write_text as _write_text
 
 ERRFAM = {"RECALL": "Could not recall", "MISREAD": "Misread the question", "CONCEPT": "Wrong method",
           "PROCEDURE": "Wrong method", "STRATEGY": "Wrong method", "NOTATION": "Careless arithmetic",
@@ -166,13 +170,14 @@ def today_note(tutor, minutes: int = 50) -> str:
         kcs = [b["kc"]] if "kc" in b else b.get("kcs", [])
         names = ", ".join(f"{k} {p.kc(k)['title']}" for k in kcs if k in p.kcs)
         lines.append(f"- **{'Check what you ticked' if b.get('claimed') else b['kind'].capitalize()}**: {names}")
+    own = almanac.ticks(tutor.vault.root)  # the learner's own ticks; `ticked` also holds what they earned here
     lines += ["", "## This week's Almanac objectives" if focus == week else
               f"## Almanac week {focus}: you are ahead (the calendar is on week {week})", ""]
     for o in p.plan.get("weeks", {}).get(str(focus), []):
         kcs = o.get("kcs", [])
         mastered = sum(model.is_mastered(s["kcs"][k]) for k in kcs if k in s["kcs"])
-        mark = (" ✅ ticked in your Almanac" if o.get("id") in ticked else
-                " ✅ evidence says done — tick it in the Almanac" if kcs and mastered == len(kcs) else "")
+        mark = (" ✅ ticked in your Almanac" if o.get("id") in own else
+                " ✅ done: the tutor has ticked it in your Almanac" if policy.is_done(o, s, ticked) else "")
         lines.append(f"- {o['subject']} · {o['title']} ({mastered}/{len(kcs)} KCs mastered){mark}")
         if o.get("done"):
             lines.append(f"  - Done when: {o['done']}")
@@ -340,59 +345,98 @@ def week_note(tutor, monday: date) -> str:
     return _write(tutor, f"Weekly/{r['week']}.md", "\n".join(L) + "\n")
 
 
-# ---------------- Almanac two-way sync ----------------
+# ---------------- what the tutor gives the Almanac ----------------
 MATH_UNITS = {"WMA11": "P1", "WMA12": "P2", "WMA13": "P3", "WMA14": "P4", "WST01": "S1", "WST02": "S2",
               "WST03": "S3", "WME01": "M1", "WDM11": "D1", "WFM01": "FP1", "WFM02": "FP2", "WFM03": "FP3"}
+BANK = {"P1": 40, "P2": 60, "P3": 40, "P4": 100, "P5": 30}  # what the Almanac's mark bank scores each CAIE paper out of
+STAGES_FROM = ("2026-11-01", "2027-01-01", "2027-02-22", "2027-03-22")  # when the Almanac's later paper stages begin
+ADVICE = {"Algebra slip": "Write every line of algebra and check the signs before moving on.",
+          "Misread the question": "Underline the command word and what is given before you start.",
+          "Wrong method": "Name the principle or equation out loud before you calculate.",
+          "Ran out of time": "Time yourself: about a minute a mark.",
+          "Could not recall": "These ideas come back sooner in your reviews: do the reviews first each day.",
+          "Careless arithmetic": "Redo the arithmetic once, then check units and significant figures."}
+_PAST_MCQ = re.compile(r"^(9701|9702)-[\d.]+-[px]\d+$")
 
 
 def _almanac_score_key(paper: dict) -> str | None:
-    """Almanac mark-bank keys: chem-P2, phys-P4, math-S1 (best recent full-paper-equivalent score)."""
+    """Almanac mark-bank keys: chem-P2, phys-P4, math-S1."""
     if paper["code"] in ("9701", "9702"):
         return f"{'chem' if paper['code'] == '9701' else 'phys'}-P{str(paper['component'])[0]}"
     unit = MATH_UNITS.get(paper["code"])
     return f"math-{unit}" if unit else None
 
-def almanac_sync(tutor) -> dict:
-    latest = almanac.latest_export(tutor.vault.root)
-    exports = [latest] if latest else []
-    base = read_json(exports[-1]) if exports else {}
-    base = base or {}
-    totals: Counter = Counter()
-    for subject, errs in tutor.state["traits"]["errors"].items():
-        for code, n in errs.items():
-            totals[_errfam(code, subject)] += n
-    added = Counter((base.get("tutor_sync") or {}).get("err_added", {}))
-    err = Counter(base.get("err", {}))
-    for fam, n in totals.items():
-        err[fam] += n - added.get(fam, 0)
-    wall = dict(base.get("wall", {}))
-    for e in tutor.vault.events():
-        if e["type"] == "session_start":
-            wall[datetime.fromisoformat(e["ts"]).date().isoformat()] = 1
-    rag = dict(base.get("rag", {}))
-    p = tutor.packs
-    for topic in {k["subtopic"].rsplit(".", 1)[0] for k in p.kcs.values()}:
-        spec, num = topic.split("-", 1)
-        key = {"9701": "chem", "9702": "phys"}.get(spec)
-        kcs = [k for k, m in p.kcs.items() if m["subtopic"].startswith(topic + ".")]
-        seen = [tutor.state["kcs"][k] for k in kcs if tutor.state["kcs"].get(k, {}).get("n")]
-        if key and seen and not rag.get(f"{key}-{num}") and len(seen) * 2 >= len(kcs):
-            ratio = sum(model.is_mastered(k) for k in seen) / len(kcs)
-            rag[f"{key}-{num}"] = "g" if ratio >= 0.8 else "a" if ratio > 0 else "r"
-    scores = dict(base.get("scores", {}))
+
+def _scores(tutor, events: list[dict]) -> dict[str, int]:
+    """The mark bank: the best of the last three marked papers of each kind, on the bank's own scale. With no marked
+    Paper 1 yet, a Paper 1 equivalent: the last 40 past-paper multiple-choice questions answered without help."""
     results: dict[str, list[float]] = {}
-    for e in tutor.vault.events():
+    for e in events:
         if e["type"] == "paper_result" and e.get("max"):
-            paper = next((x for x in p.papers if x["id"] == e["paper"]), None)
+            paper = next((x for x in tutor.packs.papers if x["id"] == e["paper"]), None)
             key = _almanac_score_key(paper) if paper else None
             if key:
-                results.setdefault(key, []).append(round(e["score"] / e["max"] * paper["marks"]))
-    for key, vals in results.items():
-        scores[key] = max(vals[-3:])
-    out = {**base, "err": {k: v for k, v in err.items() if v}, "wall": wall, "rag": rag, "scores": scores,
-           "tutor_sync": {"err_added": dict(totals), "at": tutor.now().isoformat()}}
-    rel = f"Almanac/almanac-import-{tutor.now():%Y-%m-%d}.json"
-    write_json(tutor.vault.root / rel, out)
-    tutor.log({"type": "almanac_sync", "path": rel, "base": exports[-1].name if exports else None})
-    return {"path": rel, "base": exports[-1].name if exports else None,
-            "say": "In the Almanac: Import → choose this file. Export your progress into this folder before the next sync."}
+                results.setdefault(key, []).append(round(e["score"] / e["max"] * BANK.get(key.split("-")[1], 75)))
+    scores = {key: int(max(vals[-3:])) for key, vals in results.items()}
+    for subject in ("chem", "phys"):
+        past = [e for e in events if e["type"] == "answer" and e.get("subject") == subject and not e.get("hinted")
+                and _PAST_MCQ.match(str(e.get("item")))][-40:]
+        if len(past) == 40 and f"{subject}-P1" not in scores:
+            scores[f"{subject}-P1"] = sum(model.counts_as_right(e["grade"]) for e in past)
+    return scores
+
+
+def _retro(tutor, events: list[dict], week: int) -> dict | None:
+    """The Almanac's weekly retrospective, from that week's answers: what broke, and the fix."""
+    plan = tutor.packs.plan
+    monday2 = date.fromisoformat(plan.get("week2_monday", "2026-09-07"))
+    start = date.fromisoformat(plan.get("start", "2026-09-01")) if week <= 1 else monday2 + timedelta(days=7 * (week - 2))
+    end = monday2 if week <= 1 else start + timedelta(days=7)
+    answers = [e for e in events if e["type"] == "answer" and start.isoformat() <= e["ts"][:10] < end.isoformat()]
+    if not answers:
+        return None
+    right = sum(model.counts_as_right(e["grade"]) for e in answers)
+    kinds = Counter(_errfam(e["grade"]["error"], e.get("subject") or "") for e in answers if e["grade"].get("error"))
+    missed = Counter(k for e in answers if not model.counts_as_right(e["grade"]) for k in e["kcs"])
+    weakest = [f"{tutor.packs.kc(k)['title']} ({n})" for k, n in missed.most_common(3) if k in tutor.packs.kcs]
+    gaps = [tutor.packs.kc(k)["title"] for k in tutor.state["gaps"] if k in tutor.packs.kcs][:3]
+    broke = (f"{len(answers)} answers on {len({e['ts'][:10] for e in answers})} days, {right / len(answers):.0%} right."
+             + (" Most misses: " + ", ".join(f"{k} ×{n}" for k, n in kinds.most_common(3)) + "." if kinds else "")
+             + (" Weakest: " + "; ".join(weakest) + "." if weakest else ""))
+    fix = " ".join(x for x in ("Re-teach first: " + "; ".join(gaps) + "." if gaps else "",
+                               ADVICE.get(kinds.most_common(1)[0][0], "") if kinds else "") if x)
+    return {"broke": broke, "fix": fix or "Nothing stood out: keep the reviews up."}
+
+
+def almanac_payload(tutor) -> dict:
+    """Everything the tutor can fill in for the Almanac: the objectives it has seen finished, a colour for every
+    syllabus topic, mark-bank scores, the days studied, mistakes by family, the retrospective for this week and the
+    last, and the paper stage the calendar has reached. The stamp changes only when one of them does."""
+    s, p, now = tutor.state, tutor.packs, tutor.now()
+    events = list(tutor.vault.events())
+    err: Counter = Counter()
+    for subject, errs in s["traits"]["errors"].items():
+        for code, n in errs.items():
+            err[_errfam(code, subject)] += n
+    week = policy.current_week(p.plan, now)
+    body = {"done": {i: 1 for i in sorted(policy.earned(p.plan, s, p))},
+            "rag": policy.rag(s, p, policy.claimed(p.plan, almanac.ticks(tutor.vault.root))),
+            "scores": _scores(tutor, events),
+            "wall": {day: 1 for day in sorted({e["ts"][:10] for e in events if e["type"] == "answer"})},
+            "err": {k: v for k, v in sorted(err.items()) if v > 0},
+            "retro": {str(w): r for w in (week - 1, week) if w >= 1 and (r := _retro(tutor, events, w))},
+            "stage": sum(now.date().isoformat() >= day for day in STAGES_FROM)}
+    stamp = hashlib.sha1(json.dumps(body, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12]
+    return {"stamp": stamp, "at": now.isoformat(timespec="minutes"), **body}
+
+
+def almanac_push(tutor) -> str | None:
+    """Write what the tutor knows where the Almanac page picks it up: `<planner>.tutor.js` beside the planner file.
+    The page merges it when it opens and every half minute after (build/almanac_link.py puts that into the page).
+    Nothing is written when the planner is not on this machine."""
+    src = tutor.packs.plan.get("source_path")
+    if not src or not Path(src).is_file():
+        return None
+    target = Path(src).with_suffix(".tutor.js")
+    _write_text(target, "window.TUTOR_SYNC = " + json.dumps(almanac_payload(tutor), ensure_ascii=False, indent=1) + ";\n")
+    return str(target)

@@ -793,3 +793,23 @@ def test_home_says_how_to_make_ticks_count_until_an_export_has_been_read(tmp_pat
             assert "Ticks read from your export" in stats and "press Export" not in stats
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_the_tutor_keeps_the_almanacs_file_up_to_date_and_has_no_reply_cap(tmp_path, monkeypatch):
+    import json
+    pin_clock(monkeypatch)
+    app, v = app_for(tmp_path, monkeypatch)
+    planner = tmp_path / "A-Levels.html"
+    planner.write_text("<html></html>")
+    plan_file = v / ".tutor/packs/v1/plan.json"
+    plan_file.write_text(json.dumps({**json.loads(plan_file.read_text()), "source_path": str(planner)}))
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            assert '"phys-2"' in (tmp_path / "A-Levels.tutor.js").read_text()  # written as the tutor opens
+            app.action_settings()
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "SettingsScreen" and not app.screen.query("#cap")
+            await app.ai.close()
+    asyncio.run(go())
