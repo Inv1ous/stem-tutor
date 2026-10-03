@@ -1,5 +1,10 @@
 # Build status
 
+## v1.4.0 (2026-10-03) — done
+- The tutor fills in the Almanac (ticks earned, a colour for every topic, wall, error families, retrospective, mark
+  bank, paper stage) through a file the planner page reads by itself; exam dates come back with the export; no cap on
+  AI replies. Merge rules run in Node in the tests; not yet seen running in the learner's browser. 671 tests.
+
 ## v1.3.1 (2026-10-02) — done
 - The foundry no longer mistakes "Claude's five-hour window is unknown" for "there is none": it says when it does not
   know, takes the figure passed on from the Claude app (`foundry reading`), and closes Claude until the reset when a

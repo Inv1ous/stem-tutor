@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.3.1_
+_Version 1.4.0_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,11 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 1.4.0
+> - **The tutor fills in your Almanac for you.** Open the Almanac and it now shows what the tutor knows, without you doing anything: objectives you have finished are **ticked**, **every syllabus topic has its Green, Amber or Red** from your answers (not from how you feel about it), the **wall** shows the days you studied, **error families** count your mistakes by kind, **this week's retrospective** is written from the week's answers, the **mark bank** gets your paper scores, and the **paper stage** follows the calendar. It updates while the page is open (section 3).
+> - **Exam dates** you enter in the Almanac now reach the tutor with your next Export.
+> - **No cap on AI replies.** The tutor no longer stops after 80 AI replies in a day. Your Claude plan's own limit still applies.
 
 > [!example] New in 1.3.1
 > - **Claude's 5-hour limit is no longer invisible to the foundry.** Claude tells a background job about one limit only (the one nearest its end, usually the weekly one), so the foundry could not see how full Claude's 5-hour window was, and `foundry usage` showed nothing for it. It now says "not reported" when it does not know, takes the figure when it is passed on from the Claude app's usage card (`foundry reading claude five_hour <percent> <reset time>`; the manager does this for you), and if a Claude job is refused by that limit it keeps Claude closed until the window resets and gives the work to Codex. A job is also sent only where there is room for the whole of it, so a long draft is not started in a nearly full window.
@@ -119,7 +124,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 - **Week in review** every week (section 9), and **My progress** for a quick look at your topics (section 3).
 
 **AI help (optional)**
-- Ask anything (**ctrl+t**), have an idea explained another way (**ctrl+r**), hints (**ctrl+g**), a talk-through when you're stuck, and feedback on your own words, within a daily allowance you set (sections 11 to 13).
+- Ask anything (**ctrl+t**), have an idea explained another way (**ctrl+r**), hints (**ctrl+g**), a talk-through when you're stuck, and feedback on your own words (sections 11 to 13).
 
 **Behind the scenes**
 - **Nothing is lost**: every answer is saved the moment you give it, and an unfinished session can be resumed (sections 3 and 15).
@@ -187,6 +192,16 @@ The right side of the home screen shows today's date, your **streak** (days in a
 - **The plan moves on.** When the whole week is done, the home screen and **Today** show the next week with something left, and Today's plan teaches from there.
 
 A tick covers the syllabus section the objective refers to. A few ideas from sections the Almanac never schedules are attached to the nearest objective; those are still taught.
+
+**The tutor fills in your Almanac.** The other direction needs nothing from you. The tutor keeps a small file beside the planner (`A-Levels.tutor.js`), and the Almanac reads it when you open the page and every half minute while it is open; it says *Updated by STEM Tutor* when something changed. From it the Almanac gets:
+
+- **Ticks** on objectives you have finished in the tutor. A *learn* objective is ticked once you have answered each of its ideas right without help. A review, check or gate that names weeks or a phase (such as "D28 review of week 1 content") is ticked when the ideas it covers are secure, meaning right on two different days, or when the share its *done when* line asks for is. The tutor can tick 168 of the 465 objectives this way. The rest are things it cannot see (practicals, paper sittings, general routines): tick those yourself.
+- **A colour for every syllabus topic** (all 74), from your answers. **Green**: at least 80% of the topic's ideas are secure. **Amber**: under way, or ticked in the Almanac but not yet checked here. **Red**: nothing in it shown yet, or most of what you tried is still going wrong. The tutor sets these every time, so a colour you click yourself is put back.
+- **The wall**: every day you answered a question. **Error families**: your mistakes by kind, added to any you count yourself. **This week's retrospective**: what broke and the fix, written from the week's answers; one you write or edit yourself is kept.
+- **The mark bank**: marked past papers, and for Paper 1 of Chemistry and Physics a paper equivalent from your last 40 past-paper multiple-choice answers. Scores you type yourself are kept.
+- **The paper stage**, moved on by the calendar as the Almanac's own stage notes say.
+
+Exam dates you enter in the Almanac's *Statement of entry* reach the tutor with your next Export, and its countdowns and exam readiness follow them.
 
 ---
 
@@ -270,7 +285,7 @@ Choose **What the tutor knows about you** on the home screen, or open the **Prof
 
 **How sure it is.** ⚪ **not enough data** · 🟡 **early sign**: some answers, not yet enough for the tutor to act on · 🟢 **likely**: enough to act on · ✅ **clear**: three times that much. The tutor only changes something at 🟢 or ✅. For example, confidence needs 30 rated answers, review timing 10 spaced reviews in a subject, and a mistake pattern 8 mistakes sorted by kind.
 
-**AI summary.** Press **a** on that screen and the AI tutor turns the findings into a few lines: what's going well, the one change most likely to gain you marks, and what to do this week. It sees only the findings, never your answers, uses one reply from today's allowance, and says when the evidence is still early. The summary is saved with its date on the Profile page.
+**AI summary.** Press **a** on that screen and the AI tutor turns the findings into a few lines: what's going well, the one change most likely to gain you marks, and what to do this week. The summary is saved with its date on the Profile page.
 
 **Keys on that screen:** **a** AI summary · **o** open it in Obsidian · **m** your mistake journal · **w** your latest week in review · **Esc** back.
 
@@ -351,7 +366,6 @@ When you are **not** typing, the single letters **t e h o** do the same as ctrl+
 | **AI comments on your own words** | Short feedback on your "in your own words" answers (on by default). |
 | **Show Now in Obsidian** | Whether Obsidian jumps to the Now page when a session starts. |
 | **Model** | **Haiku** (default: fast and cheapest) or **Sonnet** (clearer explanations, but uses about three times more of your Claude limit). |
-| **AI replies per day** | A daily allowance, 80 by default, so the tutor can never use up your Claude limit. |
 | **Session length** | How long a session aims to be, 40 minutes by default. |
 
 ---
@@ -409,7 +423,7 @@ The tutor uses methods with good evidence behind them, and is honest about how s
 - **This vault (your data):** `Miscellaneous › 02 Education › ~~ AI Workflow › STEM Tutor`. Everything you see in Obsidian, plus the hidden `.tutor` folder with your progress. Every answer you've ever given is recorded there, so nothing is lost. Don't edit `.tutor` by hand. If a file in it is ever damaged (for example by a crash mid-save), the tutor skips the damaged line and carries on.
 - **The program:** `~~ AI Workflow › stem-tutor`. You don't need to open it.
 - **iPad inbox:** `iCloud Drive › STEM Tutor Inbox`, only for PDFs from the iPad.
-- **Your Almanac:** `00 Important › 01 AS/A › A-Levels.html` (section 3). Press **Export** in the Almanac whenever you have ticked something: the tutor reads your ticks from that file (it looks in Downloads and in this vault's **Almanac** folder). After your next session the tutor writes `almanac-import-<date>.json` there, with your study days, mistake types, topic ratings and paper scores added; open it with the Almanac's **Import** button. Your ticks in the Almanac are kept.
+- **Your Almanac:** `00 Important › 01 AS/A › A-Levels.html` (section 3). The tutor fills it in for you through the file `A-Levels.tutor.js` beside it: ticks, a colour for every topic, the wall, error families, the week's retrospective, the mark bank and the paper stage. Press **Export** in the Almanac when you have ticked something yourself or entered an exam date: the tutor reads that file (it looks in Downloads and in this vault's **Almanac** folder).
 - **New chapters** are prepared in advance by a team of AIs, paid for by your Claude and Codex allowances together, and checked before they reach this vault (the "foundry": `stem-tutor › foundry › README.md`). Until a chapter has passed every check it stays out of the vault.
 - The old copy in your main Obsidian vault (`Notes › 01 Study › STEM Tutor`) is no longer used; it has a MOVED note. You can delete it once you're happy.
 

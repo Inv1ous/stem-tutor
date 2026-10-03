@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.4.0 — 2026-10-03
+
+Asked by the learner: tick Almanac objectives for me when I have done them; set the Green/Amber/Red of every syllabus
+topic from my level, since I cannot rate myself honestly; fill in everything else the Almanac offers and keep it up
+to date as I study; and remove the cap on AI replies.
+
+- **The tutor writes `A-Levels.tutor.js` beside the planner** (`report.almanac_push`: at every return to the menu and
+  after every session), and the planner page merges it when it opens and every half minute (`build/almanac_link.py`
+  puts the block from `build/almanac_link.js` into the page, keeping a copy of the page in `.backup/`). It carries:
+  ticks the learner has earned (`policy.earned`), a colour for all 74 syllabus topics (`policy.rag`), mark-bank
+  scores, the days studied, mistakes by the Almanac's six families, the retrospective for this week and the last,
+  and the paper stage. The page keeps what the learner ticks, types or writes; only the colours are always the
+  tutor's. This replaces the hand-made `almanac-import-<date>.json`.
+- **What earns a tick:** a NEW objective, each idea answered right without help once; a review, check or gate with
+  ideas of its own or naming weeks or a phase, those ideas secure (or the share its "done when" asks for). 168 of
+  the 465 objectives; practicals, paper sittings and routines stay the learner's to tick. Earned objectives count as
+  done in the tutor's own plan too (`Tutor.ticks`).
+- **From the Almanac:** exam dates in its export replace the plan's (`almanac.exam_dates`); within a week, objectives
+  are taught in the planner's priority order.
+- **No cap on AI replies:** `daily_cap` is gone from the settings and from `ai.Claude`; replies are still counted.
+
 ## 1.3.1 — 2026-10-02
 
 Asked by the learner: why does `foundry usage` not show Claude's own five-hour window?
