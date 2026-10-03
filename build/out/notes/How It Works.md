@@ -285,7 +285,7 @@ Choose **What the tutor knows about you** on the home screen, or open the **Prof
 
 **How sure it is.** ⚪ **not enough data** · 🟡 **early sign**: some answers, not yet enough for the tutor to act on · 🟢 **likely**: enough to act on · ✅ **clear**: three times that much. The tutor only changes something at 🟢 or ✅. For example, confidence needs 30 rated answers, review timing 10 spaced reviews in a subject, and a mistake pattern 8 mistakes sorted by kind.
 
-**AI summary.** Press **a** on that screen and the AI tutor turns the findings into a few lines: what's going well, the one change most likely to gain you marks, and what to do this week. The summary is saved with its date on the Profile page.
+**AI summary.** Press **a** on that screen and the AI tutor turns the findings into a few lines: what's going well, the one change most likely to gain you marks, and what to do this week. It sees only the findings, never your answers, and says when the evidence is still early. The summary is saved with its date on the Profile page.
 
 **Keys on that screen:** **a** AI summary · **o** open it in Obsidian · **m** your mistake journal · **w** your latest week in review · **Esc** back.
 
