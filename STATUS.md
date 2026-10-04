@@ -1,5 +1,9 @@
 # Build status
 
+## v1.5.1 (2026-10-04) — done
+- The session bar wraps whole onto a second line in a narrow window; only the week's limit is shown beside the
+  tokens. 676 tests.
+
 ## v1.5.0 (2026-10-04) — done
 - A question folds the terminal's log (ctrl+l brings it back after the answer), a multi-line box for answers and
   questions, the AI tutor is told the step on screen and the last questions marked, and what is left of the Claude

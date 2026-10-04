@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.5.0_
+_Version 1.5.1_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -9,11 +9,15 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
+> [!example] New in 1.5.1
+> - **The top bar never runs off the edge.** When the window is too narrow for it, the time, score and AI figures move together onto a second line, so everything stays in view on two lines at most.
+> - **Only the week's limit is shown** beside the tokens (`week 8% left`). The 5-hour figure was nearly always unknown, so it is gone.
+
 > [!example] New in 1.5.0
 > - **A question is now answered from memory on the terminal side too.** When a question (or "in your own words") comes up, the terminal puts away everything said before it, as the Now page always did, so the explanation can no longer be read off the screen. Once you have answered, **ctrl+l** brings the earlier part of the session back.
 > - **A bigger box to type in.** Written answers, own-words answers and questions to the tutor go in a box that wraps and grows over several lines. **⏎** sends; **ctrl+j** starts a new line.
 > - **"Ask the tutor" knows the session.** It is told what is on screen, each open question, and the last few questions marked, with your answer and the right one. So "what would the full answer be here?" works, also after the lesson has moved on, and in the menu's chat after a session. It still won't give away a question that is open.
-> - **What is left of your Claude limits, beside the tokens.** The top bar and the home screen show, for example, `5h 85% · wk 8% left`. A figure with **~** is Claude Code's own last reading and can lag. **5h ?** means nobody has told the tutor: Claude tells a background helper only about the limit nearest its end.
+> - **What is left of your Claude week, beside the tokens.** The top bar and the home screen show, for example, `week 8% left`. A figure with **~** is Claude Code's own last reading and can lag.
 
 > [!example] New in 1.4.0
 > - **The tutor fills in your Almanac for you.** Open the Almanac and it now shows what the tutor knows, without you doing anything: objectives you have finished are **ticked**, **every syllabus topic has its Green, Amber or Red** from your answers (not from how you feel about it), the **wall** shows the days you studied, **error families** count your mistakes by kind, **this week's retrospective** is written from the week's answers, the **mark bank** gets your paper scores, and the **paper stage** follows the calendar. It updates while the page is open (section 3).

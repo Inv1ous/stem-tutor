@@ -22,7 +22,7 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 #stats { width: 1fr; height: auto; max-height: 100%; padding: 1 0 1 2; border: round $primary-darken-2; margin-left: 2;
   scrollbar-size-vertical: 1; scrollbar-gutter: stable; scrollbar-background: $background; }
 #stats-text { margin-right: 1; }
-#bar { height: 1; background: $panel; }
+#bar { height: auto; max-height: 2; background: $panel; }
 #map { height: auto; max-height: 2; }
 #log { height: 1fr; padding: 0 0 0 1; scrollbar-size-vertical: 1; scrollbar-gutter: stable;
   scrollbar-background: $background; }

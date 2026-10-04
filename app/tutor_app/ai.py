@@ -242,19 +242,15 @@ class Claude:
                 return
 
     def limits_text(self, noted: dict) -> str:
-        """What is left of the plan's limits, for beside the token count: "5h 85% · wk 8% left". A figure Claude gave
-        this app itself is exact. One from Claude Code's own note (`noted`) can lag and is marked ~. The five-hour
-        figure is "?" when nobody has said."""
-        now, parts = time.time(), []
-        for name, label in (("five_hour", "5h"), ("seven_day", "wk")):
-            own, note = self.limits.get(name), noted.get(name)
-            if own and (not own.get("resets") or own["resets"] > now):
-                parts.append(f"{label} {100 - own['used']}%")
-            elif note and note["resets"] > now:
-                parts.append(f"{label} ~{100 - round(note['used'])}%")
-            elif name == "five_hour":
-                parts.append(f"{label} ?")
-        return " · ".join(parts) + (" left" if "%" in "".join(parts) else "")
+        """What is left of the week's limit, for beside the token count: "week 8% left". A figure Claude gave this
+        app itself is exact; one from Claude Code's own note (`noted`) can lag and is marked ~. Nothing when neither
+        has it. The five-hour limit is not shown: Claude seldom names it to a background helper."""
+        own, note, now = self.limits.get("seven_day"), noted.get("seven_day"), time.time()
+        if own and (not own.get("resets") or own["resets"] > now):
+            return f"week {100 - own['used']}% left"
+        if note and note["resets"] > now:
+            return f"week ~{100 - round(note['used'])}% left"
+        return ""
 
     async def reply(self, prompt: str) -> Result:
         async for _ in self.stream(prompt):

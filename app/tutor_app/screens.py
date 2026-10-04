@@ -186,7 +186,8 @@ class HomeScreen(Screen):
         a = app.ai
         state = ("on" if a.available else {"login": "sign-in needed", "limit": "paused (limit)",
                                            "off": "not installed"}.get(a.status, a.status)) if app.settings.ai else "off"
-        out.append(f"\nAI tutor: {state} · {a.today()['replies']} replies today · {a.limits_text(app.claude_note())}\n",
+        left = a.limits_text(app.claude_note())
+        out.append(f"\nAI tutor: {state} · {a.today()['replies']} replies today{' · ' + left if left else ''}\n",
                    style="#f5c2e7")
         out.append(f"\nSTEM Tutor v{__version__}", style="#6c7086")
         return out
@@ -390,7 +391,10 @@ class SessionScreen(Screen):
         self.set_interval(1, self.update_bar)
         self.advance()
 
-    def update_bar(self) -> None:
+    def bar_text(self, width: int) -> Text:
+        """The top bar: what this session is, then how it is going (time, score, AI use, what is left of the week's
+        limit). On one line when it all fits. When it does not, the running figures move whole to a second line; a
+        line still too long for the window ends in an ellipsis, so the bar is never more than two lines."""
         t = self.tutor
         s = t.session or {}
         sub = s.get("subtopic")
@@ -398,16 +402,27 @@ class SessionScreen(Screen):
         mins, secs = divmod(int(time.monotonic() - self.started), 60)
         a = self.app.ai
         ai_state = "AI ●" if (self.app.settings.ai and a.available) else "AI ○"
-        txt = Text()
-        txt.append(" STEM Tutor ", style="bold #1e1e2e on #ffd500")
         mode = {"lesson": "Lesson", "review": "Review", "test": "Test prep", "long": "Long questions"}.get(
             s.get("mode", ""), s.get("mode", "").title())
-        txt.append(f" {title + ' · ' if title else ''}{mode} ", style="bold")
-        txt.append(f" ⏱ {mins:02d}:{secs:02d} ", style="#94e2d5")
-        txt.append(f" ✓ {s.get('correct', 0)}/{s.get('answered', 0)} ", style="#a6e3a1")
-        txt.append(f" {ai_state} {a.session.replies} replies · {a.session.output_tokens + a.session.input_tokens} tok"
-                   f" · {a.limits_text(self.app.claude_note())} ", style="#f5c2e7")
-        self.query_one("#bar", Static).update(txt)
+        use = " · ".join(x for x in (f"{a.session.replies} replies",
+                                     f"{a.session.output_tokens + a.session.input_tokens} tok",
+                                     a.limits_text(self.app.claude_note())) if x)
+        head, tail = Text(), Text()
+        head.append(" STEM Tutor ", style="bold #1e1e2e on #ffd500")
+        head.append(f" {title + ' · ' if title else ''}{mode} ", style="bold")
+        tail.append(f" ⏱ {mins:02d}:{secs:02d} ", style="#94e2d5")
+        tail.append(f" ✓ {s.get('correct', 0)}/{s.get('answered', 0)} ", style="#a6e3a1")
+        tail.append(f" {ai_state} {use} ", style="#f5c2e7")
+        if head.cell_len + tail.cell_len <= width:
+            return head + tail
+        for line in (head, tail):
+            line.truncate(width, overflow="ellipsis")
+        return head + Text("\n") + tail
+
+    def update_bar(self) -> None:
+        t = self.tutor
+        s = t.session or {}
+        self.query_one("#bar", Static).update(self.bar_text(self.size.width or self.app.size.width))
         nodes = [b for b in s.get("blocks", []) if b.get("kind") == "node"]
         if nodes:
             m = Text(" Map: ", style="#9399b2")

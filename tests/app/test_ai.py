@@ -260,7 +260,8 @@ def test_the_tutor_is_told_what_just_happened_in_the_session(tmp_path):
 
 
 def test_the_plans_limits_are_shown_as_what_is_left(tmp_path, monkeypatch):
-    """Asked by the learner: show how much of the five-hour limit is left, next to the tokens."""
+    """Asked by the learner: what is left of the plan's limit, next to the tokens. Then: the week only, since the
+    five-hour figure was nearly always unknown."""
     import json
     from tutor_app import mac
     c = make(tmp_path, monkeypatch)
@@ -286,6 +287,7 @@ def test_the_plans_limits_are_shown_as_what_is_left(tmp_path, monkeypatch):
         {"kind": "weekly_all", "percent": 92, "is_active": True, "resets_at": "2099-01-01T00:00:00+00:00"}]}}}))
     noted = mac.claude_limits(note)
     assert noted["seven_day"]["used"] == 92 and mac.claude_limits(tmp_path / "missing.json") == {}
-    assert c.limits_text(noted) == "5h 85% · wk ~8% left"  # Claude Code's own note can lag: marked ~
-    fresh = ai.Claude(tmp_path, binary=FAKE)
-    assert fresh.limits_text(noted) == "5h ~60% · wk ~8% left" and fresh.limits_text({}) == "5h ?"
+    assert c.limits_text(noted) == "week ~8% left"  # Claude Code's own note can lag: marked ~
+    c.limits["seven_day"] = {"used": 93, "resets": 4102444800}
+    assert c.limits_text(noted) == "week 7% left"  # what Claude told this app itself is exact
+    assert ai.Claude(tmp_path, binary=FAKE).limits_text({}) == ""  # nothing known: nothing shown

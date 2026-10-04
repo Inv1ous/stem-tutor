@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.5.1 — 2026-10-04
+
+Asked by the learner.
+
+- **The session bar wraps to a second line** when the window is too narrow for it (`SessionScreen.bar_text`): the
+  running figures (time, score, AI use) move whole to line two; a line still too long ends in an ellipsis; never
+  more than two lines.
+- **Only the week's limit is shown** beside the token count: the five-hour figure was nearly always unknown.
+
 ## 1.5.0 — 2026-10-04
 
 Asked by the learner.
