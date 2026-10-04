@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.5.0 — 2026-10-04
+
+Asked by the learner.
+
+- **A question folds the session log.** The Now page shows an open question alone, but the terminal kept everything
+  said before it, so a check on an explanation could be answered by reading the explanation. `SessionScreen.fold`
+  hides the earlier entries when a question or an own-words prompt opens; `ctrl+l` shows them again once it is
+  answered.
+- **`panels.Composer`**: a text box that wraps and grows (3 to 10 lines), `⏎` sends, `ctrl+j` starts a new line.
+  Used for written and own-words answers, the ask box and the menu's chat.
+- **The AI is told the session.** `prompts.context` now carries the step on screen (only what has been shown), each
+  open question, and the last three marked questions with stem, answer given, verdict and key
+  (`session["recent"]`, kept by the engine); with no session, the last answers in the log. Before, a marked
+  question dropped out as soon as the session moved on, and the menu's chat was told nothing.
+- **Limits beside the token count** (session bar, home screen): `ai.Claude` keeps the window named in each
+  `rate_limit_event` of its own stream (exact); `mac.claude_limits` reads Claude Code's own note for the rest
+  (marked ~, can lag); the five-hour figure is "?" when neither has it.
+
 ## 1.4.0 — 2026-10-03
 
 Asked by the learner: tick Almanac objectives for me when I have done them; set the Green/Amber/Red of every syllabus

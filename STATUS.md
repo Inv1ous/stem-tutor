@@ -1,5 +1,10 @@
 # Build status
 
+## v1.5.0 (2026-10-04) — done
+- A question folds the terminal's log (ctrl+l brings it back after the answer), a multi-line box for answers and
+  questions, the AI tutor is told the step on screen and the last questions marked, and what is left of the Claude
+  limits is shown beside the tokens. 675 tests.
+
 ## v1.4.0 (2026-10-03) — done
 - The tutor fills in the Almanac (ticks earned, a colour for every topic, wall, error families, retrospective, mark
   bank, paper stage) through a file the planner page reads by itself; exam dates come back with the export; no cap on
