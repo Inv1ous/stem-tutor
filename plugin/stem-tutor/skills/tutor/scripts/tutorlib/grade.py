@@ -13,7 +13,7 @@ import math
 import random
 import re
 
-from .units import SUPERSCRIPT, unit_factor
+from .units import SUPERSCRIPT, unit_factor, unit_factors
 
 ERROR_CODES = ("RECALL", "MISREAD", "CONCEPT", "PROCEDURE", "STRATEGY", "SLIP", "NOTATION", "TIME")
 
@@ -218,28 +218,34 @@ def _grade_numeric(item, resp):
     want_unit = ans.get("unit") or ""
     if not want_unit and _unit_on_plain_number(item, unit):  # a plain number: "500 kg" is not 500
         return _result(False, 0, needs_judgement=True, detail="expected a plain number")
-    notation = None
-    if want_unit:
-        if not unit:
-            notation = "missing unit"
-        else:
-            f = unit_factor(unit, want_unit)
-            if f is None:
-                return _result(False, 0, "NOTATION", detail="wrong unit")
-            value *= f
-            if not math.isfinite(value):
-                return _result(False, 0, needs_judgement=True, detail="number out of range")
+    notation = spelling = None
     target = ans["value"]
     allowed = ans.get("sf_ok") or ([ans["sf"]] if ans.get("sf") else None)
     # a value correctly rounded at the learner's own precision counts as right; the s.f. rule below then sets the mark
     rounds = not ans.get("exact")
-    if _close(value, target, tol) or (rounds and rounding_of(value, target, sf, digits, allowed)):
+
+    def right(v: float) -> bool:
+        return _close(v, target, tol) or (rounds and rounding_of(v, target, sf, digits, allowed))
+
+    if want_unit:
+        if not unit:
+            notation = "missing unit"
+        else:
+            factors = unit_factors(unit, want_unit)  # 1.5 kW for 1500 W is the same answer; so are kw and kilowatts
+            if not factors:
+                return _result(False, 0, "NOTATION", detail="wrong unit")
+            if unit_factor(unit, want_unit) is None:
+                spelling = f"write units as symbols with their capitals (this answer is in {want_unit})"
+            value *= next((f for f in factors if math.isfinite(value * f) and right(value * f)), factors[0])
+            if not math.isfinite(value):
+                return _result(False, 0, needs_judgement=True, detail="number out of range")
+    if right(value):
         exact = _close(value, target, 1e-9)
         if allowed and sf is not None and sf not in allowed and _figures_count(item, allowed, sf, exact):
             notation = notation or f"{sf} s.f. (want {'/'.join(map(str, allowed))})"
         if notation:
             return _result(True, 0.5, "NOTATION", detail=notation)
-        return _result(True, 1.0)
+        return _result(True, 1.0, detail=spelling)
     for d in item.get("distractors") or []:
         if _close(value, d["value"], tol) or (rounds and rounding_of(value, d["value"], sf, digits, allowed)):
             return _result(False, 0, d.get("error", "CONCEPT"), d.get("misconception"))

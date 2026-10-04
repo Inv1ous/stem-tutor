@@ -110,6 +110,33 @@ class ChoicePanel(Panel):
         return self.query_one("#note", Input).value.strip()
 
 
+class Composer(TextArea):
+    """A text box that wraps and grows over several lines. ⏎ sends what is in it; ctrl+j starts a new line."""
+
+    class Submitted(Message):
+        def __init__(self, composer: "Composer", value: str) -> None:
+            self.composer, self.value = composer, value
+            super().__init__()
+
+        @property
+        def control(self) -> "Composer":
+            return self.composer
+
+    def __init__(self, placeholder: str = "", id: str | None = None) -> None:
+        super().__init__(soft_wrap=True, tab_behavior="focus", show_line_numbers=False, id=id)
+        self.placeholder = placeholder
+
+    def _on_key(self, event: events.Key) -> None:
+        if event.key == "enter":
+            event.stop()
+            event.prevent_default()
+            self.post_message(self.Submitted(self, self.text))
+        elif event.key in ("ctrl+j", "shift+enter"):
+            event.stop()
+            event.prevent_default()
+            self.insert("\n")
+
+
 CHECKING = "Before ⏎: units? significant figures? sign? did you answer exactly what was asked?"
 
 
@@ -126,11 +153,11 @@ class ValuePanel(Panel):
         yield _hint(f"Q{self.n}: type {tip}, then ⏎.  Type ? if you don't know.")
         if self.checking:
             yield Static("✔ " + CHECKING, classes="check")
-        yield Input(placeholder=tip, id="value")
+        yield Composer(placeholder=tip, id="value")
 
-    @on(Input.Submitted, "#value")
-    def _typed(self, event: Input.Submitted) -> None:
-        v = event.value.strip()
+    @on(Composer.Submitted, "#value")
+    def _typed(self, event: "Composer.Submitted") -> None:
+        v = " ".join(event.value.split())  # typed over several lines, it is still one answer
         if not v:
             return
         if v in ("?", "idk", "dunno"):
@@ -142,7 +169,7 @@ class ValuePanel(Panel):
         if not self.ask_conf:
             self.finish({"entry": f"{self.n} = {v}", "your": v})
             return
-        event.input.disabled = True
+        event.composer.disabled = True
         self.mount(_hint("How sure are you? (1–4, Esc to edit your answer)"), Confidence())
         self.query_one(Confidence).focus()
 
@@ -150,7 +177,7 @@ class ValuePanel(Panel):
     def _back(self) -> None:
         for w in list(self.query(Confidence)) + [h for h in self.query(".hint") if "How sure" in str(h.render())]:
             w.remove()
-        box = self.query_one("#value", Input)
+        box = self.query_one("#value", Composer)
         box.disabled = False
         box.focus()
 
@@ -249,33 +276,6 @@ class ContinuePanel(Panel):
         self.finish({"button": event.button.id})
 
 
-class Composer(TextArea):
-    """A text box that wraps and grows over several lines. ⏎ sends what is in it; ctrl+j starts a new line."""
-
-    class Submitted(Message):
-        def __init__(self, composer: "Composer", value: str) -> None:
-            self.composer, self.value = composer, value
-            super().__init__()
-
-        @property
-        def control(self) -> "Composer":
-            return self.composer
-
-    def __init__(self, placeholder: str = "", id: str | None = None) -> None:
-        super().__init__(soft_wrap=True, tab_behavior="focus", show_line_numbers=False, id=id)
-        self.placeholder = placeholder
-
-    def _on_key(self, event: events.Key) -> None:
-        if event.key == "enter":
-            event.stop()
-            event.prevent_default()
-            self.post_message(self.Submitted(self, self.text))
-        elif event.key in ("ctrl+j", "shift+enter"):
-            event.stop()
-            event.prevent_default()
-            self.insert("\n")
-
-
 class TextPanel(Panel):
     """Free text: your own words, a question for the tutor, a chat reply. Esc skips."""
     BINDINGS = [Binding("escape", "skip", "Skip")]
@@ -314,15 +314,15 @@ class WorkedPanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(self._label())
-        yield Input(placeholder="what would you do next? (optional) — ⏎ to reveal", id="guess")
+        yield Composer(placeholder="what would you do next? (optional) — ⏎ to reveal", id="guess")
 
     def _label(self) -> str:
         return f"Worked example: step {self.i} of {self.total}. Predict it, then ⏎ to reveal."
 
-    @on(Input.Submitted, "#guess")
-    def _reveal(self, event: Input.Submitted) -> None:
+    @on(Composer.Submitted, "#guess")
+    def _reveal(self, event: "Composer.Submitted") -> None:
         self.post_message(self.Done({"step": self.i, "guess": event.value.strip()}, self))
-        event.input.value = ""
+        event.composer.text = ""
         self.i += 1
         if self.i > self.total:
             self.finish({"done": True})

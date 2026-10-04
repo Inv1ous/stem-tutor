@@ -132,3 +132,44 @@ def unit_factor(given: str, expected: str) -> float | None:
     except (ValueError, ArithmeticError):  # unknown symbol, or an exponent like km9999 that overflows
         return None
     return None
+
+
+# a unit typed without its capitals, or spelled out, is forgiven when the unit as written cannot be the right kind
+_BY_CASE: dict[str, list[str]] = {}
+for _sym in list(BASE) + [p + b for p in PREFIX for b in BASE]:
+    if _sym not in _BY_CASE.setdefault(_sym.lower(), []):
+        _BY_CASE[_sym.lower()].append(_sym)
+WORDS = {"watt": "W", "joule": "J", "newton": "N", "pascal": "Pa", "volt": "V", "ohm": "Ω", "amp": "A", "ampere": "A",
+         "coulomb": "C", "hertz": "Hz", "metre": "m", "meter": "m", "gram": "g", "gramme": "g", "mole": "mol",
+         "kelvin": "K", "litre": "L", "liter": "L", "farad": "F", "tesla": "T", "second": "s"}
+PREFIX_WORDS = {"giga": "G", "mega": "M", "kilo": "k", "deci": "d", "centi": "c", "milli": "m", "micro": "μ",
+                "nano": "n", "pico": "p"}
+_WORD = re.compile("^(" + "|".join(PREFIX_WORDS) + ")?(" + "|".join(sorted(WORDS, key=len, reverse=True)) + ")s?$")
+
+
+def _respelled(text: str) -> list[str]:
+    """Other ways to read a unit as typed: "kw" and "KW" as kW, "kilowatts" as kW, "mw" as mW or MW."""
+    options = [""]
+    for raw in re.sub(r"\s*/\s*", " / ", text.translate(SUPERSCRIPT)).split():
+        m = TOKEN.match(raw)
+        sym = m.group(1) if m else ""
+        word = _WORD.match(sym.lower()) if sym else None
+        names = [PREFIX_WORDS.get(word[1], "") + WORDS[word[2]]] if word else _BY_CASE.get(sym.lower(), []) if sym else []
+        options = [f"{o} {n}{raw[len(sym):] if names else ''}".strip() for o in options for n in (names or [raw])][:16]
+    return options
+
+
+def unit_factors(given: str, expected: str) -> list[float]:
+    """Every factor that could turn a value in `given` units into `expected` units. The unit as written comes first
+    (1.5 kW for an answer in W is simply the same answer). Only when that cannot be read as the right kind of unit
+    are capitals forgiven (kw, KW, pa) and spelled-out names accepted (kilowatts); "mw" may then be mW or MW, and the
+    caller sees which of them makes the answer right."""
+    f = unit_factor(given, expected)
+    if f is not None:
+        return [f]
+    out: list[float] = []
+    for text in _respelled(given):
+        f = unit_factor(text, expected)
+        if f is not None and f not in out:
+            out.append(f)
+    return out

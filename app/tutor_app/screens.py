@@ -590,6 +590,8 @@ class SessionScreen(Screen):
         elif data.get("button") == "why":
             self.stream(prompts.ask(self.tutor, "Explain clearly why the answer to the question just marked is right, "
                                     "and what the common wrong answer gets wrong.", self.kc))
+        elif data.get("button") == "remark":
+            self.remark()
         elif data.get("button") in ("next", "continue"):
             self.respond({})
             self.advance()
@@ -634,8 +636,12 @@ class SessionScreen(Screen):
                                 "no phone) helps you feel fresher. Your place is saved either way."))
             self.panel(ContinuePanel(buttons=[("breakok", "Keep going ⏎"), ("leave", "Save and stop for now")]))
         else:
+            fb = getattr(self, "last_fb", None) or {}
+            appeal = (self.ai_ok() and fb.get("event") and not fb.get("correct") and not fb.get("remarked")
+                      and fb.get("response") != "don't know"
+                      and (self.view or {}).get("kind") in ("numeric", "expression", "short"))
             buttons = [("next", "Next ⏎")] + ([("why", "Explain this answer (AI)")] if self.ai_ok() else []) + \
-                      [("ask", "Ask the tutor (ctrl+t)")]
+                      ([("remark", "Re-mark (AI)")] if appeal else []) + [("ask", "Ask the tutor (ctrl+t)")]
             self.panel(ContinuePanel(buttons=buttons))
 
     # ---------- written answers ----------
@@ -711,6 +717,31 @@ class SessionScreen(Screen):
         met = {str(self.scheme[i]["i"]) for i, p in enumerate(res.get("points", [])) if p.get("met") and i < len(self.scheme)}
         ticked = sorted(set(data["ticked"]) | met) if data["ticked"] else sorted(met)
         self.mark_panel("Adjust if you disagree, then submit.", ticked, [("mine", "Submit ⏎")])
+
+    @work(exclusive=True, group="judge")
+    async def remark(self) -> None:
+        """A second marker for a typed answer marked wrong. The program reads units, forms and wording narrowly; if
+        the AI examiner finds the answer right, it counts as right from then on."""
+        fb, view = self.last_fb, self.view or {}
+        self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
+        res, r = await self.app.ai.one_shot(prompts.remark(view.get("stem", ""), str(fb.get("answer")),
+                                                           str(fb.get("response")), fb.get("detail")),
+                                            schema=prompts.REMARK)
+        fb["remarked"] = True
+        if res and res.get("correct") is True and self.tutor.regrade(fb["event"], res.get("why", "")).get("ok"):
+            fb["correct"] = True
+            text = f"{res.get('why', '')}\n\nIt now counts as right in your record."
+            self.say(cards.card("tutor", "Re-marked: correct ✓", text))
+        elif res:
+            text = res.get("why", "")
+            self.say(cards.card("hint", "Re-marked: the mark stands", text))
+        else:
+            text = r.message or "Try again later."
+            self.say(cards.card("hint", "AI check unavailable", text))
+        if res and (log := self.tutor._lesson_log()):
+            log.tutor(text, title="Re-marked by the AI examiner")
+        self.update_bar()
+        self.next_followup()
 
     # ---------- AI ----------
     def ai_ok(self) -> bool:

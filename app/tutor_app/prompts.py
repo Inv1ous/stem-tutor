@@ -143,3 +143,20 @@ def key_of(tutor, n: int) -> tuple[str, str, dict | None]:
         return "", "", None
     inst = p["inst"]
     return _display_answer(inst), inst["kind"], inst["answer"] if inst["kind"] == "numeric" else None
+
+
+REMARK = {"type": "object", "properties": {"correct": {"type": "boolean"}, "why": {"type": "string"}},
+          "required": ["correct", "why"]}
+
+
+def remark(stem: str, key: str, answer: str, reason: str | None = None) -> str:
+    """A second marker for an answer the program marked wrong: it reads units, forms and wording narrowly."""
+    return ("A marking program marked this A-Level answer wrong. It reads answers narrowly, so check it the way a "
+            "Cambridge/Edexcel examiner would.\n"
+            f"QUESTION: {stem}\nMARK SCHEME ANSWER: {key}\nSTUDENT ANSWER: {answer}\n"
+            + (f"THE PROGRAM'S REASON: {reason}\n" if reason else "") +
+            "\nThe student is right if their answer is the same quantity, expression or meaning as the mark scheme's: "
+            "the same value in another correct unit (1.5 kW for 1500 W), an equivalent algebraic form, the same idea in "
+            "other words, or a correct rounding to a sensible number of figures. They are wrong if the value or meaning "
+            "differs, a required unit is missing or wrong, or the figures break what the question asked. Do not be "
+            'generous.\nReturn JSON: {"correct": true|false, "why": <one or two sentences, speaking to the student>}.')

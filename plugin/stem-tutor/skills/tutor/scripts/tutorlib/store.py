@@ -114,15 +114,21 @@ class Vault:
         if not folder.exists():
             return
         self.bad_lines = []
+        found = []
         for path in sorted(folder.glob("*.jsonl")):
             # split the bytes on "\n" only, then decode each line: a line torn mid-character is lost alone, and a
             # U+2028 inside an answer (valid JSON) is not taken for a line break as str.splitlines() would
             for n, line in enumerate(path.read_bytes().split(b"\n"), 1):
                 if line.strip():
                     try:
-                        yield json.loads(line.decode("utf-8"))
+                        found.append(json.loads(line.decode("utf-8")))
                     except ValueError:  # a half-written line (crash mid-save) must not lock you out of your history
                         self.bad_lines.append(f"{path.name}:{n}")
+        remarks = {e["target"]: e["grade"] for e in found if e.get("type") == "regrade"}
+        for e in found:  # an answer re-marked later is read with the re-mark: every report then agrees with it
+            if e.get("type") == "answer" and e.get("id") in remarks:
+                e = {**e, "grade": {**e["grade"], **remarks[e["id"]]}, "regraded": True}
+            yield e
 
     def last_event_id(self) -> str | None:
         """Id of the newest event that replay would yield (a line torn by a crash is skipped, as in events())."""

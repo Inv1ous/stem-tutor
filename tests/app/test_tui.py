@@ -492,14 +492,15 @@ def test_at_half_a_screen_everything_lines_up_and_fits(tmp_path, monkeypatch):
             def card_edge():
                 return {(e.region.x, e.region.right) for e in log.query(".entry") if e.display}  # not what a question put away
 
-            for kind in (OptionList, Input):  # a multiple-choice question, then a typed one
-                boxes = [w for w in scr.query("#panel OptionList, #panel Input") if w.display]
+            from tutor_app.panels import Composer
+            for kind in (OptionList, Composer):  # a multiple-choice question, then a typed one
+                boxes = [w for w in scr.query("#panel OptionList, #panel Input, #panel Composer") if w.display]
                 assert any(isinstance(w, kind) for w in boxes)
                 assert {(w.region.x, w.region.right) for w in boxes} == card_edge()  # answer boxes end where cards end
                 scr.submit({"entry": f"{scr.view['n']}?", "your": "I don't know"})
                 await pilot.pause()
                 buttons = list(scr.query("#panel Button"))
-                assert [b.id for b in buttons] == ["next", "why", "ask"]
+                assert [b.id for b in buttons] in (["next", "why", "ask"], ["next", "why", "remark", "ask"])
                 assert {(b.region.y, b.region.height) for b in buttons} == {(buttons[0].region.y, 3)}  # one row of buttons
                 assert all(b.region.width <= max(16, len(str(b.label)) + 4) and b.region.right <= 100 for b in buttons)
                 assert len(card_edge()) == 1
@@ -908,5 +909,48 @@ def test_the_top_bar_goes_whole_onto_a_second_line_when_the_window_is_narrow(tmp
             scr.update_bar()
             await pilot.pause()
             assert scr.query_one("#bar").region.height == 2
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_a_typed_answer_marked_wrong_can_be_re_marked_by_the_ai(tmp_path, monkeypatch):
+    """Asked by the learner: an option for the AI to mark an answer the program marked wrong."""
+    from textual.widgets import Button
+    from tutor_app import ai as ai_mod
+    from tutor_app.screens import SessionScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def second_marker(prompt, schema=None, model=None):
+        assert "MARK SCHEME ANSWER" in prompt and "42 m" in prompt
+        return {"correct": True, "why": "The same quantity."}, ai_mod.Result()
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            app.push_screen(SessionScreen({"mode": "test", "focus": ["9702-2.1"], "minutes": 30}))
+            offered = []
+            for _ in range(12):
+                await pilot.pause()
+                panel = next(iter(app.screen.query("#panel > *")), None)
+                if isinstance(panel, ChoicePanel):
+                    await pilot.press("0")  # I don't know
+                elif isinstance(panel, ValuePanel):
+                    await pilot.press(*"42", "space", "m", "enter")
+                    await pilot.pause()
+                    await pilot.press("2")
+                elif isinstance(panel, ContinuePanel):
+                    ids = [b.id for b in panel.query(Button)]
+                    offered.append(ids)
+                    if "remark" in ids:
+                        break
+                    panel.query_one("#next", Button).press()
+            assert offered[0] == ["next", "why", "ask"] and "remark" in offered[-1]  # not for "I don't know"
+            monkeypatch.setattr(app.ai, "one_shot", second_marker)
+            before = app.tutor.session["correct"]
+            app.screen.query_one("#remark", Button).press()
+            for _ in range(5):
+                await pilot.pause(0.05)
+            assert app.tutor.session["correct"] == before + 1
+            assert "remark" not in [b.id for b in app.screen.query("#panel Button")]  # one re-mark an answer
             await app.ai.close()
     asyncio.run(go())

@@ -818,3 +818,18 @@ def test_exam_dates_entered_in_the_almanac_replace_the_plans(tutor):
         json.dumps({"dates": {"0": "2027-05-20", "7": "2027-06-01", "x": "soon"}}))
     tutor.read_almanac()
     assert plan["papers"][0]["date"] == "2027-05-20" and plan["sittings"] == {"AS (9702)": "2027-05-20"}
+
+
+def test_a_second_marker_can_overturn_a_wrong_mark(tutor):
+    """Asked by the learner: some right answers are marked wrong; let the AI examiner check, and count it if so."""
+    from tutorlib import model
+    item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")  # 4.00 m s-2
+    tutor.start("long", minutes=20, focus=["9702-2.1.4"])
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    fb = tutor.answer(f"{n} = 4.0 metres per second squared ~3")["results"][0]
+    assert not fb["correct"] and not tutor.state["kcs"]["9702-2.1.4"]["succ_days"]
+    assert tutor.regrade(fb["event"], "the same acceleration, with the unit in words")["ok"]
+    assert tutor.state["kcs"]["9702-2.1.4"]["succ_days"] and tutor.session["correct"] == 1
+    marked = [e for e in tutor.vault.events() if e["type"] == "answer"][-1]
+    assert model.counts_as_right(marked["grade"]) and marked["regraded"]  # every report reads the re-mark
+    assert tutor.session["recent"][-1]["correct"] and not tutor.regrade(fb["event"], "again")["ok"]  # once only

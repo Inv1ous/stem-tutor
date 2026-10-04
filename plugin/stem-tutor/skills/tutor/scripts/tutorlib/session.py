@@ -634,6 +634,31 @@ class Tutor(LessonMixin):
         """Your own verdict on why an answer went wrong (careless slip, misread, didn't know, wrong method…)."""
         return self.log({"type": "tag", "target": event_id, "error": code.upper()})
 
+    def regrade(self, event_id: str, why: str, by: str = "ai") -> dict:
+        """Count an answer as right after all: a second marker found it correct though the program marked it wrong
+        (the same quantity in another unit, an equivalent form). The first mark stays in the log with the re-mark
+        beside it; everything worked out from the log (your record, reviews, the mistake journal) follows the re-mark."""
+        answer = next((e for e in self.vault.events() if e.get("id") == event_id and e["type"] == "answer"), None)
+        if not answer or model.counts_as_right(answer["grade"]):
+            return {"ok": False, "error": "no answer marked wrong with that id"}
+        self.log({"type": "regrade", "target": event_id, "by": by, "why": why,
+                  "grade": {"correct": True, "score": 1.0, "error": None, "misconception": None}})
+        self.rebuild()
+        if not answer.get("hinted") and (closed := [kc for kc in answer["kcs"] if kc in self.state["gaps"]]):
+            self.log({"type": "gaps", "remove": closed})
+        s = self.session
+        if s and s.get("id") == answer.get("session"):
+            s["correct"] = s.get("correct", 0) + 1
+            for q in s.get("recent", []) + s.get("last_feedback", []):
+                if q.get("n") == answer.get("n"):
+                    q.update(correct=True, partial=False, detail=None)
+            for b in s["blocks"]:
+                for kc in answer["kcs"]:
+                    if kc in b.get("res", {}):
+                        b["res"][kc]["ok"] = True
+            self._save()
+        return {"ok": True}
+
     def _record(self, key: str, p: dict, r: dict, g: dict) -> dict:
         s, inst = self.session, p["inst"]
         seconds = (self.now() - datetime.fromisoformat(p["shown_at"])).total_seconds()
@@ -700,7 +725,7 @@ class Tutor(LessonMixin):
               "error_code": g["error"], "response": ev["response"],
               "answer": _display_answer(inst), "explanation": inst.get("explanation"),
               "needs_judgement": g["needs_judgement"], "detail": None if r["kind"] == "idk" else g.get("detail")}
-        s.setdefault("recent", []).append({**{k: fb[k] for k in ("n", "correct", "partial", "detail", "response",
+        s.setdefault("recent", []).append({**{k: fb[k] for k in ("n", "event", "correct", "partial", "detail", "response",
                                                                  "answer", "explanation")},
                                            "stem": inst.get("stem", ""), "options": inst.get("options")})
         del s["recent"][:-4]  # the last few marked questions: what the AI tutor can be asked about
