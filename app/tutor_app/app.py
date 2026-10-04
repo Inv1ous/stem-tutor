@@ -38,6 +38,7 @@ OptionList { height: auto; max-height: 12; border: none; }
 #note { margin-top: 1; }
 SelectionList { height: auto; max-height: 14; }
 TextArea { height: 1fr; min-height: 4; max-height: 12; }
+Composer { height: auto; min-height: 3; max-height: 10; }
 .check { color: $warning; padding: 0 0 0 1; }
 #picker, Vertical#ask, #summary, #help, #settings { width: 90; max-width: 95%; height: auto; max-height: 90%;
   border: round $accent; background: $surface; padding: 1 2; }
@@ -108,6 +109,15 @@ class TutorApp(App):
             r, g, b = self.screen.styles.background.rgb
             self._driver.write(f"\x1b[48;2;{r};{g};{b}m\x1b[2J\x1b[0m")
             self.screen.refresh()
+
+    def claude_note(self) -> dict:
+        """What Claude Code last noted about the plan's limits, read again at most every half minute."""
+        import time
+        at, note = getattr(self, "_claude_note", (0.0, {}))
+        if not at or time.monotonic() - at > 30:
+            note = mac.claude_limits(config.CLAUDE_STATE)
+            self._claude_note = (time.monotonic(), note)
+        return note
 
     def action_smart_quit(self) -> None:
         """ctrl+q: inside a session it saves and returns to the menu; on the menu it quits."""

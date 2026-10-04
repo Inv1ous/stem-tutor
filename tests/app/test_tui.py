@@ -357,7 +357,7 @@ def test_ai_replies_are_guarded_for_every_open_question(tmp_path, monkeypatch): 
             monkeypatch.setattr(app.ai, "stream", fake_stream)
             scr.action_ask()
             await pilot.pause()
-            app.screen.query_one("#q", Input).value = f"What is the answer to question {second}?"
+            app.screen.query_one("#q").text = f"What is the answer to question {second}?"
             await pilot.press("enter")
             await pilot.pause(0.2)
             assert str(second) in t.session["presented"]
@@ -388,7 +388,7 @@ def test_asking_the_ai_is_refused_during_a_no_help_check(tmp_path, monkeypatch):
             monkeypatch.setattr(app.ai, "stream", fake_stream)
             scr.action_ask()
             await pilot.pause()
-            app.screen.query_one("#q", Input).value = "Can I have a hint?"
+            app.screen.query_one("#q").text = "Can I have a hint?"
             await pilot.press("enter")
             await pilot.pause(0.2)
             assert calls == [] and not any(p["hinted"] for p in t.session["presented"].values())
@@ -462,10 +462,10 @@ def test_a_marked_answer_can_be_asked_about_before_the_next_no_help_question(tmp
             monkeypatch.setattr(app.ai, "stream", fake_stream)
             scr.action_ask()
             await pilot.pause()
-            app.screen.query_one("#q", Input).value = "Why is that the answer?"
+            app.screen.query_one("#q").text = "Why is that the answer?"
             await pilot.press("enter")
             await pilot.pause(0.2)
-            assert len(calls) == 1 and f"Just marked: Q{first}" in calls[0]
+            assert len(calls) == 1 and f"Marked earlier in this session, Q{first}" in calls[0]
             assert "OPEN question" not in calls[0]  # the tutor is told nothing about a question you have not seen
             await app.ai.close()
     asyncio.run(go())
@@ -490,7 +490,7 @@ def test_at_half_a_screen_everything_lines_up_and_fits(tmp_path, monkeypatch):
             log = scr.query_one("#log")
 
             def card_edge():
-                return {(e.region.x, e.region.right) for e in log.query(".entry")}
+                return {(e.region.x, e.region.right) for e in log.query(".entry") if e.display}  # not what a question put away
 
             for kind in (OptionList, Input):  # a multiple-choice question, then a typed one
                 boxes = [w for w in scr.query("#panel OptionList, #panel Input") if w.display]
@@ -813,3 +813,70 @@ def test_the_tutor_keeps_the_almanacs_file_up_to_date_and_has_no_reply_cap(tmp_p
             assert app.screen.__class__.__name__ == "SettingsScreen" and not app.screen.query("#cap")
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_a_question_is_answered_from_memory_on_the_terminal_side_too(tmp_path, monkeypatch):
+    """Asked by the learner: the Now page hides the explanation once a question about it is asked, but the terminal
+    still showed everything said before, so the answer could simply be read off the screen."""
+    from tutor_app.screens import SessionScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            app.push_screen(SessionScreen({"mode": "lesson", "focus": ["9702-2.1"], "minutes": 40}))
+            panel = None
+            for _ in range(30):  # as far as the first question
+                await pilot.pause()
+                panel = next(iter(app.screen.query("#panel > *")), None)
+                if isinstance(panel, (ChoicePanel, ValuePanel)):
+                    break
+                if isinstance(panel, ChoosePanel):
+                    await pilot.press("down", "enter")
+                elif isinstance(panel, (ContinuePanel, TickPanel)):
+                    panel.query("Button").first().press()
+            scr = app.screen
+            before = [w for w in scr.query("#log > .entry") if not w.display]
+            assert before and len([w for w in scr.query("#log > .entry") if w.display]) <= 2  # the question alone
+            await pilot.press("ctrl+l")
+            await pilot.pause()
+            assert not any(w.display for w in before)  # not while the question is open
+            if isinstance(panel, ChoicePanel):
+                await pilot.press("b")
+                await pilot.pause()
+                await pilot.press("3")
+            else:
+                await pilot.press(*"42", "enter")
+                await pilot.pause()
+                await pilot.press("2")
+            await pilot.pause()
+            await pilot.press("ctrl+l")
+            await pilot.pause()
+            assert all(w.display for w in before)  # after answering, on request
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_the_ask_box_takes_several_lines_and_sends_on_enter(tmp_path, monkeypatch):
+    """Asked by the learner: the input was one short line."""
+    from tutor_app.panels import Composer
+    from tutor_app.screens import AskScreen
+    app, v = app_for(tmp_path, monkeypatch)
+    got = []
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            app.push_screen(AskScreen(), got.append)
+            await pilot.pause()
+            box = app.screen.query_one("#q", Composer)
+            short = box.size.height
+            await pilot.press(*"why", "ctrl+j", *"is")
+            box.insert(" this so " * 40)  # a long question wraps instead of sliding off to the right
+            await pilot.pause()
+            assert "\n" in box.text and box.size.height > short and box.size.width <= 90
+            await pilot.press("enter")
+            await pilot.pause()
+            await app.ai.close()
+    asyncio.run(go())
+    assert got and got[0].startswith("why\nis this so")

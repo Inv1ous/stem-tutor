@@ -78,6 +78,19 @@ def import_almanac_exports(vault: Path, downloads: Path) -> list[str]:
     return moved
 
 
+def claude_limits(path: Path) -> dict:
+    """What Claude Code last noted about the plan's limits (it refreshes the note when one of its sessions starts, so
+    it can lag): {"five_hour": {"used": 40.0, "resets": <epoch>}, "seven_day": {…}} for the windows in force."""
+    from datetime import datetime
+    try:
+        limits = json.loads(Path(path).read_text())["cachedUsageUtilization"]["utilization"]["limits"]
+        return {{"session": "five_hour", "weekly_all": "seven_day"}.get(x["kind"], x["kind"]):
+                {"used": float(x["percent"]), "resets": datetime.fromisoformat(x["resets_at"]).timestamp()}
+                for x in limits if x.get("is_active") and x.get("percent") is not None and x.get("resets_at")}
+    except (OSError, ValueError, KeyError, TypeError):
+        return {}
+
+
 def inbox_blocked(inbox: Path) -> bool:
     """True when the inbox exists but can't be listed (macOS privacy settings for iCloud Drive)."""
     try:

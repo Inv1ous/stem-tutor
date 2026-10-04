@@ -19,3 +19,4 @@ def _no_real_ipad_inbox(tmp_path, monkeypatch):
         return
     monkeypatch.setattr(config, "ICLOUD_INBOX", tmp_path / "ipad-inbox")
     monkeypatch.setattr(config, "DOWNLOADS", tmp_path / "downloads", raising=False)  # nor their Downloads
+    monkeypatch.setattr(config, "CLAUDE_STATE", tmp_path / "no-claude.json", raising=False)  # nor read their Claude limits

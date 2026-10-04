@@ -20,8 +20,8 @@ from tutorlib.lesson import GOALS
 from . import ai as ai_mod
 from . import cards, config, mac, prompts
 from . import __version__
-from .panels import (ChoicePanel, ChoosePanel, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel, TickPanel,
-                     ValuePanel, WorkedPanel)
+from .panels import (ChoicePanel, ChoosePanel, Composer, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel,
+                     TickPanel, ValuePanel, WorkedPanel)
 
 BANNER = r"""[b #ffd500]  ___ _____ ___ __  __   _____      _
  / __|_   _| __|  \/  | |_   _|  _| |_ ___ _ _
@@ -186,7 +186,8 @@ class HomeScreen(Screen):
         a = app.ai
         state = ("on" if a.available else {"login": "sign-in needed", "limit": "paused (limit)",
                                            "off": "not installed"}.get(a.status, a.status)) if app.settings.ai else "off"
-        out.append(f"\nAI tutor: {state} · {a.today()['replies']} replies today\n", style="#f5c2e7")
+        out.append(f"\nAI tutor: {state} · {a.today()['replies']} replies today · {a.limits_text(app.claude_note())}\n",
+                   style="#f5c2e7")
         out.append(f"\nSTEM Tutor v{__version__}", style="#6c7086")
         return out
 
@@ -312,6 +313,7 @@ class SessionScreen(Screen):
                 Binding("ctrl+r", "explain", "Re-explain", priority=True),
                 Binding("ctrl+o", "obsidian", "Obsidian", priority=True),
                 Binding("ctrl+b", "leave", "Save & menu", priority=True),
+                Binding("ctrl+l", "earlier", "Earlier", priority=True),
                 Binding("t", "ask", show=False), Binding("e", "explain", show=False), Binding("h", "hint", show=False),
                 Binding("o", "obsidian", show=False), Binding("question_mark", "app.help", "Help")]
 
@@ -339,6 +341,22 @@ class SessionScreen(Screen):
         log.mount(w)
         log.scroll_end(animate=False)
         return w
+
+    def fold(self) -> None:
+        """Put away what has been said so far. A question is answered from memory: the Now page shows it alone, and
+        so does this side, or the explanation just given could simply be read off the screen."""
+        for w in self.query("#log > .entry"):
+            w.display = False
+
+    def action_earlier(self) -> None:
+        """Bring back what was put away. Not while there is something to recall."""
+        if (self.tutor.session or {}).get("presented") or self.act.get("activity") == "own_words":
+            self.app.notify("Answer first: this asks you to recall what came before. It all comes back afterwards "
+                            "with ctrl+l.", timeout=6)
+            return
+        for w in self.query("#log > .entry"):
+            w.display = True
+        self.query_one("#log", VerticalScroll).scroll_end(animate=False)
 
     def panel(self, widget) -> None:
         box = self.query_one("#panel", Container)
@@ -387,8 +405,8 @@ class SessionScreen(Screen):
         txt.append(f" {title + ' · ' if title else ''}{mode} ", style="bold")
         txt.append(f" ⏱ {mins:02d}:{secs:02d} ", style="#94e2d5")
         txt.append(f" ✓ {s.get('correct', 0)}/{s.get('answered', 0)} ", style="#a6e3a1")
-        txt.append(f" {ai_state} {a.session.replies} replies · {a.session.output_tokens + a.session.input_tokens} tok ",
-                   style="#f5c2e7")
+        txt.append(f" {ai_state} {a.session.replies} replies · {a.session.output_tokens + a.session.input_tokens} tok"
+                   f" · {a.limits_text(self.app.claude_note())} ", style="#f5c2e7")
         self.query_one("#bar", Static).update(txt)
         nodes = [b for b in s.get("blocks", []) if b.get("kind") == "node"]
         if nodes:
@@ -447,6 +465,7 @@ class SessionScreen(Screen):
                                 f"{m.get('refutation', '')}\n\n{('_Compare:_ ' + m['contrast']) if m.get('contrast') else ''}"))
             self.panel(ContinuePanel())
         elif kind == "own_words":
+            self.fold()
             self.say(cards.card("tutor", "In your own words", act["prompt"]))
             self.panel(TextPanel("One or two sentences. Esc to skip.", done_label=None))
         elif kind == "stuck":
@@ -462,6 +481,7 @@ class SessionScreen(Screen):
 
     def ask_question(self, view: dict, say: str | None = None) -> None:
         self.view = view
+        self.fold()
         if say:
             self.say(cards.note(say, "dim"))
         self.say(cards.question(view))
@@ -838,14 +858,15 @@ class AskScreen(ModalScreen):
 
     def compose(self) -> ComposeResult:
         with Vertical(id="ask"):
-            yield Static("Ask the tutor anything about this topic (⏎ to send, Esc to cancel).", classes="hint")
-            yield Input(placeholder="e.g. why is displacement a vector but distance isn't?", id="q")
+            yield Static("Ask the tutor anything: it knows what is on screen and the questions just marked. "
+                         "⏎ sends, ctrl+j starts a new line, Esc cancels.", classes="hint")
+            yield Composer(placeholder="e.g. what would the full answer be here?", id="q")
 
     def on_mount(self) -> None:
-        self.query_one("#q", Input).focus()
+        self.query_one("#q", Composer).focus()
 
-    @on(Input.Submitted, "#q")
-    def sent(self, event: Input.Submitted) -> None:
+    @on(Composer.Submitted, "#q")
+    def sent(self, event: Composer.Submitted) -> None:
         self.dismiss(event.value.strip() or None)
 
 
@@ -883,13 +904,12 @@ class ChatScreen(Screen):
         w = Static(cards.ai("…"), classes="entry")
         log.mount(w)
         buf = ""
-        async for chunk in a.stream(f"CONTEXT\n(none: a general question from the menu)\n\nSTUDENT ASKS: {q}"):
+        async for chunk in a.stream(prompts.ask(self.app.tutor, q, None)):  # with the last questions answered
             buf += chunk
             w.update(cards.ai(buf))
             log.scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
-        self.query_one(TextPanel).query_one(Input).value = ""
 
 
 class InsightsScreen(Screen):

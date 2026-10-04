@@ -700,6 +700,10 @@ class Tutor(LessonMixin):
               "error_code": g["error"], "response": ev["response"],
               "answer": _display_answer(inst), "explanation": inst.get("explanation"),
               "needs_judgement": g["needs_judgement"], "detail": None if r["kind"] == "idk" else g.get("detail")}
+        s.setdefault("recent", []).append({**{k: fb[k] for k in ("n", "correct", "partial", "detail", "response",
+                                                                 "answer", "explanation")},
+                                           "stem": inst.get("stem", ""), "options": inst.get("options")})
+        del s["recent"][:-4]  # the last few marked questions: what the AI tutor can be asked about
         if inst.get("tier") == "extra":
             fb["official_key_only"] = True
             if inst.get("examiner"):

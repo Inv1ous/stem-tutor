@@ -1,6 +1,8 @@
 """Answer panels shown at the bottom of the session screen. Each posts `Panel.Done(data)` when finished."""
 from __future__ import annotations
 
+from textual import events
+
 from textual import on
 from textual.app import ComposeResult
 from textual.binding import Binding
@@ -247,23 +249,52 @@ class ContinuePanel(Panel):
         self.finish({"button": event.button.id})
 
 
+class Composer(TextArea):
+    """A text box that wraps and grows over several lines. ⏎ sends what is in it; ctrl+j starts a new line."""
+
+    class Submitted(Message):
+        def __init__(self, composer: "Composer", value: str) -> None:
+            self.composer, self.value = composer, value
+            super().__init__()
+
+        @property
+        def control(self) -> "Composer":
+            return self.composer
+
+    def __init__(self, placeholder: str = "", id: str | None = None) -> None:
+        super().__init__(soft_wrap=True, tab_behavior="focus", show_line_numbers=False, id=id)
+        self.placeholder = placeholder
+
+    def _on_key(self, event: events.Key) -> None:
+        if event.key == "enter":
+            event.stop()
+            event.prevent_default()
+            self.post_message(self.Submitted(self, self.text))
+        elif event.key in ("ctrl+j", "shift+enter"):
+            event.stop()
+            event.prevent_default()
+            self.insert("\n")
+
+
 class TextPanel(Panel):
     """Free text: your own words, a question for the tutor, a chat reply. Esc skips."""
     BINDINGS = [Binding("escape", "skip", "Skip")]
 
-    def __init__(self, prompt: str, placeholder: str = "type here, then ⏎", done_label: str | None = None) -> None:
+    def __init__(self, prompt: str, placeholder: str = "type here, then ⏎ (ctrl+j starts a new line)",
+                 done_label: str | None = None) -> None:
         super().__init__(classes="panel")
         self.prompt, self.placeholder, self.done_label = prompt, placeholder, done_label
 
     def compose(self) -> ComposeResult:
         yield _hint(self.prompt)
-        yield Input(placeholder=self.placeholder, id="text")
+        yield Composer(placeholder=self.placeholder, id="text")
         if self.done_label:
             yield Button(self.done_label, id="done")
 
-    @on(Input.Submitted, "#text")
-    def _typed(self, event: Input.Submitted) -> None:
+    @on(Composer.Submitted, "#text")
+    def _typed(self, event: Composer.Submitted) -> None:
         if event.value.strip():
+            event.composer.text = ""
             self.finish({"text": event.value.strip()})
 
     @on(Button.Pressed, "#done")

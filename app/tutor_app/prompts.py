@@ -10,7 +10,40 @@ def _clip(text: str, n: int) -> str:
     return text if len(text) <= n else text[: n - 1] + "…"
 
 
+def _options(options: dict | None) -> str:
+    return " " + "; ".join(f"{k}) {v}" for k, v in options.items()) if options else ""
+
+
+def _on_screen(act: dict) -> str | None:
+    """The step in front of the learner, when it is not a question (only what has been shown: no steps ahead)."""
+    kind = act.get("activity")
+    if kind in ("explain", "teach"):
+        return (f"On screen now, an explanation ({act.get('title') or act.get('kc_title', '')}): "
+                f"{_clip(act.get('text') or act.get('outline', ''), 500)}")
+    if kind in ("worked", "walkthrough"):
+        shown = "; ".join(f"{i}. {st['do']}" for i, st in enumerate(act.get("steps", [])[:act.get("revealed", 0)], 1))
+        return f"On screen now, a worked example: {_clip(act.get('problem', ''), 300)} Steps shown so far: {shown or 'none'}"
+    if kind == "refute":
+        m = (act.get("misconceptions") or [{}])[0]
+        m = m if isinstance(m, dict) else {"statement": m}
+        return f"On screen now, a common wrong idea being corrected: {_clip(m.get('statement', ''), 200)}"
+    if kind == "own_words":
+        return f"They are being asked to explain in their own words: {_clip(act.get('prompt', ''), 200)}"
+    return None
+
+
+def _marked(q: dict) -> str:
+    verdict = ("correct" if q.get("correct") else
+               f"right value but a mark lost ({q['detail']})" if q.get("partial") and q.get("detail") else "wrong")
+    return (f"{_clip(q.get('stem', ''), 300)}{_options(q.get('options'))} They answered: "
+            f"{_clip(str(q.get('response')), 200)} ({verdict}); the answer is {q.get('answer')}. "
+            f"{_clip(q.get('explanation') or '', 300)}").strip()
+
+
 def context(tutor, kc: str | None = None) -> str:
+    """What the AI is told: the syllabus point, the step on screen, each open question (answers withheld) and the
+    last few questions marked, so "why was that wrong?" or "what is the full answer here?" can be answered. With no
+    session running (the menu's chat), the last questions answered stand in."""
     s = tutor.session or {}
     lines = ["CONTEXT"]
     if kc and kc in tutor.packs.kcs:
@@ -18,17 +51,21 @@ def context(tutor, kc: str | None = None) -> str:
         card = lesson.teach_card(tutor, kc)
         lines += [f"Syllabus point ({k['spec']} {kc}): {k['title']} — {k['statement']}",
                   f"What they were taught: {_clip(card.get('establish', ''), 700)}"]
+    if (step := _on_screen(s.get("now") or {})):
+        lines.append(step)
     for n, p in sorted(s.get("presented", {}).items(), key=lambda x: int(x[0])):
         inst = p["inst"]
-        opts = "; ".join(f"{k}) {v}" for k, v in (inst.get("options") or {}).items())
-        lines.append(f"OPEN question {n} (do not reveal its answer): {_clip(inst.get('stem', ''), 400)} {opts}".rstrip())
-    for fb in s.get("last_feedback", [])[-2:]:
-        verdict = ("correct" if fb.get("correct") else
-                   f"right value but a mark lost ({fb['detail']})" if fb.get("partial") and fb.get("detail") else "wrong")
-        said = f": they answered {_clip(str(fb['response']), 200)}" if fb.get("response") is not None else ""
-        lines.append(f"Just marked: Q{fb['n']}{said}; {verdict}; answer {fb.get('answer')}. "
-                     f"{_clip(fb.get('explanation') or '', 300)}")
-    return "\n".join(lines)
+        lines.append(f"OPEN question {n} (do not reveal its answer): {_clip(inst.get('stem', ''), 400)}"
+                     f"{_options(inst.get('options'))}")
+    if tutor.session:
+        lines += [f"Marked earlier in this session, Q{q['n']}: {_marked(q)}" for q in s.get("recent", [])[-3:]]
+    else:
+        from tutorlib import model, report
+        for e in [e for e in tutor.vault.events() if e["type"] == "answer"][-3:]:
+            lines.append("Answered in their last session: " + _marked({
+                "stem": e.get("stem") or report._item_stem(tutor, e["item"], e.get("params")),
+                "response": e.get("response"), "correct": model.counts_as_right(e["grade"]), "answer": e.get("key")}))
+    return "\n".join(lines) if len(lines) > 1 else "CONTEXT\n(none: a general question, nothing answered yet)"
 
 
 def ask(tutor, question: str, kc: str | None) -> str:

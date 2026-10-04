@@ -225,8 +225,67 @@ def test_the_tutor_is_told_what_you_answered_and_why_a_mark_was_lost(tmp_path):
     item = next(i for i in t.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")  # 4.0 m s-2, 2 or 3 s.f.
     n = t._present(item, block="practice", phase=None)["n"]
     t.answer(f"{n} = 4.0 ~3")
-    assert (f"Just marked: Q{n}: they answered 4.0; right value but a mark lost (missing unit); "
-            "answer 4.00 m s-2.") in prompts.context(t)
+    told = prompts.context(t)
+    assert f"Marked earlier in this session, Q{n}: " in told
+    assert "They answered: 4.0 (right value but a mark lost (missing unit)); the answer is 4.00 m s-2." in told
     m = t._present(item, block="practice", phase=None)["n"]
     t.answer(f"{m}?")
-    assert f"Just marked: Q{m}: they answered don't know; wrong; answer 4.00 m s-2." in prompts.context(t)
+    assert "They answered: don't know (wrong); the answer is 4.00 m s-2." in prompts.context(t)
+
+
+def test_the_tutor_is_told_what_just_happened_in_the_session(tmp_path):
+    """Asked by the learner: "what's the correct full answer in this case?" got "no question was asked". Once the
+    session had moved on, the question just marked was no longer in what the AI is told."""
+    import random
+    from datetime import datetime
+    from fixtures import make_vault
+    from tutor_app import prompts
+    from tutorlib import session, store
+    t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0),
+                      now=lambda: datetime.fromisoformat("2026-09-29T17:00:00+08:00"))
+    assert "none" in prompts.context(t)  # nothing answered yet, no session
+    t.start("test", minutes=30, focus=["9702-2.1"])
+    act = t.next()
+    stems = [t.session["presented"][str(q["n"])]["inst"]["stem"] for q in act["items"]]
+    t.answer(", ".join(f"{q['n']}?" for q in act["items"]))
+    t.next()  # the session moves on
+    told = prompts.context(t)
+    assert all(s[:30] in told for s in stems) and "don't know" in told and "the answer is" in told
+    t.session["now"] = {"activity": "worked", "problem": "A car accelerates from rest.", "revealed": 1,
+                        "steps": [{"do": "List s, u, v, a, t"}, {"do": "Use the secret second step"}]}
+    told = prompts.context(t)
+    assert "A car accelerates" in told and "List s, u, v, a, t" in told and "secret second step" not in told
+    t.end()
+    assert stems[0][:30] in prompts.context(t)  # from the menu afterwards: the last questions answered
+
+
+def test_the_plans_limits_are_shown_as_what_is_left(tmp_path, monkeypatch):
+    """Asked by the learner: show how much of the five-hour limit is left, next to the tokens."""
+    import json
+    from tutor_app import mac
+    c = make(tmp_path, monkeypatch)
+    lines = [json.dumps({"type": "rate_limit_event", "rate_limit_info": {
+                 "rateLimitType": "five_hour", "utilization": 0.15, "resetsAt": 4102444800}}).encode() + b"\n",
+             json.dumps({"type": "result", "result": "ok", "usage": {}}).encode() + b"\n"]
+
+    class Out:
+        async def readline(self):
+            return lines.pop(0) if lines else b""
+
+    class Proc:
+        stdout = Out()
+
+    async def go():
+        async for _ in c._read(Proc(), []):
+            pass
+    asyncio.run(go())
+    assert c.limits["five_hour"]["used"] == 15  # what Claude tells this app itself is exact
+    note = tmp_path / "claude.json"
+    note.write_text(json.dumps({"cachedUsageUtilization": {"fetchedAtMs": 1, "utilization": {"limits": [
+        {"kind": "session", "percent": 40, "is_active": True, "resets_at": "2099-01-01T00:00:00+00:00"},
+        {"kind": "weekly_all", "percent": 92, "is_active": True, "resets_at": "2099-01-01T00:00:00+00:00"}]}}}))
+    noted = mac.claude_limits(note)
+    assert noted["seven_day"]["used"] == 92 and mac.claude_limits(tmp_path / "missing.json") == {}
+    assert c.limits_text(noted) == "5h 85% · wk ~8% left"  # Claude Code's own note can lag: marked ~
+    fresh = ai.Claude(tmp_path, binary=FAKE)
+    assert fresh.limits_text(noted) == "5h ~60% · wk ~8% left" and fresh.limits_text({}) == "5h ?"

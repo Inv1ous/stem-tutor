@@ -11,6 +11,7 @@ import json
 import os
 import re
 import shutil
+import time
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -85,6 +86,7 @@ class Claude:
         self.message = "" if self.status != "off" else "Claude Code is not installed, so AI help is off."
         self.session = Usage()
         self.usage_file = usage_file
+        self.limits: dict = {}  # the plan's limits as Claude itself last named them to this app
         self.last = Result()
         self._lock = asyncio.Lock()
         self._pending = 0  # one-shot calls in flight, counted against the daily cap before they finish
@@ -211,6 +213,11 @@ class Claude:
                 for block in ev.get("message", {}).get("content", []) or []:
                     if block.get("type") == "text" and block.get("text"):
                         parts.append(block["text"])
+            elif kind == "rate_limit_event":  # Claude names one window: the one nearest its end
+                info = ev.get("rate_limit_info") or {}
+                if info.get("rateLimitType") and info.get("utilization") is not None:
+                    self.limits[info["rateLimitType"]] = {"used": round(100 * info["utilization"]),
+                                                          "resets": info.get("resetsAt")}
             elif kind == "result":
                 usage = ev.get("usage") or {}
                 if ev.get("is_error"):
@@ -233,6 +240,21 @@ class Claude:
                 self._record_day(usage)
                 self.last = Result(text=ev.get("result") or "".join(parts), usage=usage)
                 return
+
+    def limits_text(self, noted: dict) -> str:
+        """What is left of the plan's limits, for beside the token count: "5h 85% · wk 8% left". A figure Claude gave
+        this app itself is exact. One from Claude Code's own note (`noted`) can lag and is marked ~. The five-hour
+        figure is "?" when nobody has said."""
+        now, parts = time.time(), []
+        for name, label in (("five_hour", "5h"), ("seven_day", "wk")):
+            own, note = self.limits.get(name), noted.get(name)
+            if own and (not own.get("resets") or own["resets"] > now):
+                parts.append(f"{label} {100 - own['used']}%")
+            elif note and note["resets"] > now:
+                parts.append(f"{label} ~{100 - round(note['used'])}%")
+            elif name == "five_hour":
+                parts.append(f"{label} ?")
+        return " · ".join(parts) + (" left" if "%" in "".join(parts) else "")
 
     async def reply(self, prompt: str) -> Result:
         async for _ in self.stream(prompt):
