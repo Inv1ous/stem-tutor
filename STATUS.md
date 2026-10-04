@@ -1,5 +1,10 @@
 # Build status
 
+## v1.6.0 (2026-10-04) — done
+- Every typed answer uses the box that wraps and grows; a quantity in another prefix, spelling or with words after
+  the unit is the same answer; an answer marked wrong can be re-marked by the AI examiner and then counts as right
+  everywhere; feedback buttons wrap in a narrow window. 682 tests.
+
 ## v1.5.1 (2026-10-04) — done
 - The session bar wraps whole onto a second line in a narrow window; only the week's limit is shown beside the
   tokens. 676 tests.

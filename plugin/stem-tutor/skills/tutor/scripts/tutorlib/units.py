@@ -145,31 +145,56 @@ WORDS = {"watt": "W", "joule": "J", "newton": "N", "pascal": "Pa", "volt": "V", 
 PREFIX_WORDS = {"giga": "G", "mega": "M", "kilo": "k", "deci": "d", "centi": "c", "milli": "m", "micro": "μ",
                 "nano": "n", "pico": "p"}
 _WORD = re.compile("^(" + "|".join(PREFIX_WORDS) + ")?(" + "|".join(sorted(WORDS, key=len, reverse=True)) + ")s?$")
+_JOINS = {"per", "square", "squared", "cubic", "cubed"}  # words that belong to a unit: never a comment after it
 
 
 def _respelled(text: str) -> list[str]:
-    """Other ways to read a unit as typed: "kw" and "KW" as kW, "kilowatts" as kW, "mw" as mW or MW."""
+    """Other ways to read a unit as typed: "kw" and "KW" as kW, "kilowatts" as kW, "mw" as mW or MW, "per" as /."""
     options = [""]
     for raw in re.sub(r"\s*/\s*", " / ", text.translate(SUPERSCRIPT)).split():
         m = TOKEN.match(raw)
         sym = m.group(1) if m else ""
         word = _WORD.match(sym.lower()) if sym else None
-        names = [PREFIX_WORDS.get(word[1], "") + WORDS[word[2]]] if word else _BY_CASE.get(sym.lower(), []) if sym else []
+        names = (["/"] if raw.lower() == "per" else [PREFIX_WORDS.get(word[1], "") + WORDS[word[2]]] if word
+                 else _BY_CASE.get(sym.lower(), []) if sym else [])
         options = [f"{o} {n}{raw[len(sym):] if names else ''}".strip() for o in options for n in (names or [raw])][:16]
     return options
 
 
-def unit_factors(given: str, expected: str) -> list[float]:
-    """Every factor that could turn a value in `given` units into `expected` units. The unit as written comes first
-    (1.5 kW for an answer in W is simply the same answer). Only when that cannot be read as the right kind of unit
-    are capitals forgiven (kw, KW, pa) and spelled-out names accepted (kilowatts); "mw" may then be mW or MW, and the
-    caller sees which of them makes the answer right."""
-    f = unit_factor(given, expected)
-    if f is not None:
-        return [f]
-    out: list[float] = []
-    for text in _respelled(given):
-        f = unit_factor(text, expected)
-        if f is not None and f not in out:
-            out.append(f)
-    return out
+def _is_unit(word: str) -> bool:
+    """Whether a word after a unit could be part of it (the s of "W s", "per", "squared") and not a comment on it."""
+    if word.lower() in _JOINS:
+        return True
+    for text in [word] + _respelled(word):
+        try:
+            parse_unit(text)
+            return True
+        except ValueError:
+            pass
+    return False
+
+
+def unit_readings(given: str, expected: str) -> tuple[list[float], bool]:
+    """(every factor that could turn a value in `given` units into `expected` units, whether the unit was respelled).
+
+    The unit as written comes first: 1.5 kW for an answer in W is simply the same answer. Words after the unit are
+    a comment, not a unit ("200 W of input"), unless they could be part of one ("W s", "W per second"). Only when
+    what was written cannot be read as the right kind of unit are capitals forgiven (kw, KW, pa) and spelled-out
+    names accepted (kilowatts, joules per second); "mw" may then be mW or MW, and the caller sees which of them
+    makes the answer right."""
+    words = given.split()
+    for k in range(len(words), 0, -1):
+        if k < len(words) and _is_unit(words[k]):
+            continue
+        head = " ".join(words[:k])
+        f = unit_factor(head, expected)
+        if f is not None:
+            return [f], False
+        out: list[float] = []
+        for text in _respelled(head):
+            f = unit_factor(text, expected)
+            if f is not None and f not in out:
+                out.append(f)
+        if out:
+            return out, True
+    return [], False

@@ -913,44 +913,126 @@ def test_the_top_bar_goes_whole_onto_a_second_line_when_the_window_is_narrow(tmp
     asyncio.run(go())
 
 
-def test_a_typed_answer_marked_wrong_can_be_re_marked_by_the_ai(tmp_path, monkeypatch):
+async def _to_a_wrong_typed_answer(app, pilot) -> list:
+    """Answer the test check until a typed answer has been marked wrong; returns the button rows seen on the way."""
+    from textual.widgets import Button
+    offered = []
+    for _ in range(14):
+        await pilot.pause()
+        panel = next(iter(app.screen.query("#panel > *")), None)
+        if isinstance(panel, ChoicePanel):
+            await pilot.press("0")  # I don't know
+        elif isinstance(panel, ValuePanel):
+            await pilot.press(*"42", "space", "m", "enter")
+            await pilot.pause()
+            await pilot.press("2")
+        elif isinstance(panel, ContinuePanel):
+            offered.append([b.id for b in panel.query(Button)])
+            if "remark" in offered[-1]:
+                break
+            panel.query_one("#next", Button).press()
+    return offered
+
+
+def test_an_answer_marked_wrong_can_be_re_marked_by_the_ai(tmp_path, monkeypatch):
     """Asked by the learner: an option for the AI to mark an answer the program marked wrong."""
     from textual.widgets import Button
+    from tutor_app import ai as ai_mod
+    from tutor_app.panels import Composer
+    from tutor_app.screens import SessionScreen
+    app, v = app_for(tmp_path, monkeypatch)
+    asked = []
+
+    async def second_marker(prompt, schema=None, model=None):
+        asked.append((prompt, model))
+        return {"correct": True, "why": "The same quantity."}, ai_mod.Result()
+
+    async def go():
+        async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()
+            app.push_screen(SessionScreen({"mode": "test", "focus": ["9702-2.1"], "minutes": 30}))
+            for _ in range(5):
+                await pilot.pause()
+            panel = app.screen.query_one(ChoicePanel)
+            assert isinstance(panel.query_one("#note"), Composer)  # every box for typing wraps and grows
+            await pilot.press("tab", "a", "enter")  # a letter in the note is not a choice; ⏎ goes back to the list
+            assert panel._note() == "a" and panel.choice is None and app.focused.id == "choices"
+            offered = await _to_a_wrong_typed_answer(app, pilot)
+            row = list(app.screen.query("#panel Button"))
+            assert offered[0] == ["next", "why", "ask"]  # nothing to re-mark in "I don't know"
+            assert offered[-1] == ["next", "why", "remark", "ask"]
+            assert all(b.region.right <= app.size.width and b.region.width >= len(str(b.label)) + 2 for b in row)
+            assert len({b.region.y for b in row}) == 2  # too many for 80 columns: the last goes to a second row, whole
+            await pilot.resize_terminal(120, 40)
+            await pilot.pause()
+            row = list(app.screen.query("#panel Button"))
+            assert len({b.region.y for b in row}) == 1 and app.focused.id == "next"  # and back to one row when it fits
+            monkeypatch.setattr(app.ai, "one_shot", second_marker)
+            answered, correct = app.tutor.session["answered"], app.tutor.session["correct"]
+            app.screen.query_one("#remark", Button).press()
+            for _ in range(5):
+                await pilot.pause(0.05)
+            assert (app.tutor.session["answered"], app.tutor.session["correct"]) == (answered, correct + 1)
+            assert "MARK SCHEME ANSWER" in asked[0][0] and "42 m" in asked[0][0] and asked[0][1] == "sonnet"
+            assert "remark" not in [b.id for b in app.screen.query("#panel Button")]  # one re-mark an answer
+            await app.ai.close()
+    asyncio.run(go())
+
+
+def test_when_the_mark_stands_the_reason_is_asked_after(tmp_path, monkeypatch):
+    """From "Why did you miss it?", 6 sends the answer to the AI examiner. If the mark stands, the reason is asked
+    again without that option, and the answer cannot be sent a second time."""
     from tutor_app import ai as ai_mod
     from tutor_app.screens import SessionScreen
     app, v = app_for(tmp_path, monkeypatch)
 
     async def second_marker(prompt, schema=None, model=None):
-        assert "MARK SCHEME ANSWER" in prompt and "42 m" in prompt
-        return {"correct": True, "why": "The same quantity."}, ai_mod.Result()
+        return {"correct": False, "why": "42 m is not the distance."}, ai_mod.Result()
 
     async def go():
-        async with app.run_test(size=(120, 40)) as pilot:
+        async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
             app.push_screen(SessionScreen({"mode": "test", "focus": ["9702-2.1"], "minutes": 30}))
-            offered = []
-            for _ in range(12):
-                await pilot.pause()
-                panel = next(iter(app.screen.query("#panel > *")), None)
-                if isinstance(panel, ChoicePanel):
-                    await pilot.press("0")  # I don't know
-                elif isinstance(panel, ValuePanel):
-                    await pilot.press(*"42", "space", "m", "enter")
-                    await pilot.pause()
-                    await pilot.press("2")
-                elif isinstance(panel, ContinuePanel):
-                    ids = [b.id for b in panel.query(Button)]
-                    offered.append(ids)
-                    if "remark" in ids:
-                        break
-                    panel.query_one("#next", Button).press()
-            assert offered[0] == ["next", "why", "ask"] and "remark" in offered[-1]  # not for "I don't know"
+            await _to_a_wrong_typed_answer(app, pilot)
+            scr = app.screen
             monkeypatch.setattr(app.ai, "one_shot", second_marker)
-            before = app.tutor.session["correct"]
-            app.screen.query_one("#remark", Button).press()
+            correct = app.tutor.session["correct"]
+            scr.followups = ["reflect"]  # as after a miss outside the quick check
+            scr.next_followup()
+            await pilot.pause()
+            assert scr.query_one("#reflect").option_count == 6
+            await pilot.press("6")
             for _ in range(5):
                 await pilot.pause(0.05)
-            assert app.tutor.session["correct"] == before + 1
-            assert "remark" not in [b.id for b in app.screen.query("#panel Button")]  # one re-mark an answer
+            assert app.tutor.session["correct"] == correct and scr.query_one("#reflect").option_count == 5
+            await pilot.press("1")
+            await pilot.pause()
+            assert [b.id for b in scr.query("#panel Button")] == ["next", "why", "ask"]
+            assert [e["error"] for e in app.tutor.vault.events() if e["type"] == "tag"] == ["SLIP"]
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_the_why_did_you_miss_it_step_offers_the_re_mark():
+    """That step comes before the buttons: "it was right" has to be sayable there, not after naming a reason."""
+    from textual import on
+    from textual.app import App
+    from tutor_app.panels import Panel, ReflectPanel
+    got = []
+
+    class Host(App):
+        def compose(self):
+            yield ReflectPanel(remark=True)
+
+        @on(Panel.Done)
+        def done(self, event):
+            got.append(event.data)
+
+    async def go():
+        async with Host().run_test() as pilot:
+            await pilot.pause()
+            assert pilot.app.query_one("#reflect").option_count == 6
+            await pilot.press("6")
+            await pilot.pause()
+    asyncio.run(go())
+    assert got == [{"code": None, "remark": True}]

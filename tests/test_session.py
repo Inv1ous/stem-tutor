@@ -825,11 +825,39 @@ def test_a_second_marker_can_overturn_a_wrong_mark(tutor):
     from tutorlib import model
     item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")  # 4.00 m s-2
     tutor.start("long", minutes=20, focus=["9702-2.1.4"])
-    n = tutor._present(item, block="practice", phase=None)["n"]
-    fb = tutor.answer(f"{n} = 4.0 metres per second squared ~3")["results"][0]
-    assert not fb["correct"] and not tutor.state["kcs"]["9702-2.1.4"]["succ_days"]
-    assert tutor.regrade(fb["event"], "the same acceleration, with the unit in words")["ok"]
-    assert tutor.state["kcs"]["9702-2.1.4"]["succ_days"] and tutor.session["correct"] == 1
-    marked = [e for e in tutor.vault.events() if e["type"] == "answer"][-1]
-    assert model.counts_as_right(marked["grade"]) and marked["regraded"]  # every report reads the re-mark
-    assert tutor.session["recent"][-1]["correct"] and not tutor.regrade(fb["event"], "again")["ok"]  # once only
+    for k, fresh in enumerate((True, False), 1):  # the answer just marked, then one from before the last step
+        n = tutor._present(item, block="practice", phase=None)["n"]
+        fb = tutor.answer(f"{n} = 4.0 metres per second squared ~3")["results"][0]
+        assert not fb["correct"] and (k > 1 or not tutor.state["kcs"]["9702-2.1.4"]["succ_days"])
+        if not fresh:
+            tutor._last_mark = None
+        assert tutor.regrade(fb["event"], "the same acceleration, with the unit in words")["ok"]
+        assert tutor.session["correct"] == k and tutor.session["answered"] == k and tutor.session["recent"][-1]["correct"]
+        assert not tutor.regrade(fb["event"], "again")["ok"]  # once only
+    assert tutor.state["kcs"]["9702-2.1.4"]["succ_days"]
+    marked = [e for e in tutor.vault.events() if e["type"] == "answer"]
+    assert len(marked) == 2 and all(model.counts_as_right(e["grade"]) and e["regraded"] for e in marked)
+
+
+def test_a_re_mark_puts_the_session_back_as_if_the_answer_had_been_marked_right(tutor):
+    """The wrong mark had made the idea a miss of the test check (a gap, taught first next time). The re-mark undoes
+    that in the session and in the record, and a reason given for missing it is dropped."""
+    from tutorlib.session import _display_answer
+    tutor.start("test", minutes=30, focus=["9702-2.1"])
+    tutor.next()
+    n = int(min(tutor.session["presented"], key=int))
+    inst = tutor.session["presented"][str(n)]["inst"]
+    entry = (f"{n}{next(k for k in 'ABCD' if k != _display_answer(inst)[0])}3" if inst["kind"] == "mcq"
+             else f"{n} = 987654 ~3")
+    fb = tutor.answer(entry, judge={n: 0.0})["results"][0]
+
+    def marks():
+        return [v["ok"] for b in tutor.session["blocks"] for v in b.get("res", {}).values()]
+    assert not fb["correct"] and marks() == [False]
+    tutor.tag(fb["event"], "SLIP")
+    out = tutor.regrade(fb["event"], "the same answer")
+    assert out["ok"] and out["feedback"]["correct"] and out["feedback"]["event"] == fb["event"]
+    assert marks() == [True] and (tutor.session["answered"], tutor.session["correct"]) == (1, 1)
+    assert tutor.session["recent"][-1]["correct"] and str(n) not in tutor.session["presented"]
+    events = list(tutor.vault.events())
+    assert not [e for e in events if e["type"] == "tag"] and len([e for e in events if e["type"] == "answer"]) == 1

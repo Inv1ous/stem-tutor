@@ -5,6 +5,7 @@ returns after an attempt. Every graded attempt becomes an event; state is a fold
 """
 from __future__ import annotations
 
+import copy
 import random
 import re
 import uuid
@@ -39,6 +40,7 @@ class Tutor(LessonMixin):
             # two writes): recompute everything from your history
             self.state = self._fold()
             self._dirty = True
+        self._last_mark: dict | None = None  # the answer just marked and the session before it: see regrade
         self.session = read_json(self.session_path)
         self._recover()
         self.read_almanac()
@@ -301,6 +303,7 @@ class Tutor(LessonMixin):
 
     # ---------- next ----------
     def next(self) -> dict:
+        self._last_mark = None  # a re-mark can redo only the answer still on screen
         s = self.session
         if not s:
             return {"activity": "no_session", "hint": "engine command: session start"}
@@ -636,30 +639,54 @@ class Tutor(LessonMixin):
 
     def regrade(self, event_id: str, why: str, by: str = "ai") -> dict:
         """Count an answer as right after all: a second marker found it correct though the program marked it wrong
-        (the same quantity in another unit, an equivalent form). The first mark stays in the log with the re-mark
-        beside it; everything worked out from the log (your record, reviews, the mistake journal) follows the re-mark."""
+        (the same quantity said another way, an equivalent form, a wrong answer key). The first mark stays in the
+        log with the re-mark beside it; everything worked out from the log (your record, reviews, the mistake
+        journal, the Almanac colours) follows the re-mark. For the answer just marked, the session is put back as it
+        was before the wrong mark and the answer recorded as right: no repair step, relearning or gap comes of it."""
         answer = next((e for e in self.vault.events() if e.get("id") == event_id and e["type"] == "answer"), None)
         if not answer or model.counts_as_right(answer["grade"]):
             return {"ok": False, "error": "no answer marked wrong with that id"}
-        self.log({"type": "regrade", "target": event_id, "by": by, "why": why,
-                  "grade": {"correct": True, "score": 1.0, "error": None, "misconception": None}})
+        last, self._last_mark = self._last_mark, None
+        self.log({"type": "regrade", "target": event_id, "item": answer["item"], "by": by, "why": why,
+                  "grade": dict(RIGHT)})
         self.rebuild()
-        if not answer.get("hinted") and (closed := [kc for kc in answer["kcs"] if kc in self.state["gaps"]]):
-            self.log({"type": "gaps", "remove": closed})
-        s = self.session
+        s, fb = self.session, None
         if s and s.get("id") == answer.get("session"):
-            s["correct"] = s.get("correct", 0) + 1
-            for q in s.get("recent", []) + s.get("last_feedback", []):
-                if q.get("n") == answer.get("n"):
-                    q.update(correct=True, partial=False, detail=None)
-            for b in s["blocks"]:
-                for kc in answer["kcs"]:
-                    if kc in b.get("res", {}):
-                        b["res"][kc]["ok"] = True
+            if last and last["event"] == event_id:
+                if (added := [kc for kc in self.state["gaps"] if kc not in last["gaps"]]):
+                    self.log({"type": "gaps", "remove": added})
+                for k, v in last["before"].items():
+                    if v is _ABSENT:
+                        s.pop(k, None)
+                    else:
+                        s[k] = v
+                fb = self._mark(last["key"], s["presented"][last["key"]], last["r"],
+                                {**RIGHT, "needs_judgement": False}, redo=answer)
+                s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "partial", "detail", "response", "answer",
+                                                             "explanation")}]
+            else:  # an earlier answer: the session keeps its course; its score and what the AI tutor is shown change
+                s["correct"] = s.get("correct", 0) + 1
+                for q in s.get("recent", []) + s.get("last_feedback", []):
+                    if q.get("n") == answer.get("n"):
+                        q.update(correct=True, partial=False, detail=None)
+            if (log := self._lesson_log()):
+                log.tutor(why, title=f"Q{answer['n']} re-marked: correct ✓")
             self._save()
-        return {"ok": True}
+        return {"ok": True, **({"feedback": fb} if fb else {})}
 
     def _record(self, key: str, p: dict, r: dict, g: dict) -> dict:
+        """Record a marked answer, and remember what that changed in the session, so a re-mark can redo it."""
+        before, gaps = copy.deepcopy(self.session), list(self.state["gaps"])
+        fb = self._mark(key, p, r, g)
+        now = self.session
+        self._last_mark = {"event": fb["event"], "key": key, "r": r, "gaps": gaps,
+                           "before": {k: before.get(k, _ABSENT) for k in before.keys() | now.keys()
+                                      if before.get(k, _ABSENT) != now.get(k, _ABSENT)}}
+        return fb
+
+    def _mark(self, key: str, p: dict, r: dict, g: dict, redo: dict | None = None) -> dict:
+        """What a marked answer does to the session and the log. `redo` is the answer's event when it is recorded
+        again after a re-mark: it is in the log and the lesson notes already."""
         s, inst = self.session, p["inst"]
         seconds = (self.now() - datetime.fromisoformat(p["shown_at"])).total_seconds()
         kc0 = p["kcs"][0]
@@ -671,7 +698,7 @@ class Tutor(LessonMixin):
         conf_stats = self.state["traits"]["calibration"].get("by_conf", {}).get(str(r.get("conf")))
         credit = sorted({pre for kc in p["kcs"] if kc in self.packs.kcs for pre in self.packs.kc(kc).get("prereqs", [])
                          if self.state["kcs"].get(pre, {}).get("fsrs")})
-        ev = self.log({"type": "answer", "session": s["id"], "n": int(key), "item": p["item"], "kcs": p["kcs"],
+        ev = redo or self.log({"type": "answer", "session": s["id"], "n": int(key), "item": p["item"], "kcs": p["kcs"],
                        "subject": p["subject"],
                        "difficulty": p["difficulty"], "conf": r.get("conf"), "hinted": p["hinted"], "seconds": round(seconds),
                        "marks": p["marks"], "grade": {k: g[k] for k in ("correct", "score", "error", "misconception")},
@@ -680,7 +707,8 @@ class Tutor(LessonMixin):
                        "key": _display_answer(inst), **({} if inst.get("source") else {"stem": inst.get("stem", "")}),
                        **({"retention": policy.target_retention(self.state, self.packs, kc0, self.now())} if known else {}),
                        **({"slip_likely": True} if slip else {})})
-        self._audit("answer", int(key), inst)
+        if not redo:
+            self._audit("answer", int(key), inst)
         del s["presented"][key]
         s.setdefault("kcs_answered", []).extend(k for k in p["kcs"] if k not in s["kcs_answered"])
         partial = g["correct"] and g["score"] < model.SUCCESS  # right value, mark lost (units, s.f.)
@@ -737,7 +765,7 @@ class Tutor(LessonMixin):
             fb["misconception"] = self.packs.misconception(self.packs.kc(p["kcs"][0])["subtopic"], g["misconception"])
         your = ("?" if r["kind"] == "idk" else f"{r['value']}" if r["kind"] != "points" else
                 "points " + ",".join(map(str, r["value"]))) + (f" (confidence {r['conf']})" if r.get("conf") else "")
-        if (log := self._lesson_log()):
+        if not redo and (log := self._lesson_log()):
             log.answer(fb, your)
         if p["block"] == "node" and p["phase"] == "check" and p["block_idx"] is not None:
             self._node_check_result(s["blocks"][p["block_idx"]], g, fb, "?" if r["kind"] == "idk" else str(r["value"]))
@@ -843,6 +871,10 @@ class Tutor(LessonMixin):
 
 def _teach_text(act: dict) -> str:
     return act.get("outline", "") + "".join(f"\n- Trap: {m}" for m in act.get("misconceptions", []))
+
+
+RIGHT = {"correct": True, "score": 1.0, "error": None, "misconception": None}  # the grade a re-mark gives
+_ABSENT = object()
 
 
 def _expected_kind(kind: str) -> tuple[str, ...]:

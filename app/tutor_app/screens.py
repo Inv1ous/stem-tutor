@@ -524,6 +524,10 @@ class SessionScreen(Screen):
             self.long_written(data)
             return
         if isinstance(event.panel, ReflectPanel):
+            if data.get("remark"):
+                self.followups.insert(0, "reflect")  # asked again if the mark stands
+                self.remark()
+                return
             if data.get("code") and getattr(self, "last_fb", {}).get("event"):
                 self.tutor.tag(self.last_fb["event"], data["code"])
                 self.say(cards.note(f"Noted: {ReflectPanel.CODES[data['code']].lower()}.", "dim"))
@@ -625,23 +629,27 @@ class SessionScreen(Screen):
         self.followups = (["reflect"] if r.get("reflect") else []) + (["break"] if r.get("break_suggested") else [])
         self.next_followup()
 
+    def can_remark(self) -> bool:
+        """Whether the answer just marked can go to the AI examiner: one you gave (not "I don't know"), which the
+        program marked wrong or docked a mark, and which has not been re-marked."""
+        fb = getattr(self, "last_fb", None) or {}
+        return bool(self.ai_ok() and fb.get("event") and not fb.get("correct") and not fb.get("remarked")
+                    and fb.get("response") != "don't know"
+                    and (self.view or {}).get("kind") in ("mcq", "numeric", "expression", "short"))
+
     def next_followup(self) -> None:
         """After feedback: why-did-I-miss-it, then a break suggestion if due, then the usual continue buttons."""
         step = self.followups.pop(0) if getattr(self, "followups", None) else None
         if step == "reflect":
-            self.panel(ReflectPanel(bool(self.last_fb.get("slip_likely"))))
+            self.panel(ReflectPanel(bool(self.last_fb.get("slip_likely")), remark=self.can_remark()))
         elif step == "break":
             self.say(cards.card("hint", "Time for a short break?",
                                 "Your accuracy has dipped below what's normal for you. A 5-minute break (water, stretch, "
                                 "no phone) helps you feel fresher. Your place is saved either way."))
             self.panel(ContinuePanel(buttons=[("breakok", "Keep going ⏎"), ("leave", "Save and stop for now")]))
         else:
-            fb = getattr(self, "last_fb", None) or {}
-            appeal = (self.ai_ok() and fb.get("event") and not fb.get("correct") and not fb.get("remarked")
-                      and fb.get("response") != "don't know"
-                      and (self.view or {}).get("kind") in ("numeric", "expression", "short"))
             buttons = [("next", "Next ⏎")] + ([("why", "Explain this answer (AI)")] if self.ai_ok() else []) + \
-                      ([("remark", "Re-mark (AI)")] if appeal else []) + [("ask", "Ask the tutor (ctrl+t)")]
+                      ([("remark", "Re-mark (AI)")] if self.can_remark() else []) + [("ask", "Ask the tutor (ctrl+t)")]
             self.panel(ContinuePanel(buttons=buttons))
 
     # ---------- written answers ----------
@@ -720,26 +728,25 @@ class SessionScreen(Screen):
 
     @work(exclusive=True, group="judge")
     async def remark(self) -> None:
-        """A second marker for a typed answer marked wrong. The program reads units, forms and wording narrowly; if
-        the AI examiner finds the answer right, it counts as right from then on."""
+        """A second marker for an answer the program marked wrong. It matches units, forms and wording narrowly, and
+        an answer key can be wrong; if the AI examiner finds the answer right, it counts as right from then on."""
         fb, view = self.last_fb, self.view or {}
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
-        res, r = await self.app.ai.one_shot(prompts.remark(view.get("stem", ""), str(fb.get("answer")),
-                                                           str(fb.get("response")), fb.get("detail")),
-                                            schema=prompts.REMARK)
-        fb["remarked"] = True
-        if res and res.get("correct") is True and self.tutor.regrade(fb["event"], res.get("why", "")).get("ok"):
-            fb["correct"] = True
-            text = f"{res.get('why', '')}\n\nIt now counts as right in your record."
-            self.say(cards.card("tutor", "Re-marked: correct ✓", text))
+        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=prompts.REMARK_MODEL)
+        if res:
+            fb["remarked"] = True  # one re-mark an answer; a call that failed can be tried again
+        out = self.tutor.regrade(fb["event"], res.get("why", "")) if res and res.get("correct") is True else {}
+        if out.get("ok"):
+            self.last_fb = {**(out.get("feedback") or {**fb, "correct": True, "partial": False}), "remarked": True}
+            self.followups = ["break"] if self.last_fb.get("break_suggested") else []  # nothing was missed
+            self.say(cards.card("tutor", "Re-marked: correct ✓",
+                                f"{res.get('why', '')}\n\nIt now counts as right in your record."))
         elif res:
-            text = res.get("why", "")
-            self.say(cards.card("hint", "Re-marked: the mark stands", text))
+            self.say(cards.card("hint", "Re-marked: the mark stands", res.get("why", "")))
+            if (log := self.tutor._lesson_log()):
+                log.tutor(res.get("why", ""), title=f"Q{fb.get('n')} re-marked: the mark stands")
         else:
-            text = r.message or "Try again later."
-            self.say(cards.card("hint", "AI check unavailable", text))
-        if res and (log := self.tutor._lesson_log()):
-            log.tutor(text, title="Re-marked by the AI examiner")
+            self.say(cards.card("hint", "AI check unavailable", r.message or "Try again later."))
         self.update_bar()
         self.next_followup()
 

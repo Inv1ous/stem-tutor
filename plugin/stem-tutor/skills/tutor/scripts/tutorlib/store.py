@@ -128,6 +128,8 @@ class Vault:
         for e in found:  # an answer re-marked later is read with the re-mark: every report then agrees with it
             if e.get("type") == "answer" and e.get("id") in remarks:
                 e = {**e, "grade": {**e["grade"], **remarks[e["id"]]}, "regraded": True}
+            elif e.get("type") == "tag" and e.get("target") in remarks:
+                continue  # "why I missed it", said before the re-mark found it was not missed
             yield e
 
     def last_event_id(self) -> str | None:

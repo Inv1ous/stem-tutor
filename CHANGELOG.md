@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.6.0 — 2026-10-04
+
+Asked by the learner.
+
+- **Every box you type in wraps and grows.** Number, formula and short answers (`ValuePanel`), the next-step guess
+  in a worked example and the note under a multiple-choice question now use the same box as written answers
+  (`Composer`): ⏎ sends, ctrl+j starts a new line. Only the minutes field in Settings is still one line.
+- **The same quantity is the same answer.** A prefix always converted (1.5 kW for 1500 W: checked on all 60 numeric
+  questions that have a unit, 318 conversions, none marked wrong). What was marked "wrong unit" by mistake: words
+  after the unit (`200 W of input`, in the learner's log), a unit typed without its capitals (`kw`, `KW`, `pa`) and
+  one spelled out (`kilowatts`, `joules per second`). All are now read as the unit they name
+  (`units.unit_readings`); a word that could be part of the unit (`W s`, `W per second`) is never dropped. A unit of
+  the wrong kind still loses the mark, and the feedback names it: "wrong unit: 'kN' is not a unit of this quantity
+  (the answer is in W)".
+- **Re-mark (AI).** After an answer you gave is marked wrong, or loses a mark, a button (and option 6 of "Why did
+  you miss it?") sends the question, the mark scheme answer and your answer to the AI examiner (Sonnet, whatever the
+  model setting). If it finds the answer right, a `regrade` event overrides the first mark wherever the log is read
+  (`Vault.events`), so the record, the reviews, the journal and the Almanac follow it, and a reason already given
+  for missing it is dropped. In the session the answer is recorded again as right from the state before the wrong
+  mark (`Tutor.regrade`, `Tutor._mark`): no fix step, relearning question or gap comes of it. One re-mark an answer;
+  not offered for "I don't know", nor for written answers the AI has just marked.
+- **Feedback buttons wrap** onto a second row when the window is too narrow for them, and return to one row when it
+  widens (`ContinuePanel.rows`).
+
 ## 1.5.1 — 2026-10-04
 
 Asked by the learner.

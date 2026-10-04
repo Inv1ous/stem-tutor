@@ -576,17 +576,23 @@ def test_in_maths_an_exact_answer_may_be_given_in_full():
 
 
 def test_the_same_quantity_in_a_tidier_unit_is_the_same_answer():
-    """Asked by the learner: answers given in a cleaner unit (kW for W) were marked wrong. A prefix always worked;
-    a unit typed without its capitals, or spelled out, did not."""
+    """Asked by the learner: answers given in a cleaner unit (kW for W) were marked wrong. A prefix always worked.
+    Words after the unit ("200 W of input", in the learner's log), a unit typed without its capitals, or one spelled
+    out did not."""
     from tutorlib import grade, units
     item = {"id": "x", "kind": "numeric", "kcs": ["9702-5.1.1"], "stem": "Calculate the power output.",
             "answer": {"value": 1500.0, "unit": "W", "sf_ok": [2, 3]}}
-    for typed in ("1500 W", "1.5 kW", "1.5 kw", "1.5 KW", "1.5 kilowatts", "1500 watts", "0.0015 MW", "1.5e3 w"):
+    for typed in ("1500 W", "1.5 kW", "1.5 kw", "1.5 KW", "1.5 kilowatts", "1500 watts", "0.0015 MW", "1.5e3 w",
+                  "1.5 kW of input", "1500 W in total", "1.5 kw (3 s.f.)", "1500 J per s", "1500 joules per second"):
         g = grade._grade_numeric(item, {"value": typed})
         assert g["correct"] and g["score"] == 1.0, typed
     assert "capitals" in grade._grade_numeric(item, {"value": "1.5 kw"}).get("detail")  # right, and told how to write it
-    assert not grade._grade_numeric(item, {"value": "1.5 kW"}).get("detail")
-    for typed in ("1.5 mw", "1.5 W", "1.5 kJ", "1500 kw"):
+    for typed in ("1.5 kW", "1.5 kW of input"):
+        assert not grade._grade_numeric(item, {"value": typed}).get("detail"), typed
+    for typed in ("1.5 mw", "1.5 W", "1.5 kJ", "1500 kw", "1500 W s", "1500 W per second", "1.5 kN",
+                  "1500 J per second squared"):
         assert not grade._grade_numeric(item, {"value": typed})["correct"], typed
-    assert units.unit_factors("kw", "W") == [1000.0] and units.unit_factors("xyz", "W") == []
-    assert sorted(units.unit_factors("mw", "W")) == [0.001, 1e6]  # milli or mega: the answer decides
+    assert "'kN'" in grade._grade_numeric(item, {"value": "1.5 kN"})["detail"]  # says which unit, and why not
+    assert units.unit_readings("kw", "W") == ([1000.0], True) and units.unit_readings("xyz", "W") == ([], False)
+    assert units.unit_readings("kW of input", "W") == ([1000.0], False)
+    assert sorted(units.unit_readings("mw", "W")[0]) == [0.001, 1e6]  # milli or mega: the answer decides

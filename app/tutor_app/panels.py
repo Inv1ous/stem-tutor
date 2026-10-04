@@ -58,6 +58,33 @@ class Confidence(OptionList):
         self.action_select()
 
 
+class Composer(TextArea):
+    """A text box that wraps and grows over several lines. ⏎ sends what is in it; ctrl+j starts a new line."""
+
+    class Submitted(Message):
+        def __init__(self, composer: "Composer", value: str) -> None:
+            self.composer, self.value = composer, value
+            super().__init__()
+
+        @property
+        def control(self) -> "Composer":
+            return self.composer
+
+    def __init__(self, placeholder: str = "", id: str | None = None, compact: bool = False) -> None:
+        super().__init__(soft_wrap=True, tab_behavior="focus", show_line_numbers=False, id=id, compact=compact)
+        self.placeholder = placeholder
+
+    def _on_key(self, event: events.Key) -> None:
+        if event.key == "enter":
+            event.stop()
+            event.prevent_default()
+            self.post_message(self.Submitted(self, self.text))
+        elif event.key in ("ctrl+j", "shift+enter"):
+            event.stop()
+            event.prevent_default()
+            self.insert("\n")
+
+
 class ChoicePanel(Panel):
     """Multiple choice: ↑↓ + ⏎ (or the letter key), then confidence 1–4. Always offers "I don't know"."""
     BINDINGS = [Binding(k, f"letter('{k.upper()}')", show=False) for k in "abcd"] + \
@@ -71,8 +98,8 @@ class ChoicePanel(Panel):
         yield _hint(f"Q{self.n}: choose with ↑↓ and ⏎ (or press A–D).  0 = I don't know.  Full question: Now in Obsidian (o).")
         opts = [Option(f"[b]{k}[/b]  {escape(to_terminal(v))}".rstrip(), id=k) for k, v in self.options.items()]
         yield OptionList(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
-        yield Input(placeholder="✎ optional note: why you chose it (Tab to reach, then ⏎ on the list)", id="note",
-                    compact=True)
+        yield Composer(placeholder="✎ optional note: why you chose it (Tab to reach; ⏎ goes back to the list)",
+                       id="note", compact=True)
 
     def action_letter(self, letter: str) -> None:
         if self.choice is None and (letter in self.options or letter == DONT_KNOW):
@@ -106,35 +133,13 @@ class ChoicePanel(Panel):
         c = int(event.option.id or 3)
         self.finish({"entry": f"{self.n}{self.choice}{c}", "your": f"{self.choice} ({CONF[c].lower()})", "note": self._note()})
 
+    @on(Composer.Submitted, "#note")
+    def _noted(self) -> None:
+        conf = self.query(Confidence)
+        (conf.first() if conf else self.query_one("#choices")).focus()
+
     def _note(self) -> str:
-        return self.query_one("#note", Input).value.strip()
-
-
-class Composer(TextArea):
-    """A text box that wraps and grows over several lines. ⏎ sends what is in it; ctrl+j starts a new line."""
-
-    class Submitted(Message):
-        def __init__(self, composer: "Composer", value: str) -> None:
-            self.composer, self.value = composer, value
-            super().__init__()
-
-        @property
-        def control(self) -> "Composer":
-            return self.composer
-
-    def __init__(self, placeholder: str = "", id: str | None = None) -> None:
-        super().__init__(soft_wrap=True, tab_behavior="focus", show_line_numbers=False, id=id)
-        self.placeholder = placeholder
-
-    def _on_key(self, event: events.Key) -> None:
-        if event.key == "enter":
-            event.stop()
-            event.prevent_default()
-            self.post_message(self.Submitted(self, self.text))
-        elif event.key in ("ctrl+j", "shift+enter"):
-            event.stop()
-            event.prevent_default()
-            self.insert("\n")
+        return " ".join(self.query_one("#note", Composer).text.split())
 
 
 CHECKING = "Before ⏎: units? significant figures? sign? did you answer exactly what was asked?"
@@ -260,12 +265,35 @@ class ContinuePanel(Panel):
                                                             ("explain", "Explain differently (ctrl+r)"),
                                                             ("ask", "Ask the tutor (ctrl+t)")]
 
+    def rows(self) -> list[list[tuple[str, str]]]:
+        """The buttons in as few rows as the window's width allows: a narrow one gets a second row, never a button
+        cut off at the edge."""
+        rows, used, width = [[]], 0, self.app.size.width - 3  # the panel's own padding
+        for button in self.buttons:
+            w = max(16, len(button[1]) + 2) + 1  # a button: its label, a space each side (16 at least), 1 between
+            if rows[-1] and used + w > width:
+                rows.append([])
+                used = 0
+            rows[-1].append(button)
+            used += w
+        return rows
+
     def compose(self) -> ComposeResult:
         if self.prompt:
             yield _hint(self.prompt)
-        with Horizontal(classes="buttons"):
-            for bid, label in self.buttons:
-                yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")
+        rows = self.rows()
+        self.shape = [len(r) for r in rows]
+        for row in rows:
+            with Horizontal(classes="buttons"):
+                for bid, label in row:
+                    yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")
+
+    async def on_resize(self) -> None:
+        if [len(r) for r in self.rows()] != getattr(self, "shape", None):  # the window changed: lay the rows out again
+            held = self.screen.focused.id if self.screen.focused in self.query(Button) else None
+            await self.recompose()
+            if held:
+                self.query_one(f"#{held}", Button).focus()
 
     def action_go(self) -> None:
         if self.buttons:  # a waiting message has no buttons: ⏎ does nothing until it's replaced
@@ -334,17 +362,20 @@ class ReflectPanel(Panel):
     """One keypress: why did that answer go wrong? (Feeds your mistake profile.)"""
     CODES = {"SLIP": "Careless slip", "MISREAD": "Misread the question", "RECALL": "Didn't know / forgot",
              "PROCEDURE": "Wrong method", "CONCEPT": "Had the wrong idea"}
-    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 6)] + [Binding("escape", "skip", "Skip")]
+    REMARK = "REMARK"  # not a reason: "it was right", when the answer can go to the AI examiner
+    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 7)] + [Binding("escape", "skip", "Skip")]
 
-    def __init__(self, slip_likely: bool = False) -> None:
+    def __init__(self, slip_likely: bool = False, remark: bool = False) -> None:
         super().__init__(classes="panel")
-        self.slip_likely = slip_likely
+        self.slip_likely, self.remark = slip_likely, remark
 
     def compose(self) -> ComposeResult:
         yield _hint("Why did you miss it? (1–5, or Esc to skip) — this tunes your profile and advice."
                     + ("  It was quick on an idea you usually get: a slip?" if self.slip_likely else ""))
-        yield OptionList(*[Option(f"{i}  {label}", id=code) for i, (code, label) in enumerate(self.CODES.items(), 1)],
-                         id="reflect")
+        options = [Option(f"{i}  {label}", id=code) for i, (code, label) in enumerate(self.CODES.items(), 1)]
+        if self.remark:
+            options.append(Option("6  I think my answer was right: ask the AI examiner to re-mark it", id=self.REMARK))
+        yield OptionList(*options, id="reflect")
 
     def on_mount(self) -> None:
         ol = self.query_one("#reflect", OptionList)
@@ -352,11 +383,14 @@ class ReflectPanel(Panel):
         ol.focus()
 
     def action_pick(self, i: int) -> None:
-        self.finish({"code": list(self.CODES)[i - 1]})
+        if i <= len(self.CODES):
+            self.finish({"code": list(self.CODES)[i - 1]})
+        elif self.remark:
+            self.finish({"code": None, "remark": True})
 
     def action_skip(self) -> None:
         self.finish({"code": None})
 
     @on(OptionList.OptionSelected, "#reflect")
     def _picked(self, event: OptionList.OptionSelected) -> None:
-        self.finish({"code": event.option.id})
+        self.finish({"code": None, "remark": True} if event.option.id == self.REMARK else {"code": event.option.id})

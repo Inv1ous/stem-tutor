@@ -13,7 +13,7 @@ import math
 import random
 import re
 
-from .units import SUPERSCRIPT, unit_factor, unit_factors
+from .units import SUPERSCRIPT, unit_factor, unit_readings  # noqa: F401 (unit_factor: part of this module's surface)
 
 ERROR_CODES = ("RECALL", "MISREAD", "CONCEPT", "PROCEDURE", "STRATEGY", "SLIP", "NOTATION", "TIME")
 
@@ -231,10 +231,12 @@ def _grade_numeric(item, resp):
         if not unit:
             notation = "missing unit"
         else:
-            factors = unit_factors(unit, want_unit)  # 1.5 kW for 1500 W is the same answer; so are kw and kilowatts
+            # 1.5 kW for 1500 W is the same answer; so are "1.5 kw", "1.5 kilowatts" and "1.5 kW of input"
+            factors, respelled = unit_readings(unit, want_unit)
             if not factors:
-                return _result(False, 0, "NOTATION", detail="wrong unit")
-            if unit_factor(unit, want_unit) is None:
+                return _result(False, 0, "NOTATION", detail=f"wrong unit: {unit[:24]!r} is not a unit of this "
+                                                            f"quantity (the answer is in {want_unit})")
+            if respelled:
                 spelling = f"write units as symbols with their capitals (this answer is in {want_unit})"
             value *= next((f for f in factors if math.isfinite(value * f) and right(value * f)), factors[0])
             if not math.isfinite(value):

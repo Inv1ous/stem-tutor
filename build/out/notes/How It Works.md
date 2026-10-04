@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.5.1_
+_Version 1.6.0_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,12 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 1.6.0
+> - **Every answer box is the bigger box.** Number, formula and short answers, the "what would you do next?" guess and the note under a multiple-choice question now wrap and grow as you type. **⏎** sends; **ctrl+j** starts a new line.
+> - **Tidy units are fine.** `1.5 kW` for 1500 W was always accepted. Now `1.5 kw`, `1.5 kilowatts` and `1.5 kW of input` are too: words after the unit are ignored, and missing capitals are forgiven with a reminder. A unit of the wrong kind (`kN` for a power) still loses the mark, and the tutor now says which unit it could not accept.
+> - **Re-mark (AI).** Think an answer was right though it was marked wrong? Press **Re-mark (AI)** after the feedback, or **6** when asked why you missed it. The AI examiner checks your answer against the mark scheme. If it agrees with you, the answer counts as right everywhere: your score, your record, your reviews and the Almanac.
+> - **Buttons never run off the edge.** In a narrow window the buttons under the feedback go onto a second row.
 
 > [!example] New in 1.5.1
 > - **The top bar never runs off the edge.** When the window is too narrow for it, the time, score and AI figures move together onto a second line, so everything stays in view on two lines at most.
@@ -238,8 +244,8 @@ A lesson works like a good private tutor, and every step has a reason.
 
 - **Multiple choice:** move with **↑ ↓** and press **⏎**, or press the letter **A–D**. Press **0** for *I don't know*.
 - **How sure are you?** After choosing, rate your confidence **1–4**: 1 guess, 2 unsure, 3 fairly sure, 4 certain. Changed your mind? Press **Esc** to go back to the options. Be honest. A *confident* wrong answer is the best moment to fix a misunderstanding, so the tutor makes a point of it. A right answer you were unsure about comes back sooner than one you were certain of.
-- **Optional note:** under the options you can type why you chose it (**Tab** to reach the box). It goes into the lesson record.
-- **Number answers:** type the value **with its unit**, e.g. `19.6 m s-1` or `4.5e-3 mol dm-3`, then ⏎ and your confidence. Brackets and minus signs like `(−1)` are fine. The tutor checks the value, the unit and significant figures. A right value with a missing unit, or rounded to the wrong number of figures, shows as **"Right value, but a mark lost"**, and the **Exam point** line says what was wanted. An exact answer never needs zeros added: `9 m s-2` is right for 9.0, as it is in the exam. The figures still count when the question fixes them (it says how many, or the value is an instrument reading such as a micrometer's `1.50 mm`) and when there are too many in physics or chemistry (`73.575 J` should be `74 J`); in maths an exact answer may be given in full. A rounded whole number can be typed with zeros (`2400` for 2375). Type the final number, not a sum (`500 + 1` isn't worked out); a power of ten is fine as `4.5e-3`, `4.5×10^-3` or `10³`. If a question wants just a number (a count, a ratio, a value "in mm"), type only the number: add a unit and the tutor asks you to send it again, with no mark lost.
+- **Optional note:** under the options you can type why you chose it (**Tab** to reach the box; **⏎** takes you back to the options). It goes into the lesson record.
+- **Number answers:** type the value **with its unit**, e.g. `19.6 m s-1` or `4.5e-3 mol dm-3`, then ⏎ and your confidence. Brackets and minus signs like `(−1)` are fine. The tutor checks the value, the unit and significant figures. Any correct unit is the same answer: `1.5 kW` for 1500 W, also typed `1.5 kw` or `1.5 kilowatts` (with a reminder to use the symbol), and words after the unit are ignored (`200 W of input`). A right value with a missing unit, or rounded to the wrong number of figures, shows as **"Right value, but a mark lost"**, and the **Exam point** line says what was wanted. An exact answer never needs zeros added: `9 m s-2` is right for 9.0, as it is in the exam. The figures still count when the question fixes them (it says how many, or the value is an instrument reading such as a micrometer's `1.50 mm`) and when there are too many in physics or chemistry (`73.575 J` should be `74 J`); in maths an exact answer may be given in full. A rounded whole number can be typed with zeros (`2400` for 2375). Type the final number, not a sum (`500 + 1` isn't worked out); a power of ten is fine as `4.5e-3`, `4.5×10^-3` or `10³`. If a question wants just a number (a count, a ratio, a value "in mm"), type only the number: add a unit and the tutor asks you to send it again, with no mark lost.
 - **Formula answers:** type them as you would write them: `u^2 + 2as`, `u² + 2as`, `2πr` and `√(2gh)` all work. If the tutor can't read one, it asks you to type it again.
 - **Written answers** (definitions, explanations): type them. The AI examiner always compares your wording with the mark points, because spotting the right words isn't enough ("velocity is the rate of change of velocity" has all the right words in the wrong places). Without AI, you tick which points you really covered.
 - **Long questions:** write your full working in the box, then **ctrl+s**. The mark scheme appears as a checklist: tick each mark you really earned with the space bar. Honest self-marking is itself excellent practice. You can also ask the **AI examiner** to check your marking.
@@ -247,7 +253,9 @@ A lesson works like a good private tutor, and every step has a reason.
 
 After every answer you see ✓ or ✗, the correct answer and a short explanation. Past-paper questions show the official answer and any examiner comments; press the **Explain this answer** button for an AI explanation.
 
-**After a wrong answer** the tutor may ask **why you missed it**: 1 careless slip, 2 misread the question, 3 didn't know or forgot, 4 wrong method, 5 had the wrong idea. Press **Esc** to skip. It asks at most six times a session, never during the quick check, and suggests "slip" when you answered unusually fast on something you normally get right. Your answers build the "Mistakes by kind" part of your profile.
+**Marked wrong, but you think you were right?** Press **Re-mark (AI)**. The AI examiner works the question out and compares your answer with the mark scheme: the same quantity in another unit, an equivalent formula, the same idea in other words, even a wrong answer key. If it finds you right, the answer counts as right everywhere (score, record, reviews, Almanac) and the session carries on as if it had been marked right. If not, it says why the mark stands. One re-mark per answer; it is not offered for "I don't know", nor for written answers the AI examiner has just marked.
+
+**After a wrong answer** the tutor may ask **why you missed it**: 1 careless slip, 2 misread the question, 3 didn't know or forgot, 4 wrong method, 5 had the wrong idea. Press **Esc** to skip, or **6** if you think your answer was right: the AI examiner re-marks it. It asks at most six times a session, never during the quick check, and suggests "slip" when you answered unusually fast on something you normally get right. Your answers build the "Mistakes by kind" part of your profile.
 
 **If you seem tired:** when your accuracy drops clearly below what's normal for you (or after the number of questions where you usually start to fade), the tutor suggests a short break. Keep going or save and stop; your place is kept either way.
 

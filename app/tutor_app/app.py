@@ -35,7 +35,7 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 .buttons { height: auto; }
 .buttons Button { margin: 0 1 0 0; }
 OptionList { height: auto; max-height: 12; border: none; }
-#note { margin-top: 1; }
+#note { margin-top: 1; min-height: 1; max-height: 5; }
 SelectionList { height: auto; max-height: 14; }
 TextArea { height: 1fr; min-height: 4; max-height: 12; }
 Composer { height: auto; min-height: 3; max-height: 10; }
