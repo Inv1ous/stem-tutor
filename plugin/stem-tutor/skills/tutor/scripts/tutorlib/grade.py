@@ -13,7 +13,7 @@ import math
 import random
 import re
 
-from .units import SUPERSCRIPT, unit_factor, unit_readings  # noqa: F401 (unit_factor: part of this module's surface)
+from .units import SUPERSCRIPT, parse_unit, unit_factor, unit_readings  # noqa: F401 (unit_factor: part of this module's surface)
 
 ERROR_CODES = ("RECALL", "MISREAD", "CONCEPT", "PROCEDURE", "STRATEGY", "SLIP", "NOTATION", "TIME")
 
@@ -147,7 +147,23 @@ def value_problem(item: dict, text: str) -> str | None:
         unit = _parse(text)[1]
     except ParseError:
         return "unreadable"
-    return "unit" if not item["answer"].get("unit") and _unit_on_plain_number(item, unit) else None
+    want_unit = item["answer"].get("unit") or ""
+    if want_unit and _unreadable_unit(unit, want_unit):
+        return "unreadable"
+    return "unit" if not want_unit and _unit_on_plain_number(item, unit) else None
+
+
+def _unreadable_unit(unit: str, want_unit: str) -> bool:
+    """A bracketed denominator that could not be read (J/((mol K)), J/(mol K): asked again, never a wrong unit."""
+    if not re.search(r"/\s*\(", unit) or unit_readings(unit, want_unit)[0]:
+        return False
+    for text in {unit, unit[:unit.rfind(")") + 1] or unit}:  # the unit, and the unit before any words after it
+        try:
+            parse_unit(text)
+            return False  # read, as another kind of unit: J/(kg K) for J K-1 mol-1 is wrong
+        except (ValueError, ArithmeticError):
+            pass
+    return True
 
 
 # ---------------- grading ----------------
@@ -238,6 +254,8 @@ def _grade_numeric(item, resp):
         else:
             # 1.5 kW for 1500 W is the same answer; so are "1.5 kw", "1.5 kilowatts" and "1.5 kW of input"
             factors, respelled = unit_readings(unit, want_unit)
+            if not factors and _unreadable_unit(unit, want_unit):
+                return _result(False, 0, needs_judgement=True, detail="unit unreadable")
             if not factors:
                 return _result(False, 0, "NOTATION", detail=f"wrong unit: {unit[:24]!r} is not a unit of this "
                                                             f"quantity (the answer is in {want_unit})")

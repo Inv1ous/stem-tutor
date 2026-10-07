@@ -79,10 +79,19 @@ def _normalise(text: str) -> list[tuple[str, int, int]]:
     text = text.replace("·", " ").replace("*", " ").replace(".", " ").strip()
     text = re.sub(r"\bper\s+cent\b", "percent", text, flags=re.I)
     text = re.sub(r"\s*/\s*", " / ", text)
-    tokens, sign = [], 1
+    # a bracketed denominator, J/(mol K), is all below the line and what follows it is not; nested brackets or a
+    # slash inside are left as they are, so they fail to read (unreadable, never a wrong unit)
+    text = re.sub(r"/ \(([^()/]*)\)", r" /( \1 )/ ", text)
+    tokens, sign, before = [], 1, 1
     for raw in text.split():
         if raw == "/":
             sign = -1
+            continue
+        if raw == "/(":
+            before, sign = sign, -1
+            continue
+        if raw == ")/":
+            sign = before
             continue
         m = TOKEN.match(raw)
         if not m:
