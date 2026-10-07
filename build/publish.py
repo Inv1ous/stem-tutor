@@ -119,7 +119,8 @@ def publish(vault: Path) -> dict:
         if not src_root.exists():
             continue
         for f in src_root.rglob("*"):
-            if f.is_file() and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
+            if f.is_file() and not f.name.startswith(".DS_") \
+                    and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
                 d = dest / f.relative_to(src_root)
                 if src_root == BUILD / "notes" and f.suffix == ".md":  # links follow what is published
                     text = link_notes(f.read_text(encoding="utf-8"), names)

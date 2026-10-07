@@ -217,3 +217,15 @@ def test_a_publish_that_fails_midway_leaves_the_engine_and_pointers_whole(tmp_pa
                 pass
     assert launcher.read_text() == before and current.read_text() in ("v1", "v2", "v3", "v4")
     assert (engine / "tutor.py").read_text() == "v2\n" and not (vault / ".tutor/engine.new").exists()
+
+
+def test_finder_junk_in_the_build_is_not_copied_into_the_vault(tmp_path, monkeypatch):
+    build = _build(tmp_path, monkeypatch)
+    (build / "notes/Subjects/.DS_Store").write_bytes(b"\0junk")
+    (build / "assets").mkdir()
+    (build / "assets/.DS_Store").write_bytes(b"\0junk")
+    (build / "assets/x.svg").write_text("<svg/>")
+    vault = tmp_path / "vault"
+    publish.publish(vault)
+    assert (vault / "Assets/x.svg").exists()
+    assert not list(vault.rglob(".DS_*"))
