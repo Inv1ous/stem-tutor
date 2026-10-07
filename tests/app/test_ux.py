@@ -194,6 +194,24 @@ def test_every_picker_says_how_to_go_back(tmp_path, monkeypatch, mode):
     run(app, (80, 24), steps)
 
 
+def test_a_narrow_home_screen_keeps_a_one_line_summary_of_the_side_box(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        home = app.screen
+        for size, narrow in (((60, 24), True), ((80, 24), True), ((120, 40), False)):
+            await pilot.resize_terminal(*size)
+            await pilot.pause()
+            glance = home.query_one("#glance")
+            assert glance.display == narrow
+            if narrow:
+                text = str(glance.render())
+                assert "streak" in text and "due" in text and "✶" in text and "↻" in text
+                assert glance.region.height == 1 and glance.region.right <= size[0]
+                assert home.query_one("#menu").max_scroll_y == 0  # the menu still fits whole
+    run(app, (120, 40), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

@@ -60,7 +60,9 @@ PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScree
 #settings #settings-hint { content-align: left middle; height: 100%; padding: 0 0 0 2; }
 #settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
+#glance { display: none; height: 1; margin-top: 1; padding: 0 4; text-wrap: nowrap; text-overflow: ellipsis; }
 HomeScreen.narrow #stats { display: none; }
+HomeScreen.narrow #glance { display: block; }
 HomeScreen.narrow #menu { width: 1fr; }
 HomeScreen.short #banner { display: none; }
 """

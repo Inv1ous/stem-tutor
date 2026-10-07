@@ -56,6 +56,7 @@ class HomeScreen(Screen):
 
     def compose(self) -> ComposeResult:
         yield Static(look.banner(), id="banner")
+        yield Static(id="glance")  # the side box in one line, for a window too narrow to show it
         with Horizontal(id="home"):
             yield OptionList(id="menu")
             with VerticalScroll(id="stats"):  # more chapters than fit in the window: the box scrolls
@@ -156,22 +157,32 @@ class HomeScreen(Screen):
         menu.highlighted = ids.index(was) if was in ids else 0  # back where you were, not at the top
         menu.focus()
         self.query_one("#stats-text", Static).update(self.stats_text(now, due))
+        glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {len(due)} due", style=C["soft"])
+        if (exam := self.next_exam(now)):
+            glance.append(f" · ⧗ {exam}", style=C["plan"])
+        self.query_one("#glance", Static).update(glance)
+
+    def streak(self, now: datetime) -> int:
+        days = {date.fromisoformat(d) for d in self.app.tutor.state.get("study_days", [])}
+        d = now.date() if now.date() in days else now.date() - timedelta(days=1)
+        streak = 0
+        while d in days:
+            streak, d = streak + 1, d - timedelta(days=1)
+        return streak
+
+    def next_exam(self, now: datetime) -> str:
+        sittings = sorted((date.fromisoformat(v), k) for k, v in (self.app.tutor.packs.plan.get("sittings") or {}).items()
+                          if date.fromisoformat(v) >= now.date())
+        return f"{sittings[0][1]}: {(sittings[0][0] - now.date()).days} days" if sittings else ""
 
     def stats_text(self, now: datetime, due: list) -> Text:
         app = self.app
         t = app.tutor
         out = Text()
         out.append(f"{now:%A %d %B}\n", style=f"bold {C['banner']}")
-        days = {date.fromisoformat(d) for d in t.state.get("study_days", [])}
-        d = now.date() if now.date() in days else now.date() - timedelta(days=1)
-        streak = 0
-        while d in days:
-            streak, d = streak + 1, d - timedelta(days=1)
-        out.append(f"✶ {streak}-day streak   ↻ {len(due)} due\n\n", style=C["soft"])
-        sittings = sorted((date.fromisoformat(v), k) for k, v in (t.packs.plan.get("sittings") or {}).items()
-                          if date.fromisoformat(v) >= now.date())
-        if sittings:
-            out.append(f"⧗ {sittings[0][1]}: {(sittings[0][0] - now.date()).days} days\n\n", style=C["plan"])
+        out.append(f"✶ {self.streak(now)}-day streak   ↻ {len(due)} due\n\n", style=C["soft"])
+        if (exam := self.next_exam(now)):
+            out.append(f"⧗ {exam}\n\n", style=C["plan"])
         ticked = t.ticks()
         week = policy.current_week(t.packs.plan, now)
         focus = policy.focus_week(t.packs.plan, t.state, ticked, now)  # past the calendar once this week is done
