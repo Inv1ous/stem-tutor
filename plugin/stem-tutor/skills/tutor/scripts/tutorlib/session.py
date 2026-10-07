@@ -6,6 +6,7 @@ returns after an attempt. Every graded attempt becomes an event; state is a fold
 from __future__ import annotations
 
 import copy
+import math
 import random
 import re
 import uuid
@@ -54,21 +55,23 @@ class Tutor(LessonMixin):
 
     def _recover(self) -> None:
         """An answer is logged before the session is saved. If the app stopped in between, the question is still
-        open here though the log holds its answer: close it, so it is not asked and recorded a second time."""
+        open here though the log holds its answer: close it, so it is not asked and recorded a second time, and do
+        to the session what marking it did (a sweep's result, a relearn, a node's check), as a re-mark redoes it."""
         s = self.session
         if not s or not s.get("presented"):
             return
-        for e in self.vault.events():
+        done = []
+        for e in list(self.vault.events()):
             n = str(e.get("n"))
             if e["type"] == "answer" and e.get("session") == s["id"] and s["presented"].get(n, {}).get("item") == e["item"]:
-                p = s["presented"].pop(n)
-                right = model.counts_as_right(e["grade"])
-                s["answered"] += 1
-                s["correct"] += 1 if right else 0
-                s.setdefault("kcs_answered", []).extend(k for k in p["kcs"] if k not in s["kcs_answered"])
-                s["last_feedback"] = [{"n": e["n"], "correct": right, "answer": _display_answer(p["inst"]),
-                                       "explanation": p["inst"].get("explanation")}]
-                s["now"] = {"activity": "feedback"}
+                p = s["presented"][n]
+                kind = "idk" if e["response"] == "don't know" else _expected_kind(p["inst"]["kind"])[0]
+                done.append(self._mark(n, p, {"kind": kind, "value": e["response"], "conf": e.get("conf")},
+                                       {**e["grade"], "needs_judgement": False}, redo=e))
+        if done:
+            s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "partial", "detail", "response", "answer",
+                                                         "explanation")} for fb in done]
+            s["now"] = {"activity": "feedback"}
 
     def refresh_content(self) -> list[str]:
         """Between sessions, switch to newly published content: returns the titles of chapters that arrived."""
@@ -206,7 +209,8 @@ class Tutor(LessonMixin):
         label = ({"autopilot": "Today's plan", "weak": "Weak spots"}.get(mode)
                  or (self.packs.subtopics.get(sub, {}).get("title") if sub else None) or ", ".join(focus or []) or mode)
         title = mode.title() if label == mode else f"{mode.title()} - {label}"  # not "Review - review"
-        self.session["log"] = views.LessonLog.create(self.vault.root, title, self.now()).rel
+        name = title if len(title) <= 60 or not focus else f"{mode.title()} - {len(focus)} topics"  # a file name
+        self.session["log"] = views.LessonLog.create(self.vault.root, title, self.now(), name=name).rel
         self.log({"type": "session_start", "session": self.session["id"], "mode": mode, "minutes": minutes,
                   "blocks": [b["kind"] for b in blocks]})
         return {"session": self.session["id"], "blocks": blocks}
@@ -605,7 +609,15 @@ class Tutor(LessonMixin):
                 continue
             g = grade.grade_item(inst, r)
             if r["n"] in judge:
-                sc = float(judge[r["n"]])
+                try:
+                    sc = float(judge[r["n"]])
+                except (TypeError, ValueError):
+                    sc = math.nan
+                if math.isnan(sc):
+                    results.append({"n": r["n"], "error": f"judge score {judge[r['n']]!r} for question {r['n']} is not "
+                                    "a number; resend with judge {n: score 0..1} (it stays open)"})
+                    continue
+                sc = min(1.0, max(0.0, sc))  # a 75 meant as 75% must not count as 75 right answers
                 g.update(score=sc, correct=sc >= model.SUCCESS, needs_judgement=False)
             elif inst["kind"] == "short" and g["needs_judgement"]:
                 results.append({"n": r["n"], "pending_judgement": True, "matched_score": g["score"],
@@ -646,7 +658,15 @@ class Tutor(LessonMixin):
 
     def tag(self, event_id: str, code: str) -> dict:
         """Your own verdict on why an answer went wrong (careless slip, misread, didn't know, wrong method…)."""
-        return self.log({"type": "tag", "target": event_id, "error": code.upper()})
+        code = code.upper()
+        if code not in grade.ERROR_CODES:
+            return {"ok": False, "error": f"unknown error code {code}", "fix": f"Use one of {', '.join(grade.ERROR_CODES)}."}
+        answer = next((e for e in self.vault.events() if e.get("id") == event_id and e["type"] == "answer"), None)
+        if not answer:
+            return {"ok": False, "error": "no answer with that id"}
+        if answer.get("regraded"):  # replay drops a reason given for a miss the re-mark found was no miss
+            return {"ok": False, "error": "already re-marked"}
+        return {"ok": True, "event": self.log({"type": "tag", "target": event_id, "error": code})["id"]}
 
     def regrade(self, event_id: str, why: str, by: str = "ai") -> dict:
         """Count an answer as right after all: a second marker found it correct though the program marked it wrong
@@ -829,6 +849,10 @@ class Tutor(LessonMixin):
             return {"ok": False, "error": f"scores above the marks available: {', '.join(bad)}",
                     "fix": "Give each question as got/out-of, e.g. 1a=2/3."}
         unknown = sorted(set(got) - set(qmap))
+        if not set(got) & set(qmap):  # nothing readable for this paper: no result, or it would count as sat
+            return {"ok": False, "error": "no marks for a question of this paper could be read",
+                    "unknown_questions": unknown, "questions": [q["q"] for q in paper["questions"]],
+                    "fix": "Give each question as got/out-of, e.g. 1a=2/3, 1b=0/2."}
         sid = "paper-" + uuid.uuid4().hex[:6]
         per_kc: dict[str, list[float]] = {}
         for q, (score, out_of) in got.items():
@@ -847,8 +871,9 @@ class Tutor(LessonMixin):
         total, maximum = sum(v[0] for q, v in got.items() if q in qmap), sum(v[1] for q, v in got.items() if q in qmap)
         self.log({"type": "paper_result", "paper": paper_id, "score": total, "max": maximum, "session": sid})
         weakest = sorted(({"kc": k, "score": round(sum(v) / len(v), 2)} for k, v in per_kc.items()), key=lambda x: x["score"])
-        return {"paper": paper_id, "score": total, "max": maximum,
-                "percent": round(100 * total / maximum, 1) if maximum else None,
+        whole = max(paper.get("marks") or 0, maximum)  # a paper marked in part is not full marks
+        return {"paper": paper_id, "score": total, "max": maximum, "partial": maximum < whole,
+                "percent": round(100 * total / whole, 1) if whole else None,
                 "weakest": weakest[:5], "unknown_questions": unknown, "session": sid}
 
     def hint(self, n: int) -> dict:

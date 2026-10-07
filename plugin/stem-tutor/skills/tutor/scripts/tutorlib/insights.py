@@ -364,6 +364,8 @@ def week_report(tutor, monday: date) -> dict:
     r, r0 = rate(answers), rate(earlier)
     return {"week": f"{monday.isocalendar()[0]}-W{monday.isocalendar()[1]:02d}", "monday": monday.isoformat(),
             "days": len({e["ts"][:10] for e in answers}), "answers": len(answers),
-            "minutes": round(sum(e.get("seconds") or 0 for e in answers) / 60, 1), "right": r,
+            # a question left open for ages counts at most half an hour a mark, the cap the model uses
+            "minutes": round(sum(min(e.get("seconds") or 0, 1800 * (e.get("marks") or 1)) for e in answers) / 60, 1),
+            "right": r,
             "right_change": round(r - r0, 3) if r is not None and r0 is not None else None, "secured": secured,
             "fixed": [f"“{_mis_text(tutor.packs, kc, m)}”" for kc, m in sorted(was - still)], "changes": changes}

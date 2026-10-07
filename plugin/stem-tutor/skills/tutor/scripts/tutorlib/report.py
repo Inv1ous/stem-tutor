@@ -153,7 +153,8 @@ def session_note(tutor, session_id: str) -> str:
     correct = sum(1 for a in answers if model.counts_as_right(a["grade"]))
     learned = sorted({k for a in answers if a.get("block") == "learn" for k in a["kcs"]})
     acc = f"{100 * correct / len(answers):.0f}%" if answers else "–"
-    lines = ["---", "tags: [stem-tutor/session]", f"date: {ts.date()}", f"mode: {start['mode'] if start else '?'}",
+    lines = ["---", "tags: [stem-tutor/session]", f"date: {ts.date()}", f"session: {session_id}",
+             f"mode: {start['mode'] if start else '?'}",
              f"accuracy: {round(correct / len(answers), 2) if answers else 'null'}", "---",
              f"# Session {ts:%Y-%m-%d %H:%M} · {start['mode'] if start else ''}", "",
              "| Answered | Correct | Accuracy | KCs taught |", "|---|---|---|---|",
@@ -168,8 +169,19 @@ def session_note(tutor, session_id: str) -> str:
         conf = CONF_WORD.get(a.get("conf"), "–")
         lines.append(f"> **Your answer:** {a.get('response', '–')} ({conf}) · score {g['score']}")
         lines.append("")
-    rel = f"Sessions/{ts:%Y-%m-%d %H%M} {start['mode'] if start else 'session'}.md"
+    stem, k = f"Sessions/{ts:%Y-%m-%d %H%M} {start['mode'] if start else 'session'}", 1
+    rel = f"{stem}.md"
+    while (tutor.vault.root / rel).exists() and not _note_of(tutor.vault.root / rel, session_id):
+        k += 1  # another session started in the same minute: never overwrite its note
+        rel = f"{stem} ({k}).md"
     return _write(tutor, rel, "\n".join(lines))
+
+
+def _note_of(path, session_id: str) -> bool:
+    try:
+        return f"\nsession: {session_id}\n" in path.read_text(encoding="utf-8")
+    except (OSError, ValueError):
+        return False
 
 
 TODAY_KCS = 4  # ideas named on one line of Today's plan; the rest are counted
@@ -213,7 +225,12 @@ SURE = {"not enough data": "⚪", "early sign": "🟡", "likely": "🟢", "clear
 
 def load_ai_summary(tutor) -> dict | None:
     """The latest AI-written summary of the findings, if the learner asked for one: {"text", "at"}."""
-    return read_json(tutor.vault.tutor / "profile_ai.json")
+    try:
+        ai = read_json(tutor.vault.tutor / "profile_ai.json")
+    except (ValueError, OSError):  # torn by a crash mid-write: the profile goes out without it
+        return None
+    ok = isinstance(ai, dict) and isinstance(ai.get("text"), str) and isinstance(ai.get("at"), str)
+    return ai if ok else None
 
 
 def _pct(x: float | None) -> str:
@@ -405,8 +422,9 @@ def _scores(tutor, events: list[dict]) -> dict[str, int]:
         if e["type"] == "paper_result" and e.get("max"):
             paper = next((x for x in tutor.packs.papers if x["id"] == e["paper"]), None)
             key = _almanac_score_key(paper) if paper else None
-            if key:
-                results.setdefault(key, []).append(round(e["score"] / e["max"] * BANK.get(key.split("-")[1], 75)))
+            if key:  # out of the whole paper: a paper marked in part is not full marks
+                whole = max(paper.get("marks") or 0, e["max"])
+                results.setdefault(key, []).append(round(e["score"] / whole * BANK.get(key.split("-")[1], 75)))
     scores = {key: int(max(vals[-3:])) for key, vals in results.items()}
     for subject in ("chem", "phys"):
         past = [e for e in events if e["type"] == "answer" and e.get("subject") == subject and not e.get("hinted")

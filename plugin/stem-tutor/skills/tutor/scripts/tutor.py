@@ -146,8 +146,7 @@ def cmd_paper(args) -> None:
 def cmd_tag(args) -> None:
     v = vault()
     with v.lock():
-        e = tutor(v).log({"type": "tag", "target": args.event, "error": args.code.upper()})
-        out({"ok": True, "event": e["id"]})
+        out(tutor(v).tag(args.event, args.code))
 
 
 def cmd_taught(args) -> None:
