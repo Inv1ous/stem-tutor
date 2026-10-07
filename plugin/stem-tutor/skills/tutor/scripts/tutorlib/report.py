@@ -213,7 +213,12 @@ SURE = {"not enough data": "⚪", "early sign": "🟡", "likely": "🟢", "clear
 
 def load_ai_summary(tutor) -> dict | None:
     """The latest AI-written summary of the findings, if the learner asked for one: {"text", "at"}."""
-    return read_json(tutor.vault.tutor / "profile_ai.json")
+    try:
+        ai = read_json(tutor.vault.tutor / "profile_ai.json")
+    except (ValueError, OSError):  # torn by a crash mid-write: the profile goes out without it
+        return None
+    ok = isinstance(ai, dict) and isinstance(ai.get("text"), str) and isinstance(ai.get("at"), str)
+    return ai if ok else None
 
 
 def _pct(x: float | None) -> str:

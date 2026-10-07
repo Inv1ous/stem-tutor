@@ -56,6 +56,14 @@ def test_now_uses_configured_timezone(tmp_path):
     assert v.now().utcoffset().total_seconds() == 8 * 3600
 
 
+@pytest.mark.parametrize("text", ['{"tz": "Asia/Hong', '"Asia/Hong_Kong"', '[1]', '{"tz": "Not/AZone"}', '{"tz": 8}'])
+def test_a_torn_or_odd_config_falls_back_to_the_defaults(tmp_path, text):
+    root = make_vault(tmp_path)
+    (root / ".tutor" / "config.json").write_text(text)
+    v = store.Vault(root)
+    assert isinstance(v.config, dict) and str(v.tz) == "Asia/Hong_Kong"
+
+
 def test_lock_is_exclusive(tmp_path):
     v = store.Vault(make_vault(tmp_path))
     with v.lock():

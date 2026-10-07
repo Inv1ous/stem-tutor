@@ -214,6 +214,27 @@ def test_a_review_lesson_is_not_titled_review_review(tutor):
     assert tutor.session["log"].endswith(" Review.md")
 
 
+@pytest.mark.parametrize("text", ['{"text": "You rush the', '{"text": "Slow down."}', '"Slow down."', '[]',
+                                  '{"text": 3, "at": "2026-09-29"}', '{"text": "Slow down.", "at": null}'])
+def test_a_torn_or_odd_ai_summary_is_left_out_of_the_profile(tutor, text):
+    (tutor.vault.tutor / "profile_ai.json").write_text(text)
+    assert report.load_ai_summary(tutor) is None
+    assert "## AI summary" not in (tutor.vault.root / report.profile_note(tutor)).read_text()
+    (tutor.vault.tutor / "profile_ai.json").write_text('{"text": "Slow down.", "at": "2026-09-29T17:00:00+08:00"}')
+    assert "> Slow down." in (tutor.vault.root / report.profile_note(tutor)).read_text()
+
+
+def test_a_torn_or_odd_cached_teaching_card_is_replaced_by_the_offline_one(tutor):
+    from tutorlib import lesson
+    folder = tutor.vault.tutor / "cache" / "teach"
+    folder.mkdir(parents=True)
+    for text in ('{"motivate": "Why', '"a card"', '{"motivate": "Why", "establish": 3, "note": "n"}'):
+        (folder / "9702-2.1.1.json").write_text(text)
+        assert lesson.teach_card(tutor, "9702-2.1.1")["source"] == "offline"
+    (folder / "9702-2.1.1.json").write_text(json.dumps({"motivate": "m", "establish": "e", "note": "n", "source": "ai"}))
+    assert lesson.teach_card(tutor, "9702-2.1.1")["source"] == "ai"
+
+
 def test_an_idea_dropped_from_the_packs_does_not_stop_the_brief(tmp_path):
     clock = {"now": T0}
     t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=lambda: clock["now"])

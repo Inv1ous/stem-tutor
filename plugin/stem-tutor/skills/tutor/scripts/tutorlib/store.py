@@ -20,7 +20,8 @@ MOUNT_GLOBS = [
 ]
 
 
-EVENT_FILES = "[0-9][0-9][0-9][0-9]-[0-9][0-9]*.jsonl"  # monthly logs and their conflict copies, nothing else
+DEFAULT_TZ = "Asia/Hong_Kong"
+EVENT_FILES ="[0-9][0-9][0-9][0-9]-[0-9][0-9]*.jsonl"  # monthly logs and their conflict copies, nothing else
 
 
 class VaultNotFound(Exception):
@@ -94,8 +95,16 @@ class Vault:
     def __init__(self, root: Path):
         self.root = Path(root)
         self.tutor = self.root / ".tutor"
-        self.config = read_json(self.tutor / "config.json") or {}
-        self.tz = ZoneInfo(self.config.get("tz", "Asia/Hong_Kong"))
+        try:
+            self.config = read_json(self.tutor / "config.json") or {}
+        except (ValueError, OSError):  # torn by a crash mid-write: run on the defaults
+            self.config = {}
+        if not isinstance(self.config, dict):
+            self.config = {}
+        try:
+            self.tz = ZoneInfo(self.config.get("tz", DEFAULT_TZ))
+        except (KeyError, ValueError, TypeError):  # not a time zone name (ZoneInfoNotFoundError is a KeyError)
+            self.tz = ZoneInfo(DEFAULT_TZ)
 
     def now(self) -> datetime:
         return datetime.now(self.tz)

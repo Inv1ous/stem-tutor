@@ -48,10 +48,20 @@ def subtopic_order(packs, kcs: list[str]) -> list[str]:
 
 def teach_card(tutor, kc: str) -> dict:
     pack = tutor.packs.pack_for_kc(kc) or {}
-    card = (pack.get("teach") or {}).get(kc) or read_json(tutor.vault.tutor / "cache" / "teach" / f"{kc}.json")
+    card = (pack.get("teach") or {}).get(kc) or _cached_card(tutor, kc)
     if card:
         return {**card, "source": card.get("source", "pack")}
     return offline_card(tutor.packs, kc)
+
+
+def _cached_card(tutor, kc: str) -> dict | None:
+    """A card the app had AI write, if it is whole: a torn or odd file is passed over for the offline card."""
+    try:
+        card = read_json(tutor.vault.tutor / "cache" / "teach" / f"{kc}.json")
+    except (ValueError, OSError):
+        return None
+    whole = isinstance(card, dict) and all(isinstance(card.get(f), str) for f in ("motivate", "establish", "note"))
+    return card if whole else None
 
 
 def offline_card(packs, kc: str) -> dict:
