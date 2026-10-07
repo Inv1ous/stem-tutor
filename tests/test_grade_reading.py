@@ -134,3 +134,27 @@ def test_lookalike_units_convert():
     assert units.unit_factor("N⋅m", "J") == pytest.approx(1.0)
     assert units.unit_factor("µm", "m") == pytest.approx(1e-6)
     assert units.unit_readings("Ω", "Ω") == ([1.0], False)
+
+
+# ---------- a label in any alphabet ----------
+@pytest.mark.parametrize("value,unit,text", [
+    (-57.0, "kJ mol^-1", "ΔH = −57 kJ mol^-1"), (-57.0, "kJ mol^-1", "ΔH=-57 kJ mol-1"), (-57.0, "kJ", "ΔH=-57 kJ"),
+    (30.0, "°", "θ = 30°"), (30.0, "°", "θ=30°"), (2.0, "", "λ = 2"), (-57.0, "kJ mol^-1", "ΔH_r = -57 kJ/mol"),
+    (24.0, "", "x = 24"), (3.0, "m s^-1", "v = 3.0 m s^-1"),
+])
+def test_a_greek_label_is_read_past(value, unit, text):
+    assert _num(value, text, unit, sf_ok=[2, 3])["score"] == 1.0
+    assert grade.value_problem({"kind": "numeric", "answer": {"value": value, "unit": unit}}, text) is None
+
+
+@pytest.mark.parametrize("value,unit,text,correct", [
+    (-57.0, "kJ mol^-1", "ΔH = 57 kJ mol^-1", False), (-57.0, "kJ mol^-1", "ΔH = -57 kJ", False),
+    (30.0, "°", "θ = 60°", False)])
+def test_a_greek_label_does_not_make_a_wrong_answer_right(value, unit, text, correct):
+    assert _num(value, text, unit, sf_ok=[2, 3])["correct"] is correct
+
+
+@pytest.mark.parametrize("text", ["ΔH = ", "ΔH = θ = 30", "Δ = = 5", "5 = 5", "x = y = 24"])
+def test_a_label_without_a_single_value_is_still_unreadable(text):
+    with pytest.raises(grade.ParseError):
+        grade.parse_quantity(text)

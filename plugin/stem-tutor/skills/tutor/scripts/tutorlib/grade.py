@@ -108,7 +108,7 @@ def parse_quantity(text: str) -> tuple[float, str, int | None]:
 def _parse(text: str) -> tuple[float, str, int | None, int | None]:
     """(value, unit, s.f. or None when trailing zeros make it ambiguous, digits written or None for a fraction)"""
     t = plain_text(plain_powers(text)).strip().lstrip("=").strip()  # powers first: plain_text drops superscripts
-    t = re.sub(r"^[A-Za-z_]\w*\s*=\s*", "", t)  # a label first: "x = 24", "v = 3.0 m s^-1"
+    t = re.sub(r"^[^\W\d]\w*\s*=\s*", "", t)  # a label first: "x = 24", "v = 3.0 m s^-1", "ΔH = -57 kJ"
     t = re.sub(r"^[(\[]\s*([^)\]]*?)\s*[)\]]", r"\1", t)  # "(-1)", "[2.5] m"
     t = re.sub(r"^([+-])\s+(?=[\d.])", r"\1", t)  # "− 3.2"
     t = re.sub(r"(?<=\d),(?=\d{3}(?!\d))", "", t)  # "2,880 kJ" and "2,880kJ"; never "1,5"
