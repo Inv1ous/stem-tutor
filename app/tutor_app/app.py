@@ -39,6 +39,7 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 OptionList { height: auto; max-height: 12; border: none; }
 #note { margin-top: 1; min-height: 1; max-height: 5; }
 SelectionList { height: auto; max-height: 14; }
+#full { padding: 0 0 0 5; }
 TextArea { height: 1fr; min-height: 4; max-height: 12; }
 Composer { height: auto; min-height: 3; max-height: 10; }
 .check { color: $warning; padding: 0 0 0 1; }

@@ -1,6 +1,7 @@
 """Answer panels shown at the bottom of the session screen. Each posts `Panel.Done(data)` when finished."""
 from __future__ import annotations
 
+from rich.cells import cell_len
 from textual import events
 
 from textual import on
@@ -228,9 +229,23 @@ class TickPanel(Panel):
         yield _hint(self.prompt)
         yield SelectionList[str](*[Selection(escape(to_terminal(label)), value, on) for label, value, on in self.items],
                                  id="ticks")
+        yield Static(id="full")  # the highlighted point in full, when its row cuts it short
         with Horizontal(classes="buttons"):
             for bid, label in self.buttons:
                 yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")
+
+    def on_resize(self) -> None:
+        self._show_full()
+
+    @on(SelectionList.SelectionHighlighted, "#ticks")
+    def _show_full(self) -> None:
+        """A row is one line, so a long mark point ends in "…": you would tick what you cannot read."""
+        ticks, full = self.query_one("#ticks", SelectionList), self.query_one("#full", Static)
+        i = ticks.highlighted
+        text = to_terminal(self.items[i][0]) if i is not None and i < len(self.items) else ""
+        room = ticks.scrollable_content_region.width - 4  # less the tick box before each point
+        full.update(escape(text))
+        full.display = bool(text) and room > 0 and cell_len(text) > room
 
     @on(Button.Pressed)
     def _pressed(self, event: Button.Pressed) -> None:
