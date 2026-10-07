@@ -564,6 +564,30 @@ def test_an_answer_that_reached_the_log_but_no_save_is_kept_once(tutor, monkeypa
     assert t.state == t._fold() == _restart(t).state
 
 
+@pytest.mark.parametrize("dont_know", [True, False])
+def test_an_answer_recovered_from_the_log_does_what_marking_it_did(tutor, dont_know):
+    tutor.start("test", minutes=50, focus=["9702-2.1"])
+    act = tutor.next()
+    before = tutor.session_path.read_text()  # the session as saved before the answers were marked
+    if dont_know:
+        tutor.answer(", ".join(f"{q['n']}?" for q in act["items"]))
+    else:
+        _answer_all(tutor, act, good=False)
+    live = tutor.session
+    assert all(not r["ok"] for r in live["blocks"][0]["res"].values())
+    tutor.session_path.write_text(before)  # the app stopped after the answers reached the log, before the save
+    t = _restart(tutor)
+    for k in ("blocks", "presented", "answered", "correct", "kcs_answered", "retest", "reflections"):
+        assert t.session.get(k) == live.get(k), k
+    assert [q["event"] for q in t.session["recent"]] == [q["event"] for q in live["recent"]]
+    assert [(fb["n"], fb["correct"]) for fb in t.session["last_feedback"]] == [
+        (fb["n"], fb["correct"]) for fb in live["last_feedback"]]
+    assert t.state == t._fold()
+    again = _restart(t)  # recovering twice changes nothing more
+    assert again.session["answered"] == t.session["answered"] and again.session["blocks"] == t.session["blocks"]
+    assert again.state == again._fold() == t.state
+
+
 def test_a_stop_after_the_state_was_saved_does_not_reopen_the_question(tutor, monkeypatch):
     tutor.start("test", minutes=40, focus=["9702-2.1"])
     first, second = tutor.next()["items"]

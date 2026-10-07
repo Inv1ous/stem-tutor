@@ -54,21 +54,23 @@ class Tutor(LessonMixin):
 
     def _recover(self) -> None:
         """An answer is logged before the session is saved. If the app stopped in between, the question is still
-        open here though the log holds its answer: close it, so it is not asked and recorded a second time."""
+        open here though the log holds its answer: close it, so it is not asked and recorded a second time, and do
+        to the session what marking it did (a sweep's result, a relearn, a node's check), as a re-mark redoes it."""
         s = self.session
         if not s or not s.get("presented"):
             return
-        for e in self.vault.events():
+        done = []
+        for e in list(self.vault.events()):
             n = str(e.get("n"))
             if e["type"] == "answer" and e.get("session") == s["id"] and s["presented"].get(n, {}).get("item") == e["item"]:
-                p = s["presented"].pop(n)
-                right = model.counts_as_right(e["grade"])
-                s["answered"] += 1
-                s["correct"] += 1 if right else 0
-                s.setdefault("kcs_answered", []).extend(k for k in p["kcs"] if k not in s["kcs_answered"])
-                s["last_feedback"] = [{"n": e["n"], "correct": right, "answer": _display_answer(p["inst"]),
-                                       "explanation": p["inst"].get("explanation")}]
-                s["now"] = {"activity": "feedback"}
+                p = s["presented"][n]
+                kind = "idk" if e["response"] == "don't know" else _expected_kind(p["inst"]["kind"])[0]
+                done.append(self._mark(n, p, {"kind": kind, "value": e["response"], "conf": e.get("conf")},
+                                       {**e["grade"], "needs_judgement": False}, redo=e))
+        if done:
+            s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "partial", "detail", "response", "answer",
+                                                         "explanation")} for fb in done]
+            s["now"] = {"activity": "feedback"}
 
     def refresh_content(self) -> list[str]:
         """Between sessions, switch to newly published content: returns the titles of chapters that arrived."""
