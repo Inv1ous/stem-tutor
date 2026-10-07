@@ -272,6 +272,12 @@ def readiness(tutor) -> list[dict]:
 
 # ---------------- weak spots ----------------
 def _accuracy(tutor) -> dict[str, list[int]]:
+    folder = tutor.vault.tutor / "events"
+    key = tuple((f.name, st.st_size, st.st_mtime_ns) for f in sorted(folder.glob("*.jsonl"))
+                for st in [f.stat()]) if folder.exists() else ()
+    cached = getattr(tutor, "_accuracy_cache", None)  # the menu asks on every return: read the log only when it changed
+    if cached and cached[0] == key:
+        return cached[1]
     acc: dict[str, list[int]] = {}
     for e in tutor.vault.events():
         if e["type"] == "answer":
@@ -279,6 +285,7 @@ def _accuracy(tutor) -> dict[str, list[int]]:
                 v = acc.setdefault(kc, [0, 0])
                 v[0] += 1
                 v[1] += model.counts_as_right(e["grade"])
+    tutor._accuracy_cache = (key, acc)
     return acc
 
 
