@@ -13,7 +13,7 @@ import math
 import random
 import re
 
-from .units import SUPERSCRIPT, unit_factor, unit_readings  # noqa: F401 (unit_factor: part of this module's surface)
+from .units import SUPERSCRIPT, parse_unit, plain_text, unit_factor, unit_readings  # noqa: F401 (unit_factor: part of this module's surface)
 
 ERROR_CODES = ("RECALL", "MISREAD", "CONCEPT", "PROCEDURE", "STRATEGY", "SLIP", "NOTATION", "TIME")
 
@@ -31,12 +31,14 @@ _VALUE = re.compile(r"^(\d+)\s*[=:]\s*(.+?)\s*(?:~\s*([1-4]))?$")
 
 def parse_responses(text: str) -> list[dict]:
     entries: list[str] = []
-    for chunk in re.split(r"[,\n]", text):
+    parts = re.split(r"([,\n])", text)
+    for sep, chunk in zip([""] + parts[1::2], parts[0::2]):
         if not chunk.strip():
             continue
         # a 1-2 digit number opens a new entry; a 3-digit group is a thousands separator ("1,000 m")
         in_points = entries and _POINTS.match(entries[-1]) and re.fullmatch(r"\s*\d+\s*", chunk)
-        if not in_points and (_ENTRY_START.match(chunk) or re.match(r"^\s*[1-9]\d?(?![\d.])", chunk) or not entries):
+        if not in_points and (_ENTRY_START.match(chunk) or re.match(r"^\s*[1-9]\d?(?![\d.])", chunk) or not entries) \
+                and not (sep == "," and _decimal_comma(entries, chunk)):
             entries.append(chunk.strip())
         else:
             entries[-1] += "," + chunk.strip()
@@ -56,6 +58,16 @@ def parse_responses(text: str) -> list[dict]:
     return out
 
 
+def _decimal_comma(entries: list[str], chunk: str) -> bool:
+    """A number after a comma that is no entry of its own ("5 m", "4 ~2") continues a value that ends in a digit and
+    has no confidence yet: "3 = 1,5 m" is 1,5 m (unreadable, so Q3 stays open), never Q3 = 1 and a bad Q5."""
+    return bool(entries) and not _ENTRY_START.match(chunk) and bool(_BARE_NUMBER.match(chunk)) \
+        and bool(m := _VALUE.match(entries[-1])) and m[3] is None and m[2][-1].isdigit()
+
+
+_BARE_NUMBER = re.compile(r"^\s*\d{1,2}(?![\d.])[^=:?~]*(?:~\s*[1-4])?\s*$")
+
+
 def _parse_one(e: str) -> dict | None:
     if m := _IDK.match(e):
         return {"n": int(m[1]), "kind": "idk", "value": None, "conf": None}
@@ -73,9 +85,12 @@ _NUM = re.compile(
     r"^\s*(?P<mant>[+-]?(?:\d+(?:\.\d*)?|\.\d+))"
     r"(?:\s*/\s*(?P<den>\d+(?:\.\d*)?))?"
     r"(?:\s*[eE]\s*(?P<e1>[+-]?\d+)"
-    r"|\s*(?:[xX×*·⋅]|\\times)\s*10\s*\^?\s*\{?\(?\s*(?P<e2>[+-]?\d+)\s*\)?\}?)?"
+    # × 10 is standard form only with its power written as one: a caret (superscripts become one), braces or a sign.
+    # Without, "× 1000" read as ×10^0 (power "00") and "x 105" as ×10^5
+    r"|\s*(?:[xX×*·⋅]|\\times)\s*10\s*(?P<e2>\^\s*\{?\(?\s*[+-]?\d+\s*\)?\}?|\{\s*[+-]?\d+\s*\}|[+-]\s*\d+)(?![\d.]))?"
     r"\s*(?P<unit>.*)$"
 )
+_TIMES_A_NUMBER = re.compile(r"^(?:[xX×*·⋅]|\\times)\s*[\d.]")  # "5 x 1000": a product, not a number with a unit
 
 
 def _sig_figs(mant: str) -> int | None:
@@ -104,9 +119,10 @@ def parse_quantity(text: str) -> tuple[float, str, int | None]:
 
 def _parse(text: str) -> tuple[float, str, int | None, int | None]:
     """(value, unit, s.f. or None when trailing zeros make it ambiguous, digits written or None for a fraction)"""
-    t = plain_powers(text).replace("−", "-").replace("–", "-").strip().lstrip("=").strip()
-    t = re.sub(r"^[A-Za-z_]\w*\s*=\s*", "", t)  # a label first: "x = 24", "v = 3.0 m s^-1"
+    t = plain_text(plain_powers(text)).strip().lstrip("=").strip()  # powers first: plain_text drops superscripts
+    t = re.sub(r"^[^\W\d]\w*\s*=\s*", "", t)  # a label first: "x = 24", "v = 3.0 m s^-1", "ΔH = -57 kJ"
     t = re.sub(r"^[(\[]\s*([^)\]]*?)\s*[)\]]", r"\1", t)  # "(-1)", "[2.5] m"
+    t = re.sub(r"^([+-])\s+(?=[\d.])", r"\1", t)  # "− 3.2"
     t = re.sub(r"(?<=\d),(?=\d{3}(?!\d))", "", t)  # "2,880 kJ" and "2,880kJ"; never "1,5"
     t = _POWER_OF_TEN.sub(r"\g<1>1e\2", t)  # a bare power of ten is a number (10^3, 10⁻³); any other power is not
     m = _NUM.match(t)
@@ -118,7 +134,7 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
         if m["den"]:
             value /= float(m["den"])
             sf = None
-        exp = m["e1"] or m["e2"]
+        exp = m["e1"] or (m["e2"] and re.sub(r"[^\d+-]", "", m["e2"]))
         if exp:
             value *= 10 ** int(exp)
     except (ArithmeticError, ValueError):
@@ -126,7 +142,8 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
     if not math.isfinite(value):
         raise ParseError(f"number out of range in {text!r}")
     unit = m["unit"].strip()
-    if unit and not (unit[0].isalpha() or unit[0] in "%°/"):  # "500 + 1", "2^10", "5 000": not one number
+    if unit and not (unit[0].isalpha() or unit[0] in "%°/") or _TIMES_A_NUMBER.match(unit):  # "500 + 1", "2^10",
+        # "5 000", "5 x 1000": not one number
         raise ParseError(f"more than a number in {text!r}")
     digits = None if m["den"] else len(m["mant"].lstrip("+-").replace(".", "").lstrip("0")) or 1
     return value, unit, sf, digits
@@ -143,7 +160,23 @@ def value_problem(item: dict, text: str) -> str | None:
         unit = _parse(text)[1]
     except ParseError:
         return "unreadable"
-    return "unit" if not item["answer"].get("unit") and _unit_on_plain_number(item, unit) else None
+    want_unit = item["answer"].get("unit") or ""
+    if want_unit and _unreadable_unit(unit, want_unit):
+        return "unreadable"
+    return "unit" if not want_unit and _unit_on_plain_number(item, unit) else None
+
+
+def _unreadable_unit(unit: str, want_unit: str) -> bool:
+    """A bracketed denominator that could not be read (J/((mol K)), J/(mol K): asked again, never a wrong unit."""
+    if not re.search(r"/\s*\(", unit) or unit_readings(unit, want_unit)[0]:
+        return False
+    for text in {unit, unit[:unit.rfind(")") + 1] or unit}:  # the unit, and the unit before any words after it
+        try:
+            parse_unit(text)
+            return False  # read, as another kind of unit: J/(kg K) for J K-1 mol-1 is wrong
+        except (ValueError, ArithmeticError):
+            pass
+    return True
 
 
 # ---------------- grading ----------------
@@ -234,6 +267,8 @@ def _grade_numeric(item, resp):
         else:
             # 1.5 kW for 1500 W is the same answer; so are "1.5 kw", "1.5 kilowatts" and "1.5 kW of input"
             factors, respelled = unit_readings(unit, want_unit)
+            if not factors and _unreadable_unit(unit, want_unit):
+                return _result(False, 0, needs_judgement=True, detail="unit unreadable")
             if not factors:
                 return _result(False, 0, "NOTATION", detail=f"wrong unit: {unit[:24]!r} is not a unit of this "
                                                             f"quantity (the answer is in {want_unit})")
@@ -311,14 +346,36 @@ def expression_readable(text: str) -> bool:
 _FUNC_NAMES = sorted((*_EXPR_FUNCS, "ln"), key=len, reverse=True)
 
 
-def _function_args(s: str) -> str:
-    """A function name run into its argument is the function of it: sinx -> sin x, lnx -> ln x (sinh stays sinh)."""
-    def split(m):
-        word = m[0]
-        head = next((f for f in _FUNC_NAMES if word.startswith(f)), None) if word not in _FUNC_NAMES else None
-        return f"{head} {word[len(head):]}" if head else word
+_FUNC_AT = re.compile("|".join(_FUNC_NAMES))  # longest first: sinh before sin
 
-    return re.sub(r"[A-Za-z]+", split, s)
+
+def _function_args(s: str) -> str:
+    """A function name run into its argument is the function of it: sinx -> sin x, lnx -> ln x, sin2x -> sin 2x
+    (not the subscripted sin_2 times x), and 2sinxcosx -> 2sin(x) cos x (sinh stays sinh). A function name counts
+    where a run of letters starts (after a digit too: 2cosx); once one is found, any later in the run starts the
+    next. log10 is left as typed (a base, or log of 10?)."""
+    def split(m):
+        run = m[0]
+        first = next((p for p in range(len(run)) if run[p].isalpha() and (p == 0 or run[p - 1].isdigit())
+                      and _FUNC_AT.match(run, p)), None)
+        if first is None:
+            return run
+        out, p = [run[:first]], first
+        while p < len(run):
+            func = _FUNC_AT.match(run, p)[0]
+            q = p + len(func)
+            nxt = next((j for j in range(q + 1, len(run)) if _FUNC_AT.match(run, j)), len(run))
+            arg = run[q:nxt]
+            if func == "log" and arg.startswith("10"):
+                return run
+            last = nxt == len(run)
+            if last and arg.isdigit() and re.match(r"\s*[A-Za-z(]", m.string[m.end():]):
+                raise ParseError(f"{run} then a letter: a lost power (sin²x) or a factor (sin(2x))?")
+            out.append(f"{func} {arg}" if last else f"{func}({arg}) " if arg else f"{func} ")
+            p = nxt
+        return "".join(out).rstrip()
+
+    return re.sub(r"[A-Za-z0-9]+", split, s)
 
 
 def _names(s: str) -> str:
