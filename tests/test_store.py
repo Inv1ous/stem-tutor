@@ -137,6 +137,32 @@ def test_an_icloud_conflict_copy_does_not_count_events_twice(tmp_path):
     assert len([e for e in got if e["type"] == "note"]) == 2 and got[1]["regraded"]
 
 
+def test_events_from_a_conflict_copy_are_read_in_time_order(tmp_path):
+    v = store.Vault(make_vault(tmp_path))
+    a = v.append_event({"type": "note"}, now=datetime.fromisoformat("2026-09-10T12:00:00+08:00"))
+    b = v.append_event({"type": "note"}, now=datetime.fromisoformat("2026-09-20T12:00:00+08:00"))
+    folder = v.tutor / "events"
+    c = {"id": "fromcopy", "ts": "2026-09-15T05:00:00+01:00", "type": "note"}  # the other device, another offset
+    (folder / "2026-09 2.jsonl").write_text(json.dumps(a) + "\n" + json.dumps(c) + "\n")
+    (folder / "notes.jsonl").write_text(json.dumps({"id": "stray", "ts": "2026-09-30T12:00:00+08:00"}) + "\n")
+    assert [e["id"] for e in v.events()] == [a["id"], "fromcopy", b["id"]]  # not a monthly file: not read
+    assert v.last_event_id() == b["id"]
+    late = {"id": "late", "ts": "2026-09-25T12:00:00+08:00", "type": "note"}
+    with open(folder / "2026-09 2.jsonl", "a") as f:
+        f.write(json.dumps(late) + "\n")
+    assert [e["id"] for e in v.events()][-1] == v.last_event_id() == "late"
+
+
+def test_last_event_id_skips_a_tag_on_a_re_marked_answer(tmp_path):
+    v = store.Vault(make_vault(tmp_path))
+    t = datetime.fromisoformat("2026-09-30T12:00:00+08:00")
+    a = v.append_event({"type": "answer", "grade": {"score": 0.0}}, now=t)
+    r = v.append_event({"type": "regrade", "target": a["id"], "grade": {"score": 1.0, "correct": True}}, now=t)
+    v.append_event({"type": "tag", "target": a["id"], "error": "SLIP"},
+                   now=datetime.fromisoformat("2026-10-01T12:00:00+08:00"))
+    assert [e["id"] for e in v.events()][-1] == v.last_event_id() == r["id"]
+
+
 def test_a_re_marked_answer_is_no_longer_a_likely_slip(tmp_path):
     v = store.Vault(make_vault(tmp_path))
     t = datetime.fromisoformat("2026-09-30T12:00:00+08:00")

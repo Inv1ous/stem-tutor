@@ -608,6 +608,24 @@ def test_a_clean_restart_does_not_rebuild_the_state(tutor, monkeypatch):
     assert _restart(tutor).state == tutor.state and not folds  # only a log that moved on forces a rebuild
 
 
+def test_a_conflict_copy_or_a_dropped_tag_forces_one_rebuild_not_one_per_start(tutor, monkeypatch):
+    tutor.start("test", minutes=40, focus=["9702-2.1"])
+    _answer_all(tutor, tutor.next(), good=False)
+    tutor.end()
+    folder = tutor.vault.tutor / "events"
+    (folder / "2026-09 2.jsonl").write_bytes((folder / "2026-09.jsonl").read_bytes()
+                                             + b'{"id": "other", "ts": "2026-09-29T16:00:00+08:00", "type": "note"}\n')
+    wrong = next(e for e in tutor.vault.events() if e["type"] == "answer")
+    tutor.log({"type": "regrade", "target": wrong["id"], "item": wrong["item"], "grade": dict(session.RIGHT)})
+    tutor.log({"type": "tag", "target": wrong["id"], "error": "SLIP"})  # replay drops it: the answer was re-marked
+    t = _restart(tutor)  # the log moved on behind the saved state: rebuilt once
+    assert t.state == t._fold()
+    t._save()  # as the next command that changes anything does
+    folds = []
+    monkeypatch.setattr(session.Tutor, "_fold", lambda self: folds.append(1) or {})
+    assert _restart(t).state == t.state and not folds
+
+
 # ---------- the answer as shown ----------
 def _shown(value, **answer):
     return session._display_answer({"kind": "numeric", "answer": {"value": value, **answer}})
