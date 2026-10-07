@@ -100,3 +100,37 @@ def test_millimetres_for_an_area_are_a_wrong_unit():
     length = {"kind": "numeric", "stem": "", "answer": {"value": 3.0, "unit": "m", "sf_ok": [2, 3]}}
     assert grade.grade_item(length, {"kind": "value", "value": "3000 mm"})["score"] == 1.0
     assert not grade.grade_item(length, {"kind": "value", "value": "3.0 mm"})["correct"]
+
+
+# ---------- characters that look like the right one ----------
+@pytest.mark.parametrize("value,unit,text", [
+    (47.0, "Ω", "47 Ω"), (47.0, "Ω", "0.047 kΩ"), (47.0, "ohm", "47 Ω"), (6.0, "N m", "6.0 N⋅m"),
+    (6.0, "N m", "6.0 N·m"), (30.0, "°", "30º"), (30.0, "°", "30˚"), (25.0, "°C", "25 ºC"),
+    (25.0, "°C", "25 ˚C"), (25.0, "°C", "25 ℃"), (-3.2, "", "‒3.2"), (-3.2, "", "﹣3.2"),
+    (-3.2, "", "－3.2"), (-3.2, "", "‐3.2"), (-3.2, "", "‑3.2"), (-3.2, "", "−3.2"), (-3.2, "", "–3.2"),
+    (-3.2, "", "− 3.2"), (-3.2, "", "- 3.2"), (3.2, "", "+ 3.2"), (1.5e-3, "", "1.5 × 10‒³"),
+    (9.81, "m s^-2", "9.81 m s⁻²"), (9.81, "m s^-2", "9.81 m s－2"), (2.0, "μm", "2 µm"),
+    (2.0, "µm", "2 μm"), (300.0, "K", "300 K"), (32.0, "", "３２"), (5.0, "kg", "5 kg"),
+    (1.5e-3, "", "1.5×10⁻³"), (1000.0, "J", "10³ J"), (5.0, "m^2", "5 m²"),
+])
+def test_lookalike_characters_read_as_the_character_they_look_like(value, unit, text):
+    assert _num(value, text, unit, sf_ok=[1, 2, 3])["score"] == 1.0, text
+
+
+@pytest.mark.parametrize("text", ["5²", "2³ m", "100³ J", "1.5² m", "- - 3", "−− 3", "-- 3"])
+def test_lookalikes_do_not_make_unreadable_text_readable(text):
+    with pytest.raises(grade.ParseError):
+        grade.parse_quantity(text)
+
+
+@pytest.mark.parametrize("value,unit,text", [(47.0, "Ω", "47 kΩ"), (-3.2, "", "‒3.3"), (30.0, "°", "30º C"),
+                                             (3.2, "", "‒3.2"), (6.0, "N m", "6.0 N⋅s")])
+def test_lookalike_characters_do_not_make_a_wrong_answer_right(value, unit, text):
+    assert not _num(value, text, unit, sf_ok=[1, 2, 3])["correct"], text
+
+
+def test_lookalike_units_convert():
+    assert units.unit_factor("kΩ", "Ω") == pytest.approx(1000.0)
+    assert units.unit_factor("N⋅m", "J") == pytest.approx(1.0)
+    assert units.unit_factor("µm", "m") == pytest.approx(1e-6)
+    assert units.unit_readings("Ω", "Ω") == ([1.0], False)

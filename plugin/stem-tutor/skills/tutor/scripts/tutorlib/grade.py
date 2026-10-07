@@ -13,7 +13,7 @@ import math
 import random
 import re
 
-from .units import SUPERSCRIPT, parse_unit, unit_factor, unit_readings  # noqa: F401 (unit_factor: part of this module's surface)
+from .units import SUPERSCRIPT, parse_unit, plain_text, unit_factor, unit_readings  # noqa: F401 (unit_factor: part of this module's surface)
 
 ERROR_CODES = ("RECALL", "MISREAD", "CONCEPT", "PROCEDURE", "STRATEGY", "SLIP", "NOTATION", "TIME")
 
@@ -107,9 +107,10 @@ def parse_quantity(text: str) -> tuple[float, str, int | None]:
 
 def _parse(text: str) -> tuple[float, str, int | None, int | None]:
     """(value, unit, s.f. or None when trailing zeros make it ambiguous, digits written or None for a fraction)"""
-    t = plain_powers(text).replace("−", "-").replace("–", "-").strip().lstrip("=").strip()
+    t = plain_text(plain_powers(text)).strip().lstrip("=").strip()  # powers first: plain_text drops superscripts
     t = re.sub(r"^[A-Za-z_]\w*\s*=\s*", "", t)  # a label first: "x = 24", "v = 3.0 m s^-1"
     t = re.sub(r"^[(\[]\s*([^)\]]*?)\s*[)\]]", r"\1", t)  # "(-1)", "[2.5] m"
+    t = re.sub(r"^([+-])\s+(?=[\d.])", r"\1", t)  # "− 3.2"
     t = re.sub(r"(?<=\d),(?=\d{3}(?!\d))", "", t)  # "2,880 kJ" and "2,880kJ"; never "1,5"
     t = _POWER_OF_TEN.sub(r"\g<1>1e\2", t)  # a bare power of ten is a number (10^3, 10⁻³); any other power is not
     m = _NUM.match(t)
