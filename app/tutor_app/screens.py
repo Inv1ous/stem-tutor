@@ -23,7 +23,7 @@ from . import cards, config, look, mac, prompts
 from . import __version__
 from .look import C
 from .panels import (ChoicePanel, ChoosePanel, Composer, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel,
-                     TickPanel, ValuePanel, WorkedPanel)
+                     TickList, TickPanel, ValuePanel, WorkedPanel)
 from .texmath import to_terminal
 
 
@@ -305,7 +305,7 @@ class HomeScreen(Screen):
 
 # ============================ Topic picker ============================
 class PickerScreen(ModalScreen):
-    BINDINGS = [Binding("escape", "dismiss(None)", "Back")]
+    BINDINGS = [Binding("escape", "dismiss(None)", "Back"), Binding("ctrl+s", "go", show=False)]
 
     def __init__(self, mode: str) -> None:
         super().__init__()
@@ -316,8 +316,8 @@ class PickerScreen(ModalScreen):
         built = sorted(s for s in t.packs.subtopics if t.packs.pack(s))
         with Vertical(id="picker"):
             if self.mode == "test":
-                yield Static("Tick the subtopics the test covers: space to tick, Tab to Start, Esc to go back.", classes="hint")
-                yield SelectionList[str](*[Selection(self._label(s), s) for s in built], id="subs")
+                yield Static("Tick the subtopics the test covers: space to tick, Tab to Start (or ctrl+s), Esc to go back.", classes="hint")
+                yield TickList(*[Selection(self._label(s), s) for s in built], id="subs")
                 yield Button("Start test prep", id="go", variant="primary")
             else:
                 ask = {"lesson": "Which subtopic do you want to learn?",
@@ -337,7 +337,9 @@ class PickerScreen(ModalScreen):
         self.dismiss([event.option.id])
 
     @on(Button.Pressed, "#go")
-    def go(self) -> None:
+    def action_go(self) -> None:
+        if self.mode != "test":
+            return
         chosen = list(self.query_one("#subs", SelectionList).selected)
         if chosen:
             self.dismiss(chosen)
@@ -504,7 +506,7 @@ class SessionScreen(Screen):
             self.say(cards.card("plan", f"Plan: {act['title']}", "\n".join(lines),
                                 subtitle="the concept map is in Obsidian → Now"))
             self.prepare_cards(act["default_teach"])  # AI teaching cards (if needed) start while you read the plan
-            self.panel(TickPanel("Ticked ideas will be taught (space to change). Then ⏎ on Start.",
+            self.panel(TickPanel("Ticked ideas will be taught (space to change). Then ctrl+s, or ⏎ on Start.",
                                  [(n["title"], n["kc"], n["kc"] in act["default_teach"]) for n in act["nodes"]],
                                  [("start", "Start lesson ⏎")]))
         elif kind in ("worked", "walkthrough"):
@@ -723,7 +725,7 @@ class SessionScreen(Screen):
                 self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")]))
                 return
         self.pending_short = (n, data, max(1, len(points)))
-        self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ⏎ on Done.",
+        self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ctrl+s, or ⏎ on Done.",
                              [(p, str(i), False) for i, p in enumerate(points)], [("self", "Done ⏎")]))
 
     def long_marks(self, data: dict) -> None:
@@ -752,7 +754,7 @@ class SessionScreen(Screen):
         sch = self.tutor.scheme(self.view["n"])
         self.scheme = sch.get("scheme", [])
         buttons = [("mine", "Submit my marks ⏎")] + ([("ai", "Ask the AI examiner to check")] if self.ai_ok() else [])
-        self.mark_panel("Tick every mark point your answer earns (space). Honest self-marking is great practice.",
+        self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s. Honest self-marking is great practice.",
                         (), buttons)
 
     def mark_panel(self, prompt: str, ticked, buttons: list[tuple[str, str]]) -> None:
@@ -767,7 +769,7 @@ class SessionScreen(Screen):
                                             schema=prompts.JUDGE)
         if not res:  # give the tick list back, with your ticks, so you can still mark it yourself
             self.say(cards.card("hint", "AI check unavailable", r.message or "Mark it yourself."))
-            self.mark_panel("Tick every mark point your answer earns (space), then submit.", data["ticked"],
+            self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s to submit.", data["ticked"],
                             [("mine", "Submit my marks ⏎")])
             return
         verdict = "\n".join(f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}: {p.get('why', '')}"
@@ -775,7 +777,7 @@ class SessionScreen(Screen):
         self.say(cards.ai(f"{res.get('feedback', '')}\n\n{verdict}", "AI examiner"))
         met = {str(self.scheme[i]["i"]) for i, p in enumerate(res.get("points", [])) if p.get("met") and i < len(self.scheme)}
         ticked = sorted(set(data["ticked"]) | met) if data["ticked"] else sorted(met)
-        self.mark_panel("Adjust if you disagree, then submit.", ticked, [("mine", "Submit ⏎")])
+        self.mark_panel("Adjust if you disagree, then ctrl+s to submit.", ticked, [("mine", "Submit ⏎")])
 
     @work(exclusive=True, group="judge")
     async def remark(self) -> None:

@@ -228,6 +228,47 @@ def test_progress_labels_each_day_of_the_coming_reviews(tmp_path, monkeypatch):
     run(app, (100, 30), steps)
 
 
+def test_a_ticked_box_shows_a_tick_and_ctrl_s_confirms_from_the_list(tmp_path, monkeypatch):
+    from tutor_app.panels import Panel
+    app, v = app_for(tmp_path, monkeypatch)
+    done = []
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(TickPanel("Tick every point (space), then ctrl+s.", [("A1 one", "0", True), ("B1 two", "1", False)],
+                            [("mine", "Submit my marks ⏎"), ("ai", "Ask the AI examiner to check")]))
+        await pilot.pause()
+        ticks = scr.query_one("#ticks")
+        rows = [ticks.render_line(y).text for y in range(2)]
+        assert rows[0][1] == "✓" and rows[1][1] == " "  # not an X in both, told apart by colour alone
+        assert app.focused is ticks
+        await pilot.press("ctrl+s")  # at once: perhaps the second press of ctrl+s that submitted a long answer
+        await pilot.pause()
+        assert not done
+        scr.query_one(TickPanel).shown -= 1
+        await pilot.press("down", "space", "ctrl+s")
+        await pilot.pause()
+        assert done and done[-1] == {"button": "mine", "ticked": ["0", "1"]}
+        assert [ticks.render_line(y).text[1] for y in range(2)] == ["✓", "✓"]
+    monkeypatch.setattr(Panel, "finish", lambda self, data: done.append(data))
+    run(app, (80, 24), steps)
+
+
+def test_the_test_picker_starts_with_ctrl_s_from_the_list(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        _menu(app, "test")
+        await pilot.press("enter")
+        await pilot.pause()
+        assert "ctrl+s" in str(app.screen.query_one(".hint").render())
+        await pilot.press("space", "ctrl+s")
+        await pilot.pause()
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "SessionScreen"
+    run(app, (80, 24), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 
