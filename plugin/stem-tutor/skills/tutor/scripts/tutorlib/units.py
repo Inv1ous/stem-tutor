@@ -61,15 +61,18 @@ def _symbol(sym: str):
     return None
 
 
-def _splits(sym: str):
-    """Ways to read a run of letters as consecutive unit symbols, e.g. 'ms' -> m·s."""
+def _splits(sym: str, prev: str = ""):
+    """Ways to read a run of letters as consecutive unit symbols, e.g. 'ms' -> m·s. A symbol never follows itself:
+    nobody writes m² as "mm", which is a millimetre (3.0 mm scored full marks for 3.0 m²)."""
     if not sym:
         yield []
         return
     for i in range(len(sym), 0, -1):
+        if sym[:i] == prev:
+            continue
         head = _symbol(sym[:i])
         if head:
-            for rest in _splits(sym[i:]):
+            for rest in _splits(sym[i:], sym[:i]):
                 yield [head] + rest
 
 

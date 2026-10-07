@@ -78,3 +78,25 @@ def test_unbracketed_units_mark_as_before(text, score):
     assert g["score"] == score
     if not score:
         assert g["error"] == "NOTATION" and "wrong unit" in g["detail"]
+
+
+# ---------- "mm" is a millimetre, never m·m ----------
+@pytest.mark.parametrize("given,expected,factor", [
+    ("mm", "m^2", None), ("mm", "m2", None), ("ss", "s^2", None), ("mm", "m", 1e-3), ("mm2", "m^2", 1e-6),
+    ("m2", "m^2", 1.0), ("m m", "m^2", 1.0), ("ms-1", "m s^-1", 1.0), ("ms-2", "m s^-2", 1.0), ("ms", "s", 1e-3),
+    ("kg/ms2", "Pa", 1.0), ("Nm", "J", 1.0), ("kgm2", "kg m^2", 1.0), ("mmol", "mol", 1e-3), ("mms-1", "m s^-1", 1e-3),
+])
+def test_a_run_of_one_symbol_twice_is_not_a_square(given, expected, factor):
+    got = units.unit_factor(given, expected)
+    assert got == (pytest.approx(factor) if factor else None)
+
+
+def test_millimetres_for_an_area_are_a_wrong_unit():
+    area = {"kind": "numeric", "stem": "", "answer": {"value": 3.0, "unit": "m^2", "sf_ok": [2, 3]}}
+    g = grade.grade_item(area, {"kind": "value", "value": "3.0 mm"})
+    assert not g["correct"] and g["score"] == 0 and g["error"] == "NOTATION"
+    for typed in ("3.0 m2", "3.0 m^2", "3.0 m²", "3000000 mm2", "3.0e4 cm2"):
+        assert grade.grade_item(area, {"kind": "value", "value": typed})["score"] == 1.0, typed
+    length = {"kind": "numeric", "stem": "", "answer": {"value": 3.0, "unit": "m", "sf_ok": [2, 3]}}
+    assert grade.grade_item(length, {"kind": "value", "value": "3000 mm"})["score"] == 1.0
+    assert not grade.grade_item(length, {"kind": "value", "value": "3.0 mm"})["correct"]
