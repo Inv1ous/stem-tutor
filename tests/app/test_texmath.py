@@ -243,3 +243,22 @@ def test_labelled_arrows_read_in_one_line(tex, want):
 ])
 def test_subscripts_without_a_unicode_form(tex, want):
     assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # found by running a typical A-Level paper's maths through
+    (r"$\therefore x = 2$", "∴ x = 2"), (r"$x=2 \because y>0$", "x = 2 ∵ y > 0"), (r"$AB \perp CD$", "AB ⊥ CD"),
+    (r"$AB \parallel CD$", "AB ∥ CD"), (r"$A \cup B$", "A ∪ B"), (r"$P(A\cap B)$", "P(A ∩ B)"),
+    (r"$A \setminus B$", "A ∖ B"),
+    (r"$\operatorname{arcosh} x$", "arcosh x"), (r"$\operatorname{Re}(z)$", "Re(z)"), (r"$\sech^2 x$", "sech² x"),
+    (r"$\operatorname{arsinh}(x)$", "arsinh(x)"), (r"$\coth x$", "coth x"),
+    (r"$z^* = x - iy$", "z* = x − iy"), (r"$zz^{*}=|z|^2$", "zz* = |z|²"),
+    (r"$\mathrm{pH}=\mathrm{p}K_a+\log\frac{[\ce{A-}]}{[\ce{HA}]}$", "pH = pKₐ + log [A⁻]/[HA]"),
+    (r"$K_a=\frac{[\ce{H+}][\ce{A-}]}{[\ce{HA}]}$", "Kₐ = [H⁺][A⁻]/[HA]"), (r"$\frac{P(A)}{P(B)}$", "P(A)/(P(B))"),
+    (r"$\varepsilon = -N\frac{d\Phi}{dt}$", "ε = −N dΦ/dt"), (r"$F=\frac{dp}{dt}$", "F = dp/dt"),
+    (r"$\abs{x}+\norm{\mathbf{v}}$", "|x| + ‖𝐯‖"), (r"$\dv{y}{x}$", "dy/dx"), (r"$\pdv{f}{x}$", "∂f/∂x"),
+    (r"$\qty{9.81}{m.s^{-2}}$", "9.81 m.s⁻²"), (r"$\unit{kJ\,mol^{-1}}$", "kJ mol⁻¹"), (r"$\pu{-890 kJ mol-1}$", "−890 kJ mol⁻¹"),
+    (r"$\boxed{x=2}$", "x = 2"), (r"$x\phantom{0}=1$", "x = 1"), (r"$\textcolor{red}{x}+\color{blue}y$", "x + y"),
+    (r"$10\textsuperscript{th}$", "10ᵗʰ"), ("$$\n\\chemfig{H-O-H}\n$$", "H-O-H"), (r"$\chemfig{CH_3-[:30]OH}$", "CH₃-OH"),
+])
+def test_paper_maths_reads_as_printed(tex, want):
+    assert to_terminal(tex) == want

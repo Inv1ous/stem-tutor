@@ -15,7 +15,8 @@ _GROUP = r"(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*"  # the inside of a {group}, up 
 _ARG = (r"(\{(?:[^{}]|\{[^{}]*\})*\}|\\[dt]?frac\s*(?:\{[^{}]*\}|\w)\s*(?:\{[^{}]*\}|\w)|\\sqrt\s*(?:\{[^{}]*\}|\w)"
         r"|\\[A-Za-z]+|\\?\w)")  # a {group}, \frac{π}{2} or \sqrt{2}, a command (\pi), or one character
 _BRACES = {"p": "()", "b": "()", "": "()", "v": "||", "V": "‖‖", "B": "\ue000\ue001", "cases": "\ue000\ue001"}
-_FUNCS = "arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp|lim|max|min|det|gcd|deg|arg"
+_FUNCS = ("arcsinh|arccosh|arctanh|arsinh|arcosh|artanh|arcsin|arccos|arctan|sinh|cosh|tanh|sech|csch|cosech|coth"
+          "|sin|cos|tan|sec|csc|cot|log|ln|exp|lim|max|min|sup|inf|det|gcd|deg|arg|dim|ker|Pr")
 # markers that pass through flatlatex untouched: literal braces, a hyphen that is no minus (a word in \text{}, a
 # chemical bond), \quad, a double bond, and the two sides of a function name (a space only where one reads)
 _LBRACE, _RBRACE, _HYPHEN, _QUAD, _FN_END, _BOND2, _FN_START = (chr(0xE000 + i) for i in range(7))
@@ -97,7 +98,7 @@ if flatlatex is not None:
             base = base[:-1]
         if len(base) > 1 and base[0] in "dΔδ∂√∛∜":
             base = base[1:]
-        return len(base) == 1 or bool(re.fullmatch(r"\d+(?:\.\d+)?", base))
+        return len(base) == 1 or bool(re.fullmatch(r"\d+(?:\.\d+)?|\[[^\[\]]*\]|\([^()]*\)", base))  # [HA], (x + 1)
 
     def _radicand(expr: str) -> str:
         return expr if _simple(expr) or re.fullmatch(r"\d+(?:\.\d+)?", expr) else f"({expr})"  # √3, √32, √(2gh)
@@ -122,6 +123,8 @@ if flatlatex is not None:
 
         def _converter__exponent(self, a, b):
             a = a if _simple(a) else f"({a})"  # x₁²
+            if b.strip() in ("*", "∗"):
+                return a + "*"  # the conjugate z*
             if all(ch in _data.superscript for ch in b):
                 return a + "".join(_data.superscript[ch] for ch in b)
             many = sum(1 for ch in b if not unicodedata.combining(ch)) > 1
@@ -181,6 +184,7 @@ else:  # pragma: no cover
 def _math(expr: str) -> str:
     e = expr
     e = re.sub(r"\\ce\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: _chem(m.group(1)), e)
+    e = re.sub(r"\\chemfig\s*\{(" + _GROUP + r")\}", lambda m: _chem(re.sub(r"\[[^\]]*\]", "", m.group(1))), e)  # H-O-H
     e = re.sub(r"\\(?:(?:display|text|script|scriptscript)style|(?:no)?limits|[bB]igg?[lrm]?)(?![A-Za-z])\s*", "",
                e)  # sizes and styles mean nothing in a terminal
     e = re.sub(r"\\[lr]?vert(?![A-Za-z])", "|", e)
@@ -195,9 +199,24 @@ def _math(expr: str) -> str:
     e = re.sub(r"\\(over|under)set\s*\{(" + _GROUP + r")\}\s*\{(" + _GROUP + r")\}",  # anything else: bᵃ, maxₓ
                lambda m: (m.group(3).strip() if re.fullmatch(r"\s*\\[A-Za-z]+\s*", m.group(3)) else "{" + m.group(3) + "}")
                + ("^" if m.group(1) == "over" else "_") + "{" + m.group(2) + "}", e)
+    e = re.sub(r"\\(?:[hv]?phantom|color)\s*\{" + _GROUP + r"\}|\\(?:[hv]space)\*?\s*\{[^{}]*\}",  # layout, colour
+               lambda m: r"\," if "space" in m.group(0) else "", e)
+    e = re.sub(r"\\(?:boxed|textcolor\s*\{[^{}]*\})\s*\{(" + _GROUP + r")\}", r"{\1}", e)
+    e = re.sub(r"\\text(super|sub)script\s*\{(" + _GROUP + r")\}", lambda m: ("^" if m.group(1) == "super" else "_")
+               + "{" + m.group(2) + "}", e)
+    e = re.sub(r"\\(abs|norm)\s*\{(" + _GROUP + r")\}", lambda m: ("|{}|" if m.group(1) == "abs" else "‖{}‖")
+               .format(m.group(2)), e)  # the physics package: \abs{x}, \norm{v}, \dv{y}{x}, \pdv{f}{x}
+    e = re.sub(r"\\(p?)dv\s*\{(" + _GROUP + r")\}\s*\{(" + _GROUP + r")\}",
+               lambda m: (r"\frac{d{%s}}{d{%s}}" if not m.group(1) else r"\frac{\partial{%s}}{\partial{%s}}")
+               % (m.group(2), m.group(3)), e)
+    e = re.sub(r"\\pu\s*\{([^{}]*)\}", lambda m: r"\text{" + re.sub(r"(?<=[A-Za-z])(-?\d+)", r"^{\1}", m.group(1)) + "}",
+               e)  # mhchem units: \pu{kJ mol-1}
+    e = re.sub(r"\\(?:therefore|because)(?![A-Za-z])", lambda m: r"\," + ("∴" if "there" in m.group(0) else "∵") + r"\,", e)
     e = re.sub(r"\\binom\s*\{([^{}]*)\}\s*\{([^{}]*)\}", r"C(\1,\2)", e)
-    e = re.sub(r"\\SI\s*\{([^{}]*)\}\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: m.group(1) + r"\,\text{" + m.group(2) + "}", e)
-    e = re.sub(r"\\(?:si|num)\s*\{((?:[^{}]|\{[^{}]*\})*)\}", r"\\text{\1}", e)
+    e = re.sub(r"\\(?:SI|qty)\s*\{([^{}]*)\}\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: m.group(1) + r"\,\text{" + m.group(2) + "}", e)
+    e = re.sub(r"\\(?:si|num|unit)\s*\{((?:[^{}]|\{[^{}]*\})*)\}", r"\\text{\1}", e)
+    e = re.sub(r"\\operatorname\*?\s*\{\s*([A-Za-z]+)\s*\}((?:\s*[\^_]\s*(?:\{[^{}]*\}|-?\d+|\w))*)",  # arcosh x, Re(z)
+               lambda m: _FN_START + m.group(1) + re.sub(r"\s*([\^_])\s*", r"\1", m.group(2)).strip() + _FN_END, e)
     e = re.sub(r"\\(?:boldsymbol|bm)(?![A-Za-z])", r"\\mathbf", e)
     e = re.sub(r"\\(mathrm|text|mathbf|mathit|mathsf)\s+([A-Za-z0-9])", r"\\\1{\2}", e)  # \mathrm K is \mathrm{K}
     for _ in range(3):  # keep text as a group, spaces kept: \times\text{IQR} is × IQR, not a command \timesIQR
@@ -249,13 +268,13 @@ def _words(text: str) -> str:
                   re.sub(r"(\\[A-Za-z]+) (?=\S)", r"\1{}", text).replace(" ", r"\,")).replace("'", "’")  # \textmu m
 
 
-_REL = set("=≠≈≃≅≡∝∼<>≤≥≪≫∈∉⊂⊆→←⟷⇌⇒⇐⇔↦")  # spaced at the top level only: lim[x→0], {x, x≥0} stay tight
-_BIN = set("+−±∓×÷∧∨")  # spaced at the top level and inside round brackets: √(b² − 4ac)
+_REL = set("=≠≈≃≅≡∝∼<>≤≥≪≫∈∉⊂⊆→←⟷⇌⇒⇐⇔↦⊥∥")  # spaced at the top level only: lim[x→0], {x, x≥0} stay tight
+_BIN = set("+−±∓×÷∧∨∪∩∖")  # spaced at the top level and inside round brackets: √(b² − 4ac)
 _OPEN, _CLOSE = "([{⟨⌈⌊" + _LBRACE, ")]}⟩⌉⌋" + _RBRACE
 
 
 def _operand(ch: str) -> bool:
-    return len(ch) == 1 and (ch.isalnum() or ch in ")]}⟩⌉⌋|′″!%°∞…⦵⁺⁻⁼⁾₊₋₌₎" + _RBRACE or bool(unicodedata.combining(ch)))
+    return len(ch) == 1 and (ch.isalnum() or ch in ")]}⟩⌉⌋|′″*!%°∞…⦵⁺⁻⁼⁾₊₋₌₎" + _RBRACE or bool(unicodedata.combining(ch)))
 
 
 def _starts_factor(ch: str) -> bool:
@@ -295,6 +314,8 @@ def _tidy(text: str) -> str:
         elif ch in _CLOSE and depth:
             depth.pop()
         if ch == _FRAC_L:
+            if out and out[-1].isalpha() and re.match(r"[d∂][^/]*/[d∂]", text[i + 1:]):
+                out.append(" ")  # −N dΦ/dt, not NdΦ/dt
             fracs.append(len(out))
         elif ch == _FRAC_R:
             start = fracs.pop() if fracs else None
