@@ -53,9 +53,29 @@ def test_the_page_takes_what_the_tutor_knows_and_keeps_what_the_learner_entered(
     assert S["err"] == {"Wrong method": 6}  # the learner's 2 and the tutor's 4, not counted twice
     assert S["retro"]["5"] == {"broke": "my own note", "fix": "mine"} and S["retro"]["6"]["broke"] == "b6 again"
     assert S["stage"] == 0
+    assert S["tutor"]["done"] == {"5-phys1": 1}  # the tutor's own ticks are kept apart from the learner's
 
 
-def run_block(tmp_path, typing=False):
+@pytest.mark.skipif(not shutil.which("node"), reason="needs Node to run the page's script")
+def test_a_stage_or_tick_the_learner_changed_is_not_put_back():
+    first = {"stamp": "a", "done": {"5-phys1": 1, "6-phys1": 1}, "stage": 1}
+    S, _ = merged({"done": {}, "stage": 2}, first)
+    assert S["stage"] == 1 and S["done"] == {"5-phys1": 1, "6-phys1": 1}
+    S["stage"] = 3  # the learner sets their own paper stage and unticks one of the tutor's ticks
+    del S["done"]["6-phys1"]
+    S, _ = merged(S, {**first, "stamp": "b", "done": {**first["done"], "7-phys1": 1}, "stage": 2})
+    assert S["stage"] == 3 and S["done"] == {"5-phys1": 1, "7-phys1": 1}
+    assert S["tutor"]["done"] == {"5-phys1": 1, "6-phys1": 1, "7-phys1": 1}
+
+
+@pytest.mark.skipif(not shutil.which("node"), reason="needs Node to run the page's script")
+def test_ticks_merged_before_the_tutor_kept_count_are_counted_as_its_own():
+    S, _ = merged({"done": {"5-phys1": 1, "1-math1": 1}, "tutor": {"stamp": "old"}},
+                  {"stamp": "new", "done": {"5-phys1": 1}})
+    assert S["tutor"]["done"] == {"5-phys1": 1}
+
+
+def run_block(tmp_path, typing=False, reset=False):
     """Run the whole block as the page would, with stand-ins for the page's own state and functions."""
     (tmp_path / "A-Levels.tutor.js").write_text(
         'window.TUTOR_SYNC = {"stamp": "s1", "done": {"5-phys1": 1}, "rag": {"phys-2": "a"}};\n')
@@ -65,11 +85,15 @@ const fs = require("fs"), vm = require("vm"), calls = [];
 global.window = global;
 global.S = {{done: {{}}, rag: {{}}, scores: {{}}, wall: {{}}, retro: {{}}, err: {{}}, stage: 2}};
 global.save = () => calls.push("save"); global.renderAll = () => calls.push("render"); global.toast = m => calls.push(m);
-global.setInterval = (fn, ms) => calls.push("every " + ms);
-global.document = {{ activeElement: {{ tagName: "{'TEXTAREA' if typing else 'BODY'}" }}, createElement: () => ({{ remove() {{}} }}),
+global.setInterval = (fn, ms) => {{ calls.push("every " + ms); global.tick = fn; }};
+const listeners = [];
+global.document = {{ getElementById: id => id === "resetBtn" ? {{ addEventListener: (e, fn) => listeners.push(fn) }} : null,
+  activeElement: {{ tagName: "{'TEXTAREA' if typing else 'BODY'}" }}, createElement: () => ({{ remove() {{}} }}),
   head: {{ appendChild(el) {{ vm.runInThisContext(fs.readFileSync({json.dumps(str(tmp_path))} + "/" + el.src.split("?")[0], "utf8")); el.onload(); }} }} }};
 """
-    out = subprocess.run(["node", "-e", page + block + "\nconsole.log(JSON.stringify([S, calls]));"],
+    after = ('\nS = {done: {}, rag: {}, stage: 2}; listeners.forEach(fn => fn()); tick();'
+             if reset else "")  # the page's Reset, then its own listener, then the next pull
+    out = subprocess.run(["node", "-e", page + block + after + "\nconsole.log(JSON.stringify([S, calls]));"],
                          capture_output=True, text=True, check=True).stdout
     return json.loads(out)
 
@@ -81,3 +105,5 @@ def test_the_page_loads_the_tutors_file_saves_and_redraws(tmp_path):
     assert calls == ["save", "render", "Updated by STEM Tutor", "every 30000"]  # now, then every half minute
     S, calls = run_block(tmp_path, typing=True)  # never under the learner's hands: it waits for the next turn
     assert S["done"] == {} and calls == ["every 30000"]
+    S, calls = run_block(tmp_path, reset=True)  # "Reset everything" does not bring the tutor's ticks straight back
+    assert S["done"] == {} and S["rag"] == {} and S["tutor"]["stamp"] == "s1"

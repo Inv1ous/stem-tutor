@@ -114,20 +114,28 @@ class Vault:
         if not folder.exists():
             return
         self.bad_lines = []
-        found = []
+        found, seen = [], set()
         for path in sorted(folder.glob("*.jsonl")):
             # split the bytes on "\n" only, then decode each line: a line torn mid-character is lost alone, and a
             # U+2028 inside an answer (valid JSON) is not taken for a line break as str.splitlines() would
             for n, line in enumerate(path.read_bytes().split(b"\n"), 1):
                 if line.strip():
                     try:
-                        found.append(json.loads(line.decode("utf-8")))
+                        e = json.loads(line.decode("utf-8"))
                     except ValueError:  # a half-written line (crash mid-save) must not lock you out of your history
                         self.bad_lines.append(f"{path.name}:{n}")
+                        continue
+                    if e.get("id") is not None:  # an iCloud conflict copy ("2026-09 2.jsonl") repeats events
+                        if e["id"] in seen:
+                            continue
+                        seen.add(e["id"])
+                    found.append(e)
         remarks = {e["target"]: e["grade"] for e in found if e.get("type") == "regrade"}
         for e in found:  # an answer re-marked later is read with the re-mark: every report then agrees with it
             if e.get("type") == "answer" and e.get("id") in remarks:
-                e = {**e, "grade": {**e["grade"], **remarks[e["id"]]}, "regraded": True}
+                # a right answer was no slip: drop the flag so it moves θ fully, as if marked right at first
+                e = {**{k: v for k, v in e.items() if k != "slip_likely"},
+                     "grade": {**e["grade"], **remarks[e["id"]]}, "regraded": True}
             elif e.get("type") == "tag" and e.get("target") in remarks:
                 continue  # "why I missed it", said before the re-mark found it was not missed
             yield e

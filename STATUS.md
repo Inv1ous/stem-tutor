@@ -1,5 +1,9 @@
 # Build status
 
+## v1.6.1 (2026-10-07) — done
+- Solo bug-and-comfort pass (four hunters, four fixers): grading reads more right answers, the maths shows properly,
+  small windows fit, Almanac sync respects your edits, notes read better. 775 tests.
+
 ## v1.6.0 (2026-10-04) — done
 - Every typed answer uses the box that wraps and grows; a quantity in another prefix, spelling or with words after
   the unit is the same answer; an answer marked wrong can be re-marked by the AI examiner and then counts as right

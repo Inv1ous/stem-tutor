@@ -75,7 +75,8 @@ def _splits(sym: str):
 
 def _normalise(text: str) -> list[tuple[str, int, int]]:
     """(symbol run, exponent, +1 above the line or -1 below it) per token."""
-    text = text.translate(SUPERSCRIPT).replace("·", " ").replace("*", " ").replace(".", " ").strip()
+    text = re.sub(r"[{}]", "", text.translate(SUPERSCRIPT))  # LaTeX braces: dm^{-3}
+    text = text.replace("·", " ").replace("*", " ").replace(".", " ").strip()
     text = re.sub(r"\s*/\s*", " / ", text)
     tokens, sign = [], 1
     for raw in text.split():
@@ -120,8 +121,20 @@ def parse_unit(text: str) -> list[tuple[float, tuple]]:
     return options
 
 
+_DEGREES = {"deg", "degs", "degree", "degrees"}
+_MOLARITY = _d(m=-3, mol=1)
+
+
 def unit_factor(given: str, expected: str) -> float | None:
     """Multiply a value in `given` units by this to express it in `expected` units."""
+    if given.strip().lower() in _DEGREES:
+        given = "°"
+    if given.strip() == "M":  # molar, read so only where the answer is a concentration: never mega-anything
+        try:
+            if any(d == _MOLARITY for _f, d in parse_unit(expected)):
+                given = "mol dm-3"
+        except (ValueError, ArithmeticError):
+            pass
     if given.replace(" ", "") == expected.replace(" ", ""):  # the same text: a match even if the symbol is unknown (°C)
         return 1.0
     try:

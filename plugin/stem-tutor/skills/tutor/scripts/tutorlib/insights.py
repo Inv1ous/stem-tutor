@@ -108,7 +108,10 @@ def _misconceptions(state: dict, packs) -> dict:
                                   f"Fixed: {'; '.join(fixed)}." if fixed else "") if x)
     action = ("When these ideas come up, the tutor tackles the misconception head-on (why it fails, then a contrasting "
               "case); two right answers in a row clear it." if active else None)
-    return _item("Misconceptions", f"{len(active)} still active, {len(fixed)} fixed", detail, seen, certainty(seen, 1),
+    head = (f"{len(active)} misconception{'s' if len(active) != 1 else ''} still active"
+            + (f", {len(fixed)} fixed" if fixed else "") if active else
+            f"{len(fixed)} misconception{'s' if len(fixed) != 1 else ''} fixed, none still active")
+    return _item("Misconceptions", head, detail, seen, certainty(seen, 1),
                  action)
 
 
@@ -200,7 +203,7 @@ def _habits(prof: dict, state: dict) -> dict:
     if not days:
         return _item("Habits", "How regularly you study", "No study days yet.", 0, "not enough data")
     h = prof["habits"]
-    return _item("Habits", f"Studied on {h['last_28']} of the last 28 days", f"Current streak: {h['streak']} day(s). "
+    return _item("Habits", f"Studied on {h['last_28']} of the last 28 days", f"Current streak: {h['streak']} day{'s' if h['streak'] != 1 else ''}. "
                  "Short sessions on most days beat long ones now and then (spacing).", days, certainty(days, 7))
 
 

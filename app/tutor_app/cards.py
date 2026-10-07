@@ -1,13 +1,15 @@
 """Colour-coded transcript cards (Rich renderables)."""
 from __future__ import annotations
 
+import re
+
 from rich.console import Group
 from rich.markdown import Markdown
 from rich.markup import escape
 from rich.panel import Panel
 from rich.text import Text
 
-from .texmath import pretty_units, to_terminal
+from .texmath import to_terminal
 
 C = {"tutor": "#89b4fa", "question": "#cba6f7", "you": "#9399b2", "good": "#a6e3a1", "bad": "#f38ba8",
      "hint": "#f9e2af", "ai": "#f5c2e7", "accent": "#ffd500", "dim": "#6c7086", "plan": "#94e2d5"}
@@ -15,11 +17,18 @@ CONF = {1: "Guess", 2: "Unsure", 3: "Fairly sure", 4: "Certain"}
 
 
 def md(text: str) -> Markdown:
-    return Markdown(to_terminal(text or ""), hyperlinks=False)
+    """A single line break stays a break (a table typed as lines is not one run-on line), except mid-sentence."""
+    return Markdown(re.sub(r"(?<=\S)\n(?=[^\n])(?!(?<=[a-z,]\n)[a-z])", "  \n", to_terminal(text or "")),
+                    hyperlinks=False)
+
+
+def literal(text: str) -> str:
+    """Typed text shown as typed inside Markdown: 3*x**2 + x_1 keeps its stars and underscores."""
+    return re.sub(r"([\\`*_$])", r"\\\1", to_terminal(text))
 
 
 def card(kind: str, title: str, body: str = "", subtitle: str | None = None) -> Panel:
-    return Panel(md(body) if body else Text(""), title=f"[b]{escape(title)}[/b]", title_align="left",
+    return Panel(md(body) if body else Group(), title=f"[b]{escape(title)}[/b]", title_align="left",
                  subtitle=subtitle, subtitle_align="right", border_style=C[kind], padding=(0, 1))
 
 
@@ -47,7 +56,7 @@ def feedback(fb: dict, your: str) -> Panel:
     title = ("I don't know — here's the answer" if dont_know else "Correct ✓" if ok else
              "Right value, but a mark lost ✗" if partial else "Not quite ✗")
     style = C["good"] if ok else (C["hint"] if dont_know or partial else C["bad"])
-    body = [f"**Your answer:** {pretty_units(your)}  ", f"**Answer:** {pretty_units(str(fb.get('answer', '')))}  "]
+    body = [f"**Your answer:** {literal(your)}  ", f"**Answer:** {literal(str(fb.get('answer', '')))}  "]
     if fb.get("detail"):
         body.append(f"**Exam point:** {fb['detail']}  ")
     if fb.get("explanation"):

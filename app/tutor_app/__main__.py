@@ -15,11 +15,12 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
     vault = args.vault or config.vault_path()
     if args.command == "doctor":
-        ok_all = True
-        for ok, check, fix in mac.doctor(vault):
-            ok_all &= ok
+        rows = mac.doctor(vault)
+        for ok, check, fix in rows:
             print(f"{'✅' if ok else '❌'} {check}" + (f"\n   → {fix}" if fix else ""))
-        print("\nAll good. Start with: tutor" if ok_all else "\nFix the ❌ items above (the tutor still runs without AI).")
+        print("\nAll good. Start with: tutor" if all(ok for ok, _, _ in rows) else
+              "\nFix the ❌ items above: the tutor can't start without its folder." if not rows[0][0] else
+              "\nFix the ❌ items above (the tutor still runs without AI).")
         return 0
     from .app import TutorApp
     app = TutorApp(vault)

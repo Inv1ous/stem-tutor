@@ -120,3 +120,27 @@ def test_last_event_id_is_the_newest_readable_event(tmp_path):  # B-038
     with open(v.tutor / "events" / "2026-10.jsonl", "ab") as f:
         f.write(b'{"id": "torn", "type": "ans')  # a crash mid-append: replay skips this line, so it is not the newest
     assert v.last_event_id() == b["id"]
+
+
+def test_an_icloud_conflict_copy_does_not_count_events_twice(tmp_path):
+    v = store.Vault(make_vault(tmp_path))
+    t = datetime.fromisoformat("2026-09-30T12:00:00+08:00")
+    a = v.append_event({"type": "answer", "grade": {"score": 1.0}}, now=t)
+    b = v.append_event({"type": "answer", "grade": {"score": 0.0}}, now=t)
+    folder = v.tutor / "events"
+    (folder / "2026-09 2.jsonl").write_bytes((folder / "2026-09.jsonl").read_bytes())  # the same lines, copied
+    with open(folder / "2026-09 2.jsonl", "a") as f:
+        f.write(json.dumps({"type": "note"}) + "\n" + json.dumps({"type": "note"}) + "\n")  # no id: each one counts
+    v.append_event({"type": "regrade", "target": b["id"], "grade": {"score": 1.0}}, now=t)
+    got = list(v.events())
+    assert [e.get("id") for e in got if e["type"] == "answer"] == [a["id"], b["id"]]
+    assert len([e for e in got if e["type"] == "note"]) == 2 and got[1]["regraded"]
+
+
+def test_a_re_marked_answer_is_no_longer_a_likely_slip(tmp_path):
+    v = store.Vault(make_vault(tmp_path))
+    t = datetime.fromisoformat("2026-09-30T12:00:00+08:00")
+    a = v.append_event({"type": "answer", "grade": {"score": 0.0}, "slip_likely": True}, now=t)
+    v.append_event({"type": "regrade", "target": a["id"], "grade": {"score": 1.0, "correct": True}}, now=t)
+    (ans,) = [e for e in v.events() if e["type"] == "answer"]
+    assert ans["regraded"] and "slip_likely" not in ans and ans["grade"]["score"] == 1.0

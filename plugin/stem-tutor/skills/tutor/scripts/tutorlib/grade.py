@@ -105,8 +105,9 @@ def parse_quantity(text: str) -> tuple[float, str, int | None]:
 def _parse(text: str) -> tuple[float, str, int | None, int | None]:
     """(value, unit, s.f. or None when trailing zeros make it ambiguous, digits written or None for a fraction)"""
     t = plain_powers(text).replace("−", "-").replace("–", "-").strip().lstrip("=").strip()
+    t = re.sub(r"^[A-Za-z_]\w*\s*=\s*", "", t)  # a label first: "x = 24", "v = 3.0 m s^-1"
     t = re.sub(r"^[(\[]\s*([^)\]]*?)\s*[)\]]", r"\1", t)  # "(-1)", "[2.5] m"
-    t = re.sub(r"(?<=\d),(?=\d{3}\b)", "", t)
+    t = re.sub(r"(?<=\d),(?=\d{3}(?!\d))", "", t)  # "2,880 kJ" and "2,880kJ"; never "1,5"
     t = _POWER_OF_TEN.sub(r"\g<1>1e\2", t)  # a bare power of ten is a number (10^3, 10⁻³); any other power is not
     m = _NUM.match(t)
     if not m:
@@ -282,13 +283,42 @@ def _plain_maths(s: str) -> str:
     return s.translate(_UNICODE_MATHS)
 
 
+_SUBJECT = re.compile(r"\s*[A-Za-z]\w*\s*(?:\^\s*\(?\s*\d+\s*\)?)?\s*")  # v, v^2, v² (as v^(2))
+
+
+def _sides(text: str) -> tuple[str | None, str]:
+    """(subject, expression) of an answer written as an equation for one letter, "v^2 = u^2 + 2as"; (None, text)
+    for anything else."""
+    plain = _plain_maths(text)
+    if plain.count("=") == 1:
+        lhs, rhs = plain.split("=")
+        if _SUBJECT.fullmatch(lhs):
+            return lhs, rhs
+    return None, text
+
+
 def expression_readable(text: str) -> bool:
     """Whether an expression answer can be read at all; one that can't is refused and the question stays open."""
     try:
-        _sympy()[1](text)
+        for side in _sides(text):
+            if side is not None:
+                _sympy()[1](side)
     except Exception:  # noqa: BLE001 - any parse failure means "type it again", never a wrong answer
         return False
     return True
+
+
+_FUNC_NAMES = sorted((*_EXPR_FUNCS, "ln"), key=len, reverse=True)
+
+
+def _function_args(s: str) -> str:
+    """A function name run into its argument is the function of it: sinx -> sin x, lnx -> ln x (sinh stays sinh)."""
+    def split(m):
+        word = m[0]
+        head = next((f for f in _FUNC_NAMES if word.startswith(f)), None) if word not in _FUNC_NAMES else None
+        return f"{head} {word[len(head):]}" if head else word
+
+    return re.sub(r"[A-Za-z]+", split, s)
 
 
 def _names(s: str) -> str:
@@ -334,7 +364,8 @@ def _sympy():
     from sympy.parsing.sympy_parser import (convert_xor, implicit_multiplication_application,
                                             parse_expr, standard_transformations)
 
-    tr = standard_transformations + (implicit_multiplication_application, convert_xor)
+    # ^ is read first so a power on a function name is the power of its value: sin^2(x) = sin(x)^2
+    tr = standard_transformations + (convert_xor, implicit_multiplication_application)
     names = {n: getattr(sympy, n) for n in ("Symbol", "Function", "Number", "Integer", "Float", "Rational", "Add",
                                             "Mul", "Pow", *_EXPR_FUNCS)}
     names.update(__builtins__={}, abs=sympy.Abs, ln=sympy.log)
@@ -343,7 +374,7 @@ def _sympy():
         s = _plain_maths(s.replace("\\", ""))
         if not _EXPR_TEXT.fullmatch(s) or "." in re.sub(r"\d*\.\d+|\d+\.", "", s) or _BUILDERS.search(s):
             raise ParseError(f"not a plain maths expression: {s[:40]!r}")
-        s = _names(s)
+        s = _names(_function_args(s))
         for evaluate in (False, True):  # build unevaluated first so a huge power is refused before it is computed
             expr = parse_expr(s, local_dict={"e": sympy.E, "pi": sympy.pi}, global_dict=dict(names),
                               transformations=tr, evaluate=evaluate)
@@ -385,6 +416,20 @@ def _real_at(expr, point: dict) -> float | None:
 
 
 def expressions_equal(a: str, b: str) -> bool:
+    """`a` and `b` agree. An equation for one letter ("v^2 = u^2 + 2as") is its right side, set against the key's
+    right side, or against the whole key when the key is an expression for that subject; then the subject must not
+    be one of the key's own letters (a = u^2 + 2as is no answer for v^2)."""
+    (sa, a), (sb, b) = _sides(a), _sides(b)
+    if sa is not None and sb is not None and not _equal(sa, sb):
+        return False
+    if sa is not None and sb is None:
+        parse = _sympy()[1]
+        if parse(sa).free_symbols & parse(b).free_symbols:
+            return False
+    return _equal(a, b)
+
+
+def _equal(a: str, b: str) -> bool:
     parse = _sympy()[1]
     ea, eb = parse(a), parse(b)
     if ea - eb == 0:  # same once sympy has put both in canonical order; everything else is checked by value

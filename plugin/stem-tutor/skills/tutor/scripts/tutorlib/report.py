@@ -34,6 +34,22 @@ def to_note_math(text: str) -> str:
     return "".join(parts)
 
 
+def _n(n: int, word: str) -> str:
+    """"1 mistake", "2 mistakes"."""
+    return f"{n} {word}{'' if n == 1 else 's'}"
+
+
+def note_answer(text: str) -> str:
+    """A right answer as the notes show maths: 7.46e10 -> 7.46 × 10^10, m s^-2 and m s⁻¹ -> superscripts."""
+    parts = re.split(r"(\$[^$]*\$)", str(text))
+    for i, part in enumerate(parts):
+        if not part.startswith("$"):
+            part = re.sub(r"\b(\d+(?:\.\d+)?)[eE]([+-]?\d+)\b",
+                          lambda m: f"{m.group(1)} × 10$^{{{int(m.group(2))}}}$", part)
+            parts[i] = re.sub(r"\^\(?([+-]?\d+)\)?", r"$^{\1}$", part)
+    return to_note_math("".join(parts))
+
+
 def question_sheet(tutor) -> str:
     """Mirror the open questions into Question Sheets/Current.md (Obsidian live-reloads it)."""
     s = tutor.session or {}
@@ -156,6 +172,9 @@ def session_note(tutor, session_id: str) -> str:
     return _write(tutor, rel, "\n".join(lines))
 
 
+TODAY_KCS = 4  # ideas named on one line of Today's plan; the rest are counted
+
+
 def today_note(tutor, minutes: int = 50) -> str:
     now, s, p, ticked = tutor.now(), tutor.state, tutor.packs, tutor.ticks()
     week = policy.current_week(p.plan, now)
@@ -168,7 +187,9 @@ def today_note(tutor, minutes: int = 50) -> str:
     lines += [f"## Suggested {minutes}-minute session", ""]
     for b in blocks:
         kcs = [b["kc"]] if "kc" in b else b.get("kcs", [])
-        names = ", ".join(f"{k} {p.kc(k)['title']}" for k in kcs if k in p.kcs)
+        known = [k for k in kcs if k in p.kcs]
+        names = ", ".join(f"{k} {p.kc(k)['title']}" for k in known[:TODAY_KCS])
+        names += f" +{len(known) - TODAY_KCS} more" if len(known) > TODAY_KCS else ""
         lines.append(f"- **{'Check what you ticked' if b.get('claimed') else b['kind'].capitalize()}**: {names}")
     own = almanac.ticks(tutor.vault.root)  # the learner's own ticks; `ticked` also holds what they earned here
     lines += ["", "## This week's Almanac objectives" if focus == week else
@@ -208,11 +229,12 @@ def insights_markdown(tutor, ai: dict | None = None) -> str:
          f"_Updated {tutor.now():%d %b %Y %H:%M}. Counted from your own answers: nothing here is guessed by AI._", "",
          "## What the tutor has recorded", ""]
     if r["answers"]:
-        L += [f"- **{r['answers']}** answers in {r['sessions']} sessions over {r['study_days']} study days "
-              f"({r['first']} to {r['latest']}).",
-              f"- {r['confidence_ratings']} confidence ratings · {r['hinted']} answers with a hint · "
-              f"{r['mistakes_classified']} mistakes sorted by kind · {r['misconceptions_spotted']} misconceptions "
-              "spotted.", f"- {r['blurts']} blurts · {r['papers']} past papers marked."]
+        L += [f"- **{r['answers']}** answer{'' if r['answers'] == 1 else 's'} in {_n(r['sessions'], 'session')} over "
+              f"{_n(r['study_days'], 'study day')} ({r['first']} to {r['latest']}).",
+              f"- {_n(r['confidence_ratings'], 'confidence rating')} · {_n(r['hinted'], 'answer')} with a hint · "
+              f"{_n(r['mistakes_classified'], 'mistake')} sorted by kind · "
+              f"{_n(r['misconceptions_spotted'], 'misconception')} spotted.",
+              f"- {_n(r['blurts'], 'blurt')} · {_n(r['papers'], 'past paper')} marked."]
     else:
         L.append("- Nothing yet: every answer you give adds to this.")
     L += ["", "> [!info] How sure the tutor is",
@@ -226,6 +248,8 @@ def insights_markdown(tutor, ai: dict | None = None) -> str:
     L += [f"- {a}" for a in f["adjustments"]] or ["- Nothing yet: research-based defaults are in use."]
     L += ["", "## Exam readiness", ""]
     rows = insights.readiness(tutor)
+    later = [x for x in rows if x["days"] > READY_DAYS and not x["started"]]  # far off and not begun: one line
+    rows = [x for x in rows if x not in later]
     if rows:
         L += ["| Exam | Date | Ideas | Built | Started | Secure | If you stopped now | If you keep reviewing |",
               "|---|---|---|---|---|---|---|---|"]
@@ -234,8 +258,10 @@ def insights_markdown(tutor, ai: dict | None = None) -> str:
               f"{_pct(x['recall_if_keep'])} |" for x in rows]
         L += ["", "The last two columns are predicted recall on the day for the ideas you have started: with no more "
               "reviews, and with your review schedule kept up. Ideas not built yet can't be started."]
-    else:
+    elif not later:
         L.append("- No upcoming exams in the plan.")
+    if later:
+        L += ["", f"Later, not started yet: {', '.join(x['exam'] for x in later)} (from {later[0]['date']})."]
     weak = insights.weak_spots(tutor)
     L += ["", "## Weak spots", ""]
     L += [f"- **{w['kc']} {w['title']}**: {'; '.join(w['reasons'])}" for w in weak[:12]] or ["- None right now."]
@@ -250,15 +276,19 @@ def insights_markdown(tutor, ai: dict | None = None) -> str:
     return "\n".join(L) + "\n"
 
 
+READY_DAYS = 365  # exams further off than this are listed in one line until you start on them
+
+
 def profile_note(tutor) -> str:
     return _write(tutor, "Profile.md", insights_markdown(tutor, load_ai_summary(tutor)))
 
 
 def _clip_math(text: str, n: int = 160) -> str:
     """First line, at most n characters, never cutting a $…$ formula in half."""
-    line = (text or "").strip().splitlines()[0] if (text or "").strip() else ""
+    lines = (text or "").strip().splitlines()
+    line = lines[0] if lines else ""
     if len(line) <= n:
-        return line
+        return line + ("…" if len(lines) > 1 else "")
     cut = line[:n]
     if cut.count("$") % 2:
         cut = cut[:cut.rfind("$")]
@@ -318,10 +348,10 @@ def mistakes_note(tutor) -> str:
         groups.setdefault(sub, []).append(
             [f"- **{day}** · {why}" + (" · ✓ right since" if since else ""),
              f"  - Question: {_clip_math(stem) if not stem.startswith('(item ') else 'not recorded'}",
-             f"  - You: `{you}` · Right answer: {key or 'not recorded'}"])
+             f"  - You: `{you}` · Right answer: {note_answer(key) if key else 'not recorded'}"])
     n = sum(len(v) for v in groups.values())
     L = ["# Mistake journal", "_Every question you got wrong or didn't know, newest first, with the right answer. "
-         "Updated after each session._", "", f"{n} mistakes · {fixed} put right since." if n else "No mistakes yet."]
+         "Updated after each session._", "", f"{_n(n, 'mistake')} · {fixed} put right since." if n else "No mistakes yet."]
     for sub in sorted(groups, key=lambda x: (x == "Past papers", x)):
         title = tutor.packs.subtopics.get(sub, {}).get("title", "")
         L += ["", f"## {sub} {title}".rstrip(), ""] + [line for entry in groups[sub] for line in entry]

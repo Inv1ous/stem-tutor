@@ -16,6 +16,11 @@ MERMAID_TYPES = {"graph", "flowchart", "sequenceDiagram", "classDiagram", "state
                  "gitGraph", "block-beta", "sankey-beta"}
 LABEL = re.compile(r"\w+\s*(\[\[?|\(\(?|\{\{?|>)([^\]\)\}]*?(?:\([^\)]*\))?[^\]\)\}]*)(\]\]?|\)\)?|\}\}?)")
 EMBED = re.compile(r"!\[\[([^\]|#]+)|!\[[^\]]*\]\(([^)\s]+)\)")
+WIKILINK = re.compile(r"(?<!!)\[\[([^\]|#]+)")
+
+
+def _plain(name: str) -> str:
+    return name.replace("’", "'").replace("‘", "'")
 
 
 def _strip_prefix(line: str) -> tuple[str, str]:
@@ -68,6 +73,8 @@ def lint(md: str, vault_root: Path | None = None) -> list[dict]:
     fence = None  # (lang, start, buffer)
     display = None  # (start line, prefixed, buffer)
     prev_callout = before_callout = False
+    notes = {p.stem for p in Path(vault_root).rglob("*.md")} if vault_root is not None else set()
+    plain = {_plain(x): x for x in notes}
     for n, raw in enumerate(lines, 1):
         fm = FENCE.match(raw)
         if fence:
@@ -134,6 +141,11 @@ def lint(md: str, vault_root: Path | None = None) -> list[dict]:
                 target = (m.group(1) or m.group(2)).strip()
                 if not target.startswith("http") and not (Path(vault_root) / target).exists():
                     out.append({"line": n, "rule": "missing-embed", "message": f"embedded file not found: {target}"})
+            for m in WIKILINK.finditer(text):  # Obsidian matches names exactly: ' and ’ are different notes
+                target = m.group(1).strip()
+                if target not in notes and _plain(target) in plain:
+                    out.append({"line": n, "rule": "link-apostrophe",
+                                "message": f"[[{target}]] has no note; the note is [[{plain[_plain(target)]}]]"})
     if fence:
         out.append({"line": fence[1], "rule": "fence", "message": "code fence never closed"})
     if display:

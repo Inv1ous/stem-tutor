@@ -35,6 +35,19 @@ def test_the_launcher_opens_the_tutor_in_the_study_profile(tmp_path):
     path = tmp_path / "Start Tutor.command"
     path.write_text(script)
     assert subprocess.run(["bash", "-n", str(path)]).returncode == 0  # the shell can read it
+    assert publish.launcher_script(publish.DEFAULT_VAULT) == script  # the default vault's launcher names no vault
+
+
+def test_a_launcher_published_to_another_vault_opens_that_vault(tmp_path):
+    import subprocess
+    vault = tmp_path / "Other's Tutor"
+    script = publish.launcher_script(vault)
+    import shlex
+    words = shlex.split(script.rstrip().splitlines()[-1])
+    assert words[1].endswith("/bin/tutor") and words[2:] == ["--vault", str(vault.resolve())]
+    path = tmp_path / "Start Tutor.command"
+    path.write_text(script)
+    assert subprocess.run(["bash", "-n", str(path)]).returncode == 0
 
 
 def test_each_objective_carries_the_almanacs_own_id(tmp_path, monkeypatch):
@@ -66,3 +79,39 @@ def test_a_tick_covers_the_objectives_own_section_and_nothing_attached_from_else
     assert any(k.startswith("9702-1.2.") for k in o["added_by_tutor"])  # the rest of topic 1, which it refers to
     assert not any(k.startswith("9702-1.") for k in o["outside"])
     assert any(k.startswith("9702-2.") for k in o["outside"])  # another topic, parked here for want of an objective
+
+
+def test_links_open_published_notes_whatever_the_apostrophe():
+    names = {"5.2 Hess’s law", "3.4 Chemical bonding", "Profile"}
+    text = "Builds on [[3.4 Chemical bonding]] · Leads to [[5.2 Hess's law]] · see [[Profile]] ![[Assets/x.svg]]"
+    assert publish.link_notes(text, names) == ("Builds on [[3.4 Chemical bonding]] · Leads to [[5.2 Hess’s law]] · "
+                                               "see [[Profile]] ![[Assets/x.svg]]")
+    # a chapter not published yet is plain text (clicking it would make an empty note); other links are left alone
+    assert publish.link_notes("[[6.2 Electrolysis]], [[6.3 Stress|stress]], [[How It Works]]", names) == \
+        "6.2 Electrolysis, stress, [[How It Works]]"
+
+
+def test_a_published_note_links_once_its_target_is_published(tmp_path, monkeypatch):
+    import json
+    import os
+    build, vault = tmp_path / "out", tmp_path / "vault"
+    note = build / "notes/Subjects/9701 Chemistry/5.1 Enthalpy.md"
+    note.parent.mkdir(parents=True)
+    (build / "specs/9701").mkdir(parents=True)
+    (build / "specs/9701/graph.json").write_text("{}")
+    (build / "packs").mkdir()
+    (build / "plan.json").write_text(json.dumps({}))
+    note.write_text("Leads to [[5.2 Hess's law]]\n")
+    monkeypatch.setattr(publish, "BUILD", build)
+    monkeypatch.setattr(publish, "ROOT", tmp_path)  # no engine to copy
+    (tmp_path / "plugin/stem-tutor/skills/tutor/scripts").mkdir(parents=True)
+    out = vault / "Subjects/9701 Chemistry/5.1 Enthalpy.md"
+    publish.publish(vault)
+    assert out.read_text() == "Leads to 5.2 Hess's law\n"
+    (note.parent / "5.2 Hess’s law.md").write_text("# Hess\n")
+    publish.publish(vault)
+    assert out.read_text() == "Leads to [[5.2 Hess’s law]]\n"
+    out.write_text("my own notes\n")
+    os.utime(out, (note.stat().st_mtime + 60,) * 2)  # edited in the vault after the build: kept
+    publish.publish(vault)
+    assert out.read_text() == "my own notes\n"

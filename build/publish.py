@@ -9,6 +9,9 @@ into the visible folders (Subjects/, Assets/). Existing learner state and events
 from __future__ import annotations
 
 import json
+import os
+import re
+import shlex
 import shutil
 import sys
 from pathlib import Path
@@ -35,12 +38,40 @@ SWITCH_PROFILE = f'''on run argv
 end run'''
 
 
-def launcher_script() -> str:
+def launcher_script(vault: Path | None = None) -> str:
+    """The double-click launcher. A vault other than the default is named, or the app would open the default one."""
+    other = vault is not None and Path(vault).resolve() != DEFAULT_VAULT.resolve()
     return ("#!/bin/bash\n# Opens the STEM Tutor terminal app in a roomy Terminal window.\n"
             '[ "$TERM_PROGRAM" = "Apple_Terminal" ] && osascript - "$(tty)" >/dev/null 2>&1 <<\'APPLESCRIPT\'\n'
             f"{SWITCH_PROFILE}\nAPPLESCRIPT\n"
             "printf '\\e[8;46;140t'\n"
-            f'exec "{ROOT / "bin" / "tutor"}"\n')
+            f'exec "{ROOT / "bin" / "tutor"}"' + (f" --vault {shlex.quote(str(Path(vault).resolve()))}" if other else "")
+            + "\n")
+
+
+WIKILINK = re.compile(r"(?<!!)\[\[([^\]|#]+)([^\]]*)\]\]")
+CHAPTER = re.compile(r"(\d+(\.\d+)?|§\d+) ")  # a link to a syllabus chapter: "5.2 Hess’s law", "4 Differentiation"
+
+
+def _plain(name: str) -> str:
+    return name.replace("’", "'").replace("‘", "'")
+
+
+def link_notes(text: str, names: set[str]) -> str:
+    """Make a note's [[links]] open what is in the vault: "Hess's law" finds "Hess’s law.md", and a link to a chapter
+    not published yet is plain text until it is (clicking it would make an empty note)."""
+    by_plain = {_plain(n): n for n in names}
+
+    def fix(m: re.Match) -> str:
+        target, rest = m.group(1).strip(), m.group(2)
+        if target in names or "/" in target:
+            return m.group(0)
+        if _plain(target) in by_plain:
+            return f"[[{by_plain[_plain(target)]}{rest}]]"
+        if not CHAPTER.match(target):
+            return m.group(0)
+        return rest.split("|", 1)[1] if "|" in rest else target
+    return WIKILINK.sub(fix, text)
 
 
 def publish(vault: Path) -> dict:
@@ -73,6 +104,8 @@ def publish(vault: Path) -> dict:
     papers = BUILD / "papers.json"
     (target / "papers.json").write_text(papers.read_text() if papers.exists() else json.dumps({"papers": []}))
     (target / "manifest.json").write_text(json.dumps({"version": version, "specs": specs, "packs": n_packs}, indent=1))
+    names = {f.stem for f in (BUILD / "notes").rglob("*.md") if str(f.relative_to(BUILD / "notes")) not in held_notes} \
+        | {f.stem for f in vault.rglob("*.md")}
     copied = 0
     for src_root, dest in ((BUILD / "notes", vault), (BUILD / "Assets", vault / "Assets"),
                            (BUILD / "assets", vault / "Assets"), (BUILD / "Papers", vault / "Papers")):
@@ -81,7 +114,16 @@ def publish(vault: Path) -> dict:
         for f in src_root.rglob("*"):
             if f.is_file() and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
                 d = dest / f.relative_to(src_root)
-                if not d.exists() or d.stat().st_mtime < f.stat().st_mtime:
+                if src_root == BUILD / "notes" and f.suffix == ".md":  # links follow what is published
+                    text = link_notes(f.read_text(encoding="utf-8"), names)
+                    # a note you edited in the vault (newer than the build's) is kept
+                    if not d.exists() or (d.stat().st_mtime <= f.stat().st_mtime
+                                          and d.read_text(encoding="utf-8") != text):
+                        d.parent.mkdir(parents=True, exist_ok=True)
+                        d.write_text(text, encoding="utf-8")
+                        os.utime(d, (f.stat().st_atime, f.stat().st_mtime))
+                        copied += 1
+                elif not d.exists() or d.stat().st_mtime < f.stat().st_mtime:
                     d.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(f, d)
                     copied += 1
@@ -89,7 +131,7 @@ def publish(vault: Path) -> dict:
     shutil.rmtree(engine, ignore_errors=True)
     shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", engine, ignore=shutil.ignore_patterns("__pycache__"))
     launcher = vault / "Start Tutor.command"  # double-click in Finder to open the terminal app
-    launcher.write_text(launcher_script())
+    launcher.write_text(launcher_script(vault))
     launcher.chmod(0o755)
     (packs / "CURRENT").write_text(version)  # flip last
     prune_versions(packs, version)

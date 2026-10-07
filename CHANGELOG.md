@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.6.1 — 2026-10-07
+
+A bug and comfort pass, hunted and fixed without the Codex bug watch.
+
+- **Marking:** `2,880kJ` (comma then unit) and `x = 24` / `v = 3.0 m s^-1` (a leading label) are read; an equation
+  `v² = u² + 2as` is marked on its right side (wrong ones stay wrong); `sin^2(x)`, `sinx` read; `30 degrees`,
+  `0.5 M` (for a concentration) and `g dm^{-3}` are right units. A re-marked answer no longer keeps its slip damping.
+  A duplicate event (an iCloud conflict copy of the log) is counted once.
+- **Maths display:** `\mathrm K`, nuclides (`¹⁴₆C`), `Cu²⁺`, `kJ mol⁻¹`, integrals and sums, `\binom`, matrices;
+  units everywhere (options, "Exam point"); `3*x**2` shown as typed; line breaks in data tables kept.
+- **Terminal:** Settings fits and scrolls; ctrl+q goes back a screen (quits only from Home) and asks before losing
+  typed text; Home fits 60–80 columns and 24 rows; footer shows Menu and Help; compact buttons in short windows;
+  Esc says how to leave; the summary cannot be closed by a held ⏎; picker and hint wording fixed; Insights shows no
+  Obsidian markers; the menu keeps your place.
+- **Almanac sync:** your own paper stage is kept; Reset does not bring tutor ticks back; ticks the tutor added are no
+  longer read as ones you claimed (so Today.md and a later re-mark are right).
+- **Notes and tools:** right answers in Mistakes.md use maths, plurals fixed, far-off exams collapsed, plan lines
+  capped; review lessons are titled "Review"; links to unbuilt chapters stay plain text and wrong-apostrophe links
+  are repaired; the iPad import no longer duplicates files; `tutor doctor` counts real events and flags a damaged
+  log or empty content; a launcher for another vault opens that vault.
+
 ## 1.6.0 — 2026-10-04
 
 Asked by the learner.

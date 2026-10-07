@@ -73,5 +73,12 @@ def test_missing_embed_detected(tmp_path):
     assert rules(md, vault_root=tmp_path) == ["missing-embed"]
 
 
+def test_a_link_with_the_other_apostrophe_is_flagged(tmp_path):
+    (tmp_path / "notes").mkdir()
+    (tmp_path / "notes" / "5.2 Hess’s law.md").write_text("# Hess")
+    md = "[[5.2 Hess’s law]] [[6.2 Electrolysis]]\nLeads to [[5.2 Hess's law]]\n"
+    assert rules(md, vault_root=tmp_path) == ["link-apostrophe"]  # a chapter not built yet is not this check's to flag
+
+
 def test_inline_svg_without_viewbox():
     assert "svg-viewbox" in rules('<svg width="300" height="200"><line/></svg>')

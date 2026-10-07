@@ -1,6 +1,7 @@
 """Screens: Home, topic picker, the study session, summary, and small pop-ups (ask, help, settings)."""
 from __future__ import annotations
 
+import re
 import time
 from datetime import date, datetime, timedelta
 
@@ -34,6 +35,19 @@ def bar(done: int, total: int, width: int = 12) -> str:
     return "█" * fill + "░" * (width - fill)
 
 
+def leave_asking_first(screen: Screen, boxes: str) -> None:
+    """Back to the previous screen, but not over something typed without asking: it would be lost."""
+    if not any(w.text.strip() for w in screen.query(boxes)):
+        screen.app.pop_screen()
+        return
+
+    def decided(choice: str | None) -> None:
+        if choice == "leave" and screen.is_current:
+            screen.app.pop_screen()
+    screen.app.push_screen(ConfirmScreen("Leave? Your typed answer will be lost.",
+                                         [("leave", "Leave"), ("stay", "Keep writing")]), decided)
+
+
 # ============================ Home ============================
 MODE_NAMES = {"autopilot": "today's plan", "weak": "weak-spots"}
 SUBJECTS = {"math": "Maths", "chem": "Chem", "phys": "Phys", "exam": "Exam"}
@@ -51,7 +65,17 @@ class HomeScreen(Screen):
                 yield Static(id="stats-text")
         yield Footer()
 
+    def on_resize(self) -> None:
+        self._fit()
+
+    def _fit(self) -> None:
+        """A narrow window drops the side box and gives the menu the width; a short one drops the banner."""
+        w, h = self.app.size
+        self.set_class(w < 84, "narrow")
+        self.set_class(h < 30, "short")
+
     def on_screen_resume(self) -> None:
+        self._fit()
         if self._read_almanac():  # exported while the tutor was open: the plan in Obsidian follows
             report.today_note(self.app.tutor, self.app.settings.minutes)
         self.refresh_home()
@@ -73,6 +97,7 @@ class HomeScreen(Screen):
 
     def on_mount(self) -> None:
         app = self.app
+        self._fit()
         self._read_almanac()
         lessons = app.vault / "Lessons"
         views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(),
@@ -107,6 +132,7 @@ class HomeScreen(Screen):
         now = t.now()
         due = model.due_kcs(t.state, now)
         menu = self.query_one("#menu", OptionList)
+        was = menu.get_option_at_index(menu.highlighted).id if menu.highlighted is not None else None
         menu.clear_options()
         items = []
         if t.session:
@@ -128,7 +154,8 @@ class HomeScreen(Screen):
                   ("settings", "≡  Settings"), ("help", "?  How it works"), ("quit", "×  Quit")]
         for key, label in items:
             menu.add_option(Option(label, id=key))
-        menu.highlighted = 0
+        ids = [key for key, _ in items]
+        menu.highlighted = ids.index(was) if was in ids else 0  # back where you were, not at the top
         menu.focus()
         self.query_one("#stats-text", Static).update(self.stats_text(now, due))
 
@@ -280,13 +307,14 @@ class PickerScreen(ModalScreen):
         built = sorted(s for s in t.packs.subtopics if t.packs.pack(s))
         with Vertical(id="picker"):
             if self.mode == "test":
-                yield Static("Tick the subtopics the test covers (space), then ⏎ on Start.", classes="hint")
+                yield Static("Tick the subtopics the test covers: space to tick, Tab to Start.", classes="hint")
                 yield SelectionList[str](*[Selection(self._label(s), s) for s in built], id="subs")
                 yield Button("Start test prep", id="go", variant="primary")
             else:
-                word = {"lesson": "learn", "long": "practise with long questions",
-                        "blurt": "blurt (write everything you remember about)"}.get(self.mode, "study")
-                yield Static(f"Which subtopic do you want to {word}? (⏎ to choose, Esc to go back)", classes="hint")
+                ask = {"lesson": "Which subtopic do you want to learn?",
+                       "long": "Which subtopic do you want to practise with long questions?",
+                       "blurt": "Pick a subtopic to blurt on."}.get(self.mode, "Which subtopic do you want to study?")
+                yield Static(f"{ask} (⏎ to choose, Esc to go back)", classes="hint")
                 yield OptionList(*[Option(self._label(s), id=s) for s in built], id="subs")
 
     def _label(self, sub: str) -> str:
@@ -310,13 +338,14 @@ class PickerScreen(ModalScreen):
 
 # ============================ Session ============================
 class SessionScreen(Screen):
-    BINDINGS = [Binding("ctrl+t", "ask", "Ask tutor", priority=True), Binding("ctrl+g", "hint", "Hint", priority=True),
-                Binding("ctrl+r", "explain", "Re-explain", priority=True),
-                Binding("ctrl+o", "obsidian", "Obsidian", priority=True),
-                Binding("ctrl+b", "leave", "Save & menu", priority=True),
+    # first in the footer: how to get out and how to get help, so a narrow window still shows them
+    BINDINGS = [Binding("ctrl+b", "leave", "Menu", priority=True), Binding("question_mark", "app.help", "Help"),
+                Binding("ctrl+t", "ask", "Ask", priority=True), Binding("ctrl+g", "hint", "Hint", priority=True),
+                Binding("ctrl+r", "explain", "Explain", priority=True),
+                Binding("ctrl+o", "obsidian", "Notes", priority=True),
                 Binding("ctrl+l", "earlier", "Earlier", priority=True),
                 Binding("t", "ask", show=False), Binding("e", "explain", show=False), Binding("h", "hint", show=False),
-                Binding("o", "obsidian", show=False), Binding("question_mark", "app.help", "Help")]
+                Binding("o", "obsidian", show=False), Binding("escape", "esc", show=False)]
 
     def __init__(self, start: dict | None) -> None:
         super().__init__()
@@ -404,8 +433,7 @@ class SessionScreen(Screen):
         ai_state = "AI ●" if (self.app.settings.ai and a.available) else "AI ○"
         mode = {"lesson": "Lesson", "review": "Review", "test": "Test prep", "long": "Long questions"}.get(
             s.get("mode", ""), s.get("mode", "").title())
-        use = " · ".join(x for x in (f"{a.session.replies} replies",
-                                     f"{a.session.output_tokens + a.session.input_tokens} tok",
+        use = " · ".join(x for x in (f"{a.session.replies} {'reply' if a.session.replies == 1 else 'replies'}",
                                      a.limits_text(self.app.claude_note())) if x)
         head, tail = Text(), Text()
         head.append(" STEM Tutor ", style="bold #1e1e2e on #ffd500")
@@ -845,7 +873,11 @@ class SessionScreen(Screen):
         mac.open_in_obsidian(self.app.vault, "Now", background=False)
 
     def action_leave(self) -> None:
-        self.app.pop_screen()
+        leave_asking_first(self, "#panel TextArea")
+
+    def action_esc(self) -> None:
+        """Esc means "back" everywhere else; here a panel may use it (change an answer, skip), and leaving is ctrl+b."""
+        self.app.notify("ctrl+b saves and returns to the menu.", timeout=4)
 
     def finish(self) -> None:
         summary = self.tutor.end()
@@ -860,11 +892,16 @@ class SessionScreen(Screen):
 
 # ============================ Summary / pop-ups ============================
 class SummaryScreen(ModalScreen):
-    BINDINGS = [Binding("enter", "dismiss(None)", "Back to menu"), Binding("escape", "dismiss(None)", "Back")]
+    BINDINGS = [Binding("enter", "close", "Back to menu"), Binding("escape", "dismiss(None)", "Back")]
 
     def __init__(self, summary: dict) -> None:
         super().__init__()
         self.summary = summary
+        self.opened = time.monotonic()
+
+    def action_close(self) -> None:
+        if time.monotonic() - self.opened >= 0.7:  # not the ⏎ still held down from "Next ⏎": read it first
+            self.dismiss(None)
 
     def compose(self) -> ComposeResult:
         s = self.summary
@@ -876,8 +913,7 @@ class SummaryScreen(ModalScreen):
         text = (f"# Session done 🎉\n\n**Answered:** {s['answered']}  ·  **Correct:** {s['correct']}  ·  **Accuracy:** {acc}\n\n"
                 + (f"## Learned today\n{learned}\n\n" if learned else "")
                 + f"**Due for review by tomorrow:** {len(due)} idea(s)\n\n"
-                + f"**AI used this session:** {a.session.replies} replies, "
-                  f"{a.session.input_tokens + a.session.output_tokens} new tokens ({a.session.cached_tokens} cached)\n\n"
+                + f"**AI replies this session:** {a.session.replies}\n\n"
                 + (f"**New Anki cards ({(s.get('week') or {})['anki']['cards']}):** double-click "
                    f"`{(s.get('week') or {})['anki']['path']}` in the tutor folder to import them.\n\n"
                    if ((s.get("week") or {}).get("anki") or {}).get("path") else "")
@@ -923,6 +959,11 @@ class AskScreen(ModalScreen):
         self.dismiss(event.value.strip() or None)
 
 
+class ChatPanel(TextPanel):
+    """The chat's box: Esc there goes back to the menu, and the footer says so."""
+    BINDINGS = [Binding("escape", "skip", "Back")]
+
+
 class ChatScreen(Screen):
     """Free chat with the tutor from the menu."""
     BINDINGS = [Binding("escape", "app.pop_screen", "Back to menu")]
@@ -931,7 +972,7 @@ class ChatScreen(Screen):
         yield Static(Text(" Ask the tutor ", style="bold #1e1e2e on #f5c2e7"), id="bar")
         yield VerticalScroll(id="log")
         with Container(id="panel"):
-            yield TextPanel("Type a question and ⏎. Esc returns to the menu.")
+            yield ChatPanel("Type a question and ⏎. Esc returns to the menu.")
         yield Footer()
 
     def on_mount(self) -> None:
@@ -978,9 +1019,33 @@ class InsightsScreen(Screen):
 
     def _text(self) -> str:
         t = self.app.tutor
-        return (report.insights_markdown(t, report.load_ai_summary(t)) + "\n---\n\n**a** asks the AI tutor to explain "
-                "this in a few lines (one reply from today's allowance) · **o** opens it in Obsidian · **m** your "
-                "mistake journal · **w** your latest week in review · **Esc** back")
+        return (self._for_terminal(report.insights_markdown(t, report.load_ai_summary(t))) + "\n---\n\n**a** asks the "
+                "AI tutor to explain this in a few lines (one reply from today's allowance) · **o** opens it in "
+                "Obsidian · **m** your mistake journal · **w** your latest week in review · **Esc** back")
+
+    READINESS = {"Exam": "Exam", "Date": "Date", "Ideas": "Ideas", "Secure": "Secure",
+                 "If you stopped now": "Stop", "If you keep reviewing": "Review"}
+
+    @classmethod
+    def _for_terminal(cls, md: str) -> str:
+        """The Profile note is written for Obsidian. Here: callout markers become a bold title, and the readiness
+        table keeps the columns that fit a terminal, with shorter headings."""
+        out, keep = [], None
+        for line in md.splitlines():
+            line = re.sub(r"^>\s*\[!\w+\][-+]?\s*(.*)$",
+                          lambda m: f"> **{m.group(1)}**\n>" if m.group(1) else ">", line)
+            if line.startswith("| Exam |"):
+                heads = [c.strip() for c in line.strip("|").split("|")]
+                keep = [i for i, h in enumerate(heads) if h in cls.READINESS]
+                line = "| " + " | ".join(cls.READINESS[heads[i]] for i in keep) + " |"
+            elif keep is not None and line.startswith("|"):
+                cells = [c.strip() for c in line.strip("|").split("|")]
+                line = "| " + " | ".join(cells[i].replace(" (estimated),", " (est.),") for i in keep
+                                         if i < len(cells)) + " |"
+            else:
+                keep = None
+            out.append(line)
+        return "\n".join(out) + "\n"
 
     def action_ai(self) -> None:
         if not (self.app.settings.ai and self.app.ai.available):
@@ -1038,7 +1103,7 @@ class ProgressScreen(Screen):
             rows += ["", "## How sure vs how right", "", "| You said | Answers | Right |", "|---|---|---|"]
             rows += [f"| {lv['level']} | {lv['n']} | {lv['right']:.0%} |" for lv in cal["levels"]]
         h = p["habits"]
-        rows += ["", "## Habits", "", f"- Streak: {h['streak']} day(s); studied {h['last_28']} of the last 28 days.",
+        rows += ["", "## Habits", "", f"- Streak: {h['streak']} day{'' if h['streak'] == 1 else 's'}; studied {h['last_28']} of the last 28 days.",
                  f"- Reviews due in the next 7 days: {' · '.join(str(x) for x in p['workload'])}."]
         rows += ["", "Esc to go back · o opens the full profile (Profile.md) in Obsidian."]
         with VerticalScroll():
@@ -1053,7 +1118,7 @@ class ProgressScreen(Screen):
 
 class BlurtScreen(Screen):
     """Free recall: write everything you remember, then see what you left out."""
-    BINDINGS = [Binding("ctrl+s", "submit", "Check my blurt"), Binding("escape", "app.pop_screen", "Back")]
+    BINDINGS = [Binding("ctrl+s", "submit", "Check my blurt"), Binding("escape", "leave", "Back")]
 
     def __init__(self, subtopic: str) -> None:
         super().__init__()
@@ -1076,6 +1141,9 @@ class BlurtScreen(Screen):
 
     def on_mount(self) -> None:
         self.query_one("#blurt").focus()
+
+    def action_leave(self) -> None:
+        leave_asking_first(self, "#blurt")  # once checked, the blurt is saved and the box is gone
 
     @on(Button.Pressed, "#check")
     def action_submit(self) -> None:
@@ -1106,13 +1174,18 @@ class HelpScreen(ModalScreen):
                 Binding("o", "guide", "Open the full guide")]
 
     def compose(self) -> ComposeResult:
-        text = """# Keys
+        text = """_↑↓ to scroll · Esc or ⏎ closes_
+# Keys
 **↑ ↓** move · **⏎** choose / continue · **A–D** pick an option · **0** I don't know · **1–4** confidence
 (1 guess, 2 unsure, 3 fairly sure, 4 certain) · **space** tick a box
 
 **ctrl+t** ask the tutor (AI) · **ctrl+r** explain this idea again, differently (AI) · **ctrl+g** hint (not on
-no-hints checks) · **ctrl+o** show the current question or explanation in Obsidian · **ctrl+b** or **ctrl+q** save
-and go back to the menu. These work even while you are typing; when you are not typing, **t e h o** do the same.
+no-hints checks) · **ctrl+o** show the current question or explanation in Obsidian · **ctrl+l** bring back what
+was said earlier (after you answer) · **ctrl+b** or **ctrl+q** save and go back to the menu. These work even while
+you are typing; when you are not typing, **t e h o** do the same.
+
+Typing: **⏎** sends a short answer · **ctrl+j** starts a new line · **ctrl+s** submits a long answer or a blurt.
+
 **?** this help · **F2** settings · **q** quit (from the menu)
 
 # Where to look
@@ -1133,7 +1206,7 @@ class SettingsScreen(ModalScreen):
 
     def compose(self) -> ComposeResult:
         s = self.app.settings
-        with Vertical(id="settings"):
+        with VerticalScroll(id="settings"):  # a short window scrolls to Save instead of cutting it off
             yield Static("Settings (saved in your tutor folder)", classes="title")
             for key, label in (("ai", "AI tutor (asking, explaining, judging written answers)"),
                                ("own_words_feedback", "AI comments on your 'in your own words' answers"),
@@ -1143,25 +1216,29 @@ class SettingsScreen(ModalScreen):
                     yield Static(label)
             with Horizontal(classes="row"):
                 yield Select([("Haiku (cheapest, fast)", "haiku"), ("Sonnet (clearer, ~3x usage)", "sonnet")],
-                             value=s.model, id="model", allow_blank=False)
+                             value=s.model, id="model", allow_blank=False, compact=True)
             with Horizontal(classes="row"):
-                yield Static("Session length (minutes): ")
-                yield Input(str(s.minutes), id="minutes", type="integer")
+                yield Static("Session length (minutes, 5 to 180)")
+                yield Input(str(s.minutes), id="minutes", type="integer", compact=True)
             yield Button("Save", id="save", variant="primary")
+
+    def on_mount(self) -> None:
+        self.query_one("#ai", Switch).focus()  # the first setting, not the scrolling box around them
 
     @on(Button.Pressed, "#save")
     def save(self) -> None:
         s = self.app.settings
         for key in ("ai", "own_words_feedback", "open_obsidian"):
             setattr(s, key, self.query_one(f"#{key}", Switch).value)
-        def num(wid: str, default: int, lo: int, hi: int) -> int:
-            try:
-                return min(hi, max(lo, int(self.query_one(wid, Input).value)))
-            except ValueError:
-                return default
-        old_model = s.model
+        old_model, typed = s.model, self.query_one("#minutes", Input).value.strip()
         s.model = str(self.query_one("#model", Select).value)
-        s.minutes = num("#minutes", 40, 5, 180)
+        try:
+            s.minutes = min(180, max(5, int(typed)))
+        except ValueError:  # blank or not a number: the length you had stays
+            self.app.notify(f"Session length kept at {s.minutes} minutes.", timeout=5)
+        else:
+            self.app.notify(f"Session length set to {s.minutes} minutes"
+                            + (" (5 to 180)." if str(s.minutes) != typed else "."), timeout=5)
         s.save(self.app.vault)
         self.app.ai.model = s.model
         if s.model != old_model:

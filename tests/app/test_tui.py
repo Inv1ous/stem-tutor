@@ -33,6 +33,7 @@ async def drive_lesson(pilot, app, max_steps=120):
         if scr.__class__.__name__ == "SummaryScreen":
             seen.append("summary")
             await shot(pilot, "summary")
+            await pilot.pause(0.75)  # the summary ignores a ⏎ that arrives with it (key repeat from "Next ⏎")
             await pilot.press("enter")
             await pilot.pause()
             break
@@ -228,6 +229,9 @@ def test_ctrl_keys_work_while_typing_and_ctrl_q_returns_to_menu(tmp_path, monkey
             await pilot.press("escape")
             await pilot.pause()
             await pilot.press("ctrl+q")
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "ConfirmScreen"  # "4" is typed in the box: asked before it is lost
+            await pilot.press("enter")  # Leave
             await pilot.pause()
             assert app.screen.__class__.__name__ == "HomeScreen" and app.is_running
             await app.ai.close()
@@ -501,12 +505,16 @@ def test_at_half_a_screen_everything_lines_up_and_fits(tmp_path, monkeypatch):
                 await pilot.pause()
                 buttons = list(scr.query("#panel Button"))
                 assert [b.id for b in buttons] in (["next", "why", "ask"], ["next", "why", "remark", "ask"])
-                assert {(b.region.y, b.region.height) for b in buttons} == {(buttons[0].region.y, 3)}  # one row of buttons
+                assert {(b.region.y, b.region.height) for b in buttons} == {(buttons[0].region.y, 1)}  # one row of
+                # buttons, one line high: a window 24 rows high keeps its room for the log
                 assert all(b.region.width <= max(16, len(str(b.label)) + 4) and b.region.right <= 100 for b in buttons)
                 assert len(card_edge()) == 1
                 scr.tutor.respond({})
                 scr.advance()
                 await pilot.pause()
+            for _ in range(12):  # the compact panel leaves the log room: fill it until it scrolls
+                scr.say("more")
+            await pilot.pause()
             assert log.show_vertical_scrollbar and log.vertical_scrollbar.region.right == 100  # flush with the edge
             await app.ai.close()
     asyncio.run(go())
@@ -535,11 +543,12 @@ def test_a_resize_clears_what_the_terminal_kept_beyond_the_new_edge(tmp_path, mo
 
 def test_the_home_screens_side_box_fits_and_scrolls(tmp_path, monkeypatch):
     """With 22 chapters the box of dates and topics ran off the bottom of the window: its bottom edge was gone, and
-    the AI line and the version under the topics could not be reached."""
+    the AI line and the version under the topics could not be reached. (A window under 30 rows drops the banner, so
+    the test window is made short enough for the fixture's one chapter to overflow the box.)"""
     app, v = app_for(tmp_path, monkeypatch)
 
     async def go():
-        async with app.run_test(size=(100, 24)) as pilot:
+        async with app.run_test(size=(100, 18)) as pilot:
             await pilot.pause()
             box, home = app.screen.query_one("#stats"), app.screen.query_one("#home")
             assert box.region.bottom <= home.region.bottom  # the whole box, bottom edge included, is on screen
@@ -899,7 +908,7 @@ def test_the_top_bar_goes_whole_onto_a_second_line_when_the_window_is_narrow(tmp
             assert "\n" not in wide and "STEM Tutor" in wide and "replies" in wide and "5h" not in wide
             narrow = scr.bar_text(60).plain.split("\n")
             assert len(narrow) == 2 and "STEM Tutor" in narrow[0] and "Lesson" in narrow[0]
-            assert "⏱" in narrow[1] and "✓" in narrow[1] and "replies" in narrow[1] and "tok" in narrow[1]
+            assert "⏱" in narrow[1] and "✓" in narrow[1] and "replies" in narrow[1] and "tok" not in narrow[1]
             assert all(cell_len(line) <= 60 for line in narrow)
             tiny = scr.bar_text(30).plain.split("\n")
             assert len(tiny) == 2 and all(cell_len(line) <= 30 for line in tiny) and tiny[0].endswith("…")

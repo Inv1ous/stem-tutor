@@ -596,3 +596,74 @@ def test_the_same_quantity_in_a_tidier_unit_is_the_same_answer():
     assert units.unit_readings("kw", "W") == ([1000.0], True) and units.unit_readings("xyz", "W") == ([], False)
     assert units.unit_readings("kW of input", "W") == ([1000.0], False)
     assert sorted(units.unit_readings("mw", "W")[0]) == [0.001, 1e6]  # milli or mega: the answer decides
+
+
+# ---------- hunter batch after 1.6.0 ----------
+@pytest.mark.parametrize("text,value,unit", [("2,880kJ", 2880.0, "kJ"), ("2,880 kJ", 2880.0, "kJ"),
+                                             ("1,000m", 1000.0, "m"), ("12,345,678 J", 12345678.0, "J")])
+def test_a_thousands_comma_holds_when_the_unit_touches_the_number(text, value, unit):
+    got, got_unit, _ = grade.parse_quantity(text)
+    assert got == pytest.approx(value) and got_unit == unit
+
+
+@pytest.mark.parametrize("text", ["1,5", "2,88", "2,8800"])
+def test_a_comma_that_is_not_a_thousands_separator_is_still_unreadable(text):
+    with pytest.raises(grade.ParseError):
+        grade.parse_quantity(text)
+
+
+@pytest.mark.parametrize("text,value,unit", [("x = 24", 24.0, ""), ("x=24", 24.0, ""), ("v = 3.0 m s^-1", 3.0, "m s^-1"),
+                                             ("v_0 = -2 m", -2.0, "m"), ("E = 2.5×10³ J", 2500.0, "J")])
+def test_a_variable_label_before_the_value_is_read_past(text, value, unit):
+    got, got_unit, _ = grade.parse_quantity(text)
+    assert got == pytest.approx(value) and got_unit == unit
+
+
+def test_a_labelled_value_is_marked_not_refused():
+    item = {"kind": "numeric", "stem": "Find the speed.", "answer": {"value": 3.0, "unit": "m s^-1"}}
+    assert grade.value_problem(item, "v = 3.0 m s^-1") is None
+    assert grade.grade_item(item, {"kind": "value", "value": "v = 3.0 m s^-1"})["correct"]
+    plain = {"kind": "numeric", "stem": "Solve for x.", "answer": {"value": 24.0}}
+    assert grade.value_problem(plain, "x = 24") is None and grade.grade_item(plain, {"kind": "value", "value": "x=24"})["correct"]
+    for text in ("5 = 5", "x = y = 24", "x = "):
+        assert grade.value_problem(plain, text) == "unreadable", text
+
+
+SUVAT = {"kind": "expression", "answer": {"expr": "u**2 + 2*a*s"}, "marks": 3}  # 9702-2.1-i24: "write v^2 in terms of"
+
+
+@pytest.mark.parametrize("typed", ["v^2 = u^2+2as", "v² = u² + 2as", "v^2=2as+u^2", "u^2 + 2as"])
+def test_an_answer_written_as_an_equation_for_the_subject_is_marked(typed):
+    assert grade.expression_readable(typed)
+    assert grade.grade_item(SUVAT, {"kind": "value", "value": typed})["correct"]
+
+
+@pytest.mark.parametrize("typed", ["v^2 = u^2 - 2as", "v^2 = u + 2as", "a = u^2 + 2as", "v^2 + 1 = u^2 + 2as"])
+def test_a_wrong_equation_is_still_not_right(typed):
+    assert not grade.grade_item(SUVAT, {"kind": "value", "value": typed})["correct"]
+
+
+def test_an_equation_key_is_compared_side_by_side():
+    assert grade.expressions_equal("y = 2x + 1", "y = 1 + 2*x")
+    assert grade.expressions_equal("2x + 1", "y = 1 + 2*x")
+    assert not grade.expressions_equal("z = 2x + 1", "y = 1 + 2*x")
+
+
+@pytest.mark.parametrize("given,expected", [("sin^2(x)", "sin(x)^2"), ("sin²x", "sin(x)^2"), ("sin^2 x + cos^2 x", "1"),
+                                            ("sinx", "sin(x)"), ("lnx", "log(x)"), ("2cosx", "2*cos(x)"),
+                                            ("tantheta", "tan(theta)"), ("sinh x", "sinh(x)")])
+def test_function_powers_and_unspaced_arguments_read_as_written(given, expected):
+    assert grade.expression_readable(given) and grade.expressions_equal(given, expected)
+
+
+def test_unit_spellings_of_the_right_unit():
+    deg = {"kind": "numeric", "stem": "Find the angle.", "answer": {"value": 30.0, "unit": "°"}}
+    for typed in ("30 °", "30°", "30 degrees", "30 deg", "30 degree"):
+        assert grade.grade_item(deg, {"kind": "value", "value": typed})["correct"], typed
+    for unit in ("mol dm^-3", "mol/dm3", "mol dm-3"):
+        conc = {"kind": "numeric", "stem": "Find the concentration.", "answer": {"value": 0.5, "unit": unit}}
+        assert grade.grade_item(conc, {"kind": "value", "value": "0.5 M"})["correct"], unit
+    mass = {"kind": "numeric", "stem": "Find the mass.", "answer": {"value": 0.5, "unit": "kg"}}
+    assert not grade.grade_item(mass, {"kind": "value", "value": "0.5 M"})["correct"]  # M alone is no unit of mass
+    gdm = {"kind": "numeric", "stem": "Find the mass concentration.", "answer": {"value": 12.0, "unit": "g dm^-3"}}
+    assert grade.grade_item(gdm, {"kind": "value", "value": "12 g dm^{-3}"})["correct"]

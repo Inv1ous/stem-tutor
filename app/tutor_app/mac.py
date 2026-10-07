@@ -48,19 +48,29 @@ def import_ipad_inbox(vault: Path, inbox: Path) -> list[str]:
     if not inbox.exists():
         return []
     moved = []
-    dest = vault / "Inbox"
+    dest, done = vault / "Inbox", inbox / "Imported"
     dest.mkdir(exist_ok=True)
-    for f in sorted(inbox.iterdir()):  # raises if macOS privacy settings block iCloud Drive: the caller warns
-        if f.is_file() and f.suffix.lower() in (".pdf", ".png", ".jpg", ".jpeg", ".heic") and not f.name.startswith("."):
-            target = _unused(dest, f.name)
-            try:
-                shutil.copy2(f, target)
-            except OSError:  # unreadable (still downloading from iCloud?): leave it for next time
-                target.unlink(missing_ok=True)
-                continue
-            (inbox / "Imported").mkdir(exist_ok=True)
-            f.rename(_unused(inbox / "Imported", f.name))
-            moved.append(target.name)
+    files = [f for f in sorted(inbox.iterdir())  # raises if macOS privacy settings block iCloud Drive: the caller warns
+             if f.is_file() and f.suffix.lower() in (".pdf", ".png", ".jpg", ".jpeg", ".heic")
+             and not f.name.startswith(".")]
+    try:
+        if files:
+            done.mkdir(exist_ok=True)
+    except OSError:  # nowhere to put the originals: copying would import them again on every launch
+        return []
+    for f in files:
+        target = _unused(dest, f.name)
+        try:
+            shutil.copy2(f, target)
+        except OSError:  # unreadable (still downloading from iCloud?): leave it for next time
+            target.unlink(missing_ok=True)
+            continue
+        try:
+            f.rename(_unused(done, f.name))
+        except OSError:  # the original can't be moved aside: drop the copy, or the next launch copies it again
+            target.unlink(missing_ok=True)
+            continue
+        moved.append(target.name)
     return moved
 
 
@@ -140,9 +150,23 @@ def doctor(vault: Path) -> list[tuple[bool, str, str]]:
     rows.append((tutor_dir.exists(), f"Tutor folder: {vault}",
                  "" if tutor_dir.exists() else "Run the build's publish step, or set STEM_TUTOR_VAULT."))
     if tutor_dir.exists():
-        cur = (tutor_dir / "packs" / "CURRENT").read_text().strip() if (tutor_dir / "packs" / "CURRENT").exists() else "?"
-        events = sum(1 for f in (tutor_dir / "events").glob("*.jsonl") for _ in open(f, "rb")) if (tutor_dir / "events").exists() else 0
-        rows.append((cur != "?", f"Content packs: {cur}; {events} study events recorded", ""))
+        from tutorlib import store
+        try:
+            cur = (tutor_dir / "packs" / "CURRENT").read_text().strip()
+        except OSError:
+            cur = ""
+        try:
+            v = store.Vault(vault)
+            events, bad = sum(1 for _ in v.events()), getattr(v, "bad_lines", [])
+        except (OSError, ValueError):
+            events, bad = 0, ["the history could not be read"]
+        rows.append((bool(cur), f"Content packs: {cur or 'none published'}; {events} study events recorded",
+                     "" if cur else "Run the build's publish step."))
+        if bad:
+            rows.append((False, f"Study history: {len(bad)} damaged line{'s' if len(bad) != 1 else ''} skipped "
+                         f"({', '.join(bad[:3])}{', …' if len(bad) > 3 else ''})",
+                         "Cut off mid-save (a crash?); everything else is read. If answers are missing, restore that "
+                         "file from a backup."))
     reg = obsidian_vault_registered(vault)
     rows.append((bool(reg), "Obsidian can show these notes" + (" (inside a larger vault)" if reg == "inside" else ""),
                  "" if reg else "In Obsidian: Open another vault → Open folder as vault → choose the 'STEM Tutor' folder."))

@@ -43,15 +43,25 @@ Composer { height: auto; min-height: 3; max-height: 10; }
 #picker, Vertical#ask, #summary, #help, #settings { width: 90; max-width: 95%; height: auto; max-height: 90%;
   border: round $accent; background: $surface; padding: 1 2; }
 PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
+#help { padding: 0 2; }
+#help MarkdownH1 { margin: 1 0 0 0; }
 #settings .row { height: auto; margin: 0 0 1 0; }
+#settings .row > Static { width: 1fr; }
+#settings Switch { border: none; padding: 0 1; margin-right: 1; }
+#settings Switch:focus { border: none; background: $accent 40%; }
+#settings #minutes { width: 10; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
+HomeScreen.narrow #stats { display: none; }
+HomeScreen.narrow #menu { width: 1fr; }
+HomeScreen.short #banner { display: none; }
 """
 
 
 class TutorApp(App):
     TITLE = "STEM Tutor"
     CSS = CSS
-    BINDINGS = [Binding("ctrl+c", "quit", "Quit", show=False),
+    ENABLE_COMMAND_PALETTE = False
+    BINDINGS = [Binding("ctrl+c", "smart_quit", "Quit", show=False),
                 Binding("ctrl+q", "smart_quit", "Quit", show=False, priority=True)]
 
     def __init__(self, vault: Path | None = None, claude_binary: str | None = None, open_obsidian: bool | None = None,
@@ -120,12 +130,19 @@ class TutorApp(App):
         return note
 
     def action_smart_quit(self) -> None:
-        """ctrl+q: inside a session it saves and returns to the menu; on the menu it quits."""
-        from .screens import SessionScreen
-        if isinstance(self.screen, SessionScreen):
-            self.screen.action_leave()
-        else:
+        """ctrl+q / ctrl+c: on the menu it quits; anywhere else it saves and goes back a screen, asking first if
+        something typed would be lost."""
+        from textual.screen import ModalScreen
+        from .screens import HomeScreen
+        scr = self.screen
+        if isinstance(scr, HomeScreen) or len(self.screen_stack) <= 2:
             self.exit()
+        elif hasattr(scr, "action_leave"):
+            scr.action_leave()
+        elif isinstance(scr, ModalScreen):
+            scr.dismiss(None)
+        else:
+            self.pop_screen()
 
     async def on_unmount(self) -> None:
         if hasattr(self, "ai"):

@@ -120,6 +120,16 @@ def test_today_note_counts_almanac_ticks_and_follows_you_ahead(tutor):
     assert "Kinematics" not in text.split("## ")[-1]  # week 5's objectives are no longer the ones listed
 
 
+def test_a_tick_the_tutor_put_in_the_almanac_is_not_read_back_as_the_learners(tutor):
+    folder = tutor.vault.root / "Almanac"
+    folder.mkdir()
+    (folder / "almanac-progress-2026-09-29.json").write_text(
+        json.dumps({"done": {"5-phys1": 1}, "tutor": {"stamp": "s", "done": {"5-phys1": 1}}}))
+    assert tutor.ticks() == frozenset()  # no longer earned here: the tutor's own tick does not hold it up
+    text = (tutor.vault.root / report.today_note(tutor)).read_text()
+    assert "ticked in your Almanac" not in text and "**Learn**" in text
+
+
 def test_the_almanac_file_holds_everything_the_tutor_knows(tutor, tmp_path):
     """Asked by the learner: fill in the whole Almanac for me (ticks, colours, the wall, mistakes, the week's
     retrospective, the paper stage) and keep it up to date as I study."""
@@ -147,3 +157,58 @@ def test_nothing_is_written_when_the_planner_is_not_on_this_machine(tutor):
 def test_paper_results_fill_the_almanacs_mark_bank(tutor):
     tutor.paper_score("9702_s23_qp_22", "1a=2/2, 1b=1/3")
     assert report.almanac_payload(tutor)["scores"] == {"phys-P2": 36}  # 3 of 5, on the bank's 60 marks
+
+
+def test_right_answers_in_the_notes_are_written_as_maths():
+    assert report.note_answer("9.00 m s^-2") == "9.00 m s$^{-2}$"
+    assert report.note_answer("7.46e10 Pa") == "7.46 × 10$^{10}$ Pa"
+    assert report.note_answer("C: 10.3 N m⁻¹") == "C: 10.3 N m$^{-1}$"
+    assert report.note_answer("D: $(1,4)$") == "D: $(1,4)$"  # already maths: left alone
+
+
+def test_a_clipped_question_says_it_goes_on():
+    assert report._clip_math("A trolley moves through a\nfield. Find x.") == "A trolley moves through a…"
+    assert report._clip_math("Find $x$.") == "Find $x$."
+
+
+def test_one_mistake_is_one_mistake(tutor):
+    _study(tutor, wrong=True)
+    text = (tutor.vault.root / report.mistakes_note(tutor)).read_text()
+    n = sum(line.startswith("- **") for line in text.splitlines())
+    assert text.splitlines()[3].startswith(f"{n} mistake{'s' if n != 1 else ''} · ")
+    assert "^-" not in text  # units are written as maths
+
+
+def test_profile_counts_read_as_english(tutor):
+    _study(tutor, wrong=True)
+    text = report.insights_markdown(tutor)
+    assert "1 study day " in text and "1 sessions" not in text and "day(s)" not in text
+    assert "Current streak: 1 day." in text
+
+
+def test_far_off_exams_not_started_share_one_line(tutor, monkeypatch):
+    from tutorlib import insights
+    row = {"date": "2027-05-15", "estimated": False, "ideas": 3, "built": 1, "started": 0, "secure": 0,
+           "recall_if_stop": None, "recall_if_keep": None}
+    monkeypatch.setattr(insights, "readiness", lambda t: [
+        {**row, "exam": "Near", "days": 200}, {**row, "exam": "Far A", "date": "2028-05-15", "days": 590},
+        {**row, "exam": "Far B", "date": "2028-05-15", "days": 590},
+        {**row, "exam": "Far but begun", "date": "2028-05-15", "days": 590, "started": 2}])
+    text = report.insights_markdown(tutor)
+    assert "| Near |" in text and "| Far but begun |" in text and "| Far A |" not in text
+    assert "Later, not started yet: Far A, Far B (from 2028-05-15)." in text
+
+
+def test_today_names_a_few_ideas_per_line_and_counts_the_rest(tutor, monkeypatch):
+    from tutorlib import policy
+    kcs = sorted(tutor.packs.kcs)
+    monkeypatch.setattr(report, "TODAY_KCS", len(kcs) - 1)
+    monkeypatch.setattr(policy, "plan_session", lambda *a, **k: [{"kind": "review", "kcs": kcs}])
+    text = (tutor.vault.root / report.today_note(tutor)).read_text()
+    line = next(l for l in text.splitlines() if l.startswith("- **Review**"))
+    assert kcs[-1] not in line and line.endswith(f"{tutor.packs.kc(kcs[-2])['title']} +1 more")
+
+
+def test_a_review_lesson_is_not_titled_review_review(tutor):
+    tutor.start("review", minutes=10)
+    assert tutor.session["log"].endswith(" Review.md")

@@ -98,8 +98,7 @@ class ChoicePanel(Panel):
         yield _hint(f"Q{self.n}: choose with ↑↓ and ⏎ (or press A–D).  0 = I don't know.  Full question: Now in Obsidian (o).")
         opts = [Option(f"[b]{k}[/b]  {escape(to_terminal(v))}".rstrip(), id=k) for k, v in self.options.items()]
         yield OptionList(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
-        yield Composer(placeholder="✎ optional note: why you chose it (Tab to reach; ⏎ goes back to the list)",
-                       id="note", compact=True)
+        yield Composer(placeholder="✎ optional note (Tab)", id="note", compact=True)  # its ⏎: back to the list
 
     def action_letter(self, letter: str) -> None:
         if self.choice is None and (letter in self.options or letter == DONT_KNOW):
@@ -282,14 +281,19 @@ class ContinuePanel(Panel):
         if self.prompt:
             yield _hint(self.prompt)
         rows = self.rows()
-        self.shape = [len(r) for r in rows]
+        self.shape = self._shape(rows)
         for row in rows:
             with Horizontal(classes="buttons"):
                 for bid, label in row:
-                    yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")
+                    yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default",
+                                 compact=self.shape[1])
+
+    def _shape(self, rows) -> tuple:
+        """How many buttons on each row, and whether they are one line high (a short window: the log keeps room)."""
+        return [len(r) for r in rows], self.app.size.height < 30
 
     async def on_resize(self) -> None:
-        if [len(r) for r in self.rows()] != getattr(self, "shape", None):  # the window changed: lay the rows out again
+        if self._shape(self.rows()) != getattr(self, "shape", None):  # the window changed: lay the rows out again
             held = self.screen.focused.id if self.screen.focused in self.query(Button) else None
             await self.recompose()
             if held:
@@ -370,7 +374,8 @@ class ReflectPanel(Panel):
         self.slip_likely, self.remark = slip_likely, remark
 
     def compose(self) -> ComposeResult:
-        yield _hint("Why did you miss it? (1–5, or Esc to skip) — this tunes your profile and advice."
+        yield _hint(f"Why did you miss it? (1–{6 if self.remark else 5}, or Esc to skip) — this tunes your profile "
+                    "and advice."
                     + ("  It was quick on an idea you usually get: a slip?" if self.slip_likely else ""))
         options = [Option(f"{i}  {label}", id=code) for i, (code, label) in enumerate(self.CODES.items(), 1)]
         if self.remark:

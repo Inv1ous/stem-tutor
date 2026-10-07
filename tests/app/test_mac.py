@@ -115,3 +115,49 @@ def test_a_blocked_downloads_folder_is_an_error_not_silence(tmp_path):
 def test_tests_never_see_the_real_downloads_folder():
     from tutor_app import config
     assert config.DOWNLOADS != Path.home() / "Downloads"
+
+
+def test_an_original_that_cannot_be_moved_aside_is_not_imported_again_and_again(tmp_path):
+    vault, inbox = tmp_path / "vault", tmp_path / "ipad"
+    vault.mkdir()
+    (inbox / "Imported").mkdir(parents=True)
+    (inbox / "a.pdf").write_text("A")
+    inbox.chmod(0o555)  # readable, but the original can't be moved into Imported
+    try:
+        for _ in range(2):
+            assert mac.import_ipad_inbox(vault, inbox) == []
+    finally:
+        inbox.chmod(0o755)
+    assert list((vault / "Inbox").iterdir()) == []  # no "a 2.pdf", "a 3.pdf"… one per launch
+    (inbox / "Imported").rmdir()
+    (inbox / "Imported").write_text("a file where the folder should be")
+    assert mac.import_ipad_inbox(vault, inbox) == [] and list((vault / "Inbox").iterdir()) == []
+
+
+def _doctor(vault, monkeypatch):
+    monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})
+    return {check.split(":")[0]: (ok, check, fix) for ok, check, fix in mac.doctor(vault)}
+
+
+def test_doctor_counts_events_as_the_tutor_reads_them_and_warns_of_damaged_lines(tmp_path, monkeypatch):
+    from fixtures import make_vault
+    vault = make_vault(tmp_path)
+    events = vault / ".tutor/events"
+    events.mkdir(parents=True, exist_ok=True)
+    (events / "2026-09.jsonl").write_text('{"id": "a", "type": "x"}\n\n{"id": "b", "ty\n')  # a blank and a torn line
+    rows = _doctor(vault, monkeypatch)
+    ok, check, _ = rows["Content packs"]
+    assert ok and check.endswith("; 1 study events recorded")
+    assert not rows["Study history"][0] and "1 damaged line skipped (2026-09.jsonl:3)" in rows["Study history"][1]
+    (vault / ".tutor/packs/CURRENT").write_text("\n")  # an empty pointer is no published pack
+    assert not _doctor(vault, monkeypatch)["Content packs"][0]
+    (vault / ".tutor/packs/CURRENT").unlink()
+    assert "none published" in _doctor(vault, monkeypatch)["Content packs"][1]
+
+
+def test_doctor_without_a_tutor_folder_does_not_say_the_tutor_still_runs(tmp_path, capsys, monkeypatch):
+    from tutor_app import __main__ as cli
+    monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})
+    cli.main(["doctor", "--vault", str(tmp_path / "nowhere")])
+    out = capsys.readouterr().out
+    assert "still runs" not in out and "can't start without its folder" in out

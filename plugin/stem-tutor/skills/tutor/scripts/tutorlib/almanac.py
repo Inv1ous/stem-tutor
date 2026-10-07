@@ -29,9 +29,13 @@ def _state(root: Path) -> dict:
 
 
 def ticks(root: Path) -> frozenset[str]:
-    """Ids of the objectives the learner ticked in the Almanac."""
-    done = _state(root).get("done")
-    return frozenset(k for k, v in done.items() if v) if isinstance(done, dict) else frozenset()
+    """Ids of the objectives the learner ticked in the Almanac. Ticks the tutor put there itself (kept apart in the
+    page's `tutor.done`) are not the learner's claims: whether those still count is the tutor's to decide."""
+    state = _state(root)
+    done, tutor = state.get("done"), state.get("tutor")
+    theirs = tutor.get("done") if isinstance(tutor, dict) else None
+    theirs = theirs if isinstance(theirs, dict) else {}
+    return frozenset(k for k, v in done.items() if v and k not in theirs) if isinstance(done, dict) else frozenset()
 
 
 def exam_dates(root: Path) -> dict[int, str]:
