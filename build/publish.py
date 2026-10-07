@@ -17,6 +17,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "plugin/stem-tutor/skills/tutor/scripts"))
+from tutorlib import store  # noqa: E402
 BUILD = ROOT / "build/out"
 DEFAULT_VAULT = ROOT.parent / "STEM Tutor"  # local vault (moved out of iCloud 2026-09-29)
 FOLDERS = ["Subjects", "Assets", "Sessions", "Lessons", "My Notes", "Inbox", "Inbox/Marked", "Anki", "Almanac", "Papers"]
@@ -106,8 +108,8 @@ def publish(vault: Path) -> dict:
             n_packs += 1
     shutil.copy2(BUILD / "plan.json", target / "plan.json")
     papers = BUILD / "papers.json"
-    (target / "papers.json").write_text(papers.read_text() if papers.exists() else json.dumps({"papers": []}))
-    (target / "manifest.json").write_text(json.dumps({"version": version, "specs": specs, "packs": n_packs}, indent=1))
+    store.write_text(target / "papers.json", papers.read_text() if papers.exists() else json.dumps({"papers": []}))
+    store.write_text(target / "manifest.json", json.dumps({"version": version, "specs": specs, "packs": n_packs}, indent=1))
     os.replace(target, packs / version)
     names = {f.stem for f in (BUILD / "notes").rglob("*.md") if str(f.relative_to(BUILD / "notes")) not in held_notes} \
         | {f.stem for f in vault.rglob("*.md")}
@@ -133,12 +135,18 @@ def publish(vault: Path) -> dict:
                     shutil.copy2(f, d)
                     copied += 1
     engine = tutor / "engine"  # remote Cowork runs the engine inside the connected folder (device_bash)
-    shutil.rmtree(engine, ignore_errors=True)
-    shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", engine, ignore=shutil.ignore_patterns("__pycache__"))
+    new, old = tutor / "engine.new", tutor / "engine.old"  # copied aside and swapped in: never half an engine
+    shutil.rmtree(new, ignore_errors=True)
+    shutil.rmtree(old, ignore_errors=True)
+    shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", new, ignore=shutil.ignore_patterns("__pycache__"))
+    if engine.exists():
+        os.replace(engine, old)
+    os.replace(new, engine)
+    shutil.rmtree(old, ignore_errors=True)
     launcher = vault / "Start Tutor.command"  # double-click in Finder to open the terminal app
-    launcher.write_text(launcher_script(vault))
+    store.write_text(launcher, launcher_script(vault))
     launcher.chmod(0o755)
-    (packs / "CURRENT").write_text(version)  # flip last
+    store.write_text(packs / "CURRENT", version)  # flip last
     prune_versions(packs, version)
     return {"version": version, "specs": len(specs), "packs": n_packs, "held": sorted(hold), "files_copied": copied}
 

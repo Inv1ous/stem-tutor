@@ -178,3 +178,42 @@ def test_a_published_note_links_once_its_target_is_published(tmp_path, monkeypat
     os.utime(out, (note.stat().st_mtime + 60,) * 2)  # edited in the vault after the build: kept
     publish.publish(vault)
     assert out.read_text() == "my own notes\n"
+
+
+def test_a_publish_that_fails_midway_leaves_the_engine_and_pointers_whole(tmp_path, monkeypatch):
+    """The engine is copied aside and swapped in; CURRENT and the launcher are replaced, never written in place."""
+    import pathlib
+    import pytest
+    _build(tmp_path, monkeypatch)
+    (tmp_path / "plugin/stem-tutor/skills/tutor/scripts/tutor.py").write_text("v1\n")
+    vault = tmp_path / "vault"
+    publish.publish(vault)
+    engine, launcher, current = vault / ".tutor/engine", vault / "Start Tutor.command", vault / ".tutor/packs/CURRENT"
+    before = launcher.read_text()
+    (tmp_path / "plugin/stem-tutor/skills/tutor/scripts/tutor.py").write_text("v2\n")
+
+    def no_copy(*a, **k):
+        raise OSError("disk full")
+    with monkeypatch.context() as m:
+        m.setattr(publish.shutil, "copytree", no_copy)
+        with pytest.raises(OSError):
+            publish.publish(vault)
+    assert (engine / "tutor.py").read_text() == "v1\n"  # the old engine still runs
+    real_write = pathlib.Path.write_text
+
+    def torn(self, text, *a, **k):
+        if self.name in ("CURRENT", "Start Tutor.command"):
+            real_write(self, text[:3], *a, **k)
+            raise OSError("disk full")
+        return real_write(self, text, *a, **k)
+    for name in ("CURRENT", "Start Tutor.command"):
+        with monkeypatch.context() as m:
+            m.setattr(pathlib.Path, "write_text", torn)
+            if name == "CURRENT":
+                m.setattr(publish, "launcher_script", lambda v: before)
+            try:
+                publish.publish(vault)
+            except OSError:
+                pass
+    assert launcher.read_text() == before and current.read_text() in ("v1", "v2", "v3", "v4")
+    assert (engine / "tutor.py").read_text() == "v2\n" and not (vault / ".tutor/engine.new").exists()
