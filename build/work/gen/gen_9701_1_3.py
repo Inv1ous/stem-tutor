@@ -251,7 +251,7 @@ mcq([2], 1, "State", r"How many orbitals are there in a d sub-shell?", ["1", "3"
 num([2], 2, "Calculate", r"A sub-shell contains [[o]] orbitals. Calculate the maximum number of electrons it can hold.",
     None, r"Each orbital holds a maximum of two electrons, so the capacity is $2\times$ the number of orbitals.",
     ["Think about how many electrons one orbital can hold.", "Multiply the number of orbitals by the capacity of a single orbital.",
-     "Capacity of the sub-shell $=2\times$ number of orbitals."],
+     r"Capacity of the sub-shell $=2\times$ number of orbitals."],
     template={"params": {"o": {"choices": [1, 3, 5]}}, "answer": "2*o", "distractors": [{"expr": "o", "misconception": "m4"}],
               "constraints": ["o >= 1"]})
 mcq([2], 3, "Identify", r"Which statement about the 2p sub-shell is correct?",
