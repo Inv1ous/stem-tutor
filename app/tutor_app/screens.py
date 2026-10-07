@@ -128,6 +128,7 @@ class HomeScreen(Screen):
             pass  # the planner's folder can't be written: the tutor itself is unaffected
         now = t.now()
         due = model.due_kcs(t.state, now)
+        self.query_one("#banner", Static).update(look.banner())  # in the colours of the look just chosen
         menu = self.query_one("#menu", OptionList)
         was = menu.get_option_at_index(menu.highlighted).id if menu.highlighted is not None else None
         menu.clear_options()
@@ -1215,6 +1216,9 @@ class SettingsScreen(ModalScreen):
                 yield Select([("Haiku (cheapest, fast)", "haiku"), ("Sonnet (clearer, ~3x usage)", "sonnet")],
                              value=s.model, id="model", allow_blank=False, compact=True)
             with Horizontal(classes="row"):
+                yield Select([(f"Look: {look.LABELS[name]}", name) for name in config.THEMES],
+                             value=s.theme, id="theme", allow_blank=False, compact=True)
+            with Horizontal(classes="row"):
                 yield Static("Session length (minutes, 5 to 180)")
                 yield Input(str(s.minutes), id="minutes", type="integer", compact=True)
             yield Button("Save", id="save", variant="primary")
@@ -1229,6 +1233,7 @@ class SettingsScreen(ModalScreen):
             setattr(s, key, self.query_one(f"#{key}", Switch).value)
         old_model, typed = s.model, self.query_one("#minutes", Input).value.strip()
         s.model = str(self.query_one("#model", Select).value)
+        old_theme, s.theme = s.theme, str(self.query_one("#theme", Select).value)
         try:
             s.minutes = min(180, max(5, int(typed)))
         except ValueError:  # blank or not a number: the length you had stays
@@ -1240,4 +1245,6 @@ class SettingsScreen(ModalScreen):
         self.app.ai.model = s.model
         if s.model != old_model:
             self.run_worker(self.app.ai.reset(), group="reset")
+        if s.theme != old_theme:
+            look.apply(self.app, s.theme)  # the menu underneath redraws in it as this closes
         self.dismiss(None)

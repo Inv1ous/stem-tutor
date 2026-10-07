@@ -92,3 +92,24 @@ def test_the_app_starts_in_the_chosen_theme(tmp_path, monkeypatch, name):
         asyncio.run(go())
     finally:
         look.use("classic")
+
+
+def test_settings_switch_the_look_at_once_and_remember_it(tmp_path, monkeypatch, palette):
+    from textual.widgets import Select
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            await pilot.press("f2")
+            await pilot.pause()
+            app.screen.query_one("#theme", Select).value = "day"
+            app.screen.query_one("#save").press()
+            await pilot.pause()
+            await pilot.pause()
+            assert app.screen.__class__.__name__ == "HomeScreen" and app.theme == "tutor-day"
+            assert look.C["background"] == look.PALETTES["day"]["background"]
+            assert look.PALETTES["day"]["banner"] in app.screen.query_one("#banner").content
+            assert config.Settings.load(v).theme == "day"
+            await app.ai.close()
+    asyncio.run(go())

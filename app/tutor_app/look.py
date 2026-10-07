@@ -93,5 +93,11 @@ def use(name: str) -> None:
     C.update(PALETTES[name if name in PALETTES else "classic"])
 
 
+def apply(app, name: str) -> None:
+    """Switch the running app to another look."""
+    use(name)
+    app.theme = THEME[name]
+
+
 def banner() -> str:
     return f"[b {C['banner']}]{BANNER}[/]"
