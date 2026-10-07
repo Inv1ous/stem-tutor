@@ -4,9 +4,13 @@
 #   bash bugwatch/sandbox.sh [/tmp/some-dir]
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT="${1:-/tmp/stem-tutor-bugwatch}"
-case "$OUT" in
-  /tmp/*|/private/tmp/*) ;;
-  *) echo "refusing: the sandbox must live under /tmp (got $OUT)" >&2; exit 1 ;;
+# it is deleted below: judge the real path (no .., no symlinked parent), and only a folder inside /tmp, never /tmp
+NAME="$(basename "$OUT")"
+PARENT="$(cd "$(dirname "$OUT")" 2>/dev/null && pwd -P)"
+case "$NAME" in .|..|"") PARENT="" ;; esac
+case "$PARENT/$NAME" in
+  /tmp/?*|/private/tmp/?*) OUT="$PARENT/$NAME" ;;
+  *) echo "refusing: the sandbox must be a folder inside /tmp (got $OUT)" >&2; exit 1 ;;
 esac
 rm -rf "$OUT" && mkdir -p "$OUT/mnt/STEM Tutor" || exit 1
 PYTHONDONTWRITEBYTECODE=1 "$ROOT/.venv/bin/python" "$ROOT/build/publish.py" --vault "$OUT/mnt/STEM Tutor" >/dev/null || exit 1
