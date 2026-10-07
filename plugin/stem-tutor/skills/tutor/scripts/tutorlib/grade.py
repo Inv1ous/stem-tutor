@@ -73,9 +73,12 @@ _NUM = re.compile(
     r"^\s*(?P<mant>[+-]?(?:\d+(?:\.\d*)?|\.\d+))"
     r"(?:\s*/\s*(?P<den>\d+(?:\.\d*)?))?"
     r"(?:\s*[eE]\s*(?P<e1>[+-]?\d+)"
-    r"|\s*(?:[xX×*·⋅]|\\times)\s*10\s*\^?\s*\{?\(?\s*(?P<e2>[+-]?\d+)\s*\)?\}?)?"
+    # × 10 is standard form only with its power written as one: a caret (superscripts become one), braces or a sign.
+    # Without, "× 1000" read as ×10^0 (power "00") and "x 105" as ×10^5
+    r"|\s*(?:[xX×*·⋅]|\\times)\s*10\s*(?P<e2>\^\s*\{?\(?\s*[+-]?\d+\s*\)?\}?|\{\s*[+-]?\d+\s*\}|[+-]\s*\d+)(?![\d.]))?"
     r"\s*(?P<unit>.*)$"
 )
+_TIMES_A_NUMBER = re.compile(r"^(?:[xX×*·⋅]|\\times)\s*[\d.]")  # "5 x 1000": a product, not a number with a unit
 
 
 def _sig_figs(mant: str) -> int | None:
@@ -118,7 +121,7 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
         if m["den"]:
             value /= float(m["den"])
             sf = None
-        exp = m["e1"] or m["e2"]
+        exp = m["e1"] or (m["e2"] and re.sub(r"[^\d+-]", "", m["e2"]))
         if exp:
             value *= 10 ** int(exp)
     except (ArithmeticError, ValueError):
@@ -126,7 +129,8 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
     if not math.isfinite(value):
         raise ParseError(f"number out of range in {text!r}")
     unit = m["unit"].strip()
-    if unit and not (unit[0].isalpha() or unit[0] in "%°/"):  # "500 + 1", "2^10", "5 000": not one number
+    if unit and not (unit[0].isalpha() or unit[0] in "%°/") or _TIMES_A_NUMBER.match(unit):  # "500 + 1", "2^10",
+        # "5 000", "5 x 1000": not one number
         raise ParseError(f"more than a number in {text!r}")
     digits = None if m["den"] else len(m["mant"].lstrip("+-").replace(".", "").lstrip("0")) or 1
     return value, unit, sf, digits
