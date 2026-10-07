@@ -210,3 +210,19 @@ def test_accents_over_one_or_several_letters(tex, want):
 @pytest.mark.parametrize("tex,want", [(r"$\overline{1+x}$", "1̅+̅x̅"), (r"$\vec{}$", ""), (r"$2\overrightarrow{AB}$", "2→AB")])
 def test_accent_edge_cases(tex, want):
     assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # a condition over a reaction arrow: one line, the arrow spaced like any other
+    (r"$A \xrightarrow{\Delta} B$", "A —Δ→ B"), (r"$A \xrightarrow{\text{heat}} B$", "A —heat→ B"),
+    (r"$A \xrightarrow[\text{cat}]{\text{heat}} B$", "A —heat, cat→ B"), (r"$A \xleftarrow{x} B$", "A ←x— B"),
+    (r"$A \xrightarrow{} B$", "A → B"), (r"$A \xrightleftharpoons{} B$", "A ⇌ B"),
+    (r"$A \xrightleftharpoons{K} B$", "A —K⇌ B"), (r"$A \overset{\Delta}{\rightarrow} B$", "A —Δ→ B"),
+    (r"$\ce{A ->[heat] B}$", "A —heat→ B"), (r"$\ce{A ->[\Delta] B}$", "A —Δ→ B"),
+    (r"$\ce{CaCO3 ->[heat] CaO + CO2}$", "CaCO₃ —heat→ CaO + CO₂"),
+    (r"$\ce{CH3CH2OH ->[conc. H2SO4] CH2=CH2 + H2O}$", "CH₃CH₂OH —conc. H₂SO₄→ CH₂=CH₂ + H₂O"),
+    (r"$\ce{A ->[Ni][150 ^\circ C] B}$", "A —Ni, 150 °C→ B"),
+    (r"$\ce{A <-> B}$", "A ⟷ B"), (r"$\ce{N2 + 3H2 <=>> 2NH3}$", "N₂ + 3H₂ ⇌ 2NH₃"),
+    (r"$\overset{a}{b}$", "bᵃ"), (r"$\underset{x}{\max}$", "maxₓ"),
+])
+def test_labelled_arrows_read_in_one_line(tex, want):
+    assert to_terminal(tex) == want

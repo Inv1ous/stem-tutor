@@ -11,6 +11,7 @@ _SUB = str.maketrans("0123456789+-=()", "₀₁₂₃₄₅₆₇₈₉₊₋₌
 _SUP = str.maketrans("0123456789+-=()n", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ")
 _TEXT_CMDS = (r"\\(?:mathrm|text|textrm|mathit|mathsf|operatorname|textbf|textit|mbox" + ("" if BOLD else "|mathbf")
               + r")\s*\{((?:[^{}]|\{[^{}]*\})*)\}")
+_GROUP = r"(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*"  # the inside of a {group}, up to two levels of braces deep
 _ARG = (r"(\{(?:[^{}]|\{[^{}]*\})*\}|\\[dt]?frac\s*(?:\{[^{}]*\}|\w)\s*(?:\{[^{}]*\}|\w)|\\sqrt\s*(?:\{[^{}]*\}|\w)"
         r"|\\[A-Za-z]+|\\?\w)")  # a {group}, \frac{π}{2} or \sqrt{2}, a command (\pi), or one character
 _BRACES = {"p": "()", "b": "()", "": "()", "v": "||", "V": "‖‖", "B": "\ue000\ue001", "cases": "\ue000\ue001"}
@@ -20,6 +21,7 @@ _FUNCS = "arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp
 _LBRACE, _RBRACE, _HYPHEN, _QUAD, _FN_END, _BOND2, _FN_START = (chr(0xE000 + i) for i in range(7))
 _FRAC_L, _FRAC_R = "\ue007", "\ue008"  # around a/b: bracketed when a factor follows, (b/2)x not b/2x
 _VEC_R, _VEC_L = "\ue009", "\ue00a"  # the arrow of a vector named by two points, →AB: never spaced like a relation
+_XL, _XR = "", ""  # around the condition written over a reaction arrow: A —heat→ B
 _CHARGE_END = r"(?=$|[\s),;]|\((?:aq|g|l|s)\))"  # after a charge: the end, a space, or a state symbol: Na⁺(g)
 # leftovers of PDF extraction in a few packs: a maths font's ≤ ≥, and big-bracket pieces that lost their place
 _LEFTOVERS = {0xF084: "≤", 0xF085: "≥", 0x00AD: None, **{c: None for c in range(0xF8E5, 0xF8FF)}}
@@ -41,9 +43,27 @@ except Exception:  # pragma: no cover - fallback when the package is missing
     flatlatex = None
 
 
+_CE_ARROWS = {"<=>>": "⇌", "<<=>": "⇌", "<=>": "⇌", "<->": "⟷", "->": "→", "<-": "←"}
+_X_ARROWS = {"rightarrow": "→", "longrightarrow": "→", "to": "→", "leftarrow": "←", "longleftarrow": "←",
+             "rightleftharpoons": "⇌", "Rightarrow": "⇒", "Leftarrow": "⇐", "leftrightarrow": "⟷"}
+
+
+def _labelled(arrow: str, above: str | None, below: str | None, chem: bool = False) -> str:
+    """An arrow with a condition over (and under) it, in one line with the condition inside the arrow: A —heat→ B."""
+    label = r",\,".join(x.strip() for x in (above, below) if x and x.strip())
+    if not label:
+        return arrow
+    if chem:  # spaces in mhchem are kept, except inside 150 °C
+        label = re.sub(r"\s*\^\s*(?:\{\s*\\circ\s*\}|\\circ(?![A-Za-z]))\s*", r"\\,°", label).replace(" ", r"\,")
+    return _XL + "{" + label + "}" + _XR + arrow
+
+
 def _chem(body: str) -> str:
     """\\ce{...} (mhchem): element counts as subscripts, charges as superscripts, bonds and arrows."""
-    body = body.replace("<=>", "⇌").replace("->", "→").replace("<-", "←")
+    body = re.sub(r"(<=>>|<<=>|<=>|<->|->|<-)\s*\[([^\]]*)\](?:\s*\[([^\]]*)\])?",  # ->[heat], ->[Ni][150 °C]
+                  lambda m: _labelled(_CE_ARROWS[m.group(1)], m.group(2), m.group(3), chem=True), body)
+    for ascii_arrow, arrow in _CE_ARROWS.items():
+        body = body.replace(ascii_arrow, arrow)
     body = re.sub(r"\^\{?([0-9]*[+-])\}?", lambda m: m.group(1).translate(_SUP), body)  # Cu^2+, SO4^{2-}
     body = re.sub(r"(?<![A-Za-z)\]])([A-Z][a-z]?)(\d+)([+-])" + _CHARGE_END,  # Fe3+: a lone element's charge
                   lambda m: m.group(1) + (m.group(2) + m.group(3)).translate(_SUP), body)
@@ -156,6 +176,13 @@ def _math(expr: str) -> str:
     e = re.sub(r"(?:\{\}|(?<![\w})\]|'\\]))\^(\{[^{}]*\}|\w)(?:\s*_(\{[^{}]*\}|\w))?",  # nuclides: ¹⁴₆C, mass over number
                lambda m: "{}^{" + m.group(1).strip("{}") + "}" + ("{}_{" + m.group(2).strip("{}") + "}" if m.group(2) else ""), e)
     e = re.sub(r"\\(int|oint|sum|prod)(?![A-Za-z])((?:\s*[_^]\s*" + _ARG + ")*)", _big_operator, e)  # ∫₀¹ x² dx
+    e = re.sub(r"\\x(" + "|".join(_X_ARROWS) + r")(?![A-Za-z])\s*(?:\[((?:[^\[\]{}]|\{[^{}]*\})*)\])?\s*\{(" + _GROUP
+               + r")\}", lambda m: _labelled(_X_ARROWS[m.group(1)], m.group(3), m.group(2)), e)  # \xrightarrow[b]{a}
+    e = re.sub(r"\\(?:overset|stackrel)\s*\{(" + _GROUP + r")\}\s*\{\s*(?:\\(" + "|".join(_X_ARROWS)
+               + r")(?![A-Za-z])|->)\s*\}", lambda m: _labelled(_X_ARROWS.get(m.group(2), "→"), m.group(1), None), e)
+    e = re.sub(r"\\(over|under)set\s*\{(" + _GROUP + r")\}\s*\{(" + _GROUP + r")\}",  # anything else: bᵃ, maxₓ
+               lambda m: (m.group(3).strip() if re.fullmatch(r"\s*\\[A-Za-z]+\s*", m.group(3)) else "{" + m.group(3) + "}")
+               + ("^" if m.group(1) == "over" else "_") + "{" + m.group(2) + "}", e)
     e = re.sub(r"\\binom\s*\{([^{}]*)\}\s*\{([^{}]*)\}", r"C(\1,\2)", e)
     e = re.sub(r"\\SI\s*\{([^{}]*)\}\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: m.group(1) + r"\,\text{" + m.group(2) + "}", e)
     e = re.sub(r"\\(?:si|num)\s*\{((?:[^{}]|\{[^{}]*\})*)\}", r"\\text{\1}", e)
@@ -240,6 +267,16 @@ def _tidy(text: str) -> str:
     i = 0
     while i < len(text):
         ch = text[i]
+        if ch == _XL and _XR in text[i:] and text.index(_XR, i) + 1 < len(text):  # A —heat→ B, spaced as a relation
+            j = text.index(_XR, i)
+            label, arrow = _tidy(text[i + 1:j]), text[j + 1]
+            while out and out[-1] == " ":
+                out.pop()
+            out += [" ", "←" + label + "—" if arrow == "←" else "—" + label + arrow, " "]
+            i = j + 2
+            while i < len(text) and text[i] == " ":
+                i += 1
+            continue
         if ch in _OPEN:
             depth.append(ch)
         elif ch in _CLOSE and depth:
@@ -285,7 +322,7 @@ def _tidy(text: str) -> str:
 
 def _unmark(text: str) -> str:
     return (text.replace(_LBRACE, "{").replace(_RBRACE, "}")  # literal braces kept out of LaTeX grouping
-            .replace(_VEC_R, "→").replace(_VEC_L, "←"))
+            .replace(_VEC_R, "→").replace(_VEC_L, "←").replace(_XL, "").replace(_XR, ""))
 
 
 def to_terminal(text: str) -> str:
