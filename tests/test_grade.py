@@ -673,3 +673,10 @@ def test_a_capital_x_is_a_times_sign_in_standard_form():
     item = {"kind": "numeric", "answer": {"value": 1500, "unit": "J"}, "marks": 1}
     g = grade.grade_item(item, {"kind": "value", "value": "1.5 X 10^3 J", "conf": 3})
     assert g["correct"]
+
+
+@pytest.mark.parametrize("written", ["25 percent", "25 per cent", "25 %"])
+def test_percent_written_out_is_the_percent_unit(written):
+    item = {"kind": "numeric", "answer": {"value": 25, "unit": "%"}, "marks": 1}
+    g = grade.grade_item(item, {"kind": "value", "value": written, "conf": 3})
+    assert g["correct"] and not g.get("error_type")

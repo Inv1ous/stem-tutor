@@ -40,7 +40,7 @@ BASE = {
     "%": (0.01, _d()),
 }
 # spelled-out time units a student may type ("35 minutes"): read as the symbol they name
-ALIASES = {"mins": "min", "minute": "min", "minutes": "min", "sec": "s", "secs": "s", "second": "s",
+ALIASES = {"percent": "%", "mins": "min", "minute": "min", "minutes": "min", "sec": "s", "secs": "s", "second": "s",
            "seconds": "s", "h": "hour", "hr": "hour", "hrs": "hour", "hours": "hour"}
 PREFIX = {"G": 1e9, "M": 1e6, "k": 1e3, "d": 1e-1, "c": 1e-2, "m": 1e-3, "μ": 1e-6, "µ": 1e-6, "u": 1e-6, "n": 1e-9, "p": 1e-12}
 
@@ -77,6 +77,7 @@ def _normalise(text: str) -> list[tuple[str, int, int]]:
     """(symbol run, exponent, +1 above the line or -1 below it) per token."""
     text = re.sub(r"[{}]", "", text.translate(SUPERSCRIPT))  # LaTeX braces: dm^{-3}
     text = text.replace("·", " ").replace("*", " ").replace(".", " ").strip()
+    text = re.sub(r"\bper\s+cent\b", "percent", text, flags=re.I)
     text = re.sub(r"\s*/\s*", " / ", text)
     tokens, sign = [], 1
     for raw in text.split():
