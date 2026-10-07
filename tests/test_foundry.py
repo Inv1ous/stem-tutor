@@ -115,6 +115,13 @@ def test_a_chapter_goes_from_solve_to_ready(fdy, tmp_path):
     assert fdy.load(SUB)["stage"] == "ready" and SUB not in json.loads(fdy.HOLD.read_text())
 
 
+def test_the_gates_say_what_the_note_linter_found(fdy):
+    note = fdy.NOTES / json.loads(fdy.pack_path(SUB).read_text())["note"]
+    note.write_text(note.read_text() + "\nBroken maths: $\\frac{1}{2$.\n")
+    g = fdy.gates(SUB)
+    assert g["lint"] and any("unbalanced { } in math" in line for line in g["first"])
+
+
 def test_a_chapter_waiting_for_its_checker_cannot_be_signed(fdy):
     fdy.cmd_add([SUB])
     with fdy.chapter(SUB) as st:

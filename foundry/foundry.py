@@ -182,7 +182,8 @@ def gates(sub: str) -> dict:
            "extra": sum(it.get("tier") == "extra" for it in pack.get("items", []))}
     if problems or findings or gaps:  # enough for a worker to act on, capped so the board stays small
         out["first"] = [f"{e['rule']} {e['where']} {e.get('detail', '')}"[:160] for e in problems[:8]] + \
-                       [f"lint {x.get('rule')} line {x.get('line')}: {x.get('detail', '')}"[:160] for x in findings[:4]] + \
+                       [f"lint {x.get('rule')} line {x.get('line')}: {x.get('message') or x.get('detail', '')}"[:160]
+                        for x in findings[:4]] + \
                        [f"syllabus {e['rule']} {e['where']} {e['detail']}"[:160] for e in gaps[:8]]
     return out
 
