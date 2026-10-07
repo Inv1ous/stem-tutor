@@ -193,6 +193,34 @@ def test_run_in_function_readings_that_already_worked_still_do(given, expected):
     assert _expr(expected, given), given
 
 
+@pytest.mark.parametrize("text,value,conf", [
+    ("3 = 1,5 m", "1,5 m", None), ("1=2,3", "2,3", None), ("1 = 3, 4 ~2", "3,4", 2), ("1 = 3,5 kg ~2", "3,5 kg", 2),
+    ("3 = 1,25", "1,25", None), ("2 = -0,5 mol", "-0,5 mol", None),
+])
+def test_a_decimal_comma_keeps_the_question_open(text, value, conf):
+    """"3 = 1,5 m" was Q3 = 1 (marked, and wrong, with no chance to resend) and a bad Q5."""
+    (r,) = grade.parse_responses(text)
+    assert r == {"n": int(text.split("=")[0]), "kind": "value", "value": value, "conf": conf}
+    assert grade.value_problem({"kind": "numeric", "answer": {"value": 1.5, "unit": "m"}}, r["value"]) == "unreadable"
+
+
+@pytest.mark.parametrize("text,want", [
+    ("1 = 3, 4 = 5", [(1, "value", "3"), (4, "value", "5")]),
+    ("1 = 2.5, 2 = 3", [(1, "value", "2.5"), (2, "value", "3")]),
+    ("1B, 2C, 3?", [(1, "choice", "B"), (2, "choice", "C"), (3, "idk", None)]),
+    ("1 = 3 ~2, 4 kg", [(1, "value", "3"), (4, "bad", "4 kg")]),
+    ("1 = 5\n2", [(1, "value", "5"), (2, "bad", "2")]),
+    ("1 = 12,345,678 J", [(1, "value", "12,345,678 J")]),
+    ("1 = 1,000 m ~2, 2B", [(1, "value", "1,000 m"), (2, "choice", "B")]),
+    ("6 pts=1,3, 7 = 2", [(6, "points", [1, 3]), (7, "value", "2")]),
+    ("1B3, 2 # what, 3?", [(1, "choice", "B"), (2, "bad", "2 # what"), (3, "idk", None)]),
+    ("1 = x^2+1, 2?", [(1, "value", "x^2+1"), (2, "idk", None)]),
+    ("1 = 5, 2 = 1,5", [(1, "value", "5"), (2, "value", "1,5")]),
+])
+def test_entries_around_a_comma_split_as_before(text, want):
+    assert [(r["n"], r["kind"], r["value"]) for r in grade.parse_responses(text)] == want
+
+
 @pytest.mark.parametrize("given", ["sin2 x", "ln2 x", "cos2 (x)", "sin2(x)"])
 def test_a_function_number_then_a_separate_argument_is_unreadable(given):
     """sin2 x may be sin²x with its superscript lost, or sin(2x): asked again, never marked."""

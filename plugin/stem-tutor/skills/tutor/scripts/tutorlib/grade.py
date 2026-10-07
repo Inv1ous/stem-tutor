@@ -31,12 +31,14 @@ _VALUE = re.compile(r"^(\d+)\s*[=:]\s*(.+?)\s*(?:~\s*([1-4]))?$")
 
 def parse_responses(text: str) -> list[dict]:
     entries: list[str] = []
-    for chunk in re.split(r"[,\n]", text):
+    parts = re.split(r"([,\n])", text)
+    for sep, chunk in zip([""] + parts[1::2], parts[0::2]):
         if not chunk.strip():
             continue
         # a 1-2 digit number opens a new entry; a 3-digit group is a thousands separator ("1,000 m")
         in_points = entries and _POINTS.match(entries[-1]) and re.fullmatch(r"\s*\d+\s*", chunk)
-        if not in_points and (_ENTRY_START.match(chunk) or re.match(r"^\s*[1-9]\d?(?![\d.])", chunk) or not entries):
+        if not in_points and (_ENTRY_START.match(chunk) or re.match(r"^\s*[1-9]\d?(?![\d.])", chunk) or not entries) \
+                and not (sep == "," and _decimal_comma(entries, chunk)):
             entries.append(chunk.strip())
         else:
             entries[-1] += "," + chunk.strip()
@@ -54,6 +56,16 @@ def parse_responses(text: str) -> list[dict]:
             r = {"n": int(m[1]) if m else None, "kind": "bad", "value": e, "conf": None}
         out.append(r)
     return out
+
+
+def _decimal_comma(entries: list[str], chunk: str) -> bool:
+    """A number after a comma that is no entry of its own ("5 m", "4 ~2") continues a value that ends in a digit and
+    has no confidence yet: "3 = 1,5 m" is 1,5 m (unreadable, so Q3 stays open), never Q3 = 1 and a bad Q5."""
+    return bool(entries) and not _ENTRY_START.match(chunk) and bool(_BARE_NUMBER.match(chunk)) \
+        and bool(m := _VALUE.match(entries[-1])) and m[3] is None and m[2][-1].isdigit()
+
+
+_BARE_NUMBER = re.compile(r"^\s*\d{1,2}(?![\d.])[^=:?~]*(?:~\s*[1-4])?\s*$")
 
 
 def _parse_one(e: str) -> dict | None:
