@@ -8,8 +8,71 @@ import publish  # noqa: E402
 def test_pruning_keeps_the_two_newest_previous_versions_past_v9(tmp_path):  # B-019
     for n in range(1, 13):
         (tmp_path / f"v{n}").mkdir()
+        (tmp_path / f"v{n}/manifest.json").write_text("{}")
     publish.prune_versions(tmp_path, "v12")
     assert sorted(p.name for p in tmp_path.iterdir()) == ["v10", "v11", "v12"]
+
+
+def test_a_version_without_a_manifest_is_no_rollback_version(tmp_path):
+    """A version folder left half-written by a crashed publish has no manifest: it is removed, never kept in place of
+    a real version."""
+    for n in range(1, 6):
+        (tmp_path / f"v{n}").mkdir()
+        if n != 4:
+            (tmp_path / f"v{n}/manifest.json").write_text("{}")
+    publish.prune_versions(tmp_path, "v5")
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["v2", "v3", "v5"]
+
+
+def _build(tmp_path, monkeypatch):
+    """A small build to publish from, and no engine to copy."""
+    import json
+    build = tmp_path / "out"
+    (build / "notes/Subjects/9701 Chemistry").mkdir(parents=True)
+    (build / "notes/Subjects/9701 Chemistry/5.1 Enthalpy.md").write_text("# Enthalpy\n")
+    (build / "specs/9701").mkdir(parents=True)
+    (build / "specs/9701/graph.json").write_text("{}")
+    (build / "packs/9701").mkdir(parents=True)
+    (build / "packs/9701/9701-5.1.json").write_text(json.dumps({"note": "x.md"}))
+    (build / "plan.json").write_text("{}")
+    monkeypatch.setattr(publish, "BUILD", build)
+    monkeypatch.setattr(publish, "ROOT", tmp_path)
+    (tmp_path / "plugin/stem-tutor/skills/tutor/scripts").mkdir(parents=True)
+    return build
+
+
+def test_a_crashed_publish_leaves_no_version_that_pushes_out_a_real_one(tmp_path, monkeypatch):
+    import pytest
+    _build(tmp_path, monkeypatch)
+    vault = tmp_path / "vault"
+    packs = vault / ".tutor/packs"
+    for _ in range(3):
+        publish.publish(vault)
+    real_copy = publish.shutil.copy2
+
+    def crash(src, dst, *a, **k):
+        if str(src).endswith("9701-5.1.json"):
+            raise OSError("disk full")
+        return real_copy(src, dst, *a, **k)
+    monkeypatch.setattr(publish.shutil, "copy2", crash)
+    with pytest.raises(OSError):
+        publish.publish(vault)
+    assert sorted(p.name for p in packs.glob("v*")) == ["v1", "v2", "v3"]  # nothing half-written passes for a version
+    assert (packs / "CURRENT").read_text() == "v3"
+    monkeypatch.setattr(publish.shutil, "copy2", real_copy)
+    assert publish.publish(vault)["version"] == "v4"
+    assert sorted(p.name for p in packs.iterdir() if p.name != "CURRENT") == ["v2", "v3", "v4"]
+    assert all((packs / v / "manifest.json").exists() for v in ("v2", "v3", "v4"))
+
+
+def test_publishing_from_an_unfinished_build_leaves_the_vault_alone(tmp_path, monkeypatch):
+    import pytest
+    build = _build(tmp_path, monkeypatch)
+    (build / "plan.json").unlink()
+    vault = tmp_path / "vault"
+    with pytest.raises(SystemExit, match="plan.json"):
+        publish.publish(vault)
+    assert not vault.exists()
 
 
 def test_the_plan_records_which_almanac_it_was_built_from(tmp_path, monkeypatch):

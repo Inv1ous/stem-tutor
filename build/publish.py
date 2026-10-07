@@ -75,6 +75,9 @@ def link_notes(text: str, names: set[str]) -> str:
 
 
 def publish(vault: Path) -> dict:
+    missing = [n for n in ("specs", "plan.json", "notes") if not (BUILD / n).exists()]
+    if missing:  # checked before the vault is touched
+        raise SystemExit(f"publish: the build has no {', '.join(missing)} in {BUILD}; build it first")
     tutor = vault / ".tutor"
     for f in FOLDERS:
         (vault / f).mkdir(parents=True, exist_ok=True)
@@ -86,7 +89,8 @@ def publish(vault: Path) -> dict:
     packs.mkdir(parents=True, exist_ok=True)
     versions = sorted(int(p.name[1:]) for p in packs.glob("v*") if p.name[1:].isdigit())
     version = f"v{(versions[-1] + 1) if versions else 1}"
-    target = packs / version
+    target = packs / f".{version}.tmp"  # built aside and renamed once whole, so a crash leaves no half version
+    shutil.rmtree(target, ignore_errors=True)
     specs = sorted(p.name for p in (BUILD / "specs").iterdir() if (p / "graph.json").exists())
     hold_f = BUILD / "packs" / "HOLD.json"  # subtopics whose review is unfinished stay out of the vault
     hold = json.loads(hold_f.read_text()) if hold_f.exists() else {}
@@ -104,6 +108,7 @@ def publish(vault: Path) -> dict:
     papers = BUILD / "papers.json"
     (target / "papers.json").write_text(papers.read_text() if papers.exists() else json.dumps({"papers": []}))
     (target / "manifest.json").write_text(json.dumps({"version": version, "specs": specs, "packs": n_packs}, indent=1))
+    os.replace(target, packs / version)
     names = {f.stem for f in (BUILD / "notes").rglob("*.md") if str(f.relative_to(BUILD / "notes")) not in held_notes} \
         | {f.stem for f in vault.rglob("*.md")}
     copied = 0
@@ -140,9 +145,11 @@ def publish(vault: Path) -> dict:
 
 
 def prune_versions(packs: Path, current: str) -> None:
-    """Keep the two previous versions for rollback, newest by number: v10 is newer than v9."""
+    """Keep the two previous versions for rollback, newest by number: v10 is newer than v9. A version without a
+    manifest was never finished and is removed."""
     old = sorted((p for p in packs.glob("v*") if p.name != current and p.name[1:].isdigit()), key=lambda p: int(p.name[1:]))
-    for p in old[:-2]:
+    done = [p for p in old if (p / "manifest.json").exists()]
+    for p in [p for p in old if p not in done] + done[:-2]:
         shutil.rmtree(p)
 
 
