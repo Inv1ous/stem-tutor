@@ -135,7 +135,7 @@ class HomeScreen(Screen):
         items = []
         if t.session:
             s = t.session
-            items.append(("resume", f"▶  Resume your {MODE_NAMES.get(s['mode'], s['mode'])} session "
+            items.append(("resume", f"▸  Resume your {MODE_NAMES.get(s['mode'], s['mode'])} session "
                                     f"({s.get('answered', 0)} answered)"))
         week = policy.focus_week(t.packs.plan, t.state, t.ticks(), now) if t.packs.plan.get("weeks") else 0
         items += [("today", f"★  Today's plan{f' (Almanac week {week})' if week else ''}"),
@@ -167,18 +167,18 @@ class HomeScreen(Screen):
         streak = 0
         while d in days:
             streak, d = streak + 1, d - timedelta(days=1)
-        out.append(f"🔥 {streak}-day streak   🔁 {len(due)} due\n\n", style=C["soft"])
+        out.append(f"✶ {streak}-day streak   ↻ {len(due)} due\n\n", style=C["soft"])
         sittings = sorted((date.fromisoformat(v), k) for k, v in (t.packs.plan.get("sittings") or {}).items()
                           if date.fromisoformat(v) >= now.date())
         if sittings:
-            out.append(f"⏳ {sittings[0][1]}: {(sittings[0][0] - now.date()).days} days\n\n", style=C["plan"])
+            out.append(f"⧗ {sittings[0][1]}: {(sittings[0][0] - now.date()).days} days\n\n", style=C["plan"])
         ticked = t.ticks()
         week = policy.current_week(t.packs.plan, now)
         focus = policy.focus_week(t.packs.plan, t.state, ticked, now)  # past the calendar once this week is done
         objectives = (t.packs.plan.get("weeks") or {}).get(str(focus), [])
         if objectives:
             done = [policy.is_done(o, t.state, ticked) for o in objectives]
-            out.append(f"📅 Almanac week {focus}" + (f" · {sum(done)} of {len(done)} done" if any(done) else "") + "\n",
+            out.append(f"▦ Almanac week {focus}" + (f" · {sum(done)} of {len(done)} done" if any(done) else "") + "\n",
                        style=f"bold {C['plan']}")
             if focus > week:
                 out.append(f"You're ahead: the calendar is on week {week}.\n", style=C["ok"])
@@ -197,7 +197,7 @@ class HomeScreen(Screen):
             out.append((f"Ticks read from your export of {datetime.fromtimestamp(export.stat().st_mtime):%-d %b %H:%M}."
                         if export else "To count your ticks: press Export in your Almanac.") + "\n\n", style=C["dim"])
         if mac.almanac_changed(t.packs.plan):
-            out.append("⚠ Your Almanac has changed since the tutor read it: ask Claude Code to refresh the plan.\n\n",
+            out.append("△ Your Almanac has changed since the tutor read it: ask Claude Code to refresh the plan.\n\n",
                        style=C["hint"])
         out.append("Your topics\n", style="bold")
         for sub in sorted(s for s in t.packs.subtopics if t.packs.pack(s)):
@@ -436,7 +436,7 @@ class SessionScreen(Screen):
         head, tail = Text(), Text()
         head.append(" STEM Tutor ", style=f"bold {C['badge_fg']} on {C['badge_bg']}")
         head.append(f" {title + ' · ' if title else ''}{mode} ", style="bold")
-        tail.append(f" ⏱ {mins:02d}:{secs:02d} ", style=C["plan"])
+        tail.append(f" ◷ {mins:02d}:{secs:02d} ", style=C["plan"])
         tail.append(f" ✓ {s.get('correct', 0)}/{s.get('answered', 0)} ", style=C["good"])
         tail.append(f" {ai_state} {use} ", style=C["ai"])
         if head.cell_len + tail.cell_len <= width:
@@ -455,7 +455,7 @@ class SessionScreen(Screen):
             for b in nodes:
                 kc = b["kc"]
                 glyph, style = ("✓", C["ok"]) if kc in s.get("kcs_learned", []) else \
-                    ("▶", f"bold {C['tutor']}") if kc == self.kc else ("○", C["dim"])
+                    ("▸", f"bold {C['tutor']}") if kc == self.kc else ("○", C["dim"])
                 name = to_terminal(t.packs.kcs[kc]["title"])
                 m.append(f"{glyph} {name if len(name) <= 24 else name[:23] + '…'}  ", style=style)
             self.query_one("#map", Static).update(m)
@@ -908,7 +908,7 @@ class SummaryScreen(ModalScreen):
         learned = "\n".join(f"- ✓ {t.packs.kcs[k]['title']}" for k in s.get("kcs_learned", []) if k in t.packs.kcs)
         due = model.due_kcs(t.state, t.now() + timedelta(days=1))
         a = self.app.ai
-        text = (f"# Session done 🎉\n\n**Answered:** {s['answered']}  ·  **Correct:** {s['correct']}  ·  **Accuracy:** {acc}\n\n"
+        text = (f"# Session done ✓\n\n**Answered:** {s['answered']}  ·  **Correct:** {s['correct']}  ·  **Accuracy:** {acc}\n\n"
                 + (f"## Learned today\n{learned}\n\n" if learned else "")
                 + f"**Due for review by tomorrow:** {len(due)} idea(s)\n\n"
                 + f"**AI replies this session:** {a.session.replies}\n\n"
@@ -1021,6 +1021,9 @@ class InsightsScreen(Screen):
                 "AI tutor to explain this in a few lines (one reply from today's allowance) · **o** opens it in "
                 "Obsidian · **m** your mistake journal · **w** your latest week in review · **Esc** back")
 
+    # the Profile note's colour emoji ⚪ 🟡 🟢 ✅ (Obsidian) as shapes: emoji draw two cells wide in a terminal
+    PLAIN = str.maketrans({0x26AA: "○", 0x1F7E1: "◔", 0x1F7E2: "◑", 0x2705: "●"})
+
     READINESS = {"Exam": "Exam", "Date": "Date", "Ideas": "Ideas", "Secure": "Secure",
                  "If you stopped now": "Stop", "If you keep reviewing": "Review"}
 
@@ -1043,7 +1046,7 @@ class InsightsScreen(Screen):
             else:
                 keep = None
             out.append(line)
-        return to_terminal("\n".join(out)) + "\n"
+        return to_terminal("\n".join(out)).translate(cls.PLAIN) + "\n"
 
     def action_ai(self) -> None:
         if not (self.app.settings.ai and self.app.ai.available):

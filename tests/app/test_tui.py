@@ -908,7 +908,7 @@ def test_the_top_bar_goes_whole_onto_a_second_line_when_the_window_is_narrow(tmp
             assert "\n" not in wide and "STEM Tutor" in wide and "replies" in wide and "5h" not in wide
             narrow = scr.bar_text(60).plain.split("\n")
             assert len(narrow) == 2 and "STEM Tutor" in narrow[0] and "Lesson" in narrow[0]
-            assert "⏱" in narrow[1] and "✓" in narrow[1] and "replies" in narrow[1] and "tok" not in narrow[1]
+            assert "◷" in narrow[1] and "✓" in narrow[1] and "replies" in narrow[1] and "tok" not in narrow[1]
             assert all(cell_len(line) <= 60 for line in narrow)
             tiny = scr.bar_text(30).plain.split("\n")
             assert len(tiny) == 2 and all(cell_len(line) <= 30 for line in tiny) and tiny[0].endswith("…")

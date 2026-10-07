@@ -156,7 +156,7 @@ class ValuePanel(Panel):
                "expression": "an expression, e.g. 3*x**2 - 2*x", "short": "your answer in words"}.get(self.kind, "answer")
         yield _hint(f"Q{self.n}: type {tip}, then ⏎.  Type ? if you don't know.")
         if self.checking:
-            yield Static("✔ " + CHECKING, classes="check")
+            yield Static("✓ " + CHECKING, classes="check")
         yield Composer(placeholder=tip, id="value")
 
     @on(Composer.Submitted, "#value")
@@ -203,7 +203,7 @@ class LongPanel(Panel):
         yield _hint(f"Q{self.n}: write your full working and answer (units!), then ctrl+s. "
                     "Working on paper or the iPad instead? Type 'done on paper', ctrl+s, and self-mark from the scheme.")
         if self.checking:
-            yield Static("✔ " + CHECKING, classes="check")
+            yield Static("✓ " + CHECKING, classes="check")
         yield TextArea(id="long", soft_wrap=True, tab_behavior="indent")
         yield Button("Submit (ctrl+s)", id="submit", variant="primary")
 
