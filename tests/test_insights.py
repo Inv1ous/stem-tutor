@@ -96,6 +96,13 @@ def test_week_report_counts_a_scripted_week(tutor):
     assert any("Distance and displacement" in x for x in r["fixed"])
 
 
+def test_a_question_left_open_overnight_counts_at_most_half_an_hour_a_mark(tutor):
+    tutor.clock["now"] = datetime.fromisoformat("2026-09-29T18:00:00+08:00")
+    answer(tutor, seconds=40000, marks=1)  # shown at night, answered the next morning
+    answer(tutor, seconds=60, marks=None)
+    assert insights.week_report(tutor, date(2026, 9, 28))["minutes"] == 31.0
+
+
 def test_answers_log_the_key_as_it_was_shown(tutor):
     tutor.start("autopilot", minutes=50)
     q = tutor.next()["items"][0]
