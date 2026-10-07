@@ -74,3 +74,44 @@ def test_single_line_breaks_in_a_stem_are_kept():
 def test_a_card_with_no_body_is_just_its_title():
     out = shown(cards.card("plan", "What next?", ""))
     assert len(out.strip().splitlines()) == 2
+
+
+@pytest.mark.parametrize("tex,want", [
+    # chemistry: a lone element's number and sign is a charge; a sign at the end of a species too
+    (r"$\ce{Fe3+}$", "Fe³⁺"), (r"$\ce{Cu2+}$", "Cu²⁺"), (r"$\ce{H+}$", "H⁺"), (r"$\ce{OH-}$", "OH⁻"),
+    (r"$\ce{e-}$", "e⁻"), (r"$\ce{NO3-}$", "NO₃⁻"), (r"$\ce{VO2+}$", "VO₂⁺"),
+    (r"$\ce{[Fe(CN)6]^{3-}}$", "[Fe(CN)₆]³⁻"), (r"$\ce{[Fe(CN)6]3-}$", "[Fe(CN)₆]³⁻"),
+    (r"$\ce{CH3-CH3}$", "CH₃-CH₃"), (r"$\ce{CH2=CH2}$", "CH₂=CH₂"), (r"$\ce{CuSO4.5H2O}$", "CuSO₄·5H₂O"),
+    # sub- and superscripts together, and fractions with only the brackets they need
+    (r"$x_1^2$", "x₁²"), (r"$x_{n+1}$", "xₙ₊₁"), (r"$E_k$", "Eₖ"), (r"$v_y$", "v_y"), (r"$T_{1/2}$", "T½"),
+    (r"$\frac{dy}{dx}$", "dy/dx"), (r"$\frac{d^2y}{dx^2}$", "d²y/dx²"), (r"$\frac{mv^2}{r}$", "mv²/r"),
+    (r"$\frac{a+b}{c}$", "(a+b)/c"), (r"$\frac{1}{2a}$", "1/(2a)"), (r"$\frac{2}{7}$", "²⁄₇"), (r"$\frac12$", "½"),
+    (r"$\frac{\sqrt{3}}{2}$", "√3/2"), (r"$\sqrt[3]{x}$", "∛x"), (r"$\sqrt[n]{x}$", "ⁿ√x"),
+    (r"$\frac{\Delta s}{\Delta t}$", "Δs/Δt"), (r"$\frac{5}{\sqrt{3}}$", "5/√3"), (r"$\sqrt[5]{32}$", "⁵√32"),
+    (r"$\sqrt{a^2+b^2}$", "√(a²+b²)"),
+    # standard state ⦵ as in the pack titles, after any subscript
+    (r"$\Delta H^\ominus$", "ΔH⦵"), (r"$\Delta H_r^{\ominus}$", "ΔHᵣ⦵"), (r"$E^\ominus_{cell}$", "E_cell⦵"),
+    # bold vectors, braces, function names without stray spaces, primes
+    (r"$\mathbf{F}$", "𝐅"), (r"$\boldsymbol{a}$", "𝐚"), (r"$\{1,2\}$", "{1,2}"),
+    (r"$\ln x$", "ln x"), (r"$\log_{10} x$", "log₁₀ x"), (r"$\sin(x)$", "sin(x)"), (r"$\sin^2\theta$", "sin² θ"),
+    (r"$\lim_{x\to 0} \frac{\sin x}{x}$", "lim[x→0] (sin x)/x"), (r"$f'(x)$", "f′(x)"), (r"$f''(x)$", "f″(x)"),
+])
+def test_maths_reads_as_printed(tex, want):
+    assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,has", [
+    (r"$x \rightarrow 0$", "→"), (r"$x \leftarrow y$", "←"), (r"$\ce{N2 + 3H2 <=> 2NH3}$", "⇌"),
+    (r"$a \rightleftharpoons b$", "⇌"), (r"$A \iff B$", "⇔"), (r"$A \implies B$", "⇒"),
+    (r"$\text{rate}=k[A]^2[B]$", "k[A]²[B]"),
+])
+def test_no_command_is_mangled_or_left_raw(tex, has):
+    out = to_terminal(tex)
+    assert has in out and "\\" not in out and "arrow" not in out and "harpoons" not in out
+
+
+def test_the_flatlatex_internals_we_refine_still_exist():
+    import flatlatex
+    for name in ("_converter__indexed", "_converter__is_complex_expr", "_converter__latexfun_frac",
+                 "_converter__latexfun_sqrt", "_converter__cmds"):
+        assert hasattr(flatlatex.converter(), name), name

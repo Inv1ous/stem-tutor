@@ -1,29 +1,110 @@
 """LaTeX → readable Unicode for the terminal (Obsidian shows the real typeset maths)."""
 from __future__ import annotations
 
+import functools
 import re
+import unicodedata
 
-try:
-    import flatlatex
-    _CONV = flatlatex.converter()
-except Exception:  # pragma: no cover - fallback when the package is missing
-    _CONV = None
+BOLD = True  # \mathbf{F} as 𝐅 (Unicode maths bold); False shows a plain F
 
 _SUB = str.maketrans("0123456789+-=()", "₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎")
 _SUP = str.maketrans("0123456789+-=()n", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ")
-_TEXT_CMDS = r"\\(?:mathrm|text|textrm|mathit|mathbf|mathsf|operatorname|textbf|textit|mbox)\s*\{((?:[^{}]|\{[^{}]*\})*)\}"
+_TEXT_CMDS = (r"\\(?:mathrm|text|textrm|mathit|mathsf|operatorname|textbf|textit|mbox" + ("" if BOLD else "|mathbf")
+              + r")\s*\{((?:[^{}]|\{[^{}]*\})*)\}")
 _ARG = r"(\{(?:[^{}]|\{[^{}]*\})*\}|\\?\w)"  # a {group} or one character
 _BRACES = {"p": "()", "b": "()", "": "()", "v": "||", "V": "‖‖", "B": "\ue000\ue001", "cases": "\ue000\ue001"}
+_FUNCS = "arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp|lim|max|min"
+# markers that pass through flatlatex untouched: literal braces, a hyphen that is no minus (a word in \text{}, a
+# chemical bond), \quad, a double bond, and the two sides of a function name (a space only where one reads)
+_LBRACE, _RBRACE, _HYPHEN, _QUAD, _FN_END, _BOND2, _FN_START = (chr(0xE000 + i) for i in range(7))
+
+try:
+    import flatlatex
+    from flatlatex import data as _data
+    from flatlatex import latexfuntypes as _funtypes
+except Exception:  # pragma: no cover - fallback when the package is missing
+    flatlatex = None
 
 
 def _chem(body: str) -> str:
-    """\\ce{...} (mhchem): element counts as subscripts, charges as superscripts, arrows."""
+    """\\ce{...} (mhchem): element counts as subscripts, charges as superscripts, bonds and arrows."""
     body = body.replace("<=>", "⇌").replace("->", "→").replace("<-", "←")
-    body = re.sub(r"\^\{?([0-9]*[+-])\}?", lambda m: m.group(1).translate(_SUP), body)
+    body = re.sub(r"\^\{?([0-9]*[+-])\}?", lambda m: m.group(1).translate(_SUP), body)  # Cu^2+, SO4^{2-}
+    body = re.sub(r"(?<![A-Za-z)\]])([A-Z][a-z]?)(\d+)([+-])(?=$|[\s),;])",  # Fe3+: a lone element's charge
+                  lambda m: m.group(1) + (m.group(2) + m.group(3)).translate(_SUP), body)
+    body = re.sub(r"(?<=\])(\d*[+-])(?=$|[\s),;])", lambda m: m.group(1).translate(_SUP), body)  # [Fe(CN)6]3-
+    body = re.sub(r"(?<=[A-Za-z\d)])([+-])(?=$|[\s),;])", lambda m: m.group(1).translate(_SUP), body)  # H+, OH-
+    body = re.sub(r"(?<=[\w)\]])-(?=[A-Z(\[])", _HYPHEN, body)  # a bond: CH3-CH3
+    body = re.sub(r"(?<=[\w)\]])=(?=[A-Z(\[])", _BOND2, body)  # CH2=CH2
+    body = re.sub(r"([A-Za-z)\]]\d*)[.*](?=\d*[A-Z(])", "\\1·", body)  # CuSO4.5H2O
     body = re.sub(r"(?<=[A-Za-z)\]])(\d+)", lambda m: m.group(1).translate(_SUB), body)
     return body
 
 
+if flatlatex is not None:
+    _SUBSCRIPT = {**_data.subscript, "h": "ₕ", "k": "ₖ", "l": "ₗ", "m": "ₘ", "n": "ₙ", "p": "ₚ", "s": "ₛ", "t": "ₜ"}
+    _MODS = set(_SUBSCRIPT.values()) | set(_data.superscript.values()) | set("′″⦵")
+
+    def _simple(expr: str) -> bool:
+        """One base character with only sub/superscripts or accents after it: x, x₁, F⃗ (no brackets needed)."""
+        return sum(1 for ch in expr if not unicodedata.combining(ch) and ch not in _MODS) <= 1
+
+    def _atom(expr: str) -> bool:
+        """What can stand below a fraction line without brackets: x, r², 10, 2.5, dx, Δt, √3."""
+        base = expr
+        while base and (unicodedata.combining(base[-1]) or base[-1] in _MODS):
+            base = base[:-1]
+        if len(base) > 1 and base[0] in "dΔδ∂√∛∜":
+            base = base[1:]
+        return len(base) == 1 or bool(re.fullmatch(r"\d+(?:\.\d+)?", base))
+
+    def _radicand(expr: str) -> str:
+        return expr if _simple(expr) or re.fullmatch(r"\d+(?:\.\d+)?", expr) else f"({expr})"  # √3, √32, √(2gh)
+
+    class _Converter(flatlatex.converter):
+        """flatlatex with printed-maths habits: x₁² not (x₁)², dy/dx and 1/(2a), more subscript letters, ∛ ⇔ ′."""
+
+        def __init__(self):
+            super().__init__()
+            cmds = self._converter__cmds
+            for name, symbol in {r"\iff": "⇔", r"\implies": "⇒", r"\impliedby": "⇐", r"\prime": "′",
+                                 r"\colon": ": ", r"\longrightarrow": "→", r"\longleftarrow": "←"}.items():
+                cmds[name] = _funtypes.latexfun(lambda _, s=symbol: s, 0)
+            cmds[r"\cbrt"] = _funtypes.latexfun(lambda x: "∛" + _radicand(x[0]), 1)
+            cmds[r"\qdrt"] = _funtypes.latexfun(lambda x: "∜" + _radicand(x[0]), 1)
+
+        def _converter__is_complex_expr(self, expr):
+            return not _simple(expr)
+
+        def _converter__indexed(self, a, b):
+            a = a if _simple(a) else f"({a})"
+            if b == "1/2":
+                return a + "½"  # t½
+            if b and all(ch in _SUBSCRIPT for ch in b):
+                return a + "".join(_SUBSCRIPT[ch] for ch in b)
+            return a + (f"_{b}" if re.fullmatch(r"\w+", b) else f"[{b}]")  # v_y, lim[x→0]
+
+        def _converter__latexfun_frac(self, inputs):
+            a, b = inputs
+            if (a, b) in _data.known_fracts:
+                return _data.known_fracts[(a, b)]
+            if a.isdigit() and b.isdigit():
+                return a.translate(_SUP) + "⁄" + b.translate(_SUB)  # ²⁄₇
+            if re.search(r"[\s,/+\-−=<>≤≥≠≈±∓×÷·→" + _FN_START + _FN_END + "]", a):
+                a = f"({a})"  # (a+b)/c, but dy/dx and mv²/r
+            if not _atom(b):
+                b = f"({b})"  # 1/(2a), but x/2, dy/dx and Δs/Δt
+            return f"{a}/{b}"
+
+        def _converter__latexfun_sqrt(self, inputs):
+            return "√" + _radicand(inputs[0])
+
+    _CONV = _Converter()
+else:  # pragma: no cover
+    _CONV = None
+
+
+@functools.lru_cache(maxsize=4096)
 def _math(expr: str) -> str:
     e = expr
     e = re.sub(r"\\ce\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: _chem(m.group(1)), e)
@@ -34,10 +115,11 @@ def _math(expr: str) -> str:
     e = re.sub(r"\\binom\s*\{([^{}]*)\}\s*\{([^{}]*)\}", r"C(\1,\2)", e)
     e = re.sub(r"\\SI\s*\{([^{}]*)\}\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: m.group(1) + r"\,\text{" + m.group(2) + "}", e)
     e = re.sub(r"\\(?:si|num)\s*\{((?:[^{}]|\{[^{}]*\})*)\}", r"\\text{\1}", e)
+    e = re.sub(r"\\(?:boldsymbol|bm)(?![A-Za-z])", r"\\mathbf", e)
     e = re.sub(r"\\(mathrm|text|mathbf|mathit|mathsf)\s+([A-Za-z0-9])", r"\\\1{\2}", e)  # \mathrm K is \mathrm{K}
     for _ in range(3):  # keep text as a group, spaces kept: \times\text{IQR} is × IQR, not a command \timesIQR
-        e = re.sub(_TEXT_CMDS + r"(\s*[\^_])?", lambda m: ("{}" + m.group(1).replace(" ", r"\,") + m.group(2) if m.group(2)
-                                                          else "{" + m.group(1).replace(" ", r"\,") + "}"), e)  # Cu²⁺
+        e = re.sub(_TEXT_CMDS + r"(\s*[\^_])?", lambda m: ("{}" + _words(m.group(1)) + m.group(2) if m.group(2)
+                                                          else "{" + _words(m.group(1)) + "}"), e)  # Cu²⁺
     e = re.sub(r"\\begin\{([pbvVB]?matrix|cases)\}(.*?)\\end\{\1\}",  # (3; -4), |a b; c d|, {1, x>0; 0, x≤0}
                lambda m: _BRACES[m.group(1).replace("matrix", "")][0] + r";\,".join(
                    (r",\," if m.group(1) == "cases" else r"\,").join(c.strip() for c in r.split("&"))
@@ -46,21 +128,58 @@ def _math(expr: str) -> str:
     e = re.sub(r"\\[dt]frac", r"\\frac", e)
     e = re.sub(r"\\frac\s*(\d)\s*(\d)", r"\\frac{\1}{\2}", e)  # \tfrac12
     e = e.replace(r"\%", "%").replace(r"\;", r"\,").replace(r"\:", r"\,").replace(r"\!", "").replace("~", r"\,")
-    e = e.replace(r"\left", "").replace(r"\right", "").replace(r"\quad", r"\,\,")
+    e = re.sub(r"\\(?:left|right)(?![A-Za-z])\s*\.?", "", e)  # \left( … \right), not \leftarrow or \rightleftharpoons
+    e = re.sub(r"\\(?:\{|lbrace(?![A-Za-z]))", _LBRACE, e)
+    e = re.sub(r"\\(?:\}|rbrace(?![A-Za-z]))", _RBRACE, e)
+    e = re.sub(r"\\(q?)quad(?![A-Za-z])", lambda m: _QUAD * (2 if m.group(1) else 1), e)
     e = e.replace(r"\degree", "°").replace(r"^\circ", "°").replace(r"^{\circ}", "°")
-    e = re.sub(r"\\(?:to|rightarrow)(?![A-Za-z])", "→", e).replace(r"\Rightarrow", "⇒").replace(r"\leftarrow", "←")
-    e = re.sub(r"\\(arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp|lim|max|min)(?![A-Za-z])"
-               r"(\^\{?-?\d+\}?)?", r"\\,\1\2\\,", e)  # function names as words, powers attached: sin²θ
+    e = re.sub(r"\\(?:to|rightarrow)(?![A-Za-z])", "→", e).replace(r"\Rightarrow", "⇒")
+    e = re.sub(r"\\leftarrow(?![A-Za-z])", "←", e)
+    e = re.sub(r"\^\s*\{?\\ominus\}?\s*(_\s*(?:\{[^{}]*\}|\w))", r"\1^\\ominus", e)  # E^⊖_{cell}: subscript first
+    e = re.sub(r"\^\s*(?:\{\s*\\ominus\s*\}|\\ominus(?![A-Za-z]))", "⦵", e)  # ΔH⦵, the standard-state sign
+    e = re.sub(r"\\sqrt\s*\[\s*([34])\s*\]", lambda m: r"\cbrt" if m.group(1) == "3" else r"\qdrt", e)
+    e = re.sub(r"\\sqrt\s*\[([^\]]*)\]", r"{}^{\1}\\sqrt", e)  # ⁿ√x
+    e = re.sub(r"(?<=[A-Za-z)])''", "″", e)
+    e = re.sub(r"(?<=[A-Za-z)])'", "′", e)
+    e = re.sub(r"\\(" + _FUNCS + r")(?![A-Za-z])((?:\s*[\^_]\s*(?:\{[^{}]*\}|-?\d+|\w))*)",  # sin²θ, log₁₀, lim[x→0]
+               lambda m: _FN_START + m.group(1) + re.sub(r"\s+", "", m.group(2)) + _FN_END, e)
     if _CONV is not None:
         try:
-            return _unmark(re.sub(r"(?<=\w)\[(\w+)\]", r"_\1", _CONV.convert(e)))  # subscripts without a glyph: v_y
+            return _tidy(_CONV.convert(e))
         except Exception:
             pass
-    return _unmark(re.sub(r"\\([A-Za-z]+)", r"\1", e).replace("{", "").replace("}", ""))
+    return _tidy(re.sub(r"\\([A-Za-z]+)", r"\1", e).replace("{", "").replace("}", ""))
+
+
+def _words(text: str) -> str:
+    """A \\text{} group: spaces kept, and a hyphen between letters stays a hyphen (not a minus sign)."""
+    return re.sub(r"(?<=[A-Za-z])-(?=[A-Za-z])", _HYPHEN, text.replace(" ", r"\,"))
+
+
+def _operand(ch: str) -> bool:
+    return ch.isalnum() or ch in ")]}|′″!%°∞…⦵⁺⁻⁼⁾₊₋₌₎" + _RBRACE or bool(unicodedata.combining(ch))
+
+
+def _tidy(text: str) -> str:
+    """Function names get a space only where one reads (v cos θ, sin(x), log₁₀ x); markers become what they stand for."""
+    out: list[str] = []
+    for i, ch in enumerate(text):
+        if ch == _FN_START:
+            if out and _operand(out[-1]):
+                out.append(" ")
+        elif ch == _FN_END:
+            nxt = text[i + 1:i + 2]
+            if nxt and not nxt.isspace() and nxt not in ")]}," + _RBRACE and not (nxt == "(" and out and out[-1].isalpha()):
+                out.append(" ")
+        else:
+            out.append(ch)
+    s = re.sub(r" {2,}", " ", "".join(out))
+    s = re.sub(r"(?<=[(\[{" + _LBRACE + r"]) +| +(?=[)\]}" + _RBRACE + "])", "", s).strip()
+    return _unmark(s.replace(_QUAD, "  ").replace(_HYPHEN, "-").replace(_BOND2, "="))
 
 
 def _unmark(text: str) -> str:
-    return text.replace("\ue000", "{").replace("\ue001", "}")  # literal braces kept out of LaTeX grouping
+    return text.replace(_LBRACE, "{").replace(_RBRACE, "}")  # literal braces kept out of LaTeX grouping
 
 
 def to_terminal(text: str) -> str:
