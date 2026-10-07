@@ -737,6 +737,19 @@ def test_readings_taken_before_a_wait_are_kept(fdy):
     assert json.loads(fdy.USAGE.read_text())["claude"] == {"read": 1}
 
 
+def test_chapters_held_at_once_are_all_held(fdy):
+    """Several workers finish together and each holds or releases its chapter: none may undo another's."""
+    import threading
+    subs = [f"9702-{n}.1" for n in range(1, 41)]
+    threads = [threading.Thread(target=lambda s=s: [fdy.hold(s, "in the foundry") for _ in range(5)]) for s in subs]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert sorted(json.loads(fdy.HOLD.read_text())) == sorted(subs)
+    assert not list(fdy.HOLD.parent.glob("*.tmp"))
+
+
 def test_a_refused_claude_worker_is_recorded_as_a_limit_not_a_failure(fdy, monkeypatch):
     fdy.cmd_add([SUB])
     with fdy.chapter(SUB) as st:

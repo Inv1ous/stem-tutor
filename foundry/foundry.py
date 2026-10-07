@@ -139,13 +139,19 @@ def move(st: dict, stage: str, note: str = "") -> None:
 
 
 def hold(sub: str, reason: str | None) -> None:
-    held = json.loads(HOLD.read_text()) if HOLD.exists() else {}
-    if reason is None:
-        held.pop(sub, None)
-    else:
-        held[sub] = reason
+    """Hold a chapter back from publishing, or release it, under a lock: several workers finish at once."""
+    STATE.mkdir(parents=True, exist_ok=True)
     HOLD.parent.mkdir(parents=True, exist_ok=True)
-    HOLD.write_text(json.dumps(dict(sorted(held.items())), ensure_ascii=False, indent=1))
+    with open(STATE / ".hold.lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        held = json.loads(HOLD.read_text()) if HOLD.exists() else {}
+        if reason is None:
+            held.pop(sub, None)
+        else:
+            held[sub] = reason
+        tmp = HOLD.with_suffix(".tmp")
+        tmp.write_text(json.dumps(dict(sorted(held.items())), ensure_ascii=False, indent=1))
+        tmp.replace(HOLD)
 
 
 # ---------------- gates (deterministic, no tokens) ----------------
