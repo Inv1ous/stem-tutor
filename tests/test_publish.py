@@ -239,3 +239,12 @@ def test_vault_flag_without_a_path_says_how_to_use_it(tmp_path):
                        env=env, cwd=tmp_path)
     assert r.returncode != 0 and "usage" in r.stderr and "Traceback" not in r.stderr
     assert not (tmp_path / "vault").exists()
+
+
+def test_publishing_without_a_vault_flag_goes_where_the_app_looks(tmp_path, monkeypatch):
+    """STEM_TUTOR_VAULT moves the app's vault (config.vault_path); publishing must follow it."""
+    monkeypatch.setenv("STEM_TUTOR_VAULT", str(tmp_path / "vault"))
+    assert publish.vault_from([]) == tmp_path / "vault"
+    assert publish.vault_from(["--vault", str(tmp_path / "other")]) == tmp_path / "other"
+    monkeypatch.delenv("STEM_TUTOR_VAULT")
+    assert publish.vault_from([]) == publish.DEFAULT_VAULT

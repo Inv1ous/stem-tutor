@@ -710,7 +710,9 @@ def release(sub: str) -> None:
     is safe even if the session stops. Each can be switched off in config.json."""
     cfg = config()
     if cfg.get("publish_on_sign", True) and os.environ.get("FOUNDRY_PUBLISH", "1") == "1":
-        r = subprocess.run([PY, str(REPO / "build/publish.py")], cwd=REPO, capture_output=True, text=True)
+        vault = os.environ.get("STEM_TUTOR_VAULT")  # the vault the app reads
+        r = subprocess.run([PY, str(REPO / "build/publish.py"), *(["--vault", vault] if vault else [])], cwd=REPO,
+                           capture_output=True, text=True)
         print(f"{sub}: " + (f"published into the vault {r.stdout.strip()[-120:]}" if r.returncode == 0
                             else f"PUBLISH FAILED, run build/publish.py: {r.stderr.strip()[-300:]}"))
     if cfg.get("commit_on_sign", True) and os.environ.get("FOUNDRY_COMMIT", "1") == "1":

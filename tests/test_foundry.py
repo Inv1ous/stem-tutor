@@ -196,6 +196,7 @@ def test_signing_publishes_and_commits_the_chapter_at_once(fdy, monkeypatch):
     calls = []
     monkeypatch.setenv("FOUNDRY_PUBLISH", "1")
     monkeypatch.setenv("FOUNDRY_COMMIT", "1")
+    monkeypatch.delenv("STEM_TUTOR_VAULT", raising=False)
     monkeypatch.setattr(fdy.subprocess, "run", lambda args, **k: calls.append(args) or
                         type("R", (), {"returncode": 0, "stdout": '{"version": "v2"}', "stderr": ""})())
     fdy.cmd_add([SUB])
@@ -206,6 +207,18 @@ def test_signing_publishes_and_commits_the_chapter_at_once(fdy, monkeypatch):
     commit = [c for c in calls if "commit" in c]
     assert publish and commit
     assert any(str(x).endswith(f"{SUB}.json") for x in commit[0]) and "--" in commit[0]  # only this chapter's files
+    assert "--vault" not in publish[0]
+
+
+def test_signing_publishes_into_the_vault_the_app_uses(fdy, monkeypatch, tmp_path):
+    calls = []
+    monkeypatch.setenv("FOUNDRY_PUBLISH", "1")
+    monkeypatch.setenv("STEM_TUTOR_VAULT", str(tmp_path / "vault"))
+    monkeypatch.setattr(fdy.subprocess, "run", lambda args, **k: calls.append(args) or
+                        type("R", (), {"returncode": 0, "stdout": "", "stderr": ""})())
+    fdy.release(SUB)
+    publish = [c for c in calls if any(str(x).endswith("build/publish.py") for x in c)]
+    assert publish[0][-2:] == ["--vault", str(tmp_path / "vault")]
 
 
 def test_signing_commits_a_chapter_whose_figures_git_ignores(fdy, monkeypatch):

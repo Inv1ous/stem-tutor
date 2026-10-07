@@ -162,8 +162,14 @@ def prune_versions(packs: Path, current: str) -> None:
         shutil.rmtree(p)
 
 
+def vault_from(argv: list[str]) -> Path:
+    """--vault PATH, else STEM_TUTOR_VAULT as the app reads it (config.vault_path), else the default vault."""
+    if "--vault" in argv:
+        return Path(argv[argv.index("--vault") + 1])
+    return Path(os.environ.get("STEM_TUTOR_VAULT") or DEFAULT_VAULT)
+
+
 if __name__ == "__main__":
     if sys.argv[-1] == "--vault":
         sys.exit("usage: python build/publish.py [--vault PATH]")
-    vault = Path(sys.argv[sys.argv.index("--vault") + 1]) if "--vault" in sys.argv else DEFAULT_VAULT
-    print(json.dumps(publish(vault)))
+    print(json.dumps(publish(vault_from(sys.argv))))
