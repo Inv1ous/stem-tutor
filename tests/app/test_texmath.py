@@ -167,3 +167,15 @@ def test_pdf_leftovers_in_content_show_as_symbols_or_nothing():
 ])
 def test_review_findings_read_as_printed(tex, want):
     assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # found by a second review
+    (r"$y=|2|x|-3|$", "y = |2|x| − 3|"), (r"$P(A|B)+|-3|$", "P(A|B) + |−3|"), (r"$|-3|=3$", "|−3| = 3"),
+    (r"$\num{3.0e-8}$", "3.0e−8"), (r"$\text{1.6e-19 C}$", "1.6e−19 C"), (r"$\text{(E)-but-2-ene}$", "(E)-but-2-ene"),
+    (r"$\int_0^\frac{\pi}{2}\sin x\,dx$", "∫₀^(π/2) sin x dx"), (r"$\int_0^\sqrt{2} x\,dx$", "∫₀^(√2) x dx"),
+    (r"$\lim_{\delta x\to0}\frac{\delta y}{\delta x}$", "lim[δx→0] δy/δx"),
+    (r"$\displaystyle\frac{a}{b}$", "a/b"), (r"$\lvert x\rvert$", "|x|"), (r"$\Big| x \Big|$", "|x|"),
+    (r"$\big(x\big)$", "(x)"), (r"$\det A$", "det A"), (r"$\sum\limits_{i=1}^{n} i$", "∑ᵢ₌₁ⁿ i"),
+])
+def test_second_review_findings_read_as_printed(tex, want):
+    assert to_terminal(tex) == want

@@ -11,9 +11,10 @@ _SUB = str.maketrans("0123456789+-=()", "₀₁₂₃₄₅₆₇₈₉₊₋₌
 _SUP = str.maketrans("0123456789+-=()n", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ")
 _TEXT_CMDS = (r"\\(?:mathrm|text|textrm|mathit|mathsf|operatorname|textbf|textit|mbox" + ("" if BOLD else "|mathbf")
               + r")\s*\{((?:[^{}]|\{[^{}]*\})*)\}")
-_ARG = r"(\{(?:[^{}]|\{[^{}]*\})*\}|\\[A-Za-z]+|\\?\w)"  # a {group}, a command (\pi) or one character
+_ARG = (r"(\{(?:[^{}]|\{[^{}]*\})*\}|\\[dt]?frac\s*(?:\{[^{}]*\}|\w)\s*(?:\{[^{}]*\}|\w)|\\sqrt\s*(?:\{[^{}]*\}|\w)"
+        r"|\\[A-Za-z]+|\\?\w)")  # a {group}, \frac{π}{2} or \sqrt{2}, a command (\pi), or one character
 _BRACES = {"p": "()", "b": "()", "": "()", "v": "||", "V": "‖‖", "B": "\ue000\ue001", "cases": "\ue000\ue001"}
-_FUNCS = "arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp|lim|max|min"
+_FUNCS = "arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp|lim|max|min|det|gcd|deg|arg"
 # markers that pass through flatlatex untouched: literal braces, a hyphen that is no minus (a word in \text{}, a
 # chemical bond), \quad, a double bond, and the two sides of a function name (a space only where one reads)
 _LBRACE, _RBRACE, _HYPHEN, _QUAD, _FN_END, _BOND2, _FN_START = (chr(0xE000 + i) for i in range(7))
@@ -119,6 +120,10 @@ else:  # pragma: no cover
 def _math(expr: str) -> str:
     e = expr
     e = re.sub(r"\\ce\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: _chem(m.group(1)), e)
+    e = re.sub(r"\\(?:(?:display|text|script|scriptscript)style|(?:no)?limits|[bB]igg?[lrm]?)(?![A-Za-z])\s*", "",
+               e)  # sizes and styles mean nothing in a terminal
+    e = re.sub(r"\\[lr]?vert(?![A-Za-z])", "|", e)
+    e = re.sub(r"\\[lr]?Vert(?![A-Za-z])", "‖", e)
     e = re.sub(r"(?:\{\}|(?<![\w})\]|'\\]))\^(\{[^{}]*\}|\w)(?:\s*_(\{[^{}]*\}|\w))?",  # nuclides: ¹⁴₆C, mass over number
                lambda m: "{}^{" + m.group(1).strip("{}") + "}" + ("{}_{" + m.group(2).strip("{}") + "}" if m.group(2) else ""), e)
     e = re.sub(r"\\(int|oint|sum|prod)(?![A-Za-z])((?:\s*[_^]\s*" + _ARG + ")*)", _big_operator, e)  # ∫₀¹ x² dx
@@ -152,7 +157,7 @@ def _math(expr: str) -> str:
     e = re.sub(r"(?<=[A-Za-z)])''", "″", e)
     e = re.sub(r"(?<=[A-Za-z)])'", "′", e)
     e = re.sub(r"\\(" + _FUNCS + r")(?![A-Za-z])((?:\s*[\^_]\s*(?:\{[^{}]*\}|-?\d+|\w))*)",  # sin²θ, log₁₀, lim[x→0]
-               lambda m: _FN_START + m.group(1) + re.sub(r"\s+", "", m.group(2)) + _FN_END, e)
+               lambda m: _FN_START + m.group(1) + re.sub(r"\s*([\^_])\s*", r"\1", m.group(2)).strip() + _FN_END, e)
     if _CONV is not None:
         try:
             return _tidy(_CONV.convert(e))
@@ -163,7 +168,8 @@ def _math(expr: str) -> str:
 
 def _big_operator(m: re.Match) -> str:
     """∫ ∑ ∏ with their limits (below first, then above: ∫₀¹), and the small space a printed page leaves after them."""
-    limits = dict(re.findall(r"([_^])\s*" + _ARG, m.group(2)))
+    found = re.findall(r"([_^])\s*" + _ARG, m.group(2))
+    limits = {side: arg if arg.startswith("{") else "{" + arg + "}" for side, arg in found}
     below, above = ("{}_" + limits["_"] if "_" in limits else ""), ("{}^" + limits["^"] if "^" in limits else "")
     return f"\\{m.group(1)}{below}{above}" + r"\,"
 
@@ -171,7 +177,8 @@ def _big_operator(m: re.Match) -> str:
 def _words(text: str) -> str:
     """A \\text{} group: spaces kept, a hyphen in a word stays a hyphen (but-2-ene, not a minus), an apostrophe stays
     one (Hooke’s, not a prime)."""
-    return re.sub(r"(?<=[A-Za-z0-9])-(?=[A-Za-z0-9])", _HYPHEN, text.replace(" ", r"\,")).replace("'", "’")
+    return re.sub(r"(?<=[A-Za-z0-9)])(?<![\d.][eE])-(?=[A-Za-z0-9(])", _HYPHEN,  # 1.6e−19 keeps its minus
+                  text.replace(" ", r"\,")).replace("'", "’")
 
 
 _REL = set("=≠≈≃≅≡∝∼<>≤≥≪≫∈∉⊂⊆→←↔⇌⇒⇐⇔↦")  # spaced at the top level only: lim[x→0], {x, x≥0} stay tight
@@ -195,8 +202,12 @@ def _tidy(text: str) -> str:
     depth: list[str] = []
     fracs: list[int] = []
 
-    def operand(k: int) -> bool:  # a bar that opens |−3| is no operand; one that closes |x − 1| is
-        return k >= 0 and _operand(out[k]) and not (out[k] == "|" and "".join(out[:k + 1]).count("|") % 2)
+    def operand(k: int) -> bool:  # a bar closes (|x − 1|, |2|x| − 3|) when something stands before it: |−3| opens
+        if k >= 0 and out[k] == "|":
+            k -= 1
+            while k >= 0 and out[k] == " ":
+                k -= 1
+        return k >= 0 and _operand(out[k])
     i = 0
     while i < len(text):
         ch = text[i]
