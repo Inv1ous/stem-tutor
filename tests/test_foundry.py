@@ -400,6 +400,20 @@ def test_blind_solvers_also_get_the_teaching_cards_check_questions(fdy):
     assert q["options"]["B"] == "velocity" and "answer" not in q
 
 
+@pytest.mark.parametrize("said,agrees", [
+    ("{k}", True), ("{lk}", True), ("({k})", True), ("The answer is {k}", True), ("Answer: {k}.", True),
+    ("{k}) it has direction", True), ("{w}", False), ("The answer is {w}", False), ("({w})", False)])
+def test_a_blind_mcq_answer_is_read_by_its_option_letter(fdy, said, agrees):
+    """A solver may answer "(B)" or "The answer is B": the option letter counts, not the first character."""
+    import blind
+    pack = json.loads(fdy.pack_path(SUB).read_text())
+    iid, inst = next((i, x) for i, x in blind._instances(pack) if x["kind"] == "mcq")
+    key = inst["answer"]
+    wrong = next(x for x in "ABCD" if x != key and x != "A")  # not A: "A" also opens "Answer"
+    res = blind.compare(pack, {iid: said.format(k=key, lk=key.lower(), w=wrong)})
+    assert (iid not in [d["id"] for d in res["disagreements"]]) == agrees
+
+
 def test_coverage_counts_outcomes_and_says_what_to_build_next(fdy, tmp_path, capsys):
     graph = json.loads((tmp_path / "build/out/specs/9702/graph.json").read_text())
     graph["subtopics"] += [{"id": "9702-3.1", "title": "Momentum", "topic": "9702-2"},
