@@ -28,7 +28,7 @@ def literal(text: str) -> str:
 
 
 def card(kind: str, title: str, body: str = "", subtitle: str | None = None) -> Panel:
-    return Panel(md(body) if body else Group(), title=f"[b]{escape(title)}[/b]", title_align="left",
+    return Panel(md(body) if body else Group(), title=f"[b]{escape(to_terminal(title))}[/b]", title_align="left",
                  subtitle=subtitle, subtitle_align="right", border_style=C[kind], padding=(0, 1))
 
 

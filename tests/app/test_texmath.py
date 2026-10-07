@@ -138,3 +138,14 @@ def test_the_flatlatex_internals_we_refine_still_exist():
 ])
 def test_maths_is_spaced_like_a_textbook(tex, want):
     assert to_terminal(tex) == want
+
+
+def test_a_card_title_shows_maths_not_dollars():  # "Trap:" titles quote misconception statements
+    out = shown(cards.card("hint", r"Trap: $v^2=u^2+2as$ needs a constant force", ""))
+    assert "v² = u² + 2as" in out and "$" not in out
+
+
+def test_pdf_leftovers_in_content_show_as_symbols_or_nothing():
+    assert to_terminal("v = 2 P k") == "v = 2 P k"
+    assert to_terminal("length AB  length AC + length CB, r  0") == "length AB ≤ length AC + length CB, r ≥ 0"
+    assert to_terminal("Cl O­–") == "Cl O–"

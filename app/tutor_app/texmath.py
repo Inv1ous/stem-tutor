@@ -17,6 +17,8 @@ _FUNCS = "arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp
 # markers that pass through flatlatex untouched: literal braces, a hyphen that is no minus (a word in \text{}, a
 # chemical bond), \quad, a double bond, and the two sides of a function name (a space only where one reads)
 _LBRACE, _RBRACE, _HYPHEN, _QUAD, _FN_END, _BOND2, _FN_START = (chr(0xE000 + i) for i in range(7))
+# leftovers of PDF extraction in a few packs: a maths font's ≤ ≥, and big-bracket pieces that lost their place
+_LEFTOVERS = {0xF084: "≤", 0xF085: "≥", 0x00AD: None, **{c: None for c in range(0xF8E5, 0xF8FF)}}
 
 try:
     import flatlatex
@@ -218,6 +220,7 @@ def to_terminal(text: str) -> str:
     """Convert every $...$ / $$...$$ / \\(...\\) / \\[...\\] span, and plain units such as m s^-2 elsewhere."""
     if not text:
         return ""
+    text = text.translate(_LEFTOVERS)
     text = re.sub(r"\$\$(.+?)\$\$|(?<!\\)\\\[(.+?)\\\]|(?<!\\)\\\((.+?)\\\)",
                   lambda m: _math(next(g for g in m.groups() if g is not None).strip()), text, flags=re.S)
     text = re.sub(r"(?<!\\)\$(?!\s)((?:\\\$|[^$])+?)(?<![\s\\])\$(\d?)",  # prices are not maths: '$5 and $6', '$5-$6'

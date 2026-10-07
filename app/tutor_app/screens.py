@@ -23,6 +23,7 @@ from . import cards, config, mac, prompts
 from . import __version__
 from .panels import (ChoicePanel, ChoosePanel, Composer, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel,
                      TickPanel, ValuePanel, WorkedPanel)
+from .texmath import to_terminal
 
 BANNER = r"""[b #ffd500]  ___ _____ ___ __  __   _____      _
  / __|_   _| __|  \/  | |_   _|  _| |_ ___ _ _
@@ -427,7 +428,7 @@ class SessionScreen(Screen):
         t = self.tutor
         s = t.session or {}
         sub = s.get("subtopic")
-        title = t.packs.subtopics.get(sub, {}).get("title", "") if sub else ""
+        title = to_terminal(t.packs.subtopics.get(sub, {}).get("title", "")) if sub else ""
         mins, secs = divmod(int(time.monotonic() - self.started), 60)
         a = self.app.ai
         ai_state = "AI ●" if (self.app.settings.ai and a.available) else "AI ○"
@@ -458,7 +459,7 @@ class SessionScreen(Screen):
                 kc = b["kc"]
                 glyph, style = ("✓", "#a6e3a1") if kc in s.get("kcs_learned", []) else \
                     ("▶", "bold #89b4fa") if kc == self.kc else ("○", "#6c7086")
-                name = t.packs.kcs[kc]["title"]
+                name = to_terminal(t.packs.kcs[kc]["title"])
                 m.append(f"{glyph} {name if len(name) <= 24 else name[:23] + '…'}  ", style=style)
             self.query_one("#map", Static).update(m)
 
@@ -919,7 +920,7 @@ class SummaryScreen(ModalScreen):
                    if ((s.get("week") or {}).get("anki") or {}).get("path") else "")
                 + "Your notes and the full lesson are in Obsidian (Home → Recent lessons). Press ⏎ for the menu.")
         with Vertical(id="summary"):
-            yield Markdown(text)
+            yield Markdown(to_terminal(text))
 
 
 class ConfirmScreen(ModalScreen):
@@ -1045,7 +1046,7 @@ class InsightsScreen(Screen):
             else:
                 keep = None
             out.append(line)
-        return "\n".join(out) + "\n"
+        return to_terminal("\n".join(out)) + "\n"
 
     def action_ai(self) -> None:
         if not (self.app.settings.ai and self.app.ai.available):
@@ -1107,7 +1108,7 @@ class ProgressScreen(Screen):
                  f"- Reviews due in the next 7 days: {' · '.join(str(x) for x in p['workload'])}."]
         rows += ["", "Esc to go back · o opens the full profile (Profile.md) in Obsidian."]
         with VerticalScroll():
-            yield Markdown("\n".join(rows))
+            yield Markdown(to_terminal("\n".join(rows)))
         yield Footer()
 
     def action_open(self) -> None:
@@ -1126,7 +1127,7 @@ class BlurtScreen(Screen):
 
     def compose(self) -> ComposeResult:
         t = self.app.tutor
-        title = t.packs.subtopics[self.subtopic]["title"]
+        title = to_terminal(t.packs.subtopics[self.subtopic]["title"])
         yield Static(Text(f" Blurt · {self.subtopic} {title} ", style="bold #1e1e2e on #ffd500"), id="bar")
         with VerticalScroll(id="log"):
             yield Static(cards.card("tutor", "Write everything you remember",

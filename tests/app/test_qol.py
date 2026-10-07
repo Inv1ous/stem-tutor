@@ -312,3 +312,23 @@ def test_esc_still_skips_a_text_panel_and_a_reason_inside_a_session(tmp_path, mo
             await pilot.pause()
         assert skipped == ["text", "reflect"] and not said
     run(app, (100, 30), steps)
+
+
+def test_the_summary_progress_and_insights_screens_show_maths_not_dollars(tmp_path, monkeypatch):
+    from tutorlib import profile
+    from tutor_app.screens import InsightsScreen, ProgressScreen, SummaryScreen
+    monkeypatch.setattr(profile, "advice", lambda p: [r"You mix up $v^2=u^2+2as$ and $s=ut$."])
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        for screen in (ProgressScreen(), SummaryScreen({"answered": 1, "correct": 1, "accuracy": 1.0})):
+            app.push_screen(screen)
+            await pilot.pause()
+            source = "\n".join(m.source for m in app.screen.query("Markdown"))
+            assert "$" not in source and "\\" not in source
+            if isinstance(screen, ProgressScreen):
+                assert "v² = u² + 2as" in source
+            app.pop_screen()
+            await pilot.pause()
+        assert "v² = u² + 2as" in InsightsScreen._for_terminal(r"Misconception: $v^2=u^2+2as$")
+    run(app, (100, 30), steps)
