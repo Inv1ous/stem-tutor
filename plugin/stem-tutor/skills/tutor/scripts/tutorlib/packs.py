@@ -151,7 +151,8 @@ class Packs:
         return {p.stem for p in self.root.glob("specs/*/packs/*.json")}
 
     def pack_for_kc(self, kc_id: str) -> dict | None:
-        return self.pack(self.kcs[kc_id]["subtopic"])
+        meta = self.kcs.get(kc_id)  # an idea a republish dropped can still have a review card in your history
+        return self.pack(meta["subtopic"]) if meta else None
 
     def items_for(self, kc_id: str) -> list[dict]:
         p = self.pack_for_kc(kc_id)

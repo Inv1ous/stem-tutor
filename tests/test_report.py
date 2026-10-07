@@ -212,3 +212,17 @@ def test_today_names_a_few_ideas_per_line_and_counts_the_rest(tutor, monkeypatch
 def test_a_review_lesson_is_not_titled_review_review(tutor):
     tutor.start("review", minutes=10)
     assert tutor.session["log"].endswith(" Review.md")
+
+
+def test_an_idea_dropped_from_the_packs_does_not_stop_the_brief(tmp_path):
+    clock = {"now": T0}
+    t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=lambda: clock["now"])
+    t.log({"type": "answer", "session": "s1", "item": "old-i01", "kcs": ["9702-9.9.9"], "subject": "phys",
+           "difficulty": 3, "conf": 3, "hinted": False, "seconds": 30, "marks": 1,
+           "grade": {"correct": True, "score": 1.0, "error": None, "misconception": None},
+           "credit": [], "pos": 0, "block": "review", "phase": None, "response": "B"})
+    clock["now"] = T0 + timedelta(days=30)  # due for review, but no longer in any pack (a republish dropped it)
+    assert t.packs.items_for("9702-9.9.9") == [] and t.packs.pack_for_kc("9702-9.9.9") is None
+    report.brief(t)
+    report.today_note(t)
+    assert "9702-9.9.9" not in str(t.start("autopilot", minutes=50)["blocks"])
