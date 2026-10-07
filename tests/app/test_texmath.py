@@ -179,3 +179,16 @@ def test_review_findings_read_as_printed(tex, want):
 ])
 def test_second_review_findings_read_as_printed(tex, want):
     assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # brackets and symbols flatlatex has no name for
+    (r"$\langle c^2\rangle$", "⟨c²⟩"), (r"$\frac{1}{2}m\langle c^2\rangle=\frac{3}{2}kT$", "½m⟨c²⟩ = ³⁄₂kT"),
+    (r"$\lceil x \rceil + \lfloor y \rfloor$", "⌈x⌉ + ⌊y⌋"), (r"$\lfloor 2.7 \rfloor = 2$", "⌊2.7⌋ = 2"),
+    (r"$\triangle ABC \sim \triangle DEF$", "△ABC ∼ △DEF"), (r"$A = \varnothing$", "A = ∅"),
+    (r"$a \leqslant b$", "a ≤ b"), (r"$a \geqslant b$", "a ≥ b"), (r"$p \land q$", "p ∧ q"), (r"$p \lor q$", "p ∨ q"),
+    (r"$A \Longrightarrow B$", "A ⇒ B"), (r"$A \Longleftrightarrow B$", "A ⇔ B"), (r"$a \leftrightarrow b$", "a ⟷ b"),
+    (r"$\hat{\imath}+\hat{\jmath}$", "ı̂ + ȷ̂"), (r"$a \bmod n$", "a mod n"), (r"$a \equiv b \pmod{n}$", "a ≡ b (mod n)"),
+    (r"$\dagger$", "†"), (r"$5\,\text{\textmu m}$", "5 μm"),
+])
+def test_brackets_and_symbols_without_a_flatlatex_name(tex, want):
+    assert to_terminal(tex) == want

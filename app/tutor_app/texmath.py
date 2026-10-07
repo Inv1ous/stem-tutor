@@ -22,6 +22,15 @@ _FRAC_L, _FRAC_R = "\ue007", "\ue008"  # around a/b: bracketed when a factor fol
 _CHARGE_END = r"(?=$|[\s),;]|\((?:aq|g|l|s)\))"  # after a charge: the end, a space, or a state symbol: Na⁺(g)
 # leftovers of PDF extraction in a few packs: a maths font's ≤ ≥, and big-bracket pieces that lost their place
 _LEFTOVERS = {0xF084: "≤", 0xF085: "≥", 0x00AD: None, **{c: None for c in range(0xF8E5, 0xF8FF)}}
+# commands flatlatex lacks (or draws with a glyph that can turn into an emoji: its ↔ is U+2194)
+_SYMBOLS = {r"\iff": "⇔", r"\implies": "⇒", r"\impliedby": "⇐", r"\prime": "′", r"\longrightarrow": "→",
+            r"\longleftarrow": "←", r"\Longrightarrow": "⇒", r"\Longleftarrow": "⇐", r"\Longleftrightarrow": "⇔",
+            r"\leftrightarrow": "⟷", r"\longleftrightarrow": "⟷", r"\langle": "⟨", r"\rangle": "⟩", r"\lceil": "⌈",
+            r"\rceil": "⌉", r"\lfloor": "⌊", r"\rfloor": "⌋", r"\triangle": "△", r"\varnothing": "∅",
+            r"\leqslant": "≤", r"\geqslant": "≥", r"\land": "∧", r"\lor": "∨", r"\imath": "ı", r"\jmath": "ȷ",
+            r"\dagger": "†", r"\ddagger": "‡", r"\top": "⊤", r"\square": "□", r"\Box": "□", r"\checkmark": "✓",
+            r"\bmod": " mod ", r"\textmu": "μ", r"\upmu": "μ", r"\micro": "μ", r"\ohm": "Ω", r"\textdegree": "°",
+            r"\perthousand": "‰", r"\textperthousand": "‰", r"\AA": "Å", r"\angstrom": "Å", r"\cdotp": "·"}
 
 try:
     import flatlatex
@@ -72,11 +81,11 @@ if flatlatex is not None:
         def __init__(self):
             super().__init__()
             cmds = self._converter__cmds
-            for name, symbol in {r"\iff": "⇔", r"\implies": "⇒", r"\impliedby": "⇐", r"\prime": "′",
-                                 r"\colon": ": ", r"\longrightarrow": "→", r"\longleftarrow": "←"}.items():
+            for name, symbol in {**_SYMBOLS, r"\colon": ": "}.items():
                 cmds[name] = _funtypes.latexfun(lambda _, s=symbol: s, 0)
             cmds[r"\cbrt"] = _funtypes.latexfun(lambda x: "∛" + _radicand(x[0]), 1)
             cmds[r"\qdrt"] = _funtypes.latexfun(lambda x: "∜" + _radicand(x[0]), 1)
+            cmds[r"\pmod"] = _funtypes.latexfun(lambda x: f" (mod {x[0]})", 1)
 
         def _converter__is_complex_expr(self, expr):
             return not _simple(expr)
@@ -178,20 +187,20 @@ def _words(text: str) -> str:
     """A \\text{} group: spaces kept, a hyphen in a word stays a hyphen (but-2-ene, not a minus), an apostrophe stays
     one (Hooke’s, not a prime)."""
     return re.sub(r"(?<=[A-Za-z0-9)])(?<![\d.][eE])-(?=[A-Za-z0-9(])", _HYPHEN,  # 1.6e−19 keeps its minus
-                  text.replace(" ", r"\,")).replace("'", "’")
+                  re.sub(r"(\\[A-Za-z]+) (?=\S)", r"\1{}", text).replace(" ", r"\,")).replace("'", "’")  # \textmu m
 
 
-_REL = set("=≠≈≃≅≡∝∼<>≤≥≪≫∈∉⊂⊆→←↔⇌⇒⇐⇔↦")  # spaced at the top level only: lim[x→0], {x, x≥0} stay tight
-_BIN = set("+−±∓×÷")  # spaced at the top level and inside round brackets: √(b² − 4ac)
-_OPEN, _CLOSE = "([{" + _LBRACE, ")]}" + _RBRACE
+_REL = set("=≠≈≃≅≡∝∼<>≤≥≪≫∈∉⊂⊆→←⟷⇌⇒⇐⇔↦")  # spaced at the top level only: lim[x→0], {x, x≥0} stay tight
+_BIN = set("+−±∓×÷∧∨")  # spaced at the top level and inside round brackets: √(b² − 4ac)
+_OPEN, _CLOSE = "([{⟨⌈⌊" + _LBRACE, ")]}⟩⌉⌋" + _RBRACE
 
 
 def _operand(ch: str) -> bool:
-    return len(ch) == 1 and (ch.isalnum() or ch in ")]}|′″!%°∞…⦵⁺⁻⁼⁾₊₋₌₎" + _RBRACE or bool(unicodedata.combining(ch)))
+    return len(ch) == 1 and (ch.isalnum() or ch in ")]}⟩⌉⌋|′″!%°∞…⦵⁺⁻⁼⁾₊₋₌₎" + _RBRACE or bool(unicodedata.combining(ch)))
 
 
 def _starts_factor(ch: str) -> bool:
-    return len(ch) == 1 and (ch.isalnum() or ch in "(√∛∜∫∑∏∮" + _FN_START + _LBRACE + _FRAC_L)
+    return len(ch) == 1 and (ch.isalnum() or ch in "(⟨⌈⌊√∛∜∫∑∏∮" + _FN_START + _LBRACE + _FRAC_L)
 
 
 def _tidy(text: str) -> str:
