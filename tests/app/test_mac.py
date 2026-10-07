@@ -161,3 +161,91 @@ def test_doctor_without_a_tutor_folder_does_not_say_the_tutor_still_runs(tmp_pat
     cli.main(["doctor", "--vault", str(tmp_path / "nowhere")])
     out = capsys.readouterr().out
     assert "still runs" not in out and "can't start without its folder" in out
+
+
+@pytest.mark.parametrize("env,theme,want", [
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "470"}, "night", True),
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "470.2"}, "day", True),
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "464"}, "night", False),  # macOS 15: 256 colours
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "470"}, "classic", False),  # as it always was
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "470", "COLORTERM": "truecolor"}, "night", False),
+    ({"TERM_PROGRAM": "iTerm.app", "TERM_PROGRAM_VERSION": "3.5.0"}, "night", False),
+    ({"TERM_PROGRAM": "Apple_Terminal"}, "night", False),
+])
+def test_full_colour_is_turned_on_only_where_terminal_draws_it(env, theme, want):
+    assert mac.wants_truecolor(env, theme) is want
+
+
+def test_the_app_starts_in_full_colour_in_a_new_terminal_with_a_new_look(tmp_path, monkeypatch):
+    import json
+    from fixtures import make_vault
+    from tutor_app import __main__ as cli
+    from tutor_app.app import TutorApp
+    vault = make_vault(tmp_path)
+    (vault / ".tutor/app_settings.json").write_text(json.dumps({"theme": "night"}))
+    monkeypatch.setenv("TERM_PROGRAM", "Apple_Terminal")
+    monkeypatch.setenv("TERM_PROGRAM_VERSION", "471")
+    monkeypatch.setenv("COLORTERM", "")  # unset, and put back as it was after the test
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda *a, **k: ("ok", None), raising=False)
+    seen = []
+    monkeypatch.setattr(TutorApp, "run", lambda self: seen.append(__import__("os").environ.get("COLORTERM")))
+    cli.main(["--vault", str(vault)])
+    assert seen == ["truecolor"]
+
+
+def test_a_tab_is_switched_by_asking_terminal_and_a_failure_is_only_a_failure(monkeypatch):
+    import subprocess
+    calls = []
+
+    answers = ["missing\n", "ok\nBasic\n"]
+
+    def fake_run(args, **kw):
+        calls.append((args, kw.get("input", ""), kw.get("timeout")))
+        return subprocess.CompletedProcess(args, 0, stdout=answers.pop(0), stderr="")
+    monkeypatch.setattr(mac.subprocess, "run", fake_run)
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("missing", None)
+    (args, script, timeout), = calls
+    assert args == ["osascript", "-", "/dev/ttys009", "STEM Tutor Night"] and timeout and "settings set wanted" in script
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("ok", "Basic")  # and what it was
+    assert mac.switch_terminal_profile(None, "STEM Tutor Night") == ("", None) and len(calls) == 2  # not in Terminal
+
+    def too_slow(args, **kw):
+        raise subprocess.TimeoutExpired(args, 3)
+    monkeypatch.setattr(mac.subprocess, "run", too_slow)
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("", None)
+    assert mac.terminal_tty() is None  # tests never run as a macOS Terminal tab (conftest)
+
+
+@pytest.mark.parametrize("theme,answer,switched,missing", [
+    ("night", ("ok", "Basic"), [("/dev/ttys009", "STEM Tutor Night"), ("/dev/ttys009", "Basic")], False),  # and back
+    ("night", ("missing", None), [("/dev/ttys009", "STEM Tutor Night")], True),
+    ("classic", ("ok", "Basic"), [], False)])  # Classic: the tab stays as the launcher left it
+def test_the_app_puts_its_tab_in_the_looks_profile_and_back(tmp_path, monkeypatch, theme, answer, switched, missing):
+    import json
+    from fixtures import make_vault
+    from tutor_app import __main__ as cli
+    from tutor_app.app import TutorApp
+    vault = make_vault(tmp_path)
+    (vault / ".tutor/app_settings.json").write_text(json.dumps({"theme": theme}))
+    calls, seen = [], []
+    monkeypatch.setattr(mac, "terminal_tty", lambda: "/dev/ttys009")
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: calls.append((tty, name)) or answer)
+    monkeypatch.setattr(TutorApp, "run", lambda self: seen.append((self.tty, self.profile_missing)))
+    cli.main(["--vault", str(vault)])
+    assert calls == switched
+    assert seen == [("/dev/ttys009", missing)]
+
+
+def test_doctor_still_runs_when_the_interface_library_is_missing(tmp_path, monkeypatch, capsys):
+    """The row that says to reinstall it must be reachable: nothing on doctor's path may need textual."""
+    import importlib
+    import sys
+    for name in list(sys.modules):
+        if name == "textual" or name.startswith("textual.") or name in (
+                "tutor_app.look", "tutor_app.setup_look", "tutor_app.__main__"):
+            monkeypatch.delitem(sys.modules, name)
+    monkeypatch.setitem(sys.modules, "textual", None)  # import textual now fails
+    cli = importlib.import_module("tutor_app.__main__")
+    monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})
+    cli.main(["doctor", "--vault", str(tmp_path)])
+    assert "✗ Terminal interface library" in capsys.readouterr().out

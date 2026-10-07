@@ -106,13 +106,13 @@ def test_first_json_finds_embedded_object():
 
 
 @pytest.mark.parametrize("src,want", [
-    (r"$v^2=u^2+2as$", "v²=u²+2as"),
+    (r"$v^2=u^2+2as$", "v² = u² + 2as"),
     (r"$\tfrac12at^2$", "at²"),
     (r"$9.81\ \mathrm{m\,s^{-2}}$", "m s⁻²"),
     (r"$\ce{H2SO4}$", "H₂SO₄"),
     (r"$0.48\%$", "0.48%"),
     ("plain text", "plain text"),
-    (r"$0.348\to0.3$", "0.348→0.3"),
+    (r"$0.348\to0.3$", "0.348 → 0.3"),
     (r"$v\cos\theta$", "v cos θ"),
     (r"$v_y$", "v_y"),
 ])
@@ -199,10 +199,10 @@ def test_leak_guard_given_the_true_value_still_lets_hints_through(reply, key, an
 
 
 @pytest.mark.parametrize("tex,want", [  # published maths that reached the terminal as raw LaTeX
-    (r"$k\ge3$", "k≥3"), (r"$20 \le t < 35$", "20≤t<35"), (r"$a\ne b$", "a≠b"),
-    (r"$Q_3 + 1.5\times\text{IQR}$", "Q₃+1.5×IQR"),
-    (r"$\text{frequency density}=\text{frequency}\div\text{class width}$", "frequency density=frequency÷class width"),
-    (r"$1, 2, \ldots, n$", "1,2,…,n"), (r"$\begin{pmatrix}3\\-4\end{pmatrix}$", "(3; -4)"),
+    (r"$k\ge3$", "k ≥ 3"), (r"$20 \le t < 35$", "20 ≤ t < 35"), (r"$a\ne b$", "a ≠ b"),
+    (r"$Q_3 + 1.5\times\text{IQR}$", "Q₃ + 1.5 × IQR"),
+    (r"$\text{frequency density}=\text{frequency}\div\text{class width}$", "frequency density = frequency ÷ class width"),
+    (r"$1, 2, \ldots, n$", "1,2,…,n"), (r"$\begin{pmatrix}3\\-4\end{pmatrix}$", "(3; −4)"),
 ])
 def test_terminal_maths_has_no_raw_latex_left(tex, want):
     assert to_terminal(tex) == want

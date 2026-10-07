@@ -9,10 +9,9 @@ from rich.markup import escape
 from rich.panel import Panel
 from rich.text import Text
 
+from .look import C
 from .texmath import to_terminal
 
-C = {"tutor": "#89b4fa", "question": "#cba6f7", "you": "#9399b2", "good": "#a6e3a1", "bad": "#f38ba8",
-     "hint": "#f9e2af", "ai": "#f5c2e7", "accent": "#ffd500", "dim": "#6c7086", "plan": "#94e2d5"}
 CONF = {1: "Guess", 2: "Unsure", 3: "Fairly sure", 4: "Certain"}
 
 
@@ -27,9 +26,17 @@ def literal(text: str) -> str:
     return re.sub(r"([\\`*_$])", r"\\\1", to_terminal(text))
 
 
+def framed(body, colour: str, title: str, **kw) -> Panel:
+    """A transcript card. Classic draws the whole frame in the card's colour; Night and Day draw a quiet frame and
+    give the title the card's colour."""
+    if C["frame"]:
+        return Panel(body, title=Text.from_markup(title, style=colour), border_style=C["frame"], padding=(0, 1), **kw)
+    return Panel(body, title=title, border_style=colour, padding=(0, 1), **kw)
+
+
 def card(kind: str, title: str, body: str = "", subtitle: str | None = None) -> Panel:
-    return Panel(md(body) if body else Group(), title=f"[b]{escape(title)}[/b]", title_align="left",
-                 subtitle=subtitle, subtitle_align="right", border_style=C[kind], padding=(0, 1))
+    return framed(md(body) if body else Group(), C[kind], f"[b]{escape(to_terminal(title))}[/b]", title_align="left",
+                  subtitle=subtitle, subtitle_align="right")
 
 
 def question(view: dict) -> Panel:
@@ -40,13 +47,12 @@ def question(view: dict) -> Panel:
         tags.append("no hints")
     parts = [md(view.get("stem", ""))]
     if view.get("options") and kind != "mcq":  # MCQ options are listed in the answer panel below
-        parts.append(Text("\n".join(f"  {k}  {to_terminal(v)}" for k, v in view["options"].items()), style="#cdd6f4"))
+        parts.append(Text("\n".join(f"  {k}  {to_terminal(v)}" for k, v in view["options"].items()), style=C["text"]))
     if view.get("image"):
         parts.append(Text("◆ This question has a figure: see Now in Obsidian (press o).", style=C["hint"]))
     if view.get("source"):
         parts.append(Text(view["source"], style=C["dim"]))
-    return Panel(Group(*parts), title=f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left",
-                 border_style=C["question"], padding=(0, 1))
+    return framed(Group(*parts), C["question"], f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left")
 
 
 def feedback(fb: dict, your: str) -> Panel:
@@ -75,16 +81,15 @@ def feedback(fb: dict, your: str) -> Panel:
         body += ["", f"◔ {fb['calibration_note']}"]
     if fb.get("relearn"):
         body += ["", "↻ This idea will come back in a few questions, so you can get it right before you finish."]
-    return Panel(md("\n".join(body)), title=f"[b]Q{fb['n']} — {title}[/b]", title_align="left", border_style=style,
-                 padding=(0, 1))
+    return framed(md("\n".join(body)), style, f"[b]Q{fb['n']} — {title}[/b]", title_align="left")
 
 
 def you(text: str) -> Panel:
-    return Panel(Text(text), title="[b]You[/b]", title_align="right", border_style=C["you"], padding=(0, 1))
+    return framed(Text(text), C["you"], "[b]You[/b]", title_align="right")
 
 
 def ai(text: str, title: str = "Tutor (AI)") -> Panel:
-    return Panel(md(text or "…"), title=f"[b]{title}[/b]", title_align="left", border_style=C["ai"], padding=(0, 1))
+    return framed(md(text or "…"), C["ai"], f"[b]{title}[/b]", title_align="left")
 
 
 def note(text: str, kind: str = "dim") -> Text:

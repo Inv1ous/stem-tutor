@@ -19,15 +19,12 @@ from tutorlib import almanac, insights, model, policy, report, views
 from tutorlib.lesson import GOALS
 
 from . import ai as ai_mod
-from . import cards, config, mac, prompts
+from . import cards, config, look, mac, prompts
 from . import __version__
+from .look import C
 from .panels import (ChoicePanel, ChoosePanel, Composer, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel,
                      TickPanel, ValuePanel, WorkedPanel)
-
-BANNER = r"""[b #ffd500]  ___ _____ ___ __  __   _____      _
- / __|_   _| __|  \/  | |_   _|  _| |_ ___ _ _
- \__ \ | | | _|| |\/| |   | || || |  _/ _ \ '_|
- |___/ |_| |___|_|  |_|   |_| \_,_|\__\___/_|[/]"""
+from .texmath import to_terminal
 
 
 def bar(done: int, total: int, width: int = 12) -> str:
@@ -58,7 +55,7 @@ class HomeScreen(Screen):
                 Binding("q", "app.quit", "Quit")]
 
     def compose(self) -> ComposeResult:
-        yield Static(BANNER, id="banner")
+        yield Static(look.banner(), id="banner")
         with Horizontal(id="home"):
             yield OptionList(id="menu")
             with VerticalScroll(id="stats"):  # more chapters than fit in the window: the box scrolls
@@ -131,13 +128,14 @@ class HomeScreen(Screen):
             pass  # the planner's folder can't be written: the tutor itself is unaffected
         now = t.now()
         due = model.due_kcs(t.state, now)
+        self.query_one("#banner", Static).update(look.banner())  # in the colours of the look just chosen
         menu = self.query_one("#menu", OptionList)
         was = menu.get_option_at_index(menu.highlighted).id if menu.highlighted is not None else None
         menu.clear_options()
         items = []
         if t.session:
             s = t.session
-            items.append(("resume", f"▶  Resume your {MODE_NAMES.get(s['mode'], s['mode'])} session "
+            items.append(("resume", f"▸  Resume your {MODE_NAMES.get(s['mode'], s['mode'])} session "
                                     f"({s.get('answered', 0)} answered)"))
         week = policy.focus_week(t.packs.plan, t.state, t.ticks(), now) if t.packs.plan.get("weeks") else 0
         items += [("today", f"★  Today's plan{f' (Almanac week {week})' if week else ''}"),
@@ -163,60 +161,60 @@ class HomeScreen(Screen):
         app = self.app
         t = app.tutor
         out = Text()
-        out.append(f"{now:%A %d %B}\n", style="bold #ffd500")
+        out.append(f"{now:%A %d %B}\n", style=f"bold {C['banner']}")
         days = {date.fromisoformat(d) for d in t.state.get("study_days", [])}
         d = now.date() if now.date() in days else now.date() - timedelta(days=1)
         streak = 0
         while d in days:
             streak, d = streak + 1, d - timedelta(days=1)
-        out.append(f"🔥 {streak}-day streak   🔁 {len(due)} due\n\n", style="#f9e2af")
+        out.append(f"✶ {streak}-day streak   ↻ {len(due)} due\n\n", style=C["soft"])
         sittings = sorted((date.fromisoformat(v), k) for k, v in (t.packs.plan.get("sittings") or {}).items()
                           if date.fromisoformat(v) >= now.date())
         if sittings:
-            out.append(f"⏳ {sittings[0][1]}: {(sittings[0][0] - now.date()).days} days\n\n", style="#94e2d5")
+            out.append(f"⧗ {sittings[0][1]}: {(sittings[0][0] - now.date()).days} days\n\n", style=C["plan"])
         ticked = t.ticks()
         week = policy.current_week(t.packs.plan, now)
         focus = policy.focus_week(t.packs.plan, t.state, ticked, now)  # past the calendar once this week is done
         objectives = (t.packs.plan.get("weeks") or {}).get(str(focus), [])
         if objectives:
             done = [policy.is_done(o, t.state, ticked) for o in objectives]
-            out.append(f"📅 Almanac week {focus}" + (f" · {sum(done)} of {len(done)} done" if any(done) else "") + "\n",
-                       style="bold #94e2d5")
+            out.append(f"▦ Almanac week {focus}" + (f" · {sum(done)} of {len(done)} done" if any(done) else "") + "\n",
+                       style=f"bold {C['plan']}")
             if focus > week:
-                out.append(f"You're ahead: the calendar is on week {week}.\n", style="#a6e3a1")
+                out.append(f"You're ahead: the calendar is on week {week}.\n", style=C["ok"])
             for o, finished in list(zip(objectives, done))[:6]:
                 kcs = o.get("kcs", [])
                 ready = sum(1 for k in kcs if k in t.packs.kcs and t.packs.items_for(k))
                 title = o["title"] if o.get("type", "NEW") == "NEW" else f"{o.get('verb', '')} {o['title']}".strip()
                 title = title[:36] + ("…" if len(title) > 36 else "")
                 out.append(f"{'✓' if finished else ' '} {SUBJECTS.get(o['subject'], o['subject']):<6}{title}",
-                           style="#6c7086" if finished else "#cdd6f4")
+                           style=C["dim"] if finished else C["text"])
                 if kcs and not finished:
                     status = "ready" if ready == len(kcs) else f"{ready}/{len(kcs)} ready" if ready else "not built yet"
-                    out.append(" " + status, style="#a6e3a1" if ready == len(kcs) else "#6c7086")
+                    out.append(" " + status, style=C["ok"] if ready == len(kcs) else C["dim"])
                 out.append("\n")
             export = almanac.latest_export(app.vault)
             out.append((f"Ticks read from your export of {datetime.fromtimestamp(export.stat().st_mtime):%-d %b %H:%M}."
-                        if export else "To count your ticks: press Export in your Almanac.") + "\n\n", style="#6c7086")
+                        if export else "To count your ticks: press Export in your Almanac.") + "\n\n", style=C["dim"])
         if mac.almanac_changed(t.packs.plan):
-            out.append("⚠ Your Almanac has changed since the tutor read it: ask Claude Code to refresh the plan.\n\n",
-                       style="#f9e2af")
+            out.append("△ Your Almanac has changed since the tutor read it: ask Claude Code to refresh the plan.\n\n",
+                       style=C["hint"])
         out.append("Your topics\n", style="bold")
         for sub in sorted(s for s in t.packs.subtopics if t.packs.pack(s)):
             kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
             sec = sum(views.kc_status(t.state, k) == "secure" for k in kcs)
             started = any(views.kc_status(t.state, k) != "new" for k in kcs)
-            colour = "#a6e3a1" if sec == len(kcs) else "#f9e2af" if started else "#6c7086"
-            out.append(f"{sub:<9}", style="#cdd6f4")
+            colour = C["ok"] if sec == len(kcs) else C["soft"] if started else C["dim"]
+            out.append(f"{sub:<9}", style=C["text"])
             out.append(bar(sec, len(kcs), 10), style=colour)
-            out.append(f" {sec}/{len(kcs)} {t.packs.subtopics[sub]['title'][:26]}\n", style="#9399b2")
+            out.append(f" {sec}/{len(kcs)} {t.packs.subtopics[sub]['title'][:26]}\n", style=C["muted"])
         a = app.ai
         state = ("on" if a.available else {"login": "sign-in needed", "limit": "paused (limit)",
                                            "off": "not installed"}.get(a.status, a.status)) if app.settings.ai else "off"
         left = a.limits_text(app.claude_note())
         out.append(f"\nAI tutor: {state} · {a.today()['replies']} replies today{' · ' + left if left else ''}\n",
-                   style="#f5c2e7")
-        out.append(f"\nSTEM Tutor v{__version__}", style="#6c7086")
+                   style=C["ai"])
+        out.append(f"\nSTEM Tutor v{__version__}", style=C["dim"])
         return out
 
     @on(OptionList.OptionSelected, "#menu")
@@ -427,7 +425,7 @@ class SessionScreen(Screen):
         t = self.tutor
         s = t.session or {}
         sub = s.get("subtopic")
-        title = t.packs.subtopics.get(sub, {}).get("title", "") if sub else ""
+        title = to_terminal(t.packs.subtopics.get(sub, {}).get("title", "")) if sub else ""
         mins, secs = divmod(int(time.monotonic() - self.started), 60)
         a = self.app.ai
         ai_state = "AI ●" if (self.app.settings.ai and a.available) else "AI ○"
@@ -436,11 +434,11 @@ class SessionScreen(Screen):
         use = " · ".join(x for x in (f"{a.session.replies} {'reply' if a.session.replies == 1 else 'replies'}",
                                      a.limits_text(self.app.claude_note())) if x)
         head, tail = Text(), Text()
-        head.append(" STEM Tutor ", style="bold #1e1e2e on #ffd500")
+        head.append(" STEM Tutor ", style=f"bold {C['badge_fg']} on {C['badge_bg']}")
         head.append(f" {title + ' · ' if title else ''}{mode} ", style="bold")
-        tail.append(f" ⏱ {mins:02d}:{secs:02d} ", style="#94e2d5")
-        tail.append(f" ✓ {s.get('correct', 0)}/{s.get('answered', 0)} ", style="#a6e3a1")
-        tail.append(f" {ai_state} {use} ", style="#f5c2e7")
+        tail.append(f" ◷ {mins:02d}:{secs:02d} ", style=C["plan"])
+        tail.append(f" ✓ {s.get('correct', 0)}/{s.get('answered', 0)} ", style=C["good"])
+        tail.append(f" {ai_state} {use} ", style=C["ai"])
         if head.cell_len + tail.cell_len <= width:
             return head + tail
         for line in (head, tail):
@@ -453,12 +451,12 @@ class SessionScreen(Screen):
         self.query_one("#bar", Static).update(self.bar_text(self.size.width or self.app.size.width))
         nodes = [b for b in s.get("blocks", []) if b.get("kind") == "node"]
         if nodes:
-            m = Text(" Map: ", style="#9399b2")
+            m = Text(" Map: ", style=C["muted"])
             for b in nodes:
                 kc = b["kc"]
-                glyph, style = ("✓", "#a6e3a1") if kc in s.get("kcs_learned", []) else \
-                    ("▶", "bold #89b4fa") if kc == self.kc else ("○", "#6c7086")
-                name = t.packs.kcs[kc]["title"]
+                glyph, style = ("✓", C["ok"]) if kc in s.get("kcs_learned", []) else \
+                    ("▸", f"bold {C['tutor']}") if kc == self.kc else ("○", C["dim"])
+                name = to_terminal(t.packs.kcs[kc]["title"])
                 m.append(f"{glyph} {name if len(name) <= 24 else name[:23] + '…'}  ", style=style)
             self.query_one("#map", Static).update(m)
 
@@ -913,7 +911,7 @@ class SummaryScreen(ModalScreen):
         learned = "\n".join(f"- ✓ {t.packs.kcs[k]['title']}" for k in s.get("kcs_learned", []) if k in t.packs.kcs)
         due = model.due_kcs(t.state, t.now() + timedelta(days=1))
         a = self.app.ai
-        text = (f"# Session done 🎉\n\n**Answered:** {s['answered']}  ·  **Correct:** {s['correct']}  ·  **Accuracy:** {acc}\n\n"
+        text = (f"# Session done ✓\n\n**Answered:** {s['answered']}  ·  **Correct:** {s['correct']}  ·  **Accuracy:** {acc}\n\n"
                 + (f"## Learned today\n{learned}\n\n" if learned else "")
                 + f"**Due for review by tomorrow:** {len(due)} idea(s)\n\n"
                 + f"**AI replies this session:** {a.session.replies}\n\n"
@@ -922,7 +920,7 @@ class SummaryScreen(ModalScreen):
                    if ((s.get("week") or {}).get("anki") or {}).get("path") else "")
                 + "Your notes and the full lesson are in Obsidian (Home → Recent lessons). Press ⏎ for the menu.")
         with Vertical(id="summary"):
-            yield Markdown(text)
+            yield Markdown(to_terminal(text))
 
 
 class ConfirmScreen(ModalScreen):
@@ -972,7 +970,7 @@ class ChatScreen(Screen):
     BINDINGS = [Binding("escape", "app.pop_screen", "Back to menu")]
 
     def compose(self) -> ComposeResult:
-        yield Static(Text(" Ask the tutor ", style="bold #1e1e2e on #f5c2e7"), id="bar")
+        yield Static(Text(" Ask the tutor ", style=f"bold {C['badge_fg']} on {C['ai']}"), id="bar")
         yield VerticalScroll(id="log")
         with Container(id="panel"):
             yield ChatPanel("Type a question and ⏎. Esc returns to the menu.")
@@ -1026,6 +1024,9 @@ class InsightsScreen(Screen):
                 "AI tutor to explain this in a few lines (one reply from today's allowance) · **o** opens it in "
                 "Obsidian · **m** your mistake journal · **w** your latest week in review · **Esc** back")
 
+    # the Profile note's colour emoji ⚪ 🟡 🟢 ✅ (Obsidian) as shapes: emoji draw two cells wide in a terminal
+    PLAIN = str.maketrans({0x26AA: "○", 0x1F7E1: "◔", 0x1F7E2: "◑", 0x2705: "●"})
+
     READINESS = {"Exam": "Exam", "Date": "Date", "Ideas": "Ideas", "Secure": "Secure",
                  "If you stopped now": "Stop", "If you keep reviewing": "Review"}
 
@@ -1048,7 +1049,7 @@ class InsightsScreen(Screen):
             else:
                 keep = None
             out.append(line)
-        return "\n".join(out) + "\n"
+        return to_terminal("\n".join(out)).translate(cls.PLAIN) + "\n"
 
     def action_ai(self) -> None:
         if not (self.app.settings.ai and self.app.ai.available):
@@ -1110,7 +1111,7 @@ class ProgressScreen(Screen):
                  f"- Reviews due in the next 7 days: {' · '.join(str(x) for x in p['workload'])}."]
         rows += ["", "Esc to go back · o opens the full profile (Profile.md) in Obsidian."]
         with VerticalScroll():
-            yield Markdown("\n".join(rows))
+            yield Markdown(to_terminal("\n".join(rows)))
         yield Footer()
 
     def action_open(self) -> None:
@@ -1129,8 +1130,8 @@ class BlurtScreen(Screen):
 
     def compose(self) -> ComposeResult:
         t = self.app.tutor
-        title = t.packs.subtopics[self.subtopic]["title"]
-        yield Static(Text(f" Blurt · {self.subtopic} {title} ", style="bold #1e1e2e on #ffd500"), id="bar")
+        title = to_terminal(t.packs.subtopics[self.subtopic]["title"])
+        yield Static(Text(f" Blurt · {self.subtopic} {title} ", style=f"bold {C['badge_fg']} on {C['badge_bg']}"), id="bar")
         with VerticalScroll(id="log"):
             yield Static(cards.card("tutor", "Write everything you remember",
                                     "Definitions, equations, units, examples, traps: anything about this topic. Don't "
@@ -1221,6 +1222,9 @@ class SettingsScreen(ModalScreen):
                 yield Select([("Haiku (cheapest, fast)", "haiku"), ("Sonnet (clearer, ~3x usage)", "sonnet")],
                              value=s.model, id="model", allow_blank=False, compact=True)
             with Horizontal(classes="row"):
+                yield Select([(f"Look: {look.LABELS[name]}", name) for name in config.THEMES],
+                             value=s.theme, id="theme", allow_blank=False, compact=True)
+            with Horizontal(classes="row"):
                 yield Static("Session length (minutes, 5 to 180)")
                 yield Input(str(s.minutes), id="minutes", type="integer", compact=True)
             yield Button("Save", id="save", variant="primary")
@@ -1235,6 +1239,7 @@ class SettingsScreen(ModalScreen):
             setattr(s, key, self.query_one(f"#{key}", Switch).value)
         old_model, typed = s.model, self.query_one("#minutes", Input).value.strip()
         s.model = str(self.query_one("#model", Select).value)
+        old_theme, s.theme = s.theme, str(self.query_one("#theme", Select).value)
         try:
             s.minutes = min(180, max(5, int(typed)))
         except ValueError:  # blank or not a number: the length you had stays
@@ -1246,4 +1251,6 @@ class SettingsScreen(ModalScreen):
         self.app.ai.model = s.model
         if s.model != old_model:
             self.run_worker(self.app.ai.reset(), group="reset")
+        if s.theme != old_theme:
+            look.apply(self.app, s.theme)  # the menu underneath redraws in it as this closes
         self.dismiss(None)

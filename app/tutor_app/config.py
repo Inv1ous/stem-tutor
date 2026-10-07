@@ -11,6 +11,7 @@ DEFAULT_VAULT = REPO.parent / "STEM Tutor"
 ICLOUD_INBOX = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/STEM Tutor Inbox"
 CLAUDE_STATE = Path.home() / ".claude.json"  # where Claude Code keeps its last reading of the plan's limits
 DOWNLOADS = Path.home() / "Downloads"  # where the browser saves the progress file the Almanac exports
+THEMES = ("night", "day", "classic")  # the looks (look.py); Classic is the app as it was before themes
 
 
 def vault_path() -> Path:
@@ -24,6 +25,7 @@ class Settings:
     own_words_feedback: bool = True  # AI comments on your "in your own words" answers
     open_obsidian: bool = True      # show Now.md in Obsidian when a session starts
     minutes: int = 40               # default session length
+    theme: str = "classic"          # night, day or classic; `tutor look` sets night once Terminal is set up
 
     @classmethod
     def load(cls, vault: Path) -> "Settings":
@@ -35,6 +37,8 @@ class Settings:
         default = cls()
         good = {k: v for k, v in (data if isinstance(data, dict) else {}).items()
                 if k in cls.__dataclass_fields__ and type(v) is type(getattr(default, k))}
+        if good.get("theme") not in THEMES:
+            good.pop("theme", None)
         return cls(**good)
 
     def save(self, vault: Path) -> None:

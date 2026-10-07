@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -17,6 +18,62 @@ INBOX_HELP = ("macOS isn't letting the tutor open your iPad inbox in iCloud Driv
 DOWNLOADS_HELP = ("macOS isn't letting the tutor look in Downloads for your Almanac export, so your ticks aren't "
                   "counted. Either allow it (System Settings › Privacy & Security › Files & Folders › Terminal › "
                   "Downloads Folder) or move the exported file into this vault's Almanac folder yourself.")
+
+
+SWITCH_PROFILE = """on run argv
+    set wanted to item 2 of argv
+    tell application "Terminal"
+        if not (exists settings set wanted) then return "missing"
+        repeat with w in windows
+            repeat with t in tabs of w
+                if tty of t is (item 1 of argv) then
+                    set previousName to name of current settings of t
+                    if previousName is not wanted then set current settings of t to settings set wanted
+                    return "ok" & linefeed & previousName
+                end if
+            end repeat
+        end repeat
+    end tell
+    return "no tab"
+end run"""
+LOOK_HELP = ("This look's Terminal window isn't set up yet, so its edges keep the old colours. In Terminal run:  "
+             "tutor look   (once; it backs up your Terminal settings first). Or choose Classic in Settings (F2).")
+
+
+def terminal_tty() -> str | None:
+    """The macOS Terminal tab this app runs in (/dev/ttys003), or None in any other terminal."""
+    if os.environ.get("TERM_PROGRAM") != "Apple_Terminal":
+        return None
+    for stream in (sys.__stdout__, sys.__stdin__):
+        try:
+            return os.ttyname(stream.fileno())
+        except (OSError, ValueError, AttributeError):
+            continue
+    return None
+
+
+def switch_terminal_profile(tty: str | None, name: str) -> tuple[str, str | None]:
+    """Show the Terminal tab on `tty` in the profile `name` (only that tab). Returns ("ok", the profile it had),
+    ("missing", None) when Terminal has no such profile, or ("", None) when it could not be asked (not in Terminal,
+    Apple Events refused, too slow)."""
+    if not tty:
+        return "", None
+    try:
+        done = subprocess.run(["osascript", "-", tty, name], input=SWITCH_PROFILE, capture_output=True, text=True,
+                              timeout=3)
+    except (OSError, subprocess.SubprocessError):
+        return "", None
+    status, _, was = done.stdout.strip().partition("\n")
+    return status, (was.strip() or None)
+
+
+def wants_truecolor(env, theme: str) -> bool:
+    """macOS Terminal has drawn 24-bit colour since macOS 26 (build 470) without saying so, and the app then falls back
+    to 256 colours. Night and Day are drawn in their real colours; Classic keeps what it always had."""
+    if theme == "classic" or env.get("COLORTERM") or env.get("TERM_PROGRAM") != "Apple_Terminal":
+        return False
+    build = re.match(r"\d+", env.get("TERM_PROGRAM_VERSION", ""))
+    return bool(build) and int(build.group()) >= 470
 
 
 def obsidian_vault_registered(vault: Path) -> str | None:
@@ -185,4 +242,5 @@ def doctor(vault: Path) -> list[tuple[bool, str, str]]:
         rows.append((True, f"Terminal interface library ready (textual {textual.__version__})", ""))
     except ImportError:
         rows.append((False, "Terminal interface library", "Run the installer again (bin/tutor --setup)."))
-    return rows
+    from . import setup_look
+    return rows + setup_look.doctor_rows(vault)
