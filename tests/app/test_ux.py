@@ -1,4 +1,6 @@
 """UX fixes found by an audit of every screen at 60x24, 80x24 and 120x40 in Night, Day and Classic."""
+import pytest
+
 from test_qol import _menu, _session, run
 from test_tui import app_for
 from tutor_app.panels import TickPanel
@@ -76,6 +78,39 @@ def test_the_summary_scrolls_in_a_small_window_and_always_says_how_to_leave(tmp_
         await pilot.pause()
         assert app.screen.__class__.__name__ == "HomeScreen"
     run(app, (60, 24), steps)
+
+
+@pytest.mark.parametrize("name", ["night", "day", "classic"])
+def test_a_focused_button_looks_focused_not_broken(tmp_path, monkeypatch, name):
+    """Textual's focus style is "b reverse": on a filled button the label becomes a dark chip inside a block. Night
+    and Day light the focused button up instead; Classic keeps the look it always had."""
+    from tutor_app import look
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.theme = name
+    look.use(name)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.submit({"entry": f"{scr.view['n']}?", "your": "I don't know"})
+        await pilot.pause()
+        for compact, size in ((True, (60, 24)), (False, (100, 40))):
+            await pilot.resize_terminal(*size)
+            await pilot.pause()
+            await pilot.pause()
+            buttons = list(scr.query("#panel Button"))
+            focused, other = buttons[0], buttons[-1]
+            assert app.focused is focused and focused.compact == compact == other.compact
+            style, tint = str(focused.styles.text_style), focused.styles.background_tint
+            if name == "classic":
+                assert style == "bold reverse" and tint.a == pytest.approx(0.05, abs=0.01)
+            else:
+                assert "reverse" not in style and "bold" in style and tint.a >= 0.15
+                if compact:  # no border to change: a mark that needs no colour
+                    assert "underline" in style
+    try:
+        run(app, (60, 24), steps)
+    finally:
+        look.use("classic")
 
 
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):

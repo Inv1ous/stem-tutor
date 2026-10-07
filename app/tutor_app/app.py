@@ -36,6 +36,8 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 .hint { color: $text-muted; padding: 0 0 0 1; }
 .buttons { height: auto; }
 .buttons Button { margin: 0 1 0 0; }
+Button:focus { background-tint: $button-focus-tint; }
+Button.-textual-compact:focus { text-style: $button-compact-focus-text-style; }
 OptionList { height: auto; max-height: 12; border: none; }
 #note { margin-top: 1; min-height: 1; max-height: 5; }
 SelectionList { height: auto; max-height: 14; }
