@@ -249,3 +249,21 @@ def test_doctor_still_runs_when_the_interface_library_is_missing(tmp_path, monke
     monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})
     assert cli.main(["doctor", "--vault", str(tmp_path)]) == 1
     assert "✗ Terminal interface library" in capsys.readouterr().out
+
+
+def test_claudes_limits_are_read_whatever_the_python(tmp_path, monkeypatch):
+    """Claude Code notes reset times ending in Z, which Python before 3.11 cannot read with fromisoformat."""
+    import datetime as dt
+    import json
+
+    class Py310(dt.datetime):
+        @classmethod
+        def fromisoformat(cls, s):
+            if s.endswith("Z"):
+                raise ValueError(f"Invalid isoformat string: {s!r}")
+            return super().fromisoformat(s)
+    monkeypatch.setattr(dt, "datetime", Py310)
+    note = tmp_path / "claude.json"
+    note.write_text(json.dumps({"cachedUsageUtilization": {"fetchedAtMs": 1, "utilization": {"limits": [
+        {"kind": "weekly_all", "percent": 92, "is_active": True, "resets_at": "2099-01-01T00:00:00Z"}]}}}))
+    assert mac.claude_limits(note) == {"seven_day": {"used": 92.0, "resets": 4070908800.0}}

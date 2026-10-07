@@ -152,7 +152,8 @@ def claude_limits(path: Path) -> dict:
     try:
         limits = json.loads(Path(path).read_text())["cachedUsageUtilization"]["utilization"]["limits"]
         return {{"session": "five_hour", "weekly_all": "seven_day"}.get(x["kind"], x["kind"]):
-                {"used": float(x["percent"]), "resets": datetime.fromisoformat(x["resets_at"]).timestamp()}
+                {"used": float(x["percent"]),
+                 "resets": datetime.fromisoformat(x["resets_at"].replace("Z", "+00:00")).timestamp()}  # Z: Python < 3.11
                 for x in limits if x.get("is_active") and x.get("percent") is not None and x.get("resets_at")}
     except (OSError, ValueError, KeyError, TypeError):
         return {}

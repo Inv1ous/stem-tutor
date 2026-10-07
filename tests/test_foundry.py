@@ -680,6 +680,21 @@ def test_a_stale_claude_reading_is_refreshed_by_asking_claude_itself(fdy, tmp_pa
     assert notes["claude"]["probed"] == asked
 
 
+def test_claudes_cache_is_read_whatever_the_python(fdy, tmp_path, monkeypatch):
+    """Claude Code notes reset times ending in Z, which Python before 3.11 cannot read with fromisoformat."""
+    class Py310(fdy.router.datetime):
+        @classmethod
+        def fromisoformat(cls, s):
+            if s.endswith("Z"):
+                raise ValueError(f"Invalid isoformat string: {s!r}")
+            return super().fromisoformat(s)
+    monkeypatch.setattr(fdy.router, "datetime", Py310)
+    cache = tmp_path / "claude.json"
+    cache.write_text(json.dumps({"cachedUsageUtilization": {"fetchedAtMs": 1000, "utilization": {"limits": [
+        {"kind": "weekly_all", "percent": 72, "is_active": True, "resets_at": "2099-01-01T00:00:00Z"}]}}}))
+    assert fdy.router.claude_cache(cache) == ({"seven_day": {"used": 72.0, "resets": 4070908800.0}}, 1.0)
+
+
 def test_asking_for_the_rest_of_a_big_chapter_keeps_the_shards_already_solved(fdy, tmp_path, monkeypatch):
     """Seen on the first real run: three of five shards were solved, the other two had no free slot, and asking again
     wrote the questions afresh, which threw the three finished answer files away and solved them a second time."""
