@@ -43,3 +43,14 @@ def test_the_sandbox_is_made_in_a_folder_under_tmp(tmp_path):
     finally:
         shutil.rmtree(out, ignore_errors=True)
 
+
+def test_packaging_the_plugin_makes_its_dist_folder(tmp_path):
+    if not shutil.which("zip"):
+        pytest.skip("no zip here")
+    (tmp_path / "build").mkdir()
+    shutil.copy2(REPO / "build/package.sh", tmp_path / "build/package.sh")
+    (tmp_path / "plugin/stem-tutor/.claude-plugin").mkdir(parents=True)
+    (tmp_path / "plugin/stem-tutor/.claude-plugin/plugin.json").write_text("{}")
+    r = subprocess.run(["sh", str(tmp_path / "build/package.sh")], capture_output=True, text=True, timeout=30)
+    assert r.returncode == 0, r.stderr
+    assert (tmp_path / "dist/stem-tutor.plugin").is_file()
