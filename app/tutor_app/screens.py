@@ -838,8 +838,11 @@ class SessionScreen(Screen):
             data, _ = await self.app.ai.one_shot(prompts.teach_card(self.tutor, kc), schema=prompts.CARD)
             if data and all(data.get(f) for f in ("motivate", "establish", "note")):
                 p = self.app.vault / ".tutor" / "cache" / "teach" / f"{kc}.json"
-                p.parent.mkdir(parents=True, exist_ok=True)
-                p.write_text(json.dumps({**data, "source": "ai"}, ensure_ascii=False, indent=1))
+                try:
+                    p.parent.mkdir(parents=True, exist_ok=True)
+                    p.write_text(json.dumps({**data, "source": "ai"}, ensure_ascii=False, indent=1))
+                except OSError:  # a vault that cannot be written: the card is simply not cached
+                    pass
 
     # ---------- key actions ----------
     def action_ask(self) -> None:

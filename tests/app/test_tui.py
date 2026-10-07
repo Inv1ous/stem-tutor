@@ -1045,3 +1045,27 @@ def test_the_why_did_you_miss_it_step_offers_the_re_mark():
             await pilot.pause()
     asyncio.run(go())
     assert got == [{"code": None, "remark": True}]
+
+
+def test_a_teaching_card_that_cannot_be_cached_does_not_end_the_app(tmp_path, monkeypatch):
+    from tutor_app import config
+    from tutor_app.screens import SessionScreen
+    monkeypatch.setattr(config, "ICLOUD_INBOX", tmp_path / "no-inbox")
+    app, v = app_for(tmp_path, monkeypatch)
+    teach = v / ".tutor" / "cache" / "teach"
+    teach.mkdir(parents=True)
+    teach.chmod(0o555)  # a vault folder that cannot be written (read-only mount, iCloud lock)
+
+    async def go():
+        async with app.run_test(size=(120, 40)) as pilot:
+            await pilot.pause()
+            scr = SessionScreen({"mode": "autopilot", "minutes": 50})
+            app.push_screen(scr)
+            await pilot.pause()
+            worker = scr._write_cards([next(iter(app.tutor.packs.kcs))])
+            await worker.wait()  # raises WorkerFailed if the write error escaped
+            await app.ai.close()
+    try:
+        asyncio.run(go())
+    finally:
+        teach.chmod(0o755)
