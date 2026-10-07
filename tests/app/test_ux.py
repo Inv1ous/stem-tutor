@@ -164,6 +164,24 @@ def test_esc_in_the_chat_asks_before_losing_a_typed_question(tmp_path, monkeypat
     run(app, (100, 30), steps)
 
 
+def test_the_confidence_step_shows_only_its_own_prompt_and_list(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        await pilot.press("b")
+        await pilot.pause()
+        shown = [w for w in scr.query("#panel .hint, #panel #note") if w.display]
+        assert len(shown) == 1 and str(shown[0].render()).startswith("You chose B. How sure")
+        conf = scr.query_one("#conf")
+        assert conf.region.height == 4 and conf.region.bottom <= 23  # every level on screen, above the footer
+        await pilot.press("escape")  # back to change the answer: the question's prompt and the note box return
+        await pilot.pause()
+        assert all(w.display for w in scr.query("#panel .hint, #panel #note"))
+        assert "How sure" not in " ".join(str(h.render()) for h in scr.query("#panel .hint"))
+    run(app, (60, 24), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

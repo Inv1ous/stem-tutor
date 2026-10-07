@@ -115,7 +115,8 @@ class ChoicePanel(Panel):
             self.finish({"entry": f"{self.n}?" if letter == DONT_KNOW else f"{self.n}{letter}",
                          "your": "I don't know" if letter == DONT_KNOW else letter, "note": self._note()})
             return
-        self.query_one("#choices").display = False
+        for w in (self.query_one("#choices"), self.query_one(".hint"), self.query_one("#note")):
+            w.display = False  # the confidence step alone, so a small window has room for all four levels
         self.mount(_hint(f"You chose {letter}. How sure are you? (1–4, Esc to change your answer)"), Confidence())
         self.query_one(Confidence).focus()
 
@@ -124,6 +125,7 @@ class ChoicePanel(Panel):
         for w in list(self.query(Confidence)) + [h for h in self.query(".hint") if "How sure" in str(h.render())]:
             w.remove()
         self.choice = None
+        self.query_one(".hint").display = self.query_one("#note").display = True
         ol = self.query_one("#choices", OptionList)
         ol.display = True
         ol.focus()
