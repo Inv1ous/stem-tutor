@@ -115,6 +115,37 @@ def test_a_chapter_goes_from_solve_to_ready(fdy, tmp_path):
     assert fdy.load(SUB)["stage"] == "ready" and SUB not in json.loads(fdy.HOLD.read_text())
 
 
+def test_a_verdict_other_than_keep_or_fix_is_refused(fdy):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "adjudicate"
+        st["findings"].append({"ref": "note line 3", "status": "open"})
+    with pytest.raises(SystemExit, match="keep or fix"):
+        fdy.cmd_resolve(SUB, "note line 3", "fixed", "say when")  # a typo would have closed it unfixed
+    st = fdy.load(SUB)
+    assert st["findings"][0]["status"] == "open" and st["stage"] == "adjudicate" and not st["fixes"]
+
+
+def test_the_gates_say_what_the_note_linter_found(fdy):
+    note = fdy.NOTES / json.loads(fdy.pack_path(SUB).read_text())["note"]
+    note.write_text(note.read_text() + "\nBroken maths: $\\frac{1}{2$.\n")
+    g = fdy.gates(SUB)
+    assert g["lint"] and any("unbalanced { } in math" in line for line in g["first"])
+
+
+def test_a_chapter_waiting_for_its_checker_cannot_be_signed(fdy):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "check"  # the blind solve agreed; the checker has not reported yet
+    with pytest.raises(SystemExit, match="not ready"):
+        fdy.cmd_sign(SUB)
+    assert fdy.load(SUB)["stage"] == "check"
+    with fdy.chapter(SUB) as st:
+        st["checked"] = True  # the checker found nothing
+    fdy.cmd_sign(SUB)
+    assert fdy.load(SUB)["stage"] == "ready"
+
+
 def test_an_unfinished_solve_is_sent_back(fdy):
     fdy.cmd_add([SUB])
     fdy.cmd_strip(SUB)
@@ -196,6 +227,7 @@ def test_signing_publishes_and_commits_the_chapter_at_once(fdy, monkeypatch):
     calls = []
     monkeypatch.setenv("FOUNDRY_PUBLISH", "1")
     monkeypatch.setenv("FOUNDRY_COMMIT", "1")
+    monkeypatch.delenv("STEM_TUTOR_VAULT", raising=False)
     monkeypatch.setattr(fdy.subprocess, "run", lambda args, **k: calls.append(args) or
                         type("R", (), {"returncode": 0, "stdout": '{"version": "v2"}', "stderr": ""})())
     fdy.cmd_add([SUB])
@@ -206,6 +238,18 @@ def test_signing_publishes_and_commits_the_chapter_at_once(fdy, monkeypatch):
     commit = [c for c in calls if "commit" in c]
     assert publish and commit
     assert any(str(x).endswith(f"{SUB}.json") for x in commit[0]) and "--" in commit[0]  # only this chapter's files
+    assert "--vault" not in publish[0]
+
+
+def test_signing_publishes_into_the_vault_the_app_uses(fdy, monkeypatch, tmp_path):
+    calls = []
+    monkeypatch.setenv("FOUNDRY_PUBLISH", "1")
+    monkeypatch.setenv("STEM_TUTOR_VAULT", str(tmp_path / "vault"))
+    monkeypatch.setattr(fdy.subprocess, "run", lambda args, **k: calls.append(args) or
+                        type("R", (), {"returncode": 0, "stdout": "", "stderr": ""})())
+    fdy.release(SUB)
+    publish = [c for c in calls if any(str(x).endswith("build/publish.py") for x in c)]
+    assert publish[0][-2:] == ["--vault", str(tmp_path / "vault")]
 
 
 def test_signing_commits_a_chapter_whose_figures_git_ignores(fdy, monkeypatch):
@@ -354,6 +398,20 @@ def test_blind_solvers_also_get_the_teaching_cards_check_questions(fdy):
                                              "options": {"A": "speed", "B": "velocity", "C": "mass", "D": "time"}}
     q = next(q for q in blind.strip(pack) if q["id"] == f"{SUB}.1.discover")
     assert q["options"]["B"] == "velocity" and "answer" not in q
+
+
+@pytest.mark.parametrize("said,agrees", [
+    ("{k}", True), ("{lk}", True), ("({k})", True), ("The answer is {k}", True), ("Answer: {k}.", True),
+    ("{k}) it has direction", True), ("{w}", False), ("The answer is {w}", False), ("({w})", False)])
+def test_a_blind_mcq_answer_is_read_by_its_option_letter(fdy, said, agrees):
+    """A solver may answer "(B)" or "The answer is B": the option letter counts, not the first character."""
+    import blind
+    pack = json.loads(fdy.pack_path(SUB).read_text())
+    iid, inst = next((i, x) for i, x in blind._instances(pack) if x["kind"] == "mcq")
+    key = inst["answer"]
+    wrong = next(x for x in "ABCD" if x != key and x != "A")  # not A: "A" also opens "Answer"
+    res = blind.compare(pack, {iid: said.format(k=key, lk=key.lower(), w=wrong)})
+    assert (iid not in [d["id"] for d in res["disagreements"]]) == agrees
 
 
 def test_coverage_counts_outcomes_and_says_what_to_build_next(fdy, tmp_path, capsys):
@@ -636,6 +694,21 @@ def test_a_stale_claude_reading_is_refreshed_by_asking_claude_itself(fdy, tmp_pa
     assert notes["claude"]["probed"] == asked
 
 
+def test_claudes_cache_is_read_whatever_the_python(fdy, tmp_path, monkeypatch):
+    """Claude Code notes reset times ending in Z, which Python before 3.11 cannot read with fromisoformat."""
+    class Py310(fdy.router.datetime):
+        @classmethod
+        def fromisoformat(cls, s):
+            if s.endswith("Z"):
+                raise ValueError(f"Invalid isoformat string: {s!r}")
+            return super().fromisoformat(s)
+    monkeypatch.setattr(fdy.router, "datetime", Py310)
+    cache = tmp_path / "claude.json"
+    cache.write_text(json.dumps({"cachedUsageUtilization": {"fetchedAtMs": 1000, "utilization": {"limits": [
+        {"kind": "weekly_all", "percent": 72, "is_active": True, "resets_at": "2099-01-01T00:00:00Z"}]}}}))
+    assert fdy.router.claude_cache(cache) == ({"seven_day": {"used": 72.0, "resets": 4070908800.0}}, 1.0)
+
+
 def test_asking_for_the_rest_of_a_big_chapter_keeps_the_shards_already_solved(fdy, tmp_path, monkeypatch):
     """Seen on the first real run: three of five shards were solved, the other two had no free slot, and asking again
     wrote the questions afresh, which threw the three finished answer files away and solved them a second time."""
@@ -713,6 +786,28 @@ def test_a_figure_claude_does_not_report_can_be_passed_on(fdy, tmp_path, monkeyp
     with fdy.notes() as n:
         seen = fdy.router.usage(n, fake, fake)["claude"]
     assert fdy.router.score("claude", seen, fdy.config(), [])[0] is None  # the last few percent are kept back
+
+
+def test_readings_taken_before_a_wait_are_kept(fdy):
+    """The router reads both allowances, then may find no allowance can take the job: what it read is still noted."""
+    with pytest.raises(fdy.router.Wait):
+        with fdy.notes() as n:
+            n["claude"] = {"read": 1}
+            raise fdy.router.Wait("no allowance can take a drafter now")
+    assert json.loads(fdy.USAGE.read_text())["claude"] == {"read": 1}
+
+
+def test_chapters_held_at_once_are_all_held(fdy):
+    """Several workers finish together and each holds or releases its chapter: none may undo another's."""
+    import threading
+    subs = [f"9702-{n}.1" for n in range(1, 41)]
+    threads = [threading.Thread(target=lambda s=s: [fdy.hold(s, "in the foundry") for _ in range(5)]) for s in subs]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert sorted(json.loads(fdy.HOLD.read_text())) == sorted(subs)
+    assert not list(fdy.HOLD.parent.glob("*.tmp"))
 
 
 def test_a_refused_claude_worker_is_recorded_as_a_limit_not_a_failure(fdy, monkeypatch):

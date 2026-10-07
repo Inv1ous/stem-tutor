@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import random
+import re
 import sys
 from pathlib import Path
 
@@ -50,6 +51,16 @@ def strip(pack: dict) -> list[dict]:
     return out
 
 
+def option_letter(text: str) -> str:
+    """The option a solver chose: "B", "b", "(B)", "B) …", "The answer is B". A letter A-D standing alone counts, the
+    one opening the answer first; failing that, the first character, as before."""
+    m = re.match(r"\s*\(?([A-Da-d])\b", text)
+    if m:
+        return m.group(1).upper()
+    alone = set(re.findall(r"\b([A-D])\b", text))
+    return alone.pop() if len(alone) == 1 else text.strip()[:1].upper()
+
+
 def compare(pack: dict, answers: dict) -> dict:
     disagreements, agreed, missing = [], 0, []
     for iid, inst in _instances(pack):
@@ -57,7 +68,7 @@ def compare(pack: dict, answers: dict) -> dict:
             missing.append(iid)
             continue
         text = str(answers[iid])
-        resp = ({"kind": "choice", "value": text.strip()[:1].upper(), "conf": None} if inst["kind"] == "mcq"
+        resp = ({"kind": "choice", "value": option_letter(text), "conf": None} if inst["kind"] == "mcq"
                 else {"kind": "value", "value": text, "conf": None})
         g = grade.grade_item(inst, resp)
         if g["correct"]:

@@ -17,6 +17,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "plugin/stem-tutor/skills/tutor/scripts"))
+from tutorlib import store  # noqa: E402
 BUILD = ROOT / "build/out"
 DEFAULT_VAULT = ROOT.parent / "STEM Tutor"  # local vault (moved out of iCloud 2026-09-29)
 FOLDERS = ["Subjects", "Assets", "Sessions", "Lessons", "My Notes", "Inbox", "Inbox/Marked", "Anki", "Almanac", "Papers"]
@@ -45,7 +47,8 @@ def launcher_script(vault: Path | None = None) -> str:
             '[ "$TERM_PROGRAM" = "Apple_Terminal" ] && osascript - "$(tty)" >/dev/null 2>&1 <<\'APPLESCRIPT\'\n'
             f"{SWITCH_PROFILE}\nAPPLESCRIPT\n"
             "printf '\\e[8;46;140t'\n"
-            f'exec "{ROOT / "bin" / "tutor"}"' + (f" --vault {shlex.quote(str(Path(vault).resolve()))}" if other else "")
+            f"exec {shlex.quote(str(ROOT / 'bin' / 'tutor'))}"
+            + (f" --vault {shlex.quote(str(Path(vault).resolve()))}" if other else "")
             + "\n")
 
 
@@ -75,6 +78,9 @@ def link_notes(text: str, names: set[str]) -> str:
 
 
 def publish(vault: Path) -> dict:
+    missing = [n for n in ("specs", "plan.json", "notes") if not (BUILD / n).exists()]
+    if missing:  # checked before the vault is touched
+        raise SystemExit(f"publish: the build has no {', '.join(missing)} in {BUILD}; build it first")
     tutor = vault / ".tutor"
     for f in FOLDERS:
         (vault / f).mkdir(parents=True, exist_ok=True)
@@ -86,7 +92,8 @@ def publish(vault: Path) -> dict:
     packs.mkdir(parents=True, exist_ok=True)
     versions = sorted(int(p.name[1:]) for p in packs.glob("v*") if p.name[1:].isdigit())
     version = f"v{(versions[-1] + 1) if versions else 1}"
-    target = packs / version
+    target = packs / f".{version}.tmp"  # built aside and renamed once whole, so a crash leaves no half version
+    shutil.rmtree(target, ignore_errors=True)
     specs = sorted(p.name for p in (BUILD / "specs").iterdir() if (p / "graph.json").exists())
     hold_f = BUILD / "packs" / "HOLD.json"  # subtopics whose review is unfinished stay out of the vault
     hold = json.loads(hold_f.read_text()) if hold_f.exists() else {}
@@ -102,8 +109,9 @@ def publish(vault: Path) -> dict:
             n_packs += 1
     shutil.copy2(BUILD / "plan.json", target / "plan.json")
     papers = BUILD / "papers.json"
-    (target / "papers.json").write_text(papers.read_text() if papers.exists() else json.dumps({"papers": []}))
-    (target / "manifest.json").write_text(json.dumps({"version": version, "specs": specs, "packs": n_packs}, indent=1))
+    store.write_text(target / "papers.json", papers.read_text() if papers.exists() else json.dumps({"papers": []}))
+    store.write_text(target / "manifest.json", json.dumps({"version": version, "specs": specs, "packs": n_packs}, indent=1))
+    os.replace(target, packs / version)
     names = {f.stem for f in (BUILD / "notes").rglob("*.md") if str(f.relative_to(BUILD / "notes")) not in held_notes} \
         | {f.stem for f in vault.rglob("*.md")}
     copied = 0
@@ -112,7 +120,8 @@ def publish(vault: Path) -> dict:
         if not src_root.exists():
             continue
         for f in src_root.rglob("*"):
-            if f.is_file() and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
+            if f.is_file() and not f.name.startswith(".DS_") \
+                    and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
                 d = dest / f.relative_to(src_root)
                 if src_root == BUILD / "notes" and f.suffix == ".md":  # links follow what is published
                     text = link_notes(f.read_text(encoding="utf-8"), names)
@@ -128,24 +137,40 @@ def publish(vault: Path) -> dict:
                     shutil.copy2(f, d)
                     copied += 1
     engine = tutor / "engine"  # remote Cowork runs the engine inside the connected folder (device_bash)
-    shutil.rmtree(engine, ignore_errors=True)
-    shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", engine, ignore=shutil.ignore_patterns("__pycache__"))
+    new, old = tutor / "engine.new", tutor / "engine.old"  # copied aside and swapped in: never half an engine
+    shutil.rmtree(new, ignore_errors=True)
+    shutil.rmtree(old, ignore_errors=True)
+    shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", new, ignore=shutil.ignore_patterns("__pycache__"))
+    if engine.exists():
+        os.replace(engine, old)
+    os.replace(new, engine)
+    shutil.rmtree(old, ignore_errors=True)
     launcher = vault / "Start Tutor.command"  # double-click in Finder to open the terminal app
-    launcher.write_text(launcher_script(vault))
+    store.write_text(launcher, launcher_script(vault))
     launcher.chmod(0o755)
-    (packs / "CURRENT").write_text(version)  # flip last
+    store.write_text(packs / "CURRENT", version)  # flip last
     prune_versions(packs, version)
     return {"version": version, "specs": len(specs), "packs": n_packs, "held": sorted(hold), "files_copied": copied}
 
 
 
 def prune_versions(packs: Path, current: str) -> None:
-    """Keep the two previous versions for rollback, newest by number: v10 is newer than v9."""
+    """Keep the two previous versions for rollback, newest by number: v10 is newer than v9. A version without a
+    manifest was never finished and is removed."""
     old = sorted((p for p in packs.glob("v*") if p.name != current and p.name[1:].isdigit()), key=lambda p: int(p.name[1:]))
-    for p in old[:-2]:
+    done = [p for p in old if (p / "manifest.json").exists()]
+    for p in [p for p in old if p not in done] + done[:-2]:
         shutil.rmtree(p)
 
 
+def vault_from(argv: list[str]) -> Path:
+    """--vault PATH, else STEM_TUTOR_VAULT as the app reads it (config.vault_path), else the default vault."""
+    if "--vault" in argv:
+        return Path(argv[argv.index("--vault") + 1])
+    return Path(os.environ.get("STEM_TUTOR_VAULT") or DEFAULT_VAULT)
+
+
 if __name__ == "__main__":
-    vault = Path(sys.argv[sys.argv.index("--vault") + 1]) if "--vault" in sys.argv else DEFAULT_VAULT
-    print(json.dumps(publish(vault)))
+    if sys.argv[-1] == "--vault":
+        sys.exit("usage: python build/publish.py [--vault PATH]")
+    print(json.dumps(publish(vault_from(sys.argv))))

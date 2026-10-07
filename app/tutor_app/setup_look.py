@@ -8,6 +8,7 @@ from __future__ import annotations
 import hashlib
 import os
 import plistlib
+import shlex
 import shutil
 import subprocess
 import sys
@@ -207,9 +208,11 @@ def undo(vault: Path, out=print) -> int:
     out("To remove the rest by hand (nothing else needs it):")
     out("  1. Terminal › Settings › Profiles: select STEM Tutor Night, click −; the same for STEM Tutor Day.")
     out(f"  2. Fonts (optional): in Finder, Go › Go to Folder… {FONT_DIR}, delete the JuliaMono files.")
-    if backups:
+    if backups:  # the oldest: Terminal as it was before the tutor first changed it
+        command = f"defaults import com.apple.Terminal {shlex.quote(str(backups[0]))}"
+        script = command.replace("\\", "\\\\").replace('"', '\\"')  # as an AppleScript string
         out(f"  3. All Terminal settings exactly as before (optional): quit Terminal, open Script Editor, run\n"
-            f"       do shell script \"defaults import com.apple.Terminal '{backups[0]}'\"\n"
-            f"     then open Terminal again.")
+            f"       do shell script \"{script}\"\n"
+            f"     (the backup from before the first `tutor look`), then open Terminal again.")
     out("  4. The app as it was before the new look: in the stem-tutor folder,  git checkout v1.6.1")
     return 0

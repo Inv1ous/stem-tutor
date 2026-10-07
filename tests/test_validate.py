@@ -142,6 +142,59 @@ def test_hints_that_share_words_with_every_option_are_fine():
     assert "hint-leak" not in errs(p)
 
 
+def _set(path, value):
+    def change(p):
+        target = p
+        for k in path[:-1]:
+            target = target[k]
+        target[path[-1]] = value
+    return change
+
+
+@pytest.mark.parametrize("change,rule", [
+    (_set(["items", 0, "difficulty"], "hard"), "difficulty"),
+    (_set(["items", 0, "difficulty"], None), "difficulty"),
+    (_set(["items", 0, "options"], ["a", "b", "c", "d"]), "mcq-answer"),
+    (_set(["items"], None), "items"),
+    (_set(["items", 0], "not an item"), "item"),
+])
+def test_a_malformed_pack_is_reported_not_crashed_on(change, rule):
+    p = good_pack()
+    change(p)
+    assert rule in errs(p)
+
+
+def test_mcq_options_must_differ():
+    p = good_pack()
+    p["items"][0]["options"]["C"] = p["items"][0]["options"]["B"] + " "  # the key, twice
+    assert "mcq-options" in errs(p)
+
+
+def test_a_fixed_numeric_distractor_equal_to_the_answer_is_rejected():
+    p = good_pack()
+    fixed = next(i for i in p["items"] if i["id"] == "9702-2.1-i03")  # 4.0 m s-2
+    fixed["distractors"] = [{"value": 4.0, "misconception": "m1"}]
+    assert "distractor-equals-answer" in errs(p)
+
+
+def test_an_item_needs_an_id():
+    p = good_pack()
+    del p["items"][0]["id"]
+    assert "id" in errs(p)
+
+
+def test_the_pack_must_be_for_the_graphs_spec():
+    p = good_pack()
+    p["spec"] = "9701"
+    assert "spec" in errs(p)
+
+
+def test_the_pack_must_name_its_note():
+    p = good_pack()
+    del p["note"]
+    assert "note" in errs(p)
+
+
 def test_the_same_question_twice_is_rejected():
     p = good_pack()
     twin = copy.deepcopy(next(i for i in p["items"] if i["kind"] == "mcq" and "template" not in i))

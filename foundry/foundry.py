@@ -117,10 +117,12 @@ def notes():
             data = json.loads(USAGE.read_text())
         except (OSError, ValueError):
             data = {}
-        yield data
-        tmp = USAGE.with_suffix(".tmp")
-        tmp.write_text(json.dumps(data, ensure_ascii=False, indent=1))
-        tmp.replace(USAGE)
+        try:
+            yield data
+        finally:  # a Wait raised inside still keeps the readings taken before it
+            tmp = USAGE.with_suffix(".tmp")
+            tmp.write_text(json.dumps(data, ensure_ascii=False, indent=1))
+            tmp.replace(USAGE)
 
 
 def load(sub: str) -> dict:
@@ -137,13 +139,19 @@ def move(st: dict, stage: str, note: str = "") -> None:
 
 
 def hold(sub: str, reason: str | None) -> None:
-    held = json.loads(HOLD.read_text()) if HOLD.exists() else {}
-    if reason is None:
-        held.pop(sub, None)
-    else:
-        held[sub] = reason
+    """Hold a chapter back from publishing, or release it, under a lock: several workers finish at once."""
+    STATE.mkdir(parents=True, exist_ok=True)
     HOLD.parent.mkdir(parents=True, exist_ok=True)
-    HOLD.write_text(json.dumps(dict(sorted(held.items())), ensure_ascii=False, indent=1))
+    with open(STATE / ".hold.lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        held = json.loads(HOLD.read_text()) if HOLD.exists() else {}
+        if reason is None:
+            held.pop(sub, None)
+        else:
+            held[sub] = reason
+        tmp = HOLD.with_suffix(".tmp")
+        tmp.write_text(json.dumps(dict(sorted(held.items())), ensure_ascii=False, indent=1))
+        tmp.replace(HOLD)
 
 
 # ---------------- gates (deterministic, no tokens) ----------------
@@ -174,7 +182,8 @@ def gates(sub: str) -> dict:
            "extra": sum(it.get("tier") == "extra" for it in pack.get("items", []))}
     if problems or findings or gaps:  # enough for a worker to act on, capped so the board stays small
         out["first"] = [f"{e['rule']} {e['where']} {e.get('detail', '')}"[:160] for e in problems[:8]] + \
-                       [f"lint {x.get('rule')} line {x.get('line')}: {x.get('detail', '')}"[:160] for x in findings[:4]] + \
+                       [f"lint {x.get('rule')} line {x.get('line')}: {x.get('message') or x.get('detail', '')}"[:160]
+                        for x in findings[:4]] + \
                        [f"syllabus {e['rule']} {e['where']} {e['detail']}"[:160] for e in gaps[:8]]
     return out
 
@@ -655,6 +664,8 @@ def cmd_packet(sub: str) -> None:
 
 
 def cmd_resolve(sub: str, ref: str, verdict: str, instruction: str = "") -> None:
+    if verdict not in ("keep", "fix"):
+        raise SystemExit(f"{sub}: the verdict is keep or fix, not {verdict!r}")
     with chapter(sub) as st:
         hit = [d for d in st["disputes"] if d["id"] == ref and d["status"] == "open"] + \
               [f for f in st["findings"] if f["ref"] == ref and f["status"] == "open"]
@@ -686,7 +697,8 @@ def cmd_sign(sub: str) -> None:
         open_ = [d["id"] for d in st["disputes"] if d["status"] == "open"] + \
                 [f["ref"] for f in st["findings"] if f["status"] == "open"] + \
                 [f["ref"] for f in st["fixes"] if f["status"] == "open"]
-        stage, ready = st["stage"], g["ok"] and not open_ and st["stage"] in ("sign", "check")
+        stage = st["stage"]  # at "check" only once the checker has reported, with nothing open
+        ready = g["ok"] and not open_ and (stage == "sign" or (stage == "check" and bool(st.get("checked"))))
         if ready:
             move(st, "ready", "signed off")
     if not ready:  # raised outside the block so the gate results are saved: the drafter's prompt lists the failures
@@ -710,7 +722,9 @@ def release(sub: str) -> None:
     is safe even if the session stops. Each can be switched off in config.json."""
     cfg = config()
     if cfg.get("publish_on_sign", True) and os.environ.get("FOUNDRY_PUBLISH", "1") == "1":
-        r = subprocess.run([PY, str(REPO / "build/publish.py")], cwd=REPO, capture_output=True, text=True)
+        vault = os.environ.get("STEM_TUTOR_VAULT")  # the vault the app reads
+        r = subprocess.run([PY, str(REPO / "build/publish.py"), *(["--vault", vault] if vault else [])], cwd=REPO,
+                           capture_output=True, text=True)
         print(f"{sub}: " + (f"published into the vault {r.stdout.strip()[-120:]}" if r.returncode == 0
                             else f"PUBLISH FAILED, run build/publish.py: {r.stderr.strip()[-300:]}"))
     if cfg.get("commit_on_sign", True) and os.environ.get("FOUNDRY_COMMIT", "1") == "1":

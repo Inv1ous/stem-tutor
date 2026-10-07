@@ -26,7 +26,7 @@ def main(argv: list[str] | None = None) -> int:
         print("\nAll good. Start with: tutor" if all(ok is not False for ok, _, _ in rows) else
               "\nFix the ✗ items above: the tutor can't start without its folder." if not rows[0][0] else
               "\nFix the ✗ items above (the tutor still runs meanwhile).")
-        return 0
+        return 1 if any(ok is False for ok, _, _ in rows) else 0
     if args.command == "look":
         from . import setup_look
         return setup_look.undo(vault) if args.undo else setup_look.install(vault, device=args.device_colours)
