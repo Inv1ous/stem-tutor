@@ -229,3 +229,13 @@ def test_finder_junk_in_the_build_is_not_copied_into_the_vault(tmp_path, monkeyp
     publish.publish(vault)
     assert (vault / "Assets/x.svg").exists()
     assert not list(vault.rglob(".DS_*"))
+
+
+def test_vault_flag_without_a_path_says_how_to_use_it(tmp_path):
+    import os
+    import subprocess
+    env = {**os.environ, "STEM_TUTOR_VAULT": str(tmp_path / "vault")}
+    r = subprocess.run([sys.executable, str(Path(publish.__file__)), "--vault"], capture_output=True, text=True,
+                       env=env, cwd=tmp_path)
+    assert r.returncode != 0 and "usage" in r.stderr and "Traceback" not in r.stderr
+    assert not (tmp_path / "vault").exists()

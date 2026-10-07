@@ -163,5 +163,7 @@ def prune_versions(packs: Path, current: str) -> None:
 
 
 if __name__ == "__main__":
+    if sys.argv[-1] == "--vault":
+        sys.exit("usage: python build/publish.py [--vault PATH]")
     vault = Path(sys.argv[sys.argv.index("--vault") + 1]) if "--vault" in sys.argv else DEFAULT_VAULT
     print(json.dumps(publish(vault)))
