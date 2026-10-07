@@ -152,6 +152,21 @@ def test_short_answer_needing_judgement_stays_pending_until_judged(tutor):
     assert fb["results"][0]["score"] == 0.5 and str(n) not in tutor.session["presented"]
 
 
+@pytest.mark.parametrize("given, score", [(75, 1.0), (-2, 0.0), ("nan", None), ("half", None)])
+def test_a_judge_score_is_kept_between_0_and_1(tutor, given, score):
+    tutor.start("review", minutes=10)
+    item = {"id": "s1", "kcs": ["9702-2.1.1"], "kind": "short", "difficulty": 2, "marks": 1, "stem": "Define displacement.",
+            "rubric": [{"point": "distance in a stated direction", "keywords": ["direction"]}]}
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    r = tutor.answer(f"{n} = distance with a direction ~3", judge={n: given})["results"][0]
+    if score is None:
+        assert "error" in r and str(n) in tutor.session["presented"]  # not marked: it stays open
+    else:
+        assert r["score"] == score
+        (ev,) = [e for e in tutor.vault.events() if e["type"] == "answer"]
+        assert ev["grade"]["score"] == score
+
+
 def test_experiment_retest_scores_after_three_items(tutor):
     tutor.start("autopilot", minutes=50)
     tutor.end()

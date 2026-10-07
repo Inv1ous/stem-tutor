@@ -6,6 +6,7 @@ returns after an attempt. Every graded attempt becomes an event; state is a fold
 from __future__ import annotations
 
 import copy
+import math
 import random
 import re
 import uuid
@@ -608,7 +609,15 @@ class Tutor(LessonMixin):
                 continue
             g = grade.grade_item(inst, r)
             if r["n"] in judge:
-                sc = float(judge[r["n"]])
+                try:
+                    sc = float(judge[r["n"]])
+                except (TypeError, ValueError):
+                    sc = math.nan
+                if math.isnan(sc):
+                    results.append({"n": r["n"], "error": f"judge score {judge[r['n']]!r} for question {r['n']} is not "
+                                    "a number; resend with judge {n: score 0..1} (it stays open)"})
+                    continue
+                sc = min(1.0, max(0.0, sc))  # a 75 meant as 75% must not count as 75 right answers
                 g.update(score=sc, correct=sc >= model.SUCCESS, needs_judgement=False)
             elif inst["kind"] == "short" and g["needs_judgement"]:
                 results.append({"n": r["n"], "pending_judgement": True, "matched_score": g["score"],
