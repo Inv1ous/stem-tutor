@@ -871,3 +871,12 @@ def test_torn_state_files_do_not_stop_the_tutor_starting(tmp_path):
     (state / "session.json").write_text('{"id": "ab')
     t = session.Tutor(store.Vault(root), rng=random.Random(0), now=Clock(T0))
     assert t.session is None and t.state
+
+
+def test_rebuild_reads_the_log_once(tutor, monkeypatch):
+    tutor.log({"type": "note", "text": "x"})
+    reads = []
+    real = tutor.vault.events
+    monkeypatch.setattr(tutor.vault, "events", lambda: reads.append(1) or real())
+    out = tutor.rebuild()
+    assert out["events"] >= 1 and len(reads) == 1

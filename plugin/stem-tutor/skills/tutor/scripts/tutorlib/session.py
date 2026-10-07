@@ -171,10 +171,13 @@ class Tutor(LessonMixin):
                         blocks or ["Working…"], notes)
 
     def rebuild(self) -> dict:
-        self.state = self._fold()
+        self.state, n = model.new_state(), 0
+        for e in self.vault.events():  # one pass over the log: fold and count together
+            model.apply(self.state, e)
+            n += 1
         self._dirty = True
         self._save()
-        return {"kcs": len(self.state["kcs"]), "events": sum(1 for _ in self.vault.events())}
+        return {"kcs": len(self.state["kcs"]), "events": n}
 
     # ---------- session lifecycle ----------
     def start(self, mode: str = "autopilot", minutes: int = 50, focus: list[str] | None = None,
