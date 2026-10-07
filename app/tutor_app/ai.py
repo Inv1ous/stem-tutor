@@ -165,7 +165,12 @@ class Claude:
             return
         async with self._lock:
             if self.proc is None or self.proc.returncode is not None:
-                await self._start()
+                try:
+                    await self._start()
+                except OSError:  # not executable, or gone since the check: an error result, never a crash
+                    self.proc = None
+                    self.last = Result(ok=False, status="error", message="Claude Code could not be started.")
+                    return
             proc = self.proc
             assert proc is not None and proc.stdin is not None and proc.stdout is not None
             msg = {"type": "user", "message": {"role": "user", "content": prompt}}
@@ -271,8 +276,11 @@ class Claude:
         args = [*LEAN, "--model", model or self.model, "--system-prompt", self.system, "--output-format", "json"]
         if schema:
             args += ["--json-schema", json.dumps(schema)]
-        proc = await asyncio.create_subprocess_exec(self.binary, *args, cwd=str(self.cwd), stdin=asyncio.subprocess.PIPE,
-                                                    stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL)
+        try:
+            proc = await asyncio.create_subprocess_exec(self.binary, *args, cwd=str(self.cwd), stdin=asyncio.subprocess.PIPE,
+                                                        stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL)
+        except OSError:
+            return None, Result(ok=False, status="error", message="Claude Code could not be started.")
         try:
             out, _ = await asyncio.wait_for(proc.communicate(prompt.encode()), 120)
         except asyncio.CancelledError:  # the caller was cancelled (new judge started, screen left): stop for real

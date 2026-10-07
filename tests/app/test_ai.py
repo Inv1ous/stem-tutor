@@ -310,3 +310,11 @@ def test_cancelling_a_one_shot_cancels_the_caller(tmp_path):
         return t.cancelled()
     assert asyncio.run(go())
 
+
+def test_a_binary_that_cannot_start_is_an_error_not_a_crash(tmp_path):
+    c = ai.Claude(tmp_path, binary=str(_script(tmp_path, "pass\n", mode=0o644)))
+    async def go():
+        data, res = await c.one_shot("x")
+        return data, res, await c.reply("x")
+    data, res, res2 = asyncio.run(go())
+    assert data is None and not res.ok and not res2.ok
