@@ -326,3 +326,13 @@ def test_an_unwritable_usage_file_does_not_lose_the_reply(tmp_path, monkeypatch)
     c = ai.Claude(tmp_path, binary=FAKE, usage_file=tmp_path / "usage.json")
     assert "".join(collect(c, "hello")).startswith("Reply 1: hello") and c.last.ok
 
+
+def test_a_huge_stream_line_is_a_failed_reply_not_a_crash(tmp_path):
+    big = _script(tmp_path, "import sys\nsys.stdin.readline()\nsys.stdout.write('x' * 5_000_000 + '\\n')\n"
+                            "sys.stdout.flush()\nimport time\ntime.sleep(5)\n")
+    c = ai.Claude(tmp_path, binary=str(big))
+    async def go():
+        res = await c.reply("x")
+        await c.close()
+        return res
+    assert not asyncio.run(go()).ok

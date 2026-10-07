@@ -200,7 +200,14 @@ class Claude:
         """Read one reply's events up to its result (sets self.last)."""
         streamed = False
         while True:
-            line = await asyncio.wait_for(proc.stdout.readline(), 120)
+            try:
+                line = await asyncio.wait_for(proc.stdout.readline(), 120)
+            except ValueError:  # one line longer than the stream limit: the rest of it would poison the next reply
+                proc.kill()
+                self.proc = None
+                self.last = Result(ok=False, status="error", text="".join(parts),
+                                   message="The AI sent an unreadable reply; try again.")
+                return
             if not line:
                 self.proc = None
                 self.last = Result(ok=False, status="error", text="".join(parts),
