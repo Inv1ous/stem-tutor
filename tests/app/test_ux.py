@@ -269,6 +269,28 @@ def test_the_test_picker_starts_with_ctrl_s_from_the_list(tmp_path, monkeypatch)
     run(app, (80, 24), steps)
 
 
+def test_the_session_footer_always_fits_menu_help_ask_and_hint_at_60_columns(tmp_path, monkeypatch):
+    from tutor_app.panels import LongPanel
+
+    async def fits(scr, pilot, when, typing=False):
+        await pilot.pause()
+        keys = {k.description: k for k in scr.query("FooterKey")}
+        for name in ("Menu", "Ask", "Hint") + (() if typing else ("Help",)):  # typing, ? is a character
+            assert name in keys and keys[name].region.width and keys[name].region.right <= 60, (when, name)
+        assert "Earlier" not in keys  # the least needed: Help names ctrl+l
+
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        await fits(scr, pilot, "question")
+        await pilot.press("b")
+        await fits(scr, pilot, "confidence")
+        scr.panel(LongPanel(1))
+        await fits(scr, pilot, "long answer", typing=True)
+    run(app, (60, 24), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

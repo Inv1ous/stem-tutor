@@ -354,7 +354,7 @@ class SessionScreen(Screen):
                 Binding("ctrl+t", "ask", "Ask", priority=True), Binding("ctrl+g", "hint", "Hint", priority=True),
                 Binding("ctrl+r", "explain", "Explain", priority=True),
                 Binding("ctrl+o", "obsidian", "Notes", priority=True),
-                Binding("ctrl+l", "earlier", "Earlier", priority=True),
+                Binding("ctrl+l", "earlier", "Earlier", show=False, priority=True),  # in Help; keeps 60 columns
                 Binding("t", "ask", show=False), Binding("e", "explain", show=False), Binding("h", "hint", show=False),
                 Binding("o", "obsidian", show=False), Binding("escape", "esc", show=False),
                 Binding("alt+up", "scroll_log(-1)", show=False, priority=True),
