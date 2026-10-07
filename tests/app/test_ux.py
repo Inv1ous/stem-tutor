@@ -334,6 +334,19 @@ def test_a_hint_asked_for_after_answering_says_the_question_is_already_marked(tm
     run(app, (100, 30), steps)
 
 
+def test_the_choose_step_says_what_it_is_asking(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        monkeypatch.setattr(app.tutor, "next", lambda: {"activity": "choose", "question": "How do you want to learn this?",
+                                                        "options": {"build": "Build it step by step"}})
+        scr.advance()
+        await pilot.pause()
+        assert str(scr.query_one("#panel .hint").render()) == "Pick how you want to learn this (↑↓ and ⏎)"
+    run(app, (100, 30), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

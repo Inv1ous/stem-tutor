@@ -500,7 +500,7 @@ class SessionScreen(Screen):
             self.panel(ContinuePanel())
         elif kind == "choose":
             self.say(cards.card("plan", act["question"], ""))
-            self.panel(ChoosePanel("↑↓ and ⏎", act["options"]))
+            self.panel(ChoosePanel("Pick how you want to learn this (↑↓ and ⏎)", act["options"]))
         elif kind == "plan":
             lines = [act["approach"], ""] + [f"- {'✓ you know: ' if n['known'] else ''}{n['title']}" for n in act["nodes"]]
             self.say(cards.card("plan", f"Plan: {act['title']}", "\n".join(lines),
