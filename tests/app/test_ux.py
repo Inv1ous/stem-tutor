@@ -24,3 +24,40 @@ def test_a_mark_point_too_long_for_its_row_is_shown_in_full_under_the_list(tmp_p
         await pilot.pause()
         assert not full.display  # a point that fits its row is not said twice
     run(app, (80, 24), steps)
+
+
+LONG_STEM = "\n\n".join(f"({c}) A ball is thrown upwards at 15 m s-1 from a cliff 40 m high. Find part {c}."
+                        for c in "abcdefgh")
+
+
+def test_a_long_question_opens_at_its_top_and_the_log_scrolls_while_typing(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.ask_question({**scr.view, "kind": "numeric", "stem": "START " + LONG_STEM + " END"}, "A test check.")
+        await pilot.pause()
+        await pilot.pause()
+        log = scr.query_one("#log")
+        card = list(log.query(".entry"))[-1]
+        assert card.region.height > log.region.height or card.outer_size.height > log.size.height
+        assert log.scroll_y > 0 and card.virtual_region.y == log.scroll_y  # its start is what you read first
+        assert app.focused.id == "value"
+        await pilot.press("alt+down")
+        await pilot.pause()
+        assert log.scroll_y > card.virtual_region.y
+        await pilot.press("alt+up", "alt+up")
+        await pilot.pause()
+        assert log.scroll_y < card.virtual_region.y and app.focused.id == "value"
+        assert scr.query_one("#value").text == ""  # the keys scrolled, nothing was typed
+    run(app, (80, 24), steps)
+
+
+def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        app.action_help()
+        await pilot.pause()
+        assert "alt+↑" in app.screen.query_one("Markdown").source
+    run(app, (100, 30), steps)

@@ -343,7 +343,9 @@ class SessionScreen(Screen):
                 Binding("ctrl+o", "obsidian", "Notes", priority=True),
                 Binding("ctrl+l", "earlier", "Earlier", priority=True),
                 Binding("t", "ask", show=False), Binding("e", "explain", show=False), Binding("h", "hint", show=False),
-                Binding("o", "obsidian", show=False), Binding("escape", "esc", show=False)]
+                Binding("o", "obsidian", show=False), Binding("escape", "esc", show=False),
+                Binding("alt+up", "scroll_log(-1)", show=False, priority=True),
+                Binding("alt+down", "scroll_log(1)", show=False, priority=True)]
 
     def __init__(self, start: dict | None) -> None:
         super().__init__()
@@ -525,8 +527,20 @@ class SessionScreen(Screen):
         self.fold()
         if say:
             self.say(cards.note(say, "dim"))
-        self.say(cards.question(view))
+        card = self.say(cards.question(view))
+        self.query_one("#log", VerticalScroll).call_after_refresh(self._show_top, card)  # after say's scroll_end
         self.answer_panel(view)
+
+    def _show_top(self, card: Static) -> None:
+        """A question taller than the log opens at its start, not its end (alt+↑ alt+↓ scroll the rest)."""
+        log = self.query_one("#log", VerticalScroll)
+        if card.is_attached and card.outer_size.height > log.scrollable_content_region.height:
+            log.scroll_to_widget(card, top=True, animate=False, immediate=True)
+
+    def action_scroll_log(self, direction: int) -> None:
+        """alt+↑ / alt+↓: the log a page at a time, keeping a line of what was on screen; works while typing."""
+        log = self.query_one("#log", VerticalScroll)
+        log.scroll_relative(y=direction * max(1, log.scrollable_content_region.height - 1), animate=False)
 
     def answer_panel(self, view: dict) -> None:
         checking = model.knobs(self.tutor.state)["checking_routine"]
@@ -1186,7 +1200,8 @@ class HelpScreen(ModalScreen):
 **ctrl+t** ask the tutor (AI) · **ctrl+r** explain this idea again, differently (AI) · **ctrl+g** hint (not on
 no-hints checks) · **ctrl+o** show the current question or explanation in Obsidian · **ctrl+l** bring back what
 was said earlier (after you answer) · **ctrl+b** or **ctrl+q** save and go back to the menu. These work even while
-you are typing; when you are not typing, **t e h o** do the same.
+you are typing; when you are not typing, **t e h o** do the same. **alt+↑ alt+↓** scroll a long question or
+explanation, even while you type.
 
 Typing: **⏎** sends a short answer · **ctrl+j** starts a new line · **ctrl+s** submits a long answer or a blurt.
 
