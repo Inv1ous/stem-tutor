@@ -99,7 +99,10 @@ def apply(app, name: str) -> None:
     app.theme = THEME[name]
     if app.tty:
         def switch() -> None:
-            if mac.switch_terminal_profile(app.tty, TERMINAL_PROFILES[name]) == "missing" and name != "classic":
+            status, was = mac.switch_terminal_profile(app.tty, TERMINAL_PROFILES[name])
+            if status == "ok" and app.tty_profile is None:
+                app.tty_profile = was
+            if status == "missing" and name != "classic":
                 app.call_from_thread(app.notify, mac.LOOK_HELP, timeout=15)
         app.run_worker(switch, thread=True, group="terminal-profile", exclusive=True)
 

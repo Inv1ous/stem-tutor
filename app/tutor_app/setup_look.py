@@ -202,9 +202,8 @@ def undo(vault: Path, out=print) -> int:
     settings = config.Settings.load(vault)
     settings.theme = "classic"
     settings.save(vault)
-    mac.switch_terminal_profile(mac.terminal_tty(), look.TERMINAL_PROFILES["classic"])
     backups = sorted((vault / ".tutor" / "backups").glob("terminal-*.plist"))
-    out("✓ The tutor is back to the Classic look (and this tab to your Study profile).\n")
+    out("✓ The tutor is back to the Classic look (if this window still shows the new colours, close this window).\n")
     out("To remove the rest by hand (nothing else needs it):")
     out("  1. Terminal › Settings › Profiles: select STEM Tutor Night, click −; the same for STEM Tutor Day.")
     out(f"  2. Fonts (optional): in Finder, Go › Go to Folder… {FONT_DIR}, delete the JuliaMono files.")

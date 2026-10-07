@@ -120,7 +120,8 @@ def test_changing_the_look_restyles_the_terminal_tab_and_says_when_it_is_not_set
     from tutor_app import mac
     app, v = app_for(tmp_path, monkeypatch)
     calls, said = [], []
-    monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: calls.append((tty, name)) or "missing")
+    answers = [("missing", None), ("ok", "Basic")]
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: calls.append((tty, name)) or answers.pop(0))
 
     async def go():
         async with app.run_test(size=(100, 30)) as pilot:
@@ -134,9 +135,17 @@ def test_changing_the_look_restyles_the_terminal_tab_and_says_when_it_is_not_set
             await pilot.pause()
             await app.workers.wait_for_complete()
             await pilot.pause()
+            assert app.tty_profile is None  # nothing was changed
+            await pilot.press("f2")
+            await pilot.pause()
+            app.screen.query_one("#theme", Select).value = "day"
+            app.screen.query_one("#save").press()
+            await pilot.pause()
+            await app.workers.wait_for_complete()
+            assert app.tty_profile == "Basic"  # what the tab was before the tutor first changed it: put back on exit
             await app.ai.close()
     asyncio.run(go())
-    assert calls == [("/dev/ttys009", "STEM Tutor Night")]
+    assert calls == [("/dev/ttys009", "STEM Tutor Night"), ("/dev/ttys009", "STEM Tutor Day")]
     assert any("tutor look" in m for m in said)
 
 

@@ -36,13 +36,15 @@ def main(argv: list[str] | None = None) -> int:
     app = TutorApp(vault)
     app.tty = mac.terminal_tty()
     if app.settings.theme != "classic":  # Classic leaves the tab as the launcher set it, as it always did
-        profile = look.TERMINAL_PROFILES[app.settings.theme]
-        app.profile_missing = mac.switch_terminal_profile(app.tty, profile) == "missing"
+        status, app.tty_profile = mac.switch_terminal_profile(app.tty, look.TERMINAL_PROFILES[app.settings.theme])
+        app.profile_missing = status == "missing"
     print(f"\x1b]0;{app.TITLE}\x07", end="", flush=True)  # name the terminal window: a terminal shows what it is told
     try:
         app.run()
     finally:
         print("\x1b]0;\x07", end="", flush=True)  # hand the title back
+        if app.tty_profile:  # and the tab its own profile, as it was before the tutor
+            mac.switch_terminal_profile(app.tty, app.tty_profile)
     return 0
 
 

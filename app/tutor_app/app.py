@@ -79,6 +79,7 @@ class TutorApp(App):
         self.claude_binary = claude_binary
         self.seed = seed
         self.tty: str | None = None  # the macOS Terminal tab, whose profile follows the look
+        self.tty_profile: str | None = None  # the tab's profile before the tutor changed it: put back on exit
         self.profile_missing = False
         self._locks = contextlib.ExitStack()
 

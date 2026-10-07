@@ -186,7 +186,7 @@ def test_the_app_starts_in_full_colour_in_a_new_terminal_with_a_new_look(tmp_pat
     monkeypatch.setenv("TERM_PROGRAM", "Apple_Terminal")
     monkeypatch.setenv("TERM_PROGRAM_VERSION", "471")
     monkeypatch.setenv("COLORTERM", "")  # unset, and put back as it was after the test
-    monkeypatch.setattr(mac, "switch_terminal_profile", lambda *a, **k: "ok", raising=False)
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda *a, **k: ("ok", None), raising=False)
     seen = []
     monkeypatch.setattr(TutorApp, "run", lambda self: seen.append(__import__("os").environ.get("COLORTERM")))
     cli.main(["--vault", str(vault)])
@@ -197,24 +197,30 @@ def test_a_tab_is_switched_by_asking_terminal_and_a_failure_is_only_a_failure(mo
     import subprocess
     calls = []
 
+    answers = ["missing\n", "ok\nBasic\n"]
+
     def fake_run(args, **kw):
         calls.append((args, kw.get("input", ""), kw.get("timeout")))
-        return subprocess.CompletedProcess(args, 0, stdout="missing\n", stderr="")
+        return subprocess.CompletedProcess(args, 0, stdout=answers.pop(0), stderr="")
     monkeypatch.setattr(mac.subprocess, "run", fake_run)
-    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == "missing"
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("missing", None)
     (args, script, timeout), = calls
     assert args == ["osascript", "-", "/dev/ttys009", "STEM Tutor Night"] and timeout and "settings set wanted" in script
-    assert mac.switch_terminal_profile(None, "STEM Tutor Night") == "" and len(calls) == 1  # not in Terminal: nothing
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("ok", "Basic")  # and what it was
+    assert mac.switch_terminal_profile(None, "STEM Tutor Night") == ("", None) and len(calls) == 2  # not in Terminal
 
     def too_slow(args, **kw):
         raise subprocess.TimeoutExpired(args, 3)
     monkeypatch.setattr(mac.subprocess, "run", too_slow)
-    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ""
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("", None)
     assert mac.terminal_tty() is None  # tests never run as a macOS Terminal tab (conftest)
 
 
-@pytest.mark.parametrize("theme,switched", [("night", ("/dev/ttys009", "STEM Tutor Night")), ("classic", None)])
-def test_the_app_puts_its_tab_in_the_looks_profile_at_start(tmp_path, monkeypatch, theme, switched):
+@pytest.mark.parametrize("theme,answer,switched,missing", [
+    ("night", ("ok", "Basic"), [("/dev/ttys009", "STEM Tutor Night"), ("/dev/ttys009", "Basic")], False),  # and back
+    ("night", ("missing", None), [("/dev/ttys009", "STEM Tutor Night")], True),
+    ("classic", ("ok", "Basic"), [], False)])  # Classic: the tab stays as the launcher left it
+def test_the_app_puts_its_tab_in_the_looks_profile_and_back(tmp_path, monkeypatch, theme, answer, switched, missing):
     import json
     from fixtures import make_vault
     from tutor_app import __main__ as cli
@@ -223,11 +229,11 @@ def test_the_app_puts_its_tab_in_the_looks_profile_at_start(tmp_path, monkeypatc
     (vault / ".tutor/app_settings.json").write_text(json.dumps({"theme": theme}))
     calls, seen = [], []
     monkeypatch.setattr(mac, "terminal_tty", lambda: "/dev/ttys009")
-    monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: calls.append((tty, name)) or "missing")
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: calls.append((tty, name)) or answer)
     monkeypatch.setattr(TutorApp, "run", lambda self: seen.append((self.tty, self.profile_missing)))
     cli.main(["--vault", str(vault)])
-    assert calls == ([switched] if switched else [])  # Classic: the tab stays as the launcher left it
-    assert seen == [("/dev/ttys009", bool(switched))]
+    assert calls == switched
+    assert seen == [("/dev/ttys009", missing)]
 
 
 def test_doctor_still_runs_when_the_interface_library_is_missing(tmp_path, monkeypatch, capsys):

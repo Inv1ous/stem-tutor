@@ -110,7 +110,7 @@ def test_undo_goes_back_to_classic_and_says_how_to_remove_the_rest(tmp_path, mon
     said = []
     assert setup_look.undo(vault, out=said.append) == 0
     text = "\n".join(said)
-    assert config.Settings.load(vault).theme == "classic"
+    assert config.Settings.load(vault).theme == "classic" and "close this window" in text
     first = sorted((vault / ".tutor/backups").glob("terminal-*.plist"))[0]
     assert f"defaults import com.apple.Terminal '{first}'" in text and "git checkout v1.6.1" in text
 

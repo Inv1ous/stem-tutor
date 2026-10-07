@@ -27,8 +27,9 @@ SWITCH_PROFILE = """on run argv
         repeat with w in windows
             repeat with t in tabs of w
                 if tty of t is (item 1 of argv) then
-                    if name of current settings of t is not wanted then set current settings of t to settings set wanted
-                    return "ok"
+                    set previousName to name of current settings of t
+                    if previousName is not wanted then set current settings of t to settings set wanted
+                    return "ok" & linefeed & previousName
                 end if
             end repeat
         end repeat
@@ -51,17 +52,19 @@ def terminal_tty() -> str | None:
     return None
 
 
-def switch_terminal_profile(tty: str | None, name: str) -> str:
-    """Show the Terminal tab on `tty` in the profile `name` (only that tab): "ok", "missing" when Terminal has no such
-    profile, or "" when it could not be asked (not in Terminal, Apple Events refused, too slow)."""
+def switch_terminal_profile(tty: str | None, name: str) -> tuple[str, str | None]:
+    """Show the Terminal tab on `tty` in the profile `name` (only that tab). Returns ("ok", the profile it had),
+    ("missing", None) when Terminal has no such profile, or ("", None) when it could not be asked (not in Terminal,
+    Apple Events refused, too slow)."""
     if not tty:
-        return ""
+        return "", None
     try:
         done = subprocess.run(["osascript", "-", tty, name], input=SWITCH_PROFILE, capture_output=True, text=True,
                               timeout=3)
     except (OSError, subprocess.SubprocessError):
-        return ""
-    return done.stdout.strip()
+        return "", None
+    status, _, was = done.stdout.strip().partition("\n")
+    return status, (was.strip() or None)
 
 
 def wants_truecolor(env, theme: str) -> bool:
