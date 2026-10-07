@@ -142,6 +142,6 @@ def test_doctor_checks_the_look_only_where_it_matters(tmp_path, monkeypatch, mac
 def test_doctor_marks_advice_apart_from_problems(tmp_path, monkeypatch, capsys):
     from tutor_app import __main__ as cli, mac
     monkeypatch.setattr(mac, "doctor", lambda vault: [(True, "Tutor folder: x", ""), (None, "Look: Classic", "optional")])
-    cli.main(["doctor", "--vault", str(tmp_path)])
+    assert cli.main(["doctor", "--vault", str(tmp_path)]) == 0  # advice is no failure
     out = capsys.readouterr().out
     assert "✓ Tutor folder" in out and "· Look: Classic" in out and "All good" in out

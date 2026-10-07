@@ -158,7 +158,7 @@ def test_doctor_counts_events_as_the_tutor_reads_them_and_warns_of_damaged_lines
 def test_doctor_without_a_tutor_folder_does_not_say_the_tutor_still_runs(tmp_path, capsys, monkeypatch):
     from tutor_app import __main__ as cli
     monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})
-    cli.main(["doctor", "--vault", str(tmp_path / "nowhere")])
+    assert cli.main(["doctor", "--vault", str(tmp_path / "nowhere")]) == 1  # a script can tell it failed
     out = capsys.readouterr().out
     assert "still runs" not in out and "can't start without its folder" in out
 
@@ -247,5 +247,5 @@ def test_doctor_still_runs_when_the_interface_library_is_missing(tmp_path, monke
     monkeypatch.setitem(sys.modules, "textual", None)  # import textual now fails
     cli = importlib.import_module("tutor_app.__main__")
     monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})
-    cli.main(["doctor", "--vault", str(tmp_path)])
+    assert cli.main(["doctor", "--vault", str(tmp_path)]) == 1
     assert "✗ Terminal interface library" in capsys.readouterr().out
