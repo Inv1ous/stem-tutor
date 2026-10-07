@@ -161,3 +161,33 @@ def test_doctor_without_a_tutor_folder_does_not_say_the_tutor_still_runs(tmp_pat
     cli.main(["doctor", "--vault", str(tmp_path / "nowhere")])
     out = capsys.readouterr().out
     assert "still runs" not in out and "can't start without its folder" in out
+
+
+@pytest.mark.parametrize("env,theme,want", [
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "470"}, "night", True),
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "470.2"}, "day", True),
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "464"}, "night", False),  # macOS 15: 256 colours
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "470"}, "classic", False),  # as it always was
+    ({"TERM_PROGRAM": "Apple_Terminal", "TERM_PROGRAM_VERSION": "470", "COLORTERM": "truecolor"}, "night", False),
+    ({"TERM_PROGRAM": "iTerm.app", "TERM_PROGRAM_VERSION": "3.5.0"}, "night", False),
+    ({"TERM_PROGRAM": "Apple_Terminal"}, "night", False),
+])
+def test_full_colour_is_turned_on_only_where_terminal_draws_it(env, theme, want):
+    assert mac.wants_truecolor(env, theme) is want
+
+
+def test_the_app_starts_in_full_colour_in_a_new_terminal_with_a_new_look(tmp_path, monkeypatch):
+    import json
+    from fixtures import make_vault
+    from tutor_app import __main__ as cli
+    from tutor_app.app import TutorApp
+    vault = make_vault(tmp_path)
+    (vault / ".tutor/app_settings.json").write_text(json.dumps({"theme": "night"}))
+    monkeypatch.setenv("TERM_PROGRAM", "Apple_Terminal")
+    monkeypatch.setenv("TERM_PROGRAM_VERSION", "471")
+    monkeypatch.setenv("COLORTERM", "")  # unset, and put back as it was after the test
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda *a, **k: "ok", raising=False)
+    seen = []
+    monkeypatch.setattr(TutorApp, "run", lambda self: seen.append(__import__("os").environ.get("COLORTERM")))
+    cli.main(["--vault", str(vault)])
+    assert seen == ["truecolor"]

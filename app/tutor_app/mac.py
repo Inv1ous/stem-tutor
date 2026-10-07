@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -17,6 +18,15 @@ INBOX_HELP = ("macOS isn't letting the tutor open your iPad inbox in iCloud Driv
 DOWNLOADS_HELP = ("macOS isn't letting the tutor look in Downloads for your Almanac export, so your ticks aren't "
                   "counted. Either allow it (System Settings › Privacy & Security › Files & Folders › Terminal › "
                   "Downloads Folder) or move the exported file into this vault's Almanac folder yourself.")
+
+
+def wants_truecolor(env, theme: str) -> bool:
+    """macOS Terminal has drawn 24-bit colour since macOS 26 (build 470) without saying so, and the app then falls back
+    to 256 colours. Night and Day are drawn in their real colours; Classic keeps what it always had."""
+    if theme == "classic" or env.get("COLORTERM") or env.get("TERM_PROGRAM") != "Apple_Terminal":
+        return False
+    build = re.match(r"\d+", env.get("TERM_PROGRAM_VERSION", ""))
+    return bool(build) and int(build.group()) >= 470
 
 
 def obsidian_vault_registered(vault: Path) -> str | None:

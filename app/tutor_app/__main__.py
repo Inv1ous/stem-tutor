@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -22,6 +23,8 @@ def main(argv: list[str] | None = None) -> int:
               "\nFix the ✗ items above: the tutor can't start without its folder." if not rows[0][0] else
               "\nFix the ✗ items above (the tutor still runs without AI).")
         return 0
+    if mac.wants_truecolor(os.environ, config.Settings.load(vault).theme):
+        os.environ["COLORTERM"] = "truecolor"  # before the app reads it
     from .app import TutorApp
     app = TutorApp(vault)
     print(f"\x1b]0;{app.TITLE}\x07", end="", flush=True)  # name the terminal window: a terminal shows what it is told
