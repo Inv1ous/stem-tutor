@@ -15,6 +15,30 @@ import pymupdf
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "build" / "raw"
+# The text layer carries soft hyphens and maths-font glyphs (private use area), and loses typeset fractions:
+# map the glyphs and restore the few outcomes whose maths fell apart, so a re-extraction stays clean.
+GLYPHS = str.maketrans({"­": None, "": "≤", "": "≥"})
+REPAIRS = {
+    "Cl O–": "ClO⁻",
+    "d y 1 = The use of d x  d x    d y  ": "The use of dy/dx = 1/(dx/dy)",
+    "the ‘middle’ item has position [ so that": "the ‘middle’ item has position [½(N + 1)] if N is odd, "
+                                                "[½(N + 2)] if N is even, so that",
+}
+
+
+def tidy(v):
+    if isinstance(v, str):
+        v = v.translate(GLYPHS)
+        for bad, good in REPAIRS.items():
+            v = v.replace(bad, good)
+        return v
+    if isinstance(v, list):
+        return [tidy(x) for x in v]
+    if isinstance(v, dict):
+        return {k: tidy(x) for k, x in v.items()}
+    return v
+
+
 NOISE = re.compile(r"^(Cambridge International AS & A Level|www\.cambridgeinternational|Back to contents page|\d+$)")
 
 
@@ -130,6 +154,7 @@ if __name__ == "__main__":
             "9701-2028": caie(specs / "9701-2028-2030.pdf", "9701"), "9702-2028": caie(specs / "9702-2028-2030.pdf", "9702"),
             "ial-maths": ial(specs / "ial-maths-spec.pdf")}
     for name, data in jobs.items():
+        data = tidy(data)
         (RAW / f"{name}.json").write_text(json.dumps(data, ensure_ascii=False, indent=1))
         if "topics" in data:
             n = sum(len(s["outcomes"]) for t in data["topics"] for s in t["subtopics"])
