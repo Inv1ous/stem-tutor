@@ -112,7 +112,29 @@ def test_undo_goes_back_to_classic_and_says_how_to_remove_the_rest(tmp_path, mon
     text = "\n".join(said)
     assert config.Settings.load(vault).theme == "classic" and "close this window" in text
     first = sorted((vault / ".tutor/backups").glob("terminal-*.plist"))[0]
-    assert f"defaults import com.apple.Terminal '{first}'" in text and "git checkout v1.6.1" in text
+    assert _restore_command(text) == ["defaults", "import", "com.apple.Terminal", str(first)]
+    assert "git checkout v1.6.1" in text
+
+
+def _restore_command(text):
+    """The shell words of the `do shell script "…"` line, as AppleScript and then the shell would read them."""
+    import re
+    import shlex
+    literal = re.search(r'do shell script "((?:[^"\\]|\\.)*)"', text).group(1)
+    return shlex.split(re.sub(r'\\(.)', r'\1', literal))
+
+
+def test_undo_restores_from_a_folder_whose_name_has_quotes(tmp_path, monkeypatch, mac_like):
+    vault = tmp_path / 'Ann\'s "Tutor" \\ $HOME'
+    (vault / ".tutor/backups").mkdir(parents=True)
+    first = vault / ".tutor/backups/terminal-20261001-090000.plist"
+    for b in (first, vault / ".tutor/backups/terminal-20261005-090000.plist"):
+        b.write_bytes(b"")
+    said = []
+    setup_look.undo(vault, out=said.append)
+    text = "\n".join(said)
+    assert _restore_command(text) == ["defaults", "import", "com.apple.Terminal", str(first)]
+    assert "before the first `tutor look`" in text  # the oldest backup: Terminal as it was before the tutor
 
 
 @pytest.mark.parametrize("theme,installed,version,want", [
