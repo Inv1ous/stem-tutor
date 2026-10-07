@@ -113,3 +113,35 @@ def test_undo_goes_back_to_classic_and_says_how_to_remove_the_rest(tmp_path, mon
     assert config.Settings.load(vault).theme == "classic"
     first = sorted((vault / ".tutor/backups").glob("terminal-*.plist"))[0]
     assert f"defaults import com.apple.Terminal '{first}'" in text and "git checkout v1.6.1" in text
+
+
+@pytest.mark.parametrize("theme,installed,version,want", [
+    ("night", True, "471", {"Look": None, "Font": True, "Terminal profiles": True, "Colours": True}),
+    ("night", False, "471", {"Look": None, "Font": False, "Terminal profiles": False, "Colours": True}),
+    ("classic", False, "460", {"Look": None, "Font": None, "Terminal profiles": None, "Colours": None}),
+])
+def test_doctor_checks_the_look_only_where_it_matters(tmp_path, monkeypatch, mac_like, theme, installed, version, want):
+    import json
+    vault, term = make_vault(tmp_path), FakeTerminal()
+    (vault / ".tutor/app_settings.json").write_text(json.dumps({"theme": theme}))
+    if installed:
+        _install(vault, monkeypatch, term)
+        config.Settings(theme=theme).save(vault)
+
+    def export_to_stdout(args, **kw):
+        if args == ["defaults", "export", "com.apple.Terminal", "-"]:
+            return subprocess.CompletedProcess(args, 0, plistlib.dumps(term.prefs).decode(), "")
+        return term.run(args, **kw)
+    monkeypatch.setattr(setup_look.subprocess, "run", export_to_stdout)
+    monkeypatch.setenv("TERM_PROGRAM", "Apple_Terminal")
+    monkeypatch.setenv("TERM_PROGRAM_VERSION", version)
+    rows = {check.split(":")[0]: ok for ok, check, fix in setup_look.doctor_rows(vault)}
+    assert rows == want
+
+
+def test_doctor_marks_advice_apart_from_problems(tmp_path, monkeypatch, capsys):
+    from tutor_app import __main__ as cli, mac
+    monkeypatch.setattr(mac, "doctor", lambda vault: [(True, "Tutor folder: x", ""), (None, "Look: Classic", "optional")])
+    cli.main(["doctor", "--vault", str(tmp_path)])
+    out = capsys.readouterr().out
+    assert "✓ Tutor folder" in out and "· Look: Classic" in out and "All good" in out

@@ -6,6 +6,7 @@ check, switch the look to Night, and print a specimen to judge the result by eye
 from __future__ import annotations
 
 import hashlib
+import os
 import plistlib
 import shutil
 import subprocess
@@ -166,6 +167,35 @@ def specimen() -> str:
              "5. Maths:"] + ["   " + to_terminal(m) for m in MATHS] + [
              "", "Start the tutor as usual (double-click Start Tutor). To go back: tutor look --undo"]
     return "\n".join(lines)
+
+
+def doctor_rows(vault: Path) -> list[tuple[bool | None, str, str]]:
+    """(ok, check, what to do) for the look; ok None is advice, not a problem (Classic needs none of it)."""
+    if not IS_MAC:
+        return []
+    theme = config.Settings.load(vault).theme
+    needed = theme != "classic"
+    rows: list[tuple[bool | None, str, str]] = [
+        (None, f"Look: {look.LABELS[theme]}", "" if needed else "Optional: run  tutor look  for the Night and Day looks.")]
+    font = (FONT_DIR / FONTS[0]).exists()
+    rows.append((True if font else False if needed else None, "Font: JuliaMono " + ("installed" if font else "not installed"),
+                 "" if font else "Run  tutor look"))
+    try:
+        done = _run(["defaults", "export", "com.apple.Terminal", "-"])
+        names = set((plistlib.loads(done.stdout.encode()).get("Window Settings") or {}) if done.returncode == 0 else {})
+    except (OSError, subprocess.SubprocessError, plistlib.InvalidFileException, ValueError):
+        names = set()
+    have = all(look.TERMINAL_PROFILES[t] in names for t in ("night", "day"))
+    rows.append((True if have else False if needed else None,
+                 "Terminal profiles: STEM Tutor Night and Day " + ("ready" if have else "not added"),
+                 "" if have else "Run  tutor look"))
+    env = os.environ
+    if env.get("TERM_PROGRAM") == "Apple_Terminal":
+        build = env.get("TERM_PROGRAM_VERSION", "?")
+        full = mac.wants_truecolor({**env, "COLORTERM": ""}, "night")
+        rows.append((True if full else None, f"Colours: {'24-bit' if full else '256 colours'} (Terminal build {build})",
+                     "" if full else "Night and Day show their exact colours from macOS 26 on."))
+    return rows
 
 
 def undo(vault: Path, out=print) -> int:
