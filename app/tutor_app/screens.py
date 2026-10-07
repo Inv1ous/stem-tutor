@@ -1194,6 +1194,7 @@ class BlurtScreen(Screen):
         res = t.blurt(self.subtopic, text)
         log = self.query_one("#log", VerticalScroll)
         n, total = len(res["recalled"]), len(res["ideas"])
+        log.mount(Static(cards.you(text, "You wrote"), classes="entry"))  # beside what it is checked against
         log.mount(Static(cards.card("good" if n == total else "hint", f"You recalled {n} of {total} ideas",
                                     "Ideas you left out are now due for review, so they come up next time."),
                          classes="entry"))

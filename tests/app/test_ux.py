@@ -291,6 +291,31 @@ def test_the_session_footer_always_fits_menu_help_ask_and_hint_at_60_columns(tmp
     run(app, (60, 24), steps)
 
 
+def _screen_text(app) -> str:
+    import html
+    import re
+    return html.unescape("".join(re.findall(r">([^<>]*)</text>", app.export_screenshot()))).replace("\xa0", " ")
+
+
+def test_a_checked_blurt_shows_what_you_wrote_before_what_you_recalled(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        _menu(app, "blurt")
+        await pilot.press("enter")
+        await pilot.pause()
+        await pilot.press("enter")
+        await pilot.pause()
+        await pilot.press(*"displacement has direction", "ctrl+s")
+        await pilot.pause()
+        app.screen.query_one("#log").scroll_home(animate=False)
+        await pilot.pause()
+        text = _screen_text(app)
+        assert "You wrote" in text and "displacement has direction" in text
+        assert text.index("You wrote") < text.index("You recalled")
+    run(app, (120, 40), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

@@ -84,8 +84,8 @@ def feedback(fb: dict, your: str) -> Panel:
     return framed(md("\n".join(body)), style, f"[b]Q{fb['n']} — {title}[/b]", title_align="left")
 
 
-def you(text: str) -> Panel:
-    return framed(Text(text), C["you"], "[b]You[/b]", title_align="right")
+def you(text: str, title: str = "You") -> Panel:
+    return framed(Text(text), C["you"], f"[b]{title}[/b]", title_align="right")
 
 
 def ai(text: str, title: str = "Tutor (AI)") -> Panel:
