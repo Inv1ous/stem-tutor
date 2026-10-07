@@ -90,7 +90,7 @@ def test_a_card_with_no_body_is_just_its_title():
     (r"$\frac{\Delta s}{\Delta t}$", "Δs/Δt"), (r"$\frac{5}{\sqrt{3}}$", "5/√3"), (r"$\sqrt[5]{32}$", "⁵√32"),
     (r"$\sqrt{a^2+b^2}$", "√(a² + b²)"),
     # standard state ⦵ as in the pack titles, after any subscript
-    (r"$\Delta H^\ominus$", "ΔH⦵"), (r"$\Delta H_r^{\ominus}$", "ΔHᵣ⦵"), (r"$E^\ominus_{cell}$", "E_cell⦵"),
+    (r"$\Delta H^\ominus$", "ΔH⦵"), (r"$\Delta H_r^{\ominus}$", "ΔHᵣ⦵"), (r"$E^\ominus_{cell}$", "Ecell⦵"),
     # bold vectors, braces, function names without stray spaces, primes
     (r"$\mathbf{F}$", "𝐅"), (r"$\boldsymbol{a}$", "𝐚"), (r"$\{1,2\}$", "{1,2}"),
     (r"$\ln x$", "ln x"), (r"$\log_{10} x$", "log₁₀ x"), (r"$\sin(x)$", "sin(x)"), (r"$\sin^2\theta$", "sin² θ"),
@@ -225,4 +225,21 @@ def test_accent_edge_cases(tex, want):
     (r"$\overset{a}{b}$", "bᵃ"), (r"$\underset{x}{\max}$", "maxₓ"),
 ])
 def test_labelled_arrows_read_in_one_line(tex, want):
+    assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # a subscript with no Unicode form: a short lowercase label on a capital joins
+    (r"$K_c$", "Kc"), (r"$K_w=[\ce{H+}][\ce{OH-}]$", "Kw = [H⁺][OH⁻]"), (r"$E_{cell}$", "Ecell"),
+    (r"$K_c=\frac{[C]^c[D]^d}{[A]^a[B]^b}$", "Kc = [C]ᶜ[D]ᵈ/([A]ᵃ[B]ᵇ)"), (r"$F_y=F\sin\theta$", "F_y = F sin θ"),
+    (r"$E^{\ominus}_{\text{cell}}$", "Ecell⦵"), (r"$\Delta H_f^\ominus$", "ΔHf⦵"), (r"$\Delta H_c^{\ominus}$", "ΔHc⦵"),
+    (r"$\Delta G^\ominus=-nFE^\ominus_{cell}$", "ΔG⦵ = −nFEcell⦵"), (r"$S_\infty=\frac{a}{1-r}$", "S∞ = a/(1 − r)"),
+    # otherwise the underscore stays: same case, a capital label, a coordinate (x, y, z), a long word
+    (r"$b=\frac{S_{xy}}{S_{xx}}$", "b = S_xy/Sₓₓ"), (r"$v_y$", "v_y"), (r"$N_A$", "N_A"), (r"$T_{\text{K}}$", "T_K"), (r"$\sum S_{products}$", "∑ S_products"),
+    (r"$p_{\ce{NH3}}$", "p_NH₃"), (r"$\Delta_f H^\ominus$", "Δ_f H⦵"),
+    # either way: a space before the next letter, and no brackets the subscript does not need
+    (r"$k_B T$", "k_B T"), (r"$E=\frac{3}{2}k_B T$", "E = ³⁄₂k_B T"), (r"$v_y^2$", "v_y²"),
+    (r"$\sqrt{v^2-v_y^2}$", "√(v² − v_y²)"), (r"$\frac{1}{R_T}$", "1/R_T"), (r"$K_c^2$", "Kc²"),
+    (r"$K_p=\frac{p_C^2}{p_A p_B}$", "Kₚ = p_C²/(p_A p_B)"), (r"$^{x}_{y}\mathrm{A}$", "ˣ_yA"),
+])
+def test_subscripts_without_a_unicode_form(tex, want):
     assert to_terminal(tex) == want

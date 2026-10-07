@@ -22,6 +22,7 @@ _LBRACE, _RBRACE, _HYPHEN, _QUAD, _FN_END, _BOND2, _FN_START = (chr(0xE000 + i) 
 _FRAC_L, _FRAC_R = "\ue007", "\ue008"  # around a/b: bracketed when a factor follows, (b/2)x not b/2x
 _VEC_R, _VEC_L = "\ue009", "\ue00a"  # the arrow of a vector named by two points, →AB: never spaced like a relation
 _XL, _XR = "", ""  # around the condition written over a reaction arrow: A —heat→ B
+_SUB_L, _SUB_R = "", ""  # around a subscript with no Unicode form (Kc, v_y): a space if a letter follows
 _CHARGE_END = r"(?=$|[\s),;]|\((?:aq|g|l|s)\))"  # after a charge: the end, a space, or a state symbol: Na⁺(g)
 # leftovers of PDF extraction in a few packs: a maths font's ≤ ≥, and big-bracket pieces that lost their place
 _LEFTOVERS = {0xF084: "≤", 0xF085: "≥", 0x00AD: None, **{c: None for c in range(0xF8E5, 0xF8FF)}}
@@ -58,6 +59,11 @@ def _labelled(arrow: str, above: str | None, below: str | None, chem: bool = Fal
     return _XL + "{" + label + "}" + _XR + arrow
 
 
+def _no_label(expr: str) -> str:
+    """The expression without its plain-text subscripts: what decides whether it needs brackets."""
+    return re.sub(_SUB_L + ".*?" + _SUB_R, "", expr)
+
+
 def _chem(body: str) -> str:
     """\\ce{...} (mhchem): element counts as subscripts, charges as superscripts, bonds and arrows."""
     body = re.sub(r"(<=>>|<<=>|<=>|<->|->|<-)\s*\[([^\]]*)\](?:\s*\[([^\]]*)\])?",  # ->[heat], ->[Ni][150 °C]
@@ -81,12 +87,12 @@ if flatlatex is not None:
     _MODS = set(_SUBSCRIPT.values()) | set(_data.superscript.values()) | set("′″⦵")
 
     def _simple(expr: str) -> bool:
-        """One base character with only sub/superscripts or accents after it: x, x₁, F⃗ (no brackets needed)."""
-        return sum(1 for ch in expr if not unicodedata.combining(ch) and ch not in _MODS) <= 1
+        """One base character with only sub/superscripts or accents after it: x, x₁, F⃗, v_y (no brackets needed)."""
+        return sum(1 for ch in _no_label(expr) if not unicodedata.combining(ch) and ch not in _MODS) <= 1
 
     def _atom(expr: str) -> bool:
-        """What can stand below a fraction line without brackets: x, r², 10, 2.5, dx, Δt, √3."""
-        base = expr
+        """What can stand below a fraction line without brackets: x, r², 10, 2.5, dx, Δt, √3, R_T."""
+        base = _no_label(expr)
         while base and (unicodedata.combining(base[-1]) or base[-1] in _MODS):
             base = base[:-1]
         if len(base) > 1 and base[0] in "dΔδ∂√∛∜":
@@ -127,7 +133,13 @@ if flatlatex is not None:
                 return a + "½"  # t½
             if b and all(ch in _SUBSCRIPT for ch in b):
                 return a + "".join(_SUBSCRIPT[ch] for ch in b)
-            return a + (f"_{b}" if re.fullmatch(r"\w+", b) else f"[{b}]")  # v_y, lim[x→0]
+            if b == "∞" or re.fullmatch(r"\w+", b):  # no Unicode form: a short label on a capital joins (Kc, Ecell,
+                # ΔHf, S∞); same-case, capital, coordinate and long subscripts keep the _ (v_y, N_A, F_y, S_products)
+                base = next((c for c in reversed(_no_label(a)) if not unicodedata.combining(c) and c not in _MODS), "")
+                joined = b == "∞" or (re.fullmatch(r"[a-w]{1,5}", b) and base.isupper()
+                                      and "GREEK" not in unicodedata.name(base, ""))
+                return a + _SUB_L + ("" if joined else "_") + b + _SUB_R
+            return a + f"[{b}]"  # lim[x→0]
 
         def _converter__latexfun_frac(self, inputs):
             a, b = inputs
@@ -206,7 +218,7 @@ def _math(expr: str) -> str:
     e = e.replace(r"\degree", "°").replace(r"^\circ", "°").replace(r"^{\circ}", "°")
     e = re.sub(r"\\(?:to|rightarrow)(?![A-Za-z])", "→", e).replace(r"\Rightarrow", "⇒")
     e = re.sub(r"\\leftarrow(?![A-Za-z])", "←", e)
-    e = re.sub(r"\^\s*\{?\\ominus\}?\s*(_\s*(?:\{[^{}]*\}|\w))", r"\1^\\ominus", e)  # E^⊖_{cell}: subscript first
+    e = re.sub(r"\^\s*\{?\s*\\ominus\s*\}?\s*(_\s*(?:\{" + _GROUP + r"\}|\w))", r"\1^\\ominus", e)  # E^⊖_{cell}: subscript first
     e = re.sub(r"\^\s*(?:\{\s*\\ominus\s*\}|\\ominus(?![A-Za-z]))", "⦵", e)  # ΔH⦵, the standard-state sign
     e = re.sub(r"\\sqrt\s*\[\s*([34])\s*\]", lambda m: r"\cbrt" if m.group(1) == "3" else r"\qdrt", e)
     e = re.sub(r"\\sqrt\s*\[([^\]]*)\]", r"{}^{\1}\\sqrt", e)  # ⁿ√x
@@ -257,6 +269,7 @@ def _tidy(text: str) -> str:
     out: list[str] = []
     depth: list[str] = []
     fracs: list[int] = []
+    sub_after = False
 
     def operand(k: int) -> bool:  # a bar closes (|x − 1|, |2|x| − 3|) when something stands before it: |−3| opens
         if k >= 0 and out[k] == "|":
@@ -288,6 +301,12 @@ def _tidy(text: str) -> str:
             if start is not None and _starts_factor(text[i + 1:i + 2]):
                 out.insert(start, "(")
                 out.append(")")
+        elif ch == _SUB_L:  # k_B T, not k_BT; a nuclide's ˣ_yA stays tight
+            sub_after = bool(out) and out[-1].isalnum() and unicodedata.category(out[-1]) != "Lm"
+        elif ch == _SUB_R:
+            nxt = text[i + 1:i + 2]
+            if sub_after and nxt.isalpha() and unicodedata.category(nxt) != "Lm":
+                out.append(" ")
         elif ch == _FN_START:
             if operand(len(out) - 1):
                 out.append(" ")
@@ -322,7 +341,7 @@ def _tidy(text: str) -> str:
 
 def _unmark(text: str) -> str:
     return (text.replace(_LBRACE, "{").replace(_RBRACE, "}")  # literal braces kept out of LaTeX grouping
-            .replace(_VEC_R, "→").replace(_VEC_L, "←").replace(_XL, "").replace(_XR, ""))
+            .replace(_VEC_R, "→").replace(_VEC_L, "←").replace(_XL, "").replace(_XR, "").replace(_SUB_L, "").replace(_SUB_R, ""))
 
 
 def to_terminal(text: str) -> str:
