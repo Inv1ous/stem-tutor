@@ -113,6 +113,27 @@ def test_a_focused_button_looks_focused_not_broken(tmp_path, monkeypatch, name):
         look.use("classic")
 
 
+def test_settings_label_the_model_show_an_editable_minutes_box_and_say_how_to_apply(tmp_path, monkeypatch):
+    from textual.widgets import Select
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        app.action_settings()
+        await pilot.pause()
+        scr = app.screen
+        model = scr.query_one("#model", Select)
+        assert all(label.startswith("Model: ") for label, _ in model._options)
+        box, minutes = scr.query_one("#settings"), scr.query_one("#minutes")
+        assert minutes.styles.background != box.styles.background  # a box to type in, not loose text
+        scr.query_one("#save").focus()
+        await pilot.pause()
+        hint = scr.query_one("#settings-hint")
+        text = str(hint.render())
+        assert "Save to apply" in text and "Esc cancels" in text
+        assert hint.region.height and hint.region.bottom <= box.region.bottom
+    run(app, (60, 24), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

@@ -56,7 +56,9 @@ PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScree
 #settings .row > Static { width: 1fr; }
 #settings Switch { border: none; padding: 0 1; margin-right: 1; }
 #settings Switch:focus { border: none; background: $accent 40%; }
-#settings #minutes { width: 10; }
+#settings #minutes { width: 10; background: $panel; }
+#settings #settings-hint { content-align: left middle; height: 100%; padding: 0 0 0 2; }
+#settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
 HomeScreen.narrow #stats { display: none; }
 HomeScreen.narrow #menu { width: 1fr; }

@@ -1237,7 +1237,7 @@ class SettingsScreen(ModalScreen):
                     yield Switch(value=getattr(s, key), id=key)
                     yield Static(label)
             with Horizontal(classes="row"):
-                yield Select([("Haiku (cheapest, fast)", "haiku"), ("Sonnet (clearer, ~3x usage)", "sonnet")],
+                yield Select([("Model: Haiku (cheapest, fast)", "haiku"), ("Model: Sonnet (clearer, ~3x usage)", "sonnet")],
                              value=s.model, id="model", allow_blank=False, compact=True)
             with Horizontal(classes="row"):
                 yield Select([(f"Look: {look.LABELS[name]}", name) for name in config.THEMES],
@@ -1245,7 +1245,9 @@ class SettingsScreen(ModalScreen):
             with Horizontal(classes="row"):
                 yield Static("Session length (minutes, 5 to 180)")
                 yield Input(str(s.minutes), id="minutes", type="integer", compact=True)
-            yield Button("Save", id="save", variant="primary")
+            with Horizontal(classes="row"):
+                yield Button("Save", id="save", variant="primary")
+                yield Static("Save to apply · Esc cancels", id="settings-hint", classes="hint")
 
     def on_mount(self) -> None:
         self.query_one("#ai", Switch).focus()  # the first setting, not the scrolling box around them
