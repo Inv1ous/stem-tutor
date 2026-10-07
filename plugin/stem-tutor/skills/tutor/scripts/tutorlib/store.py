@@ -72,7 +72,7 @@ def write_text(path: Path, text: str) -> bool:
     try:
         if path.exists() and path.read_text(encoding="utf-8") == text:
             return False
-    except OSError:
+    except (OSError, ValueError):  # unreadable or torn (not valid UTF-8): just replace it
         pass
     tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex[:8]}.tmp")
     tmp.write_text(text, encoding="utf-8")
