@@ -128,3 +128,15 @@ def test_week_note_is_written(tutor):
     text = (tutor.vault.root / path).read_text()
     assert path == "Weekly/2026-W40.md" and "Studied on **1** day" in text and "[[Mistakes]]" in text
     assert lint.lint(text) == []
+
+
+def test_weak_spots_reads_the_log_only_when_it_changed(tutor, monkeypatch):
+    for _ in range(3):
+        answer(tutor, kc="9702-2.1.4", right=False, item="9702-2.1-i03", response="2.0")
+    insights.weak_spots(tutor)
+    reads = []
+    real = tutor.vault.events
+    monkeypatch.setattr(tutor.vault, "events", lambda: reads.append(1) or real())
+    assert insights.weak_spots(tutor) == insights.weak_spots(tutor) and not reads
+    answer(tutor, kc="9702-2.1.4", right=True, item="9702-2.1-i03", response="3.0")
+    assert "right 1 of 4 times" in [r for w in insights.weak_spots(tutor) for r in w["reasons"]] and reads

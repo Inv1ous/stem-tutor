@@ -144,3 +144,10 @@ def test_a_re_marked_answer_is_no_longer_a_likely_slip(tmp_path):
     v.append_event({"type": "regrade", "target": a["id"], "grade": {"score": 1.0, "correct": True}}, now=t)
     (ans,) = [e for e in v.events() if e["type"] == "answer"]
     assert ans["regraded"] and "slip_likely" not in ans and ans["grade"]["score"] == 1.0
+
+
+def test_write_text_replaces_a_file_that_is_not_valid_utf8(tmp_path):
+    p = tmp_path / "Now.md"
+    p.write_bytes("# Now\n€".encode()[:-1])  # a torn multibyte character
+    assert store.write_text(p, "fresh") is True
+    assert p.read_text(encoding="utf-8") == "fresh"

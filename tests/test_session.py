@@ -861,3 +861,22 @@ def test_a_re_mark_puts_the_session_back_as_if_the_answer_had_been_marked_right(
     assert tutor.session["recent"][-1]["correct"] and str(n) not in tutor.session["presented"]
     events = list(tutor.vault.events())
     assert not [e for e in events if e["type"] == "tag"] and len([e for e in events if e["type"] == "answer"]) == 1
+
+
+def test_torn_state_files_do_not_stop_the_tutor_starting(tmp_path):
+    root = make_vault(tmp_path)
+    state = root / ".tutor" / "state"
+    state.mkdir(parents=True, exist_ok=True)
+    (state / "learner.json").write_text('{"kcs": {')
+    (state / "session.json").write_text('{"id": "ab')
+    t = session.Tutor(store.Vault(root), rng=random.Random(0), now=Clock(T0))
+    assert t.session is None and t.state
+
+
+def test_rebuild_reads_the_log_once(tutor, monkeypatch):
+    tutor.log({"type": "note", "text": "x"})
+    reads = []
+    real = tutor.vault.events
+    monkeypatch.setattr(tutor.vault, "events", lambda: reads.append(1) or real())
+    out = tutor.rebuild()
+    assert out["events"] >= 1 and len(reads) == 1

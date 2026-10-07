@@ -291,3 +291,48 @@ def test_the_plans_limits_are_shown_as_what_is_left(tmp_path, monkeypatch):
     c.limits["seven_day"] = {"used": 93, "resets": 4102444800}
     assert c.limits_text(noted) == "week 7% left"  # what Claude told this app itself is exact
     assert ai.Claude(tmp_path, binary=FAKE).limits_text({}) == ""  # nothing known: nothing shown
+
+
+def _script(tmp_path, body, mode=0o755):
+    p = tmp_path / "slow_claude"
+    p.write_text("#!" + sys.executable + "\n" + body)
+    p.chmod(mode)
+    return p
+
+
+def test_cancelling_a_one_shot_cancels_the_caller(tmp_path):
+    c = ai.Claude(tmp_path, binary=str(_script(tmp_path, "import time\ntime.sleep(30)\n")))
+    async def go():
+        t = asyncio.ensure_future(c.one_shot("x"))
+        await asyncio.sleep(0.5)
+        t.cancel()
+        await asyncio.wait([t])
+        return t.cancelled()
+    assert asyncio.run(go())
+
+
+def test_a_binary_that_cannot_start_is_an_error_not_a_crash(tmp_path):
+    c = ai.Claude(tmp_path, binary=str(_script(tmp_path, "pass\n", mode=0o644)))
+    async def go():
+        data, res = await c.one_shot("x")
+        return data, res, await c.reply("x")
+    data, res, res2 = asyncio.run(go())
+    assert data is None and not res.ok and not res2.ok
+
+
+def test_an_unwritable_usage_file_does_not_lose_the_reply(tmp_path, monkeypatch):
+    monkeypatch.setenv("FAKE_CLAUDE_MODE", "ok")
+    (tmp_path / "usage.json").mkdir()  # cannot be read or written as a file
+    c = ai.Claude(tmp_path, binary=FAKE, usage_file=tmp_path / "usage.json")
+    assert "".join(collect(c, "hello")).startswith("Reply 1: hello") and c.last.ok
+
+
+def test_a_huge_stream_line_is_a_failed_reply_not_a_crash(tmp_path):
+    big = _script(tmp_path, "import sys\nsys.stdin.readline()\nsys.stdout.write('x' * 5_000_000 + '\\n')\n"
+                            "sys.stdout.flush()\nimport time\ntime.sleep(5)\n")
+    c = ai.Claude(tmp_path, binary=str(big))
+    async def go():
+        res = await c.reply("x")
+        await c.close()
+        return res
+    assert not asyncio.run(go()).ok

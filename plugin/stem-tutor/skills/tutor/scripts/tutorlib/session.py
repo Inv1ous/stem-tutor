@@ -33,7 +33,7 @@ class Tutor(LessonMixin):
         self._now = now or vault.now
         self.state_path = vault.tutor / "state" / "learner.json"
         self.session_path = vault.tutor / "state" / "session.json"
-        self.state = read_json(self.state_path)
+        self.state = self._read_state(self.state_path)
         if (not self.state or self.state.get("model_version") != model.MODEL_VERSION
                 or self.state.get("last_event") != vault.last_event_id()):
             # a new model version, or the log moved on after this state was saved (the app stopped between the
@@ -41,9 +41,16 @@ class Tutor(LessonMixin):
             self.state = self._fold()
             self._dirty = True
         self._last_mark: dict | None = None  # the answer just marked and the session before it: see regrade
-        self.session = read_json(self.session_path)
+        self.session = self._read_state(self.session_path)
         self._recover()
         self.read_almanac()
+
+    @staticmethod
+    def _read_state(path):
+        try:
+            return read_json(path)
+        except ValueError:  # a torn file: the state is rebuilt from the log, a torn session is dropped
+            return None
 
     def _recover(self) -> None:
         """An answer is logged before the session is saved. If the app stopped in between, the question is still
@@ -164,10 +171,13 @@ class Tutor(LessonMixin):
                         blocks or ["Working…"], notes)
 
     def rebuild(self) -> dict:
-        self.state = self._fold()
+        self.state, n = model.new_state(), 0
+        for e in self.vault.events():  # one pass over the log: fold and count together
+            model.apply(self.state, e)
+            n += 1
         self._dirty = True
         self._save()
-        return {"kcs": len(self.state["kcs"]), "events": sum(1 for _ in self.vault.events())}
+        return {"kcs": len(self.state["kcs"]), "events": n}
 
     # ---------- session lifecycle ----------
     def start(self, mode: str = "autopilot", minutes: int = 50, focus: list[str] | None = None,

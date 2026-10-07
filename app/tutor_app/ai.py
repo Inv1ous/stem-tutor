@@ -115,7 +115,10 @@ class Claude:
         d["cached"] += int(u.get("cache_read_input_tokens") or 0)
         d["output"] += int(u.get("output_tokens") or 0)
         from tutorlib.store import write_text
-        write_text(self.usage_file, json.dumps(dict(sorted(data.items())[-60:]), indent=1))
+        try:
+            write_text(self.usage_file, json.dumps(dict(sorted(data.items())[-60:]), indent=1))
+        except OSError:  # a read-only vault or full disk must not cost the learner the reply
+            pass
         self._today = (date.today().isoformat(), d)
 
     @property
@@ -165,7 +168,12 @@ class Claude:
             return
         async with self._lock:
             if self.proc is None or self.proc.returncode is not None:
-                await self._start()
+                try:
+                    await self._start()
+                except OSError:  # not executable, or gone since the check: an error result, never a crash
+                    self.proc = None
+                    self.last = Result(ok=False, status="error", message="Claude Code could not be started.")
+                    return
             proc = self.proc
             assert proc is not None and proc.stdin is not None and proc.stdout is not None
             msg = {"type": "user", "message": {"role": "user", "content": prompt}}
@@ -192,7 +200,14 @@ class Claude:
         """Read one reply's events up to its result (sets self.last)."""
         streamed = False
         while True:
-            line = await asyncio.wait_for(proc.stdout.readline(), 120)
+            try:
+                line = await asyncio.wait_for(proc.stdout.readline(), 120)
+            except ValueError:  # one line longer than the stream limit: the rest of it would poison the next reply
+                proc.kill()
+                self.proc = None
+                self.last = Result(ok=False, status="error", text="".join(parts),
+                                   message="The AI sent an unreadable reply; try again.")
+                return
             if not line:
                 self.proc = None
                 self.last = Result(ok=False, status="error", text="".join(parts),
@@ -271,12 +286,20 @@ class Claude:
         args = [*LEAN, "--model", model or self.model, "--system-prompt", self.system, "--output-format", "json"]
         if schema:
             args += ["--json-schema", json.dumps(schema)]
-        proc = await asyncio.create_subprocess_exec(self.binary, *args, cwd=str(self.cwd), stdin=asyncio.subprocess.PIPE,
-                                                    stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL)
+        try:
+            proc = await asyncio.create_subprocess_exec(self.binary, *args, cwd=str(self.cwd), stdin=asyncio.subprocess.PIPE,
+                                                        stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL)
+        except OSError:
+            return None, Result(ok=False, status="error", message="Claude Code could not be started.")
         try:
             out, _ = await asyncio.wait_for(proc.communicate(prompt.encode()), 120)
-        except (asyncio.TimeoutError, asyncio.CancelledError):
+        except asyncio.CancelledError:  # the caller was cancelled (new judge started, screen left): stop for real
             proc.kill()
+            await proc.wait()
+            raise
+        except asyncio.TimeoutError:
+            proc.kill()
+            await proc.wait()
             return None, Result(ok=False, status="error", message="The AI took too long to answer.")
         try:
             ev = json.loads(out.decode() or "{}")
