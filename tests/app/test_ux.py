@@ -182,6 +182,18 @@ def test_the_confidence_step_shows_only_its_own_prompt_and_list(tmp_path, monkey
     run(app, (60, 24), steps)
 
 
+@pytest.mark.parametrize("mode", ["test", "lesson", "long", "blurt"])
+def test_every_picker_says_how_to_go_back(tmp_path, monkeypatch, mode):
+    from tutor_app.screens import PickerScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        app.push_screen(PickerScreen(mode))
+        await pilot.pause()
+        assert "Esc to go back" in str(app.screen.query_one(".hint").render())
+    run(app, (80, 24), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

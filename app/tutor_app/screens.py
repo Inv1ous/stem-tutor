@@ -305,7 +305,7 @@ class PickerScreen(ModalScreen):
         built = sorted(s for s in t.packs.subtopics if t.packs.pack(s))
         with Vertical(id="picker"):
             if self.mode == "test":
-                yield Static("Tick the subtopics the test covers: space to tick, Tab to Start.", classes="hint")
+                yield Static("Tick the subtopics the test covers: space to tick, Tab to Start, Esc to go back.", classes="hint")
                 yield SelectionList[str](*[Selection(self._label(s), s) for s in built], id="subs")
                 yield Button("Start test prep", id="go", variant="primary")
             else:
