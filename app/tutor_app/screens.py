@@ -917,6 +917,8 @@ class SummaryScreen(ModalScreen):
     def action_close(self) -> None:
         if time.monotonic() - self.opened >= 0.7:  # not the ⏎ still held down from "Next ⏎": read it first
             self.dismiss(None)
+        else:  # ignored, but visibly
+            self.query_one("#summary-hint", Static).update("Press ⏎ again for the menu · ↑↓ scroll")
 
     def compose(self) -> ComposeResult:
         s = self.summary
@@ -932,8 +934,9 @@ class SummaryScreen(ModalScreen):
                 + (f"**New Anki cards ({(s.get('week') or {})['anki']['cards']}):** double-click "
                    f"`{(s.get('week') or {})['anki']['path']}` in the tutor folder to import them.\n\n"
                    if ((s.get("week") or {}).get("anki") or {}).get("path") else "")
-                + "Your notes and the full lesson are in Obsidian (Home → Recent lessons). Press ⏎ for the menu.")
-        with Vertical(id="summary"):
+                + "Your notes and the full lesson are in Obsidian (Home → Recent lessons).")
+        with VerticalScroll(id="summary"):  # a short window scrolls it; the way out stays in sight
+            yield Static("⏎ menu · ↑↓ scroll", id="summary-hint", classes="hint")
             yield Markdown(to_terminal(text))
 
 

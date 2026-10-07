@@ -53,6 +53,31 @@ def test_a_long_question_opens_at_its_top_and_the_log_scrolls_while_typing(tmp_p
     run(app, (80, 24), steps)
 
 
+def test_the_summary_scrolls_in_a_small_window_and_always_says_how_to_leave(tmp_path, monkeypatch):
+    import time
+    from tutor_app.screens import SummaryScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        kcs = list(app.tutor.packs.kcs)
+        app.push_screen(SummaryScreen({"answered": 12, "correct": 9, "accuracy": 0.75, "kcs_learned": kcs}))
+        await pilot.pause()
+        box, hint = app.screen.query_one("#summary"), app.screen.query_one("#summary-hint")
+        assert box.max_scroll_y > 0 and box.region.bottom <= 24  # what does not fit can be scrolled to
+        assert hint.region.height and hint.region.bottom <= box.region.bottom and "⏎" in str(hint.render())
+        await pilot.press("down")
+        await pilot.pause()
+        assert box.scroll_y > 0
+        await pilot.press("enter")  # too soon: perhaps held down from the last question, but it is not ignored silently
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "SummaryScreen" and "again" in str(hint.render())
+        app.screen.opened = time.monotonic() - 1
+        await pilot.press("enter")
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "HomeScreen"
+    run(app, (60, 24), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

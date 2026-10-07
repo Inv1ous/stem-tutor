@@ -47,6 +47,8 @@ Composer { height: auto; min-height: 3; max-height: 10; }
   border: round $modal-border; background: $surface; padding: 1 2; }
 PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
 #help { padding: 0 2; }
+#summary { scrollbar-size-vertical: 1; }
+#summary-hint { dock: bottom; }
 #help MarkdownH1 { margin: 1 0 0 0; }
 #settings .row { height: auto; margin: 0 0 1 0; }
 #settings .row > Static { width: 1fr; }
