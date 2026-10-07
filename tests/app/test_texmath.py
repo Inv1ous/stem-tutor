@@ -20,7 +20,7 @@ def shown(renderable, width: int = 80) -> str:
     (r"$^{35}_{17}\mathrm{Cl}^-$", "³⁵₁₇Cl⁻"), (r"$^{40}\mathrm{Ar}$", "⁴⁰Ar"),
     (r"$\mathrm{X}\to{}^{32}\mathrm{P}+{}^{1}_{1}\mathrm{p}$", "X → ³²P + ¹₁p"),
     (r"$\text{Cu}^{2+}$", "Cu²⁺"), (r"$\text{kJ mol}^{-1}$", "kJ mol⁻¹"),  # no brackets round a text group
-    (r"$\int_0^1 x^2\,dx$", "∫₀¹x² dx"), (r"$\sum_{i=1}^n x_i$", "∑ᵢ₌₁ⁿxᵢ"), (r"$\prod_{i=1}^{n} a_i$", "∏ᵢ₌₁ⁿaᵢ"),
+    (r"$\int_0^1 x^2\,dx$", "∫₀¹ x² dx"), (r"$\sum_{i=1}^n x_i$", "∑ᵢ₌₁ⁿ xᵢ"), (r"$\prod_{i=1}^{n} a_i$", "∏ᵢ₌₁ⁿ aᵢ"),
     (r"$\binom{n}{r}$", "C(n,r)"),
     (r"$\begin{vmatrix}a&b\\c&d\end{vmatrix}$", "|a b; c d|"),
     (r"$f(x)=\begin{cases}1 & x>0\\0 & x\le0\end{cases}$", "f(x) = {1, x>0; 0, x≤0}"),
@@ -135,6 +135,8 @@ def test_the_flatlatex_internals_we_refine_still_exist():
     (r"$E_k=\tfrac12mv^2$", "Eₖ = ½mv²"), (r"$\text{well-known}$", "well-known"), (r"$|x-1|<2$", "|x − 1| < 2"),
     (r"$1+2+\dots+n$", "1 + 2 + … + n"), (r"$x \ge -3$", "x ≥ −3"), (r"$e^{-\lambda t}$", "e^(−λt)"),
     (r"$M^{q+}$", "M^(q+)"), (r"$(x+)$", "(x+)"),
+    (r"$\int x\,dx$", "∫ x dx"), (r"$\sum_{x} P(X=x) = 1$", "∑ₓ P(X=x) = 1"), (r"$\oint^{b}_{a} f$", "∮ₐᵇ f"),
+    (r"$\int_0^{\pi} \sin x\,dx = 2$", "∫₀^π sin x dx = 2"),
 ])
 def test_maths_is_spaced_like_a_textbook(tex, want):
     assert to_terminal(tex) == want

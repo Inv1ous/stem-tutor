@@ -112,8 +112,7 @@ def _math(expr: str) -> str:
     e = re.sub(r"\\ce\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: _chem(m.group(1)), e)
     e = re.sub(r"(?:\{\}|(?<![\w})\]|'\\]))\^(\{[^{}]*\}|\w)(?:\s*_(\{[^{}]*\}|\w))?",  # nuclides: ¹⁴₆C, mass over number
                lambda m: "{}^{" + m.group(1).strip("{}") + "}" + ("{}_{" + m.group(2).strip("{}") + "}" if m.group(2) else ""), e)
-    e = re.sub(r"\\(int|oint|sum|prod)\s*(?:_" + _ARG + r"\s*\^" + _ARG + r"|\^" + _ARG + r"\s*_" + _ARG + ")",  # ∫₀¹
-               lambda m: rf"\{m.group(1)}{{}}_{m.group(2) or m.group(5)}{{}}^{m.group(3) or m.group(4)}", e)
+    e = re.sub(r"\\(int|oint|sum|prod)(?![A-Za-z])((?:\s*[_^]\s*" + _ARG + ")*)", _big_operator, e)  # ∫₀¹ x² dx
     e = re.sub(r"\\binom\s*\{([^{}]*)\}\s*\{([^{}]*)\}", r"C(\1,\2)", e)
     e = re.sub(r"\\SI\s*\{([^{}]*)\}\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: m.group(1) + r"\,\text{" + m.group(2) + "}", e)
     e = re.sub(r"\\(?:si|num)\s*\{((?:[^{}]|\{[^{}]*\})*)\}", r"\\text{\1}", e)
@@ -151,6 +150,13 @@ def _math(expr: str) -> str:
         except Exception:
             pass
     return _tidy(re.sub(r"\\([A-Za-z]+)", r"\1", e).replace("{", "").replace("}", ""))
+
+
+def _big_operator(m: re.Match) -> str:
+    """∫ ∑ ∏ with their limits (below first, then above: ∫₀¹), and the small space a printed page leaves after them."""
+    limits = dict(re.findall(r"([_^])\s*" + _ARG, m.group(2)))
+    below, above = ("{}_" + limits["_"] if "_" in limits else ""), ("{}^" + limits["^"] if "^" in limits else "")
+    return f"\\{m.group(1)}{below}{above}" + r"\,"
 
 
 def _words(text: str) -> str:
