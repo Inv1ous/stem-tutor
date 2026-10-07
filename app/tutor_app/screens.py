@@ -886,6 +886,9 @@ class SessionScreen(Screen):
     def action_hint(self) -> None:
         if not self.view:
             return
+        if str(self.view["n"]) not in (self.tutor.session or {}).get("presented", {}):  # answered: nothing to hint
+            self.app.notify(f"No hint needed: Q{self.view['n']} is already marked.", timeout=4)
+            return
         if model.knobs(self.tutor.state)["attempt_before_hint"] and not getattr(self, "hint_armed", False):
             self.hint_armed = True
             self.app.notify("Have a go first: write your first step or your best guess. Press h again for the hint.",

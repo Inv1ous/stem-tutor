@@ -316,6 +316,24 @@ def test_a_checked_blurt_shows_what_you_wrote_before_what_you_recalled(tmp_path,
     run(app, (120, 40), steps)
 
 
+def test_a_hint_asked_for_after_answering_says_the_question_is_already_marked(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+    said = []
+
+    async def steps(pilot):
+        monkeypatch.setattr(app, "notify", lambda msg, **k: said.append(msg))
+        scr = await _session(app, pilot)
+        n = scr.view["n"]
+        scr.submit({"entry": f"{n}?", "your": "I don't know"})
+        await pilot.pause()
+        for key in ("h", "ctrl+g"):
+            said.clear()
+            await pilot.press(key)
+            await pilot.pause()
+            assert said == [f"No hint needed: Q{n} is already marked."], key
+    run(app, (100, 30), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 
