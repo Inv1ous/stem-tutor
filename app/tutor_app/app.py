@@ -11,15 +11,16 @@ from textual.binding import Binding
 from tutorlib import store
 from tutorlib.session import Tutor
 
-from . import config, mac
+from . import config, look, mac
 from .ai import Claude
 
 CSS = """
 Screen { background: $background; }
 #banner { height: 6; content-align: center middle; padding: 1 0 0 0; }
 Horizontal#home { height: 1fr; padding: 1 2; }
-#menu { width: 52; height: auto; max-height: 100%; border: round $accent; padding: 0 1; }
-#stats { width: 1fr; height: auto; max-height: 100%; padding: 1 0 1 2; border: round $primary-darken-2; margin-left: 2;
+#menu { width: 52; height: auto; max-height: 100%; border: round $menu-border; padding: 0 1; background: $menu-background; }
+#menu:focus { background-tint: $menu-tint; }
+#stats { width: 1fr; height: auto; max-height: 100%; padding: 1 0 1 2; border: round $stats-border; margin-left: 2;
   scrollbar-size-vertical: 1; scrollbar-gutter: stable; scrollbar-background: $background; }
 #stats-text { margin-right: 1; }
 #bar { height: auto; max-height: 2; background: $panel; }
@@ -28,7 +29,7 @@ Horizontal#home { height: 1fr; padding: 1 2; }
   scrollbar-background: $background; }
 .entry { margin: 0 1 1 0; }
 #panel { height: auto; max-height: 55%; }
-.panel { height: auto; padding: 0 2 1 1; border-top: solid $accent; }
+.panel { height: auto; padding: 0 2 1 1; border-top: solid $panel-rule; }
 .panel.tall { max-height: 30; }
 .panel.short { padding: 0 2 0 1; }
 .hint { color: $text-muted; padding: 0 0 0 1; }
@@ -41,7 +42,7 @@ TextArea { height: 1fr; min-height: 4; max-height: 12; }
 Composer { height: auto; min-height: 3; max-height: 10; }
 .check { color: $warning; padding: 0 0 0 1; }
 #picker, Vertical#ask, #summary, #help, #settings { width: 90; max-width: 95%; height: auto; max-height: 90%;
-  border: round $accent; background: $surface; padding: 1 2; }
+  border: round $modal-border; background: $surface; padding: 1 2; }
 PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
 #help { padding: 0 2; }
 #help MarkdownH1 { margin: 1 0 0 0; }
@@ -69,14 +70,20 @@ class TutorApp(App):
         super().__init__()
         self.vault = Path(vault or config.vault_path())
         self.settings = config.Settings.load(self.vault)
+        for theme in look.textual_themes():
+            self.register_theme(theme)
+        look.use(self.settings.theme)
         if open_obsidian is not None:
             self.settings.open_obsidian = open_obsidian
         self.claude_binary = claude_binary
         self.seed = seed
         self._locks = contextlib.ExitStack()
 
+    def get_theme_variable_defaults(self) -> dict[str, str]:
+        return look.CSS_DEFAULTS
+
     def on_mount(self) -> None:
-        self.theme = "catppuccin-mocha"
+        self.theme = look.THEME[self.settings.theme]
         if not (self.vault / ".tutor" / "config.json").exists():
             self.exit(message=f"No tutor folder at {self.vault}. Run: tutor doctor")
             return
