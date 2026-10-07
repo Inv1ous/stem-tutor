@@ -334,14 +334,36 @@ def expression_readable(text: str) -> bool:
 _FUNC_NAMES = sorted((*_EXPR_FUNCS, "ln"), key=len, reverse=True)
 
 
-def _function_args(s: str) -> str:
-    """A function name run into its argument is the function of it: sinx -> sin x, lnx -> ln x (sinh stays sinh)."""
-    def split(m):
-        word = m[0]
-        head = next((f for f in _FUNC_NAMES if word.startswith(f)), None) if word not in _FUNC_NAMES else None
-        return f"{head} {word[len(head):]}" if head else word
+_FUNC_AT = re.compile("|".join(_FUNC_NAMES))  # longest first: sinh before sin
 
-    return re.sub(r"[A-Za-z]+", split, s)
+
+def _function_args(s: str) -> str:
+    """A function name run into its argument is the function of it: sinx -> sin x, lnx -> ln x, sin2x -> sin 2x
+    (not the subscripted sin_2 times x), and 2sinxcosx -> 2sin(x) cos x (sinh stays sinh). A function name counts
+    where a run of letters starts (after a digit too: 2cosx); once one is found, any later in the run starts the
+    next. log10 is left as typed (a base, or log of 10?)."""
+    def split(m):
+        run = m[0]
+        first = next((p for p in range(len(run)) if run[p].isalpha() and (p == 0 or run[p - 1].isdigit())
+                      and _FUNC_AT.match(run, p)), None)
+        if first is None:
+            return run
+        out, p = [run[:first]], first
+        while p < len(run):
+            func = _FUNC_AT.match(run, p)[0]
+            q = p + len(func)
+            nxt = next((j for j in range(q + 1, len(run)) if _FUNC_AT.match(run, j)), len(run))
+            arg = run[q:nxt]
+            if func == "log" and arg.startswith("10"):
+                return run
+            last = nxt == len(run)
+            if last and arg.isdigit() and re.match(r"\s*[A-Za-z(]", m.string[m.end():]):
+                raise ParseError(f"{run} then a letter: a lost power (sin²x) or a factor (sin(2x))?")
+            out.append(f"{func} {arg}" if last else f"{func}({arg}) " if arg else f"{func} ")
+            p = nxt
+        return "".join(out).rstrip()
+
+    return re.sub(r"[A-Za-z0-9]+", split, s)
 
 
 def _names(s: str) -> str:

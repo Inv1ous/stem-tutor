@@ -158,3 +158,44 @@ def test_a_greek_label_does_not_make_a_wrong_answer_right(value, unit, text, cor
 def test_a_label_without_a_single_value_is_still_unreadable(text):
     with pytest.raises(grade.ParseError):
         grade.parse_quantity(text)
+
+
+# ---------- a function name run into its argument ----------
+def _expr(expected, given):
+    return grade.grade_item({"kind": "expression", "answer": {"expr": expected}, "marks": 1},
+                            {"kind": "value", "value": given, "conf": 3})["correct"]
+
+
+@pytest.mark.parametrize("given,expected", [
+    ("sin2x", "sin(2*x)"), ("cos3x", "cos(3*x)"), ("ln2x", "log(2*x)"), ("2sinxcosx", "sin(2*x)"),
+    ("2sinxcosx", "2*sin(x)*cos(x)"), ("3cos2x", "3*cos(2*x)"), ("tan2theta", "tan(2*theta)"), ("exp2x", "exp(2*x)"),
+    ("sqrt2x", "sqrt(2*x)"), ("sin2xcos3x", "sin(2*x)*cos(3*x)"), ("2x sin3x", "2*x*sin(3*x)"), ("sin30", "sin(30)"),
+    ("cosxsinx", "sin(2*x)/2"), ("sin2x + cos2x", "sin(2*x) + cos(2*x)"), ("ln3", "log(3)"),
+])
+def test_a_function_run_into_a_number_is_the_function_of_it(given, expected):
+    assert grade.expression_readable(given) and _expr(expected, given), given
+
+
+@pytest.mark.parametrize("given,expected", [
+    ("sin2x", "2*sin(x)"), ("sin2x", "sin(x)^2"), ("cos2x", "2*cos(x)"), ("ln2x", "2*log(x)"), ("2sinxcosx", "sin(x)^2"),
+    ("sin3x", "sin(2*x)"), ("x2", "2*x"), ("R2", "2*R1"),
+])
+def test_a_function_run_into_a_number_is_not_another_answer(given, expected):
+    assert not _expr(expected, given), given
+
+
+@pytest.mark.parametrize("given,expected", [
+    ("sinx", "sin(x)"), ("lnx", "log(x)"), ("2cosx", "2*cos(x)"), ("tantheta", "tan(theta)"), ("sinh x", "sinh(x)"),
+    ("sinx^2", "sin(x^2)"), ("m1v1", "m1*v1"), ("mv0", "m*v0"), ("1e3 x + 2.5e2 y", "1000*x + 250*y"),
+    ("x2sinx", "x2*sin(x)"), ("sin^2x", "sin(x)^2"), ("cost", "cos(t)"), ("sinhx", "sinh(x)"),
+])
+def test_run_in_function_readings_that_already_worked_still_do(given, expected):
+    assert _expr(expected, given), given
+
+
+@pytest.mark.parametrize("given", ["sin2 x", "ln2 x", "cos2 (x)", "sin2(x)"])
+def test_a_function_number_then_a_separate_argument_is_unreadable(given):
+    """sin2 x may be sin²x with its superscript lost, or sin(2x): asked again, never marked."""
+    assert not grade.expression_readable(given)
+    g = grade.grade_item({"kind": "expression", "answer": {"expr": "sin(2*x)"}}, {"kind": "value", "value": given})
+    assert not g["correct"] and g["needs_judgement"]
