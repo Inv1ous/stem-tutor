@@ -275,8 +275,13 @@ class Claude:
                                                     stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL)
         try:
             out, _ = await asyncio.wait_for(proc.communicate(prompt.encode()), 120)
-        except (asyncio.TimeoutError, asyncio.CancelledError):
+        except asyncio.CancelledError:  # the caller was cancelled (new judge started, screen left): stop for real
             proc.kill()
+            await proc.wait()
+            raise
+        except asyncio.TimeoutError:
+            proc.kill()
+            await proc.wait()
             return None, Result(ok=False, status="error", message="The AI took too long to answer.")
         try:
             ev = json.loads(out.decode() or "{}")

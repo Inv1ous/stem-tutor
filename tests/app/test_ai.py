@@ -291,3 +291,22 @@ def test_the_plans_limits_are_shown_as_what_is_left(tmp_path, monkeypatch):
     c.limits["seven_day"] = {"used": 93, "resets": 4102444800}
     assert c.limits_text(noted) == "week 7% left"  # what Claude told this app itself is exact
     assert ai.Claude(tmp_path, binary=FAKE).limits_text({}) == ""  # nothing known: nothing shown
+
+
+def _script(tmp_path, body, mode=0o755):
+    p = tmp_path / "slow_claude"
+    p.write_text("#!" + sys.executable + "\n" + body)
+    p.chmod(mode)
+    return p
+
+
+def test_cancelling_a_one_shot_cancels_the_caller(tmp_path):
+    c = ai.Claude(tmp_path, binary=str(_script(tmp_path, "import time\ntime.sleep(30)\n")))
+    async def go():
+        t = asyncio.ensure_future(c.one_shot("x"))
+        await asyncio.sleep(0.5)
+        t.cancel()
+        await asyncio.wait([t])
+        return t.cancelled()
+    assert asyncio.run(go())
+
