@@ -11,12 +11,14 @@ _SUB = str.maketrans("0123456789+-=()", "₀₁₂₃₄₅₆₇₈₉₊₋₌
 _SUP = str.maketrans("0123456789+-=()n", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ")
 _TEXT_CMDS = (r"\\(?:mathrm|text|textrm|mathit|mathsf|operatorname|textbf|textit|mbox" + ("" if BOLD else "|mathbf")
               + r")\s*\{((?:[^{}]|\{[^{}]*\})*)\}")
-_ARG = r"(\{(?:[^{}]|\{[^{}]*\})*\}|\\?\w)"  # a {group} or one character
+_ARG = r"(\{(?:[^{}]|\{[^{}]*\})*\}|\\[A-Za-z]+|\\?\w)"  # a {group}, a command (\pi) or one character
 _BRACES = {"p": "()", "b": "()", "": "()", "v": "||", "V": "‖‖", "B": "\ue000\ue001", "cases": "\ue000\ue001"}
 _FUNCS = "arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp|lim|max|min"
 # markers that pass through flatlatex untouched: literal braces, a hyphen that is no minus (a word in \text{}, a
 # chemical bond), \quad, a double bond, and the two sides of a function name (a space only where one reads)
 _LBRACE, _RBRACE, _HYPHEN, _QUAD, _FN_END, _BOND2, _FN_START = (chr(0xE000 + i) for i in range(7))
+_FRAC_L, _FRAC_R = "\ue007", "\ue008"  # around a/b: bracketed when a factor follows, (b/2)x not b/2x
+_CHARGE_END = r"(?=$|[\s),;]|\((?:aq|g|l|s)\))"  # after a charge: the end, a space, or a state symbol: Na⁺(g)
 # leftovers of PDF extraction in a few packs: a maths font's ≤ ≥, and big-bracket pieces that lost their place
 _LEFTOVERS = {0xF084: "≤", 0xF085: "≥", 0x00AD: None, **{c: None for c in range(0xF8E5, 0xF8FF)}}
 
@@ -32,10 +34,10 @@ def _chem(body: str) -> str:
     """\\ce{...} (mhchem): element counts as subscripts, charges as superscripts, bonds and arrows."""
     body = body.replace("<=>", "⇌").replace("->", "→").replace("<-", "←")
     body = re.sub(r"\^\{?([0-9]*[+-])\}?", lambda m: m.group(1).translate(_SUP), body)  # Cu^2+, SO4^{2-}
-    body = re.sub(r"(?<![A-Za-z)\]])([A-Z][a-z]?)(\d+)([+-])(?=$|[\s),;])",  # Fe3+: a lone element's charge
+    body = re.sub(r"(?<![A-Za-z)\]])([A-Z][a-z]?)(\d+)([+-])" + _CHARGE_END,  # Fe3+: a lone element's charge
                   lambda m: m.group(1) + (m.group(2) + m.group(3)).translate(_SUP), body)
-    body = re.sub(r"(?<=\])(\d*[+-])(?=$|[\s),;])", lambda m: m.group(1).translate(_SUP), body)  # [Fe(CN)6]3-
-    body = re.sub(r"(?<=[A-Za-z\d)])([+-])(?=$|[\s),;])", lambda m: m.group(1).translate(_SUP), body)  # H+, OH-
+    body = re.sub(r"(?<=\])(\d*[+-])" + _CHARGE_END, lambda m: m.group(1).translate(_SUP), body)  # [Fe(CN)6]3-
+    body = re.sub(r"(?<=[A-Za-z\d)])([+-])" + _CHARGE_END, lambda m: m.group(1).translate(_SUP), body)  # H+, OH-
     body = re.sub(r"(?<=[\w)\]])-(?=[A-Z(\[])", _HYPHEN, body)  # a bond: CH3-CH3
     body = re.sub(r"(?<=[\w)\]])=(?=[A-Z(\[])", _BOND2, body)  # CH2=CH2
     body = re.sub(r"([A-Za-z)\]]\d*)[.*](?=\d*[A-Z(])", "\\1·", body)  # CuSO4.5H2O
@@ -78,6 +80,13 @@ if flatlatex is not None:
         def _converter__is_complex_expr(self, expr):
             return not _simple(expr)
 
+        def _converter__exponent(self, a, b):
+            a = a if _simple(a) else f"({a})"  # x₁²
+            if all(ch in _data.superscript for ch in b):
+                return a + "".join(_data.superscript[ch] for ch in b)
+            many = sum(1 for ch in b if not unicodedata.combining(ch)) > 1
+            return a + "^" + (f"({b})" if many else b)  # e^(x²), not e^x² which reads as (eˣ)²
+
         def _converter__indexed(self, a, b):
             a = a if _simple(a) else f"({a})"
             if b == "1/2":
@@ -96,7 +105,7 @@ if flatlatex is not None:
                 a = f"({a})"  # (a+b)/c, but dy/dx and mv²/r
             if not _atom(b):
                 b = f"({b})"  # 1/(2a), but x/2, dy/dx and Δs/Δt
-            return f"{a}/{b}"
+            return f"{_FRAC_L}{a}/{b}{_FRAC_R}"
 
         def _converter__latexfun_sqrt(self, inputs):
             return "√" + _radicand(inputs[0])
@@ -123,7 +132,7 @@ def _math(expr: str) -> str:
                                                           else "{" + _words(m.group(1)) + "}"), e)  # Cu²⁺
     e = re.sub(r"\\begin\{([pbvVB]?matrix|cases)\}(.*?)\\end\{\1\}",  # (3; -4), |a b; c d|, {1, x>0; 0, x≤0}
                lambda m: _BRACES[m.group(1).replace("matrix", "")][0] + r";\,".join(
-                   (r",\," if m.group(1) == "cases" else r"\,").join(c.strip() for c in r.split("&"))
+                   (r",\," if m.group(1) == "cases" else _QUAD).join(c.strip() for c in r.split("&"))
                    for r in m.group(2).split("\\\\")) + _BRACES[m.group(1).replace("matrix", "")][1], e, flags=re.S)
     e = re.sub(r"\\(le|ge|ne)(?![A-Za-z])", r"\\\1q", e).replace(r"\ldots", r"\dots")  # names flatlatex lacks
     e = re.sub(r"\\[dt]frac", r"\\frac", e)
@@ -160,8 +169,9 @@ def _big_operator(m: re.Match) -> str:
 
 
 def _words(text: str) -> str:
-    """A \\text{} group: spaces kept, and a hyphen between letters stays a hyphen (not a minus sign)."""
-    return re.sub(r"(?<=[A-Za-z])-(?=[A-Za-z])", _HYPHEN, text.replace(" ", r"\,"))
+    """A \\text{} group: spaces kept, a hyphen in a word stays a hyphen (but-2-ene, not a minus), an apostrophe stays
+    one (Hooke’s, not a prime)."""
+    return re.sub(r"(?<=[A-Za-z0-9])-(?=[A-Za-z0-9])", _HYPHEN, text.replace(" ", r"\,")).replace("'", "’")
 
 
 _REL = set("=≠≈≃≅≡∝∼<>≤≥≪≫∈∉⊂⊆→←↔⇌⇒⇐⇔↦")  # spaced at the top level only: lim[x→0], {x, x≥0} stay tight
@@ -173,12 +183,20 @@ def _operand(ch: str) -> bool:
     return len(ch) == 1 and (ch.isalnum() or ch in ")]}|′″!%°∞…⦵⁺⁻⁼⁾₊₋₌₎" + _RBRACE or bool(unicodedata.combining(ch)))
 
 
+def _starts_factor(ch: str) -> bool:
+    return len(ch) == 1 and (ch.isalnum() or ch in "(√∛∜∫∑∏∮" + _FN_START + _LBRACE + _FRAC_L)
+
+
 def _tidy(text: str) -> str:
-    """Printed-maths spacing: s = ut + ½at², y = −3x (a true minus, unary signs tight), 3.0e−8, (2 −1; 3 4) in a matrix.
+    """Printed-maths spacing: s = ut + ½at², y = −3x (a true minus, unary signs tight), 3.0e−8, (2  −1; 3  4) in a matrix.
     Function names get a space only where one reads (v cos θ, sin(x), log₁₀ x); markers become what they stand for."""
     text = text.replace("-", "−")  # hyphens that are words or bonds are still markers here
     out: list[str] = []
     depth: list[str] = []
+    fracs: list[int] = []
+
+    def operand(k: int) -> bool:  # a bar that opens |−3| is no operand; one that closes |x − 1| is
+        return k >= 0 and _operand(out[k]) and not (out[k] == "|" and "".join(out[:k + 1]).count("|") % 2)
     i = 0
     while i < len(text):
         ch = text[i]
@@ -186,8 +204,15 @@ def _tidy(text: str) -> str:
             depth.append(ch)
         elif ch in _CLOSE and depth:
             depth.pop()
-        if ch == _FN_START:
-            if out and _operand(out[-1]):
+        if ch == _FRAC_L:
+            fracs.append(len(out))
+        elif ch == _FRAC_R:
+            start = fracs.pop() if fracs else None
+            if start is not None and _starts_factor(text[i + 1:i + 2]):
+                out.insert(start, "(")
+                out.append(")")
+        elif ch == _FN_START:
+            if operand(len(out) - 1):
                 out.append(" ")
         elif ch == _FN_END:
             nxt = text[i + 1:i + 2]
@@ -202,9 +227,9 @@ def _tidy(text: str) -> str:
                 k -= 1
             prev, nxt = (out[k] if k >= 0 else ""), text[j:j + 1]
             here = not depth if ch in _REL else all(b == "(" for b in depth)
-            unary = ch in _BIN and (not _operand(prev) or (out[-1:] == [" "] and j == i + 1))  # a matrix row: 2 −1
+            unary = ch in _BIN and (not operand(k) or (out[-1:] == [" "] and j == i + 1))  # a matrix row: 2 −1
             e_power = ch in "+−" and prev in "eE" and k > 0 and (out[k - 1].isdigit() or out[k - 1] == ".") and nxt.isdigit()
-            if here and nxt and nxt not in _CLOSE + ",;" and _operand(prev) and not unary and not e_power:
+            if here and nxt and nxt not in _CLOSE + ",;" and operand(k) and not unary and not e_power:
                 del out[k + 1:]
                 out += [" ", ch, " "]
                 i = j

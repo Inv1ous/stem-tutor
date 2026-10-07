@@ -22,7 +22,7 @@ def shown(renderable, width: int = 80) -> str:
     (r"$\text{Cu}^{2+}$", "Cu²⁺"), (r"$\text{kJ mol}^{-1}$", "kJ mol⁻¹"),  # no brackets round a text group
     (r"$\int_0^1 x^2\,dx$", "∫₀¹ x² dx"), (r"$\sum_{i=1}^n x_i$", "∑ᵢ₌₁ⁿ xᵢ"), (r"$\prod_{i=1}^{n} a_i$", "∏ᵢ₌₁ⁿ aᵢ"),
     (r"$\binom{n}{r}$", "C(n,r)"),
-    (r"$\begin{vmatrix}a&b\\c&d\end{vmatrix}$", "|a b; c d|"),
+    (r"$\begin{vmatrix}a&b\\c&d\end{vmatrix}$", "|a  b; c  d|"),
     (r"$f(x)=\begin{cases}1 & x>0\\0 & x\le0\end{cases}$", "f(x) = {1, x>0; 0, x≤0}"),
     (r"$\SI{3.0e8}{m s^{-1}}$", "3.0e8 m s⁻¹"),
     (r"\(x^2\) and \[v^2=u^2\]", "x² and v² = u²"),
@@ -129,7 +129,8 @@ def test_the_flatlatex_internals_we_refine_still_exist():
     (r"$x\in\{1,2\}$", "x ∈ {1,2}"), (r"$A\iff B$", "A ⇔ B"), (r"$\mathrm{pH}=-\log_{10}[\ce{H+}]$", "pH = −log₁₀ [H⁺]"),
     (r"$\lim_{x\to0}\frac{\sin x}{x}=1$", "lim[x→0] (sin x)/x = 1"), (r"$\text{rate}=k[A]^2[B]$", "rate = k[A]²[B]"),
     (r"$x\rightarrow 0$", "x → 0"), (r"$f(x)=\begin{cases}x & x\ge0\\-x & x<0\end{cases}$", "f(x) = {x, x≥0; −x, x<0}"),
-    (r"$\begin{pmatrix}2&-1\\3&4\end{pmatrix}$", "(2 −1; 3 4)"), (r"$20 \le t < 35$", "20 ≤ t < 35"),
+    (r"$\begin{pmatrix}2&-1\\3&4\end{pmatrix}$", "(2  −1; 3  4)"),
+    (r"$\begin{pmatrix}k&k-1\\2&3\end{pmatrix}$", "(k  k − 1; 2  3)"), (r"$20 \le t < 35$", "20 ≤ t < 35"),
     (r"$1, 2, \ldots, n$", "1,2,…,n"), (r"$\SI{3.0e-8}{m}$", "3.0e−8 m"),
     (r"$2.0\times10^{-3}\,\mathrm{mol\,dm^{-3}}$", "2.0 × 10⁻³ mol dm⁻³"), (r"$>5$", ">5"), (r"$\pm 2$", "±2"),
     (r"$E_k=\tfrac12mv^2$", "Eₖ = ½mv²"), (r"$\text{well-known}$", "well-known"), (r"$|x-1|<2$", "|x − 1| < 2"),
@@ -151,3 +152,18 @@ def test_pdf_leftovers_in_content_show_as_symbols_or_nothing():
     assert to_terminal("v = 2 P k") == "v = 2 P k"
     assert to_terminal("length AB  length AC + length CB, r  0") == "length AB ≤ length AC + length CB, r ≥ 0"
     assert to_terminal("Cl O­–") == "Cl O–"
+
+
+@pytest.mark.parametrize("tex,want", [  # found by an independent review of the new maths format
+    (r"$\int_0^\pi \sin x\,dx$", "∫₀^π sin x dx"), (r"$\sum_{n=0}^\infty a_n$", "∑ₙ₌₀^∞ aₙ"),  # unbraced \pi, \infty
+    (r"$\ce{Na(g) -> Na+(g) + e-}$", "Na(g) → Na⁺(g) + e⁻"), (r"$\ce{Fe3+(aq)}$", "Fe³⁺(aq)"),  # charge, then state
+    (r"$\ce{Mg-(g)}$", "Mg⁻(g)"),
+    (r"$e^{x^2}$", "e^(x²)"), (r"$\int_1^{e^2} \frac{1}{x}\,dx$", "∫₁^(e²) 1/x dx"),  # (eˣ)² is another number
+    (r"$2\left(x^2+\frac{b}{2}x\right)$", "2(x² + (b/2)x)"), (r"$\frac{d}{dx}e^{x^2}$", "(d/dx)e^(x²)"),  # not b/(2x)
+    (r"$\frac{a}{2}(x+1)$", "(a/2)(x + 1)"), (r"$\frac{a}{b} + 1$", "a/b + 1"), (r"$\frac{1}{2}mv^2$", "½mv²"),
+    (r"$|-3|=3$", "|−3| = 3"), (r"$|-2x+1|$", "|−2x + 1|"), (r"$|x-1|<2$", "|x − 1| < 2"),  # a bar that opens
+    (r"$\text{3-methylpentane}$", "3-methylpentane"), (r"$\text{but-2-ene}$", "but-2-ene"),
+    (r"$\text{Hooke's law}$", "Hooke’s law"),
+])
+def test_review_findings_read_as_printed(tex, want):
+    assert to_terminal(tex) == want
