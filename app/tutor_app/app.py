@@ -18,7 +18,8 @@ CSS = """
 Screen { background: $background; }
 #banner { height: 6; content-align: center middle; padding: 1 0 0 0; }
 Horizontal#home { height: 1fr; padding: 1 2; }
-#menu { width: 52; height: auto; max-height: 100%; border: round $menu-border; padding: 0 1; background: $menu-background; }
+#menu { width: 52; height: auto; max-height: 100%; border: round $menu-border; padding: 0 1;
+  background: $menu-background; }
 #menu:focus { background-tint: $menu-tint; }
 #stats { width: 1fr; height: auto; max-height: 100%; padding: 1 0 1 2; border: round $stats-border; margin-left: 2;
   scrollbar-size-vertical: 1; scrollbar-gutter: stable; scrollbar-background: $background; }
@@ -77,6 +78,8 @@ class TutorApp(App):
             self.settings.open_obsidian = open_obsidian
         self.claude_binary = claude_binary
         self.seed = seed
+        self.tty: str | None = None  # the macOS Terminal tab, whose profile follows the look
+        self.profile_missing = False
         self._locks = contextlib.ExitStack()
 
     def get_theme_variable_defaults(self) -> dict[str, str]:
@@ -115,6 +118,8 @@ class TutorApp(App):
             self.notify(f"Imported from your iPad inbox: {', '.join(imported)}")
         from .screens import HomeScreen
         self.push_screen(HomeScreen())
+        if self.profile_missing:
+            self.notify(mac.LOOK_HELP, timeout=15)
         if self.size.width < 90 or self.size.height < 28:
             self.notify("Tip: make this window bigger (or full-screen) for the best view.", timeout=8)
 

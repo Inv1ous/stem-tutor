@@ -8,6 +8,7 @@ import dataclasses
 
 from textual.theme import BUILTIN_THEMES, Theme
 
+from . import mac
 from .config import THEMES
 
 THEME = {name: f"tutor-{name}" for name in THEMES}  # the Textual theme each one registers as
@@ -94,9 +95,14 @@ def use(name: str) -> None:
 
 
 def apply(app, name: str) -> None:
-    """Switch the running app to another look."""
+    """Switch the running app to another look, and its macOS Terminal tab to the look's profile (in the background)."""
     use(name)
     app.theme = THEME[name]
+    if app.tty:
+        def switch() -> None:
+            if mac.switch_terminal_profile(app.tty, TERMINAL_PROFILES[name]) == "missing" and name != "classic":
+                app.call_from_thread(app.notify, mac.LOOK_HELP, timeout=15)
+        app.run_worker(switch, thread=True, group="terminal-profile", exclusive=True)
 
 
 def banner() -> str:

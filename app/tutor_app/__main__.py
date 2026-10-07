@@ -6,7 +6,7 @@ import os
 import sys
 from pathlib import Path
 
-from . import config, mac
+from . import config, look, mac
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -27,6 +27,10 @@ def main(argv: list[str] | None = None) -> int:
         os.environ["COLORTERM"] = "truecolor"  # before the app reads it
     from .app import TutorApp
     app = TutorApp(vault)
+    app.tty = mac.terminal_tty()
+    if app.settings.theme != "classic":  # Classic leaves the tab as the launcher set it, as it always did
+        profile = look.TERMINAL_PROFILES[app.settings.theme]
+        app.profile_missing = mac.switch_terminal_profile(app.tty, profile) == "missing"
     print(f"\x1b]0;{app.TITLE}\x07", end="", flush=True)  # name the terminal window: a terminal shows what it is told
     try:
         app.run()

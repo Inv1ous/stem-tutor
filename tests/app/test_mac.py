@@ -191,3 +191,40 @@ def test_the_app_starts_in_full_colour_in_a_new_terminal_with_a_new_look(tmp_pat
     monkeypatch.setattr(TutorApp, "run", lambda self: seen.append(__import__("os").environ.get("COLORTERM")))
     cli.main(["--vault", str(vault)])
     assert seen == ["truecolor"]
+
+
+def test_a_tab_is_switched_by_asking_terminal_and_a_failure_is_only_a_failure(monkeypatch):
+    import subprocess
+    calls = []
+
+    def fake_run(args, **kw):
+        calls.append((args, kw.get("input", ""), kw.get("timeout")))
+        return subprocess.CompletedProcess(args, 0, stdout="missing\n", stderr="")
+    monkeypatch.setattr(mac.subprocess, "run", fake_run)
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == "missing"
+    (args, script, timeout), = calls
+    assert args == ["osascript", "-", "/dev/ttys009", "STEM Tutor Night"] and timeout and "settings set wanted" in script
+    assert mac.switch_terminal_profile(None, "STEM Tutor Night") == "" and len(calls) == 1  # not in Terminal: nothing
+
+    def too_slow(args, **kw):
+        raise subprocess.TimeoutExpired(args, 3)
+    monkeypatch.setattr(mac.subprocess, "run", too_slow)
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ""
+    assert mac.terminal_tty() is None  # tests never run as a macOS Terminal tab (conftest)
+
+
+@pytest.mark.parametrize("theme,switched", [("night", ("/dev/ttys009", "STEM Tutor Night")), ("classic", None)])
+def test_the_app_puts_its_tab_in_the_looks_profile_at_start(tmp_path, monkeypatch, theme, switched):
+    import json
+    from fixtures import make_vault
+    from tutor_app import __main__ as cli
+    from tutor_app.app import TutorApp
+    vault = make_vault(tmp_path)
+    (vault / ".tutor/app_settings.json").write_text(json.dumps({"theme": theme}))
+    calls, seen = [], []
+    monkeypatch.setattr(mac, "terminal_tty", lambda: "/dev/ttys009")
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: calls.append((tty, name)) or "missing")
+    monkeypatch.setattr(TutorApp, "run", lambda self: seen.append((self.tty, self.profile_missing)))
+    cli.main(["--vault", str(vault)])
+    assert calls == ([switched] if switched else [])  # Classic: the tab stays as the launcher left it
+    assert seen == [("/dev/ttys009", bool(switched))]

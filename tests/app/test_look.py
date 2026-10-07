@@ -113,3 +113,42 @@ def test_settings_switch_the_look_at_once_and_remember_it(tmp_path, monkeypatch,
             assert config.Settings.load(v).theme == "day"
             await app.ai.close()
     asyncio.run(go())
+
+
+def test_changing_the_look_restyles_the_terminal_tab_and_says_when_it_is_not_set_up(tmp_path, monkeypatch, palette):
+    from textual.widgets import Select
+    from tutor_app import mac
+    app, v = app_for(tmp_path, monkeypatch)
+    calls, said = [], []
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: calls.append((tty, name)) or "missing")
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            app.tty = "/dev/ttys009"
+            monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+            await pilot.press("f2")
+            await pilot.pause()
+            app.screen.query_one("#theme", Select).value = "night"
+            app.screen.query_one("#save").press()
+            await pilot.pause()
+            await app.workers.wait_for_complete()
+            await pilot.pause()
+            await app.ai.close()
+    asyncio.run(go())
+    assert calls == [("/dev/ttys009", "STEM Tutor Night")]
+    assert any("tutor look" in m for m in said)
+
+
+def test_a_look_without_its_terminal_profile_says_how_to_set_it_up(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+    app.profile_missing = True
+    said = []
+    monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            await app.ai.close()
+    asyncio.run(go())
+    assert any("tutor look" in m for m in said)
