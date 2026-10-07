@@ -18,14 +18,14 @@ def shown(renderable, width: int = 80) -> str:
     (r"$298\,\mathrm K$", "298 K"), (r"$\text K$", "K"),  # unbraced text commands
     (r"$^{14}_{6}\mathrm{C}$", "¹⁴₆C"), (r"$\ce{^{14}_{6}C}$", "¹⁴₆C"),  # nuclides: mass above, number below
     (r"$^{35}_{17}\mathrm{Cl}^-$", "³⁵₁₇Cl⁻"), (r"$^{40}\mathrm{Ar}$", "⁴⁰Ar"),
-    (r"$\mathrm{X}\to{}^{32}\mathrm{P}+{}^{1}_{1}\mathrm{p}$", "X→³²P+¹₁p"),
+    (r"$\mathrm{X}\to{}^{32}\mathrm{P}+{}^{1}_{1}\mathrm{p}$", "X → ³²P + ¹₁p"),
     (r"$\text{Cu}^{2+}$", "Cu²⁺"), (r"$\text{kJ mol}^{-1}$", "kJ mol⁻¹"),  # no brackets round a text group
     (r"$\int_0^1 x^2\,dx$", "∫₀¹x² dx"), (r"$\sum_{i=1}^n x_i$", "∑ᵢ₌₁ⁿxᵢ"), (r"$\prod_{i=1}^{n} a_i$", "∏ᵢ₌₁ⁿaᵢ"),
     (r"$\binom{n}{r}$", "C(n,r)"),
     (r"$\begin{vmatrix}a&b\\c&d\end{vmatrix}$", "|a b; c d|"),
-    (r"$f(x)=\begin{cases}1 & x>0\\0 & x\le0\end{cases}$", "f(x)={1, x>0; 0, x≤0}"),
+    (r"$f(x)=\begin{cases}1 & x>0\\0 & x\le0\end{cases}$", "f(x) = {1, x>0; 0, x≤0}"),
     (r"$\SI{3.0e8}{m s^{-1}}$", "3.0e8 m s⁻¹"),
-    (r"\(x^2\) and \[v^2=u^2\]", "x² and v²=u²"),
+    (r"\(x^2\) and \[v^2=u^2\]", "x² and v² = u²"),
 ])
 def test_latex_reaches_the_terminal_readable(tex, want):
     assert to_terminal(tex) == want
@@ -85,10 +85,10 @@ def test_a_card_with_no_body_is_just_its_title():
     # sub- and superscripts together, and fractions with only the brackets they need
     (r"$x_1^2$", "x₁²"), (r"$x_{n+1}$", "xₙ₊₁"), (r"$E_k$", "Eₖ"), (r"$v_y$", "v_y"), (r"$T_{1/2}$", "T½"),
     (r"$\frac{dy}{dx}$", "dy/dx"), (r"$\frac{d^2y}{dx^2}$", "d²y/dx²"), (r"$\frac{mv^2}{r}$", "mv²/r"),
-    (r"$\frac{a+b}{c}$", "(a+b)/c"), (r"$\frac{1}{2a}$", "1/(2a)"), (r"$\frac{2}{7}$", "²⁄₇"), (r"$\frac12$", "½"),
+    (r"$\frac{a+b}{c}$", "(a + b)/c"), (r"$\frac{1}{2a}$", "1/(2a)"), (r"$\frac{2}{7}$", "²⁄₇"), (r"$\frac12$", "½"),
     (r"$\frac{\sqrt{3}}{2}$", "√3/2"), (r"$\sqrt[3]{x}$", "∛x"), (r"$\sqrt[n]{x}$", "ⁿ√x"),
     (r"$\frac{\Delta s}{\Delta t}$", "Δs/Δt"), (r"$\frac{5}{\sqrt{3}}$", "5/√3"), (r"$\sqrt[5]{32}$", "⁵√32"),
-    (r"$\sqrt{a^2+b^2}$", "√(a²+b²)"),
+    (r"$\sqrt{a^2+b^2}$", "√(a² + b²)"),
     # standard state ⦵ as in the pack titles, after any subscript
     (r"$\Delta H^\ominus$", "ΔH⦵"), (r"$\Delta H_r^{\ominus}$", "ΔHᵣ⦵"), (r"$E^\ominus_{cell}$", "E_cell⦵"),
     # bold vectors, braces, function names without stray spaces, primes
@@ -115,3 +115,26 @@ def test_the_flatlatex_internals_we_refine_still_exist():
     for name in ("_converter__indexed", "_converter__is_complex_expr", "_converter__latexfun_frac",
                  "_converter__latexfun_sqrt", "_converter__cmds"):
         assert hasattr(flatlatex.converter(), name), name
+
+
+@pytest.mark.parametrize("tex,want", [  # spaced like a printed page, with a true minus sign
+    (r"$v^2=u^2+2as$", "v² = u² + 2as"), (r"$s = ut + \frac{1}{2}at^2$", "s = ut + ½at²"),
+    (r"$y=-3x+2$", "y = −3x + 2"), (r"$5-(-3)=8$", "5 − (−3) = 8"), (r"$\sqrt{b^2-4ac}$", "√(b² − 4ac)"),
+    (r"$\frac{dy}{dx}=3x^2-2$", "dy/dx = 3x² − 2"), (r"$x_1^2+x_2^2$", "x₁² + x₂²"),
+    (r"$\mathbf{F}=m\mathbf{a}$", "𝐅 = m𝐚"), (r"$\Delta G = \Delta H - T\Delta S$", "ΔG = ΔH − TΔS"),
+    (r"$\ce{H+} + \ce{OH-}$", "H⁺ + OH⁻"), (r"$\ce{N2 + 3H2 <=> 2NH3}$", "N₂ + 3H₂ ⇌ 2NH₃"),
+    (r"$\ce{Cu^2+ + 2e- -> Cu}$", "Cu²⁺ + 2e⁻ → Cu"), (r"$\ce{CH2=CH2}$", "CH₂=CH₂"),
+    (r"$\Delta G^\ominus=\Delta H^\ominus-T\Delta S^\ominus$", "ΔG⦵ = ΔH⦵ − TΔS⦵"),
+    (r"$\Delta H_r^\ominus=-114\,\text{kJ mol}^{-1}$", "ΔHᵣ⦵ = −114 kJ mol⁻¹"),
+    (r"$x\in\{1,2\}$", "x ∈ {1,2}"), (r"$A\iff B$", "A ⇔ B"), (r"$\mathrm{pH}=-\log_{10}[\ce{H+}]$", "pH = −log₁₀ [H⁺]"),
+    (r"$\lim_{x\to0}\frac{\sin x}{x}=1$", "lim[x→0] (sin x)/x = 1"), (r"$\text{rate}=k[A]^2[B]$", "rate = k[A]²[B]"),
+    (r"$x\rightarrow 0$", "x → 0"), (r"$f(x)=\begin{cases}x & x\ge0\\-x & x<0\end{cases}$", "f(x) = {x, x≥0; −x, x<0}"),
+    (r"$\begin{pmatrix}2&-1\\3&4\end{pmatrix}$", "(2 −1; 3 4)"), (r"$20 \le t < 35$", "20 ≤ t < 35"),
+    (r"$1, 2, \ldots, n$", "1,2,…,n"), (r"$\SI{3.0e-8}{m}$", "3.0e−8 m"),
+    (r"$2.0\times10^{-3}\,\mathrm{mol\,dm^{-3}}$", "2.0 × 10⁻³ mol dm⁻³"), (r"$>5$", ">5"), (r"$\pm 2$", "±2"),
+    (r"$E_k=\tfrac12mv^2$", "Eₖ = ½mv²"), (r"$\text{well-known}$", "well-known"), (r"$|x-1|<2$", "|x − 1| < 2"),
+    (r"$1+2+\dots+n$", "1 + 2 + … + n"), (r"$x \ge -3$", "x ≥ −3"), (r"$e^{-\lambda t}$", "e^(−λt)"),
+    (r"$M^{q+}$", "M^(q+)"), (r"$(x+)$", "(x+)"),
+])
+def test_maths_is_spaced_like_a_textbook(tex, want):
+    assert to_terminal(tex) == want

@@ -156,14 +156,28 @@ def _words(text: str) -> str:
     return re.sub(r"(?<=[A-Za-z])-(?=[A-Za-z])", _HYPHEN, text.replace(" ", r"\,"))
 
 
+_REL = set("=≠≈≃≅≡∝∼<>≤≥≪≫∈∉⊂⊆→←↔⇌⇒⇐⇔↦")  # spaced at the top level only: lim[x→0], {x, x≥0} stay tight
+_BIN = set("+−±∓×÷")  # spaced at the top level and inside round brackets: √(b² − 4ac)
+_OPEN, _CLOSE = "([{" + _LBRACE, ")]}" + _RBRACE
+
+
 def _operand(ch: str) -> bool:
-    return ch.isalnum() or ch in ")]}|′″!%°∞…⦵⁺⁻⁼⁾₊₋₌₎" + _RBRACE or bool(unicodedata.combining(ch))
+    return len(ch) == 1 and (ch.isalnum() or ch in ")]}|′″!%°∞…⦵⁺⁻⁼⁾₊₋₌₎" + _RBRACE or bool(unicodedata.combining(ch)))
 
 
 def _tidy(text: str) -> str:
-    """Function names get a space only where one reads (v cos θ, sin(x), log₁₀ x); markers become what they stand for."""
+    """Printed-maths spacing: s = ut + ½at², y = −3x (a true minus, unary signs tight), 3.0e−8, (2 −1; 3 4) in a matrix.
+    Function names get a space only where one reads (v cos θ, sin(x), log₁₀ x); markers become what they stand for."""
+    text = text.replace("-", "−")  # hyphens that are words or bonds are still markers here
     out: list[str] = []
-    for i, ch in enumerate(text):
+    depth: list[str] = []
+    i = 0
+    while i < len(text):
+        ch = text[i]
+        if ch in _OPEN:
+            depth.append(ch)
+        elif ch in _CLOSE and depth:
+            depth.pop()
         if ch == _FN_START:
             if out and _operand(out[-1]):
                 out.append(" ")
@@ -171,8 +185,26 @@ def _tidy(text: str) -> str:
             nxt = text[i + 1:i + 2]
             if nxt and not nxt.isspace() and nxt not in ")]}," + _RBRACE and not (nxt == "(" and out and out[-1].isalpha()):
                 out.append(" ")
+        elif ch in _REL or ch in _BIN:
+            j = i + 1
+            while j < len(text) and text[j] == " ":
+                j += 1
+            k = len(out) - 1
+            while k >= 0 and out[k] == " ":
+                k -= 1
+            prev, nxt = (out[k] if k >= 0 else ""), text[j:j + 1]
+            here = not depth if ch in _REL else all(b == "(" for b in depth)
+            unary = ch in _BIN and (not _operand(prev) or (out[-1:] == [" "] and j == i + 1))  # a matrix row: 2 −1
+            e_power = ch in "+−" and prev in "eE" and k > 0 and (out[k - 1].isdigit() or out[k - 1] == ".") and nxt.isdigit()
+            if here and nxt and nxt not in _CLOSE + ",;" and _operand(prev) and not unary and not e_power:
+                del out[k + 1:]
+                out += [" ", ch, " "]
+                i = j
+                continue
+            out.append(ch)
         else:
             out.append(ch)
+        i += 1
     s = re.sub(r" {2,}", " ", "".join(out))
     s = re.sub(r"(?<=[(\[{" + _LBRACE + r"]) +| +(?=[)\]}" + _RBRACE + "])", "", s).strip()
     return _unmark(s.replace(_QUAD, "  ").replace(_HYPHEN, "-").replace(_BOND2, "="))
