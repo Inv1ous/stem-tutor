@@ -667,3 +667,9 @@ def test_unit_spellings_of_the_right_unit():
     assert not grade.grade_item(mass, {"kind": "value", "value": "0.5 M"})["correct"]  # M alone is no unit of mass
     gdm = {"kind": "numeric", "stem": "Find the mass concentration.", "answer": {"value": 12.0, "unit": "g dm^-3"}}
     assert grade.grade_item(gdm, {"kind": "value", "value": "12 g dm^{-3}"})["correct"]
+
+
+def test_a_capital_x_is_a_times_sign_in_standard_form():
+    item = {"kind": "numeric", "answer": {"value": 1500, "unit": "J"}, "marks": 1}
+    g = grade.grade_item(item, {"kind": "value", "value": "1.5 X 10^3 J", "conf": 3})
+    assert g["correct"]
