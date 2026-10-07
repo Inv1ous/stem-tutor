@@ -36,9 +36,12 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 .hint { color: $text-muted; padding: 0 0 0 1; }
 .buttons { height: auto; }
 .buttons Button { margin: 0 1 0 0; }
+Button:focus { background-tint: $button-focus-tint; }
+Button.-textual-compact:focus { text-style: $button-compact-focus-text-style; }
 OptionList { height: auto; max-height: 12; border: none; }
 #note { margin-top: 1; min-height: 1; max-height: 5; }
 SelectionList { height: auto; max-height: 14; }
+#full { padding: 0 0 0 5; }
 TextArea { height: 1fr; min-height: 4; max-height: 12; }
 Composer { height: auto; min-height: 3; max-height: 10; }
 .check { color: $warning; padding: 0 0 0 1; }
@@ -46,14 +49,20 @@ Composer { height: auto; min-height: 3; max-height: 10; }
   border: round $modal-border; background: $surface; padding: 1 2; }
 PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
 #help { padding: 0 2; }
+#summary { scrollbar-size-vertical: 1; }
+#summary-hint { dock: bottom; }
 #help MarkdownH1 { margin: 1 0 0 0; }
 #settings .row { height: auto; margin: 0 0 1 0; }
 #settings .row > Static { width: 1fr; }
 #settings Switch { border: none; padding: 0 1; margin-right: 1; }
 #settings Switch:focus { border: none; background: $accent 40%; }
-#settings #minutes { width: 10; }
+#settings #minutes { width: 10; background: $panel; }
+#settings #settings-hint { content-align: left middle; height: 100%; padding: 0 0 0 2; }
+#settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
+#glance { display: none; height: 1; margin-top: 1; padding: 0 4; text-wrap: nowrap; text-overflow: ellipsis; }
 HomeScreen.narrow #stats { display: none; }
+HomeScreen.narrow #glance { display: block; }
 HomeScreen.narrow #menu { width: 1fr; }
 HomeScreen.short #banner { display: none; }
 """

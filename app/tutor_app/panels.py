@@ -1,6 +1,10 @@
 """Answer panels shown at the bottom of the session screen. Each posts `Panel.Done(data)` when finished."""
 from __future__ import annotations
 
+import time
+
+from rich.cells import cell_len
+from rich.segment import Segment
 from textual import events
 
 from textual import on
@@ -9,6 +13,7 @@ from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
 from textual.markup import escape
 from textual.message import Message
+from textual.strip import Strip
 from textual.widgets import Button, Input, OptionList, SelectionList, Static, TextArea
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
@@ -114,7 +119,8 @@ class ChoicePanel(Panel):
             self.finish({"entry": f"{self.n}?" if letter == DONT_KNOW else f"{self.n}{letter}",
                          "your": "I don't know" if letter == DONT_KNOW else letter, "note": self._note()})
             return
-        self.query_one("#choices").display = False
+        for w in (self.query_one("#choices"), self.query_one(".hint"), self.query_one("#note")):
+            w.display = False  # the confidence step alone, so a small window has room for all four levels
         self.mount(_hint(f"You chose {letter}. How sure are you? (1–4, Esc to change your answer)"), Confidence())
         self.query_one(Confidence).focus()
 
@@ -123,6 +129,7 @@ class ChoicePanel(Panel):
         for w in list(self.query(Confidence)) + [h for h in self.query(".hint") if "How sure" in str(h.render())]:
             w.remove()
         self.choice = None
+        self.query_one(".hint").display = self.query_one("#note").display = True
         ol = self.query_one("#choices", OptionList)
         ol.display = True
         ol.focus()
@@ -217,8 +224,25 @@ class LongPanel(Panel):
         self.action_submit()
 
 
+class TickList(SelectionList):
+    """A SelectionList whose ticked boxes show ✓ and empty ones are blank: Textual draws an X in both, told apart by
+    colour alone."""
+
+    def render_line(self, y: int) -> Strip:
+        strip = super().render_line(y)
+        segments = list(strip)
+        try:
+            ticked = self.get_option_at_index(self.scroll_offset.y + y).value in self._selected
+        except Exception:  # a line below the last option
+            return strip
+        if len(segments) > 1 and segments[1].text == "X":
+            segments[1] = Segment("✓" if ticked else " ", segments[1].style)
+        return Strip(segments, strip.cell_length)
+
+
 class TickPanel(Panel):
-    """Tick the points you earned / want (space to tick, ⏎ on the button to confirm)."""
+    """Tick the points you earned / want (space to tick; ctrl+s, or ⏎ on the button, to confirm)."""
+    BINDINGS = [Binding("ctrl+s", "confirm", show=False)]  # ⏎ in the list ticks, so the list needs a key of its own
 
     def __init__(self, prompt: str, items: list[tuple[str, str, bool]], buttons: list[tuple[str, str]]) -> None:
         super().__init__(classes="panel tall")
@@ -226,15 +250,38 @@ class TickPanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(self.prompt)
-        yield SelectionList[str](*[Selection(escape(to_terminal(label)), value, on) for label, value, on in self.items],
-                                 id="ticks")
+        yield TickList(*[Selection(escape(to_terminal(label)), value, on) for label, value, on in self.items],
+                       id="ticks")
+        yield Static(id="full")  # the highlighted point in full, when its row cuts it short
         with Horizontal(classes="buttons"):
             for bid, label in self.buttons:
                 yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")
 
+    def on_resize(self) -> None:
+        self._show_full()
+
+    @on(SelectionList.SelectionHighlighted, "#ticks")
+    def _show_full(self) -> None:
+        """A row is one line, so a long mark point ends in "…": you would tick what you cannot read."""
+        ticks, full = self.query_one("#ticks", SelectionList), self.query_one("#full", Static)
+        i = ticks.highlighted
+        text = to_terminal(self.items[i][0]) if i is not None and i < len(self.items) else ""
+        room = ticks.scrollable_content_region.width - 4  # less the tick box before each point
+        full.update(escape(text))
+        full.display = bool(text) and room > 0 and cell_len(text) > room
+
     @on(Button.Pressed)
     def _pressed(self, event: Button.Pressed) -> None:
         self.finish({"button": event.button.id, "ticked": list(self.query_one("#ticks", SelectionList).selected)})
+
+    def on_mount(self) -> None:
+        super().on_mount()
+        self.shown = time.monotonic()
+
+    def action_confirm(self) -> None:
+        if time.monotonic() - self.shown < 0.5:  # a second ctrl+s from submitting a long answer: mark it first
+            return
+        self.finish({"button": self.buttons[0][0], "ticked": list(self.query_one("#ticks", SelectionList).selected)})
 
 
 class ChoosePanel(Panel):

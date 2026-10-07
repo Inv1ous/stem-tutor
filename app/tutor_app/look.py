@@ -42,7 +42,8 @@ C: dict = dict(PALETTES["classic"])  # the live palette: one dict, updated in pl
 
 # CSS variables of our own (app.py); a theme sets them, these are only the fallback for the first parse
 CSS_DEFAULTS = {"menu-border": "#585b70", "stats-border": "#585b70", "panel-rule": "#585b70", "modal-border": "#585b70",
-                "menu-background": "#313244", "menu-tint": "#cdd6f4 5%"}
+                "menu-background": "#313244", "menu-tint": "#cdd6f4 5%",
+                "button-focus-tint": "#cdd6f4 5%", "button-compact-focus-text-style": "b reverse"}
 
 BANNER = r"""  ___ _____ ___ __  __   _____      _
  / __|_   _| __|  \/  | |_   _|  _| |_ ___ _ _
@@ -57,7 +58,8 @@ def textual_themes() -> list:
     classic = dataclasses.replace(base, name=THEME["classic"], variables={
         **base.variables, "menu-border": made["accent"], "stats-border": made["primary-darken-2"],
         "panel-rule": made["accent"], "modal-border": made["accent"], "menu-background": made["surface"],
-        "menu-tint": f"{made['foreground']} 5%"})  # what OptionList draws by default
+        "menu-tint": f"{made['foreground']} 5%",  # what OptionList draws by default
+        "button-focus-tint": f"{made['foreground']} 5%", "button-compact-focus-text-style": "b reverse"})  # and Button
     themes = [classic]
     for name in ("night", "day"):
         p = PALETTES[name]
@@ -79,6 +81,9 @@ def textual_themes() -> list:
                 "input-cursor-background": p["tutor"], "input-cursor-foreground": p["background"],
                 "input-selection-background": p["selection"], "screen-selection-background": p["selection"],
                 "button-color-foreground": p["badge_fg"],
+                # focused: lit up, never "b reverse" (a dark chip in a block); compact ones also underlined
+                "button-focus-text-style": "bold", "button-compact-focus-text-style": "bold underline",
+                "button-focus-tint": f"{p['text'] if name == 'night' else '#000000'} 20%",
                 "scrollbar": p["border"], "scrollbar-hover": p["muted"], "scrollbar-active": p["tutor"],
                 "scrollbar-background": p["background"], "scrollbar-background-hover": p["background"],
                 "scrollbar-background-active": p["background"], "scrollbar-corner-color": p["background"],
