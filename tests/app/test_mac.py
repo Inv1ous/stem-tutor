@@ -228,3 +228,18 @@ def test_the_app_puts_its_tab_in_the_looks_profile_at_start(tmp_path, monkeypatc
     cli.main(["--vault", str(vault)])
     assert calls == ([switched] if switched else [])  # Classic: the tab stays as the launcher left it
     assert seen == [("/dev/ttys009", bool(switched))]
+
+
+def test_doctor_still_runs_when_the_interface_library_is_missing(tmp_path, monkeypatch, capsys):
+    """The row that says to reinstall it must be reachable: nothing on doctor's path may need textual."""
+    import importlib
+    import sys
+    for name in list(sys.modules):
+        if name == "textual" or name.startswith("textual.") or name in (
+                "tutor_app.look", "tutor_app.setup_look", "tutor_app.__main__"):
+            monkeypatch.delitem(sys.modules, name)
+    monkeypatch.setitem(sys.modules, "textual", None)  # import textual now fails
+    cli = importlib.import_module("tutor_app.__main__")
+    monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})
+    cli.main(["doctor", "--vault", str(tmp_path)])
+    assert "✗ Terminal interface library" in capsys.readouterr().out

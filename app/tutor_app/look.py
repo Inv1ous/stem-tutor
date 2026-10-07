@@ -6,8 +6,6 @@ from __future__ import annotations
 
 import dataclasses
 
-from textual.theme import BUILTIN_THEMES, Theme
-
 from . import mac
 from .config import THEMES
 
@@ -51,7 +49,8 @@ BANNER = r"""  ___ _____ ___ __  __   _____      _
  |___/ |_| |___|_|  |_|   |_| \_,_|\__\___/_|"""
 
 
-def textual_themes() -> list[Theme]:
+def textual_themes() -> list:
+    from textual.theme import BUILTIN_THEMES, Theme  # here, so `tutor doctor` runs even when textual is missing
     base = BUILTIN_THEMES["catppuccin-mocha"]
     made = base.to_color_system().generate()
     classic = dataclasses.replace(base, name=THEME["classic"], variables={
