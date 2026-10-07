@@ -192,3 +192,21 @@ def test_second_review_findings_read_as_printed(tex, want):
 ])
 def test_brackets_and_symbols_without_a_flatlatex_name(tex, want):
     assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # an accent over one letter combines; over several it still reads
+    (r"$\overrightarrow{AB}$", "→AB"), (r"$\vec{AB}$", "→AB"), (r"$\overleftarrow{AB}$", "←AB"),
+    (r"$\overrightarrow{OA}+\overrightarrow{AB}=\overrightarrow{OB}$", "→OA + →AB = →OB"),
+    (r"$|\overrightarrow{AB}|=5$", "|→AB| = 5"), (r"$\vec{a}$", "a⃗"), (r"$\vec{F}_{net}$", "F⃗ₙₑₜ"),
+    (r"$\overline{AB}$", "A̅B̅"), (r"$\bar{AB}$", "A̅B̅"), (r"$\overline{x}$", "x̅"), (r"$\bar{x}$", "x̄"),
+    (r"$\underline{AB}$", "A̲B̲"), (r"$\underline{a}$", "a̲"), (r"$\bar{z_1}\bar{z_2}$", "z̄₁z̄₂"),
+    (r"$\overline{z_1 z_2}$", "z̅₁̅z̅₂̅"), (r"$\hat{\mathbf{n}}$", "𝐧̂"), (r"$\widehat{ABC}=90^\circ$", "∠ABC = 90°"),
+    (r"$\hat{ABC}$", "∠ABC"), (r"$\hat{AB}$", "ÂB̂"), (r"$\widetilde{x}$", "x̃"), (r"$\cancel{ab}$", "a̶b̶"),
+])
+def test_accents_over_one_or_several_letters(tex, want):
+    assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [(r"$\overline{1+x}$", "1̅+̅x̅"), (r"$\vec{}$", ""), (r"$2\overrightarrow{AB}$", "2→AB")])
+def test_accent_edge_cases(tex, want):
+    assert to_terminal(tex) == want

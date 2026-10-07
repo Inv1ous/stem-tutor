@@ -19,6 +19,7 @@ _FUNCS = "arcsin|arccos|arctan|sinh|cosh|tanh|sin|cos|tan|sec|csc|cot|log|ln|exp
 # chemical bond), \quad, a double bond, and the two sides of a function name (a space only where one reads)
 _LBRACE, _RBRACE, _HYPHEN, _QUAD, _FN_END, _BOND2, _FN_START = (chr(0xE000 + i) for i in range(7))
 _FRAC_L, _FRAC_R = "\ue007", "\ue008"  # around a/b: bracketed when a factor follows, (b/2)x not b/2x
+_VEC_R, _VEC_L = "\ue009", "\ue00a"  # the arrow of a vector named by two points, →AB: never spaced like a relation
 _CHARGE_END = r"(?=$|[\s),;]|\((?:aq|g|l|s)\))"  # after a charge: the end, a space, or a state symbol: Na⁺(g)
 # leftovers of PDF extraction in a few packs: a maths font's ≤ ≥, and big-bracket pieces that lost their place
 _LEFTOVERS = {0xF084: "≤", 0xF085: "≥", 0x00AD: None, **{c: None for c in range(0xF8E5, 0xF8FF)}}
@@ -86,6 +87,9 @@ if flatlatex is not None:
             cmds[r"\cbrt"] = _funtypes.latexfun(lambda x: "∛" + _radicand(x[0]), 1)
             cmds[r"\qdrt"] = _funtypes.latexfun(lambda x: "∜" + _radicand(x[0]), 1)
             cmds[r"\pmod"] = _funtypes.latexfun(lambda x: f" (mod {x[0]})", 1)
+            for name, mark in {r"\widehat": "\u0302", r"\widetilde": "\u0303", r"\mathring": "\u030a", r"\breve": "\u0306",
+                               r"\cancel": "\u0336", r"\bcancel": "\u0336", r"\xcancel": "\u0336", r"\sout": "\u0336"}.items():
+                cmds[name] = _funtypes.latexfun(lambda x, m=mark: self._converter__latexfun_comb((m, ""), x), 1)
 
         def _converter__is_complex_expr(self, expr):
             return not _simple(expr)
@@ -116,6 +120,22 @@ if flatlatex is not None:
             if not _atom(b):
                 b = f"({b})"  # 1/(2a), but x/2, dy/dx and Δs/Δt
             return f"{_FRAC_L}{a}/{b}{_FRAC_R}"
+
+        def _converter__latexfun_comb(self, comb, inputs):
+            """An accent: combined with one letter (x̄, a⃗, 𝐧̂, z̄₁); over several, →AB for a vector between two points,
+            ∠ABC for an angle, and a line or mark on every character otherwise (A̅B̅ joins into one overline)."""
+            mark, expr = comb[0], inputs[0]
+            if not expr.strip():
+                return ""
+            if _simple(expr):
+                base = next((i for i, ch in enumerate(expr) if not unicodedata.combining(ch) and ch not in _MODS), 0)
+                return expr[:base + 1] + mark + expr[base + 1:]
+            if mark in "\u20d7\u20d6":
+                return (_VEC_R if mark == "\u20d7" else _VEC_L) + expr
+            if mark == "\u0302" and re.fullmatch(r"[A-Z]{3}", expr):
+                return "∠" + expr
+            mark = "\u0305" if mark == "\u0304" else mark  # a macron per letter would leave gaps
+            return "".join(ch + ("" if unicodedata.combining(ch) else mark) for ch in expr)
 
         def _converter__latexfun_sqrt(self, inputs):
             return "√" + _radicand(inputs[0])
@@ -200,7 +220,7 @@ def _operand(ch: str) -> bool:
 
 
 def _starts_factor(ch: str) -> bool:
-    return len(ch) == 1 and (ch.isalnum() or ch in "(⟨⌈⌊√∛∜∫∑∏∮" + _FN_START + _LBRACE + _FRAC_L)
+    return len(ch) == 1 and (ch.isalnum() or ch in "(⟨⌈⌊√∛∜∫∑∏∮" + _FN_START + _LBRACE + _FRAC_L + _VEC_R + _VEC_L)
 
 
 def _tidy(text: str) -> str:
@@ -238,7 +258,7 @@ def _tidy(text: str) -> str:
             nxt = text[i + 1:i + 2]
             if nxt and not nxt.isspace() and nxt not in ")]}," + _RBRACE and not (nxt == "(" and out and out[-1].isalpha()):
                 out.append(" ")
-        elif ch in _REL or ch in _BIN:
+        elif (ch in _REL or ch in _BIN) and not unicodedata.combining(text[i + 1:i + 2] or "x"):  # 1̅+̅x̅ stays one
             j = i + 1
             while j < len(text) and text[j] == " ":
                 j += 1
@@ -264,7 +284,8 @@ def _tidy(text: str) -> str:
 
 
 def _unmark(text: str) -> str:
-    return text.replace(_LBRACE, "{").replace(_RBRACE, "}")  # literal braces kept out of LaTeX grouping
+    return (text.replace(_LBRACE, "{").replace(_RBRACE, "}")  # literal braces kept out of LaTeX grouping
+            .replace(_VEC_R, "→").replace(_VEC_L, "←"))
 
 
 def to_terminal(text: str) -> str:
