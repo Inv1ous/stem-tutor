@@ -905,6 +905,23 @@ def test_a_re_mark_puts_the_session_back_as_if_the_answer_had_been_marked_right(
     assert not [e for e in events if e["type"] == "tag"] and len([e for e in events if e["type"] == "answer"]) == 1
 
 
+def test_a_reason_for_a_miss_is_refused_once_the_answer_was_re_marked_or_when_it_names_nothing(tutor):
+    tutor.start("review", minutes=10)
+    item = next(i for i in tutor.packs.items_for("9702-2.1.1") if i["kind"] == "mcq")
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    inst = tutor.session["presented"][str(n)]["inst"]
+    fb = tutor.answer(f"{n}{next(k for k in inst['options'] if k != inst['answer'])}3")["results"][0]
+    assert tutor.tag(fb["event"], "careless")["ok"] is False  # not an error code
+    assert tutor.tag("nosuchevent", "SLIP")["ok"] is False
+    session_start = next(e for e in tutor.vault.events() if e["type"] == "session_start")
+    assert tutor.tag(session_start["id"], "SLIP")["ok"] is False  # not an answer
+    assert not [e for e in tutor.vault.events() if e["type"] == "tag"]
+    assert tutor.tag(fb["event"], "slip")["ok"]
+    assert tutor.regrade(fb["event"], "the same answer")["ok"]
+    assert tutor.tag(fb["event"], "MISREAD") == {"ok": False, "error": "already re-marked"}
+    assert tutor.state == tutor._fold()
+
+
 def test_torn_state_files_do_not_stop_the_tutor_starting(tmp_path):
     root = make_vault(tmp_path)
     state = root / ".tutor" / "state"

@@ -93,6 +93,16 @@ def test_paper_cli(tmp_path):
     assert run(v, "paper", "score", "9702_s23_qp_22", "1a=2/2, 1b=3/3")["percent"] == 100.0
 
 
+def test_tag_cli_checks_the_answer_and_the_code(tmp_path):
+    v = make_vault(tmp_path)
+    run(v, "session", "start", "--mode", "autopilot", "--minutes", "50")
+    q = run(v, "next")["items"][0]
+    ev = run(v, "answer", f"{q['n']}?")["results"][0]["event"]
+    assert run(v, "tag", ev, "nonsense")["ok"] is False
+    assert run(v, "tag", "nosuchevent", "SLIP")["ok"] is False
+    assert run(v, "tag", ev, "recall")["ok"] is True
+
+
 def test_taught_lists_plan_kcs_up_to_current_week(tmp_path):
     v = make_vault(tmp_path)
     assert run(v, "taught") == {"phys": ["9702-2.1.1", "9702-2.1.4"]}

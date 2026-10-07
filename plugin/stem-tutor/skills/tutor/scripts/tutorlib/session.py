@@ -648,7 +648,15 @@ class Tutor(LessonMixin):
 
     def tag(self, event_id: str, code: str) -> dict:
         """Your own verdict on why an answer went wrong (careless slip, misread, didn't know, wrong method…)."""
-        return self.log({"type": "tag", "target": event_id, "error": code.upper()})
+        code = code.upper()
+        if code not in grade.ERROR_CODES:
+            return {"ok": False, "error": f"unknown error code {code}", "fix": f"Use one of {', '.join(grade.ERROR_CODES)}."}
+        answer = next((e for e in self.vault.events() if e.get("id") == event_id and e["type"] == "answer"), None)
+        if not answer:
+            return {"ok": False, "error": "no answer with that id"}
+        if answer.get("regraded"):  # replay drops a reason given for a miss the re-mark found was no miss
+            return {"ok": False, "error": "already re-marked"}
+        return {"ok": True, "event": self.log({"type": "tag", "target": event_id, "error": code})["id"]}
 
     def regrade(self, event_id: str, why: str, by: str = "ai") -> dict:
         """Count an answer as right after all: a second marker found it correct though the program marked it wrong
