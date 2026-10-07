@@ -115,7 +115,10 @@ class Claude:
         d["cached"] += int(u.get("cache_read_input_tokens") or 0)
         d["output"] += int(u.get("output_tokens") or 0)
         from tutorlib.store import write_text
-        write_text(self.usage_file, json.dumps(dict(sorted(data.items())[-60:]), indent=1))
+        try:
+            write_text(self.usage_file, json.dumps(dict(sorted(data.items())[-60:]), indent=1))
+        except OSError:  # a read-only vault or full disk must not cost the learner the reply
+            pass
         self._today = (date.today().isoformat(), d)
 
     @property

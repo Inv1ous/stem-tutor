@@ -318,3 +318,11 @@ def test_a_binary_that_cannot_start_is_an_error_not_a_crash(tmp_path):
         return data, res, await c.reply("x")
     data, res, res2 = asyncio.run(go())
     assert data is None and not res.ok and not res2.ok
+
+
+def test_an_unwritable_usage_file_does_not_lose_the_reply(tmp_path, monkeypatch):
+    monkeypatch.setenv("FAKE_CLAUDE_MODE", "ok")
+    (tmp_path / "usage.json").mkdir()  # cannot be read or written as a file
+    c = ai.Claude(tmp_path, binary=FAKE, usage_file=tmp_path / "usage.json")
+    assert "".join(collect(c, "hello")).startswith("Reply 1: hello") and c.last.ok
+
