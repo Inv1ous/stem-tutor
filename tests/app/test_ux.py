@@ -134,6 +134,36 @@ def test_settings_label_the_model_show_an_editable_minutes_box_and_say_how_to_ap
     run(app, (60, 24), steps)
 
 
+def test_esc_in_the_chat_asks_before_losing_a_typed_question(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        _menu(app, "chat")
+        await pilot.press("enter")
+        await pilot.pause()
+        chat = app.screen
+        await pilot.press(*"why is the sky")
+        await pilot.press("escape")
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "ConfirmScreen" and "question" in str(app.screen.query_one(".hint").render())
+        await pilot.press("down", "enter")  # Keep writing
+        await pilot.pause()
+        assert app.screen is chat and chat.query_one("#text").text == "why is the sky"
+        await pilot.press("ctrl+q")
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "ConfirmScreen"
+        await pilot.press("enter")  # Leave
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "HomeScreen"
+        _menu(app, "chat")
+        await pilot.press("enter")
+        await pilot.pause()
+        await pilot.press("escape")  # nothing typed: straight back
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "HomeScreen"
+    run(app, (100, 30), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 

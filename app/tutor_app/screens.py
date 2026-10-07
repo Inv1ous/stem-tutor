@@ -32,7 +32,7 @@ def bar(done: int, total: int, width: int = 12) -> str:
     return "█" * fill + "░" * (width - fill)
 
 
-def leave_asking_first(screen: Screen, boxes: str) -> None:
+def leave_asking_first(screen: Screen, boxes: str, typed: str = "answer") -> None:
     """Back to the previous screen, but not over something typed without asking: it would be lost."""
     if not any(w.text.strip() for w in screen.query(boxes)):
         screen.app.pop_screen()
@@ -41,7 +41,7 @@ def leave_asking_first(screen: Screen, boxes: str) -> None:
     def decided(choice: str | None) -> None:
         if choice == "leave" and screen.is_current:
             screen.app.pop_screen()
-    screen.app.push_screen(ConfirmScreen("Leave? Your typed answer will be lost.",
+    screen.app.push_screen(ConfirmScreen(f"Leave? Your typed {typed} will be lost.",
                                          [("leave", "Leave"), ("stay", "Keep writing")]), decided)
 
 
@@ -984,7 +984,7 @@ class ChatPanel(TextPanel):
 
 class ChatScreen(Screen):
     """Free chat with the tutor from the menu."""
-    BINDINGS = [Binding("escape", "app.pop_screen", "Back to menu")]
+    BINDINGS = [Binding("escape", "leave", "Back to menu")]
 
     def compose(self) -> ComposeResult:
         yield Static(Text(" Ask the tutor ", style=f"bold {C['badge_fg']} on {C['ai']}"), id="bar")
@@ -996,10 +996,13 @@ class ChatScreen(Screen):
     def on_mount(self) -> None:
         self.run_worker(self.app.ai.reset(), group="reset")  # chat never inherits a lesson's context
 
+    def action_leave(self) -> None:
+        leave_asking_first(self, "#panel Composer", "question")  # Esc and ctrl+q: not over a question half typed
+
     @on(Panel.Done)
     def sent(self, event: Panel.Done) -> None:
         if event.data.get("skip"):
-            self.app.pop_screen()
+            self.action_leave()
             return
         q = event.data.get("text", "")
         log = self.query_one("#log", VerticalScroll)
