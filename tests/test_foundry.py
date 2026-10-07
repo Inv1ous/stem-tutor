@@ -115,6 +115,19 @@ def test_a_chapter_goes_from_solve_to_ready(fdy, tmp_path):
     assert fdy.load(SUB)["stage"] == "ready" and SUB not in json.loads(fdy.HOLD.read_text())
 
 
+def test_a_chapter_waiting_for_its_checker_cannot_be_signed(fdy):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "check"  # the blind solve agreed; the checker has not reported yet
+    with pytest.raises(SystemExit, match="not ready"):
+        fdy.cmd_sign(SUB)
+    assert fdy.load(SUB)["stage"] == "check"
+    with fdy.chapter(SUB) as st:
+        st["checked"] = True  # the checker found nothing
+    fdy.cmd_sign(SUB)
+    assert fdy.load(SUB)["stage"] == "ready"
+
+
 def test_an_unfinished_solve_is_sent_back(fdy):
     fdy.cmd_add([SUB])
     fdy.cmd_strip(SUB)

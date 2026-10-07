@@ -694,7 +694,8 @@ def cmd_sign(sub: str) -> None:
         open_ = [d["id"] for d in st["disputes"] if d["status"] == "open"] + \
                 [f["ref"] for f in st["findings"] if f["status"] == "open"] + \
                 [f["ref"] for f in st["fixes"] if f["status"] == "open"]
-        stage, ready = st["stage"], g["ok"] and not open_ and st["stage"] in ("sign", "check")
+        stage = st["stage"]  # at "check" only once the checker has reported, with nothing open
+        ready = g["ok"] and not open_ and (stage == "sign" or (stage == "check" and bool(st.get("checked"))))
         if ready:
             move(st, "ready", "signed off")
     if not ready:  # raised outside the block so the gate results are saved: the drafter's prompt lists the failures
