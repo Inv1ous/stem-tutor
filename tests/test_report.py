@@ -235,6 +235,24 @@ def test_a_torn_or_odd_cached_teaching_card_is_replaced_by_the_offline_one(tutor
     assert lesson.teach_card(tutor, "9702-2.1.1")["source"] == "ai"
 
 
+def test_a_test_on_many_topics_gets_a_lesson_log_with_a_short_name(tutor):
+    tutor.packs.subtopics["9702-3.1"] = {"id": "9702-3.1", "title": "Momentum", "topic": "9702-3", "spec": "9702"}
+    tutor.packs.kcs["9702-3.1.1"] = {**tutor.packs.kc("9702-2.1.1"), "id": "9702-3.1.1", "subtopic": "9702-3.1"}
+    focus = ["9702-2.1", "9702-3.1"] + [f"9702-{i}.{j}" for i in range(4, 25) for j in (1, 2)]
+    tutor.start("test", minutes=60, focus=focus)
+    name = tutor.session["log"].rsplit("/", 1)[1]
+    assert len(name.encode()) < 120 and name.endswith(f"Test - {len(focus)} topics.md")
+    assert "9702-24.2" in (tutor.vault.root / tutor.session["log"]).read_text()  # the note itself names them all
+
+
+def test_two_sessions_ending_in_the_same_minute_keep_two_notes(tutor):
+    one = _study(tutor)["session"]
+    first = report.session_note(tutor, one)
+    second = report.session_note(tutor, _study(tutor)["session"])
+    assert first != second and (tutor.vault.root / first).exists() and (tutor.vault.root / second).exists()
+    assert report.session_note(tutor, one) == first  # the same session's note is rewritten in place, not copied
+
+
 def test_an_idea_dropped_from_the_packs_does_not_stop_the_brief(tmp_path):
     clock = {"now": T0}
     t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=lambda: clock["now"])

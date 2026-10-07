@@ -153,7 +153,8 @@ def session_note(tutor, session_id: str) -> str:
     correct = sum(1 for a in answers if model.counts_as_right(a["grade"]))
     learned = sorted({k for a in answers if a.get("block") == "learn" for k in a["kcs"]})
     acc = f"{100 * correct / len(answers):.0f}%" if answers else "–"
-    lines = ["---", "tags: [stem-tutor/session]", f"date: {ts.date()}", f"mode: {start['mode'] if start else '?'}",
+    lines = ["---", "tags: [stem-tutor/session]", f"date: {ts.date()}", f"session: {session_id}",
+             f"mode: {start['mode'] if start else '?'}",
              f"accuracy: {round(correct / len(answers), 2) if answers else 'null'}", "---",
              f"# Session {ts:%Y-%m-%d %H:%M} · {start['mode'] if start else ''}", "",
              "| Answered | Correct | Accuracy | KCs taught |", "|---|---|---|---|",
@@ -168,8 +169,19 @@ def session_note(tutor, session_id: str) -> str:
         conf = CONF_WORD.get(a.get("conf"), "–")
         lines.append(f"> **Your answer:** {a.get('response', '–')} ({conf}) · score {g['score']}")
         lines.append("")
-    rel = f"Sessions/{ts:%Y-%m-%d %H%M} {start['mode'] if start else 'session'}.md"
+    stem, k = f"Sessions/{ts:%Y-%m-%d %H%M} {start['mode'] if start else 'session'}", 1
+    rel = f"{stem}.md"
+    while (tutor.vault.root / rel).exists() and not _note_of(tutor.vault.root / rel, session_id):
+        k += 1  # another session started in the same minute: never overwrite its note
+        rel = f"{stem} ({k}).md"
     return _write(tutor, rel, "\n".join(lines))
+
+
+def _note_of(path, session_id: str) -> bool:
+    try:
+        return f"\nsession: {session_id}\n" in path.read_text(encoding="utf-8")
+    except (OSError, ValueError):
+        return False
 
 
 TODAY_KCS = 4  # ideas named on one line of Today's plan; the rest are counted

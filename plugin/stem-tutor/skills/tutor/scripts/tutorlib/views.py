@@ -145,8 +145,10 @@ class LessonLog:
         self.root, self.rel = root, rel
 
     @classmethod
-    def create(cls, root: Path, title: str, now: datetime, header: str = "") -> "LessonLog":
-        stem, k = f"Lessons/{now:%Y-%m-%d %H%M} {_safe(title)}", 1
+    def create(cls, root: Path, title: str, now: datetime, header: str = "", name: str | None = None) -> "LessonLog":
+        # the file is named after `name` (the title by default), cut short: a name over 255 bytes cannot be saved
+        short = _safe(name or title).encode()[:120].decode(errors="ignore").strip()
+        stem, k = f"Lessons/{now:%Y-%m-%d %H%M} {short}", 1
         rel = f"{stem}.md"
         while (root / rel).exists():  # the same lesson restarted within the minute: never overwrite the first log
             k += 1
