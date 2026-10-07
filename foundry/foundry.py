@@ -117,10 +117,12 @@ def notes():
             data = json.loads(USAGE.read_text())
         except (OSError, ValueError):
             data = {}
-        yield data
-        tmp = USAGE.with_suffix(".tmp")
-        tmp.write_text(json.dumps(data, ensure_ascii=False, indent=1))
-        tmp.replace(USAGE)
+        try:
+            yield data
+        finally:  # a Wait raised inside still keeps the readings taken before it
+            tmp = USAGE.with_suffix(".tmp")
+            tmp.write_text(json.dumps(data, ensure_ascii=False, indent=1))
+            tmp.replace(USAGE)
 
 
 def load(sub: str) -> dict:

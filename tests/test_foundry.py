@@ -728,6 +728,15 @@ def test_a_figure_claude_does_not_report_can_be_passed_on(fdy, tmp_path, monkeyp
     assert fdy.router.score("claude", seen, fdy.config(), [])[0] is None  # the last few percent are kept back
 
 
+def test_readings_taken_before_a_wait_are_kept(fdy):
+    """The router reads both allowances, then may find no allowance can take the job: what it read is still noted."""
+    with pytest.raises(fdy.router.Wait):
+        with fdy.notes() as n:
+            n["claude"] = {"read": 1}
+            raise fdy.router.Wait("no allowance can take a drafter now")
+    assert json.loads(fdy.USAGE.read_text())["claude"] == {"read": 1}
+
+
 def test_a_refused_claude_worker_is_recorded_as_a_limit_not_a_failure(fdy, monkeypatch):
     fdy.cmd_add([SUB])
     with fdy.chapter(SUB) as st:
