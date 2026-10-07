@@ -47,7 +47,8 @@ def launcher_script(vault: Path | None = None) -> str:
             '[ "$TERM_PROGRAM" = "Apple_Terminal" ] && osascript - "$(tty)" >/dev/null 2>&1 <<\'APPLESCRIPT\'\n'
             f"{SWITCH_PROFILE}\nAPPLESCRIPT\n"
             "printf '\\e[8;46;140t'\n"
-            f'exec "{ROOT / "bin" / "tutor"}"' + (f" --vault {shlex.quote(str(Path(vault).resolve()))}" if other else "")
+            f"exec {shlex.quote(str(ROOT / 'bin' / 'tutor'))}"
+            + (f" --vault {shlex.quote(str(Path(vault).resolve()))}" if other else "")
             + "\n")
 
 

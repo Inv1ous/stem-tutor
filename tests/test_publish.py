@@ -90,9 +90,11 @@ def test_the_plan_records_which_almanac_it_was_built_from(tmp_path, monkeypatch)
 
 def test_the_launcher_opens_the_tutor_in_the_study_profile(tmp_path):
     """Asked by the learner: the double-click launcher should open in their Terminal profile "Study"."""
+    import shlex
     import subprocess
     script = publish.launcher_script()
-    assert script.startswith("#!/bin/bash\n") and script.rstrip().endswith('/bin/tutor"')
+    assert script.startswith("#!/bin/bash\n")
+    assert shlex.split(script.rstrip().splitlines()[-1]) == ["exec", str(publish.ROOT / "bin/tutor")]
     assert 'settings set "Study"' in script and '"$(tty)"' in script  # this window only, and only if the profile exists
     assert "Apple_Terminal" in script  # other terminals are asked nothing
     path = tmp_path / "Start Tutor.command"
@@ -111,6 +113,21 @@ def test_a_launcher_published_to_another_vault_opens_that_vault(tmp_path):
     path = tmp_path / "Start Tutor.command"
     path.write_text(script)
     assert subprocess.run(["bash", "-n", str(path)]).returncode == 0
+
+
+def test_the_launcher_runs_the_tutor_from_a_folder_with_shell_characters(tmp_path, monkeypatch):
+    import os
+    import subprocess
+    root = tmp_path / 'it\'s "my" $HOME `x`'
+    (root / "bin").mkdir(parents=True)
+    (root / "bin/tutor").write_text('#!/bin/bash\necho "ran $0 $*"\n')
+    (root / "bin/tutor").chmod(0o755)
+    monkeypatch.setattr(publish, "ROOT", root)
+    path = tmp_path / "Start Tutor.command"
+    path.write_text(publish.launcher_script(tmp_path / "vault"))
+    env = {k: v for k, v in os.environ.items() if k != "TERM_PROGRAM"}
+    r = subprocess.run(["bash", str(path)], capture_output=True, text=True, env=env)
+    assert r.returncode == 0 and f"ran {root}/bin/tutor --vault {(tmp_path / 'vault').resolve()}" in r.stdout
 
 
 def test_each_objective_carries_the_almanacs_own_id(tmp_path, monkeypatch):
