@@ -1139,8 +1139,9 @@ class ProgressScreen(Screen):
             rows += [f"| {lv['level']} | {lv['n']} | {lv['right']:.0%} |" for lv in cal["levels"]]
         h = p["habits"]
         rows += ["", "## Habits", "", f"- Streak: {h['streak']} day{'' if h['streak'] == 1 else 's'}; studied {h['last_28']} of the last 28 days.",
-                 f"- Reviews due in the next 7 days: {' · '.join(str(x) for x in p['workload'])}."]
-        rows += ["", "Esc to go back · o opens the full profile (Profile.md) in Obsidian."]
+                 "- Reviews due in the next 7 days: " + " · ".join(
+                     f"{'today' if i == 0 else f'{t.now() + timedelta(days=i):%a}'} {x}"
+                     for i, x in enumerate(p["workload"])) + "."]
         with VerticalScroll():
             yield Markdown(to_terminal("\n".join(rows)))
         yield Footer()

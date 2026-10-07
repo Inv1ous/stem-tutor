@@ -212,6 +212,22 @@ def test_a_narrow_home_screen_keeps_a_one_line_summary_of_the_side_box(tmp_path,
     run(app, (120, 40), steps)
 
 
+def test_progress_labels_each_day_of_the_coming_reviews(tmp_path, monkeypatch):
+    from datetime import timedelta
+    from tutor_app.screens import ProgressScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        app.push_screen(ProgressScreen())
+        await pilot.pause()
+        source = app.screen.query_one("Markdown").source
+        now = app.tutor.now()
+        days = " · ".join(["today 0"] + [f"{now + timedelta(days=i):%a} 0" for i in range(1, 7)])
+        assert f"Reviews due in the next 7 days: {days}." in source
+        assert "Esc to go back" not in source  # the footer says it
+    run(app, (100, 30), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 
