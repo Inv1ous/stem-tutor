@@ -908,7 +908,9 @@ class SessionScreen(Screen):
 
     def action_esc(self) -> None:
         """Esc means "back" everywhere else; here a panel may use it (change an answer, skip), and leaving is ctrl+b."""
-        self.app.notify("ctrl+b saves and returns to the menu.", timeout=4)
+        if time.monotonic() - getattr(self, "esc_told", -9.0) >= 4:  # said once while it shows, not a stack of them
+            self.esc_told = time.monotonic()
+            self.app.notify("ctrl+b saves and returns to the menu.", timeout=4)
 
     def finish(self) -> None:
         summary = self.tutor.end()

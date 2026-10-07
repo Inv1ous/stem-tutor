@@ -347,6 +347,18 @@ def test_the_choose_step_says_what_it_is_asking(tmp_path, monkeypatch):
     run(app, (100, 30), steps)
 
 
+def test_esc_pressed_again_in_a_session_does_not_stack_toasts(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        await _session(app, pilot)
+        for _ in range(4):
+            await pilot.press("escape")
+            await pilot.pause()
+        assert len([n for n in app._notifications if "ctrl+b" in n.message]) == 1
+    run(app, (100, 30), steps)
+
+
 def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 
