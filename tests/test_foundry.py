@@ -115,6 +115,17 @@ def test_a_chapter_goes_from_solve_to_ready(fdy, tmp_path):
     assert fdy.load(SUB)["stage"] == "ready" and SUB not in json.loads(fdy.HOLD.read_text())
 
 
+def test_a_verdict_other_than_keep_or_fix_is_refused(fdy):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "adjudicate"
+        st["findings"].append({"ref": "note line 3", "status": "open"})
+    with pytest.raises(SystemExit, match="keep or fix"):
+        fdy.cmd_resolve(SUB, "note line 3", "fixed", "say when")  # a typo would have closed it unfixed
+    st = fdy.load(SUB)
+    assert st["findings"][0]["status"] == "open" and st["stage"] == "adjudicate" and not st["fixes"]
+
+
 def test_the_gates_say_what_the_note_linter_found(fdy):
     note = fdy.NOTES / json.loads(fdy.pack_path(SUB).read_text())["note"]
     note.write_text(note.read_text() + "\nBroken maths: $\\frac{1}{2$.\n")

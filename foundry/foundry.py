@@ -664,6 +664,8 @@ def cmd_packet(sub: str) -> None:
 
 
 def cmd_resolve(sub: str, ref: str, verdict: str, instruction: str = "") -> None:
+    if verdict not in ("keep", "fix"):
+        raise SystemExit(f"{sub}: the verdict is keep or fix, not {verdict!r}")
     with chapter(sub) as st:
         hit = [d for d in st["disputes"] if d["id"] == ref and d["status"] == "open"] + \
               [f for f in st["findings"] if f["ref"] == ref and f["status"] == "open"]
