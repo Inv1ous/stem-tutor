@@ -90,7 +90,7 @@ def test_deps_extracts_wheel(tmp_path, monkeypatch):
 def test_paper_cli(tmp_path):
     v = make_vault(tmp_path)
     assert run(v, "paper", "list")["papers"][0]["id"] == "9702_s23_qp_22"
-    assert run(v, "paper", "score", "9702_s23_qp_22", "1a=2/2, 1b=3/3")["percent"] == 100.0
+    assert run(v, "paper", "score", "9702_s23_qp_22", "1a=2/2, 1b=3/3")["percent"] == 8.3  # 5 of the paper's 60
 
 
 def test_tag_cli_checks_the_answer_and_the_code(tmp_path):

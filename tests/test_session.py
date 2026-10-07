@@ -211,6 +211,18 @@ def test_paper_list_and_score_logs_per_question(tutor):
     assert any(e["type"] == "paper_result" for e in tutor.vault.events())
 
 
+@pytest.mark.parametrize("text", ["hello world", "9z=1/2", ""])
+def test_marks_with_no_question_of_the_paper_are_refused_and_log_nothing(tutor, text):
+    r = tutor.paper_score("9702_s23_qp_22", text)
+    assert r["ok"] is False and "1a=2/3" in r["fix"]
+    assert not list(tutor.vault.events()) and not tutor.paper_list("9702")[0]["done"]
+
+
+def test_a_paper_marked_in_part_is_a_percent_of_the_whole_paper(tutor):
+    r = tutor.paper_score("9702_s23_qp_22", "1a=2/2")  # 2 of the paper's 60 marks
+    assert r["score"] == 2 and r["max"] == 2 and r["percent"] == round(100 * 2 / 60, 1) and r["partial"]
+
+
 def test_only_new_objectives_introduce_topics(tutor):
     tutor.packs.plan["weeks"]["5"][0]["type"] = "REVISE"
     plan = tutor.start("autopilot", minutes=50)

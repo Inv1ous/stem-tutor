@@ -410,8 +410,9 @@ def _scores(tutor, events: list[dict]) -> dict[str, int]:
         if e["type"] == "paper_result" and e.get("max"):
             paper = next((x for x in tutor.packs.papers if x["id"] == e["paper"]), None)
             key = _almanac_score_key(paper) if paper else None
-            if key:
-                results.setdefault(key, []).append(round(e["score"] / e["max"] * BANK.get(key.split("-")[1], 75)))
+            if key:  # out of the whole paper: a paper marked in part is not full marks
+                whole = max(paper.get("marks") or 0, e["max"])
+                results.setdefault(key, []).append(round(e["score"] / whole * BANK.get(key.split("-")[1], 75)))
     scores = {key: int(max(vals[-3:])) for key, vals in results.items()}
     for subject in ("chem", "phys"):
         past = [e for e in events if e["type"] == "answer" and e.get("subject") == subject and not e.get("hinted")

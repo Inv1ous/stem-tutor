@@ -839,6 +839,10 @@ class Tutor(LessonMixin):
             return {"ok": False, "error": f"scores above the marks available: {', '.join(bad)}",
                     "fix": "Give each question as got/out-of, e.g. 1a=2/3."}
         unknown = sorted(set(got) - set(qmap))
+        if not set(got) & set(qmap):  # nothing readable for this paper: no result, or it would count as sat
+            return {"ok": False, "error": "no marks for a question of this paper could be read",
+                    "unknown_questions": unknown, "questions": [q["q"] for q in paper["questions"]],
+                    "fix": "Give each question as got/out-of, e.g. 1a=2/3, 1b=0/2."}
         sid = "paper-" + uuid.uuid4().hex[:6]
         per_kc: dict[str, list[float]] = {}
         for q, (score, out_of) in got.items():
@@ -857,8 +861,9 @@ class Tutor(LessonMixin):
         total, maximum = sum(v[0] for q, v in got.items() if q in qmap), sum(v[1] for q, v in got.items() if q in qmap)
         self.log({"type": "paper_result", "paper": paper_id, "score": total, "max": maximum, "session": sid})
         weakest = sorted(({"kc": k, "score": round(sum(v) / len(v), 2)} for k, v in per_kc.items()), key=lambda x: x["score"])
-        return {"paper": paper_id, "score": total, "max": maximum,
-                "percent": round(100 * total / maximum, 1) if maximum else None,
+        whole = max(paper.get("marks") or 0, maximum)  # a paper marked in part is not full marks
+        return {"paper": paper_id, "score": total, "max": maximum, "partial": maximum < whole,
+                "percent": round(100 * total / whole, 1) if whole else None,
                 "weakest": weakest[:5], "unknown_questions": unknown, "session": sid}
 
     def hint(self, n: int) -> dict:

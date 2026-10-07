@@ -156,7 +156,7 @@ def test_nothing_is_written_when_the_planner_is_not_on_this_machine(tutor):
 
 def test_paper_results_fill_the_almanacs_mark_bank(tutor):
     tutor.paper_score("9702_s23_qp_22", "1a=2/2, 1b=1/3")
-    assert report.almanac_payload(tutor)["scores"] == {"phys-P2": 36}  # 3 of 5, on the bank's 60 marks
+    assert report.almanac_payload(tutor)["scores"] == {"phys-P2": 3}  # 3 of the paper's 60, on the bank's 60 marks
 
 
 def test_right_answers_in_the_notes_are_written_as_maths():
