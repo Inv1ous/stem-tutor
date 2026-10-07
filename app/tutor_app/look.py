@@ -5,6 +5,7 @@ colours the app had before themes existed (Catppuccin Mocha plus its own yellow)
 from __future__ import annotations
 
 import dataclasses
+import os
 
 from . import mac
 from .config import THEMES
@@ -97,6 +98,8 @@ def apply(app, name: str) -> None:
     """Switch the running app to another look, and its macOS Terminal tab to the look's profile (in the background)."""
     use(name)
     app.theme = THEME[name]
+    if mac.wants_truecolor(os.environ, name):  # started in Classic: Terminal's 24-bit colour is only asked for at start
+        app.notify("For this look's exact colours, restart the tutor (q, then start it again).", timeout=10)
     if app.tty:
         def switch() -> None:
             status, was = mac.switch_terminal_profile(app.tty, TERMINAL_PROFILES[name])

@@ -161,3 +161,27 @@ def test_a_look_without_its_terminal_profile_says_how_to_set_it_up(tmp_path, mon
             await app.ai.close()
     asyncio.run(go())
     assert any("tutor look" in m for m in said)
+
+
+@pytest.mark.parametrize("colorterm,told", [("", True), ("truecolor", False)])
+def test_a_new_look_chosen_at_256_colours_says_to_restart_for_its_exact_colours(tmp_path, monkeypatch, palette,
+                                                                                colorterm, told):
+    from textual.widgets import Select
+    monkeypatch.setenv("TERM_PROGRAM", "Apple_Terminal")
+    monkeypatch.setenv("TERM_PROGRAM_VERSION", "471")
+    monkeypatch.setenv("COLORTERM", colorterm)  # "": started in Classic, so Terminal was not told 24-bit
+    app, v = app_for(tmp_path, monkeypatch)
+    said = []
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+            await pilot.press("f2")
+            await pilot.pause()
+            app.screen.query_one("#theme", Select).value = "day"
+            app.screen.query_one("#save").press()
+            await pilot.pause()
+            await app.ai.close()
+    asyncio.run(go())
+    assert any("restart" in m for m in said) is told
