@@ -47,6 +47,7 @@ Composer { height: auto; min-height: 3; max-height: 10; }
 PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
 #help { padding: 0 2; }
 #help MarkdownH1 { margin: 1 0 0 0; }
+MarkdownH1 { content-align-horizontal: $markdown-h1-align; }
 #settings .row { height: auto; margin: 0 0 1 0; }
 #settings .row > Static { width: 1fr; }
 #settings Switch { border: none; padding: 0 1; margin-right: 1; }

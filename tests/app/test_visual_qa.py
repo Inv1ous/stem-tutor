@@ -60,6 +60,28 @@ def test_settings_save_is_on_screen_without_scrolling(tmp_path, monkeypatch, siz
     run(app, size, steps)
 
 
+@pytest.mark.parametrize("name", ["night", "day", "classic"])
+def test_markdown_titles_sit_on_their_box_and_line_up_with_the_text(tmp_path, monkeypatch, palette, name):
+    from textual.widgets._markdown import MarkdownH1
+    from tutor_app.screens import HelpScreen, InsightsScreen, ProgressScreen, SummaryScreen
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.theme = name
+    palette(name)
+
+    async def steps(pilot):
+        for screen in (SummaryScreen({"answered": 2, "correct": 1, "accuracy": 0.5}), HelpScreen(), InsightsScreen(),
+                       ProgressScreen()):
+            app.push_screen(screen)
+            await pilot.pause()
+            for h1 in screen.query(MarkdownH1):
+                assert h1.styles.background.a == 0  # no band of another colour across a pop-up
+                # Night and Day: left, like the text under it; Classic as it always was
+                assert h1.styles.content_align_horizontal == ("center" if name == "classic" else "left")
+            app.pop_screen()
+            await pilot.pause()
+    run(app, (120, 40), steps)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})

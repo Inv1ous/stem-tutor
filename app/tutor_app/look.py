@@ -42,7 +42,7 @@ C: dict = dict(PALETTES["classic"])  # the live palette: one dict, updated in pl
 
 # CSS variables of our own (app.py); a theme sets them, these are only the fallback for the first parse
 CSS_DEFAULTS = {"menu-border": "#585b70", "stats-border": "#585b70", "panel-rule": "#585b70", "modal-border": "#585b70",
-                "menu-background": "#313244", "menu-tint": "#cdd6f4 5%"}
+                "menu-background": "#313244", "menu-tint": "#cdd6f4 5%", "markdown-h1-align": "center"}
 
 BANNER = r"""  ___ _____ ___ __  __   _____      _
  / __|_   _| __|  \/  | |_   _|  _| |_ ___ _ _
@@ -57,7 +57,8 @@ def textual_themes() -> list:
     classic = dataclasses.replace(base, name=THEME["classic"], variables={
         **base.variables, "menu-border": made["accent"], "stats-border": made["primary-darken-2"],
         "panel-rule": made["accent"], "modal-border": made["accent"], "menu-background": made["surface"],
-        "menu-tint": f"{made['foreground']} 5%"})  # what OptionList draws by default
+        "menu-tint": f"{made['foreground']} 5%",  # what OptionList draws by default
+        "markdown-h1-align": "center"})  # what Markdown does by default
     themes = [classic]
     for name in ("night", "day"):
         p = PALETTES[name]
@@ -82,7 +83,7 @@ def textual_themes() -> list:
                 "scrollbar": p["border"], "scrollbar-hover": p["muted"], "scrollbar-active": p["tutor"],
                 "scrollbar-background": p["background"], "scrollbar-background-hover": p["background"],
                 "scrollbar-background-active": p["background"], "scrollbar-corner-color": p["background"],
-                "link-color": p["tutor"], "markdown-h1-color": p["tutor"], "markdown-h1-background": p["background"],
+                "link-color": p["tutor"], "markdown-h1-color": p["tutor"], "markdown-h1-align": "left",  # in line with the text
                 "markdown-h2-color": p["text"], "markdown-h3-color": p["text"],
             }))
     return themes
