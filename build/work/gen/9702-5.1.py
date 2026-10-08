@@ -111,7 +111,7 @@ for n,(qid,k,explanation) in enumerate(past_specs,1):
     assert m['answer'] in m['options'] and K[k] in m['kcs']
     if qid == '9702_s23_12_q16':
         m['stem'] = 'A variable force is applied to ensure that a constant power is supplied to a train.\nWhich graph best shows the variation of the force F applied with the velocity v of the train?'
-        m['options'] = {letter: '' for letter in 'ABCD'}
+        m['options'] = None  # graphs A-D are in the figure
         explanation = None
     if qid == '9702_w21_12_q20':  # the diagram's degree sign came out of the PDF as a control character
         m['stem'] = m['stem'].replace('30\x02', '30°')

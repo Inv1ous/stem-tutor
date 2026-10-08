@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[3]
 SUB = '9702-6.1'
 K = {n: f'{SUB}.{n}' for n in range(1, 7)}
 BANK = {q['id']: q for q in json.loads((ROOT/'build/work/mcq/9702.tagged.json').read_text())}
+# corrections to bank questions (garbled fractions, figure-only options) live in overrides.json, as for the extras
+FIX={q:{k:v for k,v in f.items() if k in ('stem','options')} for q,f in json.loads((ROOT/'build/work/mcq/overrides.json').read_text()).items()}
 items = []
 
 mis = [
@@ -31,8 +33,8 @@ def hints(k):
     return h[k]
 
 def past(qid,k,explanation,wrong=None):
-    q=BANK[qid]
-    assert q['answer'] in q['options']
+    assert BANK[qid]['answer'] in BANK[qid]['options']
+    q={**BANK[qid],**FIX.get(qid,{})}
     n=1+sum(i['source']['type']=='past' for i in items)
     it=dict(id=f'{SUB}-p{n:02d}',kcs=[K[k]],kind='mcq',difficulty=3,command_word='Identify',source={'type':'past','ref':q['ref'],'qid':qid},stem=q['stem'],options=q['options'],answer=q['answer'],marks=1,explanation=explanation,distractors=wrong or {})
     if q.get('image'): it['image']=q['image']

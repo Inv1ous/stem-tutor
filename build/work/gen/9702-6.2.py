@@ -7,6 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT / 'build/out/packs/9702/9702-6.2.json'
 BANK = {q['id']: q for q in json.loads((ROOT / 'build/work/mcq/9702.tagged.json').read_text())}
+# corrections to bank questions (garbled fractions, figure-only options) live in overrides.json, as for the extras
+FIX={q:{k:v for k,v in f.items() if k in ('stem','options')} for q,f in json.loads((ROOT/'build/work/mcq/overrides.json').read_text()).items()}
 K = lambda n: f'9702-6.2.{n}'
 
 mis = [
@@ -35,7 +37,7 @@ past_info = [
 ]
 items=[]
 for qid,kc,diff,explanation,distractors in past_info:
- q=BANK[qid]
+ q={**BANK[qid],**FIX.get(qid,{})}
  items.append(dict(id='9702-6.2-p'+str(len(items)+1).zfill(2),kcs=[kc],kind='mcq',difficulty=diff,command_word='Calculate' if 'How much' in q['stem'] or 'What is the work' in q['stem'] or 'What is the elastic potential' in q['stem'] else 'Identify',source={'type':'past','ref':q['ref'],'qid':qid},stem=q['stem'],options=q['options'],answer=q['answer'],image=q.get('image'),marks=1,explanation=explanation,distractors=distractors))
 
 def gen(kind,kcs,stem,difficulty,command_word,explanation,hints,**more):
