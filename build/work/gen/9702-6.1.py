@@ -40,11 +40,11 @@ def past(qid,k,explanation,wrong=None):
     if q.get('image'): it['image']=q['image']
     items.append(it)
 
-def short(k,command,stem,points,explanation,difficulty=2):
+def short(k,command,stem,points,explanation,difficulty=2,h=None):
     n=1+sum(i['source']['type']=='generated' for i in items)
-    items.append(dict(id=f'{SUB}-i{n:02d}',kcs=[K[k]],kind='short',difficulty=difficulty,command_word=command,source={'type':'generated'},stem=stem,marks=len(points),rubric=[{'point':p,'keywords':kw} for p,kw in points],explanation=explanation,hints=hints(k)))
+    items.append(dict(id=f'{SUB}-i{n:02d}',kcs=[K[k]],kind='short',difficulty=difficulty,command_word=command,source={'type':'generated'},stem=stem,marks=len(points),rubric=[{'point':p,'keywords':kw} for p,kw in points],explanation=explanation,hints=h or hints(k)))
 
-def numeric(k,stem,params,answer_expr,wrong,unit,explanation,difficulty=3):
+def numeric(k,stem,params,answer_expr,wrong,unit,explanation,difficulty=3,h=None):
     n=1+sum(i['source']['type']=='generated' for i in items)
     names=list(params)
     for values in itertools.product(*(params[p]['choices'] for p in names)):
@@ -54,7 +54,7 @@ def numeric(k,stem,params,answer_expr,wrong,unit,explanation,difficulty=3):
         for expr,_ in wrong:
             d=eval(expr,{'__builtins__':{}},env|allowed)
             assert math.isfinite(d) and abs(d-a)>.02*max(abs(a),1e-12),(stem,env,expr)
-    items.append(dict(id=f'{SUB}-i{n:02d}',kcs=[K[k]],kind='numeric',difficulty=difficulty,command_word='Calculate',source={'type':'generated'},stem=stem,marks=3,answer={'unit':unit,'sf_ok':[2,3]},template={'params':params,'answer':answer_expr,'distractors':[{'expr':e,'misconception':m} for e,m in wrong],'constraints':['1 > 0']},explanation=explanation,hints=hints(k)))
+    items.append(dict(id=f'{SUB}-i{n:02d}',kcs=[K[k]],kind='numeric',difficulty=difficulty,command_word='Calculate',source={'type':'generated'},stem=stem,marks=3,answer={'unit':unit,'sf_ok':[2,3]},template={'params':params,'answer':answer_expr,'distractors':[{'expr':e,'misconception':m} for e,m in wrong],'constraints':['1 > 0']},explanation=explanation,hints=h or hints(k)))
 
 # Original question text, option order and answer letters come directly from the tagged bank.
 past('9702_w25_12_q21',2,'The marked change is the shortening of the spring: compression. B names the applied load, not a change in length.',{'B':'m1'})
@@ -87,14 +87,14 @@ short(1,'Predict','A straight column is squeezed along its axis. Predict its cha
 short(1,'Explain','Explain why a hanging load causes tensile deformation in its supporting wire.', [('The load pulls the wire along its axis.',[['load','weight'],['pull','tension']]),('The wire extends along its length.',[['extend','longer','extension']])],'The load pulls the wire downward while the support pulls upward, stretching it along its axis.',4)
 short(1,'Compare','Compare one-dimensional tensile and compressive deformation.', [('Tension increases length.',[['tension','tensile'],['increase','longer','extension']]),('Compression decreases length.',[['compression','compressive'],['decrease','shorter']])],'Both act along the specimen; tension lengthens it and compression shortens it.',4)
 
-short(2,'Define','Define load in a force–extension experiment.', [('The load is the applied force on the specimen.',[['applied'],['force']])],'Load is the force applied to the spring or wire.')
-short(2,'Define','Define extension of a wire.', [('Extension is the increase in length from its original length.',[['increase','change'],['length'],['original','unstretched']])],'Extension is loaded length minus original length.')
-short(2,'Define','Define compression of a spring.', [('Compression is the decrease in length from the original length.',[['decrease','shortening'],['length']])],'Compression is the spring’s shortening due to a compressive load.')
-short(2,'Define','Define the limit of proportionality on a force–extension graph.', [('It is the point beyond which force and extension cease to be directly proportional.',[['force','load'],['extension'],['proportional','straight']])],'The limit of proportionality ends the straight-line region through the origin; it does not necessarily mark permanent deformation.')
+short(2,'Define','Define load in a force–extension experiment.', [('The load is the applied force on the specimen.',[['applied'],['force']])],'Load is the force applied to the spring or wire.', h=['Is a load a length or a force? Think about its unit.', 'In a force–extension experiment the load is what is hung on, or applied to, the spring or wire.', 'State it as a force and say what it acts on.'])
+short(2,'Define','Define extension of a wire.', [('Extension is the increase in length from its original length.',[['increase','change'],['length'],['original','unstretched']])],'Extension is loaded length minus original length.', h=['Extension is a change in length, measured in metres.', 'Compare the stretched length with a reference length.', 'Say which length it is measured from: the original, unstretched length.'])
+short(2,'Define','Define compression of a spring.', [('Compression is the decrease in length from the original length.',[['decrease','shortening'],['length']])],'Compression is the spring’s shortening due to a compressive load.', h=['Compression is a change in length, like extension but the other way.', 'Compare the squashed length with a reference length.', 'Say whether the length goes up or down, and from which length it is measured.'])
+short(2,'Define','Define the limit of proportionality on a force–extension graph.', [('It is the point beyond which force and extension cease to be directly proportional.',[['force','load'],['extension'],['proportional','straight']])],'The limit of proportionality ends the straight-line region through the origin; it does not necessarily mark permanent deformation.', h=['Think about the shape of a force–extension graph for small loads.', 'Up to this point the graph is a straight line through the origin.', 'Say what stops being true about force and extension beyond this point.'])
 
 short(3,'State','State Hooke’s law and its condition of validity.', [('Extension is directly proportional to applied force.',[['extension'],['directly proportional','proportional'],['force','load']]),('This applies up to the limit of proportionality.',[['limit of proportionality']])],'For one spring, $F\\propto x$ until its limit of proportionality.')
 short(3,'Explain','A force–extension graph curves after an initial straight line. Explain whether Hooke’s law holds in the curved region.', [('Force and extension are no longer directly proportional.',[['force'],['extension'],['not proportional','no longer proportional','curved']]),('Hooke’s law therefore does not hold beyond the limit of proportionality.',[['Hooke'],['limit of proportionality','does not hold']])],'Curvature means the ratio $F/x$ is not constant, so the limit of proportionality has been passed.',4)
-numeric(3,'A spring extends [[x]] cm under a load of [[F]] N while obeying Hooke’s law. Calculate its extension under a load of [[G]] N, in cm.',{'x':{'choices':[2,3,4]},'F':{'choices':[4,5]},'G':{'choices':[8,10]}},'x*G/F',[('x*F/G','m3'),('x*G/(100*F)','m5')],'cm','Since extension is proportional to force, $x_2=x_1F_2/F_1$.')
+numeric(3,'A spring extends [[x]] cm under a load of [[F]] N while obeying Hooke’s law. Calculate its extension under a load of [[G]] N, in cm.',{'x':{'choices':[2,3,4]},'F':{'choices':[4,5]},'G':{'choices':[8,10]}},'x*G/F',[('x*F/G','m3'),('x*G/(100*F)','m5')],'cm','Since extension is proportional to force, $x_2=x_1F_2/F_1$.', h=['Think about proportionality for one specimen.', 'Write the relationship between load and extension.', 'Use $x_2 = x_1F_2/F_1$.'])
 
 numeric(4,'A spring extends [[x]] cm when its load is [[F]] N. Calculate its spring constant in N m$^{-1}$.',{'x':{'choices':[4,5,8]},'F':{'choices':[2,3,6]}},'100*F/x',[('F/x','m5'),('x/(100*F)','m4')],'N m^-1','Convert centimetres to metres and use $k=F/x$.')
 
