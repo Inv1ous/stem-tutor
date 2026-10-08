@@ -291,6 +291,33 @@ def test_the_session_footer_always_fits_menu_help_ask_and_hint_at_60_columns(tmp
     run(app, (60, 24), steps)
 
 
+@pytest.mark.parametrize("step", ["mcq", "mcq-confidence", "value", "value-confidence", "long", "tick", "continue",
+                                  "reflect", "own-words"])
+def test_no_session_footer_key_is_cut_off_at_60_columns(tmp_path, monkeypatch, step):
+    from tutor_app.panels import ContinuePanel, ReflectPanel, TextPanel
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        kind = {"mcq": "mcq", "mcq-confidence": "mcq", "value": "numeric", "value-confidence": "numeric",
+                "long": "structured"}.get(step)
+        if kind:
+            scr.answer_panel({**scr.view, "kind": kind})
+        else:
+            scr.panel({"tick": lambda: TickPanel("Tick the points.", [("A1 11.5 m", "1", False)], [("mine", "Submit ⏎")]),
+                       "continue": ContinuePanel, "reflect": lambda: ReflectPanel(remark=True),
+                       "own-words": lambda: TextPanel("One or two sentences. Esc to skip.")}[step]())
+        await pilot.pause()
+        if step == "mcq-confidence":
+            await pilot.press("a")
+        elif step == "value-confidence":
+            await pilot.press("1", "2", "enter")
+        await pilot.pause()
+        for key in scr.query("FooterKey"):  # each key with its word, none cut off at the edge
+            assert key.region.width and key.region.right <= 60, key.description
+    run(app, (60, 24), steps)
+
+
 def _screen_text(app) -> str:
     import html
     import re

@@ -48,7 +48,8 @@ def _hint(text: str) -> Static:
 
 class Confidence(OptionList):
     """How sure are you? 1–4. Esc goes back to change your answer."""
-    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 5)] + [Binding("escape", "back", "Change answer")]
+    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 5)] + \
+               [Binding("escape", "back", "Change answer", show=False)]  # the hint says it: the footer has no room at 60
 
     class Back(Message):
         pass
@@ -437,7 +438,8 @@ class ReflectPanel(Panel):
     CODES = {"SLIP": "Careless slip", "MISREAD": "Misread the question", "RECALL": "Didn't know / forgot",
              "PROCEDURE": "Wrong method", "CONCEPT": "Had the wrong idea"}
     REMARK = "REMARK"  # not a reason: "it was right", when the answer can go to the AI examiner
-    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 7)] + [Binding("escape", "skip", "Skip")]
+    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 7)] + \
+               [Binding("escape", "skip", "Skip", show=False)]  # the hint says it: the footer has no room at 60
 
     def __init__(self, slip_likely: bool = False, remark: bool = False) -> None:
         super().__init__(classes="panel")
