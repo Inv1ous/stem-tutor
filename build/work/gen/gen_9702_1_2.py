@@ -280,7 +280,7 @@ gen([K3, K2], "numeric", 3, "Determine",
               "distractors": [{"expr": "n - 1", "misconception": "m3"}, {"expr": "n", "misconception": "m3"}]},
     answer={"unit": "", "exact": True})
 gen([K3], "mcq", 3, "Identify", "Which equation is homogeneous? ($s$ is distance, $u$ and $v$ are speeds, $a$ is acceleration, $t$ is time.)", 1,
-    "$s=ut+\\tfrac12at^2$: each term has base unit $\\mathrm{m}$ (since $\\mathrm{m\\,s^{-2}}\\times\\mathrm{s^2}=\\mathrm{m}$). In A, $\\tfrac12at$ is in $\\mathrm{m\\,s^{-1}}$; in B, $at^2$ is in m rather than $\\mathrm{m\\,s^{-1}}$; in D, $2as^2$ is in $\\mathrm{m^3\\,s^{-2}}$ but $v^2$ is in $\\mathrm{m^2\\,s^{-2}}$.",
+    "$s=ut+\\tfrac12at^2$: each term has base unit $\\mathrm{m}$ (since $\\mathrm{m\\,s^{-2}}\\times\\mathrm{s^2}=\\mathrm{m}$). In $s=ut+\\tfrac12at$, the term $\\tfrac12at$ is in $\\mathrm{m\\,s^{-1}}$; in $v=u+at^2$, the term $at^2$ is in m rather than $\\mathrm{m\\,s^{-1}}$; in $v^2=u^2+2as^2$, the term $2as^2$ is in $\\mathrm{m^3\\,s^{-2}}$ but $v^2$ is in $\\mathrm{m^2\\,s^{-2}}$.",
     ["Find the base units of every term, not just one side.",
      "Terms added or subtracted must all have the same base units as the other side.",
      "Check the base units of each term in each option, starting with the term that contains $t$."],

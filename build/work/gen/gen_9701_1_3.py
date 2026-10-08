@@ -248,7 +248,7 @@ mcq([2], 1, "State", r"How many orbitals are there in a d sub-shell?", ["1", "3"
     r"A d sub-shell has five orbitals (holding up to ten electrons). Ten is the electron capacity, not the number of orbitals.",
     ["Compare with an s sub-shell (1 orbital) and a p sub-shell (3).", "The pattern of orbitals per sub-shell is 1, 3, then the next odd number.",
      "The d sub-shell holds ten electrons at two per orbital, so work backwards."], dist={"D": "m4"})
-num([2], 2, "Calculate", r"A sub-shell contains [[o]] orbitals. Calculate the maximum number of electrons it can hold.",
+num([2], 2, "Calculate", r"The number of orbitals in a sub-shell is [[o]]. Calculate the maximum number of electrons it can hold.",
     None, r"Each orbital holds a maximum of two electrons, so the capacity is $2\times$ the number of orbitals.",
     ["Think about how many electrons one orbital can hold.", "Multiply the number of orbitals by the capacity of a single orbital.",
      r"Capacity of the sub-shell $=2\times$ number of orbitals."],
@@ -277,7 +277,7 @@ num([3], 3, "Determine", r"Of the sub-shells 1s, 2s, 2p, 3s, 3p, 3d, 4s and 4p, 
     dists=[{"value": 5, "misconception": "m1"}])
 mcq([3], 3, "Identify", r"Which sequence shows the sub-shells in order of increasing energy?",
     ["3p, 3d, 4s, 4p", "3p, 4s, 3d, 4p", "4s, 3p, 3d, 4p", "3p, 4s, 4p, 3d"], "B",
-    r"The energy order is 3p, 4s, 3d, 4p. In A the 3d is placed before 4s (shell-number thinking); in C, 4s is below 3p; in D, 4p is below 3d.",
+    r"The energy order is 3p, 4s, 3d, 4p. The wrong sequences put 3d before 4s (shell-number thinking), 4s below 3p, or 4p below 3d.",
     ["Only one sequence has 4s between 3p and 3d.", "Check each option for where 4s and 3d sit.",
      "Start from 3p, then decide which of 3d and 4s comes next."], dist={"A": "m1"})
 structured([3, 5], 4, "Explain", r"Potassium has proton number 19.\n\n(a) Give the full electronic configuration of a potassium atom. (b) State how the energies of the 4s and 3d sub-shells compare, and hence explain why the last electron of potassium goes into 4s. (c) State which sub-shell receives the first electron after the 4s sub-shell is full.".replace(r"\n", "\n"),
@@ -379,7 +379,7 @@ structured([6, 7], 4, "Deduce", r"Iron has proton number 26.\n\n(a) Give the ful
 # --- 1.3.7
 mcq([7], 3, "Identify", r"Which electrons-in-boxes diagram (arrow up/down $=$ electron, one box per orbital) correctly represents the 2p sub-shell of a ground-state oxygen atom?",
     ["↑↓ | ↑↓ | (empty box)", "↑↓ | ↑ | ↑", "↑↑ | ↑ | ↑ (two same-direction arrows in one box)", "↑↓ | ↑↓ | ↑↓"], "B",
-    r"Oxygen has four 2p electrons. Each of the three boxes gets one arrow first, and the fourth pairs with an opposite-direction arrow: ↑↓ | ↑ | ↑. Option A pairs before filling singly, C puts two same-direction arrows in one box and D holds six electrons (neon).",
+    r"Oxygen has four 2p electrons. Each of the three boxes gets one arrow first, and the fourth pairs with an opposite-direction arrow: ↑↓ | ↑ | ↑. The diagram that pairs before filling singly, the one with two same-direction arrows in one box and the one holding six electrons (neon) are wrong.",
     ["Four electrons go into three boxes.", "Put one arrow in each box before adding any second arrow.", "Paired arrows in a box point in opposite directions."],
     dist={"A": "m3"})
 num([7, 6], 3, "Determine", r"An ion $\ce{M^{[[q]]+}}$ is formed from the first-row transition element with proton number [[Z]]. Determine the number of unpaired electrons in the ion.",
@@ -426,7 +426,7 @@ short([9], 1, "State", r"State what is meant by a *free radical*.",
 mcq([9], 3, "Identify", r"Which statement about free radicals is correct?",
     ["All free radicals are uncharged", "A free radical has one or more unpaired electrons and may carry a charge",
      "A free radical has all its electrons paired but is highly reactive", "Any species with an incomplete outer shell is a free radical"], "B",
-    r"A free radical is defined by an unpaired electron only. $\ce{O^-}$ and $\ce{Cl^+}$ are radicals even though they carry a charge. Magnesium has an incomplete outer shell yet its electrons are paired, so option D fails.",
+    r"A free radical is defined by an unpaired electron only. $\ce{O^-}$ and $\ce{Cl^+}$ are radicals even though they carry a charge. Magnesium has an incomplete outer shell yet its electrons are paired, so 'any species with an incomplete outer shell' fails.",
     ["The definition mentions electrons but not charge.", "Test each statement with $\\ce{O^-}$ ($2p^5$).", "Look for unpaired electrons and ignore the charge."], dist={"A": "m5"})
 mcq([9, 6], 3, "Identify", r"Which species is a free radical?", [r"$\ce{Al^{3+}}$", r"$\ce{Ca}$", r"$\ce{Br^-}$", r"$\ce{Br}$"], "D",
     r"$\ce{Br}$ is $\ce{[Ar]}\,3d^{10}4s^24p^5$ with one unpaired 4p electron. $\ce{Al^{3+}}$ and $\ce{Br^-}$ have full shells (all paired) and Ca has $4s^2$ (paired).",

@@ -566,7 +566,8 @@
     "unit": "mm",
     "sf_ok": [
      3
-    ]
+    ],
+    "exact": true
    },
    "marks": 1,
    "explanation": "The true diameter is the reading minus the zero error, keeping the sign of the zero error: $d=r-z$.",
@@ -710,7 +711,7 @@
     "C": "m3"
    },
    "marks": 1,
-   "explanation": "Set B has readings within $0.02$ of each other (precise) but all about $0.7\\ \\mathrm{m\\,s^{-2}}$ below $9.81$ (not accurate). Set C has a mean near $9.81$ but its readings are widely scattered, so it is not precise.",
+   "explanation": "The set $9.10,\\ 9.12,\\ 9.11,\\ 9.10$ has readings within $0.02$ of each other (precise) but all about $0.7\\ \\mathrm{m\\,s^{-2}}$ below $9.81$ (not accurate). The set $9.1,\\ 10.5,\\ 9.4,\\ 10.2$ has a mean near $9.81$ but its readings are widely scattered, so it is not precise.",
    "hints": [
     "Precise means the readings agree with each other; accurate means they agree with the accepted value.",
     "First find which sets have readings that are tightly grouped.",
@@ -959,8 +960,7 @@
     "unit": "%",
     "sf_ok": [
      2
-    ],
-    "tol_rel": 0.05
+    ]
    },
    "marks": 2,
    "explanation": "The percentage uncertainty in $g$ is the percentage uncertainty in $l$ plus twice that in $T$, because $T$ is squared: $\\frac{\\Delta g}{g}=\\frac{\\Delta l}{l}+2\\frac{\\Delta T}{T}$.",
@@ -1028,8 +1028,7 @@
     "unit": "g cm^-3",
     "sf_ok": [
      2
-    ],
-    "tol_rel": 0.05
+    ]
    },
    "marks": 2,
    "explanation": "The percentage uncertainty in $\\rho$ is $\\frac{\\Delta M}{M}+3\\frac{\\Delta L}{L}$, and the absolute uncertainty is this fraction multiplied by $\\rho$.",
@@ -1186,12 +1185,7 @@
     "qid": "9702_s19_12_q6"
    },
    "stem": "Two quantities p and q are directly proportional to each other.\nExperimental results are taken and plotted in a graph of q against p.\nWhich graph shows there were random errors in the measurements of p and q?\nq\n0\n0\nq",
-   "options": {
-    "A": "p",
-    "B": "p 0 0 q",
-    "C": "p 0 0 q",
-    "D": "p 0 0"
-   },
+   "options": null,
    "answer": "C",
    "image": "Assets/mcq/9702_s19_12_q6.png",
    "marks": 1,
