@@ -59,6 +59,15 @@ def test_night_and_day_are_easy_to_read(name):
     assert 1.3 <= contrast(p["frame"], bg) <= 2.2  # a frame you see but don't read
 
 
+@pytest.mark.parametrize("name", ["night", "day"])
+def test_a_smaller_heading_is_never_louder_than_a_larger_one(name):
+    """An H3 (Insights: "How well you remember") was in the H1's blue, under a plain H2. Classic keeps Markdown's own."""
+    theme = next(t for t in look.textual_themes() if t.name == look.THEME[name])
+    made = theme.to_color_system().generate()
+    assert made["markdown-h1-color"] == look.PALETTES[name]["tutor"]
+    assert made["markdown-h3-color"] == made["markdown-h2-color"] == look.PALETTES[name]["text"]
+
+
 def test_the_theme_setting_is_one_of_the_three_or_classic(tmp_path):
     vault = tmp_path / "v"
     (vault / ".tutor").mkdir(parents=True)
