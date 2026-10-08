@@ -205,7 +205,10 @@ def test_a_tab_is_switched_by_asking_terminal_and_a_failure_is_only_a_failure(mo
     monkeypatch.setattr(mac.subprocess, "run", fake_run)
     assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("missing", None)
     (args, script, timeout), = calls
-    assert args == ["osascript", "-", "/dev/ttys009", "STEM Tutor Night"] and timeout and "settings set wanted" in script
+    assert args == ["osascript", "-", "/dev/ttys009", "STEM Tutor Night"] and timeout and "settings set wanted" not in script
+    # the documented lookup by name (a by-name reference built from a variable is not)
+    assert "(count of (settings sets whose name is wanted)) = 0" in script
+    assert "set current settings of t to (first settings set whose name is wanted)" in script
     assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("ok", "Basic")  # and what it was
     assert mac.switch_terminal_profile(None, "STEM Tutor Night") == ("", None) and len(calls) == 2  # not in Terminal
 

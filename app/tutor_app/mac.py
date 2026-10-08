@@ -23,12 +23,12 @@ DOWNLOADS_HELP = ("macOS isn't letting the tutor look in Downloads for your Alma
 SWITCH_PROFILE = """on run argv
     set wanted to item 2 of argv
     tell application "Terminal"
-        if not (exists settings set wanted) then return "missing"
+        if (count of (settings sets whose name is wanted)) = 0 then return "missing"
         repeat with w in windows
             repeat with t in tabs of w
                 if tty of t is (item 1 of argv) then
                     set previousName to name of current settings of t
-                    if previousName is not wanted then set current settings of t to settings set wanted
+                    if previousName is not wanted then set current settings of t to (first settings set whose name is wanted)
                     return "ok" & linefeed & previousName
                 end if
             end repeat

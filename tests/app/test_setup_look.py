@@ -167,3 +167,17 @@ def test_doctor_marks_advice_apart_from_problems(tmp_path, monkeypatch, capsys):
     assert cli.main(["doctor", "--vault", str(tmp_path)]) == 0  # advice is no failure
     out = capsys.readouterr().out
     assert "✓ Tutor folder" in out and "· Look: Classic" in out and "All good" in out
+
+
+def test_a_profile_is_looked_up_by_the_documented_whose_name_form(monkeypatch):
+    seen = []
+
+    def fake_run(args, **kw):
+        seen.append((args, kw.get("input", "")))
+        return subprocess.CompletedProcess(args, 0, stdout="true\n", stderr="")
+    monkeypatch.setattr(setup_look.subprocess, "run", fake_run)
+    assert setup_look.profile_exists("STEM Tutor Night")
+    (args, script), = seen
+    assert args == ["osascript", "-", "STEM Tutor Night"]
+    assert "return (count of (settings sets whose name is (item 1 of argv))) > 0" in script
+    assert "exists settings set" not in script
