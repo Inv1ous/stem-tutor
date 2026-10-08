@@ -1192,9 +1192,12 @@ class BlurtScreen(Screen):
     def action_submit(self) -> None:
         from textual.widgets import TextArea
         from tutorlib import lesson
-        text = self.query_one("#blurt", TextArea).text.strip()
-        if not text:
+        boxes = self.query("#blurt")
+        text = boxes.first(TextArea).text.strip() if boxes else ""
+        if not text or getattr(self, "checked", False):  # a second ctrl+s or click while the box is going: once only
             return
+        self.checked = True
+        self.query_one("#check", Button).disabled = True
         t = self.app.tutor
         res = t.blurt(self.subtopic, text)
         log = self.query_one("#log", VerticalScroll)

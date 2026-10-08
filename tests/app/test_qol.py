@@ -333,3 +333,27 @@ def test_the_summary_progress_and_insights_screens_show_maths_not_dollars(tmp_pa
             await pilot.pause()
         assert "v² = u² + 2as" in InsightsScreen._for_terminal(r"Misconception: $v^2=u^2+2as$")
     run(app, (100, 30), steps)
+
+
+def test_a_blurt_checked_twice_in_a_row_is_checked_once(tmp_path, monkeypatch):
+    from tutor_app.screens import BlurtScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        for second in ("ctrl+s", "click"):
+            app.push_screen(BlurtScreen("9702-2.1"))
+            await pilot.pause()
+            await pilot.press(*"velocity")
+            scr = app.screen
+            check = scr.query_one("#check", Button)
+            await pilot.press("ctrl+s")  # the box goes a moment later: a second press must not crash
+            if second == "ctrl+s":
+                await pilot.press("ctrl+s")
+            else:
+                check.press()
+            await pilot.pause(0.3)
+            assert check.disabled or not check.is_attached
+            app.pop_screen()
+            await pilot.pause()
+        assert sum(e["type"] == "blurt" for e in app.tutor.vault.events()) == 2  # one for each blurt, not four
+    run(app, (100, 30), steps)
