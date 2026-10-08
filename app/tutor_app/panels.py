@@ -320,6 +320,7 @@ class ContinuePanel(Panel):
             yield _hint(self.prompt)
         rows = self.rows()
         self.shape = self._shape(rows)
+        self.set_class(self.shape[1], "tight")  # a short window: no row under the buttons; a tall one: room above the footer
         for row in rows:
             with Horizontal(classes="buttons"):
                 for bid, label in row:

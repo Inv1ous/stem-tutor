@@ -33,7 +33,7 @@ ChatScreen #log, BlurtScreen #log { padding-top: 1; }
 #panel { height: auto; max-height: 55%; }
 .panel { height: auto; padding: 0 2 1 1; border-top: solid $panel-rule; }
 .panel.tall { max-height: 30; }
-.panel.short { padding: 0 2 0 1; }
+.panel.short.tight { padding: 0 2 0 1; }
 .hint { color: $text-muted; padding: 0 0 0 1; }
 .buttons { height: auto; }
 .buttons Button { margin: 0 1 0 0; }

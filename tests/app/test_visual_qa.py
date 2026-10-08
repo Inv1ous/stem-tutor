@@ -223,6 +223,21 @@ def test_home_side_box_starts_on_the_same_row_as_the_menu(tmp_path, monkeypatch,
     run(app, size, steps)
 
 
+@pytest.mark.parametrize("size,gap", [((60, 24), 0), ((80, 24), 0), ((120, 40), 1)])
+def test_continue_buttons_have_a_row_above_the_footer_in_a_tall_window(tmp_path, monkeypatch, size, gap):
+    from tutor_app.panels import ContinuePanel
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(ContinuePanel())
+        await pilot.pause()
+        await pilot.pause()
+        last = max(b.region.bottom for b in scr.query("#panel Button"))
+        assert scr.query_one("Footer").region.y - last == gap  # a short window keeps every row for the log
+    run(app, size, steps)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})
