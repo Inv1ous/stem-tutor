@@ -191,6 +191,26 @@ def test_the_before_you_answer_check_is_calm_in_night_and_day(tmp_path, monkeypa
     run(app, (100, 30), steps)
 
 
+def test_a_wrapped_multiple_choice_option_lines_up_under_its_text(tmp_path, monkeypatch):
+    from tutor_app.panels import ChoicePanel
+    app, v = app_for(tmp_path, monkeypatch)
+    opts = {"A": "short", "B": "None of these, because the reduction potential is negative and the electrons go the "
+                             "other way round"}
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(ChoicePanel(1, opts))
+        await pilot.pause()
+        ol = scr.query_one("#choices")
+        lines = [ol.render_line(y).text.rstrip() for y in range(ol.region.height)]
+        b = next(i for i, line in enumerate(lines) if line.lstrip().startswith("B  None"))
+        col = lines[b].index("None")
+        assert lines[b + 1][:col].strip() == "" and lines[b + 1][col] != " ", lines  # under "None", not under "B"
+        assert lines[b + 2].lstrip().startswith("I don't know")
+        assert lines[0].lstrip().startswith("A  short")
+    run(app, (60, 24), steps)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})

@@ -86,6 +86,17 @@ class Composer(TextArea):
             self.insert("\n")
 
 
+def _lettered(letter: str, text: str):
+    """An option as "A  text", a long text wrapping under itself rather than under the letter."""
+    from rich.table import Table
+    from rich.text import Text
+    grid = Table.grid(padding=(0, 2))
+    grid.add_column(no_wrap=True)
+    grid.add_column()
+    grid.add_row(Text(letter, style="bold"), Text(text))
+    return grid
+
+
 class ChoicePanel(Panel):
     """Multiple choice: ↑↓ + ⏎ (or the letter key), then confidence 1–4. Always offers "I don't know"."""
     BINDINGS = [Binding(k, f"letter('{k.upper()}')", show=False) for k in "abcd"] + \
@@ -97,7 +108,7 @@ class ChoicePanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(f"Q{self.n}: choose with ↑↓ and ⏎ (or press A–D).  0 = I don't know.  Full question: Now in Obsidian (o).")
-        opts = [Option(f"[b]{k}[/b]  {escape(to_terminal(v))}".rstrip(), id=k) for k, v in self.options.items()]
+        opts = [Option(_lettered(k, to_terminal(v)), id=k) for k, v in self.options.items()]
         yield OptionList(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
         yield Composer(placeholder="✎ optional note (Tab)", id="note", compact=True)  # its ⏎: back to the list
 
