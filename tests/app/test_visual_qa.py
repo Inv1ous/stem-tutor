@@ -155,6 +155,26 @@ def test_a_recalled_idea_in_blurt_results_is_not_an_empty_box(tmp_path, monkeypa
     assert any(t.startswith("✓") for _, t, _ in ideas) and all(body.strip() for _, _, body in ideas)
 
 
+def test_the_first_card_has_a_blank_row_under_the_top_bar_in_chat_and_blurt(tmp_path, monkeypatch):
+    from textual.widgets import Static
+    from tutor_app.screens import BlurtScreen, ChatScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        for screen in (ChatScreen(), BlurtScreen("9702-2.1")):
+            app.push_screen(screen)
+            await pilot.pause()
+            log = screen.query_one("#log")
+            if not log.query(".entry"):
+                await log.mount(Static(cards.you("hello"), classes="entry"))
+                await pilot.pause()
+            first = log.query(".entry").first()
+            assert first.region.y == screen.query_one("#bar").region.bottom + 1, screen  # as in a session
+            app.pop_screen()
+            await pilot.pause()
+    run(app, (100, 30), steps)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})

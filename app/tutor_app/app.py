@@ -28,6 +28,7 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 #map { height: auto; max-height: 2; }
 #log { height: 1fr; padding: 0 0 0 1; scrollbar-size-vertical: 1; scrollbar-gutter: stable;
   scrollbar-background: $background; }
+ChatScreen #log, BlurtScreen #log { padding-top: 1; }
 .entry { margin: 0 1 1 0; }
 #panel { height: auto; max-height: 55%; }
 .panel { height: auto; padding: 0 2 1 1; border-top: solid $panel-rule; }
