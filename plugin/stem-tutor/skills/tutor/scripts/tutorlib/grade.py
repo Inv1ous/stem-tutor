@@ -59,10 +59,11 @@ def parse_responses(text: str) -> list[dict]:
 
 
 def _decimal_comma(entries: list[str], chunk: str) -> bool:
-    """A number after a comma that is no entry of its own ("5 m", "4 ~2") continues a value that ends in a digit and
-    has no confidence yet: "3 = 1,5 m" is 1,5 m (unreadable, so Q3 stays open), never Q3 = 1 and a bad Q5."""
+    """A number after a comma that is no entry of its own ("5 m", "4 ~2") continues a value that is a bare whole
+    number with no confidence yet: "3 = 1,5 m" is 1,5 m (unreadable, so Q3 stays open), never Q3 = 1 and a bad Q5.
+    A value with a unit never continues, even one ending in a digit: "9.8 m s-2, 2 idk" is Q1 and a bad Q2."""
     return bool(entries) and not _ENTRY_START.match(chunk) and bool(_BARE_NUMBER.match(chunk)) \
-        and bool(m := _VALUE.match(entries[-1])) and m[3] is None and m[2][-1].isdigit()
+        and bool(m := _VALUE.match(entries[-1])) and m[3] is None and bool(re.fullmatch(r"[+-]?\d+", m[2].strip()))
 
 
 _BARE_NUMBER = re.compile(r"^\s*\d{1,2}(?![\d.])[^=:?~]*(?:~\s*[1-4])?\s*$")
@@ -167,7 +168,10 @@ def value_problem(item: dict, text: str) -> str | None:
 
 
 def _unreadable_unit(unit: str, want_unit: str) -> bool:
-    """A bracketed denominator that could not be read (J/((mol K)), J/(mol K): asked again, never a wrong unit."""
+    """A bracketed denominator that could not be read (J/((mol K)), J/(mol K), or a comma in an unread unit (the
+    next entry run into this one: "m s-2,2 idk"): asked again, never a wrong unit."""
+    if "," in unit and not unit_readings(unit, want_unit)[0]:
+        return True
     if not re.search(r"/\s*\(", unit) or unit_readings(unit, want_unit)[0]:
         return False
     for text in {unit, unit[:unit.rfind(")") + 1] or unit}:  # the unit, and the unit before any words after it
