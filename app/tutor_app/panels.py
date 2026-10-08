@@ -14,6 +14,7 @@ from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
 from .cards import CONF
+from .look import C
 from .texmath import to_terminal
 
 DONT_KNOW = "?"
@@ -221,6 +222,28 @@ class LongPanel(Panel):
         self.action_submit()
 
 
+class TickList(SelectionList):
+    """Night and Day: an empty box for each unticked row and a tick for a ticked one (the stock box draws its X in
+    a colour next to invisible when unticked). Classic keeps the stock box."""
+
+    def render_line(self, y: int):
+        from rich.segment import Segment
+        from rich.style import Style
+        from textual.strip import Strip
+        from textual.widgets._toggle_button import ToggleButton
+        strip = super().render_line(y)
+        segments = list(strip)
+        if not C["frame"] or len(segments) < 4 or segments[1].text != ToggleButton.BUTTON_INNER:
+            return strip
+        try:
+            on = self.get_option_at_index(self.scroll_offset.y + y).value in self._selected
+        except Exception:
+            return strip
+        side = segments[3].style + Style(meta=segments[0].style.meta)  # the row's own colours; a click still ticks
+        mark = side + Style(color=C["tutor"] if on else C["muted"], bold=on)
+        return Strip([Segment(" ", side), Segment("✓" if on else "☐", mark), Segment(" ", side), *segments[3:]])
+
+
 class TickPanel(Panel):
     """Tick the points you earned / want (space to tick, ⏎ on the button to confirm)."""
 
@@ -230,8 +253,8 @@ class TickPanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(self.prompt)
-        yield SelectionList[str](*[Selection(escape(to_terminal(label)), value, on) for label, value, on in self.items],
-                                 id="ticks")
+        yield TickList(*[Selection(escape(to_terminal(label)), value, on) for label, value, on in self.items],
+                       id="ticks")
         with Horizontal(classes="buttons"):
             for bid, label in self.buttons:
                 yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")

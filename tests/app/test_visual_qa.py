@@ -168,3 +168,29 @@ def test_a_long_answer_submit_button_and_footer_fit_a_small_window(tmp_path, mon
         await pilot.pause()
         assert not submit.compact
     run(app, size, steps)
+
+
+@pytest.mark.parametrize("name", ["night", "day", "classic"])
+def test_a_tick_list_shows_an_empty_box_for_each_unticked_row(tmp_path, monkeypatch, palette, name):
+    from tutor_app.panels import TickPanel
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.theme = name
+    palette(name)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(TickPanel("Tick", [("one", "a", True), ("two", "b", False)], [("mark", "Mark")]))
+        await pilot.pause()
+        ticks = scr.query_one("#ticks")
+        rows = [ticks.render_line(y) for y in (0, 1)]
+        if name == "classic":
+            assert [r.text[:4] for r in rows] == ["▐X▌ "] * 2 and rows[0].text.index("one") == 4  # as it always was
+            return
+        assert [r.text[:3] for r in rows] == [" ✓ ", " ☐ "] and rows[0].text.index("one") == 4  # where it was
+        mark = {s.text: s.style for s in rows[1]}["☐"]
+        assert mark.color.triplet.hex == look.PALETTES[name]["muted"]
+        ticks.highlighted = 1
+        await pilot.press("space")
+        await pilot.pause()
+        assert ticks.render_line(1).text[:3] == " ✓ "
+    run(app, (100, 30), steps)
