@@ -196,7 +196,7 @@ gen("structured", 4, "Explain", [K1],
 # --- generated: KC 9702-1.3.2
 gen("mcq", 2, "Identify", [K2],
     "The accepted value of $g$ is $9.81\\ \\mathrm{m\\,s^{-2}}$. Four students each take four measurements of $g$. Which set of readings is precise but not accurate?",
-    "Set B has readings within $0.02$ of each other (precise) but all about $0.7\\ \\mathrm{m\\,s^{-2}}$ below $9.81$ (not accurate). Set C has a mean near $9.81$ but its readings are widely scattered, so it is not precise.",
+    "The set $9.10,\ 9.12,\ 9.11,\ 9.10$ has readings within $0.02$ of each other (precise) but all about $0.7\\ \\mathrm{m\\,s^{-2}}$ below $9.81$ (not accurate). The set $9.1,\ 10.5,\ 9.4,\ 10.2$ has a mean near $9.81$ but its readings are widely scattered, so it is not precise.",
     ["Precise means the readings agree with each other; accurate means they agree with the accepted value.", "First find which sets have readings that are tightly grouped.", "Of the tightly grouped sets, keep the one that is far from $9.81$."],
     options=opts("$9.79,\\ 9.81,\\ 9.83,\\ 9.80$", "$9.10,\\ 9.12,\\ 9.11,\\ 9.10$", "$9.1,\\ 10.5,\\ 9.4,\\ 10.2$", "$8.4,\\ 10.9,\\ 7.9,\\ 9.2$"),
     answer="B", distractors={"C": "m3"}, marks=1)
