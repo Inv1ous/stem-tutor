@@ -21,7 +21,7 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 #menu { width: 52; height: auto; max-height: 100%; border: round $menu-border; padding: 0 1;
   background: $menu-background; }
 #menu:focus { background-tint: $menu-tint; }
-#stats { width: 1fr; height: auto; max-height: 100%; padding: 1 0 1 2; border: round $stats-border; margin-left: 2;
+#stats { width: 1fr; height: auto; max-height: 100%; padding: 0 0 1 2; border: round $stats-border; margin-left: 2;
   scrollbar-size-vertical: 1; scrollbar-gutter: stable; scrollbar-background: $background; }
 #stats-text { margin-right: 1; }
 #bar { height: auto; max-height: 2; background: $panel; }

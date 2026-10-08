@@ -211,6 +211,18 @@ def test_a_wrapped_multiple_choice_option_lines_up_under_its_text(tmp_path, monk
     run(app, (60, 24), steps)
 
 
+@pytest.mark.parametrize("size", [(100, 30), (120, 40)])
+def test_home_side_box_starts_on_the_same_row_as_the_menu(tmp_path, monkeypatch, size):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        home = app.screen
+        menu, text = home.query_one("#menu"), home.query_one("#stats-text")
+        assert menu.region.y == home.query_one("#stats").region.y  # the two boxes' top edges
+        assert text.region.y == menu.content_region.y  # the date sits beside the first menu item
+    run(app, size, steps)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})
