@@ -367,3 +367,32 @@ def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
         await pilot.pause()
         assert "alt+↑" in app.screen.query_one("Markdown").source
     run(app, (100, 30), steps)
+
+
+def test_tab_in_a_session_stays_in_the_answer_panel_and_the_log_still_scrolls_with_the_mouse(tmp_path, monkeypatch):
+    """Tab once took the focus to the log, where 1-4 and A-D did nothing until it came back."""
+    from textual import events
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        await pilot.press("a")
+        await pilot.pause()
+        for key in ("tab", "shift+tab"):
+            await pilot.press(key)
+            await pilot.pause()
+            assert app.focused is not None and app.focused.id != "log"
+        await pilot.press("1")
+        await pilot.pause()
+        assert sum(e["type"] == "answer" for e in app.tutor.vault.events()) == 1  # the 1 still picked
+        scr.ask_question({**scr.view, "kind": "numeric", "stem": LONG_STEM}, "A test check.")
+        await pilot.pause()
+        await pilot.pause()
+        log = scr.query_one("#log")
+        log.scroll_home(animate=False, immediate=True)
+        await pilot.pause()
+        y = log.scroll_y
+        log.post_message(events.MouseScrollDown(log, 1, 1, 0, 0, 0, False, False, False))
+        await pilot.pause()
+        assert log.scroll_y > y  # the wheel scrolls it without its having the focus
+    run(app, (80, 24), steps)

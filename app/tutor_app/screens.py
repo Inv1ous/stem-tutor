@@ -369,7 +369,7 @@ class SessionScreen(Screen):
     def compose(self) -> ComposeResult:
         yield Static(id="bar")
         yield Static(id="map")
-        yield VerticalScroll(id="log")
+        yield VerticalScroll(id="log", can_focus=False)  # Tab stays in the answer panel; alt+↑↓ and the wheel scroll it
         yield Container(id="panel")
         yield Footer()
 
