@@ -369,7 +369,7 @@ class SessionScreen(Screen):
     def compose(self) -> ComposeResult:
         yield Static(id="bar")
         yield Static(id="map")
-        yield VerticalScroll(id="log")
+        yield VerticalScroll(id="log", can_focus=False)  # Tab stays in the answer panel; alt+↑↓ and the wheel scroll it
         yield Container(id="panel")
         yield Footer()
 
@@ -405,6 +405,7 @@ class SessionScreen(Screen):
         box = self.query_one("#panel", Container)
         box.remove_children()
         box.mount(widget)
+        self.showing = widget
 
     def on_mount(self) -> None:
         t = self.tutor
@@ -572,6 +573,8 @@ class SessionScreen(Screen):
     # ---------- panel results ----------
     @on(Panel.Done)
     def panel_done(self, event: Panel.Done) -> None:
+        if event.panel is not getattr(self, "showing", None):  # queued on a panel already replaced (key repeat): once only
+            return
         data, kind = event.data, self.act.get("activity")
         if isinstance(event.panel, LongPanel):
             self.long_written(data)
@@ -1192,9 +1195,12 @@ class BlurtScreen(Screen):
     def action_submit(self) -> None:
         from textual.widgets import TextArea
         from tutorlib import lesson
-        text = self.query_one("#blurt", TextArea).text.strip()
-        if not text:
+        boxes = self.query("#blurt")
+        text = boxes.first(TextArea).text.strip() if boxes else ""
+        if not text or getattr(self, "checked", False):  # a second ctrl+s or click while the box is going: once only
             return
+        self.checked = True
+        self.query_one("#check", Button).disabled = True
         t = self.app.tutor
         res = t.blurt(self.subtopic, text)
         log = self.query_one("#log", VerticalScroll)

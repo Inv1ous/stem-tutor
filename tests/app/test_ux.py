@@ -3,7 +3,7 @@ import pytest
 
 from test_qol import _menu, _session, run
 from test_tui import app_for
-from tutor_app.panels import TickPanel
+from tutor_app.panels import ContinuePanel, TickPanel
 
 LONG_POINT = ("B1 uses v^2 = u^2 + 2as with v = 0 at the top of the flight and states the sign convention used "
               "for the acceleration clearly")
@@ -109,6 +109,33 @@ def test_a_focused_button_looks_focused_not_broken(tmp_path, monkeypatch, name):
                     assert "underline" in style
     try:
         run(app, (60, 24), steps)
+    finally:
+        look.use("classic")
+
+
+@pytest.mark.parametrize("name", ["night", "day", "classic"])
+def test_a_focused_compact_button_is_one_even_chip(tmp_path, monkeypatch, name):
+    """At 24 rows the Continue buttons are one line high. Focused, the label's style reached only the label and a
+    space each side: in Classic a reversed label between two solid squares, in Night and Day an underline short of
+    the button's edges. Every cell of it now looks the same."""
+    from tutor_app import look
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.theme = name
+    look.use(name)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(ContinuePanel())
+        await pilot.pause()
+        await pilot.pause()
+        button = app.focused
+        assert button.id == "continue" and button.compact
+        r = button.region
+        row = app.screen._compositor.render_strips()[r.y].crop(r.x, r.right)
+        styles = {(seg.style.bgcolor, seg.style.reverse, seg.style.underline, seg.style.bold) for seg in row}
+        assert len(styles) == 1, styles
+    try:
+        run(app, (80, 24), steps)
     finally:
         look.use("classic")
 
@@ -291,6 +318,33 @@ def test_the_session_footer_always_fits_menu_help_ask_and_hint_at_60_columns(tmp
     run(app, (60, 24), steps)
 
 
+@pytest.mark.parametrize("step", ["mcq", "mcq-confidence", "value", "value-confidence", "long", "tick", "continue",
+                                  "reflect", "own-words"])
+def test_no_session_footer_key_is_cut_off_at_60_columns(tmp_path, monkeypatch, step):
+    from tutor_app.panels import ContinuePanel, ReflectPanel, TextPanel
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        kind = {"mcq": "mcq", "mcq-confidence": "mcq", "value": "numeric", "value-confidence": "numeric",
+                "long": "structured"}.get(step)
+        if kind:
+            scr.answer_panel({**scr.view, "kind": kind})
+        else:
+            scr.panel({"tick": lambda: TickPanel("Tick the points.", [("A1 11.5 m", "1", False)], [("mine", "Submit ⏎")]),
+                       "continue": ContinuePanel, "reflect": lambda: ReflectPanel(remark=True),
+                       "own-words": lambda: TextPanel("One or two sentences. Esc to skip.")}[step]())
+        await pilot.pause()
+        if step == "mcq-confidence":
+            await pilot.press("a")
+        elif step == "value-confidence":
+            await pilot.press("1", "2", "enter")
+        await pilot.pause()
+        for key in scr.query("FooterKey"):  # each key with its word, none cut off at the edge
+            assert key.region.width and key.region.right <= 60, key.description
+    run(app, (60, 24), steps)
+
+
 def _screen_text(app) -> str:
     import html
     import re
@@ -367,3 +421,32 @@ def test_help_says_how_to_scroll_the_session(tmp_path, monkeypatch):
         await pilot.pause()
         assert "alt+↑" in app.screen.query_one("Markdown").source
     run(app, (100, 30), steps)
+
+
+def test_tab_in_a_session_stays_in_the_answer_panel_and_the_log_still_scrolls_with_the_mouse(tmp_path, monkeypatch):
+    """Tab once took the focus to the log, where 1-4 and A-D did nothing until it came back."""
+    from textual import events
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        await pilot.press("a")
+        await pilot.pause()
+        for key in ("tab", "shift+tab"):
+            await pilot.press(key)
+            await pilot.pause()
+            assert app.focused is not None and app.focused.id != "log"
+        await pilot.press("1")
+        await pilot.pause()
+        assert sum(e["type"] == "answer" for e in app.tutor.vault.events()) == 1  # the 1 still picked
+        scr.ask_question({**scr.view, "kind": "numeric", "stem": LONG_STEM}, "A test check.")
+        await pilot.pause()
+        await pilot.pause()
+        log = scr.query_one("#log")
+        log.scroll_home(animate=False, immediate=True)
+        await pilot.pause()
+        y = log.scroll_y
+        log.post_message(events.MouseScrollDown(log, 1, 1, 0, 0, 0, False, False, False))
+        await pilot.pause()
+        assert log.scroll_y > y  # the wheel scrolls it without its having the focus
+    run(app, (80, 24), steps)

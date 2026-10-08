@@ -155,6 +155,18 @@ def test_doctor_counts_events_as_the_tutor_reads_them_and_warns_of_damaged_lines
     assert "none published" in _doctor(vault, monkeypatch)["Content packs"][1]
 
 
+@pytest.mark.parametrize("name", ["plan.json", "specs/9702/packs/9702-2.1.json"])
+def test_doctor_names_a_damaged_content_file(tmp_path, capsys, monkeypatch, name):
+    from fixtures import make_vault
+    from tutor_app import __main__ as cli
+    vault = make_vault(tmp_path)
+    (vault / ".tutor/packs/v1" / name).write_text("{")
+    ok, check, fix = _doctor(vault, monkeypatch)["Content files"]
+    assert not ok and f".tutor/packs/v1/{name}" in check and "publish" in fix and "untouched" in fix
+    assert cli.main(["doctor", "--vault", str(vault)]) == 1
+    assert "✗ Content files" in capsys.readouterr().out
+
+
 def test_doctor_without_a_tutor_folder_does_not_say_the_tutor_still_runs(tmp_path, capsys, monkeypatch):
     from tutor_app import __main__ as cli
     monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})

@@ -114,18 +114,31 @@ def instantiate(item: dict, rng) -> dict:
     return inst
 
 
+REINSTALL = "reinstall the content (run publish) — the rest of your data is untouched"
+
+
+class DamagedContent(ValueError):
+    """A content file that is not valid JSON (cut off, or edited by hand): named, with what puts it right."""
+
+    def __init__(self, path: str):
+        self.path = path
+        super().__init__(f"The content file {path} is damaged: {REINSTALL}")
+
+
 class Packs:
     def __init__(self, vault: Vault):
         base = self.base = vault.tutor / "packs"
+        self.vault_root = vault.root
         version = (base / "CURRENT").read_text().strip()
         self.root = base / version
-        self.manifest = read_json(self.root / "manifest.json") or {}
-        self.plan = read_json(self.root / "plan.json") or {}
+        self.damaged: list[str] = []  # chapter packs left out because they could not be read
+        self.manifest = self._read(self.root / "manifest.json") or {}
+        self.plan = self._read(self.root / "plan.json") or {}
         self.kcs: dict[str, dict] = {}
         self.subtopics: dict[str, dict] = {}
         self.topics: dict[str, dict] = {}
         for spec in self.manifest.get("specs", []):
-            g = read_json(self.root / "specs" / spec / "graph.json")
+            g = self._read(self.root / "specs" / spec / "graph.json")
             for tp in g.get("topics", []):
                 self.topics[tp["id"]] = {**tp, "spec": spec, "subject": g["subject"]}
             for st in g["subtopics"]:
@@ -133,7 +146,13 @@ class Packs:
             for k in g["kcs"]:
                 self.kcs[k["id"]] = {**k, "spec": spec, "subject": g["subject"]}
         self._packs: dict[str, dict | None] = {}
-        self.papers = (read_json(self.root / "papers.json") or {}).get("papers", [])
+        self.papers = (self._read(self.root / "papers.json") or {}).get("papers", [])
+
+    def _read(self, path):
+        try:
+            return read_json(path)
+        except ValueError:
+            raise DamagedContent(path.relative_to(self.vault_root).as_posix()) from None
 
     def kc(self, kc_id: str) -> dict:
         return self.kcs[kc_id]
@@ -143,7 +162,11 @@ class Packs:
             spec = self.subtopics[subtopic]["spec"]
             if not self.root.exists():  # a newer publish pruned the version this app loaded: read the current one
                 self.root = self.base / (self.base / "CURRENT").read_text().strip()
-            self._packs[subtopic] = read_json(self.root / "specs" / spec / "packs" / f"{subtopic}.json")
+            try:
+                self._packs[subtopic] = self._read(self.root / "specs" / spec / "packs" / f"{subtopic}.json")
+            except DamagedContent as e:  # that chapter is left out, as if not built yet; the rest still works
+                self._packs[subtopic] = None
+                self.damaged.append(e.path)
         return self._packs[subtopic]
 
     def published(self) -> set[str]:

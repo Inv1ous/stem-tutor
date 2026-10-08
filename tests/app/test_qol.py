@@ -5,6 +5,7 @@ import time
 from textual.widgets import Button, Input, Select, Switch
 
 from test_tui import app_for
+from tutor_app.app import TutorApp
 from tutor_app.panels import Composer, ContinuePanel, LongPanel, ReflectPanel
 
 
@@ -333,3 +334,88 @@ def test_the_summary_progress_and_insights_screens_show_maths_not_dollars(tmp_pa
             await pilot.pause()
         assert "v² = u² + 2as" in InsightsScreen._for_terminal(r"Misconception: $v^2=u^2+2as$")
     run(app, (100, 30), steps)
+
+
+def test_a_blurt_checked_twice_in_a_row_is_checked_once(tmp_path, monkeypatch):
+    from tutor_app.screens import BlurtScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        for second in ("ctrl+s", "click"):
+            app.push_screen(BlurtScreen("9702-2.1"))
+            await pilot.pause()
+            await pilot.press(*"velocity")
+            scr = app.screen
+            check = scr.query_one("#check", Button)
+            await pilot.press("ctrl+s")  # the box goes a moment later: a second press must not crash
+            if second == "ctrl+s":
+                await pilot.press("ctrl+s")
+            else:
+                check.press()
+            await pilot.pause(0.3)
+            assert check.disabled or not check.is_attached
+            app.pop_screen()
+            await pilot.pause()
+        assert sum(e["type"] == "blurt" for e in app.tutor.vault.events()) == 2  # one for each blurt, not four
+    run(app, (100, 30), steps)
+
+
+def test_a_second_answer_queued_on_a_panel_already_answered_is_ignored(tmp_path, monkeypatch):
+    """Key repeat can queue a second pick before the panel is replaced: the first counts, the second is dropped, not
+    sent to the next step (a crash) or marked again (the question back on screen, "not open", stuck)."""
+    from textual.widgets import OptionList
+    from tutor_app.panels import ChoicePanel, ChoosePanel, Confidence
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        assert isinstance(scr.query_one("#panel > *"), ChoicePanel)
+        await pilot.press("a")
+        await pilot.pause()
+        conf = scr.query_one(Confidence)
+        conf.action_pick(1)
+        conf.action_pick(2)
+        await pilot.pause(0.3)
+        assert not isinstance(scr.query_one("#panel > *"), ChoicePanel)  # the feedback's panel, not Q1 again
+        assert sum(e["type"] == "answer" for e in app.tutor.vault.events()) == 1
+        app.pop_screen()
+        await pilot.pause()
+        scr = await _session(app, pilot, mode="lesson")
+        panel = scr.query_one("#panel > *")
+        assert isinstance(panel, ChoosePanel)
+        choose = panel.query_one(OptionList)
+        choose.highlighted = 0
+        choose.action_select()
+        choose.action_select()
+        await pilot.pause(0.3)
+        assert scr.act.get("activity") == "plan"
+    run(app, (100, 30), steps)
+
+
+def test_a_damaged_content_file_stops_the_app_with_one_clear_line(tmp_path, monkeypatch, capsys):
+    app, v = app_for(tmp_path, monkeypatch)
+    (v / ".tutor/packs/v1/plan.json").write_text('{"weeks": [')
+
+    async def go():
+        async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()
+    asyncio.run(go())
+    err = capsys.readouterr().err
+    assert " ".join(err.split()) == ("The content file .tutor/packs/v1/plan.json is damaged: reinstall the content "
+                                     "(run publish) — the rest of your data is untouched")  # wrapped only at 80 wide
+    assert app.return_code == 1
+
+
+def test_a_damaged_chapter_is_left_out_and_the_app_still_runs(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+    (v / ".tutor/packs/v1/specs/9702/packs/9702-2.1.json").write_text('{"items": [')
+    said = []
+
+    async def steps(pilot):
+        assert app.screen.__class__.__name__ == "HomeScreen"
+        app.action_settings()  # the app goes on working
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "SettingsScreen"
+    monkeypatch.setattr(TutorApp, "notify", lambda self, msg, **k: said.append(msg))
+    run(app, (100, 30), steps)
+    assert any(".tutor/packs/v1/specs/9702/packs/9702-2.1.json is damaged" in m and "run publish" in m for m in said)

@@ -8,7 +8,7 @@ from pathlib import Path
 from textual.app import App
 from textual.binding import Binding
 
-from tutorlib import store
+from tutorlib import packs, store
 from tutorlib.session import Tutor
 
 from . import config, look, mac
@@ -38,6 +38,7 @@ ChatScreen #log, BlurtScreen #log { padding-top: 1; }
 .buttons { height: auto; }
 .buttons Button { margin: 0 1 0 0; }
 Button:focus { background-tint: $button-focus-tint; }
+Button.-textual-compact { min-width: 0; }  /* as wide as its label: focused, no unstyled cells either side of it */
 Button.-textual-compact:focus { text-style: $button-compact-focus-text-style; }
 OptionList { height: auto; max-height: 12; border: none; }
 #note { margin-top: 1; min-height: 1; max-height: 5; }
@@ -119,7 +120,16 @@ class TutorApp(App):
         except store.Locked:
             self.exit(message="Another STEM Tutor window is already open. Use that one (or close it first).")
             return
-        self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None, one_at_a_time=True)
+        try:
+            self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None, one_at_a_time=True)
+        except packs.DamagedContent as e:
+            self.exit(return_code=1, message=str(e))
+            return
+        for sub in self.tutor.packs.subtopics:  # read every chapter now: a damaged one is left out, and said once
+            self.tutor.packs.pack(sub)
+        for path in self.tutor.packs.damaged:
+            self.notify(f"The content file {path} is damaged, so that chapter is left out: {packs.REINSTALL}.",
+                        severity="warning", timeout=15)
         self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json")
         import threading
