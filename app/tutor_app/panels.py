@@ -255,11 +255,14 @@ class TickList(SelectionList):
         if len(segments) < 4 or segments[1].text != ToggleButton.BUTTON_INNER:
             return strip
         try:
-            on = self.get_option_at_index(self.scroll_offset.y + y).value in self._selected
+            index = self.scroll_offset.y + y
+            on = self.get_option_at_index(index).value in self._selected
         except Exception:
             return strip
         side = segments[3].style + Style(meta=segments[0].style.meta)  # the row's own colours; a click still ticks
-        mark = side + Style(color=C["tutor"] if on else C["muted"], bold=on)
+        # on the highlighted row the row's own colours stay (the glyph and bold tell ticked from empty): a green or grey
+        # mark on the cursor's background can't be read
+        mark = side + (Style(bold=on) if index == self.highlighted else Style(color=C["tutor"] if on else C["muted"], bold=on))
         return Strip([Segment(" ", side), Segment("✓" if on else "☐", mark), Segment(" ", side), *segments[3:]])
 
 

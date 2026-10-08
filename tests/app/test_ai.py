@@ -294,8 +294,11 @@ def test_the_plans_limits_are_shown_as_what_is_left(tmp_path, monkeypatch):
 
 
 def _script(tmp_path, body, mode=0o755):
+    # a shebang cannot hold a path with spaces (this project's folder has them): run the body through a shell wrapper
+    body_file = tmp_path / "slow_claude_body.py"
+    body_file.write_text(body)
     p = tmp_path / "slow_claude"
-    p.write_text("#!" + sys.executable + "\n" + body)
+    p.write_text(f'#!/bin/sh\nexec "{sys.executable}" "{body_file}" "$@"\n')
     p.chmod(mode)
     return p
 

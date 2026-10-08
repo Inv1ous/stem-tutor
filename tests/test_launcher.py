@@ -107,3 +107,15 @@ def test_the_launcher_finds_its_folder_through_links_without_readlink_f(tmp_path
                        cwd=links, timeout=30)
     assert "Setting up" not in r.stdout and "app ran with [doctor]" in r.stdout, r.stderr
     assert not (tmp_path / ".venv").exists()
+
+
+def test_a_failed_reinstall_keeps_a_working_install(tmp_path):
+    """`tutor --setup` offline: the install that worked must still be there and still start the app."""
+    root, env = _setup(tmp_path)
+    _run(root, env)
+    assert (root / ".venv/.ready").exists()
+    r = _run(root, env, "--setup", FAKE_PIP_FAIL="1")
+    assert r.returncode != 0 and "Setup failed" in r.stderr
+    assert (root / ".venv/.ready").exists() and (root / ".venv/bin/python").exists()
+    r = _run(root, env)
+    assert "Setting up" not in r.stdout and "app ran with []" in r.stdout

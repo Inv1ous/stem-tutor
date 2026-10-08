@@ -24,9 +24,14 @@ if [ ! -f "$ROOT/.venv/.ready" ] || [ "$1" = "--setup" ]; then  # .ready: the la
     echo "Then run: tutor --setup" >&2
     exit 1
   fi
+  was_ready=0; [ -f "$ROOT/.venv/.ready" ] && was_ready=1
   rm -f "$ROOT/.venv/.ready"
   if ! { python3 -m venv "$ROOT/.venv" && "$ROOT/.venv/bin/python" -m pip install -q -r "$ROOT/app/requirements.txt"; }; then
-    rm -rf "$ROOT/.venv"  # a half-made venv would pass for a working one
+    if [ "$was_ready" = 1 ]; then  # a re-run that failed (offline?) must not cost a working install
+      touch "$ROOT/.venv/.ready"
+    else
+      rm -rf "$ROOT/.venv"  # a half-made venv would pass for a working one
+    fi
     echo "Setup failed (see above). Check the internet connection, then run: tutor --setup" >&2
     exit 1
   fi
