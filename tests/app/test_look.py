@@ -41,6 +41,7 @@ def test_classic_keeps_every_colour_the_app_had():
     assert classic.variables["modal-border"] == made["accent"]
     assert classic.variables["stats-border"] == made["primary-darken-2"]
     assert classic.variables["modal-background"] == made["surface"]
+    assert classic.variables["check-color"] == made["warning"]
     assert classic.variables["markdown-h1-align"] == "center"  # Markdown's own: titles centred as before
 
 

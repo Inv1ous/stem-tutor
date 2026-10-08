@@ -175,6 +175,22 @@ def test_the_first_card_has_a_blank_row_under_the_top_bar_in_chat_and_blurt(tmp_
     run(app, (100, 30), steps)
 
 
+@pytest.mark.parametrize("name", ["night", "day", "classic"])
+def test_the_before_you_answer_check_is_calm_in_night_and_day(tmp_path, monkeypatch, palette, name):
+    from tutor_app.panels import ValuePanel
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.theme = name
+    palette(name)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(ValuePanel(2, "numeric", checking=True))
+        await pilot.pause()
+        want = app.current_theme.warning if name == "classic" else look.PALETTES[name]["muted"]
+        assert scr.query_one(".check").styles.color.hex.lower() == want.lower()
+    run(app, (100, 30), steps)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})
