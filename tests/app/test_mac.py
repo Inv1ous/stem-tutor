@@ -155,10 +155,22 @@ def test_doctor_counts_events_as_the_tutor_reads_them_and_warns_of_damaged_lines
     assert "none published" in _doctor(vault, monkeypatch)["Content packs"][1]
 
 
+@pytest.mark.parametrize("name", ["plan.json", "specs/9702/packs/9702-2.1.json"])
+def test_doctor_names_a_damaged_content_file(tmp_path, capsys, monkeypatch, name):
+    from fixtures import make_vault
+    from tutor_app import __main__ as cli
+    vault = make_vault(tmp_path)
+    (vault / ".tutor/packs/v1" / name).write_text("{")
+    ok, check, fix = _doctor(vault, monkeypatch)["Content files"]
+    assert not ok and f".tutor/packs/v1/{name}" in check and "publish" in fix and "untouched" in fix
+    assert cli.main(["doctor", "--vault", str(vault)]) == 1
+    assert "✗ Content files" in capsys.readouterr().out
+
+
 def test_doctor_without_a_tutor_folder_does_not_say_the_tutor_still_runs(tmp_path, capsys, monkeypatch):
     from tutor_app import __main__ as cli
     monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})
-    cli.main(["doctor", "--vault", str(tmp_path / "nowhere")])
+    assert cli.main(["doctor", "--vault", str(tmp_path / "nowhere")]) == 1  # a script can tell it failed
     out = capsys.readouterr().out
     assert "still runs" not in out and "can't start without its folder" in out
 
@@ -205,7 +217,10 @@ def test_a_tab_is_switched_by_asking_terminal_and_a_failure_is_only_a_failure(mo
     monkeypatch.setattr(mac.subprocess, "run", fake_run)
     assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("missing", None)
     (args, script, timeout), = calls
-    assert args == ["osascript", "-", "/dev/ttys009", "STEM Tutor Night"] and timeout and "settings set wanted" in script
+    assert args == ["osascript", "-", "/dev/ttys009", "STEM Tutor Night"] and timeout and "settings set wanted" not in script
+    # the documented lookup by name (a by-name reference built from a variable is not)
+    assert "(count of (settings sets whose name is wanted)) = 0" in script
+    assert "set current settings of t to (first settings set whose name is wanted)" in script
     assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == ("ok", "Basic")  # and what it was
     assert mac.switch_terminal_profile(None, "STEM Tutor Night") == ("", None) and len(calls) == 2  # not in Terminal
 
@@ -216,9 +231,66 @@ def test_a_tab_is_switched_by_asking_terminal_and_a_failure_is_only_a_failure(mo
     assert mac.terminal_tty() is None  # tests never run as a macOS Terminal tab (conftest)
 
 
+@pytest.mark.parametrize("stderr,status", [
+    ("execution error: Not authorized to send Apple events to Terminal. (-1743)", "denied"),
+    ("execution error: Terminal got an error: Not authorized", "denied"),
+    ("execution error: Terminal got an error: AppleEvent timed out. (-1712)", "")])
+def test_a_refused_automation_permission_is_told_apart(monkeypatch, stderr, status):
+    import subprocess
+    seen = []
+
+    def fake_run(args, **kw):
+        seen.append(kw.get("timeout"))
+        return subprocess.CompletedProcess(args, 1, stdout="", stderr=stderr)
+    monkeypatch.setattr(mac.subprocess, "run", fake_run)
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == (status, None)
+    # long enough to answer macOS's one-time "control Terminal" prompt: killed under it, it comes back every launch
+    assert seen == [20]
+
+
+def test_a_refused_permission_is_said_once_at_start(tmp_path, monkeypatch):
+    import asyncio
+    from test_tui import app_for
+    app, v = app_for(tmp_path, monkeypatch)
+    app.profile_denied = True
+    said = []
+    monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            await app.ai.close()
+    asyncio.run(go())
+    assert said.count(mac.AUTOMATION_HELP) == 1
+    assert "Privacy & Security › Automation › Terminal" in mac.AUTOMATION_HELP
+
+
+def test_a_refused_permission_when_changing_the_look_is_said_only_once(tmp_path, monkeypatch):
+    import asyncio
+    from test_tui import app_for
+    from tutor_app import look
+    app, v = app_for(tmp_path, monkeypatch)
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: ("denied", None))
+    said = []
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            app.tty = "/dev/ttys009"
+            monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+            for name in ("night", "day", "night"):
+                look.apply(app, name)
+                await app.workers.wait_for_complete()
+                await pilot.pause()
+            await app.ai.close()
+    asyncio.run(go())
+    assert said.count(mac.AUTOMATION_HELP) == 1 and mac.LOOK_HELP not in said
+
+
 @pytest.mark.parametrize("theme,answer,switched,missing", [
     ("night", ("ok", "Basic"), [("/dev/ttys009", "STEM Tutor Night"), ("/dev/ttys009", "Basic")], False),  # and back
     ("night", ("missing", None), [("/dev/ttys009", "STEM Tutor Night")], True),
+    ("night", ("denied", None), [("/dev/ttys009", "STEM Tutor Night")], "denied"),
     ("classic", ("ok", "Basic"), [], False)])  # Classic: the tab stays as the launcher left it
 def test_the_app_puts_its_tab_in_the_looks_profile_and_back(tmp_path, monkeypatch, theme, answer, switched, missing):
     import json
@@ -230,10 +302,11 @@ def test_the_app_puts_its_tab_in_the_looks_profile_and_back(tmp_path, monkeypatc
     calls, seen = [], []
     monkeypatch.setattr(mac, "terminal_tty", lambda: "/dev/ttys009")
     monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: calls.append((tty, name)) or answer)
-    monkeypatch.setattr(TutorApp, "run", lambda self: seen.append((self.tty, self.profile_missing)))
+    monkeypatch.setattr(TutorApp, "run", lambda self: seen.append((self.tty, self.profile_missing,
+                                                                   self.profile_denied)))
     cli.main(["--vault", str(vault)])
     assert calls == switched
-    assert seen == [("/dev/ttys009", missing)]
+    assert seen == [("/dev/ttys009", missing is True, missing == "denied")]
 
 
 def test_doctor_still_runs_when_the_interface_library_is_missing(tmp_path, monkeypatch, capsys):
@@ -247,5 +320,23 @@ def test_doctor_still_runs_when_the_interface_library_is_missing(tmp_path, monke
     monkeypatch.setitem(sys.modules, "textual", None)  # import textual now fails
     cli = importlib.import_module("tutor_app.__main__")
     monkeypatch.setattr(mac, "claude_status", lambda: {"installed": True, "logged_in": True})
-    cli.main(["doctor", "--vault", str(tmp_path)])
+    assert cli.main(["doctor", "--vault", str(tmp_path)]) == 1
     assert "✗ Terminal interface library" in capsys.readouterr().out
+
+
+def test_claudes_limits_are_read_whatever_the_python(tmp_path, monkeypatch):
+    """Claude Code notes reset times ending in Z, which Python before 3.11 cannot read with fromisoformat."""
+    import datetime as dt
+    import json
+
+    class Py310(dt.datetime):
+        @classmethod
+        def fromisoformat(cls, s):
+            if s.endswith("Z"):
+                raise ValueError(f"Invalid isoformat string: {s!r}")
+            return super().fromisoformat(s)
+    monkeypatch.setattr(dt, "datetime", Py310)
+    note = tmp_path / "claude.json"
+    note.write_text(json.dumps({"cachedUsageUtilization": {"fetchedAtMs": 1, "utilization": {"limits": [
+        {"kind": "weekly_all", "percent": 92, "is_active": True, "resets_at": "2099-01-01T00:00:00Z"}]}}}))
+    assert mac.claude_limits(note) == {"seven_day": {"used": 92.0, "resets": 4070908800.0}}

@@ -156,7 +156,7 @@ def test_nothing_is_written_when_the_planner_is_not_on_this_machine(tutor):
 
 def test_paper_results_fill_the_almanacs_mark_bank(tutor):
     tutor.paper_score("9702_s23_qp_22", "1a=2/2, 1b=1/3")
-    assert report.almanac_payload(tutor)["scores"] == {"phys-P2": 36}  # 3 of 5, on the bank's 60 marks
+    assert report.almanac_payload(tutor)["scores"] == {"phys-P2": 3}  # 3 of the paper's 60, on the bank's 60 marks
 
 
 def test_right_answers_in_the_notes_are_written_as_maths():
@@ -212,3 +212,56 @@ def test_today_names_a_few_ideas_per_line_and_counts_the_rest(tutor, monkeypatch
 def test_a_review_lesson_is_not_titled_review_review(tutor):
     tutor.start("review", minutes=10)
     assert tutor.session["log"].endswith(" Review.md")
+
+
+@pytest.mark.parametrize("text", ['{"text": "You rush the', '{"text": "Slow down."}', '"Slow down."', '[]',
+                                  '{"text": 3, "at": "2026-09-29"}', '{"text": "Slow down.", "at": null}'])
+def test_a_torn_or_odd_ai_summary_is_left_out_of_the_profile(tutor, text):
+    (tutor.vault.tutor / "profile_ai.json").write_text(text)
+    assert report.load_ai_summary(tutor) is None
+    assert "## AI summary" not in (tutor.vault.root / report.profile_note(tutor)).read_text()
+    (tutor.vault.tutor / "profile_ai.json").write_text('{"text": "Slow down.", "at": "2026-09-29T17:00:00+08:00"}')
+    assert "> Slow down." in (tutor.vault.root / report.profile_note(tutor)).read_text()
+
+
+def test_a_torn_or_odd_cached_teaching_card_is_replaced_by_the_offline_one(tutor):
+    from tutorlib import lesson
+    folder = tutor.vault.tutor / "cache" / "teach"
+    folder.mkdir(parents=True)
+    for text in ('{"motivate": "Why', '"a card"', '{"motivate": "Why", "establish": 3, "note": "n"}'):
+        (folder / "9702-2.1.1.json").write_text(text)
+        assert lesson.teach_card(tutor, "9702-2.1.1")["source"] == "offline"
+    (folder / "9702-2.1.1.json").write_text(json.dumps({"motivate": "m", "establish": "e", "note": "n", "source": "ai"}))
+    assert lesson.teach_card(tutor, "9702-2.1.1")["source"] == "ai"
+
+
+def test_a_test_on_many_topics_gets_a_lesson_log_with_a_short_name(tutor):
+    tutor.packs.subtopics["9702-3.1"] = {"id": "9702-3.1", "title": "Momentum", "topic": "9702-3", "spec": "9702"}
+    tutor.packs.kcs["9702-3.1.1"] = {**tutor.packs.kc("9702-2.1.1"), "id": "9702-3.1.1", "subtopic": "9702-3.1"}
+    focus = ["9702-2.1", "9702-3.1"] + [f"9702-{i}.{j}" for i in range(4, 25) for j in (1, 2)]
+    tutor.start("test", minutes=60, focus=focus)
+    name = tutor.session["log"].rsplit("/", 1)[1]
+    assert len(name.encode()) < 120 and name.endswith(f"Test - {len(focus)} topics.md")
+    assert "9702-24.2" in (tutor.vault.root / tutor.session["log"]).read_text()  # the note itself names them all
+
+
+def test_two_sessions_ending_in_the_same_minute_keep_two_notes(tutor):
+    one = _study(tutor)["session"]
+    first = report.session_note(tutor, one)
+    second = report.session_note(tutor, _study(tutor)["session"])
+    assert first != second and (tutor.vault.root / first).exists() and (tutor.vault.root / second).exists()
+    assert report.session_note(tutor, one) == first  # the same session's note is rewritten in place, not copied
+
+
+def test_an_idea_dropped_from_the_packs_does_not_stop_the_brief(tmp_path):
+    clock = {"now": T0}
+    t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=lambda: clock["now"])
+    t.log({"type": "answer", "session": "s1", "item": "old-i01", "kcs": ["9702-9.9.9"], "subject": "phys",
+           "difficulty": 3, "conf": 3, "hinted": False, "seconds": 30, "marks": 1,
+           "grade": {"correct": True, "score": 1.0, "error": None, "misconception": None},
+           "credit": [], "pos": 0, "block": "review", "phase": None, "response": "B"})
+    clock["now"] = T0 + timedelta(days=30)  # due for review, but no longer in any pack (a republish dropped it)
+    assert t.packs.items_for("9702-9.9.9") == [] and t.packs.pack_for_kc("9702-9.9.9") is None
+    report.brief(t)
+    report.today_note(t)
+    assert "9702-9.9.9" not in str(t.start("autopilot", minutes=50)["blocks"])

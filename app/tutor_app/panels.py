@@ -1,6 +1,10 @@
 """Answer panels shown at the bottom of the session screen. Each posts `Panel.Done(data)` when finished."""
 from __future__ import annotations
 
+import time
+
+from rich.cells import cell_len
+from rich.segment import Segment
 from textual import events
 
 from textual import on
@@ -9,11 +13,13 @@ from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
 from textual.markup import escape
 from textual.message import Message
+from textual.strip import Strip
 from textual.widgets import Button, Input, OptionList, SelectionList, Static, TextArea
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
 from .cards import CONF
+from .look import C
 from .texmath import to_terminal
 
 DONT_KNOW = "?"
@@ -42,7 +48,8 @@ def _hint(text: str) -> Static:
 
 class Confidence(OptionList):
     """How sure are you? 1–4. Esc goes back to change your answer."""
-    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 5)] + [Binding("escape", "back", "Change answer")]
+    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 5)] + \
+               [Binding("escape", "back", "Change answer", show=False)]  # the hint says it: the footer has no room at 60
 
     class Back(Message):
         pass
@@ -85,6 +92,17 @@ class Composer(TextArea):
             self.insert("\n")
 
 
+def _lettered(letter: str, text: str):
+    """An option as "A  text", a long text wrapping under itself rather than under the letter."""
+    from rich.table import Table
+    from rich.text import Text
+    grid = Table.grid(padding=(0, 2))
+    grid.add_column(no_wrap=True)
+    grid.add_column()
+    grid.add_row(Text(letter, style="bold"), Text(text))
+    return grid
+
+
 class ChoicePanel(Panel):
     """Multiple choice: ↑↓ + ⏎ (or the letter key), then confidence 1–4. Always offers "I don't know"."""
     BINDINGS = [Binding(k, f"letter('{k.upper()}')", show=False) for k in "abcd"] + \
@@ -96,7 +114,7 @@ class ChoicePanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(f"Q{self.n}: choose with ↑↓ and ⏎ (or press A–D).  0 = I don't know.  Full question: Now in Obsidian (o).")
-        opts = [Option(f"[b]{k}[/b]  {escape(to_terminal(v))}".rstrip(), id=k) for k, v in self.options.items()]
+        opts = [Option(_lettered(k, to_terminal(v)), id=k) for k, v in self.options.items()]
         yield OptionList(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
         yield Composer(placeholder="✎ optional note (Tab)", id="note", compact=True)  # its ⏎: back to the list
 
@@ -114,7 +132,8 @@ class ChoicePanel(Panel):
             self.finish({"entry": f"{self.n}?" if letter == DONT_KNOW else f"{self.n}{letter}",
                          "your": "I don't know" if letter == DONT_KNOW else letter, "note": self._note()})
             return
-        self.query_one("#choices").display = False
+        for w in (self.query_one("#choices"), self.query_one(".hint"), self.query_one("#note")):
+            w.display = False  # the confidence step alone, so a small window has room for all four levels
         self.mount(_hint(f"You chose {letter}. How sure are you? (1–4, Esc to change your answer)"), Confidence())
         self.query_one(Confidence).focus()
 
@@ -123,6 +142,7 @@ class ChoicePanel(Panel):
         for w in list(self.query(Confidence)) + [h for h in self.query(".hint") if "How sure" in str(h.render())]:
             w.remove()
         self.choice = None
+        self.query_one(".hint").display = self.query_one("#note").display = True
         ol = self.query_one("#choices", OptionList)
         ol.display = True
         ol.focus()
@@ -192,8 +212,9 @@ class ValuePanel(Panel):
 
 
 class LongPanel(Panel):
-    """A long / structured answer typed in full. ctrl+s submits."""
-    BINDINGS = [Binding("ctrl+s", "submit", "Submit answer")]
+    """A long / structured answer typed in full. ctrl+s submits (the hint and the button say so: kept out of the
+    footer, which has no room for it at 60 columns)."""
+    BINDINGS = [Binding("ctrl+s", "submit", "Submit answer", show=False)]
 
     def __init__(self, n: int, checking: bool = False) -> None:
         super().__init__(classes="panel tall")
@@ -205,7 +226,10 @@ class LongPanel(Panel):
         if self.checking:
             yield Static("✓ " + CHECKING, classes="check")
         yield TextArea(id="long", soft_wrap=True, tab_behavior="indent")
-        yield Button("Submit (ctrl+s)", id="submit", variant="primary")
+        yield Button("Submit (ctrl+s)", id="submit", variant="primary", compact=self.app.size.height < 30)
+
+    def on_resize(self) -> None:
+        self.query_one("#submit", Button).compact = self.app.size.height < 30  # a short window: one line, not cut off
 
     def action_submit(self) -> None:
         text = self.query_one("#long", TextArea).text.strip()
@@ -217,8 +241,31 @@ class LongPanel(Panel):
         self.action_submit()
 
 
+class TickList(SelectionList):
+    """An empty box for each unticked row and a tick for a ticked one (the stock box draws an X in both, told apart
+    by a colour that is next to invisible when unticked)."""
+
+    def render_line(self, y: int):
+        from rich.segment import Segment
+        from rich.style import Style
+        from textual.strip import Strip
+        from textual.widgets._toggle_button import ToggleButton
+        strip = super().render_line(y)
+        segments = list(strip)
+        if len(segments) < 4 or segments[1].text != ToggleButton.BUTTON_INNER:
+            return strip
+        try:
+            on = self.get_option_at_index(self.scroll_offset.y + y).value in self._selected
+        except Exception:
+            return strip
+        side = segments[3].style + Style(meta=segments[0].style.meta)  # the row's own colours; a click still ticks
+        mark = side + Style(color=C["tutor"] if on else C["muted"], bold=on)
+        return Strip([Segment(" ", side), Segment("✓" if on else "☐", mark), Segment(" ", side), *segments[3:]])
+
+
 class TickPanel(Panel):
-    """Tick the points you earned / want (space to tick, ⏎ on the button to confirm)."""
+    """Tick the points you earned / want (space to tick; ctrl+s, or ⏎ on the button, to confirm)."""
+    BINDINGS = [Binding("ctrl+s", "confirm", show=False)]  # ⏎ in the list ticks, so the list needs a key of its own
 
     def __init__(self, prompt: str, items: list[tuple[str, str, bool]], buttons: list[tuple[str, str]]) -> None:
         super().__init__(classes="panel tall")
@@ -226,15 +273,38 @@ class TickPanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(self.prompt)
-        yield SelectionList[str](*[Selection(escape(to_terminal(label)), value, on) for label, value, on in self.items],
-                                 id="ticks")
+        yield TickList(*[Selection(escape(to_terminal(label)), value, on) for label, value, on in self.items],
+                       id="ticks")
+        yield Static(id="full")  # the highlighted point in full, when its row cuts it short
         with Horizontal(classes="buttons"):
             for bid, label in self.buttons:
                 yield Button(label, id=bid, variant="primary" if bid == self.buttons[0][0] else "default")
 
+    def on_resize(self) -> None:
+        self._show_full()
+
+    @on(SelectionList.SelectionHighlighted, "#ticks")
+    def _show_full(self) -> None:
+        """A row is one line, so a long mark point ends in "…": you would tick what you cannot read."""
+        ticks, full = self.query_one("#ticks", SelectionList), self.query_one("#full", Static)
+        i = ticks.highlighted
+        text = to_terminal(self.items[i][0]) if i is not None and i < len(self.items) else ""
+        room = ticks.scrollable_content_region.width - 4  # less the tick box before each point
+        full.update(escape(text))
+        full.display = bool(text) and room > 0 and cell_len(text) > room
+
     @on(Button.Pressed)
     def _pressed(self, event: Button.Pressed) -> None:
         self.finish({"button": event.button.id, "ticked": list(self.query_one("#ticks", SelectionList).selected)})
+
+    def on_mount(self) -> None:
+        super().on_mount()
+        self.shown = time.monotonic()
+
+    def action_confirm(self) -> None:
+        if time.monotonic() - self.shown < 0.5:  # a second ctrl+s from submitting a long answer: mark it first
+            return
+        self.finish({"button": self.buttons[0][0], "ticked": list(self.query_one("#ticks", SelectionList).selected)})
 
 
 class ChoosePanel(Panel):
@@ -282,6 +352,7 @@ class ContinuePanel(Panel):
             yield _hint(self.prompt)
         rows = self.rows()
         self.shape = self._shape(rows)
+        self.set_class(self.shape[1], "tight")  # a short window: no row under the buttons; a tall one: room above the footer
         for row in rows:
             with Horizontal(classes="buttons"):
                 for bid, label in row:
@@ -367,7 +438,8 @@ class ReflectPanel(Panel):
     CODES = {"SLIP": "Careless slip", "MISREAD": "Misread the question", "RECALL": "Didn't know / forgot",
              "PROCEDURE": "Wrong method", "CONCEPT": "Had the wrong idea"}
     REMARK = "REMARK"  # not a reason: "it was right", when the answer can go to the AI examiner
-    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 7)] + [Binding("escape", "skip", "Skip")]
+    BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 7)] + \
+               [Binding("escape", "skip", "Skip", show=False)]  # the hint says it: the footer has no room at 60
 
     def __init__(self, slip_likely: bool = False, remark: bool = False) -> None:
         super().__init__(classes="panel")

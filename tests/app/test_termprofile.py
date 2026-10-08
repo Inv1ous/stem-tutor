@@ -20,6 +20,7 @@ def test_a_profile_carries_the_look_the_font_and_the_window(name):
     p = plistlib.loads(termprofile.dumps(termprofile.profile(look.TERMINAL_PROFILES[name], pal, termprofile.ANSI[name],
                                                              size=15)))
     assert p["name"] == look.TERMINAL_PROFILES[name] and p["type"] == "Window Settings"
+    assert p["ProfileCurrentVersion"] == 2.07  # what a profile exported from a current Terminal carries
     assert termprofile.decoded(p["BackgroundColor"])[:3] == pytest.approx(termprofile.srgb_to_generic(pal["background"]))
     assert termprofile.decoded(p["TextColor"])[:3] == pytest.approx(termprofile.srgb_to_generic(pal["text"]))
     assert termprofile.decoded(p["Font"]) == ("JuliaMono-Regular", 15.0)

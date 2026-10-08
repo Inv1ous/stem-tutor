@@ -8,7 +8,7 @@ from pathlib import Path
 from textual.app import App
 from textual.binding import Binding
 
-from tutorlib import store
+from tutorlib import packs, store
 from tutorlib.session import Tutor
 
 from . import config, look, mac
@@ -21,39 +21,61 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 #menu { width: 52; height: auto; max-height: 100%; border: round $menu-border; padding: 0 1;
   background: $menu-background; }
 #menu:focus { background-tint: $menu-tint; }
-#stats { width: 1fr; height: auto; max-height: 100%; padding: 1 0 1 2; border: round $stats-border; margin-left: 2;
+#stats { width: 1fr; height: auto; max-height: 100%; padding: 0 0 1 2; border: round $stats-border; margin-left: 2;
   scrollbar-size-vertical: 1; scrollbar-gutter: stable; scrollbar-background: $background; }
 #stats-text { margin-right: 1; }
 #bar { height: auto; max-height: 2; background: $panel; }
 #map { height: auto; max-height: 2; }
 #log { height: 1fr; padding: 0 0 0 1; scrollbar-size-vertical: 1; scrollbar-gutter: stable;
   scrollbar-background: $background; }
+ChatScreen #log, BlurtScreen #log { padding-top: 1; }
 .entry { margin: 0 1 1 0; }
 #panel { height: auto; max-height: 55%; }
 .panel { height: auto; padding: 0 2 1 1; border-top: solid $panel-rule; }
 .panel.tall { max-height: 30; }
-.panel.short { padding: 0 2 0 1; }
+.panel.short.tight { padding: 0 2 0 1; }
 .hint { color: $text-muted; padding: 0 0 0 1; }
 .buttons { height: auto; }
 .buttons Button { margin: 0 1 0 0; }
+Button:focus { background-tint: $button-focus-tint; }
+Button.-textual-compact { min-width: 0; }  /* as wide as its label: focused, no unstyled cells either side of it */
+Button.-textual-compact:focus { text-style: $button-compact-focus-text-style; }
 OptionList { height: auto; max-height: 12; border: none; }
 #note { margin-top: 1; min-height: 1; max-height: 5; }
 SelectionList { height: auto; max-height: 14; }
+#full { padding: 0 0 0 5; }
 TextArea { height: 1fr; min-height: 4; max-height: 12; }
 Composer { height: auto; min-height: 3; max-height: 10; }
-.check { color: $warning; padding: 0 0 0 1; }
+.check { color: $check-color; padding: 0 0 0 1; }
 #picker, Vertical#ask, #summary, #help, #settings { width: 90; max-width: 95%; height: auto; max-height: 90%;
-  border: round $modal-border; background: $surface; padding: 1 2; }
+  border: round $modal-border; background: $modal-background; padding: 1 2; }
 PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
 #help { padding: 0 2; }
+#summary { scrollbar-size-vertical: 1; }
+#summary-hint { dock: bottom; }
 #help MarkdownH1 { margin: 1 0 0 0; }
+MarkdownH1 { content-align-horizontal: $markdown-h1-align; }
 #settings .row { height: auto; margin: 0 0 1 0; }
 #settings .row > Static { width: 1fr; }
 #settings Switch { border: none; padding: 0 1; margin-right: 1; }
 #settings Switch:focus { border: none; background: $accent 40%; }
-#settings #minutes { width: 10; }
+#settings #minutes { width: 10; background: $panel; }
+#settings #settings-hint { content-align: left middle; height: 100%; padding: 0 0 0 2; }
+#settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
+#glance { display: none; height: 1; margin-top: 1; padding: 0 4; text-wrap: nowrap; text-overflow: ellipsis; }
+#settings #save-row { dock: bottom; }
+SettingsScreen.flat #settings Switch { padding: 0; margin-right: 3; background: transparent; }
+SettingsScreen.flat #settings Switch > .switch--slider { color: $text-muted; background: $panel; }
+SettingsScreen.flat #settings Switch.-on > .switch--slider { color: $success; }
+SettingsScreen.flat #settings Switch:focus { background: transparent; }
+SettingsScreen.flat #settings Switch:focus > .switch--slider { background: $block-cursor-background; }
+SettingsScreen.flat #settings .row:focus-within > Static { color: $accent; }
+SettingsScreen.flat #settings #minutes { background: $panel; }
+SettingsScreen.short #settings .row { margin: 0; }
+SettingsScreen.short #settings #save { margin-top: 1; }
 HomeScreen.narrow #stats { display: none; }
+HomeScreen.narrow #glance { display: block; }
 HomeScreen.narrow #menu { width: 1fr; }
 HomeScreen.short #banner { display: none; }
 """
@@ -81,6 +103,7 @@ class TutorApp(App):
         self.tty: str | None = None  # the macOS Terminal tab, whose profile follows the look
         self.tty_profile: str | None = None  # the tab's profile before the tutor changed it: put back on exit
         self.profile_missing = False
+        self.profile_denied = False  # macOS refused the tutor control of Terminal: said once, then left alone
         self._locks = contextlib.ExitStack()
 
     def get_theme_variable_defaults(self) -> dict[str, str]:
@@ -97,7 +120,16 @@ class TutorApp(App):
         except store.Locked:
             self.exit(message="Another STEM Tutor window is already open. Use that one (or close it first).")
             return
-        self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None, one_at_a_time=True)
+        try:
+            self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None, one_at_a_time=True)
+        except packs.DamagedContent as e:
+            self.exit(return_code=1, message=str(e))
+            return
+        for sub in self.tutor.packs.subtopics:  # read every chapter now: a damaged one is left out, and said once
+            self.tutor.packs.pack(sub)
+        for path in self.tutor.packs.damaged:
+            self.notify(f"The content file {path} is damaged, so that chapter is left out: {packs.REINSTALL}.",
+                        severity="warning", timeout=15)
         self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json")
         import threading
@@ -121,6 +153,8 @@ class TutorApp(App):
         self.push_screen(HomeScreen())
         if self.profile_missing:
             self.notify(mac.LOOK_HELP, timeout=15)
+        if self.profile_denied:
+            self.notify(mac.AUTOMATION_HELP, timeout=15)
         if self.size.width < 90 or self.size.height < 28:
             self.notify("Tip: make this window bigger (or full-screen) for the best view.", timeout=8)
 

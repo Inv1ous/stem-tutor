@@ -90,7 +90,7 @@ def test_a_card_with_no_body_is_just_its_title():
     (r"$\frac{\Delta s}{\Delta t}$", "Δs/Δt"), (r"$\frac{5}{\sqrt{3}}$", "5/√3"), (r"$\sqrt[5]{32}$", "⁵√32"),
     (r"$\sqrt{a^2+b^2}$", "√(a² + b²)"),
     # standard state ⦵ as in the pack titles, after any subscript
-    (r"$\Delta H^\ominus$", "ΔH⦵"), (r"$\Delta H_r^{\ominus}$", "ΔHᵣ⦵"), (r"$E^\ominus_{cell}$", "E_cell⦵"),
+    (r"$\Delta H^\ominus$", "ΔH⦵"), (r"$\Delta H_r^{\ominus}$", "ΔHᵣ⦵"), (r"$E^\ominus_{cell}$", "Ecell⦵"),
     # bold vectors, braces, function names without stray spaces, primes
     (r"$\mathbf{F}$", "𝐅"), (r"$\boldsymbol{a}$", "𝐚"), (r"$\{1,2\}$", "{1,2}"),
     (r"$\ln x$", "ln x"), (r"$\log_{10} x$", "log₁₀ x"), (r"$\sin(x)$", "sin(x)"), (r"$\sin^2\theta$", "sin² θ"),
@@ -178,4 +178,87 @@ def test_review_findings_read_as_printed(tex, want):
     (r"$\big(x\big)$", "(x)"), (r"$\det A$", "det A"), (r"$\sum\limits_{i=1}^{n} i$", "∑ᵢ₌₁ⁿ i"),
 ])
 def test_second_review_findings_read_as_printed(tex, want):
+    assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # brackets and symbols flatlatex has no name for
+    (r"$\langle c^2\rangle$", "⟨c²⟩"), (r"$\frac{1}{2}m\langle c^2\rangle=\frac{3}{2}kT$", "½m⟨c²⟩ = ³⁄₂kT"),
+    (r"$\lceil x \rceil + \lfloor y \rfloor$", "⌈x⌉ + ⌊y⌋"), (r"$\lfloor 2.7 \rfloor = 2$", "⌊2.7⌋ = 2"),
+    (r"$\triangle ABC \sim \triangle DEF$", "△ABC ∼ △DEF"), (r"$A = \varnothing$", "A = ∅"),
+    (r"$a \leqslant b$", "a ≤ b"), (r"$a \geqslant b$", "a ≥ b"), (r"$p \land q$", "p ∧ q"), (r"$p \lor q$", "p ∨ q"),
+    (r"$A \Longrightarrow B$", "A ⇒ B"), (r"$A \Longleftrightarrow B$", "A ⇔ B"), (r"$a \leftrightarrow b$", "a ⟷ b"),
+    (r"$\hat{\imath}+\hat{\jmath}$", "ı̂ + ȷ̂"), (r"$a \bmod n$", "a mod n"), (r"$a \equiv b \pmod{n}$", "a ≡ b (mod n)"),
+    (r"$\dagger$", "†"), (r"$5\,\text{\textmu m}$", "5 μm"),
+])
+def test_brackets_and_symbols_without_a_flatlatex_name(tex, want):
+    assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # an accent over one letter combines; over several it still reads
+    (r"$\overrightarrow{AB}$", "→AB"), (r"$\vec{AB}$", "→AB"), (r"$\overleftarrow{AB}$", "←AB"),
+    (r"$\overrightarrow{OA}+\overrightarrow{AB}=\overrightarrow{OB}$", "→OA + →AB = →OB"),
+    (r"$|\overrightarrow{AB}|=5$", "|→AB| = 5"), (r"$\vec{a}$", "a⃗"), (r"$\vec{F}_{net}$", "F⃗ₙₑₜ"),
+    (r"$\overline{AB}$", "A̅B̅"), (r"$\bar{AB}$", "A̅B̅"), (r"$\overline{x}$", "x̅"), (r"$\bar{x}$", "x̄"),
+    (r"$\underline{AB}$", "A̲B̲"), (r"$\underline{a}$", "a̲"), (r"$\bar{z_1}\bar{z_2}$", "z̄₁z̄₂"),
+    (r"$\overline{z_1 z_2}$", "z̅₁̅z̅₂̅"), (r"$\hat{\mathbf{n}}$", "𝐧̂"), (r"$\widehat{ABC}=90^\circ$", "∠ABC = 90°"),
+    (r"$\hat{ABC}$", "∠ABC"), (r"$\hat{AB}$", "ÂB̂"), (r"$\widetilde{x}$", "x̃"), (r"$\cancel{ab}$", "a̶b̶"),
+])
+def test_accents_over_one_or_several_letters(tex, want):
+    assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [(r"$\overline{1+x}$", "1̅+̅x̅"), (r"$\vec{}$", ""), (r"$2\overrightarrow{AB}$", "2→AB")])
+def test_accent_edge_cases(tex, want):
+    assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # a condition over a reaction arrow: one line, the arrow spaced like any other
+    (r"$A \xrightarrow{\Delta} B$", "A —Δ→ B"), (r"$A \xrightarrow{\text{heat}} B$", "A —heat→ B"),
+    (r"$A \xrightarrow[\text{cat}]{\text{heat}} B$", "A —heat, cat→ B"), (r"$A \xleftarrow{x} B$", "A ←x— B"),
+    (r"$A \xrightarrow{} B$", "A → B"), (r"$A \xrightleftharpoons{} B$", "A ⇌ B"),
+    (r"$A \xrightleftharpoons{K} B$", "A —K⇌ B"), (r"$A \overset{\Delta}{\rightarrow} B$", "A —Δ→ B"),
+    (r"$\ce{A ->[heat] B}$", "A —heat→ B"), (r"$\ce{A ->[\Delta] B}$", "A —Δ→ B"),
+    (r"$\ce{CaCO3 ->[heat] CaO + CO2}$", "CaCO₃ —heat→ CaO + CO₂"),
+    (r"$\ce{CH3CH2OH ->[conc. H2SO4] CH2=CH2 + H2O}$", "CH₃CH₂OH —conc. H₂SO₄→ CH₂=CH₂ + H₂O"),
+    (r"$\ce{A ->[Ni][150 ^\circ C] B}$", "A —Ni, 150 °C→ B"),
+    (r"$\ce{A <-> B}$", "A ⟷ B"), (r"$\ce{N2 + 3H2 <=>> 2NH3}$", "N₂ + 3H₂ ⇌ 2NH₃"),
+    (r"$\overset{a}{b}$", "bᵃ"), (r"$\underset{x}{\max}$", "maxₓ"),
+])
+def test_labelled_arrows_read_in_one_line(tex, want):
+    assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # a subscript with no Unicode form: a short lowercase label on a capital joins
+    (r"$K_c$", "Kc"), (r"$K_w=[\ce{H+}][\ce{OH-}]$", "Kw = [H⁺][OH⁻]"), (r"$E_{cell}$", "Ecell"),
+    (r"$K_c=\frac{[C]^c[D]^d}{[A]^a[B]^b}$", "Kc = [C]ᶜ[D]ᵈ/([A]ᵃ[B]ᵇ)"), (r"$F_y=F\sin\theta$", "F_y = F sin θ"),
+    (r"$E^{\ominus}_{\text{cell}}$", "Ecell⦵"), (r"$\Delta H_f^\ominus$", "ΔHf⦵"), (r"$\Delta H_c^{\ominus}$", "ΔHc⦵"),
+    (r"$\Delta G^\ominus=-nFE^\ominus_{cell}$", "ΔG⦵ = −nFEcell⦵"), (r"$S_\infty=\frac{a}{1-r}$", "S∞ = a/(1 − r)"),
+    # otherwise the underscore stays: same case, a capital label, a coordinate (x, y, z), a long word
+    (r"$b=\frac{S_{xy}}{S_{xx}}$", "b = S_xy/Sₓₓ"), (r"$v_y$", "v_y"), (r"$N_A$", "N_A"), (r"$T_{\text{K}}$", "T_K"), (r"$\sum S_{products}$", "∑ S_products"),
+    (r"$p_{\ce{NH3}}$", "p_NH₃"), (r"$\Delta_f H^\ominus$", "Δ_f H⦵"),
+    # either way: a space before the next letter, and no brackets the subscript does not need
+    (r"$k_B T$", "k_B T"), (r"$E=\frac{3}{2}k_B T$", "E = ³⁄₂k_B T"), (r"$v_y^2$", "v_y²"),
+    (r"$\sqrt{v^2-v_y^2}$", "√(v² − v_y²)"), (r"$\frac{1}{R_T}$", "1/R_T"), (r"$K_c^2$", "Kc²"),
+    (r"$K_p=\frac{p_C^2}{p_A p_B}$", "Kₚ = p_C²/(p_A p_B)"), (r"$^{x}_{y}\mathrm{A}$", "ˣ_yA"),
+])
+def test_subscripts_without_a_unicode_form(tex, want):
+    assert to_terminal(tex) == want
+
+
+@pytest.mark.parametrize("tex,want", [  # found by running a typical A-Level paper's maths through
+    (r"$\therefore x = 2$", "∴ x = 2"), (r"$x=2 \because y>0$", "x = 2 ∵ y > 0"), (r"$AB \perp CD$", "AB ⊥ CD"),
+    (r"$AB \parallel CD$", "AB ∥ CD"), (r"$A \cup B$", "A ∪ B"), (r"$P(A\cap B)$", "P(A ∩ B)"),
+    (r"$A \setminus B$", "A ∖ B"),
+    (r"$\operatorname{arcosh} x$", "arcosh x"), (r"$\operatorname{Re}(z)$", "Re(z)"), (r"$\sech^2 x$", "sech² x"),
+    (r"$\operatorname{arsinh}(x)$", "arsinh(x)"), (r"$\coth x$", "coth x"),
+    (r"$z^* = x - iy$", "z* = x − iy"), (r"$zz^{*}=|z|^2$", "zz* = |z|²"),
+    (r"$\mathrm{pH}=\mathrm{p}K_a+\log\frac{[\ce{A-}]}{[\ce{HA}]}$", "pH = pKₐ + log [A⁻]/[HA]"),
+    (r"$K_a=\frac{[\ce{H+}][\ce{A-}]}{[\ce{HA}]}$", "Kₐ = [H⁺][A⁻]/[HA]"), (r"$\frac{P(A)}{P(B)}$", "P(A)/(P(B))"),
+    (r"$\varepsilon = -N\frac{d\Phi}{dt}$", "ε = −N dΦ/dt"), (r"$F=\frac{dp}{dt}$", "F = dp/dt"),
+    (r"$\abs{x}+\norm{\mathbf{v}}$", "|x| + ‖𝐯‖"), (r"$\dv{y}{x}$", "dy/dx"), (r"$\pdv{f}{x}$", "∂f/∂x"),
+    (r"$\qty{9.81}{m.s^{-2}}$", "9.81 m.s⁻²"), (r"$\unit{kJ\,mol^{-1}}$", "kJ mol⁻¹"), (r"$\pu{-890 kJ mol-1}$", "−890 kJ mol⁻¹"),
+    (r"$\boxed{x=2}$", "x = 2"), (r"$x\phantom{0}=1$", "x = 1"), (r"$\textcolor{red}{x}+\color{blue}y$", "x + y"),
+    (r"$10\textsuperscript{th}$", "10ᵗʰ"), ("$$\n\\chemfig{H-O-H}\n$$", "H-O-H"), (r"$\chemfig{CH_3-[:30]OH}$", "CH₃-OH"),
+])
+def test_paper_maths_reads_as_printed(tex, want):
     assert to_terminal(tex) == want

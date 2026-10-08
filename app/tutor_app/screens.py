@@ -23,7 +23,7 @@ from . import cards, config, look, mac, prompts
 from . import __version__
 from .look import C
 from .panels import (ChoicePanel, ChoosePanel, Composer, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel,
-                     TickPanel, ValuePanel, WorkedPanel)
+                     TickList, TickPanel, ValuePanel, WorkedPanel)
 from .texmath import to_terminal
 
 
@@ -32,7 +32,7 @@ def bar(done: int, total: int, width: int = 12) -> str:
     return "█" * fill + "░" * (width - fill)
 
 
-def leave_asking_first(screen: Screen, boxes: str) -> None:
+def leave_asking_first(screen: Screen, boxes: str, typed: str = "answer") -> None:
     """Back to the previous screen, but not over something typed without asking: it would be lost."""
     if not any(w.text.strip() for w in screen.query(boxes)):
         screen.app.pop_screen()
@@ -41,7 +41,7 @@ def leave_asking_first(screen: Screen, boxes: str) -> None:
     def decided(choice: str | None) -> None:
         if choice == "leave" and screen.is_current:
             screen.app.pop_screen()
-    screen.app.push_screen(ConfirmScreen("Leave? Your typed answer will be lost.",
+    screen.app.push_screen(ConfirmScreen(f"Leave? Your typed {typed} will be lost.",
                                          [("leave", "Leave"), ("stay", "Keep writing")]), decided)
 
 
@@ -56,6 +56,7 @@ class HomeScreen(Screen):
 
     def compose(self) -> ComposeResult:
         yield Static(look.banner(), id="banner")
+        yield Static(id="glance")  # the side box in one line, for a window too narrow to show it
         with Horizontal(id="home"):
             yield OptionList(id="menu")
             with VerticalScroll(id="stats"):  # more chapters than fit in the window: the box scrolls
@@ -156,22 +157,32 @@ class HomeScreen(Screen):
         menu.highlighted = ids.index(was) if was in ids else 0  # back where you were, not at the top
         menu.focus()
         self.query_one("#stats-text", Static).update(self.stats_text(now, due))
+        glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {len(due)} due", style=C["soft"])
+        if (exam := self.next_exam(now)):
+            glance.append(f" · ⧗ {exam}", style=C["plan"])
+        self.query_one("#glance", Static).update(glance)
+
+    def streak(self, now: datetime) -> int:
+        days = {date.fromisoformat(d) for d in self.app.tutor.state.get("study_days", [])}
+        d = now.date() if now.date() in days else now.date() - timedelta(days=1)
+        streak = 0
+        while d in days:
+            streak, d = streak + 1, d - timedelta(days=1)
+        return streak
+
+    def next_exam(self, now: datetime) -> str:
+        sittings = sorted((date.fromisoformat(v), k) for k, v in (self.app.tutor.packs.plan.get("sittings") or {}).items()
+                          if date.fromisoformat(v) >= now.date())
+        return f"{sittings[0][1]}: {(sittings[0][0] - now.date()).days} days" if sittings else ""
 
     def stats_text(self, now: datetime, due: list) -> Text:
         app = self.app
         t = app.tutor
         out = Text()
         out.append(f"{now:%A %d %B}\n", style=f"bold {C['banner']}")
-        days = {date.fromisoformat(d) for d in t.state.get("study_days", [])}
-        d = now.date() if now.date() in days else now.date() - timedelta(days=1)
-        streak = 0
-        while d in days:
-            streak, d = streak + 1, d - timedelta(days=1)
-        out.append(f"✶ {streak}-day streak   ↻ {len(due)} due\n\n", style=C["soft"])
-        sittings = sorted((date.fromisoformat(v), k) for k, v in (t.packs.plan.get("sittings") or {}).items()
-                          if date.fromisoformat(v) >= now.date())
-        if sittings:
-            out.append(f"⧗ {sittings[0][1]}: {(sittings[0][0] - now.date()).days} days\n\n", style=C["plan"])
+        out.append(f"✶ {self.streak(now)}-day streak   ↻ {len(due)} due\n\n", style=C["soft"])
+        if (exam := self.next_exam(now)):
+            out.append(f"⧗ {exam}\n\n", style=C["plan"])
         ticked = t.ticks()
         week = policy.current_week(t.packs.plan, now)
         focus = policy.focus_week(t.packs.plan, t.state, ticked, now)  # past the calendar once this week is done
@@ -294,7 +305,7 @@ class HomeScreen(Screen):
 
 # ============================ Topic picker ============================
 class PickerScreen(ModalScreen):
-    BINDINGS = [Binding("escape", "dismiss(None)", "Back")]
+    BINDINGS = [Binding("escape", "dismiss(None)", "Back"), Binding("ctrl+s", "go", show=False)]
 
     def __init__(self, mode: str) -> None:
         super().__init__()
@@ -305,8 +316,8 @@ class PickerScreen(ModalScreen):
         built = sorted(s for s in t.packs.subtopics if t.packs.pack(s))
         with Vertical(id="picker"):
             if self.mode == "test":
-                yield Static("Tick the subtopics the test covers: space to tick, Tab to Start.", classes="hint")
-                yield SelectionList[str](*[Selection(self._label(s), s) for s in built], id="subs")
+                yield Static("Tick the subtopics the test covers: space to tick, Tab to Start (or ctrl+s), Esc to go back.", classes="hint")
+                yield TickList(*[Selection(self._label(s), s) for s in built], id="subs")
                 yield Button("Start test prep", id="go", variant="primary")
             else:
                 ask = {"lesson": "Which subtopic do you want to learn?",
@@ -326,7 +337,9 @@ class PickerScreen(ModalScreen):
         self.dismiss([event.option.id])
 
     @on(Button.Pressed, "#go")
-    def go(self) -> None:
+    def action_go(self) -> None:
+        if self.mode != "test":
+            return
         chosen = list(self.query_one("#subs", SelectionList).selected)
         if chosen:
             self.dismiss(chosen)
@@ -341,9 +354,11 @@ class SessionScreen(Screen):
                 Binding("ctrl+t", "ask", "Ask", priority=True), Binding("ctrl+g", "hint", "Hint", priority=True),
                 Binding("ctrl+r", "explain", "Explain", priority=True),
                 Binding("ctrl+o", "obsidian", "Notes", priority=True),
-                Binding("ctrl+l", "earlier", "Earlier", priority=True),
+                Binding("ctrl+l", "earlier", "Earlier", show=False, priority=True),  # in Help; keeps 60 columns
                 Binding("t", "ask", show=False), Binding("e", "explain", show=False), Binding("h", "hint", show=False),
-                Binding("o", "obsidian", show=False), Binding("escape", "esc", show=False)]
+                Binding("o", "obsidian", show=False), Binding("escape", "esc", show=False),
+                Binding("alt+up", "scroll_log(-1)", show=False, priority=True),
+                Binding("alt+down", "scroll_log(1)", show=False, priority=True)]
 
     def __init__(self, start: dict | None) -> None:
         super().__init__()
@@ -354,7 +369,7 @@ class SessionScreen(Screen):
     def compose(self) -> ComposeResult:
         yield Static(id="bar")
         yield Static(id="map")
-        yield VerticalScroll(id="log")
+        yield VerticalScroll(id="log", can_focus=False)  # Tab stays in the answer panel; alt+↑↓ and the wheel scroll it
         yield Container(id="panel")
         yield Footer()
 
@@ -390,6 +405,7 @@ class SessionScreen(Screen):
         box = self.query_one("#panel", Container)
         box.remove_children()
         box.mount(widget)
+        self.showing = widget
 
     def on_mount(self) -> None:
         t = self.tutor
@@ -485,13 +501,13 @@ class SessionScreen(Screen):
             self.panel(ContinuePanel())
         elif kind == "choose":
             self.say(cards.card("plan", act["question"], ""))
-            self.panel(ChoosePanel("↑↓ and ⏎", act["options"]))
+            self.panel(ChoosePanel("Pick how you want to learn this (↑↓ and ⏎)", act["options"]))
         elif kind == "plan":
             lines = [act["approach"], ""] + [f"- {'✓ you know: ' if n['known'] else ''}{n['title']}" for n in act["nodes"]]
             self.say(cards.card("plan", f"Plan: {act['title']}", "\n".join(lines),
                                 subtitle="the concept map is in Obsidian → Now"))
             self.prepare_cards(act["default_teach"])  # AI teaching cards (if needed) start while you read the plan
-            self.panel(TickPanel("Ticked ideas will be taught (space to change). Then ⏎ on Start.",
+            self.panel(TickPanel("Ticked ideas will be taught (space to change). Then ctrl+s, or ⏎ on Start.",
                                  [(n["title"], n["kc"], n["kc"] in act["default_teach"]) for n in act["nodes"]],
                                  [("start", "Start lesson ⏎")]))
         elif kind in ("worked", "walkthrough"):
@@ -525,8 +541,20 @@ class SessionScreen(Screen):
         self.fold()
         if say:
             self.say(cards.note(say, "dim"))
-        self.say(cards.question(view))
+        card = self.say(cards.question(view))
+        self.query_one("#log", VerticalScroll).call_after_refresh(self._show_top, card)  # after say's scroll_end
         self.answer_panel(view)
+
+    def _show_top(self, card: Static) -> None:
+        """A question taller than the log opens at its start, not its end (alt+↑ alt+↓ scroll the rest)."""
+        log = self.query_one("#log", VerticalScroll)
+        if card.is_attached and card.outer_size.height > log.scrollable_content_region.height:
+            log.scroll_to_widget(card, top=True, animate=False, immediate=True)
+
+    def action_scroll_log(self, direction: int) -> None:
+        """alt+↑ / alt+↓: the log a page at a time, keeping a line of what was on screen; works while typing."""
+        log = self.query_one("#log", VerticalScroll)
+        log.scroll_relative(y=direction * max(1, log.scrollable_content_region.height - 1), animate=False)
 
     def answer_panel(self, view: dict) -> None:
         checking = model.knobs(self.tutor.state)["checking_routine"]
@@ -545,6 +573,8 @@ class SessionScreen(Screen):
     # ---------- panel results ----------
     @on(Panel.Done)
     def panel_done(self, event: Panel.Done) -> None:
+        if event.panel is not getattr(self, "showing", None):  # queued on a panel already replaced (key repeat): once only
+            return
         data, kind = event.data, self.act.get("activity")
         if isinstance(event.panel, LongPanel):
             self.long_written(data)
@@ -698,7 +728,7 @@ class SessionScreen(Screen):
                 self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")]))
                 return
         self.pending_short = (n, data, max(1, len(points)))
-        self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ⏎ on Done.",
+        self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ctrl+s, or ⏎ on Done.",
                              [(p, str(i), False) for i, p in enumerate(points)], [("self", "Done ⏎")]))
 
     def long_marks(self, data: dict) -> None:
@@ -727,7 +757,7 @@ class SessionScreen(Screen):
         sch = self.tutor.scheme(self.view["n"])
         self.scheme = sch.get("scheme", [])
         buttons = [("mine", "Submit my marks ⏎")] + ([("ai", "Ask the AI examiner to check")] if self.ai_ok() else [])
-        self.mark_panel("Tick every mark point your answer earns (space). Honest self-marking is great practice.",
+        self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s. Honest self-marking is great practice.",
                         (), buttons)
 
     def mark_panel(self, prompt: str, ticked, buttons: list[tuple[str, str]]) -> None:
@@ -742,7 +772,7 @@ class SessionScreen(Screen):
                                             schema=prompts.JUDGE)
         if not res:  # give the tick list back, with your ticks, so you can still mark it yourself
             self.say(cards.card("hint", "AI check unavailable", r.message or "Mark it yourself."))
-            self.mark_panel("Tick every mark point your answer earns (space), then submit.", data["ticked"],
+            self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s to submit.", data["ticked"],
                             [("mine", "Submit my marks ⏎")])
             return
         verdict = "\n".join(f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}: {p.get('why', '')}"
@@ -750,7 +780,7 @@ class SessionScreen(Screen):
         self.say(cards.ai(f"{res.get('feedback', '')}\n\n{verdict}", "AI examiner"))
         met = {str(self.scheme[i]["i"]) for i, p in enumerate(res.get("points", [])) if p.get("met") and i < len(self.scheme)}
         ticked = sorted(set(data["ticked"]) | met) if data["ticked"] else sorted(met)
-        self.mark_panel("Adjust if you disagree, then submit.", ticked, [("mine", "Submit ⏎")])
+        self.mark_panel("Adjust if you disagree, then ctrl+s to submit.", ticked, [("mine", "Submit ⏎")])
 
     @work(exclusive=True, group="judge")
     async def remark(self) -> None:
@@ -859,6 +889,9 @@ class SessionScreen(Screen):
     def action_hint(self) -> None:
         if not self.view:
             return
+        if str(self.view["n"]) not in (self.tutor.session or {}).get("presented", {}):  # answered: nothing to hint
+            self.app.notify(f"No hint needed: Q{self.view['n']} is already marked.", timeout=4)
+            return
         if model.knobs(self.tutor.state)["attempt_before_hint"] and not getattr(self, "hint_armed", False):
             self.hint_armed = True
             self.app.notify("Have a go first: write your first step or your best guess. Press h again for the hint.",
@@ -878,7 +911,9 @@ class SessionScreen(Screen):
 
     def action_esc(self) -> None:
         """Esc means "back" everywhere else; here a panel may use it (change an answer, skip), and leaving is ctrl+b."""
-        self.app.notify("ctrl+b saves and returns to the menu.", timeout=4)
+        if time.monotonic() - getattr(self, "esc_told", -9.0) >= 4:  # said once while it shows, not a stack of them
+            self.esc_told = time.monotonic()
+            self.app.notify("ctrl+b saves and returns to the menu.", timeout=4)
 
     def finish(self) -> None:
         summary = self.tutor.end()
@@ -903,6 +938,8 @@ class SummaryScreen(ModalScreen):
     def action_close(self) -> None:
         if time.monotonic() - self.opened >= 0.7:  # not the ⏎ still held down from "Next ⏎": read it first
             self.dismiss(None)
+        else:  # ignored, but visibly
+            self.query_one("#summary-hint", Static).update("Press ⏎ again for the menu · ↑↓ scroll")
 
     def compose(self) -> ComposeResult:
         s = self.summary
@@ -918,8 +955,9 @@ class SummaryScreen(ModalScreen):
                 + (f"**New Anki cards ({(s.get('week') or {})['anki']['cards']}):** double-click "
                    f"`{(s.get('week') or {})['anki']['path']}` in the tutor folder to import them.\n\n"
                    if ((s.get("week") or {}).get("anki") or {}).get("path") else "")
-                + "Your notes and the full lesson are in Obsidian (Home → Recent lessons). Press ⏎ for the menu.")
-        with Vertical(id="summary"):
+                + "Your notes and the full lesson are in Obsidian (Home → Recent lessons).")
+        with VerticalScroll(id="summary"):  # a short window scrolls it; the way out stays in sight
+            yield Static("⏎ menu · ↑↓ scroll", id="summary-hint", classes="hint")
             yield Markdown(to_terminal(text))
 
 
@@ -967,7 +1005,7 @@ class ChatPanel(TextPanel):
 
 class ChatScreen(Screen):
     """Free chat with the tutor from the menu."""
-    BINDINGS = [Binding("escape", "app.pop_screen", "Back to menu")]
+    BINDINGS = [Binding("escape", "leave", "Back to menu")]
 
     def compose(self) -> ComposeResult:
         yield Static(Text(" Ask the tutor ", style=f"bold {C['badge_fg']} on {C['ai']}"), id="bar")
@@ -979,10 +1017,13 @@ class ChatScreen(Screen):
     def on_mount(self) -> None:
         self.run_worker(self.app.ai.reset(), group="reset")  # chat never inherits a lesson's context
 
+    def action_leave(self) -> None:
+        leave_asking_first(self, "#panel Composer", "question")  # Esc and ctrl+q: not over a question half typed
+
     @on(Panel.Done)
     def sent(self, event: Panel.Done) -> None:
         if event.data.get("skip"):
-            self.app.pop_screen()
+            self.action_leave()
             return
         q = event.data.get("text", "")
         log = self.query_one("#log", VerticalScroll)
@@ -1108,8 +1149,9 @@ class ProgressScreen(Screen):
             rows += [f"| {lv['level']} | {lv['n']} | {lv['right']:.0%} |" for lv in cal["levels"]]
         h = p["habits"]
         rows += ["", "## Habits", "", f"- Streak: {h['streak']} day{'' if h['streak'] == 1 else 's'}; studied {h['last_28']} of the last 28 days.",
-                 f"- Reviews due in the next 7 days: {' · '.join(str(x) for x in p['workload'])}."]
-        rows += ["", "Esc to go back · o opens the full profile (Profile.md) in Obsidian."]
+                 "- Reviews due in the next 7 days: " + " · ".join(
+                     f"{'today' if i == 0 else f'{t.now() + timedelta(days=i):%a}'} {x}"
+                     for i, x in enumerate(p["workload"])) + "."]
         with VerticalScroll():
             yield Markdown(to_terminal("\n".join(rows)))
         yield Footer()
@@ -1153,18 +1195,23 @@ class BlurtScreen(Screen):
     def action_submit(self) -> None:
         from textual.widgets import TextArea
         from tutorlib import lesson
-        text = self.query_one("#blurt", TextArea).text.strip()
-        if not text:
+        boxes = self.query("#blurt")
+        text = boxes.first(TextArea).text.strip() if boxes else ""
+        if not text or getattr(self, "checked", False):  # a second ctrl+s or click while the box is going: once only
             return
+        self.checked = True
+        self.query_one("#check", Button).disabled = True
         t = self.app.tutor
         res = t.blurt(self.subtopic, text)
         log = self.query_one("#log", VerticalScroll)
         n, total = len(res["recalled"]), len(res["ideas"])
+        log.mount(Static(cards.you(text, "You wrote"), classes="entry"))  # beside what it is checked against
         log.mount(Static(cards.card("good" if n == total else "hint", f"You recalled {n} of {total} ideas",
                                     "Ideas you left out are now due for review, so they come up next time."),
                          classes="entry"))
         for kc, v in res["ideas"].items():
-            note = "" if v["recalled"] else lesson.teach_card(t, kc).get("note", "")
+            note = ("You remembered this." if v["recalled"] else  # a line, not an empty box under the title
+                    lesson.teach_card(t, kc).get("note", "") or "You left this out.")
             log.mount(Static(cards.card("good" if v["recalled"] else "bad",
                                         f"{'✓' if v['recalled'] else '✗'} {v['title']}", note), classes="entry"))
         log.scroll_end(animate=False)
@@ -1186,7 +1233,8 @@ class HelpScreen(ModalScreen):
 **ctrl+t** ask the tutor (AI) · **ctrl+r** explain this idea again, differently (AI) · **ctrl+g** hint (not on
 no-hints checks) · **ctrl+o** show the current question or explanation in Obsidian · **ctrl+l** bring back what
 was said earlier (after you answer) · **ctrl+b** or **ctrl+q** save and go back to the menu. These work even while
-you are typing; when you are not typing, **t e h o** do the same.
+you are typing; when you are not typing, **t e h o** do the same. **alt+↑ alt+↓** scroll a long question or
+explanation, even while you type.
 
 Typing: **⏎** sends a short answer · **ctrl+j** starts a new line · **ctrl+s** submits a long answer or a blurt.
 
@@ -1219,7 +1267,7 @@ class SettingsScreen(ModalScreen):
                     yield Switch(value=getattr(s, key), id=key)
                     yield Static(label)
             with Horizontal(classes="row"):
-                yield Select([("Haiku (cheapest, fast)", "haiku"), ("Sonnet (clearer, ~3x usage)", "sonnet")],
+                yield Select([("Model: Haiku (cheapest, fast)", "haiku"), ("Model: Sonnet (clearer, ~3x usage)", "sonnet")],
                              value=s.model, id="model", allow_blank=False, compact=True)
             with Horizontal(classes="row"):
                 yield Select([(f"Look: {look.LABELS[name]}", name) for name in config.THEMES],
@@ -1227,10 +1275,23 @@ class SettingsScreen(ModalScreen):
             with Horizontal(classes="row"):
                 yield Static("Session length (minutes, 5 to 180)")
                 yield Input(str(s.minutes), id="minutes", type="integer", compact=True)
-            yield Button("Save", id="save", variant="primary")
+            with Horizontal(classes="row", id="save-row"):  # docked: Save and its hint stay in view in a short window
+                yield Button("Save", id="save", variant="primary")
+                yield Static("Save to apply · Esc cancels", id="settings-hint", classes="hint")
 
     def on_mount(self) -> None:
+        self._fit()
         self.query_one("#ai", Switch).focus()  # the first setting, not the scrolling box around them
+
+    def on_resize(self) -> None:
+        self._fit()
+
+    def _fit(self) -> None:
+        """A short window gets tighter rows and a one-line Save, so everything fits and Save is never cut off."""
+        short = self.app.size.height < 30
+        self.set_class(short, "short")
+        self.set_class(bool(C["frame"]), "flat")  # Night and Day: a quieter switch, the same width when focused
+        self.query_one("#save", Button).compact = short
 
     @on(Button.Pressed, "#save")
     def save(self) -> None:

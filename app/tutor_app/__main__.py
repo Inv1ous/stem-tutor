@@ -26,7 +26,7 @@ def main(argv: list[str] | None = None) -> int:
         print("\nAll good. Start with: tutor" if all(ok is not False for ok, _, _ in rows) else
               "\nFix the ✗ items above: the tutor can't start without its folder." if not rows[0][0] else
               "\nFix the ✗ items above (the tutor still runs meanwhile).")
-        return 0
+        return 1 if any(ok is False for ok, _, _ in rows) else 0
     if args.command == "look":
         from . import setup_look
         return setup_look.undo(vault) if args.undo else setup_look.install(vault, device=args.device_colours)
@@ -38,6 +38,7 @@ def main(argv: list[str] | None = None) -> int:
     if app.settings.theme != "classic":  # Classic leaves the tab as the launcher set it, as it always did
         status, app.tty_profile = mac.switch_terminal_profile(app.tty, look.TERMINAL_PROFILES[app.settings.theme])
         app.profile_missing = status == "missing"
+        app.profile_denied = status == "denied"
     print(f"\x1b]0;{app.TITLE}\x07", end="", flush=True)  # name the terminal window: a terminal shows what it is told
     try:
         app.run()
@@ -45,7 +46,7 @@ def main(argv: list[str] | None = None) -> int:
         print("\x1b]0;\x07", end="", flush=True)  # hand the title back
         if app.tty_profile:  # and the tab its own profile, as it was before the tutor
             mac.switch_terminal_profile(app.tty, app.tty_profile)
-    return 0
+    return app.return_code or 0
 
 
 if __name__ == "__main__":

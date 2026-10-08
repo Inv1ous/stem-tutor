@@ -136,7 +136,7 @@ items += [
   "stem": "A metal cube has sides of length [[s]] cm. Take the diameter of an atom to be $1.0\\times10^{-10}\\ \\mathrm{m}$ and assume each atom occupies a cube of that side. Estimate the number of atoms in the cube.",
   "template": {"params": {"s": {"choices": [1.0, 2.0, 3.0, 4.0, 6.0]}}, "answer": "(s * 1e-2) ** 3 / (1e-10) ** 3",
                "distractors": [{"expr": "s ** 3 * 1e-2 / (1e-10) ** 3", "misconception": "m5"}, {"expr": "s ** 3 * 1e-6 / 1e-10"}]},
-  "answer": {"unit": "", "sf_ok": [1, 2, 3], "tol_rel": 0.15}, "marks": 3,
+  "answer": {"unit": "", "sf_ok": [1, 2, 3], "tol_rel": 0.02}, "marks": 3,
   "explanation": "Convert the side from centimetres to metres by multiplying by $10^{-2}$, then cube it to get the volume in $\\mathrm{m^3}$. Divide by the volume of one atom, $(10^{-10})^3 = 10^{-30}\\ \\mathrm{m^3}$. For example, a 2.0 cm cube has volume $(2.0\\times10^{-2})^3 = 8.0\\times10^{-6}\\ \\mathrm{m^3}$, so it holds about $8\\times10^{24}$ atoms.",
   "hints": ["Number of atoms is the volume of the cube divided by the volume of one atom.", "Convert centimetres to metres before cubing, and cube the atomic diameter as well.", "Find the cube volume in $\\mathrm{m^3}$ and divide by $(10^{-10}\\ \\mathrm{m})^3$."]},
  {"id": f"{ST}-i06", "kcs": [K2], "kind": "numeric", "difficulty": 3, "command_word": "Calculate", "source": {"type": "generated"},

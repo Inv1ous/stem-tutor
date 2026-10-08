@@ -1,6 +1,6 @@
 # Scope: what the code is and where bugs likely hide
 
-STEM Tutor 1.6.1: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
+STEM Tutor 2.0.0: a terminal study app for one A-Level student (CAIE Physics/Chemistry, Edexcel IAL Maths) in Hong Kong
 (timezone `Asia/Hong_Kong`). A pure-Python learning engine does teaching, marking, scheduling and note-writing with no AI.
 A Textual terminal app sits on top, and Obsidian shows the notes. Claude (headless `claude -p`) is used only for
 optional chat/explanations. Python 3.13, repo venv `.venv/`.
@@ -20,10 +20,10 @@ optional chat/explanations. Python 3.13, repo venv `.venv/`.
 | `…/tutorlib/views.py` | Writes `Now.md`, `Lessons/`, `My Notes/` (managed marker blocks around the learner's own text), `Home.md` |
 | `…/tutorlib/profile.py`, `insights.py`, `report.py`, `weekly.py`, `blurt.py`, `experiments.py`, `anki.py`, `lint.py` | Profile, insights (findings, readiness, weak spots, week report), notes, weekly tasks, free-recall scoring, n-of-1 experiments, Anki export, Obsidian lint |
 | `…/tutorlib/store.py`, `deps.py` | Vault discovery, monthly JSONL event log, flock lock, atomic writes; vendored pure-Python wheels |
-| `app/tutor_app/` | `app.py`, `screens.py`, `panels.py`, `cards.py`, `ai.py` (persistent `claude -p` stream), `prompts.py`, `texmath.py` (LaTeX → Unicode), `mac.py`, `config.py` |
+| `app/tutor_app/` | `app.py`, `screens.py`, `panels.py`, `cards.py`, `ai.py` (persistent `claude -p` stream), `prompts.py`, `texmath.py` (LaTeX → Unicode, textbook spacing), `look.py` (Night/Day/Classic palettes and themes), `termprofile.py` + `setup_look.py` (`tutor look`: Terminal profiles, font, backup, undo), `mac.py`, `config.py`; `fonts/` holds the bundled JuliaMono |
 | `build/` | Content pipeline (`publish.py`, `finalize.py`, `validate_pack.py`, `teach_cards.py`, `syllabus.py`, `plan.py`, …) |
 | `foundry/foundry.py` | Runs the content pipeline per chapter (stages, gates, state files, Codex queue). Report only what could let wrong content reach the learner or lose a chapter's work |
-| `build/out/packs/<spec>/<subtopic>.json` | Content packs (22 published; `HOLD.json` lists the ones still being built) |
+| `build/out/packs/<spec>/<subtopic>.json` | Content packs (24 published; `HOLD.json` lists the ones still being built) |
 | `build/out/notes/How It Works.md` | The learner's guide. **Its claims are the spec** for behaviour |
 | `tests/`, `tests/app/` | pytest for engine and app (`fake_claude.py` stands in for the Claude CLI; Textual pilot tests) |
 | `docs/RESEARCH.md`, `CHANGELOG.md` | What each feature is based on; what 1.1.0 changed |

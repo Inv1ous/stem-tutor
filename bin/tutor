@@ -1,10 +1,36 @@
 #!/bin/bash
 # STEM Tutor: start the terminal app (or `tutor doctor` to check the setup, `tutor --setup` to reinstall).
-ROOT="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
+resolve() {  # this script's real path through any links; macOS before 12.3 has no `readlink -f`
+  local p="$1" dir
+  if readlink -f "$p" 2>/dev/null; then return; fi
+  while [ -L "$p" ]; do
+    dir="$(cd -P "$(dirname "$p")" && pwd)"
+    p="$(readlink "$p")"
+    case "$p" in /*) ;; *) p="$dir/$p" ;; esac
+  done
+  echo "$(cd -P "$(dirname "$p")" && pwd)/$(basename "$p")"
+}
+ROOT="$(cd "$(dirname "$(resolve "${BASH_SOURCE[0]}")")/.." && pwd)"
 export PYTHONPATH="$ROOT/app:$ROOT/plugin/stem-tutor/skills/tutor/scripts${PYTHONPATH:+:$PYTHONPATH}"
-if [ ! -x "$ROOT/.venv/bin/python" ] || [ "$1" = "--setup" ]; then
+if [ ! -f "$ROOT/.venv/.ready" ] || [ "$1" = "--setup" ]; then  # .ready: the last setup finished
   echo "Setting up STEM Tutor (one time)…"
-  python3 -m venv "$ROOT/.venv" && "$ROOT/.venv/bin/python" -m pip install -q -r "$ROOT/app/requirements.txt" || exit 1
+  if ! python3 -c 'import sys; sys.exit(sys.version_info < (3, 10))' 2>/dev/null; then
+    have="$(python3 --version 2>&1 | sed -n 's/^Python \([0-9][0-9]*\.[0-9][0-9]*\).*/\1/p')"
+    if [ -n "$have" ]; then
+      echo "STEM Tutor: python3 is $have: this needs 3.10 or newer." >&2
+    else  # not installed, or only macOS's stand-in that offers the Command Line Tools
+      echo 'STEM Tutor: python3 not found: install Python 3.10 or newer, e.g. from python.org or `brew install python`.' >&2
+    fi
+    echo "Then run: tutor --setup" >&2
+    exit 1
+  fi
+  rm -f "$ROOT/.venv/.ready"
+  if ! { python3 -m venv "$ROOT/.venv" && "$ROOT/.venv/bin/python" -m pip install -q -r "$ROOT/app/requirements.txt"; }; then
+    rm -rf "$ROOT/.venv"  # a half-made venv would pass for a working one
+    echo "Setup failed (see above). Check the internet connection, then run: tutor --setup" >&2
+    exit 1
+  fi
+  touch "$ROOT/.venv/.ready"
   [ "$1" = "--setup" ] && shift
 fi
 exec "$ROOT/.venv/bin/python" -m tutor_app "$@"

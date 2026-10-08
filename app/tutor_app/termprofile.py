@@ -64,7 +64,7 @@ def font(name: str, size: float) -> bytes:
 def profile(name: str, palette: dict, ansi: dict, size: float = SIZE, study: dict | None = None,
             device: bool = False) -> dict:
     """The settings of one profile: the look's colours, the bundled font at the learner's size, a 140×46 window."""
-    p = {"name": name, "type": "Window Settings", "ProfileCurrentVersion": 2.06,
+    p = {"name": name, "type": "Window Settings", "ProfileCurrentVersion": 2.07,
          "BackgroundColor": colour(palette["background"], device), "TextColor": colour(palette["text"], device),
          "TextBoldColor": colour(palette["text"], device), "CursorColor": colour(palette["tutor"], device),
          "SelectionColor": colour(palette["selection"], device),

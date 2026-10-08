@@ -228,7 +228,7 @@ short([K2], 1, "State", "State the relative charge and the relative mass of an e
             "The mass is a very small fraction of the mass of a proton."))
 numeric([K2], 2, "Calculate",
         "The relative mass of an electron is $\\frac{1}{1836}$, compared with $1$ for a proton. Approximately how many electrons have the same total mass as one proton?",
-        {"value": 1836, "unit": "", "sf_ok": [3, 4], "tol_rel": 0.01},
+        {"value": 1836, "unit": "", "sf_ok": [2, 3, 4], "tol_rel": 0.01},
         "One proton has a relative mass of 1 and each electron has 1/1836, so the number of electrons is 1 divided by 1/1836.",
         hints("The relative mass of an electron is a fraction of the mass of a proton.",
               "To find how many small masses make up one large mass, divide the large by the small.",

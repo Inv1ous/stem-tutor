@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import glob
 import hashlib
+import heapq
 import json
 import os
 import tempfile
@@ -18,6 +19,10 @@ MOUNT_GLOBS = [
     "/mnt/*",
     "/sessions/*/mnt/*",
 ]
+
+
+DEFAULT_TZ = "Asia/Hong_Kong"
+EVENT_FILES ="[0-9][0-9][0-9][0-9]-[0-9][0-9]*.jsonl"  # monthly logs and their conflict copies, nothing else
 
 
 class VaultNotFound(Exception):
@@ -91,8 +96,16 @@ class Vault:
     def __init__(self, root: Path):
         self.root = Path(root)
         self.tutor = self.root / ".tutor"
-        self.config = read_json(self.tutor / "config.json") or {}
-        self.tz = ZoneInfo(self.config.get("tz", "Asia/Hong_Kong"))
+        try:
+            self.config = read_json(self.tutor / "config.json") or {}
+        except (ValueError, OSError):  # torn by a crash mid-write: run on the defaults
+            self.config = {}
+        if not isinstance(self.config, dict):
+            self.config = {}
+        try:
+            self.tz = ZoneInfo(self.config.get("tz", DEFAULT_TZ))
+        except (KeyError, ValueError, TypeError):  # not a time zone name (ZoneInfoNotFoundError is a KeyError)
+            self.tz = ZoneInfo(DEFAULT_TZ)
 
     def now(self) -> datetime:
         return datetime.now(self.tz)
@@ -109,27 +122,55 @@ class Vault:
             f.write((("\n" if torn else "") + json.dumps(event, ensure_ascii=False) + "\n").encode("utf-8"))
         return event
 
-    def events(self):
+    def _event_files(self) -> list[Path]:
+        """The monthly files ("2026-09.jsonl") and their iCloud conflict copies ("2026-09 2.jsonl"), oldest first."""
         folder = self.tutor / "events"
-        if not folder.exists():
+        return sorted(folder.glob(EVENT_FILES)) if folder.exists() else []
+
+    def _read_events(self, paths: list[Path], bad_lines: list[str]) -> list[dict]:
+        """The events in these files, each once: month by month, each file in the order it was written."""
+        seen: set = set()
+        months: dict[str, list[list[tuple[float, dict]]]] = {}
+        for path in paths:
+            months.setdefault(path.name[:7], []).append(self._read_file(path, seen, bad_lines))
+        found = []
+        for month in sorted(months):
+            # a conflict copy ("2026-09 2") is read before its original ("2026-09."): merge the month's files in time
+            # order. Within one file the written order stands, even where the device clock stepped back, so the state
+            # built as events were written is the state rebuilt from the log. Ties go to the file read first.
+            found += [e for _, e in heapq.merge(*months[month], key=lambda ke: ke[0])]
+        return found
+
+    @staticmethod
+    def _read_file(path: Path, seen: set, bad_lines: list[str]) -> list[tuple[float, dict]]:
+        """(time, event) for the events in one file not already seen; an event without a readable time takes the time
+        of the one before it."""
+        out, last = [], float("-inf")
+        # split the bytes on "\n" only, then decode each line: a line torn mid-character is lost alone, and a
+        # U+2028 inside an answer (valid JSON) is not taken for a line break as str.splitlines() would
+        for n, line in enumerate(path.read_bytes().split(b"\n"), 1):
+            if line.strip():
+                try:
+                    e = json.loads(line.decode("utf-8"))
+                except ValueError:  # a half-written line (crash mid-save) must not lock you out of your history
+                    bad_lines.append(f"{path.name}:{n}")
+                    continue
+                if e.get("id") is not None:  # an iCloud conflict copy ("2026-09 2.jsonl") repeats events
+                    if e["id"] in seen:
+                        continue
+                    seen.add(e["id"])
+                try:
+                    last = datetime.fromisoformat(e["ts"]).timestamp()  # offsets may differ: compare instants
+                except (KeyError, TypeError, ValueError):
+                    pass
+                out.append((last, e))
+        return out
+
+    def events(self):
+        if not (self.tutor / "events").exists():
             return
         self.bad_lines = []
-        found, seen = [], set()
-        for path in sorted(folder.glob("*.jsonl")):
-            # split the bytes on "\n" only, then decode each line: a line torn mid-character is lost alone, and a
-            # U+2028 inside an answer (valid JSON) is not taken for a line break as str.splitlines() would
-            for n, line in enumerate(path.read_bytes().split(b"\n"), 1):
-                if line.strip():
-                    try:
-                        e = json.loads(line.decode("utf-8"))
-                    except ValueError:  # a half-written line (crash mid-save) must not lock you out of your history
-                        self.bad_lines.append(f"{path.name}:{n}")
-                        continue
-                    if e.get("id") is not None:  # an iCloud conflict copy ("2026-09 2.jsonl") repeats events
-                        if e["id"] in seen:
-                            continue
-                        seen.add(e["id"])
-                    found.append(e)
+        found = self._read_events(self._event_files(), self.bad_lines)
         remarks = {e["target"]: e["grade"] for e in found if e.get("type") == "regrade"}
         for e in found:  # an answer re-marked later is read with the re-mark: every report then agrees with it
             if e.get("type") == "answer" and e.get("id") in remarks:
@@ -141,15 +182,16 @@ class Vault:
             yield e
 
     def last_event_id(self) -> str | None:
-        """Id of the newest event that replay would yield (a line torn by a crash is skipped, as in events())."""
-        folder = self.tutor / "events"
-        for path in sorted(folder.glob("*.jsonl"), reverse=True) if folder.exists() else []:
-            for line in reversed(path.read_bytes().split(b"\n")):
-                if line.strip():
-                    try:
-                        return json.loads(line.decode("utf-8")).get("id")
-                    except ValueError:
-                        continue
+        """Id of the last event events() yields, read from the newest month's files only (it runs at every start)."""
+        months: dict[str, list[Path]] = {}
+        for path in self._event_files():
+            months.setdefault(path.name[:7], []).append(path)
+        for month in sorted(months, reverse=True):
+            found = self._read_events(months[month], [])
+            if found:
+                if found[-1].get("type") == "tag":  # dropped by replay if its answer was re-marked, at any time
+                    return next(iter(reversed(list(self.events()))), {}).get("id")
+                return found[-1].get("id")
         return None
 
     # --- single writer ---

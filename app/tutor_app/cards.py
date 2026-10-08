@@ -35,6 +35,8 @@ def framed(body, colour: str, title: str, **kw) -> Panel:
 
 
 def card(kind: str, title: str, body: str = "", subtitle: str | None = None) -> Panel:
+    if subtitle and C["frame"]:  # Rich draws a plain subtitle in the frame's quiet grey: too faint to read
+        subtitle = Text(subtitle, style=C["dim"])
     return framed(md(body) if body else Group(), C[kind], f"[b]{escape(to_terminal(title))}[/b]", title_align="left",
                   subtitle=subtitle, subtitle_align="right")
 
@@ -84,8 +86,8 @@ def feedback(fb: dict, your: str) -> Panel:
     return framed(md("\n".join(body)), style, f"[b]Q{fb['n']} — {title}[/b]", title_align="left")
 
 
-def you(text: str) -> Panel:
-    return framed(Text(text), C["you"], "[b]You[/b]", title_align="right")
+def you(text: str, title: str = "You") -> Panel:
+    return framed(Text(text), C["you"], f"[b]{title}[/b]", title_align="right")
 
 
 def ai(text: str, title: str = "Tutor (AI)") -> Panel:

@@ -23,12 +23,12 @@ DOWNLOADS_HELP = ("macOS isn't letting the tutor look in Downloads for your Alma
 SWITCH_PROFILE = """on run argv
     set wanted to item 2 of argv
     tell application "Terminal"
-        if not (exists settings set wanted) then return "missing"
+        if (count of (settings sets whose name is wanted)) = 0 then return "missing"
         repeat with w in windows
             repeat with t in tabs of w
                 if tty of t is (item 1 of argv) then
                     set previousName to name of current settings of t
-                    if previousName is not wanted then set current settings of t to settings set wanted
+                    if previousName is not wanted then set current settings of t to (first settings set whose name is wanted)
                     return "ok" & linefeed & previousName
                 end if
             end repeat
@@ -38,6 +38,8 @@ SWITCH_PROFILE = """on run argv
 end run"""
 LOOK_HELP = ("This look's Terminal window isn't set up yet, so its edges keep the old colours. In Terminal run:  "
              "tutor look   (once; it backs up your Terminal settings first). Or choose Classic in Settings (F2).")
+AUTOMATION_HELP = ("macOS has not allowed the tutor to switch this window's profile, so its edges keep the old colours. "
+                   "To allow it: System Settings › Privacy & Security › Automation › Terminal.")
 
 
 def terminal_tty() -> str | None:
@@ -54,15 +56,17 @@ def terminal_tty() -> str | None:
 
 def switch_terminal_profile(tty: str | None, name: str) -> tuple[str, str | None]:
     """Show the Terminal tab on `tty` in the profile `name` (only that tab). Returns ("ok", the profile it had),
-    ("missing", None) when Terminal has no such profile, or ("", None) when it could not be asked (not in Terminal,
-    Apple Events refused, too slow)."""
+    ("missing", None) when Terminal has no such profile, ("denied", None) when macOS refused the tutor control of
+    Terminal (Automation permission, -1743), or ("", None) when it could not be asked (not in Terminal, too slow)."""
     if not tty:
         return "", None
     try:
         done = subprocess.run(["osascript", "-", tty, name], input=SWITCH_PROFILE, capture_output=True, text=True,
-                              timeout=3)
+                              timeout=20)  # time to answer macOS's one-time prompt: killed under it, it comes back
     except (OSError, subprocess.SubprocessError):
         return "", None
+    if "-1743" in done.stderr or "Not authorized" in done.stderr:
+        return "denied", None
     status, _, was = done.stdout.strip().partition("\n")
     return status, (was.strip() or None)
 
@@ -152,7 +156,8 @@ def claude_limits(path: Path) -> dict:
     try:
         limits = json.loads(Path(path).read_text())["cachedUsageUtilization"]["utilization"]["limits"]
         return {{"session": "five_hour", "weekly_all": "seven_day"}.get(x["kind"], x["kind"]):
-                {"used": float(x["percent"]), "resets": datetime.fromisoformat(x["resets_at"]).timestamp()}
+                {"used": float(x["percent"]),
+                 "resets": datetime.fromisoformat(x["resets_at"].replace("Z", "+00:00")).timestamp()}  # Z: Python < 3.11
                 for x in limits if x.get("is_active") and x.get("percent") is not None and x.get("resets_at")}
     except (OSError, ValueError, KeyError, TypeError):
         return {}
@@ -219,6 +224,21 @@ def doctor(vault: Path) -> list[tuple[bool, str, str]]:
             events, bad = 0, ["the history could not be read"]
         rows.append((bool(cur), f"Content packs: {cur or 'none published'}; {events} study events recorded",
                      "" if cur else "Run the build's publish step."))
+        if cur:
+            from tutorlib import packs
+            try:
+                content = packs.Packs(store.Vault(vault))
+                for sub in content.subtopics:
+                    content.pack(sub)
+                damaged = content.damaged
+            except packs.DamagedContent as e:
+                damaged = [e.path]
+            except (OSError, ValueError, KeyError):  # a missing version folder and the like: not this row's to say
+                damaged = []
+            if damaged:
+                rows.append((False, f"Content files: {len(damaged)} damaged ({', '.join(damaged[:3])}"
+                             f"{', …' if len(damaged) > 3 else ''})",
+                             "Reinstall the content (run publish): the rest of your data is untouched."))
         if bad:
             rows.append((False, f"Study history: {len(bad)} damaged line{'s' if len(bad) != 1 else ''} skipped "
                          f"({', '.join(bad[:3])}{', …' if len(bad) > 3 else ''})",

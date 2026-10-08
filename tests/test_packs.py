@@ -94,3 +94,22 @@ def test_extra_tier_items_only_used_after_explained_ones(P):
     only_extra = P.select_item("9702-2.1.1", state, target_p=0.8, rng=random.Random(0),
                                exclude={"9702-2.1-i01", "9702-2.1-i04"})
     assert only_extra["id"] == "9702-2.1-x99"
+
+
+@pytest.mark.parametrize("name", ["manifest.json", "plan.json", "papers.json", "specs/9702/graph.json"])
+def test_a_damaged_content_file_is_named_in_one_line(tmp_path, name):
+    root = make_vault(tmp_path)
+    (root / ".tutor/packs/v1" / name).write_text('{"cut off')
+    with pytest.raises(packs.DamagedContent) as e:
+        packs.Packs(store.Vault(root))
+    msg = str(e.value)
+    assert "\n" not in msg and f"The content file .tutor/packs/v1/{name} is damaged" in msg
+    assert "reinstall the content (run publish)" in msg and "the rest of your data is untouched" in msg
+
+
+def test_a_damaged_chapter_pack_is_left_out_and_named(tmp_path):
+    root = make_vault(tmp_path)
+    (root / ".tutor/packs/v1/specs/9702/packs/9702-2.1.json").write_text('{"items": [')
+    P = packs.Packs(store.Vault(root))
+    assert P.pack("9702-2.1") is None and P.items_for("9702-2.1.1") == []  # as a chapter not built yet
+    assert P.damaged == [".tutor/packs/v1/specs/9702/packs/9702-2.1.json"]

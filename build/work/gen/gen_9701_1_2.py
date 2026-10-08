@@ -69,7 +69,7 @@ items.append(mcq("i01", [K1], 2, "State", "Which statement about the isotopes of
      "B": "They have different numbers of protons and the same number of neutrons.",
      "C": "They have the same number of protons and neutrons but different numbers of electrons.",
      "D": "They have the same nucleon number but different proton numbers."}, "A",
-    "Isotopes are atoms of the same element, so the proton number is fixed; they differ only in neutrons and therefore in nucleon number. Option D describes atoms of different elements.",
+    "Isotopes are atoms of the same element, so the proton number is fixed; they differ only in neutrons and therefore in nucleon number. The statement about the same nucleon number but different proton numbers describes atoms of different elements.",
     ["Which particle count decides which element an atom belongs to?", "Isotopes are all atoms of one element, so one of the particle counts must stay fixed and another must vary.", "Test each option: would the two atoms it describes still be atoms of the same element?"],
     {"B": "m2", "C": "m2", "D": "m1"}))
 items.append({"id": f"{SUB}-i02", "kcs": [K1], "kind": "short", "difficulty": 2, "command_word": "Define",
@@ -89,7 +89,7 @@ items.append({"id": f"{SUB}-i03", "kcs": [K1, K2], "kind": "numeric", "difficult
 items.append(mcq("i04", [K1], 3, "Identify", "Which pair of species are isotopes of the same element?",
     {"A": f"{nu(35,17,'Cl')} and {nu(37,17,'Cl')}", "B": f"{nu(40,18,'Ar')} and {nu(40,19,'K')}",
      "C": f"{nu(35,17,'Cl')} and {nu(35,17,'Cl','-')}", "D": f"{nu(14,6,'C')} and {nu(16,8,'O')}"}, "A",
-    "Only the chlorine pair has the same proton number (17) with different neutron numbers (18 and 20). B has equal nucleon numbers but different elements, C differs only in electrons (an ion) and D has the same number of neutrons (8) but different protons.",
+    "Only the chlorine pair has the same proton number (17) with different neutron numbers (18 and 20). The argon and potassium pair has equal nucleon numbers but different elements, the chlorine atom and chloride ion differ only in electrons and the carbon and oxygen pair has the same number of neutrons (8) but different protons.",
     ["Work out the protons and neutrons for each species, not just the top numbers.", "For every pair, ask: same element (same proton number) and different neutron number?", "Find the pair with equal bottom numbers and unequal top numbers, with no charge change."],
     {"B": "m1", "C": "m2", "D": "m2"}))
 items.append({"id": f"{SUB}-i05", "kcs": [K1, K2], "kind": "structured", "difficulty": 4, "command_word": "Define",
@@ -104,7 +104,7 @@ items.append({"id": f"{SUB}-i05", "kcs": [K1, K2], "kind": "structured", "diffic
 items.append(mcq("i06", [K1], 4, "Deduce", f"Atoms of {nu(40,18,'Ar')}, {nu(40,19,'K')} and {nu(40,20,'Ca')} are compared. Which statement is correct?",
     {"A": "They have the same total number of protons and neutrons.", "B": "They have the same number of neutrons.",
      "C": "They have the same number of electrons.", "D": "They are isotopes of the same element."}, "A",
-    "All three have nucleon number 40. Their proton numbers (18, 19, 20) differ, so they are different elements with 22, 21 and 20 neutrons, so B, C and D are wrong. Sharing a nucleon number does not make atoms isotopes.",
+    "All three have nucleon number 40. Their proton numbers (18, 19, 20) differ, so they are different elements with 22, 21 and 20 neutrons, so the statements about equal neutron numbers, equal electron numbers and being isotopes are wrong. Sharing a nucleon number does not make atoms isotopes.",
     ["Read the top and bottom numbers of each symbol carefully.", "Isotopes need the same proton number. Do these three have it?", "For each option, work out that particle count for all three atoms before deciding."],
     {"D": "m1"}))
 items.append(mcq("p03", [K1, K3], 2, "Identify", "Which statements are correct when referring to the two common isotopes of chlorine?\n\n1. The isotopes have different masses.\n2. The isotopes have different numbers of nucleons.\n3. The isotopes have the same chemical reactions.",
@@ -131,7 +131,7 @@ items.append(mcq("i08", [K2], 2, "State", f"In the symbol {nu(23,11,'Na')}, what
 items.append(mcq("i09", [K2], 3, "Deduce", f"How many protons, neutrons and electrons are in the ion {nu(27,13,'Al','3+')}?",
     {"A": "13 protons, 14 neutrons, 10 electrons", "B": "13 protons, 14 neutrons, 16 electrons",
      "C": "13 protons, 27 neutrons, 10 electrons", "D": "13 protons, 14 neutrons, 13 electrons"}, "A",
-    "Protons = 13 (bottom number). Neutrons = $27-13=14$. The charge of 3+ means three electrons lost from the neutral atom's 13, leaving 10. B adds electrons instead of removing them, C uses the nucleon number as the neutron count and D ignores the charge.",
+    "Protons = 13 (bottom number). Neutrons = $27-13=14$. The charge of 3+ means three electrons lost from the neutral atom's 13, leaving 10. The wrong rows add electrons instead of removing them (16), use the nucleon number as the neutron count (27) or ignore the charge (13).",
     ["Read off the protons from the symbol first, then handle neutrons and electrons separately.", "Neutrons: nucleon number minus proton number. Electrons: think about what a positive charge tells you.", "A 3+ ion has lost three electrons."],
     {}))
 items.append({"id": f"{SUB}-i11", "kcs": [K2, K1], "kind": "structured", "difficulty": 3, "command_word": "Deduce",
@@ -166,7 +166,7 @@ items.append(mcq("i14", [K3], 3, "Explain", "Why do the isotopes of an element h
      "B": "The extra neutrons take part in the bonding of the heavier isotope in the same way.",
      "C": "They have the same nucleon number.",
      "D": "They have the same number of neutrons."}, "A",
-    "Reactions involve electrons, and isotopes have identical electron configurations. Neutrons are not involved in bonding (B), and isotopes differ in nucleon number and neutron number (C, D).",
+    "Reactions involve electrons, and isotopes have identical electron configurations. Neutrons are not involved in bonding, and isotopes differ in nucleon number and neutron number.",
     ["Which particles are transferred or shared in chemical reactions?", "Consider what the isotopes share and whether that shared thing takes part in reactions.", "It is not the nucleus; the shared feature is outside it."],
     {"B": "m4", "C": "m1", "D": "m2"}))
 items.append(mcq("i17", [K3, K4], 3, "Compare", "Samples of gaseous $^{35}\\mathrm{Cl}_2$ and $^{37}\\mathrm{Cl}_2$ are compared at the same temperature and pressure. Which statement is correct?",
@@ -197,7 +197,7 @@ items.append(mcq("i18", [K4], 3, "Explain", "At the same temperature and pressur
      "B": "Each $^{37}\\mathrm{Cl}_2$ molecule has a greater mass, and equal volumes of the two gases contain equal numbers of molecules.",
      "C": "$^{37}\\mathrm{Cl}$ atoms have more electrons than $^{35}\\mathrm{Cl}$ atoms.",
      "D": "$^{37}\\mathrm{Cl}$ atoms have a different electron configuration, so they form stronger Cl–Cl bonds."}, "B",
-    "Each $^{37}\\mathrm{Cl}$ atom has two more neutrons, so each molecule is heavier, while equal volumes of gases at the same temperature and pressure hold the same number of molecules; mass ÷ volume is therefore larger. The isotopes have the same proton number and the same electron configuration (A, C, D are false).",
+    "Each $^{37}\\mathrm{Cl}$ atom has two more neutrons, so each molecule is heavier, while equal volumes of gases at the same temperature and pressure hold the same number of molecules; mass ÷ volume is therefore larger. The isotopes have the same proton number and the same electron configuration (the other three statements are false).",
     ["Density is mass divided by volume. Which of these does the extra particle change?", "Isotopes have the same numbers of protons and electrons, so cross out anything that changes those.", "For the options left, check that the statement about mass and about volume are both true for gases at the same temperature and pressure."],
     {"A": "m2", "C": "m2", "D": "m4"}))
 items.append({"id": f"{SUB}-i19", "kcs": [K4], "kind": "numeric", "difficulty": 4, "command_word": "Calculate",

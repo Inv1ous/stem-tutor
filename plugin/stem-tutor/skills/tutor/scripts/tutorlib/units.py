@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 
 # dimension order: m, kg, s, A, K, mol
 def _d(m=0, kg=0, s=0, A=0, K=0, mol=0):
@@ -45,6 +46,16 @@ ALIASES = {"percent": "%", "mins": "min", "minute": "min", "minutes": "min", "se
 PREFIX = {"G": 1e9, "M": 1e6, "k": 1e3, "d": 1e-1, "c": 1e-2, "m": 1e-3, "μ": 1e-6, "µ": 1e-6, "u": 1e-6, "n": 1e-9, "p": 1e-12}
 
 SUPERSCRIPT = str.maketrans("⁻⁺⁰¹²³⁴⁵⁶⁷⁸⁹", "-+0123456789")
+# characters typed for the ones they look like; º and ˚ first, since NFKC would make them "o" and a space
+_BEFORE_NFKC = str.maketrans({"º": "°", "˚": "°", "⋅": "·", "∙": "·"})
+_AFTER_NFKC = str.maketrans({c: "-" for c in "−–‒‐‑﹣－"})
+
+
+def plain_text(text: str) -> str:
+    """One spelling for lookalike characters: the ohm sign Ω as Ω, µ as μ, K (kelvin sign) as K, ℃ as °C, º and ˚ as
+    °, ⋅ as ·, every dash and minus as -, full-width digits as digits. Superscript digits become plain digits too,
+    so a caller that reads a power from them must convert them first (grade.plain_powers)."""
+    return unicodedata.normalize("NFKC", text.translate(_BEFORE_NFKC)).translate(_AFTER_NFKC)
 # a run of letters is tried as every sequence of symbols ("kgms" = kg·m·s) and the readings of each token multiply:
 # both grow exponentially, so anything longer than a real unit is refused instead of being worked through
 MAX_RUN, MAX_READINGS = 12, 2_000
@@ -61,28 +72,40 @@ def _symbol(sym: str):
     return None
 
 
-def _splits(sym: str):
-    """Ways to read a run of letters as consecutive unit symbols, e.g. 'ms' -> m·s."""
+def _splits(sym: str, prev: str = ""):
+    """Ways to read a run of letters as consecutive unit symbols, e.g. 'ms' -> m·s. A symbol never follows itself:
+    nobody writes m² as "mm", which is a millimetre (3.0 mm scored full marks for 3.0 m²)."""
     if not sym:
         yield []
         return
     for i in range(len(sym), 0, -1):
+        if sym[:i] == prev:
+            continue
         head = _symbol(sym[:i])
         if head:
-            for rest in _splits(sym[i:]):
+            for rest in _splits(sym[i:], sym[:i]):
                 yield [head] + rest
 
 
 def _normalise(text: str) -> list[tuple[str, int, int]]:
     """(symbol run, exponent, +1 above the line or -1 below it) per token."""
-    text = re.sub(r"[{}]", "", text.translate(SUPERSCRIPT))  # LaTeX braces: dm^{-3}
+    text = re.sub(r"[{}]", "", plain_text(text.translate(SUPERSCRIPT)))  # LaTeX braces: dm^{-3}
     text = text.replace("·", " ").replace("*", " ").replace(".", " ").strip()
     text = re.sub(r"\bper\s+cent\b", "percent", text, flags=re.I)
     text = re.sub(r"\s*/\s*", " / ", text)
-    tokens, sign = [], 1
+    # a bracketed denominator, J/(mol K), is all below the line and what follows it is not; nested brackets or a
+    # slash inside are left as they are, so they fail to read (unreadable, never a wrong unit)
+    text = re.sub(r"/ \(([^()/]*)\)", r" /( \1 )/ ", text)
+    tokens, sign, before = [], 1, 1
     for raw in text.split():
         if raw == "/":
             sign = -1
+            continue
+        if raw == "/(":
+            before, sign = sign, -1
+            continue
+        if raw == ")/":
+            sign = before
             continue
         m = TOKEN.match(raw)
         if not m:
@@ -128,6 +151,7 @@ _MOLARITY = _d(m=-3, mol=1)
 
 def unit_factor(given: str, expected: str) -> float | None:
     """Multiply a value in `given` units by this to express it in `expected` units."""
+    given, expected = plain_text(given), plain_text(expected)
     if given.strip().lower() in _DEGREES:
         given = "°"
     if given.strip() == "M":  # molar, read so only where the answer is a concentration: never mega-anything
@@ -196,7 +220,7 @@ def unit_readings(given: str, expected: str) -> tuple[list[float], bool]:
     what was written cannot be read as the right kind of unit are capitals forgiven (kw, KW, pa) and spelled-out
     names accepted (kilowatts, joules per second); "mw" may then be mW or MW, and the caller sees which of them
     makes the answer right."""
-    words = given.split()
+    words = plain_text(given).split()
     for k in range(len(words), 0, -1):
         if k < len(words) and _is_unit(words[k]):
             continue

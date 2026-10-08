@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 1.6.1_
+_Version 2.0.0_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,14 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 2.0.0
+> - **A cleaner window.** Pick a look in **Settings (F2) → Look**: **Night** (calm dark), **Day** (light) or **Classic** (as before). Until you set it up, nothing changes.
+> - **Set it up once:** in Terminal run `tutor look`. It saves your Terminal settings first, installs the **JuliaMono** font (it draws all the maths symbols), adds two Terminal profiles and shows a test page. To go back: `tutor look --undo`.
+> - **Maths reads like a textbook:** `s = ut + ½at²`, `√(b² − 4ac)`, `ΔH⦵ = −286 kJ mol⁻¹`, `Cu²⁺ + 2e⁻ → Cu`, `dy/dx`.
+> - **Marking:** `J/(mol K)` is accepted, `ΔH = −57 kJ mol⁻¹` is read, `sin2x` means sin(2x). Things that cannot be read safely (like `5 x 1000`) are now asked about again instead of being marked wrong.
+> - **Easier on small windows:** a mark-scheme point you tick is shown in full; long questions open at their top (**alt+↑/alt+↓** scroll); the summary scrolls; **ctrl+s** confirms a tick list.
+> - **Safer behind the scenes:** a crash mid-answer is recovered fully, a damaged file no longer stops the tutor, and several published questions were repaired.
 
 > [!example] New in 1.6.1
 > - **More right answers are marked right:** `2,880kJ`, `x = 24`, `30 degrees`, `0.5 M`, equations like `v² = u² + 2as`.
@@ -52,7 +60,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!example] New in 1.2.7
 > - **No more leftovers at the right edge.** After you resized the window, bits of the old screen (pieces of border and scrollbar, stray letters) stayed in the strip between the tutor and Terminal's own scrollbar. The tutor now wipes them every time the window changes size.
-> - **Start Tutor opens in your Study profile.** The window's title bar shows only **STEM Tutor**, and the profile's colours match the tutor, so the thin frame Terminal leaves round the text no longer shows. Your other Terminal windows are unchanged.
+> - **Start Tutor opens in your Study profile** (from 2.0.0, with `tutor look` set up, the tutor switches its own window to the profile of the look you chose). The window's title bar shows only **STEM Tutor**, and the profile's colours match the tutor, so the thin frame Terminal leaves round the text no longer shows. Your other Terminal windows are unchanged.
 
 > [!example] New in 1.2.6
 > - **The Terminal window is named STEM Tutor** while the tutor runs. Terminal adds its own details after the name (folder, running program, window size). To show the name alone, untick them in Terminal → Settings → Profiles → Window.

@@ -7,10 +7,12 @@ ROOT = Path(__file__).resolve().parents[3]
 SUB = '9701-6.1'
 K = {i: f'{SUB}.{i}' for i in range(1, 6)}
 BANK = {q['id']: q for q in json.loads((ROOT/'build/work/mcq/9701.tagged.json').read_text())}
+# corrections to bank questions (garbled fractions, figure-only options) live in overrides.json, as for the extras
+FIX={q:{k:v for k,v in f.items() if k in ('stem','options')} for q,f in json.loads((ROOT/'build/work/mcq/overrides.json').read_text()).items()}
 items = []
 
 def past(qid, kcs, explanation, wrong=None):
-    q = BANK[qid]
+    q = {**BANK[qid], **FIX.get(qid, {})}
     assert q['answer'] in q['options'] and all(q['options'].values())
     it = {'id':f'{SUB}-p{1+sum(i["source"]["type"]=="past" for i in items):02d}',
           'kcs':[K[k] for k in kcs], 'kind':'mcq', 'difficulty':3,

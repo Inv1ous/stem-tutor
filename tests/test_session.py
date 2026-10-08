@@ -152,6 +152,21 @@ def test_short_answer_needing_judgement_stays_pending_until_judged(tutor):
     assert fb["results"][0]["score"] == 0.5 and str(n) not in tutor.session["presented"]
 
 
+@pytest.mark.parametrize("given, score", [(75, 1.0), (-2, 0.0), ("nan", None), ("half", None)])
+def test_a_judge_score_is_kept_between_0_and_1(tutor, given, score):
+    tutor.start("review", minutes=10)
+    item = {"id": "s1", "kcs": ["9702-2.1.1"], "kind": "short", "difficulty": 2, "marks": 1, "stem": "Define displacement.",
+            "rubric": [{"point": "distance in a stated direction", "keywords": ["direction"]}]}
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    r = tutor.answer(f"{n} = distance with a direction ~3", judge={n: given})["results"][0]
+    if score is None:
+        assert "error" in r and str(n) in tutor.session["presented"]  # not marked: it stays open
+    else:
+        assert r["score"] == score
+        (ev,) = [e for e in tutor.vault.events() if e["type"] == "answer"]
+        assert ev["grade"]["score"] == score
+
+
 def test_experiment_retest_scores_after_three_items(tutor):
     tutor.start("autopilot", minutes=50)
     tutor.end()
@@ -209,6 +224,18 @@ def test_paper_list_and_score_logs_per_question(tutor):
     evs = [e for e in tutor.vault.events() if e["type"] == "answer" and e["block"] == "paper"]
     assert len(evs) == 2 and evs[1]["grade"]["score"] == pytest.approx(1 / 3, abs=0.01)
     assert any(e["type"] == "paper_result" for e in tutor.vault.events())
+
+
+@pytest.mark.parametrize("text", ["hello world", "9z=1/2", ""])
+def test_marks_with_no_question_of_the_paper_are_refused_and_log_nothing(tutor, text):
+    r = tutor.paper_score("9702_s23_qp_22", text)
+    assert r["ok"] is False and "1a=2/3" in r["fix"]
+    assert not list(tutor.vault.events()) and not tutor.paper_list("9702")[0]["done"]
+
+
+def test_a_paper_marked_in_part_is_a_percent_of_the_whole_paper(tutor):
+    r = tutor.paper_score("9702_s23_qp_22", "1a=2/2")  # 2 of the paper's 60 marks
+    assert r["score"] == 2 and r["max"] == 2 and r["percent"] == round(100 * 2 / 60, 1) and r["partial"]
 
 
 def test_only_new_objectives_introduce_topics(tutor):
@@ -564,6 +591,56 @@ def test_an_answer_that_reached_the_log_but_no_save_is_kept_once(tutor, monkeypa
     assert t.state == t._fold() == _restart(t).state
 
 
+def test_a_retest_score_that_reached_the_log_but_no_save_is_logged_once(tutor, monkeypatch):
+    tutor.start("autopilot", minutes=50)
+    tutor.end()
+    tutor.log({"type": "exp_start", "exp": "E1", "subject": "phys", "arms": ["worked_faded", "problem_first"],
+               "eligible": {"types": ["conceptual"]}, "target_pairs": 4})
+    tutor.log({"type": "exp_assign", "exp": "E1", "kc": "9702-2.1.1", "arm": "worked_faded", "pair": 0})
+    tutor.clock.t = T0 + timedelta(days=8)
+    assert tutor.start("autopilot", minutes=50)["blocks"][0]["kind"] == "retest"
+    save = tutor._save
+
+    def save_until_scored(*a, **kw):  # the app stops after the retest score is appended, before the save
+        if any(e["type"] == "exp_score" for e in tutor.vault.events()):
+            _stop()
+        return save(*a, **kw)
+
+    monkeypatch.setattr(tutor, "_save", save_until_scored)
+    with pytest.raises(RuntimeError):
+        for _ in range(3):
+            _answer_all(tutor, tutor.next(), good=True)
+    t = _restart(tutor)
+    again = _restart(t)
+    assert len([e for e in again.vault.events() if e["type"] == "exp_score"]) == 1
+    assert again.state == again._fold() and t.state == t._fold()
+    assert experiments.retests_due(again.state, again.clock.t) == []
+
+
+@pytest.mark.parametrize("dont_know", [True, False])
+def test_an_answer_recovered_from_the_log_does_what_marking_it_did(tutor, dont_know):
+    tutor.start("test", minutes=50, focus=["9702-2.1"])
+    act = tutor.next()
+    before = tutor.session_path.read_text()  # the session as saved before the answers were marked
+    if dont_know:
+        tutor.answer(", ".join(f"{q['n']}?" for q in act["items"]))
+    else:
+        _answer_all(tutor, act, good=False)
+    live = tutor.session
+    assert all(not r["ok"] for r in live["blocks"][0]["res"].values())
+    tutor.session_path.write_text(before)  # the app stopped after the answers reached the log, before the save
+    t = _restart(tutor)
+    for k in ("blocks", "presented", "answered", "correct", "kcs_answered", "retest", "reflections"):
+        assert t.session.get(k) == live.get(k), k
+    assert [q["event"] for q in t.session["recent"]] == [q["event"] for q in live["recent"]]
+    assert [(fb["n"], fb["correct"]) for fb in t.session["last_feedback"]] == [
+        (fb["n"], fb["correct"]) for fb in live["last_feedback"]]
+    assert t.state == t._fold()
+    again = _restart(t)  # recovering twice changes nothing more
+    assert again.session["answered"] == t.session["answered"] and again.session["blocks"] == t.session["blocks"]
+    assert again.state == again._fold() == t.state
+
+
 def test_a_stop_after_the_state_was_saved_does_not_reopen_the_question(tutor, monkeypatch):
     tutor.start("test", minutes=40, focus=["9702-2.1"])
     first, second = tutor.next()["items"]
@@ -582,6 +659,24 @@ def test_a_clean_restart_does_not_rebuild_the_state(tutor, monkeypatch):
     folds = []
     monkeypatch.setattr(session.Tutor, "_fold", lambda self: folds.append(1) or {})
     assert _restart(tutor).state == tutor.state and not folds  # only a log that moved on forces a rebuild
+
+
+def test_a_conflict_copy_or_a_dropped_tag_forces_one_rebuild_not_one_per_start(tutor, monkeypatch):
+    tutor.start("test", minutes=40, focus=["9702-2.1"])
+    _answer_all(tutor, tutor.next(), good=False)
+    tutor.end()
+    folder = tutor.vault.tutor / "events"
+    (folder / "2026-09 2.jsonl").write_bytes((folder / "2026-09.jsonl").read_bytes()
+                                             + b'{"id": "other", "ts": "2026-09-29T16:00:00+08:00", "type": "note"}\n')
+    wrong = next(e for e in tutor.vault.events() if e["type"] == "answer")
+    tutor.log({"type": "regrade", "target": wrong["id"], "item": wrong["item"], "grade": dict(session.RIGHT)})
+    tutor.log({"type": "tag", "target": wrong["id"], "error": "SLIP"})  # replay drops it: the answer was re-marked
+    t = _restart(tutor)  # the log moved on behind the saved state: rebuilt once
+    assert t.state == t._fold()
+    t._save()  # as the next command that changes anything does
+    folds = []
+    monkeypatch.setattr(session.Tutor, "_fold", lambda self: folds.append(1) or {})
+    assert _restart(t).state == t.state and not folds
 
 
 # ---------- the answer as shown ----------
@@ -861,6 +956,23 @@ def test_a_re_mark_puts_the_session_back_as_if_the_answer_had_been_marked_right(
     assert tutor.session["recent"][-1]["correct"] and str(n) not in tutor.session["presented"]
     events = list(tutor.vault.events())
     assert not [e for e in events if e["type"] == "tag"] and len([e for e in events if e["type"] == "answer"]) == 1
+
+
+def test_a_reason_for_a_miss_is_refused_once_the_answer_was_re_marked_or_when_it_names_nothing(tutor):
+    tutor.start("review", minutes=10)
+    item = next(i for i in tutor.packs.items_for("9702-2.1.1") if i["kind"] == "mcq")
+    n = tutor._present(item, block="practice", phase=None)["n"]
+    inst = tutor.session["presented"][str(n)]["inst"]
+    fb = tutor.answer(f"{n}{next(k for k in inst['options'] if k != inst['answer'])}3")["results"][0]
+    assert tutor.tag(fb["event"], "careless")["ok"] is False  # not an error code
+    assert tutor.tag("nosuchevent", "SLIP")["ok"] is False
+    session_start = next(e for e in tutor.vault.events() if e["type"] == "session_start")
+    assert tutor.tag(session_start["id"], "SLIP")["ok"] is False  # not an answer
+    assert not [e for e in tutor.vault.events() if e["type"] == "tag"]
+    assert tutor.tag(fb["event"], "slip")["ok"]
+    assert tutor.regrade(fb["event"], "the same answer")["ok"]
+    assert tutor.tag(fb["event"], "MISREAD") == {"ok": False, "error": "already re-marked"}
+    assert tutor.state == tutor._fold()
 
 
 def test_torn_state_files_do_not_stop_the_tutor_starting(tmp_path):

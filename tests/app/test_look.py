@@ -40,6 +40,9 @@ def test_classic_keeps_every_colour_the_app_had():
     assert classic.variables["menu-border"] == made["accent"] == classic.variables["panel-rule"]
     assert classic.variables["modal-border"] == made["accent"]
     assert classic.variables["stats-border"] == made["primary-darken-2"]
+    assert classic.variables["modal-background"] == made["surface"]
+    assert classic.variables["check-color"] == made["warning"]
+    assert classic.variables["markdown-h1-align"] == "center"  # Markdown's own: titles centred as before
 
 
 @pytest.mark.parametrize("name", ["night", "day"])
@@ -54,6 +57,15 @@ def test_night_and_day_are_easy_to_read(name):
     for under in ("surface", "panel", "cursor", "selection"):
         assert contrast(p["text"], p[under]) >= 7, under
     assert 1.3 <= contrast(p["frame"], bg) <= 2.2  # a frame you see but don't read
+
+
+@pytest.mark.parametrize("name", ["night", "day"])
+def test_a_smaller_heading_is_never_louder_than_a_larger_one(name):
+    """An H3 (Insights: "How well you remember") was in the H1's blue, under a plain H2. Classic keeps Markdown's own."""
+    theme = next(t for t in look.textual_themes() if t.name == look.THEME[name])
+    made = theme.to_color_system().generate()
+    assert made["markdown-h1-color"] == look.PALETTES[name]["tutor"]
+    assert made["markdown-h3-color"] == made["markdown-h2-color"] == look.PALETTES[name]["text"]
 
 
 def test_the_theme_setting_is_one_of_the_three_or_classic(tmp_path):

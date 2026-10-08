@@ -85,7 +85,8 @@ def claude_cache(path: Path) -> tuple[dict, float]:
                 name = {"session": "five_hour", "weekly_all": "seven_day"}.get(lim.get("kind"), str(lim.get("kind")))
                 resets = lim.get("resets_at")
                 windows[name] = {"used": float(lim["percent"]),
-                                 "resets": datetime.fromisoformat(resets).timestamp() if resets else None}
+                                 "resets": datetime.fromisoformat(resets.replace("Z", "+00:00")).timestamp()
+                                 if resets else None}
         return windows, cached["fetchedAtMs"] / 1000
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
         return {}, 0.0

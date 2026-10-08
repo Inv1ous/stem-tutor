@@ -1,5 +1,72 @@
 # Changelog
 
+## 2.0.0 — 2026-10-08
+
+A new look for the terminal window, and a long bug-and-comfort pass hunted by parallel agents (read-only hunters,
+test-first fixers, independent reviews). 1.6.1 → 2.0.0 is one release because the new look touches every screen.
+
+- **A cleaner window.** Three looks, chosen in Settings (F2): **Night** (calm dark, one blue accent, quiet grey
+  frames), **Day** (warm paper, dark ink) and **Classic** (the colours of 1.6.1, byte for byte; it is what you get
+  until you opt in). Every colour comes from one palette of roles (`look.py`); Night and Day pass contrast checks
+  (text 7:1, colours 4.5:1). Night and Day use 24-bit colour on macOS 26 and later.
+- **`tutor look`** sets up macOS Terminal once: it backs up Terminal's settings first (and stops if it cannot),
+  installs the bundled **JuliaMono** (OFL; one fixed-width font that also draws the maths), adds "STEM Tutor Night"
+  and "STEM Tutor Day" profiles built from the same palette (never touching your own profiles), switches to Night
+  and prints a test page. The tutor's own tab follows the look and is put back as it was on exit. `tutor look
+  --undo` goes back and lists how to remove the rest. `tutor doctor` checks the font, the profiles and the colour
+  depth, and now exits 1 when something is wrong.
+- **Symbols:** colour emoji, which can draw two cells wide and overlap, are one-cell shapes (✶ ↻ ⧗ ▦ △ ▸ ◷ ✓ ✗);
+  a test checks every character on every screen is in the font, one cell wide and not an emoji.
+- **Maths reads as printed:** `s = ut + ½at²`, `√(b² − 4ac)`, a true minus, `ΔH⦵ = −286 kJ mol⁻¹`,
+  `Cu²⁺ + 2e⁻ → Cu`, `dy/dx`, `𝐅 = m𝐚`, `∫₀¹ x² dx`, `A —Δ→ B`, `⟨c²⟩`, accents over several letters, `Kc`,
+  `|−3| = 3`. Fixed: `Fe3+` shown as `Fe₃+`, `Na+(g)` losing its charge, `⇌` shown as "leftharpoons", raw `$…$` in
+  card titles and on Summary, Progress and Insights, unbraced limits, nested bars, and dozens more commands.
+- **Marking:** `× 1000` and `x 105` are no longer read as a power of ten (`3 x 100` was accepted for 3); `J/(mol K)`
+  is `J mol⁻¹ K⁻¹`; `mm` is never m·m (3.0 mm for 3.0 m² was full marks); the ohm sign, `⋅`, `º`, other dashes and
+  `− 3.2` read as meant; `ΔH = −57 kJ` and `θ = 30°` read like `x = 24`; `sin2x` is sin(2x); a decimal comma
+  (`3 = 1,5 m`) keeps the question open; a unit ending in a digit never swallows the next answer; blind MCQ answers
+  like "(B)" read by their letter. Checked over ~1,000,000 numeric cases: every published answer is still right for
+  its own key, and every changed decision moved toward correct or toward "unreadable" (the question stays open).
+- **Screens:** a self-marking point is shown in full under the tick list; long questions open at their top and
+  alt+up/alt+down scroll the session; the summary scrolls and keeps its way out; focused buttons look right in every
+  look; tick boxes show a ✓ and ctrl+s confirms a list; Settings labels the model, shows the minutes as a box and
+  says Save applies and Esc cancels; the chat asks before dropping a typed question; the confidence step shows one
+  prompt; a narrow Home shows streak, due and exam countdown in one line; the Progress forecast is labelled by day;
+  a checked blurt shows what you wrote; hint keys after an answer say the question is marked.
+- **Engine:** an answer recovered after a stop now does to the session what marking it did (a missed idea became a
+  gap again); events from an iCloud conflict copy are read in time order and a clean start no longer refolds every
+  time; an idea missing from the packs no longer crashes brief, today or session start; a torn learner, session,
+  config or AI-summary file no longer blocks the tutor; a paper marked in part is not full marks and unreadable marks
+  are refused; a question left open overnight no longer adds hours to a week's time; judge scores are clamped; a
+  reason for a miss is refused for a re-marked answer; a test on many topics no longer fails on a too-long file name;
+  session notes never overwrite.
+- **AI client:** cancelling an AI call cancels the screen's work; a `claude` that cannot start, an unwritable usage
+  file, an oversized reply line and an unwritable card cache are errors, not crashes; Claude reset times ending in Z
+  read on older Pythons.
+- **Publishing and tools:** a crashed publish can no longer push the real rollback versions out; the engine, CURRENT
+  and the launcher are swapped in atomically; publishing follows `STEM_TUTOR_VAULT`; Finder `.DS_` files are not
+  copied; the launcher quotes its path; `bin/tutor` repairs a failed first install and names a too-old Python;
+  `validate_pack` reports malformed packs and five silent faults instead of crashing; the foundry keeps its usage
+  readings, locks `HOLD.json`, signs only after the checker, and shows what the note linter found; `sandbox.sh`
+  judges the real path before deleting; `package.sh` makes `dist/`.
+- **Content:** `\times` saved as a tab plus "imes", PDF-extraction debris (bracket pieces, lost fractions, degree
+  signs, soft hyphens) repaired in the packs and their sources from the original papers, and five 9701 questions
+  whose options were shifted by one (the key pointed at the wrong text; one showed +61 where the answer is −61)
+  rebuilt. Flattened maths in some examiner comments remains (a note for a later pass).
+- **Published packs repaired (audit of all 24):** options shuffled so the key letter is no longer predictable, numeric
+  tolerances and hints that gave the answer away, questions whose options are figures no longer show blank options,
+  rubric marks that did not add up, and the broken maths text in a few packs. Fixes are in the generators and in the
+  published JSON; `tests/test_packs_content.py` pins each audited fault.
+- **Crashes and layout:** a double ⏎ on a blurt no longer submits twice; a doubled pick on a session panel is
+  ignored; Tab no longer strands focus on the log; a damaged content file is named in one line (and `tutor doctor`
+  has a "Content files" row) instead of stopping the tutor; the footer ends on a whole key at 60 columns; headings
+  3 are no louder than 2 in Night and Day; a focused one-line button is an even chip (Classic too).
+- **macOS Terminal hardening:** the profile lookup uses `settings sets whose name is`, the script times out at 20 s,
+  and a refused Automation permission says so once with the fix; profiles are written as version 2.07.
+- **Known:** checked here only through a Textual screenshot and pilot tests, not in the learner's Terminal; whether
+  Option+Up reaches the app as alt+up depends on Terminal's "Use Option as Meta key"; 9702-1.4-x016 repeats
+  x002 (CAIE reused the question) and is kept.
+
 ## 1.6.1 — 2026-10-07
 
 A bug and comfort pass, hunted and fixed without the Codex bug watch.

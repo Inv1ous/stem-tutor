@@ -267,8 +267,8 @@ A(short("i23", [K5, K6], 4, "Explain", "The first ionisation energy of helium ($
 A(struct("i24", [K5], 4, "State", "Ionisation energy is the result of the electrostatic attraction between the nucleus and an outer electron.\n\n(a) State two factors that increase this attraction.\n(b) State two factors that decrease this attraction.",
          [{"mark": "B1", "point": "(a) greater nuclear charge (more protons)"},
           {"mark": "B1", "point": "(a) smaller distance between the nucleus and the outer electron (smaller atomic or ionic radius)"},
-          {"mark": "B1", "point": "(b) any two of: more shielding by inner shells or subshells of electrons; spin-pair repulsion between two electrons in one orbital; a larger distance (bigger radius). First factor"},
-          {"mark": "B1", "point": "(b) a second, different factor from the list above"}],
+          {"mark": "B1", "point": "(b) one factor that decreases the attraction: more shielding by inner shells or subshells of electrons; spin-pair repulsion between two electrons in one orbital; or a larger distance (bigger radius)"},
+          {"mark": "B1", "point": "(b) a second, different factor that decreases the attraction: more shielding by inner electrons; spin-pair repulsion within an orbital; or a larger distance (bigger radius)"}],
          "Attraction increases with nuclear charge and with a smaller distance; it decreases with more shielding, a larger radius, and spin-pair repulsion within an orbital.",
          ["Think of the nucleus and the electron as opposite charges and consider what changes their attraction.", "One factor is the number of protons; another is distance.", "Which electrons lie between the nucleus and the outer electron, and which pair repel?"]))
 

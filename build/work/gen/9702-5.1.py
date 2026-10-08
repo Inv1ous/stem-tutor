@@ -111,8 +111,10 @@ for n,(qid,k,explanation) in enumerate(past_specs,1):
     assert m['answer'] in m['options'] and K[k] in m['kcs']
     if qid == '9702_s23_12_q16':
         m['stem'] = 'A variable force is applied to ensure that a constant power is supplied to a train.\nWhich graph best shows the variation of the force F applied with the velocity v of the train?'
-        m['options'] = {letter: '' for letter in 'ABCD'}
+        m['options'] = None  # graphs A-D are in the figure
         explanation = None
+    if qid == '9702_w21_12_q20':  # the diagram's degree sign came out of the PDF as a control character
+        m['stem'] = m['stem'].replace('30\x02', '30°')
     items.append({'id':f'{SUB}-p{n:02d}','kcs':[K[k]],'kind':'mcq','difficulty':3 if k<7 else 4,'command_word':'Determine','source':{'type':'past','ref':m['ref'],'qid':qid},'stem':m['stem'],'options':m['options'],'answer':m['answer'],'marks':1,'explanation':explanation,**({'image':m['image']} if m.get('image') else {})})
 
 pack={'subtopic':SUB,'spec':'9702','version':1,'note':NOTE,'outline':'Work done is force times displacement in the force direction: $W=Fs\\cos\\theta$. Total energy is conserved when all stores and transfers, including thermal losses, are counted. Efficiency is useful output divided by total input, using energies or powers over the same interval. Power is work done per unit time, $P=W/t$; when a force acts along motion, $W=Fs$ and $v=s/t$ give $P=Fv$. Resolve forces along a slope and distinguish engine thrust from resultant force.','misconceptions':misconceptions,'worked':worked,'items':items,'flashcards':[{'id':'fc1','kc':K[5],'front':'Define power.','back':'Power is work done per unit time.'},{'id':'fc2','kc':K[5],'front':'Give the energy-transfer definition of power.','back':'Power is energy transferred per unit time.'},{'id':'fc3','kc':K[5],'front':'What is one watt?','back':'One watt is one joule per second.'}],'diagrams':[]}

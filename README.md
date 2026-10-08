@@ -1,6 +1,6 @@
 # STEM Tutor
 
-Version **1.6.1** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
+Version **2.0.0** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
 
 A-Level study system (CAIE 9701/9702, Edexcel IAL Maths/Further Maths): a terminal app for studying, an Obsidian
 vault for reading, and a pure-Python engine that does the teaching logic without AI.
@@ -10,18 +10,20 @@ vault for reading, and a pure-Python engine that does the teaching logic without
 ## Layout
 | Path | What |
 |---|---|
-| `app/tutor_app/` | Textual terminal app (screens, answer panels, cards), AI client (`ai.py`: persistent lean `claude -p` on the subscription), prompts, LaTeX→Unicode |
+| `app/tutor_app/` | Textual terminal app (screens, answer panels, cards), AI client (`ai.py`: persistent lean `claude -p` on the subscription), prompts, LaTeX→Unicode (`texmath.py`), the Night/Day/Classic looks (`look.py`), the Terminal window setup (`setup_look.py`, `termprofile.py`, bundled JuliaMono in `fonts/`) |
 | `plugin/stem-tutor/skills/tutor/scripts/tutorlib/` | engine: sessions, lesson mode (`lesson.py`), Obsidian views (`views.py`), grading, FSRS/Elo model, experiments, reports, weekly bookkeeping |
 | `plugin/stem-tutor/` | the older Cowork plugin (still works; the terminal app is now primary) |
 | `build/` | content pipeline: specs → graphs → packs (drafted, blind-solved, adjudicated), teach cards, publish to the vault |
 | `foundry/` | content foundry: chapters built by headless Claude and Codex workers, split between the two allowances as they run down (`foundry/README.md`) |
 | `bugwatch/` | live two-agent bug hunt (Codex spots, Claude fixes; `bugwatch/README.md`) |
-| `bin/tutor` | launcher (`tutor`, `tutor doctor`, `tutor --setup`) |
+| `bin/tutor` | launcher (`tutor`, `tutor doctor`, `tutor look`, `tutor --setup`) |
 | `tests/` | pytest (engine) and `tests/app/` (AI client with a fake `claude`, Textual pilot tests) |
 
 ## Run
 - `bin/tutor` — start (the vault also has a double-clickable `Start Tutor.command`)
-- `bin/tutor doctor` — check vault, Obsidian registration, Claude sign-in, dependencies
+- `bin/tutor doctor` — check vault, Obsidian registration, Claude sign-in, dependencies, the look's font and Terminal profiles
+- `bin/tutor look` — set up macOS Terminal for the Night and Day looks, once (backs up Terminal's settings first;
+  `bin/tutor look --undo` goes back; the look is chosen in Settings, F2)
 - `.venv/bin/python -m pytest tests -q` — tests
 - `.venv/bin/python build/publish.py` — publish packs, notes and the engine into the vault (`../STEM Tutor`)
 - `.venv/bin/python build/plan.py && .venv/bin/python build/publish.py` — refresh the Almanac plan after
