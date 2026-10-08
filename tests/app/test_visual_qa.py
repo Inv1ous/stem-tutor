@@ -104,6 +104,37 @@ def test_a_pop_up_has_no_lighter_halo_round_its_rounded_border(tmp_path, monkeyp
     run(app, (100, 30), steps)
 
 
+@pytest.mark.parametrize("name", ["night", "day", "classic"])
+def test_settings_switches_are_readable_and_line_up_when_focused(tmp_path, monkeypatch, palette, name):
+    from textual.widgets import Input, Switch
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.theme = name
+    app.settings.open_obsidian = False
+    palette(name)
+
+    async def steps(pilot):
+        app.action_settings()
+        await pilot.pause()
+        scr = app.screen
+        flat = name != "classic"
+        assert scr.has_class("flat") == flat
+        switches = list(scr.query(Switch))
+        assert switches[0].has_focus
+        if not flat:
+            return  # Classic: as it always was
+        p = look.PALETTES[name]
+        assert {(s.region.x, s.region.width) for s in switches} == {(switches[0].region.x, 4)}  # focus: no wider
+        off = scr.query_one("#open_obsidian", Switch)
+        assert not off.value
+        slider = off.get_component_rich_style("switch--slider")
+        assert slider.color.triplet.hex == p["muted"] and slider.bgcolor.triplet.hex == p["panel"]
+        focused = switches[0].get_component_rich_style("switch--slider")
+        assert focused.bgcolor.triplet.hex == p["cursor"]  # focus shows on the track, and the label turns blue
+        assert switches[0].parent.query_one("Static").styles.color.hex.lower() == p["tutor"]
+        assert scr.query_one("#minutes", Input).styles.background.hex.lower() == p["panel"]
+    run(app, (120, 40), steps)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})

@@ -55,6 +55,13 @@ MarkdownH1 { content-align-horizontal: $markdown-h1-align; }
 #settings #minutes { width: 10; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
 #settings #save { dock: bottom; }
+SettingsScreen.flat #settings Switch { padding: 0; margin-right: 3; background: transparent; }
+SettingsScreen.flat #settings Switch > .switch--slider { color: $text-muted; background: $panel; }
+SettingsScreen.flat #settings Switch.-on > .switch--slider { color: $success; }
+SettingsScreen.flat #settings Switch:focus { background: transparent; }
+SettingsScreen.flat #settings Switch:focus > .switch--slider { background: $block-cursor-background; }
+SettingsScreen.flat #settings .row:focus-within > Static { color: $accent; }
+SettingsScreen.flat #settings #minutes { background: $panel; }
 SettingsScreen.short #settings .row { margin: 0; }
 SettingsScreen.short #settings #save { margin-top: 1; }
 HomeScreen.narrow #stats { display: none; }

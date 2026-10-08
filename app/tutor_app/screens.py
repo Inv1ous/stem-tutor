@@ -1240,6 +1240,7 @@ class SettingsScreen(ModalScreen):
         """A short window gets tighter rows and a one-line Save, so everything fits and Save is never cut off."""
         short = self.app.size.height < 30
         self.set_class(short, "short")
+        self.set_class(bool(C["frame"]), "flat")  # Night and Day: a quieter switch, the same width when focused
         self.query_one("#save", Button).compact = short
 
     @on(Button.Pressed, "#save")
