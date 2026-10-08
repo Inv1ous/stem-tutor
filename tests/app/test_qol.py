@@ -357,3 +357,35 @@ def test_a_blurt_checked_twice_in_a_row_is_checked_once(tmp_path, monkeypatch):
             await pilot.pause()
         assert sum(e["type"] == "blurt" for e in app.tutor.vault.events()) == 2  # one for each blurt, not four
     run(app, (100, 30), steps)
+
+
+def test_a_second_answer_queued_on_a_panel_already_answered_is_ignored(tmp_path, monkeypatch):
+    """Key repeat can queue a second pick before the panel is replaced: the first counts, the second is dropped, not
+    sent to the next step (a crash) or marked again (the question back on screen, "not open", stuck)."""
+    from textual.widgets import OptionList
+    from tutor_app.panels import ChoicePanel, ChoosePanel, Confidence
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        assert isinstance(scr.query_one("#panel > *"), ChoicePanel)
+        await pilot.press("a")
+        await pilot.pause()
+        conf = scr.query_one(Confidence)
+        conf.action_pick(1)
+        conf.action_pick(2)
+        await pilot.pause(0.3)
+        assert not isinstance(scr.query_one("#panel > *"), ChoicePanel)  # the feedback's panel, not Q1 again
+        assert sum(e["type"] == "answer" for e in app.tutor.vault.events()) == 1
+        app.pop_screen()
+        await pilot.pause()
+        scr = await _session(app, pilot, mode="lesson")
+        panel = scr.query_one("#panel > *")
+        assert isinstance(panel, ChoosePanel)
+        choose = panel.query_one(OptionList)
+        choose.highlighted = 0
+        choose.action_select()
+        choose.action_select()
+        await pilot.pause(0.3)
+        assert scr.act.get("activity") == "plan"
+    run(app, (100, 30), steps)

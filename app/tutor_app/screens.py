@@ -405,6 +405,7 @@ class SessionScreen(Screen):
         box = self.query_one("#panel", Container)
         box.remove_children()
         box.mount(widget)
+        self.showing = widget
 
     def on_mount(self) -> None:
         t = self.tutor
@@ -572,6 +573,8 @@ class SessionScreen(Screen):
     # ---------- panel results ----------
     @on(Panel.Done)
     def panel_done(self, event: Panel.Done) -> None:
+        if event.panel is not getattr(self, "showing", None):  # queued on a panel already replaced (key repeat): once only
+            return
         data, kind = event.data, self.act.get("activity")
         if isinstance(event.panel, LongPanel):
             self.long_written(data)
