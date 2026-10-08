@@ -35,6 +35,8 @@ def framed(body, colour: str, title: str, **kw) -> Panel:
 
 
 def card(kind: str, title: str, body: str = "", subtitle: str | None = None) -> Panel:
+    if subtitle and C["frame"]:  # Rich draws a plain subtitle in the frame's quiet grey: too faint to read
+        subtitle = Text(subtitle, style=C["dim"])
     return framed(md(body) if body else Group(), C[kind], f"[b]{escape(to_terminal(title))}[/b]", title_align="left",
                   subtitle=subtitle, subtitle_align="right")
 

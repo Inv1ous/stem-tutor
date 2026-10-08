@@ -21,18 +21,19 @@ Horizontal#home { height: 1fr; padding: 1 2; }
 #menu { width: 52; height: auto; max-height: 100%; border: round $menu-border; padding: 0 1;
   background: $menu-background; }
 #menu:focus { background-tint: $menu-tint; }
-#stats { width: 1fr; height: auto; max-height: 100%; padding: 1 0 1 2; border: round $stats-border; margin-left: 2;
+#stats { width: 1fr; height: auto; max-height: 100%; padding: 0 0 1 2; border: round $stats-border; margin-left: 2;
   scrollbar-size-vertical: 1; scrollbar-gutter: stable; scrollbar-background: $background; }
 #stats-text { margin-right: 1; }
 #bar { height: auto; max-height: 2; background: $panel; }
 #map { height: auto; max-height: 2; }
 #log { height: 1fr; padding: 0 0 0 1; scrollbar-size-vertical: 1; scrollbar-gutter: stable;
   scrollbar-background: $background; }
+ChatScreen #log, BlurtScreen #log { padding-top: 1; }
 .entry { margin: 0 1 1 0; }
 #panel { height: auto; max-height: 55%; }
 .panel { height: auto; padding: 0 2 1 1; border-top: solid $panel-rule; }
 .panel.tall { max-height: 30; }
-.panel.short { padding: 0 2 0 1; }
+.panel.short.tight { padding: 0 2 0 1; }
 .hint { color: $text-muted; padding: 0 0 0 1; }
 .buttons { height: auto; }
 .buttons Button { margin: 0 1 0 0; }
@@ -44,14 +45,15 @@ SelectionList { height: auto; max-height: 14; }
 #full { padding: 0 0 0 5; }
 TextArea { height: 1fr; min-height: 4; max-height: 12; }
 Composer { height: auto; min-height: 3; max-height: 10; }
-.check { color: $warning; padding: 0 0 0 1; }
+.check { color: $check-color; padding: 0 0 0 1; }
 #picker, Vertical#ask, #summary, #help, #settings { width: 90; max-width: 95%; height: auto; max-height: 90%;
-  border: round $modal-border; background: $surface; padding: 1 2; }
+  border: round $modal-border; background: $modal-background; padding: 1 2; }
 PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
 #help { padding: 0 2; }
 #summary { scrollbar-size-vertical: 1; }
 #summary-hint { dock: bottom; }
 #help MarkdownH1 { margin: 1 0 0 0; }
+MarkdownH1 { content-align-horizontal: $markdown-h1-align; }
 #settings .row { height: auto; margin: 0 0 1 0; }
 #settings .row > Static { width: 1fr; }
 #settings Switch { border: none; padding: 0 1; margin-right: 1; }
@@ -61,6 +63,16 @@ PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScree
 #settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
 #glance { display: none; height: 1; margin-top: 1; padding: 0 4; text-wrap: nowrap; text-overflow: ellipsis; }
+#settings #save-row { dock: bottom; }
+SettingsScreen.flat #settings Switch { padding: 0; margin-right: 3; background: transparent; }
+SettingsScreen.flat #settings Switch > .switch--slider { color: $text-muted; background: $panel; }
+SettingsScreen.flat #settings Switch.-on > .switch--slider { color: $success; }
+SettingsScreen.flat #settings Switch:focus { background: transparent; }
+SettingsScreen.flat #settings Switch:focus > .switch--slider { background: $block-cursor-background; }
+SettingsScreen.flat #settings .row:focus-within > Static { color: $accent; }
+SettingsScreen.flat #settings #minutes { background: $panel; }
+SettingsScreen.short #settings .row { margin: 0; }
+SettingsScreen.short #settings #save { margin-top: 1; }
 HomeScreen.narrow #stats { display: none; }
 HomeScreen.narrow #glance { display: block; }
 HomeScreen.narrow #menu { width: 1fr; }

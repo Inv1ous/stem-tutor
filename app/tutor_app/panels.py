@@ -19,6 +19,7 @@ from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
 from .cards import CONF
+from .look import C
 from .texmath import to_terminal
 
 DONT_KNOW = "?"
@@ -90,6 +91,17 @@ class Composer(TextArea):
             self.insert("\n")
 
 
+def _lettered(letter: str, text: str):
+    """An option as "A  text", a long text wrapping under itself rather than under the letter."""
+    from rich.table import Table
+    from rich.text import Text
+    grid = Table.grid(padding=(0, 2))
+    grid.add_column(no_wrap=True)
+    grid.add_column()
+    grid.add_row(Text(letter, style="bold"), Text(text))
+    return grid
+
+
 class ChoicePanel(Panel):
     """Multiple choice: ↑↓ + ⏎ (or the letter key), then confidence 1–4. Always offers "I don't know"."""
     BINDINGS = [Binding(k, f"letter('{k.upper()}')", show=False) for k in "abcd"] + \
@@ -101,7 +113,7 @@ class ChoicePanel(Panel):
 
     def compose(self) -> ComposeResult:
         yield _hint(f"Q{self.n}: choose with ↑↓ and ⏎ (or press A–D).  0 = I don't know.  Full question: Now in Obsidian (o).")
-        opts = [Option(f"[b]{k}[/b]  {escape(to_terminal(v))}".rstrip(), id=k) for k, v in self.options.items()]
+        opts = [Option(_lettered(k, to_terminal(v)), id=k) for k, v in self.options.items()]
         yield OptionList(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
         yield Composer(placeholder="✎ optional note (Tab)", id="note", compact=True)  # its ⏎: back to the list
 
@@ -199,8 +211,9 @@ class ValuePanel(Panel):
 
 
 class LongPanel(Panel):
-    """A long / structured answer typed in full. ctrl+s submits."""
-    BINDINGS = [Binding("ctrl+s", "submit", "Submit answer")]
+    """A long / structured answer typed in full. ctrl+s submits (the hint and the button say so: kept out of the
+    footer, which has no room for it at 60 columns)."""
+    BINDINGS = [Binding("ctrl+s", "submit", "Submit answer", show=False)]
 
     def __init__(self, n: int, checking: bool = False) -> None:
         super().__init__(classes="panel tall")
@@ -212,7 +225,10 @@ class LongPanel(Panel):
         if self.checking:
             yield Static("✓ " + CHECKING, classes="check")
         yield TextArea(id="long", soft_wrap=True, tab_behavior="indent")
-        yield Button("Submit (ctrl+s)", id="submit", variant="primary")
+        yield Button("Submit (ctrl+s)", id="submit", variant="primary", compact=self.app.size.height < 30)
+
+    def on_resize(self) -> None:
+        self.query_one("#submit", Button).compact = self.app.size.height < 30  # a short window: one line, not cut off
 
     def action_submit(self) -> None:
         text = self.query_one("#long", TextArea).text.strip()
@@ -225,19 +241,25 @@ class LongPanel(Panel):
 
 
 class TickList(SelectionList):
-    """A SelectionList whose ticked boxes show ✓ and empty ones are blank: Textual draws an X in both, told apart by
-    colour alone."""
+    """An empty box for each unticked row and a tick for a ticked one (the stock box draws an X in both, told apart
+    by a colour that is next to invisible when unticked)."""
 
-    def render_line(self, y: int) -> Strip:
+    def render_line(self, y: int):
+        from rich.segment import Segment
+        from rich.style import Style
+        from textual.strip import Strip
+        from textual.widgets._toggle_button import ToggleButton
         strip = super().render_line(y)
         segments = list(strip)
-        try:
-            ticked = self.get_option_at_index(self.scroll_offset.y + y).value in self._selected
-        except Exception:  # a line below the last option
+        if len(segments) < 4 or segments[1].text != ToggleButton.BUTTON_INNER:
             return strip
-        if len(segments) > 1 and segments[1].text == "X":
-            segments[1] = Segment("✓" if ticked else " ", segments[1].style)
-        return Strip(segments, strip.cell_length)
+        try:
+            on = self.get_option_at_index(self.scroll_offset.y + y).value in self._selected
+        except Exception:
+            return strip
+        side = segments[3].style + Style(meta=segments[0].style.meta)  # the row's own colours; a click still ticks
+        mark = side + Style(color=C["tutor"] if on else C["muted"], bold=on)
+        return Strip([Segment(" ", side), Segment("✓" if on else "☐", mark), Segment(" ", side), *segments[3:]])
 
 
 class TickPanel(Panel):
@@ -329,6 +351,7 @@ class ContinuePanel(Panel):
             yield _hint(self.prompt)
         rows = self.rows()
         self.shape = self._shape(rows)
+        self.set_class(self.shape[1], "tight")  # a short window: no row under the buttons; a tall one: room above the footer
         for row in rows:
             with Horizontal(classes="buttons"):
                 for bid, label in row:

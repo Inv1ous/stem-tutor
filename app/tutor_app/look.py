@@ -42,7 +42,8 @@ C: dict = dict(PALETTES["classic"])  # the live palette: one dict, updated in pl
 
 # CSS variables of our own (app.py); a theme sets them, these are only the fallback for the first parse
 CSS_DEFAULTS = {"menu-border": "#585b70", "stats-border": "#585b70", "panel-rule": "#585b70", "modal-border": "#585b70",
-                "menu-background": "#313244", "menu-tint": "#cdd6f4 5%",
+                "menu-background": "#313244", "menu-tint": "#cdd6f4 5%", "markdown-h1-align": "center",
+                "modal-background": "#313244", "check-color": "#fae3b0",
                 "button-focus-tint": "#cdd6f4 5%", "button-compact-focus-text-style": "b reverse"}
 
 BANNER = r"""  ___ _____ ___ __  __   _____      _
@@ -59,7 +60,9 @@ def textual_themes() -> list:
         **base.variables, "menu-border": made["accent"], "stats-border": made["primary-darken-2"],
         "panel-rule": made["accent"], "modal-border": made["accent"], "menu-background": made["surface"],
         "menu-tint": f"{made['foreground']} 5%",  # what OptionList draws by default
-        "button-focus-tint": f"{made['foreground']} 5%", "button-compact-focus-text-style": "b reverse"})  # and Button
+        "button-focus-tint": f"{made['foreground']} 5%", "button-compact-focus-text-style": "b reverse",  # and Button
+        "markdown-h1-align": "center", "modal-background": made["surface"],  # Markdown's and pop-ups' own
+        "check-color": made["warning"]})
     themes = [classic]
     for name in ("night", "day"):
         p = PALETTES[name]
@@ -70,6 +73,8 @@ def textual_themes() -> list:
             variables={
                 "menu-border": p["border"], "stats-border": p["border"], "panel-rule": p["border"],
                 "modal-border": p["border"], "border": p["tutor"], "border-blurred": p["border"],
+                "modal-background": p["background"],  # no lighter square round a pop-up's rounded corners
+                "check-color": p["muted"],  # "Before ⏎: units? ..." is a reminder, not a warning
                 "menu-background": p["background"], "menu-tint": f"{p['text']} 0%",  # flat, like the box beside it
                 "text-muted": p["muted"], "text-disabled": p["dim"],
                 "block-cursor-background": p["cursor"], "block-cursor-foreground": p["text"],
@@ -87,8 +92,8 @@ def textual_themes() -> list:
                 "scrollbar": p["border"], "scrollbar-hover": p["muted"], "scrollbar-active": p["tutor"],
                 "scrollbar-background": p["background"], "scrollbar-background-hover": p["background"],
                 "scrollbar-background-active": p["background"], "scrollbar-corner-color": p["background"],
-                "link-color": p["tutor"], "markdown-h1-color": p["tutor"], "markdown-h1-background": p["background"],
-                "markdown-h2-color": p["text"], "markdown-h3-color": p["text"],
+                "link-color": p["tutor"], "markdown-h1-color": p["tutor"], "markdown-h1-align": "left",  # in line with the text
+                "markdown-h2-color": p["text"], "markdown-h2-text-style": "bold",  # no underline: cleaner "markdown-h3-color": p["text"],
             }))
     return themes
 

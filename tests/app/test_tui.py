@@ -548,7 +548,7 @@ def test_the_home_screens_side_box_fits_and_scrolls(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
 
     async def go():
-        async with app.run_test(size=(100, 18)) as pilot:
+        async with app.run_test(size=(100, 17)) as pilot:  # 17: the box lost its blank first row (lines up with the menu)
             await pilot.pause()
             box, home = app.screen.query_one("#stats"), app.screen.query_one("#home")
             assert box.region.bottom <= home.region.bottom  # the whole box, bottom edge included, is on screen

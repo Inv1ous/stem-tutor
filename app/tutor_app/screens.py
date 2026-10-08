@@ -1204,7 +1204,8 @@ class BlurtScreen(Screen):
                                     "Ideas you left out are now due for review, so they come up next time."),
                          classes="entry"))
         for kc, v in res["ideas"].items():
-            note = "" if v["recalled"] else lesson.teach_card(t, kc).get("note", "")
+            note = ("You remembered this." if v["recalled"] else  # a line, not an empty box under the title
+                    lesson.teach_card(t, kc).get("note", "") or "You left this out.")
             log.mount(Static(cards.card("good" if v["recalled"] else "bad",
                                         f"{'✓' if v['recalled'] else '✗'} {v['title']}", note), classes="entry"))
         log.scroll_end(animate=False)
@@ -1268,12 +1269,23 @@ class SettingsScreen(ModalScreen):
             with Horizontal(classes="row"):
                 yield Static("Session length (minutes, 5 to 180)")
                 yield Input(str(s.minutes), id="minutes", type="integer", compact=True)
-            with Horizontal(classes="row"):
+            with Horizontal(classes="row", id="save-row"):  # docked: Save and its hint stay in view in a short window
                 yield Button("Save", id="save", variant="primary")
                 yield Static("Save to apply · Esc cancels", id="settings-hint", classes="hint")
 
     def on_mount(self) -> None:
+        self._fit()
         self.query_one("#ai", Switch).focus()  # the first setting, not the scrolling box around them
+
+    def on_resize(self) -> None:
+        self._fit()
+
+    def _fit(self) -> None:
+        """A short window gets tighter rows and a one-line Save, so everything fits and Save is never cut off."""
+        short = self.app.size.height < 30
+        self.set_class(short, "short")
+        self.set_class(bool(C["frame"]), "flat")  # Night and Day: a quieter switch, the same width when focused
+        self.query_one("#save", Button).compact = short
 
     @on(Button.Pressed, "#save")
     def save(self) -> None:

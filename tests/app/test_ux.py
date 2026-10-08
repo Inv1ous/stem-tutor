@@ -240,7 +240,7 @@ def test_a_ticked_box_shows_a_tick_and_ctrl_s_confirms_from_the_list(tmp_path, m
         await pilot.pause()
         ticks = scr.query_one("#ticks")
         rows = [ticks.render_line(y).text for y in range(2)]
-        assert rows[0][1] == "✓" and rows[1][1] == " "  # not an X in both, told apart by colour alone
+        assert rows[0][1] == "✓" and rows[1][1] == "☐"  # not an X in both, told apart by colour alone
         assert app.focused is ticks
         await pilot.press("ctrl+s")  # at once: perhaps the second press of ctrl+s that submitted a long answer
         await pilot.pause()
