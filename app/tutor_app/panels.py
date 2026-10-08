@@ -192,8 +192,9 @@ class ValuePanel(Panel):
 
 
 class LongPanel(Panel):
-    """A long / structured answer typed in full. ctrl+s submits."""
-    BINDINGS = [Binding("ctrl+s", "submit", "Submit answer")]
+    """A long / structured answer typed in full. ctrl+s submits (the hint and the button say so: kept out of the
+    footer, which has no room for it at 60 columns)."""
+    BINDINGS = [Binding("ctrl+s", "submit", "Submit answer", show=False)]
 
     def __init__(self, n: int, checking: bool = False) -> None:
         super().__init__(classes="panel tall")
@@ -205,7 +206,10 @@ class LongPanel(Panel):
         if self.checking:
             yield Static("✓ " + CHECKING, classes="check")
         yield TextArea(id="long", soft_wrap=True, tab_behavior="indent")
-        yield Button("Submit (ctrl+s)", id="submit", variant="primary")
+        yield Button("Submit (ctrl+s)", id="submit", variant="primary", compact=self.app.size.height < 30)
+
+    def on_resize(self) -> None:
+        self.query_one("#submit", Button).compact = self.app.size.height < 30  # a short window: one line, not cut off
 
     def action_submit(self) -> None:
         text = self.query_one("#long", TextArea).text.strip()

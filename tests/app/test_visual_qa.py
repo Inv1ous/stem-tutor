@@ -58,3 +58,38 @@ def test_settings_save_is_on_screen_without_scrolling(tmp_path, monkeypatch, siz
         await pilot.pause()
         assert not scr.has_class("short") and not save.compact
     run(app, size, steps)
+
+
+async def _session(app, pilot, mode="test"):
+    from tutor_app.screens import SessionScreen
+    scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})
+    app.push_screen(scr)
+    await pilot.pause()
+    await pilot.pause()
+    return scr
+
+
+@pytest.mark.parametrize("size,short", [((60, 24), True), ((80, 24), True), ((120, 40), False)])
+def test_a_long_answer_submit_button_and_footer_fit_a_small_window(tmp_path, monkeypatch, size, short):
+    from textual.widgets import Button
+    from tutor_app.panels import LongPanel
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(LongPanel(4, checking=True))
+        await pilot.pause()
+        await pilot.pause()
+        submit = scr.query_one("#submit", Button)
+        assert submit.compact == short
+        box = scr.query_one("#panel")
+        assert submit.region.height and box.region.contains_region(submit.region)
+        for y in range(submit.region.y, submit.region.bottom):
+            assert scr.get_widget_at(submit.region.x + 2, y)[0] is submit
+        assert "ctrl+s" in str(submit.label) and "ctrl+s" in str(scr.query(".hint").first().render())
+        for key in scr.query("FooterKey"):  # each key with its word, none cut off at the edge
+            assert key.region.width and key.region.right <= size[0], key.description
+        await pilot.resize_terminal(100, 40)
+        await pilot.pause()
+        assert not submit.compact
+    run(app, size, steps)
