@@ -102,6 +102,7 @@ class TutorApp(App):
         self.tty: str | None = None  # the macOS Terminal tab, whose profile follows the look
         self.tty_profile: str | None = None  # the tab's profile before the tutor changed it: put back on exit
         self.profile_missing = False
+        self.profile_denied = False  # macOS refused the tutor control of Terminal: said once, then left alone
         self._locks = contextlib.ExitStack()
 
     def get_theme_variable_defaults(self) -> dict[str, str]:
@@ -142,6 +143,8 @@ class TutorApp(App):
         self.push_screen(HomeScreen())
         if self.profile_missing:
             self.notify(mac.LOOK_HELP, timeout=15)
+        if self.profile_denied:
+            self.notify(mac.AUTOMATION_HELP, timeout=15)
         if self.size.width < 90 or self.size.height < 28:
             self.notify("Tip: make this window bigger (or full-screen) for the best view.", timeout=8)
 

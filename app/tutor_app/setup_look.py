@@ -23,7 +23,7 @@ IS_MAC = sys.platform == "darwin"
 FONT_DIR = Path.home() / "Library" / "Fonts"
 BUNDLED = Path(__file__).parent / "fonts"
 FONTS = ("JuliaMono-Regular.ttf", "JuliaMono-Bold.ttf", "JuliaMono-RegularItalic.ttf")
-EXISTS = 'on run argv\ntell application "Terminal" to return exists settings set (item 1 of argv)\nend run'
+EXISTS = 'on run argv\ntell application "Terminal" to return (count of (settings sets whose name is (item 1 of argv))) > 0\nend run'
 MATHS = (r"$s = ut + \frac{1}{2}at^2$   $\sqrt{b^2-4ac}$   $\Delta H^\ominus = -286\,\text{kJ mol}^{-1}$",
          r"$\ce{Cu^2+ + 2e- -> Cu}$   $\ce{N2 + 3H2 <=> 2NH3}$   $\mathbf{F} = m\mathbf{a}$   $\vec{v}$  $\hat{x}$  $\bar{x}$",
          r"$\int_0^1 x^2\,dx$   $\sum_{i=1}^{n} x_i$   $\frac{dy}{dx} = 3x^2 - 2$   $\theta \le 30^\circ$   $\lambda$ $\mu$ $\pi$")

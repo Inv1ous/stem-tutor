@@ -38,6 +38,7 @@ def main(argv: list[str] | None = None) -> int:
     if app.settings.theme != "classic":  # Classic leaves the tab as the launcher set it, as it always did
         status, app.tty_profile = mac.switch_terminal_profile(app.tty, look.TERMINAL_PROFILES[app.settings.theme])
         app.profile_missing = status == "missing"
+        app.profile_denied = status == "denied"
     print(f"\x1b]0;{app.TITLE}\x07", end="", flush=True)  # name the terminal window: a terminal shows what it is told
     try:
         app.run()
