@@ -248,7 +248,7 @@ mcq([2], 1, "State", r"How many orbitals are there in a d sub-shell?", ["1", "3"
     r"A d sub-shell has five orbitals (holding up to ten electrons). Ten is the electron capacity, not the number of orbitals.",
     ["Compare with an s sub-shell (1 orbital) and a p sub-shell (3).", "The pattern of orbitals per sub-shell is 1, 3, then the next odd number.",
      "The d sub-shell holds ten electrons at two per orbital, so work backwards."], dist={"D": "m4"})
-num([2], 2, "Calculate", r"A sub-shell contains [[o]] orbitals. Calculate the maximum number of electrons it can hold.",
+num([2], 2, "Calculate", r"The number of orbitals in a sub-shell is [[o]]. Calculate the maximum number of electrons it can hold.",
     None, r"Each orbital holds a maximum of two electrons, so the capacity is $2\times$ the number of orbitals.",
     ["Think about how many electrons one orbital can hold.", "Multiply the number of orbitals by the capacity of a single orbital.",
      r"Capacity of the sub-shell $=2\times$ number of orbitals."],
