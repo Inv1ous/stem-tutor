@@ -3,7 +3,7 @@ import pytest
 
 from test_qol import _menu, _session, run
 from test_tui import app_for
-from tutor_app.panels import TickPanel
+from tutor_app.panels import ContinuePanel, TickPanel
 
 LONG_POINT = ("B1 uses v^2 = u^2 + 2as with v = 0 at the top of the flight and states the sign convention used "
               "for the acceleration clearly")
@@ -109,6 +109,33 @@ def test_a_focused_button_looks_focused_not_broken(tmp_path, monkeypatch, name):
                     assert "underline" in style
     try:
         run(app, (60, 24), steps)
+    finally:
+        look.use("classic")
+
+
+@pytest.mark.parametrize("name", ["night", "day", "classic"])
+def test_a_focused_compact_button_is_one_even_chip(tmp_path, monkeypatch, name):
+    """At 24 rows the Continue buttons are one line high. Focused, the label's style reached only the label and a
+    space each side: in Classic a reversed label between two solid squares, in Night and Day an underline short of
+    the button's edges. Every cell of it now looks the same."""
+    from tutor_app import look
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.theme = name
+    look.use(name)
+
+    async def steps(pilot):
+        scr = await _session(app, pilot)
+        scr.panel(ContinuePanel())
+        await pilot.pause()
+        await pilot.pause()
+        button = app.focused
+        assert button.id == "continue" and button.compact
+        r = button.region
+        row = app.screen._compositor.render_strips()[r.y].crop(r.x, r.right)
+        styles = {(seg.style.bgcolor, seg.style.reverse, seg.style.underline, seg.style.bold) for seg in row}
+        assert len(styles) == 1, styles
+    try:
+        run(app, (80, 24), steps)
     finally:
         look.use("classic")
 
