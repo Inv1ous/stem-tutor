@@ -88,7 +88,7 @@ def textual_themes() -> list:
                 "scrollbar-background": p["background"], "scrollbar-background-hover": p["background"],
                 "scrollbar-background-active": p["background"], "scrollbar-corner-color": p["background"],
                 "link-color": p["tutor"], "markdown-h1-color": p["tutor"], "markdown-h1-align": "left",  # in line with the text
-                "markdown-h2-color": p["text"], "markdown-h3-color": p["text"],
+                "markdown-h2-color": p["text"], "markdown-h2-text-style": "bold",  # no underline: cleaner "markdown-h3-color": p["text"],
             }))
     return themes
 

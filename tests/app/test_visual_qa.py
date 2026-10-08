@@ -238,6 +238,23 @@ def test_continue_buttons_have_a_row_above_the_footer_in_a_tall_window(tmp_path,
     run(app, size, steps)
 
 
+@pytest.mark.parametrize("name", ["night", "day", "classic"])
+def test_section_headings_are_bold_without_an_underline_in_night_and_day(tmp_path, monkeypatch, palette, name):
+    from textual.widgets._markdown import MarkdownH2
+    from tutor_app.screens import ProgressScreen
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.theme = name
+    palette(name)
+
+    async def steps(pilot):
+        app.push_screen(ProgressScreen())
+        await pilot.pause()
+        h2 = app.screen.query(MarkdownH2).first()
+        style = h2.styles.text_style
+        assert (bool(style.bold), bool(style.underline)) == ((False, True) if name == "classic" else (True, False))
+    run(app, (100, 30), steps)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})
