@@ -53,6 +53,9 @@ PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScree
 #settings Switch:focus { border: none; background: $accent 40%; }
 #settings #minutes { width: 10; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
+#settings #save { dock: bottom; }
+SettingsScreen.short #settings .row { margin: 0; }
+SettingsScreen.short #settings #save { margin-top: 1; }
 HomeScreen.narrow #stats { display: none; }
 HomeScreen.narrow #menu { width: 1fr; }
 HomeScreen.short #banner { display: none; }

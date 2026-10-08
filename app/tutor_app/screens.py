@@ -1230,7 +1230,17 @@ class SettingsScreen(ModalScreen):
             yield Button("Save", id="save", variant="primary")
 
     def on_mount(self) -> None:
+        self._fit()
         self.query_one("#ai", Switch).focus()  # the first setting, not the scrolling box around them
+
+    def on_resize(self) -> None:
+        self._fit()
+
+    def _fit(self) -> None:
+        """A short window gets tighter rows and a one-line Save, so everything fits and Save is never cut off."""
+        short = self.app.size.height < 30
+        self.set_class(short, "short")
+        self.query_one("#save", Button).compact = short
 
     @on(Button.Pressed, "#save")
     def save(self) -> None:

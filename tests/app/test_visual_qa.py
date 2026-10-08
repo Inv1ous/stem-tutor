@@ -36,3 +36,25 @@ def test_a_classic_card_subtitle_is_unchanged(palette):
     c = cards.card("tutor", "Title", "body", subtitle="second look")
     assert c.subtitle == "second look"
     assert cards.card("tutor", "Title", "body").subtitle is None
+
+
+@pytest.mark.parametrize("size,short", [((60, 24), True), ((80, 24), True), ((120, 40), False)])
+def test_settings_save_is_on_screen_without_scrolling(tmp_path, monkeypatch, size, short):
+    from textual.widgets import Button, Switch
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        app.action_settings()
+        await pilot.pause()
+        scr = app.screen
+        assert scr.has_class("short") == short and isinstance(app.focused, Switch)  # nothing scrolled to Save
+        save = scr.query_one("#save", Button)
+        assert save.compact == short
+        box = scr.query_one("#settings")
+        assert save.region.height and box.region.contains_region(save.region)
+        for y in range(save.region.y, save.region.bottom):  # every row of it drawn: not hidden under the border
+            assert scr.get_widget_at(save.region.x + 2, y)[0] is save
+        await pilot.resize_terminal(120, 40)
+        await pilot.pause()
+        assert not scr.has_class("short") and not save.compact
+    run(app, size, steps)
