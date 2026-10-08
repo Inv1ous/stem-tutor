@@ -270,6 +270,7 @@ def test_the_summary_ignores_an_enter_held_down_from_the_last_question(tmp_path,
     async def steps(pilot):
         app.push_screen(SummaryScreen({"answered": 1, "correct": 1, "accuracy": 1.0}))
         await pilot.pause()
+        app.screen.opened = time.monotonic()  # just opened: a slow machine must not age it past the 0.7 s guard
         await pilot.press("enter")
         await pilot.pause()
         assert app.screen.__class__.__name__ == "SummaryScreen"
