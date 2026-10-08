@@ -42,7 +42,8 @@ C: dict = dict(PALETTES["classic"])  # the live palette: one dict, updated in pl
 
 # CSS variables of our own (app.py); a theme sets them, these are only the fallback for the first parse
 CSS_DEFAULTS = {"menu-border": "#585b70", "stats-border": "#585b70", "panel-rule": "#585b70", "modal-border": "#585b70",
-                "menu-background": "#313244", "menu-tint": "#cdd6f4 5%", "markdown-h1-align": "center"}
+                "menu-background": "#313244", "menu-tint": "#cdd6f4 5%", "markdown-h1-align": "center",
+                "modal-background": "#313244"}
 
 BANNER = r"""  ___ _____ ___ __  __   _____      _
  / __|_   _| __|  \/  | |_   _|  _| |_ ___ _ _
@@ -58,7 +59,7 @@ def textual_themes() -> list:
         **base.variables, "menu-border": made["accent"], "stats-border": made["primary-darken-2"],
         "panel-rule": made["accent"], "modal-border": made["accent"], "menu-background": made["surface"],
         "menu-tint": f"{made['foreground']} 5%",  # what OptionList draws by default
-        "markdown-h1-align": "center"})  # what Markdown does by default
+        "markdown-h1-align": "center", "modal-background": made["surface"]})  # Markdown's and pop-ups' own
     themes = [classic]
     for name in ("night", "day"):
         p = PALETTES[name]
@@ -69,6 +70,7 @@ def textual_themes() -> list:
             variables={
                 "menu-border": p["border"], "stats-border": p["border"], "panel-rule": p["border"],
                 "modal-border": p["border"], "border": p["tutor"], "border-blurred": p["border"],
+                "modal-background": p["background"],  # no lighter square round a pop-up's rounded corners
                 "menu-background": p["background"], "menu-tint": f"{p['text']} 0%",  # flat, like the box beside it
                 "text-muted": p["muted"], "text-disabled": p["dim"],
                 "block-cursor-background": p["cursor"], "block-cursor-foreground": p["text"],

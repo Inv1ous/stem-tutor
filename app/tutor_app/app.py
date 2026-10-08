@@ -43,7 +43,7 @@ TextArea { height: 1fr; min-height: 4; max-height: 12; }
 Composer { height: auto; min-height: 3; max-height: 10; }
 .check { color: $warning; padding: 0 0 0 1; }
 #picker, Vertical#ask, #summary, #help, #settings { width: 90; max-width: 95%; height: auto; max-height: 90%;
-  border: round $modal-border; background: $surface; padding: 1 2; }
+  border: round $modal-border; background: $modal-background; padding: 1 2; }
 PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScreen { align: center middle; }
 #help { padding: 0 2; }
 #help MarkdownH1 { margin: 1 0 0 0; }

@@ -82,6 +82,28 @@ def test_markdown_titles_sit_on_their_box_and_line_up_with_the_text(tmp_path, mo
     run(app, (120, 40), steps)
 
 
+@pytest.mark.parametrize("name", ["night", "day", "classic"])
+def test_a_pop_up_has_no_lighter_halo_round_its_rounded_border(tmp_path, monkeypatch, palette, name):
+    from tutor_app.screens import AskScreen, ConfirmScreen, HelpScreen, PickerScreen, SettingsScreen, SummaryScreen
+    app, v = app_for(tmp_path, monkeypatch)
+    app.settings.theme = name
+    palette(name)
+
+    async def steps(pilot):
+        for screen, box in ((PickerScreen("lesson"), "#picker"), (AskScreen(), "#ask"),
+                            (ConfirmScreen("Sure?", [("y", "Yes")]), "#ask"), (HelpScreen(), "#help"),
+                            (SettingsScreen(), "#settings"),
+                            (SummaryScreen({"answered": 2, "correct": 1, "accuracy": 0.5}), "#summary")):
+            app.push_screen(screen)
+            await pilot.pause()
+            # the corners outside the round border are drawn in the box's colour: Night and Day give it the window's
+            want = app.current_theme.surface if name == "classic" else look.PALETTES[name]["background"]
+            assert screen.query_one(box).styles.background.hex.lower() == want.lower(), box
+            app.pop_screen()
+            await pilot.pause()
+    run(app, (100, 30), steps)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})
