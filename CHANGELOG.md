@@ -53,6 +53,16 @@ test-first fixers, independent reviews). 1.6.1 → 2.0.0 is one release because 
   signs, soft hyphens) repaired in the packs and their sources from the original papers, and five 9701 questions
   whose options were shifted by one (the key pointed at the wrong text; one showed +61 where the answer is −61)
   rebuilt. Flattened maths in some examiner comments remains (a note for a later pass).
+- **Published packs repaired (audit of all 24):** options shuffled so the key letter is no longer predictable, numeric
+  tolerances and hints that gave the answer away, questions whose options are figures no longer show blank options,
+  rubric marks that did not add up, and the broken maths text in a few packs. Fixes are in the generators and in the
+  published JSON; `tests/test_packs_content.py` pins each audited fault.
+- **Crashes and layout:** a double ⏎ on a blurt no longer submits twice; a doubled pick on a session panel is
+  ignored; Tab no longer strands focus on the log; a damaged content file is named in one line (and `tutor doctor`
+  has a "Content files" row) instead of stopping the tutor; the footer ends on a whole key at 60 columns; headings
+  3 are no louder than 2 in Night and Day; a focused one-line button is an even chip (Classic too).
+- **macOS Terminal hardening:** the profile lookup uses `settings sets whose name is`, the script times out at 20 s,
+  and a refused Automation permission says so once with the fix; profiles are written as version 2.07.
 - **Known:** checked here only through a Textual screenshot and pilot tests, not in the learner's Terminal; whether
   Option+Up reaches the app as alt+up depends on Terminal's "Use Option as Meta key"; 9702-1.4-x016 repeats
   x002 (CAIE reused the question) and is kept.

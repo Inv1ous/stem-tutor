@@ -3,7 +3,7 @@
 ## v2.0.0 (2026-10-08) — done
 - A cleaner window and a hardening pass: the Night, Day and Classic looks with JuliaMono and `tutor look` (backup and
   undo), maths shown as printed, grading and recovery fixes, a safer publish, calmer screens, repaired published
-  packs. 1,392 tests. Checked in the container only: how it draws in the learner's macOS Terminal (`tutor look`
+  packs. 1,517 tests. Checked in the container only: how it draws in the learner's macOS Terminal (`tutor look`
   prints a test page to judge by eye).
 
 ## v1.6.1 (2026-10-07) — done
