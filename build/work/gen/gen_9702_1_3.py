@@ -175,7 +175,7 @@ gen("numeric", 2, "Calculate", [K1],
     ["What does the gauge read when the true size is zero, and what does that mean for every reading?", "Correct the reading by removing the zero error from it.", "Subtract the zero error from the reading, keeping its sign."],
     template={"params": {"r": {"min": 1.05, "max": 1.95, "step": 0.01}, "z": {"choices": [-0.06, -0.04, -0.03, 0.02, 0.03, 0.05]}},
               "answer": "r - z", "distractors": [{"expr": "r + z", "misconception": "m2"}]},
-    answer={"unit": "mm", "sf_ok": [3]}, marks=1)
+    answer={"unit": "mm", "sf_ok": [3], "exact": True}, marks=1)
 gen("short", 3, "Explain", [K1],
     "Explain why taking the mean of many repeated readings reduces the effect of random errors but not of a systematic error.",
     "Random deviations are equally likely to be above and below the true value, so they partly cancel in a mean. A systematic error is the same size and direction in every reading, so the mean has the same error.",
@@ -238,7 +238,7 @@ gen("numeric", 3, "Calculate", [K3],
     template={"params": {"l": {"choices": [0.400, 0.500, 0.600, 0.800]}, "dl": {"choices": [0.002, 0.005]},
                          "T": {"choices": [1.30, 1.40, 1.60, 1.80]}, "dT": {"choices": [0.02, 0.04]}},
               "answer": "dl/l*100 + 2*dT/T*100", "distractors": [{"expr": "dl/l*100 + dT/T*100", "misconception": "m4"}]},
-    answer={"unit": "%", "sf_ok": [2], "tol_rel": 0.05}, marks=2)
+    answer={"unit": "%", "sf_ok": [2]}, marks=2)
 gen("numeric", 4, "Calculate", [K3],
     "A solid cube has side $L=[[L:.2f]]\\ \\mathrm{cm}\\pm[[dL:.2f]]\\ \\mathrm{cm}$ and mass $M=[[M:.1f]]\\ \\mathrm{g}\\pm[[dM:.1f]]\\ \\mathrm{g}$. Calculate the absolute uncertainty in the density $\\rho=M/L^3$, in $\\mathrm{g\\,cm^{-3}}$, to 2 significant figures.",
     "The percentage uncertainty in $\\rho$ is $\\frac{\\Delta M}{M}+3\\frac{\\Delta L}{L}$, and the absolute uncertainty is this fraction multiplied by $\\rho$.",
@@ -247,7 +247,7 @@ gen("numeric", 4, "Calculate", [K3],
                          "M": {"choices": [30.0, 55.0, 80.0, 120.0]}, "dM": {"choices": [0.1, 0.5]}},
               "derived": {"rho": "M/L**3"},
               "answer": "rho*(dM/M + 3*dL/L)", "distractors": [{"expr": "rho*(dM/M + dL/L)", "misconception": "m4"}]},
-    answer={"unit": "g cm^-3", "sf_ok": [2], "tol_rel": 0.05}, marks=2)
+    answer={"unit": "g cm^-3", "sf_ok": [2]}, marks=2)
 gen("mcq", 3, "Determine", [K3],
     "Two lengths are measured: $(12.5\\pm0.2)\\ \\mathrm{cm}$ and $(8.3\\pm0.1)\\ \\mathrm{cm}$. What is their difference, with its absolute uncertainty?",
     "The difference is $12.5-8.3=4.2\\ \\mathrm{cm}$. Absolute uncertainties add even when values are subtracted: $0.2+0.1=0.3\\ \\mathrm{cm}$.",

@@ -566,7 +566,8 @@
     "unit": "mm",
     "sf_ok": [
      3
-    ]
+    ],
+    "exact": true
    },
    "marks": 1,
    "explanation": "The true diameter is the reading minus the zero error, keeping the sign of the zero error: $d=r-z$.",
@@ -959,8 +960,7 @@
     "unit": "%",
     "sf_ok": [
      2
-    ],
-    "tol_rel": 0.05
+    ]
    },
    "marks": 2,
    "explanation": "The percentage uncertainty in $g$ is the percentage uncertainty in $l$ plus twice that in $T$, because $T$ is squared: $\\frac{\\Delta g}{g}=\\frac{\\Delta l}{l}+2\\frac{\\Delta T}{T}$.",
@@ -1028,8 +1028,7 @@
     "unit": "g cm^-3",
     "sf_ok": [
      2
-    ],
-    "tol_rel": 0.05
+    ]
    },
    "marks": 2,
    "explanation": "The percentage uncertainty in $\\rho$ is $\\frac{\\Delta M}{M}+3\\frac{\\Delta L}{L}$, and the absolute uncertainty is this fraction multiplied by $\\rho$.",
