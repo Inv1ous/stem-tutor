@@ -67,3 +67,43 @@ def test_an_old_python_is_named_instead_of_failing_in_pip(tmp_path):
     r = _run(root, env, FAKE_TOO_OLD="1")
     assert r.returncode != 0 and "3.10" in r.stderr and "app ran" not in r.stdout
     assert not (root / ".venv").exists()
+    assert "python3 is 3.9: this needs 3.10 or newer" in r.stderr
+
+
+CLT_SHIM = r'''#!/bin/bash
+# /usr/bin/python3 on a Mac without the Command Line Tools: it only offers to install them
+echo "xcode-select: note: No developer tools were found, requesting install." >&2
+exit 1
+'''
+
+
+def test_a_missing_python_is_named_as_missing_not_as_a_blank_version(tmp_path):
+    root, env = _setup(tmp_path)
+    tools = tmp_path / "tools"  # what the launcher needs, and no python3 at all
+    tools.mkdir()
+    for name in ("bash", "dirname", "readlink", "sed", "rm", "touch"):
+        (tools / name).symlink_to(shutil.which(name))
+    r = _run(root, env, PATH=str(tools))
+    assert r.returncode == 1 and "python3 not found: install Python 3.10 or newer" in r.stderr
+    assert "brew install python" in r.stderr and "python3 is " not in r.stderr
+    (tmp_path / "fakebin/python3").write_text(CLT_SHIM)  # there, but only the Command Line Tools' stand-in
+    r = _run(root, env)
+    assert r.returncode == 1 and "python3 not found" in r.stderr and "python3 is " not in r.stderr
+
+
+def test_the_launcher_finds_its_folder_through_links_without_readlink_f(tmp_path):
+    """macOS before 12.3 has no `readlink -f`: the folder is found by following the links one at a time."""
+    root, env = _setup(tmp_path)
+    assert "app ran" in _run(root, env).stdout  # set up once
+    (tmp_path / "fakebin/readlink").write_text(
+        '#!/bin/bash\nif [ "$1" = "-f" ]; then echo "readlink: illegal option -- f" >&2; exit 1; fi\n'
+        f'exec {shutil.which("readlink")} "$@"\n')
+    (tmp_path / "fakebin/readlink").chmod(0o755)
+    links = tmp_path / "links"
+    (links / "deeper").mkdir(parents=True)
+    (links / "deeper/tutor").symlink_to("../../repo/bin/tutor")  # relative, as `ln -s` makes them
+    (links / "tutor").symlink_to(links / "deeper/tutor")  # a link to a link
+    r = subprocess.run(["bash", str(links / "tutor"), "doctor"], capture_output=True, text=True, env=env,
+                       cwd=links, timeout=30)
+    assert "Setting up" not in r.stdout and "app ran with [doctor]" in r.stdout, r.stderr
+    assert not (tmp_path / ".venv").exists()
