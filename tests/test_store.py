@@ -161,6 +161,30 @@ def test_events_from_a_conflict_copy_are_read_in_time_order(tmp_path):
     assert [e["id"] for e in v.events()][-1] == v.last_event_id() == "late"
 
 
+@pytest.mark.parametrize("seed", range(20))
+def test_a_log_without_conflict_copies_is_read_in_the_order_it_was_written(tmp_path, seed):
+    """A device clock that steps back must not reorder one device's own log: the state built as events were written
+    is the state rebuilt from the log, and the newest event is the last one written."""
+    import random
+    rng = random.Random(seed)
+    v = store.Vault(make_vault(tmp_path))
+    written = []
+    for month in rng.sample(["2026-09", "2026-10"], rng.randint(1, 2)):
+        for _ in range(rng.randint(1, 12)):
+            t = datetime.fromisoformat(f"{month}-{rng.randint(10, 20)}T{rng.randint(0, 23):02d}:00:00+08:00")
+            written.append((month, v.append_event({"type": "note"}, now=t)["id"]))
+    want = [i for m in sorted({m for m, _ in written}) for mm, i in written if mm == m]  # month files, in order
+    assert [e["id"] for e in v.events()] == want
+    assert v.last_event_id() == want[-1]
+
+
+def test_a_clock_stepping_back_keeps_the_written_order_and_the_newest_event(tmp_path):
+    v = store.Vault(make_vault(tmp_path))
+    a = v.append_event({"type": "note"}, now=datetime.fromisoformat("2026-09-20T12:00:00+08:00"))
+    b = v.append_event({"type": "note"}, now=datetime.fromisoformat("2026-09-20T11:00:00+08:00"))  # clock went back
+    assert [e["id"] for e in v.events()] == [a["id"], b["id"]] and v.last_event_id() == b["id"]
+
+
 def test_last_event_id_skips_a_tag_on_a_re_marked_answer(tmp_path):
     v = store.Vault(make_vault(tmp_path))
     t = datetime.fromisoformat("2026-09-30T12:00:00+08:00")

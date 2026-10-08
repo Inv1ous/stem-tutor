@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import glob
 import hashlib
+import heapq
 import json
 import os
 import tempfile
@@ -127,33 +128,43 @@ class Vault:
         return sorted(folder.glob(EVENT_FILES)) if folder.exists() else []
 
     def _read_events(self, paths: list[Path], bad_lines: list[str]) -> list[dict]:
-        """The events in these files, each once, in time order."""
-        found, seen = [], set()
+        """The events in these files, each once: month by month, each file in the order it was written."""
+        seen: set = set()
+        months: dict[str, list[list[tuple[float, dict]]]] = {}
         for path in paths:
-            # split the bytes on "\n" only, then decode each line: a line torn mid-character is lost alone, and a
-            # U+2028 inside an answer (valid JSON) is not taken for a line break as str.splitlines() would
-            for n, line in enumerate(path.read_bytes().split(b"\n"), 1):
-                if line.strip():
-                    try:
-                        e = json.loads(line.decode("utf-8"))
-                    except ValueError:  # a half-written line (crash mid-save) must not lock you out of your history
-                        bad_lines.append(f"{path.name}:{n}")
+            months.setdefault(path.name[:7], []).append(self._read_file(path, seen, bad_lines))
+        found = []
+        for month in sorted(months):
+            # a conflict copy ("2026-09 2") is read before its original ("2026-09."): merge the month's files in time
+            # order. Within one file the written order stands, even where the device clock stepped back, so the state
+            # built as events were written is the state rebuilt from the log. Ties go to the file read first.
+            found += [e for _, e in heapq.merge(*months[month], key=lambda ke: ke[0])]
+        return found
+
+    @staticmethod
+    def _read_file(path: Path, seen: set, bad_lines: list[str]) -> list[tuple[float, dict]]:
+        """(time, event) for the events in one file not already seen; an event without a readable time takes the time
+        of the one before it."""
+        out, last = [], float("-inf")
+        # split the bytes on "\n" only, then decode each line: a line torn mid-character is lost alone, and a
+        # U+2028 inside an answer (valid JSON) is not taken for a line break as str.splitlines() would
+        for n, line in enumerate(path.read_bytes().split(b"\n"), 1):
+            if line.strip():
+                try:
+                    e = json.loads(line.decode("utf-8"))
+                except ValueError:  # a half-written line (crash mid-save) must not lock you out of your history
+                    bad_lines.append(f"{path.name}:{n}")
+                    continue
+                if e.get("id") is not None:  # an iCloud conflict copy ("2026-09 2.jsonl") repeats events
+                    if e["id"] in seen:
                         continue
-                    if e.get("id") is not None:  # an iCloud conflict copy ("2026-09 2.jsonl") repeats events
-                        if e["id"] in seen:
-                            continue
-                        seen.add(e["id"])
-                    found.append(e)
-        # a conflict copy is read before its original ("2026-09 2" < "2026-09."): put the events back in time order;
-        # ties, and an event without a readable time, keep their place in the files
-        keys, last = [], float("-inf")
-        for e in found:
-            try:
-                last = datetime.fromisoformat(e["ts"]).timestamp()  # offsets may differ: compare instants
-            except (KeyError, TypeError, ValueError):
-                pass
-            keys.append(last)
-        return [found[i] for i in sorted(range(len(found)), key=keys.__getitem__)]
+                    seen.add(e["id"])
+                try:
+                    last = datetime.fromisoformat(e["ts"]).timestamp()  # offsets may differ: compare instants
+                except (KeyError, TypeError, ValueError):
+                    pass
+                out.append((last, e))
+        return out
 
     def events(self):
         if not (self.tutor / "events").exists():

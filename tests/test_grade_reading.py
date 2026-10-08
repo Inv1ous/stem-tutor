@@ -205,6 +205,35 @@ def test_a_decimal_comma_keeps_the_question_open(text, value, conf):
 
 
 @pytest.mark.parametrize("text,want", [
+    ("1 = 9.8 m s-2, 2 idk", [(1, "value", "9.8 m s-2"), (2, "bad", "2 idk")]),
+    ("1 = 3.0 m3, 2 dk", [(1, "value", "3.0 m3"), (2, "bad", "2 dk")]),
+    ("1 = 2.0 mol dm-3, 2 4", [(1, "value", "2.0 mol dm-3"), (2, "bad", "2 4")]),
+    ("1 = 9.8 m s-2, 2 3.0 m", [(1, "value", "9.8 m s-2"), (2, "bad", "2 3.0 m")]),
+    ("1 = 8.3 J K-1 mol-1, 2 7", [(1, "value", "8.3 J K-1 mol-1"), (2, "bad", "2 7")]),
+])
+def test_a_value_with_a_unit_ending_in_a_digit_never_swallows_the_next_entry(text, want):
+    """Only a bare number continues past a comma ("3 = 1,5 m"): "9.8 m s-2, 2 idk" was one entry, Q1 "9.8 m s-2,2 idk"
+    marked a wrong unit, and Q2 gone."""
+    got = grade.parse_responses(text)
+    assert [(r["n"], r["kind"], r["value"]) for r in got] == want
+    item = {"kind": "numeric", "stem": "", "answer": {"value": 9.8, "unit": "m s-2"}}
+    if want[0][2] == "9.8 m s-2":
+        assert grade.grade_item(item, got[0])["correct"]
+
+
+@pytest.mark.parametrize("given", ["9.8 m s-2,2 idk", "9.8 m s-2,2 3.0 m", "9.8 m s-2, 4"])
+def test_a_unit_with_a_comma_in_it_is_asked_again_not_a_wrong_unit(given):
+    g = _num(9.8, given, "m s-2")
+    assert not g["correct"] and g["needs_judgement"] and g["error"] is None
+    assert grade.value_problem({"kind": "numeric", "answer": {"value": 9.8, "unit": "m s-2"}}, given) == "unreadable"
+
+
+def test_a_wrong_unit_without_a_comma_is_still_a_wrong_unit():
+    g = _num(9.8, "9.8 kg", "m s-2")
+    assert not g["correct"] and g["error"] == "NOTATION" and "wrong unit" in g["detail"]
+
+
+@pytest.mark.parametrize("text,want", [
     ("1 = 3, 4 = 5", [(1, "value", "3"), (4, "value", "5")]),
     ("1 = 2.5, 2 = 3", [(1, "value", "2.5"), (2, "value", "3")]),
     ("1B, 2C, 3?", [(1, "choice", "B"), (2, "choice", "C"), (3, "idk", None)]),

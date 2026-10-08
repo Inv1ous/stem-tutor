@@ -591,6 +591,32 @@ def test_an_answer_that_reached_the_log_but_no_save_is_kept_once(tutor, monkeypa
     assert t.state == t._fold() == _restart(t).state
 
 
+def test_a_retest_score_that_reached_the_log_but_no_save_is_logged_once(tutor, monkeypatch):
+    tutor.start("autopilot", minutes=50)
+    tutor.end()
+    tutor.log({"type": "exp_start", "exp": "E1", "subject": "phys", "arms": ["worked_faded", "problem_first"],
+               "eligible": {"types": ["conceptual"]}, "target_pairs": 4})
+    tutor.log({"type": "exp_assign", "exp": "E1", "kc": "9702-2.1.1", "arm": "worked_faded", "pair": 0})
+    tutor.clock.t = T0 + timedelta(days=8)
+    assert tutor.start("autopilot", minutes=50)["blocks"][0]["kind"] == "retest"
+    save = tutor._save
+
+    def save_until_scored(*a, **kw):  # the app stops after the retest score is appended, before the save
+        if any(e["type"] == "exp_score" for e in tutor.vault.events()):
+            _stop()
+        return save(*a, **kw)
+
+    monkeypatch.setattr(tutor, "_save", save_until_scored)
+    with pytest.raises(RuntimeError):
+        for _ in range(3):
+            _answer_all(tutor, tutor.next(), good=True)
+    t = _restart(tutor)
+    again = _restart(t)
+    assert len([e for e in again.vault.events() if e["type"] == "exp_score"]) == 1
+    assert again.state == again._fold() and t.state == t._fold()
+    assert experiments.retests_due(again.state, again.clock.t) == []
+
+
 @pytest.mark.parametrize("dont_know", [True, False])
 def test_an_answer_recovered_from_the_log_does_what_marking_it_did(tutor, dont_know):
     tutor.start("test", minutes=50, focus=["9702-2.1"])

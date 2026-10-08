@@ -778,8 +778,11 @@ class Tutor(LessonMixin):
             kc = p.get("exp_kc") or p["kcs"][0]
             scores = s["retest"].setdefault(kc, [])
             scores.append(g["score"])
-            if len(scores) >= self._retest_target(kc):
-                self.log({"type": "exp_score", "exp": p["exp"], "kc": kc, "score": round(sum(scores) / len(scores), 3)})
+            score = {"type": "exp_score", "exp": p["exp"], "kc": kc, "score": round(sum(scores) / len(scores), 3)}
+            # recovering an answer whose score reached the log before the app stopped: it is not logged twice
+            if len(scores) >= self._retest_target(kc) and not (redo and any(
+                    all(e.get(k) == v for k, v in score.items()) for e in self.vault.events())):
+                self.log(score)
         fb = {"n": int(key), "event": ev["id"], "correct": g["correct"], "partial": partial, "score": g["score"],
               "error_code": g["error"], "response": ev["response"],
               "answer": _display_answer(inst), "explanation": inst.get("explanation"),
