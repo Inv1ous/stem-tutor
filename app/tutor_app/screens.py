@@ -1164,7 +1164,8 @@ class BlurtScreen(Screen):
                                     "Ideas you left out are now due for review, so they come up next time."),
                          classes="entry"))
         for kc, v in res["ideas"].items():
-            note = "" if v["recalled"] else lesson.teach_card(t, kc).get("note", "")
+            note = ("You remembered this." if v["recalled"] else  # a line, not an empty box under the title
+                    lesson.teach_card(t, kc).get("note", "") or "You left this out.")
             log.mount(Static(cards.card("good" if v["recalled"] else "bad",
                                         f"{'✓' if v['recalled'] else '✗'} {v['title']}", note), classes="entry"))
         log.scroll_end(animate=False)

@@ -135,6 +135,26 @@ def test_settings_switches_are_readable_and_line_up_when_focused(tmp_path, monke
     run(app, (120, 40), steps)
 
 
+def test_a_recalled_idea_in_blurt_results_is_not_an_empty_box(tmp_path, monkeypatch):
+    from tutor_app.screens import BlurtScreen
+    app, v = app_for(tmp_path, monkeypatch)
+    drawn = []
+    real = cards.card
+    monkeypatch.setattr(cards, "card", lambda kind, title, body="", **kw: drawn.append((kind, title, body))
+                        or real(kind, title, body, **kw))
+
+    async def steps(pilot):
+        b = BlurtScreen("9702-2.1")
+        app.push_screen(b)
+        await pilot.pause()
+        b.query_one("#blurt").text = "Velocity is rate of change of displacement. v = u + at."
+        b.action_submit()
+        await pilot.pause()
+    run(app, (100, 30), steps)
+    ideas = [d for d in drawn if d[1].startswith(("✓", "✗"))]
+    assert any(t.startswith("✓") for _, t, _ in ideas) and all(body.strip() for _, _, body in ideas)
+
+
 async def _session(app, pilot, mode="test"):
     from tutor_app.screens import SessionScreen
     scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]})
