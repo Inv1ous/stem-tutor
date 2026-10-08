@@ -219,9 +219,66 @@ def test_a_tab_is_switched_by_asking_terminal_and_a_failure_is_only_a_failure(mo
     assert mac.terminal_tty() is None  # tests never run as a macOS Terminal tab (conftest)
 
 
+@pytest.mark.parametrize("stderr,status", [
+    ("execution error: Not authorized to send Apple events to Terminal. (-1743)", "denied"),
+    ("execution error: Terminal got an error: Not authorized", "denied"),
+    ("execution error: Terminal got an error: AppleEvent timed out. (-1712)", "")])
+def test_a_refused_automation_permission_is_told_apart(monkeypatch, stderr, status):
+    import subprocess
+    seen = []
+
+    def fake_run(args, **kw):
+        seen.append(kw.get("timeout"))
+        return subprocess.CompletedProcess(args, 1, stdout="", stderr=stderr)
+    monkeypatch.setattr(mac.subprocess, "run", fake_run)
+    assert mac.switch_terminal_profile("/dev/ttys009", "STEM Tutor Night") == (status, None)
+    # long enough to answer macOS's one-time "control Terminal" prompt: killed under it, it comes back every launch
+    assert seen == [20]
+
+
+def test_a_refused_permission_is_said_once_at_start(tmp_path, monkeypatch):
+    import asyncio
+    from test_tui import app_for
+    app, v = app_for(tmp_path, monkeypatch)
+    app.profile_denied = True
+    said = []
+    monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            await app.ai.close()
+    asyncio.run(go())
+    assert said.count(mac.AUTOMATION_HELP) == 1
+    assert "Privacy & Security › Automation › Terminal" in mac.AUTOMATION_HELP
+
+
+def test_a_refused_permission_when_changing_the_look_is_said_only_once(tmp_path, monkeypatch):
+    import asyncio
+    from test_tui import app_for
+    from tutor_app import look
+    app, v = app_for(tmp_path, monkeypatch)
+    monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: ("denied", None))
+    said = []
+
+    async def go():
+        async with app.run_test(size=(100, 30)) as pilot:
+            await pilot.pause()
+            app.tty = "/dev/ttys009"
+            monkeypatch.setattr(app, "notify", lambda msg, **kw: said.append(msg))
+            for name in ("night", "day", "night"):
+                look.apply(app, name)
+                await app.workers.wait_for_complete()
+                await pilot.pause()
+            await app.ai.close()
+    asyncio.run(go())
+    assert said.count(mac.AUTOMATION_HELP) == 1 and mac.LOOK_HELP not in said
+
+
 @pytest.mark.parametrize("theme,answer,switched,missing", [
     ("night", ("ok", "Basic"), [("/dev/ttys009", "STEM Tutor Night"), ("/dev/ttys009", "Basic")], False),  # and back
     ("night", ("missing", None), [("/dev/ttys009", "STEM Tutor Night")], True),
+    ("night", ("denied", None), [("/dev/ttys009", "STEM Tutor Night")], "denied"),
     ("classic", ("ok", "Basic"), [], False)])  # Classic: the tab stays as the launcher left it
 def test_the_app_puts_its_tab_in_the_looks_profile_and_back(tmp_path, monkeypatch, theme, answer, switched, missing):
     import json
@@ -233,10 +290,11 @@ def test_the_app_puts_its_tab_in_the_looks_profile_and_back(tmp_path, monkeypatc
     calls, seen = [], []
     monkeypatch.setattr(mac, "terminal_tty", lambda: "/dev/ttys009")
     monkeypatch.setattr(mac, "switch_terminal_profile", lambda tty, name: calls.append((tty, name)) or answer)
-    monkeypatch.setattr(TutorApp, "run", lambda self: seen.append((self.tty, self.profile_missing)))
+    monkeypatch.setattr(TutorApp, "run", lambda self: seen.append((self.tty, self.profile_missing,
+                                                                   self.profile_denied)))
     cli.main(["--vault", str(vault)])
     assert calls == switched
-    assert seen == [("/dev/ttys009", missing)]
+    assert seen == [("/dev/ttys009", missing is True, missing == "denied")]
 
 
 def test_doctor_still_runs_when_the_interface_library_is_missing(tmp_path, monkeypatch, capsys):

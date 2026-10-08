@@ -38,6 +38,8 @@ SWITCH_PROFILE = """on run argv
 end run"""
 LOOK_HELP = ("This look's Terminal window isn't set up yet, so its edges keep the old colours. In Terminal run:  "
              "tutor look   (once; it backs up your Terminal settings first). Or choose Classic in Settings (F2).")
+AUTOMATION_HELP = ("macOS has not allowed the tutor to switch this window's profile, so its edges keep the old colours. "
+                   "To allow it: System Settings › Privacy & Security › Automation › Terminal.")
 
 
 def terminal_tty() -> str | None:
@@ -54,15 +56,17 @@ def terminal_tty() -> str | None:
 
 def switch_terminal_profile(tty: str | None, name: str) -> tuple[str, str | None]:
     """Show the Terminal tab on `tty` in the profile `name` (only that tab). Returns ("ok", the profile it had),
-    ("missing", None) when Terminal has no such profile, or ("", None) when it could not be asked (not in Terminal,
-    Apple Events refused, too slow)."""
+    ("missing", None) when Terminal has no such profile, ("denied", None) when macOS refused the tutor control of
+    Terminal (Automation permission, -1743), or ("", None) when it could not be asked (not in Terminal, too slow)."""
     if not tty:
         return "", None
     try:
         done = subprocess.run(["osascript", "-", tty, name], input=SWITCH_PROFILE, capture_output=True, text=True,
-                              timeout=3)
+                              timeout=20)  # time to answer macOS's one-time prompt: killed under it, it comes back
     except (OSError, subprocess.SubprocessError):
         return "", None
+    if "-1743" in done.stderr or "Not authorized" in done.stderr:
+        return "denied", None
     status, _, was = done.stdout.strip().partition("\n")
     return status, (was.strip() or None)
 

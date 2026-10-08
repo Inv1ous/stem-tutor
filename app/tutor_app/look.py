@@ -117,6 +117,9 @@ def apply(app, name: str) -> None:
                 app.tty_profile = was
             if status == "missing" and name != "classic":
                 app.call_from_thread(app.notify, mac.LOOK_HELP, timeout=15)
+            if status == "denied" and not app.profile_denied:  # said once: asking again changes nothing
+                app.profile_denied = True
+                app.call_from_thread(app.notify, mac.AUTOMATION_HELP, timeout=15)
         app.run_worker(switch, thread=True, group="terminal-profile", exclusive=True)
 
 
