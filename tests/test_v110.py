@@ -413,6 +413,14 @@ def test_new_content_is_picked_up_between_sessions(tmp_path):
     assert t.refresh_content() == ["Forces"] and t.packs.root.name == "v2"
 
 
+def test_a_damaged_new_publish_keeps_the_content_already_loaded(tmp_path):
+    root = make_vault(tmp_path)
+    t = session.Tutor(store.Vault(root), rng=random.Random(0), now=lambda: T0)
+    _publish_new_version(root)
+    (root / ".tutor/packs/v2/plan.json").write_text("{")
+    assert t.refresh_content() == [] and t.packs.root.name == "v1" and t.packs.pack("9702-2.1")
+
+
 def test_a_pruned_content_version_does_not_break_a_running_session(tmp_path):
     import shutil
     root = make_vault(tmp_path)

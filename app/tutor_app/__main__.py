@@ -45,7 +45,7 @@ def main(argv: list[str] | None = None) -> int:
         print("\x1b]0;\x07", end="", flush=True)  # hand the title back
         if app.tty_profile:  # and the tab its own profile, as it was before the tutor
             mac.switch_terminal_profile(app.tty, app.tty_profile)
-    return 0
+    return app.return_code or 0
 
 
 if __name__ == "__main__":

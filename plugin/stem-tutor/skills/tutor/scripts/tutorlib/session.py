@@ -14,7 +14,7 @@ from datetime import datetime
 
 from . import almanac, diagnose, grade, model, policy, views
 from .lesson import LessonMixin
-from .packs import Packs, instantiate
+from .packs import DamagedContent, Packs, instantiate
 from .store import Vault, read_json, write_json
 
 PUBLIC = ("kind", "stem", "options", "marks", "command_word", "image")
@@ -78,7 +78,10 @@ class Tutor(LessonMixin):
         if self.session or (self.packs.base / "CURRENT").read_text().strip() == self.packs.root.name:
             return []
         before = self.packs.published()
-        self.packs = Packs(self.vault)
+        try:
+            self.packs = Packs(self.vault)
+        except DamagedContent:  # keep what is loaded; the next start names the file
+            return []
         self.read_almanac()
         return [self.packs.subtopics[s]["title"] for s in sorted(self.packs.published() - before)
                 if s in self.packs.subtopics]

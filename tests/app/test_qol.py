@@ -5,6 +5,7 @@ import time
 from textual.widgets import Button, Input, Select, Switch
 
 from test_tui import app_for
+from tutor_app.app import TutorApp
 from tutor_app.panels import Composer, ContinuePanel, LongPanel, ReflectPanel
 
 
@@ -389,3 +390,32 @@ def test_a_second_answer_queued_on_a_panel_already_answered_is_ignored(tmp_path,
         await pilot.pause(0.3)
         assert scr.act.get("activity") == "plan"
     run(app, (100, 30), steps)
+
+
+def test_a_damaged_content_file_stops_the_app_with_one_clear_line(tmp_path, monkeypatch, capsys):
+    app, v = app_for(tmp_path, monkeypatch)
+    (v / ".tutor/packs/v1/plan.json").write_text('{"weeks": [')
+
+    async def go():
+        async with app.run_test(size=(80, 24)) as pilot:
+            await pilot.pause()
+    asyncio.run(go())
+    err = capsys.readouterr().err
+    assert " ".join(err.split()) == ("The content file .tutor/packs/v1/plan.json is damaged: reinstall the content "
+                                     "(run publish) — the rest of your data is untouched")  # wrapped only at 80 wide
+    assert app.return_code == 1
+
+
+def test_a_damaged_chapter_is_left_out_and_the_app_still_runs(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+    (v / ".tutor/packs/v1/specs/9702/packs/9702-2.1.json").write_text('{"items": [')
+    said = []
+
+    async def steps(pilot):
+        assert app.screen.__class__.__name__ == "HomeScreen"
+        app.action_settings()  # the app goes on working
+        await pilot.pause()
+        assert app.screen.__class__.__name__ == "SettingsScreen"
+    monkeypatch.setattr(TutorApp, "notify", lambda self, msg, **k: said.append(msg))
+    run(app, (100, 30), steps)
+    assert any(".tutor/packs/v1/specs/9702/packs/9702-2.1.json is damaged" in m and "run publish" in m for m in said)

@@ -220,6 +220,21 @@ def doctor(vault: Path) -> list[tuple[bool, str, str]]:
             events, bad = 0, ["the history could not be read"]
         rows.append((bool(cur), f"Content packs: {cur or 'none published'}; {events} study events recorded",
                      "" if cur else "Run the build's publish step."))
+        if cur:
+            from tutorlib import packs
+            try:
+                content = packs.Packs(store.Vault(vault))
+                for sub in content.subtopics:
+                    content.pack(sub)
+                damaged = content.damaged
+            except packs.DamagedContent as e:
+                damaged = [e.path]
+            except (OSError, ValueError, KeyError):  # a missing version folder and the like: not this row's to say
+                damaged = []
+            if damaged:
+                rows.append((False, f"Content files: {len(damaged)} damaged ({', '.join(damaged[:3])}"
+                             f"{', …' if len(damaged) > 3 else ''})",
+                             "Reinstall the content (run publish): the rest of your data is untouched."))
         if bad:
             rows.append((False, f"Study history: {len(bad)} damaged line{'s' if len(bad) != 1 else ''} skipped "
                          f"({', '.join(bad[:3])}{', …' if len(bad) > 3 else ''})",
