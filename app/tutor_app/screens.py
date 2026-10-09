@@ -146,6 +146,7 @@ class HomeScreen(Screen):
                   ("test", "◎  Test prep: check a chapter, fix what's weak"),
                   ("long", "✎  Long questions (typed or iPad)"),
                   ("blurt", "»  Blurt: write everything you remember"),
+                  ("challenge", "⚑  Challenge: hard calculation questions"),
                   ("chat", "✦  Ask the tutor anything"),
                   ("insights", "◉  What the tutor knows about you"),
                   ("progress", "▤  My progress"),
@@ -286,6 +287,9 @@ class HomeScreen(Screen):
                 SessionScreen({"mode": "long", "focus": r, "minutes": 30})))
         elif key == "blurt":
             app.push_screen(PickerScreen("blurt"), lambda r: r and app.push_screen(BlurtScreen(r[0])))
+        elif key == "challenge":
+            from .challenge_screen import ChallengeScreen
+            app.push_screen(ChallengeScreen())
         elif key == "chat":
             app.push_screen(ChatScreen())
         elif key == "progress":
@@ -1239,6 +1243,13 @@ explanation, even while you type.
 Typing: **⏎** sends a short answer · **ctrl+j** starts a new line · **ctrl+s** submits a long answer or a blurt.
 
 **?** this help · **F2** settings · **q** quit (from the menu)
+
+# Challenge (menu)
+Hard calculation questions written by AI for fun: multiple choice, or typed answers with no hints. Set it up in
+words in the top box and **⏎**, e.g. _15 questions on 9702-5.1, start easy, jump to hard fast, end extreme, opus_ or
+_mostly typed, level 6 to 9, hardest first_, or with the list: **↑↓** and **⏎** to change a setting, **← →** to step
+it. The whole set is written and checked first; **Esc** cancels while it is being written, and goes back to the menu
+otherwise (your answers are saved, and the set carries on next time). It does not affect your reviews or progress.
 
 # Where to look
 Keep **Obsidian** open beside this window on **Now** (the current question in full, with figures) — your

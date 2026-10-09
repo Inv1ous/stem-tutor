@@ -145,6 +145,14 @@ def key_of(tutor, n: int) -> tuple[str, str, dict | None]:
     return _display_answer(inst), inst["kind"], inst["answer"] if inst["kind"] == "numeric" else None
 
 
+def challenge_explain(item: dict, solution: str, key: str, response: str) -> str:
+    """Why the answer to a challenge question is what it is (the question is marked: nothing to withhold)."""
+    return (f"A student just answered this challenge question.\nQUESTION: {item.get('stem', '')}"
+            f"{_options(item.get('options'))}\nANSWER: {key}\nWORKED SOLUTION: {solution}\nSTUDENT ANSWER: {response}\n\n"
+            "Explain clearly how to solve it: the key idea that unlocks it, then the steps in short. If the student was "
+            "wrong, say where their answer most likely went wrong. At most 150 words; maths in $...$.")
+
+
 REMARK = {"type": "object", "properties": {"correct": {"type": "boolean"}, "why": {"type": "string"}},
           "required": ["correct", "why"]}
 REMARK_MODEL = "sonnet"  # a re-mark is rare, asked for, and has to be right: the stronger model whatever the setting

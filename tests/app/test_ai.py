@@ -339,3 +339,24 @@ def test_a_huge_stream_line_is_a_failed_reply_not_a_crash(tmp_path):
         await c.close()
         return res
     assert not asyncio.run(go()).ok
+
+
+def test_a_one_shot_takes_its_own_time_limit(tmp_path):
+    """A hard challenge question can take Opus minutes to write; a caller sets the limit, a slow reply past it fails."""
+    c = ai.Claude(tmp_path, binary=str(_script(tmp_path, "import time\ntime.sleep(30)\n")))
+    async def go():
+        t0 = asyncio.get_running_loop().time()
+        data, res = await c.one_shot("x", timeout=0.5)
+        return data, res, asyncio.get_running_loop().time() - t0
+    data, res, took = asyncio.run(go())
+    assert data is None and not res.ok and "too long" in res.message and took < 10
+
+
+def test_a_one_shot_can_bring_its_own_system_prompt(tmp_path, monkeypatch):
+    """Writing a challenge question needs a full worked solution: not the tutor's short, never-tell-the-answer brief."""
+    c = make(tmp_path, monkeypatch)
+    asyncio.run(c.one_shot("write", schema={"type": "object"}, system="You write questions."))
+    asyncio.run(c.one_shot("judge", schema={"type": "object"}))
+    first, second = (json.loads(line) for line in (tmp_path / "argv.log").read_text().splitlines())
+    assert first[first.index("--system-prompt") + 1] == "You write questions."
+    assert second[second.index("--system-prompt") + 1] == ai.SYSTEM and c.system == ai.SYSTEM

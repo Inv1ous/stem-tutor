@@ -272,18 +272,23 @@ class Claude:
             pass
         return self.last
 
-    async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None) -> tuple[dict | None, Result]:
-        """A separate, memory-less call that must return JSON (judging an answer, writing a teach card)."""
+    async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None,
+                       timeout: float = 120, system: str | None = None) -> tuple[dict | None, Result]:
+        """A separate, memory-less call that must return JSON (judging an answer, writing a teach card). `timeout` is
+        in seconds: a hard challenge question can take Opus several minutes. `system` replaces the tutor brief for
+        this call only (writing a challenge question needs its full worked solution, not a short nudge)."""
         if not self.available:
             return None, Result(ok=False, status=self.status, message=self.message or "AI unavailable")
         self._pending += 1
         try:
-            return await self._one_shot(prompt, schema, model)
+            return await self._one_shot(prompt, schema, model, timeout, system)
         finally:
             self._pending -= 1
 
-    async def _one_shot(self, prompt: str, schema: dict | None, model: str | None) -> tuple[dict | None, Result]:
-        args = [*LEAN, "--model", model or self.model, "--system-prompt", self.system, "--output-format", "json"]
+    async def _one_shot(self, prompt: str, schema: dict | None, model: str | None,
+                        timeout: float = 120, system: str | None = None) -> tuple[dict | None, Result]:
+        args = [*LEAN, "--model", model or self.model, "--system-prompt", system or self.system,
+                "--output-format", "json"]
         if schema:
             args += ["--json-schema", json.dumps(schema)]
         try:
@@ -292,7 +297,7 @@ class Claude:
         except OSError:
             return None, Result(ok=False, status="error", message="Claude Code could not be started.")
         try:
-            out, _ = await asyncio.wait_for(proc.communicate(prompt.encode()), 120)
+            out, _ = await asyncio.wait_for(proc.communicate(prompt.encode()), timeout)
         except asyncio.CancelledError:  # the caller was cancelled (new judge started, screen left): stop for real
             proc.kill()
             await proc.wait()

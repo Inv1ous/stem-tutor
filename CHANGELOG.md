@@ -1,5 +1,36 @@
 # Changelog
 
+## 2.1.0 — 2026-10-09
+
+Asked by the learner.
+
+- **Challenge mode** (home menu: "Challenge: hard calculation questions"; `app/tutor_app/challenge_screen.py`,
+  `tutorlib/challenge.py`, `tutorlib/challenge_gen.py`). Questions are written for fun and mastery and never touch the
+  mastery model, reviews, reports or the Almanac: answers are saved in `.tutor/challenge/<set>.json` and logged as
+  `challenge` events, which everything else ignores.
+- **Ten levels**, from Warm-up to Impossible (7 "rare in exams", 8 "beyond the exam", 10 "far beyond A-level but
+  still solvable"). Pick the easiest and hardest level and how the set climbs: steady, fast-then-slow (quick jump to
+  hard, slow creep to extreme), slow-then-fast, hardest-first, wave, random or flat.
+- **Multiple choice and typed answers**, calculation only (no "explain" or "design an experiment"). Typed questions
+  have no options, so no hints; the real grader marks value, unit and significant figures. Re-mark (AI) is offered
+  for a typed answer marked wrong.
+- **Set up by words or menu**: type "12 questions on 9702-5.1, start easy, jump to hard fast, end extreme, opus", or
+  step through Topics, How many, Types, Easiest, Hardest, Ramp and Model. A live preview shows the level of every
+  question. The last settings are remembered. The whole set is written first, then shown one question at a time with
+  a check after each; an unfinished set can be resumed.
+- **Solvable by construction**: the writer is given only the syllabus points of the chosen chapters, the earlier
+  chapters of the same spec and their prerequisites, and must build each question on required points from the chosen
+  chapters. Then an independent model solves it blind and must match the key, and an examiner call checks that every
+  idea used is in scope and rates the difficulty; a question that fails is retried with the reason, then written one
+  level easier, then left out. At levels 8 and up a solver that misses is accepted only when a second careful blind
+  solve by the independent model reaches the key. A question rated easier than asked is shown at the level it really
+  is ("level 9 (asked for 10)").
+- **When Opus declines** (its safeguards sometimes flag ordinary physics), that one call goes to Sonnet instead and
+  the screen says so; it is never reworded to get around the filter. Calls are capped per question and a run stops
+  after repeated failures; Esc cancels cleanly.
+- `Claude.one_shot` takes `timeout` and `system`; hard questions can take several minutes to write.
+- Not covered: temperature answers in °C (the unit parser does not read `°C`).
+
 ## 2.0.0 — 2026-10-08
 
 A new look for the terminal window, and a long bug-and-comfort pass hunted by parallel agents (read-only hunters,

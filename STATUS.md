@@ -1,5 +1,10 @@
 # Build status
 
+## v2.1.0 (2026-10-09) — done
+- Challenge mode: hard AI-written calculation questions (MCQ and typed) at ten difficulty levels, set up by words or
+  menu, written by Sonnet or Opus, each checked for being solvable from the chosen chapters and the ones before.
+  1927 tests.
+
 ## v2.0.0 (2026-10-08) — done
 - A cleaner window and a hardening pass: the Night, Day and Classic looks with JuliaMono and `tutor look` (backup and
   undo), maths shown as printed, grading and recovery fixes, a safer publish, calmer screens, repaired published

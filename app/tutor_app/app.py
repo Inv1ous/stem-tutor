@@ -78,6 +78,14 @@ HomeScreen.narrow #stats { display: none; }
 HomeScreen.narrow #glance { display: block; }
 HomeScreen.narrow #menu { width: 1fr; }
 HomeScreen.short #banner { display: none; }
+ChallengeScreen.setup #log { display: none; }
+ChallengeScreen.setup #panel { height: 1fr; max-height: 100%; }
+.panel.setup { height: 1fr; padding: 0 0 0 1; }
+#setup { height: 1fr; scrollbar-size-vertical: 1; scrollbar-gutter: stable; scrollbar-background: $background; }
+#setup #words { margin: 0 1 0 0; }
+#setup #settings, #setup #settings:focus { border: none; padding: 0; height: auto; max-height: 100%; }
+#setup #understood, #setup #detail, #setup #preview, #setup-note { padding: 0 1 0 1; }
+#setup #detail { margin-bottom: 1; }
 """
 
 

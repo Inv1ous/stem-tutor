@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.0.0_
+_Version 2.1.0_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,11 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 2.1.0
+> - **Challenge mode** (home menu): hard calculation questions written by Sonnet or Opus, for fun and for deeper mastery. Choose how many, which chapters, MCQ, typed or a mix, the easiest and hardest level (ten levels, from Warm-up to Impossible), and how the set climbs. Type it in words or use the menu.
+> - **Always solvable from the chapter and the ones before it:** every question is checked by a second model that solves it blind, and by an examiner check that it uses only those ideas. Questions that fail are dropped, so a set can come out shorter than asked.
+> - **Nothing here changes your mastery, reviews or Almanac.** It is for stretching, not scoring.
 
 > [!example] New in 2.0.0
 > - **A cleaner window.** Pick a look in **Settings (F2) → Look**: **Night** (calm dark), **Day** (light) or **Classic** (as before). Until you set it up, nothing changes.
@@ -284,6 +289,19 @@ The tutor checks which ideas your writing covers, using each idea's key terms fr
 Blurting is a strong form of recall practice, far better than re-reading notes. Use it at the start of a revision day, or to check a topic before a test.
 
 ---
+
+## 6b. Challenge mode
+
+Choose **Challenge: hard calculation questions** on the menu. It writes a set of hard questions first (a few minutes; level 8 and up can take 15 to 20), then shows them one at a time with the answer checked after each. It needs Claude Code signed in.
+
+- **Say it in words:** in the top box type, for example, `12 questions on 9702-5.1, start easy, jump to hard fast, end extreme, opus` and press ⏎. The tutor tells you what it understood and what it did not. Or use the list below it: **Topics, How many, Types, Easiest, Hardest, Ramp, Model**, then **Start**. A line shows the level of every question before you begin.
+- **Levels:** 1 Warm-up, 2 Standard, 3 Solid, 4 Demanding, 5 Exam-hard, 6 Top of the paper, 7 Rare in exams, 8 Beyond the exam, 9 Extreme, 10 Impossible (far beyond A-level, but still solvable with the syllabus).
+- **Ramps:** steady climb; fast then slow (a quick jump to hard, then a slow creep to extreme); slow then fast; hardest first; up and down; random; all the same level.
+- **Types:** multiple choice (the options can give hints away), typed (an exact answer with a unit, no options, never "explain" or "design an experiment") or a mix. Typed answers are marked as in lessons: value, unit and significant figures; **Re-mark (AI)** is there if you think a typed answer was right.
+- **Sonnet or Opus:** Sonnet is faster and uses less of your limit. Opus is slower and writes harder questions. If Opus declines a question (its safety filter sometimes flags ordinary physics), Sonnet writes it instead and the screen says so.
+- **Solvable:** each question must be solvable with the chosen chapters and the ones before them. If a question cannot be made to pass the checks, it is left out, so you may get fewer than you asked for.
+- **Keys:** ↑↓ ⏎ in the list, ← → to change a value, Tab for the words box, **Esc** to go back or cancel writing, **alt+↑/↓** to scroll a long question, **ctrl+b** to the menu. Stopped sets are closed; an unfinished one is offered to continue.
+- Your answers are kept in the vault's `.tutor/challenge` folder. They never change your mastery, reviews or Almanac.
 
 ## 7. Reviews, memory and "secure"
 
