@@ -1,0 +1,1001 @@
+{
+ "subtopic": "FP1-6",
+ "spec": "FP1",
+ "version": 1,
+ "note": "Subjects/Maths/FP1 Further Pure Mathematics 1/6 Transformations using matrices.md",
+ "outline": "A linear transformation of two-dimensional column vectors is represented by a $2\\times2$ matrix whose columns are the images of the standard basis. Standard matrices give reflections in the axes and $y=\\pm x$, rotations about the origin, stretches parallel to either coordinate axis and nonzero real enlargements about the origin. For a combined transformation, $AB$ applies $B$ first, then $A$. A nonzero determinant gives an inverse; $(AB)^{-1}=B^{-1}A^{-1}$. The absolute determinant is the area scale factor. A zero determinant collapses area and has no inverse.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "FP1-6.1",
+   "statement": "The columns of a transformation matrix are the images of the wrong basis vectors.",
+   "refutation": "The first column is the image of $(1,0)^T$ and the second is the image of $(0,1)^T$.",
+   "contrast": "Apply the matrix to each basis vector in order.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "FP1-6.2",
+   "statement": "A stretch parallel to one axis scales the other coordinate.",
+   "refutation": "A stretch parallel to the $x$-axis scales the $x$ coordinate; parallel to $y$ scales $y$.",
+   "contrast": "Test the image of $(1,1)^T$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "FP1-6.3",
+   "statement": "The first transformation named is the left matrix in the product.",
+   "refutation": "For column vectors, $AB$ applies $B$ first, then $A$.",
+   "contrast": "Write the rightmost matrix next to the input column.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "FP1-6.4",
+   "statement": "A zero determinant transformation can be reversed.",
+   "refutation": "A zero determinant collapses area to zero and has no inverse.",
+   "contrast": "Check $\\det A$ before computing $A^{-1}$.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "FP1-6.4",
+   "statement": "An inverse of a product retains the original factor order.",
+   "refutation": "The inverse of $AB$ is $B^{-1}A^{-1}$ when both exist.",
+   "contrast": "Undo the last transformation first.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "FP1-6.1",
+   "problem": "Find the matrix $T$ with $T(1,0)^T=(2,3)^T$ and $T(0,1)^T=(-1,4)^T$, then find the first coordinate of $T(2,1)^T$.",
+   "steps": [
+    {
+     "do": "$T=\\begin{pmatrix}2&-1\\\\3&4\\end{pmatrix}$.",
+     "why": "The basis-vector images are its columns."
+    },
+    {
+     "do": "$T\\begin{pmatrix}2\\\\1\\end{pmatrix}=\\begin{pmatrix}3\\\\10\\end{pmatrix}$.",
+     "why": "Linearity makes each output coordinate a row-column product.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find the first coordinate of the image of $(1,2)^T$ under $T=\\begin{pmatrix}2&-1\\\\3&4\\end{pmatrix}$.",
+    "answer": {
+     "value": 0.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "FP1-6.2",
+   "problem": "Find the matrix for anticlockwise rotation through $90^\\circ$ and the second coordinate of the image of $(2,3)^T$.",
+   "steps": [
+    {
+     "do": "$R=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$.",
+     "why": "Substitute $\\cos90^\\circ=0$ and $\\sin90^\\circ=1$ in the rotation formula."
+    },
+    {
+     "do": "$R\\begin{pmatrix}2\\\\3\\end{pmatrix}=\\begin{pmatrix}-3\\\\2\\end{pmatrix}$.",
+     "why": "Multiply the rotation matrix by the column vector.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find the second coordinate after reflecting $(4,-1)^T$ in the line $y=x$.",
+    "answer": {
+     "value": 4.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "FP1-6.3",
+   "problem": "Find the combined matrix for a stretch parallel to the $x$-axis by $3$, followed by anticlockwise rotation through $90^\\circ$, and calculate the first coordinate of the image of $(1,2)^T$.",
+   "steps": [
+    {
+     "do": "$R=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$, $S=\\begin{pmatrix}3&0\\\\0&1\\end{pmatrix}$, so the combined matrix is $RS=\\begin{pmatrix}0&-1\\\\3&0\\end{pmatrix}$.",
+     "why": "The stretch happens first, so its matrix is on the right."
+    },
+    {
+     "do": "$RS\\begin{pmatrix}1\\\\2\\end{pmatrix}=\\begin{pmatrix}-2\\\\3\\end{pmatrix}$.",
+     "why": "Apply the product to the column vector.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -2.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Find the first coordinate after $SR$ acts on $(1,2)^T$, with $S=\\begin{pmatrix}3&0\\\\0&1\\end{pmatrix}$, $R=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$.",
+    "answer": {
+     "value": -6.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "FP1-6.4",
+   "problem": "Find the inverse of $A=\\begin{pmatrix}2&1\\\\0&1\\end{pmatrix}$ and its area scale factor.",
+   "steps": [
+    {
+     "do": "$\\det A=2$.",
+     "why": "A nonzero determinant guarantees an inverse.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "$A^{-1}=\\begin{pmatrix}1/2&-1/2\\\\0&1\\end{pmatrix}$.",
+     "why": "Use the two-by-two inverse formula; checking $AA^{-1}=I$ verifies it.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -0.5,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Area scale factor $=|\\det A|=2$.",
+     "why": "Area cannot have a negative scale.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "Find the $(1,1)$ entry of the inverse of $A=\\begin{pmatrix}3&1\\\\1&1\\end{pmatrix}$.",
+    "answer": {
+     "value": 0.5,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "FP1-6-i01",
+   "kcs": [
+    "FP1-6.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $v=\\begin{pmatrix}1\\\\0\\end{pmatrix}$ under $T(v)=Av$, where $A=\\begin{pmatrix}2&-1\\\\3&4\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Row 1 of $A$ dotted with $v$ gives $2$.",
+   "hints": [
+    "Use the first row of the matrix.",
+    "Take its dot product with the input column.",
+    "Multiply corresponding entries, then add."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i02",
+   "kcs": [
+    "FP1-6.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $v=\\begin{pmatrix}0\\\\1\\end{pmatrix}$ under $T(v)=Av$, where $A=\\begin{pmatrix}2&-1\\\\3&4\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": -1.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Row 1 of $A$ dotted with $v$ gives $-1$.",
+   "hints": [
+    "Use the first row of the matrix.",
+    "Take its dot product with the input column.",
+    "Multiply corresponding entries, then add."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i03",
+   "kcs": [
+    "FP1-6.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $v=\\begin{pmatrix}2\\\\1\\end{pmatrix}$ under $T(v)=Av$, where $A=\\begin{pmatrix}2&-1\\\\3&4\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Row 1 of $A$ dotted with $v$ gives $3$.",
+   "hints": [
+    "Use the first row of the matrix.",
+    "Take its dot product with the input column.",
+    "Multiply corresponding entries, then add."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i04",
+   "kcs": [
+    "FP1-6.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $v=\\begin{pmatrix}-1\\\\2\\end{pmatrix}$ under $T(v)=Av$, where $A=\\begin{pmatrix}2&-1\\\\3&4\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": -4.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Row 1 of $A$ dotted with $v$ gives $-4$.",
+   "hints": [
+    "Use the first row of the matrix.",
+    "Take its dot product with the input column.",
+    "Multiply corresponding entries, then add."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i05",
+   "kcs": [
+    "FP1-6.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of the matrix whose images of $(1,0)^T$ and $(0,1)^T$ are respectively $\\begin{pmatrix}3\\\\-2\\end{pmatrix}$ and $\\begin{pmatrix}5\\\\1\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The second image forms the second column, whose first coordinate is $5$.",
+   "hints": [
+    "Use the standard basis vectors.",
+    "Their images become columns in the same order.",
+    "Read the top entry of the second image."
+   ],
+   "distractors": [
+    {
+     "value": 3.0,
+     "misconception": "m1"
+    }
+   ]
+  },
+  {
+   "id": "FP1-6-i06",
+   "kcs": [
+    "FP1-6.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the matrix representing a linear map that sends $(1,0)^T$ to $(2,3)^T$ and $(0,1)^T$ to $(-1,4)^T$.",
+   "marks": 1,
+   "options": {
+    "A": "$\\begin{pmatrix}2&-1\\\\3&4\\end{pmatrix}$",
+    "B": "$\\begin{pmatrix}2&3\\\\-1&4\\end{pmatrix}$",
+    "C": "$\\begin{pmatrix}-2&1\\\\-3&-4\\end{pmatrix}$",
+    "D": "$\\begin{pmatrix}1&0\\\\0&1\\end{pmatrix}$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1"
+   },
+   "shuffle": true,
+   "explanation": "The images of the two basis vectors are the two columns of the matrix.",
+   "hints": [
+    "Recall how a matrix acts on basis vectors.",
+    "Put each image in a column.",
+    "Use the image of the first basis vector first."
+   ]
+  },
+  {
+   "id": "FP1-6-i07",
+   "kcs": [
+    "FP1-6.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $\\begin{pmatrix}2\\\\3\\end{pmatrix}$ under reflection in the $x$-axis.",
+   "marks": 2,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The reflection matrix is $\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$; its image is $\\begin{pmatrix}2\\\\-3\\end{pmatrix}$.",
+   "hints": [
+    "Identify the fixed line.",
+    "Write its reflection matrix.",
+    "Multiply it by the input column."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i08",
+   "kcs": [
+    "FP1-6.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $\\begin{pmatrix}2\\\\3\\end{pmatrix}$ under reflection in the $y$-axis.",
+   "marks": 2,
+   "answer": {
+    "value": -2.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The reflection matrix is $\\begin{pmatrix}-1&0\\\\0&1\\end{pmatrix}$; its image is $\\begin{pmatrix}-2\\\\3\\end{pmatrix}$.",
+   "hints": [
+    "Identify the fixed line.",
+    "Write its reflection matrix.",
+    "Multiply it by the input column."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i09",
+   "kcs": [
+    "FP1-6.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $\\begin{pmatrix}2\\\\3\\end{pmatrix}$ under reflection in the line $y=x$.",
+   "marks": 2,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The reflection matrix is $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$; its image is $\\begin{pmatrix}3\\\\2\\end{pmatrix}$.",
+   "hints": [
+    "Identify the fixed line.",
+    "Write its reflection matrix.",
+    "Multiply it by the input column."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i10",
+   "kcs": [
+    "FP1-6.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $\\begin{pmatrix}2\\\\3\\end{pmatrix}$ under reflection in the line $y=-x$.",
+   "marks": 2,
+   "answer": {
+    "value": -3.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The reflection matrix is $\\begin{pmatrix}0&-1\\\\-1&0\\end{pmatrix}$; its image is $\\begin{pmatrix}-3\\\\-2\\end{pmatrix}$.",
+   "hints": [
+    "Identify the fixed line.",
+    "Write its reflection matrix.",
+    "Multiply it by the input column."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i11",
+   "kcs": [
+    "FP1-6.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $\\begin{pmatrix}2\\\\3\\end{pmatrix}$ under a stretch parallel to the $x$-axis by factor $3$.",
+   "marks": 2,
+   "answer": {
+    "value": 6.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The matrix is $\\begin{pmatrix}3&0\\\\0&1\\end{pmatrix}$, giving the image $\\begin{pmatrix}6\\\\3\\end{pmatrix}$.",
+   "hints": [
+    "Identify which coordinates are scaled.",
+    "Put the factor on the matching diagonal entry.",
+    "Multiply the matrix by the vector."
+   ],
+   "distractors": [
+    {
+     "value": 2.0,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "FP1-6-i12",
+   "kcs": [
+    "FP1-6.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $\\begin{pmatrix}2\\\\3\\end{pmatrix}$ under a stretch parallel to the $y$-axis by factor $2$.",
+   "marks": 2,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The matrix is $\\begin{pmatrix}1&0\\\\0&2\\end{pmatrix}$, giving the image $\\begin{pmatrix}2\\\\6\\end{pmatrix}$.",
+   "hints": [
+    "Identify which coordinates are scaled.",
+    "Put the factor on the matching diagonal entry.",
+    "Multiply the matrix by the vector."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i13",
+   "kcs": [
+    "FP1-6.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of the image of $\\begin{pmatrix}2\\\\3\\end{pmatrix}$ under a enlargement about the origin by scale factor $-2$.",
+   "marks": 2,
+   "answer": {
+    "value": -4.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The matrix is $\\begin{pmatrix}-2&0\\\\0&-2\\end{pmatrix}$, giving the image $\\begin{pmatrix}-4\\\\-6\\end{pmatrix}$.",
+   "hints": [
+    "Identify which coordinates are scaled.",
+    "Put the factor on the matching diagonal entry.",
+    "Multiply the matrix by the vector."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i14",
+   "kcs": [
+    "FP1-6.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State which option gives both the matrix $R$ for anticlockwise rotation through $60^\\circ$ about the origin and the image $R\\begin{pmatrix}2\\\\0\\end{pmatrix}$.",
+   "marks": 2,
+   "options": {
+    "A": "$R=\\frac12\\begin{pmatrix}1&-\\sqrt3\\\\\\sqrt3&1\\end{pmatrix}$; image $\\begin{pmatrix}1\\\\\\sqrt3\\end{pmatrix}$.",
+    "B": "$R=\\frac12\\begin{pmatrix}1&\\sqrt3\\\\-\\sqrt3&1\\end{pmatrix}$; image $\\begin{pmatrix}1\\\\-\\sqrt3\\end{pmatrix}$.",
+    "C": "$R=\\frac12\\begin{pmatrix}1&-\\sqrt3\\\\\\sqrt3&1\\end{pmatrix}$; image $\\begin{pmatrix}-\\sqrt3\\\\1\\end{pmatrix}$.",
+    "D": "$R=\\frac12\\begin{pmatrix}1&\\sqrt3\\\\\\sqrt3&-1\\end{pmatrix}$; image $\\begin{pmatrix}1\\\\\\sqrt3\\end{pmatrix}$."
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true,
+   "explanation": "For anticlockwise rotation, $R=\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$. With $\\theta=60^\\circ$, $\\cos\\theta=1/2$ and $\\sin\\theta=\\sqrt3/2$, so $R=\\frac12\\begin{pmatrix}1&-\\sqrt3\\\\\\sqrt3&1\\end{pmatrix}$ and $R(2,0)^T=(1,\\sqrt3)^T$. B rotates clockwise. C uses the correct matrix but gives the wrong image. D has the same first column but is a reflection, not the requested rotation: its second column is wrong.",
+   "hints": [
+    "Use the general anticlockwise rotation matrix.",
+    "Substitute $\\cos60^\\circ=1/2$ and $\\sin60^\\circ=\\sqrt3/2$.",
+    "The image of $(2,0)^T$ is twice the first column; check both columns of the matrix as well."
+   ]
+  },
+  {
+   "id": "FP1-6-i15",
+   "kcs": [
+    "FP1-6.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of $PQv$ for $P=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$, $Q=\\begin{pmatrix}3&0\\\\0&1\\end{pmatrix}$ and $v=\\begin{pmatrix}1\\\\2\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": -2.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Apply $Q$ first and then $P$: $PQ=\\begin{pmatrix}0&-1\\\\3&0\\end{pmatrix}$, so $PQv=\\begin{pmatrix}-2\\\\3\\end{pmatrix}$.",
+   "hints": [
+    "Start at the right of the product.",
+    "Multiply $Qv$ before applying $P$.",
+    "Keep the order of matrix multiplication."
+   ],
+   "distractors": [
+    {
+     "value": -6.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-6-i16",
+   "kcs": [
+    "FP1-6.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of $PQv$ for $P=\\begin{pmatrix}-1&0\\\\0&1\\end{pmatrix}$, $Q=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$ and $v=\\begin{pmatrix}2\\\\1\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 1.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Apply $Q$ first and then $P$: $PQ=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$, so $PQv=\\begin{pmatrix}1\\\\2\\end{pmatrix}$.",
+   "hints": [
+    "Start at the right of the product.",
+    "Multiply $Qv$ before applying $P$.",
+    "Keep the order of matrix multiplication."
+   ],
+   "distractors": [
+    {
+     "value": -1.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-6-i17",
+   "kcs": [
+    "FP1-6.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of $PQv$ for $P=\\begin{pmatrix}3&0\\\\0&1\\end{pmatrix}$, $Q=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ and $v=\\begin{pmatrix}-1\\\\2\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 6.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Apply $Q$ first and then $P$: $PQ=\\begin{pmatrix}0&3\\\\1&0\\end{pmatrix}$, so $PQv=\\begin{pmatrix}6\\\\-1\\end{pmatrix}$.",
+   "hints": [
+    "Start at the right of the product.",
+    "Multiply $Qv$ before applying $P$.",
+    "Keep the order of matrix multiplication."
+   ],
+   "distractors": [
+    {
+     "value": 2.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-6-i18",
+   "kcs": [
+    "FP1-6.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of $PQv$ for $P=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$, $Q=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ and $v=\\begin{pmatrix}3\\\\-2\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Apply $Q$ first and then $P$: $PQ=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$, so $PQv=\\begin{pmatrix}2\\\\3\\end{pmatrix}$.",
+   "hints": [
+    "Start at the right of the product.",
+    "Multiply $Qv$ before applying $P$.",
+    "Keep the order of matrix multiplication."
+   ],
+   "distractors": [
+    {
+     "value": -2.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-6-i19",
+   "kcs": [
+    "FP1-6.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the first coordinate of $PQv$ for $P=\\begin{pmatrix}1&0\\\\0&2\\end{pmatrix}$, $Q=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$ and $v=\\begin{pmatrix}2\\\\-3\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Apply $Q$ first and then $P$: $PQ=\\begin{pmatrix}0&-1\\\\2&0\\end{pmatrix}$, so $PQv=\\begin{pmatrix}3\\\\4\\end{pmatrix}$.",
+   "hints": [
+    "Start at the right of the product.",
+    "Multiply $Qv$ before applying $P$.",
+    "Keep the order of matrix multiplication."
+   ],
+   "distractors": [
+    {
+     "value": 6.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-6-i20",
+   "kcs": [
+    "FP1-6.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A reflection in the $x$-axis is followed by a reflection in the line $y=x$. State which option gives both the combined matrix and the equivalent single transformation.",
+   "marks": 2,
+   "options": {
+    "A": "$\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$; anticlockwise rotation through $90^\\circ$ about the origin.",
+    "B": "$\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$; clockwise rotation through $90^\\circ$ about the origin.",
+    "C": "$\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$; reflection in the line $y=x$.",
+    "D": "$\\begin{pmatrix}-1&0\\\\0&-1\\end{pmatrix}$; rotation through $180^\\circ$ about the origin."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3"
+   },
+   "shuffle": true,
+   "explanation": "Let $X=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ represent reflection in the $x$-axis and $Y=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ represent reflection in $y=x$. The first transformation is on the right, so the combined matrix is $YX=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$. It sends $(x,y)^T$ to $(-y,x)^T$, an anticlockwise rotation through $90^\\circ$ about the origin. B reverses the order by using $XY$; C omits the first reflection; D gives a half-turn instead of a quarter-turn.",
+   "hints": [
+    "Write the matrices for the two reflections.",
+    "The reflection in the $x$-axis happens first, so put its matrix on the right.",
+    "Multiply the matrices and compare the product with the standard rotation matrix."
+   ]
+  },
+  {
+   "id": "FP1-6-i21",
+   "kcs": [
+    "FP1-6.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the area scale factor of the transformation with matrix $A=\\begin{pmatrix}2&0\\\\0&3\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 6.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$\\det A=6$, so area is multiplied by $|\\det A|=6$.",
+   "hints": [
+    "Calculate the determinant.",
+    "Area uses its magnitude.",
+    "A negative determinant changes orientation, not the sign of area."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i22",
+   "kcs": [
+    "FP1-6.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the area scale factor of the transformation with matrix $A=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 1.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$\\det A=1$, so area is multiplied by $|\\det A|=1$.",
+   "hints": [
+    "Calculate the determinant.",
+    "Area uses its magnitude.",
+    "A negative determinant changes orientation, not the sign of area."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i23",
+   "kcs": [
+    "FP1-6.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the area scale factor of the transformation with matrix $A=\\begin{pmatrix}1&1\\\\0&2\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$\\det A=2$, so area is multiplied by $|\\det A|=2$.",
+   "hints": [
+    "Calculate the determinant.",
+    "Area uses its magnitude.",
+    "A negative determinant changes orientation, not the sign of area."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i24",
+   "kcs": [
+    "FP1-6.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the area scale factor of the transformation with matrix $A=\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$\\det A=3$, so area is multiplied by $|\\det A|=3$.",
+   "hints": [
+    "Calculate the determinant.",
+    "Area uses its magnitude.",
+    "A negative determinant changes orientation, not the sign of area."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i25",
+   "kcs": [
+    "FP1-6.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of the inverse of the combined matrix $CD$, where $C=\\begin{pmatrix}2&1\\\\0&1\\end{pmatrix}$ and $D=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 1.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$(CD)^{-1}=D^{-1}C^{-1}=\\begin{pmatrix}0&1\\\\-1/2&1/2\\end{pmatrix}$.",
+   "hints": [
+    "Check both determinants are nonzero.",
+    "Reverse factor order when finding a product inverse.",
+    "Read the top-right entry of the result."
+   ],
+   "distractors": [
+    {
+     "value": 0.5,
+     "misconception": "m5"
+    }
+   ]
+  },
+  {
+   "id": "FP1-6-i26",
+   "kcs": [
+    "FP1-6.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the determinant of $A=\\begin{pmatrix}1&2\\\\2&4\\end{pmatrix}$ and hence decide whether its transformation has an inverse. Enter the determinant.",
+   "marks": 3,
+   "answer": {
+    "value": 0.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The determinant is $1(4)-2(2)=0$, so the plane is collapsed to a line and there is no inverse.",
+   "hints": [
+    "Multiply diagonal entries.",
+    "Subtract the off-diagonal product.",
+    "A zero result means no inverse."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-6-i27",
+   "kcs": [
+    "FP1-6.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what $\\det A=0$ means for a two-dimensional transformation.",
+   "marks": 1,
+   "options": {
+    "A": "Areas collapse to zero and no inverse exists.",
+    "B": "Areas are unchanged and the inverse is $A$.",
+    "C": "Orientation reverses but area is unchanged.",
+    "D": "Every point is fixed."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m4"
+   },
+   "shuffle": true,
+   "explanation": "The determinant is the signed area scale; zero collapses every area and makes the matrix singular.",
+   "hints": [
+    "Recall the area-scale interpretation.",
+    "Consider what zero does to a unit square.",
+    "Decide whether the collapsed image can be reversed."
+   ]
+  }
+ ],
+ "flashcards": [],
+ "diagrams": [],
+ "teach": {
+  "FP1-6.1": {
+   "motivate": "Two images can describe the motion of every point in the plane. Matrix columns record what happens to the two standard basis vectors.",
+   "establish": "A linear transformation of two-dimensional column vectors preserves vector addition and scalar multiplication: $T(u+v)=T(u)+T(v)$ and $T(cu)=cT(u)$. It is represented by a $2\\times2$ matrix $A$ with $T(v)=Av$. Its first column is $T(1,0)^T$ and its second is $T(0,1)^T$. For a vector $(x,y)^T=x(1,0)^T+y(0,1)^T$, linearity gives $T(x,y)^T=xT(1,0)^T+yT(0,1)^T$. When matrices combine, $ABv=A(Bv)$: the transformation $B$ happens before $A$.",
+   "connect": "This uses matrix multiplication from the previous chapter. The basis-image method will build the reflection, rotation, stretch and enlargement matrices next.",
+   "note": "- A linear transformation of column vectors has the form $T(v)=Av$.\n- Columns of $A$ are the images of $(1,0)^T$ and $(0,1)^T$.\n- In $ABv$, $B$ acts first, then $A$.",
+   "self_explain": "Why do the images of $(1,0)^T$ and $(0,1)^T$ determine the matrix and every image?",
+   "source": "pack"
+  },
+  "FP1-6.2": {
+   "motivate": "The same small matrix can encode a familiar geometric move of every point, so one multiplication replaces repeated coordinate rules.",
+   "establish": "Reflection in the $x$-axis has matrix $\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$; in the $y$-axis, $\\begin{pmatrix}-1&0\\\\0&1\\end{pmatrix}$; in $y=x$, $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$; and in $y=-x$, $\\begin{pmatrix}0&-1\\\\-1&0\\end{pmatrix}$. An anticlockwise rotation through any angle $\\theta$ about $(0,0)$ uses $\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$. A stretch parallel to the $x$-axis by factor $a$ uses $\\operatorname{diag}(a,1)$; parallel to $y$ by factor $b$ uses $\\operatorname{diag}(1,b)$. Enlargement about $(0,0)$ by a nonzero real scale factor $k$ uses $kI$. Identify a matrix by testing its effect on the two basis vectors.",
+   "connect": "Each matrix is built from the images of the basis vectors. These matrices can be multiplied to describe combinations of geometric transformations.",
+   "note": "- Reflections change signs or swap coordinates according to the mirror line.\n- Rotation about $(0,0)$ uses sine and cosine of the angle.\n- A stretch changes one coordinate; enlargement by $k$ changes both.\n- For enlargement, $k$ is real and nonzero.",
+   "self_explain": "How can you tell from its columns whether a matrix reflects in $y=x$ or rotates through $90^\\circ$?",
+   "source": "pack"
+  },
+  "FP1-6.3": {
+   "motivate": "A sequence of moves has one matrix. The multiplication order records the order in which the moves actually happen.",
+   "establish": "For column vectors, a transformation with matrix $B$ followed by one with matrix $A$ is represented by $AB$. Indeed, $v$ first becomes $Bv$, then $A(Bv)=(AB)v$. To identify a combined transformation, work from the rightmost factor towards the left, or apply the product to basis vectors and compare their images with known transformations. To construct a combination, write the named matrices in reverse chronological order and multiply them using row-column products. Since matrix multiplication generally does not commute, $AB$ and $BA$ may describe different transformations.",
+   "connect": "The product rule extends single geometric matrices. Reversing a sequence leads to inverse matrices in the next outcome.",
+   "note": "- $ABv=A(Bv)$: $B$ happens first.\n- Write a sequence's matrices from last action to first.\n- Multiply in order; in general $AB\\ne BA$.\n- Test the product on basis vectors to identify the result.",
+   "self_explain": "A stretch $S$ is followed by a rotation $R$. Why is the combined matrix $RS$?",
+   "source": "pack"
+  },
+  "FP1-6.4": {
+   "motivate": "Some transformations can be undone; others squash the plane so that distinct starting points become indistinguishable.",
+   "establish": "For $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $\\det A=ad-bc$. The area scale factor is $|\\det A|$, while a negative determinant reverses orientation. If $\\det A=0$, area collapses to zero and the transformation is singular, so no inverse exists. If $\\det A\\ne0$, $A^{-1}=\\frac1{ad-bc}\\begin{pmatrix}d&-b\\\\-c&a\\end{pmatrix}$, and $A^{-1}A=I$. For a combination $AB$ of invertible transformations, the inverse is $(AB)^{-1}=B^{-1}A^{-1}$: undo $A$ first, then $B$. For a product, $\\det(AB)=\\det A\\det B$, so its area scale factor is the product of the individual absolute determinants.",
+   "connect": "The determinant and inverse formula come from matrix algebra. Here they explain the geometry of area and whether an entire sequence can be reversed.",
+   "note": "- Area scale factor is $|\\det A|$.\n- $\\det A=0$ means singular: no inverse.\n- For $\\det A\\ne0$, use the two-by-two inverse formula.\n- Undo a product in reverse order: $(AB)^{-1}=B^{-1}A^{-1}$.",
+   "self_explain": "Why does a matrix with zero determinant have no inverse, and why does undoing $AB$ reverse the factors?",
+   "source": "pack"
+  }
+ }
+}

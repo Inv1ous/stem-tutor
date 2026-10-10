@@ -1,0 +1,30 @@
+{
+  "FP1-6.1": {
+    "motivate": "Two images can describe the motion of every point in the plane. Matrix columns record what happens to the two standard basis vectors.",
+    "establish": "A linear transformation of two-dimensional column vectors preserves vector addition and scalar multiplication: $T(u+v)=T(u)+T(v)$ and $T(cu)=cT(u)$. It is represented by a $2\\times2$ matrix $A$ with $T(v)=Av$. Its first column is $T(1,0)^T$ and its second is $T(0,1)^T$. For a vector $(x,y)^T=x(1,0)^T+y(0,1)^T$, linearity gives $T(x,y)^T=xT(1,0)^T+yT(0,1)^T$. When matrices combine, $ABv=A(Bv)$: the transformation $B$ happens before $A$.",
+    "connect": "This uses matrix multiplication from the previous chapter. The basis-image method will build the reflection, rotation, stretch and enlargement matrices next.",
+    "note": "- A linear transformation of column vectors has the form $T(v)=Av$.\n- Columns of $A$ are the images of $(1,0)^T$ and $(0,1)^T$.\n- In $ABv$, $B$ acts first, then $A$.",
+    "self_explain": "Why do the images of $(1,0)^T$ and $(0,1)^T$ determine the matrix and every image?"
+  },
+  "FP1-6.2": {
+    "motivate": "The same small matrix can encode a familiar geometric move of every point, so one multiplication replaces repeated coordinate rules.",
+    "establish": "Reflection in the $x$-axis has matrix $\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$; in the $y$-axis, $\\begin{pmatrix}-1&0\\\\0&1\\end{pmatrix}$; in $y=x$, $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$; and in $y=-x$, $\\begin{pmatrix}0&-1\\\\-1&0\\end{pmatrix}$. An anticlockwise rotation through any angle $\\theta$ about $(0,0)$ uses $\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$. A stretch parallel to the $x$-axis by factor $a$ uses $\\operatorname{diag}(a,1)$; parallel to $y$ by factor $b$ uses $\\operatorname{diag}(1,b)$. Enlargement about $(0,0)$ by a nonzero real scale factor $k$ uses $kI$. Identify a matrix by testing its effect on the two basis vectors.",
+    "connect": "Each matrix is built from the images of the basis vectors. These matrices can be multiplied to describe combinations of geometric transformations.",
+    "note": "- Reflections change signs or swap coordinates according to the mirror line.\n- Rotation about $(0,0)$ uses sine and cosine of the angle.\n- A stretch changes one coordinate; enlargement by $k$ changes both.\n- For enlargement, $k$ is real and nonzero.",
+    "self_explain": "How can you tell from its columns whether a matrix reflects in $y=x$ or rotates through $90^\\circ$?"
+  },
+  "FP1-6.3": {
+    "motivate": "A sequence of moves has one matrix. The multiplication order records the order in which the moves actually happen.",
+    "establish": "For column vectors, a transformation with matrix $B$ followed by one with matrix $A$ is represented by $AB$. Indeed, $v$ first becomes $Bv$, then $A(Bv)=(AB)v$. To identify a combined transformation, work from the rightmost factor towards the left, or apply the product to basis vectors and compare their images with known transformations. To construct a combination, write the named matrices in reverse chronological order and multiply them using row-column products. Since matrix multiplication generally does not commute, $AB$ and $BA$ may describe different transformations.",
+    "connect": "The product rule extends single geometric matrices. Reversing a sequence leads to inverse matrices in the next outcome.",
+    "note": "- $ABv=A(Bv)$: $B$ happens first.\n- Write a sequence's matrices from last action to first.\n- Multiply in order; in general $AB\\ne BA$.\n- Test the product on basis vectors to identify the result.",
+    "self_explain": "A stretch $S$ is followed by a rotation $R$. Why is the combined matrix $RS$?"
+  },
+  "FP1-6.4": {
+    "motivate": "Some transformations can be undone; others squash the plane so that distinct starting points become indistinguishable.",
+    "establish": "For $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $\\det A=ad-bc$. The area scale factor is $|\\det A|$, while a negative determinant reverses orientation. If $\\det A=0$, area collapses to zero and the transformation is singular, so no inverse exists. If $\\det A\\ne0$, $A^{-1}=\\frac1{ad-bc}\\begin{pmatrix}d&-b\\\\-c&a\\end{pmatrix}$, and $A^{-1}A=I$. For a combination $AB$ of invertible transformations, the inverse is $(AB)^{-1}=B^{-1}A^{-1}$: undo $A$ first, then $B$. For a product, $\\det(AB)=\\det A\\det B$, so its area scale factor is the product of the individual absolute determinants.",
+    "connect": "The determinant and inverse formula come from matrix algebra. Here they explain the geometry of area and whether an entire sequence can be reversed.",
+    "note": "- Area scale factor is $|\\det A|$.\n- $\\det A=0$ means singular: no inverse.\n- For $\\det A\\ne0$, use the two-by-two inverse formula.\n- Undo a product in reverse order: $(AB)^{-1}=B^{-1}A^{-1}$.",
+    "self_explain": "Why does a matrix with zero determinant have no inverse, and why does undoing $AB$ reverse the factors?"
+  }
+}

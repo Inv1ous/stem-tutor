@@ -1,0 +1,195 @@
+{
+ "sub": "FP1-6",
+ "stage": "ready",
+ "created": "2026-10-10T17:24:11+08:00",
+ "updated": "2026-10-10T17:53:24+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T17:29:25+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 27 items"
+  },
+  {
+   "t": "2026-10-10T17:37:15+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "31 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T17:38:31+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "2 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:39:32+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T17:53:16+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 2 fixes applied"
+  },
+  {
+   "t": "2026-10-10T17:53:24+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 27,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "FP1-6.2 outcome, pack items FP1-6-i07–i14",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Guidance: Identification and use of the matrix representation of single transformations from: reflection in coordinate axes and lines $y = \\pm x$; rotation through any angle about $(0,0)$; stretches parallel to the $x$-axis and $y$-axis; and enlargement about centre $(0,0)$ with scale factor $k$ ($k \\neq 0$), where $k \\in \\mathbb{R}$. The only rotation question is FP1-6-i14: \"State the matrix for anticlockwise rotation through $90^\\circ$ about the origin.\"",
+   "suggested": "Add a question requiring the matrix for a general or non-right-angle rotation and its use.",
+   "status": "fixed",
+   "resolution": "fix: The general rotation formula is taught, but only a right-angle rotation is assessed. Replace the following fields of generated item FP1-6-i14 with the exact values below; retain all other fields. This tests both a non-right-angle rotation matrix and its application. No MCQ-bank override is needed. Field values (JSON): {\"stem\": \"State which option gives both the matrix $R$ for anticlockwise rotation through $60^\\\\circ$ about the origin and the image $R\\\\begin{pmatrix}2\\\\\\\\0\\\\end{pmatrix}$.\", \"marks\": 2, \"difficulty\": 3, \"options\": {\"A\": \"$R=\\\\frac12\\\\begin{pmatrix}1&-\\\\sqrt3\\\\\\\\\\\\sqrt3&1\\\\end{pmatrix}$; image $\\\\begin{pmatrix}1\\\\\\\\\\\\sqrt3\\\\end{pmatrix}$.\", \"B\": \"$R=\\\\frac12\\\\begin{pmatrix}1&\\\\sqrt3\\\\\\\\-\\\\sqrt3&1\\\\end{pmatrix}$; image $\\\\begin{pmatrix}1\\\\\\\\-\\\\sqrt3\\\\end{pmatrix}$.\", \"C\": \"$R=\\\\frac12\\\\begin{pmatrix}1&-\\\\sqrt3\\\\\\\\\\\\sqrt3&1\\\\end{pmatrix}$; image $\\\\begin{pmatrix}-\\\\sqrt3\\\\\\\\1\\\\end{pmatrix}$.\", \"D\": \"$R=\\\\frac12\\\\begin{pmatrix}1&\\\\sqrt3\\\\\\\\\\\\sqrt3&-1\\\\end{pmatrix}$; image $\\\\begin{pmatrix}1\\\\\\\\\\\\sqrt3\\\\end{pmatrix}$.\"}, \"answer\": \"A\", \"distractors\": {}, \"explanation\": \"For anticlockwise rotation, $R=\\\\begin{pmatrix}\\\\cos\\\\theta&-\\\\sin\\\\theta\\\\\\\\\\\\sin\\\\theta&\\\\cos\\\\theta\\\\end{pmatrix}$. With $\\\\theta=60^\\\\circ$, $\\\\cos\\\\theta=1/2$ and $\\\\sin\\\\theta=\\\\sqrt3/2$, so $R=\\\\frac12\\\\begin{pmatrix}1&-\\\\sqrt3\\\\\\\\\\\\sqrt3&1\\\\end{pmatrix}$ and $R(2,0)^T=(1,\\\\sqrt3)^T$. B rotates clockwise. C uses the correct matrix but gives the wrong image. D has the same first column but is a reflection, not the requested rotation: its second column is wrong.\", \"hints\": [\"Use the general anticlockwise rotation matrix.\", \"Substitute $\\\\cos60^\\\\circ=1/2$ and $\\\\sin60^\\\\circ=\\\\sqrt3/2$.\", \"The image of $(2,0)^T$ is twice the first column; check both columns of the matrix as well.\"]}"
+  },
+  {
+   "ref": "FP1-6.3 outcome, pack items FP1-6-i15–i20",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Guidance: Identification and use of the matrix representation of combined transformations. The questions FP1-6-i15–i19 ask only for \"the first coordinate of $PQv$\"; FP1-6-i20 asks \"State the order of transformations represented by $RS$ acting on a column vector.\" None asks for the combined matrix or identification of its geometric transformation.",
+   "suggested": "Add a question that constructs or identifies a combined transformation matrix.",
+   "status": "fixed",
+   "resolution": "fix: Construction of a combined matrix is taught in we3, but the assessment asks only for coordinates or factor order and does not assess geometric identification of the product. Replace the following fields of generated item FP1-6-i20 with the exact values below; retain all other fields. This tests construction and identification of a combined transformation. No MCQ-bank override is needed. Field values (JSON): {\"stem\": \"A reflection in the $x$-axis is followed by a reflection in the line $y=x$. State which option gives both the combined matrix and the equivalent single transformation.\", \"marks\": 2, \"difficulty\": 3, \"options\": {\"A\": \"$\\\\begin{pmatrix}0&-1\\\\\\\\1&0\\\\end{pmatrix}$; anticlockwise rotation through $90^\\\\circ$ about the origin.\", \"B\": \"$\\\\begin{pmatrix}0&1\\\\\\\\-1&0\\\\end{pmatrix}$; clockwise rotation through $90^\\\\circ$ about the origin.\", \"C\": \"$\\\\begin{pmatrix}0&1\\\\\\\\1&0\\\\end{pmatrix}$; reflection in the line $y=x$.\", \"D\": \"$\\\\begin{pmatrix}-1&0\\\\\\\\0&-1\\\\end{pmatrix}$; rotation through $180^\\\\circ$ about the origin.\"}, \"answer\": \"A\", \"distractors\": {\"B\": \"m3\"}, \"explanation\": \"Let $X=\\\\begin{pmatrix}1&0\\\\\\\\0&-1\\\\end{pmatrix}$ represent reflection in the $x$-axis and $Y=\\\\begin{pmatrix}0&1\\\\\\\\1&0\\\\end{pmatrix}$ represent reflection in $y=x$. The first transformation is on the right, so the combined matrix is $YX=\\\\begin{pmatrix}0&-1\\\\\\\\1&0\\\\end{pmatrix}$. It sends $(x,y)^T$ to $(-y,x)^T$, an anticlockwise rotation through $90^\\\\circ$ about the origin. B reverses the order by using $XY$; C omits the first reflection; D gives a half-turn instead of a quarter-turn.\", \"hints\": [\"Write the matrices for the two reflections.\", \"The reflection in the $x$-axis happens first, so put its matrix on the right.\", \"Multiply the matrices and compare the product with the standard rotation matrix.\"]}"
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "FP1-6.2 outcome, pack items FP1-6-i07–i14",
+   "instruction": "The general rotation formula is taught, but only a right-angle rotation is assessed. Replace the following fields of generated item FP1-6-i14 with the exact values below; retain all other fields. This tests both a non-right-angle rotation matrix and its application. No MCQ-bank override is needed. Field values (JSON): {\"stem\": \"State which option gives both the matrix $R$ for anticlockwise rotation through $60^\\\\circ$ about the origin and the image $R\\\\begin{pmatrix}2\\\\\\\\0\\\\end{pmatrix}$.\", \"marks\": 2, \"difficulty\": 3, \"options\": {\"A\": \"$R=\\\\frac12\\\\begin{pmatrix}1&-\\\\sqrt3\\\\\\\\\\\\sqrt3&1\\\\end{pmatrix}$; image $\\\\begin{pmatrix}1\\\\\\\\\\\\sqrt3\\\\end{pmatrix}$.\", \"B\": \"$R=\\\\frac12\\\\begin{pmatrix}1&\\\\sqrt3\\\\\\\\-\\\\sqrt3&1\\\\end{pmatrix}$; image $\\\\begin{pmatrix}1\\\\\\\\-\\\\sqrt3\\\\end{pmatrix}$.\", \"C\": \"$R=\\\\frac12\\\\begin{pmatrix}1&-\\\\sqrt3\\\\\\\\\\\\sqrt3&1\\\\end{pmatrix}$; image $\\\\begin{pmatrix}-\\\\sqrt3\\\\\\\\1\\\\end{pmatrix}$.\", \"D\": \"$R=\\\\frac12\\\\begin{pmatrix}1&\\\\sqrt3\\\\\\\\\\\\sqrt3&-1\\\\end{pmatrix}$; image $\\\\begin{pmatrix}1\\\\\\\\\\\\sqrt3\\\\end{pmatrix}$.\"}, \"answer\": \"A\", \"distractors\": {}, \"explanation\": \"For anticlockwise rotation, $R=\\\\begin{pmatrix}\\\\cos\\\\theta&-\\\\sin\\\\theta\\\\\\\\\\\\sin\\\\theta&\\\\cos\\\\theta\\\\end{pmatrix}$. With $\\\\theta=60^\\\\circ$, $\\\\cos\\\\theta=1/2$ and $\\\\sin\\\\theta=\\\\sqrt3/2$, so $R=\\\\frac12\\\\begin{pmatrix}1&-\\\\sqrt3\\\\\\\\\\\\sqrt3&1\\\\end{pmatrix}$ and $R(2,0)^T=(1,\\\\sqrt3)^T$. B rotates clockwise. C uses the correct matrix but gives the wrong image. D has the same first column but is a reflection, not the requested rotation: its second column is wrong.\", \"hints\": [\"Use the general anticlockwise rotation matrix.\", \"Substitute $\\\\cos60^\\\\circ=1/2$ and $\\\\sin60^\\\\circ=\\\\sqrt3/2$.\", \"The image of $(2,0)^T$ is twice the first column; check both columns of the matrix as well.\"]}",
+   "status": "done"
+  },
+  {
+   "ref": "FP1-6.3 outcome, pack items FP1-6-i15–i20",
+   "instruction": "Construction of a combined matrix is taught in we3, but the assessment asks only for coordinates or factor order and does not assess geometric identification of the product. Replace the following fields of generated item FP1-6-i20 with the exact values below; retain all other fields. This tests construction and identification of a combined transformation. No MCQ-bank override is needed. Field values (JSON): {\"stem\": \"A reflection in the $x$-axis is followed by a reflection in the line $y=x$. State which option gives both the combined matrix and the equivalent single transformation.\", \"marks\": 2, \"difficulty\": 3, \"options\": {\"A\": \"$\\\\begin{pmatrix}0&-1\\\\\\\\1&0\\\\end{pmatrix}$; anticlockwise rotation through $90^\\\\circ$ about the origin.\", \"B\": \"$\\\\begin{pmatrix}0&1\\\\\\\\-1&0\\\\end{pmatrix}$; clockwise rotation through $90^\\\\circ$ about the origin.\", \"C\": \"$\\\\begin{pmatrix}0&1\\\\\\\\1&0\\\\end{pmatrix}$; reflection in the line $y=x$.\", \"D\": \"$\\\\begin{pmatrix}-1&0\\\\\\\\0&-1\\\\end{pmatrix}$; rotation through $180^\\\\circ$ about the origin.\"}, \"answer\": \"A\", \"distractors\": {\"B\": \"m3\"}, \"explanation\": \"Let $X=\\\\begin{pmatrix}1&0\\\\\\\\0&-1\\\\end{pmatrix}$ represent reflection in the $x$-axis and $Y=\\\\begin{pmatrix}0&1\\\\\\\\1&0\\\\end{pmatrix}$ represent reflection in $y=x$. The first transformation is on the right, so the combined matrix is $YX=\\\\begin{pmatrix}0&-1\\\\\\\\1&0\\\\end{pmatrix}$. It sends $(x,y)^T$ to $(-y,x)^T$, an anticlockwise rotation through $90^\\\\circ$ about the origin. B reverses the order by using $XY$; C omits the first reflection; D gives a half-turn instead of a quarter-turn.\", \"hints\": [\"Write the matrices for the two reflections.\", \"The reflection in the $x$-axis happens first, so put its matrix on the right.\", \"Multiply the matrices and compare the product with the standard rotation matrix.\"]}",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 44068,
+   "provider": "codex",
+   "model": "gpt-6-sol/medium",
+   "rung": 1,
+   "started": "2026-10-10T17:27:12+08:00",
+   "log": "foundry/logs/FP1-6.drafter.1010-172712.log",
+   "out": "foundry/logs/FP1-6.drafter.1010-172712.out.json",
+   "finished": "2026-10-10T17:29:25+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/build/out/packs/FP1/FP1-6.json",
+    "note_path": "/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/build/out/notes/Subjects/Maths/FP1 Further Pure Mathematics 1/6 Transformations using matrices.md",
+    "items": 27,
+    "templates": 0,
+    "worked": 4,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 49630,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:35:28+08:00",
+   "log": "foundry/logs/FP1-6.solver-1.1010-173528.log",
+   "out": "foundry/logs/FP1-6.solver-1.1010-173528.out.json",
+   "expects": "build/work/blind/FP1-6.answers.part1.json",
+   "finished": "2026-10-10T17:35:43+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/FP1-6.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 50564,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:36:29+08:00",
+   "log": "foundry/logs/FP1-6.solver-2.1010-173629.log",
+   "out": "foundry/logs/FP1-6.solver-2.1010-173629.out.json",
+   "expects": "build/work/blind/FP1-6.answers.part2.json",
+   "finished": "2026-10-10T17:36:46+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 11 questions in `build/work/blind/FP1-6.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 51638,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:37:50+08:00",
+   "log": "foundry/logs/FP1-6.checker.1010-173750.log",
+   "out": "foundry/logs/FP1-6.checker.1010-173750.out.json",
+   "expects": "build/work/foundry/FP1-6.check.json",
+   "finished": "2026-10-10T17:38:16+08:00",
+   "exit": 0,
+   "report": {
+    "text": "2 findings — [FP1-6.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/FP1-6.check.json)."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 52379,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T17:38:31+08:00",
+   "log": "foundry/logs/FP1-6.adjudicator.1010-173831.log",
+   "out": "foundry/logs/FP1-6.adjudicator.1010-173831.out.json",
+   "finished": "2026-10-10T17:39:37+08:00",
+   "exit": 0,
+   "report": {
+    "text": "FP1-6.2 outcome, pack items FP1-6-i07–i14 fix: Recorded exact replacement testing a 60° rotation matrix and its use.\nFP1-6.3 outcome, pack items FP1-6-i15–i20 fix: Recorded exact replacement testing combined-matrix construction and geometric identification."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 60488,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T17:51:43+08:00",
+   "log": "foundry/logs/FP1-6.fixer.1010-175143.log",
+   "out": "foundry/logs/FP1-6.fixer.1010-175143.out.json",
+   "finished": "2026-10-10T17:53:16+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 2,
+    "not_done": [
+     "Syllabus gate still reports missing teaching cards for FP1-6.1–FP1-6.4; resolving these would require changes outside the requested item fixes.",
+     "The note lint gate passed. The pack validator passes."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
