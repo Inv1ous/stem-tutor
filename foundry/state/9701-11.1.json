@@ -1,0 +1,267 @@
+{
+ "sub": "9701-11.1",
+ "stage": "ready",
+ "created": "2026-10-10T16:13:03+08:00",
+ "updated": "2026-10-10T16:24:31+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:15:20+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 34 items"
+  },
+  {
+   "t": "2026-10-10T16:18:02+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "15 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T16:19:25+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak settled every dispute; 6 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:22:51+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:24:22+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 6 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:24:31+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 39,
+  "extra": 9
+ },
+ "disputes": [
+  {
+   "id": "9701-11.1-p08",
+   "key": "D",
+   "solver": "A",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9701-11.1-x003 option C",
+   "rule": "two right options",
+   "evidence": "\"Iodine has a higher melting point than chlorine. What is the reason for this?\"; option C: \"Iodine has stronger instantaneous dipole–induced dipole forces than chlorine.\"; keyed answer: \"D\" (empty option)",
+   "suggested": "Restore the original option layout and key C as the correct answer.",
+   "status": "fixed",
+   "resolution": "fix: The source image confirms that the extracted options shifted up one position; the official key D is correct, so do not change it to C. Under qid 9701_w23_12_q24 in build/work/mcq/overrides.json, set exactly these fields and retain the original image/source: {\"stem\": \"Iodine has a higher melting point than chlorine.\\nWhat is the reason for this?\", \"options\": {\"A\": \"Iodine has stronger covalent bonds than chlorine.\", \"B\": \"Iodine molecules have stronger permanent dipoles than chlorine molecules.\", \"C\": \"Iodine is more volatile than chlorine.\", \"D\": \"Iodine has stronger instantaneous dipole–induced dipole forces than chlorine.\"}, \"answer\": \"D\", \"explanation\": \"Iodine molecules have more electrons and a more polarisable electron cloud, producing stronger instantaneous dipole–induced dipole forces between molecules. More energy is required to overcome these attractions when melting. A is wrong: I–I covalent bonds are weaker than Cl–Cl bonds and are not broken during melting. B is wrong because both molecules are non-polar; C is wrong because iodine is less volatile than chlorine.\"}"
+  },
+  {
+   "ref": "item 9701-11.1-p03",
+   "rule": "off syllabus",
+   "evidence": "\"The halogen with the strongest instantaneous dipole (id–id) attractions forms the most thermally stable hydrogen halide.\"; \"The most volatile element most rapidly oxidises hydrogen.\"",
+   "suggested": "Use a question focused on the chapter's physical properties and volatility explanation.",
+   "status": "fixed",
+   "resolution": "fix: The original official D is correct: statements 1 and 2 are false because iodine forms the weakest H–X bond and HI is least thermally stable, while statement 3 describes chlorine. However, hydrogen-halide stability and oxidation of hydrogen are beyond this chapter, so replace the question rather than relabel the original key. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p03\", \"kcs\": [\"9701-11.1.2\", \"9701-11.1.3\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"Three statements concern chlorine, bromine and iodine.\\n1. The halogen with the highest boiling point has the strongest X–X covalent bond.\\n2. The halogen with the strongest instantaneous dipole–induced dipole forces is the most volatile.\\n3. The most volatile halogen has the fewest electrons per molecule.\\nWhich statements are correct?\", \"options\": {\"A\": \"1 and 2\", \"B\": \"1 only\", \"C\": \"2 and 3\", \"D\": \"3 only\"}, \"answer\": \"D\", \"marks\": 1, \"explanation\": \"Only statement 3 is correct: chlorine has the fewest electrons per molecule and is the most volatile. Statement 1 is false because iodine has the highest boiling point but the weakest X–X bond of these three. Statement 2 is false because stronger intermolecular forces make evaporation harder and reduce volatility.\"}"
+  },
+  {
+   "ref": "item 9701-11.1-p04",
+   "rule": "off syllabus",
+   "evidence": "\"A solid sodium halide, NaX, is reacted with concentrated sulfuric acid. The lowest oxidation state of sulfur in the products is +4.\"",
+   "suggested": "Replace with a question answerable using this chapter's physical properties alone.",
+   "status": "fixed",
+   "resolution": "fix: The original official B is correct: bromide reduces sulfuric acid to SO₂ (sulfur +4), and iodine is less volatile than bromine. Identifying the salt requires halide redox chemistry beyond this chapter. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p04\", \"kcs\": [\"9701-11.1.1\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"Halogen X₂ is a red-brown liquid at room temperature. Halogen Y₂ is less volatile than X₂. X and Y are chosen from chlorine, bromine and iodine. What are X and Y?\", \"options\": {\"A\": \"X = bromine; Y = chlorine\", \"B\": \"X = bromine; Y = iodine\", \"C\": \"X = iodine; Y = bromine\", \"D\": \"X = chlorine; Y = iodine\"}, \"answer\": \"B\", \"marks\": 1, \"explanation\": \"Bromine is the red-brown liquid. Volatility decreases from chlorine to bromine to iodine, so iodine is less volatile than bromine. A reverses the volatility comparison; C and D misidentify the red-brown liquid.\"}"
+  },
+  {
+   "ref": "item 9701-11.1-p05",
+   "rule": "off syllabus",
+   "evidence": "\"Which statement about the halogens is correct? Iodine cannot behave as an oxidising agent.\"",
+   "suggested": "Replace with a question on colours, bond strength or volatility.",
+   "status": "fixed",
+   "resolution": "fix: The original official C is correct because hydrogen and chlorine form HCl as the sole product; iodine can oxidise, volatility decreases down the group, and bromide produces SO₂ rather than H₂S. These chemical-reaction facts exceed this chapter, and the extracted options are also damaged. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p05\", \"kcs\": [\"9701-11.1.1\", \"9701-11.1.2\", \"9701-11.1.3\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"Which statement about chlorine, bromine and iodine is correct?\", \"options\": {\"A\": \"Solid iodine is purple at room temperature.\", \"B\": \"Volatility increases from chlorine to iodine because molecular size increases.\", \"C\": \"The Cl–Cl covalent bond is stronger than the I–I covalent bond.\", \"D\": \"Boiling bromine breaks Br–Br covalent bonds.\"}, \"answer\": \"C\", \"marks\": 1, \"explanation\": \"Cl–Cl is stronger than I–I: iodine atoms are larger, the bond is longer and bonding orbital overlap is less effective. A confuses purple iodine vapour with grey-black solid iodine. B reverses the volatility trend: stronger intermolecular forces reduce volatility down the group. D is false because boiling separates intact molecules.\"}"
+  },
+  {
+   "ref": "item 9701-11.1-p06",
+   "rule": "off syllabus",
+   "evidence": "\"Which row shows the expected properties of the element astatine when compared to the properties of the element iodine? volatility of astatine compared to iodine electronegativity of astatine compared to iodine\"",
+   "suggested": "Use chlorine, bromine and iodine and test the volatility trend without electronegativity.",
+   "status": "fixed",
+   "resolution": "fix: The image confirms original official C: astatine is predicted to be less electronegative and less volatile than iodine. Astatine extrapolation is reasonable enrichment, but selecting the original row requires the separate electronegativity outcome; replace with a comparison confined to this chapter. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p06\", \"kcs\": [\"9701-11.1.3\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"Which row correctly compares bromine with chlorine? Each row gives the volatility of bromine and the strength of its instantaneous dipole–induced dipole forces relative to chlorine.\", \"options\": {\"A\": \"Higher volatility; stronger forces\", \"B\": \"Higher volatility; weaker forces\", \"C\": \"Lower volatility; stronger forces\", \"D\": \"Lower volatility; weaker forces\"}, \"answer\": \"C\", \"marks\": 1, \"explanation\": \"Bromine molecules have more electrons and a more polarisable electron cloud than chlorine molecules, so their instantaneous dipole–induced dipole forces are stronger. More energy is required to separate the molecules, making bromine less volatile. D gives the correct volatility but reverses the force trend.\"}"
+  },
+  {
+   "ref": "item 9701-11.1-p08",
+   "rule": "off syllabus",
+   "evidence": "\"Y₂ is a stronger oxidising agent than Z₂.\"",
+   "suggested": "Replace the oxidising-agent condition with one about the chapter's physical properties.",
+   "status": "fixed",
+   "resolution": "fix: The original official D is correct, but the oxidising-agent condition is essential to distinguish C from D and lies outside this chapter. Replace that condition with the volatility comparison and label the adapted question as generated. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p08\", \"kcs\": [\"9701-11.1.2\", \"9701-11.1.3\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"X, Y and Z are chlorine, bromine and iodine in some order.\\nX₂ has weaker covalent bonds than Y₂.\\nX₂ has stronger instantaneous dipole–induced dipole forces between its molecules than Z₂.\\nY₂ is more volatile than Z₂.\\nWhat are X, Y and Z?\", \"options\": {\"A\": \"X = Br; Y = Cl; Z = I\", \"B\": \"X = Cl; Y = Br; Z = I\", \"C\": \"X = I; Y = Br; Z = Cl\", \"D\": \"X = I; Y = Cl; Z = Br\"}, \"answer\": \"D\", \"marks\": 1, \"explanation\": \"D satisfies all three conditions: I–I is weaker than Cl–Cl, iodine has stronger intermolecular forces than bromine, and chlorine is more volatile than bromine. A fails the intermolecular-force condition, B fails the covalent-bond and intermolecular-force conditions, and C fails the volatility condition.\"}"
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9701-11.1-x003 option C",
+   "instruction": "The source image confirms that the extracted options shifted up one position; the official key D is correct, so do not change it to C. Under qid 9701_w23_12_q24 in build/work/mcq/overrides.json, set exactly these fields and retain the original image/source: {\"stem\": \"Iodine has a higher melting point than chlorine.\\nWhat is the reason for this?\", \"options\": {\"A\": \"Iodine has stronger covalent bonds than chlorine.\", \"B\": \"Iodine molecules have stronger permanent dipoles than chlorine molecules.\", \"C\": \"Iodine is more volatile than chlorine.\", \"D\": \"Iodine has stronger instantaneous dipole–induced dipole forces than chlorine.\"}, \"answer\": \"D\", \"explanation\": \"Iodine molecules have more electrons and a more polarisable electron cloud, producing stronger instantaneous dipole–induced dipole forces between molecules. More energy is required to overcome these attractions when melting. A is wrong: I–I covalent bonds are weaker than Cl–Cl bonds and are not broken during melting. B is wrong because both molecules are non-polar; C is wrong because iodine is less volatile than chlorine.\"}",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-11.1-p03",
+   "instruction": "The original official D is correct: statements 1 and 2 are false because iodine forms the weakest H–X bond and HI is least thermally stable, while statement 3 describes chlorine. However, hydrogen-halide stability and oxidation of hydrogen are beyond this chapter, so replace the question rather than relabel the original key. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p03\", \"kcs\": [\"9701-11.1.2\", \"9701-11.1.3\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"Three statements concern chlorine, bromine and iodine.\\n1. The halogen with the highest boiling point has the strongest X–X covalent bond.\\n2. The halogen with the strongest instantaneous dipole–induced dipole forces is the most volatile.\\n3. The most volatile halogen has the fewest electrons per molecule.\\nWhich statements are correct?\", \"options\": {\"A\": \"1 and 2\", \"B\": \"1 only\", \"C\": \"2 and 3\", \"D\": \"3 only\"}, \"answer\": \"D\", \"marks\": 1, \"explanation\": \"Only statement 3 is correct: chlorine has the fewest electrons per molecule and is the most volatile. Statement 1 is false because iodine has the highest boiling point but the weakest X–X bond of these three. Statement 2 is false because stronger intermolecular forces make evaporation harder and reduce volatility.\"}",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-11.1-p04",
+   "instruction": "The original official B is correct: bromide reduces sulfuric acid to SO₂ (sulfur +4), and iodine is less volatile than bromine. Identifying the salt requires halide redox chemistry beyond this chapter. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p04\", \"kcs\": [\"9701-11.1.1\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"Halogen X₂ is a red-brown liquid at room temperature. Halogen Y₂ is less volatile than X₂. X and Y are chosen from chlorine, bromine and iodine. What are X and Y?\", \"options\": {\"A\": \"X = bromine; Y = chlorine\", \"B\": \"X = bromine; Y = iodine\", \"C\": \"X = iodine; Y = bromine\", \"D\": \"X = chlorine; Y = iodine\"}, \"answer\": \"B\", \"marks\": 1, \"explanation\": \"Bromine is the red-brown liquid. Volatility decreases from chlorine to bromine to iodine, so iodine is less volatile than bromine. A reverses the volatility comparison; C and D misidentify the red-brown liquid.\"}",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-11.1-p05",
+   "instruction": "The original official C is correct because hydrogen and chlorine form HCl as the sole product; iodine can oxidise, volatility decreases down the group, and bromide produces SO₂ rather than H₂S. These chemical-reaction facts exceed this chapter, and the extracted options are also damaged. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p05\", \"kcs\": [\"9701-11.1.1\", \"9701-11.1.2\", \"9701-11.1.3\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"Which statement about chlorine, bromine and iodine is correct?\", \"options\": {\"A\": \"Solid iodine is purple at room temperature.\", \"B\": \"Volatility increases from chlorine to iodine because molecular size increases.\", \"C\": \"The Cl–Cl covalent bond is stronger than the I–I covalent bond.\", \"D\": \"Boiling bromine breaks Br–Br covalent bonds.\"}, \"answer\": \"C\", \"marks\": 1, \"explanation\": \"Cl–Cl is stronger than I–I: iodine atoms are larger, the bond is longer and bonding orbital overlap is less effective. A confuses purple iodine vapour with grey-black solid iodine. B reverses the volatility trend: stronger intermolecular forces reduce volatility down the group. D is false because boiling separates intact molecules.\"}",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-11.1-p06",
+   "instruction": "The image confirms original official C: astatine is predicted to be less electronegative and less volatile than iodine. Astatine extrapolation is reasonable enrichment, but selecting the original row requires the separate electronegativity outcome; replace with a comparison confined to this chapter. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p06\", \"kcs\": [\"9701-11.1.3\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"Which row correctly compares bromine with chlorine? Each row gives the volatility of bromine and the strength of its instantaneous dipole–induced dipole forces relative to chlorine.\", \"options\": {\"A\": \"Higher volatility; stronger forces\", \"B\": \"Higher volatility; weaker forces\", \"C\": \"Lower volatility; stronger forces\", \"D\": \"Lower volatility; weaker forces\"}, \"answer\": \"C\", \"marks\": 1, \"explanation\": \"Bromine molecules have more electrons and a more polarisable electron cloud than chlorine molecules, so their instantaneous dipole–induced dipole forces are stronger. More energy is required to separate the molecules, making bromine less volatile. D gives the correct volatility but reverses the force trend.\"}",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-11.1-p08",
+   "instruction": "The original official D is correct, but the oxidising-agent condition is essential to distinguish C from D and lies outside this chapter. Replace that condition with the volatility comparison and label the adapted question as generated. Replace this entire pack item with the exact generated item below (remove its old image and past-paper source/ref/qid; do not alter the original bank question or official key, and do not re-add that original question as extra practice in this chapter): {\"id\": \"9701-11.1-p08\", \"kcs\": [\"9701-11.1.2\", \"9701-11.1.3\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"generated\"}, \"stem\": \"X, Y and Z are chlorine, bromine and iodine in some order.\\nX₂ has weaker covalent bonds than Y₂.\\nX₂ has stronger instantaneous dipole–induced dipole forces between its molecules than Z₂.\\nY₂ is more volatile than Z₂.\\nWhat are X, Y and Z?\", \"options\": {\"A\": \"X = Br; Y = Cl; Z = I\", \"B\": \"X = Cl; Y = Br; Z = I\", \"C\": \"X = I; Y = Br; Z = Cl\", \"D\": \"X = I; Y = Cl; Z = Br\"}, \"answer\": \"D\", \"marks\": 1, \"explanation\": \"D satisfies all three conditions: I–I is weaker than Cl–Cl, iodine has stronger intermolecular forces than bromine, and chlorine is more volatile than bromine. A fails the intermolecular-force condition, B fails the covalent-bond and intermolecular-force conditions, and C fails the volatility condition.\"}",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 90703,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:13:33+08:00",
+   "log": "foundry/logs/9701-11.1.drafter.1010-161333.log",
+   "out": "foundry/logs/9701-11.1.drafter.1010-161333.out.json",
+   "finished": "2026-10-10T16:15:20+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-11.1.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/11 Group 17/11.1 Physical properties of the Group 17 elements.md",
+    "items": 34,
+    "templates": 0,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Two past-paper questions have incomplete extracted options; their original options remain visible in the referenced images."
+    ]
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 93096,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:17:06+08:00",
+   "log": "foundry/logs/9701-11.1.solver.1010-161706.log",
+   "out": "foundry/logs/9701-11.1.solver.1010-161706.out.json",
+   "expects": "build/work/blind/9701-11.1.answers.json",
+   "finished": "2026-10-10T16:17:26+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 16 questions in `build/work/blind/9701-11.1.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 93098,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:17:06+08:00",
+   "log": "foundry/logs/9701-11.1.checker.1010-161706.log",
+   "out": "foundry/logs/9701-11.1.checker.1010-161706.out.json",
+   "expects": "build/work/foundry/9701-11.1.check.json",
+   "finished": "2026-10-10T16:17:57+08:00",
+   "exit": 0,
+   "report": {
+    "text": "6 findings — wrote `build/work/foundry/9701-11.1.check.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 94340,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:18:44+08:00",
+   "log": "foundry/logs/9701-11.1.tiebreak.1010-161844.log",
+   "out": "foundry/logs/9701-11.1.tiebreak.1010-161844.out.json",
+   "expects": "build/work/blind/9701-11.1.tiebreak.json",
+   "finished": "2026-10-10T16:19:03+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9701-11.1.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 97108,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T16:21:38+08:00",
+   "log": "foundry/logs/9701-11.1.adjudicator.1010-162138.log",
+   "out": "foundry/logs/9701-11.1.adjudicator.1010-162138.out.json",
+   "finished": "2026-10-10T16:22:58+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9701-11.1-x003 option C fix: restore original options; retain official key D.\n9701-11.1-p03 fix: replace hydrogen-halide chemistry with physical-property statements.\n9701-11.1-p04 fix: replace redox identification with colour and volatility.\n9701-11.1-p05 fix: replace reaction chemistry with chapter-specific properties.\n9701-11.1-p06 fix: replace electronegativity comparison with volatility and intermolecular forces.\n9701-11.1-p08 fix: replace oxidation condition with volatility; mark as generated."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 98049,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:23:04+08:00",
+   "log": "foundry/logs/9701-11.1.fixer.1010-162304.log",
+   "out": "foundry/logs/9701-11.1.fixer.1010-162304.out.json",
+   "finished": "2026-10-10T16:24:22+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 6,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_w19_11_q16": "9701-11.1-x001",
+  "9701_w23_11_q22": "9701-11.1-x005",
+  "9701_w23_12_q24": "9701-11.1-x006",
+  "9701_w23_13_q22": "9701-11.1-x007",
+  "9701_s22_12_q22": "9701-11.1-x002",
+  "9701_s23_13_q17": "9701-11.1-x003",
+  "9701_s23_13_q24": "9701-11.1-x004",
+  "9701_s24_11_q21": "9701-11.1-x008",
+  "9701_s25_11_q18": "9701-11.1-x009"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
