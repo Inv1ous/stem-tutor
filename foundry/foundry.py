@@ -12,6 +12,7 @@ blind compare), so nobody has to read a whole pack to know whether it is right.
   foundry.py next                         what to do now, per chapter (the manager's to-do list)
   foundry.py step [subtopics…]            do all of that which needs no judgement: launch, compare, sign
   foundry.py usage                        what is left of the Claude and Codex allowances; where the next job goes
+  foundry.py only codex|claude|off        use one allowance only (its own family then checks its drafts: marked); off = both
   foundry.py reading claude five_hour <percent> [reset time]   pass on a figure Claude does not report to the foundry
   foundry.py run <role> <subtopic> [--on claude|codex]   launch one headless worker (drafter, fixer, tiebreak,
                                           solver, checker, adjudicator); `codex <role> <subtopic>` forces Codex
@@ -318,6 +319,11 @@ def cmd_coverage(args: list[str]) -> None:
         print(f"\nAgainst the syllabus documents: {sum(t['outcomes'] for t in c['specs'].values())} outcomes in the "
               "graphs" + ("; to check: " + "; ".join(p for probs in flagged.values() for p in probs)
                           if flagged else ", every one present with its wording kept"))
+    own = sorted(f.stem for f in STATE.glob("*.json") if f.stem[:1].isalnum() and
+                 load(f.stem).get("stage") == "ready" and load(f.stem).get("same_family"))
+    if own:
+        print(f"\nSigned with only its own family checking it (re-check with the other allowance when it is free): "
+              f"{len(own)}: {' '.join(own)}")
     n = int(args[args.index("--queue") + 1]) if "--queue" in args else 0
     print(f"\nStill to build: {len(c['next'])} chapters. Next in Almanac order"
           + (f" ({c['ticked_off']} you ticked off in the Almanac come last)" if c["ticked_off"] else "")
@@ -552,6 +558,19 @@ def _solver_tier(st: dict, good: bool) -> None:
             router.record(n, config(), "solver", job["provider"], job.get("rung", 0), ok=good)
 
 
+def read_answers(path: Path) -> dict:
+    """A solver's answers file. One that ends with a literal backslash-n after the object (a worker wrote the two
+    characters instead of a newline) is read all the same; anything else wrong is named, not a traceback."""
+    text = path.read_text().strip()
+    try:
+        data, end = json.JSONDecoder().raw_decode(text)
+    except ValueError as e:
+        raise SystemExit(f"{path.name}: not readable ({e}); re-run the solver for this shard") from None
+    if not isinstance(data, dict) or text[end:].replace("\\n", "").strip():
+        raise SystemExit(f"{path.name}: not a single answers object; re-run the solver for this shard")
+    return data
+
+
 def cmd_compare(sub: str) -> None:
     import blind
 
@@ -563,10 +582,10 @@ def cmd_compare(sub: str) -> None:
         files = [BLIND / f"{sub}.{pfx}answers.json"] + sorted(BLIND.glob(f"{sub}.{pfx}answers.part*.json"))
         files = [f for f in files if f.exists()]
         if st["stage"] in ("solve", "recheck") and files:
-            answers = json.loads((BLIND / f"{sub}.answers.json").read_text()) if pfx and \
+            answers = read_answers(BLIND / f"{sub}.answers.json") if pfx and \
                 (BLIND / f"{sub}.answers.json").exists() else {}
             for f in files:  # every solver's shard
-                answers.update(json.loads(f.read_text()))
+                answers.update(read_answers(f))
             res = blind.compare(pack, answers)
             qf = BLIND / f"{sub}.{pfx}questions.json"
             asked = {q["id"] for q in json.loads(qf.read_text())} if qf.exists() else set()
@@ -700,7 +719,9 @@ def cmd_sign(sub: str) -> None:
         stage = st["stage"]  # at "check" only once the checker has reported, with nothing open
         ready = g["ok"] and not open_ and (stage == "sign" or (stage == "check" and bool(st.get("checked"))))
         if ready:
-            move(st, "ready", "signed off")
+            with notes() as n:  # signed with only its own family to check it: said so, to be re-checked by the other
+                st["same_family"] = bool(n.get("only")) and n.get("only") == maker_of(st)
+            move(st, "ready", "signed off" + (" (checked only by its own family)" if st["same_family"] else ""))
     if not ready:  # raised outside the block so the gate results are saved: the drafter's prompt lists the failures
         raise SystemExit(f"{sub}: not ready (stage {stage}, gates {g}, open {open_})")
     hold(sub, None)
@@ -800,7 +821,7 @@ def cmd_run(role: str, sub: str, on: str | None = None, shard: int | None = None
         raise SystemExit(f"{sub}: a {name} is already working on this chapter")
     last = st["jobs"].get(name, {})
     with notes() as n:
-        provider = on or router.pick(role, maker_of(st), router.usage(n, CODEX, CLAUDE), cfg, _busy())
+        provider = on or router.pick(role, maker_of(st), router.usage(n, CODEX, CLAUDE), cfg, _busy(), only=n.get("only"))
         failed = last.get("provider") == provider and last.get("ok") is False and not last.get("limit")
         rung = router.rung(n, cfg, role, provider, retry=last.get("rung", 0) if failed else None)
     model, effort = cfg["ladders"][role][provider][rung]
@@ -891,8 +912,12 @@ def usage_lines() -> list[str]:
         elif p == "codex" and "five_hour" not in u[p]:  # some plans report a week only
             out.append(f"{NAMES[p]:<7} {'5 hours':<10} not reported by Codex for this plan: used the moment Codex "
                        "reports one; a job that hits it pauses Codex until it reopens")
+    with notes() as n:
+        only = n.get("only")
+    if only:
+        out.append(f"mode: only {NAMES[only]} is used (`foundry only off` to use both)")
     try:
-        out.append(f"next job: {NAMES[router.pick('drafter', None, u, cfg, _busy())]} (more of its week left for the "
+        out.append(f"next job: {NAMES[router.pick('drafter', None, u, cfg, _busy(), only=only)]} (more of its week left for the "
                    "time until it resets); a chapter's blind solve goes to the one that did not draft it")
     except router.Wait as e:
         out.append(f"next job: none can start ({e})")
@@ -901,6 +926,22 @@ def usage_lines() -> list[str]:
 
 def cmd_usage() -> None:
     print("\n".join(usage_lines()))
+
+
+def cmd_only(rest: list[str]) -> None:
+    """`only codex|claude` keeps every job on that allowance (the maker may then check its own work: such chapters
+    are marked and listed by `coverage` for a re-check by the other family); `only off` goes back to using both."""
+    want = rest[0] if rest else ""
+    if want not in ("codex", "claude", "off"):
+        raise SystemExit("usage: foundry.py only codex|claude|off")
+    with notes() as n:
+        if want == "off":
+            n.pop("only", None)
+        else:
+            n["only"] = want
+    print("both allowances are used again" if want == "off" else
+          f"only {NAMES[want]} is used from now on; chapters it drafted are checked by it too, and are marked for a "
+          "re-check by the other allowance")
 
 
 def cmd_reading(provider: str, window: str, used: str, resets: str = "") -> None:
@@ -1080,6 +1121,8 @@ def main(argv: list[str]) -> None:
         cmd_step(rest)
     elif cmd == "usage":
         cmd_usage()
+    elif cmd == "only":
+        cmd_only(rest)
     elif cmd == "reading":
         cmd_reading(*rest)
     elif cmd == "queue":

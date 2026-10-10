@@ -1,0 +1,1203 @@
+{
+ "subtopic": "P2-4",
+ "spec": "P2",
+ "version": 1,
+ "note": "Subjects/Maths/P2 Pure Mathematics 2/4 Sequences and series.md",
+ "outline": "Use an nth-term rule to evaluate any term directly, or a recurrence with its starting term to generate terms. Arithmetic sequences have constant difference; geometric sequences have constant ratio. Sum formulae follow by pairing or subtraction. Classify sequences by comparing consecutive terms. Expand a positive integer power with binomial coefficients.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "P2-4.1",
+   "statement": "A recurrence gives a term without an initial value.",
+   "refutation": "An initial term is required to start the iteration.",
+   "contrast": "A formula for the nth term can be used directly.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "P2-4.2",
+   "statement": "An arithmetic sequence has a common ratio.",
+   "refutation": "It has a constant difference.",
+   "contrast": "A geometric sequence has a common ratio.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "P2-4.3",
+   "statement": "A negative term makes a sequence decreasing.",
+   "refutation": "Compare consecutive terms; the sign of a term alone is irrelevant.",
+   "contrast": "A sequence can be increasing while all its terms are negative.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "P2-4.4",
+   "statement": "A geometric series converges whenever r is less than 1.",
+   "refutation": "The condition is |r|<1.",
+   "contrast": "A ratio below -1 also diverges.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "P2-4.5",
+   "statement": "Binomial coefficients are powers of n.",
+   "refutation": "They are combinations n!/[r!(n-r)!].",
+   "contrast": "The power on the second term is r.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "P2-4.1",
+   "problem": "Find $x_4$ if $x_1=2$ and $x_{n+1}=3x_n-1$.",
+   "steps": [
+    {
+     "do": "Start with $x_1=2$.",
+     "why": "A recurrence requires an initial term."
+    },
+    {
+     "do": "Calculate $x_2=5$, $x_3=14$, $x_4=41$.",
+     "why": "Apply the same rule once per step."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find $x_3$ for the same recurrence.",
+    "answer": {
+     "value": 14.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "P2-4.2",
+   "problem": "Find the sum of the first 12 terms of $4,7,10,\\ldots$.",
+   "steps": [
+    {
+     "do": "Identify $a=4$, $d=3$, $n=12$.",
+     "why": "The difference is constant."
+    },
+    {
+     "do": "Use $S_n=\frac n2[2a+(n-1)d]$.",
+     "why": "This follows by pairing the series forwards and backwards."
+    },
+    {
+     "do": "Calculate $S_{12}=246$.",
+     "why": "Substitute and simplify."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find the sum of the first 8 terms.",
+    "answer": {
+     "value": 116.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "P2-4.4",
+   "problem": "Find the sum of the first 5 terms of $3,6,12,\\ldots$.",
+   "steps": [
+    {
+     "do": "Identify $a=3$ and $r=2$.",
+     "why": "Consecutive terms have a constant ratio."
+    },
+    {
+     "do": "Use $S_n=a(r^n-1)/(r-1)$.",
+     "why": "Subtracting $S_n$ from $rS_n$ cancels the interior terms."
+    },
+    {
+     "do": "Calculate $S_5=93$.",
+     "why": "Substitute $n=5$."
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Find the sum of the first 4 terms.",
+    "answer": {
+     "value": 45.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "P2-4.5",
+   "problem": "Find the coefficient of $x^2$ in $(1+2x)^4$.",
+   "steps": [
+    {
+     "do": "Select the $r=2$ term: $\binom42 1^2(2x)^2$.",
+     "why": "The power of $x$ identifies the term."
+    },
+    {
+     "do": "Calculate $\binom42=6$ and $2^2=4$.",
+     "why": "Use $\binom nr=n!/[r!(n-r)!]$."
+    },
+    {
+     "do": "The coefficient is $24$.",
+     "why": "Multiply the factors."
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "Find the coefficient of $x^2$ in $(1+3x)^4$.",
+    "answer": {
+     "value": 54.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "P2-4-i01",
+   "kcs": [
+    "P2-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 3th term of $u_n=2n^2-3n+1$.",
+   "marks": 2,
+   "answer": {
+    "value": 10.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Substitute the requested index into the nth-term formula.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i02",
+   "kcs": [
+    "P2-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 5th term of $u_n=2n^2-3n+1$.",
+   "marks": 2,
+   "answer": {
+    "value": 36.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Substitute the requested index into the nth-term formula.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i03",
+   "kcs": [
+    "P2-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 7th term of $u_n=2n^2-3n+1$.",
+   "marks": 2,
+   "answer": {
+    "value": 78.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Substitute the requested index into the nth-term formula.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i04",
+   "kcs": [
+    "P2-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 9th term of $u_n=2n^2-3n+1$.",
+   "marks": 2,
+   "answer": {
+    "value": 136.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Substitute the requested index into the nth-term formula.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i05",
+   "kcs": [
+    "P2-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $x_3$ if $x_1=2$ and $x_{n+1}=3x_n-1$.",
+   "marks": 2,
+   "answer": {
+    "value": 14.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Apply the recurrence repeatedly from the given first term.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i06",
+   "kcs": [
+    "P2-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $x_5$ if $x_1=2$ and $x_{n+1}=3x_n-1$.",
+   "marks": 2,
+   "answer": {
+    "value": 122.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Apply the recurrence repeatedly from the given first term.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i07",
+   "kcs": [
+    "P2-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 6th term of the arithmetic sequence with first term 7 and difference 3.",
+   "marks": 2,
+   "answer": {
+    "value": 22.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $u_n=a+(n-1)d$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i08",
+   "kcs": [
+    "P2-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 10th term of the arithmetic sequence with first term 7 and difference 3.",
+   "marks": 2,
+   "answer": {
+    "value": 34.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $u_n=a+(n-1)d$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i09",
+   "kcs": [
+    "P2-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 14th term of the arithmetic sequence with first term 7 and difference 3.",
+   "marks": 2,
+   "answer": {
+    "value": 46.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $u_n=a+(n-1)d$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i10",
+   "kcs": [
+    "P2-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sum of the first 5 terms of $4,7,10,\\ldots$.",
+   "marks": 2,
+   "answer": {
+    "value": 50.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $S_n=n[2a+(n-1)d]/2$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i11",
+   "kcs": [
+    "P2-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sum of the first 8 terms of $4,7,10,\\ldots$.",
+   "marks": 2,
+   "answer": {
+    "value": 116.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $S_n=n[2a+(n-1)d]/2$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i12",
+   "kcs": [
+    "P2-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sum of the first 12 terms of $4,7,10,\\ldots$.",
+   "marks": 2,
+   "answer": {
+    "value": 246.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $S_n=n[2a+(n-1)d]/2$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i13",
+   "kcs": [
+    "P2-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $u_n=-10+(2)n$ is increasing.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is increasing because $u_{n+1}-u_n=2$ is positive.",
+     "keywords": [
+      [
+       "increasing"
+      ],
+      [
+       "difference",
+       "consecutive"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is increasing because $u_{n+1}-u_n=2$ is positive.",
+   "hints": [
+    "Compare the defining features.",
+    "Think about consecutive terms or operations.",
+    "State the relevant criterion precisely."
+   ]
+  },
+  {
+   "id": "P2-4-i14",
+   "kcs": [
+    "P2-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $u_n=8+(-3)n$ is decreasing.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is decreasing because $u_{n+1}-u_n=-3$ is negative.",
+     "keywords": [
+      [
+       "decreasing"
+      ],
+      [
+       "difference",
+       "consecutive"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is decreasing because $u_{n+1}-u_n=-3$ is negative.",
+   "hints": [
+    "Compare the defining features.",
+    "Think about consecutive terms or operations.",
+    "State the relevant criterion precisely."
+   ]
+  },
+  {
+   "id": "P2-4-i15",
+   "kcs": [
+    "P2-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $u_n=-5+(1)n$ is increasing.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is increasing because $u_{n+1}-u_n=1$ is positive.",
+     "keywords": [
+      [
+       "increasing"
+      ],
+      [
+       "difference",
+       "consecutive"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is increasing because $u_{n+1}-u_n=1$ is positive.",
+   "hints": [
+    "Compare the defining features.",
+    "Think about consecutive terms or operations.",
+    "State the relevant criterion precisely."
+   ]
+  },
+  {
+   "id": "P2-4-i16",
+   "kcs": [
+    "P2-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $u_n=12+(-2)n$ is decreasing.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is decreasing because $u_{n+1}-u_n=-2$ is negative.",
+     "keywords": [
+      [
+       "decreasing"
+      ],
+      [
+       "difference",
+       "consecutive"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is decreasing because $u_{n+1}-u_n=-2$ is negative.",
+   "hints": [
+    "Compare the defining features.",
+    "Think about consecutive terms or operations.",
+    "State the relevant criterion precisely."
+   ]
+  },
+  {
+   "id": "P2-4-i17",
+   "kcs": [
+    "P2-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $1,-1,1,-1,\\ldots$ is periodic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The terms repeat in a cycle of length 2.",
+     "keywords": [
+      [
+       "repeat",
+       "cycle"
+      ],
+      [
+       "2",
+       "two"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The terms repeat in a cycle of length 2.",
+   "hints": [
+    "Compare the defining features.",
+    "Think about consecutive terms or operations.",
+    "State the relevant criterion precisely."
+   ]
+  },
+  {
+   "id": "P2-4-i18",
+   "kcs": [
+    "P2-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $u_n=(-1)^n$ is neither increasing nor decreasing.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Successive differences change sign, so the terms alternate.",
+     "keywords": [
+      [
+       "alternate",
+       "sign",
+       "increase"
+      ],
+      [
+       "decrease",
+       "difference"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Successive differences change sign, so the terms alternate.",
+   "hints": [
+    "Compare the defining features.",
+    "Think about consecutive terms or operations.",
+    "State the relevant criterion precisely."
+   ]
+  },
+  {
+   "id": "P2-4-i19",
+   "kcs": [
+    "P2-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 4th term of the geometric sequence $3,6,12,\\ldots$.",
+   "marks": 2,
+   "answer": {
+    "value": 24.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $u_n=ar^{n-1}$ with common ratio 2.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i20",
+   "kcs": [
+    "P2-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 6th term of the geometric sequence $3,6,12,\\ldots$.",
+   "marks": 2,
+   "answer": {
+    "value": 96.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $u_n=ar^{n-1}$ with common ratio 2.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i21",
+   "kcs": [
+    "P2-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the 8th term of the geometric sequence $3,6,12,\\ldots$.",
+   "marks": 2,
+   "answer": {
+    "value": 384.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $u_n=ar^{n-1}$ with common ratio 2.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i22",
+   "kcs": [
+    "P2-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sum of the first 4 terms of $5,10,20,\\ldots$.",
+   "marks": 2,
+   "answer": {
+    "value": 75.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $S_n=a(r^n-1)/(r-1)$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i23",
+   "kcs": [
+    "P2-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sum of the first 6 terms of $5,10,20,\\ldots$.",
+   "marks": 2,
+   "answer": {
+    "value": 315.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Use $S_n=a(r^n-1)/(r-1)$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i24",
+   "kcs": [
+    "P2-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sum to infinity of $12,6,3,\\ldots$.",
+   "marks": 2,
+   "answer": {
+    "value": 24.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "Since $|r|<1$, use $S_\\infty=a/(1-r)$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i25",
+   "kcs": [
+    "P2-4.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the coefficient of $x^2$ in $(1+2x)^4$.",
+   "marks": 2,
+   "answer": {
+    "value": 24.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "The coefficient is $\binom nr a^{n-r}b^r$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i26",
+   "kcs": [
+    "P2-4.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the coefficient of $x^3$ in $(2+1x)^5$.",
+   "marks": 2,
+   "answer": {
+    "value": 40.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "The coefficient is $\binom nr a^{n-r}b^r$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i27",
+   "kcs": [
+    "P2-4.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the coefficient of $x^2$ in $(1+3x)^6$.",
+   "marks": 2,
+   "answer": {
+    "value": 135.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "The coefficient is $\binom nr a^{n-r}b^r$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i28",
+   "kcs": [
+    "P2-4.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the coefficient of $x^3$ in $(3+2x)^4$.",
+   "marks": 2,
+   "answer": {
+    "value": 96.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "The coefficient is $\binom nr a^{n-r}b^r$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i29",
+   "kcs": [
+    "P2-4.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the coefficient of $x^2$ in $(2+1x)^7$.",
+   "marks": 2,
+   "answer": {
+    "value": 672.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "The coefficient is $\binom nr a^{n-r}b^r$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  },
+  {
+   "id": "P2-4-i30",
+   "kcs": [
+    "P2-4.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the coefficient of $x^1$ in $(1+4x)^5$.",
+   "marks": 2,
+   "answer": {
+    "value": 20.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "explanation": "The coefficient is $\binom nr a^{n-r}b^r$.",
+   "hints": [
+    "Identify the rule or formula that applies.",
+    "Substitute the given values carefully.",
+    "Check the term index and simplify."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "P2-4.3",
+   "front": "State the meaning of increasing sequence.",
+   "back": "Every successive term is greater than the preceding term."
+  },
+  {
+   "id": "fc2",
+   "kc": "P2-4.3",
+   "front": "State the meaning of decreasing sequence.",
+   "back": "Every successive term is less than the preceding term."
+  },
+  {
+   "id": "fc3",
+   "kc": "P2-4.3",
+   "front": "State the meaning of periodic sequence.",
+   "back": "Its terms repeat in a fixed cycle."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "P2-4.1": {
+   "motivate": "A sequence can be described by its position or by how one term produces the next.",
+   "establish": "An $n$th-term formula gives a term directly from its index: for $u_n=2n+1$, substitute the required positive integer $n$. A recurrence relation of the form $x_{n+1}=f(x_n)$ uses the preceding term. It needs an initial value, such as $x_1$, before any further terms can be generated. Keep track of whether the starting term is indexed 0 or 1.",
+   "connect": "The constant changes in arithmetic and geometric sequences give two especially useful term-to-term rules.",
+   "note": "- An $n$th-term formula gives $u_n$ directly from $n$.\n- A recurrence $x_{n+1}=f(x_n)$ needs a starting term.\n- Apply the recurrence once for each new term.",
+   "self_explain": "Why can you calculate $u_{20}$ directly from an nth-term formula but may need 19 steps from a recurrence?",
+   "source": "pack"
+  },
+  "P2-4.2": {
+   "motivate": "Regular increases let you predict a distant term and total many terms without listing them.",
+   "establish": "An arithmetic sequence has a common difference $d$ between consecutive terms. If the first term is $a$, then $u_n=a+(n-1)d$. An arithmetic series adds these terms. Pair the first and last terms of $S_n$ written forwards and backwards: each pair totals $2a+(n-1)d$, so $2S_n=n[2a+(n-1)d]$ and $S_n=\\frac n2[2a+(n-1)d]=\\frac n2(a+l)$. With $a=d=1$, the first $n$ natural numbers sum to $n(n+1)/2$. Sigma notation $\\sum_{k=1}^n u_k$ means add terms with indices from 1 through $n$.",
+   "connect": "The same idea of finding a repeated pattern leads to geometric series, where each term is multiplied instead of increased by a fixed amount.",
+   "note": "- Arithmetic: $u_n=a+(n-1)d$.\n- Finite sum: $S_n=\\frac n2[2a+(n-1)d]$.\n- $1+\\cdots+n=n(n+1)/2$.\n- $\\sum_{k=1}^n u_k$ adds the indexed terms.",
+   "self_explain": "Explain why $n-1$, rather than $n$, differences separate the first and nth terms.",
+   "source": "pack"
+  },
+  "P2-4.3": {
+   "motivate": "A list of terms can rise, fall, or cycle; its behaviour matters as much as its formula.",
+   "establish": "A sequence is increasing if every term is greater than the preceding term: $u_{n+1}>u_n$. It is decreasing if every term is less: $u_{n+1}<u_n$. Test the sign of $u_{n+1}-u_n$ rather than the sign of $u_n$. A periodic sequence repeats its values in a fixed cycle: for some positive integer $p$, $u_{n+p}=u_n$ for all relevant $n$. The least such $p$ is its period. Alternating terms often give period 2, but not every alternating sequence is periodic if magnitudes change.",
+   "connect": "An arithmetic sequence with positive difference increases; a geometric sequence with negative ratio may alternate.",
+   "note": "- Increasing means $u_{n+1}>u_n$ throughout.\n- Decreasing means $u_{n+1}<u_n$ throughout.\n- Periodic means $u_{n+p}=u_n$ for a fixed positive integer $p$.",
+   "self_explain": "Can a sequence of negative terms increase? Explain using two consecutive terms.",
+   "source": "pack"
+  },
+  "P2-4.4": {
+   "motivate": "Repeated multiplication models growth and decay, and gives a compact way to sum them.",
+   "establish": "A geometric sequence has common ratio $r$ and first term $a$, so $u_n=ar^{n-1}$. For its finite series, multiply $S_n=a+ar+\\cdots+ar^{n-1}$ by $r$ and subtract: $(1-r)S_n=a(1-r^n)$. Thus $S_n=a(1-r^n)/(1-r)$ for $r\\ne1$; if $r=1$, $S_n=na$. A sum to infinity exists only when $|r|<1$, since then $r^n\\to0$; it is $S_\\infty=a/(1-r)$. If a finite sum is given and $n$ is unknown, isolate $r^n$ and use logarithms, checking that $n$ is a positive integer where required.",
+   "connect": "Both arithmetic and geometric sum formulae come from manipulating the same finite series, but geometric sums use subtraction after multiplication.",
+   "note": "- Geometric: $u_n=ar^{n-1}$.\n- $S_n=a(1-r^n)/(1-r)$ if $r\\ne1$.\n- $S_\\infty=a/(1-r)$ only for $|r|<1$.\n- Use logarithms to solve for an unknown $n$.",
+   "self_explain": "Why does $r=-2$ fail the condition for a sum to infinity?",
+   "source": "pack"
+  },
+  "P2-4.5": {
+   "motivate": "Binomial coefficients let you find one term of an expansion without multiplying out every bracket.",
+   "establish": "For positive integer $n$, $(a+bx)^n=\\sum_{r=0}^{n}\\binom nr a^{n-r}(bx)^r$. The coefficient of $x^r$ is $\\binom nr a^{n-r}b^r$. The notation $\\binom nr$, also written ${}^nC_r$, means the number of ways to choose $r$ from $n$, and equals $n!/[r!(n-r)!]$, with $0!=1$. Powers of $a$ descend from $n$ to 0 as powers of $bx$ ascend from 0 to $n$. The expansion has $n+1$ terms.",
+   "connect": "Sigma notation from series concisely records all terms of the binomial expansion.",
+   "note": "- $(a+bx)^n=\\sum_{r=0}^n\\binom nr a^{n-r}(bx)^r$.\n- $\\binom nr={}^nC_r=n!/[r!(n-r)!]$.\n- The coefficient of $x^r$ is $\\binom nr a^{n-r}b^r$.",
+   "self_explain": "Which value of $r$ gives the $x^3$ term, and what happens to the power of $a$?",
+   "source": "pack"
+  }
+ }
+}

@@ -255,12 +255,14 @@ def score(provider: str, windows: dict | None, cfg: dict, running: list[str], mo
     return (longest[1] if longest else UNKNOWN), ""
 
 
-def pick(role: str, maker: str | None, usage: dict, cfg: dict, busy: dict, now: float | None = None) -> str:
+def pick(role: str, maker: str | None, usage: dict, cfg: dict, busy: dict, now: float | None = None,
+         only: str | None = None) -> str:
     """The allowance this job goes to. `maker` is the allowance that drafted the chapter (None when not known);
-    `busy` the jobs running now on each. Raises Wait when none can take it."""
+    `busy` the jobs running now on each. `only` (the learner's choice: `foundry only codex`) leaves every other
+    allowance out, and then the maker may check its own work: there is nobody else. Raises Wait when none can take it."""
     scores, closed = {}, []
     for p in PROVIDERS:
-        if p not in cfg["ladders"][role] or (role in BLIND and p == maker):
+        if p not in cfg["ladders"][role] or (only and p != only) or (role in BLIND and p == maker and p != only):
             continue
         s, why = score(p, usage.get(p), cfg, busy.get(p, []), cfg["ladders"][role][p][0][0], now,
                        own=cfg["weights"][p].get(role, 0.2))

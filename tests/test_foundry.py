@@ -884,3 +884,60 @@ def test_usage_says_when_codex_reports_no_five_hour_window(fdy, monkeypatch, cap
     monkeypatch.setattr(fdy.router, "codex_usage", lambda binary, timeout=20: {"seven_day": {"used": 39.0, "resets": time.time() + 9e5}})
     fdy.cmd_usage()
     assert "Codex   5 hours    not reported by Codex for this plan" in capsys.readouterr().out
+
+
+def test_only_codex_leaves_claude_out_and_lets_the_maker_check_its_own_work(fdy):
+    r, cfg = fdy.router, fdy.config()
+    usage = {"codex": {"seven_day": {"used": 40.0, "resets": time.time() + 9e5}},
+             "claude": {"seven_day": {"used": 10.0, "resets": time.time() + 9e5}}}
+    assert r.pick("solver", "codex", usage, cfg, {}) == "claude"  # the rule: another family checks
+    assert r.pick("solver", "codex", usage, cfg, {}, only="codex") == "codex"  # asked: only Codex
+    assert r.pick("drafter", None, usage, cfg, {}, only="codex") == "codex"  # Claude has more left, but is left out
+    full = {**usage, "codex": {"seven_day": {"used": 100.0, "resets": time.time() + 9e5}}}
+    with pytest.raises(r.Wait):
+        r.pick("solver", "codex", full, cfg, {}, only="codex")  # and it waits for Codex, never falls back to Claude
+
+
+def test_only_is_a_switch_and_is_shown(fdy, capsys):
+    fdy.cmd_only(["codex"])
+    with fdy.notes() as n:
+        assert n["only"] == "codex"
+    fdy.cmd_usage()
+    assert "mode: only Codex is used" in capsys.readouterr().out
+    fdy.cmd_only(["off"])
+    with fdy.notes() as n:
+        assert "only" not in n
+    with pytest.raises(SystemExit):
+        fdy.cmd_only(["both"])
+
+
+def test_a_chapter_signed_in_only_mode_by_its_own_family_is_marked_and_listed(fdy, tmp_path, monkeypatch, capsys):
+    fdy.cmd_add([SUB])
+    right = tmp_path / "right.json"
+    right.write_text(json.dumps(keys(fdy)))
+    monkeypatch.setenv("FAKE_COPY", str(right))
+    with fdy.chapter(SUB) as st:
+        st["maker"] = "codex"
+    fdy.cmd_only(["codex"])
+    fdy.cmd_dispatch(SUB)
+    finished(fdy, "solver"), finished(fdy, "checker")
+    fdy.cmd_step([SUB])
+    fdy.cmd_step()
+    st = fdy.load(SUB)
+    assert st["stage"] == "ready" and st["same_family"] is True
+    assert all(j.get("provider") == "codex" for j in st["jobs"].values() if j.get("provider"))
+    fdy.cmd_coverage([])
+    assert SUB in capsys.readouterr().out.split("Signed with only its own family")[1]
+
+
+def test_a_solvers_answers_file_with_a_stray_backslash_n_is_still_read(fdy, tmp_path):
+    ok = tmp_path / "a.json"
+    ok.write_text('{\n "q1": "A"\n}\\n')  # the object, then the two characters backslash and n
+    assert fdy.read_answers(ok) == {"q1": "A"}
+    ok.write_text('{"q1": "A"}\n')
+    assert fdy.read_answers(ok) == {"q1": "A"}
+    for bad in ('{"q1": "A"} {"q2": "B"}', '{"q1": ', '["A"]'):
+        ok.write_text(bad)
+        with pytest.raises(SystemExit) as e:
+            fdy.read_answers(ok)
+        assert "a.json" in str(e.value) and "re-run the solver" in str(e.value)
