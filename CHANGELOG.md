@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.1.3 — 2026-10-10
+
+Asked by the learner.
+
+- **Tag errors in Obsidian.** Lesson notes carried `tags: [stem-tutor/lesson, 9701]`; a tag of only digits is invalid in
+  Obsidian. Publishing now writes `cie-9701` / `cie-9702` (`publish.fix_tags`), the template in `build/PACK.md` says so,
+  and the finished chapters' notes were rewritten. Chapters still being drafted are fixed when they are published.
+- **Broken links.** A `[[link]]` to a note that does not exist (`Tangents and normals`, `Optimisation` in P2 7
+  Differentiation) is plain text in the published note, as chapter links already were, instead of an empty note on
+  click; the vault's own pages (Home, Today, Now, Profile, Mistakes) stay links. A scan of the vault finds no
+  unresolved link left. A link whose apostrophe differs still finds its note.
+- **Blank options and stray TeX in new chapters.** The foundry now repairs a figure question whose options came out empty
+  when it signs a chapter (`foundry normalise` does the same for signed ones; the key letter is kept), and finished
+  chapters' explanations that named an option letter, junk rubric keywords like `$Ca(s)…\\rightarrow`, doubled
+  backslashes in TeX and a stray `\\%` were corrected.
+
 ## 2.1.2 — 2026-10-10
 
 Asked by the learner.

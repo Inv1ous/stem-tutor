@@ -41,4 +41,4 @@ The power law is $\log_a(x^k)=k\log_a x$. Setting $k=-1$ gives $\log_a(1/x)=-\lo
 For **Sketch**, show the intercept, asymptote, and increasing or decreasing shape; a plotted table alone is insufficient. For **Find** or **Calculate**, show the logarithm step before giving a decimal. For an **Exact** answer, leave $\ln b/\ln a$ rather than rounding it. For **Show that**, write each algebraic step, especially the power law and division. Check positivity before using any logarithm law.
 
 ## Links
-Builds on [[1 Laws of indices]] · Leads to [[6 Trigonometry]]
+Builds on 1 Laws of indices · Leads to [[6 Trigonometry]]

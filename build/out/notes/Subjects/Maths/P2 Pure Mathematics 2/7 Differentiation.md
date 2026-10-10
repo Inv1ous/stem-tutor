@@ -39,4 +39,4 @@ A *local* maximum is higher than nearby points; it need not be the highest value
 For **Find**, show the derivative equation, the stationary solutions and the classification. For **Sketch**, label coordinates and intercepts clearly, with a shape consistent with increasing and decreasing intervals. For **Explain**, say why the sign change or second derivative justifies the classification. In context, give the requested quantity with its units and check the feasible domain.
 
 ## Links
-Builds on [[4 Differentiation]] and [[Tangents and normals]] · Leads to [[Optimisation]]
+Builds on [[4 Differentiation]] and Tangents and normals · Leads to Optimisation

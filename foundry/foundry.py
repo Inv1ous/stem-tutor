@@ -12,6 +12,7 @@ blind compare), so nobody has to read a whole pack to know whether it is right.
   foundry.py next                         what to do now, per chapter (the manager's to-do list)
   foundry.py step [subtopics…]            do all of that which needs no judgement: launch, compare, sign
   foundry.py usage                        what is left of the Claude and Codex allowances; where the next job goes
+  foundry.py normalise [chapters]         repair blank options of figure questions (done at signing too)
   foundry.py only codex|claude|off        use one allowance only (its own family then checks its drafts: marked); off = both
   foundry.py reading claude five_hour <percent> [reset time]   pass on a figure Claude does not report to the foundry
   foundry.py run <role> <subtopic> [--on claude|codex]   launch one headless worker (drafter, fixer, tiebreak,
@@ -709,7 +710,42 @@ def cmd_gates(sub: str) -> dict:
     return g
 
 
+def normalise_figures(sub: str) -> int:
+    """A past-paper question whose options came out of the PDF empty keeps its figure and loses its options (the key
+    letter stays, as in 2.0.0): the mechanical repair, made at signing so a chapter does not ship with blank options.
+    The correction is also noted in build/work/mcq/overrides.json so a rebuild keeps it. Returns how many."""
+    path = pack_path(sub)
+    if not path.exists():
+        return 0
+    raw = path.read_text()
+    pack, fixed = json.loads(raw), {}
+    for it in pack.get("items", []):
+        o = it.get("options")
+        qid = (it.get("source") or {}).get("qid") or (it.get("source") or {}).get("ref")
+        if it.get("kind") == "mcq" and isinstance(o, dict) and it.get("image") and qid \
+                and any(not str(v).strip() for v in o.values()):
+            it["options"] = None
+            fixed[qid] = {"options": None}
+    if fixed:
+        path.write_text(json.dumps(pack, ensure_ascii=False, indent=1) + ("\n" if raw.endswith("\n") else ""))
+        ov = ROOT / "build/work/mcq/overrides.json"
+        ov.parent.mkdir(parents=True, exist_ok=True)
+        data = json.loads(ov.read_text()) if ov.exists() else {}
+        for qid, change in fixed.items():
+            data.setdefault(qid, {}).update(change)
+        ov.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n")
+    return len(fixed)
+
+
+def cmd_normalise(subs: list[str]) -> None:
+    """foundry.py normalise [chapters…]: the signing repair for chapters already signed (all signed ones when none named)."""
+    for s in subs or [f.stem for f in sorted(STATE.glob("*.json")) if f.stem[:1].isalnum() and load(f.stem)["stage"] == "ready"]:
+        if n := normalise_figures(s):
+            print(f"{s}: {n} figure questions now show the figure without blank options")
+
+
 def cmd_sign(sub: str) -> None:
+    normalise_figures(sub)
     g = gates(sub)
     with chapter(sub) as st:
         st["gates"] = g
@@ -1123,6 +1159,8 @@ def main(argv: list[str]) -> None:
         cmd_usage()
     elif cmd == "only":
         cmd_only(rest)
+    elif cmd == "normalise":
+        cmd_normalise(rest)
     elif cmd == "reading":
         cmd_reading(*rest)
     elif cmd == "queue":

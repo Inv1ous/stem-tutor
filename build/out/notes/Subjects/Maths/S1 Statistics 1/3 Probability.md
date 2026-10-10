@@ -39,4 +39,4 @@ Events are **independent** when knowing one occurred does not change the probabi
 For **Calculate** and **Find**, show the probability rule before substituting values; this earns method credit. For **Show that**, present every step until the supplied result follows. For **Explain**, use the distinction in context: say whether a first draw changes the next probability, or whether an overlap was counted twice. Leave exact fractions when a decimal would repeat, and check that the final probability lies between 0 and 1.
 
 ## Links
-Builds on [[1 Modelling in probability and statistics]] · Leads to [[4 Discrete random variables]]
+Builds on 1 Modelling in probability and statistics · Leads to 4 Discrete random variables

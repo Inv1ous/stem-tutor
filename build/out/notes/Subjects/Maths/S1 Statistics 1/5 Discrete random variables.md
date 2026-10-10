@@ -48,4 +48,4 @@ A **discrete uniform distribution** assigns equal probability to each possible v
 For **Calculate** or **Find**, show the formula and substituted values before the answer. For **Explain**, refer to the outcomes and probabilities in context. For **Show that**, include every intermediate step even when the final value is printed in the question. Keep exact fractions when requested. Distinguish $E(X^2)$ from $[E(X)]^2$ in variance working.
 
 ## Links
-Builds on [[3 Elementary probability]] · Leads to [[6 Binomial distribution]]
+Builds on 3 Elementary probability · Leads to 6 Binomial distribution

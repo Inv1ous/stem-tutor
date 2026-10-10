@@ -34,4 +34,4 @@ Sine is positive in quadrants I and II; cosine in I and IV; tangent in I and III
 For **Find** and **Calculate**, show the identity or reference angle, all admissible angles, the inverse transformation, and the final interval check. For **Show that** or **Prove**, write each algebraic identity step and state when division requires $\cos\theta\ne0$. If an answer is requested **exact**, retain fractions, $\pi$, and inverse trig expressions instead of premature decimals. Watch a mixed boundary such as $-\pi\le x<\pi$: the left endpoint may be a solution even though the right one is excluded.
 
 ## Links
-Builds on [[3.3 Trig function graphs and periodicity]] · Leads to later trigonometric modelling and calculus.
+Builds on 3.3 Trig function graphs and periodicity · Leads to later trigonometric modelling and calculus.

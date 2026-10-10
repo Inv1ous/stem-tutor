@@ -68,7 +68,7 @@ Obsidian markdown, about 400–900 words, readable in two minutes and printable:
 
 ```markdown
 ---
-tags: [stem-tutor/lesson, 9702]
+tags: [stem-tutor/lesson, cie-9702]
 spec: "9702"
 subtopic: "9702-2.1"
 kcs: ["9702-2.1.1", "9702-2.1.2"]

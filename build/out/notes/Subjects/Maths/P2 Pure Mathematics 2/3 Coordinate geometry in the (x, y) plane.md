@@ -39,4 +39,4 @@ Three circle properties are useful in coordinate geometry. An angle at the circu
 For **Show that**, substitute the proposed point or expand the claimed equation and show every equality. For **Find** or **Calculate**, name the circle property you use before applying midpoint or gradient arithmetic. For **Explain** and **Prove**, give the reason that an angle is right or two lines are perpendicular; a sketch alone does not establish the result. Keep exact fractions for gradients and exact surds for radii when requested.
 
 ## Links
-Builds on [[2 Parallel and perpendicular lines]] · Leads to tangent and chord problems in coordinate geometry.
+Builds on 2 Parallel and perpendicular lines · Leads to tangent and chord problems in coordinate geometry.

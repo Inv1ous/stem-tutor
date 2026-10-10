@@ -47,4 +47,4 @@ For **Find** or **Calculate**, show the rewritten curve, derivative, substituted
 
 ## Links
 
-Builds on [[1 Algebra and functions]] and [[2 Coordinate geometry]] · Leads to [[5 Integration]]
+Builds on [[1 Algebra and functions]] and 2 Coordinate geometry · Leads to [[5 Integration]]

@@ -265,3 +265,20 @@ def test_publishing_without_a_vault_flag_goes_where_the_app_looks(tmp_path, monk
     assert publish.vault_from(["--vault", str(tmp_path / "other")]) == tmp_path / "other"
     monkeypatch.delenv("STEM_TUTOR_VAULT")
     assert publish.vault_from([]) == publish.DEFAULT_VAULT
+
+
+def test_a_tag_of_only_digits_is_made_valid_for_obsidian():
+    from publish import fix_tags
+    assert fix_tags('---\ntags: [stem-tutor/lesson, 9701]\nspec: "9701"\n---\n# T\n#1 is body\n') == \
+        '---\ntags: [stem-tutor/lesson, cie-9701]\nspec: "9701"\n---\n# T\n#1 is body\n'
+    assert fix_tags("---\ntags: [stem-tutor/lesson, P2]\n---\nx") == "---\ntags: [stem-tutor/lesson, P2]\n---\nx"
+    assert fix_tags("no front matter 9701") == "no front matter 9701"
+    assert fix_tags("---\ntags: [stem-tutor/lesson, cie-9701]\n---\nx") == "---\ntags: [stem-tutor/lesson, cie-9701]\n---\nx"
+
+
+def test_a_link_to_a_note_that_does_not_exist_is_plain_text_but_the_vaults_own_pages_stay_links():
+    from publish import link_notes
+    names = {"4 Differentiation", "5.2 Hess’s law"}
+    text = "Builds on [[4 Differentiation]] and [[Tangents and normals]] · [[Optimisation|optimising]] · [[Home]] · [[5.2 Hess's law]]"
+    assert link_notes(text, names) == ("Builds on [[4 Differentiation]] and Tangents and normals · optimising · [[Home]] · "
+                                       "[[5.2 Hess’s law]]")

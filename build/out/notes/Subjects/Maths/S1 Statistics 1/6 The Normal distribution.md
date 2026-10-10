@@ -39,4 +39,4 @@ The cumulative distribution function $\Phi(z)=P(Z<z)$ is tabulated. It gives the
 For **Find** or **Calculate**, show the standardisation and the table values before the final probability. For **Show that**, write each link of the argument even if the target is printed in the question. In simultaneous-equation problems, state which cumulative probabilities correspond to each $z$ score, form both equations, and solve for the positive $\sigma$. A quick sketch catches tail and symmetry errors without needing a precise graph.
 
 ## Links
-Builds on [[5.3 Mean and variance of a discrete RV]] and [[2.3 Variance, standard deviation, IQR]].
+Builds on 5.3 Mean and variance of a discrete RV and 2.3 Variance, standard deviation, IQR.

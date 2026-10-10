@@ -81,4 +81,4 @@ kcs: ["S1-2.1", "S1-2.2", "S1-2.3", "S1-2.4"]
 - Don't round intermediate cumulative-frequency working before interpolating.
 
 ## Links
-Builds on [[1 Modelling in probability and statistics]] · Leads to [[3 Elementary probability]]
+Builds on 1 Modelling in probability and statistics · Leads to 3 Elementary probability

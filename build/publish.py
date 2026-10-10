@@ -60,6 +60,19 @@ def _plain(name: str) -> str:
     return name.replace("’", "'").replace("‘", "'")
 
 
+FRONT_TAGS = re.compile(r"^(tags:[ \t]*\[)([^\]\n]*)(\])", re.M)
+VAULT_NOTES = {"Home", "Today", "Now", "Profile", "Mistakes", "How It Works"}  # the vault's own pages: always there
+
+
+def fix_tags(text: str) -> str:
+    """Obsidian rejects a tag made only of digits: `tags: [stem-tutor/lesson, 9701]` becomes `…, cie-9701]`."""
+    def tag(m: re.Match) -> str:
+        items = [t.strip() for t in m.group(2).split(",") if t.strip()]
+        return m.group(1) + ", ".join(f"cie-{t}" if t.strip("'\"").isdigit() else t for t in items) + m.group(3)
+    head, sep, rest = text.partition("\n---\n") if text.startswith("---\n") else ("", "", text)
+    return FRONT_TAGS.sub(tag, head) + sep + rest if sep else text
+
+
 def link_notes(text: str, names: set[str]) -> str:
     """Make a note's [[links]] open what is in the vault: "Hess's law" finds "Hess’s law.md", and a link to a chapter
     not published yet is plain text until it is (clicking it would make an empty note)."""
@@ -71,9 +84,9 @@ def link_notes(text: str, names: set[str]) -> str:
             return m.group(0)
         if _plain(target) in by_plain:
             return f"[[{by_plain[_plain(target)]}{rest}]]"
-        if not CHAPTER.match(target):
+        if target in VAULT_NOTES or target.startswith("Assets"):
             return m.group(0)
-        return rest.split("|", 1)[1] if "|" in rest else target
+        return rest.split("|", 1)[1] if "|" in rest else target  # nothing there: plain text, not an empty note on click
     return WIKILINK.sub(fix, text)
 
 
@@ -124,7 +137,7 @@ def publish(vault: Path) -> dict:
                     and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
                 d = dest / f.relative_to(src_root)
                 if src_root == BUILD / "notes" and f.suffix == ".md":  # links follow what is published
-                    text = link_notes(f.read_text(encoding="utf-8"), names)
+                    text = fix_tags(link_notes(f.read_text(encoding="utf-8"), names))
                     # a note you edited in the vault (newer than the build's) is kept
                     if not d.exists() or (d.stat().st_mtime <= f.stat().st_mtime
                                           and d.read_text(encoding="utf-8") != text):

@@ -1483,12 +1483,7 @@
     "qid": "9702_s24_12_q36"
    },
    "stem": "The diagram shows four identical resistors connected in a circuit.\nWhich resistor dissipates the most power?",
-   "options": {
-    "D": "",
-    "B": "",
-    "A": "",
-    "C": ""
-   },
+   "options": null,
    "answer": "A",
    "image": "Assets/mcq/9702_s24_12_q36.png",
    "marks": 1,
@@ -1509,12 +1504,7 @@
     "qid": "9702_s24_13_q32"
    },
    "stem": "A student builds the circuit shown. All the lamps are identical.\nWhich lamp dissipates the most power?",
-   "options": {
-    "A": "",
-    "B": "",
-    "C": "",
-    "D": ""
-   },
+   "options": null,
    "answer": "D",
    "image": "Assets/mcq/9702_s24_13_q32.png",
    "marks": 1,
@@ -1696,18 +1686,18 @@
  "teach": {
   "9702-9.2.1": {
    "motivate": "A lamp transfers electrical energy into light and thermal energy. Voltage tells us how much is transferred for each coulomb that passes through it.",
-   "establish": "Define the potential difference across a component as the energy transferred per unit charge. The word *per* states a ratio: $V=W/Q$. Energy is in joules, charge in coulombs, so $1\\\\ \\mathrm{V}=1\\\\ \\mathrm{J\\\\,C^{-1}}$. A p.d. of $5\\\\ \\mathrm{V}$ means $5\\\\ \\mathrm{J}$ is transferred for each coulomb through that component.",
+   "establish": "Define the potential difference across a component as the energy transferred per unit charge. The word *per* states a ratio: $V=W/Q$. Energy is in joules, charge in coulombs, so $1\\ \\mathrm{V}=1\\ \\mathrm{J\\,C^{-1}}$. A p.d. of $5\\ \\mathrm{V}$ means $5\\ \\mathrm{J}$ is transferred for each coulomb through that component.",
    "connect": "Charge is the quantity moved through the component; the energy transfer depends on both that charge and the p.d. across it.",
-   "note": "- Potential difference across a component is energy transferred per unit charge.\n- $V=W/Q$ and $1\\\\ \\mathrm{V}=1\\\\ \\mathrm{J\\\\,C^{-1}}$.",
+   "note": "- Potential difference across a component is energy transferred per unit charge.\n- $V=W/Q$ and $1\\ \\mathrm{V}=1\\ \\mathrm{J\\,C^{-1}}$.",
    "self_explain": "Why is ‘energy transferred per unit charge’ more precise than ‘energy transferred by a unit charge’?",
    "source": "pack"
   },
   "9702-9.2.2": {
    "motivate": "Knowing the energy transferred and charge passing through a component lets you calculate its p.d. directly.",
-   "establish": "Recall and use $V=W/Q$. Here $V$ is the p.d. across the component, $W$ is energy transferred across it and $Q$ is the charge passing through it. Rearrange to $W=VQ$ or $Q=W/V$ when another quantity is unknown. For $24\\\\ \\mathrm{J}$ transferred by $6.0\\\\ \\mathrm{C}$, $V=24/6.0=4.0\\\\ \\mathrm{V}$.",
+   "establish": "Recall and use $V=W/Q$. Here $V$ is the p.d. across the component, $W$ is energy transferred across it and $Q$ is the charge passing through it. Rearrange to $W=VQ$ or $Q=W/V$ when another quantity is unknown. For $24\\ \\mathrm{J}$ transferred by $6.0\\ \\mathrm{C}$, $V=24/6.0=4.0\\ \\mathrm{V}$.",
    "connect": "The equation is the mathematical form of the definition of potential difference; current can supply charge via $Q=It$.",
    "note": "- $V=W/Q$; use joules and coulombs.\n- Rearrange to $W=VQ$ or $Q=W/V$.",
-   "self_explain": "A component transfers $18\\\\ \\mathrm{J}$ at $3.0\\\\ \\mathrm{V}$. How much charge passes through it?",
+   "self_explain": "A component transfers $18\\ \\mathrm{J}$ at $3.0\\ \\mathrm{V}$. How much charge passes through it?",
    "source": "pack"
   },
   "9702-9.2.3": {
@@ -1715,7 +1705,7 @@
    "establish": "Recall and use $P=VI$ for electrical power. From $P=W/t$, $W=VQ$ and $I=Q/t$, it follows that $P=VI$. For a resistor obeying $V=IR$, substitute to obtain $P=I^2R$ and $P=V^2/R$. Choose the equation matching the known quantities. For a fixed resistance, doubling current or p.d. makes power four times as large, because it is proportional to their squares. The p.d. and current must refer to the component whose power you calculate.",
    "connect": "This combines energy per charge with charge per second: energy per second is power. Ohm's law gives the two resistor forms.",
    "note": "- Electrical power: $P=VI$, measured in watts.\n- For a resistor: $P=I^2R=V^2/R$.\n- At fixed $R$, power varies with the square of current or p.d.",
-   "self_explain": "Why does increasing the current in a fixed resistor by $50\\\\%$ increase power by more than $50\\\\%$?",
+   "self_explain": "Why does increasing the current in a fixed resistor by $50\\%$ increase power by more than $50\\%$?",
    "source": "pack"
   }
  }

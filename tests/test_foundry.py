@@ -941,3 +941,18 @@ def test_a_solvers_answers_file_with_a_stray_backslash_n_is_still_read(fdy, tmp_
         with pytest.raises(SystemExit) as e:
             fdy.read_answers(ok)
         assert "a.json" in str(e.value) and "re-run the solver" in str(e.value)
+
+
+def test_signing_drops_blank_options_of_a_figure_question_and_notes_it(fdy, tmp_path, monkeypatch):
+    fdy.cmd_add([SUB])
+    pack = json.loads(fdy.pack_path(SUB).read_text())
+    pack["items"].append({"id": f"{SUB}-x900", "kind": "mcq", "kcs": [], "stem": "See the figure.", "image": "Assets/mcq/q.png",
+                          "source": {"type": "past", "ref": "9701_s23_11_q7"}, "answer": "B",
+                          "options": {"A": "1", "B": "2", "C": "3", "D": ""}})
+    fdy.pack_path(SUB).write_text(json.dumps(pack))
+    ov = fdy.ROOT / "build/work/mcq/overrides.json"
+    assert fdy.normalise_figures(SUB) == 1
+    item = next(i for i in json.loads(fdy.pack_path(SUB).read_text())["items"] if i["id"].endswith("x900"))
+    assert item["options"] is None and item["answer"] == "B"
+    assert json.loads(ov.read_text())["9701_s23_11_q7"] == {"options": None}
+    assert fdy.normalise_figures(SUB) == 0  # once

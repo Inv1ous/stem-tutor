@@ -1,5 +1,8 @@
 # Build status
 
+## v2.1.3 (2026-10-10) — done
+- Obsidian: lesson tags `9701`/`9702` (digits only, invalid) are `cie-9701`/`cie-9702`; a link to a note that does not exist is plain text.
+
 ## v2.1.2 (2026-10-10) — done
 - The foundry's Codex tiers were measured against Claude's on 60 blind questions; solving and checking now start on `gpt-6-sol` low (Haiku's match).
 
