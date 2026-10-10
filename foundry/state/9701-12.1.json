@@ -1,0 +1,230 @@
+{
+ "sub": "9701-12.1",
+ "stage": "ready",
+ "created": "2026-10-10T16:49:04+08:00",
+ "updated": "2026-10-10T17:02:43+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:50:54+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 76 items"
+  },
+  {
+   "t": "2026-10-10T16:54:31+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "46 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T16:55:58+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "1 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:00:57+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T17:01:35+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T17:02:43+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 76,
+  "extra": 34
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item 9701-12.1-x023 options A and B",
+   "rule": "two right options",
+   "evidence": "A: 'Nitrogen dioxide acts as a catalyst in the atmospheric oxidation of sulfur dioxide to sulfur trioxide.' B: 'Nitrogen dioxide reacts to form nitrogen monoxide in the catalytic converter of a car exhaust system.'",
+   "suggested": "Replace B with a clearly false converter statement; NO2 can be reduced to NO before further reduction to N2.",
+   "status": "fixed",
+   "resolution": "fix: Keep answer A and preserve the original stem and all options: build/work/mcq/9701.tagged.json confirms the official key A and contains no examiner comment for this question. In build/work/mcq/overrides.json under qid 9701_s24_11_q23, set only the explanation field to: \"A is the official answer. Nitrogen dioxide catalyses atmospheric sulfur dioxide oxidation: NO2 + SO2 -> NO + SO3, followed by 2NO + O2 -> 2NO2, regenerating the catalyst. B is a trap: the intended overall function of a catalytic converter is to reduce nitrogen oxides to nitrogen, N2, not to discharge nitrogen monoxide as the final reduction product; for example, 2NO2 + 4CO -> N2 + 4CO2. NO can occur as an intermediate during reduction, so B must be interpreted in terms of the intended overall conversion rather than a possible intermediate step. C is incorrect because PAN formation involves unburned hydrocarbons, not the CO2 and H2O from complete combustion. D is incorrect because engine nitrogen oxides originate from nitrogen and oxygen in air reacting at high temperature, not from fuel impurities under high pressure.\" Do not replace option B or change the official key."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9701-12.1-x023 options A and B",
+   "instruction": "Keep answer A and preserve the original stem and all options: build/work/mcq/9701.tagged.json confirms the official key A and contains no examiner comment for this question. In build/work/mcq/overrides.json under qid 9701_s24_11_q23, set only the explanation field to: \"A is the official answer. Nitrogen dioxide catalyses atmospheric sulfur dioxide oxidation: NO2 + SO2 -> NO + SO3, followed by 2NO + O2 -> 2NO2, regenerating the catalyst. B is a trap: the intended overall function of a catalytic converter is to reduce nitrogen oxides to nitrogen, N2, not to discharge nitrogen monoxide as the final reduction product; for example, 2NO2 + 4CO -> N2 + 4CO2. NO can occur as an intermediate during reduction, so B must be interpreted in terms of the intended overall conversion rather than a possible intermediate step. C is incorrect because PAN formation involves unburned hydrocarbons, not the CO2 and H2O from complete combustion. D is incorrect because engine nitrogen oxides originate from nitrogen and oxygen in air reacting at high temperature, not from fuel impurities under high pressure.\" Do not replace option B or change the official key.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 18645,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:49:04+08:00",
+   "log": "foundry/logs/9701-12.1.drafter.1010-164904.log",
+   "out": "foundry/logs/9701-12.1.drafter.1010-164904.out.json",
+   "finished": "2026-10-10T16:50:54+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-12.1.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/12 Nitrogen and sulfur/12.1 Nitrogen and sulfur.md",
+    "items": 76,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 21380,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:53:51+08:00",
+   "log": "foundry/logs/9701-12.1.solver-1.1010-165351.log",
+   "out": "foundry/logs/9701-12.1.solver-1.1010-165351.out.json",
+   "expects": "build/work/blind/9701-12.1.answers.part1.json",
+   "finished": "2026-10-10T16:54:25+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-12.1.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 21384,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:53:51+08:00",
+   "log": "foundry/logs/9701-12.1.solver-2.1010-165351.log",
+   "out": "foundry/logs/9701-12.1.solver-2.1010-165351.out.json",
+   "expects": "build/work/blind/9701-12.1.answers.part2.json",
+   "finished": "2026-10-10T16:54:15+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-12.1.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 21390,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:53:51+08:00",
+   "log": "foundry/logs/9701-12.1.solver-3.1010-165351.log",
+   "out": "foundry/logs/9701-12.1.solver-3.1010-165351.out.json",
+   "expects": "build/work/blind/9701-12.1.answers.part3.json",
+   "finished": "2026-10-10T16:54:15+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 6 questions in `build/work/blind/9701-12.1.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 22586,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:55:17+08:00",
+   "log": "foundry/logs/9701-12.1.checker.1010-165517.log",
+   "out": "foundry/logs/9701-12.1.checker.1010-165517.out.json",
+   "expects": "build/work/foundry/9701-12.1.check.json",
+   "finished": "2026-10-10T16:55:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — build/work/foundry/9701-12.1.check.json"
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 26543,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T17:00:22+08:00",
+   "log": "foundry/logs/9701-12.1.adjudicator.1010-170022.log",
+   "out": "foundry/logs/9701-12.1.adjudicator.1010-170022.out.json",
+   "finished": "2026-10-10T17:01:03+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item 9701-12.1-x023 options A and B fix: Preserve official key A; add explanation distinguishing intermediate NO from final N₂."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 27124,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T17:01:12+08:00",
+   "log": "foundry/logs/9701-12.1.fixer.1010-170112.log",
+   "out": "foundry/logs/9701-12.1.fixer.1010-170112.out.json",
+   "finished": "2026-10-10T17:01:35+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_11_q18": "9701-12.1-x001",
+  "9701_s19_11_q19": "9701-12.1-x002",
+  "9701_s19_12_q19": "9701-12.1-x003",
+  "9701_s19_13_q18": "9701-12.1-x004",
+  "9701_s19_13_q36": "9701-12.1-x005",
+  "9701_w19_11_q19": "9701-12.1-x006",
+  "9701_w19_12_q18": "9701-12.1-x007",
+  "9701_w19_12_q19": "9701-12.1-x008",
+  "9701_s20_11_q35": "9701-12.1-x009",
+  "9701_s20_12_q19": "9701-12.1-x010",
+  "9701_s20_12_q35": "9701-12.1-x011",
+  "9701_s20_13_q5": "9701-12.1-x012",
+  "9701_s20_13_q16": "9701-12.1-x013",
+  "9701_s21_11_q18": "9701-12.1-x014",
+  "9701_s21_13_q13": "9701-12.1-x015",
+  "9701_w21_11_q19": "9701-12.1-x016",
+  "9701_s22_11_q29": "9701-12.1-x017",
+  "9701_s22_12_q24": "9701-12.1-x018",
+  "9701_w22_11_q24": "9701-12.1-x019",
+  "9701_w22_12_q23": "9701-12.1-x020",
+  "9701_s23_11_q20": "9701-12.1-x021",
+  "9701_s23_13_q26": "9701-12.1-x022",
+  "9701_s24_11_q23": "9701-12.1-x023",
+  "9701_s24_12_q23": "9701-12.1-x024",
+  "9701_s24_13_q24": "9701-12.1-x025",
+  "9701_s25_11_q16": "9701-12.1-x026",
+  "9701_s25_11_q17": "9701-12.1-x027",
+  "9701_s25_12_q24": "9701-12.1-x028",
+  "9701_s25_13_q16": "9701-12.1-x029",
+  "9701_s25_13_q21": "9701-12.1-x030",
+  "9701_w25_11_q23": "9701-12.1-x031",
+  "9701_w25_11_q24": "9701-12.1-x032",
+  "9701_w25_12_q16": "9701-12.1-x033",
+  "9701_w25_12_q24": "9701-12.1-x034"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
