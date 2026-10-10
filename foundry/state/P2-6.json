@@ -1,0 +1,97 @@
+{
+ "sub": "P2-6",
+ "stage": "ready",
+ "created": "2026-10-10T15:32:06+08:00",
+ "updated": "2026-10-10T15:39:18+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:34:10+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 12 items"
+  },
+  {
+   "t": "2026-10-10T15:38:07+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "5 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T15:39:18+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 12,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 61476,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:32:36+08:00",
+   "log": "foundry/logs/P2-6.drafter.1010-153236.log",
+   "out": "foundry/logs/P2-6.drafter.1010-153236.out.json",
+   "finished": "2026-10-10T15:34:10+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/P2/P2-6.json",
+    "note_path": "build/out/notes/Subjects/Maths/P2 Pure Mathematics 2/6 Trigonometry.md",
+    "items": 12,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 65212,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:37:31+08:00",
+   "log": "foundry/logs/P2-6.solver.1010-153731.log",
+   "out": "foundry/logs/P2-6.solver.1010-153731.out.json",
+   "expects": "build/work/blind/P2-6.answers.json",
+   "finished": "2026-10-10T15:37:45+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 5 questions in `build/work/blind/P2-6.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 65214,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:37:31+08:00",
+   "log": "foundry/logs/P2-6.checker.1010-153731.log",
+   "out": "foundry/logs/P2-6.checker.1010-153731.out.json",
+   "expects": "build/work/foundry/P2-6.check.json",
+   "finished": "2026-10-10T15:37:52+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/P2-6.check.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

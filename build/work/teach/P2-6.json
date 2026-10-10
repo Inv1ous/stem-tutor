@@ -1,0 +1,16 @@
+{
+  "P2-6.1": {
+    "motivate": "Identities turn awkward trigonometric expressions into forms you can calculate or solve. They also let you check whether a proposed result is true for every permitted angle.",
+    "establish": "An identity holds for all angles where it is defined. $\\tan\\theta=\\dfrac{\\sin\\theta}{\\cos\\theta}$ when $\\cos\\theta\\ne0$. The Pythagorean identity is $\\sin^2\\theta+\\cos^2\\theta=1$. Rearranging gives $\\sin^2\\theta=1-\\cos^2\\theta$ and $\\cos^2\\theta=1-\\sin^2\\theta$. When finding a sine or cosine from its square, use the quadrant to choose a positive or negative root. For example, $\\sin\\theta=5/13$ in quadrant II gives $\\cos\\theta=-12/13$; then $\\tan\\theta=-5/12$.",
+    "connect": "These identities let you change a mixed sine and cosine equation into one function, which can then be solved using the trig graphs and their periods.",
+    "note": "- $\\tan\\theta=\\sin\\theta/\\cos\\theta$ for $\\cos\\theta\\ne0$.\n- $\\sin^2\\theta+\\cos^2\\theta=1$.\n- A square root's sign comes from the quadrant.",
+    "self_explain": "If $\\sin\\theta=3/5$ in quadrant II, how would you find both $\\cos\\theta$ and $\\tan\\theta$, including their signs?"
+  },
+  "P2-6.2": {
+    "motivate": "A calculator gives one angle, but an exam interval may contain several. Changing the angle, such as $2x+\\pi/6$, can also shift which solutions count.",
+    "establish": "To solve a simple trigonometric equation in a given interval, first simplify with an identity if needed. If the trig function contains $u=ax+b$, transform both bounds of the interval for $x$ into bounds for $u$. Find every $u$ using its reference angle, quadrant signs, and period: sine and cosine have period $2\\pi$ or $360^\\circ$; tangent has period $\\pi$ or $180^\\circ$. Convert back to $x$, honour strict and inclusive endpoints, and check in the original equation. For $6\\cos^2x+\\sin x-5=0$, use $\\cos^2x=1-\\sin^2x$ and factor $(3\\sin x+1)(2\\sin x-1)=0$; solve both sine equations.",
+    "connect": "The interval and period determine how many solutions appear. The identity from the previous card handles equations containing both $\\sin x$ and $\\cos^2x$.",
+    "note": "- Transform the interval with the angle.\n- Use quadrants and periods to list every solution.\n- Undo the transformation and check endpoints.\n- For a quadratic in a trig function, solve every valid branch.",
+    "self_explain": "Why does solving $\\tan 2x=1$ for $90^\\circ<x<270^\\circ$ require searching $180^\\circ<2x<540^\\circ$?"
+  }
+}

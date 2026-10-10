@@ -1,0 +1,565 @@
+{
+ "subtopic": "P2-6",
+ "spec": "P2",
+ "version": 1,
+ "note": "Subjects/Maths/P2 Pure Mathematics 2/6 Trigonometry.md",
+ "outline": "Use $\\tan\\theta=\\sin\\theta/\\cos\\theta$ where cosine is nonzero and $\\sin^2\\theta+\\cos^2\\theta=1$. For equations, transform the interval with the angle, find every solution using quadrant signs and periodicity, reverse the transformation, and check endpoints.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "P2-6.1",
+   "statement": "Tangent is a product or reciprocal of sine and cosine.",
+   "refutation": "$\\tan\\theta=\\sin\\theta/\\cos\\theta$.",
+   "contrast": "Divide sine by cosine, where cosine is nonzero.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "P2-6.1",
+   "statement": "The square root from the identity is always positive.",
+   "refutation": "$\\cos\\theta=\\pm\\sqrt{1-\\sin^2\\theta}$; the quadrant fixes the sign.",
+   "contrast": "Find the magnitude, then use the quadrant.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "P2-6.2",
+   "statement": "A calculator principal value is the only solution.",
+   "refutation": "Periodic trig graphs can give several solutions in an interval.",
+   "contrast": "Enumerate all quadrants and periods in the interval.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "P2-6.2",
+   "statement": "Sine is positive in quadrant IV.",
+   "refutation": "Sine is negative in quadrant IV.",
+   "contrast": "For positive sine, inspect quadrants I and II.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "P2-6.2",
+   "statement": "Keep the original interval after replacing $x$ by $2x$.",
+   "refutation": "Multiplying the angle by two also doubles its interval bounds.",
+   "contrast": "Transform the bounds before listing solutions.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "P2-6.2",
+   "problem": "Find all solutions of $\\tan 2x=1$ for $90^{\\circ}<x<270^{\\circ}$.",
+   "steps": [
+    {
+     "do": "Let $u=2x$, so $180^{\\circ}<u<540^{\\circ}$.",
+     "why": "Transform the interval together with the angle."
+    },
+    {
+     "do": "$\\tan u=1$ gives $u=225^{\\circ},405^{\\circ}$.",
+     "why": "Tangent repeats every $180^{\\circ}$; include every value in the transformed interval."
+    },
+    {
+     "do": "Divide by two: $x=112.5^{\\circ},202.5^{\\circ}$.",
+     "why": "Undo the substitution and check both satisfy the original bounds."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find the smallest solution of $\\tan 2x=1$ for $90^{\\circ}<x<270^{\\circ}$.",
+    "answer": {
+     "value": 112.5,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "P2-6-i01",
+   "kcs": [
+    "P2-6.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the identity relating $\\tan\\theta$, $\\sin\\theta$ and $\\cos\\theta$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$\\tan\\theta=\\sin\\theta/\\cos\\theta$",
+     "keywords": [
+      [
+       "tan"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Tangent is sine divided by cosine, provided cosine is nonzero.",
+   "hints": [
+    "Recall the relevant identity or trig graph.",
+    "Write the equation in one trig function.",
+    "Check the specified domain and endpoints."
+   ]
+  },
+  {
+   "id": "P2-6-i02",
+   "kcs": [
+    "P2-6.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the Pythagorean identity for sine and cosine.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$\\sin^2\\theta+\\cos^2\\theta=1$",
+     "keywords": [
+      [
+       "sin"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The squares of sine and cosine sum to one for every angle.",
+   "hints": [
+    "Recall the relevant identity or trig graph.",
+    "Write the equation in one trig function.",
+    "Check the specified domain and endpoints."
+   ]
+  },
+  {
+   "id": "P2-6-i03",
+   "kcs": [
+    "P2-6.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Given $\\sin\\theta=3/5$ and $\\cos\\theta=4/5$, find $\\tan\\theta$.",
+   "marks": 1,
+   "options": {
+    "A": "$3/4$",
+    "B": "$4/3$",
+    "C": "$7/5$",
+    "D": "$12/25$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1",
+    "D": "m1"
+   },
+   "shuffle": true,
+   "explanation": "Divide sine by cosine: $(3/5)/(4/5)=3/4$.",
+   "hints": [
+    "Recall an identity or reference angle.",
+    "Consider the signs in each quadrant.",
+    "Substitute a candidate into the original equation."
+   ]
+  },
+  {
+   "id": "P2-6-i04",
+   "kcs": [
+    "P2-6.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Given $\\sin\\theta=5/13$ and $\\theta$ is in quadrant II, find $\\cos\\theta$.",
+   "marks": 1,
+   "options": {
+    "A": "$-12/13$",
+    "B": "$12/13$",
+    "C": "$-5/13$",
+    "D": "$-144/169$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m2"
+   },
+   "shuffle": true,
+   "explanation": "The identity gives $|\\cos\\theta|=12/13$; cosine is negative in quadrant II.",
+   "hints": [
+    "Recall an identity or reference angle.",
+    "Consider the signs in each quadrant.",
+    "Substitute a candidate into the original equation."
+   ]
+  },
+  {
+   "id": "P2-6-i05",
+   "kcs": [
+    "P2-6.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Show that",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show that $1-\\cos^2\\theta=\\sin^2\\theta$.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Start from $\\sin^2\\theta+\\cos^2\\theta=1$.",
+     "keywords": [
+      [
+       "sin"
+      ]
+     ]
+    },
+    {
+     "point": "Subtract $\\cos^2\\theta$ from both sides.",
+     "keywords": [
+      [
+       "subtract"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Rearrange the Pythagorean identity.",
+   "hints": [
+    "Recall the relevant identity or trig graph.",
+    "Write the equation in one trig function.",
+    "Check the specified domain and endpoints."
+   ]
+  },
+  {
+   "id": "P2-6-i06",
+   "kcs": [
+    "P2-6.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Prove that $(1-\\sin^2\\theta)/\\cos\\theta=\\cos\\theta$ wherever $\\cos\\theta\\ne0$.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Replace $1-\\sin^2\\theta$ by $\\cos^2\\theta$.",
+     "keywords": [
+      [
+       "cos"
+      ]
+     ]
+    },
+    {
+     "point": "Cancel one factor of $\\cos\\theta$, noting $\\cos\\theta\\ne0$.",
+     "keywords": [
+      [
+       "cancel"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The identity makes the numerator $\\cos^2\\theta$; the denominator may be cancelled only where it is nonzero.",
+   "hints": [
+    "Recall the relevant identity or trig graph.",
+    "Write the equation in one trig function.",
+    "Check the specified domain and endpoints."
+   ]
+  },
+  {
+   "id": "P2-6-i07",
+   "kcs": [
+    "P2-6.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find all solutions of $\\sin x=1/2$ for $0\\le x<360^{\\circ}$.",
+   "marks": 1,
+   "options": {
+    "A": "$30^{\\circ},150^{\\circ}$",
+    "B": "$30^{\\circ}$",
+    "C": "$30^{\\circ},330^{\\circ}$",
+    "D": "$150^{\\circ},210^{\\circ}$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "C": "m4"
+   },
+   "shuffle": true,
+   "explanation": "Sine is positive in quadrants I and II, giving $30^{\\circ}$ and $150^{\\circ}$.",
+   "hints": [
+    "Recall an identity or reference angle.",
+    "Consider the signs in each quadrant.",
+    "Substitute a candidate into the original equation."
+   ]
+  },
+  {
+   "id": "P2-6-i08",
+   "kcs": [
+    "P2-6.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find all solutions of $\\tan 2x=1$ for $90^{\\circ}<x<270^{\\circ}$.",
+   "marks": 1,
+   "options": {
+    "A": "$112.5^{\\circ},202.5^{\\circ}$",
+    "B": "$22.5^{\\circ},112.5^{\\circ}$",
+    "C": "$112.5^{\\circ}$",
+    "D": "$135^{\\circ},225^{\\circ}$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m5",
+    "C": "m3"
+   },
+   "shuffle": true,
+   "explanation": "Here $180^{\\circ}<2x<540^{\\circ}$; $2x=225^{\\circ},405^{\\circ}$, then halve.",
+   "hints": [
+    "Recall an identity or reference angle.",
+    "Consider the signs in each quadrant.",
+    "Substitute a candidate into the original equation."
+   ]
+  },
+  {
+   "id": "P2-6-i09",
+   "kcs": [
+    "P2-6.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find all solutions of $\\cos(x+30^{\\circ})=1/2$ for $-180^{\\circ}<x<180^{\\circ}$.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Set $u=x+30^{\\circ}$ so $-150^{\\circ}<u<210^{\\circ}$.",
+     "keywords": [
+      [
+       "interval"
+      ]
+     ]
+    },
+    {
+     "point": "Use $u=-60^{\\circ},60^{\\circ}$.",
+     "keywords": [
+      [
+       "60"
+      ]
+     ]
+    },
+    {
+     "point": "Hence $x=-90^{\\circ},30^{\\circ}$.",
+     "keywords": [
+      [
+       "90"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The shifted interval contains both $-60^{\\circ}$ and $60^{\\circ}$.",
+   "hints": [
+    "Recall the relevant identity or trig graph.",
+    "Write the equation in one trig function.",
+    "Check the specified domain and endpoints."
+   ]
+  },
+  {
+   "id": "P2-6-i10",
+   "kcs": [
+    "P2-6.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find all solutions of $\\sin(x+\\pi/2)=3/4$ for $0<x<2\\pi$. Give exact answers using $\\arccos$.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Use $\\sin(x+\\pi/2)=\\cos x$.",
+     "keywords": [
+      [
+       "cos"
+      ]
+     ]
+    },
+    {
+     "point": "Set $\\alpha=\\arccos(3/4)$.",
+     "keywords": [
+      [
+       "arccos"
+      ]
+     ]
+    },
+    {
+     "point": "The solutions are $x=\\alpha,2\\pi-\\alpha$.",
+     "keywords": [
+      [
+       "pi"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The equation is $\\cos x=3/4$, with two solutions in the open interval.",
+   "hints": [
+    "Recall the relevant identity or trig graph.",
+    "Write the equation in one trig function.",
+    "Check the specified domain and endpoints."
+   ]
+  },
+  {
+   "id": "P2-6-i11",
+   "kcs": [
+    "P2-6.2"
+   ],
+   "kind": "short",
+   "difficulty": 5,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find all solutions of $6\\cos^2x+\\sin x-5=0$ for $0\\le x<360^{\\circ}$.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Replace $\\cos^2x$ by $1-\\sin^2x$.",
+     "keywords": [
+      [
+       "sin"
+      ]
+     ]
+    },
+    {
+     "point": "Factor $6\\sin^2x-\\sin x-1=(3\\sin x+1)(2\\sin x-1)$.",
+     "keywords": [
+      [
+       "factor"
+      ]
+     ]
+    },
+    {
+     "point": "For $\\sin x=1/2$, obtain $30^{\\circ},150^{\\circ}$; for $\\sin x=-1/3$, obtain $180^{\\circ}+\\arcsin(1/3)$ and $360^{\\circ}-\\arcsin(1/3)$.",
+     "keywords": [
+      [
+       "arcsin"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The identity gives a quadratic in sine. Both roots lie in the allowable range, so solve each over the full interval.",
+   "hints": [
+    "Recall the relevant identity or trig graph.",
+    "Write the equation in one trig function.",
+    "Check the specified domain and endpoints."
+   ]
+  },
+  {
+   "id": "P2-6-i12",
+   "kcs": [
+    "P2-6.2"
+   ],
+   "kind": "short",
+   "difficulty": 5,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find all solutions of $\\sin(2x+\\pi/6)=1/2$ for $-\\pi\\le x<\\pi$.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Transform the interval to $-11\\pi/6\\le 2x+\\pi/6<13\\pi/6$.",
+     "keywords": [
+      [
+       "interval"
+      ]
+     ]
+    },
+    {
+     "point": "Use angles $-11\\pi/6,-7\\pi/6,\\pi/6,5\\pi/6$.",
+     "keywords": [
+      [
+       "pi"
+      ]
+     ]
+    },
+    {
+     "point": "Hence $x=-\\pi,-2\\pi/3,0,\\pi/3$.",
+     "keywords": [
+      [
+       "pi"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Solve for the transformed angle in its transformed interval, keeping the included left endpoint.",
+   "hints": [
+    "Recall the relevant identity or trig graph.",
+    "Write the equation in one trig function.",
+    "Check the specified domain and endpoints."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "P2-6.1",
+   "front": "State the tangent identity.",
+   "back": "$\\tan\\theta=\\dfrac{\\sin\\theta}{\\cos\\theta}$, provided $\\cos\\theta\\ne0$."
+  },
+  {
+   "id": "fc2",
+   "kc": "P2-6.1",
+   "front": "State the Pythagorean trigonometric identity.",
+   "back": "$\\sin^2\\theta+\\cos^2\\theta=1$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "P2-6.1": {
+   "motivate": "Identities turn awkward trigonometric expressions into forms you can calculate or solve. They also let you check whether a proposed result is true for every permitted angle.",
+   "establish": "An identity holds for all angles where it is defined. $\\tan\\theta=\\dfrac{\\sin\\theta}{\\cos\\theta}$ when $\\cos\\theta\\ne0$. The Pythagorean identity is $\\sin^2\\theta+\\cos^2\\theta=1$. Rearranging gives $\\sin^2\\theta=1-\\cos^2\\theta$ and $\\cos^2\\theta=1-\\sin^2\\theta$. When finding a sine or cosine from its square, use the quadrant to choose a positive or negative root. For example, $\\sin\\theta=5/13$ in quadrant II gives $\\cos\\theta=-12/13$; then $\\tan\\theta=-5/12$.",
+   "connect": "These identities let you change a mixed sine and cosine equation into one function, which can then be solved using the trig graphs and their periods.",
+   "note": "- $\\tan\\theta=\\sin\\theta/\\cos\\theta$ for $\\cos\\theta\\ne0$.\n- $\\sin^2\\theta+\\cos^2\\theta=1$.\n- A square root's sign comes from the quadrant.",
+   "self_explain": "If $\\sin\\theta=3/5$ in quadrant II, how would you find both $\\cos\\theta$ and $\\tan\\theta$, including their signs?",
+   "source": "pack"
+  },
+  "P2-6.2": {
+   "motivate": "A calculator gives one angle, but an exam interval may contain several. Changing the angle, such as $2x+\\pi/6$, can also shift which solutions count.",
+   "establish": "To solve a simple trigonometric equation in a given interval, first simplify with an identity if needed. If the trig function contains $u=ax+b$, transform both bounds of the interval for $x$ into bounds for $u$. Find every $u$ using its reference angle, quadrant signs, and period: sine and cosine have period $2\\pi$ or $360^\\circ$; tangent has period $\\pi$ or $180^\\circ$. Convert back to $x$, honour strict and inclusive endpoints, and check in the original equation. For $6\\cos^2x+\\sin x-5=0$, use $\\cos^2x=1-\\sin^2x$ and factor $(3\\sin x+1)(2\\sin x-1)=0$; solve both sine equations.",
+   "connect": "The interval and period determine how many solutions appear. The identity from the previous card handles equations containing both $\\sin x$ and $\\cos^2x$.",
+   "note": "- Transform the interval with the angle.\n- Use quadrants and periods to list every solution.\n- Undo the transformation and check endpoints.\n- For a quadratic in a trig function, solve every valid branch.",
+   "self_explain": "Why does solving $\\tan 2x=1$ for $90^\\circ<x<270^\\circ$ require searching $180^\\circ<2x<540^\\circ$?",
+   "source": "pack"
+  }
+ }
+}
