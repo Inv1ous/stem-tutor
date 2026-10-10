@@ -1,0 +1,2814 @@
+{
+ "subtopic": "9702-8.1",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/08 Superposition/8.1 Stationary waves.md",
+ "outline": "Superposition adds instantaneous displacements of waves of the same type at a point. Oppositely travelling progressive waves of the same frequency and similar amplitude can form a stationary wave. Nodes have zero amplitude; antinodes have maximum amplitude. Adjacent nodes or antinodes are separated by $\\lambda/2$; a node to its nearest antinode by $\\lambda/4$. Reflected microwaves, strings and air columns reveal these positions.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-8.1.1",
+   "statement": "Amplitude rather than instantaneous displacement is added.",
+   "refutation": "The resultant displacement is the algebraic sum of individual displacements at that point and time.",
+   "contrast": "displacement versus amplitude",
+   "source": "ER 9702 w23 P21 Q4"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-8.1.3",
+   "statement": "A node merely has zero displacement at one instant.",
+   "refutation": "A node has zero amplitude, so its displacement is zero at all times.",
+   "contrast": "zero amplitude versus a momentary zero",
+   "source": "ER 9702 w20 P21 Q6"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-8.1.4",
+   "statement": "Adjacent nodes are one wavelength apart.",
+   "refutation": "Adjacent nodes or antinodes are half a wavelength apart.",
+   "contrast": "separation $\\lambda/2$ versus $\\lambda$",
+   "source": "ER 9702 s19 P11 Q27"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-8.1.3",
+   "statement": "Overlapping waves must be in phase to make a stationary wave.",
+   "refutation": "They must travel in opposite directions with the same frequency and similar amplitude; their relative phase varies with position.",
+   "contrast": "formation conditions versus constructive interference",
+   "source": "ER 9702 w20 P21 Q6"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-8.1.2",
+   "statement": "Powder heaps mark displacement antinodes.",
+   "refutation": "Air motion sweeps powder away from antinodes, leaving heaps at displacement nodes.",
+   "contrast": "heaps at nodes versus antinodes",
+   "source": "ER 9702 w22 P13 Q26"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-8.1.1",
+   "problem": "Two waves have displacements +4.0 mm and -1.5 mm at a point. Calculate the resultant displacement.",
+   "steps": [
+    {
+     "do": "Identify the signed displacements or count the equal node intervals.",
+     "why": "The correct interval count or sign determines the method."
+    },
+    {
+     "do": "Apply algebraic addition for superposition, or $\\lambda=2d$ for adjacent nodes.",
+     "why": "These are the definitions of resultant displacement and node spacing."
+    },
+    {
+     "do": "The answer is 2.5 mm.",
+     "why": "State the calculated value with its unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.5,
+       "unit": "mm",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "At another point displacements are +5.0 mm and -2.0 mm. Calculate the resultant.",
+    "answer": {
+     "value": 3.0,
+     "unit": "mm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-8.1.2",
+   "problem": "In a microwave experiment adjacent detector minima are 3.0 cm apart. Determine the wavelength.",
+   "steps": [
+    {
+     "do": "Identify the signed displacements or count the equal node intervals.",
+     "why": "The correct interval count or sign determines the method."
+    },
+    {
+     "do": "Apply algebraic addition for superposition, or $\\lambda=2d$ for adjacent nodes.",
+     "why": "These are the definitions of resultant displacement and node spacing."
+    },
+    {
+     "do": "The answer is 6 cm.",
+     "why": "State the calculated value with its unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6.0,
+       "unit": "cm",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Adjacent minima are 4.0 cm apart. Determine wavelength.",
+    "answer": {
+     "value": 8.0,
+     "unit": "cm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-8.1.4",
+   "problem": "The first and fifth nodes on a string are 0.80 m apart. Determine the wavelength.",
+   "steps": [
+    {
+     "do": "Identify the signed displacements or count the equal node intervals.",
+     "why": "The correct interval count or sign determines the method."
+    },
+    {
+     "do": "Apply algebraic addition for superposition, or $\\lambda=2d$ for adjacent nodes.",
+     "why": "These are the definitions of resultant displacement and node spacing."
+    },
+    {
+     "do": "The answer is 0.4 m.",
+     "why": "State the calculated value with its unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.4,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "The first and fourth nodes are 0.90 m apart. Determine wavelength.",
+    "answer": {
+     "value": 0.6,
+     "unit": "m",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-8.1-i01",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the principle of superposition.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "When two or more waves of the same type meet at a point, the resultant displacement is the algebraic sum of their individual displacements at that point.",
+     "keywords": [
+      [
+       "When"
+      ],
+      [
+       "two"
+      ]
+     ]
+    }
+   ],
+   "explanation": "When two or more waves of the same type meet at a point, the resultant displacement is the algebraic sum of their individual displacements at that point.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i02",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what is added when waves superpose.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Their instantaneous displacements at the same point are added algebraically.",
+     "keywords": [
+      [
+       "Their"
+      ],
+      [
+       "instantaneous"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Their instantaneous displacements at the same point are added algebraically.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i03",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the resultant displacement when two pulses give +3 mm and -2 mm at one point.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The resultant displacement is +1 mm because +3 mm + (-2 mm) = +1 mm.",
+     "keywords": [
+      [
+       "The"
+      ],
+      [
+       "resultant"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The resultant displacement is +1 mm because +3 mm + (-2 mm) = +1 mm.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i04",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why waves need not have equal amplitudes to superpose.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Superposition applies whenever waves of the same type overlap; equal amplitude is not required.",
+     "keywords": [
+      [
+       "Superposition"
+      ],
+      [
+       "applies"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Superposition applies whenever waves of the same type overlap; equal amplitude is not required.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i05",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the distinction between amplitude and displacement in superposition.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Amplitude is the maximum displacement, while the signed instantaneous displacements are summed.",
+     "keywords": [
+      [
+       "Amplitude"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Amplitude is the maximum displacement, while the signed instantaneous displacements are summed.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i06",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the resultant when equal and opposite displacements meet.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The displacements cancel, giving zero resultant displacement at that instant.",
+     "keywords": [
+      [
+       "The"
+      ],
+      [
+       "displacements"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The displacements cancel, giving zero resultant displacement at that instant.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i07",
+   "kcs": [
+    "9702-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how a stationary microwave pattern is demonstrated with a transmitter, reflector and detector.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Reflect microwaves back towards the transmitter and move a detector along the path; successive intensity minima or maxima reveal the stationary pattern.",
+     "keywords": [
+      [
+       "Reflect"
+      ],
+      [
+       "microwaves"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Reflect microwaves back towards the transmitter and move a detector along the path; successive intensity minima or maxima reveal the stationary pattern.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i08",
+   "kcs": [
+    "9702-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why moving a microwave detector along the beam gives alternating maxima and minima.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The incident and reflected microwaves superpose, giving antinodes and nodes at fixed positions.",
+     "keywords": [
+      [
+       "The"
+      ],
+      [
+       "incident"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The incident and reflected microwaves superpose, giving antinodes and nodes at fixed positions.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i09",
+   "kcs": [
+    "9702-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how a stretched string can show stationary waves.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Drive a taut string at a suitable frequency; the reflected wave superposes with the incident wave and visible loops form between fixed nodes.",
+     "keywords": [
+      [
+       "Drive"
+      ],
+      [
+       "a"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Drive a taut string at a suitable frequency; the reflected wave superposes with the incident wave and visible loops form between fixed nodes.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i10",
+   "kcs": [
+    "9702-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how an air column can demonstrate stationary sound waves.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Drive a tube with sound and vary frequency or air-column length until resonance; displacement nodes and antinodes form at fixed positions.",
+     "keywords": [
+      [
+       "Drive"
+      ],
+      [
+       "a"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Drive a tube with sound and vary frequency or air-column length until resonance; displacement nodes and antinodes form at fixed positions.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i11",
+   "kcs": [
+    "9702-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the displacement conditions at the closed and open ends of an air column.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The closed end is a displacement node and the open end is a displacement antinode, neglecting end corrections.",
+     "keywords": [
+      [
+       "The"
+      ],
+      [
+       "closed"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The closed end is a displacement node and the open end is a displacement antinode, neglecting end corrections.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i12",
+   "kcs": [
+    "9702-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why powder in a sound tube collects in heaps at particular places.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Air vibrates least at displacement nodes, so powder settles there while stronger motion sweeps it from antinodes.",
+     "keywords": [
+      [
+       "Air"
+      ],
+      [
+       "vibrates"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Air vibrates least at displacement nodes, so powder settles there while stronger motion sweeps it from antinodes.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i13",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how two progressive waves form a stationary wave.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Two waves of the same type and frequency with similar amplitudes travel in opposite directions and superpose, producing fixed nodes and antinodes.",
+     "keywords": [
+      [
+       "Two"
+      ],
+      [
+       "waves"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Two waves of the same type and frequency with similar amplitudes travel in opposite directions and superpose, producing fixed nodes and antinodes.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i14",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define a node in a stationary wave.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A node is a position of zero amplitude; its displacement is zero at all times.",
+     "keywords": [
+      [
+       "A"
+      ],
+      [
+       "node"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A node is a position of zero amplitude; its displacement is zero at all times.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i15",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define an antinode in a stationary wave.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "An antinode is a position of maximum amplitude.",
+     "keywords": [
+      [
+       "An"
+      ],
+      [
+       "antinode"
+      ]
+     ]
+    }
+   ],
+   "explanation": "An antinode is a position of maximum amplitude.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i16",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why adjacent loops on a stationary string move in antiphase.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The standing-wave displacement changes sign across a node, so adjacent loops have phase difference 180°.",
+     "keywords": [
+      [
+       "The"
+      ],
+      [
+       "standing-wave"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The standing-wave displacement changes sign across a node, so adjacent loops have phase difference 180°.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i17",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a graphical method for locating nodes.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Draw the two oppositely travelling wave profiles and add their displacements point by point at successive times; fixed positions that always sum to zero are nodes.",
+     "keywords": [
+      [
+       "Draw"
+      ],
+      [
+       "the"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Draw the two oppositely travelling wave profiles and add their displacements point by point at successive times; fixed positions that always sum to zero are nodes.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i18",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare particle phases within one loop and in neighbouring loops.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Particles between the same adjacent nodes oscillate in phase; particles in adjacent loops oscillate in antiphase.",
+     "keywords": [
+      [
+       "Particles"
+      ],
+      [
+       "between"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Particles between the same adjacent nodes oscillate in phase; particles in adjacent loops oscillate in antiphase.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i19",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the separation between adjacent nodes in terms of wavelength.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Adjacent nodes are separated by half a wavelength, $\\lambda/2$.",
+     "keywords": [
+      [
+       "Adjacent"
+      ],
+      [
+       "nodes"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Adjacent nodes are separated by half a wavelength, $\\lambda/2$.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i20",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the separation between adjacent antinodes in terms of wavelength.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Adjacent antinodes are separated by $\\lambda/2$.",
+     "keywords": [
+      [
+       "Adjacent"
+      ],
+      [
+       "antinodes"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Adjacent antinodes are separated by $\\lambda/2$.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i21",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the separation between a node and its nearest antinode.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The separation is $\\lambda/4$.",
+     "keywords": [
+      [
+       "The"
+      ],
+      [
+       "separation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The separation is $\\lambda/4$.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i22",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how several node positions give a more reliable wavelength.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Measure across several adjacent node gaps, divide by the number of gaps to find the mean separation, then double it.",
+     "keywords": [
+      [
+       "Measure"
+      ],
+      [
+       "across"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Measure across several adjacent node gaps, divide by the number of gaps to find the mean separation, then double it.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i23",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the wavelength when adjacent nodes are 0.30 m apart.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Wavelength is $2(0.30)=0.60$ m.",
+     "keywords": [
+      [
+       "Wavelength"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Wavelength is $2(0.30)=0.60$ m.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-i24",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine the wavelength if the first and fifth nodes are 0.80 m apart.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Four node intervals span 0.80 m, so $\\lambda=2(0.80/4)=0.40$ m.",
+     "keywords": [
+      [
+       "Four"
+      ],
+      [
+       "node"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Four node intervals span 0.80 m, so $\\lambda=2(0.80/4)=0.40$ m.",
+   "hints": [
+    "Recall the relevant physical quantity.",
+    "Think about the wave pattern and what is measured.",
+    "State the defining relation or observation first."
+   ]
+  },
+  {
+   "id": "9702-8.1-p01",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q25",
+    "qid": "9702_s23_11_q25"
+   },
+   "stem": "Two progressive waves meet at a point.\nWhich condition must be met for superposition of the waves to occur?",
+   "options": {
+    "A": "The waves must be coherent.",
+    "B": "The waves must be of the same type.",
+    "C": "The waves must be travelling in opposite directions.",
+    "D": "The waves must meet in phase."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "Waves of the same type can superpose. Coherence is unnecessary for superposition itself.",
+   "hints": [],
+   "distractors": {
+    "A": "m4"
+   }
+  },
+  {
+   "id": "9702-8.1-p02",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q27",
+    "qid": "9702_s22_13_q27"
+   },
+   "stem": "The principle of superposition states that a certain quantity is added when two or more waves\nmeet at a point.\nWhat is this quantity?",
+   "options": {
+    "A": "amplitude",
+    "B": "displacement",
+    "C": "intensity",
+    "D": "wavelength"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "Instantaneous displacement is summed. Amplitude is a maximum, not the quantity added at each point.",
+   "hints": [],
+   "distractors": {
+    "A": "m1"
+   }
+  },
+  {
+   "id": "9702-8.1-p03",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q26",
+    "qid": "9702_w22_11_q26"
+   },
+   "stem": "Two waves of the same type overlap.\nWhen does the principle of superposition apply?",
+   "options": {
+    "A": "always",
+    "B": "only when the waves have the same amplitude",
+    "C": "only when the waves have the same frequency",
+    "D": "only when the waves travel in opposite directions"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Any overlapping waves of the same type superpose. Equal amplitude is only relevant to perfectly deep stationary-wave nodes.",
+   "hints": [],
+   "distractors": {
+    "B": "m1"
+   }
+  },
+  {
+   "id": "9702-8.1-p04",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q28",
+    "qid": "9702_w24_12_q28"
+   },
+   "stem": "What happens when two waves superpose at a point?",
+   "options": {
+    "A": "Their amplitudes are added together.",
+    "B": "Their displacements are added together.",
+    "C": "Their frequencies are added together.",
+    "D": "Their velocities are added together."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "Displacements add algebraically at the point. Adding amplitudes would ignore the signs and instantaneous phases.",
+   "hints": [],
+   "distractors": {
+    "A": "m1"
+   }
+  },
+  {
+   "id": "9702-8.1-p05",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q25",
+    "qid": "9702_w23_13_q25"
+   },
+   "stem": "Which statement concerning a stationary wave is correct?",
+   "options": {
+    "A": "All the particles between two adjacent nodes oscillate in phase.",
+    "B": "The amplitude of the stationary wave is equal to the amplitude of one of the waves creating it.",
+    "C": "The wavelength of the stationary wave is equal to the separation of two adjacent nodes.",
+    "D": "There is no displacement of a particle at an antinode at any time."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Particles within adjacent nodes are in phase. B is wrong because antinode amplitude is the sum of contributing amplitudes.",
+   "hints": [],
+   "distractors": {
+    "B": "m2"
+   }
+  },
+  {
+   "id": "9702-8.1-p06",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q30",
+    "qid": "9702_w25_12_q30"
+   },
+   "stem": "Two progressive sound waves move in opposite directions and superpose to form a stationary\nwave.\nWhich statement describes an antinode of this stationary wave?",
+   "options": {
+    "A": "a position where the phase difference between the two waves is always 0°",
+    "B": "a position where the phase difference between the two waves is always 180°",
+    "C": "a position where the stationary wave has maximum amplitude",
+    "D": "a position where the stationary wave has minimum amplitude"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "An antinode has maximum stationary-wave amplitude. D instead describes a node.",
+   "hints": [],
+   "distractors": {
+    "A": "m2"
+   }
+  },
+  {
+   "id": "9702-8.1-p07",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q25",
+    "qid": "9702_w22_13_q25"
+   },
+   "stem": "Two progressive waves overlap.\nWhat is an essential condition for the two waves to form a stationary wave?",
+   "options": {
+    "A": "The waves are longitudinal.",
+    "B": "The waves are polarised.",
+    "C": "The waves travel in opposite directions.",
+    "D": "The waves travel in the same direction."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "Opposite propagation directions are essential to form a stationary pattern. D gives travelling overlap instead.",
+   "hints": [],
+   "distractors": {
+    "A": "m4"
+   }
+  },
+  {
+   "id": "9702-8.1-p08",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q26",
+    "qid": "9702_w22_13_q26"
+   },
+   "stem": "In an experiment to produce a stationary sound wave in air, a fine powder is initially evenly\ndistributed along the length of a horizontal glass tube which is closed at one end.\nAt the open end of the tube, a loudspeaker emits a sound wave of a constant wavelength. A\nstationary wave is formed and the powder accumulates in regularly spaced piles, as shown.\nloudspeaker\npiles of\nfine powder\nglass tube\nWhich statement explains the positions of the piles of powder within the tube?",
+   "options": {
+    "A": "The piles are where the air molecules vibrate with maximum amplitude.",
+    "B": "The piles are where the air molecules vibrate with minimum amplitude.",
+    "C": "The piles are where the air molecules vibrate with the highest frequency.",
+    "D": "The piles are where the air molecules vibrate vertically."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_13_q26.png",
+   "marks": 1,
+   "explanation": "Powder settles at displacement nodes, where vibration is least. A reverses nodes and antinodes.",
+   "hints": [],
+   "distractors": {
+    "A": "m5"
+   }
+  },
+  {
+   "id": "9702-8.1-p09",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q26",
+    "qid": "9702_w23_11_q26"
+   },
+   "stem": "A musical organ produces notes by blowing air into a set of pipes that are open at one end and\nclosed at the other.\nThe speed of sound in the air in the pipes is 320 m s⁻¹.\nWhat is the lowest frequency of sound produced by a pipe of length 10 m?",
+   "options": {
+    "A": "4 Hz",
+    "B": "8 Hz",
+    "C": "16 Hz",
+    "D": "32 Hz"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "The fundamental closed-open pipe has $L=\\lambda/4$, so $f=320/(4\\times10)=8$ Hz. D treats the entire pipe as one wavelength.",
+   "hints": [],
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9702-8.1-p10",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q27",
+    "qid": "9702_s19_11_q27"
+   },
+   "stem": "Two progressive waves of frequency 300 Hz superpose to produce a stationary wave in which\nadjacent nodes are 1.5 m apart.\nWhat is the speed of the progressive waves?",
+   "options": {
+    "A": "100 m s⁻¹",
+    "B": "200 m s⁻¹",
+    "C": "450 m s⁻¹",
+    "D": "900 m s⁻¹"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "Adjacent nodes are $\\lambda/2=1.5$ m, so $\\lambda=3.0$ m and $v=300(3.0)=900$ m s^-1. C treats node spacing as a wavelength.",
+   "hints": [],
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9702-8.1-p11",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q28",
+    "qid": "9702_w24_13_q28"
+   },
+   "stem": "A stationary wave is set up in a stretched string.\nWhich distance is equal to the wavelength of the wave?",
+   "options": {
+    "A": "double the distance between adjacent antinodes",
+    "B": "half the distance between adjacent nodes",
+    "C": "the distance between adjacent antinodes",
+    "D": "the distance between a node and an adjacent antinode"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Adjacent antinodes are $\\lambda/2$ apart, so doubling that distance gives wavelength. C leaves it undoubled.",
+   "hints": [],
+   "distractors": {
+    "B": "m3"
+   }
+  },
+  {
+   "id": "9702-8.1-p12",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q26",
+    "qid": "9702_w23_12_q26"
+   },
+   "stem": "A pipe has a length of 2.0 m. It is open at one end and closed at the other end.\nA stationary sound wave is set up within the pipe. There are four nodes (N) and four\nantinodes (A) within the length of the pipe.\n2.0 m\nN\nA\nN\nA\nN\nA\nN\nA\nWhat is the wavelength of the sound wave?",
+   "options": {
+    "A": "0.57 m",
+    "B": "1.1 m",
+    "C": "1.3 m",
+    "D": "1.6 m"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w23_12_q26.png",
+   "marks": 1,
+   "explanation": "Four nodes and four antinodes give seven quarter-wavelengths across 2.0 m: $\\lambda=8.0/7=1.1$ m. A counts half-wavelengths incorrectly.",
+   "hints": [],
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9702-8.1-x001",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q24",
+    "qid": "9702_s19_11_q24"
+   },
+   "stem": "A long tube, filled with water, has a tap fitted at its base, as shown.\nA tuning fork is sounded above the tube and the water is allowed to run gradually out of the tube.\ntube\ntap\nwater\ntuning fork\nA louder sound is heard at intervals as the water runs out of the tube. The change in water level\nbetween louder sounds is 32 cm.\nWhat is the wavelength of the sound in the tube?",
+   "options": {
+    "A": "16 cm",
+    "B": "32 cm",
+    "C": "64 cm",
+    "D": "128 cm"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_11_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x002",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q25",
+    "qid": "9702_s19_12_q25"
+   },
+   "stem": "In an experiment to determine the wavelength of sound in air, a stationary wave is set up in an air\ncolumn.\nThe distance between a node and an adjacent antinode is L.\nWhat is the wavelength of the sound?",
+   "options": {
+    "A": "2 ¹ L",
+    "B": "L",
+    "C": "2L",
+    "D": "4L"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_12_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x003",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q26",
+    "qid": "9702_s19_13_q26"
+   },
+   "stem": "An elastic string is attached to an oscillator at one end and clamped at the other end so that the\nstring is horizontal and in tension.\nThe oscillator is made to oscillate vertically. The frequency of oscillation is gradually increased\nfrom zero until a stationary wave is set up in the string. The frequency is then increased further to\nfrequency f, when a second stationary wave is set up in the string.\nThe frequency is then increased further.\nAt which frequency does a third stationary wave occur?",
+   "options": {
+    "A": "1.2f",
+    "B": "1.5f",
+    "C": "2.0f",
+    "D": "3.0f"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x004",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q22",
+    "qid": "9702_w19_11_q22"
+   },
+   "stem": "Which statement about all types of transverse waves is correct?",
+   "options": {
+    "A": "They all have the same speed.",
+    "B": "They all have vibrations that are parallel to the direction of propagation of energy.",
+    "C": "They can all form stationary waves.",
+    "D": "They can all travel through a vacuum."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_11_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x005",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q23",
+    "qid": "9702_w19_11_q23"
+   },
+   "stem": "Source S emits microwaves with a constant amplitude. The microwaves hit a metal screen P and\nare reflected. A stationary wave is formed between S and P. The wavelength of the microwaves\nis much smaller than the distance between S and P.\nS\nQ\nP\nA detector Q is moved at a slow, constant speed from S to P.\nWhat happens to the amplitude of the signal detected by Q?",
+   "options": {
+    "A": "decreases steadily",
+    "B": "increases and decreases regularly",
+    "C": "increases steadily",
+    "D": "remains constant"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x006",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q26",
+    "qid": "9702_w19_11_q26"
+   },
+   "stem": "Two wave pulses are travelling towards each other on a long rope. The pulses have the same\namplitude and wavelength and are travelling at a speed of 0.50 m s⁻¹. The diagram shows the\nrope at time t ꞊ 0.\n5.0\n4.5\n4.0\n5.5\n0.50 m s⁻¹\n6.0\n6.5\n7.0\n7.5\n8.0\ndistance / m\n0.50 m s⁻¹\nWhich diagram shows the rope at time t ꞊ 3.0 s?\n5.0\n5.5\n6.0\n6.5\n7.0\n7.5\ndistance / m\n5.0\n5.5\n6.0\n6.5\n7.0\n7.5\ndistance / m",
+   "options": {
+    "A": "5.0 5.5 6.0 6.5 7.0 7.5 distance / m",
+    "B": "",
+    "C": "5.0 5.5 6.0 6.5 7.0 7.5 distance / m",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Each wave pulse will have moved 1.5 m further along in a time of 3.0 s. If the new positions of the two waves are drawn on the diagram, they can be seen to overlap completely (complete constructive interference) confirming C as the correct answer."
+  },
+  {
+   "id": "9702-8.1-x007",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q25",
+    "qid": "9702_w19_12_q25"
+   },
+   "stem": "A transmitter of electromagnetic waves is placed 45 cm from a reflective surface.\ntransmitter\nreflective surface\n45 cm\nThe emitted waves have a frequency of 1.00 GHz. A stationary wave is produced with a node at\nthe transmitter and a node at the surface.\nHow many antinodes are in the space between the transmitter and the surface?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_12_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x008",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q26",
+    "qid": "9702_w19_13_q26"
+   },
+   "stem": "In an experiment to demonstrate a stationary wave, two microwave transmitters, emitting waves\nof wavelength 4 cm, are set facing each other, as shown.\ntransmitter\ntransmitter\ndetector\nd\nA detector is moved along a straight line between the transmitters. It detects positions of\nmaximum and minimum signal. The detector is a distance d from the left-hand transmitter.\nAssume that both transmitters are at antinodes of the stationary wave.\nWhich row gives a value of d for a maximum and for a minimum?\nvalue of d for\na maximum / cm\nvalue of d for\na minimum / cm",
+   "options": {
+    "A": "46 48",
+    "B": "47 48",
+    "C": "48 47",
+    "D": "49 47"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_13_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x009",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q28",
+    "qid": "9702_w19_13_q28"
+   },
+   "stem": "The diagram shows a sketch of a wave pattern over a short period of time.\n1.0 m\nWhich description of this wave is correct?",
+   "options": {
+    "A": "The wave is longitudinal, has a wavelength of 20 cm and is stationary.",
+    "B": "The wave is transverse, has a wavelength of 20 cm and is stationary.",
+    "C": "The wave is transverse, has a wavelength of 40 cm and is progressive.",
+    "D": "The wave is transverse, has a wavelength of 40 cm and is stationary."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x010",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q24",
+    "qid": "9702_s20_11_q24"
+   },
+   "stem": "A long glass tube is almost completely immersed in a large tank of water. A tuning fork is struck\nand held just above the open end of the tube as it is slowly raised.\nA louder sound is first heard when the height h of the end of the tube above the water is 18.8 cm.\nA louder sound is next heard when h is 56.4 cm. The speed of sound in air is 330 m s⁻¹.\nh\nglass tube\nwater\ntuning fork\nWhat is the frequency of the sound produced by the tuning fork?",
+   "options": {
+    "A": "220 Hz",
+    "B": "440 Hz",
+    "C": "660 Hz",
+    "D": "880 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_11_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x011",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q27",
+    "qid": "9702_s20_11_q27"
+   },
+   "stem": "The diagram shows a string stretched between fixed points X and Y. There is a stationary wave\non the string.\nX\nY\nR\nQ\nT\nS\nP\nThe solid curve shows the string at a position of maximum displacement. The dashed curve\nshows the other position of maximum displacement. The straight central dashed line shows the\nmean position of the string. Point S on the string is directly above point P. Point T on the string is\ndirectly below Q.\nWhich statement is correct?",
+   "options": {
+    "A": "A short time later, point R on the string will be displaced.",
+    "B": "Points S and T on the string move in opposite directions.",
+    "C": "The distance between P and Q is one wavelength.",
+    "D": "Two points on the string that are equal distances from point R vibrate in phase."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_11_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x012",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q24",
+    "qid": "9702_s20_12_q24"
+   },
+   "stem": "The diagram shows an experiment to produce a stationary wave in an air column. A tuning fork,\nplaced above the column, vibrates and produces a sound wave. The length of the air column can\nbe varied by altering the volume of the water in the tube.\nwater\nair column\ntap\ntuning fork\nThe tube is filled and then water is allowed to run out of it. The first two stationary waves occur\nwhen the air column lengths are 0.14 m and 0.42 m.\nWhat is the wavelength of the sound wave?",
+   "options": {
+    "A": "0.14 m",
+    "B": "0.28 m",
+    "C": "0.42 m",
+    "D": "0.56 m"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_12_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x013",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q24",
+    "qid": "9702_s20_13_q24"
+   },
+   "stem": "A loudspeaker is set up at the open end of a closed tube containing powder.\nWhen the loudspeaker produces sound of frequency 1200 Hz, a stationary wave is produced in\nthe tube. The powder gathers at the nodes of the stationary wave as shown.\nloudspeaker\nclosed end\nx\npowder\nThe speed of sound in the air is 336 m s⁻¹.\nWhat is the value of distance x?",
+   "options": {
+    "A": "28 cm",
+    "B": "42 cm",
+    "C": "84 cm",
+    "D": "112 cm"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_13_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x014",
+   "kcs": [
+    "9702-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q27",
+    "qid": "9702_s20_13_q27"
+   },
+   "stem": "A vertical tube is partially filled with water. A sound wave moves down the tube and is reflected\nby the surface of the water. The frequency of the sound wave is gradually increased from zero\nuntil a much louder sound is heard.\nsound\ntube\nwater\nWater is then removed from the tube until a second louder sound is heard.\nWhich diagram shows the new pattern of the stationary wave that is formed?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_13_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x015",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q23",
+    "qid": "9702_w20_11_q23"
+   },
+   "stem": "A loudspeaker emits a sound wave into a tube initially full of water.\ntap\nloudspeaker\ntube\nwater\nx\ny\nA tap at the bottom of the tube is opened so that water slowly leaves the tube. For some lengths\nof the air column in the tube, the sound heard is much louder.\nThe first loud sound is heard when the air column in the tube has length x.\nThe next time that a loud sound is heard is when the air column in the tube has length y.\nWhat is the wavelength of the sound wave from the loudspeaker?",
+   "options": {
+    "A": "2x",
+    "B": "4y",
+    "C": "2(y – x)",
+    "D": "4(y – x)"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x016",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q24",
+    "qid": "9702_w20_12_q24"
+   },
+   "stem": "A vibrating tuning fork is held above a glass cylinder filled to the top with water. The water level is\nsteadily lowered. A loud sound is first heard when the water level is 83.5 cm above the bench.\nThe next loud sound is heard when the water level is 17.1 cm above the bench.\nwater\nwater\ncylinder\ntuning fork\n17.1 cm\n83.5 cm\nNOT TO\nSCALE\nbench\nThe speed of sound in air is 340 m s⁻¹.\nWhat is the frequency of the tuning fork?",
+   "options": {
+    "A": "128 Hz",
+    "B": "256 Hz",
+    "C": "384 Hz",
+    "D": "512 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_12_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The first loud sound corresponds to the first-order stationary sound wave in the cylinder, with a displacement node at the surface of the water and a displacement antinode at the open end of the cylinder. The second loud sound corresponds to the second-order stationary sound wave, again with a node at the surface of the water and an antinode at the open end of the cylinder, with one other node between the two. The change in the water level is the distance between two nodes, λ / 2. From this the wavelength and frequency of the sound can be calculated."
+  },
+  {
+   "id": "9702-8.1-x017",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q27",
+    "qid": "9702_w20_12_q27"
+   },
+   "stem": "The three waves shown in each diagram have the same amplitude and frequency but different\nphase.\nThey are added together to give a resultant wave.\nIn which case is the resultant wave zero at this instant?",
+   "options": {
+    "A": "",
+    "C": "",
+    "B": "",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x018",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q22",
+    "qid": "9702_w20_13_q22"
+   },
+   "stem": "Two waves X and Y have the same frequency. The amplitude of X is 1.5A₀ and the amplitude of\nY is 2.5A₀. The waves meet at a point and superpose to form a resultant wave.\nFor the resultant wave, what is the ratio maximum possible intensity\nminimum possible intensity\n?",
+   "options": {
+    "A": "1.7",
+    "B": "2.8",
+    "C": "4.0",
+    "D": "16"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_13_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x019",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q27",
+    "qid": "9702_w20_13_q27"
+   },
+   "stem": "A stationary wave is formed on a stretched string. The diagram illustrates the string at an instant\nof time when the displacement of the string is at its maximum.\nfixed\npoint\nfixed\npoint\nP\nstring\nThe frequency of the wave is 250 Hz. Point P on the string has a vertical displacement of –1.0 mm.\nWhat will be the vertical displacement of the point P after a time of 5.0 ms?",
+   "options": {
+    "A": "–1.0 mm",
+    "B": "zero",
+    "C": "+0.5 mm",
+    "D": "+1.0 mm"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_13_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The period of oscillation of the wave is 4.0 ms. In a time of 5.0 ms, the stationary wave will have completed 1.25 oscillations, so the displacement of point P will be zero."
+  },
+  {
+   "id": "9702-8.1-x020",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q23",
+    "qid": "9702_s21_11_q23"
+   },
+   "stem": "A stationary wave is formed from two identical sound waves.\nA microphone is placed at a position of maximum loudness. It is then moved along the stationary\nwave from this first position of maximum loudness to the fourth position of maximum loudness.\nThe microphone moves a distance of 12 cm.\nThe speed of sound is 330 m s⁻¹.\nWhat is the frequency of the sound waves?",
+   "options": {
+    "A": "4100 Hz",
+    "B": "5500 Hz",
+    "C": "8300 Hz",
+    "D": "11 000 Hz"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x021",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q26",
+    "qid": "9702_s21_11_q26"
+   },
+   "stem": "The diagram shows part of a stationary wave on a string.\nX and Y are points on the string. The vibrations at X and Y are 180° out of phase.\nX\nY\nstring\npositions of string\nwhen X and Y are at\nmaximum displacement\nWhat is the distance between X and Y?",
+   "options": {
+    "A": "one-quarter of a wavelength",
+    "B": "half a wavelength",
+    "C": "one wavelength",
+    "D": "two wavelengths"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x022",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q26",
+    "qid": "9702_s21_12_q26"
+   },
+   "stem": "A pipe of length L is open at one end and closed at the other end. A loudspeaker is at the open\nend and emits a sound wave into the pipe.\nloudspeaker\npipe\nL\nWhen a stationary wave is formed, there is an antinode at the open end of the pipe.\nWhich wavelength of sound could be used to produce a stationary wave?",
+   "options": {
+    "A": "2 3 L",
+    "B": "L",
+    "C": "4 3 L",
+    "D": "2L"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_12_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x023",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q27",
+    "qid": "9702_s21_13_q27"
+   },
+   "stem": "To produce a stationary wave, two waves must travel in opposite directions through the same\nspace.\nWhich statement about the properties of the two waves must also be correct?",
+   "options": {
+    "A": "The waves must have equal frequencies, but different speeds and wavelengths.",
+    "B": "The waves must have equal speeds, but different wavelengths and frequencies.",
+    "C": "The waves must have equal speeds, frequencies and wavelengths.",
+    "D": "The waves must have equal wavelengths, but different speeds and frequencies."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x024",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q23",
+    "qid": "9702_w21_11_q23"
+   },
+   "stem": "A glass tube is closed at one end and has a loudspeaker at the other end.\nloudspeaker\nglass tube\nA stationary wave is formed with a node at the closed end of the tube when the sound has\nfrequency f₀. There are no other nodes.\nThe frequency of the sound is then slowly increased.\nWhat is the frequency of the sound that produces the next stationary wave?",
+   "options": {
+    "A": "1.25f₀",
+    "B": "1.50f₀",
+    "C": "2.00f₀",
+    "D": "3.00f₀"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x025",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q26",
+    "qid": "9702_w21_11_q26"
+   },
+   "stem": "A string is fixed between point P and an oscillator M. Another string is fixed between M and\npoint Q. M is midway between P and Q.\nP\nQ\nM\nThe frequency of the oscillator is adjusted until a stationary wave is formed on both strings. The\nspeed of the wave between P and M is twice the speed of the wave between M and Q.\nWhich diagram could represent the stationary wave pattern?\nP\nQ\nM\nP\nQ\nM",
+   "options": {
+    "A": "P Q M",
+    "B": "",
+    "C": "P Q M",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x026",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q24",
+    "qid": "9702_w21_12_q24"
+   },
+   "stem": "A sound wave from a loudspeaker is reflected back along its original path by a reflector.\nA microphone is initially at point X where the sound intensity is a minimum, as shown.\nM\nM\nM\nM\nM\nM\nM = position of\nminimum intensity\nX\nY\nreflector\nloudspeaker\n70.0 cm\nThe microphone is moved towards the reflector and passes through four more intensity minima\nuntil reaching a fifth minimum at point Y. The distance XY is 70.0 cm.\nWhat is the wavelength of the sound?",
+   "options": {
+    "A": "11.7 cm",
+    "B": "14.0 cm",
+    "C": "23.3 cm",
+    "D": "28.0 cm"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_12_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x027",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q27",
+    "qid": "9702_w21_12_q27"
+   },
+   "stem": "A stationary wave is produced on a string that is stretched between two fixed points that are a\ndistance of 1.35 m apart, as shown.\n1.35 m\nstring\nThe speed of the waves on the string is 450 m s⁻¹.\nWhat is the frequency of oscillation of the stationary wave?",
+   "options": {
+    "A": "333 Hz",
+    "B": "405 Hz",
+    "C": "500 Hz",
+    "D": "1000 Hz"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w21_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x028",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q24",
+    "qid": "9702_w21_13_q24"
+   },
+   "stem": "A stationary sound wave is formed in a pipe that is closed at one end and open at the other end.\nThe wave has two antinodes. One of these antinodes is at the open end of the pipe.\nThe length of the pipe is 0.600 m. The speed of sound in the air column in the pipe is 340 m s⁻¹.\nWhat is the frequency of the sound wave?",
+   "options": {
+    "A": "425 Hz",
+    "B": "850 Hz",
+    "C": "1130 Hz",
+    "D": "2270 Hz"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x029",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q27",
+    "qid": "9702_w21_13_q27"
+   },
+   "stem": "Two progressive waves travel in opposite directions and form a stationary wave. The graph\nshows the variation with distance x of the displacement of the stationary wave and of one of the\ntwo progressive waves at the same instant in time.\n10\n5\n0\n–5\n–10\ndisplacement\n/ mm\nx / cm\n0\n5\n10\n15\n20\n25\nprogressive wave\nstationary wave\nJ\nK\nL\nWhat are the approximate displacements of the other progressive wave at the positions J, K\nand L?\ndisplacement / mm\nJ\nK\nL",
+   "options": {
+    "A": "–5 0 –10",
+    "B": "–5 +5 0",
+    "C": "0 +5 +10",
+    "D": "+5 –5 0"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_13_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x030",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q26",
+    "qid": "9702_s22_11_q26"
+   },
+   "stem": "A stationary wave is set up on a string that is stretched between two fixed points that are 48 cm\napart.\nAt one instant, the appearance of the string is as shown.\nfixed point\nfixed point\nWhat is the wavelength of the stationary wave?",
+   "options": {
+    "A": "16 cm",
+    "B": "32 cm",
+    "C": "48 cm",
+    "D": "72 cm"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x031",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q27",
+    "qid": "9702_s22_11_q27"
+   },
+   "stem": "A pipe, closed at one end, has a loudspeaker at the open end. For some frequencies of sound\nfrom the loudspeaker, a stationary sound wave is formed in the air within the pipe with an\nantinode at the open end of the pipe.\n0.85 m\nloudspeaker\npipe\nThe length of the pipe is 0.85 m.\nThe speed of sound in air is 340 m s⁻¹.\nWhich frequency of sound from the loudspeaker would not produce a stationary wave?",
+   "options": {
+    "A": "100 Hz",
+    "B": "200 Hz",
+    "C": "300 Hz",
+    "D": "500 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_11_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x032",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q27",
+    "qid": "9702_s22_12_q27"
+   },
+   "stem": "A stationary wave on a stretched string is set up between two points P and T.\nP\nQ\nR\nS\nT\nvibrator\nWhich statement about the stationary wave is correct?",
+   "options": {
+    "A": "Point R is at a node.",
+    "B": "Points Q and S vibrate in phase.",
+    "C": "The distance between P and T is three wavelengths.",
+    "D": "The wave transfers energy from P to T."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x033",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q28",
+    "qid": "9702_s22_13_q28"
+   },
+   "stem": "A stationary sound wave is formed in a gas-filled tube of length L, which is closed at one end by a\npiston. The length of the tube can be altered by moving the piston.\nThe length of the tube and the frequency of the sound are varied so that the stationary wave\nalways has two antinodes and two nodes, as shown.\ngas-filled tube\npiston\nL\nThe graph shows the variation of the frequency f of the stationary sound wave with the length L of\nthe tube.\n5000\n4000\n3000\n2000\n1000\n0\nf / Hz\nL / cm\n0\n5\n10\n15\n20\n25\nWhat is the speed of sound in the gas in the tube?",
+   "options": {
+    "A": "150 m s⁻¹",
+    "B": "230 m s⁻¹",
+    "C": "300 m s⁻¹",
+    "D": "340 m s⁻¹"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x034",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q27",
+    "qid": "9702_w22_11_q27"
+   },
+   "stem": "A stationary sound wave is formed in a tube of length L that is closed at one end.\nThe diagram shows the positions of the nodes and antinodes of the stationary wave.\nnode\nantinode\nnode\nantinode\nWhich graph shows the variation of the amplitude a of the wave with distance x measured from\nthe closed end of the tube?\na\nx\n0\n0",
+   "options": {
+    "D": "a x 0 0",
+    "C": "a x 0 0",
+    "B": "a x 0 0 L",
+    "A": "L L L"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_11_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x035",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q26",
+    "qid": "9702_w22_12_q26"
+   },
+   "stem": "The wavelength of sound in air may be determined by using stationary waves.\nIn one experiment, a loudspeaker produces a sound wave of constant frequency which is\nreflected directly back along its original path by a metal plate approximately 1 m away. A\nmicrophone connected to a cathode-ray oscilloscope (CRO) is moved between the loudspeaker\nand plate to identify regions of high sound intensity (‘loud’ spots) and low sound intensity (‘quiet’\nspots).\nThe wavelength of the sound is determined using the least possible number of measured\nquantities.\nWhich row shows the quantities that are needed?\nfrequency\nof sound\nmean separation\nof ‘quiet’ spots\nspeed of sound\nin air",
+   "options": {
+    "A": "\u0016 \u0016 \u001a key",
+    "B": "\u0016 \u001a \u0016 \u0016 = needed",
+    "C": "\u0016 \u001a \u001a \u001a = not needed",
+    "D": "\u001a \u0016 \u001a"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_12_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult and almost half of the candidates selected the incorrect answer B. The wavelength of the sound can be calculated by measuring the frequency of the sound and the speed of sound in air (answer B) but this is not the least possible number of quantities needed to determine the wavelength. In a stationary sound wave, the distance between successive nodes (‘quiet spots’) is half a wavelength. The mean separation of the quiet spots can measured and then doubled to determine the wavelength. Only one measurement is needed in this method, so this is the determina"
+  },
+  {
+   "id": "9702-8.1-x036",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q27",
+    "qid": "9702_w22_12_q27"
+   },
+   "stem": "Two progressive waves meet at a fixed point P. The variation with time of the displacement of\neach wave at point P is shown.\n2\n1\n0\n–1\n–2\n0\n0.1\n0.2\n0.3\n0.4\n0.5\n0.6\n0.7\n0.8\ndisplacement\n/ cm\ntime / s\nThe two waves superpose at point P.\nWhat is the resultant displacement at time 0.38 s?",
+   "options": {
+    "A": "+1.0 cm",
+    "B": "–1.0 cm",
+    "C": "+1.8 cm",
+    "D": "–1.8 cm"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x037",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q26",
+    "qid": "9702_s23_11_q26"
+   },
+   "stem": "A string is stretched between a vibration generator and a fixed point.\nWhen the vibration generator is vibrating at a frequency f, a stationary wave with five nodes is\ncreated on the stretched string, as shown. There is a node at the end of the string that is attached\nto the vibration generator.\nvibration\ngenerator\nfixed point\nThe frequency of vibration of the vibration generator is slowly increased.\nWhat is the next frequency that produces a stationary wave on the string?",
+   "options": {
+    "A": "1.25f",
+    "B": "1.50f",
+    "C": "1.75f",
+    "D": "2.00f"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates who answered this question incorrectly frequently chose answers B or D. The key point to recall is that the speed v of waves on the string, traveling to and fro and superposing to form a stationary wave, is constant. As the frequency is increased, the next stationary wave is formed with 5 loops (6 nodes and 5 antinodes). If the length of the string is L and the new frequency is f ': λ ′ ′ = = =  = = 2.5 1.25 2 2.5 2 fL f L v f f f f"
+  },
+  {
+   "id": "9702-8.1-x038",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q25",
+    "qid": "9702_s23_12_q25"
+   },
+   "stem": "A stationary wave is formed by two progressive waves travelling in opposite directions along the\nsame line of travel.\nWhich statement about the two progressive waves is not correct?",
+   "options": {
+    "A": "They must have a constant phase difference.",
+    "B": "They must have the same frequency.",
+    "C": "They must have the same wavelength.",
+    "D": "They must travel at the same speed."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x039",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q26",
+    "qid": "9702_s23_12_q26"
+   },
+   "stem": "The sound from a loudspeaker placed above a tube causes resonance of the air in the tube.\nA stationary wave is formed with two nodes and two antinodes, as shown.\nloudspeaker\n60 cm\nThe tube has height 60 cm.\nThe speed of sound in the air is 340 m s⁻¹.\nWhat is the frequency of the sound?",
+   "options": {
+    "A": "430 Hz",
+    "B": "570 Hz",
+    "C": "850 Hz",
+    "D": "1700 Hz"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_12_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x040",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q25",
+    "qid": "9702_s23_13_q25"
+   },
+   "stem": "The diagram shows a string stretched between fixed points X and Y. There is a stationary wave\non the string.\nX\nY\nR\nQ\nT\nS\nP\nThe solid curve shows the string at a position of maximum displacement at time t₀. The dashed\ncurve shows the other position of maximum displacement. The straight central dashed line shows\nthe mean position of the string.\nPoint S on the string is directly above point P. Point T on the string is directly below point Q.\nWhich statement is correct?",
+   "options": {
+    "A": "A short time after t₀, point R on the string will be displaced.",
+    "B": "A short time after t₀, points S and T on the string move in opposite directions.",
+    "C": "The distance between P and Q is one wavelength.",
+    "D": "Two moving points on the string that are equal distances from point R vibrate in phase."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_13_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x041",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q26",
+    "qid": "9702_s23_13_q26"
+   },
+   "stem": "The variation with distance x of the intensity I along a stationary sound wave in air is shown.\nI\n0\n0\n5.0\n10.0\n15.0\nx / cm\nThe speed of sound in air is 340 m s⁻¹.\nWhat is the frequency of the sound wave?",
+   "options": {
+    "A": "1700 Hz",
+    "B": "2300 Hz",
+    "C": "3400 Hz",
+    "D": "6800 Hz"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_13_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "This question proved to be very challenging, with many candidates selecting answer C rather than the correct answer A. This can be considered in the same way as a stationary sound wave in a pipe, the distance between two successive loud sounds (intensity maxima) being half the wavelength. From the diagram, λ λ = = = = 340 0.10 m 2 0.20 v f"
+  },
+  {
+   "id": "9702-8.1-x042",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q25",
+    "qid": "9702_w23_11_q25"
+   },
+   "stem": "In an experiment, a stationary wave is formed on a string stretched horizontally between two fixed\npoints.\nWhich statement about the experiment is correct?",
+   "options": {
+    "A": "At certain times, the string between two nodes is horizontal with all points having zero displacement.",
+    "B": "Each point on the string between two antinodes has an oscillation of the same amplitude.",
+    "C": "The number of nodes is equal to the number of antinodes.",
+    "D": "Two adjacent antinodes oscillate in phase."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x043",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q25",
+    "qid": "9702_w23_12_q25"
+   },
+   "stem": "What can explain how stationary waves are formed from progressive waves?",
+   "options": {
+    "A": "diffraction",
+    "B": "polarisation",
+    "C": "superposition",
+    "D": "the Doppler effect"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x044",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q26",
+    "qid": "9702_w23_13_q26"
+   },
+   "stem": "Stationary sound waves can be formed in the air columns of pipes. One type of pipe is closed at\none end and open at the other end. Another type of pipe is open at both ends.\nWhich pipe can form a stationary sound wave with the lowest frequency?\n2L",
+   "options": {
+    "B": "2L",
+    "A": "L",
+    "D": "L",
+    "C": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w23_13_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates answered this question correctly. The stationary wave with the lowest frequency has the longest wavelength. The lowest frequency stationary wave in a pipe closed at one end and open at the other has a quarter of a wavelength in the pipe: 2 8 4 L L λ λ = = A pipe open at both ends has half a wavelength in the pipe: 2 4 2 L L λ λ = = The pipe with the lowest frequency is B."
+  },
+  {
+   "id": "9702-8.1-x045",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q23",
+    "qid": "9702_s24_12_q23"
+   },
+   "stem": "A stationary sound wave is set up between a loudspeaker and a wall.\nA microphone is connected to a cathode-ray oscilloscope (CRO) and is moved along a line\ndirectly between the loudspeaker and the wall. The amplitude of the trace on the CRO rises to a\nmaximum at a position X, falls to a minimum and then rises once again to a maximum at a\nposition Y.\nThe distance between X and Y is 33 cm. The speed of sound in air is 330 m s⁻¹.\nWhich diagram could represent the CRO trace of the sound received at X?",
+   "options": {
+    "A": "1 cm 1 cm 1 cm 1 cm time base 0.50 ms / cm",
+    "B": "time base 0.50 ms / cm",
+    "C": "time base 0.50 ms / cm",
+    "D": "time base 0.50 ms / cm"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_12_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x046",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q27",
+    "qid": "9702_s24_12_q27"
+   },
+   "stem": "A stationary sound wave is formed in the air column inside a tube that is open at both ends.\nThe stationary wave has three nodes.\nHow many antinodes does it have?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x047",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q27",
+    "qid": "9702_s24_13_q27"
+   },
+   "stem": "Two waves superpose. A resultant wave pattern is formed.\nWhich statement about the two waves must be correct?",
+   "options": {
+    "A": "They have the same amplitude.",
+    "B": "They are of the same type.",
+    "C": "They are transverse waves.",
+    "D": "They travel in opposite directions."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x048",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q28",
+    "qid": "9702_w24_11_q28"
+   },
+   "stem": "Waves P and Q have the same amplitude. The waves meet in phase at point X and interfere to\ngive a resultant wave with intensity I.\nThe amplitude of wave P is doubled.\nWhat is the new intensity of the resultant wave at X, in terms of I ?",
+   "options": {
+    "A": "0.44I",
+    "B": "1.5I",
+    "C": "2.3I",
+    "D": "3.0I"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x049",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q31",
+    "qid": "9702_w24_12_q31"
+   },
+   "stem": "A horizontal glass tube, closed at one end, has a layer of dust laid inside it on its lower side.\nSound is emitted from a loudspeaker that is placed near the open end of the tube.\nThe frequency of the sound is varied and, at one frequency, a stationary wave is formed inside\nthe tube so that the dust forms small heaps.\nThe distance between four heaps of dust is 30 cm.\nloudspeaker\nglass tube\n30 cm\nThe speed of sound in the air in the tube is 330 m s⁻¹.\nWhat is the frequency of the sound emitted by the loudspeaker?",
+   "options": {
+    "A": "1650 Hz",
+    "B": "2200 Hz",
+    "C": "3300 Hz",
+    "D": "6600 Hz"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_12_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x050",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q29",
+    "qid": "9702_s25_11_q29"
+   },
+   "stem": "One wave has an amplitude of 2A. A second wave has an amplitude of\n.\n2\nA The waves are\notherwise identical.\nThe two waves travel in opposite directions and overlap.\nWhat is the ratio\n?\nwave\ncombined\nof\namplitude\nminimum\nwave\ncombined\nof\namplitude\nmaximum",
+   "options": {
+    "A": "2 3",
+    "B": "3 5",
+    "C": "2 5",
+    "D": "4"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_11_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x051",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q31",
+    "qid": "9702_s25_11_q31"
+   },
+   "stem": "A hollow tube is closed at one end and open at the other.\nA stationary sound wave of the lowest possible frequency, 820 Hz, is produced in the tube.\nThe speed of sound in air is 330 m s⁻¹.\nWhat is the length of the tube?",
+   "options": {
+    "A": "10 cm",
+    "B": "20 cm",
+    "C": "40 cm",
+    "D": "160 cm"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x052",
+   "kcs": [
+    "9702-8.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q24",
+    "qid": "9702_s25_12_q24"
+   },
+   "stem": "A teacher removes the turntable from a microwave oven and places a bar of chocolate in the\noven. She then switches the oven on for a short time.\nA stationary wave is formed in the oven.\nWhen the chocolate is removed, the teacher observes that there are two small sections of melted\nchocolate 6.0 cm apart with unmelted chocolate in between.\nEach section of melted chocolate is located at an antinode.\n6.0 cm\nmelted\nchocolate\nAssume that the speed of the microwaves is 3.0 × 10⁸\nm s⁻¹.\nWhat is the frequency of the microwaves emitted by the oven?",
+   "options": {
+    "A": "25 MHz",
+    "B": "50 MHz",
+    "C": "2.5 GHz",
+    "D": "5.0 GHz"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_12_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x053",
+   "kcs": [
+    "9702-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q30",
+    "qid": "9702_s25_12_q30"
+   },
+   "stem": "Two waves meet.\nWhat is not a necessary condition for the waves to produce a stationary wave?",
+   "options": {
+    "A": "They must be of the same type.",
+    "B": "They must have the same period.",
+    "C": "They must have the same wavelength.",
+    "D": "They must travel in the same direction."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x054",
+   "kcs": [
+    "9702-8.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q29",
+    "qid": "9702_s25_13_q29"
+   },
+   "stem": "Two waves of the same type overlap.\nWhen does the principle of superposition apply?",
+   "options": {
+    "A": "always",
+    "B": "only when the waves have the same amplitude",
+    "C": "only when the waves travel in opposite directions",
+    "D": "only when the waves have the same frequency"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.1-x055",
+   "kcs": [
+    "9702-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q29",
+    "qid": "9702_w25_11_q29"
+   },
+   "stem": "The diagram shows a stationary wave on a stretched spring at an instant in time.\nP\nQ\nstretched\nspring\nTwo particles on the spring, P and Q, are shown.\nWhich statement about the vibrations of P and Q is correct?",
+   "options": {
+    "A": "They have different frequencies.",
+    "B": "They have the same amplitudes.",
+    "C": "They have different periods.",
+    "D": "They are always in phase."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_11_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-8.1.1",
+   "front": "State the principle of superposition.",
+   "back": "When two or more waves of the same type meet at a point, the resultant displacement equals the algebraic sum of the individual displacements at that point."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-8.1.3",
+   "front": "Define node and antinode.",
+   "back": "A node is a position of zero amplitude. An antinode is a position of maximum amplitude."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-8.1.4",
+   "front": "How are node and antinode separations related to wavelength?",
+   "back": "Adjacent nodes or antinodes: $\\lambda/2$; nearest node to antinode: $\\lambda/4$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-8.1.1": {
+   "motivate": "When two pulses meet on a rope, what shape does the rope take at their overlap? The answer follows from adding what each pulse would do at the same point.",
+   "establish": "The principle of superposition states: when two or more waves of the same type meet at a point, the resultant displacement is the algebraic sum of the displacements of the individual waves at that point. Displacement is signed and instantaneous. For example, $+3$ mm and $-2$ mm combine to $+1$ mm. Amplitude is the maximum possible displacement of one wave and must not replace displacement in the statement. The principle applies whenever waves of the same type overlap; equal amplitude, coherence and opposite travel directions are not prerequisites for superposition itself.",
+   "connect": "Stationary waves are a special outcome of superposition: the opposing progressive waves repeatedly combine to produce a fixed pattern.",
+   "note": "- Add instantaneous, signed displacements at the same point.\n- Resultant displacement equals their algebraic sum.\n- Equal amplitudes are not required for superposition.",
+   "self_explain": "Two pulses have displacements $+4$ mm and $-3$ mm at one point. Explain which quantities you add and why the resultant is positive.",
+   "source": "pack"
+  },
+  "9702-8.1.2": {
+   "motivate": "How could you observe a wave pattern that stays in place even though its component waves move? Use reflection to send a wave back through the incident wave.",
+   "establish": "For microwaves, aim a transmitter at a metal reflector and move a detector along the path. Alternating signal maxima and minima reveal the stationary pattern. For a stretched string, drive it at a suitable frequency while a reflected wave returns from the end; stable loops appear with nodes between them. For an air column, use a sound source and vary frequency or column length until resonance. The closed end is a displacement node and the open end a displacement antinode, assuming negligible end corrections. Powder in a horizontal tube gathers where air displacement amplitude is small, at nodes. These observations all arise from superposition of incident and reflected waves.",
+   "connect": "The fixed minima and maxima in each apparatus are the nodes and antinodes used to analyse formation and wavelength.",
+   "note": "- Microwave: transmitter, reflector, moving detector.\n- String: driver, reflected wave, stable loops.\n- Air column: resonance; closed-end node, open-end antinode.\n- Powder gathers at displacement nodes.",
+   "self_explain": "Describe one measurement or observation that shows a stationary wave in each of the three apparatuses.",
+   "source": "pack"
+  },
+  "9702-8.1.3": {
+   "motivate": "A snapshot of a string can cross equilibrium in many places. Which of those places stay still through an entire oscillation?",
+   "establish": "Two progressive waves of the same type and frequency, with similar amplitudes, travel in opposite directions and superpose. To construct the stationary wave graphically, draw both profiles on a common position axis and add their signed displacements point by point. Repeat at later instants. A node is a fixed point where the resultant amplitude is zero, so displacement is always zero. An antinode is a fixed point where the amplitude is maximum. At a particular instant even an antinode can have zero displacement, so one snapshot is insufficient to establish a node. All particles between adjacent nodes oscillate in phase; particles in neighbouring loops oscillate in antiphase.",
+   "connect": "The sequence of fixed nodes and antinodes supplies a spatial ruler for determining wavelength.",
+   "note": "- Opposite directions, same frequency, similar amplitudes.\n- Add two profiles point by point at successive times.\n- Node: zero amplitude; antinode: maximum amplitude.\n- Adjacent loops oscillate in antiphase.",
+   "self_explain": "How would two displacement snapshots distinguish a genuine node from a point momentarily at equilibrium?",
+   "source": "pack"
+  },
+  "9702-8.1.4": {
+   "motivate": "The wave moves back and forth, but the node positions stay fixed. Their spacing lets you measure the travelling waves' wavelength.",
+   "establish": "Adjacent nodes are separated by $\\lambda/2$, as are adjacent antinodes. A node and its nearest antinode are separated by $\\lambda/4$. Thus, if adjacent nodes or adjacent antinodes are a distance $d$ apart, $\\lambda=2d$. To reduce measurement uncertainty, measure the distance between positions several intervals apart, divide by the number of intervals, then double. For example, the first to fifth node spans four intervals. In an air column the closed end is a displacement node and the open end an antinode; the shortest resonant closed-open column has $L=\\lambda/4$ when end corrections are negligible. A fixed-fixed string's shortest pattern has $L=\\lambda/2$.",
+   "connect": "Once wavelength is known, the progressive-wave relation $v=f\\lambda$ can give frequency or speed when the other quantity is supplied.",
+   "note": "- Adjacent nodes or antinodes: $\\lambda/2$.\n- Nearest node to antinode: $\\lambda/4$.\n- Count gaps, average their separation, then double.\n- Closed-open fundamental: $L=\\lambda/4$.",
+   "self_explain": "The first and fourth nodes are $0.90$ m apart. Explain the interval count before finding the wavelength.",
+   "source": "pack"
+  }
+ }
+}

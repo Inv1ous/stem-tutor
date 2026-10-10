@@ -1,0 +1,305 @@
+{
+ "sub": "9702-8.1",
+ "stage": "ready",
+ "created": "2026-10-10T15:39:49+08:00",
+ "updated": "2026-10-10T15:55:42+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:43:47+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 92 items"
+  },
+  {
+   "t": "2026-10-10T15:49:00+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "69 agreed, 2 disputed"
+  },
+  {
+   "t": "2026-10-10T15:50:36+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak settled every dispute; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T15:54:35+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T15:55:35+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T15:55:42+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 91,
+  "extra": 55
+ },
+ "disputes": [
+  {
+   "id": "9702-8.1-x006",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-8.1-x042",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9702-8.1-x026",
+   "rule": "off syllabus",
+   "evidence": "Light of wavelength λ is incident normally on two narrow slits S₁ and S₂, a small distance apart. Bright and dark fringes are observed on a screen a long distance away from the slits.",
+   "suggested": "Remove this double-slit fringe question from the stationary-waves chapter.",
+   "status": "fixed",
+   "resolution": "fix: The finding is valid: this tests the path difference for double-slit dark fringes, belonging to 9702-8.3.3, beyond the 8.1 bundle objectives. The source image confirms C: destructive interference occurs at positive path differences lambda/2, 3lambda/2, ... so S2P - S1P = (n - 1/2)lambda. The tagged bank has answer C and no examiner comment. In build/work/mcq/9702.tagged.json, for id 9702_w21_11_q28 set kcs to [\"9702-8.3.3\"] and retain off_syllabus=false and answer=\"C\"; rebuild extras for 9702-8.1 so item 9702-8.1-x026 is removed. Do not mark it off syllabus globally. Overrides are applied after bank selection, so an override alone cannot remove it from this chapter. Under qid 9702_w21_11_q28 in build/work/mcq/overrides.json set kcs=[\"9702-8.3.3\"], stem=\"Light of wavelength λ is incident normally on two narrow slits S₁ and S₂, a small distance apart. Bright and dark fringes are observed on a screen a long distance away from the slits, as shown in the diagram. The nth dark fringe from the central bright fringe is observed at point P on the screen. Which equation is correct for all positive values of n?\", options={\"A\":\"S₂P − S₁P = nλ/2\",\"B\":\"S₂P − S₁P = nλ\",\"C\":\"S₂P − S₁P = (n − 1/2)λ\",\"D\":\"S₂P − S₁P = (n + 1/2)λ\"}, answer=\"C\", explanation=\"Normal incidence makes the light at the two slits in phase. Dark fringes occur at odd half-wavelength path differences. Counting from n = 1 gives S₂P − S₁P = (n − 1/2)λ, so C is correct. A also includes bright fringes for even n; B describes bright fringes; D starts at the second dark fringe.\" Preserve the source image."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9702-8.1-x026",
+   "instruction": "The finding is valid: this tests the path difference for double-slit dark fringes, belonging to 9702-8.3.3, beyond the 8.1 bundle objectives. The source image confirms C: destructive interference occurs at positive path differences lambda/2, 3lambda/2, ... so S2P - S1P = (n - 1/2)lambda. The tagged bank has answer C and no examiner comment. In build/work/mcq/9702.tagged.json, for id 9702_w21_11_q28 set kcs to [\"9702-8.3.3\"] and retain off_syllabus=false and answer=\"C\"; rebuild extras for 9702-8.1 so item 9702-8.1-x026 is removed. Do not mark it off syllabus globally. Overrides are applied after bank selection, so an override alone cannot remove it from this chapter. Under qid 9702_w21_11_q28 in build/work/mcq/overrides.json set kcs=[\"9702-8.3.3\"], stem=\"Light of wavelength λ is incident normally on two narrow slits S₁ and S₂, a small distance apart. Bright and dark fringes are observed on a screen a long distance away from the slits, as shown in the diagram. The nth dark fringe from the central bright fringe is observed at point P on the screen. Which equation is correct for all positive values of n?\", options={\"A\":\"S₂P − S₁P = nλ/2\",\"B\":\"S₂P − S₁P = nλ\",\"C\":\"S₂P − S₁P = (n − 1/2)λ\",\"D\":\"S₂P − S₁P = (n + 1/2)λ\"}, answer=\"C\", explanation=\"Normal incidence makes the light at the two slits in phase. Dark fringes occur at odd half-wavelength path differences. Counting from n = 1 gives S₂P − S₁P = (n − 1/2)λ, so C is correct. A also includes bright fringes for even n; B describes bright fringes; D starts at the second dark fringe.\" Preserve the source image.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 68398,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:41:49+08:00",
+   "log": "foundry/logs/9702-8.1.drafter.1010-154149.log",
+   "out": "foundry/logs/9702-8.1.drafter.1010-154149.out.json",
+   "finished": "2026-10-10T15:43:47+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-8.1.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/08 Superposition/8.1 Stationary waves.md",
+    "items": 92,
+    "templates": 0,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 72004,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:47:28+08:00",
+   "log": "foundry/logs/9702-8.1.solver-1.1010-154728.log",
+   "out": "foundry/logs/9702-8.1.solver-1.1010-154728.out.json",
+   "expects": "build/work/blind/9702-8.1.answers.part1.json",
+   "finished": "2026-10-10T15:47:55+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-8.1.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 72006,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:47:28+08:00",
+   "log": "foundry/logs/9702-8.1.solver-2.1010-154728.log",
+   "out": "foundry/logs/9702-8.1.solver-2.1010-154728.out.json",
+   "expects": "build/work/blind/9702-8.1.answers.part2.json",
+   "finished": "2026-10-10T15:48:07+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-8.1.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 72607,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:48:14+08:00",
+   "log": "foundry/logs/9702-8.1.solver-3.1010-154814.log",
+   "out": "foundry/logs/9702-8.1.solver-3.1010-154814.out.json",
+   "expects": "build/work/blind/9702-8.1.answers.part3.json",
+   "finished": "2026-10-10T15:48:53+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-8.1.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "solver#4": {
+   "pid": 72609,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:48:14+08:00",
+   "log": "foundry/logs/9702-8.1.solver-4.1010-154814.log",
+   "out": "foundry/logs/9702-8.1.solver-4.1010-154814.out.json",
+   "expects": "build/work/blind/9702-8.1.answers.part4.json",
+   "finished": "2026-10-10T15:48:35+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 11 questions in `build/work/blind/9702-8.1.answers.part4.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 72614,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:48:14+08:00",
+   "log": "foundry/logs/9702-8.1.checker.1010-154814.log",
+   "out": "foundry/logs/9702-8.1.checker.1010-154814.out.json",
+   "expects": "build/work/foundry/9702-8.1.check.json",
+   "finished": "2026-10-10T15:48:43+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — [9702-8.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9702-8.1.check.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 73856,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:49:41+08:00",
+   "log": "foundry/logs/9702-8.1.tiebreak.1010-154941.log",
+   "out": "foundry/logs/9702-8.1.tiebreak.1010-154941.out.json",
+   "expects": "build/work/blind/9702-8.1.tiebreak.json",
+   "finished": "2026-10-10T15:50:01+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 2,
+    "answers_path": "build/work/blind/9702-8.1.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 77338,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T15:53:45+08:00",
+   "log": "foundry/logs/9702-8.1.adjudicator.1010-155345.log",
+   "out": "foundry/logs/9702-8.1.adjudicator.1010-155345.out.json",
+   "finished": "2026-10-10T15:54:40+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item 9702-8.1-x026 fix: Retag to interference (9702-8.3.3); correct garbled options; retain official key C."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 78095,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T15:54:51+08:00",
+   "log": "foundry/logs/9702-8.1.fixer.1010-155451.log",
+   "out": "foundry/logs/9702-8.1.fixer.1010-155451.out.json",
+   "finished": "2026-10-10T15:55:35+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "The syllabus gate still reports missing teaching cards for 9702-8.1.1 through 9702-8.1.4; these are unrelated to the requested fix."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q24": "9702-8.1-x001",
+  "9702_s19_12_q25": "9702-8.1-x002",
+  "9702_s19_13_q26": "9702-8.1-x003",
+  "9702_w19_11_q22": "9702-8.1-x004",
+  "9702_w19_11_q23": "9702-8.1-x005",
+  "9702_w19_11_q26": "9702-8.1-x006",
+  "9702_w19_12_q25": "9702-8.1-x007",
+  "9702_w19_13_q26": "9702-8.1-x008",
+  "9702_w19_13_q28": "9702-8.1-x009",
+  "9702_s20_11_q24": "9702-8.1-x010",
+  "9702_s20_11_q27": "9702-8.1-x011",
+  "9702_s20_12_q24": "9702-8.1-x012",
+  "9702_s20_13_q24": "9702-8.1-x013",
+  "9702_s20_13_q27": "9702-8.1-x014",
+  "9702_w20_11_q23": "9702-8.1-x015",
+  "9702_w20_12_q24": "9702-8.1-x016",
+  "9702_w20_12_q27": "9702-8.1-x017",
+  "9702_w20_13_q22": "9702-8.1-x018",
+  "9702_w20_13_q27": "9702-8.1-x019",
+  "9702_s21_11_q23": "9702-8.1-x020",
+  "9702_s21_11_q26": "9702-8.1-x021",
+  "9702_s21_12_q26": "9702-8.1-x022",
+  "9702_s21_13_q27": "9702-8.1-x023",
+  "9702_w21_11_q23": "9702-8.1-x024",
+  "9702_w21_11_q26": "9702-8.1-x025",
+  "9702_w21_11_q28": "9702-8.1-x026",
+  "9702_w21_12_q24": "9702-8.1-x026",
+  "9702_w21_12_q27": "9702-8.1-x027",
+  "9702_w21_13_q24": "9702-8.1-x028",
+  "9702_w21_13_q27": "9702-8.1-x029",
+  "9702_s22_11_q26": "9702-8.1-x030",
+  "9702_s22_11_q27": "9702-8.1-x031",
+  "9702_s22_12_q27": "9702-8.1-x032",
+  "9702_s22_13_q28": "9702-8.1-x033",
+  "9702_w22_11_q27": "9702-8.1-x034",
+  "9702_w22_12_q26": "9702-8.1-x035",
+  "9702_w22_12_q27": "9702-8.1-x036",
+  "9702_s23_11_q26": "9702-8.1-x037",
+  "9702_s23_12_q25": "9702-8.1-x038",
+  "9702_s23_12_q26": "9702-8.1-x039",
+  "9702_s23_13_q25": "9702-8.1-x040",
+  "9702_s23_13_q26": "9702-8.1-x041",
+  "9702_w23_11_q25": "9702-8.1-x042",
+  "9702_w23_12_q25": "9702-8.1-x043",
+  "9702_w23_13_q26": "9702-8.1-x044",
+  "9702_s24_12_q23": "9702-8.1-x045",
+  "9702_s24_12_q27": "9702-8.1-x046",
+  "9702_s24_13_q27": "9702-8.1-x047",
+  "9702_w24_11_q28": "9702-8.1-x048",
+  "9702_w24_12_q31": "9702-8.1-x049",
+  "9702_s25_11_q29": "9702-8.1-x050",
+  "9702_s25_11_q31": "9702-8.1-x051",
+  "9702_s25_12_q24": "9702-8.1-x052",
+  "9702_s25_12_q30": "9702-8.1-x053",
+  "9702_s25_13_q29": "9702-8.1-x054",
+  "9702_w25_11_q29": "9702-8.1-x055"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
