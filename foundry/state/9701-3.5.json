@@ -1,0 +1,278 @@
+{
+ "sub": "9701-3.5",
+ "stage": "ready",
+ "created": "2026-10-10T10:58:42+08:00",
+ "updated": "2026-10-10T14:02:24+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T11:01:29+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 47 items"
+  },
+  {
+   "t": "2026-10-10T13:39:50+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "37 agreed, 11 disputed"
+  },
+  {
+   "t": "2026-10-10T14:01:43+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:02:24+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 47,
+  "extra": 20
+ },
+ "disputes": [
+  {
+   "id": "9701-3.5-p02",
+   "key": "D",
+   "solver": "B",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.5-x001",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.5-x002",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.5-x003",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.5-x006",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.5-x007",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.5-x008",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.5-x009",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.5-x010",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.5-x011",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "we1.faded",
+   "key": {
+    "value": 109.5,
+    "unit": "",
+    "sf_ok": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   "solver": "tetrahedral 109.5°",
+   "tiebreak": "110",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 36370,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T10:59:42+08:00",
+   "log": "foundry/logs/9701-3.5.drafter.1010-105942.log",
+   "out": "foundry/logs/9701-3.5.drafter.1010-105942.out.json",
+   "finished": "2026-10-10T11:01:29+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-3.5.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/03 Chemical bonding/3.5 Shapes of molecules.md",
+    "items": 47,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 95590,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T13:36:59+08:00",
+   "log": "foundry/logs/9701-3.5.solver-1.1010-133659.log",
+   "out": "foundry/logs/9701-3.5.solver-1.1010-133659.out.json",
+   "expects": "build/work/blind/9701-3.5.answers.part1.json",
+   "finished": "2026-10-10T13:38:13+08:00",
+   "exit": 0,
+   "report": {
+    "text": "20 questions answered. Written to build/work/blind/9701-3.5.answers.part1.json"
+   },
+   "ok": true,
+   "cost_usd": 0.085
+  },
+  "solver#2": {
+   "pid": 95595,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T13:36:59+08:00",
+   "log": "foundry/logs/9701-3.5.solver-2.1010-133659.log",
+   "out": "foundry/logs/9701-3.5.solver-2.1010-133659.out.json",
+   "expects": "build/work/blind/9701-3.5.answers.part2.json",
+   "finished": "2026-10-10T13:39:46+08:00",
+   "exit": 0,
+   "report": {
+    "text": "20 questions answered. Written to build/work/blind/9701-3.5.answers.part2.json."
+   },
+   "ok": true,
+   "cost_usd": 0.185
+  },
+  "solver#3": {
+   "pid": 95597,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T13:36:59+08:00",
+   "log": "foundry/logs/9701-3.5.solver-3.1010-133659.log",
+   "out": "foundry/logs/9701-3.5.solver-3.1010-133659.out.json",
+   "expects": "build/work/blind/9701-3.5.answers.part3.json",
+   "finished": "2026-10-10T13:38:03+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 8 questions, wrote build/work/blind/9701-3.5.answers.part3.json"
+   },
+   "ok": true,
+   "cost_usd": 0.065
+  },
+  "checker": {
+   "pid": 95599,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:36:59+08:00",
+   "log": "foundry/logs/9701-3.5.checker.1010-133659.log",
+   "out": "foundry/logs/9701-3.5.checker.1010-133659.out.json",
+   "expects": "build/work/foundry/9701-3.5.check.json",
+   "finished": "2026-10-10T13:37:14+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote [9701-3.5.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9701-3.5.check.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 10487,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:01:12+08:00",
+   "log": "foundry/logs/9701-3.5.tiebreak.1010-140112.log",
+   "out": "foundry/logs/9701-3.5.tiebreak.1010-140112.out.json",
+   "expects": "build/work/blind/9701-3.5.tiebreak.json",
+   "finished": "2026-10-10T14:01:41+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 11,
+    "answers_path": "build/work/blind/9701-3.5.tiebreak.json",
+    "notes": [
+     "9701-3.5-x001, x002, x003, and x006: the supplied entries omit the lettered answer combinations; I used the standard combination mapping.",
+     "we1.faded: the predicted angle is 109.5°, reported as 110 to three significant figures."
+    ]
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_w19_12_q31": "9701-3.5-x001",
+  "9701_w19_12_q36": "9701-3.5-x002",
+  "9701_s20_11_q32": "9701-3.5-x003",
+  "9701_w20_11_q17": "9701-3.5-x004",
+  "9701_s21_11_q3": "9701-3.5-x005",
+  "9701_s21_11_q34": "9701-3.5-x006",
+  "9701_s21_13_q4": "9701-3.5-x007",
+  "9701_s22_13_q6": "9701-3.5-x008",
+  "9701_s23_11_q7": "9701-3.5-x009",
+  "9701_s23_12_q7": "9701-3.5-x010",
+  "9701_s23_13_q5": "9701-3.5-x011",
+  "9701_w23_11_q6": "9701-3.5-x012",
+  "9701_w23_12_q7": "9701-3.5-x013",
+  "9701_w23_13_q6": "9701-3.5-x014",
+  "9701_s24_13_q6": "9701-3.5-x015",
+  "9701_w24_12_q5": "9701-3.5-x016",
+  "9701_w24_13_q24": "9701-3.5-x017",
+  "9701_s25_11_q16": "9701-3.5-x018",
+  "9701_w25_11_q24": "9701-3.5-x019",
+  "9701_w25_12_q6": "9701-3.5-x020"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

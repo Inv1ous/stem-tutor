@@ -1,0 +1,1494 @@
+{
+ "subtopic": "9701-3.5",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/03 Chemical bonding/3.5 Shapes of molecules.md",
+ "outline": "VSEPR theory predicts shapes from repulsion between electron regions around a central atom. Count each single, double or triple bond as one region and count lone pairs too. Arrange regions to minimise repulsion, then name molecular shape from atom positions. Lone pairs repel bonding pairs more strongly, compressing bond angles. Two, three, four, five and six bonding regions with no lone pairs give linear, trigonal planar, tetrahedral, trigonal bipyramidal and octahedral shapes. Three bonds plus one lone pair give pyramidal; two bonds plus two lone pairs give non-linear. Apply these patterns to analogous ions and molecules, including ammonium, borohydride, hydronium and sulfur dioxide.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-3.5.1",
+   "statement": "Every molecule with four electron regions is tetrahedral in molecular shape.",
+   "refutation": "Lone pairs occupy regions but are omitted when naming molecular shape.",
+   "contrast": "Four bonding pairs give tetrahedral; three bonding pairs and one lone pair give pyramidal.",
+   "source": "ER 9701 w22 P12 Q13"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-3.5.1",
+   "statement": "A lone pair repels no more strongly than a bonding pair.",
+   "refutation": "Lone pair–bond pair repulsion compresses the angle between bonds.",
+   "contrast": "Ammonia has 107°, water 104.5°, compared with 109.5° in methane.",
+   "source": "ER 9701 w22 P12 Q13"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-3.5.2",
+   "statement": "An octahedral molecule has only 90° bond angles.",
+   "refutation": "Opposite bonds make 180° as well as adjacent 90° angles.",
+   "contrast": "In SF6, trans F–S–F is straight.",
+   "source": "ER 9701 s22 P11 Q5"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-3.5.2",
+   "statement": "A double bond counts as two electron regions in VSEPR.",
+   "refutation": "A double bond is one region of electron density around the central atom.",
+   "contrast": "CO2 has two regions and is linear.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-3.5.2",
+   "problem": "Predict the shape and H–N–H angle of $\\ce{NH4+}$, then compare it with $\\ce{NH3}$.",
+   "steps": [
+    {
+     "do": "Count four N–H bonding regions and zero lone pairs on N in $\\ce{NH4+}$.",
+     "why": "A dative bond counts as one bonding region after formation."
+    },
+    {
+     "do": "Assign tetrahedral shape and 109.5° angle.",
+     "why": "Four bonding regions repel to equivalent positions."
+    },
+    {
+     "do": "Compare $\\ce{NH3}$: three bonds and one lone pair give pyramidal shape and 107°.",
+     "why": "The lone pair repels more strongly and compresses the angle."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Predict the shape and bond angle of $\\ce{BH4-}$ from its four B–H bonds and no lone pairs.",
+    "answer": {
+     "value": 109.5,
+     "unit": "",
+     "sf_ok": [
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-3.5-i01",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the shape and bond angle of $\\ce{BF3}$.",
+   "marks": 1,
+   "explanation": "Three bonding regions and no lone pair spread equally in a plane, giving 120°.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "trigonal planar, 120°",
+    "B": "pyramidal, 107°",
+    "C": "tetrahedral, 109.5°",
+    "D": "linear, 180°"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1",
+    "C": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i02",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the shape and bond angle of $\\ce{CO2}$.",
+   "marks": 1,
+   "explanation": "Each double bond is one region; two regions oppose at 180°.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "non-linear, 104.5°",
+    "B": "linear, 180°",
+    "C": "trigonal planar, 120°",
+    "D": "tetrahedral, 109.5°"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m4",
+    "C": "m4",
+    "D": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i03",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the shape and bond angle of $\\ce{CH4}$.",
+   "marks": 1,
+   "explanation": "Four bonding pairs and no lone pairs give tetrahedral positions and 109.5°.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "pyramidal, 107°",
+    "B": "square planar, 90°",
+    "C": "tetrahedral, 109.5°",
+    "D": "trigonal planar, 120°"
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i04",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the shape and approximate bond angle of $\\ce{NH3}$.",
+   "marks": 1,
+   "explanation": "Three bonds and one lone pair give a pyramidal molecule; lone-pair repulsion compresses the angle to 107°.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "tetrahedral, 109.5°",
+    "B": "non-linear, 104.5°",
+    "C": "trigonal planar, 120°",
+    "D": "pyramidal, 107°"
+   },
+   "answer": "D",
+   "distractors": {
+    "A": "m1",
+    "B": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i05",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the shape and approximate bond angle of $\\ce{H2O}$.",
+   "marks": 1,
+   "explanation": "Two bonds and two lone pairs give a non-linear molecule with angle 104.5°.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "non-linear, 104.5°",
+    "B": "linear, 180°",
+    "C": "pyramidal, 107°",
+    "D": "tetrahedral, 109.5°"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1",
+    "D": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i06",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the geometry and adjacent bond angle of $\\ce{SF6}$.",
+   "marks": 1,
+   "explanation": "Six bonding regions give octahedral positions; adjacent bonds are 90° and opposite bonds 180°.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "trigonal bipyramidal, 120°",
+    "B": "octahedral, 90°",
+    "C": "tetrahedral, 109.5°",
+    "D": "linear, 180°"
+   },
+   "answer": "B",
+   "distractors": {
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i07",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the shape and two distinct non-straight bond angles of $\\ce{PF5}$.",
+   "marks": 1,
+   "explanation": "Three equatorial bonds make 120°; an axial bond makes 90° with an equatorial bond.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "octahedral, 90° and 120°",
+    "B": "tetrahedral, 109.5° and 90°",
+    "C": "trigonal bipyramidal, 90° and 120°",
+    "D": "trigonal planar, 90° and 120°"
+   },
+   "answer": "C",
+   "distractors": {},
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i08",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the H–N–H angle in $\\ce{NH3}$ is smaller than the H–C–H angle in $\\ce{CH4}$.",
+   "marks": 2,
+   "explanation": "A lone pair occupies more space than a bond pair and pushes the three N–H bonds closer together.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "rubric": [
+    {
+     "point": "Nitrogen has one lone pair and three bonding pairs",
+     "keywords": [
+      [
+       "lone"
+      ],
+      [
+       "bond"
+      ]
+     ]
+    },
+    {
+     "point": "Lone-pair–bond-pair repulsion is greater and compresses the bond angle",
+     "keywords": [
+      [
+       "repulsion"
+      ],
+      [
+       "greater",
+       "stronger"
+      ],
+      [
+       "compresses",
+       "reduces"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-3.5-i09",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the shape and angle of $\\ce{NH4+}$.",
+   "marks": 1,
+   "explanation": "Nitrogen has four bonds and no lone pair in ammonium, so the shape and angle match methane.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "pyramidal, 107°",
+    "B": "tetrahedral, 109.5°",
+    "C": "non-linear, 104.5°",
+    "D": "trigonal planar, 120°"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m1",
+    "C": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i10",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the shape of $\\ce{BH4-}$.",
+   "marks": 1,
+   "explanation": "Boron has four bonding regions and no lone pairs in borohydride.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "square planar",
+    "B": "pyramidal",
+    "C": "trigonal planar",
+    "D": "tetrahedral"
+   },
+   "answer": "D",
+   "distractors": {
+    "B": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i11",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the shape of $\\ce{H3O+}$.",
+   "marks": 1,
+   "explanation": "Oxygen has three bonds and one lone pair, matching ammonia.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "pyramidal",
+    "B": "trigonal planar",
+    "C": "tetrahedral",
+    "D": "non-linear"
+   },
+   "answer": "A",
+   "distractors": {
+    "C": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i12",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the shape of $\\ce{SCl2}$.",
+   "marks": 1,
+   "explanation": "Sulfur has two bonding pairs and two lone pairs, matching water.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "linear",
+    "B": "non-linear",
+    "C": "pyramidal",
+    "D": "trigonal planar"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i13",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the shape of $\\ce{SO2}$ from two S–O bonding regions and one sulfur lone pair.",
+   "marks": 1,
+   "explanation": "Three regions arrange approximately trigonal planar; with only two bonded atoms the molecule is non-linear.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "linear",
+    "B": "pyramidal",
+    "C": "trigonal planar",
+    "D": "non-linear"
+   },
+   "answer": "D",
+   "distractors": {
+    "A": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i14",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the F–B–F angle change when $\\ce{BF3}$ accepts a lone pair from $\\ce{NH3}$.",
+   "marks": 1,
+   "explanation": "Boron changes from three to four bonding regions, so the angle falls from trigonal planar to tetrahedral.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "options": {
+    "A": "increases from 120°",
+    "B": "stays 120°",
+    "C": "decreases towards 109.5°",
+    "D": "decreases towards 90°"
+   },
+   "answer": "C",
+   "distractors": {},
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.5-i15",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $\\ce{NH4+}$ has a larger H–N–H angle than $\\ce{NH3}$.",
+   "marks": 3,
+   "explanation": "Removing the lone pair removes its extra repulsion: ammonium is 109.5°, ammonia 107°.",
+   "hints": [
+    "Count electron regions around the central atom.",
+    "Distinguish bonding regions from lone pairs.",
+    "Use the matching VSEPR arrangement, then name the positions of atoms."
+   ],
+   "rubric": [
+    {
+     "point": "Ammonium has four bonding pairs and no lone pair",
+     "keywords": [
+      [
+       "four",
+       "4"
+      ],
+      [
+       "bond"
+      ],
+      [
+       "no lone"
+      ]
+     ]
+    },
+    {
+     "point": "Ammonia has a lone pair that repels bonding pairs more strongly",
+     "keywords": [
+      [
+       "lone"
+      ],
+      [
+       "repels",
+       "repulsion"
+      ],
+      [
+       "stronger",
+       "greater"
+      ]
+     ]
+    },
+    {
+     "point": "Angles are 109.5° and 107° respectively",
+     "keywords": [
+      [
+       "109.5"
+      ],
+      [
+       "107"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-3.5-p01",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q13",
+    "qid": "9701_w22_12_q13"
+   },
+   "stem": "VSEPR theory should be used in answering this question.\nThe dot-and-cross diagram for an ozone, O₃, molecule is shown.\nO\nO\nO\nWhat is the predicted bond angle in this molecule?",
+   "options": {
+    "A": "107°",
+    "B": "109.5°",
+    "C": "117°",
+    "D": "120°"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Ozone has two bonds and one lone pair at the central O, so its angle is about 117°. A (107°) treats it as ammonia with four electron regions; ozone has three.",
+   "image": "Assets/mcq/9701_w22_12_q13.png",
+   "distractors": {
+    "A": "m2"
+   }
+  },
+  {
+   "id": "9701-3.5-p02",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q5",
+    "qid": "9701_s22_11_q5"
+   },
+   "stem": "In which structure are three atoms bonded together in a straight line?",
+   "options": {
+    "A": "poly(ethene), ] ( ) CH₂CH₂ ₙ",
+    "B": "propane, C₃H₈",
+    "C": "silicon tetrachloride, SiCl ₄",
+    "D": "sulfur hexafluoride, SF₆"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Opposite fluorines in octahedral SF6 form a straight F–S–F line. B is wrong because propane has tetrahedral carbon centres, not a straight three-atom chain.",
+   "distractors": {
+    "B": "m3"
+   }
+  },
+  {
+   "id": "9701-3.5-p03",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q5",
+    "qid": "9701_w21_12_q5"
+   },
+   "stem": "Atom X is the central atom in a molecule.\nIn this molecule, atom X has four pairs of valence electrons in its outer shell.\nThe four pairs of valence electrons include at least one bond pair and at least one lone pair.\nWhat could be a possible shape for the molecule?",
+   "options": {
+    "A": "linear",
+    "B": "non-linear",
+    "C": "trigonal bipyramidal",
+    "D": "trigonal planar"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Four electron pairs including both a bond and lone pair can produce a non-linear molecule. C would require five electron regions, not four.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-p04",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P13 · Q18",
+    "qid": "9701_w21_13_q18"
+   },
+   "stem": "Which row is correct?\nshape\nbonds present\nammonia\nmolecule\nammonium\nion\nammonia\nmolecule\nammonium\nion",
+   "options": {
+    "A": "pyramidal regular tetrahedral σ σ",
+    "B": "pyramidal regular tetrahedral σ π",
+    "C": "regular tetrahedral pyramidal σ σ",
+    "D": "regular tetrahedral pyramidal π σ"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Ammonia is pyramidal and ammonium regular tetrahedral; their bonds are sigma bonds. B is wrong because ammonium has no pi bond.",
+   "image": "Assets/mcq/9701_w21_13_q18.png",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-p05",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P13 · Q3",
+    "qid": "9701_w19_13_q3"
+   },
+   "stem": "Which molecule or ion contains the smallest bond angle?",
+   "options": {
+    "A": "C₂H₄",
+    "B": "CH₃COCH₃",
+    "C": "NH₄ ⁺",
+    "D": "NH₃"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Ammonia has a 107° bond angle, smaller than the approximately 109.5° tetrahedral and 120° planar alternatives. C is larger because ammonium has no lone pair.",
+   "image": "Assets/mcq/9701_w19_13_q3.png",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-p06",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q11",
+    "qid": "9701_s25_13_q11"
+   },
+   "stem": "BF₃ reacts with NH₃ to form a single compound with a simple molecular structure.\nBF₃ + NH₃ → F₃B–NH₃\nWhich row describes how the bond angles change during the reaction?\nF–B–F bond angle\nH–N–H bond angle",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases increases",
+    "C": "increases decreases",
+    "D": "increases increases"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Boron changes from 120° trigonal planar to approximately 109.5° tetrahedral, while nitrogen loses its lone pair and rises from 107°. A is wrong because the nitrogen angle increases.",
+   "image": "Assets/mcq/9701_s25_13_q11.png",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-p07",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q7",
+    "qid": "9701_s25_12_q7"
+   },
+   "stem": "Which row is correct?\nsmallest\nbond angle\nlargest\nbond angle",
+   "options": {
+    "A": "H₂O NH₃ BF₃",
+    "B": "BF₃ NH₃ H₂O",
+    "C": "NH₃ H₂O BF₃",
+    "D": "H₂O BF₃ NH₃"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The angles increase H2O 104.5° < NH3 107° < BF3 120°. D is wrong because BF3 exceeds NH3.",
+   "image": "Assets/mcq/9701_s25_12_q7.png",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-p08",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q15",
+    "qid": "9701_s25_11_q15"
+   },
+   "stem": "In which pair do both species:\n●\nhave the same shape\n●\nhave the same number of covalent bonds?",
+   "options": {
+    "A": "methane and the ammonium ion",
+    "B": "carbon dioxide and nitrogen",
+    "C": "boron trifluoride and ammonia",
+    "D": "water and oxygen"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Methane and ammonium each have four covalent bonds and tetrahedral shape. C is wrong because BF3 is trigonal planar but ammonia is pyramidal.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-p09",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q5",
+    "qid": "9701_s24_13_q5"
+   },
+   "stem": "Arsenic forms a compound with fluorine. In this compound, the arsenic atom has no lone pair of\nelectrons and there are no dative bonds.\nSelenium also forms a compound with fluorine. In this compound, the selenium atom has no lone\npair of electrons and there are no dative bonds.\nIn which compounds are there two different bond angles?\n(In this question, 180° bond angles should be ignored.)",
+   "options": {
+    "A": "both arsenic fluoride and selenium fluoride",
+    "B": "arsenic fluoride only",
+    "C": "selenium fluoride only",
+    "D": "neither arsenic fluoride nor selenium fluoride"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "AsF5 is trigonal bipyramidal with 90° and 120°; SeF6 is octahedral with 90° when 180° is excluded. A is wrong because selenium fluoride has only one non-straight angle.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-p10",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q5",
+    "qid": "9701_s24_12_q5"
+   },
+   "stem": "Which shape is correctly predicted by VSEPR theory?\nnumber of bonded\nelectron pairs\nnumber of\nlone pairs\nshape",
+   "options": {
+    "A": "2 2 linear",
+    "B": "2 2 tetrahedral",
+    "C": "3 1 pyramidal",
+    "D": "3 1 trigonal planar"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Three bonding pairs and one lone pair give pyramidal shape. D is wrong because the lone pair prevents a trigonal planar molecular shape.",
+   "image": "Assets/mcq/9701_s24_12_q5.png",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-p11",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q6",
+    "qid": "9701_s24_11_q6"
+   },
+   "stem": "The structure of the sulfur dioxide molecule is shown.\nO\nS\nO\nWhat is the shape of the sulfur dioxide molecule?",
+   "options": {
+    "A": "linear",
+    "B": "non-linear",
+    "C": "pyramidal",
+    "D": "tetrahedral"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "SO2 has two bonded atoms around sulfur and a lone pair, making it non-linear. A ignores the lone pair.",
+   "image": "Assets/mcq/9701_s24_11_q6.png",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-p12",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q24",
+    "qid": "9701_s24_11_q24"
+   },
+   "stem": "What is the bond angle in the ammonium ion?",
+   "options": {
+    "A": "90°",
+    "B": "107°",
+    "C": "109.5°",
+    "D": "120°"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Ammonium has four bonding pairs and no lone pairs, so its angle is tetrahedral 109.5°. B is ammonia’s smaller angle.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.5-x001",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q31",
+    "qid": "9701_w19_12_q31"
+   },
+   "stem": "Which gaseous molecules are polar?\n1\nammonia\n2\nhydrogen sulfide\n3\nboron trifluoride",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w19_12_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x002",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q36",
+    "qid": "9701_w19_12_q36"
+   },
+   "stem": "Which statements about ammonia are correct?\n1\nAn ammonia molecule has three bond pairs and one lone pair of electrons.\n2\nWhen ammonia is bubbled into water the pH of the solution increases.\n3\nAmmonia gas can be made by warming ammonium sulfate with aqueous hydrochloric acid.",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w19_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x003",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q32",
+    "qid": "9701_s20_11_q32"
+   },
+   "stem": "Which molecules have no overall dipole moment?\n1\nboron trifluoride\n2\nmethane\n3\nphosphorus pentafluoride",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s20_11_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x004",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q17",
+    "qid": "9701_w20_11_q17"
+   },
+   "stem": "Ammonia can undergo an acid–base reaction with hydrogen chloride to form ammonium chloride.\nWhich statement is correct?",
+   "options": {
+    "A": "The ammonium ion is basic.",
+    "B": "The hydrogen atom from HCl donates a lone pair of electrons to the nitrogen atom.",
+    "C": "The H–N–H bond angle in ammonia is the same as the H–N–H bond angle in the ammonium ion.",
+    "D": "The H–N–H bond angle in the ammonium ion is the same as the H–C–H bond angle in methane."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x005",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q3",
+    "qid": "9701_s21_11_q3"
+   },
+   "stem": "Phosphorus forms two chlorides. Phosphorus(III) chloride, PCl ₃, is a covalent liquid.\nPhosphorus(V) chloride is an ionic solid. One of the ions present is [PCl ₄]⁺.\nWhat is the shape of the PCl ₃ molecule and the [PCl ₄]⁺ ion?\nPCl ₃\n[PCl ₄]⁺",
+   "options": {
+    "A": "pyramidal square planar",
+    "B": "pyramidal tetrahedral",
+    "C": "tetrahedral square planar",
+    "D": "trigonal planar tetrahedral"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s21_11_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x006",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q34",
+    "qid": "9701_s21_11_q34"
+   },
+   "stem": "Which molecules contain at least one bond angle of 120°?\n1\nC₂H₄\n2\nPF₅\n3\nNCl ₃",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s21_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x007",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q4",
+    "qid": "9701_s21_13_q4"
+   },
+   "stem": "Ethanal reacts with hydroxylamine, NH₂OH, to form the molecule shown.\nC\nH\nN\nO\nH\nH\nH\nC\nH\ny\nx\nz\nWhat is the order of increasing bond angle in this structure from smallest to largest?",
+   "options": {
+    "A": "z, x, y",
+    "B": "y, z, x",
+    "C": "x, z, y",
+    "D": "z, y, x"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s21_13_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was C. The angles are approximately: x = 109.5°, y = 120° and z = 104.5°, so the order is z, x, y."
+  },
+  {
+   "id": "9701-3.5-x008",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q6",
+    "qid": "9701_s22_13_q6"
+   },
+   "stem": "VSEPR theory should be used to answer this question.\nHydrazine has the following structure.\nN\nN\nH\nhydrazine\nH\nH\nH\nX\nWhat is the predicted bond angle X?",
+   "options": {
+    "A": "90°",
+    "B": "107°",
+    "C": "109.5°",
+    "D": "120°"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s22_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x009",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q7",
+    "qid": "9701_s23_11_q7"
+   },
+   "stem": "Histidine is an amino acid.\nhistidine\nC\nC\nC\nH\nH\nN\nC\nC\nH\nO\nO\nN\nH\nN\nH\nH\nH\nC\nH\nH\n1\n2\n3\nWhat are the approximate bond angles 1, 2, and 3?\n3\n2\n1\n90°\n107°\n109.5°",
+   "options": {
+    "A": "109.5° 107° 120°",
+    "B": "90° 120° 120°",
+    "C": "109.5° 120° 120°",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x010",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q7",
+    "qid": "9701_s23_12_q7"
+   },
+   "stem": "Which row is correct?\ntotal number of pairs of electrons in\nthe valence shell of the central atom\nshape\nmolecule\ntwo\nlinear\nCO₂",
+   "options": {
+    "A": "three trigonal planar BF₃",
+    "B": "four regular tetrahedral NH₃",
+    "C": "six octahedral PF₅",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x011",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q5",
+    "qid": "9701_s23_13_q5"
+   },
+   "stem": "Ammonia reacts with acids to form the ammonium ion.\nWhich row is correct?\nbond angle\nin NH₄\n⁺/°\nshape of NH₄\n+\n107\npyramidal",
+   "options": {
+    "A": "109.5 pyramidal",
+    "B": "107 tetrahedral",
+    "C": "109.5 tetrahedral",
+    "D": "1+\u0016 \u000e +\u000e ⇋1+\u0017 \u000e"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x012",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q6",
+    "qid": "9701_w23_11_q6"
+   },
+   "stem": "Which row is correct?\nshape of SCl₂\nshape of H₃O⁺\nnon-linear\npyramidal",
+   "options": {
+    "A": "linear pyramidal",
+    "B": "non-linear trigonal planar",
+    "C": "linear trigonal planar",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w23_11_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x013",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q7",
+    "qid": "9701_w23_12_q7"
+   },
+   "stem": "Two compounds of boron are sodium borohydride, NaBH₄, and boron trifluoride, BF₃.\nWhat are the shapes of the borohydride ion and the boron trifluoride molecule?\nboron trifluoride\nborohydride ion\npyramidal\nsquare planar",
+   "options": {
+    "A": "trigonal planar square planar",
+    "B": "pyramidal tetrahedral",
+    "C": "trigonal planar tetrahedral",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x014",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q6",
+    "qid": "9701_w23_13_q6"
+   },
+   "stem": "Which row is correct?\nshape of SCl₂\nshape of H₃O⁺\nnon-linear\npyramidal",
+   "options": {
+    "A": "linear pyramidal",
+    "B": "non-linear trigonal planar",
+    "C": "linear trigonal planar",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w23_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x015",
+   "kcs": [
+    "9701-3.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q6",
+    "qid": "9701_s24_13_q6"
+   },
+   "stem": "A structure for borazole, N₃B₃H₆, is shown.\nB\n–\nN⁺\nborazole\nB\n–\nN⁺\nB\n–\nN⁺\nH\nH\nH\nH\nH\nH\nWhich shape is borazole and how many π electrons are there in the structure?\nshape\nnumber of\nπ electrons",
+   "options": {
+    "A": "non-planar 3",
+    "B": "non-planar",
+    "C": "planar 3",
+    "D": "planar"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s24_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x016",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q5",
+    "qid": "9701_w24_12_q5"
+   },
+   "stem": "An ion contains 1 nitrogen atom and 2 hydrogen atoms. It has an H–N–H bond angle of\napproximately 105°.\nWhich row is correct?\nnumber of lone\npairs around\nN in ion\noverall charge\non ion",
+   "options": {
+    "A": "1 +1",
+    "B": "2 +1",
+    "C": "1 –1",
+    "D": "2 –1"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w24_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x017",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q24",
+    "qid": "9701_w24_13_q24"
+   },
+   "stem": "Three statements about ammonia molecules and ammonium ions are given.\n1\nIn aqueous solution, ammonia molecules form coordinate bonds with hydroxide\nions.\n2\nAmmonium ions are Brønsted–Lowry acids.\n3\nThe H–N–H bond angle is larger in the ammonium ion than in the ammonia\nmolecule.\nWhich statements are correct?",
+   "options": {
+    "A": "1 and 2 only",
+    "B": "1 and 3 only",
+    "C": "2 and 3 only",
+    "D": "1, 2 and 3"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w24_13_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x018",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q16",
+    "qid": "9701_s25_11_q16"
+   },
+   "stem": "A reaction involving ammonium ions is shown.\nNH₄\n⁺ + OH⁻\nNH₃ + H₂O\nFour statements about this reaction are listed.\n1\nThe ammonium ions are reduced.\n2\nIn the reverse reaction, ammonia acts as a Brønsted–Lowry base.\n3\nThe ammonium ion and the ammonia molecule have the same bond angle.\n4\nThis reaction is not a redox reaction.\nWhich statements are correct?",
+   "options": {
+    "A": "1 and 2",
+    "B": "1 and 3",
+    "C": "2 and 4",
+    "D": "3 and 4"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_11_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x019",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P11 · Q24",
+    "qid": "9701_w25_11_q24"
+   },
+   "stem": "When dry ammonia and hydrogen chloride gases are mixed, a solid white ionic compound is\nformed.\nTwo statements are listed.\n1\nThe formation of the ionic compound is a redox reaction.\n2\nDuring the formation of the ionic compound, the H–N–H bond angle increases.\nWhich statements are correct?",
+   "options": {
+    "A": "both 1 and 2",
+    "B": "1 only",
+    "C": "2 only",
+    "D": "neither 1 nor 2"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w25_11_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.5-x020",
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q6",
+    "qid": "9701_w25_12_q6"
+   },
+   "stem": "Three bond angles are labelled on the molecule shown.\nH\nS\nC\nH\nH\nH\nH\nH\nH\nC\nN\nx\ny\nz\nrepresents a lone\npair of electrons\nWhat is the order of decreasing size of the bond angles x, y and z?\nlargest\nsmallest",
+   "options": {
+    "A": "x y z",
+    "B": "x z y",
+    "C": "y z x",
+    "D": "z y x"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w25_12_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-3.5.1",
+   "front": "State the shape and angle of $\\ce{BF3}$.",
+   "back": "trigonal planar, 120°."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-3.5.1",
+   "front": "State the shape and angle of $\\ce{CO2}$.",
+   "back": "linear, 180°."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-3.5.1",
+   "front": "State the shape and angle of $\\ce{CH4}$.",
+   "back": "tetrahedral, 109.5°."
+  },
+  {
+   "id": "fc4",
+   "kc": "9701-3.5.1",
+   "front": "State the shape and angle of $\\ce{NH3}$.",
+   "back": "pyramidal, 107°."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-3.5.1",
+   "front": "State the shape and angle of $\\ce{H2O}$.",
+   "back": "non-linear, 104.5°."
+  },
+  {
+   "id": "fc6",
+   "kc": "9701-3.5.1",
+   "front": "State the shape and angle of $\\ce{SF6}$.",
+   "back": "octahedral, 90°."
+  },
+  {
+   "id": "fc7",
+   "kc": "9701-3.5.1",
+   "front": "State the shape and angle of $\\ce{PF5}$.",
+   "back": "trigonal bipyramidal, 120°."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-3.5.1": {
+   "motivate": "Why is $\\ce{CO2}$ straight while $\\ce{H2O}$ is bent, even though both have two bonds to the central atom? Lone pairs complete the picture.",
+   "establish": "VSEPR theory says electron regions in the valence shell repel and arrange to minimise repulsion. Each bond, even a double bond, counts as one region; include lone pairs. With no lone pairs: $\\ce{CO2}$ is linear, 180°; $\\ce{BF3}$ trigonal planar, 120°; $\\ce{CH4}$ tetrahedral, 109.5°; $\\ce{PF5}$ trigonal bipyramidal, 120° equatorial–equatorial and 90° axial–equatorial; $\\ce{SF6}$ octahedral, 90° adjacent and 180° opposite. Lone pairs repel bonding pairs more strongly and compress bond angles. $\\ce{NH3}$ has three bonds and one lone pair: pyramidal, 107°. $\\ce{H2O}$ has two bonds and two lone pairs: non-linear, 104.5°. Molecular shape names use atom positions, not lone-pair positions.",
+   "connect": "The bonding and lone pairs found in a dot-and-cross diagram from covalent bonding are the inputs to VSEPR. The resulting shape later helps explain molecular polarity.",
+   "note": "- Count each bond as one region, then add lone pairs.\n- Arrange regions to minimise repulsion.\n- Name shape from bonded atoms; lone pairs compress angles.\n- Memorise the seven named examples and their angles.",
+   "self_explain": "Explain why $\\ce{NH3}$ is pyramidal with 107°, while $\\ce{CH4}$ is tetrahedral with 109.5°.",
+   "discover": {
+    "stem": "A central atom has three bonding pairs and one lone pair. What is its molecular shape?",
+    "options": {
+     "A": "linear",
+     "B": "trigonal planar",
+     "C": "pyramidal",
+     "D": "tetrahedral"
+    },
+    "answer": "C",
+    "explanation": "Four regions arrange approximately tetrahedrally, but the three bonded atoms form a pyramid."
+   },
+   "source": "pack"
+  },
+  "9701-3.5.2": {
+   "motivate": "You can predict an unfamiliar ion's shape without memorising it if you know how many bonds and lone pairs surround its central atom.",
+   "establish": "For a molecule or ion analogous to the named examples, count bonding regions and lone pairs at its central atom, including charge when finding electrons. Match the count to a known VSEPR case, then state the molecular shape and bond angle. $\\ce{NH4+}$ and $\\ce{BH4-}$ each have four bonds and no central lone pair: tetrahedral, 109.5°. $\\ce{H3O+}$ has three bonds and one lone pair: pyramidal, approximately 107°. $\\ce{SCl2}$ has two bonds and two lone pairs: non-linear, approximately 104.5°. $\\ce{SO2}$ has two bonding regions and one lone pair: non-linear, with an angle slightly below 120°, not water's 104.5°. A multiple bond still counts as one region. In an octahedron, opposite bonds make 180° as well as adjacent bonds making 90°.",
+   "connect": "Apply the VSEPR arrangements from 3.5.1 to ions formed by dative bonding, such as ammonium. Adding a bond can remove a lone pair and change the angle.",
+   "note": "- Find the central atom's bonding regions and lone pairs.\n- Match an analogous syllabus example.\n- State atom-defined shape and predicted angle.\n- Account for lone-pair compression and opposite bonds.",
+   "self_explain": "Predict the shape and H–N–H angle of $\\ce{NH4+}$, then explain why it differs from $\\ce{NH3}$.",
+   "discover": {
+    "stem": "An ion has four bonds and no lone pair around its central atom. Which syllabus example matches it?",
+    "options": {
+     "A": "$\\ce{NH3}$",
+     "B": "$\\ce{H2O}$",
+     "C": "$\\ce{BF3}$",
+     "D": "$\\ce{CH4}$"
+    },
+    "answer": "D",
+    "explanation": "Four bonding regions and no lone pair match methane's tetrahedral arrangement."
+   },
+   "source": "pack"
+  }
+ }
+}

@@ -1,0 +1,57 @@
+import json
+from pathlib import Path
+from sympy import Integer
+S='9701-3.5'; K1=S+'.1'; K2=S+'.2'
+bank={x['id']:x for x in json.loads(Path('build/work/mcq/9701.tagged.json').read_text())}
+mis=[
+ {'id':'m1','kc':K1,'statement':'Every molecule with four electron regions is tetrahedral in molecular shape.','refutation':'Lone pairs occupy regions but are omitted when naming molecular shape.','contrast':'Four bonding pairs give tetrahedral; three bonding pairs and one lone pair give pyramidal.','source':'ER 9701 w22 P12 Q13'},
+ {'id':'m2','kc':K1,'statement':'A lone pair repels no more strongly than a bonding pair.','refutation':'Lone pair–bond pair repulsion compresses the angle between bonds.','contrast':'Ammonia has 107°, water 104.5°, compared with 109.5° in methane.','source':'ER 9701 w22 P12 Q13'},
+ {'id':'m3','kc':K2,'statement':'An octahedral molecule has only 90° bond angles.','refutation':'Opposite bonds make 180° as well as adjacent 90° angles.','contrast':'In SF6, trans F–S–F is straight.','source':'ER 9701 s22 P11 Q5'},
+ {'id':'m4','kc':K2,'statement':'A double bond counts as two electron regions in VSEPR.','refutation':'A double bond is one region of electron density around the central atom.','contrast':'CO2 has two regions and is linear.','source':'research'}]
+items=[]
+def add(kind,kc,cmd,stem,answer=None,options=None,difficulty=2,marks=1,explanation='',rubric=None,scheme=None,distractors=None):
+ i=len(items)+1; x={'id':f'{S}-i{i:02d}','kcs':[kc],'kind':kind,'difficulty':difficulty,'command_word':cmd,'source':{'type':'generated'},'stem':stem,'marks':marks,'explanation':explanation,'hints':['Count electron regions around the central atom.','Distinguish bonding regions from lone pairs.','Use the matching VSEPR arrangement, then name the positions of atoms.']}
+ if kind=='mcq':x.update(options=dict(zip('ABCD',options)),answer=answer,distractors=distractors or {},shuffle=True)
+ if kind=='short':x['rubric']=rubric
+ if kind=='structured':x['scheme']=scheme
+ items.append(x)
+def mc(kc,stem,opts,ans,why,dist={},difficulty=2,cmd='Identify'):add('mcq',kc,cmd,stem,ans,opts,difficulty,explanation=why,distractors=dist)
+def sh(kc,cmd,stem,points,why,difficulty=2):add('short',kc,cmd,stem,difficulty=difficulty,marks=len(points),explanation=why,rubric=[{'point':p,'keywords':kw} for p,kw in points])
+# All tabulated angles derive from a single geometry table, with exact rational halves where needed.
+shapes={'BF3':('trigonal planar',Integer(360)/3),'CO2':('linear',Integer(360)/2),'CH4':('tetrahedral',Integer(219)/2),'NH3':('pyramidal',Integer(107)),'H2O':('non-linear',Integer(209)/2),'SF6':('octahedral',Integer(90)),'PF5':('trigonal bipyramidal',Integer(120))}
+assert [float(shapes[x][1]) for x in ('BF3','CO2','CH4','NH3','H2O','SF6','PF5')]==[120,180,109.5,107,104.5,90,120]
+mc(K1,'State the shape and bond angle of $\\ce{BF3}$.',['trigonal planar, 120°','pyramidal, 107°','tetrahedral, 109.5°','linear, 180°'],'A','Three bonding regions and no lone pair spread equally in a plane, giving 120°.',{'B':'m1','C':'m1'})
+mc(K1,'State the shape and bond angle of $\\ce{CO2}$.',['non-linear, 104.5°','linear, 180°','trigonal planar, 120°','tetrahedral, 109.5°'],'B','Each double bond is one region; two regions oppose at 180°.',{'A':'m4','C':'m4','D':'m4'})
+mc(K1,'State the shape and bond angle of $\\ce{CH4}$.',['pyramidal, 107°','square planar, 90°','tetrahedral, 109.5°','trigonal planar, 120°'],'C','Four bonding pairs and no lone pairs give tetrahedral positions and 109.5°.',{'A':'m1'})
+mc(K1,'State the shape and approximate bond angle of $\\ce{NH3}$.',['tetrahedral, 109.5°','non-linear, 104.5°','trigonal planar, 120°','pyramidal, 107°'],'D','Three bonds and one lone pair give a pyramidal molecule; lone-pair repulsion compresses the angle to 107°.',{'A':'m1','B':'m2'})
+mc(K1,'State the shape and approximate bond angle of $\\ce{H2O}$.',['non-linear, 104.5°','linear, 180°','pyramidal, 107°','tetrahedral, 109.5°'],'A','Two bonds and two lone pairs give a non-linear molecule with angle 104.5°.',{'B':'m1','D':'m2'})
+mc(K1,'State the geometry and adjacent bond angle of $\\ce{SF6}$.',['trigonal bipyramidal, 120°','octahedral, 90°','tetrahedral, 109.5°','linear, 180°'],'B','Six bonding regions give octahedral positions; adjacent bonds are 90° and opposite bonds 180°.',{'D':'m3'})
+mc(K1,'State the shape and two distinct non-straight bond angles of $\\ce{PF5}$.',['octahedral, 90° and 120°','tetrahedral, 109.5° and 90°','trigonal bipyramidal, 90° and 120°','trigonal planar, 90° and 120°'],'C','Three equatorial bonds make 120°; an axial bond makes 90° with an equatorial bond.')
+sh(K1,'Explain','Explain why the H–N–H angle in $\\ce{NH3}$ is smaller than the H–C–H angle in $\\ce{CH4}$.',[('Nitrogen has one lone pair and three bonding pairs', [['lone'],['bond']]),('Lone-pair–bond-pair repulsion is greater and compresses the bond angle', [['repulsion'],['greater','stronger'],['compresses','reduces']])],'A lone pair occupies more space than a bond pair and pushes the three N–H bonds closer together.',4)
+mc(K2,'Predict the shape and angle of $\\ce{NH4+}$.',['pyramidal, 107°','tetrahedral, 109.5°','non-linear, 104.5°','trigonal planar, 120°'],'B','Nitrogen has four bonds and no lone pair in ammonium, so the shape and angle match methane.',{'A':'m1','C':'m2'},3,'Predict')
+mc(K2,'Predict the shape of $\\ce{BH4-}$.',['square planar','pyramidal','trigonal planar','tetrahedral'],'D','Boron has four bonding regions and no lone pairs in borohydride.',{'B':'m1'},3,'Predict')
+mc(K2,'Predict the shape of $\\ce{H3O+}$.',['pyramidal','trigonal planar','tetrahedral','non-linear'],'A','Oxygen has three bonds and one lone pair, matching ammonia.',{'C':'m1'},3,'Predict')
+mc(K2,'Predict the shape of $\\ce{SCl2}$.',['linear','non-linear','pyramidal','trigonal planar'],'B','Sulfur has two bonding pairs and two lone pairs, matching water.',{'A':'m1'},3,'Predict')
+mc(K2,'Predict the shape of $\\ce{SO2}$ from two S–O bonding regions and one sulfur lone pair.',['linear','pyramidal','trigonal planar','non-linear'],'D','Three regions arrange approximately trigonal planar; with only two bonded atoms the molecule is non-linear.',{'A':'m4'},3,'Predict')
+mc(K2,'Predict the F–B–F angle change when $\\ce{BF3}$ accepts a lone pair from $\\ce{NH3}$.',['increases from 120°','stays 120°','decreases towards 109.5°','decreases towards 90°'],'C','Boron changes from three to four bonding regions, so the angle falls from trigonal planar to tetrahedral.',{},4,'Predict')
+sh(K2,'Explain','Explain why $\\ce{NH4+}$ has a larger H–N–H angle than $\\ce{NH3}$.',[('Ammonium has four bonding pairs and no lone pair', [['four','4'],['bond'],['no lone']]),('Ammonia has a lone pair that repels bonding pairs more strongly', [['lone'],['repels','repulsion'],['stronger','greater']]),('Angles are 109.5° and 107° respectively', [['109.5'],['107']])],'Removing the lone pair removes its extra repulsion: ammonium is 109.5°, ammonia 107°.',4)
+sel=['9701_w22_12_q13','9701_s22_11_q5','9701_w21_12_q5','9701_w21_13_q18','9701_w19_13_q3','9701_s25_13_q11','9701_s25_12_q7','9701_s25_11_q15','9701_s24_13_q5','9701_s24_12_q5','9701_s24_11_q6','9701_s24_11_q24']
+exps={
+sel[0]:'Ozone has two bonds and one lone pair at the central O, so its angle is about 117°. A (107°) treats it as ammonia with four electron regions; ozone has three.',
+sel[1]:'Opposite fluorines in octahedral SF6 form a straight F–S–F line. B is wrong because propane has tetrahedral carbon centres, not a straight three-atom chain.',
+sel[2]:'Four electron pairs including both a bond and lone pair can produce a non-linear molecule. C would require five electron regions, not four.',
+sel[3]:'Ammonia is pyramidal and ammonium regular tetrahedral; their bonds are sigma bonds. B is wrong because ammonium has no pi bond.',
+sel[4]:'Ammonia has a 107° bond angle, smaller than the approximately 109.5° tetrahedral and 120° planar alternatives. C is larger because ammonium has no lone pair.',
+sel[5]:'Boron changes from 120° trigonal planar to approximately 109.5° tetrahedral, while nitrogen loses its lone pair and rises from 107°. A is wrong because the nitrogen angle increases.',
+sel[6]:'The angles increase H2O 104.5° < NH3 107° < BF3 120°. D is wrong because BF3 exceeds NH3.',
+sel[7]:'Methane and ammonium each have four covalent bonds and tetrahedral shape. C is wrong because BF3 is trigonal planar but ammonia is pyramidal.',
+sel[8]:'AsF5 is trigonal bipyramidal with 90° and 120°; SeF6 is octahedral with 90° when 180° is excluded. A is wrong because selenium fluoride has only one non-straight angle.',
+sel[9]:'Three bonding pairs and one lone pair give pyramidal shape. D is wrong because the lone pair prevents a trigonal planar molecular shape.',
+sel[10]:'SO2 has two bonded atoms around sulfur and a lone pair, making it non-linear. A ignores the lone pair.',
+sel[11]:'Ammonium has four bonding pairs and no lone pairs, so its angle is tetrahedral 109.5°. B is ammonia’s smaller angle.'}
+for n,qid in enumerate(sel,1):
+ b=bank[qid]; kc=K1 if qid in (sel[2],sel[3]) else K2
+ items.append({'id':f'{S}-p{n:02d}','kcs':[kc],'kind':'mcq','difficulty':3,'command_word':'Identify','source':{'type':'past','ref':b['ref'],'qid':qid},'stem':b['stem'],'options':b['options'],'answer':b['answer'],'marks':1,'explanation':exps[qid],**({'image':b['image']} if b.get('image') else {}),'distractors':({'A':'m2'} if qid==sel[0] else {'B':'m3'} if qid==sel[1] else {})})
+worked=[{'id':'we1','kc':K2,'problem':'Predict the shape and H–N–H angle of $\\ce{NH4+}$, then compare it with $\\ce{NH3}$.','steps':[{'do':'Count four N–H bonding regions and zero lone pairs on N in $\\ce{NH4+}$.','why':'A dative bond counts as one bonding region after formation.'},{'do':'Assign tetrahedral shape and 109.5° angle.','why':'Four bonding regions repel to equivalent positions.'},{'do':'Compare $\\ce{NH3}$: three bonds and one lone pair give pyramidal shape and 107°.','why':'The lone pair repels more strongly and compresses the angle.'}], 'faded':{'id':'we1f','problem':'Predict the shape and bond angle of $\\ce{BH4-}$ from its four B–H bonds and no lone pairs.','answer':{'value':float(shapes['CH4'][1]),'unit':'','sf_ok':[1,2,3,4]},'blank_from':1}}]
+pack={'subtopic':S,'spec':'9701','version':1,'note':'Subjects/9701 Chemistry/03 Chemical bonding/3.5 Shapes of molecules.md','outline':'VSEPR theory predicts shapes from repulsion between electron regions around a central atom. Count each single, double or triple bond as one region and count lone pairs too. Arrange regions to minimise repulsion, then name molecular shape from atom positions. Lone pairs repel bonding pairs more strongly, compressing bond angles. Two, three, four, five and six bonding regions with no lone pairs give linear, trigonal planar, tetrahedral, trigonal bipyramidal and octahedral shapes. Three bonds plus one lone pair give pyramidal; two bonds plus two lone pairs give non-linear. Apply these patterns to analogous ions and molecules, including ammonium, borohydride, hydronium and sulfur dioxide.','misconceptions':mis,'worked':worked,'items':items,'flashcards':[{'id':f'fc{n}','kc':K1,'front':f'State the shape and angle of $\\ce{{{formula}}}$.','back':f'{shapes[formula][0]}, {float(shapes[formula][1]):g}°.'} for n,formula in enumerate(shapes,1)],'diagrams':[]}
+p=Path('build/out/packs/9701/9701-3.5.json');p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(pack,ensure_ascii=False,indent=2))
