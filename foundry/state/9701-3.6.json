@@ -1,0 +1,195 @@
+{
+ "sub": "9701-3.6",
+ "stage": "ready",
+ "created": "2026-10-10T10:59:42+08:00",
+ "updated": "2026-10-10T13:45:06+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T11:02:21+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 53 items"
+  },
+  {
+   "t": "2026-10-10T13:41:35+08:00",
+   "from": "solve",
+   "to": "adjudicate",
+   "note": "29 agreed, 0 disputed; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T13:44:28+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T13:45:05+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T13:45:06+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 53,
+  "extra": 17
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item 9701-3.6-p05",
+   "rule": "off syllabus",
+   "evidence": "Which type of interaction exists between water molecules and metal cations in aqueous solution? ... C: ion-dipole interactions",
+   "suggested": "Replace with a question testing an interaction type taught in this chapter.",
+   "status": "fixed",
+   "resolution": "fix: The official C key for 9701_w21_11_q5 is chemically correct: a metal cation attracts the partially negative oxygen end of water. However, naming ion-dipole interactions is not in the supplied chapter outcomes; KC 9701-3.6.2 tests bond polarity and molecular dipole moments. Replace item 9701-3.6-p05 with this exact object: {\"id\": \"9701-3.6-p05\", \"kcs\": [\"9701-3.6.2\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"past\", \"ref\": \"CAIE 9701 · Nov 2019 · P12 · Q31\", \"qid\": \"9701_w19_12_q31\"}, \"stem\": \"Which gaseous molecules are polar?\\n1 ammonia\\n2 hydrogen sulfide\\n3 boron trifluoride\", \"options\": {\"A\": \"1, 2 and 3 are correct\", \"B\": \"1 and 2 only are correct\", \"C\": \"2 and 3 only are correct\", \"D\": \"1 only is correct\"}, \"answer\": \"B\", \"image\": \"Assets/mcq/9701_w19_12_q31.png\", \"marks\": 1, \"explanation\": \"B: 1 and 2 only. Ammonia is trigonal pyramidal and hydrogen sulfide is bent; their bond dipoles do not cancel, so both molecules are polar. Boron trifluoride is trigonal planar with three identical B-F bonds whose dipoles cancel. A is incorrect because polar bonds do not necessarily make a molecule polar; D is incorrect because hydrogen sulfide is also polar.\", \"distractors\": {}}. This promotes the existing 9701-3.6-x004 question into core practice; remove that duplicate extra item from this pack. The replacement official key is B, independently confirmed by molecular shapes; the source image was inspected and there is no examiner comment in the tagged record. Do not change the original past-paper key."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9701-3.6-p05",
+   "instruction": "The official C key for 9701_w21_11_q5 is chemically correct: a metal cation attracts the partially negative oxygen end of water. However, naming ion-dipole interactions is not in the supplied chapter outcomes; KC 9701-3.6.2 tests bond polarity and molecular dipole moments. Replace item 9701-3.6-p05 with this exact object: {\"id\": \"9701-3.6-p05\", \"kcs\": [\"9701-3.6.2\"], \"kind\": \"mcq\", \"difficulty\": 3, \"command_word\": null, \"source\": {\"type\": \"past\", \"ref\": \"CAIE 9701 · Nov 2019 · P12 · Q31\", \"qid\": \"9701_w19_12_q31\"}, \"stem\": \"Which gaseous molecules are polar?\\n1 ammonia\\n2 hydrogen sulfide\\n3 boron trifluoride\", \"options\": {\"A\": \"1, 2 and 3 are correct\", \"B\": \"1 and 2 only are correct\", \"C\": \"2 and 3 only are correct\", \"D\": \"1 only is correct\"}, \"answer\": \"B\", \"image\": \"Assets/mcq/9701_w19_12_q31.png\", \"marks\": 1, \"explanation\": \"B: 1 and 2 only. Ammonia is trigonal pyramidal and hydrogen sulfide is bent; their bond dipoles do not cancel, so both molecules are polar. Boron trifluoride is trigonal planar with three identical B-F bonds whose dipoles cancel. A is incorrect because polar bonds do not necessarily make a molecule polar; D is incorrect because hydrogen sulfide is also polar.\", \"distractors\": {}}. This promotes the existing 9701-3.6-x004 question into core practice; remove that duplicate extra item from this pack. The replacement official key is B, independently confirmed by molecular shapes; the source image was inspected and there is no examiner comment in the tagged record. Do not change the original past-paper key.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 36965,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T11:00:42+08:00",
+   "log": "foundry/logs/9701-3.6.drafter.1010-110042.log",
+   "out": "foundry/logs/9701-3.6.drafter.1010-110042.out.json",
+   "finished": "2026-10-10T11:02:21+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-3.6.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/03 Chemical bonding/3.6 Intermolecular forces, electronegativity and bond properties.md",
+    "items": 53,
+    "templates": 0,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 97119,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T13:39:50+08:00",
+   "log": "foundry/logs/9701-3.6.solver-1.1010-133950.log",
+   "out": "foundry/logs/9701-3.6.solver-1.1010-133950.out.json",
+   "expects": "build/work/blind/9701-3.6.answers.part1.json",
+   "finished": "2026-10-10T13:41:34+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote to build/work/blind/9701-3.6.answers.part1.json."
+   },
+   "ok": true,
+   "cost_usd": 0.104
+  },
+  "solver#2": {
+   "pid": 97121,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T13:39:50+08:00",
+   "log": "foundry/logs/9701-3.6.solver-2.1010-133950.log",
+   "out": "foundry/logs/9701-3.6.solver-2.1010-133950.out.json",
+   "expects": "build/work/blind/9701-3.6.answers.part2.json",
+   "finished": "2026-10-10T13:41:32+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9 questions answered. Written to build/work/blind/9701-3.6.answers.part2.json"
+   },
+   "ok": true,
+   "cost_usd": 0.101
+  },
+  "checker": {
+   "pid": 97123,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:39:50+08:00",
+   "log": "foundry/logs/9701-3.6.checker.1010-133950.log",
+   "out": "foundry/logs/9701-3.6.checker.1010-133950.out.json",
+   "expects": "build/work/foundry/9701-3.6.check.json",
+   "finished": "2026-10-10T13:40:11+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — `build/work/foundry/9701-3.6.check.json`"
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 99838,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:43:25+08:00",
+   "log": "foundry/logs/9701-3.6.adjudicator.1010-134325.log",
+   "out": "foundry/logs/9701-3.6.adjudicator.1010-134325.out.json",
+   "finished": "2026-10-10T13:44:33+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item 9701-3.6-p05 fix: Replace off-syllabus ion–dipole question with molecular-polarity question; exact replacement recorded."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 796,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T13:44:35+08:00",
+   "log": "foundry/logs/9701-3.6.fixer.1010-134435.log",
+   "out": "foundry/logs/9701-3.6.fixer.1010-134435.out.json",
+   "finished": "2026-10-10T13:45:05+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "Syllabus gate reports four pre-existing `no-teach-card` errors for KCs 9701-3.6.1 through 9701-3.6.4. Fixing teach cards is outside the fixer’s allowed files."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_12_q29": "9701-3.6-x001",
+  "9701_s19_13_q5": "9701-3.6-x002",
+  "9701_w19_11_q33": "9701-3.6-x003",
+  "9701_w19_12_q31": "9701-3.6-x004",
+  "9701_w19_13_q5": "9701-3.6-x004",
+  "9701_s20_12_q7": "9701-3.6-x005",
+  "9701_s20_12_q29": "9701-3.6-x006",
+  "9701_w20_12_q32": "9701-3.6-x007",
+  "9701_s21_12_q3": "9701-3.6-x008",
+  "9701_w21_11_q33": "9701-3.6-x010",
+  "9701_w21_12_q6": "9701-3.6-x011",
+  "9701_w21_12_q7": "9701-3.6-x012",
+  "9701_s22_13_q24": "9701-3.6-x013",
+  "9701_s23_11_q22": "9701-3.6-x014",
+  "9701_w23_11_q8": "9701-3.6-x015",
+  "9701_w23_13_q8": "9701-3.6-x016",
+  "9701_s25_12_q10": "9701-3.6-x017",
+  "9701_w21_11_q5": "9701-3.6-x009"
+ },
+ "maker": "codex",
+ "checked": true
+}
