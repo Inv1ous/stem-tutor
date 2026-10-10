@@ -1,0 +1,291 @@
+{
+ "sub": "9701-13.1",
+ "stage": "ready",
+ "created": "2026-10-10T16:51:05+08:00",
+ "updated": "2026-10-10T17:13:04+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:53:40+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 59 items"
+  },
+  {
+   "t": "2026-10-10T16:55:17+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "21 agreed, 5 disputed"
+  },
+  {
+   "t": "2026-10-10T16:56:38+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 3 for the manager"
+  },
+  {
+   "t": "2026-10-10T17:02:27+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T17:04:10+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 4 fixes applied"
+  },
+  {
+   "t": "2026-10-10T17:05:41+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "3 agreed, 0 disputed; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:13:04+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 59,
+  "extra": 11
+ },
+ "disputes": [
+  {
+   "id": "9701-13.1-p10",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-13.1-x008",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "fix: In build/work/mcq/overrides.json under qid 9701_w23_11_q25, set stem to \"Hexamine is a crystalline solid used as a fuel in portable stoves.\\nThe diagram shows its skeletal structure.\\nWhat is the empirical formula of hexamine?\"; set options to {\"A\":\"CH₂N\",\"B\":\"C₃H₆N₂\",\"C\":\"C₄H₈N₄\",\"D\":\"C₆H₁₂N₄\"}; retain answer=\"B\" and the existing image; set explanation to \"The skeletal structure contains six CH₂ groups and four nitrogen atoms, giving molecular formula C₆H₁₂N₄. Dividing all subscripts by their greatest common divisor, 2, gives empirical formula C₃H₆N₂, option B. A has the wrong C:N ratio; C has the wrong atom counts; D is the molecular formula and is not the simplest ratio. The extracted option labels were shifted; the source image confirms B.\""
+  },
+  {
+   "id": "9701-13.1-x009",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "fix: In build/work/mcq/overrides.json under qid 9701_w23_13_q25, set stem to \"Hexamine is a crystalline solid used as a fuel in portable stoves.\\nThe diagram shows its skeletal structure.\\nWhat is the empirical formula of hexamine?\"; set options to {\"A\":\"CH₂N\",\"B\":\"C₃H₆N₂\",\"C\":\"C₄H₈N₄\",\"D\":\"C₆H₁₂N₄\"}; retain answer=\"B\" and the existing image; set explanation to \"The skeletal structure contains six CH₂ groups and four nitrogen atoms, giving molecular formula C₆H₁₂N₄. Dividing all subscripts by their greatest common divisor, 2, gives empirical formula C₃H₆N₂, option B. A has the wrong C:N ratio; C has the wrong atom counts; D is the molecular formula and is not the simplest ratio. The extracted option labels were shifted; the source image confirms B.\""
+  },
+  {
+   "id": "9701-13.1-x010",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "we5.faded",
+   "key": {
+    "expr": "C2H4O"
+   },
+   "solver": "C4H8O2; C2H4O",
+   "tiebreak": "('C4H8O2', 'C2H4O')",
+   "status": "closed",
+   "resolution": "fix: In the worked example with id=\"we5\", set faded.problem to \"Deduce the empirical formula of CH3CH2COOCH3.\" Retain faded.answer={\"expr\":\"C2H4O\"}, faded.blank_from=1, and the full worked problem and steps. Atom counts are C4H8O2 and division by 2 gives C2H4O; the faded prompt must ask only for the single formula accepted by its answer field."
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9701-13.1-p12 options A and B",
+   "rule": "two right options",
+   "evidence": "CH₃(CH₂)₂CBr(CH₃)CH₂CH₃; A: tertiary 3-bromo-3-methylhexane; B: tertiary 3-bromo-4-methylhexane; answer: B",
+   "suggested": "Correct the key to A and revise the explanation: Br and methyl are both on carbon 3 when numbered from the nearer end.",
+   "status": "fixed",
+   "resolution": "fix: For item 9701-13.1-p12 (source.qid=\"9701_w23_12_q28\"), retain official answer=\"B\" and the existing image. Set stem to \"Which row shows the correct name and classification of the halogenoalkane shown?\\nCH₃(CH₂)₂CBr(CH₃)CH₂CH₃\". Set options to {\"A\":\"secondary 3-bromo-3-methylhexane\",\"B\":\"tertiary 3-bromo-3-methylhexane\",\"C\":\"tertiary 3-bromo-4-methylhexane\",\"D\":\"secondary 4-bromo-5-methylhexane\"}. Set explanation to \"Number the six-carbon parent chain from the nearer end: both Br and methyl are attached to carbon 3, giving 3-bromo-3-methylhexane. The carbon bonded to Br is bonded to three other carbon atoms, so the halogenoalkane is tertiary. B is correct. A incorrectly classifies it as secondary; C places methyl on a different carbon from Br; D has incorrect locants and classification. The extracted table rows were shifted; the source image confirms B.\" The checker correctly identifies a naming error in the extracted options, but its proposed key A does not match the original source table."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "9701-13.1-x008",
+   "instruction": "In build/work/mcq/overrides.json under qid 9701_w23_11_q25, set stem to \"Hexamine is a crystalline solid used as a fuel in portable stoves.\\nThe diagram shows its skeletal structure.\\nWhat is the empirical formula of hexamine?\"; set options to {\"A\":\"CH₂N\",\"B\":\"C₃H₆N₂\",\"C\":\"C₄H₈N₄\",\"D\":\"C₆H₁₂N₄\"}; retain answer=\"B\" and the existing image; set explanation to \"The skeletal structure contains six CH₂ groups and four nitrogen atoms, giving molecular formula C₆H₁₂N₄. Dividing all subscripts by their greatest common divisor, 2, gives empirical formula C₃H₆N₂, option B. A has the wrong C:N ratio; C has the wrong atom counts; D is the molecular formula and is not the simplest ratio. The extracted option labels were shifted; the source image confirms B.\"",
+   "status": "done"
+  },
+  {
+   "ref": "9701-13.1-x009",
+   "instruction": "In build/work/mcq/overrides.json under qid 9701_w23_13_q25, set stem to \"Hexamine is a crystalline solid used as a fuel in portable stoves.\\nThe diagram shows its skeletal structure.\\nWhat is the empirical formula of hexamine?\"; set options to {\"A\":\"CH₂N\",\"B\":\"C₃H₆N₂\",\"C\":\"C₄H₈N₄\",\"D\":\"C₆H₁₂N₄\"}; retain answer=\"B\" and the existing image; set explanation to \"The skeletal structure contains six CH₂ groups and four nitrogen atoms, giving molecular formula C₆H₁₂N₄. Dividing all subscripts by their greatest common divisor, 2, gives empirical formula C₃H₆N₂, option B. A has the wrong C:N ratio; C has the wrong atom counts; D is the molecular formula and is not the simplest ratio. The extracted option labels were shifted; the source image confirms B.\"",
+   "status": "done"
+  },
+  {
+   "ref": "we5.faded",
+   "instruction": "In the worked example with id=\"we5\", set faded.problem to \"Deduce the empirical formula of CH3CH2COOCH3.\" Retain faded.answer={\"expr\":\"C2H4O\"}, faded.blank_from=1, and the full worked problem and steps. Atom counts are C4H8O2 and division by 2 gives C2H4O; the faded prompt must ask only for the single formula accepted by its answer field.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-13.1-p12 options A and B",
+   "instruction": "For item 9701-13.1-p12 (source.qid=\"9701_w23_12_q28\"), retain official answer=\"B\" and the existing image. Set stem to \"Which row shows the correct name and classification of the halogenoalkane shown?\\nCH₃(CH₂)₂CBr(CH₃)CH₂CH₃\". Set options to {\"A\":\"secondary 3-bromo-3-methylhexane\",\"B\":\"tertiary 3-bromo-3-methylhexane\",\"C\":\"tertiary 3-bromo-4-methylhexane\",\"D\":\"secondary 4-bromo-5-methylhexane\"}. Set explanation to \"Number the six-carbon parent chain from the nearer end: both Br and methyl are attached to carbon 3, giving 3-bromo-3-methylhexane. The carbon bonded to Br is bonded to three other carbon atoms, so the halogenoalkane is tertiary. B is correct. A incorrectly classifies it as secondary; C places methyl on a different carbon from Br; D has incorrect locants and classification. The extracted table rows were shifted; the source image confirms B.\" The checker correctly identifies a naming error in the extracted options, but its proposed key A does not match the original source table.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 20284,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:51:35+08:00",
+   "log": "foundry/logs/9701-13.1.drafter.1010-165135.log",
+   "out": "foundry/logs/9701-13.1.drafter.1010-165135.out.json",
+   "finished": "2026-10-10T16:53:40+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-13.1.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/13 An introduction to AS Level organic chemistry/13.1 Formulas, functional groups and the naming of organic compounds.md",
+    "items": 59,
+    "templates": 0,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Molecular structure figures could not be rendered with the available diagram types."
+    ]
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 21964,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:54:31+08:00",
+   "log": "foundry/logs/9701-13.1.solver-1.1010-165431.log",
+   "out": "foundry/logs/9701-13.1.solver-1.1010-165431.out.json",
+   "expects": "build/work/blind/9701-13.1.answers.part1.json",
+   "finished": "2026-10-10T16:55:09+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-13.1.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 21969,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:54:31+08:00",
+   "log": "foundry/logs/9701-13.1.solver-2.1010-165431.log",
+   "out": "foundry/logs/9701-13.1.solver-2.1010-165431.out.json",
+   "expects": "build/work/blind/9701-13.1.answers.part2.json",
+   "finished": "2026-10-10T16:54:51+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 6 questions in `build/work/blind/9701-13.1.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 21974,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:54:31+08:00",
+   "log": "foundry/logs/9701-13.1.checker.1010-165431.log",
+   "out": "foundry/logs/9701-13.1.checker.1010-165431.out.json",
+   "expects": "build/work/foundry/9701-13.1.check.json",
+   "finished": "2026-10-10T16:54:54+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — wrote [9701-13.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9701-13.1.check.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 23188,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:55:58+08:00",
+   "log": "foundry/logs/9701-13.1.tiebreak.1010-165558.log",
+   "out": "foundry/logs/9701-13.1.tiebreak.1010-165558.out.json",
+   "expects": "build/work/blind/9701-13.1.tiebreak.json",
+   "finished": "2026-10-10T16:56:20+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 5,
+    "answers_path": "build/work/blind/9701-13.1.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 27326,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T17:01:13+08:00",
+   "log": "foundry/logs/9701-13.1.adjudicator.1010-170113.log",
+   "out": "foundry/logs/9701-13.1.adjudicator.1010-170113.out.json",
+   "finished": "2026-10-10T17:02:33+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9701-13.1-x008 fix: Restore shifted options; retain official key B.\n9701-13.1-x009 fix: Restore shifted options; retain official key B.\nwe5.faded fix: Ask only for the empirical formula.\nitem 9701-13.1-p12 options A and B fix: Restore source rows and correct explanation; retain B."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 28057,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T17:02:44+08:00",
+   "log": "foundry/logs/9701-13.1.fixer.1010-170244.log",
+   "out": "foundry/logs/9701-13.1.fixer.1010-170244.out.json",
+   "finished": "2026-10-10T17:04:10+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 4,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 29083,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:04:20+08:00",
+   "log": "foundry/logs/9701-13.1.solver.1010-170420.log",
+   "out": "foundry/logs/9701-13.1.solver.1010-170420.out.json",
+   "expects": "build/work/blind/9701-13.1.recheck.answers.json",
+   "finished": "2026-10-10T17:04:36+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 3 questions in `build/work/blind/9701-13.1.recheck.answers.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_11_q21": "9701-13.1-x001",
+  "9701_s19_12_q37": "9701-13.1-x002",
+  "9701_w20_12_q39": "9701-13.1-x003",
+  "9701_w20_13_q30": "9701-13.1-x004",
+  "9701_s21_12_q32": "9701-13.1-x005",
+  "9701_s22_13_q27": "9701-13.1-x006",
+  "9701_s23_12_q25": "9701-13.1-x007",
+  "9701_w23_11_q25": "9701-13.1-x008",
+  "9701_w23_13_q25": "9701-13.1-x009",
+  "9701_s25_12_q15": "9701-13.1-x010",
+  "9701_w25_11_q26": "9701-13.1-x011"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
