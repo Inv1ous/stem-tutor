@@ -1,0 +1,16 @@
+{
+ "9702-8.4.1": {
+  "motivate": "A grating sends one colour into bright spots at particular angles. Their positions let you predict the wavelength and the possible diffraction orders.",
+  "establish": "For normally incident light, adjacent grating slits have spacing $d$. At angle $\\theta$ from the straight-through, zero-order direction, their path difference is $d\\sin\\theta$. A bright maximum occurs when this equals a whole number $n$ of wavelengths: $d\\sin\\theta=n\\lambda$. Here $n=0,1,2,\\ldots$ labels diffraction order on either side. Convert line density $N$ in lines per metre to spacing with $d=1/N$. Since $\\sin\\theta\\le1$, only orders with $n\\lambda\\le d$ occur; count both sides and the central maximum when finding the total number of spots.",
+  "connect": "This extends double-slit interference: path differences select constructive interference, while the many lines of a grating make the maxima sharp.",
+  "note": "- $d\\sin\\theta=n\\lambda$ for normally incident light.\n- $d$ is spacing between adjacent lines; $\\theta$ is measured from the central direction.\n- Orders are integers and satisfy $n\\lambda\\le d$.\n- Two-sided spot count is $2n_{\\max}+1$ when all orders are visible.",
+  "self_explain": "Why is the angle between matching first-order spots twice the $\\theta$ used in the equation?"
+ },
+ "9702-8.4.2": {
+  "motivate": "An unknown light wavelength can be measured with a known grating by observing where its bright maxima appear.",
+  "establish": "Direct monochromatic light normally through a grating of known line density. Identify the central zero-order maximum and a maximum of known order $n$. Measure its angle $\\theta$ from the central direction, preferably on both sides. With a screen, measure grating-to-screen distance $L$ and transverse displacement $y$; calculate $\\theta=\\tan^{-1}(y/L)$. If density is given in lines per millimetre, multiply by 1000 for lines per metre and invert to find spacing $d$. Determine wavelength from $\\lambda=d\\sin\\theta/n$. Repeat for several orders or both sides to check and average results. The structure and use of a spectrometer are not required.",
+  "connect": "The equation from the previous card becomes a measurement method once $d$, $n$ and $\\theta$ are known.",
+  "note": "- Illuminate the grating normally and identify zero and order-$n$ maxima.\n- Measure $\\theta$ from centre; for a screen use $\\tan\\theta=y/L$.\n- Convert line density to $d$ in metres.\n- Determine $\\lambda=d\\sin\\theta/n$ and repeat measurements.",
+  "self_explain": "If the grating has 400 lines per millimetre, what steps give $d$ in metres before calculating wavelength?"
+ }
+}
