@@ -1,0 +1,176 @@
+{
+ "sub": "P2-8",
+ "stage": "ready",
+ "created": "2026-10-10T15:55:37+08:00",
+ "updated": "2026-10-10T16:44:41+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:57:37+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 18 items"
+  },
+  {
+   "t": "2026-10-10T16:07:00+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "17 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T16:09:57+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "2 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:28:27+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:43:39+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 2 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:44:41+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 19,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item P2-8-i18 hint 3",
+   "rule": "hint gives it away",
+   "evidence": "The secant lies above the curve.",
+   "suggested": "Prompt the learner to compare the straight edge with the curve without stating their relative positions.",
+   "status": "fixed",
+   "resolution": "fix: In pack item P2-8-i18, set hints[2] (third hint) to exactly: \"Sketch y=x^2 from x=0 to x=1 and join the endpoints with a straight line. Compare the region beneath that line with the region beneath the curve.\" The existing hint states the sole credited explanation, so it gives away the answer. Keep the stem, rubric and explanation unchanged."
+  },
+  {
+   "ref": "P2-8.3 trapezium-rule outcome",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Use of an increasing number of trapezia to improve accuracy, and an estimate of the error, may be required.",
+   "suggested": "Add a question asking learners to compare estimates with different strip counts and estimate the error against an exact integral.",
+   "status": "fixed",
+   "resolution": "fix: The accuracy and absolute-error outcomes are already taught in teach[\"P2-8.3\"].establish, but items i13-i17 only calculate separate trapezium estimates and never assess their errors or compare accuracy. Append the following exact new item to the pack items array; retain the existing teaching and items: {\"id\": \"P2-8-i19\", \"kcs\": [\"P2-8.3\"], \"kind\": \"short\", \"difficulty\": 3, \"command_word\": \"Calculate\", \"source\": {\"type\": \"generated\"}, \"stem\": \"For $I=\\\\int_0^2 x^2\\\\,dx$, the trapezium-rule estimates using two and four equal strips are $T_2=3$ and $T_4=11/4$. Calculate $I$ exactly and the absolute error of each estimate. State which estimate is more accurate and explain how the errors support your conclusion.\", \"marks\": 4, \"rubric\": [{\"point\": \"$I=[x^3/3]_0^2=8/3$.\", \"keywords\": [[\"8/3\", \"2.6666666667\"]]}, {\"point\": \"The two-strip absolute error is $|3-8/3|=1/3$.\", \"keywords\": [[\"1/3\", \"0.3333333333\"]]}, {\"point\": \"The four-strip absolute error is $|11/4-8/3|=1/12$.\", \"keywords\": [[\"1/12\", \"0.0833333333\"]]}, {\"point\": \"The four-strip estimate is more accurate because its absolute error is smaller (one quarter of the two-strip error).\", \"keywords\": [[\"four\", \"4\"], [\"smaller\", \"less\", \"quarter\"]]}], \"explanation\": \"The exact integral is $8/3$. The absolute errors are $1/3$ for two strips and $1/12$ for four strips. Increasing the number of strips from two to four reduces the absolute error to one quarter, so the four-strip estimate is more accurate.\", \"hints\": [\"First evaluate the integral using an antiderivative.\", \"For each estimate, calculate the absolute difference from the exact integral.\", \"Compare the two absolute errors; greater accuracy corresponds to a smaller error.\"]}"
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item P2-8-i18 hint 3",
+   "instruction": "In pack item P2-8-i18, set hints[2] (third hint) to exactly: \"Sketch y=x^2 from x=0 to x=1 and join the endpoints with a straight line. Compare the region beneath that line with the region beneath the curve.\" The existing hint states the sole credited explanation, so it gives away the answer. Keep the stem, rubric and explanation unchanged.",
+   "status": "done"
+  },
+  {
+   "ref": "P2-8.3 trapezium-rule outcome",
+   "instruction": "The accuracy and absolute-error outcomes are already taught in teach[\"P2-8.3\"].establish, but items i13-i17 only calculate separate trapezium estimates and never assess their errors or compare accuracy. Append the following exact new item to the pack items array; retain the existing teaching and items: {\"id\": \"P2-8-i19\", \"kcs\": [\"P2-8.3\"], \"kind\": \"short\", \"difficulty\": 3, \"command_word\": \"Calculate\", \"source\": {\"type\": \"generated\"}, \"stem\": \"For $I=\\\\int_0^2 x^2\\\\,dx$, the trapezium-rule estimates using two and four equal strips are $T_2=3$ and $T_4=11/4$. Calculate $I$ exactly and the absolute error of each estimate. State which estimate is more accurate and explain how the errors support your conclusion.\", \"marks\": 4, \"rubric\": [{\"point\": \"$I=[x^3/3]_0^2=8/3$.\", \"keywords\": [[\"8/3\", \"2.6666666667\"]]}, {\"point\": \"The two-strip absolute error is $|3-8/3|=1/3$.\", \"keywords\": [[\"1/3\", \"0.3333333333\"]]}, {\"point\": \"The four-strip absolute error is $|11/4-8/3|=1/12$.\", \"keywords\": [[\"1/12\", \"0.0833333333\"]]}, {\"point\": \"The four-strip estimate is more accurate because its absolute error is smaller (one quarter of the two-strip error).\", \"keywords\": [[\"four\", \"4\"], [\"smaller\", \"less\", \"quarter\"]]}], \"explanation\": \"The exact integral is $8/3$. The absolute errors are $1/3$ for two strips and $1/12$ for four strips. Increasing the number of strips from two to four reduces the absolute error to one quarter, so the four-strip estimate is more accurate.\", \"hints\": [\"First evaluate the integral using an antiderivative.\", \"For each estimate, calculate the absolute difference from the exact integral.\", \"Compare the two absolute errors; greater accuracy corresponds to a smaller error.\"]}",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 78757,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:55:37+08:00",
+   "log": "foundry/logs/P2-8.drafter.1010-155537.log",
+   "out": "foundry/logs/P2-8.drafter.1010-155537.out.json",
+   "finished": "2026-10-10T15:57:37+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/P2/P2-8.json",
+    "note_path": "build/out/notes/Subjects/Maths/P2 Pure Mathematics 2/8 Integration.md",
+    "items": 18,
+    "templates": 0,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 85953,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:06:34+08:00",
+   "log": "foundry/logs/P2-8.solver.1010-160634.log",
+   "out": "foundry/logs/P2-8.solver.1010-160634.out.json",
+   "expects": "build/work/blind/P2-8.answers.json",
+   "finished": "2026-10-10T16:06:50+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 17 questions in `build/work/blind/P2-8.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 87580,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:08:56+08:00",
+   "log": "foundry/logs/P2-8.checker.1010-160856.log",
+   "out": "foundry/logs/P2-8.checker.1010-160856.out.json",
+   "expects": "build/work/foundry/P2-8.check.json",
+   "finished": "2026-10-10T16:09:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "2 findings — [P2-8.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/P2-8.check.json)."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 2616,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T16:27:42+08:00",
+   "log": "foundry/logs/P2-8.adjudicator.1010-162742.log",
+   "out": "foundry/logs/P2-8.adjudicator.1010-162742.out.json",
+   "finished": "2026-10-10T16:28:34+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item P2-8-i18 hint 3 fix: Replace answer-revealing hint with a sketch comparison prompt.\nP2-8.3 trapezium-rule outcome fix: Add verified error-calculation and accuracy-comparison question."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 14142,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:43:01+08:00",
+   "log": "foundry/logs/P2-8.fixer.1010-164301.log",
+   "out": "foundry/logs/P2-8.fixer.1010-164301.out.json",
+   "finished": "2026-10-10T16:43:39+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 2,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

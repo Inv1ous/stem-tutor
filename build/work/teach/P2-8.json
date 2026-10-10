@@ -1,0 +1,23 @@
+{
+  "P2-8.1": {
+    "motivate": "A definite integral turns a changing quantity into one total over an interval. Its limits tell you where to start and stop.",
+    "establish": "If $F'(x)=f(x)$, then $\\int_a^b f(x)\\,dx=F(b)-F(a)$. First find an antiderivative using the integration rules. Substitute the upper limit into the entire antiderivative, then subtract its value at the lower limit. The arbitrary integration constant cancels. Reversing the limits reverses the sign; identical limits give zero.",
+    "connect": "This is the fundamental theorem of calculus: differentiation and integration undo one another. The definite integral can also represent signed area.",
+    "note": "- Find $F(x)$ with $F'(x)=f(x)$.\n- Evaluate $[F(x)]_a^b=F(b)-F(a)$.\n- Check signs and exact form.",
+    "self_explain": "Why do we subtract the value at the lower limit when evaluating a definite integral?"
+  },
+  "P2-8.2": {
+    "motivate": "A definite integral measures the space between a graph and the axis when the graph stays above it. The same idea handles regions between curves.",
+    "establish": "For $f(x)\\geq0$ on $[a,b]$, the area under the curve is $\\int_a^b f(x)\\,dx$. An integral below the axis is negative, so split at axis crossings and take positive areas. For a region bounded by $y=f(x)$ and $y=g(x)$, solve $f(x)=g(x)$ to find the limits. Integrate upper curve minus lower curve: $A=\\int_a^b(f(x)-g(x))\\,dx$ when $f$ is above $g$. Split again if the curves exchange order. This covers a curve with given straight lines and two curves. Integration with respect to $y$ is unnecessary here.",
+    "connect": "The integrand is the vertical height of a thin strip; summing those heights across the interval produces area.",
+    "note": "- Solve intersections for the limits.\n- Identify upper and lower curves on each interval.\n- Integrate upper minus lower.\n- Split where the order changes.",
+    "self_explain": "Why do we integrate upper curve minus lower curve when finding enclosed area?"
+  },
+  "P2-8.3": {
+    "motivate": "Some areas are difficult to integrate exactly. The trapezium rule gives an estimate from a small table of function values.",
+    "establish": "Divide $[a,b]$ into $n$ equal strips with width $h=(b-a)/n$. Calculate ordinates $y_i=f(a+ih)$ for $i=0,1,\\ldots,n$. The trapezium estimate is $T=\\frac h2[y_0+2y_1+\\cdots+2y_{n-1}+y_n]$. The endpoints each have half the weight of an interior ordinate. An increasing number of trapezia generally improves accuracy. If the exact integral $I$ is known, the absolute error is $|T-I|$ and percentage error is $100|T-I|/|I|\\%$ for $I\\ne0$. For a convex curve, straight edges lie above it, so the estimate is high.",
+    "connect": "Each pair of consecutive ordinates forms a trapezium; the formula adds their areas while counting shared interior ordinates twice.",
+    "note": "- Compute $h=(b-a)/n$ and all $n+1$ ordinates.\n- Halve endpoint ordinates in the weighted sum.\n- Compare with an exact integral to estimate error.",
+    "self_explain": "Why do the first and last ordinates carry half weight in the trapezium rule?"
+  }
+}

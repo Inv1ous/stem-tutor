@@ -1,0 +1,867 @@
+{
+ "subtopic": "P2-8",
+ "spec": "P2",
+ "version": 1,
+ "note": "Subjects/Maths/P2 Pure Mathematics 2/8 Integration.md",
+ "outline": "Evaluate definite integrals by finding an antiderivative and subtracting its lower-limit value from its upper-limit value. For bounded area, find intersections and integrate the upper curve minus the lower curve. The trapezium rule approximates an integral using equal strips; endpoint ordinates have half weight. More strips usually improve accuracy.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "P2-8.1",
+   "statement": "Add the antiderivative values at the limits.",
+   "refutation": "The fundamental theorem requires $F(b)-F(a)$.",
+   "contrast": "Upper minus lower.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "P2-8.2",
+   "statement": "Subtract the upper curve from the lower curve when finding area.",
+   "refutation": "This makes the integral negative for a positive enclosed area.",
+   "contrast": "Integrate upper minus lower.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "P2-8.3",
+   "statement": "Give every ordinate full weight in the trapezium rule.",
+   "refutation": "The first and last ordinates belong to only one trapezium each.",
+   "contrast": "Halve the endpoint ordinates.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "P2-8.1",
+   "problem": "Find $\\int_1^3 2x\\,dx$.",
+   "steps": [
+    {
+     "do": "$\\int 2x\\,dx=x^2$",
+     "why": "Use the reverse power rule."
+    },
+    {
+     "do": "$[x^2]_1^3=3^2-1^2$",
+     "why": "Substitute upper limit, then lower limit."
+    },
+    {
+     "do": "$=8$",
+     "why": "Evaluate the difference.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 8.0,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find $\\int_0^4 3x^2\\,dx$.",
+    "answer": {
+     "value": 64.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "P2-8.2",
+   "problem": "Find the area between $y=6x-x^2$ and $y=2x$.",
+   "steps": [
+    {
+     "do": "$6x-x^2=2x$ gives $x=0,4$",
+     "why": "Intersections are the limits."
+    },
+    {
+     "do": "$A=\\int_0^4(4x-x^2)\\,dx$",
+     "why": "Integrate upper minus lower."
+    },
+    {
+     "do": "$A=[2x^2-x^3/3]_0^4=32/3$ square units",
+     "why": "Evaluate both bounds.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 10.66666666666606,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find the area between $y=5x-x^2$ and $y=x$.",
+    "answer": {
+     "value": 10.66666666666606,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "P2-8.3",
+   "problem": "Estimate $\\int_0^2 x^2\\,dx$ with four trapezia.",
+   "steps": [
+    {
+     "do": "$h=(2-0)/4=1/2$",
+     "why": "Equal strips have common width."
+    },
+    {
+     "do": "The ordinates are $0,1/4,1,9/4,4$.",
+     "why": "Evaluate the function at all five endpoints."
+    },
+    {
+     "do": "$T=\\frac12[\\frac12(0)+\\frac14+1+\\frac94+\\frac12(4)]=11/4$ square units",
+     "why": "Only endpoint ordinates are halved.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.75,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Estimate $\\int_0^2 x^2\\,dx$ with two trapezia.",
+    "answer": {
+     "value": 3.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "P2-8-i01",
+   "kcs": [
+    "P2-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\int_0^3 x^2\\,dx$.",
+   "marks": 3,
+   "answer": {
+    "value": 9.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "An antiderivative is $x^3/3$; evaluate it at the upper and lower limits.",
+   "hints": [
+    "Recall the power rule for integration.",
+    "Find an antiderivative before using the limits.",
+    "Start by increasing the power by one and dividing by the new power."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "P2-8-i02",
+   "kcs": [
+    "P2-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\int_0^2 x^3\\,dx$.",
+   "marks": 3,
+   "answer": {
+    "value": 4.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "An antiderivative is $x^4/4$; evaluate it at the upper and lower limits.",
+   "hints": [
+    "Recall the power rule for integration.",
+    "Find an antiderivative before using the limits.",
+    "Start by increasing the power by one and dividing by the new power."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "P2-8-i03",
+   "kcs": [
+    "P2-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\int_0^2 x^4\\,dx$.",
+   "marks": 3,
+   "answer": {
+    "value": 6.399999999999636,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "An antiderivative is $x^5/5$; evaluate it at the upper and lower limits.",
+   "hints": [
+    "Recall the power rule for integration.",
+    "Find an antiderivative before using the limits.",
+    "Start by increasing the power by one and dividing by the new power."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "P2-8-i04",
+   "kcs": [
+    "P2-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\int_0^5 x^2\\,dx$.",
+   "marks": 3,
+   "answer": {
+    "value": 41.66666666666424,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "An antiderivative is $x^3/3$; evaluate it at the upper and lower limits.",
+   "hints": [
+    "Recall the power rule for integration.",
+    "Find an antiderivative before using the limits.",
+    "Start by increasing the power by one and dividing by the new power."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "P2-8-i05",
+   "kcs": [
+    "P2-8.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how limits $a$ and $b$ are used after finding an antiderivative $F(x)$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Evaluate the antiderivative at the upper limit and subtract its value at the lower limit.",
+     "keywords": [
+      [
+       "upper",
+       "b"
+      ],
+      [
+       "subtract",
+       "minus"
+      ],
+      [
+       "lower",
+       "a"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The fundamental theorem gives $\\int_a^b f(x)\\,dx=F(b)-F(a)$.",
+   "hints": [
+    "Think of the order of the limits.",
+    "Apply the fundamental theorem of calculus.",
+    "Evaluate at the upper limit first."
+   ]
+  },
+  {
+   "id": "P2-8-i06",
+   "kcs": [
+    "P2-8.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $\\int_2^2 f(x)\\,dx=0$ for continuous $f$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The upper and lower limits coincide, so the antiderivative values cancel.",
+     "keywords": [
+      [
+       "same",
+       "coincide",
+       "equal"
+      ],
+      [
+       "cancel",
+       "subtract",
+       "zero"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$F(2)-F(2)=0$.",
+   "hints": [
+    "Consider the interval width.",
+    "Apply the fundamental theorem.",
+    "Write $F(2)-F(2)$."
+   ]
+  },
+  {
+   "id": "P2-8-i07",
+   "kcs": [
+    "P2-8.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the area bounded by $y=4x-x^2$ and $y=1x$.",
+   "marks": 3,
+   "answer": {
+    "value": 4.5,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The curves meet at $x=0$ and $x=3$; integrate upper minus lower between those intersections.",
+   "hints": [
+    "First find the intersections.",
+    "Subtract the lower curve from the upper curve.",
+    "Solve $({a}-{b})x-x^2=0$."
+   ],
+   "distractors": [
+    {
+     "value": -4.5,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i08",
+   "kcs": [
+    "P2-8.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the area bounded by $y=6x-x^2$ and $y=2x$.",
+   "marks": 3,
+   "answer": {
+    "value": 10.66666666666606,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The curves meet at $x=0$ and $x=4$; integrate upper minus lower between those intersections.",
+   "hints": [
+    "First find the intersections.",
+    "Subtract the lower curve from the upper curve.",
+    "Solve $({a}-{b})x-x^2=0$."
+   ],
+   "distractors": [
+    {
+     "value": -10.66666666666606,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i09",
+   "kcs": [
+    "P2-8.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the area bounded by $y=8x-x^2$ and $y=3x$.",
+   "marks": 3,
+   "answer": {
+    "value": 20.83333333333212,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The curves meet at $x=0$ and $x=5$; integrate upper minus lower between those intersections.",
+   "hints": [
+    "First find the intersections.",
+    "Subtract the lower curve from the upper curve.",
+    "Solve $({a}-{b})x-x^2=0$."
+   ],
+   "distractors": [
+    {
+     "value": -20.83333333333212,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i10",
+   "kcs": [
+    "P2-8.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the area bounded by $y=5x-x^2$ and $y=2x$.",
+   "marks": 3,
+   "answer": {
+    "value": 4.5,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The curves meet at $x=0$ and $x=3$; integrate upper minus lower between those intersections.",
+   "hints": [
+    "First find the intersections.",
+    "Subtract the lower curve from the upper curve.",
+    "Solve $({a}-{b})x-x^2=0$."
+   ],
+   "distractors": [
+    {
+     "value": -4.5,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i11",
+   "kcs": [
+    "P2-8.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the area bounded by $y=7x-x^2$ and $y=1x$.",
+   "marks": 3,
+   "answer": {
+    "value": 36.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The curves meet at $x=0$ and $x=6$; integrate upper minus lower between those intersections.",
+   "hints": [
+    "First find the intersections.",
+    "Subtract the lower curve from the upper curve.",
+    "Solve $({a}-{b})x-x^2=0$."
+   ],
+   "distractors": [
+    {
+     "value": -36.0,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i12",
+   "kcs": [
+    "P2-8.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how to calculate the area enclosed between $y=f(x)$ and $y=g(x)$ when $f(x)$ is above $g(x)$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Integrate upper curve minus lower curve between their intersections.",
+     "keywords": [
+      [
+       "upper",
+       "above"
+      ],
+      [
+       "lower",
+       "below"
+      ],
+      [
+       "integrate",
+       "integral"
+      ],
+      [
+       "intersection",
+       "limits"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The area is $\\int_a^b(f(x)-g(x))\\,dx$, where $a,b$ are intersection coordinates.",
+   "hints": [
+    "The integrand represents a vertical height.",
+    "Find the two boundary x-coordinates.",
+    "Write upper function minus lower function."
+   ]
+  },
+  {
+   "id": "P2-8-i13",
+   "kcs": [
+    "P2-8.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the trapezium-rule estimate for $\\int_0^2 x^2\\,dx$ using 2 equal strips.",
+   "marks": 3,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The width is $2/2$; add the two endpoint heights with half weight and all interior heights with full weight.",
+   "hints": [
+    "Find the common strip width.",
+    "Tabulate the function at every equally spaced x-value.",
+    "Use half weights for the first and last ordinates."
+   ],
+   "distractors": [
+    {
+     "value": 5.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i14",
+   "kcs": [
+    "P2-8.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the trapezium-rule estimate for $\\int_0^2 x^2\\,dx$ using 4 equal strips.",
+   "marks": 3,
+   "answer": {
+    "value": 2.75,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The width is $2/4$; add the two endpoint heights with half weight and all interior heights with full weight.",
+   "hints": [
+    "Find the common strip width.",
+    "Tabulate the function at every equally spaced x-value.",
+    "Use half weights for the first and last ordinates."
+   ],
+   "distractors": [
+    {
+     "value": 3.75,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i15",
+   "kcs": [
+    "P2-8.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the trapezium-rule estimate for $\\int_0^2 x^2\\,dx$ using 6 equal strips.",
+   "marks": 3,
+   "answer": {
+    "value": 2.703703703703468,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The width is $2/6$; add the two endpoint heights with half weight and all interior heights with full weight.",
+   "hints": [
+    "Find the common strip width.",
+    "Tabulate the function at every equally spaced x-value.",
+    "Use half weights for the first and last ordinates."
+   ],
+   "distractors": [
+    {
+     "value": 3.3703703703704377,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i16",
+   "kcs": [
+    "P2-8.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the trapezium-rule estimate for $\\int_0^2 x^2\\,dx$ using 8 equal strips.",
+   "marks": 3,
+   "answer": {
+    "value": 2.6875,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The width is $2/8$; add the two endpoint heights with half weight and all interior heights with full weight.",
+   "hints": [
+    "Find the common strip width.",
+    "Tabulate the function at every equally spaced x-value.",
+    "Use half weights for the first and last ordinates."
+   ],
+   "distractors": [
+    {
+     "value": 3.1875,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i17",
+   "kcs": [
+    "P2-8.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the trapezium-rule estimate for $\\int_0^2 x^2\\,dx$ using 10 equal strips.",
+   "marks": 3,
+   "answer": {
+    "value": 2.6799999999998363,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The width is $2/10$; add the two endpoint heights with half weight and all interior heights with full weight.",
+   "hints": [
+    "Find the common strip width.",
+    "Tabulate the function at every equally spaced x-value.",
+    "Use half weights for the first and last ordinates."
+   ],
+   "distractors": [
+    {
+     "value": 3.0799999999999272,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "P2-8-i18",
+   "kcs": [
+    "P2-8.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the trapezium rule overestimates $\\int_0^2 x^2\\,dx$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The curve is convex, so each straight trapezium edge lies above the curve.",
+     "keywords": [
+      [
+       "convex",
+       "curves upwards"
+      ],
+      [
+       "above",
+       "overestimate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For $y=x^2$, the secant joining adjacent points lies above the curve; the trapezia include extra area.",
+   "hints": [
+    "Compare each straight top edge with the curve.",
+    "Think about the curvature of $x^2$.",
+    "Sketch y=x^2 from x=0 to x=1 and join the endpoints with a straight line. Compare the region beneath that line with the region beneath the curve."
+   ]
+  },
+  {
+   "id": "P2-8-i19",
+   "kcs": [
+    "P2-8.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $I=\\int_0^2 x^2\\,dx$, the trapezium-rule estimates using two and four equal strips are $T_2=3$ and $T_4=11/4$. Calculate $I$ exactly and the absolute error of each estimate. State which estimate is more accurate and explain how the errors support your conclusion.",
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "$I=[x^3/3]_0^2=8/3$.",
+     "keywords": [
+      [
+       "8/3",
+       "2.6666666667"
+      ]
+     ]
+    },
+    {
+     "point": "The two-strip absolute error is $|3-8/3|=1/3$.",
+     "keywords": [
+      [
+       "1/3",
+       "0.3333333333"
+      ]
+     ]
+    },
+    {
+     "point": "The four-strip absolute error is $|11/4-8/3|=1/12$.",
+     "keywords": [
+      [
+       "1/12",
+       "0.0833333333"
+      ]
+     ]
+    },
+    {
+     "point": "The four-strip estimate is more accurate because its absolute error is smaller (one quarter of the two-strip error).",
+     "keywords": [
+      [
+       "four",
+       "4"
+      ],
+      [
+       "smaller",
+       "less",
+       "quarter"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The exact integral is $8/3$. The absolute errors are $1/3$ for two strips and $1/12$ for four strips. Increasing the number of strips from two to four reduces the absolute error to one quarter, so the four-strip estimate is more accurate.",
+   "hints": [
+    "First evaluate the integral using an antiderivative.",
+    "For each estimate, calculate the absolute difference from the exact integral.",
+    "Compare the two absolute errors; greater accuracy corresponds to a smaller error."
+   ]
+  }
+ ],
+ "flashcards": [],
+ "diagrams": [],
+ "teach": {
+  "P2-8.1": {
+   "motivate": "A definite integral turns a changing quantity into one total over an interval. Its limits tell you where to start and stop.",
+   "establish": "If $F'(x)=f(x)$, then $\\int_a^b f(x)\\,dx=F(b)-F(a)$. First find an antiderivative using the integration rules. Substitute the upper limit into the entire antiderivative, then subtract its value at the lower limit. The arbitrary integration constant cancels. Reversing the limits reverses the sign; identical limits give zero.",
+   "connect": "This is the fundamental theorem of calculus: differentiation and integration undo one another. The definite integral can also represent signed area.",
+   "note": "- Find $F(x)$ with $F'(x)=f(x)$.\n- Evaluate $[F(x)]_a^b=F(b)-F(a)$.\n- Check signs and exact form.",
+   "self_explain": "Why do we subtract the value at the lower limit when evaluating a definite integral?",
+   "source": "pack"
+  },
+  "P2-8.2": {
+   "motivate": "A definite integral measures the space between a graph and the axis when the graph stays above it. The same idea handles regions between curves.",
+   "establish": "For $f(x)\\geq0$ on $[a,b]$, the area under the curve is $\\int_a^b f(x)\\,dx$. An integral below the axis is negative, so split at axis crossings and take positive areas. For a region bounded by $y=f(x)$ and $y=g(x)$, solve $f(x)=g(x)$ to find the limits. Integrate upper curve minus lower curve: $A=\\int_a^b(f(x)-g(x))\\,dx$ when $f$ is above $g$. Split again if the curves exchange order. This covers a curve with given straight lines and two curves. Integration with respect to $y$ is unnecessary here.",
+   "connect": "The integrand is the vertical height of a thin strip; summing those heights across the interval produces area.",
+   "note": "- Solve intersections for the limits.\n- Identify upper and lower curves on each interval.\n- Integrate upper minus lower.\n- Split where the order changes.",
+   "self_explain": "Why do we integrate upper curve minus lower curve when finding enclosed area?",
+   "source": "pack"
+  },
+  "P2-8.3": {
+   "motivate": "Some areas are difficult to integrate exactly. The trapezium rule gives an estimate from a small table of function values.",
+   "establish": "Divide $[a,b]$ into $n$ equal strips with width $h=(b-a)/n$. Calculate ordinates $y_i=f(a+ih)$ for $i=0,1,\\ldots,n$. The trapezium estimate is $T=\\frac h2[y_0+2y_1+\\cdots+2y_{n-1}+y_n]$. The endpoints each have half the weight of an interior ordinate. An increasing number of trapezia generally improves accuracy. If the exact integral $I$ is known, the absolute error is $|T-I|$ and percentage error is $100|T-I|/|I|\\%$ for $I\\ne0$. For a convex curve, straight edges lie above it, so the estimate is high.",
+   "connect": "Each pair of consecutive ordinates forms a trapezium; the formula adds their areas while counting shared interior ordinates twice.",
+   "note": "- Compute $h=(b-a)/n$ and all $n+1$ ordinates.\n- Halve endpoint ordinates in the weighted sum.\n- Compare with an exact integral to estimate error.",
+   "self_explain": "Why do the first and last ordinates carry half weight in the trapezium rule?",
+   "source": "pack"
+  }
+ }
+}
