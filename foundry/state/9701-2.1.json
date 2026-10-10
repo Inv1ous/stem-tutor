@@ -1,0 +1,205 @@
+{
+ "sub": "9701-2.1",
+ "stage": "ready",
+ "created": "2026-10-01T18:36:11+08:00",
+ "updated": "2026-10-10T10:58:33+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T18:36:50+08:00",
+   "from": "draft",
+   "to": "draft",
+   "note": "drafter failed (exit 1); see foundry/logs/9701-2.1.drafter.1001-183641.log"
+  },
+  {
+   "t": "2026-10-10T10:22:29+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 21 items"
+  },
+  {
+   "t": "2026-10-10T10:49:48+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "13 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T10:53:51+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak settled every dispute; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T10:55:01+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T10:58:18+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T10:58:33+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 20,
+  "extra": 4
+ },
+ "disputes": [
+  {
+   "id": "9701-2.1-x002",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9701-2.1-x001",
+   "rule": "off syllabus",
+   "evidence": "These salts have different percentages by mass of nitrogen. They have the same effect as each other on the pH of wet neutral soil.",
+   "suggested": "Remove this question from the 2.1 pack; it tests pH effects outside the listed 2.1 outcomes.",
+   "status": "fixed",
+   "resolution": "fix: Remove this question from the 9701-2.1 pack by changing the kcs field of bank entry 9701_s19_12_q18 in build/work/mcq/9701.tagged.json to [\"9701-7.2.3\"], then rebuilding the extras for 9701-2.1. In build/work/mcq/overrides.json under 9701_s19_12_q18, set kcs to [\"9701-7.2.3\"]. The bank retag is required because add_past.py selects questions before applying overrides; an override alone cannot remove the item. Preserve the original stem, options, image and official answer A. Nitrogen is 35.0% by mass in ammonium nitrate versus approximately 21.2% in ammonium sulfate, but selecting A rather than B also requires knowing that ammonium salts decrease soil pH, which is outside the two listed 2.1 outcomes. This is a chapter-placement fix, not a rejection of the official key or removal from the overall syllabus."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9701-2.1-x001",
+   "instruction": "Remove this question from the 9701-2.1 pack by changing the kcs field of bank entry 9701_s19_12_q18 in build/work/mcq/9701.tagged.json to [\"9701-7.2.3\"], then rebuilding the extras for 9701-2.1. In build/work/mcq/overrides.json under 9701_s19_12_q18, set kcs to [\"9701-7.2.3\"]. The bank retag is required because add_past.py selects questions before applying overrides; an override alone cannot remove the item. Preserve the original stem, options, image and official answer A. Nitrogen is 35.0% by mass in ammonium nitrate versus approximately 21.2% in ammonium sulfate, but selecting A rather than B also requires knowing that ammonium salts decrease soil pH, which is outside the two listed 2.1 outcomes. This is a chapter-placement fix, not a rejection of the official key or removal from the overall syllabus.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 16560,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T10:20:43+08:00",
+   "log": "foundry/logs/9701-2.1.drafter.1010-102043.log",
+   "out": "foundry/logs/9701-2.1.drafter.1010-102043.out.json",
+   "finished": "2026-10-10T10:22:29+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-2.1.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/02 Atoms, molecules and stoichiometry/2.1 Relative masses of atoms and molecules.md",
+    "items": 21,
+    "templates": 0,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 27994,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T10:45:13+08:00",
+   "log": "foundry/logs/9701-2.1.solver.1010-104513.log",
+   "out": "foundry/logs/9701-2.1.solver.1010-104513.out.json",
+   "expects": "build/work/blind/9701-2.1.answers.json",
+   "finished": "2026-10-10T10:47:43+08:00",
+   "exit": 0,
+   "report": {
+    "text": "14 questions answered. Written to build/work/blind/9701-2.1.answers.json."
+   },
+   "ok": true,
+   "cost_usd": 0.168
+  },
+  "checker": {
+   "pid": 27996,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:45:13+08:00",
+   "log": "foundry/logs/9701-2.1.checker.1010-104513.log",
+   "out": "foundry/logs/9701-2.1.checker.1010-104513.out.json",
+   "expects": "build/work/foundry/9701-2.1.check.json",
+   "finished": "2026-10-10T10:45:45+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — `build/work/foundry/9701-2.1.check.json`"
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 31498,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 0,
+   "started": "2026-10-10T10:51:33+08:00",
+   "log": "foundry/logs/9701-2.1.tiebreak.1010-105133.log",
+   "out": "foundry/logs/9701-2.1.tiebreak.1010-105133.out.json",
+   "expects": "build/work/blind/9701-2.1.tiebreak.json",
+   "finished": "2026-10-10T10:51:53+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9701-2.1.tiebreak.json",
+    "notes": [
+     "9701-2.1-x002: both molecules (16O-18O and H-32S-H) have Mr=34, so average is 34 regardless of mixing ratio (1&2 true); O2:H2S required ratio is 3:2 but mixture is 1:1, so O2 is limiting and H2S remains unreacted (3 true) — answer A (1,2,3 all correct)."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 0.158
+  },
+  "adjudicator": {
+   "pid": 33345,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:54:21+08:00",
+   "log": "foundry/logs/9701-2.1.adjudicator.1010-105421.log",
+   "out": "foundry/logs/9701-2.1.adjudicator.1010-105421.out.json",
+   "finished": "2026-10-10T10:55:06+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item 9701-2.1-x001 fix: Move to 7.2.3; soil-pH knowledge exceeds 2.1 outcomes. Preserve official key A."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 34784,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T10:57:46+08:00",
+   "log": "foundry/logs/9701-2.1.fixer.1010-105746.log",
+   "out": "foundry/logs/9701-2.1.fixer.1010-105746.out.json",
+   "finished": "2026-10-10T10:58:18+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_12_q18": "9701-2.1-x001",
+  "9701_s19_12_q31": "9701-2.1-x002",
+  "9701_s23_11_q10": "9701-2.1-x003",
+  "9701_s25_12_q15": "9701-2.1-x004",
+  "9701_w25_11_q40": "9701-2.1-x005"
+ },
+ "maker": "codex",
+ "checked": true
+}
