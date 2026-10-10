@@ -1,0 +1,669 @@
+{
+ "subtopic": "FP1-2",
+ "spec": "FP1",
+ "version": 1,
+ "note": "Subjects/Maths/FP1 Further Pure Mathematics 1/2 Roots of quadratic equations.md",
+ "outline": "For $ax^2+bx+c=0$, the roots have sum $S=-b/a$ and product $P=c/a$. Rewrite symmetric expressions in $S,P$, such as $\\alpha^2+\\beta^2=S^2-2P$ and $\\alpha^3+\\beta^3=S^3-3PS$. To form a quadratic with transformed roots, calculate their sum $T$ and product $U$, then write $x^2-Tx+U=0$ and clear denominators. Reciprocal transformations require $P\\ne0$.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "FP1-2.1",
+   "statement": "The root sum is $b/a$.",
+   "refutation": "Expanding $a(x-\\alpha)(x-\\beta)$ gives coefficient $-a(\\alpha+\\beta)=b$.",
+   "contrast": "The sum is $-b/a$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "FP1-2.2",
+   "statement": "$\\alpha^2+\\beta^2=S^2$.",
+   "refutation": "$S^2$ contains the cross term $2P$.",
+   "contrast": "Subtract $2P$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "FP1-2.3",
+   "statement": "Transform the old coefficients separately to get the new quadratic.",
+   "refutation": "A transformation acts on each root, so calculate the transformed sum and product first.",
+   "contrast": "Use $x^2-Tx+U=0$.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "FP1-2.2",
+   "problem": "For roots of $x^2-5x+6=0$, find $\\alpha^3+\\beta^3$.",
+   "steps": [
+    {
+     "do": "$S=5$, $P=6$.",
+     "why": "Apply coefficient identities."
+    },
+    {
+     "do": "$\\alpha^3+\\beta^3=S^3-3PS$.",
+     "why": "This identity removes individual roots."
+    },
+    {
+     "do": "$5^3-3(6)(5)=35$.",
+     "why": "Substitute and simplify."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "For roots of $x^2-4x+3=0$, find $\\alpha^3+\\beta^3$.",
+    "answer": {
+     "value": 28.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "FP1-2.3",
+   "problem": "Form the quadratic with roots $1/\\alpha,1/\\beta$ when $\\alpha,\\beta$ solve $2x^2-5x+2=0$.",
+   "steps": [
+    {
+     "do": "$S=5/2$, $P=1$.",
+     "why": "Read sum and product from the original coefficients."
+    },
+    {
+     "do": "$T=S/P=5/2$, $U=1/P=1$.",
+     "why": "Use reciprocal-root identities; $P$ is nonzero."
+    },
+    {
+     "do": "$x^2-(5/2)x+1=0$, hence $2x^2-5x+2=0$.",
+     "why": "Use the new sum and product, then clear fractions."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "For roots of $x^2-5x+6=0$, find the sum of reciprocal roots.",
+    "answer": {
+     "value": 0.8333333333333334,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "FP1-2-i01",
+   "kcs": [
+    "FP1-2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sum of the roots of $2x^2-6x+4=0$.",
+   "marks": 2,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The sum is $-b/a$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i02",
+   "kcs": [
+    "FP1-2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the product of the roots of $2x^2-6x+4=0$.",
+   "marks": 4,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The product is $c/a$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i03",
+   "kcs": [
+    "FP1-2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sum of the roots of $3x^2+9x+6=0$.",
+   "marks": 2,
+   "answer": {
+    "value": -3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The sum is $-b/a$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i04",
+   "kcs": [
+    "FP1-2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the product of the roots of $3x^2+9x+6=0$.",
+   "marks": 4,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The product is $c/a$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i05",
+   "kcs": [
+    "FP1-2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sum of the roots of $5x^2-15x+10=0$.",
+   "marks": 2,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The sum is $-b/a$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i06",
+   "kcs": [
+    "FP1-2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the product of the roots of $5x^2-15x+10=0$.",
+   "marks": 4,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The product is $c/a$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i07",
+   "kcs": [
+    "FP1-2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\alpha^2+\\beta^2$ for roots of $1x^2-5x+6=0$.",
+   "marks": 2,
+   "answer": {
+    "value": 13.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Use $S^2-2P$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i08",
+   "kcs": [
+    "FP1-2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate $\\alpha^3+\\beta^3$ for roots of $1x^2-5x+6=0$.",
+   "marks": 4,
+   "answer": {
+    "value": 35.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Use $S^3-3PS$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i09",
+   "kcs": [
+    "FP1-2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\alpha^2+\\beta^2$ for roots of $2x^2-8x+6=0$.",
+   "marks": 2,
+   "answer": {
+    "value": 10.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Use $S^2-2P$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i10",
+   "kcs": [
+    "FP1-2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate $\\alpha^3+\\beta^3$ for roots of $2x^2-8x+6=0$.",
+   "marks": 4,
+   "answer": {
+    "value": 28.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Use $S^3-3PS$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i11",
+   "kcs": [
+    "FP1-2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\alpha^2+\\beta^2$ for roots of $3x^2-9x+6=0$.",
+   "marks": 2,
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Use $S^2-2P$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i12",
+   "kcs": [
+    "FP1-2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate $\\alpha^3+\\beta^3$ for roots of $3x^2-9x+6=0$.",
+   "marks": 4,
+   "answer": {
+    "value": 9.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "Use $S^3-3PS$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i13",
+   "kcs": [
+    "FP1-2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The roots of $1x^2-5x+6=0$ are $\\alpha,\\beta$. Find the sum of the new roots $\\alpha^2,\\beta^2$.",
+   "marks": 2,
+   "answer": {
+    "value": 13.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The new sum is $S^2-2P$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i14",
+   "kcs": [
+    "FP1-2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The roots of $x^2-5x+6=0$ are $\\alpha,\\beta$. Find a quadratic equation with integer coefficients whose roots are $1/\\alpha,1/\\beta$. Show your working.",
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "Identify $S=\\alpha+\\beta=5$ and $P=\\alpha\\beta=6$.",
+     "keywords": [
+      [
+       "5"
+      ],
+      [
+       "6"
+      ]
+     ]
+    },
+    {
+     "point": "Find the new sum $T=S/P=5/6$.",
+     "keywords": [
+      [
+       "5/6"
+      ]
+     ]
+    },
+    {
+     "point": "Find the new product $U=1/P=1/6$.",
+     "keywords": [
+      [
+       "1/6"
+      ]
+     ]
+    },
+    {
+     "point": "Form $x^2-(5/6)x+1/6=0$ and clear denominators to obtain $6x^2-5x+1=0$; accept any nonzero integer multiple of this equation.",
+     "keywords": [
+      [
+       "6x^2-5x+1=0"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The original roots have sum $S=5$ and product $P=6\\ne0$. The reciprocal roots therefore have sum $T=S/P=5/6$ and product $U=1/P=1/6$. Using $x^2-Tx+U=0$ gives $x^2-(5/6)x+1/6=0$, hence $6x^2-5x+1=0$. The coefficient of $x$ is the negative of the new sum; clear denominators across the whole equation.",
+   "hints": [
+    "Find the original sum $S=-b/a$ and product $P=c/a$.",
+    "For reciprocal roots use $T=S/P$ and $U=1/P$.",
+    "Form $x^2-Tx+U=0$ and multiply every term by 6."
+   ]
+  },
+  {
+   "id": "FP1-2-i15",
+   "kcs": [
+    "FP1-2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The roots of $2x^2-8x+6=0$ are $\\alpha,\\beta$. Find the sum of the new roots $\\alpha^2,\\beta^2$.",
+   "marks": 2,
+   "answer": {
+    "value": 10.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The new sum is $S^2-2P$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i16",
+   "kcs": [
+    "FP1-2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The roots of $2x^2-8x+6=0$ are $\\alpha,\\beta$. Find the product of the new roots $1/\\alpha,1/\\beta$.",
+   "marks": 4,
+   "answer": {
+    "value": 0.3333333333333333,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The new product is $1/P$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i17",
+   "kcs": [
+    "FP1-2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The roots of $3x^2-9x+6=0$ are $\\alpha,\\beta$. Find the sum of the new roots $\\alpha^2,\\beta^2$.",
+   "marks": 2,
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The new sum is $S^2-2P$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  },
+  {
+   "id": "FP1-2-i18",
+   "kcs": [
+    "FP1-2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The roots of $3x^2-9x+6=0$ are $\\alpha,\\beta$. Find the product of the new roots $1/\\alpha,1/\\beta$.",
+   "marks": 4,
+   "answer": {
+    "value": 0.5,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The new product is $1/P$.",
+   "hints": [
+    "Identify the two roots or their sum and product.",
+    "Use the coefficient identities or a symmetric identity.",
+    "Write $S=-b/a$ and $P=c/a$ before substituting."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "FP1-2.1",
+   "front": "State the sum and product of the roots of $ax^2+bx+c=0$.",
+   "back": "$\\alpha+\\beta=-b/a$ and $\\alpha\\beta=c/a$, for $a\\ne0$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "FP1-2.1": {
+   "motivate": "You can know useful facts about two roots without calculating either root.",
+   "establish": "For $ax^2+bx+c=0$, with $a\\ne0$ and roots $\\alpha,\\beta$, factor as $a(x-\\alpha)(x-\\beta)$. Comparing coefficients gives $\\alpha+\\beta=-b/a$ and $\\alpha\\beta=c/a$. These are the sum and product of roots. The negative sign belongs only in the sum.",
+   "connect": "This uses factorisation from ordinary quadratics and supplies $S$ and $P$ for every later calculation.",
+   "note": "- $S=\\alpha+\\beta=-b/a$ for $ax^2+bx+c=0$.\n- $P=\\alpha\\beta=c/a$ and $a\\ne0$.",
+   "self_explain": "Why does the formula for the sum have a minus sign but the product does not?",
+   "source": "pack"
+  },
+  "FP1-2.2": {
+   "motivate": "Expressions in both roots can be found from just their sum and product.",
+   "establish": "Set $S=\\alpha+\\beta$ and $P=\\alpha\\beta$. Expand $S^2$ to obtain $\\alpha^2+\\beta^2=S^2-2P$. Expand $S^3$ and collect cross terms to obtain $\\alpha^3+\\beta^3=S^3-3PS$. Substitute $S=-b/a$ and $P=c/a$ only after choosing the identity. If $P\\ne0$, reciprocals obey $1/\\alpha+1/\\beta=S/P$.",
+   "connect": "These symmetric identities provide the sums needed when forming equations with squared, cubed or reciprocal roots.",
+   "note": "- $\\alpha^2+\\beta^2=S^2-2P$.\n- $\\alpha^3+\\beta^3=S^3-3PS$.\n- If $P\\ne0$, $1/\\alpha+1/\\beta=S/P$.",
+   "self_explain": "Where does the $3PS$ term in the sum of cubes identity come from?",
+   "source": "pack"
+  },
+  "FP1-2.3": {
+   "motivate": "A new quadratic is determined by the sum and product of its new roots.",
+   "establish": "If the transformed roots are $u,v$, find $T=u+v$ and $U=uv$, then form $x^2-Tx+U=0$. Clear denominators across the whole equation. For $u=\\alpha^3,v=\\beta^3$, $T=S^3-3PS$ and $U=P^3$. For reciprocal roots, $T=S/P$ and $U=1/P$, requiring $P\\ne0$. For $u=\\alpha+2/\\alpha,v=\\beta+2/\\beta$, first expand both the sum and product, then replace $\\alpha/\\beta+\\beta/\\alpha$ by $(S^2-2P)/P$.",
+   "connect": "The coefficient identities give $S,P$; symmetric manipulation gives $T,U$; together they produce the new equation.",
+   "note": "- Find transformed sum $T$ and product $U$.\n- Form $x^2-Tx+U=0$ and clear denominators.\n- Reciprocal transformations require $P\\ne0$.",
+   "self_explain": "Why do you need both the sum and product of transformed roots?",
+   "source": "pack"
+  }
+ }
+}

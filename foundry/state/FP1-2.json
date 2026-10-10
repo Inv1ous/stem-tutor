@@ -1,0 +1,167 @@
+{
+ "sub": "FP1-2",
+ "stage": "ready",
+ "created": "2026-10-10T16:49:04+08:00",
+ "updated": "2026-10-10T17:36:29+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:52:44+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 18 items"
+  },
+  {
+   "t": "2026-10-10T16:59:26+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "20 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T17:01:12+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "1 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:24:03+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T17:35:48+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T17:36:29+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 18,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "FP1-2.3 questions",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Statement: Forming quadratic equations with new roots. The FP1-2.3 questions ask only to 'Find the sum of the new roots' (items i13, i15, i17) or 'Find the product of the new roots' (items i14, i16, i18).",
+   "suggested": "Add a question requiring students to form the quadratic equation from transformed roots.",
+   "status": "fixed",
+   "resolution": "fix: The finding is valid: FP1-2.3 is taught, but i13-i18 test only transformed sums or products, not forming a quadratic. In build/out/packs/FP1/FP1-2.json replace the entire items entry with id FP1-2-i14 with the following exact object (remove the former numeric answer field). This directly assesses forming the equation and preserves the item count. Independently verified T=5/6, U=1/6 and roots 1/2, 1/3: {\"id\": \"FP1-2-i14\", \"kcs\": [\"FP1-2.3\"], \"kind\": \"short\", \"difficulty\": 4, \"command_word\": \"Find\", \"source\": {\"type\": \"generated\"}, \"stem\": \"The roots of $x^2-5x+6=0$ are $\\\\alpha,\\\\beta$. Find a quadratic equation with integer coefficients whose roots are $1/\\\\alpha,1/\\\\beta$. Show your working.\", \"marks\": 4, \"rubric\": [{\"point\": \"Identify $S=\\\\alpha+\\\\beta=5$ and $P=\\\\alpha\\\\beta=6$.\", \"keywords\": [[\"5\"], [\"6\"]]}, {\"point\": \"Find the new sum $T=S/P=5/6$.\", \"keywords\": [[\"5/6\"]]}, {\"point\": \"Find the new product $U=1/P=1/6$.\", \"keywords\": [[\"1/6\"]]}, {\"point\": \"Form $x^2-(5/6)x+1/6=0$ and clear denominators to obtain $6x^2-5x+1=0$; accept any nonzero integer multiple of this equation.\", \"keywords\": [[\"6x^2-5x+1=0\"]]}], \"explanation\": \"The original roots have sum $S=5$ and product $P=6\\\\ne0$. The reciprocal roots therefore have sum $T=S/P=5/6$ and product $U=1/P=1/6$. Using $x^2-Tx+U=0$ gives $x^2-(5/6)x+1/6=0$, hence $6x^2-5x+1=0$. The coefficient of $x$ is the negative of the new sum; clear denominators across the whole equation.\", \"hints\": [\"Find the original sum $S=-b/a$ and product $P=c/a$.\", \"For reciprocal roots use $T=S/P$ and $U=1/P$.\", \"Form $x^2-Tx+U=0$ and multiply every term by 6.\"]}"
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "FP1-2.3 questions",
+   "instruction": "The finding is valid: FP1-2.3 is taught, but i13-i18 test only transformed sums or products, not forming a quadratic. In build/out/packs/FP1/FP1-2.json replace the entire items entry with id FP1-2-i14 with the following exact object (remove the former numeric answer field). This directly assesses forming the equation and preserves the item count. Independently verified T=5/6, U=1/6 and roots 1/2, 1/3: {\"id\": \"FP1-2-i14\", \"kcs\": [\"FP1-2.3\"], \"kind\": \"short\", \"difficulty\": 4, \"command_word\": \"Find\", \"source\": {\"type\": \"generated\"}, \"stem\": \"The roots of $x^2-5x+6=0$ are $\\\\alpha,\\\\beta$. Find a quadratic equation with integer coefficients whose roots are $1/\\\\alpha,1/\\\\beta$. Show your working.\", \"marks\": 4, \"rubric\": [{\"point\": \"Identify $S=\\\\alpha+\\\\beta=5$ and $P=\\\\alpha\\\\beta=6$.\", \"keywords\": [[\"5\"], [\"6\"]]}, {\"point\": \"Find the new sum $T=S/P=5/6$.\", \"keywords\": [[\"5/6\"]]}, {\"point\": \"Find the new product $U=1/P=1/6$.\", \"keywords\": [[\"1/6\"]]}, {\"point\": \"Form $x^2-(5/6)x+1/6=0$ and clear denominators to obtain $6x^2-5x+1=0$; accept any nonzero integer multiple of this equation.\", \"keywords\": [[\"6x^2-5x+1=0\"]]}], \"explanation\": \"The original roots have sum $S=5$ and product $P=6\\\\ne0$. The reciprocal roots therefore have sum $T=S/P=5/6$ and product $U=1/P=1/6$. Using $x^2-Tx+U=0$ gives $x^2-(5/6)x+1/6=0$, hence $6x^2-5x+1=0$. The coefficient of $x$ is the negative of the new sum; clear denominators across the whole equation.\", \"hints\": [\"Find the original sum $S=-b/a$ and product $P=c/a$.\", \"For reciprocal roots use $T=S/P$ and $U=1/P$.\", \"Form $x^2-Tx+U=0$ and multiply every term by 6.\"]}",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 19880,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:51:04+08:00",
+   "log": "foundry/logs/FP1-2.drafter.1010-165104.log",
+   "out": "foundry/logs/FP1-2.drafter.1010-165104.out.json",
+   "finished": "2026-10-10T16:52:44+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/FP1/FP1-2.json",
+    "note_path": "build/out/notes/Subjects/Maths/FP1 Further Pure Mathematics 1/2 Roots of quadratic equations.md",
+    "items": 18,
+    "templates": 0,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "The bundle contains no tagged past-paper MCQs."
+    ]
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 24966,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:58:35+08:00",
+   "log": "foundry/logs/FP1-2.solver.1010-165835.log",
+   "out": "foundry/logs/FP1-2.solver.1010-165835.out.json",
+   "expects": "build/work/blind/FP1-2.answers.json",
+   "finished": "2026-10-10T16:58:56+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/FP1-2.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 26404,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:00:21+08:00",
+   "log": "foundry/logs/FP1-2.checker.1010-170021.log",
+   "out": "foundry/logs/FP1-2.checker.1010-170021.out.json",
+   "expects": "build/work/foundry/FP1-2.check.json",
+   "finished": "2026-10-10T17:00:41+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — [FP1-2.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/FP1-2.check.json)."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 41744,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T17:23:11+08:00",
+   "log": "foundry/logs/FP1-2.adjudicator.1010-172311.log",
+   "out": "foundry/logs/FP1-2.adjudicator.1010-172311.out.json",
+   "finished": "2026-10-10T17:24:09+08:00",
+   "exit": 0,
+   "report": {
+    "text": "FP1-2.3 questions fix: Replace i14 with a full equation-formation question; verified answer \\(6x^2-5x+1=0\\)."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 49625,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T17:35:28+08:00",
+   "log": "foundry/logs/FP1-2.fixer.1010-173528.log",
+   "out": "foundry/logs/FP1-2.fixer.1010-173528.out.json",
+   "finished": "2026-10-10T17:35:48+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "Syllabus gate remains failing with three no-teach-card findings for FP1-2.1, FP1-2.2, and FP1-2.3. These are outside the requested item replacement."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
