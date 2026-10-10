@@ -1,0 +1,28 @@
+{
+  "M1-2.1": {
+    "motivate": "Two forces can partly cancel even when each is large. A vector diagram or signed components lets you predict the actual combined force, rather than just adding two positive magnitudes.",
+    "discover": {
+      "stem": "Find the resultant of $3\\mathbf{i}+4\\mathbf{j}$ and $-5\\mathbf{i}+2\\mathbf{j}$.",
+      "options": {"A": "$-2\\mathbf{i}+6\\mathbf{j}$", "B": "$8\\mathbf{i}+6\\mathbf{j}$", "C": "$-2\\mathbf{i}+2\\mathbf{j}$", "D": "$2\\mathbf{i}+6\\mathbf{j}$"},
+      "answer": "A",
+      "explanation": "Add corresponding signed components: $3-5=-2$ and $4+2=6$."
+    },
+    "establish": "A vector has both magnitude and direction. In a plane, $\\mathbf{i}$ and $\\mathbf{j}$ are perpendicular unit vectors along the positive horizontal and vertical axes. Write $\\mathbf{v}=x\\mathbf{i}+y\\mathbf{j}$ with signs showing direction. Its magnitude is $\\sqrt{x^2+y^2}$. To give its direction, name the reference axis and sense of rotation, then use the component signs to select the quadrant. The resultant of several vectors is their componentwise sum; alternatively, draw the vectors head to tail in a vector diagram. A vector of magnitude $V$ at angle $\\theta$ above the positive horizontal resolves into $(V\\cos\\theta)\\mathbf{i}+(V\\sin\\theta)\\mathbf{j}$.",
+    "connect": "These same component rules apply to displacements, velocities, accelerations and forces. Once a resultant is known in components, its magnitude and direction describe the combined effect.",
+    "note": "- Write signed components using $\\mathbf{i}$ and $\\mathbf{j}$.\n- Add like components before finding resultant magnitude.\n- Use $|x\\mathbf{i}+y\\mathbf{j}|=\\sqrt{x^2+y^2}$ and check the quadrant for direction.\n- Resolve from the horizontal with $V\\cos\\theta$ horizontally and $V\\sin\\theta$ vertically.",
+    "self_explain": "Why might the magnitude of the resultant of two forces be smaller than the magnitude of either force?"
+  },
+  "M1-2.2": {
+    "motivate": "A particle can start away from the origin, or change direction without changing speed. Vector subtraction captures both effects when you calculate motion.",
+    "discover": {
+      "stem": "A particle moves from $2\\mathbf{i}-3\\mathbf{j}$ m to $8\\mathbf{i}+9\\mathbf{j}$ m in 3 s at constant velocity. Find its velocity.",
+      "options": {"A": "$(2\\mathbf{i}+4\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$", "B": "$(6\\mathbf{i}+12\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$", "C": "$(8\\mathbf{i}+9\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$", "D": "$(2\\mathbf{i}+2\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$"},
+      "answer": "A",
+      "explanation": "Subtract the first displacement from the second, then divide each component by 3 s."
+    },
+    "establish": "Displacement, velocity, acceleration and force are vectors in a plane, so their horizontal and vertical components carry signs and combine componentwise. For constant velocity, $\\mathbf{v}=(\\mathbf{r}_2-\\mathbf{r}_1)/\\Delta t$: change in displacement divided by elapsed time. Its magnitude is speed. For constant acceleration, $\\mathbf{a}=(\\mathbf{v}_2-\\mathbf{v}_1)/\\Delta t$: change in velocity divided by elapsed time. Subtract the entire initial vector, including negative components. Because velocity has direction, speed may stay constant while velocity changes. Forces also add componentwise to give a resultant force. Use m for displacement, $\\mathrm{m\\,s^{-1}}$ for velocity, $\\mathrm{m\\,s^{-2}}$ for acceleration and N for force.",
+    "connect": "First resolve or add vectors as in the previous idea. Then divide a change vector by time when the question asks for constant velocity or constant acceleration.",
+    "note": "- Constant velocity: $\\mathbf{v}=(\\mathbf{r}_2-\\mathbf{r}_1)/\\Delta t$.\n- Constant acceleration: $\\mathbf{a}=(\\mathbf{v}_2-\\mathbf{v}_1)/\\Delta t$.\n- Subtract vectors component by component, keeping signs.\n- Speed is velocity magnitude; resultant force is the vector sum of forces.",
+    "self_explain": "Why does dividing the final position vector by elapsed time fail when the particle starts away from the origin?"
+  }
+}

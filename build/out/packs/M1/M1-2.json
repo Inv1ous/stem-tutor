@@ -1,0 +1,728 @@
+{
+ "subtopic": "M1-2",
+ "spec": "M1",
+ "version": 1,
+ "note": "Subjects/Maths/M1 Mechanics 1/2 Vectors in mechanics.md",
+ "outline": "In a plane, write a vector as $x\\mathbf{i}+y\\mathbf{j}$ using signed horizontal and vertical components. Add vectors component by component to find a resultant. Magnitude is $\\sqrt{x^2+y^2}$ and direction is fixed by a reference axis and the signs of the components. Resolve a vector of magnitude $V$ at angle $\\theta$ above the positive horizontal as $(V\\cos\\theta)\\mathbf{i}+(V\\sin\\theta)\\mathbf{j}$. Displacement, velocity, acceleration and force all obey these vector rules. For constant velocity, divide change in displacement by time; for constant acceleration, divide change in velocity by time.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "M1-2.1",
+   "statement": "The magnitude of $x\\mathbf{i}+y\\mathbf{j}$ is $x+y$.",
+   "refutation": "Perpendicular components form a right triangle, so magnitude is $\\sqrt{x^2+y^2}$.",
+   "contrast": "For $3\\mathbf{i}+4\\mathbf{j}$ the magnitude is $5$, not $7$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "M1-2.1",
+   "statement": "A resultant is found by adding the magnitudes of all vectors.",
+   "refutation": "Add corresponding signed components first; only then find the resultant magnitude.",
+   "contrast": "Opposite vectors can cancel even though both have positive magnitudes.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "M1-2.1",
+   "statement": "The horizontal component of a vector at an angle from the horizontal is $V\\sin\\theta$.",
+   "refutation": "The horizontal component is adjacent to that angle and equals $V\\cos\\theta$.",
+   "contrast": "The vertical component is $V\\sin\\theta$.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "M1-2.2",
+   "statement": "Velocity equals position divided by time even when the initial position is nonzero.",
+   "refutation": "Velocity at constant rate is change in displacement divided by elapsed time.",
+   "contrast": "Subtract the initial position vector before dividing.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "M1-2.2",
+   "statement": "Acceleration is the change in speed divided by time.",
+   "refutation": "Acceleration is change in the velocity vector divided by time.",
+   "contrast": "A change of direction can give acceleration without changing speed.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "M1-2.1",
+   "problem": "Find the magnitude and direction of $3\\mathbf{i}+4\\mathbf{j}$, measured anticlockwise from positive $\\mathbf{i}$.",
+   "steps": [
+    {
+     "do": "Identify horizontal component $3$ and vertical component $4$.",
+     "why": "Their signs place the vector in quadrant I."
+    },
+    {
+     "do": "Use $|\\mathbf{v}|=\\sqrt{3^2+4^2}=5$.",
+     "why": "The components are perpendicular.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 5.0,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "do": "Use $\\theta=\\tan^{-1}(4/3)\\approx53.13^\\circ$.",
+     "why": "Direction must name a reference axis and sense of rotation."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find the magnitude of $5\\mathbf{i}+12\\mathbf{j}$.",
+    "answer": {
+     "value": 13.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "M1-2.2",
+   "problem": "A particle moves at constant velocity from $2\\mathbf{i}-3\\mathbf{j}$ m to $8\\mathbf{i}+9\\mathbf{j}$ m in 3 s. Find its velocity and speed.",
+   "steps": [
+    {
+     "do": "Calculate $\\Delta\\mathbf{r}=(8-2)\\mathbf{i}+[9-(-3)]\\mathbf{j}=6\\mathbf{i}+12\\mathbf{j}$ m.",
+     "why": "Velocity uses change in displacement, including both signed coordinates."
+    },
+    {
+     "do": "Divide by time: $\\mathbf{v}=2\\mathbf{i}+4\\mathbf{j}\\,\\mathrm{m\\,s^{-1}}$.",
+     "why": "Velocity is displacement change per unit time at constant velocity.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "do": "Find speed $|\\mathbf{v}|=\\sqrt{2^2+4^2}=\\sqrt{20}\\,\\mathrm{m\\,s^{-1}}$.",
+     "why": "Speed is the magnitude of the velocity vector.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.47213595499958,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A particle moves at constant velocity from $\\mathbf{i}+2\\mathbf{j}$ m to $13\\mathbf{i}+10\\mathbf{j}$ m in 4 s. Find its speed.",
+    "answer": {
+     "value": 3.605551275463989,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "M1-2-i01",
+   "kcs": [
+    "M1-2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the magnitude of $[[x]]\\mathbf{i}+[[y]]\\mathbf{j}$.",
+   "marks": 2,
+   "explanation": "The components are perpendicular, so use Pythagoras: $|\\mathbf{v}|=\\sqrt{x^2+y^2}$.",
+   "hints": [
+    "Draw the component triangle.",
+    "Use the two perpendicular component lengths.",
+    "Square both components before combining them."
+   ],
+   "answer": {
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "x": {
+      "choices": [
+       3,
+       5,
+       8
+      ]
+     },
+     "y": {
+      "choices": [
+       4,
+       12,
+       15
+      ]
+     }
+    },
+    "answer": "sqrt(x*x+y*y)",
+    "distractors": [
+     {
+      "expr": "x+y",
+      "misconception": "m1"
+     },
+     {
+      "expr": "sqrt(x*x-y*y)",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "x*x>y*y"
+    ]
+   }
+  },
+  {
+   "id": "M1-2-i02",
+   "kcs": [
+    "M1-2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $\\mathbf{a}=[[x]]\\mathbf{i}+[[y]]\\mathbf{j}$ and $\\mathbf{b}=[[u]]\\mathbf{i}-[[v]]\\mathbf{j}$, find the magnitude of $\\mathbf{a}+\\mathbf{b}$.",
+   "marks": 2,
+   "explanation": "Add signed horizontal and vertical components, then take the magnitude of the resulting vector.",
+   "hints": [
+    "The second vector has a negative vertical component.",
+    "Add the horizontal and vertical components separately.",
+    "Form the resultant before using Pythagoras."
+   ],
+   "answer": {
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "x": {
+      "choices": [
+       3,
+       6,
+       9
+      ]
+     },
+     "y": {
+      "choices": [
+       8,
+       10
+      ]
+     },
+     "u": {
+      "choices": [
+       4,
+       8
+      ]
+     },
+     "v": {
+      "choices": [
+       2,
+       4
+      ]
+     }
+    },
+    "answer": "sqrt((x+u)**2+(y-v)**2)",
+    "distractors": [
+     {
+      "expr": "sqrt(x*x+y*y)+sqrt(u*u+v*v)",
+      "misconception": "m2"
+     },
+     {
+      "expr": "sqrt((x+u)**2+(y+v)**2)",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-2-i03",
+   "kcs": [
+    "M1-2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the resultant of $3\\mathbf{i}+4\\mathbf{j}$ and $-5\\mathbf{i}+2\\mathbf{j}$.",
+   "marks": 1,
+   "explanation": "Add like components: $3-5=-2$ and $4+2=6$. Magnitudes are not added to obtain vector components.",
+   "hints": [
+    "Treat $\\mathbf{i}$ and $\\mathbf{j}$ separately.",
+    "Keep the negative sign of the second horizontal component.",
+    "Add each pair of signed coefficients."
+   ],
+   "options": {
+    "A": "$-2\\mathbf{i}+6\\mathbf{j}$",
+    "B": "$8\\mathbf{i}+6\\mathbf{j}$",
+    "C": "$-2\\mathbf{i}+2\\mathbf{j}$",
+    "D": "$2\\mathbf{i}+6\\mathbf{j}$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m2",
+    "C": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "M1-2-i04",
+   "kcs": [
+    "M1-2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A force of magnitude $10\\,\\mathrm{N}$ acts $30^\\circ$ above the positive horizontal. Explain how to resolve it into $\\mathbf{i}$ and $\\mathbf{j}$ components.",
+   "marks": 2,
+   "explanation": "The horizontal side is adjacent to the angle, and the vertical side is opposite it. Both are positive in this quadrant.",
+   "hints": [
+    "Sketch a right triangle with the angle at the horizontal.",
+    "Label adjacent and opposite sides.",
+    "Apply cosine to the adjacent side and sine to the opposite side."
+   ],
+   "rubric": [
+    {
+     "point": "The horizontal component is $10\\cos30^\\circ=5\\sqrt3\\,\\mathrm{N}$.",
+     "keywords": [
+      [
+       "cos"
+      ],
+      [
+       "horizontal"
+      ]
+     ]
+    },
+    {
+     "point": "The vertical component is $10\\sin30^\\circ=5\\,\\mathrm{N}$.",
+     "keywords": [
+      [
+       "sin"
+      ],
+      [
+       "vertical"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-2-i05",
+   "kcs": [
+    "M1-2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A force is $-6\\mathbf{i}+8\\mathbf{j}\\,\\mathrm{N}$. Find its magnitude and direction, measured anticlockwise from the positive $\\mathbf{i}$ direction.",
+   "marks": 2,
+   "explanation": "Pythagoras gives $\\sqrt{(-6)^2+8^2}=10$. The vector is in quadrant II, so the direction is $180^\\circ-\\tan^{-1}(8/6)\\approx126.87^\\circ$.",
+   "hints": [
+    "Locate the quadrant from the component signs.",
+    "Use Pythagoras for magnitude.",
+    "Find the reference angle, then adjust it for quadrant II."
+   ],
+   "rubric": [
+    {
+     "point": "The magnitude is $10\\,\\mathrm{N}$.",
+     "keywords": [
+      [
+       "10"
+      ]
+     ]
+    },
+    {
+     "point": "The direction is approximately $126.87^\\circ$ anticlockwise from positive $\\mathbf{i}$.",
+     "keywords": [
+      [
+       "126.87",
+       "126.9",
+       "127"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-2-i06",
+   "kcs": [
+    "M1-2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle moves at constant velocity from $[[x0]]\\mathbf{i}+[[y0]]\\mathbf{j}\\,\\mathrm{m}$ to $[[x1]]\\mathbf{i}+[[y1]]\\mathbf{j}\\,\\mathrm{m}$ in $[[t]]\\,\\mathrm{s}$. Find the magnitude of its velocity.",
+   "marks": 2,
+   "explanation": "Subtract the initial position to get displacement, divide each component by time, and then find speed as the velocity magnitude.",
+   "hints": [
+    "Work with a change in position.",
+    "Subtract initial coordinates from final coordinates.",
+    "Divide the displacement magnitude by elapsed time."
+   ],
+   "answer": {
+    "unit": "m s^-1",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "x0": {
+      "choices": [
+       1,
+       2
+      ]
+     },
+     "y0": {
+      "choices": [
+       1,
+       2
+      ]
+     },
+     "x1": {
+      "choices": [
+       9,
+       14
+      ]
+     },
+     "y1": {
+      "choices": [
+       7,
+       10
+      ]
+     },
+     "t": {
+      "choices": [
+       2,
+       4
+      ]
+     }
+    },
+    "answer": "sqrt((x1-x0)**2+(y1-y0)**2)/t",
+    "distractors": [
+     {
+      "expr": "sqrt(x1*x1+y1*y1)/t",
+      "misconception": "m4"
+     },
+     {
+      "expr": "sqrt((x1-x0)**2+(y1-y0)**2)*t",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-2-i07",
+   "kcs": [
+    "M1-2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A velocity changes at constant acceleration from $[[ux]]\\mathbf{i}+[[uy]]\\mathbf{j}\\,\\mathrm{m\\,s^{-1}}$ to $[[vx]]\\mathbf{i}+([[vy]])\\mathbf{j}\\,\\mathrm{m\\,s^{-1}}$ in $[[t]]\\,\\mathrm{s}$. Find the magnitude of the acceleration.",
+   "marks": 2,
+   "explanation": "Acceleration is the change of the velocity vector divided by time; subtract components before calculating its magnitude.",
+   "hints": [
+    "Use velocity vectors, not just speeds.",
+    "Subtract the initial velocity component by component.",
+    "Find the magnitude after dividing by time."
+   ],
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "ux": {
+      "choices": [
+       1,
+       3
+      ]
+     },
+     "uy": {
+      "choices": [
+       4,
+       6
+      ]
+     },
+     "vx": {
+      "choices": [
+       7,
+       11
+      ]
+     },
+     "vy": {
+      "choices": [
+       -2,
+       -4
+      ]
+     },
+     "t": {
+      "choices": [
+       2,
+       4
+      ]
+     }
+    },
+    "answer": "sqrt((vx-ux)**2+(vy-uy)**2)/t",
+    "distractors": [
+     {
+      "expr": "abs(vx-ux)/t",
+      "misconception": "m5"
+     },
+     {
+      "expr": "sqrt((vx-ux)**2+(vy+uy)**2)/t",
+      "misconception": "m5"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-2-i08",
+   "kcs": [
+    "M1-2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the constant velocity when displacement changes from $2\\mathbf{i}-3\\mathbf{j}\\,\\mathrm{m}$ to $8\\mathbf{i}+9\\mathbf{j}\\,\\mathrm{m}$ in $3\\,\\mathrm{s}$.",
+   "marks": 1,
+   "explanation": "The displacement change is $(8-2)\\mathbf{i}+[9-(-3)]\\mathbf{j}=6\\mathbf{i}+12\\mathbf{j}\\,\\mathrm{m}$; dividing by 3 s gives the velocity. Dividing final position alone by time ignores the starting position.",
+   "hints": [
+    "Find the displacement change first.",
+    "Subtract the initial vector, including its negative component.",
+    "Divide each resulting component by the elapsed time."
+   ],
+   "options": {
+    "A": "$2\\mathbf{i}+4\\mathbf{j}\\,\\mathrm{m\\,s^{-1}}$",
+    "B": "$\\frac83\\mathbf{i}+3\\mathbf{j}\\,\\mathrm{m\\,s^{-1}}$",
+    "C": "$6\\mathbf{i}+12\\mathbf{j}\\,\\mathrm{m\\,s^{-1}}$",
+    "D": "$2\\mathbf{i}+2\\mathbf{j}\\,\\mathrm{m\\,s^{-1}}$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m4",
+    "C": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "M1-2-i09",
+   "kcs": [
+    "M1-2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a particle can have non-zero acceleration while its speed remains constant.",
+   "marks": 2,
+   "explanation": "Constant speed fixes the magnitude of velocity, but the velocity vector may turn; a change in velocity over time is acceleration.",
+   "hints": [
+    "Distinguish speed from velocity.",
+    "Consider what happens when direction changes.",
+    "Use the definition of acceleration."
+   ],
+   "rubric": [
+    {
+     "point": "Velocity has direction as well as magnitude, so a change in direction changes velocity.",
+     "keywords": [
+      [
+       "direction"
+      ],
+      [
+       "velocity"
+      ]
+     ]
+    },
+    {
+     "point": "Acceleration is change in velocity divided by time.",
+     "keywords": [
+      [
+       "change"
+      ],
+      [
+       "velocity"
+      ],
+      [
+       "time"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-2-i10",
+   "kcs": [
+    "M1-2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A constant force is $6\\mathbf{i}-8\\mathbf{j}\\,\\mathrm{N}$ and a second constant force is $-2\\mathbf{i}+5\\mathbf{j}\\,\\mathrm{N}$. Calculate the resultant force and its magnitude.",
+   "marks": 2,
+   "explanation": "Add signed force components to get $4\\mathbf{i}-3\\mathbf{j}$ N. Its magnitude is $\\sqrt{4^2+(-3)^2}=5$ N.",
+   "hints": [
+    "Combine forces as vectors.",
+    "Add horizontal and vertical parts separately.",
+    "Use Pythagoras on the resultant components."
+   ],
+   "rubric": [
+    {
+     "point": "The resultant force is $4\\mathbf{i}-3\\mathbf{j}\\,\\mathrm{N}$.",
+     "keywords": [
+      [
+       "4"
+      ],
+      [
+       "-3"
+      ]
+     ]
+    },
+    {
+     "point": "Its magnitude is $5\\,\\mathrm{N}$.",
+     "keywords": [
+      [
+       "5"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "flashcards": [],
+ "diagrams": [],
+ "teach": {
+  "M1-2.1": {
+   "motivate": "Two forces can partly cancel even when each is large. A vector diagram or signed components lets you predict the actual combined force, rather than just adding two positive magnitudes.",
+   "discover": {
+    "stem": "Find the resultant of $3\\mathbf{i}+4\\mathbf{j}$ and $-5\\mathbf{i}+2\\mathbf{j}$.",
+    "options": {
+     "A": "$-2\\mathbf{i}+6\\mathbf{j}$",
+     "B": "$8\\mathbf{i}+6\\mathbf{j}$",
+     "C": "$-2\\mathbf{i}+2\\mathbf{j}$",
+     "D": "$2\\mathbf{i}+6\\mathbf{j}$"
+    },
+    "answer": "A",
+    "explanation": "Add corresponding signed components: $3-5=-2$ and $4+2=6$."
+   },
+   "establish": "A vector has both magnitude and direction. In a plane, $\\mathbf{i}$ and $\\mathbf{j}$ are perpendicular unit vectors along the positive horizontal and vertical axes. Write $\\mathbf{v}=x\\mathbf{i}+y\\mathbf{j}$ with signs showing direction. Its magnitude is $\\sqrt{x^2+y^2}$. To give its direction, name the reference axis and sense of rotation, then use the component signs to select the quadrant. The resultant of several vectors is their componentwise sum; alternatively, draw the vectors head to tail in a vector diagram. A vector of magnitude $V$ at angle $\\theta$ above the positive horizontal resolves into $(V\\cos\\theta)\\mathbf{i}+(V\\sin\\theta)\\mathbf{j}$.",
+   "connect": "These same component rules apply to displacements, velocities, accelerations and forces. Once a resultant is known in components, its magnitude and direction describe the combined effect.",
+   "note": "- Write signed components using $\\mathbf{i}$ and $\\mathbf{j}$.\n- Add like components before finding resultant magnitude.\n- Use $|x\\mathbf{i}+y\\mathbf{j}|=\\sqrt{x^2+y^2}$ and check the quadrant for direction.\n- Resolve from the horizontal with $V\\cos\\theta$ horizontally and $V\\sin\\theta$ vertically.",
+   "self_explain": "Why might the magnitude of the resultant of two forces be smaller than the magnitude of either force?",
+   "source": "pack"
+  },
+  "M1-2.2": {
+   "motivate": "A particle can start away from the origin, or change direction without changing speed. Vector subtraction captures both effects when you calculate motion.",
+   "discover": {
+    "stem": "A particle moves from $2\\mathbf{i}-3\\mathbf{j}$ m to $8\\mathbf{i}+9\\mathbf{j}$ m in 3 s at constant velocity. Find its velocity.",
+    "options": {
+     "A": "$(2\\mathbf{i}+4\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$",
+     "B": "$(6\\mathbf{i}+12\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$",
+     "C": "$(8\\mathbf{i}+9\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$",
+     "D": "$(2\\mathbf{i}+2\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$"
+    },
+    "answer": "A",
+    "explanation": "Subtract the first displacement from the second, then divide each component by 3 s."
+   },
+   "establish": "Displacement, velocity, acceleration and force are vectors in a plane, so their horizontal and vertical components carry signs and combine componentwise. For constant velocity, $\\mathbf{v}=(\\mathbf{r}_2-\\mathbf{r}_1)/\\Delta t$: change in displacement divided by elapsed time. Its magnitude is speed. For constant acceleration, $\\mathbf{a}=(\\mathbf{v}_2-\\mathbf{v}_1)/\\Delta t$: change in velocity divided by elapsed time. Subtract the entire initial vector, including negative components. Because velocity has direction, speed may stay constant while velocity changes. Forces also add componentwise to give a resultant force. Use m for displacement, $\\mathrm{m\\,s^{-1}}$ for velocity, $\\mathrm{m\\,s^{-2}}$ for acceleration and N for force.",
+   "connect": "First resolve or add vectors as in the previous idea. Then divide a change vector by time when the question asks for constant velocity or constant acceleration.",
+   "note": "- Constant velocity: $\\mathbf{v}=(\\mathbf{r}_2-\\mathbf{r}_1)/\\Delta t$.\n- Constant acceleration: $\\mathbf{a}=(\\mathbf{v}_2-\\mathbf{v}_1)/\\Delta t$.\n- Subtract vectors component by component, keeping signs.\n- Speed is velocity magnitude; resultant force is the vector sum of forces.",
+   "self_explain": "Why does dividing the final position vector by elapsed time fail when the particle starts away from the origin?",
+   "source": "pack"
+  }
+ }
+}
