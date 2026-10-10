@@ -1,0 +1,301 @@
+{
+ "sub": "9701-9.2",
+ "stage": "ready",
+ "created": "2026-10-10T15:57:37+08:00",
+ "updated": "2026-10-10T16:09:56+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:01:33+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 104 items"
+  },
+  {
+   "t": "2026-10-10T16:04:26+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "60 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T16:05:52+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak settled every dispute; 2 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:07:58+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:09:28+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 2 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:09:56+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 104,
+  "extra": 45
+ },
+ "disputes": [
+  {
+   "id": "9701-9.2-p01",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "KC 9701-9.2.4 questions",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Statement: describe, explain, and write equations for, the acid/base behaviour of the oxides Na2O, MgO, Al2O3, P4O10, SO2 and SO3 and the hydroxides NaOH, Mg(OH)2 and Al(OH)3. Item 9701-9.2-i24 asks 'Explain the acid–base behaviour of Al2O3' but its sole rubric point is 'amphoteric; reacts with acids and NaOH'; the parallel i22–i30 questions likewise ask for classification, with no acid/base reaction equation required.",
+   "suggested": "Add questions that require balanced acid/base reaction equations for the specified oxides and hydroxides, including both reactions of each amphoteric compound.",
+   "status": "fixed",
+   "resolution": "fix: Confirmed: i22-i30 test classification only, not the balanced acid/base equations required by KC 9701-9.2.4. Amend the existing generated items (retain ids, kcs, kind and source). For i22, i23, i28, i29 set stem to \"Explain the acid-base behaviour of {compound} and write a balanced equation for its reaction with aqueous HCl.\", substituting the existing compound. For i25, i26, i27 use \"Explain the acid-base behaviour of {compound} and write a balanced equation for its complete neutralisation by excess aqueous NaOH.\" For i24 and i30 use \"Explain the amphoteric behaviour of {compound}. Write balanced equations for its reactions with aqueous HCl and excess aqueous NaOH.\" Set command_word to Explain throughout. Replace rubric with one 1-mark point for the classification and reaction property listed below, plus one 1-mark point for EACH balanced equation below; set marks to 2 except i24 and i30, which have 3. Set explanation to the classification/reaction-property sentence followed by all the listed equations for that item. Exact required content: i22: Basic oxide; neutralises acids. Na2O + 2HCl → 2NaCl + H2O. i23: Basic oxide; neutralises acids. MgO + 2HCl → MgCl2 + H2O. i24: Amphoteric; reacts with both acids and bases. Al2O3 + 6HCl → 2AlCl3 + 3H2O; Al2O3 + 2NaOH + 3H2O → 2Na[Al(OH)4]. i25: Acidic oxide; neutralises bases. P4O10 + 12NaOH → 4Na3PO4 + 6H2O. i26: Acidic oxide; neutralises bases. SO2 + 2NaOH → Na2SO3 + H2O. i27: Acidic oxide; neutralises bases. SO3 + 2NaOH → Na2SO4 + H2O. i28: Base; neutralises acids. NaOH + HCl → NaCl + H2O. i29: Base; neutralises acids. Mg(OH)2 + 2HCl → MgCl2 + 2H2O. i30: Amphoteric; reacts with both acids and bases. Al(OH)3 + 3HCl → AlCl3 + 3H2O; Al(OH)3 + NaOH → Na[Al(OH)4]. Each equation rubric must require correct products and stoichiometry, not merely the reactant keyword; accept equivalent balanced net ionic equations. No past-paper overrides are needed."
+  },
+  {
+   "ref": "KC 9701-9.2.5 questions",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Statement: describe, explain, and write equations for, the reactions of the chlorides NaCl, MgCl2, AlCl3, SiCl4, PCl5 with water including the likely pHs. Item 9701-9.2-i33 asks 'Describe adding AlCl3 to excess water, including the likely pH' and its rubric gives only 'hydrolyses, acidic pH about 3' and 'AlCl3 + 6H2O → [Al(H2O)6]3+ + 3Cl−'; no item asks the learner to explain why the hydrated aluminium ion acidifies water.",
+   "suggested": "Add a question requiring an explanation and hydrolysis equation for the acidity of aqueous AlCl3.",
+   "status": "fixed",
+   "resolution": "fix: Confirmed: i33 tests hydration and pH but does not require an explanation or equation for acid production. Replace i33.stem with \"Describe what happens when AlCl3 is added to excess water and state the likely pH. Write an equation for formation of the hydrated aluminium ion. Explain why this ion makes the solution acidic and write its first hydrolysis equilibrium.\" Set command_word to Explain and marks to 5. Replace rubric with five 1-mark points: (1) Dissolves to give an acidic solution, typically pH about 3 (concentration dependent). (2) AlCl3 + 6H2O → [Al(H2O)6]3+ + 3Cl−. (3) The small, highly charged Al3+ ion has high charge density and polarises the O-H bonds in coordinated water. (4) These weakened O-H bonds allow a proton to transfer to water, producing H3O+ and lowering pH. (5) [Al(H2O)6]3+ + H2O ⇌ [Al(H2O)5(OH)]2+ + H3O+. Accept the equivalent H+ form, [Al(H2O)6]3+ ⇌ [Al(H2O)5(OH)]2+ + H+. Set explanation to these five points as connected prose, retaining both equations; distinguish hydration in point 2 from acid-producing hydrolysis in point 5. Rubric equation points must require balanced species and charges, not merely an AlCl3 keyword. Set hints to [\"Identify the ion formed when aluminium chloride dissolves.\", \"Consider the charge density of Al3+ and its effect on coordinated water.\", \"Transfer one proton from a coordinated water molecule to another water molecule.\"]. No past-paper overrides are needed."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "KC 9701-9.2.4 questions",
+   "instruction": "Confirmed: i22-i30 test classification only, not the balanced acid/base equations required by KC 9701-9.2.4. Amend the existing generated items (retain ids, kcs, kind and source). For i22, i23, i28, i29 set stem to \"Explain the acid-base behaviour of {compound} and write a balanced equation for its reaction with aqueous HCl.\", substituting the existing compound. For i25, i26, i27 use \"Explain the acid-base behaviour of {compound} and write a balanced equation for its complete neutralisation by excess aqueous NaOH.\" For i24 and i30 use \"Explain the amphoteric behaviour of {compound}. Write balanced equations for its reactions with aqueous HCl and excess aqueous NaOH.\" Set command_word to Explain throughout. Replace rubric with one 1-mark point for the classification and reaction property listed below, plus one 1-mark point for EACH balanced equation below; set marks to 2 except i24 and i30, which have 3. Set explanation to the classification/reaction-property sentence followed by all the listed equations for that item. Exact required content: i22: Basic oxide; neutralises acids. Na2O + 2HCl → 2NaCl + H2O. i23: Basic oxide; neutralises acids. MgO + 2HCl → MgCl2 + H2O. i24: Amphoteric; reacts with both acids and bases. Al2O3 + 6HCl → 2AlCl3 + 3H2O; Al2O3 + 2NaOH + 3H2O → 2Na[Al(OH)4]. i25: Acidic oxide; neutralises bases. P4O10 + 12NaOH → 4Na3PO4 + 6H2O. i26: Acidic oxide; neutralises bases. SO2 + 2NaOH → Na2SO3 + H2O. i27: Acidic oxide; neutralises bases. SO3 + 2NaOH → Na2SO4 + H2O. i28: Base; neutralises acids. NaOH + HCl → NaCl + H2O. i29: Base; neutralises acids. Mg(OH)2 + 2HCl → MgCl2 + 2H2O. i30: Amphoteric; reacts with both acids and bases. Al(OH)3 + 3HCl → AlCl3 + 3H2O; Al(OH)3 + NaOH → Na[Al(OH)4]. Each equation rubric must require correct products and stoichiometry, not merely the reactant keyword; accept equivalent balanced net ionic equations. No past-paper overrides are needed.",
+   "status": "done"
+  },
+  {
+   "ref": "KC 9701-9.2.5 questions",
+   "instruction": "Confirmed: i33 tests hydration and pH but does not require an explanation or equation for acid production. Replace i33.stem with \"Describe what happens when AlCl3 is added to excess water and state the likely pH. Write an equation for formation of the hydrated aluminium ion. Explain why this ion makes the solution acidic and write its first hydrolysis equilibrium.\" Set command_word to Explain and marks to 5. Replace rubric with five 1-mark points: (1) Dissolves to give an acidic solution, typically pH about 3 (concentration dependent). (2) AlCl3 + 6H2O → [Al(H2O)6]3+ + 3Cl−. (3) The small, highly charged Al3+ ion has high charge density and polarises the O-H bonds in coordinated water. (4) These weakened O-H bonds allow a proton to transfer to water, producing H3O+ and lowering pH. (5) [Al(H2O)6]3+ + H2O ⇌ [Al(H2O)5(OH)]2+ + H3O+. Accept the equivalent H+ form, [Al(H2O)6]3+ ⇌ [Al(H2O)5(OH)]2+ + H+. Set explanation to these five points as connected prose, retaining both equations; distinguish hydration in point 2 from acid-producing hydrolysis in point 5. Rubric equation points must require balanced species and charges, not merely an AlCl3 keyword. Set hints to [\"Identify the ion formed when aluminium chloride dissolves.\", \"Consider the charge density of Al3+ and its effect on coordinated water.\", \"Transfer one proton from a coordinated water molecule to another water molecule.\"]. No past-paper overrides are needed.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 79913,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:57:37+08:00",
+   "log": "foundry/logs/9701-9.2.drafter.1010-155737.log",
+   "out": "foundry/logs/9701-9.2.drafter.1010-155737.out.json",
+   "finished": "2026-10-10T16:01:33+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-9.2.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/09 The Periodic Table: chemical periodicity/9.2 Periodicity of chemical properties of the elements in Period 3.md",
+    "items": 104,
+    "templates": 0,
+    "worked": 4,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Likely pH values depend on concentration; the note and cards give approximate values."
+    ]
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 82696,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:02:39+08:00",
+   "log": "foundry/logs/9701-9.2.solver-1.1010-160239.log",
+   "out": "foundry/logs/9701-9.2.solver-1.1010-160239.out.json",
+   "expects": "build/work/blind/9701-9.2.answers.part1.json",
+   "finished": "2026-10-10T16:03:14+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-9.2.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 82701,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:02:39+08:00",
+   "log": "foundry/logs/9701-9.2.solver-2.1010-160239.log",
+   "out": "foundry/logs/9701-9.2.solver-2.1010-160239.out.json",
+   "expects": "build/work/blind/9701-9.2.answers.part2.json",
+   "finished": "2026-10-10T16:03:16+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-9.2.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 82705,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:02:39+08:00",
+   "log": "foundry/logs/9701-9.2.solver-3.1010-160239.log",
+   "out": "foundry/logs/9701-9.2.solver-3.1010-160239.out.json",
+   "expects": "build/work/blind/9701-9.2.answers.part3.json",
+   "finished": "2026-10-10T16:03:06+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-9.2.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "solver#4": {
+   "pid": 83327,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:03:25+08:00",
+   "log": "foundry/logs/9701-9.2.solver-4.1010-160325.log",
+   "out": "foundry/logs/9701-9.2.solver-4.1010-160325.out.json",
+   "expects": "build/work/blind/9701-9.2.answers.part4.json",
+   "finished": "2026-10-10T16:03:36+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9701-9.2.answers.part4.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 83331,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:03:25+08:00",
+   "log": "foundry/logs/9701-9.2.checker.1010-160325.log",
+   "out": "foundry/logs/9701-9.2.checker.1010-160325.out.json",
+   "expects": "build/work/foundry/9701-9.2.check.json",
+   "finished": "2026-10-10T16:04:18+08:00",
+   "exit": 0,
+   "report": {
+    "text": "2 findings — build/work/foundry/9701-9.2.check.json"
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 84654,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:04:56+08:00",
+   "log": "foundry/logs/9701-9.2.tiebreak.1010-160456.log",
+   "out": "foundry/logs/9701-9.2.tiebreak.1010-160456.out.json",
+   "expects": "build/work/blind/9701-9.2.tiebreak.json",
+   "finished": "2026-10-10T16:05:13+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9701-9.2.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 86618,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T16:07:00+08:00",
+   "log": "foundry/logs/9701-9.2.adjudicator.1010-160700.log",
+   "out": "foundry/logs/9701-9.2.adjudicator.1010-160700.out.json",
+   "finished": "2026-10-10T16:08:02+08:00",
+   "exit": 0,
+   "report": {
+    "text": "KC 9701-9.2.4 questions fix: Require balanced acid/base equations, including both amphoteric reactions.\nKC 9701-9.2.5 questions fix: Require aluminium ion acidity explanation and hydrolysis equilibrium."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 87572,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:08:56+08:00",
+   "log": "foundry/logs/9701-9.2.fixer.1010-160856.log",
+   "out": "foundry/logs/9701-9.2.fixer.1010-160856.out.json",
+   "finished": "2026-10-10T16:09:28+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 10,
+    "not_done": [
+     "Syllabus gate still fails: it reports missing teaching cards for KCs 9701-9.2.1 through 9701-9.2.7. No teaching-card changes were requested."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_11_q35": "9701-9.2-x001",
+  "9701_s19_13_q4": "9701-9.2-x002",
+  "9701_w19_11_q12": "9701-9.2-x003",
+  "9701_w19_12_q35": "9701-9.2-x004",
+  "9701_s20_11_q15": "9701-9.2-x005",
+  "9701_s20_11_q16": "9701-9.2-x006",
+  "9701_s20_12_q16": "9701-9.2-x007",
+  "9701_s20_13_q15": "9701-9.2-x008",
+  "9701_s20_13_q19": "9701-9.2-x009",
+  "9701_s20_13_q36": "9701-9.2-x010",
+  "9701_w20_11_q12": "9701-9.2-x011",
+  "9701_w20_11_q36": "9701-9.2-x012",
+  "9701_w20_12_q5": "9701-9.2-x013",
+  "9701_w20_13_q36": "9701-9.2-x014",
+  "9701_s21_11_q12": "9701-9.2-x015",
+  "9701_s21_12_q12": "9701-9.2-x016",
+  "9701_s21_12_q35": "9701-9.2-x017",
+  "9701_s21_13_q19": "9701-9.2-x018",
+  "9701_w21_11_q12": "9701-9.2-x019",
+  "9701_w21_11_q35": "9701-9.2-x020",
+  "9701_w21_12_q35": "9701-9.2-x021",
+  "9701_s22_11_q6": "9701-9.2-x022",
+  "9701_s22_11_q18": "9701-9.2-x023",
+  "9701_s22_11_q19": "9701-9.2-x024",
+  "9701_s22_11_q23": "9701-9.2-x025",
+  "9701_s22_12_q25": "9701-9.2-x026",
+  "9701_s22_13_q19": "9701-9.2-x027",
+  "9701_w22_11_q25": "9701-9.2-x028",
+  "9701_s23_12_q18": "9701-9.2-x029",
+  "9701_s23_12_q19": "9701-9.2-x030",
+  "9701_s23_13_q22": "9701-9.2-x031",
+  "9701_w23_11_q18": "9701-9.2-x032",
+  "9701_w23_12_q20": "9701-9.2-x033",
+  "9701_w23_13_q18": "9701-9.2-x034",
+  "9701_s24_11_q16": "9701-9.2-x035",
+  "9701_s24_11_q17": "9701-9.2-x036",
+  "9701_s24_12_q16": "9701-9.2-x037",
+  "9701_s24_12_q20": "9701-9.2-x038",
+  "9701_s24_13_q16": "9701-9.2-x039",
+  "9701_s24_13_q17": "9701-9.2-x040",
+  "9701_w24_11_q17": "9701-9.2-x041",
+  "9701_w24_11_q18": "9701-9.2-x042",
+  "9701_s25_12_q16": "9701-9.2-x043",
+  "9701_s25_12_q18": "9701-9.2-x044",
+  "9701_s25_13_q20": "9701-9.2-x045"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
