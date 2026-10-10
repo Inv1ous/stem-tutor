@@ -1,0 +1,2095 @@
+{
+ "subtopic": "9702-10.3",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/10 D.C. circuits/10.3 Potential dividers.md",
+ "outline": "A potential divider shares a supply p.d. between series resistances: $V_{out}=V_{in}R_{out}/R_{total}$. A uniform potentiometer wire has a constant potential gradient. At a galvanometer null, the unknown p.d. equals the wire p.d. up to the contact; for the same gradient $V_1/V_2=l_1/l_2$. No current flows through the comparison cell. Thermistors and LDRs change divider output as temperature or illumination changes their resistance.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-10.3.1",
+   "statement": "The larger resistor always has the smaller p.d.",
+   "refutation": "In series the same current passes through both; $V=IR$ makes p.d. proportional to resistance.",
+   "contrast": "Find which resistor the output spans.",
+   "source": "ER 9702 s23 P21 Q7"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-10.3.2",
+   "statement": "The unknown cell must have zero internal resistance.",
+   "refutation": "At balance no current flows through the unknown cell, so its internal p.d. is zero even if its resistance is non-zero.",
+   "contrast": "A null measurement compares e.m.f. with wire p.d.",
+   "source": "ER 9702 w23 P13 Q37"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-10.3.3",
+   "statement": "A null galvanometer needs an amperes calibration.",
+   "refutation": "Only zero deflection is required to find balance; its current scale is irrelevant.",
+   "contrast": "Zero indicates equal opposing potential differences.",
+   "source": "ER 9702 w23 P12 Q37"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-10.3.4",
+   "statement": "Cooling an NTC thermistor reduces its resistance.",
+   "refutation": "An NTC thermistor has higher resistance when cooler; an LDR has higher resistance in dimmer light.",
+   "contrast": "Determine which divider component the voltmeter spans.",
+   "source": "ER 9702 s23 P12 Q33"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-10.3.1",
+   "problem": "A 9.0 V supply feeds 2.0 k$\\Omega$ and 4.0 k$\\Omega$ in series. Find p.d. across 4.0 k$\\Omega$.",
+   "steps": [
+    {
+     "do": "$V_{out}=V_{in}R_2/(R_1+R_2)$.",
+     "why": "The same current passes through both series resistors."
+    },
+    {
+     "do": "$V_{out}=9.0(4.0)/(2.0+4.0)=6.0$ V.",
+     "why": "The output terminals span the 4.0 k$\\Omega$ arm.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6.0,
+       "unit": "V",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A 12 V supply feeds 3.0 k$\\Omega$ and 6.0 k$\\Omega$ in series. Find p.d. across 6.0 k$\\Omega$.",
+    "answer": {
+     "value": 8.0,
+     "unit": "V",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-10.3.2",
+   "problem": "On a uniform wire, a 1.50 V reference balances at 75.0 cm. An unknown cell balances at 45.0 cm. Find its e.m.f.",
+   "steps": [
+    {
+     "do": "$E_x/E_0=l_x/l_0$.",
+     "why": "On the same steady-current wire, p.d. is proportional to length."
+    },
+    {
+     "do": "$E_x=1.50(45.0/75.0)=0.900$ V.",
+     "why": "At null the unknown cell has no internal voltage drop.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.9,
+       "unit": "V",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A 1.20 V reference balances at 60.0 cm; an unknown balances at 35.0 cm. Find its e.m.f.",
+    "answer": {
+     "value": 0.7,
+     "unit": "V",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-10.3.4",
+   "problem": "A 6.0 V divider has a 10 k$\\Omega$ fixed resistor and a 20 k$\\Omega$ thermistor. Find p.d. across the thermistor.",
+   "steps": [
+    {
+     "do": "$V_T=V_{in}R_T/(R_F+R_T)$.",
+     "why": "The thermistor is the output arm."
+    },
+    {
+     "do": "$V_T=6.0(20)/(10+20)=4.0$ V.",
+     "why": "Use the resistance ratio for the series circuit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.0,
+       "unit": "V",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A 9.0 V divider has 15 k$\\Omega$ fixed and 30 k$\\Omega$ thermistor resistances. Find p.d. across the thermistor.",
+    "answer": {
+     "value": 6.0,
+     "unit": "V",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-10.3-i01",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the principle of a potential divider circuit.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Series components share the supply p.d. in proportion to their resistances.",
+     "keywords": [
+      [
+       "series"
+      ],
+      [
+       "proportion"
+      ],
+      [
+       "resistance"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Series components share the supply p.d. in proportion to their resistances.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i02",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the p.d. across $R_2$ in a two-resistor divider supplied by $V_{in}$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$V_{out}=V_{in}R_2/(R_1+R_2)$.",
+     "keywords": [
+      [
+       "R_2"
+      ],
+      [
+       "R_1+R_2"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$V_{out}=V_{in}R_2/(R_1+R_2)$.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i03",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a larger series resistance has a larger p.d.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The same current flows through both resistors and $V=IR$.",
+     "keywords": [
+      [
+       "same current"
+      ],
+      [
+       "V=IR"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The same current flows through both resistors and $V=IR$.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i04",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the output across the lower resistor when its resistance increases at fixed supply p.d.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The output p.d. increases because its share of total resistance increases.",
+     "keywords": [
+      [
+       "increases"
+      ],
+      [
+       "share",
+       "fraction"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The output p.d. increases because its share of total resistance increases.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i05",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the p.d.s across two equal series resistors.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Their potential differences are equal: each is half the supply p.d.",
+     "keywords": [
+      [
+       "equal"
+      ],
+      [
+       "half"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Their potential differences are equal: each is half the supply p.d.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i06",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a loaded divider may have a different output from the unloaded prediction.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The load is parallel to an arm, changing its effective resistance and hence the voltage ratio.",
+     "keywords": [
+      [
+       "parallel"
+      ],
+      [
+       "effective resistance"
+      ],
+      [
+       "ratio"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The load is parallel to an arm, changing its effective resistance and hence the voltage ratio.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i07",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how a uniform potentiometer wire compares two potential differences.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Find each zero-current balance length on the same wire; the p.d. ratio equals the balance-length ratio.",
+     "keywords": [
+      [
+       "balance"
+      ],
+      [
+       "length"
+      ],
+      [
+       "ratio"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Find each zero-current balance length on the same wire; the p.d. ratio equals the balance-length ratio.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i08",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relation between p.d. and length along a uniform wire carrying steady current.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Potential difference is proportional to wire length.",
+     "keywords": [
+      [
+       "proportional"
+      ],
+      [
+       "length"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Potential difference is proportional to wire length.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i09",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a potentiometer wire must have uniform resistance per unit length.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Then equal lengths have equal resistance and equal p.d. for steady current.",
+     "keywords": [
+      [
+       "equal lengths"
+      ],
+      [
+       "equal",
+       "same"
+      ],
+      [
+       "p.d."
+      ]
+     ]
+    }
+   ],
+   "explanation": "Then equal lengths have equal resistance and equal p.d. for steady current.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i10",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to measure the e.m.f. of an unknown cell using a potentiometer.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Connect it against the wire p.d.; move the contact until the galvanometer reads zero, then use the balance length and potential gradient.",
+     "keywords": [
+      [
+       "zero"
+      ],
+      [
+       "length"
+      ],
+      [
+       "gradient"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Connect it against the wire p.d.; move the contact until the galvanometer reads zero, then use the balance length and potential gradient.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i11",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare two cell e.m.f.s with balance lengths $l_1$ and $l_2$ on the same wire.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$E_1/E_2=l_1/l_2$ when the wire potential gradient is unchanged.",
+     "keywords": [
+      [
+       "E_1/E_2"
+      ],
+      [
+       "l_1/l_2"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$E_1/E_2=l_1/l_2$ when the wire potential gradient is unchanged.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i12",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the driver supply must provide a wire p.d. at least as large as the unknown e.m.f.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A balance point exists only if the matching wire p.d. lies within its available range.",
+     "keywords": [
+      [
+       "balance"
+      ],
+      [
+       "range"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A balance point exists only if the matching wire p.d. lies within its available range.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i13",
+   "kcs": [
+    "9702-10.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the galvanometer reading at the balance point.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Zero deflection: no current flows through the galvanometer.",
+     "keywords": [
+      [
+       "zero"
+      ],
+      [
+       "current"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Zero deflection: no current flows through the galvanometer.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "Think about what the galvanometer detects and how balance affects its deflection."
+   ]
+  },
+  {
+   "id": "9702-10.3-i14",
+   "kcs": [
+    "9702-10.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what zero galvanometer deflection shows in a potentiometer.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The compared p.d.s are equal and opposed, so no current flows in the comparison branch.",
+     "keywords": [
+      [
+       "equal"
+      ],
+      [
+       "opposed"
+      ],
+      [
+       "no current"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The compared p.d.s are equal and opposed, so no current flows in the comparison branch.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i15",
+   "kcs": [
+    "9702-10.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why an unknown cell internal resistance does not alter its measured e.m.f. at balance.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "No current passes through the cell, so there is no internal p.d. drop.",
+     "keywords": [
+      [
+       "no current"
+      ],
+      [
+       "internal"
+      ],
+      [
+       "drop",
+       "p.d."
+      ]
+     ]
+    }
+   ],
+   "explanation": "No current passes through the cell, so there is no internal p.d. drop.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i16",
+   "kcs": [
+    "9702-10.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State whether a null galvanometer requires an ampere-calibrated scale.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "No; it need only identify zero deflection.",
+     "keywords": [
+      [
+       "no"
+      ],
+      [
+       "zero"
+      ]
+     ]
+    }
+   ],
+   "explanation": "No; it need only identify zero deflection.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i17",
+   "kcs": [
+    "9702-10.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the purpose of a sensitive galvanometer in a null method.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It detects small departures from zero current as the contact approaches balance.",
+     "keywords": [
+      [
+       "zero"
+      ],
+      [
+       "balance"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It detects small departures from zero current as the contact approaches balance.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i18",
+   "kcs": [
+    "9702-10.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a non-zero galvanometer reading does not establish the unknown e.m.f.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A non-zero reading means the opposing p.d.s have not balanced.",
+     "keywords": [
+      [
+       "not",
+       "unequal"
+      ],
+      [
+       "balance"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A non-zero reading means the opposing p.d.s have not balanced.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i19",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State how an NTC thermistor resistance changes as temperature rises.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its resistance decreases as temperature rises.",
+     "keywords": [
+      [
+       "decreases"
+      ],
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Its resistance decreases as temperature rises.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i20",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State how LDR resistance changes as light intensity rises.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its resistance decreases as light intensity rises.",
+     "keywords": [
+      [
+       "decreases"
+      ],
+      [
+       "light"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Its resistance decreases as light intensity rises.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i21",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how a thermistor divider can produce a temperature-dependent p.d.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Temperature changes thermistor resistance, changing its share of the supply p.d.",
+     "keywords": [
+      [
+       "temperature"
+      ],
+      [
+       "resistance"
+      ],
+      [
+       "p.d."
+      ]
+     ]
+    }
+   ],
+   "explanation": "Temperature changes thermistor resistance, changing its share of the supply p.d.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i22",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how an LDR divider can produce a light-dependent p.d.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Light intensity changes LDR resistance, changing its share of the supply p.d.",
+     "keywords": [
+      [
+       "light"
+      ],
+      [
+       "resistance"
+      ],
+      [
+       "p.d."
+      ]
+     ]
+    }
+   ],
+   "explanation": "Light intensity changes LDR resistance, changing its share of the supply p.d.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i23",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the p.d. across an NTC thermistor in series with a fixed resistor when temperature increases.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It decreases because thermistor resistance and its voltage fraction decrease.",
+     "keywords": [
+      [
+       "decreases"
+      ],
+      [
+       "resistance"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It decreases because thermistor resistance and its voltage fraction decrease.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i24",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the p.d. across a fixed resistor in series with an LDR when light intensity increases.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It increases because LDR resistance falls and the fixed resistor takes a larger voltage fraction.",
+     "keywords": [
+      [
+       "increases"
+      ],
+      [
+       "LDR"
+      ],
+      [
+       "falls",
+       "decreases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It increases because LDR resistance falls and the fixed resistor takes a larger voltage fraction.",
+   "hints": [
+    "Identify the relevant component and output terminals.",
+    "Use the series or balance principle.",
+    "State how the potential difference follows from resistance or zero current."
+   ]
+  },
+  {
+   "id": "9702-10.3-i25",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the p.d. across a $3.0\\,\\Omega$ resistor in series with a $6.0\\,\\Omega$ resistor across $12$ V.",
+   "marks": 2,
+   "answer": {
+    "value": 4.0,
+    "unit": "V",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "$V=12(3.0)/(3.0+6.0)=4.0$ V.",
+   "hints": [
+    "Identify the output section and total section.",
+    "Write the potential-divider or balance-length ratio.",
+    "Substitute the resistance or length values before rounding."
+   ]
+  },
+  {
+   "id": "9702-10.3-i26",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the unknown e.m.f. if $1.50$ V balances at $60.0$ cm and the unknown balances at $40.0$ cm on the same wire.",
+   "marks": 2,
+   "answer": {
+    "value": 1.0,
+    "unit": "V",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "$E_x/E_0=l_x/l_0$, so $E_x=1.50(40.0/60.0)=1.00$ V.",
+   "hints": [
+    "Identify the output section and total section.",
+    "Write the potential-divider or balance-length ratio.",
+    "Substitute the resistance or length values before rounding."
+   ]
+  },
+  {
+   "id": "9702-10.3-i27",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the p.d. across a $10$ k$\\Omega$ fixed resistor in series with a $15$ k$\\Omega$ thermistor across $6.0$ V.",
+   "marks": 2,
+   "answer": {
+    "value": 2.4,
+    "unit": "V",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "$V=6.0(10)/(10+15)=2.4$ V.",
+   "hints": [
+    "Identify the output section and total section.",
+    "Write the potential-divider or balance-length ratio.",
+    "Substitute the resistance or length values before rounding."
+   ]
+  },
+  {
+   "id": "9702-10.3-p01",
+   "kcs": [
+    "9702-10.3.2",
+    "9702-10.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q37",
+    "qid": "9702_w23_13_q37"
+   },
+   "stem": "A potentiometer and a driver cell of electromotive force (e.m.f.) E are used to measure the e.m.f.\nof a new cell.\nA sliding contact at P is moved along a resistance wire QR until the reading on the galvanometer\nis zero.\nQ\nR\nP\ndriver cell\nE\nnew cell\nWhat is an essential requirement for the e.m.f. of the new cell to be measured accurately?",
+   "options": {
+    "A": "The e.m.f. of the driver cell must be less than the e.m.f. of the new cell.",
+    "B": "The galvanometer must have a large resistance.",
+    "C": "The internal resistance of the new cell must be zero.",
+    "D": "The resistance per unit length of the wire QR must be constant."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_13_q37.png",
+   "marks": 1,
+   "explanation": "Uniform resistance per unit length makes p.d. proportional to balance length. C is wrong: the unknown cell carries no current at null, whatever its internal resistance.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p02",
+   "kcs": [
+    "9702-10.3.2",
+    "9702-10.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q37",
+    "qid": "9702_w23_12_q37"
+   },
+   "stem": "In the circuit shown, a battery of negligible internal resistance is connected in series with a pair of\nfixed resistors R₁ and R₂.\n60 Ω\nR₁\nR₂\n20 Ω\n6.0 V\nX\nY\nThe circuit is to be used to test whether the electromotive force (e.m.f.) of a particular cell is 1.5 V.\nThe cell is connected between terminals X and Y in parallel with R₂ and in series with a\ngalvanometer.\nWhich statement about the test is correct?",
+   "options": {
+    "A": "Any non-zero reading on the galvanometer means the cell has an e.m.f. of 1.5 V.",
+    "B": "The battery does not need to have an e.m.f. of 6.0 V.",
+    "C": "The cell may be connected either way round between X and Y.",
+    "D": "The galvanometer does not need a scale calibrated in amperes."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_12_q37.png",
+   "marks": 1,
+   "explanation": "At the 1.5 V balance point only zero deflection matters, so no amperes calibration is needed. A is wrong: a non-zero reading means the p.d.s are unequal.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p03",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q37",
+    "qid": "9702_w22_13_q37"
+   },
+   "stem": "A cell E, of electromotive force (e.m.f.) 2 V and negligible internal resistance, is connected to a\nuniform resistance wire of resistance 10 Ω and length 1.0 m.\nE\nZ\nP\nQ\nresistance wire\nZ is a connection that may be made at any position along the resistance wire. A galvanometer is\nconnected between Z and a point Q.\nA new source of e.m.f. of approximately 8 mV is connected between points P and Q. The e.m.f. of\nthe new source is determined by changing the position of Z until the reading on the galvanometer\nis zero.\nWhich change to the circuit allows a much more precise value for the e.m.f. of the new source to\nbe obtained?",
+   "options": {
+    "A": "Add a resistor of resistance 0.1 Ω in series with cell E.",
+    "B": "Add a resistor of resistance 1000 Ω in series with cell E.",
+    "C": "Add a resistor of resistance 10 Ω in series with the new source.",
+    "D": "Add a resistor of resistance 800 Ω in series with the new source."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_13_q37.png",
+   "marks": 1,
+   "explanation": "A large series resistance lowers the wire potential gradient, spreading an 8 mV balance over a measurable length. Resistors in the unknown-cell branch do not change the gradient.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p04",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q38",
+    "qid": "9702_w21_12_q38"
+   },
+   "stem": "A battery of electromotive force (e.m.f.) 9.0 V and internal resistance 1.0 Ω is connected to a fixed\nresistor of resistance 5.0 Ω and a potentiometer of maximum resistance 3.0 Ω, as shown.\nV\n5.0 Ω\n3.0 Ω\n1.0 Ω\n9.0 V\nThe sliding contact of the potentiometer is moved over its full range of movement.\nWhat is the maximum value of the potential difference that is measured by the voltmeter?",
+   "options": {
+    "A": "3.0 V",
+    "B": "3.4 V",
+    "C": "4.5 V",
+    "D": "5.4 V"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_12_q38.png",
+   "marks": 1,
+   "explanation": "The maximum wire p.d. is $9.0(3.0)/(1.0+5.0+3.0)=3.0$ V. The 3.4 V choice omits a series resistance.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p05",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q38",
+    "qid": "9702_w20_13_q38"
+   },
+   "stem": "A power supply and a solar cell are compared using the potentiometer circuit shown.\nR\nP\nQ\n40.0 cm\nS\ngalvanometer\nsolar cell\npower supply\n2.000 V\n+\n–\nThe potentiometer wire PQ is 100.0 cm long and has a resistance of 5.00 Ω. The power supply\nhas an e.m.f. of 2.000 V and the solar cell has an e.m.f. of 5.00 mV.\nWhich resistance R must be used so that the galvanometer reads zero when PS = 40.0 cm?",
+   "options": {
+    "A": "395 Ω",
+    "B": "405 Ω",
+    "C": "795 Ω",
+    "D": "805 Ω"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_13_q38.png",
+   "marks": 1,
+   "explanation": "At null, 40.0 cm has 5.00 mV; the whole wire has 12.5 mV and current 2.50 mA. Thus $R=(2.000-0.0125)/0.00250=795$ $\\Omega$. The 805 $\\Omega$ choice fails to subtract the wire p.d.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p06",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q37",
+    "qid": "9702_w19_12_q37"
+   },
+   "stem": "The diagram shows a variable resistor R and two fixed resistors connected in series in a circuit to\nact as a potential divider.\nR\n10 Ω\n2.0 Ω\n6.0 V\n2.0 V\nThe cell of electromotive force (e.m.f.) 6.0 V has negligible internal resistance. A cell of e.m.f.\n2.0 V and a galvanometer are connected into the potential divider. The resistance of R is varied\nuntil the galvanometer reads zero.\nWhat is the resistance of resistor R?",
+   "options": {
+    "A": "3.0 Ω",
+    "B": "5.0 Ω",
+    "C": "8.0 Ω",
+    "D": "18 Ω"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_12_q37.png",
+   "marks": 1,
+   "explanation": "At null, the p.d. across $R+2.0$ $\\Omega$ is 2.0 V: $6.0(R+2.0)/(R+12)=2.0$, giving $R=3.0$ $\\Omega$. Using only the variable resistor as the output arm gives a wrong choice.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p07",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q37",
+    "qid": "9702_s23_13_q37"
+   },
+   "stem": "A potentiometer circuit is used to investigate the electromotive force (e.m.f.) of a cell X.\nX\ndriver cell\n2.0 V\nQ\nR\nP\nsliding contact\nresistance wire\nThe e.m.f. of cell X is known to be approximately 0.50 V.\nThe driver cell has negligible internal resistance and an e.m.f. of 2.0 V. The sliding contact is\nmoved along the uniform resistance wire between ends Q and R to a point P where the reading\non the galvanometer is zero.\nWhat is an expression for the approximate length QP?",
+   "options": {
+    "A": "4 QR",
+    "B": "3 QR",
+    "C": "3 2QR",
+    "D": "4 3QR"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_13_q37.png",
+   "marks": 1,
+   "explanation": "At null, $0.50/2.0=QP/QR=1/4$. The longer fractions C and D reverse or misapply the wire ratio.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p08",
+   "kcs": [
+    "9702-10.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q37",
+    "qid": "9702_s23_12_q37"
+   },
+   "stem": "In the potentiometer circuit shown, the reading on the ammeter is zero.\nA\nsliding contact\nuniform metal wire\npower\nsupply\nThe light-dependent resistor (LDR) is then covered and the ammeter gives a non-zero reading.\nWhich change could return the ammeter reading to zero?",
+   "options": {
+    "A": "decreasing the supply voltage",
+    "B": "increasing the supply voltage",
+    "C": "moving the sliding contact to the left",
+    "D": "moving the sliding contact to the right"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_12_q37.png",
+   "marks": 1,
+   "explanation": "Covering the LDR raises its resistance, so balance requires more wire to the right; move the contact left. D moves it in the opposite direction.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p09",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q38",
+    "qid": "9702_s21_13_q38"
+   },
+   "stem": "In the circuit shown, a potentiometer of total resistance 120 Ω is connected in parallel with a\nresistor of resistance 150 Ω and a resistor of resistance R.\nThe battery has electromotive force (e.m.f.) 12 V and negligible internal resistance.\nV\nR\n150 Ω\n120 Ω\n12 V\nThe voltmeter reads 0 V when the slider of the potentiometer is 1\n4 of the way from its lower end,\nas shown.\nWhat is resistance R ?",
+   "options": {
+    "A": "30 Ω",
+    "B": "38 Ω",
+    "C": "50 Ω",
+    "D": "450 Ω"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_13_q38.png",
+   "marks": 1,
+   "explanation": "The slider divides 120 $\\Omega$ into 30 $\\Omega$ below and 90 $\\Omega$ above. At null $R/150=30/90$, hence $R=50$ $\\Omega$; A uses the 30 $\\Omega$ wire section as the unknown.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p10",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q38",
+    "qid": "9702_s21_11_q38"
+   },
+   "stem": "A potentiometer circuit is used to determine the unknown electromotive force (e.m.f.) of a cell X.\nIn the circuit shown, E is a cell with an e.m.f. that is known accurately. QR is the potentiometer\nwire, which has a movable contact S. Contact S is connected to a galvanometer and to cell X.\nE\nX\nQ\nS\nR\nWhat is not a necessary requirement to determine the e.m.f. of X from the circuit?",
+   "options": {
+    "A": "The e.m.f. of cell X must be lower than the e.m.f. of cell E.",
+    "B": "The internal resistance of cell X must be known.",
+    "C": "The lengths QS and QR must be determined accurately.",
+    "D": "The resistance of the wire QR must be proportional to its length."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_11_q38.png",
+   "marks": 1,
+   "explanation": "At null the unknown cell supplies no current, so its internal resistance need not be known. A remains necessary because the unknown e.m.f. must fit the wire p.d. range.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p11",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q35",
+    "qid": "9702_w25_12_q35"
+   },
+   "stem": "The diagram shows a circuit with a battery of electromotive force (e.m.f.) 60 V and negligible\ninternal resistance, a 20 kΩ resistor, a thermistor and a voltmeter. The resistance of the\nthermistor is 20 kΩ.\nV\n60 V\nThe temperature of the thermistor decreases, and this causes its resistance to change by 50%.\nAfter this change, what is the reading on the voltmeter?",
+   "options": {
+    "A": "20 V",
+    "B": "24 V",
+    "C": "36 V",
+    "D": "40 V"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w25_12_q35.png",
+   "marks": 1,
+   "explanation": "Cooling increases thermistor resistance to 30 k$\\Omega$; the voltmeter spans the 20 k$\\Omega$ resistor, giving $60(20)/(20+30)=24$ V. C assigns the output to the thermistor.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-p12",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q37",
+    "qid": "9702_w23_11_q37"
+   },
+   "stem": "A potential divider consists of two resistors of resistances R₁ and R₂ connected in series across a\nsource of potential difference (p.d.) Viₙ. The p.d. across R₁ is Vₒuₜ.\nR₂\nR₁\nViₙ\nVₒuₜ\nWhich changes to R₁ and R₂ will increase the value of Vₒuₜ?\nR₁\nR₂",
+   "options": {
+    "A": "doubled doubled",
+    "B": "doubled halved",
+    "C": "halved doubled",
+    "D": "halved halved"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w23_11_q37.png",
+   "marks": 1,
+   "explanation": "Across $R_1$, $V_{out}=V_{in}R_1/(R_1+R_2)$. Doubling $R_1$ and halving $R_2$ raises the fraction; doubling both leaves it unchanged.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.3-x001",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q38",
+    "qid": "9702_s19_11_q38"
+   },
+   "stem": "The diagram shows a potentiometer and a fixed resistor connected across a 12 V battery of\nnegligible internal resistance.\noutput\n12 V\n20 Ω\n20 Ω\nfixed resistor\nThe fixed resistor and the potentiometer each have resistance 20 Ω. The circuit is designed to\nprovide a variable output voltage.\nWhat is the range of output voltages?",
+   "options": {
+    "A": "0 – 6 V",
+    "B": "0 – 12 V",
+    "C": "6 – 12 V",
+    "D": "12 – 20 V"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_11_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x002",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q37",
+    "qid": "9702_s19_13_q37"
+   },
+   "stem": "A potential divider circuit is shown.\n150 Ω\nR\n12.0 V\n5.00 V\nWhat is the resistance of resistor R in the potential divider circuit?",
+   "options": {
+    "A": "62.5 Ω",
+    "B": "107 Ω",
+    "C": "210 Ω",
+    "D": "360 Ω"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x003",
+   "kcs": [
+    "9702-10.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q38",
+    "qid": "9702_s20_11_q38"
+   },
+   "stem": "In the circuit shown, a battery of negligible internal resistance is connected in series with a pair of\nfixed resistors R₁ and R₂.\n60 Ω\nR₁\nR₂\n20 Ω\n6.0 V\nX\nY\nThe circuit is to be used to test whether the electromotive force (e.m.f.) of a particular cell is 1.5 V.\nThe cell is connected between terminals X and Y in parallel with R₂ and in series with a\ngalvanometer.\nWhich statement about the test is correct?",
+   "options": {
+    "A": "Any non-zero reading on the galvanometer means the cell has an e.m.f. of 1.5 V.",
+    "B": "The battery does not need to have an e.m.f. of 6.0 V.",
+    "C": "The cell may be connected either way round between X and Y.",
+    "D": "The galvanometer does not need a scale calibrated in amperes."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_11_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x004",
+   "kcs": [
+    "9702-10.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q3",
+    "qid": "9702_s20_12_q3"
+   },
+   "stem": "A galvanometer of resistance 5 Ω is to be used in a null method.\nIn order to protect the galvanometer from damage due to an excessive initial current, resistors of\nresistance 0.5 Ω and 1 kΩ are available.\nWhich arrangement would provide this protection?",
+   "options": {
+    "A": "the 0.5 Ω resistor in series with the galvanometer",
+    "B": "the 0.5 Ω resistor in parallel with the galvanometer and this combination placed in series with the 1 kΩ resistor",
+    "C": "the 1 kΩ resistor in parallel with the galvanometer",
+    "D": "the 1 kΩ resistor in parallel with the galvanometer and this combination placed in series with the 0.5 Ω resistor"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x005",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q38",
+    "qid": "9702_s20_12_q38"
+   },
+   "stem": "In the circuit shown, X is a variable resistor whose resistance can be changed from 5.0 Ω to\n500 Ω. The electromotive force (e.m.f.) of the battery is 12.0 V. It has negligible internal\nresistance.\noutput\n12.0 V\n40 Ω\nX\nWhat is the maximum range of values of potential difference across the output?",
+   "options": {
+    "A": "1.3 V to 11.1 V",
+    "B": "1.3 V to 12.0 V",
+    "C": "1.5 V to 11.1 V",
+    "D": "1.5 V to 12.0 V"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_12_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x006",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q38",
+    "qid": "9702_s20_13_q38"
+   },
+   "stem": "A cell of electromotive force (e.m.f.) 4.0 V and negligible internal resistance is connected to a\nfixed resistor of resistance 1.0 Ω and a potentiometer of maximum resistance 3.0 Ω, as shown.\n1.0 Ω\n4.0 V\n3.0 Ω\nX\nY\nWhich range of potential differences can be obtained between the terminals X and Y?",
+   "options": {
+    "A": "0 V to 3.0 V",
+    "B": "0 V to 4.0 V",
+    "C": "1.0 V to 3.0 V",
+    "D": "1.0 V to 4.0 V"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_13_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x007",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q35",
+    "qid": "9702_w20_11_q35"
+   },
+   "stem": "In the circuits shown, the power supply has an electromotive force (e.m.f.) greater than the\nnormal operating voltage of the lamp. The internal resistance of the power supply is negligible.\nThe resistance of the variable resistor is adjusted from zero to its maximum value.\nIn which circuit could the voltage across the lamp change from zero to its normal operating\nvoltage and not exceed its normal operating voltage?",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x008",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q38",
+    "qid": "9702_w20_12_q38"
+   },
+   "stem": "A voltmeter is connected into a circuit with the polarity shown in the diagram.\nV\nP\nQ\n3 V\n3 V\n+\n–\nThe sliding contact is moved to end P of the potentiometer and then to end Q.\nWhat are the two readings of the voltmeter?\nsliding contact\nat end P\nsliding contact\nat end Q",
+   "options": {
+    "A": "0 V 3 V",
+    "B": "0 V 6 V",
+    "C": "3 V 3 V",
+    "D": "3 V 6 V"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_12_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult. One method is to apply Kirchhoff’s second law to closed loops around the circuit. When the sliding contact is at end P, the voltmeter will show 3 V because it is in a closed Principal Examiner Report for Teachers loop containing only the 3 V cell. When the contact is moved to end Q, a loop can be drawn containing both cells and the voltmeter, so the voltmeter will now show 6 V. Principal Examiner Report for Teachers PHYSICS"
+  },
+  {
+   "id": "9702-10.3-x009",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q37",
+    "qid": "9702_s21_11_q37"
+   },
+   "stem": "Three resistors are connected in series with a battery, as shown. The battery has negligible\ninternal resistance.\n120 Ω\n180 Ω\n150 Ω\n6.0 V\nWhat is the potential difference across the 180 Ω resistor?",
+   "options": {
+    "A": "1.6 V",
+    "B": "2.4 V",
+    "C": "3.6 V",
+    "D": "4.0 V"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x010",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q38",
+    "qid": "9702_s21_12_q38"
+   },
+   "stem": "Two resistors are connected in series with a 6.0 V power supply, as shown.\n+6.0 V\n0 V\n12 k\u0005\nR\nWhat is the resistance of the variable resistor R to give a potential difference of 1.0 V across the\n12 kΩ resistor?",
+   "options": {
+    "A": "2.0 kΩ",
+    "B": "10 kΩ",
+    "C": "60 kΩ",
+    "D": "72 kΩ"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_12_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x011",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q38",
+    "qid": "9702_w21_11_q38"
+   },
+   "stem": "Potential differences across two resistors of resistances R₁ and R₂ are compared using a\npotentiometer wire (uniform resistance wire) in the electrical circuit shown.\nX\nY\nR₂\nR₁\n60 cm\n80 cm\npotentiometer\nwire\nOne terminal of a galvanometer is connected to point X. The galvanometer reads zero when its\nother terminal is connected to a point that is a distance of 60 cm from one end of the\npotentiometer wire.\nOne terminal of a second galvanometer is connected to point Y. This galvanometer reads zero\nwhen its other terminal is connected to a point that is a distance of 80 cm from the same end of\nthe potentiometer wire.\nWhat is the ratio\n2\n1\nR\nR ?",
+   "options": {
+    "A": "1 3",
+    "B": "3 4",
+    "C": "3 1",
+    "D": "4 3"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_11_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x012",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q37",
+    "qid": "9702_s22_11_q37"
+   },
+   "stem": "In the circuits shown, the temperature remains constant.\nIn which circuit does the potential difference (p.d.) V increase with increasing light intensity?",
+   "options": {
+    "A": "V",
+    "B": "V",
+    "C": "V",
+    "D": "V"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x013",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q37",
+    "qid": "9702_s22_12_q37"
+   },
+   "stem": "A potentiometer circuit is used to determine the electromotive force (e.m.f.) EX of a cell. The\ncircuit includes a second cell of known e.m.f. E₀ and negligible internal resistance, and a uniform\nresistance wire PQ of known length.\nEX is less than E₀.\nThe movable connection J can be positioned anywhere along the length of the resistance wire.\nWhich circuit is suitable for determining EX?\nP\nE₀\nEX\nP\nE₀\nEX",
+   "options": {
+    "A": "Q J P E₀ EX Q J",
+    "C": "Q J",
+    "D": "P E₀ EX",
+    "B": "Q J"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "This question proved to be very challenging, and incorrect answer A was the most popular choice. Just under a quarter of candidates selected the correct answer D. At a glance, A has the closest visual resemblance to the way potentiometer circuits are often presented in textbooks, but the polarity of the cells is incorrect. To determine the unknown e.m.f. EX, the driver cell of known (larger) e.m.f. E0 must be connected across the entire length PQ, thus circuit B can be eliminated. The galvanometer must be connected adjacent to EX, as its role is to identify the position where the current is ze"
+  },
+  {
+   "id": "9702-10.3-x014",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q38",
+    "qid": "9702_s22_13_q38"
+   },
+   "stem": "A potential divider circuit is formed by connecting a battery of negligible internal resistance in\nseries with two variable resistors, as shown.\nRX\nVX\nRY\nThe variable resistors have resistances RX and RY.\nVX is the potential difference (p.d.) across the variable resistor with resistance RX.\nRX and RY are both changed at the same time.\nWhich combination of changes must cause VX to increase?\nRX\nRY",
+   "options": {
+    "A": "larger larger",
+    "B": "larger smaller",
+    "C": "smaller larger",
+    "D": "smaller smaller"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_13_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x015",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q37",
+    "qid": "9702_w22_11_q37"
+   },
+   "stem": "A battery of electromotive force (e.m.f.) 6.0 V and negligible internal resistance is connected to a\nvoltmeter and four other components, as shown.\nThe voltmeter is connected between points X and Y. The positive terminal of the voltmeter is\nconnected to X and the negative terminal of the voltmeter is connected to Y.\nV\n+\n–\nX\n6.0 V\nY\nInitially, the resistance of each of the four components is 1.0 kΩ.\nWhich change, on its own, will cause the voltmeter to show a positive reading?",
+   "options": {
+    "A": "Decrease the temperature of the thermistor.",
+    "B": "Increase the resistance of the variable resistor.",
+    "C": "Reduce the intensity of light incident on the light-dependent resistor (LDR).",
+    "D": "Replace the fixed resistor with a 500 Ω resistor."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x016",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q37",
+    "qid": "9702_w22_12_q37"
+   },
+   "stem": "A potential divider circuit is designed to detect the difference in temperature between two different\nplaces.\nV\nX\nY\n20 mV\nThe cell has electromotive force (e.m.f.) 20 mV and negligible internal resistance.\nInitially, thermistors X and Y are at the same temperature and have the same resistance. The\nvoltmeter reads 10 mV. X is then placed in a cold environment and its resistance doubles. Y is\nplaced in a warm environment and its resistance halves.\nWhat is the new reading on the voltmeter?",
+   "options": {
+    "A": "4 mV",
+    "B": "5 mV",
+    "C": "15 mV",
+    "D": "16 mV"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Many candidates found this question difficult, with more candidates choosing B or C than the correct answer A. Initially, the two thermistors have the same resistance R. X is then placed in a cold environment and its resistance increases to 2R; Y is placed in a warm environment and its resistance decreases to R / 2. The reading on the voltmeter is then given by: V = 20 mV × (R / 2) / (R / 2 + 2R) = 5 mV (answer A). Principal Examiner Report for Teachers PHYSICS"
+  },
+  {
+   "id": "9702-10.3-x017",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q36",
+    "qid": "9702_s23_11_q36"
+   },
+   "stem": "Four potential divider circuits each consist of a battery of electromotive force (e.m.f.) 9 V and\nnegligible internal resistance connected to a combination of resistors. Each of the resistors in the\ncircuits has a resistance of X or 2X.\nWhich circuit has the largest output voltage V ?\nX",
+   "options": {
+    "A": "X V X",
+    "B": "2X 9 V 9 V V X",
+    "C": "X V X",
+    "D": "X 9 V 9 V V 2X 2X"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Careful application of the rule for adding up resistances in parallel is needed to find the correct answer to this question. In A the supply p.d. is shared equally between the two equal resistors, so V = 4.5 V. In B 2 3 of the supply p.d. is across the resistor of resistance 2X, so V = 6 V. In C the parallel resistors have a combined resistance of 2 3 X, so the output voltage V is given by:      × =       2 3 9 3.6V 5 3 X X . In D the parallel resistors again have a combined resistance of 2 3 X and the output voltage V is given by: × =       9 5.4 V 5 3 X X . The circuit with"
+  },
+  {
+   "id": "9702-10.3-x018",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q37",
+    "qid": "9702_s23_11_q37"
+   },
+   "stem": "A voltmeter is connected into a circuit with the polarity shown.\nV\nP\nQ\n3 V\n3 V\n+\n–\nThe sliding contact is moved to end P of the potentiometer and then to end Q.\nWhat are the two readings of the voltmeter?\nsliding contact\nat end P\nsliding contact\nat end Q",
+   "options": {
+    "A": "0 V 3 V",
+    "B": "0 V 6 V",
+    "C": "3 V 3 V",
+    "D": "3 V 6 V"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "One approach to this question is to apply Kirchhoff’s 2nd law around a closed loop of the circuit when the contact is at end P and then at end Q. In the first circuit, the reading on the voltmeter = 3 V In the second circuit, the reading on the voltmeter is 3 + 3 = 6 V The correct answer is D. Principal Examiner Report for Teachers PHYSICS"
+  },
+  {
+   "id": "9702-10.3-x019",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q33",
+    "qid": "9702_s24_11_q33"
+   },
+   "stem": "Which circuit results in output voltage Vₒuₜ increasing with increasing temperature?\nVₒuₜ",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x020",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q37",
+    "qid": "9702_s24_13_q37"
+   },
+   "stem": "The diagram shows a potentiometer circuit used to compare the electromotive forces (e.m.f.), E₁\nand E₂, of two cells.\nXY is a uniform resistance wire. The fixed resistor has resistance R.\nA sliding contact is moved along the wire XY. When the sliding contact is at position P, the\ngalvanometer reads zero.\nR\nE₁\nE₂\nX\nY\nP\nThe circuit is changed so that the galvanometer reads zero when the sliding contact is at a new\nposition to the left of P.\nWhich change could have been made to the circuit?",
+   "options": {
+    "A": "The wire XY was replaced with one of lower resistance.",
+    "B": "E₂ was increased.",
+    "C": "E₁ was decreased.",
+    "D": "R was decreased."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x021",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q32",
+    "qid": "9702_w24_11_q32"
+   },
+   "stem": "The diagram shows a circuit with a light-dependent resistor (LDR).\nA\n12 V\n10 k\u0003\n6.0 k\u0003\n30 k\u0003\nThe ammeter reads zero current.\nWhat is the resistance of the LDR?",
+   "options": {
+    "A": "6.0 kΩ",
+    "B": "18 kΩ",
+    "C": "26 kΩ",
+    "D": "30 kΩ"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_11_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x022",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q37",
+    "qid": "9702_w24_11_q37"
+   },
+   "stem": "A potentiometer circuit is used to determine the electromotive force (e.m.f.) E of a cell. The circuit\nincludes a second cell of e.m.f. 1.5 V and internal resistance 0.50 Ω that is connected to a uniform\nresistance wire XY, as shown.\n0.50 \u0003\n0.64 m\n1.5 V\nX\nY\nZ\nE\nuniform resistance wire\nlength 0.96 m\nresistance 0.50 \u0003\nThe resistance wire XY has a length of 0.96 m and a resistance of 0.50 Ω.\nThe movable connection Z is moved along wire XY. The galvanometer reading is zero when\nlength XZ is 0.64 m.\nWhat is the value of e.m.f. E ?",
+   "options": {
+    "A": "0.50 V",
+    "B": "0.75 V",
+    "C": "1.0 V",
+    "D": "1.1 V"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "off_syllabus": false
+  },
+  {
+   "id": "9702-10.3-x023",
+   "kcs": [
+    "9702-10.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q35",
+    "qid": "9702_w24_13_q35"
+   },
+   "stem": "The diagram shows part of a circuit that uses a potentiometer wire to measure a potential\ndifference (p.d.) in an external circuit.\nE\nI₁\nL₂\nI₂\nL₁\nX\nZ\nY\nP\nQ\nThe potentiometer wire XZ has length L₁. It is connected to a cell of known electromotive force\n(e.m.f.) E that has negligible internal resistance.\nTerminals P and Q are connected to the external p.d. to be measured. The length of the\npotentiometer wire between points X and Y is L₂.\nThe ratio of the lengths L₁ and L₂ is used to determine the p.d. between P and Q in terms of E.\nWhich condition must be met in order to determine this p.d.?",
+   "options": {
+    "A": "The current I₁ must be zero.",
+    "B": "The current I₂ must be zero.",
+    "C": "The p.d. across YZ must be zero.",
+    "D": "The resistance of the external circuit must be zero."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_13_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x024",
+   "kcs": [
+    "9702-10.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q35",
+    "qid": "9702_s25_13_q35"
+   },
+   "stem": "Two resistors of resistance R and two resistors of resistance 3R are connected to a cell of e.m.f.\n8.0 V as shown.\nThe cell has negligible internal resistance.\nV\n8.0 V\nR\n3R\n3R\nR\nWhat is the reading on the voltmeter?",
+   "options": {
+    "A": "0.0 V",
+    "B": "2.0 V",
+    "C": "4.0 V",
+    "D": "6.0 V"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_13_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.3-x025",
+   "kcs": [
+    "9702-10.3.2",
+    "9702-10.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q36",
+    "qid": "9702_w25_12_q36"
+   },
+   "stem": "A potentiometer circuit is used to determine the electromotive force (e.m.f.) EX of a cell. The\ncircuit includes a second cell of known e.m.f. E₀ and negligible internal resistance, and a uniform\nresistance wire PQ of known length.\nEX is less than E₀.\nThe movable connection J can be positioned anywhere along the length of the resistance wire.\nWhich circuit is suitable for determining EX?\nP\nE₀\nEX\nP\nE₀\nEX",
+   "options": {
+    "A": "Q J P E₀ EX Q J",
+    "C": "Q J",
+    "D": "P E₀ EX",
+    "B": "Q J"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-10.3.1",
+   "front": "State the potential divider principle.",
+   "back": "In a series circuit, the supply p.d. is shared in proportion to the component resistances."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-10.3.2",
+   "front": "State the potentiometer comparison principle.",
+   "back": "At null, each p.d. equals the p.d. across its balance length on the uniform wire; their ratio equals the length ratio."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-10.3.3",
+   "front": "What does zero galvanometer deflection mean?",
+   "back": "No current flows in the comparison branch because the opposed p.d.s are equal."
+  },
+  {
+   "id": "fc4",
+   "kc": "9702-10.3.4",
+   "front": "How do NTC thermistor and LDR resistances respond?",
+   "back": "NTC resistance decreases with increasing temperature; LDR resistance decreases with increasing light intensity."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-10.3.1": {
+   "motivate": "A single supply can give different output voltages without separate batteries.",
+   "establish": "In a potential divider, resistors are connected in series across a supply. The same current flows through each, so $V=IR$ means each p.d. is proportional to that resistance. For an output across $R_2$, $V_{out}=V_{in}R_2/(R_1+R_2)$. Identify the output terminals before choosing the numerator. A load across an arm changes its effective resistance and hence the output.",
+   "connect": "This follows from series current and $V=IR$; it also underlies potentiometers and sensor circuits.",
+   "note": "- Series resistors share supply p.d. in proportion to resistance.\n- $V_{out}=V_{in}R_{out}/R_{total}$.",
+   "self_explain": "If one series resistor doubles, why does its share of the supply p.d. change?",
+   "source": "pack"
+  },
+  "9702-10.3.2": {
+   "motivate": "A balance length can compare tiny potential differences accurately.",
+   "establish": "A potentiometer uses a uniform resistance wire with steady current, giving a constant potential gradient. Its p.d. is proportional to length: $V=kl$. Connect a cell or external p.d. in opposition to a section of wire and move the contact to the balance point, where the galvanometer reads zero. Then that p.d. equals the p.d. along the balance length. For two measurements with unchanged wire current, $V_1/V_2=l_1/l_2$. The driver supply must provide a wire p.d. large enough to include the unknown value.",
+   "connect": "The uniform wire is a continuous potential divider; the null point supplies its output length.",
+   "note": "- Uniform wire at steady current: $V=kl$.\n- At balance: unknown p.d. equals wire p.d. across the balance length.\n- Same gradient: $V_1/V_2=l_1/l_2$.",
+   "self_explain": "Why must the wire potential gradient remain unchanged between two balance measurements?",
+   "source": "pack"
+  },
+  "9702-10.3.3": {
+   "motivate": "A zero reading can tell us more than a calibrated non-zero current reading.",
+   "establish": "A galvanometer is a sensitive current detector. In a null method, adjust the circuit until it shows zero deflection: no current flows in the comparison branch, so the opposing potential differences are equal. Its ampere calibration is unnecessary. If the unknown is a cell, zero current through it means zero internal p.d. drop, allowing its e.m.f. to be compared directly with the potentiometer wire p.d. A non-zero reading means the circuit is not balanced.",
+   "connect": "This is the test for equality used at the potentiometer balance point.",
+   "note": "- Zero deflection means zero comparison-branch current.\n- At null, opposing p.d.s are equal.\n- Unknown-cell internal resistance causes no lost volts at null.",
+   "self_explain": "Why does a null method not need the unknown cell's internal resistance?",
+   "source": "pack"
+  },
+  "9702-10.3.4": {
+   "motivate": "A divider can turn temperature or light changes into a voltage signal.",
+   "establish": "An NTC thermistor's resistance decreases when temperature rises. An LDR's resistance decreases when light intensity rises. Put either component in series with a fixed resistor across a supply, and take the output p.d. across one arm. As the sensor resistance changes, its fraction of total resistance and therefore the output p.d. changes. Across the sensor, the p.d. falls when its resistance falls; across the fixed resistor, the p.d. rises. First identify the output terminals, then apply $V_{out}=V_{in}R_{out}/R_{total}$.",
+   "connect": "The sensing effect is an application of the potential divider principle.",
+   "note": "- Hotter NTC thermistor: lower resistance.\n- Brighter LDR: lower resistance.\n- A sensor arm converts either change to an output p.d.",
+   "self_explain": "If an LDR becomes darker, what happens to the p.d. across a fixed resistor in series with it?",
+   "source": "pack"
+  }
+ }
+}

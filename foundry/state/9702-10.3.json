@@ -1,0 +1,250 @@
+{
+ "sub": "9702-10.3",
+ "stage": "ready",
+ "created": "2026-10-10T16:30:43+08:00",
+ "updated": "2026-10-10T16:49:09+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:33:23+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 64 items"
+  },
+  {
+   "t": "2026-10-10T16:41:13+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "42 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T16:43:01+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak settled every dispute; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:47:31+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:48:10+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:49:09+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 64,
+  "extra": 25
+ },
+ "disputes": [
+  {
+   "id": "9702-10.3-p08",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9702-10.3-i13 hint 3",
+   "rule": "hint gives it away",
+   "evidence": "State how the potential difference follows from resistance or zero current.",
+   "suggested": "Replace the reference to zero current with a prompt to consider what the galvanometer detects at balance.",
+   "status": "fixed",
+   "resolution": "fix: In build/out/packs/9702/9702-10.3.json, for item 9702-10.3-i13, set hints[2] (the third hint) to: \"Think about what the galvanometer detects and how balance affects its deflection.\" The existing phrase \"zero current\" directly reveals the one-mark answer: at balance the opposing potential differences cancel, so the galvanometer carries no current and shows zero deflection, consistent with KC 9702-10.3.3 and the bundle examiner wording."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9702-10.3-i13 hint 3",
+   "instruction": "In build/out/packs/9702/9702-10.3.json, for item 9702-10.3-i13, set hints[2] (the third hint) to: \"Think about what the galvanometer detects and how balance affects its deflection.\" The existing phrase \"zero current\" directly reveals the one-mark answer: at balance the opposing potential differences cancel, so the galvanometer carries no current and shows zero deflection, consistent with KC 9702-10.3.3 and the bundle examiner wording.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 4769,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:30:43+08:00",
+   "log": "foundry/logs/9702-10.3.drafter.1010-163043.log",
+   "out": "foundry/logs/9702-10.3.drafter.1010-163043.out.json",
+   "finished": "2026-10-10T16:33:23+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-10.3.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/10 D.C. circuits/10.3 Potential dividers.md",
+    "items": 64,
+    "templates": 0,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 11504,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:39:49+08:00",
+   "log": "foundry/logs/9702-10.3.solver-1.1010-163949.log",
+   "out": "foundry/logs/9702-10.3.solver-1.1010-163949.out.json",
+   "expects": "build/work/blind/9702-10.3.answers.part1.json",
+   "finished": "2026-10-10T16:40:14+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-10.3.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 11507,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:39:49+08:00",
+   "log": "foundry/logs/9702-10.3.solver-2.1010-163949.log",
+   "out": "foundry/logs/9702-10.3.solver-2.1010-163949.out.json",
+   "expects": "build/work/blind/9702-10.3.answers.part2.json",
+   "finished": "2026-10-10T16:40:25+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-10.3.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 12138,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:40:35+08:00",
+   "log": "foundry/logs/9702-10.3.solver-3.1010-164035.log",
+   "out": "foundry/logs/9702-10.3.solver-3.1010-164035.out.json",
+   "expects": "build/work/blind/9702-10.3.answers.part3.json",
+   "finished": "2026-10-10T16:40:51+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 3 questions in `build/work/blind/9702-10.3.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 12143,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:40:35+08:00",
+   "log": "foundry/logs/9702-10.3.checker.1010-164035.log",
+   "out": "foundry/logs/9702-10.3.checker.1010-164035.out.json",
+   "expects": "build/work/foundry/9702-10.3.check.json",
+   "finished": "2026-10-10T16:41:05+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — wrote `build/work/foundry/9702-10.3.check.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 13480,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:42:16+08:00",
+   "log": "foundry/logs/9702-10.3.tiebreak.1010-164216.log",
+   "out": "foundry/logs/9702-10.3.tiebreak.1010-164216.out.json",
+   "expects": "build/work/blind/9702-10.3.tiebreak.json",
+   "finished": "2026-10-10T16:42:36+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9702-10.3.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 17220,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T16:47:05+08:00",
+   "log": "foundry/logs/9702-10.3.adjudicator.1010-164705.log",
+   "out": "foundry/logs/9702-10.3.adjudicator.1010-164705.out.json",
+   "finished": "2026-10-10T16:47:39+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item 9702-10.3-i13 hint 3 fix: Replace “zero current” with a conceptual prompt; it reveals the answer."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 17665,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:47:48+08:00",
+   "log": "foundry/logs/9702-10.3.fixer.1010-164748.log",
+   "out": "foundry/logs/9702-10.3.fixer.1010-164748.out.json",
+   "finished": "2026-10-10T16:48:10+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "The syllabus gate still reports four pre-existing no-teach-card errors for 9702-10.3.1 through 9702-10.3.4; these are outside the requested hint change."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q38": "9702-10.3-x001",
+  "9702_s19_13_q37": "9702-10.3-x002",
+  "9702_s20_11_q38": "9702-10.3-x003",
+  "9702_s20_12_q3": "9702-10.3-x004",
+  "9702_s20_12_q38": "9702-10.3-x005",
+  "9702_s20_13_q38": "9702-10.3-x006",
+  "9702_w20_11_q35": "9702-10.3-x007",
+  "9702_w20_12_q38": "9702-10.3-x008",
+  "9702_s21_11_q37": "9702-10.3-x009",
+  "9702_s21_12_q38": "9702-10.3-x010",
+  "9702_w21_11_q38": "9702-10.3-x011",
+  "9702_s22_11_q37": "9702-10.3-x012",
+  "9702_s22_12_q37": "9702-10.3-x013",
+  "9702_s22_13_q38": "9702-10.3-x014",
+  "9702_w22_11_q37": "9702-10.3-x015",
+  "9702_w22_12_q37": "9702-10.3-x016",
+  "9702_s23_11_q36": "9702-10.3-x017",
+  "9702_s23_11_q37": "9702-10.3-x018",
+  "9702_s24_11_q33": "9702-10.3-x019",
+  "9702_s24_13_q37": "9702-10.3-x020",
+  "9702_w24_11_q32": "9702-10.3-x021",
+  "9702_w24_11_q37": "9702-10.3-x022",
+  "9702_w24_13_q35": "9702-10.3-x023",
+  "9702_s25_13_q35": "9702-10.3-x024",
+  "9702_w25_12_q36": "9702-10.3-x025"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
