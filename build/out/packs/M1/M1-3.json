@@ -1,0 +1,700 @@
+{
+ "subtopic": "M1-3",
+ "spec": "M1",
+ "version": 1,
+ "note": "Subjects/Maths/M1 Mechanics 1/3 Kinematics of a particle moving in a straight line.md",
+ "outline": "Choose a positive direction and use signed displacement $s$, initial velocity $u$, final velocity $v$, constant acceleration $a$ and time $t$. The constant-acceleration equations include $v=u+at$, $s=ut+\\tfrac12at^2$, $s=\\tfrac12(u+v)t$ and $v^2=u^2+2as$. Select an equation containing the known quantities and the unknown, then check the sign and units. The gradient of a displacement–time graph is velocity; the gradient of a velocity–time graph is acceleration. Signed area under velocity–time gives displacement, while area under speed–time gives distance. Area under acceleration–time gives change in velocity. A straight velocity–time line represents constant acceleration; the corresponding displacement–time curve is quadratic.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "M1-3.1",
+   "statement": "Initial velocity can be ignored when finding final velocity or displacement.",
+   "refutation": "Initial velocity contributes $u$ to $v=u+at$ and $ut$ to $s=ut+\\tfrac12at^2$.",
+   "contrast": "Even before acceleration acts, the particle may already be moving.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "M1-3.1",
+   "statement": "Area below the time axis on a velocity–time graph counts positively towards displacement.",
+   "refutation": "Velocity is signed, so area below the axis is negative displacement.",
+   "contrast": "For distance, add the magnitudes of all areas.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "M1-3.1",
+   "statement": "The gradient of a velocity–time graph gives displacement.",
+   "refutation": "The gradient is change in velocity divided by time, which is acceleration.",
+   "contrast": "Area under velocity–time gives displacement.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "M1-3.1",
+   "statement": "The acceleration contribution to displacement is $at^2$.",
+   "refutation": "For constant acceleration it is $\\tfrac12at^2$ because velocity rises linearly.",
+   "contrast": "The acceleration contribution is the triangular area under a velocity–time line.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "M1-3.1",
+   "statement": "A negative acceleration always means a particle is slowing down.",
+   "refutation": "Negative acceleration means acceleration points in the negative chosen direction.",
+   "contrast": "If velocity is also negative, speed increases.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "M1-3.1",
+   "problem": "A particle has initial velocity $3\\,\\mathrm{m\\,s^{-1}}$ and constant acceleration $2\\,\\mathrm{m\\,s^{-2}}$ for $4\\,\\mathrm{s}$. Find its final velocity and displacement.",
+   "steps": [
+    {
+     "do": "Choose the direction of motion as positive and list $u=3$, $a=2$, $t=4$.",
+     "why": "Signed values must be consistent before selecting equations."
+    },
+    {
+     "do": "Use $v=u+at=3+(2)(4)=11\\,\\mathrm{m\\,s^{-1}}$.",
+     "why": "Acceleration is constant, and this equation uses the three known values.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 11.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "do": "Use $s=ut+\\tfrac12at^2=(3)(4)+\\tfrac12(2)(4)^2=28\\,\\mathrm{m}$.",
+     "why": "This equation calculates signed displacement over the whole interval.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 28.0,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A particle has initial velocity $5\\,\\mathrm{m\\,s^{-1}}$ and constant acceleration $3\\,\\mathrm{m\\,s^{-2}}$ for $4\\,\\mathrm{s}$. Find its displacement.",
+    "answer": {
+     "value": 44.0,
+     "unit": "m",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "M1-3-i01",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle has initial velocity $[[u]]\\,\\mathrm{m\\,s^{-1}}$ and constant acceleration $[[a]]\\,\\mathrm{m\\,s^{-2}}$. Find its velocity after $[[t]]\\,\\mathrm{s}$.",
+   "marks": 2,
+   "explanation": "For constant acceleration, $v=u+at$: add the change in velocity $at$ to the initial velocity.",
+   "hints": [
+    "List the known suvat quantities.",
+    "Choose the equation relating initial and final velocity, acceleration and time.",
+    "Multiply acceleration by elapsed time before adding initial velocity."
+   ],
+   "answer": {
+    "unit": "m s^-1",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       2,
+       4,
+       6
+      ]
+     },
+     "a": {
+      "choices": [
+       2,
+       3
+      ]
+     },
+     "t": {
+      "choices": [
+       3,
+       5
+      ]
+     }
+    },
+    "answer": "u+a*t",
+    "distractors": [
+     {
+      "expr": "a*t",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-3-i02",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle moves in a straight line with initial velocity $[[u]]\\,\\mathrm{m\\,s^{-1}}$ and constant acceleration $[[a]]\\,\\mathrm{m\\,s^{-2}}$ for $[[t]]\\,\\mathrm{s}$. Calculate its displacement.",
+   "marks": 2,
+   "explanation": "Use $s=ut+\\tfrac12at^2$ and include both the initial-velocity and acceleration terms.",
+   "hints": [
+    "Displacement depends on starting velocity as well as acceleration.",
+    "Choose the suvat equation without final velocity.",
+    "Calculate $ut$ and $\\tfrac12at^2$ separately, then add."
+   ],
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       2,
+       4,
+       6
+      ]
+     },
+     "a": {
+      "choices": [
+       2,
+       4
+      ]
+     },
+     "t": {
+      "choices": [
+       3,
+       5
+      ]
+     }
+    },
+    "answer": "u*t+0.5*a*t*t",
+    "distractors": [
+     {
+      "expr": "u*t+a*t*t",
+      "misconception": "m4"
+     },
+     {
+      "expr": "0.5*a*t*t",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-3-i03",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle has initial velocity $[[u]]\\,\\mathrm{m\\,s^{-1}}$ and constant acceleration $[[a]]\\,\\mathrm{m\\,s^{-2}}$. Find its displacement when its velocity first reaches $[[v]]\\,\\mathrm{m\\,s^{-1}}$.",
+   "marks": 2,
+   "explanation": "Eliminate time with $v^2=u^2+2as$, giving $s=(v^2-u^2)/(2a)$.",
+   "hints": [
+    "Time is not given.",
+    "Use the suvat equation without time.",
+    "Subtract the squared initial velocity from the squared final velocity."
+   ],
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       2,
+       4
+      ]
+     },
+     "a": {
+      "choices": [
+       2,
+       4
+      ]
+     },
+     "v": {
+      "choices": [
+       10,
+       14
+      ]
+     }
+    },
+    "answer": "(v*v-u*u)/(2*a)",
+    "distractors": [
+     {
+      "expr": "(v*v-u*u)/a",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-3-i04",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle starts from rest and accelerates uniformly at $[[a]]\\,\\mathrm{m\\,s^{-2}}$ for $[[t1]]\\,\\mathrm{s}$, then travels at its attained constant speed for $[[t2]]\\,\\mathrm{s}$. Calculate the total distance.",
+   "marks": 2,
+   "explanation": "The velocity–time graph has a triangle during acceleration and a rectangle at constant speed; their areas add to the distance.",
+   "hints": [
+    "Split the journey into two intervals.",
+    "Find the final speed of the accelerating interval.",
+    "Add the triangle area to the rectangle area beneath the velocity–time graph."
+   ],
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       2,
+       4
+      ]
+     },
+     "t1": {
+      "choices": [
+       3,
+       5
+      ]
+     },
+     "t2": {
+      "choices": [
+       2,
+       4
+      ]
+     }
+    },
+    "answer": "0.5*a*t1*t1+a*t1*t2",
+    "distractors": [
+     {
+      "expr": "a*t1*t1+a*t1*t2",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-3-i05",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle moves at $[[u]]\\,\\mathrm{m\\,s^{-1}}$ in the positive direction and has constant acceleration $-[[b]]\\,\\mathrm{m\\,s^{-2}}$ for $[[t]]\\,\\mathrm{s}$. Find its total distance travelled.",
+   "marks": 2,
+   "explanation": "The particle turns at $u/b$ seconds. Add the positive outward distance $u^2/(2b)$ and the distance after reversal $\\tfrac12b(t-u/b)^2$.",
+   "hints": [
+    "Check whether velocity changes sign.",
+    "Find the turning time using $v=u-bt$.",
+    "Find the two positive distances on either side of the turn and add."
+   ],
+   "answer": {
+    "unit": "m",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       6,
+       8
+      ]
+     },
+     "b": {
+      "choices": [
+       2,
+       4
+      ]
+     },
+     "t": {
+      "choices": [
+       4,
+       5
+      ]
+     }
+    },
+    "answer": "u*u/(2*b)+0.5*b*(t-u/b)**2",
+    "distractors": [
+     {
+      "expr": "u*t-0.5*b*t*t",
+      "misconception": "m2"
+     },
+     {
+      "expr": "u*u/(2*b)-0.5*b*(t-u/b)**2",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": [
+     "t>u/b"
+    ]
+   }
+  },
+  {
+   "id": "M1-3-i06",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what the gradient of a velocity–time graph represents.",
+   "marks": 1,
+   "explanation": "The gradient is change in velocity divided by change in time: acceleration. Displacement comes from signed area under the graph.",
+   "hints": [
+    "Think of rise divided by run.",
+    "The vertical axis measures velocity and the horizontal axis measures time.",
+    "Write the units of the gradient."
+   ],
+   "options": {
+    "A": "Acceleration",
+    "B": "Displacement",
+    "C": "Distance",
+    "D": "Velocity"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "C": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "M1-3-i07",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A velocity–time graph has a straight line from $0$ to $4\\,\\mathrm{m\\,s^{-1}}$ over $2\\,\\mathrm{s}$, then a straight line to $-2\\,\\mathrm{m\\,s^{-1}}$ over the next $3\\,\\mathrm{s}$. State the displacement over the $5\\,\\mathrm{s}$.",
+   "marks": 1,
+   "explanation": "The first triangle has area $4$ m. The second trapezium has signed area $3$ m, giving $7$ m; adding the area below the axis positively gives distance, not displacement.",
+   "hints": [
+    "Areas below the time axis have a negative sign.",
+    "Split the graph into the first triangle and the later trapezium.",
+    "Use average velocity times time for each straight segment."
+   ],
+   "options": {
+    "A": "$7\\,\\mathrm{m}$",
+    "B": "$9\\,\\mathrm{m}$",
+    "C": "$10\\,\\mathrm{m}$",
+    "D": "$3\\,\\mathrm{m}$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m2",
+    "C": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "M1-3-i08",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how displacement, velocity, speed and acceleration can be read from displacement–time, velocity–time, speed–time and acceleration–time graphs.",
+   "marks": 4,
+   "explanation": "A graph gradient compares change in the vertical quantity with time; an area multiplies the vertical quantity by time. Keep the sign for vector quantities.",
+   "hints": [
+    "Match the vertical axis to the quantity.",
+    "Use slope for rates of change and area for accumulated change.",
+    "Distinguish signed velocity from nonnegative speed."
+   ],
+   "rubric": [
+    {
+     "point": "The gradient of a displacement–time graph gives velocity.",
+     "keywords": [
+      [
+       "gradient"
+      ],
+      [
+       "displacement"
+      ],
+      [
+       "velocity"
+      ]
+     ]
+    },
+    {
+     "point": "The gradient of a velocity–time graph gives acceleration.",
+     "keywords": [
+      [
+       "gradient"
+      ],
+      [
+       "velocity"
+      ],
+      [
+       "acceleration"
+      ]
+     ]
+    },
+    {
+     "point": "Signed area under velocity–time gives displacement, while area under speed–time gives distance.",
+     "keywords": [
+      [
+       "area"
+      ],
+      [
+       "displacement"
+      ],
+      [
+       "distance"
+      ]
+     ]
+    },
+    {
+     "point": "Signed area under acceleration–time gives change in velocity.",
+     "keywords": [
+      [
+       "area"
+      ],
+      [
+       "acceleration"
+      ],
+      [
+       "change",
+       "difference"
+      ],
+      [
+       "velocity"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-3-i09",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle has velocity $-3\\,\\mathrm{m\\,s^{-1}}$ and constant acceleration $-2\\,\\mathrm{m\\,s^{-2}}$. Explain what happens to its speed over the next second and why.",
+   "marks": 2,
+   "explanation": "Using $v=u+at$ gives $v=-5\\,\\mathrm{m\\,s^{-1}}$ after one second. The speed is its magnitude, $5\\,\\mathrm{m\\,s^{-1}}$, so negative acceleration does not by itself mean slowing.",
+   "hints": [
+    "Keep direction signs separate from speed.",
+    "Use $v=u+at$ for one second.",
+    "Compare the magnitudes of the initial and final velocities."
+   ],
+   "rubric": [
+    {
+     "point": "Its speed increases from $3$ to $5\\,\\mathrm{m\\,s^{-1}}$.",
+     "keywords": [
+      [
+       "increase"
+      ],
+      [
+       "3"
+      ],
+      [
+       "5"
+      ]
+     ]
+    },
+    {
+     "point": "Velocity and acceleration point in the same negative direction, so the magnitude of velocity increases.",
+     "keywords": [
+      [
+       "same"
+      ],
+      [
+       "negative"
+      ],
+      [
+       "magnitude",
+       "speed"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-3-i10",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch a velocity–time and a displacement–time graph for a particle starting with positive velocity and moving with constant negative acceleration, until it stops. Label each graph’s key features.",
+   "marks": 2,
+   "explanation": "Constant negative acceleration gives a linearly decreasing velocity. Because displacement gradient equals velocity, the displacement curve rises but flattens to a horizontal tangent at rest.",
+   "hints": [
+    "A constant acceleration fixes the velocity graph gradient.",
+    "Velocity is the displacement graph gradient.",
+    "Mark the stop where velocity reaches zero."
+   ],
+   "rubric": [
+    {
+     "point": "Velocity–time is a straight line with negative gradient from positive velocity to zero.",
+     "keywords": [
+      [
+       "straight"
+      ],
+      [
+       "negative"
+      ],
+      [
+       "zero"
+      ]
+     ]
+    },
+    {
+     "point": "Displacement–time rises with decreasing gradient and reaches a horizontal tangent at the stop.",
+     "keywords": [
+      [
+       "rise",
+       "increase"
+      ],
+      [
+       "decreasing",
+       "reducing"
+      ],
+      [
+       "horizontal"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "flashcards": [],
+ "diagrams": [],
+ "teach": {
+  "M1-3.1": {
+   "motivate": "A velocity can change even on a straight road, and the signs tell you which way the particle moves. A sketch or a few measured quantities can reveal displacement, distance and acceleration without following every instant of the journey.",
+   "discover": {
+    "stem": "On a velocity–time graph, what does the signed area between the graph and the time axis give?",
+    "options": {
+     "A": "Displacement",
+     "B": "Distance travelled",
+     "C": "Acceleration",
+     "D": "Final velocity"
+    },
+    "answer": "A",
+    "explanation": "Velocity multiplied by time gives signed displacement. Area below the axis subtracts from the total; adding its magnitude instead would contribute to distance."
+   },
+   "establish": "Choose a positive direction, then let $s$ be signed displacement, $u$ and $v$ initial and final velocities, $a$ constant acceleration, and $t$ elapsed time. For straight-line motion at constant acceleration, use $v=u+at$, $s=ut+\\tfrac12at^2$, $s=\\tfrac12(u+v)t$, or $v^2=u^2+2as$. Select the equation containing the known values and the quantity sought. On a displacement–time graph, gradient gives velocity. On a velocity–time graph, gradient gives acceleration and signed area gives displacement. On a speed–time graph, area gives total distance. On an acceleration–time graph, signed area gives change in velocity. A horizontal acceleration–time line corresponds to a straight velocity–time line and a quadratic displacement–time curve. Use $g=9.8\\,\\mathrm{m\\,s^{-2}}$ where gravity is involved, with a sign set by your chosen positive direction.",
+   "connect": "These equations and graphs describe the same motion: a constant velocity–time gradient is the acceleration, and the area under that line produces $s=ut+\\tfrac12at^2$. If the line crosses the time axis, split the journey there to calculate distance.",
+   "note": "- Choose one positive direction and keep displacement, velocity and acceleration signed.\n- Use a suvat equation only within an interval of constant acceleration.\n- Displacement–time gradient is velocity; velocity–time gradient is acceleration.\n- Velocity–time signed area is displacement; speed–time area is distance.\n- Acceleration–time signed area is change in velocity.",
+   "self_explain": "Why does a velocity–time graph crossing below the time axis require two different area calculations for displacement and distance?",
+   "source": "pack"
+  }
+ }
+}
