@@ -1,0 +1,238 @@
+{
+ "sub": "9702-3.2",
+ "stage": "ready",
+ "created": "2026-10-01T18:36:11+08:00",
+ "updated": "2026-10-10T10:58:34+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T18:36:22+08:00",
+   "from": "draft",
+   "to": "draft",
+   "note": "drafter failed (exit 1); see foundry/logs/9702-3.2.drafter.1001-183611.log"
+  },
+  {
+   "t": "2026-10-10T10:26:12+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 52 items"
+  },
+  {
+   "t": "2026-10-10T10:51:33+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "51 agreed, 4 disputed"
+  },
+  {
+   "t": "2026-10-10T10:54:12+08:00",
+   "from": "tiebreak",
+   "to": "check",
+   "note": "tiebreak settled every dispute; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T10:58:34+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-10T10:58:34+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 52,
+  "extra": 32
+ },
+ "disputes": [
+  {
+   "id": "9702-3.2-p05",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.2-p09",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.2-x028",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.2.3.discover",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 16572,
+   "provider": "claude",
+   "model": "opus/low",
+   "rung": 0,
+   "started": "2026-10-10T10:20:43+08:00",
+   "log": "foundry/logs/9702-3.2.drafter.1010-102043.log",
+   "out": "foundry/logs/9702-3.2.drafter.1010-102043.out.json",
+   "finished": "2026-10-10T10:26:12+08:00",
+   "exit": 0,
+   "report": {
+    "items": 52,
+    "templates": 2,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "pack_path": "build/out/packs/9702/9702-3.2.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/03 Dynamics/3.2 Non-uniform motion.md",
+    "concerns": [
+     "Both SVGs rendered and their text labels are correct, but I could not view them: the qlmanage preview commands were denied by the permission prompt. A checker should eyeball Assets/9702/9702-3.2-vt-fall.svg (velocity-time curve levelling off, dashed free-fall line, 'terminal velocity' annotation) and Assets/9702/9702-3.2-terminal-forces.svg (equal up/down arrows labelled 'weight W' and 'air resistance D'). I had first put drag and upthrust both at angle 90 and changed it to the two-force air case to avoid overlapping arrows.",
+     "KC 9702-3.2.1 has only one genuine past MCQ in the bundle (9702_s23_11_q9), so its coverage leans on generated items: one short-answer, two concept MCQs and one template.",
+     "The pack writes 20 items (12 past + 8 generated); add_past.py appended 32 more as unexplained extras, giving the 52 reported here.",
+     "Variants per KC (templates counted as 3): 3.2.1 = 7, 3.2.2 = 6, 3.2.3 = 10 — all at or above the minimum of 6.",
+     "PACK.md caps misconceptions at 5 for a 3-KC chapter, so m3 is worded broadly ('resistive forces left out of the force balance') to cover both ignoring drag in Newton's second law and believing a = 9.81 at terminal velocity; several past-item distractors map to it.",
+     "The note and card 3.2.3 use the liquid condition D + U = W, which touches 9702-4.3 upthrust (a forward reference), but three of the chosen past MCQs require it."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 1.859
+  },
+  "solver#1": {
+   "pid": 30405,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:49:48+08:00",
+   "log": "foundry/logs/9702-3.2.solver-1.1010-104948.log",
+   "out": "foundry/logs/9702-3.2.solver-1.1010-104948.out.json",
+   "expects": "build/work/blind/9702-3.2.answers.part1.json",
+   "finished": "2026-10-10T10:50:10+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote [9702-3.2.answers.part1.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-3.2.answers.part1.json)."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 30406,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:49:48+08:00",
+   "log": "foundry/logs/9702-3.2.solver-2.1010-104948.log",
+   "out": "foundry/logs/9702-3.2.solver-2.1010-104948.out.json",
+   "expects": "build/work/blind/9702-3.2.answers.part2.json",
+   "finished": "2026-10-10T10:50:27+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-3.2.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 30412,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:49:48+08:00",
+   "log": "foundry/logs/9702-3.2.solver-3.1010-104948.log",
+   "out": "foundry/logs/9702-3.2.solver-3.1010-104948.out.json",
+   "expects": "build/work/blind/9702-3.2.answers.part3.json",
+   "finished": "2026-10-10T10:50:08+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 15 questions in [9702-3.2.answers.part3.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-3.2.answers.part3.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 32854,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T10:53:51+08:00",
+   "log": "foundry/logs/9702-3.2.tiebreak.1010-105351.log",
+   "out": "foundry/logs/9702-3.2.tiebreak.1010-105351.out.json",
+   "expects": "build/work/blind/9702-3.2.tiebreak.json",
+   "finished": "2026-10-10T10:54:07+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 4,
+    "answers_path": "build/work/blind/9702-3.2.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 34789,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:57:46+08:00",
+   "log": "foundry/logs/9702-3.2.checker.1010-105746.log",
+   "out": "foundry/logs/9702-3.2.checker.1010-105746.out.json",
+   "expects": "build/work/foundry/9702-3.2.check.json",
+   "finished": "2026-10-10T10:58:14+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/9702-3.2.check.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_12_q12": "9702-3.2-x001",
+  "9702_s19_12_q16": "9702-3.2-x002",
+  "9702_s19_13_q8": "9702-3.2-x003",
+  "9702_s20_11_q9": "9702-3.2-x004",
+  "9702_s20_11_q11": "9702-3.2-x005",
+  "9702_s20_13_q9": "9702-3.2-x006",
+  "9702_w20_12_q9": "9702-3.2-x007",
+  "9702_w20_13_q9": "9702-3.2-x008",
+  "9702_s21_11_q9": "9702-3.2-x009",
+  "9702_s21_12_q9": "9702-3.2-x010",
+  "9702_w21_13_q11": "9702-3.2-x011",
+  "9702_s22_12_q9": "9702-3.2-x012",
+  "9702_s22_13_q10": "9702-3.2-x013",
+  "9702_w22_11_q9": "9702-3.2-x014",
+  "9702_w22_12_q10": "9702-3.2-x015",
+  "9702_w22_13_q7": "9702-3.2-x016",
+  "9702_s23_12_q9": "9702-3.2-x017",
+  "9702_w23_11_q9": "9702-3.2-x018",
+  "9702_w23_13_q9": "9702-3.2-x019",
+  "9702_s24_11_q20": "9702-3.2-x020",
+  "9702_s24_12_q3": "9702-3.2-x021",
+  "9702_s24_13_q8": "9702-3.2-x022",
+  "9702_w24_11_q9": "9702-3.2-x023",
+  "9702_w24_11_q15": "9702-3.2-x024",
+  "9702_w24_12_q8": "9702-3.2-x025",
+  "9702_w24_13_q7": "9702-3.2-x026",
+  "9702_w24_13_q8": "9702-3.2-x027",
+  "9702_w24_13_q12": "9702-3.2-x028",
+  "9702_s25_12_q12": "9702-3.2-x029",
+  "9702_s25_13_q8": "9702-3.2-x030",
+  "9702_w25_11_q8": "9702-3.2-x031",
+  "9702_w25_12_q11": "9702-3.2-x032"
+ },
+ "maker": "claude",
+ "checked": true
+}

@@ -1,0 +1,56 @@
+{
+ "9702-3.2.1": {
+  "motivate": "Drop a coin and a flat sheet of paper together. Same pull of gravity per kilogram, wildly different falls. Something is pushing back on the paper — and whatever it is, it depends on how the object moves through the air.",
+  "establish": "Two resistive forces matter here, and both always oppose motion.\n\n**Friction** acts where two surfaces are in contact; it opposes their relative motion, or the tendency to move. A block sliding across a bench feels friction backwards along the bench.\n\nA **viscous force**, or **drag force**, acts on a body moving through a fluid (a liquid or a gas). **Air resistance** is simply the drag force due to air. The key qualitative fact the syllabus asks for is the simple model: the drag force is zero when the body is at rest and **increases as the speed of the body increases**. So a graph of drag force against speed starts at the origin and rises.\n\nAt AS you need no coefficient of friction and no coefficient of viscosity — just the direction (opposing motion) and that speed dependence. Drag also grows with the size of the body and with how dense or viscous the fluid is, which is why a parachute works.",
+  "connect": "Resistive forces are ordinary forces, so they go straight into Newton's second law: the resultant force is the driving force (or the weight) minus the resistive force, never plus.",
+  "note": "- Friction opposes the relative motion of two surfaces in contact.\n- A viscous (drag) force opposes the motion of a body through a fluid; air resistance is drag due to air.\n- Drag is zero at rest and increases as speed increases.\n- No coefficients of friction or viscosity are needed; the simple speed model is enough.",
+  "self_explain": "A cyclist freewheels and slows down. Name the resistive forces acting, and say what happens to the air resistance as she slows.",
+  "discover": {
+   "stem": "A ball is released from rest at the surface of a tank of oil and sinks. A viscous (drag) force $F$ acts on it. Which describes how $F$ varies with the ball's speed $v$?",
+   "options": {
+    "A": "$F$ is zero at $v = 0$ and increases as $v$ increases.",
+    "B": "$F$ has the same non-zero value at every $v$.",
+    "C": "$F$ is largest at $v = 0$ and decreases as $v$ increases.",
+    "D": "$F$ is zero at every $v$ because the oil pushes equally in all directions."
+   },
+   "answer": "A",
+   "explanation": "Drag comes from the ball pushing oil out of its path, so there is none when the ball is at rest, and the faster it moves the more oil it must push aside each second."
+  }
+ },
+ "9702-3.2.2": {
+  "motivate": "A skydiver who has just left the aircraft and one who has been falling for a minute both feel gravity the same. Yet only one of them is still gaining speed. The difference is what the air is doing.",
+  "establish": "Take an object released from rest in a uniform gravitational field, with air resistance significant, and take downwards as positive. The forces are the weight $W = mg$ down and the air resistance $D$ up, so\n\n$$ma = mg - D.$$\n\nAt the instant of release $v = 0$, so $D = 0$ and $a = g = 9.81\\ \\mathrm{m\\,s^{-2}}$. As the object speeds up, $D$ increases, so the resultant force $mg - D$ decreases and **the acceleration decreases while the speed is still increasing**. That is a decreasing acceleration, not a deceleration — a distinction examiners single out every session. On a velocity–time graph the gradient starts at $g$ and gets shallower; on a displacement–time graph the gradient increases from zero and then levels off.\n\nFor an object thrown *upwards*, the weight and air resistance both act downwards, so the deceleration is greater than $9.81\\ \\mathrm{m\\,s^{-2}}$: it reaches a lower maximum height, in a shorter time, than it would in a vacuum.",
+  "connect": "Because the resultant force is $mg - D$, a lighter body of the same shape meets the same drag at a given speed but accelerates less, so it falls behind a heavier one.",
+  "note": "- Taking down as positive, $ma = mg - D$ for a body falling in air.\n- At release $D = 0$, so $a = g = 9.81\\ \\mathrm{m\\,s^{-2}}$.\n- As $v$ rises, $D$ rises, the resultant force falls, and the acceleration falls — the body still speeds up.\n- Thrown upwards, weight and drag both act downwards, so the deceleration exceeds $9.81\\ \\mathrm{m\\,s^{-2}}$.\n- Velocity–time graph: gradient starts at $g$ and decreases.",
+  "self_explain": "Explain, in a chain of three steps, why the acceleration of a ball dropped from a tall building decreases as it falls.",
+  "discover": {
+   "stem": "A skydiver falls from an aircraft. During the first few seconds, what happens to the vertical component of her velocity $v$ and of her acceleration $a$?",
+   "options": {
+    "A": "$v$ increases, $a$ decreases",
+    "B": "$v$ increases, $a$ is constant",
+    "C": "$v$ is constant, $a$ decreases",
+    "D": "$v$ increases, $a$ increases"
+   },
+   "answer": "A",
+   "explanation": "She speeds up, so $v$ increases; the growing air resistance reduces the resultant force $mg - D$, so $a$ decreases. Keeping $a$ constant would mean air resistance never changed with speed."
+  }
+ },
+ "9702-3.2.3": {
+  "motivate": "A raindrop falls a kilometre and arrives at a speed you can stand in. If it were in free fall the whole way it would hit at over $100\\ \\mathrm{m\\,s^{-1}}$. Something stops the speed from growing without limit.",
+  "establish": "An object moving against a resistive force may reach a **terminal (constant) velocity**: the drag grows with speed until it balances the forward or downward force, so the resultant force — and therefore the acceleration — is zero. By Newton's first law the object then keeps moving at a constant velocity.\n\nIn air, terminal velocity needs $D = mg$. In a liquid an **upthrust** $U$ also acts upwards, so the condition is $D + U = mg$. The upthrust equals the weight of fluid displaced, so for a fully immersed body in a uniform liquid it is constant — it does not change with speed. The weight is then always the largest of the three forces.\n\nTwo results follow. First, for two bodies of the same size and shape, the heavier needs a larger drag, so it has a **larger** terminal velocity. Second, since the kinetic energy is now constant, the gravitational potential energy lost becomes thermal energy (and kinetic energy) of the body and the fluid — not kinetic energy of the body.",
+  "connect": "Terminal velocity is just Newton's first law applied to a speed-dependent force: it is set by mass, shape and fluid, never by the height or depth the body was dropped from.",
+  "note": "- At terminal velocity the resultant force is zero, so the acceleration is zero and the velocity is constant.\n- In air $D = mg$; in a liquid $D + U = mg$, with upthrust $U$ constant and independent of speed.\n- Weight is the largest of weight, drag and upthrust for a body falling at terminal velocity.\n- Same shape, larger mass gives a larger terminal velocity.\n- The gravitational potential energy lost becomes thermal energy of the body and fluid, not kinetic energy of the body.",
+  "self_explain": "A stone falls at terminal velocity through air. State the resultant force on it, and say which energy change is occurring.",
+  "discover": {
+   "stem": "A steel ball falls at a constant (terminal) speed in still air. The forces on it are upthrust, viscous drag and weight. What is the order of increasing magnitude?",
+   "options": {
+    "A": "upthrust, viscous drag, weight",
+    "B": "viscous drag, upthrust, weight",
+    "C": "viscous drag, weight, upthrust",
+    "D": "weight, upthrust, viscous drag"
+   },
+   "answer": "A",
+   "explanation": "Upthrust and drag both act upwards and their sum equals the weight, so the weight is largest. The upthrust from air on a steel ball is tiny, so it is the smallest."
+  }
+ }
+}
