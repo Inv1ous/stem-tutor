@@ -1,0 +1,248 @@
+{
+ "sub": "9701-13.3",
+ "stage": "ready",
+ "created": "2026-10-10T17:05:36+08:00",
+ "updated": "2026-10-10T17:23:10+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T17:08:00+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 41 items"
+  },
+  {
+   "t": "2026-10-10T17:14:32+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "21 agreed, 2 disputed"
+  },
+  {
+   "t": "2026-10-10T17:16:58+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 2 for the manager"
+  },
+  {
+   "t": "2026-10-10T17:22:05+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T17:22:42+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T17:23:10+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 40,
+  "extra": 4
+ },
+ "disputes": [
+  {
+   "id": "9701-13.3-x001",
+   "key": "D",
+   "solver": "1 only",
+   "tiebreak": "1 only",
+   "status": "fixed",
+   "resolution": "fix: Retain answer D. In build/work/mcq/overrides.json under qid 9701_s21_13_q37, set options to {\"A\": \"1, 2 and 3 are correct\", \"B\": \"1 and 2 only are correct\", \"C\": \"2 and 3 only are correct\", \"D\": \"1 only is correct\"}, and set explanation to \"Only statement 1 is correct. Each brominated carbon is bonded to H, Br and two different paths around the ring: one adjacent ring carbon bears Br and the other does not. The saturated 12-carbon ring has formula C12H24 before six H atoms are replaced by Br, giving C12H18Br6, so statement 2 is false. All carbon atoms are sp3 with approximately tetrahedral bond angles, not all 120 degrees; the flat skeletal drawing does not give the actual bond angles. The original Section B answer table maps 1 only to D, so the solver answers agree with the official key.\". Apply these same fields to pack item 9701-13.3-x001. The source question paper page 12 confirms the option mapping, which is missing from the cropped image and current null options."
+  },
+  {
+   "id": "we1.faded",
+   "key": {
+    "expr": "two trigonal planar sp2 centres near 120 degrees and one tetrahedral sp3 centre near 109.5 degrees"
+   },
+   "solver": "C1 and C2 trigonal planar, approximately 120 degrees; C3 tetrahedral, approximately 109.5 degrees",
+   "tiebreak": "CH2 and CH of CH2=CHCH3: trigonal planar, approximately 120 degrees; CH3 carbon: tetrahedral, approximately 109.5 degrees",
+   "status": "closed",
+   "resolution": "keep: The key and both independent answers are equivalent: the CH2 and CH alkene carbons each have three sigma-bond directions and are sp2, trigonal planar, approximately 120 degrees; the CH3 carbon has four and is sp3, tetrahedral, approximately 109.5 degrees."
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9701-13.3-p01 stem",
+   "rule": "off syllabus",
+   "evidence": "the total number of structural isomers, including compound 2, that could be formed by adding a second methyl group to the ring of compound 1",
+   "suggested": "Move the structural-isomer counting question to the isomerism chapter; use a bond-counting question here.",
+   "status": "closed",
+   "resolution": "keep: This is an explicitly supplied cross-topic past-paper question in the bundle, tagged to 13.3.3 as well as isomerism; its two pi bonds contain four pi electrons and directly assess this chapter. Five distinct ring positions accept the second methyl group, so official key D stands; the additional isomerism component does not invalidate its chapter relevance."
+  },
+  {
+   "ref": "item 9701-13.3-p02 stem",
+   "rule": "off syllabus",
+   "evidence": "type of orbital which contains the lone pair of electrons on each nitrogen atom in N₂",
+   "suggested": "Use an organic molecule to assess σ and π bonding in hybridised atoms.",
+   "status": "closed",
+   "resolution": "keep: The bundle explicitly includes this question under 13.3.2 and 13.3.3, whose statements concern hybridised atoms in molecules, without restricting them to carbon. End-on sp-sp overlap forms the N-N sigma bond and the other sp orbital holds each lone pair, so B is correct and the orbital application is relevant."
+  },
+  {
+   "ref": "item 9701-13.3-p05 stem",
+   "rule": "off syllabus",
+   "evidence": "An alcohol, X, reacts with a dicarboxylic acid, Y, to form a double ester, Z.",
+   "suggested": "Replace the ester-reaction and alcohol-classification task with a direct planarity question.",
+   "status": "closed",
+   "resolution": "keep: The bundle explicitly includes this cross-topic question under 13.3.4 and ester chemistry. Its saturated six-membered ring is non-planar, directly assessing the chapter planarity skill; the alcohol is propan-2-ol, secondary, so official key A and the original question should remain."
+  },
+  {
+   "ref": "item 9701-13.3-x001 stem",
+   "rule": "off syllabus",
+   "evidence": "1 Each brominated C atom is chiral. 2 The molecular formula is C₁₂H₂₀Br₆.",
+   "suggested": "Move this mixed chirality and formula question to a suitable chapter or replace it with a shape question.",
+   "status": "closed",
+   "resolution": "keep: The bundle explicitly includes this cross-topic question under 13.3.2 and chirality. Statement 3 directly tests sp3 carbon geometry and the trap of reading 120-degree angles from a flat skeletal drawing; the additional chirality and formula statements do not make the supplied past-paper question off syllabus. Retain it, with the option and explanation repair recorded in the separate dispute."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "9701-13.3-x001",
+   "instruction": "Retain answer D. In build/work/mcq/overrides.json under qid 9701_s21_13_q37, set options to {\"A\": \"1, 2 and 3 are correct\", \"B\": \"1 and 2 only are correct\", \"C\": \"2 and 3 only are correct\", \"D\": \"1 only is correct\"}, and set explanation to \"Only statement 1 is correct. Each brominated carbon is bonded to H, Br and two different paths around the ring: one adjacent ring carbon bears Br and the other does not. The saturated 12-carbon ring has formula C12H24 before six H atoms are replaced by Br, giving C12H18Br6, so statement 2 is false. All carbon atoms are sp3 with approximately tetrahedral bond angles, not all 120 degrees; the flat skeletal drawing does not give the actual bond angles. The original Section B answer table maps 1 only to D, so the solver answers agree with the official key.\". Apply these same fields to pack item 9701-13.3-x001. The source question paper page 12 confirms the option mapping, which is missing from the cropped image and current null options.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 29995,
+   "provider": "codex",
+   "model": "gpt-6-sol/medium",
+   "rung": 1,
+   "started": "2026-10-10T17:05:36+08:00",
+   "log": "foundry/logs/9701-13.3.drafter.1010-170536.log",
+   "out": "foundry/logs/9701-13.3.drafter.1010-170536.out.json",
+   "finished": "2026-10-10T17:08:00+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-13.3.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/13 An introduction to AS Level organic chemistry/13.3 Shapes of organic molecules; σ and π bonds.md",
+    "items": 41,
+    "templates": 0,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Molecular shapes and orbital overlap are described in words; no diagram was rendered."
+    ]
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 33907,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:13:04+08:00",
+   "log": "foundry/logs/9701-13.3.solver-1.1010-171304.log",
+   "out": "foundry/logs/9701-13.3.solver-1.1010-171304.out.json",
+   "expects": "build/work/blind/9701-13.3.answers.part1.json",
+   "finished": "2026-10-10T17:13:42+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-13.3.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 34559,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:13:50+08:00",
+   "log": "foundry/logs/9701-13.3.solver-2.1010-171350.log",
+   "out": "foundry/logs/9701-13.3.solver-2.1010-171350.out.json",
+   "expects": "build/work/blind/9701-13.3.answers.part2.json",
+   "finished": "2026-10-10T17:14:04+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 3 questions in `build/work/blind/9701-13.3.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 34564,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:13:50+08:00",
+   "log": "foundry/logs/9701-13.3.checker.1010-171350.log",
+   "out": "foundry/logs/9701-13.3.checker.1010-171350.out.json",
+   "expects": "build/work/foundry/9701-13.3.check.json",
+   "finished": "2026-10-10T17:14:20+08:00",
+   "exit": 0,
+   "report": {
+    "text": "4 findings — wrote `build/work/foundry/9701-13.3.check.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 36132,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:16:03+08:00",
+   "log": "foundry/logs/9701-13.3.tiebreak.1010-171603.log",
+   "out": "foundry/logs/9701-13.3.tiebreak.1010-171603.out.json",
+   "expects": "build/work/blind/9701-13.3.tiebreak.json",
+   "finished": "2026-10-10T17:16:34+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 2,
+    "answers_path": "build/work/blind/9701-13.3.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 40187,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T17:21:03+08:00",
+   "log": "foundry/logs/9701-13.3.adjudicator.1010-172103.log",
+   "out": "foundry/logs/9701-13.3.adjudicator.1010-172103.out.json",
+   "finished": "2026-10-10T17:22:12+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9701-13.3-x001 fix: Restore missing options and explanation; retain D, “1 only”.\nwe1.faded keep: Both solver answers match the key.\nitem 9701-13.3-p01 stem keep: Bundle question directly assesses π electrons.\nitem 9701-13.3-p02 stem keep: Hybridised-orbital bonding is within scope.\nitem 9701-13.3-p05 stem keep: Ring planarity is within scope.\nitem 9701-13.3-x001 stem keep: Directly assesses sp³ bond angles."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 40870,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T17:22:19+08:00",
+   "log": "foundry/logs/9701-13.3.fixer.1010-172219.log",
+   "out": "foundry/logs/9701-13.3.fixer.1010-172219.out.json",
+   "finished": "2026-10-10T17:22:42+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s21_13_q37": "9701-13.3-x001",
+  "9701_w22_11_q32": "9701-13.3-x002",
+  "9701_w23_12_q6": "9701-13.3-x003",
+  "9701_w23_13_q27": "9701-13.3-x004",
+  "9701_s24_12_q33": "9701-13.3-x005"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
