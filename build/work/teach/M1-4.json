@@ -1,0 +1,30 @@
+{
+  "M1-4.1": {
+    "motivate": "A particle can keep moving without a driving resultant force. Forces explain changes in motion, so start by identifying every force acting on the chosen body.",
+    "establish": "A force is an interaction measured in newtons. Newton's first law says a body stays at rest or continues at constant velocity if the resultant force is zero. For constant mass, Newton's second law is $\\sum\\mathbf F=m\\mathbf a$: the acceleration is in the direction of the resultant force. In a plane, resolve the vector equation into $\\mathbf i$ and $\\mathbf j$ components. Newton's third law says two interacting bodies exert forces on each other that are equal in magnitude and opposite in direction. These forces act on different bodies, so only one belongs in either body's force equation.",
+    "connect": "Constant acceleration links the force model to the kinematics equations. Once $a$ is found from the resultant force, use the appropriate equation of motion for the requested velocity, time or displacement.",
+    "note": "- Zero resultant force means constant velocity, including rest.\n- $\\sum\\mathbf F=m\\mathbf a$ for constant mass.\n- Third-law partners act on different bodies.\n- In a plane, resolve force and acceleration by components.",
+    "self_explain": "Why can two equal and opposite third-law forces not cancel in the force equation for just one particle?"
+  },
+  "M1-4.2": {
+    "motivate": "A string can make two particles move together, while a ground impact can suddenly change which forces act. Separate force diagrams and motion phases keep the model accurate.",
+    "establish": "For two particles joined by a light inextensible string over a smooth fixed pulley or peg, a taut string gives the same acceleration magnitude to both and the same tension along the string. Choose a positive direction for each body and apply $\\sum F=ma$ separately. Add the equations to eliminate the internal tension, then substitute back to find it. On a plane inclined at $\\theta$ to the horizontal, resolve weight into $mg\\sin\\theta$ down the plane and $mg\\cos\\theta$ perpendicular to it. A smooth plane has no friction; on a rough plane include friction opposing the motion. If one particle hits the ground, use its velocity at that instant as the starting velocity for a new phase. Check whether the string becomes slack, then redraw the remaining forces and solve the later motion.",
+    "connect": "The acceleration from Newton's second law feeds into constant-acceleration kinematics. At a force change, the velocity is carried across the phase boundary, while acceleration may change.",
+    "note": "- Draw a separate force diagram for each particle.\n- A taut light string gives one tension and equal acceleration magnitudes.\n- Resolve slope weight as $mg\\sin\\theta$ parallel and $mg\\cos\\theta$ perpendicular.\n- After impact, start a new force and kinematics phase.",
+    "self_explain": "Why can tension disappear when two connected-particle equations are added, yet still be needed to find the tension itself?"
+  },
+  "M1-4.3": {
+    "motivate": "During a brief collision, large contact forces act for a short time. Momentum and impulse describe the motion change without needing the detailed force history.",
+    "establish": "A particle's momentum is $p=mv$, with velocity and momentum signed along the chosen one-dimensional axis. Impulse is force times time for a constant force, or more generally the change in momentum: $J=mv-mu$. This is the impulse–momentum principle. In a direct collision between two particles, their total momentum before equals their total momentum after when the resultant external impulse on the two-particle system is negligible. Write both particles' signed momenta before and after, then solve the resulting equation. If the particles stick, they share a final velocity. Do not assume kinetic energy conservation or use a restitution law; neither is required for these one-dimensional questions.",
+    "connect": "Newton's second law connects force with momentum change. The collision equation treats both particles as one system, so their internal impulses cancel.",
+    "note": "- Momentum is signed: $p=mv$.\n- Impulse equals change in momentum: $J=m(v-u)$.\n- Negligible external impulse gives conservation of total momentum.\n- Direct collisions here are one-dimensional; kinetic energy need not be conserved.",
+    "self_explain": "Why can total momentum be conserved when the two colliding particles exert large forces on each other?"
+  },
+  "M1-4.4": {
+    "motivate": "A surface pushes perpendicular to itself and resists sliding along itself. On a slope, finding the perpendicular push is essential before calculating friction.",
+    "establish": "The normal reaction $R$ acts perpendicular to the contact surface. The coefficient of friction $\\mu$ relates the magnitude of friction to this reaction for a moving particle: $F=\\mu R$. Friction acts opposite to the actual relative motion. On a horizontal surface without other vertical forces, $R=mg$. On a plane inclined at $\\theta$ with no other perpendicular force or acceleration, $R=mg\\cos\\theta$. Resolve forces along the plane after finding $R$. A particle sliding down has friction up the slope; a particle sliding up has friction down the slope. The formula describes friction during motion here, so do not replace it with a guess about direction or with $R=mg$ on an incline.",
+    "connect": "Use the resolved friction force in Newton's second-law equation along the surface. The resulting acceleration can then be used in the constant-acceleration equations.",
+    "note": "- For a moving particle, friction magnitude is $F=\\mu R$.\n- Friction opposes relative motion.\n- Resolve perpendicular to find $R$; on a simple slope, $R=mg\\cos\\theta$.\n- Then apply $\\sum F=ma$ along the surface.",
+    "self_explain": "Why does friction point down the plane when a particle is sliding upward?"
+  }
+}

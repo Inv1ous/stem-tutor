@@ -1,0 +1,1130 @@
+{
+ "subtopic": "M1-4",
+ "spec": "M1",
+ "version": 1,
+ "note": "Subjects/Maths/M1 Mechanics 1/4 Dynamics of a particle moving in a straight line or plane.md",
+ "outline": "A force changes motion according to Newton’s laws. Draw separate force diagrams and apply $\\sum\\mathbf F=m\\mathbf a$, resolving along chosen axes. Connected particles share the magnitude of acceleration while a light string over a smooth pulley has one tension. On an incline, resolve weight into $mg\\sin\\theta$ along the plane and $mg\\cos\\theta$ perpendicular to it. For a moving particle, friction has magnitude $\\mu R$ and opposes motion. Momentum is $mv$; impulse is the change in momentum. In a direct collision, total signed momentum is conserved when external impulse is negligible.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "M1-4.1",
+   "statement": "A moving particle needs a forward resultant force to keep moving.",
+   "refutation": "With zero resultant force, velocity stays constant by Newton’s first law.",
+   "contrast": "A resultant force changes velocity, not merely maintains it.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "M1-4.1",
+   "statement": "Action and reaction cancel on one particle.",
+   "refutation": "Newton’s third-law forces act on different bodies.",
+   "contrast": "Only forces on the chosen particle belong in its $\\sum F=ma$ equation.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "M1-4.2",
+   "statement": "The same force equation applies unchanged after one connected particle hits the ground.",
+   "refutation": "After contact, the string may become slack and the moving particle has a new force balance.",
+   "contrast": "Split the motion into phases and carry the contact velocity into the next phase.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "M1-4.2",
+   "statement": "Tension is an extra force on the combined two-particle system.",
+   "refutation": "The two tension forces are internal and cancel when equations for the two particles are added.",
+   "contrast": "Keep tension in each separate particle equation.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "M1-4.3",
+   "statement": "Momentum is always positive, even when a particle reverses direction.",
+   "refutation": "Momentum $mv$ has the signed direction of velocity in one dimension.",
+   "contrast": "Choose a positive direction before writing collision equations.",
+   "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "M1-4.3",
+   "statement": "Kinetic energy must be conserved in every direct collision.",
+   "refutation": "Momentum is conserved when external impulse is negligible; kinetic energy can change.",
+   "contrast": "Use signed momentum before and after, without assuming restitution or energy conservation.",
+   "source": "research"
+  },
+  {
+   "id": "m7",
+   "kc": "M1-4.4",
+   "statement": "The normal reaction on a slope always equals $mg$.",
+   "refutation": "With no other perpendicular force or acceleration, $R=mg\\cos\\theta$.",
+   "contrast": "Resolve forces perpendicular to the plane.",
+   "source": "research"
+  },
+  {
+   "id": "m8",
+   "kc": "M1-4.4",
+   "statement": "Friction always acts down a rough plane.",
+   "refutation": "Friction opposes the actual or impending relative motion.",
+   "contrast": "A particle sliding down has friction up the plane; one sliding up has friction down it.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "M1-4.1",
+   "problem": "A 3 kg particle experiences a resultant force of 15 N along $\\mathbf i$. Find its acceleration vector.",
+   "steps": [
+    {
+     "do": "Choose $\\mathbf i$ as the positive direction.",
+     "why": "The signs of force and acceleration must use the same axis."
+    },
+    {
+     "do": "Apply $\\sum\\mathbf F=m\\mathbf a$: $15\\mathbf i=3\\mathbf a$.",
+     "why": "Newton’s second law uses the resultant force on this particle."
+    },
+    {
+     "do": "$\\mathbf a=(15/3)\\mathbf i=5\\mathbf i\\,\\mathrm{m\\,s^{-2}}$.",
+     "why": "Divide each force component by the mass.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 5.0,
+       "unit": "m s^-2",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A 4 kg particle experiences a resultant force of 28 N along $\\mathbf i$. Find its acceleration magnitude.",
+    "answer": {
+     "value": 7.0,
+     "unit": "m s^-2",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "M1-4.2",
+   "problem": "Masses 2 kg and 3 kg are connected by a light string over a smooth fixed pulley. Find the acceleration and tension.",
+   "steps": [
+    {
+     "do": "Take the 3 kg mass downward and the 2 kg mass upward as positive.",
+     "why": "Both particles have acceleration of the same magnitude."
+    },
+    {
+     "do": "Write $3g-T=3a$ and $T-2g=2a$.",
+     "why": "The string tension acts opposite to each chosen positive direction."
+    },
+    {
+     "do": "Add: $(3-2)g=(2+3)a$, so $a=1.96\\,\\mathrm{m\\,s^{-2}}$.",
+     "why": "Tension cancels because it is internal to the two-particle system.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.96,
+       "unit": "m s^-2",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "do": "Substitute into $T-2g=2a$: $T=23.52\\,\\mathrm{N}$.",
+     "why": "Use one particle’s equation to recover the string tension.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 23.52,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Masses 1 kg and 4 kg hang over a smooth fixed pulley. Find their acceleration magnitude.",
+    "answer": {
+     "value": 5.88,
+     "unit": "m s^-2",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "M1-4.3",
+   "problem": "A 2 kg particle moves right at 5 m s^-1 and collides directly with a 3 kg particle moving left at 1 m s^-1. They stick together. Find their common velocity.",
+   "steps": [
+    {
+     "do": "Take right as positive, so the initial velocities are $+5$ and $-1\\,\\mathrm{m\\,s^{-1}}$.",
+     "why": "Momentum is a signed vector quantity along the line."
+    },
+    {
+     "do": "Conserve momentum: $(2)(5)+(3)(-1)=(2+3)v$.",
+     "why": "The collision is brief and external impulse is taken as negligible."
+    },
+    {
+     "do": "$v=7/5\\,\\mathrm{m\\,s^{-1}}$ to the right.",
+     "why": "The positive sign identifies direction.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.4,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A 2 kg particle moving right at 6 m s^-1 sticks to a stationary 4 kg particle. Find their common speed.",
+    "answer": {
+     "value": 2.0,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "M1-4.4",
+   "problem": "A 2 kg particle slides down a rough $30^\\circ$ plane with coefficient of friction $0.2$. Find its acceleration.",
+   "steps": [
+    {
+     "do": "Take down the plane as positive. Friction acts up the plane.",
+     "why": "Friction opposes the actual sliding direction."
+    },
+    {
+     "do": "Resolve perpendicular: $R=mg\\cos30^\\circ=\\frac{49 \\sqrt{3}}{5}\\,\\mathrm{N}$.",
+     "why": "There is no acceleration perpendicular to the plane.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 16.974097914174997,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "do": "Use $F=\\mu R=\\frac{49 \\sqrt{3}}{25}\\,\\mathrm{N}$.",
+     "why": "The particle is moving, so the stated friction rule applies.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.3948195828349994,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    },
+    {
+     "do": "Along the plane, $ma=mg\\sin30^\\circ-F$, giving $a=3.2\\,\\mathrm{m\\,s^{-2}}$.",
+     "why": "The weight component drives downhill motion and friction resists it.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.2025902085825004,
+       "unit": "m s^-2",
+       "sf_ok": [
+        2,
+        3,
+        4,
+        5,
+        6
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "A 3 kg particle slides down a rough 30 degree plane with coefficient of friction 0.1. Find its acceleration.",
+    "answer": {
+     "value": 4.05129510429125,
+     "unit": "m s^-2",
+     "sf_ok": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "M1-4-i01",
+   "kcs": [
+    "M1-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]\\,\\mathrm{kg}$ particle has resultant force $[[F]]\\,\\mathrm{N}$ in the positive direction. Calculate its acceleration.",
+   "marks": 2,
+   "explanation": "Newton’s second law gives $a=F/m$ in the direction of the resultant force.",
+   "hints": [
+    "Identify the resultant, rather than one individual force.",
+    "Apply Newton’s second law to the particle.",
+    "Divide the resultant force by mass."
+   ],
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "F": {
+      "choices": [
+       12,
+       18,
+       24
+      ]
+     }
+    },
+    "answer": "F/m",
+    "distractors": [
+     {
+      "expr": "F*m",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-4-i02",
+   "kcs": [
+    "M1-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]\\,\\mathrm{kg}$ particle has forces $[[P]]\\mathbf i+[[Q]]\\mathbf j$ newtons. Calculate the magnitude of its acceleration.",
+   "marks": 2,
+   "explanation": "The acceleration vector is $(P\\mathbf i+Q\\mathbf j)/m$; its magnitude is $\\sqrt{P^2+Q^2}/m$.",
+   "hints": [
+    "Work component by component.",
+    "Find the magnitude of the resultant vector.",
+    "Use $\\sum\\mathbf F=m\\mathbf a$."
+   ],
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       4
+      ]
+     },
+     "P": {
+      "choices": [
+       6,
+       8
+      ]
+     },
+     "Q": {
+      "choices": [
+       3,
+       5
+      ]
+     }
+    },
+    "answer": "sqrt(P*P+Q*Q)/m",
+    "distractors": [
+     {
+      "expr": "sqrt(P*P+Q*Q)*m",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-4-i03",
+   "kcs": [
+    "M1-4.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain Newton’s three laws and why an action–reaction pair does not cancel in a single particle’s equation.",
+   "marks": 4,
+   "explanation": "Newton’s first law describes zero resultant, the second gives $\\sum\\mathbf F=m\\mathbf a$, and the third concerns equal opposite forces on different bodies.",
+   "hints": [
+    "Think about motion when the resultant is zero.",
+    "State the force–acceleration equation.",
+    "Name which body receives each interaction force."
+   ],
+   "rubric": [
+    {
+     "point": "With zero resultant force, a particle stays at rest or moves with constant velocity.",
+     "keywords": [
+      [
+       "zero",
+       "no"
+      ],
+      [
+       "resultant"
+      ],
+      [
+       "constant",
+       "rest"
+      ]
+     ]
+    },
+    {
+     "point": "The resultant force equals mass times acceleration. ",
+     "keywords": [
+      [
+       "resultant"
+      ],
+      [
+       "mass"
+      ],
+      [
+       "acceleration"
+      ]
+     ]
+    },
+    {
+     "point": "An interaction produces equal and opposite forces on different bodies. ",
+     "keywords": [
+      [
+       "equal"
+      ],
+      [
+       "opposite"
+      ],
+      [
+       "different"
+      ]
+     ]
+    },
+    {
+     "point": "Only forces on the selected particle enter its equation. ",
+     "keywords": [
+      [
+       "selected",
+       "chosen"
+      ],
+      [
+       "particle",
+       "body"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-4-i04",
+   "kcs": [
+    "M1-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Masses $[[m1]]$ kg and $[[m2]]$ kg hang on either side of a light string over a smooth fixed pulley, with $m2>m1$. Calculate their acceleration magnitude. Take $g=9.8\\,\\mathrm{m\\,s^{-2}}$.",
+   "marks": 2,
+   "explanation": "Adding the two separate equations eliminates tension: $(m_2-m_1)g=(m_1+m_2)a$.",
+   "hints": [
+    "Draw one force diagram for each mass.",
+    "Give both particles the same acceleration magnitude.",
+    "Add the two $F=ma$ equations to eliminate tension."
+   ],
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "m1": {
+      "choices": [
+       1,
+       2,
+       3
+      ]
+     },
+     "m2": {
+      "choices": [
+       5,
+       6,
+       7
+      ]
+     }
+    },
+    "answer": "9.8*(m2-m1)/(m1+m2)",
+    "distractors": [
+     {
+      "expr": "9.8*(m2-m1)/m2",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-4-i05",
+   "kcs": [
+    "M1-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]$ kg particle slides down a smooth plane inclined at $[[theta]]$ degrees to the horizontal. Calculate its acceleration down the plane. Take $g=9.8\\,\\mathrm{m\\,s^{-2}}$.",
+   "marks": 2,
+   "explanation": "Resolving along the smooth plane gives $ma=mg\\sin\\theta$, so mass cancels.",
+   "hints": [
+    "Resolve weight parallel to the slope.",
+    "There is no friction on a smooth plane.",
+    "Write $ma=mg\\sin\\theta$."
+   ],
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       3
+      ]
+     },
+     "theta": {
+      "choices": [
+       30,
+       60
+      ]
+     }
+    },
+    "answer": "9.8*sin(theta*pi/180)",
+    "distractors": [
+     {
+      "expr": "9.8*cos(theta*pi/180)",
+      "misconception": "m7"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-4-i06",
+   "kcs": [
+    "M1-4.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Two particles initially move on a taut string over a smooth pulley. One hits the ground while the other is still moving. Explain how to find the subsequent motion.",
+   "marks": 3,
+   "explanation": "The force system changes at impact. The velocity is continuous through the instant, but the later acceleration must come from a new force diagram.",
+   "hints": [
+    "Split the motion at the impact instant.",
+    "Decide whether tension continues to act.",
+    "Use the impact velocity as the new initial velocity."
+   ],
+   "rubric": [
+    {
+     "point": "Use separate force equations while the string is taut and the same acceleration magnitude for both particles.",
+     "keywords": [
+      [
+       "separate"
+      ],
+      [
+       "taut"
+      ],
+      [
+       "acceleration"
+      ]
+     ]
+    },
+    {
+     "point": "At impact carry the velocity forward, then check whether the string becomes slack.",
+     "keywords": [
+      [
+       "velocity"
+      ],
+      [
+       "slack"
+      ]
+     ]
+    },
+    {
+     "point": "For the later phase use the remaining particle’s new force balance and constant-acceleration equations.",
+     "keywords": [
+      [
+       "later",
+       "subsequent"
+      ],
+      [
+       "force"
+      ],
+      [
+       "acceleration"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-4-i07",
+   "kcs": [
+    "M1-4.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]$ kg particle changes velocity from $[[u]]$ to $[[v]]\\,\\mathrm{m\\,s^{-1}}$ along a chosen positive line. Calculate the signed impulse on it.",
+   "marks": 2,
+   "explanation": "The impulse–momentum principle gives $J=mv-mu=m(v-u)$.",
+   "hints": [
+    "Momentum has a direction sign.",
+    "Subtract initial momentum from final momentum.",
+    "Multiply the velocity change by mass."
+   ],
+   "answer": {
+    "unit": "N s",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "u": {
+      "choices": [
+       1,
+       2
+      ]
+     },
+     "v": {
+      "choices": [
+       5,
+       7
+      ]
+     }
+    },
+    "answer": "m*(v-u)",
+    "distractors": [
+     {
+      "expr": "m*(v+u)",
+      "misconception": "m5"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-4-i08",
+   "kcs": [
+    "M1-4.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m1]]$ kg particle moves right at $[[u1]]\\,\\mathrm{m\\,s^{-1}}$ and collides directly with a stationary $[[m2]]$ kg particle. They stick together. Calculate their common speed after collision.",
+   "marks": 2,
+   "explanation": "Conservation of signed momentum gives $m_1u_1=(m_1+m_2)v$ for the joined particles.",
+   "hints": [
+    "Choose right as positive.",
+    "Write total momentum before and after.",
+    "The joined mass is the sum of the two masses."
+   ],
+   "answer": {
+    "unit": "m s^-1",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "m1": {
+      "choices": [
+       2,
+       3
+      ]
+     },
+     "m2": {
+      "choices": [
+       1,
+       4
+      ]
+     },
+     "u1": {
+      "choices": [
+       4,
+       6
+      ]
+     }
+    },
+    "answer": "m1*u1/(m1+m2)",
+    "distractors": [
+     {
+      "expr": "m1*u1/m2",
+      "misconception": "m6"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-4-i09",
+   "kcs": [
+    "M1-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain when momentum may be conserved in a direct collision and why kinetic energy need not be conserved.",
+   "marks": 3,
+   "explanation": "Internal collision impulses cancel for the system. This supports momentum conservation without assuming an elastic collision or a restitution rule.",
+   "hints": [
+    "Treat the two particles as one system.",
+    "Ask which impulses are external.",
+    "Keep velocity signs in the momentum equation."
+   ],
+   "rubric": [
+    {
+     "point": "Total momentum is conserved when the external impulse on the two-particle system is negligible.",
+     "keywords": [
+      [
+       "momentum"
+      ],
+      [
+       "external"
+      ],
+      [
+       "impulse"
+      ],
+      [
+       "negligible",
+       "zero"
+      ]
+     ]
+    },
+    {
+     "point": "Momentum is signed in a one-dimensional collision.",
+     "keywords": [
+      [
+       "signed",
+       "direction"
+      ],
+      [
+       "momentum"
+      ]
+     ]
+    },
+    {
+     "point": "Kinetic energy can change to other forms during impact.",
+     "keywords": [
+      [
+       "kinetic"
+      ],
+      [
+       "energy"
+      ],
+      [
+       "change",
+       "other"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-4-i10",
+   "kcs": [
+    "M1-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]$ kg particle slides on a rough horizontal surface with coefficient of friction $[[mu]]$. Calculate the friction magnitude. Take $g=9.8\\,\\mathrm{m\\,s^{-2}}$.",
+   "marks": 2,
+   "explanation": "On the horizontal surface $R=mg$, so moving friction has magnitude $F=\\mu R=\\mu mg$.",
+   "hints": [
+    "Find the normal reaction first.",
+    "Use $F=\\mu R$ for a moving particle.",
+    "Friction opposes the sliding direction."
+   ],
+   "answer": {
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "mu": {
+      "choices": [
+       0.2,
+       0.3,
+       0.4
+      ]
+     }
+    },
+    "answer": "mu*m*9.8",
+    "distractors": [
+     {
+      "expr": "m*9.8",
+      "misconception": "m7"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-4-i11",
+   "kcs": [
+    "M1-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]$ kg particle slides down a rough plane inclined at $[[theta]]$ degrees to the horizontal. The coefficient of friction is $[[mu]]$. Calculate its acceleration down the plane. Take $g=9.8\\,\\mathrm{m\\,s^{-2}}$.",
+   "marks": 2,
+   "explanation": "Here $R=mg\\cos\\theta$ and friction is up the plane. Thus $ma=mg\\sin\\theta-\\mu mg\\cos\\theta$.",
+   "hints": [
+    "Set axes parallel and perpendicular to the plane.",
+    "Find $R$ before calculating friction.",
+    "Because motion is down the plane, friction is up it."
+   ],
+   "answer": {
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       4
+      ]
+     },
+     "theta": {
+      "choices": [
+       30,
+       45
+      ]
+     },
+     "mu": {
+      "choices": [
+       0.1,
+       0.2
+      ]
+     }
+    },
+    "answer": "9.8*(sin(theta*pi/180)-mu*cos(theta*pi/180))",
+    "distractors": [
+     {
+      "expr": "9.8*(sin(theta*pi/180)+mu*cos(theta*pi/180))",
+      "misconception": "m8"
+     },
+     {
+      "expr": "9.8*(sin(theta*pi/180)-mu)",
+      "misconception": "m7"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-4-i12",
+   "kcs": [
+    "M1-4.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle is sliding up a rough incline. Explain the direction and magnitude of friction and how the normal reaction is found.",
+   "marks": 3,
+   "explanation": "Friction opposes sliding, so it points downhill here. Resolve perpendicular to the slope to obtain $R$, then use $F=\\mu R$.",
+   "hints": [
+    "Use the actual direction of sliding.",
+    "Resolve perpendicular to the plane.",
+    "Use the coefficient only after finding the reaction."
+   ],
+   "rubric": [
+    {
+     "point": "Friction acts down the plane, opposite the upward motion.",
+     "keywords": [
+      [
+       "friction"
+      ],
+      [
+       "down"
+      ],
+      [
+       "opposite"
+      ]
+     ]
+    },
+    {
+     "point": "Its magnitude is $F=\\mu R$.",
+     "keywords": [
+      [
+       "mu",
+       "coefficient"
+      ],
+      [
+       "reaction"
+      ]
+     ]
+    },
+    {
+     "point": "With only weight and reaction perpendicular to the plane, $R=mg\\cos\\theta$.",
+     "keywords": [
+      [
+       "reaction"
+      ],
+      [
+       "cos"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "M1-4.1",
+   "front": "State Newton’s first law.",
+   "back": "A body remains at rest or moves with constant velocity unless acted on by a non-zero resultant force."
+  },
+  {
+   "id": "fc2",
+   "kc": "M1-4.1",
+   "front": "State Newton’s second law for constant mass.",
+   "back": "The resultant force on a body equals its mass times acceleration, in the direction of the acceleration: $\\sum\\mathbf F=m\\mathbf a$."
+  },
+  {
+   "id": "fc3",
+   "kc": "M1-4.1",
+   "front": "State Newton’s third law.",
+   "back": "When two bodies interact, they exert forces on each other that are equal in magnitude and opposite in direction."
+  },
+  {
+   "id": "fc4",
+   "kc": "M1-4.3",
+   "front": "State the impulse–momentum principle.",
+   "back": "The impulse on a particle equals its change in momentum: $J=mv-mu$."
+  },
+  {
+   "id": "fc5",
+   "kc": "M1-4.3",
+   "front": "When is momentum conserved for two colliding particles?",
+   "back": "Their total momentum is conserved when the resultant external impulse on the two-particle system is negligible."
+  },
+  {
+   "id": "fc6",
+   "kc": "M1-4.4",
+   "front": "State the moving friction rule.",
+   "back": "The magnitude of friction is $F=\\mu R$ for a particle moving relative to a rough surface; friction opposes motion."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "M1-4.1": {
+   "motivate": "A particle can keep moving without a driving resultant force. Forces explain changes in motion, so start by identifying every force acting on the chosen body.",
+   "establish": "A force is an interaction measured in newtons. Newton's first law says a body stays at rest or continues at constant velocity if the resultant force is zero. For constant mass, Newton's second law is $\\sum\\mathbf F=m\\mathbf a$: the acceleration is in the direction of the resultant force. In a plane, resolve the vector equation into $\\mathbf i$ and $\\mathbf j$ components. Newton's third law says two interacting bodies exert forces on each other that are equal in magnitude and opposite in direction. These forces act on different bodies, so only one belongs in either body's force equation.",
+   "connect": "Constant acceleration links the force model to the kinematics equations. Once $a$ is found from the resultant force, use the appropriate equation of motion for the requested velocity, time or displacement.",
+   "note": "- Zero resultant force means constant velocity, including rest.\n- $\\sum\\mathbf F=m\\mathbf a$ for constant mass.\n- Third-law partners act on different bodies.\n- In a plane, resolve force and acceleration by components.",
+   "self_explain": "Why can two equal and opposite third-law forces not cancel in the force equation for just one particle?",
+   "source": "pack"
+  },
+  "M1-4.2": {
+   "motivate": "A string can make two particles move together, while a ground impact can suddenly change which forces act. Separate force diagrams and motion phases keep the model accurate.",
+   "establish": "For two particles joined by a light inextensible string over a smooth fixed pulley or peg, a taut string gives the same acceleration magnitude to both and the same tension along the string. Choose a positive direction for each body and apply $\\sum F=ma$ separately. Add the equations to eliminate the internal tension, then substitute back to find it. On a plane inclined at $\\theta$ to the horizontal, resolve weight into $mg\\sin\\theta$ down the plane and $mg\\cos\\theta$ perpendicular to it. A smooth plane has no friction; on a rough plane include friction opposing the motion. If one particle hits the ground, use its velocity at that instant as the starting velocity for a new phase. Check whether the string becomes slack, then redraw the remaining forces and solve the later motion.",
+   "connect": "The acceleration from Newton's second law feeds into constant-acceleration kinematics. At a force change, the velocity is carried across the phase boundary, while acceleration may change.",
+   "note": "- Draw a separate force diagram for each particle.\n- A taut light string gives one tension and equal acceleration magnitudes.\n- Resolve slope weight as $mg\\sin\\theta$ parallel and $mg\\cos\\theta$ perpendicular.\n- After impact, start a new force and kinematics phase.",
+   "self_explain": "Why can tension disappear when two connected-particle equations are added, yet still be needed to find the tension itself?",
+   "source": "pack"
+  },
+  "M1-4.3": {
+   "motivate": "During a brief collision, large contact forces act for a short time. Momentum and impulse describe the motion change without needing the detailed force history.",
+   "establish": "A particle's momentum is $p=mv$, with velocity and momentum signed along the chosen one-dimensional axis. Impulse is force times time for a constant force, or more generally the change in momentum: $J=mv-mu$. This is the impulse–momentum principle. In a direct collision between two particles, their total momentum before equals their total momentum after when the resultant external impulse on the two-particle system is negligible. Write both particles' signed momenta before and after, then solve the resulting equation. If the particles stick, they share a final velocity. Do not assume kinetic energy conservation or use a restitution law; neither is required for these one-dimensional questions.",
+   "connect": "Newton's second law connects force with momentum change. The collision equation treats both particles as one system, so their internal impulses cancel.",
+   "note": "- Momentum is signed: $p=mv$.\n- Impulse equals change in momentum: $J=m(v-u)$.\n- Negligible external impulse gives conservation of total momentum.\n- Direct collisions here are one-dimensional; kinetic energy need not be conserved.",
+   "self_explain": "Why can total momentum be conserved when the two colliding particles exert large forces on each other?",
+   "source": "pack"
+  },
+  "M1-4.4": {
+   "motivate": "A surface pushes perpendicular to itself and resists sliding along itself. On a slope, finding the perpendicular push is essential before calculating friction.",
+   "establish": "The normal reaction $R$ acts perpendicular to the contact surface. The coefficient of friction $\\mu$ relates the magnitude of friction to this reaction for a moving particle: $F=\\mu R$. Friction acts opposite to the actual relative motion. On a horizontal surface without other vertical forces, $R=mg$. On a plane inclined at $\\theta$ with no other perpendicular force or acceleration, $R=mg\\cos\\theta$. Resolve forces along the plane after finding $R$. A particle sliding down has friction up the slope; a particle sliding up has friction down the slope. The formula describes friction during motion here, so do not replace it with a guess about direction or with $R=mg$ on an incline.",
+   "connect": "Use the resolved friction force in Newton's second-law equation along the surface. The resulting acceleration can then be used in the constant-acceleration equations.",
+   "note": "- For a moving particle, friction magnitude is $F=\\mu R$.\n- Friction opposes relative motion.\n- Resolve perpendicular to find $R$; on a simple slope, $R=mg\\cos\\theta$.\n- Then apply $\\sum F=ma$ along the surface.",
+   "self_explain": "Why does friction point down the plane when a particle is sliding upward?",
+   "source": "pack"
+  }
+ }
+}
