@@ -1,0 +1,205 @@
+{
+ "sub": "9701-15.1",
+ "stage": "ready",
+ "created": "2026-10-10T17:27:42+08:00",
+ "updated": "2026-10-10T17:36:28+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T17:31:15+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 104 items"
+  },
+  {
+   "t": "2026-10-10T17:35:28+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "77 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:36:28+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 104,
+  "extra": 57
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 44738,
+   "provider": "codex",
+   "model": "gpt-6-sol/medium",
+   "rung": 1,
+   "started": "2026-10-10T17:28:12+08:00",
+   "log": "foundry/logs/9701-15.1.drafter.1010-172812.log",
+   "out": "foundry/logs/9701-15.1.drafter.1010-172812.out.json",
+   "finished": "2026-10-10T17:31:15+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-15.1.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/15 Halogen compounds/15.1 Halogenoalkanes.md",
+    "items": 104,
+    "templates": 1,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "SN1 and SN2 mechanism diagrams could not be rendered with the supported diagram types; the note describes the electron-pair arrows in text."
+    ]
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 48312,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:33:56+08:00",
+   "log": "foundry/logs/9701-15.1.solver-1.1010-173356.log",
+   "out": "foundry/logs/9701-15.1.solver-1.1010-173356.out.json",
+   "expects": "build/work/blind/9701-15.1.answers.part1.json",
+   "finished": "2026-10-10T17:34:14+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-15.1.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 48317,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:33:56+08:00",
+   "log": "foundry/logs/9701-15.1.solver-2.1010-173356.log",
+   "out": "foundry/logs/9701-15.1.solver-2.1010-173356.out.json",
+   "expects": "build/work/blind/9701-15.1.answers.part2.json",
+   "finished": "2026-10-10T17:34:21+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-15.1.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 48322,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:33:56+08:00",
+   "log": "foundry/logs/9701-15.1.solver-3.1010-173356.log",
+   "out": "foundry/logs/9701-15.1.solver-3.1010-173356.out.json",
+   "expects": "build/work/blind/9701-15.1.answers.part3.json",
+   "finished": "2026-10-10T17:34:31+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-15.1.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "solver#4": {
+   "pid": 48919,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:34:37+08:00",
+   "log": "foundry/logs/9701-15.1.solver-4.1010-173437.log",
+   "out": "foundry/logs/9701-15.1.solver-4.1010-173437.out.json",
+   "expects": "build/work/blind/9701-15.1.answers.part4.json",
+   "finished": "2026-10-10T17:35:02+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 17 questions in `build/work/blind/9701-15.1.answers.part4.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 48924,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:34:37+08:00",
+   "log": "foundry/logs/9701-15.1.checker.1010-173437.log",
+   "out": "foundry/logs/9701-15.1.checker.1010-173437.out.json",
+   "expects": "build/work/foundry/9701-15.1.check.json",
+   "finished": "2026-10-10T17:35:19+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/9701-15.1.check.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_11_q23": "9701-15.1-x001",
+  "9701_s19_12_q25": "9701-15.1-x002",
+  "9701_s19_12_q38": "9701-15.1-x003",
+  "9701_s19_13_q20": "9701-15.1-x004",
+  "9701_s19_13_q24": "9701-15.1-x005",
+  "9701_s19_13_q25": "9701-15.1-x006",
+  "9701_w19_11_q23": "9701-15.1-x007",
+  "9701_w19_12_q23": "9701-15.1-x008",
+  "9701_w19_12_q38": "9701-15.1-x009",
+  "9701_w19_13_q24": "9701-15.1-x010",
+  "9701_s20_11_q23": "9701-15.1-x011",
+  "9701_s20_12_q40": "9701-15.1-x012",
+  "9701_s20_13_q27": "9701-15.1-x013",
+  "9701_s20_13_q38": "9701-15.1-x014",
+  "9701_w20_11_q23": "9701-15.1-x015",
+  "9701_w20_11_q25": "9701-15.1-x016",
+  "9701_w20_12_q25": "9701-15.1-x017",
+  "9701_w20_13_q23": "9701-15.1-x018",
+  "9701_w20_13_q25": "9701-15.1-x019",
+  "9701_s21_11_q37": "9701-15.1-x020",
+  "9701_s21_12_q24": "9701-15.1-x021",
+  "9701_s21_12_q25": "9701-15.1-x022",
+  "9701_s21_13_q23": "9701-15.1-x023",
+  "9701_s21_13_q38": "9701-15.1-x024",
+  "9701_w21_11_q20": "9701-15.1-x025",
+  "9701_w21_11_q23": "9701-15.1-x026",
+  "9701_w21_13_q22": "9701-15.1-x027",
+  "9701_s22_11_q31": "9701-15.1-x028",
+  "9701_s22_11_q32": "9701-15.1-x029",
+  "9701_s22_12_q28": "9701-15.1-x030",
+  "9701_s22_12_q31": "9701-15.1-x031",
+  "9701_s22_12_q34": "9701-15.1-x032",
+  "9701_s22_13_q31": "9701-15.1-x033",
+  "9701_s22_13_q32": "9701-15.1-x034",
+  "9701_w22_12_q31": "9701-15.1-x035",
+  "9701_s23_11_q29": "9701-15.1-x036",
+  "9701_s23_11_q31": "9701-15.1-x037",
+  "9701_s23_12_q29": "9701-15.1-x038",
+  "9701_s23_12_q32": "9701-15.1-x039",
+  "9701_s23_13_q27": "9701-15.1-x040",
+  "9701_s23_13_q30": "9701-15.1-x041",
+  "9701_w23_11_q31": "9701-15.1-x042",
+  "9701_w23_13_q31": "9701-15.1-x043",
+  "9701_s24_11_q30": "9701-15.1-x044",
+  "9701_s24_11_q31": "9701-15.1-x045",
+  "9701_s24_12_q28": "9701-15.1-x046",
+  "9701_s24_12_q35": "9701-15.1-x047",
+  "9701_s24_13_q28": "9701-15.1-x048",
+  "9701_s24_13_q30": "9701-15.1-x049",
+  "9701_w24_11_q32": "9701-15.1-x050",
+  "9701_s25_11_q30": "9701-15.1-x051",
+  "9701_s25_11_q33": "9701-15.1-x052",
+  "9701_s25_11_q35": "9701-15.1-x053",
+  "9701_s25_12_q25": "9701-15.1-x054",
+  "9701_s25_12_q33": "9701-15.1-x055",
+  "9701_s25_13_q33": "9701-15.1-x056",
+  "9701_w25_11_q31": "9701-15.1-x057"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
