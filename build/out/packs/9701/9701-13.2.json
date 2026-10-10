@@ -1,0 +1,913 @@
+{
+ "subtopic": "9701-13.2",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/13 An introduction to AS Level organic chemistry/13.2 Characteristic organic reactions.md",
+ "outline": "Identify the reaction by what changes: addition, substitution, elimination, hydrolysis, condensation or redox. Follow electron movement to classify the mechanism. Homolysis creates radicals; heterolysis creates ions. Nucleophiles donate electron pairs and electrophiles accept them. In a full curly-arrow mechanism, every arrow begins at the source bond or lone pair.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-13.2.1",
+   "statement": "Homolytic fission produces ions.",
+   "refutation": "Each atom receives one bonding electron, forming radicals; heterolytic fission produces ions.",
+   "contrast": "Homolytic: one electron each. Heterolytic: both electrons to one atom.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-13.2.2",
+   "statement": "Every nucleophile is negatively charged.",
+   "refutation": "A neutral molecule with a lone pair, such as ammonia, can donate that pair.",
+   "contrast": "Electron-pair donation defines a nucleophile, not charge.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-13.2.2",
+   "statement": "A curly arrow can start at an electrophilic atom.",
+   "refutation": "A full curly arrow traces an electron pair from its source: a bond or lone pair.",
+   "contrast": "Start at the electron pair and point towards its destination.",
+   "source": "ER 9701 s22 P23 Q4"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-13.2.2",
+   "statement": "Cyanide addition to a carbonyl first makes a positive carbonyl intermediate.",
+   "refutation": "The carbon nucleophile attacks the carbonyl carbon while the C=O pair moves to oxygen, giving an alkoxide.",
+   "contrast": "Show the C=O polarity and arrows from the cyanide lone pair and C=O bond.",
+   "source": "ER 9701 s23 P23 Q6"
+  }
+ ],
+ "worked": [],
+ "items": [
+  {
+   "id": "9701-13.2-i01",
+   "kcs": [
+    "9701-13.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define homologous series.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "A family with the same functional group and general formula.",
+     "keywords": [
+      [
+       "same functional group"
+      ],
+      [
+       "general formula"
+      ]
+     ]
+    },
+    {
+     "point": "Successive members differ by $\\ce{CH2}$.",
+     "keywords": [
+      [
+       "successive"
+      ],
+      [
+       "CH2"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Members have the same functional group and general formula, and consecutive members differ by $\\ce{CH2}$.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i02",
+   "kcs": [
+    "9701-13.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare saturated and unsaturated organic compounds.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Saturated compounds contain only single carbon–carbon bonds.",
+     "keywords": [
+      [
+       "single"
+      ],
+      [
+       "carbon"
+      ]
+     ]
+    },
+    {
+     "point": "Unsaturated compounds contain a carbon–carbon multiple bond.",
+     "keywords": [
+      [
+       "multiple",
+       "double",
+       "triple"
+      ],
+      [
+       "carbon"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Saturation refers to carbon–carbon bonds: an unsaturated compound has a C=C or C≡C bond.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i03",
+   "kcs": [
+    "9701-13.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Contrast",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Contrast homolytic and heterolytic fission of a covalent bond.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Homolysis gives one bonding electron to each atom, forming radicals.",
+     "keywords": [
+      [
+       "one"
+      ],
+      [
+       "each"
+      ],
+      [
+       "radical"
+      ]
+     ]
+    },
+    {
+     "point": "Heterolysis gives both bonding electrons to one atom, forming ions.",
+     "keywords": [
+      [
+       "both"
+      ],
+      [
+       "one atom"
+      ],
+      [
+       "ion"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Homolysis splits the pair equally; heterolysis transfers the pair to one fragment.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i04",
+   "kcs": [
+    "9701-13.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe initiation, propagation and termination in free-radical substitution.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Initiation generates radicals by homolytic fission.",
+     "keywords": [
+      [
+       "radical"
+      ],
+      [
+       "homolytic"
+      ]
+     ]
+    },
+    {
+     "point": "Propagation uses a radical and regenerates a radical.",
+     "keywords": [
+      [
+       "radical"
+      ],
+      [
+       "regenerat",
+       "another"
+      ]
+     ]
+    },
+    {
+     "point": "Termination combines radicals so no radical remains.",
+     "keywords": [
+      [
+       "combine",
+       "react"
+      ],
+      [
+       "no radical",
+       "radical removed"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Initiation creates radicals, propagation sustains the chain, and termination removes radicals.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i05",
+   "kcs": [
+    "9701-13.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define nucleophile and electrophile.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "A nucleophile donates an electron pair.",
+     "keywords": [
+      [
+       "electron pair"
+      ],
+      [
+       "donat"
+      ]
+     ]
+    },
+    {
+     "point": "An electrophile accepts an electron pair.",
+     "keywords": [
+      [
+       "electron pair"
+      ],
+      [
+       "accept"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The two terms describe electron-pair donors and acceptors.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i06",
+   "kcs": [
+    "9701-13.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the difference between addition, substitution and elimination reactions.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Addition combines reactants into one product.",
+     "keywords": [
+      [
+       "one product"
+      ],
+      [
+       "add",
+       "combin"
+      ]
+     ]
+    },
+    {
+     "point": "Substitution replaces an atom or group.",
+     "keywords": [
+      [
+       "replac"
+      ],
+      [
+       "atom",
+       "group"
+      ]
+     ]
+    },
+    {
+     "point": "Elimination removes atoms or groups and forms a multiple bond.",
+     "keywords": [
+      [
+       "remov"
+      ],
+      [
+       "multiple bond",
+       "double bond"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Addition joins, substitution replaces, and elimination removes groups, commonly creating a multiple bond.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i07",
+   "kcs": [
+    "9701-13.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe hydrolysis and condensation, and state the meanings of oxidation and reduction in organic chemistry.",
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "Hydrolysis breaks a bond by reaction with water.",
+     "keywords": [
+      [
+       "water"
+      ],
+      [
+       "break"
+      ]
+     ]
+    },
+    {
+     "point": "Condensation joins molecules with loss of a small molecule.",
+     "keywords": [
+      [
+       "join"
+      ],
+      [
+       "small molecule",
+       "water"
+      ]
+     ]
+    },
+    {
+     "point": "Oxidation involves gain of oxygen or loss of hydrogen.",
+     "keywords": [
+      [
+       "oxygen",
+       "hydrogen"
+      ],
+      [
+       "gain",
+       "loss"
+      ]
+     ]
+    },
+    {
+     "point": "Reduction involves loss of oxygen or gain of hydrogen.",
+     "keywords": [
+      [
+       "oxygen",
+       "hydrogen"
+      ],
+      [
+       "gain",
+       "loss"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Hydrolysis uses water to split; condensation joins with elimination. Organic oxidation can be represented by $[O]$, reduction by $[H]$.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i08",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe free-radical substitution of an alkane with chlorine.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Initiation: UV light causes homolytic fission of $\\ce{Cl2}$.",
+     "keywords": [
+      [
+       "UV"
+      ],
+      [
+       "homolytic"
+      ]
+     ]
+    },
+    {
+     "point": "Propagation: a chlorine radical removes H and the alkyl radical reacts with chlorine.",
+     "keywords": [
+      [
+       "hydrogen",
+       "H"
+      ],
+      [
+       "alkyl radical"
+      ]
+     ]
+    },
+    {
+     "point": "Termination: two radicals combine.",
+     "keywords": [
+      [
+       "radical"
+      ],
+      [
+       "combine"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The chain starts with chlorine radicals, continues through radical-producing steps, and stops when radicals combine.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i09",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why addition of HCl to an alkene is electrophilic addition.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The electron-rich π bond attacks the electrophilic hydrogen.",
+     "keywords": [
+      [
+       "pi",
+       "π"
+      ],
+      [
+       "hydrogen",
+       "H"
+      ]
+     ]
+    },
+    {
+     "point": "The C=C bond becomes a C–C single bond as H and Cl add.",
+     "keywords": [
+      [
+       "single"
+      ],
+      [
+       "add"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The π electrons attack the H of HCl, and chloride subsequently attacks the carbocation.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i10",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe nucleophilic substitution of a halogenoalkane with cyanide ions.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The cyanide ion donates a lone pair from carbon to the carbon bearing halogen.",
+     "keywords": [
+      [
+       "cyanide",
+       "CN"
+      ],
+      [
+       "lone pair"
+      ]
+     ]
+    },
+    {
+     "point": "The C–halogen bond breaks and the halide leaves.",
+     "keywords": [
+      [
+       "bond"
+      ],
+      [
+       "halide",
+       "halogen"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Cyanide replaces halide; the nucleophile supplies the electron pair for the new C–C bond.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i11",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe nucleophilic addition of cyanide to a carbonyl compound.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "The carbonyl C is partially positive and is attacked by the carbon lone pair of cyanide.",
+     "keywords": [
+      [
+       "carbonyl"
+      ],
+      [
+       "cyanide",
+       "CN"
+      ],
+      [
+       "lone pair"
+      ]
+     ]
+    },
+    {
+     "point": "The C=O electron pair moves to oxygen, forming an alkoxide.",
+     "keywords": [
+      [
+       "oxygen"
+      ],
+      [
+       "alkoxide",
+       "negative"
+      ]
+     ]
+    },
+    {
+     "point": "Protonation of the alkoxide forms a hydroxynitrile.",
+     "keywords": [
+      [
+       "proton"
+      ],
+      [
+       "hydroxynitrile",
+       "OH"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The nucleophile adds across C=O; protonation gives the alcohol group.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-i12",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain where a full curly arrow begins in an organic mechanism.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "It begins at a bond or lone pair of electrons.",
+     "keywords": [
+      [
+       "bond",
+       "lone pair"
+      ]
+     ]
+    },
+    {
+     "point": "It points to where that electron pair moves.",
+     "keywords": [
+      [
+       "electron pair"
+      ],
+      [
+       "moves",
+       "destination"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A full curly arrow represents movement of an electron pair from a bond or lone pair.",
+   "hints": [
+    "Recall the precise syllabus terminology.",
+    "Identify what changes in bonds or electrons.",
+    "Start with the defining feature of the named process."
+   ]
+  },
+  {
+   "id": "9701-13.2-p01",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q28",
+    "qid": "9701_w24_12_q28"
+   },
+   "stem": "What is true of every nucleophile?",
+   "options": {
+    "A": "It attacks a double bond.",
+    "B": "It donates a lone pair of electrons.",
+    "C": "It is a single atom.",
+    "D": "It is negatively charged."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "A nucleophile donates a lone pair; it need not carry a negative charge, so D is wrong.",
+   "distractors": {
+    "D": "m2"
+   },
+   "hints": [
+    "Identify the electron movement or species.",
+    "Apply the formal definition to each option.",
+    "Eliminate the option that contradicts the defining electron count or mechanism."
+   ]
+  },
+  {
+   "id": "9701-13.2-p02",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q21",
+    "qid": "9701_w21_12_q21"
+   },
+   "stem": "Bromomethane, CH₃Br, decomposes in the stratosphere forming methyl free radicals and\nbromine free radicals.\nWhich row correctly describes this decomposition?\ntype of bond fission\nnumber of electrons in\na bromine free radical",
+   "options": {
+    "A": "homolytic 35",
+    "B": "heterolytic 35",
+    "C": "homolytic 36",
+    "D": "heterolytic 36"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w21_12_q21.png",
+   "marks": 1,
+   "explanation": "Homolytic fission gives neutral radicals; a bromine radical has the 35 electrons of a neutral bromine atom, so C is wrong.",
+   "distractors": {
+    "B": "m1",
+    "D": "m1"
+   },
+   "hints": [
+    "Identify the electron movement or species.",
+    "Apply the formal definition to each option.",
+    "Eliminate the option that contradicts the defining electron count or mechanism."
+   ]
+  },
+  {
+   "id": "9701-13.2-p03",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q27",
+    "qid": "9701_s22_12_q27"
+   },
+   "stem": "The molecular formula CH₃ can represent an anion, a cation or a free radical. Species with the\nmolecular formula CH₃ can act as an electrophile, a free radical or a nucleophile depending on\nthe number of outer shell electrons on the central carbon atom.\nHow many outer shell electrons on the central carbon atom must be present for CH₃ to act in\nthese different ways?\nCH₃ as an\nelectrophile\nCH₃ as a\nfree radical\nCH₃ as a\nnucleophile",
+   "options": {
+    "A": "6 7 8",
+    "B": "6 8 7",
+    "C": "7 6 8",
+    "D": "8 7 6"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s22_12_q27.png",
+   "marks": 1,
+   "explanation": "The cation has six electrons around carbon, the radical seven and the anion eight; B swaps the radical and nucleophile.",
+   "distractors": {},
+   "hints": [
+    "Identify the electron movement or species.",
+    "Apply the formal definition to each option.",
+    "Eliminate the option that contradicts the defining electron count or mechanism."
+   ]
+  },
+  {
+   "id": "9701-13.2-p04",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q22",
+    "qid": "9701_s20_12_q22"
+   },
+   "stem": "Which row correctly shows the type of mechanism of each of the two reactions?\nC₂H₅Br + KCN\nCH₃COCH₃ + HCN",
+   "options": {
+    "A": "electrophilic substitution electrophilic addition",
+    "B": "electrophilic substitution nucleophilic addition",
+    "C": "nucleophilic substitution electrophilic addition",
+    "D": "nucleophilic substitution nucleophilic addition"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s20_12_q22.png",
+   "marks": 1,
+   "explanation": "Cyanide replaces bromide in the first reaction; cyanide adds to the carbonyl in the second. C incorrectly makes the second reaction electrophilic.",
+   "distractors": {},
+   "hints": [
+    "Identify the electron movement or species.",
+    "Apply the formal definition to each option.",
+    "Eliminate the option that contradicts the defining electron count or mechanism."
+   ]
+  },
+  {
+   "id": "9701-13.2-p05",
+   "kcs": [
+    "9701-13.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q31",
+    "qid": "9701_s20_11_q31"
+   },
+   "stem": "The definitions of many chemical terms can be illustrated by chemical equations.\nWhich terms can be illustrated by an equation that includes the formation of a positive ion?\n1\nfirst ionisation energy\n2\nheterolytic fission of a covalent bond\n3\nenthalpy change of atomisation",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s20_11_q31.png",
+   "marks": 1,
+   "explanation": "First ionisation forms a cation and heterolytic fission can form a cation; atomisation forms gaseous atoms, so a choice including 3 is wrong.",
+   "distractors": {},
+   "hints": [
+    "Identify the electron movement or species.",
+    "Apply the formal definition to each option.",
+    "Eliminate the option that contradicts the defining electron count or mechanism."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-13.2.1",
+   "front": "Define homologous series.",
+   "back": "A family of organic compounds with the same functional group and general formula; successive members differ by $\\ce{CH2}$."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-13.2.1",
+   "front": "Define saturated and unsaturated.",
+   "back": "Saturated: contains only carbon–carbon single bonds. Unsaturated: contains a carbon–carbon double or triple bond."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-13.2.1",
+   "front": "Define homolytic and heterolytic fission.",
+   "back": "Homolytic: each atom receives one electron from the bond, forming radicals. Heterolytic: one atom receives both bonding electrons, forming ions."
+  },
+  {
+   "id": "fc4",
+   "kc": "9701-13.2.1",
+   "front": "Define free radical.",
+   "back": "A species with an unpaired electron."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-13.2.1",
+   "front": "Define nucleophile and electrophile.",
+   "back": "A nucleophile donates an electron pair; an electrophile accepts an electron pair."
+  },
+  {
+   "id": "fc6",
+   "kc": "9701-13.2.1",
+   "front": "Define addition, substitution and elimination.",
+   "back": "Addition combines reactants into one product; substitution replaces an atom or group; elimination removes atoms or groups, usually forming a multiple bond."
+  },
+  {
+   "id": "fc7",
+   "kc": "9701-13.2.1",
+   "front": "Define hydrolysis and condensation.",
+   "back": "Hydrolysis breaks a bond by reaction with water. Condensation joins molecules with loss of a small molecule, often water."
+  },
+  {
+   "id": "fc8",
+   "kc": "9701-13.2.1",
+   "front": "Define organic oxidation and reduction.",
+   "back": "Oxidation is gain of oxygen or loss of hydrogen; reduction is loss of oxygen or gain of hydrogen. $[O]$ and $[H]$ each represent one atom supplied by the appropriate reagent."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-13.2.1": {
+   "motivate": "Reaction names become useful when they tell you exactly what changes in bonds or electrons. The same short vocabulary works across the organic syllabus.",
+   "establish": "A homologous series has the same functional group and general formula; successive members differ by $\\ce{CH2}$. Saturated compounds have only carbon–carbon single bonds; unsaturated compounds have a carbon–carbon multiple bond. Homolytic fission gives one bonding electron to each atom, forming free radicals with unpaired electrons. Heterolytic fission gives both electrons to one atom, forming ions. Radical initiation generates radicals, propagation consumes and regenerates radicals, and termination removes radicals by combination. A nucleophile donates an electron pair; an electrophile accepts one. Addition combines reactants into one product; substitution replaces an atom or group; elimination removes atoms or groups, often forming a multiple bond. Hydrolysis breaks a bond using water; condensation joins molecules with loss of a small molecule. Organic oxidation is gain of oxygen or loss of hydrogen, and reduction is loss of oxygen or gain of hydrogen. $[O]$ and $[H]$ represent one atom of oxygen from an oxidising agent and one atom of hydrogen from a reducing agent, respectively.",
+   "connect": "Electron-pair donors are nucleophiles; electron-pair acceptors are electrophiles. This links the reaction labels here to the four mechanism types in the next idea.",
+   "note": "- Homolysis → radicals; heterolysis → ions.\n- Initiation creates, propagation sustains, termination removes radicals.\n- Addition joins; substitution replaces; elimination removes.\n- Hydrolysis uses water; condensation loses a small molecule.\n- Oxidation gains O or loses H; reduction loses O or gains H.",
+   "self_explain": "Why can a neutral molecule be a nucleophile, and how would you distinguish homolytic from heterolytic fission in an electron diagram?",
+   "discover": {
+    "stem": "Which description identifies homolytic fission?",
+    "options": {
+     "A": "Both bonding electrons move to one atom.",
+     "B": "Each bonded atom receives one electron.",
+     "C": "An electron pair moves from a lone pair to carbon.",
+     "D": "A bond breaks by reaction with water."
+    },
+    "answer": "B",
+    "explanation": "Equal division of the bonding pair forms two radicals."
+   },
+   "source": "pack"
+  },
+  "9701-13.2.2": {
+   "motivate": "A mechanism explains a reaction at electron level. Its name predicts both the attacking species and the overall bond change.",
+   "establish": "Free-radical substitution replaces an atom through radical initiation, propagation and termination; alkane chlorination under UV light is an example. Electrophilic addition begins when an alkene π bond donates a pair to an electrophile; addition across $\\ce{C=C}$ follows. Nucleophilic substitution begins when a nucleophile donates a lone pair to a carbon attached to a leaving group, which departs; cyanide replacing bromide is an example. Nucleophilic addition begins when a nucleophile donates a lone pair to the partially positive carbonyl carbon; the $\\ce{C=O}$ pair moves to oxygen, and the alkoxide can then be protonated. Full curly arrows represent movement of electron pairs, so each arrow must start at the source bond or lone pair and point to the destination. Show relevant bond polarity and charges. A radical step instead transfers single electrons and uses single-headed arrows when drawn.",
+   "connect": "Use the terminology from the first idea to identify electron donors and acceptors, then ask whether the overall change is addition or substitution.",
+   "note": "- Radical substitution: initiation, propagation, termination.\n- Electrophilic addition: alkene π bond attacks electrophile.\n- Nucleophilic substitution: lone-pair donor replaces leaving group.\n- Nucleophilic addition: donor attacks carbonyl carbon; $\\ce{C=O}$ pair moves to oxygen.\n- Full curly arrows start at a bond or lone pair.",
+   "self_explain": "In cyanide addition to a carbonyl, where do the two full curly arrows begin, and why is the mechanism nucleophilic addition?",
+   "discover": {
+    "stem": "Where must a full curly arrow begin?",
+    "options": {
+     "A": "At the atom receiving an electron pair.",
+     "B": "At any charged atom.",
+     "C": "At a bond or lone pair supplying the electron pair.",
+     "D": "At the centre of the molecule."
+    },
+    "answer": "C",
+    "explanation": "The tail identifies the electron-pair source; the head shows where the pair moves."
+   },
+   "source": "pack"
+  }
+ }
+}
