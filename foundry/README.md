@@ -11,10 +11,10 @@ first rung.
 | Who | On Claude, first rung → next | On Codex, first rung → next | Does |
 |---|---|---|---|
 | **Drafter** | Opus, low effort → medium | `gpt-6-sol` low → medium | Writes the chapter: pack + lesson note, computing every answer with Python |
-| **Solver** | Haiku → Sonnet low | `gpt-6-luna` medium → `gpt-6-sol` low | Answers every question **without seeing the answer key**; a big chapter is split into shards of 20 questions, one solver each |
+| **Solver** | Haiku → Sonnet low | `gpt-6-sol` low → medium | Answers every question **without seeing the answer key**; a big chapter is split into shards of 20 questions, one solver each |
 | **Tiebreak** | Sonnet low → medium | `gpt-6-sol` low → medium | Solves only the disputed questions, also blind, at a stronger tier than the solver |
-| **Checker** | Haiku → Sonnet low | `gpt-6-luna` medium → `gpt-6-sol` low | Checks seven fixed rules (hints that give the answer away, wrong definitions, two right options, wrong constants, note vs pack, off-syllabus, outcomes not taught) and quotes evidence |
-| **Fixer** | Haiku → Sonnet low | `gpt-6-luna` low → medium | Makes exactly the changes that were decided |
+| **Checker** | Haiku → Sonnet low | `gpt-6-sol` low → medium | Checks seven fixed rules (hints that give the answer away, wrong definitions, two right options, wrong constants, note vs pack, off-syllabus, outcomes not taught) and quotes evidence |
+| **Fixer** | Haiku → Sonnet low | `gpt-6-luna` low → `gpt-6-sol` low | Makes exactly the changes that were decided |
 | **Adjudicator** | Opus medium → high | `gpt-6-astra` medium → high | Decides what the manager must not decide alone: a key both checkers dispute, a change to an answer or definition, missing teaching content |
 | **Manager** | Sonnet at medium effort (type `/foundry`) | | Runs the loop, judges the simple cases, calls the adjudicator |
 
@@ -176,3 +176,23 @@ job itself. The prompt ends with the command that reports the job back.
   files in the repository and run the project's own Python, and nothing else. Neither commits.
 - Solvers never see answer keys: they read a stripped questions file.
 - Nothing is published until the chapter is signed.
+
+## Why these Codex tiers (measured 2026-10-10)
+
+The same 60 blind questions (30 official past-paper MCQs, 20 drafted numeric, 10 drafted MCQ), solved without keys and
+marked by the real grader:
+
+| Model | Right of 60 | Official MCQs | Time for 3 shards |
+|---|---|---|---|
+| Codex `gpt-6-luna` low | 47 | 22 / 30 | 45 s |
+| Codex `gpt-6-luna` medium | 46 | 21 / 30 | 39 s |
+| Codex `gpt-6-sol` low | 54 | 29 / 30 | 104 s |
+| Codex `gpt-6-sol` medium | 55 | 30 / 30 | 114 s |
+| Claude Haiku | 54 | 30 / 30 | 259 s |
+| Claude Sonnet low | 55 | 30 / 30 | 124 s |
+
+Two items nobody got right are worked-example ids, not model misses. So by accuracy `gpt-6-sol` low is Haiku's
+equivalent, and `gpt-6-sol` medium is Sonnet's; `gpt-6-luna` (any effort) is below Haiku and its extra misses become
+false disputes that cost tiebreaks. Blind solving and checking therefore start on `gpt-6-sol` low; `gpt-6-luna` stays
+for the fixer, whose job is to make exactly the change it is told. Twelve Codex jobs moved the week by less than a
+percent, so the larger model costs seconds, not allowance.

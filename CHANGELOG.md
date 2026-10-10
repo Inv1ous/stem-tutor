@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.2 — 2026-10-10
+
+Asked by the learner.
+
+- **The foundry's Codex models were compared with Claude's** on the same 60 blind questions. `gpt-6-luna` (the small
+  tier) scored 46–47/60 and missed 8–9 of 30 official past-paper questions that Haiku and `gpt-6-sol` low answered
+  right, so its misses would become false disputes. Codex solvers and checkers now start on `gpt-6-sol` low (Haiku's
+  match) and rise to `gpt-6-sol` medium (Sonnet's); the fixer stays on `gpt-6-luna` low and rises to `gpt-6-sol` low.
+  The table is in `foundry/README.md`.
+
 ## 2.1.1 — 2026-10-10
 
 Asked by the learner.

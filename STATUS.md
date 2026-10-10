@@ -1,5 +1,8 @@
 # Build status
 
+## v2.1.2 (2026-10-10) — done
+- The foundry's Codex tiers were measured against Claude's on 60 blind questions; solving and checking now start on `gpt-6-sol` low (Haiku's match).
+
 ## v2.1.1 (2026-10-10) — done
 - The foundry counts Codex's five-hour window (when its plan reports one) and pauses Codex until a limit it hits reopens.
 
