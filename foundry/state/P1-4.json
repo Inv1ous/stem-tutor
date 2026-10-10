@@ -1,0 +1,137 @@
+{
+ "sub": "P1-4",
+ "stage": "ready",
+ "created": "2026-10-10T11:01:42+08:00",
+ "updated": "2026-10-10T14:15:29+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T11:04:23+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 12 items"
+  },
+  {
+   "t": "2026-10-10T14:13:05+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "17 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T14:13:58+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:15:29+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 12,
+  "extra": 0
+ },
+ "disputes": [
+  {
+   "id": "we2.faded",
+   "key": {
+    "value": 13.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "solver": "10",
+   "tiebreak": "13.0",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 38146,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T11:02:42+08:00",
+   "log": "foundry/logs/P1-4.drafter.1010-110242.log",
+   "out": "foundry/logs/P1-4.drafter.1010-110242.out.json",
+   "finished": "2026-10-10T11:04:23+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/P1/P1-4.json",
+    "note_path": "build/out/notes/Subjects/Maths/P1 Pure Mathematics 1/4 Differentiation.md",
+    "items": 12,
+    "templates": 3,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 98988,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:42:31+08:00",
+   "log": "foundry/logs/P1-4.checker.1010-134231.log",
+   "out": "foundry/logs/P1-4.checker.1010-134231.out.json",
+   "expects": "build/work/foundry/P1-4.check.json",
+   "finished": "2026-10-10T13:42:58+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/P1-4.check.json`."
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 20758,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:12:34+08:00",
+   "log": "foundry/logs/P1-4.solver.1010-141234.log",
+   "out": "foundry/logs/P1-4.solver.1010-141234.out.json",
+   "expects": "build/work/blind/P1-4.answers.json",
+   "finished": "2026-10-10T14:12:46+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 18 questions in `build/work/blind/P1-4.answers.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 21798,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:13:35+08:00",
+   "log": "foundry/logs/P1-4.tiebreak.1010-141335.log",
+   "out": "foundry/logs/P1-4.tiebreak.1010-141335.out.json",
+   "expects": "build/work/blind/P1-4.tiebreak.json",
+   "finished": "2026-10-10T14:13:51+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/P1-4.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

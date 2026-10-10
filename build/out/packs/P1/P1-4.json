@@ -1,0 +1,663 @@
+{
+ "subtopic": "P1-4",
+ "spec": "P1",
+ "version": 1,
+ "note": "Subjects/Maths/P1 Pure Mathematics 1/4 Differentiation.md",
+ "outline": "A derivative is the limiting gradient of a secant, so $f'(a)$ is the tangent gradient and the instantaneous rate of change at $x=a$. A second derivative describes how that gradient changes. Differentiate powers with $\\frac{d}{dx}x^n=nx^{n-1}$, applying sums and constant multiples term by term; expand products or divide each term before differentiating. A tangent uses gradient $f'(a)$ at $(a,f(a))$; a normal has the negative reciprocal gradient when the tangent gradient is nonzero.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "P1-4.1",
+   "statement": "The derivative at a point is the gradient of a finite secant.",
+   "refutation": "The tangent gradient is the limit as the second point approaches the first.",
+   "contrast": "Use $\\lim_{h\\to0}[f(a+h)-f(a)]/h$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "P1-4.2",
+   "statement": "Differentiate a product by differentiating each factor and multiplying.",
+   "refutation": "For this syllabus, expand the product first; differentiating factors separately gives the wrong polynomial.",
+   "contrast": "$(2x+5)(x-1)=2x^2+3x-5$, whose derivative is $4x+3$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "P1-4.2",
+   "statement": "The derivative of $x^n$ is $nx^n$.",
+   "refutation": "The exponent decreases by one.",
+   "contrast": "$\\frac{d}{dx}x^3=3x^2$.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "P1-4.3",
+   "statement": "A normal has the same gradient as the tangent.",
+   "refutation": "A normal is perpendicular to the tangent, so nonzero gradients multiply to $-1$.",
+   "contrast": "Tangent gradient $2$ means normal gradient $-1/2$.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "P1-4.1",
+   "problem": "Find the tangent gradient to $y=x^2$ at $x=3$ from a limit.",
+   "steps": [
+    {
+     "do": "$m=\\lim_{h\\to0}[f(3+h)-f(3)]/h$.",
+     "why": "A tangent gradient is the limiting secant gradient."
+    },
+    {
+     "do": "$[(3+h)^2-9]/h=6+h$ for $h\\ne0$.",
+     "why": "Expand and cancel only before taking the limit."
+    },
+    {
+     "do": "As $h\\to0$, $m=6$.",
+     "why": "The limit gives the instantaneous gradient.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6.0,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Use a limit to find the gradient of $y=x^2$ at $x=4$.",
+    "answer": {
+     "value": 8.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "P1-4.2",
+   "problem": "Find $dy/dx$ for $y=(2x+5)(x-1)$.",
+   "steps": [
+    {
+     "do": "Expand: $y=2x^2+3x-5$.",
+     "why": "The P1 power rule applies to a sum of powers."
+    },
+    {
+     "do": "Differentiate each term: $dy/dx=4x+3$.",
+     "why": "Use $\\frac{d}{dx}x^n=nx^{n-1}$; the constant differentiates to zero."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find $dy/dx$ at $x=2$ for $y=(x+3)(2x-1)$.",
+    "answer": {
+     "value": 13.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "P1-4.3",
+   "problem": "Find the tangent and normal to $y=x^2+1$ at $x=2$.",
+   "steps": [
+    {
+     "do": "The point is $(2,5)$ and $dy/dx=2x$, so the tangent gradient is $4$.",
+     "why": "Both lines pass through the point on the curve."
+    },
+    {
+     "do": "Tangent: $y-5=4(x-2)$, hence $y=4x-3$.",
+     "why": "Use the point-gradient equation."
+    },
+    {
+     "do": "Normal gradient is $-1/4$, so $y-5=-\\frac14(x-2)$.",
+     "why": "Perpendicular nonzero gradients multiply to $-1$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -0.25,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Find the normal gradient to $y=x^2+1$ at $x=3$.",
+    "answer": {
+     "value": -0.16666666666666674,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "P1-4-i01",
+   "kcs": [
+    "P1-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the limiting secant gradient of $y=x^2$ at $x=[[a]]$.",
+   "marks": 1,
+   "explanation": "The difference quotient is $2a+h$; its limit is $2a$.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "answer": {
+    "value": 4.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [],
+   "template": {
+    "params": {
+     "a": {
+      "min": 2,
+      "max": 8,
+      "step": 1
+     }
+    },
+    "derived": {},
+    "answer": "2*a",
+    "distractors": [
+     {
+      "expr": "a*a",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "a != 2"
+    ]
+   }
+  },
+  {
+   "id": "P1-4-i02",
+   "kcs": [
+    "P1-4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Interpret",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Interpret $dy/dx$ at a point on a displacement-time graph.",
+   "marks": 1,
+   "explanation": "It is the tangent gradient, or instantaneous velocity; an average over a finite interval uses a secant.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "options": {
+    "A": "The instantaneous rate of change of displacement with time",
+    "B": "The total displacement",
+    "C": "The average rate over the whole interval",
+    "D": "The rate of change of time with displacement"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "C": "m1"
+   }
+  },
+  {
+   "id": "P1-4-i03",
+   "kcs": [
+    "P1-4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what $f''(x)$ measures.",
+   "marks": 1,
+   "explanation": "The second derivative is the derivative of the first derivative.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "options": {
+    "A": "The rate of change of $f'(x)$ with $x$",
+    "B": "The square of $f'(x)$",
+    "C": "The gradient of a secant over a fixed interval",
+    "D": "The reciprocal of $f'(x)$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {}
+  },
+  {
+   "id": "P1-4-i04",
+   "kcs": [
+    "P1-4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the gradient of $y=x^2$ at $x=5$.",
+   "marks": 1,
+   "explanation": "The limiting gradient is $2x$, giving $10$ at $x=5$.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "options": {
+    "A": "$10$",
+    "B": "$25$",
+    "C": "$5$",
+    "D": "$2$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m1"
+   }
+  },
+  {
+   "id": "P1-4-i05",
+   "kcs": [
+    "P1-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $dy/dx$ at $x=[[a]]$ for $y=[[c]]x^3+2x$.",
+   "marks": 1,
+   "explanation": "Apply the power and sum rules: $dy/dx=3cx^2+2$.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "answer": {
+    "value": 14.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [],
+   "template": {
+    "params": {
+     "a": {
+      "min": 2,
+      "max": 6,
+      "step": 1
+     },
+     "c": {
+      "min": 1,
+      "max": 4,
+      "step": 1
+     }
+    },
+    "derived": {},
+    "answer": "3*c*a*a+2",
+    "distractors": [
+     {
+      "expr": "3*c*a*a*a+2",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "P1-4-i06",
+   "kcs": [
+    "P1-4.2"
+   ],
+   "kind": "expression",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $dy/dx$ for $y=5x^4-3x^2+7$.",
+   "marks": 1,
+   "explanation": "Differentiate each power separately and remove the constant.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "answer": {
+    "expr": "20*x**3-6*x"
+   }
+  },
+  {
+   "id": "P1-4-i07",
+   "kcs": [
+    "P1-4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $dy/dx$ for $y=(2x+5)(x-1)$.",
+   "marks": 1,
+   "explanation": "Expand to $2x^2+3x-5$ first, then differentiate to $4x+3$.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "options": {
+    "A": "$4x+3$",
+    "B": "$4x-2$",
+    "C": "$2x^2+3x-5$",
+    "D": "$4x^2+3$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m2",
+    "D": "m3"
+   }
+  },
+  {
+   "id": "P1-4-i08",
+   "kcs": [
+    "P1-4.2"
+   ],
+   "kind": "expression",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $dy/dx$ for $y=(2x^2+5x-3)/(3x)$.",
+   "marks": 1,
+   "explanation": "Rewrite as $2x/3+5/3-1/x$; differentiate term by term.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "answer": {
+    "expr": "2/3+1/x**2"
+   }
+  },
+  {
+   "id": "P1-4-i09",
+   "kcs": [
+    "P1-4.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the tangent gradient to $y=x^2+1$ at $x=[[a]]$.",
+   "marks": 1,
+   "explanation": "Differentiate to $2x$ and substitute the given coordinate.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "answer": {
+    "value": 6.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [],
+   "template": {
+    "params": {
+     "a": {
+      "min": 2,
+      "max": 8,
+      "step": 1
+     }
+    },
+    "derived": {},
+    "answer": "2*a",
+    "distractors": [
+     {
+      "expr": "a*a+1",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": [
+     "a != 2"
+    ]
+   }
+  },
+  {
+   "id": "P1-4-i10",
+   "kcs": [
+    "P1-4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the normal gradient to $y=x^2$ at $x=1$.",
+   "marks": 1,
+   "explanation": "The tangent gradient is $2$; the normal gradient is its negative reciprocal.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "options": {
+    "A": "$-1/2$",
+    "B": "$2$",
+    "C": "$1/2$",
+    "D": "$-2$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m4"
+   }
+  },
+  {
+   "id": "P1-4-i11",
+   "kcs": [
+    "P1-4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the tangent to $y=x^2+1$ at $x=2$.",
+   "marks": 1,
+   "explanation": "The point is $(2,5)$ and tangent gradient is $4$, hence $y-5=4(x-2)$.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "options": {
+    "A": "$y=4x-3$",
+    "B": "$y=4x+5$",
+    "C": "$y=2x+1$",
+    "D": "$y=-x/4+11/2$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "D": "m4"
+   }
+  },
+  {
+   "id": "P1-4-i12",
+   "kcs": [
+    "P1-4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the normal to $y=x^2$ at the origin.",
+   "marks": 1,
+   "explanation": "The tangent gradient is zero, so the tangent is horizontal and the normal is vertical.",
+   "hints": [
+    "Identify the curve and the requested quantity.",
+    "Use the derivative or a secant-gradient limit as appropriate.",
+    "Write the relevant expression before substituting."
+   ],
+   "options": {
+    "A": "$x=0$",
+    "B": "$y=0$",
+    "C": "$y=x$",
+    "D": "$y=-x$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m4"
+   }
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "P1-4.1",
+   "front": "State the meaning of $f'(a)$.",
+   "back": "The gradient of the tangent to $y=f(x)$ at $x=a$, or the instantaneous rate of change of $f$ with respect to $x$."
+  },
+  {
+   "id": "fc2",
+   "kc": "P1-4.1",
+   "front": "State the limiting-gradient definition.",
+   "back": "$f'(a)=\\lim_{h\\to0}\\frac{f(a+h)-f(a)}{h}$, when this limit exists."
+  },
+  {
+   "id": "fc3",
+   "kc": "P1-4.1",
+   "front": "State the meaning of $f''(x)$.",
+   "back": "The rate of change of $f'(x)$ with respect to $x$."
+  },
+  {
+   "id": "fc4",
+   "kc": "P1-4.2",
+   "front": "State the power rule.",
+   "back": "$\\frac{d}{dx}(x^n)=nx^{n-1}$."
+  },
+  {
+   "id": "fc5",
+   "kc": "P1-4.3",
+   "front": "State the gradient relation for a normal.",
+   "back": "At a point with nonzero tangent gradient $m$, the normal gradient is $-1/m$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "P1-4.1": {
+   "motivate": "A curve has no single gradient for its whole length. How can we describe how steep it is at one exact point, or how quickly a quantity changes at one instant?",
+   "discover": {
+    "stem": "As a second point on $y=f(x)$ approaches $x=a$, what happens to the secant gradient?",
+    "options": {
+     "A": "It approaches the tangent gradient, if the limit exists.",
+     "B": "It always becomes zero.",
+     "C": "It becomes the value $f(a)$.",
+     "D": "It stays the average gradient over a fixed interval."
+    },
+    "answer": "A",
+    "explanation": "The derivative is the limit of secant gradients as the interval tends to zero."
+   },
+   "establish": "The derivative $f'(a)$ is the gradient of the tangent to $y=f(x)$ at $x=a$. It is defined by $f'(a)=\\lim_{h\\to0}[f(a+h)-f(a)]/h$ when that limit exists. A finite secant gradient gives an average rate; the derivative gives the instantaneous rate of change of $y$ with respect to $x$, also written $dy/dx$. The sign of $f'(a)$ shows whether the curve rises or falls as $x$ increases. Differentiating $f'(x)$ again gives the second derivative $f''(x)=d^2y/dx^2$, the rate at which the first derivative changes.",
+   "connect": "On a displacement-time graph, $dy/dx$ is instantaneous velocity and $d^2y/dx^2$ is acceleration. Both meanings come from the same limiting-gradient idea.",
+   "note": "- $f'(a)$ is the tangent gradient and instantaneous rate at $x=a$.\n- $f'(a)=\\lim_{h\\to0}[f(a+h)-f(a)]/h$ if the limit exists.\n- $f''(x)$ is the rate of change of $f'(x)$.",
+   "self_explain": "Why does the gradient between two separated points give an average rate rather than an instantaneous one?",
+   "source": "pack"
+  },
+  "P1-4.2": {
+   "motivate": "A limit gives the meaning of a derivative, but calculating one from scratch each time is slow. A short rule turns powers of $x$ into gradients directly.",
+   "discover": {
+    "stem": "What is $d(x^3)/dx$?",
+    "options": {
+     "A": "$3x^2$",
+     "B": "$3x^3$",
+     "C": "$x^2$",
+     "D": "$x^4/4$"
+    },
+    "answer": "A",
+    "explanation": "Multiply by the original exponent and decrease that exponent by one."
+   },
+   "establish": "The power rule is $d(x^n)/dx=nx^{n-1}$. Differentiate a sum or difference term by term, and keep a constant multiple: $d[cf(x)+g(x)]/dx=cf'(x)+g'(x)$. A constant differentiates to zero. For expressions such as $(2x+5)(x-1)$, expand to $2x^2+3x-5$ before differentiating to $4x+3$. For $(2x^2+5x-3)/(3x)$, first rewrite it as $2x/3+5/3-1/x$; its derivative is $2/3+1/x^2$ for $x\\ne0$. Negative powers use the same rule: $d(x^{-1})/dx=-x^{-2}$. These methods need no chain rule.",
+   "connect": "Each derivative you calculate supplies the tangent gradient needed for the next KC. Substitute the chosen $x$ value only after differentiating.",
+   "note": "- $d(x^n)/dx=nx^{n-1}$.\n- Differentiate sums, differences and constant multiples term by term.\n- Expand products or divide numerator terms by the denominator before applying the power rule.",
+   "self_explain": "Why must you expand $(2x+5)(x-1)$ before applying the P1 power rule?",
+   "source": "pack"
+  },
+  "P1-4.3": {
+   "motivate": "A derivative gives a gradient, but a line equation also needs its position. The curve supplies the point through which both tangent and normal pass.",
+   "discover": {
+    "stem": "If a tangent has gradient $4$, what is the normal gradient?",
+    "options": {
+     "A": "$-1/4$",
+     "B": "$4$",
+     "C": "$1/4$",
+     "D": "$-4$"
+    },
+    "answer": "A",
+    "explanation": "Perpendicular lines with nonzero gradients have gradients whose product is $-1$."
+   },
+   "establish": "At $x=a$ on $y=f(x)$, the point is $(a,f(a))$ and the tangent gradient is $m=f'(a)$. Use the point-gradient form $y-f(a)=m(x-a)$ for the tangent. The normal is perpendicular and passes through the same point. If $m\\ne0$, its gradient is $-1/m$ and its equation is $y-f(a)=(-1/m)(x-a)$. If $m=0$, the tangent is horizontal and the normal is the vertical line $x=a$. For $y=x^2+1$ at $x=2$, the point is $(2,5)$ and $m=4$: tangent $y=4x-3$; normal $y-5=-\\frac14(x-2)$.",
+   "connect": "This combines differentiation with straight-line equations: compute the point from the original curve and the gradient from its derivative.",
+   "note": "- At $x=a$, use point $(a,f(a))$ and tangent gradient $f'(a)$.\n- Tangent: $y-f(a)=f'(a)(x-a)$.\n- Normal gradient is $-1/f'(a)$ when $f'(a)\\ne0$; when it is zero, the normal is $x=a$.",
+   "self_explain": "Why do both tangent and normal equations use the point $(a,f(a))$?",
+   "source": "pack"
+  }
+ }
+}

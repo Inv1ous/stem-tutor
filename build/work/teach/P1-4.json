@@ -1,0 +1,26 @@
+{
+  "P1-4.1": {
+    "motivate": "A curve has no single gradient for its whole length. How can we describe how steep it is at one exact point, or how quickly a quantity changes at one instant?",
+    "discover": {"stem": "As a second point on $y=f(x)$ approaches $x=a$, what happens to the secant gradient?", "options": {"A": "It approaches the tangent gradient, if the limit exists.", "B": "It always becomes zero.", "C": "It becomes the value $f(a)$.", "D": "It stays the average gradient over a fixed interval."}, "answer": "A", "explanation": "The derivative is the limit of secant gradients as the interval tends to zero."},
+    "establish": "The derivative $f'(a)$ is the gradient of the tangent to $y=f(x)$ at $x=a$. It is defined by $f'(a)=\\lim_{h\\to0}[f(a+h)-f(a)]/h$ when that limit exists. A finite secant gradient gives an average rate; the derivative gives the instantaneous rate of change of $y$ with respect to $x$, also written $dy/dx$. The sign of $f'(a)$ shows whether the curve rises or falls as $x$ increases. Differentiating $f'(x)$ again gives the second derivative $f''(x)=d^2y/dx^2$, the rate at which the first derivative changes.",
+    "connect": "On a displacement-time graph, $dy/dx$ is instantaneous velocity and $d^2y/dx^2$ is acceleration. Both meanings come from the same limiting-gradient idea.",
+    "note": "- $f'(a)$ is the tangent gradient and instantaneous rate at $x=a$.\n- $f'(a)=\\lim_{h\\to0}[f(a+h)-f(a)]/h$ if the limit exists.\n- $f''(x)$ is the rate of change of $f'(x)$.",
+    "self_explain": "Why does the gradient between two separated points give an average rate rather than an instantaneous one?"
+  },
+  "P1-4.2": {
+    "motivate": "A limit gives the meaning of a derivative, but calculating one from scratch each time is slow. A short rule turns powers of $x$ into gradients directly.",
+    "discover": {"stem": "What is $d(x^3)/dx$?", "options": {"A": "$3x^2$", "B": "$3x^3$", "C": "$x^2$", "D": "$x^4/4$"}, "answer": "A", "explanation": "Multiply by the original exponent and decrease that exponent by one."},
+    "establish": "The power rule is $d(x^n)/dx=nx^{n-1}$. Differentiate a sum or difference term by term, and keep a constant multiple: $d[cf(x)+g(x)]/dx=cf'(x)+g'(x)$. A constant differentiates to zero. For expressions such as $(2x+5)(x-1)$, expand to $2x^2+3x-5$ before differentiating to $4x+3$. For $(2x^2+5x-3)/(3x)$, first rewrite it as $2x/3+5/3-1/x$; its derivative is $2/3+1/x^2$ for $x\\ne0$. Negative powers use the same rule: $d(x^{-1})/dx=-x^{-2}$. These methods need no chain rule.",
+    "connect": "Each derivative you calculate supplies the tangent gradient needed for the next KC. Substitute the chosen $x$ value only after differentiating.",
+    "note": "- $d(x^n)/dx=nx^{n-1}$.\n- Differentiate sums, differences and constant multiples term by term.\n- Expand products or divide numerator terms by the denominator before applying the power rule.",
+    "self_explain": "Why must you expand $(2x+5)(x-1)$ before applying the P1 power rule?"
+  },
+  "P1-4.3": {
+    "motivate": "A derivative gives a gradient, but a line equation also needs its position. The curve supplies the point through which both tangent and normal pass.",
+    "discover": {"stem": "If a tangent has gradient $4$, what is the normal gradient?", "options": {"A": "$-1/4$", "B": "$4$", "C": "$1/4$", "D": "$-4$"}, "answer": "A", "explanation": "Perpendicular lines with nonzero gradients have gradients whose product is $-1$."},
+    "establish": "At $x=a$ on $y=f(x)$, the point is $(a,f(a))$ and the tangent gradient is $m=f'(a)$. Use the point-gradient form $y-f(a)=m(x-a)$ for the tangent. The normal is perpendicular and passes through the same point. If $m\\ne0$, its gradient is $-1/m$ and its equation is $y-f(a)=(-1/m)(x-a)$. If $m=0$, the tangent is horizontal and the normal is the vertical line $x=a$. For $y=x^2+1$ at $x=2$, the point is $(2,5)$ and $m=4$: tangent $y=4x-3$; normal $y-5=-\\frac14(x-2)$.",
+    "connect": "This combines differentiation with straight-line equations: compute the point from the original curve and the gradient from its derivative.",
+    "note": "- At $x=a$, use point $(a,f(a))$ and tangent gradient $f'(a)$.\n- Tangent: $y-f(a)=f'(a)(x-a)$.\n- Normal gradient is $-1/f'(a)$ when $f'(a)\\ne0$; when it is zero, the normal is $x=a$.",
+    "self_explain": "Why do both tangent and normal equations use the point $(a,f(a))$?"
+  }
+}
