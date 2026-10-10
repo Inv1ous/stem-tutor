@@ -1,0 +1,1731 @@
+{
+ "subtopic": "9701-2.3",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/02 Atoms, molecules and stoichiometry/2.3 Formulas.md",
+ "outline": "Predict ion charge from the periodic table and balance charges to write neutral ionic formulae. Conserve atoms and charge in full and net ionic equations, then include state symbols. Empirical formula gives the simplest whole-number atom ratio; molecular formula gives the actual atoms in one molecule. Hydrates contain a fixed amount of water of crystallisation. Convert elemental masses into moles, simplify their ratio, then use $M_r$ to obtain a molecular formula.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-2.3.1",
+   "statement": "Subscripts in an ionic formula may be chosen without balancing charge.",
+   "refutation": "The sum of positive and negative charges must be zero.",
+   "contrast": "Two $\\ce{Ag+}$ ions balance one $\\ce{CO3^2-}$ ion: $\\ce{Ag2CO3}$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-2.3.2",
+   "statement": "Subscripts may be changed to balance an equation.",
+   "refutation": "Only coefficients may be changed; changing subscripts changes substances.",
+   "contrast": "Balance $\\ce{2Mg + O2 -> 2MgO}$, not $\\ce{MgO2}$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-2.3.2",
+   "statement": "A complete ionic equation includes spectator ions.",
+   "refutation": "Cancel ions present unchanged on both sides.",
+   "contrast": "$\\ce{Ag+(aq) + Cl-(aq) -> AgCl(s)}$ omits nitrate and sodium ions.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-2.3.3",
+   "statement": "An empirical formula is always the molecular formula.",
+   "refutation": "The empirical formula is the simplest whole-number ratio; molecular formula gives actual atoms in one molecule.",
+   "contrast": "$\\ce{P2O5}$ is empirical, whereas $\\ce{P4O10}$ is molecular.",
+   "source": "ER 9701 w20 P21 Q2"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-2.3.4",
+   "statement": "The water in a hydrate is surface moisture.",
+   "refutation": "Water of crystallisation is incorporated in fixed proportions in the crystal structure.",
+   "contrast": "$\\ce{CuSO4.5H2O}$ contains five waters per formula unit.",
+   "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-2.3.5",
+   "statement": "Mass percentages can be used directly as atom ratios.",
+   "refutation": "Divide each mass or percentage by the corresponding $A_r$ before simplifying.",
+   "contrast": "For 40.0% C, 6.7% H, 53.3% O, the mole ratio is approximately $1:2:1$.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-2.3.1",
+   "problem": "Deduce the number of sulfate ions in iron(III) sulfate.",
+   "steps": [
+    {
+     "do": "Write $\\ce{Fe^3+}$ and $\\ce{SO4^2-}$.",
+     "why": "The Roman numeral gives the iron oxidation number."
+    },
+    {
+     "do": "Find the least common charge: $2(3)=3(2)=6$.",
+     "why": "The overall ionic compound is neutral.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Write $\\ce{Fe2(SO4)3}$: three sulfate ions.",
+     "why": "Brackets preserve the polyatomic ion."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Deduce the number of nitrate ions in aluminium nitrate.",
+    "answer": {
+     "value": 3,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9701-2.3.2",
+   "problem": "Balance $\\ce{Al + O2 -> Al2O3}$ and give the oxygen coefficient.",
+   "steps": [
+    {
+     "do": "Place 2 before $\\ce{Al2O3}$ to make six product oxygen atoms.",
+     "why": "Oxygen is supplied in pairs."
+    },
+    {
+     "do": "Place 3 before $\\ce{O2}$ and 4 before Al.",
+     "why": "Conserve oxygen and aluminium atoms.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Check $\\ce{4Al + 3O2 -> 2Al2O3}$.",
+     "why": "Both sides have four Al and six O atoms."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Balance $\\ce{Fe + O2 -> Fe2O3}$; give the oxygen coefficient.",
+    "answer": {
+     "value": 3,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we5",
+   "kc": "9701-2.3.5",
+   "problem": "Find the multiplier for empirical formula $\\ce{CH2O}$ with $M_r=180$.",
+   "steps": [
+    {
+     "do": "Calculate empirical formula mass: $12+2(1)+16=30$.",
+     "why": "Use periodic-table $A_r$ values."
+    },
+    {
+     "do": "Divide $M_r$ by empirical mass: $180/30=6$.",
+     "why": "The molecular formula is an integer multiple.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Multiply subscripts to obtain $\\ce{C6H12O6}$.",
+     "why": "Retain the same atom ratio."
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "Find the multiplier for $\\ce{CH2}$ when $M_r=56$.",
+    "answer": {
+     "value": 4.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-2.3-p01",
+   "kcs": [
+    "9701-2.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q1",
+    "qid": "9701_s24_12_q1"
+   },
+   "stem": "Which pair of formulae is correct?",
+   "options": {
+    "A": "Ag₂CO₃ and (NH₄)₃NO₃",
+    "B": "K₂HCO₃ and Zn₃(PO₄)₂",
+    "C": "AgHCO₃ and K₃PO₄",
+    "D": "ZnCO₃ and (NH₄)₂PO₄"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Balance each formula by charge. C alone has $\\ce{AgHCO3}$ and $\\ce{K3PO4}$; A uses three ammonium ions for a single nitrate."
+  },
+  {
+   "id": "9701-2.3-p02",
+   "kcs": [
+    "9701-2.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q12",
+    "qid": "9701_w20_13_q12"
+   },
+   "stem": "X and Y are two elements in Period 3 of the Periodic Table. They combine to form compound Z.\nX forms a soluble acidic oxide. The oxidation number of X in this oxide is +4.\nY forms an amphoteric oxide.\nWhat is the formula of compound Z?",
+   "options": {
+    "A": "Al P",
+    "B": "Al ₂S₃",
+    "C": "Si₂P₅",
+    "D": "SiS₂"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The acidic +4 oxide identifies sulfur, while the amphoteric oxide identifies aluminium. Their ions give $\\ce{Al2S3}$; A pairs the wrong elements."
+  },
+  {
+   "id": "9701-2.3-p03",
+   "kcs": [
+    "9701-2.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q17",
+    "qid": "9701_w24_13_q17"
+   },
+   "stem": "Elements X and Y are in Period 3 of the Periodic Table. Element X is either phosphorus or sulfur.\nElement Y is either sodium or magnesium.\nElement X forms an oxide that reacts with water to give a solution containing the aqueous anion\nXO₄\n²⁻.\nOne mole of element Y reacts with one mole of chlorine molecules. At the end of the reaction, all\nof the element Y and all of the chlorine molecules have been used up.\nWhat are elements X and Y?\nX\nY",
+   "options": {
+    "A": "phosphorus sodium",
+    "B": "phosphorus magnesium",
+    "C": "sulfur sodium",
+    "D": "sulfur magnesium"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Sulfate identifies sulfur and one mole of chlorine molecules forming a chloride identifies magnesium. The sodium alternative needs only half a mole of chlorine.",
+   "image": "Assets/mcq/9701_w24_13_q17.png"
+  },
+  {
+   "id": "9701-2.3-p04",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q9",
+    "qid": "9701_w19_12_q9"
+   },
+   "stem": "When lead(II) sulfide, PbS, is heated in air, sulfur dioxide and lead(II) oxide are formed.\nWhat is the equation for the reaction between PbS and oxygen?",
+   "options": {
+    "A": "PbS + 2O₂ → SO₂ + PbO₂",
+    "B": "PbS + 2 ₂ ¹ O₂ → SO₃ + PbO₂",
+    "C": "PbS + 1 ₂ ¹ O₂ → SO₂ + PbO",
+    "D": "PbS + 2O₂ → SO₃ + PbO"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Oxygen atoms require three halves of $\\ce{O2}$ per $\\ce{PbS}$, giving $\\ce{PbO}$ and $\\ce{SO2}$. Other options change the specified products."
+  },
+  {
+   "id": "9701-2.3-p05",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q17",
+    "qid": "9701_w25_13_q17"
+   },
+   "stem": "Three equations are listed. x, y and z are all whole numbers.\n1\nx Al + y O₂ → zAl ₂O₃\n2\nx Mg + y O₂ → z MgO\n3\nx Na + y O₂ → z Na₂O\nWhich equations can be balanced if x = 4 and z = 2?",
+   "options": {
+    "A": "1 and 3",
+    "B": "1 only",
+    "C": "2 only",
+    "D": "3 only"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "With four metal atoms and two oxide formula units, equations 1 and 3 can be balanced. Equation 2 has four Mg atoms but only two in the products.",
+   "image": "Assets/mcq/9701_w25_13_q17.png"
+  },
+  {
+   "id": "9701-2.3-p06",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q3",
+    "qid": "9701_w24_12_q3"
+   },
+   "stem": "A 0.216 g sample of aluminium carbide reacts with an excess of water to produce methane gas.\nThis is the only carbon-containing product formed in the reaction. This methane gas burns\ncompletely in O₂ to form H₂O and CO₂ only. The volume of CO₂ produced at room temperature\nand pressure is 108 cm³.\nWhat is the formula of aluminium carbide?",
+   "options": {
+    "A": "Al ₂C₃",
+    "B": "Al ₃C₂",
+    "C": "Al ₃C₄",
+    "D": "Al ₄C₃"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The amount of carbon dioxide equals the amount of carbon in the carbide. The mole ratio of Al to C leads to $\\ce{Al4C3}$; the alternatives have different ratios."
+  },
+  {
+   "id": "9701-2.3-p07",
+   "kcs": [
+    "9701-2.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q36",
+    "qid": "9701_w20_12_q36"
+   },
+   "stem": "Which statements are correct?\n1\nThe empirical formula of silicon(IV) oxide is SiO₂.\n2\nThe molecular formula of phosphorus(V) oxide is P₂O₅.\n3\nSilicon(IV) oxide and phosphorus(V) oxide are both simple molecular compounds.",
+   "options": null,
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Silicon dioxide has empirical formula $\\ce{SiO2}$, but phosphorus(V) oxide has molecular formula $\\ce{P4O10}$. B wrongly treats $\\ce{P2O5}$ as molecular.",
+   "image": "Assets/mcq/9701_w20_12_q36.png"
+  },
+  {
+   "id": "9701-2.3-p08",
+   "kcs": [
+    "9701-2.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q21",
+    "qid": "9701_w19_12_q21"
+   },
+   "stem": "The diagram shows the skeletal formula of phenazine.\nphenazine\nN\nN\nWhat is the empirical formula of phenazine?",
+   "options": {
+    "A": "C₆H₄N",
+    "B": "C₆H₆N",
+    "C": "C₁₂H₈N₂",
+    "D": "C₁₂H₁₂N₂"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Simplify the molecular atom ratio by two to obtain $\\ce{C6H4N}$. C is the unsimplified molecular formula.",
+   "image": "Assets/mcq/9701_w19_12_q21.png"
+  },
+  {
+   "id": "9701-2.3-p09",
+   "kcs": [
+    "9701-2.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q3",
+    "qid": "9701_w24_13_q3"
+   },
+   "stem": "Glauber’s salt consists of crystals of hydrated sodium sulfate, Na₂SO₄•xH₂O, which can be used\nfor the manufacture of detergents.\nWhen a sample of Glauber’s salt was heated, 1.91 g of water was removed leaving 1.51 g of\nanhydrous Na₂SO₄.\nWhat is the value of x in Na₂SO₄•xH₂O?",
+   "options": {
+    "A": "1",
+    "B": "8.85",
+    "C": "10",
+    "D": "11.25"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The mole ratio of water lost to anhydrous sulfate is ten to one, so $x=10$. B uses an uncorrected mass ratio instead of mole amounts.",
+   "image": "Assets/mcq/9701_w24_13_q3.png"
+  },
+  {
+   "id": "9701-2.3-p10",
+   "kcs": [
+    "9701-2.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q11",
+    "qid": "9701_s25_12_q11"
+   },
+   "stem": "An experiment is carried out to determine the value of x in hydrated lithium hydroxide,\nLiOH•xH₂O. A sample of the solid is heated in a crucible over a Bunsen flame.\nComplete dehydration takes place; decomposition does not occur.\nmass of empty crucible / g = Q\nmass of crucible with LiOH•xH₂O / g = R\nmass of crucible and residue after heating / g = S\nWhich equation gives the correct value of x?",
+   "options": {
+    "A": "18 – R S",
+    "B": "18 – S R",
+    "C": ") – 18( ) – 23.9( Q S S R",
+    "D": ") – 18( ) – 23.9( Q S R S"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Water lost is $R-S$ and dry lithium hydroxide is $S-Q$; divide each by its molar mass. The reverse difference gives an impossible negative amount.",
+   "image": "Assets/mcq/9701_s25_12_q11.png"
+  },
+  {
+   "id": "9701-2.3-p11",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q1",
+    "qid": "9701_w21_12_q1"
+   },
+   "stem": "Compound X consists of 40.0% carbon, 6.7% hydrogen and 53.3% oxygen by mass.\nWhat is the empirical formula of compound X?",
+   "options": {
+    "A": "CH₂O",
+    "B": "C₂H₂O",
+    "C": "C₂H₄O",
+    "D": "CHO"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Convert each percentage to moles using $A_r$: the ratio C:H:O is $1:2:1$, giving $\\ce{CH2O}$. D omits one hydrogen."
+  },
+  {
+   "id": "9701-2.3-p12",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P13 · Q25",
+    "qid": "9701_w19_13_q25"
+   },
+   "stem": "Alcohol X is oxidised to form compound Y.\nThe composition of Y is 54.54% carbon, 36.36% oxygen and 9.10% hydrogen. The Mr of Y is\n88.0.\nWhat could be the structure of alcohol X?",
+   "options": {
+    "A": "CH₃CH₂CH(OH)CH₃",
+    "B": "CH₃CH₂CH₂CH₂CH₂OH",
+    "C": "CH₃CH₂CH₂CH₂OH",
+    "D": "CH₃CH₂CH(OH)CH₂CH₃"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The percentage composition gives the formula of Y; its relative molecular mass fixes the multiplier. The other alcohols yield a different carbon count or oxidation product.",
+   "image": "Assets/mcq/9701_w19_13_q25.png"
+  },
+  {
+   "id": "9701-2.3-i01",
+   "kcs": [
+    "9701-2.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the formula of zinc phosphate.",
+   "options": {
+    "A": "ZnPO₄",
+    "B": "Zn₃(PO₄)₂",
+    "C": "Zn₂(PO₄)₃",
+    "D": "Zn₃PO₄"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Three $\\ce{Zn^2+}$ ions balance two $\\ce{PO4^3-}$ ions.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use charge balance before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "A": "m1",
+    "C": "m1",
+    "D": "m1"
+   }
+  },
+  {
+   "id": "9701-2.3-i02",
+   "kcs": [
+    "9701-2.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the formula of iron(III) sulfate.",
+   "options": {
+    "A": "FeSO₄",
+    "B": "Fe₃SO₄",
+    "C": "Fe₂(SO₄)₃",
+    "D": "Fe₃(SO₄)₂"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Two $\\ce{Fe^3+}$ ions balance three $\\ce{SO4^2-}$ ions.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use charge balance before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "A": "m1",
+    "B": "m1",
+    "D": "m1"
+   }
+  },
+  {
+   "id": "9701-2.3-i03",
+   "kcs": [
+    "9701-2.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the formula and charge of nitrate.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$\\ce{NO3-}$, charge −1.",
+     "keywords": [
+      "nitrate",
+      "NO3"
+     ]
+    }
+   ],
+   "explanation": "$\\ce{NO3-}$, charge −1.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i04",
+   "kcs": [
+    "9701-2.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the formula and charge of hydrogencarbonate.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$\\ce{HCO3-}$, charge −1.",
+     "keywords": [
+      "hydrogencarbonate",
+      "HCO3"
+     ]
+    }
+   ],
+   "explanation": "$\\ce{HCO3-}$, charge −1.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i05",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the simplest whole-number coefficients for $\\ce{Al + O2 -> Al2O3}$, in order.",
+   "options": {
+    "A": "2, 3, 2",
+    "B": "4, 3, 2",
+    "C": "4, 2, 3",
+    "D": "2, 1, 1"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Atom conservation gives $\\ce{4Al + 3O2 -> 2Al2O3}$.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the defining relationship before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "A": "m2",
+    "C": "m2",
+    "D": "m2"
+   }
+  },
+  {
+   "id": "9701-2.3-i06",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the net ionic equation for mixing aqueous silver nitrate and sodium chloride.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$\\ce{Ag+(aq) + Cl-(aq) -> AgCl(s)}$.",
+     "keywords": [
+      "Ag",
+      "Cl",
+      "AgCl"
+     ]
+    }
+   ],
+   "explanation": "$\\ce{Ag+(aq) + Cl-(aq) -> AgCl(s)}$.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i07",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $\\ce{Na+(aq)}$ is absent from the net ionic equation for precipitation of $\\ce{AgCl}$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is a spectator ion present unchanged on both sides of the full ionic equation.",
+     "keywords": [
+      "spectator",
+      "unchanged"
+     ]
+    }
+   ],
+   "explanation": "It is a spectator ion present unchanged on both sides of the full ionic equation.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i08",
+   "kcs": [
+    "9701-2.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the empirical formula of a molecule with molecular formula $\\ce{C6H12O6}$.",
+   "options": {
+    "A": "CH₂O",
+    "B": "C₆H₁₂O₆",
+    "C": "C₂H₄O₂",
+    "D": "CHO"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Divide all atom numbers by six to get $\\ce{CH2O}$.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the defining relationship before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m4",
+    "C": "m4",
+    "D": "m4"
+   }
+  },
+  {
+   "id": "9701-2.3-i09",
+   "kcs": [
+    "9701-2.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define empirical formula.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The simplest whole-number ratio of atoms of each element in a compound.",
+     "keywords": [
+      "simplest",
+      "whole",
+      "ratio"
+     ]
+    }
+   ],
+   "explanation": "The simplest whole-number ratio of atoms of each element in a compound.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i10",
+   "kcs": [
+    "9701-2.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define molecular formula.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The actual number of atoms of each element in one molecule.",
+     "keywords": [
+      "actual",
+      "number",
+      "atoms",
+      "molecule"
+     ]
+    }
+   ],
+   "explanation": "The actual number of atoms of each element in one molecule.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i11",
+   "kcs": [
+    "9701-2.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare empirical and molecular formula for $\\ce{P4O10}$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its molecular formula is $\\ce{P4O10}$ and empirical formula is $\\ce{P2O5}$.",
+     "keywords": [
+      "P4O10",
+      "P2O5"
+     ]
+    }
+   ],
+   "explanation": "Its molecular formula is $\\ce{P4O10}$ and empirical formula is $\\ce{P2O5}$.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i12",
+   "kcs": [
+    "9701-2.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify a possible molecular formula for empirical formula $\\ce{CH2}$.",
+   "options": {
+    "A": "CH₃",
+    "B": "C₂H₂",
+    "C": "C₃H₆",
+    "D": "C₃H₈"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "A molecular formula must be an integer multiple of the empirical formula.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the defining relationship before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "A": "m4",
+    "B": "m4",
+    "D": "m4"
+   }
+  },
+  {
+   "id": "9701-2.3-i13",
+   "kcs": [
+    "9701-2.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define anhydrous.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Anhydrous means containing no water of crystallisation.",
+     "keywords": [
+      "no",
+      "water",
+      "crystallisation"
+     ]
+    }
+   ],
+   "explanation": "Anhydrous means containing no water of crystallisation.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i14",
+   "kcs": [
+    "9701-2.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define water of crystallisation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Water incorporated in fixed proportions in the crystal structure of a hydrated salt.",
+     "keywords": [
+      "water",
+      "fixed",
+      "crystal"
+     ]
+    }
+   ],
+   "explanation": "Water incorporated in fixed proportions in the crystal structure of a hydrated salt.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i15",
+   "kcs": [
+    "9701-2.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe what hydrated means for a crystalline salt.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It contains water of crystallisation in its crystal structure.",
+     "keywords": [
+      "water",
+      "crystallisation",
+      "crystal"
+     ]
+    }
+   ],
+   "explanation": "It contains water of crystallisation in its crystal structure.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i16",
+   "kcs": [
+    "9701-2.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the anhydrous substance formed by heating $\\ce{CuSO4.5H2O}$ without decomposition.",
+   "options": {
+    "A": "CuSO₄",
+    "B": "CuSO₄·H₂O",
+    "C": "CuO",
+    "D": "Cu₂SO₄"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Removing all water of crystallisation leaves $\\ce{CuSO4}$.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the defining relationship before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m5",
+    "C": "m5",
+    "D": "m5"
+   }
+  },
+  {
+   "id": "9701-2.3-i17",
+   "kcs": [
+    "9701-2.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the dot in $\\ce{MgSO4.7H2O}$ does not represent a mixture with arbitrary water.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Seven water molecules occur per magnesium sulfate formula unit in the crystal.",
+     "keywords": [
+      "seven",
+      "water",
+      "crystal"
+     ]
+    }
+   ],
+   "explanation": "Seven water molecules occur per magnesium sulfate formula unit in the crystal.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i18",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the empirical formula from 40.0% C, 6.7% H and 53.3% O by mass.",
+   "options": {
+    "A": "CH₂O",
+    "B": "C₂H₄O",
+    "C": "CHO",
+    "D": "CH₄O"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Divide each percentage by its $A_r$; the resulting mole ratio is approximately $1:2:1$.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the defining relationship before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "B": "m6",
+    "C": "m6",
+    "D": "m6"
+   }
+  },
+  {
+   "id": "9701-2.3-i19",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the multiplier from empirical formula $\\ce{CH2O}$ to molecular formula when $M_r=180$.",
+   "marks": 2,
+   "answer": {
+    "value": 6.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [],
+   "explanation": "The empirical formula mass is 30, so the multiplier is $180/30=6$.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use moles and whole-number ratios before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i20",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the number of water molecules per formula unit when $1.91\\,\\mathrm{g}$ of water is removed from $1.51\\,\\mathrm{g}$ of anhydrous $\\ce{Na2SO4}$.",
+   "marks": 2,
+   "answer": {
+    "value": 10,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [],
+   "explanation": "Divide the moles of water by the moles of dry salt; the ratio rounds to ten.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use moles and whole-number ratios before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i21",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the steps to find an empirical formula from elemental masses.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Divide each mass by its $A_r$, then divide all mole values by the smallest and convert to whole numbers.",
+     "keywords": [
+      "divide",
+      "mass",
+      "smallest",
+      "whole"
+     ]
+    }
+   ],
+   "explanation": "Divide each mass by its $A_r$, then divide all mole values by the smallest and convert to whole numbers.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the precise definition or procedure before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ]
+  },
+  {
+   "id": "9701-2.3-i22",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the molecular formula for empirical formula $\\ce{CH2}$ and $M_r=56$.",
+   "options": {
+    "A": "C₂H₄",
+    "B": "C₄H₈",
+    "C": "C₃H₆",
+    "D": "C₅H₁₀"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The empirical formula mass is 14; $56/14=4$, so multiply each subscript by four.",
+   "hints": [
+    "Identify the information that controls the formula or equation.",
+    "Use the defining relationship before selecting the final result.",
+    "Write the relevant charges, atom counts or mole amounts first."
+   ],
+   "shuffle": true,
+   "distractors": {
+    "A": "m6",
+    "C": "m6",
+    "D": "m6"
+   }
+  },
+  {
+   "id": "9701-2.3-x001",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q15",
+    "qid": "9701_s19_13_q15"
+   },
+   "stem": "River water in an agricultural area contains NH₄\n⁺, CO₃\n²⁻, HCO₃\n⁻, Cl ⁻ and NO₃\n⁻ ions. In a water\ntreatment plant, this water is treated by adding a calculated quantity of calcium hydroxide.\nWhat is precipitated from the river water when calcium hydroxide is added?",
+   "options": {
+    "A": "CaCl ₂",
+    "B": "CaCO₃",
+    "C": "Ca(NO₃)₂",
+    "D": "NH₄OH"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x002",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q21",
+    "qid": "9701_s19_13_q21"
+   },
+   "stem": "The diagram shows the skeletal formula of compound Y.\nO\nOH\nOH O\nY\nWhat is the empirical formula of Y?",
+   "options": {
+    "A": "CHO",
+    "B": "CH₂O₂",
+    "C": "C₂HO₂",
+    "D": "C₄H₄O₄"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s19_13_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x003",
+   "kcs": [
+    "9701-2.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q29",
+    "qid": "9701_w19_12_q29"
+   },
+   "stem": "Compound Q can be hydrolysed by HCl (aq). The two products of this hydrolysis have the same\nempirical formula.\nWhat could Q be?",
+   "options": {
+    "A": "CH₃CO₂CH₂CH₂OH",
+    "B": "CH₃CO₂CH₂CH₂CO₂H",
+    "C": "CH₃CH₂CO₂CH₂CH₂CH₃",
+    "D": "CH₃CH₂CH(OH)CH(OH)CH₂CH₃"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x004",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q30",
+    "qid": "9701_w19_12_q30"
+   },
+   "stem": "Substance T was analysed and found to contain 62.07% carbon, 10.34% hydrogen and\n27.59% oxygen.\nThe infra-red spectrum of substance T is shown.\n100\n50\n0\ntransmittance\n/ %\n4000\n3000\n2000\nwavenumber / cm⁻¹\n1500\n1000\n500\nWhich substance could be T?\nHO\nHO\nOH",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "O O OH OH"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w19_12_q30.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x005",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q39",
+    "qid": "9701_s20_13_q39"
+   },
+   "stem": "On complete combustion, a sample of X produces 44 g of carbon dioxide and 27 g of water.\nOn complete combustion, a sample of Y produces 44 g of carbon dioxide and 18 g of water.\nOn complete combustion, a sample of Z produces 22 g of carbon dioxide and 9 g of water.\nWhich substances could be straight chain alkanes?\n1\nX\n2\nY\n3\nZ",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s20_13_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x006",
+   "kcs": [
+    "9701-2.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q13",
+    "qid": "9701_s21_12_q13"
+   },
+   "stem": "L and M are elements in Period 3 of the Periodic Table.\n●\nThe oxide of L is a solid at room temperature. This oxide has a giant structure.\n●\nThe chloride of L does not react with water.\n●\nArgon is the only element in Period 3 with a lower melting point than M.\nWhich formula represents a compound of elements L and M?",
+   "options": {
+    "A": "Al ₂S₃",
+    "B": "MgS",
+    "C": "NaCl",
+    "D": "PCl ₅"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x007",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q1",
+    "qid": "9701_s21_13_q1"
+   },
+   "stem": "Compound X is an organic compound that contains 30.6% carbon, 3.8% hydrogen, 20.4%\noxygen and 45.2% chlorine by mass.\nWhat is the empirical formula of X?",
+   "options": {
+    "A": "C₂H₃OCl",
+    "B": "C₂H₄OCl",
+    "C": "C₃H₄OCl",
+    "D": "C₄H₃O₂Cl ₂"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x008",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q4",
+    "qid": "9701_s22_12_q4"
+   },
+   "stem": "When a small sample of hydrocarbon Q is completely combusted, it produces 3.52 g of\ncarbon dioxide and 1.44 g of water.\nWhat could be the structure of hydrocarbon Q?",
+   "options": {
+    "A": "",
+    "D": "",
+    "B": "",
+    "C": "H C C C H C"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s22_12_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x009",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q3",
+    "qid": "9701_s22_13_q3"
+   },
+   "stem": "Analysis of the hormone thyroxine gives the results shown.\nHeating 0.500 g of thyroxine with aqueous silver nitrate produces 0.604 g of silver iodide. All of\nthe iodine in the thyroxine sample is converted to silver iodide.\nComplete combustion of 0.500 g of thyroxine produces 232 cm³ of carbon dioxide and 7.72 cm³ of\nnitrogen, measured under room conditions.\nWhich molecular formula of thyroxine agrees with these values?",
+   "options": {
+    "A": "C₁₅H₁₁NO₄I₄ Mr = 776.6",
+    "B": "C₁₅H₇NO₄I₈ Mr = 1280.2",
+    "C": "C₃₀H₂₅NO₆I₄ Mr = 1002.6",
+    "D": "C₃₀H₂₁NO₆I₈ Mr = 1506.2"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s22_13_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x010",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q28",
+    "qid": "9701_s23_11_q28"
+   },
+   "stem": "Structural\u0001isomerism\u0001and\u0001stereoisomerism\u0001should\u0001be\u0001considered\u0001when\u0001answering\u0001this\u0001question.\u0001\nA\u0001set\u0001of\u0001isomeric\u0001hydrocarbons\n•\nall\u0003contain\u000314.3%\u0003by\u0003mass\u0003of\u0003hydrogen\n•\nall\u0003react\u0003with\u0003bromine\u0003by\u0003addition,\u00030.280\u0003g\u0003of\u0003each\u0003hydrocarbon\u0003reacting\u0003with\u00030.799\u0003g\u0003of\u0001\nbromine.\nWhat is the maximum number of isomeric compounds in the set?\n5",
+   "options": {
+    "D": "4",
+    "C": "3",
+    "B": "1",
+    "A": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s23_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most common incorrect answer was B. Since the hydrocarbon is 14.3% H, it must be 85.7% C. Calculation shows the hydrocarbon has an empirical formula of CH2. Since the hydrocarbon reacts with bromine by addition, it must be an alkene and have one C=C bond per molecule. This means one Br2 molecule reacts with one hydrocarbon molecule. Since 0.799 g of Br2 contains 0.005 mol, 0.280 g of the hydrocarbon must also contain 0.005 mol, so the Mr of the hydrocarbon is 56 and the molecular formula is C4H8. The answer is C and the four alkenes with this Mr are: • but-1-ene • cis but-2-ene • trans but"
+  },
+  {
+   "id": "9701-2.3-x011",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q33",
+    "qid": "9701_s23_13_q33"
+   },
+   "stem": "T is an organic compound which contains 66.7% by mass of carbon. T also contains one atom of\noxygen per molecule.\nT reacts with alkaline I₂(aq) to produce a yellow precipitate.\nWhat is T?\nmethylpropan-2-ol",
+   "options": {
+    "A": "butan-2-ol",
+    "B": "butanal",
+    "C": "butanone",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x012",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q36",
+    "qid": "9701_s23_13_q36"
+   },
+   "stem": "Compound Q can be hydrolysed by HCl(aq). The two products of this hydrolysis have the same\nempirical formula.\nWhat could Q be?\nCH₃CO₂CH₂CH₂OH",
+   "options": {
+    "A": "CH₃CO₂CH₂CH₂CO₂H",
+    "B": "CH₃CH₂CO₂CH₂CH₂CH₃",
+    "C": "CH₃CH₂CH(OH)CH(OH)CH₂CH₃",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x013",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q3",
+    "qid": "9701_w23_11_q3"
+   },
+   "stem": "Aluminium carbide, Al₄C₃, reacts readily with aqueous sodium hydroxide. The two products of the\nreaction are NaAlO₂ and a hydrocarbon. Water molecules are also involved as reactants.\nWhat is the formula of the hydrocarbon?\nC₆H₁₂",
+   "options": {
+    "D": "C₃H₈",
+    "C": "C₂H₆",
+    "B": "CH₄",
+    "A": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w23_11_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was C. The question hinges on the ability to construct the balanced chemical equation for the reaction from the information given in the question. A possible sequence of decisions is as follows: 1. Al4C3 + NaOH → NaAlO2 this is the information in the question 2. Al4C3 + NaOH → 4NaAlO2 balancing for aluminium 3. Al4C3 + 4NaOH → 4NaAlO2 balancing for sodium 4. Al4C3 + 4NaOH + 4H2O → 4NaAlO2 balancing for oxygen – water must be involved 5. Al4C3 + 4NaOH + 4H2O → 4NaAlO2 + 3CH4 balancing for carbon and hydrogen gives CH4"
+  },
+  {
+   "id": "9701-2.3-x014",
+   "kcs": [
+    "9701-2.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q4",
+    "qid": "9701_w23_11_q4"
+   },
+   "stem": "A sample of 35.6g of hydrated sodium carbonate contains 25.84% sodium ions by mass.\nWhen this sample is heated, anhydrous sodium carbonate and water are formed.\nWhich mass of water is given off?\n21.2g",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x015",
+   "kcs": [
+    "9701-2.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q24",
+    "qid": "9701_w23_11_q24"
+   },
+   "stem": "If ammonium cyanate is heated in the absence of air, the only product of the reaction is urea,\nCO(NH₂)₂. No other products are formed in the reaction.\nWhat is the formula of the cyanate ion present in ammonium cyanate?\nOCN²⁻",
+   "options": {
+    "D": "OCN ⁻",
+    "C": "CON₂ 2–",
+    "B": "CON₂ –",
+    "A": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_11_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x016",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q3",
+    "qid": "9701_w23_13_q3"
+   },
+   "stem": "Aluminium carbide, Al₄C₃, reacts readily with aqueous sodium hydroxide. The two products of the\nreaction are NaAlO₂ and a hydrocarbon. Water molecules are also involved as reactants.\nWhat is the formula of the hydrocarbon?\nC₆H₁₂",
+   "options": {
+    "D": "C₃H₈",
+    "C": "C₂H₆",
+    "B": "CH₄",
+    "A": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w23_13_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was C. The question hinges on the ability to construct the balanced chemical equation for the reaction from the information given in the question. A possible sequence of decisions is as follows: 1. Al4C3 + NaOH → NaAlO2 this is the information in the question 2. Al4C3 + NaOH → 4NaAlO2 balancing for aluminium 3. Al4C3 + 4NaOH → 4NaAlO2 balancing for sodium 4. Al4C3 + 4NaOH + 4H2O → 4NaAlO2 balancing for oxygen – water must be involved 5. Al4C3 + 4NaOH + 4H2O → 4NaAlO2 + 3CH4 balancing for carbon and hydrogen gives CH4"
+  },
+  {
+   "id": "9701-2.3-x017",
+   "kcs": [
+    "9701-2.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q4",
+    "qid": "9701_w23_13_q4"
+   },
+   "stem": "A sample of 35.6g of hydrated sodium carbonate contains 25.84% sodium ions by mass.\nWhen this sample is heated, anhydrous sodium carbonate and water are formed.\nWhich mass of water is given off?\n21.2g",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_13_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x018",
+   "kcs": [
+    "9701-2.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q24",
+    "qid": "9701_w23_13_q24"
+   },
+   "stem": "If ammonium cyanate is heated in the absence of air, the only product of the reaction is urea,\nCO(NH₂)₂. No other products are formed in the reaction.\nWhat is the formula of the cyanate ion present in ammonium cyanate?\nOCN²⁻",
+   "options": {
+    "D": "OCN ⁻",
+    "C": "CON₂ 2–",
+    "B": "CON₂ –",
+    "A": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_13_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x019",
+   "kcs": [
+    "9701-2.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q6",
+    "qid": "9701_s25_11_q6"
+   },
+   "stem": "P is a compound that burns in an excess of oxygen to give carbon dioxide and water only.\n2.20 g of P contains 1.20 g of carbon and 0.20 g of hydrogen.\nWhen P is added to a solution of sodium carbonate, bubbles of gas are seen.\nWhat is P?",
+   "options": {
+    "A": "CH₃CHO",
+    "B": "CH₃CO₂H",
+    "C": "CH₃COCH₂CH₂OH",
+    "D": "CH₃CH₂CH₂CO₂H"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-2.3-x020",
+   "kcs": [
+    "9701-2.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q39",
+    "qid": "9701_s25_13_q39"
+   },
+   "stem": "An organic compound, T, contains only one functional group.\nCompound T has the empirical formula C₂H₄O.\nSome functional groups are listed.\n1\nalcohol\n2\naldehyde\n3\nester\n4\nketone\nWhich functional groups are possible for compound T?",
+   "options": {
+    "A": "1 and 3",
+    "B": "1 and 4",
+    "C": "2 and 3",
+    "D": "2 and 4"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_13_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-2.3.1",
+   "front": "What is the formula of sulfate?",
+   "back": "$\\ce{SO4^2-}$."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-2.3.1",
+   "front": "What is the formula of ammonium?",
+   "back": "$\\ce{NH4+}$."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-2.3.3",
+   "front": "Define empirical formula.",
+   "back": "The simplest whole-number ratio of atoms of each element in a compound."
+  },
+  {
+   "id": "fc4",
+   "kc": "9701-2.3.3",
+   "front": "Define molecular formula.",
+   "back": "The actual number of atoms of each element in one molecule."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-2.3.4",
+   "front": "Define anhydrous.",
+   "back": "Containing no water of crystallisation."
+  },
+  {
+   "id": "fc6",
+   "kc": "9701-2.3.4",
+   "front": "Define water of crystallisation.",
+   "back": "Water incorporated in fixed proportions in a crystal structure."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-2.3.1": {
+   "motivate": "A formula such as $\\ce{Zn3(PO4)2}$ tells you exactly how charges cancel in a solid.",
+   "establish": "Write the ions and their charges first. Predict simple ionic charges from Periodic Table groups: Group 1 is $1+$, Group 2 is $2+$, Group 16 is usually $2-$ and Group 17 is $1-$. A Roman numeral gives a metal's oxidation number, such as iron(III), $\\ce{Fe^3+}$. The required ions are nitrate $\\ce{NO3-}$, carbonate $\\ce{CO3^2-}$, sulfate $\\ce{SO4^2-}$, hydroxide $\\ce{OH-}$, ammonium $\\ce{NH4+}$, zinc $\\ce{Zn^2+}$, silver $\\ce{Ag+}$, hydrogencarbonate $\\ce{HCO3-}$ and phosphate $\\ce{PO4^3-}$. Choose the smallest numbers giving total charge zero. Put brackets around a polyatomic ion if its count exceeds one.",
+   "connect": "The correct ionic formulas are the starting materials for writing equations; balancing cannot rescue a wrong formula.",
+   "note": "- Predict or recall each ion's charge.\n- Balance total positive and negative charge.\n- Use the smallest ion ratio and brackets where needed.",
+   "self_explain": "Why is aluminium sulfate $\\ce{Al2(SO4)3}$ rather than $\\ce{AlSO4}$?",
+   "source": "pack"
+  },
+  "9701-2.3.2": {
+   "motivate": "An equation is a checkable account of what atoms and ions enter and leave a reaction.",
+   "establish": "Write correct reactant and product formulas, then change coefficients to balance every element; never change subscripts. Give state symbols $(s)$, $(l)$, $(g)$ and $(aq)$ where appropriate. A full ionic equation represents aqueous ions separately. A net ionic equation excludes spectator ions, which appear unchanged on both sides. For example, precipitation of silver chloride is $\\ce{Ag+(aq) + Cl-(aq) -> AgCl(s)}$. Check both atoms and total charge on each side.",
+   "connect": "A balanced equation supplies the mole ratios used in reacting-mass calculations.",
+   "note": "- Write correct formulas before balancing.\n- Adjust coefficients; check atoms and charge.\n- Add state symbols and cancel spectator ions in net ionic equations.",
+   "self_explain": "Why can you change the 2 before $\\ce{MgO}$ but not add a 2 as an oxygen subscript?",
+   "source": "pack"
+  },
+  "9701-2.3.3": {
+   "motivate": "The same atom ratio can describe molecules of different sizes.",
+   "establish": "The empirical formula is the simplest whole-number ratio of atoms of each element in a compound. The molecular formula is the actual number of atoms of each element in one molecule. A molecular formula is a whole-number multiple of its empirical formula: glucose is $\\ce{C6H12O6}$ but its empirical formula is $\\ce{CH2O}$. For phosphorus(V) oxide, $\\ce{P2O5}$ is empirical while $\\ce{P4O10}$ is molecular. Use the terms according to whether a ratio or an actual molecule is requested.",
+   "connect": "Mass data can establish the empirical ratio; relative molecular mass establishes its multiplier.",
+   "note": "- Empirical formula: simplest whole-number atom ratio.\n- Molecular formula: actual atom numbers in one molecule.\n- Use $M_r$ to distinguish possible molecular multiples.",
+   "self_explain": "How can $\\ce{P2O5}$ be correct empirically while $\\ce{P4O10}$ is correct molecularly?",
+   "source": "pack"
+  },
+  "9701-2.3.4": {
+   "motivate": "Heating a hydrated salt can remove a definite quantity of water while leaving the salt.",
+   "establish": "A hydrated crystalline compound contains water of crystallisation incorporated in fixed proportions in its crystal structure. Anhydrous means containing no water of crystallisation. In $\\ce{CuSO4.5H2O}$, the dot records five water molecules for each formula unit of copper(II) sulfate. If heating removes only that water, the residual compound is anhydrous $\\ce{CuSO4}$. To determine the water number $x$, compare moles of water lost with moles of anhydrous salt, rather than comparing their masses directly.",
+   "connect": "A hydrate calculation is an empirical-formula calculation for the salt-to-water ratio.",
+   "note": "- Hydrated: contains water of crystallisation.\n- Water of crystallisation has a fixed crystal ratio.\n- Anhydrous: no water of crystallisation remains.",
+   "self_explain": "What does the 5 in $\\ce{CuSO4.5H2O}$ count, and why is it fixed?",
+   "source": "pack"
+  },
+  "9701-2.3.5": {
+   "motivate": "An elemental analysis gives masses, but formulas count atoms.",
+   "establish": "For an empirical formula, treat percentages as masses in a $100\\,\\mathrm{g}$ sample if convenient. Divide each elemental mass by its periodic-table $A_r$ to obtain amounts in moles. Divide all amounts by the smallest, then multiply if needed to get the simplest whole-number atom ratio. For a molecular formula, calculate empirical formula mass and divide the given $M_r$ by it; the quotient must be a whole-number multiplier. Multiply every empirical subscript by that multiplier. For a hydrate, divide the mass of water lost by 18.0 and the dry-salt mass by its formula mass, then compare moles.",
+   "connect": "The mole converts measured mass into a count ratio; the formulas then support balanced equations and stoichiometry.",
+   "note": "- Divide masses or percentages by $A_r$.\n- Simplify mole amounts to whole numbers.\n- Divide $M_r$ by empirical formula mass for the molecular multiplier.\n- For hydrates, compare water and dry-salt moles.",
+   "self_explain": "Why is it wrong to use 40:6.7:53.3 directly as the C:H:O subscript ratio?",
+   "source": "pack"
+  }
+ }
+}
