@@ -1,0 +1,223 @@
+{
+ "sub": "9701-3.1",
+ "stage": "ready",
+ "created": "2026-10-10T10:58:42+08:00",
+ "updated": "2026-10-10T14:02:24+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T11:00:15+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 33 items"
+  },
+  {
+   "t": "2026-10-10T13:36:59+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "8 agreed, 2 disputed"
+  },
+  {
+   "t": "2026-10-10T13:41:35+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 2 for the manager"
+  },
+  {
+   "t": "2026-10-10T13:43:10+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T13:43:38+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 2 fixes applied"
+  },
+  {
+   "t": "2026-10-10T14:01:43+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "10 agreed, 0 disputed; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:02:24+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 33,
+  "extra": 7
+ },
+ "disputes": [
+  {
+   "id": "9701-3.1-x002",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "fix: Keep the official answer B, confirmed by the question image and tagged bank; no examiner comment is present. In build/work/mcq/overrides.json under 9701_w19_12_q12, set stem to \"Which diagram correctly shows the electronegativity of the elements Na, Mg, Al and Si plotted against their first ionisation energies?\" and explanation to \"B is correct. Electronegativity increases in the order Na < Mg < Al < Si, whereas first ionisation energy increases in the order Na < Al < Mg < Si. Aluminium loses a higher-energy, more shielded 3p electron, which is easier to remove than a 3s electron from magnesium. Therefore Al must be above and to the left of Mg on these axes. A is wrong because it incorrectly places Al at a higher first ionisation energy than Mg.\". Preserve answer B and the existing image; the image supplies the graphical options."
+  },
+  {
+   "id": "9701-3.1-x007",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "fix: Keep the official answer B, confirmed by the question image and tagged bank; no examiner comment is present. In build/work/mcq/overrides.json under 9701_s25_11_q20, set stem to \"Which diagram shows the electronegativity of the elements Na, Mg, Al and Si plotted against their first ionisation energies?\" and explanation to \"B is correct. Electronegativity increases in the order Na < Mg < Al < Si, whereas first ionisation energy increases in the order Na < Al < Mg < Si. Aluminium loses a higher-energy, more shielded 3p electron, which is easier to remove than a 3s electron from magnesium. Therefore Al must be above and to the left of Mg on these axes. A is wrong because it incorrectly places Al at a higher first ionisation energy than Mg.\". Preserve answer B and the existing image; the image supplies the graphical options."
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9701-3.1-p02 stem",
+   "rule": "off syllabus",
+   "evidence": "Which type of bonding is never found in elements?",
+   "suggested": "Replace this item with a question that tests predicting ionic or covalent bonding from Pauling electronegativity differences.",
+   "status": "closed",
+   "resolution": "keep: The finding is incorrect: the bundle explicitly includes this past-paper question under 9701-3.1.4. Identical atoms have zero electronegativity difference, connecting the exclusion of ionic bonding in elemental substances to predicting bond type. B is correct; covalent bonding, metallic bonding and van der Waals forces all occur in elemental substances."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "9701-3.1-x002",
+   "instruction": "Keep the official answer B, confirmed by the question image and tagged bank; no examiner comment is present. In build/work/mcq/overrides.json under 9701_w19_12_q12, set stem to \"Which diagram correctly shows the electronegativity of the elements Na, Mg, Al and Si plotted against their first ionisation energies?\" and explanation to \"B is correct. Electronegativity increases in the order Na < Mg < Al < Si, whereas first ionisation energy increases in the order Na < Al < Mg < Si. Aluminium loses a higher-energy, more shielded 3p electron, which is easier to remove than a 3s electron from magnesium. Therefore Al must be above and to the left of Mg on these axes. A is wrong because it incorrectly places Al at a higher first ionisation energy than Mg.\". Preserve answer B and the existing image; the image supplies the graphical options.",
+   "status": "done"
+  },
+  {
+   "ref": "9701-3.1-x007",
+   "instruction": "Keep the official answer B, confirmed by the question image and tagged bank; no examiner comment is present. In build/work/mcq/overrides.json under 9701_s25_11_q20, set stem to \"Which diagram shows the electronegativity of the elements Na, Mg, Al and Si plotted against their first ionisation energies?\" and explanation to \"B is correct. Electronegativity increases in the order Na < Mg < Al < Si, whereas first ionisation energy increases in the order Na < Al < Mg < Si. Aluminium loses a higher-energy, more shielded 3p electron, which is easier to remove than a 3s electron from magnesium. Therefore Al must be above and to the left of Mg on these axes. A is wrong because it incorrectly places Al at a higher first ionisation energy than Mg.\". Preserve answer B and the existing image; the image supplies the graphical options.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 35583,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T10:58:42+08:00",
+   "log": "foundry/logs/9701-3.1.drafter.1010-105842.log",
+   "out": "foundry/logs/9701-3.1.drafter.1010-105842.out.json",
+   "finished": "2026-10-10T11:00:15+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-3.1.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/03 Chemical bonding/3.1 Electronegativity and bonding.md",
+    "items": 33,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Only two past MCQs had complete text options suitable for explained items; seven image-dependent questions were added as extra practice."
+    ]
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 10485,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:01:12+08:00",
+   "log": "foundry/logs/9701-3.1.solver.1010-140112.log",
+   "out": "foundry/logs/9701-3.1.solver.1010-140112.out.json",
+   "expects": "build/work/blind/9701-3.1.recheck.answers.json",
+   "finished": "2026-10-10T14:01:25+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions in `build/work/blind/9701-3.1.recheck.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 94400,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:35:04+08:00",
+   "log": "foundry/logs/9701-3.1.checker.1010-133504.log",
+   "out": "foundry/logs/9701-3.1.checker.1010-133504.out.json",
+   "expects": "build/work/foundry/9701-3.1.check.json",
+   "finished": "2026-10-10T13:35:28+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding; wrote `build/work/foundry/9701-3.1.check.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 97115,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 0,
+   "started": "2026-10-10T13:39:50+08:00",
+   "log": "foundry/logs/9701-3.1.tiebreak.1010-133950.log",
+   "out": "foundry/logs/9701-3.1.tiebreak.1010-133950.out.json",
+   "expects": "build/work/blind/9701-3.1.tiebreak.json",
+   "finished": "2026-10-10T13:40:04+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 2,
+    "answers_path": "build/work/blind/9701-3.1.tiebreak.json",
+    "notes": [
+     "9701-3.1-x002: straightforward — Na<Mg<Al<Si trend rises monotonically on both axes, matching A.",
+     "9701-3.1-x007: identical question/options layout to x002, same reasoning, answer A."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 0.147
+  },
+  "adjudicator": {
+   "pid": 99242,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:42:39+08:00",
+   "log": "foundry/logs/9701-3.1.adjudicator.1010-134239.log",
+   "out": "foundry/logs/9701-3.1.adjudicator.1010-134239.out.json",
+   "finished": "2026-10-10T13:43:15+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9701-3.1-x002 fix: Retain B; explain Mg–Al ionisation-energy trap and clean stem.\n9701-3.1-x007 fix: Retain B; explain Mg–Al ionisation-energy trap and clean stem.\nitem 9701-3.1-p02 stem keep: Zero electronegativity difference supports bond-type prediction."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 99639,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T13:43:20+08:00",
+   "log": "foundry/logs/9701-3.1.fixer.1010-134320.log",
+   "out": "foundry/logs/9701-3.1.fixer.1010-134320.out.json",
+   "finished": "2026-10-10T13:43:38+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 2,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_13_q13": "9701-3.1-x001",
+  "9701_w19_12_q12": "9701-3.1-x002",
+  "9701_s22_12_q19": "9701-3.1-x003",
+  "9701_s23_13_q4": "9701-3.1-x004",
+  "9701_s23_13_q17": "9701-3.1-x005",
+  "9701_w24_11_q6": "9701-3.1-x006",
+  "9701_s25_11_q20": "9701-3.1-x007"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

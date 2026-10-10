@@ -1,0 +1,54 @@
+"""Generate the 9701-3.1 chapter; numerical comparisons are calculated here."""
+import json
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[3]
+SUB='9701-3.1'
+K=[f'{SUB}.{i}' for i in range(1,5)]
+NOTE='Subjects/9701 Chemistry/03 Chemical bonding/3.1 Electronegativity and bonding.md'
+BANK={q['id']:q for q in json.loads((ROOT/'build/work/mcq/9701.tagged.json').read_text())}
+H=['Recall the definition or trend that applies.','Link attraction to nuclear charge, radius and shielding, or compare the given Pauling values.','Identify the atoms and the electrons being attracted before explaining the result.']
+M=[
+ dict(id='m1',kc=K[0],statement='Electronegativity is an atom’s tendency to lose an electron.',refutation='It measures the power to attract electrons to itself, not the ease of removing one.',contrast='Ionisation energy concerns removal of an electron; electronegativity concerns attraction.',source='research'),
+ dict(id='m2',kc=K[1],statement='Shielding is unchanged down a group.',refutation='Additional occupied inner shells increase shielding down a group.',contrast='Across a period the added electrons enter the same principal shell; down a group a new shell is added.',source='ER 9701 s23 P21 Q1'),
+ dict(id='m3',kc=K[2],statement='Electronegativity decreases across a period because there are more electrons.',refutation='Increasing nuclear charge and decreasing radius strengthen attraction across a period; shielding changes little.',contrast='Down a group increasing radius and shielding outweigh increasing nuclear charge.',source='research'),
+ dict(id='m4',kc=K[3],statement='A small electronegativity difference predicts ionic bonding.',refutation='Similar attraction allows sharing, so a small difference predicts covalent bonding.',contrast='A large difference favours electron transfer and ionic bonding.',source='research')]
+items=[]
+def short(k,command,stem,points,explanation,difficulty=2):
+ n=len([x for x in items if x['source']['type']=='generated'])+1
+ items.append(dict(id=f'{SUB}-i{n:02d}',kcs=[k],kind='short',difficulty=difficulty,command_word=command,source={'type':'generated'},stem=stem,marks=len(points),rubric=[{'point':p,'keywords':[[w] for w in words]} for p,words in points],explanation=explanation,hints=H))
+short(K[0],'Define','Define electronegativity.', [('The power of an atom to attract electrons to itself',['atom','attract','electrons'])],'Electronegativity is the power of an atom to attract electrons to itself.',1)
+short(K[0],'State','State what a high Pauling electronegativity value indicates.', [('Strong power to attract electrons',['strong','attract','electrons'])],'A higher Pauling value means greater power to attract electrons.',1)
+short(K[0],'Identify','Identify what an atom attracts when it has high electronegativity.', [('Electrons',['electrons'])],'The attracted particles are electrons.',1)
+short(K[0],'Contrast','Contrast electronegativity with first ionisation energy.', [('Electronegativity concerns attraction of electrons',['attract','electrons']),('First ionisation energy concerns removal of an electron',['removal','electron'])],'Attraction and removal are different properties.',3)
+short(K[0],'Explain','Explain why the phrase “ability to lose electrons” does not define electronegativity.', [('It describes removal rather than attraction',['removal','attraction'])],'Electronegativity concerns attraction to an atom.',3)
+short(K[0],'Evaluate','Evaluate the statement: “Electronegativity is a measure of how strongly an atom attracts protons.”', [('The statement is false because electronegativity concerns electrons',['electrons','attract'])],'The object of attraction is electrons, not protons.',4)
+for command,stem,pts,exp,d in [
+ ('State','State three factors that influence electronegativity.', [('Nuclear charge',['nuclear charge']),('Atomic radius',['atomic radius']),('Shielding by inner shells and sub-shells',['shielding','inner'])],'Nuclear charge, atomic radius and shielding determine the attraction.',1),
+ ('Explain','Explain how increasing nuclear charge affects electronegativity if other factors are unchanged.', [('Stronger attraction for electrons',['stronger','attraction'])],'More positive nuclear charge strengthens attraction.',2),
+ ('Explain','Explain how increasing atomic radius affects electronegativity.', [('Greater distance weakens attraction',['distance','weakens'])],'The electrons attracted are farther from the nucleus.',2),
+ ('Explain','Explain the effect of greater shielding by inner shells on electronegativity.', [('It reduces the attraction felt by electrons',['reduces','attraction'])],'Inner electrons shield the nuclear attraction.',2),
+ ('Compare','Compare the effects of increasing nuclear charge and increasing shielding on electronegativity.', [('Higher nuclear charge strengthens attraction',['charge','strengthens']),('Greater shielding weakens attraction',['shielding','weakens'])],'The two factors pull in opposite directions.',3),
+ ('Analyse','Analyse why two atoms with the same nuclear charge but different shielding could differ in electronegativity.', [('Greater shielding reduces effective attraction',['shielding','reduces','attraction'])],'Shielding by inner shells and sub-shells changes the attraction reaching electrons.',4)]: short(K[1],command,stem,pts,exp,d)
+for command,stem,pts,exp,d in [
+ ('State','State the general electronegativity trend across a period.', [('It increases from left to right',['increases','left','right'])],'Electronegativity generally increases across a period.',1),
+ ('State','State the general electronegativity trend down a group.', [('It decreases down a group',['decreases','down'])],'Electronegativity generally decreases down a group.',1),
+ ('Explain','Explain the increase in electronegativity across a period.', [('Nuclear charge increases',['nuclear charge','increases']),('Radius decreases while shielding changes little',['radius','decreases','shielding'])],'Stronger nuclear attraction acts over a shorter distance.',3),
+ ('Explain','Explain the decrease in electronegativity down a group.', [('Atomic radius increases',['radius','increases']),('Shielding by inner shells increases',['shielding','increases'])],'More distant electrons experience greater shielding.',3),
+ ('Predict','Predict which is more electronegative, magnesium or chlorine.', [('Chlorine',['chlorine'])],'Chlorine lies farther right in Period 3.',2),
+ ('Analyse','Analyse why chlorine is more electronegative than sodium although both have outer electrons in the third shell.', [('Chlorine has higher nuclear charge',['chlorine','nuclear charge']),('Similar inner-shell shielding and smaller radius increase attraction',['shielding','smaller','attraction'])],'Across Period 3, nuclear charge increases with little extra shielding.',4)]: short(K[2],command,stem,pts,exp,d)
+for command,stem,pts,exp,d in [
+ ('State','State how Pauling electronegativity differences are used to predict bond type.', [('Small difference suggests covalent bonding',['small','covalent']),('Large difference suggests ionic bonding',['large','ionic'])],'The difference indicates whether electron sharing or transfer is favoured.',2),
+ ('Predict','Predict the bond type when two atoms have identical Pauling electronegativities.', [('Covalent',['covalent'])],'Zero difference gives equal attraction and sharing.',2),
+ ('Predict','Predict which bond is more likely ionic when differences are 0.4 and 2.2.', [('The bond with difference 2.2',['2.2'])],'The larger difference favours ionic bonding.',2),
+ ('Explain','Explain why atoms with a small electronegativity difference tend to form covalent bonds.', [('Both attract electrons similarly and share them',['similarly','share'])],'Neither atom has a sufficiently dominant attraction for electron transfer.',3),
+ ('Explain','Explain why a large electronegativity difference favours ionic bond formation.', [('Electron transfer forms oppositely charged ions',['transfer','ions'])],'Strongly unequal attraction favours transfer rather than sharing.',3),
+ ('Determine','Determine which of two bonds is more likely ionic: A–B with values 0.8 and 3.0, or C–D with values 1.7 and 2.1. Show both differences.', [('A–B difference is 2.2',['2.2']),('C–D difference is 0.4',['0.4']),('A–B is more likely ionic',['A–B','ionic'])],'The larger calculated difference is 2.2 versus 0.4.',4)]: short(K[3],command,stem,pts,exp,d)
+# Check all numeric comparisons used in the question text and key.
+a,b=abs(3.0-0.8),abs(2.1-1.7)
+assert round(a,1)==2.2 and round(b,1)==0.4 and a>b
+for qid,exp,wrong,kc in [('9701_s22_13_q5','LiBr has the smallest electronegativity difference: Li attracts more strongly than K, and Br less strongly than F. KF is the tempting opposite extreme, with the largest difference.',{'A':'m4'},K[3]),('9701_s21_13_q6','An element contains one type of atom, so ionic bonding between unlike ions is absent. Covalent and metallic bonding occur in elements, and van der Waals’ forces occur between their particles.',{'A':'m4'},K[3])]:
+ q=BANK[qid]
+ assert sorted(q['options'])==list('ABCD') and q['answer'] in q['options']
+ items.append(dict(id=f'{SUB}-p{len([x for x in items if x["source"]["type"]=="past"])+1:02d}',kcs=[kc],kind='mcq',difficulty=3,command_word='Identify',source={'type':'past','ref':q['ref'],'qid':qid},stem=q['stem'],options=q['options'],answer=q['answer'],marks=1,explanation=exp,distractors=wrong,**({'image':q['image']} if q.get('image') else {})))
+pack=dict(subtopic=SUB,spec='9701',version=1,note=NOTE,outline='Electronegativity is the power of an atom to attract electrons to itself. Nuclear charge strengthens attraction; increasing atomic radius and shielding weaken it. Across a period, electronegativity generally rises; down a group it falls. Compare given Pauling values: a small difference favours covalent bonding and a large difference favours ionic bonding.',misconceptions=M,worked=[dict(id='we1',kc=K[3],problem='Given Pauling values Na = 0.9 and Cl = 3.2, predict the bond type.',steps=[{'do':'Calculate the difference: $|3.2-0.9|=2.3$.','why':'The magnitude of the difference, not the sign, predicts bond type.','check':{'kind':'numeric','answer':{'value':round(abs(3.2-0.9),1),'unit':'','sf_ok':[2]}}},{'do':'A large difference favours electron transfer; predict ionic bonding.','why':'Unequal attraction favours ions rather than a shared pair.'}],faded={'id':'we1f','problem':'Given Pauling values K = 0.8 and F = 4.0, calculate the difference and predict the bond type.','answer':{'value':round(abs(4.0-0.8),1),'unit':'','sf_ok':[2]},'blank_from':1})],items=items,flashcards=[dict(id='fc1',kc=K[0],front='Define electronegativity.',back='The power of an atom to attract electrons to itself.')],diagrams=[])
+out=ROOT/f'build/out/packs/9701/{SUB}.json';out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(pack,ensure_ascii=False,indent=1))
