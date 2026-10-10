@@ -1,0 +1,58 @@
+{
+ "9702-9.3.1": {
+  "motivate": "A p.d. alone cannot tell you how strongly a component limits current.",
+  "establish": "Resistance is the ratio of potential difference across a component to current through it: $R=V/I$. The SI unit is the ohm, $\\Omega$. One ohm corresponds to one volt across a component when one ampere flows.",
+  "connect": "This definition lets you find resistance from simultaneous voltage and current readings.",
+  "note": "- $R=V/I$\n- p.d. across, current through\n- unit: $\\Omega$",
+  "self_explain": "Why must the current and p.d. refer to the same component?"
+ },
+ "9702-9.3.2": {
+  "motivate": "Circuit measurements often give two of voltage, current and resistance.",
+  "establish": "$V=IR$ relates potential difference $V$ across a component, current $I$ through it and resistance $R$. Rearrange to $I=V/R$ or $R=V/I$ as needed. Use volts, amperes and ohms.",
+  "connect": "This equation also works at one operating point of a non-ohmic component.",
+  "note": "- $V=IR$\n- $I=V/R$\n- $R=V/I$",
+  "self_explain": "How would you find current if voltage and resistance are given?"
+ },
+ "9702-9.3.3": {
+  "motivate": "Graph shapes reveal whether a component has fixed resistance.",
+  "establish": "With current $I$ vertical and p.d. $V$ horizontal, a metallic conductor at constant temperature gives a straight line through the origin. A filament lamp gives a curve through the origin that becomes less steep as $|V|$ grows. A semiconductor diode has almost no reverse current and a sharp forward rise after a threshold.",
+  "connect": "Read $V$ and $I$ at the same point to find $R=V/I$; the curved graph’s gradient is different.",
+  "note": "- metal: straight through origin\n- lamp: flattening curve\n- diode: one-way rise",
+  "self_explain": "What feature distinguishes the diode from the lamp graph?"
+ },
+ "9702-9.3.4": {
+  "motivate": "A filament lamp changes as it warms during use.",
+  "establish": "Increasing current heats the metal filament. Its temperature rises, and its resistance increases. Therefore current grows less than proportionally with p.d., giving a curved $I$–$V$ characteristic. The cold filament still has nonzero resistance at zero p.d.",
+  "connect": "This is why a lamp does not follow Ohm’s law while its temperature changes.",
+  "note": "- more current heats filament\n- hotter filament: higher resistance\n- lamp graph curves",
+  "self_explain": "Why does the lamp curve become less steep?"
+ },
+ "9702-9.3.5": {
+  "motivate": "An equation alone does not tell you whether resistance stays constant.",
+  "establish": "Ohm’s law states: the current through a conductor is directly proportional to the potential difference across it, provided its temperature remains constant. Thus $V/I$ is constant under that condition. The $I$–$V$ graph is a straight line through the origin.",
+  "connect": "A filament lamp fails the constant-temperature condition as its current rises.",
+  "note": "- current proportional to p.d.\n- temperature constant\n- resistance constant",
+  "self_explain": "What condition must accompany a statement of Ohm’s law?"
+ },
+ "9702-9.3.6": {
+  "motivate": "Wires of the same material can have very different resistances.",
+  "establish": "For a uniform wire, $R=\\rho L/A$, where $\\rho$ is material resistivity, $L$ is length and $A$ is cross-sectional area. Resistivity has unit $\\Omega\\,\\mathrm{m}$. For diameter $d$, $A=\\pi d^2/4$. At fixed material, resistance increases with length and decreases with area.",
+  "connect": "Combine with $V=IR$ to predict current at fixed p.d.; remember that doubling diameter quadruples area.",
+  "note": "- $R=\\rho L/A$\n- $A=\\pi d^2/4$\n- unit of $\\rho$: $\\Omega\\,\\mathrm{m}$",
+  "self_explain": "Why is diameter squared in wire-resistance comparisons?"
+ },
+ "9702-9.3.7": {
+  "motivate": "A light sensor changes an electrical resistance.",
+  "establish": "The resistance of a light-dependent resistor (LDR) decreases as the light intensity incident on it increases. In dimmer light its resistance is higher. The statement concerns the LDR itself; a circuit’s measured p.d. also depends on how it is connected.",
+  "connect": "This trend supports sensing changes in illumination in a circuit.",
+  "note": "- more light: lower LDR resistance\n- less light: higher LDR resistance",
+  "self_explain": "What happens to an LDR resistance when a lamp shines more brightly on it?"
+ },
+ "9702-9.3.8": {
+  "motivate": "A temperature sensor turns warming into a resistance change.",
+  "establish": "For this syllabus, a thermistor is assumed to have a negative temperature coefficient. Its resistance decreases as temperature increases, and increases as it cools. This trend differs from a metal filament, whose resistance rises as it heats.",
+  "connect": "Use the thermistor trend before analysing a potential divider or series circuit.",
+  "note": "- hotter thermistor: lower resistance\n- cooler thermistor: higher resistance\n- negative temperature coefficient",
+  "self_explain": "How does cooling affect the assumed thermistor?"
+ }
+}

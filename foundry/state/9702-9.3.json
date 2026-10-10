@@ -1,0 +1,311 @@
+{
+ "sub": "9702-9.3",
+ "stage": "ready",
+ "created": "2026-10-10T16:10:32+08:00",
+ "updated": "2026-10-10T16:42:16+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:13:26+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 107 items"
+  },
+  {
+   "t": "2026-10-10T16:21:38+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "62 agreed, 3 disputed"
+  },
+  {
+   "t": "2026-10-10T16:24:31+08:00",
+   "from": "tiebreak",
+   "to": "check",
+   "note": "tiebreak left 1 for the manager; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T16:26:39+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "1 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:28:35+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:42:06+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:42:16+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 106,
+  "extra": 47
+ },
+ "disputes": [
+  {
+   "id": "9702-9.3-x008",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "keep: The official tagged answer is A and the question image confirms it: the same current flows through all three sections, while cross-sectional area decreases from X to Y. From R = rho L/A and V = IR, the magnitude of potential gradient is I rho/A, so the continuous potential falls with successively steeper slopes to zero at Y, as in A. B incorrectly makes the gradient magnitude decrease."
+  },
+  {
+   "id": "9702-9.3-x021",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-9.3-x026",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "KC 9702-9.3.3 assessment (item 9702-9.3-i12)",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Statement: sketch the I–V characteristics of a metallic conductor at constant temperature, a semiconductor diode and a filament lamp; item 9702-9.3-i12 asks 'Sketch the $I$–$V$ characteristic of a metallic conductor at constant temperature in words.'",
+   "suggested": "Add a question that requires students to draw and label all three I–V curves.",
+   "status": "fixed",
+   "resolution": "fix: The bundle defines Sketch as a freehand drawing and KC 9702-9.3.3 requires all three characteristics; verbal descriptions alone do not assess that skill. For generated item 9702-9.3-i12, replace the following fields with these exact values, retaining its id, kind, kcs, difficulty and source: {\"stem\": \"On three separate sets of axes, sketch the I–V characteristics of (a) a metallic conductor at constant temperature, (b) a semiconductor diode and (c) a filament lamp. Label each component and each axis, with current I vertical and potential difference V horizontal. Show both positive and negative potential differences; omit reverse breakdown for the diode.\", \"command_word\": \"Sketch\", \"marks\": 4, \"rubric\": [{\"point\": \"All three sketches identify the component, label current I on the vertical axis and potential difference V on the horizontal axis, and show the origin and positive and negative ranges.\", \"keywords\": [[\"I\", \"current\"], [\"V\", \"potential difference\"], [\"axes\", \"axis\"]]}, {\"point\": \"Metallic conductor at constant temperature: a straight line of positive constant gradient through the origin, extending into the first and third quadrants.\", \"keywords\": [[\"straight\"], [\"origin\"], [\"constant gradient\"]]}, {\"point\": \"Semiconductor diode: negligible current for reverse bias and small forward potential differences, followed by a steep rise in forward current; no reverse breakdown shown.\", \"keywords\": [[\"reverse\"], [\"negligible\", \"almost zero\"], [\"forward\"], [\"steep\", \"sharp\"]]}, {\"point\": \"Filament lamp: a smooth curve through the origin in the first and third quadrants, symmetric about the origin, with decreasing positive gradient as the magnitude of potential difference increases.\", \"keywords\": [[\"origin\"], [\"symmetric\"], [\"less steep\", \"decreasing gradient\"]]}], \"explanation\": \"With I vertical and V horizontal, the constant-temperature metal has a straight line through the origin. The diode has negligible reverse current and a steep forward rise after the turn-on region. The filament lamp has a curve symmetric about the origin that becomes less steep as the magnitude of V increases because its filament heats and its resistance rises.\", \"hints\": [\"Label I vertically and V horizontally, and include positive and negative ranges.\", \"For each component, consider how current changes as potential difference increases.\", \"Consider constant resistance for the metal, heating for the lamp, and forward and reverse bias for the diode.\"]}. Award one mark per rubric point from the actual sketches; prose alone does not earn the sketch marks."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "KC 9702-9.3.3 assessment (item 9702-9.3-i12)",
+   "instruction": "The bundle defines Sketch as a freehand drawing and KC 9702-9.3.3 requires all three characteristics; verbal descriptions alone do not assess that skill. For generated item 9702-9.3-i12, replace the following fields with these exact values, retaining its id, kind, kcs, difficulty and source: {\"stem\": \"On three separate sets of axes, sketch the I–V characteristics of (a) a metallic conductor at constant temperature, (b) a semiconductor diode and (c) a filament lamp. Label each component and each axis, with current I vertical and potential difference V horizontal. Show both positive and negative potential differences; omit reverse breakdown for the diode.\", \"command_word\": \"Sketch\", \"marks\": 4, \"rubric\": [{\"point\": \"All three sketches identify the component, label current I on the vertical axis and potential difference V on the horizontal axis, and show the origin and positive and negative ranges.\", \"keywords\": [[\"I\", \"current\"], [\"V\", \"potential difference\"], [\"axes\", \"axis\"]]}, {\"point\": \"Metallic conductor at constant temperature: a straight line of positive constant gradient through the origin, extending into the first and third quadrants.\", \"keywords\": [[\"straight\"], [\"origin\"], [\"constant gradient\"]]}, {\"point\": \"Semiconductor diode: negligible current for reverse bias and small forward potential differences, followed by a steep rise in forward current; no reverse breakdown shown.\", \"keywords\": [[\"reverse\"], [\"negligible\", \"almost zero\"], [\"forward\"], [\"steep\", \"sharp\"]]}, {\"point\": \"Filament lamp: a smooth curve through the origin in the first and third quadrants, symmetric about the origin, with decreasing positive gradient as the magnitude of potential difference increases.\", \"keywords\": [[\"origin\"], [\"symmetric\"], [\"less steep\", \"decreasing gradient\"]]}], \"explanation\": \"With I vertical and V horizontal, the constant-temperature metal has a straight line through the origin. The diode has negligible reverse current and a steep forward rise after the turn-on region. The filament lamp has a curve symmetric about the origin that becomes less steep as the magnitude of V increases because its filament heats and its resistance rises.\", \"hints\": [\"Label I vertically and V horizontally, and include positive and negative ranges.\", \"For each component, consider how current changes as potential difference increases.\", \"Consider constant resistance for the metal, heating for the lamp, and forward and reverse bias for the diode.\"]}. Award one mark per rubric point from the actual sketches; prose alone does not earn the sketch marks.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 88945,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:10:32+08:00",
+   "log": "foundry/logs/9702-9.3.drafter.1010-161032.log",
+   "out": "foundry/logs/9702-9.3.drafter.1010-161032.out.json",
+   "finished": "2026-10-10T16:13:26+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-9.3.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/09 Electricity/9.3 Resistance and resistivity.md",
+    "items": 107,
+    "templates": 2,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 95584,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:20:01+08:00",
+   "log": "foundry/logs/9702-9.3.solver-1.1010-162001.log",
+   "out": "foundry/logs/9702-9.3.solver-1.1010-162001.out.json",
+   "expects": "build/work/blind/9702-9.3.answers.part1.json",
+   "finished": "2026-10-10T16:20:32+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-9.3.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 95586,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:20:01+08:00",
+   "log": "foundry/logs/9702-9.3.solver-2.1010-162001.log",
+   "out": "foundry/logs/9702-9.3.solver-2.1010-162001.out.json",
+   "expects": "build/work/blind/9702-9.3.answers.part2.json",
+   "finished": "2026-10-10T16:20:33+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-9.3.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 96205,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:20:42+08:00",
+   "log": "foundry/logs/9702-9.3.solver-3.1010-162042.log",
+   "out": "foundry/logs/9702-9.3.solver-3.1010-162042.out.json",
+   "expects": "build/work/blind/9702-9.3.answers.part3.json",
+   "finished": "2026-10-10T16:21:18+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-9.3.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "solver#4": {
+   "pid": 96208,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:20:42+08:00",
+   "log": "foundry/logs/9702-9.3.solver-4.1010-162042.log",
+   "out": "foundry/logs/9702-9.3.solver-4.1010-162042.out.json",
+   "expects": "build/work/blind/9702-9.3.answers.part4.json",
+   "finished": "2026-10-10T16:21:06+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 5 questions in `build/work/blind/9702-9.3.answers.part4.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 98053,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:23:04+08:00",
+   "log": "foundry/logs/9702-9.3.tiebreak.1010-162304.log",
+   "out": "foundry/logs/9702-9.3.tiebreak.1010-162304.out.json",
+   "expects": "build/work/blind/9702-9.3.tiebreak.json",
+   "finished": "2026-10-10T16:23:30+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 3,
+    "answers_path": "build/work/blind/9702-9.3.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 136,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:25:52+08:00",
+   "log": "foundry/logs/9702-9.3.checker.1010-162552.log",
+   "out": "foundry/logs/9702-9.3.checker.1010-162552.out.json",
+   "expects": "build/work/foundry/9702-9.3.check.json",
+   "finished": "2026-10-10T16:26:28+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — wrote [9702-9.3.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9702-9.3.check.json)."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 2587,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T16:27:42+08:00",
+   "log": "foundry/logs/9702-9.3.adjudicator.1010-162742.log",
+   "out": "foundry/logs/9702-9.3.adjudicator.1010-162742.out.json",
+   "finished": "2026-10-10T16:28:40+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9702-9.3-x008 keep: A correctly shows steeper potential gradients as the wire narrows.\nKC 9702-9.3.3 assessment (item 9702-9.3-i12) fix: Require all three drawn I–V curves; exact prompt and rubric recorded."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 12729,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:41:13+08:00",
+   "log": "foundry/logs/9702-9.3.fixer.1010-164113.log",
+   "out": "foundry/logs/9702-9.3.fixer.1010-164113.out.json",
+   "finished": "2026-10-10T16:42:06+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "Tutor lint gate could not run: build/out/notes/9702/9.3.md does not exist."
+    ],
+    "validator_ok": true,
+    "lint_ok": false
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q34": "9702-9.3-x001",
+  "9702_s19_12_q34": "9702-9.3-x002",
+  "9702_s19_13_q33": "9702-9.3-x003",
+  "9702_w19_11_q33": "9702-9.3-x004",
+  "9702_w19_13_q35": "9702-9.3-x005",
+  "9702_s20_11_q34": "9702-9.3-x006",
+  "9702_s20_11_q35": "9702-9.3-x007",
+  "9702_s20_12_q35": "9702-9.3-x008",
+  "9702_s20_13_q36": "9702-9.3-x009",
+  "9702_w20_11_q34": "9702-9.3-x010",
+  "9702_w20_13_q33": "9702-9.3-x011",
+  "9702_s21_11_q34": "9702-9.3-x012",
+  "9702_s21_12_q34": "9702-9.3-x013",
+  "9702_s21_12_q35": "9702-9.3-x014",
+  "9702_w21_11_q34": "9702-9.3-x015",
+  "9702_w21_11_q35": "9702-9.3-x016",
+  "9702_w21_12_q35": "9702-9.3-x017",
+  "9702_w21_13_q35": "9702-9.3-x018",
+  "9702_s22_12_q33": "9702-9.3-x019",
+  "9702_s22_12_q34": "9702-9.3-x020",
+  "9702_s22_13_q34": "9702-9.3-x021",
+  "9702_s22_13_q35": "9702-9.3-x022",
+  "9702_w22_11_q2": "9702-9.3-x023",
+  "9702_w22_11_q33": "9702-9.3-x024",
+  "9702_w22_12_q31": "9702-9.3-x025",
+  "9702_w22_13_q33": "9702-9.3-x026",
+  "9702_s23_11_q32": "9702-9.3-x027",
+  "9702_s23_11_q33": "9702-9.3-x028",
+  "9702_s23_12_q33": "9702-9.3-x029",
+  "9702_s23_13_q32": "9702-9.3-x030",
+  "9702_s23_13_q33": "9702-9.3-x031",
+  "9702_s24_11_q31": "9702-9.3-x032",
+  "9702_s24_12_q31": "9702-9.3-x033",
+  "9702_s24_13_q31": "9702-9.3-x034",
+  "9702_s24_13_q33": "9702-9.3-x035",
+  "9702_w24_11_q36": "9702-9.3-x036",
+  "9702_w24_12_q33": "9702-9.3-x037",
+  "9702_w24_13_q33": "9702-9.3-x038",
+  "9702_s25_11_q32": "9702-9.3-x039",
+  "9702_s25_11_q33": "9702-9.3-x040",
+  "9702_s25_11_q35": "9702-9.3-x041",
+  "9702_s25_12_q32": "9702-9.3-x042",
+  "9702_s25_12_q33": "9702-9.3-x043",
+  "9702_s25_12_q34": "9702-9.3-x044",
+  "9702_s25_13_q34": "9702-9.3-x045",
+  "9702_w25_11_q33": "9702-9.3-x046",
+  "9702_w25_11_q36": "9702-9.3-x047",
+  "9702_w25_12_q33": "9702-9.3-x048"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

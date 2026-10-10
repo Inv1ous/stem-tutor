@@ -1,0 +1,3457 @@
+{
+ "subtopic": "9702-9.3",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/09 Electricity/9.3 Resistance and resistivity.md",
+ "outline": "Resistance is $R=V/I$ and $V=IR$. Ohm’s law applies when current is proportional to potential difference at constant temperature. A metallic conductor then has a straight-line $I$–$V$ graph through the origin. A filament lamp curves as it heats; a diode conducts mainly in one direction after a threshold. Resistivity connects material and dimensions through $R=\\rho L/A$. An LDR loses resistance in brighter light, and an assumed negative temperature coefficient thermistor loses resistance as temperature rises.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-9.3.1",
+   "statement": "Resistance is the same as potential difference.",
+   "refutation": "Resistance is the ratio of potential difference to current, not the potential difference alone.",
+   "contrast": "Use $R=V/I$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-9.3.5",
+   "statement": "$V=IR$ alone states Ohm’s law without a condition.",
+   "refutation": "Ohm’s law requires constant temperature.",
+   "contrast": "State proportionality and constant temperature.",
+   "source": "ER 9702 w23 P23 Q7"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-9.3.3",
+   "statement": "The gradient of an $I$–$V$ graph is resistance.",
+   "refutation": "At a point resistance is $V/I$; the gradient of an $I$–$V$ graph is not generally resistance.",
+   "contrast": "Use the ratio at the chosen point.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-9.3.4",
+   "statement": "A hotter filament has lower resistance.",
+   "refutation": "Heating a metal filament increases its resistance.",
+   "contrast": "As current and temperature rise, resistance rises.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-9.3.6",
+   "statement": "Doubling the diameter doubles the cross-sectional area.",
+   "refutation": "Area depends on the square of diameter.",
+   "contrast": "Use $A=πd^2/4$.",
+   "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-9.3.7",
+   "statement": "An LDR has higher resistance in brighter light.",
+   "refutation": "Its resistance decreases as light intensity increases.",
+   "contrast": "More light means less resistance.",
+   "source": "research"
+  },
+  {
+   "id": "m7",
+   "kc": "9702-9.3.8",
+   "statement": "A negative temperature coefficient thermistor has higher resistance when hot.",
+   "refutation": "Its resistance decreases as temperature increases.",
+   "contrast": "Hotter means less resistance.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-9.3.2",
+   "problem": "A resistor has $V=12.0\\,\\mathrm{V}$ and $I=0.40\\,\\mathrm{A}$. Calculate $R$.",
+   "steps": [
+    {
+     "do": "State $R=V/I$.",
+     "why": "This rearranges $V=IR$."
+    },
+    {
+     "do": "Substitute: $R=12.0/0.40=30\\,\\Omega$.",
+     "why": "Use the p.d. across and current through the same component."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A resistor has $V=15.0\\,\\mathrm{V}$ and $I=0.50\\,\\mathrm{A}$. Calculate $R$.",
+    "answer": {
+     "value": 30.0,
+     "unit": "ohm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-9.3.3",
+   "problem": "Sketch three $I$–$V$ curves with $V$ horizontal. Describe their shapes.",
+   "steps": [
+    {
+     "do": "Metallic conductor: draw a straight line through the origin.",
+     "why": "Constant temperature gives constant resistance."
+    },
+    {
+     "do": "Lamp: draw a symmetric curve that flattens as $|V|$ rises.",
+     "why": "The filament heats as current rises."
+    },
+    {
+     "do": "Diode: show negligible reverse current and a sharp forward rise after a threshold.",
+     "why": "A diode conducts mainly in one direction."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "An $I$–$V$ graph has $V=2.0\\,\\mathrm{V}$ at $I=0.40\\,\\mathrm{A}$. Calculate the resistance at this point.",
+    "answer": {
+     "value": 5.0,
+     "unit": "ohm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-9.3.6",
+   "problem": "A wire has $\\rho=2.0\\times10^{-8}\\,\\Omega\\,\\mathrm{m}$, $L=4.0\\,\\mathrm{m}$ and $A=2.0\\times10^{-6}\\,\\mathrm{m^2}$. Calculate $R$.",
+   "steps": [
+    {
+     "do": "State $R=\\rho L/A$.",
+     "why": "Resistance depends on material, length and area."
+    },
+    {
+     "do": "Substitute: $R=(2.0\\times10^{-8})(4.0)/(2.0\\times10^{-6})=0.040\\,\\Omega$.",
+     "why": "Keep area in square metres."
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Calculate $R$ for $\\rho=3.0\\times10^{-8}\\,\\Omega\\,\\mathrm{m}$, $L=2.0\\,\\mathrm{m}$ and $A=1.0\\times10^{-6}\\,\\mathrm{m^2}$.",
+    "answer": {
+     "value": 0.06,
+     "unit": "ohm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-9.3-i01",
+   "kcs": [
+    "9702-9.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define resistance of a component.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance is the ratio of potential difference across it to current through it.",
+     "keywords": [
+      [
+       "ratio"
+      ],
+      [
+       "potential difference"
+      ],
+      [
+       "current"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance is the ratio of potential difference across it to current through it.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i02",
+   "kcs": [
+    "9702-9.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the equation defining resistance.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$R=V/I$.",
+     "keywords": [
+      [
+       "R"
+      ],
+      [
+       "V/I"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$R=V/I$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i03",
+   "kcs": [
+    "9702-9.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the SI unit of resistance.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The ohm, $\\Omega$.",
+     "keywords": [
+      [
+       "ohm",
+       "Ω"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The ohm, $\\Omega$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i04",
+   "kcs": [
+    "9702-9.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the meaning of a resistance of $1\\,\\Omega$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A p.d. of $1\\,\\mathrm{V}$ causes a current of $1\\,\\mathrm{A}$.",
+     "keywords": [
+      [
+       "1"
+      ],
+      [
+       "V"
+      ],
+      [
+       "A"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A p.d. of $1\\,\\mathrm{V}$ causes a current of $1\\,\\mathrm{A}$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i05",
+   "kcs": [
+    "9702-9.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare resistance and potential difference.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance is p.d. divided by current; p.d. alone is not resistance.",
+     "keywords": [
+      [
+       "divided",
+       "ratio"
+      ],
+      [
+       "current"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance is p.d. divided by current; p.d. alone is not resistance.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i06",
+   "kcs": [
+    "9702-9.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine whether two components at the same p.d. have the same resistance if their currents differ.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "They have different resistances because $R=V/I$.",
+     "keywords": [
+      [
+       "different"
+      ],
+      [
+       "V/I"
+      ]
+     ]
+    }
+   ],
+   "explanation": "They have different resistances because $R=V/I$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i07",
+   "kcs": [
+    "9702-9.3.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the resistance when the p.d. is [[V]] V and the current is [[I]] A.",
+   "marks": 2,
+   "answer": {
+    "value": 30.0,
+    "unit": "ohm",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "V": {
+      "choices": [
+       6,
+       9,
+       12
+      ]
+     },
+     "I": {
+      "choices": [
+       0.2,
+       0.3,
+       0.4
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "V/I",
+    "distractors": [
+     {
+      "expr": "V*I",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": []
+   },
+   "explanation": "Divide p.d. by current: $R=V/I$.",
+   "hints": [
+    "Identify the quantities and units.",
+    "Rearrange the relevant equation.",
+    "Substitute the given values before rounding."
+   ]
+  },
+  {
+   "id": "9702-9.3-i08",
+   "kcs": [
+    "9702-9.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the equation relating p.d., current and resistance.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$V=IR$.",
+     "keywords": [
+      [
+       "V=IR"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$V=IR$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i09",
+   "kcs": [
+    "9702-9.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how to find current from known p.d. and resistance.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Rearrange $V=IR$ to $I=V/R$.",
+     "keywords": [
+      [
+       "V/R"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Rearrange $V=IR$ to $I=V/R$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i10",
+   "kcs": [
+    "9702-9.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how to find p.d. from current and resistance.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Multiply current by resistance: $V=IR$.",
+     "keywords": [
+      [
+       "IR"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Multiply current by resistance: $V=IR$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i11",
+   "kcs": [
+    "9702-9.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the current when p.d. doubles across a fixed resistance.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Current doubles because $I=V/R$.",
+     "keywords": [
+      [
+       "doubles"
+      ],
+      [
+       "V/R"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Current doubles because $I=V/R$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i12",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "On three separate sets of axes, sketch the I–V characteristics of (a) a metallic conductor at constant temperature, (b) a semiconductor diode and (c) a filament lamp. Label each component and each axis, with current I vertical and potential difference V horizontal. Show both positive and negative potential differences; omit reverse breakdown for the diode.",
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "All three sketches identify the component, label current I on the vertical axis and potential difference V on the horizontal axis, and show the origin and positive and negative ranges.",
+     "keywords": [
+      [
+       "I",
+       "current"
+      ],
+      [
+       "V",
+       "potential difference"
+      ],
+      [
+       "axes",
+       "axis"
+      ]
+     ]
+    },
+    {
+     "point": "Metallic conductor at constant temperature: a straight line of positive constant gradient through the origin, extending into the first and third quadrants.",
+     "keywords": [
+      [
+       "straight"
+      ],
+      [
+       "origin"
+      ],
+      [
+       "constant gradient"
+      ]
+     ]
+    },
+    {
+     "point": "Semiconductor diode: negligible current for reverse bias and small forward potential differences, followed by a steep rise in forward current; no reverse breakdown shown.",
+     "keywords": [
+      [
+       "reverse"
+      ],
+      [
+       "negligible",
+       "almost zero"
+      ],
+      [
+       "forward"
+      ],
+      [
+       "steep",
+       "sharp"
+      ]
+     ]
+    },
+    {
+     "point": "Filament lamp: a smooth curve through the origin in the first and third quadrants, symmetric about the origin, with decreasing positive gradient as the magnitude of potential difference increases.",
+     "keywords": [
+      [
+       "origin"
+      ],
+      [
+       "symmetric"
+      ],
+      [
+       "less steep",
+       "decreasing gradient"
+      ]
+     ]
+    }
+   ],
+   "explanation": "With I vertical and V horizontal, the constant-temperature metal has a straight line through the origin. The diode has negligible reverse current and a steep forward rise after the turn-on region. The filament lamp has a curve symmetric about the origin that becomes less steep as the magnitude of V increases because its filament heats and its resistance rises.",
+   "hints": [
+    "Label I vertically and V horizontally, and include positive and negative ranges.",
+    "For each component, consider how current changes as potential difference increases.",
+    "Consider constant resistance for the metal, heating for the lamp, and forward and reverse bias for the diode."
+   ]
+  },
+  {
+   "id": "9702-9.3-i13",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the $I$–$V$ characteristic of a filament lamp.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It passes through the origin and becomes less steep as $|V|$ rises.",
+     "keywords": [
+      [
+       "origin"
+      ],
+      [
+       "less steep",
+       "decreasing gradient"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It passes through the origin and becomes less steep as $|V|$ rises.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i14",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the $I$–$V$ characteristic of a semiconductor diode.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Almost no reverse current; forward current rises sharply after a threshold p.d.",
+     "keywords": [
+      [
+       "reverse"
+      ],
+      [
+       "threshold"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Almost no reverse current; forward current rises sharply after a threshold p.d.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i15",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the metallic conductor and filament lamp $I$–$V$ graphs.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Both pass through the origin; the conductor is straight, while the lamp curves.",
+     "keywords": [
+      [
+       "origin"
+      ],
+      [
+       "straight"
+      ],
+      [
+       "curves"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both pass through the origin; the conductor is straight, while the lamp curves.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i16",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the gradient of a curved $I$–$V$ graph is not the resistance.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance at a point is $V/I$, not $\\Delta I/\\Delta V$.",
+     "keywords": [
+      [
+       "V/I"
+      ],
+      [
+       "gradient",
+       "ΔI"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance at a point is $V/I$, not $\\Delta I/\\Delta V$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i17",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch in words the negative-p.d. region of a diode $I$–$V$ graph.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Current is approximately zero under reverse bias.",
+     "keywords": [
+      [
+       "zero"
+      ],
+      [
+       "reverse"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Current is approximately zero under reverse bias.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i18",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why filament lamp resistance increases when current increases.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Larger current heats the filament; higher temperature raises its resistance.",
+     "keywords": [
+      [
+       "heats",
+       "temperature"
+      ],
+      [
+       "resistance"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Larger current heats the filament; higher temperature raises its resistance.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i19",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict how $R=V/I$ changes as a lamp brightens.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance increases as the filament heats.",
+     "keywords": [
+      [
+       "increases"
+      ],
+      [
+       "heats",
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance increases as the filament heats.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i20",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the lamp $I$–$V$ graph becomes less steep at larger currents.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its temperature and resistance rise, so each increase in p.d. produces a smaller current increase.",
+     "keywords": [
+      [
+       "temperature"
+      ],
+      [
+       "resistance"
+      ],
+      [
+       "smaller"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Its temperature and resistance rise, so each increase in p.d. produces a smaller current increase.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i21",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare a cold and hot filament at the same test current.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The hot filament has higher resistance.",
+     "keywords": [
+      [
+       "hot"
+      ],
+      [
+       "higher"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The hot filament has higher resistance.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i22",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a filament lamp does not obey Ohm’s law during heating.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its temperature and resistance change, so current is not proportional to p.d.",
+     "keywords": [
+      [
+       "temperature"
+      ],
+      [
+       "not proportional"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Its temperature and resistance change, so current is not proportional to p.d.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i23",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the resistance when a switched-on filament warms.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It rises as its temperature rises.",
+     "keywords": [
+      [
+       "rises",
+       "increases"
+      ],
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It rises as its temperature rises.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i24",
+   "kcs": [
+    "9702-9.3.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State Ohm’s law.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Current through a conductor is directly proportional to potential difference across it, provided temperature remains constant.",
+     "keywords": [
+      [
+       "current"
+      ],
+      [
+       "directly proportional"
+      ],
+      [
+       "potential difference"
+      ],
+      [
+       "temperature"
+      ],
+      [
+       "constant"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Current through a conductor is directly proportional to potential difference across it, provided temperature remains constant.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i25",
+   "kcs": [
+    "9702-9.3.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $V=IR$ alone does not fully state Ohm’s law.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The law also requires current proportional to p.d. at constant temperature.",
+     "keywords": [
+      [
+       "proportional"
+      ],
+      [
+       "constant temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The law also requires current proportional to p.d. at constant temperature.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i26",
+   "kcs": [
+    "9702-9.3.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the $I$–$V$ graph of an ohmic conductor at constant temperature.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is a straight line through the origin.",
+     "keywords": [
+      [
+       "straight"
+      ],
+      [
+       "origin"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is a straight line through the origin.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i27",
+   "kcs": [
+    "9702-9.3.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what stays constant for an ohmic conductor at constant temperature.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The ratio $V/I$, hence its resistance, stays constant.",
+     "keywords": [
+      [
+       "V/I",
+       "ratio"
+      ],
+      [
+       "constant"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The ratio $V/I$, hence its resistance, stays constant.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i28",
+   "kcs": [
+    "9702-9.3.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine whether a curved $I$–$V$ graph shows Ohm’s law.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "No: current is not proportional to p.d.",
+     "keywords": [
+      [
+       "not proportional"
+      ]
+     ]
+    }
+   ],
+   "explanation": "No: current is not proportional to p.d.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i29",
+   "kcs": [
+    "9702-9.3.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the condition needed when testing Ohm’s law.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Keep the conductor at constant temperature.",
+     "keywords": [
+      [
+       "constant"
+      ],
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Keep the conductor at constant temperature.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i30",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A wire has $\\rho=[[rho]]\\,\\Omega\\,\\mathrm{m}$, length [[L]] m and area [[A]] $\\mathrm{m^2}$. Calculate its resistance.",
+   "marks": 2,
+   "answer": {
+    "value": 40.0,
+    "unit": "ohm",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "rho": {
+      "choices": [
+       0.002,
+       0.003
+      ]
+     },
+     "L": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "A": {
+      "choices": [
+       0.0001,
+       0.0002
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "rho*L/A",
+    "distractors": [
+     {
+      "expr": "rho*A/L",
+      "misconception": "m5"
+     }
+    ],
+    "constraints": []
+   },
+   "explanation": "Apply $R=\\rho L/A$ with SI dimensions.",
+   "hints": [
+    "Identify the quantities and units.",
+    "Rearrange the relevant equation.",
+    "Substitute the given values before rounding."
+   ]
+  },
+  {
+   "id": "9702-9.3-i31",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the resistivity equation for a uniform wire.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$R=\\rho L/A$.",
+     "keywords": [
+      [
+       "R"
+      ],
+      [
+       "rho",
+       "ρ"
+      ],
+      [
+       "L"
+      ],
+      [
+       "A"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$R=\\rho L/A$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i32",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the SI unit of resistivity.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$\\Omega\\,\\mathrm{m}$.",
+     "keywords": [
+      [
+       "Ω"
+      ],
+      [
+       "m"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$\\Omega\\,\\mathrm{m}$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i33",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the resistance if a wire of the same material and area doubles in length.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance doubles because $R\\propto L$.",
+     "keywords": [
+      [
+       "doubles"
+      ],
+      [
+       "length"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance doubles because $R\\propto L$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i34",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the resistance if cross-sectional area doubles with material and length fixed.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance halves because $R\\propto 1/A$.",
+     "keywords": [
+      [
+       "halves"
+      ],
+      [
+       "area"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance halves because $R\\propto 1/A$.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i35",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why doubling a wire diameter quarters its resistance when length is fixed.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Area quadruples because $A\\propto d^2$, so $R$ becomes a quarter.",
+     "keywords": [
+      [
+       "area"
+      ],
+      [
+       "quadruples"
+      ],
+      [
+       "quarter"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Area quadruples because $A\\propto d^2$, so $R$ becomes a quarter.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i36",
+   "kcs": [
+    "9702-9.3.7"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State how the resistance of an LDR changes as light intensity increases.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance decreases.",
+     "keywords": [
+      [
+       "decreases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance decreases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i37",
+   "kcs": [
+    "9702-9.3.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the resistance of an LDR when light intensity rises.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It decreases.",
+     "keywords": [
+      [
+       "decreases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It decreases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i38",
+   "kcs": [
+    "9702-9.3.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the resistance of an LDR at higher and lower light intensity.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance is lower at higher light intensity.",
+     "keywords": [
+      [
+       "lower"
+      ],
+      [
+       "higher"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance is lower at higher light intensity.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i39",
+   "kcs": [
+    "9702-9.3.7"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why an answer saying resistance increases with rising light intensity is wrong for this component.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The specified component has resistance that decreases as light intensity increases.",
+     "keywords": [
+      [
+       "decreases"
+      ],
+      [
+       "light"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The specified component has resistance that decreases as light intensity increases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i40",
+   "kcs": [
+    "9702-9.3.7"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the trend on a resistance against light intensity graph for an LDR.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The graph slopes down as light intensity increases.",
+     "keywords": [
+      [
+       "down"
+      ],
+      [
+       "increases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The graph slopes down as light intensity increases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i41",
+   "kcs": [
+    "9702-9.3.7"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the resistance change if light intensity falls for an LDR.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance increases.",
+     "keywords": [
+      [
+       "increases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance increases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i42",
+   "kcs": [
+    "9702-9.3.8"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State how the resistance of an negative temperature coefficient thermistor changes as temperature increases.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance decreases.",
+     "keywords": [
+      [
+       "decreases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance decreases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i43",
+   "kcs": [
+    "9702-9.3.8"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the resistance of an negative temperature coefficient thermistor when temperature rises.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It decreases.",
+     "keywords": [
+      [
+       "decreases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It decreases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i44",
+   "kcs": [
+    "9702-9.3.8"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the resistance of an negative temperature coefficient thermistor at higher and lower temperature.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance is lower at higher temperature.",
+     "keywords": [
+      [
+       "lower"
+      ],
+      [
+       "higher"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance is lower at higher temperature.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i45",
+   "kcs": [
+    "9702-9.3.8"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why an answer saying resistance increases with rising temperature is wrong for this component.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The specified component has resistance that decreases as temperature increases.",
+     "keywords": [
+      [
+       "decreases"
+      ],
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The specified component has resistance that decreases as temperature increases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i46",
+   "kcs": [
+    "9702-9.3.8"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the trend on a resistance against temperature graph for an negative temperature coefficient thermistor.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The graph slopes down as temperature increases.",
+     "keywords": [
+      [
+       "down"
+      ],
+      [
+       "increases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The graph slopes down as temperature increases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-i47",
+   "kcs": [
+    "9702-9.3.8"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the resistance change if temperature falls for an negative temperature coefficient thermistor.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Resistance increases.",
+     "keywords": [
+      [
+       "increases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Resistance increases.",
+   "hints": [
+    "Recall the relevant physical quantity or behaviour.",
+    "Identify the variables that must be compared.",
+    "Start with the defining equation or trend."
+   ]
+  },
+  {
+   "id": "9702-9.3-p01",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q32",
+    "qid": "9702_w23_13_q32"
+   },
+   "stem": "The resistance of a filament lamp increases as the current in it increases.\nWhat is the reason for this?",
+   "options": {
+    "A": "The charge of each charge carrier increases.",
+    "B": "The potential difference across the filament decreases.",
+    "C": "The power dissipated by the filament decreases.",
+    "D": "The temperature of the filament increases."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "A larger current heats the filament, increasing its temperature and resistance. A falling p.d. is not the cause.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p02",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q33",
+    "qid": "9702_w22_12_q33"
+   },
+   "stem": "The potential difference (p.d.) across a filament lamp is increased.\nWhich statement is correct?",
+   "options": {
+    "A": "The resistance of the lamp decreases because the temperature decreases.",
+    "B": "The resistance of the lamp decreases because the temperature increases.",
+    "C": "The resistance of the lamp increases because the temperature decreases.",
+    "D": "The resistance of the lamp increases because the temperature increases."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "The filament heats as p.d. and current rise, so resistance increases. It does not decrease on heating.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p03",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q32",
+    "qid": "9702_w23_12_q32"
+   },
+   "stem": "The potential difference across a metal wire is kept constant. The length l and the diameter d of\nthe wire are both varied. The type of metal is kept the same.\nHow is the current in the wire related to l and d ?",
+   "options": {
+    "A": "It is directly proportional to l and inversely proportional to d.",
+    "B": "It is directly proportional to l and inversely proportional to d ².",
+    "C": "It is inversely proportional to l and directly proportional to d.",
+    "D": "It is inversely proportional to l and directly proportional to d ²."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "At fixed p.d., $I=VA/(\\rho L)$ and $A=\\pi d^2/4$, so $I\\propto d^2/L$. Diameter must be squared.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p04",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q34",
+    "qid": "9702_w22_12_q34"
+   },
+   "stem": "A metal wire has resistance R.\nThe wire is stretched so that its diameter decreases to 94.0% of the original diameter.\nThe volume of the wire is unchanged.\nWhat is the resistance of the stretched wire?",
+   "options": {
+    "A": "1.06R",
+    "B": "1.13R",
+    "C": "1.20R",
+    "D": "1.28R"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "At constant volume, $L\\propto1/A$ and $R\\propto1/A^2\\propto1/d^4$. Hence $R_{new}/R=1/0.94^4=1.28$, not 1.13.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p05",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q34",
+    "qid": "9702_s22_11_q34"
+   },
+   "stem": "A wire has a resistance of 30 Ω. A second wire is made from the same material, has the same\nmass and is three times as long as the first wire.\nWhat is the resistance of the second wire?",
+   "options": {
+    "A": "10 Ω",
+    "B": "30 Ω",
+    "C": "90 Ω",
+    "D": "270 Ω"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "Same mass and material imply equal volume. Tripling length reduces area to a third and makes resistance nine times larger, not three times.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p06",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q33",
+    "qid": "9702_w23_11_q33"
+   },
+   "stem": "A piece of conducting putty is in the shape of a cylinder of length 60 mm and diameter 20 mm.\nThe resistance between the ends of the cylinder is 20 Ω.\nWhat is the resistivity of the putty?",
+   "options": {
+    "A": "0.033 Ω m",
+    "B": "0.10 Ω m",
+    "C": "0.42 Ω m",
+    "D": "5.2 Ω m"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "$\\rho=RA/L=20\\pi(0.010)^2/0.060=0.10\\,\\Omega\\,\\mathrm{m}$. Use radius, not diameter, in area.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p07",
+   "kcs": [
+    "9702-9.3.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q33",
+    "qid": "9702_w23_13_q33"
+   },
+   "stem": "A battery of electromotive force (e.m.f.) 12 V and negligible internal resistance is connected to a\nfixed resistor of resistance 40 Ω and a thermistor of resistance RT, as shown.\n12 V\n40 \u0003\nRT\nInitially, the temperature of the thermistor is 15 °C and the current in the circuit is 0.10 A.\nThe temperature of the thermistor then changes, which causes the current to increase to 0.12 A.\nHow does the temperature of the thermistor change and what is RT at the new temperature?\ntemperature\nof thermistor\nRT at new\ntemperature / Ω",
+   "options": {
+    "A": "increases 60",
+    "B": "decreases 60",
+    "C": "increases 100",
+    "D": "decreases 100"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_13_q33.png",
+   "marks": 1,
+   "explanation": "Initially $R_T=12/0.10-40=80\\,\\Omega$; later $R_T=12/0.12-40=60\\,\\Omega$. Its temperature therefore increases, since this thermistor has a negative temperature coefficient.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p08",
+   "kcs": [
+    "9702-9.3.7",
+    "9702-9.3.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q33",
+    "qid": "9702_w23_12_q33"
+   },
+   "stem": "A student sets up a circuit. The circuit diagram shows how the positive and negative terminals of\na voltmeter are connected to the circuit. The voltmeter has an initial reading that is positive.\nV\n+\n–\nWhich changes, if any, in temperature and light intensity would cause the voltmeter reading to\ndecrease?\ntemperature\nlight intensity",
+   "options": {
+    "A": "increase increase",
+    "B": "no change decrease",
+    "C": "decrease no change",
+    "D": "decrease decrease"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_12_q33.png",
+   "marks": 1,
+   "explanation": "Increasing temperature lowers thermistor resistance; increasing light lowers LDR resistance. In the shown circuit both lower the measured p.d.; decreasing either input does not.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p09",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q35",
+    "qid": "9702_w20_12_q35"
+   },
+   "stem": "A resistor and a filament lamp are connected in series with a power supply. The I–V\ncharacteristics of the resistor and of the lamp are shown below.\n0.4\n0.3\n0.2\n0.1\n0\n0\n1\n3\n2\n4\n5\nI / A\nV / V\nresistor\n0.4\n0.3\n0.2\n0.1\n0\n0\n1\n3\n2\n4\n5\nI / A\nV / V\nfilament lamp\nThe potential difference (p.d.) across the resistor is 3.3 V.\nWhat is the resistance of the lamp?",
+   "options": {
+    "A": "0.071 Ω",
+    "B": "4.2 Ω",
+    "C": "11 Ω",
+    "D": "14 Ω"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_12_q35.png",
+   "marks": 1,
+   "explanation": "Series current is $0.30\\,\\mathrm{A}$. The lamp graph gives $4.2\\,\\mathrm{V}$, so $R=4.2/0.30=14\\,\\Omega$. The resistor’s p.d. is not the lamp p.d.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p10",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q33",
+    "qid": "9702_s22_11_q33"
+   },
+   "stem": "The graph shows the I–V characteristic for a semiconductor diode.\nI\nV\n0\n0\nWhich statement can be deduced from the graph?",
+   "options": {
+    "A": "Above a certain positive potential difference the diode obeys Ohm’s law.",
+    "B": "Current is directly proportional to potential difference when the current in the diode is in one direction.",
+    "C": "The diode has zero resistance when the current in the diode is in one direction.",
+    "D": "The resistance of the diode depends upon the potential difference across it."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_11_q33.png",
+   "marks": 1,
+   "explanation": "Use $R=V/I$ at each point of the diode graph. The steep forward section does not make current proportional to p.d. over the whole region.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p11",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q32",
+    "qid": "9702_w23_11_q32"
+   },
+   "stem": "Which graph could show how the resistance R of a filament lamp varies with the applied potential\ndifference (p.d.) V, as V is increased to the normal operating p.d.?\nR\nV\n0\n0",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_11_q32.png",
+   "marks": 1,
+   "explanation": "As p.d. rises, current heats the filament and its resistance increases from a nonzero cold value. A flat or falling resistance curve is wrong.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-p12",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q32",
+    "qid": "9702_w22_13_q32"
+   },
+   "stem": "Which component has the I–V graph shown?\nI\nV\n0\n0",
+   "options": {
+    "A": "filament lamp",
+    "B": "metallic conductor at constant temperature",
+    "C": "resistor of fixed resistance",
+    "D": "semiconductor diode"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_13_q32.png",
+   "marks": 1,
+   "explanation": "The curve bends as a filament heats. A fixed metallic conductor would give a straight line; a diode would show strongly one-way conduction.",
+   "hints": [
+    "Identify the relevant property.",
+    "Use the graph or equation carefully.",
+    "Check the physical trend before choosing."
+   ]
+  },
+  {
+   "id": "9702-9.3-x001",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q34",
+    "qid": "9702_s19_11_q34"
+   },
+   "stem": "Which graph best represents the variation with current I of potential difference V for a filament\nlamp?\n0\nV\nI\n0",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates chose either answer A or B, with approximately equal numbers of candidates choosing either answer. It is important to note that the graphs show current I on the x-axis and potential difference V on the y-axis. For a filament lamp, doubling the p.d. will increase the current in the lamp, but by less than double. The correct graph is B. Principal Examiner Report for Teachers PHYSICS"
+  },
+  {
+   "id": "9702-9.3-x002",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q34",
+    "qid": "9702_s19_12_q34"
+   },
+   "stem": "Four wires are made of the same metal. The cross-sectional areas, lengths and thermodynamic\ntemperatures of the wires are shown.\nWhich wire has the largest resistance?\ncross-sectional\narea\nlength\ntemperature",
+   "options": {
+    "A": "A 2L 2T",
+    "B": "A L T",
+    "C": "2A 2L 2T",
+    "D": "2A L T"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x003",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q33",
+    "qid": "9702_s19_13_q33"
+   },
+   "stem": "The graph shows the variation with length of the resistance of a uniform metal wire.\n00\nresistance\nlength\nThe gradient of the graph is G.\nThe wire has cross-sectional area A.\nWhich expression could be used to calculate the resistivity of the metal of the wire?",
+   "options": {
+    "A": "G × A",
+    "B": "A G",
+    "C": "G A",
+    "D": "G × A²"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x004",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q33",
+    "qid": "9702_w19_11_q33"
+   },
+   "stem": "Which graph could show how the resistance R of a filament lamp varies with the applied potential\ndifference (p.d.) V, as V is increased to the normal operating p.d.?\nR\nV\n0\n0",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates found this question difficult, with many selecting B rather than the correct answer A, perhaps confusing B with the graph of current I against V for a filament lamp. As the potential difference (p.d) across the filament lamp is increased, the current in the lamp will also increase. The filament of the lamp will get hotter so its resistance will increase. Graphs C and D can be eliminated as these show the resistance either decreasing or remaining constant as the p.d. is increased. Graph B can be rejected as the filament will still have some resistance even when the p.d. across t"
+  },
+  {
+   "id": "9702-9.3-x005",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q35",
+    "qid": "9702_w19_13_q35"
+   },
+   "stem": "A box containing two electrical components is connected into a circuit.\nA\nV\nbox\nThe variable resistor is adjusted and measurements are taken to determine the I–V characteristic\nfor the box, as shown.\n0\n0\nI\nV\nWhich arrangement of two electrical components in the box would create the best fit to the\nmeasured I–V characteristic?",
+   "options": {
+    "A": "a filament lamp and a fixed resistor in parallel",
+    "B": "a filament lamp and a fixed resistor in series",
+    "C": "a semiconductor diode and a filament lamp in parallel",
+    "D": "a semiconductor diode and a filament lamp in series"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_13_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The box must contain a diode as this is the only component that behaves differently when a positive or negative potential difference is applied across it. If the diode is in parallel with the filament lamp, the ammeter would still record a large current in the circuit regardless of the sign of the potential difference across the box, so C cannot be the correct answer."
+  },
+  {
+   "id": "9702-9.3-x006",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q34",
+    "qid": "9702_s20_11_q34"
+   },
+   "stem": "Which graph best represents the way the current I through a filament lamp varies with the\npotential difference V across it?\n0\n0\nV\nI",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x007",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q35",
+    "qid": "9702_s20_11_q35"
+   },
+   "stem": "A cylindrical metal wire X has resistance R. The same volume of the same metal is made into a\ncylindrical wire Y of double the length.\nWhat is the resistance of wire Y?",
+   "options": {
+    "A": "R",
+    "B": "2R",
+    "C": "4R",
+    "D": "8R"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x008",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q35",
+    "qid": "9702_s20_12_q35"
+   },
+   "stem": "A conductor consists of three wires connected in series. The wires are all made of the same\nmetal but have different cross-sectional areas. There is a current I in the conductor.\nconductor\nI\nI\nX\nY\nPoint Y on the conductor is at zero potential.\nWhich graph best shows the variation of potential V with distance along the conductor?\nV",
+   "options": {
+    "A": "V",
+    "B": "V",
+    "C": "V",
+    "D": "0 X 0 X 0 X 0 X Y Y Y Y distance distance distance distance"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x009",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q36",
+    "qid": "9702_s20_13_q36"
+   },
+   "stem": "The wire of a heating element has resistance R. The wire breaks and is replaced by a different\nwire.\nData for the original wire and for the replacement wire are shown in the table.\nlength\ndiameter\nresistivity\nof metal\noriginal wire\nl\nd\nρ\nreplacement wire\nl\n2d\n2ρ\nWhat is the resistance of the replacement wire?",
+   "options": {
+    "A": "4 R",
+    "B": "2 R",
+    "C": "R",
+    "D": "2R"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x010",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q34",
+    "qid": "9702_w20_11_q34"
+   },
+   "stem": "A cable of length L consisting of two wires is used to connect a 12.0 V power supply of negligible\ninternal resistance to a lamp, as shown.\n2.50 A\n12.0 V\n10.5 V\nL\nThe potential difference across the lamp is 10.5 V. The current in the wire is 2.50 A.\nEach wire is made of metal of resistivity 1.70 × 10⁻⁸\nΩ m and has a cross-sectional area of\n6.00 × 10⁻⁷\nm².\nWhat is the length L of the cable?",
+   "options": {
+    "A": "10.6 m",
+    "B": "21.2 m",
+    "C": "29.4 m",
+    "D": "58.8 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "No candidate answered this question correctly. It is important to note that the cable is, in effect, a wire of length 2L. The current in the wire is 2.50 A and the potential difference across it is 1.5 V. The resistance of this wire is: V 1.5 R = = = 0.60 I 2.50 Using L R = : A ρ ( ) -7 -8 RA 0.60 × 6.00 ×1 0 2L= = = 21.2 m answer 1.70 × 10 ρ B L = 10.6 m (the correct answer, A) Principal Examiner Report for Teachers"
+  },
+  {
+   "id": "9702-9.3-x011",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q33",
+    "qid": "9702_w20_13_q33"
+   },
+   "stem": "Two resistors R₁ and R₂ are made from wire of the same material.\nThey are connected in parallel to each other in a circuit, as shown.\nR₁\nR₂\nThe diameter of R₂ is half the diameter of R₁.\nThe resistance of R₂ is three times the resistance of R₁.\nWhat is the value of the ratio\n1\n2\naverage drift speed of free electrons in R\naverage drift speed of free electrons inR ?",
+   "options": {
+    "A": "3 2",
+    "B": "3 4",
+    "C": "1 6",
+    "D": "1 12"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x012",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q34",
+    "qid": "9702_s21_11_q34"
+   },
+   "stem": "A length of wire is connected into an electric circuit. The current in the wire is measured.\nWhich change on its own could increase the current in the wire?",
+   "options": {
+    "A": "an increase in the length of the wire",
+    "B": "an increase in the radius of the wire",
+    "C": "an increase in the resistance of the wire",
+    "D": "an increase in the resistivity of the wire"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x013",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q34",
+    "qid": "9702_s21_12_q34"
+   },
+   "stem": "The graph shows the variation with potential difference V of the current I in components X, Y\nand Z.\nI\nV\n0\n0\nX\nZ\nY\nWhich row correctly identifies the components?\nmetallic conductor at\nconstant temperature\nsemiconductor\ndiode\nfilament\nlamp",
+   "options": {
+    "A": "X Z Y",
+    "B": "Y X Z",
+    "C": "Y Z X",
+    "D": "Z Y X"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x014",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q35",
+    "qid": "9702_s21_12_q35"
+   },
+   "stem": "A wire of resistance 9.55 Ω has a diameter of 0.280 mm.\nIt is made of metal of resistivity 4.90 × 10⁻⁷\nΩ m.\nWhat is the length of the wire?",
+   "options": {
+    "A": "1.20 m",
+    "B": "4.80 m",
+    "C": "19.0 m",
+    "D": "76.0 m"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x015",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q34",
+    "qid": "9702_w21_11_q34"
+   },
+   "stem": "The I–V characteristics of two electrical components P and Q are shown.\n2.0\n1.5\n1.0\n0.5\n0\n0\n2.0\n4.0\n6.0\n8.0\nI / A\nV / V\nP\nQ\nWhich statement is correct?",
+   "options": {
+    "A": "For a current of 0.5 A, the power dissipated in Q is double that in P.",
+    "B": "For a current of 1.9 A, the resistance of Q is approximately half that of P.",
+    "C": "The resistance of Q increases as the current in it increases.",
+    "D": "P is a fixed resistor and Q is a filament lamp."
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x016",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q35",
+    "qid": "9702_w21_11_q35"
+   },
+   "stem": "Two copper wires S and T, of equal length, are connected in parallel. Wire S has a diameter of\n3.0 mm. Wire T has a diameter of 1.5 mm.\nA potential difference is applied across the ends of this parallel arrangement.\nWhat is the value of the ratio\nT\nin\ncurrent\nS\nin\ncurrent\n?",
+   "options": {
+    "A": "4 1",
+    "B": "2 1",
+    "C": "2",
+    "D": "4"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x017",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q35",
+    "qid": "9702_w21_12_q35"
+   },
+   "stem": "The graphs show the variation with potential difference V of the current I for three circuit\ncomponents.\ngraph X\nV\n0\nI\ngraph Z\nV\n0\nI\ngraph Y\nV\n0\n0\n0\n0\nI\nThe components are a metal wire at constant temperature, a semiconductor diode and a filament\nlamp.\nWhich row correctly identifies these graphs?\nmetal wire\nat constant\ntemperature\nsemiconductor\ndiode\nfilament\nlamp",
+   "options": {
+    "A": "X Z Y",
+    "B": "Y X Z",
+    "C": "Y Z X",
+    "D": "Z X Y"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x018",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q35",
+    "qid": "9702_w21_13_q35"
+   },
+   "stem": "A wire of uniform cross-section has resistance R.\nA second wire is made of the same material but is twice as long and has twice the diameter of the\nfirst wire.\nWhat is the resistance of the second wire?",
+   "options": {
+    "A": "8 R",
+    "B": "2 R",
+    "C": "R",
+    "D": "8R"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_13_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x019",
+   "kcs": [
+    "9702-9.3.7",
+    "9702-9.3.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q33",
+    "qid": "9702_s22_12_q33"
+   },
+   "stem": "The intensity of light incident on a light-dependent resistor (LDR) is increased. The temperature\nof a thermistor is increased. In each case, the current in the component is maintained at a\nconstant value.\nWhat happens to the potential difference across each component?\nLDR\nthermistor",
+   "options": {
+    "A": "increases increases",
+    "B": "increases decreases",
+    "C": "decreases increases",
+    "D": "decreases decreases"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x020",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q34",
+    "qid": "9702_s22_12_q34"
+   },
+   "stem": "An iron wire has length 8.0 m and diameter 0.50 mm. The wire has resistance R.\nA second iron wire has length 2.0 m and diameter 1.0 mm.\nWhat is the resistance of the second wire?",
+   "options": {
+    "A": "16 R",
+    "B": "8 R",
+    "C": "2 R",
+    "D": "R"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x021",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q34",
+    "qid": "9702_s22_13_q34"
+   },
+   "stem": "A fixed resistor and a filament lamp are connected in series to a power supply.\nThe I–V characteristics for the two components are shown.\n0.5\n0.4\n0.3\n0.2\n0.1\n0\nI / A\nV / V\nfixed resistor\n0\n2\n4\n6\n8\n10\n0.5\n0.4\n0.3\n0.2\n0.1\n0\nI / A\nV / V\nfilament lamp\n0\n2\n4\n6\n8\n10\nThe current in the fixed resistor is 0.34 A.\nWhat is the resistance of the filament lamp?",
+   "options": {
+    "A": "0.081 Ω",
+    "B": "12 Ω",
+    "C": "15 Ω",
+    "D": "18 Ω"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x022",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q35",
+    "qid": "9702_s22_13_q35"
+   },
+   "stem": "A piece of conducting putty (modelling clay) of constant resistivity is formed into a cylindrical\nshape.\nThe resistance R between its flat ends (shaded) is measured.\nL\nThe same volume of putty is re-formed into cylinders of different lengths L, and the resistance R\nbetween the flat ends is measured for each value of L.\nWhich graph best shows the variation of R with L?\nR\nL\n0\n0\nR\nL",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_13_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "About a quarter of the candidates chose the correct answer D, but more candidates chose B. The same volume of conducting putty is re-formed into cylinders of increasing length. The resistance is related to the dimensions by R = ρL / A. It is helpful to use V = AL to re-write the equation as R = ρL2 / V, after which it is much more obvious that D is the correct answer. For B to be most popular answer, it seems that the majority of candidates identified the effect of increasing length on the resistance, but they did not consider the decreasing cross-sectional area or its effect on the resistance"
+  },
+  {
+   "id": "9702-9.3-x023",
+   "kcs": [
+    "9702-9.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q2",
+    "qid": "9702_w22_11_q2"
+   },
+   "stem": "A voltmeter connected across a resistor in a circuit reads 3.6 V.\nWhat could be the current in the resistor and the resistance of the resistor?\ncurrent\nresistance",
+   "options": {
+    "A": "150 mA 0.24 kΩ",
+    "B": "15 mA 2.4 kΩ",
+    "C": "1.5 mA 0.24 MΩ",
+    "D": "15 μA 240 kΩ"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_11_q2.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x024",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q33",
+    "qid": "9702_w22_11_q33"
+   },
+   "stem": "A copper wire is to be replaced by an aluminium alloy wire of the same length and resistance.\nCopper has half the resistivity of the alloy.\nWhat is the ratio\nwire\ncopper\nof\ndiameter\nalloy wire\nof\ndiameter\n?",
+   "options": {
+    "A": "2",
+    "B": "2",
+    "C": "2 2",
+    "D": "4"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x025",
+   "kcs": [
+    "9702-9.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q31",
+    "qid": "9702_w22_12_q31"
+   },
+   "stem": "A nichrome wire has a resistance of 15 Ω and a diameter of 3.0 mm. The number density of the\nfree electrons in nichrome is 9.0 × 10²⁸\nm⁻³.\nA potential difference (p.d.) of 6.0 V is applied between the ends of the wire.\nWhat is the average drift speed of the free electrons in the wire?",
+   "options": {
+    "A": "9.8 × 10⁻⁷ m s⁻¹",
+    "B": "3.9 × 10⁻⁶ m s⁻¹",
+    "C": "6.1 × 10⁻⁶ m s⁻¹",
+    "D": "2.5 × 10⁻⁵ m s⁻¹"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x026",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q33",
+    "qid": "9702_w22_13_q33"
+   },
+   "stem": "Two wires, P and Q, have the same resistance. Wire Q is made of material that has twice the\nresistivity of the material used to make wire P. The diameter of wire Q is twice the diameter of\nwire P.\nWhat is the ratio\nQ\nwire\nof\nlength\nP\nwire\nof\nlength\n?",
+   "options": {
+    "A": "8 1",
+    "B": "4 1",
+    "C": "2 1",
+    "D": "1 2"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x027",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q32",
+    "qid": "9702_s23_11_q32"
+   },
+   "stem": "Which graph shows the I–V characteristic of a filament lamp?\nI\n0\n0\n0\n0\n0\n0\n0\n0",
+   "options": {
+    "A": "V",
+    "D": "V I",
+    "C": "V I",
+    "B": "V I"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_11_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x028",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q33",
+    "qid": "9702_s23_11_q33"
+   },
+   "stem": "A metal wire has a length of 2.50 m and a cross-sectional area of 4.50 × 10⁻⁶\nm². The resistivity of\nthe metal is 3.50 × 10⁻⁷\nΩ m.\nThe wire is stretched so that its length increases to 2.65 m. The wire remains cylindrical and the\nvolume of the wire remains constant.\nWhat is the change in the resistance of the wire?",
+   "options": {
+    "A": "0.012 Ω",
+    "B": "0.024 Ω",
+    "C": "0.19 Ω",
+    "D": "0.22 Ω"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates who answered this question incorrectly frequently chose answer A, ignoring the change in the cross-sectional area of the wire when the wire is stretched. The key to this question is to realise that the product of the length of the wire and its cross-sectional area remains constant as the volume of the wire is constant. The fractional increase in the length of the wire is 2.65 2.50 and the fractional decrease in the cross- sectional area of the wire is 2.50 2.65 . For the unstretched wire: ρ × × = = = Ω × –7 –6 3.50 1 0 2.50 0.194 4.50 1 0 L R A For the stretched wire: ρ × × ′ = = = "
+  },
+  {
+   "id": "9702-9.3-x029",
+   "kcs": [
+    "9702-9.3.7",
+    "9702-9.3.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q33",
+    "qid": "9702_s23_12_q33"
+   },
+   "stem": "A car has sensors for detecting the light intensity and temperature of its environment.\nThe sensors make use of a light-dependent resistor (LDR) and a thermistor.\nThe car moves from a warm and dark environment into a cold and bright environment.\nWhat are the changes to the resistances of the LDR and thermistor?\nresistance\nof LDR\nresistance of\nthermistor",
+   "options": {
+    "A": "increases increases",
+    "B": "increases decreases",
+    "C": "decreases increases",
+    "D": "decreases decreases"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Almost all the candidates decided that the resistance of one of the components would increase and the other would decrease, but some candidates decided the resistance of the LDR would increase and the resistance of the thermistor would decrease (answer B). As the light intensity incident on the LDR increases, its resistance decreases; as the thermistor moves from a warm to a cold environment its resistance will increase (answer C). Principal Examiner Report for Teachers"
+  },
+  {
+   "id": "9702-9.3-x030",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q32",
+    "qid": "9702_s23_13_q32"
+   },
+   "stem": "A wire has a length of 3.0 m and is made of metal of resistivity 4.9 × 10⁻⁷\nΩ m.\nA potential difference (p.d.) of 12 V is applied across the wire so that it has a current of 1.4 A.\nWhat is the cross-sectional area of the wire?",
+   "options": {
+    "A": "1.2 × 10⁻⁷ m²",
+    "B": "1.7 × 10⁻⁷ m²",
+    "C": "1.1 × 10⁻⁶ m²",
+    "D": "1.3 × 10⁻⁵ m²"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x031",
+   "kcs": [
+    "9702-9.3.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q33",
+    "qid": "9702_s23_13_q33"
+   },
+   "stem": "A cell of negligible internal resistance is connected in series with a thermistor, a fixed resistor and\nan ammeter.\nThe thermistor is placed in a beaker of water and the temperature of the water is slowly\nincreased.\nA graph of current I against the temperature T of the thermistor is plotted.\nWhich graph could show the variation of I with T ?\nT\nI\nT",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x032",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q31",
+    "qid": "9702_s24_11_q31"
+   },
+   "stem": "What is the unit of resistivity?",
+   "options": {
+    "A": "Ω m⁻²",
+    "B": "Ω m⁻¹",
+    "C": "Ω",
+    "D": "Ω m"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x033",
+   "kcs": [
+    "9702-9.3.3",
+    "9702-9.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q31",
+    "qid": "9702_s24_12_q31"
+   },
+   "stem": "The I–V characteristics for four components, A, B, C and D, are shown.\nWhich component has the greatest resistance when the potential difference across it is V₁?\n0\n0\nvoltage\ncurrent\nV₁",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_12_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x034",
+   "kcs": [
+    "9702-9.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q31",
+    "qid": "9702_s24_13_q31"
+   },
+   "stem": "The current in a filament lamp is increased.\nWhich statement about the lamp is correct?",
+   "options": {
+    "A": "The brightness of the lamp decreases.",
+    "B": "The potential difference across the filament decreases.",
+    "C": "The resistance of the filament decreases.",
+    "D": "The temperature of the filament increases."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x035",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q33",
+    "qid": "9702_s24_13_q33"
+   },
+   "stem": "The resistance of a metal cube is measured by placing it between two parallel plates, as shown.\nX\nY\nThe cube has volume V and is made of a material with resistivity ρ. The connections to the cube\nhave negligible resistance.\nWhich expression gives the electrical resistance of the metal cube between X and Y?",
+   "options": {
+    "A": "ρ 3 1 V",
+    "B": "ρ 3 2 V",
+    "C": "3 1 V ρ",
+    "D": "3 2 V ρ"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x037",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q33",
+    "qid": "9702_w24_12_q33"
+   },
+   "stem": "The potential difference V across a filament lamp is slowly raised from zero to its normal\noperating value.\nWhich graph represents the variation with V of the current I in the lamp?\n0\n0\nI\nV",
+   "options": {
+    "A": "I V",
+    "B": "I V",
+    "C": "I V",
+    "D": "0 0 0 0 0 0"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x038",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q33",
+    "qid": "9702_w24_13_q33"
+   },
+   "stem": "A fixed resistor and a diode are combined by connecting them in series. The total potential\ndifference V across the combination is varied and the corresponding current I is measured.\nWhich graph could represent the variation of I with V ?\n0\n0",
+   "options": {
+    "A": "I V 0 0",
+    "B": "I V 0 0",
+    "C": "I V 0 0",
+    "D": "I V"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x039",
+   "kcs": [
+    "9702-9.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q32",
+    "qid": "9702_s25_11_q32"
+   },
+   "stem": "Which expression gives the definition of resistance?",
+   "options": {
+    "A": "current divided by potential difference",
+    "B": "current multiplied by potential difference",
+    "C": "potential difference divided by current",
+    "D": "resistivity multiplied by length"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x040",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q33",
+    "qid": "9702_s25_11_q33"
+   },
+   "stem": "The graph shows the I–V characteristic of an electrical component.\nI\nV\n0\n0\nWhat is the component?",
+   "options": {
+    "A": "a filament lamp",
+    "B": "a metallic conductor at constant temperature",
+    "C": "a resistor",
+    "D": "a semiconductor diode"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x041",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q35",
+    "qid": "9702_s25_11_q35"
+   },
+   "stem": "The diagram shows a circuit containing a thermistor, a fixed resistor and a battery.\nThe graph shows the I−V characteristics of both components.\n0.8\n0.6\n0.4\n0.2\n0\n0\n2\n4\n6\n8\npotential difference / V\ncurrent / mA\n10\n12\nThe battery has an e.m.f. of 12 V and negligible internal resistance.\nWhat is the current in the fixed resistor?",
+   "options": {
+    "A": "0.36 mA",
+    "B": "0.40 mA",
+    "C": "0.48 mA",
+    "D": "0.80 mA"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x042",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q32",
+    "qid": "9702_s25_12_q32"
+   },
+   "stem": "A wire is made from a metal of constant resistivity. There is a constant current in the wire.\nWhich statement about the potential difference across the wire is correct?",
+   "options": {
+    "A": "It is directly proportional to the length of the wire.",
+    "B": "It is inversely proportional to the length of the wire.",
+    "C": "It is directly proportional to the diameter of the wire.",
+    "D": "It is inversely proportional to the diameter of the wire"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x043",
+   "kcs": [
+    "9702-9.3.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q33",
+    "qid": "9702_s25_12_q33"
+   },
+   "stem": "The I–V characteristics for three electrical components are shown.\nI\nV\n0\n0\n1\nI\nV\n0\n0\n2\nI\nV\n0\n0\n3\nWhich components obey Ohm’s law?",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1 and 2 only",
+    "C": "1 and 3 only",
+    "D": "1 only"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x044",
+   "kcs": [
+    "9702-9.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q34",
+    "qid": "9702_s25_12_q34"
+   },
+   "stem": "A resistor of resistance 200 Ω is connected to a supply that has a p.d. of 4.00 V.\nHow many electrons enter the resistor in 4.00 s?",
+   "options": {
+    "A": "3.13 × 10¹⁶",
+    "B": "1.25 × 10¹⁷",
+    "C": "5.00 × 10¹⁷",
+    "D": "1.25 × 10²¹"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x045",
+   "kcs": [
+    "9702-9.3.2",
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q34",
+    "qid": "9702_s25_13_q34"
+   },
+   "stem": "A steel wire with a length of 2.20 m is connected to a battery as shown.\nA\nV\nsteel wire\nThe reading on the voltmeter is 1.50 V and the reading on the ammeter is 4.90 A.\nThe resistivity of steel is 6.90 × 10⁻⁷\nΩ m.\nWhat is the diameter of the steel wire?",
+   "options": {
+    "A": "1.76 × 10⁻ 4 m",
+    "B": "3.52 × 10⁻ 4 m",
+    "C": "1.26 × 10⁻³ m",
+    "D": "2.51 × 10⁻³ m"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x046",
+   "kcs": [
+    "9702-9.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q33",
+    "qid": "9702_w25_11_q33"
+   },
+   "stem": "The graphs show possible current–voltage (I–V\n) characteristics for a filament lamp and for a\nsemiconductor diode.\nI\nV\n0\n0\nP\nQ\nR\nS\nI\nV\n0\n0\nI\nV\n0\n0\nI\nV\n0\n0\nWhich row identifies the I–V graphs for the lamp and for the diode?\nfilament lamp\nsemiconductor\ndiode",
+   "options": {
+    "A": "P R",
+    "B": "P S",
+    "C": "Q R",
+    "D": "Q S"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w25_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x047",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q36",
+    "qid": "9702_w25_11_q36"
+   },
+   "stem": "Two identical wires X and Y, each of length L and radius r, are connected in parallel as shown.\nX\nY\nThe total resistance of this combination is R₁.\nWire X is replaced with a wire of the same material with length L and radius 2r.\nThe total resistance of the new combination is R₂.\nWhat is the ratio\n2\n1\nR\nR ?",
+   "options": {
+    "A": "5 2",
+    "B": "3 2",
+    "C": "2 3",
+    "D": "2 5"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.3-x048",
+   "kcs": [
+    "9702-9.3.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q33",
+    "qid": "9702_w25_12_q33"
+   },
+   "stem": "A piece of wire X has resistivity ρ, length L and cross-sectional area A. Wire X has a\nresistance R.\nA second piece of wire Y is made of a different metal. It has the same resistance as X but has\ntwice the length of X.\nWhich row gives possible values for the resistivity and the cross-sectional area of Y?\nresistivity\ncross-sectional\narea",
+   "options": {
+    "A": "ρ 2 1 A 2 1",
+    "B": "ρ 2 1 A",
+    "C": "ρ A 2 1",
+    "D": "2ρ A"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w25_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-9.3.1",
+   "front": "Define resistance.",
+   "back": "The ratio of the potential difference across a component to the current through it."
+  },
+  {
+   "id": "fc5",
+   "kc": "9702-9.3.5",
+   "front": "State Ohm’s law.",
+   "back": "The current through a conductor is directly proportional to the potential difference across it, provided its temperature remains constant."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-9.3.1": {
+   "motivate": "A p.d. alone cannot tell you how strongly a component limits current.",
+   "establish": "Resistance is the ratio of potential difference across a component to current through it: $R=V/I$. The SI unit is the ohm, $\\Omega$. One ohm corresponds to one volt across a component when one ampere flows.",
+   "connect": "This definition lets you find resistance from simultaneous voltage and current readings.",
+   "note": "- $R=V/I$\n- p.d. across, current through\n- unit: $\\Omega$",
+   "self_explain": "Why must the current and p.d. refer to the same component?",
+   "source": "pack"
+  },
+  "9702-9.3.2": {
+   "motivate": "Circuit measurements often give two of voltage, current and resistance.",
+   "establish": "$V=IR$ relates potential difference $V$ across a component, current $I$ through it and resistance $R$. Rearrange to $I=V/R$ or $R=V/I$ as needed. Use volts, amperes and ohms.",
+   "connect": "This equation also works at one operating point of a non-ohmic component.",
+   "note": "- $V=IR$\n- $I=V/R$\n- $R=V/I$",
+   "self_explain": "How would you find current if voltage and resistance are given?",
+   "source": "pack"
+  },
+  "9702-9.3.3": {
+   "motivate": "Graph shapes reveal whether a component has fixed resistance.",
+   "establish": "With current $I$ vertical and p.d. $V$ horizontal, a metallic conductor at constant temperature gives a straight line through the origin. A filament lamp gives a curve through the origin that becomes less steep as $|V|$ grows. A semiconductor diode has almost no reverse current and a sharp forward rise after a threshold.",
+   "connect": "Read $V$ and $I$ at the same point to find $R=V/I$; the curved graph’s gradient is different.",
+   "note": "- metal: straight through origin\n- lamp: flattening curve\n- diode: one-way rise",
+   "self_explain": "What feature distinguishes the diode from the lamp graph?",
+   "source": "pack"
+  },
+  "9702-9.3.4": {
+   "motivate": "A filament lamp changes as it warms during use.",
+   "establish": "Increasing current heats the metal filament. Its temperature rises, and its resistance increases. Therefore current grows less than proportionally with p.d., giving a curved $I$–$V$ characteristic. The cold filament still has nonzero resistance at zero p.d.",
+   "connect": "This is why a lamp does not follow Ohm’s law while its temperature changes.",
+   "note": "- more current heats filament\n- hotter filament: higher resistance\n- lamp graph curves",
+   "self_explain": "Why does the lamp curve become less steep?",
+   "source": "pack"
+  },
+  "9702-9.3.5": {
+   "motivate": "An equation alone does not tell you whether resistance stays constant.",
+   "establish": "Ohm’s law states: the current through a conductor is directly proportional to the potential difference across it, provided its temperature remains constant. Thus $V/I$ is constant under that condition. The $I$–$V$ graph is a straight line through the origin.",
+   "connect": "A filament lamp fails the constant-temperature condition as its current rises.",
+   "note": "- current proportional to p.d.\n- temperature constant\n- resistance constant",
+   "self_explain": "What condition must accompany a statement of Ohm’s law?",
+   "source": "pack"
+  },
+  "9702-9.3.6": {
+   "motivate": "Wires of the same material can have very different resistances.",
+   "establish": "For a uniform wire, $R=\\rho L/A$, where $\\rho$ is material resistivity, $L$ is length and $A$ is cross-sectional area. Resistivity has unit $\\Omega\\,\\mathrm{m}$. For diameter $d$, $A=\\pi d^2/4$. At fixed material, resistance increases with length and decreases with area.",
+   "connect": "Combine with $V=IR$ to predict current at fixed p.d.; remember that doubling diameter quadruples area.",
+   "note": "- $R=\\rho L/A$\n- $A=\\pi d^2/4$\n- unit of $\\rho$: $\\Omega\\,\\mathrm{m}$",
+   "self_explain": "Why is diameter squared in wire-resistance comparisons?",
+   "source": "pack"
+  },
+  "9702-9.3.7": {
+   "motivate": "A light sensor changes an electrical resistance.",
+   "establish": "The resistance of a light-dependent resistor (LDR) decreases as the light intensity incident on it increases. In dimmer light its resistance is higher. The statement concerns the LDR itself; a circuit’s measured p.d. also depends on how it is connected.",
+   "connect": "This trend supports sensing changes in illumination in a circuit.",
+   "note": "- more light: lower LDR resistance\n- less light: higher LDR resistance",
+   "self_explain": "What happens to an LDR resistance when a lamp shines more brightly on it?",
+   "source": "pack"
+  },
+  "9702-9.3.8": {
+   "motivate": "A temperature sensor turns warming into a resistance change.",
+   "establish": "For this syllabus, a thermistor is assumed to have a negative temperature coefficient. Its resistance decreases as temperature increases, and increases as it cools. This trend differs from a metal filament, whose resistance rises as it heats.",
+   "connect": "Use the thermistor trend before analysing a potential divider or series circuit.",
+   "note": "- hotter thermistor: lower resistance\n- cooler thermistor: higher resistance\n- negative temperature coefficient",
+   "self_explain": "How does cooling affect the assumed thermistor?",
+   "source": "pack"
+  }
+ }
+}
