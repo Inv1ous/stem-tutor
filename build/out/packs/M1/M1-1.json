@@ -1,0 +1,697 @@
+{
+ "subtopic": "M1-1",
+ "spec": "M1",
+ "version": 1,
+ "note": "Subjects/Maths/M1 Mechanics 1/1 Mathematical models in mechanics.md",
+ "outline": "Mechanics replaces objects and contacts with idealised models. A particle has mass but negligible size; a lamina has negligible thickness; a rigid body does not deform. Light means negligible mass, uniform means evenly distributed mass, and inextensible means fixed length. Smooth contact has no friction, while rough contact may have friction. A light smooth pulley with a light string gives equal tension on both sides. A bead is constrained to a wire; a peg is a fixed support. Choose each assumption for the property relevant to the problem.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "M1-1.1",
+   "statement": "A particle has no mass.",
+   "refutation": "A particle has mass, but its dimensions are negligible for the problem.",
+   "contrast": "A vehicle can be treated as a particle when only its motion along a route matters.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "M1-1.1",
+   "statement": "A light rod or string has zero tension or force.",
+   "refutation": "Light means its mass is negligible; it can still transmit a force.",
+   "contrast": "A light string can pull with non-zero tension.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "M1-1.1",
+   "statement": "A smooth surface or pulley has no normal reaction or tension.",
+   "refutation": "Smooth removes friction, not the normal reaction or the tension in a string.",
+   "contrast": "A block on a smooth table still experiences a normal reaction.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "M1-1.1",
+   "statement": "Uniform means the same as light or rigid.",
+   "refutation": "Uniform describes even mass distribution; light describes negligible mass and rigid describes no deformation.",
+   "contrast": "A uniform heavy rod may be rigid and has its centre of mass at its midpoint.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "M1-1.1",
+   "statement": "Inextensible means the string cannot move.",
+   "refutation": "Its length stays constant; different parts can still move.",
+   "contrast": "For a taut inextensible string over a fixed pulley, connected particles have equal displacement magnitudes.",
+   "source": "research"
+  }
+ ],
+ "worked": [],
+ "items": [
+  {
+   "id": "M1-1-i01",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what is meant by treating a body as a particle.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It has mass but negligible dimensions for the problem.",
+     "keywords": [
+      [
+       "mass"
+      ],
+      [
+       "negligible"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The body retains its mass; its size and shape have no effect on the motion being modelled.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i02",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what is meant by a lamina.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A thin flat sheet whose thickness is negligible compared with its other dimensions.",
+     "keywords": [
+      [
+       "flat"
+      ],
+      [
+       "thickness"
+      ],
+      [
+       "negligible"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A thin flat sheet whose thickness is negligible compared with its other dimensions.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i03",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what is meant by a rigid body.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its shape and size do not change under the forces considered.",
+     "keywords": [
+      [
+       "shape"
+      ],
+      [
+       "do not change"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Its shape and size do not change under the forces considered.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i04",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the property represented by a light rod.",
+   "marks": 1,
+   "options": {
+    "A": "Its mass is negligible.",
+    "B": "Its length is negligible.",
+    "C": "It cannot transmit a force.",
+    "D": "Its mass is evenly distributed."
+   },
+   "answer": "A",
+   "distractors": {
+    "C": "m2",
+    "D": "m4"
+   },
+   "shuffle": true,
+   "explanation": "Light means negligible mass, so the rod can still transmit force. Equal mass distribution describes a uniform rod.",
+   "hints": [
+    "Focus on what the model simplifies.",
+    "Separate mass, size, and deformation.",
+    "Check which physical property the adjective describes."
+   ]
+  },
+  {
+   "id": "M1-1-i05",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the difference between a uniform rod and a non-uniform rod.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "A uniform rod has mass evenly distributed along its length.",
+     "keywords": [
+      [
+       "mass"
+      ],
+      [
+       "evenly"
+      ]
+     ]
+    },
+    {
+     "point": "A non-uniform rod does not have mass evenly distributed along its length.",
+     "keywords": [
+      [
+       "non-uniform"
+      ],
+      [
+       "not evenly"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A uniform rod has constant mass per unit length, so its centre of mass is at its midpoint. A non-uniform rod need not have its centre of mass there.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i06",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the two assumptions for a light inextensible string.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Its mass is negligible.",
+     "keywords": [
+      [
+       "mass"
+      ],
+      [
+       "negligible"
+      ]
+     ]
+    },
+    {
+     "point": "Its length remains constant when pulled taut.",
+     "keywords": [
+      [
+       "length"
+      ],
+      [
+       "constant"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Light removes the string’s own weight from the model. Inextensible means it does not stretch; tension may still be present.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i07",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the force that a smooth horizontal table can exert on a resting block.",
+   "marks": 1,
+   "options": {
+    "A": "A normal reaction but no friction.",
+    "B": "Neither a normal reaction nor friction.",
+    "C": "Friction but no normal reaction.",
+    "D": "A fixed friction force and a normal reaction."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "shuffle": true,
+   "explanation": "Smooth means frictionless contact. The table can still exert a normal reaction on the block.",
+   "hints": [
+    "Focus on what the model simplifies.",
+    "Separate mass, size, and deformation.",
+    "Check which physical property the adjective describes."
+   ]
+  },
+  {
+   "id": "M1-1-i08",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what a rough surface permits that a smooth surface does not.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A rough surface can exert friction tangential to the contact.",
+     "keywords": [
+      [
+       "friction"
+      ],
+      [
+       "tangential"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Rough contact can exert friction; its size depends on the situation. Smooth contact has no friction.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i09",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the assumptions of a light smooth pulley.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Its mass is negligible.",
+     "keywords": [
+      [
+       "mass"
+      ],
+      [
+       "negligible"
+      ]
+     ]
+    },
+    {
+     "point": "There is no friction between the pulley and the string.",
+     "keywords": [
+      [
+       "friction"
+      ],
+      [
+       "no"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The pulley’s mass and bearing friction are neglected. With a light string, the tension is the same on both sides of a smooth pulley.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i10",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find what inextensibility implies for two particles joined by a taut string over a fixed pulley.",
+   "marks": 1,
+   "options": {
+    "A": "They have equal displacement magnitudes along the string.",
+    "B": "Both particles remain stationary.",
+    "C": "The string has zero tension.",
+    "D": "Both particles have equal mass."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m5",
+    "C": "m2"
+   },
+   "shuffle": true,
+   "explanation": "The total taut string length is fixed, so one end moving a given distance makes the other end move the same distance along the string. The particles can move and may have different masses.",
+   "hints": [
+    "Focus on what the model simplifies.",
+    "Separate mass, size, and deformation.",
+    "Check which physical property the adjective describes."
+   ]
+  },
+  {
+   "id": "M1-1-i11",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what is meant by a bead moving on a wire.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A small object is constrained to move along the wire.",
+     "keywords": [
+      [
+       "constrained"
+      ],
+      [
+       "wire"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A bead is modelled as a small object threaded on a wire; its path is constrained by the wire. Contact friction depends on whether the wire is specified as smooth.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i12",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how a peg differs from a pulley in a string model.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "A peg is a fixed small support about which the string can pass.",
+     "keywords": [
+      [
+       "fixed"
+      ],
+      [
+       "support"
+      ]
+     ]
+    },
+    {
+     "point": "A pulley is a wheel that can rotate as the string moves.",
+     "keywords": [
+      [
+       "wheel"
+      ],
+      [
+       "rotate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A peg is fixed and a pulley rotates. A peg must be specified as smooth before friction can be neglected.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i13",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a uniform rigid rod can have a non-zero weight even if its shape does not change.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Rigid describes lack of deformation, not lack of mass.",
+     "keywords": [
+      [
+       "rigid"
+      ],
+      [
+       "mass"
+      ]
+     ]
+    },
+    {
+     "point": "Uniform describes even mass distribution, with weight acting through the midpoint in a uniform gravitational field.",
+     "keywords": [
+      [
+       "uniform"
+      ],
+      [
+       "midpoint"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Rigid and uniform describe different properties. A uniform rod may be heavy; its centre of mass is at the midpoint.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i14",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the modelling assumptions needed to use equal tension on both sides of a pulley in a connected-particle problem.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The string is light, so its mass is negligible.",
+     "keywords": [
+      [
+       "string"
+      ],
+      [
+       "light"
+      ]
+     ]
+    },
+    {
+     "point": "The pulley is smooth, so friction at contact is neglected.",
+     "keywords": [
+      [
+       "pulley"
+      ],
+      [
+       "smooth"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For a light string passing over a smooth pulley, tension is equal on the two sides. Light alone does not remove pulley friction.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  },
+  {
+   "id": "M1-1-i15",
+   "kcs": [
+    "M1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain whether a rough wire guarantees friction acts on a stationary bead, and give a reason.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Roughness permits friction but does not guarantee a non-zero friction force.",
+     "keywords": [
+      [
+       "permits"
+      ],
+      [
+       "not guarantee"
+      ]
+     ]
+    },
+    {
+     "point": "Friction depends on the tendency for relative motion.",
+     "keywords": [
+      [
+       "relative"
+      ],
+      [
+       "motion"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Rough means friction is available. If there is no tendency to slip along the wire, the friction force can be zero.",
+   "hints": [
+    "Identify which property of the model matters.",
+    "Connect the stated assumption to a physical quantity.",
+    "Write the implication in the context of the object."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "M1-1.1",
+   "front": "What is a particle?",
+   "back": "A body with mass whose dimensions are negligible in the problem."
+  },
+  {
+   "id": "fc2",
+   "kc": "M1-1.1",
+   "front": "What is a lamina?",
+   "back": "A flat sheet whose thickness is negligible compared with its other dimensions."
+  },
+  {
+   "id": "fc3",
+   "kc": "M1-1.1",
+   "front": "What is a rigid body?",
+   "back": "A body whose shape and size do not change under the forces considered."
+  },
+  {
+   "id": "fc4",
+   "kc": "M1-1.1",
+   "front": "What do light, uniform and non-uniform mean for a rod?",
+   "back": "Light: negligible mass. Uniform: mass evenly distributed along its length. Non-uniform: mass not evenly distributed."
+  },
+  {
+   "id": "fc5",
+   "kc": "M1-1.1",
+   "front": "What is a light inextensible string?",
+   "back": "A string with negligible mass whose length remains constant when taut."
+  },
+  {
+   "id": "fc6",
+   "kc": "M1-1.1",
+   "front": "What is a smooth surface? What is a rough surface?",
+   "back": "A smooth surface exerts no friction; a rough surface may exert friction."
+  },
+  {
+   "id": "fc7",
+   "kc": "M1-1.1",
+   "front": "What is a light smooth pulley?",
+   "back": "A pulley of negligible mass with no friction at the string contact; for a light string, tension is equal on both sides."
+  },
+  {
+   "id": "fc8",
+   "kc": "M1-1.1",
+   "front": "What are a bead, wire and peg in mechanics?",
+   "back": "A bead is a small object constrained to move on a wire. A wire provides its path. A peg is a fixed small support around which a string may pass."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "M1-1.1": {
+   "motivate": "A real car has size, a rope stretches a little, and a wheel has friction. A useful mechanics model keeps the properties that affect the question. Which of these details can you ignore in a particular calculation?",
+   "discover": {
+    "stem": "A light inextensible string passes over a smooth pulley. Which conclusion follows from the model?",
+    "options": {
+     "A": "The string has no tension because it is light.",
+     "B": "The taut string keeps a constant length and can carry tension.",
+     "C": "The string cannot move because it is inextensible.",
+     "D": "The pulley cannot exert any contact force because it is smooth."
+    },
+    "answer": "B",
+    "explanation": "Light means negligible string mass, while inextensible means constant length when taut. Smooth removes friction at contact, not tension or the contact force."
+   },
+   "establish": "A particle has mass but negligible dimensions. A lamina is a flat sheet of negligible thickness. A rigid body does not change shape or size under the forces considered. A light rod or string has negligible mass; light does not mean unable to transmit force. A uniform rod has mass evenly distributed along its length and, in uniform gravity, its centre of mass is at the midpoint. A non-uniform rod has uneven mass distribution. An inextensible string keeps a constant length when taut, so connected particles have linked displacements. A smooth surface has no friction but can exert a normal reaction; a rough surface may exert friction. A light smooth pulley has negligible mass and no friction at the string contact; with a light string, tension is equal on both sides. A bead is a small object constrained to move along a wire. A wire defines its path; a peg is a fixed small support around which a string can pass. A peg or wire needs a stated smoothness assumption before friction is ignored.",
+   "connect": "In a later connected-particle problem, first use inextensibility to link motion, then use the light string and smooth pulley to link tensions. For a rod in a moments problem, uniformity determines where its weight acts; rigidity only tells you its shape stays fixed.",
+   "note": "- Particle: mass retained, size negligible; lamina: negligible thickness; rigid body: no deformation.\n- Light: negligible mass; uniform: evenly distributed mass; non-uniform: uneven mass distribution.\n- Inextensible: constant taut length; smooth: no friction; rough: friction may act.\n- Light smooth pulley with light string: equal tensions on both sides.\n- Bead: small object constrained to a wire; peg: fixed support for a string.",
+   "self_explain": "A uniform rod rests on a smooth table. Which assumption places its weight at the midpoint, and which removes friction? Explain why the table can still exert a normal reaction.",
+   "source": "pack"
+  }
+ }
+}

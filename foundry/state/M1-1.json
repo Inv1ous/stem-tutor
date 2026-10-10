@@ -1,0 +1,103 @@
+{
+ "sub": "M1-1",
+ "stage": "ready",
+ "created": "2026-10-10T17:08:37+08:00",
+ "updated": "2026-10-10T17:24:16+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T17:12:01+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 15 items"
+  },
+  {
+   "t": "2026-10-10T17:21:03+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "4 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T17:23:10+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:24:16+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 15,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 32483,
+   "provider": "codex",
+   "model": "gpt-6-sol/medium",
+   "rung": 1,
+   "started": "2026-10-10T17:10:08+08:00",
+   "log": "foundry/logs/M1-1.drafter.1010-171008.log",
+   "out": "foundry/logs/M1-1.drafter.1010-171008.out.json",
+   "finished": "2026-10-10T17:12:01+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/M1/M1-1.json",
+    "note_path": "build/out/notes/Subjects/Maths/M1 Mechanics 1/1 Mathematical models in mechanics.md",
+    "items": 15,
+    "templates": 0,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 39319,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:20:12+08:00",
+   "log": "foundry/logs/M1-1.solver.1010-172012.log",
+   "out": "foundry/logs/M1-1.solver.1010-172012.out.json",
+   "expects": "build/work/blind/M1-1.answers.json",
+   "finished": "2026-10-10T17:20:26+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 4 questions in build/work/blind/M1-1.answers.json."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 40880,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:22:19+08:00",
+   "log": "foundry/logs/M1-1.checker.1010-172219.log",
+   "out": "foundry/logs/M1-1.checker.1010-172219.out.json",
+   "expects": "build/work/foundry/M1-1.check.json",
+   "finished": "2026-10-10T17:22:42+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote [M1-1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/M1-1.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
