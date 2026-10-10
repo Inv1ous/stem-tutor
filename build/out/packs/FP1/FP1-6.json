@@ -576,7 +576,7 @@
    "answer": "A",
    "distractors": {},
    "shuffle": true,
-   "explanation": "For anticlockwise rotation, $R=\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$. With $\\theta=60^\\circ$, $\\cos\\theta=1/2$ and $\\sin\\theta=\\sqrt3/2$, so $R=\\frac12\\begin{pmatrix}1&-\\sqrt3\\\\\\sqrt3&1\\end{pmatrix}$ and $R(2,0)^T=(1,\\sqrt3)^T$. B rotates clockwise. C uses the correct matrix but gives the wrong image. D has the same first column but is a reflection, not the requested rotation: its second column is wrong.",
+   "explanation": "For anticlockwise rotation, $R=\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$. With $\\theta=60^\\circ$, $\\cos\\theta=1/2$ and $\\sin\\theta=\\sqrt3/2$, so $R=\\frac12\\begin{pmatrix}1&-\\sqrt3\\\\\\sqrt3&1\\end{pmatrix}$ and $R(2,0)^T=(1,\\sqrt3)^T$. The clockwise matrix rotates the wrong way. The correct matrix with image $(-\\sqrt3,1)^T$ has the image wrong. The matrix with the same first column but second column $(\\sqrt3,-1)^T$ is a reflection, not the requested rotation.",
    "hints": [
     "Use the general anticlockwise rotation matrix.",
     "Substitute $\\cos60^\\circ=1/2$ and $\\sin60^\\circ=\\sqrt3/2$.",
@@ -762,7 +762,7 @@
     "B": "m3"
    },
    "shuffle": true,
-   "explanation": "Let $X=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ represent reflection in the $x$-axis and $Y=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ represent reflection in $y=x$. The first transformation is on the right, so the combined matrix is $YX=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$. It sends $(x,y)^T$ to $(-y,x)^T$, an anticlockwise rotation through $90^\\circ$ about the origin. B reverses the order by using $XY$; C omits the first reflection; D gives a half-turn instead of a quarter-turn.",
+   "explanation": "Let $X=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ represent reflection in the $x$-axis and $Y=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ represent reflection in $y=x$. The first transformation is on the right, so the combined matrix is $YX=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$. It sends $(x,y)^T$ to $(-y,x)^T$, an anticlockwise rotation through $90^\\circ$ about the origin. Using $XY$ reverses the order and gives the clockwise rotation; leaving out the first reflection gives only the reflection in $y=x$; and a rotation through $180^\\circ$ is a half-turn, not the required quarter-turn.",
    "hints": [
     "Write the matrices for the two reflections.",
     "The reflection in the $x$-axis happens first, so put its matrix on the right.",

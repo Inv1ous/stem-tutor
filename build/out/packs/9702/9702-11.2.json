@@ -1,0 +1,2601 @@
+{
+ "subtopic": "9702-11.2",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/11 Particle physics/11.2 Fundamental particles.md",
+ "outline": "Quarks are fundamental and have six flavours. Up, charm and top carry $+2e/3$; down, strange and bottom carry $-e/3$. Matching antiquarks have opposite charge. A proton is $uud$ and a neutron is $udd$; both are composite baryons. Baryons have three quarks, whereas mesons have a quark and an antiquark; both are hadrons. In $\\beta^-$ decay a down quark becomes an up quark. In $\\beta^+$ decay an up quark becomes a down quark. Electrons and neutrinos are fundamental leptons.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-11.2.1",
+   "statement": "Meson is a quark flavour",
+   "refutation": "Meson is a hadron made of a quark and an antiquark.",
+   "contrast": "Flavours are up, down, strange, charm, top and bottom.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-11.2.2",
+   "statement": "All quarks have the same charge",
+   "refutation": "Up, charm and top have charge +2e/3; down, strange and bottom have charge -e/3.",
+   "contrast": "An antiquark has the opposite charge to its matching quark.",
+   "source": "ER 9702 w22 P21 Q6"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-11.2.3",
+   "statement": "A neutron is fundamental",
+   "refutation": "A neutron contains one up and two down quarks.",
+   "contrast": "Electrons and neutrinos are fundamental leptons.",
+   "source": "ER 9702 w22 P21 Q6"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-11.2.4",
+   "statement": "A meson contains three quarks",
+   "refutation": "A meson contains one quark and one antiquark; a baryon contains three quarks.",
+   "contrast": "Both are hadrons.",
+   "source": "ER 9702 w22 P21 Q6"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-11.2.5",
+   "statement": "Beta-minus changes an up quark to a down quark",
+   "refutation": "Beta-minus changes a down quark into an up quark.",
+   "contrast": "Beta-plus changes an up quark into a down quark.",
+   "source": "ER 9702 s23 P22 Q8"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-11.2.6",
+   "statement": "A neutrino is a hadron",
+   "refutation": "A neutrino is a fundamental lepton.",
+   "contrast": "Hadrons are composed of quarks.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-11.2.2",
+   "problem": "Calculate the charge of a proton made of two up quarks and one down quark, in units of $e$.",
+   "steps": [
+    {
+     "do": "Assign each quark its charge in units of $e$.",
+     "why": "Quark charges are fractional, so the signs and thirds matter."
+    },
+    {
+     "do": "Add the three charges: $2/3 + 2/3 + -1/3 = 1$.",
+     "why": "Electric charge is conserved and additive.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.0,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Calculate the charge of a baryon made of up, down, strange quarks, in units of $e$.",
+    "answer": {
+     "value": 0.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-11.2-p01",
+   "kcs": [
+    "9702-11.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q38",
+    "qid": "9702_w24_12_q38"
+   },
+   "stem": "What is not a quark flavour?",
+   "options": {
+    "A": "charm",
+    "B": "meson",
+    "C": "strange",
+    "D": "up"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Meson is a hadron class, not a flavour. Charm, strange and up are flavours."
+  },
+  {
+   "id": "9702-11.2-p02",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q40",
+    "qid": "9702_w22_13_q40"
+   },
+   "stem": "A particle consists of two up quarks and a charm quark.\nWhat is the charge of this particle, expressed in terms of the elementary charge e?",
+   "options": {
+    "A": "–2e",
+    "B": "–e",
+    "C": "+e",
+    "D": "+2e"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Each up and charm quark carries $+2e/3$, so three such quarks total $+2e$. The tempting $+e$ ignores one of the three charges."
+  },
+  {
+   "id": "9702-11.2-p03",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q40",
+    "qid": "9702_w23_11_q40"
+   },
+   "stem": "A particular hadron is composed of three quarks and has zero charge.\nWhat is a possible quark composition of the hadron?",
+   "options": {
+    "A": "down, down, strange",
+    "B": "up, down, strange",
+    "C": "up, up, down",
+    "D": "up, up, strange"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Up, down and strange sum to $+2e/3-e/3-e/3=0$. Two up quarks with one down or strange instead give $+e$."
+  },
+  {
+   "id": "9702-11.2-p04",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q40",
+    "qid": "9702_w23_12_q40"
+   },
+   "stem": "Which combination of up (u) and down (d) quarks forms a neutron?",
+   "options": {
+    "A": "u u u",
+    "B": "u u d",
+    "C": "u d d",
+    "D": "d d d"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "A neutron is $udd$. The tempting $uud$ is a proton."
+  },
+  {
+   "id": "9702-11.2-p05",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q38",
+    "qid": "9702_w24_11_q38"
+   },
+   "stem": "Which particle is not a fundamental particle?",
+   "options": {
+    "A": "charm quark",
+    "B": "electron",
+    "C": "neutrino",
+    "D": "neutron"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "A neutron consists of quarks, so it is composite. A charm quark, electron and neutrino are fundamental."
+  },
+  {
+   "id": "9702-11.2-p06",
+   "kcs": [
+    "9702-11.2.6",
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q40",
+    "qid": "9702_w24_11_q40"
+   },
+   "stem": "Which statement is correct?",
+   "options": {
+    "A": "A baryon is a hadron and consists of 2 quarks.",
+    "B": "A meson is a hadron and consists of 3 quarks.",
+    "C": "An electron is a fundamental particle and is a lepton.",
+    "D": "A neutrino is a fundamental particle and is a hadron."
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "An electron is a fundamental lepton. A baryon has three quarks, while a meson has a quark and an antiquark."
+  },
+  {
+   "id": "9702-11.2-p07",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q39",
+    "qid": "9702_s25_12_q39"
+   },
+   "stem": "What is the composition of a meson?",
+   "options": {
+    "A": "1 quark and 1 antiquark",
+    "B": "1 quark and 2 antiquarks",
+    "C": "2 quarks and 1 antiquark",
+    "D": "3 quarks"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "A meson has one quark and one antiquark. Three quarks form a baryon, not a meson."
+  },
+  {
+   "id": "9702-11.2-p08",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q40",
+    "qid": "9702_w20_12_q40"
+   },
+   "stem": "Which particle is a hadron?",
+   "options": {
+    "A": "electron",
+    "B": "neutrino",
+    "C": "positron",
+    "D": "proton"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "A proton is a three-quark baryon and therefore a hadron. Electrons and neutrinos are leptons."
+  },
+  {
+   "id": "9702-11.2-p09",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q40",
+    "qid": "9702_w19_12_q40"
+   },
+   "stem": "An unstable nucleus decays and emits a β⁻ particle.\nWhich changes, if any, occur to the quark composition of the nucleus?\nquark changes\nup quarks\ndown quarks",
+   "options": {
+    "A": "+1 0",
+    "B": "+1 –1",
+    "C": "–1 +1",
+    "D": "0 +1"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "In $\\beta^-$ decay a down quark becomes up: the up count rises by one and down count falls by one. The reverse change describes $\\beta^+$.",
+   "image": "Assets/mcq/9702_w19_12_q40.png"
+  },
+  {
+   "id": "9702-11.2-p10",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q40",
+    "qid": "9702_w19_13_q40"
+   },
+   "stem": "Which statement is correct?",
+   "options": {
+    "A": "Electrons and neutrinos are fundamental particles.",
+    "B": "Electrons and neutrinos are hadrons.",
+    "C": "Protons and neutrons are leptons.",
+    "D": "Protons and neutrons are quarks."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Electrons and neutrinos are fundamental leptons. Protons and neutrons are composite hadrons, so the other classifications fail."
+  },
+  {
+   "id": "9702-11.2-p11",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q40",
+    "qid": "9702_w21_12_q40"
+   },
+   "stem": "Which statement is not correct?",
+   "options": {
+    "A": "An antineutrino is a fundamental particle.",
+    "B": "An electron is made up of a quark and an antiquark.",
+    "C": "A neutrino is a lepton.",
+    "D": "A neutron is composed of three quarks."
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "An electron is a fundamental lepton and does not contain a quark-antiquark pair. That pair is a meson."
+  },
+  {
+   "id": "9702-11.2-p12",
+   "kcs": [
+    "9702-11.2.1",
+    "9702-11.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q38",
+    "qid": "9702_s25_11_q38"
+   },
+   "stem": "Which list contains only fundamental particles?",
+   "options": {
+    "A": "antineutrinos, baryons, neutrons, electrons",
+    "B": "mesons, electrons, neutrinos, protons",
+    "C": "positrons, quarks, hadrons, protons",
+    "D": "quarks, positrons, neutrinos, leptons"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Quarks and leptons, including positrons and neutrinos, are fundamental. Hadrons, baryons, mesons, protons and neutrons are composite."
+  },
+  {
+   "id": "9702-11.2-i101",
+   "kcs": [
+    "9702-11.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State all six quark flavours.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "up, down, strange, charm, top and bottom",
+     "keywords": [
+      [
+       "up"
+      ],
+      [
+       "down"
+      ],
+      [
+       "strange"
+      ],
+      [
+       "charm"
+      ],
+      [
+       "top"
+      ],
+      [
+       "bottom"
+      ]
+     ]
+    }
+   ],
+   "explanation": "up, down, strange, charm, top and bottom",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i102",
+   "kcs": [
+    "9702-11.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define a fundamental particle.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A particle that cannot be broken down into anything smaller.",
+     "keywords": [
+      [
+       "cannot be broken down"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A particle that cannot be broken down into anything smaller.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i103",
+   "kcs": [
+    "9702-11.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the quark flavour in the list: charm, meson, proton.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "charm",
+     "keywords": [
+      [
+       "charm"
+      ]
+     ]
+    }
+   ],
+   "explanation": "charm",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i104",
+   "kcs": [
+    "9702-11.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State whether a top quark is fundamental.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A top quark is fundamental.",
+     "keywords": [
+      [
+       "fundamental"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A top quark is fundamental.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i105",
+   "kcs": [
+    "9702-11.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a meson is not a quark flavour.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A meson is a hadron composed of a quark and an antiquark; flavour names a type of quark.",
+     "keywords": [
+      [
+       "hadron"
+      ],
+      [
+       "quark"
+      ],
+      [
+       "antiquark"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A meson is a hadron composed of a quark and an antiquark; flavour names a type of quark.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i106",
+   "kcs": [
+    "9702-11.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the set of quark flavours including the heavy flavours.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The six flavours are up, down, strange, charm, top and bottom.",
+     "keywords": [
+      [
+       "up"
+      ],
+      [
+       "down"
+      ],
+      [
+       "strange"
+      ],
+      [
+       "charm"
+      ],
+      [
+       "top"
+      ],
+      [
+       "bottom"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The six flavours are up, down, strange, charm, top and bottom.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i201",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the charge of an up quark in units of $e$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$+2e/3$",
+     "keywords": [
+      [
+       "2"
+      ],
+      [
+       "3"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$+2e/3$",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i202",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the charge of a bottom quark in units of $e$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$-e/3$",
+     "keywords": [
+      [
+       "-"
+      ],
+      [
+       "3"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$-e/3$",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i203",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the charge of an anticharm quark in units of $e$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$-2e/3$",
+     "keywords": [
+      [
+       "-"
+      ],
+      [
+       "2"
+      ],
+      [
+       "3"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$-2e/3$",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i204",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the relation between a quark charge and its matching antiquark charge.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "They have equal magnitude and opposite signs.",
+     "keywords": [
+      [
+       "equal"
+      ],
+      [
+       "opposite"
+      ]
+     ]
+    }
+   ],
+   "explanation": "They have equal magnitude and opposite signs.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i205",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the charge of a particle made of up, down and strange quarks.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$+2e/3-e/3-e/3=0$.",
+     "keywords": [
+      [
+       "0"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$+2e/3-e/3-e/3=0$.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i206",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine the charge of three charm quarks in units of $e$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$3(+2e/3)=+2e$.",
+     "keywords": [
+      [
+       "2"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$3(+2e/3)=+2e$.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i301",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the quark composition of a proton.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Two up quarks and one down quark: $uud$.",
+     "keywords": [
+      [
+       "up"
+      ],
+      [
+       "down"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Two up quarks and one down quark: $uud$.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i302",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the quark composition of a neutron.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "One up quark and two down quarks: $udd$.",
+     "keywords": [
+      [
+       "up"
+      ],
+      [
+       "down"
+      ]
+     ]
+    }
+   ],
+   "explanation": "One up quark and two down quarks: $udd$.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i303",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a proton is not fundamental.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A proton is made of three quarks ($uud$).",
+     "keywords": [
+      [
+       "quarks"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A proton is made of three quarks ($uud$).",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i304",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a neutron is not fundamental.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A neutron is made of three quarks ($udd$).",
+     "keywords": [
+      [
+       "quarks"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A neutron is made of three quarks ($udd$).",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i305",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify which nucleon has composition $udd$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A neutron.",
+     "keywords": [
+      [
+       "neutron"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A neutron.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i306",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the quark compositions of a proton and a neutron.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A proton is $uud$ and a neutron is $udd$: one up quark replaces one down quark.",
+     "keywords": [
+      [
+       "uud"
+      ],
+      [
+       "udd"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A proton is $uud$ and a neutron is $udd$: one up quark replaces one down quark.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i401",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define a hadron in terms of its constituent particles.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A hadron is a particle composed of quarks.",
+     "keywords": [
+      [
+       "quark"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A hadron is a particle composed of quarks.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i402",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the quark composition of a baryon.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Three quarks.",
+     "keywords": [
+      [
+       "three"
+      ],
+      [
+       "quarks"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Three quarks.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i403",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the quark composition of a meson.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "One quark and one antiquark.",
+     "keywords": [
+      [
+       "quark"
+      ],
+      [
+       "antiquark"
+      ]
+     ]
+    }
+   ],
+   "explanation": "One quark and one antiquark.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i404",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the hadron class of a proton.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A baryon.",
+     "keywords": [
+      [
+       "baryon"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A baryon.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i405",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare a baryon and a meson.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Both are hadrons. A baryon has three quarks; a meson has one quark and one antiquark.",
+     "keywords": [
+      [
+       "hadrons"
+      ],
+      [
+       "three"
+      ],
+      [
+       "antiquark"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both are hadrons. A baryon has three quarks; a meson has one quark and one antiquark.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i406",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine whether a quark-antiquark pair is a baryon or meson.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is a meson.",
+     "keywords": [
+      [
+       "meson"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is a meson.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i501",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the quark change in $\\beta^-$ decay.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A down quark changes into an up quark.",
+     "keywords": [
+      [
+       "down"
+      ],
+      [
+       "up"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A down quark changes into an up quark.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i502",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the quark change in $\\beta^+$ decay.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "An up quark changes into a down quark.",
+     "keywords": [
+      [
+       "up"
+      ],
+      [
+       "down"
+      ]
+     ]
+    }
+   ],
+   "explanation": "An up quark changes into a down quark.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i503",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the nucleon change during $\\beta^-$ decay.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A neutron ($udd$) becomes a proton ($uud$).",
+     "keywords": [
+      [
+       "neutron"
+      ],
+      [
+       "proton"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A neutron ($udd$) becomes a proton ($uud$).",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i504",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the nucleon change during $\\beta^+$ decay.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A proton ($uud$) becomes a neutron ($udd$).",
+     "keywords": [
+      [
+       "proton"
+      ],
+      [
+       "neutron"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A proton ($uud$) becomes a neutron ($udd$).",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i505",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why nuclear charge rises by $e$ in $\\beta^-$ decay.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A down quark of charge $-e/3$ becomes an up quark of charge $+2e/3$, increasing charge by $e$.",
+     "keywords": [
+      [
+       "down"
+      ],
+      [
+       "up"
+      ],
+      [
+       "charge"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A down quark of charge $-e/3$ becomes an up quark of charge $+2e/3$, increasing charge by $e$.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i506",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare quark changes in $\\beta^-$ and $\\beta^+$ decay.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "In $\\beta^-$, down changes to up; in $\\beta^+$, up changes to down.",
+     "keywords": [
+      [
+       "down"
+      ],
+      [
+       "up"
+      ]
+     ]
+    }
+   ],
+   "explanation": "In $\\beta^-$, down changes to up; in $\\beta^+$, up changes to down.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i601",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the particle class of electrons.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Electrons are fundamental leptons.",
+     "keywords": [
+      [
+       "leptons"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Electrons are fundamental leptons.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i602",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the particle class of neutrinos.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutrinos are fundamental leptons.",
+     "keywords": [
+      [
+       "leptons"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutrinos are fundamental leptons.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i603",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why an electron is not a hadron.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "An electron is a fundamental lepton, whereas hadrons contain quarks.",
+     "keywords": [
+      [
+       "lepton"
+      ],
+      [
+       "quarks"
+      ]
+     ]
+    }
+   ],
+   "explanation": "An electron is a fundamental lepton, whereas hadrons contain quarks.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i604",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the fundamental lepton among proton, neutron and neutrino.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The neutrino.",
+     "keywords": [
+      [
+       "neutrino"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The neutrino.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i605",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare an electron and a neutrino by particle class.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Both are fundamental particles called leptons.",
+     "keywords": [
+      [
+       "fundamental"
+      ],
+      [
+       "leptons"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both are fundamental particles called leptons.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-i606",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State whether an electron contains quarks.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "An electron is fundamental and does not contain quarks.",
+     "keywords": [
+      [
+       "does not"
+      ],
+      [
+       "quarks"
+      ]
+     ]
+    }
+   ],
+   "explanation": "An electron is fundamental and does not contain quarks.",
+   "hints": [
+    "Recall the relevant particle classification or composition.",
+    "Link the named particle to its constituent quarks or lepton class.",
+    "Write the defining composition or change first."
+   ]
+  },
+  {
+   "id": "9702-11.2-x001",
+   "kcs": [
+    "9702-11.2.4",
+    "9702-11.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q40",
+    "qid": "9702_s19_11_q40"
+   },
+   "stem": "Some particles are a combination of three quarks.\nWhich combination of quarks would not result in a particle with a charge of either +1.6 × 10⁻¹⁹\nC\nor zero?",
+   "options": {
+    "A": "up, down, down",
+    "B": "up, strange, strange",
+    "C": "up, up, down",
+    "D": "up, up, up"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x002",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q39",
+    "qid": "9702_s19_12_q39"
+   },
+   "stem": "Which equation describes the changes to the quark composition of a nucleus and the lepton\nemission during the process of β⁺ decay?",
+   "options": {
+    "A": "down → up + positron + electron neutrino",
+    "B": "down → up + positron + electron antineutrino",
+    "C": "up → down + positron + electron neutrino",
+    "D": "up → down + positron + electron antineutrino"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x003",
+   "kcs": [
+    "9702-11.2.4",
+    "9702-11.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q40",
+    "qid": "9702_s19_12_q40"
+   },
+   "stem": "There are protons, neutrons and electrons in the simple model of an atom.\nTo which class (group), hadron or lepton, do these particles belong?\nhadron\nlepton",
+   "options": {
+    "A": "electron proton and neutron",
+    "B": "neutron proton and electron",
+    "C": "proton and electron neutron",
+    "D": "proton and neutron electron"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_12_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x004",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q40",
+    "qid": "9702_s19_13_q40"
+   },
+   "stem": "Which statement describes β⁻ decay in terms of a simple quark model?",
+   "options": {
+    "A": "A down quark changes to an up quark, and an electron and an electron antineutrino are emitted.",
+    "B": "A down quark changes to an up quark, and a positron and an electron neutrino are emitted.",
+    "C": "An up quark changes to a down quark, and an electron and an electron antineutrino are emitted.",
+    "D": "An up quark changes to a down quark, and a positron and an electron neutrino are emitted."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates recognised that an electron is emitted in β– decay (rather than a positron) and the majority gave the correct answer A. Those that did not often thought that an up quark changes into a down quark in β– decay, rather than a down quark changing into an up quark. Principal Examiner Report for Teachers PHYSICS"
+  },
+  {
+   "id": "9702-11.2-x005",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q40",
+    "qid": "9702_w19_11_q40"
+   },
+   "stem": "The diagrams show the quark composition of four different hadrons. One of the hadrons is a Σ⁺\nparticle. It has a charge of +e, where e is the elementary charge.\nWhich hadron could be the Σ⁺ particle?\nd\nd\ns",
+   "options": {
+    "A": "s d s",
+    "B": "s u s",
+    "C": "u u s",
+    "D": "key u = up quark d = down quark s = strange quark"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_11_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x006",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q39",
+    "qid": "9702_w19_12_q39"
+   },
+   "stem": "What is not a fundamental particle?",
+   "options": {
+    "A": "electron",
+    "B": "neutrino",
+    "C": "neutron",
+    "D": "positron"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x007",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q40",
+    "qid": "9702_s20_11_q40"
+   },
+   "stem": "A hadron has a charge +e, where e is the elementary charge.\nWhich combination of up (u) and down (d) quarks could form this hadron?",
+   "options": {
+    "A": "ddd",
+    "B": "udd",
+    "C": "uud",
+    "D": "uuu"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x008",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q40",
+    "qid": "9702_s20_12_q40"
+   },
+   "stem": "A hadron has a charge of –e and is composed of three quarks.\nWhat could be the quark composition of the hadron?\ns\ns\ns",
+   "options": {
+    "A": "s u s",
+    "B": "s u u",
+    "C": "u u u",
+    "D": "key u = up quark s = strange quark"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_12_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x037",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q40",
+    "qid": "9702_s20_13_q40"
+   },
+   "stem": "Which equation describes the process of β⁺ decay?\nkey:\nu = up quark\nd = down quark\nν = (electron) neutrino\nantineutrino = (electron) antineutrino",
+   "options": {
+    "A": "ddu → uud + β⁺ + ν",
+    "B": "ddu → uud + β⁺ + antineutrino",
+    "C": "uud → ddu + β⁺ + ν",
+    "D": "uud → ddu + β⁺ + antineutrino"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x010",
+   "kcs": [
+    "9702-11.2.2",
+    "9702-11.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q40",
+    "qid": "9702_w20_11_q40"
+   },
+   "stem": "Which diagram represents the quark composition of an antineutron?\nu\nd\nu\nd",
+   "options": {
+    "A": "u d d",
+    "B": "u d u",
+    "C": "u d d",
+    "D": "u u d up quark down quark up antiquark down antiquark key"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_11_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x011",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q40",
+    "qid": "9702_w20_13_q40"
+   },
+   "stem": "Which particle is a fundamental particle?",
+   "options": {
+    "A": "alpha-particle",
+    "B": "electron",
+    "C": "neutron",
+    "D": "proton"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x012",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q40",
+    "qid": "9702_s21_11_q40"
+   },
+   "stem": "Which particle is a fundamental particle?",
+   "options": {
+    "A": "electron",
+    "B": "hadron",
+    "C": "neutron",
+    "D": "proton"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x013",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q40",
+    "qid": "9702_s21_12_q40"
+   },
+   "stem": "In β⁻ decay, a neutron inside a nucleus changes to a proton.\nWhich statement describes the quark composition of the nucleus during the decay?",
+   "options": {
+    "A": "The number of down quarks decreases by one.",
+    "B": "The number of down quarks increases by one.",
+    "C": "The number of down quarks stays the same.",
+    "D": "The number of up quarks stays the same."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x014",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q40",
+    "qid": "9702_s21_13_q40"
+   },
+   "stem": "A hadron is composed of three quarks. The hadron has a charge.\nWhat is a possible quark composition of the hadron?",
+   "options": {
+    "A": "down, down, up",
+    "B": "down, up, strange",
+    "C": "up, strange, strange",
+    "D": "up, up, strange"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x015",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q40",
+    "qid": "9702_w21_11_q40"
+   },
+   "stem": "Which combination of up (u) and down (d) quarks forms a proton?",
+   "options": {
+    "A": "u u u",
+    "B": "u u d",
+    "C": "u d d",
+    "D": "d d d"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x016",
+   "kcs": [
+    "9702-11.2.2",
+    "9702-11.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q40",
+    "qid": "9702_w21_13_q40"
+   },
+   "stem": "Which combination of quarks could not be the quark composition of the hadron shown?\np = proton\nn = neutron\n�⁻ = sigma particle of charge –e\n�⁺ = sigma particle of charge +e\nu = up quark\nd = down quark\ns = strange quark\nhadron\nquark\ncomposition",
+   "options": {
+    "A": "�⁻ dds",
+    "B": "�⁺ uds",
+    "C": "p uud",
+    "D": "n udd"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_13_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x017",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q40",
+    "qid": "9702_s22_11_q40"
+   },
+   "stem": "How many hadrons, baryons and mesons are there in a nucleus of Be?\n9\n4\nhadrons\nbaryons\nmesons",
+   "options": {
+    "A": "9 4 5",
+    "B": "9 5 4",
+    "C": "9 9 0",
+    "D": "13 9 0"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_11_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x018",
+   "kcs": [
+    "9702-11.2.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q40",
+    "qid": "9702_s22_12_q40"
+   },
+   "stem": "A neutron is composed of one up (u) quark and two down (d) quarks. When a neutron decays to\na proton, a beta-particle is emitted.\nWhat is the change in the quark structure of the neutron due to the emission of the beta-particle?\n(The symbol for a neutrino is νₑ and for an antineutrino is\ne\nν.)",
+   "options": {
+    "A": "d → u + β⁻ + νₑ",
+    "B": "d → u + β⁻ + e ν",
+    "C": "u → d + β⁺ + νₑ",
+    "D": "u → d + β⁺ + e ν"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x019",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q40",
+    "qid": "9702_s22_13_q40"
+   },
+   "stem": "Which statement is not correct?",
+   "options": {
+    "A": "A meson consists of three quarks.",
+    "B": "A proton is a baryon.",
+    "C": "A quark is a fundamental particle.",
+    "D": "There are six flavours (types) of quark."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x020",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q40",
+    "qid": "9702_w22_11_q40"
+   },
+   "stem": "Which list of particles contains only fundamental particles?",
+   "options": {
+    "A": "antineutrino, beta, meson",
+    "B": "baryon, neutrino, positron",
+    "C": "electron, neutrino, alpha",
+    "D": "lepton, quark, positron"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x021",
+   "kcs": [
+    "9702-11.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q40",
+    "qid": "9702_w22_12_q40"
+   },
+   "stem": "Which particle is a lepton?",
+   "options": {
+    "A": "meson",
+    "B": "positron",
+    "C": "proton",
+    "D": "quark"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x022",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q40",
+    "qid": "9702_s23_11_q40"
+   },
+   "stem": "Which statement about a proton is correct?",
+   "options": {
+    "A": "A proton is a baryon but not a meson.",
+    "B": "A proton is a meson but not a hadron.",
+    "C": "A proton is both a hadron and a meson.",
+    "D": "A proton is both a meson and a baryon."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x023",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q40",
+    "qid": "9702_s23_12_q40"
+   },
+   "stem": "A π⁺ meson has a charge of +e, where e is the elementary charge. It consists of an up quark and\none other quark.\nWhat could be the other quark in the π⁺ meson?",
+   "options": {
+    "A": "anti-down",
+    "B": "anti-up",
+    "C": "bottom",
+    "D": "charm"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x024",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q40",
+    "qid": "9702_s23_13_q40"
+   },
+   "stem": "What is the quark composition of a hydrogen-3 nucleus, H?\n3\n1\nnumber of quarks\nup\ndown",
+   "options": {
+    "A": "4 5",
+    "B": "5 4",
+    "C": "5 7",
+    "D": "7 5"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_13_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x025",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q40",
+    "qid": "9702_w23_13_q40"
+   },
+   "stem": "Some particles are a combination of three quarks.\nWhich combination of quarks does not result in a particle with a charge of either +1.6 × 10⁻¹⁹\nC or\nzero?",
+   "options": {
+    "A": "up, down, down",
+    "B": "up, strange, strange",
+    "C": "up, up, down",
+    "D": "up, up, up"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x026",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q39",
+    "qid": "9702_s24_11_q39"
+   },
+   "stem": "Which particle is not a fundamental particle?",
+   "options": {
+    "A": "electron",
+    "B": "neutrino",
+    "C": "neutron",
+    "D": "top quark"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x027",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q40",
+    "qid": "9702_s24_11_q40"
+   },
+   "stem": "What is the charge of an anti-top quark?",
+   "options": {
+    "A": "– e 3 2",
+    "B": "– e 3 1",
+    "C": "+ e 3 1",
+    "D": "+ e 3 2"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_11_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x028",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q38",
+    "qid": "9702_s24_12_q38"
+   },
+   "stem": "Which fundamental particles form a hadron?",
+   "options": {
+    "A": "leptons",
+    "B": "nucleons",
+    "C": "photons",
+    "D": "quarks"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x029",
+   "kcs": [
+    "9702-11.2.2",
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q39",
+    "qid": "9702_s24_13_q39"
+   },
+   "stem": "The diagrams show the quark composition of four different hadrons. One of the hadrons is a\nΣ⁺ particle. It has a charge of +e, where e is the elementary charge.\nWhich hadron could be the Σ⁺ particle?\nd\nd\ns",
+   "options": {
+    "A": "s d s",
+    "B": "s u s",
+    "C": "u u s",
+    "D": "key u = up quark d = down quark s = strange quark"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_13_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x030",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q40",
+    "qid": "9702_s24_13_q40"
+   },
+   "stem": "Which type of particle is comprised of the most quarks?",
+   "options": {
+    "A": "antiquark",
+    "B": "baryon",
+    "C": "lepton",
+    "D": "meson"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x031",
+   "kcs": [
+    "9702-11.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q39",
+    "qid": "9702_w24_12_q39"
+   },
+   "stem": "How many down quarks are in a nucleus of hydrogen-3, H?\n3\n1",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "5"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w24_12_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x032",
+   "kcs": [
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q39",
+    "qid": "9702_w24_13_q39"
+   },
+   "stem": "What is the name of the group (class) of particles containing mesons, and the name of the group\n(class) of particles containing baryons?\ngroup (class) of\nparticles containing\nmesons\ngroup (class) of\nparticles containing\nbaryons",
+   "options": {
+    "A": "hadrons hadrons",
+    "B": "hadrons leptons",
+    "C": "leptons hadrons",
+    "D": "leptons leptons"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_13_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x033",
+   "kcs": [
+    "9702-11.2.2",
+    "9702-11.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q40",
+    "qid": "9702_s25_11_q40"
+   },
+   "stem": "A hadron consists of antiquarks that are all identical.\nWhat is a possible value, in terms of the elementary charge e, for the charge on the hadron?",
+   "options": {
+    "A": "0e",
+    "B": "+1e",
+    "C": "+2e",
+    "D": "+3e"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x034",
+   "kcs": [
+    "9702-11.2.3",
+    "9702-11.2.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q40",
+    "qid": "9702_s25_12_q40"
+   },
+   "stem": "A nucleus of carbon-11 contains 6 protons and 5 neutrons.\nThe nucleus of carbon-11 decays by β⁺ emission.\nWhat is the total number of up and down quarks in the product of the decay of this nucleus?\nup quarks\ndown quarks",
+   "options": {
+    "A": "15 18",
+    "B": "16 17",
+    "C": "17 16",
+    "D": "18 15"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_12_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x035",
+   "kcs": [
+    "9702-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q39",
+    "qid": "9702_s25_13_q39"
+   },
+   "stem": "What are the charges on an antidown quark and on an antistrange quark?\nantidown quark\nantistrange quark",
+   "options": {
+    "A": "e 3 1 + e 3 1 +",
+    "B": "e 3 1 + e 3 1 –",
+    "C": "e 3 1 – e 3 1 +",
+    "D": "e 3 1 – e 3 1 –"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_13_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-11.2-x036",
+   "kcs": [
+    "9702-11.2.2",
+    "9702-11.2.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q38",
+    "qid": "9702_w25_12_q38"
+   },
+   "stem": "An up quark in a hadron changes to a down quark.\nThe elementary charge is e.\nWhat is the magnitude of the change in the charge of the hadron?",
+   "options": {
+    "A": "e 3 1",
+    "B": "e 3 2",
+    "C": "e",
+    "D": "zero"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w25_12_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-11.2.1",
+   "front": "State the six quark flavours.",
+   "back": "Up, down, strange, charm, top and bottom."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-11.2.1",
+   "front": "Define a fundamental particle.",
+   "back": "A particle that cannot be broken down into anything smaller."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-11.2.3",
+   "front": "State the quark composition of a proton.",
+   "back": "Two up quarks and one down quark ($uud$)."
+  },
+  {
+   "id": "fc4",
+   "kc": "9702-11.2.3",
+   "front": "State the quark composition of a neutron.",
+   "back": "One up quark and two down quarks ($udd$)."
+  },
+  {
+   "id": "fc5",
+   "kc": "9702-11.2.6",
+   "front": "State the classification of electrons and neutrinos.",
+   "back": "Electrons and neutrinos are fundamental particles called leptons."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-11.2.1": {
+   "motivate": "To decide whether a particle can be broken down, start with the quark families.",
+   "establish": "A quark is a fundamental particle: it cannot be broken down into anything smaller. There are exactly six quark flavours (types): up, down, strange, charm, top and bottom. Meson and baryon are particle classes, not flavours.",
+   "connect": "These flavours have two charge patterns; use them to explain the charge of composite particles.",
+   "note": "- Quarks are fundamental particles.\n- Six flavours: up, down, strange, charm, top, bottom.",
+   "self_explain": "Name the six quark flavours and explain what fundamental means.",
+   "source": "pack"
+  },
+  "9702-11.2.2": {
+   "motivate": "A particle's total charge follows from the charges of its quarks.",
+   "establish": "Up, charm and top quarks each have charge $+2e/3$. Down, strange and bottom quarks each have charge $-e/3$. The respective antiquark has charge of equal magnitude and opposite sign: antiup, anticharm and antitop have $-2e/3$; antidown, antistrange and antibottom have $+e/3$. Add signed constituent charges to calculate the total. No other quark properties are required.",
+   "connect": "The sums for $uud$ and $udd$ distinguish proton and neutron charges.",
+   "note": "- Up, charm, top: $+2e/3$; their antiquarks: $-2e/3$.\n- Down, strange, bottom: $-e/3$; their antiquarks: $+e/3$.\n- Add signed charges algebraically.",
+   "self_explain": "What are the charges of a strange quark and an antistrange quark?",
+   "source": "pack"
+  },
+  "9702-11.2.3": {
+   "motivate": "Nucleons have internal parts that account for their charges.",
+   "establish": "A proton contains two up quarks and one down quark, $uud$, giving $+2e/3+2e/3-e/3=+e$. A neutron contains one up quark and two down quarks, $udd$, giving $+2e/3-e/3-e/3=0$. Because both contain quarks, protons and neutrons are not fundamental particles.",
+   "connect": "Both nucleons are three-quark hadrons and therefore baryons.",
+   "note": "- Proton: $uud$, charge $+e$; not fundamental.\n- Neutron: $udd$, charge zero; not fundamental.",
+   "self_explain": "How does the quark composition of a proton differ from a neutron?",
+   "source": "pack"
+  },
+  "9702-11.2.4": {
+   "motivate": "Counting constituent quarks identifies a hadron's class.",
+   "establish": "A hadron is a particle composed of quarks. A hadron may be a baryon, consisting of three quarks, or a meson, consisting of one quark and one antiquark. Protons and neutrons are baryons. A meson does not have three quarks; it contains an antiquark.",
+   "connect": "This separates composite hadrons from fundamental leptons such as electrons and neutrinos.",
+   "note": "- Hadrons are composed of quarks.\n- Baryon: three quarks.\n- Meson: one quark and one antiquark.",
+   "self_explain": "Why is a quark-antiquark pair a meson rather than a baryon?",
+   "source": "pack"
+  },
+  "9702-11.2.5": {
+   "motivate": "Beta decay changes one nucleon into the other by changing one quark.",
+   "establish": "In $\\beta^-$ decay, a neutron $udd$ becomes a proton $uud$: a down quark changes into an up quark. An electron and electron antineutrino are emitted. In $\\beta^+$ decay, a proton $uud$ becomes a neutron $udd$: an up quark changes into a down quark. A positron and electron neutrino are emitted. These opposite changes raise or lower nucleon charge by $e$.",
+   "connect": "Use the charge difference $+2e/3-(-e/3)=+e$ to check the $\\beta^-$ direction.",
+   "note": "- $\\beta^-$: $udd\\to uud$; down becomes up.\n- $\\beta^+$: $uud\\to udd$; up becomes down.",
+   "self_explain": "Which quark changes in each beta decay mode?",
+   "source": "pack"
+  },
+  "9702-11.2.6": {
+   "motivate": "Not every particle belongs to the quark-built hadron family.",
+   "establish": "Electrons and neutrinos are fundamental particles called leptons. They do not contain quarks and are not hadrons. Their antiparticles, including positrons and antineutrinos, are also leptons. A neutron, by contrast, is a composite hadron.",
+   "connect": "Classify a particle by whether it is a fundamental lepton or a quark-built hadron.",
+   "note": "- Electrons and neutrinos are fundamental leptons.\n- Leptons are not hadrons made of quarks.",
+   "self_explain": "Why is a neutrino classified differently from a neutron?",
+   "source": "pack"
+  }
+ }
+}

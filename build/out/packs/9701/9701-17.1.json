@@ -1,0 +1,3620 @@
+{
+ "subtopic": "9701-17.1",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/17 Carbonyl compounds/17.1 Aldehydes and ketones.md",
+ "outline": "Oxidation of primary alcohols with acidified dichromate(VI) or manganate(VII), followed by distillation, gives aldehydes; secondary alcohols give ketones. NaBH4 or LiAlH4 reduces carbonyls to alcohols. HCN with KCN catalyst and heat adds CN and OH across C=O to make a hydroxynitrile. CN− attacks carbonyl carbon, then the alkoxide is protonated. 2,4-DNPH detects aldehydes and ketones; Tollens’ and Fehling’s reagents distinguish aldehydes. Warm alkaline iodine identifies CH3CO− through yellow CHI3.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-17.1.1",
+   "statement": "A primary alcohol stops at an aldehyde under reflux.",
+   "refutation": "An aldehyde is readily oxidised further to a carboxylic acid under reflux. Distil the aldehyde as it forms.",
+   "contrast": "Distillation gives aldehyde; reflux with excess oxidant gives acid.",
+   "source": "ER 9701 s21 P23 Q4"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-17.1.2",
+   "statement": "NaBH4 oxidises a carbonyl to a carboxylic acid.",
+   "refutation": "NaBH4 reduces the C=O group to an alcohol.",
+   "contrast": "Aldehyde gives primary alcohol; ketone gives secondary alcohol.",
+   "source": "ER 9701 s21 P23 Q4"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-17.1.3",
+   "statement": "HCN addition is electrophilic addition.",
+   "refutation": "CN− is the attacking nucleophile; it attacks the electron-deficient carbonyl carbon.",
+   "contrast": "Nucleophilic addition breaks the C=O pi bond; electrophilic addition commonly attacks C=C.",
+   "source": "9701_w19_13_q39"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-17.1.4",
+   "statement": "An orange 2,4-DNPH precipitate proves that a carbonyl is an aldehyde.",
+   "refutation": "Both aldehydes and ketones give orange or yellow-orange hydrazone precipitates.",
+   "contrast": "Use Tollens’ or Fehling’s reagent to distinguish them.",
+   "source": "ER 9701 w22 P21 Q4"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-17.1.5",
+   "statement": "Ketones give a silver mirror with Tollens’ reagent.",
+   "refutation": "Ordinary ketones are not readily oxidised by Tollens’ reagent; aldehydes reduce Ag+ to Ag.",
+   "contrast": "Aldehyde positive; ketone negative.",
+   "source": "9701_w22_12_q35"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-17.1.6",
+   "statement": "Every ketone gives a yellow iodoform precipitate.",
+   "refutation": "The carbonyl compound must contain CH3CO−; for aldehydes, ethanal is the relevant example.",
+   "contrast": "Propanone is positive, pentan-3-one negative.",
+   "source": "9701_w22_12_q35"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-17.1.5",
+   "problem": "An unknown gives an orange precipitate with 2,4-DNPH and a silver mirror with Tollens’ reagent. Deduce its class.",
+   "steps": [
+    {
+     "do": "Use 2,4-DNPH: orange precipitate means an aldehyde or ketone.",
+     "why": "This confirms a carbonyl but does not distinguish the two."
+    },
+    {
+     "do": "Use Tollens’ reagent: a silver mirror indicates oxidation of an aldehyde.",
+     "why": "Ketones do not give this result under the test conditions."
+    },
+    {
+     "do": "Conclude that the unknown is an aldehyde.",
+     "why": "Both observations are consistent with an aldehyde."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "An unknown gives an orange 2,4-DNPH precipitate but no Fehling’s red precipitate. How many of these two tests are positive?",
+    "answer": {
+     "value": 1,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9701-17.1.6",
+   "problem": "Decide whether butan-2-one gives the iodoform test and state the organic products.",
+   "steps": [
+    {
+     "do": "Write butan-2-one as CH3COCH2CH3.",
+     "why": "This exposes the required CH3CO− group."
+    },
+    {
+     "do": "With warm alkaline I2(aq), predict yellow CHI3 and CH3CH2CO2−.",
+     "why": "The methyl carbonyl end becomes triiodomethane and the remainder becomes a carboxylate."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Propanone gives CHI3 and a carboxylate ion in the iodoform reaction. How many organic products are formed?",
+    "answer": {
+     "value": 2,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-17.1-i01",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which product is collected when propan-1-ol is oxidised with acidified K2Cr2O7 and distilled as it forms?",
+   "options": {
+    "A": "propanone",
+    "B": "propan-2-ol",
+    "C": "propanal",
+    "D": "propanoic acid"
+   },
+   "answer": "C",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Distillation removes propanal before further oxidation.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i02",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which alcohol is oxidised to butan-2-one by acidified KMnO4?",
+   "options": {
+    "A": "butanal",
+    "B": "butan-2-ol",
+    "C": "butan-1-ol",
+    "D": "2-methylpropan-2-ol"
+   },
+   "answer": "B",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "A secondary alcohol gives a ketone.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i03",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which operation limits oxidation of ethanol to ethanal?",
+   "options": {
+    "A": "distil the product as it forms",
+    "B": "heat under reflux with excess oxidant",
+    "C": "add concentrated sulfuric acid only",
+    "D": "use alkaline iodine"
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Distillation removes the aldehyde.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i04",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which reagent can oxidise a secondary alcohol to a ketone?",
+   "options": {
+    "A": "NaBH4",
+    "B": "HCN with KCN",
+    "C": "Tollens’ reagent",
+    "D": "acidified K2Cr2O7"
+   },
+   "answer": "D",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Acidified dichromate(VI) is an oxidant.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i05",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which product forms when propanone is reduced by NaBH4?",
+   "options": {
+    "A": "2-hydroxy-2-methylpropanenitrile",
+    "B": "propan-2-ol",
+    "C": "propan-1-ol",
+    "D": "propanoic acid"
+   },
+   "answer": "B",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "A ketone carbonyl becomes a secondary alcohol.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i06",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which product forms when ethanal reacts with HCN, KCN catalyst, and heat?",
+   "options": {
+    "A": "2-hydroxypropanenitrile",
+    "B": "2-hydroxyethanenitrile",
+    "C": "ethanol",
+    "D": "ethanoic acid"
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "CN adds one carbon to ethanal.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i07",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which reagent reduces an aldehyde to a primary alcohol?",
+   "options": {
+    "A": "acidified KMnO4",
+    "B": "2,4-DNPH",
+    "C": "alkaline I2",
+    "D": "LiAlH4"
+   },
+   "answer": "D",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "LiAlH4 reduces the carbonyl group.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i08",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which product forms from propanone and HCN with KCN catalyst on heating?",
+   "options": {
+    "A": "propan-2-ol",
+    "B": "butan-2-one",
+    "C": "2-hydroxy-2-methylpropanenitrile",
+    "D": "2-hydroxypropanenitrile"
+   },
+   "answer": "C",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The former carbonyl carbon gains OH and CN.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i09",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which species attacks the carbonyl carbon in HCN addition?",
+   "options": {
+    "A": "CN−",
+    "B": "H+",
+    "C": "H2O",
+    "D": "K+"
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The cyanide ion is the nucleophile.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i10",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which bond electron pair moves onto oxygen when CN− attacks an aldehyde?",
+   "options": {
+    "A": "the C=O sigma-bond pair",
+    "B": "the C–H sigma-bond pair",
+    "C": "a C–C sigma-bond pair",
+    "D": "the C=O pi-bond pair"
+   },
+   "answer": "D",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The carbonyl pi bond breaks to form an alkoxide.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i11",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which species protonates the alkoxide intermediate in HCN addition?",
+   "options": {
+    "A": "K+",
+    "B": "NaBH4",
+    "C": "HCN",
+    "D": "CN−"
+   },
+   "answer": "C",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The alkoxide takes a proton from HCN.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i12",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which product contains a new chiral centre after HCN addition?",
+   "options": {
+    "A": "(CH3CH2)2C(OH)CN",
+    "B": "CH3CH(OH)CN",
+    "C": "(CH3)2C(OH)CN",
+    "D": "HOCH2CN"
+   },
+   "answer": "B",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The OH-bearing carbon in the ethanal product has four different groups.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i13",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "What observation indicates an aldehyde or ketone with 2,4-DNPH reagent?",
+   "options": {
+    "A": "silver mirror",
+    "B": "brick-red precipitate",
+    "C": "yellow triiodomethane precipitate",
+    "D": "orange precipitate"
+   },
+   "answer": "D",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "A carbonyl gives a yellow-orange or orange hydrazone precipitate.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i14",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which pair both reacts with 2,4-DNPH?",
+   "options": {
+    "A": "ethanal and ethyl ethanoate",
+    "B": "ethanol and ethyl ethanoate",
+    "C": "ethanal and propanone",
+    "D": "ethanol and propanone"
+   },
+   "answer": "C",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Aldehydes and ketones contain the reactive carbonyl group.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i15",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which functional group does a positive 2,4-DNPH test detect in this chapter?",
+   "options": {
+    "A": "carboxylic acid COOH",
+    "B": "aldehyde or ketone C=O",
+    "C": "alcohol OH",
+    "D": "alkene C=C"
+   },
+   "answer": "B",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The reagent tests aldehyde and ketone carbonyls.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i16",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "What conclusion follows from orange crystals with 2,4-DNPH alone?",
+   "options": {
+    "A": "an aldehyde or ketone is present",
+    "B": "an aldehyde is definitely present",
+    "C": "a ketone is definitely present",
+    "D": "a methyl ketone is definitely present"
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The test does not distinguish aldehyde from ketone.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i17",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An unknown carbonyl forms a silver mirror with Tollens’ reagent. What is it?",
+   "options": {
+    "A": "ester",
+    "B": "secondary alcohol",
+    "C": "aldehyde",
+    "D": "ketone"
+   },
+   "answer": "C",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Aldehydes reduce Tollens’ reagent.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i18",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An unknown gives an orange 2,4-DNPH precipitate but no Fehling’s red precipitate. What is it?",
+   "options": {
+    "A": "alkene",
+    "B": "ketone",
+    "C": "aldehyde",
+    "D": "primary alcohol"
+   },
+   "answer": "B",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "DNPH establishes carbonyl; negative Fehling’s identifies ketone.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i19",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "What observation identifies an aldehyde with Fehling’s reagent on warming?",
+   "options": {
+    "A": "brick-red precipitate",
+    "B": "silver mirror",
+    "C": "orange precipitate",
+    "D": "yellow precipitate"
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Aldehydes reduce blue Cu(II) to brick-red Cu2O.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i20",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which carbonyl is readily oxidised by acidified dichromate(VI)?",
+   "options": {
+    "A": "propanone",
+    "B": "butan-2-one",
+    "C": "pentan-3-one",
+    "D": "ethanal"
+   },
+   "answer": "D",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Aldehydes are readily oxidised to acids; ketones resist mild oxidation.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i21",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which compound gives yellow triiodomethane with warm alkaline I2(aq)?",
+   "options": {
+    "A": "benzaldehyde",
+    "B": "propanone",
+    "C": "pentan-3-one",
+    "D": "propanal"
+   },
+   "answer": "B",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Propanone contains CH3CO−.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i22",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which aldehyde gives a positive iodoform test?",
+   "options": {
+    "A": "ethanal",
+    "B": "propanal",
+    "C": "butanal",
+    "D": "methanal"
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Ethanal contains CH3CO− with H as R.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i23",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which ketone gives no yellow precipitate with alkaline I2(aq)?",
+   "options": {
+    "A": "butan-2-one",
+    "B": "propanone",
+    "C": "pentan-2-one",
+    "D": "pentan-3-one"
+   },
+   "answer": "D",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Pentan-3-one lacks CH3CO−.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i24",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which organic ion accompanies CHI3 when CH3COR reacts with alkaline iodine?",
+   "options": {
+    "A": "RCN−",
+    "B": "RCO−",
+    "C": "RCO2−",
+    "D": "RCH2O−"
+   },
+   "answer": "C",
+   "distractors": {},
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The remaining acyl fragment becomes a carboxylate ion.",
+   "hints": [
+    "Identify the functional group in the starting substance.",
+    "Recall the reagent’s characteristic reaction or observation.",
+    "Eliminate choices that require a different functional group."
+   ]
+  },
+  {
+   "id": "9701-17.1-i25",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how ethanal is prepared from ethanol.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "acidified K2Cr2O7 or acidified KMnO4",
+     "keywords": [
+      [
+       "acidified K2Cr2O7 or acidified KMnO4"
+      ]
+     ]
+    },
+    {
+     "point": "heat and distil the aldehyde as it forms",
+     "keywords": [
+      [
+       "heat and distil the aldehyde as it forms"
+      ]
+     ]
+    }
+   ],
+   "explanation": "acidified K2Cr2O7 or acidified KMnO4; heat and distil the aldehyde as it forms.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i26",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how propanone is prepared from propan-2-ol.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "oxidise with acidified K2Cr2O7 or KMnO4",
+     "keywords": [
+      [
+       "oxidise with acidified K2Cr2O7 or KMnO4"
+      ]
+     ]
+    },
+    {
+     "point": "heat and distil the ketone",
+     "keywords": [
+      [
+       "heat and distil the ketone"
+      ]
+     ]
+    }
+   ],
+   "explanation": "oxidise with acidified K2Cr2O7 or KMnO4; heat and distil the ketone.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i27",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the reduction products of ethanal and propanone using NaBH4 or LiAlH4.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "ethanal forms ethanol",
+     "keywords": [
+      [
+       "ethanal forms ethanol"
+      ]
+     ]
+    },
+    {
+     "point": "propanone forms propan-2-ol",
+     "keywords": [
+      [
+       "propanone forms propan-2-ol"
+      ]
+     ]
+    }
+   ],
+   "explanation": "ethanal forms ethanol; propanone forms propan-2-ol.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i28",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the reagents, conditions and product for adding HCN to propanone.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "HCN with KCN catalyst and heat",
+     "keywords": [
+      [
+       "HCN with KCN catalyst and heat"
+      ]
+     ]
+    },
+    {
+     "point": "2-hydroxy-2-methylpropanenitrile",
+     "keywords": [
+      [
+       "2-hydroxy-2-methylpropanenitrile"
+      ]
+     ]
+    }
+   ],
+   "explanation": "HCN with KCN catalyst and heat; 2-hydroxy-2-methylpropanenitrile.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i29",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the first step of nucleophilic addition of HCN to ethanal.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "CN− attacks electron-deficient carbonyl carbon",
+     "keywords": [
+      [
+       "CN− attacks electron-deficient carbonyl carbon"
+      ]
+     ]
+    },
+    {
+     "point": "C=O pi electrons move to oxygen",
+     "keywords": [
+      [
+       "C=O pi electrons move to oxygen"
+      ]
+     ]
+    }
+   ],
+   "explanation": "CN− attacks electron-deficient carbonyl carbon; C=O pi electrons move to oxygen.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i30",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the second step and explain how CN− is regenerated.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "alkoxide accepts a proton from HCN",
+     "keywords": [
+      [
+       "alkoxide accepts a proton from HCN"
+      ]
+     ]
+    },
+    {
+     "point": "HCN supplies proton and forms CN−",
+     "keywords": [
+      [
+       "HCN supplies proton and forms CN−"
+      ]
+     ]
+    }
+   ],
+   "explanation": "alkoxide accepts a proton from HCN; HCN supplies proton and forms CN−.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i31",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a positive 2,4-DNPH test.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "add 2,4-DNPH reagent",
+     "keywords": [
+      [
+       "add 2,4-DNPH reagent"
+      ]
+     ]
+    },
+    {
+     "point": "orange or yellow-orange precipitate",
+     "keywords": [
+      [
+       "orange or yellow-orange precipitate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "add 2,4-DNPH reagent; orange or yellow-orange precipitate.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i32",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why 2,4-DNPH cannot distinguish propanal from propanone.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "both contain aldehyde or ketone carbonyl groups",
+     "keywords": [
+      [
+       "both contain aldehyde or ketone carbonyl groups"
+      ]
+     ]
+    },
+    {
+     "point": "both form orange precipitates",
+     "keywords": [
+      [
+       "both form orange precipitates"
+      ]
+     ]
+    }
+   ],
+   "explanation": "both contain aldehyde or ketone carbonyl groups; both form orange precipitates.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i33",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the class of carbonyl if it gives a silver mirror and a red Fehling’s precipitate.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "aldehyde",
+     "keywords": [
+      [
+       "aldehyde"
+      ]
+     ]
+    },
+    {
+     "point": "reduces Tollens’ and Fehling’s reagents",
+     "keywords": [
+      [
+       "reduces Tollens’ and Fehling’s reagents"
+      ]
+     ]
+    }
+   ],
+   "explanation": "aldehyde; reduces Tollens’ and Fehling’s reagents.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i34",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to distinguish propanal and propanone with one reagent.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "use Tollens’ reagent or Fehling’s solution",
+     "keywords": [
+      [
+       "use Tollens’ reagent or Fehling’s solution"
+      ]
+     ]
+    },
+    {
+     "point": "propanal positive; propanone negative",
+     "keywords": [
+      [
+       "propanal positive; propanone negative"
+      ]
+     ]
+    }
+   ],
+   "explanation": "use Tollens’ reagent or Fehling’s solution; propanal positive; propanone negative.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i35",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce whether ethanal contains a CH3CO− group from its alkaline iodine test.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "yellow CHI3 precipitate",
+     "keywords": [
+      [
+       "yellow CHI3 precipitate"
+      ]
+     ]
+    },
+    {
+     "point": "ethanal contains CH3CO−",
+     "keywords": [
+      [
+       "ethanal contains CH3CO−"
+      ]
+     ]
+    }
+   ],
+   "explanation": "yellow CHI3 precipitate; ethanal contains CH3CO−.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-i36",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the organic products when CH3COR reacts with alkaline I2(aq).",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "yellow triiodomethane CHI3",
+     "keywords": [
+      [
+       "yellow triiodomethane CHI3"
+      ]
+     ]
+    },
+    {
+     "point": "RCO2− ion",
+     "keywords": [
+      [
+       "RCO2− ion"
+      ]
+     ]
+    }
+   ],
+   "explanation": "yellow triiodomethane CHI3; RCO2− ion.",
+   "hints": [
+    "Identify the relevant functional group.",
+    "Recall the reagent and its observation or product.",
+    "State the evidence before your conclusion."
+   ]
+  },
+  {
+   "id": "9701-17.1-p01",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q27",
+    "qid": "9701_w20_12_q27"
+   },
+   "stem": "How many structural isomers are there of molecular formula C₅H₁₀O that give a red precipitate\nwith Fehling’s solution?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Four aldehydes have this formula: pentanal, 2-methylbutanal, 3-methylbutanal and 2,2-dimethylpropanal. The tempting count of three omits one branched aldehyde.",
+   "hints": [],
+   "distractors": {},
+   "image": "Assets/mcq/9701_w20_12_q27.png"
+  },
+  {
+   "id": "9701-17.1-p02",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q38",
+    "qid": "9701_w25_13_q38"
+   },
+   "stem": "Seven aldehydes and ketones\n●\ncontain only one oxygen atom per molecule\n●\nhave four or fewer carbon atoms in their structures.\nAlkaline I₂(aq) is added to each of these carbonyl compounds separately.\nHow many of these carbonyl compounds produce a yellow precipitate with alkaline I₂(aq)?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Ethanal, propanone and butan-2-one contain CH3CO− and give CHI3. Counting every ketone includes compounds without this group.",
+   "hints": [],
+   "distractors": {},
+   "image": "Assets/mcq/9701_w25_13_q38.png"
+  },
+  {
+   "id": "9701-17.1-p03",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q33",
+    "qid": "9701_w25_12_q33"
+   },
+   "stem": "HOCH₂CHO is heated under reflux with an excess of acidified K₂Cr₂O₇ until there is no further\nreaction.\nWhat is the final product of this reaction?",
+   "options": {
+    "A": "HOOCCHO",
+    "B": "HOCH₂COOH",
+    "C": "HOOCCOOH",
+    "D": "HOOCCH₂COOH"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Excess oxidant under reflux oxidises both the primary alcohol and the aldehyde to carboxylic acids. Stopping after only one oxidation gives an intermediate.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9701-17.1-p04",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q36",
+    "qid": "9701_w24_13_q36"
+   },
+   "stem": "Which compound, on reaction with hydrogen cyanide, produces a compound with a chiral centre?",
+   "options": {
+    "A": "CH₃CHO",
+    "B": "CH₃CH₂COCH₂CH₃",
+    "C": "CH₃CO₂CH₃",
+    "D": "HCHO"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "HCN addition to ethanal gives a carbon bonded to H, CH3, OH and CN. A symmetrical ketone has two identical alkyl groups and gives no chiral centre.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9701-17.1-p05",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q35",
+    "qid": "9701_w24_13_q35"
+   },
+   "stem": "Which alcohol gives only one possible oxidation product when warmed with dilute acidified\npotassium dichromate(VI)?",
+   "options": {
+    "A": "butan-1-ol",
+    "B": "butan-2-ol",
+    "C": "2-methylpropan-1-ol",
+    "D": "2-methylpropan-2-ol"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Butan-2-ol oxidises to butan-2-one only. Primary alcohols may give an aldehyde and an acid, depending on conditions.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9701-17.1-p06",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q35",
+    "qid": "9701_w24_12_q35"
+   },
+   "stem": "Which compound can undergo nucleophilic addition?",
+   "options": {
+    "A": "bromoethane, C₂H₅Br",
+    "B": "ethanal, CH₃CHO",
+    "C": "ethane, C₂H₆",
+    "D": "ethene, C₂H₄"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Ethanal has a polar C=O bond and accepts nucleophilic attack at carbon. Ethene instead typically undergoes electrophilic addition.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9701-17.1-p07",
+   "kcs": [
+    "9701-17.1.5",
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q34",
+    "qid": "9701_w24_12_q34"
+   },
+   "stem": "Compound X:\n●\ndoes not react with Tollens’ reagent\n●\nforms a yellow precipitate with alkaline I₂(aq)\n●\ndoes not react with sodium.\nWhat could be the identity of X?",
+   "options": {
+    "A": "CH₃CHO",
+    "B": "C₂H₅COCH₃",
+    "C": "CH₃COOC₂H₅",
+    "D": "CH₃CHOHCH₃"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The negative Tollens’ result rules out ethanal; the positive iodoform result identifies a methyl ketone, butan-2-one. An ester lacks this response.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9701-17.1-p08",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q33",
+    "qid": "9701_w24_12_q33"
+   },
+   "stem": "The compound ‘leaf alcohol’ is partly responsible for the smell of new-mown grass.\nleaf alcohol\nCH₃CH₂CH=CHCH₂CH₂OH\nWhat will be formed when ‘leaf alcohol’ is oxidised using an excess of hot acidified K₂Cr₂O₇(aq)?",
+   "options": {
+    "A": "CH₃CH₂CH(OH)CH(OH)CH₂CO₂H",
+    "B": "CH₃CH₂COCOCH₂CO₂H",
+    "C": "CH₃CH₂CH=CHCH₂CO₂H",
+    "D": "CH₃CH₂CO₂H and HO₂CCH₂CO₂H"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Acidified dichromate oxidises the primary alcohol group to CO2H while leaving the C=C bond. Oxidative cleavage of the alkene requires different conditions.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9701-17.1-p09",
+   "kcs": [
+    "9701-17.1.5",
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q37",
+    "qid": "9701_w24_13_q37"
+   },
+   "stem": "The diagram shows three reactions of ethanal. In each case, an excess of ethanal is used.\nethanal\nCH₃CHO\nsolid 2\nsolid 3\nsolution 1\nalkaline I₂(aq)\nheat\nFehling’s solution\nboil\nacidified K₂Cr₂O₇\nheat\nObservations are made after each of the three reactions.\nWhat are the colours of solution 1 and solids 2 and 3?\nsolution 1\nsolid 2\nsolid 3",
+   "options": {
+    "A": "green yellow silver mirror",
+    "B": "green yellow red",
+    "C": "orange red silver mirror",
+    "D": "orange red red"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Ethanal reduces dichromate to green Cr(III), forms yellow CHI3 with alkaline iodine and red Cu2O with Fehling’s. The silver mirror belongs to Tollens’ reagent, not Fehling’s.",
+   "hints": [],
+   "distractors": {},
+   "image": "Assets/mcq/9701_w24_13_q37.png"
+  },
+  {
+   "id": "9701-17.1-p10",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q37",
+    "qid": "9701_w23_13_q37"
+   },
+   "stem": "Ethanal, CH₃CHO, undergoes an addition reaction with HCN in the presence of CN⁻ ions.\nWhich row identifies the type of reaction and the name of the product formed?",
+   "options": {
+    "A": "electrophilic addition; 2-hydroxypropanenitrile",
+    "B": "electrophilic addition; 2-hydroxyethanenitrile",
+    "C": "nucleophilic addition; 2-hydroxypropanenitrile",
+    "D": "nucleophilic addition; 2-hydroxyethanenitrile"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The figure shows that the ethanal product is 2-hydroxypropanenitrile by nucleophilic addition. Naming a two-carbon nitrile omits the carbon added by CN−.",
+   "hints": [],
+   "distractors": {},
+   "image": "Assets/mcq/9701_w23_13_q37.png"
+  },
+  {
+   "id": "9701-17.1-p11",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q36",
+    "qid": "9701_w23_12_q36"
+   },
+   "stem": "Which reaction takes place by a nucleophilic addition mechanism?",
+   "options": {
+    "A": "propene reacting with hydrogen bromide",
+    "B": "2-bromopropane reacting with sodium hydroxide in ethanol",
+    "C": "propanone reacting with hydrogen cyanide",
+    "D": "methane reacting with chlorine"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Propanone with HCN undergoes nucleophilic addition. Propene with HBr undergoes electrophilic addition; the other listed mechanisms differ.",
+   "hints": [],
+   "distractors": {},
+   "image": "Assets/mcq/9701_w23_12_q36.png"
+  },
+  {
+   "id": "9701-17.1-p12",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q28",
+    "qid": "9701_s19_13_q28"
+   },
+   "stem": "Structural isomerism only should be considered when answering this question.\nA set of isomeric compounds, with molecular formula C₅H₁₀O, all react in a 1 : 1 ratio with an\nexcess of HCN by nucleophilic addition.\nHow many isomeric compounds are in the set?",
+   "options": {
+    "A": "5",
+    "B": "6",
+    "C": "7",
+    "D": "8"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "There are four aldehydes and three ketones with formula C5H10O, hence seven carbonyl isomers that add HCN. Counting aldehydes alone misses the ketones.",
+   "hints": [],
+   "distractors": {},
+   "image": "Assets/mcq/9701_s19_13_q28.png"
+  },
+  {
+   "id": "9701-17.1-x001",
+   "kcs": [
+    "9701-17.1.1",
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q28",
+    "qid": "9701_s19_11_q28"
+   },
+   "stem": "Compound X is treated with two reagents successively, forming compound Z.\nCHO\nCOCH₃\na mild\noxidising\nagent\nNaBH₄\nY\nX\nZ\nWhat could be Z?\nCO₂H\nCH(OH)CH₃",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s19_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect option was B. Aldehydes are oxidised to carboxylic acids by mild oxidising agents, hence the correct answer is A."
+  },
+  {
+   "id": "9701-17.1-x002",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q29",
+    "qid": "9701_s19_11_q29"
+   },
+   "stem": "Which reagent may be used to distinguish between propanone and ethanol?",
+   "options": {
+    "A": "2,4-dinitrophenylhydrazine",
+    "B": "bromine water",
+    "C": "Fehling’s reagent",
+    "D": "Tollens’ reagent"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x003",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q27",
+    "qid": "9701_s19_12_q27"
+   },
+   "stem": "Which reagent could be used to distinguish between ethanal and propanal?",
+   "options": {
+    "A": "2,4-dinitrophenylhydrazine",
+    "B": "I₂ / NaOH(aq)",
+    "C": "K₂Cr₂O₇ / H₂SO₄(aq)",
+    "D": "Tollens’ reagent"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x004",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q23",
+    "qid": "9701_s19_13_q23"
+   },
+   "stem": "Which compound would produce a carboxylic acid and a ketone when treated with hot,\nconcentrated acidified manganate(VII) ions?",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s19_13_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x005",
+   "kcs": [
+    "9701-17.1.4",
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q27",
+    "qid": "9701_s19_13_q27"
+   },
+   "stem": "Compound Q reacts with 2,4-dinitrophenylhydrazine to give a precipitate.\nCompound Q does not produce a precipitate when warmed with Fehling’s solution.\nWhat could be the identity of compound Q?",
+   "options": {
+    "A": "CH₃COCH₃",
+    "B": "CH₂(OH)CH₂CH₃",
+    "C": "CH₃CH₂CO₂H",
+    "D": "CH₃CH₂CHO"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x006",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q26",
+    "qid": "9701_w19_11_q26"
+   },
+   "stem": "The diagram shows the structure of compound Z.\nZ\nO\nO\nWhat is the product of the reaction between compound Z and an excess of NaBH₄?\nOH\nOH",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w19_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x007",
+   "kcs": [
+    "9701-17.1.5",
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q27",
+    "qid": "9701_w19_11_q27"
+   },
+   "stem": "Compound Q shows the following reactions.\n●\nIt gives an orange precipitate with 2,4-dinitrophenylhydrazine.\n●\nIt gives a red-brown precipitate with Fehling’s reagent.\n●\nIt gives a pale yellow precipitate with alkaline aqueous iodine.\nWhat could be the identity of Q?",
+   "options": {
+    "A": "ethanal",
+    "B": "propan-2-ol",
+    "C": "propanal",
+    "D": "propanone"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x008",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q39",
+    "qid": "9701_w19_11_q39"
+   },
+   "stem": "Hydrogen cyanide reacts with propanone in the presence of potassium cyanide.\nWhich statements about this reaction are correct?\n1\nThe cyanide ion is a catalyst for the reaction.\n2\nThis is an addition reaction.\n3\nThe intermediate behaves as a base.",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w19_11_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x009",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q24",
+    "qid": "9701_w19_12_q24"
+   },
+   "stem": "Propan-1-ol can be reacted with acidified potassium dichromate(VI) to form propanoic acid,\nreaction 1, or propanal, reaction 2.\nCH₃CH₂COH\nCH₃CH₂CH₂OH\nO\nCH₃CH₂CH\nO\npropan-1-ol\nreaction 1\nreaction 2\nHow can the reaction be carried out to ensure that reaction 2 occurs rather than reaction 1?",
+   "options": {
+    "A": "An excess of acidified potassium dichromate(VI) is used.",
+    "B": "An excess of concentrated sulfuric acid is added.",
+    "C": "The reaction mixture is distilled immediately after mixing.",
+    "D": "The reaction mixture is heated under reflux."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w19_12_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x010",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q40",
+    "qid": "9701_w19_12_q40"
+   },
+   "stem": "Each of the compounds below is treated separately with an excess of NaBH₄.\nThe product of each reaction is then heated with an excess of concentrated H₂SO₄.\nWhich compounds give only one final product with the molecular formula C₇H₁₀?\n1\nO\nO\n2\nO\n3\nO\nH\nO\nH\nO\nH",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w19_12_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x011",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q37",
+    "qid": "9701_s20_11_q37"
+   },
+   "stem": "In which of the reactions is the organic compound oxidised by the given reagent?\n1\nCH₃CHO + HCN reagent\n2\nCH₃CH₂CH₂CHO + Tollens’ reagent\n3\nCH₃CH₂CHO + Fehling’s reagent",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s20_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x012",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q38",
+    "qid": "9701_s20_11_q38"
+   },
+   "stem": "When the apparatus is set up as shown, an orange precipitate forms in test-tube Z.\nair\nwarm\ncompound Q +\nacidified potassium\ndichromate(VI)\n2,4-dinitrophenylhydrazine\nreagent\nY\nZ\nWhat could compound Q be?\n1\nCH₃CH₂CH₂OH\n2\nCH₃CH(OH)CH₃\n3\n(CH₃)₃COH",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s20_11_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x013",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q37",
+    "qid": "9701_s20_12_q37"
+   },
+   "stem": "Compound X has the structure shown.\nOH\nO\ncompound X\nWhich statements about compound X are correct?\n1\nX will decolourise cold, acidified KMnO₄(aq).\n2\nX gives an orange precipitate with 2,4-DNPH reagent.\n3\nX does not react with Tollens’ reagent.",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s20_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x014",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q24",
+    "qid": "9701_s20_13_q24"
+   },
+   "stem": "Which statement about compound T and compound U is correct?\nC\nH₃C\nO\ncompound T\nCH₂CH₂CH₃\nC\nH\nO\ncompound U\nCH(CH³)CH²CH³",
+   "options": {
+    "A": "T and U are stereoisomers.",
+    "B": "T can be distinguished from U by the use of alkaline aqueous iodine.",
+    "C": "T can be reduced by LiAl H₄ but not by NaBH₄.",
+    "D": "U can be formed by the oxidation of 3-methylbutan-1-ol."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s20_13_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x015",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q37",
+    "qid": "9701_s20_13_q37"
+   },
+   "stem": "Propanal reacts with hydrogen cyanide to form 2-hydroxybutanenitrile. A suitable catalyst for this\nreaction is sodium cyanide.\nNaCN\nCH₃CH₂CHO + HCN\nCH₃CH₂CH(OH)CN\nWhich statements about this catalysed reaction of propanal with hydrogen cyanide are correct?\n1\nThe sodium cyanide provides a stronger nucleophile than HCN.\n2\nThe reaction can be classified as nucleophilic substitution.\n3\nThe hydrogen cyanide molecule attacks the propanal molecule to form an intermediate ion.",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s20_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x016",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q27",
+    "qid": "9701_w20_11_q27"
+   },
+   "stem": "Which pair of test results would prove that a substance, X, is a ketone?",
+   "options": {
+    "A": "X has no reaction with Tollens’ reagent. X reacts with alkaline aqueous iodine.",
+    "B": "X is reduced by lithium aluminium hydride. X is oxidised by acidified dichromate(VI).",
+    "C": "X reacts with 2,4-DNPH reagent. X has no reaction with Fehling’s reagent.",
+    "D": "X reacts with hydrogen cyanide. X is reduced by lithium aluminium hydride."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x017",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q28",
+    "qid": "9701_w20_11_q28"
+   },
+   "stem": "Carvone is found in spearmint oil.\nO\ncarvone\nWhich product is formed when carvone is reacted with NaBH₄?\nOH",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w20_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x018",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q23",
+    "qid": "9701_w20_12_q23"
+   },
+   "stem": "Compound X contains two functional groups.\nCH₃\nC\ncompound X\nO\nCHO\nWhich reagent will react with only one of the functional groups?",
+   "options": {
+    "A": "acidified potassium dichromate(VI)",
+    "B": "2,4-DNPH reagent",
+    "C": "hydrogen cyanide",
+    "D": "NaBH₄"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w20_12_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x019",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q37",
+    "qid": "9701_w20_12_q37"
+   },
+   "stem": "Which reagents could be used, under suitable conditions, to oxidise CH₃CH₂CH₂OH to\nCH₃CH₂CHO?\n1\nacidified potassium manganate(VII)\n2\nacidified potassium dichromate(VI)\n3\nTollens’ reagent",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w20_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x020",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q28",
+    "qid": "9701_w20_13_q28"
+   },
+   "stem": "Carvone is found in spearmint oil.\nO\ncarvone\nWhich product is formed when carvone is reacted with NaBH₄?\nOH",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w20_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x021",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q25",
+    "qid": "9701_s21_11_q25"
+   },
+   "stem": "When an organic compound is oxidised, any oxygen atom gained by the organic molecule is\nconsidered to be from a water molecule also producing 2H⁺ + 2e⁻. Any hydrogen atom lost may\nbe considered to be lost as H⁺ + e⁻.\nThese changes can be represented by the following two equations.\nH₂O → [O] + 2H⁺ + 2e⁻\n[H] → H⁺ + e⁻\nCompound X is oxidised by heating under reflux with hot, acidified potassium dichromate(VI) for\none hour. The half-equation for the reduction reaction is shown.\nCr₂O₇\n²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O\nUnder these conditions, one mole of potassium dichromate(VI) oxidises three moles of X.\nWhat could X be?",
+   "options": {
+    "A": "propanal",
+    "B": "propan-1-ol",
+    "C": "propan-1,2-diol",
+    "D": "propan-1,3-diol"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was B. This was a difficult question. Since one mole of Cr2O7 2– oxidises three moles of X, it gains two moles of electrons from the oxidation of each mole of X. From the information in the question this means that one atom of X either gains one atom of oxygen or loses two atoms of hydrogen. The only possible answer is propanal, since one molecule of propanal gains one atom of oxygen when it is oxidised to one molecule of propanoic acid. It may have helped candidates to construct half equations: A C2H5CHO + H2O → C2H5COOH + 2H+ + 2e– B C2H5CH2OH + H2O "
+  },
+  {
+   "id": "9701-17.1-x022",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q28",
+    "qid": "9701_s21_11_q28"
+   },
+   "stem": "Which statement is correct for the reaction of carbonyl compounds with HCN?",
+   "options": {
+    "A": "The reaction is catalysed by concentrated H₂SO₄.",
+    "B": "Pentan-2-one and HCN react to give a chiral product.",
+    "C": "The reaction is a condensation reaction.",
+    "D": "The reaction is nucleophilic substitution."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x023",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q39",
+    "qid": "9701_s21_11_q39"
+   },
+   "stem": "Which reactions have a coloured organic product?\n1\nethanal + 2,4-dinitrophenylhydrazine reagent\n2\nethanol + acidified potassium dichromate(VI)\n3\nethene + cold dilute acidified potassium manganate(VII)",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s21_11_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was B. Reaction 1 does give a coloured organic product – the orange crystals produced by the condensation reaction between ethanal and 2,4-DNPH reagent. Reaction 2 also gives a coloured product, but it is an inorganic product containing Cr3+, hence its green colour. The correct answer is therefore D, as statement 1 only is correct. Principal Examiner Report for Teachers CHEMISTRY"
+  },
+  {
+   "id": "9701-17.1-x024",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q22",
+    "qid": "9701_s21_12_q22"
+   },
+   "stem": "Compound X can be converted into compound Y in a single step.\nO\nO\nOH\nX\ncompound Y\nWhat could be the identity of X?",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s21_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x025",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q28",
+    "qid": "9701_s21_12_q28"
+   },
+   "stem": "Which reaction mechanism for the formation of C₂H₅CH(OH)(CN) is correct?\nO\nH",
+   "options": {
+    "A": "H N C⁻ N C O⁻ H⁺ \u0001⁻ \u0001⁺ H N C OH O H",
+    "B": "H N C⁻ N C O⁻ H⁺ \u0001⁻ \u0001⁺ H⁺ H⁺ H N C OH O H",
+    "C": "H N C⁻ N C O⁻ \u0001⁺ \u0001⁻ H N C OH O H",
+    "D": "H N C⁻ N C O⁻ \u0001⁻ \u0001⁺ H N C OH"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s21_12_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x026",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q26",
+    "qid": "9701_s21_13_q26"
+   },
+   "stem": "The skeletal formulae of three compounds are shown.\nR\nO\nO\nOH\nS\nO\nO\nT\nWhich compounds will give a positive test with 2,4-dinitrophenylhydrazine reagent?",
+   "options": {
+    "A": "R only",
+    "B": "R and S only",
+    "C": "S and T only",
+    "D": "R, S and T"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s21_13_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x027",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q27",
+    "qid": "9701_s21_13_q27"
+   },
+   "stem": "The diagram shows the structure of a compound formed by the reaction of HCN with a carbonyl\ncompound, X.\nC\nCN\nH₃C\nC₄H₉\nOH\nWhat is the mechanism of this reaction and what is the functional group in X?\nmechanism of reaction\nfunctional group in X",
+   "options": {
+    "A": "electrophilic addition aldehyde",
+    "B": "electrophilic addition ketone",
+    "C": "nucleophilic addition aldehyde",
+    "D": "nucleophilic addition ketone"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s21_13_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x028",
+   "kcs": [
+    "9701-17.1.5",
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q39",
+    "qid": "9701_s21_13_q39"
+   },
+   "stem": "Three compounds, X, Y and Z, are shown.\nX\nY\nZ\nC₂H₅COCH₃\nC₂H₅CHO\nCH₃CO₂H\nWhich statements about X, Y and Z are correct?\n1\nX reacts with alkaline aqueous iodine.\n2\nY reacts with Tollens’ reagent.\n3\nZ does not react with alkaline aqueous iodine.",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s21_13_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x029",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q26",
+    "qid": "9701_w21_11_q26"
+   },
+   "stem": "CH₃CH₂COCH₂CH₃ reacts with hydrogen cyanide to form an organic product called a\ncyanohydrin.\nWhich statement is correct?",
+   "options": {
+    "A": "The cyanohydrin product has one chiral centre.",
+    "B": "The cyanohydrin product is formed by electrophilic addition.",
+    "C": "The cyanohydrin product is formed via an intermediate which contains a C–OH group.",
+    "D": "The formation of the cyanohydrin product requires the use of cyanide ions as a catalyst."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x030",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q27",
+    "qid": "9701_w21_11_q27"
+   },
+   "stem": "Reduction of compound R with LiAl H₄ gives the compound 4-methylpentane-2,3-diol.\nWhat could be the identity of compound R?\nO\nO\nO\nO",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w21_11_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x031",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q26",
+    "qid": "9701_w21_12_q26"
+   },
+   "stem": "Compound P is heated under reflux with an excess of acidified potassium dichromate(VI) to form\ncompound Q.\nCompound Q has a lower boiling point than compound P.\nWhat could be compound P?",
+   "options": {
+    "A": "2-methylbutan-1-ol",
+    "B": "2-methylbutan-2-ol",
+    "C": "pentan-1-ol",
+    "D": "pentan-2-ol"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x032",
+   "kcs": [
+    "9701-17.1.4",
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q28",
+    "qid": "9701_w21_12_q28"
+   },
+   "stem": "Which compound produces a precipitate with 2,4-dinitrophenylhydrazine reagent and also with\nalkaline aqueous iodine?",
+   "options": {
+    "A": "butan-2-ol",
+    "B": "butanal",
+    "C": "butanone",
+    "D": "pentan-3-one"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x033",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q39",
+    "qid": "9701_w21_12_q39"
+   },
+   "stem": "Which of the reactions give products containing a chiral centre?\n1\nCH₂(OH)COCO₂H + an excess of HCN\n2\nCH₂(OH)COCO₂H + an excess of NaBH₄\n3\nCH₂(OH)COCO₂H + an excess of LiAl H₄",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w21_12_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most common incorrect answer was D. The three statements will be looked at separately. Reaction 1 produces CH2(OH)C*(OH)(CN)CO2H, which is chiral. Reaction 1 produces CH2(OH)C*H(OH)CO2H, which is chiral. Reaction 1 produces CH2(OH)CH(OH)CH2OH, which is not chiral. Principal Examiner Report for Teachers CHEMISTRY"
+  },
+  {
+   "id": "9701-17.1-x034",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q27",
+    "qid": "9701_s22_11_q27"
+   },
+   "stem": "Which compound will react with LiAl H₄ to form two optical isomers?",
+   "options": {
+    "A": "CH₃CH₂COCH₃",
+    "B": "CH₃CH₂CH₂CHO",
+    "C": "CH₃CH₂COCH₂CH₃",
+    "D": "CH₃CH(CH₃)CH₂CO₂H"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x035",
+   "kcs": [
+    "9701-17.1.4",
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q35",
+    "qid": "9701_s22_11_q35"
+   },
+   "stem": "The skeletal formulae of two organic compounds are shown.\nWhich reagents can be used to distinguish these two compounds?\n1\nalkaline I₂(aq)\n2\nacidified K₂Cr₂O₇\n3\n2,4-dinitrophenylhydrazine (2,4-DNPH reagent)",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1 and 3 only",
+    "C": "2 and 3 only",
+    "D": "2 only"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s22_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x036",
+   "kcs": [
+    "9701-17.1.5",
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q36",
+    "qid": "9701_s22_11_q36"
+   },
+   "stem": "A carbonyl compound, X, reacts with HCN in the presence of NaCN to make a compound with\nMr 85. Compound X does not react with Fehling’s reagent.\nWhat is compound X?",
+   "options": {
+    "A": "butanal",
+    "B": "butanone",
+    "C": "propanal",
+    "D": "propanone"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s22_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x037",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q33",
+    "qid": "9701_s22_12_q33"
+   },
+   "stem": "Primary alcohols can be oxidised to aldehydes using either acidified potassium dichromate(VI) or\nacidified potassium manganate(VII). The reaction mixtures change colour as the oxidising agent\nis reduced.\nWhat are the colour changes seen?\nacidified potassium dichromate(VI)\nacidified potassium manganate(VII)\nbefore\nafter\nbefore\nafter",
+   "options": {
+    "A": "green orange purple colourless",
+    "B": "orange green colourless purple",
+    "C": "orange green purple colourless",
+    "D": "purple colourless orange green"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s22_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x038",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q35",
+    "qid": "9701_s22_12_q35"
+   },
+   "stem": "The skeletal formula of M is shown.\nO\nM\nOH\nHO\nO\nM is reacted with an excess of LiAl H₄. Dilute acid is then added.\nWhat is the molecular formula of the final organic product?",
+   "options": {
+    "A": "C₅H₆O₅",
+    "B": "C₅H₁₀O₄",
+    "C": "C₅H₁₀O₃",
+    "D": "C₅H₁₂O₃"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s22_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x039",
+   "kcs": [
+    "9701-17.1.4",
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q36",
+    "qid": "9701_s22_12_q36"
+   },
+   "stem": "Which compound forms a precipitate when mixed with 2,4-DNPH reagent and also forms a\nprecipitate when mixed with Fehling’s reagent?\nO\nO\nOH",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s22_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x040",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q28",
+    "qid": "9701_s22_13_q28"
+   },
+   "stem": "The diagram shows the structural formula of mevalonic acid.\nHO₂C\nC\nH\nH\nC\nCH₃\nOH\nC\nH\nH\nH\nH\nC\nOH\nmevalonic acid\nWhich reagent and conditions will react with mevalonic acid to produce an organic compound\nwithout a chiral carbon atom?",
+   "options": {
+    "A": "heat under reflux with CH₃OH / H⁺",
+    "B": "heat under reflux with Cr₂O₇ 2– / H⁺",
+    "C": "Na at room temperature",
+    "D": "PCl ₅ at room temperature"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s22_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x041",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q35",
+    "qid": "9701_s22_13_q35"
+   },
+   "stem": "Which reaction has a nucleophilic addition mechanism and gives a good yield of product under\nthe stated conditions?",
+   "options": {
+    "A": "1-bromopropane reacting with hot ethanolic sodium hydroxide",
+    "B": "2-iodopropane reacting with hot aqueous sodium hydroxide",
+    "C": "propanal reacting with hydrogen cyanide under alkaline conditions",
+    "D": "propanal reacting with hydrogen cyanide under acidic conditions"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x042",
+   "kcs": [
+    "9701-17.1.4",
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q36",
+    "qid": "9701_s22_13_q36"
+   },
+   "stem": "A carbonyl compound has the structural formula CH₃COCHO.\nWhich row is correct for the observations made when this compound is treated with the given\nreagents?\n2,4-DNPH reagent\nFehling’s reagent",
+   "options": {
+    "A": "silver mirror red precipitate",
+    "B": "silver mirror orange precipitate",
+    "C": "orange precipitate silver mirror",
+    "D": "orange precipitate red precipitate"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s22_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x043",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q33",
+    "qid": "9701_w22_11_q33"
+   },
+   "stem": "W reacts with alkaline I₂(aq) to form a yellow precipitate and CH₃CH₂CO₂\n⁻ ions.\nWhich row identifies W and the yellow precipitate?\nidentity of W\nidentity of\nyellow precipitate",
+   "options": {
+    "A": "butanone CHI₃",
+    "B": "butanone CH₃I",
+    "C": "propanone CHI₃",
+    "D": "propanone CH₃I"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w22_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x044",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q34",
+    "qid": "9701_w22_11_q34"
+   },
+   "stem": "Ethanal reacts with hydrogen cyanide in the presence of KCN to produce a hydroxynitrile.\nWhat is the first step in the mechanism of this reaction?\nC",
+   "options": {
+    "A": "CN⁻ CN⁻ H⁺ O H H₃C \u0001+ \u0001– C",
+    "B": "CN⁻ O H H₃C \u0001+ \u0001– C",
+    "C": "O H H₃C \u0001+ \u0001– C",
+    "D": "O H H₃C \u0001+ \u0001–"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w22_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x045",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q35",
+    "qid": "9701_w22_12_q35"
+   },
+   "stem": "The table shows a student’s predictions for the reactions of three compounds.\ncompound\nalkaline\nI₂(aq)\nFehling’s\nreagent\nTollens’\nreagent\n1\nO\n\u0016\n\u0016\n\u0016\nkey\n\u0016 = reaction occurs\n\u001a = no reaction\n2\nO\n\u0016\n\u001a\n\u001a\n3\nO\n\u001a\n\u001a\n\u001a\nWhich rows show the correct predictions?",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1 and 2 only",
+    "C": "1 and 3 only",
+    "D": "2 and 3 only"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w22_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "29 per cent of candidates chose the correct answer, A. The most commonly chosen incorrect answer was B. 33 per cent of candidates chose this answer. Compound 1 is ethanal. This will give a positive result with alkaline I2(aq), with Fehling’s reagent and with Tollens’ reagent. Compound 2 is propanone. This will give a positive result with alkaline I2(aq), but as it is a ketone it will give a negative result with Fehling’s reagent and with Tollens’ reagent. Compound 3 is pentan-3-one. This will give a negative result with alkaline I2(aq), with Fehling’s reagent and with Tollens’ reagent. The cor"
+  },
+  {
+   "id": "9701-17.1-x046",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q36",
+    "qid": "9701_w22_12_q36"
+   },
+   "stem": "Which mechanism describes the reaction of aldehydes and ketones with HCN + NaCN?",
+   "options": {
+    "A": "electrophilic addition",
+    "B": "electrophilic substitution",
+    "C": "nucleophilic addition",
+    "D": "nucleophilic substitution"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x047",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q40",
+    "qid": "9701_w22_12_q40"
+   },
+   "stem": "A molecule of an organic compound, P, contains three carbon atoms and shows a strong\nabsorption at 1720 cm⁻¹ in its infrared spectrum.\nP is reacted with an excess of hot acidified potassium dichromate(VI) forming organic product Q.\nQ shows a strong absorption at 1700 cm⁻¹ and a strong, broad absorption centred at 2800 cm⁻¹ in\nits infrared spectrum.\nbond\nfunctional group containing the bond\ncharacteristic infrared absorption range\n(in wavenumbers) / cm⁻¹\nC–O\nhydroxy, ester\n1040–1300\nC=C\naromatic compound, alkene\n1500–1680\nC=O\namide\ncarbonyl, carboxyl\nester\n1640–1690\n1670–1740\n1710–1750\nC≡N\nnitrile\n2200–2250\nC–H\nalkane\n2850–2950\nN–H\namine, amide\n3300–3500\nO–H\ncarboxyl\nhydroxy\n2500–3000\n3200–3600\nWhat is P?",
+   "options": {
+    "A": "propanal",
+    "B": "propanone",
+    "C": "propan-1-ol",
+    "D": "propan-2-ol"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w22_12_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x048",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q33",
+    "qid": "9701_w22_13_q33"
+   },
+   "stem": "W reacts with alkaline I₂(aq) to form a yellow precipitate and CH₃CH₂CO₂\n⁻ ions.\nWhich row identifies W and the yellow precipitate?\nidentity of W\nidentity of\nyellow precipitate",
+   "options": {
+    "A": "butanone CHI₃",
+    "B": "butanone CH₃I",
+    "C": "propanone CHI₃",
+    "D": "propanone CH₃I"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w22_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x049",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q34",
+    "qid": "9701_w22_13_q34"
+   },
+   "stem": "Ethanal reacts with hydrogen cyanide in the presence of KCN to produce a hydroxynitrile.\nWhat is the first step in the mechanism of this reaction?\nC",
+   "options": {
+    "A": "CN⁻ CN⁻ H⁺ O H H₃C \u0001+ \u0001– C",
+    "B": "CN⁻ O H H₃C \u0001+ \u0001– C",
+    "C": "O H H₃C \u0001+ \u0001– C",
+    "D": "O H H₃C \u0001+ \u0001–"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w22_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x050",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q33",
+    "qid": "9701_s23_11_q33"
+   },
+   "stem": "Which reagent:\n•\ncan\u0003confirm\u0003the\u0003presence\u0003of\u0003a\u0003carbonyl\u0003group\u0003in\u0003an\u0003organic\u0003compound\n•\ndoes\u0003not\u0003distinguish\u0003between\u0003aldehydes\u0003and\u0003ketones?\nacidified K₂Cr₂O₇",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x051",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q34",
+    "qid": "9701_s23_11_q34"
+   },
+   "stem": "Which\u0003compound\u0003gives\u0003a\u0003positive\u0003test\u0003with\u0003alkaline\u0003aqueous\u0003iodine\u0003and\u0003does\u0003not\u0003show\u0003optical\nisomerism?\nCH₃COCH₂CH₂OH",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s23_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x052",
+   "kcs": [
+    "9701-17.1.2",
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q35",
+    "qid": "9701_s23_11_q35"
+   },
+   "stem": "Two\u0003samples\u0003of\u0003compound\u0003X\u0003were\u0003treated\u0003separately\u0003with\u0003different\u0003reagents\u0003which\u0003were\u0003added\u0003in\u0003\nexcess.\nThe\u0003products\u0003of\u0003these\u0003two\u0003reactions\u0003are\u0003shown.\nO\nO\nOH\nO\nO\nOH\nOH\ncompound X\nOH\nOH\nOH\nreaction 1\nreaction 2\nWhich reagents could be used for reaction 1 and reaction 2?\nreaction 2\nreaction 1\nNa",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most common incorrect answer was B. Most candidates knew that reaction 2 requires a reducing agent that will reduce a carbonyl group to an alcohol. Acidified sodium dichromate(VI) cannot be used for reaction 1 as it will oxidise the alcohol group to a ketone. This means that the correct answer is D."
+  },
+  {
+   "id": "9701-17.1-x053",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q35",
+    "qid": "9701_s23_12_q35"
+   },
+   "stem": "The mechanism for the reaction between ethanal and hydrogen cyanide starts with the step shown.\nC\nH\nH\nO\nH\nC\nH\nCN⁻\nWhat is the correct structure of the intermediate ion formed, and what is the next step in this\nmechanism?\nC\nH\nH\nC\nH\nC\nN\n⁺O\nC\nH\nH\nC",
+   "options": {
+    "A": "H H CN",
+    "B": "H H CN H C N ⁻ O C H H C",
+    "C": "C H H C H H CN H C N ⁻ O",
+    "D": "H H CN H C N ⁺O"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x054",
+   "kcs": [
+    "9701-17.1.4",
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q36",
+    "qid": "9701_s23_12_q36"
+   },
+   "stem": "Which compound reacts with 2,4-dinitrophenylhydrazine reagent but does not react with Tollens’\nreagent?\nCH₃COCO₂H",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s23_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x055",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q37",
+    "qid": "9701_s23_12_q37"
+   },
+   "stem": "Compound X has stereoisomers and forms a precipitate when warmed with Fehling’s reagent.\nWhat could be the structure of compound X?\nO",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x056",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q33",
+    "qid": "9701_s23_13_q33"
+   },
+   "stem": "T is an organic compound which contains 66.7% by mass of carbon. T also contains one atom of\noxygen per molecule.\nT reacts with alkaline I₂(aq) to produce a yellow precipitate.\nWhat is T?\nmethylpropan-2-ol",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x057",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q34",
+    "qid": "9701_s23_13_q34"
+   },
+   "stem": "Which statement about butanone is correct?\nButanone can be dehydrated by concentrated sulfuric acid to give CH₂=CHCH=CH₂.",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x058",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q36",
+    "qid": "9701_w23_11_q36"
+   },
+   "stem": "Which compound will produce a yellow-orange precipitate when added to 2,4-dinitrophenylhydrazine?\nO",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x059",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q37",
+    "qid": "9701_w23_11_q37"
+   },
+   "stem": "Ethanal, CH₃CHO, undergoes an addition reaction with HCN in the presence of CN⁻ ions.\nWhich row identifies the type of reaction and the name of the product formed?\nname of product\ntype of reaction\n2-hydroxypropanenitrile\nelectrophilic addition",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x060",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q40",
+    "qid": "9701_w23_11_q40"
+   },
+   "stem": "In the mass spectrum of compound J, the ratio of the height of the M +1 ion peak to the height of\nthe M + ion peak is 4:91.\nCompound J forms a carboxylic acid when heated with acidified K₂Cr₂O₇.\nWhat is compound J?\nbutanal",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w23_11_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x061",
+   "kcs": [
+    "9701-17.1.1",
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q35",
+    "qid": "9701_w23_12_q35"
+   },
+   "stem": "Heating\u0001compound\u0001X,\u0001C₇H₁₄O₂,\u0001under\u0001reflux\u0001with\u0001an\u0001excess\u0001of\u0001acidified\u0001potassium\u0001dichromate(VI)\u0003\nproduces\u0001compound\u0001Y.\nCompound\u0001Y\u0001produces\u0001hydrogen\u0001gas\u0001with\u0001sodium\u0001metal\u0001and\u0001forms\u0001orange\u0001crystals\u0001with\u00012,4-DNPH\u0001\nreagent.\nWhat\u0001could\u0001;\u0001be?\nCH₂OH\nCH₂OH\n(CH₃)₂C(OH)CH₂CH₂CH₂CHO\nOH",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w23_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was D. Compound D has a tertiary alcohol group, which cannot be oxidised, and an aldehyde group which is oxidised to a carboxylic acid group. Therefore the oxidation product has no carbonyl group to form orange crystals with the 2,4-DNPH reagent. Compound A has a primary alcohol group which is oxidised to a carboxylic acid group and a secondary alcohol group which is oxidised to a ketone. Therefore the oxidation product has an –OH group to produce hydrogen gas with sodium metal and a carbonyl group to form orange crystals with the 2,4-DNPH reagent."
+  },
+  {
+   "id": "9701-17.1-x062",
+   "kcs": [
+    "9701-17.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q36",
+    "qid": "9701_w23_13_q36"
+   },
+   "stem": "Which compound will produce a yellow-orange precipitate when added to 2,4-dinitrophenylhydrazine?\nO",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x063",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q34",
+    "qid": "9701_s24_11_q34"
+   },
+   "stem": "X is a non-cyclic ketone with a single carbonyl group and no other functional groups. Ketone X\nhas the following properties.\n●\nWhen ketone X is treated with NaBH₄, the organic product has a Mr 2.3256%\ngreater than the Mr of ketone X.\n●\nKetone X gives a yellow precipitate with alkaline I₂(aq).\nHow many isomeric ketones could be ketone X?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s24_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x064",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q35",
+    "qid": "9701_s24_11_q35"
+   },
+   "stem": "Compound Y:\n●\nchanges the colour of acidified K₂Cr₂O₇ from orange to green\n●\nhas no effect on Fehling’s reagent\n●\nproduces an orange precipitate with 2,4-dinitrophenylhydrazine reagent.\nWhat is compound Y?\nCH₃CCH₂C\nH\nO\nO\nO\nO\nCH₃CCH₂CCH₃\nO\nCH₃CCH₂CH₂OH\nHOCH₂CH₂CH₂CH₂OH",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s24_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x065",
+   "kcs": [
+    "9701-17.1.6",
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q27",
+    "qid": "9701_s24_12_q27"
+   },
+   "stem": "Compound X can be oxidised to compound Y.\nCompound Y gives a yellow precipitate with alkaline I₂(aq).\nWhat is compound X?",
+   "options": {
+    "A": "butan-1-ol",
+    "B": "butan-2-ol",
+    "C": "methylpropan-1-ol",
+    "D": "methylpropan-2-ol"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x066",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q29",
+    "qid": "9701_s24_12_q29"
+   },
+   "stem": "In which reaction is the organic compound oxidised?",
+   "options": {
+    "A": "CH₃CH₂CH₂CHO + Tollens’ reagent",
+    "B": "CH₃CH₂CH₂CHO + LiAl H₄",
+    "C": "CH₃CH₂CH₂OH + concentrated H₃PO₄",
+    "D": "CH₃CO₂C₂H₅ + dilute H₂SO₄"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x067",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q31",
+    "qid": "9701_s24_12_q31"
+   },
+   "stem": "Which reaction will distinguish between propan-1-ol and propan-2-ol?",
+   "options": {
+    "A": "warming with acidified KMnO₄",
+    "B": "warming with acidified K₂Cr₂O₇",
+    "C": "dehydration, followed by reaction with Br₂(aq)",
+    "D": "mild oxidation, followed by reaction with Fehling’s reagent"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x068",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q37",
+    "qid": "9701_s24_12_q37"
+   },
+   "stem": "Which pair of reagents reacts to form a product with a chiral carbon atom?",
+   "options": {
+    "A": "CH₃CH=CH₂ + HBr",
+    "B": "(CH₃)₂C=O + NaBH₄",
+    "C": "CH₃CH₂CHO + HCN",
+    "D": "CH₃COOH + CH₃CH₂OH"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x069",
+   "kcs": [
+    "9701-17.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q33",
+    "qid": "9701_s24_13_q33"
+   },
+   "stem": "The Mr of compound X is 88.\nCompound X is heated under reflux with an excess of acidified potassium dichromate(VI) to\nproduce compound Y.\nCompound Y reacts with compound X under suitable conditions to produce compound Z. The Mr\nof compound Z is 172.\nWhat is compound X?",
+   "options": {
+    "A": "CH₃CH₂CHOHCH₂CH₃",
+    "B": "(CH₃)₂COHCH₂CH₃",
+    "C": "(CH₃)₂CHCHOHCH₃",
+    "D": "(CH₃)₃CCH₂OH"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s24_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x070",
+   "kcs": [
+    "9701-17.1.4",
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q34",
+    "qid": "9701_s24_13_q34"
+   },
+   "stem": "Butanedione, CH₃COCOCH₃, is a yellow liquid.\nHow does butanedione react with 2,4-dinitrophenylhydrazine reagent and Fehling’s reagent?\n2,4-dinitrophenylhydrazine\nFehling’s",
+   "options": {
+    "A": "positive positive",
+    "B": "positive negative",
+    "C": "negative positive",
+    "D": "negative negative"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s24_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x071",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q38",
+    "qid": "9701_s24_13_q38"
+   },
+   "stem": "Compound Q reacts separately with HCN and NaBH₄ under suitable conditions.\nBoth reactions produce an organic product with a chiral centre.\nWhat is compound Q?",
+   "options": {
+    "A": "butanone",
+    "B": "ethanal",
+    "C": "propanal",
+    "D": "propanone"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x072",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q39",
+    "qid": "9701_s24_13_q39"
+   },
+   "stem": "Compound X has the following properties.\n●\nWhen 0.20 mol of X undergoes complete combustion, 14.4 dm³ of carbon dioxide is\nproduced, measured under room conditions.\n●\nX reacts with 2,4-dinitrophenylhydrazine reagent to give an orange crystalline\nproduct.\n●\nX does not give a yellow precipitate with alkaline I₂(aq).\nWhat could be X?",
+   "options": {
+    "A": "hexan-3-one",
+    "B": "propanal",
+    "C": "propan-1-ol",
+    "D": "propanone"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x073",
+   "kcs": [
+    "9701-17.1.2",
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q27",
+    "qid": "9701_s25_11_q27"
+   },
+   "stem": "Information about carbonyl compound X is given.\n●\nCompound X reacts with LiAl H₄ to produce a secondary alcohol.\n●\nCompound X reacts with alkaline I₂(aq) to give a yellow precipitate.\nWhat is compound X?",
+   "options": {
+    "A": "butanal",
+    "B": "butanone",
+    "C": "ethanal",
+    "D": "pentan-3-one"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x074",
+   "kcs": [
+    "9701-17.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q27",
+    "qid": "9701_s25_12_q27"
+   },
+   "stem": "Methanoic acid, HCO₂H, has acidic properties similar to those of other carboxylic acids. In\naddition, it can be oxidised by the same oxidising agents that are capable of oxidising aldehydes.\nWhich pair consists of two compounds that will give the same observations with Fehling’s\nreagent?",
+   "options": {
+    "A": "HCO₂H and CH₃CO₂H",
+    "B": "HCO₂H and CH₃CO₂CH₃",
+    "C": "HCO₂H and CH₃CH₂COCH₃",
+    "D": "HCO₂H and CH₃CH₂CHO"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x075",
+   "kcs": [
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q31",
+    "qid": "9701_s25_12_q31"
+   },
+   "stem": "Butan-2-one reacts with alkaline I₂(aq). An excess of dilute sulfuric acid is then added to the\nreaction mixture.\nThe organic products of this reaction sequence are triiodomethane and product M.\nWhat is product M?",
+   "options": {
+    "A": "ethanoate ion",
+    "B": "ethanoic acid",
+    "C": "propanoate ion",
+    "D": "propanoic acid"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x076",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q29",
+    "qid": "9701_s25_13_q29"
+   },
+   "stem": "Ethanal reacts with KCN dissolved in liquid HCN. This reaction involves the formation of an\nintermediate.\nWhich statement is correct?",
+   "options": {
+    "A": "HCN does not have any lone pairs of electrons and so CN⁻ is the catalyst.",
+    "B": "The Oδ⁻ of C=O attacks K⁺ in a nucleophilic attack.",
+    "C": "A proton from HCN is transferred to the intermediate.",
+    "D": "The reaction is a nucleophilic substitution."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_13_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x077",
+   "kcs": [
+    "9701-17.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q30",
+    "qid": "9701_s25_13_q30"
+   },
+   "stem": "What is formed when propanone is heated under reflux with a solution of NaBH₄?",
+   "options": {
+    "A": "propan-2-ol",
+    "B": "propan-1-ol",
+    "C": "propanal",
+    "D": "propane"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x078",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P11 · Q36",
+    "qid": "9701_w25_11_q36"
+   },
+   "stem": "Compound Q reacts when heated with HCN in the presence of a catalyst to produce\ncompound R.\nMolecules of compound R each contain four carbon atoms.\nWhat is compound Q?\nO",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w25_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x079",
+   "kcs": [
+    "9701-17.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q34",
+    "qid": "9701_w25_12_q34"
+   },
+   "stem": "An organometallic lithium compound, RLi, contains the nucleophile R⁻.\nCH₃CH₂Li reacts with pentan-2-one. The mechanism is nucleophilic addition. The first step\nproduces an anion which is then protonated to form the final product.\nWhich organic product is formed?\nOH",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w25_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-17.1-x080",
+   "kcs": [
+    "9701-17.1.5",
+    "9701-17.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q35",
+    "qid": "9701_w25_12_q35"
+   },
+   "stem": "The structure of a naturally occurring compound, Q, is shown.\nHO\nOH\nO\nO\nO\ncompound Q\nCompound Q is heated under reflux with an excess of acidified KMnO₄.\nOrganic product R is formed.\nWhich row is correct?\nresults of tests with compound Q\nresults of tests with organic product R",
+   "options": {
+    "A": "orange precipitate with 2,4-DNPH and no reaction with alkaline I₂(aq) yellow precipitate with alkaline I₂(aq) and no reaction with Fehling’s reagent",
+    "B": "red precipitate with Fehling’s reagent and no reaction with alkaline I₂(aq) orange precipitate with 2,4-DNPH and no reaction with alkaline I₂(aq)",
+    "C": "yellow precipitate with alkaline I₂(aq) and orange precipitate with 2,4-DNPH no reaction with alkaline I₂(aq) and no reaction with Fehling’s reagent",
+    "D": "yellow precipitate with alkaline I₂(aq) and red precipitate with Fehling’s reagent yellow precipitate with alkaline I₂(aq) and orange precipitate with 2,4-DNPH"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w25_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-17.1.1",
+   "front": "How is an aldehyde prepared from a primary alcohol?",
+   "back": "Oxidise with acidified K2Cr2O7 or acidified KMnO4, heating and distilling off the aldehyde as it forms."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-17.1.1",
+   "front": "How is a ketone prepared from a secondary alcohol?",
+   "back": "Oxidise with acidified K2Cr2O7 or acidified KMnO4, heating and distilling the ketone."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-17.1.2",
+   "front": "What do NaBH4 and LiAlH4 produce from aldehydes and ketones?",
+   "back": "Aldehydes form primary alcohols; ketones form secondary alcohols."
+  },
+  {
+   "id": "fc4",
+   "kc": "9701-17.1.2",
+   "front": "What are the conditions and products for HCN addition to a carbonyl?",
+   "back": "Heat an aldehyde or ketone with HCN and KCN catalyst to form a hydroxynitrile."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-17.1.4",
+   "front": "What does 2,4-DNPH reveal?",
+   "back": "An aldehyde or ketone gives an orange or yellow-orange precipitate."
+  },
+  {
+   "id": "fc6",
+   "kc": "9701-17.1.5",
+   "front": "What does a positive Tollens’ test show?",
+   "back": "An aldehyde gives a silver mirror; a ketone does not."
+  },
+  {
+   "id": "fc7",
+   "kc": "9701-17.1.6",
+   "front": "What does a positive iodoform test show for a carbonyl?",
+   "back": "A CH3CO− group gives yellow CHI3 with alkaline I2(aq); RCO2− also forms."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-17.1.1": {
+   "motivate": "Suppose you need an aldehyde from an alcohol. How can you collect it before the oxidant changes it again?",
+   "establish": "Oxidise a primary alcohol with acidified $\\ce{K2Cr2O7}$ or acidified $\\ce{KMnO4}$, heating and distilling the aldehyde as it forms. For ethanol, the product is ethanal. Distillation removes the readily oxidised aldehyde from the reaction mixture. If kept under reflux with excess oxidant, it proceeds to a carboxylic acid. A secondary alcohol, treated with either acidified oxidant and distilled, gives a ketone; propan-2-ol gives propanone. Unlike an aldehyde, that ketone resists further oxidation under these usual conditions.",
+   "connect": "This uses the alcohol classification from the previous chapter: primary and secondary alcohols give different carbonyl classes.",
+   "note": "- Primary alcohol + acidified $\\ce{K2Cr2O7}$ or $\\ce{KMnO4}$, heat and distil $\\rightarrow$ aldehyde.\n- Distillation prevents further aldehyde oxidation to acid.\n- Secondary alcohol + either acidified oxidant, heat and distil $\\rightarrow$ ketone.",
+   "self_explain": "Why is distillation especially important when the target product is an aldehyde?",
+   "source": "pack"
+  },
+  "9701-17.1.2": {
+   "motivate": "The same C=O group can be changed into an alcohol or extended by one carbon. Which reagents choose each path?",
+   "establish": "Reduction with $\\ce{NaBH4}$ or $\\ce{LiAlH4}$ changes an aldehyde to a primary alcohol and a ketone to a secondary alcohol: ethanal becomes ethanol and propanone becomes propan-2-ol. For carbon chain extension, heat the aldehyde or ketone with $\\ce{HCN}$ and $\\ce{KCN}$ as catalyst. Addition across C=O gives a hydroxynitrile bearing OH and CN on the former carbonyl carbon. Ethanal gives $\\ce{CH3CH(OH)CN}$, 2-hydroxypropanenitrile; propanone gives $\\ce{(CH3)2C(OH)CN}$, 2-hydroxy-2-methylpropanenitrile. The added CN contributes one carbon to the product.",
+   "connect": "Both pathways use the polar carbonyl group introduced in the preparation reactions.",
+   "note": "- $\\ce{NaBH4}$ or $\\ce{LiAlH4}$ reduces aldehyde $\\rightarrow$ primary alcohol, ketone $\\rightarrow$ secondary alcohol.\n- Heat with $\\ce{HCN}$ and $\\ce{KCN}$ catalyst $\\rightarrow$ hydroxynitrile.\n- Ethanal gives 2-hydroxypropanenitrile; propanone gives 2-hydroxy-2-methylpropanenitrile.",
+   "self_explain": "Why does the hydroxynitrile from ethanal have three carbons?",
+   "source": "pack"
+  },
+  "9701-17.1.3": {
+   "motivate": "Where does the cyanide ion attack a C=O group, and what happens to the bond electrons?",
+   "establish": "The C=O bond is polar, leaving carbon partially positive. In nucleophilic addition of HCN to an aldehyde or ketone, $\\ce{CN^-}$ attacks this carbon through the lone pair on cyanide carbon. Draw a curly arrow from that lone pair to carbonyl carbon and one from the C=O π bond to oxygen. This forms a tetrahedral alkoxide intermediate. Oxygen then accepts a proton from HCN; the H–CN bond electron pair returns to carbon, regenerating $\\ce{CN^-}$. The final hydroxynitrile bears OH and CN on the same former carbonyl carbon. The alkoxide acts as a base in the protonation step.",
+   "connect": "This applies curly-arrow electron movement from the earlier mechanisms unit to carbonyl chemistry.",
+   "note": "- $\\ce{CN^-}$ attacks partially positive carbonyl carbon; C=O π electrons move to oxygen.\n- The intermediate is an alkoxide ion.\n- Alkoxide takes H from HCN to form hydroxynitrile and regenerate $\\ce{CN^-}$.",
+   "self_explain": "Why is the second step a proton transfer, and why can the intermediate act as a base?",
+   "source": "pack"
+  },
+  "9701-17.1.4": {
+   "motivate": "One quick test says whether an unknown may be an aldehyde or ketone. What observation counts?",
+   "establish": "Add 2,4-dinitrophenylhydrazine reagent, often called 2,4-DNPH, to the sample. An aldehyde or ketone forms a yellow-orange or orange precipitate of its hydrazone. This is evidence for an aldehyde or ketone carbonyl group. Both classes react, so the result cannot by itself distinguish an aldehyde from a ketone. Follow it with Tollens’ or Fehling’s reagent when that distinction is required.",
+   "connect": "The next tests classify a DNPH-positive unknown by its ease of oxidation.",
+   "note": "- Add 2,4-DNPH reagent to test for aldehyde or ketone carbonyl.\n- A positive result is an orange or yellow-orange precipitate.\n- This alone does not distinguish aldehyde from ketone.",
+   "self_explain": "Why is a positive 2,4-DNPH result insufficient to name the carbonyl class?",
+   "source": "pack"
+  },
+  "9701-17.1.5": {
+   "motivate": "Two samples both respond to 2,4-DNPH. How can you decide which is an aldehyde?",
+   "establish": "Aldehydes are readily oxidised; ordinary ketones resist these mild oxidation tests. Warm a fresh sample with Tollens’ reagent: an aldehyde reduces silver ions to a silver mirror, while a ketone does not. Alternatively, warm with Fehling’s solution: an aldehyde produces a brick-red precipitate of copper(I) oxide, while a ketone remains negative. Acidified dichromate(VI) also oxidises aldehydes readily, turning orange to green, whereas ketones do not show that oxidation under the usual conditions. First use 2,4-DNPH to establish an aldehyde or ketone carbonyl; then use one of these discriminating tests.",
+   "connect": "The differing oxidation behaviour explains both laboratory identification and why an aldehyde must be distilled during preparation.",
+   "note": "- Tollens’: aldehyde $\\rightarrow$ silver mirror; ketone $\\rightarrow$ no reaction.\n- Fehling’s: aldehyde $\\rightarrow$ brick-red precipitate; ketone $\\rightarrow$ no reaction.\n- Aldehydes oxidise readily; ketones resist mild oxidation.",
+   "self_explain": "An unknown is DNPH-positive and Tollens-negative. What is it, and how do the two results support that deduction?",
+   "source": "pack"
+  },
+  "9701-17.1.6": {
+   "motivate": "A yellow solid with alkaline iodine reveals a specific carbon arrangement. Which one?",
+   "establish": "Warm an aldehyde or ketone with alkaline $\\ce{I2(aq)}$. A yellow precipitate of tri-iodomethane, $\\ce{CHI3}$, shows the iodoform reaction. Within this carbonyl family, it identifies a $\\ce{CH3CO-}$ group: the compound has the form $\\ce{CH3CO-R}$. The other organic product is the carboxylate ion $\\ce{RCO2^-}$. Ethanal, $\\ce{CH3CHO}$, is the aldehyde example. Propanone and butan-2-one are methyl ketones and test positive; pentan-3-one lacks $\\ce{CH3CO-}$ and tests negative. Do not infer that every ketone gives this test.",
+   "connect": "After classifying a carbonyl with Tollens’ or Fehling’s reagent, iodoform adds structural detail about its carbon skeleton.",
+   "note": "- Warm carbonyl compound with alkaline $\\ce{I2(aq)}$.\n- Yellow $\\ce{CHI3}$ identifies $\\ce{CH3CO-}$ in this carbonyl family.\n- $\\ce{CH3CO-R}$ also forms $\\ce{RCO2^-}$; ethanal is positive, pentan-3-one negative.",
+   "self_explain": "Why does butan-2-one give the yellow precipitate while pentan-3-one does not?",
+   "source": "pack"
+  }
+ }
+}

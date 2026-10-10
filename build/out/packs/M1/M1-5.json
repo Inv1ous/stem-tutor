@@ -1,0 +1,821 @@
+{
+ "subtopic": "M1-5",
+ "spec": "M1",
+ "version": 1,
+ "note": "Subjects/Maths/M1 Mechanics 1/5 Statics of a particle.md",
+ "outline": "Treat every force on a particle as a vector. Draw a free-body diagram and resolve each force along two perpendicular axes. In equilibrium the resultant force is zero, so both component sums are zero. Weight is $mg$ vertically down; a normal reaction is perpendicular to contact, while tension pulls along a string and thrust pushes. Friction opposes impending relative motion. In equilibrium its magnitude satisfies $F\\leq\\mu R$, where $R$ is the normal reaction. Equality applies only at limiting equilibrium.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "M1-5.1",
+   "statement": "A force at an angle has the same magnitude along both axes.",
+   "refutation": "A force at angle $\\theta$ to the horizontal has components $F\\cos\\theta$ horizontally and $F\\sin\\theta$ vertically.",
+   "contrast": "The adjacent component uses cosine; the opposite component uses sine.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "M1-5.2",
+   "statement": "Equilibrium requires every individual force to vanish.",
+   "refutation": "Forces can be nonzero while their vector sum is zero.",
+   "contrast": "Set each perpendicular component sum to zero.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "M1-5.2",
+   "statement": "The normal reaction always equals weight.",
+   "refutation": "On an incline with no other perpendicular force, $R=mg\\cos\\theta$; other applied forces can also affect $R$.",
+   "contrast": "Resolve all forces perpendicular to the contact surface.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "M1-5.3",
+   "statement": "Static friction always equals $\\mu R$.",
+   "refutation": "In equilibrium static friction takes the value needed to balance the other forces, up to $\\mu R$.",
+   "contrast": "Use $F\\leq\\mu R$; equality holds at limiting equilibrium.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "M1-5.3",
+   "statement": "Friction must point opposite a chosen positive axis.",
+   "refutation": "Friction opposes impending relative motion, regardless of the axis chosen.",
+   "contrast": "Predict the tendency to move before assigning the friction direction.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "M1-5.1",
+   "problem": "A 20 N force acts $30^\\circ$ above the positive horizontal. Find its horizontal and vertical components.",
+   "steps": [
+    {
+     "do": "Choose right and up as positive axes.",
+     "why": "Signed components must be tied to stated directions."
+    },
+    {
+     "do": "$F_x=20\\cos30^\\circ=10 \\sqrt{3}\\,\\mathrm{N}$.",
+     "why": "The horizontal side is adjacent to the angle.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 17.32050807568885,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "$F_y=20\\sin30^\\circ=10\\,\\mathrm{N}$.",
+     "why": "The vertical side is opposite the angle.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 10.0,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A 16 N force acts $30^\\circ$ above the horizontal. Find its vertical component.",
+    "answer": {
+     "value": 8.0,
+     "unit": "N",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "M1-5.2",
+   "problem": "A 3 kg particle rests on a smooth $30^\\circ$ plane, held by a string parallel to the plane. Find the tension and normal reaction.",
+   "steps": [
+    {
+     "do": "Draw weight $3g$ downward, tension up the plane and reaction perpendicular outward.",
+     "why": "Only forces acting on the particle enter equilibrium equations."
+    },
+    {
+     "do": "Along the plane, $T-3g\\sin30^\\circ=0$, so $T=\\frac{147}{10}\\,\\mathrm{N}$.",
+     "why": "The downslope weight component is balanced by tension.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 14.700000000000728,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Perpendicular to the plane, $R-3g\\cos30^\\circ=0$, so $R=\\frac{147 \\sqrt{3}}{10}\\,\\mathrm{N}$.",
+     "why": "There is no perpendicular acceleration.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 25.461146871261008,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A 4 kg particle rests on a smooth $30^\\circ$ plane, held by a string parallel to it. Find the tension.",
+    "answer": {
+     "value": 19.599999999998545,
+     "unit": "N",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "M1-5.3",
+   "problem": "A 5 kg particle rests on a rough horizontal surface with coefficient of friction 0.4. A horizontal pull increases. Find the largest pull for equilibrium.",
+   "steps": [
+    {
+     "do": "Vertically, $R=mg=5(9.8)=49\\,\\mathrm{N}$.",
+     "why": "There is no other vertical force and no vertical acceleration.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 49.0,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "At limiting equilibrium, $F=\\mu R=0.4(49)=98/5\\,\\mathrm{N}$.",
+     "why": "Equality applies only when slipping is about to occur.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 19.599999999998545,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Horizontally, the pull equals friction, so the largest pull is $98/5\\,\\mathrm{N}$.",
+     "why": "The two horizontal forces must balance.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 19.599999999998545,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A 3 kg particle on a rough horizontal surface has coefficient of friction 0.2. Find the largest horizontal pull for equilibrium.",
+    "answer": {
+     "value": 5.880000000000109,
+     "unit": "N",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "M1-5-i01",
+   "kcs": [
+    "M1-5.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A force of $[[F]]\\,\\mathrm{N}$ acts at $[[theta]]^\\circ$ above the horizontal. Calculate its horizontal component.",
+   "marks": 2,
+   "explanation": "The horizontal component is adjacent to the stated angle, so it is $F\\cos\\theta$.",
+   "hints": [
+    "Sketch the right triangle of components.",
+    "Identify the side adjacent to the angle.",
+    "Resolve along the horizontal axis."
+   ],
+   "answer": {
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "F": {
+      "choices": [
+       12,
+       18,
+       24
+      ]
+     },
+     "theta": {
+      "choices": [
+       30,
+       60
+      ]
+     }
+    },
+    "answer": "F*cos(theta*pi/180)",
+    "distractors": [
+     {
+      "expr": "F*sin(theta*pi/180)",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-5-i02",
+   "kcs": [
+    "M1-5.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A force of $[[F]]\\,\\mathrm{N}$ acts at $[[theta]]^\\circ$ above the horizontal. Calculate its vertical component.",
+   "marks": 2,
+   "explanation": "The vertical component is opposite the stated angle, so it is $F\\sin\\theta$.",
+   "hints": [
+    "Draw the force arrow and axes.",
+    "Identify the component opposite the angle.",
+    "Use the sine ratio."
+   ],
+   "answer": {
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "F": {
+      "choices": [
+       10,
+       20,
+       30
+      ]
+     },
+     "theta": {
+      "choices": [
+       30,
+       60
+      ]
+     }
+    },
+    "answer": "F*sin(theta*pi/180)",
+    "distractors": [
+     {
+      "expr": "F*cos(theta*pi/180)",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-5-i03",
+   "kcs": [
+    "M1-5.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how to resolve a force into perpendicular horizontal and vertical components, including their directions.",
+   "marks": 2,
+   "explanation": "The two perpendicular components replace one force vector without changing its resultant.",
+   "hints": [
+    "Choose perpendicular axes.",
+    "Use the given angle relative to the horizontal.",
+    "Assign directions and signs to both components."
+   ],
+   "rubric": [
+    {
+     "point": "Horizontal and vertical components together give the original vector force.",
+     "keywords": [
+      [
+       "horizontal"
+      ],
+      [
+       "vertical"
+      ],
+      [
+       "vector",
+       "force"
+      ]
+     ]
+    },
+    {
+     "point": "At angle $\\theta$ above the horizontal the components are $F\\cos\\theta$ right and $F\\sin\\theta$ up.",
+     "keywords": [
+      [
+       "cos"
+      ],
+      [
+       "sin"
+      ],
+      [
+       "right"
+      ],
+      [
+       "up"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-5-i04",
+   "kcs": [
+    "M1-5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]\\,\\mathrm{kg}$ particle rests on a smooth horizontal surface. A vertical force of $[[P]]\\,\\mathrm{N}$ pulls upward, and $P<mg$. Calculate the normal reaction. Take $g=9.8\\,\\mathrm{m\\,s^{-2}}$.",
+   "marks": 2,
+   "explanation": "Vertical equilibrium gives $R+P=mg$, so $R=mg-P$.",
+   "hints": [
+    "List all vertical forces.",
+    "Apply zero vertical resultant.",
+    "Put the upward pull on the same side as the reaction."
+   ],
+   "answer": {
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       3,
+       4,
+       5
+      ]
+     },
+     "P": {
+      "choices": [
+       4,
+       8
+      ]
+     }
+    },
+    "answer": "9.8*m-P",
+    "distractors": [
+     {
+      "expr": "9.8*m+P",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-5-i05",
+   "kcs": [
+    "M1-5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]\\,\\mathrm{kg}$ particle rests on a smooth plane inclined at $[[theta]]^\\circ$ to the horizontal, held by a string parallel to the plane. Calculate the string tension. Take $g=9.8\\,\\mathrm{m\\,s^{-2}}$.",
+   "marks": 2,
+   "explanation": "Along the plane, tension balances the downslope component of weight: $T=mg\\sin\\theta$.",
+   "hints": [
+    "Draw weight vertically downward.",
+    "Resolve along the plane.",
+    "Set the along-plane resultant to zero."
+   ],
+   "answer": {
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "theta": {
+      "choices": [
+       30,
+       60
+      ]
+     }
+    },
+    "answer": "9.8*m*sin(theta*pi/180)",
+    "distractors": [
+     {
+      "expr": "9.8*m*cos(theta*pi/180)",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-5-i06",
+   "kcs": [
+    "M1-5.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the equilibrium conditions for a particle under coplanar weight, normal reaction, tension, thrust and friction.",
+   "marks": 3,
+   "explanation": "For a particle at rest, the vector resultant is zero; resolving on convenient axes gives two scalar equilibrium equations.",
+   "hints": [
+    "Start with a free-body diagram.",
+    "Choose axes adapted to the plane.",
+    "Write one zero-sum equation on each axis."
+   ],
+   "rubric": [
+    {
+     "point": "Draw only forces on the particle, with weight vertically downward and normal reaction perpendicular to contact.",
+     "keywords": [
+      [
+       "weight"
+      ],
+      [
+       "down"
+      ],
+      [
+       "normal"
+      ],
+      [
+       "perpendicular"
+      ]
+     ]
+    },
+    {
+     "point": "Tension pulls along a string, thrust pushes, and friction opposes impending relative motion.",
+     "keywords": [
+      [
+       "tension"
+      ],
+      [
+       "pull"
+      ],
+      [
+       "thrust"
+      ],
+      [
+       "push"
+      ],
+      [
+       "friction"
+      ]
+     ]
+    },
+    {
+     "point": "The sums of components in two perpendicular directions are each zero.",
+     "keywords": [
+      [
+       "components"
+      ],
+      [
+       "perpendicular"
+      ],
+      [
+       "zero"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M1-5-i07",
+   "kcs": [
+    "M1-5.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]\\,\\mathrm{kg}$ particle rests on a rough horizontal surface. A horizontal force of $[[P]]\\,\\mathrm{N}$ is applied and the particle remains at rest. Calculate the actual friction magnitude.",
+   "marks": 2,
+   "explanation": "Horizontal equilibrium requires friction to balance the applied force, so $F=P$; the coefficient only limits whether rest is possible.",
+   "hints": [
+    "Use horizontal equilibrium first.",
+    "Friction balances the applied force.",
+    "Do not assume friction is at its limiting value."
+   ],
+   "answer": {
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       3,
+       4
+      ]
+     },
+     "P": {
+      "choices": [
+       5,
+       7,
+       9
+      ]
+     }
+    },
+    "answer": "P",
+    "distractors": [
+     {
+      "expr": "0.2*9.8*m",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-5-i08",
+   "kcs": [
+    "M1-5.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $[[m]]\\,\\mathrm{kg}$ particle rests on a rough horizontal surface with coefficient of friction $[[mu]]$. Calculate the largest horizontal pull for which equilibrium is possible. Take $g=9.8\\,\\mathrm{m\\,s^{-2}}$.",
+   "marks": 2,
+   "explanation": "Here $R=mg$. At limiting equilibrium $F=\\mu R$, and the largest balanced pull is $\\mu mg$.",
+   "hints": [
+    "Find the normal reaction.",
+    "For the largest sustainable pull, use limiting equilibrium.",
+    "Equate the pull to limiting friction."
+   ],
+   "answer": {
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "mu": {
+      "choices": [
+       0.2,
+       0.3
+      ]
+     }
+    },
+    "answer": "mu*9.8*m",
+    "distractors": [
+     {
+      "expr": "9.8*m",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "M1-5-i09",
+   "kcs": [
+    "M1-5.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the inequality for friction when a particle is in equilibrium and when equality applies.",
+   "marks": 3,
+   "explanation": "Static friction adjusts to balance other forces, but cannot exceed $\\mu R$.",
+   "hints": [
+    "First calculate the friction needed for balance.",
+    "Compare it with the maximum available friction.",
+    "Use equality only at the threshold of slipping."
+   ],
+   "rubric": [
+    {
+     "point": "The actual friction satisfies $F\\leq\\mu R$, where $R$ is normal reaction and $\\mu$ is coefficient of friction.",
+     "keywords": [
+      [
+       "friction"
+      ],
+      [
+       "coefficient"
+      ],
+      [
+       "reaction"
+      ],
+      [
+       "inequality",
+       "less",
+       "≤"
+      ]
+     ]
+    },
+    {
+     "point": "Equality $F=\\mu R$ occurs at limiting equilibrium, when motion is about to begin.",
+     "keywords": [
+      [
+       "equality",
+       "equal"
+      ],
+      [
+       "limiting"
+      ],
+      [
+       "motion"
+      ]
+     ]
+    },
+    {
+     "point": "Friction acts opposite the tendency of relative motion.",
+     "keywords": [
+      [
+       "friction"
+      ],
+      [
+       "opposite"
+      ],
+      [
+       "motion"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "M1-5.1",
+   "front": "What does it mean to resolve a force?",
+   "back": "Replace one force vector by perpendicular components whose vector sum equals the original force."
+  },
+  {
+   "id": "fc2",
+   "kc": "M1-5.2",
+   "front": "State the conditions for equilibrium of a particle under coplanar forces.",
+   "back": "The vector sum of forces is zero; the sums of components in two perpendicular directions are each zero."
+  },
+  {
+   "id": "fc3",
+   "kc": "M1-5.2",
+   "front": "State the directions of weight and normal reaction.",
+   "back": "Weight acts vertically downward with magnitude $mg$; normal reaction acts perpendicular to the contact surface."
+  },
+  {
+   "id": "fc4",
+   "kc": "M1-5.3",
+   "front": "State the friction condition in equilibrium.",
+   "back": "The magnitude of friction satisfies $F\\leq\\mu R$, where $R$ is the normal reaction. At limiting equilibrium $F=\\mu R$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "M1-5.1": {
+   "motivate": "A force can pull diagonally, while equilibrium equations are easiest along chosen axes. Its horizontal and vertical effects must be kept with their directions.",
+   "establish": "Forces are vectors: they have magnitude and direction. Resolving a force replaces it by components whose vector sum is the original force. If a force $P$ is at angle $\\theta$ above the positive horizontal, its horizontal component is $P\\cos\\theta$ right and its vertical component is $P\\sin\\theta$ up. The cosine component is adjacent to the stated angle. For forces directed left or down, give that component a negative sign on right/up positive axes. Coplanar forces can be resolved along any convenient pair of perpendicular axes; on a slope, axes parallel and perpendicular to the plane simplify the equations.",
+   "connect": "This uses vector components from earlier mechanics. The same resolution turns the vector equilibrium condition into two scalar equations.",
+   "note": "- Draw the force arrow and mark the angle it makes with an axis.\n- Resolve into perpendicular components; assign each a direction and sign.\n- At angle $\\theta$ above horizontal: $P_x=P\\cos\\theta$, $P_y=P\\sin\\theta$.",
+   "self_explain": "A force points $30^\\circ$ above the horizontal. Which component is adjacent to that angle, and how do you know?",
+   "discover": {
+    "stem": "A force $P$ points $30^\\circ$ above the horizontal. Which is its horizontal component?",
+    "options": {
+     "A": "$P\\cos30^\\circ$ right",
+     "B": "$P\\sin30^\\circ$ right",
+     "C": "$P$ right",
+     "D": "$P\\cos30^\\circ$ up"
+    },
+    "answer": "A",
+    "explanation": "The horizontal component is adjacent to the given angle and points right."
+   },
+   "source": "pack"
+  },
+  "M1-5.2": {
+   "motivate": "A stationary particle can still have several substantial forces on it. Their combined effect, rather than each individual force, determines equilibrium.",
+   "establish": "For equilibrium under coplanar forces, the vector resultant is zero. Resolve all forces on the particle along two perpendicular axes and set both component sums to zero. Weight $mg$ acts vertically downward, with $g=9.8\\,\\mathrm{m\\,s^{-2}}$. A normal reaction acts perpendicular to a contact surface. Tension pulls along a taut string; thrust pushes along a strut or contact direction. Friction acts along a rough contact and opposes the actual or impending relative motion. On a plane inclined at $\\theta$ to the horizontal, weight has component $mg\\sin\\theta$ down the plane and $mg\\cos\\theta$ into it. For a smooth plane held by a string parallel to the plane, equilibrium gives $T=mg\\sin\\theta$ and $R=mg\\cos\\theta$. Include any other forces before using those special-case equations.",
+   "connect": "The free-body diagram used in Newton's laws also works here: equilibrium is the case with zero acceleration and zero resultant.",
+   "note": "- Isolate one particle and draw weight, normal reaction, tension or thrust, and friction as appropriate.\n- Choose two perpendicular axes and use $\\sum F_x=0$, $\\sum F_y=0$.\n- On an incline, resolve weight as $mg\\sin\\theta$ along and $mg\\cos\\theta$ normal to the plane.",
+   "self_explain": "Why can several nonzero forces act on a particle that remains in equilibrium?",
+   "discover": {
+    "stem": "A particle rests on a smooth slope, held by a string parallel to the slope. Which force balances the downslope weight component?",
+    "options": {
+     "A": "The normal reaction",
+     "B": "The string tension",
+     "C": "Friction",
+     "D": "The total weight"
+    },
+    "answer": "B",
+    "explanation": "The string tension acts up the slope, opposite the $mg\\sin\\theta$ component."
+   },
+   "source": "pack"
+  },
+  "M1-5.3": {
+   "motivate": "A rough surface can hold a particle still under a range of applied pulls. The friction force changes with the pull until the limiting value is reached.",
+   "establish": "The coefficient of friction $\\mu$ relates the greatest available friction to the normal reaction $R$. For a particle in equilibrium, the actual friction magnitude $F$ satisfies $F\\leq\\mu R$. First use the force balance to find the $F$ required to prevent motion. Then find $R$ from the perpendicular balance and check the inequality. Friction acts opposite the impending relative motion, not necessarily opposite the positive axis. At limiting equilibrium the particle is just about to slip, so $F=\\mu R$. For a rough horizontal surface with only weight and reaction vertically, $R=mg$; the largest horizontal pull that can be balanced is $\\mu mg$. If the required friction exceeds $\\mu R$, the particle cannot remain in equilibrium.",
+   "connect": "This extends the equilibrium equations with a bound on one force. The equality rule is the threshold case of the inequality.",
+   "note": "- In equilibrium, actual friction obeys $F\\leq\\mu R$.\n- Find $R$ by resolving perpendicular to contact, then find $F$ needed for balance.\n- At limiting equilibrium only, use $F=\\mu R$; friction opposes impending relative motion.",
+   "self_explain": "Why can friction be smaller than $\\mu R$ even when the particle is at rest?",
+   "discover": {
+    "stem": "A particle remains at rest while a small horizontal pull is applied. What sets the actual friction magnitude?",
+    "options": {
+     "A": "It is always $\\mu R$",
+     "B": "It equals the pull needed for horizontal balance, provided it does not exceed $\\mu R$",
+     "C": "It is always zero",
+     "D": "It equals the normal reaction"
+    },
+    "answer": "B",
+    "explanation": "Static friction adjusts to the value needed for equilibrium, up to its limiting value $\\mu R$."
+   },
+   "source": "pack"
+  }
+ }
+}
