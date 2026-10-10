@@ -1,0 +1,103 @@
+{
+ "sub": "P2-3",
+ "stage": "ready",
+ "created": "2026-10-10T13:48:01+08:00",
+ "updated": "2026-10-10T14:21:36+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T13:50:05+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 10 items"
+  },
+  {
+   "t": "2026-10-10T14:20:05+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "11 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T14:21:16+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:21:36+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 10,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 4189,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:49:01+08:00",
+   "log": "foundry/logs/P2-3.drafter.1010-134901.log",
+   "out": "foundry/logs/P2-3.drafter.1010-134901.out.json",
+   "finished": "2026-10-10T13:50:05+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/P2/P2-3.json",
+    "note_path": "build/out/notes/Subjects/Maths/P2 Pure Mathematics 2/3 Coordinate geometry in the (x, y) plane.md",
+    "items": 10,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 26579,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:19:28+08:00",
+   "log": "foundry/logs/P2-3.solver.1010-141928.log",
+   "out": "foundry/logs/P2-3.solver.1010-141928.out.json",
+   "expects": "build/work/blind/P2-3.answers.json",
+   "finished": "2026-10-10T14:19:44+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 11 questions in [P2-3.answers.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/P2-3.answers.json)."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 27754,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:20:40+08:00",
+   "log": "foundry/logs/P2-3.checker.1010-142040.log",
+   "out": "foundry/logs/P2-3.checker.1010-142040.out.json",
+   "expects": "build/work/foundry/P2-3.check.json",
+   "finished": "2026-10-10T14:20:52+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/P2-3.check.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

@@ -1,0 +1,435 @@
+{
+ "subtopic": "P2-3",
+ "spec": "P2",
+ "version": 1,
+ "note": "Subjects/Maths/P2 Pure Mathematics 2/3 Coordinate geometry in the (x, y) plane.md",
+ "outline": "A circle with centre $(a,b)$ and radius $r$ has equation $(x-a)^2+(y-b)^2=r^2$. Read the centre by setting each bracket to zero, and take the positive square root for the radius. A diameter subtends a right angle at the circumference. The perpendicular from the centre to a chord bisects the chord. At a point of contact, the tangent is perpendicular to the radius. Use midpoint and gradient methods to turn these properties into coordinate equations.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "P2-3.1",
+   "statement": "The centre of $(x-a)^2+(y-b)^2=r^2$ is $(-a,-b)$.",
+   "refutation": "The centre is $(a,b)$; set each bracket to zero.",
+   "contrast": "$(x-3)^2+(y+2)^2=25$ has centre $(3,-2)$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "P2-3.1",
+   "statement": "The right-hand side of a circle equation is the radius.",
+   "refutation": "It is the radius squared, so the radius is its positive square root.",
+   "contrast": "A right-hand side of $25$ means radius $5$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "P2-3.1",
+   "statement": "A tangent has the same gradient as the radius at contact.",
+   "refutation": "The tangent and radius at contact are perpendicular; their nonzero gradients have product $-1$.",
+   "contrast": "A radius gradient $4/3$ gives tangent gradient $-3/4$.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "P2-3.1",
+   "statement": "A perpendicular from the centre can meet a chord away from its midpoint.",
+   "refutation": "The perpendicular from the centre to a chord bisects that chord.",
+   "contrast": "The midpoint of $(0,2)$ and $(6,2)$ is $(3,2)$.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "P2-3.1",
+   "problem": "Find the tangent at $(6,2)$ to $(x-3)^2+(y+2)^2=25$.",
+   "steps": [
+    {
+     "do": "Read centre $(3,-2)$ and radius $5$.",
+     "why": "The standard form gives centre and radius directly."
+    },
+    {
+     "do": "Check $(6-3)^2+(2+2)^2=25$.",
+     "why": "The point must lie on the circle before it can be a contact point.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 25.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Radius gradient $=(2-(-2))/(6-3)=4/3$; tangent gradient $=-3/4$.",
+     "why": "A tangent is perpendicular to the radius at contact."
+    },
+    {
+     "do": "Use point–gradient form: $y-2=-\\frac34(x-6)$.",
+     "why": "The tangent passes through the point of contact."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find the gradient of the tangent to $(x-1)^2+(y-1)^2=25$ at $(4,5)$.",
+    "answer": {
+     "value": -0.75,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 2
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "P2-3-i01",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the centre of $(x-3)^2+(y+2)^2=25$.",
+   "marks": 1,
+   "explanation": "The brackets vanish at $(3,-2)$; reversing signs twice gives the common wrong answer.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "options": {
+    "A": "$(3,-2)$",
+    "B": "$(-3,2)$",
+    "C": "$(3,2)$",
+    "D": "$(-3,-2)$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1",
+    "C": "m1",
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "P2-3-i02",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the radius of $(x-3)^2+(y+2)^2=25$.",
+   "marks": 1,
+   "explanation": "The radius squared is $25$, so the positive radius is $5$.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "exact": true
+   },
+   "distractors": [
+    {
+     "value": 25.0,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "P2-3-i03",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the equation of the circle with centre $(3,-2)$ and radius $5$.",
+   "marks": 1,
+   "explanation": "Substitute $a=3$, $b=-2$, $r=5$ into the standard form.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "options": {
+    "A": "$(x-3)^2+(y+2)^2=25$",
+    "B": "$(x+3)^2+(y-2)^2=25$",
+    "C": "$(x-3)^2+(y+2)^2=5$",
+    "D": "$(x+3)^2+(y-2)^2=5$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1",
+    "C": "m2",
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "P2-3-i04",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Verify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Verify which point lies on $(x-3)^2+(y+2)^2=25$.",
+   "marks": 1,
+   "explanation": "For $(6,2)$, the squared displacement from $(3,-2)$ is $3^2+4^2=25$.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "options": {
+    "A": "$(6,2)$",
+    "B": "$(3,2)$",
+    "C": "$(6,-2)$",
+    "D": "$(8,2)$"
+   },
+   "answer": "A",
+   "shuffle": true
+  },
+  {
+   "id": "P2-3-i05",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The diameter of a circle has endpoints $(-2,-2)$ and $(8,-2)$. Find its radius.",
+   "marks": 1,
+   "explanation": "The diameter is $10$ units, so its radius is half the diameter.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "exact": true
+   }
+  },
+  {
+   "id": "P2-3-i06",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the angle at a point on a circle subtended by a diameter.",
+   "marks": 1,
+   "explanation": "The angle in a semicircle is a right angle.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "options": {
+    "A": "$90^\\circ$",
+    "B": "$45^\\circ$",
+    "C": "$180^\\circ$",
+    "D": "It depends on the point."
+   },
+   "answer": "A",
+   "shuffle": true
+  },
+  {
+   "id": "P2-3-i07",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A chord has endpoints $(0,2)$ and $(6,2)$. Find the $x$-coordinate where the perpendicular from the centre meets this chord.",
+   "marks": 1,
+   "explanation": "The perpendicular from the centre bisects the chord, whose midpoint has $x$-coordinate $3$.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "exact": true
+   },
+   "distractors": [
+    {
+     "value": 0.0,
+     "misconception": "m4"
+    }
+   ]
+  },
+  {
+   "id": "P2-3-i08",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The radius to a point of contact has gradient $4/3$. Find the gradient of the tangent there.",
+   "marks": 1,
+   "explanation": "The tangent is perpendicular to the radius, so its gradient is the negative reciprocal $-3/4$.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "options": {
+    "A": "$-3/4$",
+    "B": "$4/3$",
+    "C": "$3/4$",
+    "D": "$-4/3$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "P2-3-i09",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The centre is $(3,-2)$ and the tangent touches the circle at $(6,2)$. Find the tangent equation.",
+   "marks": 1,
+   "explanation": "The radius gradient is $4/3$, so the tangent gradient is $-3/4$; through $(6,2)$ this is $y-2=-3(x-6)/4$.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "options": {
+    "A": "$y-2=-3(x-6)/4$",
+    "B": "$y-2=4(x-6)/3$",
+    "C": "$y+2=-3(x-3)/4$",
+    "D": "$y-2=3(x-6)/4$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "P2-3-i10",
+   "kcs": [
+    "P2-3.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the lines joining $(-2,-2)$ and $(8,-2)$ to $(6,2)$ are perpendicular.",
+   "marks": 1,
+   "explanation": "The first two points are endpoints of a diameter of the circle centred at $(3,-2)$; the angle at $(6,2)$ is an angle in a semicircle.",
+   "hints": [
+    "Identify the centre, radius, or relevant circle property.",
+    "Translate the geometric fact into an equation or perpendicular slope.",
+    "Substitute the given coordinates before simplifying."
+   ],
+   "rubric": [
+    {
+     "point": "An angle subtended by a diameter at the circumference is a right angle.",
+     "keywords": [
+      [
+       "diameter"
+      ],
+      [
+       "right angle",
+       "90"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "P2-3.1",
+   "front": "State the standard equation of a circle with centre $(a,b)$ and radius $r$.",
+   "back": "$(x-a)^2+(y-b)^2=r^2$, with $r>0$."
+  },
+  {
+   "id": "fc2",
+   "kc": "P2-3.1",
+   "front": "State the angle-in-a-semicircle property.",
+   "back": "The angle subtended by a diameter at the circumference is a right angle."
+  },
+  {
+   "id": "fc3",
+   "kc": "P2-3.1",
+   "front": "State the chord and tangent perpendicularity properties.",
+   "back": "The perpendicular from the centre to a chord bisects the chord; the tangent at a point of contact is perpendicular to the radius there."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "P2-3.1": {
+   "motivate": "A circle equation lets you find its centre and radius without a diagram. Its geometric properties then give gradients, midpoints and right angles in exam problems.",
+   "discover": {
+    "stem": "What is the centre of $(x-3)^2+(y+2)^2=25$?",
+    "options": {
+     "A": "$(3,-2)$",
+     "B": "$(-3,2)$",
+     "C": "$(3,2)$",
+     "D": "$(-3,-2)$"
+    },
+    "answer": "A",
+    "explanation": "Each squared bracket is zero at the centre: $x=3$ and $y=-2$."
+   },
+   "establish": "A circle with centre $(a,b)$ and radius $r>0$ has equation $(x-a)^2+(y-b)^2=r^2$. Read the centre by making both brackets zero; the radius is the positive square root of the right-hand side. Conversely, substitute a given centre and radius to form the equation. To test a point, substitute its coordinates. The angle at the circumference subtended by a diameter is a right angle. The perpendicular from the centre to a chord bisects the chord, so its foot is the chord's midpoint. At a point of contact, radius and tangent are perpendicular; for nonvertical lines, their gradients multiply to $-1$.",
+   "connect": "Coordinate methods make each property usable: compute a midpoint for a chord, use a right angle for a diameter, and take the negative reciprocal of the radius gradient for a tangent. Horizontal and vertical lines are perpendicular too.",
+   "note": "- Circle: $(x-a)^2+(y-b)^2=r^2$; centre $(a,b)$, radius $r$.\n- Diameter subtends a right angle at the circumference.\n- A centre's perpendicular to a chord bisects it.\n- Radius and tangent are perpendicular at contact.",
+   "self_explain": "For $(x-3)^2+(y+2)^2=25$, explain how to find the centre and radius, then explain why the tangent at $(6,2)$ has gradient $-3/4$.",
+   "source": "pack"
+  }
+ }
+}
