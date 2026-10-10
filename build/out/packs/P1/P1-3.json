@@ -1,0 +1,756 @@
+{
+ "subtopic": "P1-3",
+ "spec": "P1",
+ "version": 1,
+ "note": "Subjects/Maths/P1 Pure Mathematics 1/3 Trigonometry.md",
+ "outline": "Use the sine and cosine rules for non-right triangles, including the two possible angles in the ambiguous sine-rule case; area is $\\frac12ab\\sin C$. Radians measure angle by arc length divided by radius, so $s=r\\theta$ and sector area is $\\frac12r^2\\theta$. Sine and cosine repeat every $2\\pi$, tangent every $\\pi$; transformations change amplitude, phase and period.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "P1-3.1",
+   "statement": "The sine rule gives only one angle.",
+   "refutation": "A sine value can correspond to an acute or obtuse angle.",
+   "contrast": "Check both $B$ and $180^\\circ-B$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "P1-3.2",
+   "statement": "Degrees can be inserted directly into radian sector formulas.",
+   "refutation": "Convert degrees to radians before using $s=r\\theta$ or $A=\\frac12r^2\\theta$.",
+   "contrast": "A quarter-turn is $\\pi/2$ radians.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "P1-3.3",
+   "statement": "The coefficient inside sine changes amplitude.",
+   "refutation": "$y=\\sin 2x$ has amplitude 1 and period $\\pi$.",
+   "contrast": "The coefficient outside changes amplitude.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "P1-3.1",
+   "problem": "Find the third side when $a=5$, $b=7$, and $C=60^\\circ$.",
+   "steps": [
+    {
+     "do": "$c^2=a^2+b^2-2ab\\cos C$.",
+     "why": "Choose the relation matching the given information."
+    },
+    {
+     "do": "$c^2=25+49-70\\cos60^\\circ=39$.",
+     "why": "Substitute consistently and keep angle units explicit."
+    },
+    {
+     "do": "The result is $\\sqrt{39}$.",
+     "why": "Check the value against the geometry."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find the third side for $a=4$, $b=6$, $C=60^\\circ$.",
+    "answer": {
+     "value": 5.2915026221,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "P1-3.2",
+   "problem": "Find arc length for radius $6$ and angle $\\pi/3$ radians.",
+   "steps": [
+    {
+     "do": "$s=r\\theta$.",
+     "why": "Choose the relation matching the given information."
+    },
+    {
+     "do": "$s=6(\\pi/3)$.",
+     "why": "Substitute consistently and keep angle units explicit."
+    },
+    {
+     "do": "The result is $2\\pi$.",
+     "why": "Check the value against the geometry."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find arc length for radius $9$ and angle $\\pi/3$ radians.",
+    "answer": {
+     "value": 9.4247779608,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "P1-3.3",
+   "problem": "Find the period of $y=\\sin 2x$.",
+   "steps": [
+    {
+     "do": "$T=2\\pi/|b|$ for $y=\\sin bx$.",
+     "why": "Choose the relation matching the given information."
+    },
+    {
+     "do": "$T=2\\pi/2$.",
+     "why": "Substitute consistently and keep angle units explicit."
+    },
+    {
+     "do": "The result is $\\pi$.",
+     "why": "Check the value against the geometry."
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Find the period of $y=\\cos 3x$.",
+    "answer": {
+     "value": 2.0943951024,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "P1-3-i01",
+   "kcs": [
+    "P1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $c$ when $a=3$, $b=4$ and $C=90^\\circ$.",
+   "marks": 1,
+   "options": {
+    "A": "$5$",
+    "B": "$7$",
+    "C": "$1$",
+    "D": "$12$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "The cosine rule reduces to Pythagoras: $c=5$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i02",
+   "kcs": [
+    "P1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the area when two sides are $6$ and $8$ with included angle $30^\\circ$.",
+   "marks": 1,
+   "options": {
+    "A": "$12$",
+    "B": "$24$",
+    "C": "$48$",
+    "D": "$14$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "Area $=\\frac12(6)(8)\\sin30^\\circ=12$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i03",
+   "kcs": [
+    "P1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the possible values of $B$ if $b=8$, $a=10$ and $A=60^\\circ$, where $A$ is opposite $a$.",
+   "marks": 1,
+   "options": {
+    "A": "$43.9^\\circ$ only",
+    "B": "$43.9^\\circ$ and $136.1^\\circ$",
+    "C": "$60^\\circ$ only",
+    "D": "$136.1^\\circ$ only"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m1"
+   },
+   "explanation": "The sine rule gives $\\sin B=8\\sin60^\\circ/10$, so $B\\approx43.9^\\circ$. The supplementary angle with $A$ exceeds $180^\\circ$, so it is impossible.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i04",
+   "kcs": [
+    "P1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $a$ if $A=30^\\circ$, $B=60^\\circ$ and $b=10$.",
+   "marks": 1,
+   "options": {
+    "A": "$10/\\sqrt3$",
+    "B": "$10\\sqrt3$",
+    "C": "$5$",
+    "D": "$20$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "By the sine rule $a=10\\sin30^\\circ/\\sin60^\\circ=10/\\sqrt3$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i05",
+   "kcs": [
+    "P1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the included angle $C$ if $a=b=5$ and $c=5\\sqrt2$.",
+   "marks": 1,
+   "options": {
+    "A": "$90^\\circ$",
+    "B": "$45^\\circ$",
+    "C": "$60^\\circ$",
+    "D": "$120^\\circ$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "The cosine rule gives $50=50-50\\cos C$, hence $C=90^\\circ$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i06",
+   "kcs": [
+    "P1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the two possible values of $B$ given $A=30^\\circ$, $a=5$, $b=8$.",
+   "marks": 1,
+   "options": {
+    "A": "$53.1^\\circ$ and $126.9^\\circ$",
+    "B": "$53.1^\\circ$ only",
+    "C": "$126.9^\\circ$ only",
+    "D": "$30^\\circ$ and $150^\\circ$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m1",
+    "C": "m1"
+   },
+   "explanation": "$\\sin B=8\\sin30^\\circ/5=0.8$. Both inverse-sine angles give a positive third angle.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i07",
+   "kcs": [
+    "P1-3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the radian measure of $90^\\circ$.",
+   "marks": 1,
+   "options": {
+    "A": "$\\pi/2$",
+    "B": "$90$",
+    "C": "$\\pi$",
+    "D": "$2\\pi$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m2"
+   },
+   "explanation": "$90^\\circ$ is one quarter of a full turn, so it is $\\pi/2$ radians.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i08",
+   "kcs": [
+    "P1-3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the arc length for $r=4$ and $\\theta=2$ radians.",
+   "marks": 1,
+   "options": {
+    "A": "$8$",
+    "B": "$4$",
+    "C": "$16$",
+    "D": "$2$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "Use $s=r\\theta=8$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i09",
+   "kcs": [
+    "P1-3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sector area for $r=4$ and $\\theta=2$ radians.",
+   "marks": 1,
+   "options": {
+    "A": "$16$",
+    "B": "$8$",
+    "C": "$32$",
+    "D": "$4$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "$A=\\frac12r^2\\theta=16$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i10",
+   "kcs": [
+    "P1-3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the arc length for $r=6$ and central angle $60^\\circ$.",
+   "marks": 1,
+   "options": {
+    "A": "$2\\pi$",
+    "B": "$360$",
+    "C": "$6\\pi$",
+    "D": "$\\pi$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m2"
+   },
+   "explanation": "Convert $60^\\circ$ to $\\pi/3$ radians; $s=6\\pi/3=2\\pi$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i11",
+   "kcs": [
+    "P1-3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the sector area for $r=6$ and central angle $60^\\circ$.",
+   "marks": 1,
+   "options": {
+    "A": "$6\\pi$",
+    "B": "$18\\pi$",
+    "C": "$180$",
+    "D": "$3\\pi$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "C": "m2"
+   },
+   "explanation": "Convert to $\\pi/3$ radians and use $A=\\frac12(36)(\\pi/3)=6\\pi$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i12",
+   "kcs": [
+    "P1-3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the angle in radians when an arc of length $5$ lies on a circle of radius $10$.",
+   "marks": 1,
+   "options": {
+    "A": "$1/2$",
+    "B": "$2$",
+    "C": "$50$",
+    "D": "$5$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "From $s=r\\theta$, $\\theta=s/r=1/2$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i13",
+   "kcs": [
+    "P1-3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the amplitude of $y=3\\sin x$.",
+   "marks": 1,
+   "options": {
+    "A": "$3$",
+    "B": "$1$",
+    "C": "$2\\pi$",
+    "D": "$\\pi$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "The outside multiplier 3 scales the vertical distance from the midline to a maximum to 3.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i14",
+   "kcs": [
+    "P1-3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the period of $y=\\sin 2x$.",
+   "marks": 1,
+   "options": {
+    "A": "$\\pi$",
+    "B": "$2\\pi$",
+    "C": "$4\\pi$",
+    "D": "$1$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m3"
+   },
+   "explanation": "The sine cycle finishes when $2x$ increases by $2\\pi$, so $x$ increases by $\\pi$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i15",
+   "kcs": [
+    "P1-3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the period of $y=\\tan x$.",
+   "marks": 1,
+   "options": {
+    "A": "$\\pi$",
+    "B": "$2\\pi$",
+    "C": "$\\pi/2$",
+    "D": "$1$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "Tangent repeats after $\\pi$ radians.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i16",
+   "kcs": [
+    "P1-3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the first positive zero of $y=\\sin(x+\\pi/6)$.",
+   "marks": 1,
+   "options": {
+    "A": "$5\\pi/6$",
+    "B": "$\\pi/6$",
+    "C": "$\\pi$",
+    "D": "$7\\pi/6$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "Set $x+\\pi/6=\\pi$ for the first positive zero, giving $5\\pi/6$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i17",
+   "kcs": [
+    "P1-3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the $y$-intercept of $y=\\cos x$.",
+   "marks": 1,
+   "options": {
+    "A": "$1$",
+    "B": "$0$",
+    "C": "$-1$",
+    "D": "$\\pi$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "At $x=0$, $\\cos0=1$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i18",
+   "kcs": [
+    "P1-3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the vertical asymptotes of $y=\\tan x$ nearest the origin.",
+   "marks": 1,
+   "options": {
+    "A": "$x=\\pm\\pi/2$",
+    "B": "$x=\\pm\\pi$",
+    "C": "$x=0$",
+    "D": "$x=\\pm2\\pi$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "Tangent is undefined when cosine is zero, first at $x=\\pm\\pi/2$.",
+   "hints": [
+    "Identify the known quantities.",
+    "Choose the relevant rule or graph property.",
+    "Write the formula before substituting."
+   ]
+  },
+  {
+   "id": "P1-3-i19",
+   "kcs": [
+    "P1-3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State which of these trigonometric graphs is symmetric about the $y$-axis.",
+   "marks": 1,
+   "options": {
+    "A": "$y=\\cos x$ only",
+    "B": "$y=\\sin x$ only",
+    "C": "$y=\\tan x$ only",
+    "D": "Both $y=\\sin x$ and $y=\\tan x$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {},
+   "explanation": "Cosine is even: $\\cos(-x)=\\cos x$, so its graph is symmetric about the $y$-axis. Sine and tangent are odd: $f(-x)=-f(x)$ wherever defined, so their graphs have rotational symmetry of order 2 about the origin, not reflection symmetry about the $y$-axis.",
+   "hints": [
+    "Reflection in the $y$-axis sends $(x,y)$ to $(-x,y)$.",
+    "Which function satisfies $f(-x)=f(x)$?",
+    "Cosine is even; sine and tangent are odd."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "P1-3.1",
+   "front": "State the cosine rule.",
+   "back": "$c^2=a^2+b^2-2ab\\cos C$"
+  },
+  {
+   "id": "fc2",
+   "kc": "P1-3.1",
+   "front": "State the triangle area formula.",
+   "back": "$A=\\frac12ab\\sin C$"
+  },
+  {
+   "id": "fc3",
+   "kc": "P1-3.2",
+   "front": "State the arc-length formula in radians.",
+   "back": "$s=r\\theta$"
+  },
+  {
+   "id": "fc4",
+   "kc": "P1-3.2",
+   "front": "State the sector-area formula in radians.",
+   "back": "$A=\\frac12r^2\\theta$"
+  },
+  {
+   "id": "fc5",
+   "kc": "P1-3.3",
+   "front": "State the periods of sine, cosine and tangent.",
+   "back": "$2\\pi$, $2\\pi$ and $\\pi$, respectively."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "P1-3.1": {
+   "motivate": "How can you solve a triangle without a right angle? The sine and cosine rules connect its sides and angles, and an included angle also determines its area.",
+   "establish": "For sides $a,b,c$ opposite angles $A,B,C$, use $a/\\sin A=b/\\sin B=c/\\sin C$ when an opposite side-angle pair is known. Use $c^2=a^2+b^2-2ab\\cos C$ when two sides and their included angle, or all three sides, are known. The area is $\\frac12ab\\sin C$, where $C$ lies between $a$ and $b$. If the sine rule finds an angle from two sides and a non-included angle, test both $B$ and $180^\\circ-B$: each must leave a positive third angle. There may be zero, one, or two triangles.",
+   "connect": "The cosine rule becomes Pythagoras when $C=90^\\circ$. The sine-rule ambiguous case follows from the symmetry of sine about $90^\\circ$.",
+   "note": "- Sine rule: $a/\\sin A=b/\\sin B=c/\\sin C$.\n- Cosine rule: $c^2=a^2+b^2-2ab\\cos C$.\n- Area: $\\frac12ab\\sin C$; test supplementary angles in ambiguous cases.",
+   "self_explain": "Why must you test a supplementary angle after using inverse sine to find an angle?",
+   "source": "pack"
+  },
+  "P1-3.2": {
+   "motivate": "Angles in radians connect directly to distance around a circle and to the area swept out by a rotating radius.",
+   "establish": "One radian is the angle subtended at the centre by an arc equal in length to the radius. A full turn is $2\\pi$ radians, so convert degrees by multiplying by $\\pi/180$. For radius $r$ and angle $\\theta$ in radians, arc length is $s=r\\theta$ and sector area is $A=\\frac12r^2\\theta$. These formulas require the angle in radians; if degrees are supplied, convert first. For a fixed radius, both arc length and sector area are proportional to the central angle.",
+   "connect": "A sector occupies the fraction $\\theta/(2\\pi)$ of a full circle; applying that fraction to circumference and area gives the two formulas.",
+   "note": "- $180^\\circ=\\pi$ radians.\n- Arc length: $s=r\\theta$.\n- Sector area: $A=\\frac12r^2\\theta$.\n- Convert degrees before using either formula.",
+   "self_explain": "Why does putting $60$ directly into $s=r\\theta$ fail for a $60^\\circ$ sector?",
+   "source": "pack"
+  },
+  "P1-3.3": {
+   "motivate": "A graph reveals all solutions in a cycle and shows what a multiplier or shift does to a trigonometric function.",
+   "establish": "Sine and cosine have amplitude 1 and period $2\\pi$; tangent has period $\\pi$ and vertical asymptotes at $x=\\pi/2+k\\pi$. Sine passes through the origin and is odd; cosine starts at 1 and is even; tangent passes through the origin and is odd. For $y=a\\sin(bx+c)$, amplitude is $|a|$, period is $2\\pi/|b|$, and the phase shift is $-c/b$. Thus $y=3\\sin x$ has amplitude 3, $y=\\sin(x+\\pi/6)$ shifts left by $\\pi/6$, and $y=\\sin2x$ has period $\\pi$. Sketch with intercepts, turning points and asymptotes labelled. An even function satisfies $f(-x)=f(x)$ and its graph is symmetric about the $y$-axis; an odd function satisfies $f(-x)=-f(x)$ wherever defined and its graph has rotational symmetry of order 2 about the origin.",
+   "connect": "The graph transformations explain why equations can have several solutions over a given interval: values recur with each period.",
+   "note": "- Sine and cosine: period $2\\pi$; tangent: period $\\pi$.\n- $y=a\\sin(bx+c)$ has amplitude $|a|$ and period $2\\pi/|b|$.\n- Sine and tangent are odd; cosine is even.\n- Tangent asymptotes occur where cosine is zero.",
+   "self_explain": "How do the 2 in $\\sin2x$ and the 3 in $3\\sin x$ affect different graph features?",
+   "source": "pack"
+  }
+ }
+}

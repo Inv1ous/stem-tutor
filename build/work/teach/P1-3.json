@@ -1,0 +1,23 @@
+{
+ "P1-3.1": {
+  "motivate": "How can you solve a triangle without a right angle? The sine and cosine rules connect its sides and angles, and an included angle also determines its area.",
+  "establish": "For sides $a,b,c$ opposite angles $A,B,C$, use $a/\\sin A=b/\\sin B=c/\\sin C$ when an opposite side-angle pair is known. Use $c^2=a^2+b^2-2ab\\cos C$ when two sides and their included angle, or all three sides, are known. The area is $\\frac12ab\\sin C$, where $C$ lies between $a$ and $b$. If the sine rule finds an angle from two sides and a non-included angle, test both $B$ and $180^\\circ-B$: each must leave a positive third angle. There may be zero, one, or two triangles.",
+  "connect": "The cosine rule becomes Pythagoras when $C=90^\\circ$. The sine-rule ambiguous case follows from the symmetry of sine about $90^\\circ$.",
+  "note": "- Sine rule: $a/\\sin A=b/\\sin B=c/\\sin C$.\n- Cosine rule: $c^2=a^2+b^2-2ab\\cos C$.\n- Area: $\\frac12ab\\sin C$; test supplementary angles in ambiguous cases.",
+  "self_explain": "Why must you test a supplementary angle after using inverse sine to find an angle?"
+ },
+ "P1-3.2": {
+  "motivate": "Angles in radians connect directly to distance around a circle and to the area swept out by a rotating radius.",
+  "establish": "One radian is the angle subtended at the centre by an arc equal in length to the radius. A full turn is $2\\pi$ radians, so convert degrees by multiplying by $\\pi/180$. For radius $r$ and angle $\\theta$ in radians, arc length is $s=r\\theta$ and sector area is $A=\\frac12r^2\\theta$. These formulas require the angle in radians; if degrees are supplied, convert first. For a fixed radius, both arc length and sector area are proportional to the central angle.",
+  "connect": "A sector occupies the fraction $\\theta/(2\\pi)$ of a full circle; applying that fraction to circumference and area gives the two formulas.",
+  "note": "- $180^\\circ=\\pi$ radians.\n- Arc length: $s=r\\theta$.\n- Sector area: $A=\\frac12r^2\\theta$.\n- Convert degrees before using either formula.",
+  "self_explain": "Why does putting $60$ directly into $s=r\\theta$ fail for a $60^\\circ$ sector?"
+ },
+ "P1-3.3": {
+  "motivate": "A graph reveals all solutions in a cycle and shows what a multiplier or shift does to a trigonometric function.",
+  "establish": "Sine and cosine have amplitude 1 and period $2\\pi$; tangent has period $\\pi$ and vertical asymptotes at $x=\\pi/2+k\\pi$. Sine passes through the origin and is odd; cosine starts at 1 and is even; tangent passes through the origin and is odd. For $y=a\\sin(bx+c)$, amplitude is $|a|$, period is $2\\pi/|b|$, and the phase shift is $-c/b$. Thus $y=3\\sin x$ has amplitude 3, $y=\\sin(x+\\pi/6)$ shifts left by $\\pi/6$, and $y=\\sin2x$ has period $\\pi$. Sketch with intercepts, turning points and asymptotes labelled. An even function satisfies $f(-x)=f(x)$ and its graph is symmetric about the $y$-axis; an odd function satisfies $f(-x)=-f(x)$ wherever defined and its graph has rotational symmetry of order 2 about the origin.",
+  "connect": "The graph transformations explain why equations can have several solutions over a given interval: values recur with each period.",
+  "note": "- Sine and cosine: period $2\\pi$; tangent: period $\\pi$.\n- $y=a\\sin(bx+c)$ has amplitude $|a|$ and period $2\\pi/|b|$.\n- Sine and tangent are odd; cosine is even.\n- Tangent asymptotes occur where cosine is zero.",
+  "self_explain": "How do the 2 in $\\sin2x$ and the 3 in $3\\sin x$ affect different graph features?"
+ }
+}

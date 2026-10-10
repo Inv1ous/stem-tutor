@@ -1,0 +1,262 @@
+{
+ "sub": "P1-3",
+ "stage": "ready",
+ "created": "2026-10-10T11:01:12+08:00",
+ "updated": "2026-10-10T14:19:28+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T11:03:09+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 18 items"
+  },
+  {
+   "t": "2026-10-10T14:13:05+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "15 agreed, 6 disputed"
+  },
+  {
+   "t": "2026-10-10T14:13:58+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak settled every dispute; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:15:51+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T14:19:27+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T14:19:28+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 19,
+  "extra": 0
+ },
+ "disputes": [
+  {
+   "id": "P1-3-i02",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "P1-3-i06",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "P1-3-i09",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "P1-3-i11",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "we2.faded",
+   "key": {
+    "value": 9.4247779608,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "solver": "3 pi",
+   "tiebreak": "9.42",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "we3.faded",
+   "key": {
+    "value": 2.0943951024,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "solver": "2*pi/3",
+   "tiebreak": "2.09",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "P1-3.3 KC",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Statement: Sine, cosine and tangent functions. Their graphs, symmetries and periodicity.",
+   "suggested": "Add a question that tests a stated symmetry of a trigonometric graph, such as identifying even or odd symmetry.",
+   "status": "fixed",
+   "resolution": "fix: The finding is valid: teach[P1-3.3] states the even/odd properties, but none of the existing P1-3.3 items tests symmetry. In build/out/packs/P1/P1-3.json append this exact object to items: {\"id\": \"P1-3-i19\", \"kcs\": [\"P1-3.3\"], \"kind\": \"mcq\", \"difficulty\": 2, \"command_word\": \"State\", \"source\": {\"type\": \"generated\"}, \"stem\": \"State which of these trigonometric graphs is symmetric about the $y$-axis.\", \"marks\": 1, \"options\": {\"A\": \"$y=\\\\cos x$ only\", \"B\": \"$y=\\\\sin x$ only\", \"C\": \"$y=\\\\tan x$ only\", \"D\": \"Both $y=\\\\sin x$ and $y=\\\\tan x$\"}, \"answer\": \"A\", \"shuffle\": true, \"distractors\": {}, \"explanation\": \"Cosine is even: $\\\\cos(-x)=\\\\cos x$, so its graph is symmetric about the $y$-axis. Sine and tangent are odd: $f(-x)=-f(x)$ wherever defined, so their graphs have rotational symmetry of order 2 about the origin, not reflection symmetry about the $y$-axis.\", \"hints\": [\"Reflection in the $y$-axis sends $(x,y)$ to $(-x,y)$.\", \"Which function satisfies $f(-x)=f(x)$?\", \"Cosine is even; sine and tangent are odd.\"]} Also append this exact sentence to teach[\"P1-3.3\"].establish to make the geometric meaning explicit: An even function satisfies $f(-x)=f(x)$ and its graph is symmetric about the $y$-axis; an odd function satisfies $f(-x)=-f(x)$ wherever defined and its graph has rotational symmetry of order 2 about the origin."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "P1-3.3 KC",
+   "instruction": "The finding is valid: teach[P1-3.3] states the even/odd properties, but none of the existing P1-3.3 items tests symmetry. In build/out/packs/P1/P1-3.json append this exact object to items: {\"id\": \"P1-3-i19\", \"kcs\": [\"P1-3.3\"], \"kind\": \"mcq\", \"difficulty\": 2, \"command_word\": \"State\", \"source\": {\"type\": \"generated\"}, \"stem\": \"State which of these trigonometric graphs is symmetric about the $y$-axis.\", \"marks\": 1, \"options\": {\"A\": \"$y=\\\\cos x$ only\", \"B\": \"$y=\\\\sin x$ only\", \"C\": \"$y=\\\\tan x$ only\", \"D\": \"Both $y=\\\\sin x$ and $y=\\\\tan x$\"}, \"answer\": \"A\", \"shuffle\": true, \"distractors\": {}, \"explanation\": \"Cosine is even: $\\\\cos(-x)=\\\\cos x$, so its graph is symmetric about the $y$-axis. Sine and tangent are odd: $f(-x)=-f(x)$ wherever defined, so their graphs have rotational symmetry of order 2 about the origin, not reflection symmetry about the $y$-axis.\", \"hints\": [\"Reflection in the $y$-axis sends $(x,y)$ to $(-x,y)$.\", \"Which function satisfies $f(-x)=f(x)$?\", \"Cosine is even; sine and tangent are odd.\"]} Also append this exact sentence to teach[\"P1-3.3\"].establish to make the geometric meaning explicit: An even function satisfies $f(-x)=f(x)$ and its graph is symmetric about the $y$-axis; an odd function satisfies $f(-x)=-f(x)$ wherever defined and its graph has rotational symmetry of order 2 about the origin.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 37582,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T11:01:42+08:00",
+   "log": "foundry/logs/P1-3.drafter.1010-110142.log",
+   "out": "foundry/logs/P1-3.drafter.1010-110142.out.json",
+   "finished": "2026-10-10T11:03:09+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/P1/P1-3.json",
+    "note_path": "build/out/notes/Subjects/Maths/P1 Pure Mathematics 1/3 Trigonometry.md",
+    "items": 18,
+    "templates": 0,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 98236,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:41:35+08:00",
+   "log": "foundry/logs/P1-3.checker.1010-134135.log",
+   "out": "foundry/logs/P1-3.checker.1010-134135.out.json",
+   "expects": "build/work/foundry/P1-3.check.json",
+   "finished": "2026-10-10T13:41:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding; wrote [P1-3.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/P1-3.check.json)."
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 20124,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:11:54+08:00",
+   "log": "foundry/logs/P1-3.solver-1.1010-141154.log",
+   "out": "foundry/logs/P1-3.solver-1.1010-141154.out.json",
+   "expects": "build/work/blind/P1-3.answers.part1.json",
+   "finished": "2026-10-10T14:12:04+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/P1-3.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 20756,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:12:34+08:00",
+   "log": "foundry/logs/P1-3.solver-2.1010-141234.log",
+   "out": "foundry/logs/P1-3.solver-2.1010-141234.out.json",
+   "expects": "build/work/blind/P1-3.answers.part2.json",
+   "finished": "2026-10-10T14:12:44+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question; wrote `build/work/blind/P1-3.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 21796,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:13:35+08:00",
+   "log": "foundry/logs/P1-3.tiebreak.1010-141335.log",
+   "out": "foundry/logs/P1-3.tiebreak.1010-141335.out.json",
+   "expects": "build/work/blind/P1-3.tiebreak.json",
+   "finished": "2026-10-10T14:13:53+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 6,
+    "answers_path": "build/work/blind/P1-3.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 23378,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:15:29+08:00",
+   "log": "foundry/logs/P1-3.adjudicator.1010-141529.log",
+   "out": "foundry/logs/P1-3.adjudicator.1010-141529.out.json",
+   "finished": "2026-10-10T14:15:55+08:00",
+   "exit": 0,
+   "report": {
+    "text": "P1-3.3 KC fix: Symmetry is taught but untested; recorded exact MCQ and geometric clarification."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 25778,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T14:18:22+08:00",
+   "log": "foundry/logs/P1-3.fixer.1010-141822.log",
+   "out": "foundry/logs/P1-3.fixer.1010-141822.out.json",
+   "finished": "2026-10-10T14:19:27+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 2,
+    "not_done": [
+     "Did not edit build/work/bundles/P1-3.md because foundry/roles/fixer.md restricts writes to the pack, generator, lesson note, teaching cards, and overrides."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

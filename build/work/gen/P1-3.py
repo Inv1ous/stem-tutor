@@ -1,0 +1,38 @@
+import json, math
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[3]
+sub='P1-3'; ks=[f'{sub}.{i}' for i in (1,2,3)]
+mis=[('m1',ks[0],'The sine rule gives only one angle.','A sine value can correspond to an acute or obtuse angle.','Check both $B$ and $180^\\circ-B$.'),('m2',ks[1],'Degrees can be inserted directly into radian sector formulas.','Convert degrees to radians before using $s=r\\theta$ or $A=\\frac12r^2\\theta$.','A quarter-turn is $\\pi/2$ radians.'),('m3',ks[2],'The coefficient inside sine changes amplitude.','$y=\\sin 2x$ has amplitude 1 and period $\\pi$.','The coefficient outside changes amplitude.')]
+pack={'subtopic':sub,'spec':'P1','version':1,'note':'Subjects/Maths/P1 Pure Mathematics 1/3 Trigonometry.md','outline':'Use the sine and cosine rules for non-right triangles, including the two possible angles in the ambiguous sine-rule case; area is $\\frac12ab\\sin C$. Radians measure angle by arc length divided by radius, so $s=r\\theta$ and sector area is $\\frac12r^2\\theta$. Sine and cosine repeat every $2\\pi$, tangent every $\\pi$; transformations change amplitude, phase and period.','misconceptions':[{'id':i,'kc':k,'statement':s,'refutation':r,'contrast':c,'source':'research'} for i,k,s,r,c in mis],'worked':[],'items':[],'flashcards':[],'diagrams':[]}
+def num(x): return {'value':round(float(x),10),'unit':'','sf_ok':[2,3]}
+def worked(k,problem,formula,subst,value,faded,fadevalue):
+ n=len(pack['worked'])+1
+ pack['worked'].append({'id':f'we{n}','kc':k,'problem':problem,'steps':[{'do':formula,'why':'Choose the relation matching the given information.'},{'do':subst,'why':'Substitute consistently and keep angle units explicit.'},{'do':f'The result is ${value}$.','why':'Check the value against the geometry.'}], 'faded':{'id':f'we{n}f','problem':faded,'answer':num(fadevalue),'blank_from':1}})
+worked(ks[0],'Find the third side when $a=5$, $b=7$, and $C=60^\\circ$.','$c^2=a^2+b^2-2ab\\cos C$.','$c^2=25+49-70\\cos60^\\circ=39$.',r'\sqrt{39}','Find the third side for $a=4$, $b=6$, $C=60^\\circ$.',math.sqrt(28))
+worked(ks[1],'Find arc length for radius $6$ and angle $\\pi/3$ radians.','$s=r\\theta$.','$s=6(\\pi/3)$.',r'2\pi','Find arc length for radius $9$ and angle $\\pi/3$ radians.',3*math.pi)
+worked(ks[2],'Find the period of $y=\\sin 2x$.','$T=2\\pi/|b|$ for $y=\\sin bx$.','$T=2\\pi/2$.',r'\pi','Find the period of $y=\\cos 3x$.',2*math.pi/3)
+def item(k,stem,options,answer,explain,diff=2,miskeys=None):
+ n=len(pack['items'])+1
+ pack['items'].append({'id':f'{sub}-i{n:02}','kcs':[k],'kind':'mcq','difficulty':diff,'command_word':'Find','source':{'type':'generated'},'stem':stem,'marks':1,'options':dict(zip('ABCD',options)),'answer':'ABCD'[answer],'shuffle':True,'distractors':{('ABCD'[i]):v for i,v in (miskeys or {}).items()},'explanation':explain,'hints':['Identify the known quantities.','Choose the relevant rule or graph property.','Write the formula before substituting.']})
+item(ks[0],'Find $c$ when $a=3$, $b=4$ and $C=90^\\circ$.',['$5$','$7$','$1$','$12$'],0,'The cosine rule reduces to Pythagoras: $c=5$.')
+item(ks[0],'Find the area when two sides are $6$ and $8$ with included angle $30^\\circ$.',['$12$','$24$','$48$','$14$'],0,'Area $=\\frac12(6)(8)\\sin30^\\circ=12$.')
+item(ks[0],'Find the possible values of $B$ if $b=8$, $a=10$ and $A=60^\\circ$, where $A$ is opposite $a$.',['$43.9^\\circ$ only','$43.9^\\circ$ and $136.1^\\circ$','$60^\\circ$ only','$136.1^\\circ$ only'],0,'The sine rule gives $\\sin B=8\\sin60^\\circ/10$, so $B\\approx43.9^\\circ$. The supplementary angle with $A$ exceeds $180^\\circ$, so it is impossible.',4,{1:'m1'})
+item(ks[0],'Find $a$ if $A=30^\\circ$, $B=60^\\circ$ and $b=10$.',['$10/\\sqrt3$','$10\\sqrt3$','$5$','$20$'],0,'By the sine rule $a=10\\sin30^\\circ/\\sin60^\\circ=10/\\sqrt3$.')
+item(ks[0],'Find the included angle $C$ if $a=b=5$ and $c=5\\sqrt2$.',['$90^\\circ$','$45^\\circ$','$60^\\circ$','$120^\\circ$'],0,'The cosine rule gives $50=50-50\\cos C$, hence $C=90^\\circ$.')
+item(ks[0],'Find the two possible values of $B$ given $A=30^\\circ$, $a=5$, $b=8$.',['$53.1^\\circ$ and $126.9^\\circ$','$53.1^\\circ$ only','$126.9^\\circ$ only','$30^\\circ$ and $150^\\circ$'],0,'$\\sin B=8\\sin30^\\circ/5=0.8$. Both inverse-sine angles give a positive third angle.',4,{1:'m1',2:'m1'})
+item(ks[1],'Find the radian measure of $90^\\circ$.',['$\\pi/2$','$90$','$\\pi$','$2\\pi$'],0,'$90^\\circ$ is one quarter of a full turn, so it is $\\pi/2$ radians.',2,{1:'m2'})
+item(ks[1],'Find the arc length for $r=4$ and $\\theta=2$ radians.',['$8$','$4$','$16$','$2$'],0,'Use $s=r\\theta=8$.')
+item(ks[1],'Find the sector area for $r=4$ and $\\theta=2$ radians.',['$16$','$8$','$32$','$4$'],0,'$A=\\frac12r^2\\theta=16$.')
+item(ks[1],'Find the arc length for $r=6$ and central angle $60^\\circ$.',['$2\\pi$','$360$','$6\\pi$','$\\pi$'],0,'Convert $60^\\circ$ to $\\pi/3$ radians; $s=6\\pi/3=2\\pi$.',3,{1:'m2'})
+item(ks[1],'Find the sector area for $r=6$ and central angle $60^\\circ$.',['$6\\pi$','$18\\pi$','$180$','$3\\pi$'],0,'Convert to $\\pi/3$ radians and use $A=\\frac12(36)(\\pi/3)=6\\pi$.',4,{2:'m2'})
+item(ks[1],'Find the angle in radians when an arc of length $5$ lies on a circle of radius $10$.',['$1/2$','$2$','$50$','$5$'],0,'From $s=r\\theta$, $\\theta=s/r=1/2$.')
+item(ks[2],'Find the amplitude of $y=3\\sin x$.',['$3$','$1$','$2\\pi$','$\\pi$'],0,'The outside multiplier 3 scales the vertical distance from the midline to a maximum to 3.')
+item(ks[2],'Find the period of $y=\\sin 2x$.',['$\\pi$','$2\\pi$','$4\\pi$','$1$'],0,'The sine cycle finishes when $2x$ increases by $2\\pi$, so $x$ increases by $\\pi$.',3,{1:'m3'})
+item(ks[2],'Find the period of $y=\\tan x$.',['$\\pi$','$2\\pi$','$\\pi/2$','$1$'],0,'Tangent repeats after $\\pi$ radians.')
+item(ks[2],'Find the first positive zero of $y=\\sin(x+\\pi/6)$.',['$5\\pi/6$','$\\pi/6$','$\\pi$','$7\\pi/6$'],0,'Set $x+\\pi/6=\\pi$ for the first positive zero, giving $5\\pi/6$.')
+item(ks[2],'Find the $y$-intercept of $y=\\cos x$.',['$1$','$0$','$-1$','$\\pi$'],0,'At $x=0$, $\\cos0=1$.')
+item(ks[2],'Find the vertical asymptotes of $y=\\tan x$ nearest the origin.',['$x=\\pm\\pi/2$','$x=\\pm\\pi$','$x=0$','$x=\\pm2\\pi$'],0,'Tangent is undefined when cosine is zero, first at $x=\\pm\\pi/2$.',4)
+pack['items'].append({'id':'P1-3-i19','kcs':['P1-3.3'],'kind':'mcq','difficulty':2,'command_word':'State','source':{'type':'generated'},'stem':'State which of these trigonometric graphs is symmetric about the $y$-axis.','marks':1,'options':{'A':'$y=\\cos x$ only','B':'$y=\\sin x$ only','C':'$y=\\tan x$ only','D':'Both $y=\\sin x$ and $y=\\tan x$'},'answer':'A','shuffle':True,'distractors':{},'explanation':'Cosine is even: $\\cos(-x)=\\cos x$, so its graph is symmetric about the $y$-axis. Sine and tangent are odd: $f(-x)=-f(x)$ wherever defined, so their graphs have rotational symmetry of order 2 about the origin, not reflection symmetry about the $y$-axis.','hints':['Reflection in the $y$-axis sends $(x,y)$ to $(-x,y)$.','Which function satisfies $f(-x)=f(x)$?','Cosine is even; sine and tangent are odd.']})
+for k,q,a in [(ks[0],'State the cosine rule.','$c^2=a^2+b^2-2ab\\cos C$'),(ks[0],'State the triangle area formula.','$A=\\frac12ab\\sin C$'),(ks[1],'State the arc-length formula in radians.','$s=r\\theta$'),(ks[1],'State the sector-area formula in radians.','$A=\\frac12r^2\\theta$'),(ks[2],'State the periods of sine, cosine and tangent.','$2\\pi$, $2\\pi$ and $\\pi$, respectively.')]:
+ pack['flashcards'].append({'id':f'fc{len(pack["flashcards"])+1}','kc':k,'front':q,'back':a})
+out=ROOT/'build/out/packs/P1/P1-3.json';out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(pack,ensure_ascii=False,indent=1))
