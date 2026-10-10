@@ -1,0 +1,4053 @@
+{
+ "subtopic": "9701-7.1",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/07 Equilibria/7.1 Chemical equilibria: reversible reactions, dynamic equilibrium.md",
+ "outline": "Dynamic equilibrium in a closed system has continuing forward and reverse reactions at equal rates. Le Chatelier’s principle predicts how position responds to a disturbance. Equilibrium constants use concentrations or partial pressures at equilibrium; only temperature changes their values. Industrial conditions balance yield, rate and cost.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-7.1.1",
+   "statement": "Equilibrium means reactions stop",
+   "refutation": "Both reactions continue at equal rates in a closed system; concentrations stay constant.",
+   "contrast": "Both reactions continue at equal rates in a closed system; concentrations stay constant.",
+   "source": "ER 9701 s22 P22 Q3"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-7.1.3",
+   "statement": "A catalyst moves the equilibrium position",
+   "refutation": "A catalyst speeds both directions and does not change equilibrium composition.",
+   "contrast": "A catalyst speeds both directions and does not change equilibrium composition.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-7.1.4",
+   "statement": "Include a pure solid in the Kc expression",
+   "refutation": "Pure solids have constant activity and are omitted from the expression.",
+   "contrast": "Pure solids have constant activity and are omitted from the expression.",
+   "source": "ER 9701 w20 P13 Q33"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-7.1.6",
+   "statement": "Use moles in a Kp expression",
+   "refutation": "Kp uses equilibrium partial pressures, found from mole fractions and total pressure.",
+   "contrast": "Kp uses equilibrium partial pressures, found from mole fractions and total pressure.",
+   "source": "ER 9701 w23 P22 Q2"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-7.1.9",
+   "statement": "Pressure changes K at constant temperature",
+   "refutation": "Only temperature changes the equilibrium constant; pressure can change composition.",
+   "contrast": "Only temperature changes the equilibrium constant; pressure can change composition.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we3",
+   "kc": "9701-7.1.3",
+   "problem": "For $N_2+3H_2\\rightleftharpoons2NH_3$, predict the effect of raising pressure.",
+   "steps": [
+    {
+     "do": "Count four gaseous molecules on the left and two on the right.",
+     "why": "Pressure favours fewer gas molecules."
+    },
+    {
+     "do": "The equilibrium shifts right.",
+     "why": "This reduces the imposed pressure change."
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Calculate the difference between the sums of gaseous coefficients on each side for $2SO_2+O_2\\rightleftharpoons2SO_3$.",
+    "answer": {
+     "value": 1.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "9701-7.1.4",
+   "problem": "Deduce Kc for $N_2+3H_2\\rightleftharpoons2NH_3$.",
+   "steps": [
+    {
+     "do": "Write product concentration over reactant concentrations.",
+     "why": "Only equilibrium concentrations enter Kc."
+    },
+    {
+     "do": "$K_c=[NH_3]^2/([N_2][H_2]^3)$.",
+     "why": "The coefficients become powers."
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "Calculate Kc for $H_2+I_2\\rightleftharpoons2HI$ when equilibrium concentrations of $H_2$, $I_2$ and $HI$ are 0.20, 0.20 and 0.40 mol dm^-3.",
+    "answer": {
+     "value": 4.0,
+     "unit": " ",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we6",
+   "kc": "9701-7.1.6",
+   "problem": "Deduce Kp for $N_2+3H_2\\rightleftharpoons2NH_3$.",
+   "steps": [
+    {
+     "do": "Use equilibrium partial pressures.",
+     "why": "Kp is pressure based."
+    },
+    {
+     "do": "$K_p=p_{NH_3}^2/(p_{N_2}p_{H_2}^3)$.",
+     "why": "The coefficients become powers."
+    }
+   ],
+   "faded": {
+    "id": "we6f",
+    "problem": "Calculate Kp for $H_2+I_2\\rightleftharpoons2HI$ when equilibrium partial pressures of $H_2$, $I_2$ and $HI$ are 20, 20 and 40 kPa.",
+    "answer": {
+     "value": 4.0,
+     "unit": " ",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we7",
+   "kc": "9701-7.1.7",
+   "problem": "For $A\\rightleftharpoons B$, calculate Kc if equilibrium concentrations are 0.20 and 0.80 mol dm^-3.",
+   "steps": [
+    {
+     "do": "$K_c=[B]/[A]$.",
+     "why": "Use equilibrium concentrations."
+    },
+    {
+     "do": "$K_c=0.80/0.20=4.0$.",
+     "why": "Substitute in the correct order."
+    }
+   ],
+   "faded": {
+    "id": "we7f",
+    "problem": "Calculate Kc if the equilibrium concentrations of A and B are 0.25 and 0.75 mol dm^-3.",
+    "answer": {
+     "value": 3.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we8",
+   "kc": "9701-7.1.8",
+   "problem": "For $H_2+I_2\\rightleftharpoons2HI$, 0.30 mol of H2 reacts. Calculate HI formed.",
+   "steps": [
+    {
+     "do": "Use the 1:2 mole ratio.",
+     "why": "The coefficient of HI is two."
+    },
+    {
+     "do": "HI formed = 0.60 mol.",
+     "why": "Multiply the extent by two."
+    }
+   ],
+   "faded": {
+    "id": "we8f",
+    "problem": "Calculate HI formed if 0.20 mol of H2 reacts.",
+    "answer": {
+     "value": 0.4,
+     "unit": "mol",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-7.1-i011",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for equal forward and reverse rates.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+     "keywords": [
+      [
+       "equal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i012",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how equal forward and reverse rates is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+     "keywords": [
+      [
+       "equal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i013",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of closed system.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+     "keywords": [
+      [
+       "equal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i014",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of equal forward and reverse rates in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+     "keywords": [
+      [
+       "equal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i015",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering closed system.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+     "keywords": [
+      [
+       "equal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i016",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain equal forward and reverse rates in an exam answer, including its relationship to closed system.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+     "keywords": [
+      [
+       "equal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i021",
+   "kcs": [
+    "9701-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for minimise the imposed change.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+     "keywords": [
+      [
+       "minimise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i022",
+   "kcs": [
+    "9701-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how minimise the imposed change is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+     "keywords": [
+      [
+       "minimise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i023",
+   "kcs": [
+    "9701-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of position of equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+     "keywords": [
+      [
+       "minimise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i024",
+   "kcs": [
+    "9701-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of minimise the imposed change in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+     "keywords": [
+      [
+       "minimise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i025",
+   "kcs": [
+    "9701-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering position of equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+     "keywords": [
+      [
+       "minimise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i026",
+   "kcs": [
+    "9701-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain minimise the imposed change in an exam answer, including its relationship to position of equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+     "keywords": [
+      [
+       "minimise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i031",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for endothermic direction.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+     "keywords": [
+      [
+       "endothermic"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i032",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how endothermic direction is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+     "keywords": [
+      [
+       "endothermic"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i033",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of fewer gas molecules.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+     "keywords": [
+      [
+       "endothermic"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i034",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of endothermic direction in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+     "keywords": [
+      [
+       "endothermic"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i035",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering fewer gas molecules.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+     "keywords": [
+      [
+       "endothermic"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i036",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain endothermic direction in an exam answer, including its relationship to fewer gas molecules.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+     "keywords": [
+      [
+       "endothermic"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i041",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for equilibrium concentrations.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i042",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how equilibrium concentrations is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i043",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of stoichiometric powers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i044",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of equilibrium concentrations in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i045",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering stoichiometric powers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i046",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain equilibrium concentrations in an exam answer, including its relationship to stoichiometric powers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i051",
+   "kcs": [
+    "9701-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for moles divided by total moles.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+     "keywords": [
+      [
+       "moles"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i052",
+   "kcs": [
+    "9701-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how moles divided by total moles is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+     "keywords": [
+      [
+       "moles"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i053",
+   "kcs": [
+    "9701-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of partial pressure.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+     "keywords": [
+      [
+       "moles"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i054",
+   "kcs": [
+    "9701-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of moles divided by total moles in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+     "keywords": [
+      [
+       "moles"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i055",
+   "kcs": [
+    "9701-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering partial pressure.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+     "keywords": [
+      [
+       "moles"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i056",
+   "kcs": [
+    "9701-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain moles divided by total moles in an exam answer, including its relationship to partial pressure.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+     "keywords": [
+      [
+       "moles"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i061",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for equilibrium partial pressures.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i062",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how equilibrium partial pressures is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i063",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of stoichiometric powers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i064",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of equilibrium partial pressures in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i065",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering stoichiometric powers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i066",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain equilibrium partial pressures in an exam answer, including its relationship to stoichiometric powers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i071",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for equilibrium values.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i072",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how equilibrium values is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i073",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of units.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i074",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of equilibrium values in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i075",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering units.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i076",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain equilibrium values in an exam answer, including its relationship to units.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+     "keywords": [
+      [
+       "equilibrium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i081",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for stoichiometric ratio.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+     "keywords": [
+      [
+       "stoichiometric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i082",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how stoichiometric ratio is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+     "keywords": [
+      [
+       "stoichiometric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i083",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of equilibrium amounts.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+     "keywords": [
+      [
+       "stoichiometric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i084",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of stoichiometric ratio in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+     "keywords": [
+      [
+       "stoichiometric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i085",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering equilibrium amounts.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+     "keywords": [
+      [
+       "stoichiometric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i086",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain stoichiometric ratio in an exam answer, including its relationship to equilibrium amounts.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+     "keywords": [
+      [
+       "stoichiometric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i091",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for temperature changes the constant.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+     "keywords": [
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i092",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how temperature changes the constant is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+     "keywords": [
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i093",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of catalyst does not.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+     "keywords": [
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i094",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of temperature changes the constant in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+     "keywords": [
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i095",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering catalyst does not.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+     "keywords": [
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i096",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain temperature changes the constant in an exam answer, including its relationship to catalyst does not.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+     "keywords": [
+      [
+       "temperature"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i101",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the central rule for compromise temperature.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+     "keywords": [
+      [
+       "compromise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i102",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how compromise temperature is used in chemical equilibrium.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+     "keywords": [
+      [
+       "compromise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i103",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the role of catalyst.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+     "keywords": [
+      [
+       "compromise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i104",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the meaning of compromise temperature in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+     "keywords": [
+      [
+       "compromise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i105",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the relevant rule when considering catalyst.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+     "keywords": [
+      [
+       "compromise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-i106",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain compromise temperature in an exam answer, including its relationship to catalyst.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+     "keywords": [
+      [
+       "compromise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+   "hints": [
+    "Recall the relevant equilibrium definition.",
+    "Identify the species or condition being discussed.",
+    "Begin with the governing relationship."
+   ]
+  },
+  {
+   "id": "9701-7.1-n5",
+   "kcs": [
+    "9701-7.1.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the partial pressure of a gas with mole amount 0.30 mol in a 1.20 mol mixture at 500 kPa.",
+   "marks": 1,
+   "answer": {
+    "value": 125.0,
+    "unit": "kPa",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 150.0,
+     "misconception": "m4"
+    }
+   ],
+   "explanation": "Apply the equilibrium relationship to obtain 125 kPa.",
+   "hints": [
+    "Identify the relevant quantities.",
+    "Write the relationship before substituting.",
+    "Substitute the given equilibrium values."
+   ]
+  },
+  {
+   "id": "9701-7.1-n7",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate Kc for $A\\rightleftharpoons B$ when equilibrium concentrations are 0.20 and 0.80 mol dm^-3 respectively.",
+   "marks": 1,
+   "answer": {
+    "value": 4.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.25,
+     "misconception": "m3"
+    }
+   ],
+   "explanation": "Apply the equilibrium relationship to obtain 4 .",
+   "hints": [
+    "Identify the relevant quantities.",
+    "Write the relationship before substituting.",
+    "Substitute the given equilibrium values."
+   ]
+  },
+  {
+   "id": "9701-7.1-n8",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the moles of HI formed when 0.30 mol of H2 reacts with I2 according to $H_2+I_2\\rightleftharpoons2HI$.",
+   "marks": 1,
+   "answer": {
+    "value": 0.6,
+    "unit": "mol",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.3,
+     "misconception": "m1"
+    }
+   ],
+   "explanation": "Apply the equilibrium relationship to obtain 0.6 mol.",
+   "hints": [
+    "Identify the relevant quantities.",
+    "Write the relationship before substituting.",
+    "Substitute the given equilibrium values."
+   ]
+  },
+  {
+   "id": "9701-7.1-p01",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q10",
+    "qid": "9701_w19_11_q10"
+   },
+   "stem": "Two compounds X and Y react to produce compound Z. The reaction is reversible.\nX + Y\nZ\nWhen X and Y are mixed together in a closed system a dynamic equilibrium is gradually\nestablished.\nWhich graph could represent the change in the rates of the forward and reverse reactions over\ntime?\nrate\nrate of\nforward\nreaction\nkey\nrate of\nreverse\nreaction\nrate",
+   "options": {
+    "A": "time",
+    "B": "time rate",
+    "C": "time",
+    "D": "time rate 0 0 0 0"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w19_11_q10.png",
+   "marks": 1,
+   "explanation": "The official key follows the equilibrium rule in the stem."
+  },
+  {
+   "id": "9701-7.1-p02",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q14",
+    "qid": "9701_w20_12_q14"
+   },
+   "stem": "AgNO₃(aq) is added to a solution of a halide ion, X⁻(aq), and aqueous ammonia is then added.\nThe ionic equations for the two reactions that occur are shown.\nAg⁺(aq) + X⁻(aq)\nAgX(s)\nequilibrium 1\nAg⁺(aq) + 2NH₃(aq)\nAg(NH₃)₂\n⁺(aq)\nequilibrium 2\nWhich statement is correct?",
+   "options": {
+    "A": "The position of equilibrium 1 lies to the left when X⁻ = I⁻.",
+    "B": "Increasing the concentration of ammonia causes the position of equilibrium 1 to move to the left.",
+    "C": "Kc for equilibrium 2 is larger when X⁻ = Cl ⁻ than when X⁻ = I⁻.",
+    "D": "Equilibrium 2 is a redox reaction."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w20_12_q14.png",
+   "marks": 1,
+   "explanation": "The most commonly chosen incorrect answer was C. If the concentration of ammonia is increased the position of equilibrium 2 moves to the right, this reduces the concentration of Ag+, therefore the position of equilibrium 1 moves to the left. Therefore, statement B is correct. Kc for equilibrium 2 is a mathematical expression that is independent of either [Cl-] or [I-], so neither of these ions has an effect on the value of Kc."
+  },
+  {
+   "id": "9701-7.1-p03",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q9",
+    "qid": "9701_s19_13_q9"
+   },
+   "stem": "What is the correct expression for Kc for the reaction shown?\nI₂(aq) + 2Fe²⁺(aq)\n2I⁻(aq) + 2Fe³⁺(aq)",
+   "options": {
+    "A": "] Fe 2 ][ [ ] Fe 2 ][ 2 [ 2 2 3 + + − I I",
+    "B": "2 2 2 2 3 2 ] Fe ][ [ ] Fe [ ] [ + + − I I",
+    "C": "] Fe 2 ][ 2 [ ] Fe 2 ][ [ 3 2 2 + − + I I",
+    "D": "2 3 2 2 2 2 ] Fe [ ] [ ] Fe ][ [ + − + I I"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s19_13_q9.png",
+   "marks": 1,
+   "explanation": "The official key follows the equilibrium rule in the stem."
+  },
+  {
+   "id": "9701-7.1-p04",
+   "kcs": [
+    "9701-7.1.5",
+    "9701-7.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q4",
+    "qid": "9701_s25_12_q4"
+   },
+   "stem": "The reaction between sulfur dioxide and oxygen has the equation shown.\n2SO₂(g) + O₂(g)\n2SO₃(g)\nΔH = –197 kJ mol⁻¹\n1.0 mol of SO₂ and 1.0 mol of O₂ are placed in a closed container and heated to a constant\ntemperature.\nAt this temperature, 0.8 mol of SO₃ are present in the equilibrium mixture.\nWhich statement is correct?",
+   "options": {
+    "A": "The equilibrium partial pressure of SO₂ is greater than the equilibrium partial pressure of O₂.",
+    "B": "Kₚ has units of mol dm⁻³.",
+    "C": "At a lower temperature, the equilibrium amount of SO₃ is lower than 0.8 mol.",
+    "D": "The mole fraction of SO₃ is less than 0.8."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s25_12_q4.png",
+   "marks": 1,
+   "explanation": "The official key follows the equilibrium rule in the stem."
+  },
+  {
+   "id": "9701-7.1-p05",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q14",
+    "qid": "9701_s24_12_q14"
+   },
+   "stem": "Which reaction has an equilibrium constant, Kₚ, that has no units?",
+   "options": {
+    "A": "H₂(g) + I₂(g) 2HI(g)",
+    "B": "3H₂(g) + N₂(g) 2NH₃(g)",
+    "C": "2NO₂(g) N₂O₄(g)",
+    "D": "2SO₂(g) + O₂(g) 2SO₃(g)"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s24_12_q14.png",
+   "marks": 1,
+   "explanation": "The official key follows the equilibrium rule in the stem."
+  },
+  {
+   "id": "9701-7.1-p06",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q11",
+    "qid": "9701_s19_11_q11"
+   },
+   "stem": "The reaction between sulfur dioxide and oxygen is reversible.\n2SO₂(g) + O₂(g)\n2SO₃(g)\nKc = 280 mol⁻¹\ndm³ at 1000 K\nIn an equilibrium mixture at 1000 K the sulfur trioxide concentration is 6.00 mol dm⁻³.\nThe sulfur dioxide concentration is twice the oxygen concentration.\nWhat is the sulfur dioxide concentration?",
+   "options": {
+    "A": "0.175 mol dm⁻³",
+    "B": "0.254 mol dm⁻³",
+    "C": "0.318 mol dm⁻³",
+    "D": "0.636 mol dm⁻³"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s19_11_q11.png",
+   "marks": 1,
+   "explanation": "The most commonly chosen incorrect option was C. If we call the sulfur dioxide concentration ‘x’ and we insert what we know into the equilibrium expression, the expression is 62/(x2 y 0.5x) = 280. Solving this gives, x = 0.636 mol dm–3, hence the correct answer is D."
+  },
+  {
+   "id": "9701-7.1-p07",
+   "kcs": [
+    "9701-7.1.4",
+    "9701-7.1.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P11 · Q13",
+    "qid": "9701_w24_11_q13"
+   },
+   "stem": "When 0.20 mol of hydrogen gas and 0.15 mol of iodine gas are heated at 723 K until equilibrium is\nestablished, the equilibrium mixture contains 0.26 mol of hydrogen iodide.\nThe equation for the reaction is as follows.\nH₂(g) + I₂(g)\n2HI(g)\nWhat is the correct expression for the equilibrium constant Kc?",
+   "options": {
+    "A": "0.15 0.20 0.26 2 × ×",
+    "B": "0.15 0.20 0.26) (2 2 × ×",
+    "C": "0.02 0.07 (0.26)² ×",
+    "D": "0.13 0.13 (0.26)² ×"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w24_11_q13.png",
+   "marks": 1,
+   "explanation": "The official key follows the equilibrium rule in the stem."
+  },
+  {
+   "id": "9701-7.1-p08",
+   "kcs": [
+    "9701-7.1.9",
+    "9701-7.1.10"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q13",
+    "qid": "9701_w25_12_q13"
+   },
+   "stem": "In the Contact process, sulfur dioxide and oxygen react to form sulfur trioxide.\nIn the Haber process, nitrogen and hydrogen react to form ammonia.\nWhich statement about these processes is correct?",
+   "options": {
+    "A": "Kₚ for the Haber process has no unit.",
+    "B": "In the Contact process, the value of Kₚ falls when pressure is increased at constant T.",
+    "C": "The Haber process uses a homogeneous catalyst.",
+    "D": "When V₂O₅ is used in the Contact process, the position of equilibrium is unchanged."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "The official key follows the equilibrium rule in the stem."
+  },
+  {
+   "id": "9701-7.1-p09",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q10",
+    "qid": "9701_s21_11_q10"
+   },
+   "stem": "The diagram represents the Haber process for the manufacture of ammonia from nitrogen and\nhydrogen.\nheat exchanger\ncondenser\ncatalytic\nconverter\nN₂ + H₂\nNH₃\nWhat is the purpose of the heat exchanger?",
+   "options": {
+    "A": "to cool the incoming gas mixture to avoid overheating the catalyst",
+    "B": "to cool the reaction products and separate the NH₃ from unused N₂ and H₂",
+    "C": "to warm the incoming gas mixture and shift the equilibrium to give more NH₃",
+    "D": "to warm the incoming gas mixture and speed up the reaction"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s21_11_q10.png",
+   "marks": 1,
+   "explanation": "The official key follows the equilibrium rule in the stem."
+  },
+  {
+   "id": "9701-7.1-p10",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q10",
+    "qid": "9701_w19_12_q10"
+   },
+   "stem": "The decomposition of SO₃(g) is a dynamic equilibrium.\n2SO₃(g)\n2SO₂(g) + O₂(g)\nWhat happens when the pressure of the system is increased?",
+   "options": {
+    "A": "The rate of reaction will decrease and the position of the equilibrium will move to the left.",
+    "B": "The rate of reaction will decrease and the position of the equilibrium will move to the right.",
+    "C": "The rate of reaction will increase and the position of the equilibrium will move to the left.",
+    "D": "The rate of reaction will increase and the position of the equilibrium will move to the right."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w19_12_q10.png",
+   "marks": 1,
+   "explanation": "The official key follows the equilibrium rule in the stem."
+  },
+  {
+   "id": "9701-7.1-p11",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q10",
+    "qid": "9701_s19_12_q10"
+   },
+   "stem": "Ethyl ethanoate undergoes the following reaction.\nCH₃CO₂C₂H₅ + H₂O\nC₂H₅OH + CH₃CO₂H\nKc = 0.27\nEqual amounts of ethanoic acid and ethanol were mixed together and allowed to reach\nequilibrium.\nAt equilibrium, the concentrations of both ethanoic acid and ethanol were 0.42 mol dm⁻³.\nWhat is the concentration of ethyl ethanoate at equilibrium?",
+   "options": {
+    "A": "0.22 mol dm⁻³",
+    "B": "0.65 mol dm⁻³",
+    "C": "0.81 mol dm⁻³",
+    "D": "1.54 mol dm⁻³"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s19_12_q10.png",
+   "marks": 1,
+   "explanation": "The most commonly chosen incorrect option was D. If the concentration of ethyl ethanoate and the concentration of water, at equilibrium, are both called x, the equilibrium expression becomes (0.42)2/x2 = 0.27. Solving this gives, x = 0.81, meaning option C is the correct answer."
+  },
+  {
+   "id": "9701-7.1-p12",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q10",
+    "qid": "9701_s19_11_q10"
+   },
+   "stem": "Hydrogen iodide gas decomposes reversibly producing iodine vapour and hydrogen.\n2HI(g)\nI₂(g) + H₂(g)\n∆H = +12 kJ mol⁻¹\nThe position of the equilibrium for this reaction may be altered by changing the external\nconditions.\nWhich row correctly describes the change in position of equilibrium?\neffect of increasing\nthe pressure\neffect of increasing\nthe temperature",
+   "options": {
+    "A": "moves to the right moves to the right",
+    "B": "moves to the right moves to the left",
+    "C": "no change moves to the right",
+    "D": "no change moves to the left"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s19_11_q10.png",
+   "marks": 1,
+   "explanation": "The official key follows the equilibrium rule in the stem."
+  },
+  {
+   "id": "9701-7.1-x001",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q34",
+    "qid": "9701_s19_12_q34"
+   },
+   "stem": "The manufacture of ammonia from nitrogen and hydrogen is an important industrial process.\nWhich of the following would leave the equilibrium constant, Kₚ, for the formation of ammonia\nunchanged?\n1\naddition of an iron catalyst\n2\naddition of ammonia\n3\nan increase in pressure",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s19_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x002",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q10",
+    "qid": "9701_s19_13_q10"
+   },
+   "stem": "X and Y react together to form Z in a reversible reaction.\nThe equilibrium yield of Z is lower at higher temperature.\nThe equilibrium yield of Z is lower at lower pressure.\nWhich equation could represent this reaction?",
+   "options": {
+    "A": "X(g) + Y(g) Z(g) ∆H = –100 kJ mol⁻¹",
+    "B": "X(g) + Y(g) Z(g) ∆H = +100 kJ mol⁻¹",
+    "C": "X(s) + Y(g) 2Z(g) ∆H = –100 kJ mol⁻¹",
+    "D": "X(s) + Y(g) 2Z(g) ∆H = +100 kJ mol⁻¹"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s19_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x003",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q11",
+    "qid": "9701_w19_11_q11"
+   },
+   "stem": "The reaction between sulfur dioxide and oxygen is reversible.\n2SO₂(g) + O₂(g)\n2SO₃(g)\nKc = 280 mol⁻¹\ndm³ at 1000 K\nIn an equilibrium mixture at 1000 K the sulfur dioxide concentration is 0.200 mol dm⁻³ and the\noxygen concentration is 0.100 mol dm⁻³.\nWhat is the sulfur trioxide concentration?",
+   "options": {
+    "A": "1.058 mol dm⁻³",
+    "B": "1.120 mol dm⁻³",
+    "C": "2.366 mol dm⁻³",
+    "D": "5.600 mol dm⁻³"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w19_11_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x004",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q1",
+    "qid": "9701_s20_11_q1"
+   },
+   "stem": "Ethene can be oxidised to form epoxyethane, C₂H₄O.\nC₂H₄(g) + ₂\n¹O₂(g)\nC₂H₄O(g)\n∆H o = –107 kJ mol⁻¹\nWhich set of conditions gives the greatest yield of epoxyethane at equilibrium?\npressure\ntemperature\n/ °C",
+   "options": {
+    "A": "high 100",
+    "B": "high 200",
+    "C": "low 100",
+    "D": "low 200"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s20_11_q1.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x005",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q7",
+    "qid": "9701_s20_11_q7"
+   },
+   "stem": "What are the units of Kₚ for the reaction shown?\nH₂O(g) + C(s)\nH₂(g) + CO(g)",
+   "options": {
+    "A": "Pa⁻¹",
+    "B": "Pa",
+    "C": "Pa²",
+    "D": "no units"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s20_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x006",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q3",
+    "qid": "9701_s20_12_q3"
+   },
+   "stem": "The catalysed formation of ammonia by the Haber process can be represented by the equation\nshown.\nN₂(g) + 3H₂(g)\n2NH₃(g)\n∆H = –92 kJ mol⁻¹\nWhich change in conditions will increase both the rate of formation and the equilibrium yield of\nammonia?",
+   "options": {
+    "A": "decrease in the temperature",
+    "B": "increase in the temperature",
+    "C": "increase in the pressure",
+    "D": "increase in the surface area of the catalyst"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s20_12_q3.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x007",
+   "kcs": [
+    "9701-7.1.4",
+    "9701-7.1.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q11",
+    "qid": "9701_s20_12_q11"
+   },
+   "stem": "PCl ₅ decomposes as shown.\nPCl ₅(g)\nPCl ₃(g) + Cl ₂(g)\n1.0 mol of PCl ₅(g), 1.0 mol of PCl ₃(g) and 1.0 mol of Cl ₂(g) are placed in a container of volume\n1 dm³ at 250 °C and allowed to reach equilibrium.\nAt this temperature, the equilibrium mixture contains 1.8 moles of PCl ₃.\nWhat is the value of Kc at 250 °C?",
+   "options": {
+    "A": "1",
+    "B": "1.8",
+    "C": "9",
+    "D": "16.2"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s20_12_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x008",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q11",
+    "qid": "9701_s20_13_q11"
+   },
+   "stem": "Two reactions are shown.\nreaction 1\nX₂(g) + Y₂(g)\n2XY(g)\nreaction 2\nXY(g)\n₂\n¹ X₂(g) + ₂\n¹ Y₂(g)\nThe equilibrium constant, Kₚ, for reaction 1 is 0.0052.\nWhat is Kₚ for reaction 2?",
+   "options": {
+    "A": "2.6 × 10⁻³",
+    "B": "13.9",
+    "C": "192.3",
+    "D": "384.6"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s20_13_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x009",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q10",
+    "qid": "9701_w20_11_q10"
+   },
+   "stem": "In aqueous solution, sulfuric acid dissociates as shown.\nH₂SO₄ → HSO₄\n⁻ + H⁺\nThis reaction goes to completion.\nHSO₄\n⁻\nSO₄\n²⁻ + H⁺\nThis reaction reaches equilibrium with constant Kc.\nAnalysis of a 2.00 mol dm⁻³ solution of H₂SO₄ found the HSO₄\n⁻ concentration to be\n1.988 mol dm⁻³.\nWhat is Kc?",
+   "options": {
+    "A": "1.381 × 10⁵ dm³ mol⁻¹",
+    "B": "82.34 dm³ mol⁻¹",
+    "C": "1.214 × 10⁻² mol dm⁻³",
+    "D": "7.244 × 10⁻⁵ mol dm⁻³"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w20_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x010",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q33",
+    "qid": "9701_w20_11_q33"
+   },
+   "stem": "The units of Kc for an equilibrium reaction are mol⁻¹\ndm³.\nWhat could be the equation for the equilibrium?\n1\nA(aq) + B(aq)\nC(s) + D(aq)\n2\nP(aq) + Q(aq)\nR(aq)\n3\nW(aq) + 2X(aq)\nY(aq) + Z(aq)",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w20_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x011",
+   "kcs": [
+    "9701-7.1.3",
+    "9701-7.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q34",
+    "qid": "9701_w20_11_q34"
+   },
+   "stem": "Methanol, CH₃OH, can be produced industrially by reacting CO with H₂.\nCO(g) + 2H₂(g)\nCH₃OH(g)\nΔH = –91 kJ mol⁻¹\nThe process can be carried out at 4 × 10³\nkPa and 1150 K.\nWhich statements about this reaction are correct?\n1\nIncreasing the temperature will increase the rate of reaction because more effective\ncollisions will occur.\n2\nLowering the temperature will reduce the rate of reaction because the forward reaction is\nexothermic.\n3\nIncreasing the pressure will reduce the rate of reaction because there are a larger number of\nmoles on the left-hand side of the equation.",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x012",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q10",
+    "qid": "9701_w20_12_q10"
+   },
+   "stem": "Sulfur dioxide and oxygen react to form sulfur trioxide. The reaction is reversible.\n2SO₂(g) + O₂(g)\n2SO₃(g)\nKₚ = 2.96 × 10⁻⁹\nPa⁻¹ at 700 °C\nThe reaction is allowed to reach equilibrium at 700 °C. The partial pressure of O₂(g) is 375 kPa\nand the partial pressure of SO₃(g) is 20.3 kPa.\nWhat is the partial pressure of SO₂(g)?",
+   "options": {
+    "A": "19.3 kPa",
+    "B": "609 kPa",
+    "C": "18 300 kPa",
+    "D": "609 000 kPa"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w20_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x013",
+   "kcs": [
+    "9701-7.1.1",
+    "9701-7.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q34",
+    "qid": "9701_w20_12_q34"
+   },
+   "stem": "Which statements about a reaction that has reached dynamic equilibrium are correct?\n1\nThe rate of the forward reaction equals the rate of the reverse reaction.\n2\nThere is no overall change in the concentrations of reactants and products.\n3\nThere is no change in the measurable properties of the system.",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w20_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x014",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q10",
+    "qid": "9701_w20_13_q10"
+   },
+   "stem": "In aqueous solution, sulfuric acid dissociates as shown.\nH₂SO₄ → HSO₄\n⁻ + H⁺\nThis reaction goes to completion.\nHSO₄\n⁻\nSO₄\n²⁻ + H⁺\nThis reaction reaches equilibrium with constant Kc.\nAnalysis of a 2.00 mol dm⁻³ solution of H₂SO₄ found the HSO₄\n⁻ concentration to be\n1.988 mol dm⁻³.\nWhat is Kc?",
+   "options": {
+    "A": "1.381 × 10⁵ dm³ mol⁻¹",
+    "B": "82.34 dm³ mol⁻¹",
+    "C": "1.214 × 10⁻² mol dm⁻³",
+    "D": "7.244 × 10⁻⁵ mol dm⁻³"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w20_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x015",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q33",
+    "qid": "9701_w20_13_q33"
+   },
+   "stem": "The units of Kc for an equilibrium reaction are mol⁻¹\ndm³.\nWhat could be the equation for the equilibrium?\n1\nA(aq) + B(aq)\nC(s) + D(aq)\n2\nP(aq) + Q(aq)\nR(aq)\n3\nW(aq) + 2X(aq)\nY(aq) + Z(aq)",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w20_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was C. Statement 1 is the key consideration in this question. Since the state given for substance C is solid, the units of Kc for the equilibrium described in statement 1 will be mol–1 dm3. This means all three statements are correct and therefore the correct answer is A. Principal Examiner Report for Teachers CHEMISTRY"
+  },
+  {
+   "id": "9701-7.1-x016",
+   "kcs": [
+    "9701-7.1.3",
+    "9701-7.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q34",
+    "qid": "9701_w20_13_q34"
+   },
+   "stem": "Methanol, CH₃OH, can be produced industrially by reacting CO with H₂.\nCO(g) + 2H₂(g)\nCH₃OH(g)\nΔH = –91 kJ mol⁻¹\nThe process can be carried out at 4 × 10³\nkPa and 1150 K.\nWhich statements about this reaction are correct?\n1\nIncreasing the temperature will increase the rate of reaction because more effective\ncollisions will occur.\n2\nLowering the temperature will reduce the rate of reaction because the forward reaction is\nexothermic.\n3\nIncreasing the pressure will reduce the rate of reaction because there are a larger number of\nmoles on the left-hand side of the equation.",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x017",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q31",
+    "qid": "9701_s21_11_q31"
+   },
+   "stem": "Ethanol combines with ethanoic acid to form ethyl ethanoate according to the following reaction.\nC₂H₅OH(I) + CH₃CO₂H(I)\nCH₃CO₂C₂H₅(I) + H₂O(I)\n∆H o = –6 kJ mol⁻¹\n9.2 g ethanol, 12 g ethanoic acid and 8.8 g ethyl ethanoate are mixed and allowed to stand at\n298 K, until equilibrium is reached.\n(Mr: C₂H₅OH, 46; CH₃CO₂H, 60; CH₃CO₂C₂H₅, 88)\nThe resulting equilibrium mixture is found to contain 4.8 g ethanoic acid.\nThe experiment is repeated at 323 K.\nWhich statements are correct?\n1\nThere are 0.22 moles of ethyl ethanoate in the mixture at equilibrium at 298 K.\n2\nThe equilibrium mixture at 323 K will contain more than 4.8 g of ethanoic acid.\n3\nIf a small amount of water is added at the start of either experiment the value of Kc would not\nbe affected.",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s21_11_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was C. To correctly answer this question, the following considerations were necessary: • The original mixture is 0.2 mol ethanol, 0.2 mol ethanoic acid, 0.1 mol ethyl ethanoate. • At equilibrium there is 0.08 mol ethanoic acid. • At equilibrium there must also be 0.08 mol ethanol, 0.22 mol ethyl ethanoate and 0.12 mol water. These deductions can then be made: - Statement 1 is true. - A higher temperature of 323 K favours the endothermic back reaction, so more reactants are present at equilibrium, so statement 2 is true. - Kc is not affected by the addi"
+  },
+  {
+   "id": "9701-7.1-x018",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q10",
+    "qid": "9701_s21_12_q10"
+   },
+   "stem": "3.60 moles of hydrogen gas and 2.00 moles of iodine vapour are placed in a reaction vessel\nwhich is then sealed and maintained at a constant temperature.\nThe equation for the reaction is shown.\nH₂ + I₂\n2HI\nAt equilibrium, 3.20 moles of hydrogen remain. All reactants and products are gaseous.\nWhat is the value of Kₚ under these conditions?",
+   "options": {
+    "A": "0.0313",
+    "B": "0.125",
+    "C": "0.156",
+    "D": "8.00"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s21_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x019",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q19",
+    "qid": "9701_s21_12_q19"
+   },
+   "stem": "Ammonia gas, NH₃, and hydrogen sulfide gas, H₂S, react together to form the salt ammonium\nsulfide, (NH₄)₂S. Ammonium sulfide dissolves in water to produce an orange alkaline solution.\n(NH₄)₂S(aq)\nNH₃(aq) + NH₄SH(aq)\nThe addition of NaOH(aq) to this solution produces a gas, X.\nThe addition of HCl (aq) to a separate portion of this solution produces a gas, Y.\nX and Y could represent different gases or identical gases.\nWhat are the identities of X and Y?\nX\nY",
+   "options": {
+    "A": "H₂S H₂S",
+    "B": "H₂S NH₃",
+    "C": "NH₃ H₂S",
+    "D": "NH₃ NH₃"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s21_12_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x020",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q33",
+    "qid": "9701_s21_12_q33"
+   },
+   "stem": "When a sample of ammonium chloride is warmed it decomposes into ammonia and hydrogen\nchloride gas.\nNH₄Cl (s) → NH₃(g) + HCl (g)\nreaction 1\nheat\ncold surface\nsolid\nammonium chloride\nsolid ammonium\nchloride (reformed)\nWhen the mixture of hot ammonia and hydrogen chloride gases hit a cold surface, a white solid of\nammonium chloride reforms.\nWhich statements are correct?\n1\nReaction 1 is in dynamic equilibrium.\n2\nReaction 1 is reversible.\n3\nReaction 1 is an endothermic reaction.",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s21_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was A. For many candidates the key to this question was the correctness or incorrectness of statement 1. Statement 1 is not true. Reaction 1 is not taking place in a closed system."
+  },
+  {
+   "id": "9701-7.1-x021",
+   "kcs": [
+    "9701-7.1.4",
+    "9701-7.1.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q10",
+    "qid": "9701_s21_13_q10"
+   },
+   "stem": "Nitrogen reacts with hydrogen to produce ammonia.\nN₂(g) + 3H₂(g)\n2NH₃(g)\nA mixture of 2.00 mol of nitrogen, 6.00 mol of hydrogen and 2.40 mol of ammonia is allowed to\nreach equilibrium in a sealed vessel of volume 1 dm³. It is found that 2.32 mol of nitrogen were\npresent in the equilibrium mixture.\nWhich expression will give the value of Kc?",
+   "options": {
+    "A": "3 2 ) 96 . 6 )( 32 . 2 ( ) 76 . 1 (",
+    "B": "3 2 ) 32 . 6 )( 32 . 2 ( ) 76 . 1 (",
+    "C": "3 2 ) 32 . 6 )( 32 . 2 ( ) 08 . 2 (",
+    "D": "3 2 ) 00 . 6 )( 32 . 2 ( ) 40 . 2 ("
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s21_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x022",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q11",
+    "qid": "9701_s21_13_q11"
+   },
+   "stem": "Nitric acid is produced by oxidising ammonia. The first step is to react ammonia with oxygen in\nthe presence of a catalyst to form nitrogen monoxide.\n4NH₃(g) + 5O₂(g)\n4NO(g) + 6H₂O(g)\nΔH = –1636 kJ mol⁻¹\nWhich set of conditions will produce the greatest yield of nitrogen monoxide at equilibrium?\ntemperature\npressure",
+   "options": {
+    "A": "high high",
+    "B": "high low",
+    "C": "low high",
+    "D": "low low"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s21_13_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x023",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q10",
+    "qid": "9701_w21_11_q10"
+   },
+   "stem": "The equation shows that H₂(g) and I₂(g) react to form an equilibrium mixture.\nH₂(g) + I₂(g)\n2HI(g)\nΔH o = –9.6 kJ mol⁻¹\nA mixture containing equal amounts of H₂(g) and I₂(g) is made at temperature T₁ and the\ncomposition of the mixture is monitored. A graph of the results is shown.\ntime\n0\n0\n0.5\n0.23\nmole fraction\nof I₂(g)\nThe experiment is repeated at a lower temperature, T₂.\nWhich new graph would be obtained?\ntime\nmole fraction\nof I₂(g)\ntime\nmole fraction\nof I₂(g)\ntime",
+   "options": {
+    "A": "0 0 0.5",
+    "B": "0 0 0.5 mole fraction of I₂(g) time",
+    "C": "0 0 0.5",
+    "D": "0 0 0.5 mole fraction of I₂(g) 0.23 0.23 0.23 0.23"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w21_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x024",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q32",
+    "qid": "9701_w21_11_q32"
+   },
+   "stem": "Iron reacts with steam to produce hydrogen and an oxide of iron.\n3Fe(s) + 4H₂O(g)\nFe₃O₄(s) + 4H₂(g)\nA system containing all four substances is at equilibrium.\nWhich changes will decrease the mass of Fe present at equilibrium?\n1\naddition of steam at constant pressure\n2\nincrease in overall pressure\n3\naddition of an effective catalyst",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w21_11_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x025",
+   "kcs": [
+    "9701-7.1.4",
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q13",
+    "qid": "9701_s22_11_q13"
+   },
+   "stem": "Ethanoic acid is mixed with ethanol.\nThe ethanol is contaminated with a small amount of methanol.\nThe following equilibria are established.\nCH₃CO₂H(l) + CH₃CH₂OH(l)\nCH₃CO₂CH₂CH₃(l) + H₂O(l)\nKc = K₁\nCH₃CO₂H(l) + CH₃OH(l)\nCH₃CO₂CH₃(l) + H₂O(l)\nKc = K₂\nWhich statement about the equilibrium mixture is correct?",
+   "options": {
+    "A": "Only ethyl ethanoate will be formed because there is much more ethanol present than methanol.",
+    "B": "In this mixture ] CH CO [CH ] CH CH CO [CH 3 2 3 3 2 2 3 = 2 1 K K .",
+    "C": "Adding water to the mixture will alter the mole ratio of the two esters.",
+    "D": "Adding methyl ethanoate to the mixture will increase the number of moles of ethyl ethanoate."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s22_11_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x026",
+   "kcs": [
+    "9701-7.1.9",
+    "9701-7.1.10"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q14",
+    "qid": "9701_s22_11_q14"
+   },
+   "stem": "SO₃ is manufactured from SO₂ and O₂ in the Contact process.\nThe reaction is exothermic.\nWhich row shows the effect on the equilibrium yield obtained in the Contact process of increasing\nthe temperature and of adding a vanadium(V) oxide catalyst?\nincreasing the temperature\nadding vanadium(V) oxide\nas catalyst",
+   "options": {
+    "A": "equilibrium yield decreases equilibrium yield increases",
+    "B": "equilibrium yield decreases equilibrium yield unchanged",
+    "C": "equilibrium yield increases equilibrium yield unchanged",
+    "D": "equilibrium yield increases equilibrium yield increases"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s22_11_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x027",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q13",
+    "qid": "9701_s22_12_q13"
+   },
+   "stem": "A synthesis for methanol is shown.\nCO₂ + 3H₂\nCH₃OH + H₂O\nΔH = – 49 kJ mol⁻¹\nWhich conditions would produce the greatest yield of methanol at equilibrium?\npressure\ntemperature / °C",
+   "options": {
+    "A": "high 80",
+    "B": "high 20",
+    "C": "low 80",
+    "D": "low 20"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s22_12_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x028",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q14",
+    "qid": "9701_s22_12_q14"
+   },
+   "stem": "Hydrogen and iodine can react reversibly to produce hydrogen iodide. The equation is shown.\nH₂(g) + I₂(g)\n2HI(g)\n4.00 mol of hydrogen gas and X mol of iodine vapour are mixed in a sealed container of volume\n1.00 dm³ at a temperature of 460 K. The system is allowed to reach equilibrium.\nThe equilibrium mixture contains 2.00 mol of hydrogen iodide. The equilibrium constant, Kc, for\nthe reaction at 460 K is 4.0.\nWhat is the value of X?",
+   "options": {
+    "A": "0.50 mol",
+    "B": "1.17 mol",
+    "C": "1.33 mol",
+    "D": "2.50 mol"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s22_12_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x029",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q14",
+    "qid": "9701_s22_13_q14"
+   },
+   "stem": "The reaction between sulfur dioxide and oxygen is reversible.\n2SO₂(g) + O₂(g)\n2SO₃(g)\nKc = 280 mol⁻¹\ndm³ at 1000 K\nIn an equilibrium mixture at 1000 K the sulfur trioxide concentration is 6.00 mol dm⁻³.\nThe sulfur dioxide concentration is twice the oxygen concentration.\nWhat is the sulfur dioxide concentration?",
+   "options": {
+    "A": "0.175 mol dm⁻³",
+    "B": "0.252 mol dm⁻³",
+    "C": "0.318 mol dm⁻³",
+    "D": "0.636 mol dm⁻³"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s22_13_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x030",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q13",
+    "qid": "9701_w22_11_q13"
+   },
+   "stem": "In which equilibrium reaction is the position of equilibrium moved to the right-hand side by\nincreasing the temperature and also by decreasing the pressure?",
+   "options": {
+    "A": "H₂(g) + CO₂(g) H₂O(g) + CO(g) ∆H = 40 kJ mol⁻¹",
+    "B": "N₂O₄(g) 2NO₂(g) ∆H = 58 kJ mol⁻¹",
+    "C": "2SO₂(g) + O₂(g) 2SO₃(g) ∆H = –197 kJ mol⁻¹",
+    "D": "2HI(g) H₂(g) + I₂(g) ∆H = –10 kJ mol⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w22_11_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x031",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q14",
+    "qid": "9701_w22_11_q14"
+   },
+   "stem": "Ethanol is produced industrially by reacting ethene and steam.\nC₂H₄(g) + H₂O(g)\nC₂H₅OH(g)\nKₚ has a value of 1.8 × 10⁻⁵ and the partial pressures of the reactants at equilibrium are shown.\nreactant\npartial pressure\n/ kPa\nethene\n4.8 × 10³\nsteam\n2.8 × 10³\nWhich row is correct?\npartial pressure\nof ethanol at\nequilibrium / kPa\nunits of Kₚ",
+   "options": {
+    "A": "2.42 × 10² kPa⁻¹",
+    "B": "2.42 × 10² kPa",
+    "C": "7.47 × 10¹¹ kPa⁻¹",
+    "D": "7.47 × 10¹¹ kPa"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w22_11_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x032",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q7",
+    "qid": "9701_w22_12_q7"
+   },
+   "stem": "Hydrogen peroxide decomposes slowly at 20 °C to form water and oxygen.\n2H₂O₂\n2H₂O + O₂\nequilibrium constant = Kc\nThe reaction is faster when a catalyst is present.\nWhich statement is correct?",
+   "options": {
+    "A": "The catalyst alters the Boltzmann distribution so that the reactant molecules have more energy.",
+    "B": "The catalyst has no effect on the value of Kc.",
+    "C": "The catalyst increases the value of Kc.",
+    "D": "The catalyst provides a different reaction mechanism with a higher activation energy."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w22_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x033",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q8",
+    "qid": "9701_w22_12_q8"
+   },
+   "stem": "A dimer, Q, is stable when solid but a dynamic equilibrium is set up in solution.\nQ(aq)\n2R(aq)\nA solution of Q has an initial concentration of 0.50 mol dm⁻³. When equilibrium has been reached,\n[Q(aq)] has fallen to 0.25 mol dm⁻³.\nThe changes in [Q(aq)] and [R(aq)] are plotted against time until equilibrium is reached. The\nvalue of Kc is then calculated.\nWhich graph and value for Kc are correct?",
+   "options": {
+    "A": "1 Kc / mol dm⁻³ graph 0.5 0.4 0.3 0.2 0.1 0 0 time Q R",
+    "B": "0.25 0.5 0.4 0.3 0.2 0.1 0 0 time Q R",
+    "C": "1 0.5 0.4 0.3 0.2 0.1 0 0 time Q R Q R",
+    "D": "2 0.5 0.4 0.3 0.2 0.1 0 0 time concentration / mol dm⁻³ concentration / mol dm⁻³ concentration / mol dm⁻³ concentration / mol dm⁻³"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w22_12_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x034",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q11",
+    "qid": "9701_w22_12_q11"
+   },
+   "stem": "The Haber process is carried out with a nitrogen partial pressure of 50 kPa, a hydrogen partial\npressure of 150 kPa, a temperature of 400 °C and an iron catalyst.\nN₂(g) + 3H₂(g)\n2NH₃(g)\nIf all other conditions are kept the same, which change will result in a raised activation energy?",
+   "options": {
+    "A": "Both the nitrogen and hydrogen partial pressures are changed to 100 kPa.",
+    "B": "The iron is removed.",
+    "C": "The nitrogen partial pressure is increased to 150 kPa.",
+    "D": "The temperature is increased to 500 °C."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w22_12_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x035",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q13",
+    "qid": "9701_w22_13_q13"
+   },
+   "stem": "In which equilibrium reaction is the position of equilibrium moved to the right-hand side by\nincreasing the temperature and also by decreasing the pressure?",
+   "options": {
+    "A": "H₂(g) + CO₂(g) H₂O(g) + CO(g) ∆H = 40 kJ mol⁻¹",
+    "B": "N₂O₄(g) 2NO₂(g) ∆H = 58 kJ mol⁻¹",
+    "C": "2SO₂(g) + O₂(g) 2SO₃(g) ∆H = –197 kJ mol⁻¹",
+    "D": "2HI(g) H₂(g) + I₂(g) ∆H = –10 kJ mol⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w22_13_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x036",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q14",
+    "qid": "9701_w22_13_q14"
+   },
+   "stem": "Ethanol is produced industrially by reacting ethene and steam.\nC₂H₄(g) + H₂O(g)\nC₂H₅OH(g)\nKₚ has a value of 1.8 × 10⁻⁵ and the partial pressures of the reactants at equilibrium are shown.\nreactant\npartial pressure\n/ kPa\nethene\n4.8 × 10³\nsteam\n2.8 × 10³\nWhich row is correct?\npartial pressure\nof ethanol at\nequilibrium / kPa\nunits of Kₚ",
+   "options": {
+    "A": "2.42 × 10² kPa⁻¹",
+    "B": "2.42 × 10² kPa",
+    "C": "7.47 × 10¹¹ kPa⁻¹",
+    "D": "7.47 × 10¹¹ kPa"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w22_13_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x037",
+   "kcs": [
+    "9701-7.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q4",
+    "qid": "9701_s23_11_q4"
+   },
+   "stem": "For which equilibrium do both of the equilibrium constants Kc and Kₚ have no units?\nH₂(g) + I₂(g) ⇋2HI(g)",
+   "options": {
+    "A": "N₂(g) + 3H₂(g) ⇋2NH₃(g)",
+    "B": "N₂O₄(g) ⇋2NO₂(g)",
+    "C": "SO₂(g) + O₂(g) ⇋SO₃(g)",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s23_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x038",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q8",
+    "qid": "9701_s23_11_q8"
+   },
+   "stem": "The Contact process takes place at a pressure between 100000Pa and 200000Pa. A catalyst is\nused.\nWhich statement is correct?\nA V₂O₅ catalyst is added to increase the equilibrium yield of the reaction.",
+   "options": {
+    "A": "Changes in pressure have no effect on the position of equilibrium.",
+    "B": "The equilibrium yield of the reaction is very high under the conditions used.",
+    "C": "An iron catalyst is added to increase the rate of reaction.",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s23_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x039",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q13",
+    "qid": "9701_s23_12_q13"
+   },
+   "stem": "In\u0003which\u0003equilibrium\u0003will\u0003an\u0003increase\u0003in\u0003pressure\u0003at\u0003constant\u0003temperature\u0003increase\u0003the\u0003yield\u0003of\u0003the\u0003\nproducts\u0003on\u0003the\u0003right-hand\u0003side\u0003of\u0003the\u0003equation?\nCaCO₃(s) ⇋CaO(s) + CO₂(g)",
+   "options": {
+    "A": "4HCl(g) + O₂(g) ⇋2H₂O(g) + 2Cl₂(g)",
+    "B": "2HI(g) ⇋H₂(g) + I₂(g)",
+    "C": "3Fe(s) + 4H₂O(g) ⇋Fe₃O₄(s) + 4H₂(g)",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_12_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x040",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q14",
+    "qid": "9701_s23_12_q14"
+   },
+   "stem": "Hydrogen\u0003iodide\u0003is\u0003added\u0003to\u0003an\u0003evacuated\u0003reaction\u0003vessel.\u0003The\u0003vessel\u0003is\u0003sealed\u0003and\u0003warmed.\u0003A\u0003\ndecomposition\u0003reaction\u0003occurs.\u0003Hydrogen\u0003and\u0003iodine\u0003are\u0003formed.\u0003Some\u0003hydrogen\u0003iodide\u0003remains.\nWhen\u0003equilibrium\u0003is\u0003established,\u0003the\u0003total\u0003pressure\u0003is\u00031.20\u0003s\u000110⁵\u0003Pa.\u0003The\u0003partial\u0003pressure\u0003of\u0003hydrogen\u0003\nis\u00034.00\u0003s\u000110³\u0003Pa.\nHydrogen\u0003iodide,\u0003hydrogen\u0003and\u0003iodine\u0003are\u0003all\u0003gaseous\u0003under\u0003the\u0003conditions\u0003used.\nWhat\u0003is\u0003the\u0003value\u0003of\u0003Kₚ\u0003for\u0003the\u0003equilibrium\u0003at\u0003this\u0003temperature,\u0003assuming\u0003the\u0003decomposition\u0003is\u0003the\u0003\nforward\u0003reaction?\n1.43\u0003s\u000110⁻³",
+   "options": {
+    "D": "1.38\u0003s\u000110⁻³",
+    "C": "1.28\u0003s\u000110⁻³",
+    "B": "1.19\u0003s\u000110⁻³",
+    "A": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_12_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most common incorrect answer was C. Since the partial pressure of hydrogen at equilibrium is 4.00 x 103 Pa, and one molecule of iodine forms when one molecule of hydrogen forms, the partial pressure of iodine at equilibrium is also 4.00 × 103 Pa. Since the total pressure at equilibrium is 1.20 × 105 Pa the partial pressure of hydrogen iodide at equilibrium is 1.12 × 105 Pa (1.20 × 105 – (2 × 4.00 × 103)). Using the equilibrium expression for the decomposition of hydrogen iodide gives a value for Kp of 1.28 × 10 –3."
+  },
+  {
+   "id": "9701-7.1-x041",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q15",
+    "qid": "9701_s23_13_q15"
+   },
+   "stem": "Sulfur dioxide reacts with oxygen as shown.\n¨H ⦵= –197kJmol⁻¹\n2SO₂(g) + O₂(g) ⇋2SO₃(g)\nWhich change will move the equilibrium position to the right side and change the value of the\nequilibrium constant, Kc?\nthe addition of a catalyst",
+   "options": {
+    "A": "increasing the pressure of the reaction",
+    "B": "decreasing the temperature of the reaction",
+    "C": "decreasing the concentration of product",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s23_13_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x042",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q12",
+    "qid": "9701_w23_11_q12"
+   },
+   "stem": "Nitrogen dioxide, NO₂, exists in equilibrium with dinitrogen tetroxide, N₂O₄.\n2NO₂(g) ⇋N₂O₄(g)\nH = –57kJmol⁻¹\nWhich conditions give the greatest percentage of N₂O₄(g) at equilibrium?\ntemperature\npressure\nhigh\nhigh",
+   "options": {
+    "A": "low high",
+    "B": "high low",
+    "C": "low low",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w23_11_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x043",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q13",
+    "qid": "9701_w23_11_q13"
+   },
+   "stem": "When an equimolar mixture of H₂ and I₂ react, the mole fraction of HI in the final mixture is x.\nWhat is the equilibrium constant, Kₚ, for the reaction?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_11_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was A. If we assume that the initial number of moles of H2 is 1 and the initial number of moles of I2 is 1 then the equilibrium amounts can be given as H2 = 1-y, I2 = 1-y, and Principal Examiner Report for Teachers HI = 2y, where y is the number of moles of H2 that reacted. The mole fraction of HI at equilibrium, x, is therefore 2y/2, which simplifies to y, so x = y. This means that Kp = 4x2/(1-x)2."
+  },
+  {
+   "id": "9701-7.1-x044",
+   "kcs": [
+    "9701-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q14",
+    "qid": "9701_w23_12_q14"
+   },
+   "stem": "A mixture of the three gases, oxygen, nitrogen and argon, is at a total pressure of 500kPa. There\nis a total of 1.2 moles of gas in the mixture.\nIf the oxygen gas alone occupied the entire volume of the mixture, it would exert a pressure of\n150kPa.\nAt room conditions the amount of nitrogen gas in the mixture would occupy a volume of 5.76dm³.\nWhat is the partial pressure of the argon gas in the mixture?\n150kPa",
+   "options": {
+    "A": "200kPa",
+    "B": "250kPa",
+    "C": "300kPa",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_12_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x045",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q15",
+    "qid": "9701_w23_12_q15"
+   },
+   "stem": "0.200mol of sulfur dioxide and 0.200mol of oxygen are placed in a 1.00dm³ sealed container. The\ngases are allowed to react until equilibrium is reached.\n2SO₂ + O₂ ⇋2SO₃\nAt equilibrium there is 0.100mol of SO₃ in the container.\nWhat is the value of Kc?\n0.150moldm⁻³",
+   "options": {
+    "A": "0.800moldm⁻³",
+    "B": "1.25mol⁻¹dm³",
+    "C": "6.67mol⁻¹dm³",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_12_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x046",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q17",
+    "qid": "9701_w23_12_q17"
+   },
+   "stem": "The diagram shows a gas syringe with a free-moving piston. The syringe contains gaseous hydrogen,\ngaseous iodine and gaseous hydrogen iodide at equilibrium.\ngaseous hydrogen, gaseous iodine\nand gaseous hydrogen iodide\nsealed end\npiston\nH₂(g) + I₂(g) ⇋2HI(g)\nThree changes are listed.\nincreasing the total pressure by adding an inert gas and keeping the volume constant\n1\nincreasing the pressure by adding more gaseous hydrogen iodide and keeping the\nvolume constant\n2\ndecreasing the volume by pushing the piston to the left\n3\nWhich changes will result in an equilibrium position at which the rate of the forward reaction has\nincreased?\n2 and 3",
+   "options": {
+    "D": "1 and 3",
+    "C": "1 and 2",
+    "B": "2 only",
+    "A": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_12_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was C. Statement 1 is untrue as adding an inert gas at constant volume does not affect the concentrations of the other gases and so has no effect on the rate of the forward or backward reactions. Statement 2 is true. If hydrogen iodide is added at constant volume equilibrium is re-established with higher concentrations of all three gases. This means that the rate of the forward reaction is increased at equilibrium. Statement 3 is true. Decreasing the volume causes a higher concentration of all three gases."
+  },
+  {
+   "id": "9701-7.1-x047",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q12",
+    "qid": "9701_w23_13_q12"
+   },
+   "stem": "Nitrogen dioxide, NO₂, exists in equilibrium with dinitrogen tetroxide, N₂O₄.\n2NO₂(g) ⇋N₂O₄(g)\nH = –57kJmol⁻¹\nWhich conditions give the greatest percentage of N₂O₄(g) at equilibrium?\ntemperature\npressure\nhigh\nhigh",
+   "options": {
+    "A": "low high",
+    "B": "high low",
+    "C": "low low",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w23_13_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x048",
+   "kcs": [
+    "9701-7.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q13",
+    "qid": "9701_w23_13_q13"
+   },
+   "stem": "When an equimolar mixture of H₂ and I₂ react, the mole fraction of HI in the final mixture is x.\nWhat is the equilibrium constant, Kₚ, for the reaction?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_13_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was A. If we assume that the initial number of moles of H2 is 1 and the initial number of moles of I2 is 1 then the equilibrium amounts can be given as H2 = 1-y, I2 = 1-y, and Principal Examiner Report for Teachers HI = 2y, where y is the number of moles of H2 that reacted. The mole fraction of HI at equilibrium, x, is therefore 2y/2, which simplifies to y, so x = y. This means that Kp = 4x2/(1-x)2."
+  },
+  {
+   "id": "9701-7.1-x049",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q13",
+    "qid": "9701_s24_11_q13"
+   },
+   "stem": "An alcohol, ROH, reacts reversibly with ethanoic acid to produce an ester.\nROH(l) + CH₃COOH(l)\nCH₃COOR(l) + H₂O(l)\n3.0 mol of ROH, 2.0 mol of ethanoic acid and 1.0 mol of water are mixed together. At equilibrium,\n1.5 mol of CH₃COOR is present.\nWhat is the value of the equilibrium constant, Kc, for this reaction?",
+   "options": {
+    "A": "0.20",
+    "B": "0.25",
+    "C": "2.00",
+    "D": "5.00"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s24_11_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x050",
+   "kcs": [
+    "9701-7.1.3",
+    "9701-7.1.10"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q14",
+    "qid": "9701_s24_11_q14"
+   },
+   "stem": "Graphs can be drawn to show the percentage of ammonia at equilibrium when nitrogen and\nhydrogen are mixed at different temperatures and pressures.\nWhich diagram correctly represents these two graphs?",
+   "options": {
+    "C": "40 20 pressure / 10³ kPa % NH₃ at equilibrium 400 \u0001C 500 \u0001C",
+    "D": "40 20 pressure / 10³ kPa % NH₃ at equilibrium 500 \u0001C 400 \u0001C",
+    "A": "40 20 10 20 0 0 10 20 0 0 10 0 20 0 10 20 0 0 pressure / 10³ kPa 400 \u0001C 500 \u0001C % NH₃ at equilibrium",
+    "B": "40 20 pressure / 10³ kPa % NH₃ at equilibrium 500 \u0001C 400 \u0001C"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s24_11_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x051",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q13",
+    "qid": "9701_s24_12_q13"
+   },
+   "stem": "The volume of ammonia produced against time is measured in two experiments.\nN₂(g) + 3H₂(g)\n2NH₃(g)\n∆H = –92 kJ mol⁻¹\nIn experiment 1, 3 mol of H₂(g) and 1 mol of N₂(g) react together at 45 °C and a pressure of\n200 atm.\nA graph showing the volume of ammonia produced against time is plotted.\nExperiment 2 is then performed. Experiment 2 differs from experiment 1 in one condition only.\nvolume\nof NH₃\n0\n0\ntime\nexperiment 1\nexperiment 2\nHow does experiment 2 differ from experiment 1?",
+   "options": {
+    "A": "An iron catalyst is present in experiment 2.",
+    "B": "2 mol of helium gas is present in the reaction mixture in experiment 2.",
+    "C": "A pressure of 250 atm is used in experiment 2.",
+    "D": "A temperature of 600 °C is used in experiment 2."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s24_12_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x052",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q12",
+    "qid": "9701_s24_13_q12"
+   },
+   "stem": "Hydrogen is produced industrially from methane as shown in the equation.\nCH₄(g) + H₂O(g)\nCO(g) + 3H₂(g)\nΔH o = +205 kJ mol⁻¹\nWhich conditions give the highest yield of hydrogen at equilibrium?\npressure\ntemperature",
+   "options": {
+    "A": "low high",
+    "B": "high low",
+    "C": "high high",
+    "D": "low low"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s24_13_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x053",
+   "kcs": [
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q14",
+    "qid": "9701_s24_13_q14"
+   },
+   "stem": "Gas X dissociates on heating to set up the following equilibrium.\nX(g)\nY(g) + Z(g)\nA quantity of gas X is heated at constant pressure, p, at a certain temperature. The equilibrium\npartial pressure of gas X is found to be\n.\n7\n¹ p\nWhat is the equilibrium constant, Kₚ, at this temperature?",
+   "options": {
+    "A": "p 7 6",
+    "B": "p 7 9",
+    "C": "p 7 36",
+    "D": "9p"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s24_13_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x054",
+   "kcs": [
+    "9701-7.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P11 · Q12",
+    "qid": "9701_w24_11_q12"
+   },
+   "stem": "Lithium reacts with nitrogen at room temperature to form solid Li₃N.\nThree vessels of equal volume are connected by taps 1 and 2 as shown.\nevacuated\nN₂(g) + 3H₂(g)\n2NH₃(g)\nLi\n1\n2\nAt the start, taps 1 and 2 are closed, the left-hand vessel is evacuated, the middle vessel has the\nindicated reaction at equilibrium and the right-hand vessel contains lithium only.\nWhich action would allow the equilibrium mixture to contain the most ammonia?",
+   "options": {
+    "A": "Keep both taps 1 and 2 closed.",
+    "B": "Open both taps 1 and 2.",
+    "C": "Open tap 1 only.",
+    "D": "Open tap 2 only."
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w24_11_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x055",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q13",
+    "qid": "9701_w24_12_q13"
+   },
+   "stem": "When some solid Ca₅(PO₄)₃OH is added to a beaker of water, an equilibrium is set up.\nCa₅(PO₄)₃OH(s)\n5Ca²⁺(aq) + 3PO₄\n³⁻(aq) + OH⁻(aq)\nWhich compound, when added to the equilibrium mixture, increases the amount of\nCa₅(PO₄)₃OH(s) present?",
+   "options": {
+    "A": "NH₃",
+    "B": "NH₄Cl",
+    "C": "CH₃CO₂H",
+    "D": "NaCl"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w24_12_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x056",
+   "kcs": [
+    "9701-7.1.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q14",
+    "qid": "9701_w24_12_q14"
+   },
+   "stem": "Gaseous hydrogen and gaseous iodine react to form gaseous hydrogen iodide.\nH₂(g) + I₂(g)\n2HI(g)\nIn an experiment, 2.0 mol of hydrogen and 2.0 mol of iodine are placed in a sealed container of\nvolume 1.0 dm³.\nThe Kc value for this reaction under the conditions used is 9.0.\nHow many moles of hydrogen iodide are present at equilibrium?",
+   "options": {
+    "A": "0.57 mol",
+    "B": "1.2 mol",
+    "C": "1.5 mol",
+    "D": "2.4 mol"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w24_12_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x057",
+   "kcs": [
+    "9701-7.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q10",
+    "qid": "9701_s25_11_q10"
+   },
+   "stem": "Dinitrogen tetroxide, N₂O₄, decomposes reversibly.\nN₂O₄\n2NO₂\nΔH = +58.0 kJ mol⁻¹\nAn equilibrium mixture of N₂O₄ and NO₂ gases is placed in a closed container under standard\nconditions.\nKc = 1.15 × 10⁻¹\nmol dm⁻³\nThe conditions are changed.\nUnder the new conditions, Kc = 1.70 × 10³\nmol dm⁻³.\nWhich change in conditions occurs?",
+   "options": {
+    "A": "The pressure increases.",
+    "B": "The pressure decreases.",
+    "C": "The temperature increases.",
+    "D": "The temperature decreases."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x058",
+   "kcs": [
+    "9701-7.1.10"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q8",
+    "qid": "9701_s25_12_q8"
+   },
+   "stem": "In the Haber process, the reaction between the two gaseous reactants requires the use of a\ncatalyst that contains a transition element.\nWhat is the metal and in which mole ratio do the gases react?\nmetal\nmole ratio",
+   "options": {
+    "A": "Fe 1 : 2",
+    "B": "Fe 1 : 3",
+    "C": "V 1 : 2",
+    "D": "V 1 : 3"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_12_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x059",
+   "kcs": [
+    "9701-7.1.8",
+    "9701-7.1.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q5",
+    "qid": "9701_s25_13_q5"
+   },
+   "stem": "The reversible reaction shown is in equilibrium at a temperature of 450 °C.\nH₂ + I₂\n2HI\nΔH = –9.5 kJ mol⁻¹\nThe table shows the equilibrium concentrations in the reaction mixture.\nH₂\nI₂\nHI\n1.02 mol dm⁻³\n0.02 mol dm⁻³\n0.98 mol dm⁻³\nThe temperature of the reaction mixture is increased at constant volume.\nThe concentration of one of the components falls to 0.80 mol dm⁻³ at equilibrium under these\nconditions.\nWhat is the concentration of H₂ in the new equilibrium mixture?",
+   "options": {
+    "A": "0.80 mol dm⁻³",
+    "B": "0.93 mol dm⁻³",
+    "C": "1.11 mol dm⁻³",
+    "D": "1.20 mol dm⁻³"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x060",
+   "kcs": [
+    "9701-7.1.4",
+    "9701-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P11 · Q12",
+    "qid": "9701_w25_11_q12"
+   },
+   "stem": "One molecule of haemoglobin, Hb, can bind with four molecules of oxygen according to the\nequation shown.\nHb(aq) + 4O₂(aq)\nHb(O₂)₄(aq)\nWhen the equilibrium concentration of O₂is 7.6 × 10⁻⁶\nmol dm⁻³, the equilibrium concentrations of\nHb and Hb(O₂)₄ are equal.\nWhat is the numerical value of Kc for this equilibrium?",
+   "options": {
+    "A": "3.0 × 10²⁰",
+    "B": "1.3 × 10⁵",
+    "C": "7.6 × 10⁻⁶",
+    "D": "3.3 × 10⁻²¹"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w25_11_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.1-x061",
+   "kcs": [
+    "9701-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q12",
+    "qid": "9701_w25_12_q12"
+   },
+   "stem": "An equilibrium can be represented by the equation shown.\nP(aq) + Q(aq)\n2R(aq) + S(aq)\nIn a certain mixture, of volume 1.0 dm³, the equilibrium concentration of Q is 10 mol dm⁻³.\nWhat will be the new equilibrium concentration of Q if 5.0 mol of pure Q is completely dissolved in\nthe mixture?",
+   "options": {
+    "A": "15 mol dm⁻³",
+    "B": "between 10 mol dm⁻³ and 15 mol dm⁻³",
+    "C": "10 mol dm⁻³",
+    "D": "between 5.0 mol dm⁻³ and 10 mol dm⁻³"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w25_12_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc2",
+   "kc": "9701-7.1.2",
+   "front": "Define Le Chatelier’s principle.",
+   "back": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-7.1.5",
+   "front": "Define mole fraction and partial pressure.",
+   "back": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-7.1.1": {
+   "motivate": "Equal forward and reverse rates helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.",
+   "connect": "Use this with closed system when interpreting a reversible reaction at equilibrium.",
+   "note": "- A reversible reaction proceeds in both forward and reverse directions; in a closed system dynamic equilibrium has equal forward and reverse rates and constant reactant and product concentrations.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain equal forward and reverse rates and its connection with closed system to another student?",
+   "source": "pack"
+  },
+  "9701-7.1.2": {
+   "motivate": "Minimise the imposed change helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.",
+   "connect": "Use this with position of equilibrium when interpreting a reversible reaction at equilibrium.",
+   "note": "- Le Chatelier's principle: if a change is made to a system at dynamic equilibrium, the position of equilibrium moves to minimise this change.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain minimise the imposed change and its connection with position of equilibrium to another student?",
+   "source": "pack"
+  },
+  "9701-7.1.3": {
+   "motivate": "Endothermic direction helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.",
+   "connect": "Use this with fewer gas molecules when interpreting a reversible reaction at equilibrium.",
+   "note": "- Higher temperature favours the endothermic direction; concentration changes favour consumption of the added species; higher pressure favours the side with fewer gas molecules; a catalyst changes rate but not position.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain endothermic direction and its connection with fewer gas molecules to another student?",
+   "source": "pack"
+  },
+  "9701-7.1.4": {
+   "motivate": "Equilibrium concentrations helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.",
+   "connect": "Use this with stoichiometric powers when interpreting a reversible reaction at equilibrium.",
+   "note": "- For $aA+bB\\rightleftharpoons cC+dD$, $K_c=[C]^c[D]^d/([A]^a[B]^b)$ using equilibrium concentrations; omit pure solids and liquids.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain equilibrium concentrations and its connection with stoichiometric powers to another student?",
+   "source": "pack"
+  },
+  "9701-7.1.5": {
+   "motivate": "Moles divided by total moles helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.",
+   "connect": "Use this with partial pressure when interpreting a reversible reaction at equilibrium.",
+   "note": "- Mole fraction is moles of a component divided by total moles; partial pressure is its mole fraction multiplied by total pressure.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain moles divided by total moles and its connection with partial pressure to another student?",
+   "source": "pack"
+  },
+  "9701-7.1.6": {
+   "motivate": "Equilibrium partial pressures helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.",
+   "connect": "Use this with stoichiometric powers when interpreting a reversible reaction at equilibrium.",
+   "note": "- For gaseous $aA+bB\\rightleftharpoons cC+dD$, $K_p=p_C^cp_D^d/(p_A^ap_B^b)$ using equilibrium partial pressures.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain equilibrium partial pressures and its connection with stoichiometric powers to another student?",
+   "source": "pack"
+  },
+  "9701-7.1.7": {
+   "motivate": "Equilibrium values helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.",
+   "connect": "Use this with units when interpreting a reversible reaction at equilibrium.",
+   "note": "- Substitute equilibrium concentrations into $K_c$ or equilibrium partial pressures into $K_p$; simplify numerical value and units from the overall powers.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain equilibrium values and its connection with units to another student?",
+   "source": "pack"
+  },
+  "9701-7.1.8": {
+   "motivate": "Stoichiometric ratio helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.",
+   "connect": "Use this with equilibrium amounts when interpreting a reversible reaction at equilibrium.",
+   "note": "- Use a change table: subtract reactant changes and add product changes in stoichiometric ratio, then use the given equilibrium datum or constant.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain stoichiometric ratio and its connection with equilibrium amounts to another student?",
+   "source": "pack"
+  },
+  "9701-7.1.9": {
+   "motivate": "Temperature changes the constant helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.",
+   "connect": "Use this with catalyst does not when interpreting a reversible reaction at equilibrium.",
+   "note": "- At fixed temperature, changing concentration or pressure or adding a catalyst does not change $K_c$ or $K_p$; changing temperature does.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain temperature changes the constant and its connection with catalyst does not to another student?",
+   "source": "pack"
+  },
+  "9701-7.1.10": {
+   "motivate": "Compromise temperature helps predict what an equilibrium mixture does in a chemical process.",
+   "establish": "Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.",
+   "connect": "Use this with catalyst when interpreting a reversible reaction at equilibrium.",
+   "note": "- Haber: $N_2+3H_2\\rightleftharpoons2NH_3$ uses about 450 °C, 200 atm and iron. Contact: $2SO_2+O_2\\rightleftharpoons2SO_3$ uses about 450 °C, near atmospheric pressure and $V_2O_5$; conditions balance rate, yield and cost.\n- Check the balanced equation and equilibrium conditions before applying this rule.",
+   "self_explain": "How would you explain compromise temperature and its connection with catalyst to another student?",
+   "source": "pack"
+  }
+ }
+}
