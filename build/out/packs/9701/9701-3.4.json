@@ -1,0 +1,1713 @@
+{
+ "subtopic": "9701-3.4",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/03 Chemical bonding/3.4 Covalent bonding and coordinate (dative covalent) bonding.md",
+ "outline": "A covalent bond is the electrostatic attraction between the nuclei of two atoms and a shared pair of electrons: single bonds in $\\ce{H2}$, $\\ce{Cl2}$, $\\ce{HCl}$, $\\ce{CH4}$ and $\\ce{C2H6}$, double bonds in $\\ce{O2}$, $\\ce{CO2}$ and $\\ce{C2H4}$, a triple bond in $\\ce{N2}$. Period 3 atoms can expand the octet ($\\ce{SO2}$, $\\ce{PCl5}$, $\\ce{SF6}$). In a coordinate (dative covalent) bond both electrons come from one atom: $\\ce{NH3}$ donates its lone pair to $\\ce{H+}$ to give $\\ce{NH4+}$, and two such bonds hold $\\ce{Al2Cl6}$ together. Orbital overlap splits bonds into $\\sigma$ (direct, end-on overlap) and $\\pi$ (sideways overlap of adjacent p orbitals), so single $=1\\sigma$, double $=1\\sigma+1\\pi$, triple $=1\\sigma+2\\pi$, with sp, $sp^2$ and $sp^3$ hybridisation for 2, 3 and 4 $\\sigma$ bonds. Bond energy (energy to break one mole of a bond in the gaseous state) rises as bond length falls, which sets how reactive a molecule is.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-3.4.1",
+   "statement": "A covalent bond is simply a shared pair of electrons sitting between two atoms; no force needs to be named.",
+   "refutation": "Cambridge credits the electrostatic attraction between the nuclei of the two atoms and the shared pair of electrons: the bond is a force, and both nuclei and the shared pair must appear in the definition.",
+   "contrast": "\"The electrostatic attraction between the nuclei of two atoms and a shared pair of electrons\" earns the mark; \"two atoms sharing electrons\" does not.",
+   "source": "ER 9701 s23 P22 Q1"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-3.4.1",
+   "statement": "A coordinate (dative covalent) bond still needs one electron from each atom, so a species such as $\\ce{NH4+}$ or $\\ce{Al2Cl6}$ contains no coordinate bonds.",
+   "refutation": "In a coordinate bond both electrons of the shared pair come from the same atom: a lone pair on the donor atom is donated into an empty orbital on the acceptor. $\\ce{NH3}$ donates its lone pair to $\\ce{H+}$ to give $\\ce{NH4+}$, and in $\\ce{Al2Cl6}$ a lone pair on a chlorine atom of each $\\ce{AlCl3}$ unit is donated to the aluminium atom of the other.",
+   "contrast": "$\\ce{NH4+}$ has one coordinate bond (and four identical $\\ce{N-H}$ bonds once formed); $\\ce{Al2Cl6}$ has two.",
+   "source": "ER 9701 s19 P22 Q1"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-3.4.2",
+   "statement": "When bonds are counted, a double bond is taken as two $\\pi$ bonds and a triple bond as three, and $\\ce{C-H}$ bonds are left out of the count of $\\sigma$ bonds.",
+   "refutation": "Every bond between two atoms, including every $\\ce{C-H}$ bond, contains exactly one $\\sigma$ bond. A double bond is $1\\sigma + 1\\pi$ and a triple bond is $1\\sigma + 2\\pi$, so the number of $\\pi$ bonds is (number of double bonds) $+\\ 2\\times$(number of triple bonds).",
+   "contrast": "$\\ce{C2H4}$: 5 $\\sigma$ (one $\\ce{C-C}$, four $\\ce{C-H}$) and 1 $\\pi$, not 1 $\\sigma$ and 2 $\\pi$.",
+   "source": "ER 9701 w21 P21 Q1"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-3.4.3",
+   "statement": "Bond energy is the energy released when a bond forms, measured for the substance in any state.",
+   "refutation": "Bond energy is defined as the energy required to break one mole of a particular covalent bond in the gaseous state, so it is an endothermic quantity with a positive sign; bond formation releases the same magnitude of energy but is not what the definition states.",
+   "contrast": "$E(\\ce{Cl-Cl}) = +244$ kJ mol$^{-1}$ breaks one mole of $\\ce{Cl-Cl}$ bonds in gaseous chlorine; $-244$ kJ mol$^{-1}$ would be bond formation.",
+   "source": "ER 9701 w21 P21 Q1"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-3.4.3",
+   "statement": "A longer bond is a stronger bond, so a molecule with long bonds is less reactive.",
+   "refutation": "Bond length is the internuclear distance of two covalently bonded atoms; the longer that distance, the weaker the electrostatic attraction holding the atoms together, so bond energy falls as bond length rises and the molecule becomes more easily broken, that is more reactive.",
+   "contrast": "$\\ce{C#C}$ (120 pm, 840 kJ mol$^{-1}$) is shorter and stronger than $\\ce{C-C}$ (154 pm, 350 kJ mol$^{-1}$); $\\ce{I2}$ has the longest, weakest bond of the halogens and dissociates most readily.",
+   "source": "ER 9701 s19 P22 Q1"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-3.4.1",
+   "problem": "Phosphorus pentachloride, $\\ce{PCl5}$, is a covalent molecule in which five chlorine atoms are each bonded to the central phosphorus atom. Describe the bonding and determine the number of electrons in the outer shell of the phosphorus atom.",
+   "steps": [
+    {
+     "do": "Identify the bonding: each $\\ce{P-Cl}$ bond is a covalent bond, the electrostatic attraction between the two nuclei and a shared pair of electrons, with one electron of each pair supplied by phosphorus and one by chlorine.",
+     "why": "The question says \"describe the bonding\", so the definition in the syllabus wording must appear, not just the word \"covalent\"."
+    },
+    {
+     "do": "Count the shared pairs around the central atom: phosphorus forms five single bonds, so there are five bonding pairs and no lone pair on phosphorus.",
+     "why": "Counting the pairs around the central atom is the step that decides whether the octet has been expanded.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 5,
+       "unit": "",
+       "sf_ok": [
+        1
+       ]
+      }
+     }
+    },
+    {
+     "do": "Each shared pair contributes two electrons to the outer shell of phosphorus: $5\\times2=10$ electrons.",
+     "why": "Both electrons of a shared pair count towards the outer shell of each bonded atom; a student who counts only the electron phosphorus supplied gets 5.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 10,
+       "unit": "",
+       "sf_ok": [
+        2
+       ]
+      }
+     }
+    },
+    {
+     "do": "State the conclusion: phosphorus has 10 electrons in its outer shell, more than an octet. This is possible because phosphorus is in period 3 and can expand its octet.",
+     "why": "The mark for the explanation depends on naming period 3 (expanded octet); a period 2 atom such as nitrogen cannot form $\\ce{NCl5}$."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "In sulfur hexafluoride, $\\ce{SF6}$, six fluorine atoms are each bonded to the central sulfur atom. Determine the number of electrons in the outer shell of the sulfur atom.",
+    "answer": {
+     "value": 12,
+     "unit": "",
+     "sf_ok": [
+      2
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9701-3.4.2",
+   "problem": "Determine the number of $\\sigma$ bonds and the number of $\\pi$ bonds in one molecule of $\\ce{CH3CH=CH-C#CH}$.",
+   "steps": [
+    {
+     "do": "Write out the skeleton and count the bonds between atoms: 5 carbon atoms in a chain give 4 carbon-carbon bonds, and the formula $\\ce{C5H6}$ gives 6 carbon-hydrogen bonds.",
+     "why": "The count of $\\sigma$ bonds is a count of bonded pairs of atoms, so the hydrogen atoms must be included: they are the bonds most often left out."
+    },
+    {
+     "do": "Every bond between two atoms contains exactly one $\\sigma$ bond, so the number of $\\sigma$ bonds is $4+6=10$.",
+     "why": "A double or triple bond still contributes only one $\\sigma$ bond; the extra pairs are $\\pi$ bonds.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 10,
+       "unit": "",
+       "sf_ok": [
+        1,
+        2
+       ]
+      }
+     }
+    },
+    {
+     "do": "Count the extra pairs: the double bond adds one $\\pi$ bond and the triple bond adds two, so there are $3$ $\\pi$ bonds.",
+     "why": "A double bond is $1\\sigma+1\\pi$ and a triple bond is $1\\sigma+2\\pi$; counting a triple bond as three $\\pi$ bonds is the standard error.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3,
+       "unit": "",
+       "sf_ok": [
+        1
+       ]
+      }
+     }
+    },
+    {
+     "do": "Answer: $10$ $\\sigma$ bonds and $3$ $\\pi$ bonds. Check: the $\\pi$ bonds come from sideways overlap of adjacent p orbitals, so the two carbon atoms of the triple bond are sp hybridised.",
+     "why": "Relating the count back to orbital overlap is what earns the hybridisation marks in a structured question."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Determine the number of $\\sigma$ bonds in one molecule of $\\ce{CH3CH2CH=CH2}$.",
+    "answer": {
+     "value": 11,
+     "unit": "",
+     "sf_ok": [
+      1,
+      2
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9701-3.4.3",
+   "problem": "The $\\ce{N-H}$ bond energy is 391 kJ mol$^{-1}$. Calculate the energy required to break all of the bonds in 2.0 mol of gaseous ammonia, $\\ce{NH3}$.",
+   "steps": [
+    {
+     "do": "State what the bond energy means: 391 kJ breaks one mole of $\\ce{N-H}$ bonds in the gaseous state, and bond breaking is endothermic.",
+     "why": "Writing the definition first fixes the direction of the energy change, so the answer is quoted as energy required, not released."
+    },
+    {
+     "do": "Count the bonds: one molecule of $\\ce{NH3}$ has three $\\ce{N-H}$ bonds, so 2.0 mol of $\\ce{NH3}$ contains $3\\times2.0=6.0$ mol of $\\ce{N-H}$ bonds.",
+     "why": "The bond energy is per mole of bonds, not per mole of molecules; missing the factor of 3 is the commonest slip here.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6.0,
+       "unit": "mol",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Multiply: energy $=6.0\\times391=2346$ kJ.",
+     "why": "The unit is kJ, not kJ mol$^{-1}$, because a stated amount of substance has been used.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2346.0,
+       "unit": "kJ",
+       "sf_ok": [
+        3,
+        4
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "The $\\ce{C-H}$ bond energy is 410 kJ mol$^{-1}$. Calculate the energy required to break all of the bonds in 0.50 mol of gaseous methane, $\\ce{CH4}$.",
+    "answer": {
+     "value": 820.0,
+     "unit": "kJ",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-3.4-p01",
+   "kcs": [
+    "9701-3.4.1",
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q6",
+    "qid": "9701_w25_13_q6"
+   },
+   "stem": "NH₃ and HCN react together to form NH₄CN, an ionic compound.\nWhich row states the number of coordinate bonds and the number of π bonds in one formula unit\nof NH₄CN?\nnumber of\ncoordinate bonds\nnumber of\nπ bonds",
+   "answer": "B",
+   "marks": 1,
+   "explanation": "In $\\ce{NH4+}$ the nitrogen lone pair is donated to $\\ce{H+}$, giving one coordinate bond, and the cyanide ion $\\ce{CN-}$ contains a triple bond, which is $1\\sigma + 2\\pi$: one coordinate bond and two $\\pi$ bonds, so B. The popular wrong choice D counts the triple bond as three $\\pi$ bonds instead of one $\\sigma$ and two $\\pi$; A and C miss the coordinate bond because they expect each atom to supply one electron.",
+   "distractors": {
+    "A": "m2",
+    "C": "m2",
+    "D": "m3"
+   },
+   "options": {
+    "A": "0 2",
+    "B": "1 2",
+    "C": "0 3",
+    "D": "1 3"
+   },
+   "image": "Assets/mcq/9701_w25_13_q6.png"
+  },
+  {
+   "id": "9701-3.4-p02",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q25",
+    "qid": "9701_w25_12_q25"
+   },
+   "stem": "Two statements about a molecule of methanal are given.\n1\nIt is planar.\n2\nIt contains three σ bonds.\nWhich statements are correct?",
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Methanal, $\\ce{HCHO}$, has three $\\sigma$ bonds (two $\\ce{C-H}$ and the $\\sigma$ of the $\\ce{C=O}$) plus one $\\pi$ bond, and its $sp^2$ carbon makes it planar, so both statements are correct (A). Candidates who reject statement 2 have forgotten that the $\\ce{C-H}$ bonds are $\\sigma$ bonds and that a double bond contains one $\\sigma$ bond as well as one $\\pi$ bond.",
+   "distractors": {
+    "B": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "options": {
+    "A": "both 1 and 2",
+    "B": "1 only",
+    "C": "2 only",
+    "D": "neither 1 nor 2"
+   },
+   "image": "Assets/mcq/9701_w25_12_q25.png"
+  },
+  {
+   "id": "9701-3.4-p03",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q5",
+    "qid": "9701_w22_13_q5"
+   },
+   "stem": "How many σ bonds are present in one H–C≡C–C(CH₃)=CH(CH₃) molecule?",
+   "answer": "C",
+   "marks": 1,
+   "explanation": "In $\\ce{H-C#C-C(CH3)=CH(CH3)}$ there are 5 $\\sigma$ bonds in the carbon skeleton and 8 $\\ce{C-H}$ bonds, giving 13 (C). The popular answer of 11 leaves out two of the $\\ce{C-H}$ bonds or does not count the $\\sigma$ bond inside the multiple bonds; 16 counts the extra pairs of the double and triple bonds as $\\sigma$ bonds as well.",
+   "distractors": {
+    "B": "m3",
+    "D": "m3"
+   },
+   "options": {
+    "A": "",
+    "B": "11",
+    "C": "13",
+    "D": "16"
+   },
+   "image": "Assets/mcq/9701_w22_13_q5.png"
+  },
+  {
+   "id": "9701-3.4-p04",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P13 · Q4",
+    "qid": "9701_w19_13_q4"
+   },
+   "stem": "Four compounds are shown.\nC₂H₄ C₂H₅OH CH₃CHO CH₃CO₂H\nHow many of these compounds have an odd number of σ bonds?",
+   "answer": "B",
+   "marks": 1,
+   "explanation": "$\\ce{C2H4}$ has 5 $\\sigma$ bonds and $\\ce{CH3CO2H}$ has 7, both odd, while $\\ce{C2H5OH}$ has 8 and $\\ce{CH3CHO}$ has 6: two compounds, so B. Candidates who answer 1 or 3 have missed the $\\sigma$ bond inside a $\\ce{C=O}$ double bond or the $\\ce{O-H}$ bond, both of which count.",
+   "distractors": {
+    "A": "m3",
+    "C": "m3"
+   },
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": ""
+   },
+   "image": "Assets/mcq/9701_w19_13_q4.png"
+  },
+  {
+   "id": "9701-3.4-p05",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P13 · Q37",
+    "qid": "9701_w19_13_q37"
+   },
+   "stem": "The structure of tiglic acid is CH₃CH=C(CH₃)CO₂H.\nWhich statements about the properties of one molecule of this acid are correct?\n1\nIt contains two π bonds.\n2\nIt contains four lone pairs of electrons.\n3\nIt has all its atoms in the same plane.",
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Tiglic acid, $\\ce{CH3CH=C(CH3)CO2H}$, has one $\\ce{C=C}$ and one $\\ce{C=O}$, so two $\\pi$ bonds (statement 1), and its two oxygen atoms carry two lone pairs each, so four lone pairs (statement 2); statement 3 fails because the hydrogen atoms of the methyl groups lie out of the plane. The common error is to accept statement 3 because the $sp^2$ centres are planar, forgetting the tetrahedral $\\ce{CH3}$ groups.",
+   "distractors": {},
+   "image": "Assets/mcq/9701_w19_13_q37.png"
+  },
+  {
+   "id": "9701-3.4-p06",
+   "kcs": [
+    "9701-3.4.1",
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q32",
+    "qid": "9701_w19_12_q32"
+   },
+   "stem": "A carbon monoxide molecule, CO, has three bonds between the carbon atom and the oxygen\natom.\nWhich features are present in one CO molecule?\n1\ntwo lone pairs of electrons\n2\na co-ordinate (dative covalent) bond from oxygen to carbon\n3\ntwo π bonds",
+   "answer": "A",
+   "marks": 1,
+   "explanation": "In $\\ce{CO}$ the triple bond is $1\\sigma + 2\\pi$ and one of its three bonds is a coordinate bond from oxygen to carbon, which leaves one lone pair on each atom, so all three features are present (A). Candidates who reject the coordinate bond have assumed that every bond must take one electron from each atom.",
+   "distractors": {},
+   "image": "Assets/mcq/9701_w19_12_q32.png"
+  },
+  {
+   "id": "9701-3.4-p07",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q8",
+    "qid": "9701_s25_13_q8"
+   },
+   "stem": "The structure of a molecule found in food is shown.\nCH₂OH\nOH\nOH\nOH\nOH\nO\nFour statements about the molecule are listed.\n1\nThis molecule contains only σ bonds.\n2\nThis molecule contains both σ and π bonds.\n3\nThe six-membered ring is planar.\n4\nThe six-membered ring is non-planar.\nWhich two statements are correct?",
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The sugar shown has only single bonds, so it contains only $\\sigma$ bonds (statement 1), and the ring carbons are $sp^3$ hybridised and tetrahedral, so the six-membered ring is non-planar (statement 4): B. The popular wrong answer takes the ring to be planar, which would require $sp^2$ carbon atoms as in benzene.",
+   "distractors": {
+    "A": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "options": {
+    "A": "1 and 3",
+    "B": "1 and 4",
+    "C": "2 and 3",
+    "D": "2 and 4"
+   },
+   "image": "Assets/mcq/9701_s25_13_q8.png"
+  },
+  {
+   "id": "9701-3.4-p08",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q5",
+    "qid": "9701_s22_12_q5"
+   },
+   "stem": "Ethane and ethene are both hydrocarbon molecules.\nWhat is a feature of both molecules?",
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Every bond in both molecules is at least a $\\sigma$ bond, so $\\sigma$ covalent bonds are the shared feature (C). D is wrong because only ethene has a $\\pi$ bond; ethane is not planar and ethene has bond angles of about $120^\\circ$, not $109^\\circ$.",
+   "distractors": {
+    "D": "m3"
+   },
+   "options": {
+    "A": "a planar structure",
+    "B": "bond angles of 109°",
+    "C": "σ covalent bonds",
+    "D": "π covalent bonds"
+   }
+  },
+  {
+   "id": "9701-3.4-p09",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q4",
+    "qid": "9701_s19_12_q4"
+   },
+   "stem": "A σ bond is made between two carbon atoms in a molecule of ethene.\nWhich diagram shows the orbital overlap that occurs to form this bond?",
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The $\\ce{C-C}$ $\\sigma$ bond of ethene is formed by direct, end-on overlap of an $sp^2$ orbital on each carbon atom along the line joining the nuclei, which is diagram C. The diagrams showing two p orbitals overlapping sideways above and below that line are $\\pi$ bonds, not the $\\sigma$ bond asked for.",
+   "distractors": {},
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "image": "Assets/mcq/9701_s19_12_q4.png"
+  },
+  {
+   "id": "9701-3.4-i01",
+   "kcs": [
+    "9701-3.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define covalent bonding.",
+   "marks": 2,
+   "explanation": "Cambridge credits the electrostatic attraction between the nuclei of two atoms and a shared pair of electrons; both nuclei and the shared pair must be named.",
+   "hints": [
+    "The definition names a force, not just a picture of electrons.",
+    "State which particles attract which, using the word electrostatic.",
+    "Begin \"the electrostatic attraction between…\"."
+   ],
+   "rubric": [
+    {
+     "point": "Electrostatic attraction (between oppositely charged particles).",
+     "keywords": [
+      [
+       "electrostatic",
+       "attraction",
+       "attractive force"
+      ]
+     ]
+    },
+    {
+     "point": "Between the nuclei of the two atoms and the shared pair of electrons.",
+     "keywords": [
+      [
+       "nuclei",
+       "nucleus"
+      ],
+      [
+       "shared pair",
+       "shared electrons",
+       "pair of electrons"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-3.4-i02",
+   "kcs": [
+    "9701-3.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe what is meant by a coordinate (dative covalent) bond.",
+   "marks": 2,
+   "explanation": "A coordinate bond is a shared pair of electrons in which both electrons are supplied by the same atom: a lone pair on the donor is donated into an empty orbital on the acceptor.",
+   "hints": [
+    "Compare it with an ordinary covalent bond: where do the two electrons come from?",
+    "Say which atom supplies the electrons and what the other atom must have available.",
+    "The donated electrons start as a lone pair."
+   ],
+   "rubric": [
+    {
+     "point": "A shared pair of electrons in which both electrons come from the same atom.",
+     "keywords": [
+      [
+       "both electrons",
+       "two electrons",
+       "both"
+      ],
+      [
+       "same atom",
+       "one atom",
+       "donor"
+      ]
+     ]
+    },
+    {
+     "point": "The donor supplies a lone pair to an empty orbital on the acceptor atom.",
+     "keywords": [
+      [
+       "lone pair"
+      ],
+      [
+       "empty orbital",
+       "vacant orbital",
+       "empty",
+       "accept"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-3.4-i03",
+   "kcs": [
+    "9701-3.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which molecule contains an atom whose outer shell holds more than eight electrons?",
+   "marks": 1,
+   "explanation": "Sulfur is a period 3 element and can expand its octet: in $\\ce{SF6}$ the sulfur atom forms six bonding pairs, giving 12 electrons in its outer shell. The period 2 central atoms in $\\ce{CO2}$, $\\ce{NH3}$ and $\\ce{C2H4}$ are limited to eight.",
+   "hints": [
+    "Only elements in period 3 and beyond can expand the octet.",
+    "Count the bonding pairs around the central atom of each molecule.",
+    "A central atom with six bonding pairs has 12 outer electrons."
+   ],
+   "options": {
+    "A": "$\\ce{CO2}$",
+    "B": "$\\ce{NH3}$",
+    "C": "$\\ce{SF6}$",
+    "D": "$\\ce{C2H4}$"
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m1",
+    "B": "m1",
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.4-i04",
+   "kcs": [
+    "9701-3.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "How many coordinate (dative covalent) bonds are present in one molecule of $\\ce{Al2Cl6}$?",
+   "marks": 1,
+   "explanation": "Two $\\ce{AlCl3}$ units join by each donating a lone pair from one of its chlorine atoms into the empty orbital on the aluminium atom of the other unit, so the molecule contains two coordinate bonds (and four ordinary $\\ce{Al-Cl}$ bonds).",
+   "hints": [
+    "The molecule is two $\\ce{AlCl3}$ units joined through bridging chlorine atoms.",
+    "Count how many lone pairs have to be donated to hold the two halves together.",
+    "Each $\\ce{AlCl3}$ unit has an aluminium atom with an incomplete shell that accepts one pair."
+   ],
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m2",
+    "C": "m2",
+    "D": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.4-i05",
+   "kcs": [
+    "9701-3.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Ammonia gas and hydrogen chloride gas react to form solid ammonium chloride. Explain how the bonding in the ammonium ion is formed, and state how the four $\\ce{N-H}$ bonds compare once the ion has formed.",
+   "marks": 3,
+   "explanation": "The nitrogen lone pair is donated to the $\\ce{H+}$ released by $\\ce{HCl}$, forming a coordinate bond; all four $\\ce{N-H}$ bonds are then identical because each is a shared pair held by the same two nuclei.",
+   "hints": [
+    "Nitrogen in ammonia has something no hydrogen atom has.",
+    "Say what nitrogen donates, what accepts it, and what kind of bond results.",
+    "The $\\ce{H+}$ ion has an empty 1s orbital."
+   ],
+   "rubric": [
+    {
+     "point": "The $\\ce{HCl}$ supplies $\\ce{H+}$, which has an empty orbital and no electrons of its own.",
+     "keywords": [
+      [
+       "H+",
+       "proton",
+       "hydrogen ion"
+      ],
+      [
+       "empty",
+       "vacant",
+       "no electrons"
+      ]
+     ]
+    },
+    {
+     "point": "The lone pair on the nitrogen atom of $\\ce{NH3}$ is donated to it, forming a coordinate (dative covalent) bond.",
+     "keywords": [
+      [
+       "lone pair"
+      ],
+      [
+       "donat",
+       "coordinate",
+       "co-ordinate",
+       "dative"
+      ]
+     ]
+    },
+    {
+     "point": "All four $\\ce{N-H}$ bonds in $\\ce{NH4+}$ are identical/equivalent once formed.",
+     "keywords": [
+      [
+       "four",
+       "all"
+      ],
+      [
+       "identical",
+       "equivalent",
+       "the same",
+       "indistinguishable"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-3.4-i06",
+   "kcs": [
+    "9701-3.4.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A molecule of carbon dioxide, $\\ce{CO2}$, and a molecule of sulfur dioxide, $\\ce{SO2}$, each contain two oxygen atoms bonded to a central atom. Describe the covalent bonding in each molecule, including the number of shared pairs of electrons, and explain why only one of the two central atoms can hold more than eight electrons in its outer shell.",
+   "marks": 4,
+   "explanation": "$\\ce{CO2}$ has two $\\ce{C=O}$ double bonds, so four shared pairs and eight electrons around carbon; $\\ce{SO2}$ can be drawn with two $\\ce{S=O}$ double bonds, giving four shared pairs plus a lone pair, so ten electrons around sulfur, which is possible because sulfur is in period 3.",
+   "hints": [
+    "Start by counting double bonds in each molecule.",
+    "Count shared pairs around each central atom, then say which period each central atom is in.",
+    "Carbon is in period 2 and sulfur in period 3."
+   ],
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "$\\ce{CO2}$: two $\\ce{C=O}$ double bonds, that is four shared pairs of electrons, with two lone pairs on each oxygen atom.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4,
+       "unit": "",
+       "sf_ok": [
+        1
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "Carbon therefore has eight electrons in its outer shell, a complete octet.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 8,
+       "unit": "",
+       "sf_ok": [
+        1
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "$\\ce{SO2}$: two $\\ce{S=O}$ double bonds (four shared pairs) and one lone pair on the sulfur atom, giving ten electrons in the outer shell of sulfur.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 10,
+       "unit": "",
+       "sf_ok": [
+        2
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "Sulfur is in period 3 and can expand its octet (it has d orbitals available), whereas a period 2 atom such as carbon cannot hold more than eight outer electrons."
+    }
+   ]
+  },
+  {
+   "id": "9701-3.4-i07",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what is meant by a $\\sigma$ bond and by a $\\pi$ bond.",
+   "marks": 2,
+   "explanation": "A $\\sigma$ bond is formed by direct (end-on) overlap of orbitals between the bonding atoms; a $\\pi$ bond is formed by the sideways overlap of adjacent p orbitals above and below the $\\sigma$ bond.",
+   "hints": [
+    "Both answers describe how orbitals overlap.",
+    "For each bond say which orbitals overlap and in what direction.",
+    "One overlap is end-on along the line joining the nuclei."
+   ],
+   "rubric": [
+    {
+     "point": "$\\sigma$: direct/end-on overlap of orbitals between the bonding atoms (along the internuclear axis).",
+     "keywords": [
+      [
+       "direct",
+       "end-on",
+       "head-on",
+       "along"
+      ],
+      [
+       "overlap"
+      ]
+     ]
+    },
+    {
+     "point": "$\\pi$: sideways overlap of adjacent p orbitals, above and below the $\\sigma$ bond.",
+     "keywords": [
+      [
+       "sideways",
+       "side-on",
+       "parallel"
+      ],
+      [
+       "p orbital",
+       "p orbitals"
+      ],
+      [
+       "above and below",
+       "above",
+       "below"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-3.4-i08",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which statement about the bonding in a molecule of ethene, $\\ce{C2H4}$, is correct?",
+   "marks": 1,
+   "explanation": "Each carbon atom in ethene is $sp^2$ hybridised: three $sp^2$ orbitals form $\\sigma$ bonds (two to hydrogen atoms and one to the other carbon atom) and the remaining 2p orbital on each carbon overlaps sideways to give one $\\pi$ bond.",
+   "hints": [
+    "Count the $\\sigma$ bonds first: there are five of them.",
+    "Decide how many orbitals each carbon atom needs for $\\sigma$ bonding, and what it does with the rest.",
+    "A carbon atom forming three $\\sigma$ bonds uses three hybrid orbitals."
+   ],
+   "options": {
+    "A": "Each carbon atom is $sp^2$ hybridised and the $\\ce{C=C}$ bond is one $\\sigma$ and one $\\pi$ bond.",
+    "B": "Each carbon atom is $sp^3$ hybridised and the $\\ce{C=C}$ bond is two $\\sigma$ bonds.",
+    "C": "Each carbon atom is sp hybridised and the $\\ce{C=C}$ bond is two $\\pi$ bonds.",
+    "D": "The $\\ce{C-H}$ bonds are $\\pi$ bonds and the $\\ce{C=C}$ bond is a $\\sigma$ bond."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.4-i09",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "In which molecule is the central carbon atom sp hybridised?",
+   "marks": 1,
+   "explanation": "Hydrogen cyanide, $\\ce{HCN}$, has $\\ce{H-C#N}$: the carbon atom forms two $\\sigma$ bonds and two $\\pi$ bonds, so it uses two sp hybrid orbitals and keeps two unhybridised p orbitals.",
+   "hints": [
+    "The number of hybrid orbitals equals the number of $\\sigma$ bonds the atom forms.",
+    "Count the $\\sigma$ bonds at the carbon atom in each molecule.",
+    "A carbon atom forming only two $\\sigma$ bonds is sp hybridised."
+   ],
+   "options": {
+    "A": "$\\ce{CH4}$",
+    "B": "$\\ce{C2H4}$",
+    "C": "$\\ce{HCN}$",
+    "D": "$\\ce{C2H6}$"
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m3",
+    "B": "m3",
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.4-i10",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A hydrocarbon molecule contains [[c]] carbon atoms and [[h]] hydrogen atoms in an open chain, with [[d]] carbon-carbon double bonds and no other multiple bonds. Calculate the number of $\\sigma$ bonds in one molecule.",
+   "marks": 1,
+   "explanation": "Every bond between two atoms contains exactly one $\\sigma$ bond, so the count is (number of carbon-carbon bonds) $+$ (number of $\\ce{C-H}$ bonds) $=(c-1)+h$; the extra pair in each double bond is a $\\pi$ bond, not a second $\\sigma$ bond.",
+   "hints": [
+    "Each pair of bonded atoms is joined by exactly one $\\sigma$ bond.",
+    "Count the carbon-carbon bonds and the carbon-hydrogen bonds separately, then add them.",
+    "An open chain of $c$ carbon atoms has $c-1$ carbon-carbon bonds."
+   ],
+   "answer": {
+    "value": 11,
+    "unit": "",
+    "sf_ok": [
+     1,
+     2
+    ]
+   },
+   "distractors": [
+    {
+     "value": 3,
+     "misconception": "m3"
+    },
+    {
+     "value": 12,
+     "misconception": "m3"
+    }
+   ],
+   "template": {
+    "params": {
+     "c": {
+      "choices": [
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     "h": {
+      "choices": [
+       8,
+       10,
+       12
+      ]
+     },
+     "d": {
+      "choices": [
+       1,
+       2
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "(c-1)+h",
+    "distractors": [
+     {
+      "expr": "c-1",
+      "misconception": "m3"
+     },
+     {
+      "expr": "(c-1)+h+d",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": [
+     "h == 2*c+2-2*d",
+     "c-1 > 0"
+    ]
+   }
+  },
+  {
+   "id": "9701-3.4-i11",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "How many $\\pi$ bonds are present in one molecule of $\\ce{N2}$ and in one molecule of $\\ce{C2H6}$?",
+   "marks": 1,
+   "explanation": "The triple bond in $\\ce{N2}$ is $1\\sigma + 2\\pi$, so nitrogen has two $\\pi$ bonds, while every bond in ethane is a single bond and therefore a $\\sigma$ bond only, so ethane has none.",
+   "hints": [
+    "Decide what kind of bond each molecule contains.",
+    "Split each multiple bond into its $\\sigma$ and $\\pi$ parts.",
+    "A triple bond is one $\\sigma$ bond and two $\\pi$ bonds."
+   ],
+   "options": {
+    "A": "$\\ce{N2}$: 2, $\\ce{C2H6}$: 0",
+    "B": "$\\ce{N2}$: 3, $\\ce{C2H6}$: 0",
+    "C": "$\\ce{N2}$: 2, $\\ce{C2H6}$: 1",
+    "D": "$\\ce{N2}$: 1, $\\ce{C2H6}$: 1"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.4-i12",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "structured",
+   "difficulty": 5,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how the $\\sigma$ and $\\pi$ bonds in a molecule of ethene, $\\ce{C2H4}$, are formed from the orbitals of its atoms, and explain why ethene is planar while ethane, $\\ce{C2H6}$, is not.",
+   "marks": 5,
+   "explanation": "Each carbon in ethene uses three $sp^2$ hybrid orbitals for $\\sigma$ bonds and one 2p orbital for the $\\pi$ bond; the three $sp^2$ orbitals lie in a plane at $120^\\circ$, and the sideways p overlap locks the two $\\ce{CH2}$ units coplanar, whereas the $sp^3$ carbons of ethane are tetrahedral.",
+   "hints": [
+    "Count the $\\sigma$ bonds at each carbon atom before naming the hybridisation.",
+    "Describe the hybrid orbitals, then the leftover p orbitals, then relate the shape to each.",
+    "Each carbon atom in ethene forms three $\\sigma$ bonds, so it needs three hybrid orbitals."
+   ],
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Each carbon atom is $sp^2$ hybridised: one 2s and two 2p orbitals mix to give three $sp^2$ orbitals."
+    },
+    {
+     "mark": "B1",
+     "point": "The $sp^2$ orbitals overlap directly (end-on) to give five $\\sigma$ bonds: four $\\ce{C-H}$ and one $\\ce{C-C}$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 5,
+       "unit": "",
+       "sf_ok": [
+        1
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "The unhybridised 2p orbital on each carbon atom overlaps sideways, above and below the $\\ce{C-C}$ $\\sigma$ bond, forming one $\\pi$ bond.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1,
+       "unit": "",
+       "sf_ok": [
+        1
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "The three $sp^2$ orbitals on each carbon atom lie in one plane at about $120^\\circ$ to one another, so all six atoms of ethene are coplanar."
+    },
+    {
+     "mark": "B1",
+     "point": "In ethane each carbon atom forms four $\\sigma$ bonds, is $sp^3$ hybridised and is tetrahedral (about $109.5^\\circ$), so the molecule cannot be planar; there is also no $\\pi$ bond to prevent rotation about the $\\ce{C-C}$ bond."
+    }
+   ]
+  },
+  {
+   "id": "9701-3.4-i13",
+   "kcs": [
+    "9701-3.4.3"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define bond energy.",
+   "marks": 2,
+   "explanation": "Bond energy is the energy required to break one mole of a particular covalent bond in the gaseous state, so it is always endothermic.",
+   "hints": [
+    "The definition is about breaking, not making.",
+    "State the amount of bonds, the process and the state of the substance.",
+    "Begin \"the energy required to break one mole of…\"."
+   ],
+   "rubric": [
+    {
+     "point": "The energy required to break one mole of a particular covalent bond.",
+     "keywords": [
+      [
+       "energy"
+      ],
+      [
+       "break",
+       "breaking",
+       "dissociate"
+      ],
+      [
+       "one mole",
+       "1 mol",
+       "per mole",
+       "mole"
+      ]
+     ]
+    },
+    {
+     "point": "With the species in the gaseous state.",
+     "keywords": [
+      [
+       "gaseous",
+       "gas",
+       "g)"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-3.4-i14",
+   "kcs": [
+    "9701-3.4.3"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define bond length.",
+   "marks": 1,
+   "explanation": "Bond length is the internuclear distance of two covalently bonded atoms, that is the distance between the two nuclei.",
+   "hints": [
+    "The distance is measured between two particular points in the atoms.",
+    "Name the two points the distance is measured between.",
+    "It is a distance between nuclei, not between electron shells."
+   ],
+   "rubric": [
+    {
+     "point": "The internuclear distance (distance between the nuclei) of two covalently bonded atoms.",
+     "keywords": [
+      [
+       "internuclear",
+       "nuclei",
+       "nucleus"
+      ],
+      [
+       "distance",
+       "separation"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-3.4-i15",
+   "kcs": [
+    "9701-3.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The $\\ce{C-C}$, $\\ce{C=C}$ and $\\ce{C#C}$ bonds have lengths of 154 pm, 134 pm and 120 pm. Which statement about these bonds is correct?",
+   "marks": 1,
+   "explanation": "The shorter the bond, the closer the nuclei are to the shared electrons, so the stronger the electrostatic attraction and the larger the bond energy: $\\ce{C#C}$ (120 pm) is the shortest and has the highest bond energy of the three.",
+   "hints": [
+    "Decide first which of the three bonds is the shortest.",
+    "Relate the internuclear distance to the strength of the attraction holding the atoms together.",
+    "More shared pairs between the same two nuclei pull them closer together."
+   ],
+   "options": {
+    "A": "The $\\ce{C#C}$ bond is the shortest and has the highest bond energy.",
+    "B": "The $\\ce{C-C}$ bond is the longest and has the highest bond energy.",
+    "C": "All three bonds have the same bond energy because they join the same two elements.",
+    "D": "The $\\ce{C=C}$ bond is the shortest and has the lowest bond energy."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m5",
+    "C": "m5",
+    "D": "m5"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.4-i16",
+   "kcs": [
+    "9701-3.4.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The $\\ce{N-H}$ bond energy in ammonia is [[e]] kJ mol$^{-1}$. Calculate the energy required to break all of the bonds in [[n]] mol of gaseous ammonia, $\\ce{NH3}$.",
+   "marks": 1,
+   "explanation": "Each $\\ce{NH3}$ molecule contains three $\\ce{N-H}$ bonds, so breaking $n$ mol of ammonia breaks $3n$ mol of $\\ce{N-H}$ bonds: energy $=3ne$.",
+   "hints": [
+    "Count the bonds in one molecule of ammonia before using the bond energy.",
+    "Find the number of moles of $\\ce{N-H}$ bonds, then multiply by the bond energy.",
+    "One mole of $\\ce{NH3}$ contains three moles of $\\ce{N-H}$ bonds."
+   ],
+   "answer": {
+    "value": 582.0,
+    "unit": "kJ",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": [
+    {
+     "value": 194.0,
+     "misconception": "m4"
+    },
+    {
+     "value": 1164,
+     "misconception": "m4"
+    }
+   ],
+   "template": {
+    "params": {
+     "e": {
+      "choices": [
+       388,
+       391,
+       394
+      ]
+     },
+     "n": {
+      "choices": [
+       0.5,
+       1.5,
+       2.0,
+       2.5
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "3*n*e",
+    "distractors": [
+     {
+      "expr": "n*e",
+      "misconception": "m4"
+     },
+     {
+      "expr": "3*e",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": [
+     "n != 1"
+    ]
+   }
+  },
+  {
+   "id": "9701-3.4-i17",
+   "kcs": [
+    "9701-3.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The bond energies of $\\ce{Cl-Cl}$, $\\ce{Br-Br}$ and $\\ce{I-I}$ are 244 kJ mol$^{-1}$, 193 kJ mol$^{-1}$ and 151 kJ mol$^{-1}$. Which deduction about these molecules is correct?",
+   "marks": 1,
+   "explanation": "Bond energy falls from $\\ce{Cl2}$ to $\\ce{I2}$ because the bond length increases down the group, so the $\\ce{I-I}$ bond is the easiest to break and $\\ce{I2}$ dissociates into atoms most readily.",
+   "hints": [
+    "Decide which bond needs least energy to break.",
+    "Link the bond energy to how easily the molecule splits into atoms, and to the bond length.",
+    "The atoms get larger down the group, so the bonds get longer."
+   ],
+   "options": {
+    "A": "$\\ce{I2}$ has the longest bond and dissociates into atoms most readily.",
+    "B": "$\\ce{I2}$ has the shortest bond and dissociates into atoms most readily.",
+    "C": "$\\ce{Cl2}$ has the longest bond and dissociates into atoms most readily.",
+    "D": "All three molecules dissociate equally readily because each contains one single bond."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m5",
+    "C": "m5",
+    "D": "m5"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.4-i18",
+   "kcs": [
+    "9701-3.4.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The $\\ce{C-H}$ bond energy is [[e]] kJ mol$^{-1}$ and the $\\ce{C-C}$ bond energy is [[f]] kJ mol$^{-1}$. Calculate the energy required to break all of the bonds in [[n]] mol of gaseous ethane, $\\ce{C2H6}$.",
+   "marks": 1,
+   "explanation": "One molecule of ethane has six $\\ce{C-H}$ bonds and one $\\ce{C-C}$ bond, so breaking $n$ mol needs $n(6E(\\ce{C-H})+E(\\ce{C-C}))$; the $\\ce{C-C}$ bond must not be forgotten.",
+   "hints": [
+    "Draw ethane and count each type of bond.",
+    "Multiply the number of moles of each type of bond by its bond energy, then add the two totals.",
+    "One mole of ethane contains six moles of $\\ce{C-H}$ bonds and one mole of $\\ce{C-C}$ bonds."
+   ],
+   "answer": {
+    "value": 1403.5,
+    "unit": "kJ",
+    "sf_ok": [
+     3,
+     4,
+     5
+    ]
+   },
+   "distractors": [
+    {
+     "value": 1230.0,
+     "misconception": "m4"
+    },
+    {
+     "value": 378.5,
+     "misconception": "m4"
+    }
+   ],
+   "template": {
+    "params": {
+     "e": {
+      "choices": [
+       410,
+       413
+      ]
+     },
+     "f": {
+      "choices": [
+       347,
+       350
+      ]
+     },
+     "n": {
+      "choices": [
+       0.5,
+       1.5,
+       2.0
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "n*(6*e+f)",
+    "distractors": [
+     {
+      "expr": "n*(6*e)",
+      "misconception": "m4"
+     },
+     {
+      "expr": "n*(e+f)",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": [
+     "n != 1"
+    ]
+   }
+  },
+  {
+   "id": "9701-3.4-i19",
+   "kcs": [
+    "9701-3.4.3",
+    "9701-3.4.2"
+   ],
+   "kind": "structured",
+   "difficulty": 5,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Nitrogen, $\\ce{N2}$, has a bond energy of 994 kJ mol$^{-1}$ and a bond length of 110 pm. Oxygen, $\\ce{O2}$, has a bond energy of 496 kJ mol$^{-1}$ and a bond length of 121 pm. Explain, in terms of bonding, bond energy and bond length, why nitrogen is much less reactive than oxygen at room temperature.",
+   "marks": 5,
+   "explanation": "Nitrogen has a triple bond ($1\\sigma + 2\\pi$) and oxygen a double bond ($1\\sigma + 1\\pi$); the extra shared pair pulls the nuclei closer, giving the shorter, much stronger bond, so far more energy is needed to break $\\ce{N#N}$ and nitrogen reacts only under extreme conditions.",
+   "hints": [
+    "Start from the number of shared pairs in each molecule.",
+    "Link the number of bonds to the bond length, the bond length to the bond energy, and the bond energy to reactivity.",
+    "Nitrogen has a triple bond and oxygen a double bond."
+   ],
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "$\\ce{N2}$ contains a triple bond, that is one $\\sigma$ and two $\\pi$ bonds (three shared pairs).",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2,
+       "unit": "",
+       "sf_ok": [
+        1
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "$\\ce{O2}$ contains a double bond, that is one $\\sigma$ and one $\\pi$ bond (two shared pairs)."
+    },
+    {
+     "mark": "B1",
+     "point": "The extra shared pair in $\\ce{N2}$ gives a greater electrostatic attraction between the nuclei and the shared electrons, so the bond length is shorter (110 pm against 121 pm)."
+    },
+    {
+     "mark": "B1",
+     "point": "The shorter bond is the stronger bond: the bond energy of $\\ce{N#N}$ is 994 kJ mol$^{-1}$, about twice that of $\\ce{O=O}$ at 496 kJ mol$^{-1}$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 498,
+       "unit": "kJ mol^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "Far more energy must therefore be supplied to break the $\\ce{N#N}$ bond before nitrogen can react, so $\\ce{N2}$ is unreactive at room temperature while $\\ce{O2}$ reacts readily."
+    }
+   ]
+  },
+  {
+   "id": "9701-3.4-x001",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q37",
+    "qid": "9701_w19_11_q37"
+   },
+   "stem": "The structure of tiglic acid is CH₃CH=C(CH₃)CO₂H.\nWhich statements about the properties of one molecule of this acid are correct?\n1\nIt contains two π bonds.\n2\nIt contains four lone pairs of electrons.\n3\nIt has all its atoms in the same plane.",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w19_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.4-x002",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q5",
+    "qid": "9701_w22_11_q5"
+   },
+   "stem": "How many σ bonds are present in one H–C≡C–C(CH₃)=CH(CH₃) molecule?",
+   "options": {
+    "A": "",
+    "B": "11",
+    "C": "13",
+    "D": "16"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w22_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.4-x003",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q6",
+    "qid": "9701_s23_12_q6"
+   },
+   "stem": "Which statement about the Cl–N=O molecule is correct?",
+   "options": {
+    "A": "Each molecule contains one σ and two π bonds.",
+    "B": "It is a non-polar molecule.",
+    "C": "It is a linear molecule.",
+    "D": "The nitrogen atom is sp² hybridised."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "D is correct: nitrogen has two sigma bonds and one lone pair, giving three electron domains and sp² hybridisation. The lone pair makes Cl–N=O bent, so C is false; the molecule is polar, so B is false. The Cl–N single bond is one σ bond and the N=O double bond is one σ plus one π bond, giving two σ bonds and one π bond overall, so A reverses the counts. The original printed paper labels the sp² statement D; the previously extracted options were shifted."
+  },
+  {
+   "id": "9701-3.4-x004",
+   "kcs": [
+    "9701-3.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q27",
+    "qid": "9701_w23_11_q27"
+   },
+   "stem": "How many\nand\nbonds are in the molecule HCCCH₂CH₂CHC(CH₃)₂?\n19\n3",
+   "options": {
+    "D": "18 4",
+    "C": "17 5",
+    "B": "17 3",
+    "A": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_11_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-3.4.1",
+   "front": "Define covalent bonding.",
+   "back": "The electrostatic attraction between the nuclei of two atoms and a shared pair of electrons."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-3.4.1",
+   "front": "What is a coordinate (dative covalent) bond?",
+   "back": "A covalent bond in which both electrons of the shared pair come from the same atom: a lone pair is donated into an empty orbital on the acceptor atom."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-3.4.1",
+   "front": "Which molecules in the syllabus show an expanded octet, and how many outer electrons has the central atom?",
+   "back": "Period 3 central atoms can expand the octet: $\\ce{SO2}$ (10 electrons on S), $\\ce{PCl5}$ (10 on P) and $\\ce{SF6}$ (12 on S)."
+  },
+  {
+   "id": "fc4",
+   "kc": "9701-3.4.1",
+   "front": "How is the ammonium ion formed when ammonia and hydrogen chloride gases react?",
+   "back": "The lone pair on the nitrogen atom of $\\ce{NH3}$ is donated to the empty orbital of $\\ce{H+}$ from $\\ce{HCl}$, forming a coordinate bond; all four $\\ce{N-H}$ bonds in $\\ce{NH4+}$ are then identical."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-3.4.2",
+   "front": "How is a $\\sigma$ bond formed?",
+   "back": "By direct (end-on) overlap of orbitals between the bonding atoms, along the line joining the two nuclei."
+  },
+  {
+   "id": "fc6",
+   "kc": "9701-3.4.2",
+   "front": "How is a $\\pi$ bond formed?",
+   "back": "By the sideways overlap of adjacent p orbitals, giving electron density above and below the $\\sigma$ bond."
+  },
+  {
+   "id": "fc7",
+   "kc": "9701-3.4.2",
+   "front": "How many $\\sigma$ and $\\pi$ bonds are in a single, double and triple bond?",
+   "back": "Single: $1\\sigma$. Double: $1\\sigma+1\\pi$. Triple: $1\\sigma+2\\pi$. Every bond between two atoms, including every $\\ce{C-H}$ bond, contains one $\\sigma$ bond."
+  },
+  {
+   "id": "fc8",
+   "kc": "9701-3.4.2",
+   "front": "What hybridisation goes with 4, 3 and 2 $\\sigma$ bonds at a carbon atom?",
+   "back": "4 $\\sigma$ bonds: $sp^3$ (tetrahedral, as in $\\ce{C2H6}$). 3 $\\sigma$ bonds: $sp^2$ (planar, as in $\\ce{C2H4}$). 2 $\\sigma$ bonds: sp (linear, as in $\\ce{HCN}$)."
+  },
+  {
+   "id": "fc9",
+   "kc": "9701-3.4.3",
+   "front": "Define bond energy.",
+   "back": "The energy required to break one mole of a particular covalent bond in the gaseous state."
+  },
+  {
+   "id": "fc10",
+   "kc": "9701-3.4.3",
+   "front": "Define bond length.",
+   "back": "The internuclear distance of two covalently bonded atoms."
+  },
+  {
+   "id": "fc11",
+   "kc": "9701-3.4.3",
+   "front": "How do bond length, bond energy and reactivity of a covalent molecule go together?",
+   "back": "The shorter the bond, the stronger the electrostatic attraction and the larger the bond energy, so the less readily the bond breaks and the less reactive the molecule."
+  }
+ ],
+ "diagrams": [
+  {
+   "file": "Assets/9701/9701-3.4-bond-length-energy.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        120,
+        840
+       ],
+       [
+        134,
+        610
+       ],
+       [
+        154,
+        350
+       ]
+      ],
+      "label": "carbon-carbon bonds: triple, double, single",
+      "style": "solid"
+     }
+    ],
+    "xlabel": "bond length / pm",
+    "ylabel": "bond energy / kJ mol^-1",
+    "annotations": [
+     {
+      "xy": [
+       120,
+       840
+      ],
+      "text": "C#C 120 pm, 840",
+      "xytext": [
+       124,
+       750
+      ]
+     },
+     {
+      "xy": [
+       134,
+       610
+      ],
+      "text": "C=C 134 pm, 610",
+      "xytext": [
+       138,
+       670
+      ]
+     },
+     {
+      "xy": [
+       154,
+       350
+      ],
+      "text": "C-C 154 pm, 350",
+      "xytext": [
+       128,
+       430
+      ]
+     }
+    ],
+    "ticks": true
+   }
+  }
+ ],
+ "teach": {
+  "9701-3.4.1": {
+   "motivate": "Almost every molecule you will meet for the rest of this course is held together by shared pairs of electrons. Get the definition and the electron counting right here and dot-and-cross diagrams, shapes and bond energies all follow.",
+   "establish": "**Covalent bonding** is the electrostatic attraction between the nuclei of two atoms and a shared pair of electrons. It is a force: name both the nuclei and the shared pair.\n\nOne shared pair is a single bond: $\\ce{H2}$, $\\ce{Cl2}$, $\\ce{HCl}$, $\\ce{CH4}$, $\\ce{C2H6}$. Two are a double bond: $\\ce{O2}$, $\\ce{C2H4}$, and two double bonds in $\\ce{CO2}$. Three are a triple bond, as in $\\ce{N2}$. $\\ce{NH3}$ has three bonding pairs plus a lone pair on nitrogen, and each shared pair counts two electrons for both bonded atoms.\n\nPeriod 3 elements can **expand the octet**: sulfur has 10 outer electrons in $\\ce{SO2}$ and 12 in $\\ce{SF6}$, phosphorus 10 in $\\ce{PCl5}$. A period 2 atom cannot exceed eight.\n\nIn a **coordinate (dative covalent) bond** both electrons of the shared pair come from one atom: a lone pair is donated into an empty orbital on the acceptor. $\\ce{NH3}$ and $\\ce{HCl}$ gases react because the nitrogen lone pair is donated to $\\ce{H+}$, giving $\\ce{NH4+}$ with one coordinate bond — all four $\\ce{N-H}$ bonds are then identical. In $\\ce{Al2Cl6}$ each $\\ce{AlCl3}$ unit donates a chlorine lone pair to the aluminium of the other: two coordinate bonds.",
+   "connect": "Electronegativity difference decided whether bonding is ionic or covalent (3.1); counting bonding pairs and lone pairs here is exactly what 3.5 uses to predict shapes and 3.7 uses to draw dot-and-cross diagrams.",
+   "note": "- Covalent bond: electrostatic attraction between the nuclei of two atoms and a shared pair of electrons.\n- Single $=$ 1 shared pair, double $=$ 2, triple $=$ 3; a shared pair counts for both atoms.\n- Period 3 can expand the octet: $\\ce{SO2}$ and $\\ce{PCl5}$ 10 electrons, $\\ce{SF6}$ 12.\n- Coordinate bond: both electrons from one atom, a lone pair into an empty orbital.\n- $\\ce{NH3}+\\ce{H+}\\rightarrow\\ce{NH4+}$ has one coordinate bond; $\\ce{Al2Cl6}$ has two.",
+   "self_explain": "Why does $\\ce{NH4+}$ behave as though it has four identical bonds, even though one of them was formed as a coordinate bond?",
+   "discover": {
+    "stem": "Ammonia gas and hydrogen chloride gas form solid ammonium chloride. How many coordinate (dative covalent) bonds are in one $\\ce{NH4+}$ ion?",
+    "options": {
+     "A": "0, because every bond needs one electron from each atom",
+     "B": "1",
+     "C": "2",
+     "D": "4, because all four bonds are identical"
+    },
+    "answer": "B",
+    "explanation": "The nitrogen lone pair is donated to $\\ce{H+}$, which brings no electrons, so exactly one of the four bonds is formed as a coordinate bond. Once formed, all four $\\ce{N-H}$ bonds are identical, but only one was made by donation."
+   },
+   "source": "pack"
+  },
+  "9701-3.4.2": {
+   "motivate": "Papers ask you to count $\\sigma$ and $\\pi$ bonds in an unfamiliar molecule almost every session. The counting takes seconds once you know that each pair of bonded atoms shares exactly one $\\sigma$ bond.",
+   "establish": "Bonds form by **orbital overlap**. A **$\\sigma$ bond** is formed by direct overlap of orbitals between the bonding atoms, along the line joining the nuclei. A **$\\pi$ bond** is formed by the sideways overlap of adjacent p orbitals, giving electron density above and below the $\\sigma$ bond.\n\nSo every bond between two atoms, including every $\\ce{C-H}$ bond, contains one $\\sigma$ bond: single $=1\\sigma$, double $=1\\sigma+1\\pi$, triple $=1\\sigma+2\\pi$. $\\ce{H2}$: one $\\sigma$ bond from 1s overlap. $\\ce{C2H6}$: 7 $\\sigma$ bonds. $\\ce{C2H4}$: 5 $\\sigma$ and 1 $\\pi$. $\\ce{HCN}$: 2 $\\sigma$ and 2 $\\pi$. $\\ce{N2}$: 1 $\\sigma$ and 2 $\\pi$.\n\n**Hybridisation** mixes one s orbital with p orbitals to give equivalent orbitals that make the $\\sigma$ bonds. An atom forming four $\\sigma$ bonds is $sp^3$ (tetrahedral, as in $\\ce{C2H6}$); three $\\sigma$ bonds gives $sp^2$ (three orbitals in a plane at $120°$, as in $\\ce{C2H4}$); two $\\sigma$ bonds gives sp (linear, as in $\\ce{HCN}$). The p orbitals left unhybridised are the ones that overlap sideways to make the $\\pi$ bonds, which is why ethene is planar and ethane is not.",
+   "connect": "The $\\sigma$ framework fixes the shapes of 3.5, and the $\\pi$ bond of $\\ce{C=C}$ is the reactive site of every alkene reaction in organic chemistry.",
+   "note": "- $\\sigma$ bond: direct, end-on overlap of orbitals between the bonding atoms.\n- $\\pi$ bond: sideways overlap of adjacent p orbitals, above and below the $\\sigma$ bond.\n- Single $1\\sigma$; double $1\\sigma+1\\pi$; triple $1\\sigma+2\\pi$; $\\ce{C-H}$ bonds are $\\sigma$ bonds.\n- $\\ce{C2H4}$: 5 $\\sigma$, 1 $\\pi$. $\\ce{HCN}$: 2 $\\sigma$, 2 $\\pi$. $\\ce{N2}$: 1 $\\sigma$, 2 $\\pi$.\n- $\\sigma$ bonds at an atom: 4 is $sp^3$, 3 is $sp^2$, 2 is sp.",
+   "self_explain": "Why can a $\\pi$ bond never exist on its own between two atoms that are not already joined by a $\\sigma$ bond?",
+   "discover": {
+    "stem": "How many $\\sigma$ bonds and how many $\\pi$ bonds are in one molecule of ethene, $\\ce{C2H4}$?",
+    "options": {
+     "A": "1 $\\sigma$ and 1 $\\pi$",
+     "B": "4 $\\sigma$ and 2 $\\pi$",
+     "C": "5 $\\sigma$ and 1 $\\pi$",
+     "D": "5 $\\sigma$ and 2 $\\pi$"
+    },
+    "answer": "C",
+    "explanation": "Four $\\ce{C-H}$ bonds plus the $\\sigma$ part of the $\\ce{C=C}$ bond give 5 $\\sigma$ bonds, and the second shared pair of the double bond is the single $\\pi$ bond."
+   },
+   "source": "pack"
+  },
+  "9701-3.4.3": {
+   "motivate": "Nitrogen makes up most of the air yet does almost nothing, while oxygen rusts iron and burns fuels. The difference is one number: the energy needed to break the bond.",
+   "establish": "**Bond energy** is the energy required to break one mole of a particular covalent bond in the gaseous state. It is an energy *input*, so it is endothermic and quoted as a positive value, such as $E(\\ce{Cl-Cl})=+244$ kJ mol$^{-1}$. **Bond length** is the internuclear distance of two covalently bonded atoms.\n\nThe two are linked. The more shared pairs between the same two nuclei, the shorter the bond and the larger the bond energy: $\\ce{C-C}$ 154 pm and 350 kJ mol$^{-1}$, $\\ce{C=C}$ 134 pm and 610, $\\ce{C#C}$ 120 pm and 840. Longer bonds between larger atoms are weaker: $\\ce{Cl-Cl}$ 244, $\\ce{Br-Br}$ 193, $\\ce{I-I}$ 151 kJ mol$^{-1}$.\n\nUse this to compare reactivity. A reaction usually starts by breaking a bond, so a large bond energy means a molecule that reacts only under extreme conditions: $\\ce{N#N}$ at 994 kJ mol$^{-1}$ leaves nitrogen inert at room temperature, while $\\ce{O=O}$ at 496 reacts readily, and $\\ce{I2}$ dissociates most easily of the halogens. For a stated amount, multiply moles of bonds by the bond energy: 2.0 mol of $\\ce{NH3}$ holds 6.0 mol of $\\ce{N-H}$ bonds, so $6.0\\times391=2346$ kJ.",
+   "connect": "These bond energies are the numbers you will put into enthalpy-change calculations in 4.1, and bond polarity in 3.6 explains why two bonds of similar energy can still react very differently.",
+   "note": "- Bond energy: energy required to break one mole of a particular covalent bond in the gaseous state.\n- Bond length: the internuclear distance of two covalently bonded atoms.\n- More shared pairs means shorter bond means higher bond energy.\n- Stronger bond means harder to break means less reactive: $\\ce{N2}$ 994 against $\\ce{O2}$ 496 kJ mol$^{-1}$.\n- Energy to break $n$ mol of a substance $=n\\times$(bonds per molecule)$\\times$ bond energy, in kJ.",
+   "self_explain": "Why must bond energy be defined for the gaseous state rather than for a liquid or a solid?",
+   "discover": {
+    "stem": "The $\\ce{Cl-Cl}$, $\\ce{Br-Br}$ and $\\ce{I-I}$ bond energies are 244, 193 and 151 kJ mol$^{-1}$. Which molecule splits into atoms most readily, and why?",
+    "options": {
+     "A": "$\\ce{Cl2}$, because its bond is the longest",
+     "B": "$\\ce{Cl2}$, because its bond energy is the largest",
+     "C": "$\\ce{I2}$, because its bond is the longest and weakest",
+     "D": "They split equally readily, because each has one single bond"
+    },
+    "answer": "C",
+    "explanation": "Atoms get larger down the group, so the internuclear distance rises and the attraction holding the atoms together weakens; the $\\ce{I-I}$ bond has the lowest bond energy and so breaks most readily."
+   },
+   "source": "pack"
+  }
+ }
+}

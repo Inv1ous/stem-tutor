@@ -1,0 +1,286 @@
+{
+ "sub": "9701-3.4",
+ "stage": "ready",
+ "created": "2026-10-10T10:58:42+08:00",
+ "updated": "2026-10-10T13:45:20+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T11:07:56+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 32 items"
+  },
+  {
+   "t": "2026-10-10T13:39:50+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "23 agreed, 6 disputed"
+  },
+  {
+   "t": "2026-10-10T13:42:31+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-10T13:44:23+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T13:44:56+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T13:45:20+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "1 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T13:45:20+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 32,
+  "extra": 4
+ },
+ "disputes": [
+  {
+   "id": "9701-3.4-p05",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.4-p06",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.4-p07",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.4-x001",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.4-x003",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "fix: The original question PDF sources/papers/9701/2023/s/9701_s23_qp_12.pdf, page 2 Q6, shows that the extracted options are shifted; the official mark scheme sources/papers/9701/2023/s/9701_s23_ms_12.pdf, page 2, correctly gives D. In build/work/mcq/overrides.json under qid 9701_s23_12_q6 set options to {\"A\":\"Each molecule contains one σ and two π bonds.\",\"B\":\"It is a non-polar molecule.\",\"C\":\"It is a linear molecule.\",\"D\":\"The nitrogen atom is sp² hybridised.\"}; retain answer D. Set explanation to \"D is correct: nitrogen has two sigma bonds and one lone pair, giving three electron domains and sp² hybridisation. The lone pair makes Cl–N=O bent, so C is false; the molecule is polar, so B is false. The Cl–N single bond is one σ bond and the N=O double bond is one σ plus one π bond, giving two σ bonds and one π bond overall, so A reverses the counts. The original printed paper labels the sp² statement D; the previously extracted options were shifted.\" Apply these exact options and explanation to item 9701-3.4-x003 when rebuilding the pack."
+  },
+  {
+   "id": "we2.faded",
+   "key": {
+    "value": 11,
+    "unit": "",
+    "sf_ok": [
+     1,
+     2
+    ]
+   },
+   "solver": "5",
+   "tiebreak": "11",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [
+  {
+   "ref": "9701-3.4-x003",
+   "instruction": "The original question PDF sources/papers/9701/2023/s/9701_s23_qp_12.pdf, page 2 Q6, shows that the extracted options are shifted; the official mark scheme sources/papers/9701/2023/s/9701_s23_ms_12.pdf, page 2, correctly gives D. In build/work/mcq/overrides.json under qid 9701_s23_12_q6 set options to {\"A\":\"Each molecule contains one σ and two π bonds.\",\"B\":\"It is a non-polar molecule.\",\"C\":\"It is a linear molecule.\",\"D\":\"The nitrogen atom is sp² hybridised.\"}; retain answer D. Set explanation to \"D is correct: nitrogen has two sigma bonds and one lone pair, giving three electron domains and sp² hybridisation. The lone pair makes Cl–N=O bent, so C is false; the molecule is polar, so B is false. The Cl–N single bond is one σ bond and the N=O double bond is one σ plus one π bond, giving two σ bonds and one π bond overall, so A reverses the counts. The original printed paper labels the sp² statement D; the previously extracted options were shifted.\" Apply these exact options and explanation to item 9701-3.4-x003 when rebuilding the pack.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 35595,
+   "provider": "claude",
+   "model": "opus/low",
+   "rung": 0,
+   "started": "2026-10-10T10:58:42+08:00",
+   "log": "foundry/logs/9701-3.4.drafter.1010-105842.log",
+   "out": "foundry/logs/9701-3.4.drafter.1010-105842.out.json",
+   "finished": "2026-10-10T11:07:56+08:00",
+   "exit": 0,
+   "report": {
+    "concerns": [
+     "Only 9 of the 15 tagged past MCQs were usable as explained items, not 12: w25_11_q6, w22_11_q5 and w19_11_q4 are exact duplicates of papers already used (the validator flags duplicate questions), and two more were dropped on accuracy grounds (below). The rest of the bank is appended as extras.",
+     "Dropped 9701_w23_11_q27: the extracted stem is mangled ('HCCCH₂CH₂CHC(CH₃)₂') and the official key D (18 σ, 4 π) does not match any reading I could verify — the obvious structure HC≡C-CH2-CH2-CH=C(CH3)2 gives 19 σ and 3 π (option A). Needs the original paper/image checked before use.",
+     "Dropped 9701_s23_12_q6 (Cl–N=O): option D is glyph-corrupted ('one S and two P bonds') and option C ('the nitrogen atom is sp² hybridised') reads as chemically correct, which conflicts with the official key D. Needs the original options checked.",
+     "Options for the image-based past items with missing/garbled option text (w22_13_q5, w19_13_q4, w19_13_q37, w19_12_q32, s19_12_q4) are left exactly as the bank has them and rely on the attached figure; I inferred the statement-combination keys for q37 and q32 from the chemistry (both consistent with the official keys).",
+     "No orbital-overlap figure: diagrams.py cannot draw σ/π overlap or dot-and-cross structures, so σ/π formation, NH4+ and Al2Cl6 are described in words in the note. The one rendered figure (bond length vs bond energy) was checked by reading its SVG text, not visually — qlmanage was not permitted in this sandbox.",
+     "Bond data used: C-C 350/154 pm, C=C 610/134 pm, C#C 840/120 pm, N#N 994, O=O 496, Cl-Cl 244, Br-Br 193, I-I 151, N-H 391, C-H 410 kJ mol^-1 (Cambridge data booklet values); worth a spot-check against the booklet edition in use.",
+     "SO2 is taught with two S=O double bonds (10 outer electrons on S, expanded octet) as the syllabus statement requires; some textbooks draw a dative/charge-separated structure instead."
+    ],
+    "items": 32,
+    "lint_ok": true,
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/03 Chemical bonding/3.4 Covalent bonding and coordinate (dative covalent) bonding.md",
+    "pack_path": "build/out/packs/9701/9701-3.4.json",
+    "templates": 3,
+    "validator_ok": true,
+    "worked": 3
+   },
+   "ok": true,
+   "cost_usd": 3.079
+  },
+  "checker": {
+   "pid": 94419,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T13:35:04+08:00",
+   "log": "foundry/logs/9701-3.4.checker.1010-133504.log",
+   "out": "foundry/logs/9701-3.4.checker.1010-133504.out.json",
+   "expects": "build/work/foundry/9701-3.4.check.json",
+   "finished": "2026-10-10T13:36:56+08:00",
+   "exit": 0,
+   "report": {
+    "text": "**0 findings** — written `build/work/foundry/9701-3.4.check.json`"
+   },
+   "ok": true,
+   "cost_usd": 0.204
+  },
+  "solver#1": {
+   "pid": 95583,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:36:59+08:00",
+   "log": "foundry/logs/9701-3.4.solver-1.1010-133659.log",
+   "out": "foundry/logs/9701-3.4.solver-1.1010-133659.out.json",
+   "expects": "build/work/blind/9701-3.4.answers.part1.json",
+   "finished": "2026-10-10T13:37:20+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [9701-3.4.answers.part1.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-3.4.answers.part1.json)."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 95585,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:36:59+08:00",
+   "log": "foundry/logs/9701-3.4.solver-2.1010-133659.log",
+   "out": "foundry/logs/9701-3.4.solver-2.1010-133659.out.json",
+   "expects": "build/work/blind/9701-3.4.answers.part2.json",
+   "finished": "2026-10-10T13:37:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 9 questions in `build/work/blind/9701-3.4.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 98226,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:41:35+08:00",
+   "log": "foundry/logs/9701-3.4.tiebreak.1010-134135.log",
+   "out": "foundry/logs/9701-3.4.tiebreak.1010-134135.out.json",
+   "expects": "build/work/blind/9701-3.4.tiebreak.json",
+   "finished": "2026-10-10T13:42:02+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 6,
+    "answers_path": "build/work/blind/9701-3.4.tiebreak.json",
+    "notes": [
+     "9701-3.4-p05: Options were absent; B assumes the standard statement-combination key for 1 and 2.",
+     "9701-3.4-p06: Options were absent; A assumes the standard key for all three statements.",
+     "9701-3.4-x001: Options were absent; B assumes the standard key for 1 and 2."
+    ]
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 99804,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:43:25+08:00",
+   "log": "foundry/logs/9701-3.4.adjudicator.1010-134325.log",
+   "out": "foundry/logs/9701-3.4.adjudicator.1010-134325.out.json",
+   "finished": "2026-10-10T13:44:29+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9701-3.4-x003 fix: Restore shifted option labels; retain official key D (sp² hybridisation) and add explanation."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 787,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T13:44:35+08:00",
+   "log": "foundry/logs/9701-3.4.fixer.1010-134435.log",
+   "out": "foundry/logs/9701-3.4.fixer.1010-134435.out.json",
+   "finished": "2026-10-10T13:44:56+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "Syllabus gate still fails with three pre-existing no-teach-card errors for 9701-3.4.1, 9701-3.4.2, and 9701-3.4.3. The fixer instructions permit changing teaching cards only when the fix list names them."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 1601,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:45:06+08:00",
+   "log": "foundry/logs/9701-3.4.solver.1010-134506.log",
+   "out": "foundry/logs/9701-3.4.solver.1010-134506.out.json",
+   "expects": "build/work/blind/9701-3.4.recheck.answers.json",
+   "finished": "2026-10-10T13:45:17+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question and wrote [9701-3.4.recheck.answers.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-3.4.recheck.answers.json)."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_w19_11_q37": "9701-3.4-x001",
+  "9701_w22_11_q5": "9701-3.4-x002",
+  "9701_s23_12_q6": "9701-3.4-x003",
+  "9701_w23_11_q27": "9701-3.4-x004"
+ },
+ "maker": "claude",
+ "checked": true
+}
