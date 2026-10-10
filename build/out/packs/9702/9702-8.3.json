@@ -1,0 +1,2002 @@
+{
+ "subtopic": "9702-8.3",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/08 Superposition/8.3 Interference.md",
+ "outline": "Interference is superposition of waves producing a spatial pattern of maxima and minima. Coherent sources have the same frequency and a constant phase difference. Two coherent waves produce stable fringes; similar amplitudes give clear minima. Two slits fed by one monochromatic source, two ripple-tank dippers driven by one motor, two loudspeakers fed by one signal generator, and two microwave transmitters fed from one oscillator can demonstrate interference. For light, $\\lambda=ax/D$, where $a$ is slit separation, $x$ fringe spacing and $D$ slit-to-screen distance.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-8.3.1",
+   "statement": "Coherent waves must be in phase.",
+   "refutation": "They may have any constant phase difference.",
+   "contrast": "constant phase difference versus zero phase difference",
+   "source": "ER 9702 s22 P22 Q5"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-8.3.1",
+   "statement": "Equal frequency alone guarantees coherence.",
+   "refutation": "The phase difference must also remain constant.",
+   "contrast": "same frequency versus stable relative phase",
+   "source": "ER 9702 s22 P22 Q5"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-8.3.2",
+   "statement": "Two independent dippers automatically produce a fixed pattern.",
+   "refutation": "Connect both dippers to the same vibrator or motor to keep their phase relationship fixed.",
+   "contrast": "common drive versus independent drives",
+   "source": "ER 9702 w19 P21 Q5"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-8.3.3",
+   "statement": "Coherence alone guarantees completely dark fringes.",
+   "refutation": "Comparable amplitudes are needed for clear contrast; equal amplitudes give complete cancellation at minima.",
+   "contrast": "stable fringes versus zero intensity minima",
+   "source": "ER 9702 w19 P21 Q5"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-8.3.4",
+   "statement": "Increasing slit separation increases fringe spacing.",
+   "refutation": "Since $x=\\lambda D/a$, increasing $a$ decreases $x$.",
+   "contrast": "inverse versus direct proportion",
+   "source": "ER 9702 w23 P12 Q28"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-8.3.4",
+   "statement": "Millimetres and nanometres can be substituted without conversion.",
+   "refutation": "Convert all lengths to metres before using $\\lambda=ax/D$.",
+   "contrast": "SI lengths versus mixed units",
+   "source": "ER 9702 w21 P23 Q5"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-8.3.2",
+   "problem": "Describe how two-source sound interference can be demonstrated.",
+   "steps": [
+    {
+     "do": "Connect two loudspeakers to the same signal generator.",
+     "why": "A shared drive fixes frequency and relative phase."
+    },
+    {
+     "do": "Place them apart and move a microphone connected to an oscilloscope across the overlap region.",
+     "why": "A detector records alternating maxima and minima."
+    },
+    {
+     "do": "Identify repeated high- and low-amplitude readings.",
+     "why": "These are constructive and destructive interference."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "How many dippers should be driven by the same vibrator in a two-source ripple-tank demonstration?",
+    "answer": {
+     "value": 2,
+     "unit": "",
+     "sf_ok": [
+      1
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-8.3.4",
+   "problem": "Calculate the wavelength when slit separation is 0.20 mm, fringe spacing is 6.0 mm and screen distance is 2.0 m.",
+   "steps": [
+    {
+     "do": "Use $\\lambda=ax/D$.",
+     "why": "This is the double-slit relation for adjacent fringes."
+    },
+    {
+     "do": "Convert $a=0.20\\times10^{-3}\\,\\mathrm{m}$ and $x=6.0\\times10^{-3}\\,\\mathrm{m}$.",
+     "why": "All quantities must use compatible SI units."
+    },
+    {
+     "do": "$\\lambda=(0.20\\times10^{-3})(6.0\\times10^{-3})/2.0=6e-07\\,\\mathrm{m}$.",
+     "why": "Substitute the measured slit and screen distances.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6.000000000000001e-07,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Calculate wavelength for slit separation 0.30 mm, fringe spacing 4.0 mm, and screen distance 2.0 m.",
+    "answer": {
+     "value": 6e-07,
+     "unit": "m",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-8.3-i11",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define interference.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Interference is the superposition of two or more waves producing a resultant displacement and a pattern of maxima and minima.",
+     "keywords": [
+      [
+       "phase"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Interference is the superposition of two or more waves producing a resultant displacement and a pattern of maxima and minima.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Recall the relationship between wavelength, slit separation, adjacent fringe spacing and slit-to-screen distance, and identify the symbol for each quantity."
+   ]
+  },
+  {
+   "id": "9702-8.3-i12",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define coherence of two waves.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Coherent waves have the same frequency and a constant phase difference.",
+     "keywords": [
+      [
+       "frequency"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Coherent waves have the same frequency and a constant phase difference.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i13",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why equal amplitudes are not required for coherence.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Coherence concerns equal frequency and constant phase difference, not amplitude.",
+     "keywords": [
+      [
+       "phase"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Coherence concerns equal frequency and constant phase difference, not amplitude.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i14",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the effect of a constant non-zero phase difference on interference.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A fixed interference pattern remains, with maxima and minima shifted in position.",
+     "keywords": [
+      [
+       "phase"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A fixed interference pattern remains, with maxima and minima shifted in position.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i15",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why two unrelated light bulbs do not form stable fringes.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Their relative phase changes randomly, so the maxima and minima do not stay fixed.",
+     "keywords": [
+      [
+       "phase"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Their relative phase changes randomly, so the maxima and minima do not stay fixed.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i16",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare coherence and being in phase.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Coherence requires a constant phase difference; being in phase specifies zero phase difference.",
+     "keywords": [
+      [
+       "frequency"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Coherence requires a constant phase difference; being in phase specifies zero phase difference.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i21",
+   "kcs": [
+    "9702-8.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to produce coherent water waves in a ripple tank.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Attach two dippers to the same vibrator or motor so they oscillate at the same frequency with constant phase difference.",
+     "keywords": [
+      [
+       "dippers"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Attach two dippers to the same vibrator or motor so they oscillate at the same frequency with constant phase difference.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i22",
+   "kcs": [
+    "9702-8.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to find water-wave interference minima.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Use a stroboscope or suitable camera to view the stationary pattern of nodal lines between two driven dippers.",
+     "keywords": [
+      [
+       "dippers"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use a stroboscope or suitable camera to view the stationary pattern of nodal lines between two driven dippers.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i23",
+   "kcs": [
+    "9702-8.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a two-source sound interference experiment.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Feed two loudspeakers from one signal generator and move a microphone through alternating loud and quiet regions.",
+     "keywords": [
+      [
+       "loudspeakers"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Feed two loudspeakers from one signal generator and move a microphone through alternating loud and quiet regions.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i24",
+   "kcs": [
+    "9702-8.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a two-source light interference experiment.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Illuminate two narrow slits from one monochromatic source and observe bright and dark fringes on a distant screen.",
+     "keywords": [
+      [
+       "slits"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Illuminate two narrow slits from one monochromatic source and observe bright and dark fringes on a distant screen.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i25",
+   "kcs": [
+    "9702-8.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a two-source microwave interference experiment.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Feed two microwave sources from one oscillator and move a receiver through intensity maxima and minima.",
+     "keywords": [
+      [
+       "microwave"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Feed two microwave sources from one oscillator and move a receiver through intensity maxima and minima.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i26",
+   "kcs": [
+    "9702-8.3.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why both ripple-tank dippers should share one motor.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "One motor fixes their frequency and relative phase so the interference pattern stays stationary.",
+     "keywords": [
+      [
+       "dippers"
+      ]
+     ]
+    }
+   ],
+   "explanation": "One motor fixes their frequency and relative phase so the interference pattern stays stationary.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i31",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the phase condition for stable two-source fringes.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The two waves must have the same frequency and a constant phase difference.",
+     "keywords": [
+      [
+       "difference"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The two waves must have the same frequency and a constant phase difference.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i32",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the path-difference condition for a bright fringe from in-phase sources.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The path difference is an integer multiple of the wavelength.",
+     "keywords": [
+      [
+       "difference"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The path difference is an integer multiple of the wavelength.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i33",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the path-difference condition for a dark fringe from in-phase sources.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The path difference is an odd multiple of half a wavelength.",
+     "keywords": [
+      [
+       "difference"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The path difference is an odd multiple of half a wavelength.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i34",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why comparable wave amplitudes help fringe visibility.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Comparable amplitudes give strong contrast; equal amplitudes can cancel fully at destructive positions.",
+     "keywords": [
+      [
+       "amplitudes"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Comparable amplitudes give strong contrast; equal amplitudes can cancel fully at destructive positions.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i35",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a large path difference can spoil light fringes from a finite-bandwidth source.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The relative phase can vary across the emitted wavelengths, washing out a stable minimum.",
+     "keywords": [
+      [
+       "phase"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The relative phase can vary across the emitted wavelengths, washing out a stable minimum.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i36",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict what happens to fixed fringes if the source phase difference fluctuates.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The fringes shift continually and blur when averaged over time.",
+     "keywords": [
+      [
+       "phase"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The fringes shift continually and blur when averaged over time.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i41",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the double-slit formula and define its symbols.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$\\lambda=ax/D$, where $a$ is slit separation, $x$ adjacent fringe spacing, and $D$ slit-to-screen distance.",
+     "keywords": [
+      [
+       "lambda"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$\\lambda=ax/D$, where $a$ is slit separation, $x$ adjacent fringe spacing, and $D$ slit-to-screen distance.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i42",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what happens to fringe spacing when slit separation doubles.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$x=\\lambda D/a$, so the spacing halves.",
+     "keywords": [
+      [
+       "proportional"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$x=\\lambda D/a$, so the spacing halves.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i43",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what happens to fringe spacing when screen distance doubles.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$x=\\lambda D/a$, so the spacing doubles.",
+     "keywords": [
+      [
+       "proportional"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$x=\\lambda D/a$, so the spacing doubles.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i44",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what happens to fringe spacing if red light is replaced with shorter-wavelength blue light.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The spacing decreases because $x$ is proportional to wavelength.",
+     "keywords": [
+      [
+       "decreases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The spacing decreases because $x$ is proportional to wavelength.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i45",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine the wavelength when $a=0.20\\,\\mathrm{mm}$, $x=6.0\\,\\mathrm{mm}$ and $D=2.0\\,\\mathrm{m}$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$\\lambda=ax/D=(0.20\\times10^{-3})(6.0\\times10^{-3})/2.0=6.0\\times10^{-7}\\,\\mathrm{m}$.",
+     "keywords": [
+      [
+       "6.0"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$\\lambda=ax/D=(0.20\\times10^{-3})(6.0\\times10^{-3})/2.0=6.0\\times10^{-7}\\,\\mathrm{m}$.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-i46",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how to improve a fringe-spacing measurement.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Measure across several adjacent fringe intervals and divide by the number of intervals to reduce fractional uncertainty.",
+     "keywords": [
+      [
+       "spacing"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Measure across several adjacent fringe intervals and divide by the number of intervals to reduce fractional uncertainty.",
+   "hints": [
+    "Identify the relevant wave property or setup.",
+    "Relate the observed pattern to phase or path difference.",
+    "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate."
+   ]
+  },
+  {
+   "id": "9702-8.3-p01",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q28",
+    "qid": "9702_w20_11_q28"
+   },
+   "stem": "Two loudspeakers are placed near to each other and facing in the same direction.\nA microphone connected to an oscilloscope is moved along a line some distance away from the\nloudspeakers, as shown.\nloudspeakers\nmicrophone\npath of\nmicrophone\nWhich statement about the waves emitted by the loudspeakers is not a necessary condition for\nthe microphone to detect a fixed point along the line where there is no sound?",
+   "options": {
+    "A": "The waves must be emitted in phase.",
+    "B": "The waves must be emitted with a similar amplitude.",
+    "C": "The waves must have the same frequency.",
+    "D": "The waves must have the same wavelength."
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_11_q28.png",
+   "marks": 1,
+   "explanation": "A fixed phase difference need not be zero. B matters for complete cancellation because unequal amplitudes leave a residual signal.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p02",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q29",
+    "qid": "9702_w21_12_q29"
+   },
+   "stem": "Two waves, each with a constant amplitude, interfere and produce an interference pattern. The\npattern has minima at fixed points where the displacement is zero at all times.\nWhich statement describes the two waves?",
+   "options": {
+    "A": "They must be coherent and of the same amplitude.",
+    "B": "They must be coherent but not necessarily of the same amplitude.",
+    "C": "They must be of the same amplitude but not necessarily coherent.",
+    "D": "They must not be coherent or of the same amplitude."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Fixed zero minima require coherent waves with equal amplitude. B misses the equal-amplitude condition.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p03",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q27",
+    "qid": "9702_w24_11_q27"
+   },
+   "stem": "Three statements about two progressive waves are listed.\n1\nThe waves have the same frequency.\n2\nThe waves have the same amplitude.\n3\nThe waves are emitted with a constant phase difference.\nWhich statements must be correct for the two waves to be coherent?",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1 and 2 only",
+    "C": "1 and 3 only",
+    "D": "2 and 3 only"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_11_q27.png",
+   "marks": 1,
+   "explanation": "Coherence requires statements 1 and 3: same frequency and constant phase difference. A wrongly includes equal amplitude.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p04",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q30",
+    "qid": "9702_s24_11_q30"
+   },
+   "stem": "Microwaves are emitted from two sources at points X and Y. The two waves meet at point Z. The\ndiagram shows the paths of the two waves.\nX\nY\nZ\nThe waves emitted from points X and Y are coherent.\nWhat is a direct consequence of the two waves being coherent?",
+   "options": {
+    "A": "There is a constant difference in the path lengths YZ and XZ.",
+    "B": "There is a constant difference in phase between the two waves at Z.",
+    "C": "There is a constant non-zero difference in frequency of the two waves at Z.",
+    "D": "There is a constant non-zero difference in amplitude of the two waves at Z."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_11_q30.png",
+   "marks": 1,
+   "explanation": "At Z the path lengths are fixed, so coherent sources give constant phase difference. A describes fixed geometry rather than the direct wave consequence.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p05",
+   "kcs": [
+    "9702-8.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q27",
+    "qid": "9702_w19_12_q27"
+   },
+   "stem": "An outdoor concert has two large speakers beside the stage for broadcasting music.\nIn order to test the speakers, they are made to emit sound of the same wavelength and the same\namplitude.\nThe curved lines in the diagram represent wavefronts.\nWhere is the loudest sound heard?",
+   "options": {
+    "D": "",
+    "B": "",
+    "A": "",
+    "C": "speakers stage"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_12_q27.png",
+   "marks": 1,
+   "explanation": "The loudest position is where wave peaks arrive together, giving constructive interference. A crest meeting a trough gives a quiet position.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p06",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q29",
+    "qid": "9702_w19_13_q29"
+   },
+   "stem": "The double-slit experiment demonstrates interference between two coherent sources of light\nwaves. In the diagram, the curved lines represent wavefronts.\nAt which point does complete destructive interference (a minimum) occur?",
+   "options": {
+    "B": "",
+    "A": "",
+    "C": "",
+    "D": "single slit double slit"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_13_q29.png",
+   "marks": 1,
+   "explanation": "The curved wavefronts represent peaks at one instant; troughs lie halfway between adjacent wavefronts from each slit. At C, a peak from one slit meets a trough from the other, so the equal and opposite displacements cancel completely. At B, two peaks reinforce. At D, two troughs reinforce to give a larger negative displacement: this is constructive interference, not an intensity minimum.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p07",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q28",
+    "qid": "9702_s19_13_q28"
+   },
+   "stem": "Light of wavelength λ is emitted from two point sources R and S and falls onto a distant screen.\nscreen\nP\nS\nR\n(not to scale)\nAt point P on the screen, the light intensity is zero.\nWhat could explain the zero intensity at P?",
+   "options": {
+    "A": "Light from the two sources is emitted 180° out of phase and the path difference to P is ¹ ₂ . λ",
+    "B": "Light from the two sources is emitted in phase and the path difference to P is λ.",
+    "C": "Light from the two sources is emitted 90° out of phase and the path difference to P is λ.",
+    "D": "Light from the two sources is emitted in phase and the path difference to P is ¹ ₂ . λ"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_13_q28.png",
+   "marks": 1,
+   "explanation": "The phase difference on arrival must be an odd multiple of $180^\\circ$ for zero intensity. In A the initial $180^\\circ$ and half-wavelength path shift cancel, yielding a maximum.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p08",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q29",
+    "qid": "9702_w20_13_q29"
+   },
+   "stem": "In a dark room, a small source of red light illuminates two slits that are 0.75 mm apart. A few\nmetres beyond the slits, the light falls on a screen producing a series of equally spaced bright\nlines.\nWhich change would cause the distance between the bright lines on the screen to be reduced?",
+   "options": {
+    "A": "Change the source for one emitting blue light.",
+    "B": "Reduce the distance between the light source and the slits.",
+    "C": "Reduce the distance between the slits to 0.55 mm.",
+    "D": "Reduce the intensity of the light source."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Blue light has shorter wavelength, so $x=\\lambda D/a$ decreases. C reduces slit separation, which increases spacing.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p09",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q29",
+    "qid": "9702_w21_13_q29"
+   },
+   "stem": "Interference fringes are produced on a screen by double-slit interference using light of\nwavelength 600 nm. The fringe separation is 4.0 mm and the separation of the slits is 0.60 mm.\nWhat is the distance between the double slit and the screen?",
+   "options": {
+    "A": "0.25 m",
+    "B": "0.40 m",
+    "C": "2.5 m",
+    "D": "4.0 m"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "Using $D=ax/\\lambda=(0.60\\times10^{-3})(4.0\\times10^{-3})/(600\\times10^{-9})$ gives 4.0 m. C is too small from a unit or factor error.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p10",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q29",
+    "qid": "9702_w20_12_q29"
+   },
+   "stem": "An experiment is carried out to demonstrate double-slit interference using light of wavelength\n500 nm. The distance between bright fringes in the interference pattern is 5 mm.\nWhat are possible values for the distance between the slits and the screen, and the slit\nseparation?\nslit–screen\ndistance\nslit separation",
+   "options": {
+    "A": "50 cm 0.5 mm",
+    "B": "50 cm 5 mm",
+    "C": "5 m 0.5 mm",
+    "D": "5 m 5 mm"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_12_q29.png",
+   "marks": 1,
+   "explanation": "Only 5 m and 0.5 mm give $x=\\lambda D/a=5$ mm. A gives 0.5 mm.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p11",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q31",
+    "qid": "9702_s25_12_q31"
+   },
+   "stem": "Light of a single wavelength is incident normally on a double slit. Interference fringes are\nobserved on a screen.\nThe distance from the double slit to the screen is 0.60 m and the fringe separation is 1.8 mm.\nThe distance from the double slit to the screen increases by 0.90 m.\nWhat is the new fringe separation?",
+   "options": {
+    "A": "1.2 mm",
+    "B": "2.7 mm",
+    "C": "4.5 mm",
+    "D": "5.4 mm"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "Fringe spacing scales with screen distance: $1.8(1.50/0.60)=4.5$ mm. B does not use the total new distance.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-p12",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q28",
+    "qid": "9702_s24_12_q28"
+   },
+   "stem": "Interference fringes of separation x are observed on a screen at a distance of 1.00 m from a\ndouble slit that is illuminated by yellow light of wavelength 600 nm.\nAt which distance from the double slit would interference fringes of the same separation x be\nobserved when using blue light of wavelength 400 nm?",
+   "options": {
+    "A": "0.33 m",
+    "B": "0.67 m",
+    "C": "0.75 m",
+    "D": "1.50 m"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "To preserve $x$, $\\lambda D$ stays fixed: $D=1.00(600/400)=1.50$ m. B reverses the wavelength ratio.",
+   "hints": [
+    "Identify the quantity or phase relation being tested.",
+    "Use the diagram or compare the arriving waves.",
+    "Apply superposition or the double-slit relation."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-8.3-x001",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q29",
+    "qid": "9702_s19_11_q29"
+   },
+   "stem": "A double-slit interference experiment is set up as shown.\nsingle\nslit\ndouble\nslit\nscreen\n*\nred\nlight\nsource\nnot to scale\nFringes are formed on the screen. The distance between successive bright fringes is found to be\n4 mm.\nTwo changes are then made to the experimental arrangement. The double slit is replaced by\nanother double slit which has half the spacing. The screen is moved so that its distance from the\ndouble slit is twice as great.\nWhat is now the distance between successive bright fringes?",
+   "options": {
+    "A": "1 mm",
+    "B": "4 mm",
+    "C": "8 mm",
+    "D": "16 mm"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_11_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x002",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q30",
+    "qid": "9702_s19_12_q30"
+   },
+   "stem": "Why can an observable interference pattern never be obtained between two monochromatic\nbeams of light from different lamps?",
+   "options": {
+    "A": "The frequency of the light from the two lamps can never be the same.",
+    "B": "The light from the two lamps can never be coherent.",
+    "C": "The temperature of the filaments of the two lamps used can never be the same.",
+    "D": "The wavelength of the light from the two lamps must always be different."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x003",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q31",
+    "qid": "9702_s19_12_q31"
+   },
+   "stem": "A student sets up apparatus to observe the double-slit interference of monochromatic light, as\nshown.\ndouble slit\nmonochromatic\nlight\nscreen\nInterference fringes are formed on the screen.\nWhich change would increase the distance between adjacent fringes?",
+   "options": {
+    "A": "Decrease the distance between the two slits.",
+    "B": "Decrease the width of each slit.",
+    "C": "Move the screen closer to the double slit.",
+    "D": "Use light of a higher frequency."
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_12_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The majority of the candidates answered this question correctly, though a significant number thought that decreasing the width of each slit would increase the distance on the screen between adjacent fringes. Decreasing the width will not affect the position of the maxima but will affect their brightness."
+  },
+  {
+   "id": "9702-8.3-x004",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q29",
+    "qid": "9702_s19_13_q29"
+   },
+   "stem": "Apparatus is arranged to show double-slit interference using monochromatic light. The slit\nseparation is 0.10 mm. The distance from the double slit to the screen where the interference\npattern is observed is 2.4 m and the fringe width is 12 mm.\nThe distance to the screen is now changed to 1.8 m and the slit separation is doubled.\nWhat is the new fringe width?",
+   "options": {
+    "A": "1.5 mm",
+    "B": "4.5 mm",
+    "C": "6.0 mm",
+    "D": "9.0 mm"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x005",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q29",
+    "qid": "9702_s20_11_q29"
+   },
+   "stem": "Light of a single wavelength is incident normally on two slits that are 0.20 mm apart. Interference\nfringes are observed on a screen that is 5.4 m away from the slits. The distance between\nsuccessive bright fringes is 12 mm.\nWhat is the wavelength of the light?",
+   "options": {
+    "A": "440 nm",
+    "B": "540 nm",
+    "C": "650 nm",
+    "D": "900 nm"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x006",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q29",
+    "qid": "9702_s20_12_q29"
+   },
+   "stem": "The diagram shows an arrangement for demonstrating two-source interference using coherent\nlight of a single wavelength λ.\nlight of\nwavelength λ\nX\nP\nQ\nsecond bright fringe\nfirst bright fringe\ncentral bright fringe\nY\nslits\nscreen\n3.0 m\nNOT TO\nSCALE\nAn interference pattern is observed on a screen 3.0 m away from the slits X and Y, which have a\nseparation of 1.0 mm.\nThe central bright fringe is at Q, and the second bright fringe from the centre is at P.\nWhat is the distance between Q and P?",
+   "options": {
+    "A": "6.0 × 10³ λ",
+    "B": "3.0 × 10³ λ",
+    "C": "6.7 × 10⁻⁴ λ",
+    "D": "3.3 × 10⁻⁴ λ"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_12_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x007",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q29",
+    "qid": "9702_s20_13_q29"
+   },
+   "stem": "A double-slit interference experiment is set up using green light.\nA pattern of interference fringes is formed on a screen.\nWhich single change will increase the separation of the fringes?",
+   "options": {
+    "A": "increase the width of each slit",
+    "B": "move the screen nearer to the double slit",
+    "C": "use slits that are further apart",
+    "D": "use red light instead of green light"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x008",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q28",
+    "qid": "9702_s21_11_q28"
+   },
+   "stem": "A teacher sets up the apparatus shown to demonstrate a double-slit interference pattern on a\nscreen.\np\nr\nq\nsingle\nslit\nsource\nof light\ndouble\nslit\nscreen\nWhich change to the apparatus will increase the fringe spacing?",
+   "options": {
+    "A": "decrease the distance p",
+    "B": "decrease the distance q",
+    "C": "decrease the distance r",
+    "D": "decrease the wavelength of the light"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x009",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q28",
+    "qid": "9702_s21_12_q28"
+   },
+   "stem": "In a two-source interference experiment, light of a single frequency is incident on a double slit.\nThe light waves emerging from the slits are coherent.\nWhat is meant by coherent ?",
+   "options": {
+    "A": "The waves are in phase.",
+    "B": "The waves have a constant phase difference.",
+    "C": "The waves have the same amplitude.",
+    "D": "The waves interfere constructively wherever they overlap."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x010",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q29",
+    "qid": "9702_s21_13_q29"
+   },
+   "stem": "A double-slit interference pattern using red light of wavelength 7.0 × 10⁻⁷\nm has a fringe spacing\nof 3.5 mm.\nWhich fringe spacing would be observed for the same arrangement of apparatus but using blue\nlight of wavelength 4.5 × 10⁻⁷\nm?",
+   "options": {
+    "A": "2.3 mm",
+    "B": "3.5 mm",
+    "C": "5.4 mm",
+    "D": "9.0 mm"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x028",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q28",
+    "qid": "9702_w21_11_q28"
+   },
+   "stem": "Light of wavelength λ is incident normally on two narrow slits S₁ and S₂, a small distance apart. Bright and dark fringes are observed on a screen a long distance away from the slits, as shown in the diagram. The nth dark fringe from the central bright fringe is observed at point P on the screen. Which equation is correct for all positive values of n?",
+   "options": {
+    "A": "S₂P − S₁P = nλ/2",
+    "B": "S₂P − S₁P = nλ",
+    "C": "S₂P − S₁P = (n − 1/2)λ",
+    "D": "S₂P − S₁P = (n + 1/2)λ"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w21_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "Normal incidence makes the light at the two slits in phase. Dark fringes occur at odd half-wavelength path differences. Counting from n = 1 gives S₂P − S₁P = (n − 1/2)λ, so C is correct. A also includes bright fringes for even n; B describes bright fringes; D starts at the second dark fringe."
+  },
+  {
+   "id": "9702-8.3-x011",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q29",
+    "qid": "9702_s22_11_q29"
+   },
+   "stem": "Light of a single frequency passes through two narrow slits and produces an interference pattern\non a screen some distance away. The interference fringes are very close together.\nWhich change would increase the distance between the fringes?",
+   "options": {
+    "A": "Increase the brightness of the light source.",
+    "B": "Increase the distance between the slits and the screen.",
+    "C": "Increase the distance between the two slits.",
+    "D": "Increase the frequency of the light used."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x012",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q29",
+    "qid": "9702_s22_12_q29"
+   },
+   "stem": "An outdoor concert has two large speakers beside the stage for broadcasting music.\nIn order to test the speakers, they are made to emit sound of the same wavelength and the same\namplitude.\nThe curved lines in the diagram represent wavefronts.\nWhere is the loudest sound heard?",
+   "options": {
+    "D": "",
+    "B": "",
+    "A": "",
+    "C": "speakers stage"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_12_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x013",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q30",
+    "qid": "9702_s22_13_q30"
+   },
+   "stem": "A beam of light from a laser is incident normally on a double slit. Interference fringes are seen on\na screen placed parallel to the double slit.\nThe separation of the two slits is a. The distance between the slits and the screen is D. The\ndistance between the centres of two adjacent bright fringes is x.\nD and a are both halved.\nWhat is the distance between the centres of two adjacent bright fringes after these changes?",
+   "options": {
+    "A": "2 x",
+    "B": "x",
+    "C": "2x",
+    "D": "4x"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_13_q30.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x014",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q29",
+    "qid": "9702_w22_11_q29"
+   },
+   "stem": "Observable interference fringes are produced using light from a double slit. The intensity of the\nlight emerging from each slit is initially the same.\nThe intensity of the light emerging from one of the slits is now reduced.\nHow does this affect the interference pattern?",
+   "options": {
+    "A": "The bright fringes and the dark fringes all become brighter.",
+    "B": "The bright fringes and the dark fringes all become darker.",
+    "C": "The bright fringes become brighter and the dark fringes become darker.",
+    "D": "The bright fringes become darker and the dark fringes become brighter."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x015",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q29",
+    "qid": "9702_w22_12_q29"
+   },
+   "stem": "Light of a single frequency is incident on a pair of narrow slits that are a distance of 0.10 mm\napart. A series of bright and dark fringes is observed on a screen a distance of 2.0 m away. The\ndistance between adjacent bright fringes is 8.0 mm.\nlight\nscreen\nsecond-order dark fringe\nslits\nzero-order bright fringe\ndistance between\nbright fringes = 8.0 mm\n2.0 m\nNOT TO SCALE\nWhat is the path difference of the light waves from the two slits that meet at the second-order\ndark fringe?",
+   "options": {
+    "A": "2.0 × 10⁻⁷ m",
+    "B": "4.0 × 10⁻⁷ m",
+    "C": "6.0 × 10⁻⁷ m",
+    "D": "8.0 × 10⁻⁷ m"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_12_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates appear to have calculated the wavelength of the light waves (4.0 × 10–7 m) using the double-slit equation, but many did not interpret the significance of the second-order dark fringe correctly. The path difference must be an odd number of half-wavelengths for destructive interference to occur, which eliminates B and D. The path difference for the first-order dark fringe is 2 λ so the path difference for the second-order dark fringe is 3 2 λ . The correct answer is C: 3 2 × 4.0 × 10–7 = 6.0 × 10–7 m."
+  },
+  {
+   "id": "9702-8.3-x016",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q28",
+    "qid": "9702_w22_13_q28"
+   },
+   "stem": "A light source consists of a vertical slit illuminated by red light (R) and violet light (V). The\nwavelength of R is approximately twice the wavelength of V. A parallel vertical double slit is\nplaced nearby. A white screen is placed so that fringes are formed on it.\nslit\ndouble slit\nwhite screen\nlight source\nWhich graph best represents the interference fringes formed on the screen?",
+   "options": {
+    "A": "intensity V R V R R V R V",
+    "B": "intensity V R R V V",
+    "C": "intensity R V V V V R V",
+    "D": "R V R V R intensity V R R R R V R V R V R V distance distance distance distance 0 0 0 0"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x017",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q28",
+    "qid": "9702_s23_11_q28"
+   },
+   "stem": "A laser produces a beam of light of wavelength 650 nm. The beam is incident normally on two\nslits that are a distance of 0.12 mm apart.\nA screen is placed parallel to the slits. The bright interference fringes on the screen have a\nseparation of 7.5 cm.\nWhat is the distance between the screen and the two slits?",
+   "options": {
+    "A": "1.4 m",
+    "B": "2.8 m",
+    "C": "7.0 m",
+    "D": "14 m"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x018",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q28",
+    "qid": "9702_s23_12_q28"
+   },
+   "stem": "The diagram shows a view from above of a double-slit interference demonstration.\nL is a monochromatic light source with a vertical filament. B is a barrier with two narrow vertical\nslits and S is a screen upon which interference fringes form.\nL\nB\nS\nNOT TO\nSCALE\nThe intensity is I at the point on the screen where the centre of the fringe pattern forms.\nWhen one of the slits is covered, what is the intensity at the same point on the screen?",
+   "options": {
+    "A": "2 I",
+    "B": "2 I",
+    "C": "2 2 I",
+    "D": "4 I"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_12_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question challenging, with B being the most popular incorrect answer. Candidates need to recall that there is a (zero order) maximum at the centre of the fringe pattern where two light waves, of equal amplitude, are in phase and interfere constructively. Covering one of the slits reduces the amplitude of one of the waves to zero. Recalling that the intensity of a wave is proportional to the square of the amplitude of the wave, halving the amplitude reduces the intensity by a factor of 4. The new intensity is 4 I (answer D). Principal Examiner Report for Teachers"
+  },
+  {
+   "id": "9702-8.3-x019",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q28",
+    "qid": "9702_s23_13_q28"
+   },
+   "stem": "Two coherent electromagnetic waves are travelling in a vacuum. The two waves meet at a point.\nAt this point, the two waves have different intensities.\nWhich statement about the waves is not correct?",
+   "options": {
+    "A": "They have a constant phase difference at the point.",
+    "B": "They have the same amplitude at the point.",
+    "C": "They have the same frequency.",
+    "D": "They travel at the same speed."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x020",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q28",
+    "qid": "9702_w23_11_q28"
+   },
+   "stem": "Light of wavelength λ is emitted from two point sources R and S and falls onto a distant screen.\nscreen\nP\nS\nR\nNOT TO\nSCALE\nAt point P on the screen, the light intensity is zero.\nWhat could explain the zero intensity at P?",
+   "options": {
+    "A": "Light from the two sources is emitted 180° out of phase and the path difference to P is ¹ ₂ . λ",
+    "B": "Light from the two sources is emitted in phase and the path difference to P is λ.",
+    "C": "Light from the two sources is emitted 90° out of phase and the path difference to P is λ.",
+    "D": "Light from the two sources is emitted in phase and the path difference to P is ¹ ₂ . λ"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x021",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q28",
+    "qid": "9702_w23_12_q28"
+   },
+   "stem": "Coherent light of constant wavelength is incident normally on a double slit. Interference fringes\nare formed on a screen that is a fixed distance from the double slit. The screen is parallel to the\ndouble slit.\nThe separation of the slits is varied.\nWhich graph best shows the variation with slit separation a of the spacing x of the interference\nfringes?\n0\n0",
+   "options": {
+    "A": "x a 0 0",
+    "B": "x a 0 0",
+    "C": "x a 0 0",
+    "D": "x a"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_12_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "For a double slit experiment ax D λ = where λ is the wavelength of the light, a is the distance between the two slits, x is the distance between interference fringes and D is the distance between the slits and the screen. Rearranging this equation: D x a λ = As the slit separation a increases, x decreases, with D and λ constant, thus eliminating graphs C and D. Since 1 x a ∝ the correct graph is graph A."
+  },
+  {
+   "id": "9702-8.3-x022",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q28",
+    "qid": "9702_w23_13_q28"
+   },
+   "stem": "Light of a single wavelength is incident normally on a double slit. The slit separation can be\nvaried.\nA screen is placed a fixed distance away from the double slit. The screen and double slit are\nparallel. A pattern of bright interference fringes is observed on a screen.\na\nlight\ndouble\nslit\nscreen\nNOT TO\nSCALE\nWhich graph best shows the variation of the separation x of the bright interference fringes with\nthe slit separation a?\n0\n0\nx\n0",
+   "options": {
+    "A": "a",
+    "B": "a 0 x 0",
+    "C": "a 0 x 0",
+    "D": "a 0 x"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x023",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q29",
+    "qid": "9702_w24_13_q29"
+   },
+   "stem": "A source of coherent light is incident on two slits, P and Q, which are placed 80 mm apart. The\nlight has a single frequency of 1.5 × 10¹²\nHz. The light from the slits meets on a screen that is a\ndistance of 4.0 m from the slits. The screen is parallel to a line joining the slits.\nscreen\nintensity sensor\nP\nQ\n4.0 m\n80 mm\nnot to scale\nAn intensity sensor is placed on the screen at the midpoint of the interference pattern such that\nthe intensity reading is a maximum. The intensity sensor is moved along the screen.\nThe sensor travels through two intensity minima, two intensity maxima and stops in the middle of\nthe third intensity minimum.\nWhich distance does the sensor move through?",
+   "options": {
+    "A": "4.0 mm",
+    "B": "10 mm",
+    "C": "25 mm",
+    "D": "50 mm"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_13_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x024",
+   "kcs": [
+    "9702-8.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q28",
+    "qid": "9702_s25_13_q28"
+   },
+   "stem": "Electromagnetic waves of equal wavelengths are emitted from two sources, X and Y. The waves\nare emitted from X and Y with a phase difference of 180°.\nA detector moves along a path that is parallel to the line XY and detects a pattern of intensity\nmaxima and minima.\nThe diagram shows the arrangement of the sources and the path of the detector.\nZ\nX\nY\n110 cm\npath of detector\n70 cm\nAn intensity maximum is detected at point Z. Length XZ is 70 cm and length YZ is 110 cm.\nWhat is a possible wavelength of the waves?",
+   "options": {
+    "A": "10 cm",
+    "B": "16 cm",
+    "C": "20 cm",
+    "D": "40 cm"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x025",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q31",
+    "qid": "9702_s25_13_q31"
+   },
+   "stem": "Light of a single frequency from two coherent sources interferes to produce a pattern of bright\nand dark fringes on a screen.\nWhich change results in a larger fringe separation?",
+   "options": {
+    "A": "increasing the distance between the sources and the screen",
+    "B": "increasing the distance between the two sources",
+    "C": "increasing the frequency of the light",
+    "D": "increasing the intensity of the light"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x026",
+   "kcs": [
+    "9702-8.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q28",
+    "qid": "9702_w25_11_q28"
+   },
+   "stem": "A student carries out a double-slit experiment using a laser emitting red light of wavelength of\n680 nm. The light is incident normally on a double slit.\nThe diagram shows part of the pattern of bright fringes visible on a screen at a distance of 2.4 m\nfrom the slits. The distance across five bright fringes is measured as 34 mm.\n34 mm\nWhat is the slit separation?",
+   "options": {
+    "A": "8.5 × 10⁻³ m",
+    "B": "2.4 × 10⁻ 4 m",
+    "C": "1.9 × 10⁻ 4 m",
+    "D": "4.8 × 10⁻⁵ m"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w25_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.3-x027",
+   "kcs": [
+    "9702-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q31",
+    "qid": "9702_w25_12_q31"
+   },
+   "stem": "A student connects two loudspeakers to a signal generator.\nQ\nP\nsignal\ngenerator\nAs the student walks from P to Q, he notices that the loudness of the sound rises and falls\nrepeatedly.\nWhat causes the loudness of the sound to vary?",
+   "options": {
+    "A": "diffraction of the sound waves",
+    "B": "Doppler shift of the sound waves",
+    "C": "interference of the sound waves",
+    "D": "reflection of the sound waves"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w25_12_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-8.3.1",
+   "front": "Define interference and coherence.",
+   "back": "Interference is superposition of two or more waves giving maxima and minima. Coherent waves have the same frequency and a constant phase difference."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-8.3.1": {
+   "motivate": "Why can two waves make a region quieter or darker even while both sources are operating? Their displacements add, and a stable pattern needs a stable phase relationship.",
+   "establish": "Interference is the superposition of two or more waves, producing a resultant displacement with regions of reinforcement and cancellation. Coherent waves have the same frequency and a constant phase difference. The phase difference may be non-zero. Their amplitudes need not match for coherence, although equal amplitudes allow complete cancellation at destructive positions. In-phase arrivals reinforce; antiphase arrivals cancel when their amplitudes are equal.",
+   "connect": "This applies to water waves, sound, light and microwaves. It builds directly on superposition: the displacement at a point is the sum of the individual wave displacements.",
+   "note": "- Interference: superposition producing maxima and minima.\n- Coherence: same frequency and constant phase difference.\n- Equal amplitude is needed for complete cancellation, not coherence.",
+   "self_explain": "Can two waves remain coherent if one source is always a quarter-cycle behind the other? Explain using the definition.",
+   "source": "pack"
+  },
+  "9702-8.3.2": {
+   "motivate": "A fixed pattern in a ripple tank and alternating loud and quiet positions near loudspeakers come from the same two-source effect.",
+   "establish": "For water waves, connect two ripple-tank dippers to the same vibrator or motor; a stroboscope or suitable camera can reveal the fixed nodal and antinodal pattern. For sound, feed two loudspeakers from one signal generator and move a microphone through the overlap region to detect alternating maxima and minima. For light, illuminate two narrow slits from one monochromatic source and observe bright and dark fringes on a screen. For microwaves, drive two sources from one oscillator and move a receiver through the overlap region. In each case the common drive provides the same frequency and constant phase difference; the waves must overlap where the pattern is observed.",
+   "connect": "The shared source implements coherence, while the detector or screen reveals where the arriving waves reinforce or cancel.",
+   "note": "- Ripple tank: two dippers, one vibrator, fixed nodal lines.\n- Sound: two loudspeakers, one signal generator, moving microphone.\n- Light: one monochromatic source, two slits, screen fringes.\n- Microwaves: shared oscillator, moving receiver.",
+   "self_explain": "Why must the two ripple-tank dippers be connected to the same motor rather than driven independently?",
+   "source": "pack"
+  },
+  "9702-8.3.3": {
+   "motivate": "A pattern is useful only if its bright and dark places stay put long enough to observe.",
+   "establish": "Two-source fringes are observed where waves overlap and their phase difference at each position remains constant. The sources therefore need the same frequency and a constant relative phase: coherence. For initially in-phase sources, a path difference $n\\lambda$ produces a maximum and $(n+\\tfrac12)\\lambda$ a minimum. A fixed non-zero initial phase difference shifts the fringe positions. Comparable amplitudes make the contrast clear; equal amplitudes allow complete cancellation at a minimum. For light, a monochromatic source helps prevent fringes of different wavelengths from washing one another out.",
+   "connect": "The apparatus in the preceding card supplies coherence; the path difference then decides whether each location is a maximum or minimum.",
+   "note": "- Overlap and coherence give a stationary pattern.\n- In-phase sources: $n\\lambda$ maximum; $(n+\\tfrac12)\\lambda$ minimum.\n- Similar amplitudes improve contrast; equal amplitudes permit zero minima.",
+   "self_explain": "Why would a changing relative phase blur a fringe pattern even if both sources keep emitting?",
+   "source": "pack"
+  },
+  "9702-8.3.4": {
+   "motivate": "Fringe spacing lets you determine a wavelength too small to measure directly with a ruler.",
+   "establish": "For double-slit interference using light, recall and use $\\lambda=ax/D$. Here $\\lambda$ is wavelength, $a$ is the separation of the two slits, $x$ is the spacing between adjacent bright fringes or adjacent dark fringes, and $D$ is the distance from the slits to the screen. Convert all measured lengths to metres before substitution. Rearranging gives $x=\\lambda D/a$: increasing wavelength or screen distance increases spacing; increasing slit separation decreases it. Measure over several fringe intervals and divide by the number of intervals for a more reliable $x$.",
+   "connect": "The relation quantifies the stable light pattern produced by coherent waves from the double slit.",
+   "note": "- $\\lambda=ax/D$ for double-slit light.\n- $a$: slit separation; $x$: fringe spacing; $D$: slit-to-screen distance.\n- Convert to metres; measure several fringe intervals.",
+   "self_explain": "If slit separation doubles while wavelength and screen distance stay fixed, what happens to adjacent fringe spacing?",
+   "source": "pack"
+  }
+ }
+}

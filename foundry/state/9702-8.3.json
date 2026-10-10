@@ -1,0 +1,278 @@
+{
+ "sub": "9702-8.3",
+ "stage": "ready",
+ "created": "2026-10-10T15:42:19+08:00",
+ "updated": "2026-10-10T16:06:59+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:45:05+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 63 items"
+  },
+  {
+   "t": "2026-10-10T15:51:17+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "40 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T15:52:59+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-10T15:55:23+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:05:15+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 2 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:06:34+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "1 agreed, 0 disputed; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:06:59+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 64,
+  "extra": 28
+ },
+ "disputes": [
+  {
+   "id": "9702-8.3-p06",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "fix: Retain answer=\"C\". The source image and official examiner report confirm C; D is a trough-trough overlap, not a minimum. Set explanation to exactly: \"The curved wavefronts represent peaks at one instant; troughs lie halfway between adjacent wavefronts from each slit. At C, a peak from one slit meets a trough from the other, so the equal and opposite displacements cancel completely. At B, two peaks reinforce. At D, two troughs reinforce to give a larger negative displacement: this is constructive interference, not an intensity minimum.\""
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9702-8.3-i41 hint 3",
+   "rule": "hint gives it away",
+   "evidence": "Start with coherence, superposition, or $\\lambda=ax/D$ as appropriate.",
+   "suggested": "Replace the formula with a prompt to recall the relationship between wavelength, slit separation, fringe spacing and screen distance.",
+   "status": "fixed",
+   "resolution": "fix: The question asks learners to recall the double-slit formula, so giving that formula reveals the answer. Set item 9702-8.3-i41 hints[2] to exactly: \"Recall the relationship between wavelength, slit separation, adjacent fringe spacing and slit-to-screen distance, and identify the symbol for each quantity.\""
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "9702-8.3-p06",
+   "instruction": "Retain answer=\"C\". The source image and official examiner report confirm C; D is a trough-trough overlap, not a minimum. Set explanation to exactly: \"The curved wavefronts represent peaks at one instant; troughs lie halfway between adjacent wavefronts from each slit. At C, a peak from one slit meets a trough from the other, so the equal and opposite displacements cancel completely. At B, two peaks reinforce. At D, two troughs reinforce to give a larger negative displacement: this is constructive interference, not an intensity minimum.\"",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-8.3-i41 hint 3",
+   "instruction": "The question asks learners to recall the double-slit formula, so giving that formula reveals the answer. Set item 9702-8.3-i41 hints[2] to exactly: \"Recall the relationship between wavelength, slit separation, adjacent fringe spacing and slit-to-screen distance, and identify the symbol for each quantity.\"",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 69027,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:42:49+08:00",
+   "log": "foundry/logs/9702-8.3.drafter.1010-154249.log",
+   "out": "foundry/logs/9702-8.3.drafter.1010-154249.out.json",
+   "finished": "2026-10-10T15:45:05+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-8.3.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/08 Superposition/8.3 Interference.md",
+    "items": 63,
+    "templates": 0,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 73861,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:49:41+08:00",
+   "log": "foundry/logs/9702-8.3.solver-1.1010-154941.log",
+   "out": "foundry/logs/9702-8.3.solver-1.1010-154941.out.json",
+   "expects": "build/work/blind/9702-8.3.answers.part1.json",
+   "finished": "2026-10-10T15:50:28+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-8.3.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 73863,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:49:41+08:00",
+   "log": "foundry/logs/9702-8.3.solver-2.1010-154941.log",
+   "out": "foundry/logs/9702-8.3.solver-2.1010-154941.out.json",
+   "expects": "build/work/blind/9702-8.3.answers.part2.json",
+   "finished": "2026-10-10T15:50:10+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-8.3.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 74590,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:50:36+08:00",
+   "log": "foundry/logs/9702-8.3.solver-3.1010-155036.log",
+   "out": "foundry/logs/9702-8.3.solver-3.1010-155036.out.json",
+   "expects": "build/work/blind/9702-8.3.answers.part3.json",
+   "finished": "2026-10-10T15:50:56+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9702-8.3.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 74594,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:50:36+08:00",
+   "log": "foundry/logs/9702-8.3.checker.1010-155036.log",
+   "out": "foundry/logs/9702-8.3.checker.1010-155036.out.json",
+   "expects": "build/work/foundry/9702-8.3.check.json",
+   "finished": "2026-10-10T15:51:08+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — build/work/foundry/9702-8.3.check.json"
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 75950,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:52:18+08:00",
+   "log": "foundry/logs/9702-8.3.tiebreak.1010-155218.log",
+   "out": "foundry/logs/9702-8.3.tiebreak.1010-155218.out.json",
+   "expects": "build/work/blind/9702-8.3.tiebreak.json",
+   "finished": "2026-10-10T15:52:52+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9702-8.3.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 78308,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T15:54:52+08:00",
+   "log": "foundry/logs/9702-8.3.adjudicator.1010-155452.log",
+   "out": "foundry/logs/9702-8.3.adjudicator.1010-155452.out.json",
+   "finished": "2026-10-10T15:55:28+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9702-8.3-p06 fix: Retain C; explain why troughs at D reinforce.\nitem 9702-8.3-i41 hint 3 fix: Replace answer-revealing formula with recall prompt."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 84664,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:04:56+08:00",
+   "log": "foundry/logs/9702-8.3.fixer.1010-160456.log",
+   "out": "foundry/logs/9702-8.3.fixer.1010-160456.out.json",
+   "finished": "2026-10-10T16:05:15+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 2,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 85346,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:05:53+08:00",
+   "log": "foundry/logs/9702-8.3.solver.1010-160553.log",
+   "out": "foundry/logs/9702-8.3.solver.1010-160553.out.json",
+   "expects": "build/work/blind/9702-8.3.recheck.answers.json",
+   "finished": "2026-10-10T16:06:22+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9702-8.3.recheck.answers.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q29": "9702-8.3-x001",
+  "9702_s19_12_q30": "9702-8.3-x002",
+  "9702_s19_12_q31": "9702-8.3-x003",
+  "9702_s19_13_q29": "9702-8.3-x004",
+  "9702_s20_11_q29": "9702-8.3-x005",
+  "9702_s20_12_q29": "9702-8.3-x006",
+  "9702_s20_13_q29": "9702-8.3-x007",
+  "9702_s21_11_q28": "9702-8.3-x008",
+  "9702_s21_12_q28": "9702-8.3-x009",
+  "9702_s21_13_q29": "9702-8.3-x010",
+  "9702_s22_11_q29": "9702-8.3-x011",
+  "9702_s22_12_q29": "9702-8.3-x012",
+  "9702_s22_13_q30": "9702-8.3-x013",
+  "9702_w22_11_q29": "9702-8.3-x014",
+  "9702_w22_12_q29": "9702-8.3-x015",
+  "9702_w22_13_q28": "9702-8.3-x016",
+  "9702_s23_11_q28": "9702-8.3-x017",
+  "9702_s23_12_q28": "9702-8.3-x018",
+  "9702_s23_13_q28": "9702-8.3-x019",
+  "9702_w23_11_q28": "9702-8.3-x020",
+  "9702_w23_12_q28": "9702-8.3-x021",
+  "9702_w23_13_q28": "9702-8.3-x022",
+  "9702_w24_13_q29": "9702-8.3-x023",
+  "9702_s25_13_q28": "9702-8.3-x024",
+  "9702_s25_13_q31": "9702-8.3-x025",
+  "9702_w25_11_q28": "9702-8.3-x026",
+  "9702_w25_12_q31": "9702-8.3-x027",
+  "9702_w21_11_q28": "9702-8.3-x028"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
