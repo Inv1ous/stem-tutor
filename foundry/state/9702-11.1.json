@@ -1,0 +1,270 @@
+{
+ "sub": "9702-11.1",
+ "stage": "ready",
+ "created": "2026-10-10T16:49:04+08:00",
+ "updated": "2026-10-10T17:18:24+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:50:47+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 132 items"
+  },
+  {
+   "t": "2026-10-10T16:58:34+08:00",
+   "from": "solve",
+   "to": "adjudicate",
+   "note": "61 agreed, 0 disputed; 2 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:05:27+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T17:18:14+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 2 fixes applied"
+  },
+  {
+   "t": "2026-10-10T17:18:24+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 132,
+  "extra": 47
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "KC 9702-11.1.11 / pack items 9702-11.1-i111–i116",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Statement: represent α- and β-decay by a radioactive decay equation of the form ${}^{238}_{92}U \\rightarrow {}^{234}_{90}Th + {}^{4}_{2}\\alpha$; item 9702-11.1-i112 asks, 'How do β− and β+ change $Z$?'",
+   "suggested": "Add a question requiring students to write a complete β-decay equation with the daughter nuclide and emitted particles.",
+   "status": "fixed",
+   "resolution": "fix: Finding valid: recalling changes to Z does not test constructing complete beta-decay equations. In build/out/packs/9702/9702-11.1.json, update item 9702-11.1-i114 by setting exactly these fields (retain id, kcs and source): {\"kind\": \"short\", \"difficulty\": 3, \"command_word\": \"Determine\", \"stem\": \"Determine the complete nuclear decay equations for (a) β− decay of ${}^{14}_{6}C$ to nitrogen (N), and (b) β+ decay of ${}^{18}_{9}F$ to oxygen (O). Show the nucleon and proton numbers of each daughter nucleus, the emitted electron or positron, and the appropriate (anti)neutrino.\", \"marks\": 4, \"rubric\": [{\"point\": \"(a) Daughter nucleus is ${}^{14}_{7}N$.\", \"keywords\": [[\"14\"], [\"7\"], [\"N\", \"nitrogen\"]]}, {\"point\": \"(a) Complete equation: ${}^{14}_{6}C\\\\rightarrow{}^{14}_{7}N+{}^{0}_{-1}e+\\\\bar\\\\nu_e$. Accept β− for the electron and an explicitly named electron antineutrino.\", \"keywords\": [[\"electron\", \"e\", \"β−\"], [\"antineutrino\", \"bar\"]]}, {\"point\": \"(b) Daughter nucleus is ${}^{18}_{8}O$.\", \"keywords\": [[\"18\"], [\"8\"], [\"O\", \"oxygen\"]]}, {\"point\": \"(b) Complete equation: ${}^{18}_{9}F\\\\rightarrow{}^{18}_{8}O+{}^{0}_{+1}e+\\\\nu_e$. Accept β+ for the positron and an explicitly named electron neutrino.\", \"keywords\": [[\"positron\", \"e\", \"β+\"], [\"neutrino\", \"nu\"]]}], \"explanation\": \"In β− decay a neutron becomes a proton: $A$ stays 14, $Z$ rises from 6 to 7, and an electron and electron antineutrino are emitted: ${}^{14}_{6}C\\\\rightarrow{}^{14}_{7}N+{}^{0}_{-1}e+\\\\bar\\\\nu_e$. In β+ decay a proton becomes a neutron: $A$ stays 18, $Z$ falls from 9 to 8, and a positron and electron neutrino are emitted: ${}^{18}_{9}F\\\\rightarrow{}^{18}_{8}O+{}^{0}_{+1}e+\\\\nu_e$. Charge balances as $6=7-1$ and $9=8+1$; nucleon number is conserved.\", \"hints\": [\"Keep the daughter nucleon number equal to the parent nucleon number.\", \"Balance charge using −1 for an electron and +1 for a positron.\", \"Include an antineutrino for β− and a neutrino for β+.\"]}"
+  },
+  {
+   "ref": "KC 9702-11.1.12 / pack items 9702-11.1-i121–i126",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Statement: use the unified atomic mass unit (u) as a unit of mass; item 9702-11.1-i122 asks, 'How many kilograms are in $1u$?'",
+   "suggested": "Add a mass calculation or comparison in which students use u as the mass unit.",
+   "status": "fixed",
+   "resolution": "fix: Finding valid: recalling the definition and kg equivalent does not test using u to express a mass. In build/out/packs/9702/9702-11.1.json, update item 9702-11.1-i124 by setting exactly these fields and deleting its obsolete rubric (retain id, kcs and source): {\"kind\": \"numeric\", \"difficulty\": 2, \"command_word\": \"Calculate\", \"stem\": \"A particle has a mass of $6.64\\\\times10^{-27}\\\\,\\\\mathrm{kg}$. Calculate its mass in u. Use $1\\\\,\\\\mathrm{u}=1.66\\\\times10^{-27}\\\\,\\\\mathrm{kg}$. Give your answer to three significant figures.\", \"marks\": 1, \"answer\": {\"value\": 4.0, \"unit\": \"u\", \"sf_ok\": [3]}, \"explanation\": \"Divide the mass in kg by the mass of one u: $m=(6.64\\\\times10^{-27})/(1.66\\\\times10^{-27})=4.00\\\\,\\\\mathrm{u}$.\", \"hints\": [\"Express the mass as a number of atomic mass units.\", \"Divide by the mass in kg of one u.\", \"Calculate 6.64 ÷ 1.66 and report the result in u to three significant figures.\"]}"
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "KC 9702-11.1.11 / pack items 9702-11.1-i111–i116",
+   "instruction": "Finding valid: recalling changes to Z does not test constructing complete beta-decay equations. In build/out/packs/9702/9702-11.1.json, update item 9702-11.1-i114 by setting exactly these fields (retain id, kcs and source): {\"kind\": \"short\", \"difficulty\": 3, \"command_word\": \"Determine\", \"stem\": \"Determine the complete nuclear decay equations for (a) β− decay of ${}^{14}_{6}C$ to nitrogen (N), and (b) β+ decay of ${}^{18}_{9}F$ to oxygen (O). Show the nucleon and proton numbers of each daughter nucleus, the emitted electron or positron, and the appropriate (anti)neutrino.\", \"marks\": 4, \"rubric\": [{\"point\": \"(a) Daughter nucleus is ${}^{14}_{7}N$.\", \"keywords\": [[\"14\"], [\"7\"], [\"N\", \"nitrogen\"]]}, {\"point\": \"(a) Complete equation: ${}^{14}_{6}C\\\\rightarrow{}^{14}_{7}N+{}^{0}_{-1}e+\\\\bar\\\\nu_e$. Accept β− for the electron and an explicitly named electron antineutrino.\", \"keywords\": [[\"electron\", \"e\", \"β−\"], [\"antineutrino\", \"bar\"]]}, {\"point\": \"(b) Daughter nucleus is ${}^{18}_{8}O$.\", \"keywords\": [[\"18\"], [\"8\"], [\"O\", \"oxygen\"]]}, {\"point\": \"(b) Complete equation: ${}^{18}_{9}F\\\\rightarrow{}^{18}_{8}O+{}^{0}_{+1}e+\\\\nu_e$. Accept β+ for the positron and an explicitly named electron neutrino.\", \"keywords\": [[\"positron\", \"e\", \"β+\"], [\"neutrino\", \"nu\"]]}], \"explanation\": \"In β− decay a neutron becomes a proton: $A$ stays 14, $Z$ rises from 6 to 7, and an electron and electron antineutrino are emitted: ${}^{14}_{6}C\\\\rightarrow{}^{14}_{7}N+{}^{0}_{-1}e+\\\\bar\\\\nu_e$. In β+ decay a proton becomes a neutron: $A$ stays 18, $Z$ falls from 9 to 8, and a positron and electron neutrino are emitted: ${}^{18}_{9}F\\\\rightarrow{}^{18}_{8}O+{}^{0}_{+1}e+\\\\nu_e$. Charge balances as $6=7-1$ and $9=8+1$; nucleon number is conserved.\", \"hints\": [\"Keep the daughter nucleon number equal to the parent nucleon number.\", \"Balance charge using −1 for an electron and +1 for a positron.\", \"Include an antineutrino for β− and a neutrino for β+.\"]}",
+   "status": "done"
+  },
+  {
+   "ref": "KC 9702-11.1.12 / pack items 9702-11.1-i121–i126",
+   "instruction": "Finding valid: recalling the definition and kg equivalent does not test using u to express a mass. In build/out/packs/9702/9702-11.1.json, update item 9702-11.1-i124 by setting exactly these fields and deleting its obsolete rubric (retain id, kcs and source): {\"kind\": \"numeric\", \"difficulty\": 2, \"command_word\": \"Calculate\", \"stem\": \"A particle has a mass of $6.64\\\\times10^{-27}\\\\,\\\\mathrm{kg}$. Calculate its mass in u. Use $1\\\\,\\\\mathrm{u}=1.66\\\\times10^{-27}\\\\,\\\\mathrm{kg}$. Give your answer to three significant figures.\", \"marks\": 1, \"answer\": {\"value\": 4.0, \"unit\": \"u\", \"sf_ok\": [3]}, \"explanation\": \"Divide the mass in kg by the mass of one u: $m=(6.64\\\\times10^{-27})/(1.66\\\\times10^{-27})=4.00\\\\,\\\\mathrm{u}$.\", \"hints\": [\"Express the mass as a number of atomic mass units.\", \"Divide by the mass in kg of one u.\", \"Calculate 6.64 ÷ 1.66 and report the result in u to three significant figures.\"]}",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 18696,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:49:04+08:00",
+   "log": "foundry/logs/9702-11.1.drafter.1010-164904.log",
+   "out": "foundry/logs/9702-11.1.drafter.1010-164904.out.json",
+   "finished": "2026-10-10T16:50:47+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-11.1.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/11 Particle physics/11.1 Atoms, nuclei and radiation.md",
+    "items": 132,
+    "templates": 1,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Generated short-answer rubrics are broad and should be reviewed for marking precision."
+    ]
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 22691,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:55:17+08:00",
+   "log": "foundry/logs/9702-11.1.solver-1.1010-165517.log",
+   "out": "foundry/logs/9702-11.1.solver-1.1010-165517.out.json",
+   "expects": "build/work/blind/9702-11.1.answers.part1.json",
+   "finished": "2026-10-10T16:55:40+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-11.1.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 23193,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:55:58+08:00",
+   "log": "foundry/logs/9702-11.1.solver-2.1010-165558.log",
+   "out": "foundry/logs/9702-11.1.solver-2.1010-165558.out.json",
+   "expects": "build/work/blind/9702-11.1.answers.part2.json",
+   "finished": "2026-10-10T16:56:29+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-11.1.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 23198,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:55:58+08:00",
+   "log": "foundry/logs/9702-11.1.solver-3.1010-165558.log",
+   "out": "foundry/logs/9702-11.1.solver-3.1010-165558.out.json",
+   "expects": "build/work/blind/9702-11.1.answers.part3.json",
+   "finished": "2026-10-10T16:56:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-11.1.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "solver#4": {
+   "pid": 23799,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:56:38+08:00",
+   "log": "foundry/logs/9702-11.1.solver-4.1010-165638.log",
+   "out": "foundry/logs/9702-11.1.solver-4.1010-165638.out.json",
+   "expects": "build/work/blind/9702-11.1.answers.part4.json",
+   "finished": "2026-10-10T16:56:54+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9702-11.1.answers.part4.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 23804,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:56:38+08:00",
+   "log": "foundry/logs/9702-11.1.checker.1010-165638.log",
+   "out": "foundry/logs/9702-11.1.checker.1010-165638.out.json",
+   "expects": "build/work/foundry/9702-11.1.check.json",
+   "finished": "2026-10-10T16:57:20+08:00",
+   "exit": 0,
+   "report": {
+    "text": "2 findings — wrote `build/work/foundry/9702-11.1.check.json`."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 29269,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T17:04:20+08:00",
+   "log": "foundry/logs/9702-11.1.adjudicator.1010-170420.log",
+   "out": "foundry/logs/9702-11.1.adjudicator.1010-170420.out.json",
+   "finished": "2026-10-10T17:05:35+08:00",
+   "exit": 0,
+   "report": {
+    "text": "KC 9702-11.1.11 / pack items 9702-11.1-i111–i116 fix: require complete β− and β+ decay equations.\nKC 9702-11.1.12 / pack items 9702-11.1-i121–i126 fix: require a mass conversion from kg to u."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 36835,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T17:16:58+08:00",
+   "log": "foundry/logs/9702-11.1.fixer.1010-171658.log",
+   "out": "foundry/logs/9702-11.1.fixer.1010-171658.out.json",
+   "finished": "2026-10-10T17:18:14+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 2,
+    "not_done": [
+     "Syllabus gate still reports 12 missing teaching cards across the chapter; these were outside the requested fixes."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q39": "9702-11.1-x001",
+  "9702_s19_12_q38": "9702-11.1-x002",
+  "9702_s19_13_q39": "9702-11.1-x003",
+  "9702_w19_12_q38": "9702-11.1-x004",
+  "9702_w19_13_q39": "9702-11.1-x005",
+  "9702_s20_11_q39": "9702-11.1-x006",
+  "9702_s20_12_q39": "9702-11.1-x007",
+  "9702_s20_13_q39": "9702-11.1-x008",
+  "9702_w20_11_q38": "9702-11.1-x009",
+  "9702_w20_11_q39": "9702-11.1-x010",
+  "9702_w20_12_q39": "9702-11.1-x011",
+  "9702_s21_11_q39": "9702-11.1-x012",
+  "9702_s21_12_q39": "9702-11.1-x013",
+  "9702_w21_11_q39": "9702-11.1-x014",
+  "9702_w21_13_q38": "9702-11.1-x015",
+  "9702_w21_13_q39": "9702-11.1-x016",
+  "9702_s22_11_q38": "9702-11.1-x017",
+  "9702_s22_11_q39": "9702-11.1-x018",
+  "9702_s22_12_q38": "9702-11.1-x019",
+  "9702_s22_12_q39": "9702-11.1-x020",
+  "9702_s22_13_q39": "9702-11.1-x021",
+  "9702_w22_11_q39": "9702-11.1-x022",
+  "9702_s23_11_q38": "9702-11.1-x023",
+  "9702_s23_11_q39": "9702-11.1-x024",
+  "9702_s23_12_q38": "9702-11.1-x025",
+  "9702_s23_13_q38": "9702-11.1-x026",
+  "9702_s23_13_q39": "9702-11.1-x027",
+  "9702_w23_11_q38": "9702-11.1-x028",
+  "9702_w23_11_q39": "9702-11.1-x029",
+  "9702_w23_13_q38": "9702-11.1-x030",
+  "9702_s24_11_q37": "9702-11.1-x031",
+  "9702_s24_11_q38": "9702-11.1-x032",
+  "9702_s24_12_q37": "9702-11.1-x033",
+  "9702_s24_12_q39": "9702-11.1-x034",
+  "9702_s24_12_q40": "9702-11.1-x035",
+  "9702_s24_13_q38": "9702-11.1-x036",
+  "9702_w24_11_q39": "9702-11.1-x037",
+  "9702_w24_12_q40": "9702-11.1-x038",
+  "9702_w24_13_q40": "9702-11.1-x039",
+  "9702_s25_11_q39": "9702-11.1-x040",
+  "9702_s25_12_q38": "9702-11.1-x041",
+  "9702_s25_13_q38": "9702-11.1-x042",
+  "9702_s25_13_q40": "9702-11.1-x043",
+  "9702_w25_11_q38": "9702-11.1-x044",
+  "9702_w25_11_q39": "9702-11.1-x045",
+  "9702_w25_12_q39": "9702-11.1-x046",
+  "9702_w25_12_q40": "9702-11.1-x047"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
