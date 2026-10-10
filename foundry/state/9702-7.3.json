@@ -1,0 +1,217 @@
+{
+ "sub": "9702-7.3",
+ "stage": "ready",
+ "created": "2026-10-10T15:30:06+08:00",
+ "updated": "2026-10-10T15:39:18+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:32:20+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 45 items"
+  },
+  {
+   "t": "2026-10-10T15:35:34+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "46 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T15:37:00+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "4 checker findings"
+  },
+  {
+   "t": "2026-10-10T15:39:05+08:00",
+   "from": "adjudicate",
+   "to": "sign",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T15:39:18+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 45,
+  "extra": 27
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item 9702-7.3-p05",
+   "rule": "off syllabus",
+   "evidence": "A stationary insect on the surface of water creates circular waves with its legs, as shown in diagram 1. The insect begins to travel to the right as shown in diagram 2. Which row describes the change to the waves at X caused by the movement of the insect?",
+   "suggested": "Replace with a moving sound-source question assessing the same frequency and wave-speed distinction.",
+   "status": "closed",
+   "resolution": "keep: The finding is rejected: this past-paper question is explicitly selected in the bundle under KC 9702-7.3.1 and uses water wavefronts to test the same moving-source, stationary-observer reasoning, without requiring additional theory. The source image shows wavefronts compressed towards fixed point X; the observed frequency increases while wave speed remains unchanged, so official key D and the existing explanation agree with the examiner report."
+  },
+  {
+   "ref": "item 9702-7.3-x001",
+   "rule": "off syllabus",
+   "evidence": "A toy motorboat moving with constant velocity v vibrates up and down on the surface of a pond. This causes the boat to act as a source of circular water waves of frequency 2.0 Hz.",
+   "suggested": "Replace with a moving sound-source calculation for a stationary observer.",
+   "status": "closed",
+   "resolution": "keep: The finding is rejected: the original question explicitly supplies permission to apply the sound Doppler formula to water waves, so it tests transfer of KC 9702-7.3.2 rather than recall of an additional formula. The source image confirms a stationary observer and unchanged option ordering. From 3.0 = 2.0*1.5/(1.5-vs), vs = 0.50 m/s towards the man; retain official key B and the authentic past-paper wording."
+  },
+  {
+   "ref": "item 9702-7.3-x003",
+   "rule": "off syllabus",
+   "evidence": "The Doppler effect equation for sound waves also applies to water waves. What is the frequency with which the waves hit the sailing boat?",
+   "suggested": "Use the chapter expression in a sound-wave context instead.",
+   "status": "closed",
+   "resolution": "keep: The finding is rejected: the stem explicitly states that the sound Doppler equation applies to water waves and the sailing boat is stationary. This is a supplied-context application of KC 9702-7.3.2, not a moving-observer extension. The observed frequency is 0.20*20/(20-5) = 0.2666667 Hz, rounding to 0.27 Hz; retain official key D and the original wording."
+  },
+  {
+   "ref": "item 9702-7.3-x013",
+   "rule": "off syllabus",
+   "evidence": "With which waves can the Doppler effect be observed? A: all waves including sound and light",
+   "suggested": "Replace with a question about a moving sound source and stationary observer.",
+   "status": "closed",
+   "resolution": "keep: The finding is rejected: the bundle explicitly includes this official past-paper question under KC 9702-7.3.1. Qualitative recognition that relative motion can cause Doppler shifts for all wave types is valid conceptual context for sound; it requires neither an electromagnetic Doppler formula nor a moving-observer calculation. Retain official key A: sound waves only and sound-and-light only incorrectly restrict the phenomenon."
+  }
+ ],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 59794,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:30:06+08:00",
+   "log": "foundry/logs/9702-7.3.drafter.1010-153006.log",
+   "out": "foundry/logs/9702-7.3.drafter.1010-153006.out.json",
+   "finished": "2026-10-10T15:32:20+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-7.3.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/07 Waves/7.3 Doppler effect for sound waves.md",
+    "items": 45,
+    "templates": 1,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 62914,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:34:58+08:00",
+   "log": "foundry/logs/9702-7.3.solver-1.1010-153458.log",
+   "out": "foundry/logs/9702-7.3.solver-1.1010-153458.out.json",
+   "expects": "build/work/blind/9702-7.3.answers.part1.json",
+   "finished": "2026-10-10T15:35:22+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [9702-7.3.answers.part1.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-7.3.answers.part1.json)."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 62917,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:34:58+08:00",
+   "log": "foundry/logs/9702-7.3.solver-2.1010-153458.log",
+   "out": "foundry/logs/9702-7.3.solver-2.1010-153458.out.json",
+   "expects": "build/work/blind/9702-7.3.answers.part2.json",
+   "finished": "2026-10-10T15:35:21+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [9702-7.3.answers.part2.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-7.3.answers.part2.json)."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 62924,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:34:58+08:00",
+   "log": "foundry/logs/9702-7.3.solver-3.1010-153458.log",
+   "out": "foundry/logs/9702-7.3.solver-3.1010-153458.out.json",
+   "expects": "build/work/blind/9702-7.3.answers.part3.json",
+   "finished": "2026-10-10T15:35:24+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 6 questions in `build/work/blind/9702-7.3.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 64028,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:36:14+08:00",
+   "log": "foundry/logs/9702-7.3.checker.1010-153614.log",
+   "out": "foundry/logs/9702-7.3.checker.1010-153614.out.json",
+   "expects": "build/work/foundry/9702-7.3.check.json",
+   "finished": "2026-10-10T15:36:51+08:00",
+   "exit": 0,
+   "report": {
+    "text": "4 findings — wrote `build/work/foundry/9702-7.3.check.json`."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 65804,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T15:38:07+08:00",
+   "log": "foundry/logs/9702-7.3.adjudicator.1010-153807.log",
+   "out": "foundry/logs/9702-7.3.adjudicator.1010-153807.out.json",
+   "finished": "2026-10-10T15:39:12+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9702-7.3-p05 keep: Valid wavefront analogy; official key D confirmed.\n9702-7.3-x001 keep: Formula transfer explicitly supplied; key B verified.\n9702-7.3-x003 keep: Formula transfer explicitly supplied; key D verified.\n9702-7.3-x013 keep: Bundle includes valid qualitative generalisation; key A confirmed."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q26": "9702-7.3-x001",
+  "9702_s19_12_q26": "9702-7.3-x002",
+  "9702_s19_13_q24": "9702-7.3-x003",
+  "9702_w19_12_q23": "9702-7.3-x004",
+  "9702_w19_13_q24": "9702-7.3-x005",
+  "9702_s20_11_q25": "9702-7.3-x006",
+  "9702_s20_12_q25": "9702-7.3-x007",
+  "9702_s20_13_q25": "9702-7.3-x008",
+  "9702_w20_12_q25": "9702-7.3-x009",
+  "9702_w20_13_q25": "9702-7.3-x010",
+  "9702_s21_12_q24": "9702-7.3-x011",
+  "9702_s21_13_q25": "9702-7.3-x012",
+  "9702_w21_11_q24": "9702-7.3-x013",
+  "9702_w21_13_q25": "9702-7.3-x014",
+  "9702_s22_11_q24": "9702-7.3-x015",
+  "9702_s22_12_q24": "9702-7.3-x016",
+  "9702_s22_13_q25": "9702-7.3-x017",
+  "9702_s23_13_q22": "9702-7.3-x018",
+  "9702_w23_11_q22": "9702-7.3-x019",
+  "9702_s24_11_q27": "9702-7.3-x020",
+  "9702_s24_12_q21": "9702-7.3-x021",
+  "9702_s24_13_q24": "9702-7.3-x022",
+  "9702_w24_13_q24": "9702-7.3-x023",
+  "9702_s25_11_q24": "9702-7.3-x024",
+  "9702_s25_12_q26": "9702-7.3-x025",
+  "9702_w25_11_q27": "9702-7.3-x026",
+  "9702_w25_12_q27": "9702-7.3-x027"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

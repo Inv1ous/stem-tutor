@@ -1,0 +1,18 @@
+{
+  "9702-7.3.1": {
+    "motivate": "Why does a passing siren sound higher before it passes and lower afterwards, even while the siren emits steadily?",
+    "discover": {"stem": "A sound source moves directly towards a stationary listener. What happens to the frequency heard?", "options": {"A": "It rises above the source frequency.", "B": "It falls below the source frequency.", "C": "It stays equal to the source frequency.", "D": "It becomes zero."}, "answer": "A", "explanation": "Successive wavefronts are emitted from positions closer to the listener, so their spacing shrinks and their arrival rate rises."},
+    "establish": "The Doppler effect is a difference between observed frequency and source frequency caused here by motion of the source of sound relative to a stationary observer. The source emits waves at frequency $f_s$; the stationary observer detects wavefronts at frequency $f_o$. During approach, wavefronts in front of the moving source bunch together. The wavelength is shorter and, because the sound speed in the medium stays fixed, $v=f\\lambda$ gives a higher observed frequency: $f_o>f_s$. During recession, the wavefronts reaching the observer are farther apart, and $f_o<f_s$. The source can keep emitting at a constant frequency throughout. This outcome concerns a moving source and stationary observer.",
+    "connect": "Recall $v=f\\lambda$ from progressive waves. Source movement changes the wavelength arriving at the observer while the wave speed in the medium stays the same.",
+    "note": "- Approach: shorter wavelength and $f_o>f_s$.\n- Recession: longer wavelength and $f_o<f_s$.\n- Sound speed in the same medium remains fixed.",
+    "self_explain": "Explain why a stationary listener hears a lower frequency when a source recedes, even though the source frequency stays constant."
+  },
+  "9702-7.3.2": {
+    "motivate": "A listener measures a siren's pitch. How can the siren's speed and direction explain the frequency they hear?",
+    "discover": {"stem": "Which denominator applies to a sound source moving directly towards a stationary observer?", "options": {"A": "$v-v_s$", "B": "$v+v_s$", "C": "$v_s-v$", "D": "$v_s+f_s$"}, "answer": "A", "explanation": "Approach compresses the wavefront spacing and raises frequency, so the denominator must be smaller than $v$."},
+    "establish": "For a source of sound moving relative to a stationary observer, use $f_o=f_s v/(v\\pm v_s)$. Here $f_o$ is the observed frequency, $f_s$ is the frequency emitted by the source, $v$ is the speed of sound in the medium, and $v_s$ is the speed of the source. For approach, use the minus sign: $f_o=f_s v/(v-v_s)$, so $f_o>f_s$. For recession, use the plus sign: $f_o=f_s v/(v+v_s)$, so $f_o<f_s$. Decide the direction first, then substitute speeds in matching units. If the source passes the observer and the question asks for the change between the extremes, calculate both frequencies and subtract the recession result from the approach result.",
+    "connect": "The sign choice follows the wavefront picture: shorter wavelength ahead of a moving source means a larger observed frequency.",
+    "note": "- Towards observer: $f_o=f_s v/(v-v_s)$.\n- Away from observer: $f_o=f_s v/(v+v_s)$.\n- Check the answer against $f_s$.",
+    "self_explain": "A source passes a stationary observer. Explain which two frequencies must be subtracted to find the full change in heard frequency."
+  }
+}
