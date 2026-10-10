@@ -1,0 +1,1397 @@
+{
+ "subtopic": "9702-8.2",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/08 Superposition/8.2 Diffraction.md",
+ "outline": "Diffraction is the spreading of waves when they pass through an aperture or around an edge. In a ripple tank, plane water waves reach a barrier with a gap and spread into curved wavefronts beyond it. The amount of spreading depends on the wavelength relative to the gap width: it is pronounced when they are comparable and smaller when the gap is much wider. At unchanged depth, passing through a gap does not change wave speed, frequency or wavelength. Use $v=f\\lambda$ when a frequency change is given.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-8.2.1",
+   "statement": "Diffraction is reflection or refraction.",
+   "refutation": "Diffraction is spreading at a gap or edge; neither a change of medium nor bouncing back is required.",
+   "contrast": "A wave spreads into the geometrical shadow beyond an aperture or edge.",
+   "source": "ER 9702 w23 P22 Q5"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-8.2.2",
+   "statement": "A wider gap gives more spreading.",
+   "refutation": "For fixed wavelength, a wider gap gives less diffraction.",
+   "contrast": "Spreading is most marked when gap width is comparable to wavelength.",
+   "source": "ER 9702 s22 P11 Q28"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-8.2.2",
+   "statement": "Passing through a gap changes wavelength.",
+   "refutation": "The medium and frequency remain the same, so wave speed and wavelength remain the same.",
+   "contrast": "Gap width changes the spread, not wavefront spacing.",
+   "source": "ER 9702 s22 P11 Q28"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-8.2.2",
+   "statement": "Increasing amplitude increases the diffraction angle.",
+   "refutation": "Diffraction depends on wavelength relative to gap width, not amplitude.",
+   "contrast": "Greater amplitude makes waves larger, not more spread out.",
+   "source": "ER 9702 w22 P13 Q27"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-8.2.2",
+   "problem": "Sound of frequency 440 Hz travels at 330 m s^-1. Compare its wavelength with a 0.80 m doorway and predict the diffraction.",
+   "steps": [
+    {
+     "do": "Use $v=f\\lambda$, so $\\lambda=v/f$.",
+     "why": "The relevant comparison is wavelength against gap width."
+    },
+    {
+     "do": "Substitute: $\\lambda=330/440=0.75\\ \\mathrm{m}$.",
+     "why": "The wave speed and frequency give the wavelength.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.75,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "The wavelength is close to the doorway width, so pronounced spreading is expected.",
+     "why": "A gap comparable with wavelength gives marked diffraction."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Sound travels at 340 m s^-1 with frequency 425 Hz. Find its wavelength and compare it with a 0.80 m doorway.",
+    "answer": {
+     "value": 0.8,
+     "unit": "m",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-8.2-i01",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define diffraction.",
+   "marks": 1,
+   "explanation": "A gap or edge causes wavefronts to spread into the region beyond it.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "Spreading of waves as they pass through a gap or around an edge.",
+     "keywords": [
+      [
+       "spread",
+       "spreading"
+      ],
+      [
+       "gap",
+       "edge",
+       "aperture"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i02",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe what happens to plane water-wave wavefronts after they pass through a narrow gap.",
+   "marks": 1,
+   "explanation": "The gap acts as a source of curved wavefronts.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "They spread out as curved wavefronts.",
+     "keywords": [
+      [
+       "spread",
+       "curve",
+       "circular"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i03",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how waves can reach the region behind an obstacle edge.",
+   "marks": 1,
+   "explanation": "Diffraction carries wave energy beyond the straight-line shadow.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "They diffract, spreading around the edge into the shadow region.",
+     "keywords": [
+      [
+       "diffract",
+       "spreading",
+       "spread"
+      ],
+      [
+       "edge"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i04",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State one situation in which diffraction occurs.",
+   "marks": 1,
+   "explanation": "Both an aperture and an obstacle edge can cause diffraction.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "A wave passes through an aperture or around an edge.",
+     "keywords": [
+      [
+       "gap",
+       "aperture",
+       "edge"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i05",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the wave behaviour when waves spread around the edge of a barrier.",
+   "marks": 1,
+   "explanation": "Spreading around an edge is diffraction.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "options": {
+    "A": "reflection",
+    "B": "diffraction",
+    "C": "refraction",
+    "D": "polarisation"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m1",
+    "C": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-8.2-i06",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a sound can be heard around a corner although the source is hidden.",
+   "marks": 1,
+   "explanation": "The sound wave bends into the shadow region by diffraction.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "Sound waves diffract around the edge of the wall. For appreciable spreading, their wavelength is comparable to the opening or edge scale.",
+     "keywords": [
+      [
+       "diffract",
+       "spread"
+      ],
+      [
+       "corner",
+       "edge",
+       "wall"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i07",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a ripple-tank experiment that demonstrates diffraction.",
+   "marks": 1,
+   "explanation": "A vibrating bar and barrier with a gap make the wavefront change visible.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "Generate plane waves with a vibrating bar; send them through a gap between barriers; observe curved wavefronts beyond the gap.",
+     "keywords": [
+      [
+       "ripple tank",
+       "water"
+      ],
+      [
+       "gap"
+      ],
+      [
+       "curved",
+       "circular",
+       "spread"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i08",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the gap-width condition for pronounced diffraction.",
+   "marks": 1,
+   "explanation": "Diffraction is most evident when the aperture is about a wavelength wide.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "The gap width is of the same order as the wavelength.",
+     "keywords": [
+      [
+       "comparable",
+       "same order",
+       "similar"
+      ],
+      [
+       "wavelength"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i09",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the effect of widening a gap while the incident wavelength stays constant.",
+   "marks": 1,
+   "explanation": "Widening the gap makes its width larger relative to the wavelength.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "The emerging waves spread through a smaller angle.",
+     "keywords": [
+      [
+       "less",
+       "smaller",
+       "decrease"
+      ],
+      [
+       "spread",
+       "angle",
+       "diffraction"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i10",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why lowering the frequency of water waves at constant depth increases diffraction through a fixed gap.",
+   "marks": 1,
+   "explanation": "Increasing wavelength relative to the gap makes diffraction more pronounced.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "At constant depth wave speed is approximately constant; $v=f\\lambda$, so lower frequency gives larger wavelength and more spreading.",
+     "keywords": [
+      [
+       "speed",
+       "depth"
+      ],
+      [
+       "wavelength"
+      ],
+      [
+       "spread",
+       "diffraction"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i11",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the wavelength before and after a water wave passes through a gap in the same depth of water.",
+   "marks": 1,
+   "explanation": "A barrier does not change wave speed or source frequency.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "The wavelength is unchanged. The gap changes the direction of travel but not the medium or frequency.",
+     "keywords": [
+      [
+       "unchanged",
+       "same",
+       "constant"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-i12",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to change the ripple-tank setup to make diffraction easier to observe when the gap is much wider than the wavelength.",
+   "marks": 1,
+   "explanation": "Bring the aperture width and wavelength close together.",
+   "hints": [
+    "Think about what happens to the wavefronts.",
+    "Compare the gap with the wavelength.",
+    "Look at the wavefronts immediately beyond the barrier."
+   ],
+   "rubric": [
+    {
+     "point": "Narrow the gap until its width is comparable to the wavelength, or increase wavelength at fixed gap.",
+     "keywords": [
+      [
+       "narrow",
+       "decrease",
+       "increase wavelength"
+      ],
+      [
+       "gap",
+       "wavelength"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-8.2-p01",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Which",
+   "source": {
+    "type": "past",
+    "ref": "9702_w22_13_q27"
+   },
+   "stem": "A sound wave of wavelength 0.50 m passes through a doorway of width 1.0 m between two rooms. Which change increases the amount of diffraction that takes place?",
+   "options": {
+    "A": "Double the amplitude of the sound wave.",
+    "B": "Double the width of the doorway.",
+    "C": "Halve the frequency of the sound wave.",
+    "D": "Halve the period of the sound wave."
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Halving frequency doubles wavelength to 1.0 m, matching the doorway. Increasing amplitude changes size, not spread; widening the doorway reduces diffraction.",
+   "hints": []
+  },
+  {
+   "id": "9702-8.2-p02",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Which",
+   "source": {
+    "type": "past",
+    "ref": "9702_w19_11_q27"
+   },
+   "stem": "Water waves of wavelength λ are incident normally on an obstacle with a narrow gap. The width of the gap is equal to λ. The waves from the gap emerge over an angle θ as shown. The gap is slowly widened. Which changes, if any, occur to θ and to the wavelength of the emerging waves?",
+   "options": {
+    "A": "decreases remains the same",
+    "B": "increases remains the same",
+    "C": "remains the same decreases",
+    "D": "remains the same increases"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "As the gap widens relative to wavelength, θ decreases. The same medium means the wavelength stays unchanged; B reverses the angular trend.",
+   "hints": [],
+   "image": "Assets/mcq/9702_w19_11_q27.png"
+  },
+  {
+   "id": "9702-8.2-p03",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Which",
+   "source": {
+    "type": "past",
+    "ref": "9702_s22_11_q28"
+   },
+   "stem": "Water waves of wavelength λ are incident normally on an obstacle with a narrow gap. The width of the gap is equal to λ. The waves from the gap emerge over an angle θ, as shown. The gap is slowly widened. Which changes, if any, occur to θ and to the wavelength of the emerging waves?",
+   "options": {
+    "A": "decreases remains the same",
+    "B": "increases remains the same",
+    "C": "remains the same decreases",
+    "D": "remains the same increases"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "A wider gap produces less spreading, so θ decreases without changing wavelength. B was popular but assumes wider gaps cause more diffraction.",
+   "hints": [],
+   "image": "Assets/mcq/9702_s22_11_q28.png"
+  },
+  {
+   "id": "9702-8.2-p04",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "What",
+   "source": {
+    "type": "past",
+    "ref": "9702_w25_12_q28"
+   },
+   "stem": "A light wave passes through a single slit and a diffraction pattern forms. What happens to the frequency and the speed of the wave when it is diffracted?",
+   "options": {
+    "A": "decreases increases",
+    "B": "increases decreases",
+    "C": "no change decreases",
+    "D": "no change no change"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Diffraction in the same medium changes direction distribution, not frequency or speed. C incorrectly assumes speed decreases.",
+   "hints": [],
+   "image": "Assets/mcq/9702_w25_12_q28.png"
+  },
+  {
+   "id": "9702-8.2-p05",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Which",
+   "source": {
+    "type": "past",
+    "ref": "9702_w24_12_q29"
+   },
+   "stem": "An electromagnetic wave is diffracted as it passes through a single slit. The width of the slit is larger than the wavelength of the wave. Which change will decrease the amount of diffraction of the wave?",
+   "options": {
+    "A": "Decrease the frequency of the wave.",
+    "B": "Decrease the time period of the wave.",
+    "C": "Decrease the width of the slit.",
+    "D": "Increase the wavelength of the wave."
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Decreasing period increases frequency, reducing wavelength at fixed speed and therefore reducing diffraction. C makes the slit narrower and increases spreading.",
+   "hints": []
+  },
+  {
+   "id": "9702-8.2-p06",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Which",
+   "source": {
+    "type": "past",
+    "ref": "9702_w23_12_q27"
+   },
+   "stem": "A teacher is explaining diffraction to a group of students. Which piece of apparatus is most appropriate for the teacher to use to demonstrate diffraction?",
+   "options": {
+    "A": "a long spring",
+    "B": "a ripple tank",
+    "C": "a rope",
+    "D": "a stretched string"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "A ripple tank clearly shows plane wavefronts spreading after a gap. A spring does not show two-dimensional spreading as clearly.",
+   "hints": []
+  },
+  {
+   "id": "9702-8.2-p07",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "9702_w22_12_q28"
+   },
+   "stem": "In which situation does diffraction occur?",
+   "options": {
+    "A": "A wave bounces back from a surface.",
+    "B": "A wave passes from one medium into another.",
+    "C": "A wave passes through a gap in a barrier.",
+    "D": "Waves from two identical sources are superposed."
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Passing through a gap can make a wave spread. A describes reflection, a different behaviour.",
+   "hints": []
+  },
+  {
+   "id": "9702-8.2-p08",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Which",
+   "source": {
+    "type": "past",
+    "ref": "9702_w21_11_q27"
+   },
+   "stem": "A water wave in a ripple tank is diffracted as it passes through a gap in a barrier. Which two factors affect the angle of diffraction of the wave?",
+   "options": {
+    "A": "the amplitude and frequency of the incident wave",
+    "B": "the amplitude of the incident wave and the width of the gap",
+    "C": "the wavelength and amplitude of the incident wave",
+    "D": "the wavelength of the incident wave and the width of the gap"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The ratio of wavelength to gap width controls spreading. Amplitude changes wave height, not the angle.",
+   "hints": []
+  },
+  {
+   "id": "9702-8.2-p09",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "What",
+   "source": {
+    "type": "past",
+    "ref": "9702_w20_13_q28"
+   },
+   "stem": "What is meant by diffraction?",
+   "options": {
+    "A": "the change in observed frequency when a wave source moves relative to an observer",
+    "B": "the formation of nodes and antinodes by two progressive waves travelling in opposite directions",
+    "C": "the spreading of a wave around the edge of an obstacle",
+    "D": "the superposition of two waves when they meet"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Diffraction is spreading around an edge. D describes superposition and does not require an edge.",
+   "hints": []
+  },
+  {
+   "id": "9702-8.2-p10",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Which",
+   "source": {
+    "type": "past",
+    "ref": "9702_w20_11_q27"
+   },
+   "stem": "Which waves would best demonstrate diffraction through a doorway?",
+   "options": {
+    "A": "sound waves",
+    "B": "ultraviolet waves",
+    "C": "visible light waves",
+    "D": "X-rays"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Sound wavelengths can be comparable with doorway width, so they spread appreciably. Visible-light wavelength is far smaller.",
+   "hints": []
+  },
+  {
+   "id": "9702-8.2-p11",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "9702_s24_13_q28"
+   },
+   "stem": "A water wave passes through a gap in a harbour wall and diffracts. The gap has a width of 8 m. The wave travels directly towards the gap. For which wavelength is the diffraction of the wave greatest?",
+   "options": {
+    "A": "1 m",
+    "B": "2 m",
+    "C": "4 m",
+    "D": "8 m"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "A wavelength equal to the 8 m gap gives the greatest spreading among these options. The 1 m wave is much shorter and spreads less.",
+   "hints": [],
+   "image": "Assets/mcq/9702_s24_13_q28.png"
+  },
+  {
+   "id": "9702-8.2-p12",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "What",
+   "source": {
+    "type": "past",
+    "ref": "9702_s23_13_q27"
+   },
+   "stem": "An experiment is set up to demonstrate the diffraction of water waves in a ripple tank. The waves pass through a gap of width w and some diffraction of the waves is observed. The wavelength of the waves is now doubled. What is the new gap width needed to cause the same amount of diffraction as before?",
+   "options": {
+    "A": "0.5w",
+    "B": "w",
+    "C": "2w",
+    "D": "4w"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The wavelength-to-width ratio must stay constant, so doubling wavelength requires doubling gap width. B leaves the gap unchanged and increases spreading.",
+   "hints": []
+  },
+  {
+   "id": "9702-8.2-x001",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q28",
+    "qid": "9702_s19_11_q28"
+   },
+   "stem": "The diagrams show the diffraction of water waves in a ripple tank as they pass through a gap\nbetween two barriers.\nWhich diagram is correct?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x002",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q27",
+    "qid": "9702_s19_13_q27"
+   },
+   "stem": "In an experiment, water waves in a ripple tank are incident on a gap, as shown.\nSome diffraction of the water waves is observed.\nWhich change to the experiment would provide a better demonstration of diffraction?",
+   "options": {
+    "A": "Increase the amplitude of the waves.",
+    "B": "Increase the frequency of the waves.",
+    "C": "Increase the wavelength of the waves.",
+    "D": "Increase the width of the gap."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_13_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x003",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q28",
+    "qid": "9702_s20_11_q28"
+   },
+   "stem": "Which statement must be true for diffraction to occur when a wave passes through a gap?",
+   "options": {
+    "A": "The wave is able to travel in a vacuum.",
+    "B": "The wave is progressive.",
+    "C": "The wave has a large amplitude.",
+    "D": "The wave has a long wavelength."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x004",
+   "kcs": [
+    "9702-8.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q28",
+    "qid": "9702_s20_12_q28"
+   },
+   "stem": "A hill separates a television (TV) transmitter from a house. The transmitter cannot be seen from\nthe house. However, the house has good TV reception.\nhill\nhouse\nTV transmitter\nBy which wave effect at the hill could the TV signal reach the house?",
+   "options": {
+    "A": "coherence",
+    "B": "diffraction",
+    "C": "interference",
+    "D": "reflection"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_12_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x005",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q28",
+    "qid": "9702_s20_13_q28"
+   },
+   "stem": "Water waves in a ripple tank are made to pass through a small gap as shown.\nWhich diagram shows the waves after they have passed through the gap?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x006",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q28",
+    "qid": "9702_w20_12_q28"
+   },
+   "stem": "A transmitting mast sends out microwaves of wavelength 1.5 cm and radio waves of wavelength\n1.5 km.\nmountain\nNOT TO SCALE\ntransmitting\nmast\nreceiving\naerial\nA receiving aerial behind a mountain can detect the radio waves but not the microwaves.\nWhat is the reason for this?",
+   "options": {
+    "A": "The radio waves are coherent but the microwaves are not.",
+    "B": "The radio waves are diffracted around the mountain but the microwaves are not.",
+    "C": "The radio waves are reflected by the mountain but the microwaves are not.",
+    "D": "The radio waves travel at the speed of light but the microwaves do not."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_12_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x007",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q27",
+    "qid": "9702_s21_11_q27"
+   },
+   "stem": "Which wave behaviour is shown in the diagram?\nsea wall\nsea\nbeach\nsea wall\nhorizon\nwavefronts",
+   "options": {
+    "A": "diffraction",
+    "B": "Doppler shift",
+    "C": "interference",
+    "D": "superposition"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_11_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x008",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q27",
+    "qid": "9702_s21_12_q27"
+   },
+   "stem": "Which diagram best shows how water waves diffract when they pass through a gap in a barrier?\ngap",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "barrier"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "B is correct: the wavefronts spread out after passing through the gap while their spacing (the wavelength) remains unchanged. Diffraction in water of unchanged depth does not change wave speed or frequency, so the wavelength remains the same. C shows spreading but incorrectly increases the spacing between successive wavefronts after the gap. A does not show the strong spreading expected for its narrow gap relative to the wavelength, and D shows no spreading."
+  },
+  {
+   "id": "9702-8.2-x009",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q28",
+    "qid": "9702_s21_13_q28"
+   },
+   "stem": "The speed of sound in air is 330 m s⁻¹.\nWhich size of architectural features in a large concert hall would best diffract sound waves of\nfrequency 0.44 kHz?",
+   "options": {
+    "A": "1.3 mm",
+    "B": "750 mm",
+    "C": "7.5 m",
+    "D": "17 m"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x010",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q28",
+    "qid": "9702_w21_12_q28"
+   },
+   "stem": "A beam of laser light is directed towards a narrow slit.\npanel\nslit\ncross-section\nof beam of light\nAfter emerging from the other side of the slit, the diffracted light then falls on a screen.\nWhat is the pattern of light seen on the screen?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_12_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult and C was the most popular incorrect answer. A beam of light passing through a vertical slit will produce diffraction in the horizontal plane and a horizontal diffraction pattern will be observed. Principal Examiner Report for Teachers"
+  },
+  {
+   "id": "9702-8.2-x011",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q28",
+    "qid": "9702_w21_13_q28"
+   },
+   "stem": "Which diagram shows the diffraction of water waves in a ripple tank?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w21_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x012",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q28",
+    "qid": "9702_s22_12_q28"
+   },
+   "stem": "A bar vibrates with frequency f to produce water waves in a ripple tank.\nbar vibrating\nwith frequency f\nbarrier with\ngap of width x\nThe waves pass through a gap of width x in a barrier so that diffraction occurs.\nWhich combination of vibration frequency and gap width will produce the smallest angle of\ndiffraction?\nvibration\nfrequency\ngap width",
+   "options": {
+    "A": "2 f 2 x",
+    "B": "2 f 2x",
+    "C": "2f 2 x",
+    "D": "2f 2x"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_12_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The speed of a wave depends upon the physical characteristics of the medium through which it propagates, so the speed of the water waves in the ripple tank can be regarded as constant. By using the wave equation v = fλ, the effect of changing the frequency on the wavelength can be deduced. The smallest diffraction angle is for the smallest wavelength (highest frequency) and largest gap width, so D is correct."
+  },
+  {
+   "id": "9702-8.2-x013",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q29",
+    "qid": "9702_s22_13_q29"
+   },
+   "stem": "The diagrams show the diffraction of water waves in a ripple tank as they pass through a gap\nbetween two barriers.\nWhich diagram is correct?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_13_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x014",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q28",
+    "qid": "9702_w22_11_q28"
+   },
+   "stem": "A wave on the surface of water passes through a gap between two barriers and is diffracted, as\nshown.\nbarrier\nbarrier\nWhat happens when the frequency of the wave is halved?",
+   "options": {
+    "A": "Less diffraction is observed.",
+    "B": "More diffraction is observed.",
+    "C": "There is no diffraction.",
+    "D": "The same amount of diffraction is observed."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x015",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q27",
+    "qid": "9702_s23_11_q27"
+   },
+   "stem": "A ripple tank and a barrier with a single gap are used to demonstrate the diffraction of surface\nripples on water. Initially, the wavelength of the ripples is five times smaller than the gap in the\nbarrier.\ngap\nbarrier\nripples\nWhich change increases the amount of diffraction observed?",
+   "options": {
+    "A": "double the amplitude of the ripples",
+    "B": "double the width of the gap",
+    "C": "halve the frequency of the ripples",
+    "D": "halve the wavelength of the ripples"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_11_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x016",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q27",
+    "qid": "9702_s23_12_q27"
+   },
+   "stem": "A continuous progressive water wave in a ripple tank passes through a gap in a barrier and\ndiffracts.\nThe width of the gap is greater than the wavelength of the wave.\nWhich change causes the wave to spread over a larger angle as it passes through the gap?",
+   "options": {
+    "A": "a small decrease in the wavelength of the wave",
+    "B": "a small decrease in the width of the gap",
+    "C": "a small increase in the frequency of the wave",
+    "D": "a small increase in the height of the barrier"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x017",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q27",
+    "qid": "9702_w23_11_q27"
+   },
+   "stem": "In an experiment, water waves in a ripple tank are incident on a gap, as shown.\nSome diffraction of the water waves is observed.\nWhich change to the experiment would provide a better demonstration of diffraction?",
+   "options": {
+    "A": "Increase the amplitude of the waves.",
+    "B": "Increase the frequency of the waves.",
+    "C": "Increase the wavelength of the waves.",
+    "D": "Increase the width of the gap."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w23_11_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x018",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q27",
+    "qid": "9702_w23_13_q27"
+   },
+   "stem": "Water waves in a ripple tank are made to pass through a small gap, as shown.\nWhich diagram shows the waves after they have passed through the gap?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_13_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x019",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q22",
+    "qid": "9702_s24_12_q22"
+   },
+   "stem": "A loudspeaker is playing music in a room. The door to the room is open and has a width of\n0.80 m.\nSound waves of many different frequencies pass through the doorway and diffract. The speed of\nsound in air is 340 m s⁻¹.\nWhich frequency of sound wave diffracts the most as it passes through the doorway?",
+   "options": {
+    "A": "2.4 × 10⁻³ Hz",
+    "B": "8.0 × 10⁻¹ Hz",
+    "C": "2.7 × 10² Hz",
+    "D": "4.3 × 10² Hz"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x020",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q30",
+    "qid": "9702_w24_13_q30"
+   },
+   "stem": "A vibrating bar produces surface water waves in a ripple tank.\nThe wavelength of the waves is 5.0 cm and they pass through a gap of width 20 cm.\n20 cm\n5.0 cm\nvibrating\nbar\nbarrier with gap\nshallow water\nripple tank\nWhich change will increase the amount of diffraction that is observed?",
+   "options": {
+    "A": "decreasing the distance between the bar and the gap",
+    "B": "decreasing the frequency of the wave",
+    "C": "increasing the amplitude of the wave",
+    "D": "increasing the width of the gap"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_13_q30.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-8.2-x021",
+   "kcs": [
+    "9702-8.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q30",
+    "qid": "9702_s25_13_q30"
+   },
+   "stem": "A ripple tank contains water at a constant depth.\nA water wave of constant frequency travels towards a gap in a barrier placed in the ripple tank.\nThe gap is made smaller.\nWhich diagram represents the wave before and after the barrier?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_13_q30.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-8.2.1",
+   "front": "Define diffraction.",
+   "back": "The spreading of waves as they pass through an aperture or around the edge of an obstacle."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-8.2.1": {
+   "motivate": "Why can you hear someone speaking around a corner even when you cannot see them? A wave can spread into a region beyond an opening or edge.",
+   "establish": "Diffraction means the spreading of waves as they pass through an aperture or around the edge of an obstacle. Plane waves reaching a narrow gap emerge as curved wavefronts that spread into the shadow region. Diffraction is a wave phenomenon and occurs for water waves, sound and light. The wave does not need a new medium: it can spread while its speed, frequency and wavelength remain unchanged.",
+   "connect": "This builds on wavelength and wavefronts. The spacing between consecutive crests can stay the same even while the wavefronts change direction and curve around an edge.",
+   "note": "- Diffraction: spreading of waves through a gap or around an edge.\n- Wavefronts curve into the region beyond the barrier.\n- It is a wave behaviour, not a change of medium.",
+   "self_explain": "What two parts must a complete definition of diffraction include?",
+   "discover": {
+    "stem": "Which observation shows diffraction?",
+    "options": {
+     "A": "A wave reflects from a wall.",
+     "B": "A wave spreads beyond the edge of a barrier.",
+     "C": "A wave slows in a new medium.",
+     "D": "Two waves overlap."
+    },
+    "answer": "B",
+    "explanation": "Spreading around an obstacle edge is diffraction."
+   },
+   "source": "pack"
+  },
+  "9702-8.2.2": {
+   "motivate": "A ripple tank lets you see how the same waves behave at wide and narrow gaps. The visible change is the angle through which the wavefronts spread.",
+   "establish": "Use a vibrating straight bar to produce plane water waves in a ripple tank. Place a barrier with a gap across their path and observe the waves before and after it. The emerging wavefronts curve and spread: this demonstrates diffraction. Compare gap width $w$ with wavelength $\\lambda$ (the spacing of adjacent crests). Spreading is pronounced when $w$ is comparable with $\\lambda$; when $w$ is much wider, the spread is smaller. At fixed water depth, speed is approximately constant. The vibrator fixes frequency, so passing through the gap leaves speed, frequency and wavelength unchanged. To increase spreading, narrow the gap or, at constant depth, lower the frequency: $v=f\\lambda$ then gives a larger wavelength.",
+   "connect": "Use $v=f\\lambda$ from progressive waves to reason about changing frequency. The key comparison is wavelength relative to gap width, not amplitude.",
+   "note": "- Make plane waves with a straight vibrator; direct them through a gap.\n- Wavefronts spread more when gap width is comparable with wavelength.\n- Widening the gap reduces the spread at fixed wavelength.\n- At unchanged depth, the gap does not change wavelength.",
+   "self_explain": "If the gap widens at fixed water depth and vibrator frequency, what happens to the spread and wavelength?",
+   "discover": {
+    "stem": "A gap is much wider than the water-wave wavelength. Which change makes spreading more obvious?",
+    "options": {
+     "A": "Widen the gap.",
+     "B": "Increase amplitude.",
+     "C": "Narrow the gap.",
+     "D": "Increase water depth without any other information."
+    },
+    "answer": "C",
+    "explanation": "Narrowing the gap makes its width closer to the wavelength, so the wave spreads more."
+   },
+   "source": "pack"
+  }
+ }
+}

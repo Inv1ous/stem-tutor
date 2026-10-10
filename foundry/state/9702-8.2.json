@@ -1,0 +1,251 @@
+{
+ "sub": "9702-8.2",
+ "stage": "ready",
+ "created": "2026-10-10T15:41:49+08:00",
+ "updated": "2026-10-10T16:05:53+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:44:17+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 45 items"
+  },
+  {
+   "t": "2026-10-10T15:49:41+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "35 agreed, 2 disputed"
+  },
+  {
+   "t": "2026-10-10T15:51:17+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-10T15:54:16+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T15:55:05+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:04:56+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "1 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:05:53+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 45,
+  "extra": 21
+ },
+ "disputes": [
+  {
+   "id": "9702-8.2-x008",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "fix: Retain answer B, matching the official key and the source image. In build/work/mcq/overrides.json under qid 9702_s21_12_q27, set explanation to: \"B is correct: the wavefronts spread out after passing through the gap while their spacing (the wavelength) remains unchanged. Diffraction in water of unchanged depth does not change wave speed or frequency, so the wavelength remains the same. C shows spreading but incorrectly increases the spacing between successive wavefronts after the gap. A does not show the strong spreading expected for its narrow gap relative to the wavelength, and D shows no spreading.\""
+  },
+  {
+   "id": "9702-8.2-x019",
+   "key": "D",
+   "solver": "A",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [
+  {
+   "ref": "9702-8.2-x008",
+   "instruction": "Retain answer B, matching the official key and the source image. In build/work/mcq/overrides.json under qid 9702_s21_12_q27, set explanation to: \"B is correct: the wavefronts spread out after passing through the gap while their spacing (the wavelength) remains unchanged. Diffraction in water of unchanged depth does not change wave speed or frequency, so the wavelength remains the same. C shows spreading but incorrectly increases the spacing between successive wavefronts after the gap. A does not show the strong spreading expected for its narrow gap relative to the wavelength, and D shows no spreading.\"",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 68700,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:42:19+08:00",
+   "log": "foundry/logs/9702-8.2.drafter.1010-154219.log",
+   "out": "foundry/logs/9702-8.2.drafter.1010-154219.out.json",
+   "finished": "2026-10-10T15:44:17+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-8.2.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/08 Superposition/8.2 Diffraction.md",
+    "items": 45,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 73252,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:49:00+08:00",
+   "log": "foundry/logs/9702-8.2.solver-1.1010-154900.log",
+   "out": "foundry/logs/9702-8.2.solver-1.1010-154900.out.json",
+   "expects": "build/work/blind/9702-8.2.answers.part1.json",
+   "finished": "2026-10-10T15:49:22+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in build/work/blind/9702-8.2.answers.part1.json."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 73254,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:49:00+08:00",
+   "log": "foundry/logs/9702-8.2.solver-2.1010-154900.log",
+   "out": "foundry/logs/9702-8.2.solver-2.1010-154900.out.json",
+   "expects": "build/work/blind/9702-8.2.answers.part2.json",
+   "finished": "2026-10-10T15:49:32+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 17 questions in `build/work/blind/9702-8.2.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 73260,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:49:00+08:00",
+   "log": "foundry/logs/9702-8.2.checker.1010-154900.log",
+   "out": "foundry/logs/9702-8.2.checker.1010-154900.out.json",
+   "expects": "build/work/foundry/9702-8.2.check.json",
+   "finished": "2026-10-10T15:49:26+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/9702-8.2.check.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 74587,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:50:36+08:00",
+   "log": "foundry/logs/9702-8.2.tiebreak.1010-155036.log",
+   "out": "foundry/logs/9702-8.2.tiebreak.1010-155036.out.json",
+   "expects": "build/work/blind/9702-8.2.tiebreak.json",
+   "finished": "2026-10-10T15:50:56+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 2,
+    "answers_path": "build/work/blind/9702-8.2.tiebreak.json",
+    "notes": [
+     "9702-8.2-x019: C has a longer wavelength, but D matches the doorway width; the two lower frequencies are outside music."
+    ]
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 77399,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T15:53:45+08:00",
+   "log": "foundry/logs/9702-8.2.adjudicator.1010-155345.log",
+   "out": "foundry/logs/9702-8.2.adjudicator.1010-155345.out.json",
+   "finished": "2026-10-10T15:54:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9702-8.2-x008 fix: Retain B; add explanation that C incorrectly increases wavelength after diffraction."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 78097,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T15:54:51+08:00",
+   "log": "foundry/logs/9702-8.2.fixer.1010-155451.log",
+   "out": "foundry/logs/9702-8.2.fixer.1010-155451.out.json",
+   "finished": "2026-10-10T15:55:05+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 84087,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:04:26+08:00",
+   "log": "foundry/logs/9702-8.2.solver.1010-160426.log",
+   "out": "foundry/logs/9702-8.2.solver.1010-160426.out.json",
+   "expects": "build/work/blind/9702-8.2.recheck.answers.json",
+   "finished": "2026-10-10T16:04:46+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9702-8.2.recheck.answers.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q28": "9702-8.2-x001",
+  "9702_s19_13_q27": "9702-8.2-x002",
+  "9702_s20_11_q28": "9702-8.2-x003",
+  "9702_s20_12_q28": "9702-8.2-x004",
+  "9702_s20_13_q28": "9702-8.2-x005",
+  "9702_w20_12_q28": "9702-8.2-x006",
+  "9702_s21_11_q27": "9702-8.2-x007",
+  "9702_s21_12_q27": "9702-8.2-x008",
+  "9702_s21_13_q28": "9702-8.2-x009",
+  "9702_w21_12_q28": "9702-8.2-x010",
+  "9702_w21_13_q28": "9702-8.2-x011",
+  "9702_s22_12_q28": "9702-8.2-x012",
+  "9702_s22_13_q29": "9702-8.2-x013",
+  "9702_w22_11_q28": "9702-8.2-x014",
+  "9702_s23_11_q27": "9702-8.2-x015",
+  "9702_s23_12_q27": "9702-8.2-x016",
+  "9702_w23_11_q27": "9702-8.2-x017",
+  "9702_w23_13_q27": "9702-8.2-x018",
+  "9702_s24_12_q22": "9702-8.2-x019",
+  "9702_w24_13_q30": "9702-8.2-x020",
+  "9702_s25_13_q30": "9702-8.2-x021"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
