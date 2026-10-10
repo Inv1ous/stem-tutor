@@ -1,0 +1,1232 @@
+{
+ "subtopic": "FP1-5",
+ "spec": "FP1",
+ "version": 1,
+ "note": "Subjects/Maths/FP1 Further Pure Mathematics 1/5 Matrix algebra integration.md",
+ "outline": "Add and subtract matrices of equal order entrywise, and multiply every entry when scaling by a scalar. For products, match the inner dimensions and form each entry by a row-column dot product; in general $AB\\ne BA$. A $2\\times2$ determinant is $ad-bc$: zero means singular. A non-singular matrix has inverse $\\frac1{ad-bc}\\begin{pmatrix}d&-b\\-c&a\\end{pmatrix}$. For invertible products, $(AB)^{-1}=B^{-1}A^{-1}$.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "FP1-5.1",
+   "statement": "Matrix subtraction or addition can be performed on mismatched positions or dimensions.",
+   "refutation": "Only equal-sized matrices combine, entry by matching entry.",
+   "contrast": "Check both dimensions; for subtraction keep the stated order.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "FP1-5.2",
+   "statement": "A scalar multiplies only one selected entry or one term in a matrix sum.",
+   "refutation": "The scalar multiplies every entry, and distributes to both matrices in a sum.",
+   "contrast": "Scale each whole matrix before combining entries.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "FP1-5.3",
+   "statement": "Matrix multiplication is entrywise or changing factor order has no effect.",
+   "refutation": "Each product entry is a row-column dot product; generally $AB\\ne BA$.",
+   "contrast": "Check inner dimensions and preserve factor order.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "FP1-5.4",
+   "statement": "A $2\\times2$ determinant is $ad+bc$, or any zero entry makes the matrix singular.",
+   "refutation": "The determinant is $ad-bc$; singular means precisely $ad-bc=0$.",
+   "contrast": "Calculate both diagonal products and subtract.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "FP1-5.5",
+   "statement": "The inverse of $AB$ is $A^{-1}B^{-1}$, or the adjugate needs no determinant divisor.",
+   "refutation": "The product inverse reverses order, and $A^{-1}=\\operatorname{adj}(A)/\\det A$ for nonzero determinant.",
+   "contrast": "Divide by the determinant and reverse factors in a product inverse.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "FP1-5.1",
+   "problem": "Find $A-B$ for $A=\\begin{pmatrix}1&-2\\\\3&4\\end{pmatrix}$ and $B=\\begin{pmatrix}5&6\\\\-1&2\\end{pmatrix}$.",
+   "steps": [
+    {
+     "do": "Both matrices are $2\\times2$.",
+     "why": "Equal dimensions are required for subtraction."
+    },
+    {
+     "do": "Subtract corresponding entries: $A-B=\\begin{pmatrix}-4&-8\\\\4&2\\end{pmatrix}$.",
+     "why": "Each output entry uses the same position in both matrices.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -8.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find the $(2,1)$ entry of $B-A$ for $A=\\begin{pmatrix}1&-2\\\\3&4\\end{pmatrix}$, $B=\\begin{pmatrix}5&6\\\\-1&2\\end{pmatrix}$.",
+    "answer": {
+     "value": -4.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "FP1-5.2",
+   "problem": "Find $3A-2B$ for $A=\\begin{pmatrix}2&-1\\\\3&0\\end{pmatrix}$ and $B=\\begin{pmatrix}1&4\\\\-2&5\\end{pmatrix}$.",
+   "steps": [
+    {
+     "do": "$3A=\\begin{pmatrix}6&-3\\\\9&0\\end{pmatrix}$ and $2B=\\begin{pmatrix}2&8\\\\-4&10\\end{pmatrix}$.",
+     "why": "Each scalar multiplies every entry."
+    },
+    {
+     "do": "$3A-2B=\\begin{pmatrix}4&-11\\\\13&-10\\end{pmatrix}$.",
+     "why": "Subtract the scaled matrices entrywise.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -11.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find the $(1,2)$ entry of $2A+B$ for $A=\\begin{pmatrix}2&-1\\\\3&0\\end{pmatrix}$, $B=\\begin{pmatrix}1&4\\\\-2&5\\end{pmatrix}$.",
+    "answer": {
+     "value": 2.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "FP1-5.3",
+   "problem": "Find $AB$ for $A=\\begin{pmatrix}1&2\\\\3&-1\\end{pmatrix}$ and $B=\\begin{pmatrix}4&0\\\\-2&5\\end{pmatrix}$.",
+   "steps": [
+    {
+     "do": "The inner dimensions match: $(2\\times2)(2\\times2)$ gives a $2\\times2$ result.",
+     "why": "A product requires matching inner dimensions."
+    },
+    {
+     "do": "Take row-column dot products: $AB=\\begin{pmatrix}0&10\\\\14&-5\\end{pmatrix}$.",
+     "why": "Each output entry is the sum of paired products.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 14.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Find the $(1,2)$ entry of $BA$ for $A=\\begin{pmatrix}1&2\\\\3&-1\\end{pmatrix}$, $B=\\begin{pmatrix}4&0\\\\-2&5\\end{pmatrix}$.",
+    "answer": {
+     "value": 8.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "FP1-5.4",
+   "problem": "Calculate $\\det A$ and state whether $A=\\begin{pmatrix}4&3\\\\2&5\\end{pmatrix}$ is singular.",
+   "steps": [
+    {
+     "do": "$\\det A=4(5)-3(2)=14$.",
+     "why": "Use $ad-bc$, with the off-diagonal product subtracted.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 14.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Because $\\det A\\ne0$, $A$ is non-singular.",
+     "why": "A nonzero determinant is equivalent to having an inverse."
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "Calculate the determinant of $A=\\begin{pmatrix}3&6\\\\1&2\\end{pmatrix}$.",
+    "answer": {
+     "value": 0.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we5",
+   "kc": "FP1-5.5",
+   "problem": "Find $(AB)^{-1}$ for $A=\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$ and $B=\\begin{pmatrix}1&2\\\\0&1\\end{pmatrix}$.",
+   "steps": [
+    {
+     "do": "$\\det A=1$ and $\\det B=1$; both inverses exist.",
+     "why": "The inverse formula requires nonzero determinants."
+    },
+    {
+     "do": "$A^{-1}=\\begin{pmatrix}1&-1\\\\-1&2\\end{pmatrix}$ and $B^{-1}=\\begin{pmatrix}1&-2\\\\0&1\\end{pmatrix}$.",
+     "why": "Swap the diagonal entries, negate the off-diagonal entries and divide by the determinant."
+    },
+    {
+     "do": "$(AB)^{-1}=B^{-1}A^{-1}=\\begin{pmatrix}3&-5\\\\-1&2\\end{pmatrix}$.",
+     "why": "Inverting a product reverses the factor order.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -5.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Check $(AB)(B^{-1}A^{-1})=I$.",
+     "why": "Adjacent inverse pairs cancel in the correct order."
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "Find the $(1,1)$ entry of $A^{-1}$ for $A=\\begin{pmatrix}3&1\\\\2&1\\end{pmatrix}$.",
+    "answer": {
+     "value": 1.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "FP1-5-i01",
+   "kcs": [
+    "FP1-5.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of $A+B$, where $A=\\begin{pmatrix}2&-3\\\\5&4\\end{pmatrix}$ and $B=\\begin{pmatrix}7&1\\\\-2&6\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": -2.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Add corresponding entries: $-3+1=-2$.",
+   "hints": [
+    "Locate the first row and second column in each matrix.",
+    "Add entries in the same position.",
+    "Use the entries $-3$ and $1$."
+   ],
+   "distractors": [
+    {
+     "value": -4.0,
+     "misconception": "m1"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i02",
+   "kcs": [
+    "FP1-5.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,1)$ entry of $A-B$, where $A=\\begin{pmatrix}2&-3\\\\5&4\\end{pmatrix}$ and $B=\\begin{pmatrix}7&1\\\\-2&6\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 7.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Subtract the corresponding entries: $5-(-2)=7$.",
+   "hints": [
+    "Use row 2, column 1.",
+    "Subtract the entry of $B$ from the entry of $A$.",
+    "Pay attention to the negative entry in $B$."
+   ],
+   "distractors": [
+    {
+     "value": -7.0,
+     "misconception": "m1"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i03",
+   "kcs": [
+    "FP1-5.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,3)$ entry of $C+D$, where $C=\\begin{pmatrix}1&4&0\\\\-2&3&5\\end{pmatrix}$ and $D=\\begin{pmatrix}3&-1&6\\\\7&0&-4\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 1.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Both matrices are $2\\times3$; the required entry is $5+(-4)=1$.",
+   "hints": [
+    "Check that the dimensions agree.",
+    "Find row 2, column 3 in both matrices.",
+    "Add $5$ and $-4$."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-5-i04",
+   "kcs": [
+    "FP1-5.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of $C-D$, where $C=\\begin{pmatrix}1&4&0\\\\-2&3&5\\end{pmatrix}$ and $D=\\begin{pmatrix}3&-1&6\\\\7&0&-4\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Subtract entrywise: $4-(-1)=5$.",
+   "hints": [
+    "Find the matching positions.",
+    "Keep the order $C-D$.",
+    "Subtract a negative number in row 1, column 2."
+   ],
+   "distractors": [
+    {
+     "value": -5.0,
+     "misconception": "m1"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i05",
+   "kcs": [
+    "FP1-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State which pair of matrix orders can be added.",
+   "marks": 1,
+   "options": {
+    "A": "$2\\times3$ and $3\\times2$",
+    "B": "$2\\times3$ and $2\\times3$",
+    "C": "$2\\times3$ and $2\\times2$",
+    "D": "$2\\times3$ and $3\\times3$"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m1",
+    "C": "m1",
+    "D": "m1"
+   },
+   "shuffle": true,
+   "explanation": "Addition requires exactly the same number of rows and columns in both matrices.",
+   "hints": [
+    "Think about matching entries.",
+    "Compare both dimensions, not just one.",
+    "Check rows and columns separately."
+   ]
+  },
+  {
+   "id": "FP1-5-i06",
+   "kcs": [
+    "FP1-5.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,2)$ entry of $E-F+E$, where $E=\\begin{pmatrix}6&-4\\\\1&8\\end{pmatrix}$ and $F=\\begin{pmatrix}-3&7\\\\5&-2\\end{pmatrix}$.",
+   "marks": 3,
+   "answer": {
+    "value": 18.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Work entrywise: $8-(-2)+8=18$.",
+   "hints": [
+    "Use the same entry from each occurrence of $E$.",
+    "Write the scalar calculation for row 2, column 2.",
+    "Account for subtracting the negative entry of $F$."
+   ],
+   "distractors": [
+    {
+     "value": 14.0,
+     "misconception": "m1"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i07",
+   "kcs": [
+    "FP1-5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of $3A$, where $A=\\begin{pmatrix}2&-5\\\\0&3\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": -15.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Multiply each entry of $A$ by $3$: $3(-5)=-15$.",
+   "hints": [
+    "Find the required entry of $A$.",
+    "Multiply that entry by the scalar.",
+    "Retain its sign."
+   ],
+   "distractors": [
+    {
+     "value": -2.0,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i08",
+   "kcs": [
+    "FP1-5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,2)$ entry of $-2A$, where $A=\\begin{pmatrix}2&-5\\\\0&3\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": -6.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The entry is $-2(3)=-6$.",
+   "hints": [
+    "Locate row 2, column 2.",
+    "Apply the scalar to this entry.",
+    "A negative scalar reverses the sign."
+   ],
+   "distractors": [
+    {
+     "value": 1.0,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i09",
+   "kcs": [
+    "FP1-5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,1)$ entry of $2A-3B$, where $A=\\begin{pmatrix}2&-5\\\\0&3\\end{pmatrix}$ and $B=\\begin{pmatrix}4&1\\\\-3&2\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 9.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The entry is $2(0)-3(-3)=9$.",
+   "hints": [
+    "Select the matching entries.",
+    "Multiply each selected entry by its coefficient.",
+    "Subtract the second product."
+   ],
+   "distractors": [
+    {
+     "value": -9.0,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i10",
+   "kcs": [
+    "FP1-5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,1)$ entry of $-A+2B$, where $A=\\begin{pmatrix}2&-5\\\\0&3\\end{pmatrix}$ and $B=\\begin{pmatrix}4&1\\\\-3&2\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 6.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The entry is $-(2)+2(4)=6$.",
+   "hints": [
+    "Find the top-left entries.",
+    "Apply both scalar multipliers.",
+    "Add the resulting entries."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-5-i11",
+   "kcs": [
+    "FP1-5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State which expression equals $3(A+B)$ for matrices $A$ and $B$ of the same order.",
+   "marks": 1,
+   "options": {
+    "A": "$3A+B$",
+    "B": "$A+3B$",
+    "C": "$3A+3B$",
+    "D": "$A+B+3$"
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m2",
+    "B": "m2"
+   },
+   "shuffle": true,
+   "explanation": "Scalar multiplication distributes across matrix addition: each entry in both matrices is multiplied by $3$.",
+   "hints": [
+    "Expand the brackets entry by entry.",
+    "The scalar multiplies both matrix terms.",
+    "Compare the coefficients of $A$ and $B$."
+   ]
+  },
+  {
+   "id": "FP1-5-i12",
+   "kcs": [
+    "FP1-5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,3)$ entry of $4C-2D$, where $C=\\begin{pmatrix}1&2&0\\\\-1&4&3\\end{pmatrix}$ and $D=\\begin{pmatrix}2&-3&5\\\\4&1&-2\\end{pmatrix}$.",
+   "marks": 3,
+   "answer": {
+    "value": 16.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The entry is $4(3)-2(-2)=16$.",
+   "hints": [
+    "Check matching positions in both $2\\times3$ matrices.",
+    "Scale both entries separately.",
+    "Then subtract the second scaled entry."
+   ],
+   "distractors": [
+    {
+     "value": 8.0,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i13",
+   "kcs": [
+    "FP1-5.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,1)$ entry of $AB$, where $A=\\begin{pmatrix}2&1\\\\-1&3\\end{pmatrix}$ and $B=\\begin{pmatrix}4&-2\\\\5&1\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 13.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "First row by first column gives $2(4)+1(5)=13$.",
+   "hints": [
+    "Select row 1 of $A$.",
+    "Select column 1 of $B$.",
+    "Multiply corresponding components and add."
+   ],
+   "distractors": [
+    {
+     "value": 8.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i14",
+   "kcs": [
+    "FP1-5.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of $AB$, where $A=\\begin{pmatrix}2&1\\\\-1&3\\end{pmatrix}$ and $B=\\begin{pmatrix}4&-2\\\\5&1\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": -3.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "First row by second column gives $2(-2)+1(1)=-3$.",
+   "hints": [
+    "Use row 1 of the left matrix.",
+    "Use column 2 of the right matrix.",
+    "Add the two products."
+   ],
+   "distractors": [
+    {
+     "value": -2.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i15",
+   "kcs": [
+    "FP1-5.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,1)$ entry of $BA$, where $A=\\begin{pmatrix}2&1\\\\-1&3\\end{pmatrix}$ and $B=\\begin{pmatrix}4&-2\\\\5&1\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 9.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Second row of $B$ by first column of $A$ gives $5(2)+1(-1)=9$.",
+   "hints": [
+    "Read the order $BA$ carefully.",
+    "Use row 2 of $B$ and column 1 of $A$.",
+    "Multiply and sum the paired entries."
+   ],
+   "distractors": [
+    {
+     "value": 11.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i16",
+   "kcs": [
+    "FP1-5.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,2)$ entry of $CD$, where $C=\\begin{pmatrix}1&2&3\\\\4&0&-1\\end{pmatrix}$ and $D=\\begin{pmatrix}2&1\\\\-3&4\\\\5&-2\\end{pmatrix}$.",
+   "marks": 3,
+   "answer": {
+    "value": 6.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Row 2 by column 2 gives $4(1)+0(4)+(-1)(-2)=6$.",
+   "hints": [
+    "Check inner dimensions: $3$ and $3$.",
+    "Take row 2 of $C$ and column 2 of $D$.",
+    "Sum three pairwise products."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-5-i17",
+   "kcs": [
+    "FP1-5.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the order of the product of a $2\\times3$ matrix and a $3\\times4$ matrix, in that order.",
+   "marks": 1,
+   "options": {
+    "A": "$2\\times4$",
+    "B": "$3\\times3$",
+    "C": "$4\\times2$",
+    "D": "The product is undefined."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "shuffle": true,
+   "explanation": "The inner dimensions match, so the product exists and has the outer dimensions $2\\times4$.",
+   "hints": [
+    "Compare the inner dimensions.",
+    "If they match, use the outer dimensions.",
+    "Keep the order of the factors."
+   ]
+  },
+  {
+   "id": "FP1-5-i18",
+   "kcs": [
+    "FP1-5.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 5,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of $A(BA)$, where $A=\\begin{pmatrix}2&1\\\\-1&3\\end{pmatrix}$ and $B=\\begin{pmatrix}4&-2\\\\5&1\\end{pmatrix}$.",
+   "marks": 4,
+   "answer": {
+    "value": 4.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Associativity gives $A(BA)=(AB)A$; multiplying the appropriate row and column gives $4$.",
+   "hints": [
+    "Multiply the inner pair first or use associativity.",
+    "Find the row and column for the requested final entry.",
+    "Keep the factor order while regrouping."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-5-i19",
+   "kcs": [
+    "FP1-5.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the determinant of $A=\\begin{pmatrix}3&2\\\\1&5\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 13.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "For a $2\\times2$ matrix, $\\det A=ad-bc=(3)(5)-(2)(1)=13$.",
+   "hints": [
+    "Label the entries $a,b,c,d$ in reading order.",
+    "Use $ad-bc$.",
+    "Subtract the off-diagonal product."
+   ],
+   "distractors": [
+    {
+     "value": 17.0,
+     "misconception": "m4"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i20",
+   "kcs": [
+    "FP1-5.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the determinant of $A=\\begin{pmatrix}2&-3\\\\4&1\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 14.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "For a $2\\times2$ matrix, $\\det A=ad-bc=(2)(1)-(-3)(4)=14$.",
+   "hints": [
+    "Label the entries $a,b,c,d$ in reading order.",
+    "Use $ad-bc$.",
+    "Subtract the off-diagonal product."
+   ],
+   "distractors": [
+    {
+     "value": -10.0,
+     "misconception": "m4"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i21",
+   "kcs": [
+    "FP1-5.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the determinant of $A=\\begin{pmatrix}-1&4\\\\2&3\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": -11.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "For a $2\\times2$ matrix, $\\det A=ad-bc=(-1)(3)-(4)(2)=-11$.",
+   "hints": [
+    "Label the entries $a,b,c,d$ in reading order.",
+    "Use $ad-bc$.",
+    "Subtract the off-diagonal product."
+   ],
+   "distractors": [
+    {
+     "value": 5.0,
+     "misconception": "m4"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i22",
+   "kcs": [
+    "FP1-5.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the determinant of $A=\\begin{pmatrix}0&7\\\\-2&5\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 14.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "For a $2\\times2$ matrix, $\\det A=ad-bc=(0)(5)-(7)(-2)=14$.",
+   "hints": [
+    "Label the entries $a,b,c,d$ in reading order.",
+    "Use $ad-bc$.",
+    "Subtract the off-diagonal product."
+   ],
+   "distractors": [
+    {
+     "value": -14.0,
+     "misconception": "m4"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i23",
+   "kcs": [
+    "FP1-5.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State when a $2\\times2$ matrix is singular.",
+   "marks": 1,
+   "options": {
+    "A": "When its determinant is $0$.",
+    "B": "When its determinant is $1$.",
+    "C": "When an entry is $0$.",
+    "D": "When its diagonal entries are equal."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m4",
+    "C": "m4"
+   },
+   "shuffle": true,
+   "explanation": "A $2\\times2$ matrix is singular exactly when its determinant is zero; then it has no inverse.",
+   "hints": [
+    "Recall the test for an inverse.",
+    "The determinant controls invertibility.",
+    "Identify the determinant value that makes division impossible."
+   ]
+  },
+  {
+   "id": "FP1-5-i24",
+   "kcs": [
+    "FP1-5.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate $\\det A$ and hence decide whether $A=\\begin{pmatrix}2&3\\\\4&6\\end{pmatrix}$ is singular. Enter the determinant.",
+   "marks": 3,
+   "answer": {
+    "value": 0.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$2(6)-3(4)=0$, so $A$ is singular and has no inverse.",
+   "hints": [
+    "Compute the two diagonal products.",
+    "Subtract the second from the first.",
+    "A zero determinant means singular."
+   ],
+   "distractors": []
+  },
+  {
+   "id": "FP1-5-i25",
+   "kcs": [
+    "FP1-5.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,1)$ entry of $A^{-1}$ for $A=\\begin{pmatrix}2&1\\\\3&2\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$\\det A=1$ and $A^{-1}=\\frac{1}{\\det A}\\begin{pmatrix}2&-1\\\\-3&2\\end{pmatrix}$, so the required entry is $2$.",
+   "hints": [
+    "Find the determinant first.",
+    "Swap diagonal entries and negate off-diagonal entries.",
+    "Divide the relevant adjugate entry by the determinant."
+   ],
+   "distractors": [
+    {
+     "value": -2.0,
+     "misconception": "m5"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i26",
+   "kcs": [
+    "FP1-5.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of $A^{-1}$ for $A=\\begin{pmatrix}4&1\\\\2&1\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": -0.5,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$\\det A=2$ and $A^{-1}=\\frac{1}{\\det A}\\begin{pmatrix}1&-1\\\\-2&4\\end{pmatrix}$, so the required entry is $-1/2$.",
+   "hints": [
+    "Find the determinant first.",
+    "Swap diagonal entries and negate off-diagonal entries.",
+    "Divide the relevant adjugate entry by the determinant."
+   ],
+   "distractors": [
+    {
+     "value": -1.0,
+     "misconception": "m5"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i27",
+   "kcs": [
+    "FP1-5.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,1)$ entry of $A^{-1}$ for $A=\\begin{pmatrix}1&2\\\\3&5\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$\\det A=-1$ and $A^{-1}=\\frac{1}{\\det A}\\begin{pmatrix}5&-2\\\\-3&1\\end{pmatrix}$, so the required entry is $3$.",
+   "hints": [
+    "Find the determinant first.",
+    "Swap diagonal entries and negate off-diagonal entries.",
+    "Divide the relevant adjugate entry by the determinant."
+   ],
+   "distractors": [
+    {
+     "value": -3.0,
+     "misconception": "m5"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i28",
+   "kcs": [
+    "FP1-5.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of $(AB)^{-1}$, where $A=\\begin{pmatrix}2&1\\\\1&1\\end{pmatrix}$ and $B=\\begin{pmatrix}1&2\\\\0&1\\end{pmatrix}$.",
+   "marks": 3,
+   "answer": {
+    "value": -5.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Use $(AB)^{-1}=B^{-1}A^{-1}$; the required entry is $-5$.",
+   "hints": [
+    "Both factors are invertible.",
+    "Reverse the factor order when inverting a product.",
+    "Multiply $B^{-1}$ by $A^{-1}$."
+   ],
+   "distractors": [
+    {
+     "value": -3.0,
+     "misconception": "m5"
+    }
+   ]
+  },
+  {
+   "id": "FP1-5-i29",
+   "kcs": [
+    "FP1-5.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the inverse of $AB$ when both square matrices are non-singular.",
+   "marks": 1,
+   "options": {
+    "A": "$A^{-1}B^{-1}$",
+    "B": "$B^{-1}A^{-1}$",
+    "C": "$(A+B)^{-1}$",
+    "D": "$AB^{-1}$"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m5",
+    "D": "m5"
+   },
+   "shuffle": true,
+   "explanation": "$(AB)^{-1}=B^{-1}A^{-1}$ because $(AB)(B^{-1}A^{-1})=I$.",
+   "hints": [
+    "Think of undoing two operations.",
+    "Undo the rightmost factor first.",
+    "Check which product cancels adjacent inverse pairs."
+   ]
+  },
+  {
+   "id": "FP1-5-i30",
+   "kcs": [
+    "FP1-5.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(2,2)$ entry of $C^{-1}C$, where $C=\\begin{pmatrix}3&1\\\\2&1\\end{pmatrix}$.",
+   "marks": 3,
+   "answer": {
+    "value": 1.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "A non-singular matrix times its inverse is the identity matrix, whose $(2,2)$ entry is $1$.",
+   "hints": [
+    "Check that $C$ is invertible.",
+    "Use the defining property of an inverse.",
+    "Read the requested entry of the identity matrix."
+   ],
+   "distractors": []
+  }
+ ],
+ "flashcards": [],
+ "diagrams": [],
+ "teach": {
+  "FP1-5.1": {
+   "motivate": "When two tables of numbers describe the same positions, combining them entry by entry is natural. Matrix addition and subtraction formalise this, but the table sizes must agree.",
+   "establish": "A matrix has an order: number of rows by number of columns. Two matrices are conformable for addition or subtraction only when both orders match. For equal-order matrices $A$ and $B$, the entry in row $i$, column $j$ of $A+B$ is $a_{ij}+b_{ij}$; in $A-B$ it is $a_{ij}-b_{ij}$. The result has the same order. Keep the order of subtraction: generally $A-B\\ne B-A$.",
+   "connect": "You can combine this entrywise rule with scalar multiplication to evaluate expressions such as $2A-3B$. Products of matrices follow a different rule.",
+   "note": "- Add and subtract only matrices of the same order.\n- Combine entries in corresponding positions.\n- In $A-B$, subtract each entry of $B$ from the matching entry of $A$.",
+   "self_explain": "Why is a $2\\times3$ matrix not conformable for addition with a $3\\times2$ matrix, even though both have six entries?",
+   "discover": {
+    "stem": "Which pair can be added?",
+    "options": {
+     "A": "$2\\times3$ and $3\\times2$",
+     "B": "$2\\times3$ and $2\\times3$",
+     "C": "$2\\times3$ and $2\\times2$",
+     "D": "$2\\times3$ and $3\\times3$"
+    },
+    "answer": "B",
+    "explanation": "Both row and column counts must match."
+   },
+   "source": "pack"
+  },
+  "FP1-5.2": {
+   "motivate": "Multiplying every measurement in a table by the same conversion factor should change every position, not just one. A scalar works the same way on a matrix.",
+   "establish": "A scalar is an ordinary number. Scalar multiplication of a matrix means multiplying every entry by that number. If $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, then $kA=\\begin{pmatrix}ka&kb\\\\kc&kd\\end{pmatrix}$. The order of the matrix stays the same. For matrices of the same order, $k(A+B)=kA+kB$, so a scalar distributes to both matrices. To calculate $pA-qB$, scale each matrix and then subtract matching entries.",
+   "connect": "Scalar multiplication uses each entry independently; matrix multiplication uses rows and columns. Keeping those two procedures separate prevents a common error.",
+   "note": "- Multiply every matrix entry by the scalar.\n- A negative scalar changes signs where appropriate.\n- Distribute a scalar to both terms in a matrix sum.",
+   "self_explain": "For $2A-3B$, why must the $3$ multiply every entry of $B$ before subtraction?",
+   "discover": {
+    "stem": "Which equals $3(A+B)$?",
+    "options": {
+     "A": "$3A+B$",
+     "B": "$A+3B$",
+     "C": "$3A+3B$",
+     "D": "$A+B+3$"
+    },
+    "answer": "C",
+    "explanation": "The scalar multiplies every entry in each matrix."
+   },
+   "source": "pack"
+  },
+  "FP1-5.3": {
+   "motivate": "A matrix product combines one row of information with one column at a time. The matching middle dimension tells you whether the pairing can be completed.",
+   "establish": "For $AB$, the number of columns of $A$ must equal the number of rows of $B$: the matrices are then conformable for multiplication. If $A$ is $m\\times n$ and $B$ is $n\\times p$, then $AB$ is $m\\times p$. Entry $(i,j)$ is the dot product of row $i$ of $A$ and column $j$ of $B$: multiply paired entries and add. This is not entrywise multiplication. In general $AB\\ne BA$; a reverse product may even be undefined. Compatible products are associative, so $(AB)C=A(BC)$.",
+   "connect": "Matrix multiplication defines the identity relation $AA^{-1}=I$. The order of factors also becomes crucial when inverting a product.",
+   "note": "- Check matching inner dimensions before multiplying.\n- The outer dimensions give the product order.\n- Each product entry is a row-column dot product.\n- Preserve factor order; generally $AB\\ne BA$.",
+   "self_explain": "Why does a $2\\times3$ matrix times a $3\\times4$ matrix have order $2\\times4$?",
+   "discover": {
+    "stem": "What is the order of $(2\\times3)(3\\times4)$?",
+    "options": {
+     "A": "$2\\times4$",
+     "B": "$3\\times3$",
+     "C": "$4\\times2$",
+     "D": "Undefined"
+    },
+    "answer": "A",
+    "explanation": "The inner dimensions match, and the outer dimensions remain."
+   },
+   "source": "pack"
+  },
+  "FP1-5.4": {
+   "motivate": "A determinant is a quick test for whether a square matrix can be undone by an inverse. For a $2\\times2$ matrix, it takes one subtraction.",
+   "establish": "For $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, evaluate the $2\\times2$ determinant as $\\det A=ad-bc$: the main-diagonal product minus the other-diagonal product. A matrix is singular exactly when its determinant is zero; then it has no inverse. It is non-singular when its determinant is nonzero; then an inverse exists. A zero entry by itself does not make a matrix singular. For example, $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ has determinant $-1$ and is non-singular.",
+   "connect": "Compute the determinant before using the $2\\times2$ inverse formula, since the determinant appears in its denominator.",
+   "note": "- For $\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $\\det A=ad-bc$.\n- Zero determinant means singular and no inverse.\n- Nonzero determinant means non-singular and invertible.",
+   "self_explain": "Why can a matrix with one zero entry still be non-singular?",
+   "discover": {
+    "stem": "When is a $2\\times2$ matrix singular?",
+    "options": {
+     "A": "Its determinant is zero.",
+     "B": "Its determinant is one.",
+     "C": "One entry is zero.",
+     "D": "The diagonal entries match."
+    },
+    "answer": "A",
+    "explanation": "Singularity depends on the determinant being zero, not on any single entry."
+   },
+   "source": "pack"
+  },
+  "FP1-5.5": {
+   "motivate": "An inverse undoes a matrix operation. Its formula uses the determinant, and undoing two successive operations requires reversing their order.",
+   "establish": "For a non-singular $2\\times2$ matrix $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $A^{-1}=\\frac{1}{ad-bc}\\begin{pmatrix}d&-b\\\\-c&a\\end{pmatrix}$. First check $ad-bc\\ne0$; otherwise the inverse does not exist. Swap the diagonal entries, negate the off-diagonal entries and divide the whole matrix by the determinant. Verify an inverse using $AA^{-1}=A^{-1}A=I$. If $A$ and $B$ are invertible, $(AB)^{-1}=B^{-1}A^{-1}$. The order reverses because $(AB)(B^{-1}A^{-1})=A(BB^{-1})A^{-1}=I$.",
+   "connect": "The determinant test comes first, and the matrix product rule lets you check the result. The identity matrix plays the role of $1$ in multiplication.",
+   "note": "- Invert only when $\\det A\\ne0$.\n- Swap diagonal entries, negate off-diagonal entries, then divide by $\\det A$.\n- $AA^{-1}=I$ checks the inverse.\n- $(AB)^{-1}=B^{-1}A^{-1}$ reverses order.",
+   "self_explain": "Why does the inverse of $AB$ place $B^{-1}$ before $A^{-1}$?",
+   "discover": {
+    "stem": "Which expression equals $(AB)^{-1}$ for invertible matrices?",
+    "options": {
+     "A": "$A^{-1}B^{-1}$",
+     "B": "$B^{-1}A^{-1}$",
+     "C": "$(A+B)^{-1}$",
+     "D": "$AB^{-1}$"
+    },
+    "answer": "B",
+    "explanation": "Reversing the order makes adjacent factors cancel when you check the product against $I$."
+   },
+   "source": "pack"
+  }
+ }
+}

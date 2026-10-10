@@ -1,0 +1,119 @@
+{
+ "sub": "FP1-5",
+ "stage": "ready",
+ "created": "2026-10-10T17:08:07+08:00",
+ "updated": "2026-10-10T17:23:10+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T17:12:54+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 30 items"
+  },
+  {
+   "t": "2026-10-10T17:20:12+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "40 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T17:22:19+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:23:10+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 30,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 31739,
+   "provider": "codex",
+   "model": "gpt-6-sol/medium",
+   "rung": 1,
+   "started": "2026-10-10T17:08:37+08:00",
+   "log": "foundry/logs/FP1-5.drafter.1010-170837.log",
+   "out": "foundry/logs/FP1-5.drafter.1010-170837.out.json",
+   "finished": "2026-10-10T17:12:54+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/FP1/FP1-5.json",
+    "note_path": "build/out/notes/Subjects/Maths/FP1 Further Pure Mathematics 1/5 Matrix algebra integration.md",
+    "items": 30,
+    "templates": 0,
+    "worked": 5,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 37914,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:18:25+08:00",
+   "log": "foundry/logs/FP1-5.solver-1.1010-171825.log",
+   "out": "foundry/logs/FP1-5.solver-1.1010-171825.out.json",
+   "expects": "build/work/blind/FP1-5.answers.part1.json",
+   "finished": "2026-10-10T17:18:58+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/FP1-5.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 38695,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:19:30+08:00",
+   "log": "foundry/logs/FP1-5.solver-2.1010-171930.log",
+   "out": "foundry/logs/FP1-5.solver-2.1010-171930.out.json",
+   "expects": "build/work/blind/FP1-5.answers.part2.json",
+   "finished": "2026-10-10T17:19:44+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/FP1-5.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 40084,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:21:03+08:00",
+   "log": "foundry/logs/FP1-5.checker.1010-172103.log",
+   "out": "foundry/logs/FP1-5.checker.1010-172103.out.json",
+   "expects": "build/work/foundry/FP1-5.check.json",
+   "finished": "2026-10-10T17:21:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/FP1-5.check.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

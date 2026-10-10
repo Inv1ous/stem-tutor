@@ -1,0 +1,42 @@
+{
+  "FP1-5.1": {
+    "motivate": "When two tables of numbers describe the same positions, combining them entry by entry is natural. Matrix addition and subtraction formalise this, but the table sizes must agree.",
+    "establish": "A matrix has an order: number of rows by number of columns. Two matrices are conformable for addition or subtraction only when both orders match. For equal-order matrices $A$ and $B$, the entry in row $i$, column $j$ of $A+B$ is $a_{ij}+b_{ij}$; in $A-B$ it is $a_{ij}-b_{ij}$. The result has the same order. Keep the order of subtraction: generally $A-B\\ne B-A$.",
+    "connect": "You can combine this entrywise rule with scalar multiplication to evaluate expressions such as $2A-3B$. Products of matrices follow a different rule.",
+    "note": "- Add and subtract only matrices of the same order.\n- Combine entries in corresponding positions.\n- In $A-B$, subtract each entry of $B$ from the matching entry of $A$.",
+    "self_explain": "Why is a $2\\times3$ matrix not conformable for addition with a $3\\times2$ matrix, even though both have six entries?",
+    "discover": {"stem": "Which pair can be added?", "options": {"A": "$2\\times3$ and $3\\times2$", "B": "$2\\times3$ and $2\\times3$", "C": "$2\\times3$ and $2\\times2$", "D": "$2\\times3$ and $3\\times3$"}, "answer": "B", "explanation": "Both row and column counts must match."}
+  },
+  "FP1-5.2": {
+    "motivate": "Multiplying every measurement in a table by the same conversion factor should change every position, not just one. A scalar works the same way on a matrix.",
+    "establish": "A scalar is an ordinary number. Scalar multiplication of a matrix means multiplying every entry by that number. If $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, then $kA=\\begin{pmatrix}ka&kb\\\\kc&kd\\end{pmatrix}$. The order of the matrix stays the same. For matrices of the same order, $k(A+B)=kA+kB$, so a scalar distributes to both matrices. To calculate $pA-qB$, scale each matrix and then subtract matching entries.",
+    "connect": "Scalar multiplication uses each entry independently; matrix multiplication uses rows and columns. Keeping those two procedures separate prevents a common error.",
+    "note": "- Multiply every matrix entry by the scalar.\n- A negative scalar changes signs where appropriate.\n- Distribute a scalar to both terms in a matrix sum.",
+    "self_explain": "For $2A-3B$, why must the $3$ multiply every entry of $B$ before subtraction?",
+    "discover": {"stem": "Which equals $3(A+B)$?", "options": {"A": "$3A+B$", "B": "$A+3B$", "C": "$3A+3B$", "D": "$A+B+3$"}, "answer": "C", "explanation": "The scalar multiplies every entry in each matrix."}
+  },
+  "FP1-5.3": {
+    "motivate": "A matrix product combines one row of information with one column at a time. The matching middle dimension tells you whether the pairing can be completed.",
+    "establish": "For $AB$, the number of columns of $A$ must equal the number of rows of $B$: the matrices are then conformable for multiplication. If $A$ is $m\\times n$ and $B$ is $n\\times p$, then $AB$ is $m\\times p$. Entry $(i,j)$ is the dot product of row $i$ of $A$ and column $j$ of $B$: multiply paired entries and add. This is not entrywise multiplication. In general $AB\\ne BA$; a reverse product may even be undefined. Compatible products are associative, so $(AB)C=A(BC)$.",
+    "connect": "Matrix multiplication defines the identity relation $AA^{-1}=I$. The order of factors also becomes crucial when inverting a product.",
+    "note": "- Check matching inner dimensions before multiplying.\n- The outer dimensions give the product order.\n- Each product entry is a row-column dot product.\n- Preserve factor order; generally $AB\\ne BA$.",
+    "self_explain": "Why does a $2\\times3$ matrix times a $3\\times4$ matrix have order $2\\times4$?",
+    "discover": {"stem": "What is the order of $(2\\times3)(3\\times4)$?", "options": {"A": "$2\\times4$", "B": "$3\\times3$", "C": "$4\\times2$", "D": "Undefined"}, "answer": "A", "explanation": "The inner dimensions match, and the outer dimensions remain."}
+  },
+  "FP1-5.4": {
+    "motivate": "A determinant is a quick test for whether a square matrix can be undone by an inverse. For a $2\\times2$ matrix, it takes one subtraction.",
+    "establish": "For $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, evaluate the $2\\times2$ determinant as $\\det A=ad-bc$: the main-diagonal product minus the other-diagonal product. A matrix is singular exactly when its determinant is zero; then it has no inverse. It is non-singular when its determinant is nonzero; then an inverse exists. A zero entry by itself does not make a matrix singular. For example, $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ has determinant $-1$ and is non-singular.",
+    "connect": "Compute the determinant before using the $2\\times2$ inverse formula, since the determinant appears in its denominator.",
+    "note": "- For $\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $\\det A=ad-bc$.\n- Zero determinant means singular and no inverse.\n- Nonzero determinant means non-singular and invertible.",
+    "self_explain": "Why can a matrix with one zero entry still be non-singular?",
+    "discover": {"stem": "When is a $2\\times2$ matrix singular?", "options": {"A": "Its determinant is zero.", "B": "Its determinant is one.", "C": "One entry is zero.", "D": "The diagonal entries match."}, "answer": "A", "explanation": "Singularity depends on the determinant being zero, not on any single entry."}
+  },
+  "FP1-5.5": {
+    "motivate": "An inverse undoes a matrix operation. Its formula uses the determinant, and undoing two successive operations requires reversing their order.",
+    "establish": "For a non-singular $2\\times2$ matrix $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $A^{-1}=\\frac{1}{ad-bc}\\begin{pmatrix}d&-b\\\\-c&a\\end{pmatrix}$. First check $ad-bc\\ne0$; otherwise the inverse does not exist. Swap the diagonal entries, negate the off-diagonal entries and divide the whole matrix by the determinant. Verify an inverse using $AA^{-1}=A^{-1}A=I$. If $A$ and $B$ are invertible, $(AB)^{-1}=B^{-1}A^{-1}$. The order reverses because $(AB)(B^{-1}A^{-1})=A(BB^{-1})A^{-1}=I$.",
+    "connect": "The determinant test comes first, and the matrix product rule lets you check the result. The identity matrix plays the role of $1$ in multiplication.",
+    "note": "- Invert only when $\\det A\\ne0$.\n- Swap diagonal entries, negate off-diagonal entries, then divide by $\\det A$.\n- $AA^{-1}=I$ checks the inverse.\n- $(AB)^{-1}=B^{-1}A^{-1}$ reverses order.",
+    "self_explain": "Why does the inverse of $AB$ place $B^{-1}$ before $A^{-1}$?",
+    "discover": {"stem": "Which expression equals $(AB)^{-1}$ for invertible matrices?", "options": {"A": "$A^{-1}B^{-1}$", "B": "$B^{-1}A^{-1}$", "C": "$(A+B)^{-1}$", "D": "$AB^{-1}$"}, "answer": "B", "explanation": "Reversing the order makes adjacent factors cancel when you check the product against $I$."}
+  }
+}
