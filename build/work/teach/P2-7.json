@@ -1,0 +1,15 @@
+{
+  "P2-7.1": {
+    "motivate": "A graph can rise, fall, or turn; a design problem can ask for the largest possible area. Differentiation gives one method for all these questions: inspect the gradient as $x$ changes.",
+    "discover": {
+      "stem": "For $f(x)=x^3$, $f'(0)=0$. What happens to the curve at the origin?",
+      "options": {"A": "It has a local maximum.", "B": "It has a local minimum.", "C": "It remains increasing through a stationary point.", "D": "It is decreasing on both sides."},
+      "answer": "C",
+      "explanation": "$f'(x)=3x^2$ is positive on both sides of zero. The horizontal tangent is a stationary point of inflection, not a maximum or minimum."
+    },
+    "establish": "A stationary point occurs where $f'(x)=0$. Solve this equation, then substitute each $x$-value into $f$ to find its coordinates. A function is increasing where $f'(x)>0$ and decreasing where $f'(x)<0$. A change from positive to negative marks a local maximum; negative to positive marks a local minimum. If $f'$ does not change sign, the stationary point may be an inflection. At a stationary point, $f''<0$ confirms a local maximum and $f''>0$ a local minimum; $f''=0$ is inconclusive. For curve sketching, combine stationary points with intercepts, derivative signs, and end behaviour. For a practical maximum or minimum, express the target quantity using one variable and the given constraint, state its feasible domain, find stationary candidates, and compare relevant endpoints.",
+    "connect": "You already differentiate powers of $x$ and find tangent gradients. Now use that same derivative to classify the whole curve or optimise a quantity. The coordinate still comes from the original function, not from its derivative.",
+    "note": "- Stationary point: $f'(x)=0$; substitute into $f$ for its coordinates.\n- Increasing: $f'(x)>0$; decreasing: $f'(x)<0$.\n- Positive-to-negative sign change: maximum; negative-to-positive: minimum.\n- $f''<0$: maximum; $f''>0$: minimum; $f''=0$: inconclusive.\n- Sketch with stationary points, intercepts, gradient signs and end behaviour.\n- In practical optimisation, form one-variable objective, check domain and endpoints.",
+    "self_explain": "Why can $f'(a)=0$ alone not tell you whether $(a,f(a))$ is a maximum, minimum, or stationary point of inflection?"
+  }
+}

@@ -1,0 +1,159 @@
+{
+ "sub": "P2-7",
+ "stage": "ready",
+ "created": "2026-10-10T15:55:37+08:00",
+ "updated": "2026-10-10T16:23:04+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:57:24+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 8 items"
+  },
+  {
+   "t": "2026-10-10T16:07:00+08:00",
+   "from": "solve",
+   "to": "adjudicate",
+   "note": "6 agreed, 0 disputed; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:10:25+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:21:54+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:23:04+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 8,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item P2-7-i01 hint 2",
+   "rule": "hint gives it away",
+   "evidence": "Find where the first derivative is zero or changes sign.",
+   "suggested": "Prompt the learner to recall what a stationary tangent's gradient represents without stating that it is zero.",
+   "status": "fixed",
+   "resolution": "fix: In build/out/packs/P2/P2-7.json, for item id P2-7-i01, replace hints[1] (the second hint) with exactly: \"Picture the tangent at a stationary point. What does its direction tell you about its gradient?\" The current hint explicitly states the requested zero-derivative condition and its alternative \"or changes sign\" confuses stationarity with classification. A stationary point has first derivative zero; a sign change is not required."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item P2-7-i01 hint 2",
+   "instruction": "In build/out/packs/P2/P2-7.json, for item id P2-7-i01, replace hints[1] (the second hint) with exactly: \"Picture the tangent at a stationary point. What does its direction tell you about its gradient?\" The current hint explicitly states the requested zero-derivative condition and its alternative \"or changes sign\" confuses stationarity with classification. A stationary point has first derivative zero; a sign change is not required.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 78752,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:55:37+08:00",
+   "log": "foundry/logs/P2-7.drafter.1010-155537.log",
+   "out": "foundry/logs/P2-7.drafter.1010-155537.out.json",
+   "finished": "2026-10-10T15:57:24+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/P2/P2-7.json",
+    "note_path": "build/out/notes/Subjects/Maths/P2 Pure Mathematics 2/7 Differentiation.md",
+    "items": 8,
+    "templates": 1,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 85945,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:06:34+08:00",
+   "log": "foundry/logs/P2-7.solver.1010-160634.log",
+   "out": "foundry/logs/P2-7.solver.1010-160634.out.json",
+   "expects": "build/work/blind/P2-7.answers.json",
+   "finished": "2026-10-10T16:06:51+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 6 questions in `build/work/blind/P2-7.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 85949,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:06:34+08:00",
+   "log": "foundry/logs/P2-7.checker.1010-160634.log",
+   "out": "foundry/logs/P2-7.checker.1010-160634.out.json",
+   "expects": "build/work/foundry/P2-7.check.json",
+   "finished": "2026-10-10T16:06:54+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — [P2-7.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/P2-7.check.json)."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 88562,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T16:09:57+08:00",
+   "log": "foundry/logs/P2-7.adjudicator.1010-160957.log",
+   "out": "foundry/logs/P2-7.adjudicator.1010-160957.out.json",
+   "finished": "2026-10-10T16:10:30+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item P2-7-i01 hint 2 fix: Reveals the answer; recorded replacement prompting recall of tangent gradient."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 96991,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:21:38+08:00",
+   "log": "foundry/logs/P2-7.fixer.1010-162138.log",
+   "out": "foundry/logs/P2-7.fixer.1010-162138.out.json",
+   "finished": "2026-10-10T16:21:54+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "Syllabus gate still reports `no-teach-card` for P2-7.1. This is unrelated to the requested hint change, so I left teaching cards unchanged."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
