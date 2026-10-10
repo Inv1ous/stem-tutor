@@ -1,0 +1,179 @@
+{
+ "sub": "P1-5",
+ "stage": "ready",
+ "created": "2026-10-10T13:45:31+08:00",
+ "updated": "2026-10-10T14:21:15+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T13:48:32+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 12 items"
+  },
+  {
+   "t": "2026-10-10T14:13:05+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "12 agreed, 3 disputed"
+  },
+  {
+   "t": "2026-10-10T14:13:58+08:00",
+   "from": "tiebreak",
+   "to": "check",
+   "note": "tiebreak left 2 for the manager; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T14:20:04+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:21:05+08:00",
+   "from": "adjudicate",
+   "to": "sign",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T14:21:15+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 12,
+  "extra": 0
+ },
+ "disputes": [
+  {
+   "id": "P1-5-i09",
+   "key": {
+    "expr": "x**3/3 + 2*x**2 + 4*x + C"
+   },
+   "solver": "(x + 2)**3/3 + C",
+   "tiebreak": "(x+2)**3/3 + C",
+   "status": "closed",
+   "resolution": "keep: The key differentiates to x^2+4*x+4=(x+2)^2; the solver and tiebreaker form differs only by 8/3, which is absorbed into the arbitrary integration constant C."
+  },
+  {
+   "id": "P1-5-i10",
+   "key": {
+    "expr": "3*log(Abs(x))/2 + 1/(2*x) + C"
+   },
+   "solver": "3*log(abs(x))/2 + 1/(2*x) + C",
+   "tiebreak": "3*log(Abs(x))/2 + 1/(2*x) + C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "we2.faded",
+   "key": {
+    "expr": "x**3/3 + 3*x**2 + 9*x + C"
+   },
+   "solver": "(x + 3)**3/3 + C",
+   "tiebreak": "(x+3)**3/3 + C",
+   "status": "closed",
+   "resolution": "keep: The key differentiates to x^2+6*x+9=(x+3)^2; the solver and tiebreaker form differs only by 9, which is absorbed into the arbitrary integration constant C."
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 3035,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:47:01+08:00",
+   "log": "foundry/logs/P1-5.drafter.1010-134701.log",
+   "out": "foundry/logs/P1-5.drafter.1010-134701.out.json",
+   "finished": "2026-10-10T13:48:32+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/P1/P1-5.json",
+    "note_path": "build/out/notes/Subjects/Maths/P1 Pure Mathematics 1/5 Integration.md",
+    "items": 12,
+    "templates": 0,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 20763,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:12:34+08:00",
+   "log": "foundry/logs/P1-5.solver.1010-141234.log",
+   "out": "foundry/logs/P1-5.solver.1010-141234.out.json",
+   "expects": "build/work/blind/P1-5.answers.json",
+   "finished": "2026-10-10T14:13:03+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 15 questions and wrote [P1-5.answers.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/P1-5.answers.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 21803,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:13:35+08:00",
+   "log": "foundry/logs/P1-5.tiebreak.1010-141335.log",
+   "out": "foundry/logs/P1-5.tiebreak.1010-141335.out.json",
+   "expects": "build/work/blind/P1-5.tiebreak.json",
+   "finished": "2026-10-10T14:13:55+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 3,
+    "answers_path": "build/work/blind/P1-5.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 26572,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:19:28+08:00",
+   "log": "foundry/logs/P1-5.checker.1010-141928.log",
+   "out": "foundry/logs/P1-5.checker.1010-141928.out.json",
+   "expects": "build/work/foundry/P1-5.check.json",
+   "finished": "2026-10-10T14:19:42+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/P1-5.check.json`."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 27719,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:20:40+08:00",
+   "log": "foundry/logs/P1-5.adjudicator.1010-142040.log",
+   "out": "foundry/logs/P1-5.adjudicator.1010-142040.out.json",
+   "finished": "2026-10-10T14:21:10+08:00",
+   "exit": 0,
+   "report": {
+    "text": "P1-5-i09 keep: Difference of 8/3 is absorbed into arbitrary C.\nwe2.faded keep: Difference of 9 is absorbed into arbitrary C."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

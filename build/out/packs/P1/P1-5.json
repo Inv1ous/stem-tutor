@@ -1,0 +1,541 @@
+{
+ "subtopic": "P1-5",
+ "spec": "P1",
+ "version": 1,
+ "note": "Subjects/Maths/P1 Pure Mathematics 1/5 Integration.md",
+ "outline": "Indefinite integration reverses differentiation: if $F' (x)=f(x)$, then $\\int f(x)\\,dx=F(x)+C$. The constant $C$ represents every antiderivative with the same derivative. For $n\\ne-1$, $\\int x^n\\,dx=x^{n+1}/(n+1)+C$. Integrate sums, differences and constant multiples term by term. Expand a squared bracket or divide a numerator by a power of $x$ before applying the rule. If a point on a curve and $f'(x)$ are given, integrate and substitute the point to determine $C$.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "P1-5.1",
+   "statement": "An indefinite integral has only one answer.",
+   "refutation": "Differentiating any constant gives zero, so all antiderivatives differ by a constant.",
+   "contrast": "$\\int 2x\\,dx=x^2+C$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "P1-5.2",
+   "statement": "Integrating $x^n$ keeps its exponent unchanged.",
+   "refutation": "The exponent increases by one and the coefficient is divided by that new exponent.",
+   "contrast": "$\\int x^2\\,dx=x^3/3+C$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "P1-5.2",
+   "statement": "The power rule applies when $n=-1$.",
+   "refutation": "The denominator $n+1$ would be zero; that case is excluded from this chapter.",
+   "contrast": "Use the rule only for $n\\ne-1$.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "P1-5.2",
+   "statement": "The given point can be substituted into $f'(x)$ to determine the constant.",
+   "refutation": "The point lies on $y=f(x)$, so substitute it into the integrated expression.",
+   "contrast": "If $f'(x)=2x$ and $(1,4)$ lies on the curve, $4=1+C$, so $C=3$.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "P1-5.1",
+   "problem": "Find $\\int 2x\\,dx$ and explain the constant.",
+   "steps": [
+    {
+     "do": "Differentiate $x^2$: $d(x^2)/dx=2x$.",
+     "why": "Integration reverses differentiation."
+    },
+    {
+     "do": "Hence $\\int 2x\\,dx=x^2+C$.",
+     "why": "Every constant has derivative zero, so the full family needs $C$."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find $\\int 4x^3\\,dx$, including the arbitrary constant.",
+    "answer": {
+     "expr": "x**4 + C"
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "P1-5.2",
+   "problem": "Find $\\int (x+2)^2\\,dx$.",
+   "steps": [
+    {
+     "do": "Expand: $(x+2)^2=x^2+4x+4$.",
+     "why": "This gives a sum of powers to integrate term by term."
+    },
+    {
+     "do": "Integrate: $x^3/3+2x^2+4x+C$.",
+     "why": "Increase each exponent and divide by its new value."
+    },
+    {
+     "do": "Differentiate the result to obtain $x^2+4x+4$.",
+     "why": "Differentiation checks the antiderivative."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find $\\int (x+3)^2\\,dx$.",
+    "answer": {
+     "expr": "x**3/3 + 3*x**2 + 9*x + C"
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "P1-5.2",
+   "problem": "Given $f'(x)=3x^2-2x$ and the point $(1,5)$ on the curve, find $y=f(x)$.",
+   "steps": [
+    {
+     "do": "Integrate: $f(x)=x^3-x^2+C$.",
+     "why": "Reverse the derivative term by term, keeping the arbitrary constant."
+    },
+    {
+     "do": "At $(1,5)$, $5=1-1+C$, so $C=5$.",
+     "why": "The point satisfies the curve equation $y=f(x)$."
+    },
+    {
+     "do": "Therefore $y=x^3-x^2+5$.",
+     "why": "Substitute the determined constant into the family of curves."
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Given $f'(x)=2x+3$ and $f(1)=7$, find $f(0)$.",
+    "answer": {
+     "value": 3.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "P1-5-i01",
+   "kcs": [
+    "P1-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the indefinite integral of $2x$.",
+   "marks": 1,
+   "explanation": "Since $d(x^2+C)/dx=2x$, the constant is needed to describe every antiderivative.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "options": {
+    "A": "$C + x^{2}$",
+    "B": "$2 x^{2}$",
+    "C": "$x^{2}$",
+    "D": "$2$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "C": "m1"
+   }
+  },
+  {
+   "id": "P1-5-i02",
+   "kcs": [
+    "P1-5.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why an indefinite integral includes $C$.",
+   "marks": 1,
+   "explanation": "A constant differentiates to zero, so adding any constant leaves the derivative unchanged.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "rubric": [
+    {
+     "point": "Any constant differentiates to zero, so the integral describes a family of antiderivatives.",
+     "keywords": [
+      [
+       "constant"
+      ],
+      [
+       "zero",
+       "0"
+      ],
+      [
+       "derivative",
+       "differentiat"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P1-5-i03",
+   "kcs": [
+    "P1-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find a function whose derivative is $6x$.",
+   "marks": 1,
+   "explanation": "Differentiating $3x^2+7$ gives $6x$; the constant vanishes.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "options": {
+    "A": "$3 x^{2} + 7$",
+    "B": "$6 x^{2}$",
+    "C": "$3 x$",
+    "D": "$6$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m2"
+   }
+  },
+  {
+   "id": "P1-5-i04",
+   "kcs": [
+    "P1-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Verify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Verify which function has derivative $2x$ and value $4$ at $x=1$.",
+   "marks": 1,
+   "explanation": "Differentiating $x^2+3$ gives $2x$, and its value at $x=1$ is $4$.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "options": {
+    "A": "$x^{2} + 3$",
+    "B": "$x^{2} - 5$",
+    "C": "$x^{2} + x$",
+    "D": "$2 x^{2}$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {}
+  },
+  {
+   "id": "P1-5-i05",
+   "kcs": [
+    "P1-5.1"
+   ],
+   "kind": "expression",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\int 7\\,dx$.",
+   "marks": 1,
+   "explanation": "The derivative of $7x+C$ is $7$.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "answer": {
+    "expr": "7*x + C"
+   }
+  },
+  {
+   "id": "P1-5-i06",
+   "kcs": [
+    "P1-5.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $x^3+2$ and $x^3-9$ are both antiderivatives of $3x^2$.",
+   "marks": 1,
+   "explanation": "Their derivatives are both $3x^2$ because the constants disappear.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "rubric": [
+    {
+     "point": "Both differentiate to $3x^2$ because their constants have zero derivative.",
+     "keywords": [
+      [
+       "differentiat",
+       "derivative"
+      ],
+      [
+       "constant"
+      ],
+      [
+       "zero",
+       "disappear"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P1-5-i07",
+   "kcs": [
+    "P1-5.2"
+   ],
+   "kind": "expression",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\int 5x^4\\,dx$.",
+   "marks": 1,
+   "explanation": "Rewrite as powers if necessary, integrate each term, and add $C$.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "answer": {
+    "expr": "x**5 + C"
+   }
+  },
+  {
+   "id": "P1-5-i08",
+   "kcs": [
+    "P1-5.2"
+   ],
+   "kind": "expression",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\int (3x^2-4x+6)\\,dx$.",
+   "marks": 1,
+   "explanation": "Rewrite as powers if necessary, integrate each term, and add $C$.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "answer": {
+    "expr": "x**3 - 2*x**2 + 6*x + C"
+   }
+  },
+  {
+   "id": "P1-5-i09",
+   "kcs": [
+    "P1-5.2"
+   ],
+   "kind": "expression",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\int (x+2)^2\\,dx$.",
+   "marks": 1,
+   "explanation": "Rewrite as powers if necessary, integrate each term, and add $C$.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "answer": {
+    "expr": "x**3/3 + 2*x**2 + 4*x + C"
+   }
+  },
+  {
+   "id": "P1-5-i10",
+   "kcs": [
+    "P1-5.2"
+   ],
+   "kind": "expression",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\int (3x-1)/(2x^2)\\,dx$.",
+   "marks": 1,
+   "explanation": "Rewrite as powers if necessary, integrate each term, and add $C$.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "answer": {
+    "expr": "3*log(Abs(x))/2 + 1/(2*x) + C"
+   }
+  },
+  {
+   "id": "P1-5-i11",
+   "kcs": [
+    "P1-5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Given $f'(x)=2x+3$ and $f(1)=7$, find $f(0)$.",
+   "marks": 1,
+   "explanation": "Integrate to $f(x)=x^2+3x+C$; the point gives $C=3$.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.0,
+     "misconception": "m4"
+    }
+   ]
+  },
+  {
+   "id": "P1-5-i12",
+   "kcs": [
+    "P1-5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State which exponent is excluded from the power rule for integration.",
+   "marks": 1,
+   "explanation": "When $n=-1$, dividing by $n+1$ would divide by zero.",
+   "hints": [
+    "Identify the power of $x$ in each term.",
+    "Reverse differentiation, then consider the arbitrary constant.",
+    "Increase the exponent by one and divide by the new exponent."
+   ],
+   "options": {
+    "A": "$-1$",
+    "B": "$0$",
+    "C": "$1$",
+    "D": "$2$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m3"
+   }
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "P1-5.1",
+   "front": "What is indefinite integration?",
+   "back": "Finding the family of functions whose derivative is the given function."
+  },
+  {
+   "id": "fc2",
+   "kc": "P1-5.1",
+   "front": "Why is $C$ needed in an indefinite integral?",
+   "back": "The derivative of every constant is zero, so antiderivatives can differ by a constant."
+  },
+  {
+   "id": "fc3",
+   "kc": "P1-5.2",
+   "front": "State the power rule for integration.",
+   "back": "$\\int x^n\\,dx=x^{n+1}/(n+1)+C$ for $n\\ne-1$."
+  },
+  {
+   "id": "fc4",
+   "kc": "P1-5.2",
+   "front": "How is $C$ found when a point on the curve is given?",
+   "back": "Integrate $f'(x)$, then substitute the point into $y=f(x)$ and solve for $C$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "P1-5.1": {
+   "motivate": "Differentiating $x^2+4$ and $x^2-7$ gives the same result. How could integration recover both?",
+   "establish": "Indefinite integration is the reverse of differentiation. If $F'(x)=f(x)$, then $F$ is an antiderivative of $f$ and $\\int f(x)\\,dx=F(x)+C$. The constant of integration $C$ is required because differentiating any constant gives zero. Thus the integral represents a family of functions, all with derivative $f(x)$. For example, $\\int 2x\\,dx=x^2+C$.",
+   "connect": "The power rule for integration uses this reverse relationship. Differentiate an answer to test it.",
+   "note": "- Indefinite integration reverses differentiation.\n- $\\int f(x)\\,dx=F(x)+C$ when $F'(x)=f(x)$.\n- Include the constant of integration $C$.",
+   "self_explain": "Why do $x^2+4$ and $x^2-7$ have the same derivative?",
+   "discover": {
+    "stem": "Which expression describes every antiderivative of $2x$?",
+    "options": {
+     "A": "$x^2+C$",
+     "B": "$x^2$",
+     "C": "$2x^2$",
+     "D": "$2+C$"
+    },
+    "answer": "A",
+    "explanation": "Differentiate $x^2+C$ to get $2x$ for any constant $C$."
+   },
+   "source": "pack"
+  },
+  "P1-5.2": {
+   "motivate": "If a curve's gradient is $3x^2-2x$ everywhere and it passes through $(1,5)$, can you recover its equation?",
+   "establish": "For $n\\ne-1$, the power rule for integration is $\\int x^n\\,dx=x^{n+1}/(n+1)+C$. Apply it to sums, differences and constant multiples term by term. Expand $(x+2)^2$ before integrating. Rewrite fractions as powers, using $\\int x^{-1}\\,dx=\\ln|x|+C$ for the excluded power (on an interval away from zero). If $f'(x)$ and a point $(a,b)$ on the curve are given, integrate to get $f(x)=F(x)+C$, then use $b=F(a)+C$ to determine $C$. Finally state the curve as $y=f(x)$ and check by differentiation.",
+   "connect": "This is the reverse of differentiating powers of $x$. A known point selects one curve from the family of antiderivatives.",
+   "note": "- For $n\\ne-1$, $\\int x^n\\,dx=x^{n+1}/(n+1)+C$.\n- Integrate sums, differences and constant multiples term by term.\n- Expand brackets or rewrite quotients as powers first.\n- Substitute a point into $f(x)=F(x)+C$ to find $C$.",
+   "self_explain": "Why must you substitute a given point into $f(x)$ after integrating, rather than into $f'(x)$?",
+   "discover": {
+    "stem": "What is $\\int 6x^2\\,dx$?",
+    "options": {
+     "A": "$2x^3+C$",
+     "B": "$6x^3+C$",
+     "C": "$12x+C$",
+     "D": "$3x^2+C$"
+    },
+    "answer": "A",
+    "explanation": "Raise the exponent to $3$ and divide $6$ by $3$; differentiating $2x^3+C$ returns $6x^2$."
+   },
+   "source": "pack"
+  }
+ }
+}

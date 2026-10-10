@@ -1,0 +1,18 @@
+{
+ "P1-5.1": {
+  "motivate": "Differentiating $x^2+4$ and $x^2-7$ gives the same result. How could integration recover both?",
+  "establish": "Indefinite integration is the reverse of differentiation. If $F'(x)=f(x)$, then $F$ is an antiderivative of $f$ and $\\int f(x)\\,dx=F(x)+C$. The constant of integration $C$ is required because differentiating any constant gives zero. Thus the integral represents a family of functions, all with derivative $f(x)$. For example, $\\int 2x\\,dx=x^2+C$.",
+  "connect": "The power rule for integration uses this reverse relationship. Differentiate an answer to test it.",
+  "note": "- Indefinite integration reverses differentiation.\n- $\\int f(x)\\,dx=F(x)+C$ when $F'(x)=f(x)$.\n- Include the constant of integration $C$.",
+  "self_explain": "Why do $x^2+4$ and $x^2-7$ have the same derivative?",
+  "discover": {"stem":"Which expression describes every antiderivative of $2x$?","options":{"A":"$x^2+C$","B":"$x^2$","C":"$2x^2$","D":"$2+C$"},"answer":"A","explanation":"Differentiate $x^2+C$ to get $2x$ for any constant $C$."}
+ },
+ "P1-5.2": {
+  "motivate": "If a curve's gradient is $3x^2-2x$ everywhere and it passes through $(1,5)$, can you recover its equation?",
+  "establish": "For $n\\ne-1$, the power rule for integration is $\\int x^n\\,dx=x^{n+1}/(n+1)+C$. Apply it to sums, differences and constant multiples term by term. Expand $(x+2)^2$ before integrating. Rewrite fractions as powers, using $\\int x^{-1}\\,dx=\\ln|x|+C$ for the excluded power (on an interval away from zero). If $f'(x)$ and a point $(a,b)$ on the curve are given, integrate to get $f(x)=F(x)+C$, then use $b=F(a)+C$ to determine $C$. Finally state the curve as $y=f(x)$ and check by differentiation.",
+  "connect": "This is the reverse of differentiating powers of $x$. A known point selects one curve from the family of antiderivatives.",
+  "note": "- For $n\\ne-1$, $\\int x^n\\,dx=x^{n+1}/(n+1)+C$.\n- Integrate sums, differences and constant multiples term by term.\n- Expand brackets or rewrite quotients as powers first.\n- Substitute a point into $f(x)=F(x)+C$ to find $C$.",
+  "self_explain": "Why must you substitute a given point into $f(x)$ after integrating, rather than into $f'(x)$?",
+  "discover": {"stem":"What is $\\int 6x^2\\,dx$?","options":{"A":"$2x^3+C$","B":"$6x^3+C$","C":"$12x+C$","D":"$3x^2+C$"},"answer":"A","explanation":"Raise the exponent to $3$ and divide $6$ by $3$; differentiating $2x^3+C$ returns $6x^2$."}
+ }
+}
