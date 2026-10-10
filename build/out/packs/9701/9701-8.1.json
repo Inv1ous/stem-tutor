@@ -1,0 +1,1275 @@
+{
+ "subtopic": "9701-8.1",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/08 Reaction kinetics/8.1 Rate of reaction.md",
+ "outline": "Rate is the change in amount or concentration per unit time. Effective collisions form products. Raising concentration, or gas pressure at constant temperature, increases collision frequency and thus effective collision frequency. Average rate is change divided by elapsed time; instantaneous rate is a tangent gradient. Convert units and account for balanced-equation coefficients.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-8.1.1",
+   "statement": "Every collision produces a reaction.",
+   "refutation": "Only effective collisions form products; collisions without suitable energy or orientation do not.",
+   "contrast": "Collision frequency counts all collisions; rate follows effective collisions.",
+   "source": "ER 9701 s21 P22 Q3"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-8.1.2",
+   "statement": "Higher concentration gives particles more energy.",
+   "refutation": "At constant temperature, increased concentration puts more particles in a given volume and raises collision frequency.",
+   "contrast": "Temperature affects the energy distribution; concentration affects encounters.",
+   "source": "9701_s23_11_q11"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-8.1.2",
+   "statement": "Higher gas pressure makes particles move faster.",
+   "refutation": "At constant temperature, compression raises number density and collision frequency without increasing mean kinetic energy.",
+   "contrast": "Use the stated constant temperature.",
+   "source": "9701_w24_12_q15"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-8.1.3",
+   "statement": "A product graph gradient is its total amount divided by the final time at every instant.",
+   "refutation": "That quotient is an average rate; an instantaneous rate is the tangent gradient.",
+   "contrast": "Use two points on a tangent for an instantaneous rate.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-8.1.3",
+   "statement": "The stoichiometric coefficient is irrelevant when converting product formation into reactant disappearance.",
+   "refutation": "For 2H2O2 to O2, H2O2 disappears twice as fast in moles as O2 forms.",
+   "contrast": "Use the balanced equation before dividing by time.",
+   "source": "9701_w25_12_q14"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-8.1.3",
+   "problem": "A product concentration rises from 0.030 to 0.150 mol dm⁻³ in 40 s. Calculate its average formation rate.",
+   "steps": [
+    {
+     "do": "Use average rate = change in concentration ÷ time.",
+     "why": "The rate is measured per unit time."
+    },
+    {
+     "do": "Change = 0.150 − 0.030 = 0.120 mol dm⁻³.",
+     "why": "Subtract the initial concentration from the final concentration."
+    },
+    {
+     "do": "Rate = 0.120 ÷ 40 = 0.0030 mol dm⁻³ s⁻¹.",
+     "why": "Dividing by seconds gives the required rate unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.003,
+       "unit": "mol dm^-3 s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A product concentration rises from 0.040 to 0.190 mol dm⁻³ in 50 s. Calculate its average formation rate.",
+    "answer": {
+     "value": 0.003,
+     "unit": "mol dm^-3 s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-8.1-i01",
+   "kcs": [
+    "9701-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define rate of reaction.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Change in concentration of a reactant or product per unit time.",
+     "keywords": [
+      [
+       "change",
+       "concentration",
+       "time"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Change in concentration of a reactant or product per unit time.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i02",
+   "kcs": [
+    "9701-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what makes a collision between reactant particles effective.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "It has enough energy to overcome the activation energy.",
+     "keywords": [
+      [
+       "energy",
+       "activation"
+      ]
+     ]
+    },
+    {
+     "point": "It has a suitable orientation for reaction.",
+     "keywords": [
+      [
+       "orientation",
+       "suitable"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It has enough energy to overcome the activation energy. It has a suitable orientation for reaction.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i03",
+   "kcs": [
+    "9701-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare effective and non-effective collisions.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Effective collisions lead to reaction and product formation.",
+     "keywords": [
+      [
+       "effective",
+       "product"
+      ]
+     ]
+    },
+    {
+     "point": "Non-effective collisions do not produce products.",
+     "keywords": [
+      [
+       "non-effective",
+       "no"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Effective collisions lead to reaction and product formation. Non-effective collisions do not produce products.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i04",
+   "kcs": [
+    "9701-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a reaction can be slow even when particles collide frequently.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Only a fraction of collisions are effective.",
+     "keywords": [
+      [
+       "fraction",
+       "effective"
+      ]
+     ]
+    },
+    {
+     "point": "Others lack sufficient energy or suitable orientation.",
+     "keywords": [
+      [
+       "energy",
+       "orientation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Only a fraction of collisions are effective. Others lack sufficient energy or suitable orientation.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i05",
+   "kcs": [
+    "9701-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what frequency of collisions means.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The number of collisions per unit time.",
+     "keywords": [
+      [
+       "collisions",
+       "time"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The number of collisions per unit time.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i06",
+   "kcs": [
+    "9701-8.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the connection between effective collision frequency and rate of reaction.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "More effective collisions per unit time give a higher reaction rate.",
+     "keywords": [
+      [
+       "effective",
+       "time",
+       "rate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "More effective collisions per unit time give a higher reaction rate.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i07",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why increasing the concentration of a solution reactant usually increases reaction rate at constant temperature.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "More reactant particles occupy each unit volume.",
+     "keywords": [
+      [
+       "particles",
+       "volume"
+      ]
+     ]
+    },
+    {
+     "point": "Collisions and effective collisions occur more frequently.",
+     "keywords": [
+      [
+       "collisions",
+       "frequently"
+      ]
+     ]
+    }
+   ],
+   "explanation": "More reactant particles occupy each unit volume. Collisions and effective collisions occur more frequently.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i08",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why compressing a gaseous reaction mixture increases its rate at constant temperature.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Particles occupy a smaller volume and are closer together.",
+     "keywords": [
+      [
+       "smaller",
+       "volume"
+      ]
+     ]
+    },
+    {
+     "point": "Collision frequency and effective collision frequency rise.",
+     "keywords": [
+      [
+       "collision",
+       "frequency"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Particles occupy a smaller volume and are closer together. Collision frequency and effective collision frequency rise.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i09",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the effect of diluting one reactant on the initial rate, and explain it.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Initial rate decreases.",
+     "keywords": [
+      [
+       "decreases",
+       "rate"
+      ]
+     ]
+    },
+    {
+     "point": "Lower concentration means fewer effective collisions per unit time.",
+     "keywords": [
+      [
+       "concentration",
+       "collisions"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Initial rate decreases. Lower concentration means fewer effective collisions per unit time.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i10",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the effect of raising concentration and raising gas pressure at constant temperature.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Both raise particles per unit volume.",
+     "keywords": [
+      [
+       "particles",
+       "volume"
+      ]
+     ]
+    },
+    {
+     "point": "Both increase frequency of effective collisions and rate.",
+     "keywords": [
+      [
+       "frequency",
+       "effective",
+       "rate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both raise particles per unit volume. Both increase frequency of effective collisions and rate.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i11",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why raising gas pressure at constant temperature does not raise rate by making particles move faster.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Temperature and mean kinetic energy remain constant.",
+     "keywords": [
+      [
+       "temperature",
+       "constant"
+      ]
+     ]
+    },
+    {
+     "point": "The collision frequency rises because particle density rises.",
+     "keywords": [
+      [
+       "density",
+       "frequency"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Temperature and mean kinetic energy remain constant. The collision frequency rises because particle density rises.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i12",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why adding inert gas at constant volume and temperature does not increase the initial rate between reacting gases.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "The reacting gases have unchanged concentration or partial pressures.",
+     "keywords": [
+      [
+       "reacting",
+       "unchanged"
+      ]
+     ]
+    },
+    {
+     "point": "Their mutual collision frequency is unchanged.",
+     "keywords": [
+      [
+       "collision",
+       "unchanged"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The reacting gases have unchanged concentration or partial pressures. Their mutual collision frequency is unchanged.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i13",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A product concentration rises from 0.020 to 0.140 mol dm⁻³ in 40.0 s. Calculate its average formation rate.",
+   "marks": 2,
+   "answer": {
+    "value": 0.003,
+    "unit": "mol dm^-3 s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.12000000000000001,
+     "misconception": "m4"
+    }
+   ],
+   "explanation": "Find the change over the stated interval and divide by its duration, applying any stoichiometric coefficient.",
+   "hints": [
+    "Identify the measured change and the interval.",
+    "Convert units before taking the quotient.",
+    "Use the balanced equation if the measured species differs from the requested one."
+   ]
+  },
+  {
+   "id": "9701-8.1-i14",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The volume of gas collected rises from 12 to 72 cm³ in 30 s. Calculate the average rate of gas production.",
+   "marks": 2,
+   "answer": {
+    "value": 2.0,
+    "unit": "cm^3 s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 2.4,
+     "misconception": "m4"
+    }
+   ],
+   "explanation": "Find the change over the stated interval and divide by its duration, applying any stoichiometric coefficient.",
+   "hints": [
+    "Identify the measured change and the interval.",
+    "Convert units before taking the quotient.",
+    "Use the balanced equation if the measured species differs from the requested one."
+   ]
+  },
+  {
+   "id": "9701-8.1-i15",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $\\ce{2H2O2(aq) -> 2H2O(l) + O2(g)}$, 120 cm³ of oxygen forms in 120 s at r.t.p. Calculate the mean rate of disappearance of $\\ce{H2O2}$ in mol s⁻¹.",
+   "marks": 2,
+   "answer": {
+    "value": 8.333333333333333e-05,
+    "unit": "mol s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 4.1666666666666665e-05,
+     "misconception": "m5"
+    }
+   ],
+   "explanation": "Find the change over the stated interval and divide by its duration, applying any stoichiometric coefficient.",
+   "hints": [
+    "Identify the measured change and the interval.",
+    "Convert units before taking the quotient.",
+    "Use the balanced equation if the measured species differs from the requested one."
+   ]
+  },
+  {
+   "id": "9701-8.1-i16",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A reactant concentration falls from 0.80 to 0.50 mol dm⁻³ over 60 s. Calculate its average rate of disappearance.",
+   "marks": 2,
+   "answer": {
+    "value": 0.005000000000000001,
+    "unit": "mol dm^-3 s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.013333333333333334,
+     "misconception": "m4"
+    }
+   ],
+   "explanation": "Find the change over the stated interval and divide by its duration, applying any stoichiometric coefficient.",
+   "hints": [
+    "Identify the measured change and the interval.",
+    "Convert units before taking the quotient.",
+    "Use the balanced equation if the measured species differs from the requested one."
+   ]
+  },
+  {
+   "id": "9701-8.1-i17",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to find an instantaneous rate at 25 s from a graph of product concentration against time.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Draw a tangent to the curve at 25 s.",
+     "keywords": [
+      [
+       "tangent",
+       "25"
+      ]
+     ]
+    },
+    {
+     "point": "Calculate its gradient using two well separated points on the tangent.",
+     "keywords": [
+      [
+       "gradient",
+       "points"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Draw a tangent to the curve at 25 s. Calculate its gradient using two well separated points on the tangent.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-i18",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the gradient of a reactant concentration-time graph is negative but the reported disappearance rate is positive.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Reactant concentration decreases with time so its gradient is negative.",
+     "keywords": [
+      [
+       "decreases",
+       "negative"
+      ]
+     ]
+    },
+    {
+     "point": "Rate of disappearance is the negative of this gradient.",
+     "keywords": [
+      [
+       "negative",
+       "gradient"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Reactant concentration decreases with time so its gradient is negative. Rate of disappearance is the negative of this gradient.",
+   "hints": [
+    "Recall the measured change.",
+    "Link the change to time or particle encounters.",
+    "Name the relevant quantity before explaining it."
+   ]
+  },
+  {
+   "id": "9701-8.1-p01",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q15",
+    "qid": "9701_w24_12_q15"
+   },
+   "stem": "Why does the rate of a gaseous reaction increase when the pressure is increased at a constant\ntemperature?",
+   "options": {
+    "A": "More particles have energy that exceeds the activation energy.",
+    "B": "The particles have more space in which to move.",
+    "C": "The particles move faster.",
+    "D": "There are more frequent collisions between particles."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "At constant temperature, compression increases the number of gas particles per volume, so collisions occur more often. A confuses pressure with temperature.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p02",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q11",
+    "qid": "9701_w20_12_q11"
+   },
+   "stem": "Ammonia is made by the Haber process. The reactants are nitrogen and hydrogen.\nN₂(g) + 3H₂(g)\n2NH₃(g)\n∆H is negative\nWhat will increase the rate of the forward reaction?",
+   "options": {
+    "A": "adding argon to the mixture but keeping the total volume constant",
+    "B": "decreasing the temperature",
+    "C": "increasing the total pressure by reducing the total volume at constant temperature",
+    "D": "removing ammonia as it is made but keeping the total volume of the mixture the same"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w20_12_q11.png",
+   "marks": 1,
+   "explanation": "The keyed option follows the measured rate, particle collision argument or balanced reaction. Check units, stoichiometry and the graph where supplied; an option that ignores one of these gives the wrong result.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p03",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q9",
+    "qid": "9701_s25_12_q9"
+   },
+   "stem": "Aqueous hydrogen peroxide, H₂O₂, decomposes into water and oxygen in the presence of a\nsuitable catalyst.\n50 cm³ of a 0.50 mol dm⁻³ solution of hydrogen peroxide produced 120 cm³ of oxygen in\n2.0 minutes.\nThe volume of gas was measured at room conditions.\nWhat is the average rate of decomposition of hydrogen peroxide during this 2.0 minute period?",
+   "options": {
+    "A": "0.000083 mol dm⁻³ s⁻¹",
+    "B": "0.00083 mol dm⁻³ s⁻¹",
+    "C": "0.0017 mol dm⁻³ s⁻¹",
+    "D": "0.10 mol dm⁻³ s⁻¹"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "The keyed option follows the measured rate, particle collision argument or balanced reaction. Check units, stoichiometry and the graph where supplied; an option that ignores one of these gives the wrong result.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p04",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q14",
+    "qid": "9701_w25_12_q14"
+   },
+   "stem": "20.0 cm³ of hydrogen peroxide decomposes to water and oxygen in the presence of a suitable\ncatalyst.\n160 cm³ of oxygen, measured at room conditions, is produced in 5.00 minutes.\nWhat is the average rate of decomposition of hydrogen peroxide during this reaction period?",
+   "options": {
+    "A": "2.22 × 10⁻⁵ mol s⁻¹",
+    "B": "4.44 × 10⁻⁵ mol s⁻¹",
+    "C": "1.76 × 10⁻ 4 mol s⁻¹",
+    "D": "2.67 × 10⁻³ mol s⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w25_12_q14.png",
+   "marks": 1,
+   "explanation": "The keyed option follows the measured rate, particle collision argument or balanced reaction. Check units, stoichiometry and the graph where supplied; an option that ignores one of these gives the wrong result.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p05",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q2",
+    "qid": "9701_s25_11_q2"
+   },
+   "stem": "The rate of the reaction between a reactive metal and an excess of a dilute acid is investigated.\nThe total volume of hydrogen gas produced is recorded every 30 seconds for 3 minutes.\ntime / s\ntotal volume of\nhydrogen gas / cm³\n0\n0\n30\n64\n60\n105\n90\n132\n120\n151\n150\n161\n180\n167\nThe average rate of reaction during the first 30 seconds is P.\nThe average rate of reaction during the last 30 seconds is Q.\nWhat is the value of P – Q?",
+   "options": {
+    "A": "1.21 cm³ s⁻¹",
+    "B": "1.93 cm³ s⁻¹",
+    "C": "2.13 cm³ s⁻¹",
+    "D": "3.43 cm³ s⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_11_q2.png",
+   "marks": 1,
+   "explanation": "The keyed option follows the measured rate, particle collision argument or balanced reaction. Check units, stoichiometry and the graph where supplied; an option that ignores one of these gives the wrong result.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p06",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q11",
+    "qid": "9701_s23_11_q11"
+   },
+   "stem": "Iodine and propanone react according to the following equation.\nI₂(aq) + CH₃COCH₃(aq) →CH₃COCH₂I(aq) + HI(aq)\nIf the concentration of propanone is increased, keeping the total reaction volume constant, the\ninitial rate of the reaction also increases.\nWhat could be the reason for this?",
+   "options": {
+    "A": "A greater proportion of collisions are successful at the higher concentration.",
+    "B": "The particles are further apart at the higher concentration.",
+    "C": "The particles have more energy at the higher concentration.",
+    "D": "There are more collisions per second between particles at the higher concentration."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_11_q11.png",
+   "marks": 1,
+   "explanation": "Increasing the propanone concentration puts more propanone particles in each unit volume, increasing the frequency of collisions and hence effective collisions per second. D is correct. At unchanged temperature, increasing concentration does not increase particle energies or the proportion of collisions that are successful, so A and C are incorrect; particles are closer together, not further apart, so B is incorrect.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p07",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q3",
+    "qid": "9701_s25_11_q3"
+   },
+   "stem": "In the diagram, curve X was obtained by measuring the volume of oxygen produced during the\ndecomposition of 100 cm³ of 1.0 mol dm⁻³ hydrogen peroxide. A catalyst of manganese(IV) oxide\nwas used.\nvolume of\noxygen formed\n0\n0\ntime\nY\nX\nWhich alteration to the original experimental conditions would produce curve Y?",
+   "options": {
+    "A": "adding more manganese(IV) oxide",
+    "B": "adding some 0.1 mol dm⁻³ hydrogen peroxide",
+    "C": "adding water",
+    "D": "raising the temperature"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_11_q3.png",
+   "marks": 1,
+   "explanation": "The keyed option follows the measured rate, particle collision argument or balanced reaction. Check units, stoichiometry and the graph where supplied; an option that ignores one of these gives the wrong result.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p08",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q15",
+    "qid": "9701_w22_13_q15"
+   },
+   "stem": "A large excess of magnesium ribbon is added to dilute hydrochloric acid and the volume of\nhydrogen gas produced is measured as the reaction proceeds. The reaction is exothermic.\nThe results are shown.\ntotal\nvolume\n/ cm³\ntime / s\nP\nQ\nR\nWhich row explains the changes in the rate of reaction between points P and Q and between\npoints Q and R?\nbetween points P and Q\nbetween points Q and R",
+   "options": {
+    "A": "the reaction temperature is increasing the acid concentration is falling",
+    "B": "the reaction temperature is increasing the magnesium has been used up",
+    "C": "magnesium’s surface area is decreasing the acid concentration is falling",
+    "D": "magnesium’s surface area is decreasing the magnesium has been used up"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w22_13_q15.png",
+   "marks": 1,
+   "explanation": "The keyed option follows the measured rate, particle collision argument or balanced reaction. Check units, stoichiometry and the graph where supplied; an option that ignores one of these gives the wrong result.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p09",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q11",
+    "qid": "9701_s19_13_q11"
+   },
+   "stem": "The volume of carbon dioxide collected by reacting 0.100 mol of magnesium carbonate with\n50.0 cm³ of 1.00 mol dm⁻³ sulfuric acid is measured against time. The volume produced is plotted\nagainst time and the line labelled P on the graph is obtained.\nvolume of\nCO₂ / cm³\ntime / s\n0\n0\nP\nQ\nThe experiment is repeated using 0.100 mol of the same magnesium carbonate, and a different\nsample of acid. All other conditions remain the same. Plotting these results gives the line labelled\nQ.\nWhich sample of acid could give the line labelled Q?",
+   "options": {
+    "A": "100 cm³ of 0.500 mol dm⁻³ sulfuric acid",
+    "B": "100 cm³ of 1.00 mol dm⁻³ sulfuric acid",
+    "C": "200 cm³ of 0.500 mol dm⁻³ hydrochloric acid",
+    "D": "200 cm³ of 1.00 mol dm⁻³ hydrochloric acid"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s19_13_q11.png",
+   "marks": 1,
+   "explanation": "D supplies 0.200 mol HCl, enough to consume all carbonate, while its lower proton concentration gives a slower initial rate. C supplies only 0.100 mol HCl and cannot give the same final gas volume.",
+   "distractors": {
+    "C": "m2"
+   }
+  },
+  {
+   "id": "9701-8.1-p10",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q16",
+    "qid": "9701_w23_12_q16"
+   },
+   "stem": "The decomposition of hydrogen peroxide in the presence of MnO₂ produces water and oxygen\ngas.\n2H₂O₂(aq) →2H₂O(l) + O₂(g)\nThe volume of gas collected when 0.2g of MnO₂ is added to two different hydrogen peroxide\nsolutions at 20°C is shown on the graph as curves X and Y.\nvolume\nof gas\ntime\n0\n0\nX\nY\nWhich row shows the conditions that will result in curves X and Y?\ncurve Y\ncurve X\nform of\nMnO₂\nconcentration\u0003\nof\u0003H₂O₂\n/\u0003mol\u0003dm⁻³\nvolume of\nH₂O₂/cm³\nform of\nMnO₂\nconcentration\u0003\nof\u0003H₂O₂\n/\u0003mol\u0003dm⁻³\nvolume of\nH₂O₂/cm³\npowder\n0.2\n50\nlumps\n0.1\n50",
+   "options": {
+    "A": "lumps 0.1 25 powder 0.2 25",
+    "B": "powder 0.2 20 lumps 0.1 50",
+    "C": "lumps 0.1 40 powder 0.2 20",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_12_q16.png",
+   "marks": 1,
+   "explanation": "The keyed option follows the measured rate, particle collision argument or balanced reaction. Check units, stoichiometry and the graph where supplied; an option that ignores one of these gives the wrong result.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p11",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P13 · Q31",
+    "qid": "9701_w21_13_q31"
+   },
+   "stem": "Which changes can be used to measure the rates of chemical reactions?\n1\nthe decrease in concentration of a reactant per unit time\n2\nthe rate of appearance of a product\n3\nthe increase in total volume of gas per unit time at constant pressure",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w21_13_q31.png",
+   "marks": 1,
+   "explanation": "The keyed option follows the measured rate, particle collision argument or balanced reaction. Check units, stoichiometry and the graph where supplied; an option that ignores one of these gives the wrong result.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-p12",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q11",
+    "qid": "9701_s21_12_q11"
+   },
+   "stem": "Two chemicals, X and Y, react together in solution to give product Z.\nThe rate of formation of product Z at the start of the reaction was measured in five experiments,\n1–5, using various concentrations of X and Y. The results are shown.\nexperiment\nnumber\nstarting concentration\nof X / mol dm⁻³\nstarting concentration\nof Y / mol dm⁻³\nrate of formation of Z\nat the start / mol dm⁻³\ns⁻¹\n1\n0.10\n0.10\n0.0001\n2\n0.10\n0.20\n0.0004\n3\n0.10\n0.40\n0.0016\n4\n0.20\n0.10\n0.0001\n5\n0.40\n0.10\n0.0001\nWhich statement is correct?",
+   "options": {
+    "A": "The rate of the reaction is directly proportional to the concentration of reagent X.",
+    "B": "The rate of the reaction is directly proportional to the concentration of reagent Y.",
+    "C": "The rate of the reaction is not affected by the concentration of reagent X.",
+    "D": "The rate of the reaction is not affected by the concentration of reagent Y."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s21_12_q11.png",
+   "marks": 1,
+   "explanation": "The keyed option follows the measured rate, particle collision argument or balanced reaction. Check units, stoichiometry and the graph where supplied; an option that ignores one of these gives the wrong result.",
+   "distractors": {}
+  },
+  {
+   "id": "9701-8.1-x001",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q33",
+    "qid": "9701_s20_12_q33"
+   },
+   "stem": "Which factors can lead to an increase in the rate of a reaction?\n1\na lower activation energy\n2\nan increase in temperature\n3\nan increase in the concentration of a reactant",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s20_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.1-x002",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q15",
+    "qid": "9701_w22_11_q15"
+   },
+   "stem": "A large excess of magnesium ribbon is added to dilute hydrochloric acid and the volume of\nhydrogen gas produced is measured as the reaction proceeds. The reaction is exothermic.\nThe results are shown.\ntotal\nvolume\n/ cm³\ntime / s\nP\nQ\nR\nWhich row explains the changes in the rate of reaction between points P and Q and between\npoints Q and R?\nbetween points P and Q\nbetween points Q and R",
+   "options": {
+    "A": "the reaction temperature is increasing the acid concentration is falling",
+    "B": "the reaction temperature is increasing the magnesium has been used up",
+    "C": "magnesium’s surface area is decreasing the acid concentration is falling",
+    "D": "magnesium’s surface area is decreasing the magnesium has been used up"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w22_11_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.1-x003",
+   "kcs": [
+    "9701-8.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q18",
+    "qid": "9701_s23_13_q18"
+   },
+   "stem": "The rate of an exothermic reaction is followed by measuring the concentration of a reactant at\nregular time intervals.\nDuring the experiment the temperature of the reaction mixture is not controlled.\nWhich graph shows the change in concentration of reactant against time?\n\u0013\n\u0013\nWLPH",
+   "options": {
+    "A": "FRQFHQWUDWLRQ \u0013 \u0013 WLPH",
+    "B": "FRQFHQWUDWLRQ \u0013 \u0013 WLPH",
+    "C": "FRQFHQWUDWLRQ \u0013 \u0013 WLPH",
+    "D": "FRQFHQWUDWLRQ"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_13_q18.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.1-x004",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q14",
+    "qid": "9701_w23_11_q14"
+   },
+   "stem": "In reaction 1, a student measures the initial rate of production of CO₂(g) when CuCO₃(s) is added\nto 50cm³ of 0.1moldm⁻³ HNO₃(aq).\nIn reaction 2, the student repeats the experiment using 50cm³ of 0.5moldm⁻³ HNO₃(aq) and the\nsame mass of CuCO₃(s).\nIn reaction 1 and reaction 2, the acid is in excess and samples of the same CuCO₃ powder are\nused.\nWhich row is correct?\ngreater than 1\ngreater than 1",
+   "options": {
+    "A": "less than 1 greater than 1",
+    "B": "greater than 1 less than 1",
+    "C": "less than 1 less than 1",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_11_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.1-x005",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q14",
+    "qid": "9701_w23_13_q14"
+   },
+   "stem": "In reaction 1, a student measures the initial rate of production of CO₂(g) when CuCO₃(s) is added\nto 50cm³ of 0.1moldm⁻³ HNO₃(aq).\nIn reaction 2, the student repeats the experiment using 50cm³ of 0.5moldm⁻³ HNO₃(aq) and the\nsame mass of CuCO₃(s).\nIn reaction 1 and reaction 2, the acid is in excess and samples of the same CuCO₃ powder are\nused.\nWhich row is correct?\ngreater than 1\ngreater than 1",
+   "options": {
+    "A": "less than 1 greater than 1",
+    "B": "greater than 1 less than 1",
+    "C": "less than 1 less than 1",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w23_13_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.1-x006",
+   "kcs": [
+    "9701-8.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P11 · Q14",
+    "qid": "9701_w24_11_q14"
+   },
+   "stem": "In acidic conditions, iodine reacts with propanone in a substitution reaction.\nCH₃COCH₃(aq) + I₂(aq) → CH₃COCH₂I(aq) + HI(aq)\nThe kinetics of the reaction are investigated using a colorimeter. As the I₂ reacts, the\nyellow / brown colour of the I₂(aq) fades to colourless, changing the absorbance of the solution.\nKnown concentrations of I₂(aq) are used to prepare a calibration curve graph and the absorbance\nis then measured as the reaction proceeds.\n0\n0.1 0.2 0.3\nabsorbance\nabsorbance\ncalibration curve using known\nconcentrations of I₂(aq)\n0.4 0.5 0.6\nconcentration\nof iodine\n\u0001 10⁻³ mol dm⁻³\ntime / s\nabsorbance during reaction\n0.30\n0.25\n0.20\n0.15\n0.10\n0.05\n0\n0\n20 30 40 50 60\n0.6\n0.5\n0.4\n0.3\n0.2\n0.1\n0\nWhat is the rate of reaction at 20 s?",
+   "options": {
+    "A": "5 × 10⁻⁶ mol dm⁻³ s⁻¹",
+    "B": "1 × 10⁻⁵ mol dm⁻³ s⁻¹",
+    "C": "5 × 10⁻³ mol dm⁻³ s⁻¹",
+    "D": "1 × 10⁻² mol dm⁻³ s⁻¹"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w24_11_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-8.1.1",
+   "front": "Define rate of reaction.",
+   "back": "Change in concentration of a reactant or product per unit time."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-8.1.1",
+   "front": "Define an effective collision.",
+   "back": "A collision that results in reaction and product formation."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-8.1.3",
+   "front": "How is average rate calculated?",
+   "back": "Change in measured quantity divided by the time interval."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-8.1.1": {
+   "motivate": "A reaction may appear rapid or slow, but we need a measurable meaning for that description.",
+   "establish": "Rate of reaction is the change in concentration of a reactant or product per unit time. Frequency of collisions is the number of collisions per unit time. An effective collision forms products: the particles collide with sufficient energy to overcome the activation energy and with suitable orientation. A non-effective collision produces no reaction. Thus the rate follows the frequency of effective collisions, not simply the total number of encounters.",
+   "connect": "A product concentration that rises quickly has a greater positive gradient and a higher formation rate.",
+   "note": "- Rate = change in concentration per unit time.\n- Effective collisions produce reaction; non-effective collisions do not.\n- Frequency of effective collisions controls rate.",
+   "self_explain": "Why can many collisions occur while the reaction rate remains low?",
+   "source": "pack"
+  },
+  "9701-8.1.2": {
+   "motivate": "Two experiments can contain the same chemicals yet proceed at different speeds when they are diluted or compressed.",
+   "establish": "Increasing the concentration of a reactant places more particles in each unit volume. The frequency of collisions rises, so effective collisions occur more frequently and the rate increases. For reacting gases, raising pressure by reducing volume at constant temperature also increases particles per unit volume, collision frequency and effective collision frequency. Lowering concentration or pressure has the opposite effect. At constant temperature the particles do not gain kinetic energy merely because concentration or pressure rises.",
+   "connect": "The key causal chain is particle density, then collision frequency, then frequency of effective collisions, then rate.",
+   "note": "- Higher concentration usually raises the rate.\n- Higher gas pressure at constant temperature usually raises the rate.\n- Both act through more frequent effective collisions.",
+   "self_explain": "Explain why compressing reacting gases at constant temperature can increase their rate without increasing their average speed.",
+   "source": "pack"
+  },
+  "9701-8.1.3": {
+   "motivate": "A graph or table turns a visible change into a numerical rate that can be compared between experiments.",
+   "establish": "Use experimental data to calculate average rate as change in the measured quantity divided by elapsed time. For concentration data, the unit may be $\\mathrm{mol\\,dm^{-3}\\,s^{-1}}$; for gas volume, it may be $\\mathrm{cm^3\\,s^{-1}}$. Convert minutes to seconds when needed. An instantaneous rate from a curved graph is the gradient of a tangent at the chosen time. A reactant concentration decreases, so use the magnitude of its negative gradient for a positive rate of disappearance. Use the balanced equation when converting a measured product rate to a different reactant rate.",
+   "connect": "For $\\ce{2H2O2(aq) -> 2H2O(l) + O2(g)}$, peroxide disappears twice as fast in moles as oxygen appears.",
+   "note": "- Average rate = change in quantity divided by elapsed time.\n- Instantaneous rate = tangent gradient at the chosen time.\n- Convert units and apply the equation's mole ratio.",
+   "self_explain": "How would you find the peroxide disappearance rate from an oxygen-volume graph?",
+   "source": "pack"
+  }
+ }
+}
