@@ -1,0 +1,3336 @@
+{
+ "subtopic": "9702-10.2",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/10 D.C. circuits/10.2 Kirchhoff’s laws.md",
+ "outline": "Kirchhoff’s first law conserves charge at a junction: incoming currents equal outgoing currents. The second law conserves energy around a closed loop: signed e.m.f.s equal signed p.d. drops. For series resistors the current is common and p.d.s add, giving $R=\\sum R_i$. For parallel branches p.d. is common and currents add, giving $1/R=\\sum 1/R_i$. Apply both laws with clearly chosen current arrows and loop directions.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-10.2.1",
+   "statement": "Current is used up at a junction.",
+   "refutation": "Charge cannot accumulate at a steady junction: total current entering equals total leaving.",
+   "contrast": "Trace arrows before summing.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-10.2.2",
+   "statement": "Potential differences of parallel branches are added.",
+   "refutation": "Each branch joins the same two nodes and has the same p.d.; add drops only along one complete path.",
+   "contrast": "Apply the loop law to a closed path.",
+   "source": "ER 9702 w23 P13 Q35"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-10.2.2",
+   "statement": "All cell e.m.f.s aid one another.",
+   "refutation": "A cell traversed from positive to negative is a potential fall, so its e.m.f. has the opposite sign.",
+   "contrast": "Mark polarities and traversal direction.",
+   "source": "ER 9702 w22 P13 Q36"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-10.2.3",
+   "statement": "Series resistors share equal p.d.",
+   "refutation": "They carry the same current; their p.d.s are proportional to resistance.",
+   "contrast": "Add $IR_i$ around the loop.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-10.2.5",
+   "statement": "Parallel resistances add directly.",
+   "refutation": "Parallel currents add at the junction while branch p.d.s are equal, giving $1/R=\\sum 1/R_i$.",
+   "contrast": "The combined resistance is below the smallest branch resistance.",
+   "source": "ER 9702 w23 P21 Q6"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-10.2.7",
+   "statement": "A junction equation can replace a loop equation.",
+   "refutation": "The junction law conserves charge; a separate closed-loop equation conserves energy.",
+   "contrast": "Use both independent laws.",
+   "source": "ER 9702 w23 P13 Q35"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we3",
+   "kc": "9702-10.2.3",
+   "problem": "Two resistors of 3.0 and 5.0 $\\Omega$ are in series. Derive and calculate the combination.",
+   "steps": [
+    {
+     "do": "The same current flows through series elements and p.d.s add by the loop law.",
+     "why": "This chooses the correct Kirchhoff equation."
+    },
+    {
+     "do": "Use $a+b$ with the stated values to get $8$ ohm.",
+     "why": "Substitute before rounding.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 8.0,
+       "unit": "ohm",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Repeat for 4.0 and 7.0 $\\Omega$.",
+    "answer": {
+     "value": 11.0,
+     "unit": "ohm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "9702-10.2.4",
+   "problem": "Calculate 2.0, 3.0 and 6.0 $\\Omega$ in series.",
+   "steps": [
+    {
+     "do": "The same current flows through series elements and p.d.s add by the loop law.",
+     "why": "This chooses the correct Kirchhoff equation."
+    },
+    {
+     "do": "Use $a+b+c$ with the stated values to get $11$ ohm.",
+     "why": "Substitute before rounding.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 11.0,
+       "unit": "ohm",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "Repeat for 3.0, 5.0 and 7.0 $\\Omega$.",
+    "answer": {
+     "value": 15.0,
+     "unit": "ohm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we5",
+   "kc": "9702-10.2.5",
+   "problem": "Two resistors of 6.0 and 12.0 $\\Omega$ are in parallel. Derive and calculate the combination.",
+   "steps": [
+    {
+     "do": "Parallel branches share p.d. and their currents add at the junction.",
+     "why": "This chooses the correct Kirchhoff equation."
+    },
+    {
+     "do": "Use $a*b/(a+b)$ with the stated values to get $4$ ohm.",
+     "why": "Substitute before rounding.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.0,
+       "unit": "ohm",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "Repeat for 8.0 and 24.0 $\\Omega$.",
+    "answer": {
+     "value": 6.0,
+     "unit": "ohm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we6",
+   "kc": "9702-10.2.6",
+   "problem": "Calculate 4.0 and 12.0 $\\Omega$ in parallel.",
+   "steps": [
+    {
+     "do": "Parallel branches share p.d. and their currents add at the junction.",
+     "why": "This chooses the correct Kirchhoff equation."
+    },
+    {
+     "do": "Use $a*b/(a+b)$ with the stated values to get $3$ ohm.",
+     "why": "Substitute before rounding.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.0,
+       "unit": "ohm",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we6f",
+    "problem": "Repeat for 6.0 and 12.0 $\\Omega$.",
+    "answer": {
+     "value": 4.0,
+     "unit": "ohm",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we7",
+   "kc": "9702-10.2.7",
+   "problem": "A 12 V cell supplies a 2 $\\Omega$ resistor in series with two 4 $\\Omega$ parallel resistors. Calculate source current.",
+   "steps": [
+    {
+     "do": "Reduce the parallel pair, then apply the loop law to the series path.",
+     "why": "This chooses the correct Kirchhoff equation."
+    },
+    {
+     "do": "Use $v/(a+b/2)$ with the stated values to get $3$ A.",
+     "why": "Substitute before rounding.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.0,
+       "unit": "A",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we7f",
+    "problem": "Repeat for 18 V, 3 $\\Omega$ in series and two 6 $\\Omega$ parallel resistors.",
+    "answer": {
+     "value": 3.0,
+     "unit": "A",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-10.2-i01",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State Kirchhoff’s first law.",
+   "marks": 1,
+   "explanation": "At a junction, the total current entering equals the total current leaving.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "At a junction, the total current entering equals the total current leaving.",
+     "keywords": [
+      [
+       "junction"
+      ],
+      [
+       "entering"
+      ],
+      [
+       "leaving"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i02",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why Kirchhoff’s first law follows from conservation of charge.",
+   "marks": 1,
+   "explanation": "In steady state, charge cannot build up at a junction, so charge per second entering equals charge per second leaving.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "In steady state, charge cannot build up at a junction, so charge per second entering equals charge per second leaving.",
+     "keywords": [
+      [
+       "charge"
+      ],
+      [
+       "junction"
+      ],
+      [
+       "entering"
+      ],
+      [
+       "leaving"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i03",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the junction rule using an algebraic sign convention.",
+   "marks": 1,
+   "explanation": "The algebraic sum of currents at a junction is zero if incoming currents are positive and outgoing currents negative.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "The algebraic sum of currents at a junction is zero if incoming currents are positive and outgoing currents negative.",
+     "keywords": [
+      [
+       "sum"
+      ],
+      [
+       "zero"
+      ],
+      [
+       "incoming"
+      ],
+      [
+       "outgoing"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i04",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what happens if 2.0 A enters a junction and two branches leave it.",
+   "marks": 1,
+   "explanation": "The outgoing branch currents have a sum of 2.0 A.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "The outgoing branch currents have a sum of 2.0 A.",
+     "keywords": [
+      [
+       "sum"
+      ],
+      [
+       "2.0"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i05",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the current leaving a junction in a third branch when [[a]] A and [[b]] A enter and [[c]] A leaves.",
+   "marks": 2,
+   "explanation": "Incoming current equals outgoing current; $I=a+b-c$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 4,
+    "unit": "A",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       3,
+       4,
+       5
+      ]
+     },
+     "b": {
+      "choices": [
+       2,
+       3
+      ]
+     },
+     "c": {
+      "choices": [
+       1,
+       2
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "a+b-c",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-i06",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State Kirchhoff’s second law.",
+   "marks": 1,
+   "explanation": "Around a closed loop, the algebraic sum of e.m.f.s equals the algebraic sum of potential differences.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "Around a closed loop, the algebraic sum of e.m.f.s equals the algebraic sum of potential differences.",
+     "keywords": [
+      [
+       "closed loop"
+      ],
+      [
+       "e.m.f."
+      ],
+      [
+       "potential differences"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i07",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why Kirchhoff’s second law follows from conservation of energy.",
+   "marks": 1,
+   "explanation": "A charge completing a closed loop returns to its original energy: energy supplied per charge equals energy transferred per charge.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "A charge completing a closed loop returns to its original energy: energy supplied per charge equals energy transferred per charge.",
+     "keywords": [
+      [
+       "closed loop"
+      ],
+      [
+       "energy supplied"
+      ],
+      [
+       "energy transferred"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i08",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the sign of an e.m.f. when crossing a cell from its positive to negative terminal.",
+   "marks": 1,
+   "explanation": "It is a potential fall and enters the loop equation with a negative sign.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "It is a potential fall and enters the loop equation with a negative sign.",
+     "keywords": [
+      [
+       "negative"
+      ],
+      [
+       "fall"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i09",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why two parallel branches have equal p.d.",
+   "marks": 1,
+   "explanation": "A closed loop through the two branches has zero net potential change; both branches connect the same nodes.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "A closed loop through the two branches has zero net potential change; both branches connect the same nodes.",
+     "keywords": [
+      [
+       "closed loop"
+      ],
+      [
+       "same"
+      ],
+      [
+       "potential"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i10",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the net e.m.f. when cells of [[a]] V and [[b]] V aid one another and a [[c]] V cell opposes them.",
+   "marks": 2,
+   "explanation": "Add aiding rises and subtract the opposing cell.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 11,
+    "unit": "V",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       8,
+       9
+      ]
+     },
+     "b": {
+      "choices": [
+       5,
+       6
+      ]
+     },
+     "c": {
+      "choices": [
+       2,
+       3
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "a+b-c",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-i11",
+   "kcs": [
+    "9702-10.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Show",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show that the resistance of two series resistors is their sum.",
+   "marks": 1,
+   "explanation": "The same current $I$ flows through both, and the loop law gives $V=IR_1+IR_2=I(R_1+R_2)$, hence $R=R_1+R_2$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "The same current $I$ flows through both, and the loop law gives $V=IR_1+IR_2=I(R_1+R_2)$, hence $R=R_1+R_2$.",
+     "keywords": [
+      [
+       "same current"
+      ],
+      [
+       "loop"
+      ],
+      [
+       "R_1+R_2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i12",
+   "kcs": [
+    "9702-10.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why three series resistors also add.",
+   "marks": 1,
+   "explanation": "The loop law gives $V=I(R_1+R_2+R_3)$ because current is common, so $R=R_1+R_2+R_3$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "The loop law gives $V=I(R_1+R_2+R_3)$ because current is common, so $R=R_1+R_2+R_3$.",
+     "keywords": [
+      [
+       "loop"
+      ],
+      [
+       "current"
+      ],
+      [
+       "R_1+R_2+R_3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i13",
+   "kcs": [
+    "9702-10.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the combined-resistance formula for series resistors.",
+   "marks": 1,
+   "explanation": "$R=R_1+R_2+\\cdots$ for two or more series resistors.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "$R=R_1+R_2+\\cdots$ for two or more series resistors.",
+     "keywords": [
+      [
+       "R_1+R_2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i14",
+   "kcs": [
+    "9702-10.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why adding a series resistor increases total resistance.",
+   "marks": 1,
+   "explanation": "At the same current, the additional resistor requires an extra p.d.; the sum of series resistances increases.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "At the same current, the additional resistor requires an extra p.d.; the sum of series resistances increases.",
+     "keywords": [
+      [
+       "current"
+      ],
+      [
+       "p.d."
+      ],
+      [
+       "increases"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i15",
+   "kcs": [
+    "9702-10.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Show",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show that the reciprocal formula applies to parallel resistors.",
+   "marks": 1,
+   "explanation": "The branch p.d. $V$ is common and the junction law gives $I=I_1+I_2=V/R_1+V/R_2$; as $I=V/R$, $1/R=1/R_1+1/R_2$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "The branch p.d. $V$ is common and the junction law gives $I=I_1+I_2=V/R_1+V/R_2$; as $I=V/R$, $1/R=1/R_1+1/R_2$.",
+     "keywords": [
+      [
+       "common"
+      ],
+      [
+       "junction"
+      ],
+      [
+       "1/R"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i16",
+   "kcs": [
+    "9702-10.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the parallel formula extends to three branches.",
+   "marks": 1,
+   "explanation": "Each branch has common p.d. $V$, while currents add; dividing $I=V/R_1+V/R_2+V/R_3$ by $V$ gives $1/R=1/R_1+1/R_2+1/R_3$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "Each branch has common p.d. $V$, while currents add; dividing $I=V/R_1+V/R_2+V/R_3$ by $V$ gives $1/R=1/R_1+1/R_2+1/R_3$.",
+     "keywords": [
+      [
+       "common"
+      ],
+      [
+       "currents add"
+      ],
+      [
+       "1/R"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i17",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the combined-resistance formula for parallel resistors.",
+   "marks": 1,
+   "explanation": "$1/R=1/R_1+1/R_2+\\cdots$ for two or more branches.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "$1/R=1/R_1+1/R_2+\\cdots$ for two or more branches.",
+     "keywords": [
+      [
+       "1/R"
+      ],
+      [
+       "1/R_1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i18",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a parallel combination has less resistance than either branch.",
+   "marks": 1,
+   "explanation": "At fixed p.d., adding a branch raises total current, so $R=V/I$ decreases.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "At fixed p.d., adding a branch raises total current, so $R=V/I$ decreases.",
+     "keywords": [
+      [
+       "p.d."
+      ],
+      [
+       "current"
+      ],
+      [
+       "decreases"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i19",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a method for solving a circuit with two junctions.",
+   "marks": 1,
+   "explanation": "Assign current directions, apply the junction law, then apply the loop law to independent closed loops and solve simultaneously.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "Assign current directions, apply the junction law, then apply the loop law to independent closed loops and solve simultaneously.",
+     "keywords": [
+      [
+       "current"
+      ],
+      [
+       "junction"
+      ],
+      [
+       "closed loops"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i20",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what a negative calculated branch current means.",
+   "marks": 1,
+   "explanation": "The actual current flows opposite to the direction initially chosen.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "The actual current flows opposite to the direction initially chosen.",
+     "keywords": [
+      [
+       "opposite"
+      ],
+      [
+       "chosen"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i21",
+   "kcs": [
+    "9702-10.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why series resistances add for any number of resistors.",
+   "marks": 1,
+   "explanation": "The current is common and the loop law adds all potential differences, so $R=R_1+R_2+\\cdots$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "The current is common and the loop law adds all potential differences, so $R=R_1+R_2+\\cdots$.",
+     "keywords": [
+      [
+       "current"
+      ],
+      [
+       "loop"
+      ],
+      [
+       "R_1+R_2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i22",
+   "kcs": [
+    "9702-10.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why an added parallel branch reduces the equivalent resistance.",
+   "marks": 1,
+   "explanation": "At the same p.d., the new branch adds current; $R=V/I$ therefore decreases.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "rubric": [
+    {
+     "point": "At the same p.d., the new branch adds current; $R=V/I$ therefore decreases.",
+     "keywords": [
+      [
+       "p.d."
+      ],
+      [
+       "current"
+      ],
+      [
+       "decreases"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.2-i23",
+   "kcs": [
+    "9702-10.2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the equivalent resistance of [[a]] $\\Omega$ and [[b]] $\\Omega$ in series using the loop law.",
+   "marks": 2,
+   "explanation": "The common current gives $V=I(a+b)$, so $R=a+b$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 9,
+    "unit": "ohm",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       3,
+       4,
+       5
+      ]
+     },
+     "b": {
+      "choices": [
+       6,
+       7,
+       8
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "a+b",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-i24",
+   "kcs": [
+    "9702-10.2.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the combined resistance of [[a]] $\\Omega$, [[b]] $\\Omega$ and [[c]] $\\Omega$ in series.",
+   "marks": 2,
+   "explanation": "Add all three series resistances.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 14,
+    "unit": "ohm",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "b": {
+      "choices": [
+       5,
+       6
+      ]
+     },
+     "c": {
+      "choices": [
+       7,
+       8
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "a+b+c",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-i25",
+   "kcs": [
+    "9702-10.2.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the current from a [[v]] V cell through series resistors of [[a]] $\\Omega$ and [[b]] $\\Omega$.",
+   "marks": 2,
+   "explanation": "First add series resistances, then use $I=V/R$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 2.0,
+    "unit": "A",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "v": {
+      "choices": [
+       12,
+       18,
+       24
+      ]
+     },
+     "a": {
+      "choices": [
+       2,
+       3
+      ]
+     },
+     "b": {
+      "choices": [
+       4,
+       6
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "v/(a+b)",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-i26",
+   "kcs": [
+    "9702-10.2.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the resistance derived for parallel branches of [[a]] $\\Omega$ and [[b]] $\\Omega$.",
+   "marks": 2,
+   "explanation": "The shared p.d. and summed currents give $R=ab/(a+b)$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "ohm",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       4,
+       6,
+       8
+      ]
+     },
+     "b": {
+      "choices": [
+       12,
+       16
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "a*b/(a+b)",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-i27",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the combined resistance of [[a]] $\\Omega$ and [[b]] $\\Omega$ connected in parallel.",
+   "marks": 2,
+   "explanation": "Use $R=ab/(a+b)$ and check it is below both branches.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "ohm",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       4,
+       6,
+       8
+      ]
+     },
+     "b": {
+      "choices": [
+       12,
+       16
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "a*b/(a+b)",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-i28",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the combined resistance of [[a]] identical [[r]] $\\Omega$ resistors in parallel.",
+   "marks": 2,
+   "explanation": "Each branch has the same p.d.; total conductance is $a/r$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 6.0,
+    "unit": "ohm",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "a": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "r": {
+      "choices": [
+       12,
+       24,
+       36
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "r/a",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-i29",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the current supplied by a [[v]] V cell to a [[a]] $\\Omega$ resistor in series with two [[b]] $\\Omega$ resistors in parallel.",
+   "marks": 2,
+   "explanation": "The parallel pair has resistance $b/2$; apply the loop law to the cell and series combination.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "A",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "v": {
+      "choices": [
+       12,
+       18,
+       24
+      ]
+     },
+     "a": {
+      "choices": [
+       2,
+       3
+      ]
+     },
+     "b": {
+      "choices": [
+       4,
+       6
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "v/(a+b/2)",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-i30",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the current in each of two identical [[r]] $\\Omega$ parallel branches connected across [[v]] V.",
+   "marks": 2,
+   "explanation": "Each branch has the full source p.d.; apply $I=V/R$.",
+   "hints": [
+    "Identify currents and p.d.s in the relevant branches.",
+    "Choose a junction or one closed loop and state its law.",
+    "Write the conservation equation before substituting values."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "A",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "r": {
+      "choices": [
+       4,
+       6,
+       8
+      ]
+     },
+     "v": {
+      "choices": [
+       12,
+       18,
+       24
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "v/r",
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.2-p01",
+   "kcs": [
+    "9702-10.2.1",
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q37",
+    "qid": "9702_w25_12_q37"
+   },
+   "stem": "The principles of conservation of which two quantities are associated with Kirchhoff’s first and\nsecond laws?\nfirst law\nsecond law",
+   "options": {
+    "A": "charge energy",
+    "B": "charge voltage",
+    "C": "energy charge",
+    "D": "voltage charge"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w25_12_q37.png",
+   "marks": 1,
+   "explanation": "The first law conserves charge and the second conserves energy; swapping them (C) reverses their roles.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p02",
+   "kcs": [
+    "9702-10.2.1",
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q36",
+    "qid": "9702_w24_12_q36"
+   },
+   "stem": "Each of Kirchhoff’s laws is a statement based on the conservation of a physical quantity.\nWhich quantity is conserved in each law?\nKirchhoff’s\nfirst law\nKirchhoff’s\nsecond law",
+   "options": {
+    "A": "charge energy",
+    "B": "energy current",
+    "C": "power charge",
+    "D": "resistance power"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_12_q36.png",
+   "marks": 1,
+   "explanation": "Charge is conserved at junctions and energy around loops; B wrongly assigns energy to the first law.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p03",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q35",
+    "qid": "9702_w23_13_q35"
+   },
+   "stem": "Three resistors, R₁, R₂ and R₃, are connected in parallel to a cell. The currents in the resistors are\nI₁, I₂ and I₃. The potential differences across the resistors are V₁, V₂ and V₃. The current in the\ncell is I₀. The potential difference across the cell is V₀, as shown.\nR₃\nI₃\nV₃\nR₂\nI₂\nV₂\nR₁\nI₁\nI₀\nV₁\nV₀\nWhich equation can be obtained by applying Kirchhoff’s second law to the circuit?",
+   "options": {
+    "A": "I₀ = I₁ = I₂ = I₃",
+    "B": "I₀ = I₁ + I₂ + I₃",
+    "C": "V₀ = V₁ = V₂ = V₃",
+    "D": "V₀ = V₁ + V₂ + V₃"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w23_13_q35.png",
+   "marks": 1,
+   "explanation": "Parallel branches have equal p.d. by the loop law. B is true but follows from the junction law, while D adds parallel p.d.s.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p04",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q36",
+    "qid": "9702_w22_13_q36"
+   },
+   "stem": "Three batteries and three identical resistors are connected in a circuit PQR, as shown.\n9.6 V\n8.4 V\n6.3 V\nP\nQ\nR\nThe batteries have negligible internal resistance.\nWhat is the potential difference between points P and Q?",
+   "options": {
+    "A": "1.5 V",
+    "B": "2.1 V",
+    "C": "7.1 V",
+    "D": "12.1 V"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_13_q36.png",
+   "marks": 1,
+   "explanation": "The signed net e.m.f. is $6.3+9.6-8.4=7.5$ V; each resistor drops $7.5/3=2.5$ V, so $V_{PQ}=9.6-2.5=7.1$ V. B misses the 9.6 V rise.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p05",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q37",
+    "qid": "9702_w21_13_q37"
+   },
+   "stem": "The circuit shown contains three cells of electromotive forces 3.0 V, 2.0 V and 4.0 V, in series with\na resistor of resistance 5.0 Ω. The cells have negligible internal resistance.\n5.0 Ω\n3.0 V\n2.0 V\n4.0 V\nI\nWhat is the current I in the circuit?",
+   "options": {
+    "A": "0.20 A",
+    "B": "0.60 A",
+    "C": "1.0 A",
+    "D": "1.8 A"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_13_q37.png",
+   "marks": 1,
+   "explanation": "The opposing 4.0 V cell makes net e.m.f. $3.0+2.0-4.0=1.0$ V; $I=1.0/5.0=0.20$ A. D adds all cell e.m.f.s.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p06",
+   "kcs": [
+    "9702-10.2.4",
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q35",
+    "qid": "9702_w20_13_q35"
+   },
+   "stem": "A metal cube has a resistance of 4.0 Ω between opposite faces.\nTen of these cubes are put together to make a cuboid of 1 × 2 × 5 cubes.\nX\nY\nThere is no extra resistance where the faces of the cubes touch each other.\nWhat is the resistance of the cuboid when connected between faces X and Y?",
+   "options": {
+    "A": "1.6 Ω",
+    "B": "2.0 Ω",
+    "C": "10 Ω",
+    "D": "40 Ω"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_13_q35.png",
+   "marks": 1,
+   "explanation": "Five cubes in series give $5(4.0)=20$ ohm per row and two such rows in parallel give 10 ohm. D treats all ten as series.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p07",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q37",
+    "qid": "9702_w20_12_q37"
+   },
+   "stem": "A cell of negligible internal resistance is connected to a network of resistors and a voltmeter, as\nshown.\nV\n4.80 Ω\n14.4 Ω\nR\n2.00 Ω\n3.00 Ω\nThe reading on the voltmeter is zero.\nWhat is the resistance of resistor R?",
+   "options": {
+    "A": "1.20 Ω",
+    "B": "1.80 Ω",
+    "C": "7.20 Ω",
+    "D": "14.4 Ω"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_12_q37.png",
+   "marks": 1,
+   "explanation": "Equal junction potentials give $R_T/3.00=4.80/2.00$, hence $R_T=7.20$ ohm; two equal 14.4 ohm branches yield this. C confuses $R_T$ with the unknown branch.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p08",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q36",
+    "qid": "9702_w20_11_q36"
+   },
+   "stem": "Three identical lamps L₁, L₂ and L₃ are connected to a battery with negligible internal resistance,\nas shown.\nL₂\nL₁\nS\nL₃\nWhat happens to the brightness of lamps L₁ and L₂ when the switch S is closed?\nlamp L₁\nlamp L₂",
+   "options": {
+    "A": "brighter brighter",
+    "B": "brighter dimmer",
+    "C": "dimmer brighter",
+    "D": "dimmer dimmer"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_11_q36.png",
+   "marks": 1,
+   "explanation": "Closing the switch puts L2 and L3 in parallel, so L1 takes more voltage and L2 less; C reverses the changes.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p09",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q38",
+    "qid": "9702_w19_11_q38"
+   },
+   "stem": "In the circuit shown, all the resistors are identical and all the ammeters have negligible\nresistance.\nA\nA\nA\nA\nA₄\nA₃\nA₁\nA₂\nThe reading A₁ is 0.6 A.\nWhat are the readings on the other ammeters?\nA₂ / A\nA₃ / A\nA₄ / A",
+   "options": {
+    "A": "1.0 0.3 0.1",
+    "B": "1.4 0.6 0.2",
+    "C": "1.8 0.9 0.3",
+    "D": "2.2 1.2 0.4"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_11_q38.png",
+   "marks": 1,
+   "explanation": "Branch currents are inversely proportional to 1, 2 and 3 identical resistors: $A_3=1.2$ A, $A_4=0.4$ A and total $A_2=2.2$ A. C overstates the two-resistor branch current.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p10",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q36",
+    "qid": "9702_w19_11_q36"
+   },
+   "stem": "The diagram shows a circuit containing four voltmeters. The readings on the voltmeters are V₁,\nV₂, V₃ and V₄. All the readings are positive.\nV\nV₄\nV\nV₁\nV\nV₂\nV\nV₃\nWhich equation relating the voltmeter readings is correct?",
+   "options": {
+    "A": "V₁ = V₂ + V₄",
+    "B": "V₁ = V₂ + V₃ + V₄",
+    "C": "V₂ + V₃ = V₄",
+    "D": "V₃ + V₄ – V₂ = 0"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_11_q36.png",
+   "marks": 1,
+   "explanation": "The loop law gives $V_2=V_3+V_4$, so D is zero. B incorrectly sums both paths.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p11",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q36",
+    "qid": "9702_s23_12_q36"
+   },
+   "stem": "Three identical cells each have electromotive force (e.m.f.) E and negligible internal resistance.\nThe cells are connected to three identical resistors, each of resistance R, as shown.\nR\nR\nR\nE\nE\nE\nWhat is the potential difference across one of the resistors?",
+   "options": {
+    "A": "0",
+    "B": "3 E",
+    "C": "3 2E",
+    "D": "E"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_12_q36.png",
+   "marks": 1,
+   "explanation": "One reversed cell leaves net e.m.f. $E$ across three equal series resistors, so each gets $E/3$. D ignores the sharing.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-p12",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q37",
+    "qid": "9702_s21_13_q37"
+   },
+   "stem": "A battery of electromotive force (e.m.f.) E and negligible internal resistance is connected to four\nresistors of resistances R₁, R₂, R₃ and R₄.\nR₁\nR₂\nR₃\nI₂\nI₁\nR₄\nE\nThe currents I₁ and I₂ in the resistors are as shown.\nWhich equation is correct?",
+   "options": {
+    "A": "0 = I₁(R₁ + R₂) + I₂(R₃ + R₄)",
+    "B": "0 = I₁(R₁ + R₂) – I₂(R₃ + R₄)",
+    "C": "E = I₁(R₁ + R₂) + I₂(R₃ + R₄)",
+    "D": "E = I₁(R₁ + R₂) – I₂(R₃ + R₄)"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_13_q37.png",
+   "marks": 1,
+   "explanation": "The two series pairs are parallel: $I_1(R_1+R_2)=I_2(R_3+R_4)$, giving B. C adds the drops of separate parallel paths.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-10.2-x001",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q37",
+    "qid": "9702_s19_11_q37"
+   },
+   "stem": "A battery with negligible internal resistance is connected to three resistors, as shown.\n0.30 A\nX\nAll three resistors have the same resistance.\nThe current in the battery is 0.30 A.\nWhat is the current in resistor X?",
+   "options": {
+    "A": "0.10 A",
+    "B": "0.15 A",
+    "C": "0.20 A",
+    "D": "0.30 A"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x002",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q36",
+    "qid": "9702_s19_12_q36"
+   },
+   "stem": "Kirchhoff’s first law states that the sum of the currents entering a junction in a circuit is equal to\nthe sum of the currents leaving it.\nThe law is based on the conservation of a physical quantity.\nWhat is this physical quantity?",
+   "options": {
+    "A": "charge",
+    "B": "energy",
+    "C": "mass",
+    "D": "momentum"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x003",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q37",
+    "qid": "9702_s19_12_q37"
+   },
+   "stem": "A circuit contains two batteries, each of negligible internal resistance, and two resistors as shown.\n9.0 Ω\n3.0 Ω\n24 V\nX\ngalvanometer\nThe galvanometer has a current reading of zero.\nWhat is the electromotive force (e.m.f.) of battery X?",
+   "options": {
+    "A": "6.0 V",
+    "B": "8.0 V",
+    "C": "16.0 V",
+    "D": "18.0 V"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x004",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q36",
+    "qid": "9702_s19_13_q36"
+   },
+   "stem": "A student has a set of identical cells and identical lamps. The cells have negligible internal\nresistance.\nA lamp connected to a cell lights with normal brightness.\nWhat happens when the student connects the lamps and the cells as shown?\n2\n1\n3",
+   "options": {
+    "A": "All three lamps light with normal brightness.",
+    "B": "Only lamp 2 lights with normal brightness.",
+    "C": "Only lamps 1 and 3 light with normal brightness.",
+    "D": "None of the lamps light with normal brightness."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult. If the current in the first circuit is I, the e.m.f. of the cell is V and the resistance of the lamp is R, then I = V / R. In the second circuit, there is a current of I1 in the left-hand cell/lamp and a current of I3 in the right-hand cell/lamp. Using Kirchhoff’s second law separately on the two loops of the circuit: V = I1R + (I1 – I3)R (left-hand loop) V = (I3 – I1)R + I3R (right-hand loop). Combining these equations shows that I1 = I3 = V / R (= I). The net current in lamp 2 is (I1 – I3) which is zero, so lamp 2 does not light. The current in lamps"
+  },
+  {
+   "id": "9702-10.2-x005",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q38",
+    "qid": "9702_s19_13_q38"
+   },
+   "stem": "Two cells of electromotive force (e.m.f.) 3.0 V and 1.2 V and negligible internal resistance are\nconnected to resistors of resistance 9.0 Ω and 18 Ω as shown.\n18 Ω\n9.0 Ω\nI\n3.0 V\n1.2 V\nWhat is the current I in the 9.0 Ω resistor?",
+   "options": {
+    "A": "0.10 A",
+    "B": "0.20 A",
+    "C": "0.30 A",
+    "D": "0.47 A"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_13_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x006",
+   "kcs": [
+    "9702-10.2.1",
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q34",
+    "qid": "9702_w19_11_q34"
+   },
+   "stem": "Kirchhoff’s two laws for electric circuits can be derived by using conservation laws.\nOn which conservation laws do Kirchhoff’s laws depend?\nKirchhoff’s\nfirst law\nKirchhoff’s\nsecond law",
+   "options": {
+    "A": "charge current",
+    "B": "charge energy",
+    "C": "current mass",
+    "D": "energy current"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x007",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q37",
+    "qid": "9702_w19_11_q37"
+   },
+   "stem": "A network consists of a 3.0 Ω resistor and two 6.0 Ω resistors, as shown.\n3.0 Ω\n4.0 V\n6.0 Ω\n6.0 Ω\n+\n–\nThe potential difference (p.d.) across the network is 4.0 V.\nWhat is the current through the 3.0 Ω resistor?",
+   "options": {
+    "A": "0.17 A",
+    "B": "0.25 A",
+    "C": "0.33 A",
+    "D": "1.3 A"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x008",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q34",
+    "qid": "9702_w19_12_q34"
+   },
+   "stem": "Two cells with electromotive forces E₁ and E₂ and internal resistances r₁ and r₂ are connected to\na resistor R as shown.\nR\ncell 1\ncurrent\nr₁\nE₁\ncell 2\nr₂\nE₂\nThe terminal potential difference across cell 1 is zero.\nWhich expression gives the resistance of resistor R?",
+   "options": {
+    "A": "2 1 1 2 1 E r E r E −",
+    "B": "2 1 1 2 2 E r E r E −",
+    "C": "2 1 1 ₁ ₂ E r E r E −",
+    "D": "2 1 2 ₁ ₂ E r E r E −"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult. The question states that the terminal potential difference (p.d.) across cell 1 is zero. If the current in the circuit is I: E1 = Ir1 and therefore I = 1 1 E r . Applying Kirchhoff’s second law around the whole circuit: E1 + E2 = I(r1 + r2 + R) = 1 1 E r × (r1 + r2 + R). Rearranging this equation gives the value of R, which is R = 2 1 1 2 1 E r E r E − ."
+  },
+  {
+   "id": "9702-10.2-x009",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q36",
+    "qid": "9702_w19_12_q36"
+   },
+   "stem": "Three identical resistors are connected between terminals P and Q in different networks X, Y and\nZ as shown.\nP\nQ\nX\nP\nQ\nZ\nP\nQ\nY\nWhat is the order of increasing combined resistance between P and Q (lowest first)?",
+   "options": {
+    "A": "X → Y → Z",
+    "B": "X → Z → Y",
+    "C": "Y → X → Z",
+    "D": "Y → Z → X"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x010",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q34",
+    "qid": "9702_w19_13_q34"
+   },
+   "stem": "A battery of electromotive force (e.m.f.) 12 V and negligible internal resistance is connected to\nthree resistors, each of resistance 6.0 Ω, as shown.\nR\n6.0 Ω\n6.0 Ω\n6.0 Ω\n12 V\nWhat is the power dissipated in resistor R?",
+   "options": {
+    "A": "2.7 W",
+    "B": "6.0 W",
+    "C": "11 W",
+    "D": "24 W"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x011",
+   "kcs": [
+    "9702-10.2.1",
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q37",
+    "qid": "9702_w19_13_q37"
+   },
+   "stem": "Which row correctly describes Kirchhoff’s laws?\nKirchhoff’s first law\nphysics principle\napplied for first\nlaw\nKirchhoff’s second law\nphysics principle\napplied for\nsecond law",
+   "options": {
+    "A": "The sum of the currents entering a junction equals the sum of the currents leaving the junction. conservation of charge The sum of the e.m.f.s around any closed loop in a circuit equals the sum of the p.d.s around the same loop. conservation of energy",
+    "B": "The sum of the currents entering a junction equals the sum of the currents leaving the junction. conservation of energy The sum of the e.m.f.s around any closed loop in a circuit equals the sum of the p.d.s around the same loop. conservation of charge",
+    "C": "The sum of the e.m.f.s around any closed loop in a circuit equals the sum of the p.d.s around the same loop. conservation of energy The sum of the currents entering a junction equals the sum of the currents leaving the junction. conservation of charge",
+    "D": "The sum of the e.m.f.s around any closed loop in a circuit equals the sum of the p.d.s around the same loop. conservation of charge The sum of the currents entering a junction equals the sum of the currents leaving the junction. conservation of energy"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x012",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q38",
+    "qid": "9702_w19_13_q38"
+   },
+   "stem": "In the circuit shown, all the resistors are identical.\nV\nV\nV\nV₂\nV₄\nV\nV₁\nV₃\nThe reading V₁ is 8.0 V and the reading V₂ is 1.0 V.\nWhat are the readings on the other voltmeters?\nV₃ / V\nV₄ / V",
+   "options": {
+    "A": "1.5 1.0",
+    "B": "3.0 2.0",
+    "C": "4.5 3.0",
+    "D": "6.0 4.0"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_13_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x013",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q37",
+    "qid": "9702_s20_11_q37"
+   },
+   "stem": "Three identical resistors can be connected together in four different ways.\nThe resistances of two of these combinations are 4.0 Ω and 9.0 Ω.\nWhat is the resistance of each individual resistor?",
+   "options": {
+    "A": "3.0 Ω",
+    "B": "6.0 Ω",
+    "C": "12 Ω",
+    "D": "18 Ω"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x014",
+   "kcs": [
+    "9702-10.2.1",
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q37",
+    "qid": "9702_s20_12_q37"
+   },
+   "stem": "Kirchhoff’s first and second laws link to the conservation of physical quantities.\nWhich quantities do they link to?\nfirst law\nsecond law",
+   "options": {
+    "A": "charge energy",
+    "B": "charge momentum",
+    "C": "energy charge",
+    "D": "energy momentum"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x015",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q35",
+    "qid": "9702_s20_13_q35"
+   },
+   "stem": "A power supply of electromotive force (e.m.f.) V and negligible internal resistance is connected in\nthe circuit shown. There is a current of 3.0 A in the 4.0 Ω resistor.\n3.0 A\n3.0 Ω\n4.0 Ω\n2.0 Ω\n+\n–\nV\nWhat is the value of V ?",
+   "options": {
+    "A": "15 V",
+    "B": "29 V",
+    "C": "39 V",
+    "D": "51 V"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_13_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x016",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q37",
+    "qid": "9702_w20_11_q37"
+   },
+   "stem": "In the circuit shown, the 6.0 V battery has negligible internal resistance. Resistors R₁ and R₂ and\nthe voltmeter each have a resistance of 100 kΩ.\n6.0 V\nV\n100 kΩ\nR₁\nR₂\n100 kΩ\n100 kΩ\nWhat is the current in the resistor R₂?",
+   "options": {
+    "A": "20 μA",
+    "B": "30 μA",
+    "C": "40 μA",
+    "D": "60 μA"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x017",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q37",
+    "qid": "9702_w20_13_q37"
+   },
+   "stem": "Four identical resistors are connected in a circuit, as shown.\n30 V\nX\nY\nThe battery has negligible internal resistance and an e.m.f. of 30 V.\nWhat is the potential difference between the two points X and Y?",
+   "options": {
+    "A": "6.0 V",
+    "B": "15 V",
+    "C": "20 V",
+    "D": "24 V"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x018",
+   "kcs": [
+    "9702-10.2.4",
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q36",
+    "qid": "9702_s21_11_q36"
+   },
+   "stem": "The diagram shows a network of resistors. Each resistor has resistance R.\nR\nR\nR\nR\nR\nR\nX\nY\nWhat is the total resistance of the network between points X and Y?",
+   "options": {
+    "A": "6 R",
+    "B": "6 11 R",
+    "C": "11 6 R",
+    "D": "6R"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x019",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q37",
+    "qid": "9702_s21_12_q37"
+   },
+   "stem": "A cell of electromotive force (e.m.f.) E and negligible internal resistance is connected to a circuit.\nThe circuit has currents I₁, I₂ and I₃, and potential differences V₁, V₂ and V₃, as shown.\nE\nV₂\nV₃\nV₁\nI₁\nI₂\nI₃\nWhich equation represents a statement of Kirchhoff’s first law?",
+   "options": {
+    "A": "I₁ = I₂ + I₃",
+    "B": "I₁ = I₂ = I₃",
+    "C": "E = V₁ + V₂",
+    "D": "V₁ = V₂ = V₃"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x020",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q35",
+    "qid": "9702_s21_13_q35"
+   },
+   "stem": "The diagram shows a circuit containing two batteries connected together.\n1.0 Ω\n12.0 V\n0.5 Ω\n8.0 V\nI\nWhat is the current I ?",
+   "options": {
+    "A": "2.7 A",
+    "B": "4.0 A",
+    "C": "8.0 A",
+    "D": "13 A"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_13_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "This was a difficult question. The key to answering the question is to notice that the two batteries are connected in opposite directions, so the overall e.m.f. in the circuit is 4.0 V. Applying Kirchhoff’s second law: 12.0 – 8.0 = I × 1.0 + I × 0.5. Solving this for I gives I = 2.7 A."
+  },
+  {
+   "id": "9702-10.2-x021",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q37",
+    "qid": "9702_w21_11_q37"
+   },
+   "stem": "Three identical cells, each of electromotive force (e.m.f.) E and internal resistance r, are\nconnected as shown.\ncurrent\nr\nr\nr\nE\nE\nE\nX\nY\nWhat is the potential difference between points X and Y?",
+   "options": {
+    "A": "0",
+    "B": "E",
+    "C": "2E",
+    "D": "3E"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x022",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q37",
+    "qid": "9702_w21_12_q37"
+   },
+   "stem": "A battery of negligible internal resistance is connected to three resistors, as shown.\n2 V\n2 V\n0.3 A\n2 V\n0.4 A\nThe potential difference across each resistor is 2 V.\nThe current from the battery is 0.4 A and the current through one of the resistors connected in\nparallel is 0.3 A.\nWhat is the current through the other resistor connected in parallel and what is the electromotive\nforce (e.m.f.) of the battery?\ncurrent / A\ne.m.f. / V",
+   "options": {
+    "A": "0.1 4",
+    "B": "0.3 4",
+    "C": "0.1 6",
+    "D": "0.3 6"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x023",
+   "kcs": [
+    "9702-10.2.4",
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q36",
+    "qid": "9702_w21_13_q36"
+   },
+   "stem": "The diagram shows two resistor networks.\n2R\nnetwork 1\n2R\nR\nR\nnetwork 2\nR\n2R\nWhat is the ratio total resistance of network 1\ntotal resistance of network 2 ?",
+   "options": {
+    "A": "4 5",
+    "B": "5 4",
+    "C": "1 2",
+    "D": "2 1"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x024",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q36",
+    "qid": "9702_s22_11_q36"
+   },
+   "stem": "The sum of the currents entering a junction in an electrical circuit is always equal to the sum of\nthe currents leaving the junction.\nWhy is this?",
+   "options": {
+    "A": "It is a consequence of the conservation of charge.",
+    "B": "It is a consequence of the conservation of electromotive force.",
+    "C": "It is a consequence of the conservation of energy.",
+    "D": "It is a consequence of the conservation of potential difference."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x025",
+   "kcs": [
+    "9702-10.2.1",
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q36",
+    "qid": "9702_s22_12_q36"
+   },
+   "stem": "Kirchhoff’s first and second laws are consequences of the conservation of different quantities.\nWhat are those quantities?\nKirchhoff’s\nfirst law\nKirchhoff’s\nsecond law",
+   "options": {
+    "A": "charge energy",
+    "B": "energy current",
+    "C": "current charge",
+    "D": "energy charge"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x026",
+   "kcs": [
+    "9702-10.2.1",
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q37",
+    "qid": "9702_s22_13_q37"
+   },
+   "stem": "Which row correctly describes Kirchhoff’s laws?\nKirchhoff’s first law\nphysics principle\napplied for\nfirst law\nKirchhoff’s second law\nphysics principle\napplied for\nsecond law",
+   "options": {
+    "A": "The sum of the currents entering a junction equals the sum of the currents leaving the junction. conservation of charge The sum of the e.m.f.s around any closed loop in a circuit equals the sum of the p.d.s around the same loop. conservation of energy",
+    "B": "The sum of the currents entering a junction equals the sum of the currents leaving the junction. conservation of energy The sum of the e.m.f.s around any closed loop in a circuit equals the sum of the p.d.s around the same loop. conservation of charge",
+    "C": "The sum of the e.m.f.s around any closed loop in a circuit equals the sum of the p.d.s around the same loop. conservation of energy The sum of the currents entering a junction equals the sum of the currents leaving the junction. conservation of charge",
+    "D": "The sum of the e.m.f.s around any closed loop in a circuit equals the sum of the p.d.s around the same loop. conservation of charge The sum of the currents entering a junction equals the sum of the currents leaving the junction. conservation of energy"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x027",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q34",
+    "qid": "9702_w22_11_q34"
+   },
+   "stem": "Three identical filament lamps, P, Q and R, are connected to a battery of negligible internal\nresistance, as shown.\nQ\nP\nR\nThe filament wire in lamp Q breaks so that it no longer conducts.\nWhat are the changes in the brightness of lamps P and R?\nlamp P\nlamp R",
+   "options": {
+    "A": "brighter brighter",
+    "B": "brighter dimmer",
+    "C": "dimmer brighter",
+    "D": "dimmer dimmer"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x028",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q36",
+    "qid": "9702_w22_11_q36"
+   },
+   "stem": "A circuit consists of a battery, a voltmeter and five fixed resistors, as shown.\nV\n2.0 \u0001\n5.0 \u0001\n8.0 \u0001\nR\n10.0 \u0001\nThe voltmeter reading is zero.\nWhat is the resistance of resistor R?",
+   "options": {
+    "A": "1.1 Ω",
+    "B": "2.1 Ω",
+    "C": "4.0 Ω",
+    "D": "8.0 Ω"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x029",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q32",
+    "qid": "9702_w22_12_q32"
+   },
+   "stem": "The diagrams show two different circuits.\nR\nR\nR\nThe cells in each circuit have the same electromotive force (e.m.f.) and negligible internal\nresistance. The three resistors each have the same resistance R.\nIn the circuit on the left, the power dissipated in the resistor is P.\nWhat is the total power dissipated in the circuit on the right?",
+   "options": {
+    "A": "4 P",
+    "B": "2 P",
+    "C": "P",
+    "D": "2P"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_12_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x030",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q36",
+    "qid": "9702_w22_12_q36"
+   },
+   "stem": "A circuit consists of a battery, a high-resistance voltmeter and four fixed resistors, as shown. The\nbattery has an electromotive force (e.m.f.) of 15.0 V and negligible internal resistance.\nV\n24.0 \u0002\n6.0 \u0002\n6.0 \u0002\n9.0 \u0002\n15.0 V\nWhat is the reading on the voltmeter?",
+   "options": {
+    "A": "3.0 V",
+    "B": "6.0 V",
+    "C": "9.0 V",
+    "D": "12.0 V"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x031",
+   "kcs": [
+    "9702-10.2.1",
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q35",
+    "qid": "9702_w22_13_q35"
+   },
+   "stem": "Each of Kirchhoff’s laws is linked to the conservation of a physical quantity.\nWhich conserved physical quantities are used in the derivation of Kirchhoff’s first law and of\nKirchhoff’s second law?\nKirchhoff’s\nfirst law\nKirchhoff’s\nsecond law",
+   "options": {
+    "A": "energy charge",
+    "B": "energy momentum",
+    "C": "charge energy",
+    "D": "momentum energy"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_13_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x032",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q32",
+    "qid": "9702_s23_12_q32"
+   },
+   "stem": "An electrical cable is made up of one thick strand of copper wire that is surrounded by eight thin\nstrands of copper wire. All nine strands of wire are connected in parallel with each other.\nA cross-section of the cable is shown.\nthin strand,\ncross-sectional\narea A\nthick strand,\ncross-sectional\narea 4A\nEach thin strand of wire has cross-sectional area A and length L.\nThe thick strand of wire has cross-sectional area 4A and length L.\nThe cable has total resistance R.\nWhich expression gives the resistivity of copper?",
+   "options": {
+    "A": "RL A 33 4",
+    "B": "RL A 12",
+    "C": "L AR 4",
+    "D": "L AR 12"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_12_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The simplest way to calculate the resistivity is to realise that the 9 strands of copper wire are equivalent to one strand of wire with cross-sectional area 12A. ρ ρ = = 12 12 L AR R A L where ρ is the resistivity of the copper wire (answer D). Note also that A and B cannot be correct as they would have units of m Ω–1 not Ω m."
+  },
+  {
+   "id": "9702-10.2-x033",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q35",
+    "qid": "9702_s23_12_q35"
+   },
+   "stem": "Kirchhoff’s first law is a consequence of the conservation of which quantity?",
+   "options": {
+    "A": "charge",
+    "B": "energy",
+    "C": "momentum",
+    "D": "potential difference"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x034",
+   "kcs": [
+    "9702-10.2.4",
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q36",
+    "qid": "9702_s23_13_q36"
+   },
+   "stem": "Two resistors have a combined resistance of 34 Ω when connected in series. The same resistors\nhave a combined resistance of 7.4 Ω when connected in parallel.\nWhat is the resistance of one of the resistors?",
+   "options": {
+    "A": "15 Ω",
+    "B": "17 Ω",
+    "C": "23 Ω",
+    "D": "27 Ω"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x035",
+   "kcs": [
+    "9702-10.2.1",
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q35",
+    "qid": "9702_w23_11_q35"
+   },
+   "stem": "Kirchhoff’s first and second laws are a consequence of the conservation of which quantities?",
+   "options": {
+    "A": "charge and energy",
+    "B": "charge and resistance",
+    "C": "mass and energy",
+    "D": "mass and resistance"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x036",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q34",
+    "qid": "9702_w23_12_q34"
+   },
+   "stem": "Some resistors and a battery of electromotive force (e.m.f.) E and negligible internal resistance\nare connected in series, as shown.\nE\nWhich statement is correct?",
+   "options": {
+    "A": "The e.m.f. across each resistor equals the potential difference across the battery.",
+    "B": "The potential difference across each resistor equals the e.m.f. E of the battery.",
+    "C": "The sum of the e.m.f.s across the resistors equals the potential difference across the battery.",
+    "D": "The sum of the potential differences across the resistors equals the e.m.f. E of the battery."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x037",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q35",
+    "qid": "9702_w23_12_q35"
+   },
+   "stem": "Kirchhoff’s first law is a consequence of the conservation of which physical quantity?",
+   "options": {
+    "A": "charge",
+    "B": "energy",
+    "C": "linear momentum",
+    "D": "potential difference"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x038",
+   "kcs": [
+    "9702-10.2.4",
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q36",
+    "qid": "9702_w23_12_q36"
+   },
+   "stem": "The diagram shows a network of resistors. Each resistor has a resistance of 6.0 Ω.\nX\nY\nWhat is the total resistance of the network between points X and Y?",
+   "options": {
+    "A": "3.0 Ω",
+    "B": "5.0 Ω",
+    "C": "7.2 Ω",
+    "D": "18 Ω"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w23_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x039",
+   "kcs": [
+    "9702-10.2.4",
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q36",
+    "qid": "9702_w23_13_q36"
+   },
+   "stem": "Three resistors, each of resistance R, are connected in a network, as shown.\nX\nY\nR\nR\nR\nThe total resistance between points X and Y is 8.0 Ω.\nWhat is the value of R ?",
+   "options": {
+    "A": "2.7 Ω",
+    "B": "4.0 Ω",
+    "C": "5.3 Ω",
+    "D": "12 Ω"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x040",
+   "kcs": [
+    "9702-10.2.4",
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q34",
+    "qid": "9702_s24_11_q34"
+   },
+   "stem": "Four resistors, each of resistance R, are connected as shown.\nR\nR\nR\nR\nX\nY\nThe total resistance between point X and point Y is 120 Ω.\nWhat is the magnitude of the resistance R ?",
+   "options": {
+    "A": "30 Ω",
+    "B": "90 Ω",
+    "C": "160 Ω",
+    "D": "480 Ω"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x041",
+   "kcs": [
+    "9702-10.2.4",
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q36",
+    "qid": "9702_s24_11_q36"
+   },
+   "stem": "The diagram shows a circuit with a cell and three resistors with resistances R₁, R₂ and R₃.\nThe cell has negligible internal resistance.\nR₃\nR₁\nR₂\nThe total resistance of the circuit is RT.\nWhich equation for RT is correct?\nRT = R₁ + R₂ + R₃",
+   "options": {
+    "A": "RT = +",
+    "B": "1 R₁ + R₂ =",
+    "C": "1 R₁ + R₂ + R₃ 1 R₃ +",
+    "D": "1 R₁ + R₂ 1 R₃ 1 RT = 1 RT"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x042",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q30",
+    "qid": "9702_s24_12_q30"
+   },
+   "stem": "The diagram shows a cell of negligible internal resistance connected to a switch and two resistors\nof resistances R and 2R.\nA\n2R\nR\nY\nA\nX\nThe circuit also contains two ammeters X and Y.\nThe reading on X is 4.0 A when the switch is open.\nWhat are the readings on X and Y after the switch is closed?\nreading\non X / A\nreading\non Y / A",
+   "options": {
+    "A": "4.0 1.3",
+    "B": "4.0 2.7",
+    "C": "6.0 2.0",
+    "D": "6.0 4.0"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_12_q30.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x043",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q34",
+    "qid": "9702_s24_12_q34"
+   },
+   "stem": "Which description of Kirchhoff’s first law is correct?",
+   "options": {
+    "A": "It considers the currents at a junction in a circuit and is a consequence of the conservation of charge.",
+    "B": "It considers the currents at a junction in a circuit and is a consequence of the conservation of energy.",
+    "C": "It considers the electromotive forces and potential differences in a circuit loop and is a consequence of the conservation of charge.",
+    "D": "It considers the electromotive forces and potential differences in a circuit loop and is a consequence of the conservation of energy."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x044",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q35",
+    "qid": "9702_s24_12_q35"
+   },
+   "stem": "Two resistors of resistances r and R are connected in parallel.\nThe value of r is less than that of R.\nr\nR\nWhich statement about the combined resistance of the two resistors is correct?",
+   "options": {
+    "A": "It is between r and R.",
+    "B": "It is equal to (r + R).",
+    "C": "It is greater than (r + R).",
+    "D": "It is less than r."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x045",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q36",
+    "qid": "9702_s24_12_q36"
+   },
+   "stem": "The diagram shows four identical resistors connected in a circuit.\nWhich resistor dissipates the most power?",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x046",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q32",
+    "qid": "9702_s24_13_q32"
+   },
+   "stem": "A student builds the circuit shown. All the lamps are identical.\nWhich lamp dissipates the most power?",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_13_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x047",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q34",
+    "qid": "9702_s24_13_q34"
+   },
+   "stem": "A circuit needs to be completed by connecting two resistors between points X and Y, as shown.\nThe resistors can be connected in series or in parallel with each other.\nX\nY\nWhich combination of resistors produces the least resistance between X and Y?\nresistances\nof resistors / Ω\ntype of\ncombination",
+   "options": {
+    "A": "20 and 40 parallel",
+    "B": "40 and 100 parallel",
+    "C": "20 and 40 series",
+    "D": "40 and 100 series"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x048",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q36",
+    "qid": "9702_s24_13_q36"
+   },
+   "stem": "The diagram shows a circuit consisting of a cell and three resistors R₁, R₂ and R₃.\n1.60 V\n0.48 V\n0.64 A\n0.32 A\nR₃\nR₁\nR₂\nThe cell has electromotive force (e.m.f.) 1.60 V and negligible internal resistance. The current in\nthe cell is 0.64 A.\nThe potential difference across R₁ is 0.48 V.\nThe current in R₃ is 0.32 A.\nWhat is the resistance of R₂?",
+   "options": {
+    "A": "1.5 Ω",
+    "B": "2.5 Ω",
+    "C": "3.5 Ω",
+    "D": "5.0 Ω"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x049",
+   "kcs": [
+    "9702-10.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q31",
+    "qid": "9702_w24_11_q31"
+   },
+   "stem": "Kirchhoff’s second law is a consequence of a basic principle.\nWhat is this principle?",
+   "options": {
+    "A": "The charge flowing in an electric circuit is conserved.",
+    "B": "The energy in an electric circuit is conserved.",
+    "C": "The sum of the electric currents entering a point in an electric circuit is equal to the sum of the electric currents leaving that point.",
+    "D": "The sum of the potential differences in an electric circuit is equal to the sum of the products of the current and resistance."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x050",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q36",
+    "qid": "9702_w24_11_q36"
+   },
+   "stem": "In the circuits shown, the batteries are identical and all have negligible internal resistance. All of\nthe resistors have the same resistance. The diodes have zero resistance when conducting and\ninfinite resistance when not conducting.\nIn which circuit is the current in the battery greatest?",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x051",
+   "kcs": [
+    "9702-10.2.4",
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q35",
+    "qid": "9702_w24_12_q35"
+   },
+   "stem": "Three resistors are connected to a cell of negligible internal resistance.\nWhich circuit has a combined resistance of 100 Ω?\n100 \u0002\n50 \u0002\n100 \u0002",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x052",
+   "kcs": [
+    "9702-10.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q36",
+    "qid": "9702_s25_11_q36"
+   },
+   "stem": "Two resistors of resistances R₁ and R₂ are connected in parallel.\nR₂\nR₁\nX\nY\nWhat is the combined resistance between X and Y?",
+   "options": {
+    "A": "R₁ + R₂",
+    "B": "(R₁ × R₂)/(R₁ + R₂)",
+    "C": "(R₁ + R₂)/(R₁ × R₂)",
+    "D": "R₁/R₂"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x053",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q36",
+    "qid": "9702_s25_12_q36"
+   },
+   "stem": "The diagram shows a four-terminal box connected to a battery and two ammeters.\n1\n3\n2\n4\nA\nA\nThe currents in the two ammeters are identical.\nWhich circuit, within the box, gives this result?\n1\n3\n2\n4",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x054",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q37",
+    "qid": "9702_s25_12_q37"
+   },
+   "stem": "Each of Kirchhoff’s two laws presumes that some quantity is conserved.\nWhich row states Kirchhoff’s first law and names the quantity that is conserved?\nstatement\nquantity",
+   "options": {
+    "A": "The algebraic sum of currents at a junction is zero. charge",
+    "B": "The algebraic sum of currents at a junction is zero. energy",
+    "C": "The e.m.f. in a loop is equal to the algebraic sum of the product of current and resistance round the loop. charge",
+    "D": "The e.m.f. in a loop is equal to the algebraic sum of the product of current and resistance round the loop. energy"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x055",
+   "kcs": [
+    "9702-10.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q34",
+    "qid": "9702_w25_11_q34"
+   },
+   "stem": "The diagram shows a circuit containing a battery and cells with negligible internal resistance.\nSome values of current, electromotive force (e.m.f.) and resistance are shown.\nOne resistor is labelled P.\n9.0 V\n3.0 A\n2.0 A\nP\n1.0 V\n2.0 \u0001\nWhat is the resistance of resistor P?",
+   "options": {
+    "A": "0.40 Ω",
+    "B": "0.80 Ω",
+    "C": "2.0 Ω",
+    "D": "2.8 Ω"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w25_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.2-x056",
+   "kcs": [
+    "9702-10.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q37",
+    "qid": "9702_w25_11_q37"
+   },
+   "stem": "The diagram shows the currents in part of an electric circuit.\nI₁\nI₂\nI₃\nI₄\nI₅\nThe resistors are identical.\nWhich equation is not correct?",
+   "options": {
+    "A": "I₁ = I₂ + I₄ + I₅",
+    "B": "I₂ = I₁ – I₃",
+    "C": "I₂ = I₃ + I₄ + I₅",
+    "D": "I₄ = I₃ – I₅"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w25_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-10.2.1",
+   "front": "State Kirchhoff’s first law.",
+   "back": "The sum of currents entering a junction equals the sum leaving it."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-10.2.2",
+   "front": "State Kirchhoff’s second law.",
+   "back": "In a closed loop, the sum of e.m.f.s equals the sum of potential differences, with signs according to direction."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-10.2.1": {
+   "motivate": "At a fork in a circuit, how can you tell where the current goes?",
+   "establish": "Kirchhoff’s first law states that the total current entering a junction equals the total current leaving it. Current is charge per unit time. In a steady circuit, charge does not build up at a junction, so the incoming charge per second must equal the outgoing charge per second. For one incoming current $I_1$ and two outgoing currents $I_2,I_3$, $I_1=I_2+I_3$.",
+   "connect": "This is the conservation of charge applied to a junction; it will supply equations when parallel branches split or rejoin.",
+   "note": "- First law: total current in = total current out at a junction.\n- It follows from conservation of charge.",
+   "self_explain": "Why would unequal incoming and outgoing currents cause charge to accumulate?",
+   "source": "pack"
+  },
+  "9702-10.2.2": {
+   "motivate": "A charge goes all the way around a circuit and returns to its starting point. What is its net energy change?",
+   "establish": "Kirchhoff’s second law states that around a closed loop the algebraic sum of e.m.f.s equals the algebraic sum of potential differences. Energy supplied per unit charge by cells equals energy transferred per unit charge in components. This is conservation of energy: a charge returning to the same point has no net energy change. Choose a loop direction; crossing a cell from negative to positive is a rise, and crossing a resistor with its current is a drop $IR$.",
+   "connect": "The loop law gives the voltage equations needed alongside the junction law.",
+   "note": "- Second law: signed e.m.f.s equal signed p.d.s around a closed loop.\n- It follows from conservation of energy.",
+   "self_explain": "Why must a full loop have zero net potential change?",
+   "source": "pack"
+  },
+  "9702-10.2.3": {
+   "motivate": "Why do several resistors along one path act like a larger resistor?",
+   "establish": "Derive the series rule using Kirchhoff’s laws. No current splits along the path, so the same current $I$ flows through every resistor. Kirchhoff’s second law gives $V=V_1+V_2=IR_1+IR_2=I(R_1+R_2)$. For an equivalent resistor, $V=IR$. Equating the expressions and cancelling $I$ gives $R=R_1+R_2$. The same argument extends to two or more resistors: $R=\\sum R_i$.",
+   "connect": "The proof uses a common current and summed p.d.s; these are the features to recognise before using the formula.",
+   "note": "- Series resistors carry the same current.\n- Loop law: $V=\\sum IR_i$, so $R=\\sum R_i$.",
+   "self_explain": "Where does the common current enter the derivation?",
+   "source": "pack"
+  },
+  "9702-10.2.4": {
+   "motivate": "If resistors are end to end with no branch, what single resistance can replace them?",
+   "establish": "For two or more resistors in series, use $R=R_1+R_2+\\cdots$. Add every resistance in consistent units. For example, $2.0\\,\\Omega$, $3.0\\,\\Omega$ and $5.0\\,\\Omega$ in series give $10.0\\,\\Omega$. Once the combined resistance is known, $I=V/R$ gives the common current. Individual p.d.s are $V_i=IR_i$ and add to the supply p.d. around the loop.",
+   "connect": "This calculation uses the series result derived from Kirchhoff’s second law.",
+   "note": "- Add all series resistances: $R=R_1+R_2+\\cdots$.\n- The same current passes through each resistor.",
+   "self_explain": "Why can the individual p.d.s differ although the current is common?",
+   "source": "pack"
+  },
+  "9702-10.2.5": {
+   "motivate": "Why does adding another path reduce a network’s resistance?",
+   "establish": "Derive the parallel rule using both Kirchhoff laws. Each branch connects the same two junctions, so Kirchhoff’s second law makes its p.d. the same $V$. Kirchhoff’s first law gives $I=I_1+I_2=V/R_1+V/R_2$. The equivalent resistor obeys $I=V/R$. Divide by $V$ to obtain $1/R=1/R_1+1/R_2$. With two or more branches, extend the reciprocal sum: $1/R=\\sum 1/R_i$.",
+   "connect": "The proof combines equal branch p.d.s with added branch currents.",
+   "note": "- Parallel branches share the same p.d.\n- Junction law gives $I=\\sum V/R_i$, so $1/R=\\sum 1/R_i$.",
+   "self_explain": "Why do the branch currents add but their p.d.s do not?",
+   "source": "pack"
+  },
+  "9702-10.2.6": {
+   "motivate": "How can two resistors have less resistance together than either has alone?",
+   "establish": "Use $1/R=1/R_1+1/R_2+\\cdots$ for two or more resistors in parallel. For two resistors, rearrange to $R=R_1R_2/(R_1+R_2)$. Two equal resistors of resistance $r$ give $R=r/2$; $n$ equal branches give $R=r/n$. Check that the result is smaller than the smallest branch resistance. If it is larger, you may have added the resistances as though they were in series.",
+   "connect": "This formula follows from common branch p.d. and conservation of charge at the splitting junction.",
+   "note": "- Parallel: add reciprocals, $1/R=\\sum 1/R_i$.\n- The result is below every individual branch resistance.",
+   "self_explain": "What quick check shows that a calculated parallel resistance is impossible?",
+   "source": "pack"
+  },
+  "9702-10.2.7": {
+   "motivate": "A circuit can have branches and opposing cells. How can you solve it systematically?",
+   "establish": "Use Kirchhoff’s laws to solve simple circuit problems. Choose current arrows and mark cell polarities. At a junction, write total current in equals total current out. Around each independent closed loop, add signed e.m.f. rises and equate them to signed p.d. drops $IR$. First combine clear series and parallel resistor groups if useful. Solve the equations, then check the currents at junctions and the p.d.s around loops. A negative current means its actual direction is opposite to the arrow you chose.",
+   "connect": "Series and parallel resistance formulas shorten the arithmetic, while the two conservation laws justify every equation.",
+   "note": "- Choose directions, write junction equations, then closed-loop equations.\n- Check current balance and signed p.d.s after solving.",
+   "self_explain": "What does a negative answer for an assumed branch current tell you?",
+   "source": "pack"
+  }
+ }
+}
