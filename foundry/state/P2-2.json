@@ -1,0 +1,157 @@
+{
+ "sub": "P2-2",
+ "stage": "ready",
+ "created": "2026-10-10T13:47:31+08:00",
+ "updated": "2026-10-10T14:20:04+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T13:49:00+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 7 items"
+  },
+  {
+   "t": "2026-10-10T14:13:36+08:00",
+   "from": "solve",
+   "to": "adjudicate",
+   "note": "9 agreed, 0 disputed; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:16:46+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T14:19:59+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T14:20:04+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 7,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "P2-2.1 teaching (lesson note and teach card)",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Bundle statement: \"Simple algebraic division; use of the Factor Theorem and the Remainder Theorem.\" Lesson note: \"Use long division or coefficient matching to find the quadratic quotient\"; teaching card: \"Divide a cubic by the factor, then factorise its quadratic quotient.\"",
+   "suggested": "Show the steps of a simple polynomial division or coefficient-matching example in the note or teaching card.",
+   "status": "fixed",
+   "resolution": "fix: The finding is valid: division is tested by P2-2-i03 and P2-2-i04, but neither the note nor the teaching card demonstrates how to obtain a quotient. In build/out/packs/P2/P2-2.json, append the following exact paragraph to teach[\"P2-2.1\"].establish, separated by a blank line: To divide $6x^3+11x^2-x-6$ by $2x+3$, write $6x^3+11x^2-x-6=(2x+3)(Ax^2+Bx+C)+r$. Expanding the right-hand side gives $2Ax^3+(2B+3A)x^2+(2C+3B)x+3C+r$. Match coefficients in descending powers: $2A=6$, so $A=3$; $2B+3A=11$, so $2B+9=11$ and $B=1$; $2C+3B=-1$, so $2C+3=-1$ and $C=-2$; $3C+r=-6$, so $-6+r=-6$ and $r=0$. Thus the quotient is $3x^2+x-2$ and the remainder is $0$. In build/out/notes/Subjects/Maths/P2 Pure Mathematics 2/2 Algebra and functions.md, insert the same exact paragraph after Method step 4 and before the worked-example callout. This teaches coefficient matching explicitly within the syllabus requirement for simple algebraic division. Existing answer keys remain correct."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "P2-2.1 teaching (lesson note and teach card)",
+   "instruction": "The finding is valid: division is tested by P2-2-i03 and P2-2-i04, but neither the note nor the teaching card demonstrates how to obtain a quotient. In build/out/packs/P2/P2-2.json, append the following exact paragraph to teach[\"P2-2.1\"].establish, separated by a blank line: To divide $6x^3+11x^2-x-6$ by $2x+3$, write $6x^3+11x^2-x-6=(2x+3)(Ax^2+Bx+C)+r$. Expanding the right-hand side gives $2Ax^3+(2B+3A)x^2+(2C+3B)x+3C+r$. Match coefficients in descending powers: $2A=6$, so $A=3$; $2B+3A=11$, so $2B+9=11$ and $B=1$; $2C+3B=-1$, so $2C+3=-1$ and $C=-2$; $3C+r=-6$, so $-6+r=-6$ and $r=0$. Thus the quotient is $3x^2+x-2$ and the remainder is $0$. In build/out/notes/Subjects/Maths/P2 Pure Mathematics 2/2 Algebra and functions.md, insert the same exact paragraph after Method step 4 and before the worked-example callout. This teaches coefficient matching explicitly within the syllabus requirement for simple algebraic division. Existing answer keys remain correct.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 3661,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:48:01+08:00",
+   "log": "foundry/logs/P2-2.drafter.1010-134801.log",
+   "out": "foundry/logs/P2-2.drafter.1010-134801.out.json",
+   "finished": "2026-10-10T13:49:00+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/P2/P2-2.json",
+    "note_path": "build/out/notes/Subjects/Maths/P2 Pure Mathematics 2/2 Algebra and functions.md",
+    "items": 7,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 21343,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:13:05+08:00",
+   "log": "foundry/logs/P2-2.solver.1010-141305.log",
+   "out": "foundry/logs/P2-2.solver.1010-141305.out.json",
+   "expects": "build/work/blind/P2-2.answers.json",
+   "finished": "2026-10-10T14:13:17+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 9 questions; wrote `build/work/blind/P2-2.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 21345,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:13:05+08:00",
+   "log": "foundry/logs/P2-2.checker.1010-141305.log",
+   "out": "foundry/logs/P2-2.checker.1010-141305.out.json",
+   "expects": "build/work/foundry/P2-2.check.json",
+   "finished": "2026-10-10T14:13:29+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — `build/work/foundry/P2-2.check.json`"
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 23436,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:15:29+08:00",
+   "log": "foundry/logs/P2-2.adjudicator.1010-141529.log",
+   "out": "foundry/logs/P2-2.adjudicator.1010-141529.out.json",
+   "finished": "2026-10-10T14:16:52+08:00",
+   "exit": 0,
+   "report": {
+    "text": "P2-2.1 teaching (lesson note and teach card) fix: Add explicit coefficient-matching steps; division procedure is currently omitted."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 26574,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T14:19:28+08:00",
+   "log": "foundry/logs/P2-2.fixer.1010-141928.log",
+   "out": "foundry/logs/P2-2.fixer.1010-141928.out.json",
+   "finished": "2026-10-10T14:19:59+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 2,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

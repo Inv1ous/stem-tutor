@@ -1,0 +1,15 @@
+{
+  "P2-2.1": {
+    "motivate": "A cubic can look difficult to factorise. One easy substitution can reveal a linear factor and reduce the problem to a quadratic.",
+    "discover": {
+      "stem": "If $f(x)$ is divided by $2x+3$, which input gives the remainder directly?",
+      "options": {"A": "$-3/2$", "B": "$3/2$", "C": "$-2/3$", "D": "$2/3$"},
+      "answer": "A",
+      "explanation": "Set $2x+3=0$ to get $x=-3/2$; then the divisor term vanishes."
+    },
+    "establish": "Simple algebraic division writes $f(x)=(ax+b)q(x)+r$, where $q(x)$ is the quotient and $r$ is the constant remainder. At $x=-b/a$, the divisor vanishes, so $r=f(-b/a)$: the Remainder Theorem. If this value is zero, $ax+b$ divides $f(x)$ exactly and is a factor: the Factor Theorem. For $ax-b$, test $x=b/a$. To factorise a cubic, find a root, divide by its linear factor, then factorise the quadratic quotient. For example, $x^3+3x^2-4=(x-1)(x+2)^2$ and $6x^3+11x^2-x-6=(2x+3)(x+1)(3x-2)$.\n\nTo divide $6x^3+11x^2-x-6$ by $2x+3$, write $6x^3+11x^2-x-6=(2x+3)(Ax^2+Bx+C)+r$. Expanding the right-hand side gives $2Ax^3+(2B+3A)x^2+(2C+3B)x+3C+r$. Match coefficients in descending powers: $2A=6$, so $A=3$; $2B+3A=11$, so $2B+9=11$ and $B=1$; $2C+3B=-1$, so $2C+3=-1$ and $C=-2$; $3C+r=-6$, so $-6+r=-6$ and $r=0$. Thus the quotient is $3x^2+x-2$ and the remainder is $0$.",
+    "connect": "This extends polynomial factorising from Pure Mathematics 1. A root, a zero remainder and a linear factor are three descriptions of the same relationship.",
+    "note": "- Solve the divisor equation before substitution.\n- $f(x)=(ax+b)q(x)+r$.\n- Remainder: $r=f(-b/a)$; factor exactly when $r=0$.\n- Divide a cubic by the factor, then factorise its quadratic quotient.",
+    "self_explain": "Why does substituting $x=-b/a$ into the division identity reveal the remainder, and how would you use that result to factorise a cubic?"
+  }
+}
