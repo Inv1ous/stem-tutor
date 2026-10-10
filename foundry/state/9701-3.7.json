@@ -1,0 +1,233 @@
+{
+ "sub": "9701-3.7",
+ "stage": "ready",
+ "created": "2026-10-10T11:00:42+08:00",
+ "updated": "2026-10-10T14:17:56+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T11:02:44+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 30 items"
+  },
+  {
+   "t": "2026-10-10T14:07:08+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "29 agreed, 3 disputed"
+  },
+  {
+   "t": "2026-10-10T14:08:01+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak settled every dispute; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:14:51+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T14:17:48+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T14:17:56+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 30,
+  "extra": 6
+ },
+ "disputes": [
+  {
+   "id": "9701-3.7-p11",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.7-x001",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-3.7-x002",
+   "key": "D",
+   "solver": "A",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "KC 9701-3.7.1 assessment coverage",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Bundle KC: ‘use dot-and-cross diagrams to illustrate ionic, covalent and coordinate bonding including the representation of any compounds stated in 3.4 and 3.5’. Pack item 9701-3.7-i01 asks ‘Identify the correct outer-shell dot-and-cross representation of MgO.’ The chapter questions ask learners to identify/select/count features, but none asks them to draw or construct a dot-and-cross diagram for any of the three bonding types.",
+   "suggested": "Add at least one question requiring learners to draw dot-and-cross diagrams for ionic, covalent and coordinate bonding, including a compound from 3.4/3.5.",
+   "status": "fixed",
+   "resolution": "fix: The finding is valid: recognition/counting items do not assess construction of dot-and-cross diagrams required by procedural KC 9701-3.7.1. Replace generated item 9701-3.7-i01 in full with the following exact object (remove its old options, answer, distractors and shuffle fields); retain all other items. NH3 and NH4+ are explicitly included in bundle 3.4, and NH3 is also in 3.5. This is a generated marking scheme, not an official past-paper scheme. Replacement object: {\"id\": \"9701-3.7-i01\", \"kcs\": [\"9701-3.7.1\"], \"kind\": \"structured\", \"difficulty\": 3, \"command_word\": \"Show\", \"source\": {\"type\": \"generated\"}, \"stem\": \"Show the outer-shell electrons by drawing dot-and-cross diagrams for (a) MgO, (b) NH3 and (c) NH4+ formed when NH3 donates a lone pair to H+. For (a), use dots for electrons originally from O and crosses for electrons originally from Mg; omit inner shells and show no electrons on Mg2+. For (b) and (c), use dots for electrons originally from N and crosses for electrons originally from H. Include all lone pairs and any required brackets and charges.\", \"marks\": 6, \"scheme\": [{\"mark\": \"B1\", \"point\": \"(a) Separate bracketed Mg and O ions with charges 2+ and 2− respectively; no shared pair between the ions.\"}, {\"mark\": \"B1\", \"point\": \"(a) Eight electrons around O: six dots originally from O and two crosses transferred from Mg; omit inner shells and show no electrons on Mg.\"}, {\"mark\": \"B1\", \"point\": \"(b) Three N–H shared pairs, each containing one dot from N and one cross from H.\"}, {\"mark\": \"B1\", \"point\": \"(b) One lone pair of two dots on N, no further electrons and no ionic charge.\"}, {\"mark\": \"B1\", \"point\": \"(c) Four N–H shared pairs: three dot–cross pairs and one dot–dot pair donated by N to the incoming H+; no lone pair remains on N.\"}, {\"mark\": \"B1\", \"point\": \"(c) Enclose the whole NH4+ ion in brackets with an overall + charge; show no additional electrons.\"}], \"explanation\": \"MgO contains separate Mg2+ and O2− ions after transfer of two electrons from Mg to O. NH3 has three shared N–H pairs and one nitrogen lone pair; donation of that lone pair to H+ forms a fourth shared pair in NH4+, leaving no nitrogen lone pair and an overall + charge. The dot–dot pair records the origin of the coordinate pair; all four N–H bonds are equivalent after formation.\", \"hints\": [\"Start by identifying the atoms and the electrons they originally supply.\", \"Distinguish electron transfer from electron sharing, and track the origin of each electron.\", \"Write the neutral-atom valence counts for Mg, O, N and H before arranging the electrons; H+ contributes no electron.\"]}"
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "KC 9701-3.7.1 assessment coverage",
+   "instruction": "The finding is valid: recognition/counting items do not assess construction of dot-and-cross diagrams required by procedural KC 9701-3.7.1. Replace generated item 9701-3.7-i01 in full with the following exact object (remove its old options, answer, distractors and shuffle fields); retain all other items. NH3 and NH4+ are explicitly included in bundle 3.4, and NH3 is also in 3.5. This is a generated marking scheme, not an official past-paper scheme. Replacement object: {\"id\": \"9701-3.7-i01\", \"kcs\": [\"9701-3.7.1\"], \"kind\": \"structured\", \"difficulty\": 3, \"command_word\": \"Show\", \"source\": {\"type\": \"generated\"}, \"stem\": \"Show the outer-shell electrons by drawing dot-and-cross diagrams for (a) MgO, (b) NH3 and (c) NH4+ formed when NH3 donates a lone pair to H+. For (a), use dots for electrons originally from O and crosses for electrons originally from Mg; omit inner shells and show no electrons on Mg2+. For (b) and (c), use dots for electrons originally from N and crosses for electrons originally from H. Include all lone pairs and any required brackets and charges.\", \"marks\": 6, \"scheme\": [{\"mark\": \"B1\", \"point\": \"(a) Separate bracketed Mg and O ions with charges 2+ and 2− respectively; no shared pair between the ions.\"}, {\"mark\": \"B1\", \"point\": \"(a) Eight electrons around O: six dots originally from O and two crosses transferred from Mg; omit inner shells and show no electrons on Mg.\"}, {\"mark\": \"B1\", \"point\": \"(b) Three N–H shared pairs, each containing one dot from N and one cross from H.\"}, {\"mark\": \"B1\", \"point\": \"(b) One lone pair of two dots on N, no further electrons and no ionic charge.\"}, {\"mark\": \"B1\", \"point\": \"(c) Four N–H shared pairs: three dot–cross pairs and one dot–dot pair donated by N to the incoming H+; no lone pair remains on N.\"}, {\"mark\": \"B1\", \"point\": \"(c) Enclose the whole NH4+ ion in brackets with an overall + charge; show no additional electrons.\"}], \"explanation\": \"MgO contains separate Mg2+ and O2− ions after transfer of two electrons from Mg to O. NH3 has three shared N–H pairs and one nitrogen lone pair; donation of that lone pair to H+ forms a fourth shared pair in NH4+, leaving no nitrogen lone pair and an overall + charge. The dot–dot pair records the origin of the coordinate pair; all four N–H bonds are equivalent after formation.\", \"hints\": [\"Start by identifying the atoms and the electrons they originally supply.\", \"Distinguish electron transfer from electron sharing, and track the origin of each electron.\", \"Write the neutral-atom valence counts for Mg, O, N and H before arranging the electrons; H+ contributes no electron.\"]}",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 37309,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T11:01:12+08:00",
+   "log": "foundry/logs/9701-3.7.drafter.1010-110112.log",
+   "out": "foundry/logs/9701-3.7.drafter.1010-110112.out.json",
+   "finished": "2026-10-10T11:02:44+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-3.7.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/03 Chemical bonding/3.7 Dot-and-cross diagrams.md",
+    "items": 30,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Molecular structures are described in words; no diagram was rendered."
+    ]
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 97128,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:39:50+08:00",
+   "log": "foundry/logs/9701-3.7.checker.1010-133950.log",
+   "out": "foundry/logs/9701-3.7.checker.1010-133950.out.json",
+   "expects": "build/work/foundry/9701-3.7.check.json",
+   "finished": "2026-10-10T13:40:07+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — `build/work/foundry/9701-3.7.check.json`"
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 10492,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:01:12+08:00",
+   "log": "foundry/logs/9701-3.7.solver-1.1010-140112.log",
+   "out": "foundry/logs/9701-3.7.solver-1.1010-140112.out.json",
+   "expects": "build/work/blind/9701-3.7.answers.part1.json",
+   "finished": "2026-10-10T14:01:41+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote them to `build/work/blind/9701-3.7.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 14945,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:05:37+08:00",
+   "log": "foundry/logs/9701-3.7.solver-2.1010-140537.log",
+   "out": "foundry/logs/9701-3.7.solver-2.1010-140537.out.json",
+   "expects": "build/work/blind/9701-3.7.answers.part2.json",
+   "finished": "2026-10-10T14:06:11+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 12 questions; wrote [9701-3.7.answers.part2.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-3.7.answers.part2.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 16410,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:07:33+08:00",
+   "log": "foundry/logs/9701-3.7.tiebreak.1010-140733.log",
+   "out": "foundry/logs/9701-3.7.tiebreak.1010-140733.out.json",
+   "expects": "build/work/blind/9701-3.7.tiebreak.json",
+   "finished": "2026-10-10T14:07:57+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 3,
+    "answers_path": "build/work/blind/9701-3.7.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 22310,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:13:58+08:00",
+   "log": "foundry/logs/9701-3.7.adjudicator.1010-141358.log",
+   "out": "foundry/logs/9701-3.7.adjudicator.1010-141358.out.json",
+   "finished": "2026-10-10T14:14:56+08:00",
+   "exit": 0,
+   "report": {
+    "text": "KC 9701-3.7.1 assessment coverage fix: Require MgO, NH₃ and NH₄⁺ drawings; exact replacement and marking scheme recorded."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 24457,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T14:17:15+08:00",
+   "log": "foundry/logs/9701-3.7.fixer.1010-141715.log",
+   "out": "foundry/logs/9701-3.7.fixer.1010-141715.out.json",
+   "finished": "2026-10-10T14:17:48+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "Syllabus gate remains failing: no teaching card for 9701-3.7.1; left unchanged because the fix list did not request a card change."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_w19_12_q32": "9701-3.7-x001",
+  "9701_w21_11_q35": "9701-3.7-x002",
+  "9701_s23_13_q20": "9701-3.7-x003",
+  "9701_w23_11_q5": "9701-3.7-x004",
+  "9701_w23_12_q5": "9701-3.7-x005",
+  "9701_w23_13_q5": "9701-3.7-x006"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

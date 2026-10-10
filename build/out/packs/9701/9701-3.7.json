@@ -1,0 +1,1013 @@
+{
+ "subtopic": "9701-3.7",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/03 Chemical bonding/3.7 Dot-and-cross diagrams.md",
+ "outline": "Use dots and crosses to distinguish the valence electrons originally supplied by each atom. Ionic diagrams show electron transfer and separate bracketed ions with charges; covalent diagrams show shared pairs and lone pairs. In coordinate bonding, both electrons in a shared pair come from one donor atom. Count all valence electrons, adjusting for ionic charge, then verify bonding pairs, lone pairs and formal charges. Include electron-deficient BF₃, expanded-octet PCl₅ and odd-electron NO where relevant.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-3.7.1",
+   "statement": "Ionic compounds are drawn as shared electron pairs between atoms.",
+   "refutation": "An ionic diagram shows separate bracketed ions with charges after electron transfer.",
+   "contrast": "In MgO, Mg is [Mg]²⁺ and O is [O]²⁻ with a complete outer shell.",
+   "source": "ER 9701 s19 P21 Q2"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-3.7.1",
+   "statement": "Every bond in CO is an ordinary shared pair, or the coordinate pair goes from carbon to oxygen.",
+   "refutation": "In the dot-and-cross convention for CO, oxygen donates a pair to carbon.",
+   "contrast": "Show two ordinary shared pairs and one O→C coordinate pair.",
+   "source": "ER 9701 s22 P23 Q3"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-3.7.1",
+   "statement": "Atoms in dot-and-cross diagrams must always obey the octet rule.",
+   "refutation": "The syllabus includes electron-deficient, expanded-octet and odd-electron species.",
+   "contrast": "BF₃ has six electrons around B; PCl₅ has ten around P; NO has an unpaired electron.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-3.7.1",
+   "statement": "A coordinate bond contains one electron from each bonded atom.",
+   "refutation": "The donor supplies both electrons of the shared pair; the acceptor supplies an empty orbital.",
+   "contrast": "In NH₄⁺, N of NH₃ supplies both electrons to H⁺.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-3.7.1",
+   "problem": "Demonstrate a dot-and-cross diagram for $\\ce{NH4+}$ formed from $\\ce{NH3}$ and $\\ce{H+}$.",
+   "steps": [
+    {
+     "do": "Count five N valence electrons, one from each of four H atoms and subtract one for the positive charge: eight electrons.",
+     "why": "The charge changes the total valence-electron count."
+    },
+    {
+     "do": "Draw four N–H shared pairs inside brackets marked +; use a distinct symbol for the N lone pair donated to H⁺.",
+     "why": "The fourth bond is coordinate on formation: both electrons originate from N."
+    },
+    {
+     "do": "Check four bonding pairs, no lone pair, eight electrons around N and only two around each H.",
+     "why": "The count detects missing or duplicated electrons."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Draw $\\ce{H3O+}$ from $\\ce{H2O}$ and $\\ce{H+}$; how many bonding pairs surround O?",
+    "answer": {
+     "value": 3.0,
+     "unit": "",
+     "sf_ok": [
+      1
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-3.7-i01",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "structured",
+   "difficulty": 3,
+   "command_word": "Show",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show the outer-shell electrons by drawing dot-and-cross diagrams for (a) MgO, (b) NH3 and (c) NH4+ formed when NH3 donates a lone pair to H+. For (a), use dots for electrons originally from O and crosses for electrons originally from Mg; omit inner shells and show no electrons on Mg2+. For (b) and (c), use dots for electrons originally from N and crosses for electrons originally from H. Include all lone pairs and any required brackets and charges.",
+   "marks": 6,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "(a) Separate bracketed Mg and O ions with charges 2+ and 2− respectively; no shared pair between the ions."
+    },
+    {
+     "mark": "B1",
+     "point": "(a) Eight electrons around O: six dots originally from O and two crosses transferred from Mg; omit inner shells and show no electrons on Mg."
+    },
+    {
+     "mark": "B1",
+     "point": "(b) Three N–H shared pairs, each containing one dot from N and one cross from H."
+    },
+    {
+     "mark": "B1",
+     "point": "(b) One lone pair of two dots on N, no further electrons and no ionic charge."
+    },
+    {
+     "mark": "B1",
+     "point": "(c) Four N–H shared pairs: three dot–cross pairs and one dot–dot pair donated by N to the incoming H+; no lone pair remains on N."
+    },
+    {
+     "mark": "B1",
+     "point": "(c) Enclose the whole NH4+ ion in brackets with an overall + charge; show no additional electrons."
+    }
+   ],
+   "explanation": "MgO contains separate Mg2+ and O2− ions after transfer of two electrons from Mg to O. NH3 has three shared N–H pairs and one nitrogen lone pair; donation of that lone pair to H+ forms a fourth shared pair in NH4+, leaving no nitrogen lone pair and an overall + charge. The dot–dot pair records the origin of the coordinate pair; all four N–H bonds are equivalent after formation.",
+   "hints": [
+    "Start by identifying the atoms and the electrons they originally supply.",
+    "Distinguish electron transfer from electron sharing, and track the origin of each electron.",
+    "Write the neutral-atom valence counts for Mg, O, N and H before arranging the electrons; H+ contributes no electron."
+   ]
+  },
+  {
+   "id": "9701-3.7-i02",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State how many electrons are transferred from one magnesium atom to one oxygen atom in forming $\\ce{MgO}$.",
+   "options": {
+    "A": "one",
+    "B": "two",
+    "C": "three",
+    "D": "none"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Magnesium has two outer electrons, both transferred to oxygen.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i03",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the feature that distinguishes a covalent bond in a dot-and-cross diagram.",
+   "options": {
+    "A": "Separate charged brackets",
+    "B": "A shared pair containing one electron from each atom",
+    "C": "A pair entirely on one atom and outside the overlap",
+    "D": "Electrons transferred to a metal atom"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "A normal covalent bond has a shared pair between atoms, usually shown as one dot and one cross.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "A": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i04",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the number of bonding pairs and lone pairs on the central nitrogen in $\\ce{NH3}$.",
+   "options": {
+    "A": "three bonding pairs and one lone pair",
+    "B": "four bonding pairs and no lone pair",
+    "C": "two bonding pairs and two lone pairs",
+    "D": "three bonding pairs and no lone pair"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Nitrogen contributes one electron to each of three N–H bonds and retains one lone pair.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "B": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i05",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the origin of the electron pair in the coordinate bond made as $\\ce{NH3}$ forms $\\ce{NH4+}$.",
+   "options": {
+    "A": "one electron from N and one from H⁺",
+    "B": "both from H⁺",
+    "C": "both from N",
+    "D": "one from a chloride ion and one from N"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The nitrogen lone pair is donated to H⁺; H⁺ has no electron to contribute.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "A": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i06",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the number of electrons around boron in a dot-and-cross diagram of $\\ce{BF3}$.",
+   "options": {
+    "A": "six",
+    "B": "eight",
+    "C": "ten",
+    "D": "seven"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Three B–F shared pairs place six electrons around boron; BF₃ is electron deficient.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "B": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i07",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the number of electrons around phosphorus in $\\ce{PCl5}$.",
+   "options": {
+    "A": "six",
+    "B": "eight",
+    "C": "ten",
+    "D": "twelve"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Five P–Cl bonding pairs give ten electrons around phosphorus, an expanded octet.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "B": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i08",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the feature a dot-and-cross diagram of neutral $\\ce{NO}$ must show.",
+   "options": {
+    "A": "Only paired electrons",
+    "B": "A full octet on both atoms",
+    "C": "An unpaired electron",
+    "D": "Separated charged ions"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "N contributes five and O six valence electrons, giving an odd total of eleven and hence an unpaired electron.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "A": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i09",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the donor atom in the coordinate pair conventionally drawn in $\\ce{CO}$.",
+   "options": {
+    "A": "carbon",
+    "B": "oxygen",
+    "C": "both atoms equally",
+    "D": "neither atom"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Oxygen donates the coordinate pair to carbon; drawing C→O reverses the donor.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "A": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i10",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine the total valence-electron count in $\\ce{NH4+}$.",
+   "options": {
+    "A": "eight",
+    "B": "nine",
+    "C": "ten",
+    "D": "seven"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Nitrogen contributes five, four hydrogens contribute four and the positive charge removes one: 5 + 4 − 1 = 8.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "B": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i11",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the charges required in a dot-and-cross diagram of $\\ce{Mg2Si}$.",
+   "options": {
+    "A": "two Mg⁺ and one Si²⁻",
+    "B": "two Mg²⁺ and one Si⁴⁻",
+    "C": "two Mg²⁻ and one Si⁴⁺",
+    "D": "neutral Mg–Si molecules"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Each Mg loses two electrons; Si gains four. Charge balance is 2(2+) + 4− = 0.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-i12",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain which diagram correctly shows $\\ce{Al2Cl6}$.",
+   "options": {
+    "A": "Two AlCl₃ units linked by two Cl→Al coordinate bonds",
+    "B": "Two Al³⁺ ions and six Cl⁻ ions only",
+    "C": "Two AlCl₃ units with no bridging bonds",
+    "D": "One Al–Al coordinate bond"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Bridging chlorine atoms donate lone pairs into empty orbitals on electron-deficient aluminium.",
+   "hints": [
+    "Account for the outer-shell electrons first.",
+    "Decide whether electrons transfer or make shared pairs.",
+    "Check the ion charges or the electron count around the central atom."
+   ],
+   "distractors": {
+    "B": "m1",
+    "C": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-p01",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q5",
+    "qid": "9701_s19_11_q5"
+   },
+   "stem": "In which species is there a lone pair of electrons?",
+   "options": {
+    "A": "CH₃",
+    "B": "CH₃ ⁺",
+    "C": "CH₃ ⁻",
+    "D": "CH₄"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "CH₃⁻ has an extra electron pair on carbon. CH₃⁺ is electron deficient and has no lone pair.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {},
+   "image": "Assets/mcq/9701_s19_11_q5.png"
+  },
+  {
+   "id": "9701-3.7-p02",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q2",
+    "qid": "9701_s20_13_q2"
+   },
+   "stem": "Which molecule contains six bonding electrons?",
+   "options": {
+    "A": "NCl ₃",
+    "B": "H₂S",
+    "C": "C₂H₄",
+    "D": "SF₆"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "NCl₃ has three single bonds, each with two electrons: six bonding electrons. H₂S has only two bonds.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.7-p03",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q9",
+    "qid": "9701_s20_13_q9"
+   },
+   "stem": "At 200 °C aluminium chloride is a gas with Mr = 267.\nWhat is the number of covalent bonds, dative covalent bonds and Ione pairs of electrons in one\nmolecule of aluminium chloride at 200 °C?\ncovalent\nbonds\ndative\ncovalent bonds\nIone pairs",
+   "options": {
+    "A": "6 2 0",
+    "B": "6 2 16",
+    "C": "6 2 18",
+    "D": "3 0"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The Al₂Cl₆ dimer has six ordinary Al–Cl bonds, two Cl→Al coordinate bonds and sixteen chlorine lone pairs. C overcounts lone pairs.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {},
+   "image": "Assets/mcq/9701_s20_13_q9.png"
+  },
+  {
+   "id": "9701-3.7-p04",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q6",
+    "qid": "9701_w22_11_q6"
+   },
+   "stem": "Which molecule has an equal number of bonding electrons and lone-pair electrons?",
+   "options": {
+    "A": "BH₃",
+    "B": "CO₂",
+    "C": "F₂O",
+    "D": "SO₂"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "CO₂ has eight bonding electrons in two double bonds and eight lone-pair electrons on its oxygens. BH₃ has six bonding electrons and no lone pairs.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.7-p05",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q12",
+    "qid": "9701_w22_12_q12"
+   },
+   "stem": "The compound (CH₃)₃NAl Cl ₃ has a simple molecular structure.\nWhich statement about (CH₃)₃NAl Cl ₃ is correct?",
+   "options": {
+    "A": "(CH₃)₃NAl Cl ₃ molecules attract each other by hydrogen bonds.",
+    "B": "The Al atom in (CH₃)₃NAl Cl ₃ has an incomplete valence shell of electrons.",
+    "C": "The bonds around the Al atom are planar.",
+    "D": "The molecules contain coordinate bonding."
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The N lone pair donates to electron-deficient AlCl₃, making a coordinate bond. B is wrong because Al completes its outer shell.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.7-p06",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q5",
+    "qid": "9701_s24_11_q5"
+   },
+   "stem": "When solid aluminium chloride is heated, Al ₂Cl ₆ is formed.\nWhich bonding is present in Al ₂Cl ₆?",
+   "options": {
+    "A": "covalent and coordinate (dative covalent)",
+    "B": "covalent only",
+    "C": "ionic and coordinate (dative covalent)",
+    "D": "ionic only"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Al₂Cl₆ has ordinary Al–Cl covalent bonds and two bridging Cl→Al coordinate bonds. B omits those coordinate bonds.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.7-p07",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q6",
+    "qid": "9701_s24_12_q6"
+   },
+   "stem": "In which species does the underlined atom have an incomplete outer shell?",
+   "options": {
+    "A": "BF₃",
+    "B": "CH₃ ⁻",
+    "C": "F₂O",
+    "D": "H₃O⁺"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "B in BF₃ has three shared pairs, only six outer electrons. CH₃⁻ instead has a full octet on carbon.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {},
+   "image": "Assets/mcq/9701_s24_12_q6.png"
+  },
+  {
+   "id": "9701-3.7-p08",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q22",
+    "qid": "9701_s24_12_q22"
+   },
+   "stem": "Which statement describes a property of an ammonium ion?",
+   "options": {
+    "A": "An aqueous ammonium ion is a weak Brønsted–Lowry base.",
+    "B": "Aqueous ammonium sulfate reacts with dilute hydrochloric acid to make ammonia gas.",
+    "C": "An ammonium ion has a pyramidal shape with an H–N–H bond angle of 107°.",
+    "D": "The four N–H covalent bonds in an ammonium ion are identical to each other."
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Four N–H bonds in NH₄⁺ become equivalent after formation. C describes NH₃, which has a lone pair and pyramidal shape.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {},
+   "image": "Assets/mcq/9701_s24_12_q22.png"
+  },
+  {
+   "id": "9701-3.7-p09",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P11 · Q5",
+    "qid": "9701_w24_11_q5"
+   },
+   "stem": "Phosphorus forms a compound with hydrogen called phosphine, PH₃. This compound can react\nwith a hydrogen ion, H⁺.\nWhich type of interaction occurs between PH₃ and H⁺?",
+   "options": {
+    "A": "dative covalent bond",
+    "B": "dipole–dipole forces",
+    "C": "hydrogen bond",
+    "D": "ionic bond"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The lone pair on PH₃ donates to H⁺ to make a coordinate bond. D confuses this shared-electron interaction with ionic bonding.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9701-3.7-p10",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P11 · Q24",
+    "qid": "9701_w24_11_q24"
+   },
+   "stem": "Three statements about ammonia molecules and ammonium ions are given.\n1\nIn aqueous solution, ammonia molecules form coordinate bonds with hydroxide\nions.\n2\nAmmonium ions are Brønsted–Lowry acids.\n3\nThe H–N–H bond angle is larger in the ammonium ion than in the ammonia\nmolecule.\nWhich statements are correct?",
+   "options": {
+    "A": "1 and 2 only",
+    "B": "1 and 3 only",
+    "C": "2 and 3 only",
+    "D": "1, 2 and 3"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Statements 2 and 3 are correct: NH₄⁺ can donate H⁺ and its 109.5° angle exceeds NH₃’s 107°. Statement 1 incorrectly says ammonia donates to hydroxide.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {},
+   "image": "Assets/mcq/9701_w24_11_q24.png"
+  },
+  {
+   "id": "9701-3.7-p11",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q11",
+    "qid": "9701_s25_13_q11"
+   },
+   "stem": "BF₃ reacts with NH₃ to form a single compound with a simple molecular structure.\nBF₃ + NH₃ → F₃B–NH₃\nWhich row describes how the bond angles change during the reaction?\nF–B–F bond angle\nH–N–H bond angle",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases increases",
+    "C": "increases decreases",
+    "D": "increases increases"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "BF₃ changes from trigonal planar to tetrahedral, decreasing F–B–F angle; NH₃ loses a lone pair, increasing H–N–H angle. A reverses the N trend.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {},
+   "image": "Assets/mcq/9701_s25_13_q11.png"
+  },
+  {
+   "id": "9701-3.7-p12",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P11 · Q6",
+    "qid": "9701_w25_11_q6"
+   },
+   "stem": "NH₃ and HCN react together to form NH₄CN, an ionic compound.\nWhich row states the number of coordinate bonds and the number of π bonds in one formula unit\nof NH₄CN?\nnumber of\ncoordinate bonds\nnumber of\nπ bonds",
+   "options": {
+    "A": "0 2",
+    "B": "1 2",
+    "C": "0 3",
+    "D": "1 3"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "NH₄⁺ has one coordinate N→H bond in its formation, while CN⁻ has a C≡N triple bond with two π bonds. A omits the coordinate bond.",
+   "hints": [
+    "Count valence electrons or locate a lone pair.",
+    "Distinguish normal covalent bonds from coordinate bonds.",
+    "Check the electron pair origin and total charge."
+   ],
+   "distractors": {},
+   "image": "Assets/mcq/9701_w25_11_q6.png"
+  },
+  {
+   "id": "9701-3.7-x001",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q32",
+    "qid": "9701_w19_12_q32"
+   },
+   "stem": "A carbon monoxide molecule, CO, has three bonds between the carbon atom and the oxygen\natom.\nWhich features are present in one CO molecule?\n1\ntwo lone pairs of electrons\n2\na co-ordinate (dative covalent) bond from oxygen to carbon\n3\ntwo π bonds",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w19_12_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.7-x002",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q35",
+    "qid": "9701_w21_11_q35"
+   },
+   "stem": "Which elements form a chloride in which both covalent bonding and coordinate (dative covalent)\nbonding are present?\n1\nAl\n2\nSi\n3\nMg",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w21_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.7-x003",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q20",
+    "qid": "9701_s23_13_q20"
+   },
+   "stem": "HCN has been detected in interstellar gas. The molecules below have also been detected in\ninterstellar gas.\nWhich molecule contains the same total number of valence shell (outer shell) electrons as HCN?\nPN",
+   "options": {
+    "D": "NO",
+    "C": "NH₃",
+    "B": "HNO",
+    "A": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.7-x004",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q5",
+    "qid": "9701_w23_11_q5"
+   },
+   "stem": "Solid aluminium chloride sublimes at 178 °C.\nWhich structure best represents the species in the vapour at this temperature?\nCl\nCl\nCl\nCl\nAl\nCl\nCl\nAl\nCl\nCl\nCl\nCl\nAl\nCl\nCl\nAl\nAl\nAl ³⁺(Cl ⁻)₃",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "Cl Cl Cl"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w23_11_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.7-x005",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q5",
+    "qid": "9701_w23_12_q5"
+   },
+   "stem": "Ammonium ions, NH₄\n⁺, are formed when ammonia gas reacts with hydrogen chloride gas.\nWhich statement about the changes that occur in this reaction is correct?\nThe dipole moment of an ammonium ion is greater than the dipole moment of an ammonia\nmolecule.",
+   "options": {
+    "A": "The H−N−H bond angle decreases when an ammonium ion is formed.",
+    "B": "The hybridisation of nitrogen does not change.",
+    "C": "There is electron transfer from nitrogen to chlorine.",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_12_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-3.7-x006",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q5",
+    "qid": "9701_w23_13_q5"
+   },
+   "stem": "Solid aluminium chloride sublimes at 178 °C.\nWhich structure best represents the species in the vapour at this temperature?\nCl\nCl\nCl\nCl\nAl\nCl\nCl\nAl\nCl\nCl\nCl\nCl\nAl\nCl\nCl\nAl\nAl\nAl ³⁺(Cl ⁻)₃",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "Cl Cl Cl"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w23_13_q5.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-3.7.1",
+   "front": "What does a dot-and-cross diagram show?",
+   "back": "Outer-shell electrons from different atoms, with shared and lone pairs and ionic charges where relevant."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-3.7.1",
+   "front": "How is a coordinate bond represented?",
+   "back": "A shared pair whose two electrons were supplied by the same donor atom."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-3.7.1": {
+   "motivate": "A formula does not reveal where bonding electrons came from. Dot-and-cross diagrams let you account for every outer-shell electron and distinguish ionic, covalent and coordinate bonding.",
+   "establish": "Use different symbols for electrons originally supplied by different atoms. For ionic bonding, show electron transfer, then draw separate ions in brackets with charges; for example, $\\ce{MgO}$ contains $\\ce{Mg^{2+}}$ and $\\ce{O^{2-}}$, with eight outer electrons on O. For covalent bonding, place one shared pair between atoms for each single bond, two for a double bond, and three for a triple bond; show remaining lone pairs. A coordinate bond is a shared pair whose two electrons came from one donor atom: the N lone pair of $\\ce{NH3}$ is donated to $\\ce{H+}$ when $\\ce{NH4+}$ forms. Check the total valence-electron count, adjusting for ion charge. The octet rule has exceptions: B in $\\ce{BF3}$ has six surrounding electrons, P in $\\ce{PCl5}$ has ten, and an odd-electron species such as $\\ce{NO}$ has an unpaired electron. Apply the same counting and origin rules to compounds from ionic bonding and molecular-shape topics, including $\\ce{Al2Cl6}$ and $\\ce{CO}$.",
+   "connect": "Ionic bonding transfers electrons before electrostatic attraction; covalent bonding shares pairs. A coordinate pair is still a covalent pair after it forms. The same electron-pair count helps predict molecular shapes.",
+   "note": "- Ionic: separate bracketed ions with charges and transferred electrons.\n- Covalent: shared pairs between atoms and any lone pairs.\n- Coordinate: both electrons in the pair come from one donor.\n- Check electron totals; allow incomplete octets, expanded octets and odd electrons.",
+   "self_explain": "How would your drawings of $\\ce{MgO}$ and $\\ce{NH4+}$ differ in brackets, charges and the origin of electron pairs?",
+   "discover": {
+    "stem": "In forming $\\ce{NH4+}$ from $\\ce{NH3}$ and $\\ce{H+}$, where do the electrons in the new N–H pair originate?",
+    "options": {
+     "A": "Both from nitrogen",
+     "B": "One from each atom",
+     "C": "Both from hydrogen",
+     "D": "One from chlorine"
+    },
+    "answer": "A",
+    "explanation": "The nitrogen lone pair is donated to H⁺, which has no electron to contribute."
+   },
+   "source": "pack"
+  }
+ }
+}
