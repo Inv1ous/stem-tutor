@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.1.4 — 2026-10-10
+
+Asked by the learner.
+
+- **Obsidian links open the right file.** A link whose title the drafter reworded (`[[3.4 Chemical bonding]]` for
+  `3.4 Covalent bonding and coordinate (dative covalent) bonding`) now opens that chapter when publishing: same
+  chapter number in the same subject (the same unit for Maths) and a meaningful word in common (`publish.find_note`). A
+  number alone is not trusted (`12.1 transition elements` stays plain text rather than opening `12.1 Nitrogen and
+  sulfur`). The link keeps the words as written (`[[real name|words]]`); a name shared by two units is given with its
+  folder. 20 of the 35 unresolved links in the notes now open their chapter; the other 15 name chapters that do not
+  exist and stay plain text.
+- **SVG diagrams were not dropped on purpose.** The 24 chapters built by 2 October have diagrams in 11 of them; the 83
+  built in Codex mode on 10 October have them in 5, because the drafter's instructions said only "if the pack requests
+  diagrams" and never said when to. They now say to draw what the diagram table can draw. Chapters already built
+  keep what they have.
+
 ## 2.1.3 — 2026-10-10
 
 Asked by the learner.

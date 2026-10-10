@@ -73,9 +73,55 @@ def fix_tags(text: str) -> str:
     return FRONT_TAGS.sub(tag, head) + sep + rest if sep else text
 
 
-def link_notes(text: str, names: set[str]) -> str:
-    """Make a note's [[links]] open what is in the vault: "Hess's law" finds "Hess’s law.md", and a link to a chapter
-    not published yet is plain text until it is (clicking it would make an empty note)."""
+_STOP = {"the", "and", "for", "with", "from", "that", "this", "its", "their", "into", "using"}
+_UNIT = r"(?:FP\d|P\d|M\d|S\d|D\d)"
+_CHAPTER = re.compile(rf"^(?:({_UNIT})\s+)?(\d+(?:\.\d+)?)\s+(.+)$")
+_UNIT_ONLY = re.compile(rf"^({_UNIT})\s+(.+)$")
+
+
+def _words(title: str) -> set[str]:
+    """The meaningful words of a chapter title, singular: "Formulae" and "formula" meet."""
+    out = set()
+    for w in re.findall(r"[^\W\d_]+", title.lower()):
+        w = w[:-1] if w.endswith("s") and len(w) > 3 else w
+        if len(w) > 2 and w not in _STOP:
+            out.add(w[:5] if len(w) > 6 else w)
+    return out
+
+
+def find_note(target: str, here: str, where: dict[str, list[str]]) -> str | None:
+    """The published note a link meant, when its title is not the file's: "3.4 Chemical bonding" for
+    "3.4 Covalent bonding and coordinate (dative covalent) bonding". Same chapter number in the same subject (the same
+    unit for Maths), and a meaningful word in common: a number alone would send "12.1 transition elements" to
+    "12.1 Nitrogen and sulfur". Without a number, two shared words. None unless exactly one note fits. Returns the
+    note's folder-qualified name when its file name is not unique."""
+    m, u = _CHAPTER.match(target), _UNIT_ONLY.match(target)
+    code, number, title = (m.group(1), m.group(2), m.group(3)) if m else (u.group(1), None, u.group(2)) if u else (None, None, target)
+    want, found = _words(title), []
+    here_unit, here_subject = here, "/".join(here.split("/")[:2]) if here.count("/") < 2 or "Maths" not in here else "Subjects/Maths"
+    for stem, dirs in where.items():
+        cm = _CHAPTER.match(stem)
+        if not cm:
+            continue
+        for d in dirs:
+            unit = d.rsplit("/", 1)[-1]
+            if code and not unit.startswith(code + " "):
+                continue
+            if not code and not (d == here_unit or ("Maths" not in d and d.startswith("/".join(here.split("/")[:2])))):
+                continue
+            shared = len(want & _words(cm.group(3)))
+            if (number and cm.group(2) == number and shared >= 1) or (not number and shared >= 2 and shared >= 0.6 * len(want)):
+                found.append((stem, d, shared))
+    if len({(s, d) for s, d, _ in found}) != 1:
+        return None
+    stem, d, _ = found[0]
+    return stem if len(where[stem]) == 1 else f"{d}/{stem}"
+
+
+def link_notes(text: str, names: set[str], where: dict[str, list[str]] | None = None, here: str = "") -> str:
+    """Make a note's [[links]] open what is in the vault: "Hess's law" finds "Hess’s law.md", a title the drafter
+    shortened or reworded finds its chapter (`find_note`), and a link to a chapter not published yet is plain text
+    until it is (clicking it would make an empty note)."""
     by_plain = {_plain(n): n for n in names}
 
     def fix(m: re.Match) -> str:
@@ -86,6 +132,8 @@ def link_notes(text: str, names: set[str]) -> str:
             return f"[[{by_plain[_plain(target)]}{rest}]]"
         if target in VAULT_NOTES or target.startswith("Assets"):
             return m.group(0)
+        if where and (real := find_note(target, here, where)):  # the chapter is there under its real name: the words stay
+            return f"[[{real}{rest if '|' in rest else '|' + target}]]"
         return rest.split("|", 1)[1] if "|" in rest else target  # nothing there: plain text, not an empty note on click
     return WIKILINK.sub(fix, text)
 
@@ -127,6 +175,11 @@ def publish(vault: Path) -> dict:
     os.replace(target, packs / version)
     names = {f.stem for f in (BUILD / "notes").rglob("*.md") if str(f.relative_to(BUILD / "notes")) not in held_notes} \
         | {f.stem for f in vault.rglob("*.md")}
+    where: dict[str, list[str]] = {}
+    for f in (BUILD / "notes").rglob("*.md"):
+        rel = f.relative_to(BUILD / "notes")
+        if str(rel) not in held_notes:
+            where.setdefault(f.stem, []).append(rel.parent.as_posix())
     copied = 0
     for src_root, dest in ((BUILD / "notes", vault), (BUILD / "Assets", vault / "Assets"),
                            (BUILD / "assets", vault / "Assets"), (BUILD / "Papers", vault / "Papers")):
@@ -137,7 +190,8 @@ def publish(vault: Path) -> dict:
                     and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
                 d = dest / f.relative_to(src_root)
                 if src_root == BUILD / "notes" and f.suffix == ".md":  # links follow what is published
-                    text = fix_tags(link_notes(f.read_text(encoding="utf-8"), names))
+                    text = fix_tags(link_notes(f.read_text(encoding="utf-8"), names, where,
+                                               f.relative_to(src_root).parent.as_posix()))
                     # a note you edited in the vault (newer than the build's) is kept
                     if not d.exists() or (d.stat().st_mtime <= f.stat().st_mtime
                                           and d.read_text(encoding="utf-8") != text):

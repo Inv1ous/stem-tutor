@@ -282,3 +282,29 @@ def test_a_link_to_a_note_that_does_not_exist_is_plain_text_but_the_vaults_own_p
     text = "Builds on [[4 Differentiation]] and [[Tangents and normals]] · [[Optimisation|optimising]] · [[Home]] · [[5.2 Hess's law]]"
     assert link_notes(text, names) == ("Builds on [[4 Differentiation]] and Tangents and normals · optimising · [[Home]] · "
                                        "[[5.2 Hess’s law]]")
+
+
+def test_a_link_titled_differently_finds_its_chapter_by_number_and_a_shared_word():
+    """Asked by the learner: links that point at a file that exists under its real name must open it."""
+    from publish import link_notes
+    where = {"3.4 Covalent bonding and coordinate (dative covalent) bonding": ["Subjects/9701 Chemistry/03 Chemical bonding"],
+             "12.1 Nitrogen and sulfur": ["Subjects/9701 Chemistry/12 Nitrogen and sulfur"],
+             "3.4 Gravitational fields": ["Subjects/9702 Physics/03 Gravitation"],
+             "3 Kinematics of a particle moving in a straight line": ["Subjects/Maths/M1 Mechanics 1"],
+             "3 Kinematics": ["Subjects/Maths/P1 Pure Mathematics 1"],
+             "4 Differentiation": ["Subjects/Maths/P1 Pure Mathematics 1", "Subjects/Maths/P2 Pure Mathematics 2"]}
+    names = set(where)
+    here = "Subjects/9701 Chemistry/13 An introduction"
+    out = link_notes("[[3.4 Chemical bonding]] · [[12.1 An introduction to the chemistry of transition elements]] · "
+                     "[[3.4 Covalent bonding|bonds]]", names, where, here)
+    assert out == ("[[3.4 Covalent bonding and coordinate (dative covalent) bonding|3.4 Chemical bonding]] · "
+                   "12.1 An introduction to the chemistry of transition elements · "  # same number, no word in common: not guessed
+                   "[[3.4 Covalent bonding and coordinate (dative covalent) bonding|bonds]]")
+    # another subject's chapter 3.4 is never taken, and Maths stays inside its unit
+    assert link_notes("[[3.4 Chemical bonding]]", names, where, "Subjects/9702 Physics/05 Work").startswith("3.4 Chemical")
+    assert link_notes("[[3 Motion in a straight line]]", names, where, "Subjects/Maths/M1 Mechanics 1") == \
+        "[[3 Kinematics of a particle moving in a straight line|3 Motion in a straight line]]"
+    # a title shared by several units is named by its folder; a unit code in the link picks the unit
+    assert link_notes("[[P2 Differentiation]]", names, where, "Subjects/Maths/FP1 Further Pure Mathematics 1") == \
+        "P2 Differentiation"  # no number and one shared word: too little to go on
+    assert link_notes("[[4 Differentiation]]", names, where, "Subjects/Maths/P1 Pure Mathematics 1") == "[[4 Differentiation]]"

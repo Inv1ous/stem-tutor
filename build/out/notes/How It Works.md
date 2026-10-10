@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.1.3_
+_Version 2.1.4_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,9 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 2.1.4
+> - **Links between chapters open the right note** even when the chapter's title was worded differently where it was mentioned.
 
 > [!example] New in 2.1.1
 > - **The content builder respects Codex's five-hour limit too.** If Codex's plan reports one it is counted; if a Codex job hits a limit, Codex rests until that limit reopens.

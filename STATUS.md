@@ -1,5 +1,8 @@
 # Build status
 
+## v2.1.4 (2026-10-10) — done
+- Obsidian links find their chapter when the title was reworded (same number, a shared word); the drafter is told to draw diagrams again.
+
 ## v2.1.3 (2026-10-10) — done
 - Obsidian: lesson tags `9701`/`9702` (digits only, invalid) are `cie-9701`/`cie-9702`; a link to a note that does not exist is plain text.
 

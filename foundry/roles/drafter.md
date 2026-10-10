@@ -18,7 +18,11 @@ If the pack already exists (an interrupted run), validate it and finish what is 
    every numeric answer, distractor and template check, then writes the pack JSON to the path in the bundle.
    Change the script and re-run it; never hand-edit numbers in the JSON.
 2. Write the lesson note at `build/out/notes/<note path from the bundle>` (400–900 words, the layout in PACK.md).
-3. If the pack requests diagrams, render them: `.venv/bin/python build/diagrams.py <pack path>`.
+3. **Draw what the table in `build/PACK.md` can draw.** Wherever a syllabus point is a graph, a circuit, a free-body
+   diagram, an energy profile, a Maxwell–Boltzmann curve, a wave, a distribution or a box plot, request the diagram in the
+   pack's `diagrams` list and embed it in the note; a chapter on such a topic with none is unfinished (older chapters
+   have one or more each; only a chapter with nothing the table can draw has none). Then render them:
+   `.venv/bin/python build/diagrams.py <pack path>`, and look at each before you finish.
 4. Append the rest of the past-paper bank: `.venv/bin/python build/add_past.py <pack path>`.
 5. Write a teaching card for **every** KC in the bundle, in `build/work/teach/<subtopic>.json` as
    `{"<kc id>": {card}, …}`. The card format and word limits are at the top of `build/teach_cards.py` (motivate,
