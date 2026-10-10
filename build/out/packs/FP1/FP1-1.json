@@ -1,0 +1,1454 @@
+{
+ "subtopic": "FP1-1",
+ "spec": "FP1",
+ "version": 1,
+ "note": "Subjects/Maths/FP1 Further Pure Mathematics 1/1 Complex numbers.md",
+ "outline": "Write $z=a+ib$ or $r\\cos\\theta+ir\\sin\\theta$; identify its parts, modulus, argument and conjugate. Perform arithmetic using $i^2=-1$ and conjugate denominators for division. The Argand diagram shows points and vector addition; multiplication and division correspond to scaling and rotation. Apply the quadratic formula to negative discriminants, then use conjugate pairs and polynomial division to solve cubics and quartics with real coefficients.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "FP1-1.1",
+   "statement": "The imaginary part of $a+ib$ is $ib$.",
+   "refutation": "The imaginary part is the real coefficient $b$.",
+   "contrast": "For $3+2i$, $\\operatorname{Im}(z)=2$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "FP1-1.2",
+   "statement": "Divide complex numbers by dividing their real and imaginary parts separately.",
+   "refutation": "Multiply numerator and denominator by the denominator’s conjugate.",
+   "contrast": "$(1+i)/(1-i)=i$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "FP1-1.3",
+   "statement": "Multiplication on an Argand diagram is vector addition.",
+   "refutation": "Addition is vector addition; multiplication combines scale factors and rotations.",
+   "contrast": "Multiplying by $i$ rotates through $90^\\circ$ anticlockwise.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "FP1-1.4",
+   "statement": "A negative discriminant means a quadratic has no roots.",
+   "refutation": "It has two complex conjugate roots.",
+   "contrast": "$x^2+1=0$ has roots $i$ and $-i$.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "FP1-1.5",
+   "statement": "A non-real root of a real-coefficient polynomial can occur alone.",
+   "refutation": "Its conjugate is also a root.",
+   "contrast": "If $2+i$ is a root, so is $2-i$.",
+   "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "FP1-1.6",
+   "statement": "One given root of a quartic is enough to identify every other root.",
+   "refutation": "Use conjugacy where applicable, divide by the resulting factor, then solve the residual quadratic.",
+   "contrast": "A root $2+i$ gives factor $(x-2)^2+1$.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we2",
+   "kc": "FP1-1.2",
+   "problem": "Calculate $(3+2i)/(1-i)$.",
+   "steps": [
+    {
+     "do": "Multiply top and bottom by $1+i$.",
+     "why": "The conjugate makes the denominator real."
+    },
+    {
+     "do": "$(3+2i)(1+i)/(1+1)=(1+5i)/2$.",
+     "why": "Expand using $i^2=-1$."
+    },
+    {
+     "do": "The quotient is $1/2+(5/2)i$.",
+     "why": "Separate real and imaginary parts."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find the real part of $(2+i)/(1-i)$.",
+    "answer": {
+     "value": 0.5,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "FP1-1.4",
+   "problem": "Solve $x^2-4x+13=0$.",
+   "steps": [
+    {
+     "do": "Use $x=(4\\pm\\sqrt{16-52})/2$.",
+     "why": "The quadratic formula still applies when the discriminant is negative."
+    },
+    {
+     "do": "$\\sqrt{-36}=6i$, so $x=(4\\pm6i)/2$.",
+     "why": "Use $i^2=-1$."
+    },
+    {
+     "do": "$x=2\\pm3i$.",
+     "why": "Simplify both parts."
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "Find the positive imaginary coefficient of the roots of $x^2-6x+13=0$.",
+    "answer": {
+     "value": 2.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we5",
+   "kc": "FP1-1.5",
+   "problem": "Given $1+i$ is a root of $x^3-5x^2+8x-6=0$, find all roots.",
+   "steps": [
+    {
+     "do": "$1-i$ is also a root.",
+     "why": "Coefficients are real."
+    },
+    {
+     "do": "$(x-(1+i))(x-(1-i))=x^2-2x+2$.",
+     "why": "Multiply conjugate factors."
+    },
+    {
+     "do": "Divide to get $(x^2-2x+2)(x-3)$; roots are $1+i,1-i,3$.",
+     "why": "The remaining factor is linear."
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "Given $1+i$ is a root of $(x^2-2x+2)(x-4)=0$, find the real root.",
+    "answer": {
+     "value": 4.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we6",
+   "kc": "FP1-1.6",
+   "problem": "Given $2+i$ is a root of $x^4-3x^3-x^2+13x-10=0$, find all roots.",
+   "steps": [
+    {
+     "do": "$2-i$ is also a root.",
+     "why": "Real coefficients give conjugate roots."
+    },
+    {
+     "do": "The pair gives factor $x^2-4x+5$.",
+     "why": "Multiply conjugate linear factors."
+    },
+    {
+     "do": "Divide by $x^2-4x+5$: quotient terms $x^2$, $x$, $-2$ leave successive remainders $x^3-6x^2+13x-10$, $-2x^2+8x-10$, $0$. Thus the quotient is $x^2+x-2=(x-1)(x+2)$, and all roots are $2+i,2-i,1,-2$.",
+     "why": "Removing the conjugate quadratic factor reduces the quartic to a quadratic, whose roots supply the two remaining roots."
+    }
+   ],
+   "faded": {
+    "id": "we6f",
+    "problem": "Find the positive real root of $(x^2-4x+5)(x-3)(x+1)=0$.",
+    "answer": {
+     "value": 3.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "FP1-1-i01",
+   "kcs": [
+    "FP1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the real and imaginary parts of $z=a+ib$.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Real part is $a$.",
+     "keywords": [
+      [
+       "a"
+      ]
+     ]
+    },
+    {
+     "point": "Imaginary part is $b$.",
+     "keywords": [
+      [
+       "b"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Real part is $a$.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i02",
+   "kcs": [
+    "FP1-1.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the modulus of $3+4i$.",
+   "marks": 1,
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is 5.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i03",
+   "kcs": [
+    "FP1-1.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the principal argument in radians of $1+i$.",
+   "marks": 1,
+   "answer": {
+    "value": 0.7853981633974483,
+    "unit": "rad",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is 0.7853981633974483.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i04",
+   "kcs": [
+    "FP1-1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the conjugate of $3-2i$.",
+   "marks": 1,
+   "options": {
+    "A": "$3+2i$",
+    "B": "$-3+2i$",
+    "C": "$3-2i$",
+    "D": "$-3-2i$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1",
+    "C": "m1",
+    "D": "m1"
+   },
+   "shuffle": true,
+   "explanation": "$3+2i$ is correct by the relevant definition or algebra; the other options reflect the stated misconception.",
+   "hints": [
+    "Recall the appropriate definition.",
+    "Work through the algebra before choosing.",
+    "Check the real and imaginary components separately."
+   ]
+  },
+  {
+   "id": "FP1-1-i05",
+   "kcs": [
+    "FP1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the condition for $a+ib=c+id$ to be equal.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Real parts and imaginary parts are equal.",
+     "keywords": [
+      [
+       "a=c"
+      ],
+      [
+       "b=d"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Real parts and imaginary parts are equal.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i06",
+   "kcs": [
+    "FP1-1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the relation between $a+ib$ and $r\\cos\\theta+ir\\sin\\theta$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$a=r\\cos\\theta$ and $b=r\\sin\\theta$.",
+     "keywords": [
+      [
+       "r\\cos"
+      ],
+      [
+       "r\\sin"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$a=r\\cos\\theta$ and $b=r\\sin\\theta$.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i07",
+   "kcs": [
+    "FP1-1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the real part of $(2+i)(3-2i)$.",
+   "marks": 1,
+   "answer": {
+    "value": 8.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is 8.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i08",
+   "kcs": [
+    "FP1-1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the imaginary part of $(2+i)(3-2i)$.",
+   "marks": 1,
+   "answer": {
+    "value": -1.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is -1.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i09",
+   "kcs": [
+    "FP1-1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the real part of $(1+i)/(1-i)$.",
+   "marks": 1,
+   "answer": {
+    "value": 0.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is 0.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i10",
+   "kcs": [
+    "FP1-1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $(1+i)/(1-i)$.",
+   "marks": 1,
+   "options": {
+    "A": "$i$",
+    "B": "$1$",
+    "C": "$-i$",
+    "D": "$2i$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m2",
+    "C": "m2",
+    "D": "m2"
+   },
+   "shuffle": true,
+   "explanation": "$i$ is correct by the relevant definition or algebra; the other options reflect the stated misconception.",
+   "hints": [
+    "Recall the appropriate definition.",
+    "Work through the algebra before choosing.",
+    "Check the real and imaginary components separately."
+   ]
+  },
+  {
+   "id": "FP1-1-i11",
+   "kcs": [
+    "FP1-1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the rule for the modulus of a product $z_1z_2$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$|z_1z_2|=|z_1||z_2|$.",
+     "keywords": [
+      [
+       "|z_1|"
+      ],
+      [
+       "|z_2|"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$|z_1z_2|=|z_1||z_2|$.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i12",
+   "kcs": [
+    "FP1-1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how to divide by $c+di$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Multiply numerator and denominator by $c-di$.",
+     "keywords": [
+      [
+       "conjugate"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Multiply numerator and denominator by $c-di$.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i13",
+   "kcs": [
+    "FP1-1.3"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how $a+ib$ is plotted on an Argand diagram.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Plot the point $(a,b)$ on real and imaginary axes.",
+     "keywords": [
+      [
+       "a"
+      ],
+      [
+       "b"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Plot the point $(a,b)$ on real and imaginary axes.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i14",
+   "kcs": [
+    "FP1-1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the real coordinate after adding $2+i$ and $3-4i$ on an Argand diagram.",
+   "marks": 1,
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is 5.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i15",
+   "kcs": [
+    "FP1-1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the imaginary coordinate after adding $2+i$ and $3-4i$ on an Argand diagram.",
+   "marks": 1,
+   "answer": {
+    "value": -3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is -3.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i16",
+   "kcs": [
+    "FP1-1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the image of $1+i$ after multiplication by $i$.",
+   "marks": 1,
+   "options": {
+    "A": "$-1+i$",
+    "B": "$1+2i$",
+    "C": "$1-i$",
+    "D": "$-1-i$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "shuffle": true,
+   "explanation": "$-1+i$ is correct by the relevant definition or algebra; the other options reflect the stated misconception.",
+   "hints": [
+    "Recall the appropriate definition.",
+    "Work through the algebra before choosing.",
+    "Check the real and imaginary components separately."
+   ]
+  },
+  {
+   "id": "FP1-1-i17",
+   "kcs": [
+    "FP1-1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the geometric effect of multiplication by $i$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is a $90^\\circ$ anticlockwise rotation about the origin.",
+     "keywords": [
+      [
+       "90"
+      ],
+      [
+       "anticlockwise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is a $90^\\circ$ anticlockwise rotation about the origin.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i18",
+   "kcs": [
+    "FP1-1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the geometric meaning of a quotient $z_1/z_2$ when $z_2\\ne0$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its modulus is $|z_1|/|z_2|$ and its angle is the difference of arguments.",
+     "keywords": [
+      [
+       "modulus"
+      ],
+      [
+       "angle"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Its modulus is $|z_1|/|z_2|$ and its angle is the difference of arguments.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i19",
+   "kcs": [
+    "FP1-1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the positive imaginary coefficient of a root of $x^2+16=0$.",
+   "marks": 1,
+   "answer": {
+    "value": 4.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is 4.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i20",
+   "kcs": [
+    "FP1-1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the real part of a root of $x^2-4x+13=0$.",
+   "marks": 1,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is 2.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i21",
+   "kcs": [
+    "FP1-1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the positive imaginary coefficient of a root of $x^2-4x+13=0$.",
+   "marks": 1,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is 3.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i22",
+   "kcs": [
+    "FP1-1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the roots of $x^2+4=0$.",
+   "marks": 1,
+   "options": {
+    "A": "$\\pm2i$",
+    "B": "$\\pm2$",
+    "C": "$4i$",
+    "D": "$0$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m4",
+    "C": "m4",
+    "D": "m4"
+   },
+   "shuffle": true,
+   "explanation": "$\\pm2i$ is correct by the relevant definition or algebra; the other options reflect the stated misconception.",
+   "hints": [
+    "Recall the appropriate definition.",
+    "Work through the algebra before choosing.",
+    "Check the real and imaginary components separately."
+   ]
+  },
+  {
+   "id": "FP1-1-i23",
+   "kcs": [
+    "FP1-1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the non-real roots of a real-coefficient quadratic are conjugates.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The quadratic formula has real common part and opposite imaginary parts.",
+     "keywords": [
+      [
+       "opposite"
+      ],
+      [
+       "imaginary"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The quadratic formula has real common part and opposite imaginary parts.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i24",
+   "kcs": [
+    "FP1-1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the discriminant condition for non-real roots.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$b^2-4ac<0$.",
+     "keywords": [
+      [
+       "b^2-4ac"
+      ],
+      [
+       "0"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$b^2-4ac<0$.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i25",
+   "kcs": [
+    "FP1-1.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Given that $1+2i$ is a root of $x^3-6x^2+13x-20=0$, find all three roots. Show the conjugate root, form its real quadratic factor, and use polynomial division to find the remaining root.",
+   "marks": 4,
+   "explanation": "Real coefficients imply that $1-2i$ is also a root. The conjugate factors multiply to $(x-1)^2+4=x^2-2x+5$. In polynomial division the first quotient term is $x$, leaving $-4x^2+8x-20$ after subtraction; the next term is $-4$, leaving zero. Thus $x^3-6x^2+13x-20=(x^2-2x+5)(x-4)$ and all roots are $1+2i,1-2i,4$.",
+   "hints": [
+    "Use the conjugate-root theorem for real coefficients.",
+    "Multiply the two conjugate linear factors.",
+    "Divide the cubic by $x^2-2x+5$ and solve the remaining linear equation."
+   ],
+   "rubric": [
+    {
+     "point": "$1-2i$ is also a root because the coefficients are real.",
+     "keywords": [
+      [
+       "1-2i"
+      ]
+     ]
+    },
+    {
+     "point": "The conjugate pair gives $(x-(1+2i))(x-(1-2i))=x^2-2x+5$.",
+     "keywords": [
+      [
+       "x^2-2x+5"
+      ]
+     ]
+    },
+    {
+     "point": "Polynomial division by $x^2-2x+5$ gives quotient $x-4$ and remainder zero.",
+     "keywords": [
+      [
+       "x-4"
+      ]
+     ]
+    },
+    {
+     "point": "The remaining real root is $4$; all roots are $1+2i,1-2i,4$.",
+     "keywords": [
+      [
+       "4"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "FP1-1-i26",
+   "kcs": [
+    "FP1-1.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the coefficient of $x^2$ in $(x-3)((x-1)^2+1)$.",
+   "marks": 1,
+   "answer": {
+    "value": -5.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is -5.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i27",
+   "kcs": [
+    "FP1-1.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the value of $(1+i)(1-i)$.",
+   "marks": 1,
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is 2.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i28",
+   "kcs": [
+    "FP1-1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the root paired with $2+3i$ in a real-coefficient cubic.",
+   "marks": 1,
+   "options": {
+    "A": "$2-3i$",
+    "B": "$-2+3i$",
+    "C": "$-2-3i$",
+    "D": "$3+2i$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m5",
+    "C": "m5",
+    "D": "m5"
+   },
+   "shuffle": true,
+   "explanation": "$2-3i$ is correct by the relevant definition or algebra; the other options reflect the stated misconception.",
+   "hints": [
+    "Recall the appropriate definition.",
+    "Work through the algebra before choosing.",
+    "Check the real and imaginary components separately."
+   ]
+  },
+  {
+   "id": "FP1-1-i29",
+   "kcs": [
+    "FP1-1.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the quadratic factor from roots $a+bi$ and $a-bi$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The factor is $(x-a)^2+b^2$.",
+     "keywords": [
+      [
+       "(x-a)^2"
+      ],
+      [
+       "b^2"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The factor is $(x-a)^2+b^2$.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i30",
+   "kcs": [
+    "FP1-1.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how to finish a real-coefficient cubic after finding the conjugate pair.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Divide by their real quadratic factor and solve the remaining linear factor.",
+     "keywords": [
+      [
+       "quadratic"
+      ],
+      [
+       "linear"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Divide by their real quadratic factor and solve the remaining linear factor.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i31",
+   "kcs": [
+    "FP1-1.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the coefficient of $x^3$ in $(x^2-4x+5)(x-1)(x+2)$.",
+   "marks": 1,
+   "answer": {
+    "value": -3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is -3.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i32",
+   "kcs": [
+    "FP1-1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Given that $2+i$ is a root of $x^4-3x^3-x^2+13x-10=0$, find all four roots. Show the conjugate root, form its real quadratic factor, and use polynomial division to find and solve the remaining quadratic.",
+   "marks": 5,
+   "explanation": "The real coefficients give the conjugate root $2-i$, so $x^2-4x+5$ is a factor. Polynomial division has successive quotient terms $x^2$, $x$, and $-2$, leaving successive remainders $x^3-6x^2+13x-10$, $-2x^2+8x-10$, and zero. Hence the quartic equals $(x^2-4x+5)(x^2+x-2)=(x^2-4x+5)(x-1)(x+2)$. Its roots are $2+i,2-i,1,-2$.",
+   "hints": [
+    "Use real coefficients to find the conjugate root.",
+    "Multiply the conjugate factors and divide the quartic by $x^2-4x+5$.",
+    "Factor the residual quadratic and list all four roots."
+   ],
+   "rubric": [
+    {
+     "point": "$2-i$ is also a root because the coefficients are real.",
+     "keywords": [
+      [
+       "2-i"
+      ]
+     ]
+    },
+    {
+     "point": "The conjugate factors multiply to $x^2-4x+5$.",
+     "keywords": [
+      [
+       "x^2-4x+5"
+      ]
+     ]
+    },
+    {
+     "point": "Polynomial division gives quotient $x^2+x-2$ and remainder zero.",
+     "keywords": [
+      [
+       "x^2+x-2"
+      ]
+     ]
+    },
+    {
+     "point": "Factor the residual quadratic as $(x-1)(x+2)$.",
+     "keywords": [
+      [
+       "x-1"
+      ],
+      [
+       "x+2"
+      ]
+     ]
+    },
+    {
+     "point": "All four roots are $2+i,2-i,1,-2$.",
+     "keywords": [
+      [
+       "2+i"
+      ],
+      [
+       "2-i"
+      ],
+      [
+       "1"
+      ],
+      [
+       "-2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "FP1-1-i33",
+   "kcs": [
+    "FP1-1.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the real root of $(x^2-4x+5)(x-1)(x+2)=0$ that is negative.",
+   "marks": 1,
+   "answer": {
+    "value": -2.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "The required value is -2.",
+   "hints": [
+    "Identify the complex number or polynomial.",
+    "Apply the relevant formula or factorisation.",
+    "Substitute the given values before simplifying."
+   ]
+  },
+  {
+   "id": "FP1-1-i34",
+   "kcs": [
+    "FP1-1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the quadratic factor implied by a root $2+i$ of a real-coefficient quartic.",
+   "marks": 1,
+   "options": {
+    "A": "$x^2-4x+5$",
+    "B": "$x^2-4x+3$",
+    "C": "$x^2+4x+5$",
+    "D": "$x^2-2x+5$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m6",
+    "C": "m6",
+    "D": "m6"
+   },
+   "shuffle": true,
+   "explanation": "$x^2-4x+5$ is correct by the relevant definition or algebra; the other options reflect the stated misconception.",
+   "hints": [
+    "Recall the appropriate definition.",
+    "Work through the algebra before choosing.",
+    "Check the real and imaginary components separately."
+   ]
+  },
+  {
+   "id": "FP1-1-i35",
+   "kcs": [
+    "FP1-1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the next algebraic step after finding a conjugate pair of quartic roots.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Divide the quartic by the corresponding real quadratic and solve the remaining quadratic.",
+     "keywords": [
+      [
+       "divide"
+      ],
+      [
+       "quadratic"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Divide the quartic by the corresponding real quadratic and solve the remaining quadratic.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  },
+  {
+   "id": "FP1-1-i36",
+   "kcs": [
+    "FP1-1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how two known real roots of a quartic help solve it completely.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Use their linear factors, divide the quartic, then solve the remaining quadratic.",
+     "keywords": [
+      [
+       "linear"
+      ],
+      [
+       "quadratic"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use their linear factors, divide the quartic, then solve the remaining quadratic.",
+   "hints": [
+    "Recall the definition or relevant theorem.",
+    "Write the appropriate algebraic form.",
+    "Start with the real and imaginary parts or a known factor."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "FP1-1.1",
+   "front": "What is a complex number?",
+   "back": "A number $a+ib$, where $a,b$ are real and $i^2=-1$."
+  },
+  {
+   "id": "fc2",
+   "kc": "FP1-1.1",
+   "front": "What are the real and imaginary parts of $a+ib$?",
+   "back": "$\\operatorname{Re}(z)=a$ and $\\operatorname{Im}(z)=b$."
+  },
+  {
+   "id": "fc3",
+   "kc": "FP1-1.1",
+   "front": "What are modulus and argument?",
+   "back": "The modulus is $|z|=\\sqrt{a^2+b^2}$; the argument is the angle from the positive real axis."
+  },
+  {
+   "id": "fc4",
+   "kc": "FP1-1.1",
+   "front": "What is the conjugate of $a+ib$?",
+   "back": "$a-ib$."
+  },
+  {
+   "id": "fc5",
+   "kc": "FP1-1.1",
+   "front": "When are two complex numbers equal?",
+   "back": "Their real parts are equal and their imaginary parts are equal."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "FP1-1.1": {
+   "motivate": "Complex numbers let an equation such as $x^2+1=0$ have solutions and give a way to describe points in a plane.",
+   "establish": "Write $z=a+ib$, with real $a,b$ and $i^2=-1$. Then $\\operatorname{Re}(z)=a$, $\\operatorname{Im}(z)=b$, $z^*=a-ib$, and $|z|=\\sqrt{a^2+b^2}$. The argument $\\theta$ is the angle from the positive real axis, so $z=r\\cos\\theta+ir\\sin\\theta$, where $r=|z|$. Two complex numbers are equal exactly when corresponding real and imaginary parts are equal.",
+   "connect": "The coordinates $(a,b)$ lead directly to the Argand diagram and make arithmetic visible.",
+   "note": "- $z=a+ib=r\\cos\\theta+ir\\sin\\theta$; $i^2=-1$.\n- $\\operatorname{Re}(z)=a$, $\\operatorname{Im}(z)=b$, $z^*=a-ib$.\n- $|z|=\\sqrt{a^2+b^2}$; $\\theta$ is measured from the positive real axis.\n- Equality requires both components to match.",
+   "self_explain": "For $3-4i$, identify both parts, the conjugate, modulus, and the quadrant of its argument.",
+   "source": "pack"
+  },
+  "FP1-1.2": {
+   "motivate": "Arithmetic with complex numbers follows familiar expansion, with one extra rule: $i^2=-1$.",
+   "establish": "Add by combining real and imaginary parts. Multiply by expansion and replace $i^2$ with $-1$. For a quotient, multiply numerator and denominator by the conjugate of the denominator; $(c+di)(c-di)=c^2+d^2$, a real number. The modulus of a product satisfies $|z_1z_2|=|z_1||z_2|$.",
+   "connect": "The arithmetic becomes geometric on an Argand diagram: sums translate points, while products change size and direction.",
+   "note": "- Add corresponding real and imaginary parts.\n- Expand products and use $i^2=-1$.\n- Divide using the denominator's conjugate.\n- $|z_1z_2|=|z_1||z_2|$.",
+   "self_explain": "Why does multiplying top and bottom by a conjugate make a quotient easier to express as $a+ib$?",
+   "source": "pack"
+  },
+  "FP1-1.3": {
+   "motivate": "A complex number can be seen as a point and as a vector from the origin.",
+   "establish": "In an Argand diagram, plot $a+ib$ at $(a,b)$ with real horizontal and imaginary vertical axes. Addition follows the vector parallelogram rule. Multiplication combines scale and rotation; multiplying by $i$ gives a $90^\\circ$ anticlockwise rotation. A quotient by nonzero $z_2$ reverses the scale and rotation caused by $z_2$. Its modulus is $|z_1|/|z_2|$, and its direction differs by the denominator's angle.",
+   "connect": "Modulus measures distance on this diagram; argument records direction.",
+   "note": "- Plot $a+ib$ at $(a,b)$.\n- Sums are vector sums.\n- Products combine scaling and rotation; $i$ rotates anticlockwise by $90^\\circ$.\n- Quotients reverse the denominator's scale and rotation.",
+   "self_explain": "Where does $1+i$ move after multiplication by $i$, and how does its modulus change?",
+   "source": "pack"
+  },
+  "FP1-1.4": {
+   "motivate": "The quadratic formula continues to work when its discriminant is negative.",
+   "establish": "For $ax^2+bx+c=0$ with real coefficients, use $x=(-b\\pm\\sqrt{b^2-4ac})/(2a)$. If $b^2-4ac<0$, rewrite the square root as $i\\sqrt{4ac-b^2}$. This gives two complex conjugate roots: they have the same real part and opposite imaginary parts.",
+   "connect": "Conjugate pairing is the key to solving real-coefficient cubic and quartic equations too.",
+   "note": "- Use the quadratic formula for all discriminant signs.\n- If $b^2-4ac<0$, write $\\sqrt{b^2-4ac}=i\\sqrt{4ac-b^2}$.\n- Non-real roots occur as conjugates.",
+   "self_explain": "Solve $x^2-2x+5=0$ and explain why the roots form a conjugate pair.",
+   "source": "pack"
+  },
+  "FP1-1.5": {
+   "motivate": "One non-real root of a real-coefficient cubic gives a second root immediately.",
+   "establish": "If $u+vi$ is a root of a polynomial with real coefficients, then $u-vi$ is also a root. Their factors give $(x-u-vi)(x-u+vi)=(x-u)^2+v^2$, a real quadratic. Divide the cubic by this quadratic to obtain a linear factor, then solve it for the third, real root. For integer-coefficient cubics, keep factors exact rather than rounding roots.",
+   "connect": "The same conjugate-factor method extends to quartics, leaving a quadratic to solve.",
+   "note": "- Pair $u+vi$ with $u-vi$ for real coefficients.\n- Their factor is $(x-u)^2+v^2$.\n- Divide the cubic by it and solve the remaining linear factor.",
+   "self_explain": "Given a root $1+2i$, what real quadratic factor must divide the cubic?",
+   "source": "pack"
+  },
+  "FP1-1.6": {
+   "motivate": "A quartic has four roots counting multiplicity; known roots can reduce it to an ordinary quadratic.",
+   "establish": "For a quartic with real coefficients, a given non-real root $u+vi$ brings its conjugate $u-vi$. Multiply their factors into $(x-u)^2+v^2$, divide the quartic by it, then solve the residual quadratic for the other two roots. If two real roots are given instead, form their linear factors and divide by their product. The remaining quadratic may itself have real roots or a complex conjugate pair.",
+   "connect": "This combines the factor theorem, conjugate-root rule and quadratic formula.",
+   "note": "- A non-real root gives its conjugate when coefficients are real.\n- Form the corresponding real quadratic factor and divide.\n- Two given real roots give two linear factors.\n- Solve the remaining quadratic completely.",
+   "self_explain": "Given that $2+i$ is a root, what factor should you divide a real-coefficient quartic by?",
+   "source": "pack"
+  }
+ }
+}
