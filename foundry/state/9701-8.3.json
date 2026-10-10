@@ -1,0 +1,185 @@
+{
+ "sub": "9701-8.3",
+ "stage": "ready",
+ "created": "2026-10-10T15:39:49+08:00",
+ "updated": "2026-10-10T15:54:51+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:41:44+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 23 items"
+  },
+  {
+   "t": "2026-10-10T15:47:28+08:00",
+   "from": "solve",
+   "to": "adjudicate",
+   "note": "24 agreed, 0 disputed; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T15:53:32+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T15:54:21+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T15:54:51+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 23,
+  "extra": 9
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item 9701-8.3-x009 answer versus lesson note Boltzmann distribution",
+   "rule": "note contradicts pack",
+   "evidence": "Pack x009 keys C: 'If a catalyst is added, peak P will be the same and Eₐ will move to the right.' The note says: 'Its lower $E_a$ threshold lies further left on the energy axis.'",
+   "suggested": "Correct the x009 answer key to B, which keeps the peak unchanged and moves Eₐ left.",
+   "status": "fixed",
+   "resolution": "fix: The source image confirms official answer C: peak P stays the same and Ea moves left. The extracted options are shifted; do not change the key to B or alter the correct lesson note. In build/work/mcq/overrides.json under qid 9701_s23_12_q16 set stem=\"The diagram shows the Boltzmann distribution of energies in a gas. The gas can take part in a reaction with an activation energy, Eₐ. The gas is maintained at a constant temperature. Which statement is correct?\"; set options={\"A\":\"If a catalyst is added, peak P will be lower and Eₐ will move to the left.\",\"B\":\"If a catalyst is added, peak P will be lower and Eₐ will move to the right.\",\"C\":\"If a catalyst is added, peak P will be the same and Eₐ will move to the left.\",\"D\":\"If a catalyst is added, peak P will be the same and Eₐ will move to the right.\"}; set answer=\"C\"; set explanation=\"At constant temperature, adding a catalyst does not change the Boltzmann distribution, so peak P stays the same. A catalyst provides an alternative reaction mechanism with a lower activation energy, moving the Eₐ threshold to the left and increasing the proportion of molecules with sufficient energy to react. A and B incorrectly lower the peak; B and D incorrectly move Eₐ to the right.\"; retain image=\"Assets/mcq/9701_s23_12_q16.png\"."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9701-8.3-x009 answer versus lesson note Boltzmann distribution",
+   "instruction": "The source image confirms official answer C: peak P stays the same and Ea moves left. The extracted options are shifted; do not change the key to B or alter the correct lesson note. In build/work/mcq/overrides.json under qid 9701_s23_12_q16 set stem=\"The diagram shows the Boltzmann distribution of energies in a gas. The gas can take part in a reaction with an activation energy, Eₐ. The gas is maintained at a constant temperature. Which statement is correct?\"; set options={\"A\":\"If a catalyst is added, peak P will be lower and Eₐ will move to the left.\",\"B\":\"If a catalyst is added, peak P will be lower and Eₐ will move to the right.\",\"C\":\"If a catalyst is added, peak P will be the same and Eₐ will move to the left.\",\"D\":\"If a catalyst is added, peak P will be the same and Eₐ will move to the right.\"}; set answer=\"C\"; set explanation=\"At constant temperature, adding a catalyst does not change the Boltzmann distribution, so peak P stays the same. A catalyst provides an alternative reaction mechanism with a lower activation energy, moving the Eₐ threshold to the left and increasing the proportion of molecules with sufficient energy to react. A and B incorrectly lower the peak; B and D incorrectly move Eₐ to the right.\"; retain image=\"Assets/mcq/9701_s23_12_q16.png\".",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 67156,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:39:49+08:00",
+   "log": "foundry/logs/9701-8.3.drafter.1010-153949.log",
+   "out": "foundry/logs/9701-8.3.drafter.1010-153949.out.json",
+   "finished": "2026-10-10T15:41:44+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-8.3.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/08 Reaction kinetics/8.3 Homogeneous and heterogeneous catalysts.md",
+    "items": 23,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Both diagrams rendered, but sandbox restrictions prevented visual inspection with qlmanage."
+    ]
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 71294,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:46:32+08:00",
+   "log": "foundry/logs/9701-8.3.solver-1.1010-154632.log",
+   "out": "foundry/logs/9701-8.3.solver-1.1010-154632.out.json",
+   "expects": "build/work/blind/9701-8.3.answers.part1.json",
+   "finished": "2026-10-10T15:47:19+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [9701-8.3.answers.part1.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-8.3.answers.part1.json)."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 71296,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:46:32+08:00",
+   "log": "foundry/logs/9701-8.3.solver-2.1010-154632.log",
+   "out": "foundry/logs/9701-8.3.solver-2.1010-154632.out.json",
+   "expects": "build/work/blind/9701-8.3.answers.part2.json",
+   "finished": "2026-10-10T15:46:53+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 4 questions in `build/work/blind/9701-8.3.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 71301,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:46:32+08:00",
+   "log": "foundry/logs/9701-8.3.checker.1010-154632.log",
+   "out": "foundry/logs/9701-8.3.checker.1010-154632.out.json",
+   "expects": "build/work/foundry/9701-8.3.check.json",
+   "finished": "2026-10-10T15:47:03+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — wrote `build/work/foundry/9701-8.3.check.json`."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 76747,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T15:52:59+08:00",
+   "log": "foundry/logs/9701-8.3.adjudicator.1010-155259.log",
+   "out": "foundry/logs/9701-8.3.adjudicator.1010-155259.out.json",
+   "finished": "2026-10-10T15:53:38+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item 9701-8.3-x009 answer versus lesson note Boltzmann distribution fix: Restore shifted options from source image; retain official key C and correct lesson note."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 77273,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T15:53:45+08:00",
+   "log": "foundry/logs/9701-8.3.fixer.1010-155345.log",
+   "out": "foundry/logs/9701-8.3.fixer.1010-155345.out.json",
+   "finished": "2026-10-10T15:54:21+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_11_q34": "9701-8.3-x001",
+  "9701_w19_11_q1": "9701-8.3-x002",
+  "9701_s20_13_q16": "9701-8.3-x003",
+  "9701_w20_11_q11": "9701-8.3-x004",
+  "9701_w20_13_q11": "9701-8.3-x005",
+  "9701_s21_11_q11": "9701-8.3-x006",
+  "9701_s21_13_q33": "9701-8.3-x007",
+  "9701_s22_12_q15": "9701-8.3-x008",
+  "9701_s23_12_q16": "9701-8.3-x009"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

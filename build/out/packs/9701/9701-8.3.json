@@ -1,0 +1,744 @@
+{
+ "subtopic": "9701-8.3",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/08 Reaction kinetics/8.3 Homogeneous and heterogeneous catalysts.md",
+ "outline": "A catalyst increases reaction rate by giving an alternative mechanism with lower activation energy. At fixed temperature the Boltzmann energy distribution is unchanged, but more particles have energy at least equal to the lower threshold. A reaction pathway diagram shows the same reactant and product energy levels for catalysed and uncatalysed paths; the catalysed peak is lower. Homogeneous catalysts share the reactants’ phase; heterogeneous catalysts are in a different phase.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-8.3.1",
+   "statement": "A catalyst changes the shape or peak of the Boltzmann distribution at fixed temperature.",
+   "refutation": "It provides a lower activation energy; the energy distribution remains unchanged at fixed temperature.",
+   "contrast": "The activation-energy threshold moves left, so more particles exceed it.",
+   "source": "ER 9701 w19 P13 Q1"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-8.3.1",
+   "statement": "A catalyst changes the reaction enthalpy or equilibrium position.",
+   "refutation": "It changes the mechanism and activation energy in both directions, not the energy difference between reactants and products.",
+   "contrast": "Draw both pathways with identical starting and finishing energy levels.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-8.3.1",
+   "statement": "Only the substance consumed first in a catalytic cycle is a catalyst.",
+   "refutation": "A catalytic species is regenerated in the sequence; inspect the complete cycle.",
+   "contrast": "Both NO and NO₂ participate and are regenerated in the ozone sequence.",
+   "source": "ER 9701 w21 P12 Q11"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-8.3.1",
+   "statement": "Activation energy is measured from the other side of the reaction diagram.",
+   "refutation": "Measure from the starting energy level of the direction named to the first relevant peak.",
+   "contrast": "For decomposition, start at the product level of the synthesis diagram.",
+   "source": "ER 9701 s21 P12 Q7"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-8.3.1",
+   "statement": "Homogeneous means the catalyst is a solid surface.",
+   "refutation": "Homogeneous catalyst and reactants are in the same phase; a solid catalyst with fluid reactants is heterogeneous.",
+   "contrast": "Concentrated sulfuric acid in a liquid esterification mixture is homogeneous.",
+   "source": "ER 9701 w21 P21 Q4"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-8.3.1",
+   "problem": "Sketch and explain the energy profile for an exothermic reaction with and without an effective catalyst.",
+   "steps": [
+    {
+     "do": "Draw reactants at a higher energy than products on energy against reaction pathway axes.",
+     "why": "Exothermic products have lower energy; the catalyst does not change these end levels."
+    },
+    {
+     "do": "Draw a high uncatalysed peak and a lower catalysed peak between the same endpoints.",
+     "why": "The alternative mechanism has a lower activation energy."
+    },
+    {
+     "do": "Mark both forward activation energies from the reactant level to their respective peaks.",
+     "why": "Activation energy is measured from the starting level of the direction considered."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "For a profile with reactants at 40 kJ mol^-1 and catalysed peak at 75 kJ mol^-1, calculate the forward activation energy.",
+    "answer": {
+     "value": 35.0,
+     "unit": "kJ mol^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 2
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-8.3-p01",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q11",
+    "qid": "9701_w21_12_q11"
+   },
+   "stem": "NO and NO₂ are both present in the lower atmosphere as pollutants.\nThe reaction sequence shows the production of ozone from oxygen in the lower atmosphere.\nThis sequence repeats many times.\nNO₂(g) → NO(g) + O(g)\nNO(g) + ¹\n₂ O²(g) → NO²(g)\nO₂(g) + O(g) → O₃(g)\nWhich statement about this reaction sequence is correct?",
+   "options": {
+    "A": "NO is acting as a catalyst, but NO₂ is not acting as a catalyst.",
+    "B": "NO₂ is acting as a catalyst, but NO is not acting as a catalyst.",
+    "C": "Neither NO nor NO₂ are acting as catalysts.",
+    "D": "Both NO and NO₂ are acting as catalysts."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "Both NO and NO₂ take part and are regenerated later in the repeating sequence. B misses that NO is regenerated too.",
+   "distractors": {
+    "B": "m3"
+   }
+  },
+  {
+   "id": "9701-8.3-p02",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P13 · Q34",
+    "qid": "9701_w19_13_q34"
+   },
+   "stem": "The stoichiometry of a catalysed reaction is shown by the equation below.\nP (g) + Q (g)\nR (g) + S (l)\nTwo experiments are carried out in which the amount of R is measured. The results are shown in\nthe diagram.\n00\namount\nof R\nexperiment 1\nexperiment 2\ntime\nWhich changes in the conditions could explain the results shown?\n1\nA lower pressure was used in experiment 2.\n2\nA different catalyst was used in experiment 2.\n3\nProduct S was continuously removed from the reaction vessel in experiment 2.",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w19_13_q34.png",
+   "marks": 1,
+   "explanation": "Lower pressure and a less effective catalyst each reduce the rate in experiment 2. Removing liquid S slows the back reaction, so C and D include an incorrect explanation."
+  },
+  {
+   "id": "9701-8.3-p03",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q7",
+    "qid": "9701_s21_12_q7"
+   },
+   "stem": "The reaction pathway diagram for the catalysed reaction and the uncatalysed reaction between\nN₂ and H₂ is shown.\nN₂(g) + 3H₂(g)\n2NH₃(g)\nWhich letter represents the activation energy for the first step in the decomposition of NH₃ in the\npresence of a catalyst?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "energy reaction pathway N₂(g) + 3H₂(g) 2NH₃(g)"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s21_12_q7.png",
+   "marks": 1,
+   "explanation": "For decomposition, measure the first catalysed barrier from the NH₃ starting level to the first peak: D. B measures from the synthesis side."
+  },
+  {
+   "id": "9701-8.3-p04",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q15",
+    "qid": "9701_w25_13_q15"
+   },
+   "stem": "The reversible reaction between methanol and ethanoic acid liquids is catalysed by adding a\nsmall volume of concentrated sulfuric acid.\nTwo statements about this reaction are listed.\n1\nThe sulfuric acid is a homogeneous catalyst.\n2\nThe sulfuric acid lowers the activation energy of the reverse reaction.\nWhich statements are correct?",
+   "options": {
+    "A": "both 1 and 2",
+    "B": "1 only",
+    "C": "2 only",
+    "D": "neither 1 nor 2"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w25_13_q15.png",
+   "marks": 1,
+   "explanation": "Sulfuric acid and the liquid reactants share a phase, so catalysis is homogeneous. An alternative pathway lowers activation energy for both directions; B omits the reverse effect."
+  },
+  {
+   "id": "9701-8.3-p05",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q14",
+    "qid": "9701_w25_13_q14"
+   },
+   "stem": "Photochromic glass, used for sunglasses, darkens when exposed to bright light and becomes\nmore transparent again when the light is less bright. The darkness of the glass is due to the\npresence of silver atoms.\nThe following reactions are involved.\nreaction 1\nAg⁺ + Cl ⁻\nAg + Cl\nreaction 2\nCu⁺ + Cl → Cu²⁺ + Cl ⁻\nreaction 3\nCu²⁺ + Ag → Cu⁺ + Ag⁺\nWhich statement about these reactions is correct?",
+   "options": {
+    "A": "Cu⁺ and Cu²⁺ ions act as catalysts.",
+    "B": "Cu⁺ ions act as an oxidising agent in reaction 2.",
+    "C": "Reaction 3 increases the darkness of the glass.",
+    "D": "Silver atoms are reduced in reaction 3."
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w25_13_q14.png",
+   "marks": 1,
+   "explanation": "Cu⁺ and Cu²⁺ are regenerated across the reaction sequence. In reaction 2 Cu⁺ loses an electron, so B incorrectly calls it an oxidising agent."
+  },
+  {
+   "id": "9701-8.3-p06",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q16",
+    "qid": "9701_w24_12_q16"
+   },
+   "stem": "The Boltzmann distribution for a mixture of gases capable of reaction is shown.\nThe two curves represent the mixture of gases at 25 °C and at 35 °C. The activation energies for\nthe catalysed and uncatalysed reactions are shown.\nenergy\nnumber of\nparticles\n0\n0\nEₐ catalysed\nEₐ uncatalysed\nw\nx\nz\ny\nWhich row is correct?\nnumber of particles with\nenough energy to react at 25 °C\nin the catalysed reaction\nnumber of particles with\nenough energy to react at 35 °C\nin the uncatalysed reaction",
+   "options": {
+    "A": "w + x + y + z z",
+    "B": "w + x + y + z x + z",
+    "C": "y + z z",
+    "D": "y + z x + z"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w24_12_q16.png",
+   "marks": 1,
+   "explanation": "The regions above the catalysed threshold give y + z for the first condition and x + z for the second. C omits the additional x region."
+  },
+  {
+   "id": "9701-8.3-p07",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q11",
+    "qid": "9701_w21_11_q11"
+   },
+   "stem": "The diagram shows the Boltzmann distribution of energies for a reactant gas. For a particular\nreaction, the activation energy is X.\n0\n0\nenergy, E\nnumber of\nparticles with\nenergy, E\nX\nWhich change to the diagram occurs if an effective catalyst is added at the same temperature?",
+   "options": {
+    "A": "More particles will possess higher values of E.",
+    "B": "The peak will move to the left.",
+    "C": "The peak will move to the right.",
+    "D": "The value of the activation energy decreases."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w21_11_q11.png",
+   "marks": 1,
+   "explanation": "An effective catalyst decreases activation energy at fixed temperature. A incorrectly claims that molecular energies increase."
+  },
+  {
+   "id": "9701-8.3-p08",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P13 · Q1",
+    "qid": "9701_w19_13_q1"
+   },
+   "stem": "The diagram shows the Boltzmann distribution of energies in a gas. The gas undergoes a\nreaction with an activation energy, Eₐ. The peak of the distribution is labelled P.\n0\n0\nEₐ\nmolecular energy, E\nproportion of\nmolecules with\nenergy E\nP\nIf the same reaction is carried out in the presence of a catalyst, which statement is correct?",
+   "options": {
+    "A": "The peak P is at a lower height and the position of Eₐ moves to the left.",
+    "B": "The peak P is at a lower height and the position of Eₐ moves to the right.",
+    "C": "The peak P remains at the same height and the position of Eₐ moves to the left.",
+    "D": "The peak P remains at the same height and the position of Eₐ moves to the right."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w19_13_q1.png",
+   "marks": 1,
+   "explanation": "At fixed temperature the distribution peak is unchanged; lower activation energy moves the threshold left. A incorrectly lowers the peak."
+  },
+  {
+   "id": "9701-8.3-p09",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q7",
+    "qid": "9701_s25_13_q7"
+   },
+   "stem": "The gaseous compound Z decomposes on heating.\nIn the diagram, Boltzmann distributions for Z at two different temperatures, P and Q, are shown.\nThe lines X and Y indicate activation energies for the decomposition of Z with and without a\ncatalyst.\n0\n0\nmolecular energy\nnumber of\nmolecules\nX\nY\nP\nQ\nWhich curve and which line describe the decomposition of Z at a higher temperature and with a\ncatalyst present?\nhigher\ntemperature\ncatalyst\npresent",
+   "options": {
+    "A": "P X",
+    "B": "P Y",
+    "C": "Q X",
+    "D": "Q Y"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_13_q7.png",
+   "marks": 1,
+   "explanation": "The higher-temperature curve is Q and the lower, catalysed activation-energy line is X. D selects the higher barrier."
+  },
+  {
+   "id": "9701-8.3-p10",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q15",
+    "qid": "9701_s24_12_q15"
+   },
+   "stem": "Gas Q decomposes slowly at room temperature.\nQ(g) → X(g) + Z(g)\nThe Boltzmann distribution curve for gas Q at room temperature is shown.\nenergy\nnumber of\nparticles\nEₐ\n0\n0\nWhich change occurs when a catalyst is added to gas Q?",
+   "options": {
+    "A": "The peak of the curve moves to the right on the diagram.",
+    "B": "The number of particles with enough energy to decompose increases.",
+    "C": "The kinetic energy of the unreacted particles increases.",
+    "D": "The value of Eₐ decreases, moving the vertical dotted line to the right on the diagram."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s24_12_q15.png",
+   "marks": 1,
+   "explanation": "Lower activation energy increases the number of particles above the reaction threshold. D moves the threshold in the wrong direction."
+  },
+  {
+   "id": "9701-8.3-p11",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q15",
+    "qid": "9701_s24_11_q15"
+   },
+   "stem": "The Boltzmann distribution for the hydrogenation of an alkene at a particular temperature in the\nabsence of a catalyst is shown.\nmolecular energy E\nproportion\nof molecules\nwith energy E\nEₐ\n0\n0\nWhich row correctly describes the effects of adding a nickel catalyst to the reaction vessel?\nthe shape of the\nBoltzmann distribution\nactivation energy, Eₐ",
+   "options": {
+    "A": "changes decreases",
+    "B": "changes increases",
+    "C": "does not change decreases",
+    "D": "does not change increases"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s24_11_q15.png",
+   "marks": 1,
+   "explanation": "Nickel lowers activation energy while the fixed-temperature Boltzmann distribution remains unchanged. A incorrectly changes its shape."
+  },
+  {
+   "id": "9701-8.3-p12",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q11",
+    "qid": "9701_s19_12_q11"
+   },
+   "stem": "Which row is an example of heterogeneous catalysis?\nreaction\ncatalyst",
+   "options": {
+    "A": "esterification sulfuric acid",
+    "B": "the Contact process divanadium pentoxide",
+    "C": "destruction of the ozone layer chlorine radicals",
+    "D": "atmospheric formation of sulfur trioxide nitrogen dioxide"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s19_12_q11.png",
+   "marks": 1,
+   "explanation": "The Contact process uses solid vanadium(V) oxide with gaseous reactants, so it is heterogeneous. A has catalyst and reactants in the same liquid phase."
+  },
+  {
+   "id": "9701-8.3-i01",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A catalysed reaction pathway has reactants at 40 kJ mol^-1, products at 10 kJ mol^-1 and a first peak at 75 kJ mol^-1. Calculate the forward activation energy.",
+   "marks": 1,
+   "answer": {
+    "value": 35.0,
+    "unit": "kJ mol^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 65.0,
+     "misconception": "m4"
+    }
+   ],
+   "explanation": "Subtract the reactant energy from the peak: 75 − 40 = 35 kJ mol^-1.",
+   "hints": [
+    "Identify the starting energy level.",
+    "Use the peak on the relevant pathway.",
+    "Subtract the reactant level from the first peak."
+   ]
+  },
+  {
+   "id": "9701-8.3-i02",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch energy against reaction pathway for an exothermic reaction, with and without an effective catalyst. Label the forward activation energies and the enthalpy change.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Reactants above products on energy against reaction pathway axes."
+    },
+    {
+     "mark": "B1",
+     "point": "Two pathways share start and finish levels."
+    },
+    {
+     "mark": "B1",
+     "point": "Catalysed pathway has a lower maximum and both forward activation energies are shown from reactants."
+    },
+    {
+     "mark": "B1",
+     "point": "Enthalpy change shown between reactant and product levels."
+    }
+   ],
+   "explanation": "An alternative lower-energy path joins the same energy levels; enthalpy change is unchanged.",
+   "hints": [
+    "Begin with the axes and endpoint energies.",
+    "Add two different paths between the endpoints.",
+    "Measure each forward barrier from reactants."
+   ]
+  },
+  {
+   "id": "9701-8.3-x001",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q34",
+    "qid": "9701_s19_11_q34"
+   },
+   "stem": "Vanadium and pepsin can both act as catalysts. Vanadium is a metal. Pepsin is an enzyme.\nWhich statements are correct for both vanadium and pepsin?\n1\nThey will speed up any chemical reaction.\n2\nThey can lower the activation energy for a reaction.\n3\nThey are not used up when they act as catalysts.",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s19_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.3-x002",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P11 · Q1",
+    "qid": "9701_w19_11_q1"
+   },
+   "stem": "The diagram shows the Boltzmann distribution of energies in a gas. The gas undergoes a\nreaction with an activation energy, Eₐ. The peak of the distribution is labelled P.\n0\n0\nEₐ\nmolecular energy, E\nproportion of\nmolecules with\nenergy E\nP\nIf the same reaction is carried out in the presence of a catalyst, which statement is correct?",
+   "options": {
+    "A": "The peak P is at a lower height and the position of Eₐ moves to the left.",
+    "B": "The peak P is at a lower height and the position of Eₐ moves to the right.",
+    "C": "The peak P remains at the same height and the position of Eₐ moves to the left.",
+    "D": "The peak P remains at the same height and the position of Eₐ moves to the right."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w19_11_q1.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.3-x003",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q16",
+    "qid": "9701_s20_13_q16"
+   },
+   "stem": "Nitrogen oxides are removed from the exhaust gases of internal combustion engines by the\naction of a catalyst in a catalytic converter.\nWhich row is correct?\nchange in oxidation\nnumber of nitrogen\ntype of catalyst",
+   "options": {
+    "A": "decrease heterogeneous",
+    "B": "decrease homogeneous",
+    "C": "increase heterogeneous",
+    "D": "increase homogeneous"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s20_13_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.3-x004",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q11",
+    "qid": "9701_w20_11_q11"
+   },
+   "stem": "An autocatalytic reaction is a reaction in which one of the products catalyses the reaction.\nWhich curve would be obtained if the rate of an autocatalytic reaction is plotted against time?\nrate\ntime\n00",
+   "options": {
+    "A": "rate time 00",
+    "B": "rate time 00",
+    "C": "rate time 00",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w20_11_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.3-x005",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q11",
+    "qid": "9701_w20_13_q11"
+   },
+   "stem": "An autocatalytic reaction is a reaction in which one of the products catalyses the reaction.\nWhich curve would be obtained if the rate of an autocatalytic reaction is plotted against time?\nrate\ntime\n00",
+   "options": {
+    "A": "rate time 00",
+    "B": "rate time 00",
+    "C": "rate time 00",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w20_13_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.3-x006",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q11",
+    "qid": "9701_s21_11_q11"
+   },
+   "stem": "Which statement about catalysts is correct?",
+   "options": {
+    "A": "They change the reaction pathway by increasing the activation energy.",
+    "B": "They increase the rate of reaction by lowering the enthalpy change of the reaction.",
+    "C": "They increase the number of particles that have sufficient energy to react.",
+    "D": "Heterogeneous catalysts are in the same state as the reactant."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.3-x007",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q33",
+    "qid": "9701_s21_13_q33"
+   },
+   "stem": "Disaccharides are hydrolysed in slightly acidic solutions. This reaction is very slow.\nA biological catalyst is added to a slightly acidic mixture of three disaccharides, sucrose, maltose\nand lactose. The hydrolysis reaction remains slow for sucrose and maltose but is now much\nfaster for lactose.\nWhich statements about the catalyst are correct?\n1\nThe catalyst increases the activation energy of all three hydrolysis reactions.\n2\nThe catalyst shows specificity.\n3\nThe hydrolysis of lactose using a catalyst has a different mechanism to the hydrolysis of\nlactose without a catalyst.",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s21_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.3-x008",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q15",
+    "qid": "9701_s22_12_q15"
+   },
+   "stem": "A large amount of N₂O(g) decomposes into nitrogen gas and oxygen gas in the presence of a tiny\namount of a gold foil catalyst.\nThe gold foil provides a solid surface on which the catalysed reaction takes place.\nThe graph shows the concentration of N₂O(g) against time as it decomposes. The graph is a\nstraight line.\nconcentration\nof N₂O(g)\n0\n0\n10\ntime / min\nWhich row describes:\n●\nthe change in rate of reaction as N₂O(g) decomposes from 0 to 10 minutes\n●\nthe effect of adding more gold foil catalyst on the rate of decomposition of the same\namount and concentration of N₂O(g)?\nchange in\nrate of reaction as\nN₂O(g) decomposes\neffect of adding more\ngold foil on the\nrate of decomposition",
+   "options": {
+    "A": "none increases",
+    "B": "none none",
+    "C": "decreases increases",
+    "D": "decreases none"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s22_12_q15.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-8.3-x009",
+   "kcs": [
+    "9701-8.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q16",
+    "qid": "9701_s23_12_q16"
+   },
+   "stem": "The diagram shows the Boltzmann distribution of energies in a gas. The gas can take part in a reaction with an activation energy, Eₐ. The gas is maintained at a constant temperature. Which statement is correct?",
+   "options": {
+    "A": "If a catalyst is added, peak P will be lower and Eₐ will move to the left.",
+    "B": "If a catalyst is added, peak P will be lower and Eₐ will move to the right.",
+    "C": "If a catalyst is added, peak P will be the same and Eₐ will move to the left.",
+    "D": "If a catalyst is added, peak P will be the same and Eₐ will move to the right."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s23_12_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "At constant temperature, adding a catalyst does not change the Boltzmann distribution, so peak P stays the same. A catalyst provides an alternative reaction mechanism with a lower activation energy, moving the Eₐ threshold to the left and increasing the proportion of molecules with sufficient energy to react. A and B incorrectly lower the peak; B and D incorrectly move Eₐ to the right."
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-8.3.1",
+   "front": "Define a catalyst.",
+   "back": "A substance that increases the rate of a reaction by providing an alternative reaction mechanism with a lower activation energy and is chemically unchanged at the end."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-8.3.1",
+   "front": "Define homogeneous and heterogeneous catalysis.",
+   "back": "In homogeneous catalysis the catalyst and reactants are in the same phase; in heterogeneous catalysis they are in different phases."
+  }
+ ],
+ "diagrams": [
+  {
+   "file": "Assets/9701/9701-8.3-pathway.svg",
+   "type": "energy_profile",
+   "params": {
+    "reactants": 30,
+    "products": 10,
+    "ea": 60,
+    "catalysed_ea": 35,
+    "reactants_label": "Reactants",
+    "products_label": "Products",
+    "ea_label": "Activation energy",
+    "dh_label": "Enthalpy change"
+   }
+  },
+  {
+   "file": "Assets/9701/9701-8.3-boltzmann.svg",
+   "type": "maxwell_boltzmann",
+   "params": {
+    "temps": [
+     300
+    ],
+    "labels": [
+     "same temperature"
+    ],
+    "ea": 3,
+    "shade_ea": true
+   }
+  }
+ ],
+ "teach": {
+  "9701-8.3.1": {
+   "motivate": "A reaction may be slow even when its products are energetically favourable. A catalyst changes how the reactants reach those products, making a lower energy route available.",
+   "establish": "A catalyst is a substance that increases reaction rate by providing an alternative mechanism of lower activation energy, and is chemically unchanged at the end. Catalysis is this catalytic increase in rate. At fixed temperature the Boltzmann distribution itself stays the same; the lower activation-energy threshold leaves a larger area under the curve to its right, so more particles have sufficient energy to react. On an energy against reaction pathway diagram, show catalysed and uncatalysed paths from the same reactant level to the same product level. The catalysed route has a lower barrier, but the overall enthalpy change is unchanged. Measure a forward barrier from the reactants and a reverse barrier from the products, using the peak of the step specified. Homogeneous catalysis has catalyst and reactants in the same phase; heterogeneous catalysis has them in different phases. A catalyst may enter intermediate steps but is regenerated by the end of the sequence.",
+   "connect": "Activation energy from 8.2 is the threshold to compare with the Boltzmann distribution. Reaction pathway diagrams from 5.1 show why a changed route can lower that threshold while keeping the same enthalpy change.",
+   "note": "- Catalyst: alternative mechanism, lower activation energy, unchanged at the end.\n- Fixed-temperature Boltzmann curve stays fixed; more particles exceed the lower threshold.\n- Draw both paths with the same endpoints and different peak heights.\n- Homogeneous: same phase; heterogeneous: different phases.",
+   "self_explain": "At fixed temperature, explain why adding a catalyst increases the fraction of particles able to react without changing the Boltzmann curve.",
+   "discover": {
+    "stem": "At a fixed temperature, what changes when an effective catalyst is added?",
+    "options": {
+     "A": "The Boltzmann curve shifts right.",
+     "B": "The activation-energy threshold becomes lower.",
+     "C": "The products have lower energy.",
+     "D": "Every particle gains energy."
+    },
+    "answer": "B",
+    "explanation": "The catalyst offers a lower-energy mechanism. The distribution and endpoint energies remain the same."
+   },
+   "source": "pack"
+  }
+ }
+}
