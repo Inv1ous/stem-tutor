@@ -1,0 +1,3532 @@
+{
+ "subtopic": "9702-3.1",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/03 Dynamics/3.1 Momentum and Newton’s laws of motion.md",
+ "outline": "Mass resists changes in motion. Resultant force produces acceleration in its direction: $F=ma$. Linear momentum is the vector $p=mv$; resultant force is its rate of change, $F=\\Delta p/\\Delta t$. Newton’s first law describes zero resultant force, the second connects force and changing momentum, and the third identifies equal and opposite forces on different interacting bodies. Weight is the force of a gravitational field on mass, $W=mg$.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-3.1.1",
+   "statement": "Mass is the pull of Earth on an object.",
+   "refutation": "That pull is weight; mass measures inertia.",
+   "contrast": "Mass is measured in kg; weight is a force in N.",
+   "source": "ER 9702 w21 P12 Q8"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-3.1.2",
+   "statement": "Any one applied force equals mass times acceleration.",
+   "refutation": "The vector resultant of all forces equals mass times acceleration.",
+   "contrast": "Subtract opposing forces before using $F=ma$.",
+   "source": "ER 9702 w22 P23 Q2"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-3.1.4",
+   "statement": "A rebound changes momentum by the difference of the two speed magnitudes.",
+   "refutation": "Opposite directions have opposite velocity signs.",
+   "contrast": "Use $\\Delta p=m(v-u)$ with signed velocities.",
+   "source": "ER 9702 w23 P13 Q8"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-3.1.5",
+   "statement": "Equal and opposite forces on one body form a third-law pair.",
+   "refutation": "A third-law pair acts on two different interacting bodies.",
+   "contrast": "The forces have the same type and equal magnitude.",
+   "source": "ER 9702 s21 P12 Q8"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-3.1.5",
+   "statement": "An instant of zero velocity means zero resultant force.",
+   "refutation": "The object may still accelerate at that instant.",
+   "contrast": "A bouncing ball momentarily stops while the upward contact force exceeds its weight.",
+   "source": "ER 9702 s22 P13 Q9"
+  },
+  {
+   "id": "m6",
+   "kc": "9702-3.1.6",
+   "statement": "Weight is the same as mass.",
+   "refutation": "Weight is the gravitational force on a mass.",
+   "contrast": "Use $W=mg$; weight changes if $g$ changes.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we2",
+   "kc": "9702-3.1.2",
+   "problem": "A 3.0 kg body has 14 N right and 5.0 N left. Find acceleration.",
+   "steps": [
+    {
+     "do": "$F_{\\mathrm{net}}=ma$.",
+     "why": "Start from the definition or law used for this quantity."
+    },
+    {
+     "do": "$a=(14-5.0)/3.0$.",
+     "why": "Substitute SI values with a consistent positive direction."
+    },
+    {
+     "do": "Answer: 3 m s^-2.",
+     "why": "Give the magnitude and SI unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.0,
+       "unit": "m s^-2",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A 2.0 kg body has 11 N right and 3.0 N left. Find acceleration.",
+    "answer": {
+     "value": 4.0,
+     "unit": "m s^-2",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-3.1.3",
+   "problem": "Find momentum of a 0.40 kg object moving at 6.0 m s⁻¹.",
+   "steps": [
+    {
+     "do": "$p=mv$.",
+     "why": "Start from the definition or law used for this quantity."
+    },
+    {
+     "do": "$p=0.40(6.0)$.",
+     "why": "Substitute SI values with a consistent positive direction."
+    },
+    {
+     "do": "Answer: 2.40 kg m s^-1.",
+     "why": "Give the magnitude and SI unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.4,
+       "unit": "kg m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Find momentum of a 0.50 kg object moving at 8.0 m s⁻¹.",
+    "answer": {
+     "value": 4.0,
+     "unit": "kg m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "9702-3.1.4",
+   "problem": "A 0.20 kg ball rebounds from +5.0 to −3.0 m s⁻¹ in 0.10 s. Find average force magnitude.",
+   "steps": [
+    {
+     "do": "$F=\\Delta p/\\Delta t$.",
+     "why": "Start from the definition or law used for this quantity."
+    },
+    {
+     "do": "$|F|=0.20|-3.0-5.0|/0.10$.",
+     "why": "Substitute SI values with a consistent positive direction."
+    },
+    {
+     "do": "Answer: 16 N.",
+     "why": "Give the magnitude and SI unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 16.0,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "A 0.30 kg ball changes velocity from +4.0 to −2.0 m s⁻¹ in 0.20 s. Find average force magnitude.",
+    "answer": {
+     "value": 9.0,
+     "unit": "N",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we5",
+   "kc": "9702-3.1.5",
+   "problem": "A 60 kg lift passenger accelerates downward at 2.0 m s⁻². Find floor force on passenger.",
+   "steps": [
+    {
+     "do": "$W-R=ma$, so $R=m(g-a)$.",
+     "why": "Start from the definition or law used for this quantity."
+    },
+    {
+     "do": "$R=60(9.81-2.0)$.",
+     "why": "Substitute SI values with a consistent positive direction."
+    },
+    {
+     "do": "Answer: 468.60 N.",
+     "why": "Give the magnitude and SI unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 468.6,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "A 50 kg lift passenger accelerates downward at 1.0 m s⁻². Find floor force.",
+    "answer": {
+     "value": 440.5,
+     "unit": "N",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we6",
+   "kc": "9702-3.1.6",
+   "problem": "Find the weight of a 4.0 kg mass at $g=9.81$ m s⁻².",
+   "steps": [
+    {
+     "do": "$W=mg$.",
+     "why": "Start from the definition or law used for this quantity."
+    },
+    {
+     "do": "$W=4.0(9.81)$.",
+     "why": "Substitute SI values with a consistent positive direction."
+    },
+    {
+     "do": "Answer: 39.24 N.",
+     "why": "Give the magnitude and SI unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 39.24,
+       "unit": "N",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we6f",
+    "problem": "Find the weight of a 3.0 kg mass at $g=9.81$ m s⁻².",
+    "answer": {
+     "value": 29.43,
+     "unit": "N",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-3.1-i01",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define mass in terms of motion.",
+   "marks": 1,
+   "explanation": "Mass is the property of an object that resists change in motion.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Property resisting change in motion",
+     "keywords": [
+      [
+       "resists",
+       "resistance"
+      ],
+      [
+       "change in motion",
+       "change of motion"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i02",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which object has the greater resistance to a change in motion?",
+   "marks": 1,
+   "explanation": "Greater mass means greater inertia.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "options": {
+    "A": "A 1 kg trolley",
+    "B": "A 3 kg trolley",
+    "C": "Both equally",
+    "D": "Cannot be inferred from mass"
+   },
+   "answer": "B",
+   "distractors": {
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.1-i03",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why an empty trolley accelerates more than a loaded trolley under the same resultant force.",
+   "marks": 1,
+   "explanation": "For the same resultant force, $a=F/m$.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Loaded trolley has greater mass, hence less acceleration",
+     "keywords": [
+      [
+       "greater mass",
+       "larger mass"
+      ],
+      [
+       "less acceleration",
+       "smaller acceleration"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i04",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A trolley moves at constant velocity. What does its mass measure?",
+   "marks": 1,
+   "explanation": "Mass measures inertia even while the trolley moves at constant velocity.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "options": {
+    "A": "Its gravitational force",
+    "B": "Its acceleration",
+    "C": "Its resistance to changing this velocity",
+    "D": "Its resultant force"
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.1-i05",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the mass of an object on Earth and the Moon.",
+   "marks": 1,
+   "explanation": "Mass is an intrinsic property and is unchanged by location.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Mass stays unchanged",
+     "keywords": [
+      [
+       "same",
+       "unchanged",
+       "constant"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i06",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Two carts experience the same non-zero resultant force. Cart X has twice the mass of Y. Compare their accelerations.",
+   "marks": 1,
+   "explanation": "From $a=F/m$, doubling mass halves acceleration.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "options": {
+    "A": "X has half the acceleration of Y",
+    "B": "X has twice the acceleration of Y",
+    "C": "They accelerate equally",
+    "D": "X has zero acceleration"
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.1-i07",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the resultant force on a [[m]] kg body accelerating at [[a]] m s⁻¹.",
+   "marks": 1,
+   "explanation": "Use $F=ma$ with the resultant force.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 7.2,
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2.4,
+       3.6,
+       4.8
+      ]
+     },
+     "a": {
+      "choices": [
+       3.0,
+       4.0,
+       5.0
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "m*a",
+    "distractors": [
+     {
+      "expr": "m+a",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-3.1-i08",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the resultant force on a 5.0 kg body accelerating at 1.8 m s⁻¹ in a straight line.",
+   "marks": 1,
+   "explanation": "Use $F=ma$ with the resultant force.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 9.0,
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-3.1-i09",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A 4.0 kg trolley is pulled right by 18 N and resisted left by 6.0 N. Calculate its acceleration.",
+   "marks": 1,
+   "explanation": "The resultant is $18-6=12$ N right, so $a=12/4$.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "m s^-2",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-3.1-i10",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the direction of the acceleration relative to the resultant force.",
+   "marks": 1,
+   "explanation": "Acceleration and the resultant force always point in the same direction.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Same direction",
+     "keywords": [
+      [
+       "same direction"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i11",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A 2 kg object has forces of 12 N east and 4 N west. What is its acceleration?",
+   "marks": 1,
+   "explanation": "The resultant is 8 N east and $a=8/2=4$ m s⁻² east.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "options": {
+    "A": "4 m s⁻² east",
+    "B": "8 m s⁻² east",
+    "C": "6 m s⁻² east",
+    "D": "8 m s⁻² west"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.1-i12",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a constant velocity implies zero resultant force for a body of constant mass.",
+   "marks": 1,
+   "explanation": "Constant velocity means $a=0$, hence $F=ma=0$.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Zero acceleration gives zero resultant force",
+     "keywords": [
+      [
+       "zero acceleration",
+       "no acceleration"
+      ],
+      [
+       "zero resultant force",
+       "no resultant force"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i13",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the momentum of a [[m]] kg body moving at [[v]] m s⁻¹ east.",
+   "marks": 1,
+   "explanation": "Momentum is mass multiplied by velocity, in the velocity direction.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "kg m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       0.6,
+       0.8,
+       1.2
+      ]
+     },
+     "v": {
+      "choices": [
+       5.0,
+       7.0,
+       9.0
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "m*v",
+    "distractors": [
+     {
+      "expr": "m+v",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-3.1-i14",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the momentum of a 2.5 kg object travelling at 4 m s⁻¹ east.",
+   "marks": 1,
+   "explanation": "Momentum is mass multiplied by velocity, in the velocity direction.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 10.0,
+    "unit": "kg m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-3.1-i15",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define linear momentum.",
+   "marks": 1,
+   "explanation": "Linear momentum is the product of mass and velocity; $p=mv$.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Product of mass and velocity",
+     "keywords": [
+      [
+       "mass"
+      ],
+      [
+       "velocity"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i16",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball reverses its velocity from 3 m s⁻¹ east to 3 m s⁻¹ west. What happens to its momentum?",
+   "marks": 1,
+   "explanation": "Momentum is a vector and follows the direction of velocity.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "options": {
+    "A": "It remains unchanged",
+    "B": "It reverses direction",
+    "C": "It becomes zero",
+    "D": "It doubles in the original direction"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.1-i17",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A 0.20 kg ball changes velocity from 5.0 m s⁻¹ east to 3.0 m s⁻¹ west. Calculate the magnitude of its change in momentum.",
+   "marks": 1,
+   "explanation": "Taking east as positive, $|\\Delta p|=0.20|-3.0-5.0|$.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 1.6,
+    "unit": "kg m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-3.1-i18",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the SI unit of linear momentum.",
+   "marks": 1,
+   "explanation": "The unit follows from $p=mv$: kg m s⁻¹.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "kg m s⁻¹",
+     "keywords": [
+      [
+       "kg"
+      ],
+      [
+       "m"
+      ],
+      [
+       "s"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i19",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define force in terms of momentum.",
+   "marks": 1,
+   "explanation": "Resultant force is the rate of change of momentum: $F=\\Delta p/\\Delta t$.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Rate of change of momentum",
+     "keywords": [
+      [
+       "rate of change"
+      ],
+      [
+       "momentum"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i20",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A [[m]] kg ball changes velocity from [[u]] m s⁻¹ to [[v]] m s⁻¹ in [[t]] s. Calculate average force magnitude.",
+   "marks": 1,
+   "explanation": "Find the signed change in momentum, then divide its magnitude by contact time.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 12.0,
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       0.2,
+       0.4,
+       0.6
+      ]
+     },
+     "u": {
+      "choices": [
+       4.0,
+       6.0,
+       8.0
+      ]
+     },
+     "v": {
+      "choices": [
+       -2.0,
+       -4.0,
+       -6.0
+      ]
+     },
+     "t": {
+      "choices": [
+       0.1,
+       0.2,
+       0.4
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "abs(m*(v-u)/t)",
+    "distractors": [
+     {
+      "expr": "abs(m*(u+v)/t)",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-3.1-i21",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A 0.50 kg ball changes velocity from 6 m s⁻¹ to -4 m s⁻¹ in 0.25 s. Calculate the magnitude of its average resultant force.",
+   "marks": 1,
+   "explanation": "Find the signed change in momentum, then divide its magnitude by contact time.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 20.0,
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-3.1-i22",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A resultant force of 15 N acts for 0.40 s. Calculate the magnitude of the momentum change.",
+   "marks": 1,
+   "explanation": "From $F=\\Delta p/\\Delta t$, $\\Delta p=F\\Delta t$.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 6.0,
+    "unit": "kg m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-3.1-i23",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball rebounds from a wall at the same speed. Which quantity is zero?",
+   "marks": 1,
+   "explanation": "Speed and kinetic energy are unchanged, but vector velocity and momentum reverse.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "options": {
+    "A": "Its change in velocity",
+    "B": "Its change in momentum",
+    "C": "Its average force",
+    "D": "Its change in kinetic energy"
+   },
+   "answer": "D",
+   "distractors": {
+    "B": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.1-i24",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the resultant force equals $ma$ for constant mass.",
+   "marks": 1,
+   "explanation": "For constant $m$, $F=\\Delta(mv)/\\Delta t=m\\Delta v/\\Delta t=ma$.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Differentiate momentum at fixed mass",
+     "keywords": [
+      [
+       "momentum",
+       "mv"
+      ],
+      [
+       "rate of change",
+       "change per time"
+      ],
+      [
+       "acceleration"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i25",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State Newton's first law of motion.",
+   "marks": 1,
+   "explanation": "With zero resultant force, a body remains at rest or moves at constant velocity.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Zero resultant force means rest or constant velocity",
+     "keywords": [
+      [
+       "zero resultant force",
+       "no resultant force"
+      ],
+      [
+       "rest",
+       "stationary"
+      ],
+      [
+       "constant velocity",
+       "uniform velocity"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i26",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State Newton's second law in terms of momentum.",
+   "marks": 1,
+   "explanation": "The resultant force equals the rate of change of momentum and acts in that direction.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Resultant force equals rate of change of momentum",
+     "keywords": [
+      [
+       "resultant force"
+      ],
+      [
+       "rate of change"
+      ],
+      [
+       "momentum"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i27",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State Newton's third law of motion.",
+   "marks": 1,
+   "explanation": "The interacting bodies exert equal magnitude, opposite direction forces of the same type on each other.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Interacting bodies exert equal and opposite forces on each other",
+     "keywords": [
+      [
+       "two bodies",
+       "different objects"
+      ],
+      [
+       "equal"
+      ],
+      [
+       "opposite"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i28",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A book rests on a table. Which is the third-law partner of the Earth’s gravitational force on the book?",
+   "marks": 1,
+   "explanation": "The partner is the same gravitational interaction on the other body.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "options": {
+    "A": "The table’s support force on the book",
+    "B": "The book’s gravitational force on Earth",
+    "C": "The book’s force on the table",
+    "D": "Earth’s force on the table"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.1-i29",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball is momentarily stationary while rebounding upward. Explain why the resultant force need not be zero.",
+   "marks": 1,
+   "explanation": "At the turnaround instant the ball has zero velocity but upward acceleration.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Velocity can be zero while acceleration is non-zero",
+     "keywords": [
+      [
+       "zero velocity",
+       "stationary"
+      ],
+      [
+       "acceleration",
+       "changing velocity"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i30",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An object moves at constant velocity in a straight line. Which law directly states the consequence for resultant force?",
+   "marks": 1,
+   "explanation": "Newton’s first law relates zero resultant force to constant velocity.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "options": {
+    "A": "Newton’s first law",
+    "B": "Newton’s second law only",
+    "C": "Newton’s third law",
+    "D": "Law of gravitation"
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.1-i31",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define weight.",
+   "marks": 1,
+   "explanation": "Weight is the force on an object due to a gravitational field.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Force on mass due to gravitational field",
+     "keywords": [
+      [
+       "force"
+      ],
+      [
+       "gravitational field",
+       "gravity"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-i32",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the weight of a [[m]] kg object at $g=9.81$ m s⁻².",
+   "marks": 1,
+   "explanation": "Use $W=mg$ with $g=9.81$ m s⁻².",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 19.62,
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "m": {
+      "choices": [
+       2.0,
+       4.0,
+       7.5
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "m*9.81",
+    "distractors": [
+     {
+      "expr": "m",
+      "misconception": "m6"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-3.1-i33",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the weight of a 7.5 kg object where $g=9.81$ m s⁻².",
+   "marks": 1,
+   "explanation": "Use $W=mg$ with $g=9.81$ m s⁻².",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 73.575,
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-3.1-i34",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An object weighs 49.05 N where $g=9.81$ m s⁻². Calculate its mass.",
+   "marks": 1,
+   "explanation": "Rearrange $W=mg$ to $m=W/g$.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "answer": {
+    "value": 5.0,
+    "unit": "kg",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-3.1-i35",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An object falls at terminal velocity. Which statement about its weight is correct?",
+   "marks": 1,
+   "explanation": "At terminal velocity the resultant force is zero, so drag balances the non-zero weight.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "options": {
+    "A": "Weight is zero",
+    "B": "Weight equals its mass",
+    "C": "Weight equals the upward drag in magnitude",
+    "D": "Weight equals mass times its zero acceleration"
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m6"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.1-i36",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the same object has less weight on the Moon than on Earth.",
+   "marks": 1,
+   "explanation": "Weight $W=mg$ falls when $g$ is smaller, while mass is unchanged.",
+   "hints": [
+    "Identify the physical quantity involved.",
+    "Write the relevant law or definition.",
+    "Check directions and SI units before solving."
+   ],
+   "rubric": [
+    {
+     "point": "Gravitational field strength is less, mass unchanged",
+     "keywords": [
+      [
+       "gravitational field",
+       "acceleration of free fall"
+      ],
+      [
+       "less",
+       "smaller"
+      ],
+      [
+       "mass"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.1-p01",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q8",
+    "qid": "9702_w21_12_q8"
+   },
+   "stem": "What is meant by the mass of an object?",
+   "options": {
+    "A": "the property of the object that resists a change in motion",
+    "B": "the pull of the Earth on the object",
+    "C": "the total number of atoms in the object",
+    "D": "the weight of the object"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Mass is inertia: the property resisting change in motion. Counting atoms (C) does not account for their masses.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p02",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q7",
+    "qid": "9702_w23_12_q7"
+   },
+   "stem": "Two blocks, of mass 0.20 kg and 0.50 kg, are connected by a light inextensible string that passes\nover a frictionless pulley.\nrough\nhorizontal\nsurface\nblock,\nmass 0.20 kg\nblock,\nmass 0.50 kg\npulley\nThe blocks are initially held stationary. The block of mass 0.20 kg rests on a rough horizontal\nsurface.\nThe block of mass 0.50 kg is suspended in air. Air resistance is negligible.\nWhen the blocks are released, they have an acceleration of magnitude 2.0 m s⁻².\nWhat is the magnitude of the frictional force between the block of mass 0.20 kg and the rough\nsurface?",
+   "options": {
+    "A": "3.5 N",
+    "B": "3.9 N",
+    "C": "4.5 N",
+    "D": "6.3 N"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_12_q7.png",
+   "marks": 1,
+   "explanation": "Apply $F=ma$ to both connected blocks and eliminate tension; the friction is 3.5 N. Options B and C come from incomplete force balances.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p03",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q9",
+    "qid": "9702_w21_12_q9"
+   },
+   "stem": "The diagram shows two parachutists, X and Y, moving vertically downwards.\nY\nX\nThe total mass of parachutist Y and his parachute is twice the total mass of parachutist X and his\nparachute. At this moment, the air resistance on parachute Y is twice the air resistance on\nparachute X. Neither parachutist has reached his constant (terminal) velocity.\nWhich statement describes the acceleration of Y compared with the acceleration of X?",
+   "options": {
+    "A": "The acceleration of Y is half the acceleration of X.",
+    "B": "The acceleration of Y is the same as the acceleration of X.",
+    "C": "The acceleration of Y is more than the acceleration of X, but less than twice the value.",
+    "D": "The acceleration of Y is twice the acceleration of X."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_12_q9.png",
+   "marks": 1,
+   "explanation": "Both mass and air resistance double, so $(mg-R)/m$ is unchanged. Option A overlooks that weight also doubles.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p04",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q10",
+    "qid": "9702_s19_12_q10"
+   },
+   "stem": "A car has mass m. A person needs to push the car with force F in order to give the car\nacceleration a. The person needs to push the car with force 2F in order to give the car\nacceleration 3a.\nWhich expression gives the constant resistive force opposing the motion of the car?",
+   "options": {
+    "A": "ma",
+    "B": "2ma",
+    "C": "3ma",
+    "D": "4ma"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Use $F-R=ma$ and $2F-R=3ma$; solving gives $R=ma$. Option B omits the simultaneous balance.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p05",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q11",
+    "qid": "9702_s19_11_q11"
+   },
+   "stem": "A helium atom of mass m collides normally with a wall. The atom arrives at the wall with speed v\nand then rebounds along its original path. Assume that the collision is perfectly elastic.\nWhat is the change in the momentum of the atom during its collision?",
+   "options": {
+    "A": "zero",
+    "B": "0.5 mv",
+    "C": "mv",
+    "D": "2mv"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "Momentum reverses from $mv$ to $-mv$, giving a change of magnitude $2mv$. Option A confuses conserved kinetic energy with unchanged momentum.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p06",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q8",
+    "qid": "9702_w23_13_q8"
+   },
+   "stem": "A snooker ball has a mass of 200 g. It hits the cushion of a snooker table and rebounds along its\noriginal path.\nThe ball arrives at the cushion with a speed of 14.0 m s⁻¹ and then leaves it with a speed of\n7.0 m s⁻¹. The ball and the cushion are in contact for a time of 0.60 s.\nWhat is the average force exerted on the ball by the cushion?",
+   "options": {
+    "A": "1.4 N",
+    "B": "2.3 N",
+    "C": "4.2 N",
+    "D": "7.0 N"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "The velocities have opposite signs, so $|\\Delta p|=0.200(14.0+7.0)=4.2$ kg m s⁻¹ and $F=7.0$ N. Option B subtracts the speeds.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p07",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q8",
+    "qid": "9702_w23_11_q8"
+   },
+   "stem": "A ball of mass 200 g is thrown horizontally with a speed of 20 m s⁻¹ against a vertical wall.\nThe ball is in contact with the wall for a time of 0.10 s before rebounding back along its original\npath with a speed of 10 m s⁻¹.\nWhat is the average force exerted by the wall on the ball during the collision?",
+   "options": {
+    "A": "20 N",
+    "B": "60 N",
+    "C": "20 kN",
+    "D": "60 kN"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "The velocity change has magnitude 30 m s⁻¹; $F=0.200(30)/0.10=60$ N. Option A ignores the rebound direction.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p08",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q8",
+    "qid": "9702_w21_13_q8"
+   },
+   "stem": "Water is pumped through a hose-pipe at a rate of 90 kg per minute. Water emerges horizontally\nfrom the hose-pipe with a speed of 20 m s⁻¹.\nWhat is the minimum force required from a person holding the hose-pipe to prevent it moving\nbackwards?",
+   "options": {
+    "A": "30 N",
+    "B": "270 N",
+    "C": "1800 N",
+    "D": "110 000 N"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Convert 90 kg per minute to 1.5 kg s⁻¹, then $F=1.5(20)=30$ N. Option C uses minutes as seconds.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p09",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q8",
+    "qid": "9702_s21_12_q8"
+   },
+   "stem": "A book of weight W is at rest on a table. A student attempts to state Newton’s third law of motion\nby saying that ‘action equals reaction’.\nW\nbook\ntable\nIf the weight of the book is the ‘action’ force, what is the ‘reaction’ force?",
+   "options": {
+    "A": "the force W acting downwards on the Earth from the table",
+    "B": "the force W acting upwards on the book from the table",
+    "C": "the force W acting upwards on the Earth from the book",
+    "D": "the force W acting upwards on the table from the floor"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_12_q8.png",
+   "marks": 1,
+   "explanation": "The book pulls Earth gravitationally upward with force $W$. Option B is the support force on the same book, so it is not the third-law partner.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p10",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q8",
+    "qid": "9702_s21_11_q8"
+   },
+   "stem": "A rocket is fired from the Earth into space.\nNewton’s third law of motion describes how forces act in pairs. One of the forces of a pair is the\nweight of the rocket.\nWhat is the other force of this pair?",
+   "options": {
+    "A": "air resistance",
+    "B": "force of the exhaust gases on the rocket",
+    "C": "force of the rocket on the exhaust gases",
+    "D": "gravitational force of the rocket on the Earth"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "The partner of Earth pulling the rocket is the rocket pulling Earth gravitationally. Exhaust forces are a different interaction.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p11",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q7",
+    "qid": "9702_w23_11_q7"
+   },
+   "stem": "A man stands in a lift that is accelerating vertically downwards, as shown.\nlift\nacceleration\nWhich statement describes the force exerted by the man on the floor?",
+   "options": {
+    "A": "It is equal to the weight of the man.",
+    "B": "It is greater than the force exerted by the floor on the man.",
+    "C": "It is less than the force exerted by the floor on the man.",
+    "D": "It is less than the weight of the man."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_11_q7.png",
+   "marks": 1,
+   "explanation": "For downward acceleration $W-R=ma$, so $R<W$; the man pushes the floor with magnitude $R$. Option A wrongly assumes equilibrium.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-p12",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q8",
+    "qid": "9702_w25_12_q8"
+   },
+   "stem": "Which statement describes the weight of an object?",
+   "options": {
+    "A": "It is equal to the mass of the object multiplied by its acceleration.",
+    "B": "It is equal to the resultant force when the object falls at terminal (constant) velocity.",
+    "C": "It is the force acting on the object due to a gravitational field.",
+    "D": "It is the property of the object that resists change in motion."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "Weight is gravitational force on an object, equal to $mg$. Option A uses the object’s actual acceleration, which may differ from $g$.",
+   "hints": [
+    "Identify the body and relevant law.",
+    "Use signed directions for vector quantities.",
+    "Check the force balance and units."
+   ]
+  },
+  {
+   "id": "9702-3.1-x001",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q9",
+    "qid": "9702_s19_11_q9"
+   },
+   "stem": "Each diagram illustrates a pair of forces of equal magnitude.\nWhich diagram gives an example of a pair of forces that is described by Newton’s third law of\nmotion?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "total resistive forces driving force Earth Moon gravitational attraction gravitational attraction support force weight weight lift"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_11_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Over half the candidates chose answer C rather than the correct answer B. If the object in C is in equilibrium, the two forces shown are equal and opposite, but these are not the forces referred to in Newton’s third law of motion. In applying Newton’s third law, two key points need to be remembered: • the two forces act on different objects • the two forces are of the same type (e.g. gravitational). In C, both forces act on the same object; one is gravitational (the object’s weight) while the other is electrical (the repulsive force between atoms ‘pushing up’ the object). In D, the two forces "
+  },
+  {
+   "id": "9702-3.1-x002",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q9",
+    "qid": "9702_s19_12_q9"
+   },
+   "stem": "What describes the mass of an object?",
+   "options": {
+    "A": "the force the object experiences due to gravity",
+    "B": "the momentum of the object before a collision",
+    "C": "the resistance of the object to changes in motion",
+    "D": "the weight of the object as measured by a balance"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x003",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q14",
+    "qid": "9702_s19_12_q14"
+   },
+   "stem": "A car of mass m travels at constant speed up a slope at an angle θ to the horizontal, as shown in\nthe diagram. Air resistance and friction provide a resistive force F. The acceleration of free fall\nis g.\nθ\nresistive force F\nWhat is the force needed to propel the car at this constant speed?",
+   "options": {
+    "A": "mg cos θ",
+    "B": "mg sin θ",
+    "C": "mg cos θ + F",
+    "D": "mg sin θ + F"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_12_q14.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates answered this question correctly. As the car is travelling at constant speed up the slope, the total force acting up the slope (produced by the car’s engine) must equal the total force acting down the slope. Some candidates confused sinθ with cosθ when calculating the component of the car’s weight acting down the slope; others omitted the resistive force F from the total force acting down the slope."
+  },
+  {
+   "id": "9702-3.1-x004",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q7",
+    "qid": "9702_w19_11_q7"
+   },
+   "stem": "Which statement follows directly from Newton’s first law?",
+   "options": {
+    "A": "A body remains at constant velocity unless acted upon by a resultant force.",
+    "B": "A satellite in circular motion about the Earth has a constant velocity.",
+    "C": "A water drop leaving a spinning umbrella travels at a constant velocity.",
+    "D": "The force acting on an object is equal to its change in momentum."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x005",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q8",
+    "qid": "9702_w19_11_q8"
+   },
+   "stem": "A resultant force causes an object to accelerate.\nWhat is equal to the resultant force?",
+   "options": {
+    "A": "the acceleration of the object per unit mass",
+    "B": "the change in kinetic energy of the object per unit time",
+    "C": "the change in momentum of the object per unit time",
+    "D": "the change in velocity of the object per unit time"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x006",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q7",
+    "qid": "9702_w19_13_q7"
+   },
+   "stem": "A box rests on the Earth, as shown.\nNewton’s third law describes how forces of the same type act in pairs. One of the forces of a pair\nis the weight W of the box.\nWhich arrow represents the other force of this pair?",
+   "options": {
+    "D": "",
+    "B": "W",
+    "C": "",
+    "A": "box Earth not to scale"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_13_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The majority of candidates selected the correct force A, but many others selected B, suggesting a misunderstanding of Newton’s third law. Force B will be equal and opposite to the weight of the box (as the box is at rest) but this is not the force that forms a pair with the weight of the box in Newton’s third law. The pair of forces referred to in Newton’s third law are always of the same type and always act on different objects. In this example, both forces of the pair are gravitational – the pull of the Earth on the box (its weight) and the pull of the box on the Earth. The two forces act on"
+  },
+  {
+   "id": "9702-3.1-x007",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q7",
+    "qid": "9702_s20_12_q7"
+   },
+   "stem": "The resultant force acting on an object is slowly increased.\nWhich graph could show the variation with time t of the momentum p of the object?\n0\n0\np\nt",
+   "options": {
+    "A": "0 0 p t",
+    "B": "0 0 p t",
+    "C": "0 0 p t",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x008",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q8",
+    "qid": "9702_s20_12_q8"
+   },
+   "stem": "An astronaut has a weight of 660 N when she is standing on the Earth’s surface.\nThe acceleration of free fall on the surface of Mars is 3.71 m s⁻².\nWhat would be the weight of the astronaut if she stood on the surface of Mars?",
+   "options": {
+    "A": "67.3 N",
+    "B": "178 N",
+    "C": "250 N",
+    "D": "660 N"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x009",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q8",
+    "qid": "9702_s20_13_q8"
+   },
+   "stem": "A ball of mass m travels vertically downwards and then hits a horizontal floor at speed u.\nIt rebounds vertically upwards with speed v.\nThe collision lasts a time ∆t.\nWhat is the average resultant force exerted on the ball during the collision?",
+   "options": {
+    "A": "∆ – t mv mu downwards",
+    "B": "∆ – t mv mu upwards",
+    "C": "∆ + t mv mu downwards",
+    "D": "∆ + t mv mu upwards"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x010",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q18",
+    "qid": "9702_w20_11_q18"
+   },
+   "stem": "A train of mass 300 000 kg is accelerating at 0.80 m s⁻². At one instant, the speed of the train is\n5.0 m s⁻¹ and the resistive force to its motion is 15 kN.\nAt this instant, what is the rate of increase of kinetic energy of the train?",
+   "options": {
+    "A": "0.075 MW",
+    "B": "1.2 MW",
+    "C": "1.3 MW",
+    "D": "3.8 MW"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Only 2 of the 8 candidates answered this correctly, with the others selecting answer C or D rather than the correct answer B. If the output force of the train’s engine is F, then (using F = ma): F – 15 × 10³ = 300 000 × 0.80, F = 2.55 × 10⁵ N. The output power of the train’s engine is ‘Fv’ = 2.55 × 10⁵ × 5.0 = 1.3 × 10⁶ W (answer C). Some of this output power is used against the resistive force; the rest accelerates the train, increasing its kinetic energy. Rate of increase of KE = output power of train’s engine – work done per second against resistive force = 1.3 × 10⁶ – (15 × 10³ × 5.0) = 1.2 × 10⁶ W (answer B). (An alternative method: $\\dfrac{d}{dt}\\left(\\tfrac12 mv^2\\right) = mv\\dfrac{dv}{dt} = mva$ = 300 000 × 5.0 × 0.80 = 1.2 × 10⁶ W.)"
+  },
+  {
+   "id": "9702-3.1-x011",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q8",
+    "qid": "9702_w20_12_q8"
+   },
+   "stem": "What is not a statement of one of Newton’s laws of motion?",
+   "options": {
+    "A": "If body X exerts a force on body Y, body Y exerts an equal and opposite force on body X.",
+    "B": "If no resultant force acts on a body it has constant velocity.",
+    "C": "The rate of change of momentum of a body is proportional to the resultant force acting on it and takes place in the direction of the force.",
+    "D": "The total momentum of a system of interacting bodies is constant if there is no external force."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x012",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q11",
+    "qid": "9702_w20_13_q11"
+   },
+   "stem": "An air bubble is rising through a liquid at a constant speed. The forces on it are the upthrust U,\nthe viscous drag V and its weight W.\nWhich diagram shows the directions and relative sizes of the forces?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "U U U U V V V V W W W W"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_13_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Less than half of the candidates selected the correct answer A. As the air bubble is moving upwards, the viscous drag force V must be acting downwards, which eliminates option D. The lengths of the arrows indicate the relative sizes of the three forces. Options C and D both have weights that are large (similar to or larger than the upthrust) which could not be true for an air bubble in a liquid. As the air bubble is rising at a constant speed, the resultant force on the bubble must be zero. In B, (W + V) is less than U so this bubble cannot have zero resultant force. The arrows add up to give "
+  },
+  {
+   "id": "9702-3.1-x013",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q2",
+    "qid": "9702_s21_13_q2"
+   },
+   "stem": "What is a unit of momentum?",
+   "options": {
+    "A": "kg m s⁻²",
+    "B": "N s⁻¹",
+    "C": "N s",
+    "D": "kg s m⁻¹"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x014",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q8",
+    "qid": "9702_s21_13_q8"
+   },
+   "stem": "Two masses, M and m, are connected by an inextensible string which passes over a frictionless\npulley. Mass M rests on a frictionless slope, as shown.\nm\nM\nθ\nfrictionless slope\nThe slope is at an angle θ to the horizontal.\nThe two masses are initially held stationary and then released. Mass M accelerates down the\nslope.\nWhich expression must be correct?",
+   "options": {
+    "A": "sinθ < M m",
+    "B": "cosθ < M m",
+    "C": "sinθ > M m",
+    "D": "cosθ > M m"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_13_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Just over half of the candidates answered this question correctly. The forces acting on the masses M and m are as shown on the diagram below (T is the tension in the string): As the mass M accelerates down the slope, Mg sin θ > T and T > mg. Combining these two inequalities: Mg sin θ > mg and therefore sin m M θ > ."
+  },
+  {
+   "id": "9702-3.1-x015",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q9",
+    "qid": "9702_s21_13_q9"
+   },
+   "stem": "The weights and masses of four different objects on the surfaces of four different planets are\nshown.\nWhich planet has the lowest value of acceleration of free fall at its surface?\nweight\nmass",
+   "options": {
+    "A": "40 mN 6.0 g",
+    "B": "3.0 N 500 g",
+    "C": "10 N 1 kg",
+    "D": "2.6 kN 750 kg"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_13_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x016",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q39",
+    "qid": "9702_s21_13_q39"
+   },
+   "stem": "A beam of α-particles is incident on a thin gold foil. One α-particle collides head-on with a gold\nnucleus and is deflected back along its original path.\nWhich statement could explain why the recoil speed of the gold nucleus is small compared with\nthe recoil speed of the α-particle?",
+   "options": {
+    "A": "Most α-particles are only slightly deflected as they pass through the gold foil.",
+    "B": "The α-particle and the gold nucleus repel each other.",
+    "C": "The mass of the gold nucleus is much greater than the mass of the α-particle.",
+    "D": "The momentum of the α-particle decreases as it approaches the gold nucleus."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x017",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q8",
+    "qid": "9702_w21_11_q8"
+   },
+   "stem": "A constant resultant force acts on an object in the direction of the object’s velocity.\nWhich graph could show the variation with time t of the momentum p of the object?\n0\n0\np\nt",
+   "options": {
+    "A": "p t",
+    "B": "p t",
+    "C": "p t",
+    "D": "0 0 0 0 0 0"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w21_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x018",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q9",
+    "qid": "9702_w21_11_q9"
+   },
+   "stem": "Which statement must be true for an object in a gravitational field?",
+   "options": {
+    "A": "If the object has mass then the field causes it to accelerate.",
+    "B": "If the object has mass then the field causes it to have weight.",
+    "C": "If the object has weight then the field causes it to accelerate.",
+    "D": "If the object has weight then the field causes it to have mass."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x019",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q10",
+    "qid": "9702_w21_11_q10"
+   },
+   "stem": "A ball of mass 0.16 kg is travelling horizontally at a speed of 20 m s⁻¹.\nIt collides with a wall and rebounds with a speed of 15 m s⁻¹ along its original path. The ball is in\ncontact with the wall for a time of 1.0 ms.\nWhat is the average force exerted by the wall on the ball?",
+   "options": {
+    "A": "800 N",
+    "B": "2400 N",
+    "C": "3200 N",
+    "D": "5600 N"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x020",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q7",
+    "qid": "9702_s22_11_q7"
+   },
+   "stem": "An object is moving along the ground in a straight line at a constant speed.\nWhich statement about the resultant force acting on the object is correct?",
+   "options": {
+    "A": "The resultant force acting on the object is equal to its weight.",
+    "B": "The resultant force acting on the object is equal to the product of its mass and its velocity.",
+    "C": "The resultant force acting on the object is equal to the resistive force.",
+    "D": "The resultant force acting on the object is equal to zero."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x021",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q8",
+    "qid": "9702_s22_11_q8"
+   },
+   "stem": "Water flows out of a pipe and hits a wall.\nwater\npipe\nwall\ncross-sectional\narea A\nvelocity v\nWhen the jet of water hits the wall, it has horizontal velocity v and cross-sectional area A.\nThe density of the water is ρ. The water does not rebound from the wall.\nWhat is the force exerted on the wall by the water?",
+   "options": {
+    "A": "A v ρ",
+    "B": "A v ² ρ",
+    "C": "ρAv",
+    "D": "ρAv ²"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x022",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q7",
+    "qid": "9702_s22_12_q7"
+   },
+   "stem": "Which statement is not a requirement of a pair of forces that obey Newton’s third law of motion?",
+   "options": {
+    "A": "The forces act in opposite directions.",
+    "B": "The forces act on different objects.",
+    "C": "The forces act on objects in contact.",
+    "D": "The forces are of equal magnitude."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x023",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q8",
+    "qid": "9702_s22_12_q8"
+   },
+   "stem": "A child of mass 20 kg stands on the rough surface of a sledge of mass 40 kg. The sledge can\nslide on a horizontal frictionless surface.\nOne end of a rope is attached to the sledge. The rope passes around a fixed frictionless pole,\nand the other end of the rope is held by the child, as shown.\nhorizontal rope\nfrictionless\npole\nfrictionless surface\nThe rope is horizontal. The child pulls on the rope with a horizontal force of 12 N. This causes the\nchild and the sledge to move with equal acceleration towards the pole.\nWhat is the frictional force between the child and the sledge?",
+   "options": {
+    "A": "4.0 N",
+    "B": "6.0 N",
+    "C": "8.0 N",
+    "D": "12 N"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_12_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question to be difficult. The child and the sledge should be treated as two separate objects with the same acceleration a (hence the child is stationary relative to the sledge). The relationship F = ma may then be applied to each object. Considering the forces acting on the child, there is a 12 N force to the right (due to the rope) and the frictional force of the sledge on the child acts to the left: 12 – Ffriction = 20 × a. For the sledge, the rope exerts a force of 12 N to the right, and the frictional force between the child’s feet and the sledge also acts to the righ"
+  },
+  {
+   "id": "9702-3.1-x024",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q8",
+    "qid": "9702_s22_13_q8"
+   },
+   "stem": "A car accelerates from rest. The graph shows the variation of the momentum of the car with time.\n0\n0\ntime\nmomentum\nWhat is the meaning of the gradient of the graph at a particular time?",
+   "options": {
+    "A": "the kinetic energy of the car",
+    "B": "the rate of change of kinetic energy of the car",
+    "C": "the resultant force on the car",
+    "D": "the velocity of the car"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_13_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x025",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q9",
+    "qid": "9702_s22_13_q9"
+   },
+   "stem": "A ball is dropped onto horizontal ground and bounces vertically upwards. When the ball is in\ncontact with the ground, the following forces act:\n●\nthe weight W of the ball\n●\nthe contact force P exerted on the ground by the ball\n●\nthe contact force N exerted on the ball by the ground.\nN\nP\nW\nground\nball\nWhen the ball is in contact with the ground, the ball is momentarily stationary.\nAt this instant, which relationship is correct?",
+   "options": {
+    "A": "N = P + W",
+    "B": "N > P + W",
+    "C": "N = W",
+    "D": "N > W"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_13_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "This question involved an understanding of Newton’s laws, and it proved to be very difficult. Only the strongest candidates selected the correct answer D. More than half of candidates chose A, which suggests a misconception that the momentarily stationary ball is in equilibrium, with the total downwards force P + W being equal to the only upwards force N. However, candidates needed to realise that the ball is not in equilibrium – it bounces upwards, therefore it accelerates and must have a resultant upward force acting on it (Newton I and II). Candidates also needed to consider the forces acti"
+  },
+  {
+   "id": "9702-3.1-x026",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q7",
+    "qid": "9702_w22_11_q7"
+   },
+   "stem": "What is the definition of linear momentum?",
+   "options": {
+    "A": "force per unit time",
+    "B": "product of force and time",
+    "C": "product of velocity and mass",
+    "D": "velocity per unit mass"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x027",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q8",
+    "qid": "9702_w22_11_q8"
+   },
+   "stem": "A mass of 0.20 kg is suspended from the lower end of a light spring. A second mass of 0.10 kg is\nsuspended from the first mass by a thread. The arrangement is allowed to come into static\nequilibrium and then the thread is cut.\n0.20 kg\n0.10 kg\nspring\nthread\nImmediately after the thread is cut, what is the upward acceleration of the 0.20 kg mass?",
+   "options": {
+    "A": "4.9 m s⁻²",
+    "B": "6.5 m s⁻²",
+    "C": "9.8 m s⁻²",
+    "D": "15 m s⁻²"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x028",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q38",
+    "qid": "9702_w22_11_q38"
+   },
+   "stem": "An α-particle passes close to a gold nucleus and is deflected through an angle greater than 90°.\nWhich property of the α-particle changes as a result of the deflection?",
+   "options": {
+    "A": "charge",
+    "B": "momentum",
+    "C": "nucleon number",
+    "D": "proton number"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x029",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q8",
+    "qid": "9702_w22_12_q8"
+   },
+   "stem": "A constant resultant force F acts on an object of mass m for time t.\nWhat is the change in momentum of the object?",
+   "options": {
+    "A": "t F",
+    "B": "m Ft",
+    "C": "Ft",
+    "D": "mt F"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x030",
+   "kcs": [
+    "9702-3.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q9",
+    "qid": "9702_w22_12_q9"
+   },
+   "stem": "The acceleration of free fall on the surface of planet P is one-tenth of that on the surface of\nplanet Q.\nOn the surface of P, an object has a mass of 1.0 kg and a weight of 1.0 N.\nWhat are the mass and the weight of the same object on the surface of planet Q?\nmass on Q / kg\nweight on Q / N",
+   "options": {
+    "A": "1.0 0.1",
+    "B": "1.0 10",
+    "C": "10 10",
+    "D": "10 100"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_12_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x031",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q8",
+    "qid": "9702_w22_13_q8"
+   },
+   "stem": "A ball of mass 0.5 kg hits a vertical wall at a speed of 12 m s⁻¹. It bounces back along its original\npath with a speed of 8 m s⁻¹. The collision lasts for 0.10 s.\n12 m s⁻¹\n8 m s⁻¹\nWhat is the average force on the ball due to the collision?",
+   "options": {
+    "A": "0.2 N",
+    "B": "1 N",
+    "C": "20 N",
+    "D": "100 N"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_13_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Just over half the candidates answered this question correctly, with a third of the candidates selecting the incorrect answer C. These candidates did not appreciate that the change in velocity of the ball is 20 m s–1, not 4 m s–1, when calculating the rate of change of momentum of the ball."
+  },
+  {
+   "id": "9702-3.1-x032",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q7",
+    "qid": "9702_s23_11_q7"
+   },
+   "stem": "A camera drone of mass 1.20 kg hovers at a fixed point above the ground. The drone has four\npropellers.\npropeller\ncamera\nIn a time of 1.00 s, each propeller pushes a mass of 0.400 kg of air vertically downwards.\nAssume that the air above the propellers is stationary.\nWhat is the speed of the air leaving each propeller?",
+   "options": {
+    "A": "0.750 m s⁻¹",
+    "B": "3.00 m s⁻¹",
+    "C": "7.36 m s⁻¹",
+    "D": "29.4 m s⁻¹"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_11_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Less than half the candidates answered this question correctly, with many candidates omitting ‘g’ from their calculation and/or ignoring the fact that the drone has four propellers."
+  },
+  {
+   "id": "9702-3.1-x033",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q8",
+    "qid": "9702_s23_11_q8"
+   },
+   "stem": "A box rests on the Earth, as shown.\nNewton’s third law describes how forces of the same type act in pairs. One of the forces of a pair\nis the weight W of the box.\nWhich arrow represents the other force of this pair?",
+   "options": {
+    "D": "",
+    "B": "W",
+    "C": "",
+    "A": "box Earth NOT TO SCALE"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_11_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question challenging, with many selecting force B rather than the correct force A. As the box is at rest, the weight of the box is equal to force B but this is not the other force in the pair with the weight W of the box. Two key points should be recalled when applying Newton’s third law: • the two forces act on different objects; • the two forces are of the same type. In this example, the two objects are the box and the Earth; the two forces are both gravitational."
+  },
+  {
+   "id": "9702-3.1-x034",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q7",
+    "qid": "9702_s23_12_q7"
+   },
+   "stem": "Which statement describes the mass of an object?",
+   "options": {
+    "A": "the force the object experiences due to gravity",
+    "B": "the momentum of the object before a collision",
+    "C": "the resistance of the object to changes in motion",
+    "D": "the weight of the object as measured by a balance"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x035",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q8",
+    "qid": "9702_s23_12_q8"
+   },
+   "stem": "A submarine of total mass 3200 kg is at rest underwater.\nwater surface\nsea bed\nsubmarine\nat rest\nThe total mass of the submarine is suddenly decreased by 200 kg by pumping water out of the\nsubmarine horizontally in a negligible time. The upthrust acting on the submarine is unchanged.\nThe change in the total weight of the submarine causes it to accelerate vertically upwards.\nWhat is the initial upwards acceleration of the submarine?",
+   "options": {
+    "A": "0.613 m s⁻²",
+    "B": "0.654 m s⁻²",
+    "C": "9.81 m s⁻²",
+    "D": "10.5 m s⁻²"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_12_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Around half the candidates answered this question correctly. When the submarine is at rest, the upthrust U equals the weight of the submarine, 3200g N. When 200 kg of water is pumped from the submarine, its mass decreases to 3000 kg and its weight decreases to 3000g N. The upthrust on the submarine remains the same (the submarine is displacing the same volume of water), so applying F = ma: 3200g – 3000g = 3000a so a = 0.654 m s–2, where a is the initial upward acceleration of the submarine (answer B)."
+  },
+  {
+   "id": "9702-3.1-x036",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q7",
+    "qid": "9702_s23_13_q7"
+   },
+   "stem": "A device for spraying paint consists of a box with its faces horizontal and vertical. One of its\nvertical faces contains small holes. Paint is fed into the box under pressure via a vertical tube and\nexits through the holes as fine streams moving horizontally.\npaint in\npaint out through holes\n(only a few holes are shown)\nThe paint is ejected at a speed of 2.5 m s⁻¹ through 400 holes, each of area 0.4 mm². The density\nof the paint is 900 kg m⁻³.\nWhat is the horizontal force required to hold the device stationary as it ejects the paint?",
+   "options": {
+    "A": "0.36 N",
+    "B": "0.90 N",
+    "C": "2.3 N",
+    "D": "900 N"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_13_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question challenging. One approach is to consider what happens in one second. volume of paint ejected in one second = 400 × (0.4 × 10–6) × 2.5 = 4.0 × 10–4 m3 mass of paint ejected in one second = ρV = 900 × 4.0 × 10–4 = 0.36 kg change of momentum of paint in one second = 0.36 × 2.5 = 0.90 kg m s–1 From Newton’s second law of motion, force equals the rate of change of momentum (the change in momentum in one second) so the horizontal force needed to keep the device stationary is 0.90 N. (Answer B). Candidates selecting A omitted the density in their calculation, while thos"
+  },
+  {
+   "id": "9702-3.1-x037",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q8",
+    "qid": "9702_s23_13_q8"
+   },
+   "stem": "Each diagram illustrates a pair of forces of equal magnitude.\nWhich diagram gives an example of a pair of forces that is described by Newton’s third law of\nmotion?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "total resistive forces driving force Earth Moon gravitational force gravitational force support force weight weight lift"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_13_q8.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question very challenging. Two key points need to be understood when applying Newton’s third law of motion: • The two forces are of the same type; • The two forces act on different objects. In A the two forces may be equal (if the car is travelling at constant speed) but both forces act on the car. In D the two forces shown both act on the aeroplane. In C the two forces are equal if the block is at rest, but both forces act on the block. Only B satisfies the criteria for applying Newton’s third law – the two forces are of the same type (gravitational) and act on different"
+  },
+  {
+   "id": "9702-3.1-x038",
+   "kcs": [
+    "9702-3.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q7",
+    "qid": "9702_w23_13_q7"
+   },
+   "stem": "Which statement about mass is correct?",
+   "options": {
+    "A": "Mass has a magnitude and a direction.",
+    "B": "Mass resists changes in motion.",
+    "C": "The greater the mass of an object, the greater its acceleration when falling in a vacuum.",
+    "D": "The mass of an object depends on its location."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x039",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q9",
+    "qid": "9702_s24_11_q9"
+   },
+   "stem": "A golf club hits a golf ball. The graph shows how the force F on the ball varies with time t.\nF\nt\n0\n0\nWhich graph shows how the velocity v of the ball varies with time t ?\nv\nt",
+   "options": {
+    "A": "v t",
+    "B": "v t",
+    "C": "0 v t",
+    "D": "0 0 0 0 0 0 0"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_11_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x040",
+   "kcs": [
+    "9702-3.1.1",
+    "9702-3.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q10",
+    "qid": "9702_s24_11_q10"
+   },
+   "stem": "What is meant by the mass and by the weight of an object on the Earth?\nmass\nweight",
+   "options": {
+    "A": "its momentum divided by its velocity the work done in lifting it one metre",
+    "B": "the gravitational force on it the property that resists its acceleration",
+    "C": "the pull of the Earth on it its mass divided by the acceleration of free fall",
+    "D": "the property that resists its acceleration the pull of the Earth on it"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x041",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q13",
+    "qid": "9702_s24_11_q13"
+   },
+   "stem": "A ball of mass 0.10 kg is thrown towards a stationary vertical bat. The ball hits the bat with a\nhorizontal velocity of 20 m s⁻¹.\nbat\nball\n20 m s⁻¹\nThe ball rebounds and leaves the bat with a horizontal velocity of 15 m s⁻¹.\nWhat is the change in momentum of the ball?",
+   "options": {
+    "A": "0.20 N s",
+    "B": "0.50 N s",
+    "C": "1.5 N s",
+    "D": "3.5 N s"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_11_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x042",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q6",
+    "qid": "9702_s24_13_q6"
+   },
+   "stem": "A block is moving along a horizontal frictionless surface. A constant force F and a constant\nresistive force of 5.0 N act on the block as it is moving in the direction of the force F, as shown.\ndirection of\nmovement\n5.0 N\nF\nfrictionless\nsurface\nThe graph shows the variation with time of the momentum of the block.\n0\n1.5\n2.7\n0.40\ntime / s\nmomentum\n/ kg m s⁻¹\nWhat is the magnitude of force F ?",
+   "options": {
+    "A": "2.0 N",
+    "B": "3.0 N",
+    "C": "5.0 N",
+    "D": "8.0 N"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_13_q6.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x043",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q7",
+    "qid": "9702_s24_13_q7"
+   },
+   "stem": "Newton’s third law describes two forces that are equal in magnitude and form a pair.\nWhich description of the two forces in such a pair is not correct?",
+   "options": {
+    "A": "They act in opposite directions.",
+    "B": "They act on different objects.",
+    "C": "They are the same type of force.",
+    "D": "They cause an object to be in equilibrium."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x044",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q10",
+    "qid": "9702_s24_13_q10"
+   },
+   "stem": "The diagram shows the view from above of a sprinkler system used to water a garden.\ntube\npivot of\nsprinkler\ndirection of\nwater jet\n0.15 m\nThe sprinkler consists of a tube of length 0.15 m. The tube is pivoted in the middle and spins in a\nhorizontal plane as it lets out jets of water from each end. The two water jets are in opposite\ndirections to each other. Each water jet exerts a horizontal force of 3.0 N on the tube at\nright angles to the tube.\nWhat is the magnitude of the torque on the tube from the water jets?",
+   "options": {
+    "A": "0 N m",
+    "B": "0.23 N m",
+    "C": "0.45 N m",
+    "D": "0.90 N m"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x045",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q10",
+    "qid": "9702_w24_11_q10"
+   },
+   "stem": "A lift (elevator) consists of a passenger car supported by a cable that runs over a light, frictionless\npulley to a counterbalance. The counterbalance falls as the passenger car rises.\ncounterbalance\npassenger car\npulley\nnot to scale\nSome masses are shown in the table.\nmass / kg\npassenger car\n520\ncounterbalance\n640\npassenger\n80\nWhat is the magnitude of the acceleration of the car when carrying just one passenger and when\nthe pulley is free to rotate?",
+   "options": {
+    "A": "0.032 m s⁻²",
+    "B": "0.32 m s⁻²",
+    "C": "0.61 m s⁻²",
+    "D": "0.65 m s⁻²"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x046",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q11",
+    "qid": "9702_w24_11_q11"
+   },
+   "stem": "A stationary ball of mass m is hit by a bat. The ball leaves the bat with velocity v.\nThe bat is in contact with the ball for a short time Δt.\nWhat is the average force of the bat on the ball?",
+   "options": {
+    "A": "mvΔt",
+    "B": "t mv Δ",
+    "C": "t mv Δ 2 2 1",
+    "D": "t mv Δ 2 2 1"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_11_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x047",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q9",
+    "qid": "9702_w24_12_q9"
+   },
+   "stem": "A ball of mass 2.0 kg travels horizontally with a speed of 4.0 m s⁻¹. The ball collides with a wall\nand rebounds in the opposite direction with a speed of 2.8 m s⁻¹. The time of the collision is\n150 ms.\nWhat is the average force exerted on the wall?",
+   "options": {
+    "A": "16 N",
+    "B": "37 N",
+    "C": "53 N",
+    "D": "91 N"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x048",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q9",
+    "qid": "9702_w24_13_q9"
+   },
+   "stem": "The graph shows the variation of the momentum p with time t for a car.\n4\n1\n0\n0\n20\n50\n60\nt / s\np / 10⁴ kg m s⁻¹\nWhat is the resultant force on the car at t = 10 s?",
+   "options": {
+    "A": "0",
+    "B": "1500 N",
+    "C": "2000 N",
+    "D": "4000 N"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_13_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x049",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q10",
+    "qid": "9702_w24_13_q10"
+   },
+   "stem": "Two objects X and Y form an isolated system. X and Y collide and then separate. The mass of X\nis greater than the mass of Y.\nWhich statement about the collision is correct?",
+   "options": {
+    "A": "The change of momentum of Y is greater than the change of momentum of X.",
+    "B": "The force on Y is greater than the force on X.",
+    "C": "The forces that X and Y exert on each other act for the same length of time.",
+    "D": "The forces that X and Y exert on each other are gravitational forces only."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x050",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q10",
+    "qid": "9702_s25_11_q10"
+   },
+   "stem": "A firework travels vertically upwards in air. Gases are pushed vertically downwards from the\nfirework.\nSeveral forces that act on the firework and gases are shown.\nair\nresistance\nforce on\ngases\nweight\nthrust\nNOT TO SCALE\nWhich forces are a Newton’s third law pair?",
+   "options": {
+    "A": "air resistance and force on gases",
+    "B": "air resistance and thrust",
+    "C": "force on gases and thrust",
+    "D": "thrust and weight"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x051",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q11",
+    "qid": "9702_s25_11_q11"
+   },
+   "stem": "Two blocks K and L slide towards each other along a horizontal frictionless surface.\nThe diagram shows the momentum of the two blocks just before they collide.\nK\n0.72 kg m s⁻¹\nL\n0.46 kg m s⁻¹\nDuring the collision, the blocks are in contact with each other for a time of 0.084 s.\nAfter the collision, the blocks separate and block L moves back along its original path with a\nmomentum of 0.12 kg m s⁻¹.\nWhat is the magnitude of the average force exerted on block L by block K during the collision?",
+   "options": {
+    "A": "3.1 N",
+    "B": "4.0 N",
+    "C": "6.9 N",
+    "D": "7.1 N"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_11_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x052",
+   "kcs": [
+    "9702-3.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q19",
+    "qid": "9702_s25_11_q19"
+   },
+   "stem": "The momentum of a car of mass m increases from p₁ to p₂.\nWhat is the increase in the kinetic energy of the car?",
+   "options": {
+    "A": "m p p 2 ) – ( 2 1 2 2",
+    "B": "m p p 2 ) – ( 2 1 2",
+    "C": "m p p 2 – 1 2",
+    "D": "m p p 2 – 2 1"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x053",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q7",
+    "qid": "9702_s25_12_q7"
+   },
+   "stem": "A solid object of mass 1.0 kg falls vertically downwards in a vacuum.\nWhen the speed of the object is 60 m s⁻¹, an additional constant force of 50 N suddenly starts to\nact vertically upwards on the object.\nWhat is the speed of the object 2.0 s after the additional force starts to act?",
+   "options": {
+    "A": "20 m s⁻¹",
+    "B": "40 m s⁻¹",
+    "C": "80 m s⁻¹",
+    "D": "100 m s⁻¹"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x054",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q9",
+    "qid": "9702_s25_12_q9"
+   },
+   "stem": "A rocket engine ejects 90 kg of exhaust gas per second at a velocity of 190 m s⁻¹ relative to the\nrocket.\nWhat is the force acting on the rocket due to the ejected gas?",
+   "options": {
+    "A": "2.1 kN",
+    "B": "17 kN",
+    "C": "18 kN",
+    "D": "162 kN"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x055",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q11",
+    "qid": "9702_s25_12_q11"
+   },
+   "stem": "A cyclist is riding at a constant speed on a level road.\nAccording to Newton’s third law of motion, what is equal and opposite to the backward push of\nthe back wheel on the road?",
+   "options": {
+    "A": "the force exerted by the cyclist on the pedals",
+    "B": "the forward push of the road on the back wheel",
+    "C": "the tension in the cycle chain",
+    "D": "the total air resistance and friction force"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x056",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q9",
+    "qid": "9702_s25_13_q9"
+   },
+   "stem": "Which statement defines force?",
+   "options": {
+    "A": "When a force acts on a body that is free to move, the force is the product of the mass of the body and its acceleration.",
+    "B": "When a force acts on a body that is free to move, the force is the rate of change of momentum of the body.",
+    "C": "When a force acts on a body that is free to move, the force is the work done by the force divided by the distance moved by the body.",
+    "D": "When a force acts on a lever and causes a moment, the force is the moment divided by the perpendicular distance of the force from the pivot."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x057",
+   "kcs": [
+    "9702-3.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q10",
+    "qid": "9702_s25_13_q10"
+   },
+   "stem": "Four forces, all in the same plane, act on an object.\n12 N\n12 N\n20 N\n20 N\nWhat could describe the motion of the object?",
+   "options": {
+    "A": "It is accelerating.",
+    "B": "It is moving in a straight line.",
+    "C": "It is moving with decreasing speed.",
+    "D": "It is moving with increasing momentum."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x058",
+   "kcs": [
+    "9702-3.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q11",
+    "qid": "9702_w25_11_q11"
+   },
+   "stem": "The graph shows how the momentum of a motorcycle changes with time.\n5000\n0\n0\n10\ntime / s\nmomentum\n/ kg m s⁻¹\nWhat is the resultant force on the motorcycle?",
+   "options": {
+    "A": "500 N",
+    "B": "5000 N",
+    "C": "25 000 N",
+    "D": "50 000 N"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w25_11_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.1-x059",
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q12",
+    "qid": "9702_w25_11_q12"
+   },
+   "stem": "A rocket has a weight of W and an initial acceleration of a as the rocket leaves the ground\nvertically. The acceleration of free fall is g.\nWhich expression gives the initial upward force exerted on the rocket due to the engine?",
+   "options": {
+    "A": "g Wa + W",
+    "B": "g Wa",
+    "C": "g Wa – W",
+    "D": "Wa + W"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-3.1.1",
+   "front": "What is mass?",
+   "back": "The property of an object that resists change in motion."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-3.1.3",
+   "front": "Define linear momentum.",
+   "back": "The product of mass and velocity: $p=mv$."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-3.1.4",
+   "front": "Define resultant force in momentum terms.",
+   "back": "The rate of change of momentum: $F=\\Delta p/\\Delta t$."
+  },
+  {
+   "id": "fc4",
+   "kc": "9702-3.1.5",
+   "front": "State Newton’s first law.",
+   "back": "An object remains at rest or at constant velocity unless acted on by a resultant force."
+  },
+  {
+   "id": "fc5",
+   "kc": "9702-3.1.5",
+   "front": "State Newton’s second law.",
+   "back": "Resultant force is the rate of change of momentum, in the direction of the force."
+  },
+  {
+   "id": "fc6",
+   "kc": "9702-3.1.5",
+   "front": "State Newton’s third law.",
+   "back": "Interacting bodies exert equal and opposite forces of the same type on each other."
+  },
+  {
+   "id": "fc7",
+   "kc": "9702-3.1.6",
+   "front": "Define weight.",
+   "back": "The force on an object due to a gravitational field; $W=mg$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-3.1.1": {
+   "motivate": "Why does a loaded trolley respond less to the same push than an empty one?",
+   "establish": "Mass is the property of an object that resists change in motion. This resistance is inertia. A larger mass needs a larger resultant force for the same acceleration. Mass is measured in kg and remains the same when the gravitational field changes.",
+   "connect": "This meaning of mass explains the $m$ in Newton's second law: at fixed resultant force, $a=F/m$.",
+   "note": "- Mass measures resistance to change in motion.\n- Greater mass means greater inertia.\n- Mass is measured in kg.",
+   "self_explain": "If two trolleys feel the same resultant force, why does the heavier one accelerate less?",
+   "source": "pack"
+  },
+  "9702-3.1.2": {
+   "motivate": "A push accelerates a trolley only after friction and other opposing forces are accounted for.",
+   "establish": "Newton's second law for constant mass is $F_{\\mathrm{net}}=ma$. Here $F_{\\mathrm{net}}$ is the vector resultant of all forces on the chosen object. Acceleration and resultant force always have the same direction. Choose a positive direction, add forces with signs, and divide the resultant by mass. If the resultant is zero, acceleration is zero.",
+   "connect": "The equation is the constant-mass form of force as rate of change of momentum.",
+   "note": "- $F_{\\mathrm{net}}=ma$ for constant mass.\n- Add forces as vectors before calculating.\n- Acceleration points with the resultant force.",
+   "self_explain": "Why is a 12 N thrust not necessarily equal to $ma$?",
+   "source": "pack"
+  },
+  "9702-3.1.3": {
+   "motivate": "A moving loaded trolley is harder to stop than a similarly moving empty one.",
+   "establish": "Linear momentum is defined as the product of mass and velocity: $p=mv$. It is a vector in the direction of the velocity. Its SI unit is $\\mathrm{kg\\,m\\,s^{-1}}$. To calculate a momentum change, select a positive direction and subtract signed initial momentum from signed final momentum.",
+   "connect": "Momentum combines mass and motion; its change per unit time gives resultant force.",
+   "note": "- Linear momentum is $p=mv$.\n- Momentum has the direction of velocity.\n- Its SI unit is $\\mathrm{kg\\,m\\,s^{-1}}$.",
+   "self_explain": "Why does a rebound produce a momentum change even when the speed is unchanged?",
+   "source": "pack"
+  },
+  "9702-3.1.4": {
+   "motivate": "A ball hitting a wall changes momentum in a short time, so the force can be large.",
+   "establish": "The resultant force is defined as the rate of change of momentum: $F_{\\mathrm{net}}=\\Delta p/\\Delta t$. For constant mass, $\\Delta p=m(v-u)$ and $F_{\\mathrm{net}}=m(v-u)/\\Delta t=ma$. Signed velocities matter: if an object rebounds, its initial and final velocities have opposite signs. For a time interval, this calculation gives the average resultant force.",
+   "connect": "This is Newton's second law in its general momentum form; $F=ma$ follows for constant mass.",
+   "note": "- Resultant force is rate of change of momentum.\n- Use $F_{\\mathrm{avg}}=\\Delta p/\\Delta t$.\n- Give rebound velocities opposite signs.",
+   "self_explain": "Why do you add speed magnitudes when finding the size of a rebound's velocity change?",
+   "source": "pack"
+  },
+  "9702-3.1.5": {
+   "motivate": "A book at rest, a ball in a bounce and a rocket in flight each call on a different aspect of Newton's laws.",
+   "establish": "First law: an object remains at rest or in constant straight-line velocity unless a resultant force acts. Second law: the resultant force is the rate of change of momentum in its direction; for constant mass, $F_{\\mathrm{net}}=ma$. Third law: when two bodies interact, each exerts an equal-magnitude, opposite-direction force of the same type on the other. The third-law forces act on different bodies, so they do not cancel in one body's force balance.",
+   "connect": "Apply the first law to equilibrium, the second to acceleration and the third to interacting bodies.",
+   "note": "- First: zero resultant force preserves velocity.\n- Second: resultant force changes momentum.\n- Third: equal opposite forces act on different bodies.",
+   "self_explain": "Why are a book's weight and the table's support force not a third-law pair?",
+   "source": "pack"
+  },
+  "9702-3.1.6": {
+   "motivate": "The same suitcase has the same mass on Earth and the Moon but different weight.",
+   "establish": "Weight is the force on an object due to a gravitational field. Its magnitude is $W=mg$, where $m$ is mass and $g$ is the acceleration of free fall or gravitational field strength. For this syllabus use $g=9.81\\ \\mathrm{m\\,s^{-2}}$ when required. Weight is in newtons, acts toward the attracting body and changes if $g$ changes. Mass stays the same.",
+   "connect": "Weight is one of the forces to include in a resultant-force equation such as thrust minus weight equals $ma$.",
+   "note": "- Weight is gravitational force on a mass.\n- $W=mg$; weight is in N.\n- Mass stays fixed when $g$ changes.",
+   "self_explain": "Why can a falling object at terminal velocity have non-zero weight but zero resultant force?",
+   "source": "pack"
+  }
+ }
+}

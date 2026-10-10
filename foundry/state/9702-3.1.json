@@ -1,0 +1,339 @@
+{
+ "sub": "9702-3.1",
+ "stage": "ready",
+ "created": "2026-10-01T18:36:11+08:00",
+ "updated": "2026-10-10T10:58:33+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T18:36:22+08:00",
+   "from": "draft",
+   "to": "draft",
+   "note": "drafter failed (exit 1); see foundry/logs/9702-3.1.drafter.1001-183611.log"
+  },
+  {
+   "t": "2026-10-10T10:23:05+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 107 items"
+  },
+  {
+   "t": "2026-10-10T10:53:51+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "92 agreed, 5 disputed"
+  },
+  {
+   "t": "2026-10-10T10:57:46+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak settled every dispute; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T10:58:21+08:00",
+   "from": "adjudicate",
+   "to": "sign",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T10:58:33+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 107,
+  "extra": 59
+ },
+ "disputes": [
+  {
+   "id": "9702-3.1-x007",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.1-x010",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.1-x012",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.1-x023",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "we5.faded",
+   "key": {
+    "value": 440.5,
+    "unit": "N",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "solver": "450 N",
+   "tiebreak": "441 N",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9702-3.1-x027 option C",
+   "rule": "wrong constant",
+   "evidence": "C: \"9.8 m s⁻²\"",
+   "suggested": "Replace 9.8 with the syllabus value 9.81 m s⁻².",
+   "status": "closed",
+   "resolution": "keep: Option C is a distractor printed verbatim in the past paper (CAIE 9702 w22 P11 Q8, confirmed against the question image); it is not a constant the item uses, and rewriting it to 9.81 would falsify the source. The key A stands: spring force stays 0.30g, so a = 0.10 x 9.81 / 0.20 = 4.9 m s^-2."
+  }
+ ],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 16567,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T10:20:43+08:00",
+   "log": "foundry/logs/9702-3.1.drafter.1010-102043.log",
+   "out": "foundry/logs/9702-3.1.drafter.1010-102043.out.json",
+   "finished": "2026-10-10T10:23:05+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-3.1.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/03 Dynamics/3.1 Momentum and Newton’s laws of motion.md",
+    "items": 107,
+    "templates": 4,
+    "worked": 5,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 28012,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:45:13+08:00",
+   "log": "foundry/logs/9702-3.1.checker.1010-104513.log",
+   "out": "foundry/logs/9702-3.1.checker.1010-104513.out.json",
+   "expects": "build/work/foundry/9702-3.1.check.json",
+   "finished": "2026-10-10T10:45:34+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — wrote [9702-3.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9702-3.1.check.json)."
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 30397,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T10:49:48+08:00",
+   "log": "foundry/logs/9702-3.1.solver-1.1010-104948.log",
+   "out": "foundry/logs/9702-3.1.solver-1.1010-104948.out.json",
+   "expects": "build/work/blind/9702-3.1.answers.part1.json",
+   "finished": "2026-10-10T10:50:47+08:00",
+   "exit": 0,
+   "report": {
+    "text": "20 questions answered. Wrote build/work/blind/9702-3.1.answers.part1.json."
+   },
+   "ok": true,
+   "cost_usd": 0.076
+  },
+  "solver#2": {
+   "pid": 30399,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T10:49:48+08:00",
+   "log": "foundry/logs/9702-3.1.solver-2.1010-104948.log",
+   "out": "foundry/logs/9702-3.1.solver-2.1010-104948.out.json",
+   "expects": "build/work/blind/9702-3.1.answers.part2.json",
+   "finished": "2026-10-10T10:51:00+08:00",
+   "exit": 0,
+   "report": {
+    "text": "20 questions answered. Written to build/work/blind/9702-3.1.answers.part2.json."
+   },
+   "ok": true,
+   "cost_usd": 0.105
+  },
+  "solver#3": {
+   "pid": 30401,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T10:49:48+08:00",
+   "log": "foundry/logs/9702-3.1.solver-3.1010-104948.log",
+   "out": "foundry/logs/9702-3.1.solver-3.1010-104948.out.json",
+   "expects": "build/work/blind/9702-3.1.answers.part3.json",
+   "finished": "2026-10-10T10:51:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "20 questions answered. Written to build/work/blind/9702-3.1.answers.part3.json."
+   },
+   "ok": true,
+   "cost_usd": 0.11
+  },
+  "solver#4": {
+   "pid": 30403,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T10:49:48+08:00",
+   "log": "foundry/logs/9702-3.1.solver-4.1010-104948.log",
+   "out": "foundry/logs/9702-3.1.solver-4.1010-104948.out.json",
+   "expects": "build/work/blind/9702-3.1.answers.part4.json",
+   "finished": "2026-10-10T10:51:30+08:00",
+   "exit": 0,
+   "report": {
+    "text": "20 questions answered, written to build/work/blind/9702-3.1.answers.part4.json"
+   },
+   "ok": true,
+   "cost_usd": 0.114
+  },
+  "solver#5": {
+   "pid": 31502,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T10:51:33+08:00",
+   "log": "foundry/logs/9702-3.1.solver-5.1010-105133.log",
+   "out": "foundry/logs/9702-3.1.solver-5.1010-105133.out.json",
+   "expects": "build/work/blind/9702-3.1.answers.part5.json",
+   "finished": "2026-10-10T10:52:42+08:00",
+   "exit": 0,
+   "report": {
+    "text": "17 questions answered, written to build/work/blind/9702-3.1.answers.part5.json"
+   },
+   "ok": true,
+   "cost_usd": 0.089
+  },
+  "tiebreak": {
+   "pid": 33213,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 0,
+   "started": "2026-10-10T10:54:12+08:00",
+   "log": "foundry/logs/9702-3.1.tiebreak.1010-105412.log",
+   "out": "foundry/logs/9702-3.1.tiebreak.1010-105412.out.json",
+   "expects": "build/work/blind/9702-3.1.tiebreak.json",
+   "finished": "2026-10-10T10:57:44+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 5,
+    "answers_path": "build/work/blind/9702-3.1.tiebreak.json",
+    "notes": [
+     "x007: p-t graph — chose B (slope magnitude starts near zero and increases, matching a force growing from small to larger over time); A/C show the opposite trend (force decreasing), D is constant force.",
+     "x012: bubble free-body diagram — chose A (U at top balances W+V stacked below with V drawn much larger than W, consistent with air's weight being negligible vs. drag); measured pixel lengths of the arrows to confirm U magnitude).",
+     "x023: friction on sledge/child — system accelerates at 24N/60kg=0.40 m/s²; applying Newton's second law to the sledge alone (40kg*0.40=16N = 12N rope tension + friction) gives friction=4.0N, cross-checked against the child alone (20kg*0.40=8N=12N-4N) — consistent."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 0.671
+  },
+  "adjudicator": {
+   "pid": 35128,
+   "provider": "claude",
+   "model": "opus/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:57:53+08:00",
+   "log": "foundry/logs/9702-3.1.adjudicator.1010-105753.log",
+   "out": "foundry/logs/9702-3.1.adjudicator.1010-105753.out.json",
+   "finished": "2026-10-10T10:58:32+08:00",
+   "exit": 0,
+   "report": {
+    "text": "One open item, no disputes. All items resolved; the chapter is staged for sign-off.\n\n`item 9702-3.1-x027 option C` **keep**: \"9.8 m s⁻²\" is the past paper's own printed distractor (verified against the question image), not a constant the item relies on; key A is correct since a = 0.10 × 9.81 / 0.20 = 4.9 m s⁻²."
+   },
+   "ok": true,
+   "cost_usd": 0.218
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q9": "9702-3.1-x001",
+  "9702_s19_12_q9": "9702-3.1-x002",
+  "9702_s19_12_q14": "9702-3.1-x003",
+  "9702_w19_11_q7": "9702-3.1-x004",
+  "9702_w19_11_q8": "9702-3.1-x005",
+  "9702_w19_13_q7": "9702-3.1-x006",
+  "9702_s20_12_q7": "9702-3.1-x007",
+  "9702_s20_12_q8": "9702-3.1-x008",
+  "9702_s20_13_q8": "9702-3.1-x009",
+  "9702_w20_11_q18": "9702-3.1-x010",
+  "9702_w20_12_q8": "9702-3.1-x011",
+  "9702_w20_13_q11": "9702-3.1-x012",
+  "9702_s21_13_q2": "9702-3.1-x013",
+  "9702_s21_13_q8": "9702-3.1-x014",
+  "9702_s21_13_q9": "9702-3.1-x015",
+  "9702_s21_13_q39": "9702-3.1-x016",
+  "9702_w21_11_q8": "9702-3.1-x017",
+  "9702_w21_11_q9": "9702-3.1-x018",
+  "9702_w21_11_q10": "9702-3.1-x019",
+  "9702_s22_11_q7": "9702-3.1-x020",
+  "9702_s22_11_q8": "9702-3.1-x021",
+  "9702_s22_12_q7": "9702-3.1-x022",
+  "9702_s22_12_q8": "9702-3.1-x023",
+  "9702_s22_13_q8": "9702-3.1-x024",
+  "9702_s22_13_q9": "9702-3.1-x025",
+  "9702_w22_11_q7": "9702-3.1-x026",
+  "9702_w22_11_q8": "9702-3.1-x027",
+  "9702_w22_11_q38": "9702-3.1-x028",
+  "9702_w22_12_q8": "9702-3.1-x029",
+  "9702_w22_12_q9": "9702-3.1-x030",
+  "9702_w22_13_q8": "9702-3.1-x031",
+  "9702_s23_11_q7": "9702-3.1-x032",
+  "9702_s23_11_q8": "9702-3.1-x033",
+  "9702_s23_12_q7": "9702-3.1-x034",
+  "9702_s23_12_q8": "9702-3.1-x035",
+  "9702_s23_13_q7": "9702-3.1-x036",
+  "9702_s23_13_q8": "9702-3.1-x037",
+  "9702_w23_13_q7": "9702-3.1-x038",
+  "9702_s24_11_q9": "9702-3.1-x039",
+  "9702_s24_11_q10": "9702-3.1-x040",
+  "9702_s24_11_q13": "9702-3.1-x041",
+  "9702_s24_13_q6": "9702-3.1-x042",
+  "9702_s24_13_q7": "9702-3.1-x043",
+  "9702_s24_13_q10": "9702-3.1-x044",
+  "9702_w24_11_q10": "9702-3.1-x045",
+  "9702_w24_11_q11": "9702-3.1-x046",
+  "9702_w24_12_q9": "9702-3.1-x047",
+  "9702_w24_13_q9": "9702-3.1-x048",
+  "9702_w24_13_q10": "9702-3.1-x049",
+  "9702_s25_11_q10": "9702-3.1-x050",
+  "9702_s25_11_q11": "9702-3.1-x051",
+  "9702_s25_11_q19": "9702-3.1-x052",
+  "9702_s25_12_q7": "9702-3.1-x053",
+  "9702_s25_12_q9": "9702-3.1-x054",
+  "9702_s25_12_q11": "9702-3.1-x055",
+  "9702_s25_13_q9": "9702-3.1-x056",
+  "9702_s25_13_q10": "9702-3.1-x057",
+  "9702_w25_11_q11": "9702-3.1-x058",
+  "9702_w25_11_q12": "9702-3.1-x059"
+ },
+ "maker": "codex",
+ "checked": true
+}
