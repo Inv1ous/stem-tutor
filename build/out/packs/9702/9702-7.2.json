@@ -1,0 +1,1437 @@
+{
+ "subtopic": "9702-7.2",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/07 Waves/7.2 Transverse and longitudinal waves.md",
+ "outline": "In a transverse wave, particle oscillations are perpendicular to energy transfer; in a longitudinal wave, they are parallel. Both transfer energy without net transfer of medium. A longitudinal displacement graph is not a picture of a wavy material: its vertical axis records displacement along propagation. Adjacent compressions or rarefactions are one wavelength apart. For a right-moving wave, particle velocity is opposite the spatial gradient of displacement. At a displacement maximum or minimum, instantaneous particle speed is zero.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-7.2.1",
+   "statement": "Sound particles vibrate perpendicular to wave travel.",
+   "refutation": "Sound in air is longitudinal: air particles oscillate parallel to energy transfer.",
+   "contrast": "parallel for sound versus perpendicular for a rope wave",
+   "source": "ER 9702 w21 P12 Q23"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-7.2.1",
+   "statement": "Longitudinal waves cannot diffract or transfer energy.",
+   "refutation": "Both types transfer energy and can diffract.",
+   "contrast": "wave behaviour versus vibration direction",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-7.2.2",
+   "statement": "The vertical axis of a longitudinal displacement graph is a sideways particle displacement.",
+   "refutation": "It records signed displacement parallel to propagation, even though plotted vertically.",
+   "contrast": "graph axis versus physical vibration direction",
+   "source": "ER 9702 s21 P12 Q22"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-7.2.2",
+   "statement": "A right-moving particle always moves in the direction of wave travel.",
+   "refutation": "For a right-moving profile, particle motion is opposite its local displacement-distance slope.",
+   "contrast": "profile propagation versus particle vibration",
+   "source": "ER 9702 w23 P12 Q21"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-7.2.2",
+   "statement": "A crest or compression has the greatest particle speed.",
+   "refutation": "In a sinusoidal wave, a particle is momentarily stationary at maximum displacement and fastest at equilibrium. A compression is a region of greatest density, not a displacement crest.",
+   "contrast": "particle speed versus wave speed",
+   "source": "ER 9702 w22 P13 Q21"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-7.2.2",
+   "problem": "Adjacent compression centres in a sound wave are 0.80 m apart. Determine the distance from a compression centre to the nearest rarefaction centre.",
+   "steps": [
+    {
+     "do": "Adjacent compression centres are separated by one wavelength, so $\\lambda=0.80\\,\\mathrm{m}$.",
+     "why": "These are consecutive points of the same phase."
+    },
+    {
+     "do": "Compression to nearest rarefaction is $\\lambda/2=0.80/2=0.40\\,\\mathrm{m}$.",
+     "why": "Their density variations are half a cycle apart.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.4,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Adjacent rarefaction centres are 1.20 m apart. Determine the distance to the nearest compression centre.",
+    "answer": {
+     "value": 0.6,
+     "unit": "m",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-7.2-i11",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the oscillation direction in transverse and longitudinal waves.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Transverse oscillations are perpendicular to the direction of energy transfer; longitudinal oscillations are parallel.",
+     "keywords": [
+      [
+       "perpendicular"
+      ],
+      [
+       "parallel"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Transverse oscillations are perpendicular to the direction of energy transfer; longitudinal oscillations are parallel.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i12",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe particle motion in a sound wave travelling right through air.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Air particles oscillate left and right about equilibrium, parallel to the energy transfer.",
+     "keywords": [
+      [
+       "parallel"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Air particles oscillate left and right about equilibrium, parallel to the energy transfer.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i13",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe particle motion in a transverse rope wave travelling right.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Rope particles oscillate up and down, perpendicular to energy transfer.",
+     "keywords": [
+      [
+       "perpendicular"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Rope particles oscillate up and down, perpendicular to energy transfer.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i14",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare energy and matter transfer in both wave types.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Both transfer energy; medium particles oscillate about equilibrium without net transport.",
+     "keywords": [
+      [
+       "energy"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both transfer energy; medium particles oscillate about equilibrium without net transport.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i15",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a sound wave in air cannot be polarised.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its oscillations are parallel to propagation, so there is no transverse direction to select.",
+     "keywords": [
+      [
+       "parallel"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Its oscillations are parallel to propagation, so there is no transverse direction to select.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i16",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare a transverse wave on a string and sound emitted by the string.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The string oscillates transverse to wave travel along it; air particles oscillate longitudinally along sound travel.",
+     "keywords": [
+      [
+       "transverse"
+      ],
+      [
+       "longitudinal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The string oscillates transverse to wave travel along it; air particles oscillate longitudinally along sound travel.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i21",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify wavelength on a longitudinal particle-spacing diagram.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is the distance between centres of adjacent compressions or adjacent rarefactions.",
+     "keywords": [
+      [
+       "compression"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is the distance between centres of adjacent compressions or adjacent rarefactions.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i22",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe what the vertical axis of a longitudinal displacement-distance graph represents.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is the signed displacement of particles parallel to the direction of wave travel.",
+     "keywords": [
+      [
+       "displacement"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is the signed displacement of particles parallel to the direction of wave travel.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i23",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the instantaneous motion of a particle at a crest of a transverse sinusoidal wave.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is momentarily stationary at maximum displacement before reversing direction.",
+     "keywords": [
+      [
+       "stationary"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is momentarily stationary at maximum displacement before reversing direction.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i24",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine particle motion at a positive spatial slope on a right-moving displacement-distance graph.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The particle moves towards negative displacement because the right-moving profile shifts right.",
+     "keywords": [
+      [
+       "negative"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The particle moves towards negative displacement because the right-moving profile shifts right.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i25",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify a compression on a longitudinal displacement-distance graph.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A compression lies where neighbouring particle displacements converge, at a negative spatial slope.",
+     "keywords": [
+      [
+       "compression"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A compression lies where neighbouring particle displacements converge, at a negative spatial slope.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-i26",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a displacement-time graph cannot by itself identify a wave as transverse.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its vertical axis plots signed displacement in either wave type; the physical direction of oscillation must be specified.",
+     "keywords": [
+      [
+       "displacement"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Its vertical axis plots signed displacement in either wave type; the physical direction of oscillation must be specified.",
+   "hints": [
+    "Identify what the graph or description represents.",
+    "Compare particle oscillation with propagation.",
+    "Start from the direction of energy transfer or the local graph slope."
+   ]
+  },
+  {
+   "id": "9702-7.2-p01",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q21",
+    "qid": "9702_w23_12_q21"
+   },
+   "stem": "A transverse wave on a rope has wavelength λ and period T.\nThe graph shows the variation of the displacement of the particles of the rope with distance in the\ndirection of travel of the wave at time t = 0.\ndisplacement\n0\n0\ndistance\nλ\nX\ndirection\nof travel\nA particle X is labelled.\nWhich graph shows the variation of the displacement of particle X with time t ?\ndisplacement\ndisplacement",
+   "options": {
+    "A": "0 0 t T displacement",
+    "B": "0 0 t T",
+    "C": "0 0 t T displacement",
+    "D": "0 0 t T"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w23_12_q21.png",
+   "marks": 1,
+   "explanation": "At $t=0$, X is at zero displacement. Shift the profile right: X initially moves down, giving C. A has the wrong initial direction; B starts away from zero.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p02",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q21",
+    "qid": "9702_w22_13_q21"
+   },
+   "stem": "The diagram shows a transverse wave on a rope. The wave is travelling from left to right.\nAt the instant shown, the points P and Q on the rope have zero displacement and maximum\ndisplacement respectively.\ndirection of wave\nQ\nP\nWhich row describes the direction of motion, if any, of the points P and Q at this instant?\npoint P\npoint Q",
+   "options": {
+    "A": "downwards stationary",
+    "B": "stationary downwards",
+    "C": "stationary upwards",
+    "D": "upwards stationary"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_13_q21.png",
+   "marks": 1,
+   "explanation": "P moves down as the right-moving profile advances; Q is momentarily stationary at maximum displacement. D reverses P’s direction.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p03",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q23",
+    "qid": "9702_w21_12_q23"
+   },
+   "stem": "The table contains descriptions and examples of waves.\nWhich row is correct?\ndescription of wave\nexample",
+   "options": {
+    "A": "oscillations are parallel to the direction of energy transfer gamma-rays",
+    "B": "oscillations are parallel to the direction of energy transfer ultraviolet waves",
+    "C": "oscillations are perpendicular to the direction of energy transfer sound waves",
+    "D": "oscillations are perpendicular to the direction of energy transfer X-rays"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_12_q23.png",
+   "marks": 1,
+   "explanation": "X-rays are transverse electromagnetic waves. C incorrectly treats sound as transverse; sound particles oscillate parallel to energy transfer.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p04",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q23",
+    "qid": "9702_s22_12_q23"
+   },
+   "stem": "A sound wave travels from left to right across a room. The variation with distance across the\nroom of the displacement of the air molecules at one instant is shown.\nAt which distance will the air pressure be lowest?\ndisplacement\ndistance from left-hand\nend of room\nright\nleft\n0",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_12_q23.png",
+   "marks": 1,
+   "explanation": "The pressure minimum is the rarefaction, where air particles are most spread out. A displacement maximum alone does not identify it; inspect neighbouring particle displacement.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p05",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q22",
+    "qid": "9702_s21_12_q22"
+   },
+   "stem": "Two particles in a progressive wave are a distance 10 cm apart. The two graphs show the\nvariation with time t of the displacement d of the two particles.\nd\nt\n0\n0\nd\nt\n0\n0\nWhat could be represented by the two graphs?",
+   "options": {
+    "A": "particles in a longitudinal wave with a compression and the nearest rarefaction separated by 10 cm",
+    "B": "particles in a longitudinal wave with a compression and the nearest rarefaction separated by 20 cm",
+    "C": "particles in a transverse wave with a peak and the nearest trough separated by 20 cm",
+    "D": "particles in a transverse wave with two adjacent peaks separated by 10 cm"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_12_q22.png",
+   "marks": 1,
+   "explanation": "The two particle traces differ in phase and the compression-to-rarefaction separation can be 10 cm. C assigns a 20 cm peak-to-trough distance inconsistent with the given separation.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p06",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q23",
+    "qid": "9702_s19_11_q23"
+   },
+   "stem": "The graph shows the variation of the displacement of particles with distance along a transverse\nwave at an instant in time. The wave is moving to the right.\nWhich position along the wave corresponds to a point where particles in the wave are travelling\nthe fastest upwards?\n0\n0\ndisplacement\ndistance",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "direction of travel of wave"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_11_q23.png",
+   "marks": 1,
+   "explanation": "A is at zero displacement and moves upwards fastest as the wave travels right. C moves downwards at its zero crossing.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p07",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q22",
+    "qid": "9702_s19_11_q22"
+   },
+   "stem": "A transverse wave in a medium has the waveform shown, where\ny = vertical displacement and x = horizontal distance.\nThe speed of the wave is 20.0 cm s⁻¹.\n+1.0\n0\n2.0\n4.0\n6.0\n8.0\n–1.0\ny / mm\nx / cm\n0\nA particle of the medium oscillates vertically.\nWhich graph of vertical displacement y against time t best represents the motion of this particle?\n+1.0\n0\n0\n0.10\n0.20\n–1.0\ny / mm\nt / s\n+2.0\n4.0\n8.0\n0\ny / mm\nt / s",
+   "options": {
+    "A": "+1.0 0 2.0 4.0 –1.0 y / mm t / s",
+    "B": "0",
+    "C": "+2.0 5.0 0 0 10.0 0 y / mm t / s",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_11_q22.png",
+   "marks": 1,
+   "explanation": "The wavelength is 4.0 cm; $T=\\lambda/v=4.0/20.0=0.20$ s, matching A. B has the wrong period.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p08",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q24",
+    "qid": "9702_w25_12_q24"
+   },
+   "stem": "Which row describes a progressive longitudinal wave?\ntransfers energy in\na direction parallel\nto the oscillations\nrequires a medium\nto travel through\nalways travels at\nthe same speed",
+   "options": {
+    "A": "false false true",
+    "B": "false true true",
+    "C": "true false false",
+    "D": "true true false"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_12_q24.png",
+   "marks": 1,
+   "explanation": "Energy transfer is parallel to oscillations in a longitudinal wave; speed depends on the medium. B wrongly says that it is always the same.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p09",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q29",
+    "qid": "9702_w24_11_q29"
+   },
+   "stem": "Radio waves can be polarised, but sound waves cannot be polarised.\nWhich statement gives the reason for this?",
+   "options": {
+    "A": "Radio waves are generally of a higher frequency than sound waves.",
+    "B": "Radio waves are transverse waves, but sound waves are longitudinal waves.",
+    "C": "Radio waves can travel through a vacuum, but sound waves cannot travel through a vacuum.",
+    "D": "Radio waves travel at a much higher speed than sound waves."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "Radio waves are transverse and can be polarised; sound waves in air are longitudinal and cannot. C cites vacuum travel, which does not explain polarisation.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p10",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q23",
+    "qid": "9702_w22_12_q23"
+   },
+   "stem": "Which statement about progressive transverse and longitudinal waves is correct?",
+   "options": {
+    "A": "Particles in a transverse wave have fixed equilibrium positions but those in longitudinal waves do not.",
+    "B": "Transverse waves can be polarised but longitudinal waves cannot.",
+    "C": "Transverse waves transfer energy but longitudinal waves do not.",
+    "D": "Two-source interference can be demonstrated with transverse waves but not with longitudinal waves."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "Only transverse waves can be polarised. C wrongly denies energy transfer by longitudinal waves.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p11",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q22",
+    "qid": "9702_w21_11_q22"
+   },
+   "stem": "Which statement about transverse or longitudinal waves is not correct?",
+   "options": {
+    "A": "Longitudinal waves can be used to demonstrate diffraction.",
+    "B": "Longitudinal waves can travel in a vacuum.",
+    "C": "Transverse waves can form stationary waves.",
+    "D": "Transverse waves can transfer energy."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "The incorrect statement is B: mechanical longitudinal waves require a medium. A is true since sound can diffract.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-p12",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q25",
+    "qid": "9702_s24_12_q25"
+   },
+   "stem": "A guitar string is plucked.\nWhich statement describes the resulting waves?",
+   "options": {
+    "A": "Longitudinal waves on the string cause longitudinal waves in the air.",
+    "B": "Longitudinal waves on the string cause transverse waves in the air.",
+    "C": "Transverse waves on the string cause longitudinal waves in the air.",
+    "D": "Transverse waves on the string cause transverse waves in the air."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "String particles oscillate transversely while the sound in air is longitudinal, so C. D incorrectly calls the air wave transverse.",
+   "hints": [
+    "Read the axes or wave description.",
+    "Relate particle vibration to wave travel.",
+    "Check the initial displacement or the vibration direction."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.2-x001",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q24",
+    "qid": "9702_s19_12_q24"
+   },
+   "stem": "A wave moves along the surface of water.\nThe diagram shows the variation of displacement s with distance along the wave at time t = 0.\n0\n0\ns\ndistance\nalong wave\ndirection of travel\nP\nWhich graph best shows the variation with time t of the displacement s of the point P on the\nwave?\n0\n0\ns\nt",
+   "options": {
+    "A": "0 0 s t",
+    "B": "0 s t",
+    "C": "0 0 s t",
+    "D": "0"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_12_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Many candidates found this question difficult. One way of approaching this question is to draw the position of the wave a short time after t = 0. At time t = 0 the displacement of point P is a non-zero positive value, so graphs B and C can be rejected. As the wave moves to the right, the point P initially moves upwards, i.e. the displacement of the point P increases, indicating that the correct graph is D."
+  },
+  {
+   "id": "9702-7.2-x002",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q21",
+    "qid": "9702_w19_11_q21"
+   },
+   "stem": "A transverse wave on a rope has wavelength λ and period T.\nThe graph shows the variation of the displacement of the particles of the rope with distance in the\ndirection of travel of the wave at time t = 0.\ndisplacement\n0\n0\ndistance\nλ\nX\ndirection\nof travel\nA particle X is labelled.\nWhich graph shows the variation of the displacement of particle X with time t ?\ndisplacement\ndisplacement",
+   "options": {
+    "A": "0 0 t T displacement",
+    "B": "0 0 t T",
+    "C": "0 0 t T displacement",
+    "D": "0 0 t T"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The majority of candidates recognised that the displacement of particle X is zero at time t = 0, eliminating graphs B and D. As the wave is moving to the right, the initial movement of particle X must be downwards, making C the correct answer."
+  },
+  {
+   "id": "9702-7.2-x003",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q20",
+    "qid": "9702_w19_12_q20"
+   },
+   "stem": "A transverse wave is travelling along a rope. The frequency of the wave is 2.0 Hz. The graph\nshows the variation with distance of the displacement of the wave at time t ꞊ 0.\n2\n4\n6\n8\n10\ndisplacement\ndistance / m\ndirection of wave travel\n0\nWhich diagram shows the position of the wave at time t = 0.5 s?\n2\n4\n6\n8\n10\ndisplacement\ndistance / m\n0",
+   "options": {
+    "A": "2 4 6 8 10 displacement distance / m 0",
+    "B": "2 4 6 8 10 displacement distance / m 0",
+    "C": "2 4 6 8 10 displacement distance / m 0",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_12_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x004",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q21",
+    "qid": "9702_w19_13_q21"
+   },
+   "stem": "Which statement about light waves and sound waves is not correct?",
+   "options": {
+    "A": "Light waves and sound waves can both demonstrate the Doppler effect.",
+    "B": "Light waves are transverse waves and sound waves are longitudinal waves.",
+    "C": "Light waves can be diffracted but sound waves cannot.",
+    "D": "Light waves can travel in a vacuum but sound waves cannot."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_13_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x005",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q22",
+    "qid": "9702_s21_11_q22"
+   },
+   "stem": "A longitudinal wave travelling from left to right has vibrations parallel to the direction of transfer of\nenergy by the wave.\nThe wave can be represented on a graph showing the variation with distance of the displacement\nof the particles from their equilibrium positions at one instant.\nWhich point on the graph is the centre of a compression?\n0\n0\ndisplacement\nto the right\ndisplacement\nto the left\ndistance\nfrom source",
+   "options": {
+    "A": "",
+    "B": "",
+    "D": "",
+    "C": "direction of transfer of energy"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_11_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x006",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q22",
+    "qid": "9702_s21_13_q22"
+   },
+   "stem": "A transverse progressive wave of wavelength λ is set up on a stretched string. The graph shows\nthe variation of displacement y with distance x at a particular instant of time. The wave has\ndisplacement +y¹ at distance x = 8\nλ.\n0\ny₁\ny\nx\n0\n2\n\u0003\n8\n\u0003\n2\n3\u0003\n2\u0003\n\u0003\n2\n5\u0003\nWhat are the next two values of x where the displacement y is again equal to +y₁?",
+   "options": {
+    "A": "8 3λ and 8 5λ",
+    "B": "8 3λ and 8 9λ",
+    "C": "8 5λ and 8 9λ",
+    "D": "8 9λ and 8 17λ"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_13_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x007",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q22",
+    "qid": "9702_w21_13_q22"
+   },
+   "stem": "A longitudinal wave travels through a long spring. The spring is shown at one instant.\nWhat is the wavelength of the wave?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "spring"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_13_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x008",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q23",
+    "qid": "9702_w21_13_q23"
+   },
+   "stem": "Which statement about waves is correct?",
+   "options": {
+    "A": "Both longitudinal and transverse waves can travel through a vacuum.",
+    "B": "Both longitudinal and transverse waves transfer matter.",
+    "C": "Longitudinal progressive waves consist of alternate nodes and antinodes.",
+    "D": "The particles of a transverse wave vibrate perpendicular to the direction of energy propagation."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x009",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q23",
+    "qid": "9702_s22_11_q23"
+   },
+   "stem": "Which statement is correct?",
+   "options": {
+    "A": "Gases cannot transmit longitudinal waves.",
+    "B": "Longitudinal sound waves cannot form stationary waves.",
+    "C": "Solids can transmit both transverse and longitudinal waves.",
+    "D": "Transverse waves cannot pass through a vacuum."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x010",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q22",
+    "qid": "9702_s22_13_q22"
+   },
+   "stem": "The variation with distance x of the displacement y of a transverse wave on a rope is shown at\ntime t = 0.\nThe wave has a frequency of 0.5 Hz.\nA point P on the rope is marked. The diagram shows the original position of P and four new\npositions.\nWhat is the position of P at time t = 1 s?\n0\n0\ny\nx\nP",
+   "options": {
+    "C": "",
+    "D": "",
+    "A": "",
+    "B": "direction of wave travel"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_13_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x011",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q24",
+    "qid": "9702_s22_13_q24"
+   },
+   "stem": "A transverse wave and a longitudinal wave both travel in the same direction down a long\nstretched spring.\nWhich statement is not correct for these two forms of wave?",
+   "options": {
+    "A": "The displacement measurements for the particles of the two waves are made at right angles to each other.",
+    "B": "The energy transferred by the two waves is in the same direction.",
+    "C": "The velocities of the two waves are in the same direction.",
+    "D": "The wavelength measurements for the two waves are made at right angles to each other."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x012",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q23",
+    "qid": "9702_w22_11_q23"
+   },
+   "stem": "A transverse wave travels along a rope. The diagram shows the rope at time t = 0.\nThe wave is travelling from left to right. The period of the wave is T.\ndirection of\nwave travel\nX\nOne particle of the rope is labelled X.\nWhich graph shows the variation with time of the displacement of particle X between t = 0 and\nt = 2T ?\ndisplacement\n0\ndisplacement\n0",
+   "options": {
+    "A": "2T t 0 displacement 0",
+    "B": "2T t 0",
+    "C": "2T t 0 displacement 0",
+    "D": "2T t 0"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x013",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q22",
+    "qid": "9702_w22_12_q22"
+   },
+   "stem": "A wave pulse moves along a stretched rope in the direction shown.\nP\nWhich diagram shows the variation with time t of the displacement s of the particle P in the rope?\ns\nt\ns\nt\n0\n0\n0\n0\n0\n0\n0\n0",
+   "options": {
+    "A": "",
+    "B": "s t",
+    "C": "",
+    "D": "s t"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x014",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q21",
+    "qid": "9702_s23_12_q21"
+   },
+   "stem": "A longitudinal wave is travelling from left to right. The graph shows the variation of the\ndisplacement of the particles with distance along the wave at one instant in time.\nDisplacements to the right are positive; displacements to the left are negative.\nWhich labelled point represents a compression?\n0\n0\ndisplacement\ndistance",
+   "options": {
+    "A": "",
+    "C": "",
+    "D": "",
+    "B": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_12_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x015",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q21",
+    "qid": "9702_w23_11_q21"
+   },
+   "stem": "Which row is correct for both progressive transverse waves and progressive longitudinal waves?\ntransverse waves\nlongitudinal waves",
+   "options": {
+    "A": "contain compressions and rarefactions some can travel in a vacuum",
+    "B": "can be polarised contain compressions and rarefactions",
+    "C": "vibrations are perpendicular to the direction of travel of the wave energy can be polarised",
+    "D": "some can travel in a vacuum vibrations are perpendicular to the direction of travel of the wave energy"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w23_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x016",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q28",
+    "qid": "9702_s24_11_q28"
+   },
+   "stem": "The diagram shows the shape at one instant in time of part of a stretched string as a wave travels\nalong it from left to right.\n1\n2\n3\nWhat are the directions of the velocities of the points 1, 2 and 3 on the string at this instant in\ntime?\npoint 1\npoint 2\npoint 3",
+   "options": {
+    "A": "→ → →",
+    "B": "→ ← →",
+    "C": "� � �",
+    "D": "� � �"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x017",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q24",
+    "qid": "9702_w24_12_q24"
+   },
+   "stem": "A progressive longitudinal sound wave moves through air. The diagram shows the positions of\nthe air particles along part of the wave at one instant.\nP\nQ\nx\nPoint Q is a distance x from point P.\nWhich graph shows the variation of the displacement of the air particles with distance from P\nalong the wave?\ndisplacement\ndistance\nx\ndisplacement\ndistance\nx",
+   "options": {
+    "A": "0 0 displacement distance x",
+    "B": "0 0",
+    "C": "0 0 displacement distance x",
+    "D": "0 0"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_12_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x018",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q25",
+    "qid": "9702_s25_11_q25"
+   },
+   "stem": "Which statement about longitudinal and transverse wave motion for a progressive wave is\ncorrect?",
+   "options": {
+    "A": "All transverse and longitudinal waves require a medium for propagation.",
+    "B": "All transverse waves travel at the same speed, but longitudinal waves can travel at different speeds.",
+    "C": "In both transverse waves and longitudinal waves, a particle with zero displacement has a maximum speed.",
+    "D": "In a longitudinal wave there is a net movement of particles in the direction of travel of the wave, but there is no net movement of particles in a transverse wave."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x019",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q25",
+    "qid": "9702_s25_12_q25"
+   },
+   "stem": "A sound wave travels from the left to the right.\nThe graph shows the variation of the displacement to the right of particles in the sound wave with\ndistance, at one instant.\nWhich letter represents the centre of a compression?\n0\n0\ndisplacement\nto right\ndistance",
+   "options": {
+    "A": "",
+    "C": "",
+    "B": "",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_12_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x020",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q24",
+    "qid": "9702_s25_13_q24"
+   },
+   "stem": "The graph shows the variation with distance along the wave of the displacement of water\nparticles at a particular instant in time for a transverse water wave.\n4\n2\n0\n–2\n–4\n0\n4\n8\n12\n16\n20\ndistance / m\ndisplacement / m\nP\nQ\nR\nP, Q and R show the positions of three water particles in the wave.\nWhich particle has the greatest speed at the instant shown?",
+   "options": {
+    "A": "all have the same speed",
+    "B": "particle P",
+    "C": "particle Q",
+    "D": "particle R"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_13_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x021",
+   "kcs": [
+    "9702-7.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q24",
+    "qid": "9702_w25_11_q24"
+   },
+   "stem": "Which row is correct for sound waves?\ncan travel\nin a vacuum\ncan be\npolarised\ncan diffract\nthrough a gap",
+   "options": {
+    "A": "no no yes",
+    "B": "yes no no",
+    "C": "no yes no",
+    "D": "no yes yes"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w25_11_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.2-x022",
+   "kcs": [
+    "9702-7.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q25",
+    "qid": "9702_w25_11_q25"
+   },
+   "stem": "A source emits a progressive sound wave in the horizontal direction. The wave travels away from\nthe source in a direction towards the right.\nThe graph shows the variation of the displacement of the particles from their equilibrium positions\nwith distance from the source at a particular instant in time. Displacements to the right of the\nequilibrium positions are shown as positive.\n0\n0\ndisplacement\ndistance\nY\nPosition Y represents the displacement of a particle in the sound wave at a particular distance\nfrom the source at this instant.\nWhich statement about the motion of this particle is correct?",
+   "options": {
+    "A": "The particle is moving away from the source.",
+    "B": "The particle is moving towards the source.",
+    "C": "The particle is moving upwards.",
+    "D": "The particle is moving downwards."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w25_11_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-7.2.1",
+   "front": "Compare transverse and longitudinal waves.",
+   "back": "Transverse: oscillations of particles are perpendicular to the direction of energy transfer. Longitudinal: oscillations of particles are parallel to the direction of energy transfer."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-7.2.2",
+   "front": "How are compression, rarefaction and wavelength read on a longitudinal wave diagram?",
+   "back": "Compressions have particles closer together; rarefactions have particles further apart. Wavelength is the distance between adjacent compression centres or adjacent rarefaction centres."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-7.2.1": {
+   "motivate": "A rope pulse moves right while the rope moves up and down; sound moves right while air particles move left and right. The direction of particle oscillation distinguishes these waves.",
+   "establish": "In a transverse wave, particles oscillate perpendicular to the direction of energy transfer. In a longitudinal wave, particles oscillate parallel to the direction of energy transfer. A wave on a rope is transverse; sound in air is longitudinal. Both kinds transfer energy while particles oscillate about equilibrium, without net movement of the medium. Sound needs a material medium, whereas electromagnetic transverse waves can travel through a vacuum. Transverse waves can be polarised because a transverse vibration direction can be selected; longitudinal waves cannot be polarised in that way. Both types can diffract.",
+   "connect": "Use the wave terms from 7.1 for either type. Wavelength is still the separation of successive points in phase, even when a longitudinal wave is shown as compressions.",
+   "note": "- Transverse: oscillations perpendicular to energy transfer.\n- Longitudinal: oscillations parallel to energy transfer.\n- Both transfer energy without net transfer of the medium.\n- Sound in air is longitudinal; a rope wave is transverse.",
+   "self_explain": "A sound wave travels right through air. Describe the motion of one air particle and compare it with a particle on a transverse rope wave travelling right.",
+   "source": "pack"
+  },
+  "9702-7.2.2": {
+   "motivate": "A wavy trace on paper can show sound, even though sound particles do not move up and down. Read what the axes represent before interpreting particle motion.",
+   "establish": "A displacement–distance graph gives the displacements of many particles at one instant; a displacement–time graph follows one particle. For longitudinal sound travelling right, a vertical graph coordinate can represent horizontal displacement to the right or left. A compression has closer-spaced particles; a rarefaction has wider-spaced particles. Adjacent compression centres or adjacent rarefaction centres are one wavelength apart, and a compression to the nearest rarefaction is half a wavelength. On a right-moving displacement–distance profile, a particle at positive spatial slope initially moves towards negative displacement as the profile shifts right. At a maximum or minimum displacement in sinusoidal motion the particle is momentarily stationary; at zero displacement its speed is greatest. For a longitudinal displacement graph with right positive, a negative spatial slope indicates convergence and compression; positive slope indicates rarefaction.",
+   "connect": "The wavelength and period from 7.1 link distance snapshots to time traces: one complete spatial cycle is $\\lambda$, while one complete temporal cycle is $T$.",
+   "note": "- Distance graph: many particles at one time; time graph: one particle over time.\n- A longitudinal graph's vertical axis can encode displacement along travel.\n- Compression to nearest rarefaction is $\\lambda/2$.\n- For right-moving waves, particle motion opposes the spatial slope.",
+   "self_explain": "On a right-moving sound displacement–distance graph, what does a negative spatial slope tell you about particle spacing and the initial motion of a particle there?",
+   "source": "pack"
+  }
+ }
+}

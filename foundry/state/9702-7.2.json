@@ -1,0 +1,136 @@
+{
+ "sub": "9702-7.2",
+ "stage": "ready",
+ "created": "2026-10-10T15:30:06+08:00",
+ "updated": "2026-10-10T15:35:33+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:31:44+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 46 items"
+  },
+  {
+   "t": "2026-10-10T15:34:58+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "35 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T15:35:33+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 46,
+  "extra": 22
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 59792,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:30:06+08:00",
+   "log": "foundry/logs/9702-7.2.drafter.1010-153006.log",
+   "out": "foundry/logs/9702-7.2.drafter.1010-153006.out.json",
+   "finished": "2026-10-10T15:31:44+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-7.2.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/07 Waves/7.2 Transverse and longitudinal waves.md",
+    "items": 46,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 62307,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:34:16+08:00",
+   "log": "foundry/logs/9702-7.2.solver-1.1010-153416.log",
+   "out": "foundry/logs/9702-7.2.solver-1.1010-153416.out.json",
+   "expects": "build/work/blind/9702-7.2.answers.part1.json",
+   "finished": "2026-10-10T15:34:50+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-7.2.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 62309,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:34:16+08:00",
+   "log": "foundry/logs/9702-7.2.solver-2.1010-153416.log",
+   "out": "foundry/logs/9702-7.2.solver-2.1010-153416.out.json",
+   "expects": "build/work/blind/9702-7.2.answers.part2.json",
+   "finished": "2026-10-10T15:34:46+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 15 questions in `build/work/blind/9702-7.2.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 62314,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:34:16+08:00",
+   "log": "foundry/logs/9702-7.2.checker.1010-153416.log",
+   "out": "foundry/logs/9702-7.2.checker.1010-153416.out.json",
+   "expects": "build/work/foundry/9702-7.2.check.json",
+   "finished": "2026-10-10T15:34:36+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/9702-7.2.check.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_12_q24": "9702-7.2-x001",
+  "9702_w19_11_q21": "9702-7.2-x002",
+  "9702_w19_12_q20": "9702-7.2-x003",
+  "9702_w19_13_q21": "9702-7.2-x004",
+  "9702_s21_11_q22": "9702-7.2-x005",
+  "9702_s21_13_q22": "9702-7.2-x006",
+  "9702_w21_13_q22": "9702-7.2-x007",
+  "9702_w21_13_q23": "9702-7.2-x008",
+  "9702_s22_11_q23": "9702-7.2-x009",
+  "9702_s22_13_q22": "9702-7.2-x010",
+  "9702_s22_13_q24": "9702-7.2-x011",
+  "9702_w22_11_q23": "9702-7.2-x012",
+  "9702_w22_12_q22": "9702-7.2-x013",
+  "9702_s23_12_q21": "9702-7.2-x014",
+  "9702_w23_11_q21": "9702-7.2-x015",
+  "9702_s24_11_q28": "9702-7.2-x016",
+  "9702_w24_12_q24": "9702-7.2-x017",
+  "9702_s25_11_q25": "9702-7.2-x018",
+  "9702_s25_12_q25": "9702-7.2-x019",
+  "9702_s25_13_q24": "9702-7.2-x020",
+  "9702_w25_11_q24": "9702-7.2-x021",
+  "9702_w25_11_q25": "9702-7.2-x022"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
