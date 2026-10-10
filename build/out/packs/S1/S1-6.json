@@ -1,0 +1,363 @@
+{
+ "subtopic": "S1-6",
+ "spec": "S1",
+ "version": 1,
+ "note": "Subjects/Maths/S1 Statistics 1/6 The Normal distribution.md",
+ "outline": "A Normal distribution is a continuous, symmetric bell curve. Write $X\\sim N(\\mu,\\sigma^2)$, where $\\mu$ is the mean and $\\sigma^2$ the variance. Standardise with $Z=(X-\\mu)/\\sigma$ and use cumulative tables $\\Phi(z)=P(Z<z)$. Use complements for upper tails and subtraction for intervals. Reverse the process to find quantiles or solve equations for unknown parameters.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "S1-6.1",
+   "statement": "Use the left-tail table value for a right-tail probability, or reverse the sign of a quantile.",
+   "refutation": "Cumulative tables give area to the left; the right tail is $1-\\Phi(z)$.",
+   "contrast": "Sketch and shade the required region first.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "S1-6.1",
+   "statement": "Use one cumulative probability for an interval.",
+   "refutation": "The interval area is the upper cumulative area minus the lower cumulative area.",
+   "contrast": "Compute $\\Phi(z_2)-\\Phi(z_1)$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "S1-6.1",
+   "statement": "Treat the second parameter of $N(\\mu,\\sigma^2)$ as the standard deviation.",
+   "refutation": "The second parameter is variance; standard deviation is its positive square root.",
+   "contrast": "Label $\\mu$, $\\sigma^2$, and $\\sigma$ separately.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "S1-6.1",
+   "statement": "Assign nonzero probability to one exact value of a continuous variable.",
+   "refutation": "A single point has zero width and therefore zero area.",
+   "contrast": "Use an interval when seeking a nonzero probability.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "S1-6.1",
+   "problem": "For $X\\sim N(70,10^2)$, find $P(60<X<85)$.",
+   "steps": [
+    {
+     "do": "Write $\\mu=70$ and $\\sigma=10$.",
+     "why": "The second Normal parameter is variance, so take its square root."
+    },
+    {
+     "do": "Standardise: $z_1=(60-70)/10=-1$ and $z_2=(85-70)/10=1.5$.",
+     "why": "Tables give cumulative probabilities for standard Normal values."
+    },
+    {
+     "do": "Subtract $\\Phi(1.5)-\\Phi(-1)=0.7745$ (4 d.p.).",
+     "why": "The area between bounds is the difference of cumulative areas.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.774538,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "For $Y\\sim N(50,8^2)$, find $P(42<Y<58)$. Standardise both bounds, then subtract the table values.",
+    "answer": {
+     "value": 0.682689,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "S1-6-i01",
+   "kcs": [
+    "S1-6.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "If $X\\sim N(70,10^2)$, find $P(X<85)$.",
+   "marks": 1,
+   "explanation": "Standardise: $z=(85-70)/10=1.5$, so $P(X<85)=\\Phi(1.5)$.",
+   "hints": [
+    "Sketch the bell curve and mark the required region.",
+    "Standardise with $z=(x-\\mu)/\\sigma$ and use $\\Phi(z)$.",
+    "Identify whether the shaded region is left, right or between two bounds."
+   ],
+   "answer": {
+    "value": 0.933193,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.066807,
+     "misconception": "m1"
+    }
+   ]
+  },
+  {
+   "id": "S1-6-i02",
+   "kcs": [
+    "S1-6.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "If $X\\sim N(70,10^2)$, find $P(60<X<80)$.",
+   "marks": 1,
+   "explanation": "The limits standardise to $-1$ and $1$. Subtract cumulative probabilities: $\\Phi(1)-\\Phi(-1)$.",
+   "hints": [
+    "Sketch the bell curve and mark the required region.",
+    "Standardise with $z=(x-\\mu)/\\sigma$ and use $\\Phi(z)$.",
+    "Identify whether the shaded region is left, right or between two bounds."
+   ],
+   "answer": {
+    "value": 0.682689,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.841345,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "S1-6-i03",
+   "kcs": [
+    "S1-6.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "If $X\\sim N(70,10^2)$, find the value $a$ for which $P(X<a)=0.9$.",
+   "marks": 1,
+   "explanation": "The table gives $z=\\Phi^{-1}(0.9)$; rearrange $z=(a-70)/10$ to obtain $a=70+10z$.",
+   "hints": [
+    "Sketch the bell curve and mark the required region.",
+    "Standardise with $z=(x-\\mu)/\\sigma$ and use $\\Phi(z)$.",
+    "Identify whether the shaded region is left, right or between two bounds."
+   ],
+   "answer": {
+    "value": 82.815516,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 57.184484,
+     "misconception": "m1"
+    }
+   ]
+  },
+  {
+   "id": "S1-6-i04",
+   "kcs": [
+    "S1-6.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the mean and variance of $X\\sim N(12,3^2)$.",
+   "marks": 1,
+   "explanation": "In $N(\\mu,\\sigma^2)$ the first parameter is the mean and the second is the variance.",
+   "hints": [
+    "Sketch the bell curve and mark the required region.",
+    "Standardise with $z=(x-\\mu)/\\sigma$ and use $\\Phi(z)$.",
+    "Identify whether the shaded region is left, right or between two bounds."
+   ],
+   "options": {
+    "A": "mean $12$, variance $9$",
+    "B": "mean $12$, variance $3$",
+    "C": "mean $3$, variance $12$",
+    "D": "mean $9$, variance $12$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "S1-6-i05",
+   "kcs": [
+    "S1-6.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For a continuous Normal random variable with mean $20$, state $P(X=20)$.",
+   "marks": 1,
+   "explanation": "A single point has zero area under a continuous density curve.",
+   "hints": [
+    "Sketch the bell curve and mark the required region.",
+    "Standardise with $z=(x-\\mu)/\\sigma$ and use $\\Phi(z)$.",
+    "Identify whether the shaded region is left, right or between two bounds."
+   ],
+   "options": {
+    "A": "$0$",
+    "B": "$0.5$",
+    "C": "$1$",
+    "D": "It depends on the variance"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "S1-6-i06",
+   "kcs": [
+    "S1-6.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $P(X<\\mu)=0.5$ when $X$ has a Normal distribution.",
+   "marks": 1,
+   "explanation": "The Normal curve is symmetric about its mean, so half its total area lies to the left.",
+   "hints": [
+    "Sketch the bell curve and mark the required region.",
+    "Standardise with $z=(x-\\mu)/\\sigma$ and use $\\Phi(z)$.",
+    "Identify whether the shaded region is left, right or between two bounds."
+   ],
+   "rubric": [
+    {
+     "point": "Symmetry about the mean divides total probability equally.",
+     "keywords": [
+      [
+       "symmetric",
+       "symmetry"
+      ],
+      [
+       "mean"
+      ],
+      [
+       "half",
+       "0.5",
+       "equal"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-6-i07",
+   "kcs": [
+    "S1-6.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The variable $X$ is Normally distributed. Given $P(X<54)=0.1587$ and $P(X<78)=0.8413$, find its mean and standard deviation.",
+   "marks": 3,
+   "explanation": "The table values correspond to $z=-1$ and $z=1$. Hence $54=\\mu-\\sigma$ and $78=\\mu+\\sigma$, giving $\\mu=66$ and $\\sigma=12$.",
+   "hints": [
+    "Sketch the bell curve and mark the required region.",
+    "Standardise with $z=(x-\\mu)/\\sigma$ and use $\\Phi(z)$.",
+    "Identify whether the shaded region is left, right or between two bounds."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Use table values $z=-1$ and $z=1$."
+    },
+    {
+     "mark": "M1",
+     "point": "Set up $54=\\mu-\\sigma$ and $78=\\mu+\\sigma$."
+    },
+    {
+     "mark": "A1",
+     "point": "Solve $\\mu=66$ and $\\sigma=12$."
+    }
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "S1-6.1",
+   "front": "State the parameters and shape of $X\\sim N(\\mu,\\sigma^2)$.",
+   "back": "Mean $\\mu$, variance $\\sigma^2$; a symmetric bell-shaped continuous distribution centred on $\\mu$."
+  },
+  {
+   "id": "fc2",
+   "kc": "S1-6.1",
+   "front": "What does $\\Phi(z)$ represent?",
+   "back": "The cumulative probability $P(Z<z)$ for standard Normal $Z\\sim N(0,1)$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "S1-6.1": {
+   "motivate": "Heights, measurement errors and many other continuous quantities cluster around a centre. A Normal model lets us turn a value into an area, hence a probability, using a standard table.",
+   "discover": {
+    "stem": "A Normal curve is symmetric about its mean. Which probability must equal $0.5$?",
+    "options": {
+     "A": "$P(X<\\mu)$",
+     "B": "$P(X=\\mu)$",
+     "C": "$P(X<\\mu-\\sigma)$",
+     "D": "$P(X>\\mu+\\sigma)$"
+    },
+    "answer": "A",
+    "explanation": "Symmetry divides the total area of $1$ equally at the mean. The probability at one exact point is zero."
+   },
+   "establish": "Write $X\\sim N(\\mu,\\sigma^2)$: $\\mu$ is the mean, $\\sigma^2$ is the variance, and $\\sigma>0$ is the standard deviation. The continuous bell-shaped curve is symmetric about $\\mu$ and has total area $1$. Standardise using $Z=(X-\\mu)/\\sigma$, so $Z\\sim N(0,1)$. A standard Normal cumulative table gives $\\Phi(z)=P(Z<z)$, the area to the left. For an upper tail use $1-\\Phi(z)$; for an interval use $\\Phi(z_2)-\\Phi(z_1)$; by symmetry $\\Phi(-z)=1-\\Phi(z)$. For a given cumulative probability, read its $z$ value and rearrange to $x=\\mu+z\\sigma$. Two probabilities can produce simultaneous equations for unknown $\\mu$ and $\\sigma$. The probability density formula and derivations of the mean, variance and cumulative function are not required; interpolation is unnecessary.",
+   "connect": "This extends the earlier distinction between variance and standard deviation. The z-score measures how many standard deviations a value lies from the mean; the same table then works for any Normal model.",
+   "note": "- $X\\sim N(\\mu,\\sigma^2)$ has mean $\\mu$ and variance $\\sigma^2$.\n- The Normal curve is continuous and symmetric, with half its area on each side of $\\mu$.\n- Standardise with $z=(x-\\mu)/\\sigma$.\n- $\\Phi(z)$ is the left cumulative area; complement for a right tail and subtract for an interval.\n- Reverse with $x=\\mu+z\\sigma$; use simultaneous equations when both parameters are unknown.",
+   "self_explain": "Why must you take the square root of the second parameter before standardising, and how would you use the cumulative table to find an area between two values?",
+   "source": "pack"
+  }
+ }
+}

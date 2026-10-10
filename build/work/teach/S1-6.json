@@ -1,0 +1,15 @@
+{
+  "S1-6.1": {
+    "motivate": "Heights, measurement errors and many other continuous quantities cluster around a centre. A Normal model lets us turn a value into an area, hence a probability, using a standard table.",
+    "discover": {
+      "stem": "A Normal curve is symmetric about its mean. Which probability must equal $0.5$?",
+      "options": {"A": "$P(X<\\mu)$", "B": "$P(X=\\mu)$", "C": "$P(X<\\mu-\\sigma)$", "D": "$P(X>\\mu+\\sigma)$"},
+      "answer": "A",
+      "explanation": "Symmetry divides the total area of $1$ equally at the mean. The probability at one exact point is zero."
+    },
+    "establish": "Write $X\\sim N(\\mu,\\sigma^2)$: $\\mu$ is the mean, $\\sigma^2$ is the variance, and $\\sigma>0$ is the standard deviation. The continuous bell-shaped curve is symmetric about $\\mu$ and has total area $1$. Standardise using $Z=(X-\\mu)/\\sigma$, so $Z\\sim N(0,1)$. A standard Normal cumulative table gives $\\Phi(z)=P(Z<z)$, the area to the left. For an upper tail use $1-\\Phi(z)$; for an interval use $\\Phi(z_2)-\\Phi(z_1)$; by symmetry $\\Phi(-z)=1-\\Phi(z)$. For a given cumulative probability, read its $z$ value and rearrange to $x=\\mu+z\\sigma$. Two probabilities can produce simultaneous equations for unknown $\\mu$ and $\\sigma$. The probability density formula and derivations of the mean, variance and cumulative function are not required; interpolation is unnecessary.",
+    "connect": "This extends the earlier distinction between variance and standard deviation. The z-score measures how many standard deviations a value lies from the mean; the same table then works for any Normal model.",
+    "note": "- $X\\sim N(\\mu,\\sigma^2)$ has mean $\\mu$ and variance $\\sigma^2$.\n- The Normal curve is continuous and symmetric, with half its area on each side of $\\mu$.\n- Standardise with $z=(x-\\mu)/\\sigma$.\n- $\\Phi(z)$ is the left cumulative area; complement for a right tail and subtract for an interval.\n- Reverse with $x=\\mu+z\\sigma$; use simultaneous equations when both parameters are unknown.",
+    "self_explain": "Why must you take the square root of the second parameter before standardising, and how would you use the cumulative table to find an area between two values?"
+  }
+}

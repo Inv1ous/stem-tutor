@@ -1,0 +1,103 @@
+{
+ "sub": "S1-6",
+ "stage": "ready",
+ "created": "2026-10-10T13:49:01+08:00",
+ "updated": "2026-10-10T14:23:42+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T13:51:10+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 7 items"
+  },
+  {
+   "t": "2026-10-10T14:21:57+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "7 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T14:22:47+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:23:42+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 7,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 4797,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:50:01+08:00",
+   "log": "foundry/logs/S1-6.drafter.1010-135001.log",
+   "out": "foundry/logs/S1-6.drafter.1010-135001.out.json",
+   "finished": "2026-10-10T13:51:10+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/S1/S1-6.json",
+    "note_path": "build/out/notes/Subjects/Maths/S1 Statistics 1/6 The Normal distribution.md",
+    "items": 7,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 28783,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:21:36+08:00",
+   "log": "foundry/logs/S1-6.solver.1010-142136.log",
+   "out": "foundry/logs/S1-6.solver.1010-142136.out.json",
+   "expects": "build/work/blind/S1-6.answers.json",
+   "finished": "2026-10-10T14:21:54+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 7 questions; wrote `build/work/blind/S1-6.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 29757,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:22:23+08:00",
+   "log": "foundry/logs/S1-6.checker.1010-142223.log",
+   "out": "foundry/logs/S1-6.checker.1010-142223.out.json",
+   "expects": "build/work/foundry/S1-6.check.json",
+   "finished": "2026-10-10T14:22:38+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — `build/work/foundry/S1-6.check.json`"
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
