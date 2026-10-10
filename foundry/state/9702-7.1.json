@@ -1,0 +1,531 @@
+{
+ "sub": "9702-7.1",
+ "stage": "ready",
+ "created": "2026-10-10T13:51:31+08:00",
+ "updated": "2026-10-10T14:20:04+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T13:53:44+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 121 items"
+  },
+  {
+   "t": "2026-10-10T14:12:34+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "78 agreed, 5 disputed"
+  },
+  {
+   "t": "2026-10-10T14:13:35+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-10T14:17:03+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T14:18:22+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 12 fixes applied"
+  },
+  {
+   "t": "2026-10-10T14:19:28+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "1 agreed, 0 disputed; 13 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:20:04+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 112,
+  "extra": 58
+ },
+ "disputes": [
+  {
+   "id": "9702-7.1-x012",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-7.1-x022",
+   "key": "D",
+   "solver": "B",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-7.1-x043",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-7.1-x046",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "fix: Keep official answer D. In build/work/mcq/overrides.json under 9702_s23_11_q20 set explanation to: \"D. The trace shows less than one cycle and its peak is clipped. Increasing the time-base setting in seconds per division displays a longer time interval, so a complete cycle fits horizontally. Here the examiner uses y-gain to mean the volts-per-division setting: increasing this setting reduces the displayed vertical amplitude, so the peak fits on screen. C confuses the volts-per-division setting with amplifier gain or vertical sensitivity; those decrease when volts per division increases.\" Do not change the stem, options or key."
+  },
+  {
+   "id": "9702-7.1-x063",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9702-7.1-p03 stem",
+   "rule": "off syllabus",
+   "evidence": "The speed v of waves in deep water is given by the equation v ² = π²λg / 2",
+   "suggested": "Remove this deep-water dispersion-relation question from this chapter's pack.",
+   "status": "fixed",
+   "resolution": "fix: Reject the off-syllabus finding and retain the question with answer D: the deep-water relation is supplied, and combining it with v = fλ tests KC 9702-7.1.5. Correct damaged extracted text in the source that generates p03: set stem to \"The speed v of waves in deep water is given by v² = gλ/(2π), where λ is the wavelength of the waves and g is the acceleration of free fall. A student measures the wavelength λ and the frequency f of a number of these waves. Which graph should he plot to give a straight line through the origin?\" Set options to {\"A\":\"f² against λ\",\"B\":\"f against λ²\",\"C\":\"f against 1/λ\",\"D\":\"f² against 1/λ\"}. The image confirms gλ/(2π), not π²λg/2; f² = g/(2πλ). Retain the image and existing explanation."
+  },
+  {
+   "ref": "item 9702-7.1-p04 stem",
+   "rule": "off syllabus",
+   "evidence": "A source of sound of constant power P is situated in an open space. The intensity I of sound at distance r from this source is given by I = P / 4πr².",
+   "suggested": "Remove the point-source inverse-square relation question from this chapter's pack.",
+   "status": "fixed",
+   "resolution": "fix: Reject the off-syllabus finding and retain the question with answer A: I = P/(4πr²) is supplied, and I proportional to a² is explicitly KC 9702-7.1.7. Correct damaged extracted text in the source that generates p04: set stem to \"A source of sound of constant power P is situated in an open space. The intensity I of sound at distance r from this source is given by I = P/(4πr²). How does the amplitude a of the vibrating air molecules vary with the distance r from the source?\" Set options to {\"A\":\"a ∝ 1/r\",\"B\":\"a ∝ 1/r²\",\"C\":\"a ∝ r\",\"D\":\"a ∝ r²\"}. Retain the image and existing explanation; a is proportional to sqrt(I), hence 1/r."
+  },
+  {
+   "ref": "item 9702-7.1-x022 stem",
+   "rule": "off syllabus",
+   "evidence": "Which graph shows how the kinetic energy of the air particle varies with time?",
+   "suggested": "Remove the particle kinetic-energy question from this chapter's pack.",
+   "status": "closed",
+   "resolution": "keep: The supplied displacement-time graph can be interpreted using prior AS kinematics (velocity is its gradient) and kinetic energy = 1/2 mv²; no A-level SHM energy formula is needed. This is a valid application to vibrating particles of a progressive sound wave. The gradient and kinetic energy vanish at 0, T/2, T, 3T/2 and 2T; kinetic energy is positive between these times, so official D is correct."
+  },
+  {
+   "ref": "item 9702-7.1-x024 stem",
+   "rule": "off syllabus",
+   "evidence": "The waves meet at a point and superpose to form a resultant wave. For the resultant wave, what is the ratio maximum possible intensity minimum possible intensity?",
+   "suggested": "Move this superposition and interference question to the relevant later chapter.",
+   "status": "fixed",
+   "resolution": "fix: Adding and subtracting amplitudes requires superposition, which is not taught in 7.1. The maximum/minimum intensity ratio is ((2.5+1.5)/(2.5-1.5))² = 16, official D. Remove item 9702-7.1-x024 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.1\"]. In build/work/mcq/overrides.json under 9702_w20_13_q22 set kcs to [\"9702-8.1.1\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus."
+  },
+  {
+   "ref": "item 9702-7.1-x036 stem",
+   "rule": "off syllabus",
+   "evidence": "A stationary wave is produced on a string that is stretched between two fixed points",
+   "suggested": "Move this stationary-wave question to the relevant later chapter.",
+   "status": "fixed",
+   "resolution": "fix: The string contains three half-wavelengths; λ = 0.900 m and f = 500 Hz, official C. Identifying wavelength from stationary-wave nodes requires 8.1. Remove item 9702-7.1-x036 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_w21_12_q27 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus."
+  },
+  {
+   "ref": "item 9702-7.1-x038 stem",
+   "rule": "off syllabus",
+   "evidence": "A stationary sound wave is formed in a pipe that is closed at one end and open at the other end.",
+   "suggested": "Move this stationary-wave question to the relevant later chapter.",
+   "status": "fixed",
+   "resolution": "fix: Two antinodes in a closed-open pipe imply L = 3λ/4; λ = 0.800 m and f = 425 Hz, official A. This requires stationary-wave boundary conditions. Remove item 9702-7.1-x038 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_w21_13_q24 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus."
+  },
+  {
+   "ref": "item 9702-7.1-x040 stem",
+   "rule": "off syllabus",
+   "evidence": "For some frequencies of sound from the loudspeaker, a stationary sound wave is formed in the air within the pipe",
+   "suggested": "Move this stationary-wave question to the relevant later chapter.",
+   "status": "fixed",
+   "resolution": "fix: A closed-open pipe supports odd multiples of v/(4L) = 100 Hz; 200 Hz is excluded, official B. This requires stationary-wave boundary conditions. Remove item 9702-7.1-x040 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_s22_11_q27 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus."
+  },
+  {
+   "ref": "item 9702-7.1-x044 stem",
+   "rule": "off syllabus",
+   "evidence": "A stationary sound wave is formed in a gas-filled tube of length L, which is closed at one end by a piston.",
+   "suggested": "Move this stationary-wave question to the relevant later chapter.",
+   "status": "fixed",
+   "resolution": "fix: The two-node/two-antinode pattern gives λ = 4L/3. At L = 15 cm the graph gives f = 1500 Hz, hence v = 300 m/s, official C. This requires stationary-wave node spacing. Remove item 9702-7.1-x044 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_s22_13_q28 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus."
+  },
+  {
+   "ref": "item 9702-7.1-x052 stem",
+   "rule": "off syllabus",
+   "evidence": "Which graph shows how the kinetic energy of the air particle varies with time?",
+   "suggested": "Remove the particle kinetic-energy question from this chapter's pack.",
+   "status": "closed",
+   "resolution": "keep: The supplied displacement-time graph can be interpreted using prior AS kinematics (velocity is its gradient) and kinetic energy = 1/2 mv²; no A-level SHM energy formula is needed. This is a valid application to vibrating particles of a progressive sound wave. The gradient and kinetic energy vanish at 0, T/2, T, 3T/2 and 2T; kinetic energy is positive between these times, so official D is correct."
+  },
+  {
+   "ref": "item 9702-7.1-x058 stem",
+   "rule": "off syllabus",
+   "evidence": "The waves meet in phase at point X and interfere to give a resultant wave with intensity I.",
+   "suggested": "Move this interference question to the relevant later chapter.",
+   "status": "fixed",
+   "resolution": "fix: In-phase amplitudes change from 2A to 3A, so intensity becomes (3/2)² I = 2.25I, rounded to 2.3I, official C. Amplitude addition requires superposition beyond 7.1. Remove item 9702-7.1-x058 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.1\"]. In build/work/mcq/overrides.json under 9702_w24_11_q28 set kcs to [\"9702-8.1.1\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus."
+  },
+  {
+   "ref": "item 9702-7.1-x059 stem",
+   "rule": "off syllabus",
+   "evidence": "at one frequency, a stationary wave is formed inside the tube so that the dust forms small heaps.",
+   "suggested": "Move this stationary-wave question to the relevant later chapter.",
+   "status": "fixed",
+   "resolution": "fix: Dust heaps mark displacement nodes; three node intervals span 0.30 m, giving λ = 0.20 m and f = 1650 Hz, official A. This requires stationary-wave node spacing. Remove item 9702-7.1-x059 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_w24_12_q31 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus."
+  },
+  {
+   "ref": "item 9702-7.1-x062 stem",
+   "rule": "off syllabus",
+   "evidence": "A source of coherent light is incident on two slits, P and Q",
+   "suggested": "Move this two-slit interference question to the relevant later chapter.",
+   "status": "fixed",
+   "resolution": "fix: λ = c/f = 0.20 mm and fringe spacing λD/a = 10 mm; the third minimum lies 2.5 spacings from the central maximum, at 25 mm, official C. Double-slit fringe spacing and minima require 8.3. Remove item 9702-7.1-x062 from the 9702-7.1 pack and route it to 9702-8.3. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.3.4\"]. In build/work/mcq/overrides.json under 9702_w24_13_q29 set kcs to [\"9702-8.3.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus."
+  },
+  {
+   "ref": "item 9702-7.1-x064 stem",
+   "rule": "off syllabus",
+   "evidence": "A stationary wave is formed in the oven.",
+   "suggested": "Move this stationary-wave question to the relevant later chapter.",
+   "status": "fixed",
+   "resolution": "fix: Adjacent melted antinodes are λ/2 apart, so λ = 0.12 m and f = 2.5 GHz, official C. Antinode spacing requires stationary waves in 8.1. Remove item 9702-7.1-x064 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_s25_12_q24 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "9702-7.1-x046",
+   "instruction": "Keep official answer D. In build/work/mcq/overrides.json under 9702_s23_11_q20 set explanation to: \"D. The trace shows less than one cycle and its peak is clipped. Increasing the time-base setting in seconds per division displays a longer time interval, so a complete cycle fits horizontally. Here the examiner uses y-gain to mean the volts-per-division setting: increasing this setting reduces the displayed vertical amplitude, so the peak fits on screen. C confuses the volts-per-division setting with amplifier gain or vertical sensitivity; those decrease when volts per division increases.\" Do not change the stem, options or key.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-p03 stem",
+   "instruction": "Reject the off-syllabus finding and retain the question with answer D: the deep-water relation is supplied, and combining it with v = fλ tests KC 9702-7.1.5. Correct damaged extracted text in the source that generates p03: set stem to \"The speed v of waves in deep water is given by v² = gλ/(2π), where λ is the wavelength of the waves and g is the acceleration of free fall. A student measures the wavelength λ and the frequency f of a number of these waves. Which graph should he plot to give a straight line through the origin?\" Set options to {\"A\":\"f² against λ\",\"B\":\"f against λ²\",\"C\":\"f against 1/λ\",\"D\":\"f² against 1/λ\"}. The image confirms gλ/(2π), not π²λg/2; f² = g/(2πλ). Retain the image and existing explanation.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-p04 stem",
+   "instruction": "Reject the off-syllabus finding and retain the question with answer A: I = P/(4πr²) is supplied, and I proportional to a² is explicitly KC 9702-7.1.7. Correct damaged extracted text in the source that generates p04: set stem to \"A source of sound of constant power P is situated in an open space. The intensity I of sound at distance r from this source is given by I = P/(4πr²). How does the amplitude a of the vibrating air molecules vary with the distance r from the source?\" Set options to {\"A\":\"a ∝ 1/r\",\"B\":\"a ∝ 1/r²\",\"C\":\"a ∝ r\",\"D\":\"a ∝ r²\"}. Retain the image and existing explanation; a is proportional to sqrt(I), hence 1/r.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-x024 stem",
+   "instruction": "Adding and subtracting amplitudes requires superposition, which is not taught in 7.1. The maximum/minimum intensity ratio is ((2.5+1.5)/(2.5-1.5))² = 16, official D. Remove item 9702-7.1-x024 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.1\"]. In build/work/mcq/overrides.json under 9702_w20_13_q22 set kcs to [\"9702-8.1.1\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-x036 stem",
+   "instruction": "The string contains three half-wavelengths; λ = 0.900 m and f = 500 Hz, official C. Identifying wavelength from stationary-wave nodes requires 8.1. Remove item 9702-7.1-x036 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_w21_12_q27 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-x038 stem",
+   "instruction": "Two antinodes in a closed-open pipe imply L = 3λ/4; λ = 0.800 m and f = 425 Hz, official A. This requires stationary-wave boundary conditions. Remove item 9702-7.1-x038 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_w21_13_q24 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-x040 stem",
+   "instruction": "A closed-open pipe supports odd multiples of v/(4L) = 100 Hz; 200 Hz is excluded, official B. This requires stationary-wave boundary conditions. Remove item 9702-7.1-x040 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_s22_11_q27 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-x044 stem",
+   "instruction": "The two-node/two-antinode pattern gives λ = 4L/3. At L = 15 cm the graph gives f = 1500 Hz, hence v = 300 m/s, official C. This requires stationary-wave node spacing. Remove item 9702-7.1-x044 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_s22_13_q28 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-x058 stem",
+   "instruction": "In-phase amplitudes change from 2A to 3A, so intensity becomes (3/2)² I = 2.25I, rounded to 2.3I, official C. Amplitude addition requires superposition beyond 7.1. Remove item 9702-7.1-x058 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.1\"]. In build/work/mcq/overrides.json under 9702_w24_11_q28 set kcs to [\"9702-8.1.1\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-x059 stem",
+   "instruction": "Dust heaps mark displacement nodes; three node intervals span 0.30 m, giving λ = 0.20 m and f = 1650 Hz, official A. This requires stationary-wave node spacing. Remove item 9702-7.1-x059 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_w24_12_q31 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-x062 stem",
+   "instruction": "λ = c/f = 0.20 mm and fringe spacing λD/a = 10 mm; the third minimum lies 2.5 spacings from the central maximum, at 25 mm, official C. Double-slit fringe spacing and minima require 8.3. Remove item 9702-7.1-x062 from the 9702-7.1 pack and route it to 9702-8.3. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.3.4\"]. In build/work/mcq/overrides.json under 9702_w24_13_q29 set kcs to [\"9702-8.3.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-7.1-x064 stem",
+   "instruction": "Adjacent melted antinodes are λ/2 apart, so λ = 0.12 m and f = 2.5 GHz, official C. Antinode spacing requires stationary waves in 8.1. Remove item 9702-7.1-x064 from the 9702-7.1 pack and route it to 9702-8.1. In build/work/mcq/9702.tagged.json, set this qid's kcs to [\"9702-8.1.4\"]. In build/work/mcq/overrides.json under 9702_s25_12_q24 set kcs to [\"9702-8.1.4\"], preserving any other override fields. The tagged-bank change is required because add_past filters bank KCs before applying overrides; an override alone will not remove it from 7.1. Regenerate the 7.1 extras after retagging. Preserve the official answer, stem, options and image; do not mark the question globally off_syllabus.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 5911,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:52:01+08:00",
+   "log": "foundry/logs/9702-7.1.drafter.1010-135201.log",
+   "out": "foundry/logs/9702-7.1.drafter.1010-135201.out.json",
+   "finished": "2026-10-10T13:53:44+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-7.1.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/07 Waves/7.1 Progressive waves.md",
+    "items": 121,
+    "templates": 0,
+    "worked": 4,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Generated practice has no numeric templates; six short retrieval items cover each KC."
+    ]
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 8135,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:56:29+08:00",
+   "log": "foundry/logs/9702-7.1.checker.1010-135629.log",
+   "out": "foundry/logs/9702-7.1.checker.1010-135629.out.json",
+   "expects": "build/work/foundry/9702-7.1.check.json",
+   "finished": "2026-10-10T13:57:03+08:00",
+   "exit": 0,
+   "report": {
+    "text": "13 findings written to `build/work/foundry/9702-7.1.check.json`."
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 18936,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:10:32+08:00",
+   "log": "foundry/logs/9702-7.1.solver-1.1010-141032.log",
+   "out": "foundry/logs/9702-7.1.solver-1.1010-141032.out.json",
+   "expects": "build/work/blind/9702-7.1.answers.part1.json",
+   "finished": "2026-10-10T14:11:17+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote `build/work/blind/9702-7.1.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 19522,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:11:18+08:00",
+   "log": "foundry/logs/9702-7.1.solver-2.1010-141118.log",
+   "out": "foundry/logs/9702-7.1.solver-2.1010-141118.out.json",
+   "expects": "build/work/blind/9702-7.1.answers.part2.json",
+   "finished": "2026-10-10T14:11:44+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [9702-7.1.answers.part2.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-7.1.answers.part2.json)."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 19524,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:11:18+08:00",
+   "log": "foundry/logs/9702-7.1.solver-3.1010-141118.log",
+   "out": "foundry/logs/9702-7.1.solver-3.1010-141118.out.json",
+   "expects": "build/work/blind/9702-7.1.answers.part3.json",
+   "finished": "2026-10-10T14:11:44+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote [9702-7.1.answers.part3.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-7.1.answers.part3.json)."
+   },
+   "ok": true
+  },
+  "solver#4": {
+   "pid": 19529,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:11:18+08:00",
+   "log": "foundry/logs/9702-7.1.solver-4.1010-141118.log",
+   "out": "foundry/logs/9702-7.1.solver-4.1010-141118.out.json",
+   "expects": "build/work/blind/9702-7.1.answers.part4.json",
+   "finished": "2026-10-10T14:11:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [9702-7.1.answers.part4.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-7.1.answers.part4.json)."
+   },
+   "ok": true
+  },
+  "solver#5": {
+   "pid": 20120,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:11:54+08:00",
+   "log": "foundry/logs/9702-7.1.solver-5.1010-141154.log",
+   "out": "foundry/logs/9702-7.1.solver-5.1010-141154.out.json",
+   "expects": "build/work/blind/9702-7.1.answers.part5.json",
+   "finished": "2026-10-10T14:12:07+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 3 questions in `build/work/blind/9702-7.1.answers.part5.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 21245,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:13:05+08:00",
+   "log": "foundry/logs/9702-7.1.tiebreak.1010-141305.log",
+   "out": "foundry/logs/9702-7.1.tiebreak.1010-141305.out.json",
+   "expects": "build/work/blind/9702-7.1.tiebreak.json",
+   "finished": "2026-10-10T14:13:30+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 5,
+    "answers_path": "build/work/blind/9702-7.1.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 23346,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:15:29+08:00",
+   "log": "foundry/logs/9702-7.1.adjudicator.1010-141529.log",
+   "out": "foundry/logs/9702-7.1.adjudicator.1010-141529.out.json",
+   "finished": "2026-10-10T14:17:13+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9702-7.1-x046 fix: retain D; explain volts-per-division trap.\n9702-7.1-p03 fix: retain; repair extracted equation and options.\n9702-7.1-p04 fix: retain; repair extracted equation and options.\n9702-7.1-x022 keep: uses prior kinematics and kinetic energy.\n9702-7.1-x024 fix: move superposition question to 8.1.\n9702-7.1-x036 fix: move stationary-wave question to 8.1.\n9702-7.1-x038 fix: move stationary-wave question to 8.1.\n9702-7.1-x040 fix: move stationary-wave question to 8.1.\n9702-7.1-x044 fix: move stationary-wave question to 8.1.\n9702-7.1-x052 keep: uses prior kinematics and kinetic energy.\n9702-7.1-x058 fix: move superposition question to 8.1.\n9702-7.1-x059 fix: move stationary-wave question to 8.1.\n9702-7.1-x062 fix: move double-slit question to 8.3.\n9702-7.1-x064 fix: move stationary-wave question to 8.1."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 25143,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T14:17:56+08:00",
+   "log": "foundry/logs/9702-7.1.fixer.1010-141756.log",
+   "out": "foundry/logs/9702-7.1.fixer.1010-141756.out.json",
+   "finished": "2026-10-10T14:18:22+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 11,
+    "not_done": [
+     "Syllabus gate reports 7 no-teach-card errors for 9702-7.1.1 through 9702-7.1.7; fixer scope does not permit editing teaching cards."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 25776,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:18:22+08:00",
+   "log": "foundry/logs/9702-7.1.solver.1010-141822.log",
+   "out": "foundry/logs/9702-7.1.solver.1010-141822.out.json",
+   "expects": "build/work/blind/9702-7.1.recheck.answers.json",
+   "finished": "2026-10-10T14:18:35+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question; wrote [9702-7.1.recheck.answers.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-7.1.recheck.answers.json)."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q4": "9702-7.1-x001",
+  "9702_s19_12_q23": "9702-7.1-x002",
+  "9702_s19_13_q21": "9702-7.1-x003",
+  "9702_s19_13_q22": "9702-7.1-x004",
+  "9702_w19_12_q21": "9702-7.1-x005",
+  "9702_w19_12_q22": "9702-7.1-x006",
+  "9702_w19_12_q26": "9702-7.1-x007",
+  "9702_w19_13_q22": "9702-7.1-x008",
+  "9702_w19_13_q23": "9702-7.1-x009",
+  "9702_w19_13_q27": "9702-7.1-x010",
+  "9702_s20_11_q4": "9702-7.1-x011",
+  "9702_s20_11_q22": "9702-7.1-x012",
+  "9702_s20_11_q23": "9702-7.1-x013",
+  "9702_s20_12_q21": "9702-7.1-x014",
+  "9702_s20_12_q22": "9702-7.1-x015",
+  "9702_s20_12_q23": "9702-7.1-x016",
+  "9702_s20_13_q22": "9702-7.1-x017",
+  "9702_s20_13_q23": "9702-7.1-x018",
+  "9702_w20_11_q4": "9702-7.1-x019",
+  "9702_w20_11_q21": "9702-7.1-x020",
+  "9702_w20_11_q22": "9702-7.1-x021",
+  "9702_w20_12_q23": "9702-7.1-x022",
+  "9702_w20_12_q24": "9702-7.1-x023",
+  "9702_w20_13_q22": "9702-7.1-x024",
+  "9702_w20_13_q23": "9702-7.1-x024",
+  "9702_w20_13_q24": "9702-7.1-x025",
+  "9702_s21_11_q4": "9702-7.1-x026",
+  "9702_s21_11_q21": "9702-7.1-x027",
+  "9702_s21_12_q21": "9702-7.1-x028",
+  "9702_s21_12_q23": "9702-7.1-x029",
+  "9702_s21_13_q23": "9702-7.1-x030",
+  "9702_s21_13_q24": "9702-7.1-x031",
+  "9702_w21_11_q4": "9702-7.1-x032",
+  "9702_w21_11_q21": "9702-7.1-x033",
+  "9702_w21_12_q4": "9702-7.1-x034",
+  "9702_w21_12_q27": "9702-7.1-x036",
+  "9702_w21_13_q4": "9702-7.1-x035",
+  "9702_w21_13_q24": "9702-7.1-x038",
+  "9702_s22_11_q21": "9702-7.1-x036",
+  "9702_s22_11_q27": "9702-7.1-x040",
+  "9702_s22_12_q21": "9702-7.1-x037",
+  "9702_s22_12_q22": "9702-7.1-x038",
+  "9702_s22_13_q23": "9702-7.1-x039",
+  "9702_s22_13_q28": "9702-7.1-x044",
+  "9702_w22_11_q22": "9702-7.1-x040",
+  "9702_s23_11_q20": "9702-7.1-x041",
+  "9702_s23_11_q21": "9702-7.1-x042",
+  "9702_s23_12_q20": "9702-7.1-x043",
+  "9702_s23_13_q20": "9702-7.1-x044",
+  "9702_s23_13_q21": "9702-7.1-x045",
+  "9702_w23_11_q20": "9702-7.1-x046",
+  "9702_w23_13_q20": "9702-7.1-x047",
+  "9702_s24_11_q19": "9702-7.1-x048",
+  "9702_s24_11_q25": "9702-7.1-x049",
+  "9702_s24_13_q22": "9702-7.1-x050",
+  "9702_s24_13_q23": "9702-7.1-x051",
+  "9702_w24_11_q24": "9702-7.1-x052",
+  "9702_w24_11_q28": "9702-7.1-x058",
+  "9702_w24_12_q31": "9702-7.1-x059",
+  "9702_w24_13_q26": "9702-7.1-x053",
+  "9702_w24_13_q27": "9702-7.1-x054",
+  "9702_w24_13_q29": "9702-7.1-x062",
+  "9702_s25_11_q26": "9702-7.1-x055",
+  "9702_s25_12_q24": "9702-7.1-x064",
+  "9702_s25_13_q26": "9702-7.1-x056",
+  "9702_w25_12_q25": "9702-7.1-x057",
+  "9702_w25_12_q26": "9702-7.1-x058"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

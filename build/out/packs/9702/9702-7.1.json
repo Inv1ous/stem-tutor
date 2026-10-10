@@ -1,0 +1,3555 @@
+{
+ "subtopic": "9702-7.1",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/07 Waves/7.1 Progressive waves.md",
+ "outline": "A progressive wave transfers energy as neighbouring particles vibrate about equilibrium. Describe displacement, amplitude, phase difference, period, frequency, wavelength and speed precisely. A CRO time-base gives time per division; y-gain gives voltage per division. In one period a wave advances one wavelength, so $v=f\\lambda$. Intensity is power per area and is proportional to amplitude squared for waves of the same type in the same medium.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-7.1.2",
+   "statement": "Amplitude is peak-to-peak displacement.",
+   "refutation": "Amplitude is maximum displacement from equilibrium; peak-to-peak is twice it.",
+   "contrast": "peak-to-peak = 2A",
+   "source": "ER 9702 s23 P23 Q4"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-7.1.3",
+   "statement": "CRO trace height directly gives sound displacement.",
+   "refutation": "Y-gain converts screen height to voltage; microphone calibration is needed to obtain sound displacement.",
+   "contrast": "screen amplitude in V versus particle amplitude in m",
+   "source": "ER 9702 s22 P13 Q23"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-7.1.4",
+   "statement": "One wavelength travels in one second.",
+   "refutation": "One wavelength travels in one period, which is $1/f$.",
+   "contrast": "one period versus one second",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-7.1.7",
+   "statement": "Intensity is proportional to amplitude.",
+   "refutation": "At fixed medium and frequency, intensity is proportional to amplitude squared.",
+   "contrast": "double amplitude gives four times intensity",
+   "source": "ER 9702 w19 P13 Q25"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-7.1.6",
+   "statement": "The medium travels with the wave.",
+   "refutation": "Particles oscillate about equilibrium while the disturbance transfers energy.",
+   "contrast": "oscillation versus propagation",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we3",
+   "kc": "9702-7.1.3",
+   "problem": "A CRO trace spans 4 divisions per cycle at 0.50 ms per division. Determine frequency.",
+   "steps": [
+    {
+     "do": "T = 4 × 0.50 ms = 2.0 ms; f = 1/T",
+     "why": "Apply the defining relation to the measured quantities."
+    },
+    {
+     "do": "Answer: 500 Hz.",
+     "why": "Include the appropriate unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 500,
+       "unit": "Hz",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A cycle spans 5 divisions at 0.40 ms per division. Determine frequency.",
+    "answer": {
+     "value": 500,
+     "unit": "Hz",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "9702-7.1.4",
+   "problem": "Show that the speed of a wave of wavelength 0.60 m and period 0.20 s is 3.0 m s^-1.",
+   "steps": [
+    {
+     "do": "v = λ/T = fλ",
+     "why": "Apply the defining relation to the measured quantities."
+    },
+    {
+     "do": "Answer: 3 m s^-1.",
+     "why": "Include the appropriate unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "A wave has wavelength 0.80 m and period 0.20 s. Determine speed.",
+    "answer": {
+     "value": 4,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we5",
+   "kc": "9702-7.1.5",
+   "problem": "A wave has frequency 25 Hz and wavelength 0.40 m. Calculate speed.",
+   "steps": [
+    {
+     "do": "v = fλ = 25 × 0.40",
+     "why": "Apply the defining relation to the measured quantities."
+    },
+    {
+     "do": "Answer: 10 m s^-1.",
+     "why": "Include the appropriate unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 10,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "A wave has frequency 30 Hz and wavelength 0.50 m. Calculate speed.",
+    "answer": {
+     "value": 15,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we7",
+   "kc": "9702-7.1.7",
+   "problem": "A wave delivers 12 W through 3.0 m^2. Calculate its intensity.",
+   "steps": [
+    {
+     "do": "I = P/A = 12/3.0",
+     "why": "Apply the defining relation to the measured quantities."
+    },
+    {
+     "do": "Answer: 4 W m^-2.",
+     "why": "Include the appropriate unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4,
+       "unit": "W m^-2",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we7f",
+    "problem": "A wave delivers 20 W through 4.0 m^2. Calculate intensity.",
+    "answer": {
+     "value": 5,
+     "unit": "W m^-2",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-7.1-i11",
+   "kcs": [
+    "9702-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe wave motion.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Wave motion is propagation of a disturbance through a medium or space, transferring energy.",
+     "keywords": [
+      [
+       "Wave"
+      ],
+      [
+       "motion"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Wave motion is propagation of a disturbance through a medium or space, transferring energy.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i12",
+   "kcs": [
+    "9702-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a rope wave.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A pulse travels along the rope while each rope element vibrates about its equilibrium position.",
+     "keywords": [
+      [
+       "A"
+      ],
+      [
+       "pulse"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A pulse travels along the rope while each rope element vibrates about its equilibrium position.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i13",
+   "kcs": [
+    "9702-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a spring wave.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A disturbance travels along the spring as its coils vibrate about equilibrium.",
+     "keywords": [
+      [
+       "A"
+      ],
+      [
+       "disturbance"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A disturbance travels along the spring as its coils vibrate about equilibrium.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i14",
+   "kcs": [
+    "9702-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe ripples in a tank.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Ripples spread from the source while water particles oscillate about equilibrium.",
+     "keywords": [
+      [
+       "Ripples"
+      ],
+      [
+       "spread"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Ripples spread from the source while water particles oscillate about equilibrium.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i15",
+   "kcs": [
+    "9702-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a floating marker does not follow a ripple across a tank.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The marker oscillates around one place as wave energy travels across the tank.",
+     "keywords": [
+      [
+       "The"
+      ],
+      [
+       "marker"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The marker oscillates around one place as wave energy travels across the tank.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i16",
+   "kcs": [
+    "9702-7.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare motion of a ripple and a water particle.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The ripple propagates across the surface; a particle vibrates about its equilibrium position.",
+     "keywords": [
+      [
+       "The"
+      ],
+      [
+       "ripple"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The ripple propagates across the surface; a particle vibrates about its equilibrium position.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i21",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define displacement.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Displacement is the distance and direction of a particle from its equilibrium position.",
+     "keywords": [
+      [
+       "Displacement"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Displacement is the distance and direction of a particle from its equilibrium position.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i22",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define amplitude.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Amplitude is the maximum displacement of a particle from its equilibrium position.",
+     "keywords": [
+      [
+       "Amplitude"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Amplitude is the maximum displacement of a particle from its equilibrium position.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i23",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define period.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Period is the time for one complete oscillation of a particle.",
+     "keywords": [
+      [
+       "Period"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Period is the time for one complete oscillation of a particle.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i24",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define frequency.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Frequency is the number of complete oscillations per unit time.",
+     "keywords": [
+      [
+       "Frequency"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Frequency is the number of complete oscillations per unit time.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i25",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define wavelength.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Wavelength is the distance between two consecutive points in phase on a wave.",
+     "keywords": [
+      [
+       "Wavelength"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Wavelength is the distance between two consecutive points in phase on a wave.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i26",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe phase difference and wave speed.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Phase difference is the fraction of a cycle separating oscillations, expressed as an angle; wave speed is the distance travelled by a wavefront per unit time.",
+     "keywords": [
+      [
+       "Phase"
+      ],
+      [
+       "difference"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Phase difference is the fraction of a cycle separating oscillations, expressed as an angle; wave speed is the distance travelled by a wavefront per unit time.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i31",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what CRO time-base specifies.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Time-base is the time represented by one horizontal division.",
+     "keywords": [
+      [
+       "Time-base"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Time-base is the time represented by one horizontal division.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i32",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what CRO y-gain specifies.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Y-gain is the voltage represented by one vertical division.",
+     "keywords": [
+      [
+       "Y-gain"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Y-gain is the voltage represented by one vertical division.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i33",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how to find frequency from a CRO trace.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Count horizontal divisions for one complete cycle; multiply by time per division for period, then take its reciprocal.",
+     "keywords": [
+      [
+       "Count"
+      ],
+      [
+       "horizontal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Count horizontal divisions for one complete cycle; multiply by time per division for period, then take its reciprocal.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i34",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how to find voltage amplitude from a CRO trace.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Count vertical divisions from centre line to peak and multiply by voltage per division.",
+     "keywords": [
+      [
+       "Count"
+      ],
+      [
+       "vertical"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Count vertical divisions from centre line to peak and multiply by voltage per division.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i35",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why CRO voltage amplitude need not be sound displacement amplitude.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A microphone converts displacement or pressure to voltage; its calibration is required to infer particle displacement.",
+     "keywords": [
+      [
+       "A"
+      ],
+      [
+       "microphone"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A microphone converts displacement or pressure to voltage; its calibration is required to infer particle displacement.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i36",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a full-cycle CRO measurement.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Measure between matching points such as two adjacent peaks, not from peak to trough.",
+     "keywords": [
+      [
+       "Measure"
+      ],
+      [
+       "between"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Measure between matching points such as two adjacent peaks, not from peak to trough.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i41",
+   "kcs": [
+    "9702-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Show (that)",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show (that) the wave equation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "In one period $T$, a wave advances one wavelength $\\lambda$, so $v=\\lambda/T$. As $f=1/T$, $v=f\\lambda$.",
+     "keywords": [
+      [
+       "In"
+      ],
+      [
+       "one"
+      ]
+     ]
+    }
+   ],
+   "explanation": "In one period $T$, a wave advances one wavelength $\\lambda$, so $v=\\lambda/T$. As $f=1/T$, $v=f\\lambda$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i42",
+   "kcs": [
+    "9702-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State distance advanced in one period.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A progressive wave advances one wavelength in one period.",
+     "keywords": [
+      [
+       "A"
+      ],
+      [
+       "progressive"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A progressive wave advances one wavelength in one period.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i43",
+   "kcs": [
+    "9702-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State frequency in terms of period.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$f=1/T$.",
+     "keywords": [
+      [
+       "f=1/T."
+      ]
+     ]
+    }
+   ],
+   "explanation": "$f=1/T$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i44",
+   "kcs": [
+    "9702-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $v=\\lambda/T$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Speed is distance per time; the wave travels one wavelength in one period.",
+     "keywords": [
+      [
+       "Speed"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Speed is distance per time; the wave travels one wavelength in one period.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i45",
+   "kcs": [
+    "9702-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Show (that)",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show (that) speed in terms of frequency and wavelength.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Use $v=\\lambda/T$ and $T=1/f$ to obtain $v=f\\lambda$.",
+     "keywords": [
+      [
+       "Use"
+      ],
+      [
+       "v=lambda/T"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Use $v=\\lambda/T$ and $T=1/f$ to obtain $v=f\\lambda$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i46",
+   "kcs": [
+    "9702-7.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the units in the wave equation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Frequency has unit Hz or $\\mathrm{s^{-1}}$ and wavelength has unit m, giving speed in $\\mathrm{m\\,s^{-1}}$.",
+     "keywords": [
+      [
+       "Frequency"
+      ],
+      [
+       "has"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Frequency has unit Hz or $\\mathrm{s^{-1}}$ and wavelength has unit m, giving speed in $\\mathrm{m\\,s^{-1}}$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i51",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the wave equation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$v=f\\lambda$.",
+     "keywords": [
+      [
+       "v=flambda."
+      ]
+     ]
+    }
+   ],
+   "explanation": "$v=f\\lambda$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i52",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how wavelength changes when frequency doubles at fixed speed.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Wavelength halves because $\\lambda=v/f$.",
+     "keywords": [
+      [
+       "Wavelength"
+      ],
+      [
+       "halves"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Wavelength halves because $\\lambda=v/f$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i53",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how frequency changes when wavelength triples at fixed speed.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Frequency becomes one third because $f=v/\\lambda$.",
+     "keywords": [
+      [
+       "Frequency"
+      ],
+      [
+       "becomes"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Frequency becomes one third because $f=v/\\lambda$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i54",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate frequency for a wave of speed 12 m s^-1 and wavelength 3 m.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$f=v/\\lambda=4$ Hz.",
+     "keywords": [
+      [
+       "f=v/lambda=4"
+      ],
+      [
+       "Hz."
+      ]
+     ]
+    }
+   ],
+   "explanation": "$f=v/\\lambda=4$ Hz.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i55",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate wavelength for speed 20 m s^-1 and frequency 5 Hz.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$\\lambda=v/f=4$ m.",
+     "keywords": [
+      [
+       "lambda=v/f=4"
+      ],
+      [
+       "m."
+      ]
+     ]
+    }
+   ],
+   "explanation": "$\\lambda=v/f=4$ m.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i56",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a graph of frequency against reciprocal wavelength is straight at fixed speed.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "From $f=v/\\lambda$, frequency is proportional to reciprocal wavelength, with gradient $v$.",
+     "keywords": [
+      [
+       "From"
+      ],
+      [
+       "f=v/lambda,"
+      ]
+     ]
+    }
+   ],
+   "explanation": "From $f=v/\\lambda$, frequency is proportional to reciprocal wavelength, with gradient $v$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i61",
+   "kcs": [
+    "9702-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what a progressive wave transfers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A progressive wave transfers energy.",
+     "keywords": [
+      [
+       "A"
+      ],
+      [
+       "progressive"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A progressive wave transfers energy.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i62",
+   "kcs": [
+    "9702-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how energy moves along a rope wave.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A driven section transfers energy to adjacent sections, which vibrate about equilibrium.",
+     "keywords": [
+      [
+       "A"
+      ],
+      [
+       "driven"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A driven section transfers energy to adjacent sections, which vibrate about equilibrium.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i63",
+   "kcs": [
+    "9702-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a ripple can transport energy without carrying water across the tank.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Water particles oscillate locally while the disturbance passes onward.",
+     "keywords": [
+      [
+       "Water"
+      ],
+      [
+       "particles"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Water particles oscillate locally while the disturbance passes onward.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i64",
+   "kcs": [
+    "9702-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe particle motion as a wave passes.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A particle oscillates about equilibrium as energy progresses through the wave.",
+     "keywords": [
+      [
+       "A"
+      ],
+      [
+       "particle"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A particle oscillates about equilibrium as energy progresses through the wave.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i65",
+   "kcs": [
+    "9702-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare energy motion with medium motion.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Energy propagates with the wave; medium particles vibrate locally.",
+     "keywords": [
+      [
+       "Energy"
+      ],
+      [
+       "propagates"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Energy propagates with the wave; medium particles vibrate locally.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i66",
+   "kcs": [
+    "9702-7.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a floating cork can bob while a ripple travels away.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The cork follows local oscillation while the progressive disturbance carries energy outward.",
+     "keywords": [
+      [
+       "The"
+      ],
+      [
+       "cork"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The cork follows local oscillation while the progressive disturbance carries energy outward.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i71",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define wave intensity.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Intensity is the power transferred per unit area normal to the direction of wave travel.",
+     "keywords": [
+      [
+       "Intensity"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Intensity is the power transferred per unit area normal to the direction of wave travel.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i72",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State intensity in terms of power and area.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$I=P/A$.",
+     "keywords": [
+      [
+       "I=P/A."
+      ]
+     ]
+    }
+   ],
+   "explanation": "$I=P/A$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i73",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State intensity dependence on amplitude.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "For comparable progressive waves, $I\\propto a^2$.",
+     "keywords": [
+      [
+       "For"
+      ],
+      [
+       "comparable"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For comparable progressive waves, $I\\propto a^2$.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i74",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate intensity when 12 W crosses 3 m^2.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$I=P/A=4$ W m^-2.",
+     "keywords": [
+      [
+       "I=P/A=4"
+      ],
+      [
+       "W"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$I=P/A=4$ W m^-2.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i75",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain effect of doubling amplitude at fixed medium and frequency.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Intensity becomes four times as large because it is proportional to amplitude squared.",
+     "keywords": [
+      [
+       "Intensity"
+      ],
+      [
+       "becomes"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Intensity becomes four times as large because it is proportional to amplitude squared.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-i76",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain effect of halving intensity on amplitude.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Amplitude is multiplied by $1/\\sqrt{2}$ because amplitude is proportional to the square root of intensity.",
+     "keywords": [
+      [
+       "Amplitude"
+      ],
+      [
+       "is"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Amplitude is multiplied by $1/\\sqrt{2}$ because amplitude is proportional to the square root of intensity.",
+   "hints": [
+    "Recall the relevant wave quantity.",
+    "Link the definition to the physical observation.",
+    "Write the defining relationship or observation first."
+   ]
+  },
+  {
+   "id": "9702-7.1-p01",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q21",
+    "qid": "9702_w23_13_q21"
+   },
+   "stem": "A wave travels on the surface of water. P, Q, R and S are four particles of water on the surface.\nThe diagram shows the positions of the particles at one instant. The direction of travel of the\nwave is from left to right.\nP\nQ\nR\nS\ndirection of wave travel\nWhich two particles are about to move upwards?",
+   "options": {
+    "A": "P and R",
+    "B": "P and S",
+    "C": "R and S",
+    "D": "Q and S"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_13_q21.png",
+   "marks": 1,
+   "explanation": "Q and S are on sections that move upwards as the right-moving profile advances. C wrongly includes R, which moves downwards.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p02",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q20",
+    "qid": "9702_w23_12_q20"
+   },
+   "stem": "X and Y are two points on the surface of water in a ripple tank. A source of constant frequency\ngenerates a wave which travels past X and Y, causing them to oscillate vertically.\nwater surface\nX\nY\ndirection of\nwave travel\nWhat is the phase difference between X and Y?",
+   "options": {
+    "A": "45°",
+    "B": "135°",
+    "C": "180°",
+    "D": "270°"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_12_q20.png",
+   "marks": 1,
+   "explanation": "The separation is three-quarters of a wavelength, so phase difference is $270^\\circ$. B halves that angle.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p03",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q22",
+    "qid": "9702_w20_12_q22"
+   },
+   "stem": "The speed v of waves in deep water is given by v² = gλ/(2π), where λ is the wavelength of the waves and g is the acceleration of free fall. A student measures the wavelength λ and the frequency f of a number of these waves. Which graph should he plot to give a straight line through the origin?",
+   "options": {
+    "A": "f² against λ",
+    "B": "f against λ²",
+    "C": "f against 1/λ",
+    "D": "f² against 1/λ"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_12_q22.png",
+   "marks": 1,
+   "explanation": "Combine $v=f\\lambda$ with the stated deep-water relation to get $f^2=g/(2\\pi\\lambda)$. C omits the square on frequency.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p04",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q25",
+    "qid": "9702_w19_13_q25"
+   },
+   "stem": "A source of sound of constant power P is situated in an open space. The intensity I of sound at distance r from this source is given by I = P/(4πr²). How does the amplitude a of the vibrating air molecules vary with the distance r from the source?",
+   "options": {
+    "A": "a ∝ 1/r",
+    "B": "a ∝ 1/r²",
+    "C": "a ∝ r",
+    "D": "a ∝ r²"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_13_q25.png",
+   "marks": 1,
+   "explanation": "Since intensity falls as $1/r^2$ and $I\\propto a^2$, amplitude falls as $1/r$. B incorrectly makes amplitude follow intensity directly.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p05",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q23",
+    "qid": "9702_s19_13_q23"
+   },
+   "stem": "A sound wave of frequency 270 Hz is recorded by a cathode-ray oscilloscope (CRO).\nThe waveform on the CRO is shown.\n1 cm\nWhat is the time-base setting on the CRO?",
+   "options": {
+    "A": "0.1 ms cm⁻¹",
+    "B": "1 ms cm⁻¹",
+    "C": "10 ms cm⁻¹",
+    "D": "100 ms cm⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_13_q23.png",
+   "marks": 1,
+   "explanation": "The period is $1/270$ s. About 2.5 cycles occupy 9 cm, giving roughly 1 ms per cm; C is ten times too large.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p06",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q28",
+    "qid": "9702_s19_12_q28"
+   },
+   "stem": "A cathode-ray oscilloscope (CRO) is used to display the trace from a sound wave. The time-base\nis set at 5 µs mm⁻¹.\n1 cm\n1 cm\nWhat is the frequency of the sound wave?",
+   "options": {
+    "A": "6.7 Hz",
+    "B": "67 Hz",
+    "C": "6.7 kHz",
+    "D": "67 kHz"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_12_q28.png",
+   "marks": 1,
+   "explanation": "One cycle occupies 30 mm, so $T=30(5\\,\\mu\\mathrm{s})=150\\,\\mu\\mathrm{s}$ and $f=6.7$ kHz. Other choices mishandle the microsecond or centimetre conversion.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p07",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q22",
+    "qid": "9702_s22_11_q22"
+   },
+   "stem": "The graph shows the variation of the displacement of an air particle with time as a sound wave\npasses through air.\ndisplacement\ntime\n00\nThe intensity of the sound is halved while the frequency remains constant.\nThe four graphs below are drawn to the same scale as the graph above.\nWhich graph shows the displacement of the air particle?\ndisplacement\ndisplacement",
+   "options": {
+    "A": "00 displacement",
+    "B": "00",
+    "C": "00 displacement",
+    "D": "00 time time time time"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_11_q22.png",
+   "marks": 1,
+   "explanation": "Halving intensity multiplies amplitude by $1/\\sqrt{2}$ while frequency and period stay fixed. C incorrectly halves the amplitude.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p08",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q27",
+    "qid": "9702_w24_12_q27"
+   },
+   "stem": "What could describe the time-base of a cathode-ray oscilloscope (CRO)?",
+   "options": {
+    "A": "the frequency per division on the screen",
+    "B": "the number of divisions on the screen per unit frequency",
+    "C": "the number of divisions on the screen per unit time",
+    "D": "the time per division on the screen"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "Time-base is the time represented by a horizontal division. A confuses it with frequency per division.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p09",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q26",
+    "qid": "9702_w24_11_q26"
+   },
+   "stem": "A wave has a frequency of 5 GHz.\nWhat is the period of the wave?",
+   "options": {
+    "A": "200 ps",
+    "B": "2 ns",
+    "C": "20 ns",
+    "D": "20 000 μs"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "$T=1/f=1/(5\\times10^9)$ s, which is 200 ps. The nanosecond options misconvert the unit.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p10",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q23",
+    "qid": "9702_w23_13_q23"
+   },
+   "stem": "Which statement about electromagnetic waves in a vacuum is correct?",
+   "options": {
+    "A": "Amplitude is inversely proportional to velocity.",
+    "B": "Frequency is inversely proportional to wavelength.",
+    "C": "Intensity is proportional to amplitude.",
+    "D": "Velocity is proportional to wavelength."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "In vacuum electromagnetic wave speed is fixed, so $f=c/\\lambda$: frequency is inversely proportional to wavelength. C incorrectly makes intensity proportional to amplitude rather than its square.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p11",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q22",
+    "qid": "9702_w22_13_q22"
+   },
+   "stem": "The period of an electromagnetic wave in a vacuum is 1.0 ns.\nWhat are the frequency and wavelength of the wave?\nfrequency / Hz\nwavelength / m",
+   "options": {
+    "A": "1.0 3.0 × 10⁸",
+    "B": "1.0 × 10⁶ 300",
+    "C": "1.0 × 10⁹ 0.30",
+    "D": "1.0 × 10¹² 3.0 × 10⁻⁴"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w22_13_q22.png",
+   "marks": 1,
+   "explanation": "A period of 1.0 ns gives $f=1.0\\times10^9$ Hz and $\\lambda=c/f=0.30$ m. The other options misconvert period or wavelength.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-p12",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q21",
+    "qid": "9702_w22_11_q21"
+   },
+   "stem": "A signal generator, amplifier and loudspeaker are used to produce different sound waves in the\nair of a room. The relationships between the properties of these waves are investigated.\nWhich relationship is not correct?",
+   "options": {
+    "A": "Amplitude is proportional to wavelength.",
+    "B": "Frequency is inversely proportional to wavelength.",
+    "C": "Intensity is proportional to amplitude squared at a given frequency.",
+    "D": "Period is equal to the reciprocal of frequency."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Amplitude is not generally proportional to wavelength; frequency and wavelength are inversely related at fixed speed. The other listed relationships hold under their stated conditions.",
+   "hints": [
+    "Read the given quantities.",
+    "Identify the defining relationship.",
+    "Check units and the complete cycle."
+   ],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.1-x001",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q4",
+    "qid": "9702_s19_11_q4"
+   },
+   "stem": "A whale produces sound waves of frequency 5 Hz. The waves are detected by a microphone and\ndisplayed on an oscilloscope.\nWhat is the time-base setting on the oscilloscope?",
+   "options": {
+    "A": "0.1 ms div⁻¹",
+    "B": "1 ms div⁻¹",
+    "C": "10 ms div⁻¹",
+    "D": "100 ms div⁻¹"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x002",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q23",
+    "qid": "9702_s19_12_q23"
+   },
+   "stem": "The diagram illustrates the position of particles in a progressive sound wave at one instant in\ntime.\nP\nQ\nL\nThe speed of the wave is v. P and Q are two points in the wave a distance L apart.\nWhat is an expression for the frequency of the wave?",
+   "options": {
+    "A": "L v 2",
+    "B": "L v",
+    "C": "L v 2",
+    "D": "v L"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_12_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x003",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q21",
+    "qid": "9702_s19_13_q21"
+   },
+   "stem": "The graph shows the variation of displacement y with distance x along a progressive wave at one\ninstant in time.\ny\nx\n0\n0\nP\nQ\nWhat is the phase difference between points P and Q on the wave?",
+   "options": {
+    "A": "90°",
+    "B": "270°",
+    "C": "540°",
+    "D": "630°"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_13_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x004",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q22",
+    "qid": "9702_s19_13_q22"
+   },
+   "stem": "Wave-power generators take advantage of the energy that is transferred by the motion of waves\nacross the surface of the oceans. The energy of a wave depends on its amplitude.\nWhat is the correct definition of amplitude?",
+   "options": {
+    "A": "the average amount of energy possessed by a wave",
+    "B": "the difference in displacement between a peak and a trough",
+    "C": "the maximum displacement of a point on the wave from equilibrium",
+    "D": "the number of oscillations of a wave that occur per second"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x005",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q21",
+    "qid": "9702_w19_12_q21"
+   },
+   "stem": "The two graphs represent the same wave.\nGraph 1 shows the variation with time of the displacement at a particular distance. Graph 2\nshows the variation with distance of the displacement at one instant.\n0\n0\n0.5\n1.0\ndisplacement\ntime / s\ngraph 1\n0\n0\n30\n60\n90\ndisplacement\ndistance\n/ cm\ngraph 2\nWhat is the speed of the wave?",
+   "options": {
+    "A": "22.5 cm s⁻¹",
+    "B": "30.0 cm s⁻¹",
+    "C": "90.0 cm s⁻¹",
+    "D": "120 cm s⁻¹"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_12_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x006",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q22",
+    "qid": "9702_w19_12_q22"
+   },
+   "stem": "A microphone is connected to a cathode-ray oscilloscope (CRO). When a tuning fork is struck\nand then held next to the microphone, the following waveform is shown on the display of the\nCRO.\nThe time-base setting on the CRO is 2.00 ms per division.\nWhat is the best estimate of the frequency of the sound produced by the tuning fork?",
+   "options": {
+    "A": "63 Hz",
+    "B": "170 Hz",
+    "C": "250 Hz",
+    "D": "500 Hz"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x007",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q26",
+    "qid": "9702_w19_12_q26"
+   },
+   "stem": "Which statement about a light wave and a sound wave is correct?",
+   "options": {
+    "A": "Both can travel through free space.",
+    "B": "Both have a frequency inversely proportional to their wavelength.",
+    "C": "Both have an intensity proportional to their amplitude.",
+    "D": "Both have oscillations perpendicular to the direction of energy transfer."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x008",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q22",
+    "qid": "9702_w19_13_q22"
+   },
+   "stem": "The graph represents a sound wave.\n5\n10\n15\n20\n25\n30\n35\n40\n45\n50\n55\n0\n3\n0\n–3\ndisplacement\n/ µm\ntime / ms\nWhich statement is correct?",
+   "options": {
+    "A": "The wave is longitudinal and has a period of 25 ms.",
+    "B": "The wave is longitudinal and has a frequency of 50 Hz.",
+    "C": "The wave is transverse and has an amplitude of 3 µm.",
+    "D": "The wave is transverse and has a wavelength of 20 ms."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_13_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x009",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q23",
+    "qid": "9702_w19_13_q23"
+   },
+   "stem": "A cathode-ray oscilloscope (CRO) is used to display a wave of frequency 5.0 kHz. The display is\nshown.\n1 cm\n1 cm\nWhat is the time-base setting of the CRO?",
+   "options": {
+    "A": "10 µs cm⁻¹",
+    "B": "100 µs cm⁻¹",
+    "C": "10 ms cm⁻¹",
+    "D": "100 ms cm⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_13_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x010",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q27",
+    "qid": "9702_w19_13_q27"
+   },
+   "stem": "The graph shows how the height of the water surface at a point in a harbour varies with time t as\nwaves pass the point.\nt\nheight\nmean height\nq\np\nWhat are p and q?\np\nq",
+   "options": {
+    "A": "displacement period",
+    "B": "displacement wavelength",
+    "C": "amplitude period",
+    "D": "amplitude wavelength"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_13_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x011",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q4",
+    "qid": "9702_s20_11_q4"
+   },
+   "stem": "A cathode-ray oscilloscope displays a square wave, as shown.\nThe time-base setting is 0.20 ms per division.\nWhat is the frequency of the square wave?",
+   "options": {
+    "A": "0.83 Hz",
+    "B": "830 Hz",
+    "C": "1300 Hz",
+    "D": "1700 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x012",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q22",
+    "qid": "9702_s20_11_q22"
+   },
+   "stem": "A sound wave reduces in intensity but maintains a constant frequency as it travels through air.\nWhich statement is correct?",
+   "options": {
+    "A": "The maximum displacement of the particles changes between one particle and the next particle.",
+    "B": "The phase difference between adjacent particles is zero.",
+    "C": "The wavelength is the distance between two particles that have a phase difference of 180°.",
+    "D": "Two particles that have a phase difference of 360° have the same maximum displacement."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x013",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q23",
+    "qid": "9702_s20_11_q23"
+   },
+   "stem": "The graph shows the variation with time of the displacement of an electromagnetic wave at a\npoint.\n5\n10\n15\n20\n25\n30\n35\n40\n45\n50\n55\n3.0\n0\n–3.0\ndisplacement\narbitrary units\ntime / µs\n0\nThe wave is travelling in a vacuum.\nWhat is the amplitude and what is the wavelength of the wave?\namplitude\n/ arbitrary units\nwavelength\n/ m",
+   "options": {
+    "A": "3.0 6000",
+    "B": "6.0 6000",
+    "C": "3.0 7500",
+    "D": "6.0 7500"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_11_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x014",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q21",
+    "qid": "9702_s20_12_q21"
+   },
+   "stem": "A transverse wave is moving along a rope. Two points X and Y on the rope are a quarter of a\nwavelength apart from each other.\nWhich statement is not possible for the two points X and Y at any instant?",
+   "options": {
+    "A": "They are both stationary.",
+    "B": "They are displaced in opposite directions from their equilibrium position.",
+    "C": "They are moving in opposite directions.",
+    "D": "They both have displacements of the same magnitude from their equilibrium positions."
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_12_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x015",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q22",
+    "qid": "9702_s20_12_q22"
+   },
+   "stem": "Two progressive waves meet at a fixed point P. The variation with time of the displacement of\neach wave at point P is shown in the graph.\n0\n0\n0.1\n0.2\n0.3\n0.4\n0.5\n0.6\n0.7\n0.8\n0.9\n1.0\n1.1\n1.2\ndisplacement\ntime / s\nWhat is the phase difference between the two waves at point P?",
+   "options": {
+    "A": "45°",
+    "B": "90°",
+    "C": "135°",
+    "D": "180°"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x016",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q23",
+    "qid": "9702_s20_12_q23"
+   },
+   "stem": "A microphone connected to the Y-plates of a cathode-ray oscilloscope (CRO) is placed in front of\na loudspeaker. The trace on the screen of the CRO is shown.\n1 cm\n1 cm\nThe time-base setting is 0.5 ms cm⁻¹ and the Y-plate sensitivity is 0.2 mV cm⁻¹.\nWhat is the frequency of the sound from the loudspeaker and what is the amplitude of the trace\non the CRO?\nfrequency\n/ Hz\namplitude\n/ mV",
+   "options": {
+    "A": "330 0.6",
+    "B": "330 1.2",
+    "C": "670 0.6",
+    "D": "670 1.2"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_12_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x017",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q22",
+    "qid": "9702_s20_13_q22"
+   },
+   "stem": "A wave of amplitude A has an intensity I.\nAfter passing through a certain medium, the wave has a new intensity of 4\nI .\nWhat is the new amplitude of the wave?",
+   "options": {
+    "A": "2A",
+    "B": "2 A",
+    "C": "4 A",
+    "D": "16 A"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s20_13_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x018",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q23",
+    "qid": "9702_s20_13_q23"
+   },
+   "stem": "A wave travels along a coiled spring.\nThe graph shows the variation with time of the displacement of a point on the spring.\n0\n0\ntime / s\ndisplacement\n0.1\n0.2\n0.3\n0.4\n0.5\nWhat is the frequency of the wave?",
+   "options": {
+    "A": "0.13 Hz",
+    "B": "0.20 Hz",
+    "C": "5.0 Hz",
+    "D": "7.5 Hz"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_13_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x019",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q4",
+    "qid": "9702_w20_11_q4"
+   },
+   "stem": "A student uses a cathode-ray oscilloscope (CRO) to measure the period of a signal. She sets the\ntime-base of the CRO to 5 ms cm⁻¹ and observes the trace illustrated below. The trace has a\nlength of 10.0 cm.\n10.0 cm\nWhat is the period of the signal?",
+   "options": {
+    "A": "7.1 × 10⁻⁶ s",
+    "B": "1.4 × 10⁻⁵ s",
+    "C": "7.1 × 10⁻³ s",
+    "D": "1.4 × 10⁻² s"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x020",
+   "kcs": [
+    "9702-7.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q21",
+    "qid": "9702_w20_11_q21"
+   },
+   "stem": "A guitar string vibrates to create a sound. The speed of the wave in the guitar string is always\n440 m s⁻¹. The vibrating string creates a sound wave that moves in the air with a speed of\n330 m s⁻¹.\nWhich graph shows the variation of frequency f with the wavelength λ for the waves in the string\nand in the air?\nf\nλ\n0\n0",
+   "options": {
+    "A": "air string f λ 0 0",
+    "B": "air string f λ 0 0",
+    "C": "air string f λ 0 0",
+    "D": "air string"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x021",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q22",
+    "qid": "9702_w20_11_q22"
+   },
+   "stem": "The graph shows the variation with time of displacement for two different waves X and Y.\n0\n0\ndisplacement\ntime\nwave Y\nwave X\nWave X has frequency f and amplitude A.\nWhat is the frequency and what is the amplitude of wave Y?\nfrequency\namplitude",
+   "options": {
+    "A": "2 ¹ f 2 ¹ A",
+    "B": "2 ¹ f 2A",
+    "C": "2f 2 ¹ A",
+    "D": "2f 2A"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_11_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x022",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q23",
+    "qid": "9702_w20_12_q23"
+   },
+   "stem": "When sound travels through air, the air particles vibrate. A graph of displacement against time for\na single air particle is shown.\n0\n0\nT\n2T\ndisplacement\ntime\nWhich graph shows how the kinetic energy of the air particle varies with time?\n0\n0\nT\nkinetic\nenergy\ntime\n0\n0\nT\nkinetic\nenergy\ntime\n0\n0\nT",
+   "options": {
+    "A": "2T",
+    "B": "2T kinetic energy time 0 0 T",
+    "C": "2T",
+    "D": "2T kinetic energy time"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_12_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult. Although the context is waves, this question tests whether candidates understand that the gradient of a displacement–time graph of an object is the velocity of the object. Principal Examiner Report for Teachers Whenever the gradient of the displacement–time graph is zero, the velocity, and hence the kinetic energy, of the air particle is zero. The gradient is zero at time t = 0, but A and C have non-zero values at time t = 0, so both these answers can be rejected. The velocity is a maximum positive or negative value when the displacement is zero. The k"
+  },
+  {
+   "id": "9702-7.1-x023",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q24",
+    "qid": "9702_w20_12_q24"
+   },
+   "stem": "A vibrating tuning fork is held above a glass cylinder filled to the top with water. The water level is\nsteadily lowered. A loud sound is first heard when the water level is 83.5 cm above the bench.\nThe next loud sound is heard when the water level is 17.1 cm above the bench.\nwater\nwater\ncylinder\ntuning fork\n17.1 cm\n83.5 cm\nNOT TO\nSCALE\nbench\nThe speed of sound in air is 340 m s⁻¹.\nWhat is the frequency of the tuning fork?",
+   "options": {
+    "A": "128 Hz",
+    "B": "256 Hz",
+    "C": "384 Hz",
+    "D": "512 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_12_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The first loud sound corresponds to the first-order stationary sound wave in the cylinder, with a displacement node at the surface of the water and a displacement antinode at the open end of the cylinder. The second loud sound corresponds to the second-order stationary sound wave, again with a node at the surface of the water and an antinode at the open end of the cylinder, with one other node between the two. The change in the water level is the distance between two nodes, λ / 2. From this the wavelength and frequency of the sound can be calculated."
+  },
+  {
+   "id": "9702-7.1-x024",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q23",
+    "qid": "9702_w20_13_q23"
+   },
+   "stem": "The displacement–time graph for an air particle in the path of a sound wave is shown.\ndisplacement\n0\ntime\n0\nWhich property of the sound wave must be increasing?",
+   "options": {
+    "A": "amplitude",
+    "B": "frequency",
+    "C": "period",
+    "D": "speed"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_13_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x025",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q24",
+    "qid": "9702_w20_13_q24"
+   },
+   "stem": "A sound wave is displayed on the screen of a cathode-ray oscilloscope (CRO) as shown.\n1 cm\n1 cm\nThe time-base of the CRO is set at 2.5 ms cm⁻¹.\nWhat is the frequency of the sound wave?",
+   "options": {
+    "A": "50 Hz",
+    "B": "100 Hz",
+    "C": "200 Hz",
+    "D": "400 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_13_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x026",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q4",
+    "qid": "9702_s21_11_q4"
+   },
+   "stem": "A signal of frequency 25 Hz is displayed on the screen of a cathode-ray oscilloscope.\n1 cm\n1 cm\nWhat is the time-base setting?",
+   "options": {
+    "A": "10 ms cm⁻¹",
+    "B": "20 ms cm⁻¹",
+    "C": "25 ms cm⁻¹",
+    "D": "40 ms cm⁻¹"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x027",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q21",
+    "qid": "9702_s21_11_q21"
+   },
+   "stem": "Two identical waves are produced by sources at points P and Q. The waves travel along different\npaths to reach point R, as shown.\nP\nQ\nR\n100 cm\n80 cm\nBoth waves have a wavelength of 6.0 cm. The waves are in phase at point R.\nWhat is the phase difference between the waves as they leave points P and Q?",
+   "options": {
+    "A": "0°",
+    "B": "60°",
+    "C": "90°",
+    "D": "120°"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult, and B was a common incorrect answer. The distance QR – PR is equivalent to (100 – 80) / 6.0 = 3.33λ. As the two waves are in phase at point R, they must be out of phase at points P and Q by 3 λ , equivalent to a phase difference of 360°=120 3 ° ."
+  },
+  {
+   "id": "9702-7.1-x028",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q21",
+    "qid": "9702_s21_12_q21"
+   },
+   "stem": "Two lasers emit light in a vacuum. One laser emits red light and the other emits green light.\nWhich property of the light from the two lasers must be different?",
+   "options": {
+    "A": "amplitude",
+    "B": "frequency",
+    "C": "intensity",
+    "D": "speed"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x029",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q23",
+    "qid": "9702_s21_12_q23"
+   },
+   "stem": "A sound wave is detected by a microphone that is connected to a cathode-ray oscilloscope\n(CRO).\nThe screen of the CRO displays a waveform, as shown.\nThe time-base is set to 20 μs div⁻¹.\nWhat is the frequency of the sound wave?",
+   "options": {
+    "A": "15 Hz",
+    "B": "15 000 Hz",
+    "C": "20 000 Hz",
+    "D": "30 000 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s21_12_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x030",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q23",
+    "qid": "9702_s21_13_q23"
+   },
+   "stem": "The graph shows the variation with time of the displacement of an air particle as a progressive\nsound wave passes through the air. The speed of sound in air is 330 m s⁻¹.\n5\n10\n15\n20\n25\n30\n35\n40\n45\n50\n55\ndisplacement\ntime / ms\n0\n0\nWhat is the wavelength of the wave?",
+   "options": {
+    "A": "6.6 m",
+    "B": "8.3 m",
+    "C": "20 m",
+    "D": "25 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_13_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x031",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q24",
+    "qid": "9702_s21_13_q24"
+   },
+   "stem": "A microphone is connected to a cathode-ray oscilloscope (CRO). A sound wave of constant\nfrequency is detected by the microphone. The screen of the CRO is shown.\n1.0 cm\n1.0 cm\nThe time-base is set at 1.0 ms cm⁻¹.\nWhat is the frequency of the sound wave?",
+   "options": {
+    "A": "250 Hz",
+    "B": "500 Hz",
+    "C": "670 Hz",
+    "D": "4000 Hz"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_13_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x032",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q4",
+    "qid": "9702_w21_11_q4"
+   },
+   "stem": "A cathode-ray oscilloscope (CRO) is used to display a sound wave of frequency 2000 Hz.\nThe display of the CRO is shown.\n1 cm\n1 cm\nWhat is the time-base setting on the CRO?",
+   "options": {
+    "A": "125 μs cm⁻¹",
+    "B": "250 μs cm⁻¹",
+    "C": "500 μs cm⁻¹",
+    "D": "1000 μs cm⁻¹"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_11_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x033",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q21",
+    "qid": "9702_w21_11_q21"
+   },
+   "stem": "Two balls float on the surface of the sea. The balls are separated by a distance of 1.30 m.\nA wave travels on the surface of the sea so that the balls move vertically up and down.\n0.90 m\n1.30 m\nball\nball\nNOT TO\nSCALE\ndirection of\ntravel of wave\nThe distance between a crest and an adjacent trough of the wave is 0.90 m.\nWhat is the phase difference between the two balls?",
+   "options": {
+    "A": "55°",
+    "B": "110°",
+    "C": "160°",
+    "D": "260°"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x034",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q4",
+    "qid": "9702_w21_12_q4"
+   },
+   "stem": "Four cathode-ray oscilloscope (CRO) screens each display a waveform. The screen and the\ntime-base setting of each CRO is shown.\n1\ntime-base setting: 0.02 s / div\n2\ntime-base setting: 0.04 s / div\n3\ntime-base setting: 0.01 s / div\ntime-base setting: 0.08 s / div\nWhich screens show waveforms of the same frequency?",
+   "options": {
+    "A": "1 and 2",
+    "B": "1 and 3",
+    "C": "1 and 4",
+    "D": "2 and 3"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_12_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x035",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q4",
+    "qid": "9702_w21_13_q4"
+   },
+   "stem": "The output of a signal generator is connected to a cathode-ray oscilloscope (CRO). A trace is\nshown on the screen.\n1.0 cm\n1.0 cm\nThe time-base of the CRO is set at 2.00 ms cm⁻¹.\nWhat is the frequency of the signal?",
+   "options": {
+    "A": "50 Hz",
+    "B": "125 Hz",
+    "C": "250 Hz",
+    "D": "500 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_13_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x036",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q21",
+    "qid": "9702_s22_11_q21"
+   },
+   "stem": "The graph shows the variation with time of the displacement of a particle as a progressive wave\npasses.\n0\n5\n10\n15\n20\n5\n0\n–5\ntime / ns\ndisplacement / mm\nWhat are the frequency and the amplitude of the wave?\nfrequency / MHz\namplitude / mm",
+   "options": {
+    "A": "100 5",
+    "B": "200 5",
+    "C": "100 10",
+    "D": "200 10"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x037",
+   "kcs": [
+    "9702-7.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q21",
+    "qid": "9702_s22_12_q21"
+   },
+   "stem": "Which statement is correct for all types of progressive wave?",
+   "options": {
+    "A": "The distance from a peak to the next trough is equal to a wavelength.",
+    "B": "They can be demonstrated in ripple tanks.",
+    "C": "They consist of vibrating atoms.",
+    "D": "They transfer energy from one position to another."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x038",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q22",
+    "qid": "9702_s22_12_q22"
+   },
+   "stem": "A transverse water wave is moving along the surface of some water. This causes a ball to move\nvertically without moving horizontally as it floats upon the surface. At one instant, the ball is at the\nposition shown.\n2.4 m\n0.70 m\nball\ndirection of\nwave travel\nNOT TO\nSCALE\nThe wave has a frequency of 0.20 Hz and an amplitude of 0.70 m. The distance between a trough\nand an adjacent peak is 2.4 m.\nWhat is the distance travelled by the ball in a time of 20 s?",
+   "options": {
+    "A": "5.6 m",
+    "B": "9.6 m",
+    "C": "11.2 m",
+    "D": "19.2 m"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s22_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The wave frequency of 0.20 Hz enables the time period to be determined as 5.0 s. The stated time of 20 s corresponds to 20 / 5.0 = 4.0 complete wave cycles. For a transverse water wave, the displacements of the particles of the wave are at right angles to the direction of energy transfer of the wave, so in each cycle the ball will move through a vertical distance of 4 × 0.70 = 2.8 m, as it goes down to a trough and then back up to a peak again. For 4.0 wave cycles, the total distance travelled is therefore 11.2 m – answer C. Almost half of all candidates chose D, which is consistent with the m"
+  },
+  {
+   "id": "9702-7.1-x039",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q23",
+    "qid": "9702_s22_13_q23"
+   },
+   "stem": "A cathode-ray oscilloscope (CRO) is connected to a microphone which detects sound of constant\nfrequency.\nThe trace on the screen of the CRO is shown.\nWhich property of the sound wave is measured using only information from the CRO?",
+   "options": {
+    "A": "amplitude",
+    "B": "period",
+    "C": "speed",
+    "D": "wavelength"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_13_q23.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The amplitude of a sound wave is the maximum displacement from the equilibrium position, so its unit is m. The y-gain scale of the CRO is in units of V div–1. Using the amplitude of the CRO trace to determine the amplitude of the sound wave involves a calculation converting V to m, and this would require knowledge of the behaviour of the microphone. The time-base scale of the CRO is in units of s (or some multiple), so a direct reading of a single wave cycle on the horizontal axis of the CRO display would give the period of the wave."
+  },
+  {
+   "id": "9702-7.1-x040",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q22",
+    "qid": "9702_w22_11_q22"
+   },
+   "stem": "When a guitar string is plucked, it causes a longitudinal sound wave in the air, as shown.\n0.0\n0.2\n0.4\ndistance / m\n0.6\n0.8\nThe speed of sound in the air is 340 m s⁻¹.\nWhat is the approximate frequency of the sound wave shown?",
+   "options": {
+    "A": "430 Hz",
+    "B": "680 Hz",
+    "C": "1100 Hz",
+    "D": "1400 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_11_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x041",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q20",
+    "qid": "9702_s23_11_q20"
+   },
+   "stem": "In an experiment, a student uses a microphone and a cathode-ray oscilloscope (CRO) to analyse\na sound wave. The diagram shows the trace on the screen of the CRO.\nThe student is expecting a sinusoidal waveform to be shown on the screen.\nWhich changes should the student make to the time-base and the y-gain of the CRO so that the\nscreen shows a continuous trace for one complete cycle of the waveform?\ntime-base\ny-gain",
+   "options": {
+    "A": "decrease decrease",
+    "B": "decrease increase",
+    "C": "increase decrease",
+    "D": "increase increase"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "D. The trace shows less than one cycle and its peak is clipped. Increasing the time-base setting in seconds per division displays a longer time interval, so a complete cycle fits horizontally. Here the examiner uses y-gain to mean the volts-per-division setting: increasing this setting reduces the displayed vertical amplitude, so the peak fits on screen. C confuses the volts-per-division setting with amplifier gain or vertical sensitivity; those decrease when volts per division increases.",
+   "examiner": "Candidates found this question challenging, with many candidates, stating that the y-gain should be decreased (answers A and C). The time-base is given in seconds per division, so increasing the time-base means the time taken for the trace to travel across the screen will also increase, so more of the sinusoidal waveform will be observed. The y-gain is given in volts per division, so increasing the y-gain will mean a smaller vertical displacement of the trace for a given potential difference (p.d.) and more of the waveform will be observed. To obtain a full sinusoidal waveform on the screen bo"
+  },
+  {
+   "id": "9702-7.1-x042",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q21",
+    "qid": "9702_s23_11_q21"
+   },
+   "stem": "The graph shows the variation with time of the displacement of a particle in a progressive wave.\n0\n0\ndisplacement\ntime\ny\nx\nTwo measurements, x and y, are labelled on the graph.\nWhat do x and y represent?\nx\ny",
+   "options": {
+    "A": "amplitude period",
+    "B": "frequency period",
+    "C": "amplitude wavelength",
+    "D": "frequency wavelength"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_11_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates recognised that x represents the amplitude (the maximum displacement of a particle) but some candidates answered that y was the wavelength, not the period of the oscillation of a particle. The x- axis is labelled time, so y must represent a time value."
+  },
+  {
+   "id": "9702-7.1-x043",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q20",
+    "qid": "9702_s23_12_q20"
+   },
+   "stem": "A microphone detects a sound wave. The microphone is connected to a cathode-ray oscilloscope\n(CRO).\nThe shape of the trace on the screen of the CRO is shown.\nWhich property of the sound wave can be determined by using only the measurement of a\nhorizontal distance on the screen and the value of a control setting of the CRO?",
+   "options": {
+    "A": "amplitude",
+    "B": "frequency",
+    "C": "speed",
+    "D": "wavelength"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_12_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x044",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q20",
+    "qid": "9702_s23_13_q20"
+   },
+   "stem": "A progressive wave of frequency 1.5 kHz travels in a medium at a speed of 340 m s⁻¹.\nWhat is the minimum distance between two points on the wave that have a phase difference of\n70°?",
+   "options": {
+    "A": "4.4 cm",
+    "B": "8.8 cm",
+    "C": "18 cm",
+    "D": "23 cm"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x045",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q21",
+    "qid": "9702_s23_13_q21"
+   },
+   "stem": "Graph 1 shows the variation with time of displacement at a fixed distance along a progressive\nwave.\nGraph 2 represents the same wave and shows the variation with distance of displacement at an\ninstant in time.\n2.0\n1.0\n0\n–1.0\n–2.0\n0\n0.10\n0.20\n0.30\n0.40\ngraph 1\ndisplacement / cm\ntime / s\n2.0\n1.0\n0\n–1.0\n–2.0\n0\n30\n60\n90\n120\ngraph 2\ndisplacement / cm\ndistance / cm\nWhat is the speed of the wave?",
+   "options": {
+    "A": "5.0 cm s⁻¹",
+    "B": "48 cm s⁻¹",
+    "C": "150 cm s⁻¹",
+    "D": "300 cm s⁻¹"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_13_q21.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x046",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q20",
+    "qid": "9702_w23_11_q20"
+   },
+   "stem": "Two waves pass through a point P. The graph shows the variation with time t of the displacement s\nof the two waves at point P.\ns\nt / s\n0\n2\n4\n6\n8\n10\n0\nWhat is the phase difference between the two waves at point P?",
+   "options": {
+    "A": "0°",
+    "B": "45°",
+    "C": "90°",
+    "D": "180°"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w23_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x047",
+   "kcs": [
+    "9702-7.1.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q20",
+    "qid": "9702_w23_13_q20"
+   },
+   "stem": "When sound travels through air, the air particles vibrate. A graph of displacement against time for\na single air particle is shown.\nT\n2T\ndisplacement\ntime\n0\n0\nWhich graph shows how the kinetic energy of the air particle varies with time?\n0\n0\nT\nkinetic\nenergy\ntime\n0\nT\nkinetic\nenergy\ntime\n0\nT",
+   "options": {
+    "A": "2T 0 0 0",
+    "B": "2T kinetic energy time 0 T",
+    "C": "2T",
+    "D": "2T kinetic energy time"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question challenging. When the gradient of the displacement–time graph is zero, the velocity of the air particle, and its kinetic energy, is also zero. This means graphs A and C are incorrect. The velocity, and kinetic energy, are zero at time zero, time T/2, time T, time 3T/2 and time 2T, so D is the correct graph. Principal Examiner Report for Teachers"
+  },
+  {
+   "id": "9702-7.1-x048",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q19",
+    "qid": "9702_s24_11_q19"
+   },
+   "stem": "A plane wave of amplitude A is incident on a surface of area S placed so that it is perpendicular\nto the direction of travel of the wave. The energy per unit time reaching the surface is E.\nThe amplitude of the wave is increased to 2A and the area of the surface is reduced to\nS.\n2\n1\nHow much energy per unit time reaches this smaller surface?",
+   "options": {
+    "A": "4E",
+    "B": "2E",
+    "C": "E",
+    "D": "E 2 1"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s24_11_q19.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x049",
+   "kcs": [
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q25",
+    "qid": "9702_s24_11_q25"
+   },
+   "stem": "An electromagnetic wave is travelling through a vacuum.\nWhat could be the wavelength and period of the electromagnetic wave?\nwavelength\nperiod",
+   "options": {
+    "A": "1.2 × 10⁻¹⁰ Tm 2.5 Ms",
+    "B": "1.2 pm 2.5 × 10¹¹ Gs",
+    "C": "1.2 × 10² pm 4.0 × 10⁻¹⁰ ns",
+    "D": "1.2 × 10³ μm 4.0 ns"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x050",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q22",
+    "qid": "9702_s24_13_q22"
+   },
+   "stem": "The diagram shows a representation of a wave on the screen of an oscilloscope.\n1 cm\nThe y-gain is set to 3.5 mV cm⁻¹.\nWhat is the amplitude of the wave?",
+   "options": {
+    "A": "0.57 mV",
+    "B": "3.5 mV",
+    "C": "7.0 mV",
+    "D": "14 mV"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_13_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x051",
+   "kcs": [
+    "9702-7.1.2",
+    "9702-7.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q23",
+    "qid": "9702_s24_13_q23"
+   },
+   "stem": "A transverse progressive wave on a string has a wavelength of 12 cm and an amplitude of 1.5 cm.\nThe speed of the wave on the string is 48 cm s⁻¹.\nWhat is the distance travelled by a point on the string in a time of 2.0 s?",
+   "options": {
+    "A": "12 cm",
+    "B": "24 cm",
+    "C": "48 cm",
+    "D": "96 cm"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x052",
+   "kcs": [
+    "9702-7.1.5",
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q24",
+    "qid": "9702_w24_11_q24"
+   },
+   "stem": "The graph shows the variation of the displacement with distance for a progressive wave at one\ninstant in time.\n1.0\n2.0\n3.0\n4.0\n5.0\n6.0\n0\n0\ndisplacement\ndistance / cm\nThe period of the wave is 91 ms.\nWhat can be determined about the wave?",
+   "options": {
+    "A": "It has a velocity of 0.44 m s⁻¹ and a frequency of 11 Hz.",
+    "B": "It has a velocity of 0.55 m s⁻¹ and a wavelength of 5.0 cm.",
+    "C": "It is longitudinal and has a frequency of 11 Hz.",
+    "D": "It is transverse and has a wavelength of 4.0 cm."
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w24_11_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x053",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q26",
+    "qid": "9702_w24_13_q26"
+   },
+   "stem": "A transverse water wave has a frequency of 15 Hz, a wavelength of 0.12 m and an amplitude of\n4.0 mm.\nP is a water particle that is initially at the peak of the wave, as shown.\nP\nWhat is the total vertical distance travelled by P in a time of 0.5 s?",
+   "options": {
+    "A": "30 mm",
+    "B": "60 mm",
+    "C": "120 mm",
+    "D": "900 mm"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_13_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x054",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q27",
+    "qid": "9702_w24_13_q27"
+   },
+   "stem": "A wave is formed on a string.\nA student plots a graph of the variation of displacement d with time t for a point on the string.\nThe student marks two points, X and Y, on the graph.\n0\n0\nd\nt\nX\nY\nWhich property of the wave is represented by the distance along the horizontal axis between X\nand Y?",
+   "options": {
+    "A": "amplitude",
+    "B": "frequency",
+    "C": "period",
+    "D": "wavelength"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_13_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x055",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q26",
+    "qid": "9702_s25_11_q26"
+   },
+   "stem": "The diagram shows a progressive transverse wave on a stretched string at one instant in time.\nOne point on the string is labelled X.\nWhich point on the string is 270° out of phase with X?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "X",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x056",
+   "kcs": [
+    "9702-7.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q26",
+    "qid": "9702_s25_13_q26"
+   },
+   "stem": "A wave is displayed on an oscilloscope.\nThe oscilloscope settings are:\ntime–base: 300 μs div⁻¹\ny-gain: 40 μV div⁻¹.\nWhat is the frequency of the wave?",
+   "options": {
+    "A": "130 Hz",
+    "B": "950 Hz",
+    "C": "1100 Hz",
+    "D": "7100 Hz"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_13_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x057",
+   "kcs": [
+    "9702-7.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q25",
+    "qid": "9702_w25_12_q25"
+   },
+   "stem": "What is the phase difference between points P and Q on the progressive wave shown in the\ndiagram?\nP\nQ",
+   "options": {
+    "A": "180°",
+    "B": "450°",
+    "C": "540°",
+    "D": "720°"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w25_12_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.1-x058",
+   "kcs": [
+    "9702-7.1.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q26",
+    "qid": "9702_w25_12_q26"
+   },
+   "stem": "The graph shows the variation of displacement with distance for two progressive waves X and Y\nof the same type in the same medium.\n1.0\n0.5\n0\n–0.5\n–1.0\n0\n2\n4\n6\n8\n10\n12\n14\ndisplacement\n/ cm\ndistance / cm\nwave Y\nwave X\nThe intensity of wave X is I.\nWhat is the intensity of wave Y?",
+   "options": {
+    "A": "0.28I",
+    "B": "0.53I",
+    "C": "1.9I",
+    "D": "3.5I"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_12_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-7.1.1",
+   "front": "What is wave motion?",
+   "back": "Propagation of a disturbance that transfers energy while particles vibrate about equilibrium."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-7.1.2",
+   "front": "Define displacement, amplitude, period, frequency and wavelength.",
+   "back": "Displacement: position from equilibrium with direction. Amplitude: maximum displacement from equilibrium. Period: time for one complete oscillation. Frequency: oscillations per unit time. Wavelength: distance between successive points in phase."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-7.1.2",
+   "front": "What are phase difference and wave speed?",
+   "back": "Phase difference: angular separation of oscillations. Wave speed: distance travelled by a wavefront per unit time."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-7.1.1": {
+   "motivate": "A ripple crosses a tank while a floating marker mostly bobs in place. What is actually travelling?",
+   "establish": "Wave motion is the propagation of a disturbance. In a rope, a pulse moves along while rope elements vibrate about equilibrium. In a spring, coils oscillate while the disturbance travels along the spring. In a ripple tank, the surface pattern spreads while water particles oscillate about equilibrium. The travelling disturbance transfers energy.",
+   "connect": "The distinction between the travelling pattern and local vibration prepares you to describe wave terms.",
+   "note": "- Wave motion is propagation of a disturbance.\n- Ropes, springs and ripple tanks show local vibration and travelling energy.",
+   "self_explain": "Describe what a rope element does after a pulse reaches it.",
+   "source": "pack"
+  },
+  "9702-7.1.2": {
+   "motivate": "A wave graph has heights and horizontal spacings. Each measurement answers a different question.",
+   "establish": "Displacement is a particle's distance and direction from equilibrium. Amplitude is maximum displacement from equilibrium. Period is time for one complete oscillation; frequency is the number of oscillations per unit time, $f=1/T$. Wavelength is the distance between successive points in phase. Phase difference is the angular separation of oscillations, with a full cycle equal to $360^\\circ$ or $2\\pi$ rad. Wave speed is distance travelled by a wavefront per unit time.",
+   "connect": "Use period and wavelength together to derive wave speed.",
+   "note": "- Amplitude is measured from equilibrium to a peak.\n- Period is one cycle; frequency is cycles per unit time.\n- Wavelength joins consecutive points in phase.",
+   "self_explain": "How do period and wavelength differ on time and distance graphs?",
+   "source": "pack"
+  },
+  "9702-7.1.3": {
+   "motivate": "A CRO turns a changing electrical signal into a trace that can be measured.",
+   "establish": "The time-base gives time per horizontal division. Measure the width of one complete cycle, multiply by the time-base to find period $T$, then use $f=1/T$. The y-gain gives voltage per vertical division. Measure centre line to peak and multiply by y-gain for voltage amplitude. With a microphone, that voltage is not automatically the displacement amplitude of the air particles: microphone calibration is required to convert volts to metres.",
+   "connect": "The CRO supplies the frequency used in $v=f\\lambda$.",
+   "note": "- Time-base: time per horizontal division.\n- Y-gain: voltage per vertical division.\n- Use microphone calibration for sound-particle displacement.",
+   "self_explain": "Why is one peak-to-trough distance insufficient for the period?",
+   "source": "pack"
+  },
+  "9702-7.1.4": {
+   "motivate": "A wave moves exactly one wavelength during one period.",
+   "establish": "By the definition of speed, distance divided by time, $v=\\lambda/T$ because a wavefront advances one wavelength in one period. Frequency is the number of cycles per unit time, so $f=1/T$. Substitute to derive $v=f\\lambda$. The units check: Hz is $\\mathrm{s^{-1}}$ and wavelength is m, yielding $\\mathrm{m\\,s^{-1}}$.",
+   "connect": "The derived equation can now be rearranged to find any one of speed, frequency or wavelength.",
+   "note": "- One wavelength advances in one period.\n- $v=\\lambda/T$ and $f=1/T$.\n- Hence $v=f\\lambda$.",
+   "self_explain": "Show the two equations needed to derive $v=f\\lambda$.",
+   "source": "pack"
+  },
+  "9702-7.1.5": {
+   "motivate": "Frequency and wavelength change together when a wave enters a new situation.",
+   "establish": "Recall and use $v=f\\lambda$. For speed, multiply frequency by wavelength. For frequency, use $f=v/\\lambda$. For wavelength, use $\\lambda=v/f$. Convert lengths to metres and time to seconds. At fixed speed, frequency and wavelength are inversely proportional: doubling frequency halves wavelength. State speed in $\\mathrm{m\\,s^{-1}}$, frequency in Hz and wavelength in m.",
+   "connect": "This relation is also used with CRO frequency measurements and with intensity questions that mention changing wave conditions.",
+   "note": "- $v=f\\lambda$.\n- Rearrange before substituting values.\n- Convert units before calculating.",
+   "self_explain": "At fixed speed, what happens to wavelength when frequency triples?",
+   "source": "pack"
+  },
+  "9702-7.1.6": {
+   "motivate": "A wave can deliver energy to a distant point even though each particle moves only locally.",
+   "establish": "A progressive wave transfers energy in its direction of propagation. A disturbed rope element influences the next element; a ripple's disturbance passes across water. Each medium particle vibrates about equilibrium, so the transfer of energy does not require bulk transport of the medium. Distinguish the direction of propagation from the direction in which an individual particle moves.",
+   "connect": "Power measures energy transferred per unit time; intensity describes how this power is spread across an area.",
+   "note": "- Progressive waves transfer energy.\n- Medium particles vibrate about equilibrium.\n- Propagation and particle motion are distinct.",
+   "self_explain": "Why can a cork bob in place while ripple energy moves away?",
+   "source": "pack"
+  },
+  "9702-7.1.7": {
+   "motivate": "The same wave power spread across a larger area gives a weaker wave at each square metre.",
+   "establish": "Intensity is the power transferred per unit area normal to the wave's direction, $I=P/A$, with unit $\\mathrm{W\\,m^{-2}}$. For comparable progressive waves in the same medium at the same frequency, intensity is proportional to the square of amplitude: $I\\propto a^2$. Therefore $I_2/I_1=(a_2/a_1)^2$. Doubling amplitude gives four times the intensity; halving intensity makes amplitude $1/\\sqrt{2}$ of its original value.",
+   "connect": "This connects energy transfer by a progressive wave to the measurable size of its vibration.",
+   "note": "- Intensity is power per unit area: $I=P/A$.\n- For comparable waves, $I\\propto a^2$.\n- Square the amplitude ratio to find intensity ratio.",
+   "self_explain": "What happens to intensity when amplitude triples?",
+   "source": "pack"
+  }
+ }
+}
