@@ -1,0 +1,3571 @@
+{
+ "subtopic": "9701-13.4",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/13 An introduction to AS Level organic chemistry/13.4 Isomerism: structural isomerism and stereoisomerism.md",
+ "outline": "Isomers share a molecular formula. Structural isomers differ in connectivity: chain, position or functional group. Stereoisomers have the same connectivity but different spatial arrangements. Alkene geometrical isomers arise because the π bond prevents free C=C rotation; each alkene carbon must have two different groups. Cis and trans describe relative sides. A tetrahedral carbon with four different groups is a chiral centre, giving a mirror-image pair of enantiomers. For a formula, list distinct structures first; then test each for geometrical and optical isomerism and account for symmetry.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-13.4.1",
+   "statement": "Same molecular formula alone proves stereoisomerism.",
+   "refutation": "Structural isomers have different atom connectivity; stereoisomers have the same structural formula but different spatial arrangements.",
+   "contrast": "Compare connectivity first, then arrangement.",
+   "source": "ER 9701 s21 P22 Q4"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-13.4.3",
+   "statement": "Every C=C bond gives two geometrical isomers.",
+   "refutation": "Each double-bond carbon needs two different attached groups.",
+   "contrast": "A terminal CH2= group fails the test.",
+   "source": "ER 9701 w23 P21 Q4"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-13.4.4",
+   "statement": "Any tetrahedral carbon bonded to four atoms is chiral.",
+   "refutation": "The four attached groups must be different, comparing complete substituent paths.",
+   "contrast": "Two methyl groups or equivalent ring paths rule it out.",
+   "source": "ER 9701 s21 P23 Q5"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-13.4.6",
+   "statement": "Add independent stereochemical choices to count isomers.",
+   "refutation": "Multiply independent binary choices, then remove duplicates caused by symmetry.",
+   "contrast": "One chiral centre and two independent eligible double bonds give 2×2×2, not 2+2+2.",
+   "source": "ER 9701 s22 P12 Q26"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-13.4.6",
+   "statement": "Structural and stereochemical counts are interchangeable.",
+   "refutation": "One structural formula can give multiple geometrical or optical forms, so the count depends on which types the question includes.",
+   "contrast": "List structures first, then add eligible stereoisomers only when asked.",
+   "source": "ER 9701 w20 P13 Q20"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we5",
+   "kc": "9701-13.4.5",
+   "problem": "Identify chiral centres and geometrical isomerism in CH3CH(OH)CH=CHCH3.",
+   "steps": [
+    {
+     "do": "Check the CH(OH) carbon: it has H, OH, CH3 and CH=CHCH3.",
+     "why": "Four distinct groups make it chiral."
+    },
+    {
+     "do": "Check each C=C carbon: each has H and a different carbon group.",
+     "why": "Restricted rotation produces cis/trans isomers."
+    }
+   ],
+   "faded": {
+    "id": "we5f",
+    "problem": "How many chiral centres are in CH3CH(Cl)CH2CH3?",
+    "answer": {
+     "value": 1,
+     "unit": "",
+     "sf_ok": [
+      1,
+      2
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we6",
+   "kc": "9701-13.4.6",
+   "problem": "Count all acyclic alkene isomers of C4H8, including stereoisomers.",
+   "steps": [
+    {
+     "do": "List distinct skeletons and double-bond positions: but-1-ene, but-2-ene, 2-methylpropene.",
+     "why": "This covers structural isomerism."
+    },
+    {
+     "do": "Split but-2-ene into cis and trans forms; the others have identical groups at one C=C carbon.",
+     "why": "Only but-2-ene meets the geometrical condition."
+    },
+    {
+     "do": "Count the resulting distinct structures: 1 + 2 + 1 = 4.",
+     "why": "Exclude duplicate structures and include stereoisomers."
+    }
+   ],
+   "faded": {
+    "id": "we6f",
+    "problem": "How many structural isomers are there among but-1-ene, but-2-ene and 2-methylpropene?",
+    "answer": {
+     "value": 3,
+     "unit": "",
+     "sf_ok": [
+      1,
+      2
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-13.4-i01",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define structural isomerism.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Compounds with the same molecular formula but different structural formulae (connectivity).",
+     "keywords": [
+      [
+       "same molecular formula"
+      ],
+      [
+       "different structural formulae",
+       "different connectivity"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Connectivity distinguishes structural isomers.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i02",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe chain isomerism.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The carbon skeletons differ while the molecular formula is the same.",
+     "keywords": [
+      [
+       "carbon skeleton",
+       "carbon chain"
+      ],
+      [
+       "differ",
+       "different"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Branching changes the carbon skeleton.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i03",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe positional isomerism.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The same functional group or multiple bond occupies a different position on the same carbon skeleton.",
+     "keywords": [
+      [
+       "same carbon skeleton"
+      ],
+      [
+       "different position"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The group moves without changing its identity.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i04",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe functional group isomerism.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The same molecular formula gives compounds with different functional groups.",
+     "keywords": [
+      [
+       "same molecular formula"
+      ],
+      [
+       "different functional groups"
+      ]
+     ]
+    }
+   ],
+   "explanation": "An alcohol and an ether can be functional group isomers.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i05",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the type of structural isomerism between butan-1-ol and butan-2-ol.",
+   "marks": 1,
+   "options": {
+    "A": "chain",
+    "B": "positional",
+    "C": "functional group",
+    "D": "optical"
+   },
+   "answer": "B",
+   "distractors": {
+    "D": "m1"
+   },
+   "shuffle": true,
+   "explanation": "The OH group changes position on the same carbon chain.",
+   "hints": [
+    "Check what remains the same in the two structures.",
+    "Compare atom connections before considering space.",
+    "Apply the defining test to each option."
+   ]
+  },
+  {
+   "id": "9701-13.4-i06",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare butane and 2-methylpropane as isomers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "They have the same molecular formula, C4H10, but different carbon skeletons: chain isomerism.",
+     "keywords": [
+      [
+       "same molecular formula",
+       "C4H10"
+      ],
+      [
+       "different carbon skeletons",
+       "chain isomerism"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The branch changes connectivity.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i07",
+   "kcs": [
+    "9701-13.4.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define stereoisomerism.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Compounds with the same structural formula but different arrangements of atoms in space.",
+     "keywords": [
+      [
+       "same structural formula"
+      ],
+      [
+       "different arrangements",
+       "different spatial arrangements"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The bonds connect the same atoms.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i08",
+   "kcs": [
+    "9701-13.4.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the two types of stereoisomerism required here.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Geometrical (cis/trans) and optical isomerism.",
+     "keywords": [
+      [
+       "geometrical",
+       "cis/trans"
+      ],
+      [
+       "optical"
+      ]
+     ]
+    }
+   ],
+   "explanation": "These are the two syllabus categories.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i09",
+   "kcs": [
+    "9701-13.4.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how stereoisomers differ from structural isomers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Stereoisomers have the same connectivity and differ in spatial arrangement; structural isomers differ in connectivity.",
+     "keywords": [
+      [
+       "same connectivity",
+       "same structural formula"
+      ],
+      [
+       "spatial arrangement"
+      ],
+      [
+       "different connectivity",
+       "different structural formula"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Structural formula, not just molecular formula, is the decisive comparison.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i10",
+   "kcs": [
+    "9701-13.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify a pair of stereoisomers.",
+   "marks": 1,
+   "options": {
+    "A": "butane and 2-methylpropane",
+    "B": "ethanol and methoxymethane",
+    "C": "cis-but-2-ene and trans-but-2-ene",
+    "D": "propan-1-ol and propan-2-ol"
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m1",
+    "B": "m1",
+    "D": "m1"
+   },
+   "shuffle": true,
+   "explanation": "The cis and trans forms have identical connectivity but different spatial arrangements.",
+   "hints": [
+    "Check what remains the same in the two structures.",
+    "Compare atom connections before considering space.",
+    "Apply the defining test to each option."
+   ]
+  },
+  {
+   "id": "9701-13.4-i11",
+   "kcs": [
+    "9701-13.4.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State whether E/Z nomenclature is required for this syllabus outcome.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "E/Z nomenclature is acceptable but not required; cis/trans descriptions suffice here.",
+     "keywords": [
+      [
+       "acceptable",
+       "not required"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The syllabus permits E/Z but does not demand it.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i12",
+   "kcs": [
+    "9701-13.4.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a pair of enantiomers is classed as stereoisomers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "They share the same structural formula and differ in their three-dimensional arrangements as non-superimposable mirror images.",
+     "keywords": [
+      [
+       "same structural formula"
+      ],
+      [
+       "mirror images"
+      ],
+      [
+       "non-superimposable"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The atom connections remain unchanged.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i13",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the origin of cis/trans isomerism in an alkene.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The π bond restricts rotation around C=C, so distinct spatial arrangements persist.",
+     "keywords": [
+      [
+       "pi bond",
+       "π bond"
+      ],
+      [
+       "restricts rotation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Rotation would break the sideways p-orbital overlap.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i14",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the condition on each carbon of C=C for geometrical isomerism.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Each double-bond carbon must be attached to two different groups.",
+     "keywords": [
+      [
+       "each",
+       "both"
+      ],
+      [
+       "two different groups"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A CH2= carbon has two identical hydrogen substituents.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i15",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why but-1-ene does not show cis/trans isomerism.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "One C=C carbon has two hydrogen atoms, so the two-group condition fails.",
+     "keywords": [
+      [
+       "two hydrogen"
+      ],
+      [
+       "one",
+       "carbon"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The terminal alkene carbon has identical substituents.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i16",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe cis and trans arrangements in but-2-ene.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "In cis-but-2-ene the two methyl groups are on the same side of C=C; in trans they are on opposite sides.",
+     "keywords": [
+      [
+       "same side"
+      ],
+      [
+       "opposite sides"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The groups cannot exchange sides by C=C rotation.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i17",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the alkene that can show cis/trans isomerism.",
+   "marks": 1,
+   "options": {
+    "A": "propene",
+    "B": "2-methylpropene",
+    "C": "but-2-ene",
+    "D": "ethene"
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m2",
+    "B": "m2",
+    "D": "m2"
+   },
+   "shuffle": true,
+   "explanation": "Each C=C carbon in but-2-ene bears H and CH3.",
+   "hints": [
+    "Check what remains the same in the two structures.",
+    "Compare atom connections before considering space.",
+    "Apply the defining test to each option."
+   ]
+  },
+  {
+   "id": "9701-13.4-i18",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why CH2=CHCH=CH2 cannot have cis/trans isomers even though it contains two C=C bonds.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Both C=C bonds are terminal: each has a CH2 carbon with two identical H groups.",
+     "keywords": [
+      [
+       "terminal",
+       "CH2"
+      ],
+      [
+       "two",
+       "identical",
+       "hydrogen"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Count eligible bonds, not all π bonds.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i19",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define a chiral centre in the usual carbon compounds studied here.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A tetrahedral carbon atom bonded to four different groups.",
+     "keywords": [
+      [
+       "tetrahedral",
+       "carbon"
+      ],
+      [
+       "four different groups"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Check whole groups, not only the first atom.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i20",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the relationship between the two enantiomers from one chiral centre.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "They are non-superimposable mirror images with the same connectivity.",
+     "keywords": [
+      [
+       "non-superimposable"
+      ],
+      [
+       "mirror images"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Reversing the arrangement makes its mirror image.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i21",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the central carbon in propan-2-ol is not chiral.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is attached to two identical methyl groups.",
+     "keywords": [
+      [
+       "two",
+       "methyl groups"
+      ],
+      [
+       "identical",
+       "same"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Four bonds alone do not make a chiral centre.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i22",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the chiral carbon in CH3CH(OH)CO2H.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The middle CH(OH) carbon is bonded to H, OH, CH3 and CO2H.",
+     "keywords": [
+      [
+       "middle",
+       "CH(OH)"
+      ],
+      [
+       "H",
+       "hydrogen"
+      ],
+      [
+       "OH"
+      ],
+      [
+       "CH3"
+      ],
+      [
+       "CO2H"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The four substituents differ.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i23",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the compound with a chiral centre.",
+   "marks": 1,
+   "options": {
+    "A": "propan-2-ol",
+    "B": "butan-2-ol",
+    "C": "2-methylpropan-2-ol",
+    "D": "ethanol"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m3",
+    "C": "m3"
+   },
+   "shuffle": true,
+   "explanation": "C2 of butan-2-ol has H, OH, CH3 and CH2CH3.",
+   "hints": [
+    "Check what remains the same in the two structures.",
+    "Compare atom connections before considering space.",
+    "Apply the defining test to each option."
+   ]
+  },
+  {
+   "id": "9701-13.4-i24",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a molecule with two chiral centres may have more than one pair of optical isomers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Each chiral centre can have two spatial arrangements, so combinations of arrangements are possible; symmetry may make some combinations identical.",
+     "keywords": [
+      [
+       "two spatial arrangements",
+       "two arrangements"
+      ],
+      [
+       "combinations"
+      ],
+      [
+       "symmetry"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Do not assume every molecule has exactly one chiral centre.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i25",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the chiral centre in CH3CH(Cl)CH2CH3.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Carbon 2, the CH(Cl) carbon, has H, Cl, CH3 and CH2CH3.",
+     "keywords": [
+      [
+       "carbon 2",
+       "CH(Cl)"
+      ],
+      [
+       "four",
+       "H, Cl, CH3 and CH2CH3"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The four groups are distinct.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i26",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why carbon 2 of CH3CH(OH)CH3 is not a chiral centre.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It has two equivalent CH3 groups.",
+     "keywords": [
+      [
+       "two",
+       "equivalent",
+       "identical"
+      ],
+      [
+       "CH3",
+       "methyl"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Compare both branches.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i27",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify whether CH3CH=CHCH3 can show geometrical isomerism.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Yes; each C=C carbon has H and CH3, giving cis and trans forms.",
+     "keywords": [
+      [
+       "yes"
+      ],
+      [
+       "each",
+       "both"
+      ],
+      [
+       "H",
+       "hydrogen"
+      ],
+      [
+       "CH3",
+       "methyl"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both alkene carbons pass the different-group test.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i28",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify whether 1,2-dimethylcyclopropane can have cis/trans isomers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Yes; the two methyl groups can lie on the same or opposite sides of the ring plane.",
+     "keywords": [
+      [
+       "yes"
+      ],
+      [
+       "same",
+       "opposite"
+      ],
+      [
+       "ring"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The ring restricts rotation.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i29",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the compound with a chiral centre.",
+   "marks": 1,
+   "options": {
+    "A": "cyclohexane",
+    "B": "1-methylcyclohexane",
+    "C": "1,2-dimethylcyclohexane",
+    "D": "1,1-dimethylcyclohexane"
+   },
+   "answer": "C",
+   "distractors": {
+    "B": "m3",
+    "D": "m3"
+   },
+   "shuffle": true,
+   "explanation": "At a substituted ring carbon in 1,2-dimethylcyclohexane, the two paths around the ring differ.",
+   "hints": [
+    "Check what remains the same in the two structures.",
+    "Compare atom connections before considering space.",
+    "Apply the defining test to each option."
+   ]
+  },
+  {
+   "id": "9701-13.4-i30",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why cis/trans isomerism can occur in 1,2-dichlorocyclobutane but not in 1,1-dichlorocyclobutane.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "In the 1,2 compound the chlorines are on different ring carbons and can be on the same or opposite faces; in the 1,1 compound both are on one carbon.",
+     "keywords": [
+      [
+       "different ring carbons"
+      ],
+      [
+       "same",
+       "opposite"
+      ],
+      [
+       "one carbon"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Locate the substituents before assigning ring faces.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i31",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe a systematic method to deduce isomers from a molecular formula.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Enumerate distinct carbon skeletons and functional-group positions, then test each structure for eligible C=C bonds and chiral centres, removing symmetry duplicates.",
+     "keywords": [
+      [
+       "carbon skeletons"
+      ],
+      [
+       "functional"
+      ],
+      [
+       "C=C",
+       "double bond"
+      ],
+      [
+       "chiral"
+      ],
+      [
+       "symmetry"
+      ]
+     ]
+    }
+   ],
+   "explanation": "This prevents both omissions and double counting.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i32",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the two acyclic saturated alcohol structural isomers of C3H8O.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Propan-1-ol and propan-2-ol.",
+     "keywords": [
+      [
+       "propan-1-ol"
+      ],
+      [
+       "propan-2-ol"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The OH group can occupy an end or middle carbon.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i33",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the functional-group isomer of ethanol with molecular formula C2H6O.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Methoxymethane, CH3OCH3.",
+     "keywords": [
+      [
+       "methoxymethane",
+       "CH3OCH3"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Moving oxygen between the carbons gives an ether.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-i34",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine the number of acyclic alkene structural isomers of C4H8, ignoring stereoisomerism.",
+   "marks": 1,
+   "answer": {
+    "value": 3,
+    "unit": "",
+    "sf_ok": [
+     1,
+     2
+    ]
+   },
+   "distractors": [
+    {
+     "value": 4,
+     "misconception": "m5"
+    }
+   ],
+   "explanation": "The distinct connectivities are but-1-ene, but-2-ene and 2-methylpropene.",
+   "hints": [
+    "List the chemically distinct cases.",
+    "Look for equivalent structures related by symmetry.",
+    "Count each unique arrangement once."
+   ]
+  },
+  {
+   "id": "9701-13.4-i35",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine the number of acyclic alkene isomers of C4H8 including cis/trans stereoisomerism.",
+   "marks": 1,
+   "answer": {
+    "value": 4,
+    "unit": "",
+    "sf_ok": [
+     1,
+     2
+    ]
+   },
+   "distractors": [
+    {
+     "value": 3,
+     "misconception": "m5"
+    }
+   ],
+   "explanation": "But-2-ene has two geometrical forms; the other two structures do not.",
+   "hints": [
+    "List the chemically distinct cases.",
+    "Look for equivalent structures related by symmetry.",
+    "Count each unique arrangement once."
+   ]
+  },
+  {
+   "id": "9701-13.4-i36",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the total count of stereoisomers of a symmetric molecule can be less than $2^n$ for $n$ stereogenic features.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Symmetry can make two nominal combinations identical, so duplicates must be removed.",
+     "keywords": [
+      [
+       "symmetry"
+      ],
+      [
+       "identical",
+       "same",
+       "duplicates"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Independent choice counting gives an upper bound, not always the final total.",
+   "hints": [
+    "Recall which feature determines this type of isomerism.",
+    "Compare the connectivity and then the three-dimensional arrangement.",
+    "Test the relevant carbon atoms and their attached groups."
+   ]
+  },
+  {
+   "id": "9701-13.4-p01",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P13 · Q22",
+    "qid": "9701_w21_13_q22"
+   },
+   "stem": "Structural isomerism and stereoisomerism should be considered when answering this question.\nA colourless liquid, C₅H₁₁Cl , exists as a mixture of two optical isomers.\nWhen heated with sodium hydroxide in ethanol, a mixture of only two alkenes is formed.\nWhat could the colourless liquid be?",
+   "options": {
+    "A": "(CH₃CH₂)₂CHCl",
+    "B": "CH₃CH₂CH₂CHCl CH₃",
+    "C": "CH₃CH₂CCl (CH₃)₂",
+    "D": "(CH₃)₂CHCHCl CH₃"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "B overlooks cis and trans pent-2-ene, so B yields three alkenes. D is chiral and gives only 3-methylbut-1-ene and 2-methylbut-2-ene.",
+   "distractors": {
+    "B": "m2"
+   }
+  },
+  {
+   "id": "9701-13.4-p02",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q27",
+    "qid": "9701_w20_12_q27"
+   },
+   "stem": "How many structural isomers are there of molecular formula C₅H₁₀O that give a red precipitate\nwith Fehling’s solution?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The four aldehydes are pentanal, 2-methylbutanal, 3-methylbutanal and 2,2-dimethylpropanal. C misses one branched skeleton.",
+   "distractors": {},
+   "image": "Assets/mcq/9701_w20_12_q27.png"
+  },
+  {
+   "id": "9701-13.4-p03",
+   "kcs": [
+    "9701-13.4.6",
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q26",
+    "qid": "9701_s22_12_q26"
+   },
+   "stem": "A skeletal formula is shown.\nWhat is the total number of stereoisomers including the one shown?",
+   "options": {
+    "A": "4",
+    "B": "6",
+    "C": "8",
+    "D": "16"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "One chiral centre and two geometrical double bonds give 2 × 2 × 2 = 8. B adds 2 + 2 + 2 instead of multiplying.",
+   "distractors": {
+    "B": "m4"
+   },
+   "image": "Assets/mcq/9701_s22_12_q26.png"
+  },
+  {
+   "id": "9701-13.4-p04",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q28",
+    "qid": "9701_w24_13_q28"
+   },
+   "stem": "Which compound has the greatest number of stereoisomers?",
+   "options": {
+    "A": "2-methylhex-2-ene",
+    "B": "3-methylhex-2-ene",
+    "C": "4-methylhex-2-ene",
+    "D": "5-methylhex-2-ene"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "4-Methylhex-2-ene has both a chiral C4 and an eligible C=C: four stereoisomers. B has only alkene geometrical isomerism.",
+   "distractors": {
+    "B": "m5"
+   }
+  },
+  {
+   "id": "9701-13.4-p05",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q27",
+    "qid": "9701_w24_13_q27"
+   },
+   "stem": "Geraniol and nerol are isomers of each other.\nC\nC\nC\nC\nH\nH\nH₂C\nH₃C\nH₃C\nC\nC\nH\nH₃C\nH₃C\nCH₃\nCH₂OH\nH₂C\ngeraniol\nC\nC\nCH₂OH\nH₂C\nCH₃\nH\nH₂C\nnerol\nWhich type of isomerism is shown here?",
+   "options": {
+    "A": "chain",
+    "B": "geometrical (cis / trans)",
+    "C": "optical",
+    "D": "positional"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Geraniol and nerol differ in the spatial arrangement at a restricted C=C bond. Chain isomerism would change connectivity.",
+   "distractors": {
+    "A": "m1"
+   },
+   "image": "Assets/mcq/9701_w24_13_q27.png"
+  },
+  {
+   "id": "9701-13.4-p06",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q27",
+    "qid": "9701_w24_12_q27"
+   },
+   "stem": "Structural isomerism only should be considered when answering this question.\nHow many straight-chain isomers are there with molecular formula C₄H₈Cl ₂?",
+   "options": {
+    "A": "6",
+    "B": "7",
+    "C": "8",
+    "D": "9"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Six distinct position pairs of Cl on a straight butane chain remain after reversing its numbering. B counts a symmetry-equivalent placement twice.",
+   "distractors": {
+    "B": "m4"
+   },
+   "image": "Assets/mcq/9701_w24_12_q27.png"
+  },
+  {
+   "id": "9701-13.4-p07",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P12 · Q26",
+    "qid": "9701_w24_12_q26"
+   },
+   "stem": "Compound X is found in cell walls of some bacteria. Its structural formula is shown.\ncompound X\nCH₃(CH₂)₁₇CH=CH(CH₂)₁₇CH(OH)CH(CH₃)CO₂H\nHow many stereoisomers are there with this structural formula?",
+   "options": {
+    "A": "2",
+    "B": "4",
+    "C": "6",
+    "D": "8"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The C=C bond and each of two distinct chiral carbons give a binary choice: 2 × 2 × 2 = 8. C adds choices rather than multiplying.",
+   "distractors": {
+    "C": "m4"
+   },
+   "image": "Assets/mcq/9701_w24_12_q26.png"
+  },
+  {
+   "id": "9701-13.4-p08",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P13 · Q36",
+    "qid": "9701_w24_13_q36"
+   },
+   "stem": "Which compound, on reaction with hydrogen cyanide, produces a compound with a chiral centre?",
+   "options": {
+    "A": "CH₃CHO",
+    "B": "CH₃CH₂COCH₂CH₃",
+    "C": "CH₃CO₂CH₃",
+    "D": "HCHO"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "HCN addition to ethanal forms CH3CH(OH)CN, whose central carbon has four different groups. HCHO gives two H groups at that carbon.",
+   "distractors": {
+    "D": "m3"
+   }
+  },
+  {
+   "id": "9701-13.4-p09",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q26",
+    "qid": "9701_w25_12_q26"
+   },
+   "stem": "The structure of disodium cromoglycate is shown.\nO\nO\nCH\nOH\nO\nO\nNaO₂C\nOCH₂\nCH₂O\nCO₂Na\ndisodium cromoglycate\nHow many chiral centres are there in this molecule?",
+   "options": {
+    "A": "0",
+    "B": "1",
+    "C": "2",
+    "D": "3"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The apparent central CH has two identical side chains, so there is no chiral centre. B counts that carbon without comparing its complete substituents.",
+   "distractors": {
+    "B": "m3"
+   },
+   "image": "Assets/mcq/9701_w25_12_q26.png"
+  },
+  {
+   "id": "9701-13.4-p10",
+   "kcs": [
+    "9701-13.4.3",
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q20",
+    "qid": "9701_w20_12_q20"
+   },
+   "stem": "The unsaturated hydrocarbon octa-1,3,5,7-tetraene, C₈H₁₀, can display geometric isomerism.\nocta-1,3,5,7-tetraene\nCH₂=CHCH=CHCH=CHCH=CH₂\nHow many isomers exist?",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "8"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The terminal C=C bonds cannot give cis/trans forms. The two internal bonds generate cis/cis, trans/trans and one mixed case because the two mixed arrangements are identical; C double-counts that case.",
+   "distractors": {
+    "C": "m4"
+   },
+   "image": "Assets/mcq/9701_w20_12_q20.png"
+  },
+  {
+   "id": "9701-13.4-p11",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q28",
+    "qid": "9701_s19_13_q28"
+   },
+   "stem": "Structural isomerism only should be considered when answering this question.\nA set of isomeric compounds, with molecular formula C₅H₁₀O, all react in a 1 : 1 ratio with an\nexcess of HCN by nucleophilic addition.\nHow many isomeric compounds are in the set?",
+   "options": {
+    "A": "5",
+    "B": "6",
+    "C": "7",
+    "D": "8"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Four aldehydes and three ketones of C5H10O undergo carbonyl addition of HCN, giving seven structural isomers. B misses one connectivity.",
+   "distractors": {},
+   "image": "Assets/mcq/9701_s19_13_q28.png"
+  },
+  {
+   "id": "9701-13.4-p12",
+   "kcs": [
+    "9701-13.4.6",
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q35",
+    "qid": "9701_w22_13_q35"
+   },
+   "stem": "Structural isomerism and stereoisomerism should be considered when answering this question.\nHow many isomeric compounds with molecular formula C₅H₆O₄ contain two –CO₂H groups and\none C=C double bond?",
+   "options": {
+    "A": "5",
+    "B": "6",
+    "C": "7",
+    "D": "8"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Enumerating the distinct dicarboxylic acid skeletons and splitting the two eligible alkenes into cis/trans forms gives seven. A or B omits at least one stereoisomer.",
+   "distractors": {
+    "A": "m5",
+    "B": "m5"
+   },
+   "image": "Assets/mcq/9701_w22_13_q35.png"
+  },
+  {
+   "id": "9701-13.4-x001",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q20",
+    "qid": "9701_s19_11_q20"
+   },
+   "stem": "The diagrams show two different compounds.\nO\n1\nO\n2\nWhat is\n●\nthe total number of structural isomers, including compound 2, that could be formed\nby adding a second methyl group to the ring of compound 1,\n●\nthe number of π electrons in each compound?\nnumber of\nisomers\nnumber of\nπ electrons",
+   "options": {
+    "A": "3 2",
+    "B": "3 4",
+    "C": "5 2",
+    "D": "5 4"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s19_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect option was C. The ring in compound 1 has five hydrogen atoms on it, so a second methyl group could be introduced in five different positions. Compounds 1 and 2 each have two π bonds, each π bond has two π electrons, making four π electrons in total. Thus, the correct answer is option D."
+  },
+  {
+   "id": "9701-13.4-x002",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q26",
+    "qid": "9701_s19_11_q26"
+   },
+   "stem": "Structural isomerism and stereoisomerism should be considered when answering this question.\n3-methylhexan-3-ol reacts with hot, concentrated sulfuric acid to form several isomeric\ncompounds with the molecular formula C₇H₁₄.\nHO\n3-methylhexan-3-ol\nHow many isomeric compounds could be formed in this reaction?",
+   "options": {
+    "A": "3",
+    "B": "4",
+    "C": "5",
+    "D": "6"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s19_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect option was B. If the -OH group is removed along with a hydrogen atom from carbon atom 2, then two cis-trans isomers are formed. If the -OH group is removed along with a hydrogen atom from the methyl side-chain, then one alkene is formed. If the -OH group is removed along with a hydrogen atom from carbon atom 4, then two cis-trans isomers are formed. This gives a total of five different alkene products, meaning the correct answer is option C."
+  },
+  {
+   "id": "9701-13.4-x003",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P11 · Q30",
+    "qid": "9701_s19_11_q30"
+   },
+   "stem": "Which compound is chiral?",
+   "options": {
+    "A": "1-chloro-3-methylbutane",
+    "B": "2-chloro-2-methylbutane",
+    "C": "2-chloro-3-methylbutane",
+    "D": "3-chloropentane"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x004",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q21",
+    "qid": "9701_s19_12_q21"
+   },
+   "stem": "Compound X does not show cis-trans isomerism.\nWhat could be the identity of compound X?",
+   "options": {
+    "A": "1,1,2-trichloropropene",
+    "B": "1,2,3-trichloropropene",
+    "C": "1-chlorobut-1-ene",
+    "D": "1-chlorobut-2-ene"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x005",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q22",
+    "qid": "9701_s19_12_q22"
+   },
+   "stem": "The diagram shows the repeat unit of an addition polymer.\nn\nC\nC₂H₅\nCH₃\nCH₃\nC₂H₅\nC\nWhat is the correct name for the monomer that would form this polymer?",
+   "options": {
+    "A": "cis-1,2-diethyl-1,2-dimethylethene",
+    "B": "cis-2-ethyl-3-methylpent-2-ene",
+    "C": "trans-2-ethyl-3-methylpent-2-ene",
+    "D": "trans-3,4-dimethylhex-3-ene"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s19_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x006",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P13 · Q37",
+    "qid": "9701_s19_13_q37"
+   },
+   "stem": "Which compounds have optical isomers?\nC\nO\nC\nC\nC\nH\nOH\nC\nOH\nH\nOH\nH\nH\nH\nH\nOH\nCH₃\nCH₃\nCH₃\nCH\nOH\nHO\nC\nO\nO\nCH\nC\nOH\nCH\n1\n2\n3",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s19_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x007",
+   "kcs": [
+    "9701-13.4.6",
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q20",
+    "qid": "9701_w19_12_q20"
+   },
+   "stem": "Structural isomerism and stereoisomerism should be considered when answering this question.\nHow many isomers with the formula C₅H₁₀ have structures that involve π bonding?",
+   "options": {
+    "A": "3",
+    "B": "4",
+    "C": "5",
+    "D": "6"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w19_12_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x008",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q26",
+    "qid": "9701_w19_12_q26"
+   },
+   "stem": "Compound X has stereoisomers and forms a precipitate when warmed with Fehling’s reagent.\nWhat could be the structure of compound X?\nO",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w19_12_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x009",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q21",
+    "qid": "9701_s20_11_q21"
+   },
+   "stem": "Which statement is correct?",
+   "options": {
+    "A": "2,2-dimethylpropanoic acid is an isomer of propyl methanoate.",
+    "B": "2-methylbutan-2-ol is an isomer of hexan-3-ol.",
+    "C": "3-methylbutan-2-one is an isomer of pentanal.",
+    "D": "3,3-dimethylbutan-2-one is an isomer of pentan-3-one."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x010",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q28",
+    "qid": "9701_s20_11_q28"
+   },
+   "stem": "The structure of compound Q is shown.\ncompound Q\nO\nO\nO\nO\nHow many chiral centres are present in a molecule of Q?",
+   "options": {
+    "A": "4",
+    "B": "5",
+    "C": "6",
+    "D": "7"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s20_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "There are seven chiral centres (D): the methyl-bearing quaternary carbon at the upper-right vertex of the leftmost six-membered ring, the four substituted CH carbons of the central six-membered ring, and the two CH carbons shared by the five-membered ring and the four-membered lactone ring. At the quaternary centre, the two paths around the leftmost ring are different: one reaches the carbon bearing two methyl groups sooner than the other. A chiral carbon need not carry a hydrogen, so omitting this centre gives the incorrect count of six (C). The carbon bearing two methyl groups and the branched carbon in the ester side chain are not chiral because each has two identical methyl groups."
+  },
+  {
+   "id": "9701-13.4-x011",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P11 · Q40",
+    "qid": "9701_s20_11_q40"
+   },
+   "stem": "A mixture of the three isomers of C₂H₂Cl ₂ is polymerised.\nWhich sequences will be seen within the polymer chains?\nC\nH\n1\nCl\nCl\nC\nH\nC\n2\nCl\nCl\nCl\nC\nH\nH\nH\nH\nC\n3\nCl\nC",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s20_11_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x012",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q26",
+    "qid": "9701_s20_12_q26"
+   },
+   "stem": "The structure of damascenone is shown.\nO\ndamascenone\nIncluding damascenone, how many stereoisomers exist with this structural formula?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "4",
+    "D": "8"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s20_12_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x013",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q27",
+    "qid": "9701_s20_12_q27"
+   },
+   "stem": "How many isomeric esters have the molecular formula C₄H₈O₂?",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "5"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s20_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x014",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q30",
+    "qid": "9701_s20_13_q30"
+   },
+   "stem": "Compound X has the structure shown.\nO\ncompound X\nWhich type of carbonyl group is present and how many chiral centres are there in one molecule\nof X?\ncarbonyl\ngroup\nchiral\ncentres",
+   "options": {
+    "A": "aldehyde 0",
+    "B": "aldehyde 1",
+    "C": "ketone 0",
+    "D": "ketone 1"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s20_13_q30.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x015",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q40",
+    "qid": "9701_s20_13_q40"
+   },
+   "stem": "Which pairs are structural isomers of each other?\n1\nCH₃CH₂CH₂CH₂CH₂CO₂H and CH₃CH₂CH₂CO₂CH₂CH₃\n2\n3\nCH₃CH₂CH₂CH(OH)CH₂CH₃ and CH₃CH₂CH(OH)CH₂CH₂CH₃\nand",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s20_13_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x016",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q20",
+    "qid": "9701_w20_11_q20"
+   },
+   "stem": "Structural and stereoisomerism should be considered when answering this question.\nCompounds X, Y and Z are shown.\nHO\nCl\nOH\nCl\nY\nZ\nH\nHO\nCl\nX\nH\nHow many other isomers of C₃H₇Cl O are there that are alcohols?",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "5"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was A. The isomers of C3H7Cl O that are alcohols, in addition to those shown on the question paper, are: • the two optical isomers of 2-chloropropan-1-ol • 3-chloropropan-1-ol • the two optical isomers of 1-chloropropan-2-ol. This gives a total of five other isomers, making statement D the correct answer."
+  },
+  {
+   "id": "9701-13.4-x017",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q21",
+    "qid": "9701_w20_11_q21"
+   },
+   "stem": "Two students each make a statement about 2-methylbut-1-ene.\nStudent 1 states that 2-methylbut-1-ene has geometrical isomers.\nStudent 2 states that 2-methylbut-1-ene reacts with HBr in an addition reaction to give\n1-bromo-2-methylbutane as the main product.\nWhich students are correct?",
+   "options": {
+    "A": "both 1 and 2",
+    "B": "1 only",
+    "C": "2 only",
+    "D": "neither 1 nor 2"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x018",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q29",
+    "qid": "9701_w20_11_q29"
+   },
+   "stem": "Which compound is chiral and reacts with Na₂CO₃ to give CO₂?\nCH(Br)CO₂H\nCH₂\nCH₃",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_11_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x019",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q20",
+    "qid": "9701_w20_13_q20"
+   },
+   "stem": "Structural and stereoisomerism should be considered when answering this question.\nCompounds X, Y and Z are shown.\nHO\nCl\nOH\nCl\nY\nZ\nH\nHO\nCl\nX\nH\nHow many other isomers of C₃H₇Cl O are there that are alcohols?",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "5"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_13_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was B. The isomers of C3H7ClO that are alcohols, in addition to those shown on the question paper, are: • the two optical isomers of 2-chloropropan-1-ol • 3-chloropropan-1-ol • the two optical isomers of 1-chloropropan-2-ol. This gives a total of five other isomers, making statement D the correct answer. It is possible that some of the candidates who chose answer B – three other isomers – were not including the optical isomers described above."
+  },
+  {
+   "id": "9701-13.4-x020",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P13 · Q29",
+    "qid": "9701_w20_13_q29"
+   },
+   "stem": "Which compound is chiral and reacts with Na₂CO₃ to give CO₂?\nCH(Br)CO₂H\nCH₂\nCH₃",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_w20_13_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x021",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q22",
+    "qid": "9701_s21_11_q22"
+   },
+   "stem": "Which compound could show both cis-trans isomerism and optical isomerism?\nC\nH\nBr\nBr\nBr\nH\nC\nC\nCl\nBr\nH\nH\nBr\nI\nC\nC\nC\nCl\nC\nO\nH\nC\nC\nC\nBr\nBr\nBr\nCl\nCl\nH\nH\nBr\nC\nC\nC\nI\nBr\nCl",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s21_11_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x022",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P11 · Q28",
+    "qid": "9701_s21_11_q28"
+   },
+   "stem": "Which statement is correct for the reaction of carbonyl compounds with HCN?",
+   "options": {
+    "A": "The reaction is catalysed by concentrated H₂SO₄.",
+    "B": "Pentan-2-one and HCN react to give a chiral product.",
+    "C": "The reaction is a condensation reaction.",
+    "D": "The reaction is nucleophilic substitution."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x023",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q20",
+    "qid": "9701_s21_12_q20"
+   },
+   "stem": "Compound P is treated with an excess of hydrogen gas in the presence of a nickel catalyst. The\nproduct Q is fully saturated.\ncompound P\nWhat is the number of chiral carbon atoms in the product Q?",
+   "options": {
+    "A": "4",
+    "B": "5",
+    "C": "6",
+    "D": "7"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s21_12_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x024",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q20",
+    "qid": "9701_s21_13_q20"
+   },
+   "stem": "Which compound shows stereoisomerism?",
+   "options": {
+    "A": "2-methylbut-2-ene",
+    "B": "2-chloropropan-1-ol",
+    "C": "difluorochlorobromomethane",
+    "D": "pent-1-ene"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x025",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P13 · Q37",
+    "qid": "9701_s21_13_q37"
+   },
+   "stem": "The diagram shows a molecule of a compound used as a flame retardant.\nBr\nBr\nBr\nBr\nBr\nBr\nWhich statements about this structure are correct?\n1\nEach brominated C atom is chiral.\n2\nThe molecular formula is C₁₂H₂₀Br₆.\n3\nTₕₑ C–C–C bₒₙd ₐₙgₗₑₛ ₐrₑ ₐₗₗ ₁₂₀°.",
+   "options": {
+    "A": "1, 2 and 3 are correct",
+    "B": "1 and 2 only are correct",
+    "C": "2 and 3 only are correct",
+    "D": "1 only is correct"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s21_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "Only statement 1 is correct. Each brominated carbon is bonded to H, Br and two different paths around the ring: one adjacent ring carbon bears Br and the other does not. The saturated 12-carbon ring has formula C12H24 before six H atoms are replaced by Br, giving C12H18Br6, so statement 2 is false. All carbon atoms are sp3 with approximately tetrahedral bond angles, not all 120 degrees; the flat skeletal drawing does not give the actual bond angles. The original Section B answer table maps 1 only to D, so the solver answers agree with the official key."
+  },
+  {
+   "id": "9701-13.4-x026",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q20",
+    "qid": "9701_w21_12_q20"
+   },
+   "stem": "The formula of hydrocortisone acetate is shown.\nCH₃\nO\nO\nHO\nCH₂OCOCH₃\nOH\nCH₃\nhydrocortisone acetate\nWhich row is correct?\nnumber of C atoms\nin one molecule\nnumber of chiral atoms\nin one molecule",
+   "options": {
+    "A": "22 7",
+    "B": "22 8",
+    "C": "23 7",
+    "D": "23 8"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w21_12_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x027",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q22",
+    "qid": "9701_w21_12_q22"
+   },
+   "stem": "Structural and stereoisomerism should be taken into account when answering this question.\nY is a gaseous hydrocarbon which decolourises aqueous bromine. It contains no rings.\n10.0 g of Y occupies a volume of 3.43 dm³ under room conditions.\nHow many isomeric structures are possible for Y?",
+   "options": {
+    "A": "4",
+    "B": "5",
+    "C": "6",
+    "D": "7"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w21_12_q22.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x028",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q37",
+    "qid": "9701_w21_12_q37"
+   },
+   "stem": "What is the same for a pair of optical isomers?\n1\ntheir empirical formula\n2\ntheir functional groups\n3\ntheir structural formula",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_w21_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x029",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q39",
+    "qid": "9701_w21_12_q39"
+   },
+   "stem": "Which of the reactions give products containing a chiral centre?\n1\nCH₂(OH)COCO₂H + an excess of HCN\n2\nCH₂(OH)COCO₂H + an excess of NaBH₄\n3\nCH₂(OH)COCO₂H + an excess of LiAl H₄",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w21_12_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most common incorrect answer was D. The three statements will be looked at separately. Reaction 1 produces CH2(OH)C*(OH)(CN)CO2H, which is chiral. Reaction 1 produces CH2(OH)C*H(OH)CO2H, which is chiral. Reaction 1 produces CH2(OH)CH(OH)CH2OH, which is not chiral. Principal Examiner Report for Teachers CHEMISTRY"
+  },
+  {
+   "id": "9701-13.4-x030",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q27",
+    "qid": "9701_s22_11_q27"
+   },
+   "stem": "Which compound will react with LiAl H₄ to form two optical isomers?",
+   "options": {
+    "A": "CH₃CH₂COCH₃",
+    "B": "CH₃CH₂CH₂CHO",
+    "C": "CH₃CH₂COCH₂CH₃",
+    "D": "CH₃CH(CH₃)CH₂CO₂H"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x031",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P11 · Q28",
+    "qid": "9701_s22_11_q28"
+   },
+   "stem": "How many esters have the molecular formula C₄H₈O₂?",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "5"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s22_11_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x032",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q28",
+    "qid": "9701_s22_13_q28"
+   },
+   "stem": "The diagram shows the structural formula of mevalonic acid.\nHO₂C\nC\nH\nH\nC\nCH₃\nOH\nC\nH\nH\nH\nH\nC\nOH\nmevalonic acid\nWhich reagent and conditions will react with mevalonic acid to produce an organic compound\nwithout a chiral carbon atom?",
+   "options": {
+    "A": "heat under reflux with CH₃OH / H⁺",
+    "B": "heat under reflux with Cr₂O₇ 2– / H⁺",
+    "C": "Na at room temperature",
+    "D": "PCl ₅ at room temperature"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s22_13_q28.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x033",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q29",
+    "qid": "9701_s22_13_q29"
+   },
+   "stem": "Structural isomerism and stereoisomerism should be considered when answering this question.\nY is a gaseous hydrocarbon which decolourises aqueous bromine.\n10.0 g of Y occupies a volume of 3.43 dm³ under room conditions.\nHow many isomeric structures are possible for Y?",
+   "options": {
+    "A": "4",
+    "B": "5",
+    "C": "6",
+    "D": "7"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s22_13_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x034",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q33",
+    "qid": "9701_s22_13_q33"
+   },
+   "stem": "Structural isomerism only should be considered when answering this question.\nSeveral compounds with molecular formula C₄H₈O₂ have one carbonyl group and one OH group.\nHow many of these compounds produce yellow crystals with alkaline I₂(aq) at room temperature?",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "5"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s22_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x035",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q40",
+    "qid": "9701_s22_13_q40"
+   },
+   "stem": "One molecule of an addition polymer containing 2000 repeat units has an Mr of 112 000.\nThe polymer molecule contains chiral centres.\nWhat is a possible monomer for this polymer?",
+   "options": {
+    "A": "CH₂=CHCH₃",
+    "B": "CH₂=C(CH₃)₂",
+    "C": "CH₂=CHCH₂CH₃",
+    "D": "CH₂=CHCH₂CH₂CH₃"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s22_13_q40.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x036",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q26",
+    "qid": "9701_w22_11_q26"
+   },
+   "stem": "Which pair of alcohols are isomers of each other?",
+   "options": {
+    "A": "butan-1-ol and 2,2-dimethylpropan-1-ol",
+    "B": "butan-2-ol and 2-methylpropan-2-ol",
+    "C": "pentan-1-ol and 2-methylpropan-2-ol",
+    "D": "propan-2-ol and 2-methylpropan-2-ol"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x037",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q27",
+    "qid": "9701_w22_11_q27"
+   },
+   "stem": "How many chiral carbon atoms are there in one molecule of 2,2,4,5-tetramethylhexan-3-ol?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w22_11_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x038",
+   "kcs": [
+    "9701-13.4.6",
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q35",
+    "qid": "9701_w22_11_q35"
+   },
+   "stem": "Structural isomerism and stereoisomerism should be considered when answering this question.\nHow many isomeric compounds with molecular formula C₅H₆O₄ contain two –CO₂H groups and\none C=C double bond?",
+   "options": {
+    "A": "5",
+    "B": "6",
+    "C": "7",
+    "D": "8"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w22_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x039",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P11 · Q39",
+    "qid": "9701_w22_11_q39"
+   },
+   "stem": "The monomer buta-1,3-diene can undergo addition polymerisation in various ways. Two of the\npolymers that can be made are called cis-poly(buta-1,3-diene) and trans-poly(buta-1,3-diene). In\nthese names cis and trans have their usual meanings.\nWhat is the structure of the repeat unit of cis-poly(buta-1,3-diene)?\nn",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w22_11_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x040",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q26",
+    "qid": "9701_w22_12_q26"
+   },
+   "stem": "The structure of tartaric acid is shown.\nO\ntartaric acid\nOH\nOH\nOH\nHO\nO\nWhich statements about tartaric acid are correct?\n1\nA molecule of tartaric acid has more than one chiral centre.\n2\nThe molecular formula of tartaric acid is C₄H₄O₆.\n3\nOne molecule of tartaric acid produces four hydrogen ions in aqueous solution.",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1 and 2 only",
+    "C": "2 and 3 only",
+    "D": "1 only"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w22_12_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x041",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q27",
+    "qid": "9701_w22_12_q27"
+   },
+   "stem": "A carboxylic acid, P, has no chain isomers. It reacts with an alcohol, Q, that has only one\npositional isomer.\nWhat could be the ester formed from a reaction between P and Q?",
+   "options": {
+    "A": "butyl propanoate",
+    "B": "ethyl butanoate",
+    "C": "pentyl ethanoate",
+    "D": "propyl pentanoate"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x042",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P12 · Q28",
+    "qid": "9701_w22_12_q28"
+   },
+   "stem": "Which pair includes a hydrocarbon without a chiral centre?",
+   "options": {
+    "A": "CH₃CH₂CH₂CH(CH₃)CH₂CH₃ CH₃CH(CH₃)CH(CH₃)CH₂CH₃",
+    "B": "CH₃CH₂CH₂CH(CH₂CH₃)CH₃ CH₃CH₂CH₂CH(CH₃)CH₂CH₃",
+    "C": "CH₃CH₂CH₂CH(CH₃)CH₂CH₃ CH₃CH₂CH(CH₃)CH(CH₃)₂",
+    "D": "CH₃CH(CH₂CH₃)CH(CH₃)CH₃ CH₃CH(CH₃)CH₂CH(CH₃)₂"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x043",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q27",
+    "qid": "9701_w22_13_q27"
+   },
+   "stem": "How many chiral carbon atoms are there in one molecule of 2,2,4,5-tetramethylhexan-3-ol?",
+   "options": {
+    "A": "1",
+    "B": "2",
+    "C": "3",
+    "D": "4"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w22_13_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x044",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2022 · P13 · Q39",
+    "qid": "9701_w22_13_q39"
+   },
+   "stem": "The monomer buta-1,3-diene can undergo addition polymerisation in various ways. Two of the\npolymers that can be made are called cis-poly(buta-1,3-diene) and trans-poly(buta-1,3-diene). In\nthese names cis and trans have their usual meanings.\nWhat is the structure of the repeat unit of cis-poly(buta-1,3-diene)?\nn",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w22_13_q39.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x045",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q24",
+    "qid": "9701_s23_11_q24"
+   },
+   "stem": "Structural isomerism and stereoisomerism should be considered when answering this question.\nIf a molecule contains two non-identical chiral carbon atoms, four optical isomers exist.\nHow many isomers are there with:\n•\nmolecular formula C₇H₁₄O and\n•\na five-membered ring and\n•\na tertiary alcohol group?\n13",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s23_11_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x046",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q32",
+    "qid": "9701_s23_11_q32"
+   },
+   "stem": "How many structurally isomeric secondary alcohols are there with the molecular formula C₅H₁₂O?\n4",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s23_11_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x047",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P11 · Q34",
+    "qid": "9701_s23_11_q34"
+   },
+   "stem": "Which\u0003compound\u0003gives\u0003a\u0003positive\u0003test\u0003with\u0003alkaline\u0003aqueous\u0003iodine\u0003and\u0003does\u0003not\u0003show\u0003optical\nisomerism?\nCH₃COCH₂CH₂OH",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s23_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x048",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q26",
+    "qid": "9701_s23_12_q26"
+   },
+   "stem": "The general formula for a non-cyclic alcohol is CₙH₂ₙ₊₁OH.\nHow many different structural isomers are there for n = 3 and n = 4?\nn = 4\nn = 3\n2\n2",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_12_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x049",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q27",
+    "qid": "9701_s23_12_q27"
+   },
+   "stem": "Compound\u0003X,\u0003C₅H₁₀O₃,\u0003has\u0003one\u0003chiral\u0003carbon\u0003atom\u0003per\u0003molecule.\u0003Compound\u0003X\u0003produces\u0003bubbles\u0003\nwith\u0003Na\u0003but\u0003not\u0003with\u0003Na₂CO₃.\nWhich\u0003formula\u0003could\u0003represent\u0003compound\u0003X?\n(CH₃)₂C(OH)CO₂CH₃",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s23_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x050",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q33",
+    "qid": "9701_s23_12_q33"
+   },
+   "stem": "X, Y and Z are three isomeric alcohols.\nX\nCH₃CH₂CH₂CH₂CH₂OH\nY\nCH₃CH₂CH(OH)CH₂CH₃\nZ\n(CH₃)₂C(OH)CH₂CH₃\nSeparate\u0003samples\u0003of\u0003each\u0003alcohol\u0003are\u0003warmed\u0003with\u0003a\u0003mild\u0003oxidising\u0003agent\u0003and\u0003the\u0003results\u0003noted.\nOne\u0003of\u0003these\u0003alcohols,\u0003when\u0003dehydrated,\u0003will\u0003give\u0003a\u0003pair\u0003of\u0003cis-trans\u0003isomers\u0003with\u0003molecular\u0003formula\u0003\nC₅H₁₀.\nWhich\u0003row\u0003is\u0003correct?\ngives cis/trans\nisomers\nreacts with mild\noxidising reagents\nY only\nX, Y and Z",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_s23_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x051",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P12 · Q37",
+    "qid": "9701_s23_12_q37"
+   },
+   "stem": "Compound X has stereoisomers and forms a precipitate when warmed with Fehling’s reagent.\nWhat could be the structure of compound X?\nO",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_12_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x052",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q34",
+    "qid": "9701_s23_13_q34"
+   },
+   "stem": "Which statement about butanone is correct?\nButanone can be dehydrated by concentrated sulfuric acid to give CH₂=CHCH=CH₂.",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s23_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x053",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q37",
+    "qid": "9701_s23_13_q37"
+   },
+   "stem": "An unsaturated carboxylic acid reacts with alcohol X to form an ester.\nThe structure of the ester is shown.\n2\n2\nWhich geometrical isomer is shown in this ester and to which class of alcohol does X belong?\nclass of alcohol X\ngeometrical isomer\nsecondary\ncis",
+   "options": null,
+   "answer": "A",
+   "image": "Assets/mcq/9701_s23_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x054",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P11 · Q26",
+    "qid": "9701_w23_11_q26"
+   },
+   "stem": "The compound aspartame is widely used as a sweetener in ‘diet’ soft drinks.\nNH\nNH₂\nO\nHO\nO\nO\nCH₃\nC₆H₅\nO\naspartame\nAspartame is chiral. (There are no chiral carbon atoms in C₆H₅.)\nHow many chiral carbon atoms are present in a molecule of aspartame?\n4",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w23_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x055",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q27",
+    "qid": "9701_w23_12_q27"
+   },
+   "stem": "Artemisinin is a powerful anti-malarial drug.\nO\nO\nO\nO\nO\nCH₃\nCH₃\nCH₃\nartemisinin\nHow many chiral centres are there in each molecule of artemisinin?\n8",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x056",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q29",
+    "qid": "9701_w23_12_q29"
+   },
+   "stem": "How many geometrical (cis/trans) isomers are there of hex-2,4-diene, CH₃CH=CHCH=CHCH₃?\nnone; hex-2,4-diene does not show geometric isomerism",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_12_q29.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "This question can be made more straightforward to answer if structures are drawn. If both double bonds are cis this is one isomer, if both double bonds are trans this is a second isomer. If one double bond is cis and one is trans this is the third isomer. It can be seen from diagrams that in this third case it does not matter which double bond is cis and which is trans – the two structures are the same."
+  },
+  {
+   "id": "9701-13.4-x057",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q38",
+    "qid": "9701_w23_12_q38"
+   },
+   "stem": "How many esters with the molecular formula C₅H₁₀O₂ can be made by reacting a primary alcohol\nwith a carboxylic acid?\n8",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w23_12_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The most commonly chosen incorrect answer was A. The six esters are: 1. methyl butanoate, CH3CH2CH2CO2CH3 2. methyl methylpropanoate, (CH3)2CHCO2CH3 3. ethyl propanoate, CH3CH2CO2CH2CH3 4. propyl ethanoate, CH3CO2CH2CH2CH3 5. butyl methanoate, HCO2CH2CH2CH2CH3 6. 2-methylpropyl methanoate, HCO2CH2CH(CH3)2"
+  },
+  {
+   "id": "9701-13.4-x058",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P13 · Q26",
+    "qid": "9701_w23_13_q26"
+   },
+   "stem": "The compound aspartame is widely used as a sweetener in ‘diet’ soft drinks.\nNH\nNH₂\nO\nHO\nO\nO\nCH₃\nC₆H₅\nO\naspartame\nAspartame is chiral. (There are no chiral carbon atoms in C₆H₅.)\nHow many chiral carbon atoms are present in a molecule of aspartame?\n4",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_w23_13_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x059",
+   "kcs": [
+    "9701-13.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P11 · Q25",
+    "qid": "9701_s24_11_q25"
+   },
+   "stem": "Structural isomerism and stereoisomerism should be taken into account when answering this\nquestion.\nThe structure of 3-methylcyclobutene is shown.\n3-methylcyclobutene\nA mixture containing all stereoisomers of 3-methylcyclobutene is treated with HBr. This produces\na mixture of isomeric bromomethylcyclobutanes.\nHow many stereoisomers does 3-methylcyclobutene have, and how many isomeric\nbromomethylcyclobutanes are present in the product mixture?\n3-methylcyclobutene\nbromomethylcyclobutanes",
+   "options": {
+    "A": "2 4",
+    "B": "2 6",
+    "C": "4 4",
+    "D": "4 8"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s24_11_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x060",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q32",
+    "qid": "9701_s24_12_q32"
+   },
+   "stem": "Compound T has the skeletal formula shown.\ncompound T\nWhich structure is a structural isomer of compound T?",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s24_12_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x061",
+   "kcs": [
+    "9701-13.4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q36",
+    "qid": "9701_s24_12_q36"
+   },
+   "stem": "A sample of pent-2-en-4-ol, C₅H₁₀O, contains all the possible stereoisomers of this compound.\nHow many stereoisomers are there in the sample?",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "5"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s24_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x062",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P12 · Q37",
+    "qid": "9701_s24_12_q37"
+   },
+   "stem": "Which pair of reagents reacts to form a product with a chiral carbon atom?",
+   "options": {
+    "A": "CH₃CH=CH₂ + HBr",
+    "B": "(CH₃)₂C=O + NaBH₄",
+    "C": "CH₃CH₂CHO + HCN",
+    "D": "CH₃COOH + CH₃CH₂OH"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x063",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q25",
+    "qid": "9701_s24_13_q25"
+   },
+   "stem": "Which alkene shows geometric isomerism?\nCH₃CH₂CH\nCHCH₃\nCH₃CH₂C\nCH₂",
+   "options": null,
+   "answer": "B",
+   "image": "Assets/mcq/9701_s24_13_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x064",
+   "kcs": [
+    "9701-13.4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q38",
+    "qid": "9701_s24_13_q38"
+   },
+   "stem": "Compound Q reacts separately with HCN and NaBH₄ under suitable conditions.\nBoth reactions produce an organic product with a chiral centre.\nWhat is compound Q?",
+   "options": {
+    "A": "butanone",
+    "B": "ethanal",
+    "C": "propanal",
+    "D": "propanone"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x065",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q31",
+    "qid": "9701_s25_11_q31"
+   },
+   "stem": "Considering only structural isomers, what is the number of alcohols of each type with the formula\nC₅H₁₂O?\nprimary\nsecondary\ntertiary",
+   "options": {
+    "A": "3 3 2",
+    "B": "4 2 2",
+    "C": "4 3 1",
+    "D": "5 2 1"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_11_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x066",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q38",
+    "qid": "9701_s25_11_q38"
+   },
+   "stem": "The structure of the testosterone molecule is shown.\nO\nCH₃\nOH\nCH₃\nC2\nC1\nWhich statements are correct?\n1\nCarbon atoms C1 and C2 can be oxidised with acidified K₂Cr₂O₇.\n2\nThere are fewer than 27 hydrogen atoms in one testosterone molecule.\n3\nThere are six chiral carbon atoms in one testosterone molecule.",
+   "options": {
+    "A": "1 only",
+    "B": "2 and 3",
+    "C": "2 only",
+    "D": "3 only"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s25_11_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x067",
+   "kcs": [
+    "9701-13.4.6",
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q38",
+    "qid": "9701_s25_12_q38"
+   },
+   "stem": "Including structural isomers and stereoisomers, how many isomers are there of C₂H₂Br₂?",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "5"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_12_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x068",
+   "kcs": [
+    "9701-13.4.4",
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q39",
+    "qid": "9701_s25_12_q39"
+   },
+   "stem": "Which compound exhibits stereoisomerism?",
+   "options": {
+    "A": "1,1-dichloropropene",
+    "B": "2,3-dichloropropene",
+    "C": "1,2-dichloropropane",
+    "D": "1,3-dichloropropane"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x069",
+   "kcs": [
+    "9701-13.4.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q32",
+    "qid": "9701_s25_13_q32"
+   },
+   "stem": "Structural and stereoisomerism should be considered when answering this question.\nHow many alcohols with the molecular formula C₅H₁₂O give a yellow precipitate with alkaline\nI₂(aq)?",
+   "options": {
+    "A": "2",
+    "B": "3",
+    "C": "4",
+    "D": "5"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_s25_13_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x070",
+   "kcs": [
+    "9701-13.4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q37",
+    "qid": "9701_s25_13_q37"
+   },
+   "stem": "Compound P displays cis/trans isomerism and gives a red-brown precipitate with Fehling’s\nsolution.\nWhat is P?\nC\nC\nH\nCH₃\nH\nCH₂CHO",
+   "options": null,
+   "answer": "D",
+   "image": "Assets/mcq/9701_s25_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x071",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q38",
+    "qid": "9701_s25_13_q38"
+   },
+   "stem": "Fructose is a sugar with more than one chiral centre. The fructose molecule is shown with X, Y\nand Z indicating three carbon atoms.\nC\nC\nC\nC\nC\nC\nOH\nOH\nH\nH\nHO\nH\nH\nOH\nH\nOH\nH\nH\nO\nX\nY\nZ\nfructose\nWhich carbon atoms are chiral centres?",
+   "options": {
+    "A": "X, Y and Z",
+    "B": "X and Y only",
+    "C": "X only",
+    "D": "Y only"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_13_q38.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x072",
+   "kcs": [
+    "9701-13.4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P11 · Q25",
+    "qid": "9701_w25_11_q25"
+   },
+   "stem": "The diagrams show skeletal formulas of some isomers of C₆H₁₂O.\nO\n1\n2\nO\nO\n3\n4\nO\nWhich statement is correct?",
+   "options": {
+    "A": "1 and 3 are chain isomers of each other and positional isomers of each other.",
+    "B": "2 and 3 are functional group isomers of each other and both have a chiral centre.",
+    "C": "1 and 4 are functional group isomers of each other and both have a chiral centre.",
+    "D": "2 and 4 are positional isomers of each other and functional group isomers of each other."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w25_11_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-13.4-x073",
+   "kcs": [
+    "9701-13.4.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P11 · Q26",
+    "qid": "9701_w25_11_q26"
+   },
+   "stem": "The skeletal formulas of two compounds are shown.\nprogesterone\nO\nO\ntestosterone\nOH\nO\nWhich statements about progesterone and testosterone are correct?",
+   "options": {
+    "A": "They both contain a ketone group, and they both have geometrical isomers due to the C=C bond.",
+    "B": "They have the same molecular formula, and they both have geometrical isomers.",
+    "C": "They have the same number of chiral carbons, and they have the same molecular formula.",
+    "D": "They have the same number of chiral carbons, and they both contain a ketone group."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_w25_11_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-13.4.1",
+   "front": "Define structural isomerism.",
+   "back": "Compounds with the same molecular formula but different structural formulae."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-13.4.1",
+   "front": "Define chain, positional and functional group isomerism.",
+   "back": "Chain: different carbon skeleton. Positional: the same functional group or multiple bond at a different position. Functional group: different functional groups with the same molecular formula."
+  },
+  {
+   "id": "fc3",
+   "kc": "9701-13.4.2",
+   "front": "Define stereoisomerism.",
+   "back": "Compounds with the same structural formula but different arrangements of atoms in space."
+  },
+  {
+   "id": "fc4",
+   "kc": "9701-13.4.2",
+   "front": "Name the types of stereoisomerism in this syllabus.",
+   "back": "Geometrical (cis/trans) and optical isomerism; E/Z nomenclature is acceptable but not required."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-13.4.3",
+   "front": "What causes cis/trans isomerism in alkenes?",
+   "back": "Restricted rotation about C=C due to its π bond; each double-bond carbon must have two different attached groups."
+  },
+  {
+   "id": "fc6",
+   "kc": "9701-13.4.4",
+   "front": "Define a chiral centre and enantiomers.",
+   "back": "A chiral centre is a tetrahedral carbon bonded to four different groups. Enantiomers are non-superimposable mirror-image optical isomers."
+  },
+  {
+   "id": "fc7",
+   "kc": "9701-13.4.5",
+   "front": "How do you test a cyclic compound for cis/trans isomerism?",
+   "back": "Check whether substituents can be on the same or opposite sides of the ring."
+  },
+  {
+   "id": "fc8",
+   "kc": "9701-13.4.6",
+   "front": "What order helps enumerate isomers from a formula?",
+   "back": "List distinct connectivities first, then geometrical and optical alternatives, checking symmetry."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-13.4.1": {
+   "motivate": "One molecular formula can describe substances with different properties. Their atom connections reveal why.",
+   "establish": "Structural isomers have the same molecular formula but different structural formulae. In chain isomerism the carbon skeleton differs. In positional isomerism the same functional group or multiple bond occupies a different position on the same skeleton. In functional group isomerism the functional groups differ. Butane and 2-methylpropane show chain isomerism; propan-1-ol and propan-2-ol show positional isomerism; ethanol and methoxymethane show functional group isomerism.",
+   "connect": "Compare the displayed or structural formulae before thinking about three-dimensional shape.",
+   "note": "- Same molecular formula, different structural formulae.\n- Types: chain, positional, functional group.",
+   "self_explain": "How would you distinguish positional isomerism from functional group isomerism?",
+   "source": "pack"
+  },
+  "9701-13.4.2": {
+   "motivate": "Two molecules can have exactly the same atom connections and still be distinct.",
+   "establish": "Stereoisomers have the same structural formula but different arrangements of atoms in space. The two types here are geometrical (cis/trans) isomerism and optical isomerism. Geometrical forms arise from restricted rotation; optical isomers arise around a chiral centre. E/Z nomenclature is acceptable but not required by this syllabus. When classifying a pair, first compare their connectivity: different connections mean structural isomerism; matching connections permit stereoisomerism.",
+   "connect": "Both categories share a molecular formula, but stereoisomers share a structural formula too.",
+   "note": "- Same structural formula, different spatial arrangement.\n- Types: geometrical and optical.",
+   "self_explain": "Why is matching molecular formula alone insufficient to establish stereoisomerism?",
+   "source": "pack"
+  },
+  "9701-13.4.3": {
+   "motivate": "A double bond locks some arrangements into separate molecules.",
+   "establish": "In an alkene, the π bond comes from sideways overlap of p orbitals. Rotation about C=C would destroy that overlap, so rotation is restricted. Geometrical (cis/trans) isomerism is possible only when each double-bond carbon is attached to two different groups. In but-2-ene, the methyl groups are on the same side in the cis form and opposite sides in the trans form. But-1-ene fails because its terminal carbon bears two H atoms.",
+   "connect": "Apply the two-different-groups test to both C=C carbons before drawing isomers.",
+   "note": "- π bond restricts C=C rotation.\n- Each C=C carbon needs two different groups.\n- Cis: same side; trans: opposite sides.",
+   "self_explain": "Why does CH2=CHCH3 have no cis/trans pair?",
+   "source": "pack"
+  },
+  "9701-13.4.4": {
+   "motivate": "A molecule and its mirror image can have identical bonds yet fail to overlap.",
+   "establish": "A chiral centre in these organic molecules is a tetrahedral carbon bonded to four different groups. Its two arrangements are optical isomers called enantiomers: non-superimposable mirror images. Compare complete groups, not just the atoms directly bonded to carbon. For example, the central carbon of butan-2-ol has H, OH, CH3 and CH2CH3 and is chiral; propan-2-ol has two CH3 groups and is not. Molecules can contain more than one chiral centre; symmetry must be considered when counting distinct stereoisomers.",
+   "connect": "This is the optical branch of stereoisomerism.",
+   "note": "- Chiral carbon: four different groups.\n- Enantiomers: non-superimposable mirror images.\n- More than one chiral centre is possible.",
+   "self_explain": "What makes butan-2-ol chiral but propan-2-ol achiral?",
+   "source": "pack"
+  },
+  "9701-13.4.5": {
+   "motivate": "A complex structure can contain both chiral centres and geometrical alternatives.",
+   "establish": "For a given structural formula, inspect tetrahedral carbons and compare all four attached groups; include the full paths around a ring when deciding whether two groups match. Mark a carbon as chiral only if all four differ. For an alkene, inspect both C=C carbons; each must carry two different groups for cis/trans isomerism. In cyclic compounds, restricted rotation of the ring allows substituents on different ring carbons to occupy the same or opposite faces. Thus 1,2-dichlorocyclobutane can have cis/trans forms, while 1,1-dichlorocyclobutane cannot.",
+   "connect": "These checks apply the definitions to displayed, structural and skeletal formulae.",
+   "note": "- Test four complete groups at a tetrahedral carbon.\n- Test both carbons of each C=C.\n- In rings compare same and opposite faces.",
+   "self_explain": "Why can two paths from a substituted ring carbon be different?",
+   "source": "pack"
+  },
+  "9701-13.4.6": {
+   "motivate": "Counting isomers accurately requires a method that catches each structure once.",
+   "establish": "Start with the known molecular formula and any stated restrictions. List distinct carbon skeletons, then allowed functional groups and positions, checking every structure has the right atom count and valencies. Remove structures that become identical when the chain is numbered from the opposite end or a symmetric molecule is turned around. Next split eligible alkenes or substituted rings into geometrical isomers and check tetrahedral carbons for optical isomers. Independent binary choices can multiply, but symmetry can make two nominal combinations identical. For C4H8 acyclic alkenes, the structural isomers are but-1-ene, but-2-ene and 2-methylpropene; splitting but-2-ene into cis and trans gives four compounds overall.",
+   "connect": "Use structural isomerism first, then apply geometrical and optical tests.",
+   "note": "- List skeletons, groups and positions.\n- Check formula and symmetry.\n- Add eligible geometrical and optical forms.",
+   "self_explain": "How does the count for acyclic C4H8 alkenes change when stereoisomers are included?",
+   "source": "pack"
+  }
+ }
+}
