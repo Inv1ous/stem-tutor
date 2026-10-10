@@ -1,0 +1,196 @@
+{
+ "sub": "9702-7.4",
+ "stage": "ready",
+ "created": "2026-10-10T15:30:06+08:00",
+ "updated": "2026-10-10T15:39:54+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:31:34+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 51 items"
+  },
+  {
+   "t": "2026-10-10T15:36:14+08:00",
+   "from": "solve",
+   "to": "adjudicate",
+   "note": "33 agreed, 0 disputed; 1 checker findings"
+  },
+  {
+   "t": "2026-10-10T15:38:30+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T15:39:42+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T15:39:54+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 51,
+  "extra": 20
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item 9702-7.4-i13 hint 3",
+   "rule": "hint gives it away",
+   "evidence": "Compare the result with the 400–700 nm visible interval.",
+   "suggested": "Ask the learner to recall the visible interval without stating its bounds.",
+   "status": "fixed",
+   "resolution": "fix: The stem asks for the visible wavelength interval itself, and hint 3 gives the full answer, 400–700 nm, which matches bundle KC 9702-7.4.3. In build/out/packs/9702/9702-7.4.json, for item 9702-7.4-i13, set hints[2] to exactly: \"Recall the approximate wavelengths at the violet and red ends of the visible spectrum, and express the interval in nanometres.\""
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9702-7.4-i13 hint 3",
+   "instruction": "The stem asks for the visible wavelength interval itself, and hint 3 gives the full answer, 400–700 nm, which matches bundle KC 9702-7.4.3. In build/out/packs/9702/9702-7.4.json, for item 9702-7.4-i13, set hints[2] to exactly: \"Recall the approximate wavelengths at the violet and red ends of the visible spectrum, and express the interval in nanometres.\"",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 59799,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:30:06+08:00",
+   "log": "foundry/logs/9702-7.4.drafter.1010-153006.log",
+   "out": "foundry/logs/9702-7.4.drafter.1010-153006.out.json",
+   "finished": "2026-10-10T15:31:34+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-7.4.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/07 Waves/7.4 Electromagnetic spectrum.md",
+    "items": 51,
+    "templates": 0,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 63435,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:35:34+08:00",
+   "log": "foundry/logs/9702-7.4.solver-1.1010-153534.log",
+   "out": "foundry/logs/9702-7.4.solver-1.1010-153534.out.json",
+   "expects": "build/work/blind/9702-7.4.answers.part1.json",
+   "finished": "2026-10-10T15:36:07+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-7.4.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 63437,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:35:34+08:00",
+   "log": "foundry/logs/9702-7.4.solver-2.1010-153534.log",
+   "out": "foundry/logs/9702-7.4.solver-2.1010-153534.out.json",
+   "expects": "build/work/blind/9702-7.4.answers.part2.json",
+   "finished": "2026-10-10T15:35:55+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 13 questions in `build/work/blind/9702-7.4.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 63442,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:35:34+08:00",
+   "log": "foundry/logs/9702-7.4.checker.1010-153534.log",
+   "out": "foundry/logs/9702-7.4.checker.1010-153534.out.json",
+   "expects": "build/work/foundry/9702-7.4.check.json",
+   "finished": "2026-10-10T15:35:59+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — wrote [9702-7.4.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9702-7.4.check.json)."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 65823,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T15:38:07+08:00",
+   "log": "foundry/logs/9702-7.4.adjudicator.1010-153807.log",
+   "out": "foundry/logs/9702-7.4.adjudicator.1010-153807.out.json",
+   "finished": "2026-10-10T15:38:36+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item 9702-7.4-i13 hint 3 fix: Reveals the full answer; recorded replacement prompting recall of violet and red endpoint wavelengths."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 66716,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T15:39:18+08:00",
+   "log": "foundry/logs/9702-7.4.fixer.1010-153918.log",
+   "out": "foundry/logs/9702-7.4.fixer.1010-153918.out.json",
+   "finished": "2026-10-10T15:39:42+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "Syllabus gate still reports missing teach cards for 9702-7.4.1, 9702-7.4.2, and 9702-7.4.3; these are outside the requested hint fix."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_12_q27": "9702-7.4-x001",
+  "9702_s19_13_q25": "9702-7.4-x002",
+  "9702_w19_11_q25": "9702-7.4-x003",
+  "9702_w19_12_q24": "9702-7.4-x004",
+  "9702_s20_11_q26": "9702-7.4-x005",
+  "9702_s20_12_q26": "9702-7.4-x006",
+  "9702_s20_13_q26": "9702-7.4-x007",
+  "9702_w20_11_q25": "9702-7.4-x008",
+  "9702_w20_12_q26": "9702-7.4-x009",
+  "9702_s21_12_q25": "9702-7.4-x010",
+  "9702_w21_11_q25": "9702-7.4-x011",
+  "9702_s22_12_q25": "9702-7.4-x012",
+  "9702_s22_13_q26": "9702-7.4-x013",
+  "9702_w22_11_q25": "9702-7.4-x014",
+  "9702_s23_11_q23": "9702-7.4-x015",
+  "9702_w23_11_q23": "9702-7.4-x016",
+  "9702_w24_11_q25": "9702-7.4-x017",
+  "9702_w24_12_q25": "9702-7.4-x018",
+  "9702_s25_11_q27": "9702-7.4-x019",
+  "9702_s25_13_q27": "9702-7.4-x020"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
