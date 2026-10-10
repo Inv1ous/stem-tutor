@@ -165,6 +165,47 @@ def syllabus_gaps(sub: str, pack: dict, graph: dict, note: str) -> list[dict]:
     return syllabus.check(pack, graph, note, words)
 
 
+LINK = re.compile(r"(?<!!)\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]")
+EMBEDDED = re.compile(r"!\[\[(Assets/[^\]|]+\.svg)")
+
+
+def link_problems(text: str) -> list[str]:
+    """Links in a lesson note that name no chapter (`[[3.4 Chemical bonding]]` where the note is `3.4 Covalent
+    bonding…`), each with the nearest real name. The vault's own pages and path links are fine."""
+    import difflib
+
+    import bundle
+    names = set(bundle.note_names().values()) | set(bundle.VAULT_NOTES)
+    plain = {n.replace("’", "'").lower(): n for n in names}
+    out = []
+    for m in LINK.finditer(text):
+        t = m.group(1).strip()
+        if t in names or "/" in t or t.startswith("Assets") or t.replace("’", "'").lower() in plain:
+            continue
+        import publish
+        num = re.match(r"^(\d+(?:\.\d+)?)\s", t)
+        same = [n for n in names if num and n.startswith(num.group(1) + " ") and publish._words(t) & publish._words(n)]
+        near = same or [n for n in names if n.lower() in difflib.get_close_matches(t.lower(), [x.lower() for x in names], 1, 0.6)]
+        out.append(f"[[{t}]] is not a chapter note" + (f"; did you mean [[{near[0]}]]?" if len(near) == 1 else ""))
+    return list(dict.fromkeys(out))
+
+
+def diagram_problems(pack: dict, graph: dict, note_text: str) -> list[str]:
+    """A chapter with points a figure shows must request a diagram (or say why not), and every requested diagram must
+    be embedded in the note."""
+    import diagram_hints
+    sub = pack.get("subtopic", "")
+    kcs = [k for k in graph["kcs"] if k["subtopic"] == sub]
+    out = []
+    asked = [d.get("file", "") for d in pack.get("diagrams") or []]
+    sug = diagram_hints.suggest(kcs)
+    if sug and not asked and not pack.get("diagrams_skipped"):
+        out.append("no diagram: points a figure shows (" + "; ".join(f"{k} for {', '.join(v[:3])}" for k, v in sug.items())
+                   + "): request one in `diagrams` and embed it, or set `diagrams_skipped` with the reason")
+    out += [f"diagram {f} is requested but not embedded in the note (![[{f}]])" for f in asked if f not in note_text]
+    return out
+
+
 def gates(sub: str) -> dict:
     import validate_pack
     from tutorlib import lint
@@ -179,14 +220,16 @@ def gates(sub: str) -> dict:
     text = note.read_text(encoding="utf-8") if note.is_file() else ""
     findings = lint.lint(text) if note.is_file() else [{"rule": "note", "detail": "missing"}]
     gaps = syllabus_gaps(sub, pack, graph, text)
-    out = {"ok": not problems and not findings and not gaps, "validator": len(problems), "lint": len(findings),
-           "syllabus": len(gaps), "items": len(pack.get("items", [])),
+    figures = (link_problems(text) + diagram_problems(pack, graph, text)) if note.is_file() else []
+    out = {"ok": not problems and not findings and not gaps and not figures, "validator": len(problems), "lint": len(findings),
+           "syllabus": len(gaps), "figures": len(figures), "items": len(pack.get("items", [])),
            "extra": sum(it.get("tier") == "extra" for it in pack.get("items", []))}
     if problems or findings or gaps:  # enough for a worker to act on, capped so the board stays small
         out["first"] = [f"{e['rule']} {e['where']} {e.get('detail', '')}"[:160] for e in problems[:8]] + \
                        [f"lint {x.get('rule')} line {x.get('line')}: {x.get('message') or x.get('detail', '')}"[:160]
                         for x in findings[:4]] + \
-                       [f"syllabus {e['rule']} {e['where']} {e['detail']}"[:160] for e in gaps[:8]]
+                       [f"syllabus {e['rule']} {e['where']} {e['detail']}"[:160] for e in gaps[:8]] + \
+                       [f"figures {e}"[:200] for e in figures[:6]]
     return out
 
 
@@ -325,6 +368,19 @@ def cmd_coverage(args: list[str]) -> None:
     if own:
         print(f"\nSigned with only its own family checking it (re-check with the other allowance when it is free): "
               f"{len(own)}: {' '.join(own)}")
+    import diagram_hints
+    bare = []
+    for g in sorted((SPECS).glob("*/graph.json")):
+        graph = json.loads(g.read_text())
+        for s in graph["subtopics"]:
+            pk = pack_path(s["id"])
+            if pk.exists() and diagram_hints.suggest([k for k in graph["kcs"] if k["subtopic"] == s["id"]]):
+                d = json.loads(pk.read_text())
+                if not d.get("diagrams") and not d.get("diagrams_skipped"):
+                    bare.append(s["id"])
+    if bare:
+        print(f"\nBuilt chapters with points a figure shows and no diagram ({len(bare)}; the next drafts get them, these "
+              f"need a redraft to): {' '.join(bare)}")
     n = int(args[args.index("--queue") + 1]) if "--queue" in args else 0
     print(f"\nStill to build: {len(c['next'])} chapters. Next in Almanac order"
           + (f" ({c['ticked_off']} you ticked off in the Almanac come last)" if c["ticked_off"] else "")

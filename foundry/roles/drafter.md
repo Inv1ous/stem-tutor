@@ -17,8 +17,10 @@ If the pack already exists (an interrupted run), validate it and finish what is 
 1. Write a generator script `build/work/gen/<subtopic>.py` that holds the content as Python data and **computes**
    every numeric answer, distractor and template check, then writes the pack JSON to the path in the bundle.
    Change the script and re-run it; never hand-edit numbers in the JSON.
-2. Write the lesson note at `build/out/notes/<note path from the bundle>` (400–900 words, the layout in PACK.md).
-3. **Draw what the table in `build/PACK.md` can draw.** Wherever a syllabus point is a graph, a circuit, a free-body
+2. Write the lesson note at `build/out/notes/<note path from the bundle>` (400–900 words, the layout in PACK.md). Its
+   `Builds on` and `Leads to` links use only the exact names in the bundle's "Chapters you may link" list (up to 4
+   earlier and 3 later chapters, built or not): a made-up or shortened title opens nothing and fails the gate.
+3. **Draw what the table in `build/PACK.md` can draw** (the bundle's "Diagrams this chapter should have" lists the points). Wherever a syllabus point is a graph, a circuit, a free-body
    diagram, an energy profile, a Maxwell–Boltzmann curve, a wave, a distribution or a box plot, request the diagram in the
    pack's `diagrams` list and embed it in the note; a chapter on such a topic with none is unfinished (older chapters
    have one or more each; only a chapter with nothing the table can draw has none). Then render them:

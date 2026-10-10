@@ -1,6 +1,6 @@
 # STEM Tutor
 
-Version **2.1.4** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
+Version **2.1.5** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
 
 A-Level study system (CAIE 9701/9702, Edexcel IAL Maths/Further Maths): a terminal app for studying, an Obsidian
 vault for reading, and a pure-Python engine that does the teaching logic without AI.

@@ -1,5 +1,8 @@
 # Build status
 
+## v2.1.5 (2026-10-10) — done
+- The foundry hands each drafter the exact note names to link and the diagrams its chapter should have, and its gates fail a made-up link or a missing diagram.
+
 ## v2.1.4 (2026-10-10) — done
 - Obsidian links find their chapter when the title was reworded (same number, a shared word); the drafter is told to draw diagrams again.
 

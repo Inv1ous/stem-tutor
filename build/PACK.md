@@ -94,9 +94,10 @@ kcs: ["9702-2.1.1", "9702-2.1.2"]
 
 ## Links
 Builds on [[1.3 Errors and uncertainties]] · Leads to [[3.1 Momentum and Newton's laws of motion]]
+<!-- link only names from the bundle's "Chapters you may link" list, exactly as written; chapters not built yet may be linked -->
 ```
 
-Diagrams: request them in `diagrams` and embed with `![[Assets/…svg]]`. Use Mermaid only for concept or process maps (quote labels that contain brackets).
+Diagrams: request them in `diagrams` and embed each with `![[Assets/…svg]]` (the gate fails a requested diagram that is not embedded, and a chapter with points a figure shows — the bundle lists them — and no diagram; a pack that truly has none sets `diagrams_skipped` to say why). Use Mermaid only for concept or process maps (quote labels that contain brackets).
 
 ## Diagram types (`build/diagrams.py`)
 

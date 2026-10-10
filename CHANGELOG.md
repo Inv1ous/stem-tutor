@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.1.5 — 2026-10-10
+
+Asked by the learner.
+
+- **Links are right when written.** A drafter's bundle now has "Chapters you may link (exact note names)": the earlier
+  chapters this one builds on and the later ones that build on it (through the syllabus prerequisites), by the exact
+  file name each chapter's note has, built or not (`bundle.note_names`, `bundle.related`). The lesson gate
+  (`foundry.link_problems`) fails a `[[link]]` that names no chapter, with the real name as the suggestion. Earlier
+  notes link forward to chapters not built yet: those stay plain text until the chapter is published, then turn into
+  links on the next publish, as before.
+- **Diagrams are asked for and checked.** The bundle lists the points a figure shows ("Diagrams this chapter should
+  have", `build/diagram_hints.py`); the gate (`foundry.diagram_problems`) fails a chapter with such points and no diagram
+  unless the pack gives `diagrams_skipped` with a reason, and fails a requested diagram the note does not embed. 25 of the
+  34 built chapters with such points have no diagram; `foundry coverage` lists them for a redraft.
+
 ## 2.1.4 — 2026-10-10
 
 Asked by the learner.

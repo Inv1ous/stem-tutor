@@ -956,3 +956,37 @@ def test_signing_drops_blank_options_of_a_figure_question_and_notes_it(fdy, tmp_
     assert item["options"] is None and item["answer"] == "B"
     assert json.loads(ov.read_text())["9701_s23_11_q7"] == {"options": None}
     assert fdy.normalise_figures(SUB) == 0  # once
+
+
+def test_a_note_may_only_link_real_chapter_names_and_the_vaults_own_pages(fdy):
+    import bundle
+    names = bundle.note_names()
+    assert names["9702-5.1"] == "5.1 Energy conservation" or names["9702-5.1"].startswith("5.1 ")
+    real = names["9701-3.4"]
+    assert fdy.link_problems(f"Builds on [[{real}]] · [[Home]] · [[Subjects/9701 Chemistry/x]] · [[{real}|bonds]] ![[Assets/a.svg]]") == []
+    wrong = fdy.link_problems("Builds on [[3.4 Chemical bonding]] and [[Totally invented]]")
+    assert len(wrong) == 2 and real in wrong[0] and "Totally invented" in wrong[1] and "did you mean" not in wrong[1]
+    assert fdy.link_problems(f"[[{real.replace('’', chr(39))}]]") == []  # either apostrophe
+
+
+def test_a_chapter_with_points_a_figure_shows_needs_a_diagram_that_the_note_embeds(fdy):
+    import diagram_hints
+    kcs = [{"id": "9702-2.1.3", "title": "Graphs of motion", "statement": "sketch displacement–time and velocity–time graphs",
+            "subtopic": "9702-2.1"}, {"id": "9702-2.1.4", "title": "Definitions", "statement": "define speed", "subtopic": "9702-2.1"}]
+    assert diagram_hints.suggest(kcs) == {"graph_sketch": ["9702-2.1.3"]}
+    graph = {"kcs": kcs}
+    pack = {"subtopic": "9702-2.1", "diagrams": []}
+    assert "no diagram" in fdy.diagram_problems(pack, graph, "text")[0]
+    assert fdy.diagram_problems({**pack, "diagrams_skipped": "nothing honest to draw"}, graph, "text") == []
+    asked = {**pack, "diagrams": [{"file": "Assets/9702/2.1-vt.svg", "type": "graph_sketch"}]}
+    assert "not embedded" in fdy.diagram_problems(asked, graph, "text")[0]
+    assert fdy.diagram_problems(asked, graph, "see ![[Assets/9702/2.1-vt.svg]]") == []
+    assert fdy.diagram_problems({"subtopic": "9702-2.1"}, {"kcs": [kcs[1]]}, "text") == []  # nothing a figure shows
+
+
+def test_a_bundle_lists_the_exact_names_to_link_and_the_diagrams_to_draw():
+    import bundle
+    early, late = bundle.related("9702-5.1")
+    assert early and late and all(isinstance(n, int) for _, n in early + late)
+    text = "\n".join(bundle._link_lines("9702-5.1"))
+    assert "Builds on (earlier)" in text and "Leads to (later)" in text and "[[" in text
