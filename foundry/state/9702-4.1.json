@@ -1,0 +1,195 @@
+{
+ "sub": "9702-4.1",
+ "stage": "ready",
+ "created": "2026-10-10T13:45:31+08:00",
+ "updated": "2026-10-10T14:08:01+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T13:47:20+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 59 items"
+  },
+  {
+   "t": "2026-10-10T14:05:37+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "51 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T14:07:34+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:08:01+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 59,
+  "extra": 30
+ },
+ "disputes": [
+  {
+   "id": "9702-4.1-x002",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 2060,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:45:31+08:00",
+   "log": "foundry/logs/9702-4.1.drafter.1010-134531.log",
+   "out": "foundry/logs/9702-4.1.drafter.1010-134531.out.json",
+   "finished": "2026-10-10T13:47:20+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-4.1.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/04 Forces, density and pressure/4.1 Turning effects of forces.md",
+    "items": 59,
+    "templates": 0,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Some diagram-dependent past-paper stems contain extraction artifacts; their original images are linked in the pack."
+    ]
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 7442,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:55:39+08:00",
+   "log": "foundry/logs/9702-4.1.checker.1010-135539.log",
+   "out": "foundry/logs/9702-4.1.checker.1010-135539.out.json",
+   "expects": "build/work/foundry/9702-4.1.check.json",
+   "finished": "2026-10-10T13:55:58+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/9702-4.1.check.json`."
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 14311,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:05:02+08:00",
+   "log": "foundry/logs/9702-4.1.solver-1.1010-140502.log",
+   "out": "foundry/logs/9702-4.1.solver-1.1010-140502.out.json",
+   "expects": "build/work/blind/9702-4.1.answers.part1.json",
+   "finished": "2026-10-10T14:05:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-4.1.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 14313,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:05:02+08:00",
+   "log": "foundry/logs/9702-4.1.solver-2.1010-140502.log",
+   "out": "foundry/logs/9702-4.1.solver-2.1010-140502.out.json",
+   "expects": "build/work/blind/9702-4.1.answers.part2.json",
+   "finished": "2026-10-10T14:05:36+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions; wrote `build/work/blind/9702-4.1.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 14318,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:05:02+08:00",
+   "log": "foundry/logs/9702-4.1.solver-3.1010-140502.log",
+   "out": "foundry/logs/9702-4.1.solver-3.1010-140502.out.json",
+   "expects": "build/work/blind/9702-4.1.answers.part3.json",
+   "finished": "2026-10-10T14:05:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 12 questions and wrote [9702-4.1.answers.part3.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-4.1.answers.part3.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 15879,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:07:08+08:00",
+   "log": "foundry/logs/9702-4.1.tiebreak.1010-140708.log",
+   "out": "foundry/logs/9702-4.1.tiebreak.1010-140708.out.json",
+   "expects": "build/work/blind/9702-4.1.tiebreak.json",
+   "finished": "2026-10-10T14:07:28+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9702-4.1.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q13": "9702-4.1-x001",
+  "9702_s19_13_q13": "9702-4.1-x002",
+  "9702_w19_11_q12": "9702-4.1-x003",
+  "9702_s20_11_q12": "9702-4.1-x004",
+  "9702_s20_12_q11": "9702-4.1-x005",
+  "9702_s20_13_q12": "9702-4.1-x006",
+  "9702_w20_11_q12": "9702-4.1-x007",
+  "9702_w20_12_q12": "9702-4.1-x008",
+  "9702_w20_13_q12": "9702-4.1-x009",
+  "9702_s21_11_q12": "9702-4.1-x010",
+  "9702_s21_12_q12": "9702-4.1-x011",
+  "9702_s21_13_q12": "9702-4.1-x012",
+  "9702_s21_13_q13": "9702-4.1-x013",
+  "9702_s21_13_q14": "9702-4.1-x014",
+  "9702_s22_11_q11": "9702-4.1-x015",
+  "9702_s22_12_q11": "9702-4.1-x016",
+  "9702_s22_13_q12": "9702-4.1-x017",
+  "9702_w22_13_q11": "9702-4.1-x018",
+  "9702_s23_11_q11": "9702-4.1-x019",
+  "9702_s23_11_q12": "9702-4.1-x020",
+  "9702_w23_12_q11": "9702-4.1-x021",
+  "9702_w23_12_q12": "9702-4.1-x022",
+  "9702_s24_11_q15": "9702-4.1-x023",
+  "9702_s24_12_q11": "9702-4.1-x024",
+  "9702_w24_11_q17": "9702-4.1-x025",
+  "9702_w24_13_q14": "9702-4.1-x026",
+  "9702_s25_11_q13": "9702-4.1-x027",
+  "9702_s25_12_q17": "9702-4.1-x028",
+  "9702_w25_11_q14": "9702-4.1-x029",
+  "9702_w25_12_q13": "9702-4.1-x030"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
