@@ -1,0 +1,103 @@
+{
+ "sub": "9701-9.3",
+ "stage": "ready",
+ "created": "2026-10-10T15:57:37+08:00",
+ "updated": "2026-10-10T16:05:52+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:00:51+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 20 items"
+  },
+  {
+   "t": "2026-10-10T16:04:56+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "12 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:05:52+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 20,
+  "extra": 3
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 80585,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:58:37+08:00",
+   "log": "foundry/logs/9701-9.3.drafter.1010-155837.log",
+   "out": "foundry/logs/9701-9.3.drafter.1010-155837.out.json",
+   "finished": "2026-10-10T16:00:51+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-9.3.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/09 The Periodic Table: chemical periodicity/9.3 Chemical periodicity of other elements.md",
+    "items": 20,
+    "templates": 0,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Some bank questions had incomplete extracted options or duplicated another paper variant; the pack uses intact, distinct questions."
+    ]
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 84077,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:04:26+08:00",
+   "log": "foundry/logs/9701-9.3.solver.1010-160426.log",
+   "out": "foundry/logs/9701-9.3.solver.1010-160426.out.json",
+   "expects": "build/work/blind/9701-9.3.answers.json",
+   "finished": "2026-10-10T16:04:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 12 questions in `build/work/blind/9701-9.3.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 84082,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:04:26+08:00",
+   "log": "foundry/logs/9701-9.3.checker.1010-160426.log",
+   "out": "foundry/logs/9701-9.3.checker.1010-160426.out.json",
+   "expects": "build/work/foundry/9701-9.3.check.json",
+   "finished": "2026-10-10T16:04:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/9701-9.3.check.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s20_12_q31": "9701-9.3-x001",
+  "9701_s23_11_q19": "9701-9.3-x002",
+  "9701_w23_11_q16": "9701-9.3-x003"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
