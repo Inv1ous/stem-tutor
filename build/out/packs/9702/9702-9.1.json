@@ -1,0 +1,1972 @@
+{
+ "subtopic": "9702-9.1",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/09 Electricity/9.1 Electric current.md",
+ "outline": "Electric current is a flow of charge carriers. Their charges are integer multiples of the elementary charge $e=1.60\\times10^{-19}\\,\\mathrm C$. Charge passing a point in time $t$ is $Q=It$. In a conductor, the charge carriers in a length $vt$ cross area $A$ in time $t$; there are $nAvt$ carriers, so $I=Anvq$, where $n$ is number per unit volume and $q$ is charge magnitude per carrier. At fixed current and material, drift speed varies inversely with cross-sectional area.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-9.1.1",
+   "statement": "Current is a flow of energy rather than charge carriers.",
+   "refutation": "Current is flow of charge carriers; energy transfer is a different quantity.",
+   "contrast": "charge flow versus energy transfer",
+   "source": "ER 9702 w24 P13 Q31"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-9.1.2",
+   "statement": "Any fractional value of the elementary charge is possible.",
+   "refutation": "A carrier charge is an integer multiple of $e$, including zero.",
+   "contrast": "integer versus fractional multiple",
+   "source": "ER 9702 s23 P12 Q30"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-9.1.3",
+   "statement": "Charge passing a narrower section is smaller at constant current.",
+   "refutation": "$Q=It$ gives the same charge in the same time at every section of a series wire.",
+   "contrast": "charge versus cross-sectional area",
+   "source": "ER 9702 s19 P12 Q33"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-9.1.4",
+   "statement": "Number density means carriers per unit area.",
+   "refutation": "$n$ counts carriers per unit volume; $nAvt$ is the number passing in time $t$.",
+   "contrast": "volume versus area density",
+   "source": "ER 9702 s21 P13 Q33"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-9.1.4",
+   "statement": "Doubling diameter doubles area.",
+   "refutation": "Area is proportional to diameter squared, so doubling diameter quadruples area.",
+   "contrast": "diameter versus area ratio",
+   "source": "ER 9702 s22 P13 Q32"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-9.1.3",
+   "problem": "A current of 2.5 A flows for 12 s. Calculate the charge transferred.",
+   "steps": [
+    {
+     "do": "State $Q=It$.",
+     "why": "Start from the syllabus equation."
+    },
+    {
+     "do": "Substitute the SI values, using $e=1.60\\times10^{-19}$ C where needed.",
+     "why": "Units must be consistent."
+    },
+    {
+     "do": "Answer: 30 C.",
+     "why": "Give a value and unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 30.0,
+       "unit": "C",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A current of 1.5 A flows for 8 s. Calculate the charge.",
+    "answer": {
+     "value": 12.0,
+     "unit": "C",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-9.1.4",
+   "problem": "A conductor has $A=2.0\\times10^{-6}\\,\\mathrm{m^2}$, $n=8.0\\times10^{28}\\,\\mathrm{m^{-3}}$, $v=1.0\\times10^{-4}\\,\\mathrm{m\\,s^{-1}}$ and $q=e$. Calculate the current.",
+   "steps": [
+    {
+     "do": "State $I=Anvq$.",
+     "why": "Start from the syllabus equation."
+    },
+    {
+     "do": "Substitute the SI values, using $e=1.60\\times10^{-19}$ C where needed.",
+     "why": "Units must be consistent."
+    },
+    {
+     "do": "Answer: 2.6 A.",
+     "why": "Give a value and unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.56,
+       "unit": "A",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "For $A=1.0\\times10^{-6}\\,\\mathrm{m^2}$, $n=8.0\\times10^{28}\\,\\mathrm{m^{-3}}$, $v=2.0\\times10^{-4}\\,\\mathrm{m\\,s^{-1}}$ and $q=e$, calculate the current.",
+    "answer": {
+     "value": 2.56,
+     "unit": "A",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-9.1-i01",
+   "kcs": [
+    "9702-9.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define electric current in terms of charge carriers.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Electric current is a flow of charge carriers.",
+     "keywords": [
+      [
+       "Electric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Electric current is a flow of charge carriers.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i02",
+   "kcs": [
+    "9702-9.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the moving charge carriers in a metal.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Electrons are the moving charge carriers in a metal.",
+     "keywords": [
+      [
+       "Electrons"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Electrons are the moving charge carriers in a metal.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i03",
+   "kcs": [
+    "9702-9.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the moving charge carriers in an electrolyte.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Positive and negative ions carry current in an electrolyte.",
+     "keywords": [
+      [
+       "Positive"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Positive and negative ions carry current in an electrolyte.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i04",
+   "kcs": [
+    "9702-9.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a neutron beam does not constitute an electric current.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutrons have no charge, so their motion transports no electric charge.",
+     "keywords": [
+      [
+       "Neutrons"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutrons have no charge, so their motion transports no electric charge.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i05",
+   "kcs": [
+    "9702-9.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare current in a metal and in an electrolyte.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Electrons carry current in a metal; ions carry current in an electrolyte.",
+     "keywords": [
+      [
+       "Electrons"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Electrons carry current in a metal; ions carry current in an electrolyte.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i06",
+   "kcs": [
+    "9702-9.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe what passes a fixed cross-section when there is current.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Charged particles cross the section, transferring charge.",
+     "keywords": [
+      [
+       "Charged"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Charged particles cross the section, transferring charge.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i07",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what is meant by quantisation of charge.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Charge on a carrier is an integer multiple of the elementary charge.",
+     "keywords": [
+      [
+       "Charge"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Charge on a carrier is an integer multiple of the elementary charge.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i08",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine whether $4.8\\times10^{-19}$ C is a possible carrier charge.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is possible because it equals $3e$.",
+     "keywords": [
+      [
+       "It"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is possible because it equals $3e$.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i09",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine whether $4.0\\times10^{-19}$ C is a possible carrier charge.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It is impossible because it equals $2.5e$, not an integer multiple.",
+     "keywords": [
+      [
+       "It"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It is impossible because it equals $2.5e$, not an integer multiple.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i10",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a negative ion can carry $-3.2\\times10^{-19}$ C.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It carries $-2e$, an integer multiple of elementary charge.",
+     "keywords": [
+      [
+       "It"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It carries $-2e$, an integer multiple of elementary charge.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i11",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the elementary charge in coulombs.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The elementary charge is $1.60\\times10^{-19}$ C.",
+     "keywords": [
+      [
+       "The"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The elementary charge is $1.60\\times10^{-19}$ C.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i12",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why an uncharged droplet does not violate quantisation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Zero is an integer multiple of the elementary charge.",
+     "keywords": [
+      [
+       "Zero"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Zero is an integer multiple of the elementary charge.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i13",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the equation connecting charge, current and time.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$Q=It$, where charge is in coulombs, current in amperes and time in seconds.",
+     "keywords": [
+      [
+       "$Q=It$,"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$Q=It$, where charge is in coulombs, current in amperes and time in seconds.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i14",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define one coulomb using current and time.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "One coulomb is the charge transferred by one ampere in one second.",
+     "keywords": [
+      [
+       "One"
+      ]
+     ]
+    }
+   ],
+   "explanation": "One coulomb is the charge transferred by one ampere in one second.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i15",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the charge transferred by 2 A in 3 s.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$Q=It=(2)(3)=6$ C.",
+     "keywords": [
+      [
+       "$Q=It=(2)(3)=6$"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$Q=It=(2)(3)=6$ C.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i16",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine the current when 12 C passes in 4 s.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$I=Q/t=12/4=3$ A.",
+     "keywords": [
+      [
+       "$I=Q/t=12/4=3$"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$I=Q/t=12/4=3$ A.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i17",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why equal charge passes two sections of a steady series wire in equal time.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The steady current is equal at both sections, so $Q=It$ gives equal charge.",
+     "keywords": [
+      [
+       "The"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The steady current is equal at both sections, so $Q=It$ gives equal charge.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i18",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the number of electrons in 3.2 C.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$N=Q/e=3.2/(1.60\\times10^{-19})=2.0\\times10^{19}$ electrons.",
+     "keywords": [
+      [
+       "$N=Q/e=3.2/(1.60\\times10^{-19})=2.0\\times10^{19}$"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$N=Q/e=3.2/(1.60\\times10^{-19})=2.0\\times10^{19}$ electrons.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i19",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what $n$ means in $I=Anvq$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$n$ is the number of charge carriers per unit volume.",
+     "keywords": [
+      [
+       "$n$"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$n$ is the number of charge carriers per unit volume.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i20",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the SI unit of number density.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The SI unit of number density is $\\mathrm{m^{-3}}$.",
+     "keywords": [
+      [
+       "The"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The SI unit of number density is $\\mathrm{m^{-3}}$.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i21",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why drift speed rises when a same-material wire narrows at constant current.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$I=Anvq$ is constant; $n$ and $q$ are fixed, so $v$ increases as $A$ falls.",
+     "keywords": [
+      [
+       "$I=Anvq$"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$I=Anvq$ is constant; $n$ and $q$ are fixed, so $v$ increases as $A$ falls.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i22",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Determine the area ratio when a wire diameter is doubled.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Cross-sectional area increases by a factor of four because $A\\propto d^2$.",
+     "keywords": [
+      [
+       "Cross-sectional"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Cross-sectional area increases by a factor of four because $A\\propto d^2$.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i23",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how $nAvt$ counts carriers crossing a section in time $t$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The swept volume is $Avt$ and number density times volume gives $nAvt$ carriers.",
+     "keywords": [
+      [
+       "The"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The swept volume is $Avt$ and number density times volume gives $nAvt$ carriers.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-i24",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Show (that)",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show (that) the drift relation follows from charge crossing area $A$ in time $t$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$Q=nAvtq$ and $I=Q/t$, hence $I=Anvq$.",
+     "keywords": [
+      [
+       "$Q=nAvtq$"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$Q=nAvtq$ and $I=Q/t$, hence $I=Anvq$.",
+   "hints": [
+    "Recall what physical quantity is involved.",
+    "Use the definition and identify the relevant variables.",
+    "Start by stating the defining relation."
+   ]
+  },
+  {
+   "id": "9702-9.1-p01",
+   "kcs": [
+    "9702-9.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q31",
+    "qid": "9702_w24_13_q31"
+   },
+   "stem": "What is an electric current?",
+   "options": {
+    "A": "a flow of charge carriers",
+    "B": "a flow of energy",
+    "C": "an electron",
+    "D": "the charge on a particle"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "Current is a flow of charge carriers. B confuses current with energy transfer.",
+   "hints": [],
+   "distractors": {
+    "B": "m1"
+   }
+  },
+  {
+   "id": "9702-9.1-p02",
+   "kcs": [
+    "9702-9.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q30",
+    "qid": "9702_w23_13_q30"
+   },
+   "stem": "What could not be used to create an electric current?",
+   "options": {
+    "A": "alpha-particles",
+    "B": "beta-particles",
+    "C": "neutrons",
+    "D": "protons"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "Neutrons have no charge; protons and alpha- and beta-particles are charged.",
+   "hints": [],
+   "distractors": {
+    "A": "m1"
+   }
+  },
+  {
+   "id": "9702-9.1-p03",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q30",
+    "qid": "9702_w23_12_q30"
+   },
+   "stem": "A fine mist of oil droplets is sprayed into air. As the oil droplets leave the nozzle of the spraying\ndevice they can become electrically charged.\nWhat is not a possible value for the charge on an oil droplet?",
+   "options": {
+    "A": "zero",
+    "B": "1.0 × 10⁻¹⁹ C",
+    "C": "4.8 × 10⁻¹⁹ C",
+    "D": "8.0 × 10⁻¹⁹ C"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "Only B is not an integer multiple of $e=1.60\\times10^{-19}$ C; zero is $0e$ and is possible.",
+   "hints": [],
+   "distractors": {
+    "A": "m2"
+   }
+  },
+  {
+   "id": "9702-9.1-p04",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q30",
+    "qid": "9702_s23_12_q30"
+   },
+   "stem": "Which charge can be carried by a charge carrier?",
+   "options": {
+    "A": "1.1 × 10⁻¹⁹ C",
+    "B": "4.0 × 10⁻¹⁹ C",
+    "C": "4.8 × 10⁻¹⁹ C",
+    "D": "9.1 × 10⁻¹⁹ C"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "Only C equals an integer multiple, $3e$; B is $2.5e$.",
+   "hints": [],
+   "distractors": {
+    "A": "m2"
+   }
+  },
+  {
+   "id": "9702-9.1-p05",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q32",
+    "qid": "9702_s19_11_q32"
+   },
+   "stem": "In an electrolyte, the electric current is carried by charged particles (ions) in solution.\nWhat is not a possible value for the charge on an ion in solution?",
+   "options": {
+    "A": "– 4.8 × 10⁻¹⁹ C",
+    "B": "+1.6 × 10⁻¹⁹ C",
+    "C": "+3.2 × 10⁻¹⁹ C",
+    "D": "+4.0 × 10⁻¹⁹ C"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "D is $2.5e$, which is impossible. A is $-3e$ and the negative sign does not make it impossible.",
+   "hints": [],
+   "distractors": {
+    "A": "m2"
+   }
+  },
+  {
+   "id": "9702-9.1-p06",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q33",
+    "qid": "9702_s19_12_q33"
+   },
+   "stem": "A length of wire is connected into a circuit.\nR\nS\narea A\narea A\n1\n2\nThe area of the cross-section of the wire changes from A at R to ₂\n¹ A at S.\nThere is a constant current in the wire. Charge Q passes R in time t.\nWhat is the charge passing point S in the same time t ?",
+   "options": {
+    "A": "2 ¹ Q",
+    "B": "Q",
+    "C": "2 Q",
+    "D": "2Q"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_12_q33.png",
+   "marks": 1,
+   "explanation": "At steady current, equal charge passes both sections in the same time. A wrongly changes charge with area.",
+   "hints": [],
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9702-9.1-p07",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q33",
+    "qid": "9702_w21_13_q33"
+   },
+   "stem": "A lightning strike transfers 1 × 10²⁰ electrons past a point in a time of 30 μs.\nWhat is the average current during the lightning strike?",
+   "options": {
+    "A": "0.5 mA",
+    "B": "0.5 A",
+    "C": "500 A",
+    "D": "500 kA"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "Total charge is $10^{20}e=16$ C; $I=Q/t=16/(30\\times10^{-6})\\approx 5.3\\times10^5$ A, so D. C misses a factor of 1000.",
+   "hints": [],
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9702-9.1-p08",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q33",
+    "qid": "9702_w21_12_q33"
+   },
+   "stem": "What is a description of the coulomb?",
+   "options": {
+    "A": "the electric charge of one electron",
+    "B": "the electric charge transferred by a current of one ampere in one second",
+    "C": "the kinetic energy gained by an electron accelerated through a potential difference of one volt",
+    "D": "the kinetic energy of an electron moving at a speed of one metre per second"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "explanation": "One coulomb is the charge transferred by 1 A in 1 s. A is only one elementary charge.",
+   "hints": [],
+   "distractors": {
+    "A": "m3"
+   }
+  },
+  {
+   "id": "9702-9.1-p09",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q32",
+    "qid": "9702_s22_13_q32"
+   },
+   "stem": "Two wires, X and Y, are made from the same metal.\nThe diameter of wire Y is twice that of wire X.\nWire X, wire Y and a battery are connected in series.\nWhat is the ratio average drift speed of free electrons in wire X\naverage drift speed of free electrons in wire Y\n?",
+   "options": {
+    "A": "4 1",
+    "B": "2 1",
+    "C": "1 2",
+    "D": "1 4"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_13_q32.png",
+   "marks": 1,
+   "explanation": "The series current is equal; doubling diameter quadruples area, so the speed ratio $v_X/v_Y=4$. A reverses the ratio.",
+   "hints": [],
+   "distractors": {
+    "A": "m5"
+   }
+  },
+  {
+   "id": "9702-9.1-p10",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q33",
+    "qid": "9702_s21_13_q33"
+   },
+   "stem": "A wire has a length of 12 cm and contains a total of 5.1 × 10²² free electrons.\nWhen a potential difference is applied across the ends of the wire, the free electrons move with\nan average drift speed of 4.0 × 10⁻⁶\nm s⁻¹.\nWhat is the current in the wire?",
+   "options": {
+    "A": "0.0027 A",
+    "B": "0.0039 A",
+    "C": "0.27 A",
+    "D": "0.39 A"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "Use $nA=N/L$, so $I=Nqv/L=0.27$ A. B multiplies by the wire length instead of dividing.",
+   "hints": [],
+   "distractors": {
+    "A": "m4"
+   }
+  },
+  {
+   "id": "9702-9.1-p11",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q30",
+    "qid": "9702_w23_11_q30"
+   },
+   "stem": "The current I in a conductor is given by the equation shown.\nI = Anvq\nWhat does the letter n represent in this equation?",
+   "options": {
+    "A": "charge carried per charge carrier",
+    "B": "number of charge carriers per unit area",
+    "C": "number of charge carriers per unit volume",
+    "D": "total mass of charge carriers per unit volume"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "Number density is carriers per unit volume. B incorrectly says per unit area.",
+   "hints": [],
+   "distractors": {
+    "A": "m4"
+   }
+  },
+  {
+   "id": "9702-9.1-p12",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q32",
+    "qid": "9702_w24_13_q32"
+   },
+   "stem": "A wire of diameter d is connected into an electric circuit. There is a current I in the wire and the\ncharge carriers have an average drift speed v.\nThe wire is replaced with a new wire of the same material but with a diameter 0.5d.\nThe current is adjusted so that the charge carriers in the new wire have an average drift\nspeed 3v.\nWhat is the current in the new wire?",
+   "options": {
+    "A": "0.75I",
+    "B": "1.5I",
+    "C": "6I",
+    "D": "12I"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "New area is $0.25A$ and new speed is $3v$, so current is $0.75I$. B treats area as proportional to diameter.",
+   "hints": [],
+   "distractors": {
+    "B": "m5"
+   }
+  },
+  {
+   "id": "9702-9.1-x001",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q30",
+    "qid": "9702_w19_11_q30"
+   },
+   "stem": "A metal plate of uniform thickness is connected to a cell as shown.\nmetal plate\nviewed from\nabove\nelectron\nflow\nElectrons move clockwise around the circuit.\nWhich statement about the metal plate is correct?",
+   "options": {
+    "A": "The average drift speed of the conduction electrons decreases as they move from right to left through the plate.",
+    "B": "The average drift speed of the conduction electrons increases as they move from right to left through the plate.",
+    "C": "The number density of the conduction electrons decreases from right to left through the plate.",
+    "D": "The number density of the conduction electrons increases from right to left through the plate."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_11_q30.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x002",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q31",
+    "qid": "9702_w19_11_q31"
+   },
+   "stem": "The diagram shows the direction of the current in a metal block. The charge carriers enter the\nblock through the face PQRS and leave the block through the opposite face.\nx\nx\ny\nP\nQ\nR\nS\ncurrent\nThe number density of charge carriers is n. Each charge carrier has charge e. The average drift\nspeed of the charge carriers is v.\nWhich expression gives the current in the block?",
+   "options": {
+    "A": "envx²",
+    "B": "envxy",
+    "C": "envx³y²",
+    "D": "envx⁴y"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_11_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x003",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q31",
+    "qid": "9702_w19_12_q31"
+   },
+   "stem": "When the current in a wire is 5.0 A, the average drift speed of the conduction electrons in the wire\nis 7.4 × 10⁻⁴\nm s⁻¹.\nWhich row gives a possible cross-sectional area and number of conduction electrons per unit\nvolume for this wire?\ncross-sectional\narea / m²\nnumber of conduction\nelectrons per unit\nvolume / m⁻³",
+   "options": {
+    "A": "7.2 × 10⁻⁷ 1.2 × 10²⁸",
+    "B": "7.2 × 10⁻⁷ 5.9 × 10²⁸",
+    "C": "2.3 × 10⁻⁶ 7.3 × 10²⁶",
+    "D": "2.3 × 10⁻⁶ 3.7 × 10²⁷"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w19_12_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x004",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q33",
+    "qid": "9702_w19_13_q33"
+   },
+   "stem": "A metal electrical conductor has a resistance of 5.6 kΩ. A potential difference (p.d.) of 9.0 V is\napplied across its ends.\nHow many electrons pass a point in the conductor in one minute?",
+   "options": {
+    "A": "6.0 × 10²⁰",
+    "B": "1.0 × 10¹⁹",
+    "C": "6.0 × 10¹⁷",
+    "D": "1.0 × 10¹⁶"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x005",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q33",
+    "qid": "9702_s20_11_q33"
+   },
+   "stem": "The current in the circuit shown is 3.2 mA.\nR\nX\nY\nWhat are the direction of flow and the rate of flow of electrons through the resistor R?\ndirection of flow\nrate of flow / s⁻¹",
+   "options": {
+    "A": "X to Y 2.0 × 10¹⁶",
+    "B": "X to Y 5.1 × 10⁻²²",
+    "C": "Y to X 2.0 × 10¹⁶",
+    "D": "Y to X 5.1 × 10⁻²²"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x006",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q33",
+    "qid": "9702_s20_12_q33"
+   },
+   "stem": "The number density of free electrons in copper is 8.0 × 10²⁸\nm⁻³.\nA copper wire has diameter 0.42 mm.\nWhat is the average drift speed of the free electrons in the wire when the current in the wire is\n0.57 A?",
+   "options": {
+    "A": "8.0 × 10⁻¹¹ m s⁻¹",
+    "B": "3.2 × 10⁻¹⁰ m s⁻¹",
+    "C": "8.0 × 10⁻⁵ m s⁻¹",
+    "D": "3.2 × 10⁻⁴ m s⁻¹"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x007",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q33",
+    "qid": "9702_s20_13_q33"
+   },
+   "stem": "The unit of electric charge is the coulomb.\nWhat is meant by 1 coulomb?",
+   "options": {
+    "A": "the charge passing a point in 1 second when a current produces 1 joule of work",
+    "B": "the charge passing a point in 1 second when a current produces 1 watt of power",
+    "C": "the charge passing a point in 1 second when there is a current of 1 ampere",
+    "D": "the charge passing a point in 1 second when there is 1 ohm of resistance"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x008",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q34",
+    "qid": "9702_s20_13_q34"
+   },
+   "stem": "Two copper wires are joined together and carry a current, as shown.\ncurrent\ncurrent\nwire P\ndiameter d\nwire Q\ndiameter 2d\nWire P has diameter d and wire Q has diameter 2d.\nWhat is the ratio\nQ\nwire\nin\nelectrons\nfree\nthe\nof\nspeed\ndrift\naverage\nP\nwire\nin\nelectrons\nfree\nthe\nof\nspeed\ndrift\naverage\n?",
+   "options": {
+    "A": "4 1",
+    "B": "2 1",
+    "C": "2",
+    "D": "4"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x009",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q32",
+    "qid": "9702_w20_11_q32"
+   },
+   "stem": "Free electrons flow along a copper wire X of radius 5.0 × 10⁻⁵\nm with an average drift speed of\n2.8 × 10⁻²\nm s⁻¹. The current in the wire is 3.0 A.\nThere is a current of 2.0 A in a copper wire Y of radius 1.0 × 10⁻⁴\nm.\nWhat is the average drift speed of the free electrons in copper wire Y?",
+   "options": {
+    "A": "4.7 × 10⁻³ m s⁻¹",
+    "B": "9.3 × 10⁻³ m s⁻¹",
+    "C": "1.1 × 10⁻² m s⁻¹",
+    "D": "1.9 × 10⁻² m s⁻¹"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x010",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q33",
+    "qid": "9702_w20_12_q33"
+   },
+   "stem": "Four point charges, each of charge Q, are placed on the edge of an insulating disc of radius r.\nThe disc rotates at a rate of n revolutions per unit time.\nr\nQ\nQ\nQ\nQ\nWhat is the equivalent electric current at the edge of the disc?",
+   "options": {
+    "A": "4Qn",
+    "B": "4Q/n",
+    "C": "8πrQn",
+    "D": "2Qn/(πr)"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w20_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The incorrect answers B, C and D were all commonly chosen. The current at a point on the edge of the disc is the total charge passing per unit time. As the disc rotates n revolutions in unit time, a total charge of 4Q passes n times in unit time. The current is therefore 4Q × n (answer A)."
+  },
+  {
+   "id": "9702-9.1-x011",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q32",
+    "qid": "9702_s21_11_q32"
+   },
+   "stem": "Which two units are used to define the coulomb?",
+   "options": {
+    "A": "ampere and second",
+    "B": "ampere and volt",
+    "C": "volt and ohm",
+    "D": "volt and second"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x012",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q33",
+    "qid": "9702_s21_11_q33"
+   },
+   "stem": "A mobile phone battery is charged by connecting it to a constant potential difference of 5.0 V.\nAfter a time of 1.0 hour, the initial current of 0.50 A slowly decreases to zero, as shown.\n0.5\n0\n0\n1.0\ntime / hours\n2.0\ncurrent / A\nWhat is the best estimate of the energy transferred to the battery during the time of 2.0 hours\nshown in the graph?",
+   "options": {
+    "A": "2700 J",
+    "B": "9000 J",
+    "C": "14 000 J",
+    "D": "18 000 J"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x013",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q32",
+    "qid": "9702_s21_12_q32"
+   },
+   "stem": "A wedge-shaped metal conductor of length L, varying width and uniform thickness is connected\nto a cell, as shown.\nL\nX\nY\nWhich graph best shows how the average drift velocity v of electrons in the conductor varies with\ndistance x from end X?\nv\nx\n0\n0",
+   "options": {
+    "A": "L v x 0 0",
+    "B": "L v x 0 0",
+    "C": "L v x 0 0",
+    "D": "L"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_12_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most of the candidates answered this question correctly, though almost a third selected an answer where the drift speed of the electrons increases as they travel from X to Y. The cross-sectional area of the metal conductor increases from X to Y but the current must remain constant. Applying the equation I = nAqv, it follows that the drift speed v of the electrons must decrease as they move from X to Y, eliminating graphs B and D. Graph C can also be rejected, as this graph implies that the electrons stop at Y."
+  },
+  {
+   "id": "9702-9.1-x014",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q32",
+    "qid": "9702_w21_11_q32"
+   },
+   "stem": "The current I in a wire is given by the equation\nI = nAvq\nwhere n is the number density of the free electrons, A is the cross-sectional area of the wire, v is\nthe average drift velocity of the free electrons and q is the charge of an electron.\nWhich relationship is not used in the derivation of this equation?",
+   "options": {
+    "A": "charge = current × time",
+    "B": "distance = speed × time",
+    "C": "number = number density × area",
+    "D": "volume = length × area"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x015",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q31",
+    "qid": "9702_s22_11_q31"
+   },
+   "stem": "A straight copper wire of diameter 0.42 × 10⁻³\nm has a number density of free electrons of\n8.5 × 10²⁸\nm⁻³. In a given time interval, a charge of 0.15 C moves through the wire.\nWhat is the average displacement of the free electrons along the wire in this time interval?",
+   "options": {
+    "A": "3.3 × 10⁻⁸ m",
+    "B": "2.0 × 10⁻⁵ m",
+    "C": "8.0 × 10⁻⁵ m",
+    "D": "2.5 × 10⁻⁴ m"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x016",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q31",
+    "qid": "9702_s22_12_q31"
+   },
+   "stem": "The diagram shows a metal block.\na\nb\nc\nI\nI\nThe block has sides of length a, b and c as shown, and its volume is V. Each charge carrier has a\ncharge –q and the number density of the charge carriers in the metal is n. It takes each charge\ncarrier an average time of t to pass through the block.\nWhat is an expression for the current I ?",
+   "options": {
+    "A": "I = nqabc",
+    "B": "I = nqV t",
+    "C": "I = nqbc t",
+    "D": "I = nqaV"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_12_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x017",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q31",
+    "qid": "9702_w22_11_q31"
+   },
+   "stem": "A length of wire RS has a circular cross-section.\nR\nS\narea A\narea A\n2\nAt end R of the wire, the cross-sectional area is A.\nAt end S of the wire, the cross-sectional area is 2\nA .\nCharge Q takes time t to pass through end R of the wire. There is a constant electric current in\nthe wire.\nHow much charge will pass through end S in a time interval of\n4\nt ?",
+   "options": {
+    "A": "8 Q",
+    "B": "4 Q",
+    "C": "2 Q",
+    "D": "Q"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_11_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x018",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q30",
+    "qid": "9702_w22_13_q30"
+   },
+   "stem": "There is an electric current in a copper wire.\nWhich statement describing the average drift speed of the charge carriers in the wire is correct?",
+   "options": {
+    "A": "It is nearly 3 × 10⁸ m s⁻¹.",
+    "B": "It is proportional to the cross-sectional area of the wire.",
+    "C": "It is proportional to the length of the wire.",
+    "D": "It is proportional to the magnitude of the current."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x019",
+   "kcs": [
+    "9702-9.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q30",
+    "qid": "9702_s23_11_q30"
+   },
+   "stem": "The electric current in a metal wire is 4.0 mA.\nHow many electrons pass a fixed point in the wire in a time of 10 hours?",
+   "options": {
+    "A": "2.5 × 10¹⁷",
+    "B": "2.5 × 10²⁰",
+    "C": "9.0 × 10²⁰",
+    "D": "9.0 × 10²³"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x020",
+   "kcs": [
+    "9702-9.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q30",
+    "qid": "9702_s23_13_q30"
+   },
+   "stem": "A metal wire is connected between the terminals of a cell so that there is a current in the wire.\nWhich statement is correct?",
+   "options": {
+    "A": "Negatively charged electrons in the wire move from the negative terminal to the positive terminal.",
+    "B": "Negatively charged nuclei in the wire move from the negative terminal to the positive terminal.",
+    "C": "Positively charged electrons in the wire move from the positive terminal to the negative terminal.",
+    "D": "Positively charged nuclei in the wire move from the positive terminal to the negative terminal."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x021",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q32",
+    "qid": "9702_s24_12_q32"
+   },
+   "stem": "A cylindrical wire has cross-sectional area A and number density of free electrons n.\nThe wire has current I and the free electrons have average drift speed v.\nA second cylindrical wire has cross-sectional area 0.5A and number density of free electrons 2n.\nIn this wire, the free electrons have average drift speed 2v.\nWhat is the current in the second wire?",
+   "options": {
+    "A": "0.5I",
+    "B": "I",
+    "C": "2I",
+    "D": "4I"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x022",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q33",
+    "qid": "9702_s24_12_q33"
+   },
+   "stem": "An electric current is formed by moving charge carriers.\nWhat is not a possible charge on a charge carrier?",
+   "options": {
+    "A": "– 4.8 × 10⁻¹⁹ C",
+    "B": "–2.4 × 10⁻¹⁹ C",
+    "C": "+1.6 × 10⁻¹⁹ C",
+    "D": "+3.2 × 10⁻¹⁹ C"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x023",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q32",
+    "qid": "9702_w24_12_q32"
+   },
+   "stem": "There is a current in a resistor for a short time interval.\nWhich statement about the total charge that passes through the resistor is correct?",
+   "options": {
+    "A": "It can take any value.",
+    "B": "It is an integer multiple of the elementary charge.",
+    "C": "It is the elementary charge.",
+    "D": "It is the rate of flow of the current."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x024",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q34",
+    "qid": "9702_w24_12_q34"
+   },
+   "stem": "An electric current of 12 A is in a wire of length 0.35 m.\nThe average drift speed of the free electrons (charge carriers) in the wire is 5.0 × 10⁻⁴\nm s⁻¹.\nHow many free electrons are in the wire?",
+   "options": {
+    "A": "1.3 × 10¹⁶",
+    "B": "5.3 × 10²²",
+    "C": "1.5 × 10²³",
+    "D": "4.3 × 10²³"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x025",
+   "kcs": [
+    "9702-9.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q32",
+    "qid": "9702_s25_13_q32"
+   },
+   "stem": "The current I in a metallic conductor of cross-sectional area A is given by\nI = Anve\nwhere e is the elementary charge and v is the mean drift velocity of the conduction electrons.\nWhat is represented by the letter n in the equation?",
+   "options": {
+    "A": "density of conduction electrons",
+    "B": "number of conduction electrons per unit time",
+    "C": "number of conduction electrons per unit volume",
+    "D": "volume of conduction electrons"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "In I = Anve, n is the number of conduction electrons per unit volume, measured in m⁻³, so C is the precise answer. The examiner intends density in option A to mean mass density, measured in kg m⁻³, rather than number density. The wording of A is ambiguous in isolation because density can also mean number density; use the explicit definition in C."
+  },
+  {
+   "id": "9702-9.1-x026",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q33",
+    "qid": "9702_s25_13_q33"
+   },
+   "stem": "What cannot be the charge on a charge carrier?",
+   "options": {
+    "A": "– 4.8 × 10⁻¹⁹ C",
+    "B": "–3.2 × 10⁻¹⁹ C",
+    "C": "–2.4 × 10⁻¹⁹ C",
+    "D": "+3.2 × 10⁻¹⁹ C"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.1-x027",
+   "kcs": [
+    "9702-9.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q32",
+    "qid": "9702_w25_11_q32"
+   },
+   "stem": "What is a possible charge on a particle?",
+   "options": {
+    "A": "6.40 × 10⁻²⁰ C",
+    "B": "4.00 × 10⁻¹⁹ C",
+    "C": "1.12 × 10⁻¹⁸ C",
+    "D": "9.11 × 10⁻¹⁸ C"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-9.1.1",
+   "front": "Define electric current.",
+   "back": "A flow of charge carriers."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-9.1.2",
+   "front": "State what quantised charge means.",
+   "back": "The charge on a charge carrier is an integer multiple of the elementary charge."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-9.1.3",
+   "front": "State the charge-current-time relation.",
+   "back": "$Q=It$."
+  },
+  {
+   "id": "fc4",
+   "kc": "9702-9.1.4",
+   "front": "Define number density $n$ in $I=Anvq$.",
+   "back": "The number of charge carriers per unit volume."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-9.1.1": {
+   "motivate": "What actually crosses a wire section when a lamp lights? Thinking in terms of moving particles makes current measurable.",
+   "establish": "An electric current is a flow of charge carriers. In a metal, free electrons move; in an electrolyte, positive and negative ions can move. A neutron has no charge, so a moving neutron alone does not carry electric current. Current describes charge flow, although the circuit can also transfer energy.",
+   "connect": "This idea lets us count the charge passing a section and then relate that count to time.",
+   "note": "- Electric current: flow of charge carriers.\n- Metal: free electrons; electrolyte: ions.\n- Uncharged particles alone carry no current.",
+   "self_explain": "Why can an ion beam carry current but a neutron beam cannot?",
+   "source": "pack"
+  },
+  "9702-9.1.2": {
+   "motivate": "Oil droplets do not pick up arbitrary amounts of charge. Their measured charges occur in discrete steps.",
+   "establish": "Charge on a charge carrier is quantised: it is an integer multiple of the elementary charge $e=1.60\\times10^{-19}\\,\\mathrm C$. Positive and negative multiples are possible, as is zero. Divide a proposed charge by $e$; the result must be an integer. For example, $4.8\\times10^{-19}\\,\\mathrm C=3e$ is possible, whereas $4.0\\times10^{-19}\\,\\mathrm C=2.5e$ is not.",
+   "connect": "The elementary charge also lets us convert between a number of electrons and total charge.",
+   "note": "- Carrier charge is an integer multiple of $e$.\n- $e=1.60\\times10^{-19}\\,\\mathrm C$.\n- Test a proposed charge by dividing by $e$.",
+   "self_explain": "Why is $-3.2\\times10^{-19}\\,\\mathrm C$ possible but $+4.0\\times10^{-19}\\,\\mathrm C$ impossible?",
+   "source": "pack"
+  },
+  "9702-9.1.3": {
+   "motivate": "To compare charge flow in two circuits, count how much charge passes a section in the same time.",
+   "establish": "For a constant current, $Q=It$: charge $Q$ in coulombs equals current $I$ in amperes multiplied by time $t$ in seconds. One coulomb is the charge transferred by one ampere in one second. Rearrange to $I=Q/t$ or $t=Q/I$ as required. If $N$ carriers each have charge magnitude $q$, then $Q=Nq$; for electrons $q=e$. In steady series flow, equal charge passes each section in the same time.",
+   "connect": "Combining $Q=It$ with the number of carriers crossing a conductor leads to the drift relation.",
+   "note": "- $Q=It$ for constant current.\n- $1\\,\\mathrm C$ passes with $1\\,\\mathrm A$ for $1\\,\\mathrm s$.\n- For $N$ electrons, $Q=Ne$.",
+   "self_explain": "If a wire becomes narrower, why does the charge crossing each section in one second stay the same?",
+   "source": "pack"
+  },
+  "9702-9.1.4": {
+   "motivate": "Electrons drift slowly through a wire, yet a measurable current flows because so many electrons cross each section.",
+   "establish": "For a current-carrying conductor, $I=Anvq$, where $A$ is cross-sectional area, $n$ is the number density of charge carriers (number per unit volume), $v$ is average drift speed, and $q$ is the magnitude of charge per carrier. In time $t$, carriers travel $vt$ and sweep volume $Avt$. This contains $nAvt$ carriers, whose charge magnitude is $Q=nAvtq$. Since $I=Q/t$, $I=Anvq$. At fixed current in the same material, $v$ is inversely proportional to $A$.",
+   "connect": "The equation predicts that a narrow section has faster drift without any change in steady current.",
+   "note": "- $n$ counts carriers per unit volume, in $\\mathrm{m^{-3}}$.\n- Swept volume in time $t$ is $Avt$.\n- $I=Anvq$; at fixed $I,n,q$, $v\\propto1/A$.",
+   "self_explain": "Why does doubling wire diameter quarter the drift speed at the same current and material?",
+   "source": "pack"
+  }
+ }
+}
