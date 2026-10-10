@@ -1,0 +1,30 @@
+{
+  "FP1-4.1": {
+    "motivate": "A curve equation lets you check points and sketch its shape without plotting a long table. Two standard curves here are the parabola and rectangular hyperbola.",
+    "establish": "The standard parabola has $y^2=4ax$ and parametric equations $x=at^2$, $y=2at$, with $a\\ne0$. It has vertex $(0,0)$, axis the $x$-axis, and opens right for $a>0$ or left for $a<0$. The rectangular hyperbola has $xy=c^2$ and parametric equations $x=ct$, $y=c/t$ for $c\\ne0$, $t\\ne0$. Since $xy>0$, its branches occupy quadrants I and III and approach the coordinate axes as asymptotes.",
+    "connect": "The parameter forms give points satisfying the Cartesian equations. The resulting shapes build on curve sketching and straight-line intersections.",
+    "note": "- Parabola: $y^2=4ax$; $x=at^2$, $y=2at$.\n- Rectangular hyperbola: $xy=c^2$; $x=ct$, $y=c/t$, $t\\ne0$.\n- Hyperbola asymptotes: $x=0$ and $y=0$.",
+    "self_explain": "Why does $xy=c^2$ have no point on either axis?"
+  },
+  "FP1-4.2": {
+    "motivate": "A single parameter can locate a point on a whole curve. It is especially useful when coordinates contain squares or reciprocals.",
+    "establish": "For the parabola $y^2=4ax$, $(at^2,2at)$ is a general point. The first coordinate is $at^2$, not $t$; the second is $2at$. Squaring the second coordinate gives $4a^2t^2=4a(at^2)$, so the point lies on the curve. Conversely $t=y/(2a)$ when $a\\ne0$. For the rectangular hyperbola, $(ct,c/t)$ with $t\\ne0$ has product $c^2$. These are parametric equations: each coordinate is expressed in terms of $t$.",
+    "connect": "Substitute $t$ to find a specific point, or eliminate it to recover the Cartesian equation.",
+    "note": "- General parabola point: $(at^2,2at)$.\n- General rectangular-hyperbola point: $(ct,c/t)$ for $t\\ne0$.\n- Eliminate $t$ to check the Cartesian equation.",
+    "self_explain": "How does squaring $y=2at$ help eliminate $t$?"
+  },
+  "FP1-4.3": {
+    "motivate": "The parabola can be defined using distances, which explains its shape without relying on its equation alone.",
+    "establish": "A parabola is the locus of points equidistant from a fixed focus and a fixed directrix. For $y^2=4ax$ the focus is $(a,0)$ and the directrix is the line $x=-a$. For any point $(x,y)$ on the curve, its distance to the focus is $\\sqrt{(x-a)^2+y^2}$ and its perpendicular distance to the directrix is $|x+a|$. Equating their squares gives $(x-a)^2+y^2=(x+a)^2$, which simplifies to $y^2=4ax$. The vertex $(0,0)$ is equally far from both.",
+    "connect": "This distance property connects the Cartesian equation to locus geometry and the distance formula.",
+    "note": "- A parabola is the locus equidistant from focus and directrix.\n- For $y^2=4ax$: focus $(a,0)$; directrix $x=-a$.\n- Equal squared distances give $y^2=4ax$.",
+    "self_explain": "Why is the directrix $x=-a$ rather than $x=a$?"
+  },
+  "FP1-4.4": {
+    "motivate": "At a chosen point on either curve, a derivative gives the tangent direction and hence the perpendicular normal.",
+    "establish": "Differentiate the Cartesian equations implicitly; parametric differentiation is not required. From $y^2=4ax$, $2y\\,dy/dx=4a$, so $dy/dx=2a/y$ where $y\\ne0$. From $xy=c^2$, the product rule gives $y+x\\,dy/dx=0$, so $dy/dx=-y/x=-c^2/x^2$. Evaluate at the specified point. A tangent through $(x_1,y_1)$ uses $y-y_1=m(x-x_1)$. A normal with finite, nonzero tangent gradient $m$ has gradient $-1/m$. The parabola has vertical tangent $x=0$ at its vertex and horizontal normal $y=0$ there.",
+    "connect": "This applies the P1 tangent and normal rule after finding the derivative from a curve's defining equation.",
+    "note": "- Parabola: $dy/dx=2a/y$ away from the vertex.\n- Hyperbola: $dy/dx=-c^2/x^2$.\n- Normal gradient is the negative reciprocal of a finite, nonzero tangent gradient.\n- At the parabola vertex: tangent $x=0$, normal $y=0$.",
+    "self_explain": "Why does differentiating $xy=c^2$ produce $y+x\\,dy/dx=0$?"
+  }
+}

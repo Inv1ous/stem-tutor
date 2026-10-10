@@ -1,0 +1,949 @@
+{
+ "subtopic": "FP1-4",
+ "spec": "FP1",
+ "version": 1,
+ "note": "Subjects/Maths/FP1 Further Pure Mathematics 1/4 Coordinate systems.md",
+ "outline": "Learn the standard Cartesian and parametric forms of the parabola $y^2=4ax$ and rectangular hyperbola $xy=c^2$. A general parabola point is $(at^2,2at)$; its focus is $(a,0)$ and its directrix is $x=-a$. The curve is the locus equidistant from these. Differentiate implicitly to find tangent gradients, then use the negative reciprocal for normals when the gradient is finite and nonzero.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "FP1-4.1",
+   "statement": "The parabola $y^2=4ax$ is symmetric about the $y$-axis.",
+   "refutation": "Squaring $y$ means points with opposite $y$ values have the same $x$ coordinate.",
+   "contrast": "Its axis is the $x$-axis; $a>0$ makes it open right.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "FP1-4.2",
+   "statement": "The parameter $t$ is the $x$ coordinate on either curve.",
+   "refutation": "On the parabola, $x=at^2$; on the hyperbola, $x=ct$.",
+   "contrast": "Use both parametric coordinate formulas and eliminate $t$ to check.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "FP1-4.3",
+   "statement": "The directrix of $y^2=4ax$ is $x=a$.",
+   "refutation": "The focus is $(a,0)$ and the directrix is the vertical line $x=-a$.",
+   "contrast": "For $a>0$, the vertex $(0,0)$ lies midway between focus and directrix.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "FP1-4.4",
+   "statement": "The normal has the same gradient as the tangent.",
+   "refutation": "For finite nonzero tangent gradient $m$, the normal gradient is $-1/m$.",
+   "contrast": "Differentiate for the tangent gradient, then take its negative reciprocal; handle vertical tangents separately.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "FP1-4.4",
+   "problem": "Find the tangent and normal to $xy=9$ at $(3,3)$.",
+   "steps": [
+    {
+     "do": "Differentiate $xy=9$: $y+xy\\prime=0$, so $y\\prime=-y/x=-9/x^2$.",
+     "why": "The product rule differentiates both factors of $xy$."
+    },
+    {
+     "do": "At $(3,3)$, the tangent gradient is $-9/3^2=-1$.",
+     "why": "Evaluate the derivative at the stated point.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -1.0,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3,
+        4
+       ]
+      }
+     }
+    },
+    {
+     "do": "The tangent is $y-3=-(x-3)$, or $y=-x+6$.",
+     "why": "Use point-gradient form through the point of contact."
+    },
+    {
+     "do": "The normal gradient is $1$; its equation is $y-3=x-3$, or $y=x$.",
+     "why": "The normal gradient is the negative reciprocal of $-1$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.0,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3,
+        4
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find the normal gradient to $xy=16$ at $(4,4)$.",
+    "answer": {
+     "value": 1.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3,
+      4
+     ]
+    },
+    "blank_from": 2
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "FP1-4.3",
+   "problem": "Show that the focus $(a,0)$ and directrix $x=-a$ produce $y^2=4ax$ for $a>0$.",
+   "steps": [
+    {
+     "do": "For a point $(x,y)$, focus distance squared is $(x-a)^2+y^2$.",
+     "why": "Use the distance formula."
+    },
+    {
+     "do": "The squared perpendicular distance to $x=-a$ is $(x+a)^2$.",
+     "why": "The directrix is vertical, so the shortest distance is horizontal."
+    },
+    {
+     "do": "Equate the squares and cancel $x^2+a^2$ to get $y^2=4ax$.",
+     "why": "Equal distances define the parabola."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "FP1-4-i01",
+   "kcs": [
+    "FP1-4.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $y^2=4ax$ with $a=[[a]]$, calculate $x$ when $y=[[y]]$.",
+   "marks": 2,
+   "explanation": "Rearrange to $x=y^2/(4a)$ and substitute.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": [],
+   "template": {
+    "params": {
+     "a": {
+      "min": 2,
+      "max": 5,
+      "step": 1
+     },
+     "y": {
+      "min": 4,
+      "max": 8,
+      "step": 2
+     }
+    },
+    "derived": {},
+    "answer": "y**2/(4*a)",
+    "distractors": [
+     {
+      "expr": "y**2/a",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "FP1-4-i02",
+   "kcs": [
+    "FP1-4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the Cartesian equation of a rectangular hyperbola with parameter $c$.",
+   "marks": 1,
+   "explanation": "The defining rectangular hyperbola is $xy=c^2$; the parabola has $y^2=4ax$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "options": {
+    "A": "$xy=c^2$",
+    "B": "$y^2=4cx$",
+    "C": "$xy=c$",
+    "D": "$x^2+y^2=c^2$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-4-i03",
+   "kcs": [
+    "FP1-4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch $y^2=8x$. Which description matches it?",
+   "marks": 1,
+   "explanation": "Because $y^2=8x$, $x\\ge0$ and changing the sign of $y$ leaves $x$ unchanged.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "options": {
+    "A": "Vertex $(0,0)$; opens right; symmetric about the $x$-axis.",
+    "B": "Vertex $(0,0)$; opens up; symmetric about the $y$-axis.",
+    "C": "Vertex $(2,0)$; opens right.",
+    "D": "Two branches in quadrants I and III."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-4-i04",
+   "kcs": [
+    "FP1-4.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $xy=c^2$ with real nonzero $c$ has no point on either coordinate axis.",
+   "marks": 1,
+   "explanation": "The product is zero on either axis but $c^2$ is positive.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "rubric": [
+    {
+     "point": "If $x=0$ or $y=0$, then $xy=0$, which cannot equal $c^2>0$.",
+     "keywords": [
+      [
+       "zero",
+       "0"
+      ],
+      [
+       "positive",
+       "nonzero"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "FP1-4-i05",
+   "kcs": [
+    "FP1-4.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the two axis asymptotes of $xy=c^2$.",
+   "marks": 1,
+   "explanation": "Writing $y=c^2/x$ shows that $y\\to0$ as $|x|\\to\\infty$ and $|y|\\to\\infty$ as $x\\to0$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "options": {
+    "A": "$x=0$ and $y=0$",
+    "B": "$x=c$ and $y=c$",
+    "C": "$y=x$ and $y=-x$",
+    "D": "$x=0$ and $y=c$"
+   },
+   "answer": "A",
+   "distractors": {},
+   "shuffle": true
+  },
+  {
+   "id": "FP1-4-i06",
+   "kcs": [
+    "FP1-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $x=at^2$, $y=2at$ with $a=[[a]]$ and $t=[[t]]$, calculate the $x$ coordinate.",
+   "marks": 2,
+   "explanation": "The general point is $(at^2,2at)$, so its $x$ coordinate is $at^2$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "answer": {
+    "value": 8.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": [],
+   "template": {
+    "params": {
+     "a": {
+      "min": 2,
+      "max": 5,
+      "step": 1
+     },
+     "t": {
+      "min": 2,
+      "max": 4,
+      "step": 1
+     }
+    },
+    "derived": {},
+    "answer": "a*t**2",
+    "distractors": [
+     {
+      "expr": "a*t",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "FP1-4-i07",
+   "kcs": [
+    "FP1-4.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $t$ for the point $(9,6)$ on $x=at^2$, $y=2at$ when $a=1$.",
+   "marks": 2,
+   "explanation": "Use $t=y/(2a)=6/2=3$; then $at^2=9$ checks the point.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": []
+  },
+  {
+   "id": "FP1-4-i08",
+   "kcs": [
+    "FP1-4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Verify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Verify which point lies on $x=2t^2$, $y=4t$ when $t=-2$.",
+   "marks": 1,
+   "explanation": "Squaring $t=-2$ gives $x=8$, while $y=4(-2)=-8$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "options": {
+    "A": "$(8,-8)$",
+    "B": "$(-8,-8)$",
+    "C": "$(8,8)$",
+    "D": "$(-4,-8)$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-4-i09",
+   "kcs": [
+    "FP1-4.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Show that",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show that eliminating $t$ from $x=at^2$, $y=2at$ gives $y^2=4ax$.",
+   "marks": 1,
+   "explanation": "Square the $y$ relation and replace $at^2$ by $x$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "rubric": [
+    {
+     "point": "Squaring $y=2at$ gives $y^2=4a^2t^2=4a(at^2)=4ax$.",
+     "keywords": [
+      [
+       "squar",
+       "square"
+      ],
+      [
+       "4a"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "FP1-4-i10",
+   "kcs": [
+    "FP1-4.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the parametric coordinates of a general point on $xy=c^2$.",
+   "marks": 1,
+   "explanation": "Multiplying $ct$ by $c/t$ gives $c^2$ for $t\\ne0$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "options": {
+    "A": "$(ct,c/t)$, $t\\ne0$",
+    "B": "$(ct,ct)$, $t\\ne0$",
+    "C": "$(ct^2,2ct)$",
+    "D": "$(t,c^2t)$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-4-i11",
+   "kcs": [
+    "FP1-4.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $y^2=4ax$ with $a=[[a]]$, calculate the $x$ coordinate of the focus.",
+   "marks": 2,
+   "explanation": "The focus is $(a,0)$; the directrix is $x=-a$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": [],
+   "template": {
+    "params": {
+     "a": {
+      "min": 2,
+      "max": 7,
+      "step": 1
+     }
+    },
+    "derived": {},
+    "answer": "a",
+    "distractors": [
+     {
+      "expr": "-a",
+      "misconception": "m3"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "FP1-4-i12",
+   "kcs": [
+    "FP1-4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the directrix of $y^2=12x$.",
+   "marks": 1,
+   "explanation": "Here $4a=12$, so $a=3$ and the directrix is $x=-a=-3$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "options": {
+    "A": "$x=-3$",
+    "B": "$x=3$",
+    "C": "$y=-3$",
+    "D": "$x=-12$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-4-i13",
+   "kcs": [
+    "FP1-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the focus-directrix property that defines a parabola.",
+   "marks": 1,
+   "explanation": "Every point on the parabola has equal distance to the focus and the directrix.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "rubric": [
+    {
+     "point": "A parabola is the locus of points equidistant from a fixed focus and a fixed directrix.",
+     "keywords": [
+      [
+       "locus",
+       "set of points"
+      ],
+      [
+       "equidistant",
+       "equal distance"
+      ],
+      [
+       "focus"
+      ],
+      [
+       "directrix"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "FP1-4-i14",
+   "kcs": [
+    "FP1-4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Verify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Verify which point is equally distant from the focus $(2,0)$ and directrix $x=-2$.",
+   "marks": 1,
+   "explanation": "At the origin both distances are $2$; the focus itself has distance $0$ to the focus and $4$ to the directrix.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "options": {
+    "A": "$(0,0)$",
+    "B": "$(2,0)$",
+    "C": "$(-2,0)$",
+    "D": "$(0,2)$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-4-i15",
+   "kcs": [
+    "FP1-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Show that",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show that the focus $(a,0)$ and directrix $x=-a$ give $y^2=4ax$ for $a>0$.",
+   "marks": 1,
+   "explanation": "Squared distance to the focus equals squared perpendicular distance to the directrix.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "rubric": [
+    {
+     "point": "Equate $(x-a)^2+y^2=(x+a)^2$ and simplify to $y^2=4ax$.",
+     "keywords": [
+      [
+       "x-a"
+      ],
+      [
+       "x+a"
+      ],
+      [
+       "4ax"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "FP1-4-i16",
+   "kcs": [
+    "FP1-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $xy=c^2$ with $c=[[c]]$, calculate the tangent gradient at $x=[[x]]$.",
+   "marks": 2,
+   "explanation": "Implicit differentiation gives $y+xy\\prime=0$, hence $y\\prime=-c^2/x^2$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "answer": {
+    "value": -1.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": [],
+   "template": {
+    "params": {
+     "c": {
+      "min": 2,
+      "max": 5,
+      "step": 1
+     },
+     "x": {
+      "min": 2,
+      "max": 4,
+      "step": 1
+     }
+    },
+    "derived": {},
+    "answer": "-c**2/x**2",
+    "distractors": [
+     {
+      "expr": "c**2/x**2",
+      "misconception": "m4"
+     }
+    ],
+    "constraints": []
+   }
+  },
+  {
+   "id": "FP1-4-i17",
+   "kcs": [
+    "FP1-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the tangent gradient to $y^2=4x$ at $(1,2)$.",
+   "marks": 2,
+   "explanation": "From $2yy\\prime=4$, the gradient is $2/y=1$ at $y=2$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "answer": {
+    "value": 1.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": []
+  },
+  {
+   "id": "FP1-4-i18",
+   "kcs": [
+    "FP1-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the normal gradient to $y^2=8x$ at $(2,4)$.",
+   "marks": 2,
+   "explanation": "Here $a=2$ and the tangent gradient is $2a/y=1$; the normal gradient is $-1$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "answer": {
+    "value": -1.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": [
+    {
+     "value": 1.0,
+     "misconception": "m4"
+    }
+   ]
+  },
+  {
+   "id": "FP1-4-i19",
+   "kcs": [
+    "FP1-4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the tangent to $xy=4$ at $(2,2)$.",
+   "marks": 1,
+   "explanation": "The gradient is $-4/2^2=-1$ and the line through $(2,2)$ is $y-2=-(x-2)$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "options": {
+    "A": "$y=-x+4$",
+    "B": "$y=x$",
+    "C": "$y=-2x+6$",
+    "D": "$y=2x-2$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-4-i20",
+   "kcs": [
+    "FP1-4.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the normal to $xy=9$ at $(3,3)$.",
+   "marks": 1,
+   "explanation": "The tangent gradient is $-9/3^2=-1$, so the normal gradient is $1$ and the normal through $(3,3)$ is $y=x$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "options": {
+    "A": "$y=x$",
+    "B": "$y=-x+6$",
+    "C": "$y=3x-6$",
+    "D": "$x=3$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-4-i21",
+   "kcs": [
+    "FP1-4.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the tangent to $y^2=4ax$ at its vertex is vertical when $a\\ne0$.",
+   "marks": 1,
+   "explanation": "At the vertex the gradient formula has zero denominator, and the tangent is $x=0$.",
+   "hints": [
+    "Recall the defining relation for this curve.",
+    "Identify which coordinates or gradients the question asks for.",
+    "Substitute the given values into the appropriate relation."
+   ],
+   "rubric": [
+    {
+     "point": "At $(0,0)$, $dy/dx=2a/y$ is undefined and the curve has vertical tangent $x=0$.",
+     "keywords": [
+      [
+       "undefined",
+       "not defined",
+       "infinite"
+      ],
+      [
+       "vertical"
+      ],
+      [
+       "x=0"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "FP1-4.1",
+   "front": "State Cartesian and parametric forms of the parabola.",
+   "back": "$y^2=4ax$; a general point is $(at^2,2at)$."
+  },
+  {
+   "id": "fc2",
+   "kc": "FP1-4.1",
+   "front": "State Cartesian and parametric forms of the rectangular hyperbola.",
+   "back": "$xy=c^2$; a general point is $(ct,c/t)$ for $t\\ne0$."
+  },
+  {
+   "id": "fc3",
+   "kc": "FP1-4.3",
+   "front": "State the focus-directrix definition of a parabola.",
+   "back": "The locus of points equidistant from a fixed focus and a fixed directrix."
+  },
+  {
+   "id": "fc4",
+   "kc": "FP1-4.4",
+   "front": "State the derivatives for the standard parabola and rectangular hyperbola.",
+   "back": "For $y^2=4ax$, $dy/dx=2a/y$ where $y\\ne0$; for $xy=c^2$, $dy/dx=-c^2/x^2$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "FP1-4.1": {
+   "motivate": "A curve equation lets you check points and sketch its shape without plotting a long table. Two standard curves here are the parabola and rectangular hyperbola.",
+   "establish": "The standard parabola has $y^2=4ax$ and parametric equations $x=at^2$, $y=2at$, with $a\\ne0$. It has vertex $(0,0)$, axis the $x$-axis, and opens right for $a>0$ or left for $a<0$. The rectangular hyperbola has $xy=c^2$ and parametric equations $x=ct$, $y=c/t$ for $c\\ne0$, $t\\ne0$. Since $xy>0$, its branches occupy quadrants I and III and approach the coordinate axes as asymptotes.",
+   "connect": "The parameter forms give points satisfying the Cartesian equations. The resulting shapes build on curve sketching and straight-line intersections.",
+   "note": "- Parabola: $y^2=4ax$; $x=at^2$, $y=2at$.\n- Rectangular hyperbola: $xy=c^2$; $x=ct$, $y=c/t$, $t\\ne0$.\n- Hyperbola asymptotes: $x=0$ and $y=0$.",
+   "self_explain": "Why does $xy=c^2$ have no point on either axis?",
+   "source": "pack"
+  },
+  "FP1-4.2": {
+   "motivate": "A single parameter can locate a point on a whole curve. It is especially useful when coordinates contain squares or reciprocals.",
+   "establish": "For the parabola $y^2=4ax$, $(at^2,2at)$ is a general point. The first coordinate is $at^2$, not $t$; the second is $2at$. Squaring the second coordinate gives $4a^2t^2=4a(at^2)$, so the point lies on the curve. Conversely $t=y/(2a)$ when $a\\ne0$. For the rectangular hyperbola, $(ct,c/t)$ with $t\\ne0$ has product $c^2$. These are parametric equations: each coordinate is expressed in terms of $t$.",
+   "connect": "Substitute $t$ to find a specific point, or eliminate it to recover the Cartesian equation.",
+   "note": "- General parabola point: $(at^2,2at)$.\n- General rectangular-hyperbola point: $(ct,c/t)$ for $t\\ne0$.\n- Eliminate $t$ to check the Cartesian equation.",
+   "self_explain": "How does squaring $y=2at$ help eliminate $t$?",
+   "source": "pack"
+  },
+  "FP1-4.3": {
+   "motivate": "The parabola can be defined using distances, which explains its shape without relying on its equation alone.",
+   "establish": "A parabola is the locus of points equidistant from a fixed focus and a fixed directrix. For $y^2=4ax$ the focus is $(a,0)$ and the directrix is the line $x=-a$. For any point $(x,y)$ on the curve, its distance to the focus is $\\sqrt{(x-a)^2+y^2}$ and its perpendicular distance to the directrix is $|x+a|$. Equating their squares gives $(x-a)^2+y^2=(x+a)^2$, which simplifies to $y^2=4ax$. The vertex $(0,0)$ is equally far from both.",
+   "connect": "This distance property connects the Cartesian equation to locus geometry and the distance formula.",
+   "note": "- A parabola is the locus equidistant from focus and directrix.\n- For $y^2=4ax$: focus $(a,0)$; directrix $x=-a$.\n- Equal squared distances give $y^2=4ax$.",
+   "self_explain": "Why is the directrix $x=-a$ rather than $x=a$?",
+   "source": "pack"
+  },
+  "FP1-4.4": {
+   "motivate": "At a chosen point on either curve, a derivative gives the tangent direction and hence the perpendicular normal.",
+   "establish": "Differentiate the Cartesian equations implicitly; parametric differentiation is not required. From $y^2=4ax$, $2y\\,dy/dx=4a$, so $dy/dx=2a/y$ where $y\\ne0$. From $xy=c^2$, the product rule gives $y+x\\,dy/dx=0$, so $dy/dx=-y/x=-c^2/x^2$. Evaluate at the specified point. A tangent through $(x_1,y_1)$ uses $y-y_1=m(x-x_1)$. A normal with finite, nonzero tangent gradient $m$ has gradient $-1/m$. The parabola has vertical tangent $x=0$ at its vertex and horizontal normal $y=0$ there.",
+   "connect": "This applies the P1 tangent and normal rule after finding the derivative from a curve's defining equation.",
+   "note": "- Parabola: $dy/dx=2a/y$ away from the vertex.\n- Hyperbola: $dy/dx=-c^2/x^2$.\n- Normal gradient is the negative reciprocal of a finite, nonzero tangent gradient.\n- At the parabola vertex: tangent $x=0$, normal $y=0$.",
+   "self_explain": "Why does differentiating $xy=c^2$ produce $y+x\\,dy/dx=0$?",
+   "source": "pack"
+  }
+ }
+}
