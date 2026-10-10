@@ -1,0 +1,2418 @@
+{
+ "subtopic": "9702-10.1",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/10 D.C. circuits/10.1 Practical circuits.md",
+ "outline": "Use standard symbols to draw complete conducting loops. Put an ammeter in series and a voltmeter across a component. Source e.m.f. $E=W/Q$ is energy supplied per unit charge around the complete circuit. P.d. is energy transferred from electrical energy per unit charge across a component. With internal resistance $r$, terminal p.d. is $V=E-Ir$; increasing current increases lost volts.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-10.1.1",
+   "statement": "A voltmeter belongs in series.",
+   "refutation": "A voltmeter measures potential difference between two points, so connect it across the component.",
+   "contrast": "An ammeter is connected in series.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-10.1.2",
+   "statement": "A wire crossing always makes a junction.",
+   "refutation": "Only a marked junction joins branches; a crossing without a junction is not a connection.",
+   "contrast": "Trace each continuous path between junctions.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-10.1.3",
+   "statement": "E.m.f. is the energy delivered only to the external resistor per charge.",
+   "refutation": "E.m.f. is energy supplied per unit charge to the complete circuit, including internal resistance.",
+   "contrast": "Terminal p.d. describes energy per charge available externally.",
+   "source": "ER 9702 s21 P13 Q34"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-10.1.4",
+   "statement": "E.m.f. and p.d. are both total energy.",
+   "refutation": "Each is energy per unit charge: e.m.f. is energy supplied by the source; p.d. is energy transferred from electrical energy in a component.",
+   "contrast": "Use J C^-1 for both.",
+   "source": "ER 9702 w22 P22 Q6"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-10.1.5",
+   "statement": "Terminal p.d. stays equal to e.m.f. as current rises.",
+   "refutation": "The internal drop $Ir$ grows, so terminal p.d. $V=E-Ir$ falls.",
+   "contrast": "At zero current the lost volts are zero.",
+   "source": "ER 9702 w19 P12 Q35"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we2",
+   "kc": "9702-10.1.2",
+   "problem": "A lamp circuit needs current through the lamp measured. Where should the ammeter go?",
+   "steps": [
+    {
+     "do": "Place the ammeter in series with the lamp.",
+     "why": "The same charge per second must pass through both."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A resistor circuit needs its current measured. Place the ammeter in series and state the reading if 2.0 C crosses it in 4.0 s.",
+    "answer": {
+     "value": 0.5,
+     "unit": "A",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-10.1.3",
+   "problem": "A 9.0 V source drives 3.0 C around a complete circuit. Calculate energy supplied.",
+   "steps": [
+    {
+     "do": "$E=W/Q$, so $W=EQ$.",
+     "why": "E.m.f. is energy supplied per unit charge."
+    },
+    {
+     "do": "$W=(9.0)(3.0)=27$ J.",
+     "why": "Charge is in coulombs and e.m.f. in joules per coulomb.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 27.0,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A 6.0 V source drives 5.0 C around a complete circuit. Calculate energy supplied.",
+    "answer": {
+     "value": 30.0,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-10.1-i01",
+   "kcs": [
+    "9702-10.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the standard symbol for a cell in words.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "One long and one short parallel line represent a cell.",
+     "keywords": [
+      [
+       "long"
+      ],
+      [
+       "short"
+      ]
+     ]
+    }
+   ],
+   "explanation": "One long and one short parallel line represent a cell.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i02",
+   "kcs": [
+    "9702-10.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the standard symbol for a battery in words.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A battery is represented by two or more pairs of long and short parallel lines.",
+     "keywords": [
+      [
+       "two",
+       "more"
+      ],
+      [
+       "long"
+      ],
+      [
+       "short"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A battery is represented by two or more pairs of long and short parallel lines.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i03",
+   "kcs": [
+    "9702-10.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the standard symbol for a resistor in words.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A fixed resistor is a rectangle in a wire.",
+     "keywords": [
+      [
+       "rectangle"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A fixed resistor is a rectangle in a wire.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i04",
+   "kcs": [
+    "9702-10.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the standard symbol for a variable resistor in words.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A variable resistor is a resistor rectangle with a diagonal arrow across it.",
+     "keywords": [
+      [
+       "rectangle"
+      ],
+      [
+       "arrow"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A variable resistor is a resistor rectangle with a diagonal arrow across it.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i05",
+   "kcs": [
+    "9702-10.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the standard symbol for an ammeter in words.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "An ammeter is a circle containing A.",
+     "keywords": [
+      [
+       "circle"
+      ],
+      [
+       "A"
+      ]
+     ]
+    }
+   ],
+   "explanation": "An ammeter is a circle containing A.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i06",
+   "kcs": [
+    "9702-10.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the standard symbol for a voltmeter in words.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A voltmeter is a circle containing V.",
+     "keywords": [
+      [
+       "circle"
+      ],
+      [
+       "V"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A voltmeter is a circle containing V.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i07",
+   "kcs": [
+    "9702-10.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Using the standard circuit symbols in section 6 of the syllabus, draw a circuit containing one cell, a closed switch and a lamp in a complete series loop. Include an ammeter to measure the current through the lamp and a voltmeter to measure the potential difference across the lamp.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Draw one cell, a closed switch and a lamp with correct standard symbols connected in a complete series loop.",
+     "keywords": [
+      [
+       "cell"
+      ],
+      [
+       "switch"
+      ],
+      [
+       "lamp"
+      ]
+     ]
+    },
+    {
+     "point": "Draw an ammeter as a circle containing A, connected in series with the lamp.",
+     "keywords": [
+      [
+       "ammeter"
+      ],
+      [
+       "series"
+      ]
+     ]
+    },
+    {
+     "point": "Draw a voltmeter as a circle containing V, connected in parallel across the lamp.",
+     "keywords": [
+      [
+       "voltmeter"
+      ],
+      [
+       "parallel",
+       "across"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The diagram must show a complete cell-switch-lamp loop, with a circle containing A in series and a circle containing V across the lamp. Use one long and one short parallel line for the cell, a closed-switch symbol, and a circle containing a cross for the lamp. Assess the drawn symbols and connections against the rubric.",
+   "hints": [
+    "Start by drawing a complete loop containing the cell, closed switch and lamp.",
+    "Put the ammeter on the same current path as the lamp.",
+    "Connect the voltmeter to the two ends of the lamp."
+   ]
+  },
+  {
+   "id": "9702-10.1-i08",
+   "kcs": [
+    "9702-10.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to connect a voltmeter to measure p.d. across a lamp.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Connect the voltmeter in parallel across the lamp.",
+     "keywords": [
+      [
+       "parallel",
+       "across"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Connect the voltmeter in parallel across the lamp.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i09",
+   "kcs": [
+    "9702-10.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what an open switch does to a simple series circuit.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "It breaks the conducting loop, so there is no current.",
+     "keywords": [
+      [
+       "breaks",
+       "open",
+       "incomplete"
+      ],
+      [
+       "no current",
+       "zero current"
+      ]
+     ]
+    }
+   ],
+   "explanation": "It breaks the conducting loop, so there is no current.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i10",
+   "kcs": [
+    "9702-10.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to recognise two resistors in parallel on a circuit diagram.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Both ends of each resistor connect to the same two junctions.",
+     "keywords": [
+      [
+       "same"
+      ],
+      [
+       "two"
+      ],
+      [
+       "junctions",
+       "nodes"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both ends of each resistor connect to the same two junctions.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i11",
+   "kcs": [
+    "9702-10.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to trace a branch at a junction.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Follow the continuous wires from the junction along each distinct path.",
+     "keywords": [
+      [
+       "continuous"
+      ],
+      [
+       "path",
+       "branch"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Follow the continuous wires from the junction along each distinct path.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i12",
+   "kcs": [
+    "9702-10.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a voltmeter across a source reads its terminal p.d.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Its leads connect to the two terminals, measuring energy transferred per unit charge between them.",
+     "keywords": [
+      [
+       "terminals"
+      ],
+      [
+       "unit charge"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Its leads connect to the two terminals, measuring energy transferred per unit charge between them.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i13",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define the e.m.f. of a source.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Energy transferred per unit charge by the source in driving charge around a complete circuit.",
+     "keywords": [
+      [
+       "energy"
+      ],
+      [
+       "per unit charge"
+      ],
+      [
+       "complete circuit"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Energy transferred per unit charge by the source in driving charge around a complete circuit.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i14",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the SI unit of e.m.f.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The unit is the volt, equal to one joule per coulomb.",
+     "keywords": [
+      [
+       "volt",
+       "J C"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The unit is the volt, equal to one joule per coulomb.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i15",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the energy supplied by a source of e.m.f. $E$ to charge $Q$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The supplied energy is $W=EQ$.",
+     "keywords": [
+      [
+       "EQ",
+       "E Q"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The supplied energy is $W=EQ$.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i16",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what a 9.0 V label on a battery means.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The source supplies 9.0 J per coulomb to the complete circuit.",
+     "keywords": [
+      [
+       "9.0 J"
+      ],
+      [
+       "coulomb"
+      ],
+      [
+       "complete circuit"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The source supplies 9.0 J per coulomb to the complete circuit.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i17",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State whether source e.m.f. includes energy dissipated internally.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Yes; it counts energy supplied per charge to the entire circuit, including internal resistance.",
+     "keywords": [
+      [
+       "entire",
+       "complete"
+      ],
+      [
+       "internal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Yes; it counts energy supplied per charge to the entire circuit, including internal resistance.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i18",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the energy transfer represented by e.m.f. in a chemical cell.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Chemical energy is transferred to electrical energy per unit charge.",
+     "keywords": [
+      [
+       "chemical"
+      ],
+      [
+       "electrical"
+      ],
+      [
+       "per unit charge"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Chemical energy is transferred to electrical energy per unit charge.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i19",
+   "kcs": [
+    "9702-10.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the meanings of e.m.f. and p.d.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "E.m.f. is energy supplied per unit charge by a source; p.d. is energy transferred per unit charge from electrical energy in a component.",
+     "keywords": [
+      [
+       "supplied"
+      ],
+      [
+       "transferred"
+      ],
+      [
+       "unit charge"
+      ]
+     ]
+    }
+   ],
+   "explanation": "E.m.f. is energy supplied per unit charge by a source; p.d. is energy transferred per unit charge from electrical energy in a component.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i20",
+   "kcs": [
+    "9702-10.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a resistor has a p.d. across it.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Electrical energy is transferred to thermal energy in the resistor per unit charge.",
+     "keywords": [
+      [
+       "electrical"
+      ],
+      [
+       "thermal"
+      ],
+      [
+       "per unit charge"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Electrical energy is transferred to thermal energy in the resistor per unit charge.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i21",
+   "kcs": [
+    "9702-10.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State when terminal p.d. equals source e.m.f.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "They are equal when no current flows, so no energy per charge is dissipated internally.",
+     "keywords": [
+      [
+       "no current",
+       "zero current"
+      ],
+      [
+       "internal"
+      ]
+     ]
+    }
+   ],
+   "explanation": "They are equal when no current flows, so no energy per charge is dissipated internally.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i22",
+   "kcs": [
+    "9702-10.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why e.m.f. can exceed terminal p.d.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Some energy per unit charge is dissipated in the source internal resistance.",
+     "keywords": [
+      [
+       "energy"
+      ],
+      [
+       "per unit charge"
+      ],
+      [
+       "internal resistance"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Some energy per unit charge is dissipated in the source internal resistance.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i23",
+   "kcs": [
+    "9702-10.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the units of e.m.f. and p.d.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Both have units of volts or joules per coulomb.",
+     "keywords": [
+      [
+       "volt",
+       "joules per coulomb"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Both have units of volts or joules per coulomb.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i24",
+   "kcs": [
+    "9702-10.1.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe the energy destination for charge passing through a lamp.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Electrical energy is transferred to light and thermal energy per unit charge across the lamp.",
+     "keywords": [
+      [
+       "light"
+      ],
+      [
+       "thermal"
+      ],
+      [
+       "per unit charge"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Electrical energy is transferred to light and thermal energy per unit charge across the lamp.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i25",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relationship between e.m.f. $E$, terminal p.d. $V$, current $I$ and internal resistance $r$.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$V=E-Ir$.",
+     "keywords": [
+      [
+       "E-Ir"
+      ]
+     ]
+    }
+   ],
+   "explanation": "$V=E-Ir$.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i26",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why terminal p.d. falls when current increases.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The internal p.d. $Ir$ increases, leaving less p.d. across the external circuit.",
+     "keywords": [
+      [
+       "Ir"
+      ],
+      [
+       "increases"
+      ],
+      [
+       "external"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The internal p.d. $Ir$ increases, leaving less p.d. across the external circuit.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i27",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Predict the terminal p.d. when a source supplies no current.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Terminal p.d. equals e.m.f. because $Ir=0$.",
+     "keywords": [
+      [
+       "equals"
+      ],
+      [
+       "e.m.f.",
+       "emf"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Terminal p.d. equals e.m.f. because $Ir=0$.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i28",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why increasing external resistance can raise terminal p.d.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Current falls, so the internal p.d. $Ir$ falls and $V=E-Ir$ rises.",
+     "keywords": [
+      [
+       "current falls",
+       "current decreases"
+      ],
+      [
+       "Ir"
+      ],
+      [
+       "rises",
+       "increases"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Current falls, so the internal p.d. $Ir$ falls and $V=E-Ir$ rises.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i29",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe what is meant by lost volts.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Lost volts is the p.d. $Ir$ across the source internal resistance.",
+     "keywords": [
+      [
+       "Ir"
+      ],
+      [
+       "internal resistance"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Lost volts is the p.d. $Ir$ across the source internal resistance.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i30",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare source e.m.f. and terminal p.d. when it supplies current.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Terminal p.d. is less than e.m.f. by $Ir$, the internal p.d.",
+     "keywords": [
+      [
+       "less"
+      ],
+      [
+       "Ir"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Terminal p.d. is less than e.m.f. by $Ir$, the internal p.d.",
+   "hints": [
+    "Recall what the relevant symbol or quantity represents.",
+    "Apply the definition to this particular circuit.",
+    "Identify the component or energy transfer first."
+   ]
+  },
+  {
+   "id": "9702-10.1-i31",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate energy supplied when a 6.0 V source drives 4.0 C around a complete circuit.",
+   "marks": 2,
+   "answer": {
+    "value": 24.0,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "$W=EQ=6.0\times4.0=24$ J.",
+   "hints": [
+    "Write the energy or circuit equation.",
+    "Substitute the stated quantities with consistent units.",
+    "Rearrange before rounding the result."
+   ]
+  },
+  {
+   "id": "9702-10.1-i32",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate terminal p.d. for $E=12.0$ V, $I=2.0$ A and $r=0.50$ $\\Omega$.",
+   "marks": 2,
+   "answer": {
+    "value": 11.0,
+    "unit": "V",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "$V=E-Ir=12.0-(2.0)(0.50)=11.0$ V.",
+   "hints": [
+    "Write the energy or circuit equation.",
+    "Substitute the stated quantities with consistent units.",
+    "Rearrange before rounding the result."
+   ]
+  },
+  {
+   "id": "9702-10.1-p01",
+   "kcs": [
+    "9702-10.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q36",
+    "qid": "9702_w21_11_q36"
+   },
+   "stem": "What is the circuit symbol for an oscilloscope?",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9702_w21_11_q36.png",
+   "marks": 1,
+   "explanation": "The image option C is the standard oscilloscope symbol. The other image symbols show different instruments or components.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p02",
+   "kcs": [
+    "9702-10.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q34",
+    "qid": "9702_s19_13_q34"
+   },
+   "stem": "Diagram 1 shows a lamp connected to a supply through two switches.\nDuring repairs, an electrician mistakenly reverses the connections X₁ and Z₁, so that Z₁ is\nconnected to the supply and X₁ to the other switch at Z₂, as shown in diagram 2.\nsupply\ndiagram 1\nZ₂\nZ₁\nY₂\nX₂\nX₁\nsupply\ndiagram 2\nZ₂\nZ₁\nY₂\nX₂\nX₁\nY₁\nY₁\nWhich switch positions will now light the lamp?",
+   "options": {
+    "A": "X₁ to Y₁ X₂ to Y₂",
+    "B": "X₁ to Y₁ X₂ to Z₂",
+    "C": "X₁ to Z₁ X₂ to Y₂",
+    "D": "X₁ to Z₁ X₂ to Z₂"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_13_q34.png",
+   "marks": 1,
+   "explanation": "Both supply points must connect to Z to complete each circuit. Option B leaves Z in one circuit unconnected.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p03",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q34",
+    "qid": "9702_s21_13_q34"
+   },
+   "stem": "A battery is marked 9.0 V.\nWhat does this mean?",
+   "options": {
+    "A": "Each coulomb of charge from the battery supplies 9.0 J of electrical energy to the whole circuit.",
+    "B": "The battery supplies 9.0 J of electrical energy to an external circuit for each coulomb of charge.",
+    "C": "The potential difference across any component connected to the battery will be 9.0 V.",
+    "D": "There will always be a potential difference of 9.0 V across the battery terminals."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "explanation": "E.m.f. gives energy per coulomb supplied to the whole circuit. Option B ignores energy dissipated inside the battery.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p04",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q35",
+    "qid": "9702_w22_11_q35"
+   },
+   "stem": "Which ratio has the same units as electromotive force (e.m.f.)?",
+   "options": {
+    "A": "charge per unit energy transferred",
+    "B": "charge per unit time",
+    "C": "energy transferred per unit charge",
+    "D": "energy transferred per unit time"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "E.m.f. has units J C^-1, energy per charge. Option D is power in watts.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p05",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q34",
+    "qid": "9702_w25_12_q34"
+   },
+   "stem": "A cell of electromotive force (e.m.f.) E delivers a charge Q to an external circuit.\nWhich statement is correct?",
+   "options": {
+    "A": "The energy dissipated in the external circuit is EQ.",
+    "B": "The energy dissipated within the cell is EQ.",
+    "C": "The external resistance is EQ.",
+    "D": "The total energy dissipated in the cell and the external circuit is EQ."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "explanation": "The source supplies $EQ$ to the cell and external circuit together. Option A omits energy dissipated within the cell.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p06",
+   "kcs": [
+    "9702-10.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q36",
+    "qid": "9702_w21_12_q36"
+   },
+   "stem": "The electromotive force (e.m.f.) of a cell is 6.0 V. It has negligible internal resistance and is\nconnected across a resistor. The potential difference (p.d.) across the resistor is also 6.0 V.\nThe e.m.f. and the p.d. have the same numerical value but represent different processes.\nWhich statement about the different processes is correct?",
+   "options": {
+    "A": "The e.m.f. is the energy transferred from chemical energy to electrical energy in the cell and the p.d. is the energy transferred from electrical energy to thermal energy in the resistor.",
+    "B": "The p.d. is the energy transferred from chemical energy to electrical energy in the cell and the e.m.f. is the energy transferred from electrical energy to thermal energy in the resistor.",
+    "C": "The e.m.f. is the energy transferred per unit charge from chemical energy to electrical energy in the cell and the p.d. is the energy transferred per unit charge from electrical energy to thermal energy in the resistor.",
+    "D": "The p.d. is the energy transferred per unit charge from chemical energy to electrical energy in the cell and the e.m.f. is the energy transferred per unit charge from electrical energy to thermal energy in the resistor."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "explanation": "Both quantities must be energy per unit charge: supply in the cell and transfer in the resistor. Option A omits per unit charge.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p07",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q35",
+    "qid": "9702_w19_12_q35"
+   },
+   "stem": "A battery has an electromotive force (e.m.f.) E and internal resistance r. The battery delivers a\ncurrent I to a variable resistor and the potential difference (p.d.) across its terminals is V.\nr\nE\nI\nV\nThe variable resistor is adjusted so that I increases.\nWhy does V decrease?",
+   "options": {
+    "A": "The e.m.f. E decreases.",
+    "B": "The internal resistance r increases.",
+    "C": "The p.d. across r increases.",
+    "D": "The resistance of the variable resistor increases."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_12_q35.png",
+   "marks": 1,
+   "explanation": "As current grows, lost volts $Ir$ grow, so terminal p.d. falls. Option D would reduce rather than increase current.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p08",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q34",
+    "qid": "9702_w21_12_q34"
+   },
+   "stem": "A battery of electromotive force (e.m.f.) 10 V and internal resistance 5.0 Ω is connected to a 5.0 Ω\nload resistor.\n5.0 Ω\n5.0 Ω\n10 V\nWhich change occurs when the 5.0 Ω load resistor is replaced with a 50 Ω load resistor?",
+   "options": {
+    "A": "The current in the circuit increases.",
+    "B": "The potential difference across the load resistor increases.",
+    "C": "The power dissipated in the internal resistance of the battery increases.",
+    "D": "The total power dissipated in the circuit increases."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w21_12_q34.png",
+   "marks": 1,
+   "explanation": "Higher load resistance lowers current and lost volts, so load p.d. rises. Option C is wrong because internal power $I^2r$ falls.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p09",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q34",
+    "qid": "9702_s23_13_q34"
+   },
+   "stem": "A battery with internal resistance is connected to a parallel arrangement of two resistors and a\nswitch S, as shown.\nV\nA\nswitch\nS\nInitially, switch S is open.\nWhat happens to the voltmeter and ammeter readings when switch S is closed?\nvoltmeter\nreading\nammeter\nreading",
+   "options": {
+    "A": "decreases increases",
+    "B": "decreases decreases",
+    "C": "increases increases",
+    "D": "increases decreases"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_13_q34.png",
+   "marks": 1,
+   "explanation": "Closing the switch adds a parallel path, raising total current and lost volts, so terminal p.d. falls. Option C overlooks internal resistance.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p10",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q35",
+    "qid": "9702_s23_11_q35"
+   },
+   "stem": "A battery with internal resistance is connected to a fixed resistor, an ammeter and a voltmeter, as\nshown.\nA\nV\nThe battery is replaced by a different battery that has the same electromotive force (e.m.f.) but a\ngreater internal resistance.\nWhat happens to the readings on the ammeter and voltmeter?\nammeter reading\nvoltmeter reading",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases stays the same",
+    "C": "stays the same decreases",
+    "D": "stays the same stays the same"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_11_q35.png",
+   "marks": 1,
+   "explanation": "Increasing $r$ lowers $I=E/(R+r)$ and therefore load p.d. $IR$. Option B overlooks the falling load p.d.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p11",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q36",
+    "qid": "9702_w23_11_q36"
+   },
+   "stem": "A circuit contains a cell of electromotive force E and internal resistance r connected to a resistor\nof resistance R. The current in the circuit is I.\nR\nI\nr\nE\nWhich equation is correct?",
+   "options": {
+    "A": "E – Ir = IR",
+    "B": "E = Ir – IR",
+    "C": "E + Ir = IR",
+    "D": "E = IR"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w23_11_q36.png",
+   "marks": 1,
+   "explanation": "Energy per charge is split between $Ir$ inside and $IR$ outside: $E-Ir=IR$. Option D omits internal loss.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-p12",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q35",
+    "qid": "9702_w24_11_q35"
+   },
+   "stem": "The circuit shown contains a cell with negligible internal resistance.\nX\nThe energy transferred per unit charge in driving charge around the complete circuit is E. The\npotential difference (p.d.) across X is V.\nThe cell is then replaced with a different cell of the same electromotive force (e.m.f.) that has\nsignificant internal resistance.\nWhat is the effect on E and V of replacing the cell?\neffect on E\neffect on V",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases increases",
+    "C": "no change decreases",
+    "D": "no change increases"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_11_q35.png",
+   "marks": 1,
+   "explanation": "E.m.f. remains the same, but internal resistance reduces current and p.d. across X. Option D reverses the p.d. change.",
+   "hints": []
+  },
+  {
+   "id": "9702-10.1-x001",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q35",
+    "qid": "9702_s19_11_q35"
+   },
+   "stem": "When a battery is connected to a resistor, the battery gradually becomes warm. This causes the\ninternal resistance of the battery to increase whilst its electromotive force (e.m.f.) stays\nunchanged.\nAs the internal resistance of the battery increases, how do the terminal potential difference and\nthe output power change, if at all?\nterminal potential\ndifference\noutput power",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases unchanged",
+    "C": "unchanged decreases",
+    "D": "unchanged unchanged"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x002",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q36",
+    "qid": "9702_s19_11_q36"
+   },
+   "stem": "A cell is connected to a resistor of resistance 3.00 Ω. The current in the resistor is 1.00 A.\nA second identical resistor is added in parallel. The current becomes 1.93 A.\nWhat are the e.m.f. E and internal resistance r of the cell?\nE / V\nr / Ω",
+   "options": {
+    "A": "0.113 3.11",
+    "B": "3.04 0.0358",
+    "C": "3.11 0.113",
+    "D": "9.34 6.34"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x003",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q35",
+    "qid": "9702_s19_12_q35"
+   },
+   "stem": "A cell with internal resistance is connected to a variable resistor R as shown.\nR\ncell\nI\nThe resistance of R is gradually decreased.\nHow do the current I and the terminal potential difference across the cell change?\ncurrent I\nterminal potential\ndifference across cell",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases increases",
+    "C": "increases decreases",
+    "D": "increases increases"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x004",
+   "kcs": [
+    "9702-10.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q35",
+    "qid": "9702_w19_11_q35"
+   },
+   "stem": "The diagram shows a circuit.\nV\nWhich statement about the circuit is not correct?",
+   "options": {
+    "A": "Electromotive force is the energy transferred per unit charge.",
+    "B": "Energy is transferred from chemical potential energy in the cell to other forms when the switch is closed.",
+    "C": "The electromotive force of the cell is greater than the terminal potential difference when the switch is closed.",
+    "D": "When the switch is open, the voltmeter measures the electromotive force of the cell."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w19_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x005",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q36",
+    "qid": "9702_w19_13_q36"
+   },
+   "stem": "A cell of internal resistance 0.5 Ω is connected to a fixed resistor of resistance 10 Ω.\nThe resistance of the resistor is changed to 20 Ω.\nWhich statement is not correct?",
+   "options": {
+    "A": "The current in the circuit will halve.",
+    "B": "The e.m.f. of the cell will remain constant.",
+    "C": "The power dissipated by the fixed resistor will decrease.",
+    "D": "The terminal p.d. of the cell will increase."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult, with many selecting C or D rather than the correct answer A. If the 10 Ω fixed resistor is replaced by a resistor of resistance 20 Ω, the current I in the resistor will fall. The power dissipated in the fixed resistor is I2R when its resistance is R. The value of R has doubled but I has approximately halved, so the power dissipated in the fixed resistor must decrease (i.e. statement C is correct). The current in the internal resistance has also decreased, so the ‘lost volts’ Ir will also decrease and therefore the terminal p.d. will increase (i.e. stat"
+  },
+  {
+   "id": "9702-10.1-x006",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q36",
+    "qid": "9702_s20_11_q36"
+   },
+   "stem": "A cell of electromotive force (e.m.f.) E and internal resistance r is connected to a resistor of\nresistance R.\nA maximum power P can be dissipated by the resistor without overheating.\nr\nE\nR\nWhat is the maximum value of E if the resistor does not overheat?",
+   "options": {
+    "A": "( ) P R R r −",
+    "B": "( ) P R R r +",
+    "C": "( ) P R r R −",
+    "D": "( ) P R r R +"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_11_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x007",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q36",
+    "qid": "9702_s20_12_q36"
+   },
+   "stem": "A cell of electromotive force (e.m.f.) E and internal resistance 0.50 Ω is connected to a resistor of\nresistance 4.7 Ω.\n0.50 Ω\nE\n4.7 Ω\nThe maximum power that can be dissipated by the resistor without overheating is 0.50 W.\nWhat is the maximum value of E for the resistor not to overheat?",
+   "options": {
+    "A": "1.4 V",
+    "B": "1.5 V",
+    "C": "1.7 V",
+    "D": "2.9 V"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x008",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q37",
+    "qid": "9702_s20_13_q37"
+   },
+   "stem": "A fixed resistor and a variable resistor are connected in series with a cell that has an internal\nresistance, as shown.\nR\nThe graph shows the variation of a quantity X with the resistance R of the variable resistor as R is\nincreased from zero to its maximum value.\n0\n0\nX\nR\nWhat could X represent?",
+   "options": {
+    "A": "the current in the circuit",
+    "B": "the electromotive force of the cell",
+    "C": "the potential difference across the internal resistance",
+    "D": "the terminal potential difference across the cell"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x009",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q36",
+    "qid": "9702_w20_12_q36"
+   },
+   "stem": "A car battery has an electromotive force (e.m.f.) of 12 V and an internal resistance of 0.05 Ω. The\nbattery is connected to the starter motor of a car. The current in the motor is 160 A.\nM\n12 V\n0.05 Ω\n160 A\nWhat is the terminal p.d. across the battery?",
+   "options": {
+    "A": "0 V",
+    "B": "4 V",
+    "C": "8 V",
+    "D": "12 V"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x010",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q36",
+    "qid": "9702_w20_13_q36"
+   },
+   "stem": "A cell is connected to a fixed resistor. Over a long period of time, the internal resistance of the\ncell increases.\nWhat is the effect of the increase in internal resistance on the electromotive force (e.m.f.) of the\ncell and on the power dissipated by the fixed resistor?\ne.m.f.\npower dissipated",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases no change",
+    "C": "no change decreases",
+    "D": "no change no change"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x011",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q35",
+    "qid": "9702_s21_11_q35"
+   },
+   "stem": "A cell is described as having an electromotive force (e.m.f.) of 6 V.\nWhat does this mean?",
+   "options": {
+    "A": "1 coulomb of charge always dissipates 6 J of energy in the internal resistance of the cell.",
+    "B": "1 electron gains 6 J of energy when passing through the cell.",
+    "C": "There is a potential difference of 6 V applied across any external circuit connected to the cell.",
+    "D": "When 1 coulomb of charge passes through the cell, 6 J of chemical energy is transformed."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x012",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q36",
+    "qid": "9702_s21_12_q36"
+   },
+   "stem": "A cell of constant electromotive force (e.m.f.) but with internal resistance is connected to a fixed\nresistor R using a potentiometer. A voltmeter measures the potential difference (p.d.) between\nthe terminals of the cell.\nV\nX\nZ\nR\nWhich statement explains the change to the reading of the voltmeter as contact Z is moved\ntowards end X of the potentiometer?",
+   "options": {
+    "A": "The voltmeter reading decreases because the current through the cell decreases.",
+    "B": "The voltmeter reading decreases because the current through the cell increases.",
+    "C": "The voltmeter reading increases because the current through the cell decreases.",
+    "D": "The voltmeter reading increases because the current through the cell increases."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Many candidates found this question difficult, with only a third answering the question correctly. One approach is to consider what happens in the circuit when the sliding contact of the potentiometer is at the two extreme positions. Let the resistance of the fixed resistor be R and the total resistance of the potentiometer be R0. Principal Examiner Report for Teachers position 1 position 2 For position 1 of the potentiometer, the two resistors are in parallel with each other and so the combined resistance must be less than R0. For position 2 of the potentiometer, the fixed resistor is ‘short "
+  },
+  {
+   "id": "9702-10.1-x013",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q36",
+    "qid": "9702_s21_13_q36"
+   },
+   "stem": "The circuit shown includes a cell of constant internal resistance and an external resistor R.\nR\ncell\nV\nA\nA student records the ammeter and voltmeter readings. She then connects a second identical\nexternal resistor in parallel with the first external resistor.\nWhat happens to the ammeter reading and to the voltmeter reading?\nammeter reading\nvoltmeter reading",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases stays the same",
+    "C": "increases decreases",
+    "D": "increases stays the same"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Answering this question required the correct application of the circuit laws, including the addition of resistors in parallel and an understanding of the effect of the internal resistance of the cell on the rest of the circuit. Although candidates could work out what happens algebraically by assigning variables to different quantities in the circuit, this is not needed as only a qualitative answer is required. Adding a second resistor in parallel with the original resistor must decrease the total circuit resistance, and so the current (ammeter reading) will increase. This will increase the ‘lo"
+  },
+  {
+   "id": "9702-10.1-x014",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q35",
+    "qid": "9702_s22_11_q35"
+   },
+   "stem": "A cell has internal resistance r and electromotive force (e.m.f.) E. The cell is connected in series\nwith an ammeter and a variable resistor of resistance R.\nr\nE\nR\nA\nWhen R is 10 Ω the ammeter reads 0.3 A.\nWhen R is 5 Ω the ammeter reads 0.4 A.\nWhat is the value of E ?",
+   "options": {
+    "A": "0.5 V",
+    "B": "2 V",
+    "C": "3 V",
+    "D": "6 V"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x015",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q35",
+    "qid": "9702_s22_12_q35"
+   },
+   "stem": "A cell with constant electromotive force (e.m.f.) is connected across a fixed resistor. Over time,\nthe internal resistance of the cell increases.\nWhich change occurs as the internal resistance of the cell increases?",
+   "options": {
+    "A": "a decrease in the charge of each charge carrier",
+    "B": "a decrease in the potential difference measured across the cell",
+    "C": "an increase in the energy dissipated per unit time in the fixed resistor",
+    "D": "an increase in the number of charge carriers leaving the cell per unit time"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x016",
+   "kcs": [
+    "9702-10.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q36",
+    "qid": "9702_s22_13_q36"
+   },
+   "stem": "The diagram shows the symbol for a component that may be used in an electrical circuit.\nWhich component is represented by this circuit symbol?",
+   "options": {
+    "A": "buzzer",
+    "B": "electric bell",
+    "C": "loudspeaker",
+    "D": "microphone"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "A is correct: the semicircular symbol with a straight top and two leads shown here represents a buzzer in the circuit-symbol convention used by this examination. Its resemblance to a bell is the trap; do not identify a circuit symbol from the everyday shape of the component. B is not the official identification of this symbol."
+  },
+  {
+   "id": "9702-10.1-x017",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q35",
+    "qid": "9702_w22_12_q35"
+   },
+   "stem": "The diagram shows a cell of electromotive force (e.m.f.) 3.0 V and internal resistance 4.7 Ω\nconnected across a lamp. The lamp has a resistance of 9.3 Ω.\n4.7 \u0002\n9.3 \u0002\n3.0 V\nWhat is the power dissipated by the internal resistance of the cell?",
+   "options": {
+    "A": "0.22 W",
+    "B": "0.43 W",
+    "C": "0.64 W",
+    "D": "1.0 W"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x018",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q34",
+    "qid": "9702_w22_13_q34"
+   },
+   "stem": "A voltmeter reads 9.000 V when it is connected across the terminals of a battery.\nV\n9.000 V\nWhen a resistor of resistance 11.0 Ω is connected in parallel with the battery, the voltmeter\nreading changes to 8.800 V.\n8.800 V\n11.0 \u0002\nV\nWhat is the internal resistance of the battery?",
+   "options": {
+    "A": "0.244 Ω",
+    "B": "0.250 Ω",
+    "C": "10.8 Ω",
+    "D": "11.3 Ω"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x019",
+   "kcs": [
+    "9702-10.1.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q34",
+    "qid": "9702_s23_11_q34"
+   },
+   "stem": "Which circuit symbol represents a microphone?",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x020",
+   "kcs": [
+    "9702-10.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q34",
+    "qid": "9702_s23_12_q34"
+   },
+   "stem": "A student assembles the circuit shown.\nlamp 1\nlamp 2\nWhich row describes the state of the two lamps?\nlamp 1\nlamp 2",
+   "options": {
+    "A": "off off",
+    "B": "on off",
+    "C": "off on",
+    "D": "on on"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x021",
+   "kcs": [
+    "9702-10.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q34",
+    "qid": "9702_w23_11_q34"
+   },
+   "stem": "Which statement about the electromotive force (e.m.f.) of a cell is always correct?",
+   "options": {
+    "A": "The e.m.f. is the energy converted from electrical to other forms in the cell.",
+    "B": "The e.m.f. is the energy provided by the cell per unit charge passing through it.",
+    "C": "The e.m.f. is the potential difference across the internal resistance of the cell.",
+    "D": "The e.m.f. is the potential difference across the terminals of the cell."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x022",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q34",
+    "qid": "9702_w23_13_q34"
+   },
+   "stem": "A cell of electromotive force (e.m.f.) 3.0 V and internal resistance 0.50 Ω is connected to a\nvariable resistor, a voltmeter and an ammeter, as shown. The resistance of the variable resistor is\nvaried.\nThe reading on the ammeter I and the reading on the voltmeter V are recorded.\n0.50 \u0003\n3.0 V\nA\nV\nWhich graph shows how V varies with I ?\n0\n6.0",
+   "options": {
+    "A": "0 0.50 I / A V / V 0 0.5",
+    "B": "0 3.0 I / A V / V 0 6.0",
+    "C": "0 3.0 I / A V / V 0 3.0",
+    "D": "0 6.0 I / A V / V"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w23_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x023",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q35",
+    "qid": "9702_s24_11_q35"
+   },
+   "stem": "A cell with internal resistance is connected to a variable resistor R as shown.\nR\ncell\nI\nThe resistance of R is gradually decreased.\nHow do the current I and the terminal potential difference (p.d.) across the cell change?\ncurrent I\nterminal p.d.\nacross cell",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases increases",
+    "C": "increases decreases",
+    "D": "increases increases"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x024",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q35",
+    "qid": "9702_s24_13_q35"
+   },
+   "stem": "The diagram shows a circuit that includes a cell with internal resistance.\nI₁\nI₂\nThe switch is initially open.\nWhich row describes the effects on currents I₁ and I₂ of closing the switch?\nI₁\nI₂",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases stays the same",
+    "C": "increases decreases",
+    "D": "increases stays the same"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_13_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x025",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q34",
+    "qid": "9702_w24_11_q34"
+   },
+   "stem": "A cell with internal resistance is connected to a light-dependent resistor (LDR), a fixed resistor\nand a voltmeter, as shown.\nV\nThe voltmeter reading increases.\nWhich quantity decreases as the voltmeter reading increases?",
+   "options": {
+    "A": "the charge moving through the cell per unit time",
+    "B": "the energy transferred to the fixed resistor per unit charge",
+    "C": "the intensity of the light incident on the LDR",
+    "D": "the terminal potential difference across the cell"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w24_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x026",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q37",
+    "qid": "9702_w24_12_q37"
+   },
+   "stem": "A cell with electromotive force (e.m.f.) 1.50 V delivers a current of 0.26 A to a resistor of\nresistance 5.0 Ω connected between its terminals.\nWhat is the internal resistance of the cell?",
+   "options": {
+    "A": "0.04 Ω",
+    "B": "0.20 Ω",
+    "C": "0.39 Ω",
+    "D": "0.77 Ω"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x027",
+   "kcs": [
+    "9702-10.1.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q36",
+    "qid": "9702_w24_13_q36"
+   },
+   "stem": "The diagram shows a circuit.\nV\nWhich statement about the circuit is not correct?",
+   "options": {
+    "A": "Electromotive force is the energy transferred per unit charge.",
+    "B": "Energy is transferred from chemical potential energy in the cell to other forms when the switch is closed.",
+    "C": "The electromotive force of the cell is greater than the terminal potential difference when the switch is closed.",
+    "D": "When the switch is open, the voltmeter measures the electromotive force of the cell."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w24_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x028",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q37",
+    "qid": "9702_w24_13_q37"
+   },
+   "stem": "A circuit contains a battery of electromotive force E and internal resistance r connected to two\nresistors each of resistance 2.5 Ω.\nThe resistors are connected in parallel as shown.\nr\nE\n0.80 A\n2.5 \u0004\n2.5 \u0004\nThe current in one of the resistors is 0.80 A.\nWhich expression, where E is in volts and r is in ohms, gives the internal resistance r ?",
+   "options": {
+    "A": "1.6 4.0 – E",
+    "B": "0.80 4.0 – E",
+    "C": "1.6 2.0 – E",
+    "D": "0.80 2.0 – E"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w24_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x029",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q37",
+    "qid": "9702_s25_11_q37"
+   },
+   "stem": "A cell is connected in series with an ammeter and a variable resistor. A voltmeter is used to\nmeasure the p.d. across the variable resistor. The resistance of the variable resistor is varied,\nand the p.d. and the current are recorded.\nThe graph shows the variation with current of the p.d. across the variable resistor.\n1.8\n1.6\n1.4\n1.2\n1.0\n0.8\n0.6\n0.4\n0.2\n0\n0\n10\n20\n30\n40\n50\ncurrent / mA\np.d. / V\n60\n70\n80\nWhat is the internal resistance of the cell?",
+   "options": {
+    "A": "0.050 Ω",
+    "B": "1.6 Ω",
+    "C": "20 Ω",
+    "D": "23 Ω"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_11_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x030",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q35",
+    "qid": "9702_s25_12_q35"
+   },
+   "stem": "The diagram shows a cell of internal resistance 1.0R connected to a variable resistor.\n1.0R\nWhen the variable resistor has an initial resistance of 2.0R, the current in the cell is I₁ and the\nterminal potential difference (p.d.) across the cell is V₁.\nThe variable resistor is now adjusted to a new resistance of 4.0R.\nWhat is the new current in the cell and the new terminal p.d. across the cell?\ncurrent\nterminal p.d.",
+   "options": {
+    "A": "0.50I₁ 1.0V₁",
+    "B": "0.50I₁ 1.2V₁",
+    "C": "0.60I₁ 1.0V₁",
+    "D": "0.60I₁ 1.2V₁"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x031",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q36",
+    "qid": "9702_s25_13_q36"
+   },
+   "stem": "A battery has an e.m.f. E and internal resistance r. The battery delivers a current I to a variable\nresistor and the p.d. across its terminals is V.\nr\nE\nI\nV\nThe variable resistor is adjusted so that I increases.\nWhy does V decrease?",
+   "options": {
+    "A": "The e.m.f. E decreases.",
+    "B": "The internal resistance r increases.",
+    "C": "The p.d. across r increases.",
+    "D": "The resistance of the variable resistor increases."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_13_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-10.1-x032",
+   "kcs": [
+    "9702-10.1.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q35",
+    "qid": "9702_w25_11_q35"
+   },
+   "stem": "The diagram shows a circuit with a battery connected to a resistor R. The battery has an internal\nresistance represented by resistor r.\nr\nR\nA\nA second resistor, identical to R, is connected in parallel with R.\nWhich row describes the changes to the potential difference (p.d.) across r and the current shown\non the ammeter when the second resistor is connected?\np.d. across r\ncurrent shown\non ammeter",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases increases",
+    "C": "increases decreases",
+    "D": "increases increases"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_11_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-10.1.1",
+   "front": "What represents a cell?",
+   "back": "One long and one short parallel line."
+  },
+  {
+   "id": "fc1",
+   "kc": "9702-10.1.1",
+   "front": "What represents a resistor?",
+   "back": "A rectangle in the conducting path."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-10.1.3",
+   "front": "Define e.m.f.",
+   "back": "Energy transferred per unit charge by a source in driving charge around a complete circuit."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-10.1.1": {
+   "motivate": "Circuit symbols let any reader identify components without seeing the apparatus.",
+   "establish": "Recall and use the standard circuit symbols in section 6 of the syllabus. A cell has a long and short parallel line; several pairs form a battery. A fixed resistor is a rectangle; a variable resistor has a diagonal arrow. A lamp has a cross in a circle, an ammeter A in a circle, and a voltmeter V in a circle. Recognise the standard forms for an open or closed switch, diode, light-dependent resistor, thermistor and oscilloscope. Preserve polarity where the symbol gives it.",
+   "connect": "Once each symbol is recognisable, follow the wires and junctions to interpret the circuit.",
+   "note": "- Use the section 6 symbols consistently.\n- A cell is one long and one short line.\n- A and V inside circles denote meters.",
+   "self_explain": "How would you distinguish a cell from a battery and a fixed from a variable resistor?",
+   "source": "pack"
+  },
+  "9702-10.1.2": {
+   "motivate": "A circuit picture tells you which parts share a current or a potential difference.",
+   "establish": "Draw and interpret circuit diagrams using the section 6 symbols. Trace continuous conducting paths and mark junctions clearly. A crossing without a junction is not an electrical connection. Series components lie on one path and share current; parallel components connect between the same two junctions and share p.d. Put an ammeter in series with the component whose current is needed. Put a voltmeter across the two points whose p.d. is needed. An open switch breaks its path.",
+   "connect": "Correctly locating a voltmeter across the source lets you identify terminal p.d.",
+   "note": "- Trace wires through marked junctions.\n- Ammeter: series.\n- Voltmeter: across two points.\n- Open switch: broken path.",
+   "self_explain": "Where would you place meters to measure current through and p.d. across a lamp?",
+   "source": "pack"
+  },
+  "9702-10.1.3": {
+   "motivate": "A voltage rating tells how much energy a source supplies to each coulomb.",
+   "establish": "Define the electromotive force (e.m.f.) of a source as energy transferred per unit charge in driving charge around a complete circuit. In symbols, $E=W/Q$, where $W$ is energy supplied to charge $Q$. Thus $W=EQ$. The volt is one joule per coulomb. The energy supplied by the source includes energy subsequently dissipated inside the source as well as in the external circuit.",
+   "connect": "Compare that total supply per charge with the energy transferred per charge across one component.",
+   "note": "- $E=W/Q$: energy per unit charge.\n- The charge goes around a complete circuit.\n- Unit: $\\mathrm{J\\,C^{-1}}$ or V.",
+   "self_explain": "What does a 9.0 V label tell you about energy supplied to each coulomb?",
+   "source": "pack"
+  },
+  "9702-10.1.4": {
+   "motivate": "Equal numbers in volts can describe different stages of the energy journey.",
+   "establish": "Distinguish e.m.f. from potential difference by energy transfer. E.m.f. is energy supplied by the source per unit charge around the complete circuit, often from chemical to electrical energy. P.d. across a component is energy transferred from electrical energy to other forms per unit charge in that component. A resistor transfers it mainly to thermal energy; a lamp transfers it to light and thermal energy. Both are measured in volts, or joules per coulomb. Terminal p.d. measures the energy per charge available to the external circuit.",
+   "connect": "Internal resistance explains why terminal p.d. can be below source e.m.f.",
+   "note": "- E.m.f.: supplied energy per charge.\n- P.d.: transferred energy per charge.\n- Both use volts.",
+   "self_explain": "Why can e.m.f. and resistor p.d. have the same value yet describe different transfers?",
+   "source": "pack"
+  },
+  "9702-10.1.5": {
+   "motivate": "A source can read less across its terminals while delivering current.",
+   "establish": "A real source has internal resistance $r$. Current $I$ produces an internal p.d. $Ir$ called lost volts. For a discharging source, $E=V+Ir$, so terminal p.d. $V=E-Ir$. Increasing current at fixed e.m.f. and internal resistance raises the internal energy dissipated per unit charge and lowers terminal p.d. At zero current, the lost volts are zero and $V=E$. Raising external resistance usually lowers current, so terminal p.d. rises towards e.m.f. A voltmeter across the source terminals reads $V$.",
+   "connect": "This relationship prepares you to apply circuit laws to complete loops and networks.",
+   "note": "- Lost volts across internal resistance: $Ir$.\n- Terminal p.d.: $V=E-Ir$.\n- At $I=0$, $V=E$.",
+   "self_explain": "Why does adding a parallel load often lower the voltmeter reading across a real cell?",
+   "source": "pack"
+  }
+ }
+}

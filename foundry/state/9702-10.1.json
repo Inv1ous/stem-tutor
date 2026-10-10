@@ -1,0 +1,325 @@
+{
+ "sub": "9702-10.1",
+ "stage": "ready",
+ "created": "2026-10-10T16:28:43+08:00",
+ "updated": "2026-10-10T17:04:20+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:30:55+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 77 items"
+  },
+  {
+   "t": "2026-10-10T16:36:45+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "47 agreed, 2 disputed"
+  },
+  {
+   "t": "2026-10-10T16:39:08+08:00",
+   "from": "tiebreak",
+   "to": "check",
+   "note": "tiebreak left 1 for the manager; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T16:40:35+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "2 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:45:43+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:46:57+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 3 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:47:47+08:00",
+   "from": "recheck",
+   "to": "tiebreak",
+   "note": "0 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T16:55:58+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-10T17:03:09+08:00",
+   "from": "adjudicate",
+   "to": "sign",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T17:04:20+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 76,
+  "extra": 32
+ },
+ "disputes": [
+  {
+   "id": "9702-10.1-p01",
+   "key": "C",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-10.1-x016",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "keep: Keep answer A (buzzer): the source image confirms the symbol and option order, and the official key in build/work/mcq/9702.tagged.json is A, with no examiner comment or evidence of extraction error. The existing explanation already addresses the electric-bell resemblance that led both solvers to B."
+  }
+ ],
+ "findings": [
+  {
+   "ref": "KC 9702-10.1.2 questions",
+   "rule": "outcome not taught or not tested",
+   "evidence": "Statement: draw and interpret circuit diagrams containing the circuit symbols shown in section 6 of this syllabus",
+   "suggested": "Add a question requiring the learner to draw a circuit diagram with the prescribed symbols; current questions only ask for verbal descriptions or interpretation.",
+   "status": "fixed",
+   "resolution": "fix: The current KC questions test descriptions and interpretation but do not require a drawing. Replace generated item 9702-10.1-i07 as follows, retaining its id, kcs, kind, difficulty and source. Set command_word=\"Sketch\"; stem=\"Using the standard circuit symbols in section 6 of the syllabus, draw a circuit containing one cell, a closed switch and a lamp in a complete series loop. Include an ammeter to measure the current through the lamp and a voltmeter to measure the potential difference across the lamp.\"; marks=3; rubric=[{\"point\":\"Draw one cell, a closed switch and a lamp with correct standard symbols connected in a complete series loop.\",\"keywords\":[[\"cell\"],[\"switch\"],[\"lamp\"]]},{\"point\":\"Draw an ammeter as a circle containing A, connected in series with the lamp.\",\"keywords\":[[\"ammeter\"],[\"series\"]]},{\"point\":\"Draw a voltmeter as a circle containing V, connected in parallel across the lamp.\",\"keywords\":[[\"voltmeter\"],[\"parallel\",\"across\"]]}]; explanation=\"The diagram must show a complete cell-switch-lamp loop, with a circle containing A in series and a circle containing V across the lamp. Use one long and one short parallel line for the cell, a closed-switch symbol, and a circle containing a cross for the lamp. Assess the drawn symbols and connections against the rubric.\"; hints=[\"Start by drawing a complete loop containing the cell, closed switch and lamp.\",\"Put the ammeter on the same current path as the lamp.\",\"Connect the voltmeter to the two ends of the lamp.\"] ."
+  },
+  {
+   "ref": "item 9702-10.1-x026",
+   "rule": "off syllabus",
+   "evidence": "A potentiometer circuit is used to determine the electromotive force (e.m.f.) E of a cell. The circuit includes a second cell of e.m.f. 1.5 V and internal resistance 0.50 Ω that is connected to a uniform resistance wire XY",
+   "suggested": "Move this potentiometer measurement question to the potentiometer chapter.",
+   "status": "fixed",
+   "resolution": "fix: This is within the overall syllabus but depends on the potentiometer balance principle in KC 9702-10.3.2, which is not taught in chapter 10.1. Move its extra-practice allocation to 10.3: in build/work/mcq/overrides.json under \"9702_w24_11_q37\", set kcs=[\"9702-10.3.2\"] and retain off_syllabus=false and answer=\"A\"; remove extra item 9702-10.1-x026 from the 10.1 pack when regenerating extras. Do not globally exclude the question. The calculation confirms the key: driver current=1.5/(0.50+0.50)=1.5 A, terminal p.d. across XY=0.75 V, and balanced e.m.f.=0.75*(0.64/0.96)=0.50 V."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "9702-10.1-x016",
+   "instruction": "Retain answer \"A\" and the existing options and image: the official bank key is A, and the source image shows no extraction mismatch. In build/work/mcq/overrides.json under \"9702_s22_13_q36\", set explanation to \"A is correct: the semicircular symbol with a straight top and two leads shown here represents a buzzer in the circuit-symbol convention used by this examination. Its resemblance to a bell is the trap; do not identify a circuit symbol from the everyday shape of the component. B is not the official identification of this symbol.\"",
+   "status": "done"
+  },
+  {
+   "ref": "KC 9702-10.1.2 questions",
+   "instruction": "The current KC questions test descriptions and interpretation but do not require a drawing. Replace generated item 9702-10.1-i07 as follows, retaining its id, kcs, kind, difficulty and source. Set command_word=\"Sketch\"; stem=\"Using the standard circuit symbols in section 6 of the syllabus, draw a circuit containing one cell, a closed switch and a lamp in a complete series loop. Include an ammeter to measure the current through the lamp and a voltmeter to measure the potential difference across the lamp.\"; marks=3; rubric=[{\"point\":\"Draw one cell, a closed switch and a lamp with correct standard symbols connected in a complete series loop.\",\"keywords\":[[\"cell\"],[\"switch\"],[\"lamp\"]]},{\"point\":\"Draw an ammeter as a circle containing A, connected in series with the lamp.\",\"keywords\":[[\"ammeter\"],[\"series\"]]},{\"point\":\"Draw a voltmeter as a circle containing V, connected in parallel across the lamp.\",\"keywords\":[[\"voltmeter\"],[\"parallel\",\"across\"]]}]; explanation=\"The diagram must show a complete cell-switch-lamp loop, with a circle containing A in series and a circle containing V across the lamp. Use one long and one short parallel line for the cell, a closed-switch symbol, and a circle containing a cross for the lamp. Assess the drawn symbols and connections against the rubric.\"; hints=[\"Start by drawing a complete loop containing the cell, closed switch and lamp.\",\"Put the ammeter on the same current path as the lamp.\",\"Connect the voltmeter to the two ends of the lamp.\"] .",
+   "status": "done"
+  },
+  {
+   "ref": "item 9702-10.1-x026",
+   "instruction": "This is within the overall syllabus but depends on the potentiometer balance principle in KC 9702-10.3.2, which is not taught in chapter 10.1. Move its extra-practice allocation to 10.3: in build/work/mcq/overrides.json under \"9702_w24_11_q37\", set kcs=[\"9702-10.3.2\"] and retain off_syllabus=false and answer=\"A\"; remove extra item 9702-10.1-x026 from the 10.1 pack when regenerating extras. Do not globally exclude the question. The calculation confirms the key: driver current=1.5/(0.50+0.50)=1.5 A, terminal p.d. across XY=0.75 V, and balanced e.m.f.=0.75*(0.64/0.96)=0.50 V.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 3479,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:28:43+08:00",
+   "log": "foundry/logs/9702-10.1.drafter.1010-162843.log",
+   "out": "foundry/logs/9702-10.1.drafter.1010-162843.out.json",
+   "finished": "2026-10-10T16:30:55+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-10.1.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/10 D.C. circuits/10.1 Practical circuits.md",
+    "items": 77,
+    "templates": 0,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 7785,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:34:50+08:00",
+   "log": "foundry/logs/9702-10.1.solver-1.1010-163450.log",
+   "out": "foundry/logs/9702-10.1.solver-1.1010-163450.out.json",
+   "expects": "build/work/blind/9702-10.1.answers.part1.json",
+   "finished": "2026-10-10T16:35:36+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-10.1.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 8462,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:35:43+08:00",
+   "log": "foundry/logs/9702-10.1.solver-2.1010-163543.log",
+   "out": "foundry/logs/9702-10.1.solver-2.1010-163543.out.json",
+   "expects": "build/work/blind/9702-10.1.answers.part2.json",
+   "finished": "2026-10-10T16:36:38+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-10.1.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 8467,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:35:43+08:00",
+   "log": "foundry/logs/9702-10.1.solver-3.1010-163543.log",
+   "out": "foundry/logs/9702-10.1.solver-3.1010-163543.out.json",
+   "expects": "build/work/blind/9702-10.1.answers.part3.json",
+   "finished": "2026-10-10T16:36:14+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 9 questions in `build/work/blind/9702-10.1.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 22685,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:55:17+08:00",
+   "log": "foundry/logs/9702-10.1.tiebreak.1010-165517.log",
+   "out": "foundry/logs/9702-10.1.tiebreak.1010-165517.out.json",
+   "expects": "build/work/blind/9702-10.1.tiebreak.json",
+   "finished": "2026-10-10T16:55:33+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9702-10.1.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 11499,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:39:49+08:00",
+   "log": "foundry/logs/9702-10.1.checker.1010-163949.log",
+   "out": "foundry/logs/9702-10.1.checker.1010-163949.out.json",
+   "expects": "build/work/foundry/9702-10.1.check.json",
+   "finished": "2026-10-10T16:40:27+08:00",
+   "exit": 0,
+   "report": {
+    "text": "2 findings — [build/work/foundry/9702-10.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9702-10.1.check.json)."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 28189,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T17:02:44+08:00",
+   "log": "foundry/logs/9702-10.1.adjudicator.1010-170244.log",
+   "out": "foundry/logs/9702-10.1.adjudicator.1010-170244.out.json",
+   "finished": "2026-10-10T17:03:18+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9702-10.1-x016 keep: Official key A (buzzer) stands; existing explanation addresses the bell-symbol trap."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 16044,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:45:58+08:00",
+   "log": "foundry/logs/9702-10.1.fixer.1010-164558.log",
+   "out": "foundry/logs/9702-10.1.fixer.1010-164558.out.json",
+   "finished": "2026-10-10T16:46:57+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 3,
+    "not_done": [
+     "9702-10.1-x026 remains in the pack: the extra rebuild preserved its old ID, so the requested move was not completed.",
+     "Syllabus gate reports missing teaching cards for 9702-10.1.1 through 9702-10.1.5; these were outside the listed fixes."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 17023,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:47:04+08:00",
+   "log": "foundry/logs/9702-10.1.solver.1010-164704.log",
+   "out": "foundry/logs/9702-10.1.solver.1010-164704.out.json",
+   "expects": "build/work/blind/9702-10.1.recheck.answers.json",
+   "finished": "2026-10-10T16:47:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9702-10.1.recheck.answers.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q35": "9702-10.1-x001",
+  "9702_s19_11_q36": "9702-10.1-x002",
+  "9702_s19_12_q35": "9702-10.1-x003",
+  "9702_w19_11_q35": "9702-10.1-x004",
+  "9702_w19_13_q36": "9702-10.1-x005",
+  "9702_s20_11_q36": "9702-10.1-x006",
+  "9702_s20_12_q36": "9702-10.1-x007",
+  "9702_s20_13_q37": "9702-10.1-x008",
+  "9702_w20_12_q36": "9702-10.1-x009",
+  "9702_w20_13_q36": "9702-10.1-x010",
+  "9702_s21_11_q35": "9702-10.1-x011",
+  "9702_s21_12_q36": "9702-10.1-x012",
+  "9702_s21_13_q36": "9702-10.1-x013",
+  "9702_s22_11_q35": "9702-10.1-x014",
+  "9702_s22_12_q35": "9702-10.1-x015",
+  "9702_s22_13_q36": "9702-10.1-x016",
+  "9702_w22_12_q35": "9702-10.1-x017",
+  "9702_w22_13_q34": "9702-10.1-x018",
+  "9702_s23_11_q34": "9702-10.1-x019",
+  "9702_s23_12_q34": "9702-10.1-x020",
+  "9702_w23_11_q34": "9702-10.1-x021",
+  "9702_w23_13_q34": "9702-10.1-x022",
+  "9702_s24_11_q35": "9702-10.1-x023",
+  "9702_s24_13_q35": "9702-10.1-x024",
+  "9702_w24_11_q34": "9702-10.1-x025",
+  "9702_w24_11_q37": "9702-10.1-x026",
+  "9702_w24_12_q37": "9702-10.1-x026",
+  "9702_w24_13_q36": "9702-10.1-x027",
+  "9702_w24_13_q37": "9702-10.1-x028",
+  "9702_s25_11_q37": "9702-10.1-x029",
+  "9702_s25_12_q35": "9702-10.1-x030",
+  "9702_s25_13_q36": "9702-10.1-x031",
+  "9702_w25_11_q35": "9702-10.1-x032"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
