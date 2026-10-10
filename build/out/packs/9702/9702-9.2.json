@@ -1,0 +1,1722 @@
+{
+ "subtopic": "9702-9.2",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/09 Electricity/9.2 Potential difference and power.md",
+ "outline": "Potential difference is energy transferred per unit charge: $V=W/Q$, with $1\\,\\mathrm{V}=1\\,\\mathrm{J\\,C^{-1}}$. Electrical power is energy transferred per second. Combining $W=VQ$ with $I=Q/t$ gives $P=VI$. For a resistor obeying $V=IR$, substitute to obtain $P=I^2R$ or $P=V^2/R$. At fixed resistance power scales with the square of current or voltage.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-9.2.1",
+   "statement": "Defining potential difference as energy transferred by a unit charge, without a ratio.",
+   "refutation": "Potential difference is energy transferred per unit charge, a ratio W/Q.",
+   "contrast": "10 J transferred by 2 C gives 5 V, not 10 J.",
+   "source": "ER 9702 w22 P22 Q6"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-9.2.2",
+   "statement": "Confusing energy per charge with energy per current.",
+   "refutation": "Charge, measured in coulombs, is the denominator in V=W/Q.",
+   "contrast": "12 J per 3 C is 4 V.",
+   "source": "ER 9702 w22 P22 Q6"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-9.2.3",
+   "statement": "Assuming power always varies linearly with current or voltage for fixed resistance.",
+   "refutation": "At fixed R, P=I²R=V²/R, so doubling current or voltage quadruples power.",
+   "contrast": "A 50% increase in power makes current √1.5 times as large, not 1.5 times.",
+   "source": "ER 9702 w23 P12 Q31"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-9.2.3",
+   "statement": "Using P=V²/R without checking whether compared components share the same voltage.",
+   "refutation": "In series the current is common; use P=I²R. In parallel the voltage is common; use P=V²/R.",
+   "contrast": "Two series resistors R and 2R dissipate powers in the ratio 1:2.",
+   "source": "ER 9702 w22 P22 Q6"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-9.2.2",
+   "problem": "A component transfers 30 J as 5.0 C passes through it. Calculate the p.d.",
+   "steps": [
+    {
+     "do": "Write V=W/Q.",
+     "why": "Potential difference is energy per charge."
+    },
+    {
+     "do": "Substitute V=30/5.0.",
+     "why": "Use energy in joules and charge in coulombs."
+    },
+    {
+     "do": "V=6.0 V.",
+     "why": "J C⁻¹ is the volt.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 6.0,
+       "unit": "V",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A component transfers 42 J as 7.0 C passes through it. Calculate the p.d.",
+    "answer": {
+     "value": 6.0,
+     "unit": "V",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-9.2.3",
+   "problem": "A 4.0 Ω resistor carries 3.0 A. Calculate its power.",
+   "steps": [
+    {
+     "do": "Choose P=I²R.",
+     "why": "Current and resistance are known."
+    },
+    {
+     "do": "Substitute P=3.0²×4.0.",
+     "why": "Square the current before multiplying."
+    },
+    {
+     "do": "P=36 W.",
+     "why": "Power is energy transferred per second.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 36,
+       "unit": "W",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A 5.0 Ω resistor carries 2.0 A. Calculate its power.",
+    "answer": {
+     "value": 20,
+     "unit": "W",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-9.2-p01",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P3 · Q31",
+    "qid": "9702_w23_13_q31"
+   },
+   "stem": "What is the definition of the potential difference (p.d.) across a component?",
+   "options": {
+    "A": "the energy transferred per unit charge",
+    "B": "the energy transferred per unit current",
+    "C": "the power transferred per unit charge",
+    "D": "the power transferred per unit current"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Potential difference is energy transferred per unit charge. B divides by current rather than charge.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ],
+   "distractors": {
+    "B": "m2"
+   }
+  },
+  {
+   "id": "9702-9.2-p02",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P2 · Q29",
+    "qid": "9702_s24_12_q29"
+   },
+   "stem": "What is the definition of potential difference across a component?",
+   "options": {
+    "A": "energy transferred per unit charge",
+    "B": "energy transferred per unit current",
+    "C": "energy transferred per unit distance",
+    "D": "energy transferred per unit time"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "A gives the required energy-to-charge ratio. B uses current instead of charge.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ],
+   "distractors": {
+    "B": "m2"
+   }
+  },
+  {
+   "id": "9702-9.2-p03",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P1 · Q33",
+    "qid": "9702_w20_11_q33"
+   },
+   "stem": "What is the definition of potential difference?",
+   "options": {
+    "A": "power per unit current",
+    "B": "product of current and resistance",
+    "C": "product of electric field strength and distance",
+    "D": "work done per unit charge"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Work done per unit charge is potential difference. A equals a voltage numerically via P=VI but is not the defining energy-per-charge wording.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ]
+  },
+  {
+   "id": "9702-9.2-p04",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P3 · Q34",
+    "qid": "9702_w20_13_q34"
+   },
+   "stem": "A student describes potential difference as the energy transferred per unit charge. Which statement about the energy transfer is correct?",
+   "options": {
+    "A": "It is from electrical energy into other forms.",
+    "B": "It is from other forms into electrical energy.",
+    "C": "It only takes place inside a power supply.",
+    "D": "It only takes place inside resistors."
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Across a component electrical energy is transferred to other forms. B reverses the direction of transfer for a consuming component.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ]
+  },
+  {
+   "id": "9702-9.2-p05",
+   "kcs": [
+    "9702-9.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P3 · Q30",
+    "qid": "9702_s24_13_q30"
+   },
+   "stem": "Which quantity is given by the product of charge and electric potential difference?",
+   "options": {
+    "A": "current",
+    "B": "energy transferred",
+    "C": "power dissipated",
+    "D": "resistance"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Rearranging V=W/Q gives W=QV, energy transferred. C needs a rate of energy transfer, not charge alone.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ]
+  },
+  {
+   "id": "9702-9.2-p06",
+   "kcs": [
+    "9702-9.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P1 · Q32",
+    "qid": "9702_w19_11_q32"
+   },
+   "stem": "What could not be used as a unit of potential difference?",
+   "options": {
+    "A": "A Ω",
+    "B": "N m⁻¹ C⁻¹",
+    "C": "W A⁻¹",
+    "D": "(Ω W)½"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "N m⁻¹ C⁻¹ is electric field strength, not voltage. D is a voltage unit because V=√(PR).",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ],
+   "image": "Assets/mcq/9702_w19_11_q32.png"
+  },
+  {
+   "id": "9702-9.2-p07",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P2 · Q32",
+    "qid": "9702_w25_12_q32"
+   },
+   "stem": "The current in a resistor of constant resistance is 8.0 mA. The power dissipated by the resistor is P. The current in the resistor is increased to 12.0 mA. What is the new power dissipated by the resistor?",
+   "options": {
+    "A": "0.44P",
+    "B": "0.67P",
+    "C": "1.5P",
+    "D": "2.3P"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "At fixed R, power scales as I²: (12/8)²P=2.25P≈2.3P. C treats power as linear in current.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ],
+   "distractors": {
+    "C": "m3"
+   }
+  },
+  {
+   "id": "9702-9.2-p08",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P3 · Q34",
+    "qid": "9702_w24_13_q34"
+   },
+   "stem": "The potential difference (p.d.) across a fixed resistor is V. The power dissipated in the resistor is 5.0 W. The p.d. across the resistor then changes to a new value. With the new p.d. the energy transferred to the resistor in a time of 2.25 s is 45.0 J. What is the new p.d. across the resistor?",
+   "options": {
+    "A": "V/2",
+    "B": "2V",
+    "C": "3V",
+    "D": "4V"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "New power is 45/2.25=20 W, four times the original. At fixed resistance P∝V², so the voltage doubles. D applies a linear power-voltage relation.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ],
+   "distractors": {
+    "D": "m3"
+   }
+  },
+  {
+   "id": "9702-9.2-p09",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P2 · Q32",
+    "qid": "9702_w19_12_q32"
+   },
+   "stem": "A fixed resistor of resistance 12 Ω is connected to a battery. There is a current of 0.20 A in the resistor. The current is now doubled. What is the new power dissipated in the resistor?",
+   "options": {
+    "A": "0.48 W",
+    "B": "0.96 W",
+    "C": "1.9 W",
+    "D": "4.8 W"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "P=(0.40)²×12=1.92 W≈1.9 W. B doubles the initial 0.48 W instead of quadrupling it.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ],
+   "distractors": {
+    "B": "m3"
+   }
+  },
+  {
+   "id": "9702-9.2-p10",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P1 · Q32",
+    "qid": "9702_w22_11_q32"
+   },
+   "stem": "A power supply is connected to a component by connecting wires of total resistance 4.9 Ω. The power supply has an output power of 3.6 W and a terminal potential difference of 12 V. How much thermal energy is dissipated in the connecting wires in a time of 1.0 hour?",
+   "options": {
+    "A": "0.44 J",
+    "B": "29 J",
+    "C": "1.6 kJ",
+    "D": "11 kJ"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Current is 3.6/12=0.30 A. Wire energy is I²Rt=(0.30)²×4.9×3600=1588 J≈1.6 kJ. A is power in watts mistaken for energy.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ]
+  },
+  {
+   "id": "9702-9.2-p11",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P1 · Q32",
+    "qid": "9702_s24_11_q32"
+   },
+   "stem": "A kettle is connected to a 250 V mains supply. What are possible values for the power of the kettle and the current in the kettle?",
+   "options": {
+    "A": "500 W, 0.5 A",
+    "B": "500 W, 5.0 A",
+    "C": "2500 W, 0.1 A",
+    "D": "2500 W, 10 A"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "P=VI=250×10=2500 W. B gives 1250 W, so its power-current pair is inconsistent.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ],
+   "image": "Assets/mcq/9702_s24_11_q32.png"
+  },
+  {
+   "id": "9702-9.2-p12",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P2 · Q31",
+    "qid": "9702_w23_12_q31"
+   },
+   "stem": "In the circuit shown, a fixed resistor X is connected in series with a battery and a variable resistor. The power dissipated in resistor X is 7.2 W when a current of 3.0 A passes through it. The variable resistor is adjusted so that the power dissipated in X increases by 50%. What is the new current in the circuit?",
+   "options": {
+    "A": "2.4 A",
+    "B": "3.7 A",
+    "C": "4.5 A",
+    "D": "14 A"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Fixed X has R=7.2/3.0²=0.80 Ω. New current is √(1.5×7.2/0.80)=3.7 A. Popular C multiplies the current by 1.5 instead of taking the square root.",
+   "hints": [
+    "Identify the relevant definition or equation.",
+    "Check which quantities are fixed.",
+    "Work through the calculation before choosing an option."
+   ],
+   "image": "Assets/mcq/9702_w23_12_q31.png",
+   "distractors": {
+    "C": "m3"
+   }
+  },
+  {
+   "id": "9702-9.2-i01",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Define",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Define the potential difference across a component.",
+   "marks": 1,
+   "explanation": "It is energy transferred per unit charge.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "rubric": [
+    {
+     "point": "energy transferred per unit charge",
+     "keywords": [
+      [
+       "energy",
+       "work"
+      ],
+      [
+       "per unit charge",
+       "per coulomb"
+      ]
+     ]
+    }
+   ],
+   "answer": null
+  },
+  {
+   "id": "9702-9.2-i02",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which unit equals one volt?",
+   "marks": 1,
+   "explanation": "One volt is one joule per coulomb.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "options": {
+    "A": "J A⁻¹",
+    "B": "J C⁻¹",
+    "C": "J s⁻¹",
+    "D": "C J⁻¹"
+   },
+   "distractors": {
+    "A": "m2"
+   },
+   "shuffle": true,
+   "answer": "B"
+  },
+  {
+   "id": "9702-9.2-i03",
+   "kcs": [
+    "9702-9.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A component transfers 24 J when 6.0 C passes through it. Calculate its p.d.",
+   "marks": 1,
+   "explanation": "V=W/Q=24/6.0=4.0 V.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "distractors": [
+    {
+     "value": 144,
+     "misconception": "m2"
+    }
+   ],
+   "answer": {
+    "value": 4.0,
+    "unit": "V",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-9.2-i04",
+   "kcs": [
+    "9702-9.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the energy transferred when 5.0 C passes through a component at 12 V.",
+   "marks": 1,
+   "explanation": "W=VQ=12×5.0=60 J.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "answer": {
+    "value": 60,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-9.2-i05",
+   "kcs": [
+    "9702-9.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A component transfers 18 J across a p.d. of 3.0 V. Determine the charge passing through it.",
+   "marks": 1,
+   "explanation": "Q=W/V=18/3.0=6.0 C.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "answer": {
+    "value": 6.0,
+    "unit": "C",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-9.2-i06",
+   "kcs": [
+    "9702-9.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a p.d. of 1 V means 1 J C⁻¹.",
+   "marks": 1,
+   "explanation": "Potential difference compares energy transferred with charge, so 1 J transferred per 1 C is 1 V.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "rubric": [
+    {
+     "point": "one joule transferred per coulomb",
+     "keywords": [
+      [
+       "1 J",
+       "one joule"
+      ],
+      [
+       "1 C",
+       "one coulomb"
+      ]
+     ]
+    }
+   ],
+   "answer": null
+  },
+  {
+   "id": "9702-9.2-i07",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A lamp takes 2.0 A at 12 V. Calculate its power.",
+   "marks": 1,
+   "explanation": "P=VI=12×2.0=24 W.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "answer": {
+    "value": 24,
+    "unit": "W",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-9.2-i08",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A 6.0 Ω resistor carries 3.0 A. Calculate its power.",
+   "marks": 1,
+   "explanation": "P=I²R=3.0²×6.0=54 W.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "answer": {
+    "value": 54,
+    "unit": "W",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-9.2-i09",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A 4.0 Ω resistor has 12 V across it. Calculate its power.",
+   "marks": 1,
+   "explanation": "P=V²/R=12²/4.0=36 W.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "answer": {
+    "value": 36.0,
+    "unit": "W",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-9.2-i10",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why doubling the current through a fixed resistor makes its power four times as great.",
+   "marks": 1,
+   "explanation": "Since P=I²R and R is fixed, the power ratio is 2²=4.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "rubric": [
+    {
+     "point": "square law at fixed resistance",
+     "keywords": [
+      [
+       "I²R",
+       "current squared"
+      ],
+      [
+       "four",
+       "4"
+      ]
+     ]
+    }
+   ],
+   "answer": null
+  },
+  {
+   "id": "9702-9.2-i11",
+   "kcs": [
+    "9702-9.2.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A 6.0 V component carries 2.0 A for 5.0 s. Calculate the energy transferred.",
+   "marks": 1,
+   "explanation": "Q=It=10 C, then W=VQ=60 J.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "answer": {
+    "value": 60,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-9.2-i12",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A fixed resistor dissipates 8.0 W at 2.0 A. Calculate the current when its power rises to 18 W.",
+   "marks": 1,
+   "explanation": "R=8.0/2.0²=2.0 Ω; I=√(18/2.0)=3.0 A.",
+   "hints": [
+    "Identify the quantities given.",
+    "Choose the defining equation.",
+    "Substitute the given values before calculating."
+   ],
+   "answer": {
+    "value": 3.0,
+    "unit": "A",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "9702-9.2-x001",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P11 · Q33",
+    "qid": "9702_s19_11_q33"
+   },
+   "stem": "A voltmeter connected between two points P and Q in an electrical circuit shows a reading of 1 V.\nV\nP\n+\n–\nQ\nWhich statement is correct?",
+   "options": {
+    "A": "The energy needed to move +1 C of charge from P to Q is 1 J.",
+    "B": "The energy needed to move +1 C of charge from Q to P is 1 J.",
+    "C": "The energy needed to move one electron from P to Q is 1 J.",
+    "D": "The energy needed to move one electron from Q to P is 1 J."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s19_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Many candidates found this question difficult, selecting A rather than B. In the question, point P is at a higher potential than point Q (as indicated by the + and – signs). This means that work needs to be done to move a positive charge from Q to P (the positive charge is repelled by point P so has to be ‘pushed’ towards it). As 1 V is 1 J C–1, the energy needed to transfer +1 C from Q to P is 1 J."
+  },
+  {
+   "id": "9702-9.2-x002",
+   "kcs": [
+    "9702-9.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q32",
+    "qid": "9702_s19_13_q32"
+   },
+   "stem": "Which two units are used to define the volt?",
+   "options": {
+    "A": "ampere and ohm",
+    "B": "coulomb and joule",
+    "C": "coulomb and ohm",
+    "D": "coulomb and second"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x003",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q35",
+    "qid": "9702_s19_13_q35"
+   },
+   "stem": "A wire supplying a shower heater with a current of 35 A has a resistance of 25 mΩ.\nWhat is the power dissipated in the wire?",
+   "options": {
+    "A": "31 W",
+    "B": "49 W",
+    "C": "31 kW",
+    "D": "49 kW"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x004",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q32",
+    "qid": "9702_w19_12_q32"
+   },
+   "stem": "A fixed resistor of resistance 12 Ω is connected to a battery. There is a current of 0.20 A in the\nresistor. The current is now doubled.\nWhat is the new power dissipated in the resistor?",
+   "options": {
+    "A": "0.48 W",
+    "B": "0.96 W",
+    "C": "1.9 W",
+    "D": "4.8 W"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x005",
+   "kcs": [
+    "9702-9.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q33",
+    "qid": "9702_w19_12_q33"
+   },
+   "stem": "There is a current in a resistor for an unknown time.\nWhich two quantities can be used to calculate the energy dissipated by the resistor?",
+   "options": {
+    "A": "the current in the resistor and the potential difference across the resistor",
+    "B": "the resistance of the resistor and the current in the resistor",
+    "C": "the total charge passing through the resistor and the potential difference across the resistor",
+    "D": "the total charge passing through the resistor and the resistance of the resistor"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x006",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q34",
+    "qid": "9702_s20_12_q34"
+   },
+   "stem": "An electric kettle is rated at 2.0 kW, which describes the power supplied to the heating coil in the\nkettle.\nThe coil has a resistance of 5.0 kΩ.\nWhat is the current in the coil?",
+   "options": {
+    "A": "0.40 A",
+    "B": "0.63 A",
+    "C": "1.6 A",
+    "D": "2.5 A"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x007",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q4",
+    "qid": "9702_s20_13_q4"
+   },
+   "stem": "A circuit is set up in order to determine the resistance of a 12 V, 1.2 W lamp when operating\nnormally. An analogue ammeter and an analogue voltmeter are used.\nWhich ranges for the meters would be most suitable?\nammeter range\n/ A\nvoltmeter range\n/ V",
+   "options": {
+    "A": "0–0.5 0–20",
+    "B": "0–0.5 0–100",
+    "C": "0–10 0–20",
+    "D": "0–10 0–100"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s20_13_q4.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x008",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q34",
+    "qid": "9702_w20_12_q34"
+   },
+   "stem": "In the circuit shown, a fixed resistor X is connected in series with a battery and a variable resistor.\nX\nThe power dissipated in resistor X is 7.2 W when a current of 3.0 A passes through it.\nThe variable resistor is adjusted so that the power dissipated in X increases by 50%.\nWhat is the new current in the circuit?",
+   "options": {
+    "A": "2.4 A",
+    "B": "3.7 A",
+    "C": "4.5 A",
+    "D": "14 A"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_12_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "More candidates selected the incorrect answer C to this question than the correct answer B. Using P = I2R, the resistance R of the fixed resistor X is R = 7.2 / 3.02 = 0.80 Ω. If the power increases by 50%, then the new current is given by I2 = P / R = 7.2 × 1.5 / 0.80. Taking the square root gives I = 3.7 A."
+  },
+  {
+   "id": "9702-9.2-x009",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q34",
+    "qid": "9702_w20_13_q34"
+   },
+   "stem": "A student describes potential difference as the energy transferred per unit charge.\nWhich statement about the energy transfer is correct?",
+   "options": {
+    "A": "It is from electrical energy into other forms.",
+    "B": "It is from other forms into electrical energy.",
+    "C": "It only takes place inside a power supply.",
+    "D": "It only takes place inside resistors."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x010",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q33",
+    "qid": "9702_s21_12_q33"
+   },
+   "stem": "The power output of an electrical supply is 2.4 kW at a potential difference (p.d.) of 240 V. The\ntwo wires between the supply and a kettle each have a resistance of 0.50 Ω, as shown.\nsupply\nkettle\n240 V\n2.4 kW\n0.50 Ω\n0.50 Ω\nWhat is the power supplied to the kettle and what is the p.d. across the kettle?\npower / kW\np.d. / V",
+   "options": {
+    "A": "2.3 230",
+    "B": "2.3 235",
+    "C": "2.4 230",
+    "D": "2.4 235"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s21_12_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Just over half of the candidates answered this question correctly. The current from the power supply is given by I = P / V = 2.4 × 103 / 240 = 10 A. The potential difference across the kettle is 240 – 2 × 0.5 × 10 = 230 V. The power supplied to the kettle is 230 × 10 = 2300 W (2.3 kW)."
+  },
+  {
+   "id": "9702-9.2-x011",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P11 · Q33",
+    "qid": "9702_w21_11_q33"
+   },
+   "stem": "A circuit contains two resistors, P and Q, and a power supply of negligible internal resistance, as\nshown.\nP\nQ\nThe current in resistor P is 2.0 A and the power dissipated by resistor P is 18 W.\nResistor Q dissipates 240 J of energy when a charge of 40 C passes through it.\nWhat is the electromotive force (e.m.f.) of the power supply?",
+   "options": {
+    "A": "3.0 V",
+    "B": "6.0 V",
+    "C": "9.0 V",
+    "D": "15 V"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_11_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x012",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q34",
+    "qid": "9702_w21_13_q34"
+   },
+   "stem": "A cell has an electromotive force (e.m.f.) of 6 V and internal resistance R. An external resistor,\nalso of resistance R, is connected across this cell, as shown.\n6 V\nR\nR\ncell\nPower P is dissipated by the external resistor.\nThe cell is replaced by a different cell that has an e.m.f. of 6 V and negligible internal resistance.\nWhat is the new power that is dissipated in the external resistor?",
+   "options": {
+    "A": "0.5P",
+    "B": "P",
+    "C": "2P",
+    "D": "4P"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Less than half of the candidates selected the correct answer D. Incorrect answer C was commonly chosen. A quick way to answer the question is to realise that the circuit with the new cell has half the total resistance of the original circuit, and so will have twice the current. The power in the external resistor is I2R and R has not changed, so the new power must be 4P. Candidates may prefer to work through the question using potential differences. In the circuit shown in the question paper, the e.m.f. of 6 V is shared equally across the internal resistance and the external resistor, so there "
+  },
+  {
+   "id": "9702-9.2-x013",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q32",
+    "qid": "9702_s22_11_q32"
+   },
+   "stem": "What is the definition of the potential difference (p.d.) across a component?",
+   "options": {
+    "A": "the electrical power supplied to the component",
+    "B": "the energy transferred to the component per unit charge",
+    "C": "the product of the current in the component and its resistance",
+    "D": "the voltage across the component"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x014",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q32",
+    "qid": "9702_s22_12_q32"
+   },
+   "stem": "The circuit diagrams show two lamps X and Y each connected to a cell. The current in lamp X is\n0.50 A and its resistance is 9.6 Ω. The current in lamp Y is 3.0 A and its resistance is 1.2 Ω.\n0.50 A\nlamp X\n9.6 \u0002\n3.0 A\nlamp Y\n1.2 \u0002\nWhat is the ratio\nY\nlamp\nin\npower\nX\nlamp\nin\npower\n?",
+   "options": {
+    "A": "0.22",
+    "B": "0.75",
+    "C": "1.3",
+    "D": "4.5"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s22_12_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x015",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q33",
+    "qid": "9702_s22_13_q33"
+   },
+   "stem": "A resistor has resistance R. When the potential difference (p.d.) across the resistor is V, the\ncurrent in the resistor is I. The power dissipated in the resistor is P. Work W is done when charge\nQ flows through the resistor.\nWhat is not a valid relationship between these variables?",
+   "options": {
+    "A": "I = V P",
+    "B": "Q = V W",
+    "C": "R = 2 I P",
+    "D": "R = P V"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s22_13_q33.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x016",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q32",
+    "qid": "9702_w22_11_q32"
+   },
+   "stem": "A power supply is connected to a component by connecting wires of total resistance 4.9 Ω.\nThe power supply has an output power of 3.6 W and a terminal potential difference of 12 V.\nHow much thermal energy is dissipated in the connecting wires in a time of 1.0 hour?",
+   "options": {
+    "A": "0.44 J",
+    "B": "29 J",
+    "C": "1.6 kJ",
+    "D": "11 kJ"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x017",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q32",
+    "qid": "9702_w22_12_q32"
+   },
+   "stem": "The diagrams show two different circuits.\nR\nR\nR\nThe cells in each circuit have the same electromotive force (e.m.f.) and negligible internal\nresistance. The three resistors each have the same resistance R.\nIn the circuit on the left, the power dissipated in the resistor is P.\nWhat is the total power dissipated in the circuit on the right?",
+   "options": {
+    "A": "4 P",
+    "B": "2 P",
+    "C": "P",
+    "D": "2P"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w22_12_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x018",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q35",
+    "qid": "9702_w22_12_q35"
+   },
+   "stem": "The diagram shows a cell of electromotive force (e.m.f.) 3.0 V and internal resistance 4.7 Ω\nconnected across a lamp. The lamp has a resistance of 9.3 Ω.\n4.7 \u0002\n9.3 \u0002\n3.0 V\nWhat is the power dissipated by the internal resistance of the cell?",
+   "options": {
+    "A": "0.22 W",
+    "B": "0.43 W",
+    "C": "0.64 W",
+    "D": "1.0 W"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w22_12_q35.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x019",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q31",
+    "qid": "9702_w22_13_q31"
+   },
+   "stem": "A battery with a constant internal resistance is connected to a resistor of resistance 250 Ω, as\nshown.\n250 \u0002\nThe current in the resistor is 40 mA for a time of 60 s. During this time 6.0 J of energy is dissipated\nby the internal resistance.\nWhat is the energy supplied to the external resistor during the 60 s and the electromotive force\n(e.m.f.) of the battery?\nenergy / J\ne.m.f. / V",
+   "options": {
+    "A": "30 2.5",
+    "B": "30 7.5",
+    "C": "24 10.0",
+    "D": "24 12.5"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_13_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Just under half the candidates answered this question correctly. Most candidates calculated the energy supplied to the external resistor correctly (24 J) but did not calculate the e.m.f. of the battery correctly. The energy dissipated in the external resistor is I2Rt = (40 × 10–3)2 × 250 × 60 = 24 J. If 6.0 J of energy is dissipated in the internal resistance r, then using I2rt = 6.0 J gives r = 62.5 Ω. If E is the e.m.f. of the battery, then E = I(R + r) and this can be solved with the value of r = 62.5 Ω to obtain E = 12.5 V, which is D."
+  },
+  {
+   "id": "9702-9.2-x020",
+   "kcs": [
+    "9702-9.2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q31",
+    "qid": "9702_s23_11_q31"
+   },
+   "stem": "What is the definition of the potential difference across an electrical component?",
+   "options": {
+    "A": "the charge per unit time passing through the component",
+    "B": "the energy transferred per unit charge",
+    "C": "the force per unit charge",
+    "D": "the resistance per unit current"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x021",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q31",
+    "qid": "9702_s23_12_q31"
+   },
+   "stem": "A resistor of resistance R is connected across a cell of electromotive force (e.m.f.) E and\nnegligible internal resistance.\nWhich single change to the circuit would lead to the largest increase in the power dissipated in\nthe resistor?",
+   "options": {
+    "A": "doubling the value of E",
+    "B": "doubling the value of R",
+    "C": "halving the value of E",
+    "D": "halving the value of R"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x022",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q31",
+    "qid": "9702_s23_13_q31"
+   },
+   "stem": "Two resistors of resistances R and 2R are connected in parallel with a battery of electromotive\nforce (e.m.f.) 12 V and negligible internal resistance.\n2R\n12 V\nR\nThe total power dissipated by the two resistors is 36 W.\nWhat is the value of R?",
+   "options": {
+    "A": "0.50 Ω",
+    "B": "2.7 Ω",
+    "C": "4.0 Ω",
+    "D": "6.0 Ω"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_13_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x023",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q31",
+    "qid": "9702_w23_11_q31"
+   },
+   "stem": "In the circuit shown, the battery has an electromotive force (e.m.f.) of 6.0 V and negligible internal\nresistance.\nThe three resistors each have resistance R.\nR\nR\nR\n6.0 V\nThe total power dissipated in the resistor network is 24 W.\nWhat is the value of R ?",
+   "options": {
+    "A": "0.50 Ω",
+    "B": "1.0 Ω",
+    "C": "1.5 Ω",
+    "D": "2.3 Ω"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_11_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question challenging, with C the most popular incorrect answer. The total resistance in the circuit RT is given by: T T 1 1 1 2 2 3 R R R R R = + = 2 Using : V P R = 2 6.0 24 2.25 (2.3 ) 2 3 R R = = Ω Ω (Answer D)"
+  },
+  {
+   "id": "9702-9.2-x024",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q36",
+    "qid": "9702_s24_12_q36"
+   },
+   "stem": "The diagram shows four identical resistors connected in a circuit.\nWhich resistor dissipates the most power?",
+   "options": {
+    "D": "",
+    "B": "",
+    "A": "",
+    "C": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_12_q36.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x025",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q32",
+    "qid": "9702_s24_13_q32"
+   },
+   "stem": "A student builds the circuit shown. All the lamps are identical.\nWhich lamp dissipates the most power?",
+   "options": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s24_13_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x026",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q33",
+    "qid": "9702_w24_11_q33"
+   },
+   "stem": "A torch uses three lamps connected in parallel and is powered by a cell of electromotive force\n(e.m.f.) 3.0 V and negligible internal resistance. Each lamp dissipates 0.60 W of power.\nWhat is the current in the cell?",
+   "options": {
+    "A": "0.067 A",
+    "B": "0.20 A",
+    "C": "0.60 A",
+    "D": "0.83 A"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x027",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q34",
+    "qid": "9702_w24_13_q34"
+   },
+   "stem": "The potential difference (p.d.) across a fixed resistor is V. The power dissipated in the resistor\nis 5.0 W.\nThe p.d. across the resistor then changes to a new value. With the new p.d. the energy\ntransferred to the resistor in a time of 2.25 s is 45.0 J.\nWhat is the new p.d. across the resistor?",
+   "options": {
+    "A": "V 2 1",
+    "B": "2V",
+    "C": "3V",
+    "D": "4V"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w24_13_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x028",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q34",
+    "qid": "9702_s25_11_q34"
+   },
+   "stem": "The diagram shows six identical resistors connected in a circuit.\nP\nR\nQ\nS\nIn which branch of the circuit is the most power dissipated?",
+   "options": {
+    "A": "PQ",
+    "B": "QR",
+    "C": "RS",
+    "D": "SP"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s25_11_q34.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x029",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q37",
+    "qid": "9702_s25_13_q37"
+   },
+   "stem": "An electrical device of fixed resistance 20 Ω is connected in series with a variable resistor and a\nbattery of e.m.f. 16 V and negligible internal resistance.\n20 \u0001\ndevice\n16 V\nThe power dissipated in the electrical device is 4.0 W.\nWhat is the resistance of the variable resistor?",
+   "options": {
+    "A": "16 Ω",
+    "B": "36 Ω",
+    "C": "44 Ω",
+    "D": "64 Ω"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s25_13_q37.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x030",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q31",
+    "qid": "9702_w25_11_q31"
+   },
+   "stem": "There is a potential difference V across a resistor of resistance R. The current in the resistor is I.\nWhich equation gives the power P dissipated by the resistor?",
+   "options": {
+    "A": "P = V ²I",
+    "B": "P = I 2 V",
+    "C": "P = V ²R",
+    "D": "P = R V ²"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_11_q31.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-9.2-x031",
+   "kcs": [
+    "9702-9.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q32",
+    "qid": "9702_w25_12_q32"
+   },
+   "stem": "The current in a resistor of constant resistance is 8.0 mA. The power dissipated by the resistor\nis P.\nThe current in the resistor is increased to 12.0 mA.\nWhat is the new power dissipated by the resistor?",
+   "options": {
+    "A": "0.44P",
+    "B": "0.67P",
+    "C": "1.5P",
+    "D": "2.3P"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-9.2.1",
+   "front": "Define potential difference across a component.",
+   "back": "The energy transferred per unit charge."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-9.2.1",
+   "front": "State the meaning of 1 V.",
+   "back": "1 J of energy transferred per 1 C of charge."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-9.2.1": {
+   "motivate": "A lamp transfers electrical energy into light and thermal energy. Voltage tells us how much is transferred for each coulomb that passes through it.",
+   "establish": "Define the potential difference across a component as the energy transferred per unit charge. The word *per* states a ratio: $V=W/Q$. Energy is in joules, charge in coulombs, so $1\\\\ \\mathrm{V}=1\\\\ \\mathrm{J\\\\,C^{-1}}$. A p.d. of $5\\\\ \\mathrm{V}$ means $5\\\\ \\mathrm{J}$ is transferred for each coulomb through that component.",
+   "connect": "Charge is the quantity moved through the component; the energy transfer depends on both that charge and the p.d. across it.",
+   "note": "- Potential difference across a component is energy transferred per unit charge.\n- $V=W/Q$ and $1\\\\ \\mathrm{V}=1\\\\ \\mathrm{J\\\\,C^{-1}}$.",
+   "self_explain": "Why is ‘energy transferred per unit charge’ more precise than ‘energy transferred by a unit charge’?",
+   "source": "pack"
+  },
+  "9702-9.2.2": {
+   "motivate": "Knowing the energy transferred and charge passing through a component lets you calculate its p.d. directly.",
+   "establish": "Recall and use $V=W/Q$. Here $V$ is the p.d. across the component, $W$ is energy transferred across it and $Q$ is the charge passing through it. Rearrange to $W=VQ$ or $Q=W/V$ when another quantity is unknown. For $24\\\\ \\mathrm{J}$ transferred by $6.0\\\\ \\mathrm{C}$, $V=24/6.0=4.0\\\\ \\mathrm{V}$.",
+   "connect": "The equation is the mathematical form of the definition of potential difference; current can supply charge via $Q=It$.",
+   "note": "- $V=W/Q$; use joules and coulombs.\n- Rearrange to $W=VQ$ or $Q=W/V$.",
+   "self_explain": "A component transfers $18\\\\ \\mathrm{J}$ at $3.0\\\\ \\mathrm{V}$. How much charge passes through it?",
+   "source": "pack"
+  },
+  "9702-9.2.3": {
+   "motivate": "Two devices at the same voltage can transfer energy at different rates. Power measures that rate.",
+   "establish": "Recall and use $P=VI$ for electrical power. From $P=W/t$, $W=VQ$ and $I=Q/t$, it follows that $P=VI$. For a resistor obeying $V=IR$, substitute to obtain $P=I^2R$ and $P=V^2/R$. Choose the equation matching the known quantities. For a fixed resistance, doubling current or p.d. makes power four times as large, because it is proportional to their squares. The p.d. and current must refer to the component whose power you calculate.",
+   "connect": "This combines energy per charge with charge per second: energy per second is power. Ohm's law gives the two resistor forms.",
+   "note": "- Electrical power: $P=VI$, measured in watts.\n- For a resistor: $P=I^2R=V^2/R$.\n- At fixed $R$, power varies with the square of current or p.d.",
+   "self_explain": "Why does increasing the current in a fixed resistor by $50\\\\%$ increase power by more than $50\\\\%$?",
+   "source": "pack"
+  }
+ }
+}

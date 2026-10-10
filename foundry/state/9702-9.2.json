@@ -1,0 +1,221 @@
+{
+ "sub": "9702-9.2",
+ "stage": "ready",
+ "created": "2026-10-10T16:10:32+08:00",
+ "updated": "2026-10-10T16:27:40+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:13:12+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 55 items"
+  },
+  {
+   "t": "2026-10-10T16:20:01+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "54 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T16:21:38+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "4 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:27:24+08:00",
+   "from": "adjudicate",
+   "to": "sign",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:27:40+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 55,
+  "extra": 31
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item 9702-9.2-x007",
+   "rule": "off syllabus",
+   "evidence": "Which ranges for the meters would be most suitable? ammeter range / A voltmeter range / V",
+   "suggested": "Move the meter-range selection question to the practical measurement chapter or replace it with a power-formula question.",
+   "status": "closed",
+   "resolution": "keep: Keep: this is an application of KC 9702-9.2.3, P = VI, to meter selection, not an unrelated measurement question. I = 1.2/12 = 0.10 A; the smallest offered ranges containing 0.10 A and 12 V are 0-0.5 A and 0-20 V, so official answer A is correct. Retain as contextual extra practice."
+  },
+  {
+   "ref": "item 9702-9.2-x012",
+   "rule": "off syllabus",
+   "evidence": "A cell has an electromotive force (e.m.f.) of 6 V and internal resistance R. An external resistor, also of resistance R, is connected across this cell",
+   "suggested": "Move this internal-resistance question to the circuits chapter or replace it with a direct power calculation.",
+   "status": "closed",
+   "resolution": "keep: Keep: the bundle explicitly includes this mixed-topic question under 9702-9.2.3 and 9702-10.1.5; internal resistance supplies the circuit context for testing P = I^2 R. Removing internal resistance halves total resistance from 2R to R and doubles current, so external power quadruples to 4P, official answer D; 2P incorrectly assumes power is proportional to current. Retain as mixed-topic extra practice."
+  },
+  {
+   "ref": "item 9702-9.2-x018",
+   "rule": "off syllabus",
+   "evidence": "The diagram shows a cell of electromotive force (e.m.f.) 3.0 V and internal resistance 4.7 Ω connected across a lamp. The lamp has a resistance of 9.3 Ω. What is the power dissipated by the internal resistance of the cell?",
+   "suggested": "Move the internal-resistance question to its syllabus chapter.",
+   "status": "closed",
+   "resolution": "keep: Keep: the bundle explicitly includes this mixed-topic question under 9702-10.1.5 and 9702-9.2.3, and the requested quantity directly tests P = I^2 R. I = 3.0/(4.7+9.3) A and internal power = I^2 times 4.7 = 0.215816 W, rounding to 0.22 W, official answer A. Internal resistance is valid circuit context for extra power practice."
+  },
+  {
+   "ref": "item 9702-9.2-x019",
+   "rule": "off syllabus",
+   "evidence": "During this time 6.0 J of energy is dissipated by the internal resistance. What is the energy supplied to the external resistor during the 60 s and the electromotive force (e.m.f.) of the battery?",
+   "suggested": "Move the internal-resistance and e.m.f. question to its syllabus chapter.",
+   "status": "closed",
+   "resolution": "keep: Keep: this question is explicitly included in the bundle under 9702-9.2.3 and tests electrical energy via P = I^2 R together with energy per charge. External energy = (0.040)^2 times 250 times 60 = 24 J; charge = 0.040 times 60 = 2.4 C; total source energy = 24+6 = 30 J, so e.m.f. = 30/2.4 = 12.5 V, official answer D. The 10.0 V distractor omits internal energy loss. Retain as mixed-topic extra practice."
+  }
+ ],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 88940,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:10:32+08:00",
+   "log": "foundry/logs/9702-9.2.drafter.1010-161032.log",
+   "out": "foundry/logs/9702-9.2.drafter.1010-161032.out.json",
+   "finished": "2026-10-10T16:13:12+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-9.2.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/09 Electricity/9.2 Potential difference and power.md",
+    "items": 55,
+    "templates": 0,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 94949,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:19:25+08:00",
+   "log": "foundry/logs/9702-9.2.solver-1.1010-161925.log",
+   "out": "foundry/logs/9702-9.2.solver-1.1010-161925.out.json",
+   "expects": "build/work/blind/9702-9.2.answers.part1.json",
+   "finished": "2026-10-10T16:19:52+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-9.2.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 94953,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:19:25+08:00",
+   "log": "foundry/logs/9702-9.2.solver-2.1010-161925.log",
+   "out": "foundry/logs/9702-9.2.solver-2.1010-161925.out.json",
+   "expects": "build/work/blind/9702-9.2.answers.part2.json",
+   "finished": "2026-10-10T16:19:52+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [9702-9.2.answers.part2.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-9.2.answers.part2.json)."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 94956,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:19:25+08:00",
+   "log": "foundry/logs/9702-9.2.solver-3.1010-161925.log",
+   "out": "foundry/logs/9702-9.2.solver-3.1010-161925.out.json",
+   "expects": "build/work/blind/9702-9.2.answers.part3.json",
+   "finished": "2026-10-10T16:19:56+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 14 questions in `build/work/blind/9702-9.2.answers.part3.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 96200,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:20:42+08:00",
+   "log": "foundry/logs/9702-9.2.checker.1010-162042.log",
+   "out": "foundry/logs/9702-9.2.checker.1010-162042.out.json",
+   "expects": "build/work/foundry/9702-9.2.check.json",
+   "finished": "2026-10-10T16:21:33+08:00",
+   "exit": 0,
+   "report": {
+    "text": "4 findings — [9702-9.2.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9702-9.2.check.json)."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 1586,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T16:26:40+08:00",
+   "log": "foundry/logs/9702-9.2.adjudicator.1010-162640.log",
+   "out": "foundry/logs/9702-9.2.adjudicator.1010-162640.out.json",
+   "finished": "2026-10-10T16:27:32+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9702-9.2-x007 keep: Applies P = VI; correct meter ranges.\n9702-9.2-x012 keep: Bundle-listed power application; doubling current quadruples power.\n9702-9.2-x018 keep: Bundle-listed I²R application; 0.22 W verified.\n9702-9.2-x019 keep: Bundle-listed energy application; 24 J and 12.5 V verified."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q33": "9702-9.2-x001",
+  "9702_s19_13_q32": "9702-9.2-x002",
+  "9702_s19_13_q35": "9702-9.2-x003",
+  "9702_w19_12_q32": "9702-9.2-x004",
+  "9702_w19_12_q33": "9702-9.2-x005",
+  "9702_s20_12_q34": "9702-9.2-x006",
+  "9702_s20_13_q4": "9702-9.2-x007",
+  "9702_w20_12_q34": "9702-9.2-x008",
+  "9702_w20_13_q34": "9702-9.2-x009",
+  "9702_s21_12_q33": "9702-9.2-x010",
+  "9702_w21_11_q33": "9702-9.2-x011",
+  "9702_w21_13_q34": "9702-9.2-x012",
+  "9702_s22_11_q32": "9702-9.2-x013",
+  "9702_s22_12_q32": "9702-9.2-x014",
+  "9702_s22_13_q33": "9702-9.2-x015",
+  "9702_w22_11_q32": "9702-9.2-x016",
+  "9702_w22_12_q32": "9702-9.2-x017",
+  "9702_w22_12_q35": "9702-9.2-x018",
+  "9702_w22_13_q31": "9702-9.2-x019",
+  "9702_s23_11_q31": "9702-9.2-x020",
+  "9702_s23_12_q31": "9702-9.2-x021",
+  "9702_s23_13_q31": "9702-9.2-x022",
+  "9702_w23_11_q31": "9702-9.2-x023",
+  "9702_s24_12_q36": "9702-9.2-x024",
+  "9702_s24_13_q32": "9702-9.2-x025",
+  "9702_w24_11_q33": "9702-9.2-x026",
+  "9702_w24_13_q34": "9702-9.2-x027",
+  "9702_s25_11_q34": "9702-9.2-x028",
+  "9702_s25_13_q37": "9702-9.2-x029",
+  "9702_w25_11_q31": "9702-9.2-x030",
+  "9702_w25_12_q32": "9702-9.2-x031"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
