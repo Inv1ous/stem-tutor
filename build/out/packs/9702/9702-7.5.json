@@ -1,0 +1,1098 @@
+{
+ "subtopic": "9702-7.5",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/07 Waves/7.5 Polarisation.md",
+ "outline": "Polarisation confines transverse vibration to one plane. Electromagnetic waves can be polarised; longitudinal sound waves in air cannot. For incident plane-polarised radiation, $I=I_0\\cos^2\\theta$. After each filter the transmitted radiation is polarised along its transmission axis, so successive angles are between adjacent axes. Intensity is proportional to amplitude squared.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-7.5.1",
+   "statement": "Longitudinal waves can be polarised.",
+   "refutation": "Polarisation selects a direction of vibration perpendicular to propagation; longitudinal vibrations have no such transverse direction.",
+   "contrast": "Light can be polarised; ordinary sound in air cannot.",
+   "source": "ER 9702 w22 P21 Q4"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-7.5.2",
+   "statement": "Use each filter angle relative to the original polarisation.",
+   "refutation": "The transmitted wave is polarised along the preceding filter axis, so the next angle is between adjacent axes.",
+   "contrast": "For axes at 50° and 20° to vertical, the second angle is 30°.",
+   "source": "ER 9702 s22 P12 Q26"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-7.5.2",
+   "statement": "Amplitude falls by cos²θ.",
+   "refutation": "Intensity is proportional to amplitude squared; amplitude falls by the magnitude of cos θ.",
+   "contrast": "At 50°, intensity ratio is 0.413 but amplitude ratio is 0.643.",
+   "source": "ER 9702 s23 P11 Q24"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-7.5.2",
+   "statement": "A second filter cannot restore transmission after crossed filters.",
+   "refutation": "An intermediate filter at 45° transmits light and resets its plane of polarisation, allowing the last filter to transmit some.",
+   "contrast": "Crossed pair alone transmits zero; with the middle filter, transmission is nonzero.",
+   "source": "ER 9702 s23 P12 Q24"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-7.5.2",
+   "problem": "Vertically polarised light of intensity 8.0 W m^-2 passes filters with axes 50° then 20° to vertical. Calculate final intensity.",
+   "steps": [
+    {
+     "do": "$I_1=I_0\\cos^250°$.",
+     "why": "Use the angle between the incident vertical polarisation and the first axis."
+    },
+    {
+     "do": "$I_1=8.0\\cos^250°=3.305\\\\,\\mathrm{W\\,m^{-2}}$.",
+     "why": "The first output becomes the incident intensity at the second filter."
+    },
+    {
+     "do": "$I_2=I_1\\cos^230°=2.48\\\\,\\mathrm{W\\,m^{-2}}$.",
+     "why": "The second axis is 30° from the first, not 20° from the original vertical.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.48,
+       "unit": "W m^-2",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Vertically polarised light of intensity 12 W m^-2 passes axes 30° then 90° to vertical. Find final intensity.",
+    "answer": {
+     "value": 2.25,
+     "unit": "W m^-2",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-7.5-i01",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe polarisation of a transverse wave.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Vibrations are restricted to one plane perpendicular to the direction of propagation.",
+     "keywords": [
+      [
+       "one",
+       "single"
+      ],
+      [
+       "plane"
+      ],
+      [
+       "perpendicular",
+       "transverse"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Polarisation restricts transverse vibration to one plane.",
+   "hints": [
+    "Recall the wave direction involved.",
+    "Compare vibration with propagation.",
+    "Name the relevant plane or axis."
+   ]
+  },
+  {
+   "id": "9702-7.5-i02",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why ordinary sound in air cannot be polarised.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Sound in air is longitudinal.",
+     "keywords": [
+      [
+       "longitudinal"
+      ]
+     ]
+    },
+    {
+     "point": "Its vibrations are parallel to propagation, so there are no alternative transverse planes to select.",
+     "keywords": [
+      [
+       "parallel"
+      ],
+      [
+       "direction",
+       "propagation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sound in air is longitudinal and cannot have its vibration plane selected.",
+   "hints": [
+    "Recall the wave direction involved.",
+    "Compare vibration with propagation.",
+    "Name the relevant plane or axis."
+   ]
+  },
+  {
+   "id": "9702-7.5-i03",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the wave property demonstrated when a rotating filter changes the intensity of transmitted light.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Polarisation.",
+     "keywords": [
+      [
+       "polarisation",
+       "polarization"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A polarising filter selects a vibration plane.",
+   "hints": [
+    "Recall the wave direction involved.",
+    "Compare vibration with propagation.",
+    "Name the relevant plane or axis."
+   ]
+  },
+  {
+   "id": "9702-7.5-i04",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the ability of light and sound in air to be polarised.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Light is transverse and can be polarised.",
+     "keywords": [
+      [
+       "light"
+      ],
+      [
+       "transverse"
+      ],
+      [
+       "polarised",
+       "polarized"
+      ]
+     ]
+    },
+    {
+     "point": "Sound in air is longitudinal and cannot be polarised.",
+     "keywords": [
+      [
+       "sound"
+      ],
+      [
+       "longitudinal"
+      ],
+      [
+       "cannot",
+       "not"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Only the transverse light wave can be polarised.",
+   "hints": [
+    "Recall the wave direction involved.",
+    "Compare vibration with propagation.",
+    "Name the relevant plane or axis."
+   ]
+  },
+  {
+   "id": "9702-7.5-i05",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what the plane of vibration means for plane-polarised light.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The electric-field vibrations are confined to one plane containing the direction of propagation.",
+     "keywords": [
+      [
+       "electric",
+       "field"
+      ],
+      [
+       "one",
+       "single"
+      ],
+      [
+       "plane"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Plane-polarised electromagnetic radiation has one electric-field vibration plane.",
+   "hints": [
+    "Recall the wave direction involved.",
+    "Compare vibration with propagation.",
+    "Name the relevant plane or axis."
+   ]
+  },
+  {
+   "id": "9702-7.5-i06",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how polarisation provides evidence that electromagnetic waves are transverse.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Polarisation restricts vibrations to a plane perpendicular to propagation.",
+     "keywords": [
+      [
+       "perpendicular",
+       "transverse"
+      ],
+      [
+       "plane"
+      ]
+     ]
+    },
+    {
+     "point": "Only transverse waves can be polarised.",
+     "keywords": [
+      [
+       "transverse"
+      ],
+      [
+       "polarised",
+       "polarized"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The ability to select a transverse vibration plane establishes transverse behaviour.",
+   "hints": [
+    "Recall the wave direction involved.",
+    "Compare vibration with propagation.",
+    "Name the relevant plane or axis."
+   ]
+  },
+  {
+   "id": "9702-7.5-i07",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the intensity after a filter at 60° to vertically polarised light of intensity 8.0 W m^-2.",
+   "marks": 2,
+   "answer": {
+    "value": 2.0,
+    "unit": "W m^-2",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 8.0,
+     "misconception": "m3"
+    }
+   ],
+   "explanation": "Apply $I=I_0\\cos^2\\theta$ to each filter, using the angle between the incident polarisation and that filter axis.",
+   "hints": [
+    "Track the polarisation direction after each filter.",
+    "Use Malus’s law successively.",
+    "First calculate the intensity after the first filter."
+   ]
+  },
+  {
+   "id": "9702-7.5-i08",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the final intensity for vertically polarised light of intensity 8.0 W m^-2 passing filters at 50° and then 20° to vertical.",
+   "marks": 2,
+   "answer": {
+    "value": 2.479055,
+    "unit": "W m^-2",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 6.0,
+     "misconception": "m2"
+    },
+    {
+     "value": 8.0,
+     "misconception": "m3"
+    }
+   ],
+   "explanation": "Apply $I=I_0\\cos^2\\theta$ to each filter, using the angle between the incident polarisation and that filter axis.",
+   "hints": [
+    "Track the polarisation direction after each filter.",
+    "Use Malus’s law successively.",
+    "First calculate the intensity after the first filter."
+   ]
+  },
+  {
+   "id": "9702-7.5-i09",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the final intensity for vertically polarised light of intensity 12 W m^-2 passing filters at 30° and then 90° to vertical.",
+   "marks": 2,
+   "answer": {
+    "value": 2.25,
+    "unit": "W m^-2",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 3.0,
+     "misconception": "m2"
+    },
+    {
+     "value": 12,
+     "misconception": "m3"
+    }
+   ],
+   "explanation": "Apply $I=I_0\\cos^2\\theta$ to each filter, using the angle between the incident polarisation and that filter axis.",
+   "hints": [
+    "Track the polarisation direction after each filter.",
+    "Use Malus’s law successively.",
+    "First calculate the intensity after the first filter."
+   ]
+  },
+  {
+   "id": "9702-7.5-i10",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State Malus’s law for a plane-polarised electromagnetic wave.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "$I=I_0\\cos^2\\theta$, where θ is the angle between incident polarisation and transmission axis.",
+     "keywords": [
+      [
+       "cos"
+      ],
+      [
+       "intensity",
+       "I_0"
+      ],
+      [
+       "angle",
+       "theta"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Malus’s law gives transmitted intensity from incident plane-polarised intensity.",
+   "hints": [
+    "Recall the wave direction involved.",
+    "Compare vibration with propagation.",
+    "Name the relevant plane or axis."
+   ]
+  },
+  {
+   "id": "9702-7.5-i11",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the intensity is zero when the transmission axis is perpendicular to the incident plane of polarisation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The angle is 90° and cos²90° = 0.",
+     "keywords": [
+      [
+       "90"
+      ],
+      [
+       "cos"
+      ],
+      [
+       "zero",
+       "0"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Malus’s law gives zero transmission for crossed directions.",
+   "hints": [
+    "Recall the wave direction involved.",
+    "Compare vibration with propagation.",
+    "Name the relevant plane or axis."
+   ]
+  },
+  {
+   "id": "9702-7.5-i12",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe how to calculate intensity through a series of polarising filters.",
+   "marks": 2,
+   "rubric": [
+    {
+     "point": "Apply Malus’s law to each filter successively.",
+     "keywords": [
+      [
+       "Malus"
+      ],
+      [
+       "each",
+       "successive"
+      ]
+     ]
+    },
+    {
+     "point": "Use the angle between consecutive axes after the first filter.",
+     "keywords": [
+      [
+       "angle"
+      ],
+      [
+       "axes",
+       "axis"
+      ],
+      [
+       "consecutive",
+       "adjacent"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Each output becomes the next input, polarised along the latest filter axis.",
+   "hints": [
+    "Recall the wave direction involved.",
+    "Compare vibration with propagation.",
+    "Name the relevant plane or axis."
+   ]
+  },
+  {
+   "id": "9702-7.5-p01",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q26",
+    "qid": "9702_s22_12_q26"
+   },
+   "stem": "Two polarising filters are placed next to each other so that their planes are parallel.\nThe first polarising filter has its transmission axis at an angle of 50° to the vertical.\nThe second polarising filter has its transmission axis at an angle of 20° to the vertical. The angle\nbetween the transmission axes of the two polarising filters is 30°.\nA beam of vertically polarised light of intensity 8.0 W m⁻² is incident normally on the first polarising\nfilter.\nWhat is the intensity of the light that is transmitted from the second polarising filter?",
+   "options": {
+    "A": "zero",
+    "B": "2.5 W m⁻²",
+    "C": "2.9 W m⁻²",
+    "D": "6.0 W m⁻²"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The angles are 50° then 30°, giving $8.0\\cos^250°\\cos^230°=2.5\\\\,\\mathrm{W\\,m^{-2}}$. Option C uses 20° for the second filter, ignoring the new polarisation direction.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p02",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q23",
+    "qid": "9702_w22_12_q23"
+   },
+   "stem": "Which statement about progressive transverse and longitudinal waves is correct?",
+   "options": {
+    "A": "Particles in a transverse wave have fixed equilibrium positions but those in longitudinal waves do not.",
+    "B": "Transverse waves can be polarised but longitudinal waves cannot.",
+    "C": "Transverse waves transfer energy but longitudinal waves do not.",
+    "D": "Two-source interference can be demonstrated with transverse waves but not with longitudinal waves."
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Polarisation is possible for transverse waves because their vibrations can be restricted to one transverse plane. The tempting alternative confuses this with a property shared by longitudinal waves.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p03",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q24",
+    "qid": "9702_s23_11_q24"
+   },
+   "stem": "A vertically polarised beam of light is incident normally on a polarising filter. The transmission axis\nof the filter is at an angle of 40° to the horizontal.\n40\u0001\nbeam of vertically\npolarised light\ntransmission axis\nof polarising filter\npolarising filter\nbeam of\ntransmitted light\nhorizontal\nWhat is the ratio\nbeam\nincident\nof\namplitude\nbeam\nd\ntransmitte\nof\namplitude\n?",
+   "options": {
+    "A": "0.41",
+    "B": "0.59",
+    "C": "0.64",
+    "D": "0.77"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_11_q24.png",
+   "marks": 1,
+   "explanation": "The angle to vertical is 50°. Intensity ratio is $\\cos^250°$, while amplitude ratio is $\\cos50°=0.64$; B and D confuse the angle or intensity with amplitude.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p04",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q24",
+    "qid": "9702_s23_12_q24"
+   },
+   "stem": "A vertically polarised beam of light of intensity I₀ is incident normally on a polarising filter.\nThe transmission axis of the filter is at 45° to the vertical. The beam of light transmitted by this\nfilter is then incident normally on a second filter. The transmission axis of the second filter is\nhorizontal.\n45\u0001\nI₀\nvertically\npolarised\nlight\ntransmission axis\nof first filter\ntransmission axis\nof second filter\nWhat is the intensity of the beam of light after transmission through the second filter?",
+   "options": {
+    "A": "0",
+    "B": "4 ¹ I₀",
+    "C": "2 ¹ I₀",
+    "D": "I₀"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s23_12_q24.png",
+   "marks": 1,
+   "explanation": "Each of the two filters makes 45° to the incoming polarisation, giving $I_0\\cos^245°\\cos^245°=I_0/4$. Option C applies the law only once.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p05",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q24",
+    "qid": "9702_w23_12_q24"
+   },
+   "stem": "A plane polarised light wave of intensity I₀ is incident normally on a polarising filter. The initial\nintensity of the transmitted wave is 0.\nA second polarising filter is then inserted between the source and the first filter. Its transmission\naxis is at 45° to the transmission axis of the first filter, as shown.\nsource of polarised light,\nintensity I₀\ntransmission axis\nof second filter at 45\u0002\nto transmission axis\nof first filter\ntransmission axis\nof first filter\ndirection of travel\nof light wave\n45\u0002\nWhat is the intensity of the transmitted wave from the filter combination?",
+   "options": {
+    "A": "0",
+    "B": "8 0 I",
+    "C": "4 0 I",
+    "D": "2 0 I"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w23_12_q24.png",
+   "marks": 1,
+   "explanation": "The middle filter makes 45° to each crossed direction, giving $I_0\\cos^245°\\cos^245°=I_0/4$. Option A assumes crossed end filters still block all light.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p06",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q24",
+    "qid": "9702_w23_13_q24"
+   },
+   "stem": "A vertically polarised electromagnetic wave of intensity I₀ is incident normally on a polarising\nfilter. The transmission axis of the filter is at an angle of 30° to the vertical.\nThe transmitted wave from the first filter is then incident normally on a second polarising filter.\nThe transmission axis of this filter is at an angle of 90° to the vertical.\n30\u0002\npolarising\nfilters\ntransmission axis\ntransmission axis\nvertically polarised\nelectromagnetic wave\nWhat is the intensity of the wave after passing through the second filter?",
+   "options": {
+    "A": "0",
+    "B": "0.063 I₀",
+    "C": "0.19 I₀",
+    "D": "0.56 I₀"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w23_13_q24.png",
+   "marks": 1,
+   "explanation": "The angles are 30° then 60°, giving $I_0\\cos^230°\\cos^260°\u0007pprox0.19I_0$. Option D uses the final axis relative to the initial polarisation.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p07",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q24",
+    "qid": "9702_s24_11_q24"
+   },
+   "stem": "A plane polarised wave has amplitude A. The wave is incident normally on a polarising filter.\nThe transmission axis of the filter is at angle θ to the plane of polarisation of the incident wave.\nWhat is the amplitude of the wave that emerges from the filter?",
+   "options": {
+    "A": "A cosθ",
+    "B": "A cos²θ",
+    "C": "A² cosθ",
+    "D": "A² cos²θ"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "Since intensity is proportional to amplitude squared, $A_{out}=A\\cos\\theta$. Option B applies the intensity factor directly to amplitude.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p08",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q29",
+    "qid": "9702_s24_11_q29"
+   },
+   "stem": "Which wave cannot be a longitudinal wave?",
+   "options": {
+    "A": "a diffracted wave",
+    "B": "a polarised wave",
+    "C": "a reflected wave",
+    "D": "a stationary wave"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Polarisation is possible for transverse waves because their vibrations can be restricted to one transverse plane. The tempting alternative confuses this with a property shared by longitudinal waves.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p09",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q24",
+    "qid": "9702_s24_12_q24"
+   },
+   "stem": "Polarisation is associated with certain waves.\nWhich waves cannot be polarised?",
+   "options": {
+    "A": "radio waves from a transmitter",
+    "B": "sound waves from a moving source",
+    "C": "ultraviolet rays from the Sun",
+    "D": "X-rays from an X-ray emitter"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Polarisation is possible for transverse waves because their vibrations can be restricted to one transverse plane. The tempting alternative confuses this with a property shared by longitudinal waves.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p10",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q29",
+    "qid": "9702_w24_11_q29"
+   },
+   "stem": "Radio waves can be polarised, but sound waves cannot be polarised.\nWhich statement gives the reason for this?",
+   "options": {
+    "A": "Radio waves are generally of a higher frequency than sound waves.",
+    "B": "Radio waves are transverse waves, but sound waves are longitudinal waves.",
+    "C": "Radio waves can travel through a vacuum, but sound waves cannot travel through a vacuum.",
+    "D": "Radio waves travel at a much higher speed than sound waves."
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Polarisation is possible for transverse waves because their vibrations can be restricted to one transverse plane. The tempting alternative confuses this with a property shared by longitudinal waves.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p11",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q28",
+    "qid": "9702_s25_11_q28"
+   },
+   "stem": "Which group contains only waves that can be polarised?",
+   "options": {
+    "A": "infrared waves, radio waves, sound waves",
+    "B": "visible light waves, microwaves, radio waves",
+    "C": "visible light waves, radio waves, sound waves",
+    "D": "microwaves, visible light waves, sound waves"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Polarisation is possible for transverse waves because their vibrations can be restricted to one transverse plane. The tempting alternative confuses this with a property shared by longitudinal waves.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-p12",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q25",
+    "qid": "9702_s25_13_q25"
+   },
+   "stem": "Which phenomenon is only associated with transverse waves?",
+   "options": {
+    "A": "diffraction",
+    "B": "interference",
+    "C": "polarisation",
+    "D": "reflection"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Polarisation is possible for transverse waves because their vibrations can be restricted to one transverse plane. The tempting alternative confuses this with a property shared by longitudinal waves.",
+   "hints": [],
+   "distractors": {}
+  },
+  {
+   "id": "9702-7.5-x001",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q24",
+    "qid": "9702_s23_13_q24"
+   },
+   "stem": "A source of plane polarised light is observed through two polarising filters.\nsource of\npolarised light\nrotated\nanticlockwise\nrotated\nclockwise\npolarising filters\nobserver\nThe filters are positioned so that the source appears at its brightest. One of the filters is then\nrotated clockwise and the other filter is rotated anticlockwise through the same angle.\nHow does the source appear when both filters have been rotated 90° and 180° from their initial\npositions?\n90°\n180°",
+   "options": {
+    "A": "brightest brightest",
+    "B": "brightest darkest",
+    "C": "darkest brightest",
+    "D": "darkest darkest"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_13_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.5-x002",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q24",
+    "qid": "9702_w23_11_q24"
+   },
+   "stem": "Vertically polarised microwaves are emitted from a source. The microwaves are detected by a\nreceiver that is connected to a cathode-ray oscilloscope (CRO). The waveform displayed on the\nscreen of the CRO has an amplitude of 2.6 cm.\nA metal wire grid that acts as a polarising filter is now placed between the source and the\nreceiver. The filter is orientated so that the plane of polarisation of the transmitted wave is at an\nangle of 20° to the vertical.\n20°\ntransmission axis\nof polarising filter\ntransmitted wave\nto receiver\npolarising filter\nsource of vertically\npolarised microwaves\nThe distance between the source and receiver is unchanged. The settings on the CRO are also\nunchanged.\nWhat is now the amplitude of the waveform displayed on the screen of the CRO?",
+   "options": {
+    "A": "0.30 cm",
+    "B": "0.89 cm",
+    "C": "2.3 cm",
+    "D": "2.4 cm"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w23_11_q24.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "For weaker candidates, the incorrect answers B and C were the most popular. Candidates should be able to recall both Malus’ law and the relationship between the amplitude and the intensity of a wave (intensity ∝ amplitude2). If the original intensity of the microwaves is I0, the intensity I1 of the transmitted wave is: I1 = I0 cos2 20° = 0.88 I0 If the corresponding amplitudes observed on the oscilloscope are A0 and A1 then: 0 1 1 1 0 0 0 0 0.88 2.6 0.88 2.4 cm A A A A =  = = × = I I I I (Answer D)"
+  },
+  {
+   "id": "9702-7.5-x003",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q26",
+    "qid": "9702_s24_13_q26"
+   },
+   "stem": "A student investigates the polarisation of microwaves. The microwaves from the transmitter are\nvertically polarised. A metal grille acts as a polarising filter when placed between the microwave\ntransmitter and the receiver. The reading on the voltmeter is proportional to the intensity of\nmicrowaves transmitted through the grille.\nWhen the transmission axis of the grille is vertical, the voltmeter reads 3.50 V.\ntransmitter\nmetal grille\nreceiver\nvoltmeter\nThe grille is then rotated through an angle θ. The voltmeter now reads 2.20 V.\nWhat is θ ?",
+   "options": {
+    "A": "37.5°",
+    "B": "39.0°",
+    "C": "51.0°",
+    "D": "52.5°"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_13_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.5-x004",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q23",
+    "qid": "9702_w24_12_q23"
+   },
+   "stem": "A horizontal beam of vertically polarised light of amplitude A is incident normally on a polarising\nfilter. The transmission axis of the filter is at an angle of 50° to the vertical.\nWhat is the amplitude of the light in the beam after it has passed through the filter?",
+   "options": {
+    "A": "0.17A",
+    "B": "0.41A",
+    "C": "0.64A",
+    "D": "0.80A"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.5-x005",
+   "kcs": [
+    "9702-7.5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q27",
+    "qid": "9702_s25_12_q27"
+   },
+   "stem": "Vertically polarised light of intensity I₀ is incident normally on a polarising filter.\nThe transmission axis of the filter is at an angle θ to the plane of polarisation of the light.\nThe intensity of the light after passing through the filter is 3\n⁰I .\n\u0001\nlight\nintensity I₀\ndirection of\ntransmission axis\nlight\nintensity\nI₀\n3\nWhat is θ ?",
+   "options": {
+    "A": "8.4°",
+    "B": "55°",
+    "C": "71°",
+    "D": "84°"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_12_q27.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-7.5-x006",
+   "kcs": [
+    "9702-7.5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q28",
+    "qid": "9702_s25_12_q28"
+   },
+   "stem": "Which statement compares the behaviour of transverse and longitudinal waves?",
+   "options": {
+    "A": "Only longitudinal waves can be diffracted.",
+    "B": "Only longitudinal waves can travel in free space.",
+    "C": "Only transverse waves can be coherent.",
+    "D": "Only transverse waves can be polarised."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-7.5.1",
+   "front": "What is polarisation?",
+   "back": "The restriction of transverse wave vibrations to one plane perpendicular to the direction of propagation."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-7.5.2",
+   "front": "State Malus’s law and define θ.",
+   "back": "$I=I_0\\cos^2\\theta$; θ is the angle between the incident plane of polarisation and the filter transmission axis."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9702-7.5.1": {
+   "motivate": "Why can rotating a polarising filter dim light but not ordinary sound in air? The answer reveals the direction in which each wave vibrates.",
+   "establish": "Polarisation is the restriction of vibrations of a transverse wave to one plane perpendicular to its direction of propagation. Transverse waves vibrate perpendicular to their travel direction, so a plane of vibration can be selected. Electromagnetic waves, including visible light, radio waves and microwaves, are transverse and can be polarised. Ordinary sound in air is longitudinal: vibrations are parallel to propagation, so it cannot be polarised. The ability to polarise a wave is therefore evidence that it is transverse.",
+   "connect": "This builds directly on transverse and longitudinal wave directions. Diffraction, interference and reflection occur for both wave types; polarisation distinguishes transverse waves.",
+   "note": "- Polarisation: restriction of transverse vibrations to one plane.\n- Electromagnetic waves can be polarised; ordinary sound in air cannot.\n- Polarisation provides evidence of transverse vibration.",
+   "self_explain": "Why does selecting one plane of vibration show that the wave must be transverse?",
+   "discover": {
+    "stem": "Which phenomenon identifies a wave as transverse?",
+    "options": {
+     "A": "diffraction",
+     "B": "interference",
+     "C": "polarisation",
+     "D": "reflection"
+    },
+    "answer": "C",
+    "explanation": "Only transverse vibrations can be restricted to one transverse plane."
+   },
+   "source": "pack"
+  },
+  "9702-7.5.2": {
+   "motivate": "A filter can dim plane-polarised light by an amount set by its angle. With several filters, the angle for each step changes because each filter sets a new polarisation direction.",
+   "establish": "Malus’s law for an incident plane-polarised electromagnetic wave is $I=I_0\\cos^2\\theta$, where $I_0$ is incident intensity, $I$ is transmitted intensity and $\\theta$ is the angle between the incident plane of polarisation and the filter's transmission axis. After transmission, the wave is polarised along that axis. For a series of filters, apply the law successively, using the angle between consecutive axes for each filter after the first. At $90°$ the ideal transmitted intensity is zero. Because intensity is proportional to amplitude squared, the amplitude ratio for one filter is $|\\cos\\theta|$. The effect of a filter on unpolarised incident light is not a required calculation here.",
+   "connect": "The direction selected in the polarisation idea now becomes the reference for calculating intensity through the next filter.",
+   "note": "- $I=I_0\\cos^2\\theta$ for plane-polarised incident radiation.\n- $\\theta$ is between incoming polarisation and filter axis.\n- Each output is polarised along its filter axis.\n- Use adjacent-axis angles for later filters.\n- Amplitude ratio is $|\\cos\\theta|$.",
+   "self_explain": "Why does the second filter use the angle between its axis and the first filter's axis rather than the original polarisation?",
+   "discover": {
+    "stem": "Vertically polarised light passes filters at 50° and 20° to vertical. What angle belongs in Malus’s law for the second filter?",
+    "options": {
+     "A": "20°",
+     "B": "30°",
+     "C": "50°",
+     "D": "70°"
+    },
+    "answer": "B",
+    "explanation": "The first filter resets polarisation to 50° from vertical, so the second axis differs by 30°."
+   },
+   "source": "pack"
+  }
+ }
+}

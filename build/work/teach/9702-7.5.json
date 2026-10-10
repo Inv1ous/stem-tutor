@@ -1,0 +1,38 @@
+{
+  "9702-7.5.1": {
+    "motivate": "Why can rotating a polarising filter dim light but not ordinary sound in air? The answer reveals the direction in which each wave vibrates.",
+    "establish": "Polarisation is the restriction of vibrations of a transverse wave to one plane perpendicular to its direction of propagation. Transverse waves vibrate perpendicular to their travel direction, so a plane of vibration can be selected. Electromagnetic waves, including visible light, radio waves and microwaves, are transverse and can be polarised. Ordinary sound in air is longitudinal: vibrations are parallel to propagation, so it cannot be polarised. The ability to polarise a wave is therefore evidence that it is transverse.",
+    "connect": "This builds directly on transverse and longitudinal wave directions. Diffraction, interference and reflection occur for both wave types; polarisation distinguishes transverse waves.",
+    "note": "- Polarisation: restriction of transverse vibrations to one plane.\n- Electromagnetic waves can be polarised; ordinary sound in air cannot.\n- Polarisation provides evidence of transverse vibration.",
+    "self_explain": "Why does selecting one plane of vibration show that the wave must be transverse?",
+    "discover": {
+      "stem": "Which phenomenon identifies a wave as transverse?",
+      "options": {
+        "A": "diffraction",
+        "B": "interference",
+        "C": "polarisation",
+        "D": "reflection"
+      },
+      "answer": "C",
+      "explanation": "Only transverse vibrations can be restricted to one transverse plane."
+    }
+  },
+  "9702-7.5.2": {
+    "motivate": "A filter can dim plane-polarised light by an amount set by its angle. With several filters, the angle for each step changes because each filter sets a new polarisation direction.",
+    "establish": "Malus’s law for an incident plane-polarised electromagnetic wave is $I=I_0\\cos^2\\theta$, where $I_0$ is incident intensity, $I$ is transmitted intensity and $\\theta$ is the angle between the incident plane of polarisation and the filter's transmission axis. After transmission, the wave is polarised along that axis. For a series of filters, apply the law successively, using the angle between consecutive axes for each filter after the first. At $90°$ the ideal transmitted intensity is zero. Because intensity is proportional to amplitude squared, the amplitude ratio for one filter is $|\\cos\\theta|$. The effect of a filter on unpolarised incident light is not a required calculation here.",
+    "connect": "The direction selected in the polarisation idea now becomes the reference for calculating intensity through the next filter.",
+    "note": "- $I=I_0\\cos^2\\theta$ for plane-polarised incident radiation.\n- $\\theta$ is between incoming polarisation and filter axis.\n- Each output is polarised along its filter axis.\n- Use adjacent-axis angles for later filters.\n- Amplitude ratio is $|\\cos\\theta|$.",
+    "self_explain": "Why does the second filter use the angle between its axis and the first filter's axis rather than the original polarisation?",
+    "discover": {
+      "stem": "Vertically polarised light passes filters at 50° and 20° to vertical. What angle belongs in Malus’s law for the second filter?",
+      "options": {
+        "A": "20°",
+        "B": "30°",
+        "C": "50°",
+        "D": "70°"
+      },
+      "answer": "B",
+      "explanation": "The first filter resets polarisation to 50° from vertical, so the second axis differs by 30°."
+    }
+  }
+}

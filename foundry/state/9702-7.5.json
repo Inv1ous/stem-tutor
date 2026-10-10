@@ -1,0 +1,128 @@
+{
+ "sub": "9702-7.5",
+ "stage": "ready",
+ "created": "2026-10-10T15:30:06+08:00",
+ "updated": "2026-10-10T15:39:18+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:33:43+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 30 items"
+  },
+  {
+   "t": "2026-10-10T15:37:00+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "24 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T15:38:06+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-10T15:39:18+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 30,
+  "extra": 6
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 60824,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:31:36+08:00",
+   "log": "foundry/logs/9702-7.5.drafter.1010-153136.log",
+   "out": "foundry/logs/9702-7.5.drafter.1010-153136.out.json",
+   "finished": "2026-10-10T15:33:43+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-7.5.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/07 Waves/7.5 Polarisation.md",
+    "items": 30,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Some past-paper stems and options contain extraction artifacts from the supplied question bank; check them against the linked images before student use."
+    ]
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 64033,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:36:14+08:00",
+   "log": "foundry/logs/9702-7.5.solver-1.1010-153614.log",
+   "out": "foundry/logs/9702-7.5.solver-1.1010-153614.out.json",
+   "expects": "build/work/blind/9702-7.5.answers.part1.json",
+   "finished": "2026-10-10T15:36:39+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-7.5.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 64035,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:36:14+08:00",
+   "log": "foundry/logs/9702-7.5.solver-2.1010-153614.log",
+   "out": "foundry/logs/9702-7.5.solver-2.1010-153614.out.json",
+   "expects": "build/work/blind/9702-7.5.answers.part2.json",
+   "finished": "2026-10-10T15:36:30+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 4 questions in `build/work/blind/9702-7.5.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 65207,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:37:31+08:00",
+   "log": "foundry/logs/9702-7.5.checker.1010-153731.log",
+   "out": "foundry/logs/9702-7.5.checker.1010-153731.out.json",
+   "expects": "build/work/foundry/9702-7.5.check.json",
+   "finished": "2026-10-10T15:38:01+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote [9702-7.5.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9702-7.5.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s23_13_q24": "9702-7.5-x001",
+  "9702_w23_11_q24": "9702-7.5-x002",
+  "9702_s24_13_q26": "9702-7.5-x003",
+  "9702_w24_12_q23": "9702-7.5-x004",
+  "9702_s25_12_q27": "9702-7.5-x005",
+  "9702_s25_12_q28": "9702-7.5-x006"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
