@@ -1,0 +1,113 @@
+{
+ "sub": "S1-5",
+ "stage": "ready",
+ "created": "2026-10-10T13:47:01+08:00",
+ "updated": "2026-10-10T14:22:22+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T13:49:57+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 24 items"
+  },
+  {
+   "t": "2026-10-10T14:21:57+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "21 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:22:22+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 24,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 3325,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:47:31+08:00",
+   "log": "foundry/logs/S1-5.drafter.1010-134731.log",
+   "out": "foundry/logs/S1-5.drafter.1010-134731.out.json",
+   "finished": "2026-10-10T13:49:57+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/S1/S1-5.json",
+    "note_path": "build/out/notes/Subjects/Maths/S1 Statistics 1/5 Discrete random variables.md",
+    "items": 24,
+    "templates": 0,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 28320,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:21:16+08:00",
+   "log": "foundry/logs/S1-5.solver-1.1010-142116.log",
+   "out": "foundry/logs/S1-5.solver-1.1010-142116.out.json",
+   "expects": "build/work/blind/S1-5.answers.part1.json",
+   "finished": "2026-10-10T14:21:28+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [S1-5.answers.part1.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/S1-5.answers.part1.json)."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 28776,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:21:36+08:00",
+   "log": "foundry/logs/S1-5.solver-2.1010-142136.log",
+   "out": "foundry/logs/S1-5.solver-2.1010-142136.out.json",
+   "expects": "build/work/blind/S1-5.answers.part2.json",
+   "finished": "2026-10-10T14:21:48+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question and wrote [S1-5.answers.part2.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/S1-5.answers.part2.json)."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 28778,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:21:36+08:00",
+   "log": "foundry/logs/S1-5.checker.1010-142136.log",
+   "out": "foundry/logs/S1-5.checker.1010-142136.out.json",
+   "expects": "build/work/foundry/S1-5.check.json",
+   "finished": "2026-10-10T14:21:50+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — [S1-5.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/S1-5.check.json)"
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

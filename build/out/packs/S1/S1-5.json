@@ -1,0 +1,974 @@
+{
+ "subtopic": "S1-5",
+ "spec": "S1",
+ "version": 1,
+ "note": "Subjects/Maths/S1 Statistics 1/5 Discrete random variables.md",
+ "outline": "A discrete random variable has countable numerical values. Its probability function is $p(x)=P(X=x)$; its cumulative distribution function sums up to $x$. The mean is $E(X)=\\sum xp(x)$ and variance is $E(X^2)-[E(X)]^2$. Linear transformations change mean and variance differently. A discrete uniform variable has equally likely values.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "S1-5.2",
+   "statement": "Cumulative probability concerns one value.",
+   "refutation": "$F(x)$ sums all probabilities at or below $x$.",
+   "contrast": "$p(x)=P(X=x)$; $F(x)=P(X\\leq x)$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "S1-5.3",
+   "statement": "Variance is $E(X^2)-E(X)$.",
+   "refutation": "Square the mean in $E(X^2)-[E(X)]^2$.",
+   "contrast": "Calculate both moments first.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "S1-5.3",
+   "statement": "Adding a constant increases variance.",
+   "refutation": "A shift does not change spread.",
+   "contrast": "$\\operatorname{Var}(aX+b)=a^2\\operatorname{Var}(X)$.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "S1-5.4",
+   "statement": "Uniform means equally spaced values.",
+   "refutation": "Uniform means equal probabilities.",
+   "contrast": "Equal spacing alone is insufficient.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "S1-5.2",
+   "problem": "Find $F(1)$ when $p(0)=0.2$, $p(1)=0.3$, $p(2)=0.5$.",
+   "steps": [
+    {
+     "do": "Write $F(1)=P(X\\leq1)$.",
+     "why": "The bound is inclusive.",
+     "check": null
+    },
+    {
+     "do": "Add $0.2+0.3=0.5$.",
+     "why": "Both eligible probabilities contribute.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.5,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find $F(1)$ when $p(0)=0.1$, $p(1)=0.2$, $p(2)=0.7$.",
+    "answer": {
+     "value": 0.3,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "S1-5.3",
+   "problem": "Find the variance of $X=0,1,2$ with probabilities $0.25,0.5,0.25$.",
+   "steps": [
+    {
+     "do": "Find $E(X)=1$.",
+     "why": "Weight each value by its probability.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.0,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Find $E(X^2)=1.5$.",
+     "why": "Square each value before weighting.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.5,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Calculate $1.5-1^2=0.5$.",
+     "why": "Subtract the squared mean.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.5,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Find the variance for $X=0,1,2$ with probabilities $0.5,0.25,0.25$.",
+    "answer": {
+     "value": 0.6875,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "S1-5.4",
+   "problem": "Find the mean and variance of a fair die score.",
+   "steps": [
+    {
+     "do": "Count $n=6$ equally likely scores.",
+     "why": "Uniformity permits the standard formula.",
+     "check": null
+    },
+    {
+     "do": "Calculate $(1+6)/2=3.5$.",
+     "why": "The mean is the midpoint.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.5,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Calculate $(6^2-1)/12=35/12$.",
+     "why": "There are six consecutive integers.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.9166666666666665,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Find the variance of a uniform variable on 1, 2, 3, 4.",
+    "answer": {
+     "value": 1.25,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "S1-5-i01",
+   "kcs": [
+    "S1-5.1"
+   ],
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what a random variable assigns to outcomes.",
+   "marks": 1,
+   "explanation": "number and outcome",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "short",
+   "rubric": [
+    {
+     "point": "number|outcome",
+     "keywords": [
+      [
+       "number"
+      ],
+      [
+       "outcome"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-5-i02",
+   "kcs": [
+    "S1-5.1"
+   ],
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain what makes a random variable discrete.",
+   "marks": 1,
+   "explanation": "countable and values",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "short",
+   "rubric": [
+    {
+     "point": "countable|values",
+     "keywords": [
+      [
+       "countable"
+      ],
+      [
+       "values"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-5-i03",
+   "kcs": [
+    "S1-5.1"
+   ],
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the number of heads in four tosses is discrete.",
+   "marks": 1,
+   "explanation": "finite and values",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "short",
+   "rubric": [
+    {
+     "point": "finite|values",
+     "keywords": [
+      [
+       "finite"
+      ],
+      [
+       "values"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-5-i04",
+   "kcs": [
+    "S1-5.1"
+   ],
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why exact time is not a discrete random variable.",
+   "marks": 1,
+   "explanation": "continuous and range",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "short",
+   "rubric": [
+    {
+     "point": "continuous|range",
+     "keywords": [
+      [
+       "continuous"
+      ],
+      [
+       "range"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-5-i05",
+   "kcs": [
+    "S1-5.1"
+   ],
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how a red or blue draw can become a random variable.",
+   "marks": 1,
+   "explanation": "assign and numbers",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "short",
+   "rubric": [
+    {
+     "point": "assign|numbers",
+     "keywords": [
+      [
+       "assign"
+      ],
+      [
+       "numbers"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-5-i06",
+   "kcs": [
+    "S1-5.1"
+   ],
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a complete probability distribution sums to one.",
+   "marks": 1,
+   "explanation": "all and outcomes",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "short",
+   "rubric": [
+    {
+     "point": "all|outcomes",
+     "keywords": [
+      [
+       "all"
+      ],
+      [
+       "outcomes"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-5-i07",
+   "kcs": [
+    "S1-5.2"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $X=0,1,2$ with probabilities $0.2,0.3,0.5$, calculate $p(1)$.",
+   "marks": 1,
+   "explanation": "$p(1)=P(X=1)=0.3$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 0.3,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i08",
+   "kcs": [
+    "S1-5.2"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $F(1)$.",
+   "marks": 1,
+   "explanation": "$F(1)=p(0)+p(1)=0.5$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 0.5,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i09",
+   "kcs": [
+    "S1-5.2"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $P(X>0)$.",
+   "marks": 1,
+   "explanation": "$P(X>0)=p(1)+p(2)=0.8$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 0.8,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i10",
+   "kcs": [
+    "S1-5.2"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $F(0)$.",
+   "marks": 1,
+   "explanation": "Only $X=0$ is included.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 0.2,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i11",
+   "kcs": [
+    "S1-5.2"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $P(X\\leq2)$.",
+   "marks": 1,
+   "explanation": "All possible values are included.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 1.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i12",
+   "kcs": [
+    "S1-5.2"
+   ],
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $P(0<X\\leq2)$.",
+   "marks": 1,
+   "explanation": "Add $p(1)+p(2)$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 0.8,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i13",
+   "kcs": [
+    "S1-5.3"
+   ],
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $X=0,1,2$ with probabilities $0.25,0.5,0.25$, calculate $E(X)$.",
+   "marks": 1,
+   "explanation": "$E(X)=\\sum xp(x)=1$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 1.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i14",
+   "kcs": [
+    "S1-5.3"
+   ],
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $E(X^2)$.",
+   "marks": 1,
+   "explanation": "$E(X^2)=\\sum x^2p(x)=1.5$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 1.5,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i15",
+   "kcs": [
+    "S1-5.3"
+   ],
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $\\operatorname{Var}(X)$.",
+   "marks": 1,
+   "explanation": "$E(X^2)-[E(X)]^2=0.5$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 0.5,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i16",
+   "kcs": [
+    "S1-5.3"
+   ],
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $E(3X+2)$.",
+   "marks": 1,
+   "explanation": "$3E(X)+2=5$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i17",
+   "kcs": [
+    "S1-5.3"
+   ],
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $\\operatorname{Var}(3X+2)$.",
+   "marks": 1,
+   "explanation": "$3^2\\operatorname{Var}(X)=4.5$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 4.5,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i18",
+   "kcs": [
+    "S1-5.3"
+   ],
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For the same distribution, calculate $E(2X-1)$.",
+   "marks": 1,
+   "explanation": "$2E(X)-1=1$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 1.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i19",
+   "kcs": [
+    "S1-5.4"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For a fair die scored 1 to 6, calculate $P(X=4)$.",
+   "marks": 1,
+   "explanation": "Each of six outcomes has probability $1/6$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 0.16666666666666666,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i20",
+   "kcs": [
+    "S1-5.4"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For a fair die scored 1 to 6, calculate $E(X)$.",
+   "marks": 1,
+   "explanation": "The mean is $(1+6)/2=3.5$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 3.5,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i21",
+   "kcs": [
+    "S1-5.4"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For a fair die scored 1 to 6, calculate $\\operatorname{Var}(X)$.",
+   "marks": 1,
+   "explanation": "Use $(6^2-1)/12=35/12$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 2.9166666666666665,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i22",
+   "kcs": [
+    "S1-5.4"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For a uniform variable on 2, 3, 4, 5, 6, calculate its mean.",
+   "marks": 1,
+   "explanation": "The mean is $(2+6)/2=4$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 4.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i23",
+   "kcs": [
+    "S1-5.4"
+   ],
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For a uniform variable on 2, 3, 4, 5, 6, calculate its variance.",
+   "marks": 1,
+   "explanation": "Use $(5^2-1)/12=2$.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 2.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "S1-5-i24",
+   "kcs": [
+    "S1-5.4"
+   ],
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For a uniform variable on 1, 2, 3, 4, calculate $P(X\\leq2)$.",
+   "marks": 1,
+   "explanation": "Two of four equally likely outcomes qualify.",
+   "hints": [
+    "Identify the relevant definition or formula.",
+    "List the possible values and their probabilities.",
+    "Substitute the given information and simplify."
+   ],
+   "kind": "numeric",
+   "answer": {
+    "value": 0.5,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   }
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "S1-5.1",
+   "front": "What is a discrete random variable?",
+   "back": "A random variable with a finite or countably infinite set of possible values."
+  },
+  {
+   "id": "fc2",
+   "kc": "S1-5.2",
+   "front": "Define $p(x)$ and $F(x_0)$.",
+   "back": "$p(x)=P(X=x)$; $F(x_0)=P(X\\leq x_0)=\\sum_{x\\leq x_0}p(x)$."
+  },
+  {
+   "id": "fc3",
+   "kc": "S1-5.3",
+   "front": "State the mean and variance formulae.",
+   "back": "$E(X)=\\sum xp(x)$ and $\\operatorname{Var}(X)=E(X^2)-[E(X)]^2$."
+  },
+  {
+   "id": "fc4",
+   "kc": "S1-5.3",
+   "front": "State the linear transformation rules.",
+   "back": "$E(aX+b)=aE(X)+b$; $\\operatorname{Var}(aX+b)=a^2\\operatorname{Var}(X)$."
+  },
+  {
+   "id": "fc5",
+   "kc": "S1-5.4",
+   "front": "State the mean and variance on $1,\\ldots,n$.",
+   "back": "$E(X)=(n+1)/2$ and $\\operatorname{Var}(X)=(n^2-1)/12$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "S1-5.1": {
+   "motivate": "A score turns each outcome of a game into a number we can analyse.",
+   "establish": "A random variable assigns a numerical value to each outcome of a random experiment. A discrete random variable has a finite or countably infinite set of possible values. The number of heads in four tosses is discrete, with values $0,1,2,3,4$. Exact measured time varies continuously and is not discrete. A probability distribution pairs each possible value with its probability. These probabilities are non-negative and sum to one.",
+   "connect": "This builds on elementary probability: events are now described by values of $X$.",
+   "note": "- A random variable assigns numbers to outcomes.\n- Discrete values form a finite or countable set.\n- Distribution probabilities sum to one.",
+   "self_explain": "Why is a count of heads discrete while exact time is not?",
+   "source": "pack"
+  },
+  "S1-5.2": {
+   "motivate": "A probability table answers questions about one score and about all scores up to a cutoff.",
+   "establish": "The probability function is $p(x)=P(X=x)$. The cumulative distribution function is $F(x_0)=P(X\\leq x_0)=\\sum_{x\\leq x_0}p(x)$. It includes every possible value no greater than $x_0$, including the endpoint. For $p(0)=0.2$, $p(1)=0.3$ and $p(2)=0.5$, $F(1)=0.2+0.3=0.5$. As the cutoff increases, cumulative probability cannot decrease. To find a probability above a cutoff, subtract its cumulative probability from one.",
+   "connect": "Sums of the probability function also give weighted averages and variance.",
+   "note": "- $p(x)=P(X=x)$ concerns one value.\n- $F(x_0)=P(X\\leq x_0)=\\sum_{x\\leq x_0}p(x)$.\n- The endpoint is included in $F$.",
+   "self_explain": "Which table entries contribute to $F(1)$ when $X$ can be 0, 1 or 2?",
+   "source": "pack"
+  },
+  "S1-5.3": {
+   "motivate": "Probabilities describe both a typical score and how widely scores vary.",
+   "establish": "The mean is $E(X)=\\sum xp(x)$ and the second moment is $E(X^2)=\\sum x^2p(x)$. The variance is $\\operatorname{Var}(X)=E(X^2)-[E(X)]^2$. Square each value before computing $E(X^2)$, then square the mean separately. For constants $a,b$, $E(aX+b)=aE(X)+b$ and $\\operatorname{Var}(aX+b)=a^2\\operatorname{Var}(X)$. Adding $b$ shifts every value and its mean equally, leaving spread unchanged; multiplying by $a$ scales squared deviations by $a^2$.",
+   "connect": "These are weighted sums of the probability function.",
+   "note": "- $E(X)=\\sum xp(x)$ and $E(X^2)=\\sum x^2p(x)$.\n- $\\operatorname{Var}(X)=E(X^2)-[E(X)]^2$.\n- $E(aX+b)=aE(X)+b$.\n- $\\operatorname{Var}(aX+b)=a^2\\operatorname{Var}(X)$.",
+   "self_explain": "Why does adding five change the mean but leave variance unchanged?",
+   "source": "pack"
+  },
+  "S1-5.4": {
+   "motivate": "On a fair die, no face deserves a larger probability than another.",
+   "establish": "A discrete uniform distribution assigns the same probability to each possible value. If there are $n$ values, each has probability $1/n$. For consecutive integers $1,2,\\ldots,n$, the mean is $(n+1)/2$ and variance is $(n^2-1)/12$. For consecutive integers $r,\\ldots,s$, count $n=s-r+1$; the mean is $(r+s)/2$ and variance remains $(n^2-1)/12$. Shifting every value leaves variance unchanged. Equal spacing alone does not establish uniformity: probabilities must be equal.",
+   "connect": "The uniform formulas are shortcuts to the general mean and variance sums.",
+   "note": "- Uniform means equal probability at every value.\n- On $1,\\ldots,n$, each probability is $1/n$.\n- Mean $(n+1)/2$; variance $(n^2-1)/12$.\n- On $r,\\ldots,s$, use $n=s-r+1$.",
+   "self_explain": "What evidence is needed before using a discrete uniform variance formula?",
+   "source": "pack"
+  }
+ }
+}
