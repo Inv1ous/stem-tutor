@@ -1,0 +1,169 @@
+{
+ "sub": "9701-11.2",
+ "stage": "ready",
+ "created": "2026-10-10T16:13:33+08:00",
+ "updated": "2026-10-10T16:26:39+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:15:35+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 29 items"
+  },
+  {
+   "t": "2026-10-10T16:18:02+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "11 agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-10T16:19:25+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "1 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:25:06+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:26:14+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:26:39+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 29,
+  "extra": 1
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item 9701-11.2-x001 options A and B",
+   "rule": "two right options",
+   "evidence": "A: ‘Bromine does not oxidise chloride ions when added to sodium chloride solution.’ B (keyed answer): ‘Fluorine atoms form cations by accepting electrons when they react.’",
+   "suggested": "Restore the original question and options, then key the chemically correct statement; bromine does not oxidise chloride, while fluorine gains electrons to form anions.",
+   "status": "fixed",
+   "resolution": "fix: The source image confirms shifted extracted options, not two chemically correct statements; the official key B is correct. In build/work/mcq/overrides.json under qid 9701_w23_11_q23 set stem to \"Which statement about the halogens or halide ions is correct?\"; set options to {\"A\":\"Bromide ions react to form a white precipitate when added to silver nitrate solution.\",\"B\":\"Bromine does not oxidise chloride ions when added to sodium chloride solution.\",\"C\":\"Fluorine atoms form cations by accepting electrons when they react.\",\"D\":\"Chloride ions are stronger reducing agents than iodide ions.\"}; retain answer \"B\"; set explanation to \"B is correct: bromine is a weaker oxidising agent than chlorine and cannot oxidise chloride ions. A is incorrect because silver bromide is cream, not white. C is incorrect because fluorine atoms gain electrons to form anions, not cations. D is incorrect because iodide ions are stronger reducing agents than chloride ions.\" Apply these corrected fields to item 9701-11.2-x001 when rebuilding."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9701-11.2-x001 options A and B",
+   "instruction": "The source image confirms shifted extracted options, not two chemically correct statements; the official key B is correct. In build/work/mcq/overrides.json under qid 9701_w23_11_q23 set stem to \"Which statement about the halogens or halide ions is correct?\"; set options to {\"A\":\"Bromide ions react to form a white precipitate when added to silver nitrate solution.\",\"B\":\"Bromine does not oxidise chloride ions when added to sodium chloride solution.\",\"C\":\"Fluorine atoms form cations by accepting electrons when they react.\",\"D\":\"Chloride ions are stronger reducing agents than iodide ions.\"}; retain answer \"B\"; set explanation to \"B is correct: bromine is a weaker oxidising agent than chlorine and cannot oxidise chloride ions. A is incorrect because silver bromide is cream, not white. C is incorrect because fluorine atoms gain electrons to form anions, not cations. D is incorrect because iodide ions are stronger reducing agents than chloride ions.\" Apply these corrected fields to item 9701-11.2-x001 when rebuilding.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 90754,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:13:33+08:00",
+   "log": "foundry/logs/9701-11.2.drafter.1010-161333.log",
+   "out": "foundry/logs/9701-11.2.drafter.1010-161333.out.json",
+   "finished": "2026-10-10T16:15:35+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-11.2.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/11 Group 17/11.2 The chemical properties of the halogen elements and the hydrogen halides.md",
+    "items": 29,
+    "templates": 0,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "The pack has 10 explained past-paper questions rather than 12: repeated paper variants triggered duplicate-question validation, and one bank entry has incomplete options."
+    ]
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 93106,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:17:06+08:00",
+   "log": "foundry/logs/9701-11.2.solver.1010-161706.log",
+   "out": "foundry/logs/9701-11.2.solver.1010-161706.out.json",
+   "expects": "build/work/blind/9701-11.2.answers.json",
+   "finished": "2026-10-10T16:17:31+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 11 questions in `build/work/blind/9701-11.2.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 94342,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:18:44+08:00",
+   "log": "foundry/logs/9701-11.2.checker.1010-161844.log",
+   "out": "foundry/logs/9701-11.2.checker.1010-161844.out.json",
+   "expects": "build/work/foundry/9701-11.2.check.json",
+   "finished": "2026-10-10T16:19:16+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding — `build/work/foundry/9701-11.2.check.json`."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 99128,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T16:24:31+08:00",
+   "log": "foundry/logs/9701-11.2.adjudicator.1010-162431.log",
+   "out": "foundry/logs/9701-11.2.adjudicator.1010-162431.out.json",
+   "finished": "2026-10-10T16:25:11+08:00",
+   "exit": 0,
+   "report": {
+    "text": "item 9701-11.2-x001 options A and B fix: Restore image-confirmed option order; retain official key B."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 128,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:25:52+08:00",
+   "log": "foundry/logs/9701-11.2.fixer.1010-162552.log",
+   "out": "foundry/logs/9701-11.2.fixer.1010-162552.out.json",
+   "finished": "2026-10-10T16:26:14+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "Syllabus gate still fails on three pre-existing `no-teach-card` errors for 9701-11.2.1, .2, and .3; these were outside the manager’s requested fix and fixer scope."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_w23_11_q23": "9701-11.2-x001"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
