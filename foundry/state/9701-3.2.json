@@ -1,0 +1,141 @@
+{
+ "sub": "9701-3.2",
+ "stage": "ready",
+ "created": "2026-10-10T10:58:42+08:00",
+ "updated": "2026-10-10T13:43:20+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T11:00:53+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 14 items"
+  },
+  {
+   "t": "2026-10-10T13:35:10+08:00",
+   "from": "solve",
+   "to": "solve",
+   "note": "solver finished without writing its file; see foundry/logs/9701-3.2.solver.1010-133504.log"
+  },
+  {
+   "t": "2026-10-10T13:39:50+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "13 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T13:42:31+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T13:43:20+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 14,
+  "extra": 0
+ },
+ "disputes": [
+  {
+   "id": "9701-3.2-p03",
+   "key": "B",
+   "solver": "C",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 35585,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T10:58:42+08:00",
+   "log": "foundry/logs/9701-3.2.drafter.1010-105842.log",
+   "out": "foundry/logs/9701-3.2.drafter.1010-105842.out.json",
+   "finished": "2026-10-10T11:00:53+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-3.2.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/03 Chemical bonding/3.2 Ionic bonding.md",
+    "items": 14,
+    "templates": 0,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Two tagged past MCQs have identical wording; one was omitted because the validator flags duplicates. The lattice MCQ has an image-dependent option with no text in the bundle; check it against the source image."
+    ]
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 95581,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 1,
+   "started": "2026-10-10T13:36:59+08:00",
+   "log": "foundry/logs/9701-3.2.solver.1010-133659.log",
+   "out": "foundry/logs/9701-3.2.solver.1010-133659.out.json",
+   "expects": "build/work/blind/9701-3.2.answers.json",
+   "finished": "2026-10-10T13:37:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 14 questions, written to build/work/blind/9701-3.2.answers.json."
+   },
+   "ok": true,
+   "cost_usd": 0.175
+  },
+  "checker": {
+   "pid": 94407,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:35:04+08:00",
+   "log": "foundry/logs/9701-3.2.checker.1010-133504.log",
+   "out": "foundry/logs/9701-3.2.checker.1010-133504.out.json",
+   "expects": "build/work/foundry/9701-3.2.check.json",
+   "finished": "2026-10-10T13:35:18+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/9701-3.2.check.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 98224,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 0,
+   "started": "2026-10-10T13:41:35+08:00",
+   "log": "foundry/logs/9701-3.2.tiebreak.1010-134135.log",
+   "out": "foundry/logs/9701-3.2.tiebreak.1010-134135.out.json",
+   "expects": "build/work/blind/9701-3.2.tiebreak.json",
+   "finished": "2026-10-10T13:42:26+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9701-3.2.tiebreak.json",
+    "notes": [
+     "9701-3.2-p03: chose B — correct checkerboard alternation of Na+/Cl- ions with anion drawn larger than cation (matches real ionic radii Cl- > Na+); C has the sizes reversed."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 0.221
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true
+}
