@@ -1,0 +1,20 @@
+{
+  "FP1-7.1": {
+    "motivate": "A long list such as $1^2+2^2+\\cdots+100^2$ is impractical to add term by term. A finite-sum formula gives its exact total from the upper limit.",
+    "discover": {
+      "stem": "Which expression is $\\sum_{r=1}^{3}r^3$?",
+      "options": {
+        "A": "$1^3+2^3+3^3$",
+        "B": "$(1+2+3)^3$",
+        "C": "$3(1+2+3)$",
+        "D": "$1^2+2^2+3^2$"
+      },
+      "answer": "A",
+      "explanation": "Sigma notation adds the indicated power of each indexed term. Here the terms are $1^3$, $2^3$, and $3^3$."
+    },
+    "establish": "A finite series $\\sum_{r=a}^{b}f(r)$ adds $f(a)+f(a+1)+\\cdots+f(b)$. For the first $n$ positive integers, $\\sum r=n(n+1)/2$, $\\sum r^2=n(n+1)(2n+1)/6$, and $\\sum r^3=[n(n+1)/2]^2$, with every sum running from $r=1$ to $n$. To sum $r(r+2)$, expand it as $r^2+2r$ and use linearity: $\\sum r(r+2)=\\sum r^2+2\\sum r=n(n+1)(2n+7)/6$. For a lower limit $a>1$, subtract the terms up to $a-1$ from the sum up to $b$. The method of differences is not required. Verify a result by direct addition for a small upper limit.",
+    "connect": "The integer-sum formula builds on arithmetic series in P2. Splitting a polynomial sum extends that idea to squares, cubes, and products such as $r(r+2)$.",
+    "note": "- $\\sum_{r=1}^{n}r^2=n(n+1)(2n+1)/6$.\n- $\\sum_{r=1}^{n}r^3=[n(n+1)/2]^2$.\n- Expand $r(r+2)=r^2+2r$, then split the sum.\n- For $r=a$ to $b$, subtract the sum through $a-1$ from the sum through $b$.",
+    "self_explain": "Why is $\\sum_{r=1}^{n}r(r+2)$ a sum of squares plus twice a sum of integers, and why does a sum starting at $r=a$ subtract through $a-1$?"
+  }
+}
