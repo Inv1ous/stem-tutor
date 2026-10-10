@@ -1,0 +1,117 @@
+[
+ {
+  "id": "FP1-8-i01",
+  "kind": "mcq",
+  "stem": "State which pair of arguments completes a proof by induction of a claim $P(n)$ for all positive integers $n$.",
+  "options": {
+   "A": "Assume $P(k+1)$ and deduce $P(k)$ only.",
+   "B": "Prove $P(1)$ and prove $P(k)\\Rightarrow P(k+1)$ for arbitrary positive integer $k$.",
+   "C": "Check $P(1)$, $P(2)$ and $P(3)$ only.",
+   "D": "Prove $P(k)$ for one unspecified value of $k$ only."
+  }
+ },
+ {
+  "id": "FP1-8-i02",
+  "kind": "numeric",
+  "stem": "Calculate $\\sum_{r=1}^{4}r^3$ using the proved identity $\\sum_{r=1}^n r^3=\\frac14n^2(n+1)^2$."
+ },
+ {
+  "id": "FP1-8-i03",
+  "kind": "numeric",
+  "stem": "Calculate $\\sum_{r=1}^{6}r^3$ using the proved identity $\\sum_{r=1}^n r^3=\\frac14n^2(n+1)^2$."
+ },
+ {
+  "id": "FP1-8-i05",
+  "kind": "mcq",
+  "stem": "State the correct expression for $3^{2(k+1)+1}+1$ in terms of $3^{2k+1}+1$.",
+  "options": {
+   "A": "$9(3^{2k+1}+1)$",
+   "B": "$9(3^{2k+1}+1)-8$",
+   "C": "$3(3^{2k+1}+1)-2$",
+   "D": "$3^{2k+1}+1+2$"
+  }
+ },
+ {
+  "id": "FP1-8-i06",
+  "kind": "numeric",
+  "stem": "Calculate the integer quotient $q$ such that $3^{2(2)+1}+1=4q$."
+ },
+ {
+  "id": "FP1-8-i07",
+  "kind": "numeric",
+  "stem": "Calculate the integer quotient $q$ such that $3^{2(3)+1}+1=4q$."
+ },
+ {
+  "id": "FP1-8-i09",
+  "kind": "mcq",
+  "stem": "Given $u_{n+1}=3u_n+4$, $u_1=1$ and the hypothesis $u_k=3^k-2$, state the expression obtained directly for $u_{k+1}$.",
+  "options": {
+   "A": "$3(3^{k+1}-2)+4$",
+   "B": "$3(3^k-2)+4$",
+   "C": "$3^{k+1}-2$ without using the recurrence",
+   "D": "$3^k-2+4$"
+  }
+ },
+ {
+  "id": "FP1-8-i10",
+  "kind": "numeric",
+  "stem": "Calculate $u_4$ if $u_1=1$, $u_{n+1}=3u_n+4$ and $u_n=3^n-2$ has been proved."
+ },
+ {
+  "id": "FP1-8-i11",
+  "kind": "numeric",
+  "stem": "Calculate $u_5$ if $u_1=1$, $u_{n+1}=3u_n+4$ and $u_n=3^n-2$ has been proved."
+ },
+ {
+  "id": "FP1-8-i13",
+  "kind": "mcq",
+  "stem": "For $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, state the base case for a proof of $A^n=\\begin{pmatrix}1&n\\\\0&1\\end{pmatrix}$ for $n\\geq0$.",
+  "options": {
+   "A": "$A^1=I$ and the proposed matrix at $n=1$ is $I$.",
+   "B": "$A^0=I$ and the proposed matrix at $n=0$ is $I$.",
+   "C": "$A^0=A$ and the proposed matrix at $n=0$ is $A$.",
+   "D": "Checking $A^2$ alone establishes every power."
+  }
+ },
+ {
+  "id": "FP1-8-i14",
+  "kind": "numeric",
+  "stem": "Calculate the $(1,2)$ entry of $A^5$ for $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$."
+ },
+ {
+  "id": "FP1-8-i15",
+  "kind": "numeric",
+  "stem": "Calculate the $(1,2)$ entry of $A^8$ for $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$."
+ },
+ {
+  "id": "we1.faded",
+  "kind": "numeric",
+  "stem": "Calculate $\\sum_{r=1}^{4}r^3$ from the proved formula."
+ },
+ {
+  "id": "we2.faded",
+  "kind": "numeric",
+  "stem": "Calculate the integer quotient $(3^{2(2)+1}+1)/4$."
+ },
+ {
+  "id": "we3.faded",
+  "kind": "numeric",
+  "stem": "Calculate $u_4$ using the proved formula."
+ },
+ {
+  "id": "we4.faded",
+  "kind": "numeric",
+  "stem": "Calculate the $(1,2)$ entry of $A^7$ from the proved formula."
+ },
+ {
+  "id": "FP1-8.1.discover",
+  "kind": "mcq",
+  "stem": "For a claim $P(n)$ about all positive integers, which argument completes an induction proof?",
+  "options": {
+   "A": "Check $P(1)$ and prove $P(k)\\Rightarrow P(k+1)$ for arbitrary $k\\geq1$.",
+   "B": "Check $P(1)$, $P(2)$ and $P(3)$.",
+   "C": "Assume $P(k+1)$ and prove $P(k)$.",
+   "D": "Find one value of $k$ for which $P(k)$ holds."
+  }
+ }
+]

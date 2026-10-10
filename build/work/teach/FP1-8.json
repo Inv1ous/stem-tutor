@@ -1,0 +1,20 @@
+{
+  "FP1-8.1": {
+    "motivate": "Patterns in sums, powers and sequences may survive many checks and still fail later. Mathematical induction gives a reason they hold at every integer in the stated range: one true starting case and a valid step from any case to the next.",
+    "discover": {
+      "stem": "For a claim $P(n)$ about all positive integers, which argument completes an induction proof?",
+      "options": {
+        "A": "Check $P(1)$ and prove $P(k)\\Rightarrow P(k+1)$ for arbitrary $k\\geq1$.",
+        "B": "Check $P(1)$, $P(2)$ and $P(3)$.",
+        "C": "Assume $P(k+1)$ and prove $P(k)$.",
+        "D": "Find one value of $k$ for which $P(k)$ holds."
+      },
+      "answer": "A",
+      "explanation": "The base case begins the chain, and the implication carries truth from every integer to its successor. Checking finitely many examples does not cover all positive integers."
+    },
+    "establish": "Proof by mathematical induction has a base case and an inductive step. For a claim $P(n)$ starting at $n_0$, verify $P(n_0)$, assume $P(k)$ for an arbitrary integer $k\\geq n_0$, and derive $P(k+1)$ using that assumption. Conclude that $P(n)$ holds for all integers $n\\geq n_0$. In a summation proof, add the $(k+1)$th term and factor to the proposed form. In a divisibility proof, write the assumed expression as $dq$ for an integer $q$, then show the next expression is also $d$ times an integer. For a recurrence sequence, substitute the assumed general term into the recurrence to obtain its form at $k+1$. For a matrix power, verify the first power, then multiply the assumed $A^k$ by $A$ and check every entry against the proposed $A^{k+1}$. The hypothesis is $P(k)$; do not assume the claim at $k+1$.",
+    "connect": "Finite series need the skill of adding one more summand. Matrix power induction uses the usual matrix product, so its order and each entry matter. Both are applications of the same base case and inductive step.",
+    "note": "- Base case: verify the first allowed integer.\n- Hypothesis: assume $P(k)$ for arbitrary allowed $k$.\n- Step: derive $P(k+1)$ from $P(k)$.\n- Series: add the next term; divisibility: exhibit a multiple.\n- Recurrences: substitute into the recurrence; matrices: multiply $A^kA$.\n- Conclude with the full stated range.",
+    "self_explain": "Why does checking $P(1)$ through $P(5)$ fail as a proof, and what extra argument lets the truth continue past $5$?"
+  }
+}

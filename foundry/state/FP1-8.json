@@ -1,0 +1,97 @@
+{
+ "sub": "FP1-8",
+ "stage": "ready",
+ "created": "2026-10-10T17:40:02+08:00",
+ "updated": "2026-10-10T17:56:12+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T17:42:15+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 16 items"
+  },
+  {
+   "t": "2026-10-10T17:55:36+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "17 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:56:12+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 16,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 53302,
+   "provider": "codex",
+   "model": "gpt-6-sol/medium",
+   "rung": 1,
+   "started": "2026-10-10T17:40:02+08:00",
+   "log": "foundry/logs/FP1-8.drafter.1010-174002.log",
+   "out": "foundry/logs/FP1-8.drafter.1010-174002.out.json",
+   "finished": "2026-10-10T17:42:15+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/FP1/FP1-8.json",
+    "note_path": "build/out/notes/Subjects/Maths/FP1 Further Pure Mathematics 1/8 Proof.md",
+    "items": 16,
+    "templates": 0,
+    "worked": 4,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 62297,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:54:20+08:00",
+   "log": "foundry/logs/FP1-8.solver.1010-175420.log",
+   "out": "foundry/logs/FP1-8.solver.1010-175420.out.json",
+   "expects": "build/work/blind/FP1-8.answers.json",
+   "finished": "2026-10-10T17:54:38+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 17 questions in `build/work/blind/FP1-8.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 62302,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T17:54:20+08:00",
+   "log": "foundry/logs/FP1-8.checker.1010-175420.log",
+   "out": "foundry/logs/FP1-8.checker.1010-175420.out.json",
+   "expects": "build/work/foundry/FP1-8.check.json",
+   "finished": "2026-10-10T17:54:37+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/FP1-8.check.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}

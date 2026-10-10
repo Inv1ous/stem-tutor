@@ -1,0 +1,745 @@
+{
+ "subtopic": "FP1-8",
+ "spec": "FP1",
+ "version": 1,
+ "note": "Subjects/Maths/FP1 Further Pure Mathematics 1/8 Proof.md",
+ "outline": "Mathematical induction proves a claim for every integer in a stated range. Verify the first allowed value, assume the claim at an arbitrary $k$, then deduce it at $k+1$ and conclude. For series, add the new term; for divisibility, exhibit an integer multiple; for recurrence sequences, substitute the assumed general term; for matrix powers, multiply the assumed power by the given matrix. The base case and the inductive step are both essential.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "FP1-8.1",
+   "statement": "Checking a few values proves a statement for every positive integer.",
+   "refutation": "A finite list of cases does not establish all positive integers; the inductive step must work for arbitrary $k$.",
+   "contrast": "Prove the base case and then $P(k)\\Rightarrow P(k+1)$ for arbitrary $k$.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "FP1-8.1",
+   "statement": "The induction hypothesis may be assumed true at $k+1$.",
+   "refutation": "Only $P(k)$ is assumed; $P(k+1)$ must be obtained from it.",
+   "contrast": "Add the new term or apply the recurrence to the expression at $k$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "FP1-8.1",
+   "statement": "A divisibility proof can end by checking a few remainders.",
+   "refutation": "The step must exhibit the next expression as a multiple of the divisor using the hypothesis.",
+   "contrast": "Write the next expression as a multiple of the previous one plus a divisible remainder.",
+   "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "FP1-8.1",
+   "statement": "Matrix induction needs only an entrywise pattern from small powers.",
+   "refutation": "The pattern is a conjecture until the matrix product establishes the $k+1$ case.",
+   "contrast": "Multiply the assumed $A^k$ by $A$ in the stated order and compare every entry.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "FP1-8.1",
+   "problem": "Show that $\\sum_{r=1}^{n}r^3=\\frac14n^2(n+1)^2$ for every positive integer $n$.",
+   "steps": [
+    {
+     "do": "At $n=1$, the sum is $1$ and $\\frac14(1)^2(2)^2=1$.",
+     "why": "This establishes the base case.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Assume $\\sum_{r=1}^{k}r^3=\\frac14k^2(k+1)^2$ for an arbitrary positive integer $k$.",
+     "why": "This is the induction hypothesis, not the result to be proved."
+    },
+    {
+     "do": "$\\sum_{r=1}^{k+1}r^3=\\frac14k^2(k+1)^2+(k+1)^3=\\frac14(k+1)^2(k+2)^2$.",
+     "why": "Add the new term, then factor; this is the claimed form at $k+1$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 9.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Therefore the identity holds for every positive integer $n$ by induction.",
+     "why": "The base and implication together cover all positive integers."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Calculate $\\sum_{r=1}^{4}r^3$ from the proved formula.",
+    "answer": {
+     "value": 100.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "FP1-8.1",
+   "problem": "Prove that $3^{2n+1}+1$ is divisible by $4$ for every non-negative integer $n$.",
+   "steps": [
+    {
+     "do": "At $n=0$, $3^{1}+1=4$, which is divisible by $4$.",
+     "why": "Start at the first value named in the claim.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Assume $3^{2k+1}+1=4q$ for some integer $q$.",
+     "why": "Divisibility must be expressed as an integer multiple."
+    },
+    {
+     "do": "$3^{2(k+1)+1}+1=9(3^{2k+1}+1)-8=4(9q-2)$.",
+     "why": "The hypothesis makes the new expression an explicit multiple of $4$."
+    },
+    {
+     "do": "Since $9q-2$ is an integer, the claim follows by induction.",
+     "why": "State why the new quotient is an integer."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Calculate the integer quotient $(3^{2(2)+1}+1)/4$.",
+    "answer": {
+     "value": 61.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we3",
+   "kc": "FP1-8.1",
+   "problem": "Given $u_1=1$ and $u_{n+1}=3u_n+4$, prove that $u_n=3^n-2$.",
+   "steps": [
+    {
+     "do": "At $n=1$, $3^1-2=1=u_1$.",
+     "why": "The formula must match the supplied initial term.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.0,
+       "unit": "",
+       "exact": true
+      }
+     }
+    },
+    {
+     "do": "Assume $u_k=3^k-2$.",
+     "why": "Use the claimed formula only at $k$."
+    },
+    {
+     "do": "$u_{k+1}=3(3^k-2)+4=3^{k+1}-2$.",
+     "why": "Substitute the hypothesis into the given recurrence."
+    },
+    {
+     "do": "Hence $u_n=3^n-2$ for every $n\\geq1$ by induction.",
+     "why": "The recurrence carries the valid base case onward."
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Calculate $u_4$ using the proved formula.",
+    "answer": {
+     "value": 79.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we4",
+   "kc": "FP1-8.1",
+   "problem": "For $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, prove that $A^n=\\begin{pmatrix}1&n\\\\0&1\\end{pmatrix}$ for non-negative integers $n$.",
+   "steps": [
+    {
+     "do": "At $n=0$, $A^0=I=\\begin{pmatrix}1&0\\\\0&1\\end{pmatrix}$.",
+     "why": "The claimed matrix gives the identity at the first value."
+    },
+    {
+     "do": "Assume $A^k=\\begin{pmatrix}1&k\\\\0&1\\end{pmatrix}$.",
+     "why": "This is the matrix induction hypothesis."
+    },
+    {
+     "do": "$A^{k+1}=A^kA=\\begin{pmatrix}1&k\\\\0&1\\end{pmatrix}\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}=\\begin{pmatrix}1&k+1\\\\0&1\\end{pmatrix}$.",
+     "why": "Multiply the matrices and compare all four entries."
+    },
+    {
+     "do": "The formula follows for every non-negative integer $n$ by induction.",
+     "why": "The base case and step establish the claim."
+    }
+   ],
+   "faded": {
+    "id": "we4f",
+    "problem": "Calculate the $(1,2)$ entry of $A^7$ from the proved formula.",
+    "answer": {
+     "value": 7.0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "FP1-8-i01",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State which pair of arguments completes a proof by induction of a claim $P(n)$ for all positive integers $n$.",
+   "marks": 1,
+   "options": {
+    "A": "Prove $P(1)$ and prove $P(k)\\Rightarrow P(k+1)$ for arbitrary positive integer $k$.",
+    "B": "Check $P(1)$, $P(2)$ and $P(3)$ only.",
+    "C": "Assume $P(k+1)$ and deduce $P(k)$ only.",
+    "D": "Prove $P(k)$ for one unspecified value of $k$ only."
+   },
+   "answer": "A",
+   "explanation": "The base case starts the chain and the implication carries truth to every following integer. A finite check cannot cover all integers.",
+   "hints": [
+    "Think of the first link in a chain.",
+    "Ask what carries truth from one integer to the next.",
+    "Name the base and the implication separately."
+   ],
+   "distractors": {
+    "B": "m1",
+    "C": "m2",
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-8-i02",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate $\\sum_{r=1}^{4}r^3$ using the proved identity $\\sum_{r=1}^n r^3=\\frac14n^2(n+1)^2$.",
+   "marks": 2,
+   "answer": {
+    "value": 100.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Substitution gives $\\frac14(4)^2(5)^2=100$.",
+   "hints": [
+    "Use the stated closed form.",
+    "Substitute the upper limit for $n$.",
+    "Square each of the consecutive factors before dividing by four."
+   ],
+   "distractors": [
+    {
+     "value": 30.0,
+     "misconception": "m1"
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i03",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate $\\sum_{r=1}^{6}r^3$ using the proved identity $\\sum_{r=1}^n r^3=\\frac14n^2(n+1)^2$.",
+   "marks": 2,
+   "answer": {
+    "value": 441.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "Substitution gives $\\frac14(6)^2(7)^2=441$.",
+   "hints": [
+    "Use the stated closed form.",
+    "Substitute the upper limit for $n$.",
+    "Square each of the consecutive factors before dividing by four."
+   ],
+   "distractors": [
+    {
+     "value": 91.0,
+     "misconception": "m1"
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i04",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Prove by induction that $\\sum_{r=1}^n r(r+1)=\\frac13n(n+1)(n+2)$ for every positive integer $n$.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "At $n=1$, both sides equal $2$."
+    },
+    {
+     "mark": "M1",
+     "point": "Assume the identity holds at an arbitrary positive integer $k$."
+    },
+    {
+     "mark": "M1",
+     "point": "Add $(k+1)(k+2)$ to the assumed sum."
+    },
+    {
+     "mark": "A1",
+     "point": "Factor the result as $\\frac13(k+1)(k+2)(k+3)$ and conclude by induction."
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i05",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the correct expression for $3^{2(k+1)+1}+1$ in terms of $3^{2k+1}+1$.",
+   "marks": 1,
+   "options": {
+    "A": "$9(3^{2k+1}+1)-8$",
+    "B": "$3(3^{2k+1}+1)-2$",
+    "C": "$9(3^{2k+1}+1)$",
+    "D": "$3^{2k+1}+1+2$"
+   },
+   "answer": "A",
+   "explanation": "Expanding the first expression gives $3^{2k+3}+1$, so the induction hypothesis makes it a multiple of $4$.",
+   "hints": [
+    "Compare successive exponents.",
+    "The exponential term gains a factor when $n$ increases by one.",
+    "Adjust the constant after multiplying the whole previous expression."
+   ],
+   "distractors": {
+    "B": "m3",
+    "C": "m3",
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-8-i06",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the integer quotient $q$ such that $3^{2(2)+1}+1=4q$.",
+   "marks": 2,
+   "answer": {
+    "value": 61.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$3^{2(2)+1}+1=244=4(61)$.",
+   "hints": [
+    "Evaluate the exponent first.",
+    "Add one to the power of three.",
+    "Divide the resulting integer by four."
+   ],
+   "distractors": [
+    {
+     "value": 244.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i07",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the integer quotient $q$ such that $3^{2(3)+1}+1=4q$.",
+   "marks": 2,
+   "answer": {
+    "value": 547.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "$3^{2(3)+1}+1=2188=4(547)$.",
+   "hints": [
+    "Evaluate the exponent first.",
+    "Add one to the power of three.",
+    "Divide the resulting integer by four."
+   ],
+   "distractors": [
+    {
+     "value": 2188.0,
+     "misconception": "m3"
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i08",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Prove by induction that $3^{2n+1}+1$ is divisible by $4$ for every non-negative integer $n$.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "At $n=0$, the expression is $4$."
+    },
+    {
+     "mark": "M1",
+     "point": "Assume $3^{2k+1}+1=4q$ for an integer $q$."
+    },
+    {
+     "mark": "M1",
+     "point": "Write the next expression as $9(3^{2k+1}+1)-8$."
+    },
+    {
+     "mark": "A1",
+     "point": "Obtain $4(9q-2)$ and conclude divisibility by induction."
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i09",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Given $u_{n+1}=3u_n+4$, $u_1=1$ and the hypothesis $u_k=3^k-2$, state the expression obtained directly for $u_{k+1}$.",
+   "marks": 1,
+   "options": {
+    "A": "$3(3^k-2)+4$",
+    "B": "$3^{k+1}-2$ without using the recurrence",
+    "C": "$3(3^{k+1}-2)+4$",
+    "D": "$3^k-2+4$"
+   },
+   "answer": "A",
+   "explanation": "Substitute the hypothesis at $k$ into the supplied recurrence, then simplify to the claimed form. Option C assumes the next case prematurely.",
+   "hints": [
+    "Start from the recurrence.",
+    "Replace only $u_k$ using the hypothesis.",
+    "Keep multiplication by three and addition of four visible."
+   ],
+   "distractors": {
+    "B": "m2",
+    "C": "m2",
+    "D": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-8-i10",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate $u_4$ if $u_1=1$, $u_{n+1}=3u_n+4$ and $u_n=3^n-2$ has been proved.",
+   "marks": 2,
+   "answer": {
+    "value": 79.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The proved formula gives $u_4=3^4-2=79$.",
+   "hints": [
+    "Use the established general term.",
+    "Replace $n$ by the requested index.",
+    "Evaluate the power before subtracting two."
+   ],
+   "distractors": [
+    {
+     "value": 25.0,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i11",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate $u_5$ if $u_1=1$, $u_{n+1}=3u_n+4$ and $u_n=3^n-2$ has been proved.",
+   "marks": 2,
+   "answer": {
+    "value": 241.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The proved formula gives $u_5=3^5-2=241$.",
+   "hints": [
+    "Use the established general term.",
+    "Replace $n$ by the requested index.",
+    "Evaluate the power before subtracting two."
+   ],
+   "distractors": [
+    {
+     "value": 79.0,
+     "misconception": "m2"
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i12",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Given $u_1=1$ and $u_{n+1}=3u_n+4$, prove by induction that $u_n=3^n-2$ for all positive integers $n$.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Check $u_1=3^1-2=1$."
+    },
+    {
+     "mark": "M1",
+     "point": "Assume $u_k=3^k-2$."
+    },
+    {
+     "mark": "M1",
+     "point": "Substitute into $u_{k+1}=3u_k+4$."
+    },
+    {
+     "mark": "A1",
+     "point": "Simplify to $3^{k+1}-2$ and conclude by induction."
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i13",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, state the base case for a proof of $A^n=\\begin{pmatrix}1&n\\\\0&1\\end{pmatrix}$ for $n\\geq0$.",
+   "marks": 1,
+   "options": {
+    "A": "$A^0=I$ and the proposed matrix at $n=0$ is $I$.",
+    "B": "$A^0=A$ and the proposed matrix at $n=0$ is $A$.",
+    "C": "$A^1=I$ and the proposed matrix at $n=1$ is $I$.",
+    "D": "Checking $A^2$ alone establishes every power."
+   },
+   "answer": "A",
+   "explanation": "A zero power is the identity matrix, matching the proposed form at zero. One isolated power cannot establish the general statement.",
+   "hints": [
+    "Find the first allowed index.",
+    "Recall the zeroth power of a square matrix.",
+    "Substitute zero into the proposed matrix."
+   ],
+   "distractors": {
+    "D": "m4"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "FP1-8-i14",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of $A^5$ for $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 5.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The proved form is $A^n=\\begin{pmatrix}1&n\\\\0&1\\end{pmatrix}$, giving entry $(1,2)$ equal to $5$.",
+   "hints": [
+    "Use the form of a general power.",
+    "Identify the entry that changes with the exponent.",
+    "Substitute the requested exponent into that entry."
+   ],
+   "distractors": [
+    {
+     "value": 6.0,
+     "misconception": "m4"
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i15",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "numeric",
+   "difficulty": 2,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the $(1,2)$ entry of $A^8$ for $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$.",
+   "marks": 2,
+   "answer": {
+    "value": 8.0,
+    "unit": "",
+    "exact": true
+   },
+   "explanation": "The proved form is $A^n=\\begin{pmatrix}1&n\\\\0&1\\end{pmatrix}$, giving entry $(1,2)$ equal to $8$.",
+   "hints": [
+    "Use the form of a general power.",
+    "Identify the entry that changes with the exponent.",
+    "Substitute the requested exponent into that entry."
+   ],
+   "distractors": [
+    {
+     "value": 9.0,
+     "misconception": "m4"
+    }
+   ]
+  },
+  {
+   "id": "FP1-8-i16",
+   "kcs": [
+    "FP1-8.1"
+   ],
+   "kind": "structured",
+   "difficulty": 5,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, prove by induction that $A^n=\\begin{pmatrix}1&n\\\\0&1\\end{pmatrix}$ for every non-negative integer $n$.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Check $A^0=I$, matching the proposed matrix at $n=0$."
+    },
+    {
+     "mark": "M1",
+     "point": "Assume $A^k=\\begin{pmatrix}1&k\\\\0&1\\end{pmatrix}$."
+    },
+    {
+     "mark": "M1",
+     "point": "Multiply the assumed $A^k$ by $A$ to obtain $A^{k+1}$."
+    },
+    {
+     "mark": "A1",
+     "point": "Show the product is $\\begin{pmatrix}1&k+1\\\\0&1\\end{pmatrix}$ and conclude by induction."
+    }
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "FP1-8.1",
+   "front": "State the two parts needed to prove a claim by mathematical induction for all integers $n\\geq n_0$.",
+   "back": "Verify the base case $P(n_0)$; then, for arbitrary $k\\geq n_0$, assume $P(k)$ and prove $P(k+1)$. Conclude the claim holds for all $n\\geq n_0$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "FP1-8.1": {
+   "motivate": "Patterns in sums, powers and sequences may survive many checks and still fail later. Mathematical induction gives a reason they hold at every integer in the stated range: one true starting case and a valid step from any case to the next.",
+   "discover": {
+    "stem": "For a claim $P(n)$ about all positive integers, which argument completes an induction proof?",
+    "options": {
+     "A": "Check $P(1)$ and prove $P(k)\\Rightarrow P(k+1)$ for arbitrary $k\\geq1$.",
+     "B": "Check $P(1)$, $P(2)$ and $P(3)$.",
+     "C": "Assume $P(k+1)$ and prove $P(k)$.",
+     "D": "Find one value of $k$ for which $P(k)$ holds."
+    },
+    "answer": "A",
+    "explanation": "The base case begins the chain, and the implication carries truth from every integer to its successor. Checking finitely many examples does not cover all positive integers."
+   },
+   "establish": "Proof by mathematical induction has a base case and an inductive step. For a claim $P(n)$ starting at $n_0$, verify $P(n_0)$, assume $P(k)$ for an arbitrary integer $k\\geq n_0$, and derive $P(k+1)$ using that assumption. Conclude that $P(n)$ holds for all integers $n\\geq n_0$. In a summation proof, add the $(k+1)$th term and factor to the proposed form. In a divisibility proof, write the assumed expression as $dq$ for an integer $q$, then show the next expression is also $d$ times an integer. For a recurrence sequence, substitute the assumed general term into the recurrence to obtain its form at $k+1$. For a matrix power, verify the first power, then multiply the assumed $A^k$ by $A$ and check every entry against the proposed $A^{k+1}$. The hypothesis is $P(k)$; do not assume the claim at $k+1$.",
+   "connect": "Finite series need the skill of adding one more summand. Matrix power induction uses the usual matrix product, so its order and each entry matter. Both are applications of the same base case and inductive step.",
+   "note": "- Base case: verify the first allowed integer.\n- Hypothesis: assume $P(k)$ for arbitrary allowed $k$.\n- Step: derive $P(k+1)$ from $P(k)$.\n- Series: add the next term; divisibility: exhibit a multiple.\n- Recurrences: substitute into the recurrence; matrices: multiply $A^kA$.\n- Conclude with the full stated range.",
+   "self_explain": "Why does checking $P(1)$ through $P(5)$ fail as a proof, and what extra argument lets the truth continue past $5$?",
+   "source": "pack"
+  }
+ }
+}
