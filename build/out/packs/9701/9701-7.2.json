@@ -1,0 +1,2838 @@
+{
+ "subtopic": "9701-7.2",
+ "spec": "9701",
+ "version": 1,
+ "note": "Subjects/9701 Chemistry/07 Equilibria/7.2 Brønsted–Lowry theory of acids and bases.md",
+ "outline": "Memorise the common acid and alkali formulas. A Brønsted–Lowry acid donates a proton and a base accepts one. Strength describes extent of aqueous dissociation, not concentration. Neutralisation makes water and a salt. The starting pH, equivalence pH and steepness of a titration curve identify the acid–alkali pair and determine which indicator can locate its end point.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9701-7.2.1",
+   "statement": "Formula identifies acid strength",
+   "refutation": "A formula identifies the substance, while strength depends on extent of dissociation.",
+   "contrast": "A formula identifies the substance, while strength depends on extent of dissociation.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "9701-7.2.3",
+   "statement": "A base donates a proton",
+   "refutation": "A Brønsted–Lowry base accepts a proton; an acid donates one.",
+   "contrast": "A Brønsted–Lowry base accepts a proton; an acid donates one.",
+   "source": "ER 9701 w23 P12 Q26"
+  },
+  {
+   "id": "m3",
+   "kc": "9701-7.2.4",
+   "statement": "Weak means dilute",
+   "refutation": "Weak means partially dissociated; dilute describes low concentration.",
+   "contrast": "Weak means partially dissociated; dilute describes low concentration.",
+   "source": "ER 9701 s23 P23 Q3"
+  },
+  {
+   "id": "m4",
+   "kc": "9701-7.2.6",
+   "statement": "Equal concentration means equal pH",
+   "refutation": "At equal analytical concentration a strong acid produces more hydrogen ions than a weak acid.",
+   "contrast": "At equal analytical concentration a strong acid produces more hydrogen ions than a weak acid.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-7.2.7",
+   "statement": "Neutralisation always reaches pH 7",
+   "refutation": "The ionic event is hydrogen ions reacting with hydroxide ions to give water; equivalence pH can differ from 7.",
+   "contrast": "The ionic event is hydrogen ions reacting with hydroxide ions to give water; equivalence pH can differ from 7.",
+   "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "9701-7.2.8",
+   "statement": "Sulfur dioxide forms sulfate directly with calcium hydroxide",
+   "refutation": "The first salt is calcium sulfite; forming sulfate would require oxidation.",
+   "contrast": "The first salt is calcium sulfite; forming sulfate would require oxidation.",
+   "source": "ER 9701 w20 P11 Q19"
+  },
+  {
+   "id": "m7",
+   "kc": "9701-7.2.9",
+   "statement": "All equivalence points have pH 7",
+   "refutation": "Weak acid and strong base give pH above 7; strong acid and weak base give pH below 7.",
+   "contrast": "Weak acid and strong base give pH above 7; strong acid and weak base give pH below 7.",
+   "source": "research"
+  },
+  {
+   "id": "m8",
+   "kc": "9701-7.2.10",
+   "statement": "Any indicator suits any titration",
+   "refutation": "The transition interval must lie within the steep pH change near equivalence.",
+   "contrast": "The transition interval must lie within the steep pH change near equivalence.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we9",
+   "kc": "9701-7.2.9",
+   "problem": "Sketch the curve when 0.10 mol dm$^{-3}$ ethanoic acid is titrated with 0.10 mol dm$^{-3}$ sodium hydroxide.",
+   "steps": [
+    {
+     "do": "Start below pH 7, but higher than a strong acid at the same concentration.",
+     "why": "Ethanoic acid partially dissociates."
+    },
+    {
+     "do": "Show a buffer region followed by a steep rise with equivalence above pH 7.",
+     "why": "Ethanoate hydrolysis makes equivalence alkaline."
+    },
+    {
+     "do": "Finish at high pH after excess alkali.",
+     "why": "Added hydroxide then controls pH."
+    }
+   ],
+   "faded": {
+    "id": "we9f",
+    "problem": "For hydrochloric acid titrated with sodium hydroxide, state the pH at the equivalence point at 298 K.",
+    "answer": {
+     "value": 7.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we10",
+   "kc": "9701-7.2.10",
+   "problem": "Select an indicator for ethanoic acid titrated with sodium hydroxide.",
+   "steps": [
+    {
+     "do": "Locate the equivalence point above pH 7.",
+     "why": "The conjugate base makes the solution alkaline."
+    },
+    {
+     "do": "Choose phenolphthalein, whose transition lies within the steep rise.",
+     "why": "The end point then closely tracks equivalence."
+    }
+   ],
+   "faded": {
+    "id": "we10f",
+    "problem": "For a strong acid–strong alkali titration, an indicator changes from pH 4 to pH 6. Calculate the width of its transition interval in pH units.",
+    "answer": {
+     "value": 2.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9701-7.2-i011",
+   "kcs": [
+    "9701-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for hydrochloric acid.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+     "keywords": [
+      [
+       "hydrochloric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i012",
+   "kcs": [
+    "9701-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe sulfuric acid in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+     "keywords": [
+      [
+       "hydrochloric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i013",
+   "kcs": [
+    "9701-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how nitric acid fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+     "keywords": [
+      [
+       "hydrochloric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i014",
+   "kcs": [
+    "9701-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the key relationship involving ethanoic acid.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+     "keywords": [
+      [
+       "hydrochloric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i015",
+   "kcs": [
+    "9701-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the roles or cases associated with hydrochloric acid and sulfuric acid.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+     "keywords": [
+      [
+       "hydrochloric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i016",
+   "kcs": [
+    "9701-7.2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the full principle behind hydrochloric acid, sulfuric acid and nitric acid.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+     "keywords": [
+      [
+       "hydrochloric"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i021",
+   "kcs": [
+    "9701-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for sodium hydroxide.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+     "keywords": [
+      [
+       "sodium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i022",
+   "kcs": [
+    "9701-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe potassium hydroxide in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+     "keywords": [
+      [
+       "sodium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i023",
+   "kcs": [
+    "9701-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how ammonia fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+     "keywords": [
+      [
+       "sodium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i024",
+   "kcs": [
+    "9701-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the key relationship involving alkali.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+     "keywords": [
+      [
+       "sodium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i025",
+   "kcs": [
+    "9701-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the roles or cases associated with sodium hydroxide and potassium hydroxide.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+     "keywords": [
+      [
+       "sodium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i026",
+   "kcs": [
+    "9701-7.2.2"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the full principle behind sodium hydroxide, potassium hydroxide and ammonia.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+     "keywords": [
+      [
+       "sodium"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i031",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for proton donor.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+     "keywords": [
+      [
+       "proton"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i032",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe proton acceptor in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+     "keywords": [
+      [
+       "proton"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i033",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how ammonium ion fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+     "keywords": [
+      [
+       "proton"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i034",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the key relationship involving water.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+     "keywords": [
+      [
+       "proton"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i035",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the roles or cases associated with proton donor and proton acceptor.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+     "keywords": [
+      [
+       "proton"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i036",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the full principle behind proton donor, proton acceptor and ammonium ion.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+     "keywords": [
+      [
+       "proton"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i041",
+   "kcs": [
+    "9701-7.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for strong acid.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i042",
+   "kcs": [
+    "9701-7.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe weak acid in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i043",
+   "kcs": [
+    "9701-7.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how full dissociation fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i044",
+   "kcs": [
+    "9701-7.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the key relationship involving partial dissociation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i045",
+   "kcs": [
+    "9701-7.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the roles or cases associated with strong acid and weak acid.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i046",
+   "kcs": [
+    "9701-7.2.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the full principle behind strong acid, weak acid and full dissociation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i051",
+   "kcs": [
+    "9701-7.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for water.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+     "keywords": [
+      [
+       "water"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i052",
+   "kcs": [
+    "9701-7.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe acidic in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+     "keywords": [
+      [
+       "water"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i053",
+   "kcs": [
+    "9701-7.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how alkaline fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+     "keywords": [
+      [
+       "water"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i054",
+   "kcs": [
+    "9701-7.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the key relationship involving pH.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+     "keywords": [
+      [
+       "water"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i055",
+   "kcs": [
+    "9701-7.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the roles or cases associated with water and acidic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+     "keywords": [
+      [
+       "water"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i056",
+   "kcs": [
+    "9701-7.2.5"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the full principle behind water, acidic and alkaline.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+     "keywords": [
+      [
+       "water"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i061",
+   "kcs": [
+    "9701-7.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for pH meter.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+     "keywords": [
+      [
+       "pH"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i062",
+   "kcs": [
+    "9701-7.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe universal indicator in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+     "keywords": [
+      [
+       "pH"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i063",
+   "kcs": [
+    "9701-7.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how conductivity fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+     "keywords": [
+      [
+       "pH"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i064",
+   "kcs": [
+    "9701-7.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Equal volumes of 0.10 mol dm⁻³ hydrochloric acid and 0.10 mol dm⁻³ ethanoic acid are at the same temperature. Their pH values are measured using a pH meter. Identical freshly cleaned magnesium strips are then added to separate samples of each acid. Explain which acid has the lower pH and which gives the faster initial rate of hydrogen evolution. Relate both comparisons to dissociation and hydrogen-ion concentration.",
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "Hydrochloric acid is fully dissociated in aqueous solution, whereas ethanoic acid is only partially dissociated.",
+     "keywords": [
+      [
+       "fully"
+      ],
+      [
+       "partially"
+      ]
+     ]
+    },
+    {
+     "point": "At the same acid concentration, hydrochloric acid has a higher hydrogen-ion concentration.",
+     "keywords": [
+      [
+       "higher"
+      ],
+      [
+       "hydrogen"
+      ]
+     ]
+    },
+    {
+     "point": "A pH meter gives a lower pH for hydrochloric acid than for ethanoic acid because its hydrogen-ion concentration is higher.",
+     "keywords": [
+      [
+       "lower"
+      ],
+      [
+       "pH"
+      ]
+     ]
+    },
+    {
+     "point": "Magnesium initially produces hydrogen faster in hydrochloric acid because the higher hydrogen-ion concentration gives more frequent successful collisions at the metal surface.",
+     "keywords": [
+      [
+       "faster"
+      ],
+      [
+       "hydrogen"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Hydrochloric acid is fully dissociated in aqueous solution, whereas ethanoic acid is only partially dissociated. At the same acid concentration, hydrochloric acid has a higher hydrogen-ion concentration. A pH meter gives a lower pH for hydrochloric acid than for ethanoic acid because its hydrogen-ion concentration is higher. Magnesium initially produces hydrogen faster in hydrochloric acid because the higher hydrogen-ion concentration gives more frequent successful collisions at the metal surface.",
+   "hints": [
+    "Compare full and partial dissociation at equal acid concentration.",
+    "Relate hydrogen-ion concentration to the pH-meter reading.",
+    "Relate hydrogen-ion concentration to the initial reaction rate at identical magnesium surfaces."
+   ]
+  },
+  {
+   "id": "9701-7.2-i065",
+   "kcs": [
+    "9701-7.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the roles or cases associated with pH meter and universal indicator.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+     "keywords": [
+      [
+       "pH"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i066",
+   "kcs": [
+    "9701-7.2.6"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the full principle behind pH meter, universal indicator and conductivity.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+     "keywords": [
+      [
+       "pH"
+      ]
+     ]
+    }
+   ],
+   "explanation": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i071",
+   "kcs": [
+    "9701-7.2.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for neutralisation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+     "keywords": [
+      [
+       "neutralisation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i072",
+   "kcs": [
+    "9701-7.2.7"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe hydrogen ion in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+     "keywords": [
+      [
+       "neutralisation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i073",
+   "kcs": [
+    "9701-7.2.7"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how hydroxide ion fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+     "keywords": [
+      [
+       "neutralisation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i074",
+   "kcs": [
+    "9701-7.2.7"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the key relationship involving water.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+     "keywords": [
+      [
+       "neutralisation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i075",
+   "kcs": [
+    "9701-7.2.7"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the roles or cases associated with neutralisation and hydrogen ion.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+     "keywords": [
+      [
+       "neutralisation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i076",
+   "kcs": [
+    "9701-7.2.7"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the full principle behind neutralisation, hydrogen ion and hydroxide ion.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+     "keywords": [
+      [
+       "neutralisation"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i081",
+   "kcs": [
+    "9701-7.2.8"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for salt.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+     "keywords": [
+      [
+       "salt"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i082",
+   "kcs": [
+    "9701-7.2.8"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe acid anion in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+     "keywords": [
+      [
+       "salt"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i083",
+   "kcs": [
+    "9701-7.2.8"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how base cation fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+     "keywords": [
+      [
+       "salt"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i084",
+   "kcs": [
+    "9701-7.2.8"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the key relationship involving neutralisation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+     "keywords": [
+      [
+       "salt"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i085",
+   "kcs": [
+    "9701-7.2.8"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the roles or cases associated with salt and acid anion.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+     "keywords": [
+      [
+       "salt"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i086",
+   "kcs": [
+    "9701-7.2.8"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the full principle behind salt, acid anion and base cation.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+     "keywords": [
+      [
+       "salt"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i091",
+   "kcs": [
+    "9701-7.2.9"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for strong acid–strong alkali.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i092",
+   "kcs": [
+    "9701-7.2.9"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe weak acid–strong alkali in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i093",
+   "kcs": [
+    "9701-7.2.9"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how strong acid–weak alkali fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i094",
+   "kcs": [
+    "9701-7.2.9"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the key relationship involving weak acid–weak alkali.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i095",
+   "kcs": [
+    "9701-7.2.9"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Compare the roles or cases associated with strong acid–strong alkali and weak acid–strong alkali.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+     "keywords": [
+      [
+       "strong"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i096",
+   "kcs": [
+    "9701-7.2.9"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "At 298 K, sketch four separate pH titration curves for alkali added to equal volumes of acid: (a) HCl with NaOH, (b) CH₃COOH with NaOH, (c) HCl with NH₃, and (d) CH₃COOH with NH₃. All solutions have concentration 0.10 mol dm⁻³. Label the axes, indicate equivalence, and show the initial pH, any buffer region, the steepness near equivalence and the trend in excess alkali. For (a)–(c), label equivalence pH as equal to, above or below 7. No numerical pH calculations are required.",
+   "marks": 7,
+   "rubric": [
+    {
+     "point": "Label every vertical axis pH and every horizontal axis volume of alkali added.",
+     "keywords": [
+      [
+       "pH"
+      ],
+      [
+       "volume"
+      ]
+     ]
+    },
+    {
+     "point": "All curves rise as alkali is added; HCl curves start at lower pH than CH₃COOH curves at the same concentration.",
+     "keywords": [
+      [
+       "rise"
+      ],
+      [
+       "lower"
+      ]
+     ]
+    },
+    {
+     "point": "HCl with NaOH has a large steep rise through equivalence at pH 7 at 298 K.",
+     "keywords": [
+      [
+       "HCl"
+      ],
+      [
+       "NaOH"
+      ],
+      [
+       "7"
+      ]
+     ]
+    },
+    {
+     "point": "CH₃COOH with NaOH has a buffer region before a steep rise and an equivalence point above pH 7.",
+     "keywords": [
+      [
+       "CH₃COOH"
+      ],
+      [
+       "NaOH"
+      ],
+      [
+       "above"
+      ]
+     ]
+    },
+    {
+     "point": "HCl with NH₃ has a smaller steep rise around equivalence below pH 7.",
+     "keywords": [
+      [
+       "HCl"
+      ],
+      [
+       "NH₃"
+      ],
+      [
+       "below"
+      ]
+     ]
+    },
+    {
+     "point": "CH₃COOH with NH₃ has a gradual change near equivalence with no sharp vertical section; do not infer a universal equivalence pH for weak acid–weak alkali titrations.",
+     "keywords": [
+      [
+       "CH₃COOH"
+      ],
+      [
+       "NH₃"
+      ],
+      [
+       "no sharp"
+      ]
+     ]
+    },
+    {
+     "point": "In excess alkali all curves level towards an alkaline pH; NaOH gives a higher final pH than NH₃ at the same concentration and comparable excess.",
+     "keywords": [
+      [
+       "NaOH"
+      ],
+      [
+       "NH₃"
+      ],
+      [
+       "higher"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Label every vertical axis pH and every horizontal axis volume of alkali added. All curves rise as alkali is added; HCl curves start at lower pH than CH₃COOH curves at the same concentration. HCl with NaOH has a large steep rise through equivalence at pH 7 at 298 K. CH₃COOH with NaOH has a buffer region before a steep rise and an equivalence point above pH 7. HCl with NH₃ has a smaller steep rise around equivalence below pH 7. CH₃COOH with NH₃ has a gradual change near equivalence with no sharp vertical section; do not infer a universal equivalence pH for weak acid–weak alkali titrations. In excess alkali all curves level towards an alkaline pH; NaOH gives a higher final pH than NH₃ at the same concentration and comparable excess.",
+   "hints": [
+    "Start with the relative pH values of strong and weak acids.",
+    "Consider whether the salt at equivalence gives neutral, alkaline or acidic solution.",
+    "Show no sharp jump for the weak acid–weak alkali pair and compare excess strong and weak alkali."
+   ]
+  },
+  {
+   "id": "9701-7.2-i101",
+   "kcs": [
+    "9701-7.2.10"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the relevant facts for indicator range.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+     "keywords": [
+      [
+       "indicator"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i102",
+   "kcs": [
+    "9701-7.2.10"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Describe steep change in this topic.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+     "keywords": [
+      [
+       "indicator"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i103",
+   "kcs": [
+    "9701-7.2.10"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how phenolphthalein fits the governing idea.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+     "keywords": [
+      [
+       "indicator"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i104",
+   "kcs": [
+    "9701-7.2.10"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Give",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Give the key relationship involving methyl orange.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+     "keywords": [
+      [
+       "indicator"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-i105",
+   "kcs": [
+    "9701-7.2.10"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For an acid–alkali titration, the steep section of the measured titration curve near equivalence extends from pH 7.5 to pH 10.5. Three indicators have the following colour-change ranges: P, pH 3.1–4.4; Q, pH 8.2–10.0; R, pH 6.0–7.0. Select the most suitable indicator, justify your choice using the data, and explain why the other two are unsuitable.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Choose indicator Q.",
+     "keywords": [
+      [
+       "Q"
+      ]
+     ]
+    },
+    {
+     "point": "Its entire transition range, pH 8.2–10.0, lies within the steep pH change from 7.5 to 10.5, giving an end point close to equivalence.",
+     "keywords": [
+      [
+       "range"
+      ],
+      [
+       "steep"
+      ]
+     ]
+    },
+    {
+     "point": "Reject P and R because their transition ranges lie below the steep section, so they change colour before equivalence.",
+     "keywords": [
+      [
+       "P"
+      ],
+      [
+       "R"
+      ],
+      [
+       "before"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Choose indicator Q. Its entire transition range, pH 8.2–10.0, lies within the steep pH change from 7.5 to 10.5, giving an end point close to equivalence. Reject P and R because their transition ranges lie below the steep section, so they change colour before equivalence.",
+   "hints": [
+    "Locate each colour-change interval relative to the steep section.",
+    "Choose the interval contained within the rapid pH change.",
+    "Decide whether the rejected indicators change before or after equivalence."
+   ]
+  },
+  {
+   "id": "9701-7.2-i106",
+   "kcs": [
+    "9701-7.2.10"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain the full principle behind indicator range, steep change and phenolphthalein.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+     "keywords": [
+      [
+       "indicator"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+   "hints": [
+    "Recall the defining statement for this outcome.",
+    "Identify the species or curve features relevant to the question.",
+    "Begin with the governing acid–base principle."
+   ]
+  },
+  {
+   "id": "9701-7.2-n5",
+   "kcs": [
+    "9701-7.2.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the pH when $[\\ce{H+}]=1.0\\times10^{-3}$ mol dm$^{-3}$.",
+   "marks": 1,
+   "answer": {
+    "value": 3.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": -3.0,
+     "misconception": "m5"
+    }
+   ],
+   "explanation": "The defining relationship gives 3 .",
+   "hints": [
+    "Identify the relevant relationship.",
+    "Use the amount or concentration stated.",
+    "Substitute into the relationship before calculating."
+   ]
+  },
+  {
+   "id": "9701-7.2-n7",
+   "kcs": [
+    "9701-7.2.7"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Calculate the amount of water formed when 0.020 mol of $\\ce{H+}$ reacts with excess $\\ce{OH-}$.",
+   "marks": 1,
+   "answer": {
+    "value": 0.02,
+    "unit": "mol",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 0.04,
+     "misconception": "m5"
+    }
+   ],
+   "explanation": "The defining relationship gives 0.02 mol.",
+   "hints": [
+    "Identify the relevant relationship.",
+    "Use the amount or concentration stated.",
+    "Substitute into the relationship before calculating."
+   ]
+  },
+  {
+   "id": "9701-7.2-p01",
+   "kcs": [
+    "9701-7.2.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P11 · Q19",
+    "qid": "9701_w20_11_q19"
+   },
+   "stem": "Sulfur dioxide, SO₂, reacts with calcium hydroxide in aqueous solution.\nWhat is the main product that is first formed?",
+   "options": {
+    "A": "Ca(HSO₄)₂",
+    "B": "CaS",
+    "C": "CaSO₃",
+    "D": "CaSO₄"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The most commonly chosen incorrect answer was D. This is an acid-base reaction, not a redox reaction. An aqueous solution of SO2 can be thought of as H2SO3(aq), so the salt formed is CaSO3, meaning statement C is the correct answer."
+  },
+  {
+   "id": "9701-7.2-p02",
+   "kcs": [
+    "9701-7.2.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P13 · Q13",
+    "qid": "9701_w25_13_q13"
+   },
+   "stem": "Aqueous acid P and aqueous alkali Q have the same concentration.\n20 cm³ of P is added to a conical flask.\nQ is slowly added to the flask and the volume of Q and the pH are recorded.\nThe pH titration curve is shown.\n0\n14\n12\n10\n8\n6\n4\n2\n0\n2\n4\n6\n8 10 12 14\nvolume of Q added / cm³\n16 18 20 22 24 26 28 30\npH\nWhich row gives the identity of P and Q?\nP\nQ",
+   "options": {
+    "A": "HCl NaOH",
+    "B": "H₂SO₄ NH₃",
+    "C": "HCl Ba(OH)₂",
+    "D": "CH₃COOH Sr(OH)₂"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w25_13_q13.png",
+   "marks": 1,
+   "explanation": "The official answer is C. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p03",
+   "kcs": [
+    "9701-7.2.7"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2025 · P12 · Q24",
+    "qid": "9701_w25_12_q24"
+   },
+   "stem": "Four reaction mixtures are listed.\n1\n(NH₄)₂SO₄(aq) and NaOH\n2\nNH₄Cl (aq) and Ba(OH)₂\n3\nNH₄Cl (aq) and Na₂O\n4\n(NH₄)₃PO₄(aq) and HCl\nWhich reaction mixtures produce ammonia as a product?",
+   "options": {
+    "A": "1, 2 and 3",
+    "B": "1 and 2 only",
+    "C": "2 and 3 only",
+    "D": "3 and 4 only"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w25_12_q24.png",
+   "marks": 1,
+   "explanation": "The official answer is A. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p04",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2024 · P11 · Q24",
+    "qid": "9701_w24_11_q24"
+   },
+   "stem": "Three statements about ammonia molecules and ammonium ions are given.\n1\nIn aqueous solution, ammonia molecules form coordinate bonds with hydroxide\nions.\n2\nAmmonium ions are Brønsted–Lowry acids.\n3\nThe H–N–H bond angle is larger in the ammonium ion than in the ammonia\nmolecule.\nWhich statements are correct?",
+   "options": {
+    "A": "1 and 2 only",
+    "B": "1 and 3 only",
+    "C": "2 and 3 only",
+    "D": "1, 2 and 3"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w24_11_q24.png",
+   "marks": 1,
+   "explanation": "The official answer is C. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p05",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q19",
+    "qid": "9701_w21_12_q19"
+   },
+   "stem": "Magnesium hydroxide dissolves in aqueous ammonium chloride, but not in aqueous sodium\nchloride.\nWhich statement explains this observation?",
+   "options": {
+    "A": "The ionic radius of the NH₄ ⁺ ion is similar to that of Mg²⁺but not that of Na⁺.",
+    "B": "NH₄Cl dissociates less fully than NaCl.",
+    "C": "The Na⁺ and Mg²⁺ ions have the same number of electrons.",
+    "D": "The NH₄ ⁺ ion can donate a proton."
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The official answer is D. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p06",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q15",
+    "qid": "9701_w20_12_q15"
+   },
+   "stem": "Water and ammonia take part in a reaction that produces the ammonium ion.\nWhich statement about this reaction is correct?",
+   "options": {
+    "A": "The ammonia molecule and the ammonium ion do not have dipole moments.",
+    "B": "The bond angle changes from 109.5° in the ammonia molecule to 107° in the ammonium ion.",
+    "C": "The reaction is a redox reaction.",
+    "D": "The water is acting as an acid."
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The official answer is D. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p07",
+   "kcs": [
+    "9701-7.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q9",
+    "qid": "9701_s25_11_q9"
+   },
+   "stem": "An aqueous solution X contains substance HQ which behaves as a weak acid.\nHQ(aq)\nH⁺(aq) + Q⁻(aq)\nThe soluble salt NaQ is added to X.\nWhat happens to the [H⁺(aq)] and the pH in X?\n[H⁺(aq)]\npH",
+   "options": {
+    "A": "decreases decreases",
+    "B": "decreases increases",
+    "C": "increases decreases",
+    "D": "increases increases"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_11_q9.png",
+   "marks": 1,
+   "explanation": "The official answer is B. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p08",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P12 · Q21",
+    "qid": "9701_s25_12_q21"
+   },
+   "stem": "A reaction occurs when ammonium chloride is added to calcium hydroxide.\nWhat is the role of the ammonium ions in this reaction?",
+   "options": {
+    "A": "acid",
+    "B": "base",
+    "C": "oxidising agent",
+    "D": "reducing agent"
+   },
+   "answer": "A",
+   "marks": 1,
+   "explanation": "The official answer is A. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p09",
+   "kcs": [
+    "9701-7.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P12 · Q10",
+    "qid": "9701_s22_12_q10"
+   },
+   "stem": "Separate samples of 25.0 cm³ of 0.1 mol dm⁻³ NaOH(aq) are added to each of three different acid\nsolutions, as described. The temperature of each of the solutions was 298 K before mixing.\nsample\nacid\ntype of acid\nconcentration\n/ mol dm⁻³\nvolume\n/ cm³\n1\nH₂SO₄\nstrong\n0.05\n25.0\n2\nHCl\nstrong\n0.05\n25.0\n3\nCH₃CO₂H\nweak\n0.05\n25.0\nWhich statement describes the temperature rises that occur on mixing each of these three acids\nseparately with NaOH?",
+   "options": {
+    "A": "The temperature rise in all three mixtures is the same.",
+    "B": "The temperature rise using H₂SO₄ and HCl is the same.",
+    "C": "The temperature rise using CH₃CO₂H is greater than using HCl.",
+    "D": "The greatest temperature rise occurs using H₂SO₄."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9701_s22_12_q10.png",
+   "marks": 1,
+   "explanation": "The official answer is D. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p10",
+   "kcs": [
+    "9701-7.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P13 · Q6",
+    "qid": "9701_s20_13_q6"
+   },
+   "stem": "Which solution has the lowest pH value?",
+   "options": {
+    "A": "0.01 mol dm⁻³ butanoic acid",
+    "B": "0.01 mol dm⁻³ ethanoic acid",
+    "C": "0.01 mol dm⁻³ hydrochloric acid",
+    "D": "0.01 mol dm⁻³ sulfuric acid"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The official answer is D. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p11",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2019 · P12 · Q18",
+    "qid": "9701_s19_12_q18"
+   },
+   "stem": "Ammonium sulfate, (NH₄)₂SO₄, and ammonium nitrate, NH₄NO₃, are used as fertilisers.\nThese salts have different percentages by mass of nitrogen. They have the same effect as each\nother on the pH of wet neutral soil.\nWhich row is correct?\nhigher percentage\nof nitrogen by mass\neffect on pH of soil",
+   "options": {
+    "A": "ammonium nitrate decrease",
+    "B": "ammonium nitrate increase",
+    "C": "ammonium sulfate decrease",
+    "D": "ammonium sulfate increase"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s19_12_q18.png",
+   "marks": 1,
+   "explanation": "The official answer is A. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-p12",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2019 · P12 · Q11",
+    "qid": "9701_w19_12_q11"
+   },
+   "stem": "Hydrated aluminium ions undergo the following reaction.\n[Al (H₂O)₆]³⁺(aq) + H₂O(l)\n[Al (H₂O)₅OH]²⁺(aq) + H₃O⁺(aq)\nWhich statement about this reaction is correct?",
+   "options": {
+    "A": "H₂O(l) and [Al (H₂O)₅OH]²⁺(aq) are a conjugate acid-base pair.",
+    "B": "H₂O(l) is acting as an acid as it is donating H⁺ ions.",
+    "C": "If OH⁻(aq) is added, the equilibrium will move to the right.",
+    "D": "Kc varies as the pH is varied."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9701_w19_12_q11.png",
+   "marks": 1,
+   "explanation": "The official answer is C. The other choices conflict with the proton-transfer, dissociation or neutralisation rule tested here."
+  },
+  {
+   "id": "9701-7.2-x001",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2020 · P12 · Q15",
+    "qid": "9701_s20_12_q15"
+   },
+   "stem": "Ammonium carbonate is a crystalline solid. On gentle warming a reaction occurs, forming\nammonia as one product.\nHow are the carbonate ions behaving during this reaction?",
+   "options": {
+    "A": "Brønsted-Lowry acid",
+    "B": "Brønsted-Lowry base",
+    "C": "oxidising agent",
+    "D": "reducing agent"
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.2-x002",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2020 · P12 · Q18",
+    "qid": "9701_w20_12_q18"
+   },
+   "stem": "Which substance, when warmed with aqueous ammonium chloride, would produce an alkaline\ngas?",
+   "options": {
+    "A": "CH₃CO₂H",
+    "B": "CH₃CH₂OH",
+    "C": "CH₃CO₂CH₃",
+    "D": "CH₃CH₂ONa"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.2-x003",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2021 · P12 · Q14",
+    "qid": "9701_s21_12_q14"
+   },
+   "stem": "A farmer requires a solid compound to raise the pH of the soil in a field from 5.5 to above 6.0.\nWhich compound could the farmer use?",
+   "options": {
+    "A": "(NH₄)₂SO₄",
+    "B": "NH₄NO₃",
+    "C": "Ca(OH)₂",
+    "D": "Ca(NO₃)₂"
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.2-x004",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P11 · Q20",
+    "qid": "9701_w21_11_q20"
+   },
+   "stem": "Hex-2-ene can be made by the reaction shown.\n+\nI⁻\nHO\nO⁻\nH\nI\nWhich statement about this reaction is correct?",
+   "options": {
+    "A": "(CH₃)₃CO⁻ is behaving as a Brønsted-Lowry base.",
+    "B": "(CH₃)₃CO⁻ is behaving as an oxidising agent.",
+    "C": "The C–I bond breaks via homolytic fission.",
+    "D": "This is a hydrolysis reaction."
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_w21_11_q20.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.2-x005",
+   "kcs": [
+    "9701-7.2.4",
+    "9701-7.2.6"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2021 · P12 · Q32",
+    "qid": "9701_w21_12_q32"
+   },
+   "stem": "Four solutions, each of concentration 0.1 mol dm⁻³, were tested with a pH meter. The results are\nshown.\nsolution\nformula of acid or base\npH\nacid 1\nCH₃CO₂H\n4\nacid 2\nHNO₃\n1\nbase 1\nCH₃NH₂\n11\nbase 2\nNaOH\n14\nWhich statements explain these results?\n1\nAcid 2 has a lower pH than acid 1 because it is more soluble.\n2\nBase 2 has a higher concentration of hydroxide ions in solution than base 1.\n3\nAcid 1 dissociates less than acid 2.",
+   "options": null,
+   "answer": "C",
+   "image": "Assets/mcq/9701_w21_12_q32.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.2-x006",
+   "kcs": [
+    "9701-7.2.4",
+    "9701-7.2.5"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2022 · P13 · Q13",
+    "qid": "9701_s22_13_q13"
+   },
+   "stem": "Which statement about acids and bases is always correct?",
+   "options": {
+    "A": "An acid with two H atoms per molecule will be stronger than an acid with one H atom per molecule.",
+    "B": "A concentrated solution of a strong acid will have a lower pH than a dilute solution of a weak acid.",
+    "C": "A concentrated solution of a strong base will have a lower pH than a dilute solution of a weak base.",
+    "D": "A strong acid is more dissociated in solution than a strong base."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.2-x007",
+   "kcs": [
+    "9701-7.2.9"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2023 · P13 · Q16",
+    "qid": "9701_s23_13_q16"
+   },
+   "stem": "Solutions X and Y both have a concentration of 0.10moldm⁻³. A fixed volume of solution X is added\nto a conical flask, and solution Y is added from a burette to the conical flask. A titration is performed.\nThe diagram shows the pH titration curve for the acid–base reaction between the solutions.\n14\n13\n12\n11\n10\n9\n8\n7\n6\n5\n4\n3\n2\n1\n0\nvolume of solution Y / cm³\npH\nWhat are solutions X and Y?\nsolution Y\nsolution X\nnitric acid\nammonia",
+   "options": {
+    "A": "ethanoic acid ammonia",
+    "B": "nitric acid potassium hydroxide",
+    "C": "ethanoic acid potassium hydroxide",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9701_s23_13_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.2-x008",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Nov 2023 · P12 · Q26",
+    "qid": "9701_w23_12_q26"
+   },
+   "stem": "NaOH(aq) is added to NH₄Cl(aq). The mixture is warmed.\\nThe gas that is produced turns damp red litmus paper blue.\\nWhich row is correct?\\nEach option lists, in order: behaviour of the ammonium ion in NH₄Cl; behaviour of the water present on the litmus paper.",
+   "options": {
+    "A": "Brønsted–Lowry acid; Brønsted–Lowry base",
+    "B": "Brønsted–Lowry acid; Brønsted–Lowry acid",
+    "C": "Brønsted–Lowry base; Brønsted–Lowry acid",
+    "D": "Brønsted–Lowry base; Brønsted–Lowry base"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_w23_12_q26.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": "B is correct. In NH₄⁺ + OH⁻ → NH₃ + H₂O, NH₄⁺ donates a proton and acts as a Brønsted–Lowry acid. On the damp litmus paper, NH₃ + H₂O ⇌ NH₄⁺ + OH⁻: water donates a proton to ammonia and also acts as an acid. The hydroxide ions turn red litmus blue. A is wrong because water is a proton donor here, not a base; C and D wrongly classify ammonium as a base. The two acids act in separate reactions.",
+   "examiner": "The most commonly chosen incorrect answer was A. The ammonium ion is indeed an acid, as it donates a H+ ion to the OH– present. Water also behaves as an acid, as it donates a H+ ion to the ammonia gas that is formed. Candidates may have been unwilling to describe both the ammonium ions and the water molecules Principal Examiner Report for Teachers as acids, but it should be noted that these two species are participating in different reactions in different places."
+  },
+  {
+   "id": "9701-7.2-x009",
+   "kcs": [
+    "9701-7.2.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2024 · P13 · Q23",
+    "qid": "9701_s24_13_q23"
+   },
+   "stem": "NH₄Cl reacts with NaOH in an aqueous solution.\nWhich statement is correct?",
+   "options": {
+    "A": "The reaction gives rise to two different polar product molecules.",
+    "B": "The bond angle in the nitrogen-containing species remains unchanged.",
+    "C": "The ammonium ion acts as a base.",
+    "D": "The oxidation state of nitrogen increases in the reaction."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.2-x010",
+   "kcs": [
+    "9701-7.2.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P11 · Q25",
+    "qid": "9701_s25_11_q25"
+   },
+   "stem": "Three reagents are listed.\n1\naqueous sodium carbonate\n2\nLiAl H₄\n3\nwater\nWhich reagents react with pure ethanoic acid to give a solution containing ethanoate ions?",
+   "options": {
+    "A": "1 and 2",
+    "B": "1 and 3",
+    "C": "1 only",
+    "D": "2 and 3"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_11_q25.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9701-7.2-x011",
+   "kcs": [
+    "9701-7.2.8"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9701 · Jun 2025 · P13 · Q16",
+    "qid": "9701_s25_13_q16"
+   },
+   "stem": "The flow chart shows some reactions of nitrogen compounds.\ngas 1\nacid\nsalt 1\nsalt 2 + other products\nalkali\nWhich row identifies gas 1 and salt 2?\ngas 1\nsalt 2",
+   "options": {
+    "A": "ammonia ammonium nitrate",
+    "B": "ammonia sodium nitrate",
+    "C": "nitrogen dioxide ammonium nitrate",
+    "D": "nitrogen dioxide sodium nitrate"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9701_s25_13_q16.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9701-7.2.1",
+   "front": "State the key facts about hydrochloric acid.",
+   "back": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$."
+  },
+  {
+   "id": "fc2",
+   "kc": "9701-7.2.2",
+   "front": "State the key facts about sodium hydroxide.",
+   "back": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution."
+  },
+  {
+   "id": "fc5",
+   "kc": "9701-7.2.5",
+   "front": "State the key facts about water.",
+   "back": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7."
+  },
+  {
+   "id": "fc8",
+   "kc": "9701-7.2.8",
+   "front": "State the key facts about salt.",
+   "back": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "9701-7.2.1": {
+   "motivate": "How can you recognise and use hydrochloric acid in an exam question?",
+   "establish": "Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.",
+   "connect": "Connect this idea to sulfuric acid and the acid–base reactions around it.",
+   "note": "- hydrochloric acid: Hydrochloric acid is $\\ce{HCl}$; sulfuric acid is $\\ce{H2SO4}$; nitric acid is $\\ce{HNO3}$; ethanoic acid is $\\ce{CH3COOH}$.\n- Check the role or observation involving sulfuric acid.",
+   "self_explain": "Explain how hydrochloric acid relates to sulfuric acid.",
+   "source": "pack"
+  },
+  "9701-7.2.2": {
+   "motivate": "How can you recognise and use sodium hydroxide in an exam question?",
+   "establish": "Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.",
+   "connect": "Connect this idea to potassium hydroxide and the acid–base reactions around it.",
+   "note": "- sodium hydroxide: Sodium hydroxide is $\\ce{NaOH}$; potassium hydroxide is $\\ce{KOH}$; ammonia is $\\ce{NH3}$. These are common alkalis in aqueous solution.\n- Check the role or observation involving potassium hydroxide.",
+   "self_explain": "Explain how sodium hydroxide relates to potassium hydroxide.",
+   "source": "pack"
+  },
+  "9701-7.2.3": {
+   "motivate": "How can you recognise and use proton donor in an exam question?",
+   "establish": "A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.",
+   "connect": "Connect this idea to proton acceptor and the acid–base reactions around it.",
+   "note": "- proton donor: A Brønsted–Lowry acid donates a proton, $\\ce{H+}$; a Brønsted–Lowry base accepts a proton. In $\\ce{NH3 + H2O <=> NH4+ + OH-}$, water donates and ammonia accepts a proton.\n- Check the role or observation involving proton acceptor.",
+   "self_explain": "Explain how proton donor relates to proton acceptor.",
+   "source": "pack"
+  },
+  "9701-7.2.4": {
+   "motivate": "How can you recognise and use strong acid in an exam question?",
+   "establish": "A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.",
+   "connect": "Connect this idea to weak acid and the acid–base reactions around it.",
+   "note": "- strong acid: A strong acid or base is fully dissociated in aqueous solution. A weak acid or base is partially dissociated in aqueous solution; the equilibrium contains undissociated species. Strength is distinct from concentration.\n- Check the role or observation involving weak acid.",
+   "self_explain": "Explain how strong acid relates to weak acid.",
+   "source": "pack"
+  },
+  "9701-7.2.5": {
+   "motivate": "How can you recognise and use water in an exam question?",
+   "establish": "At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.",
+   "connect": "Connect this idea to acidic and the acid–base reactions around it.",
+   "note": "- water: At 298 K, pure water has pH 7. An acidic solution has pH below 7; an alkaline solution has pH above 7.\n- Check the role or observation involving acidic.",
+   "self_explain": "Explain how water relates to acidic.",
+   "source": "pack"
+  },
+  "9701-7.2.6": {
+   "motivate": "How can you recognise and use pH meter in an exam question?",
+   "establish": "At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.",
+   "connect": "Connect this idea to universal indicator and the acid–base reactions around it.",
+   "note": "- pH meter: At equal concentration, a strong acid has a lower pH, greater conductivity and a faster initial reaction with the same reactive metal than a weak acid. Use a pH meter, universal indicator, conductivity meter or the rate of hydrogen evolution.\n- Check the role or observation involving universal indicator.",
+   "self_explain": "Explain how pH meter relates to universal indicator.",
+   "source": "pack"
+  },
+  "9701-7.2.7": {
+   "motivate": "How can you recognise and use neutralisation in an exam question?",
+   "establish": "Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.",
+   "connect": "Connect this idea to hydrogen ion and the acid–base reactions around it.",
+   "note": "- neutralisation: Neutralisation occurs when $\\ce{H+ (aq) + OH- (aq) -> H2O (l)}$. The acid supplies hydrogen ions and the alkali supplies hydroxide ions.\n- Check the role or observation involving hydrogen ion.",
+   "self_explain": "Explain how neutralisation relates to hydrogen ion.",
+   "source": "pack"
+  },
+  "9701-7.2.8": {
+   "motivate": "How can you recognise and use salt in an exam question?",
+   "establish": "Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.",
+   "connect": "Connect this idea to acid anion and the acid–base reactions around it.",
+   "note": "- salt: Neutralisation forms a salt as well as water: $\\ce{HCl (aq) + NaOH (aq) -> NaCl (aq) + H2O (l)}$. The salt contains the acid anion and the base cation.\n- Check the role or observation involving acid anion.",
+   "self_explain": "Explain how salt relates to acid anion.",
+   "source": "pack"
+  },
+  "9701-7.2.9": {
+   "motivate": "How can you recognise and use strong acid–strong alkali in an exam question?",
+   "establish": "Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.",
+   "connect": "Connect this idea to weak acid–strong alkali and the acid–base reactions around it.",
+   "note": "- strong acid–strong alkali: Sketch pH against volume of alkali added to acid. Strong acid–strong alkali has a steep jump centred at pH 7; weak acid–strong alkali starts at higher pH and has equivalence above 7; strong acid–weak alkali has equivalence below 7; weak acid–weak alkali has no sharp jump. Reverse trends when acid is added to alkali.\n- Check the role or observation involving weak acid–strong alkali.",
+   "self_explain": "Explain how strong acid–strong alkali relates to weak acid–strong alkali.",
+   "source": "pack"
+  },
+  "9701-7.2.10": {
+   "motivate": "How can you recognise and use indicator range in an exam question?",
+   "establish": "Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.",
+   "connect": "Connect this idea to steep change and the acid–base reactions around it.",
+   "note": "- indicator range: Select an indicator whose colour-change pH range lies in the steep part of the titration curve around equivalence. For strong acid–strong alkali, several indicators work; weak acid–strong alkali favours phenolphthalein; strong acid–weak alkali favours methyl orange; weak–weak gives no sharp visual end point.\n- Check the role or observation involving steep change.",
+   "self_explain": "Explain how indicator range relates to steep change.",
+   "source": "pack"
+  }
+ }
+}

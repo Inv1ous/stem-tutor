@@ -1,0 +1,301 @@
+{
+ "sub": "9701-7.2",
+ "stage": "ready",
+ "created": "2026-10-10T13:50:31+08:00",
+ "updated": "2026-10-10T14:21:15+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T13:53:21+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 85 items"
+  },
+  {
+   "t": "2026-10-10T14:05:02+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "24 agreed, 3 disputed"
+  },
+  {
+   "t": "2026-10-10T14:07:34+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-10T14:15:21+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T14:17:53+08:00",
+   "from": "fix",
+   "to": "fix",
+   "note": "fixer finished but gates are not clean: ['syllabus command-word item 9701-7.2-i105 Select is not a command word of this syllabus']"
+  },
+  {
+   "t": "2026-10-10T14:18:21+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 4 fixes applied"
+  },
+  {
+   "t": "2026-10-10T14:19:27+08:00",
+   "from": "recheck",
+   "to": "tiebreak",
+   "note": "0 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T14:20:40+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 3 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:21:15+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 85,
+  "extra": 11
+ },
+ "disputes": [
+  {
+   "id": "9701-7.2-p11",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-7.2-x005",
+   "key": "C",
+   "solver": "D",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9701-7.2-x008",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [
+  {
+   "ref": "9701-7.2.6 question coverage",
+   "rule": "outcome not taught or not tested",
+   "evidence": "explain qualitatively the differences in behaviour between strong and weak acids including the reaction with a reactive metal and difference in pH values by use of a pH meter, universal indicator or conductivity",
+   "suggested": "Add a question requiring explanation of the metal reaction and comparison using a named pH or conductivity method.",
+   "status": "fixed",
+   "resolution": "fix: The current generic prompts do not explicitly assess explanation of the metal reaction and a pH measurement comparison. In build/out/packs/9701/9701-7.2.json, replace the following fields of item 9701-7.2-i064 with these exact values; retain its other fields: {\"command_word\": \"Explain\", \"stem\": \"Equal volumes of 0.10 mol dm⁻³ hydrochloric acid and 0.10 mol dm⁻³ ethanoic acid are at the same temperature. Their pH values are measured using a pH meter. Identical freshly cleaned magnesium strips are then added to separate samples of each acid. Explain which acid has the lower pH and which gives the faster initial rate of hydrogen evolution. Relate both comparisons to dissociation and hydrogen-ion concentration.\", \"marks\": 4, \"rubric\": [{\"point\": \"Hydrochloric acid is fully dissociated in aqueous solution, whereas ethanoic acid is only partially dissociated.\", \"keywords\": [[\"fully\"], [\"partially\"]]}, {\"point\": \"At the same acid concentration, hydrochloric acid has a higher hydrogen-ion concentration.\", \"keywords\": [[\"higher\"], [\"hydrogen\"]]}, {\"point\": \"A pH meter gives a lower pH for hydrochloric acid than for ethanoic acid because its hydrogen-ion concentration is higher.\", \"keywords\": [[\"lower\"], [\"pH\"]]}, {\"point\": \"Magnesium initially produces hydrogen faster in hydrochloric acid because the higher hydrogen-ion concentration gives more frequent successful collisions at the metal surface.\", \"keywords\": [[\"faster\"], [\"hydrogen\"]]}], \"explanation\": \"Hydrochloric acid is fully dissociated in aqueous solution, whereas ethanoic acid is only partially dissociated. At the same acid concentration, hydrochloric acid has a higher hydrogen-ion concentration. A pH meter gives a lower pH for hydrochloric acid than for ethanoic acid because its hydrogen-ion concentration is higher. Magnesium initially produces hydrogen faster in hydrochloric acid because the higher hydrogen-ion concentration gives more frequent successful collisions at the metal surface.\", \"hints\": [\"Compare full and partial dissociation at equal acid concentration.\", \"Relate hydrogen-ion concentration to the pH-meter reading.\", \"Relate hydrogen-ion concentration to the initial reaction rate at identical magnesium surfaces.\"]}"
+  },
+  {
+   "ref": "9701-7.2.9 question coverage",
+   "rule": "outcome not taught or not tested",
+   "evidence": "sketch the pH titration curves of titrations using combinations of strong and weak acids with strong and weak alkalis",
+   "suggested": "Add a task requiring students to sketch the curves for the acid–alkali combinations.",
+   "status": "fixed",
+   "resolution": "fix: Recognising or describing a curve and reading a worked example do not test the required sketching skill. In build/out/packs/9701/9701-7.2.json, replace the following fields of item 9701-7.2-i096 with these exact values; retain its other fields: {\"command_word\": \"Sketch\", \"stem\": \"At 298 K, sketch four separate pH titration curves for alkali added to equal volumes of acid: (a) HCl with NaOH, (b) CH₃COOH with NaOH, (c) HCl with NH₃, and (d) CH₃COOH with NH₃. All solutions have concentration 0.10 mol dm⁻³. Label the axes, indicate equivalence, and show the initial pH, any buffer region, the steepness near equivalence and the trend in excess alkali. For (a)–(c), label equivalence pH as equal to, above or below 7. No numerical pH calculations are required.\", \"marks\": 7, \"rubric\": [{\"point\": \"Label every vertical axis pH and every horizontal axis volume of alkali added.\", \"keywords\": [[\"pH\"], [\"volume\"]]}, {\"point\": \"All curves rise as alkali is added; HCl curves start at lower pH than CH₃COOH curves at the same concentration.\", \"keywords\": [[\"rise\"], [\"lower\"]]}, {\"point\": \"HCl with NaOH has a large steep rise through equivalence at pH 7 at 298 K.\", \"keywords\": [[\"HCl\"], [\"NaOH\"], [\"7\"]]}, {\"point\": \"CH₃COOH with NaOH has a buffer region before a steep rise and an equivalence point above pH 7.\", \"keywords\": [[\"CH₃COOH\"], [\"NaOH\"], [\"above\"]]}, {\"point\": \"HCl with NH₃ has a smaller steep rise around equivalence below pH 7.\", \"keywords\": [[\"HCl\"], [\"NH₃\"], [\"below\"]]}, {\"point\": \"CH₃COOH with NH₃ has a gradual change near equivalence with no sharp vertical section; do not infer a universal equivalence pH for weak acid–weak alkali titrations.\", \"keywords\": [[\"CH₃COOH\"], [\"NH₃\"], [\"no sharp\"]]}, {\"point\": \"In excess alkali all curves level towards an alkaline pH; NaOH gives a higher final pH than NH₃ at the same concentration and comparable excess.\", \"keywords\": [[\"NaOH\"], [\"NH₃\"], [\"higher\"]]}], \"explanation\": \"Label every vertical axis pH and every horizontal axis volume of alkali added. All curves rise as alkali is added; HCl curves start at lower pH than CH₃COOH curves at the same concentration. HCl with NaOH has a large steep rise through equivalence at pH 7 at 298 K. CH₃COOH with NaOH has a buffer region before a steep rise and an equivalence point above pH 7. HCl with NH₃ has a smaller steep rise around equivalence below pH 7. CH₃COOH with NH₃ has a gradual change near equivalence with no sharp vertical section; do not infer a universal equivalence pH for weak acid–weak alkali titrations. In excess alkali all curves level towards an alkaline pH; NaOH gives a higher final pH than NH₃ at the same concentration and comparable excess.\", \"hints\": [\"Start with the relative pH values of strong and weak acids.\", \"Consider whether the salt at equivalence gives neutral, alkaline or acidic solution.\", \"Show no sharp jump for the weak acid–weak alkali pair and compare excess strong and weak alkali.\"]}"
+  },
+  {
+   "ref": "9701-7.2.10 question coverage",
+   "rule": "outcome not taught or not tested",
+   "evidence": "select suitable indicators for acid-alkali titrations, given appropriate data",
+   "suggested": "Add a question that supplies indicator transition ranges and asks students to select a suitable indicator.",
+   "status": "fixed",
+   "resolution": "fix: The existing questions provide no transition-range data and do not require selecting an indicator from those data; no pKa values should be introduced. In build/out/packs/9701/9701-7.2.json, replace the following fields of item 9701-7.2-i105 with these exact values; retain its other fields: {\"command_word\": \"Select\", \"stem\": \"For an acid–alkali titration, the steep section of the measured titration curve near equivalence extends from pH 7.5 to pH 10.5. Three indicators have the following colour-change ranges: P, pH 3.1–4.4; Q, pH 8.2–10.0; R, pH 6.0–7.0. Select the most suitable indicator, justify your choice using the data, and explain why the other two are unsuitable.\", \"marks\": 3, \"rubric\": [{\"point\": \"Choose indicator Q.\", \"keywords\": [[\"Q\"]]}, {\"point\": \"Its entire transition range, pH 8.2–10.0, lies within the steep pH change from 7.5 to 10.5, giving an end point close to equivalence.\", \"keywords\": [[\"range\"], [\"steep\"]]}, {\"point\": \"Reject P and R because their transition ranges lie below the steep section, so they change colour before equivalence.\", \"keywords\": [[\"P\"], [\"R\"], [\"before\"]]}], \"explanation\": \"Choose indicator Q. Its entire transition range, pH 8.2–10.0, lies within the steep pH change from 7.5 to 10.5, giving an end point close to equivalence. Reject P and R because their transition ranges lie below the steep section, so they change colour before equivalence.\", \"hints\": [\"Locate each colour-change interval relative to the steep section.\", \"Choose the interval contained within the rapid pH change.\", \"Decide whether the rejected indicators change before or after equivalence.\"]}"
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "9701-7.2-x008",
+   "instruction": "The source image and official answer/er confirm B; the extracted rows and headings are corrupted. In build/work/mcq/overrides.json merge these exact fields under qid 9701_w23_12_q26, preserving other entries; apply them to the regenerated extra item 9701-7.2-x008: {\"stem\": \"NaOH(aq) is added to NH₄Cl(aq). The mixture is warmed.\\nThe gas that is produced turns damp red litmus paper blue.\\nWhich row is correct?\\nEach option lists, in order: behaviour of the ammonium ion in NH₄Cl; behaviour of the water present on the litmus paper.\", \"options\": {\"A\": \"Brønsted–Lowry acid; Brønsted–Lowry base\", \"B\": \"Brønsted–Lowry acid; Brønsted–Lowry acid\", \"C\": \"Brønsted–Lowry base; Brønsted–Lowry acid\", \"D\": \"Brønsted–Lowry base; Brønsted–Lowry base\"}, \"answer\": \"B\", \"explanation\": \"B is correct. In NH₄⁺ + OH⁻ → NH₃ + H₂O, NH₄⁺ donates a proton and acts as a Brønsted–Lowry acid. On the damp litmus paper, NH₃ + H₂O ⇌ NH₄⁺ + OH⁻: water donates a proton to ammonia and also acts as an acid. The hydroxide ions turn red litmus blue. A is wrong because water is a proton donor here, not a base; C and D wrongly classify ammonium as a base. The two acids act in separate reactions.\"}",
+   "status": "done"
+  },
+  {
+   "ref": "9701-7.2.6 question coverage",
+   "instruction": "The current generic prompts do not explicitly assess explanation of the metal reaction and a pH measurement comparison. In build/out/packs/9701/9701-7.2.json, replace the following fields of item 9701-7.2-i064 with these exact values; retain its other fields: {\"command_word\": \"Explain\", \"stem\": \"Equal volumes of 0.10 mol dm⁻³ hydrochloric acid and 0.10 mol dm⁻³ ethanoic acid are at the same temperature. Their pH values are measured using a pH meter. Identical freshly cleaned magnesium strips are then added to separate samples of each acid. Explain which acid has the lower pH and which gives the faster initial rate of hydrogen evolution. Relate both comparisons to dissociation and hydrogen-ion concentration.\", \"marks\": 4, \"rubric\": [{\"point\": \"Hydrochloric acid is fully dissociated in aqueous solution, whereas ethanoic acid is only partially dissociated.\", \"keywords\": [[\"fully\"], [\"partially\"]]}, {\"point\": \"At the same acid concentration, hydrochloric acid has a higher hydrogen-ion concentration.\", \"keywords\": [[\"higher\"], [\"hydrogen\"]]}, {\"point\": \"A pH meter gives a lower pH for hydrochloric acid than for ethanoic acid because its hydrogen-ion concentration is higher.\", \"keywords\": [[\"lower\"], [\"pH\"]]}, {\"point\": \"Magnesium initially produces hydrogen faster in hydrochloric acid because the higher hydrogen-ion concentration gives more frequent successful collisions at the metal surface.\", \"keywords\": [[\"faster\"], [\"hydrogen\"]]}], \"explanation\": \"Hydrochloric acid is fully dissociated in aqueous solution, whereas ethanoic acid is only partially dissociated. At the same acid concentration, hydrochloric acid has a higher hydrogen-ion concentration. A pH meter gives a lower pH for hydrochloric acid than for ethanoic acid because its hydrogen-ion concentration is higher. Magnesium initially produces hydrogen faster in hydrochloric acid because the higher hydrogen-ion concentration gives more frequent successful collisions at the metal surface.\", \"hints\": [\"Compare full and partial dissociation at equal acid concentration.\", \"Relate hydrogen-ion concentration to the pH-meter reading.\", \"Relate hydrogen-ion concentration to the initial reaction rate at identical magnesium surfaces.\"]}",
+   "status": "done"
+  },
+  {
+   "ref": "9701-7.2.9 question coverage",
+   "instruction": "Recognising or describing a curve and reading a worked example do not test the required sketching skill. In build/out/packs/9701/9701-7.2.json, replace the following fields of item 9701-7.2-i096 with these exact values; retain its other fields: {\"command_word\": \"Sketch\", \"stem\": \"At 298 K, sketch four separate pH titration curves for alkali added to equal volumes of acid: (a) HCl with NaOH, (b) CH₃COOH with NaOH, (c) HCl with NH₃, and (d) CH₃COOH with NH₃. All solutions have concentration 0.10 mol dm⁻³. Label the axes, indicate equivalence, and show the initial pH, any buffer region, the steepness near equivalence and the trend in excess alkali. For (a)–(c), label equivalence pH as equal to, above or below 7. No numerical pH calculations are required.\", \"marks\": 7, \"rubric\": [{\"point\": \"Label every vertical axis pH and every horizontal axis volume of alkali added.\", \"keywords\": [[\"pH\"], [\"volume\"]]}, {\"point\": \"All curves rise as alkali is added; HCl curves start at lower pH than CH₃COOH curves at the same concentration.\", \"keywords\": [[\"rise\"], [\"lower\"]]}, {\"point\": \"HCl with NaOH has a large steep rise through equivalence at pH 7 at 298 K.\", \"keywords\": [[\"HCl\"], [\"NaOH\"], [\"7\"]]}, {\"point\": \"CH₃COOH with NaOH has a buffer region before a steep rise and an equivalence point above pH 7.\", \"keywords\": [[\"CH₃COOH\"], [\"NaOH\"], [\"above\"]]}, {\"point\": \"HCl with NH₃ has a smaller steep rise around equivalence below pH 7.\", \"keywords\": [[\"HCl\"], [\"NH₃\"], [\"below\"]]}, {\"point\": \"CH₃COOH with NH₃ has a gradual change near equivalence with no sharp vertical section; do not infer a universal equivalence pH for weak acid–weak alkali titrations.\", \"keywords\": [[\"CH₃COOH\"], [\"NH₃\"], [\"no sharp\"]]}, {\"point\": \"In excess alkali all curves level towards an alkaline pH; NaOH gives a higher final pH than NH₃ at the same concentration and comparable excess.\", \"keywords\": [[\"NaOH\"], [\"NH₃\"], [\"higher\"]]}], \"explanation\": \"Label every vertical axis pH and every horizontal axis volume of alkali added. All curves rise as alkali is added; HCl curves start at lower pH than CH₃COOH curves at the same concentration. HCl with NaOH has a large steep rise through equivalence at pH 7 at 298 K. CH₃COOH with NaOH has a buffer region before a steep rise and an equivalence point above pH 7. HCl with NH₃ has a smaller steep rise around equivalence below pH 7. CH₃COOH with NH₃ has a gradual change near equivalence with no sharp vertical section; do not infer a universal equivalence pH for weak acid–weak alkali titrations. In excess alkali all curves level towards an alkaline pH; NaOH gives a higher final pH than NH₃ at the same concentration and comparable excess.\", \"hints\": [\"Start with the relative pH values of strong and weak acids.\", \"Consider whether the salt at equivalence gives neutral, alkaline or acidic solution.\", \"Show no sharp jump for the weak acid–weak alkali pair and compare excess strong and weak alkali.\"]}",
+   "status": "done"
+  },
+  {
+   "ref": "9701-7.2.10 question coverage",
+   "instruction": "The existing questions provide no transition-range data and do not require selecting an indicator from those data; no pKa values should be introduced. In build/out/packs/9701/9701-7.2.json, replace the following fields of item 9701-7.2-i105 with these exact values; retain its other fields: {\"command_word\": \"Select\", \"stem\": \"For an acid–alkali titration, the steep section of the measured titration curve near equivalence extends from pH 7.5 to pH 10.5. Three indicators have the following colour-change ranges: P, pH 3.1–4.4; Q, pH 8.2–10.0; R, pH 6.0–7.0. Select the most suitable indicator, justify your choice using the data, and explain why the other two are unsuitable.\", \"marks\": 3, \"rubric\": [{\"point\": \"Choose indicator Q.\", \"keywords\": [[\"Q\"]]}, {\"point\": \"Its entire transition range, pH 8.2–10.0, lies within the steep pH change from 7.5 to 10.5, giving an end point close to equivalence.\", \"keywords\": [[\"range\"], [\"steep\"]]}, {\"point\": \"Reject P and R because their transition ranges lie below the steep section, so they change colour before equivalence.\", \"keywords\": [[\"P\"], [\"R\"], [\"before\"]]}], \"explanation\": \"Choose indicator Q. Its entire transition range, pH 8.2–10.0, lies within the steep pH change from 7.5 to 10.5, giving an end point close to equivalence. Reject P and R because their transition ranges lie below the steep section, so they change colour before equivalence.\", \"hints\": [\"Locate each colour-change interval relative to the steep section.\", \"Choose the interval contained within the rapid pH change.\", \"Decide whether the rejected indicators change before or after equivalence.\"]}",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 5586,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:51:31+08:00",
+   "log": "foundry/logs/9701-7.2.drafter.1010-135131.log",
+   "out": "foundry/logs/9701-7.2.drafter.1010-135131.out.json",
+   "finished": "2026-10-10T13:53:21+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-7.2.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/07 Equilibria/7.2 Brønsted–Lowry theory of acids and bases.md",
+    "items": 85,
+    "templates": 0,
+    "worked": 2,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "The generated short-answer items use broad rubrics and should receive a subject-matter review."
+    ]
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 7437,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:55:39+08:00",
+   "log": "foundry/logs/9701-7.2.checker.1010-135539.log",
+   "out": "foundry/logs/9701-7.2.checker.1010-135539.out.json",
+   "expects": "build/work/foundry/9701-7.2.check.json",
+   "finished": "2026-10-10T13:56:25+08:00",
+   "exit": 0,
+   "report": {
+    "text": "3 findings; wrote `build/work/foundry/9701-7.2.check.json`."
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 13824,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:04:31+08:00",
+   "log": "foundry/logs/9701-7.2.solver-1.1010-140431.log",
+   "out": "foundry/logs/9701-7.2.solver-1.1010-140431.out.json",
+   "expects": "build/work/blind/9701-7.2.answers.part1.json",
+   "finished": "2026-10-10T14:04:59+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions; wrote `build/work/blind/9701-7.2.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 13829,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:04:31+08:00",
+   "log": "foundry/logs/9701-7.2.solver-2.1010-140431.log",
+   "out": "foundry/logs/9701-7.2.solver-2.1010-140431.out.json",
+   "expects": "build/work/blind/9701-7.2.answers.part2.json",
+   "finished": "2026-10-10T14:04:51+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 7 questions; wrote [9701-7.2.answers.part2.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-7.2.answers.part2.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 27146,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:20:04+08:00",
+   "log": "foundry/logs/9701-7.2.tiebreak.1010-142004.log",
+   "out": "foundry/logs/9701-7.2.tiebreak.1010-142004.out.json",
+   "expects": "build/work/blind/9701-7.2.tiebreak.json",
+   "finished": "2026-10-10T14:20:18+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9701-7.2.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 22341,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:13:58+08:00",
+   "log": "foundry/logs/9701-7.2.adjudicator.1010-141358.log",
+   "out": "foundry/logs/9701-7.2.adjudicator.1010-141358.out.json",
+   "finished": "2026-10-10T14:15:27+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9701-7.2-x008 fix: Retain B; repair extracted options and explain proton donation.\n9701-7.2.6 question coverage fix: Explicitly test metal reaction and pH comparisons.\n9701-7.2.9 question coverage fix: Require sketches of all four titration combinations.\n9701-7.2.10 question coverage fix: Require indicator selection using supplied transition ranges."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 25133,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 1,
+   "started": "2026-10-10T14:17:56+08:00",
+   "log": "foundry/logs/9701-7.2.fixer.1010-141756.log",
+   "out": "foundry/logs/9701-7.2.fixer.1010-141756.out.json",
+   "finished": "2026-10-10T14:18:21+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 4,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 25771,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:18:22+08:00",
+   "log": "foundry/logs/9701-7.2.solver.1010-141822.log",
+   "out": "foundry/logs/9701-7.2.solver.1010-141822.out.json",
+   "expects": "build/work/blind/9701-7.2.recheck.answers.json",
+   "finished": "2026-10-10T14:18:33+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question; wrote `build/work/blind/9701-7.2.recheck.answers.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s20_12_q15": "9701-7.2-x001",
+  "9701_w20_12_q18": "9701-7.2-x002",
+  "9701_s21_12_q14": "9701-7.2-x003",
+  "9701_w21_11_q20": "9701-7.2-x004",
+  "9701_w21_12_q32": "9701-7.2-x005",
+  "9701_s22_13_q13": "9701-7.2-x006",
+  "9701_s23_13_q16": "9701-7.2-x007",
+  "9701_w23_12_q26": "9701-7.2-x008",
+  "9701_s24_13_q23": "9701-7.2-x009",
+  "9701_s25_11_q25": "9701-7.2-x010",
+  "9701_s25_13_q16": "9701-7.2-x011"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
