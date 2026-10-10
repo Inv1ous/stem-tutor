@@ -1,5 +1,8 @@
 # Build status
 
+## v2.1.1 (2026-10-10) — done
+- The foundry counts Codex's five-hour window (when its plan reports one) and pauses Codex until a limit it hits reopens.
+
 ## v2.1.0 (2026-10-09) — done
 - Challenge mode: hard AI-written calculation questions (MCQ and typed) at ten difficulty levels, set up by words or
   menu, written by Sonnet or Opus, each checked for being solvable from the chosen chapters and the ones before.

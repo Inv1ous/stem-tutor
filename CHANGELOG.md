@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.1.1 — 2026-10-10
+
+Asked by the learner.
+
+- **The foundry keeps Codex's five-hour limit in mind.** It already scored any window Codex reports; now it reads every
+  limit Codex names (`router.codex_windows`) and treats "use not allowed" as used up until the nearest reset. This
+  account's Codex plan reports a week only, so there is no five-hour figure to read: `foundry usage` says so. A Codex
+  job that runs into a limit now pauses Codex until the window reopens (from Codex's own figures, or the time in its
+  message, `router.reset_from_message`) instead of ten minutes.
+- `foundry usage` and the guide show the version 2.1.1.
+
 ## 2.1.0 — 2026-10-09
 
 Asked by the learner.

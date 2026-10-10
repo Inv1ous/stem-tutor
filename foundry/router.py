@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import select
 import subprocess
 import time
@@ -34,6 +35,47 @@ class Wait(SystemExit):
 
 
 # ---------------- reading the allowances ----------------
+def codex_windows(result: dict) -> dict | None:
+    """Every window Codex reports, by length: a five-hour one (when the plan has it) and the week, from the account's
+    own limit and from any other limit it names. When Codex says ordinary use is not allowed, or names the limit that
+    was reached, the allowance counts as used up until the nearest reset, whatever the figures say."""
+    names, out = {v: k for k, v in MINUTES.items()}, {}
+    sets = [result.get("rateLimits") or {}, *(result.get("rateLimitsByLimitId") or {}).values()]
+    for limits in sets:
+        for w in (limits.get("primary"), limits.get("secondary")):
+            try:
+                name = names.get(w.get("windowDurationMins"), f"{w.get('windowDurationMins')}m")
+                seen = {"used": float(w["usedPercent"]), "resets": w.get("resetsAt")}
+            except (AttributeError, KeyError, TypeError, ValueError):
+                continue
+            if name not in out or seen["used"] > out[name]["used"]:
+                out[name] = seen
+    reached = result.get("ordinaryUsageAllowed") is False or any(
+        (limits.get("rateLimitReachedType") or limits.get("spendControlReached")) for limits in sets)
+    if out and reached:
+        resets = [w["resets"] for w in out.values() if w.get("resets")]
+        out["limit"] = {"used": 100.0, "resets": min(resets) if resets else None}
+    return out or None
+
+
+def reset_from_message(text: str, now: float | None = None) -> float | None:
+    """When a usage-limit message says the allowance reopens: 'try again at 8:27 PM' (today, or tomorrow when that
+    time has gone) or 'try again in 3 hours 20 minutes'. None when it names nothing."""
+    now = now or time.time()
+    text = text.lower()
+    if m := re.search(r"(?:try again|resets?|available)(?: again)? at (\d{1,2})(?::(\d{2}))? ?([ap]m)?", text):
+        hour, minute, half = int(m[1]) % 12 if m[3] else int(m[1]), int(m[2] or 0), m[3]
+        if half == "pm":
+            hour += 12
+        if hour < 24 and minute < 60:
+            when = datetime.fromtimestamp(now).replace(hour=hour, minute=minute, second=0, microsecond=0)
+            return when.timestamp() + (86400 if when.timestamp() <= now else 0)
+    if m := re.search(r"(?:try again|resets?|available)(?: again)? in ((?:\d+ ?(?:d|days?|h|hours?|hrs?|m|mins?|minutes?)\b ?(?:and )?)+)", text):
+        secs = sum(int(n) * {"d": 86400, "h": 3600, "m": 60}[u[0]] for n, u in re.findall(r"(\d+) ?([a-z]+)", m[1]))
+        return now + secs if secs else None
+    return None
+
+
 def codex_usage(binary: str, timeout: float = 20) -> dict | None:
     """Codex's windows from its app server, which costs nothing: {"five_hour": {"used": 29.0, "resets": 1790953291},
     "seven_day": {…}}. None when it cannot be asked."""
@@ -61,11 +103,7 @@ def codex_usage(binary: str, timeout: float = 20) -> dict | None:
                 except ValueError:
                     continue
                 if isinstance(msg, dict) and msg.get("id") == 2:
-                    limits = (msg.get("result") or {}).get("rateLimits") or {}
-                    names = {v: k for k, v in MINUTES.items()}
-                    return {names.get(w.get("windowDurationMins"), f"{w.get('windowDurationMins')}m"):
-                            {"used": float(w["usedPercent"]), "resets": w.get("resetsAt")}
-                            for w in (limits.get("primary"), limits.get("secondary")) if w} or None
+                    return codex_windows(msg.get("result") or {})
     except (OSError, ValueError, KeyError, TypeError):
         return None
     finally:
@@ -247,14 +285,16 @@ def rung(notes: dict, cfg: dict, role: str, provider: str, retry: int | None = N
 
 
 def record(notes: dict, cfg: dict, role: str, provider: str, at_rung: int, ok: bool, limit: bool = False,
-           cost: float = 0.0, windows: dict | None = None, now: float | None = None, judge: bool = True) -> None:
+           cost: float = 0.0, windows: dict | None = None, now: float | None = None, judge: bool = True,
+           until: float | None = None) -> None:
     """Note how a finished job went: for the tier (two failures running raise the role's floor), for the allowance
     (a usage limit closes it for ten minutes and is not held against the tier), and for the Claude readings.
     `judge=False` leaves the tier out of it: a solver shard that merely finished says nothing of how well it solved."""
     now = now or time.time()
     key, misses = f"{role}/{provider}", notes.setdefault("misses", {})
-    if limit:
-        notes.setdefault(provider, {})["closed_until"] = now + 600
+    if limit:  # ten minutes at least; for Codex until the window that was hit reopens (its own figures, or its message)
+        full = [w["resets"] for w in (windows or {}).values() if provider == "codex" and w.get("resets") and w["used"] >= 99]
+        notes.setdefault(provider, {})["closed_until"] = max(now + 600, until or 0, *full)
     elif not judge:
         pass
     elif ok:

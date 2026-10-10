@@ -888,6 +888,9 @@ def usage_lines() -> list[str]:
         elif p == "claude" and "five_hour" not in u[p]:  # a headless run is told only of the limit nearest its end
             out.append(f"{NAMES[p]:<7} {'5 hours':<10} not reported by Claude (pass it on: foundry reading claude "
                        "five_hour <percent> <reset time>)")
+        elif p == "codex" and "five_hour" not in u[p]:  # some plans report a week only
+            out.append(f"{NAMES[p]:<7} {'5 hours':<10} not reported by Codex for this plan: used the moment Codex "
+                       "reports one; a job that hits it pauses Codex until it reopens")
     try:
         out.append(f"next job: {NAMES[router.pick('drafter', None, u, cfg, _busy())]} (more of its week left for the "
                    "time until it resets); a chapter's blind solve goes to the one that did not draft it")
@@ -1010,9 +1013,11 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
     ok = exit_code == 0 and bool(report) and wrote and (g is None or g["ok"])
     if out != "-":
         with notes() as n:
+            codex = provider == "codex" and limit  # Codex's own figures (free to ask) and its message say when it reopens
             router.record(n, config(), role, provider, job.get("rung", 0), ok=ok, limit=limit,
-                          cost=facts.get("cost", 0.0), windows=facts.get("windows"),
-                          judge=not (role == "solver" and ok))  # a solver is judged by its answers, at compare
+                          cost=facts.get("cost", 0.0), windows=router.codex_usage(CODEX) if codex else facts.get("windows"),
+                          judge=not (role == "solver" and ok),  # a solver is judged by its answers, at compare
+                          until=router.reset_from_message(said) if codex else None)
     if role not in ("solver", "checker"):
         notify(f"{sub}: {role} " + ("finished" if exit_code == 0 and report else "failed")
                + (" · gates ok" if g and g.get("ok") else ""))

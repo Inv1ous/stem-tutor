@@ -4,6 +4,7 @@ import importlib
 import json
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 import pytest
@@ -830,3 +831,56 @@ def test_a_job_goes_only_where_there_is_room_for_it(fdy):
     seen["claude"]["five_hour"] = {"used": 77, "resets": time.time() + 3 * 3600}
     assert pick("drafter", None, seen, cfg, {}) == "codex"  # by the week alone it would be Claude
     assert pick("solver", None, seen, cfg, {}) == "claude"  # a blind solve is small enough
+
+
+def test_codex_windows_reads_a_five_hour_window_when_the_plan_has_one(fdy):
+    r = fdy.router
+    both = {"rateLimits": {"primary": {"usedPercent": 62, "windowDurationMins": 300, "resetsAt": 2_000_000_000},
+                           "secondary": {"usedPercent": 39, "windowDurationMins": 10080, "resetsAt": 2_000_100_000}}}
+    assert r.codex_windows(both) == {"five_hour": {"used": 62.0, "resets": 2_000_000_000},
+                                     "seven_day": {"used": 39.0, "resets": 2_000_100_000}}
+    week_only = {"rateLimits": {"primary": {"usedPercent": 39, "windowDurationMins": 10080, "resetsAt": 5}, "secondary": None},
+                 "ordinaryUsageAllowed": True}
+    assert list(r.codex_windows(week_only)) == ["seven_day"]  # this plan: a week only
+    assert r.codex_windows({}) is None and r.codex_windows({"rateLimits": {"primary": None}}) is None
+
+
+def test_codex_saying_use_is_not_allowed_closes_it_until_the_nearest_reset(fdy):
+    r, cfg, now = fdy.router, fdy.config(), time.time()
+    blocked = {"ordinaryUsageAllowed": False, "rateLimits": {
+        "primary": {"usedPercent": 100, "windowDurationMins": 300, "resetsAt": now + 3000},
+        "secondary": {"usedPercent": 40, "windowDurationMins": 10080, "resetsAt": now + 90000}}}
+    w = r.codex_windows(blocked)
+    assert w["limit"] == {"used": 100.0, "resets": now + 3000}
+    closed, why = r.score("codex", w, cfg, [], now=now)
+    assert closed is None and "used up" in why
+    assert r.score("codex", {"seven_day": {"used": 40.0, "resets": now + 90000}}, cfg, [], now=now)[0] is not None
+
+
+def test_a_codex_limit_message_says_when_it_reopens(fdy):
+    r, now = fdy.router, time.time()
+    at = r.reset_from_message("ERROR: You've hit your usage limit. Upgrade to Pro or try again at 8:27 PM.", now)
+    assert at and at > now and at - now <= 86400 + 60 and datetime.fromtimestamp(at).strftime("%H:%M") == "20:27"
+    assert r.reset_from_message("usage limit reached, try again in 3 hours 20 minutes", now) == now + 3 * 3600 + 20 * 60
+    assert r.reset_from_message("try again in 45 minutes", now) == now + 2700
+    assert r.reset_from_message("something broke", now) is None
+
+
+def test_a_codex_five_hour_limit_closes_codex_until_it_reopens_not_for_ten_minutes(fdy):
+    r, cfg, now = fdy.router, fdy.config(), time.time()
+    notes = {}
+    r.record(notes, cfg, "drafter", "codex", 0, ok=False, limit=True, now=now, until=now + 7200)
+    assert notes["codex"]["closed_until"] == now + 7200  # the message said two hours
+    r.record(notes, cfg, "drafter", "codex", 0, ok=False, limit=True, now=now,
+             windows={"five_hour": {"used": 100.0, "resets": now + 9000}, "seven_day": {"used": 40.0, "resets": now + 99999}})
+    assert notes["codex"]["closed_until"] == now + 9000  # the window that is full
+    r.record(notes, cfg, "drafter", "codex", 0, ok=False, limit=True, now=now)
+    assert notes["codex"]["closed_until"] == now + 600  # nothing known: the old ten minutes
+    assert notes["misses"].get("drafter/codex", 0) == 0
+
+
+def test_usage_says_when_codex_reports_no_five_hour_window(fdy, monkeypatch, capsys):
+    monkeypatch.delenv("FOUNDRY_USAGE_FILE", raising=False)
+    monkeypatch.setattr(fdy.router, "codex_usage", lambda binary, timeout=20: {"seven_day": {"used": 39.0, "resets": time.time() + 9e5}})
+    fdy.cmd_usage()
+    assert "Codex   5 hours    not reported by Codex for this plan" in capsys.readouterr().out
