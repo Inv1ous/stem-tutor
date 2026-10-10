@@ -1,0 +1,9 @@
+{
+  "FP1-3.1": {
+    "motivate": "Some equations $f(x)=0$ cannot conveniently be solved exactly. Three numerical processes give usable root estimates: interval bisection, linear interpolation and Newton-Raphson. Each uses different information about the graph.",
+    "establish": "For interval bisection, start with a continuous $f$ and endpoints $a<b$ of opposite sign. Set $m=(a+b)/2$ and keep the half whose endpoint values have opposite signs. For linear interpolation, join $(a,f(a))$ and $(b,f(b))$ with a straight line. Its zero is $x=a-f(a)(b-a)/(f(b)-f(a))$. For Newton-Raphson, start at $x_n$ and follow the tangent to the axis: $x_{n+1}=x_n-f(x_n)/f'(x_n)$. Differentiate using P1 or P2 rules and avoid points where $f'(x_n)=0$. Bisection controls a bracket; the other estimates must be checked by evaluating $f$ or monitoring convergence.",
+    "connect": "The sign-change test comes from continuity. Linear interpolation replaces the curve with a secant; Newton-Raphson replaces it locally with a tangent. These geometric pictures explain why their numerical estimates differ.",
+    "note": "- Root: $f(r)=0$.\n- Bisection: midpoint, then retain the sign-changing half.\n- Linear interpolation: use the secant zero.\n- Newton-Raphson: $x_{n+1}=x_n-f(x_n)/f'(x_n)$.\n- Check signs, derivatives and accuracy.",
+    "self_explain": "Why does bisection preserve a bracket while a Newton-Raphson iterate can leave the starting interval? Explain using the sign test and the tangent picture."
+  }
+}

@@ -1,0 +1,97 @@
+{
+ "sub": "FP1-3",
+ "stage": "ready",
+ "created": "2026-10-10T16:51:04+08:00",
+ "updated": "2026-10-10T17:01:12+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T16:52:22+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 7 items"
+  },
+  {
+   "t": "2026-10-10T17:00:21+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "7 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T17:01:12+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 7,
+  "extra": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 19931,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:51:05+08:00",
+   "log": "foundry/logs/FP1-3.drafter.1010-165105.log",
+   "out": "foundry/logs/FP1-3.drafter.1010-165105.out.json",
+   "finished": "2026-10-10T16:52:22+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/FP1/FP1-3.json",
+    "note_path": "build/out/notes/Subjects/Maths/FP1 Further Pure Mathematics 1/3 Numerical solution of equations.md",
+    "items": 7,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 25773,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:59:26+08:00",
+   "log": "foundry/logs/FP1-3.solver.1010-165926.log",
+   "out": "foundry/logs/FP1-3.solver.1010-165926.out.json",
+   "expects": "build/work/blind/FP1-3.answers.json",
+   "finished": "2026-10-10T16:59:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 7 questions in `build/work/blind/FP1-3.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 25776,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:59:26+08:00",
+   "log": "foundry/logs/FP1-3.checker.1010-165926.log",
+   "out": "foundry/logs/FP1-3.checker.1010-165926.out.json",
+   "expects": "build/work/foundry/FP1-3.check.json",
+   "finished": "2026-10-10T16:59:41+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote [FP1-3.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/FP1-3.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
