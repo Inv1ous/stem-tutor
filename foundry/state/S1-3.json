@@ -1,0 +1,255 @@
+{
+ "sub": "S1-3",
+ "stage": "ready",
+ "created": "2026-10-10T11:02:42+08:00",
+ "updated": "2026-10-10T14:23:42+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T11:05:12+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 24 items"
+  },
+  {
+   "t": "2026-10-10T14:21:36+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "16 agreed, 6 disputed"
+  },
+  {
+   "t": "2026-10-10T14:22:22+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 6 for the manager"
+  },
+  {
+   "t": "2026-10-10T14:23:32+08:00",
+   "from": "adjudicate",
+   "to": "sign",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T14:23:42+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 24,
+  "extra": 0
+ },
+ "disputes": [
+  {
+   "id": "S1-3-i02",
+   "key": {
+    "value": 0.3333333333333333,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ],
+    "exact": true
+   },
+   "solver": "0.333",
+   "tiebreak": "0.333",
+   "status": "closed",
+   "resolution": "keep: Two qualifying faces out of six give 2/6 = 1/3, matching the key; 0.333 is the same probability to 3 significant figures."
+  },
+  {
+   "id": "S1-3-i21",
+   "key": {
+    "value": 0.2857142857142857,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ],
+    "exact": true
+   },
+   "solver": "0.286",
+   "tiebreak": "0.286",
+   "status": "closed",
+   "resolution": "keep: Without replacement, P(red then blue) = (4/7)(3/6) = 2/7, matching the key; 0.286 is its 3-significant-figure rounding."
+  },
+  {
+   "id": "S1-3-i22",
+   "key": {
+    "value": 0.5714285714285714,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ],
+    "exact": true
+   },
+   "solver": "0.571",
+   "tiebreak": "0.571",
+   "status": "closed",
+   "resolution": "keep: The disjoint orders give (4/7)(3/6) + (3/7)(4/6) = 4/7, matching the key; 0.571 is its 3-significant-figure rounding."
+  },
+  {
+   "id": "we1.faded",
+   "key": {
+    "value": 0.8333333333333334,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ],
+    "exact": true
+   },
+   "solver": "0.833",
+   "tiebreak": "0.833",
+   "status": "closed",
+   "resolution": "keep: The addition law gives 2/3 + 1/2 - 1/3 = 5/6, matching the key; 0.833 is its 3-significant-figure rounding."
+  },
+  {
+   "id": "we2.faded",
+   "key": {
+    "value": 0.16666666666666666,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ],
+    "exact": true
+   },
+   "solver": "0.167",
+   "tiebreak": "0.167",
+   "status": "closed",
+   "resolution": "keep: P(A)P(B) = (1/2)(1/3) = 1/6, matching the key; 0.167 is its 3-significant-figure rounding."
+  },
+  {
+   "id": "we3.faded",
+   "key": {
+    "value": 0.35714285714285715,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ],
+    "exact": true
+   },
+   "solver": "0.357",
+   "tiebreak": "0.357",
+   "status": "closed",
+   "resolution": "keep: Without replacement, P(both red) = (5/8)(4/7) = 5/14, matching the key; 0.357 is its 3-significant-figure rounding."
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 38499,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T11:03:12+08:00",
+   "log": "foundry/logs/S1-3.drafter.1010-110312.log",
+   "out": "foundry/logs/S1-3.drafter.1010-110312.out.json",
+   "finished": "2026-10-10T11:05:12+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/S1/S1-3.json",
+    "note_path": "build/out/notes/Subjects/Maths/S1 Statistics 1/3 Probability.md",
+    "items": 24,
+    "templates": 0,
+    "worked": 3,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 98993,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:42:31+08:00",
+   "log": "foundry/logs/S1-3.checker.1010-134231.log",
+   "out": "foundry/logs/S1-3.checker.1010-134231.out.json",
+   "expects": "build/work/foundry/S1-3.check.json",
+   "finished": "2026-10-10T13:42:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/S1-3.check.json`."
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 27764,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:20:40+08:00",
+   "log": "foundry/logs/S1-3.solver-1.1010-142040.log",
+   "out": "foundry/logs/S1-3.solver-1.1010-142040.out.json",
+   "expects": "build/work/blind/S1-3.answers.part1.json",
+   "finished": "2026-10-10T14:20:57+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/S1-3.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 28314,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:21:16+08:00",
+   "log": "foundry/logs/S1-3.solver-2.1010-142116.log",
+   "out": "foundry/logs/S1-3.solver-2.1010-142116.out.json",
+   "expects": "build/work/blind/S1-3.answers.part2.json",
+   "finished": "2026-10-10T14:21:28+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions; wrote `build/work/blind/S1-3.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 29230,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:21:57+08:00",
+   "log": "foundry/logs/S1-3.tiebreak.1010-142157.log",
+   "out": "foundry/logs/S1-3.tiebreak.1010-142157.out.json",
+   "expects": "build/work/blind/S1-3.tiebreak.json",
+   "finished": "2026-10-10T14:22:17+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 6,
+    "answers_path": "build/work/blind/S1-3.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 30092,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:22:47+08:00",
+   "log": "foundry/logs/S1-3.adjudicator.1010-142247.log",
+   "out": "foundry/logs/S1-3.adjudicator.1010-142247.out.json",
+   "finished": "2026-10-10T14:23:39+08:00",
+   "exit": 0,
+   "report": {
+    "text": "S1-3-i02 keep: 2/6 = 1/3; rounding only.\nS1-3-i21 keep: (4/7)(3/6) = 2/7; rounding only.\nS1-3-i22 keep: both orders sum to 4/7; rounding only.\nwe1.faded keep: addition law gives 5/6; rounding only.\nwe2.faded keep: probability product equals 1/6; rounding only.\nwe3.faded keep: (5/8)(4/7) = 5/14; rounding only."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {},
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
