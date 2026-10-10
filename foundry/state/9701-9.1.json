@@ -1,0 +1,319 @@
+{
+ "sub": "9701-9.1",
+ "stage": "ready",
+ "created": "2026-10-10T15:55:37+08:00",
+ "updated": "2026-10-10T16:15:44+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T15:59:31+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 28 items"
+  },
+  {
+   "t": "2026-10-10T16:02:39+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "30 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T16:04:26+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-10T16:08:34+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T16:09:50+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 6 fixes applied"
+  },
+  {
+   "t": "2026-10-10T16:10:37+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "1 agreed, 0 disputed; 7 checker findings"
+  },
+  {
+   "t": "2026-10-10T16:15:44+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 28,
+  "extra": 9
+ },
+ "disputes": [
+  {
+   "id": "we1.faded",
+   "key": {
+    "value": 1,
+    "unit": "",
+    "exact": true
+   },
+   "solver": "Silicon has a giant covalent lattice; melting requires breaking strong Si-Si covalent bonds. Phosphorus consists of simple P4 molecules; melting overcomes only weak intermolecular London forces, leaving the P-P covalent bonds intact.",
+   "tiebreak": "Silicon has a giant covalent lattice, so melting requires breaking strong Si–Si covalent bonds. Phosphorus consists of simple P4 molecules, so melting overcomes only weak intermolecular London dispersion forces; the covalent P–P bonds within each molecule remain intact.",
+   "status": "closed",
+   "resolution": "fix: The conceptual answers from both solvers are correct; numeric 1 does not answer the current prose prompt. Keep the supported numeric faded schema. In worked[id=we1].faded set problem to \"Silicon melts at a much higher temperature than phosphorus. Which explanation correctly identifies the structures and attractions overcome? Enter 1, 2 or 3. (1) Silicon has a giant covalent lattice and melting breaks strong Si–Si covalent bonds; phosphorus consists of P₄ molecules and melting overcomes weaker instantaneous dipole–induced dipole attractions between molecules, leaving P–P bonds intact. (2) Both elements consist of simple molecules, but silicon has stronger intermolecular attractions. (3) Melting phosphorus breaks P–P covalent bonds, while melting silicon only overcomes intermolecular attractions.\" Set answer to {\"value\":1,\"unit\":\"\",\"exact\":true}; retain id and blank_from."
+  }
+ ],
+ "findings": [
+  {
+   "ref": "item 9701-9.1-p06 options C and D",
+   "rule": "two right options",
+   "evidence": "\"C\": \"generally increase increase up to a peak at silicon then decrease\", \"D\": \"\", \"answer\": \"D\"",
+   "suggested": "Restore the original option layout and key so the correct trend is the keyed option.",
+   "status": "fixed",
+   "resolution": "fix: The image shows extraction shifted every row; official D is correct. In pack item 9701-9.1-p06 restore the complete options and clean the stem. Set these exact fields in item item 9701-9.1-p06 options C and D: {\"stem\": \"Which row gives the best description of the variations in the melting points and the first ionisation energies of the elements in Period 3 from sodium to argon?\", \"options\": {\"A\": \"Melting points: increase up to a peak at aluminium then decrease; first ionisation energies: generally decrease.\", \"B\": \"Melting points: increase up to a peak at aluminium then decrease; first ionisation energies: generally increase.\", \"C\": \"Melting points: increase up to a peak at silicon then decrease; first ionisation energies: generally decrease.\", \"D\": \"Melting points: increase up to a peak at silicon then decrease; first ionisation energies: generally increase.\"}, \"answer\": \"D\", \"explanation\": \"D is the best overall description: first ionisation energies generally increase across Period 3, with dips at aluminium and sulfur. Melting point reaches its maximum at silicon, not aluminium; the subsequent overall decrease includes a rise from phosphorus to sulfur, so it is not monotonic.\"}. Preserve the source image and official key."
+  },
+  {
+   "ref": "item 9701-9.1-p07 options C and D",
+   "rule": "two right options",
+   "evidence": "\"C\": \"Y is a non-metal.\", \"D\": \"\", \"answer\": \"D\"",
+   "suggested": "Restore the original option layout so the correct statement is keyed.",
+   "status": "fixed",
+   "resolution": "fix: The image confirms shifted options, not two correct source answers. Apply to pack item 9701-9.1-p07. Set these exact fields in item item 9701-9.1-p07 options C and D: {\"stem\": \"X and Y are atoms of different elements in Period 3 of the Periodic Table. Neither X nor Y is argon.\\nX is a non-metal.\\nX has a greater atomic radius than Y.\\nWhich statement is correct?\", \"options\": {\"A\": \"X has more occupied electron shells than Y.\", \"B\": \"X has more protons in each atom than Y.\", \"C\": \"X has the same number of outer electrons in each atom as Y.\", \"D\": \"Y is a non-metal.\"}, \"answer\": \"D\"}. Preserve the source image and official key."
+  },
+  {
+   "ref": "item 9701-9.1-p08 options C and D",
+   "rule": "two right options",
+   "evidence": "\"C\": \"Si has a greater nuclear charge than Mg. The radius of Si⁴⁺ is smaller than the radius of Mg²⁺.\", \"D\": \"\", \"answer\": \"D\"",
+   "suggested": "Restore the original row options and key.",
+   "status": "fixed",
+   "resolution": "fix: The image confirms shifted rows; official D compares isoelectronic ions. Apply to pack item 9701-9.1-p08. Set these exact fields in item item 9701-9.1-p08 options C and D: {\"stem\": \"Which row about silicon, Si, and magnesium, Mg, and their ions is correct?\", \"options\": {\"A\": \"Si has a greater atomic radius than Mg. Explanation: Si has electrons in 3p orbitals. Mg has electrons in the 3s orbital only.\", \"B\": \"Si has a lower electrical conductivity than Mg. Explanation: Si has 4 delocalised electrons per atom. Mg only has 2 delocalised electrons per atom.\", \"C\": \"Si has a lower melting point than Mg. Explanation: Si has covalent bonding. Mg has metallic bonding.\", \"D\": \"The radius of Si⁴⁺ is smaller than the radius of Mg²⁺. Explanation: Si has a greater nuclear charge than Mg.\"}, \"answer\": \"D\", \"explanation\": \"D is correct: Si⁴⁺ and Mg²⁺ each have 10 electrons, but silicon has 14 protons and magnesium has 12, so the greater nuclear attraction makes Si⁴⁺ smaller. A has the atomic-radius trend reversed. B gives a true conductivity comparison but a false explanation: silicon does not have four delocalised electrons per atom. C has the melting-point comparison reversed; silicon melts at a higher temperature than magnesium.\"}. Preserve the source image and official key."
+  },
+  {
+   "ref": "item 9701-9.1-x006",
+   "rule": "off syllabus",
+   "evidence": "Which statement explains why calcium has a higher melting point than barium?",
+   "suggested": "Replace with a Period 3 melting-point question.",
+   "status": "fixed",
+   "resolution": "fix: Reject replacement on syllabus grounds: this is extra transfer practice applying the same metallic-bonding explanation as KC 9701-9.1.2, although the metals are from Group 2. The source image instead reveals a real extraction error that must be corrected. Set these exact fields in build/work/mcq/overrides.json under 9701_s23_11_q2: {\"stem\": \"Which statement explains why calcium has a higher melting point than barium?\", \"options\": {\"A\": \"Calcium cations are smaller than barium cations and have a stronger attraction to the delocalised electrons.\", \"B\": \"The structure of calcium is partly giant molecular.\", \"C\": \"There are more delocalised electrons in calcium than in barium as it has a lower ionisation energy.\", \"D\": \"There is greater repulsion between barium atoms as they have more complete electron shells than calcium atoms.\"}, \"answer\": \"A\", \"explanation\": \"A is correct. This applies the metallic-bonding model used for Period 3 to two Group 2 metals: both supply two delocalised electrons per atom, but the smaller calcium cations attract the delocalised electrons more strongly. Both metals have metallic structures; additional electron shells do not explain the trend by increased repulsion.\"}. Preserve the source image and official key."
+  },
+  {
+   "ref": "item 9701-9.1-x008",
+   "rule": "off syllabus",
+   "evidence": "Y and Z both form chlorides which are white solids. These white solids react with water to produce solutions with a pH of less than 4.",
+   "suggested": "Use a question confined to the chapter's physical-property trends.",
+   "status": "fixed",
+   "resolution": "fix: Reject replacement: this bundled synoptic extra tests Period 3 melting points alongside ionisation energy and chloride chemistry; the examiner explicitly uses the melting-point comparison to reject D. Restore the damaged table from the source image. Set these exact fields in build/work/mcq/overrides.json under 9701_w23_13_q16: {\"stem\": \"X, Y and Z are elements all found within Groups 13, 14 and 15 of the Periodic Table.\\nX is in the same group in the Periodic Table as Y.\\nY and Z are in Period 3.\\nThe first ionisation energy of X is greater than the first ionisation energy of Y.\\nThe melting point of Z is less than the melting point of Y.\\nY and Z both form chlorides which are white solids. These white solids react with water to produce solutions with a pH of less than 4.\\nWhich row of the table shows the possible identities of X and Y?\", \"options\": {\"A\": \"X = B; Y = Al\", \"B\": \"X = Ge; Y = Si\", \"C\": \"X = As; Y = P\", \"D\": \"X = N; Y = P\"}, \"answer\": \"A\", \"explanation\": \"A is correct, with X = boron, Y = aluminium and Z = phosphorus. The chloride clues are consistent with solid AlCl₃ and PCl₅. X must be above Y in its group to have the higher first ionisation energy, eliminating B and C. D is tempting, but if Y were phosphorus, neither aluminium nor silicon could be Z because both melt at higher temperatures than phosphorus; the required lower melting point is impossible.\"}. Preserve the source image and official key."
+  },
+  {
+   "ref": "item 9701-9.1-x005",
+   "rule": "off syllabus",
+   "evidence": "The oxide of L is a solid at room temperature. This oxide has a giant structure. The chloride of L does not react with water.",
+   "suggested": "Use a question confined to the elements' physical properties.",
+   "status": "closed",
+   "resolution": "keep: Keep official C. This bundled synoptic extra directly tests the Period 3 melting-point order: only argon melts below chlorine, so M is chlorine. The oxide/chloride clues identify sodium as L, giving NaCl. Related chloride chemistry in a mixed extra does not invalidate its physical-property assessment."
+  },
+  {
+   "ref": "item 9701-9.1-x009",
+   "rule": "off syllabus",
+   "evidence": "Adding sodium oxide to water gives a lower pH solution than adding silicon oxide to water.",
+   "suggested": "Replace with a question testing Period 3 elemental physical properties.",
+   "status": "closed",
+   "resolution": "keep: Keep official C. The correct statement directly tests KC 9701-9.1.1: sodium has a larger atomic radius than silicon because nuclear charge increases across the same occupied shell. The mixed distractors are false: Na₂O gives an alkaline solution whereas SiO₂ does not react with water; Na is +1 versus Si +4 in their chlorides; ionic NaCl melts above molecular SiCl₄. This bundled synoptic extra need not be replaced."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "we1.faded",
+   "instruction": "The conceptual answers from both solvers are correct; numeric 1 does not answer the current prose prompt. Keep the supported numeric faded schema. In worked[id=we1].faded set problem to \"Silicon melts at a much higher temperature than phosphorus. Which explanation correctly identifies the structures and attractions overcome? Enter 1, 2 or 3. (1) Silicon has a giant covalent lattice and melting breaks strong Si–Si covalent bonds; phosphorus consists of P₄ molecules and melting overcomes weaker instantaneous dipole–induced dipole attractions between molecules, leaving P–P bonds intact. (2) Both elements consist of simple molecules, but silicon has stronger intermolecular attractions. (3) Melting phosphorus breaks P–P covalent bonds, while melting silicon only overcomes intermolecular attractions.\" Set answer to {\"value\":1,\"unit\":\"\",\"exact\":true}; retain id and blank_from.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-9.1-p06 options C and D",
+   "instruction": "The image shows extraction shifted every row; official D is correct. In pack item 9701-9.1-p06 restore the complete options and clean the stem. Set these exact fields in item item 9701-9.1-p06 options C and D: {\"stem\": \"Which row gives the best description of the variations in the melting points and the first ionisation energies of the elements in Period 3 from sodium to argon?\", \"options\": {\"A\": \"Melting points: increase up to a peak at aluminium then decrease; first ionisation energies: generally decrease.\", \"B\": \"Melting points: increase up to a peak at aluminium then decrease; first ionisation energies: generally increase.\", \"C\": \"Melting points: increase up to a peak at silicon then decrease; first ionisation energies: generally decrease.\", \"D\": \"Melting points: increase up to a peak at silicon then decrease; first ionisation energies: generally increase.\"}, \"answer\": \"D\", \"explanation\": \"D is the best overall description: first ionisation energies generally increase across Period 3, with dips at aluminium and sulfur. Melting point reaches its maximum at silicon, not aluminium; the subsequent overall decrease includes a rise from phosphorus to sulfur, so it is not monotonic.\"}. Preserve the source image and official key.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-9.1-p07 options C and D",
+   "instruction": "The image confirms shifted options, not two correct source answers. Apply to pack item 9701-9.1-p07. Set these exact fields in item item 9701-9.1-p07 options C and D: {\"stem\": \"X and Y are atoms of different elements in Period 3 of the Periodic Table. Neither X nor Y is argon.\\nX is a non-metal.\\nX has a greater atomic radius than Y.\\nWhich statement is correct?\", \"options\": {\"A\": \"X has more occupied electron shells than Y.\", \"B\": \"X has more protons in each atom than Y.\", \"C\": \"X has the same number of outer electrons in each atom as Y.\", \"D\": \"Y is a non-metal.\"}, \"answer\": \"D\"}. Preserve the source image and official key.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-9.1-p08 options C and D",
+   "instruction": "The image confirms shifted rows; official D compares isoelectronic ions. Apply to pack item 9701-9.1-p08. Set these exact fields in item item 9701-9.1-p08 options C and D: {\"stem\": \"Which row about silicon, Si, and magnesium, Mg, and their ions is correct?\", \"options\": {\"A\": \"Si has a greater atomic radius than Mg. Explanation: Si has electrons in 3p orbitals. Mg has electrons in the 3s orbital only.\", \"B\": \"Si has a lower electrical conductivity than Mg. Explanation: Si has 4 delocalised electrons per atom. Mg only has 2 delocalised electrons per atom.\", \"C\": \"Si has a lower melting point than Mg. Explanation: Si has covalent bonding. Mg has metallic bonding.\", \"D\": \"The radius of Si⁴⁺ is smaller than the radius of Mg²⁺. Explanation: Si has a greater nuclear charge than Mg.\"}, \"answer\": \"D\", \"explanation\": \"D is correct: Si⁴⁺ and Mg²⁺ each have 10 electrons, but silicon has 14 protons and magnesium has 12, so the greater nuclear attraction makes Si⁴⁺ smaller. A has the atomic-radius trend reversed. B gives a true conductivity comparison but a false explanation: silicon does not have four delocalised electrons per atom. C has the melting-point comparison reversed; silicon melts at a higher temperature than magnesium.\"}. Preserve the source image and official key.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-9.1-x006",
+   "instruction": "Reject replacement on syllabus grounds: this is extra transfer practice applying the same metallic-bonding explanation as KC 9701-9.1.2, although the metals are from Group 2. The source image instead reveals a real extraction error that must be corrected. Set these exact fields in build/work/mcq/overrides.json under 9701_s23_11_q2: {\"stem\": \"Which statement explains why calcium has a higher melting point than barium?\", \"options\": {\"A\": \"Calcium cations are smaller than barium cations and have a stronger attraction to the delocalised electrons.\", \"B\": \"The structure of calcium is partly giant molecular.\", \"C\": \"There are more delocalised electrons in calcium than in barium as it has a lower ionisation energy.\", \"D\": \"There is greater repulsion between barium atoms as they have more complete electron shells than calcium atoms.\"}, \"answer\": \"A\", \"explanation\": \"A is correct. This applies the metallic-bonding model used for Period 3 to two Group 2 metals: both supply two delocalised electrons per atom, but the smaller calcium cations attract the delocalised electrons more strongly. Both metals have metallic structures; additional electron shells do not explain the trend by increased repulsion.\"}. Preserve the source image and official key.",
+   "status": "done"
+  },
+  {
+   "ref": "item 9701-9.1-x008",
+   "instruction": "Reject replacement: this bundled synoptic extra tests Period 3 melting points alongside ionisation energy and chloride chemistry; the examiner explicitly uses the melting-point comparison to reject D. Restore the damaged table from the source image. Set these exact fields in build/work/mcq/overrides.json under 9701_w23_13_q16: {\"stem\": \"X, Y and Z are elements all found within Groups 13, 14 and 15 of the Periodic Table.\\nX is in the same group in the Periodic Table as Y.\\nY and Z are in Period 3.\\nThe first ionisation energy of X is greater than the first ionisation energy of Y.\\nThe melting point of Z is less than the melting point of Y.\\nY and Z both form chlorides which are white solids. These white solids react with water to produce solutions with a pH of less than 4.\\nWhich row of the table shows the possible identities of X and Y?\", \"options\": {\"A\": \"X = B; Y = Al\", \"B\": \"X = Ge; Y = Si\", \"C\": \"X = As; Y = P\", \"D\": \"X = N; Y = P\"}, \"answer\": \"A\", \"explanation\": \"A is correct, with X = boron, Y = aluminium and Z = phosphorus. The chloride clues are consistent with solid AlCl₃ and PCl₅. X must be above Y in its group to have the higher first ionisation energy, eliminating B and C. D is tempting, but if Y were phosphorus, neither aluminium nor silicon could be Z because both melt at higher temperatures than phosphorus; the required lower melting point is impossible.\"}. Preserve the source image and official key.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 79911,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T15:57:37+08:00",
+   "log": "foundry/logs/9701-9.1.drafter.1010-155737.log",
+   "out": "foundry/logs/9701-9.1.drafter.1010-155737.out.json",
+   "finished": "2026-10-10T15:59:31+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-9.1.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/09 The Periodic Table: chemical periodicity/9.1 Periodicity of physical properties of the elements in Period 3.md",
+    "items": 29,
+    "templates": 0,
+    "worked": 1,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": [
+     "Some past-paper questions rely on their original images for complete options."
+    ]
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 81958,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:01:39+08:00",
+   "log": "foundry/logs/9701-9.1.solver-1.1010-160139.log",
+   "out": "foundry/logs/9701-9.1.solver-1.1010-160139.out.json",
+   "expects": "build/work/blind/9701-9.1.answers.part1.json",
+   "finished": "2026-10-10T16:02:11+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9701-9.1.answers.part1.json`."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 81963,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:01:39+08:00",
+   "log": "foundry/logs/9701-9.1.solver-2.1010-160139.log",
+   "out": "foundry/logs/9701-9.1.solver-2.1010-160139.out.json",
+   "expects": "build/work/blind/9701-9.1.answers.part2.json",
+   "finished": "2026-10-10T16:02:07+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 11 questions in `build/work/blind/9701-9.1.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 81965,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:01:39+08:00",
+   "log": "foundry/logs/9701-9.1.checker.1010-160139.log",
+   "out": "foundry/logs/9701-9.1.checker.1010-160139.out.json",
+   "expects": "build/work/foundry/9701-9.1.check.json",
+   "finished": "2026-10-10T16:02:30+08:00",
+   "exit": 0,
+   "report": {
+    "text": "7 findings — [build/work/foundry/9701-9.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9701-9.1.check.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 83323,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:03:25+08:00",
+   "log": "foundry/logs/9701-9.1.tiebreak.1010-160325.log",
+   "out": "foundry/logs/9701-9.1.tiebreak.1010-160325.out.json",
+   "expects": "build/work/blind/9701-9.1.tiebreak.json",
+   "finished": "2026-10-10T16:03:39+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9701-9.1.tiebreak.json",
+    "notes": [
+     "we1.faded is marked numeric, but its stem asks for a written explanation."
+    ]
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 86561,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T16:07:00+08:00",
+   "log": "foundry/logs/9701-9.1.adjudicator.1010-160700.log",
+   "out": "foundry/logs/9701-9.1.adjudicator.1010-160700.out.json",
+   "finished": "2026-10-10T16:08:46+08:00",
+   "exit": 0,
+   "report": {
+    "text": "we1.faded fix: Align the prompt with its numeric answer format.\n9701-9.1-p06 fix: Restore shifted options; retain official D.\n9701-9.1-p07 fix: Restore shifted options; retain official D.\n9701-9.1-p08 fix: Restore rows and explain ionic radii; retain D.\n9701-9.1-x006 fix: Valid bonding transfer; repair extracted options.\n9701-9.1-x008 fix: Valid synoptic practice; restore damaged table.\n9701-9.1-x005 keep: Tests Period 3 melting-point identification.\n9701-9.1-x009 keep: Tests the atomic-radius trend."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 87570,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T16:08:56+08:00",
+   "log": "foundry/logs/9701-9.1.fixer.1010-160856.log",
+   "out": "foundry/logs/9701-9.1.fixer.1010-160856.out.json",
+   "finished": "2026-10-10T16:09:50+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 6,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 88361,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T16:09:56+08:00",
+   "log": "foundry/logs/9701-9.1.solver.1010-160956.log",
+   "out": "foundry/logs/9701-9.1.solver.1010-160956.out.json",
+   "expects": "build/work/blind/9701-9.1.recheck.answers.json",
+   "finished": "2026-10-10T16:10:08+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9701-9.1.recheck.answers.json`."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9701_s19_11_q13": "9701-9.1-x001",
+  "9701_w20_11_q35": "9701-9.1-x002",
+  "9701_w20_13_q35": "9701-9.1-x003",
+  "9701_s21_12_q13": "9701-9.1-x004",
+  "9701_s23_11_q2": "9701-9.1-x005",
+  "9701_s23_11_q21": "9701-9.1-x006",
+  "9701_w23_13_q16": "9701-9.1-x007",
+  "9701_s24_12_q25": "9701-9.1-x008",
+  "9701_s25_11_q22": "9701-9.1-x009"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
