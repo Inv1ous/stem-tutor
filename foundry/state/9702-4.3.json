@@ -1,0 +1,388 @@
+{
+ "sub": "9702-4.3",
+ "stage": "ready",
+ "created": "2026-10-10T13:45:31+08:00",
+ "updated": "2026-10-10T14:19:27+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T13:47:38+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 80 items"
+  },
+  {
+   "t": "2026-10-10T14:11:18+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "72 agreed, 9 disputed"
+  },
+  {
+   "t": "2026-10-10T14:12:34+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-10T14:14:34+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-10T14:17:40+08:00",
+   "from": "fix",
+   "to": "recheck",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-10T14:18:22+08:00",
+   "from": "recheck",
+   "to": "sign",
+   "note": "1 agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T14:19:27+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 80,
+  "extra": 54
+ },
+ "disputes": [
+  {
+   "id": "9702-4.3-p07",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-4.3-x010",
+   "key": "B",
+   "solver": "A",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-4.3-x016",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-4.3-x032",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-4.3-x037",
+   "key": "D",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "fix: Retain official key D, confirmed by the source image and Archimedes’ principle; no examiner comment is present. Repair the damaged extracted ratio and options. In build/work/mcq/overrides.json under qid 9702_w23_11_q14, set exactly these fields (preserve other fields): {\"stem\": \"An object of weight W is suspended from a newton meter. When the object is completely immersed in water, the newton meter reads P. When the object is completely immersed in oil, the newton meter reads Q. What is the ratio (density of oil)/(density of water)?\", \"options\": {\"A\": \"(W - P)/(Q - P)\", \"B\": \"(Q - P)/(W - P)\", \"C\": \"(W - P)/(W - Q)\", \"D\": \"(W - Q)/(W - P)\"}, \"answer\": \"D\", \"explanation\": \"In equilibrium, the newton meter reading plus the upthrust equals W. Hence the upthrust is W - P in water and W - Q in oil. By Archimedes’ principle, upthrust = density × g × V. The same object is fully submerged in both liquids, so g and V cancel: (density of oil)/(density of water) = (W - Q)/(W - P), option D. The image asks for oil divided by water; C is the reciprocal. A and B incorrectly use Q - P, the difference between the upthrusts, in place of one of the upthrusts.\"}"
+  },
+  {
+   "id": "9702-4.3-x040",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-4.3-x045",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-4.3-x049",
+   "key": "A",
+   "solver": "C",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-4.3-x051",
+   "key": "D",
+   "solver": "B",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [
+  {
+   "ref": "9702-4.3-x037",
+   "instruction": "Retain official key D, confirmed by the source image and Archimedes’ principle; no examiner comment is present. Repair the damaged extracted ratio and options. In build/work/mcq/overrides.json under qid 9702_w23_11_q14, set exactly these fields (preserve other fields): {\"stem\": \"An object of weight W is suspended from a newton meter. When the object is completely immersed in water, the newton meter reads P. When the object is completely immersed in oil, the newton meter reads Q. What is the ratio (density of oil)/(density of water)?\", \"options\": {\"A\": \"(W - P)/(Q - P)\", \"B\": \"(Q - P)/(W - P)\", \"C\": \"(W - P)/(W - Q)\", \"D\": \"(W - Q)/(W - P)\"}, \"answer\": \"D\", \"explanation\": \"In equilibrium, the newton meter reading plus the upthrust equals W. Hence the upthrust is W - P in water and W - Q in oil. By Archimedes’ principle, upthrust = density × g × V. The same object is fully submerged in both liquids, so g and V cancel: (density of oil)/(density of water) = (W - Q)/(W - P), option D. The image asks for oil divided by water; C is the reciprocal. A and B incorrectly use Q - P, the difference between the upthrusts, in place of one of the upthrusts.\"}",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "drafter": {
+   "pid": 2075,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T13:45:31+08:00",
+   "log": "foundry/logs/9702-4.3.drafter.1010-134531.log",
+   "out": "foundry/logs/9702-4.3.drafter.1010-134531.out.json",
+   "finished": "2026-10-10T13:47:38+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9702/9702-4.3.json",
+    "note_path": "build/out/notes/Subjects/9702 Physics/04 Forces, density and pressure/4.3 Density and pressure.md",
+    "items": 80,
+    "templates": 9,
+    "worked": 5,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 8125,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:56:29+08:00",
+   "log": "foundry/logs/9702-4.3.checker.1010-135629.log",
+   "out": "foundry/logs/9702-4.3.checker.1010-135629.out.json",
+   "expects": "build/work/foundry/9702-4.3.check.json",
+   "finished": "2026-10-10T13:56:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — wrote `build/work/foundry/9702-4.3.check.json`."
+   },
+   "ok": true
+  },
+  "solver#1": {
+   "pid": 17654,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:08:57+08:00",
+   "log": "foundry/logs/9702-4.3.solver-1.1010-140857.log",
+   "out": "foundry/logs/9702-4.3.solver-1.1010-140857.out.json",
+   "expects": "build/work/blind/9702-4.3.answers.part1.json",
+   "finished": "2026-10-10T14:09:43+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote [9702-4.3.answers.part1.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-4.3.answers.part1.json)."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 18260,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:09:47+08:00",
+   "log": "foundry/logs/9702-4.3.solver-2.1010-140947.log",
+   "out": "foundry/logs/9702-4.3.solver-2.1010-140947.out.json",
+   "expects": "build/work/blind/9702-4.3.answers.part2.json",
+   "finished": "2026-10-10T14:10:30+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in `build/work/blind/9702-4.3.answers.part2.json`."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 18262,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:09:47+08:00",
+   "log": "foundry/logs/9702-4.3.solver-3.1010-140947.log",
+   "out": "foundry/logs/9702-4.3.solver-3.1010-140947.out.json",
+   "expects": "build/work/blind/9702-4.3.answers.part3.json",
+   "finished": "2026-10-10T14:10:08+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote [9702-4.3.answers.part3.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-4.3.answers.part3.json)."
+   },
+   "ok": true
+  },
+  "solver#4": {
+   "pid": 18267,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:09:47+08:00",
+   "log": "foundry/logs/9702-4.3.solver-4.1010-140947.log",
+   "out": "foundry/logs/9702-4.3.solver-4.1010-140947.out.json",
+   "expects": "build/work/blind/9702-4.3.answers.part4.json",
+   "finished": "2026-10-10T14:10:15+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions in [9702-4.3.answers.part4.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-4.3.answers.part4.json)."
+   },
+   "ok": true
+  },
+  "solver#5": {
+   "pid": 18930,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:10:32+08:00",
+   "log": "foundry/logs/9702-4.3.solver-5.1010-141032.log",
+   "out": "foundry/logs/9702-4.3.solver-5.1010-141032.out.json",
+   "expects": "build/work/blind/9702-4.3.answers.part5.json",
+   "finished": "2026-10-10T14:10:42+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question; wrote `build/work/blind/9702-4.3.answers.part5.json`."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 20117,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T14:11:54+08:00",
+   "log": "foundry/logs/9702-4.3.tiebreak.1010-141154.log",
+   "out": "foundry/logs/9702-4.3.tiebreak.1010-141154.out.json",
+   "expects": "build/work/blind/9702-4.3.tiebreak.json",
+   "finished": "2026-10-10T14:12:30+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 9,
+    "answers_path": "build/work/blind/9702-4.3.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 22397,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:13:58+08:00",
+   "log": "foundry/logs/9702-4.3.adjudicator.1010-141358.log",
+   "out": "foundry/logs/9702-4.3.adjudicator.1010-141358.out.json",
+   "finished": "2026-10-10T14:14:40+08:00",
+   "exit": 0,
+   "report": {
+    "text": "9702-4.3-x037 fix: Retain key D; repair extracted ratio and options, add upthrust explanation."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 24464,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-10T14:17:15+08:00",
+   "log": "foundry/logs/9702-4.3.fixer.1010-141715.log",
+   "out": "foundry/logs/9702-4.3.fixer.1010-141715.out.json",
+   "finished": "2026-10-10T14:17:40+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [
+     "Syllabus gate still fails with six `no-teach-card` errors (9702-4.3.1 through 9702-4.3.6); these were outside the requested fix and fixer rules prohibit changing unlisted content."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 25140,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T14:17:56+08:00",
+   "log": "foundry/logs/9702-4.3.solver.1010-141756.log",
+   "out": "foundry/logs/9702-4.3.solver.1010-141756.out.json",
+   "expects": "build/work/blind/9702-4.3.recheck.answers.json",
+   "finished": "2026-10-10T14:18:12+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question; wrote [9702-4.3.recheck.answers.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-4.3.recheck.answers.json)."
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_11_q12": "9702-4.3-x001",
+  "9702_s19_11_q16": "9702-4.3-x002",
+  "9702_s19_12_q15": "9702-4.3-x003",
+  "9702_s19_12_q21": "9702-4.3-x004",
+  "9702_s19_13_q14": "9702-4.3-x005",
+  "9702_w19_11_q11": "9702-4.3-x006",
+  "9702_w19_12_q13": "9702-4.3-x007",
+  "9702_w19_12_q16": "9702-4.3-x008",
+  "9702_s20_11_q15": "9702-4.3-x009",
+  "9702_s20_12_q13": "9702-4.3-x010",
+  "9702_s20_13_q2": "9702-4.3-x011",
+  "9702_s20_13_q11": "9702-4.3-x012",
+  "9702_s20_13_q15": "9702-4.3-x013",
+  "9702_w20_12_q1": "9702-4.3-x014",
+  "9702_w20_12_q15": "9702-4.3-x015",
+  "9702_s21_11_q14": "9702-4.3-x016",
+  "9702_s21_12_q16": "9702-4.3-x017",
+  "9702_s21_13_q15": "9702-4.3-x018",
+  "9702_w21_11_q11": "9702-4.3-x019",
+  "9702_w21_11_q14": "9702-4.3-x020",
+  "9702_w21_12_q15": "9702-4.3-x021",
+  "9702_w21_13_q15": "9702-4.3-x022",
+  "9702_s22_11_q14": "9702-4.3-x023",
+  "9702_s22_11_q15": "9702-4.3-x024",
+  "9702_s22_12_q14": "9702-4.3-x025",
+  "9702_s22_12_q15": "9702-4.3-x026",
+  "9702_s22_13_q15": "9702-4.3-x027",
+  "9702_s22_13_q16": "9702-4.3-x028",
+  "9702_w22_11_q14": "9702-4.3-x029",
+  "9702_w22_11_q15": "9702-4.3-x030",
+  "9702_w22_12_q15": "9702-4.3-x031",
+  "9702_w22_12_q16": "9702-4.3-x032",
+  "9702_w22_13_q14": "9702-4.3-x033",
+  "9702_s23_11_q14": "9702-4.3-x034",
+  "9702_s23_12_q13": "9702-4.3-x035",
+  "9702_s23_12_q14": "9702-4.3-x036",
+  "9702_w23_11_q14": "9702-4.3-x037",
+  "9702_w23_13_q13": "9702-4.3-x038",
+  "9702_w23_13_q15": "9702-4.3-x039",
+  "9702_s24_11_q11": "9702-4.3-x040",
+  "9702_s24_13_q13": "9702-4.3-x041",
+  "9702_s24_13_q14": "9702-4.3-x042",
+  "9702_w24_12_q14": "9702-4.3-x043",
+  "9702_w24_13_q5": "9702-4.3-x044",
+  "9702_w24_13_q16": "9702-4.3-x045",
+  "9702_s25_11_q14": "9702-4.3-x046",
+  "9702_s25_11_q16": "9702-4.3-x047",
+  "9702_s25_12_q14": "9702-4.3-x048",
+  "9702_s25_12_q16": "9702-4.3-x049",
+  "9702_s25_13_q13": "9702-4.3-x050",
+  "9702_s25_13_q15": "9702-4.3-x051",
+  "9702_w25_11_q16": "9702-4.3-x052",
+  "9702_w25_12_q15": "9702-4.3-x053",
+  "9702_w25_12_q16": "9702-4.3-x054"
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true
+}
