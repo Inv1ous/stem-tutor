@@ -1,0 +1,74 @@
+{
+  "9702-3.3.1": {
+    "motivate": "Two skaters push apart, a gun recoils, a rocket climbs. In each case nothing outside pushes the system, and the momenta that appear are always equal and opposite. That is not a coincidence; it is a law you can calculate with.",
+    "discover": {
+      "stem": "In which situation is total linear momentum always conserved?",
+      "options": {
+        "A": "in all collisions between two objects",
+        "B": "in collisions between two objects moving with equal and opposite velocities",
+        "C": "in collisions between two objects that form an isolated system",
+        "D": "in collisions between two objects of the same mass"
+      },
+      "answer": "C",
+      "explanation": "Momentum is conserved exactly when no resultant external force acts, which is what an isolated system means. In A an outside force such as friction or a wall could act, and equal masses or equal and opposite velocities are irrelevant conditions."
+    },
+    "establish": "The **principle of conservation of momentum** states that the total momentum of a system is constant, provided that no resultant external force acts on the system. Such a system is called **isolated** or **closed**. Both halves matter: the quantity that stays constant is the *total* momentum of the whole system, not the momentum of one object, and the condition is a zero *resultant external* force. Internal forces, such as the push between two colliding bodies, cannot change the total: by Newton's third law they are equal and opposite and act for the same time, so the two changes in momentum cancel. Because momentum is a vector, the total is a vector sum, so for motion along a line you choose a positive direction and add signed momenta: $m_1u_1+m_2u_2$.",
+    "connect": "This follows from Newton's second law, $F=\\Delta p/\\Delta t$: zero resultant external force means zero rate of change of the system's total momentum. It is the tool for every collision, explosion and recoil problem you will meet.",
+    "note": "- Total momentum of a system is constant provided no resultant external force acts on it.\n- Such a system is isolated (closed).\n- Internal forces are equal and opposite (Newton's third law), so they cancel.\n- Momentum is a vector: add signed momenta, $\\sum mu = \\sum mv$.\n- Omitting the external-force condition loses the mark.",
+    "self_explain": "Why can the forces the two colliding objects exert on each other never change the total momentum of the pair?"
+  },
+  "9702-3.3.2": {
+    "motivate": "Once you accept that the total momentum before equals the total momentum after, almost every collision question becomes one line of algebra — in one dimension or, by resolving, in two.",
+    "discover": {
+      "stem": "An object of mass $m$ travelling at $5u$ collides with, and sticks to, an object of mass $5m$ travelling in the same direction at $u$. What is their common speed afterwards?",
+      "options": {
+        "A": "$u/3$",
+        "B": "$10u/6$",
+        "C": "$5u/6$",
+        "D": "$10u/3$"
+      },
+      "answer": "B",
+      "explanation": "Total momentum before is $m(5u)+5m(u)=10mu$. After the collision the moving mass is $m+5m=6m$, so $6mv=10mu$ and $v=10u/6$. Dividing by only one of the masses is the usual error."
+    },
+    "establish": "To **apply** the principle, draw before and after diagrams, label every mass and velocity, and mark a positive direction. In one dimension, $m_1u_1+m_2u_2=m_1v_1+m_2v_2$, with any velocity in the negative direction entered as a negative number; a rebound reverses the sign. If the objects coalesce, the right-hand side is $(m_1+m_2)v$: the combined mass is the sum. In **two dimensions**, momentum is conserved independently along two perpendicular directions, so write one equation along the original line of motion and one perpendicular to it. Resolve momenta, not velocities: perpendicular to the original direction, $m_1v_1\\sin\\theta_1=m_2v_2\\sin\\theta_2$. Equivalently the momentum vectors form a closed triangle. The coefficient of restitution is not required.",
+    "connect": "Resolving here is the same skill as resolving any vector into perpendicular components; the only new point is that the mass must be included before resolving. For elastic collisions, the relative-speed rule supplies the second equation you need.",
+    "note": "- Draw before and after diagrams; choose and mark a positive direction.\n- One dimension: $m_1u_1+m_2u_2=m_1v_1+m_2v_2$, with signed velocities.\n- Objects that stick together: combined mass $m_1+m_2$.\n- Two dimensions: conserve momentum along and perpendicular to the original direction.\n- Resolve momentum ($mv\\cos\\theta$), never velocity alone.\n- State the direction, or the sign, of every final velocity.",
+    "self_explain": "In a two-dimensional collision, why is it wrong to resolve the velocities and equate their components?"
+  },
+  "9702-3.3.3": {
+    "motivate": "Two equations beat one. For a perfectly elastic collision there is a second relationship, and it is far quicker than squaring everything: the objects separate exactly as fast as they approached.",
+    "discover": {
+      "stem": "Two objects X and Y have a perfectly elastic collision. X approaches Y at $20$ m s$^{-1}$ while Y moves at $12$ m s$^{-1}$ in the same direction; afterwards X moves at $10$ m s$^{-1}$. What is the speed of Y afterwards?",
+      "options": {
+        "A": "$2.0$ m s$^{-1}$",
+        "B": "$18$ m s$^{-1}$",
+        "C": "$22$ m s$^{-1}$",
+        "D": "$24$ m s$^{-1}$"
+      },
+      "answer": "B",
+      "explanation": "The relative speed of approach is $20-12=8$ m s$^{-1}$, so the relative speed of separation is also $8$ m s$^{-1}$. Y must move $8$ m s$^{-1}$ faster than X does afterwards: $10+8=18$ m s$^{-1}$. Adding $8$ to Y's original speed instead gives the common wrong answer."
+    },
+    "establish": "For an **elastic collision**, total kinetic energy is conserved: $\\tfrac12m_1u_1^2+\\tfrac12m_2u_2^2=\\tfrac12m_1v_1^2+\\tfrac12m_2v_2^2$. Combining that with conservation of momentum gives a much more usable result: the **relative speed of approach equals the relative speed of separation**, $u_1-u_2=v_2-v_1$. Both speeds are measured between the two objects, not relative to the ground, so the first object's final velocity must be subtracted — it generally keeps moving. Use signed velocities throughout, so that a rebound enters as negative. In practice you use this equation alongside momentum conservation to find two unknown final velocities, and you can use it in reverse as a test: a collision is elastic only if separation speed equals approach speed.",
+    "connect": "Momentum conservation alone gives one equation for two unknowns; the elastic condition supplies the second, without the algebra of a quadratic. If separation is slower than approach, the collision is inelastic and kinetic energy has been transferred elsewhere.",
+    "note": "- Elastic collision: total kinetic energy is conserved.\n- Equivalent rule: relative speed of approach $=$ relative speed of separation.\n- In symbols, $u_1-u_2=v_2-v_1$, with signed velocities.\n- Separation speed compares the two objects, not one object with the ground.\n- Use it as the second equation, or as a test for elasticity.",
+    "self_explain": "If a struck ball moves off at the approach speed while the striking ball keeps moving forwards, what must be true about the collision?"
+  },
+  "9702-3.3.4": {
+    "motivate": "A car crash obviously destroys kinetic energy — yet the momentum of the wreckage is exactly what the cars brought in. The two conservation statements are not a package deal, and exam rows that pair them wrongly catch many candidates.",
+    "discover": {
+      "stem": "Two objects collide inelastically and no external forces act. Which row is correct?",
+      "options": {
+        "A": "momentum conserved, kinetic energy conserved",
+        "B": "momentum conserved, kinetic energy not conserved",
+        "C": "momentum not conserved, kinetic energy conserved",
+        "D": "momentum not conserved, kinetic energy not conserved"
+      },
+      "answer": "B",
+      "explanation": "With no external forces the system is isolated, so momentum is conserved. 'Inelastic' means by definition that total kinetic energy is not conserved: some is transferred to internal energy, sound and deformation."
+    },
+    "establish": "In interactions between objects in an isolated system, momentum is **always** conserved, but some change in kinetic energy may take place. The reason the two behave differently is that momentum changes are fixed by the forces: the internal forces are equal and opposite and act for the same time, so the impulses cancel exactly. Energy, by contrast, has somewhere else to go — work done in deforming the objects, plus sound and internal (thermal) energy — and none of that carries momentum away. A collision in which kinetic energy falls is **inelastic**; one in which it is unchanged is perfectly **elastic**; the extreme case, where the objects move off together, loses the most kinetic energy consistent with momentum conservation. Total energy is always conserved: it is only the kinetic share that changes.",
+    "connect": "This is why a question can give you momentum data that fix the final velocities and still show kinetic energy falling. Check the wording: 'stick together', 'embeds itself' and 'coalesce' all signal an inelastic collision, so never assume kinetic energy is conserved.",
+    "note": "- Momentum is always conserved in an isolated system, elastic or not.\n- Kinetic energy may change; it is conserved only in a perfectly elastic collision.\n- Inelastic: kinetic energy transferred to internal energy, sound and deformation.\n- Total energy is still conserved; only the kinetic share falls.\n- Loss of kinetic energy $=$ total KE before $-$ total KE after.",
+    "self_explain": "Why can kinetic energy leave a colliding system as sound and internal energy while momentum cannot leave in the same way?"
+  }
+}

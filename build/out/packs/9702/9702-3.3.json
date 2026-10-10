@@ -1,0 +1,2438 @@
+{
+ "subtopic": "9702-3.3",
+ "spec": "9702",
+ "version": 1,
+ "note": "Subjects/9702 Physics/03 Dynamics/3.3 Linear momentum and its conservation.md",
+ "outline": "The principle of conservation of momentum: the total momentum of a system is constant provided no resultant external force acts on it. Momentum is a vector, so a direction must be chosen positive and opposing velocities entered as negative: $m_1u_1+m_2u_2=m_1v_1+m_2v_2$. In two dimensions, momentum is conserved separately along two perpendicular directions, and components must be formed from momenta, not velocities. Momentum is conserved in every interaction in an isolated system, but kinetic energy need not be: in a perfectly elastic collision total kinetic energy is conserved and the relative speed of approach equals the relative speed of separation, while in an inelastic collision some kinetic energy becomes internal energy, sound and deformation.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "9702-3.3.4",
+   "statement": "Total kinetic energy is conserved in every collision in which momentum is conserved.",
+   "refutation": "Momentum is conserved whenever no resultant external force acts, but kinetic energy is only conserved when the collision is perfectly elastic; otherwise some is transferred to internal energy, sound and deformation.",
+   "contrast": "Momentum: always conserved in an isolated system. Kinetic energy: conserved only in an elastic collision.",
+   "source": "ER 9702 w24 P12 Q7"
+  },
+  {
+   "id": "m2",
+   "kc": "9702-3.3.3",
+   "statement": "For an elastic collision the relative speed of separation is the speed of the struck object alone.",
+   "refutation": "The rule compares the two objects with each other: the speed of separation is the difference between the final velocities, so the velocity of the still-moving first object must be subtracted.",
+   "contrast": "Approach $u_1-u_2$ equals separation $v_2-v_1$, not $v_2$ by itself.",
+   "source": "ER 9702 w22 P12 Q11"
+  },
+  {
+   "id": "m3",
+   "kc": "9702-3.3.1",
+   "statement": "The principle of conservation of momentum says that momentum is always constant, with no stated condition.",
+   "refutation": "The principle holds only for a system on which no resultant external force acts, that is, an isolated or closed system.",
+   "contrast": "\"The total momentum of an isolated system is constant\" earns the mark; \"momentum is always conserved\" does not.",
+   "source": "ER 9702 s23 P23 Q3"
+  },
+  {
+   "id": "m4",
+   "kc": "9702-3.3.2",
+   "statement": "Momentum terms are counted as magnitudes: approach or rebound velocities are added without a sign, or only the target mass is used for a combined object after impact.",
+   "refutation": "Momentum is a vector, so one direction must be chosen positive and velocities in the opposite direction entered as negative; after a sticking collision the moving mass is the sum of both masses.",
+   "contrast": "Head-on: $m_1u_1-m_2u_2=(m_1+m_2)v$, not $m_1u_1+m_2u_2=m_2v$.",
+   "source": "ER 9702 s23 P11 Q10"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-3.3.2",
+   "statement": "In two dimensions the velocity components are equated instead of the momentum components.",
+   "refutation": "Each conservation equation is a sum of momenta, so every velocity component must be multiplied by its own mass before the components are added.",
+   "contrast": "Perpendicular to the original line: $m_1v_1\\sin\\theta_1=m_2v_2\\sin\\theta_2$, not $v_1\\sin\\theta_1=v_2\\sin\\theta_2$.",
+   "source": "ER 9702 w23 P22 Q4"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9702-3.3.2",
+   "problem": "A trolley of mass 0.80 kg moving at 3.0 m s$^{-1}$ collides with a stationary trolley of mass 1.20 kg on a frictionless track and the two move off together. Calculate their common speed and the loss of kinetic energy.",
+   "steps": [
+    {
+     "do": "Take the initial direction of motion as positive and state the principle: with no resultant external force, total momentum before $=$ total momentum after, so $m_Au_A=(m_A+m_B)v$.",
+     "why": "Choosing a positive direction first is what keeps the signs right, and the examiner expects the conservation equation to be written before any numbers."
+    },
+    {
+     "do": "Substitute: $0.80\\times3.0=(0.80+1.20)v$, so $v=1.2$ m s$^{-1}$.",
+     "why": "The mass moving after the collision is the sum of both masses, not the target mass alone.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.2,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Kinetic energy before $=\\tfrac12(0.80)(3.0)^2=3.60$ J; after $=\\tfrac12(2.00)(1.2)^2=1.44$ J.",
+     "why": "Kinetic energy must be recalculated from the new speed; it is not conserved here because the collision is inelastic."
+    },
+    {
+     "do": "Loss of kinetic energy $=3.60-1.44=2.16$ J.",
+     "why": "The \"lost\" kinetic energy has been transferred to internal energy, sound and deformation; momentum is still conserved.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.16,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A trolley of mass 0.50 kg moving at 4.0 m s$^{-1}$ collides with a stationary trolley of mass 1.50 kg on a frictionless track and the two move off together. Calculate their common speed.",
+    "answer": {
+     "value": 1.0,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "9702-3.3.2",
+   "problem": "A ball of mass 0.30 kg moving at 4.0 m s$^{-1}$ to the right collides head-on with a ball of mass 0.20 kg moving at 2.0 m s$^{-1}$ to the left. After the collision the 0.30 kg ball continues to the right at 1.6 m s$^{-1}$. Calculate the velocity of the 0.20 kg ball after the collision.",
+   "steps": [
+    {
+     "do": "Take motion to the right as positive, so the second ball approaches with velocity $-2.0$ m s$^{-1}$.",
+     "why": "Momentum is a vector: entering the opposing velocity as a negative number is the single most common source of lost marks here."
+    },
+    {
+     "do": "Write momentum conservation: $0.30(4.0)+0.20(-2.0)=0.30(1.6)+0.20v$.",
+     "why": "Every object in the system appears on both sides of the equation, each with its own mass."
+    },
+    {
+     "do": "$0.80=0.48+0.20v$, so $v=1.6$ m s$^{-1}$.",
+     "why": "A positive answer means the 0.20 kg ball has reversed and now moves to the right.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.6,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "A ball of mass 0.40 kg moving at 5.0 m s$^{-1}$ to the right collides head-on with a ball of mass 0.20 kg moving at 3.0 m s$^{-1}$ to the left. After the collision the 0.40 kg ball moves to the right at 2.0 m s$^{-1}$. Calculate the velocity of the 0.20 kg ball.",
+    "answer": {
+     "value": 3.0,
+     "unit": "m s^-1",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "9702-3.3-p01",
+   "kcs": [
+    "9702-3.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 1,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q9",
+    "qid": "9702_w25_12_q9"
+   },
+   "stem": "What is a statement of the principle of conservation of momentum?",
+   "options": {
+    "A": "In an elastic collision, momentum is constant.",
+    "B": "Momentum is the product of mass and velocity.",
+    "C": "The force acting on a body is proportional to its rate of change of momentum.",
+    "D": "The momentum of an isolated system is constant."
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The principle is that the total momentum of an isolated system is constant, so D is the statement. A restricts the principle to elastic collisions, but momentum is conserved in inelastic collisions too; B defines momentum and C is Newton’s second law.",
+   "distractors": {
+    "A": "m1",
+    "B": "m3",
+    "C": "m3"
+   }
+  },
+  {
+   "id": "9702-3.3-p02",
+   "kcs": [
+    "9702-3.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P13 · Q9",
+    "qid": "9702_w25_13_q9"
+   },
+   "stem": "In which situation is total linear momentum always conserved?",
+   "options": {
+    "A": "in all collisions between two objects",
+    "B": "in collisions between two objects moving at equal and opposite velocity",
+    "C": "in collisions between two objects that form an isolated system",
+    "D": "in collisions between two objects with the same mass"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Momentum is conserved when no resultant external force acts, which is what \"isolated system\" means, so C is correct. A is wrong because an external force such as friction or a wall can change the total momentum of two colliding objects; equal masses or equal and opposite velocities are irrelevant conditions.",
+   "distractors": {
+    "A": "m3",
+    "B": "m3",
+    "D": "m3"
+   }
+  },
+  {
+   "id": "9702-3.3-p03",
+   "kcs": [
+    "9702-3.3.1",
+    "9702-3.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P11 · Q10",
+    "qid": "9702_w23_11_q10"
+   },
+   "stem": "Two objects move towards each other along the same straight line.\nAfter colliding, the two objects stick together and are stationary.\nWhich statement must be correct?",
+   "options": {
+    "A": "The total kinetic energy of the two objects does not change during the collision.",
+    "B": "The total momentum of the two objects before the collision is zero.",
+    "C": "The two objects have equal mass.",
+    "D": "The two objects have the same speed before the collision."
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "The objects are at rest afterwards, so the total momentum after the collision is zero; because the system is isolated the total momentum before must also have been zero, giving B. A is wrong because the kinetic energy has fallen to zero in this completely inelastic collision, and equal momenta do not require equal masses or equal speeds.",
+   "distractors": {
+    "A": "m1",
+    "C": "m4",
+    "D": "m4"
+   },
+   "image": "Assets/mcq/9702_w23_11_q10.png"
+  },
+  {
+   "id": "9702-3.3-p04",
+   "kcs": [
+    "9702-3.3.1",
+    "9702-3.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q7",
+    "qid": "9702_w24_12_q7"
+   },
+   "stem": "A moving object strikes a stationary object. The collision is inelastic. The objects move off\ntogether.\nAssume that the two objects form an isolated system.\nWhich row shows the possible values of total momentum and total kinetic energy for the system\nbefore and after the collision?\ntotal momentum\nbefore collision\n/ kg m s⁻¹\ntotal momentum\nafter collision\n/ kg m s⁻¹\ntotal kinetic\nenergy before\ncollision / J\ntotal kinetic\nenergy after\ncollision / J",
+   "options": {
+    "A": "6 2 90 30",
+    "B": "6 6 30 90",
+    "C": "6 6 90 30",
+    "D": "6 6 90 90"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The system is isolated, so the total momentum is unchanged at 6 kg m s$^{-1}$, while an inelastic collision in which the objects move off together must lose kinetic energy: 90 J falls to 30 J, which is C. D keeps the kinetic energy constant as well and so describes an elastic collision, which cannot happen when the objects coalesce.",
+   "distractors": {
+    "A": "m3",
+    "B": "m1",
+    "D": "m1"
+   },
+   "image": "Assets/mcq/9702_w24_12_q7.png"
+  },
+  {
+   "id": "9702-3.3-p05",
+   "kcs": [
+    "9702-3.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 1,
+   "command_word": "Identify",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P13 · Q11",
+    "qid": "9702_w24_13_q11"
+   },
+   "stem": "Which row states whether total momentum and total kinetic energy are conserved in an inelastic\ncollision in which there are no external forces?\ntotal momentum\ntotal kinetic energy",
+   "options": {
+    "A": "conserved conserved",
+    "B": "conserved not conserved",
+    "C": "not conserved conserved",
+    "D": "not conserved not conserved"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "With no external forces the total momentum is conserved, but an inelastic collision by definition does not conserve total kinetic energy, so B is correct. A is the common error of assuming that the two conservation statements always go together.",
+   "distractors": {
+    "A": "m1",
+    "C": "m3",
+    "D": "m3"
+   },
+   "image": "Assets/mcq/9702_w24_13_q11.png"
+  },
+  {
+   "id": "9702-3.3-p06",
+   "kcs": [
+    "9702-3.3.2",
+    "9702-3.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P12 · Q10",
+    "qid": "9702_w23_12_q10"
+   },
+   "stem": "Two balls, of masses m and 2m, travelling in a vacuum with initial velocities 2v and v\nrespectively, collide with each other head-on, as shown.\nm\n2v\n2m\nv\nAfter the collision, the ball of mass m rebounds to the left with velocity v.\nWhat is the loss of kinetic energy in the collision?",
+   "options": {
+    "A": "4 ³ mv²",
+    "B": "2 ³ mv²",
+    "C": "4 ⁹ mv²",
+    "D": "2 ⁹ mv²"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "The total momentum before is $m(2v)-2m(v)=0$, so it is zero afterwards: with $m$ moving left at $v$ the mass $2m$ must move right at $v/2$. The kinetic energy falls from $\\tfrac12m(2v)^2+\\tfrac12(2m)v^2=3mv^2$ to $\\tfrac12mv^2+\\tfrac12(2m)(v/2)^2=0.75mv^2$, a loss of $\\tfrac94mv^2$ (C). B, the most popular wrong answer, comes from mis-handling the signs of the opposing velocities so that the total initial momentum is not zero.",
+   "distractors": {
+    "B": "m4",
+    "A": "m4",
+    "D": "m1"
+   },
+   "image": "Assets/mcq/9702_w23_12_q10.png"
+  },
+  {
+   "id": "9702-3.3-p07",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Predict",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P13 · Q10",
+    "qid": "9702_w22_13_q10"
+   },
+   "stem": "Two blocks are at rest on a frictionless horizontal surface. One block is made of wood and the\nother block is made of steel.\nA steel ball is fired horizontally with a speed v at the wooden block. The ball embeds itself in the\nblock, and the ball and block move together after impact.\nA second identical steel ball is fired horizontally with speed v at the steel block. The steel ball\nthen rebounds back along its original path with speed\n2\nv .\nbefore impact\nwood\nv\nsteel\nv\nafter impact\nwood\nsteel\nv\n2\nThe wooden block and the steel block have equal mass.\nWhich statement about the blocks immediately after the collisions is correct?",
+   "options": {
+    "A": "Both blocks must travel with the same speed.",
+    "B": "The steel block must travel faster than the wooden block.",
+    "C": "The wooden block must travel faster than the steel block.",
+    "D": "The masses of the blocks and the steel ball are needed to determine which block travels faster."
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "Both situations start with the same total momentum, and momentum is conserved, so each ends with it. The rebounding ball carries momentum back to the left, so the steel block must carry more forward momentum than the wooden block with the ball embedded in it; equal block masses then make the steel block faster, which is B. C reverses the argument, and D is wrong because the comparison follows from momentum conservation alone and needs no numerical masses.",
+   "distractors": {
+    "C": "m4",
+    "D": "m4",
+    "A": "m4"
+   },
+   "image": "Assets/mcq/9702_w22_13_q10.png"
+  },
+  {
+   "id": "9702-3.3-p08",
+   "kcs": [
+    "9702-3.3.2",
+    "9702-3.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P12 · Q10",
+    "qid": "9702_w24_12_q10"
+   },
+   "stem": "Two train carriages each of mass 5000 kg roll toward one another on a horizontal frictionless\ntrack. One is travelling at a speed of 2.00 m s⁻¹ and the other at a speed of 1.00 m s⁻¹, as shown.\n2.00 m s⁻¹\n1.00 m s⁻¹\n5000 kg\n5000 kg\nThey collide and join together.\nWhat is the kinetic energy lost during the collision?",
+   "options": {
+    "A": "1250 J",
+    "B": "7500 J",
+    "C": "11 250 J",
+    "D": "12 500 J"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "Taking right as positive, $5000(2.00)-5000(1.00)=10000v$ gives $v=0.50$ m s$^{-1}$; the kinetic energy falls from $12\\,500$ J to $\\tfrac12(10000)(0.50)^2=1250$ J, a loss of $11\\,250$ J (C). D is the total initial kinetic energy, chosen by candidates who assume all of it is lost when the carriages join.",
+   "distractors": {
+    "D": "m1",
+    "A": "m1",
+    "B": "m4"
+   },
+   "image": "Assets/mcq/9702_w24_12_q10.png"
+  },
+  {
+   "id": "9702-3.3-p09",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 5,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2024 · P11 · Q12",
+    "qid": "9702_w24_11_q12"
+   },
+   "stem": "A disc of mass M is moving across a horizontal frictionless surface with constant velocity u. It\ncollides with a stationary disc of mass 4M.\nThe diagram shows the view from above of the motion of the two discs before and after the\ncollision.\nbefore collision\nafter collision\nM\n4M\nu\n45\u0002\n45\u0002\nv\nM\n4M\n4.0 m s⁻¹\nWhat is the initial velocity u of the disc of mass M ?",
+   "options": {
+    "A": "1.1 m s⁻¹",
+    "B": "1.4 m s⁻¹",
+    "C": "3.5 m s⁻¹",
+    "D": "5.7 m s⁻¹"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "Perpendicular to the original direction, $M(4.0)\\sin45^\\circ=4Mv\\sin45^\\circ$, so the large disc moves at $1.0$ m s$^{-1}$. Along the original direction, $Mu=M(4.0)\\cos45^\\circ+4M(1.0)\\cos45^\\circ$, giving $u=5.7$ m s$^{-1}$ (D). B comes from equating velocity components instead of momentum components, which leaves out the masses.",
+   "distractors": {
+    "B": "m5",
+    "A": "m5",
+    "C": "m4"
+   },
+   "image": "Assets/mcq/9702_w24_11_q12.png"
+  },
+  {
+   "id": "9702-3.3-p10",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q11",
+    "qid": "9702_w20_12_q11"
+   },
+   "stem": "The diagram shows a ‘ballistic pendulum’.\npellet\nm\nM\nblock\nA pellet of mass m travelling at a speed u hits a stationary block of mass M. The pellet becomes\nembedded in the block and causes the block to move at a speed v immediately after the impact.\nWhen a pellet of mass 2m, travelling at a speed 2u, hits a block of mass 2M, what is the speed of\nthe block immediately after the impact? (Neglect the small increase in the mass of the block as\nthe pellet’s mass is added during the collision.)",
+   "options": {
+    "A": "v",
+    "B": "v 2",
+    "C": "2v",
+    "D": "4v"
+   },
+   "answer": "C",
+   "marks": 1,
+   "explanation": "For the first impact momentum conservation gives $Mv=mu$, so $v=(m/M)u$. Doubling every mass and the pellet speed gives $2Mv_2=2m(2u)$, hence $v_2=2(m/M)u=2v$ (C). A is the common error of assuming that scaling all the masses and the speed leaves the final speed unchanged, which ignores the extra factor of 2 carried by the speed.",
+   "distractors": {
+    "A": "m4",
+    "B": "m4",
+    "D": "m1"
+   },
+   "image": "Assets/mcq/9702_w20_12_q11.png"
+  },
+  {
+   "id": "9702-3.3-p11",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P12 · Q11",
+    "qid": "9702_w22_12_q11"
+   },
+   "stem": "Two solid spheres form an isolated system. Sphere X moves with speed 6 cm s⁻¹ in a straight line\ndirectly towards a stationary sphere Y, as shown.\nsphere X\nsphere Y\n6 cm s⁻¹\nThe spheres have a perfectly elastic collision. After the collision, sphere X moves with speed\n2 cm s⁻¹ in the same direction as before the collision.\nWhat is the speed of sphere Y?",
+   "options": {
+    "A": "2 cm s⁻¹",
+    "B": "4 cm s⁻¹",
+    "C": "6 cm s⁻¹",
+    "D": "8 cm s⁻¹"
+   },
+   "answer": "D",
+   "marks": 1,
+   "explanation": "The collision is elastic, so the relative speed of separation equals the relative speed of approach, $6$ cm s$^{-1}$. Sphere X still moves forwards at $2$ cm s$^{-1}$, so Y must move at $2+6=8$ cm s$^{-1}$ (D). B is the popular error of setting the speed of Y itself equal to the approach speed minus the speed of X, instead of comparing the two final velocities.",
+   "distractors": {
+    "B": "m2",
+    "C": "m2",
+    "A": "m2"
+   },
+   "image": "Assets/mcq/9702_w22_12_q11.png"
+  },
+  {
+   "id": "9702-3.3-p12",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P13 · Q9",
+    "qid": "9702_w19_13_q9"
+   },
+   "stem": "Two objects X and Y in an isolated system undergo a perfectly elastic collision. The velocities of\nthe objects before and after the collision are shown.\nX\n20 m s⁻¹\nY\n12 m s⁻¹\nbefore\ncollision\nX\n10 m s⁻¹\nY\nv\nafter\ncollision\nWhat is the speed v of Y after the collision?",
+   "options": {
+    "A": "2.0 m s⁻¹",
+    "B": "18 m s⁻¹",
+    "C": "22 m s⁻¹",
+    "D": "24 m s⁻¹"
+   },
+   "answer": "B",
+   "marks": 1,
+   "explanation": "X approaches Y with a relative speed of $20-12=8$ m s$^{-1}$, and in a perfectly elastic collision the relative speed of separation is also $8$ m s$^{-1}$; with X at $10$ m s$^{-1}$ afterwards, Y moves at $10+8=18$ m s$^{-1}$ (B). C, the usual wrong choice, adds the approach speed to the initial speed of Y instead of to the final speed of X.",
+   "distractors": {
+    "C": "m2",
+    "A": "m2",
+    "D": "m2"
+   },
+   "image": "Assets/mcq/9702_w19_13_q9.png"
+  },
+  {
+   "id": "9702-3.3-i01",
+   "kcs": [
+    "9702-3.3.1"
+   ],
+   "kind": "short",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the principle of conservation of momentum.",
+   "marks": 2,
+   "explanation": "Cambridge credits the total momentum of a system remaining constant together with the condition that no resultant external force acts (an isolated or closed system).",
+   "hints": [
+    "Two ideas are needed: what stays the same, and when.",
+    "Name the quantity that is constant and the property the system must have.",
+    "Begin with \"the total momentum of a system…\"."
+   ],
+   "rubric": [
+    {
+     "point": "The total momentum of the system is constant (unchanged before and after).",
+     "keywords": [
+      [
+       "total",
+       "sum"
+      ],
+      [
+       "momentum"
+      ],
+      [
+       "constant",
+       "conserved",
+       "unchanged",
+       "the same"
+      ]
+     ]
+    },
+    {
+     "point": "Provided no resultant external force acts on the system (isolated/closed system).",
+     "keywords": [
+      [
+       "no",
+       "zero",
+       "without",
+       "isolated",
+       "closed"
+      ],
+      [
+       "external force",
+       "resultant force",
+       "isolated",
+       "closed"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.3-i02",
+   "kcs": [
+    "9702-3.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Two skaters push each other apart on frictionless ice. Which statement about the momentum of the two-skater system is correct?",
+   "marks": 1,
+   "explanation": "No resultant external force acts along the ice, so the total momentum of the system stays at its initial value of zero; the skaters therefore gain equal and opposite momenta.",
+   "hints": [
+    "The skaters started at rest.",
+    "Apply the principle to the two skaters taken together as one system.",
+    "Work out the total momentum before the push."
+   ],
+   "options": {
+    "A": "The total momentum stays zero, so the skaters gain equal and opposite momenta.",
+    "B": "The total momentum increases, because each skater gains momentum.",
+    "C": "Momentum is conserved only if the skaters have equal mass.",
+    "D": "The total momentum is conserved only if their kinetic energies are also equal."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m4",
+    "C": "m3",
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.3-i03",
+   "kcs": [
+    "9702-3.3.1",
+    "9702-3.3.2"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A stationary object of mass 3.0 kg explodes into two fragments, of mass 1.0 kg and 2.0 kg, which move apart along the same straight line. The 1.0 kg fragment moves away at 6.0 m s$^{-1}$. Determine the speed of the 2.0 kg fragment and explain how the principle of conservation of momentum applies.",
+   "marks": 4,
+   "explanation": "The total momentum stays zero, so the fragments carry equal and opposite momenta: $2.0v=1.0\\times6.0$ gives $v=3.0$ m s$^{-1}$ in the opposite direction.",
+   "hints": [
+    "The object was at rest before the explosion.",
+    "Write the total momentum before the explosion and set the total afterwards equal to it.",
+    "State that the total momentum before is zero."
+   ],
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Total momentum before the explosion is zero, and no resultant external force acts, so the total momentum afterwards is also zero."
+    },
+    {
+     "mark": "M1",
+     "point": "Momenta are equal and opposite: $2.0v=1.0\\times6.0$."
+    },
+    {
+     "mark": "A1",
+     "point": "Speed $v=3.0$ m s$^{-1}$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 3.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "The 2.0 kg fragment moves in the opposite direction to the 1.0 kg fragment."
+    }
+   ]
+  },
+  {
+   "id": "9702-3.3-i04",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A trolley of mass [[m1]] kg moving at [[u1]] m s$^{-1}$ along a frictionless horizontal track collides with a stationary trolley of mass [[m2]] kg. The trolleys stick together. Calculate their common speed immediately after the collision.",
+   "marks": 1,
+   "explanation": "Momentum is conserved: $m_1u_1=(m_1+m_2)v$, so $v=m_1u_1/(m_1+m_2)$. The mass that moves afterwards is the sum of both masses.",
+   "hints": [
+    "Nothing leaves the system, so write down the momentum before and after.",
+    "Set the momentum of the moving trolley equal to the momentum of the joined pair.",
+    "The combined object has mass $m_1+m_2$."
+   ],
+   "answer": {
+    "value": 0.6666666667,
+    "unit": "m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 1.0,
+     "misconception": "m4"
+    },
+    {
+     "value": 1.1547005384,
+     "misconception": "m1"
+    }
+   ],
+   "template": {
+    "params": {
+     "m1": {
+      "choices": [
+       0.5,
+       1.0,
+       1.5,
+       2.0
+      ]
+     },
+     "u1": {
+      "choices": [
+       2.0,
+       3.0,
+       4.0,
+       5.0
+      ]
+     },
+     "m2": {
+      "choices": [
+       1.0,
+       2.5,
+       3.0,
+       4.0
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "m1*u1/(m1+m2)",
+    "distractors": [
+     {
+      "expr": "m1*u1/m2",
+      "misconception": "m4"
+     },
+     {
+      "expr": "u1*sqrt(m1/(m1+m2))",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "m2 != m1"
+    ]
+   }
+  },
+  {
+   "id": "9702-3.3-i05",
+   "kcs": [
+    "9702-3.3.2",
+    "9702-3.3.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A ball of mass [[m1]] kg moving east at [[u1]] m s$^{-1}$ collides head-on with a ball of mass [[m2]] kg moving west at [[u2]] m s$^{-1}$ on a frictionless surface. The balls stick together. Calculate the speed of the combined ball immediately after the collision.",
+   "marks": 1,
+   "explanation": "Taking east as positive, $m_1u_1-m_2u_2=(m_1+m_2)v$: the westward momentum is negative because momentum is a vector.",
+   "hints": [
+    "Momentum is a vector, so one direction must be chosen as positive.",
+    "Write the conservation equation with the westward velocity entered as negative.",
+    "The total momentum before is $m_1u_1-m_2u_2$."
+   ],
+   "answer": {
+    "value": 2.3333333333,
+    "unit": "m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 3.0,
+     "misconception": "m4"
+    },
+    {
+     "value": 3.3166247904,
+     "misconception": "m1"
+    }
+   ],
+   "template": {
+    "params": {
+     "m1": {
+      "choices": [
+       2.0,
+       3.0,
+       4.0
+      ]
+     },
+     "u1": {
+      "choices": [
+       4.0,
+       5.0,
+       6.0
+      ]
+     },
+     "m2": {
+      "choices": [
+       1.0,
+       1.5,
+       2.0
+      ]
+     },
+     "u2": {
+      "choices": [
+       1.0,
+       2.0,
+       3.0
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "(m1*u1-m2*u2)/(m1+m2)",
+    "distractors": [
+     {
+      "expr": "(m1*u1+m2*u2)/(m1+m2)",
+      "misconception": "m4"
+     },
+     {
+      "expr": "sqrt((m1*u1**2+m2*u2**2)/(m1+m2))",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "m1*u1 - m2*u2 > 0.5"
+    ]
+   }
+  },
+  {
+   "id": "9702-3.3-i06",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Object X, travelling at [[u1]] m s$^{-1}$, catches up with object Y, which is moving at [[u2]] m s$^{-1}$ in the same direction along the same straight line. The two objects have a perfectly elastic collision, and immediately afterwards X is still moving forwards at [[v1]] m s$^{-1}$. Determine the speed of Y immediately after the collision.",
+   "marks": 1,
+   "explanation": "For an elastic collision the relative speed of separation equals the relative speed of approach: $v_2-v_1=u_1-u_2$, so $v_2=v_1+(u_1-u_2)$.",
+   "hints": [
+    "An elastic collision gives a second equation as useful as momentum conservation.",
+    "Compare the two objects with each other before and after, not with the ground.",
+    "Find the relative speed of approach, $u_1-u_2$."
+   ],
+   "answer": {
+    "value": 13.0,
+    "unit": "m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 8.0,
+     "misconception": "m2"
+    },
+    {
+     "value": 10.0,
+     "misconception": "m2"
+    }
+   ],
+   "template": {
+    "params": {
+     "u1": {
+      "choices": [
+       10.0,
+       12.0,
+       14.0
+      ]
+     },
+     "u2": {
+      "choices": [
+       2.0,
+       3.0,
+       4.0
+      ]
+     },
+     "v1": {
+      "choices": [
+       5.0,
+       6.0
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "v1+(u1-u2)",
+    "distractors": [
+     {
+      "expr": "u1-u2",
+      "misconception": "m2"
+     },
+     {
+      "expr": "u1",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": [
+     "u1-u2 > 5.0",
+     "v1 < u1",
+     "v1 != u2"
+    ]
+   }
+  },
+  {
+   "id": "9702-3.3-i07",
+   "kcs": [
+    "9702-3.3.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A railway truck of mass [[m1]] kg moving at [[u1]] m s$^{-1}$ collides with a stationary truck of mass [[m2]] kg on a level track. The trucks couple together. Calculate the loss of kinetic energy in the collision.",
+   "marks": 1,
+   "explanation": "Find the common speed from momentum conservation, then subtract the final kinetic energy from the initial kinetic energy; momentum is conserved but kinetic energy is not.",
+   "hints": [
+    "Momentum conservation comes first, then the energy sum.",
+    "Calculate the common speed after coupling, then compare the kinetic energies before and after.",
+    "Use $m_1u_1=(m_1+m_2)v$ to get the common speed."
+   ],
+   "answer": {
+    "value": 1600.0,
+    "unit": "J",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 2000.0,
+     "misconception": "m1"
+    },
+    {
+     "value": 400.0,
+     "misconception": "m1"
+    }
+   ],
+   "template": {
+    "params": {
+     "m1": {
+      "choices": [
+       1000.0,
+       2000.0,
+       3000.0
+      ]
+     },
+     "u1": {
+      "choices": [
+       2.0,
+       3.0,
+       4.0
+      ]
+     },
+     "m2": {
+      "choices": [
+       1000.0,
+       4000.0,
+       5000.0
+      ]
+     }
+    },
+    "derived": {
+     "v": "m1*u1/(m1+m2)"
+    },
+    "answer": "0.5*m1*u1**2 - 0.5*(m1+m2)*v**2",
+    "distractors": [
+     {
+      "expr": "0.5*m1*u1**2",
+      "misconception": "m1"
+     },
+     {
+      "expr": "0.5*(m1+m2)*v**2",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "m2 != m1"
+    ]
+   }
+  },
+  {
+   "id": "9702-3.3-i08",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State what is meant by a perfectly elastic collision, and give the relationship between the relative speeds of the colliding objects before and after it.",
+   "marks": 2,
+   "explanation": "In a perfectly elastic collision the total kinetic energy of the system is conserved, and the relative speed of approach equals the relative speed of separation.",
+   "hints": [
+    "One statement is about energy, the other about relative speeds.",
+    "Name the quantity that is conserved, then compare the objects with each other.",
+    "Start with the total kinetic energy of the system."
+   ],
+   "rubric": [
+    {
+     "point": "Total kinetic energy is conserved (the same before and after).",
+     "keywords": [
+      [
+       "kinetic energy"
+      ],
+      [
+       "conserved",
+       "constant",
+       "unchanged",
+       "the same"
+      ]
+     ]
+    },
+    {
+     "point": "Relative speed of approach equals relative speed of separation.",
+     "keywords": [
+      [
+       "approach"
+      ],
+      [
+       "separation"
+      ],
+      [
+       "equal",
+       "same",
+       "="
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.3-i09",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sphere P, moving at 9.0 m s$^{-1}$, strikes a stationary sphere Q head-on. The collision is perfectly elastic and afterwards P continues forwards at 3.0 m s$^{-1}$. What is the speed of Q after the collision?",
+   "marks": 1,
+   "explanation": "The relative speed of approach is 9.0 m s$^{-1}$, so the relative speed of separation is also 9.0 m s$^{-1}$: Q moves at $3.0+9.0=12.0$ m s$^{-1}$.",
+   "hints": [
+    "Use the elastic-collision rule about relative speeds.",
+    "The speed of separation is measured between the two spheres, not from the ground.",
+    "Write $v_Q-v_P$ equal to the relative speed of approach."
+   ],
+   "options": {
+    "A": "6.0 m s$^{-1}$",
+    "B": "9.0 m s$^{-1}$",
+    "C": "12.0 m s$^{-1}$",
+    "D": "3.0 m s$^{-1}$"
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m2",
+    "B": "m2",
+    "D": "m2"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.3-i10",
+   "kcs": [
+    "9702-3.3.3",
+    "9702-3.3.2"
+   ],
+   "kind": "structured",
+   "difficulty": 5,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A trolley of mass 2.0 kg moving at 5.0 m s$^{-1}$ has a perfectly elastic head-on collision with a stationary trolley of mass 3.0 kg on a frictionless track. Determine the velocity of each trolley after the collision, and show that the total kinetic energy is unchanged.",
+   "marks": 5,
+   "explanation": "Momentum conservation with the elastic relative-speed rule gives $-1.0$ m s$^{-1}$ for the 2.0 kg trolley and $+4.0$ m s$^{-1}$ for the 3.0 kg trolley; the kinetic energy is 25 J before and $1.0+24=25$ J after.",
+   "hints": [
+    "Two equations are needed for two unknown velocities.",
+    "Combine momentum conservation with the relative-speed rule for an elastic collision.",
+    "Momentum: $2.0\\times5.0=2.0v_1+3.0v_2$."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Momentum: $2.0(5.0)=2.0v_1+3.0v_2$."
+    },
+    {
+     "mark": "M1",
+     "point": "Elastic collision: $v_2-v_1=5.0$ (separation equals approach)."
+    },
+    {
+     "mark": "A1",
+     "point": "The 2.0 kg trolley rebounds at $1.0$ m s$^{-1}$ (velocity $-1.0$ m s$^{-1}$).",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "A1",
+     "point": "The 3.0 kg trolley moves forwards at $4.0$ m s$^{-1}$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.0,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "Kinetic energy before $=\\tfrac12(2.0)(5.0)^2=25$ J; after $=\\tfrac12(2.0)(1.0)^2+\\tfrac12(3.0)(4.0)^2=25$ J, so it is conserved.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 25.0,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "9702-3.3-i11",
+   "kcs": [
+    "9702-3.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Two lumps of clay collide in an isolated system and stick together. Which row correctly describes the total momentum and the total kinetic energy of the system?",
+   "marks": 1,
+   "explanation": "An isolated system always conserves momentum, but a collision in which the objects coalesce is inelastic, so some kinetic energy is transferred to internal energy and sound.",
+   "hints": [
+    "Decide the two answers separately.",
+    "One quantity is conserved because the system is isolated; the other depends on whether the collision is elastic.",
+    "Ask whether a collision in which the objects stick together can be elastic."
+   ],
+   "options": {
+    "A": "momentum conserved, kinetic energy conserved",
+    "B": "momentum conserved, kinetic energy not conserved",
+    "C": "momentum not conserved, kinetic energy conserved",
+    "D": "momentum not conserved, kinetic energy not conserved"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m1",
+    "C": "m3",
+    "D": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "9702-3.3-i12",
+   "kcs": [
+    "9702-3.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why the total momentum of a system is conserved in a collision in which the total kinetic energy decreases.",
+   "marks": 3,
+   "explanation": "The internal forces of the collision are equal and opposite (Newton’s third law) and act for the same time, so the momentum changes cancel while work done in deforming the objects transfers kinetic energy to internal energy.",
+   "hints": [
+    "Think about the pair of forces the colliding objects exert on each other.",
+    "Use Newton’s third law for the momentum, then say where the kinetic energy goes.",
+    "The two forces act for the same time, so the impulses are equal and opposite."
+   ],
+   "rubric": [
+    {
+     "point": "The forces between the objects are equal and opposite and act for the same time, so the impulses (changes in momentum) are equal and opposite and cancel.",
+     "keywords": [
+      [
+       "equal and opposite",
+       "Newton’s third law",
+       "Newton's third law",
+       "third law"
+      ],
+      [
+       "impulse",
+       "time",
+       "change in momentum"
+      ]
+     ]
+    },
+    {
+     "point": "No resultant external force acts on the system, so its total momentum is constant.",
+     "keywords": [
+      [
+       "no",
+       "zero",
+       "isolated",
+       "closed"
+      ],
+      [
+       "external force",
+       "resultant force",
+       "isolated",
+       "closed"
+      ]
+     ]
+    },
+    {
+     "point": "Kinetic energy is transferred to other forms (internal energy/thermal energy/sound/deformation), and energy forms are not restricted in the way momentum is.",
+     "keywords": [
+      [
+       "internal energy",
+       "thermal",
+       "heat",
+       "sound",
+       "deformation",
+       "other forms"
+      ],
+      [
+       "kinetic energy",
+       "transferred",
+       "lost"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-3.3-i13",
+   "kcs": [
+    "9702-3.3.2",
+    "9702-3.3.2"
+   ],
+   "kind": "structured",
+   "difficulty": 5,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A puck A of mass 0.40 kg slides at 6.0 m s$^{-1}$ across a frictionless horizontal table and strikes an identical stationary puck B. After the collision A moves at 3.0 m s$^{-1}$ at an angle of 60$^\\circ$ to its original direction. Determine the speed of B after the collision and the angle between its velocity and the original direction of A.",
+   "marks": 5,
+   "explanation": "Resolving momentum along and perpendicular to the original direction gives $p_{Bx}=1.80$ N s and $p_{By}=1.04$ N s, so $v_B=5.20$ m s$^{-1}$ at $30^\\circ$ on the other side of the original direction.",
+   "hints": [
+    "Momentum is conserved separately in two perpendicular directions.",
+    "Resolve the momentum of each puck along and perpendicular to the original direction of A, then combine the components for B.",
+    "Perpendicular to the original direction the total momentum before the collision is zero."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Perpendicular: $0=0.40(3.0)\\sin60^\\circ+0.40v_B\\sin\\theta$, so B has perpendicular momentum $1.04$ N s on the opposite side.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.0392304845,
+       "unit": "N s",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "Along the original direction: $0.40(6.0)=0.40(3.0)\\cos60^\\circ+0.40v_B\\cos\\theta$, so B has forward momentum $1.80$ N s.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.8,
+       "unit": "N s",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "Combine the components: $p_B=\\sqrt{1.80^2+1.04^2}$."
+    },
+    {
+     "mark": "A1",
+     "point": "Speed $v_B=5.2$ m s$^{-1}$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 5.1961524227,
+       "unit": "m s^-1",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "A1",
+     "point": "Angle $\\theta=30^\\circ$ to the original direction of A, on the opposite side to A."
+    }
+   ]
+  },
+  {
+   "id": "9702-3.3-x001",
+   "kcs": [
+    "9702-3.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P12 · Q11",
+    "qid": "9702_s19_12_q11"
+   },
+   "stem": "Two bar magnets P and Q are mounted on floats which can slide without friction along an air\ntrack.\nS\nN\nP\nN\nS\nQ\nfloats\nair track\nThe two magnets slide towards each other along the air track and interact, without making\ncontact.\nThe relative speed of approach of the magnets is equal to their relative speed of separation.\nWhich statement about P and Q must be correct?",
+   "options": {
+    "A": "During the interaction between P and Q some of the total kinetic energy is lost.",
+    "B": "During the interaction between P and Q some of the total momentum is lost.",
+    "C": "The momentum of Q after the interaction is equal to the momentum of P before the interaction.",
+    "D": "The values of (kinetic energy of P + kinetic energy of Q) before and after the interaction are equal."
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s19_12_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x002",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q9",
+    "qid": "9702_s19_13_q9"
+   },
+   "stem": "A nucleus collides with a stationary nucleus in a vacuum. The diagrams show the paths of the\nnuclei before and after the collision.\nNo other particles are involved in the collision.\nWhich diagram is not possible?",
+   "options": {
+    "A": "",
+    "C": "",
+    "B": "",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s19_13_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most candidates chose C or D. The diagram in C is not possible (and is therefore the correct answer) because the total momentum in the vertical direction is not conserved. The diagram shows both particles emerging from the collision with a component of momentum in the downwards direction; neither particle has any vertical momentum before the collision."
+  },
+  {
+   "id": "9702-3.3-x003",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2019 · P13 · Q17",
+    "qid": "9702_s19_13_q17"
+   },
+   "stem": "A lead pellet is shot vertically upwards into a clay block that is stationary at the moment of impact\nbut is able to rise freely after impact.\nlead pellet\nmass 5.0 g\nstationary clay\nblock\nmass 95 g\nimpact velocity\n200 m s⁻¹\nThe mass of the pellet is 5.0 g and the mass of the clay block is 95 g.\nThe pellet hits the block with an initial vertical velocity of 200 m s⁻¹. It embeds itself in the block\nand does not emerge.\nHow high above its initial position will the block rise?",
+   "options": {
+    "A": "5.1 m",
+    "B": "5.6 m",
+    "C": "10 m",
+    "D": "100 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s19_13_q17.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Many candidates found it difficult to apply both conservation of momentum and energy laws correctly in order to answer this question. Applying the law of conservation of total momentum to the collision of the lead pellet with the stationary clay block: 5.0 × 10–3 × 200 = 100 × 10–3 × v v = 10.0 m s–1 where v is the velocity of the combined clay block and pellet immediately after the impact. The height h reached by the clay block and pellet can then be obtained using the law of conservation of energy: mgh = ½mv2 h = v2 / 2g This gives h = 5.1 m (answer A)."
+  },
+  {
+   "id": "9702-3.3-x004",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P11 · Q10",
+    "qid": "9702_w19_11_q10"
+   },
+   "stem": "Two gliders are travelling towards each other on a horizontal air track. Glider P has mass 0.30 kg\nand is moving with a constant speed of 1.2 m s⁻¹. Glider Q has mass 0.60 kg and is moving with a\nconstant speed of 1.8 m s⁻¹.\n1.2 m s⁻¹\n1.8 m s⁻¹\nglider P\nmass 0.30 kg\nair\ntrack\nglider Q\nmass 0.60 kg\nair\nThe gliders have a perfectly elastic collision.\nWhat are the speeds of the two gliders after the collision?\nspeed of P\n/ m s⁻¹\nspeed of Q\n/ m s⁻¹",
+   "options": {
+    "A": "1.2 0.6",
+    "B": "2.0 1.4",
+    "C": "2.8 0.2",
+    "D": "3.6 0.6"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w19_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question difficult, with almost as many selecting B or D as the correct answer C. As this is an elastic collision, the velocity of separation of the two gliders must be the same as the velocity of approach (3.0 m s–1). This eliminates A and B as possible answers as, regardless of direction, the two speeds cannot be combined to give an answer of 3.0 m s–1. The total kinetic energy before the collision (1.188 J) must be the same as the total kinetic energy after the collision. Only C satisfies this condition."
+  },
+  {
+   "id": "9702-3.3-x005",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2019 · P12 · Q9",
+    "qid": "9702_w19_12_q9"
+   },
+   "stem": "The space probe Rosetta was designed to investigate a comet. The probe consisted of an orbiter\nand a lander. The orbiter had a mass of 170 kg and the lander had a mass of 100 kg. When the\ntwo parts separated, the lander was pushed towards the surface of the comet so that its change\nin velocity towards the comet was 3.0 m s⁻¹.\norbiter\nmass 170 kg\nlander\nmass 100 kg\n3.0 m s⁻¹\nAssume that the orbiter and lander were an isolated system.\nThe orbiter moved away from the comet during the separation.\nWhat was the change in the speed of the orbiter?",
+   "options": {
+    "A": "1.8 m s⁻¹",
+    "B": "2.3 m s⁻¹",
+    "C": "3.0 m s⁻¹",
+    "D": "5.1 m s⁻¹"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w19_12_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x006",
+   "kcs": [
+    "9702-3.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P11 · Q10",
+    "qid": "9702_s20_11_q10"
+   },
+   "stem": "A stationary toy gun fires a bullet.\nWhich statement about the bullet and the gun, immediately after firing, is not correct?",
+   "options": {
+    "A": "The force exerted on the bullet by the gun has the same magnitude as the force exerted on the gun by the bullet.",
+    "B": "The force exerted on the bullet by the gun is in the opposite direction to the force exerted on the gun by the bullet.",
+    "C": "The gun and the bullet have the same magnitude of momentum.",
+    "D": "The kinetic energy of the gun must equal the kinetic energy of the bullet."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x007",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P12 · Q9",
+    "qid": "9702_s20_12_q9"
+   },
+   "stem": "A mass m₁ travelling with speed u₁ collides with a mass m₂ travelling with speed u₂ in the same\ndirection. After the collision, mass m₁ has speed v₁ and mass m₂ has speed v₂in the same\ndirection. The collision is perfectly elastic.\nm₁\nu₁\nm₂\nu₂\nbefore the collision\nm₁\nv₁\nm₂\nv₂\nafter the collision\nWhich equation is not correct?",
+   "options": {
+    "A": "m₁u₁ ² – m₁v₁ ² = m₂v₂ ² – m₂u₂ ²",
+    "B": "v₂ + u₂ = v₁ + u₁",
+    "C": "m₁(u₁ – v₁) = m₂(v₂ – u₂)",
+    "D": "m₁(u₁ – v₁)² = m₂(u₂ – v₂)²"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s20_12_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x008",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2020 · P13 · Q10",
+    "qid": "9702_s20_13_q10"
+   },
+   "stem": "A ball of mass m, moving at a velocity v, collides with a stationary ball of mass 2m.\nThe two balls stick together.\nWhich fraction of the initial kinetic energy is lost on impact?",
+   "options": {
+    "A": "1 9",
+    "B": "1 3",
+    "C": "2 3",
+    "D": "8 9"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s20_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x009",
+   "kcs": [
+    "9702-3.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q9",
+    "qid": "9702_w20_11_q9"
+   },
+   "stem": "A rock R of mass 1.0 × 10²⁷\nkg is a large distance from a star S and is travelling at a speed of\n1.0 × 10⁴\nm s⁻¹. The star has mass 1.0 × 10³⁰\nkg. The rock travels around the star on the path\nshown so that it reverses its direction of motion and, when finally again a large distance from the\nstar, has the same speed as initially.\nX\nS\nmass 1.0 \u0001 10³⁰ kg\nspeed 1.0 \u0001 10⁴ m s⁻¹\nmass 1.0 \u0001 10²⁷ kg\nspeed 1.0 \u0001 10⁴ m s⁻¹\nR\nWhich statement is correct?",
+   "options": {
+    "A": "The change in the momentum of S is in the direction of arrow X.",
+    "B": "The change in the velocity of S is approximately 20 m s⁻¹.",
+    "C": "The magnitude of the change of momentum of R is 10³ times greater than the magnitude of the change of momentum of S.",
+    "D": "The momentum of R does not change."
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_11_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x010",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P11 · Q10",
+    "qid": "9702_w20_11_q10"
+   },
+   "stem": "The diagram shows the masses and velocities of two trolleys that are about to collide.\n2.0 kg\n4.0 m s⁻¹\n4.0 kg\n1.0 m s⁻¹\nAfter the impact they move off together.\nWhat is the kinetic energy lost in the collision?",
+   "options": {
+    "A": "4 J",
+    "B": "6 J",
+    "C": "12 J",
+    "D": "14 J"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w20_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x011",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P12 · Q10",
+    "qid": "9702_w20_12_q10"
+   },
+   "stem": "Two balls, one of mass 2m and one of mass m, collide.\nThe diagrams show the initial and final velocities of the balls.\nWhich collision is not elastic?\nbefore collision\nafter collision",
+   "options": {
+    "A": "4.0 m s⁻¹ 2m 1.0 m s⁻¹ m 2.0 m s⁻¹ 2m 5.0 m s⁻¹ m",
+    "B": "6.0 m s⁻¹ 2m 3.0 m s⁻¹ m 4.0 m s⁻¹ 2m 7.0 m s⁻¹ m",
+    "C": "8.0 m s⁻¹ 2m 2.0 m s⁻¹ m 5.0 m s⁻¹ 2m 8.0 m s⁻¹ m",
+    "D": "10.0 m s⁻¹ 2m 4.0 m s⁻¹ m 6.0 m s⁻¹ 2m 12.0 m s⁻¹ m"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w20_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x012",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2020 · P13 · Q10",
+    "qid": "9702_w20_13_q10"
+   },
+   "stem": "An object of mass m travelling with speed 5u collides with, and sticks to, an object of mass 5m\ntravelling in the same direction with speed u.\nm\n5m\nu\n5u\nWhat is the speed with which the two objects travel together in the original direction?",
+   "options": {
+    "A": "3 u",
+    "B": "u",
+    "C": "5 6 u",
+    "D": "6 10 u"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w20_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x013",
+   "kcs": [
+    "9702-3.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P11 · Q10",
+    "qid": "9702_s21_11_q10"
+   },
+   "stem": "Which quantities are conserved in an inelastic collision?\nkinetic energy\ntotal energy\nlinear momentum",
+   "options": {
+    "A": "conserved not conserved conserved",
+    "B": "conserved not conserved not conserved",
+    "C": "not conserved conserved conserved",
+    "D": "not conserved conserved not conserved"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s21_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x014",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P12 · Q10",
+    "qid": "9702_s21_12_q10"
+   },
+   "stem": "A nitrogen molecule P travelling at a speed of 320 m s⁻¹ in a vacuum collides with a stationary\nnitrogen molecule Q.\nAfter the collision, P travels at a velocity of 180 m s⁻¹ at an angle of 55° to its original path.\nQ travels in a direction at an angle of 34° to the initial path of P.\nP\nQ\nbefore collision\n320 m s⁻¹\nP\nQ\nafter collision\n180 m s⁻¹\nv\n34\u0001\n55\u0001\nAssume that there are no external forces acting on the molecules.\nWhat is the magnitude v of the velocity of Q after the collision?",
+   "options": {
+    "A": "120 m s⁻¹",
+    "B": "140 m s⁻¹",
+    "C": "180 m s⁻¹",
+    "D": "260 m s⁻¹"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s21_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x015",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2021 · P13 · Q10",
+    "qid": "9702_s21_13_q10"
+   },
+   "stem": "A rock in deep space is travelling towards a distant star and collides with a stationary spacecraft.\nWhat is not a possible outcome of the collision?",
+   "options": {
+    "A": "The rock becomes stationary and the spacecraft moves towards the star.",
+    "B": "The rock moves away from the star and so does the spacecraft.",
+    "C": "The rock moves away from the star and the spacecraft moves towards the star.",
+    "D": "The rock moves towards the star and so does the spacecraft."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x016",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P12 · Q10",
+    "qid": "9702_w21_12_q10"
+   },
+   "stem": "The table shows four different collisions between two blocks, each of mass 0.50 kg.\nWhich collision is perfectly elastic?\nbefore collision",
+   "options": {
+    "A": "after collision 4.0 m s⁻¹ 0.50 kg 0.0 m s⁻¹ 0.50 kg",
+    "B": "2.0 m s⁻¹ 0.50 kg 2.0 m s⁻¹ 0.50 kg",
+    "C": "2.0 m s⁻¹ 0.50 kg 1.0 m s⁻¹ 0.50 kg",
+    "D": "4.0 m s⁻¹ 0.50 kg 1.0 m s⁻¹ 0.50 kg 2.0 m s⁻¹ 0.50 kg 0.50 kg 0.50 kg 0.0 m s⁻¹ 0.50 kg 2.0 m s⁻¹ 0.50 kg 3.0 m s⁻¹ 0.50 kg 1.0 m s⁻¹ 0.50 kg 4.0 m s⁻¹ 0.50 kg"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w21_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x017",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2021 · P13 · Q10",
+    "qid": "9702_w21_13_q10"
+   },
+   "stem": "The diagram shows two spheres approaching each other head-on. Each sphere has speed u.\nOne sphere has mass 2m and the other has mass m.\n2m\nu\nm\nu\nWhich diagram shows the result of a perfectly elastic collision?\n2m\nu\n3\n5u\n3\nu\n6\n2u\n3\nu\n6\n2u\n3\nu\n3\nm",
+   "options": {
+    "A": "2m the spheres stick together m",
+    "B": "2m m",
+    "C": "2m m",
+    "D": ""
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_w21_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "The majority of the candidates answered this question correctly. The key knowledge and understanding required is to recall that, for elastic collisions, velocity of separation = velocity of approach. The question can also be answered by calculating the total kinetic energy of both spheres before and after the collision, though this takes longer and there is more chance of making an arithmetical slip in the calculations."
+  },
+  {
+   "id": "9702-3.3-x018",
+   "kcs": [
+    "9702-3.3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P11 · Q10",
+    "qid": "9702_s22_11_q10"
+   },
+   "stem": "What is a statement of the principle of conservation of momentum?",
+   "options": {
+    "A": "A force is equal to the rate of change of momentum of the object upon which it acts.",
+    "B": "In a perfectly elastic collision, the relative momentum of the objects before impact is equal to their relative momentum after impact.",
+    "C": "The momentum of an object is the product of the mass of the object and its velocity.",
+    "D": "The total momentum of a system of interacting objects remains constant, providing no resultant external force acts on the system."
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x019",
+   "kcs": [
+    "9702-3.3.2",
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P12 · Q10",
+    "qid": "9702_s22_12_q10"
+   },
+   "stem": "Two balls X and Y are moving towards each other with speeds of 5 m s⁻¹ and 15 m s⁻¹\nrespectively.\nX\n5 m s⁻¹\nY\n15 m s⁻¹\nThey make a perfectly elastic head-on collision and ball Y moves to the right with a speed\nof 7 m s⁻¹.\nWhat is the speed and direction of ball X after the collision?",
+   "options": {
+    "A": "3 m s⁻¹ to the left",
+    "B": "13 m s⁻¹ to the left",
+    "C": "3 m s⁻¹ to the right",
+    "D": "13 m s⁻¹ to the right"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s22_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x020",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2022 · P13 · Q11",
+    "qid": "9702_s22_13_q11"
+   },
+   "stem": "Skaters of masses 80 kg and 40 kg move directly towards each other and collide.\nBefore the collision, the heavier skater is moving to the right at a speed of 2.0 m s⁻¹ and the lighter\nskater is moving to the left at a speed of 1.0 m s⁻¹.\nAfter the collision, the heavier skater moves to the right at a speed of 0.80 m s⁻¹.\nWhat is the relative speed of separation of the two skaters?",
+   "options": {
+    "A": "0.6 m s⁻¹",
+    "B": "1.4 m s⁻¹",
+    "C": "2.2 m s⁻¹",
+    "D": "2.6 m s⁻¹"
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x021",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2022 · P11 · Q10",
+    "qid": "9702_w22_11_q10"
+   },
+   "stem": "Two trolleys are held together on a horizontal surface with a compressed spring between them.\n1 kg\n2 kg\nWhen they are released, the trolleys lose contact with the spring. The trolley of mass 2 kg moves\nto the left at a final speed of 2 m s⁻¹.\nHow much elastic potential energy was stored in the spring?",
+   "options": {
+    "A": "4 J",
+    "B": "6 J",
+    "C": "8 J",
+    "D": "12 J"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w22_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x022",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P11 · Q10",
+    "qid": "9702_s23_11_q10"
+   },
+   "stem": "An object of mass m, moving at speed u along a frictionless horizontal surface, collides head-on\nwith a stationary object of mass 4m.\nu\nm\n4m\nbefore the collision\nAfter the collision, the object of mass m rebounds along its initial path with\n4\n1 of its kinetic energy\nbefore the collision.\nWhat is the speed of the object of mass 4m after the collision?",
+   "options": {
+    "A": "8 u",
+    "B": "16 3u",
+    "C": "16 5u",
+    "D": "8 3u"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_s23_11_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Candidates found this question very challenging. To find the correct answer, the principle of conservation of linear momentum must be applied carefully, noting that the mass m rebounds along its original path. It is also important to realise that if the mass m has 1 4 of its original kinetic energy after the collision, it must have half the speed, since kinetic energy is proportional to the square of the velocity. Applying the principle of conservation of linear momentum: 3 4 – 2 8 u u mv m mu v = = (Answer D). Principal Examiner Report for Teachers"
+  },
+  {
+   "id": "9702-3.3-x023",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P12 · Q10",
+    "qid": "9702_s23_12_q10"
+   },
+   "stem": "Two balls, X and Y, approach each other along the same straight line and collide. The collision is\nperfectly elastic.\nTheir initial speeds are uX and uY respectively. After the collision they move apart with speeds vX\nand vYrespectively. Their directions are shown.\nX\nX\nY\nY\nbefore\nafter\nuX\nuY\nvX\nvY\nWhich equation is correct?",
+   "options": {
+    "A": "uX + uY = vX + vY",
+    "B": "uX + uY = vX – vY",
+    "C": "uX – uY = vX + vY",
+    "D": "uX – uY = vX – vY"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s23_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x024",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2023 · P13 · Q10",
+    "qid": "9702_s23_13_q10"
+   },
+   "stem": "A perfectly elastic collision occurs between two objects X and Y. The mass of X is m and the\nmass of Y is 4m. Object X travels at speed v before the collision and speed\n5\n3v in the opposite\ndirection after the collision. Object Y is stationary before the collision.\nX\nm\nbefore\nY\n4m\nv\nX\nm\nafter\nY\n4m\n3v\n5\nWhat is the kinetic energy of Y after the collision?",
+   "options": {
+    "A": "8 mv ²",
+    "B": "50 34 mv ²",
+    "C": "50 16 mv ²",
+    "D": "5 1 mv ²"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s23_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null,
+   "examiner": "Most the candidates answered this question correctly, though some may have made sign errors when applying the velocity of approach equals velocity of separation rule for perfectly elastic collisions. There are three possible approaches to finding the kinetic energy of Y: If V is the velocity of Y after the collision: 1. Conservation of momentum. 4mV – 3 5 mv = mv  V = 2 5 v  k.e. of Y =       2 1 2 4 2 5 v m = 2 16 50 mv 2. Conservation of k.e. Δk.e. =   −     2 2 1 1 3 2 2 5 v mv m = 2 16 50 mv 3. Velocity of separation = velocity of approach: + = = = 2 3 2 16 k.e. of Y 5 5 50 v"
+  },
+  {
+   "id": "9702-3.3-x025",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2023 · P13 · Q10",
+    "qid": "9702_w23_13_q10"
+   },
+   "stem": "An object X of mass 0.30 kg is travelling in a straight line at a constant velocity of 3.0 m s⁻¹ on a\nhorizontal frictionless surface. Object X collides with a stationary object Y of mass 0.50 kg.\nAfter the collision, X moves with a velocity of 2.0 m s⁻¹ at an angle of 60° to its direction before the\ncollision. Object Y moves with a velocity v at an angle of 41° to the direction of X before the\ncollision, as shown.\n3.0 m s⁻¹\n2.0 m s⁻¹\n0.30 kg\nX\nX\n0.50 kg\nbefore collision\nafter collision\nY\nY\nv\n41\u0002\n60\u0002\nWhat is the value of v?",
+   "options": {
+    "A": "0.80 m s⁻¹",
+    "B": "1.2 m s⁻¹",
+    "C": "1.6 m s⁻¹",
+    "D": "1.8 m s⁻¹"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_w23_13_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x026",
+   "kcs": [
+    "9702-3.3.2",
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P11 · Q12",
+    "qid": "9702_s24_11_q12"
+   },
+   "stem": "Spheres X and Y form an isolated system. The mass of Y is greater than the mass of X.\nSphere Y is initially stationary.\nSphere X collides elastically with sphere Y.\nThe speed of sphere X before the collision is u.\nWhich statement must be correct?",
+   "options": {
+    "A": "Sphere X rebounds with a speed that is greater than u, and sphere Y moves off with a speed that is less than u.",
+    "B": "Sphere X rebounds with a speed that is less than u, and sphere Y moves off with a speed that is also less than u.",
+    "C": "Sphere X rebounds with speed u, and sphere Y remains stationary.",
+    "D": "Sphere X remains stationary, and sphere Y moves off with a speed that is less than u."
+   },
+   "answer": "B",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x027",
+   "kcs": [
+    "9702-3.3.1",
+    "9702-3.3.4"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q7",
+    "qid": "9702_s24_12_q7"
+   },
+   "stem": "Two satellites in deep space collide inelastically.\nWhat happens to the total kinetic energy and total momentum?\ntotal\nkinetic energy\ntotal\nmomentum",
+   "options": {
+    "A": "conserved conserved",
+    "B": "conserved reduced",
+    "C": "reduced conserved",
+    "D": "reduced reduced"
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s24_12_q7.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x028",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P12 · Q10",
+    "qid": "9702_s24_12_q10"
+   },
+   "stem": "A lead pellet is shot vertically upwards into a clay block that is stationary at the moment of impact,\nbut is able to rise freely after impact.\nlead pellet\nmass 5.0 g\nstationary clay\nblock\nmass 95 g\nimpact velocity\n200 m s⁻¹\nThe mass of the pellet is 5.0 g and the mass of the clay block is 95 g.\nThe pellet hits the block with an initial vertical velocity of 200 m s⁻¹. It embeds itself in the block\nand does not emerge.\nHow high above its initial position will the block rise?",
+   "options": {
+    "A": "5.1 m",
+    "B": "5.6 m",
+    "C": "10 m",
+    "D": "100 m"
+   },
+   "answer": "A",
+   "image": "Assets/mcq/9702_s24_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x029",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2024 · P13 · Q9",
+    "qid": "9702_s24_13_q9"
+   },
+   "stem": "Which statement about a perfectly elastic collision between two objects is correct?",
+   "options": {
+    "A": "Total kinetic energy is conserved and the relative speed of approach equals the relative speed of separation.",
+    "B": "Total kinetic energy is conserved but the relative speed of approach does not equal the relative speed of separation.",
+    "C": "Total kinetic energy is not conserved and the relative speed of approach does not equal the relative speed of separation.",
+    "D": "Total kinetic energy is not conserved but the relative speed of approach does equal the relative speed of separation."
+   },
+   "answer": "A",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x030",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P11 · Q9",
+    "qid": "9702_s25_11_q9"
+   },
+   "stem": "What is always conserved in elastic collisions?\ntotal kinetic energy\ntotal velocity",
+   "options": {
+    "A": "yes yes",
+    "B": "yes no",
+    "C": "no yes",
+    "D": "no no"
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_s25_11_q9.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x031",
+   "kcs": [
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q10",
+    "qid": "9702_s25_12_q10"
+   },
+   "stem": "Which statement does not describe an elastic collision between two objects?",
+   "options": {
+    "A": "The relative speed of approach of the two objects equals the relative speed of separation.",
+    "B": "The total kinetic energy of the objects is conserved.",
+    "C": "The total kinetic energy of the objects is reduced.",
+    "D": "The total linear momentum of the objects is conserved."
+   },
+   "answer": "C",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x032",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P12 · Q13",
+    "qid": "9702_s25_12_q13"
+   },
+   "stem": "An empty cart is moving along a horizontal track at a constant velocity.\nResistive forces acting on the cart are negligible.\nA heavy rock is dropped vertically into the cart.\nvelocity of rock\nvelocity\nof cart\nThe cart continues to move horizontally with the rock inside.\nHow does the momentum and kinetic energy of the cart with the rock inside compare with the\nmomentum and kinetic energy of the empty cart?",
+   "options": {
+    "A": "The cart with the rock inside has a smaller momentum and a smaller kinetic energy.",
+    "B": "The cart with the rock inside has a smaller momentum and the same kinetic energy.",
+    "C": "The cart with the rock inside has the same momentum and a smaller kinetic energy.",
+    "D": "The cart with the rock inside has the same momentum and the same kinetic energy."
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_12_q13.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x033",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Jun 2025 · P13 · Q11",
+    "qid": "9702_s25_13_q11"
+   },
+   "stem": "A nucleus collides with a stationary nucleus in a vacuum. The diagrams show the paths of the\nnuclei before and after the collision.\nNo other particles are involved in the collision.\nWhich diagram is not possible?",
+   "options": {
+    "A": "",
+    "C": "",
+    "B": "",
+    "D": ""
+   },
+   "answer": "C",
+   "image": "Assets/mcq/9702_s25_13_q11.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x034",
+   "kcs": [
+    "9702-3.3.2",
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P11 · Q10",
+    "qid": "9702_w25_11_q10"
+   },
+   "stem": "An object of mass m moving with velocity 9.0 m s⁻¹ has a head-on elastic collision with a\nstationary object of mass 2m.\nAfter the collision, both objects are moving. No external forces act on the system.\nWhat is the velocity of the object of mass 2m after the collision?",
+   "options": {
+    "A": "–6.0 m s⁻¹",
+    "B": "–3.0 m s⁻¹",
+    "C": "4.5 m s⁻¹",
+    "D": "6.0 m s⁻¹"
+   },
+   "answer": "D",
+   "image": null,
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x035",
+   "kcs": [
+    "9702-3.3.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q10",
+    "qid": "9702_w25_12_q10"
+   },
+   "stem": "The diagram shows the view from above of two balls moving along a horizontal frictionless\nsurface before they collide. The momentum of each ball is also shown.\n4.0 N s\n8.0 N s\nThe balls stick together during the collision.\nWhich vector diagram represents the combined momentum of the balls after the collision?",
+   "options": {
+    "A": "",
+    "C": "",
+    "B": "",
+    "D": ""
+   },
+   "answer": "B",
+   "image": "Assets/mcq/9702_w25_12_q10.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  },
+  {
+   "id": "9702-3.3-x036",
+   "kcs": [
+    "9702-3.3.2",
+    "9702-3.3.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": null,
+   "source": {
+    "type": "past",
+    "ref": "CAIE 9702 · Nov 2025 · P12 · Q12",
+    "qid": "9702_w25_12_q12"
+   },
+   "stem": "Two different blocks, P and Q, slide towards each other on a horizontal frictionless surface. The\nblocks have an elastic collision.\nThe diagram shows the velocities of the two blocks immediately after the collision.\nP\n70 cm s⁻¹\nQ\n20 cm s⁻¹\nWhich row gives possible velocities of the two blocks immediately before the collision?\nvelocity of P\nvelocity of Q",
+   "options": {
+    "A": "10 cm s⁻¹ to the right 60 cm s⁻¹ to the left",
+    "B": "50 cm s⁻¹ to the right zero",
+    "C": "20 cm s⁻¹ to the left 70 cm s⁻¹ to the right",
+    "D": "60 cm s⁻¹ to the right 30 cm s⁻¹ to the left"
+   },
+   "answer": "D",
+   "image": "Assets/mcq/9702_w25_12_q12.png",
+   "marks": 1,
+   "tier": "extra",
+   "explanation": null
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "9702-3.3.1",
+   "front": "State the principle of conservation of momentum.",
+   "back": "The total momentum of a system is constant, provided that no resultant external force acts on the system (an isolated or closed system)."
+  },
+  {
+   "id": "fc2",
+   "kc": "9702-3.3.1",
+   "front": "What is an isolated (closed) system?",
+   "back": "A system on which no resultant external force acts, so that its total momentum cannot change."
+  },
+  {
+   "id": "fc3",
+   "kc": "9702-3.3.3",
+   "front": "What is a perfectly elastic collision?",
+   "back": "A collision in which the total kinetic energy of the system is conserved; equivalently, the relative speed of approach equals the relative speed of separation."
+  },
+  {
+   "id": "fc4",
+   "kc": "9702-3.3.3",
+   "front": "For an elastic collision, how are the relative speeds before and after related?",
+   "back": "The relative speed of approach equals the relative speed of separation: $u_1-u_2=v_2-v_1$."
+  },
+  {
+   "id": "fc5",
+   "kc": "9702-3.3.3",
+   "front": "What is an inelastic collision?",
+   "back": "A collision in which the total kinetic energy of the system is not conserved, although the total momentum is; the relative speed of separation is less than the relative speed of approach."
+  }
+ ],
+ "diagrams": [
+  {
+   "file": "Assets/9702/9702-3.3-momentum-triangle.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        2.4,
+        0
+       ]
+      ],
+      "label": "total momentum before, 2.40 N s",
+      "style": "solid"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        0.6,
+        1.039
+       ]
+      ],
+      "label": "momentum of A after, 1.20 N s",
+      "style": "solid"
+     },
+     {
+      "points": [
+       [
+        0.6,
+        1.039
+       ],
+       [
+        2.4,
+        0
+       ]
+      ],
+      "label": "momentum of B after, 2.08 N s",
+      "style": "dashed"
+     }
+    ],
+    "xlabel": "momentum component along original direction / N s",
+    "ylabel": "perpendicular component / N s",
+    "ticks": true
+   }
+  }
+ ],
+ "teach": {
+  "9702-3.3.1": {
+   "motivate": "Two skaters push apart, a gun recoils, a rocket climbs. In each case nothing outside pushes the system, and the momenta that appear are always equal and opposite. That is not a coincidence; it is a law you can calculate with.",
+   "discover": {
+    "stem": "In which situation is total linear momentum always conserved?",
+    "options": {
+     "A": "in all collisions between two objects",
+     "B": "in collisions between two objects moving with equal and opposite velocities",
+     "C": "in collisions between two objects that form an isolated system",
+     "D": "in collisions between two objects of the same mass"
+    },
+    "answer": "C",
+    "explanation": "Momentum is conserved exactly when no resultant external force acts, which is what an isolated system means. In A an outside force such as friction or a wall could act, and equal masses or equal and opposite velocities are irrelevant conditions."
+   },
+   "establish": "The **principle of conservation of momentum** states that the total momentum of a system is constant, provided that no resultant external force acts on the system. Such a system is called **isolated** or **closed**. Both halves matter: the quantity that stays constant is the *total* momentum of the whole system, not the momentum of one object, and the condition is a zero *resultant external* force. Internal forces, such as the push between two colliding bodies, cannot change the total: by Newton's third law they are equal and opposite and act for the same time, so the two changes in momentum cancel. Because momentum is a vector, the total is a vector sum, so for motion along a line you choose a positive direction and add signed momenta: $m_1u_1+m_2u_2$.",
+   "connect": "This follows from Newton's second law, $F=\\Delta p/\\Delta t$: zero resultant external force means zero rate of change of the system's total momentum. It is the tool for every collision, explosion and recoil problem you will meet.",
+   "note": "- Total momentum of a system is constant provided no resultant external force acts on it.\n- Such a system is isolated (closed).\n- Internal forces are equal and opposite (Newton's third law), so they cancel.\n- Momentum is a vector: add signed momenta, $\\sum mu = \\sum mv$.\n- Omitting the external-force condition loses the mark.",
+   "self_explain": "Why can the forces the two colliding objects exert on each other never change the total momentum of the pair?",
+   "source": "pack"
+  },
+  "9702-3.3.2": {
+   "motivate": "Once you accept that the total momentum before equals the total momentum after, almost every collision question becomes one line of algebra — in one dimension or, by resolving, in two.",
+   "discover": {
+    "stem": "An object of mass $m$ travelling at $5u$ collides with, and sticks to, an object of mass $5m$ travelling in the same direction at $u$. What is their common speed afterwards?",
+    "options": {
+     "A": "$u/3$",
+     "B": "$10u/6$",
+     "C": "$5u/6$",
+     "D": "$10u/3$"
+    },
+    "answer": "B",
+    "explanation": "Total momentum before is $m(5u)+5m(u)=10mu$. After the collision the moving mass is $m+5m=6m$, so $6mv=10mu$ and $v=10u/6$. Dividing by only one of the masses is the usual error."
+   },
+   "establish": "To **apply** the principle, draw before and after diagrams, label every mass and velocity, and mark a positive direction. In one dimension, $m_1u_1+m_2u_2=m_1v_1+m_2v_2$, with any velocity in the negative direction entered as a negative number; a rebound reverses the sign. If the objects coalesce, the right-hand side is $(m_1+m_2)v$: the combined mass is the sum. In **two dimensions**, momentum is conserved independently along two perpendicular directions, so write one equation along the original line of motion and one perpendicular to it. Resolve momenta, not velocities: perpendicular to the original direction, $m_1v_1\\sin\\theta_1=m_2v_2\\sin\\theta_2$. Equivalently the momentum vectors form a closed triangle. The coefficient of restitution is not required.",
+   "connect": "Resolving here is the same skill as resolving any vector into perpendicular components; the only new point is that the mass must be included before resolving. For elastic collisions, the relative-speed rule supplies the second equation you need.",
+   "note": "- Draw before and after diagrams; choose and mark a positive direction.\n- One dimension: $m_1u_1+m_2u_2=m_1v_1+m_2v_2$, with signed velocities.\n- Objects that stick together: combined mass $m_1+m_2$.\n- Two dimensions: conserve momentum along and perpendicular to the original direction.\n- Resolve momentum ($mv\\cos\\theta$), never velocity alone.\n- State the direction, or the sign, of every final velocity.",
+   "self_explain": "In a two-dimensional collision, why is it wrong to resolve the velocities and equate their components?",
+   "source": "pack"
+  },
+  "9702-3.3.3": {
+   "motivate": "Two equations beat one. For a perfectly elastic collision there is a second relationship, and it is far quicker than squaring everything: the objects separate exactly as fast as they approached.",
+   "discover": {
+    "stem": "Two objects X and Y have a perfectly elastic collision. X approaches Y at $20$ m s$^{-1}$ while Y moves at $12$ m s$^{-1}$ in the same direction; afterwards X moves at $10$ m s$^{-1}$. What is the speed of Y afterwards?",
+    "options": {
+     "A": "$2.0$ m s$^{-1}$",
+     "B": "$18$ m s$^{-1}$",
+     "C": "$22$ m s$^{-1}$",
+     "D": "$24$ m s$^{-1}$"
+    },
+    "answer": "B",
+    "explanation": "The relative speed of approach is $20-12=8$ m s$^{-1}$, so the relative speed of separation is also $8$ m s$^{-1}$. Y must move $8$ m s$^{-1}$ faster than X does afterwards: $10+8=18$ m s$^{-1}$. Adding $8$ to Y's original speed instead gives the common wrong answer."
+   },
+   "establish": "For an **elastic collision**, total kinetic energy is conserved: $\\tfrac12m_1u_1^2+\\tfrac12m_2u_2^2=\\tfrac12m_1v_1^2+\\tfrac12m_2v_2^2$. Combining that with conservation of momentum gives a much more usable result: the **relative speed of approach equals the relative speed of separation**, $u_1-u_2=v_2-v_1$. Both speeds are measured between the two objects, not relative to the ground, so the first object's final velocity must be subtracted — it generally keeps moving. Use signed velocities throughout, so that a rebound enters as negative. In practice you use this equation alongside momentum conservation to find two unknown final velocities, and you can use it in reverse as a test: a collision is elastic only if separation speed equals approach speed.",
+   "connect": "Momentum conservation alone gives one equation for two unknowns; the elastic condition supplies the second, without the algebra of a quadratic. If separation is slower than approach, the collision is inelastic and kinetic energy has been transferred elsewhere.",
+   "note": "- Elastic collision: total kinetic energy is conserved.\n- Equivalent rule: relative speed of approach $=$ relative speed of separation.\n- In symbols, $u_1-u_2=v_2-v_1$, with signed velocities.\n- Separation speed compares the two objects, not one object with the ground.\n- Use it as the second equation, or as a test for elasticity.",
+   "self_explain": "If a struck ball moves off at the approach speed while the striking ball keeps moving forwards, what must be true about the collision?",
+   "source": "pack"
+  },
+  "9702-3.3.4": {
+   "motivate": "A car crash obviously destroys kinetic energy — yet the momentum of the wreckage is exactly what the cars brought in. The two conservation statements are not a package deal, and exam rows that pair them wrongly catch many candidates.",
+   "discover": {
+    "stem": "Two objects collide inelastically and no external forces act. Which row is correct?",
+    "options": {
+     "A": "momentum conserved, kinetic energy conserved",
+     "B": "momentum conserved, kinetic energy not conserved",
+     "C": "momentum not conserved, kinetic energy conserved",
+     "D": "momentum not conserved, kinetic energy not conserved"
+    },
+    "answer": "B",
+    "explanation": "With no external forces the system is isolated, so momentum is conserved. 'Inelastic' means by definition that total kinetic energy is not conserved: some is transferred to internal energy, sound and deformation."
+   },
+   "establish": "In interactions between objects in an isolated system, momentum is **always** conserved, but some change in kinetic energy may take place. The reason the two behave differently is that momentum changes are fixed by the forces: the internal forces are equal and opposite and act for the same time, so the impulses cancel exactly. Energy, by contrast, has somewhere else to go — work done in deforming the objects, plus sound and internal (thermal) energy — and none of that carries momentum away. A collision in which kinetic energy falls is **inelastic**; one in which it is unchanged is perfectly **elastic**; the extreme case, where the objects move off together, loses the most kinetic energy consistent with momentum conservation. Total energy is always conserved: it is only the kinetic share that changes.",
+   "connect": "This is why a question can give you momentum data that fix the final velocities and still show kinetic energy falling. Check the wording: 'stick together', 'embeds itself' and 'coalesce' all signal an inelastic collision, so never assume kinetic energy is conserved.",
+   "note": "- Momentum is always conserved in an isolated system, elastic or not.\n- Kinetic energy may change; it is conserved only in a perfectly elastic collision.\n- Inelastic: kinetic energy transferred to internal energy, sound and deformation.\n- Total energy is still conserved; only the kinetic share falls.\n- Loss of kinetic energy $=$ total KE before $-$ total KE after.",
+   "self_explain": "Why can kinetic energy leave a colliding system as sound and internal energy while momentum cannot leave in the same way?",
+   "source": "pack"
+  }
+ }
+}

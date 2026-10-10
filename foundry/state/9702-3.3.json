@@ -1,0 +1,260 @@
+{
+ "sub": "9702-3.3",
+ "stage": "ready",
+ "created": "2026-10-01T18:36:11+08:00",
+ "updated": "2026-10-10T10:58:34+08:00",
+ "history": [
+  {
+   "t": "2026-10-01T18:36:22+08:00",
+   "from": "draft",
+   "to": "draft",
+   "note": "drafter failed (exit 1); see foundry/logs/9702-3.3.drafter.1001-183611.log"
+  },
+  {
+   "t": "2026-10-10T10:29:03+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 61 items"
+  },
+  {
+   "t": "2026-10-10T10:54:12+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "56 agreed, 5 disputed"
+  },
+  {
+   "t": "2026-10-10T10:58:34+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T10:58:34+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 61,
+  "extra": 36
+ },
+ "disputes": [
+  {
+   "id": "9702-3.3-p11",
+   "key": "D",
+   "solver": "B",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.3-i09",
+   "key": "A",
+   "solver": "B",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.3-x021",
+   "key": "D",
+   "solver": "C",
+   "tiebreak": "D",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.3-x025",
+   "key": "C",
+   "solver": "A",
+   "tiebreak": "C",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  },
+  {
+   "id": "9702-3.3-x030",
+   "key": "B",
+   "solver": "D",
+   "tiebreak": "B",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 16576,
+   "provider": "claude",
+   "model": "opus/low",
+   "rung": 0,
+   "started": "2026-10-10T10:20:43+08:00",
+   "log": "foundry/logs/9702-3.3.drafter.1010-102043.log",
+   "out": "foundry/logs/9702-3.3.drafter.1010-102043.out.json",
+   "finished": "2026-10-10T10:29:03+08:00",
+   "exit": 0,
+   "report": {
+    "concerns": [
+     "The 2-D structured item (9702-3.3-i13) states the angle 30 degrees in the mark scheme text but has no numeric check on that point: tutorlib.units has no degree unit, so any unit string fails validation. A checker may want a dimensionless convention for angles.",
+     "The momentum-triangle SVG uses graph_sketch with unequal axis scales, so the 60-degree angle does not look like 60 degrees on the page, and the legend box slightly overlaps the dashed side. The note explains the triangle in words, but a dedicated vector-diagram type would be better.",
+     "Misconception m4 covers two related errors (adding opposing momenta as magnitudes, and dividing by only the target mass after a sticking collision). I merged them to stay within the 2-5 misconception limit for a 4-KC subtopic; a checker may prefer them split.",
+     "Only 12 past MCQs are explained, per the spec cap, so two strong KC3 questions (9702_s23_13_q10, 9702_w21_13_q10) fall into the unexplained extras bank. KC3 is backed by a template plus three generated items instead.",
+     "Past item 9702_w24_11_q12: the bundle text is ambiguous about which disc has the 4.0 m s-1 label. I resolved it from the official key (D, 5.7 m s-1), which only works if 4.0 m s-1 belongs to the disc of mass M; my explanation states that reading."
+    ],
+    "items": 61,
+    "lint_ok": true,
+    "note_path": "build/out/notes/Subjects/9702 Physics/03 Dynamics/3.3 Linear momentum and its conservation.md",
+    "pack_path": "build/out/packs/9702/9702-3.3.json",
+    "templates": 4,
+    "validator_ok": true,
+    "worked": 2
+   },
+   "ok": true,
+   "cost_usd": 3.272
+  },
+  "solver#1": {
+   "pid": 31505,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:51:33+08:00",
+   "log": "foundry/logs/9702-3.3.solver-1.1010-105133.log",
+   "out": "foundry/logs/9702-3.3.solver-1.1010-105133.out.json",
+   "expects": "build/work/blind/9702-3.3.answers.part1.json",
+   "finished": "2026-10-10T10:51:52+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions; wrote [9702-3.3.answers.part1.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-3.3.answers.part1.json)."
+   },
+   "ok": true
+  },
+  "solver#2": {
+   "pid": 31507,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:51:33+08:00",
+   "log": "foundry/logs/9702-3.3.solver-2.1010-105133.log",
+   "out": "foundry/logs/9702-3.3.solver-2.1010-105133.out.json",
+   "expects": "build/work/blind/9702-3.3.answers.part2.json",
+   "finished": "2026-10-10T10:52:05+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote [9702-3.3.answers.part2.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-3.3.answers.part2.json)."
+   },
+   "ok": true
+  },
+  "solver#3": {
+   "pid": 31512,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:51:33+08:00",
+   "log": "foundry/logs/9702-3.3.solver-3.1010-105133.log",
+   "out": "foundry/logs/9702-3.3.solver-3.1010-105133.out.json",
+   "expects": "build/work/blind/9702-3.3.answers.part3.json",
+   "finished": "2026-10-10T10:51:57+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 20 questions and wrote [9702-3.3.answers.part3.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-3.3.answers.part3.json)."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 31519,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T10:51:33+08:00",
+   "log": "foundry/logs/9702-3.3.checker.1010-105133.log",
+   "out": "foundry/logs/9702-3.3.checker.1010-105133.out.json",
+   "expects": "build/work/foundry/9702-3.3.check.json",
+   "finished": "2026-10-10T10:53:47+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings, build/work/foundry/9702-3.3.check.json"
+   },
+   "ok": true,
+   "cost_usd": 0.227
+  },
+  "solver#4": {
+   "pid": 32856,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T10:53:51+08:00",
+   "log": "foundry/logs/9702-3.3.solver-4.1010-105351.log",
+   "out": "foundry/logs/9702-3.3.solver-4.1010-105351.out.json",
+   "expects": "build/work/blind/9702-3.3.answers.part4.json",
+   "finished": "2026-10-10T10:54:02+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in [9702-3.3.answers.part4.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9702-3.3.answers.part4.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 34791,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T10:57:46+08:00",
+   "log": "foundry/logs/9702-3.3.tiebreak.1010-105746.log",
+   "out": "foundry/logs/9702-3.3.tiebreak.1010-105746.out.json",
+   "expects": "build/work/blind/9702-3.3.tiebreak.json",
+   "finished": "2026-10-10T10:58:07+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 5,
+    "answers_path": "build/work/blind/9702-3.3.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  }
+ },
+ "extra_ids": {
+  "9702_s19_12_q11": "9702-3.3-x001",
+  "9702_s19_13_q9": "9702-3.3-x002",
+  "9702_s19_13_q17": "9702-3.3-x003",
+  "9702_w19_11_q10": "9702-3.3-x004",
+  "9702_w19_12_q9": "9702-3.3-x005",
+  "9702_s20_11_q10": "9702-3.3-x006",
+  "9702_s20_12_q9": "9702-3.3-x007",
+  "9702_s20_13_q10": "9702-3.3-x008",
+  "9702_w20_11_q9": "9702-3.3-x009",
+  "9702_w20_11_q10": "9702-3.3-x010",
+  "9702_w20_12_q10": "9702-3.3-x011",
+  "9702_w20_13_q10": "9702-3.3-x012",
+  "9702_s21_11_q10": "9702-3.3-x013",
+  "9702_s21_12_q10": "9702-3.3-x014",
+  "9702_s21_13_q10": "9702-3.3-x015",
+  "9702_w21_12_q10": "9702-3.3-x016",
+  "9702_w21_13_q10": "9702-3.3-x017",
+  "9702_s22_11_q10": "9702-3.3-x018",
+  "9702_s22_12_q10": "9702-3.3-x019",
+  "9702_s22_13_q11": "9702-3.3-x020",
+  "9702_w22_11_q10": "9702-3.3-x021",
+  "9702_s23_11_q10": "9702-3.3-x022",
+  "9702_s23_12_q10": "9702-3.3-x023",
+  "9702_s23_13_q10": "9702-3.3-x024",
+  "9702_w23_13_q10": "9702-3.3-x025",
+  "9702_s24_11_q12": "9702-3.3-x026",
+  "9702_s24_12_q7": "9702-3.3-x027",
+  "9702_s24_12_q10": "9702-3.3-x028",
+  "9702_s24_13_q9": "9702-3.3-x029",
+  "9702_s25_11_q9": "9702-3.3-x030",
+  "9702_s25_12_q10": "9702-3.3-x031",
+  "9702_s25_12_q13": "9702-3.3-x032",
+  "9702_s25_13_q11": "9702-3.3-x033",
+  "9702_w25_11_q10": "9702-3.3-x034",
+  "9702_w25_12_q10": "9702-3.3-x035",
+  "9702_w25_12_q12": "9702-3.3-x036"
+ },
+ "maker": "claude",
+ "checked": true
+}
