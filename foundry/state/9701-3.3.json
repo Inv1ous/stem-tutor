@@ -1,0 +1,137 @@
+{
+ "sub": "9701-3.3",
+ "stage": "ready",
+ "created": "2026-10-10T10:58:42+08:00",
+ "updated": "2026-10-10T13:42:31+08:00",
+ "history": [
+  {
+   "t": "2026-10-10T10:59:35+08:00",
+   "from": "draft",
+   "to": "solve",
+   "note": "drafted: 9 items"
+  },
+  {
+   "t": "2026-10-10T13:36:59+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "5 agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-10T13:41:35+08:00",
+   "from": "tiebreak",
+   "to": "sign",
+   "note": "tiebreak settled every dispute; 0 checker findings"
+  },
+  {
+   "t": "2026-10-10T13:42:31+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "signed off"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "items": 9,
+  "extra": 3
+ },
+ "disputes": [
+  {
+   "id": "9701-3.3-x002",
+   "key": "A",
+   "solver": "D",
+   "tiebreak": "A",
+   "status": "closed",
+   "resolution": "solver wrong (tiebreak agrees with key)"
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "drafter": {
+   "pid": 35590,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-10T10:58:42+08:00",
+   "log": "foundry/logs/9701-3.3.drafter.1010-105842.log",
+   "out": "foundry/logs/9701-3.3.drafter.1010-105842.out.json",
+   "finished": "2026-10-10T10:59:35+08:00",
+   "exit": 0,
+   "report": {
+    "pack_path": "build/out/packs/9701/9701-3.3.json",
+    "note_path": "build/out/notes/Subjects/9701 Chemistry/03 Chemical bonding/3.3 Metallic bonding.md",
+    "items": 9,
+    "templates": 0,
+    "worked": 0,
+    "validator_ok": true,
+    "lint_ok": true,
+    "concerns": []
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 94409,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-10T13:35:04+08:00",
+   "log": "foundry/logs/9701-3.3.solver.1010-133504.log",
+   "out": "foundry/logs/9701-3.3.solver.1010-133504.out.json",
+   "expects": "build/work/blind/9701-3.3.answers.json",
+   "finished": "2026-10-10T13:35:36+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 6 questions, wrote build/work/blind/9701-3.3.answers.json"
+   },
+   "ok": true,
+   "cost_usd": 0.049
+  },
+  "checker": {
+   "pid": 94414,
+   "provider": "codex",
+   "model": "gpt-6-luna/medium",
+   "rung": 0,
+   "started": "2026-10-10T13:35:04+08:00",
+   "log": "foundry/logs/9701-3.3.checker.1010-133504.log",
+   "out": "foundry/logs/9701-3.3.checker.1010-133504.out.json",
+   "expects": "build/work/foundry/9701-3.3.check.json",
+   "finished": "2026-10-10T13:35:26+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings — [9701-3.3.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/foundry/9701-3.3.check.json)"
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 97117,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 0,
+   "started": "2026-10-10T13:39:50+08:00",
+   "log": "foundry/logs/9701-3.3.tiebreak.1010-133950.log",
+   "out": "foundry/logs/9701-3.3.tiebreak.1010-133950.out.json",
+   "expects": "build/work/blind/9701-3.3.tiebreak.json",
+   "finished": "2026-10-10T13:40:07+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9701-3.3.tiebreak.json",
+    "notes": [
+     "9701-3.3-x002: assumed standard CIE multi-statement option set (A=1,2,3; B=1,2; C=2,3; D=1); all three statements correctly explain increased metallic bonding strength Na→Al, so answer A"
+    ]
+   },
+   "ok": true,
+   "cost_usd": 0.128
+  }
+ },
+ "extra_ids": {
+  "9701_w20_11_q5": "9701-3.3-x001",
+  "9701_s21_13_q36": "9701-3.3-x002",
+  "9701_w25_11_q5": "9701-3.3-x003"
+ },
+ "maker": "codex",
+ "checked": true
+}
