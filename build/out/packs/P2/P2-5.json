@@ -1,0 +1,659 @@
+{
+ "subtopic": "P2-5",
+ "spec": "P2",
+ "version": 1,
+ "note": "Subjects/Maths/P2 Pure Mathematics 2/5 Exponentials and logarithms.md",
+ "outline": "For $a>0$, $a\\ne1$, the graph of $y=a^x$ passes through $(0,1)$ and approaches $y=0$. Logarithms invert exponentials. Product, quotient, power, reciprocal and base laws simplify logarithms with positive arguments. Solve $a^x=b$ by $x=\\ln b/\\ln a$ for $b>0$.",
+ "misconceptions": [
+  {
+   "id": "m1",
+   "kc": "P2-5.1",
+   "statement": "An exponential curve crosses the $x$-axis.",
+   "refutation": "$a^x$ is strictly positive for positive $a$.",
+   "contrast": "The $x$-axis is a horizontal asymptote.",
+   "source": "research"
+  },
+  {
+   "id": "m2",
+   "kc": "P2-5.2",
+   "statement": "$\\log_a(x+y)=\\log_a x+\\log_a y$.",
+   "refutation": "The addition law applies to a product $xy$.",
+   "contrast": "$\\log_a(xy)=\\log_a x+\\log_a y$.",
+   "source": "research"
+  },
+  {
+   "id": "m3",
+   "kc": "P2-5.3",
+   "statement": "$a^x=b$ gives $x=\\ln a/\\ln b$.",
+   "refutation": "Taking logarithms gives $x\\ln a=\\ln b$.",
+   "contrast": "Divide by $\\ln a$ to get $x=\\ln b/\\ln a$.",
+   "source": "research"
+  }
+ ],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "P2-5.2",
+   "problem": "Simplify $\\log_3 81+\\log_3 9-\\log_3 3$.",
+   "steps": [
+    {
+     "do": "Apply the product and quotient laws: $\\log_3(81\\times9/3)$.",
+     "why": "The logs have the same base and positive arguments."
+    },
+    {
+     "do": "Evaluate $\\log_3 243=5$.",
+     "why": "$3^5=243$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 4.999999999999999,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Find $\\log_2 32+\\log_2 4-\\log_2 8$.",
+    "answer": {
+     "value": 4.0,
+     "unit": "",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "P2-5.3",
+   "problem": "Solve $3^x=20$, giving $x$ to three significant figures.",
+   "steps": [
+    {
+     "do": "Take natural logarithms: $x\\ln3=\\ln20$.",
+     "why": "The power law brings the unknown exponent down."
+    },
+    {
+     "do": "Divide: $x=\\ln20/\\ln3=2.73$.",
+     "why": "$\\ln3$ is nonzero.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.73,
+       "unit": "",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Solve $5^x=18$, giving $x$ to three significant figures.",
+    "answer": {
+     "value": 1.796,
+     "unit": "",
+     "sf_ok": [
+      3
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "P2-5-i01",
+   "kcs": [
+    "P2-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the $y$-intercept of $y=3^x$.",
+   "options": {
+    "A": "$1$",
+    "B": "$0$",
+    "C": "$3$",
+    "D": "$-1$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "At $x=0$, every positive base to the zero power is $1$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i02",
+   "kcs": [
+    "P2-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State the horizontal asymptote of $y=2^x$.",
+   "options": {
+    "A": "$y=0$",
+    "B": "$x=0$",
+    "C": "$y=1$",
+    "D": "$y=2$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "As $x$ tends to negative infinity, $2^x$ tends to zero from above.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i03",
+   "kcs": [
+    "P2-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $y=(1/2)^x$, state what happens as $x$ increases.",
+   "options": {
+    "A": "The curve decreases towards zero.",
+    "B": "The curve increases without bound.",
+    "C": "The curve crosses the $x$-axis.",
+    "D": "The curve becomes negative."
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "A base between zero and one gives a decreasing, always positive exponential curve.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i04",
+   "kcs": [
+    "P2-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the point on $y=4^x$ where $x=-1$.",
+   "options": {
+    "A": "$( -1,1/4)$",
+    "B": "$( -1,4)$",
+    "C": "$( -1,-4)$",
+    "D": "$( -1,0)$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "$4^{-1}=1/4$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i05",
+   "kcs": [
+    "P2-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why $y=5^x$ never crosses the $x$-axis.",
+   "options": {
+    "A": "Because $5^x>0$ for every real $x$.",
+    "B": "Because $5^x$ is always greater than $5$.",
+    "C": "Because $x$ must be positive.",
+    "D": "Because the graph has no $y$-intercept."
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Positive bases produce positive outputs for all real exponents.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i06",
+   "kcs": [
+    "P2-5.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch $y=(1/3)^x$. Which labelled features must appear?",
+   "options": {
+    "A": "$(0,1)$ and asymptote $y=0$, decreasing",
+    "B": "$(0,0)$ and asymptote $y=1$, decreasing",
+    "C": "$(0,1)$ and asymptote $x=0$, increasing",
+    "D": "$(1,0)$ and asymptote $y=0$, increasing"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The graph passes through $(0,1)$ and approaches $y=0$ as $x$ grows.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i07",
+   "kcs": [
+    "P2-5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\log_2(8\\times4)$.",
+   "options": {
+    "A": "$5$",
+    "B": "$6$",
+    "C": "$2$",
+    "D": "$32$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "$\\log_2 8+\\log_2 4=3+2=5$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i08",
+   "kcs": [
+    "P2-5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\log_3(81/9)$.",
+   "options": {
+    "A": "$2$",
+    "B": "$6$",
+    "C": "$1$",
+    "D": "$9$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "$\\log_3 81-\\log_3 9=4-2=2$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i09",
+   "kcs": [
+    "P2-5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\log_5(25^3)$.",
+   "options": {
+    "A": "$6$",
+    "B": "$5$",
+    "C": "$3$",
+    "D": "$125$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "$3\\log_5 25=3(2)=6$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i10",
+   "kcs": [
+    "P2-5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $\\log_7(1/7)$.",
+   "options": {
+    "A": "$-1$",
+    "B": "$1$",
+    "C": "$0$",
+    "D": "$7$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "$1/7=7^{-1}$, so its base-seven logarithm is $-1$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i11",
+   "kcs": [
+    "P2-5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 1,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "State $\\log_a a$ for $a>0$, $a\\ne1$.",
+   "options": {
+    "A": "$1$",
+    "B": "$0$",
+    "C": "$a$",
+    "D": "$-1$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "$a^1=a$, so $\\log_a a=1$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i12",
+   "kcs": [
+    "P2-5.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Simplify $\\log_2 x+2\\log_2 y-\\log_2 z$ for $x,y,z>0$.",
+   "options": {
+    "A": "$\\log_2(xy^2/z)$",
+    "B": "$\\log_2(x+2y-z)$",
+    "C": "$\\log_2(xy/z^2)$",
+    "D": "$\\log_2(xy^2z)$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The power law makes $2\\log_2 y=\\log_2 y^2$; then apply product and quotient laws.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i13",
+   "kcs": [
+    "P2-5.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $x$ if $2^x=16$; give a decimal where needed.",
+   "options": {
+    "A": "$4$",
+    "B": "$5$",
+    "C": "$3$",
+    "D": "$0.25$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Take logarithms: $x=\\ln(16)/\\ln(2)=4$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i14",
+   "kcs": [
+    "P2-5.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $x$ if $3^x=81$; give a decimal where needed.",
+   "options": {
+    "A": "$4$",
+    "B": "$5$",
+    "C": "$3$",
+    "D": "$0.25$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Take logarithms: $x=\\ln(81)/\\ln(3)=4$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i15",
+   "kcs": [
+    "P2-5.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $x$ if $5^x=125$; give a decimal where needed.",
+   "options": {
+    "A": "$3$",
+    "B": "$4$",
+    "C": "$2$",
+    "D": "$0.3333$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Take logarithms: $x=\\ln(125)/\\ln(5)=3$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i16",
+   "kcs": [
+    "P2-5.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $x$ if $4^x=8$; give a decimal where needed.",
+   "options": {
+    "A": "$1.5$",
+    "B": "$2.5$",
+    "C": "$0.5$",
+    "D": "$0.6667$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Take logarithms: $x=\\ln(8)/\\ln(4)=1.5$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i17",
+   "kcs": [
+    "P2-5.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $x$ if $9^x=27$; give a decimal where needed.",
+   "options": {
+    "A": "$1.5$",
+    "B": "$2.5$",
+    "C": "$0.5$",
+    "D": "$0.6667$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Take logarithms: $x=\\ln(27)/\\ln(9)=1.5$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  },
+  {
+   "id": "P2-5-i18",
+   "kcs": [
+    "P2-5.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find $x$ if $2^x=10$; give a decimal where needed.",
+   "options": {
+    "A": "$3.322$",
+    "B": "$4.322$",
+    "C": "$2.322$",
+    "D": "$0.301$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Take logarithms: $x=\\ln(10)/\\ln(2)=3.322$.",
+   "hints": [
+    "Recall the defining property.",
+    "Check the relevant index or logarithm rule.",
+    "Substitute the given base and argument."
+   ]
+  }
+ ],
+ "flashcards": [
+  {
+   "id": "fc1",
+   "kc": "P2-5.1",
+   "front": "State the key features of $y=a^x$.",
+   "back": "For $a>0$, $a\\ne1$: domain $\\mathbb{R}$, range $(0,\\infty)$, $y$-intercept $(0,1)$, horizontal asymptote $y=0$."
+  },
+  {
+   "id": "fc2",
+   "kc": "P2-5.2",
+   "front": "State the three main laws of logarithms.",
+   "back": "For positive arguments: $\\log_a(xy)=\\log_a x+\\log_a y$, $\\log_a(x/y)=\\log_a x-\\log_a y$, and $\\log_a(x^k)=k\\log_a x$."
+  }
+ ],
+ "diagrams": [],
+ "teach": {
+  "P2-5.1": {
+   "motivate": "Exponential graphs model repeated multiplication. Their shape depends on the base.",
+   "establish": "For $y=a^x$, take $a>0$ and $a\\ne1$. The graph passes through $(0,1)$ because $a^0=1$. It has domain $\\mathbb{R}$, positive range and horizontal asymptote $y=0$. It increases when $a>1$ and decreases when $0<a<1$. It never crosses the $x$-axis.",
+   "connect": "Use the laws of indices to find graph points. The logarithm reverses this exponential function.",
+   "note": "- $a>0$, $a\\ne1$.\n- Intercept $(0,1)$; asymptote $y=0$.\n- Increasing if $a>1$; decreasing if $0<a<1$.",
+   "self_explain": "Why does $y=a^x$ approach but never cross the $x$-axis?",
+   "source": "pack"
+  },
+  "P2-5.2": {
+   "motivate": "Log laws turn a difficult expression into simpler pieces and reveal unknown powers.",
+   "establish": "For $a,x,y>0$ and $a\\ne1$, $\\log_a(xy)=\\log_a x+\\log_a y$, $\\log_a(x/y)=\\log_a x-\\log_a y$, and $\\log_a(x^k)=k\\log_a x$. Therefore $\\log_a(1/x)=-\\log_a x$ and $\\log_a a=1$. These follow from the laws of indices. Check positive arguments and matching bases before combining logarithms.",
+   "connect": "Use these laws to solve exponential equations by bringing the exponent down.",
+   "note": "- Product gives addition; quotient gives subtraction.\n- A power becomes a coefficient.\n- Reciprocal changes the sign; $\\log_a a=1$.",
+   "self_explain": "Why is $\\log_a(xy)$ a sum of logs rather than a product of logs?",
+   "source": "pack"
+  },
+  "P2-5.3": {
+   "motivate": "When the unknown sits in an exponent, logarithms bring it into ordinary algebra.",
+   "establish": "For $a>0$, $a\\ne1$ and $b>0$, solve $a^x=b$ by taking logarithms of both sides. The power law gives $x\\ln a=\\ln b$, so $x=\\ln b/\\ln a$. This is change of base. Any logarithm base works if it is used consistently. Keep the quotient in logarithms for an exact answer; round only at the end when a decimal is requested.",
+   "connect": "Substitution into $a^x=b$ checks the result. A nonpositive $b$ has no real solution because $a^x>0$.",
+   "note": "- Check $a>0$, $a\\ne1$, $b>0$.\n- $x=\\ln b/\\ln a$.\n- Round at the end and check by substitution.",
+   "self_explain": "Which logarithm goes in the denominator, and why?",
+   "source": "pack"
+  }
+ }
+}
