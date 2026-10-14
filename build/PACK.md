@@ -116,3 +116,5 @@ Each request is `{"file": "Assets/<spec>/<subtopic>-<name>.svg", "type": …, "p
 | `circuit` | `elements` [{`type`: battery/cell/resistor/lamp/ammeter/voltmeter/switch/ldr/thermistor/diode/variable_resistor/potentiometer, `label`}] drawn as one series loop in CAIE (IEC) symbols |
 
 A figure the table cannot draw (apparatus, molecular structures, mechanisms): describe it in words in the note and flag it in `concerns`; never hand-write SVG coordinates.
+
+Sources: the learner's own PDF library is searchable with `.venv/bin/python build/library.py for <subtopic>` (see the "The sources library" section of `foundry/README.md`); a reference, never copied.

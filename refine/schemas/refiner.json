@@ -1,0 +1,41 @@
+{
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "applied",
+  "new_items",
+  "new_diagrams",
+  "not_done",
+  "validator_ok",
+  "lint_ok"
+ ],
+ "properties": {
+  "applied": {
+   "type": "integer"
+  },
+  "new_items": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "new_diagrams": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "not_done": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "validator_ok": {
+   "type": "boolean"
+  },
+  "lint_ok": {
+   "type": "boolean"
+  }
+ }
+}

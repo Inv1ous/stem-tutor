@@ -1,0 +1,27 @@
+{
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "fixed",
+  "not_done",
+  "validator_ok",
+  "lint_ok"
+ ],
+ "properties": {
+  "fixed": {
+   "type": "integer"
+  },
+  "not_done": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "validator_ok": {
+   "type": "boolean"
+  },
+  "lint_ok": {
+   "type": "boolean"
+  }
+ }
+}

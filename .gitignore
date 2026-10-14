@@ -6,6 +6,9 @@ dist/
 *.pyc
 sources/papers/
 sources/specs/
+# the learner's own PDF library: the README and .gitkeep stay, the PDFs and the text cache do not
+sources/library/**/*.[pP][dD][fF]
+sources/library/.cache/
 sources/_dl_*.log
 build/out/assets/
 
@@ -20,3 +23,9 @@ foundry/state/*.tmp
 foundry/usage.json
 foundry/usage.lock
 foundry/usage.tmp
+
+# refine system working files
+refine/logs/
+refine/state/.lock
+refine/state/*.tmp
+build/work/refine/*.snapshot.json

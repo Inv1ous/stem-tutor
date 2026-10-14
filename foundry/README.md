@@ -169,6 +169,16 @@ job itself. The prompt ends with the command that reports the job back.
 | `foundry/logs/` | Worker logs |
 | `build/PACK.md` | The quality bar and format every chapter must meet |
 
+## The sources library
+
+The learner's own PDF library (textbooks, notes, mark schemes, worksheets) is searchable:
+`.venv/bin/python build/library.py for <subtopic>`, then `search "<terms>"` and `text <pdf> --pages a-b`. Use it for
+extra explanations, worked examples and diagram ideas, or to settle a doubt. When it changed something, cite the file
+and page in the chapter's `concerns`/notes. It is a reference, not a script: never copy long passages, paraphrase and
+teach in the chapter's own words. The syllabus and the official mark schemes still win. Use the internet only for what
+the library lacks, preferring official exam board and university sources, and never paste copyrighted text.
+The folder is `sources/library/` (see its README); any subfolder names and depths work.
+
 ## Safety
 
 - Workers are told which files they may write (their chapter's pack, note, generator script and figures). The

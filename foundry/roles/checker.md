@@ -36,6 +36,13 @@ Do not report style, wording preferences, missing extras, or anything you cannot
 
 Write `{"findings": []}` when everything passes. Write nothing else, anywhere.
 
+**Sources.** The learner's own PDF library (textbooks, notes, mark schemes, worksheets) is searchable:
+`.venv/bin/python build/library.py for <subtopic>`, then `search "<terms>"` and `text <pdf> --pages a-b`. Use it for
+extra explanations, worked examples and diagram ideas, or to settle a doubt. When it changed something, cite the file
+and page in the chapter's `concerns`/notes. It is a reference, not a script: never copy long passages, paraphrase and
+teach in the chapter's own words. The syllabus and the official mark schemes still win. Use the internet only for what
+the library lacks, preferring official exam board and university sources, and never paste copyrighted text.
+
 ## Finish
 
 Reply with one line: the number of findings and the file you wrote.

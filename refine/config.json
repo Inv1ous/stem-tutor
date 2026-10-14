@@ -1,0 +1,198 @@
+{
+ "max_parallel": {
+  "codex": 3,
+  "claude": 4
+ },
+ "reserve": {
+  "codex": 0,
+  "claude": 5
+ },
+ "web": [
+  "scout",
+  "refiner"
+ ],
+ "caps": {
+  "diagrams": 3,
+  "questions": 8,
+  "additions": 5
+ },
+ "ladders": {
+  "scout": {
+   "codex": [
+    [
+     "gpt-6-sol",
+     "low"
+    ],
+    [
+     "gpt-6-sol",
+     "medium"
+    ]
+   ],
+   "claude": [
+    [
+     "sonnet",
+     "low"
+    ],
+    [
+     "sonnet",
+     "medium"
+    ]
+   ]
+  },
+  "refiner": {
+   "codex": [
+    [
+     "gpt-6-sol",
+     "medium"
+    ],
+    [
+     "gpt-6-astra",
+     "medium"
+    ]
+   ],
+   "claude": [
+    [
+     "opus",
+     "low"
+    ],
+    [
+     "opus",
+     "medium"
+    ]
+   ]
+  },
+  "solver": {
+   "codex": [
+    [
+     "gpt-6-sol",
+     "low"
+    ],
+    [
+     "gpt-6-sol",
+     "medium"
+    ]
+   ],
+   "claude": [
+    [
+     "haiku",
+     ""
+    ],
+    [
+     "sonnet",
+     "low"
+    ]
+   ]
+  },
+  "checker": {
+   "codex": [
+    [
+     "gpt-6-sol",
+     "low"
+    ],
+    [
+     "gpt-6-sol",
+     "medium"
+    ]
+   ],
+   "claude": [
+    [
+     "haiku",
+     ""
+    ],
+    [
+     "sonnet",
+     "low"
+    ]
+   ]
+  },
+  "fixer": {
+   "codex": [
+    [
+     "gpt-6-luna",
+     "low"
+    ],
+    [
+     "gpt-6-sol",
+     "low"
+    ]
+   ],
+   "claude": [
+    [
+     "haiku",
+     ""
+    ],
+    [
+     "sonnet",
+     "low"
+    ]
+   ]
+  },
+  "tiebreak": {
+   "codex": [
+    [
+     "gpt-6-sol",
+     "low"
+    ],
+    [
+     "gpt-6-sol",
+     "medium"
+    ]
+   ],
+   "claude": [
+    [
+     "sonnet",
+     "low"
+    ],
+    [
+     "sonnet",
+     "medium"
+    ]
+   ]
+  },
+  "adjudicator": {
+   "codex": [
+    [
+     "gpt-6-astra",
+     "medium"
+    ],
+    [
+     "gpt-6-astra",
+     "high"
+    ]
+   ],
+   "claude": [
+    [
+     "opus",
+     "medium"
+    ],
+    [
+     "opus",
+     "high"
+    ]
+   ]
+  }
+ },
+ "weights": {
+  "codex": {
+   "scout": 0.3,
+   "refiner": 0.6,
+   "adjudicator": 0.4,
+   "checker": 0.2,
+   "tiebreak": 0.15,
+   "solver": 0.15,
+   "fixer": 0.1
+  },
+  "claude": {
+   "scout": 0.6,
+   "refiner": 2.0,
+   "adjudicator": 0.8,
+   "checker": 0.2,
+   "tiebreak": 0.2,
+   "solver": 0.15,
+   "fixer": 0.1
+  }
+ },
+ "solver_shard_size": 20,
+ "publish_on_sign": true,
+ "commit_on_sign": true
+}

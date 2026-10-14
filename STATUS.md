@@ -1,5 +1,8 @@
 # Build status
 
+## v2.2.0 (2026-10-14) — done
+- A sources library (`sources/library/`, any subfolders) the foundry and the new refine system search; the refine system improves built chapters without remaking them.
+
 ## v2.1.5 (2026-10-10) — done
 - The foundry hands each drafter the exact note names to link and the diagrams its chapter should have, and its gates fail a made-up link or a missing diagram.
 

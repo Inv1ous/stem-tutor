@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.2.0 — 2026-10-14
+
+Asked by the learner.
+
+- **Sources library.** Drop PDFs into `sources/library/` in any subfolders with any names and depth. `build/library.py`
+  (`tree`, `search "<terms>" [--folder X]`, `text <pdf> --pages a-b`, `for <chapter>`) lets the AI workers find pages by
+  search, reads text from the PDFs once and caches it, and says plainly when a PDF is a scan. The foundry's drafter,
+  checker and adjudicator are told to look there first, paraphrase, cite file and page, and use the internet only for
+  what the library lacks. The PDFs are kept out of git.
+- **Refine system** (`refine/`, `bin/refine`, skill `/refine`). The foundry's twin for chapters that already exist: a
+  scout writes a short plan of improvements (diagrams where one belongs, more questions, clarifications, learning
+  features, gaps the library shows), a refiner applies it by adding only, a no-loss gate proves nothing existing was
+  removed or changed (item ids, keys, note lines, card keys), only the new questions are solved blind by the other
+  AI family, then the usual tiebreak, adjudicator, fixer and sign. `refine add --all` queues every signed chapter. It
+  shares the two allowances, the router, the `only codex|claude|off` switch and the slot limits with the foundry; the
+  scout runs on a mid tier and the refiner a tier up.
+- **The foundry can browse** for its drafter and adjudicator (`web` in `foundry/config.json`: Claude gets WebSearch and
+  WebFetch, Codex `--search`), counts the refine system's running jobs against its slots, and will not take a chapter
+  refine is working on.
+
 ## 2.1.5 — 2026-10-10
 
 Asked by the learner.

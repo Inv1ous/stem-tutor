@@ -12,6 +12,13 @@ answer, distractor and worked step must be exactly right.
 
 If the pack already exists (an interrupted run), validate it and finish what is missing instead of starting again.
 
+**Sources.** The learner's own PDF library (textbooks, notes, mark schemes, worksheets) is searchable:
+`.venv/bin/python build/library.py for <subtopic>`, then `search "<terms>"` and `text <pdf> --pages a-b`. Use it for
+extra explanations, worked examples and diagram ideas, or to settle a doubt. When it changed something, cite the file
+and page in the chapter's `concerns`/notes. It is a reference, not a script: never copy long passages, paraphrase and
+teach in the chapter's own words. The syllabus and the official mark schemes still win. Use the internet only for what
+the library lacks, preferring official exam board and university sources, and never paste copyrighted text.
+
 ## Do
 
 1. Write a generator script `build/work/gen/<subtopic>.py` that holds the content as Python data and **computes**

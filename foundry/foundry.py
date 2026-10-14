@@ -409,6 +409,10 @@ def cmd_add(subs: list[str], stage: str = "draft") -> None:
         if path.exists():
             print(f"{sub}: already on the board ({load(sub)['stage']})")
             continue
+        mid = next((r for r in _refine_chapters() if r.get("sub") == sub and r.get("stage") != "ready"), None)
+        if mid:  # two systems must not rewrite one chapter at once
+            print(f"{sub}: refine is working on it now ({mid['stage']}); add it here when that pass is done")
+            continue
         STATE.mkdir(parents=True, exist_ok=True)
         start = "solve" if pack_path(sub).exists() and stage == "draft" else stage  # an existing pack is re-checked
         st = {"sub": sub, "stage": start, "created": now(), "updated": now(), "history": [], "gates": None,
@@ -430,9 +434,20 @@ def _running(st: dict) -> list[str]:
 def _busy() -> dict[str, list[str]]:
     """The jobs running now on each allowance, across every chapter."""
     out: dict[str, list[str]] = {}
-    for st in chapters():
+    for st in chapters() + _refine_chapters():  # the refine system shares the two allowances' slots
         for name in _running(st):
             out.setdefault(st["jobs"][name].get("provider", "codex"), []).append(name)
+    return out
+
+
+def _refine_chapters() -> list[dict]:
+    """The refine system's chapters (refine/state), read-only: what it is running counts against the same slots."""
+    out = []
+    for f in sorted((REPO / "refine/state").glob("*.json")) if (REPO / "refine/state").is_dir() else []:
+        try:
+            out.append(json.loads(f.read_text()))
+        except ValueError:
+            pass
     return out
 
 
@@ -923,14 +938,16 @@ def cmd_run(role: str, sub: str, on: str | None = None, shard: int | None = None
     stem = f"{sub}.{name.replace('#', '-')}.{datetime.now():%m%d-%H%M%S}"
     log, out, expects = LOGS / f"{stem}.log", LOGS / f"{stem}.out.json", _expects(st, role, shard)
     prompt, schema = role_prompt(role, sub, shard), HERE / "schemas" / f"{role}.json"
+    web = role in cfg.get("web", [])  # roles allowed to browse the internet (the learner's library comes first)
     if provider == "codex":
-        worker = [CODEX, "exec", "-m", model, "-c", f'model_reasoning_effort="{effort}"', "-c", 'approval_policy="never"',
+        worker = [CODEX, *(["--search"] if web else []), "exec", "-m", model, "-c", f'model_reasoning_effort="{effort}"',
+                  "-c", 'approval_policy="never"',
                   "-s", "workspace-write", "-C", str(REPO), "--color", "never",
                   *(["--output-schema", str(schema)] if schema.exists() else []), "-o", str(out), prompt]
     else:  # lean: none of the learner's plugins, skills, hooks or MCP servers, so a job costs only what the job needs
         worker = [CLAUDE, "-p", prompt, "--model", model, *(["--effort", effort] if effort else []), *router.LEAN,
-                  "--tools", "Read,Write,Edit,Bash,Glob,Grep", "--permission-mode", "acceptEdits",
-                  "--allowedTools", "Bash(.venv/bin/python *)",
+                  "--tools", "Read,Write,Edit,Bash,Glob,Grep" + (",WebSearch,WebFetch" if web else ""), "--permission-mode",
+                  "acceptEdits", "--allowedTools", "Bash(.venv/bin/python *)", *(["WebSearch", "WebFetch"] if web else []),
                   *(["--json-schema", schema.read_text()] if schema.exists() else [])]
     then = [PY, str(HERE / "foundry.py"), "collect", name, sub, str(out)]
     shell = (f"{shlex.join(worker)} < /dev/null > {shlex.quote(str(log))} 2>&1; "

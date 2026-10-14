@@ -990,3 +990,25 @@ def test_a_bundle_lists_the_exact_names_to_link_and_the_diagrams_to_draw():
     assert early and late and all(isinstance(n, int) for _, n in early + late)
     text = "\n".join(bundle._link_lines("9702-5.1"))
     assert "Builds on (earlier)" in text and "Leads to (later)" in text and "[[" in text
+
+
+def test_web_roles_get_search_and_the_others_do_not(fdy, monkeypatch):
+    """The drafter and the adjudicator may browse (the library first); no other role does."""
+    cfg = fdy.config()
+    assert cfg["web"] == ["drafter", "adjudicator"]
+    import inspect
+    src = inspect.getsource(fdy.cmd_run)
+    assert '"--search"' in src and "WebSearch" in src and 'role in cfg.get("web"' in src
+
+
+def test_the_foundry_counts_refines_running_jobs_and_will_not_take_a_chapter_it_is_working_on(fdy, tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr(fdy, "REPO", tmp_path)
+    (tmp_path / "refine/state").mkdir(parents=True)
+    (tmp_path / "refine/state" / "9702-2.1.json").write_text(json.dumps({"sub": "9702-2.1", "stage": "refine", "jobs": {}}))
+    assert [r["sub"] for r in fdy._refine_chapters()] == ["9702-2.1"]
+    fdy.cmd_add(["9702-2.1"])
+    assert "refine is working on it now" in capsys.readouterr().out
+    assert not (fdy.STATE / "9702-2.1.json").exists()
+    (tmp_path / "refine/state" / "9702-2.1.json").write_text(json.dumps({"sub": "9702-2.1", "stage": "ready", "jobs": {}}))
+    fdy.cmd_add(["9702-2.1"])
+    assert "already on the board" in capsys.readouterr().out or (fdy.STATE / "9702-2.1.json").exists()

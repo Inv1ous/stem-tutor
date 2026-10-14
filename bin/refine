@@ -1,0 +1,4 @@
+#!/bin/sh
+# Run the refine system from any folder: refine add <chapters…|--all> | step | board | coverage | watch | …
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+exec "$ROOT/.venv/bin/python" "$ROOT/refine/refine.py" "$@"
