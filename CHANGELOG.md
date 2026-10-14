@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.3.0 — 2026-10-14
+
+Asked by the learner.
+
+- **Figures from your PDFs.** `build/library.py figures` lists the candidate figures of a library PDF (captions with a
+  proposed crop box, embedded images, drawing-only pages; logos repeated on many pages are skipped as decorative),
+  `page` renders a page or a part of it so a worker can look at it, `crop` and `extract` write the chosen figure into
+  the chapter's assets (`build/out/assets/<spec>/<name>.png`, trimmed, never overwriting) with a sidecar file that
+  records the PDF, page, box and a checksum, and print the line to embed and a caption crediting the file and page.
+- **The AI decides what is worth it.** The refine scout looks at the page image and plans a `figure` (at most 3 a pass)
+  only when it shows something a chapter point is about that the diagram table cannot draw (apparatus, mechanisms,
+  structures, real graphs): not decoration, logos, dense text or answer keys; a poor figure is dropped. The
+  foundry's drafter may add up to 2.
+- **Gates.** A planned figure must exist, be embedded in the note and carry its source caption; a figure with a sidecar
+  whose file changed, or with no source caption, fails (`library.figure_problems`, used by the foundry gates and the
+  refine gates). Cropped figures stay out of git (`build/out/assets/` is ignored) and are copied only into your vault.
+- Fix: a gate that failed only on figures or diagrams used to say nothing about why.
+
 ## 2.2.0 — 2026-10-14
 
 Asked by the learner.

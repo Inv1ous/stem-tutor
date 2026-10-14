@@ -178,6 +178,10 @@ and page in the chapter's `concerns`/notes. It is a reference, not a script: nev
 teach in the chapter's own words. The syllabus and the official mark schemes still win. Use the internet only for what
 the library lacks, preferring official exam board and university sources, and never paste copyrighted text.
 The folder is `sources/library/` (see its README); any subfolder names and depths work.
+A drafter may also crop up to 2 useful figures (apparatus, mechanisms, real graphs) from those PDFs into a chapter:
+`library.py figures`, `page` (look at it), `crop`. The note carries the embed `![[Assets/<spec>/<name>.png]]` and a
+`*Figure: … (source: <pdf>, p.N)*` line, and the `figures` gate checks the file, its sidecar checksum and that line. The
+images are never committed (`build/out/assets/` is git-ignored).
 
 ## Safety
 

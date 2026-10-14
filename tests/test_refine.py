@@ -463,3 +463,81 @@ def test_every_role_has_its_instructions():
         assert (REPO / "refine/roles" / f"{role}.md").is_file(), role
     text = (REPO / "refine/roles/refiner.md").read_text()
     assert "build/library.py" in text and "no-loss" in text
+
+
+# ---------------- figures cropped from the learner's PDFs ----------------
+def figure_env(rf, tmp_path, monkeypatch):
+    """A tiny library PDF and the asset folder inside the scratch tree; returns a function that crops a figure."""
+    sys.path.insert(0, str(REPO / "tests"))
+    sys.path.insert(0, str(REPO / "build"))
+    import library
+    import test_library as tl
+    monkeypatch.setenv("STEM_LIBRARY_ROOT", str(tmp_path / "sources/library"))
+    monkeypatch.setenv("STEM_LIBRARY_ASSETS", str(tmp_path / "build/out/assets"))
+    tl.make_figure_pdf(tmp_path / "sources/library/Book.pdf", [{"ops": tl.VECTOR}])
+
+    def crop(name, **kw):
+        args = ["crop", "book", "--page", "1", "--box", "0,0.1,1,0.5", "--to", f"9702/{name}", "--caption", "A test",
+                "--for", SUB]
+        assert library.main(args) == 0
+        return f"![[Assets/9702/{name}.png]]\n*Figure: A test (source: Book, p.1)*"
+    return crop
+
+
+def add_to_note(rf, text):
+    note = rf.note_path(json.loads(rf.pack_path(SUB).read_text()))
+    note.write_text(note.read_text() + "\n" + text + "\n")
+
+
+def test_figures_are_their_own_kind_with_their_own_cap(rf):
+    fig = {"kind": "figure", "pdf": "Book.pdf", "page": 3, "box": [0, 0.1, 1, 0.5], "caption": "c", "kc": f"{SUB}.1", "why": "w"}
+    plan = {"improvements": [{"kind": "diagram", "where": str(i), "why": "w"} for i in range(3)]
+            + [{**fig, "page": i} for i in range(1, 6)] + [{"kind": "figure", "where": "x", "why": "no pdf or box"}]}
+    kept, dropped = rf.trim_plan(plan)
+    kinds = [i["kind"] for i in kept["improvements"]]
+    assert kinds.count("diagram") == 3 and kinds.count("figure") == 3
+    assert len(dropped) == 2 + 1 and any("not an improvement" in d for d in dropped)
+
+
+def test_gates_want_the_planned_figure_as_an_embedded_file_with_its_source(rf, tmp_path, monkeypatch):
+    crop = figure_env(rf, tmp_path, monkeypatch)
+    rf.cmd_add([SUB])
+    write_plan(rf, [{"kind": "figure", "pdf": "Book.pdf", "page": 1, "box": [0, 0.1, 1, 0.5], "caption": "A test", "why": "w"}])
+    rf.take_snapshot(SUB, 1)
+    refine_additively(rf)
+    assert any("plan asks for 1 new figures; 0 were embedded" in x for x in rf.gates(SUB)["first"])
+    lines = crop("fig-a")
+    assert any("cropped but not embedded: fig-a.png" in x for x in rf.gates(SUB)["first"])
+    add_to_note(rf, lines)
+    g = rf.gates(SUB)
+    assert g["ok"], g.get("first")
+    add_to_note(rf, "![[Assets/9702/fig-a.png]]")  # the same figure twice is still one new figure, but needs its caption
+    assert any("source caption" in x for x in rf.gates(SUB)["first"])
+
+
+def test_gates_refuse_a_figure_without_file_sidecar_or_caption_and_more_than_three(rf, tmp_path, monkeypatch):
+    crop = figure_env(rf, tmp_path, monkeypatch)
+    rf.cmd_add([SUB])
+    rf.take_snapshot(SUB, 1)
+    add_to_note(rf, "![[Assets/9702/ghost.png]]")
+    first = " | ".join(rf.gates(SUB)["first"])
+    assert "ghost.png is embedded but its file does not exist" in first and "ghost.png has no provenance sidecar" in first
+    add_to_note(rf, "\n".join(crop(f"fig-{c}") for c in "abcd"))
+    first = " | ".join(rf.gates(SUB)["first"])
+    assert "5 new figures: at most 3" in first
+    add_to_note(rf, "![[Assets/9702/fig-e.png]]")
+    note = rf.note_path(json.loads(rf.pack_path(SUB).read_text()))
+    text = note.read_text().replace("*Figure: A test (source: Book, p.1)*", "")  # captions gone: the foundry gate says so
+    note.write_text(text)
+    assert "source caption" in " | ".join(rf.gates(SUB)["first"])
+
+
+def test_a_figure_never_replaces_the_diagram_it_sits_beside(rf, tmp_path, monkeypatch):
+    crop = figure_env(rf, tmp_path, monkeypatch)
+    rf.cmd_add([SUB])
+    rf.take_snapshot(SUB, 1)
+    pack = json.loads(rf.pack_path(SUB).read_text())
+    note = rf.note_path(pack)
+    note.write_text(note.read_text().replace("Displacement", "Displacement and the diagram", 1))  # an edited line
+    add_to_note(rf, crop("fig-a"))
+    assert any(x.startswith("no-loss") for x in rf.gates(SUB)["first"])

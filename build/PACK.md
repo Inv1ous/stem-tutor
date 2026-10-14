@@ -117,4 +117,6 @@ Each request is `{"file": "Assets/<spec>/<subtopic>-<name>.svg", "type": …, "p
 
 A figure the table cannot draw (apparatus, molecular structures, mechanisms): describe it in words in the note and flag it in `concerns`; never hand-write SVG coordinates.
 
+Figures from the learner's own PDFs (not drawn, cropped): `library.py figures|page|crop` writes `build/out/assets/<spec>/<name>.png` + a `.png.json` sidecar; embed `![[Assets/<spec>/<name>.png]]` and, within 2 lines, `*Figure: … (source: <pdf>, p.N)*` (gated; local use only, never committed).
+
 Sources: the learner's own PDF library is searchable with `.venv/bin/python build/library.py for <subtopic>` (see the "The sources library" section of `foundry/README.md`); a reference, never copied.

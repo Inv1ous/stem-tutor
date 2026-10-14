@@ -220,11 +220,12 @@ def gates(sub: str) -> dict:
     text = note.read_text(encoding="utf-8") if note.is_file() else ""
     findings = lint.lint(text) if note.is_file() else [{"rule": "note", "detail": "missing"}]
     gaps = syllabus_gaps(sub, pack, graph, text)
-    figures = (link_problems(text) + diagram_problems(pack, graph, text)) if note.is_file() else []
+    import library
+    figures = (link_problems(text) + diagram_problems(pack, graph, text) + library.figure_problems(text, sub)) if note.is_file() else []
     out = {"ok": not problems and not findings and not gaps and not figures, "validator": len(problems), "lint": len(findings),
            "syllabus": len(gaps), "figures": len(figures), "items": len(pack.get("items", [])),
            "extra": sum(it.get("tier") == "extra" for it in pack.get("items", []))}
-    if problems or findings or gaps:  # enough for a worker to act on, capped so the board stays small
+    if problems or findings or gaps or figures:  # enough for a worker to act on, capped so the board stays small
         out["first"] = [f"{e['rule']} {e['where']} {e.get('detail', '')}"[:160] for e in problems[:8]] + \
                        [f"lint {x.get('rule')} line {x.get('line')}: {x.get('message') or x.get('detail', '')}"[:160]
                         for x in findings[:4]] + \

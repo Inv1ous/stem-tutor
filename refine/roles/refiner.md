@@ -43,6 +43,20 @@ generator script (`build/work/gen/…`): it rewrites the pack. Edit the pack JSO
   types and params in PACK.md), embed each in the note with `![[Assets/…svg]]` on its own new line, then render:
   `.venv/bin/python build/diagrams.py <pack path>`. Look at each (`qlmanage -t -s 600 -o /tmp <svg>`) before you
   finish. Never hand-write SVG. At most 3 per pass.
+- **Figures** (plan entries `figure`; at most 3): the scout chose the page and a box from a look at it; you do the
+  judging again with the result. For each, `.venv/bin/python build/library.py crop <pdf> --page N --box x0,y0,x1,y1
+  --to <spec>/<subtopic-with-dashes>-fig-<name> --caption "<what it shows>" --for <subtopic> --kc <kc id> --why "<why
+  it helps>"` (add `--dpi` to change the resolution; the box is fractions of the page, and `page <pdf> N --box …`
+  shows a region first). It writes `build/out/assets/<spec>/<name>.png` plus a `.png.json` sidecar, and prints the
+  embed line and the source line. **Open the PNG with the Read tool and look at it**: it must be complete (no
+  cut-off labels), legible, free of neighbouring text and of the answer to a question. If it is wrong, crop again
+  with another box or name (an existing name is never overwritten); an embedded image is cropped with `extract
+  --page N --index K`. Then put the two printed lines (the embed, then the `*Figure: … (source: …, p.N)*` line,
+  unchanged apart from a better caption) in the note where it helps most, and add one new line after them saying what
+  to notice. The gate fails an embed whose source line is missing or whose file or sidecar is wrong. Never more than
+  3, never in place of a diagram, never a figure you would not show a learner; if no crop is good, drop it and say why
+  in `not_done`. It is the learner's own PDF, kept in their local vault only: credit the source in the line, as the
+  printed caption does.
 - **Note**: new sections (`> [!example]- Worked example`, `> [!warning] Common mistake`, `## Self-test` with 3–5
   questions and answers in a folded callout), or new clarifying lines under existing headings. Markdown and maths as
   PACK.md (`$…$`, `$\ce{…}$`, `> ` on every callout line). Links only to the bundle's exact names.
@@ -76,8 +90,8 @@ generator script (`build/work/gen/…`): it rewrites the pack. Edit the pack JSO
 ## Rules
 
 Write only: the pack JSON, its lesson note, `build/work/teach/<subtopic>.json`, `build/work/mcq/overrides.json`, and
-figures under `build/out/Assets/`. Never edit code, other chapters, `foundry/`, `refine/` or the plan. Never run git.
+figures under `build/out/Assets/` (and the crops `build/library.py crop` itself writes under `build/out/assets/`). Never edit code, other chapters, `foundry/`, `refine/` or the plan. Never run git.
 Aim for at most 40 tool calls.
 
 Reply with the JSON report the output schema asks for: improvements applied, the new item ids, the new diagram files,
-and in `not_done` any planned entry you skipped and why.
+list the new figure files in `new_diagrams` too, and in `not_done` any planned entry you skipped and why.

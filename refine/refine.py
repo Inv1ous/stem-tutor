@@ -62,7 +62,7 @@ PFX = "refine."  # blind files of a refine pass never clash with the foundry's
 
 STAGE_ROLE = {"plan": "scout", "refine": "refiner", "solve": "solver", "tiebreak": "tiebreak", "check": "checker",
               "adjudicate": "manager", "fix": "fixer", "recheck": "solver", "sign": "manager"}
-KINDS = ("diagram", "questions", "clarification", "feature", "source_gap")
+KINDS = ("diagram", "figure", "questions", "clarification", "feature", "source_gap")
 NEW_ID = re.compile(r"-r\d{2,}$")
 
 now, move, pack_path, spec_of = fd.now, fd.move, fd.pack_path, fd.spec_of
@@ -224,8 +224,9 @@ def new_items(before: dict, pack: dict) -> list[dict]:
     return [it for it in pack.get("items", []) if it.get("id") not in known]
 
 
-def plan_problems(sub: str, before: dict, pack: dict, plan: dict | None) -> list[str]:
-    """New items are named `<sub>-rNN`; what the plan asked for is there; the caps hold."""
+def plan_problems(sub: str, before: dict, pack: dict, plan: dict | None, note: str = "") -> list[str]:
+    """New items are named `<sub>-rNN`; what the plan asked for is there; the caps hold. New figures (PNG crops from the
+    library) are counted apart from diagrams: each is a file with a provenance sidecar, embedded in the note."""
     caps, out = config()["caps"], []
     added = new_items(before, pack)
     out += [f"new item {it.get('id')} must be named {sub}-rNN (never reuse or renumber ids)" for it in added
@@ -238,6 +239,15 @@ def plan_problems(sub: str, before: dict, pack: dict, plan: dict | None) -> list
         out.append(f"{len(drawn)} new diagrams: at most {caps['diagrams']} in one pass")
     out += [f"diagram {d['file']} is requested but not rendered (run build/diagrams.py on the pack)" for d in drawn
             if not (ROOT / "build/out" / d.get("file", "")).is_file()]
+    import library
+    was = set(library.embeds(before.get("note", "")))
+    figs = [e for e in dict.fromkeys(library.embeds(note)) if e not in was]
+    if len(figs) > caps.get("figures", 3):
+        out.append(f"{len(figs)} new figures: at most {caps.get('figures', 3)} in one pass")
+    out += [f"figure {e} is embedded but its file does not exist (make it with build/library.py crop)" for e in figs
+            if not (library.assets_dir() / e.removeprefix("Assets/")).is_file()]
+    out += [f"figure {e} has no provenance sidecar (make it with build/library.py crop or extract)" for e in figs
+            if not library.sidecar_of(e).is_file()]
     if plan:
         want_q = sum(int(i.get("count", 1)) for i in plan.get("improvements", []) if i.get("kind") == "questions")
         want_d = sum(1 for i in plan.get("improvements", []) if i.get("kind") == "diagram")
@@ -245,6 +255,13 @@ def plan_problems(sub: str, before: dict, pack: dict, plan: dict | None) -> list
             out.append(f"the plan asks for {want_q} new questions; {len(added)} were added")
         if len(drawn) < want_d:
             out.append(f"the plan asks for {want_d} new diagrams; {len(drawn)} were added")
+        want_f = sum(1 for i in plan.get("improvements", []) if i.get("kind") == "figure")
+        if len(figs) < want_f:
+            have = set(library.embeds(note))
+            loose = [Path(d["file"]).name for d in library.sidecars_for(sub)
+                     if f"Assets/{Path(d['file']).parent.name}/{Path(d['file']).name}" not in have]
+            out.append(f"the plan asks for {want_f} new figures; {len(figs)} were embedded"
+                       + (f" (cropped but not embedded: {', '.join(loose[:4])})" if loose else ""))
     return out
 
 
@@ -261,7 +278,7 @@ def gates(sub: str) -> dict:
         plan = json.loads(plan_path(sub).read_text())
     except (OSError, ValueError):
         plan = None
-    planned = plan_problems(sub, before, pack, plan)
+    planned = plan_problems(sub, before, pack, plan, note.read_text(encoding="utf-8") if note.is_file() else "")
     g.update(no_loss=len(lost), planned=len(planned), ok=g["ok"] and not lost and not planned)
     if lost or planned:
         g["first"] = [f"no-loss {x}"[:200] for x in lost[:10]] + [f"plan {x}"[:200] for x in planned[:6]] + \
@@ -328,15 +345,19 @@ def write_additions(sub: str) -> Path:
 def trim_plan(plan: dict) -> tuple[dict, list[str]]:
     """Keep the plan's improvements within the caps, in the scout's order of priority. Returns what was dropped."""
     caps = config()["caps"]
-    kept, dropped, n = [], [], {"diagram": 0, "questions": 0, "additions": 0}
+    kept, dropped, n = [], [], {"diagram": 0, "figure": 0, "questions": 0, "additions": 0}
     for imp in plan.get("improvements") or []:
         kind = imp.get("kind")
-        if kind not in KINDS or not imp.get("where"):
+        sited = (imp.get("pdf") and imp.get("page") and isinstance(imp.get("box"), list)) if kind == "figure" else imp.get("where")
+        if kind not in KINDS or not sited:
             dropped.append(f"not an improvement: {json.dumps(imp)[:80]}")
             continue
         if kind == "diagram":
             ok = n["diagram"] < caps["diagrams"]
             n["diagram"] += ok
+        elif kind == "figure":
+            ok = n["figure"] < caps.get("figures", 3)
+            n["figure"] += ok
         elif kind == "questions":
             c = max(1, int(imp.get("count", 1)))
             room = caps["questions"] - n["questions"]
@@ -347,7 +368,7 @@ def trim_plan(plan: dict) -> tuple[dict, list[str]]:
         else:
             ok = n["additions"] < caps["additions"]
             n["additions"] += ok
-        (kept.append(imp) if ok else dropped.append(f"over the cap: {kind} {imp.get('where')}"))
+        (kept.append(imp) if ok else dropped.append(f"over the cap: {kind} {imp.get('where') or imp.get('pdf')}"))
     return {**plan, "improvements": kept}, dropped
 
 

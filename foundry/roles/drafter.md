@@ -19,6 +19,15 @@ and page in the chapter's `concerns`/notes. It is a reference, not a script: nev
 teach in the chapter's own words. The syllabus and the official mark schemes still win. Use the internet only for what
 the library lacks, preferring official exam board and university sources, and never paste copyrighted text.
 
+**Figures from those PDFs** (optional, at most 2 per chapter): `.venv/bin/python build/library.py figures <pdf> --pages a-b`
+lists candidate figures and `page <pdf> <n> [--box x0,y0,x1,y1]` renders one to a PNG you open with the Read tool. When a
+figure is clearly useful (it shows what a syllabus point of this chapter is about, is legible and self-contained, and is
+something `build/PACK.md`'s diagram table cannot draw, such as apparatus, molecular models, mechanisms or real graphs),
+`crop <pdf> --page N --box x0,y0,x1,y1 --to <spec>/<name> --caption "…" --for <subtopic> --kc <id> --why "…"` saves it,
+and you paste the two lines it prints (the `![[Assets/…png]]` embed and the `*Figure: … (source: …, p.N)*` line) into the
+note, then look at the result. Never a logo, a photo of people, a page of dense text or an answer key; none is better
+than a poor one. The gate checks the source line and the file.
+
 ## Do
 
 1. Write a generator script `build/work/gen/<subtopic>.py` that holds the content as Python data and **computes**
@@ -48,7 +57,7 @@ the library lacks, preferring official exam board and university sources, and ne
 ## Rules
 
 - Write only these files: the pack JSON, the lesson note, `build/work/gen/<subtopic>*`,
-  `build/work/teach/<subtopic>.json`, and figures under `build/out/Assets/`. Never edit code, other chapters, `foundry/` or anything else. Never run git commands.
+  `build/work/teach/<subtopic>.json`, figures under `build/out/Assets/`, and the crops `build/library.py crop` writes. Never edit code, other chapters, `foundry/` or anything else. Never run git commands.
 - Verify arithmetic with `.venv/bin/python` (sympy is installed) as you go, not in your head.
 - Past MCQs keep their original wording, options and letters; never present a past question as generated.
 - Work economically: write each file once, then make small targeted edits. Aim for at most 40 tool calls.

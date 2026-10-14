@@ -13,7 +13,7 @@ adjudicator, fixer, and signing that publishes into the vault and commits. Only 
 
 | Stage | Who | What happens | Moves on when |
 |---|---|---|---|
-| `plan` | **scout** | Reads the pack, note, cards, gates, bundle, your sources library and (if needed) official web sources; writes `build/work/refine/<chapter>.plan.json`: a short prioritised list `{kind: diagram/questions/clarification/feature/source_gap, where, why, source?}`. Kept within the caps: ≤3 diagrams, ≤8 new questions, ≤5 note/card additions | A readable plan. An empty plan ("nothing worth adding") goes straight to `ready` |
+| `plan` | **scout** | Reads the pack, note, cards, gates, bundle, your sources library and (if needed) official web sources; writes `build/work/refine/<chapter>.plan.json`: a short prioritised list `{kind: diagram/figure/questions/clarification/feature/source_gap, where, why, source?}`. Kept within the caps: ≤3 diagrams, ≤3 figures cropped from your PDFs, ≤8 new questions, ≤5 note/card additions | A readable plan. An empty plan ("nothing worth adding") goes straight to `ready` |
 | `refine` | **refiner** | A snapshot of the chapter is taken first. Then exactly the plan, by appending only: new items `<chapter>-r01…`, new note lines and sections, new card lines, new diagrams (rendered with `build/diagrams.py`) | The gates are green |
 | gates | (no tokens) | The foundry's gates (validator, note lint, syllabus, links + diagrams) **plus no-loss** (below) **plus the plan check** (new items are `-rNN`, what was planned exists, caps hold, diagrams rendered) | A failure sends the chapter back to the refiner, one tier up, with the list |
 | `solve` | **solver** (the other family, blind) + **checker** | Only the **new** questions are stripped and solved; the checker reads only the additions (`build/work/refine/<chapter>.additions.md`) | Both reported |
@@ -105,6 +105,18 @@ The scout and the refiner read the learner's own PDFs (textbooks, school notes, 
 
 They use the learner's terms and methods where these agree with the syllabus, and paraphrase: nothing is copied.
 
+## Figures from your PDFs
+
+The scout may plan up to 3 `figure` entries (`{pdf, page, box, caption, kc, why}`, counted apart from diagrams) when a
+page of your library has a clearly useful figure for the chapter: one that shows what a syllabus point is about, is
+legible on its own and is something the diagram types cannot draw (apparatus, molecular models, mechanisms, real
+graphs). It looks at the page first (`library.py figures`, `page`, then the Read tool on the PNG); no figure beats a
+poor one. The refiner crops each with `library.py crop`, looks at the result, and embeds it with its source line and
+one line on what to notice. Gates: the foundry's `figures` check (file, sidecar, checksum, source caption within 2
+lines), at most 3 new figures, every planned figure embedded, each new embed backed by a file and a sidecar. A figure
+is only ever added, never in place of a diagram (the no-loss rule). The PNGs live in `build/out/assets/`, which git
+ignores: they are copied to your vault and never committed. See `sources/library/README.md`.
+
 ## Web
 
 `"web": ["scout", "refiner"]` in `refine/config.json` lists the roles allowed to search the internet, for what the
@@ -118,7 +130,7 @@ itself has no such flag). The foundry has no such setting yet.
 | Path | What |
 |---|---|
 | `refine/refine.py` | Board, gates (no-loss, plan), launcher, CLI; imports the foundry's helpers and router |
-| `refine/config.json` | Ladders, weights, caps, web roles, parallel slots, reserve |
+| `refine/config.json` | Ladders, weights, caps (diagrams, figures, questions, additions), web roles, parallel slots, reserve |
 | `refine/roles/*.md` | Scout and refiner in full; solver, checker, tiebreak, fixer, adjudicator as short adaptations of the foundry's |
 | `refine/schemas/*.json` | Reports the scout, refiner, fixer and tiebreak return |
 | `refine/skill/SKILL.md` | `/refine` |

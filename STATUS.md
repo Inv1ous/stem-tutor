@@ -1,5 +1,8 @@
 # Build status
 
+## v2.3.0 (2026-10-14) — done
+- The foundry and refine workers can find useful figures in your library PDFs, look at them, crop them into a chapter with a source caption, and the gates check them.
+
 ## v2.2.0 (2026-10-14) — done
 - A sources library (`sources/library/`, any subfolders) the foundry and the new refine system search; the refine system improves built chapters without remaking them.
 
