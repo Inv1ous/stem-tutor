@@ -30,6 +30,13 @@ Events are **independent** when knowing one occurred does not change the probabi
 > $$P(RB)=\frac47\times\frac36=\frac27,\qquad P(BR)=\frac37\times\frac46=\frac27.$$
 > The routes are mutually exclusive, so add them: $P(\text{one of each})=2/7+2/7=4/7$.
 
+> [!example]- Worked example: conditioning on two matching paths
+> A bag contains 5 green and 3 purple counters. Draw two uniformly at random without replacement. Let $A$ mean first green and $C$ mean matching colours. Find $P(A\mid C)$.
+> The two-stage tree has first branches $G:5/8$ and $P:3/8$. After $G$, the second branches are $G:4/7$ and $P:3/7$; after $P$, they are $G:5/7$ and $P:2/7$.
+> The condition includes two disjoint terminal paths: $GG$ and $PP$. Hence $P(C)=(5/8)(4/7)+(3/8)(2/7)=26/56$.
+> Only $GG$ satisfies both $A$ and $C$, so $P(A\cap C)=20/56$ and $P(A\mid C)=P(A\cap C)/P(C)=(20/56)/(26/56)=10/13$.
+> The denominator is the probability of the whole condition, including both matching paths, not just the green-green path.
+
 ## Traps
 - **Trap:** Add $P(A)+P(B)$ for every union. **Why it's wrong:** The overlap is counted twice. **Instead:** Subtract $P(A\cap B)$ once.
 - **Trap:** Treat mutually exclusive events as independent. **Why it's wrong:** Occurrence of one rules out the other. **Instead:** Use the product test for independence.
@@ -40,3 +47,8 @@ For **Calculate** and **Find**, show the probability rule before substituting va
 
 ## Links
 Builds on 1 Modelling in probability and statistics · Leads to 4 Discrete random variables
+
+Builds on [[1 Mathematical models in probability and statistics]]
+Leads to [[5 Discrete random variables]]
+
+<!-- Refinement sources: sources/library/SaveMyExams/TQ YMA01 statistics-1-questions-only/TQ YMA01 c2.1.pdf, p.2 (compound events); sources/library/SaveMyExams/TQ YMA01 statistics-1-questions-only/TQ YMA01 c2.2.pdf, p.13 (conditioning on matching paths). Fresh questions and example use different settings and numbers. Repeated-value sample-space distinction checked against Berkeley Stat 20, https://stat20.berkeley.edu/spring-2026/3-generalization/03-probability-dsns/notes.html . -->

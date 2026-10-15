@@ -1,0 +1,37 @@
+{
+  "summary": "Add practice for compound events and conditional reasoning, then strengthen active discovery and chapter links.",
+  "improvements": [
+    {
+      "kind": "questions",
+      "where": "S1-3.2 and S1-3.4",
+      "why": "The bank never asks learners to interpret compound Venn notation or condition on a union of tree paths; the learner's questions in TQ YMA01 c2.1.pdf p.2 and TQ YMA01 c2.2.pdf p.13 expose these gaps.",
+      "count": 3,
+      "what": "Add one Find item for $P((A\\cup B)')$ from disjoint Venn region counts, one Explain item distinguishing $A'\\cap B'$ from $A'\\cup B'$, and one multi-step Find item for the probability of a first-draw category given that two draws match, summing the relevant paths before conditioning. Use fresh numbers and situations, not the library wording."
+    },
+    {
+      "kind": "questions",
+      "where": "S1-3.1 and S1-3.3",
+      "why": "Elementary probability mainly uses equal-outcome counting, while independence questions only confirm independence or assume it.",
+      "count": 2,
+      "what": "Add a sample-space item where displayed numerical values repeat but elementary outcomes are equally likely, and a 4-mark Show that or Explain item which establishes dependence by comparing $P(A\\cap B)$ with $P(A)P(B)$ in context."
+    },
+    {
+      "kind": "feature",
+      "where": "teach cards for S1-3.2 and S1-3.4",
+      "why": "The cards have self-explain prompts but no discover questions; these two concepts benefit from predicting the rule before it is stated.",
+      "what": "Add discover prompts that ask learners to identify the twice-counted overlap in $P(A)+P(B)$ and to predict how second-draw branch probabilities change after removing a counter."
+    },
+    {
+      "kind": "clarification",
+      "where": "note, after ## Method",
+      "why": "The method says to add matching paths but gives no example of conditioning on a result formed by several paths.",
+      "what": "Add a compact worked example with a two-stage tree: calculate $P(A\\mid C)$ when $C$ is the union of two disjoint terminal paths, explicitly using $P(A\\cap C)/P(C)$; show that the denominator is the probability of the condition, not just one path."
+    },
+    {
+      "kind": "feature",
+      "where": "note, ## Links",
+      "why": "The current link titles differ from the bundle's exact built chapter names, so learners cannot reliably navigate from this lesson.",
+      "what": "Add working wiki links to [[1 Mathematical models in probability and statistics]] and [[5 Discrete random variables]] on the appropriate Builds on and Leads to lines while preserving all existing text."
+    }
+  ]
+}

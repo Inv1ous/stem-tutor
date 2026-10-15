@@ -1,0 +1,155 @@
+{
+ "sub": "S1-3",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T23:15:39+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T22:58:10+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T23:06:06+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 5 questions, 9 note_lines, 2 cards"
+  },
+  {
+   "t": "2026-10-15T23:12:56+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "5 of 5 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T23:15:39+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 5 questions, 9 note_lines, 2 cards"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 29,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 47851,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:57:25+08:00",
+   "log": "refine/logs/S1-3.scout.1015-225725.log",
+   "out": "refine/logs/S1-3.scout.1015-225725.out.json",
+   "expects": "build/work/refine/S1-3.plan.json",
+   "finished": "2026-10-15T22:58:23+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 5,
+    "plan_path": "build/work/refine/S1-3.plan.json",
+    "notes": [
+     "Read learner library questions in TQ YMA01 c2.1.pdf pp.1–2 and c2.2.pdf pp.13–14; use them as inspiration without copying.",
+     "Checked Pearson Edexcel’s official IAL Mathematics specification for the chapter scope."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 52315,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T23:03:52+08:00",
+   "log": "refine/logs/S1-3.refiner.1015-230352.log",
+   "out": "refine/logs/S1-3.refiner.1015-230352.out.json",
+   "finished": "2026-10-15T23:06:06+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 5,
+    "new_items": [
+     "S1-3-r01",
+     "S1-3-r02",
+     "S1-3-r03",
+     "S1-3-r04",
+     "S1-3-r05"
+    ],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 54790,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T23:08:35+08:00",
+   "log": "refine/logs/S1-3.solver.1015-230835.log",
+   "out": "refine/logs/S1-3.solver.1015-230835.out.json",
+   "expects": "build/work/blind/S1-3.refine.answers.json",
+   "finished": "2026-10-15T23:09:14+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 5 questions in build/work/blind/S1-3.refine.answers.json"
+   },
+   "ok": true,
+   "cost_usd": 0.049
+  },
+  "checker": {
+   "pid": 54793,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T23:08:35+08:00",
+   "log": "refine/logs/S1-3.checker.1015-230835.log",
+   "out": "refine/logs/S1-3.checker.1015-230835.out.json",
+   "expects": "build/work/refine/S1-3.check.json",
+   "finished": "2026-10-15T23:10:11+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings written to build/work/refine/S1-3.check.json.\n\nAll additions passed the checker rules. The 5 new questions are well-formed, hints don't give away answers, explanations are correct, the teaching cards are appropriate MCQs, and the links use exact chapter names from the bundle."
+   },
+   "ok": true,
+   "cost_usd": 0.133
+  }
+ },
+ "plan": {
+  "improvements": 3,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 1,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 5,
+  "diagrams": 0,
+  "note_lines": 9,
+  "cards": 2,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T23:15:39+08:00"
+}
