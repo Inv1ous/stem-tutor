@@ -1,0 +1,23 @@
+{
+ "summary": "Strengthen visual comparison of lattice types and address two exam-relevant reasoning gaps while preserving the substantial existing practice bank.",
+ "improvements": [
+  {
+   "kind": "clarification",
+   "where": "note, after ## Key ideas",
+   "why": "Outcome 9701-4.2.1 requires learners to distinguish four lattices, but the note gives only prose; the supported diagram types cannot draw particle or molecular lattices.",
+   "what": "Add a compact four-column comparison table showing repeating particles, attraction across the solid, and mobile charge carriers for giant ionic, simple molecular, giant covalent, and giant metallic solids. Add a sentence distinguishing a regular molecular crystal lattice from a continuous covalent network. Set diagrams_skipped with the specific limitation that build/diagrams.py has no lattice or molecular-structure type; do not create an unrelated graph_sketch merely to satisfy the hint."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Exam technique",
+   "why": "ER 9701 s22 P22 Q2 reports that learners who correctly deduced a giant ionic lattice then drew a covalent molecule instead of ions.",
+   "what": "Add a short exam tip: when representing an ionic lattice or formula unit, label ions with their correct charges and show the ion ratio; do not depict an isolated covalent molecule. Use $\\ce{Na+}$ and $\\ce{Cl-}$ as the example."
+  },
+  {
+   "kind": "feature",
+   "where": "9701-4.2.3 worked example",
+   "why": "The existing faded version asks only how many states conduct, so it does not rehearse the multi-clue deduction the full example teaches.",
+   "what": "Add a second faded worked example with a different property set, requiring the learner to deduce the lattice type from conductivity in solid and liquid states plus melting point, and to explain the charge carrier. Preserve the existing example and faded version."
+  }
+ ]
+}

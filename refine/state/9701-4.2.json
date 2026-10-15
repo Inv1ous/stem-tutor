@@ -1,0 +1,154 @@
+{
+ "sub": "9701-4.2",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T11:33:42+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T11:19:59+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T11:22:26+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 7 note_lines, 1 other"
+  },
+  {
+   "t": "2026-10-15T11:26:28+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "1 of 1 new questions agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-15T11:33:29+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-15T11:33:42+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 7 note_lines, 1 other (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 50,
+  "extra": 14,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 70741,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T11:18:41+08:00",
+   "log": "refine/logs/9701-4.2.scout.1015-111841.log",
+   "out": "refine/logs/9701-4.2.scout.1015-111841.out.json",
+   "expects": "build/work/refine/9701-4.2.plan.json",
+   "finished": "2026-10-15T11:19:59+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 3,
+    "plan_path": "build/work/refine/9701-4.2.plan.json",
+    "notes": [
+     "The learner’s library returned no matched passages. The diagram hint suggests a graph, but the available diagram types cannot depict the lattice structures this chapter needs."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 71481,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T11:20:38+08:00",
+   "log": "refine/logs/9701-4.2.refiner.1015-112038.log",
+   "out": "refine/logs/9701-4.2.refiner.1015-112038.out.json",
+   "finished": "2026-10-15T11:22:26+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 3,
+    "new_items": [],
+    "new_diagrams": [],
+    "not_done": [
+     "Diagrams skipped as planned: the renderer lacks lattice and molecular-structure types; added a comparison table and diagrams_skipped reason."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 72402,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T11:22:41+08:00",
+   "log": "refine/logs/9701-4.2.solver.1015-112241.log",
+   "out": "refine/logs/9701-4.2.solver.1015-112241.out.json",
+   "expects": "build/work/blind/9701-4.2.refine.answers.json",
+   "finished": "2026-10-15T11:23:11+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9701-4.2.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 74475,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T11:28:24+08:00",
+   "log": "refine/logs/9701-4.2.checker.1015-112824.log",
+   "out": "refine/logs/9701-4.2.checker.1015-112824.out.json",
+   "expects": "build/work/refine/9701-4.2.check.json",
+   "finished": "2026-10-15T11:28:55+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9701-4.2.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-4.2.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 3,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 0,
+   "clarification": 2,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 0,
+  "diagrams": 0,
+  "note_lines": 7,
+  "cards": 0,
+  "other": 1
+ },
+ "last_refined": "2026-10-15T11:33:42+08:00"
+}
