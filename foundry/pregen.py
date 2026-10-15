@@ -383,9 +383,24 @@ def cli(args: list[str], out: Callable[[str], None] = print) -> int:
     return 1 if failed else 0
 
 
+def _one_at_a_time():
+    """Wait for our turn: several chapters signed close together must not run Kokoro side by side (each one takes a
+    whole core, and twenty at once starved every other job). The lock is dropped when the process ends."""
+    import fcntl
+    path = root() / "foundry" / "pregen.lock"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    handle = open(path, "a")  # kept open for the life of the process
+    fcntl.flock(handle, fcntl.LOCK_EX)
+    _LOCKS.append(handle)
+
+
+_LOCKS: list = []
+
+
 def main(argv: list[str]) -> int:
     if argv[:1] == ["run"] and len(argv) > 1:  # the detached job: quiet unless it breaks
         voice, speed = settings()
+        _one_at_a_time()
         r = pregenerate(argv[1], _flag(argv, "--voice") or voice, float(_flag(argv, "--speed") or speed))
         print(summary(argv[1], r))
         return 0

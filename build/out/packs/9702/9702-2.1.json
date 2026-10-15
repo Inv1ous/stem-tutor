@@ -4919,6 +4919,109 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9702-2.1-r01",
+   "kcs": [
+    "9702-2.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A trolley has initial velocity $+[[u]]\\ \\mathrm{m\\,s^{-1}}$. Its acceleration-time graph is horizontal at $+[[a]]\\ \\mathrm{m\\,s^{-2}}$ for the first $3.0\\ \\mathrm{s}$, then horizontal at $-[[b]]\\ \\mathrm{m\\,s^{-2}}$ for the next $2.0\\ \\mathrm{s}$. Determine its final velocity using signed graph areas.",
+   "marks": 3,
+   "answer": {
+    "value": 9,
+    "unit": "m s^-1",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "distractors": [
+    {
+     "value": 17,
+     "misconception": "m1"
+    }
+   ],
+   "template": {
+    "params": {
+     "u": {
+      "choices": [
+       2,
+       4,
+       6
+      ]
+     },
+     "a": {
+      "choices": [
+       2,
+       3,
+       4
+      ]
+     },
+     "b": {
+      "choices": [
+       1,
+       2
+      ]
+     }
+    },
+    "derived": {},
+    "answer": "u+3*a-2*b",
+    "distractors": [
+     {
+      "expr": "u+3*a+2*b",
+      "misconception": "m1"
+     }
+    ],
+    "constraints": [
+     "b>0"
+    ]
+   },
+   "explanation": "The two rectangular areas give velocity changes $+3\\times[[a]]$ and $-2\\times[[b]]$ in $\\mathrm{m\\,s^{-1}}$, so the final velocity is the initial velocity plus their signed sum: $v=[[u]]+3\\times[[a]]-2\\times[[b]]$. Adding both magnitudes ignores the negative acceleration.",
+   "hints": [
+    "What change does area on an acceleration-time graph represent?",
+    "Calculate each rectangular area, retaining its sign, then add the changes to the initial velocity.",
+    "The first area is $([[a]]\\ \\mathrm{m\\,s^{-2}})(3.0\\ \\mathrm{s})$; treat the second interval separately."
+   ]
+  },
+  {
+   "id": "9702-2.1-r02",
+   "kcs": [
+    "9702-2.1.2",
+    "9702-2.1.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle moves in a straight line. Its velocity-time graph is a straight line from $(0\\ \\mathrm{s},+8.0\\ \\mathrm{m\\,s^{-1}})$ through $(4.0\\ \\mathrm{s},0)$ to $(6.0\\ \\mathrm{s},-4.0\\ \\mathrm{m\\,s^{-1}})$. Determine the signed displacement and total distance travelled during these $6.0\\ \\mathrm{s}$.",
+   "options": {
+    "A": "Displacement $+12\\ \\mathrm{m}$; distance $20\\ \\mathrm{m}$.",
+    "B": "Displacement $+20\\ \\mathrm{m}$; distance $20\\ \\mathrm{m}$.",
+    "C": "Displacement $+12\\ \\mathrm{m}$; distance $12\\ \\mathrm{m}$.",
+    "D": "Displacement $-12\\ \\mathrm{m}$; distance $20\\ \\mathrm{m}$."
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m3",
+    "C": "m1",
+    "D": "m1"
+   },
+   "marks": 1,
+   "explanation": "The positive triangular area is $\\tfrac12(4.0)(8.0)=16\\ \\mathrm{m}$ and the negative triangular area has magnitude $\\tfrac12(2.0)(4.0)=4.0\\ \\mathrm{m}$. Hence displacement is $16-4=+12\\ \\mathrm{m}$ and distance is $16+4=20\\ \\mathrm{m}$; adding both areas for displacement incorrectly gives a displacement of $+20\\ \\mathrm{m}$.",
+   "hints": [
+    "Where does the graph cross the time axis, and what does that imply about direction?",
+    "Split the graph at zero velocity and calculate the two triangular areas separately.",
+    "For displacement subtract the magnitude below the axis; for distance add both magnitudes."
+   ]
   }
  ],
  "flashcards": [
@@ -6266,6 +6369,63 @@
      }
     ]
    }
+  },
+  {
+   "file": "Assets/9702/9702-2.1-signed-areas.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        8
+       ],
+       [
+        4,
+        0
+       ],
+       [
+        6,
+        -4
+       ]
+      ]
+     }
+    ],
+    "shade": {
+     "line": 0
+    },
+    "ticks": true,
+    "xlabel": "$t$ / s",
+    "ylabel": "$v$ / $\\mathrm{m\\,s^{-1}}$",
+    "annotations": [
+     {
+      "xy": [
+       0.4,
+       1.4
+      ],
+      "text": "positive area\n$+16$ m"
+     },
+     {
+      "xy": [
+       5.3,
+       -1.3
+      ],
+      "xytext": [
+       1,
+       -2.8
+      ],
+      "text": "negative area\n$-4$ m"
+     },
+     {
+      "xy": [
+       3.0,
+       6
+      ],
+      "text": "Signed displacement"
+     }
+    ]
+   }
   }
  ],
  "teach": {
@@ -6303,7 +6463,7 @@
    },
    "establish": "Each graph plots one quantity against time, and the two questions to ask are \"what is the height?\" and \"what is the slope?\".\n\n- **Displacement-time:** height is displacement; gradient is velocity. Flat means at rest; a straight slope means constant velocity; a curve means the velocity is changing.\n- **Velocity-time:** height is velocity; gradient is acceleration. A flat line means constant velocity; a sloping straight line means uniform acceleration; below the axis means moving in the opposite direction.\n- **Acceleration-time:** height is acceleration.\n\nExample: a lift starts from rest and accelerates at $1.5\\ \\mathrm{m\\,s^{-2}}$ for $4.0\\ \\mathrm{s}$. Its velocity-time graph is a straight line from the origin up to $6.0\\ \\mathrm{m\\,s^{-1}}$. A flat section follows while it moves at constant velocity, then a sloping line down to zero as it stops.\n\nAlways label both axes with quantity and unit.",
    "connect": "This turns the definitions from 2.1.1 into pictures. The next three points read numbers off them: area for displacement, gradients for velocity and acceleration.",
-   "note": "- Displacement-time graph: gradient = velocity. Velocity-time graph: gradient = acceleration.\n- Straight line on a velocity-time graph: uniform acceleration; horizontal line: constant velocity.\n- Curve on a displacement-time graph: velocity changing; horizontal line: at rest.\n- Velocity below the time axis: motion in the opposite direction.\n- Distance-time graph: gradient = speed (never negative). Label axes with quantity and unit.",
+   "note": "- Displacement-time graph: gradient = velocity. Velocity-time graph: gradient = acceleration.\n- Straight line on a velocity-time graph: uniform acceleration; horizontal line: constant velocity.\n- Curve on a displacement-time graph: velocity changing; horizontal line: at rest.\n- Velocity below the time axis: motion in the opposite direction.\n- Distance-time graph: gradient = speed (never negative). Label axes with quantity and unit.\n- Acceleration-time: height gives acceleration; a horizontal line means constant acceleration. Signed area gives change in velocity: $+2.0\\ \\mathrm{m\\,s^{-2}}$ for $3.0\\ \\mathrm{s}$ gives $\\Delta v=+6.0\\ \\mathrm{m\\,s^{-1}}$.",
    "self_explain": "Explain how you would tell, from a velocity-time graph alone, whether an object is speeding up, slowing down or moving at constant velocity.",
    "source": "pack"
   },
