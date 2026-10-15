@@ -1,0 +1,172 @@
+{
+ "sub": "9701-1.4",
+ "stage": "ready",
+ "pass": 2,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T08:55:41+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T08:16:53+08:00",
+   "from": "plan",
+   "to": "ready",
+   "note": "nothing worth adding: 9701-1.4 already meets the bar: 5 misconceptions, 3 worked examples with faded versions, 2 well-built diagrams (Period 3"
+  },
+  {
+   "t": "2026-10-15T08:24:21+08:00",
+   "from": "ready",
+   "to": "plan",
+   "note": "pass 2"
+  },
+  {
+   "t": "2026-10-15T08:37:28+08:00",
+   "from": "plan",
+   "to": "plan",
+   "note": "scout finished without writing its file; see refine/logs/9701-1.4.scout.1015-083153.log"
+  },
+  {
+   "t": "2026-10-15T08:43:21+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 1 improvements"
+  },
+  {
+   "t": "2026-10-15T08:48:10+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 1 diagrams, 3 note_lines, 8 cards"
+  },
+  {
+   "t": "2026-10-15T08:55:35+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "3 of 3 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T08:55:41+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 1 diagrams, 3 note_lines, 8 cards"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 67,
+  "extra": 24,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 99530,
+   "provider": "claude",
+   "model": "sonnet/medium",
+   "rung": 1,
+   "started": "2026-10-15T08:37:35+08:00",
+   "log": "refine/logs/9701-1.4.scout.1015-083735.log",
+   "out": "refine/logs/9701-1.4.scout.1015-083735.out.json",
+   "expects": "build/work/refine/9701-1.4.plan.json",
+   "finished": "2026-10-15T08:43:21+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 1,
+    "plan_path": "build/work/refine/9701-1.4.plan.json",
+    "notes": [
+     "Gates flag `syllabus no-teach-card` for all 8 KCs: the pack has no `teach` field at all (same pre-existing, out-of-scope condition noted on 9701-1.1 and 9701-1.3's scout passes); not something a refiner addition fixes.",
+     "Pack is otherwise strong: 67 items (6-17 per KC), worked+faded examples for all 3 procedural KCs, 5 misconceptions matching examiner reports, 13 flashcards.",
+     "Library (`library.py for 9701-1.4`) only surfaces SaveMyExams revision-guide pages matching this chapter's existing diagrams/prose (e.g. a H-to-Na graph on c1.4.pdf p.5) — nothing that needed cropping as a `figure`; I used the same data to plan a drawn `graph_sketch` diagram instead, which the diagram table can render natively.",
+     "Single addition planned: a Period 1-2 (H-Ne) ionisation-energy graph, since the chapter's two existing diagrams both cover only Period 3 and the group-down trend / Period 2 dips are currently prose-only."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 1.428
+  },
+  "refiner": {
+   "pid": 2121,
+   "provider": "claude",
+   "model": "opus/medium",
+   "rung": 1,
+   "started": "2026-10-15T08:43:27+08:00",
+   "log": "refine/logs/9701-1.4.refiner.1015-084327.log",
+   "out": "refine/logs/9701-1.4.refiner.1015-084327.out.json",
+   "finished": "2026-10-15T08:48:10+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 2,
+    "new_items": [],
+    "new_diagrams": [
+     "Assets/9701/9701-1.4-h-to-ne-ie1.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 1.481
+  },
+  "solver": {
+   "pid": 4836,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T08:48:16+08:00",
+   "log": "refine/logs/9701-1.4.solver.1015-084816.log",
+   "out": "refine/logs/9701-1.4.solver.1015-084816.out.json",
+   "expects": "build/work/blind/9701-1.4.refine.answers.json",
+   "finished": "2026-10-15T08:48:31+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 3 questions in `build/work/blind/9701-1.4.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 4841,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T08:48:16+08:00",
+   "log": "refine/logs/9701-1.4.checker.1015-084816.log",
+   "out": "refine/logs/9701-1.4.checker.1015-084816.out.json",
+   "expects": "build/work/refine/9701-1.4.check.json",
+   "finished": "2026-10-15T08:48:47+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9701-1.4.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-1.4.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 1,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 0,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "last_checked": "2026-10-15T08:16:53+08:00",
+ "checked": true,
+ "maker": "claude",
+ "same_family": false,
+ "last_additions": {
+  "questions": 0,
+  "diagrams": 1,
+  "note_lines": 3,
+  "cards": 8,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T08:55:41+08:00"
+}

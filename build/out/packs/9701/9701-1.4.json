@@ -2679,6 +2679,242 @@
     "ylabel": "log10 (IE / kJ mol$^{-1}$)",
     "ticks": true
    }
+  },
+  {
+   "file": "Assets/9701/9701-1.4-h-to-ne-ie1.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        1,
+        1312
+       ],
+       [
+        2,
+        2372
+       ],
+       [
+        3,
+        520
+       ],
+       [
+        4,
+        899
+       ],
+       [
+        5,
+        801
+       ],
+       [
+        6,
+        1086
+       ],
+       [
+        7,
+        1402
+       ],
+       [
+        8,
+        1314
+       ],
+       [
+        9,
+        1681
+       ],
+       [
+        10,
+        2081
+       ]
+      ],
+      "marker": "o"
+     }
+    ],
+    "xticklabels": [
+     [
+      1,
+      "H"
+     ],
+     [
+      2,
+      "He"
+     ],
+     [
+      3,
+      "Li"
+     ],
+     [
+      4,
+      "Be"
+     ],
+     [
+      5,
+      "B"
+     ],
+     [
+      6,
+      "C"
+     ],
+     [
+      7,
+      "N"
+     ],
+     [
+      8,
+      "O"
+     ],
+     [
+      9,
+      "F"
+     ],
+     [
+      10,
+      "Ne"
+     ]
+    ],
+    "ylim": [
+     300,
+     2700
+    ],
+    "annotations": [
+     {
+      "text": "He to Li: new outer shell,\nfurther out, more shielding\n(the trend down a group)",
+      "xy": [
+       3,
+       520
+      ],
+      "xytext": [
+       3.3,
+       1950
+      ]
+     },
+     {
+      "text": "Be to B: 2p higher in\nenergy than 2s",
+      "xy": [
+       5,
+       801
+      ],
+      "xytext": [
+       4.3,
+       400
+      ]
+     },
+     {
+      "text": "N to O: spin-pair\nrepulsion in $2p^4$",
+      "xy": [
+       8,
+       1314
+      ],
+      "xytext": [
+       7.0,
+       900
+      ]
+     }
+    ],
+    "xlabel": "element (proton number 1 to 10)",
+    "ylabel": "first ionisation energy / kJ mol$^{-1}$",
+    "ticks": true
+   }
   }
- ]
+ ],
+ "teach": {
+  "9701-1.4.1": {
+   "motivate": "Every reaction that makes a positive ion starts by tearing an electron off an atom. Chemists measure the cost of that in one standard, carefully worded quantity, and examiners award the mark only for the full wording.",
+   "establish": "The **first ionisation energy**, $IE_1$, is the energy required to remove **one electron** from **each atom** in **one mole of gaseous atoms** to form **one mole of gaseous $1+$ ions**. The equation is $\\ce{X(g) -> X+(g) + e-}$. Four parts earn the marks: one electron per atom, one mole, the gaseous state, and $1+$ ions. Values are quoted in kJ mol$^{-1}$ and are always positive, because energy must be supplied to pull an electron away from the attraction of the nucleus: ionisation is endothermic. Writing \"remove an electron from one mole of atoms\" or leaving out (g) loses the mark.",
+   "connect": "With the first ionisation defined, the same wording can be reused for the second, third and later electrons, each with its own equation.",
+   "note": "- $IE_1$: the energy to remove one electron from each atom in one mole of gaseous atoms, forming one mole of gaseous $1+$ ions.\n- Equation: $\\ce{X(g) -> X+(g) + e-}$, in kJ mol$^{-1}$.\n- Always endothermic (positive), because energy is needed to overcome the attraction of the nucleus.\n- Marks need all four parts: one electron, one mole, gaseous, $1+$ ions.",
+   "self_explain": "Why does the definition insist on gaseous atoms rather than just atoms?",
+   "discover": {
+    "stem": "Which equation represents the first ionisation energy of chlorine?",
+    "options": {
+     "A": "$\\ce{Cl(g) -> Cl+(g) + e-}$",
+     "B": "$\\ce{Cl2(g) -> 2Cl+(g) + 2e-}$",
+     "C": "$\\ce{Cl(g) + e- -> Cl^{-}(g)}$",
+     "D": "$\\ce{Cl(s) -> Cl+(g) + e-}$"
+    },
+    "answer": "A",
+    "explanation": "First ionisation energy removes one electron from one mole of gaseous atoms to give gaseous $1+$ ions, so it must start from $\\ce{Cl(g)}$, not from the molecule and not from a solid. B starts from $\\ce{Cl2}$ and removes two electrons, so it includes bond breaking; C gains an electron (electron affinity); D uses the wrong state."
+   },
+   "source": "pack"
+  },
+  "9701-1.4.2": {
+   "motivate": "An element with several electrons can be ionised again and again. Each step has its own energy and its own equation, and the only reliable way to write them is a fixed routine.",
+   "establish": "The $n$th ionisation energy removes one electron from the ion that already carries a $(n-1)+$ charge: $\\ce{X^{(n-1)+}(g) -> X^{n+}(g) + e-}$. So for magnesium the second is $\\ce{Mg+(g) -> Mg^2+(g) + e-}$ and the third is $\\ce{Mg^2+(g) -> Mg^3+(g) + e-}$. Build each one in three steps: start from the species with charge $(n-1)+$; remove exactly **one** electron, so the charge rises by one and $e^-$ appears on the right; check that **every** species carries the state symbol (g), including the electron-losing ion. Two common errors are removing two electrons at once (for example writing $\\ce{Mg(g) -> Mg^2+(g) + 2e-}$ for $IE_2$) and dropping the (g).",
+   "connect": "Once the equations are right, the numbers attached to them can be compared, and they turn out to rise in a very revealing pattern.",
+   "note": "- General form: $\\ce{X^{(n-1)+}(g) -> X^{n+}(g) + e-}$, one electron only.\n- $IE_2$ of Mg: $\\ce{Mg+(g) -> Mg^2+(g) + e-}$; $IE_3$: $\\ce{Mg^2+(g) -> Mg^3+(g) + e-}$.\n- Start from the $(n-1)+$ ion, not from the neutral atom.\n- Every species needs (g); $\\ce{Mg(g) -> Mg^2+(g) + 2e-}$ is not $IE_2$.",
+   "self_explain": "Why is $\\ce{Mg(g) -> Mg^2+(g) + 2e-}$ the sum of $IE_1$ and $IE_2$ rather than $IE_2$ itself?",
+   "source": "pack"
+  },
+  "9701-1.4.3": {
+   "motivate": "Plot $IE_1$ against proton number and the Periodic Table draws itself: a sawtooth that climbs across each period and crashes at the start of the next. Reading that graph is a standard exam task.",
+   "establish": "**Across a period** $IE_1$ generally **increases**: the nuclear charge rises, the outer electrons enter the same shell, and shielding is almost unchanged, so the attraction on the outer electron is stronger and the atomic radius falls. **Down a group** $IE_1$ **decreases**: each element has one more occupied shell, so the outer electron is further from the nucleus and shielded by more inner shells; this outweighs the greater nuclear charge. Two dips break the rise in each period: Mg to Al (and Be to B), where the outer electron is in a $p$ sub-shell that is higher in energy and shielded by the $s$ sub-shell, and P to S (and N to O), where the first paired $p$ orbital brings spin-pair repulsion.",
+   "connect": "The dips and the drop at a new period are the clue that trends are not about one factor alone, but about a competition between charge, distance and shielding.",
+   "note": "- Across a period $IE_1$ generally increases: more protons, same shell, similar shielding, smaller radius.\n- Down a group $IE_1$ decreases: more shells, greater distance and shielding outweigh the greater nuclear charge.\n- Dip 1 (Mg to Al, Be to B): the electron removed is in a $p$ sub-shell, higher in energy and shielded by $s$.\n- Dip 2 (P to S, N to O): spin-pair repulsion in the first paired $p$ orbital.\n- The huge drop from one period to the next (He to Li, Ne to Na) is the group trend in action.",
+   "self_explain": "Why does the sharp fall from Ne to Na show the same reasoning as the fall from F to Cl?",
+   "discover": {
+    "stem": "The first ionisation energies of Period 3 rise from Na to Ar apart from two dips. Which pair shows the dip caused by spin-pair repulsion?",
+    "options": {
+     "A": "Na to Mg",
+     "B": "Mg to Al",
+     "C": "P to S",
+     "D": "Cl to Ar"
+    },
+    "answer": "C",
+    "explanation": "Sulfur is $3s^2 3p^4$, so one $3p$ orbital holds a pair of electrons that repel each other; one is removed more easily than from phosphorus's half-filled $3p^3$, so $IE_1$(S) is below $IE_1$(P). The Mg to Al dip has a different cause: Al's electron comes from the higher-energy $3p$ sub-shell. Na to Mg and Cl to Ar both rise."
+   },
+   "source": "pack"
+  },
+  "9701-1.4.4": {
+   "motivate": "Magnesium's ionisation energies run 738, 1451, then 7733 kJ mol$^{-1}$. That jump of more than five times is not random: it is the atom's shell structure showing itself.",
+   "establish": "Successive ionisation energies **always increase**: the nuclear charge is unchanged while electrons are removed, so each remaining electron is held by the same nucleus with less inter-electron repulsion, the ion is smaller, and the attraction on the next electron is greater. On top of that steady rise there are **big jumps**. A big jump happens when the next electron must come from a shell **closer to the nucleus** and **less shielded**, so far more energy is needed. Smaller jumps mark a change of sub-shell within a shell. Plotting $\\log_{10}(IE)$ against the number of electrons removed compresses the huge range and makes each shell appear as a group of points.",
+   "connect": "Because each jump marks a shell, counting the values on either side of a jump tells you how many electrons each shell holds.",
+   "note": "- Successive values always increase: same nuclear charge, fewer electrons, less repulsion, smaller ion, stronger attraction.\n- A big jump means the next electron comes from an inner shell: closer to the nucleus and less shielded.\n- Smaller steps within a group of values mark a change of sub-shell.\n- A $\\log_{10}(IE)$ plot against electrons removed shows the shells as clear groups.",
+   "self_explain": "Why does removing an electron from a $2+$ ion cost more than removing one from the neutral atom of the same element?",
+   "source": "pack"
+  },
+  "9701-1.4.5": {
+   "motivate": "Why does it cost energy at all to take an electron away? Everything in this topic follows from one force between two charges.",
+   "establish": "An ionisation energy measures the **electrostatic attraction between the positively charged nucleus and the outer electron** being removed. To take the electron to infinity, that attraction must be overcome, so energy is supplied and ionisation is **endothermic** (all $IE$ values are positive). The stronger the attraction, the larger the ionisation energy. The attraction depends on how much positive charge pulls on the electron, how far away the electron is, and how much of the nuclear charge the inner electrons screen off. That is why $IE$ data can be read as evidence about where an electron sits: a high value means a tightly held electron, close in and poorly shielded.",
+   "connect": "Naming the attraction is only half the job; the next step is the three or four factors that make it stronger or weaker.",
+   "note": "- Ionisation energy is the energy needed to overcome the attraction between the nucleus and the outer electron.\n- The attraction is electrostatic: positive nucleus, negative electron.\n- Ionisation is always endothermic, so $IE$ values are positive.\n- A larger $IE$ means the electron removed was held more strongly.",
+   "self_explain": "In one sentence, why can an ionisation energy never be negative?",
+   "source": "pack"
+  },
+  "9701-1.4.6": {
+   "motivate": "Comparisons such as \"explain why the second ionisation energy of oxygen is greater than that of fluorine\" are decided by a short checklist of factors, applied to the electron actually being removed.",
+   "establish": "Four factors control the attraction, and therefore the ionisation energy. **Nuclear charge**: more protons means a stronger pull and a larger $IE$. **Atomic or ionic radius**: the further the electron is from the nucleus, the weaker the attraction and the smaller the $IE$. **Shielding** by inner shells and sub-shells: inner electrons repel the outer electron and screen it from the nuclear charge, lowering $IE$. **Spin-pair repulsion**: two electrons sharing one orbital repel each other, so one is removed more easily, lowering $IE$. In any comparison, identify the electron removed in each case (which shell and which sub-shell), then say which factor differs and how that changes the attraction.",
+   "connect": "Applying these factors to one element's own successive values is what lets ionisation data be turned back into an electronic configuration.",
+   "note": "- Nuclear charge: more protons, stronger attraction, larger $IE$.\n- Radius: further out, weaker attraction, smaller $IE$.\n- Shielding by inner shells and sub-shells: more shielding, weaker attraction, smaller $IE$.\n- Spin-pair repulsion: a paired orbital makes one electron easier to remove.\n- Always compare the electron removed in each species, not the atoms in general.",
+   "self_explain": "Which factor would you use first to explain why helium's $IE_1$ is higher than hydrogen's, and why not the others?",
+   "discover": {
+    "stem": "Which factor explains why helium has a higher first ionisation energy than hydrogen?",
+    "options": {
+     "A": "The electrons in helium's $1s$ orbital are paired.",
+     "B": "The nuclear charge of helium is greater than that of hydrogen.",
+     "C": "Helium's lowest energy level is full.",
+     "D": "Helium's outer electron is shielded less than hydrogen's."
+    },
+    "answer": "B",
+    "explanation": "Both electrons are removed from the $1s$ orbital of the first shell, so distance and shielding are essentially the same; helium's two protons attract the electron more strongly than hydrogen's one, so more energy is needed. Pairing (A) would make the electron easier, not harder, to remove, a full shell (C) is a description rather than a cause, and hydrogen has no inner shell to shield at all (D)."
+   },
+   "source": "pack"
+  },
+  "9701-1.4.7": {
+   "motivate": "Given a list of successive ionisation energies and no element name, you can still say how the electrons are arranged. The jumps do the work for you.",
+   "establish": "Work along the list and find where the value jumps sharply, for example where it roughly doubles or more. **The number of values before the first big jump is the number of electrons in the outer shell**, because the next electron comes from an inner shell. Later jumps split the remaining electrons into further shells, so a pattern of 2 then 8 then more gives $1s^2\\,2s^2 2p^6\\dots$ read from the inside out. Compare ratios rather than differences: a rise from 7475 to 9445 is a normal step, while 9445 to 53 267 (about $5.6\\times$) is a shell break. With the shell populations known, write the configuration using the usual filling order, and check that the electrons sum to the element's total.",
+   "connect": "A configuration deduced this way immediately fixes the element's place in the Periodic Table.",
+   "note": "- Scan the successive values for a sharp jump, judged by ratio and not by difference.\n- Electrons before the first big jump = electrons in the outer shell.\n- Further jumps divide the rest into inner shells, counted from the outside in.\n- Write the configuration in filling order and check the electrons add up.",
+   "self_explain": "Why is the ratio between consecutive ionisation energies more useful than their difference when hunting for a shell break?",
+   "source": "pack"
+  },
+  "9701-1.4.8": {
+   "motivate": "Exam questions hand you four or five successive ionisation energies and ask for the group. The count before the jump, not the size of the numbers, gives the answer.",
+   "establish": "The number of electrons in the outer shell is the number of values before the first big jump, and that fixes the **group**: 1, 2 and 13 to 18, with **group $=10+{}$ outer electrons** for Groups 13 to 18 (3 outer electrons is Group 13, 5 is Group 15, 7 is Group 17). The **period** is the number of occupied shells, which is the number of groups of values the jumps separate; often the question states the period instead. If the data starts partway along, for example at the fifth ionisation energy, count from there: four comparable values followed by a jump means the shell break lies after those, so the outer shell held fewer electrons than the first value's index. Quote the two values either side of the jump as your evidence.",
+   "connect": "The same reading of a data table underlies questions on atomic radius and reactivity, where the group decides the chemistry.",
+   "note": "- Outer electrons = values before the first big jump; that number gives the group.\n- Groups 13 to 18: group $=10+{}$ outer electrons (5 outer electrons is Group 15).\n- The number of shells shown by the jumps gives the period.\n- Quote the two values either side of the jump as evidence; never read the group from where the values are largest.",
+   "self_explain": "An element shows a big jump between its 4th and 5th ionisation energies. How do you get from that to a group number?",
+   "source": "pack"
+  }
+ }
 }
