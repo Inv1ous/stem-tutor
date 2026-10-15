@@ -1,0 +1,156 @@
+{
+ "sub": "9702-11.1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T18:36:59+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T18:03:54+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 5 improvements"
+  },
+  {
+   "t": "2026-10-15T18:21:55+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 4 questions, 12 note_lines, 2 other"
+  },
+  {
+   "t": "2026-10-15T18:35:03+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "2 of 2 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T18:36:59+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 4 questions, 12 note_lines, 2 other (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 136,
+  "extra": 47,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 41608,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T18:01:24+08:00",
+   "log": "refine/logs/9702-11.1.scout.1015-180124.log",
+   "out": "refine/logs/9702-11.1.scout.1015-180124.out.json",
+   "expects": "build/work/refine/9702-11.1.plan.json",
+   "finished": "2026-10-15T18:05:00+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 4,
+    "plan_path": "build/work/refine/9702-11.1.plan.json",
+    "notes": [
+     "Read the learner’s PDF at sources/library/SaveMyExams/9702 as-physics-cie-25/9702 c11.1.pdf, especially pp.2 and 6–7. The p.2 figure was visually inspected.",
+     "The current gates report an existing broken chapter link: [[1.1 Physical quantities and units]]. The scout plan cannot reword existing note content."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 48745,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T18:18:52+08:00",
+   "log": "refine/logs/9702-11.1.refiner.1015-181852.log",
+   "out": "refine/logs/9702-11.1.refiner.1015-181852.out.json",
+   "finished": "2026-10-15T18:21:55+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 4,
+    "new_items": [
+     "9702-11.1-r01",
+     "9702-11.1-r02",
+     "9702-11.1-r03",
+     "9702-11.1-r04"
+    ],
+    "new_diagrams": [
+     "Assets/9702/9702-11-1-fig-scattering-complete.png"
+    ],
+    "not_done": [
+     "Inherited broken chapter link preserved under the no-loss rule; the refinement gate exempts it. All final gates pass."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 55104,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T18:33:43+08:00",
+   "log": "refine/logs/9702-11.1.solver.1015-183343.log",
+   "out": "refine/logs/9702-11.1.solver.1015-183343.out.json",
+   "expects": "build/work/blind/9702-11.1.refine.answers.json",
+   "finished": "2026-10-15T18:34:03+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions in `build/work/blind/9702-11.1.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 55109,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T18:33:43+08:00",
+   "log": "refine/logs/9702-11.1.checker.1015-183343.log",
+   "out": "refine/logs/9702-11.1.checker.1015-183343.out.json",
+   "expects": "build/work/refine/9702-11.1.check.json",
+   "finished": "2026-10-15T18:34:08+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9702-11.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9702-11.1.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 5,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 1,
+   "questions": 2,
+   "clarification": 1,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 4,
+  "diagrams": 0,
+  "note_lines": 12,
+  "cards": 0,
+  "other": 2
+ },
+ "last_refined": "2026-10-15T18:36:59+08:00"
+}
