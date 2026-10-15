@@ -9,6 +9,11 @@ kcs: ["P2-3.1"]
 > The equation of a circle records every point at a fixed distance from its centre. Three geometric facts about diameters, chords and tangents turn circle questions into coordinate calculations.
 
 ## Key ideas
+
+![[Assets/P2/P2-3-chord-tangent.svg]]
+
+In this sketch of $x^2+y^2=25$, $M(0,3)$ is halfway between $A(-4,3)$ and $B(4,3)$. Notice that $CM$ is perpendicular to the horizontal chord, while the radius $CT$ is perpendicular to the vertical tangent $x=5$ at $T(5,0)$. The right-angle marks show the two different uses of perpendicularity.
+
 A circle with centre $(a,b)$ and positive radius $r$ has equation
 $$
 (x-a)^2+(y-b)^2=r^2.
@@ -28,6 +33,23 @@ Three circle properties are useful in coordinate geometry. An angle at the circu
 > The centre is $(3,-2)$ and radius $5$. First verify the point: $(6-3)^2+(2+2)^2=9+16=25$.
 > The radius from $(3,-2)$ to $(6,2)$ has gradient $4/3$. The tangent gradient is $-3/4$ because radius and tangent are perpendicular.
 > Through $(6,2)$, the tangent is $y-2=-\frac34(x-6)$.
+
+> [!example]- Worked example: locating the centre from a chord
+> A circle has chord endpoints $A(0,1)$ and $B(4,5)$ and centre $C(1,k)$. Find its centre, radius and equation.
+> The midpoint is $M=((0+4)/2,(1+5)/2)=(2,3)$. The centre lies on the perpendicular bisector of the chord.
+> The chord gradient is $(5-1)/(4-0)=1$, so the perpendicular bisector has gradient $-1$ and equation $y-3=-(x-2)$.
+> Substitute the centre's known coordinate: $k-3=-(1-2)=1$, giving $C=(1,4)$.
+> Use endpoint $A$ to find $r^2=(1-0)^2+(4-1)^2=10$, so $r=\sqrt{10}$ and $(x-1)^2+(y-4)^2=10$.
+
+## Self-test
+1. Why does the perpendicular bisector pass through the chord midpoint in this method?
+2. For the worked example, check the squared distance from the centre to endpoint $B$.
+3. Try the faded example: a chord joins $(1,0)$ and $(7,6)$, and the centre is $(2,k)$. Given midpoint $(4,3)$ and chord gradient $1$, find the centre, radius and equation.
+
+> [!example]- Answers
+> 1. The perpendicular from the centre bisects the chord, so its foot is the midpoint; use the midpoint rather than either endpoint.
+> 2. $(4-1)^2+(5-4)^2=10$, agreeing with $r^2$ from endpoint $A$.
+> 3. The perpendicular bisector is $y-3=-(x-4)$. At $x=2$, $k=5$, so the centre is $(2,5)$; $r^2=(2-1)^2+(5-0)^2=26$, $r=\sqrt{26}$ and $(x-2)^2+(y-5)^2=26$.
 
 ## Traps
 - **Trap:** Read the centre as $(-3,2)$ from $(x-3)^2+(y+2)^2$. **Why it's wrong:** The brackets vanish at $(3,-2)$. **Instead:** Set each bracket to zero.

@@ -1,0 +1,154 @@
+{
+ "sub": "P2-3",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:14:46+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T11:56:31+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 4 improvements"
+  },
+  {
+   "t": "2026-10-15T12:19:48+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 4 questions, 1 diagrams, 16 note_lines, 2 other"
+  },
+  {
+   "t": "2026-10-15T22:10:36+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "2 of 2 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:14:46+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 4 questions, 1 diagrams, 16 note_lines, 2 other"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 14,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 83028,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T11:55:31+08:00",
+   "log": "refine/logs/P2-3.scout.1015-115531.log",
+   "out": "refine/logs/P2-3.scout.1015-115531.out.json",
+   "expects": "build/work/refine/P2-3.plan.json",
+   "finished": "2026-10-15T11:56:31+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 4,
+    "plan_path": "build/work/refine/P2-3.plan.json",
+    "notes": [
+     "Current gates pass. The learner’s sources library returned no matched passages or files."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 89777,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T12:15:09+08:00",
+   "log": "refine/logs/P2-3.refiner.1015-121509.log",
+   "out": "refine/logs/P2-3.refiner.1015-121509.out.json",
+   "finished": "2026-10-15T12:19:48+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 4,
+    "new_items": [
+     "P2-3-r01",
+     "P2-3-r02",
+     "P2-3-r03",
+     "P2-3-r04"
+    ],
+    "new_diagrams": [
+     "Assets/P2/P2-3-chord-tangent.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 377,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T12:49:37+08:00",
+   "log": "refine/logs/P2-3.checker.1015-124937.log",
+   "out": "refine/logs/P2-3.checker.1015-124937.out.json",
+   "expects": "build/work/refine/P2-3.check.json",
+   "finished": "2026-10-15T12:50:16+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [P2-3.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/P2-3.check.json)."
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 21562,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:03:16+08:00",
+   "log": "refine/logs/P2-3.solver.1015-220316.log",
+   "out": "refine/logs/P2-3.solver.1015-220316.out.json",
+   "expects": "build/work/blind/P2-3.refine.answers.json",
+   "finished": "2026-10-15T22:03:35+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions: build/work/blind/P2-3.refine.answers.json"
+   },
+   "ok": true,
+   "cost_usd": 0.021
+  }
+ },
+ "plan": {
+  "improvements": 4,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 0,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 4,
+  "diagrams": 1,
+  "note_lines": 16,
+  "cards": 0,
+  "other": 2
+ },
+ "last_refined": "2026-10-15T22:14:46+08:00"
+}
