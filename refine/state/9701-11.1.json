@@ -1,0 +1,149 @@
+{
+ "sub": "9701-11.1",
+ "stage": "ready",
+ "pass": 2,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T09:02:12+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T08:18:41+08:00",
+   "from": "plan",
+   "to": "ready",
+   "note": "nothing worth adding: Chapter already meets the bar: gates clean, all three KCs well covered with past MCQs, mapped distractors and misconcept"
+  },
+  {
+   "t": "2026-10-15T08:24:21+08:00",
+   "from": "ready",
+   "to": "plan",
+   "note": "pass 2"
+  },
+  {
+   "t": "2026-10-15T08:47:54+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 1 improvements"
+  },
+  {
+   "t": "2026-10-15T08:49:39+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 note_lines"
+  },
+  {
+   "t": "2026-10-15T09:02:08+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "0 of 0 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T09:02:12+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 note_lines"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 39,
+  "extra": 9,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 2123,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 0,
+   "started": "2026-10-15T08:43:27+08:00",
+   "log": "refine/logs/9701-11.1.scout.1015-084327.log",
+   "out": "refine/logs/9701-11.1.scout.1015-084327.out.json",
+   "expects": "build/work/refine/9701-11.1.plan.json",
+   "finished": "2026-10-15T08:47:54+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 1,
+    "plan_path": "build/work/refine/9701-11.1.plan.json",
+    "notes": [
+     "Gates are clean (validator/lint/syllabus/figures all 0); text content, misconceptions and questions already meet the bar across all three KCs.",
+     "No diagram_hints suggestion for this subtopic (colour/state/force content doesn't fit a standard diagram type).",
+     "Figure source: sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c11.1.pdf page 6, box [0.06,0.05,0.75,0.36] — a labelled two-panel drawing of instantaneous dipole formation and induction in I2 molecules; verified legible by rendering the crop.",
+     "Checked library.search and the halogenoarene-reactivity PDF pages (c31.1.pdf p5/p11) too but they cover a different topic and were not used."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 0.668
+  },
+  "refiner": {
+   "pid": 4872,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T08:48:16+08:00",
+   "log": "refine/logs/9701-11.1.refiner.1015-084816.log",
+   "out": "refine/logs/9701-11.1.refiner.1015-084816.out.json",
+   "finished": "2026-10-15T08:49:39+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 1,
+    "new_items": [],
+    "new_diagrams": [
+     "Assets/9701/9701-11-1-fig-dipole-induction.png"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 8016,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T08:55:35+08:00",
+   "log": "refine/logs/9701-11.1.checker.1015-085535.log",
+   "out": "refine/logs/9701-11.1.checker.1015-085535.out.json",
+   "expects": "build/work/refine/9701-11.1.check.json",
+   "finished": "2026-10-15T08:56:02+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9701-11.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-11.1.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 1,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 1,
+   "questions": 0,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "last_checked": "2026-10-15T08:18:41+08:00",
+ "checked": true,
+ "maker": "codex",
+ "same_family": false,
+ "last_additions": {
+  "questions": 0,
+  "diagrams": 0,
+  "note_lines": 3,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T09:02:12+08:00"
+}
