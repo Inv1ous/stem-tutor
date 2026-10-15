@@ -1,5 +1,8 @@
 # Build status
 
+## v2.4.2 (2026-10-15) — done
+- Refine gives up a pass whose gates stay red three times, instead of retrying without end.
+
 ## v2.4.1 (2026-10-15) — done
 - Refine: first real run fixed: slots counted twice, and old links/missing diagrams no longer block a refiner that may only add.
 

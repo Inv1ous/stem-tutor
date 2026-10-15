@@ -99,3 +99,8 @@ Aim for at most 40 tool calls.
 
 Reply with the JSON report the output schema asks for: improvements applied, the new item ids, the new diagram files,
 list the new figure files in `new_diagrams` too, and in `not_done` any planned entry you skipped and why.
+
+## Command words and figures (the gates fail these, and a failing pass is given up after three tries)
+
+- Write new questions with ONLY the command words in the chapter's bundle (`build/work/bundles/<sub>.md`, "Command words"): a word such as `Estimate` that the syllabus does not list fails the syllabus gate.
+- Embed every figure you crop: `![[Assets/...png]]` plus its source caption, in the note, before you finish. Crop no more than the plan asks for; delete or leave out the rest. If you cannot embed what the plan asked for, say so in `not_done` rather than leaving it half done.

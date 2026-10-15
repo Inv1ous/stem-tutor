@@ -83,3 +83,7 @@ Priority order: most valuable first (the system keeps the first ones when a list
 
 Reply with the JSON report the output schema asks for: the number of improvements, the plan path, and in `notes`
 anything the refiner must know (a library passage to read, a source you could not reach).
+
+## Plan only what the gates allow
+
+- A new question may use only the command words listed in the chapter's bundle. Plan figures only when you are sure the refiner can crop and embed them; fewer is better.

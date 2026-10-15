@@ -529,10 +529,49 @@ def cmd_next() -> None:
             print(f"{st['sub']:<11} {st['stage']:<11} → {action(st)}")
 
 
+MAX_UNCLEAN = 3  # consecutive attempts that end with the gates still red before a pass is given up
+
+
+def unclean_streak(st: dict) -> int:
+    """How many of the latest history entries, in a row, say a worker finished with the gates not clean."""
+    n = 0
+    for h in reversed(st["history"]):
+        if "gates are not clean" not in h.get("note", ""):
+            break
+        n += 1
+    return n
+
+
+def give_up(sub: str, why: str) -> None:
+    """Drop this pass's additions and mark the chapter ready as it was: a refiner that cannot get past the gates must
+    not loop on the learner's allowance. What was committed before this pass stays; what is uncommitted goes (git),
+    or, with no git history for the files, the snapshot taken before the pass is put back."""
+    st0 = load(sub)
+    pack_file = pack_path(sub)
+    pack = json.loads(pack_file.read_text())
+    note = note_path(pack)
+    rel = [str(f.relative_to(fd.ROOT)) for f in (pack_file, note) if f.exists()]
+    done = subprocess.run(["git", "checkout", "--", *rel], cwd=fd.ROOT, capture_output=True).returncode == 0
+    before = snapshot(sub)
+    if not done and before is not None:
+        pack_file.write_text(json.dumps(before["pack"], ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        if note.is_file():
+            note.write_text(before.get("note", ""), encoding="utf-8")
+    with chapter(sub) as st:
+        st["abandoned"] = {"at": now(), "pass": st.get("pass", st0.get("pass", 1)), "why": why[:300]}
+        st["gates"] = None
+        move(st, "ready", f"given up after {MAX_UNCLEAN} attempts left the gates red: {why[:160]}; additions dropped")
+
+
 def cmd_step(only: list[str] | None = None) -> None:
     for st in chapters():
         sub, (verb, *rest) = st["sub"], todo(st)
         if only and sub not in only:
+            continue
+        if st["stage"] in ("refine", "fix", "recheck") and not _running(st) and unclean_streak(st) >= MAX_UNCLEAN:
+            last = st["history"][-1].get("note", "")
+            give_up(sub, last.split("gates are not clean:", 1)[-1].strip())
+            print(f"{sub}: given up (gates red {unclean_streak(st)} times in a row); its additions were dropped")
             continue
         try:
             if verb == "run":
@@ -1036,7 +1075,8 @@ def coverage() -> dict:
             if glyphs.data_problems(pack) or (note.is_file() and glyphs.problems(note.read_text(encoding="utf-8"))):
                 wobbly.append(s)
     return {"speech_gaps": fd.pregen.gaps_report(), "refined": refined, "never": [s for s in signed if s not in refined], "no_diagram": sorted(set(bare), key=fd._natural),
-            "glyphs": sorted(wobbly, key=fd._natural)}
+            "glyphs": sorted(wobbly, key=fd._natural),
+            "given_up": {st["sub"]: st["abandoned"]["why"] for st in chapters() if st.get("abandoned")}}
 
 
 def cmd_coverage(args: list[str]) -> None:
@@ -1050,6 +1090,10 @@ def cmd_coverage(args: list[str]) -> None:
         print(f"{sub:<11} {r['stage']:<11} {r['passes']:<8} {_short_date(r['last']):<11} {added}")
     print(f"\nSigned chapters never refined ({len(c['never'])}): {' '.join(c['never'][:40])}"
           + (" …" if len(c["never"]) > 40 else ""))
+    if c["given_up"]:
+        print(f"\nPasses given up after {MAX_UNCLEAN} red attempts (their additions were dropped; the chapter is as it was):")
+        for sub, why in c["given_up"].items():
+            print(f"  {sub}: {why[:150]}")
     if c["glyphs"]:
         print(f"\nChapters with Unicode sub/superscript letters that wobble in the terminal ({len(c['glyphs'])}): "
               f"{' '.join(c['glyphs'])}  (repair: .venv/bin/python build/glyphs.py --write)")

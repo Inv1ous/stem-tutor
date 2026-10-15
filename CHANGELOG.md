@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.4.2 — 2026-10-15
+
+Found by the learner in the refine board's log.
+
+- **Refine retried without end.** Three chapters (9702-1.1, 9701-13.2, 9701-13.4) were retried 132, 216 and 215 times: a
+  question using a command word the syllabus does not list (`Estimate`), and figures that were cropped but never embedded,
+  failed the gates again and again, and every retry spent allowance. A pass whose gates are still red after three attempts
+  in a row is now given up (`refine.give_up`): the pass's additions are dropped (git restore of the pack and note, or the
+  snapshot when there is no history), the chapter goes back to ready exactly as it was, and `refine coverage` lists it with
+  the reason so it can be refined again. The refiner and scout instructions now say to use only the bundle's command words
+  and to embed every figure they crop (or report it in `not_done`).
+
 ## 2.4.1 — 2026-10-15
 
 Found on the first real `/refine all` run.

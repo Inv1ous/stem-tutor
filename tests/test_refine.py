@@ -597,3 +597,27 @@ def test_a_running_refine_job_is_counted_once_not_twice(rf):
     with rf.chapter(SUB) as st:
         st["jobs"]["scout"] = {"provider": "codex", "pid": os.getpid(), "started": rf.now()}
     assert rf._busy().get("codex", []).count("scout") == 1
+
+
+def test_a_pass_whose_gates_stay_red_is_given_up_and_its_additions_are_dropped(rf, monkeypatch):
+    """Found on the first real run: a refiner that could not get past a gate was retried 130-216 times on the allowance."""
+    rf.cmd_add([SUB])
+    pack_before = rf.pack_path(SUB).read_text()
+    with rf.chapter(SUB) as st:
+        rf.take_snapshot(SUB, 1)
+        rf.move(st, "refine", "test")
+        for _ in range(rf.MAX_UNCLEAN):
+            st["history"].append({"t": rf.now(), "from": "refine", "to": "refine",
+                                  "note": "refiner finished but gates are not clean: ['syllabus command-word Estimate']"})
+    pack = json.loads(pack_before)
+    pack["items"][0]["stem"] += " (an addition that cannot pass)"
+    rf.pack_path(SUB).write_text(json.dumps(pack))  # the refiner's uncommitted change
+    monkeypatch.setattr(rf.subprocess, "run", lambda *a, **k: type("R", (), {"returncode": 1})())  # tmp root: no git
+    assert rf.unclean_streak(rf.load(SUB)) == rf.MAX_UNCLEAN
+    rf.cmd_step([SUB])
+    st = rf.load(SUB)
+    assert st["stage"] == "ready" and "Estimate" in st["abandoned"]["why"] and st["gates"] is None
+    assert "an addition that cannot pass" not in rf.pack_path(SUB).read_text()  # restored from the snapshot
+    assert rf.coverage()["given_up"] == {SUB: st["abandoned"]["why"]}
+    two = {**st, "history": st["history"][:-1] + [{"note": "refiner finished but gates are not clean"}, {"note": "refined"}]}
+    assert rf.unclean_streak(two) == 0  # the streak is consecutive failures only
