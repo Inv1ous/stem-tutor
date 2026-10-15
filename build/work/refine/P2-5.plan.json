@@ -1,0 +1,25 @@
+{
+ "summary": "Add the missing exponential graph and strengthen written practice with logarithm laws and non-rational exponential solutions.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after ## Key ideas; pack diagrams",
+   "why": "P2-5.1 requires the graph of $y=a^x$, and the figures gate reports that the chapter has no graph.",
+   "what": "Use graph_sketch to show $y=2^x$ and $y=(1/2)^x$ on shared axes, both passing through $(0,1)$ and approaching the labelled asymptote $y=0$; label which curve increases and which decreases. Embed it in the note."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-5.3",
+   "why": "Five of the six existing questions have simple rational exponents, and all six are multiple choice; learners need to show logarithm steps and give exact or rounded answers.",
+   "count": 3,
+   "what": "Add written exam-style items solving equations such as $3^x=14$ and $(1/2)^x=7$, including an Exact answer $\\ln b/\\ln a$ and a Calculate answer to specified significant figures; include a Show that or Hence part requiring the logarithm step and a check that $b>0$."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-5.2",
+   "why": "All six existing logarithm-law questions are multiple choice and none requires a written derivation or checking the domain of a combined expression.",
+   "count": 2,
+   "what": "Add written exam-style simplification and Show that questions combining product, quotient and power laws with symbolic positive arguments; require explicit positivity conditions and distinguish $\\log_a(x+y)$ from $\\log_a x+\\log_a y$."
+  }
+ ]
+}

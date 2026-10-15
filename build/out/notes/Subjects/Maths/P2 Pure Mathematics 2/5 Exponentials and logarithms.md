@@ -9,6 +9,8 @@ kcs: ["P2-5.1", "P2-5.2", "P2-5.3"]
 > Exponential functions turn an input into an exponent. Logarithms reverse that operation, and their laws let you simplify expressions and solve equations with unknown exponents.
 
 ## Key ideas
+![[Assets/P2/P2-5-exponential-graphs.svg]]
+
 For the exponential function $y=a^x$, require $a>0$ and $a\ne1$. Every curve passes through $(0,1)$ because $a^0=1$. Its outputs are positive, so it never touches or crosses the $x$-axis; $y=0$ is a horizontal asymptote. Its domain is all real numbers and its range is positive real numbers. If $a>1$, the graph increases from left to right. If $0<a<1$, it decreases. A sketch should label $(0,1)$ and the asymptote and show the correct direction.
 
 The statement $\log_a b=x$ means exactly $a^x=b$. Here $a>0$, $a\ne1$, and $b>0$. This inverse relationship gives $\log_a a=1$ and $\log_a1=0$. The argument of a real logarithm must be positive; a zero or negative argument is invalid.
