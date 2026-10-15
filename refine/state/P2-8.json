@@ -1,0 +1,170 @@
+{
+ "sub": "P2-8",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T23:12:53+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T22:09:24+08:00",
+   "from": "plan",
+   "to": "plan",
+   "note": "scout finished but gates are not clean: [\"sources the learner's library has 6 pages for this chapter (listed under 'Library hits' in the bundle) and you did not open it: run `.venv/bin/python build/library.py for <chapter>` and `text <pdf> --\"]"
+  },
+  {
+   "t": "2026-10-15T22:51:49+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 5 improvements"
+  },
+  {
+   "t": "2026-10-15T22:59:59+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions, 2 diagrams, 12 note_lines"
+  },
+  {
+   "t": "2026-10-15T23:04:15+08:00",
+   "from": "solve",
+   "to": "solve",
+   "note": "refined: 3 questions, 2 diagrams, 12 note_lines"
+  },
+  {
+   "t": "2026-10-15T23:08:34+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "1 of 1 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T23:12:53+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions, 2 diagrams, 12 note_lines"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 22,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 44120,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:50:53+08:00",
+   "log": "refine/logs/P2-8.scout.1015-225053.log",
+   "out": "refine/logs/P2-8.scout.1015-225053.out.json",
+   "expects": "build/work/refine/P2-8.plan.json",
+   "finished": "2026-10-15T22:51:49+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 5,
+    "plan_path": "build/work/refine/P2-8.plan.json",
+    "notes": [
+     "Read the learner’s SaveMyExams YMA01 c8.1.pdf, pp. 28–35, for area between curves and the trapezium rule. Checked Pearson’s official P2 specification for the radical-integral and error-estimation requirements.",
+     "The existing [[9 Differential equations]] link fails the gate. The scout’s addition-only rule prevents this plan from replacing it."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 46649,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T22:55:46+08:00",
+   "log": "refine/logs/P2-8.refiner.1015-225546.log",
+   "out": "refine/logs/P2-8.refiner.1015-225546.out.json",
+   "finished": "2026-10-15T23:04:15+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 5,
+    "new_items": [
+     "P2-8-r01",
+     "P2-8-r02",
+     "P2-8-r03"
+    ],
+    "new_diagrams": [
+     "Assets/P2/P2-8-bounded-area.svg",
+     "Assets/P2/P2-8-trapezia.svg"
+    ],
+    "not_done": [
+     "Inherited [[9 Differential equations]] link preserved under the no-loss rule; exempted by the refine gate. All planned additions completed and all gates pass."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 52298,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T23:03:52+08:00",
+   "log": "refine/logs/P2-8.solver.1015-230352.log",
+   "out": "refine/logs/P2-8.solver.1015-230352.out.json",
+   "expects": "build/work/blind/P2-8.refine.answers.json",
+   "finished": "2026-10-15T23:04:38+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question and wrote to build/work/blind/P2-8.refine.answers.json."
+   },
+   "ok": true,
+   "cost_usd": 0.056
+  },
+  "checker": {
+   "pid": 52300,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T23:03:52+08:00",
+   "log": "refine/logs/P2-8.checker.1015-230352.log",
+   "out": "refine/logs/P2-8.checker.1015-230352.out.json",
+   "expects": "build/work/refine/P2-8.check.json",
+   "finished": "2026-10-15T23:05:08+08:00",
+   "exit": 0,
+   "report": {
+    "text": "**0 findings** written to `build/work/refine/P2-8.check.json`.\n\nAll additions for chapter P2-8 pass the checker rules:\n- No hints give away answers (rule 1)\n- Definitions align with bundle statements (rule 2)\n- Calculations are mathematically correct (rule 4)\n- Content is consistent with the pack (rule 5)\n- All content is on-syllabus (rule 6)\n- All three KCs are properly taught and tested (rule 7)\n- Content is paraphrased/original, not copied verbatim (rule 8)\n- No bad chapter links in the additions (rule 9)"
+   },
+   "ok": true,
+   "cost_usd": 0.193
+  }
+ },
+ "plan": {
+  "improvements": 5,
+  "dropped": [],
+  "kinds": {
+   "diagram": 2,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 1,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 3,
+  "diagrams": 2,
+  "note_lines": 12,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T23:12:53+08:00"
+}

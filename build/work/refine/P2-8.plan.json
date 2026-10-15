@@ -1,0 +1,37 @@
+{
+ "summary": "Add visual models and varied exam practice for bounded area and trapezium estimates.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the bounded-area paragraph in ## Key ideas",
+   "why": "P2-8.2 asks learners to identify the upper curve and the bounded region; the diagram gate requires a figure.",
+   "what": "Add a graph_sketch of $y=6x-x^2$ and $y=2x$ on $0\\leq x\\leq4$, with intersections labelled and the enclosed region shaded; request it in pack diagrams and embed the generated SVG in the note."
+  },
+  {
+   "kind": "diagram",
+   "where": "note, after the trapezium-rule formula in ## Key ideas",
+   "why": "P2-8.3 is easier to understand when the shared interior ordinates and straight trapezium edges are visible.",
+   "what": "Add a graph_sketch of $y=x^2$ on $[0,2]$ with two trapezia, labelled width $h$ and the middle ordinate; show that the straight edges lie above the curve. Request and embed the generated SVG."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-8.3",
+   "why": "All existing numerical trapezium items repeat $x^2$ on $[0,2]$, whereas Pearson specifies a radical example and possible error estimates.",
+   "count": 2,
+   "what": "Add an exam-style four-strip estimate for $\\int_0^1\\sqrt{2x+1}\\,dx$ with a table of five ordinates, and a linked error question comparing with the exact integral; use Calculate/Show that and full working."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-8.2",
+   "why": "Current bounded-area items all use a quadratic and line meeting at zero and one positive value, so they never test splitting when curves cross within the requested interval.",
+   "count": 1,
+   "what": "Add a structured area question on a stated interval where the upper curve changes at an interior intersection; require the learner to split the integral and add positive areas."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Method",
+   "why": "The library advises repeating the area calculation for each region and adding, while the current worked example covers only one region.",
+   "what": "Add a brief two-region worked demonstration: find every crossing, determine the upper curve separately on each interval, integrate each positive difference, then add the areas. Paraphrase the library method."
+  }
+ ]
+}

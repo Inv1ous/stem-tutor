@@ -15,10 +15,16 @@ The definite integral represents signed area between a curve and the $x$-axis. W
 
 For a region bounded by two curves, solve $f(x)=g(x)$ to find the intersection coordinates. On each interval, identify which curve is higher. Then the enclosed area is $\int_a^b(\text{upper}-\text{lower})\,dx$. A straight line is treated just like another curve. If the order changes, split at the crossing. The result is in square units when both axes measure lengths in the same unit.
 
+![[Assets/P2/P2-8-bounded-area.svg]]
+The shaded region lies above $y=2x$ and below $y=6x-x^2$, between $(0,0)$ and $(4,8)$.
+
 The trapezium rule is numerical integration: it estimates area from function values when an antiderivative is inconvenient. Divide $[a,b]$ into $n$ equal strips of width $h=(b-a)/n$, and let $y_i=f(a+ih)$. Then
 $$
 T=\frac h2[y_0+2y_1+2y_2+\cdots+2y_{n-1}+y_n].
 $$
+![[Assets/P2/P2-8-trapezia.svg]]
+The middle ordinate borders both strips, so it is counted twice in the bracket; both straight top edges lie above the curve.
+
 This is equivalent to giving the first and last ordinates half weight. For a convex curve such as $y=x^2$, the straight edges lie above the curve, so the rule overestimates. More strips usually reduce the error, although the direction and size depend on the curve. If asked for an error, compare the estimate with an exact integral: absolute error is $|T-I|$, and percentage error is $100|T-I|/|I|\%$ when $I\ne0$.
 
 ## Method
@@ -34,6 +40,17 @@ This is equivalent to giving the first and last ordinates half weight. For a con
 > A=\int_0^4[(6x-x^2)-2x]\,dx=[2x^2-x^3/3]_0^4=32/3.
 > $$
 > The area is $32/3$ square units.
+
+
+> [!example]- Worked example: the upper curve changes
+> Find the total area between $y=x^2$ and $y=x+2$ on $0\leq x\leq3$.
+> Solve $x^2=x+2$: $(x-2)(x+1)=0$. The crossings are $x=-1,2$; only $x=2$ lies in the stated interval.
+> Testing either side shows that $x+2$ is upper on $[0,2]$, while $x^2$ is upper on $[2,3]$.
+> Integrate the positive difference separately: $A_1=[x^2/2+2x-x^3/3]_0^2=10/3$ and $A_2=[x^3/3-x^2/2-2x]_2^3=11/6$.
+> Add the regions: $A=A_1+A_2=31/6$ square units. The stated endpoints remain boundaries even though they are not crossings.
+
+*Method reference: learner's library, `sources/library/SaveMyExams/YMA01 pure-2/YMA01 c8.1.pdf`, pp.28–31; trapezium guidance, pp.34–35. The method above is paraphrased and the example is original.*
+*Practice scope checked against [Pearson's official specification, P2 section 8](https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf): four-strip radical estimates and comparison of errors.*
 
 ## Traps
 - **Trap:** Add the two limit values. **Why it's wrong:** The definite integral is a change in antiderivative. **Instead:** Use $F(b)-F(a)$.
