@@ -2813,6 +2813,157 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9701-6.1-r01",
+   "kcs": [
+    "9701-6.1.2"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the smallest whole-number coefficients for $\\ce{Cu(s) + HNO3(aq) -> Cu(NO3)2(aq) + NO(g) + H2O(l)}$, where the acid is dilute. (a) State the oxidation-number changes of Cu and of the N that forms NO. (b) Use electron loss and gain to find the Cu:NO ratio. (c) Write the complete balanced equation and explain how you counted all the nitrate groups. (d) Check the number of atoms of every element on each side.",
+   "hints": [
+    "Separate the nitrate groups that change oxidation number from those that remain nitrate.",
+    "Match total electron loss and gain first, then count nitrate groups in the salt before balancing water.",
+    "Start by assigning oxidation numbers to elemental copper and to nitrogen in the acid and nitrogen oxide; use the usual values for H and O."
+   ],
+   "explanation": "Each Cu loses two electrons and each N reduced to NO gains three, so three Cu supply the six electrons gained by two N atoms. The salt also needs six unchanged nitrate ions, making eight nitric acid units in total; balancing H then gives four waters. The final atom totals on each side are Cu 3, H 8, N 8 and O 24.",
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Cu changes from $0$ to $+2$ (oxidation)."
+    },
+    {
+     "mark": "B1",
+     "point": "N changes from $+5$ in nitric acid to $+2$ in NO (reduction)."
+    },
+    {
+     "mark": "M1",
+     "point": "Each Cu loses two electrons and each N forming NO gains three; $3\\times2=2\\times3=6$, giving Cu:NO $=3:2$."
+    },
+    {
+     "mark": "B1",
+     "point": "Two nitrate groups are reduced to NO and six remain as nitrate in three $\\ce{Cu(NO3)2}$ formula units, requiring $2+6=8$ acid units."
+    },
+    {
+     "mark": "A1",
+     "point": "$\\ce{3Cu(s) + 8HNO3(aq) -> 3Cu(NO3)2(aq) + 2NO(g) + 4H2O(l)}$."
+    },
+    {
+     "mark": "B1",
+     "point": "Both sides contain Cu 3, H 8, N 8 and O 24; on the right N is $6+2$ and O is $18+2+4$."
+    }
+   ],
+   "marks": 6
+  },
+  {
+   "id": "9701-6.1-r02",
+   "kcs": [
+    "9701-6.1.2"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "In acidic solution, $\\ce{Cr2O7^{2-}(aq)}$ oxidises $\\ce{Fe^{2+}(aq)}$ to $\\ce{Fe^{3+}(aq)}$ and is reduced to $\\ce{Cr^{3+}(aq)}$. Deduce the balanced ionic equation using the smallest whole-number coefficients. Show (a) the oxidation-number changes and electron balance, (b) the equation including hydrogen ions and water, and (c) an explicit calculation of the total charge on each side.",
+   "hints": [
+    "Account for every atom of the element that is reduced in one dichromate ion.",
+    "Match electron changes before using water to balance oxygen and hydrogen ions to balance hydrogen.",
+    "Write the oxidation-number sum for the dichromate ion, using oxygen at its usual value, then compare each chromium atom with the product ion."
+   ],
+   "explanation": "Each Cr falls from $+6$ to $+3$, so one dichromate ion gains six electrons while six iron(II) ions each lose one. Balancing oxygen and hydrogen requires seven waters and fourteen hydrogen ions. The charges are $-2+6(+2)+14(+1)=+24$ and $2(+3)+6(+3)=+24$, confirming charge conservation.",
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Cr changes from $+6$ to $+3$ and Fe from $+2$ to $+3$."
+    },
+    {
+     "mark": "M1",
+     "point": "Two Cr atoms gain $2\\times3=6$ electrons per dichromate ion; each Fe loses one, so dichromate:iron(II) $=1:6$."
+    },
+    {
+     "mark": "A1",
+     "point": "$\\ce{Cr2O7^{2-}(aq) + 6Fe^{2+}(aq) + 14H+(aq) -> 2Cr^{3+}(aq) + 6Fe^{3+}(aq) + 7H2O(l)}$."
+    },
+    {
+     "mark": "B1",
+     "point": "Left charge $=-2+6(+2)+14(+1)=+24$; right charge $=2(+3)+6(+3)=+24$; the totals agree."
+    }
+   ],
+   "marks": 4
+  },
+  {
+   "id": "9701-6.1-r03",
+   "kcs": [
+    "9701-6.1.5"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Deduce",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Deduce the name of $\\ce{Co2O3}$ using a Roman numeral for cobalt. Show a one-line oxidation-number calculation, taking oxygen as $-2$, and state what the numeral represents.",
+   "hints": [
+    "The compound is electrically neutral, so the oxidation-number sum is zero.",
+    "Call the oxidation number of one cobalt atom x and include the atom counts in your sum.",
+    "After solving for x, convert its magnitude to a Roman numeral placed after the metal name."
+   ],
+   "explanation": "For $\\ce{Co2O3}$, $2x+3(-2)=0$ gives $x=+3$, so the name is cobalt(III) oxide. III is the magnitude of the oxidation number per cobalt atom, not the number of cobalt atoms in the formula.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "$2x+3(-2)=0$, so $x=+3$ for each cobalt atom.",
+     "keywords": [
+      [
+       "2x",
+       "2 x",
+       "2(x)"
+      ],
+      [
+       "-2"
+      ],
+      [
+       "+3",
+       "x=3",
+       "x = 3"
+      ]
+     ]
+    },
+    {
+     "point": "The name is cobalt(III) oxide.",
+     "keywords": [
+      [
+       "cobalt(iii) oxide",
+       "cobalt (iii) oxide"
+      ]
+     ]
+    },
+    {
+     "point": "III gives the magnitude of the oxidation number per cobalt atom, not the number of atoms.",
+     "keywords": [
+      [
+       "magnitude"
+      ],
+      [
+       "oxidation number",
+       "oxidation state"
+      ],
+      [
+       "each",
+       "per atom",
+       "one cobalt",
+       "single cobalt"
+      ]
+     ]
+    }
+   ]
   }
  ],
  "flashcards": [
