@@ -1,0 +1,24 @@
+{
+ "summary": "Add a visual rate graph and targeted practice for reading changing rates from experimental data.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after ## Key ideas",
+   "why": "Outcome 9701-8.1.3 asks learners to calculate rate from experimental data, while the note describes chord and tangent gradients without showing either on a graph.",
+   "what": "Use graph_sketch for product concentration against time, with a rising curve that flattens, a labelled chord over an interval and a tangent at one time; annotate average versus instantaneous gradient and embed the rendered SVG in the note."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-8.1.3",
+   "why": "The only tangent item asks for a verbal method; there is no calculation of instantaneous rate from supplied tangent points.",
+   "count": 1,
+   "what": "Exam-style numeric item giving two well-separated points on a tangent to a concentration-time curve; calculate the instantaneous rate with the correct sign and unit."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the existing worked example",
+   "why": "The worked example covers only a straight average-rate calculation, but the method introduces instantaneous rate without a numerical demonstration.",
+   "what": "Add a short worked tangent-gradient example using two points on a tangent to a reactant concentration-time curve, showing subtraction, negative gradient, positive disappearance rate and units."
+  }
+ ]
+}
