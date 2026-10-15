@@ -1,0 +1,25 @@
+{
+ "summary": "Add teaching cards for all four outcomes and broaden numerical practice for gravitational potential and kinetic energy.",
+ "improvements": [
+  {
+   "kind": "feature",
+   "where": "build/work/teach/9702-5.2.json and pack teach field, all four KCs",
+   "why": "The syllabus gate reports no teaching card for 9702-5.2.1 through 9702-5.2.4.",
+   "what": "Create one complete teaching card per KC using motivate, discover MCQ, establish, connect, note and self_explain. For 5.2.1 elicit why the displacement is vertical height in $W=Fs$; for 5.2.2 distinguish signed height change from ramp distance and steady falling speed; for 5.2.3 elicit the role of $v^2-u^2=2as$ in deriving $E_K$; for 5.2.4 distinguish total speed from vertical component at a projectile's highest point. Merge the cards into the pack."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-5.2.2",
+   "why": "Twenty MCQs but only one numeric item; learners need independent calculation with signed height and units.",
+   "count": 1,
+   "what": "Add a parameterized numeric item requiring $\\Delta E_P=mg\\Delta h$ for a fall or rise, with sign stated explicitly, SI conversion, three progressive hints and explanation."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-5.2.4",
+   "why": "Fourteen MCQs but only one numeric item; calculation of speed from kinetic energy needs active practice.",
+   "count": 1,
+   "what": "Add a parameterized numeric item rearranging $E_K=\\tfrac12mv^2$ to find speed, including mass conversion, sensible significant figures, three progressive hints and explanation."
+  }
+ ]
+}

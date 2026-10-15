@@ -1,0 +1,74 @@
+{
+ "9702-5.2.1": {
+  "motivate": "A longer ramp reduces the force needed to lift a load. Does it also reduce the energy stored when the load reaches the same height?",
+  "discover": {
+   "stem": "Identify the displacement to multiply by weight when finding work done against gravity along a ramp.",
+   "options": {
+    "A": "The full ramp length",
+    "B": "The horizontal distance",
+    "C": "The vertical rise",
+    "D": "The vertical rise squared"
+   },
+   "answer": "C",
+   "explanation": "Weight acts vertically, so only vertical displacement contributes to work against gravity; horizontal motion contributes none."
+  },
+  "establish": "Consider a mass $m$ lifted vertically at constant speed, with no resistive forces, in a uniform gravitational field. Zero acceleration means the lifting force balances weight: $F=mg$. Work by this force is $W=Fs$, where $s=\\Delta h$ is its vertical displacement. This work increases gravitational potential energy, so $\\Delta E_P=W=mg\\Delta h$. For another path between the same heights, only displacement against the vertical weight contributes; ramp length is not the height change.",
+  "connect": "Use work done from [[5.1 Energy conservation]] and weight from [[3.1 Momentum and Newton’s laws of motion]]. A uniform field makes $mg$ constant.",
+  "note": "- Start with $W=Fs$ and weight $mg$.\n- For a steady vertical lift, $F=mg$ and $s=\\Delta h$.\n- Work against gravity gives $\\Delta E_P=mg\\Delta h$; use vertical height.",
+  "self_explain": "Explain why doubling ramp length without changing its endpoints does not double the gravitational potential energy gained."
+ },
+ "9702-5.2.2": {
+  "motivate": "A parachutist can lose height while her speed stays constant. Track height and speed separately to decide which energy store changes.",
+  "discover": {
+   "stem": "A parcel slides down a ramp at steady speed. Identify its energy changes.",
+   "options": {
+    "A": "Gravitational potential energy decreases; kinetic energy is unchanged.",
+    "B": "Gravitational potential energy decreases; kinetic energy increases.",
+    "C": "Both energies stay unchanged.",
+    "D": "Gravitational potential energy increases; kinetic energy is unchanged."
+   },
+   "answer": "A",
+   "explanation": "The parcel loses height, so gravitational potential energy decreases. Its speed stays constant, so kinetic energy does not change; resistive forces transfer energy to internal energy."
+  },
+  "establish": "Use $\\Delta E_P=mg\\Delta h$ with $\\Delta h=h_{final}-h_{initial}$ and upward height positive. Convert mass to kilograms and height to metres; use $g=9.81\\,\\mathrm{m\\,s^{-2}}$. A rise gives a positive change; a fall gives a negative change. If asked for energy lost, quote the positive magnitude. For a ramp, use the vertical height difference. During a steady fall, kinetic energy stays constant; gravitational potential energy is transferred to internal energy through resistance.",
+  "connect": "The preceding derivation tells you which distance belongs in the formula. Energy conservation then accounts for the energy lost during a steady descent.",
+  "note": "- $\\Delta E_P=mg(h_{final}-h_{initial})$ in a uniform field.\n- Use kilograms and vertical metres, not ramp distance.\n- A fall has negative $\\Delta E_P$; its loss magnitude is positive.\n- Constant falling speed means constant kinetic energy.",
+  "self_explain": "Explain why a negative gravitational potential energy change does not necessarily mean a gain in kinetic energy."
+ },
+ "9702-5.2.3": {
+  "motivate": "The work formula for a constant force contains no factor of one half. Find where that factor enters the kinetic energy formula.",
+  "discover": {
+   "stem": "After writing $W=Fs=mas$, identify the relation that eliminates $as$ in terms of initial and final speeds.",
+   "options": {
+    "A": "$as=v-u$",
+    "B": "$as=v^2-u^2$",
+    "C": "$as=(v-u)^2/2$",
+    "D": "$as=(v^2-u^2)/2$"
+   },
+   "answer": "D",
+   "explanation": "Rearrange $v^2-u^2=2as$. The division by two comes from this motion equation, not from changing $W=Fs$."
+  },
+  "establish": "Take constant mass $m$ under a constant resultant force parallel to straight-line motion. Newton’s second law gives $F=ma$, and net work is $W=Fs=mas$. From $v^2-u^2=2as$, substitute $as=(v^2-u^2)/2$: $W=\\tfrac12mv^2-\\tfrac12mu^2$. Net work is the change in kinetic energy. Starting from rest, $u=0$, and kinetic energy at rest is zero, giving $E_K=\\tfrac12mv^2$. The factor one half enters through the equation of motion.",
+  "connect": "Combine [[2.1 Equations of motion]] with [[5.1 Energy conservation]]. Use the resultant force because it determines acceleration and its work determines the change in kinetic energy.",
+  "note": "- Use $W=Fs$ and resultant force $F=ma$.\n- Rearrange $v^2-u^2=2as$ before substituting.\n- $W=\\tfrac12m(v^2-u^2)=\\Delta E_K$.\n- From rest, $E_K=\\tfrac12mv^2$.",
+  "self_explain": "Explain why using $W=\\tfrac12Fs$ would introduce an extra, incorrect factor of one half."
+ },
+ "9702-5.2.4": {
+  "motivate": "A ball moving along a curved path is briefly neither rising nor falling at its highest point. Its sideways motion still carries kinetic energy.",
+  "discover": {
+   "stem": "A projectile has nonzero horizontal velocity and negligible air resistance. Identify its speed at the highest point.",
+   "options": {
+    "A": "Zero, because vertical velocity is zero.",
+    "B": "The magnitude of its horizontal velocity.",
+    "C": "Its initial total speed, because horizontal velocity is constant.",
+    "D": "The sum of its initial horizontal and vertical speeds."
+   },
+   "answer": "B",
+   "explanation": "At the top $v_y=0$, while $v_x$ remains nonzero. Total speed is $\\sqrt{v_x^2+v_y^2}=|v_x|$, so kinetic energy is not zero."
+  },
+  "establish": "Use $E_K=\\tfrac12mv^2$, with mass in kilograms and total speed in $\\mathrm{m\\,s^{-1}}$. For perpendicular components, $v^2=v_x^2+v_y^2$. At a projectile’s highest point, only its vertical component vanishes. To find speed from energy, rearrange to $v=\\sqrt{2E_K/m}$ and take the positive root. Convert grams to kilograms before substitution; keep unrounded values until the final answer. Doubling speed at fixed mass quadruples kinetic energy.",
+  "connect": "The derivation explains why speed is squared. For a projectile, resolve velocity first, then use the speed that remains at the point being considered.",
+  "note": "- $E_K=\\tfrac12mv^2$ uses total speed and mass in kilograms.\n- Find speed using $v=\\sqrt{2E_K/m}$.\n- At maximum projectile height, $v_y=0$ but $v_x$ can remain.\n- Energy is in joules; speed is in $\\mathrm{m\\,s^{-1}}$.",
+  "self_explain": "Explain why a vertically thrown ball can have zero kinetic energy at its highest point while a projectile with horizontal motion does not."
+ }
+}
