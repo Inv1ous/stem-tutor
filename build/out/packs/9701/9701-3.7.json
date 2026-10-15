@@ -952,6 +952,111 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9701-3.7-r01",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch a complete outer-shell dot-and-cross diagram of $\\ce{CO}$ using the conventional coordinate-bond construction. Use dots for electrons originally supplied by C and crosses for those supplied by O. Show every shared and lone pair, and label the donor-to-acceptor direction of the coordinate pair with an arrow. The molecule has no overall charge.",
+   "marks": 3,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Three shared pairs between C and O: two dot–cross pairs and one cross–cross pair, with no additional bonding electrons."
+    },
+    {
+     "mark": "B1",
+     "point": "One dot–dot lone pair on C and one cross–cross lone pair on O; no additional non-bonding electrons (ten electrons in total)."
+    },
+    {
+     "mark": "B1",
+     "point": "The coordinate pair is labelled $\\ce{O -> C}$, with the arrow from oxygen to carbon; the molecule has no overall ionic charge."
+    }
+   ],
+   "explanation": "Carbon supplies four and oxygen six valence electrons, giving ten in total. Two ordinary dot–cross pairs and one oxygen-supplied cross–cross pair leave one lone pair on each atom and an octet around each. The symbols record electron origin in this conventional construction, so the coordinate arrow points from O to C.",
+   "hints": [
+    "Use the symbols to keep a separate account of the electrons supplied by each atom.",
+    "Place the shared electrons first, then check the remaining electrons against each atom’s original contribution.",
+    "Write the neutral-atom valence counts from the periodic table before assigning symbols to pairs; a donated pair must use two symbols from the same atom."
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-r02",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "structured",
+   "difficulty": 3,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch a complete dot-and-cross diagram for one formula unit of ionic $\\ce{Mg2Si}$. Use dots for electrons originally supplied by Si and crosses for electrons originally supplied by either Mg atom. Show separate ions, all brackets and charges, and every electron from the original outer shells after transfer. Omit inner shells and show no electrons on the magnesium ions.",
+   "marks": 3,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Two separate $[\\ce{Mg}]^{2+}$ ions and one separate $[\\ce{Si}]^{4-}$ ion, each enclosed in its own square brackets with its charge."
+    },
+    {
+     "mark": "B1",
+     "point": "Eight outer electrons around Si, drawn as four pairs: four dots originally supplied by Si and four crosses transferred from Mg."
+    },
+    {
+     "mark": "B1",
+     "point": "Each Mg supplies two of the transferred crosses; no electrons remain drawn on either Mg ion and no shared pairs or covalent bonds join the ions."
+    }
+   ],
+   "explanation": "Each of the two Mg atoms transfers two outer electrons, so Si gains four electrons and has eight in its outer shell. The diagram contains two $\\ce{Mg^{2+}}$ ions and one $\\ce{Si^{4-}}$ ion, giving a total charge of $2(+2)-4=0$. The dots and crosses on Si distinguish its original electrons from the transferred electrons.",
+   "hints": [
+    "Start from the formula to decide how many atoms of each element must be represented.",
+    "Use the group numbers to count the electrons available for transfer, then balance the total charge.",
+    "List the original outer-shell electrons separately for each atom before moving any symbols to the ion that gains electrons."
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "9701-3.7-r03",
+   "kcs": [
+    "9701-3.7.1"
+   ],
+   "kind": "structured",
+   "difficulty": 3,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch a complete outer-shell dot-and-cross diagram for an isolated $\\ce{BF3}$ molecule. Use dots for electrons originally supplied by B and crosses for those supplied by F. Include every shared pair and lone pair, and show any overall charge if needed. Beneath the sketch, state the number of electrons surrounding B and whether it has a complete octet.",
+   "marks": 3,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Three B–F single bonds, each represented by one dot–cross shared pair."
+    },
+    {
+     "mark": "B1",
+     "point": "Each F has three cross–cross lone pairs; no lone pairs or additional electrons are placed on B (24 electrons in the whole diagram)."
+    },
+    {
+     "mark": "B1",
+     "point": "The molecule is neutral, with no overall ionic charge; six electrons surround B, so B has an incomplete octet."
+    }
+   ],
+   "explanation": "The total valence-electron count is $3+3(7)=24$: six electrons form three B–F shared pairs and the other eighteen form nine lone pairs on the fluorines. Boron has six surrounding electrons and no lone pair, while each F has an octet. Adding a lone pair to B would invent electrons and incorrectly force a complete octet.",
+   "hints": [
+    "Check whether this central atom is one of the exceptions to the octet rule.",
+    "Count all available electrons before distributing bonding pairs and terminal-atom lone pairs.",
+    "Use the group numbers of B and F to make an electron inventory, then allocate one electron from each partner to each single bond."
+   ],
+   "shuffle": true
   }
  ],
  "flashcards": [
