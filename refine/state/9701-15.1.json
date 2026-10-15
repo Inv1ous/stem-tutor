@@ -1,0 +1,209 @@
+{
+ "sub": "9701-15.1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T10:03:00+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T09:42:00+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T09:47:18+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions, 11 note_lines, 1 other"
+  },
+  {
+   "t": "2026-10-15T09:50:59+08:00",
+   "from": "solve",
+   "to": "tiebreak",
+   "note": "0 of 1 new questions agreed, 1 disputed"
+  },
+  {
+   "t": "2026-10-15T09:53:42+08:00",
+   "from": "tiebreak",
+   "to": "adjudicate",
+   "note": "tiebreak left 1 for the manager"
+  },
+  {
+   "t": "2026-10-15T10:02:30+08:00",
+   "from": "adjudicate",
+   "to": "sign",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-15T10:02:57+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions, 11 note_lines, 1 other (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 107,
+  "extra": 57,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [
+  {
+   "id": "we1.faded",
+   "key": {
+    "text": "$S_N2$: an oxygen lone pair of $\\ce{OH^-}$ attacks the carbon bearing Cl while a second curly arrow runs from the C–Cl bond to Cl. The products are neutral $\\ce{CH3CH2CH2OH}$ (propan-1-ol) and $\\ce{Cl^-}$, with no carbocation intermediate. The primary carbon is relatively accessible to backside attack; a primary carbocation is relatively unstable.",
+    "value": 0,
+    "unit": "",
+    "exact": true
+   },
+   "solver": "SN2; curly arrow from lone pair on O of OH- to the C bonded to Cl, and from C-Cl bond to Cl; CH3CH2CH2OH (neutral) + Cl-; 0 carbocation intermediates; a primary carbocation is unstable, and the primary carbon is accessible to backside attack",
+   "tiebreak": "SN2; from the lone pair on OH- to the carbon bonded to Cl, and from the C-Cl bond to Cl; CH3CH2CH2OH (neutral) + Cl-; 0; the primary carbon has little steric hindrance for backside attack, while a primary carbocation is unstable.",
+   "status": "closed",
+   "resolution": "keep: Primary 1-chloropropane undergoes concerted SN2 substitution: an oxygen lone pair of hydroxide attacks the carbon bearing Cl as the C-Cl bonding pair moves to Cl, producing neutral propan-1-ol and chloride with zero carbocation intermediates; accessible backside attack and primary-carbocation instability support the preference, consistent with bundle 15.1.5-6."
+  }
+ ],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 30068,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T09:41:02+08:00",
+   "log": "refine/logs/9701-15.1.scout.1015-094102.log",
+   "out": "refine/logs/9701-15.1.scout.1015-094102.out.json",
+   "expects": "build/work/refine/9701-15.1.plan.json",
+   "finished": "2026-10-15T09:42:00+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 3,
+    "plan_path": "build/work/refine/9701-15.1.plan.json",
+    "notes": [
+     "The learner’s sources library returned no matched passages or files. The existing chapter passes all gates."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 32554,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T09:44:26+08:00",
+   "log": "refine/logs/9701-15.1.refiner.1015-094426.log",
+   "out": "refine/logs/9701-15.1.refiner.1015-094426.out.json",
+   "finished": "2026-10-15T09:47:18+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 3,
+    "new_items": [
+     "9701-15.1-r01",
+     "9701-15.1-r02",
+     "9701-15.1-r03"
+    ],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 33588,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T09:47:24+08:00",
+   "log": "refine/logs/9701-15.1.solver.1015-094724.log",
+   "out": "refine/logs/9701-15.1.solver.1015-094724.out.json",
+   "expects": "build/work/blind/9701-15.1.refine.answers.json",
+   "finished": "2026-10-15T09:47:41+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9701-15.1.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 33593,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T09:47:25+08:00",
+   "log": "refine/logs/9701-15.1.checker.1015-094725.log",
+   "out": "refine/logs/9701-15.1.checker.1015-094725.out.json",
+   "expects": "build/work/refine/9701-15.1.check.json",
+   "finished": "2026-10-15T09:47:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9701-15.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-15.1.check.json)."
+   },
+   "ok": true
+  },
+  "tiebreak": {
+   "pid": 35864,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T09:51:48+08:00",
+   "log": "refine/logs/9701-15.1.tiebreak.1015-095148.log",
+   "out": "refine/logs/9701-15.1.tiebreak.1015-095148.out.json",
+   "expects": "build/work/blind/9701-15.1.refine.tiebreak.json",
+   "finished": "2026-10-15T09:52:13+08:00",
+   "exit": 0,
+   "report": {
+    "answered": 1,
+    "answers_path": "build/work/blind/9701-15.1.refine.tiebreak.json",
+    "notes": []
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 41006,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-15T10:01:59+08:00",
+   "log": "refine/logs/9701-15.1.adjudicator.1015-100159.log",
+   "out": "refine/logs/9701-15.1.adjudicator.1015-100159.out.json",
+   "finished": "2026-10-15T10:02:39+08:00",
+   "exit": 0,
+   "report": {
+    "text": "we1.faded keep: Correct SN2 arrows, neutral propan-1-ol and chloride products, and zero carbocation intermediates."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 3,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 1,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 3,
+  "diagrams": 0,
+  "note_lines": 11,
+  "cards": 0,
+  "other": 1
+ },
+ "last_refined": "2026-10-15T10:02:57+08:00"
+}

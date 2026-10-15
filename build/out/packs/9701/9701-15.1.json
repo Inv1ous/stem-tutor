@@ -62,7 +62,42 @@
    "source": "ER 9701 w19 P11 Q24"
   }
  ],
- "worked": [],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-15.1.5",
+   "problem": "Compare the stepwise mechanisms of bromoethane and 2-bromo-2-methylpropane reacting with aqueous hydroxide. Describe curly-arrow origins and destinations, charges, intermediates and reasons for their mechanism preferences.",
+   "steps": [
+    {
+     "do": "Classify bromoethane as primary and 2-bromo-2-methylpropane as tertiary by counting carbon neighbours of the carbon bonded to Br.",
+     "why": "There are one and three carbon neighbours respectively; this predicts the preferred substitution pathway."
+    },
+    {
+     "do": "For bromoethane, draw $\\ce{OH^-}$ with an oxygen lone pair. In one $S_N2$ step, draw a full-headed curly arrow from that lone pair to the carbon bonded to Br, approaching opposite Br, and another from the C–Br bond to Br. Show neutral $\\ce{CH3CH2OH}$ and $\\ce{Br^-}$ as products.",
+     "why": "The two arrows move electron pairs simultaneously. The reaction passes through a transition state, with no carbocation intermediate; the relatively uncrowded primary carbon permits backside attack."
+    },
+    {
+     "do": "For 2-bromo-2-methylpropane, first draw a curly arrow from the C–Br bond to Br. Show the separate tertiary carbocation $\\ce{(CH3)3C+}$, with positive charge on the central carbon, and $\\ce{Br^-}$.",
+     "why": "This slow first step of $S_N1$ is heterolytic bond breaking: both bonding electrons go to bromine."
+    },
+    {
+     "do": "Next draw a curly arrow from an oxygen lone pair of $\\ce{OH^-}$ to the positively charged central carbon. Form neutral $\\ce{(CH3)3COH}$, 2-methylpropan-2-ol.",
+     "why": "Bond formation follows carbocation formation in a second step. The three alkyl groups donate electron density by positive inductive effects, stabilising the carbocation; they also crowd the reaction carbon and hinder backside $S_N2$ attack."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "1-Chloropropane is primary. Complete its substitution by aqueous hydroxide: mechanism ___; curly arrows from ___ to ___ and from ___ to ___; products and charges ___; number of carbocation intermediates ___; reason for this preference ___.",
+    "answer": {
+     "text": "$S_N2$: an oxygen lone pair of $\\ce{OH^-}$ attacks the carbon bearing Cl while a second curly arrow runs from the C–Cl bond to Cl. The products are neutral $\\ce{CH3CH2CH2OH}$ (propan-1-ol) and $\\ce{Cl^-}$, with no carbocation intermediate. The primary carbon is relatively accessible to backside attack; a primary carbocation is relatively unstable.",
+     "value": 0,
+     "unit": "",
+     "exact": true
+    },
+    "blank_from": 1
+   }
+  }
+ ],
  "items": [
   {
    "id": "9701-15.1-i01",
@@ -3060,6 +3095,179 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9701-15.1-r01",
+   "kind": "structured",
+   "kcs": [
+    "9701-15.1.5",
+    "9701-15.1.6"
+   ],
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "1-Iodopentane, $\\ce{CH3CH2CH2CH2CH2I}$, reacts with aqueous hydroxide to form an alcohol. (a) Describe its preferred substitution mechanism using curly arrows, showing each arrow origin and destination and all product charges. (b) State whether a carbocation intermediate occurs. (c) Explain why this substrate favours this mechanism.",
+   "marks": 6,
+   "explanation": "The primary carbon favours concerted $S_N2$ substitution: oxygen donates an electron pair while the C–I bond breaks, giving pentan-1-ol and iodide. Backside attack is accessible and avoids forming an unstable primary carbocation.",
+   "hints": [
+    "Locate the carbon bonded directly to iodine.",
+    "Separate the electron-pair source, its destination and the fate of the leaving bond.",
+    "Count the carbon neighbours of the reaction carbon, then consider accessibility and cation stability."
+   ],
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Identify $S_N2$ and show both arrows in the same concerted step."
+    },
+    {
+     "mark": "B1",
+     "point": "Draw a curly arrow from an oxygen lone pair on $\\ce{OH^-}$ to the carbon bearing I, approaching opposite I."
+    },
+    {
+     "mark": "B1",
+     "point": "Draw a curly arrow from the C–I bond to I."
+    },
+    {
+     "mark": "B1",
+     "point": "Show neutral $\\ce{CH3CH2CH2CH2CH2OH}$ and $\\ce{I^-}$ as products."
+    },
+    {
+     "mark": "B1",
+     "point": "No carbocation intermediate forms."
+    },
+    {
+     "mark": "B1",
+     "point": "The primary reaction carbon is relatively uncrowded, allowing backside attack; a primary carbocation would be relatively unstable."
+    }
+   ]
+  },
+  {
+   "id": "9701-15.1-r02",
+   "kind": "structured",
+   "kcs": [
+    "9701-15.1.5",
+    "9701-15.1.6"
+   ],
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "2-Chloro-2-methylbutane, $\\ce{CH3C(Cl)(CH3)CH2CH3}$, reacts with aqueous hydroxide. (a) Describe its preferred substitution mechanism using curly arrows and showing the intermediate and all charges. (b) Give the alcohol structure. (c) Explain the preference in terms of both inductive effects and crowding.",
+   "marks": 6,
+   "explanation": "The tertiary substrate favours $S_N1$: heterolytic C–Cl cleavage forms a carbocation before hydroxide attacks. Three alkyl groups stabilise the positive carbon by donating electron density and hinder backside $S_N2$ attack.",
+   "hints": [
+    "Count groups attached directly to the carbon bearing chlorine.",
+    "For every proposed step, account for where the bonding electron pair goes.",
+    "Relate the surrounding alkyl groups separately to charge stability and access to the reaction carbon."
+   ],
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Identify $S_N1$ and draw a first-step curly arrow from the C–Cl bond to Cl."
+    },
+    {
+     "mark": "B1",
+     "point": "Show $\\ce{CH3C+(CH3)CH2CH3}$ with positive charge on carbon 2, and $\\ce{Cl^-}$."
+    },
+    {
+     "mark": "B1",
+     "point": "In a separate second step, draw a curly arrow from an oxygen lone pair on $\\ce{OH^-}$ to the positively charged carbon."
+    },
+    {
+     "mark": "B1",
+     "point": "Show neutral $\\ce{CH3C(OH)(CH3)CH2CH3}$, 2-methylbutan-2-ol."
+    },
+    {
+     "mark": "B1",
+     "point": "Three alkyl groups donate electron density by positive inductive effects, stabilising the tertiary carbocation."
+    },
+    {
+     "mark": "B1",
+     "point": "The alkyl groups crowd the reaction carbon and hinder backside $S_N2$ attack."
+    }
+   ]
+  },
+  {
+   "id": "9701-15.1-r03",
+   "kind": "short",
+   "kcs": [
+    "9701-15.1.3"
+   ],
+   "difficulty": 3,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "1-Bromohexane, $\\ce{CH3(CH2)5Br}$, is heated with potassium cyanide in ethanol. Describe the substitution by identifying the reacting ion with its charge, defining a nucleophile, stating which end of the ion bonds to the chain, and giving the condensed structure and systematic nitrile name of the organic product.",
+   "marks": 5,
+   "explanation": "$\\ce{CN^-}$ donates an electron pair through carbon to replace Br, forming $\\ce{CH3(CH2)5CN}$, heptanenitrile. The nitrile carbon belongs to the parent chain, so six carbons become seven; potassium cyanide names the reagent.",
+   "hints": [
+    "Distinguish the dissolved reagent from the species that donates electrons.",
+    "Track the atoms retained when the halogen is replaced.",
+    "Count every carbon in the final structure before selecting the parent-chain name."
+   ],
+   "rubric": [
+    {
+     "point": "The reacting ion is $\\ce{CN^-}$.",
+     "keywords": [
+      [
+       "cn^-",
+       "cn−",
+       "cn-",
+       "cyanide ion"
+      ]
+     ]
+    },
+    {
+     "point": "A nucleophile donates a pair of electrons to form a covalent bond.",
+     "keywords": [
+      [
+       "donat"
+      ],
+      [
+       "pair of electrons",
+       "electron pair",
+       "electron-pair",
+       "lone pair"
+      ],
+      [
+       "bond"
+      ]
+     ]
+    },
+    {
+     "point": "The carbon end of the cyanide ion bonds to the carbon previously bearing Br.",
+     "keywords": [
+      [
+       "carbon end",
+       "carbon atom",
+       "through carbon",
+       "carbon of",
+       "carbon bonds"
+      ]
+     ]
+    },
+    {
+     "point": "The product structure is $\\ce{CH3(CH2)5CN}$.",
+     "keywords": [
+      [
+       "ch3(ch2)5cn",
+       "ch3ch2ch2ch2ch2ch2cn"
+      ]
+     ]
+    },
+    {
+     "point": "The product is heptanenitrile.",
+     "keywords": [
+      [
+       "heptanenitrile"
+      ]
+     ]
+    }
+   ]
   }
  ],
  "flashcards": [
