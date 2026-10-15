@@ -1,0 +1,37 @@
+{
+ "summary": "Add a visual comparison of probability and cumulative probability, then broaden exam practice beyond single-step substitutions.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the probability and cumulative distribution paragraph in ## Key ideas",
+   "why": "S1-5.2 defines $p(x)$ and $F(x)$ only in words and a single calculation; a paired graph makes the cumulative jumps and inclusive cutoff visible.",
+   "what": "Use graph_sketch to show separate labelled panels or two clearly distinguished plots for $p(0)=0.2$, $p(1)=0.3$, $p(2)=0.5$ and the corresponding right-continuous step CDF: $F(x)=0$ below 0, $0.2$ from 0 to below 1, $0.5$ from 1 to below 2, and $1$ from 2 onward. Mark filled and open endpoints if renderer allows; otherwise explain inclusion in caption. Embed and explain what each jump represents."
+  },
+  {
+   "kind": "questions",
+   "where": "S1-5.2",
+   "why": "All six current items use the same three-value table and are one-mark numerical calculations; none asks learners to construct or interpret a distribution function.",
+   "count": 2,
+   "what": "Add one multi-part exam-style item deriving an unknown probability from total probability, then forming a piecewise $F(x)$ and using it for an interval with a strict boundary; add one MCQ with distractors for $p(x)$ versus $F(x)$ and endpoint inclusion, mapped to m1. Give tailored hints and full explanations."
+  },
+  {
+   "kind": "questions",
+   "where": "S1-5.3 and S1-5.4",
+   "why": "Existing items calculate from supplied distributions or uniform ranges but never require deciding whether uniformity applies or explaining a variance transformation in context.",
+   "count": 3,
+   "what": "Add one exam-style structured item that builds $E(X)$, $E(X^2)$ and variance from a probability table with an unknown parameter; one misconception MCQ contrasting $E(aX+b)$ and $\\operatorname{Var}(aX+b)$, mapped to m3; and one MCQ choosing whether equally spaced values with unequal probabilities are uniform, mapped to m4. Use distinct data from existing examples."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the discrete uniform paragraph in ## Key ideas",
+   "why": "The shortcut $(n^2-1)/12$ is presented for consecutive integers; learners may apply it to equally likely nonconsecutive scores.",
+   "what": "Add a short counterexample with equally likely values such as 2, 4, 6: it is uniform, but its variance must come from $\\sum x^2p(x)-[\\sum xp(x)]^2$ or a scaling argument; the consecutive-integer shortcut does not apply directly."
+  },
+  {
+   "kind": "feature",
+   "where": "pack teaching card S1-5.2",
+   "why": "The card has self-explanation but no discover question that lets the learner infer the CDF rule from a table.",
+   "what": "Add a discover prompt asking learners to compare $P(X\\leq0)$, $P(X\\leq1)$ and $P(X\\leq2)$ for the existing table, then infer why each CDF jump equals $p(x)$; keep the existing card text intact."
+  }
+ ]
+}

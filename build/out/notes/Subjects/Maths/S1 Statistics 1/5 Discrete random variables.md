@@ -17,6 +17,11 @@ F(x_0)=P(X\leq x_0)=\sum_{x\leq x_0}p(x).
 $$
 If $p(0)=0.2$, $p(1)=0.3$ and $p(2)=0.5$, then $F(1)=0.2+0.3=0.5$. A cumulative probability cannot decrease when its cutoff increases because additional probabilities are non-negative. To calculate $P(X>1)$, subtract $F(1)$ from one.
 
+![[Assets/S1/S1-5-probability-cumulative.svg]]
+The blue dashed stems show the individual probabilities; their tops are $p(0)=0.2$, $p(1)=0.3$ and $p(2)=0.5$. The orange horizontal segments show $F(x)$: zero below $0$, $0.2$ for $0\leq x<1$, $0.5$ for $1\leq x<2$, and one for $x\geq2$. Each step includes its left endpoint and excludes its right endpoint; the orange squares mark the included values at jumps. The outer steps continue beyond the drawing. Each jump adds exactly $p(x)$, so the jump at $1$ is $0.3$, although $F(1)=0.5$.
+
+This endpoint convention makes the CDF right-continuous: it takes the value at the top of each jump. See [UCL probability lecture slides](https://www.homepages.ucl.ac.uk/~rmjbale/Stat/2.pdf).
+
 The **mean** or expectation is a probability-weighted average, $E(X)=\sum xp(x)$. For **variance**, first find $E(X^2)=\sum x^2p(x)$, squaring each value before weighting it. Then use
 $$
 \operatorname{Var}(X)=E(X^2)-[E(X)]^2.
@@ -24,6 +29,9 @@ $$
 This describes spread around the mean. If $Y=aX+b$, then $E(Y)=aE(X)+b$, whereas $\operatorname{Var}(Y)=a^2\operatorname{Var}(X)$. Adding $b$ shifts all values equally and leaves the spread unchanged. Multiplying by $a$ scales each deviation by $a$, so its square scales by $a^2$.
 
 A **discrete uniform distribution** assigns equal probability to each possible value. For $n$ consecutive integers $1,2,\ldots,n$, each probability is $1/n$, the mean is $(n+1)/2$ and the variance is $(n^2-1)/12$. For consecutive values from $r$ to $s$, count $n=s-r+1$ values. Their mean is $(r+s)/2$ and their variance is still $(n^2-1)/12$, because shifting every value does not change variance. Equal spacing alone does not imply uniformity; check that the probabilities are equal.
+
+> [!warning] Uniform does not mean consecutive
+> Equally likely values $2,4,6$ form a discrete uniform distribution, but they are not consecutive integers. Here $E(X)=(2+4+6)/3=4$, $E(X^2)=(4+16+36)/3=56/3$, so $\operatorname{Var}(X)=56/3-4^2=8/3$. Applying $(n^2-1)/12$ directly with $n=3$ would ignore the spacing. Alternatively, write $X=2U$ for $U$ uniform on $1,2,3$; multiplying by two multiplies variance by four.
 
 ## Method
 1. List the possible values and check that their probabilities total one.
@@ -49,3 +57,5 @@ For **Calculate** or **Find**, show the formula and substituted values before th
 
 ## Links
 Builds on 3 Elementary probability · Leads to 6 Binomial distribution
+
+<!-- Refinement source: sources/library/SaveMyExams/TQ YMA01 statistics-1-questions-only/TQ YMA01 c3.1.pdf, pp.3–11: equal probabilities, normalisation, cumulative totals, moments and transformations. All added questions use original data and wording. -->
