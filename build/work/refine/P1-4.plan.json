@@ -1,0 +1,25 @@
+{
+ "summary": "Add a derivative graph and two multi-step exam questions to make the tangent concept visible and strengthen written-method practice.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "pack diagrams and note, after the limiting-gradient explanation in ## Key ideas",
+   "why": "The figure gate identifies graph_sketch for P1-4.1 and P1-4.3, while the pack has no diagram; a curve with a labelled secant approaching a tangent makes the limiting gradient and normal geometrically clear.",
+   "what": "One graph_sketch for $y=x^2$ near $(1,1)$, with a secant through $(1,1)$ and a nearby curve point, tangent at $(1,1)$, and perpendicular normal. Label the point, $h$, tangent and normal. Embed the rendered SVG in the note and explain that the secant gradient approaches $f'(1)=2$ as $h\\to0$; the normal gradient is $-1/2$."
+  },
+  {
+   "kind": "questions",
+   "where": "P1-4.3",
+   "why": "Existing tangent and normal exam-level items are one-mark MCQs; learners never practise showing the point, derivative and line equation for method marks.",
+   "count": 1,
+   "what": "Add one structured, multi-part Find question on a polynomial curve at a stated $x$: find the coordinate, tangent and normal equations, including a mark scheme that credits the derivative, substitution and point-gradient form. Choose a nonzero tangent gradient and values distinct from the existing $y=x^2+1$ at $x=2$ example."
+  },
+  {
+   "kind": "questions",
+   "where": "P1-4.2",
+   "why": "The current quotient item gives only a final expression; there is no multi-mark question that asks for the algebraic rewrite and then uses its derivative.",
+   "count": 1,
+   "what": "Add a structured Show that/Hence question: rewrite a polynomial-over-$x$ quotient as separate powers, show the stated derivative step by step, then hence find its gradient at a given positive $x$. Keep all expressions within the P1 power rule and give separate method and accuracy marks."
+  }
+ ]
+}

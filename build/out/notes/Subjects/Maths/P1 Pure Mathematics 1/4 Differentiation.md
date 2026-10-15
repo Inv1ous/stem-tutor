@@ -18,6 +18,12 @@ $$
 
 This is the gradient of the tangent at $(a,f(a))$. It is also the instantaneous **rate of change** of $y$ with respect to $x$, written $dy/dx$ or $f'(x)$. For instance, if $y$ is displacement and $x$ is time, $dy/dx$ is instantaneous velocity. Its sign tells you whether the curve is rising or falling as $x$ increases; a zero derivative means a horizontal tangent. Differentiating again gives the **second derivative**, $d^2y/dx^2=f''(x)$: the rate at which the first derivative changes. In the displacement example, this is acceleration.
 
+![[Assets/P1/P1-4-secant-tangent-normal.svg]]
+
+Here $P=(1,1)$ and $Q=(1+h,(1+h)^2)$; the sketch shows $h=0.5$. The secant gradient is $[(1+h)^2-1]/h=2+h$ for $h\ne0$. As $h\to0$, $Q$ approaches $P$ and the gradient approaches $f'(1)=2$. The tangent is $y-1=2(x-1)$, while the perpendicular normal has gradient $-1/2$ and equation $y-1=-\frac12(x-1)$. The axes have different visual scales, so judge perpendicularity by the gradients rather than the drawn angle.
+
+*Method reference: learner library, `sources/library/SaveMyExams/YMA01 pure-1/YMA01 c4.1.pdf`, pp.13–14. For the secant-limit visualisation supplement, see [MIT, Slope and Derivative](https://math.mit.edu/~djk/18_01/chapter02/section04.html).*
+
 The **power rule** is $\frac{d}{dx}(x^n)=nx^{n-1}$. Differentiate sums and differences term by term and carry constant multiples through: $\frac{d}{dx}(cf+g)=cf'+g'$. A constant has derivative zero. Negative and fractional powers work by the same rule wherever the expression is defined; for example, $\frac{d}{dx}(x^{-1})=-x^{-2}$.
 
 ## Method

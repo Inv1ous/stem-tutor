@@ -1,0 +1,136 @@
+{
+ "sub": "P1-4",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:51:10+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T12:46:22+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T22:06:54+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 2 questions, 1 diagrams, 3 note_lines"
+  },
+  {
+   "t": "2026-10-15T22:50:50+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "0 of 0 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:51:10+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 2 questions, 1 diagrams, 3 note_lines"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 14,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 98379,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T12:45:12+08:00",
+   "log": "refine/logs/P1-4.scout.1015-124512.log",
+   "out": "refine/logs/P1-4.scout.1015-124512.out.json",
+   "expects": "build/work/refine/P1-4.plan.json",
+   "finished": "2026-10-15T12:46:22+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 3,
+    "plan_path": "build/work/refine/P1-4.plan.json",
+    "notes": [
+     "The learner’s sources library returned no matching passages or figures for P1-4. The plan is valid JSON."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 21226,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T22:02:58+08:00",
+   "log": "refine/logs/P1-4.refiner.1015-220258.log",
+   "out": "refine/logs/P1-4.refiner.1015-220258.out.json",
+   "finished": "2026-10-15T22:06:54+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 3,
+    "new_items": [
+     "P1-4-r01",
+     "P1-4-r02"
+    ],
+    "new_diagrams": [
+     "Assets/P1/P1-4-secant-tangent-normal.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 41841,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:47:00+08:00",
+   "log": "refine/logs/P1-4.checker.1015-224700.log",
+   "out": "refine/logs/P1-4.checker.1015-224700.out.json",
+   "expects": "build/work/refine/P1-4.check.json",
+   "finished": "2026-10-15T22:48:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "**0 findings** in `build/work/refine/P1-4.check.json`\n\nThe additions are sound: two structured questions (P1-4-r01 on tangents/normals, P1-4-r02 on quotient differentiation) with correct mathematics, appropriate mark schemes, and non-revealing hints. The lesson note's explanation of the secant-tangent-normal diagram for $y=x^2$ at $P=(1,1)$ is accurate and properly cited. All content stays within P1-4's syllabus and is consistent with the pack's existing teach sections and worked examples."
+   },
+   "ok": true,
+   "cost_usd": 0.149
+  }
+ },
+ "plan": {
+  "improvements": 3,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 2,
+  "diagrams": 1,
+  "note_lines": 3,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T22:51:10+08:00"
+}
