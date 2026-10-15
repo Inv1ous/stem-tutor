@@ -1,0 +1,184 @@
+{
+ "sub": "9702-6.1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T21:28:47+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T18:52:16+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 4 improvements"
+  },
+  {
+   "t": "2026-10-15T19:10:42+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 4 questions, 1 diagrams, 4 note_lines"
+  },
+  {
+   "t": "2026-10-15T19:11:39+08:00",
+   "from": "solve",
+   "to": "adjudicate",
+   "note": "0 of 0 new questions agreed, 0 disputed; 1 checker findings"
+  },
+  {
+   "t": "2026-10-15T21:18:04+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-15T21:28:18+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-15T21:28:47+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 4 questions, 1 diagrams, 4 note_lines (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 76,
+  "extra": 40,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "item 9702-6.1-r02 stem; lesson note Method 3",
+   "rule": "note contradicts pack",
+   "evidence": "The new question says, ‘The reference wire is kept taut under a constant small load,’ while the lesson note instructs learners to use ‘an unloaded reference wire.’",
+   "suggested": "Describe the reference wire consistently as kept taut by a small constant load, with extra loads applied only to the test wire.",
+   "status": "fixed",
+   "resolution": "fix: Edit only the new question r02: say the reference wire carries no extra load (it stays unloaded, as the note says) while loads are added to the test wire. Do not touch the note."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9702-6.1-r02 stem; lesson note Method 3",
+   "instruction": "Edit only the new question r02: say the reference wire carries no extra load (it stays unloaded, as the note says) while loads are added to the test wire. Do not touch the note.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "scout": {
+   "pid": 63323,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T18:51:15+08:00",
+   "log": "refine/logs/9702-6.1.scout.1015-185115.log",
+   "out": "refine/logs/9702-6.1.scout.1015-185115.out.json",
+   "expects": "build/work/refine/9702-6.1.plan.json",
+   "finished": "2026-10-15T18:52:16+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 4,
+    "plan_path": "build/work/refine/9702-6.1.plan.json",
+    "notes": [
+     "Read the learner’s library PDF, 9702 c6.1.pdf pp. 10–13, including its wire experiment guidance.",
+     "Checked the official Cambridge International 9702 2025–2027 syllabus online.",
+     "The existing chapter passes its gates; the plan adds content only."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 70512,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T19:06:22+08:00",
+   "log": "refine/logs/9702-6.1.refiner.1015-190622.log",
+   "out": "refine/logs/9702-6.1.refiner.1015-190622.out.json",
+   "finished": "2026-10-15T19:10:42+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 4,
+    "new_items": [
+     "9702-6.1-r01",
+     "9702-6.1-r02",
+     "9702-6.1-r03",
+     "9702-6.1-r04"
+    ],
+    "new_diagrams": [
+     "Assets/9702/9702-6.1-stress-strain-gradient.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 72317,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T19:10:55+08:00",
+   "log": "refine/logs/9702-6.1.checker.1015-191055.log",
+   "out": "refine/logs/9702-6.1.checker.1015-191055.out.json",
+   "expects": "build/work/refine/9702-6.1.check.json",
+   "finished": "2026-10-15T19:11:25+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding written to [9702-6.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9702-6.1.check.json)."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 6659,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 1,
+   "started": "2026-10-15T21:27:51+08:00",
+   "log": "refine/logs/9702-6.1.fixer.1015-212751.log",
+   "out": "refine/logs/9702-6.1.fixer.1015-212751.out.json",
+   "finished": "2026-10-15T21:28:18+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 4,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 1,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 4,
+  "diagrams": 1,
+  "note_lines": 4,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T21:28:47+08:00"
+}

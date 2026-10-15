@@ -1,0 +1,32 @@
+{
+ "summary": "Add a stress–strain visual and strengthen practical reasoning and proportionality practice while preserving the passing chapter.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after ## Key ideas; pack diagrams",
+   "why": "Outcome 9702-6.1.5 requires use of Young modulus, but the note has no visual of its gradient and the pack has no diagrams.",
+   "what": "Add a graph_sketch of tensile stress against strain, with a straight line through the origin ending at a labelled limit of proportionality and a gradient triangle labelled $E=\\Delta\\sigma/\\Delta\\varepsilon$. Explain that the gradient represents Young modulus only in the proportional region. Keep the later non-linear section minimal and do not imply its end is the elastic limit."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-6.1.6",
+   "why": "The experiment has descriptive retrieval but little interpretation of measurements or controls.",
+   "count": 2,
+   "what": "One structured Describe item from a wire-experiment data table: obtain extension from loaded and initial readings, use diameter measurements to find cross-sectional area, and state how the force–extension gradient gives $E$. One Explain item on the reference wire and checking return to original length after unloading. Use the bundle's command words and markable rubrics."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-6.1.3 and 9702-6.1.5",
+   "why": "Hooke's law has five item variants, and stress–strain graph interpretation is largely absent despite the Young modulus outcome.",
+   "count": 2,
+   "what": "Add a Sketch or Explain question distinguishing a proportional force–extension segment from a later curved segment, and a Determine question using two points on the linear part of a stress–strain graph to find Young modulus; include a distractor or marking point for reversing the gradient and for using total length instead of extension."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Method",
+   "why": "The library's wire practical adds a useful check omitted from the current method: unload after readings to verify recovery and repeat readings to reduce random error.",
+   "source": "library: sources/library/SaveMyExams/9702 a-level-physics-cie-25/9702 c6.1.pdf p.13; Cambridge International 9702 2025–2027 syllabus https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf",
+   "what": "Add a concise practical-quality sentence: repeat each extension reading, check the wire returns to its initial reading after unloading, and reject data outside the proportional region. Keep the existing reference-wire method."
+  }
+ ]
+}
