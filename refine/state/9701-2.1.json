@@ -1,0 +1,149 @@
+{
+ "sub": "9701-2.1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T09:51:52+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T09:42:00+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T09:50:09+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 2 questions, 8 note_lines, 2 cards, 2 other"
+  },
+  {
+   "t": "2026-10-15T09:51:48+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "5 of 5 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T09:51:52+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 2 questions, 8 note_lines, 2 cards, 2 other (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 22,
+  "extra": 4,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 30160,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T09:41:03+08:00",
+   "log": "refine/logs/9701-2.1.scout.1015-094103.log",
+   "out": "refine/logs/9701-2.1.scout.1015-094103.out.json",
+   "expects": "build/work/refine/9701-2.1.plan.json",
+   "finished": "2026-10-15T09:42:00+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 3,
+    "plan_path": "build/work/refine/9701-2.1.plan.json",
+    "notes": [
+     "The learner’s PDF library returned no matched passages or searchable files."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 33625,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T09:47:25+08:00",
+   "log": "refine/logs/9701-2.1.refiner.1015-094725.log",
+   "out": "refine/logs/9701-2.1.refiner.1015-094725.out.json",
+   "finished": "2026-10-15T09:50:09+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 3,
+    "new_items": [
+     "9701-2.1-r01",
+     "9701-2.1-r02"
+    ],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 34899,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T09:50:59+08:00",
+   "log": "refine/logs/9701-2.1.solver.1015-095059.log",
+   "out": "refine/logs/9701-2.1.solver.1015-095059.out.json",
+   "expects": "build/work/blind/9701-2.1.refine.answers.json",
+   "finished": "2026-10-15T09:51:24+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 5 questions in [9701-2.1.refine.answers.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/9701-2.1.refine.answers.json)."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 34904,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T09:50:59+08:00",
+   "log": "refine/logs/9701-2.1.checker.1015-095059.log",
+   "out": "refine/logs/9701-2.1.checker.1015-095059.out.json",
+   "expects": "build/work/refine/9701-2.1.check.json",
+   "finished": "2026-10-15T09:51:19+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9701-2.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-2.1.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 3,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 0,
+   "feature": 2,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 2,
+  "diagrams": 0,
+  "note_lines": 8,
+  "cards": 2,
+  "other": 2
+ },
+ "last_refined": "2026-10-15T09:51:52+08:00"
+}

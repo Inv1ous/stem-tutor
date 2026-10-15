@@ -1,0 +1,24 @@
+{
+ "summary": "Add a guided relative-mass calculation and targeted practice for isotope weighting and units.",
+ "improvements": [
+  {
+   "kind": "feature",
+   "where": "pack worked for 9701-2.1.2, with a matching addition after the note's Worked example",
+   "why": "The note has one solved formula-mass calculation, but the pack has no stepwise worked or faded example; isotope weighting is asserted without a numerical demonstration.",
+   "what": "Add a worked example calculating $A_r$ from two given relative isotopic masses and percentage abundances, with steps explaining why each mass is weighted, a check that abundances total 100%, and a faded variant for the learner. Add a concise note example using the same method; keep this as an illustration of weighted mean rather than extending into mass spectrometry."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-2.1.2",
+   "why": "Existing practice tests definitions and formula sums, but has no direct question that makes learners apply abundance weighting or distinguish a mass in $u$ from a unitless relative mass.",
+   "count": 2,
+   "what": "Add one original numeric Calculate item finding $A_r$ from two isotope masses and stated abundances, with a misconception distractor for an unweighted mean; add one conceptual MCQ contrasting an atom's mass expressed in $u$ with its unitless relative isotopic mass. Give both specific explanations and three progressive hints."
+  },
+  {
+   "kind": "feature",
+   "where": "pack teach cards for 9701-2.1.1 and 9701-2.1.2",
+   "why": "Both teaching cards explain the answer directly and have self-explain prompts, but lack a discovery question before the explanation.",
+   "what": "Add a discover prompt to each card: for 9701-2.1.1, reason from one carbon-12 atom being $12u$ to the size of $1u$; for 9701-2.1.2, compare a named isotope, a mixed-isotope element, a molecule and an ionic formula unit to choose the correct relative-mass term."
+  }
+ ]
+}

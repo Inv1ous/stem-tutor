@@ -36,9 +36,65 @@
    "refutation": "Each atom in the formula contributes its relative atomic mass.",
    "contrast": "For $\\ce{O2}$, add the masses of two oxygen atoms.",
    "source": "ER 9701 w20 P13 Q1"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-2.1.2",
+   "statement": "Relative isotopic mass carries the unit u, just like the mass of an atom.",
+   "refutation": "Relative isotopic mass is an atomic mass divided by one unified atomic mass unit; the units cancel.",
+   "contrast": "An atomic mass of $19.99u$ corresponds to a relative isotopic mass of 19.99 without a unit.",
+   "source": "research"
   }
  ],
- "worked": [],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-2.1.2",
+   "problem": "A sample contains only two isotopes with relative isotopic masses 34.97 and 36.97, at abundances of 75% and 25% respectively. Calculate its relative atomic mass.",
+   "steps": [
+    {
+     "do": "Check the abundances: $75+25=100\\%$.",
+     "why": "The two isotopes account for every atom in this sample."
+    },
+    {
+     "do": "Use $A_r=\\sum(\\text{relative isotopic mass}\\times\\text{percentage abundance})/100$.",
+     "why": "Each isotope contributes in proportion to the fraction of atoms that belong to it; an equal average would assume equal abundances."
+    },
+    {
+     "do": "Substitute: $A_r=(34.97\\times75+36.97\\times25)/100=35.47$.",
+     "why": "Dividing the percentage-weighted total by 100 gives the mean relative mass.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 35.47,
+       "unit": "",
+       "sf_ok": [
+        3,
+        4
+       ]
+      }
+     }
+    },
+    {
+     "do": "Report $A_r=35.47$, without a unit; it lies between 34.97 and 36.97, closer to 34.97.",
+     "why": "Relative mass is a ratio, and the more abundant lighter isotope pulls the mean towards its mass."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "A second sample contains only isotopes of relative isotopic masses 34.97 and 36.97, at abundances 60% and 40% respectively. The abundances total 100%. Complete the weighting and calculate the relative atomic mass.",
+    "answer": {
+     "value": 35.77,
+     "unit": "",
+     "sf_ok": [
+      3,
+      4
+     ]
+    },
+    "blank_from": 1
+   }
+  }
+ ],
  "items": [
   {
    "id": "9701-2.1-i01",
@@ -661,6 +717,97 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9701-2.1-r01",
+   "kcs": [
+    "9701-2.1.2"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A sample of an element contains only two isotopes with relative isotopic masses 20.0 and 22.0. Their percentage abundances are [[p]]% and [[q]]% respectively. Calculate the relative atomic mass of the sample.",
+   "answer": {
+    "value": 20.3,
+    "unit": "",
+    "sf_ok": [
+     3,
+     4
+    ]
+   },
+   "template": {
+    "params": {
+     "p": {
+      "choices": [
+       80,
+       85,
+       90
+      ]
+     }
+    },
+    "derived": {
+     "q": "100-p"
+    },
+    "answer": "(20.0*p+22.0*q)/100",
+    "distractors": [
+     {
+      "expr": "(20.0+22.0)/2",
+      "misconception": "m2"
+     }
+    ],
+    "constraints": [
+     "p != 50"
+    ]
+   },
+   "distractors": [
+    {
+     "value": 21.0,
+     "misconception": "m2"
+    }
+   ],
+   "marks": 2,
+   "explanation": "Weight each relative isotopic mass by its percentage abundance: $A_r=(20.0\\times[[p]]+22.0\\times[[q]])/100$, with no unit. The unweighted mean 21.0 would apply only to equal isotope abundances.",
+   "hints": [
+    "Which isotope contributes more atoms to the sample?",
+    "Multiply each relative isotopic mass by its percentage abundance, add, then divide by the total percentage.",
+    "Start with $20.0\\times[[p]]$ for the lighter isotope and form the corresponding contribution for the heavier isotope."
+   ]
+  },
+  {
+   "id": "9701-2.1-r02",
+   "kcs": [
+    "9701-2.1.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An atom of a specified isotope has a mass of $19.99u$. Identify the statement that correctly distinguishes its mass from its relative isotopic mass.",
+   "options": {
+    "A": "Its mass is $19.99u$; its relative isotopic mass is 19.99 with no unit.",
+    "B": "Its mass is $19.99u$; its relative isotopic mass is $19.99u$.",
+    "C": "Its mass is 19.99 with no unit; its relative isotopic mass is $19.99u$.",
+    "D": "Its mass is $19.99u$; its relative isotopic mass is $19.99/12$ with no unit."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m5",
+    "C": "m5",
+    "D": "m1"
+   },
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "Relative isotopic mass is the ratio $19.99u/(1u)=19.99$, so the units cancel while the actual atomic mass retains $u$. Dividing by 12 again incorrectly uses the mass of a whole carbon-12 atom as the reference.",
+   "hints": [
+    "Distinguish a measured mass from a ratio of two masses.",
+    "Write relative isotopic mass as the mass of the isotope atom divided by one unified atomic mass unit.",
+    "In the ratio, track what happens when the same mass unit appears in both numerator and denominator."
+   ]
   }
  ],
  "flashcards": [
@@ -703,6 +850,17 @@
    "connect": "This fixed carbon-12 reference is the denominator in the definitions of relative isotopic, atomic, molecular and formula mass.",
    "note": "- One unified atomic mass unit is one twelfth of the mass of one carbon-12 atom.\n- One carbon-12 atom has mass exactly $12u$.\n- Relative masses are unitless ratios to this reference.",
    "self_explain": "Why does one carbon-12 atom have a mass of exactly $12u$?",
+   "discover": {
+    "stem": "One carbon-12 atom has a mass of exactly $12u$. What fraction of that atom's mass is $1u$?",
+    "options": {
+     "A": "One twelfth",
+     "B": "One whole",
+     "C": "Twelve times",
+     "D": "One sixth"
+    },
+    "answer": "A",
+    "explanation": "Divide the mass of one carbon-12 atom into twelve equal parts; each part is $1u$."
+   },
    "source": "pack"
   },
   "9701-2.1.2": {
@@ -711,6 +869,17 @@
    "connect": "The choice of entity determines the term: an element has $A_r$, a named isotope has relative isotopic mass, a molecule has $M_r$, and an ionic formula unit has relative formula mass.",
    "note": "- Relative isotopic mass concerns one atom of one isotope.\n- $A_r$ is the abundance-weighted mean for atoms of an element.\n- $M_r$ concerns one molecule; relative formula mass concerns one formula unit.\n- Each is measured relative to one twelfth of a carbon-12 atom's mass and has no unit.",
    "self_explain": "Why is 35.5 appropriate for chlorine's $A_r$ but not for the relative isotopic mass of chlorine-35?",
+   "discover": {
+    "stem": "Consider, in order: chlorine-35 atoms; chlorine containing a mixture of isotopes; water molecules; sodium chloride formula units. Which sequence names their appropriate relative masses?",
+    "options": {
+     "A": "Isotopic, atomic, molecular, formula",
+     "B": "Atomic, isotopic, molecular, formula",
+     "C": "Isotopic, atomic, formula, molecular",
+     "D": "Molecular, atomic, isotopic, formula"
+    },
+    "answer": "A",
+    "explanation": "A named isotope uses relative isotopic mass; an element with mixed isotopes uses weighted relative atomic mass. Water consists of molecules, whereas ionic sodium chloride is represented by formula units."
+   },
    "source": "pack"
   }
  }
