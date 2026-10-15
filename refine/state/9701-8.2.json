@@ -1,0 +1,132 @@
+{
+ "sub": "9701-8.2",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T13:02:23+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T12:47:53+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 1 improvements"
+  },
+  {
+   "t": "2026-10-15T13:00:01+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 1 questions"
+  },
+  {
+   "t": "2026-10-15T13:02:11+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "0 of 0 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T13:02:23+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 1 questions (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 42,
+  "extra": 15,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 99059,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T12:46:48+08:00",
+   "log": "refine/logs/9701-8.2.scout.1015-124648.log",
+   "out": "refine/logs/9701-8.2.scout.1015-124648.out.json",
+   "expects": "build/work/refine/9701-8.2.plan.json",
+   "finished": "2026-10-15T12:47:53+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 1,
+    "plan_path": "build/work/refine/9701-8.2.plan.json",
+    "notes": [
+     "Plan adds sketch-diagnosis practice based on ER 9701 s21 P22 Q3. The pack passes the existing gates; the learner’s library returned no matched sources."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 2409,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T12:58:10+08:00",
+   "log": "refine/logs/9701-8.2.refiner.1015-125810.log",
+   "out": "refine/logs/9701-8.2.refiner.1015-125810.out.json",
+   "finished": "2026-10-15T13:00:01+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 1,
+    "new_items": [
+     "9701-8.2-r01"
+    ],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 3134,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T13:00:22+08:00",
+   "log": "refine/logs/9701-8.2.checker.1015-130022.log",
+   "out": "refine/logs/9701-8.2.checker.1015-130022.out.json",
+   "expects": "build/work/refine/9701-8.2.check.json",
+   "finished": "2026-10-15T13:00:48+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9701-8.2.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-8.2.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 1,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 1,
+  "diagrams": 0,
+  "note_lines": 0,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T13:02:23+08:00"
+}
