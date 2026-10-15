@@ -1,0 +1,32 @@
+{
+ "summary": "Add a visual of rates approaching dynamic equilibrium and strengthen calculation and interpretation practice around partial pressures and equilibrium changes.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the first paragraph of ## Key ideas",
+   "why": "Outcome 9701-7.1.1 requires equal forward and reverse rates at dynamic equilibrium; ER 9701 w23 P22 Q2 reports confusion between rate–time and concentration–time graphs, and the chapter currently has no diagram.",
+   "what": "Use graph_sketch for forward and reverse reaction rate against time in a closed system: forward rate falls, reverse rate rises, and the curves meet at a nonzero common plateau. Mark the equilibrium time; explain that equal nonzero rates give constant, not necessarily equal, concentrations. Do not use the free_body hint, which is unrelated to chemistry."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-7.1.5, 9701-7.1.6 and 9701-7.1.7",
+   "why": "The core practice has only one numeric item for mole fraction and one for constant calculations, while ER 9701 w23 P22 Q2 identifies direct substitution of moles into $K_p$ as a common error.",
+   "count": 3,
+   "what": "Add a linked set: calculate equilibrium mole fractions from a change table; turn these into partial pressures using total pressure; then calculate $K_p$ with stoichiometric powers and pressure units. Include a misconception distractor based on using mole amounts directly."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-7.1.1 and 9701-7.1.3",
+   "why": "Most generated core questions are short restatements of rules, whereas the examiner reports test graph interpretation and conditions such as inert gas at constant volume.",
+   "count": 2,
+   "what": "Add one exam-style interpretation of a forward/reverse rate graph requiring explanation of the nonzero equal plateau and one application distinguishing inert-gas addition at constant volume from compression of the reacting gases."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Key ideas beside the definition of dynamic equilibrium",
+   "why": "ER 9701 s22 P22 Q3 notes that candidates often gave equal rates but omitted the absence of change in measurable properties.",
+   "source": "ER 9701 s22 P22 Q3 in build/work/bundles/9701-7.1.md",
+   "what": "Add a concise observation-level explanation: in a closed system at equilibrium, macroscopic properties such as colour or pressure remain constant even though both reactions continue. Link this to the rate graph."
+  }
+ ]
+}
