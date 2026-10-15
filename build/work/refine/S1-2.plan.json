@@ -1,0 +1,25 @@
+{
+ "summary": "Add a visual explanation of unequal-width histogram bars and practice interpreting histogram area and grouped percentiles.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the frequency-density paragraph in ## Key ideas",
+   "why": "S1-2.1 asks learners to use histograms to compare distributions, but the chapter has no histogram figure; unequal widths make the area-versus-height distinction hard to see from words alone.",
+   "what": "Use graph_sketch to draw two adjacent rectangular histogram bars with unequal class widths and equal areas (for example widths 5 and 10, densities 4 and 2). Label both frequencies as 20 and both heights as frequency densities; explain in the note what to notice. Add the request to the pack's diagrams list and embed the rendered SVG."
+  },
+  {
+   "kind": "questions",
+   "where": "S1-2.1",
+   "why": "Existing histogram items ask for the definition or a single frequency-density calculation; none asks learners to recover and compare frequencies from unequal bar widths and heights.",
+   "count": 2,
+   "what": "Add an exam-style item giving two unequal-width histogram bars by class intervals and density heights. Require frequency as area and an in-context comparison, with a distractor or rubric point exposing the height-equals-frequency error."
+  },
+  {
+   "kind": "questions",
+   "where": "S1-2.3",
+   "why": "The existing grouped interpolation practice covers quartiles and IQR but never an interpercentile range, although the syllabus names interpercentile ranges explicitly.",
+   "count": 1,
+   "what": "Add a multi-step grouped-frequency question estimating $P_{10}$ and $P_{90}$ by linear interpolation, then interpreting $P_{90}-P_{10}$ in the data's context. Show cumulative frequencies, class boundaries and intermediate values in the explanation."
+  }
+ ]
+}

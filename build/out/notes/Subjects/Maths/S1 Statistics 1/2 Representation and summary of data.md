@@ -13,6 +13,10 @@ kcs: ["S1-2.1", "S1-2.2", "S1-2.3", "S1-2.4"]
 
 **Frequency density** $=\text{frequency}\div\text{class width}$. On a histogram this is the quantity plotted as **height**; it is the bar's **area** (height $\times$ width) that represents frequency, which matters as soon as class widths differ.
 
+![[Assets/S1/S1-2-histogram-equal-areas.svg]]
+
+Notice that the widths are $5$ and $10$ minutes, while the frequency densities are $4$ and $2$ customers per minute: both bar areas give $20$ customers ($5\times4=10\times2=20$). The wider bar is half as tall but represents the same frequency; compare areas when comparing the numbers of customers.
+
 **Stem-and-leaf diagram**: keeps every raw value, split into a stem (leading digit(s)) and leaves (final digit), ordered within each stem. A **back-to-back** stem-and-leaf diagram shares one stem column between two data sets, with each side keeping its own leaves and its own key.
 
 **Box plot**: shows the five-figure summary — minimum, lower quartile $Q_1$, median, upper quartile $Q_3$, maximum. When a value is an outlier it is plotted as a separate point, and the whisker stops at the largest (or smallest) value that is **not** an outlier; the outlier is still the data's maximum (or minimum).
