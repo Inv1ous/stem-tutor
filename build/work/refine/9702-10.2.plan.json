@@ -1,0 +1,17 @@
+{
+ "summary": "Add a circuit diagram and a signed-loop example so learners can connect Kirchhoff's laws to a visible circuit and solve opposing-cell problems.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the series-resistor paragraph in ## Key ideas",
+   "why": "The diagram gate identifies an uncovered circuit figure for outcomes 9702-10.2.3 to 9702-10.2.7; a labelled series loop makes the common current and summed potential drops visible.",
+   "what": "Use the supported circuit type for a cell and two series resistors labelled $R_1$ and $R_2$; embed it and explain that one current passes through both, while the cell's e.m.f. equals $IR_1+IR_2$."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the existing worked example",
+   "why": "The method tells learners to assign signs but gives no complete opposing-cell calculation; the bundle's ER 9702 s21 P13 Q35 reports this polarity as the key difficulty.",
+   "what": "Add a short worked example with opposing 12.0 V and 8.0 V cells and series resistances 1.0 and 0.5 ohm: show $12.0-8.0=I(1.0+0.5)$ and $I=2.7$ A to two significant figures, with arrows and a check of the loop balance."
+  }
+ ]
+}
