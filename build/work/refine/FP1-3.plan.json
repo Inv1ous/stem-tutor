@@ -1,0 +1,39 @@
+{
+ "summary": "Strengthen visual understanding and exam-style practice for all three numerical methods, especially continuity and justified accuracy.",
+ "improvements": [
+  {
+   "kind": "source_gap",
+   "where": "note, after ## Key ideas; pack teaching card for FP1-3.1",
+   "why": "The note states the continuity condition but does not show why a sign change alone can mislead.",
+   "source": "library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf pp. 2-6",
+   "what": "Add a concise sign-change and continuity check with an example such as $f(x)=1/x$ on $[-1,1]$: endpoint signs differ but the discontinuity at $x=0$ means no root is proved. Mention that a tangent root may show no sign change and an interval may contain multiple roots. Add a discover question asking whether opposite endpoint signs always guarantee a root."
+  },
+  {
+   "kind": "questions",
+   "where": "FP1-3.1",
+   "why": "Existing items use only $x^2-2$ and mostly ask for a single numerical iterate; none tests continuity or a misleading sign change.",
+   "count": 2,
+   "what": "Add one conceptual MCQ with misconception distractors for a discontinuity inside a sign-changing interval, and one structured Show that/Explain item requiring endpoint evaluations, continuity and a conclusion about a root. Use fresh P1/P2 functions; keep the explanation and three hints for each."
+  },
+  {
+   "kind": "questions",
+   "where": "FP1-3.1",
+   "why": "The pack never asks learners to establish a stated number of decimal places or to distinguish a bracket from a point estimate.",
+   "count": 2,
+   "what": "Add a multi-step bisection item targeting a specified final interval width and a Show that item proving a rounded root by evaluating $f$ at the two rounding boundaries, stating continuity, and concluding that every number in that bracket rounds to the stated value. Avoid relying on two stable Newton iterates alone as proof of accuracy."
+  },
+  {
+   "kind": "diagram",
+   "where": "note, after the linear interpolation and Newton-Raphson definitions",
+   "why": "The text describes secant and tangent crossings without showing the distinct geometries.",
+   "what": "Use two function_plot diagrams of $f(x)=x^2-2$ over $1\\le x\\le2$: one with the secant through $(1,-1)$ and $(2,2)$ crossing the axis at $4/3$, and one with the tangent at $x=1.5$ crossing at $17/12$. Label the curve, lines, starting points and axis intercepts; embed and explain what to notice."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Exam technique; worked example addition",
+   "why": "The note mentions checking accuracy but does not demonstrate the rounding-boundary proof that the learner source teaches.",
+   "source": "library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c3.1.pdf pp. 3-4, 7-8",
+   "what": "Add a short worked example showing how to certify a root to two decimal places with opposite signs at the exact half-unit rounding boundaries and continuity. Distinguish 'find an interval' from 'give an approximation' and state the required bisection count using final width $=(b-a)/2^n$."
+  }
+ ]
+}

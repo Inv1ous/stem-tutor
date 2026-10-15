@@ -1,0 +1,157 @@
+{
+ "sub": "FP1-3",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:10:33+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T11:18:27+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 5 improvements"
+  },
+  {
+   "t": "2026-10-15T12:57:47+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 4 questions, 2 diagrams, 10 note_lines, 1 cards, 3 other"
+  },
+  {
+   "t": "2026-10-15T21:52:25+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "3 of 3 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:10:33+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 4 questions, 2 diagrams, 10 note_lines, 1 cards, 3 other"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 11,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 69722,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T11:15:10+08:00",
+   "log": "refine/logs/FP1-3.scout.1015-111510.log",
+   "out": "refine/logs/FP1-3.scout.1015-111510.out.json",
+   "expects": "build/work/refine/FP1-3.plan.json",
+   "finished": "2026-10-15T11:18:27+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 5,
+    "plan_path": "build/work/refine/FP1-3.plan.json",
+    "notes": [
+     "The plan is valid JSON. Read the learner’s YFM01 c3.1.pdf, especially pages 2–8, for continuity and rounding-boundary examples; paraphrase them.",
+     "The existing note has two invalid chapter links. The add-only refine rule prevents removing or correcting those links, so the figures gate may remain failing."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 382,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T12:49:37+08:00",
+   "log": "refine/logs/FP1-3.refiner.1015-124937.log",
+   "out": "refine/logs/FP1-3.refiner.1015-124937.out.json",
+   "finished": "2026-10-15T12:57:47+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 5,
+    "new_items": [
+     "FP1-3-r01",
+     "FP1-3-r02",
+     "FP1-3-r03",
+     "FP1-3-r04"
+    ],
+    "new_diagrams": [
+     "Assets/FP1/FP1-3-secant.svg",
+     "Assets/FP1/FP1-3-tangent.svg"
+    ],
+    "not_done": [
+     "Original invalid links preserved under the no-loss rule; refinement gates exclude inherited link failures. All gates passed."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 7571,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:29:32+08:00",
+   "log": "refine/logs/FP1-3.solver.1015-212932.log",
+   "out": "refine/logs/FP1-3.solver.1015-212932.out.json",
+   "expects": "build/work/blind/FP1-3.refine.answers.json",
+   "finished": "2026-10-15T21:29:51+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 3 questions in `build/work/blind/FP1-3.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 8187,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:30:29+08:00",
+   "log": "refine/logs/FP1-3.checker.1015-213029.log",
+   "out": "refine/logs/FP1-3.checker.1015-213029.out.json",
+   "expects": "build/work/refine/FP1-3.check.json",
+   "finished": "2026-10-15T21:30:54+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [FP1-3.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/FP1-3.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 5,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 1,
+   "feature": 0,
+   "source_gap": 1
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 4,
+  "diagrams": 2,
+  "note_lines": 10,
+  "cards": 1,
+  "other": 3
+ },
+ "last_refined": "2026-10-15T22:10:33+08:00"
+}

@@ -9,6 +9,9 @@ kcs: ["FP1-3.1"]
 > A numerical method approaches a root of $f(x)=0$ through successive estimates. Interval bisection uses a sign-changing bracket, linear interpolation uses a secant, and Newton-Raphson uses a tangent.
 
 ## Key ideas
+
+Opposite endpoint signs prove a root only when the function is continuous throughout the interval. For $f(x)=1/x$ on $[-1,1]$, the signs differ but $x=0$ is a discontinuity and there is no root. A tangent root, such as that of $x^2$ at zero, may show no sign change. An interval can also contain several roots: the test proves existence, not uniqueness.
+
 A **root** is a value $r$ for which $f(r)=0$. Often an exact solution is unavailable or inconvenient, so calculate estimates and check their accuracy. For the methods here, $f$ uses functions from P1 and P2; the differentiation needed for Newton-Raphson is also from P1 and P2.
 
 **Interval bisection** starts with $a<b$ where a continuous $f$ has opposite signs at the endpoints: $f(a)f(b)<0$. Calculate $m=(a+b)/2$. If $f(m)=0$, stop. Otherwise retain $[a,m]$ when $f(a)f(m)<0$; retain $[m,b]$ when $f(m)f(b)<0$. Each step halves the bracket width. The midpoint is an estimate, while the whole bracket gives a useful error bound: its distance from the root is at most half the current width.
@@ -19,11 +22,17 @@ x=a-\frac{f(a)(b-a)}{f(b)-f(a)}.
 $$
 This is also called a secant estimate. It uses the sizes as well as the signs of the endpoint values, so it generally differs from the midpoint. If repeating with a bracket, evaluate $f(x)$ and replace the endpoint with the same sign as $f(x)$.
 
+![[Assets/FP1/FP1-3-secant.svg]]
+Notice that the secant joins two curve points; its axis crossing $4/3$ is an estimate, not a point on the curve.
+
 **Newton-Raphson** starts with a chosen $x_0$. The tangent to $y=f(x)$ at $x_n$ crosses the $x$-axis at the next estimate:
 $$
 x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}.
 $$
 Differentiate correctly and make sure $f'(x_n)\ne0$. A poor starting value or a very small derivative can make the iterates unreliable. Check each iterate against the equation rather than assuming it converges.
+
+![[Assets/FP1/FP1-3-tangent.svg]]
+Notice that the tangent uses the slope at $x=1.5$; its axis crossing $17/12$ supplies the next iterate.
 
 ## Method
 1. Rearrange the equation as $f(x)=0$ and identify the required method and accuracy.
@@ -45,6 +54,13 @@ Differentiate correctly and make sure $f'(x_n)\ne0$. A poor starting value or a 
 
 ## Exam technique
 For **Calculate** or **Find**, show the formula, substitution and estimate. For **Show that**, include the signs or algebra that justify the stated result. If asked to give an answer to a stated number of decimal places, retain extra figures in intermediate steps and confirm the final rounding using a sufficiently narrow bracket or stable iterates. State when an iterate is undefined because its derivative is zero.
+
+A bracket gives two bounds; an approximation gives one value, often the midpoint. After $n$ bisections, the width is $(b-a)/2^n$: choose the smallest integer $n$ meeting the target width. Stable Newton iterates suggest convergence but alone do not prove correct rounding; a bracket must lie within the same rounding boundaries.
+
+> [!example]- Worked example: certify two decimal places
+> For the positive root of $f(x)=x^2-3$, test the boundaries around $1.73$: $1.725$ and $1.735$.
+> $f(1.725)=-0.024375<0$ and $f(1.735)=0.010225>0$.
+> The polynomial is continuous, so a root lies strictly inside $(1.725,1.735)$. Every number there rounds to $1.73$, proving two-decimal-place accuracy. There is only one positive root because $x^2$ increases for $x>0$.
 
 ## Links
 Builds on [[P1 Differentiation]] · Leads to [[FP1 Further numerical methods]]
