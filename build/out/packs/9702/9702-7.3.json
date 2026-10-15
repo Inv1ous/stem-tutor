@@ -1386,6 +1386,40 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9702-7.3-r01",
+   "kcs": [
+    "9702-7.3.1"
+   ],
+   "kind": "structured",
+   "difficulty": 3,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A small sound source emits at constant frequency $f_s$ and moves at constant speed $v_s$, with $0<v_s<v$, through still air of constant sound speed $v$. A stationary observer lies on its straight-line path. Use the idealised direct-line model: the source approaches directly, passes the observer at time $t_p$, then recedes directly. Sketch the observed frequency $f_o$ against time before and after passing. Label both axes, draw a horizontal reference at $f_s$, and mark $t_p$. No numerical scale is required.",
+   "marks": 3,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "A horizontal approach level above the labelled $f_s$ reference for $t<t_p$."
+    },
+    {
+     "mark": "B1",
+     "point": "A horizontal recession level below $f_s$ for $t>t_p$."
+    },
+    {
+     "mark": "B1",
+     "point": "Time and observed-frequency axes labelled, with the abrupt downward change located at the correctly labelled passing time $t_p$."
+    }
+   ],
+   "explanation": "At constant speed, direct approach gives the constant value $f_s v/(v-v_s)>f_s$, and direct recession gives $f_s v/(v+v_s)<f_s$. The idealised direct-line graph changes abruptly at $t_p$; the speed of sound remains unchanged.",
+   "hints": [
+    "Separate the motion into the intervals before and after passing.",
+    "Consider how successive wavefronts reach a stationary listener in each interval.",
+    "Use the moving-source formula to compare each interval with the source-frequency reference, and ask which quantities vary with time."
+   ]
   }
  ],
  "flashcards": [
@@ -1402,7 +1436,101 @@
    "back": "$f_o=f_s v/(v\\pm v_s)$: use minus for approach and plus for recession; $v$ is sound speed and $v_s$ source speed."
   }
  ],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/9702/9702-7.3-frequency-time.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        1.25
+       ],
+       [
+        4,
+        1.25
+       ]
+      ],
+      "style": "solid"
+     },
+     {
+      "points": [
+       [
+        4,
+        0.8333333333333334
+       ],
+       [
+        8,
+        0.8333333333333334
+       ]
+      ],
+      "style": "solid"
+     },
+     {
+      "points": [
+       [
+        0,
+        1
+       ],
+       [
+        8,
+        1
+       ]
+      ],
+      "style": "dashed"
+     },
+     {
+      "points": [
+       [
+        4,
+        0
+       ],
+       [
+        4,
+        1.25
+       ]
+      ],
+      "style": "dashed"
+     }
+    ],
+    "xlabel": "Time $t$",
+    "ylabel": "Observed frequency $f_o$",
+    "ticks": false,
+    "annotations": [
+     {
+      "xy": [
+       0.4,
+       1.3
+      ],
+      "text": "Approaching"
+     },
+     {
+      "xy": [
+       5.1,
+       0.71
+      ],
+      "text": "Receding"
+     },
+     {
+      "xy": [
+       7.1,
+       1.04
+      ],
+      "text": "$f_s$"
+     },
+     {
+      "xy": [
+       4.12,
+       0.12
+      ],
+      "text": "$t_p$: passing"
+     }
+    ]
+   }
+  }
+ ],
  "teach": {
   "9702-7.3.1": {
    "motivate": "Why does a passing siren sound higher before it passes and lower afterwards, even while the siren emits steadily?",

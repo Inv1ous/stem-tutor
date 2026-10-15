@@ -1,0 +1,24 @@
+{
+ "summary": "Add a frequency–time sketch and its underlying wavefront reasoning to strengthen the otherwise well-covered Doppler chapter.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after ## Key ideas",
+   "why": "ER 9702 w23 P21 Q5 reports difficulty sketching observed frequency above the source frequency before passing and below it afterwards; the note has no diagram.",
+   "what": "Use graph_sketch for observed frequency $f_o$ against time for a source passing a stationary observer at constant speed along a direct line: labelled source-frequency $f_s$ reference, higher approach level and lower recession level, with the passing instant marked. Embed and explain what to notice; avoid implying sound speed changes."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-7.3.1",
+   "why": "Existing conceptual practice is mainly MCQs and has no Sketch command-word task, despite the examiner-reported graph difficulty.",
+   "count": 1,
+   "what": "Add an exam-style structured Sketch item asking for $f_o$ versus time as a constant-speed sound source approaches, passes and recedes from a stationary observer, with $f_s$ marked; scheme credits the higher approach frequency, lower recession frequency and correctly labelled passing instant."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Key ideas",
+   "why": "The note states the sign rule but skips the quantitative wavefront-spacing step that explains the denominator.",
+   "what": "Add a compact derivation using emission period $T=1/f_s$: consecutive wavefront spacing is $(v-v_s)T$ ahead and $(v+v_s)T$ behind, then $f_o=v/\\lambda$ gives the two formulas. State the stationary observer and same-medium assumptions."
+  }
+ ]
+}
