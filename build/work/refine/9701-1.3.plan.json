@@ -1,0 +1,12 @@
+{
+ "summary": "The chapter's content, note and diagram are solid and well-covered; the one real gap is that no KC has a teaching card.",
+ "improvements": [
+  {
+   "kind": "feature",
+   "where": "pack: teach",
+   "kc": "9701-1.3.1, 9701-1.3.2, 9701-1.3.3, 9701-1.3.4, 9701-1.3.5, 9701-1.3.6, 9701-1.3.7, 9701-1.3.8, 9701-1.3.9",
+   "why": "`refine gates` reports `syllabus no-teach-card` for every one of the 9 KCs: the pack has no `teach` field at all, so Haiku has no `motivate`/`establish`/`connect`/`note`/`self_explain` card to walk a learner through shells→sub-shells→orbitals, the energy order, writing configurations, Hund's rule, deducing ion configurations, electrons-in-boxes, orbital shapes or the free-radical definition before practice questions begin.",
+   "what": "Add a `teach` entry for each of the 9 KCs, in the style of other packs (e.g. build/work/teach/9701-3.1.json): `motivate` (a short question that sets up why the idea matters), `establish` (the idea in mark-scheme wording, bold key terms), `connect` (how it feeds the next KC), `note` (2-4 bullet lines matching the established wording) and `self_explain` (one question the learner answers before moving on). Base each on the KC statement and glossary in the bundle; use the pack's own outline, misconceptions and worked examples for exact wording (e.g. 4s-before-3d, Hund's rule, Fe/Fe2+/Fe3+) rather than inventing new facts."
+  }
+ ]
+}
