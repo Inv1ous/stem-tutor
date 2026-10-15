@@ -1,0 +1,31 @@
+{
+ "summary": "Add a visual sign test and practice for increasing functions and practical optimisation, extending the existing stationary-point coverage.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after ## Key ideas",
+   "why": "The chapter explains derivative sign changes and stationary inflection entirely in words; a graph makes the three classifications visible without copying a library figure.",
+   "what": "Use supported function_plot to show $y=x^3-3x$ with labelled maximum and minimum and a second simple $y=x^3$ panel or separate plot showing a horizontal stationary inflection; embed and caption the rendered SVG. If one plot cannot show both clearly, prioritise the first curve and annotate intervals where $f'$ is positive and negative."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-7.1",
+   "why": "The current eight items practise a repeated cubic and a rectangle; Pearson's P2 teaching guidance explicitly includes proving a function increases from the derivative, which has no item here.",
+   "count": 2,
+   "what": "Add one multi-step Prove item using $f'(x)=x^2-2+x^{-2}=(x-x^{-1})^2\\geq0$ on $x>0$ (explain strict increase despite isolated zero at $x=1$), and one misconception-aware item where $f''(a)=0$ is inconclusive and a first-derivative sign test classifies the point. Use distinct functions and full worked explanations."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-7.1",
+   "why": "Only a rectangle with a fixed perimeter represents practical optimisation; the syllabus permits wider contexts and the current question never requires comparing a stationary value with domain endpoints.",
+   "count": 1,
+   "what": "Add a structured practical optimisation problem with a bounded feasible domain, a one-variable objective, an interior stationary candidate, and endpoint comparison; award marks for forming the objective and interpreting the final value with units."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the worked example",
+   "why": "The lesson says to check endpoints but demonstrates only stationary points. Learners may equate a local extremum with a global optimum.",
+   "what": "Add a short worked comparison on a closed interval that evaluates both endpoints and every stationary candidate, then identifies the absolute maximum and minimum. Keep the existing example intact."
+  }
+ ]
+}

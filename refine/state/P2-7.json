@@ -1,0 +1,138 @@
+{
+ "sub": "P2-7",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T23:08:32+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T22:06:17+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 4 improvements"
+  },
+  {
+   "t": "2026-10-15T22:55:37+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions, 2 diagrams, 15 note_lines"
+  },
+  {
+   "t": "2026-10-15T23:03:52+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "0 of 0 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T23:08:32+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions, 2 diagrams, 15 note_lines"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 11,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 22695,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:05:20+08:00",
+   "log": "refine/logs/P2-7.scout.1015-220520.log",
+   "out": "refine/logs/P2-7.scout.1015-220520.out.json",
+   "expects": "build/work/refine/P2-7.plan.json",
+   "finished": "2026-10-15T22:06:17+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 4,
+    "plan_path": "build/work/refine/P2-7.plan.json",
+    "notes": [
+     "Read the learner’s Save My Exams YMA01 c7.1.pdf, pp. 5–6, and Pearson’s official P2 teaching guidance. The plan adds derivative-sign and optimisation practice based on gaps in the current chapter."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 44006,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T22:50:52+08:00",
+   "log": "refine/logs/P2-7.refiner.1015-225052.log",
+   "out": "refine/logs/P2-7.refiner.1015-225052.out.json",
+   "finished": "2026-10-15T22:55:37+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 4,
+    "new_items": [
+     "P2-7-r01",
+     "P2-7-r02",
+     "P2-7-r03"
+    ],
+    "new_diagrams": [
+     "Assets/P2/P2-7-sign-test.svg",
+     "Assets/P2/P2-7-stationary-inflection.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 46639,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:55:46+08:00",
+   "log": "refine/logs/P2-7.checker.1015-225546.log",
+   "out": "refine/logs/P2-7.checker.1015-225546.out.json",
+   "expects": "build/work/refine/P2-7.check.json",
+   "finished": "2026-10-15T22:57:50+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Perfect! I've verified the P2-7 refine pass against all 9 checker rules (plus rules 8 and 9 specific to refine checks):\n\n**Check complete:**\n\n✓ **Rule 1** (Hint gives it away): All hints provide guidance without revealing answers\n✓ **Rule 2** (Wrong definition): All mathematical definitions are correct and consistent\n✓ **Rule 3** (Two right options): N/A (no MCQs in the new questions)\n✓ **Rule 4** (Wrong constant): All numeric values verified (box volumes, derivatives, coordinates)\n✓ **Rule 5** (Note contradicts pack): New note content aligns with pack diagrams and examples\n✓ **Rule 6** (Off syllabus): All content applies to KC P2-7.1 (stationary points, increasing/decreasing functions)\n✓ **Rule 7** (Outcome not taught): New questions test content established in bundle teaching guidance\n✓ **Rule 8** (Copied text): Explanations are original; sources properly cited\n✓ **Rule 9** (Bad link): Only link is `[[4 Differentiation]]`, which matches bundle exactly\n\n**No findings — all checks pass.**"
+   },
+   "ok": true,
+   "cost_usd": 0.162
+  }
+ },
+ "plan": {
+  "improvements": 4,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 1,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 3,
+  "diagrams": 2,
+  "note_lines": 15,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T23:08:32+08:00"
+}

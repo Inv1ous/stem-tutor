@@ -430,6 +430,187 @@
      ]
     }
    ]
+  },
+  {
+   "id": "P2-7-r01",
+   "kcs": [
+    "P2-7.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $x>0$, let $f(x)=\\frac{x^3}{3}-2x-\\frac1x$. Prove that $f$ is strictly increasing: differentiate, express the derivative as a square, and explain why its zero does not interrupt strict increase.",
+   "marks": 4,
+   "explanation": "Differentiation gives $f'(x)=x^2-2+x^{-2}=(x-x^{-1})^2\\geq0$, with equality only at $x=1$ in the domain. Thus $f$ is strictly increasing on $(0,1]$ and $[1,\\infty)$, since the derivative is positive in the interior of each interval. If $0<a<1<b$, then $f(a)<f(1)<f(b)$, so strict increase also holds across the isolated horizontal tangent.",
+   "hints": [
+    "Differentiate each power separately, including the negative power.",
+    "Look for a perfect square involving a power of $x$ and its reciprocal.",
+    "After finding where the square is zero, compare behaviour on each side and across that point."
+   ],
+   "rubric": [
+    {
+     "point": "Obtain $f'(x)=x^2-2+x^{-2}$.",
+     "keywords": [
+      [
+       "x^2",
+       "x^{2}"
+      ],
+      [
+       "x^{-2}",
+       "1/x^2"
+      ]
+     ]
+    },
+    {
+     "point": "Write $f'(x)=(x-x^{-1})^2\\geq0$.",
+     "keywords": [
+      [
+       "square",
+       "(x-1/x)^2",
+       "(x-x^{-1})^2"
+      ]
+     ]
+    },
+    {
+     "point": "The derivative is positive except at $x=1$.",
+     "keywords": [
+      [
+       "positive"
+      ],
+      [
+       "1"
+      ]
+     ]
+    },
+    {
+     "point": "Strict increase holds on both sides including the shared endpoint; across it, $f(a)<f(1)<f(b)$.",
+     "keywords": [
+      [
+       "strict",
+       "strictly"
+      ],
+      [
+       "across",
+       "f(a)<f(1)<f(b)",
+       "both sides"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P2-7-r02",
+   "kcs": [
+    "P2-7.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Let $g(x)=(x-2)^4+3$. A student claims that $g''(2)=0$ proves a stationary point of inflection. Explain why this reasoning fails and use the sign of $g'$ to find and classify the stationary point.",
+   "marks": 4,
+   "explanation": "Here $g'(x)=4(x-2)^3$ and $g''(x)=12(x-2)^2$, so $g'(2)=g''(2)=0$ and the second derivative test is inconclusive. The first derivative is negative for $x<2$ and positive for $x>2$, hence the curve changes from decreasing to increasing. Therefore $(2,3)$ is a local minimum, not a stationary inflection.",
+   "hints": [
+    "Recall what a zero second derivative does and does not tell you.",
+    "Factor the first derivative and inspect its sign on either side of its root.",
+    "An odd power keeps the sign of its base; substitute the stationary input into the original function for its height."
+   ],
+   "rubric": [
+    {
+     "point": "$g'(x)=4(x-2)^3$, so the stationary input is $2$.",
+     "keywords": [
+      [
+       "4(x-2)^3",
+       "4(x-2)^{3}"
+      ]
+     ]
+    },
+    {
+     "point": "$g''(2)=0$ makes the test inconclusive.",
+     "keywords": [
+      [
+       "inconclusive",
+       "does not prove"
+      ]
+     ]
+    },
+    {
+     "point": "The first derivative changes from negative to positive.",
+     "keywords": [
+      [
+       "negative"
+      ],
+      [
+       "positive"
+      ]
+     ]
+    },
+    {
+     "point": "The stationary point $(2,3)$ is a local minimum.",
+     "keywords": [
+      [
+       "2"
+      ],
+      [
+       "3"
+      ],
+      [
+       "minimum"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P2-7-r03",
+   "kcs": [
+    "P2-7.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A square sheet of card has side $12\\,\\mathrm{cm}$. Squares of side $x\\,\\mathrm{cm}$ are cut from its corners and the sides folded up to form an open box. Manufacturing constraints require $1\\leq x\\leq4$. (a) Form a one-variable expression for its volume $V(x)$. (b) Find every stationary candidate and reject any outside the feasible domain. (c) Compare the feasible stationary volume with both endpoint volumes and find the greatest possible volume, giving the cut size and units.",
+   "marks": 6,
+   "explanation": "The base has side $12-2x$, so $V=x(12-2x)^2=4x^3-48x^2+144x$ and $V'=12(x-2)(x-6)$. The stationary inputs are $2$ and $6$, but only $2$ belongs to $[1,4]$; the candidate volumes are $V(1)=100$, $V(2)=128$ and $V(4)=64$. Since this polynomial is continuous on the closed feasible interval, the greatest volume is $128\\,\\mathrm{cm^3}$, achieved by cutting squares of side $2\\,\\mathrm{cm}$.",
+   "hints": [
+    "Express the base dimensions after removing a square at each end.",
+    "Differentiate the volume and check stationary solutions against the manufacturing constraints.",
+    "Compare the original volume at both bounds and at each feasible stationary input."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Form $V=x(12-2x)^2$."
+    },
+    {
+     "mark": "M1",
+     "point": "Obtain $V'=12(x-2)(x-6)$."
+    },
+    {
+     "mark": "A1",
+     "point": "Solve for $x=2,6$ and reject $6$ because $1\\leq x\\leq4$."
+    },
+    {
+     "mark": "A1",
+     "point": "Evaluate $V(1)=100$ and $V(4)=64$."
+    },
+    {
+     "mark": "A1",
+     "point": "Evaluate $V(2)=128$ and compare all three candidate values."
+    },
+    {
+     "mark": "A1",
+     "point": "The greatest volume is $128\\,\\mathrm{cm^3}$ for a cut size of $2\\,\\mathrm{cm}$."
+    }
+   ]
   }
  ],
  "flashcards": [
@@ -446,7 +627,85 @@
    "back": "A function is increasing where $f'(x)>0$ and decreasing where $f'(x)<0$."
   }
  ],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/P2/P2-7-sign-test.svg",
+   "type": "function_plot",
+   "params": {
+    "functions": [
+     {
+      "expr": "x**3-3*x",
+      "domain": [
+       -2.2,
+       2.2
+      ],
+      "label": "$y=x^3-3x$"
+     }
+    ],
+    "points": [
+     {
+      "xy": [
+       -1,
+       2
+      ],
+      "label": "Maximum\n(-1, 2)"
+     },
+     {
+      "xy": [
+       1,
+       -2
+      ],
+      "label": "Minimum\n(1, -2)"
+     }
+    ],
+    "xlim": [
+     -2.5,
+     2.5
+    ],
+    "ylim": [
+     -5,
+     5
+    ],
+    "xlabel": "$x$",
+    "ylabel": "$y$"
+   }
+  },
+  {
+   "file": "Assets/P2/P2-7-stationary-inflection.svg",
+   "type": "function_plot",
+   "params": {
+    "functions": [
+     {
+      "expr": "x**3",
+      "domain": [
+       -1.6,
+       1.6
+      ],
+      "label": "$y=x^3$"
+     }
+    ],
+    "points": [
+     {
+      "xy": [
+       0,
+       0
+      ],
+      "label": "Stationary inflection\n(0, 0)"
+     }
+    ],
+    "xlim": [
+     -2,
+     2
+    ],
+    "ylim": [
+     -5,
+     5
+    ],
+    "xlabel": "$x$",
+    "ylabel": "$y$"
+   }
+  }
+ ],
  "teach": {
   "P2-7.1": {
    "motivate": "A graph can rise, fall, or turn; a design problem can ask for the largest possible area. Differentiation gives one method for all these questions: inspect the gradient as $x$ changes.",
