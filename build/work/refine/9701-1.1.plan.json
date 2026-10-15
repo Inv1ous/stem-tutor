@@ -1,11 +1,18 @@
 {
- "summary": "Add guided teaching cards for all seven syllabus outcomes so learners can discover and check the reasoning already covered by the note, diagrams, and questions.",
+ "summary": "Add a clear explanation and targeted practice for the ionic-radius pattern across a period, which the current note and questions treat only as separate ion comparisons.",
  "improvements": [
   {
-   "kind": "feature",
-   "where": "pack, teaching cards for 9701-1.1.1 through 9701-1.1.7",
-   "why": "The syllabus gate reports no teaching card for any of the seven outcomes, although the chapter already has sound coverage, two diagrams, worked examples, misconceptions, and 79 questions.",
-   "what": "Add one concise teaching card per KC with a discover question that asks the learner to infer the key idea before revealing a markable explanation. Use the existing nucleus and shell description, relative charge and mass table, $Z$ and $A$ definitions, mass and charge distribution, beam-deflection diagram, $A-Z$ and signed-charge counting method, and period/group and isoelectronic radius comparisons. Keep the existing pack and note content intact."
+   "kind": "clarification",
+   "where": "note, after the Radius trends paragraph in ## Key ideas",
+   "why": "Outcome 9701-1.1.7 asks for variation in ionic radius across a period and down a group; the note gives atomic trends and isolated cation/anion comparisons but does not connect these into the ionic trend.",
+   "what": "Add a short explanation that ionic radii of comparable cations decrease across a period as nuclear charge increases for the same electron shell, then rise sharply on moving to anions because the stable anions have an additional occupied shell; comparable ions increase down a group as another shell is added. Use Period 3 examples such as $\\ce{Na+}$, $\\ce{Mg^2+}$, $\\ce{P^3-}$ and $\\ce{S^2-}$, and make clear that a simple monotonic trend does not apply across the cation-to-anion boundary. Paraphrase the learner's source."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-1.1.7",
+   "why": "Current radius questions test atomic trends, single-ion changes and isoelectronic comparisons, but do not ask learners to explain the cation-to-anion jump or the ionic trend down a group.",
+   "count": 2,
+   "what": "Add one exam-style explain item on the Period 3 ionic-radius discontinuity and one compare/explain item on comparable ions down a group; include a misconception distractor or rubric point that checks shell count before nuclear charge."
   }
  ]
 }
