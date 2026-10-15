@@ -1,0 +1,24 @@
+{
+ "summary": "Make pressure differences and the pressure-force origin of upthrust easier to see and practise.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the hydrostatic-pressure paragraph in ## Key ideas",
+   "why": "Outcome 9702-4.3.4 requires using a pressure difference between depths; the chapter has no diagram, and students can confuse the difference with total pressure.",
+   "what": "graph_sketch of pressure p against vertical depth h in a uniform stationary liquid open to air: straight line with positive slope, intercept labelled $p_{\\mathrm{atm}}$, two depths $h_1$ and $h_2$ with pressure rise $\\Delta p=\\rho g(h_2-h_1)$. Explain that the slope is $\\rho g$ and the intercept is the surface pressure."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the upthrust paragraph in ## Key ideas",
+   "why": "The note states $U=(p_b-p_t)A$ and $U=\\rho gV_{\\mathrm{displaced}}$ separately but skips the algebra that joins them; this is central to outcomes 9702-4.3.5 and 9702-4.3.6.",
+   "what": "Add a compact derivation for a fully immersed vertical prism: $p_b-p_t=\\rho_{\\mathrm{fluid}}g\\Delta h$, so $U=(p_b-p_t)A=\\rho_{\\mathrm{fluid}}gA\\Delta h=\\rho_{\\mathrm{fluid}}gV_{\\mathrm{displaced}}$. State that equal displaced volumes in the same fluid have equal upthrust even at different depths, while individual surface pressure forces change."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-4.3.3 and 9702-4.3.5",
+   "why": "Outcome 9702-4.3.3 has only five tagged items, and the examiner reports show confusion between pressure difference, upthrust and resultant force.",
+   "count": 2,
+   "what": "One structured Show (that) item linking $m=\\rho A\\Delta h$, weight and $\\Delta p=F/A$ with all intermediate steps; one Explain item comparing equal-volume fully immersed blocks at different depths and distinguishing the pressure forces from their difference. Use only additive items with full hints and explanations."
+  }
+ ]
+}
