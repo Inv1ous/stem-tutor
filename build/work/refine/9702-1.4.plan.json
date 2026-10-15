@@ -1,0 +1,25 @@
+{
+ "summary": "Add targeted constructed-response practice for vector subtraction and signed components, plus a short method clarification for directions outside the first quadrant.",
+ "improvements": [
+  {
+   "kind": "questions",
+   "where": "9702-1.4.2",
+   "why": "Practice is dominated by MCQs and numeric answers; the syllabus explicitly asks learners to add and subtract coplanar vectors, but no learner-drawn construction is assessed.",
+   "count": 1,
+   "what": "A Sketch item: draw two non-perpendicular coplanar vectors head to tail, then construct and label their difference by reversing the subtracted vector; award marks for arrow direction and resultant from first tail to last head."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-1.4.3",
+   "why": "Current component practice mostly uses first-quadrant angles; it does not test the sign and direction of a component when the vector points left or down.",
+   "count": 1,
+   "what": "A structured Determine item with a vector pointing up-left at a stated angle to the leftward horizontal; obtain signed horizontal and vertical components and state the resultant direction from a named axis. Include a distractor or marking point for quadrant choice rather than relying on inverse tangent alone."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the resolving equations in ## Key ideas",
+   "why": "The displayed equations and inverse-tangent method are written for a vector above the positive horizontal, but the method later asks learners to use signed components generally.",
+   "what": "Add a brief note that $F_x=F\\cos\\theta$ and $F_y=F\\sin\\theta$ take signs from the chosen axes, and $\\tan^{-1}(F_y/F_x)$ needs a quadrant check; name the final direction relative to a stated axis. Add one up-left numerical mini-example without altering existing text."
+  }
+ ]
+}
