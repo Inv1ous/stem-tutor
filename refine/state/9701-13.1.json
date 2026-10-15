@@ -2,9 +2,9 @@
  "sub": "9701-13.1",
  "stage": "ready",
  "pass": 1,
- "refined": 1,
+ "refined": 2,
  "created": "2026-10-15T08:15:29+08:00",
- "updated": "2026-10-15T09:59:51+08:00",
+ "updated": "2026-10-15T12:40:01+08:00",
  "history": [
   {
    "t": "2026-10-15T08:55:27+08:00",
@@ -50,6 +50,36 @@
   },
   {
    "t": "2026-10-15T09:59:51+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions, 3 note_lines (checked only by its own family)"
+  },
+  {
+   "t": "2026-10-15T09:59:55+08:00",
+   "from": "ready",
+   "to": "ready",
+   "note": "speech: pre-generating in the background (log refine/logs/9701-13.1.speech.1015-095955.log)"
+  },
+  {
+   "t": "2026-10-15T12:33:26+08:00",
+   "from": "ready",
+   "to": "refine",
+   "note": "reopened: the gates now check option letters and leftover LaTeX in what was added"
+  },
+  {
+   "t": "2026-10-15T12:36:38+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions, 3 note_lines"
+  },
+  {
+   "t": "2026-10-15T12:38:51+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "3 of 3 new questions agreed, 0 disputed; 2 checker findings"
+  },
+  {
+   "t": "2026-10-15T12:40:01+08:00",
    "from": "sign",
    "to": "ready",
    "note": "refined: 3 questions, 3 note_lines (checked only by its own family)"
@@ -118,37 +148,35 @@
    "cost_usd": 1.207
   },
   "refiner": {
-   "pid": 26525,
+   "pid": 94153,
    "provider": "codex",
    "model": "gpt-6-astra/medium",
    "rung": 1,
-   "started": "2026-10-15T09:35:15+08:00",
-   "log": "refine/logs/9701-13.1.refiner.1015-093515.log",
-   "out": "refine/logs/9701-13.1.refiner.1015-093515.out.json",
-   "finished": "2026-10-15T09:36:19+08:00",
+   "started": "2026-10-15T12:33:33+08:00",
+   "log": "refine/logs/9701-13.1.refiner.1015-123333.log",
+   "out": "refine/logs/9701-13.1.refiner.1015-123333.out.json",
+   "finished": "2026-10-15T12:36:37+08:00",
    "exit": 0,
    "report": {
-    "applied": 0,
+    "applied": 2,
     "new_items": [],
     "new_diagrams": [],
-    "not_done": [
-     "No edits needed: planned additions already exist and all gates pass. Original [[2.3 Amount of substance]] link preserved under the no-loss rule; inherited link errors are excluded by the refiner gate."
-    ],
+    "not_done": [],
     "validator_ok": true,
     "lint_ok": true
    },
    "ok": true
   },
   "solver": {
-   "pid": 27317,
+   "pid": 95118,
    "provider": "codex",
    "model": "gpt-6-sol/low",
    "rung": 0,
-   "started": "2026-10-15T09:36:28+08:00",
-   "log": "refine/logs/9701-13.1.solver.1015-093628.log",
-   "out": "refine/logs/9701-13.1.solver.1015-093628.out.json",
+   "started": "2026-10-15T12:36:53+08:00",
+   "log": "refine/logs/9701-13.1.solver.1015-123653.log",
+   "out": "refine/logs/9701-13.1.solver.1015-123653.out.json",
    "expects": "build/work/blind/9701-13.1.refine.answers.json",
-   "finished": "2026-10-15T09:36:46+08:00",
+   "finished": "2026-10-15T12:37:19+08:00",
    "exit": 0,
    "report": {
     "text": "Answered 3 questions in `build/work/blind/9701-13.1.refine.answers.json`."
@@ -227,5 +255,5 @@
   "cards": 0,
   "other": 0
  },
- "last_refined": "2026-10-15T09:59:51+08:00"
+ "last_refined": "2026-10-15T12:40:01+08:00"
 }
