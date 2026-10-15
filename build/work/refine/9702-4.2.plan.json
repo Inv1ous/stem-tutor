@@ -1,0 +1,24 @@
+{
+ "summary": "Add the missing force diagram and focused practice connecting force balance, moment balance, and the triangle of forces.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after ## Key ideas",
+   "why": "The diagram gate requires a free-body view for outcomes 9702-4.2.2 and 9702-4.2.3; the note currently has no diagram.",
+   "what": "Request a free_body diagram of a body held by a sloping tension, a horizontal push, and its downward weight. Label the three actual force directions and embed it beside a short explanation of how those same arrows make a closed head-to-tail triangle; check that the free_body renderer can express this cleanly."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the existing worked example",
+   "why": "The note describes a force triangle but gives no complete drawn-to-calculation example for outcome 9702-4.2.3.",
+   "what": "Add a worked three-force equilibrium example with tension at a stated angle to the vertical, weight downward, and horizontal force. Show the arrow order, closure, component equations, and the angle choice; use different numbers from existing we2 and retain existing text."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-4.2.2",
+   "why": "The learner needs to apply both equilibrium conditions to the same rigid body, as in the learner library's four-beam comparison on p.5, rather than only recall the conditions.",
+   "count": 2,
+   "what": "One exam-style Calculate item and one Justify item on three parallel forces acting at marked positions on a rigid beam: require checking both the resultant force and resultant moment about a named point. Use fresh values and provide misconception distractors for checking only one condition."
+  }
+ ]
+}

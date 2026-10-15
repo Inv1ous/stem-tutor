@@ -1,0 +1,159 @@
+{
+ "sub": "9702-4.2",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T19:10:51+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T18:46:43+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T19:01:25+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 2 questions, 1 diagrams, 10 note_lines, 1 other"
+  },
+  {
+   "t": "2026-10-15T19:02:10+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "2 of 2 new questions agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-15T19:06:22+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-15T19:10:51+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 2 questions, 1 diagrams, 10 note_lines, 1 other (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 77,
+  "extra": 48,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 60980,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T18:45:36+08:00",
+   "log": "refine/logs/9702-4.2.scout.1015-184536.log",
+   "out": "refine/logs/9702-4.2.scout.1015-184536.out.json",
+   "expects": "build/work/refine/9702-4.2.plan.json",
+   "finished": "2026-10-15T18:46:43+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 3,
+    "plan_path": "build/work/refine/9702-4.2.plan.json",
+    "notes": [
+     "Read the learner library’s SaveMyExams 9702 c4.2.pdf, pp. 5–6; p. 5 compares force and torque balance on four beams. Inspected the page image and found no figure worth cropping.",
+     "Checked the official Cambridge 9702 2025–2027 syllabus: https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf. It confirms the three chapter outcomes.",
+     "The existing Links line contains names outside the bundle’s allowed list; the add-only rule prevents correcting it in this pass."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 66138,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T18:57:31+08:00",
+   "log": "refine/logs/9702-4.2.refiner.1015-185731.log",
+   "out": "refine/logs/9702-4.2.refiner.1015-185731.out.json",
+   "finished": "2026-10-15T19:01:25+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 3,
+    "new_items": [
+     "9702-4.2-r01",
+     "9702-4.2-r02"
+    ],
+    "new_diagrams": [
+     "Assets/9702/9702-4.2-three-forces.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 67866,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T19:01:33+08:00",
+   "log": "refine/logs/9702-4.2.solver.1015-190133.log",
+   "out": "refine/logs/9702-4.2.solver.1015-190133.out.json",
+   "expects": "build/work/blind/9702-4.2.refine.answers.json",
+   "finished": "2026-10-15T19:01:51+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions in `build/work/blind/9702-4.2.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 69906,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T19:05:39+08:00",
+   "log": "refine/logs/9702-4.2.checker.1015-190539.log",
+   "out": "refine/logs/9702-4.2.checker.1015-190539.out.json",
+   "expects": "build/work/refine/9702-4.2.check.json",
+   "finished": "2026-10-15T19:06:09+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9702-4.2.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9702-4.2.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 3,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 1,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 2,
+  "diagrams": 1,
+  "note_lines": 10,
+  "cards": 0,
+  "other": 1
+ },
+ "last_refined": "2026-10-15T19:10:51+08:00"
+}

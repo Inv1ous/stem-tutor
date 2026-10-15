@@ -36,6 +36,14 @@
    "refutation": "Both strings supply upward components.",
    "contrast": "Use twice the vertical component of one tension.",
    "source": "ER 9702 w20 P12 Q14"
+  },
+  {
+   "id": "m5",
+   "kc": "9702-4.2.2",
+   "statement": "Zero resultant moment about one point alone proves equilibrium.",
+   "refutation": "The resultant force must also be zero; balanced moments about one point can coexist with a nonzero resultant force.",
+   "contrast": "Sum the forces as well as the moments about the named point.",
+   "source": "research"
   }
  ],
  "worked": [
@@ -2173,6 +2181,70 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "kcs": [
+    "9702-4.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "source": {
+    "type": "generated"
+   },
+   "marks": 1,
+   "shuffle": true,
+   "id": "9702-4.2-r01",
+   "command_word": "Calculate",
+   "stem": "A horizontal rigid beam of negligible weight has marks at $x=0$, $1.5\\,\\mathrm{m}$ and $3.0\\,\\mathrm{m}$, measured rightwards from its left end A. The only forces are $14\\,\\mathrm{N}$ upwards at A, $36\\,\\mathrm{N}$ downwards at $x=1.5\\,\\mathrm{m}$ and $22\\,\\mathrm{N}$ upwards at $x=3.0\\,\\mathrm{m}$. Calculate the resultant force and resultant moment about A. Which pair is correct?",
+   "options": {
+    "A": "$0\\,\\mathrm{N}$; $12\\,\\mathrm{N\\,m}$ anticlockwise",
+    "B": "$0\\,\\mathrm{N}$; $0\\,\\mathrm{N\\,m}$",
+    "C": "$0\\,\\mathrm{N}$; $120\\,\\mathrm{N\\,m}$ anticlockwise",
+    "D": "$72\\,\\mathrm{N}$ upwards; $120\\,\\mathrm{N\\,m}$ anticlockwise"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3"
+   },
+   "explanation": "Taking upwards and anticlockwise as positive gives $\\Sigma F=14+22-36=0\\,\\mathrm{N}$ and $\\Sigma\\tau_A=22(3.0)-36(1.5)=12\\,\\mathrm{N\\,m}$ anticlockwise. The force at A has no moment about A, and zero resultant force does not make the beam fully equilibrated.",
+   "hints": [
+    "Choose a positive direction for forces and a positive sense for moments.",
+    "Calculate two separate signed sums; use distances from A for every moment.",
+    "The upward force at A enters the force sum but has zero lever arm about A."
+   ]
+  },
+  {
+   "kcs": [
+    "9702-4.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "source": {
+    "type": "generated"
+   },
+   "marks": 1,
+   "shuffle": true,
+   "id": "9702-4.2-r02",
+   "command_word": "Justify",
+   "stem": "A horizontal rigid beam of negligible weight has marks at A ($x=0$), $x=1.5\\,\\mathrm{m}$ and $x=3.0\\,\\mathrm{m}$, measured rightwards. In arrangement P, its only forces are $14\\,\\mathrm{N}$ upwards at A, $36\\,\\mathrm{N}$ downwards at $1.5\\,\\mathrm{m}$ and $22\\,\\mathrm{N}$ upwards at $3.0\\,\\mathrm{m}$. In arrangement Q, the corresponding forces are $12\\,\\mathrm{N}$ upwards, $36\\,\\mathrm{N}$ downwards and $18\\,\\mathrm{N}$ upwards. Justify which arrangement is in equilibrium by checking the resultant force and resultant moment about A. Which conclusion is supported?",
+   "options": {
+    "A": "P only: its resultant force is zero, which is sufficient.",
+    "B": "Q only: its resultant moment about A is zero, which is sufficient.",
+    "C": "Neither: P has a nonzero resultant moment about A, while Q has a nonzero resultant force.",
+    "D": "Both: each satisfies at least one of the two equilibrium conditions."
+   },
+   "answer": "C",
+   "distractors": {
+    "A": "m3",
+    "B": "m5",
+    "D": "m3"
+   },
+   "explanation": "For P, $\\Sigma F=14+22-36=0\\,\\mathrm{N}$ but $\\Sigma\\tau_A=22(3.0)-36(1.5)=12\\,\\mathrm{N\\,m}$ anticlockwise. For Q, $\\Sigma F=12+18-36=-6\\,\\mathrm{N}$ (downwards) while $\\Sigma\\tau_A=18(3.0)-36(1.5)=0\\,\\mathrm{N\\,m}$; neither satisfies both conditions.",
+   "hints": [
+    "Equilibrium requires both conditions to hold for the same arrangement.",
+    "For each arrangement, tabulate a signed force sum and a signed moment sum about A.",
+    "Use the force at the right-hand mark times its distance from A, opposed by the downward force times its distance from A."
+   ]
   }
  ],
  "flashcards": [
@@ -2195,7 +2267,32 @@
    "back": "They form a closed head-to-tail vector triangle."
   }
  ],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/9702/9702-4.2-three-forces.svg",
+   "type": "free_body",
+   "params": {
+    "body": "dot",
+    "forces": [
+     {
+      "label": "T (tension)",
+      "angle": 120,
+      "length": 1.6
+     },
+     {
+      "label": "F (push)",
+      "angle": 0,
+      "length": 0.8
+     },
+     {
+      "label": "W (weight)",
+      "angle": 270,
+      "length": 1.385640646055102
+     }
+    ]
+   }
+  }
+ ],
  "teach": {
   "9702-4.2.1": {
    "motivate": "A hinged beam may stay level even while several forces try to turn it. Moments let you predict the missing support force.",
