@@ -1,0 +1,136 @@
+{
+ "sub": "9702-7.4",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T19:58:47+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T12:01:44+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 2 improvements"
+  },
+  {
+   "t": "2026-10-15T19:23:06+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 1 questions, 1 diagrams, 3 note_lines"
+  },
+  {
+   "t": "2026-10-15T19:31:12+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "0 of 0 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T19:58:47+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 1 questions, 1 diagrams, 3 note_lines (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 52,
+  "extra": 20,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 84808,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T12:00:32+08:00",
+   "log": "refine/logs/9702-7.4.scout.1015-120032.log",
+   "out": "refine/logs/9702-7.4.scout.1015-120032.out.json",
+   "expects": "build/work/refine/9702-7.4.plan.json",
+   "finished": "2026-10-15T12:01:44+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 2,
+    "plan_path": "build/work/refine/9702-7.4.plan.json",
+    "notes": [
+     "The gates report one missing diagram; the other content gates pass.",
+     "The learner’s library returned no matched passages for this chapter.",
+     "The plan JSON was validated."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 75431,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T19:20:02+08:00",
+   "log": "refine/logs/9702-7.4.refiner.1015-192002.log",
+   "out": "refine/logs/9702-7.4.refiner.1015-192002.out.json",
+   "finished": "2026-10-15T19:23:06+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 2,
+    "new_items": [
+     "9702-7.4-r01"
+    ],
+    "new_diagrams": [
+     "Assets/9702/9702-7.4-transverse-wave.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 78169,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T19:30:19+08:00",
+   "log": "refine/logs/9702-7.4.checker.1015-193019.log",
+   "out": "refine/logs/9702-7.4.checker.1015-193019.out.json",
+   "expects": "build/work/refine/9702-7.4.check.json",
+   "finished": "2026-10-15T19:30:56+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9702-7.4.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9702-7.4.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 2,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 1,
+  "diagrams": 1,
+  "note_lines": 3,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T19:58:47+08:00"
+}
