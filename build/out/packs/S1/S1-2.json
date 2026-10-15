@@ -1043,6 +1043,236 @@
     "One of these measures is built from the two most extreme values; the others ignore the tails.",
     "Ask of each measure: does it use the single largest value directly, or a value from inside the ordered data?"
    ]
+  },
+  {
+   "id": "S1-2-r01",
+   "kcs": [
+    "S1-2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A histogram shows customer waiting times, $t$ minutes. The bar for $0\\le t<5$ has frequency density $6$ customers per minute; the bar for $5\\le t<20$ has frequency density $3$ customers per minute. Calculate the number of customers in each interval and choose the correct comparison.",
+   "marks": 1,
+   "explanation": "The frequencies are $(5-0)\\times6=30$ and $(20-5)\\times3=45$, so more customers waited from 5 to under 20 minutes. Option B treats density heights as customer counts; option D also compares heights without allowing for the different widths.",
+   "hints": [
+    "Consider which feature of a histogram bar represents the number of customers.",
+    "Calculate each class width, then multiply it by that bar's frequency density.",
+    "For the first bar, set up $(5-0)\\times6$; repeat with the second interval before comparing."
+   ],
+   "options": {
+    "A": "30 and 45 customers respectively; more waited from 5 to under 20 minutes.",
+    "B": "6 and 3 customers respectively; more waited from 0 to under 5 minutes.",
+    "C": "5 and 15 customers respectively; more waited from 5 to under 20 minutes.",
+    "D": "30 and 15 customers respectively; more waited from 0 to under 5 minutes."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m1",
+    "D": "m1"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "S1-2-r02",
+   "kcs": [
+    "S1-2.1"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A histogram shows parcel delivery times, $t$ minutes. For $10\\le t<14$ the frequency density is $5$ parcels per minute; for $14\\le t<24$ it is $3$ parcels per minute. Calculate the number of parcels in each class and the difference between these numbers. A manager claims that more parcels are in the first class because its bar is taller: explain whether this is correct.",
+   "marks": 4,
+   "explanation": "The class frequencies are $(14-10)\\times5=20$ and $(24-14)\\times3=30$ parcels. There are $30-20=10$ more parcels in the second class, so the manager is incorrect: frequency is represented by bar area, whereas height represents frequency density.",
+   "hints": [
+    "A taller bar does not by itself settle a comparison when the widths differ.",
+    "Use frequency = class width multiplied by frequency density for each interval, then subtract the counts.",
+    "Start with $(14-10)\\times5$ for the first class, and identify what the two bar heights measure."
+   ],
+   "rubric": [
+    {
+     "point": "First class frequency $(14-10)\\times5=20$ parcels.",
+     "keywords": [
+      [
+       "20"
+      ]
+     ]
+    },
+    {
+     "point": "Second class frequency $(24-14)\\times3=30$ parcels.",
+     "keywords": [
+      [
+       "30"
+      ]
+     ]
+    },
+    {
+     "point": "There are 10 more parcels in the second class, contradicting the manager.",
+     "keywords": [
+      [
+       "10"
+      ],
+      [
+       "more"
+      ],
+      [
+       "second",
+       "14 to",
+       "14–24",
+       "14-24"
+      ]
+     ]
+    },
+    {
+     "point": "Frequency comes from bar area, not height; height is frequency density.",
+     "keywords": [
+      [
+       "area"
+      ],
+      [
+       "frequency"
+      ],
+      [
+       "height"
+      ],
+      [
+       "density"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1-2-r03",
+   "kcs": [
+    "S1-2.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The table summarises journey times, $t$ minutes, for 100 commuters. Use linear interpolation to estimate (a) $P_{10}$, (b) $P_{90}$, and (c) the 10–90 interpercentile range. Interpret this range in the context of journey times.\n\n| Journey time (min) | $0\\le t<10$ | $10\\le t<20$ | $20\\le t<30$ | $30\\le t<45$ |\n|---|---|---|---|---|\n| Frequency | 20 | 30 | 35 | 15 |",
+   "marks": 6,
+   "explanation": "The cumulative frequencies are $20,50,85,100$, so the target positions $0.10(100)=10$ and $0.90(100)=90$ lie in classes with boundaries $0,10$ and $30,45$, respectively. Assuming values are uniformly distributed within each class, $P_{10}=0+\\frac{10-0}{20}\\times10=5$ min and $P_{90}=30+\\frac{90-85}{15}\\times15=35$ min. Thus $P_{90}-P_{10}=30$ min: the middle $80\\%$ of commuters have estimated journey times from $5$ to $35$ min, spanning $30$ min.",
+   "hints": [
+    "Percentiles locate positions in the ordered data, so begin with cumulative frequencies.",
+    "Locate positions $0.10n$ and $0.90n$, then interpolate using the lower class boundary plus $\\frac{\\text{target}-\\text{cf before}}{\\text{class frequency}}\\times\\text{class width}$.",
+    "For $P_{90}$, first identify how many commuters are below the $30\\le t<45$ class; subtract this cumulative frequency from the target position before interpolating."
+   ],
+   "rubric": [
+    {
+     "point": "Uses cumulative frequencies $20,50,85,100$ and target positions $10$ and $90$.",
+     "keywords": [
+      [
+       "20"
+      ],
+      [
+       "50"
+      ],
+      [
+       "85"
+      ],
+      [
+       "100"
+      ],
+      [
+       "10"
+      ],
+      [
+       "90"
+      ]
+     ]
+    },
+    {
+     "point": "Interpolates $P_{10}=0+\\frac{10-0}{20}\\times10=5$ min.",
+     "keywords": [
+      [
+       "p10",
+       "p_{10}",
+       "10th percentile"
+      ],
+      [
+       "5"
+      ]
+     ]
+    },
+    {
+     "point": "Uses lower boundary $30$, cumulative frequency before $85$, frequency $15$ and width $15$ to interpolate at position $90$.",
+     "keywords": [
+      [
+       "30"
+      ],
+      [
+       "90"
+      ],
+      [
+       "85"
+      ],
+      [
+       "15"
+      ]
+     ]
+    },
+    {
+     "point": "$P_{90}=35$ min.",
+     "keywords": [
+      [
+       "p90",
+       "p_{90}",
+       "90th percentile"
+      ],
+      [
+       "35"
+      ]
+     ]
+    },
+    {
+     "point": "Interpercentile range $=35-5=30$ min.",
+     "keywords": [
+      [
+       "range"
+      ],
+      [
+       "30"
+      ],
+      [
+       "min",
+       "minute"
+      ]
+     ]
+    },
+    {
+     "point": "The middle 80% of commuters have estimated journey times spanning 30 minutes (from 5 to 35 minutes).",
+     "keywords": [
+      [
+       "middle",
+       "central"
+      ],
+      [
+       "80"
+      ],
+      [
+       "journey",
+       "commut"
+      ],
+      [
+       "30"
+      ],
+      [
+       "min",
+       "minute"
+      ]
+     ]
+    }
+   ]
   }
  ],
  "flashcards": [
@@ -1179,6 +1409,111 @@
     ],
     "mark_centres": true,
     "xlabel": "value"
+   }
+  },
+  {
+   "file": "Assets/S1/S1-2-histogram-equal-areas.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        4
+       ],
+       [
+        5,
+        4
+       ],
+       [
+        5,
+        0
+       ],
+       [
+        0,
+        0
+       ]
+      ],
+      "style": "solid"
+     },
+     {
+      "points": [
+       [
+        5,
+        0
+       ],
+       [
+        5,
+        2
+       ],
+       [
+        15,
+        2
+       ],
+       [
+        15,
+        0
+       ],
+       [
+        5,
+        0
+       ]
+      ],
+      "style": "solid"
+     }
+    ],
+    "xlabel": "Waiting time (minutes)",
+    "ylabel": "Frequency density",
+    "ticks": true,
+    "annotations": [
+     {
+      "xy": [
+       0.6,
+       2.5
+      ],
+      "text": "Frequency\n= 20"
+     },
+     {
+      "xy": [
+       7.3,
+       0.7
+      ],
+      "text": "Frequency = 20"
+     },
+     {
+      "xy": [
+       0.4,
+       4.1
+      ],
+      "text": "Density = 4"
+     },
+     {
+      "xy": [
+       7,
+       2.15
+      ],
+      "text": "Density = 2"
+     }
+    ],
+    "xticklabels": [
+     [
+      0,
+      "0"
+     ],
+     [
+      5,
+      "5"
+     ],
+     [
+      15,
+      "15"
+     ]
+    ]
    }
   }
  ],

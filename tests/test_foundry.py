@@ -1078,3 +1078,7 @@ def test_a_chapter_whose_gates_stay_red_stops_being_retried_until_the_manager_un
     assert fdy.unclean_streak(fdy.load(SUB)) == 0
     fdy.cmd_step([SUB])
     assert fdy._running(fdy.load(SUB)) or fdy.load(SUB)["jobs"].get("drafter")  # a drafter was started again
+
+
+def test_a_speech_fault_never_stops_the_gates(fdy):
+    assert fdy.speech_problems("no-such-chapter") == []

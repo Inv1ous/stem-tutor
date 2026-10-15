@@ -29,12 +29,19 @@ def test_a_chapter_that_follows_its_syllabus_passes():
 
 def test_every_gap_against_the_syllabus_is_named():
     pack = full_pack()
+    next(i for i in pack["items"] if i["id"] == "9702-2.1-i04")["command_word"] = "Ponder"  # in neither list
     del pack["teach"]["9702-2.1.4"]  # an outcome with no teaching card
     pack["flashcards"], pack["worked"] = [], []  # "define …" with no definition, "derive …" with no derivation
     assert rules(syllabus.check(pack, GRAPH, "Nothing about this topic.", {"State", "Calculate"})) == [
-        ("command-word", "item 9702-2.1-i04"),  # "Deduce" is not a command word of this syllabus
+        ("command-word", "item 9702-2.1-i04"),  # "Ponder" is not a command word of this syllabus
         ("define-not-covered", "9702-2.1.1"), ("derive-not-covered", "9702-2.1.4"), ("no-teach-card", "9702-2.1.4"),
         ("note-misses-outcome", "9702-2.1.1"), ("note-misses-outcome", "9702-2.1.4")]
+
+
+def test_exam_words_outside_the_glossary_are_allowed():
+    pack = full_pack()
+    next(i for i in pack["items"] if i["id"] == "9702-2.1-i04")["command_word"] = "Estimate"
+    assert [p for p in syllabus.check(pack, GRAPH, NOTE, {"State", "Calculate"}) if p["rule"] == "command-word"] == []
 
 
 def test_past_paper_wording_is_not_checked_for_command_words():

@@ -177,3 +177,12 @@ def test_the_gate_helpers_use_the_same_letter_rule_and_find_the_faults_in_a_pack
             "misconceptions": []}
     assert len(content_checks.letter_problems(pack)) == 1 and "x-r01" in content_checks.letter_problems(pack)[0]
     assert content_checks.latex_problems({"note": "fine $x^2$", "q": "plain"}) == []
+
+
+def test_characters_lost_in_a_pdf_copy_are_found():
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "build"))
+    import content_checks
+    bad = {"items": [{"stem": "¨H = −197 kJ"}, {"stem": "a � b"}], "note": "fine ΔH"}
+    assert len(content_checks.debris_problems(bad)) == 2
+    assert content_checks.debris_problems({"note": "ΔH and Σ and ÷"}) == []

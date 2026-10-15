@@ -242,6 +242,28 @@ _CMD_WORDS = {  # other commands with a fixed reading
     "textperthousand": "per mille", "textdegree": "degrees", "imath": "i", "jmath": "j", "ominus": "standard",
     "circ": "degrees", "varDelta": "delta", "gtrless": "is greater or less than", "lessgtr": "is less or greater than", "oint": "the contour integral of",
 }
+_CMD_WORDS.update({k: v for k, v in {  # symbols a chapter may use that have a plain reading (anything else is a reported gap)
+    "backslash": "backslash", "circlearrowright": "clockwise", "circlearrowleft": "anticlockwise",
+    "curvearrowright": "curving right", "curvearrowleft": "curving left", "circlearrowleft_": "anticlockwise",
+    "Rightarrow": "implies", "Leftarrow": "is implied by", "Leftrightarrow": "if and only if", "implies": "implies",
+    "iff": "if and only if", "impliedby": "is implied by", "nearrow": "up and to the right", "searrow": "down and to the right",
+    "nwarrow": "up and to the left", "swarrow": "down and to the left", "Uparrow": "up", "Downarrow": "down",
+    "updownarrow": "up and down", "hookrightarrow": "gives", "twoheadrightarrow": "gives", "rightharpoonup": "harpoon right",
+    "leftharpoonup": "harpoon left", "uparrow_": "up", "therefore": "therefore", "because": "because",
+    "propto": "is proportional to", "sim": "is about", "simeq": "is about equal to", "cong": "is congruent to",
+    "approx": "is approximately", "equiv": "is equivalent to", "doteq": "is equal to", "neq": "is not equal to",
+    "ne": "is not equal to", "ll": "is much less than", "gg": "is much greater than", "parallel": "is parallel to",
+    "perp": "is perpendicular to", "in": "in", "notin": "not in", "subset": "is a subset of", "subseteq": "is a subset of",
+    "supset": "is a superset of", "supseteq": "is a superset of", "sqcup": "union", "sqcap": "intersection",
+    "bigcirc": "circle", "circledast": "circle star", "odot": "circle dot", "cdot": "times", "centerdot": "dot",
+    "diamond": "diamond", "lozenge": "diamond", "blacksquare": "square", "blacktriangle": "triangle",
+    "bigstar": "star", "spadesuit": "spade", "heartsuit": "heart", "dag": "dagger", "ddag": "double dagger",
+    "S": "section", "P": "paragraph", "copyright": "copyright", "pounds": "pounds", "euro": "euros", "mho": "mhos",
+    "wr": "wreath", "amalg": "coproduct", "lbrace": "open brace", "rbrace": "close brace", "lbrack": "open bracket",
+    "rbrack": "close bracket", "backslash_": "backslash", "natural": "natural", "flat": "flat", "sharp": "sharp",
+    "male": "male", "female": "female", "sun": "the sun", "earth": "the earth", "oplus_": "circle plus",
+    "overset": "", "underset": "", "stackrel": "", "phantom": "", "hphantom": "", "vphantom": "", "mathstrut": "",
+}.items() if k not in _CMD_WORDS})
 _UNI_WORDS = {  # single unicode characters in prose (those not already covered by the tables above)
     "±": "plus or minus", "∓": "minus or plus", "×": "times", "÷": "divided by", "√": "the square root of",
     "∛": "the cube root of", "∜": "the fourth root of", "∞": "infinity", "∑": "the sum of", "∏": "the product of",

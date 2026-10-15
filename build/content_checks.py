@@ -2,6 +2,8 @@
 
 - a generated MCQ is re-lettered when shown (packs.instantiate shuffles it), so its explanation and hints must name an
   option by its text, never by its letter;
+- characters lost when text was copied from a PDF (the replacement character, a stray diaeresis for Δ): they read
+  aloud as "replacement character" and show as boxes;
 - text that still shows LaTeX (a backslash) after the terminal renderer has done its work.
 """
 from __future__ import annotations
@@ -73,4 +75,17 @@ def latex_problems(pack: dict) -> list[str]:
     for s in _strings(pack):
         if ("$" in s or "\\(" in s) and "\\" in to_terminal(s):
             out.append("maths that shows LaTeX after rendering: " + s[:90].replace("\n", " "))
+    return list(dict.fromkeys(out))[:6]
+
+
+DEBRIS = re.compile("[\ufffd\u00a8\u0080-\u009f]")
+
+
+def debris_problems(pack: dict) -> list[str]:
+    """Strings with a character the PDF copy lost (Δ became ¨, Σ became the replacement character): rewrite with the real
+    symbol, as a dollar-maths `$\\Delta H$` or the Unicode letter."""
+    out = []
+    for s in _strings(pack):
+        if m := DEBRIS.search(s):
+            out.append(f"lost character {m.group(0)!r} (a PDF copy fault; write the real symbol): " + s[max(0, m.start() - 30):m.end() + 30].replace("\n", " "))
     return list(dict.fromkeys(out))[:6]

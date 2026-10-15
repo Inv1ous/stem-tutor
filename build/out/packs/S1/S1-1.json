@@ -442,5 +442,26 @@
    "back": "Heads and tails are equally likely on each toss (the coin is fair), and the tosses are independent (one toss does not affect the next)."
   }
  ],
- "diagrams": []
+ "diagrams": [],
+ "teach": {
+  "S1-1.1": {
+   "motivate": "A die model predicts ten sixes, but a real experiment gives twelve. Deciding whether to keep or refine the model means understanding what a prediction promises and how chance affects observed results.",
+   "discover": {
+    "stem": "A model assumes a fair die and independent throws. It predicts 10 sixes in 60 throws; a student observes 12. What is the most reasonable next step?",
+    "options": {
+     "A": "Reject the model immediately because any difference means it is wrong.",
+     "B": "Keep the model provisionally: this modest difference is consistent with chance variation, and continue checking it against data.",
+     "C": "Declare the model perfect because the observed count is close to the prediction.",
+     "D": "Stop checking the fairness and independence assumptions because assumptions never need reviewing."
+    },
+    "answer": "B",
+    "explanation": "The predicted count is an average, not a guaranteed result: twelve rather than ten sixes is consistent with chance variation. Any difference does not force rejection, close agreement does not prove perfection, and fairness and independence remain assumptions to check."
+   },
+   "establish": "A statistical model is a simplified mathematical description of a real situation, built on stated assumptions. Identify the situation and quantity of interest, state assumptions, make predictions, compare them with observed data allowing for chance variation, and refine only when the evidence suggests a poor fit. Then check the revised model against data. For independent throws of a fair die, $P(\\text{six})=\\frac16$, so the predicted number in 60 throws is $60\\times\\frac16=10$. Twelve sixes is a modest difference consistent with chance variation; it neither disproves the model nor proves it correct. Larger or persistent discrepancies warrant investigating assumptions and how data were collected. If evidence suggests unequal face probabilities, refine the model by allowing those probabilities to differ and check its new predictions.",
+   "connect": "The population is the whole set of interest; a sample is the selection observed to check predictions. For a population of pupils, sampled pupils provide data on $X$, the number of sixes each gets in 60 throws. This random variable takes numerical values depending on chance; observed counts help assess the die model.",
+   "note": "- A statistical model simplifies a real situation using stated assumptions.\n- Identify the situation, state assumptions, predict, compare with data allowing for chance variation, and refine if evidence suggests poor fit.\n- A prediction is not a guaranteed observation; agreement supports a model but does not prove it.\n- Population: the whole set of interest; sample: a selection from it.\n- A random variable takes numerical values depending on chance.",
+   "self_explain": "Why do twelve sixes in sixty throws neither disprove nor prove the fair-die model? Explain how chance variation affects your decision and what evidence would make you review its assumptions.",
+   "source": "pack"
+  }
+ }
 }

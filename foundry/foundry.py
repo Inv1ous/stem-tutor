@@ -248,6 +248,17 @@ def settle_glyphs(sub: str, gate, chapter_ctx) -> tuple[dict, int]:
     return g, n
 
 
+def speech_problems(sub: str) -> list[str]:
+    """Maths in a chapter's read-aloud lines with no spoken form (the learner learns it as it is spoken, so it must read
+    right with no `speech` override). Never raises: a speech fault must not stop the pipeline."""
+    try:
+        import pregen
+        return [f"read aloud: {lid} has no spoken form for {' '.join(sy[:3])}: rewrite the maths in plain notation"
+                for lid, sy in sorted(pregen.line_gaps(sub).items())][:6]
+    except Exception:  # noqa: BLE001
+        return []
+
+
 def gates(sub: str) -> dict:
     import validate_pack
     from tutorlib import lint
@@ -265,7 +276,8 @@ def gates(sub: str) -> dict:
     import library
     import content_checks
     figures = (link_problems(text) + diagram_problems(pack, graph, text) + library.figure_problems(text, sub)) if note.is_file() else []
-    figures += content_checks.letter_problems(pack) + content_checks.latex_problems(pack)
+    figures += content_checks.letter_problems(pack) + content_checks.latex_problems(pack) + content_checks.debris_problems(pack)
+    figures += speech_problems(sub)
     glyph_list = glyph_problems(pack, text)
     out = {"ok": not problems and not findings and not gaps and not figures and not glyph_list, "validator": len(problems),
            "lint": len(findings), "syllabus": len(gaps), "figures": len(figures), "glyphs": len(glyph_list),

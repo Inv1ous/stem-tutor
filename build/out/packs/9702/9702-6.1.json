@@ -2496,6 +2496,213 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9702-6.1-r01",
+   "kcs": [
+    "9702-6.1.6",
+    "9702-6.1.5"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Describe",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A wire has original gauge length $L=2.00\\ \\mathrm{m}$. Micrometer diameter readings at different positions and orientations are $0.49$, $0.50$, $0.51$ and $0.50\\ \\mathrm{mm}$. Pointer readings increase as the wire extends; support movement has been corrected. All readings lie in the proportional region.\n\n| Applied force / $\\mathrm{N}$ | Pointer reading / $\\mathrm{mm}$ |\n| --- | --- |\n| 0 | 12.40 |\n| 5.0 | 12.65 |\n| 10.0 | 12.90 |\n| 15.0 | 13.15 |\n| 20.0 | 13.40 |\n\nDescribe how these measurements give the Young modulus: (a) obtain the extension at each non-zero force, (b) use the diameter readings to find the cross-sectional area, and (c) state how the force-against-extension gradient gives $E$. Include numerical values for the extensions and area.",
+   "marks": 6,
+   "explanation": "Subtracting the initial pointer reading gives extensions $0.25$, $0.50$, $0.75$ and $1.00\\ \\mathrm{mm}$; the mean diameter gives $A=1.96\\times10^{-7}\\ \\mathrm{m^2}$. The straight-line gradient is $\\Delta F/\\Delta x$, and multiplying it by $L/A$ gives $E$.",
+   "hints": [
+    "Separate the geometrical measurements from the loading measurements.",
+    "Decide what each instrument reading measures before using it in an equation.",
+    "Start by comparing each loaded pointer reading with the zero-force row."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "(a) Use $x=r-r_0$, subtracting $12.40\\ \\mathrm{mm}$ from each loaded pointer reading; neither a loaded reading nor total wire length is the extension."
+    },
+    {
+     "mark": "A1",
+     "point": "Extensions are $0.25$, $0.50$, $0.75$ and $1.00\\ \\mathrm{mm}$ in order of increasing force."
+    },
+    {
+     "mark": "M1",
+     "point": "(b) Average the diameter readings to obtain $d=0.50\\ \\mathrm{mm}=5.0\\times10^{-4}\\ \\mathrm{m}$."
+    },
+    {
+     "mark": "A1",
+     "point": "Use $A=\\pi d^2/4=1.96\\times10^{-7}\\ \\mathrm{m^2}$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 1.96349540849362e-07,
+       "unit": "m^2",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "B1",
+     "point": "(c) Plot force vertically against extension in metres horizontally and find the gradient $G=\\Delta F/\\Delta x$ of the straight-line region."
+    },
+    {
+     "mark": "B1",
+     "point": "Calculate $E=GL/A$ using original gauge length and cross-sectional area."
+    }
+   ]
+  },
+  {
+   "id": "9702-6.1-r02",
+   "kcs": [
+    "9702-6.1.6"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A test wire and a reference wire hang from the same support. The reference wire is kept taut under a constant small load while extra loads are added only to the test wire. Explain why relative movement is measured between the wires, why the test wire is checked for return to its initial reading after unloading, and why this return alone does not establish that Hooke's law applied.",
+   "marks": 3,
+   "explanation": "A movement of the shared support affects both wires, so their relative movement removes that contribution. Return to the initial reading checks recovery without detectable permanent extension; proportionality must still be checked from the loading graph.",
+   "hints": [
+    "Consider what can change a pointer reading besides stretching the test wire.",
+    "Distinguish a measurement error from a change in the material.",
+    "Consider separately what the loading graph and the final unloaded reading tell you."
+   ],
+   "rubric": [
+    {
+     "point": "Relative movement cancels the common movement of the support, avoiding apparent extension.",
+     "keywords": [
+      [
+       "support"
+      ],
+      [
+       "movement",
+       "moves"
+      ],
+      [
+       "cancel",
+       "remove",
+       "compensat"
+      ]
+     ]
+    },
+    {
+     "point": "Return to the initial reading checks elastic recovery with no detectable permanent extension.",
+     "keywords": [
+      [
+       "return",
+       "recover"
+      ],
+      [
+       "initial",
+       "original"
+      ],
+      [
+       "permanent",
+       "elastic"
+      ]
+     ]
+    },
+    {
+     "point": "Recovery does not prove proportionality: the loading graph must be a straight line through the origin for Hooke’s law to apply.",
+     "keywords": [
+      [
+       "straight",
+       "linear"
+      ],
+      [
+       "origin"
+      ],
+      [
+       "loading",
+       "force",
+       "extension",
+       "proportional"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-6.1-r03",
+   "kcs": [
+    "9702-6.1.3"
+   ],
+   "kind": "structured",
+   "difficulty": 3,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch force on the vertical axis against extension on the horizontal axis for a specimen that obeys Hooke’s law up to a point $P$, then has a curved loading response. Label $P$ and identify where Hooke’s law applies. The end of the curve is simply where measurements stop; no unloading data are supplied.",
+   "marks": 3,
+   "explanation": "Hooke’s law requires force to be directly proportional to extension, giving a straight line through the origin up to the limit of proportionality. A curved continuation fails this condition; its endpoint does not identify the elastic limit.",
+   "hints": [
+    "Think about the graph shape implied by direct proportionality.",
+    "Decide how the proportional section should join the later measurements.",
+    "Check the axes and the zero-load point before placing the transition label."
+   ],
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Label axes force vertically and extension horizontally, and draw a straight segment from the origin to P."
+    },
+    {
+     "mark": "B1",
+     "point": "Continue with a curve beyond P and label P as the limit of proportionality."
+    },
+    {
+     "mark": "B1",
+     "point": "Identify the straight segment up to P as the region where Hooke’s law applies; do not label the endpoint as the elastic limit without unloading evidence."
+    }
+   ]
+  },
+  {
+   "id": "9702-6.1-r04",
+   "kcs": [
+    "9702-6.1.5"
+   ],
+   "kind": "structured",
+   "difficulty": 3,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "On a tensile stress (vertical axis) against strain (horizontal axis) graph, two points on the straight-line region through the origin are $(\\varepsilon,\\sigma)=(0.40\\times10^{-3},\\ 0.50\\times10^8\\ \\mathrm{Pa})$ and $(1.20\\times10^{-3},\\ 1.50\\times10^8\\ \\mathrm{Pa})$. Determine the Young modulus using these points, showing the gradient calculation.",
+   "marks": 2,
+   "explanation": "The Young modulus is the stress–strain gradient: $E=(1.50-0.50)\\times10^8/[(1.20-0.40)\\times10^{-3}]=1.25\\times10^{11}\\ \\mathrm{Pa}$. Reversing the ratio gives $8.0\\times10^{-12}\\ \\mathrm{Pa^{-1}}$, which is $1/E$, not $E$.",
+   "hints": [
+    "Read both axis quantities and their scale factors carefully.",
+    "Choose a gradient triangle using the two supplied points.",
+    "Calculate the change in each coordinate before forming the gradient."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Use $E=\\Delta\\sigma/\\Delta\\varepsilon=(1.50\\times10^8-0.50\\times10^8)/(1.20\\times10^{-3}-0.40\\times10^{-3})$; the reciprocal gradient is not Young modulus."
+    },
+    {
+     "mark": "A1",
+     "point": "$E=1.25\\times10^{11}\\ \\mathrm{Pa}$ (accept $1.3\\times10^{11}\\ \\mathrm{Pa}$).",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 125000000000.0,
+       "unit": "Pa",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ]
   }
  ],
  "flashcards": [
@@ -2530,7 +2737,119 @@
    "back": "Young modulus is the ratio of tensile stress to tensile strain."
   }
  ],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/9702/9702-6.1-stress-strain-gradient.svg",
+   "type": "graph_sketch",
+   "params": {
+    "xlabel": "Strain, $\\varepsilon$",
+    "ylabel": "Tensile stress, $\\sigma$",
+    "ticks": false,
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        6,
+        6
+       ]
+      ],
+      "style": "solid"
+     },
+     {
+      "points": [
+       [
+        6,
+        6
+       ],
+       [
+        6.5,
+        6.43
+       ],
+       [
+        7,
+        6.76
+       ],
+       [
+        7.5,
+        7.02
+       ],
+       [
+        8,
+        7.2
+       ]
+      ],
+      "style": "solid"
+     },
+     {
+      "points": [
+       [
+        1.5,
+        1.5
+       ],
+       [
+        4.5,
+        1.5
+       ],
+       [
+        4.5,
+        4.5
+       ]
+      ],
+      "style": "dashed"
+     }
+    ],
+    "annotations": [
+     {
+      "xy": [
+       6,
+       6
+      ],
+      "xytext": [
+       1,
+       7.2
+      ],
+      "text": "Limit of proportionality"
+     },
+     {
+      "xy": [
+       2.6,
+       0.85
+      ],
+      "text": "$\\Delta\\varepsilon$"
+     },
+     {
+      "xy": [
+       4.65,
+       2.75
+      ],
+      "text": "$\\Delta\\sigma$"
+     },
+     {
+      "xy": [
+       0.3,
+       4.6
+      ],
+      "text": "$E=\\Delta\\sigma/\\Delta\\varepsilon$"
+     },
+     {
+      "xy": [
+       0,
+       0
+      ],
+      "xytext": [
+       0.1,
+       0.3
+      ],
+      "text": "0"
+     }
+    ]
+   }
+  }
+ ],
  "teach": {
   "9702-6.1.1": {
    "motivate": "A wire can lengthen or shorten depending on which way forces act along it.",

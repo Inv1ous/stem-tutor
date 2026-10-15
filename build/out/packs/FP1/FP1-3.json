@@ -28,6 +28,22 @@
    "refutation": "The tangent intersection gives $x_{n+1}=x_n-f(x_n)/f\\prime(x_n)$.",
    "contrast": "Function value over gradient is the horizontal correction.",
    "source": "research"
+  },
+  {
+   "id": "m4",
+   "kc": "FP1-3.1",
+   "statement": "Opposite endpoint signs always prove that a root exists.",
+   "refutation": "The function must also be continuous throughout the interval; $1/x$ changes endpoint signs on $[-1,1]$ but has no zero.",
+   "contrast": "Check continuity before using endpoint signs.",
+   "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "FP1-3.1",
+   "statement": "The midpoint of a sign-changing interval must be an exact root.",
+   "refutation": "A midpoint is only an estimate unless its function value is zero; it may even be outside the function domain.",
+   "contrast": "Evaluate the function and check its domain before claiming a root.",
+   "source": "research"
   }
  ],
  "worked": [
@@ -99,6 +115,37 @@
       2,
       3,
       4
+     ]
+    },
+    "blank_from": 1
+   }
+  },
+  {
+   "id": "we2",
+   "kc": "FP1-3.1",
+   "problem": "Certify the positive root of $x^2-3=0$ to two decimal places.",
+   "steps": [
+    {
+     "do": "Use the candidate $1.73$ and rounding boundaries $1.725$ and $1.735$.",
+     "why": "Half a unit in the second decimal place is $0.005$."
+    },
+    {
+     "do": "$f(1.725)=-0.024375<0$ and $f(1.735)=0.010225>0$.",
+     "why": "Exact endpoint signs establish a bracket when continuity holds."
+    },
+    {
+     "do": "The polynomial is continuous, so a root lies strictly between the boundaries; every such value rounds to $1.73$.",
+     "why": "This proves rounding accuracy; repeated matching iterates alone do not. The positive root is unique because $x^2$ increases for $x>0$."
+    }
+   ],
+   "faded": {
+    "id": "we2f",
+    "problem": "Certify the positive root of $x^2-5=0$ to two decimal places using boundaries $2.235$ and $2.245$.",
+    "answer": {
+     "value": 2.24,
+     "unit": "",
+     "sf_ok": [
+      3
      ]
     },
     "blank_from": 1
@@ -332,17 +379,290 @@
     "Choose the half containing a sign change.",
     "Compare a midpoint with a secant-axis intersection."
    ]
+  },
+  {
+   "id": "FP1-3-r01",
+   "kcs": [
+    "FP1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 2,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $f(x)=1/x$, $f(-1)=-1$ and $f(1)=1$. Explain which conclusion is correct.",
+   "marks": 1,
+   "explanation": "The function is undefined at $x=0$, so it is not continuous on the interval and the sign-change theorem does not apply. In fact, $1/x$ is never zero; opposite endpoint signs alone do not prove a root.",
+   "hints": [
+    "Check the domain throughout the interval.",
+    "Recall both conditions of the sign-change theorem.",
+    "Examine what happens when the denominator is zero."
+   ],
+   "shuffle": true,
+   "options": {
+    "A": "A root must exist because the endpoint signs are opposite.",
+    "B": "No root exists: the function is discontinuous at $x=0$ and its numerator is never zero.",
+    "C": "The exact root is the midpoint $x=0$.",
+    "D": "Continuity is unnecessary because the endpoint values are finite."
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m4",
+    "C": "m5",
+    "D": "m4"
+   }
+  },
+  {
+   "id": "FP1-3-r02",
+   "kcs": [
+    "FP1-3.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Show that",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "(a) Calculate $f(1)$ and $f(2)$ for $f(x)=x^3-x-1$. (b) Show that $f(x)=0$ has a root in $1<x<2$, explaining why a sign-change argument applies.",
+   "marks": 3,
+   "explanation": "Substitution gives $-1$ and $5$. A polynomial is continuous everywhere, so these opposite signs prove at least one root between the endpoints.",
+   "hints": [
+    "Evaluate each endpoint separately.",
+    "State the continuity property of polynomials.",
+    "Combine continuity and the signs in a conclusion about a root."
+   ],
+   "shuffle": true,
+   "scheme": [
+    {
+     "mark": "A1",
+     "point": "$f(1)=-1$ and $f(2)=5$."
+    },
+    {
+     "mark": "B1",
+     "point": "The polynomial is continuous on $[1,2]$."
+    },
+    {
+     "mark": "B1",
+     "point": "Opposite endpoint signs and continuity imply at least one root in $(1,2)$."
+    }
+   ]
+  },
+  {
+   "id": "FP1-3-r03",
+   "kcs": [
+    "FP1-3.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $f(x)=x^3-x-1$, start from $[1,2]$. Find the minimum number of bisections needed for a bracket of width at most $1/8$, then perform them, showing midpoint signs and retained intervals. Give the final bracket and its midpoint estimate separately.",
+   "marks": 6,
+   "explanation": "Three halvings reduce the width from $1$ to $1/8$. The midpoint signs are positive, negative, positive, leaving $[1.25,1.375]$; the midpoint of this final bracket is $1.3125$.",
+   "hints": [
+    "Relate the width after several steps to the original width.",
+    "Evaluate each midpoint and keep opposite signs at the endpoints.",
+    "Average the final two endpoints only after obtaining the required bracket."
+   ],
+   "shuffle": true,
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Solve $1/2^n\\le1/8$: the minimum is $n=3$."
+    },
+    {
+     "mark": "A1",
+     "point": "$f(1)=-1$, $f(2)=5$; the polynomial is continuous, so the starting bracket is valid."
+    },
+    {
+     "mark": "A1",
+     "point": "$m=3/2$, $f(m)=7/8>0$: retain $[1,3/2]$."
+    },
+    {
+     "mark": "A1",
+     "point": "$m=5/4$, $f(m)=-19/64<0$: retain $[5/4,3/2]$."
+    },
+    {
+     "mark": "A1",
+     "point": "$m=11/8$, $f(m)=115/512>0$: retain $[5/4,11/8]$, width $1/8$."
+    },
+    {
+     "mark": "A1",
+     "point": "The final midpoint estimate is $21/16=1.3125$; it is not the bracket itself."
+    }
+   ]
+  },
+  {
+   "id": "FP1-3-r04",
+   "kcs": [
+    "FP1-3.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Show that",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Show that the positive root of $f(x)=x^2-3$ is $1.73$ to two decimal places, by evaluating $f$ at the exact rounding boundaries and using continuity.",
+   "marks": 4,
+   "explanation": "The exact boundary evaluations have opposite signs, and continuity places the positive root in $(1.725,1.735)$. Every value in this open interval rounds to $1.73$, which proves the stated accuracy.",
+   "hints": [
+    "Locate the half-unit boundaries for two decimal places.",
+    "Evaluate the polynomial at both boundaries, retaining their signs.",
+    "Use continuity and explain how all values inside the bracket round."
+   ],
+   "shuffle": true,
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "The rounding boundaries are $1.725$ and $1.735$."
+    },
+    {
+     "mark": "A1",
+     "point": "$f(1.725)=-0.024375$ and $f(1.735)=0.010225$."
+    },
+    {
+     "mark": "B1",
+     "point": "The polynomial is continuous; opposite signs imply a root strictly between the boundaries."
+    },
+    {
+     "mark": "B1",
+     "point": "Every number strictly between these boundaries rounds to $1.73$ to two decimal places; the positive root is unique since $x^2$ is strictly increasing for $x>0$."
+    }
+   ]
   }
  ],
  "flashcards": [],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/FP1/FP1-3-secant.svg",
+   "type": "function_plot",
+   "params": {
+    "functions": [
+     {
+      "expr": "x**2-2",
+      "domain": [
+       1,
+       2
+      ],
+      "label": "$f(x)=x^2-2$"
+     },
+     {
+      "expr": "3*x-4",
+      "domain": [
+       1,
+       2
+      ],
+      "label": "Secant"
+     }
+    ],
+    "points": [
+     {
+      "xy": [
+       1,
+       -1
+      ],
+      "label": "(1, -1)"
+     },
+     {
+      "xy": [
+       2,
+       2
+      ],
+      "label": "(2, 2)"
+     },
+     {
+      "xy": [
+       1.3333333333333333,
+       0
+      ],
+      "label": "(4/3, 0)"
+     }
+    ],
+    "xlim": [
+     0.85,
+     2.25
+    ],
+    "ylim": [
+     -1.5,
+     2.75
+    ],
+    "xlabel": "x",
+    "ylabel": "y"
+   }
+  },
+  {
+   "file": "Assets/FP1/FP1-3-tangent.svg",
+   "type": "function_plot",
+   "params": {
+    "functions": [
+     {
+      "expr": "x**2-2",
+      "domain": [
+       1,
+       2
+      ],
+      "label": "$f(x)=x^2-2$"
+     },
+     {
+      "expr": "3*x-17/4",
+      "domain": [
+       1,
+       2
+      ],
+      "label": "Tangent at x = 1.5"
+     }
+    ],
+    "points": [
+     {
+      "xy": [
+       1.5,
+       0.25
+      ],
+      "label": "(1.5, 0.25)"
+     },
+     {
+      "xy": [
+       1.4166666666666667,
+       0
+      ],
+      "label": "(17/12, 0)"
+     }
+    ],
+    "xlim": [
+     0.85,
+     2.25
+    ],
+    "ylim": [
+     -1.5,
+     2.75
+    ],
+    "xlabel": "x",
+    "ylabel": "y"
+   }
+  }
+ ],
  "teach": {
   "FP1-3.1": {
    "motivate": "Some equations $f(x)=0$ cannot conveniently be solved exactly. Three numerical processes give usable root estimates: interval bisection, linear interpolation and Newton-Raphson. Each uses different information about the graph.",
    "establish": "For interval bisection, start with a continuous $f$ and endpoints $a<b$ of opposite sign. Set $m=(a+b)/2$ and keep the half whose endpoint values have opposite signs. For linear interpolation, join $(a,f(a))$ and $(b,f(b))$ with a straight line. Its zero is $x=a-f(a)(b-a)/(f(b)-f(a))$. For Newton-Raphson, start at $x_n$ and follow the tangent to the axis: $x_{n+1}=x_n-f(x_n)/f'(x_n)$. Differentiate using P1 or P2 rules and avoid points where $f'(x_n)=0$. Bisection controls a bracket; the other estimates must be checked by evaluating $f$ or monitoring convergence.",
    "connect": "The sign-change test comes from continuity. Linear interpolation replaces the curve with a secant; Newton-Raphson replaces it locally with a tangent. These geometric pictures explain why their numerical estimates differ.",
-   "note": "- Root: $f(r)=0$.\n- Bisection: midpoint, then retain the sign-changing half.\n- Linear interpolation: use the secant zero.\n- Newton-Raphson: $x_{n+1}=x_n-f(x_n)/f'(x_n)$.\n- Check signs, derivatives and accuracy.",
+   "note": "- Root: $f(r)=0$.\n- Bisection: midpoint, then retain the sign-changing half.\n- Linear interpolation: use the secant zero.\n- Newton-Raphson: $x_{n+1}=x_n-f(x_n)/f'(x_n)$.\n- Check signs, derivatives and accuracy.\n- Opposite endpoint signs require continuity: $1/x$ on $[-1,1]$ has no root. A tangent root may have no sign change; an interval may contain several roots.",
    "self_explain": "Why does bisection preserve a bracket while a Newton-Raphson iterate can leave the starting interval? Explain using the sign test and the tangent picture.",
+   "discover": {
+    "stem": "Do opposite endpoint signs always guarantee a root in the interval?",
+    "options": {
+     "A": "Yes, without any other condition.",
+     "B": "Yes, and the midpoint is always the root.",
+     "C": "No: continuity throughout the interval is also required.",
+     "D": "Yes, provided the endpoint values are finite."
+    },
+    "answer": "C",
+    "explanation": "For $1/x$ on $[-1,1]$, the signs differ but the function is undefined at zero and has no root."
+   },
    "source": "pack"
   }
  }

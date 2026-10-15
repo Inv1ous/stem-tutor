@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.4.4 — 2026-10-15
+
+Asked by the learner: estimation and derivation questions exist in these syllabuses; read-aloud lines must read as spoken.
+
+- **Command-word gate no longer drops real exam wording.** The syllabus lists a glossary of command words, but the papers
+  also use `Estimate`, `Derive`, `Deduce`, `Draw`, `Name`, `Find` and more. `syllabus.EXAM_WORDS` allows them; a word nobody
+  uses in an exam is still caught. The scout and refiner prompts now plan estimation and derivation questions on purpose.
+  5 chapters that were given up over this (9702-1.1, 9702-2.1 and others) were added again.
+- **Lost PDF characters are a gate** (`content_checks.debris_problems`): `¨` for Δ, the replacement character for Σ, ÷ and
+  arrows. They read aloud as "replacement character" and showed as boxes. Fixed in 9701-7.1, 9702-11.2, 9701-4.1, 9702-7.2.
+- **Read-aloud gaps are a foundry gate** (`foundry.speech_problems`): a new chapter whose maths has no spoken form is sent
+  back to be rewritten, not patched with a `speech` field. Spoken forms added for ~100 more symbols (arrows, relations,
+  backslash, clockwise ...).
+
 ## 2.4.3 — 2026-10-15
 
 Asked by the learner: the foundry and refine must always use everything they have, consistently and without failure.

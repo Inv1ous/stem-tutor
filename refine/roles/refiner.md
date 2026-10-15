@@ -102,7 +102,7 @@ list the new figure files in `new_diagrams` too, and in `not_done` any planned e
 
 ## Command words and figures (the gates fail these, and a failing pass is given up after three tries)
 
-- Write new questions with ONLY the command words in the chapter's bundle (`build/work/bundles/<sub>.md`, "Command words"): a word such as `Estimate` that the syllabus does not list fails the syllabus gate.
+- Use the command words in the chapter's bundle, and also the ones real papers use that the glossary leaves out (`Estimate`, `Derive`, `Deduce`, `Draw`, `Name`, `Find` and the like): those pass the syllabus gate. A word nobody uses in an exam does not.
 - Embed every figure you crop: `![[Assets/...png]]` plus its source caption, in the note, before you finish. Crop no more than the plan asks for; delete or leave out the rest. If you cannot embed what the plan asked for, say so in `not_done` rather than leaving it half done.
 
 ## Sources

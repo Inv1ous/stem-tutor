@@ -1,5 +1,9 @@
 # Build status
 
+## v2.4.4 (2026-10-15) — done
+
+Command-word gate allows exam words (Estimate, Derive ...); lost-PDF-character gate; read-aloud gap gate in the foundry.
+
 ## v2.4.3 (2026-10-15) — done
 - The foundry and refine make sure workers use the library and the web, have every tool they need, and stop retrying a stuck chapter.
 

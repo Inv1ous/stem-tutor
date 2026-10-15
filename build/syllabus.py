@@ -30,6 +30,13 @@ from tutorlib import blurt  # noqa: E402
 
 
 ALIASES = {"Show that": "Show (that)", "Show": "Show (that)"}
+# The syllabus lists the command words of its glossary, but the papers also use others (Estimate, Derive, Deduce, Draw,
+# Name, Find ...): they are fine in a question. Anything else is still caught.
+EXAM_WORDS = {"Estimate", "Derive", "Deduce", "Draw", "Name", "Find", "Write", "Complete", "Label", "Use", "Plot", "Hence",
+              "Calculate", "Outline", "Discuss", "Evaluate", "Assess", "Analyse", "Measure", "Express", "Recall", "Prove",
+              "Verify", "Distinguish", "Annotate", "Account for", "Show", "Sketch", "Mark", "Add", "Select", "Choose",
+              "Convert", "Rearrange", "Apply", "Interpret", "Construct", "Classify", "Balance", "Deduce", "Circle", "Tick",
+              "Underline", "Locate", "Hence deduce", "Hence show", "Hence calculate"}
 
 
 def _e(rule: str, where: str, detail: str = "") -> dict:
@@ -78,7 +85,7 @@ def check(pack: dict, graph: dict, note: str, words: set[str] | None = None) -> 
     if words and graph.get("spec", "").isdigit():
         for it in pack.get("items", []):
             word = ALIASES.get(it.get("command_word"), it.get("command_word"))
-            if word and (it.get("source") or {}).get("type") != "past" and word not in words:
+            if word and (it.get("source") or {}).get("type") != "past" and word not in words and word not in EXAM_WORDS:
                 out.append(_e("command-word", f"item {it.get('id')}", f"{word} is not a command word of this syllabus"))
     return out
 

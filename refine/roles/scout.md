@@ -86,7 +86,7 @@ anything the refiner must know (a library passage to read, a source you could no
 
 ## Plan only what the gates allow
 
-- A new question may use only the command words listed in the chapter's bundle. Plan figures only when you are sure the refiner can crop and embed them; fewer is better.
+- A new question may use the bundle's command words or an exam word the glossary leaves out (Estimate, Derive, Deduce, Draw, Name, Find): estimation and derivation questions are real in these papers, plan them where the syllabus point calls for them. Plan figures only when you are sure the refiner can crop and embed them; fewer is better.
 
 ## Your run is checked
 
