@@ -1,0 +1,45 @@
+{
+ "summary": "Add visual graph reasoning and derivation practice to the otherwise strong constant-acceleration chapter.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after ## Key ideas; pack diagrams",
+   "why": "M1-3.1 explicitly requires graphical solutions, but the chapter has no diagram; a turning-point velocity–time graph makes signed displacement and total distance visible.",
+   "what": "Use graph_sketch for a straight velocity–time line crossing the time axis, with axes and turning time labelled and positive and negative areas identified. Add a short note explaining that signed areas subtract for displacement but magnitudes add for distance; embed the SVG."
+  },
+  {
+   "kind": "diagram",
+   "where": "note, after the velocity–time graph; pack diagrams",
+   "why": "M1-3.1 names displacement–time, speed–time and acceleration–time graphs as well; the current lesson only describes their shapes in words.",
+   "what": "Use graph_sketch to show a constant positive acceleration–time line and annotate its rectangular area as change in velocity; explain alongside it that the corresponding velocity–time graph is linear and displacement–time graph is quadratic. Embed the SVG."
+  },
+  {
+   "kind": "questions",
+   "where": "M1-3.1 pack items",
+   "why": "Only one existing item asks Sketch, and no item tests transformation from an acceleration–time graph to a speed–time graph, a form used by Pearson WME01.",
+   "count": 2,
+   "what": "Add a structured Sketch item that starts with a piecewise acceleration–time graph and asks for a labelled speed–time sketch and distance by area; include a sign or zero-crossing case and a marking scheme. Add a misconception-based MCQ on acceleration–time signed area as change in velocity, rather than velocity itself."
+  },
+  {
+   "kind": "questions",
+   "where": "M1-3.1 pack items",
+   "why": "The bank uses equations but never asks learners to Show that or derive a constant-acceleration relation from a graph.",
+   "count": 1,
+   "what": "Add a structured Show that item deriving $s=ut+\tfrac12at^2$ from rectangle plus triangle areas under a velocity–time line, stating $v-u=at$ and showing every step."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Key ideas and Method",
+   "why": "The learner's Save My Exams source lists five suvat equations while the note lists four, and explains that the time equations can be read from a velocity–time graph.",
+   "source": "library: sources/library/SaveMyExams/XMA01 mechanics-1/XMA01 c2.2.pdf p.2",
+   "what": "Add $s=vt-\tfrac12at^2$ as the fifth equivalent form, with one sentence showing it follows by substituting $u=v-at$ into $s=\tfrac12(u+v)t$. Add that the equations must be recalled in the exam."
+  },
+  {
+   "kind": "source_gap",
+   "where": "note, ## Exam technique",
+   "why": "Pearson's specification requires graphical solutions using all four graph types, and an official WME01 question asks for a speed–time sketch from an acceleration–time graph.",
+   "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf | https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Mathematics/2018/Exam-materials/wme01-01-que-20231017.pdf",
+   "what": "Add a short graph-conversion checklist: track initial velocity, integrate signed acceleration interval by interval, take the magnitude for speed, and mark times at which velocity changes sign. Paraphrase the sources."
+  }
+ ]
+}

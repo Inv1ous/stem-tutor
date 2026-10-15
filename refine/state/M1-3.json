@@ -1,0 +1,165 @@
+{
+ "sub": "M1-3",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:51:08+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T21:58:49+08:00",
+   "from": "plan",
+   "to": "plan",
+   "note": "scout finished but gates are not clean: [\"sources the learner's library has 3 pages for this chapter (listed under 'Library hits' in the bundle) and you did not open it: run `.venv/bin/python build/library.py for <chapter>` and `text <pdf> --\"]"
+  },
+  {
+   "t": "2026-10-15T22:34:03+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 6 improvements"
+  },
+  {
+   "t": "2026-10-15T22:46:39+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions, 2 diagrams, 17 note_lines, 1 cards, 1 other"
+  },
+  {
+   "t": "2026-10-15T22:50:48+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "1 of 1 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:51:08+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions, 2 diagrams, 17 note_lines, 1 cards, 1 other"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 13,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 35555,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:33:07+08:00",
+   "log": "refine/logs/M1-3.scout.1015-223306.log",
+   "out": "refine/logs/M1-3.scout.1015-223306.out.json",
+   "expects": "build/work/refine/M1-3.plan.json",
+   "finished": "2026-10-15T22:34:03+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 6,
+    "plan_path": "build/work/refine/M1-3.plan.json",
+    "notes": [
+     "Read the learner’s XMA01 c2.2.pdf p.2 and searched Pearson’s official specification and WME01 paper.",
+     "The current note has a broken link to the dynamics chapter. The scout’s add-only rule prevents correcting the existing link; the refiner should account for this gate failure."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 38374,
+   "provider": "claude",
+   "model": "opus/medium",
+   "rung": 1,
+   "started": "2026-10-15T22:39:39+08:00",
+   "log": "refine/logs/M1-3.refiner.1015-223939.log",
+   "out": "refine/logs/M1-3.refiner.1015-223939.out.json",
+   "finished": "2026-10-15T22:46:39+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 6,
+    "new_items": [
+     "M1-3-r01",
+     "M1-3-r02",
+     "M1-3-r03"
+    ],
+    "new_diagrams": [
+     "Assets/M1/M1-3-vt-turning.svg",
+     "Assets/M1/M1-3-at-area.svg"
+    ],
+    "not_done": [
+     "Pre-existing gate note: the note's last line links [[4 Dynamics of a particle moving in a straight line]] instead of [[4 Dynamics of a particle moving in a straight line or plane]]. Correcting it would require editing an existing note line, which the no-loss rule forbids; refine's gates classify it as inherited, so it remains for a drafter/publish-side fix.",
+     "No figure crops were planned or made for this chapter; the only library hits are SaveMyExams text pages (XMA01 c2.2.pdf), used as a paraphrased source rather than a crop."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 2.695
+  },
+  "solver": {
+   "pid": 41726,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:46:59+08:00",
+   "log": "refine/logs/M1-3.solver.1015-224659.log",
+   "out": "refine/logs/M1-3.solver.1015-224659.out.json",
+   "expects": "build/work/blind/M1-3.refine.answers.json",
+   "finished": "2026-10-15T22:47:16+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/M1-3.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 41728,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:46:59+08:00",
+   "log": "refine/logs/M1-3.checker.1015-224659.log",
+   "out": "refine/logs/M1-3.checker.1015-224659.out.json",
+   "expects": "build/work/refine/M1-3.check.json",
+   "finished": "2026-10-15T22:48:54+08:00",
+   "exit": 0,
+   "report": {
+    "text": "All checks passed. Chapter M1-3 refine additions are consistent with the bundle, pack, and all nine checker rules. Written `build/work/refine/M1-3.check.json` with 0 findings."
+   },
+   "ok": true,
+   "cost_usd": 0.141
+  }
+ },
+ "plan": {
+  "improvements": 6,
+  "dropped": [],
+  "kinds": {
+   "diagram": 2,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 1,
+   "feature": 0,
+   "source_gap": 1
+  }
+ },
+ "maker": "claude",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 3,
+  "diagrams": 2,
+  "note_lines": 17,
+  "cards": 1,
+  "other": 1
+ },
+ "last_refined": "2026-10-15T22:51:08+08:00"
+}

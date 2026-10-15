@@ -44,6 +44,14 @@
    "refutation": "Negative acceleration means acceleration points in the negative chosen direction.",
    "contrast": "If velocity is also negative, speed increases.",
    "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "M1-3.1",
+   "statement": "The signed area under an acceleration–time graph gives the velocity itself.",
+   "refutation": "Accumulating acceleration over time gives the change in velocity, so the area must be added to the initial velocity to obtain the velocity at the end of the interval.",
+   "contrast": "With $u=5\\,\\mathrm{m\\,s^{-1}}$ and a total signed area of $2\\,\\mathrm{m\\,s^{-1}}$, the final velocity is $7\\,\\mathrm{m\\,s^{-1}}$, not $2\\,\\mathrm{m\\,s^{-1}}$.",
+   "source": "research"
   }
  ],
  "worked": [
@@ -672,10 +680,230 @@
      ]
     }
    ]
+  },
+  {
+   "id": "M1-3-r01",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle starts from rest at $t=0$ and moves in a straight line. Its acceleration is $4\\,\\mathrm{m\\,s^{-2}}$ for $0\\le t<3$, zero for $3\\le t<5$, and $-6\\,\\mathrm{m\\,s^{-2}}$ for $5\\le t\\le 8$, where $t$ is measured in seconds.\n(a) Sketch the speed–time graph for $0\\le t\\le 8$, labelling the speed at $t=3$, $t=5$ and $t=8$ and the time at which the particle is momentarily at rest.\n(b) Hence find the total distance travelled during the $8\\,\\mathrm{s}$.",
+   "marks": 6,
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "(a) Builds the velocity interval by interval from rest, using the signed area of the acceleration–time graph or $v=u+at$ on each interval: $v=12\\,\\mathrm{m\\,s^{-1}}$ at $t=3$ and still $12\\,\\mathrm{m\\,s^{-1}}$ at $t=5$."
+    },
+    {
+     "mark": "A1",
+     "point": "(a) Uses $v=12-6(t-5)$ on the last interval, so $v=0$ at $t=7\\,\\mathrm{s}$ and $v=-6\\,\\mathrm{m\\,s^{-1}}$ at $t=8$."
+    },
+    {
+     "mark": "B1",
+     "point": "(a) Sketch shows a straight line from the origin to $(3,12)$, a horizontal segment to $(5,12)$ and a straight line falling to $(7,0)$."
+    },
+    {
+     "mark": "B1",
+     "point": "(a) Sketch shows the final second as speed rising from $0$ at $t=7$ to $6\\,\\mathrm{m\\,s^{-1}}$ at $t=8$, that is the negative velocity drawn as a positive speed, with $t=7$ labelled as the instant of rest."
+    },
+    {
+     "mark": "M1",
+     "point": "(b) Adds the areas of all four parts of the speed–time graph: $\\tfrac12(3)(12)+2(12)+\\tfrac12(2)(12)+\\tfrac12(1)(6)$."
+    },
+    {
+     "mark": "A1",
+     "point": "(b) Total distance $=18+24+12+3=57\\,\\mathrm{m}$.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 57.0,
+       "unit": "m",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    }
+   ],
+   "explanation": "Each interval of constant acceleration adds its signed area to the velocity, giving $0\\to12$, then $12$, then $12\\to-6$. Speed is the magnitude, so the speed–time graph touches zero at $t=7\\,\\mathrm{s}$ and rises again; its total area is the distance, $57\\,\\mathrm{m}$, whereas the displacement is only $51\\,\\mathrm{m}$.",
+   "hints": [
+    "The acceleration graph tells you how the velocity changes, not what it is, so you also need the starting value.",
+    "Work along the motion one interval at a time, carrying the end velocity of each interval into the next, then take magnitudes to get speed.",
+    "On $5\\le t\\le 8$ write $v=12-6(t-5)$ and solve $v=0$ to find where the graph meets the time axis."
+   ]
+  },
+  {
+   "id": "M1-3-r02",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle moving in a straight line has velocity $5\\,\\mathrm{m\\,s^{-1}}$ at $t=0$. Its acceleration–time graph is horizontal at $3\\,\\mathrm{m\\,s^{-2}}$ for $0\\le t<4$ and horizontal at $-2\\,\\mathrm{m\\,s^{-2}}$ for $4\\le t\\le 9$, with $t$ in seconds. Find its velocity at $t=9\\,\\mathrm{s}$.",
+   "marks": 2,
+   "options": {
+    "A": "$7\\,\\mathrm{m\\,s^{-1}}$",
+    "B": "$2\\,\\mathrm{m\\,s^{-1}}$",
+    "C": "$27\\,\\mathrm{m\\,s^{-1}}$",
+    "D": "$17\\,\\mathrm{m\\,s^{-1}}$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m6",
+    "C": "m2",
+    "D": "m1"
+   },
+   "shuffle": true,
+   "explanation": "The signed areas are $3\\times4=12$ and $-2\\times5=-10$, a total change in velocity of $+2\\,\\mathrm{m\\,s^{-1}}$, so $v=5+2=7\\,\\mathrm{m\\,s^{-1}}$. Quoting $2\\,\\mathrm{m\\,s^{-1}}$ treats the area as the velocity itself rather than the change in it, and $27\\,\\mathrm{m\\,s^{-1}}$ adds the area below the time axis positively.",
+   "hints": [
+    "An area under an acceleration–time graph has the units of a velocity, but it measures a change.",
+    "Find the area of each rectangle with its own sign, then combine both with the initial velocity.",
+    "The second rectangle lies below the time axis, so its area is $-2\\times5$."
+   ]
+  },
+  {
+   "id": "M1-3-r03",
+   "kcs": [
+    "M1-3.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Show that",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle moves in a straight line with constant acceleration $a$. Its velocity is $u$ at time $0$ and $v$ at time $t$, and its displacement over that time is $s$. By considering the area under its velocity–time graph, show that $s=ut+\\tfrac12at^2$.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "States that constant acceleration makes the velocity–time graph a straight line from $(0,u)$ to $(t,v)$ whose gradient is $a$, so $v-u=at$."
+    },
+    {
+     "mark": "M1",
+     "point": "States that the displacement is the area under that line, and splits it into a rectangle of width $t$ and height $u$ together with a triangle of base $t$ and height $v-u$."
+    },
+    {
+     "mark": "A1",
+     "point": "Writes $s=ut+\\tfrac12t(v-u)$."
+    },
+    {
+     "mark": "A1",
+     "point": "Substitutes $v-u=at$ to obtain $s=ut+\\tfrac12t(at)=ut+\\tfrac12at^2$, as required."
+    }
+   ],
+   "explanation": "Displacement is the signed area under a velocity–time graph. For constant acceleration that area is a rectangle of area $ut$ plus a triangle of area $\\tfrac12t(v-u)$, and the gradient of the line gives $v-u=at$, which turns the triangle into $\\tfrac12at^2$.",
+   "hints": [
+    "The command word Show that means every line of the argument must appear, ending at the printed result.",
+    "Displacement is the area under the velocity–time graph, and the gradient of that graph is the acceleration.",
+    "Draw the straight line from $(0,u)$ to $(t,v)$ and cut the region beneath it into a rectangle and a triangle."
+   ]
   }
  ],
  "flashcards": [],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/M1/M1-3-vt-turning.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        8
+       ],
+       [
+        7,
+        -6
+       ]
+      ],
+      "label": "velocity",
+      "style": "solid"
+     }
+    ],
+    "shade": {
+     "line": 0
+    },
+    "annotations": [
+     {
+      "xy": [
+       0.5,
+       1.3
+      ],
+      "text": "area $+16$ m"
+     },
+     {
+      "xy": [
+       4.8,
+       -1.1
+      ],
+      "text": "area $-9$ m"
+     },
+     {
+      "xy": [
+       4.0,
+       0.0
+      ],
+      "text": "$v=0$ at $t=4$ s",
+      "xytext": [
+       4.3,
+       5.0
+      ]
+     }
+    ],
+    "xlabel": "time $t$ / s",
+    "ylabel": "velocity $v$ / m s$^{-1}$",
+    "ticks": true
+   }
+  },
+  {
+   "file": "Assets/M1/M1-3-at-area.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        3
+       ],
+       [
+        5,
+        3
+       ]
+      ],
+      "style": "solid"
+     }
+    ],
+    "shade": {
+     "line": 0
+    },
+    "annotations": [
+     {
+      "xy": [
+       0.5,
+       1.35
+      ],
+      "text": "area $=3\\times5=15$ m s$^{-1}$"
+     }
+    ],
+    "xlabel": "time $t$ / s",
+    "ylabel": "acceleration $a$ / m s$^{-2}$",
+    "ticks": true
+   }
+  }
+ ],
  "teach": {
   "M1-3.1": {
    "motivate": "A velocity can change even on a straight road, and the signs tell you which way the particle moves. A sketch or a few measured quantities can reveal displacement, distance and acceleration without following every instant of the journey.",
@@ -690,9 +918,9 @@
     "answer": "A",
     "explanation": "Velocity multiplied by time gives signed displacement. Area below the axis subtracts from the total; adding its magnitude instead would contribute to distance."
    },
-   "establish": "Choose a positive direction, then let $s$ be signed displacement, $u$ and $v$ initial and final velocities, $a$ constant acceleration, and $t$ elapsed time. For straight-line motion at constant acceleration, use $v=u+at$, $s=ut+\\tfrac12at^2$, $s=\\tfrac12(u+v)t$, or $v^2=u^2+2as$. Select the equation containing the known values and the quantity sought. On a displacement–time graph, gradient gives velocity. On a velocity–time graph, gradient gives acceleration and signed area gives displacement. On a speed–time graph, area gives total distance. On an acceleration–time graph, signed area gives change in velocity. A horizontal acceleration–time line corresponds to a straight velocity–time line and a quadratic displacement–time curve. Use $g=9.8\\,\\mathrm{m\\,s^{-2}}$ where gravity is involved, with a sign set by your chosen positive direction.",
+   "establish": "Choose a positive direction, then let $s$ be signed displacement, $u$ and $v$ initial and final velocities, $a$ constant acceleration, and $t$ elapsed time. For straight-line motion at constant acceleration, use $v=u+at$, $s=ut+\\tfrac12at^2$, $s=\\tfrac12(u+v)t$, or $v^2=u^2+2as$. Select the equation containing the known values and the quantity sought. On a displacement–time graph, gradient gives velocity. On a velocity–time graph, gradient gives acceleration and signed area gives displacement. On a speed–time graph, area gives total distance. On an acceleration–time graph, signed area gives change in velocity. A horizontal acceleration–time line corresponds to a straight velocity–time line and a quadratic displacement–time curve. Use $g=9.8\\,\\mathrm{m\\,s^{-2}}$ where gravity is involved, with a sign set by your chosen positive direction.\nA fifth form, $s=vt-\\tfrac12at^2$, follows from $s=\\tfrac12(u+v)t$ with $u=v-at$; none of the five is printed in the paper.",
    "connect": "These equations and graphs describe the same motion: a constant velocity–time gradient is the acceleration, and the area under that line produces $s=ut+\\tfrac12at^2$. If the line crosses the time axis, split the journey there to calculate distance.",
-   "note": "- Choose one positive direction and keep displacement, velocity and acceleration signed.\n- Use a suvat equation only within an interval of constant acceleration.\n- Displacement–time gradient is velocity; velocity–time gradient is acceleration.\n- Velocity–time signed area is displacement; speed–time area is distance.\n- Acceleration–time signed area is change in velocity.",
+   "note": "- Choose one positive direction and keep displacement, velocity and acceleration signed.\n- Use a suvat equation only within an interval of constant acceleration.\n- Displacement–time gradient is velocity; velocity–time gradient is acceleration.\n- Velocity–time signed area is displacement; speed–time area is distance.\n- Acceleration–time signed area is change in velocity.\n- Learn all five equations, including $s=vt-\\tfrac12at^2$: the paper does not give them.",
    "self_explain": "Why does a velocity–time graph crossing below the time axis require two different area calculations for displacement and distance?",
    "source": "pack"
   }
