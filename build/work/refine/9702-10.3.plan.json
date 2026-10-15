@@ -1,0 +1,37 @@
+{
+  "summary": "Add a divider circuit, targeted null-method guidance, and varied practice for sensor and potentiometer reasoning.",
+  "improvements": [
+    {
+      "kind": "diagram",
+      "where": "note, after the first paragraph of ## Key ideas",
+      "why": "The figure gate identifies missing circuit coverage for 9702-10.3.1 and 9702-10.3.4; learners must see the two series arms and locate the output arm.",
+      "what": "Use the supported circuit type to show a cell, fixed resistor and LDR in one series loop, with clear labels; explain immediately beside it that output across the LDR is its fraction of the supply p.d. and that output across the fixed resistor changes oppositely. Embed the rendered SVG in the note."
+    },
+    {
+      "kind": "clarification",
+      "where": "note, ## Method and ## Traps",
+      "why": "ER 9702 s22 P12 Q37 reports frequent selection of a potentiometer circuit with incorrect cell polarity; the present note gives only a brief polarity instruction.",
+      "what": "Add a short, stepwise wiring check: driver cell across the whole uniform wire, unknown cell and galvanometer in the comparison branch, opposing p.d.s at balance, and driver wire p.d. large enough to include the unknown e.m.f. Explain why each condition matters without altering existing wording."
+    },
+    {
+      "kind": "questions",
+      "where": "9702-10.3.2 and 9702-10.3.3",
+      "why": "The generated bank relies heavily on recall and short responses, while the examiner report highlights difficulty choosing a valid potentiometer circuit.",
+      "count": 2,
+      "what": "Add exam-style Identify/Explain questions about driver-cell placement, polarity, galvanometer position, and the no-current condition at null, with misconception-linked distractors where suitable."
+    },
+    {
+      "kind": "questions",
+      "where": "9702-10.3.4",
+      "why": "Sensor questions should test both possible output arms and a quantitative change, beyond naming the resistance trend.",
+      "count": 2,
+      "what": "Add one Calculate item for output p.d. after a thermistor or LDR resistance change and one Explain/Predict item contrasting output across the sensor with output across the fixed arm; state which terminals are measured."
+    },
+    {
+      "kind": "feature",
+      "where": "pack, teaching cards for 9702-10.3.1 and 9702-10.3.4",
+      "why": "The pack has no teaching cards with discover questions despite a conceptual relationship students need to infer from $V=IR$.",
+      "what": "Add concise teaching cards with discover questions that lead from same series current to the divider ratio and from an NTC/LDR resistance change to the direction of output change for a named output arm."
+    }
+  ]
+}

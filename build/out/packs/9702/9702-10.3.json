@@ -2029,6 +2029,265 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9702-10.3-r01",
+   "kcs": [
+    "9702-10.3.2",
+    "9702-10.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Identify the connections needed to measure an unknown cell e.m.f. using a uniform potentiometer wire PQ and a sliding contact J. The driver makes P positive relative to Q, and the p.d. across PQ exceeds the unknown e.m.f. State where the driver, the unknown cell positive terminal, and the galvanometer must connect.",
+   "marks": 3,
+   "explanation": "The driver supplies the whole wire PQ. Connect the unknown positive terminal to P and its negative terminal through the galvanometer to J; at balance the wire p.d. opposes the unknown e.m.f.",
+   "hints": [
+    "Separate the driver circuit from the comparison branch.",
+    "Trace the loop containing the unknown cell and the selected length of wire.",
+    "Consider which potentials must match on the two sides of the galvanometer at balance."
+   ],
+   "rubric": [
+    {
+     "point": "Connect the driver across the whole wire PQ.",
+     "keywords": [
+      [
+       "driver"
+      ],
+      [
+       "PQ",
+       "whole wire",
+       "entire wire"
+      ]
+     ]
+    },
+    {
+     "point": "Connect the unknown cell positive terminal to P.",
+     "keywords": [
+      [
+       "positive"
+      ],
+      [
+       "P"
+      ]
+     ]
+    },
+    {
+     "point": "Connect the unknown negative terminal through the galvanometer to J.",
+     "keywords": [
+      [
+       "negative"
+      ],
+      [
+       "galvanometer"
+      ],
+      [
+       "J",
+       "slider",
+       "contact"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.3-r02",
+   "kcs": [
+    "9702-10.3.2",
+    "9702-10.3.3"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A correctly wired potentiometer balances an unknown cell of non-zero internal resistance. Explain why its e.m.f. can be measured without knowing that resistance, and why a current can still flow in the driver wire.",
+   "marks": 3,
+   "explanation": "Zero galvanometer deflection means zero current through the unknown cell, so its internal drop $Ir$ is zero and its e.m.f. equals the balancing wire p.d. The separate driver circuit still carries current to establish the potential gradient.",
+   "hints": [
+    "Distinguish the two circuit branches.",
+    "Apply the internal voltage-drop relation to the comparison cell.",
+    "Consider what maintains a potential gradient along the wire."
+   ],
+   "rubric": [
+    {
+     "point": "At null, no current flows through the unknown cell.",
+     "keywords": [
+      [
+       "zero current",
+       "no current"
+      ],
+      [
+       "unknown",
+       "cell"
+      ]
+     ]
+    },
+    {
+     "point": "The internal voltage drop is zero, so the e.m.f. equals the wire p.d.",
+     "keywords": [
+      [
+       "zero",
+       "no"
+      ],
+      [
+       "drop",
+       "lost volts"
+      ],
+      [
+       "equals",
+       "equal"
+      ]
+     ]
+    },
+    {
+     "point": "The separate driver circuit carries current to maintain the wire potential gradient.",
+     "keywords": [
+      [
+       "driver"
+      ],
+      [
+       "current"
+      ],
+      [
+       "gradient",
+       "potential difference",
+       "p.d."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9702-10.3-r03",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A fixed $4.0\\,\\mathrm{k\\Omega}$ resistor is in series with an LDR across a constant $[[supply]]\\,\\mathrm{V}$ supply of negligible internal resistance. In brighter light the LDR resistance falls from $12.0\\,\\mathrm{k\\Omega}$ to $6.0\\,\\mathrm{k\\Omega}$. Calculate the new p.d. measured between the two LDR terminals by an ideal voltmeter.",
+   "marks": 2,
+   "explanation": "The new total resistance is $10.0\\,\\mathrm{k\\Omega}$. The output across the LDR is $V_{out}=V_{in}\\times 6.0/(4.0+6.0)=0.60V_{in}$.",
+   "hints": [
+    "Identify the resistance spanned by the voltmeter.",
+    "Use the resistances after the light changes.",
+    "Write the output resistance divided by the new total resistance."
+   ],
+   "answer": {
+    "value": 5.4,
+    "unit": "V",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "template": {
+    "params": {
+     "supply": {
+      "choices": [
+       6,
+       9,
+       12
+      ]
+     }
+    },
+    "answer": "supply*6/(4+6)",
+    "derived": {},
+    "distractors": [],
+    "constraints": []
+   }
+  },
+  {
+   "id": "9702-10.3-r04",
+   "kcs": [
+    "9702-10.3.4"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An LDR and a fixed resistor are in series across a constant supply of negligible internal resistance. An ideal voltmeter measures between the two LDR terminals; a second ideal voltmeter measures between the two fixed-resistor terminals. Explain how both readings change when light intensity increases.",
+   "marks": 3,
+   "explanation": "Brighter light reduces LDR resistance. Its fraction of the total resistance falls, so its p.d. falls; the fixed resistor takes a larger fraction, so its p.d. rises.",
+   "hints": [
+    "Start with the sensor response to light.",
+    "Write a resistance fraction for each measured pair of terminals.",
+    "The two measured p.d.s must still add to the same supply p.d."
+   ],
+   "rubric": [
+    {
+     "point": "The LDR resistance decreases as light intensity increases.",
+     "keywords": [
+      [
+       "LDR",
+       "sensor"
+      ],
+      [
+       "resistance"
+      ],
+      [
+       "decreases",
+       "falls",
+       "reduces"
+      ]
+     ]
+    },
+    {
+     "point": "The LDR p.d. decreases because its fraction of total resistance decreases.",
+     "keywords": [
+      [
+       "LDR",
+       "sensor"
+      ],
+      [
+       "p.d.",
+       "voltage",
+       "potential difference"
+      ],
+      [
+       "decreases",
+       "falls"
+      ],
+      [
+       "fraction",
+       "ratio",
+       "share"
+      ]
+     ]
+    },
+    {
+     "point": "The fixed-resistor p.d. increases because its fraction of total resistance increases.",
+     "keywords": [
+      [
+       "fixed"
+      ],
+      [
+       "p.d.",
+       "voltage",
+       "potential difference"
+      ],
+      [
+       "increases",
+       "rises"
+      ],
+      [
+       "fraction",
+       "ratio",
+       "share"
+      ]
+     ]
+    }
+   ]
   }
  ],
  "flashcards": [
@@ -2057,7 +2316,32 @@
    "back": "NTC resistance decreases with increasing temperature; LDR resistance decreases with increasing light intensity."
   }
  ],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/9702/9702-10.3-ldr-divider.svg",
+   "type": "circuit",
+   "params": {
+    "elements": [
+     {
+      "type": "battery",
+      "label": "Supply V"
+     },
+     {
+      "type": "resistor",
+      "label": "Fixed R"
+     },
+     {
+      "type": "ldr",
+      "label": "LDR"
+     },
+     {
+      "type": "ammeter",
+      "label": "Ideal: I"
+     }
+    ]
+   }
+  }
+ ],
  "teach": {
   "9702-10.3.1": {
    "motivate": "A single supply can give different output voltages without separate batteries.",
@@ -2065,6 +2349,17 @@
    "connect": "This follows from series current and $V=IR$; it also underlies potentiometers and sensor circuits.",
    "note": "- Series resistors share supply p.d. in proportion to resistance.\n- $V_{out}=V_{in}R_{out}/R_{total}$.",
    "self_explain": "If one series resistor doubles, why does its share of the supply p.d. change?",
+   "discover": {
+    "stem": "Two unloaded series resistors carry the same current. If $R_2=2R_1$, what fraction of the supply p.d. is across $R_2$?",
+    "options": {
+     "A": "One third",
+     "B": "Two thirds",
+     "C": "One half",
+     "D": "Twice the supply p.d."
+    },
+    "answer": "B",
+    "explanation": "From $V=IR$, $V_2=2V_1$. The supply is $V_1+V_2=3V_1$, so $V_2$ is two thirds of it."
+   },
    "source": "pack"
   },
   "9702-10.3.2": {
@@ -2089,6 +2384,17 @@
    "connect": "The sensing effect is an application of the potential divider principle.",
    "note": "- Hotter NTC thermistor: lower resistance.\n- Brighter LDR: lower resistance.\n- A sensor arm converts either change to an output p.d.",
    "self_explain": "If an LDR becomes darker, what happens to the p.d. across a fixed resistor in series with it?",
+   "discover": {
+    "stem": "An LDR is in series with a fixed resistor across a constant supply. The unloaded output is measured between the fixed resistor terminals. As light becomes brighter, what happens?",
+    "options": {
+     "A": "LDR resistance falls; output rises.",
+     "B": "LDR resistance falls; output falls.",
+     "C": "LDR resistance rises; output rises.",
+     "D": "LDR resistance rises; output falls."
+    },
+    "answer": "A",
+    "explanation": "Brighter light lowers LDR resistance. The fixed resistance then forms a larger fraction of the total, so the p.d. across it rises."
+   },
    "source": "pack"
   }
  }
