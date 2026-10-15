@@ -1,0 +1,31 @@
+{
+ "summary": "Add a visual gas-law relationship and written practice that tests explanations and multi-step calculations beyond the existing MCQs.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the ideal gas equation in ## Key ideas",
+   "why": "For fixed $n$, $pV=nRT$ predicts a straight-line $pV$ against $T$ graph through the origin; the current note has no diagram and the bundle includes a past question on this graph.",
+   "what": "graph_sketch of $pV$ against absolute temperature $T$ for fixed amount of ideal gas, a straight line through the origin labelled gradient $nR$; add a sentence telling learners what the gradient and origin mean."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-4.1.1 and 9701-4.1.2",
+   "why": "The current core items are all MCQs, so learners never construct a markable explanation of wall pressure or real-gas behaviour.",
+   "count": 2,
+   "what": "Add one short-answer Explain item linking wall collisions, momentum change, force and pressure; and one short-answer Explain item on why high temperature and low pressure favour ideal behaviour, with separate rubric points and specific hints."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-4.1.3",
+   "why": "Calculation practice is entirely MCQ, and examiner report ER 9701 s22 P11 Q7 records failure to convert gas moles into reagent moles.",
+   "count": 2,
+   "what": "Add one structured calculation determining $M_r$ from mass, volume, pressure and temperature with explicit SI conversions, and one structured reaction-gas problem that requires limiting-reagent or mole-ratio reasoning after using $pV=nRT$. Use new numbers and show method marks, units and significant figures."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Method, after step 4",
+   "why": "The note warns about reaction stoichiometry but its only worked example finds $M_r$; learners never see the gas-moles-to-reagent-moles step carried out.",
+   "what": "Add a compact worked example using a balanced equation with unequal gas and reagent coefficients: calculate gas amount with $pV/(RT)$, apply the coefficient ratio, then state the requested reagent amount."
+  }
+ ]
+}

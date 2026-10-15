@@ -1475,6 +1475,320 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9701-4.1-r01",
+   "kcs": [
+    "9701-4.1.1"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain how moving gas molecules produce pressure on the walls of a sealed container. Link collisions, momentum, force and pressure.",
+   "explanation": "Gas molecules collide with the walls and change momentum as they rebound. The rate of momentum transfer produces an average force on each wall, and pressure is this force per unit area.",
+   "hints": [
+    "Focus on what happens at the boundary of the gas.",
+    "Compare the direction of motion just before and just after a rebound.",
+    "Consider how repeated impacts over time act on a patch of wall."
+   ],
+   "shuffle": true,
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "Moving molecules collide with the container walls.",
+     "keywords": [
+      [
+       "molecule",
+       "particle"
+      ],
+      [
+       "collid",
+       "collision",
+       "strike",
+       "hit"
+      ],
+      [
+       "wall"
+      ]
+     ]
+    },
+    {
+     "point": "Molecules change momentum when they rebound from the wall.",
+     "keywords": [
+      [
+       "momentum"
+      ],
+      [
+       "change",
+       "revers"
+      ]
+     ]
+    },
+    {
+     "point": "The rate of momentum transfer produces an average force on the wall.",
+     "keywords": [
+      [
+       "momentum"
+      ],
+      [
+       "rate",
+       "per second",
+       "per unit time",
+       "over time"
+      ],
+      [
+       "force"
+      ]
+     ]
+    },
+    {
+     "point": "Pressure is the average force per unit area of wall.",
+     "keywords": [
+      [
+       "pressure"
+      ],
+      [
+       "force"
+      ],
+      [
+       "per unit area",
+       "per area",
+       "divided by area",
+       "/area"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-4.1-r02",
+   "kcs": [
+    "9701-4.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 3,
+   "command_word": "Explain",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Explain why a real gas behaves more nearly ideally at high temperature and low pressure. Relate each condition to an assumption of the ideal-gas model.",
+   "explanation": "At high temperature, molecules have greater average kinetic energy, so intermolecular attractions have less effect on their motion. At low pressure, molecules are farther apart, so their own volume is negligible compared with the gas volume; these conditions better approximate the assumptions of no intermolecular attraction and zero particle volume.",
+   "hints": [
+    "Recall which two features of real molecules the ideal model neglects.",
+    "Consider the energy of molecular motion when temperature rises.",
+    "For low pressure, compare the space occupied by molecules themselves with the space between them."
+   ],
+   "shuffle": true,
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "High temperature gives molecules greater average kinetic energy.",
+     "keywords": [
+      [
+       "high temperature",
+       "higher temperature"
+      ],
+      [
+       "kinetic energy"
+      ],
+      [
+       "greater",
+       "higher",
+       "increas",
+       "more"
+      ]
+     ]
+    },
+    {
+     "point": "Intermolecular attractions have less effect relative to molecular kinetic energy, approaching the no-attraction assumption.",
+     "keywords": [
+      [
+       "attract",
+       "intermolecular force"
+      ],
+      [
+       "less",
+       "negligible",
+       "overcome"
+      ],
+      [
+       "kinetic",
+       "motion",
+       "energy"
+      ]
+     ]
+    },
+    {
+     "point": "At low pressure molecules are farther apart.",
+     "keywords": [
+      [
+       "low pressure",
+       "lower pressure"
+      ],
+      [
+       "farther apart",
+       "further apart",
+       "more separated",
+       "greater separation"
+      ]
+     ]
+    },
+    {
+     "point": "The volume of the particles themselves is negligible compared with the total gas volume, approaching the zero-particle-volume assumption.",
+     "keywords": [
+      [
+       "particle",
+       "molecule"
+      ],
+      [
+       "volume"
+      ],
+      [
+       "negligible",
+       "insignificant",
+       "small compared"
+      ],
+      [
+       "gas volume",
+       "container",
+       "total volume"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "9701-4.1-r03",
+   "kcs": [
+    "9701-4.1.3"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A $0.420\\,\\mathrm{g}$ sample of a molecular gas occupies $180\\,\\mathrm{cm^3}$ at $96.0\\,\\mathrm{kPa}$ and $87\\,{}^{\\circ}\\mathrm{C}$. Assume ideal behaviour and use $R=8.31\\,\\mathrm{J\\,K^{-1}\\,mol^{-1}}$. (a) Convert pressure, volume and temperature to SI units. (b) Calculate the amount of gas. (c) Calculate its relative molecular mass $M_r$ to three significant figures, stating whether it has a unit. Show your working.",
+   "explanation": "Use $p=9.60\\times10^4\\,\\mathrm{Pa}$, $V=1.80\\times10^{-4}\\,\\mathrm{m^3}$ and $T=360\\,\\mathrm{K}$, giving $n=pV/(RT)=5.77617\\times10^{-3}\\,\\mathrm{mol}$. Dividing the mass in grams by the unrounded amount gives $M_r=72.7$ to three significant figures, with no unit.",
+   "hints": [
+    "Check the units before using the gas equation.",
+    "Find $n$ first, then connect mass and amount.",
+    "Convert kilopascals to pascals and cubic centimetres to cubic metres; use absolute temperature."
+   ],
+   "shuffle": true,
+   "marks": 6,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "(a) $p=9.60\\times10^4\\,\\mathrm{Pa}$ and $V=1.80\\times10^{-4}\\,\\mathrm{m^3}$."
+    },
+    {
+     "mark": "B1",
+     "point": "(a) $T=87+273=360\\,\\mathrm{K}$."
+    },
+    {
+     "mark": "M1",
+     "point": "(b) Rearrange and substitute: $n=pV/(RT)=(9.60\\times10^4)(1.80\\times10^{-4})/(8.31\\times360)$."
+    },
+    {
+     "mark": "A1",
+     "point": "(b) $n=5.78\\times10^{-3}\\,\\mathrm{mol}$; retain unrounded value for (c).",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.005776173285198556,
+       "unit": "mol",
+       "sf_ok": [
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "(c) Divide mass in grams by amount: $M_r=0.420/n$."
+    },
+    {
+     "mark": "A1",
+     "point": "(c) $M_r=72.7$ (three significant figures), with no unit.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 72.7125,
+       "unit": "",
+       "sf_ok": [
+        3
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "9701-4.1-r04",
+   "kcs": [
+    "9701-4.1.3"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Calculate",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A sample of potassium chlorate decomposes completely according to $\\ce{2KClO3(s) -> 2KCl(s) + 3O2(g)}$. All the oxygen is collected dry, with no gas lost. It occupies $360\\,\\mathrm{cm^3}$ at $102\\,\\mathrm{kPa}$ and $300\\,\\mathrm{K}$. Assume ideal behaviour and use $R=8.31\\,\\mathrm{J\\,K^{-1}\\,mol^{-1}}$. (a) Calculate the amount of oxygen. (b) Calculate the original amount of potassium chlorate, showing the mole ratio used. Give both amounts in mol to three significant figures.",
+   "explanation": "The gas equation gives $n(\\ce{O2})=(102000\\times360\\times10^{-6})/(8.31\\times300)=0.0147292\\,\\mathrm{mol}$. The balanced equation gives $n(\\ce{KClO3})=\\frac{2}{3}n(\\ce{O2})=9.82\\times10^{-3}\\,\\mathrm{mol}$ to three significant figures; gas moles and reagent moles are different.",
+   "hints": [
+    "Identify which substance the measured gas volume describes.",
+    "Use $pV=nRT$ before applying the balanced equation.",
+    "Compare the coefficient of the starting solid with the coefficient of the gaseous product."
+   ],
+   "shuffle": true,
+   "marks": 5,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "(a) Convert $p=1.02\\times10^5\\,\\mathrm{Pa}$ and $V=3.60\\times10^{-4}\\,\\mathrm{m^3}$."
+    },
+    {
+     "mark": "M1",
+     "point": "(a) $n(\\ce{O2})=pV/(RT)=(1.02\\times10^5)(3.60\\times10^{-4})/(8.31\\times300)$."
+    },
+    {
+     "mark": "A1",
+     "point": "(a) $n(\\ce{O2})=1.47\\times10^{-2}\\,\\mathrm{mol}$ (three significant figures).",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.014729241877256317,
+       "unit": "mol",
+       "sf_ok": [
+        3
+       ]
+      }
+     }
+    },
+    {
+     "mark": "M1",
+     "point": "(b) Use the coefficient ratio: $n(\\ce{KClO3})=\\frac{2}{3}n(\\ce{O2})$."
+    },
+    {
+     "mark": "A1",
+     "point": "(b) $n(\\ce{KClO3})=9.82\\times10^{-3}\\,\\mathrm{mol}$ (three significant figures), using unrounded gas amount.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 0.009819494584837545,
+       "unit": "mol",
+       "sf_ok": [
+        3
+       ]
+      }
+     }
+    }
+   ]
   }
  ],
  "flashcards": [
@@ -1491,7 +1805,50 @@
    "back": "$pV=nRT$; $R=8.31\\,\\mathrm{J\\,K^{-1}\\,mol^{-1}}$."
   }
  ],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/9701/9701-4.1-pv-temperature.svg",
+   "type": "graph_sketch",
+   "params": {
+    "lines": [
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        1,
+        1
+       ]
+      ],
+      "label": "Fixed $n$: gradient $nR$",
+      "style": "solid"
+     }
+    ],
+    "xlabel": "Absolute temperature $T$ / K",
+    "ylabel": "$pV$ / (Pa m$^3$)",
+    "ticks": false,
+    "xlim": [
+     0,
+     1.1
+    ],
+    "ylim": [
+     0,
+     1.1
+    ],
+    "annotations": [
+     {
+      "xy": [
+       0.02,
+       0.02
+      ],
+      "text": "0"
+     }
+    ]
+   }
+  }
+ ],
  "teach": {
   "9701-4.1.1": {
    "motivate": "Why does an inflated tyre push on its walls even when the gas has no preferred direction of travel?",
