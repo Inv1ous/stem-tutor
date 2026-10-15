@@ -24,6 +24,7 @@ from pathlib import Path
 PROVIDERS = ("codex", "claude")  # when the two are level, Codex takes the job
 NAMES = {"codex": "Codex", "claude": "Claude"}
 BLIND = ("solver", "tiebreak")
+PROBE_EVERY = 120  # seconds a Claude reading stays fresh; a probe costs a fraction of a cent
 MINUTES = {"five_hour": 300, "seven_day": 10080}
 RATE = {"five_hour": 7.0, "seven_day": 1.0}  # percent of a Claude window per dollar of work, until it has been learned
 LIMIT_WORDS = ("usage limit", "rate limit", "limit reached", "session limit", "weekly limit")
@@ -139,11 +140,24 @@ LEAN = ["--output-format", "stream-json", "--verbose", "--safe-mode", "--disable
         "--setting-sources", "", "--no-session-persistence"]  # none of the learner's plugins, skills, hooks or servers
 
 
+def probe_binary(default: str) -> str:
+    """The newest Claude Code the desktop app has installed: from 2.1.29x a run reports both plan windows exactly
+    (`unifiedWindows`); the older command line tool reports neither unless one is nearly used up."""
+    found = []
+    for path in Path(os.environ.get("FOUNDRY_CLAUDE_APPS") or Path.home() / "Library/Application Support/Claude/claude-code").glob(
+            "*/*/claude.app/Contents/MacOS/claude"):
+        try:
+            found.append((tuple(int(x) for x in path.parents[4].name.split(".")), str(path)))
+        except ValueError:
+            continue
+    return max(found)[1] if found else default
+
+
 def claude_probe(binary: str, timeout: float = 90) -> dict:
     """Ask Claude for one word on its smallest model with everything switched off (a fraction of a cent): every run is
     told how much of the allowance is used, and nothing else reports it. The same facts as `claude_log`."""
     try:
-        res = subprocess.run([binary, "-p", "Reply with the single word: ok", "--model", "haiku", *LEAN, "--tools", ""],
+        res = subprocess.run([probe_binary(binary), "-p", "Reply with the single word: ok", "--model", "haiku", *LEAN, "--tools", ""],
                              stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=timeout,
                              env={**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"})
     except (OSError, subprocess.SubprocessError):
@@ -173,7 +187,13 @@ def claude_events(text: str) -> dict:
             info = e.get("rate_limit_info") or {}
             rejected = info.get("status") == "rejected"
             out["limit"] = out["limit"] or rejected
-            if info.get("rateLimitType") and (rejected or info.get("utilization") is not None):
+            for name, w in (info.get("unifiedWindows") or {}).items():  # both plan windows, exactly
+                if isinstance(w, dict) and w.get("utilization") is not None:
+                    out["windows"][name] = {"used": 100.0 if rejected and name == info.get("rateLimitType")
+                                            else round(100 * w["utilization"], 1), "resets": w.get("resetsAt"),
+                                            "exact": True}
+            if info.get("rateLimitType") and (rejected or info.get("utilization") is not None) \
+                    and info["rateLimitType"] not in out["windows"]:
                 out["windows"][info["rateLimitType"]] = {
                     "used": 100.0 if rejected else round(100 * info["utilization"], 1), "resets": info.get("resetsAt")}
         elif e.get("type") == "result":
@@ -186,7 +206,7 @@ def claude_events(text: str) -> dict:
     return out
 
 
-def _reading(claude: dict, name: str, used: float, resets, at: float) -> None:
+def _reading(claude: dict, name: str, used: float, resets, at: float, exact: bool = False) -> None:
     """Take a fresh reading of one Claude window. From the one before, learn what a dollar of our work costs."""
     seen = claude.setdefault("windows", {})
     old = seen.get(name)
@@ -195,7 +215,7 @@ def _reading(claude: dict, name: str, used: float, resets, at: float) -> None:
         rate = claude.setdefault("rate", {})
         seen_rate = (used - old["used"]) / old["spent"]
         rate[name] = round(min(30.0, max(0.05, 0.7 * rate.get(name, RATE.get(name, 1.0)) + 0.3 * seen_rate)), 3)
-    seen[name] = {"used": used, "resets": resets, "at": at, "spent": 0.0}
+    seen[name] = {"used": used, "resets": resets, "at": at, "spent": 0.0, **({"exact": True} if exact else {})}
 
 
 def usage(notes: dict, codex: str, claude: str, now: float | None = None) -> dict:
@@ -217,13 +237,14 @@ def usage(notes: dict, codex: str, claude: str, now: float | None = None) -> dic
             if at > k.get("windows", {}).get(name, {}).get("at", 0):
                 _reading(k, name, w["used"], w["resets"], at)
         newest = max([w.get("at", 0) for w in k.get("windows", {}).values()] + [k.get("probed", 0)])
-        if now - newest > 600:  # other sessions use this allowance too: an old figure is a wrong one
+        if now - newest > PROBE_EVERY:  # other sessions use this allowance too: an old figure is a wrong one
             k["probed"] = now
             for name, w in claude_probe(claude)["windows"].items():
-                _reading(k, name, w["used"], w.get("resets"), now)
+                _reading(k, name, w["used"], w.get("resets"), now, w.get("exact", False))
         rate = k.get("rate", {})
         out = {"codex": c.get("windows"),
-               "claude": {name: {"used": min(100.0, w["used"] + w.get("spent", 0) * rate.get(name, RATE.get(name, 1.0))),
+               "claude": {name: {"used": min(100.0, w["used"] + (0.0 if w.get("exact") else
+                                                                  w.get("spent", 0) * rate.get(name, RATE.get(name, 1.0)))),
                                  "resets": w.get("resets")} for name, w in k.get("windows", {}).items()} or None}
     for p in PROVIDERS:  # a limit a worker ran into closes the allowance for a while, whatever the figures say
         until = notes.get(p, {}).get("closed_until", 0)
@@ -318,4 +339,4 @@ def record(notes: dict, cfg: dict, role: str, provider: str, at_rung: int, ok: b
         for w in claude.get("windows", {}).values():
             w["spent"] = round(w.get("spent", 0) + cost, 4)
         for name, w in (windows or {}).items():
-            _reading(claude, name, w["used"], w.get("resets"), now)
+            _reading(claude, name, w["used"], w.get("resets"), now, w.get("exact", False))

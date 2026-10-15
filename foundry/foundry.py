@@ -1167,7 +1167,7 @@ def cmd_reading(provider: str, window: str, used: str, resets: str = "") -> None
         raise SystemExit("only Claude's figures need passing on: Codex is asked directly")
     when = datetime.fromisoformat(resets.replace("Z", "+00:00")).timestamp() if resets else None
     with notes() as n:
-        router._reading(n.setdefault("claude", {}), window, float(used), when, time.time())
+        router._reading(n.setdefault("claude", {}), window, float(used), when, time.time(), exact=True)
     cmd_usage()
 
 

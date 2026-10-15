@@ -24,8 +24,9 @@ def _no_real_ipad_inbox(tmp_path, monkeypatch):
 
 
 @pytest.fixture(autouse=True)
-def _no_worker_checks_in_tests(monkeypatch):
+def _no_worker_checks_in_tests(monkeypatch, tmp_path):
     """The foundry and refine check that a worker really used the library and the web, and that every tool is installed; the
     fake workers of the tests do neither (tests of those checks switch them back on)."""
     monkeypatch.setenv("FOUNDRY_EVIDENCE", "0")
     monkeypatch.setenv("FOUNDRY_PREFLIGHT", "0")
+    monkeypatch.setenv("FOUNDRY_CLAUDE_APPS", str(tmp_path / "no-claude-apps"))  # never the app's real Claude Code

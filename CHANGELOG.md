@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.4.5 — 2026-10-15
+
+Asked by the learner: the Claude usage the foundry and refine showed was nowhere near the real figures.
+
+- **Claude's two windows are now read exactly, by every run.** The command-line `claude` (2.1.220) tells a run nothing unless
+  a window is nearly full, so the board had been extrapolating from what its workers cost, and drifted (91% shown when 47%
+  was used). The Claude desktop app ships a newer Claude Code (2.1.29x) whose runs report both windows (`unifiedWindows`).
+  `router.probe_binary` finds the newest one; a one-word Haiku probe (a fraction of a cent) runs when a reading is over two
+  minutes old, and every finished Claude worker's log refreshes it too. A reading taken this way is never extrapolated.
+  Without that binary the old cache and estimate are the fallback, and `bin/foundry reading claude <window> …` still
+  overrides. Foundry and refine share it. Tests never reach the app's real Claude Code.
+- **Claude's 5-hour window closes Claude at 80%** (`window_cap` in both configs), so jobs go to Codex until it resets.
+
 ## 2.4.4 — 2026-10-15
 
 Asked by the learner: estimation and derivation questions exist in these syllabuses; read-aloud lines must read as spoken.

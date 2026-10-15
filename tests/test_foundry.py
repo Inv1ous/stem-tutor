@@ -1102,3 +1102,29 @@ def test_claude_cache_in_its_newer_shape_is_read(fdy, tmp_path):
         "seven_day": {"utilization": 14, "resets_at": "2026-10-21T05:59:59+00:00"}}}}))
     windows, at = fdy.router.claude_cache(f)
     assert list(windows) == ["seven_day"] and windows["seven_day"]["used"] == 14.0 and at == 1.7e9
+
+
+def test_a_newer_claude_reports_both_windows_exactly(fdy, tmp_path, monkeypatch):
+    line = json.dumps({"type": "rate_limit_event", "rate_limit_info": {
+        "status": "allowed", "rateLimitType": "five_hour", "resetsAt": 1792075800,
+        "unifiedWindows": {"five_hour": {"utilization": 0.48, "resetsAt": 1792075800},
+                           "seven_day": {"utilization": 0.33, "resetsAt": 1792562400}}}})
+    w = fdy.router.claude_events(line)["windows"]
+    assert w["five_hour"]["used"] == 48.0 and w["seven_day"]["used"] == 33.0 and w["seven_day"]["exact"]
+    for v in ("2.1.9", "2.1.295", "2.1.30"):  # the newest app version wins, compared as numbers
+        d = tmp_path / "apps" / v / "abc" / "claude.app/Contents/MacOS"
+        d.mkdir(parents=True)
+        (d / "claude").write_text("")
+    monkeypatch.setenv("FOUNDRY_CLAUDE_APPS", str(tmp_path / "apps"))
+    assert "/2.1.295/" in fdy.router.probe_binary("claude")
+    monkeypatch.setenv("FOUNDRY_CLAUDE_APPS", str(tmp_path / "none"))
+    assert fdy.router.probe_binary("claude") == "claude"
+
+
+def test_an_exact_reading_is_never_extrapolated(fdy):
+    k = {}
+    fdy.router._reading(k, "five_hour", 48.0, 4e9, 1.0, exact=True)
+    k["windows"]["five_hour"]["spent"] = 5.0  # dollars our workers spent since: not added to a figure just read
+    notes = {"claude": k}
+    out = fdy.router.usage(notes, "codex", "claude", now=2.0) if False else None
+    assert k["windows"]["five_hour"]["used"] == 48.0

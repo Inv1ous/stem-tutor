@@ -1,5 +1,9 @@
 # Build status
 
+## v2.4.5 (2026-10-15) — done
+
+Exact Claude usage for both windows (newer bundled Claude Code); 5-hour 80% cap.
+
 ## v2.4.4 (2026-10-15) — done
 
 Command-word gate allows exam words (Estimate, Derive ...); lost-PDF-character gate; read-aloud gap gate in the foundry.
