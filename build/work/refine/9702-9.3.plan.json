@@ -1,0 +1,24 @@
+{
+ "summary": "Add the required I–V visual and strengthen application of resistance and resistivity without changing existing content.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the I–V characteristics paragraph in ## Key ideas; also request it in the pack diagrams list",
+   "why": "The figure gate fails and Cambridge 9702-9.3.3 explicitly requires sketches of all three characteristics.",
+   "what": "Use graph_sketch with current $I$ vertical and potential difference $V$ horizontal, showing labelled metallic conductor straight through the origin, filament lamp symmetric curve flattening in both polarities, and diode negligible reverse current with sharp forward rise. Use separate panels or clearly labelled curves so the shapes cannot be confused."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-9.3.2 and 9702-9.3.3",
+   "why": "9702-9.3.2 has five core retrieval variants, and the graph point needs a calculation that distinguishes resistance at a point from gradient.",
+   "count": 2,
+   "what": "One Calculate numeric item applying $V=IR$ to a non-ohmic component at a specified operating point; one Determine item using a marked point on an $I$–$V$ curve to find $R=V/I$, with explanation that curve gradient is not the point resistance."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, Method or a new worked example; pack worked example for 9702-9.3.6",
+   "why": "The current example uses a given area only, while examiner comments report that candidates miss the area change when a wire is stretched at constant volume.",
+   "what": "Add a short worked constant-volume wire comparison: use $AL=\\text{constant}$ before $R=\\rho L/A$, hence for unchanged material $R\\propto L^2$ when volume is fixed. Show why a length factor of three produces a resistance factor of nine."
+  }
+ ]
+}

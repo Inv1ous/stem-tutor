@@ -1,0 +1,155 @@
+{
+ "sub": "9702-9.3",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T21:17:44+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T20:08:48+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T20:14:19+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 2 questions, 3 diagrams, 10 note_lines, 1 other"
+  },
+  {
+   "t": "2026-10-15T21:10:36+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "3 of 3 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T21:17:44+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 2 questions, 3 diagrams, 10 note_lines, 1 other (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 108,
+  "extra": 47,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 86882,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T20:07:48+08:00",
+   "log": "refine/logs/9702-9.3.scout.1015-200748.log",
+   "out": "refine/logs/9702-9.3.scout.1015-200748.out.json",
+   "expects": "build/work/refine/9702-9.3.plan.json",
+   "finished": "2026-10-15T20:08:48+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 3,
+    "plan_path": "build/work/refine/9702-9.3.plan.json",
+    "notes": [
+     "Read the learner’s Save My Exams 9702 c9.3.pdf, pp. 9–10, for the I–V curves and filament heating explanation.",
+     "Checked the [Cambridge 9702 syllabus](https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf) for the required three I–V sketches.",
+     "The current figure gate fails because the pack has no diagram."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 87722,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T20:09:54+08:00",
+   "log": "refine/logs/9702-9.3.refiner.1015-200953.log",
+   "out": "refine/logs/9702-9.3.refiner.1015-200953.out.json",
+   "finished": "2026-10-15T20:14:19+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 3,
+    "new_items": [
+     "9702-9.3-r01",
+     "9702-9.3-r02"
+    ],
+    "new_diagrams": [
+     "Assets/9702/9702-9.3-metal-iv.svg",
+     "Assets/9702/9702-9.3-lamp-iv.svg",
+     "Assets/9702/9702-9.3-diode-iv.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 88752,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T20:14:32+08:00",
+   "log": "refine/logs/9702-9.3.solver.1015-201432.log",
+   "out": "refine/logs/9702-9.3.solver.1015-201432.out.json",
+   "expects": "build/work/blind/9702-9.3.refine.answers.json",
+   "finished": "2026-10-15T20:15:11+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 3 questions in `build/work/blind/9702-9.3.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 88757,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T20:14:32+08:00",
+   "log": "refine/logs/9702-9.3.checker.1015-201432.log",
+   "out": "refine/logs/9702-9.3.checker.1015-201432.out.json",
+   "expects": "build/work/refine/9702-9.3.check.json",
+   "finished": "2026-10-15T20:15:06+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9702-9.3.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9702-9.3.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 3,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 1,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 2,
+  "diagrams": 3,
+  "note_lines": 10,
+  "cards": 0,
+  "other": 1
+ },
+ "last_refined": "2026-10-15T21:17:44+08:00"
+}
