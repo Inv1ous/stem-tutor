@@ -2,9 +2,9 @@
  "sub": "9701-2.2",
  "stage": "ready",
  "pass": 1,
- "refined": 1,
+ "refined": 2,
  "created": "2026-10-15T08:15:29+08:00",
- "updated": "2026-10-15T09:57:27+08:00",
+ "updated": "2026-10-15T12:45:02+08:00",
  "history": [
   {
    "t": "2026-10-15T09:51:38+08:00",
@@ -26,6 +26,36 @@
   },
   {
    "t": "2026-10-15T09:57:27+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 1 questions, 1 other (checked only by its own family)"
+  },
+  {
+   "t": "2026-10-15T09:57:31+08:00",
+   "from": "ready",
+   "to": "ready",
+   "note": "speech: pre-generating in the background (log refine/logs/9701-2.2.speech.1015-095731.log)"
+  },
+  {
+   "t": "2026-10-15T12:33:27+08:00",
+   "from": "ready",
+   "to": "refine",
+   "note": "reopened: the gates now check option letters and leftover LaTeX in what was added"
+  },
+  {
+   "t": "2026-10-15T12:36:13+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 1 questions, 1 other"
+  },
+  {
+   "t": "2026-10-15T12:44:45+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "2 of 2 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T12:45:02+08:00",
    "from": "sign",
    "to": "ready",
    "note": "refined: 1 questions, 1 other (checked only by its own family)"
@@ -68,14 +98,14 @@
    "ok": true
   },
   "refiner": {
-   "pid": 35961,
+   "pid": 94167,
    "provider": "codex",
    "model": "gpt-6-astra/medium",
    "rung": 1,
-   "started": "2026-10-15T09:51:49+08:00",
-   "log": "refine/logs/9701-2.2.refiner.1015-095149.log",
-   "out": "refine/logs/9701-2.2.refiner.1015-095149.out.json",
-   "finished": "2026-10-15T09:53:29+08:00",
+   "started": "2026-10-15T12:33:34+08:00",
+   "log": "refine/logs/9701-2.2.refiner.1015-123334.log",
+   "out": "refine/logs/9701-2.2.refiner.1015-123334.out.json",
+   "finished": "2026-10-15T12:36:13+08:00",
    "exit": 0,
    "report": {
     "applied": 2,
@@ -90,18 +120,18 @@
    "ok": true
   },
   "solver": {
-   "pid": 37161,
+   "pid": 96396,
    "provider": "codex",
    "model": "gpt-6-sol/low",
    "rung": 0,
-   "started": "2026-10-15T09:53:42+08:00",
-   "log": "refine/logs/9701-2.2.solver.1015-095342.log",
-   "out": "refine/logs/9701-2.2.solver.1015-095342.out.json",
+   "started": "2026-10-15T12:38:53+08:00",
+   "log": "refine/logs/9701-2.2.solver.1015-123853.log",
+   "out": "refine/logs/9701-2.2.solver.1015-123853.out.json",
    "expects": "build/work/blind/9701-2.2.refine.answers.json",
-   "finished": "2026-10-15T09:54:05+08:00",
+   "finished": "2026-10-15T12:39:43+08:00",
    "exit": 0,
    "report": {
-    "text": "Answered 2 questions in `build/work/blind/9701-2.2.refine.answers.json`."
+    "text": "Answered 2 questions in [9701-2.2.refine.answers.json](</Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/build/work/blind/9701-2.2.refine.answers.json>)."
    },
    "ok": true
   },
@@ -144,5 +174,5 @@
   "cards": 0,
   "other": 1
  },
- "last_refined": "2026-10-15T09:57:27+08:00"
+ "last_refined": "2026-10-15T12:45:02+08:00"
 }
