@@ -1,0 +1,137 @@
+{
+ "sub": "9701-9.1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T13:19:05+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T13:10:10+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 5 improvements"
+  },
+  {
+   "t": "2026-10-15T13:16:39+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions, 2 diagrams, 4 note_lines, 2 cards"
+  },
+  {
+   "t": "2026-10-15T13:18:53+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "0 of 0 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T13:19:05+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions, 2 diagrams, 4 note_lines, 2 cards (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 31,
+  "extra": 9,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 6879,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T13:09:00+08:00",
+   "log": "refine/logs/9701-9.1.scout.1015-130900.log",
+   "out": "refine/logs/9701-9.1.scout.1015-130900.out.json",
+   "expects": "build/work/refine/9701-9.1.plan.json",
+   "finished": "2026-10-15T13:10:10+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 4,
+    "plan_path": "build/work/refine/9701-9.1.plan.json",
+    "notes": [
+     "The existing gates pass. The learner’s source library returned no matches, so the plan includes no PDF figures."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 8683,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T13:12:55+08:00",
+   "log": "refine/logs/9701-9.1.refiner.1015-131255.log",
+   "out": "refine/logs/9701-9.1.refiner.1015-131255.out.json",
+   "finished": "2026-10-15T13:16:39+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 5,
+    "new_items": [
+     "9701-9.1-r01",
+     "9701-9.1-r02",
+     "9701-9.1-r03"
+    ],
+    "new_diagrams": [
+     "Assets/9701/9701-9.1-melting-trend.svg",
+     "Assets/9701/9701-9.1-ionic-radii.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 9655,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T13:16:58+08:00",
+   "log": "refine/logs/9701-9.1.checker.1015-131658.log",
+   "out": "refine/logs/9701-9.1.checker.1015-131658.out.json",
+   "expects": "build/work/refine/9701-9.1.check.json",
+   "finished": "2026-10-15T13:17:47+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9701-9.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-9.1.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 5,
+  "dropped": [],
+  "kinds": {
+   "diagram": 2,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 0,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 3,
+  "diagrams": 2,
+  "note_lines": 4,
+  "cards": 2,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T13:19:05+08:00"
+}
