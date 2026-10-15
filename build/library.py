@@ -315,6 +315,51 @@ def cmd_text(a) -> None:
     print(out, end="")
 
 
+_MEMO: dict = {}
+
+
+def hits_for(subtopic: str, per_kc: int = 3, root: str = "library") -> list[tuple[str, str, list[tuple[str, int, str]]]]:
+    """[(kc id, kc title, [(pdf, page, why), ...])] for a chapter: what `for` prints, as data, for the bundle and the
+    foundry's evidence check. Empty when the library has no PDFs or the chapter is unknown."""
+    import hashlib
+    listing = pdfs(roots(root)[root]) if root in roots(root) else []
+    if not listing:
+        return []
+    fp = hashlib.sha1("\n".join(f"{f}|{f.stat().st_size}|{f.stat().st_mtime_ns}" for f in sorted(listing)).encode()).hexdigest()
+    cache = lib_root() / ".cache" / "hits" / f"{subtopic}.{per_kc}.json"  # the same library gives the same hits: ask once
+    try:
+        saved = json.loads(cache.read_text())
+        if saved.get("fp") == fp:
+            return [(k, t, [tuple(r) for r in rows]) for k, t, rows in saved["rows"]]
+    except (OSError, ValueError, KeyError):
+        pass
+    if _MEMO.get("fp") != fp:  # the library is read once per process, however many chapters are asked about
+        _MEMO.clear()
+        _MEMO.update(fp=fp, corpus=corpus(root))
+    files, items, _, _ = _MEMO["corpus"]
+    if not files:
+        return []
+    kcs = []
+    for g in sorted((Path(os.environ.get("STEM_LIBRARY_SPECS") or ROOT / "build/out/specs")).glob("*/graph.json")):
+        d = json.loads(g.read_text())
+        if any(s["id"] == subtopic for s in d["subtopics"]):
+            kcs = [k for k in d["kcs"] if k["subtopic"] == subtopic]
+    out = []
+    for k in kcs:
+        terms = list(dict.fromkeys(norm(t).strip() for t in [k["title"], *k.get("glossary", [])] if t.strip()))
+        if len(terms) == 1:
+            terms += [w for w in re.findall(r"\w{5,}", norm(k["title"]))]
+        res = rank_pages(items, list(dict.fromkeys(terms)), 2 if len(terms) > 1 else 1)
+        rows = [(show(pdf), n, ", ".join(hit[:4])) for _, pdf, n, snip, hit in res[:per_kc]]
+        out.append((k["id"], k["title"], rows))
+    try:
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps({"fp": fp, "rows": out}))
+    except OSError:
+        pass
+    return out
+
+
 def cmd_for(a) -> None:
     files, items, scanned, bad = corpus(a.root)
     if not files:
@@ -701,6 +746,15 @@ def figure_problems(note_text: str, subtopic: str = "") -> list[str]:
     return out
 
 
+def cmd_warm(a) -> None:
+    n = 0
+    for g in sorted((Path(os.environ.get("STEM_LIBRARY_SPECS") or ROOT / "build/out/specs")).glob("*/graph.json")):
+        for s in json.loads(g.read_text())["subtopics"]:
+            hits_for(s["id"])
+            n += 1
+    print(f"library hits ready for {n} chapters")
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="library.py", description=__doc__.split("\n")[0])
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -710,6 +764,7 @@ def main(argv=None) -> int:
     x = sp.add_parser("text"); x.add_argument("pdf"); x.add_argument("--pages"); x.add_argument("--all", action="store_true")
     f = sp.add_parser("for"); f.add_argument("subtopic"); f.add_argument("--root", default="library")
     f.add_argument("--max", type=int, default=10)
+    sp.add_parser("warm")
     g = sp.add_parser("figures"); g.add_argument("pdf"); g.add_argument("--pages"); g.add_argument("--max", type=int, default=60)
     pg = sp.add_parser("page"); pg.add_argument("pdf"); pg.add_argument("n", type=int)
     pg.add_argument("--dpi", type=int, default=110); pg.add_argument("--box")
@@ -723,7 +778,7 @@ def main(argv=None) -> int:
             c.add_argument("--index", type=int, required=True)
     a = ap.parse_args(argv)
     try:
-        {"tree": cmd_tree, "search": cmd_search, "text": cmd_text, "for": cmd_for, "figures": cmd_figures,
+        {"tree": cmd_tree, "search": cmd_search, "text": cmd_text, "for": cmd_for, "warm": cmd_warm, "figures": cmd_figures,
          "page": cmd_page, "crop": cmd_crop, "extract": cmd_extract}[a.cmd](a)
     except Fail as e:
         print(e)

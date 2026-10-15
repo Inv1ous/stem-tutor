@@ -597,12 +597,40 @@ def cmd_next() -> None:
             print(f"{st['sub']:<11} {st['stage']:<11} → {action(st)}")
 
 
+MAX_UNCLEAN = 3  # consecutive attempts that end with the gates red before the foundry stops retrying a chapter
+
+
+def unclean_streak(st: dict) -> int:
+    """How many of the latest history entries, in a row, say a worker finished with the gates not clean."""
+    n = 0
+    for h in reversed(st["history"]):
+        if "gates are not clean" not in h.get("note", ""):
+            break
+        n += 1
+    return n
+
+
+def cmd_unstick(sub: str) -> None:
+    """Let a chapter that stopped retrying (its gates stayed red) have another three attempts."""
+    with chapter(sub) as st:
+        st["history"].append({"t": now(), "from": st["stage"], "to": st["stage"], "note": "unstuck by the manager"})
+    print(f"{sub}: three more attempts allowed")
+
+
 def cmd_step(only: list[str] | None = None) -> None:
     """One pass over every chapter (or only those named) doing whatever needs no judgement: start the workers that can
     run now, compare finished solves, sign what is green. What it leaves is the manager's: decisions, and waiting."""
+    import capabilities
+    if (why := capabilities.preflight()):  # a tool the workers need is missing: say so, do not run on without it
+        print(why)
+        return
     for st in chapters():
         sub, (verb, *rest) = st["sub"], todo(st)
         if only and sub not in only:
+            continue
+        if st["stage"] in ("draft", "fix") and not _running(st) and unclean_streak(st) >= MAX_UNCLEAN:
+            print(f"{sub}: stuck: its gates were red {unclean_streak(st)} times in a row ({st['history'][-1].get('note', '')[-150:]}); "
+                  f"not retrying. Fix it by hand or `foundry.py unstick {sub}` to allow three more attempts.")
             continue
         try:
             if verb == "run":
@@ -956,6 +984,8 @@ def role_prompt(role: str, sub: str, shard: int | None = None) -> str:
         lines.append("Gate failures to clear: " + "; ".join(st["gates"].get("first", [])))
     if role == "adjudicator":
         lines.append(f"Open items: run `.venv/bin/python foundry/foundry.py packet {sub}`.")
+    import evidence
+    lines += evidence.prompt_lines(role, sub, config())
     return "\n".join(lines)
 
 
@@ -993,6 +1023,9 @@ def cmd_run(role: str, sub: str, on: str | None = None, shard: int | None = None
         failed = last.get("provider") == provider and last.get("ok") is False and not last.get("limit")
         rung = router.rung(n, cfg, role, provider, retry=last.get("rung", 0) if failed else None)
     model, effort = cfg["ladders"][role][provider][rung]
+    if role == "drafter":  # a worker is about to start: give it the newest link names, diagram hints and library hits
+        import evidence
+        evidence.refresh_bundle(ROOT, PY, sub)
     with chapter(sub) as st:  # so collect can put the extras back with the same ids if the worker rewrites the pack
         st["extra_ids"] = {**st.get("extra_ids", {}), **extra_ids(sub)}
     LOGS.mkdir(parents=True, exist_ok=True)
@@ -1221,6 +1254,11 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
     if job.get("expects"):
         f = ROOT / job["expects"]
         wrote = f.exists() and f.stat().st_mtime >= datetime.fromisoformat(job["started"]).timestamp() - 1
+    import evidence
+    evid = evidence.missing(role, sub, config(), ROOT / job["log"] if job.get("log") else None) \
+        if exit_code == 0 and report and out != "-" else []
+    if evid:
+        g = {**(g or {"ok": True}), "ok": False, "sources": len(evid), "first": [f"sources {m}"[:200] for m in evid] + (g or {}).get("first", [])}
     ok = exit_code == 0 and bool(report) and wrote and (g is None or g["ok"])
     if out != "-":
         with notes() as n:
@@ -1291,6 +1329,14 @@ def main(argv: list[str]) -> None:
         cmd_step(rest)
     elif cmd == "usage":
         cmd_usage()
+    elif cmd == "doctor":
+        import capabilities
+        text, ok = capabilities.report()
+        print(text)
+        if not ok:
+            raise SystemExit(1)
+    elif cmd == "unstick":
+        cmd_unstick(rest[0])
     elif cmd == "only":
         cmd_only(rest)
     elif cmd == "normalise":

@@ -621,3 +621,21 @@ def test_a_pass_whose_gates_stay_red_is_given_up_and_its_additions_are_dropped(r
     assert rf.coverage()["given_up"] == {SUB: st["abandoned"]["why"]}
     two = {**st, "history": st["history"][:-1] + [{"note": "refiner finished but gates are not clean"}, {"note": "refined"}]}
     assert rf.unclean_streak(two) == 0  # the streak is consecutive failures only
+
+
+def test_a_scout_that_never_used_the_library_or_the_web_is_not_accepted_and_is_retried(rf, tmp_path, monkeypatch):
+    """The fake worker's log shows no library or web use: with the check on, its plan is not accepted."""
+    import evidence
+    monkeypatch.delenv("FOUNDRY_EVIDENCE", raising=False)
+    monkeypatch.setattr(evidence, "library_hits", lambda sub: 5)
+    rf.cmd_add([SUB])
+    plan = tmp_path / "plan.json"
+    plan.write_text(json.dumps({"summary": "already complete", "improvements": []}))
+    monkeypatch.setenv("FAKE_COPY", str(plan))
+    rf.cmd_run("scout", SUB)
+    job = finished(rf, "scout")
+    st = rf.load(SUB)
+    assert not job["ok"] and st["stage"] == "plan"  # not accepted: it never opened the library
+    note = st["history"][-1]["note"]
+    assert "gates are not clean" in note and "sources" in note and rf.unclean_streak(st) == 1
+    assert rf.action(st) == f"refine.py run scout {SUB}"  # tried again, one tier up

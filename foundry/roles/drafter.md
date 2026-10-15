@@ -68,3 +68,7 @@ than a poor one. The gate checks the source line and the file.
 
 Reply with the JSON report the output schema asks for. List in `concerns` anything a checker should look at
 (a figure you could not draw, a syllabus point with thin coverage, an answer you were unsure of).
+
+## Your run is checked
+
+The program reads your log when you finish. A run that never opened the library (when it has pages for this chapter: see "Library hits" at the end of the bundle) or never searched the web (when you may) is not accepted and is retried: use both, once, for something real, and say what you used in your report.

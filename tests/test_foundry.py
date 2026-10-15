@@ -1061,3 +1061,20 @@ def test_sign_repairs_glyphs_itself(fdy):
     put_glyphs(fdy, "\nEnergy Eₖ.\n")
     fdy.cmd_sign(SUB)
     assert fdy.load(SUB)["stage"] == "ready" and fdy.gates(SUB)["glyphs"] == 0
+
+
+def test_a_chapter_whose_gates_stay_red_stops_being_retried_until_the_manager_unsticks_it(fdy, capsys):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "draft"
+        for _ in range(fdy.MAX_UNCLEAN):
+            st["history"].append({"t": fdy.now(), "from": "draft", "to": "draft",
+                                  "note": "drafter finished but gates are not clean: ['syllabus command-word']"})
+    assert fdy.unclean_streak(fdy.load(SUB)) == fdy.MAX_UNCLEAN
+    fdy.cmd_step([SUB])
+    out = capsys.readouterr().out
+    assert "stuck" in out and "unstick" in out and not fdy._running(fdy.load(SUB))  # nothing was started
+    fdy.cmd_unstick(SUB)
+    assert fdy.unclean_streak(fdy.load(SUB)) == 0
+    fdy.cmd_step([SUB])
+    assert fdy._running(fdy.load(SUB)) or fdy.load(SUB)["jobs"].get("drafter")  # a drafter was started again

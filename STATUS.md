@@ -1,5 +1,8 @@
 # Build status
 
+## v2.4.3 (2026-10-15) — done
+- The foundry and refine make sure workers use the library and the web, have every tool they need, and stop retrying a stuck chapter.
+
 ## v2.4.2 (2026-10-15) — done
 - Refine gives up a pass whose gates stay red three times, instead of retrying without end.
 

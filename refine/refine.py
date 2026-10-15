@@ -564,6 +564,10 @@ def give_up(sub: str, why: str) -> None:
 
 
 def cmd_step(only: list[str] | None = None) -> None:
+    import capabilities
+    if (why := capabilities.preflight()):  # a tool the workers need is missing: say so, do not run on without it
+        print(why)
+        return
     for st in chapters():
         sub, (verb, *rest) = st["sub"], todo(st)
         if only and sub not in only:
@@ -888,6 +892,8 @@ def role_prompt(role: str, sub: str, shard: int | None = None) -> str:
                      + "; ".join(st["gates"].get("first", [])))
     if role == "adjudicator":
         lines.append(f"Open items: run `.venv/bin/python refine/refine.py packet {sub}`.")
+    import evidence
+    lines += evidence.prompt_lines(role, sub, config())
     return "\n".join(lines)
 
 
@@ -932,6 +938,9 @@ def cmd_run(role: str, sub: str, on: str | None = None, shard: int | None = None
         failed = last.get("provider") == provider and last.get("ok") is False and not last.get("limit")
         rung = router.rung(n, cfg, role, provider, retry=last.get("rung", 0) if failed else None)
     model, effort = cfg["ladders"][role][provider][rung]
+    if role in ("scout", "refiner"):
+        import evidence
+        evidence.refresh_bundle(ROOT, PY, sub)
     LOGS.mkdir(parents=True, exist_ok=True)
     stem = f"{sub}.{name.replace('#', '-')}.{datetime.now():%m%d-%H%M%S}"
     log, out, expects = LOGS / f"{stem}.log", LOGS / f"{stem}.out.json", _expects(st, role, shard)
@@ -1012,6 +1021,11 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
             wrote = isinstance(json.loads(plan_path(sub).read_text()), dict)
         except (OSError, ValueError):
             wrote = False
+    import evidence
+    evid = evidence.missing(role, sub, config(), ROOT / job["log"] if job.get("log") else None) \
+        if exit_code == 0 and report and out != "-" else []
+    if evid:
+        g = {**(g or {"ok": True}), "ok": False, "sources": len(evid), "first": [f"sources {m}"[:200] for m in evid] + (g or {}).get("first", [])}
     ok = exit_code == 0 and bool(report) and wrote and (g is None or g["ok"])
     if out != "-":
         with fd.notes() as n:
@@ -1033,7 +1047,7 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
                    f"failed (exit {code})" if exit_code or not report else "finished without writing its file")
             st["history"].append({"t": now(), "from": st["stage"], "to": st["stage"],
                                   "note": f"{name} {why}; see {job.get('log')}"})
-        elif role == "scout" and st["stage"] == "plan":
+        elif role == "scout" and st["stage"] == "plan" and not evid:
             _accept_plan(st)
         elif role == "refiner" and g["ok"]:
             write_additions(sub)
@@ -1167,7 +1181,13 @@ def main(argv: list[str]) -> None:
         print(__doc__)
         return
     cmd, rest = argv[0], argv[1:]
-    simple = {"board": cmd_board, "next": cmd_next, "usage": fd.cmd_usage, "install-skill": cmd_install_skill}
+    def doctor() -> None:
+        import capabilities
+        text, ok = capabilities.report()
+        print(text)
+        if not ok:
+            raise SystemExit(1)
+    simple = {"board": cmd_board, "next": cmd_next, "usage": fd.cmd_usage, "install-skill": cmd_install_skill, "doctor": doctor}
     one = {"compare": cmd_compare, "packet": cmd_packet, "gates": cmd_gates, "sign": cmd_sign, "status": cmd_status,
            "dispatch": cmd_dispatch, "escalate": lambda s: cmd_run("adjudicator", s)}
     if cmd in simple:

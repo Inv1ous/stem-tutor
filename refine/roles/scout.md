@@ -87,3 +87,7 @@ anything the refiner must know (a library passage to read, a source you could no
 ## Plan only what the gates allow
 
 - A new question may use only the command words listed in the chapter's bundle. Plan figures only when you are sure the refiner can crop and embed them; fewer is better.
+
+## Your run is checked
+
+The program reads your log when you finish. A run that never opened the library (when it has pages for this chapter: see "Library hits" at the end of the bundle) or never searched the web (when you may) is not accepted and is retried: use both, once, for something real, and say what you used in your report.

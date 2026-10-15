@@ -88,6 +88,25 @@ def _link_lines(subtopic: str) -> list[str]:
     return L
 
 
+def _library_lines(subtopic: str) -> list[str]:
+    """The learner's own PDFs that match this chapter's points: found by the program, so a worker sees them whether or not
+    it remembers to look. Left out (never an error) when the library is empty or unreadable."""
+    try:
+        import library
+        rows = [(kc, title, hits) for kc, title, hits in library.hits_for(subtopic) if hits]
+    except Exception:  # noqa: BLE001
+        return []
+    if not rows:
+        return []
+    L = ["## Library hits for this chapter", "",
+         "Pages in the learner's library (`sources/library`) that match this chapter's points. Open the useful ones with "
+         "`.venv/bin/python build/library.py text <pdf> --pages a-b` (or a figure with `figures`/`page`/`crop`), paraphrase, "
+         "and cite file and page in your report.", ""]
+    for kc, title, hits in rows[:12]:
+        L.append(f"- {kc} {title}: " + "; ".join(f"{pdf} p.{page} ({why})" for pdf, page, why in hits))
+    return L + [""]
+
+
 def _diagram_lines(kcs: list[dict]) -> list[str]:
     sug = diagram_hints.suggest(kcs)
     if not sug:
@@ -124,7 +143,7 @@ def bundle(subtopic: str) -> Path:
         if k.get("guidance"):
             L.append(f"Guidance: {k['guidance']}")
         L += [f"Prerequisites: {pre}", f"Glossary: {', '.join(k['glossary'])}", ""]
-    L += _link_lines(subtopic) + _diagram_lines(kcs)
+    L += _link_lines(subtopic) + _diagram_lines(kcs) + _library_lines(subtopic)
     cw = graph.get("command_words") or {}
     L += ["## Command words", ""] + [f"- **{w}**: {m}" for w, m in cw.items()] + [""]
     const = CONSTANTS.get(spec) or (CONSTANTS["M1"] if spec.startswith("M") else "")

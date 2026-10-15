@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.4.3 — 2026-10-15
+
+Asked by the learner: the foundry and refine must always use everything they have, consistently and without failure.
+
+- **The library is put in front of the worker.** Every bundle ends with the library's pages for the chapter ("Library hits",
+  `library.hits_for`, cached per chapter by the library's file list; `library.py warm` fills the cache for every chapter), and
+  the bundle is made again just before a drafter, scout or refiner starts. A worker's prompt now says what it has.
+- **Use is checked, not hoped for** (`foundry/evidence.py`). When a drafter or scout finishes, its log is read for real tool
+  use (Claude's `WebSearch`/`WebFetch` and `library.py` commands, Codex's `web search:` and `library.py` commands). A run
+  that skipped the library (when it has pages for the chapter) or the web (when the role may search it) is not accepted and is
+  retried a tier up. Before this, almost no Claude scout opened the library and no scout searched the web.
+- **Tools are checked before work starts** (`foundry/capabilities.py`, `bin/foundry doctor`, `bin/refine doctor`): poppler,
+  matplotlib, Pillow, the Codex and Claude commands, web search switched on, the bundle sections, the library, the content
+  checks, the spoken-maths converter and Kokoro. A missing hard requirement stops `step` with a plain message instead of
+  producing chapters without diagrams or figures.
+- **The foundry stops retrying a stuck chapter** the way refine does: after three red attempts in a row it says so and
+  waits (`foundry.py unstick <chapter>` allows three more).
+- A bundle rebuild at every step slowed `refine step` to minutes; it is now made only when a worker really starts and not more
+  than once in twenty minutes.
+
 ## 2.4.2 — 2026-10-15
 
 Found by the learner in the refine board's log.

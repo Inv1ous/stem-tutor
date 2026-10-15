@@ -21,3 +21,11 @@ def _no_real_ipad_inbox(tmp_path, monkeypatch):
     monkeypatch.setattr(config, "DOWNLOADS", tmp_path / "downloads", raising=False)  # nor their Downloads
     monkeypatch.setattr(config, "CLAUDE_STATE", tmp_path / "no-claude.json", raising=False)  # nor read their Claude limits
     monkeypatch.delenv("TERM_PROGRAM", raising=False)  # run in macOS Terminal, tests must never restyle its tabs
+
+
+@pytest.fixture(autouse=True)
+def _no_worker_checks_in_tests(monkeypatch):
+    """The foundry and refine check that a worker really used the library and the web, and that every tool is installed; the
+    fake workers of the tests do neither (tests of those checks switch them back on)."""
+    monkeypatch.setenv("FOUNDRY_EVIDENCE", "0")
+    monkeypatch.setenv("FOUNDRY_PREFLIGHT", "0")
