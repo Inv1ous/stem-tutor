@@ -9,6 +9,9 @@ adjudicator, resuming, what to watch for), with `bin/refine` in place of `bin/fo
 
 1. `bin/refine add <chapters…>` or `bin/refine add --all` (every signed chapter not in the foundry's pipeline). A
    chapter refined before starts a new pass.
+1b. Read the plan usage first (`mcp__ccd_session_mgmt__get_usage`) and pass both Claude windows on, as in the foundry's
+   manager.md (`bin/foundry reading claude five_hour|seven_day <percent> <reset ISO>`); the board's own Claude figures are
+   estimates.
 2. `bin/refine step`, then `bin/refine wait`, again and again, until `step` prints only chapters that need a decision.
 3. Judge what is left: `bin/refine packet <chapter>`, then `bin/refine resolve <chapter> <ref> keep|fix "…"`.
    Escalate with `bin/refine escalate <chapter>` under the same rules as the foundry's manager.md.

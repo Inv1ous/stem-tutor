@@ -35,9 +35,11 @@ worked out again before every job. Two rules come first:
 
 - **Claude's five-hour window is not reported to the foundry.** A headless run is told only about the limit nearest
   its end, which is usually the weekly one. If you have a tool that shows the plan's usage (in the Claude app:
-  `get_usage`), pass the five-hour figure on before the first `step` and about every half hour:
-  `bin/foundry reading claude five_hour <percent used> <reset time, ISO>`. Without it the foundry finds out when a
-  Claude job is refused, and then keeps Claude closed until that window resets.
+  `mcp__ccd_session_mgmt__get_usage`), pass BOTH windows on before the first `step` and about every half hour:
+  `bin/foundry reading claude five_hour <percent used> <reset time, ISO>` and
+  `bin/foundry reading claude seven_day <percent used> <reset time, ISO>`. Without it the figures are guesses: the
+  cache Claude Code keeps can be a day old, and a refused job closes Claude until its window resets. When a figure
+  the board shows differs from the card, the card is right.
 
 Leave both to the foundry. To start one job yourself: `bin/foundry run <role> <chapter>`. Add `--on claude` or
 `--on codex` only if the learner asks for it.

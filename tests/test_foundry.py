@@ -1082,3 +1082,23 @@ def test_a_chapter_whose_gates_stay_red_stops_being_retried_until_the_manager_un
 
 def test_a_speech_fault_never_stops_the_gates(fdy):
     assert fdy.speech_problems("no-such-chapter") == []
+
+
+def test_claude_is_closed_once_its_five_hours_pass_the_cap(fdy):
+    cfg = fdy.config()
+    assert cfg["window_cap"]["claude"]["five_hour"] == 80
+    week = {"used": 10.0, "resets": 4102444800}
+    low = {"five_hour": {"used": 70.0, "resets": 4102444800}, "seven_day": week}
+    high = {"five_hour": {"used": 81.0, "resets": 4102444800}, "seven_day": week}
+    assert fdy.router.score("claude", low, cfg, [])[0] is not None
+    s, why = fdy.router.score("claude", high, cfg, [])
+    assert s is None and "used up" in why
+
+
+def test_claude_cache_in_its_newer_shape_is_read(fdy, tmp_path):
+    f = tmp_path / "c.json"
+    f.write_text(json.dumps({"cachedUsageUtilization": {"fetchedAtMs": 1.7e12, "utilization": {
+        "five_hour": {"utilization": 0, "resets_at": None},
+        "seven_day": {"utilization": 14, "resets_at": "2026-10-21T05:59:59+00:00"}}}}))
+    windows, at = fdy.router.claude_cache(f)
+    assert list(windows) == ["seven_day"] and windows["seven_day"]["used"] == 14.0 and at == 1.7e9

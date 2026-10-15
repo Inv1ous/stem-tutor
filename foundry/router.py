@@ -125,6 +125,11 @@ def claude_cache(path: Path) -> tuple[dict, float]:
                 windows[name] = {"used": float(lim["percent"]),
                                  "resets": datetime.fromisoformat(resets.replace("Z", "+00:00")).timestamp()
                                  if resets else None}
+        for name in ("five_hour", "seven_day"):  # the newer shape: one entry per window, none while no window is running
+            lim = (cached.get("utilization") or {}).get(name)
+            if isinstance(lim, dict) and lim.get("utilization") is not None and lim.get("resets_at") and name not in windows:
+                windows[name] = {"used": float(lim["utilization"]),
+                                 "resets": datetime.fromisoformat(lim["resets_at"].replace("Z", "+00:00")).timestamp()}
         return windows, cached["fetchedAtMs"] / 1000
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
         return {}, 0.0
@@ -245,7 +250,8 @@ def score(provider: str, windows: dict | None, cfg: dict, running: list[str], mo
             continue  # a cap on another model
         mins = MINUTES.get(name, 10080)
         over = w.get("resets") is not None and w["resets"] <= now  # the window has reset since it was read
-        room = 100.0 - cfg["reserve"].get(provider, 0) - (0.0 if over else w["used"]) - pending * (7 if mins <= 300 else 1)
+        top = min(100.0 - cfg["reserve"].get(provider, 0), (cfg.get("window_cap") or {}).get(provider, {}).get(name, 100.0))
+        room = top - (0.0 if over else w["used"]) - pending * (7 if mins <= 300 else 1)
         if room <= 0:
             when = f" until {datetime.fromtimestamp(w['resets']):%a %H:%M}" if w.get("resets") and not over else ""
             return None, f"{NAMES[provider]}'s allowance is used up{when}"
