@@ -1,0 +1,32 @@
+{
+ "summary": "Add a labelled wave diagram and targeted practice for graph reading, phase and CRO controls.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "pack diagrams and note, after ## Key ideas",
+   "why": "The figures gate flags no diagram for outcomes 9702-7.1.2–7.1.4; a spatial snapshot makes amplitude, wavelength and phase separation visible.",
+   "what": "Use the supported wave type for displacement against distance, with amplitude and wavelength indicated by its built-in annotations; label the horizontal axis distance so the curve cannot be mistaken for a displacement–time trace. Embed the rendered SVG in the note and explain that crest-to-crest spans one wavelength and a quarter wavelength spans 90 degrees of phase. Do not copy the learner PDF figure, which labels a CRO time-axis cycle as wavelength."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Method and ## Traps",
+   "why": "The note explains how to read CRO scales but skips how changing time-base or y-gain affects the visible trace; Cambridge outcome 9702-7.1.3 explicitly requires their use, and ER 9702 s23 P11 Q20 records confusion here.",
+   "source": "library: sources/library/SaveMyExams/9702 a-level-physics-cie-25/9702 c7.1.pdf pp.8–10 | https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf",
+   "what": "Add a brief, quantitative CRO control example: increasing seconds per division fits more cycles across a fixed screen, and increasing volts per division makes a fixed-voltage signal shorter vertically. Keep voltage amplitude distinct from sound-particle displacement amplitude."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-7.1.3",
+   "why": "The generated CRO questions are short verbal items and the existing worked example only finds frequency from a given time-base; the outcome also needs interpretation of y-gain and control changes.",
+   "count": 2,
+   "what": "Add one Determine calculation from a gridded CRO trace with time-base and y-gain, asking for frequency and voltage amplitude, and one Explain item on how to fit a clipped cycle by changing seconds per division and volts per division. Include the misleading inverse-setting choices as misconception distractors where an MCQ is feasible."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-7.1.2",
+   "why": "Library worked example p.6 combines wavelength, peak-to-peak height and phase separation, while the note only states the quarter-wavelength case; most existing items are recall or MCQs.",
+   "count": 1,
+   "what": "Add one structured Determine item using a displacement–distance graph: find amplitude from peak-to-peak displacement, wavelength from repeated points in phase, and phase difference from a fractional-wavelength separation. Provide an explained mark scheme and three progressive hints."
+  }
+ ]
+}
