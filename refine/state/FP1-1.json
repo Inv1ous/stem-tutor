@@ -1,0 +1,147 @@
+{
+ "sub": "FP1-1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:14:25+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T21:18:47+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 5 improvements"
+  },
+  {
+   "t": "2026-10-15T21:34:07+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 4 questions, 1 diagrams, 12 note_lines"
+  },
+  {
+   "t": "2026-10-15T21:35:37+08:00",
+   "from": "solve",
+   "to": "solve",
+   "note": "refined: 4 questions, 1 diagrams, 12 note_lines"
+  },
+  {
+   "t": "2026-10-15T22:10:24+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "0 of 0 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:14:25+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 4 questions, 1 diagrams, 12 note_lines"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 40,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 99617,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:15:36+08:00",
+   "log": "refine/logs/FP1-1.scout.1015-211536.log",
+   "out": "refine/logs/FP1-1.scout.1015-211536.out.json",
+   "expects": "build/work/refine/FP1-1.plan.json",
+   "finished": "2026-10-15T21:18:47+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 5,
+    "plan_path": "build/work/refine/FP1-1.plan.json",
+    "notes": [
+     "Read the learner’s YFM01 c1.1 pp.1–3 and c1.2 pp.1–4 PDFs; used c1.2 pp.2–4 for the quadratic-construction addition.",
+     "Checked Pearson’s official FP1 specification for the argument and Argand requirements.",
+     "Current gates report two existing invalid chapter links. The scout role permits only additions, so the plan does not alter them."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 8182,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T21:30:29+08:00",
+   "log": "refine/logs/FP1-1.refiner.1015-213029.log",
+   "out": "refine/logs/FP1-1.refiner.1015-213029.out.json",
+   "finished": "2026-10-15T21:35:37+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 5,
+    "new_items": [
+     "FP1-1-r01",
+     "FP1-1-r02",
+     "FP1-1-r03",
+     "FP1-1-r04"
+    ],
+    "new_diagrams": [
+     "Assets/FP1/FP1-1-argand-sum-rotation.svg"
+    ],
+    "not_done": [
+     "Original broken links preserved under the no-loss rule; valid links added. All refinement gates pass, including inherited-link exemptions."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 16018,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:52:25+08:00",
+   "log": "refine/logs/FP1-1.checker.1015-215225.log",
+   "out": "refine/logs/FP1-1.checker.1015-215225.out.json",
+   "expects": "build/work/refine/FP1-1.check.json",
+   "finished": "2026-10-15T21:52:48+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [FP1-1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/FP1-1.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 5,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 2,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 4,
+  "diagrams": 1,
+  "note_lines": 12,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T22:14:25+08:00"
+}

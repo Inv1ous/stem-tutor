@@ -1366,6 +1366,296 @@
     "Write the appropriate algebraic form.",
     "Start with the real and imaginary parts or a known factor."
    ]
+  },
+  {
+   "id": "FP1-1-r01",
+   "kcs": [
+    "FP1-1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Sketch an Argand diagram showing $z=2+i$, $w=-1+2i$ and $z+w$ as labelled vectors from the origin. Label both axes and show the parallelogram construction for addition.",
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "Horizontal real axis and vertical imaginary axis labelled.",
+     "keywords": [
+      [
+       "real",
+       "Re"
+      ],
+      [
+       "imaginary",
+       "Im"
+      ]
+     ]
+    },
+    {
+     "point": "Label $z$ at $(2,1)$ and $w$ at $(-1,2)$, with arrows from the origin.",
+     "keywords": [
+      [
+       "2,1"
+      ],
+      [
+       "-1,2"
+      ]
+     ]
+    },
+    {
+     "point": "Label $z+w$ at $(1,3)$, with an arrow from the origin.",
+     "keywords": [
+      [
+       "1,3"
+      ]
+     ]
+    },
+    {
+     "point": "Complete the parallelogram using translated copies of the two vectors.",
+     "keywords": [
+      [
+       "parallelogram",
+       "translated"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Adding corresponding components gives $z+w=(2-1)+i(1+2)=1+3i$. The translated sides meet at $(1,3)$; the diagonal from the origin is the resultant.",
+   "hints": [
+    "Identify the real and imaginary coordinates separately.",
+    "Add corresponding components to locate the resultant.",
+    "Translate each vector to the tip of the other without changing its direction or length."
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "FP1-1-r02",
+   "kcs": [
+    "FP1-1.3"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Sketch",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "For $z=2+i$, sketch $z$, $iz$ and $z/i$ as labelled vectors on an Argand diagram. Label both axes, state all three moduli, and indicate the rotation taking $z$ to each of the other vectors.",
+   "marks": 5,
+   "rubric": [
+    {
+     "point": "Horizontal real axis and vertical imaginary axis labelled.",
+     "keywords": [
+      [
+       "real",
+       "Re"
+      ],
+      [
+       "imaginary",
+       "Im"
+      ]
+     ]
+    },
+    {
+     "point": "Plot $z$ at $(2,1)$ and $iz$ at $(-1,2)$ with labelled arrows from the origin.",
+     "keywords": [
+      [
+       "2,1"
+      ],
+      [
+       "-1,2"
+      ]
+     ]
+    },
+    {
+     "point": "Plot $z/i$ at $(1,-2)$ with a labelled arrow from the origin.",
+     "keywords": [
+      [
+       "1,-2"
+      ]
+     ]
+    },
+    {
+     "point": "All three moduli equal $\\sqrt5$.",
+     "keywords": [
+      [
+       "sqrt5",
+       "sqrt(5)",
+       "√5",
+       "\\sqrt5",
+       "\\sqrt{5}"
+      ]
+     ]
+    },
+    {
+     "point": "Multiplication by $i$ rotates $90^\\circ$ anticlockwise; division by $i$ rotates $90^\\circ$ clockwise, about the origin.",
+     "keywords": [
+      [
+       "90"
+      ],
+      [
+       "anticlockwise",
+       "counterclockwise"
+      ],
+      [
+       "clockwise"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Expansion gives $iz=-1+2i$ and $z/i=1-2i$, since $1/i=-i$. Each modulus is $\\sqrt5$, and the two operations give opposite quarter-turns about the origin.",
+   "hints": [
+    "Multiplication and division by a unit-modulus number preserve distance from the origin.",
+    "Expand the product using $i^2=-1$; rationalise the quotient.",
+    "Plot each real part horizontally and each imaginary part vertically, then compare directions."
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "FP1-1-r03",
+   "kcs": [
+    "FP1-1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find a quadratic equation with integer coefficients having $\\frac23+\\frac13i$ as a root. State the other root and verify both roots by substitution.",
+   "marks": 5,
+   "rubric": [
+    {
+     "point": "The other root is $\\frac23-\\frac13i$ because the coefficients are real.",
+     "keywords": [
+      [
+       "\\frac23-\\frac13i"
+      ]
+     ]
+    },
+    {
+     "point": "Form the conjugate factors to obtain $(x-\\frac23)^2+\\frac19=0$.",
+     "keywords": [
+      [
+       "(x-\\frac23)^2+\\frac19"
+      ]
+     ]
+    },
+    {
+     "point": "Clear denominators to give $9x^2-12x+5=0$; any nonzero integer multiple is accepted.",
+     "keywords": [
+      [
+       "9x^2-12x+5"
+      ]
+     ]
+    },
+    {
+     "point": "For the given root, substitution in the integer quadratic gives zero: $9(\\frac{3\\pm4i}{9})-12(\\frac{2\\pm i}{3})+5=3\\pm4i-8\\mp4i+5=0$ (upper signs).",
+     "keywords": [
+      [
+       "0"
+      ],
+      [
+       "substitution",
+       "substitute",
+       "="
+      ]
+     ]
+    },
+    {
+     "point": "For the conjugate root, substitution gives zero using the lower signs in $9(\\frac{3\\pm4i}{9})-12(\\frac{2\\pm i}{3})+5=3\\pm4i-8\\mp4i+5=0$.",
+     "keywords": [
+      [
+       "0"
+      ],
+      [
+       "conjugate",
+       "lower"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Real coefficients force the conjugate root $\\frac23-\\frac13i$. Multiplying the factors gives $(x-\\frac23)^2+\\frac19=0$ and clearing denominators gives $9x^2-12x+5=0$. Direct substitution checks both roots: $9(\\frac{3\\pm4i}{9})-12(\\frac{2\\pm i}{3})+5=3\\pm4i-8\\mp4i+5=0$, with upper and lower signs taken consistently.",
+   "hints": [
+    "Use the conjugate-root theorem for real coefficients.",
+    "Multiply the conjugate factors as a difference of two squares, then clear denominators.",
+    "For each substitution expand the square first and collect real and imaginary terms separately."
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "FP1-1-r04",
+   "kcs": [
+    "FP1-1.4"
+   ],
+   "kind": "short",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find a quadratic equation with integer coefficients having $-\\frac34+\\frac12i$ as a root. State the other root and verify both roots by substitution.",
+   "marks": 5,
+   "rubric": [
+    {
+     "point": "The other root is $-\\frac34-\\frac12i$ because the coefficients are real.",
+     "keywords": [
+      [
+       "-\\frac34-\\frac12i"
+      ]
+     ]
+    },
+    {
+     "point": "Form the conjugate factors to obtain $(x+\\frac34)^2+\\frac14=0$.",
+     "keywords": [
+      [
+       "(x+\\frac34)^2+\\frac14"
+      ]
+     ]
+    },
+    {
+     "point": "Clear denominators to give $16x^2+24x+13=0$; any nonzero integer multiple is accepted.",
+     "keywords": [
+      [
+       "16x^2+24x+13"
+      ]
+     ]
+    },
+    {
+     "point": "For the given root, substitution in the integer quadratic gives zero: $16(\\frac{5\\mp12i}{16})+24(\\frac{-3\\pm2i}{4})+13=5\\mp12i-18\\pm12i+13=0$ (upper signs).",
+     "keywords": [
+      [
+       "0"
+      ],
+      [
+       "substitution",
+       "substitute",
+       "="
+      ]
+     ]
+    },
+    {
+     "point": "For the conjugate root, substitution gives zero using the lower signs in $16(\\frac{5\\mp12i}{16})+24(\\frac{-3\\pm2i}{4})+13=5\\mp12i-18\\pm12i+13=0$.",
+     "keywords": [
+      [
+       "0"
+      ],
+      [
+       "conjugate",
+       "lower"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Real coefficients force the conjugate root $-\\frac34-\\frac12i$. Multiplying the factors gives $(x+\\frac34)^2+\\frac14=0$ and clearing denominators gives $16x^2+24x+13=0$. Direct substitution checks both roots: $16(\\frac{5\\mp12i}{16})+24(\\frac{-3\\pm2i}{4})+13=5\\mp12i-18\\pm12i+13=0$, with upper and lower signs taken consistently.",
+   "hints": [
+    "Use the conjugate-root theorem for real coefficients.",
+    "Multiply the conjugate factors as a difference of two squares, then clear denominators.",
+    "For each substitution expand the square first and collect real and imaginary terms separately."
+   ],
+   "shuffle": true
   }
  ],
  "flashcards": [
@@ -1400,7 +1690,280 @@
    "back": "Their real parts are equal and their imaginary parts are equal."
   }
  ],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/FP1/FP1-1-argand-sum-rotation.svg",
+   "type": "graph_sketch",
+   "params": {
+    "xlabel": "Real part",
+    "ylabel": "Imaginary part",
+    "ticks": true,
+    "xlim": [
+     -2.1,
+     2.1
+    ],
+    "ylim": [
+     -0.4,
+     2.6
+    ],
+    "lines": [
+     {
+      "points": [
+       [
+        -2,
+        0
+       ],
+       [
+        2,
+        0
+       ]
+      ],
+      "color": "#8c959f"
+     },
+     {
+      "points": [
+       [
+        0,
+        -0.3
+       ],
+       [
+        0,
+        2.5
+       ]
+      ],
+      "color": "#8c959f"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        1,
+        1
+       ]
+      ],
+      "color": "#1f6feb"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        -1,
+        1
+       ]
+      ],
+      "color": "#d9480f"
+     },
+     {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        0,
+        2
+       ]
+      ],
+      "color": "#1f2328"
+     },
+     {
+      "points": [
+       [
+        1,
+        1
+       ],
+       [
+        0,
+        2
+       ],
+       [
+        -1,
+        1
+       ]
+      ],
+      "style": "dashed",
+      "color": "#8c959f"
+     },
+     {
+      "points": [
+       [
+        0.3889087296526012,
+        0.38890872965260115
+       ],
+       [
+        0.35719642658160106,
+        0.41822328108001705
+       ],
+       [
+        0.3232818887608602,
+        0.44495934690622113
+       ],
+       [
+        0.28737421059377194,
+        0.4689520903947507
+       ],
+       [
+        0.2496947748567508,
+        0.4900535883036024
+       ],
+       [
+        0.21047588780079943,
+        0.5081337428812077
+       ],
+       [
+        0.1699593469062211,
+        0.5230810839623344
+       ],
+       [
+        0.12839495012074803,
+        0.5348034562187222
+       ],
+       [
+        0.08603895577212702,
+        0.5432285873273258
+       ],
+       [
+        0.043152502650314756,
+        0.5483045335532204
+       ],
+       [
+        3.367778697655222e-17,
+        0.55
+       ],
+       [
+        -0.043152502650314686,
+        0.5483045335532204
+       ],
+       [
+        -0.08603895577212696,
+        0.5432285873273258
+       ],
+       [
+        -0.12839495012074795,
+        0.5348034562187222
+       ],
+       [
+        -0.16995934690622105,
+        0.5230810839623345
+       ],
+       [
+        -0.21047588780079937,
+        0.5081337428812077
+       ],
+       [
+        -0.24969477485675073,
+        0.4900535883036024
+       ],
+       [
+        -0.2873742105937719,
+        0.4689520903947508
+       ],
+       [
+        -0.32328188876086017,
+        0.44495934690622113
+       ],
+       [
+        -0.357196426581601,
+        0.4182232810800171
+       ],
+       [
+        -0.38890872965260115,
+        0.3889087296526012
+       ]
+      ],
+      "color": "#8c959f"
+     }
+    ],
+    "annotations": [
+     {
+      "xy": [
+       1,
+       1
+      ],
+      "xytext": [
+       0,
+       0
+      ],
+      "text": ""
+     },
+     {
+      "xy": [
+       -1,
+       1
+      ],
+      "xytext": [
+       0,
+       0
+      ],
+      "text": ""
+     },
+     {
+      "xy": [
+       0,
+       2
+      ],
+      "xytext": [
+       0,
+       0
+      ],
+      "text": ""
+     },
+     {
+      "xy": [
+       1.03,
+       0.95
+      ],
+      "text": "$z=1+i$"
+     },
+     {
+      "xy": [
+       -1.95,
+       0.95
+      ],
+      "text": "$iz=-1+i$"
+     },
+     {
+      "xy": [
+       0.12,
+       2.1
+      ],
+      "text": "$z+iz=2i$"
+     },
+     {
+      "xy": [
+       -0.38890872965260115,
+       0.3889087296526012
+      ],
+      "xytext": [
+       -0.32328188876086017,
+       0.44495934690622113
+      ],
+      "text": ""
+     },
+     {
+      "xy": [
+       -0.62,
+       0.66
+      ],
+      "text": "$90^\\circ$"
+     },
+     {
+      "xy": [
+       0.08,
+       -0.23
+      ],
+      "text": "$O$"
+     }
+    ]
+   }
+  }
+ ],
  "teach": {
   "FP1-1.1": {
    "motivate": "Complex numbers let an equation such as $x^2+1=0$ have solutions and give a way to describe points in a plane.",

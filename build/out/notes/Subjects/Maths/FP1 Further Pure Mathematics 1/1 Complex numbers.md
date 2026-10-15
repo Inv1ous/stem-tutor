@@ -13,9 +13,26 @@ A complex number is $z=a+ib$, where $a,b\in\mathbb R$ and $i^2=-1$. Its real par
 
 Plot $a+ib$ at $(a,b)$ on an Argand diagram: the horizontal axis is real and the vertical axis is imaginary. Addition is vector addition. Multiplying by $i$ rotates a point $90^\circ$ anticlockwise about the origin. More generally, multiplication combines scaling and rotation; division reverses the denominator's scaling and rotation. In particular, $|z_1z_2|=|z_1||z_2|$ and, for $z_2\ne0$, $|z_1/z_2|=|z_1|/|z_2|$.
 
+
+![[Assets/FP1/FP1-1-argand-sum-rotation.svg]]
+Multiplication by $i$ takes $z=1+i$ to $iz=-1+i$ through an anticlockwise quarter-turn. The dashed sides complete the parallelogram, whose resultant is $z+iz=2i$. Division by $i$ gives the inverse, clockwise quarter-turn; neither operation changes the modulus.
+
+> [!warning] Choose the quadrant before the argument
+> For $z=-1+i$, $|z|=\sqrt2$. The point lies in quadrant II, so an argument is $3\pi/4$ and $z=\sqrt2(\cos(3\pi/4)+i\sin(3\pi/4))$.
+> Using $\tan^{-1}(b/a)$ alone gives $-\pi/4$ here, which points into the wrong quadrant. Check the signs of both coordinates.
+> Scope reference: [Pearson IAL Mathematics specification, FP1 section 1.1, printed p.32](https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf).
+
 ## Method
 1. For sums and products, collect real and imaginary terms and replace $i^2$ by $-1$. For a quotient, multiply numerator and denominator by the denominator's conjugate; the denominator then becomes real.
 2. For $ax^2+bx+c=0$, use $x=(-b\pm\sqrt{b^2-4ac})/(2a)$. If $b^2-4ac<0$, write $\sqrt{-q}=i\sqrt q$. With real coefficients, the two roots are conjugates.
+
+> [!example]- Worked example: construct a quadratic from one root
+> Find an integer-coefficient quadratic with root $\frac12+\frac52i$. Real coefficients require the other root to be $\frac12-\frac52i$.
+> In general, $(x-u-vi)(x-u+vi)=(x-u)^2+v^2$. Here this gives $(x-\frac12)^2+\frac{25}{4}=0$, or $x^2-x+\frac{13}{2}=0$.
+> Clear the denominator to obtain $2x^2-2x+13=0$. Multiplying an equation by any nonzero constant leaves its roots unchanged; use a multiple that retains integer coefficients when these are requested.
+> Method paraphrased from the learner's library: SaveMyExams/YFM01 further-pure-1/YFM01 c1.2.pdf, pp.2–4; values are new.
+
+
 3. For a cubic with real or integer coefficients, pair any given non-real root $u+vi$ with $u-vi$. Multiply their linear factors to get the real quadratic $(x-u)^2+v^2$, divide the cubic by it, and solve the remaining linear factor.
 4. For a quartic with real coefficients, do the same for a given complex root. Alternatively, use two known real roots as linear factors. Divide by the known factors and solve the remaining quadratic, whose roots may be real or complex.
 
@@ -35,3 +52,5 @@ For **Find** or **Calculate**, show the factor or formula before the roots. For 
 
 ## Links
 Builds on [[Solving quadratic equations]] · Leads to [[Roots of polynomials]]
+
+Valid chapter links: Builds on [[1 Algebra and functions]] · Leads to [[3 Further complex numbers]].
