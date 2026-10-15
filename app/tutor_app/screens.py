@@ -217,6 +217,7 @@ class HomeScreen(Screen):
             items.append(("resume", f"▸  Resume your {MODE_NAMES.get(s['mode'], s['mode'])} session "
                                     f"({s.get('answered', 0)} answered)"))
         week = policy.focus_week(t.packs.plan, t.state, t.ticks(), now) if t.packs.plan.get("weeks") else 0
+        shortcut_lines = self._shortcut_lines()
         items += [("today", f"★  Today's plan{f' (Almanac week {week})' if week else ''}"),
                   ("learn", "◆  Learn a topic (lesson)"),
                   ("review", f"↻  Review what's due ({len(due)})"),
@@ -225,6 +226,7 @@ class HomeScreen(Screen):
                   ("long", "✎  Long questions (typed or iPad)"),
                   ("blurt", "»  Blurt: write everything you remember"),
                   ("challenge", "⚑  Challenge: hard calculation questions"),
+                  *shortcut_lines,
                   ("chat", "✦  Ask the tutor anything"),
                   ("insights", "◉  What the tutor knows about you"),
                   ("progress", "▤  My progress"),
@@ -240,6 +242,20 @@ class HomeScreen(Screen):
         if (exam := self.next_exam(now)):
             glance.append(f" · ⧗ {exam}", style=C["plan"])
         self.query_one("#glance", Static).update(glance)
+
+    def _shortcut_lines(self) -> list[tuple[str, str]]:
+        """The two Shortcuts & Elegant Methods lines, with counts once the course has been published to the vault."""
+        learn, recall = "↯  Shortcuts: learn quicker methods", "↯  Shortcut recall"
+        try:
+            vault = self.app.tutor.vault
+            if (vault.tutor / "shortcuts" / "course").exists():
+                from tutorlib import shortcuts
+                course = shortcuts.Course(vault)
+                learn += f" ({len(course.next_lessons())} new today)"
+                recall += f" ({len(course.due())} due)"
+        except Exception:  # noqa: BLE001 - a damaged course file never keeps the menu from showing
+            pass
+        return [("shortcuts", learn), ("shortcut_recall", recall)]
 
     def streak(self, now: datetime) -> int:
         days = {date.fromisoformat(d) for d in self.app.tutor.state.get("study_days", [])}
@@ -368,6 +384,12 @@ class HomeScreen(Screen):
         elif key == "challenge":
             from .challenge_screen import ChallengeScreen
             app.push_screen(ChallengeScreen())
+        elif key == "shortcuts":
+            from .shortcuts_screen import ShortcutsScreen
+            app.push_screen(ShortcutsScreen())
+        elif key == "shortcut_recall":
+            from .shortcuts_screen import ShortcutRecallScreen
+            app.push_screen(ShortcutRecallScreen())
         elif key == "chat":
             app.push_screen(ChatScreen())
         elif key == "progress":
@@ -1368,6 +1390,13 @@ words in the top box and **⏎**, e.g. _15 questions on 9702-5.1, start easy, ju
 _mostly typed, level 6 to 9, hardest first_, or with the list: **↑↓** and **⏎** to change a setting, **← →** to step
 it. The whole set is written and checked first; **Esc** cancels while it is being written, and goes back to the menu
 otherwise (your answers are saved, and the set carries on next time). It does not affect your reviews or progress.
+
+# Shortcuts (menu)
+**Shortcuts** teaches quicker, more elegant methods one at a time: a card each for the pain, when to use it, the idea,
+why it works, steps, a worked example, pitfalls and a check, then practice, then you rate how well you grasped it
+(**1** again to **4** easy). **⏎** or **space** shows the next card, **←** or **Esc** goes back, **ctrl+g** gives a
+practice hint. **Shortcut recall** asks the ones that are due, on its own schedule. Press **s** on either to choose
+the ratings, subjects, level, sections and how many new ones a day. Neither affects your syllabus reviews or progress.
 
 # Where to look
 Keep **Obsidian** open beside this window on **Now** (the current question in full, with figures) — your

@@ -80,6 +80,12 @@ HomeScreen.narrow #menu { width: 1fr; }
 HomeScreen.short #banner { display: none; }
 ChallengeScreen.setup #log { display: none; }
 ChallengeScreen.setup #panel { height: 1fr; max-height: 100%; }
+ShortcutsScreen #panel, ShortcutRecallScreen #panel { height: auto; max-height: 50%; }
+.sc-actions { height: auto; max-height: 12; border: none; padding: 0; }
+.sc-input { margin: 0 1 0 0; }
+ShortcutSettingsScreen #sc-setup { height: 1fr; padding: 0 0 0 1; }
+ShortcutSettingsScreen #sc-settings, ShortcutSettingsScreen #sc-settings:focus { border: none; padding: 0; height: auto; }
+ShortcutSettingsScreen #sc-detail { padding: 1 1 0 1; }
 .panel.setup { height: 1fr; padding: 0 0 0 1; }
 #setup { height: 1fr; scrollbar-size-vertical: 1; scrollbar-gutter: stable; scrollbar-background: $background; }
 #setup #words { margin: 0 1 0 0; }

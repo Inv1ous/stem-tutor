@@ -1,0 +1,833 @@
+[
+ {
+  "id": "SEM-FP1-conjugate-pair-quadratic-build-in-5-seconds",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Conjugate-pair quadratic (build in 5 seconds)",
+  "score": 9,
+  "origin": "base",
+  "body": "Real-coefficient quadratic with root $c+di$ is\n$$x^2-2c\\,x+(c^2+d^2)=0.$$\nRoot $3-2i$: $x^2-6x+13=0$. Check: sum of roots $=2c$, product $=|z|^2$."
+ },
+ {
+  "id": "SEM-FP1-never-rationalise-a-quotient-by-expanding-twice",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Never rationalise a quotient by expanding twice",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\dfrac{a+bi}{c+di}=\\dfrac{(a+bi)(c-di)}{c^2+d^2}$. The denominator is the **modulus squared**, read it straight off. Real part $=\\dfrac{ac+bd}{c^2+d^2}$, imaginary part $=\\dfrac{bc-ad}{c^2+d^2}$."
+ },
+ {
+  "id": "SEM-FP1-modulus-and-argument-of-products-without-multipl",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Modulus and argument of products without multiplying out",
+  "score": 8,
+  "origin": "base",
+  "body": "$|z_1z_2|=|z_1||z_2|$, $\\arg(z_1z_2)=\\arg z_1+\\arg z_2$, $\\arg(z_1/z_2)=\\arg z_1-\\arg z_2$, $|z^n|=|z|^n$.\nNeed $|(3+4i)(5-12i)|$? $5\\times13=65$. No expanding."
+ },
+ {
+  "id": "SEM-FP1-pythagorean-triple-spotting",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Pythagorean triple spotting",
+  "score": 5,
+  "origin": "base",
+  "body": "$|a+bi|$ for $(3,4),(5,12),(8,15),(7,24),(20,21),(9,40)$ is $5,13,17,25,29,41$."
+ },
+ {
+  "id": "SEM-FP1-multiplying-by-rotates-by-anticlockwise",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Multiplying by $i$ rotates by $90^\\circ$ anticlockwise",
+  "score": 6,
+  "origin": "base",
+  "body": "$i(a+bi)=-b+ai$: swap and negate. $-i$ rotates clockwise: $(a,b)\\to(b,-a)$."
+ },
+ {
+  "id": "SEM-FP1-square-root-of-a-complex-number-by-inspection",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Square root of a complex number by inspection",
+  "score": 7,
+  "origin": "base",
+  "body": "To solve $(x+iy)^2=a+bi$: $x^2-y^2=a$, $2xy=b$. Use $x^2+y^2=\\sqrt{a^2+b^2}$ as a free third equation, so\n$$x^2=\\tfrac12\\!\\left(\\sqrt{a^2+b^2}+a\\right),\\quad y^2=\\tfrac12\\!\\left(\\sqrt{a^2+b^2}-a\\right),$$\nand the **sign of $b$ fixes whether $x,y$ share a sign**. Example $(x+iy)^2=-5+12i$: modulus $13$, $x^2=4$, $y^2=9$, $b>0$ so $x,y$ same sign: $\\pm(2+3i)$."
+ },
+ {
+  "id": "SEM-FP1-real-polynomial-one-complex-root-the-conjugate-i",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Real polynomial, one complex root $\\Rightarrow$ the conjugate is a root",
+  "score": 9,
+  "origin": "base",
+  "body": "A cubic with real coefficients and root $2+i$ also has $2-i$; together they give the factor $x^2-4x+5$. Divide **once** by that, never by each root separately. The third root then comes from the sum of roots ($-b/a$)."
+ },
+ {
+  "id": "SEM-FP1-equal-complex-numbers",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Equal complex numbers",
+  "score": 6,
+  "origin": "base",
+  "body": "$z_1=z_2\\iff$ real parts and imaginary parts match; always split into two real equations at once."
+ },
+ {
+  "id": "SEM-FP1-handy-identities",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Handy identities",
+  "score": 6,
+  "origin": "base",
+  "body": "$z+z^*=2\\operatorname{Re}z$, $z-z^*=2i\\operatorname{Im}z$, $zz^*=|z|^2$, $(z_1+z_2)^*=z_1^*+z_2^*$, $(z_1z_2)^*=z_1^*z_2^*$, $\\left(z^n\\right)^*=(z^*)^n$."
+ },
+ {
+  "id": "SEM-FP1-powers-of",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Powers of $i$",
+  "score": 6,
+  "origin": "base",
+  "body": "$i^n$ cycles $i,-1,-i,1$ with period 4: reduce $n$ mod 4. $(1+i)^2=2i$, so $(1+i)^{4}=-4$, $(1+i)^8=16$. Likewise $(1-i)^2=-2i$."
+ },
+ {
+  "id": "SEM-FP1-exponential-form-beyond-spec",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Exponential form (beyond spec)",
+  "score": 6,
+  "origin": "base",
+  "body": "$z=re^{i\\theta}$ makes powers and products one-liners: $(1+i)^{10}=(\\sqrt2)^{10}e^{i10\\pi/4}=32e^{i\\pi/2}=32i$. De Moivre: $(\\cos\\theta+i\\sin\\theta)^n=\\cos n\\theta+i\\sin n\\theta$."
+ },
+ {
+  "id": "SEM-FP1-cube-roots-of-unity-beyond-spec",
+  "spec": "FP1",
+  "section": "1. Complex numbers",
+  "topic": "",
+  "title": "Cube roots of unity (beyond spec)",
+  "score": 3,
+  "origin": "base",
+  "body": "$1,\\omega,\\omega^2$ with $\\omega=-\\tfrac12+\\tfrac{\\sqrt3}{2}i$; $1+\\omega+\\omega^2=0$ and $\\omega^3=1$."
+ },
+ {
+  "id": "SEM-FP1-symmetric-sums-stop-solving-start-substituting",
+  "spec": "FP1",
+  "section": "2. Roots of quadratics, cubics and quartics",
+  "topic": "",
+  "title": "Symmetric sums: stop solving, start substituting",
+  "score": 10,
+  "origin": "base",
+  "body": "For $ax^2+bx+c=0$: $\\alpha+\\beta=-\\dfrac ba$, $\\alpha\\beta=\\dfrac ca$. Everything else is built from those two:\n\n| Want | Use |\n|---|---|\n| $\\alpha^2+\\beta^2$ | $(\\alpha+\\beta)^2-2\\alpha\\beta$ |\n| $\\alpha^3+\\beta^3$ | $(\\alpha+\\beta)^3-3\\alpha\\beta(\\alpha+\\beta)$ |\n| $\\alpha^4+\\beta^4$ | $(\\alpha^2+\\beta^2)^2-2(\\alpha\\beta)^2$ |\n| $\\dfrac1\\alpha+\\dfrac1\\beta$ | $\\dfrac{\\alpha+\\beta}{\\alpha\\beta}$ |\n| $\\dfrac\\alpha\\beta+\\dfrac\\beta\\alpha$ | $\\dfrac{\\alpha^2+\\beta^2}{\\alpha\\beta}$ |\n| $(\\alpha-\\beta)^2$ | $(\\alpha+\\beta)^2-4\\alpha\\beta=\\dfrac{b^2-4ac}{a^2}$ |\n| $(\\alpha+k)(\\beta+k)$ | $\\alpha\\beta+k(\\alpha+\\beta)+k^2$ |\n| $\\alpha^2\\beta+\\alpha\\beta^2$ | $\\alpha\\beta(\\alpha+\\beta)$ |\n| $\\dfrac{1}{\\alpha^2}+\\dfrac1{\\beta^2}$ | $\\dfrac{(\\alpha+\\beta)^2-2\\alpha\\beta}{(\\alpha\\beta)^2}$ |"
+ },
+ {
+  "id": "SEM-FP1-new-equation-from-the-old-substitute-don-t-recom",
+  "spec": "FP1",
+  "section": "2. Roots of quadratics, cubics and quartics",
+  "topic": "",
+  "title": "New equation from the old: substitute, don't recompute roots",
+  "score": 9,
+  "origin": "base",
+  "body": "If $f(x)=0$ has roots $\\alpha,\\beta,\\dots$ then\n\n| New roots | Replace $x$ by | Effect on coefficients |\n|---|---|---|\n| $\\alpha+k$ | $x-k$ | shift |\n| $\\alpha-k$ | $x+k$ | shift |\n| $k\\alpha$ | $x/k$ | $a_n\\to a_n/k^{\\,n}$-style scale |\n| $1/\\alpha$ | $1/x$ | **reverse the coefficient list** (and clear fractions) |\n| $\\alpha^2$ | $\\sqrt x$ | isolate odd terms, square both sides |\n| $-\\alpha$ | $-x$ | flip sign of odd-power coefficients |\n| $\\alpha/(\\alpha+1)$ etc. | solve $y=\\dots$ for $x$, substitute | |"
+ },
+ {
+  "id": "SEM-FP1-reciprocal-roots-in-one-glance",
+  "spec": "FP1",
+  "section": "2. Roots of quadratics, cubics and quartics",
+  "topic": "",
+  "title": "Reciprocal roots in one glance",
+  "score": 8,
+  "origin": "base",
+  "body": "Roots of $ax^2+bx+c=0$ reciprocated give $cx^2+bx+a=0$. Cubic $ax^3+bx^2+cx+d$ becomes $dx^3+cx^2+bx+a$."
+ },
+ {
+  "id": "SEM-FP1-sum-product-method-the-default-for-equation-with",
+  "spec": "FP1",
+  "section": "2. Roots of quadratics, cubics and quartics",
+  "topic": "",
+  "title": "Sum / product method (the default for \"equation with roots $p,q$\")",
+  "score": 8,
+  "origin": "base",
+  "body": "Build $x^2-(p+q)x+pq=0$. Compute $p+q$ and $pq$ using the table above; never find $\\alpha,\\beta$ themselves."
+ },
+ {
+  "id": "SEM-FP1-cubic",
+  "spec": "FP1",
+  "section": "2. Roots of quadratics, cubics and quartics",
+  "topic": "",
+  "title": "Cubic $ax^3+bx^2+cx+d=0$",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\sum\\alpha=-\\dfrac ba$, $\\sum\\alpha\\beta=\\dfrac ca$, $\\alpha\\beta\\gamma=-\\dfrac da$. Then\n$\\sum\\alpha^2=(\\sum\\alpha)^2-2\\sum\\alpha\\beta$;\n$\\sum\\alpha^3-3\\alpha\\beta\\gamma=(\\sum\\alpha)\\big(\\sum\\alpha^2-\\sum\\alpha\\beta\\big)$;\n$\\sum\\dfrac1\\alpha=\\dfrac{\\sum\\alpha\\beta}{\\alpha\\beta\\gamma}$."
+ },
+ {
+  "id": "SEM-FP1-quartic",
+  "spec": "FP1",
+  "section": "2. Roots of quadratics, cubics and quartics",
+  "topic": "",
+  "title": "Quartic $ax^4+bx^3+cx^2+dx+e=0$",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\sum\\alpha=-\\dfrac ba$, $\\sum\\alpha\\beta=\\dfrac ca$, $\\sum\\alpha\\beta\\gamma=-\\dfrac da$, $\\alpha\\beta\\gamma\\delta=\\dfrac ea$. Signs alternate $-,+,-,+$: write them down before touching algebra."
+ },
+ {
+  "id": "SEM-FP1-newton-s-identity-shortcut-for-power-sums",
+  "spec": "FP1",
+  "section": "2. Roots of quadratics, cubics and quartics",
+  "topic": "",
+  "title": "Newton's identity shortcut for power sums",
+  "score": 5,
+  "origin": "base",
+  "body": "If $\\alpha$ is a root of $x^3=px^2+qx+r$, then $S_n=pS_{n-1}+qS_{n-2}+rS_{n-3}$ for $S_n=\\alpha^n+\\beta^n+\\gamma^n$, with $S_0=3$. Use for $\\sum\\alpha^4$ and higher without expanding."
+ },
+ {
+  "id": "SEM-FP1-cubic-with-complex-root",
+  "spec": "FP1",
+  "section": "2. Roots of quadratics, cubics and quartics",
+  "topic": "",
+  "title": "Cubic with complex root",
+  "score": 7,
+  "origin": "base",
+  "body": "Given one non-real root, the conjugate is another; the third root is real and equals $-b/a-2\\operatorname{Re}(\\text{root})$."
+ },
+ {
+  "id": "SEM-FP1-two-roots-related",
+  "spec": "FP1",
+  "section": "2. Roots of quadratics, cubics and quartics",
+  "topic": "",
+  "title": "Two roots related ($\\beta=2\\alpha$, $\\beta=-\\alpha$, $\\gamma=\\alpha+\\beta$...)",
+  "score": 8,
+  "origin": "base",
+  "body": "Set the relation into the three Vieta equations: three equations, three unknowns, and the *simplest* equation is usually the one with the relation in it. For $\\beta=-\\alpha$: $\\alpha+\\beta=0$ so $\\gamma=-b/a$ immediately."
+ },
+ {
+  "id": "SEM-FP1-newton-raphson",
+  "spec": "FP1",
+  "section": "3. Numerical solution of equations",
+  "topic": "",
+  "title": "Newton–Raphson",
+  "score": 9,
+  "origin": "base",
+  "body": "$x_{n+1}=x_n-\\dfrac{f(x_n)}{f'(x_n)}$. Three formulas worth memorising so you never differentiate:\n\n| Task | Iteration |\n|---|---|\n| $\\sqrt a$ (Heron / Babylonian) | $x_{n+1}=\\tfrac12\\!\\left(x_n+\\dfrac a{x_n}\\right)$ |\n| $\\sqrt[3]{a}$ | $x_{n+1}=\\dfrac{2x_n+a/x_n^2}{3}$ |\n| $1/a$ without dividing | $x_{n+1}=x_n(2-a\\,x_n)$ |\n| $\\sqrt[k]{a}$ | $x_{n+1}=\\dfrac{(k-1)x_n+a/x_n^{\\,k-1}}{k}$ |"
+ },
+ {
+  "id": "SEM-FP1-where-newton-fails",
+  "spec": "FP1",
+  "section": "3. Numerical solution of equations",
+  "topic": "",
+  "title": "Where Newton fails",
+  "score": 6,
+  "origin": "base",
+  "body": "$f'(x_n)\\approx0$ (stationary point near the guess) throws the next value far away; a starting value on the other side of a turning point can converge to a different root. Say so in \"comment\" questions."
+ },
+ {
+  "id": "SEM-FP1-linear-interpolation-similar-triangles-one-line",
+  "spec": "FP1",
+  "section": "3. Numerical solution of equations",
+  "topic": "",
+  "title": "Linear interpolation (similar triangles, one line)",
+  "score": 9,
+  "origin": "base",
+  "body": "For a sign change on $[a,b]$:\n$$\\text{root}\\approx a+(b-a)\\,\\frac{|f(a)|}{|f(a)|+|f(b)|}=\\frac{a|f(b)|+b|f(a)|}{|f(a)|+|f(b)|}.$$\nCheck: the answer is nearer the end where $|f|$ is **smaller**."
+ },
+ {
+  "id": "SEM-FP1-bisection-error-bound",
+  "spec": "FP1",
+  "section": "3. Numerical solution of equations",
+  "topic": "",
+  "title": "Bisection error bound",
+  "score": 5,
+  "origin": "base",
+  "body": "After $n$ halvings of $[a,b]$ the root lies in an interval of width $\\dfrac{b-a}{2^n}$ (so the midpoint is within half of that). For accuracy $\\epsilon$: $n\\ge\\log_2\\dfrac{b-a}{\\epsilon}$."
+ },
+ {
+  "id": "SEM-FP1-sign-change-checklist",
+  "spec": "FP1",
+  "section": "3. Numerical solution of equations",
+  "topic": "",
+  "title": "Sign-change checklist",
+  "score": 6,
+  "origin": "base",
+  "body": "Quote $f(a)$, $f(b)$ with signs and say \"continuous function, sign change, so a root\". Check that $f$ really is continuous (no asymptote) in the interval."
+ },
+ {
+  "id": "SEM-FP1-calculator-trick-for-iterations",
+  "spec": "FP1",
+  "section": "3. Numerical solution of equations",
+  "topic": "",
+  "title": "Calculator trick for iterations",
+  "score": 7,
+  "origin": "base",
+  "body": "Type the first iterate, press `=`, then retype the formula using `Ans`. Repeat `=` until digits stop changing."
+ },
+ {
+  "id": "SEM-FP1-normals-beyond-spec",
+  "spec": "FP1",
+  "section": "4. Coordinate systems (parabola and rectangular hyperbola)",
+  "topic": "Parabola $y^2=4ax$",
+  "title": "Normals (beyond spec)",
+  "score": 3,
+  "origin": "base",
+  "body": "The normal at $t_1$ meets the parabola again at $t_2=-t_1-\\dfrac2{t_1}$. If three normals pass through one point, their parameters satisfy $t_1+t_2+t_3=0$."
+ },
+ {
+  "id": "SEM-FP1-tangent-without-calculus",
+  "spec": "FP1",
+  "section": "4. Coordinate systems (parabola and rectangular hyperbola)",
+  "topic": "Rectangular hyperbola $xy=c^2$",
+  "title": "Tangent without calculus",
+  "score": 7,
+  "origin": "base",
+  "body": "Write the point, plug into $x\\,y_1+x_1\\,y=2c^2$ (polar line): for the hyperbola and $y^2=4ax$ ($y\\,y_1=2a(x+x_1)$) the **tangent at $(x_1,y_1)$** comes by replacing $y^2\\to y y_1$, $x\\to\\tfrac12(x+x_1)$, $xy\\to\\tfrac12(xy_1+x_1y)$."
+ },
+ {
+  "id": "SEM-FP1-chord-equation-by-symmetry",
+  "spec": "FP1",
+  "section": "4. Coordinate systems (parabola and rectangular hyperbola)",
+  "topic": "Rectangular hyperbola $xy=c^2$",
+  "title": "Chord equation by symmetry",
+  "score": 6,
+  "origin": "base",
+  "body": "The chord of $xy=c^2$ through $t_1,t_2$ and the tangent at $t$ are the same formula with $t_1=t_2=t$: $x+t^2y=2ct$."
+ },
+ {
+  "id": "SEM-FP1-area-of-triangle-from-three-parametric-points",
+  "spec": "FP1",
+  "section": "4. Coordinate systems (parabola and rectangular hyperbola)",
+  "topic": "Rectangular hyperbola $xy=c^2$",
+  "title": "Area of triangle from three parametric points",
+  "score": 7,
+  "origin": "base",
+  "body": "is far quicker through the shoelace formula (§6)."
+ },
+ {
+  "id": "SEM-FP1-inverse-of-in-one-line",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Inverse of $\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$ in one line",
+  "score": 10,
+  "origin": "base",
+  "body": "$$\\frac1{ad-bc}\\begin{pmatrix}d&-b\\\\-c&a\\end{pmatrix}$$\nSwap the diagonal, negate the off-diagonal, divide by the determinant. Check: $\\det=0\\Rightarrow$ no inverse."
+ },
+ {
+  "id": "SEM-FP1-solve-for-2-2-by-cramer-s-rule",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Solve $\\mathbf{A}\\mathbf x=\\mathbf b$ for 2×2 by Cramer's rule",
+  "score": 6,
+  "origin": "base",
+  "body": "For $ax+by=e$, $cx+dy=f$:\n$$x=\\frac{ed-bf}{ad-bc},\\qquad y=\\frac{af-ec}{ad-bc}.$$"
+ },
+ {
+  "id": "SEM-FP1-read-a-transformation-matrix-straight-from-the-i",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Read a transformation matrix straight from the images",
+  "score": 10,
+  "origin": "base",
+  "body": "The first column is the image of $(1,0)$, the second the image of $(0,1)$. So \"maps $(1,0)\\to(3,1)$ and $(0,1)\\to(-2,4)$\" is $\\begin{pmatrix}3&-2\\\\1&4\\end{pmatrix}$ — no solving."
+ },
+ {
+  "id": "SEM-FP1-standard-matrices-2-2",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Standard matrices (2×2)",
+  "score": 9,
+  "origin": "base",
+  "body": "| Transformation | Matrix |\n|---|---|\n| Rotation by $\\theta$ anticlockwise about $O$ | $\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$ |\n| Reflection in $y=(\\tan\\theta)x$ | $\\begin{pmatrix}\\cos2\\theta&\\sin2\\theta\\\\\\sin2\\theta&-\\cos2\\theta\\end{pmatrix}$ |\n| Reflection in $x$-axis / $y$-axis | $\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ / $\\begin{pmatrix}-1&0\\\\0&1\\end{pmatrix}$ |\n| Reflection in $y=x$ / $y=-x$ | $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$ / $\\begin{pmatrix}0&-1\\\\-1&0\\end{pmatrix}$ |\n| Enlargement scale $k$, centre $O$ | $k\\mathbf I$ |\n| Stretch factor $k$ parallel to $x$-axis | $\\begin{pmatrix}k&0\\\\0&1\\end{pmatrix}$ |\n| Shear, $x$-axis invariant | $\\begin{pmatrix}1&k\\\\0&1\\end{pmatrix}$ |\n| Shear, $y$-axis invariant | $\\begin{pmatrix}1&0\\\\k&1\\end{pmatrix}$ |"
+ },
+ {
+  "id": "SEM-FP1-rotation-checks",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Rotation checks",
+  "score": 7,
+  "origin": "base",
+  "body": "$90^\\circ$ anticlockwise $=\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$, $180^\\circ=-\\mathbf I$, $270^\\circ=\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$. A rotation matrix's inverse is its **transpose**."
+ },
+ {
+  "id": "SEM-FP1-area-scale-factor",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Area scale factor $=|\\det\\mathbf M|$",
+  "score": 9,
+  "origin": "base",
+  "body": "A negative determinant means orientation is reversed (reflection-type). $\\det\\mathbf M=1$ and positive: area preserved (shears, rotations)."
+ },
+ {
+  "id": "SEM-FP1-determinant-rules",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Determinant rules",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\det(\\mathbf{AB})=\\det\\mathbf A\\,\\det\\mathbf B$; $\\det(k\\mathbf A)=k^2\\det\\mathbf A$ (2×2), $k^3$ (3×3); $\\det(\\mathbf A^{-1})=1/\\det\\mathbf A$; $\\det\\mathbf A^{\\mathrm T}=\\det\\mathbf A$."
+ },
+ {
+  "id": "SEM-FP1-inverse-of-a-product",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Inverse of a product",
+  "score": 7,
+  "origin": "base",
+  "body": "$(\\mathbf{AB})^{-1}=\\mathbf B^{-1}\\mathbf A^{-1}$; $(\\mathbf{AB})^{\\mathrm T}=\\mathbf B^{\\mathrm T}\\mathbf A^{\\mathrm T}$. Order always reverses."
+ },
+ {
+  "id": "SEM-FP1-composition-order",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Composition order",
+  "score": 8,
+  "origin": "base",
+  "body": "\"$\\mathbf A$ then $\\mathbf B$\" is the matrix $\\mathbf B\\mathbf A$. Write the product right-to-left, in the order the transformations act."
+ },
+ {
+  "id": "SEM-FP1-invariant-points-and-lines",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Invariant points and lines",
+  "score": 8,
+  "origin": "base",
+  "body": "Invariant points: $\\mathbf M\\mathbf x=\\mathbf x$, i.e. $(\\mathbf M-\\mathbf I)\\mathbf x=\\mathbf 0$. Invariant line through $O$, $y=mx$: apply $\\mathbf M$ to $(1,m)$ and demand the result is a multiple of $(1,m)$: $\\begin{pmatrix}a+bm\\\\c+dm\\end{pmatrix}=\\lambda\\begin{pmatrix}1\\\\m\\end{pmatrix}$, so $m(a+bm)=c+dm$. **Quadratic in $m$.** Lines of **invariant points** have $\\lambda=1$."
+ },
+ {
+  "id": "SEM-FP1-for-a-cayley-hamilton-beyond-spec",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "$\\mathbf M^2$ for a $2\\times2$ (Cayley–Hamilton, beyond spec)",
+  "score": 4,
+  "origin": "base",
+  "body": "$\\mathbf M^2=(\\operatorname{tr}\\mathbf M)\\mathbf M-(\\det\\mathbf M)\\mathbf I$. Gives $\\mathbf M^2,\\mathbf M^3$ without multiplying full matrices."
+ },
+ {
+  "id": "SEM-FP1-singular-matrix-with-a-parameter",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Singular matrix with a parameter",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\det=0$ gives the parameter value directly; solve the (quadratic) equation, don't invert."
+ },
+ {
+  "id": "SEM-FP1-3-3-determinant-sarrus-if-your-paper-uses-3-3",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "3×3 determinant (Sarrus, if your paper uses 3×3)",
+  "score": 6,
+  "origin": "base",
+  "body": "Copy columns 1 and 2 to the right; add the three downward diagonals, subtract the three upward ones."
+ },
+ {
+  "id": "SEM-FP1-three-point-collinearity-area-from-a-determinant",
+  "spec": "FP1",
+  "section": "5. Matrices",
+  "topic": "",
+  "title": "Three-point collinearity / area from a determinant",
+  "score": 6,
+  "origin": "base",
+  "body": "see §6."
+ },
+ {
+  "id": "SEM-FP1-shoelace-formula-polygons-fast",
+  "spec": "FP1",
+  "section": "6. Area and geometry shortcuts",
+  "topic": "",
+  "title": "Shoelace formula (polygons, fast)",
+  "score": 9,
+  "origin": "base",
+  "body": "For vertices $(x_1,y_1),\\dots,(x_n,y_n)$ in order (anticlockwise gives positive, but take $|\\cdot|$ anyway):\n$$A=\\tfrac12\\left|\\sum_{i=1}^{n}\\left(x_iy_{i+1}-x_{i+1}y_i\\right)\\right|,\\qquad (x_{n+1},y_{n+1})=(x_1,y_1).$$\nWrite the coordinates in two columns, repeat the first row at the bottom, multiply down-right, subtract down-left:\n\n$$\\begin{array}{c|c}x&y\\\\\\hline x_1&y_1\\\\x_2&y_2\\\\x_3&y_3\\\\x_1&y_1\\end{array}$$"
+ },
+ {
+  "id": "SEM-FP1-triangle",
+  "spec": "FP1",
+  "section": "6. Area and geometry shortcuts",
+  "topic": "",
+  "title": "Triangle",
+  "score": 8,
+  "origin": "base",
+  "body": "$A=\\tfrac12|x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)|$. Collinear points give $0$."
+ },
+ {
+  "id": "SEM-FP1-triangle-from-two-vectors",
+  "spec": "FP1",
+  "section": "6. Area and geometry shortcuts",
+  "topic": "",
+  "title": "Triangle from two vectors",
+  "score": 6,
+  "origin": "base",
+  "body": "$A=\\tfrac12|a_1b_2-a_2b_1|$ for sides $\\mathbf a=(a_1,a_2)$, $\\mathbf b=(b_1,b_2)$ from the same vertex."
+ },
+ {
+  "id": "SEM-FP1-area-of-image-area-of-object",
+  "spec": "FP1",
+  "section": "6. Area and geometry shortcuts",
+  "topic": "",
+  "title": "Area of image = $|\\det\\mathbf M|\\times$ area of object",
+  "score": 7,
+  "origin": "base",
+  "body": "Transform the triangle's three points, or just scale: quicker."
+ },
+ {
+  "id": "SEM-FP1-midpoint-section-formula",
+  "spec": "FP1",
+  "section": "6. Area and geometry shortcuts",
+  "topic": "",
+  "title": "Midpoint / section formula",
+  "score": 6,
+  "origin": "base",
+  "body": "Point dividing $AB$ in ratio $m:n$: $\\dfrac{n\\mathbf a+m\\mathbf b}{m+n}$."
+ },
+ {
+  "id": "SEM-FP1-distance-from-to",
+  "spec": "FP1",
+  "section": "6. Area and geometry shortcuts",
+  "topic": "",
+  "title": "Distance from $(x_0,y_0)$ to $ax+by+c=0$",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\dfrac{|ax_0+by_0+c|}{\\sqrt{a^2+b^2}}$."
+ },
+ {
+  "id": "SEM-FP1-perpendicular-gradient",
+  "spec": "FP1",
+  "section": "6. Area and geometry shortcuts",
+  "topic": "",
+  "title": "Perpendicular gradient",
+  "score": 6,
+  "origin": "base",
+  "body": "$m_1m_2=-1$; rotate $(a,b)\\to(-b,a)$ for the direction vector."
+ },
+ {
+  "id": "SEM-FP1-the-three-results-memorise-don-t-derive",
+  "spec": "FP1",
+  "section": "7. Series and the method of differences",
+  "topic": "",
+  "title": "The three results (memorise, don't derive)",
+  "score": 10,
+  "origin": "base",
+  "body": "$$\\sum_{r=1}^n r=\\frac{n(n+1)}2,\\quad\\sum r^2=\\frac{n(n+1)(2n+1)}6,\\quad\\sum r^3=\\left[\\frac{n(n+1)}2\\right]^2.$$"
+ },
+ {
+  "id": "SEM-FP1-range-to",
+  "spec": "FP1",
+  "section": "7. Series and the method of differences",
+  "topic": "",
+  "title": "Range $r=a$ to $b$",
+  "score": 9,
+  "origin": "base",
+  "body": "$\\sum_{r=a}^b=\\sum_{r=1}^b-\\sum_{r=1}^{a-1}$. Never restart the formula."
+ },
+ {
+  "id": "SEM-FP1-factorise-before-expanding",
+  "spec": "FP1",
+  "section": "7. Series and the method of differences",
+  "topic": "",
+  "title": "Factorise before expanding",
+  "score": 10,
+  "origin": "base",
+  "body": "A sum like $\\sum(r^2+r)$ becomes $\\dfrac{n(n+1)(2n+1)}6+\\dfrac{n(n+1)}2=\\dfrac{n(n+1)(n+2)}3$. **Take out $n(n+1)$, keep the rest in brackets, simplify the bracket only.** The answer is nearly always a product of linear factors; if your bracket doesn't factorise, check arithmetic."
+ },
+ {
+  "id": "SEM-FP1-instant-closed-forms-worth-knowing",
+  "spec": "FP1",
+  "section": "7. Series and the method of differences",
+  "topic": "",
+  "title": "Instant closed forms worth knowing",
+  "score": 10,
+  "origin": "base",
+  "body": "| Sum | Result |\n|---|---|\n| $\\sum_{r=1}^n(2r-1)$ (odds) | $n^2$ |\n| $\\sum_{r=1}^n 2r$ (evens) | $n(n+1)$ |\n| $\\sum r(r+1)$ | $\\dfrac{n(n+1)(n+2)}3$ |\n| $\\sum r(r+1)(r+2)$ | $\\dfrac{n(n+1)(n+2)(n+3)}4$ |\n| $\\sum(2r-1)^2$ | $\\dfrac{n(2n-1)(2n+1)}3$ |\n| $\\sum r(r-1)$ | $\\dfrac{(n-1)n(n+1)}3$ |\n| $\\sum r\\cdot r!$ | $(n+1)!-1$ |\n| $\\sum r\\,2^r$ | $(n-1)2^{n+1}+2$ |\n| $\\sum_{r=1}^n\\dfrac1{r(r+1)}$ | $1-\\dfrac1{n+1}=\\dfrac n{n+1}$ |\n| $\\sum\\dfrac1{r(r+1)(r+2)}$ | $\\dfrac14-\\dfrac1{2(n+1)(n+2)}$ |\n| $\\sum\\ln\\dfrac{r+1}r$ | $\\ln(n+1)$ |"
+ },
+ {
+  "id": "SEM-FP1-method-of-differences-recipe",
+  "spec": "FP1",
+  "section": "7. Series and the method of differences",
+  "topic": "",
+  "title": "Method of differences recipe",
+  "score": 10,
+  "origin": "base",
+  "body": "1. Split into partial fractions (cover-up rule): $\\dfrac1{r(r+k)}=\\dfrac1k\\left(\\dfrac1r-\\dfrac1{r+k}\\right)$.\n2. Write the first **and** last few terms; the middle cancels.\n3. For gap $k$, **$k$ terms survive at each end**: $\\dfrac1k\\left(1+\\tfrac12+\\dots+\\tfrac1k-\\tfrac1{n+1}-\\dots-\\tfrac1{n+k}\\right)$.\n4. Let $n\\to\\infty$: terms in $\\frac1n$ vanish, giving the sum to infinity."
+ },
+ {
+  "id": "SEM-FP1-difference-of-squares-trick-for-odd-even-blocks",
+  "spec": "FP1",
+  "section": "7. Series and the method of differences",
+  "topic": "",
+  "title": "Difference-of-squares trick for odd/even blocks",
+  "score": 4,
+  "origin": "base",
+  "body": "$(2r)^2-(2r-1)^2=4r-1$."
+ },
+ {
+  "id": "SEM-FP1-sum-of-an-arithmetic-series",
+  "spec": "FP1",
+  "section": "7. Series and the method of differences",
+  "topic": "",
+  "title": "Sum of an arithmetic series",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\dfrac n2(\\text{first}+\\text{last})$."
+ },
+ {
+  "id": "SEM-FP1-telescoping-for-polynomial-differences",
+  "spec": "FP1",
+  "section": "7. Series and the method of differences",
+  "topic": "",
+  "title": "Telescoping for polynomial differences",
+  "score": 5,
+  "origin": "base",
+  "body": "If $f(r)-f(r-1)=g(r)$ then $\\sum_{r=1}^ng(r)=f(n)-f(0)$. Choose $f$ to be a cubic for $\\sum r^2$-type targets."
+ },
+ {
+  "id": "SEM-FP1-skeleton-use-the-same-four-lines-every-time",
+  "spec": "FP1",
+  "section": "8. Proof by induction",
+  "topic": "",
+  "title": "Skeleton (use the same four lines every time)",
+  "score": 7,
+  "origin": "base",
+  "body": "1. **Basis:** show $n=1$ (or the stated start) is true.\n2. **Assume:** true for $n=k$.\n3. **Step:** show it holds for $n=k+1$ by manipulating the $k+1$ expression using the assumption.\n4. **Conclude:** \"True for $n=1$; if true for $n=k$ then true for $n=k+1$; so true for all positive integers $n$ by induction.\""
+ },
+ {
+  "id": "SEM-FP1-series",
+  "spec": "FP1",
+  "section": "8. Proof by induction",
+  "topic": "",
+  "title": "Series",
+  "score": 8,
+  "origin": "base",
+  "body": "Add the $(k+1)$th term to the assumed $S_k$, **factorise out the common bracket**, and compare with the target $S_{k+1}$ written in advance on the side."
+ },
+ {
+  "id": "SEM-FP1-divisibility-the-subtraction-trick",
+  "spec": "FP1",
+  "section": "8. Proof by induction",
+  "topic": "",
+  "title": "Divisibility: the subtraction trick",
+  "score": 10,
+  "origin": "base",
+  "body": "For \"$f(n)$ divisible by $m$\":\n$$f(k+1)-a\\,f(k)=\\text{an obvious multiple of }m,$$\nwhere $a$ is the base of the exponential. E.g. $f(n)=7^n-1$ divisible by 6: $f(k+1)-7f(k)=7^{k+1}-1-7^{k+1}+7=6$. So $f(k+1)=7f(k)+6$.\nFor $f(n)=2^{3n}+13$ divisible by 7: $f(k+1)-8f(k)=13-104=-91=-7\\times13$.\nMixed bases such as $a^n+b^n$: use $f(k+1)=a\\,f(k)+(b-a)b^k$."
+ },
+ {
+  "id": "SEM-FP1-matrix-powers",
+  "spec": "FP1",
+  "section": "8. Proof by induction",
+  "topic": "",
+  "title": "Matrix powers",
+  "score": 8,
+  "origin": "base",
+  "body": "Guess the pattern from $\\mathbf M,\\mathbf M^2,\\mathbf M^3$; assume $\\mathbf M^k$, then $\\mathbf M^{k+1}=\\mathbf M\\,\\mathbf M^k$ (or $\\mathbf M^k\\mathbf M$), multiply out and match."
+ },
+ {
+  "id": "SEM-FP1-recurrences",
+  "spec": "FP1",
+  "section": "8. Proof by induction",
+  "topic": "",
+  "title": "Recurrences",
+  "score": 7,
+  "origin": "base",
+  "body": "State the claim for $u_n$, assume for $u_k$, substitute into $u_{k+1}=g(u_k)$."
+ },
+ {
+  "id": "SEM-FP1-inequalities",
+  "spec": "FP1",
+  "section": "8. Proof by induction",
+  "topic": "",
+  "title": "Inequalities",
+  "score": 6,
+  "origin": "base",
+  "body": "Show $f(k+1)-f(k)>0$ (or $\\ge0$) and combine with the assumption."
+ },
+ {
+  "id": "SEM-FP1-series-answers",
+  "spec": "FP1",
+  "section": "9. Quick checks worth a few seconds",
+  "topic": "",
+  "title": "Series answers",
+  "score": 6,
+  "origin": "base",
+  "body": "substitute $n=1$ and $n=2$; they must equal the first term and first two terms."
+ },
+ {
+  "id": "SEM-FP1-vieta",
+  "spec": "FP1",
+  "section": "9. Quick checks worth a few seconds",
+  "topic": "",
+  "title": "Vieta",
+  "score": 6,
+  "origin": "base",
+  "body": "sum $-b/a$, product $c/a$: signs trip more marks than anything."
+ },
+ {
+  "id": "SEM-FP1-complex",
+  "spec": "FP1",
+  "section": "9. Quick checks worth a few seconds",
+  "topic": "",
+  "title": "Complex",
+  "score": 6,
+  "origin": "base",
+  "body": "check $|z|^2=zz^*$."
+ },
+ {
+  "id": "SEM-FP1-matrices",
+  "spec": "FP1",
+  "section": "9. Quick checks worth a few seconds",
+  "topic": "",
+  "title": "Matrices",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\det\\mathbf M$ sign tells orientation; area factor is the modulus."
+ },
+ {
+  "id": "SEM-FP1-parabola-hyperbola",
+  "spec": "FP1",
+  "section": "9. Quick checks worth a few seconds",
+  "topic": "",
+  "title": "Parabola/hyperbola",
+  "score": 6,
+  "origin": "base",
+  "body": "parameter $t=1$ gives a friendly point to test any formula."
+ },
+ {
+  "id": "SEM-FP1-bracket-each-reported-decimal-root",
+  "spec": "FP1",
+  "section": "6. Numerical solution of equations",
+  "topic": "",
+  "title": "Bracket each reported decimal root",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "To justify a root rounded to $d$ decimal places, evaluate a continuous $f$ at the two half-unit rounding boundaries around the claimed value and show opposite signs. Check that the interval lies inside the required domain; a sign change justifies existence, not uniqueness unless monotonicity or another argument is supplied."
+ },
+ {
+  "id": "SEM-FP1-bisection-chooses-a-new-half-every-row",
+  "spec": "FP1",
+  "section": "6. Numerical solution of equations",
+  "topic": "",
+  "title": "Bisection chooses a new half every row",
+  "score": 8,
+  "origin": "research",
+  "source": "WFM01 Jun 2023 examiner report Q7",
+  "body": "After evaluating midpoint $m=(a+b)/2$, stop if $f(m)=0$; otherwise keep $[a,m]$ if $f(a)f(m)<0$ and $[m,b]$ if it is positive, assuming continuity and a sign-changing starting bracket. Check the retained interval's width halves each row and its endpoint values still have opposite signs."
+ },
+ {
+  "id": "SEM-FP1-use-a-calculator-table-as-a-sign-map",
+  "spec": "FP1",
+  "section": "6. Numerical solution of equations",
+  "topic": "",
+  "title": "Use a calculator table as a sign map",
+  "score": 7,
+  "origin": "research",
+  "source": "Casio fx-991EX User's Guide, Creating a Number Table",
+  "body": "If your permitted calculator has table mode, enter the original $f(x)$ and scan a stated interval for sign changes before selecting a bracket or a Newton starting value. Check any candidate using the original function, since a table can miss an even-multiplicity root or a sign change between coarse steps."
+ },
+ {
+  "id": "SEM-FP1-argument-needs-a-quadrant-check",
+  "spec": "FP1",
+  "section": "7. Complex numbers",
+  "topic": "",
+  "title": "Argument needs a quadrant check",
+  "score": 8,
+  "origin": "research",
+  "source": "WFM01 Jan 2024 examiner report Q9",
+  "body": "If $\\arg z=\\theta$ gives an equation using $\\tan\\theta=\\operatorname{Im}z/\\operatorname{Re}z$, filter its parameter solutions by the signs of both components. Check the point lies in the stated quadrant, because tangent alone repeats after $\\pi$ and can admit the opposite ray."
+ },
+ {
+  "id": "SEM-FP1-the-conjugate-pair-is-a-symmetry-check-on-a-diag",
+  "spec": "FP1",
+  "section": "7. Complex numbers",
+  "topic": "",
+  "title": "The conjugate pair is a symmetry check on a diagram",
+  "score": 7,
+  "origin": "research",
+  "source": "WFM01 Jun 2024 mark scheme p9",
+  "body": "For non-real roots of a real polynomial, plot $a+bi$ and $a-bi$ with the same real coordinate on opposite sides of the real axis before calculating any geometry. Check their distances from any point on the real axis agree; a non-symmetric sketch indicates a sign or plotting slip."
+ },
+ {
+  "id": "SEM-FP1-both-signs-of-a-determinant-s-magnitude",
+  "spec": "FP1",
+  "section": "8. Matrices",
+  "topic": "",
+  "title": "Both signs of a determinant's magnitude",
+  "score": 9,
+  "origin": "research",
+  "source": "WFM01 Jun 2023 examiner report Q4",
+  "body": "If the condition is $|\\det M|=k$, with $k>0$, solve the two equations $\\det M=k$ and $\\det M=-k$. Check each resulting matrix against the original absolute-value condition."
+ },
+ {
+  "id": "SEM-FP1-solve-a-matrix-product-in-the-correct-order",
+  "spec": "FP1",
+  "section": "8. Matrices",
+  "topic": "",
+  "title": "Solve a matrix product in the correct order",
+  "score": 8,
+  "origin": "research",
+  "source": "WFM01 Jun 2023 examiner report Q4",
+  "body": "From $BC=A$ with invertible $B$, multiply on the left to get $C=B^{-1}A$; do not commute the factors. Check by multiplying $B(B^{-1}A)$ and confirming it gives $A$."
+ },
+ {
+  "id": "SEM-FP1-area-scale-of-a-composed-rotation-and-stretch",
+  "spec": "FP1",
+  "section": "8. Matrices",
+  "topic": "",
+  "title": "Area scale of a composed rotation and stretch",
+  "score": 8,
+  "origin": "research",
+  "source": "WFM01 Jan 2024 examiner report Q4",
+  "body": "If a rotation is followed by a stretch of factor $s$ parallel to one axis, the area scale is $|s|$ because the rotation has determinant $1$. Check that the stretch's other axis is unchanged and use $|s|$ even when the signed determinant is negative."
+ },
+ {
+  "id": "SEM-FP1-prove-nonsingularity-with-a-positive-form",
+  "spec": "FP1",
+  "section": "8. Matrices",
+  "topic": "",
+  "title": "Prove nonsingularity with a positive form",
+  "score": 7,
+  "origin": "research",
+  "source": "WFM01 Jan 2024 examiner report Q1",
+  "body": "If a parameter-dependent $2\\times2$ determinant is $k^2+2k+4$, rewrite it as $(k+1)^2+3>0$ for every real $k$, then explicitly conclude the matrix is nonsingular. Check the square term cannot be negative; this is stronger and clearer than testing a few parameter values."
+ },
+ {
+  "id": "SEM-FP1-start-at-the-specified-base-index",
+  "spec": "FP1",
+  "section": "9. Proof by induction",
+  "topic": "",
+  "title": "Start at the specified base index",
+  "score": 8,
+  "origin": "research",
+  "source": "WFM01 Jan 2024 examiner report Q9",
+  "body": "If a claim begins at $n=2$, verify both sides at $n=2$, then assume it at $n=k\\ge2$; matching the question's stated starting value keeps the proof complete and easy to mark. Check that the final implication reaches $k+1$ and explicitly states the induction conclusion."
+ },
+ {
+  "id": "SEM-FP1-match-the-requested-finite-difference-exactly",
+  "spec": "FP1",
+  "section": "9. Proof by induction",
+  "topic": "",
+  "title": "Match the requested finite difference exactly",
+  "score": 7,
+  "origin": "research",
+  "source": "WFM01 Jan 2024 examiner report Q8",
+  "body": "If asked for $S_{n+1}-S_{n-1}$, write those two indexed expressions before simplifying; it is $u_n+u_{n+1}$ when $S_n=\\sum_{r=1}^n u_r$. Check with a small $n$ to catch an accidental replacement by $S_{n+1}-S_n$."
+ }
+]

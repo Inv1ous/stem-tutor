@@ -308,3 +308,30 @@ def test_a_link_titled_differently_finds_its_chapter_by_number_and_a_shared_word
     assert link_notes("[[P2 Differentiation]]", names, where, "Subjects/Maths/FP1 Further Pure Mathematics 1") == \
         "P2 Differentiation"  # no number and one shared word: too little to go on
     assert link_notes("[[4 Differentiation]]", names, where, "Subjects/Maths/P1 Pure Mathematics 1") == "[[4 Differentiation]]"
+
+
+def test_the_shortcuts_course_is_copied_and_learner_state_is_left_alone(tmp_path, monkeypatch):
+    import json
+    build = _build(tmp_path, monkeypatch)
+    (build / "shortcuts/lessons").mkdir(parents=True)
+    (build / "shortcuts/9702.json").write_text(json.dumps([{"id": "SEM-9702-a"}]))
+    (build / "shortcuts/lessons/9702.json").write_text(json.dumps({"SEM-9702-a": {"id": "SEM-9702-a"}}))
+    vault = tmp_path / "vault"
+    mine = vault / ".tutor/shortcuts"
+    mine.mkdir(parents=True)
+    (mine / "events.jsonl").write_text('{"t": "x"}\n')
+    (mine / "settings.json").write_text('{"min_score": 3}')
+    assert publish.publish(vault)["shortcuts"] == 2
+    course = mine / "course"
+    assert json.loads((course / "9702.json").read_text())[0]["id"] == "SEM-9702-a"
+    assert "SEM-9702-a" in json.loads((course / "lessons/9702.json").read_text())
+    assert (mine / "events.jsonl").read_text() == '{"t": "x"}\n'
+    assert (mine / "settings.json").read_text() == '{"min_score": 3}'
+    assert sorted(p.name for p in mine.iterdir()) == ["course", "events.jsonl", "settings.json"]
+
+
+def test_publishing_without_a_shortcuts_build_adds_no_course_folder(tmp_path, monkeypatch):
+    _build(tmp_path, monkeypatch)
+    vault = tmp_path / "vault"
+    assert publish.publish(vault)["shortcuts"] == 0
+    assert not (vault / ".tutor/shortcuts").exists()

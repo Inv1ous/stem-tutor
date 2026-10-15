@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.5.0 — 2026-10-16
+
+Asked by the learner: a course in "Shortcuts & Elegant Methods" that cuts slips on long questions and complex ideas, with a
+spaced recall of its own, configurable by rating.
+
+- **A course apart from the syllabus** (`docs/SHORTCUTS_COURSE.md`). 869 ranked entries (722 from the personal-reading notes in
+  `sources/shortcuts/base/`, 147 found by Codex research workers in `sources/shortcuts/research/`) over 9702, 9701, P1, P2, FP1,
+  M1 and S1, parsed by `build/shortcuts.py`. Each entry teaches trigger, shortcut, why it holds, a worked example (long way v
+  shortcut), pitfalls, a check, two practice questions and recall cards. Every entry is teachable from its own text without
+  a generated lesson.
+- **Its own recall queue** (`tutorlib/shortcuts.py`): separate settings, event log and FSRS state under `.tutor/shortcuts/`;
+  the syllabus model never sees it. Home menu: "Shortcuts: learn quicker methods" and "Shortcut recall".
+- **Configurable**: minimum and maximum rating, subjects, AS/A level, section words, base or research entries, order (rating
+  or section), new per day, lessons only, and what recall covers. Press `s` on either screen.
+- **Lessons by Codex** (`foundry/shortcuts_gen.py`, `bin/shortcuts gen run|status|verify`): best-rated first, resumable, stops at a
+  Codex weekly percentage; lessons with maths that cannot be spoken, lost characters or a leaked answer are rejected;
+  single-backslash LaTeX in a model's JSON is repaired. 443 lessons written (every entry rated 9 or 10, part of 8).
+  `verify` asks a different model to solve a sample of practice answers: it found two wrong answers in 160 checked, fixed.
+
 ## 2.4.5 — 2026-10-15
 
 Asked by the learner: the Claude usage the foundry and refine showed was nowhere near the real figures.

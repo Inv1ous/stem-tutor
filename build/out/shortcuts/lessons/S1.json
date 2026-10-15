@@ -1,0 +1,4405 @@
+{
+ "SEM-S1-coding": {
+  "id": "SEM-S1-coding",
+  "hook": "Recalculating every original value wastes time and invites arithmetic slips.",
+  "when": "Values are coded as $y=(x-a)/b$, and you need the mean or standard deviation of $x$.",
+  "idea": "Use $\\bar x=a+b\\bar y$ and $\\sigma_x=|b|\\sigma_y$.",
+  "why": "For a linear coding of every value, adding $a$ shifts the mean without changing spread; multiplying by $b$ scales spread by $|b|$.",
+  "steps": [
+   "Identify $a$ and $b$ from the coding.",
+   "Find $\\bar y$ and $\\sigma_y$.",
+   "Convert with $\\bar x=a+b\\bar y$ and $\\sigma_x=|b|\\sigma_y$."
+  ],
+  "worked": {
+   "question": "The values $12,16,20$ are coded by $y=(x-8)/4$. Find the mean and population standard deviation of $x$.",
+   "long": "From $x$, $\\bar x=16$ and $\\sigma_x=\\sqrt{((12-16)^2+(16-16)^2+(20-16)^2)/3}=\\sqrt{32/3}$.",
+   "short": "The coded values are $1,2,3$, so $\\bar y=2$ and $\\sigma_y=\\sqrt{2/3}$. Hence $\\bar x=8+4(2)=16$ and $\\sigma_x=4\\sqrt{2/3}=\\sqrt{32/3}$.",
+   "saving": "Uses the simpler coded values and keeps the shift out of the standard deviation."
+  },
+  "pitfalls": [
+   "Adding $a$ to the standard deviation.",
+   "Using $b$ instead of $|b|$ when $b$ is negative."
+  ],
+  "check": "The mean of the original values should lie between their smallest and largest values.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $y=(x-10)/2$, the coded mean is $3$. Find $\\bar x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "16",
+    "hints": [
+     "The data have been shifted and scaled.",
+     "Convert the coded mean back to the original scale.",
+     "Use $\\bar x=10+2(3)$."
+    ],
+    "explanation": "$\\bar x=10+2\\bar y=10+2(3)=16$.",
+    "shortcut_use": "Convert the mean directly."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $y=(x-7)/(-3)$, the coded population standard deviation is $2$. Find the population standard deviation of $x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "The shift does not affect spread.",
+     "Use the magnitude of the scale factor.",
+     "Calculate $|-3|(2)$."
+    ],
+    "explanation": "$\\sigma_x=|b|\\sigma_y=|-3|(2)=6$.",
+    "shortcut_use": "Scale the standard deviation by $|b|$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you recover the original mean from $y=(x-a)/b$?",
+    "a": "Use $\\bar x=a+b\\bar y$."
+   },
+   {
+    "q": "How does adding a constant affect standard deviation?",
+    "a": "It does not change standard deviation."
+   },
+   {
+    "q": "Why is the scale factor for standard deviation $|b|$?",
+    "a": "Standard deviation cannot be negative."
+   }
+  ]
+ },
+ "SEM-S1-histograms": {
+  "id": "SEM-S1-histograms",
+  "hook": "Reading bar height as frequency gives wrong answers when class widths differ.",
+  "when": "A histogram has unequal class widths, or one bar's frequency is given.",
+  "idea": "Frequency density is frequency divided by class width; frequency is proportional to bar area.",
+  "why": "Area is width times height, so it equals frequency when height is frequency density. If heights use another common scale, all areas share that scale.",
+  "steps": [
+   "Find each class width.",
+   "Multiply width by height to get bar area.",
+   "Use a known frequency to find the common area scale, if needed.",
+   "Apply that scale to the required bar."
+  ],
+  "worked": {
+   "question": "A histogram has a bar from $0$ to $4$ with height $3$ and frequency $24$. A bar from $4$ to $10$ has height $2$. Find its frequency.",
+   "long": "The first height represents $24/4=6$ frequency-density units, so each height unit represents $2$ density units. The second density is $4$, giving frequency $4(6)=24$.",
+   "short": "The first area is $4(3)=12$ for frequency $24$, so frequency is twice area. The second area is $6(2)=12$, giving frequency $24$.",
+   "saving": "Uses one area scale for every bar."
+  },
+  "pitfalls": [
+   "Comparing heights when the widths differ.",
+   "Subtracting class endpoints incorrectly when finding width."
+  ],
+  "check": "For equal bar areas, the frequencies must be equal.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A histogram bar from $2$ to $5$ has height $4$ and frequency $18$. Another bar from $5$ to $11$ has height $2$. Find the second frequency.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "18",
+    "hints": [
+     "Compare areas, including class widths.",
+     "Find the first bar's area and its frequency per unit area.",
+     "The second area is $(11-5)(2)$."
+    ],
+    "explanation": "The first area is $(5-2)(4)=12$ for frequency $18$. The second area is $(11-5)(2)=12$, so its frequency is $18$.",
+    "shortcut_use": "Compare bar areas."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A histogram uses frequency density as height. A class from $10$ to $18$ has frequency $40$. Find its bar height.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "The height is frequency density.",
+     "Divide frequency by class width.",
+     "Calculate $40/(18-10)$."
+    ],
+    "explanation": "The width is $18-10=8$, so the height is frequency density $40/8=5$.",
+    "shortcut_use": "Divide frequency by width."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What does bar area represent in a histogram?",
+    "a": "It is proportional to frequency."
+   },
+   {
+    "q": "How do you find frequency density?",
+    "a": "Divide frequency by class width."
+   }
+  ]
+ },
+ "SEM-S1-use-the-calculator-for": {
+  "id": "SEM-S1-use-the-calculator-for",
+  "hook": "Hand-calculating several summary statistics repeats arithmetic and makes copying errors easy.",
+  "when": "A question gives raw or frequency data and asks for $\\bar x$, $\\sigma_x$, $\\sum x$ or $\\sum x^2$.",
+  "idea": "Enter the data in statistics mode, use frequencies where supplied, and read the required statistics directly; use $\\sigma_x$ for population standard deviation.",
+  "why": "For correctly entered data, the calculator applies the definitions to the whole data set. Its population standard deviation uses division by the total frequency.",
+  "steps": [
+   "Enter each value and its frequency, if supplied.",
+   "Check the number of observations or total frequency.",
+   "Read the requested statistics, selecting $\\sigma_x$ for population standard deviation."
+  ],
+  "worked": {
+   "question": "The values $1,3,5$ have frequencies $1,2,1$ respectively. Find $\\bar x$, $\\sigma_x$, $\\sum x$ and $\\sum x^2$.",
+   "long": "$\\sum x=1+3+3+5=12$ and $\\sum x^2=1+9+9+25=44$. Thus $\\bar x=12/4=3$ and $\\sigma_x=\\sqrt{44/4-3^2}=\\sqrt2$.",
+   "short": "Enter $1,3,5$ with frequencies $1,2,1$. Read $n=4$, $\\sum x=12$, $\\sum x^2=44$, $\\bar x=3$ and $\\sigma_x=\\sqrt2$.",
+   "saving": "Gets all four results from one data entry."
+  },
+  "pitfalls": [
+   "Leaving the frequency column off or entering a frequency as a value.",
+   "Reading sample standard deviation instead of $\\sigma_x$."
+  ],
+  "check": "Verify that the displayed count equals the sum of the frequencies.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Values $2,4,6$ have frequencies $1,2,1$ respectively. Find $\\sum x^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "72",
+    "hints": [
+     "These are frequency data.",
+     "Enter values with their frequencies, then read the sum of squares.",
+     "Check it against $1(2^2)+2(4^2)+1(6^2)$."
+    ],
+    "explanation": "The frequency entries give $\\sum x^2=1(2^2)+2(4^2)+1(6^2)=72$.",
+    "shortcut_use": "Read the sum of squares from statistics mode."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Values $1,2,3$ have frequencies $1,2,1$ respectively. Find the population standard deviation to 3 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.707",
+    "hints": [
+     "The question asks for population spread.",
+     "Read $\\sigma_x$, using the frequency column.",
+     "Check with $\\sqrt{(1+2(4)+9)/4-2^2}$."
+    ],
+    "explanation": "With total frequency $4$, $\\sigma_x=\\sqrt{18/4-2^2}=\\sqrt{0.5}\\approx0.707$.",
+    "shortcut_use": "Read population $\\sigma_x$ directly."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which calculator standard deviation is the population value?",
+    "a": "Use $\\sigma_x$."
+   },
+   {
+    "q": "What must you check after entering frequency data?",
+    "a": "Check that the displayed count equals the total frequency."
+   }
+  ]
+ },
+ "SEM-S1-calculator-2-var-does-everything": {
+  "id": "SEM-S1-calculator-2-var-does-everything",
+  "hook": "Calculating a regression line and correlation separately repeats several sums.",
+  "when": "Paired $x,y$ data are given and you need the line $y=a+bx$ or the correlation coefficient $r$.",
+  "idea": "Enter the pairs in 2-VAR statistics mode and read $a$, $b$ and $r$ directly.",
+  "why": "With correctly paired data and the $y=a+bx$ regression selected, the calculator evaluates the least-squares coefficients and correlation from the same pairs.",
+  "steps": [
+   "Enter each $x,y$ pair in one row.",
+   "Select the $y=a+bx$ regression output.",
+   "Read $a$, $b$ and $r$.",
+   "Write any working lines the question requires."
+  ],
+  "worked": {
+   "question": "The paired values are $(1,2)$, $(2,4)$ and $(3,6)$. Find the regression line of $y$ on $x$ and $r$.",
+   "long": "$\\bar x=2$, $\\bar y=4$, $S_{xx}=2$, $S_{xy}=4$ and $S_{yy}=8$. Hence $b=4/2=2$, $a=4-2(2)=0$ and $r=4/\\sqrt{2(8)}=1$.",
+   "short": "Enter the three pairs in 2-VAR mode and select $y=a+bx$. Read $a=0$, $b=2$ and $r=1$, giving $y=2x$.",
+   "saving": "Avoids calculating three centred sums separately."
+  },
+  "pitfalls": [
+   "Selecting the regression of $x$ on $y$ instead.",
+   "Misaligning an $x$ value and its paired $y$ value."
+  ],
+  "check": "For a perfect increasing straight line, $r$ must be $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The pairs are $(1,5)$, $(2,7)$ and $(3,9)$. For the line $y=a+bx$, find $b$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2",
+    "hints": [
+     "These are paired data for a regression of $y$ on $x$.",
+     "Enter the pairs and select $y=a+bx$.",
+     "Check the displayed slope against the change in $y$ for a unit increase in $x$."
+    ],
+    "explanation": "The 2-VAR regression output gives $b=2$; each unit increase in $x$ raises $y$ by $2$.",
+    "shortcut_use": "Read the regression slope directly."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The pairs are $(1,6)$, $(2,4)$ and $(3,2)$. Find the correlation coefficient $r$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-1",
+    "hints": [
+     "The paired points form a straight line.",
+     "Read $r$ from 2-VAR mode.",
+     "Use the direction of the line to check the sign."
+    ],
+    "explanation": "The points lie exactly on a decreasing straight line, so the 2-VAR output is $r=-1$.",
+    "shortcut_use": "Read $r$ directly."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What must match when entering 2-VAR data?",
+    "a": "Each $x$ value must remain paired with its corresponding $y$ value."
+   },
+   {
+    "q": "Which regression form gives $y$ from $x$?",
+    "a": "Select $y=a+bx$."
+   }
+  ]
+ },
+ "SEM-S1-at-least-one-none": {
+  "id": "SEM-S1-at-least-one-none",
+  "hook": "Listing every way to get one or more successes becomes lengthy as the number of attempts grows.",
+  "when": "The wording says ‘at least one’ success.",
+  "idea": "Use $P(\\ge1)=1-P(\\mathrm{none})$; for $n$ independent attempts each with success probability $p$, use $1-(1-p)^n$.",
+  "why": "‘None’ is the complement of ‘at least one’, which always holds. The power $(1-p)^n$ requires independent attempts with the same $p$.",
+  "steps": [
+   "Identify the event ‘no successes’.",
+   "Find its probability, multiplying failure probabilities when attempts are independent.",
+   "Subtract from $1$."
+  ],
+  "worked": {
+   "question": "A player takes $3$ independent shots, each with probability $0.4$ of scoring. Find the probability of at least one score.",
+   "long": "Add the probabilities of exactly $1$, $2$ and $3$ scores: $3(0.4)(0.6)^2+3(0.4)^2(0.6)+(0.4)^3=0.784$.",
+   "short": "The probability of no score is $(0.6)^3=0.216$, so $P(\\ge1)=1-0.216=0.784$.",
+   "saving": "Replaces three success cases with one failure case."
+  },
+  "pitfalls": [
+   "Using $(1-p)^n$ when attempts are dependent.",
+   "Treating ‘at least one’ as ‘exactly one’."
+  ],
+  "check": "The result must be at least as large as the chance of success on any one attempt.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A device is tested $2$ times independently. It passes each test with probability $0.3$. Find the probability of at least one pass.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.51",
+    "hints": [
+     "‘At least one’ has a simple complement.",
+     "Find the probability that neither test passes.",
+     "Set up $1-(1-0.3)^2$."
+    ],
+    "explanation": "$P(\\ge1)=1-(0.7)^2=0.51$.",
+    "shortcut_use": "Subtract the probability of no passes."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Three independent attempts each succeed with probability $0.5$. Find the probability of at least one success.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.875",
+    "hints": [
+     "Count the complement.",
+     "Find the probability that all three attempts fail.",
+     "Set up $1-(0.5)^3$."
+    ],
+    "explanation": "$P(\\ge1)=1-(0.5)^3=0.875$.",
+    "shortcut_use": "Use the no-success complement."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the complement of ‘at least one success’?",
+    "a": "No successes."
+   },
+   {
+    "q": "When can you use $1-(1-p)^n$?",
+    "a": "When the $n$ attempts are independent and each has success probability $p$."
+   }
+  ]
+ },
+ "SEM-S1-core-formulae": {
+  "id": "SEM-S1-core-formulae",
+  "hook": "Adding event probabilities without accounting for overlap double-counts shared outcomes.",
+  "when": "A question asks for ‘$A$ or $B$’, ‘$A$ given $B$’, or ‘$A$ and $B$’.",
+  "idea": "Use $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$, $P(A\\mid B)=P(A\\cap B)/P(B)$, or $P(A\\cap B)=P(A)P(B\\mid A)$.",
+  "why": "The union formula removes overlap counted twice and always holds. Conditional probability restricts the sample space to the given event, which must have positive probability; the product rule follows from that definition.",
+  "steps": [
+   "Translate ‘or’, ‘given’ or ‘and’ into union, conditional or intersection.",
+   "Identify the probabilities supplied.",
+   "Choose the matching formula and substitute.",
+   "Check that the result lies between $0$ and $1$."
+  ],
+  "worked": {
+   "question": "In a group, $P(A)=0.5$, $P(B)=0.4$ and $P(A\\cap B)=0.2$. Find $P(A\\cup B)$ and $P(A\\mid B)$.",
+   "long": "Partition the outcomes into $A$ only, both, and $B$ only: $0.3+0.2+0.2=0.7$. Within $B$, the fraction also in $A$ is $0.2/0.4=0.5$.",
+   "short": "$P(A\\cup B)=0.5+0.4-0.2=0.7$ and $P(A\\mid B)=0.2/0.4=0.5$.",
+   "saving": "Avoids drawing and filling every region."
+  },
+  "pitfalls": [
+   "Adding $P(A)$ and $P(B)$ without subtracting their overlap.",
+   "Dividing by $P(A)$ when the condition is $B$.",
+   "Multiplying $P(A)P(B)$ without independence or a conditional probability."
+  ],
+  "check": "A union probability must be at least as large as either individual probability.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Given $P(A)=0.6$, $P(B)=0.5$ and $P(A\\cap B)=0.3$, find $P(A\\cup B)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.8",
+    "hints": [
+     "The question asks for ‘$A$ or $B$’.",
+     "Subtract the overlap once.",
+     "Set up $0.6+0.5-0.3$."
+    ],
+    "explanation": "$P(A\\cup B)=P(A)+P(B)-P(A\\cap B)=0.6+0.5-0.3=0.8$.",
+    "shortcut_use": "Apply the union formula."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Given $P(A)=0.4$ and $P(B\\mid A)=0.25$, find $P(A\\cap B)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.1",
+    "hints": [
+     "The question asks for ‘$A$ and $B$’.",
+     "Use the product rule with the supplied conditional probability.",
+     "Set up $0.4(0.25)$."
+    ],
+    "explanation": "$P(A\\cap B)=P(A)P(B\\mid A)=0.4(0.25)=0.1$.",
+    "shortcut_use": "Multiply by the conditional probability."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Why is the intersection subtracted in the union formula?",
+    "a": "It was counted once in each individual probability."
+   },
+   {
+    "q": "What is the denominator in $P(A\\mid B)$?",
+    "a": "$P(B)$, provided $P(B)>0$."
+   },
+   {
+    "q": "How do you find an intersection from $P(A)$ and $P(B\\mid A)$?",
+    "a": "Multiply them."
+   }
+  ]
+ },
+ "SEM-S1-variance-and-standard-deviation": {
+  "id": "SEM-S1-variance-and-standard-deviation",
+  "hook": "Squaring every deviation from the mean takes time and makes sign or arithmetic slips easy.",
+  "when": "You are given raw values, frequencies, or the summaries $n$, $\\sum x$ and $\\sum x^2$.",
+  "idea": "Use mean of squares minus square of mean: $\\sigma^2=\\frac{\\sum x^2}{n}-\\bar x^2$. With frequencies, use $\\sigma^2=\\frac{\\sum fx^2}{\\sum f}-\\bar x^2$. Then $\\sigma=\\sqrt{\\sigma^2}$ and $S_{xx}=n\\sigma^2$.",
+  "why": "For at least one numerical observation, expanding the squared deviations gives $S_{xx}=\\sum x^2-\\frac{(\\sum x)^2}{n}$, so division by $n$ gives the variance. Frequencies must count repeated observations. These formulas use division by $n$, not a sample-variance denominator.",
+  "steps": [
+   "Find $n$, $\\sum x$ and $\\sum x^2$; with frequencies, find $\\sum f$, $\\sum fx$ and $\\sum fx^2$.",
+   "Calculate the mean and subtract its square from the mean of squares.",
+   "Take the non-negative square root if standard deviation is required.",
+   "Multiply the variance by $n$ if $S_{xx}$ is required."
+  ],
+  "worked": {
+   "question": "For the values $2$, $4$, $6$ and $8$, find the variance and standard deviation.",
+   "long": "The mean is $5$. The squared deviations total $9+1+1+9=20$, so the variance is $20/4=5$ and the standard deviation is $\\sqrt{5}$.",
+   "short": "$\\sum x^2=120$ and $\\bar x=5$, so $\\sigma^2=120/4-5^2=5$ and $\\sigma=\\sqrt{5}$.",
+   "saving": "Avoids calculating four deviations before squaring them."
+  },
+  "pitfalls": [
+   "Use $\\sum fx^2$, not $(\\sum fx)^2$, for the mean of squares.",
+   "Divide by the total frequency $\\sum f$, not the number of distinct values.",
+   "Do not confuse $S_{xx}$ with variance: $S_{xx}=n\\sigma^2$."
+  ],
+  "check": "Variance must be non-negative, and standard deviation must be its non-negative square root.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The values $1$, $2$ and $4$ have frequencies $1$, $2$ and $1$ respectively. Find the variance as an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1.1875",
+    "hints": [
+     "Repeated values are represented by frequencies.",
+     "Find the weighted mean and weighted mean of squares.",
+     "Set up $\\frac{1(1^2)+2(2^2)+1(4^2)}{1+2+1}-\\left(\\frac{1(1)+2(2)+1(4)}{1+2+1}\\right)^2$."
+    ],
+    "explanation": "The weighted mean is $9/4$ and the weighted mean of squares is $25/4$. Thus $\\sigma^2=25/4-(9/4)^2=1.1875$.",
+    "shortcut_use": "Subtracts the square of the weighted mean from the weighted mean of squares."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $5$ observations, $\\sum x=15$ and $\\sum x^2=55$. Find $S_{xx}$ exactly.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "The given totals are enough; the individual observations are unnecessary.",
+     "Use the centred-sum formula for $S_{xx}$.",
+     "Set up $S_{xx}=55-15^2/5$."
+    ],
+    "explanation": "$S_{xx}=\\sum x^2-\\frac{(\\sum x)^2}{n}=55-15^2/5=10$.",
+    "shortcut_use": "Calculates $S_{xx}$ directly from the two totals."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you find variance from $\\sum x^2$, $n$ and the mean?",
+    "a": "Subtract the square of the mean from $\\sum x^2/n$."
+   },
+   {
+    "q": "How does $S_{xx}$ relate to variance?",
+    "a": "$S_{xx}=n\\sigma^2$."
+   },
+   {
+    "q": "What replaces $n$ when values are listed with frequencies?",
+    "a": "Use the total frequency $\\sum f$."
+   }
+  ]
+ },
+ "SEM-S1-fill-a-venn-diagram-from-the-intersection-outwar": {
+  "id": "SEM-S1-fill-a-venn-diagram-from-the-intersection-outwar",
+  "hook": "Putting the totals straight into separate regions counts the overlap twice.",
+  "when": "Two events have a given intersection and at least one event total.",
+  "idea": "Fill $A\\cap B$ first. Then $A$-only $=P(A)-P(A\\cap B)$, $B$-only $=P(B)-P(A\\cap B)$, and outside $=1-P(A\\cup B)$.",
+  "why": "The overlap is included in each event total. These region identities always hold for two events in one sample space.",
+  "steps": [
+   "Enter the intersection.",
+   "Subtract it from each event total.",
+   "Find the union by adding the three inside regions.",
+   "Subtract the union from $1$ for outside."
+  ],
+  "worked": {
+   "question": "Given $P(A)=0.60$, $P(B)=0.50$ and $P(A\\cap B)=0.20$, find the probability of neither event.",
+   "long": "Use $P(A\\cup B)=0.60+0.50-0.20=0.90$, then subtract from $1$ to get $0.10$.",
+   "short": "The regions are $0.40$, $0.20$ and $0.30$; outside $=1-(0.40+0.20+0.30)=0.10$.",
+   "saving": "Each number occupies one region, so the overlap is counted once."
+  },
+  "pitfalls": [
+   "Putting $P(A)$ in the $A$-only region.",
+   "Subtracting the intersection twice when finding the union."
+  ],
+  "check": "The four regions must sum to $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Given $P(A)=0.70$, $P(B)=0.40$ and $P(A\\cap B)=0.25$, find the probability of neither event. Give an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.15",
+    "hints": [
+     "The intersection belongs to both event totals.",
+     "Fill the two only regions after entering the intersection.",
+     "Outside $=1-[(0.70-0.25)+0.25+(0.40-0.25)]$."
+    ],
+    "explanation": "The inside regions are $0.45$, $0.25$ and $0.15$, so outside $=1-0.85=0.15$.",
+    "shortcut_use": "Fill from the intersection outward."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Given $P(A)=0.55$, $P(B)=0.65$ and $P(A\\cap B)=0.30$, find the probability of $A$ only. Give an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.25",
+    "hints": [
+     "The question asks for one exclusive region.",
+     "Remove the overlap from the total for $A$.",
+     "Compute $P(A)-P(A\\cap B)=0.55-0.30$."
+    ],
+    "explanation": "$A$-only $=0.55-0.30=0.25$.",
+    "shortcut_use": "Subtract the intersection from an event total."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which region is filled first?",
+    "a": "Fill $A\\cap B$ first."
+   },
+   {
+    "q": "How do you find $A$ only?",
+    "a": "Subtract $P(A\\cap B)$ from $P(A)$."
+   }
+  ]
+ },
+ "SEM-S1-independent": {
+  "id": "SEM-S1-independent",
+  "hook": "Events that cannot happen together are easily mistaken for events that do not affect each other.",
+  "when": "You must test independence from two event probabilities and their intersection.",
+  "idea": "Test $P(A\\cap B)=P(A)P(B)$. Mutually exclusive events instead have $P(A\\cap B)=0$.",
+  "why": "The product equality is the condition for independence and holds for any two events. If both probabilities are nonzero, mutually exclusive events cannot satisfy it.",
+  "steps": [
+   "Find $P(A\\cap B)$.",
+   "Multiply $P(A)$ by $P(B)$.",
+   "Compare the two values."
+  ],
+  "worked": {
+   "question": "Events have $P(A)=0.40$, $P(B)=0.30$ and $P(A\\cap B)=0.12$. Are they independent?",
+   "long": "Compute $P(A\\mid B)=0.12/0.30=0.40$ and compare it with $P(A)$.",
+   "short": "$P(A)P(B)=0.40\\times0.30=0.12=P(A\\cap B)$, so they are independent.",
+   "saving": "The product test avoids conditional probability division."
+  },
+  "pitfalls": [
+   "Calling events independent because their intersection is zero.",
+   "Comparing the intersection with $P(A)+P(B)$."
+  ],
+  "check": "For independent events with nonzero probabilities, the intersection must be nonzero.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Given $P(A)=0.20$, $P(B)=0.50$ and $P(A\\cap B)=0.10$, which statement is correct?",
+    "options": {
+     "A": "The events are mutually exclusive only.",
+     "B": "The events are independent.",
+     "C": "The events are both independent and mutually exclusive.",
+     "D": "The events are neither independent nor mutually exclusive."
+    },
+    "answer": "B",
+    "hints": [
+     "An intersection probability is given.",
+     "Compare it with the product of the two event probabilities.",
+     "Compute $0.20\\times0.50$ and compare it with $0.10$."
+    ],
+    "explanation": "$P(A)P(B)=0.20\\times0.50=0.10=P(A\\cap B)$, so the events are independent.",
+    "shortcut_use": "Use the product test."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Given $P(A)=0.30$, $P(B)=0.40$ and $P(A\\cap B)=0$, which statement is correct?",
+    "options": {
+     "A": "The events are independent only.",
+     "B": "The events are both independent and mutually exclusive.",
+     "C": "The events are neither independent nor mutually exclusive.",
+     "D": "The events are mutually exclusive but not independent."
+    },
+    "answer": "D",
+    "hints": [
+     "A zero intersection has a direct meaning.",
+     "Test independence separately using the product.",
+     "Compare $0.30\\times0.40$ with $0$."
+    ],
+    "explanation": "The zero intersection makes the events mutually exclusive; $0.30\\times0.40=0.12\\ne0$, so they are not independent.",
+    "shortcut_use": "Distinguish zero intersection from the product test."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What equality tests independence?",
+    "a": "$P(A\\cap B)=P(A)P(B)$."
+   },
+   {
+    "q": "What is the intersection probability for mutually exclusive events?",
+    "a": "$P(A\\cap B)=0$."
+   }
+  ]
+ },
+ "SEM-S1-tree-diagrams": {
+  "id": "SEM-S1-tree-diagrams",
+  "hook": "Listing outcomes becomes slow, and keeping the original denominator after a draw without replacement gives wrong probabilities.",
+  "when": "A sequence of draws or choices has several routes to the required outcome.",
+  "idea": "Multiply probabilities along each route, then add the probabilities of distinct routes.",
+  "why": "The multiplication rule gives a route probability, and distinct routes are disjoint. Without replacement, later branch probabilities must use the remaining contents.",
+  "steps": [
+   "Identify every route to the event.",
+   "Update branch probabilities after each draw if there is no replacement.",
+   "Multiply along each route.",
+   "Add the route probabilities."
+  ],
+  "worked": {
+   "question": "A bag contains $3$ red and $2$ blue counters. Two are drawn without replacement. Find the probability of one red and one blue.",
+   "long": "Count ordered draws: $3\\times2+2\\times3=12$ favourable pairs from $5\\times4=20$, giving $12/20=0.6$.",
+   "short": "The routes are red then blue and blue then red: $(3/5)(2/4)+(2/5)(3/4)=0.6$.",
+   "saving": "The two routes show exactly where the changing denominator is used."
+  },
+  "pitfalls": [
+   "Adding probabilities along a single route.",
+   "Using the original total for the second draw without replacement.",
+   "Counting only one order when either order qualifies."
+  ],
+  "check": "All complete route probabilities together must sum to $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A bag contains $4$ red and $1$ blue counter. Two are drawn without replacement. Find the probability of one of each. Give an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.4",
+    "hints": [
+     "Either colour can come first.",
+     "Multiply along both qualifying routes, using $4$ counters on the second draw.",
+     "Add $(4/5)(1/4)$ and $(1/5)(4/4)$."
+    ],
+    "explanation": "Red then blue has probability $(4/5)(1/4)=0.2$; blue then red has probability $(1/5)(4/4)=0.2$. Adding gives $0.4$.",
+    "shortcut_use": "Multiply along routes and add across them."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A bag contains $2$ red and $3$ blue counters. Two are drawn without replacement. Find the probability that both have the same colour. Give an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.4",
+    "hints": [
+     "There are two qualifying same-colour routes.",
+     "Multiply along each route with an updated second draw.",
+     "Add $(2/5)(1/4)$ and $(3/5)(2/4)$."
+    ],
+    "explanation": "Both red has probability $0.1$ and both blue has probability $0.3$; add the routes to get $0.4$.",
+    "shortcut_use": "Add the probabilities of the two routes."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What do you do along a route and across routes?",
+    "a": "Multiply along a route and add distinct routes."
+   },
+   {
+    "q": "What changes after a draw without replacement?",
+    "a": "The remaining count and total determine the next branch probability."
+   }
+  ]
+ },
+ "SEM-S1-transformations": {
+  "id": "SEM-S1-transformations",
+  "hook": "Building a new distribution for every scaled or shifted value repeats work.",
+  "when": "A new variable is defined as $Y=aX+b$ and moments of $X$ are known.",
+  "idea": "Use $E(Y)=aE(X)+b$, $\\mathrm{Var}(Y)=a^2\\mathrm{Var}(X)$ and $\\mathrm{sd}(Y)=|a|\\mathrm{sd}(X)$.",
+  "why": "For any random variable with finite variance, adding $b$ shifts every value equally, while multiplying by $a$ multiplies every deviation from the mean by $a$.",
+  "steps": [
+   "Identify $a$ and $b$.",
+   "Apply $aE(X)+b$ for the mean.",
+   "Apply $a^2\\mathrm{Var}(X)$ for variance.",
+   "Use $|a|$ if standard deviation is requested."
+  ],
+  "worked": {
+   "question": "Given $E(X)=4$ and $\\mathrm{Var}(X)=9$, find the mean and variance of $Y=2X+5$.",
+   "long": "From $E(Y)=E(2X+5)$, expand the mean to $2(4)+5=13$. Deviations of $Y$ are twice those of $X$, so its variance is $4(9)=36$.",
+   "short": "Apply the rules directly: $E(Y)=2(4)+5=13$ and $\\mathrm{Var}(Y)=2^2(9)=36$.",
+   "saving": "No new distribution or squared-deviation table is needed."
+  },
+  "pitfalls": [
+   "Adding $b$ to the variance.",
+   "Multiplying variance by $a$ instead of $a^2$.",
+   "Giving a negative standard deviation when $a<0$."
+  ],
+  "check": "A pure shift, with $a=1$, must leave variance unchanged.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Given $\\mathrm{Var}(X)=4$, find $\\mathrm{Var}(3X-7)$. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "36",
+    "hints": [
+     "The expression scales and shifts $X$.",
+     "Only the scale affects variance.",
+     "Compute $3^2\\mathrm{Var}(X)$."
+    ],
+    "explanation": "$\\mathrm{Var}(3X-7)=3^2(4)=36$.",
+    "shortcut_use": "Drop the shift and square the scale."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Given $\\mathrm{sd}(X)=5$, find $\\mathrm{sd}(-2X+4)$. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "A standard deviation cannot be negative.",
+     "Use the magnitude of the multiplier; the shift has no effect.",
+     "Compute $|-2|\\mathrm{sd}(X)$."
+    ],
+    "explanation": "$\\mathrm{sd}(-2X+4)=|-2|(5)=10$.",
+    "shortcut_use": "Scale standard deviation by $|a|$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How does $aX+b$ change variance?",
+    "a": "$\\mathrm{Var}(aX+b)=a^2\\mathrm{Var}(X)$."
+   },
+   {
+    "q": "How does $aX+b$ change standard deviation?",
+    "a": "It multiplies standard deviation by $|a|$."
+   }
+  ]
+ },
+ "SEM-S1-inverse-given-probability": {
+  "id": "SEM-S1-inverse-given-probability",
+  "hook": "An inverse normal calculation can produce a plausible magnitude with the wrong sign.",
+  "when": "A normal variable has a stated probability below a cutoff, such as $P(X<a)=p$.",
+  "idea": "For $P(X<a)=p$, the standardised cutoff is positive if $p>0.5$ and negative if $p<0.5$. Use $a=\\mu+z\\sigma$.",
+  "why": "A normal distribution is symmetric about its mean, with half its probability on each side. This sign rule requires a normal variable and $\\sigma>0$.",
+  "steps": [
+   "Compare $p$ with $0.5$ to set the sign.",
+   "Find the standard normal cutoff $z$ for left-tail probability $p$.",
+   "Calculate $a=\\mu+z\\sigma$."
+  ],
+  "worked": {
+   "question": "Let $X$ be normal with mean $50$ and standard deviation $10$. Given $P(X<a)=0.975$, find $a$ to $1$ decimal place. Use the standard normal cutoff $z=1.9600$ for a $2.5\\%$ upper tail.",
+   "long": "Recognise that $0.975$ below leaves $0.025$ above, then convert the standard normal cutoff: $a=50+1.9600(10)=69.6$.",
+   "short": "Since $0.975>0.5$, take positive $z=1.9600$; $a=50+1.9600(10)=69.6$.",
+   "saving": "The probability check fixes the sign before calculation."
+  },
+  "pitfalls": [
+   "Using a negative $z$ when the left-tail probability exceeds $0.5$.",
+   "Treating standard deviation as variance in $a=\\mu+z\\sigma$."
+  ],
+  "check": "If $p>0.5$, the cutoff must exceed the mean; if $p<0.5$, it must be below.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Let $X$ be normal with mean $100$ and standard deviation $20$. Given $P(X<a)=0.95$, find $a$ to $2$ decimal places. Use $z=1.6449$ for a $5\\%$ upper tail.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "132.90",
+    "hints": [
+     "The left-tail probability exceeds $0.5$.",
+     "Use a positive standard normal cutoff.",
+     "Calculate $100+1.6449(20)$."
+    ],
+    "explanation": "The cutoff is above the mean: $a=100+1.6449(20)=132.898\\approx132.90$.",
+    "shortcut_use": "Set the cutoff sign from the probability."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Let $X$ be normal with mean $40$ and standard deviation $8$. Given $P(X<a)=0.10$, find $a$ to $2$ decimal places. Use $z=1.2816$ for a $10\\%$ upper tail.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "29.75",
+    "hints": [
+     "The left-tail probability is below $0.5$.",
+     "Use the negative of the supplied upper-tail cutoff.",
+     "Calculate $40-1.2816(8)$."
+    ],
+    "explanation": "The cutoff is below the mean: $a=40-1.2816(8)=29.7472\\approx29.75$.",
+    "shortcut_use": "Negate the upper-tail cutoff for a lower-tail probability."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the sign of $z$ if $P(X<a)>0.5$?",
+    "a": "The standardised cutoff $z$ is positive."
+   },
+   {
+    "q": "How do you recover a normal cutoff from $z$?",
+    "a": "Use $a=\\mu+z\\sigma$."
+   }
+  ]
+ },
+ "SEM-S1-standardise": {
+  "id": "SEM-S1-standardise",
+  "hook": "Reading a standard normal table against the original units gives the wrong tail area.",
+  "when": "A normally distributed variable has a cutoff, mean and standard deviation, and you need a probability.",
+  "idea": "Convert the cutoff using $z=\\frac{x-\\mu}{\\sigma}$, then find the required standard normal area.",
+  "why": "Subtracting the mean centres a normal variable and dividing by its positive standard deviation gives $Z\\sim N(0,1)$. This requires $X$ to be normal and $\\sigma>0$.",
+  "steps": [
+   "Mark whether the cutoff is above or below the mean.",
+   "Calculate $z=\\frac{x-\\mu}{\\sigma}$.",
+   "Read the standard normal area for the stated side of the cutoff."
+  ],
+  "worked": {
+   "question": "Let $X$ be normal with mean $50$ and standard deviation $10$. Find $P(X<60)$ to $4$ decimal places. Use $P(Z<1)=0.8413$.",
+   "long": "Shift the cutoff by the mean to get $10$, divide by the standard deviation to get $1$, then read the left-tail area $0.8413$.",
+   "short": "$z=(60-50)/10=1$, so $P(X<60)=P(Z<1)=0.8413$.",
+   "saving": "Standardising turns the question into one standard normal lookup."
+  },
+  "pitfalls": [
+   "Dividing by the variance instead of the standard deviation.",
+   "Reading the lower-tail area when the question asks for the upper tail."
+  ],
+  "check": "A cutoff above the mean must have positive $z$ and a lower-tail probability above $0.5$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Let $X$ be normal with mean $20$ and standard deviation $5$. Find $P(X<25)$ to $4$ decimal places. Use $P(Z<1)=0.8413$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.8413",
+    "hints": [
+     "The cutoff is above the mean.",
+     "Standardise the cutoff before using the given area.",
+     "Calculate $z=(25-20)/5$ and use the stated left-tail probability."
+    ],
+    "explanation": "$z=(25-20)/5=1$, so $P(X<25)=P(Z<1)=0.8413$.",
+    "shortcut_use": "Convert the cutoff to $z$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Let $X$ be normal with mean $80$ and standard deviation $10$. Find $P(X>70)$ to $4$ decimal places. Use $P(Z<1)=0.8413$ and normal symmetry.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.8413",
+    "hints": [
+     "The cutoff is below the mean, but the question asks for the area above it.",
+     "Standardise and use symmetry.",
+     "Calculate $z=(70-80)/10$, then match $P(Z>z)$ to the given positive-cutoff area."
+    ],
+    "explanation": "$z=(70-80)/10=-1$. By symmetry, $P(X>70)=P(Z>-1)=P(Z<1)=0.8413$.",
+    "shortcut_use": "Standardise, then use symmetry for the required tail."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you standardise a normal value?",
+    "a": "Use $z=\\frac{x-\\mu}{\\sigma}$."
+   },
+   {
+    "q": "What distribution does the standardised variable have?",
+    "a": "$Z\\sim N(0,1)$ when $X$ is normal and $\\sigma>0$."
+   }
+  ]
+ },
+ "SEM-S1-distribution-table-checks": {
+  "id": "SEM-S1-distribution-table-checks",
+  "hook": "An unknown probability can hold up the rest of a distribution question. Find it before calculating with the table.",
+  "when": "A discrete distribution lists probabilities containing an unknown such as $k$.",
+  "idea": "Add every probability and set the total equal to $1$.",
+  "why": "For a valid distribution whose listed outcomes are exhaustive and mutually exclusive, their probabilities sum to $1$.",
+  "steps": [
+   "Add the known probabilities.",
+   "Collect the terms containing the unknown.",
+   "Set the total equal to $1$ and solve.",
+   "Check that every probability lies between $0$ and $1$."
+  ],
+  "worked": {
+   "question": "A discrete random variable takes values $0$, $1$, $2$ and $3$ with respective probabilities $0.2$, $k$, $0.3$ and $2k$. Find $k$.",
+   "long": "Treat $2k$ as the remaining probability: $2k=1-(0.2+k+0.3)$. Solving gives $k=\\frac{1}{6}$.",
+   "short": "Add the entries at once: $0.2+k+0.3+2k=1$, so $3k=0.5$ and $k=\\frac{1}{6}$.",
+   "saving": "Collecting the unknown terms at once avoids treating a probability containing $k$ as known."
+  },
+  "pitfalls": [
+   "Leaving out one outcome when adding the probabilities.",
+   "Setting the total equal to $100$ when the entries are decimals rather than percentages.",
+   "Using a solution that makes a probability negative."
+  ],
+  "check": "Substitute $k$ back into the table: the probabilities must add to $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A discrete random variable has three possible values with respective probabilities $k$, $2k$ and $0.4$. Find $k$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$0.2$",
+    "hints": [
+     "The three values cover every possible outcome.",
+     "Set the sum of their probabilities equal to $1$.",
+     "Start with $k+2k+0.4=1$, then collect the terms in $k$."
+    ],
+    "explanation": "The probabilities sum to $1$, so $3k+0.4=1$. Hence $3k=0.6$ and $k=0.2$.",
+    "shortcut_use": "Sum the probabilities before using the distribution."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A discrete random variable takes four possible values with respective probabilities $0.10$, $k$, $0.20$ and $3k$. What is $k$?",
+    "options": {
+     "A": "$0.700$",
+     "B": "$0.175$",
+     "C": "$0.233$",
+     "D": "$0.125$"
+    },
+    "answer": "B",
+    "hints": [
+     "These are all the possible outcomes.",
+     "Add the constant probabilities and collect the terms in $k$.",
+     "Use $0.10+k+0.20+3k=1$."
+    ],
+    "explanation": "The total is $0.30+4k=1$, so $4k=0.70$ and $k=0.175$.",
+    "shortcut_use": "Set the full probability total to $1$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What must the probabilities in a complete discrete distribution sum to?",
+    "a": "$1$."
+   },
+   {
+    "q": "What should you do first when a distribution table contains $k$?",
+    "a": "Add all its probabilities, set the sum equal to $1$, and solve for $k$."
+   }
+  ]
+ },
+ "SEM-S1-entry": {
+  "id": "SEM-S1-entry",
+  "hook": "Computing every squared deviation separately takes several lines and makes arithmetic slips easy.",
+  "when": "A discrete distribution gives values $x$ and probabilities $p$, and asks for the variance.",
+  "idea": "Calculate $E(X)=\\sum xp$ and $E(X^2)=\\sum x^2p$, then use $\\mathrm{Var}(X)=E(X^2)-[E(X)]^2$.",
+  "why": "For any valid discrete distribution with a finite second moment, expanding the squared deviations gives this identity. Variance cannot be negative because squared deviations are nonnegative.",
+  "steps": [
+   "Multiply each $x$ by its probability and add to find $E(X)$.",
+   "Multiply each $x^2$ by its probability and add to find $E(X^2)$.",
+   "Subtract $[E(X)]^2$ from $E(X^2)$.",
+   "Check that the result is nonnegative."
+  ],
+  "worked": {
+   "question": "A discrete random variable takes values $0$, $1$ and $2$ with respective probabilities $0.2$, $0.5$ and $0.3$. Find its variance.",
+   "long": "The mean is $1.1$. Sum the squared deviations: $0.2(0-1.1)^2+0.5(1-1.1)^2+0.3(2-1.1)^2=0.49$.",
+   "short": "$E(X)=1.1$ and $E(X^2)=1.7$, so $\\mathrm{Var}(X)=1.7-1.1^2=0.49$.",
+   "saving": "Two moment sums replace a separate squared deviation for every value."
+  },
+  "pitfalls": [
+   "Calculating $E(X^2)$ by squaring $E(X)$ instead of squaring each value before weighting it.",
+   "Subtracting $E(X^2)$ from $[E(X)]^2$, which can produce a negative result.",
+   "Forgetting to square a negative value of $x$ when finding $E(X^2)$."
+  ],
+  "check": "The variance must be at least $0$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A discrete random variable takes values $-1$, $0$ and $2$ with respective probabilities $0.25$, $0.50$ and $0.25$. Find its variance to $3$ significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$1.19$",
+    "hints": [
+     "The negative value contributes positively when squared.",
+     "Find $E(X)$ and $E(X^2)$ separately.",
+     "Start with $E(X)=(-1)(0.25)+0(0.50)+2(0.25)$ and $E(X^2)=(-1)^2(0.25)+0^2(0.50)+2^2(0.25)$."
+    ],
+    "explanation": "$E(X)=0.25$ and $E(X^2)=1.25$. Thus $\\mathrm{Var}(X)=1.25-(0.25)^2=1.1875$, which is $1.19$ to $3$ significant figures.",
+    "shortcut_use": "Use the two moments to obtain the variance."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A discrete random variable takes values $0$, $1$ and $4$ with respective probabilities $0.25$, $0.50$ and $0.25$. What is its variance?",
+    "options": {
+     "A": "$-2.25$",
+     "B": "$4.50$",
+     "C": "$2.25$",
+     "D": "$1.50$"
+    },
+    "answer": "C",
+    "hints": [
+     "Variance comes from both the mean and the mean of the squares.",
+     "Subtract the square of $E(X)$ from $E(X^2)$.",
+     "Set up $E(X)=0(0.25)+1(0.50)+4(0.25)$ and $E(X^2)=0^2(0.25)+1^2(0.50)+4^2(0.25)$."
+    ],
+    "explanation": "$E(X)=1.50$ and $E(X^2)=4.50$. Therefore $\\mathrm{Var}(X)=4.50-(1.50)^2=2.25$.",
+    "shortcut_use": "Subtract the squared mean from the second moment."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you find $E(X^2)$ from a discrete distribution?",
+    "a": "Square each value, multiply by its probability, and add."
+   },
+   {
+    "q": "What is the moment formula for variance?",
+    "a": "$\\mathrm{Var}(X)=E(X^2)-[E(X)]^2$."
+   },
+   {
+    "q": "What does a negative calculated variance signal?",
+    "a": "An arithmetic or subtraction error, because variance cannot be negative."
+   }
+  ]
+ },
+ "SEM-S1-symmetry": {
+  "id": "SEM-S1-symmetry",
+  "hook": "Negative normal scores and two tails can lead to repeated table lookups and missed complements.",
+  "when": "A normal probability involves a negative standardised score, an upper tail, a symmetric interval or two endpoints.",
+  "idea": "For a standard normal variable, $\\Phi(-z)=1-\\Phi(z)$, $P(Z>z)=1-\\Phi(z)$ and, for $z\\ge0$, $P(|Z|<z)=2\\Phi(z)-1$. For a normal variable $X$, $P(a<X<b)=\\Phi(z_b)-\\Phi(z_a)$.",
+  "why": "The standard normal density is symmetric about zero, and total probability is $1$. These identities hold for a continuous normal distribution; the symmetric-interval form requires $z\\ge0$.",
+  "steps": [
+   "Standardise any $X$ values.",
+   "Use symmetry to turn negative scores positive.",
+   "Take complements for upper tails.",
+   "Subtract endpoint probabilities for intervals."
+  ],
+  "worked": {
+   "question": "For a standard normal variable $Z$, find $P(|Z|<1.00)$, given $\\Phi(1.00)=0.8413$.",
+   "long": "Find both endpoints: $\\Phi(1.00)-\\Phi(-1.00)=0.8413-0.1587=0.6826$.",
+   "short": "$2\\Phi(1.00)-1=2(0.8413)-1=0.6826$.",
+   "saving": "One table value replaces two endpoint lookups."
+  },
+  "pitfalls": [
+   "Using $1-\\Phi(z)$ for a lower tail.",
+   "Using $2\\Phi(z)-1$ when $z$ is negative."
+  ],
+  "check": "A symmetric probability must lie between $0$ and $1$ and increase as the positive endpoint grows.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For a standard normal variable $Z$, find $P(Z<-1.20)$ to 4 decimal places, given $\\Phi(1.20)=0.8849$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.1151",
+    "hints": [
+     "The score is negative.",
+     "Use symmetry about zero.",
+     "Set up $\\Phi(-1.20)=1-\\Phi(1.20)$."
+    ],
+    "explanation": "$P(Z<-1.20)=\\Phi(-1.20)=1-0.8849=0.1151$.",
+    "shortcut_use": "Reflect the negative score."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For a standard normal variable $Z$, find $P(|Z|<0.50)$ to 4 decimal places, given $\\Phi(0.50)=0.6915$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.3830",
+    "hints": [
+     "The interval is symmetric about zero.",
+     "Use the symmetric-interval identity.",
+     "Set up $2\\Phi(0.50)-1$."
+    ],
+    "explanation": "$P(|Z|<0.50)=2(0.6915)-1=0.3830$.",
+    "shortcut_use": "Double one endpoint probability."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you turn $\\Phi(-z)$ into a positive-score lookup?",
+    "a": "Use $\\Phi(-z)=1-\\Phi(z)$."
+   },
+   {
+    "q": "What is $P(|Z|<z)$ for $z\\ge0$?",
+    "a": "It is $2\\Phi(z)-1$."
+   }
+  ]
+ },
+ "SEM-S1-two-unknowns": {
+  "id": "SEM-S1-two-unknowns",
+  "hook": "Solving separately for an unknown mean and standard deviation creates unnecessary algebra and sign errors.",
+  "when": "Two normal probabilities give two known values of $x$ but both $\\mu$ and $\\sigma$ are unknown.",
+  "idea": "Convert the probabilities to signed scores $z_1,z_2$, then use $\\sigma=\\frac{x_2-x_1}{z_2-z_1}$ and $\\mu=x_1-\\sigma z_1$.",
+  "why": "For a normal variable with $\\sigma>0$, standardisation gives $x_i=\\mu+\\sigma z_i$. Subtracting these two linear equations removes $\\mu$; the scores must be distinct.",
+  "steps": [
+   "Find each signed standard normal score.",
+   "Match each score to its $x$ value.",
+   "Subtract to find $\\sigma$.",
+   "Substitute into either equation to find $\\mu$."
+  ],
+  "worked": {
+   "question": "A normal variable $X$ satisfies $P(X<40)=0.1587$ and $P(X<60)=0.8413$. Given $\\Phi(1.00)=0.8413$, find $\\mu$ and $\\sigma$.",
+   "long": "Write $40=\\mu-\\sigma$ and $60=\\mu+\\sigma$; solve the simultaneous equations to get $\\mu=50$ and $\\sigma=10$.",
+   "short": "The scores are $-1$ and $1$, so $\\sigma=\\frac{60-40}{1-(-1)}=10$ and $\\mu=40-10(-1)=50$.",
+   "saving": "Subtracting immediately eliminates the mean."
+  },
+  "pitfalls": [
+   "Giving a below-mean quantile a positive score.",
+   "Reversing only one of the two subtraction orders.",
+   "Accepting a negative value for $\\sigma$."
+  ],
+  "check": "Substitution should reproduce both stated probabilities, with $\\sigma>0$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A normal variable satisfies $P(X<12)=0.1587$ and $P(X<20)=0.8413$. Given $\\Phi(1.00)=0.8413$, find $\\sigma$ to the nearest whole unit.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "The probabilities lie on opposite sides of $0.5$.",
+     "Assign the signed scores before subtracting.",
+     "Use $z_1=-1$, $z_2=1$ in $\\sigma=\\frac{x_2-x_1}{z_2-z_1}$."
+    ],
+    "explanation": "$\\sigma=\\frac{20-12}{1-(-1)}=4$.",
+    "shortcut_use": "Subtract the two standardised equations."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A normal variable satisfies $P(X<14)=0.0228$ and $P(X<26)=0.9772$. Given $\\Phi(2.00)=0.9772$, find $\\mu$ to the nearest whole unit.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "20",
+    "hints": [
+     "The two probabilities correspond to symmetric scores.",
+     "Find $\\sigma$ from their difference.",
+     "Use $z_1=-2$, $z_2=2$, then $\\mu=x_1-\\sigma z_1$."
+    ],
+    "explanation": "$\\sigma=\\frac{26-14}{2-(-2)}=3$, so $\\mu=14-3(-2)=20$.",
+    "shortcut_use": "Eliminate $\\mu$ by subtraction."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What formula finds $\\sigma$ from two matched values and scores?",
+    "a": "$\\sigma=\\frac{x_2-x_1}{z_2-z_1}$."
+   },
+   {
+    "q": "What sign must $\\sigma$ have?",
+    "a": "$\\sigma$ must be positive."
+   }
+  ]
+ },
+ "SEM-S1-combining-two-groups": {
+  "id": "SEM-S1-combining-two-groups",
+  "hook": "Averaging two group means or variances directly ignores group size and the distance between their means.",
+  "when": "Two groups have known sizes, means and variances, and the question asks for a combined summary.",
+  "idea": "Use $\\bar x=\\frac{n_1\\bar x_1+n_2\\bar x_2}{n_1+n_2}$. For variance, add each $n_i(\\sigma_i^2+\\bar x_i^2)$, divide by total size and subtract $\\bar x^2$.",
+  "why": "The sums $\\sum x$ and $\\sum x^2$ add across groups. This holds when the stated variances use $\\sigma_i^2=\\frac{\\sum x^2}{n_i}-\\bar x_i^2$ for the same observations.",
+  "steps": [
+   "Multiply each mean by its group size and find the combined mean.",
+   "Convert each variance to a group $\\sum x^2$.",
+   "Add the two squared sums.",
+   "Divide by total size and subtract the combined mean squared."
+  ],
+  "worked": {
+   "question": "A group of $2$ observations has mean $2$ and variance $1$; a group of $2$ has mean $6$ and variance $1$. Find the combined mean and variance, using variance divided by group size.",
+   "long": "The groups can be $1,3$ and $5,7$. Their combined mean is $4$ and their squared deviations sum to $20$, so the variance is $20/4=5$.",
+   "short": "$\\bar x=\\frac{2(2)+2(6)}4=4$. The total $\\sum x^2=2(1+2^2)+2(1+6^2)=84$, so variance $=84/4-4^2=5$.",
+   "saving": "There is no need to reconstruct individual observations."
+  },
+  "pitfalls": [
+   "Averaging the two variances and missing variation between the means.",
+   "Using an $n-1$ sample variance in the $n(\\sigma^2+\\bar x^2)$ formula."
+  ],
+  "check": "The combined mean must lie between the two group means.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A group of $3$ values has mean $4$; a group of $2$ has mean $9$. Find the combined mean to 1 decimal place.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6.0",
+    "hints": [
+     "The groups have different sizes.",
+     "Weight each mean by its size.",
+     "Set up $\\frac{3(4)+2(9)}{3+2}$."
+    ],
+    "explanation": "$\\bar x=\\frac{3(4)+2(9)}5=6.0$.",
+    "shortcut_use": "Add the two group totals."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Two groups each contain $2$ values. Their means are $3$ and $7$, and both variances are $1$, where variance is divided by group size. Find the combined variance to the nearest whole unit.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "The group means differ.",
+     "Recover each group $\\sum x^2$.",
+     "Use total $\\sum x^2=2(1+3^2)+2(1+7^2)$ and combined mean $\\frac{2(3)+2(7)}4$."
+    ],
+    "explanation": "The combined mean is $5$ and total $\\sum x^2=120$, so variance $=120/4-5^2=5$.",
+    "shortcut_use": "Combine squared sums before subtracting the new mean squared."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you recover a group's $\\sum x^2$ from its mean and variance?",
+    "a": "Use $\\sum x^2=n(\\sigma^2+\\bar x^2)$ when variance is divided by $n$."
+   },
+   {
+    "q": "Why can the combined variance exceed both group variances?",
+    "a": "The group means may differ, adding variation to the combined data."
+   }
+  ]
+ },
+ "SEM-S1-grouped-data": {
+  "id": "SEM-S1-grouped-data",
+  "hook": "Grouped values are unknown within their classes, so using labels as exact data or interpolating from the wrong boundary gives a false result.",
+  "when": "A frequency table gives intervals rather than individual observations.",
+  "idea": "Use class midpoints for an estimated mean or variance. For a grouped median or quartile, use $Q=L+\\frac{\\mathrm{position}-C}{f}\\times w$, where $C$ is cumulative frequency before the class and $L,w$ are its boundaries and width.",
+  "why": "Midpoints stand in for unknown observations. Interpolation assumes observations are spread uniformly within the chosen class; the result is an estimate, with positions $n/2$, $n/4$ and $3n/4$ as appropriate.",
+  "steps": [
+   "Find total frequency and the target position.",
+   "Locate the class containing that position.",
+   "Read its lower boundary, width, frequency and preceding cumulative frequency.",
+   "Substitute into the interpolation formula."
+  ],
+  "worked": {
+   "question": "Measured lengths rounded to the nearest cm have frequencies $4$ in the class labelled $0$–$9$ cm, $8$ in $10$–$19$ cm and $8$ in $20$–$29$ cm. Estimate the median in cm.",
+   "long": "The $10$th value is in the second class. It lies $6/8$ of the way across the boundary interval $9.5$ to $19.5$, giving $17$ cm.",
+   "short": "$n/2=10$, $L=9.5$, $C=4$, $f=8$, $w=10$, so median $=9.5+\\frac{10-4}{8}\\times10=17$ cm.",
+   "saving": "The position formula identifies the correct fraction of the class width."
+  },
+  "pitfalls": [
+   "Treating the class label $10$ as its lower boundary when values were rounded to the nearest cm.",
+   "Reporting a grouped estimate as an exact median."
+  ],
+  "check": "The interpolated value must lie inside the selected class boundaries.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Integer measurements rounded to the nearest unit have frequencies $2$ in the class labelled $0$–$9$, $6$ in $10$–$19$ and $4$ in $20$–$29$. Estimate the median to 1 decimal place.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "16.2",
+    "hints": [
+     "The data are grouped and the median position is $n/2$.",
+     "Use the second class and its lower boundary.",
+     "Set up $9.5+\\frac{6-2}{6}\\times10$."
+    ],
+    "explanation": "$n=12$, so the median position is $6$; interpolation gives $9.5+\\frac{6-2}{6}\\times10=16.166\\ldots\\approx16.2$.",
+    "shortcut_use": "Interpolate from the class boundary."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A grouped distribution has $4$ values in $0\\le x<10$ and $8$ values in $10\\le x<20$. Estimate the mean to 1 decimal place using class midpoints.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "11.7",
+    "hints": [
+     "Only class intervals are known.",
+     "Replace each class by its midpoint.",
+     "Set up $\\frac{4(5)+8(15)}{4+8}$."
+    ],
+    "explanation": "Using midpoints, the estimated mean is $\\frac{4(5)+8(15)}{12}=11.666\\ldots\\approx11.7$.",
+    "shortcut_use": "Weight the class midpoints by frequency."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What value represents a class when estimating the grouped mean?",
+    "a": "Use the class midpoint."
+   },
+   {
+    "q": "What assumption makes interpolation within a class possible?",
+    "a": "Values are assumed to be spread uniformly through that class."
+   }
+  ]
+ },
+ "SEM-S1-outliers": {
+  "id": "SEM-S1-outliers",
+  "hook": "Calling a value an outlier by eye can disagree with the rule in the question.",
+  "when": "A question gives quartiles or states a mean-and-standard-deviation outlier rule.",
+  "idea": "For the $1.5\\mathrm{IQR}$ rule, calculate $Q_1-1.5\\mathrm{IQR}$ and $Q_3+1.5\\mathrm{IQR}$, where $\\mathrm{IQR}=Q_3-Q_1$. If a rule using $\\bar x\\pm k\\sigma$ is given, use its stated $k$ instead.",
+  "why": "The limits come directly from the chosen rule. A value is an outlier only if it is strictly below the lower limit or strictly above the upper limit; this classification depends on the rule specified.",
+  "steps": [
+   "Identify the stated rule.",
+   "Calculate its two numerical limits.",
+   "Compare each candidate strictly with those limits.",
+   "State the rule and limits with the conclusion."
+  ],
+  "worked": {
+   "question": "A data set has $Q_1=10$ and $Q_3=18$. Under the $1.5\\mathrm{IQR}$ rule, is $31$ an outlier?",
+   "long": "The middle half spans $8$ units, so $1.5$ times that span is $12$; the upper cut-off is $18+12=30$. Since $31>30$, it is an outlier.",
+   "short": "$\\mathrm{IQR}=18-10=8$; the limits are $10-1.5(8)=-2$ and $18+1.5(8)=30$. Since $31>30$, yes.",
+   "saving": "Writing both limits makes the comparison and the chosen rule clear."
+  },
+  "pitfalls": [
+   "Using $Q_3-Q_1$ itself as the upper cut-off.",
+   "Calling a value exactly on a limit an outlier.",
+   "Using $1.5\\mathrm{IQR}$ when the question states a different rule."
+  ],
+  "check": "The lower limit should be below $Q_1$ and the upper limit above $Q_3$.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "A data set has $Q_1=12$ and $Q_3=20$. Under the $1.5\\mathrm{IQR}$ rule, which value is an outlier?",
+    "options": {
+     "A": "$32$",
+     "B": "$33$",
+     "C": "$20$",
+     "D": "$12$"
+    },
+    "answer": "B",
+    "hints": [
+     "Use the quartile-based rule.",
+     "Calculate the IQR and upper limit.",
+     "Compare each value with $20+1.5(20-12)$ using a strict inequality."
+    ],
+    "explanation": "$\\mathrm{IQR}=8$ and the upper limit is $32$. Only $33>32$, so the answer is $33$.",
+    "shortcut_use": "Test against the numerical upper limit."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A question defines outliers as values beyond $\\bar x\\pm2\\sigma$. If $\\bar x=50$ and $\\sigma=5$, which value is an outlier?",
+    "options": {
+     "A": "$40$",
+     "B": "$50$",
+     "C": "$59$",
+     "D": "$61$"
+    },
+    "answer": "D",
+    "hints": [
+     "The question states the rule to use.",
+     "Find both mean-based limits.",
+     "Compare values strictly with $50-2(5)$ and $50+2(5)$."
+    ],
+    "explanation": "The limits are $40$ and $60$. Only $61$ lies beyond them, so the answer is $61$.",
+    "shortcut_use": "Use the stated mean-based limits."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What are the $1.5\\mathrm{IQR}$ outlier limits?",
+    "a": "They are $Q_1-1.5\\mathrm{IQR}$ and $Q_3+1.5\\mathrm{IQR}$."
+   },
+   {
+    "q": "Is a value exactly on an outlier limit an outlier under a 'beyond' rule?",
+    "a": "No; it must lie strictly beyond the limit."
+   }
+  ]
+ },
+ "SEM-S1-show-the-rounding-that-proves-a-printed-answer": {
+  "id": "SEM-S1-show-the-rounding-that-proves-a-printed-answer",
+  "hook": "Copying a printed result does not show that your calculation produces it.",
+  "when": "A question asks you to 'show that' a displayed rounded value follows from given data.",
+  "idea": "Write the formula, substitute unrounded values, then show enough digits to make the stated rounding visible.",
+  "why": "Rounding a more precise calculation establishes the printed value if both use the same stated precision and rounding convention. This works when the substituted inputs have not already been rounded enough to change that result.",
+  "steps": [
+   "Write the formula.",
+   "Substitute exact or unrounded given values.",
+   "Calculate at least one extra significant figure.",
+   "Round explicitly to the printed precision."
+  ],
+  "worked": {
+   "question": "A particle travels $7$ m in $3$ s at constant speed. Show that its speed is $2.33$ m s$^{-1}$ to 3 significant figures.",
+   "long": "Divide distance by time, then separately check how the decimal rounds.",
+   "short": "$v=\\frac{7}{3}=2.333\\ldots$ m s$^{-1}$, which rounds to $2.33$ m s$^{-1}$ to 3 significant figures.",
+   "saving": "The extra digit supplies the rounding evidence in the working."
+  },
+  "pitfalls": [
+   "Writing only the printed value after the formula.",
+   "Rounding an intermediate value before the final calculation.",
+   "Claiming a value rounds to a printed result when its next digit says otherwise."
+  ],
+  "check": "Inspect the first discarded digit against the stated precision.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "A calculation gives $\\frac{22}{7}$. Which line demonstrates the printed result $3.14$ to 3 significant figures?",
+    "options": {
+     "A": "$\\frac{22}{7}=3.14$",
+     "B": "$\\frac{22}{7}=3.142857\\ldots\\approx3.14$ to 3 significant figures",
+     "C": "$\\frac{22}{7}=3.15$ to 3 significant figures",
+     "D": "$\\frac{22}{7}\\approx3.1$ to 3 significant figures"
+    },
+    "answer": "B",
+    "hints": [
+     "The question asks for evidence of rounding.",
+     "Show a value with more figures than the printed result.",
+     "Calculate $22\\div7$ before writing the 3-significant-figure result."
+    ],
+    "explanation": "$\\frac{22}{7}=3.142857\\ldots$, whose first discarded digit at 3 significant figures is $2$, so it rounds to $3.14$.",
+    "shortcut_use": "Display the deciding extra digit."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A length is $17$ cm and a time is $6$ s. Calculate length divided by time in cm s$^{-1}$ to 3 significant figures, showing an extra digit in your working.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2.83",
+    "hints": [
+     "The requested precision is 3 significant figures.",
+     "Keep the quotient unrounded before the final step.",
+     "Set up $17\\div6$ and inspect the fourth significant figure."
+    ],
+    "explanation": "$\\frac{17}{6}=2.8333\\ldots$ cm s$^{-1}$, which rounds to $2.83$ cm s$^{-1}$.",
+    "shortcut_use": "Use an extra digit to justify the rounding."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What three things should appear in a numerical 'show that' calculation?",
+    "a": "Show the formula, unrounded substitution and a value precise enough to verify the printed rounding."
+   },
+   {
+    "q": "Which digit decides whether a displayed value rounds up?",
+    "a": "The first digit discarded at the requested precision."
+   }
+  ]
+ },
+ "SEM-S1-interpolation-vs-extrapolation": {
+  "id": "SEM-S1-interpolation-vs-extrapolation",
+  "hook": "A regression calculation can produce a precise-looking prediction at a value the data never covered.",
+  "when": "A fitted line is used to predict a response from a given predictor value.",
+  "idea": "Compare the predictor value with the observed predictor range before commenting on the prediction: inside is interpolation; outside is extrapolation.",
+  "why": "A fitted relationship has direct data support within the observed range. Outside it, the same relationship may fail, so the prediction is less secure. This classification always follows from the range comparison; reliability also depends on how well the model fits.",
+  "steps": [
+   "Find the smallest and largest observed predictor values.",
+   "Compare the requested predictor value with that interval.",
+   "Use the fitted line if a numerical prediction is required.",
+   "State whether it is interpolation or extrapolation and qualify its reliability."
+  ],
+  "worked": {
+   "question": "A line fitted to observations with $2\\le x\\le10$ is $y=3x+1$. Predict $y$ at $x=8$ and comment on the prediction.",
+   "long": "Substitute $8$ to get $25$, then inspect the original data range to judge the prediction.",
+   "short": "$8$ lies within $2\\le x\\le10$, so this is interpolation. The line gives $y=3(8)+1=25$; its reliability still depends on the fit.",
+   "saving": "The range check prevents an unsupported claim about reliability."
+  },
+  "pitfalls": [
+   "Calling a prediction within the range of $y$ interpolation when its $x$ value is outside the observed $x$ range.",
+   "Calling every interpolation reliable without considering the fit.",
+   "Treating a regression line as guaranteed to continue beyond the data."
+  ],
+  "check": "Compare the prediction's $x$ value with both observed $x$ endpoints.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "A line is fitted using observations with $5\\le x\\le15$. A prediction is made at $x=12$. Which comment is justified from the range alone?",
+    "options": {
+     "A": "It is extrapolation and must be wrong.",
+     "B": "It is interpolation, but reliability also depends on the fit.",
+     "C": "It is interpolation and must be exact.",
+     "D": "It is extrapolation because $12$ exceeds $5$."
+    },
+    "answer": "B",
+    "hints": [
+     "Compare the requested $x$ with the observed $x$ interval.",
+     "Name the type of prediction from that comparison.",
+     "Check whether $5\\le12\\le15$, then limit any reliability claim to what the range supports."
+    ],
+    "explanation": "$12$ lies between $5$ and $15$, so the prediction is interpolation; its reliability also depends on how well the line fits.",
+    "shortcut_use": "Classify by the predictor range."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A line fitted using observations with $0\\le x\\le8$ is $y=2x+3$. A prediction is made at $x=10$. Which statement is justified?",
+    "options": {
+     "A": "The prediction is $23$ and is extrapolation.",
+     "B": "The prediction is $23$ and is interpolation.",
+     "C": "The prediction is $20$ and is extrapolation.",
+     "D": "The prediction is $20$ and is interpolation."
+    },
+    "answer": "A",
+    "hints": [
+     "Check the requested predictor against the observed range.",
+     "Then substitute it into the fitted line.",
+     "Compare $10$ with the upper endpoint $8$ and evaluate $2(10)+3$."
+    ],
+    "explanation": "$10>8$, so this is extrapolation. The fitted line gives $y=2(10)+3=23$, but the prediction lies beyond the observed range.",
+    "shortcut_use": "Check the predictor range before interpreting the prediction."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which range determines whether a regression prediction is interpolation?",
+    "a": "The observed range of the predictor variable."
+   },
+   {
+    "q": "Why is a prediction beyond the observed predictor range less secure?",
+    "a": "The fitted relationship may not continue beyond the observed data."
+   }
+  ]
+ },
+ "SEM-S1-coding-and": {
+  "id": "SEM-S1-coding-and",
+  "hook": "Recalculating correlation after coding two variables repeats the whole calculation. A negative multiplier makes it easy to miss a sign change.",
+  "when": "The question gives $r$ or a regression gradient and replaces $x$ and $y$ with coded variables.",
+  "idea": "For $x'=dx+a$ and $y'=cy+b$, $r'=r$ if $c$ and $d$ have the same sign; otherwise $r'=-r$. The regression gradient becomes $\\frac{c}{d}$ times its original value.",
+  "why": "Adding constants does not change deviations from the means. Scaling changes the sign of $r$ only when exactly one variable is reversed. These rules hold when $c$ and $d$ are non-zero and both original variables have non-zero variance.",
+  "steps": [
+   "Identify the multiplier of each variable; ignore added constants.",
+   "For $r$, keep its sign if the multipliers have the same sign, or reverse it if they have opposite signs.",
+   "For a regression gradient, multiply the original gradient by $\\frac{c}{d}$."
+  ],
+  "worked": {
+   "question": "Three pairs are $(1,2)$, $(2,1)$ and $(3,3)$. Find $r$ and the regression gradient of $y'$ on $x'$ when $x'=2x+5$ and $y'=-3y+4$.",
+   "long": "The coded pairs are $(7,-2)$, $(9,1)$ and $(11,-5)$. Their deviation sums are $S_{x'x'}=8$, $S_{y'y'}=18$ and $S_{x'y'}=-6$. Hence $r=\\frac{-6}{\\sqrt{8\\times18}}=-0.5$ and the gradient is $\\frac{-6}{8}=-0.75$.",
+   "short": "For the original pairs, $S_{xx}=2$, $S_{yy}=2$ and $S_{xy}=1$, so $r=0.5$ and the gradient is $0.5$. The multipliers have opposite signs, giving $r'=-0.5$ and gradient $\\frac{-3}{2}\\times0.5=-0.75$.",
+   "saving": "Avoids forming coded pairs and repeating the deviation sums."
+  },
+  "pitfalls": [
+   "Treating an added constant as a multiplier.",
+   "Keeping the sign of $r$ when exactly one multiplier is negative.",
+   "Using $\\frac{d}{c}$ instead of $\\frac{c}{d}$ for the regression gradient."
+  ],
+  "check": "A negative multiplier for exactly one variable must reverse the sign of both $r$ and the regression gradient.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The correlation between $x$ and $y$ is $0.72$. If $x'=4-2x$ and $y'=3y+1$, find the correlation between $x'$ and $y'$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$-0.72$",
+    "hints": [
+     "Look at the multiplier in each coded variable.",
+     "Decide whether exactly one variable is reversed.",
+     "Use the sign of $(-2)(3)$ to decide whether to keep or reverse the given correlation."
+    ],
+    "explanation": "The multipliers $-2$ and $3$ have opposite signs, so reverse the sign of the given correlation: $r'=-0.72$.",
+    "shortcut_use": "Use the signs of the coding multipliers."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The regression gradient of $y$ on $x$ is $1.5$. If $x'=5x+2$ and $y'=-2y+4$, find the regression gradient of $y'$ on $x'$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$-0.6$",
+    "hints": [
+     "The question asks for a regression gradient after coding.",
+     "Use the multiplier of $y$ divided by the multiplier of $x$.",
+     "Multiply the original gradient by $\\frac{-2}{5}$."
+    ],
+    "explanation": "The coded gradient is $\\frac{c}{d}$ times the original gradient, so $\\frac{-2}{5}\\times1.5=-0.6$.",
+    "shortcut_use": "Scale the gradient by $\\frac{c}{d}$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What happens to $r$ when exactly one variable is multiplied by a negative constant?",
+    "a": "Its sign reverses."
+   },
+   {
+    "q": "How does coding $x'=dx+a$ and $y'=cy+b$ change the regression gradient?",
+    "a": "Multiply the original gradient by $\\frac{c}{d}$."
+   },
+   {
+    "q": "What condition is needed to use these coding rules?",
+    "a": "Both variables must have non-zero variance, and both coding multipliers must be non-zero."
+   }
+  ]
+ },
+ "SEM-S1-interpreting-and": {
+  "id": "SEM-S1-interpreting-and",
+  "hook": "A regression equation gives a quick prediction, but the intercept is easy to describe as a real outcome when zero lies outside the setting.",
+  "when": "You are asked to interpret $a$ or $b$ in a fitted line $\\hat y=a+bx$.",
+  "idea": "For each increase of $1$ unit in $x$, predicted $y$ changes by $b$ units. The intercept $a$ predicts $y$ at $x=0$.",
+  "why": "These interpretations follow from $\\hat y=a+bx$. They describe the fitted linear model; the intercept has a useful real-world interpretation only when $x=0$ is in context.",
+  "steps": [
+   "Identify what one unit of $x$ and one unit of $y$ mean.",
+   "State the change in predicted $y$ for one extra unit of $x$.",
+   "Interpret $a$ only after checking whether $x=0$ is in context."
+  ],
+  "worked": {
+   "question": "For students who studied for $0$ to $6$ hours, a fitted line predicts test score $\\hat y=12+3x$, where $x$ is hours studied and $y$ is points scored. Interpret $3$ and $12$.",
+   "long": "Calculate predictions: at $x=0$, $\\hat y=12$; at $x=1$, $\\hat y=15$. The predicted score rises by $3$ points per hour.",
+   "short": "The gradient means $3$ more predicted points per extra hour. The intercept predicts $12$ points at $0$ hours, which is in the stated range.",
+   "saving": "Reading the coefficients avoids repeated predictions and checks whether the intercept is meaningful."
+  },
+  "pitfalls": [
+   "Calling $b$ an exact change for every student rather than a change in the fitted prediction.",
+   "Interpreting $a$ as a realistic outcome when $x=0$ is outside the context."
+  ],
+  "check": "Increase $x$ by $1$ in the equation; $\\hat y$ must change by $b$.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "A fitted line is $\\hat y=40-2x$, where $x$ is distance in km and $y$ is predicted battery percentage. What does the gradient mean?",
+    "options": {
+     "A": "Predicted battery percentage falls by $2$ percentage points per extra km.",
+     "B": "Predicted battery percentage rises by $2$ percentage points per extra km.",
+     "C": "Predicted battery percentage is $2$ at $x=0$.",
+     "D": "Predicted distance falls by $2$ km per percentage point."
+    },
+    "answer": "A",
+    "hints": [
+     "Look at the coefficient of $x$.",
+     "Use its sign to decide the direction of change in predicted $y$.",
+     "Compare $\\hat y$ at $x$ and $x+1$."
+    ],
+    "explanation": "The coefficient of $x$ is $-2$, so one extra km changes predicted battery percentage by $-2$ percentage points. It falls by $2$ percentage points per extra km.",
+    "shortcut_use": "Read the gradient directly."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A fitted line $\\hat y=5+4x$ was obtained for ages $10$ to $18$ years. Which interpretation of the intercept is justified?",
+    "options": {
+     "A": "It is the predicted $y$ at age $0$, but age $0$ lies outside the stated range.",
+     "B": "It is the observed $y$ at age $0$.",
+     "C": "It is the predicted increase in $y$ per year.",
+     "D": "It is the predicted $y$ at age $10$."
+    },
+    "answer": "A",
+    "hints": [
+     "The intercept is the constant term.",
+     "Set $x=0$ to identify its mathematical meaning.",
+     "Compare age $0$ with the stated age range."
+    ],
+    "explanation": "The intercept $5$ is the model's predicted $y$ at $x=0$. Age $0$ is outside the stated range, so that prediction has no supported contextual interpretation.",
+    "shortcut_use": "Check the context before interpreting the intercept."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What does $b$ mean in $\\hat y=a+bx$?",
+    "a": "Predicted $y$ changes by $b$ units for each extra unit of $x$."
+   },
+   {
+    "q": "When is the intercept meaningful in context?",
+    "a": "When $x=0$ is in context."
+   }
+  ]
+ },
+ "SEM-S1-predict-a-change-using-only-the-gradient": {
+  "id": "SEM-S1-predict-a-change-using-only-the-gradient",
+  "hook": "Finding two predicted values introduces unnecessary arithmetic when the question asks only for a change.",
+  "when": "A line $\\hat y=a+bx$ is given and you need the change in $x$ corresponding to a stated change in predicted $y$.",
+  "idea": "Use $\\Delta x=\\frac{\\Delta y}{b}$.",
+  "why": "Subtracting $a+bx_1$ from $a+bx_2$ cancels $a$, leaving $\\Delta y=b\\Delta x$. This holds for the same linear model when $b\\ne0$.",
+  "steps": [
+   "Write the signed change $\\Delta y$.",
+   "Read the signed gradient $b$.",
+   "Calculate $\\Delta x=\\frac{\\Delta y}{b}$ and check its direction and units."
+  ],
+  "worked": {
+   "question": "A fitted line is $\\hat y=10-2x$, where $x$ is time in hours and $y$ is a predicted length in cm. What change in time corresponds to a predicted decrease of $6$ cm?",
+   "long": "At $x=0$, $\\hat y=10$ cm. Solve $10-2x=4$ to get $x=3$ hours, a change of $3$ hours.",
+   "short": "$\\Delta y=-6$ cm and $b=-2$ cm per hour, so $\\Delta x=\\frac{-6}{-2}=3$ hours.",
+   "saving": "The intercept and starting prediction are unnecessary."
+  },
+  "pitfalls": [
+   "Using an unsigned $6$ for a decrease.",
+   "Dividing by the intercept instead of the gradient.",
+   "Applying the formula when $b=0$."
+  ],
+  "check": "Multiply the time change by $b$: it must reproduce the signed change in predicted length.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $\\hat y=7+4x$, what change in $x$ gives an increase of $12$ in predicted $y$? Give the answer as a number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "The question asks for a change, so the intercept cancels.",
+     "Divide the change in predicted $y$ by the gradient.",
+     "Set up $\\Delta x=\\frac{12}{4}$."
+    ],
+    "explanation": "$\\Delta x=\\frac{\\Delta y}{b}=\\frac{12}{4}=3$.",
+    "shortcut_use": "Divide by the gradient without finding either prediction."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A model has $\\hat y=30-2x$. What signed change in $x$ gives an increase of $6$ in predicted $y$? Give the answer as a number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-3",
+    "hints": [
+     "The gradient is negative.",
+     "Keep the increase in predicted $y$ positive.",
+     "Set up $\\Delta x=\\frac{6}{-2}$."
+    ],
+    "explanation": "$\\Delta x=\\frac{6}{-2}=-3$; reducing $x$ raises the predicted $y$ for this line.",
+    "shortcut_use": "Use the signed gradient to get the direction."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you find $\\Delta x$ from $\\Delta y$ in $\\hat y=a+bx$?",
+    "a": "Use $\\Delta x=\\frac{\\Delta y}{b}$ when $b\\ne0$."
+   },
+   {
+    "q": "Why is $a$ absent from the change formula?",
+    "a": "It cancels when the two predicted values are subtracted."
+   }
+  ]
+ },
+ "SEM-S1-the-line-passes-through": {
+  "id": "SEM-S1-the-line-passes-through",
+  "hook": "Reconstructing a data table is unnecessary when a regression equation and one sample mean are given.",
+  "when": "You know the regression line of $y$ on $x$ and either $\\bar x$ or $\\bar y$.",
+  "idea": "Substitute $x=\\bar x$ and $\\hat y=\\bar y$ into the line.",
+  "why": "A least-squares regression line of $y$ on $x$ with an intercept passes through $(\\bar x,\\bar y)$; this holds for that fitted line.",
+  "steps": [
+   "Identify the given mean.",
+   "Substitute it into $\\bar y=a+b\\bar x$.",
+   "Solve for the missing mean and check by substitution."
+  ],
+  "worked": {
+   "question": "The least-squares regression line of $y$ on $x$ is $\\hat y=2+3x$. If $\\bar x=4$, find $\\bar y$.",
+   "long": "The fitted line passes through the means, so solve $\\bar y-3\\bar x=2$ with $\\bar x=4$ to obtain $\\bar y=14$.",
+   "short": "Put $\\bar x=4$ straight into the line: $\\bar y=2+3(4)=14$.",
+   "saving": "No original observations are needed."
+  },
+  "pitfalls": [
+   "Using this property for a line that is not stated to be a least-squares regression line with an intercept.",
+   "Substituting the mean of $y$ for $x$.",
+   "Treating $\\bar y$ as an individual observed value."
+  ],
+  "check": "The point formed from the two means must satisfy the line equation.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The least-squares regression line of $y$ on $x$ is $\\hat y=5+2x$, and $\\bar x=6$. Find $\\bar y$. Give the answer as a number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "17",
+    "hints": [
+     "The regression line passes through the means.",
+     "Set $x=\\bar x$ in the equation.",
+     "Set up $\\bar y=5+2(6)$."
+    ],
+    "explanation": "$\\bar y=5+2\\bar x=5+2(6)=17$.",
+    "shortcut_use": "Substitute the mean directly into the line."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The least-squares regression line of $y$ on $x$ is $\\hat y=20-2x$, and $\\bar y=8$. Find $\\bar x$. Give the answer as a number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "Use the point formed by the two means.",
+     "Set $\\hat y=\\bar y$ and solve for $x$.",
+     "Set up $8=20-2\\bar x$."
+    ],
+    "explanation": "Since $8=20-2\\bar x$, $2\\bar x=12$ and $\\bar x=6$.",
+    "shortcut_use": "Place the means on the regression line."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which point lies on a least-squares regression line with an intercept?",
+    "a": "The point $(\\bar x,\\bar y)$ lies on it."
+   },
+   {
+    "q": "How do you find $\\bar y$ from the line and $\\bar x$?",
+    "a": "Substitute $\\bar x$ into the line equation."
+   }
+  ]
+ },
+ "SEM-S1-check-every-denominator-in-sampling-without-repl": {
+  "id": "SEM-S1-check-every-denominator-in-sampling-without-repl",
+  "hook": "A fixed denominator quietly changes a draw without replacement into one with replacement.",
+  "when": "Objects are drawn in order without replacement, especially when the same type must appear more than once.",
+  "idea": "For $k$ draws from $N$ objects, denominators fall as $N(N-1)\\cdots(N-k+1)$; counts of a required type also fall after each such draw.",
+  "why": "Each draw removes one object, so one fewer object remains for the next draw. This holds when each draw is uniformly random from the remaining objects.",
+  "steps": [
+   "Write the first draw probability.",
+   "Reduce the total count by $1$ after each draw.",
+   "Reduce a type's count when an object of that type was drawn.",
+   "Multiply the conditional probabilities."
+  ],
+  "worked": {
+   "question": "A bag contains $5$ red and $3$ blue counters. Two are drawn in order without replacement. Find the probability both are red.",
+   "long": "There are $8\\times7=56$ ordered pairs of distinct counters and $5\\times4=20$ ordered red pairs, giving $\\frac{20}{56}=\\frac{5}{14}$.",
+   "short": "Multiply $\\frac{5}{8}\\times\\frac{4}{7}=\\frac{5}{14}$.",
+   "saving": "The falling numerator and denominator make the effect of removing a red counter explicit."
+  },
+  "pitfalls": [
+   "Keeping the second denominator at $N$.",
+   "Keeping the required-type numerator unchanged after drawing that type.",
+   "Reducing a type's count after drawing a different type."
+  ],
+  "check": "The denominator on the second draw must be one less than on the first.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A bag has $4$ red and $2$ blue counters. Two are drawn without replacement. Find the probability both are red. Give the answer as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.4",
+    "hints": [
+     "The second draw has fewer counters available.",
+     "Reduce both the total and the red count after a red draw.",
+     "Set up $\\frac{4}{6}\\times\\frac{3}{5}$."
+    ],
+    "explanation": "$\\frac{4}{6}\\times\\frac{3}{5}=\\frac{12}{30}=0.4$.",
+    "shortcut_use": "Use falling counts in both fractions."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A bag contains $3$ blue and $4$ red counters. Three are drawn in order without replacement. What is the probability that all three are blue?",
+    "options": {
+     "A": "$\\frac{1}{35}$",
+     "B": "$\\frac{27}{343}$",
+     "C": "$\\frac{3}{7}$",
+     "D": "$\\frac{6}{343}$"
+    },
+    "answer": "A",
+    "hints": [
+     "Each draw removes a counter.",
+     "Reduce the blue count and total after each blue draw.",
+     "Set up $\\frac{3}{7}\\times\\frac{2}{6}\\times\\frac{1}{5}$."
+    ],
+    "explanation": "$\\frac{3}{7}\\times\\frac{2}{6}\\times\\frac{1}{5}=\\frac{6}{210}=\\frac{1}{35}$.",
+    "shortcut_use": "Check every denominator before multiplying."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What are the denominators for $k$ ordered draws without replacement from $N$ objects?",
+    "a": "They are $N,N-1,\\ldots,N-k+1$."
+   },
+   {
+    "q": "What changes after drawing a required type without replacement?",
+    "a": "Both the total count and that type's count decrease by one."
+   }
+  ]
+ },
+ "SEM-S1-conditional-probability-by-restricting-the-sampl": {
+  "id": "SEM-S1-conditional-probability-by-restricting-the-sampl",
+  "hook": "Using the whole sample space as the denominator gives the wrong probability after a condition is supplied.",
+  "when": "A question asks for the probability of $A$ given $B$.",
+  "idea": "Restrict attention to $B$: $P(A\\mid B)=\\frac{P(A\\cap B)}{P(B)}$.",
+  "why": "Once $B$ is known to have happened, its outcomes are the sample space. This holds when $P(B)>0$.",
+  "steps": [
+   "Identify the given event $B$.",
+   "Find the part of $B$ that also satisfies $A$.",
+   "Divide that part by the whole of $B$."
+  ],
+  "worked": {
+   "question": "Of $20$ students, $10$ study Physics, $8$ study Maths, and $5$ study both. Find the probability that a student studies Maths given that the student studies Physics.",
+   "long": "Within the $10$ Physics students, $5$ also study Maths, so the conditional probability is $\\frac{5}{10}=0.5$.",
+   "short": "$P(\\mathrm{Maths}\\mid\\mathrm{Physics})=\\frac{P(\\mathrm{Maths}\\cap\\mathrm{Physics})}{P(\\mathrm{Physics})}=\\frac{5}{10}=0.5$.",
+   "saving": "The given group supplies the denominator immediately."
+  },
+  "pitfalls": [
+   "Dividing by all $20$ students after being told the student studies Physics.",
+   "Reversing $P(A\\mid B)$ and $P(B\\mid A)$.",
+   "Using the formula when the given event has probability $0$."
+  ],
+  "check": "The numerator must be part of the denominator, so the result must lie between $0$ and $1$.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "In a group of $30$ people, $12$ play tennis and $5$ both play tennis and swim. What is the probability that a person swims given that they play tennis?",
+    "options": {
+     "A": "$\\frac{5}{12}$",
+     "B": "$\\frac{5}{30}$",
+     "C": "$\\frac{12}{30}$",
+     "D": "$\\frac{12}{5}$"
+    },
+    "answer": "A",
+    "hints": [
+     "The given group is the tennis players.",
+     "Count swimmers within that group.",
+     "Use the $5$ who do both over the $12$ who play tennis."
+    ],
+    "explanation": "Restricting to the $12$ tennis players, $5$ swim, so the probability is $\\frac{5}{12}$.",
+    "shortcut_use": "Use the given group as the denominator."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A fair six-sided die is rolled. Given that the result is even, find the probability that it is greater than $3$. Give the answer as a decimal to $3$ significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.667",
+    "hints": [
+     "List only even results.",
+     "Count those even results that exceed $3$.",
+     "The restricted outcomes are $2,4,6$; use the favourable count over $3$."
+    ],
+    "explanation": "Within $2,4,6$, the results greater than $3$ are $4$ and $6$. The probability is $\\frac{2}{3}\\approx0.667$ to $3$ significant figures.",
+    "shortcut_use": "Count within the restricted sample space."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the denominator in $P(A\\mid B)$?",
+    "a": "It is $P(B)$, the probability of the given event."
+   },
+   {
+    "q": "When is $P(A\\mid B)$ defined?",
+    "a": "It is defined when $P(B)>0$."
+   }
+  ]
+ },
+ "SEM-S1-entry-2": {
+  "id": "SEM-S1-entry-2",
+  "hook": "Squaring an average usually gives the wrong answer when the question asks for the average of squares.",
+  "when": "A discrete random variable has values and probabilities, and you need $E[g(X)]$ such as $E(X^2)$.",
+  "idea": "Apply the function to each value first: $E[g(X)]=\\sum g(x)p(x)$.",
+  "why": "Expectation is the probability-weighted average of the transformed values. This holds for a discrete distribution when the expectation exists; generally $E(X^2)\\ne[E(X)]^2$.",
+  "steps": [
+   "Apply $g$ to every possible value $x$.",
+   "Multiply each $g(x)$ by its probability.",
+   "Add the products."
+  ],
+  "worked": {
+   "question": "A discrete variable $X$ takes $0$ with probability $0.25$ and $2$ with probability $0.75$. Find $E(X^2)$.",
+   "long": "The squared variable takes $0$ with probability $0.25$ and $4$ with probability $0.75$, so its mean is $0(0.25)+4(0.75)=3$.",
+   "short": "$E(X^2)=0^2(0.25)+2^2(0.75)=3$.",
+   "saving": "It avoids the slip $[E(X)]^2=[1.5]^2=2.25$."
+  },
+  "pitfalls": [
+   "Calculating $[E(X)]^2$ in place of $E(X^2)$.",
+   "Applying $g$ to probabilities rather than values.",
+   "Forgetting that squaring a negative value gives a positive value."
+  ],
+  "check": "For $g(x)=x^2$, the result cannot be negative.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "$X$ takes values $1$ and $3$, each with probability $0.5$. Find $E(X^2)$. Give the answer as a number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "Square each possible value before averaging.",
+     "Weight each square by its probability.",
+     "Set up $1^2(0.5)+3^2(0.5)$."
+    ],
+    "explanation": "$E(X^2)=1^2(0.5)+3^2(0.5)=0.5+4.5=5$.",
+    "shortcut_use": "Transform each value before taking its weighted mean."
+   },
+   {
+    "kind": "numeric",
+    "stem": "$X$ takes $-2$ with probability $0.25$ and $1$ with probability $0.75$. Find $E(X^2)$. Give the answer as a number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1.75",
+    "hints": [
+     "The function here is squaring.",
+     "Square the negative value before multiplying by its probability.",
+     "Set up $(-2)^2(0.25)+1^2(0.75)$."
+    ],
+    "explanation": "$E(X^2)=4(0.25)+1(0.75)=1.75$.",
+    "shortcut_use": "Square each outcome before weighting it."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How is $E[g(X)]$ found for discrete $X$?",
+    "a": "Multiply each $g(x)$ by $p(x)$ and add."
+   },
+   {
+    "q": "Is $E(X^2)$ generally equal to $[E(X)]^2$?",
+    "a": "No; the values must be squared before their weighted average is taken."
+   }
+  ]
+ },
+ "SEM-S1-solve-a-conditional-normal-quantile-by-cdf-arith": {
+  "id": "SEM-S1-solve-a-conditional-normal-quantile-by-cdf-arith",
+  "hook": "Trying candidate values of a normal variable is slow when the condition is on a truncated region.",
+  "when": "You are given $P(X>v\\mid X<c)=q$ for a normal variable, with $v<c$.",
+  "idea": "If $F(t)=P(X\\le t)$, calculate $F(v)=(1-q)F(c)$, then invert the normal CDF once.",
+  "why": "Within $X<c$, the part above $v$ has probability $F(c)-F(v)$, so $q=\\frac{F(c)-F(v)}{F(c)}$. This holds for a continuous normal distribution with $v<c$ and $F(c)>0$.",
+  "steps": [
+   "Find $F(c)$.",
+   "Calculate $(1-q)F(c)$.",
+   "Invert the normal CDF to find $v$.",
+   "Check $v<c$ and $0<F(v)<F(c)$."
+  ],
+  "worked": {
+   "question": "Let $X$ have the standard normal distribution. Find $v$ to $3$ decimal places if $v<0$ and $P(X>v\\mid X<0)=0.5$.",
+   "long": "The lower half of the distribution has probability $0.5$. Half of that lower half lies between $v$ and $0$, leaving $0.25$ below $v$; the standard normal $0.25$ quantile is $-0.674$.",
+   "short": "$F(0)=0.5$, so $F(v)=(1-0.5)(0.5)=0.25$. Inverting gives $v\\approx-0.674$.",
+   "saving": "Only one CDF inversion is needed."
+  },
+  "pitfalls": [
+   "Setting $F(v)=1-q$ and forgetting to multiply by $F(c)$.",
+   "Using the upper-tail quantile when the equation gives a lower-tail CDF value.",
+   "Keeping a result with $v\\ge c$."
+  ],
+  "check": "The calculated CDF value must satisfy $0<F(v)<F(c)$, so $v<c$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Let $X$ have the standard normal distribution. Given $v<0$ and $P(X>v\\mid X<0)=0.2$, find $v$ to $3$ decimal places. Give the answer as a number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-0.253",
+    "hints": [
+     "Here $F(0)=0.5$.",
+     "Find the lower-tail probability $F(v)$ before inverting.",
+     "Set up $F(v)=(1-0.2)(0.5)$."
+    ],
+    "explanation": "$F(v)=0.8(0.5)=0.4$. The standard normal quantile with lower-tail probability $0.4$ is $v\\approx-0.253$.",
+    "shortcut_use": "Convert the conditional probability into one CDF value."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Let $X$ have the standard normal distribution. Given $v<0$ and $P(X>v\\mid X<0)=0.8$, find $v$ to $3$ decimal places. Give the answer as a number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-1.282",
+    "hints": [
+     "The condition restricts attention to the lower half.",
+     "Subtract the conditional probability from $1$, then multiply by $F(0)$.",
+     "Set up $F(v)=(1-0.8)(0.5)$."
+    ],
+    "explanation": "$F(v)=0.2(0.5)=0.1$. The standard normal quantile with lower-tail probability $0.1$ is $v\\approx-1.282$.",
+    "shortcut_use": "Find the unconditional lower-tail probability before inversion."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is $F(v)$ when $P(X>v\\mid X<c)=q$ and $v<c$?",
+    "a": "It is $(1-q)F(c)$."
+   },
+   {
+    "q": "What two inequalities check the CDF result?",
+    "a": "Check $v<c$ and $0<F(v)<F(c)$."
+   }
+  ]
+ },
+ "SEM-S1-unknown-in-a-table": {
+  "id": "SEM-S1-unknown-in-a-table",
+  "hook": "Trying values for unknown probabilities is slow and can miss a condition.",
+  "when": "A discrete probability table contains two unknown entries and gives a mean or another probability.",
+  "idea": "Form one equation from $\\sum p=1$ and another from $E(X)=\\sum xp$, or from the stated probability.",
+  "why": "For any complete discrete probability distribution, probabilities sum to $1$ and $E(X)$ is the probability weighted sum of its values. Two independent equations determine two unknowns.",
+  "steps": [
+   "Write the probability sum equal to $1$.",
+   "Write the given mean or probability as a second equation.",
+   "Solve the simultaneous equations.",
+   "Check that every probability is between $0$ and $1$."
+  ],
+  "worked": {
+   "question": "A variable $X$ takes values $0$, $1$ and $2$ with probabilities $a$, $b$ and $0.2$. Given $E(X)=0.9$, find $a$ and $b$.",
+   "long": "Use $b+2(0.2)=0.9$ to get $b=0.5$, then subtract $0.5+0.2$ from $1$ to get $a=0.3$.",
+   "short": "Write $a+b=0.8$ and $b+0.4=0.9$. Solving gives $b=0.5$ and $a=0.3$.",
+   "saving": "Turns both conditions into a small simultaneous system."
+  },
+  "pitfalls": [
+   "Forgetting to multiply each value of $X$ by its probability in $E(X)$.",
+   "Accepting a solution with a negative probability."
+  ],
+  "check": "Substitute into both $\\sum p=1$ and the given mean.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "$X$ takes values $0$, $1$ and $3$ with probabilities $a$, $b$ and $0.1$. Given $E(X)=0.7$, find $a$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.5",
+    "hints": [
+     "There are two unknown probabilities and two conditions.",
+     "Write the probability sum and the mean equation.",
+     "Use $a+b+0.1=1$ and $b+3(0.1)=0.7$."
+    ],
+    "explanation": "The mean equation gives $b=0.4$; the probability sum then gives $a=1-0.4-0.1=0.5$.",
+    "shortcut_use": "Solve the sum and mean equations together."
+   },
+   {
+    "kind": "numeric",
+    "stem": "$X$ takes values $1$, $2$ and $4$ with probabilities $a$, $0.3$ and $b$. Given $E(X)=2.2$, find $b$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.3",
+    "hints": [
+     "The probabilities must total $1$.",
+     "Combine that equation with the mean equation.",
+     "Use $a+b=0.7$ and $a+2(0.3)+4b=2.2$."
+    ],
+    "explanation": "Substitute $a=0.7-b$ into $a+0.6+4b=2.2$. Then $3b=0.9$, so $b=0.3$.",
+    "shortcut_use": "Eliminate one unknown using the probability sum."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which equation always comes from a complete probability table?",
+    "a": "The probabilities sum to $1$."
+   },
+   {
+    "q": "How does a given mean supply an equation?",
+    "a": "Set $\\sum xp$ equal to the given $E(X)$.へ"
+   }
+  ]
+ },
+ "SEM-S1-count-a-fraction-of-a-grouped-class": {
+  "id": "SEM-S1-count-a-fraction-of-a-grouped-class",
+  "hook": "Counting a whole class when a threshold cuts through it gives a poor estimate.",
+  "when": "A question asks for an estimated count below a value lying inside a grouped class.",
+  "idea": "For class $[L,U)$ with frequency $f$, estimate the count below $t$ within that class as $f\\frac{t-L}{U-L}$, then add the complete lower classes.",
+  "why": "The estimate assumes observations are uniformly spread within the class. Under that assumption, the fraction of the class interval below $t$ is $\\frac{t-L}{U-L}$.",
+  "steps": [
+   "Add frequencies of complete classes below $L$.",
+   "Find the fraction $\\frac{t-L}{U-L}$.",
+   "Multiply that fraction by $f$ and add it.",
+   "Check the partial count lies between $0$ and $f$."
+  ],
+  "worked": {
+   "question": "A grouped distribution has $12$ observations below $20$ and $30$ observations in $[20,30)$. Estimate the number below $26$, assuming a uniform spread within that class.",
+   "long": "A class width of $10$ with $30$ observations gives $3$ per unit. The $6$ units from $20$ to $26$ contain an estimated $18$; total $30$.",
+   "short": "Estimate $12+30\\frac{26-20}{30-20}=12+18=30$.",
+   "saving": "Avoids splitting the class into separate unit intervals."
+  },
+  "pitfalls": [
+   "Using $t/U$ instead of the distance $t-L$.",
+   "Forgetting to add complete lower classes.",
+   "Treating the estimate as an exact observed count."
+  ],
+  "check": "The partial count must lie between $0$ and that class frequency.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "There are $8$ observations below $40$ and $20$ in $[40,50)$. Assuming a uniform spread in the class, estimate the number below $45$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "18",
+    "hints": [
+     "The threshold lies inside the $[40,50)$ class.",
+     "Take the corresponding fraction of its frequency.",
+     "Use $8+20(45-40)/(50-40)$."
+    ],
+    "explanation": "Half the class lies below $45$, so the estimate is $8+20(5/10)=18$.",
+    "shortcut_use": "Take a proportional share of the cut class."
+   },
+   {
+    "kind": "numeric",
+    "stem": "There are $15$ observations below $10$ and $24$ in $[10,22)$. Assuming a uniform spread in the class, estimate the number below $19$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "33",
+    "hints": [
+     "Only one class is cut by the threshold.",
+     "Find the fraction of its width below $19$.",
+     "Use $15+24(19-10)/(22-10)$."
+    ],
+    "explanation": "The partial count is $24(9/12)=18$, so the total estimate is $15+18=33$.",
+    "shortcut_use": "Take a proportional share of the cut class."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What fraction of $[L,U)$ lies below an internal threshold $t$?",
+    "a": "The fraction is $\\frac{t-L}{U-L}$."
+   },
+   {
+    "q": "What assumption makes the partial class count valid?",
+    "a": "Observations are assumed uniformly spread within that class."
+   }
+  ]
+ },
+ "SEM-S1-missing-observation": {
+  "id": "SEM-S1-missing-observation",
+  "hook": "Re-entering every observation after one value changes wastes time and risks copying errors.",
+  "when": "A known data set has one observation removed or replaced, and you need an updated mean or square sum.",
+  "idea": "Update totals directly: new $\\sum x=$ old $\\sum x-$ removed $+$ added, and do the same with $\\sum x^2$ using squared values.",
+  "why": "Sums change only by the contributions removed and added. This identity always holds; use the correct new number of observations if the data set's size changes.",
+  "steps": [
+   "Recover the old sum from $n\\bar x$ if needed.",
+   "Subtract the removed value and add the new value.",
+   "For a square sum, subtract and add the squares.",
+   "Divide by the new $n$ if a new mean is needed."
+  ],
+  "worked": {
+   "question": "Eight observations have mean $12$. One observation, $9$, is replaced by $17$. Find the new mean.",
+   "long": "The unchanged seven values sum to $8(12)-9=87$. Adding $17$ gives $104$, and $104/8=13$.",
+   "short": "Update the sum in one line: $8(12)-9+17=104$. The new mean is $104/8=13$.",
+   "saving": "Avoids listing the unchanged observations."
+  },
+  "pitfalls": [
+   "Using the old $n$ after an observation is added or deleted.",
+   "Updating $\\sum x^2$ with $-x+y$ instead of $-x^2+y^2$."
+  ],
+  "check": "Replacing $9$ by $17$ raises the mean by $8/8=1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Five observations have mean $10$. One observation, $6$, is replaced by $16$. Find the new mean.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "12",
+    "hints": [
+     "A single observation is replaced.",
+     "Update the total before dividing.",
+     "Use the new sum $5(10)-6+16$."
+    ],
+    "explanation": "The new sum is $60$, and there are still $5$ observations, so the mean is $60/5=12$.",
+    "shortcut_use": "Update $\\sum x$ directly."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Four observations have $\\sum x^2=100$. One observation, $3$, is replaced by $5$. Find the new $\\sum x^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "116",
+    "hints": [
+     "The question asks for a square sum.",
+     "Replace the old square by the new square.",
+     "Use $100-3^2+5^2$."
+    ],
+    "explanation": "The updated square sum is $100-9+25=116$.",
+    "shortcut_use": "Update $\\sum x^2$ directly."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you update a sum after replacing $u$ by $v$?",
+    "a": "Subtract $u$ and add $v$ to the old sum."
+   },
+   {
+    "q": "How do you update $\\sum x^2$ after replacing $u$ by $v$?",
+    "a": "Subtract $u^2$ and add $v^2$."
+   }
+  ]
+ },
+ "SEM-S1-skewness-from-quartiles": {
+  "id": "SEM-S1-skewness-from-quartiles",
+  "hook": "A verbal judgement about skew can be vague; comparing the two quartile gaps gives a definite direction.",
+  "when": "A question gives $Q_1$, the median $Q_2$, and $Q_3$ and asks about skewness.",
+  "idea": "Compare the quartile gaps with $(Q_3-Q_2)-(Q_2-Q_1)$. Positive suggests positive skew, negative suggests negative skew, and zero suggests rough symmetry.",
+  "why": "This compares spread above and below the median within the middle half of the data. It is a quartile based indication of skew, provided the quartiles are ordered $Q_1\\le Q_2\\le Q_3$; it does not prove the shape of the tails.",
+  "steps": [
+   "Calculate $Q_3-Q_2$.",
+   "Calculate $Q_2-Q_1$.",
+   "Subtract the lower gap from the upper gap.",
+   "State the direction and quote both gaps."
+  ],
+  "worked": {
+   "question": "A data set has $Q_1=12$, median $Q_2=15$ and $Q_3=21$. Use the quartiles to describe its skewness.",
+   "long": "The middle half extends $3$ below the median and $6$ above it. The greater upper spread suggests positive skew.",
+   "short": "$(21-15)-(15-12)=6-3=3>0$, suggesting positive skew.",
+   "saving": "Fixes the direction with one signed comparison."
+  },
+  "pitfalls": [
+   "Reversing the subtraction and hence reversing the direction.",
+   "Claiming quartiles alone prove the tail shape.",
+   "Calling equal quartile gaps perfectly symmetric."
+  ],
+  "check": "A larger upper quartile gap should produce a positive result.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "For $Q_1=4$, $Q_2=7$ and $Q_3=13$, what does the quartile comparison suggest?",
+    "options": {
+     "A": "Negative skew",
+     "B": "Positive skew",
+     "C": "Rough symmetry",
+     "D": "Skew cannot be assessed from quartiles"
+    },
+    "answer": "B",
+    "hints": [
+     "Compare the gaps either side of the median.",
+     "Subtract the lower gap from the upper gap.",
+     "Use $(13-7)-(7-4)$ and inspect its sign."
+    ],
+    "explanation": "The upper gap is $6$ and the lower gap is $3$; their difference is positive, suggesting positive skew.",
+    "shortcut_use": "Use the sign of the quartile gap difference."
+   },
+   {
+    "kind": "mcq",
+    "stem": "For $Q_1=2$, $Q_2=8$ and $Q_3=10$, what does the quartile comparison suggest?",
+    "options": {
+     "A": "Positive skew",
+     "B": "Perfect symmetry",
+     "C": "Negative skew",
+     "D": "No valid quartile order"
+    },
+    "answer": "C",
+    "hints": [
+     "Compare the two distances from the median.",
+     "Find upper gap minus lower gap.",
+     "Use $(10-8)-(8-2)$ and inspect its sign."
+    ],
+    "explanation": "The upper gap is $2$ and the lower gap is $6$; the difference is negative, suggesting negative skew.",
+    "shortcut_use": "Use the sign of the quartile gap difference."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What does a positive quartile gap difference suggest?",
+    "a": "It suggests positive skew because the upper quartile gap is larger."
+   },
+   {
+    "q": "What does a zero quartile gap difference establish?",
+    "a": "It suggests rough symmetry in the middle half, but does not prove full symmetry."
+   }
+  ]
+ },
+ "SEM-S1-correlation-is-not-causation": {
+  "id": "SEM-S1-correlation-is-not-causation",
+  "hook": "A strong correlation can tempt you to claim that one variable causes the other.",
+  "when": "A question reports an association and asks whether changing one variable would change the other.",
+  "idea": "State that the correlation alone does not establish causation, then name a plausible third factor in the given context.",
+  "why": "A third factor can affect both measured variables and produce an association. This limitation always applies when correlation is the only evidence supplied.",
+  "steps": [
+   "Identify the two correlated variables.",
+   "Name a plausible third factor that could affect both.",
+   "Explain its effect on each variable.",
+   "Limit the conclusion to association."
+  ],
+  "worked": {
+   "question": "Across $12$ towns, ice cream sales and the number of sunburn cases have correlation $r=0.82$. Does this establish that buying ice cream causes sunburn?",
+   "long": "Investigate how exposure to sunlight affects each variable before making a causal claim.",
+   "short": "No. Sunny weather could increase both ice cream sales and sunburn cases, giving a positive correlation without ice cream causing sunburn.",
+   "saving": "Avoids an unsupported causal conclusion."
+  },
+  "pitfalls": [
+   "Writing only 'correlation is not causation' without a contextual third factor.",
+   "Treating a large $r$ as proof of a causal mechanism."
+  ],
+  "check": "Ask whether the named third factor could plausibly affect both variables.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "In $20$ schools, the number of pupils and the number of computers have correlation $r=0.90$. Which conclusion is justified by this fact alone?",
+    "options": {
+     "A": "More computers cause more pupils to enrol.",
+     "B": "More pupils cause each computer to work faster.",
+     "C": "Larger schools may have both more pupils and more computers.",
+     "D": "The two quantities must be identical."
+    },
+    "answer": "C",
+    "hints": [
+     "A large correlation describes association.",
+     "Look for a school factor linked to both counts.",
+     "Consider how school size affects pupil and computer numbers."
+    ],
+    "explanation": "School size could raise both counts, so the correlation alone supports association, not a causal direction.",
+    "shortcut_use": "Test a contextual third factor before claiming causation."
+   },
+   {
+    "kind": "short",
+    "stem": "Across $30$ days, umbrella sales and road accidents have a positive correlation. Give one plausible third factor that could increase both.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "Rainfall",
+    "hints": [
+     "The two counts rise together.",
+     "Think of a weather condition affecting both.",
+     "A wet day can increase umbrella buying and make roads more hazardous."
+    ],
+    "explanation": "Rainfall can increase umbrella sales and road accidents, so it is a plausible third factor.",
+    "shortcut_use": "Name a factor that can affect both variables."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What can correlation alone establish?",
+    "a": "It establishes association, not causation."
+   },
+   {
+    "q": "What makes a third factor explanation useful?",
+    "a": "The factor must plausibly affect both correlated variables in the stated context."
+   }
+  ]
+ },
+ "SEM-S1-enter-scaled-predictor-units-literally": {
+  "id": "SEM-S1-enter-scaled-predictor-units-literally",
+  "hook": "Putting the unscaled real-world number into a scaled regression equation can make a prediction wildly wrong.",
+  "when": "The equation defines $x$ in thousands, millions or another scaled unit.",
+  "idea": "Convert the stated predictor to the equation's units before substituting; if $x$ is in millions, seven million means $x=7$.",
+  "why": "The fitted coefficients apply to the units used to define $x$. This holds whenever the equation and its units are used consistently; predictions beyond the observed $x$ range are extrapolations.",
+  "steps": [
+   "Read the units assigned to $x$ and $y$.",
+   "Convert the stated input to $x$ units.",
+   "Substitute that number into the equation.",
+   "Report the output units and compare its scale with the data."
+  ],
+  "worked": {
+   "question": "A fitted equation is $y=4+2x$, where $x$ is population in millions and $y$ is annual sales in thousands. Predict sales for a population of $7$ million.",
+   "long": "Convert $7$ million people to $7$ units of one million, then evaluate $4+2(7)=18$ thousand.",
+   "short": "Set $x=7$ directly. Then $y=4+2(7)=18$ thousand.",
+   "saving": "Prevents substituting $7{,}000{,}000$ for $x$. "
+  },
+  "pitfalls": [
+   "Entering the full population count when $x$ is defined in millions.",
+   "Giving the prediction in the predictor's units.",
+   "Ignoring that a prediction outside the observed range is an extrapolation."
+  ],
+  "check": "The substituted value should be on the same scale as the $x$ values used to fit the equation.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The model $y=5+3x$ uses $x$ in thousands of customers and $y$ in thousands of pounds. For $4{,}000$ customers, predict $y$ in thousands of pounds.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "17",
+    "hints": [
+     "The predictor is measured in thousands.",
+     "Convert the customer count to $x$ units.",
+     "Use $x=4000/1000$ in $y=5+3x$."
+    ],
+    "explanation": "$4{,}000$ customers gives $x=4$, so $y=5+3(4)=17$ thousand pounds.",
+    "shortcut_use": "Enter the scaled predictor value."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The model $y=30-2x$ uses $x$ in millions of pounds of advertising and $y$ in thousands of units sold. For £$6$ million of advertising, predict $y$ in thousands of units.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "18",
+    "hints": [
+     "The equation measures advertising in millions.",
+     "Identify the numerical value of $x$.",
+     "Substitute $x=6$ into $y=30-2x$."
+    ],
+    "explanation": "£$6$ million corresponds to $x=6$, so $y=30-2(6)=18$ thousand units.",
+    "shortcut_use": "Enter the scaled predictor value."
+   }
+  ],
+  "recall": [
+   {
+    "q": "If $x$ is measured in millions, what value represents $7$ million?",
+    "a": "Use $x=7$."
+   },
+   {
+    "q": "What units does a regression prediction have?",
+    "a": "It has the units assigned to the response variable $y$."
+   }
+  ]
+ },
+ "SEM-S1-find-the-regression-slope-from-correlation-and-s": {
+  "id": "SEM-S1-find-the-regression-slope-from-correlation-and-s",
+  "hook": "Reconstructing covariance from raw data is unnecessary when correlation and both spreads are supplied.",
+  "when": "A question gives $r$, the spread of $x$, and the spread of $y$, and asks for the $y$-on-$x$ slope.",
+  "idea": "Use $b=r\\frac{\\sigma_y}{\\sigma_x}$.",
+  "why": "Since $r$ is covariance divided by the product of the two spreads, and the $y$-on-$x$ slope is covariance divided by the squared spread of $x$, the expression follows. It requires $\\sigma_x>0$ and $\\sigma_y>0$ for $r$ to be defined.",
+  "steps": [
+   "Identify which variable is explanatory: $x$.",
+   "Divide the spread of $y$ by the spread of $x$.",
+   "Multiply by $r$.",
+   "Check the sign and units of the slope."
+  ],
+  "worked": {
+   "question": "The correlation between $x$ in hours and $y$ in marks is $r=0.6$. Their standard deviations are $\\sigma_x=2$ hours and $\\sigma_y=10$ marks. Find the $y$-on-$x$ slope.",
+   "long": "The covariance is $0.6(2)(10)=12$ mark-hours. Dividing by the variance of $x$, $2^2=4$ hours squared, gives $3$ marks per hour.",
+   "short": "$b=0.6(10/2)=3$ marks per hour.",
+   "saving": "Finds the slope without a separate covariance calculation."
+  },
+  "pitfalls": [
+   "Reversing the spread ratio.",
+   "Using a positive slope when $r$ is negative.",
+   "Reporting slope units as explanatory units per response unit."
+  ],
+  "check": "The slope must have the same sign as $r$ and units of $y$ per unit of $x$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $x$ in hours and $y$ in marks, $r=0.8$, $\\sigma_x=4$ hours and $\\sigma_y=15$ marks. Find the $y$-on-$x$ slope in marks per hour.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "This is a $y$-on-$x$ slope.",
+     "Use response spread divided by explanatory spread.",
+     "Calculate $r\\sigma_y/\\sigma_x=0.8(15)/4$."
+    ],
+    "explanation": "$b=0.8(15/4)=3$ marks per hour.",
+    "shortcut_use": "Multiply $r$ by the spread ratio."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $x$ in metres and $y$ in seconds, $r=-0.5$, $\\sigma_x=3$ m and $\\sigma_y=12$ s. Find the $y$-on-$x$ slope in seconds per metre.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-2",
+    "hints": [
+     "The negative correlation fixes the slope's sign.",
+     "Divide the spread of $y$ by that of $x$.",
+     "Calculate $r\\sigma_y/\\sigma_x=-0.5(12)/3$."
+    ],
+    "explanation": "$b=-0.5(12/3)=-2$ seconds per metre.",
+    "shortcut_use": "Multiply the signed correlation by the spread ratio."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the $y$-on-$x$ slope from correlation and spreads?",
+    "a": "$b=r\\sigma_y/\\sigma_x$."
+   },
+   {
+    "q": "What checks apply to that slope?",
+    "a": "Its sign matches $r$, and its units are units of $y$ per unit of $x$."
+   }
+  ]
+ },
+ "SEM-S1-formulae-with-notation": {
+  "id": "SEM-S1-formulae-with-notation",
+  "hook": "Calculating every deviation from the mean takes time and creates extra arithmetic slips.",
+  "when": "A question gives paired data or summary totals and asks for the regression line of $y$ on $x$ or the correlation coefficient.",
+  "idea": "Calculate $S_{xx}=\\sum x^2-\\frac{(\\sum x)^2}{n}$, $S_{yy}=\\sum y^2-\\frac{(\\sum y)^2}{n}$ and $S_{xy}=\\sum xy-\\frac{\\sum x\\sum y}{n}$. Then $b=\\frac{S_{xy}}{S_{xx}}$, $a=\\bar y-b\\bar x$ and $r=\\frac{S_{xy}}{\\sqrt{S_{xx}S_{yy}}}$.",
+  "why": "Expanding the deviations from the means gives these exact $S$ identities for paired data. The least squares line $y=a+bx$ needs $S_{xx}>0$; Pearson’s $r$ also needs $S_{yy}>0$.",
+  "steps": [
+   "Find $n$, $\\sum x$, $\\sum y$, $\\sum x^2$, $\\sum y^2$ and $\\sum xy$ as needed.",
+   "Calculate the required centred sums $S_{xx}$, $S_{yy}$ and $S_{xy}$.",
+   "Substitute into $b$ and $a$, or into $r$."
+  ],
+  "worked": {
+   "question": "Four paired observations are $(1,2)$, $(2,3)$, $(3,5)$ and $(4,6)$. Find the least squares regression line of $y$ on $x$.",
+   "long": "The means are $\\bar x=2.5$ and $\\bar y=4$. Multiplying deviations gives $S_{xy}=3+0.5+0.5+3=7$; squaring the $x$ deviations gives $S_{xx}=2.25+0.25+0.25+2.25=5$. Thus $b=1.4$ and $a=0.5$.",
+   "short": "The totals are $\\sum x=10$, $\\sum y=16$, $\\sum x^2=30$ and $\\sum xy=47$. So $S_{xx}=30-\\frac{10^2}{4}=5$ and $S_{xy}=47-\\frac{10(16)}{4}=7$. Hence $b=\\frac{7}{5}=1.4$ and $a=4-1.4(2.5)=0.5$, giving $y=0.5+1.4x$.",
+   "saving": "Uses four totals instead of calculating a deviation for every observation."
+  },
+  "pitfalls": [
+   "Using $\\frac{\\sum xy}{\\sum x^2}$ without first centring both sums.",
+   "Using $S_{yy}$ as the denominator for the regression of $y$ on $x$.",
+   "Rounding $b$ before calculating $a$."
+  ],
+  "check": "The regression line must pass through $(\\bar x,\\bar y)$; here $0.5+1.4(2.5)=4$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $n=4$ paired observations, $\\sum x=12$, $\\sum y=20$, $\\sum x^2=46$ and $\\sum xy=74$. Find the gradient $b$ of the regression line of $y$ on $x$. Give the exact value.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1.4",
+    "hints": [
+     "The question gives totals rather than deviations from the means.",
+     "Calculate $S_{xy}$ and $S_{xx}$, then divide.",
+     "Set up $b=\\frac{74-12(20)/4}{46-12^2/4}$."
+    ],
+    "explanation": "$S_{xy}=74-\\frac{12(20)}{4}=14$ and $S_{xx}=46-\\frac{12^2}{4}=10$, so $b=\\frac{14}{10}=1.4$.",
+    "shortcut_use": "Calculate centred sums directly from totals."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Three paired observations are $(1,6)$, $(2,2)$ and $(3,4)$. What is Pearson’s correlation coefficient $r$?",
+    "options": {
+     "A": "$0.5$",
+     "B": "$-1$",
+     "C": "$-0.5$",
+     "D": "$-0.25$"
+    },
+    "answer": "C",
+    "hints": [
+     "Both variables vary, so calculate the three centred sums.",
+     "Use the sign of $S_{xy}$ and divide by $\\sqrt{S_{xx}S_{yy}}$.",
+     "From $n=3$, $\\sum x=6$, $\\sum y=12$, $\\sum x^2=14$, $\\sum y^2=56$ and $\\sum xy=22$, set up the three $S$ formulae."
+    ],
+    "explanation": "$S_{xx}=14-\\frac{6^2}{3}=2$, $S_{yy}=56-\\frac{12^2}{3}=8$ and $S_{xy}=22-\\frac{6(12)}{3}=-2$. Therefore $r=\\frac{-2}{\\sqrt{2(8)}}=-0.5$.",
+    "shortcut_use": "Find $r$ from centred sums computed using totals."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you calculate $S_{xy}$ from summary totals?",
+    "a": "$S_{xy}=\\sum xy-\\frac{\\sum x\\sum y}{n}$."
+   },
+   {
+    "q": "Which centred sum is the denominator of the regression gradient of $y$ on $x$?",
+    "a": "$S_{xx}$, which must be positive."
+   },
+   {
+    "q": "When is $r=\\frac{S_{xy}}{\\sqrt{S_{xx}S_{yy}}}$ defined?",
+    "a": "For paired data with $S_{xx}>0$ and $S_{yy}>0$."
+   }
+  ]
+ },
+ "SEM-S1-keep-the-full-gradient-when-finding-the-intercep": {
+  "id": "SEM-S1-keep-the-full-gradient-when-finding-the-intercep",
+  "hook": "Rounding the gradient before finding the intercept can shift the line away from the data mean.",
+  "when": "A regression line $y=a+bx$ is required and $\\bar x$, $\\bar y$ and a calculator value of $b$ are available.",
+  "idea": "Calculate $a=\\bar y-b\\bar x$ using the full calculator value of $b$. Round the line only at the end.",
+  "why": "A least-squares regression line with an intercept passes through $(\\bar x,\\bar y)$ before rounding, so $\\bar y=a+b\\bar x$.",
+  "steps": [
+   "Keep all displayed digits of $b$.",
+   "Calculate $a=\\bar y-b\\bar x$.",
+   "Round $a$ and $b$ as instructed.",
+   "Substitute $x=\\bar x$ into the displayed line for a check."
+  ],
+  "worked": {
+   "question": "For a regression line $y=a+bx$, $\\bar x=250$, $\\bar y=80$ and the calculated gradient is $b=0.123456$. State $a$ to 2 decimal places and $b$ to 3 decimal places.",
+   "long": "Using the rounded gradient $0.123$ first gives $a=80-0.123(250)=49.25$, which is inaccurate.",
+   "short": "Use the full gradient: $a=80-0.123456(250)=49.136$. The stated line is $y=49.14+0.123x$.",
+   "saving": "It avoids a $0.11$ shift in the stated intercept."
+  },
+  "pitfalls": [
+   "Using the rounded $b$ to calculate $a$.",
+   "Expecting the rounded displayed line to pass exactly through $(\\bar x,\\bar y)$."
+  ],
+  "check": "At $x=250$, the displayed line gives $79.89$, approximately $80$; the unrounded line gives exactly $80$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $y=a+bx$, $\\bar x=400$, $\\bar y=100$ and $b=0.123456$. Find $a$ to 2 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "50.62",
+    "hints": [
+     "Use the fact that the line passes through the pair of means.",
+     "Keep the full value of the gradient while finding the intercept.",
+     "Set up $a=100-0.123456(400)$, then round."
+    ],
+    "explanation": "$a=\\bar y-b\\bar x=100-0.123456(400)=50.6176$, so $a=50.62$.",
+    "shortcut_use": "Use the full gradient in $a=\\bar y-b\\bar x$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $y=a+bx$, $\\bar x=125$, $\\bar y=40$ and $b=-0.07864$. Find $a$ to 2 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "49.83",
+    "hints": [
+     "The pair of means lies on the unrounded line.",
+     "Subtract the product of the full gradient and $\\bar x$.",
+     "Set up $a=40-(-0.07864)(125)$, then round."
+    ],
+    "explanation": "$a=\\bar y-b\\bar x=40-(-0.07864)(125)=49.83$.",
+    "shortcut_use": "Use the full negative gradient to find the intercept."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What formula finds the regression intercept from the means and gradient?",
+    "a": "Use $a=\\bar y-b\\bar x$."
+   },
+   {
+    "q": "When should the regression gradient be rounded?",
+    "a": "Round it after using its full calculator value to find the intercept."
+   },
+   {
+    "q": "What point should an unrounded least-squares regression line pass through?",
+    "a": "It should pass through $(\\bar x,\\bar y)$."
+   }
+  ]
+ },
+ "SEM-S1-combinations-for-choose-without-replacement": {
+  "id": "SEM-S1-combinations-for-choose-without-replacement",
+  "hook": "A tree becomes long when several draws have the same final colour count. Combinations collect all relevant orders at once.",
+  "when": "A fixed-size sample is chosen without replacement and the question asks for a colour count, regardless of order.",
+  "idea": "For $k$ of colour 1 from $a$ and $n-k$ of colour 2 from $b$, use $\\frac{\\binom{a}{k}\\binom{b}{n-k}}{\\binom{a+b}{n}}$.",
+  "why": "The numerator counts samples with the required colours; the denominator counts all samples of size $n$. This holds when every sample of $n$ distinct objects is equally likely and the two colours cover the objects.",
+  "steps": [
+   "Identify $a$, $b$, $n$ and $k$.",
+   "Count favourable samples with $\\binom{a}{k}\\binom{b}{n-k}$.",
+   "Divide by $\\binom{a+b}{n}$.",
+   "Check that both requested counts are possible."
+  ],
+  "worked": {
+   "question": "A bag contains $5$ red and $4$ blue counters. Three counters are drawn uniformly without replacement. Find the probability of exactly $2$ red counters.",
+   "long": "Add the three orders red-red-blue, red-blue-red and blue-red-red; each has probability $\\frac{5}{9}\\frac{4}{8}\\frac{4}{7}=\\frac{10}{63}$, giving $\\frac{10}{21}$.",
+   "short": "$\\frac{\\binom{5}{2}\\binom{4}{1}}{\\binom{9}{3}}=\\frac{10(4)}{84}=\\frac{10}{21}$.",
+   "saving": "It replaces three ordered routes with one count."
+  },
+  "pitfalls": [
+   "Using $\\binom{9}{3}$ as a denominator when samples are not equally likely.",
+   "Forgetting the second-colour factor $\\binom{b}{n-k}$.",
+   "Counting different draw orders again after using combinations."
+  ],
+  "check": "The favourable count $40$ is less than the total count $84$, so the probability lies between $0$ and $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A bag contains $6$ red and $4$ blue counters. Three are drawn uniformly without replacement. Find the probability of exactly $2$ red counters, to 3 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.500",
+    "hints": [
+     "Order does not matter; the sample size is fixed.",
+     "Count choices of $2$ red and $1$ blue, then all choices of $3$.",
+     "Set up $\\frac{\\binom{6}{2}\\binom{4}{1}}{\\binom{10}{3}}$."
+    ],
+    "explanation": "The shortcut gives $\\frac{\\binom{6}{2}\\binom{4}{1}}{\\binom{10}{3}}=\\frac{15(4)}{120}=0.500$.",
+    "shortcut_use": "Count unordered samples with combinations."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A box contains $3$ green and $7$ yellow counters. Four are drawn uniformly without replacement. Find the probability of no green counters, to 3 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.167",
+    "hints": [
+     "No green means all four selected counters are yellow.",
+     "Use a choice count for each colour.",
+     "Set up $\\frac{\\binom{3}{0}\\binom{7}{4}}{\\binom{10}{4}}$."
+    ],
+    "explanation": "The shortcut gives $\\frac{\\binom{3}{0}\\binom{7}{4}}{\\binom{10}{4}}=\\frac{35}{210}=\\frac{1}{6}\\approx0.167$.",
+    "shortcut_use": "Use the zero-green combination count."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What goes in the denominator of the combination shortcut?",
+    "a": "The number of all possible size-$n$ samples, $\\binom{a+b}{n}$."
+   },
+   {
+    "q": "When is the combination ratio valid?",
+    "a": "It is valid when every size-$n$ sample is equally likely and order is irrelevant."
+   }
+  ]
+ },
+ "SEM-S1-de-morgan": {
+  "id": "SEM-S1-de-morgan",
+  "hook": "Complement wording can tempt you to subtract the wrong overlap. Rewrite the event first.",
+  "when": "A question asks for neither event, at least one event not occurring, or $A$ but not $B$.",
+  "idea": "Use $P(A'\\cap B')=1-P(A\\cup B)$, $P(A'\\cup B')=1-P(A\\cap B)$, and $P(A\\cap B')=P(A)-P(A\\cap B)$.",
+  "why": "The first two pairs are complementary events; the third removes the overlap from $A$. These identities always hold for events $A$ and $B$ in the same sample space.",
+  "steps": [
+   "Translate the wording into an event expression.",
+   "Choose the matching identity.",
+   "Calculate the union or intersection needed.",
+   "Subtract from $1$ or from $P(A)$."
+  ],
+  "worked": {
+   "question": "In a group, $P(A)=0.55$, $P(B)=0.40$ and $P(A\\cap B)=0.20$. Find the probability of neither $A$ nor $B$.",
+   "long": "A Venn count gives $A$ only $0.35$, $B$ only $0.20$, and both $0.20$; the remainder is $0.25$.",
+   "short": "$P(A'\\cap B')=1-P(A\\cup B)=1-(0.55+0.40-0.20)=0.25$.",
+   "saving": "It avoids filling all regions of a Venn diagram."
+  },
+  "pitfalls": [
+   "Treating $A'\\cap B'$ as $1-P(A\\cap B)$.",
+   "Adding $P(A)$ and $P(B)$ without subtracting their overlap.",
+   "Using $1-P(A)$ for $A\\cap B'$."
+  ],
+  "check": "The probability of neither, $0.25$, and the probability of at least one, $0.75$, sum to $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Given $P(A)=0.60$, $P(B)=0.50$ and $P(A\\cap B)=0.30$, find $P(A'\\cap B')$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.20",
+    "hints": [
+     "Both events fail, so consider the complement of their union.",
+     "Find $P(A\\cup B)$, allowing for overlap.",
+     "Set up $1-(0.60+0.50-0.30)$."
+    ],
+    "explanation": "$P(A'\\cap B')=1-P(A\\cup B)=1-(0.60+0.50-0.30)=0.20$.",
+    "shortcut_use": "Replace neither event with the complement of the union."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Given $P(A)=0.70$, $P(B)=0.45$ and $P(A\\cap B)=0.25$, find $P(A\\cap B')$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.45",
+    "hints": [
+     "The required event is the part of $A$ outside $B$.",
+     "Subtract the overlap from $P(A)$.",
+     "Set up $0.70-0.25$."
+    ],
+    "explanation": "$P(A\\cap B')=P(A)-P(A\\cap B)=0.70-0.25=0.45$.",
+    "shortcut_use": "Remove the intersection from $A$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the complement of $A\\cup B$?",
+    "a": "It is $A'\\cap B'$."
+   },
+   {
+    "q": "What is the complement of $A\\cap B$?",
+    "a": "It is $A'\\cup B'$."
+   },
+   {
+    "q": "How do you find $P(A\\cap B')$ from $P(A)$ and $P(A\\cap B)$?",
+    "a": "Subtract the overlap: $P(A\\cap B')=P(A)-P(A\\cap B)$."
+   }
+  ]
+ },
+ "SEM-S1-exactly-one-of": {
+  "id": "SEM-S1-exactly-one-of",
+  "hook": "Adding $P(A)$ and $P(B)$ counts the overlap twice, although it should count zero times.",
+  "when": "The wording says exactly one of $A$ and $B$, or $A$ or $B$ but not both.",
+  "idea": "Use $P(\\text{exactly one})=P(A)+P(B)-2P(A\\cap B)$.",
+  "why": "The sum $P(A)+P(B)$ counts outcomes in both events twice; subtracting twice the overlap leaves only outcomes in one event. This always holds for events in the same sample space.",
+  "steps": [
+   "Find $P(A)$ and $P(B)$.",
+   "Find their overlap $P(A\\cap B)$.",
+   "Subtract twice the overlap from the sum."
+  ],
+  "worked": {
+   "question": "For two events, $P(A)=0.60$, $P(B)=0.50$ and $P(A\\cap B)=0.20$. Find the probability of exactly one event.",
+   "long": "$A$ only is $0.60-0.20=0.40$ and $B$ only is $0.50-0.20=0.30$; together they give $0.70$.",
+   "short": "$0.60+0.50-2(0.20)=0.70$.",
+   "saving": "It avoids calculating the two exclusive regions separately."
+  },
+  "pitfalls": [
+   "Subtracting the overlap only once, which gives the probability of at least one.",
+   "Assuming the events are mutually exclusive when an overlap is given.",
+   "Using $P(A)P(B)$ for the overlap without an independence condition."
+  ],
+  "check": "Exactly one, $0.70$, plus both, $0.20$, equals the union probability $0.90$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Given $P(A)=0.45$, $P(B)=0.35$ and $P(A\\cap B)=0.10$, find the probability of exactly one of $A$ and $B$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.60",
+    "hints": [
+     "Exactly one excludes the overlap.",
+     "Remove each copy of the overlap from the sum of the event probabilities.",
+     "Set up $0.45+0.35-2(0.10)$."
+    ],
+    "explanation": "$P(\\text{exactly one})=0.45+0.35-2(0.10)=0.60$.",
+    "shortcut_use": "Subtract the overlap twice."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Given $P(A)=0.70$, $P(B)=0.40$ and $P(A\\cap B)=0.30$, find the probability of exactly one of $A$ and $B$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.50",
+    "hints": [
+     "The requested event includes $A$ only and $B$ only.",
+     "Start with $P(A)+P(B)$ and remove both counted copies of the intersection.",
+     "Set up $0.70+0.40-2(0.30)$."
+    ],
+    "explanation": "$P(\\text{exactly one})=0.70+0.40-2(0.30)=0.50$.",
+    "shortcut_use": "Use the exactly-one formula directly."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the formula for exactly one of $A$ and $B$?",
+    "a": "$P(A)+P(B)-2P(A\\cap B)$."
+   },
+   {
+    "q": "Why is the intersection subtracted twice?",
+    "a": "The sum counts it twice, but exactly one must exclude it entirely."
+   }
+  ]
+ },
+ "SEM-S1-finding-unknowns-from-two-conditions": {
+  "id": "SEM-S1-finding-unknowns-from-two-conditions",
+  "hook": "Two probability conditions can look unrelated until they are written as equations. Solving them together exposes both possible values.",
+  "when": "Two unknown event probabilities are constrained by independence and by a stated union probability.",
+  "idea": "Write $P(A\\cap B)=P(A)P(B)$ and $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$, then solve the pair.",
+  "why": "The product equation holds when $A$ and $B$ are independent; the union identity always holds. Any resulting roots must also lie in $[0,1]$ and satisfy the original conditions.",
+  "steps": [
+   "Let the unknown probabilities be $p$ and $q$.",
+   "Use independence to form $pq=P(A\\cap B)$.",
+   "Use the union to form $p+q-pq=P(A\\cup B)$.",
+   "Solve the resulting quadratic and check each root."
+  ],
+  "worked": {
+   "question": "Independent events $A$ and $B$ have $P(A\\cap B)=0.12$ and $P(A\\cup B)=0.64$. Find $P(A)$ and $P(B)$.",
+   "long": "A Venn diagram gives $p-0.12$ and $q-0.12$ for the exclusive regions. Their sum with $0.12$ is $0.64$, so $p+q=0.76$; independence also gives $pq=0.12$.",
+   "short": "Use $pq=0.12$ and $p+q=0.64+0.12=0.76$. Then $p(0.76-p)=0.12$, giving $p=0.60$ or $0.16$, with $q$ the other value.",
+   "saving": "It turns the conditions directly into a sum and product, without filling a diagram."
+  },
+  "pitfalls": [
+   "Using $P(A\\cap B)=P(A)P(B)$ when independence is not given.",
+   "Forgetting to add the overlap back to the union to obtain $p+q$.",
+   "Discarding one root when the events are not distinguished."
+  ],
+  "check": "$0.60(0.16)=0.096$, so the proposed pair must be rejected; the actual roots of $p^2-0.76p+0.12=0$ are $p=0.50$ and $p=0.24$, which give product $0.12$ and union $0.62$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Independent events $A$ and $B$ satisfy $P(A\\cap B)=0.12$ and $P(A\\cup B)=0.62$. Given $P(A)>P(B)$, find $P(A)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.50",
+    "hints": [
+     "Independence gives a product, and the union gives a sum.",
+     "Find $p+q$ by adding the overlap to the union.",
+     "Use $pq=0.12$ and $p+q=0.74$, then take the larger root."
+    ],
+    "explanation": "Let $p=P(A)$ and $q=P(B)$. Then $pq=0.12$ and $p+q=0.62+0.12=0.74$. Thus $p(0.74-p)=0.12$, with roots $0.50$ and $0.24$; since $p>q$, $p=0.50$.",
+    "shortcut_use": "Combine independence with the union to obtain sum and product."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Independent events $A$ and $B$ satisfy $P(A\\cap B)=0.08$ and $P(A\\cup B)=0.52$. Given $P(A)<P(B)$, find $P(A)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.20",
+    "hints": [
+     "The intersection of independent events is their probability product.",
+     "Find the sum of the two probabilities from the union.",
+     "Use $pq=0.08$ and $p+q=0.60$, then take the smaller root."
+    ],
+    "explanation": "$pq=0.08$ and $p+q=0.52+0.08=0.60$. The roots of $p(0.60-p)=0.08$ are $0.20$ and $0.40$, so $P(A)=0.20$.",
+    "shortcut_use": "Solve from the probability sum and product."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What equation does independence give for $P(A)$ and $P(B)$?",
+    "a": "It gives $P(A\\cap B)=P(A)P(B)$."
+   },
+   {
+    "q": "How do you obtain $P(A)+P(B)$ from union and intersection probabilities?",
+    "a": "Add them: $P(A)+P(B)=P(A\\cup B)+P(A\\cap B)$."
+   }
+  ]
+ },
+ "SEM-S1-make-stopping-outcomes-terminal-immediately": {
+  "id": "SEM-S1-make-stopping-outcomes-terminal-immediately",
+  "hook": "Continuing a tree after the game has ended creates impossible routes and can double-count outcomes.",
+  "when": "A trial is repeated only until a specified result occurs, with a maximum number of trials stated.",
+  "idea": "End each branch immediately when the stopping result appears; calculate only complete terminal routes.",
+  "why": "Once the stopping rule is met, later outcomes cannot occur in that game. The terminal routes are disjoint and exhaustive when the tree also includes any maximum-trial ending.",
+  "steps": [
+   "Mark the result that stops the game.",
+   "At each stage, stop every branch with that result.",
+   "Continue only branches on which play remains possible.",
+   "Add terminal probabilities; they should total $1$."
+  ],
+  "worked": {
+   "question": "A fair coin is tossed until the first head or until $3$ tosses have been made. Find the probability that the game lasts exactly $2$ tosses.",
+   "long": "List possible complete games: $H$, $TH$, $TTH$, $TTT$. Only $TH$ lasts $2$ tosses, with probability $\\frac{1}{2}\\frac{1}{2}=\\frac{1}{4}$.",
+   "short": "Stop the $H$ branch after toss $1$. The only route ending at toss $2$ is $TH$, so its probability is $\\frac{1}{4}$.",
+   "saving": "It prevents fictitious continuations after a head."
+  },
+  "pitfalls": [
+   "Drawing further tosses after a head.",
+   "Omitting the all-tails route at the maximum number of tosses.",
+   "Adding probabilities along a route instead of multiplying them."
+  ],
+  "check": "The terminal probabilities are $\\frac{1}{2}$, $\\frac{1}{4}$, $\\frac{1}{8}$ and $\\frac{1}{8}$; they sum to $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A fair coin is tossed until the first head or until $4$ tosses have been made. Find the probability that the game lasts exactly $3$ tosses.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.125",
+    "hints": [
+     "A head ends the game immediately.",
+     "For exactly $3$ tosses, continue after the first two tosses and stop on the third.",
+     "Use the route $TTH$ and multiply its branch probabilities."
+    ],
+    "explanation": "The only terminal route lasting exactly $3$ tosses is $TTH$, with probability $\\frac{1}{2}\\frac{1}{2}\\frac{1}{2}=0.125$.",
+    "shortcut_use": "Stop the route at its first head."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A trial independently produces success with probability $0.30$. Trials continue until the first success or until $3$ trials have been made. Find the probability that the game ends with no success, to 3 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.343",
+    "hints": [
+     "No success means play reaches the trial limit.",
+     "Follow only branches on which the game has not stopped.",
+     "Multiply the three failure probabilities: $(0.70)^3$."
+    ],
+    "explanation": "The only terminal route with no success is three failures, with probability $(0.70)^3=0.343$.",
+    "shortcut_use": "Follow only the continuing failure branch."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What happens to a branch once the stopping result occurs?",
+    "a": "It becomes terminal, so no further branches are drawn."
+   },
+   {
+    "q": "What should all terminal-route probabilities add to?",
+    "a": "They should add to $1$ when all possible endings are included."
+   }
+  ]
+ },
+ "SEM-S1-sample-space-grid-for-two-dice-or-two-spinners": {
+  "id": "SEM-S1-sample-space-grid-for-two-dice-or-two-spinners",
+  "hook": "Adding face values gives sums, but sums are not equally likely. Count the ordered outcomes that produce the required sum.",
+  "when": "Two fair six-sided dice are rolled, and the question asks for a sum or another condition on both faces.",
+  "idea": "There are $36$ equally likely ordered outcomes, so $P(\\text{event})=\\frac{\\text{favourable outcomes}}{36}$. A sum of $7$ has $6$ outcomes; sums of $2$ and $12$ have one each.",
+  "why": "Each die has $6$ equally likely faces, giving $6\\times6=36$ equally likely ordered pairs. The denominator $36$ applies to independent fair six-sided dice.",
+  "steps": [
+   "Treat the two dice as ordered.",
+   "Count every ordered pair satisfying the condition.",
+   "Divide the count by $36$.",
+   "Check a boundary sum if the count seems doubtful."
+  ],
+  "worked": {
+   "question": "Two independent fair six-sided dice are rolled. Find the probability that their sum is $7$.",
+   "long": "List all $36$ ordered pairs and mark those whose entries sum to $7$.",
+   "short": "The favourable pairs are $(1,6)$, $(2,5)$, $(3,4)$, $(4,3)$, $(5,2)$ and $(6,1)$, so the probability is $6/36=1/6$.",
+   "saving": "It counts the required cells without writing all $36$ pairs."
+  },
+  "pitfalls": [
+   "Treating sums $2$ to $12$ as equally likely.",
+   "Counting $(1,6)$ and $(6,1)$ as one outcome.",
+   "Using $36$ for spinners whose sectors are not six equally likely results each."
+  ],
+  "check": "A sum of $7$ has more ways than the boundary sum $2$, which has only $(1,1)$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Two independent fair six-sided dice are rolled. Find the probability that their sum is $8$, to 3 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.139",
+    "hints": [
+     "Count ordered pairs out of $36$.",
+     "List first-die values that allow a second-die value from $1$ to $6$.",
+     "The favourable pairs run from $(2,6)$ through $(6,2)$; divide their count by $36$."
+    ],
+    "explanation": "The pairs are $(2,6)$, $(3,5)$, $(4,4)$, $(5,3)$ and $(6,2)$. Thus the probability is $5/36\\approx0.139$.",
+    "shortcut_use": "Count only favourable cells of the $36$-outcome grid."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Two independent fair six-sided dice are rolled. Find the probability that their sum is $2$ or $12$, to 3 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.056",
+    "hints": [
+     "Both requested sums are at the ends of the possible range.",
+     "Count the ordered pairs for each boundary sum.",
+     "Use $(1,1)$ for $2$ and $(6,6)$ for $12$, then divide the total count by $36$."
+    ],
+    "explanation": "Only $(1,1)$ and $(6,6)$ qualify, so the probability is $2/36=1/18\\approx0.056$.",
+    "shortcut_use": "Use the one-cell count for each boundary sum."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How many equally likely ordered outcomes do two fair six-sided dice have?",
+    "a": "They have $6\\times6=36$ ordered outcomes."
+   },
+   {
+    "q": "How many ordered outcomes give a sum of $7$?",
+    "a": "Six ordered outcomes give a sum of $7$."
+   },
+   {
+    "q": "When does the denominator $36$ apply?",
+    "a": "It applies to two independent fair six-sided dice."
+   }
+  ]
+ },
+ "SEM-S1-bayes-in-one-line": {
+  "id": "SEM-S1-bayes-in-one-line",
+  "hook": "A probability tree can take time to draw, and it is easy to divide by the probability of the wrong event.",
+  "when": "You know the probability of each route and the chance of an observed outcome on each route, then are asked which route produced it.",
+  "idea": "Use $P(A\\mid B)=\\frac{P(A)P(B\\mid A)}{P(B)}$. Find $P(B)$ by adding the probabilities of all routes that give $B$.",
+  "why": "The numerator is the probability that both $A$ and $B$ occur; dividing by the probability of $B$ gives the share of $B$ outcomes that came through $A$. This holds when $P(B)>0$ and the routes used to calculate $P(B)$ are mutually exclusive and cover every way $B$ can occur.",
+  "steps": [
+   "Multiply along the route for $A$ and $B$.",
+   "Multiply along every other route that gives $B$.",
+   "Add those route probabilities to get $P(B)$.",
+   "Divide the $A$ and $B$ route probability by $P(B)$."
+  ],
+  "worked": {
+   "question": "A component comes from machine A with probability $0.3$ and machine C with probability $0.7$. The defect rates are $0.08$ for A and $0.02$ for C. Given that a component is defective, find the probability it came from A, to 3 significant figures.",
+   "long": "In a representative batch of $10000$, A supplies $3000$ components and C supplies $7000$. Of these, $240$ and $140$ are defective respectively, so the required probability is $\\frac{240}{240+140}=\\frac{12}{19}\\approx0.632$.",
+   "short": "The defective routes have probabilities $0.3(0.08)=0.024$ and $0.7(0.02)=0.014$. Hence $P(A\\mid\\mathrm{defective})=\\frac{0.024}{0.024+0.014}=\\frac{12}{19}\\approx0.632$.",
+   "saving": "It avoids inventing a batch size and keeps the denominator tied to all defective components."
+  },
+  "pitfalls": [
+   "Using $P(A)$ as the denominator instead of $P(B)$.",
+   "Using $P(B\\mid A)$ as though it were $P(A\\mid B)$.",
+   "Leaving out another route that can also produce $B$."
+  ],
+  "check": "The answer must lie between $0$ and $1$; the numerator must be one of the terms in the denominator.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A condition affects a person with probability $0.1$. A test is positive with probability $0.9$ if the person has the condition and $0.2$ if they do not. Given a positive result, find the probability the person has the condition, to 3 significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.333",
+    "hints": [
+     "A positive result can come from either group.",
+     "Multiply along each positive-result route, then add the routes for the denominator.",
+     "Use $\\frac{0.1(0.9)}{0.1(0.9)+0.9(0.2)}$."
+    ],
+    "explanation": "The positive-result routes are $0.1(0.9)=0.09$ and $0.9(0.2)=0.18$. Thus the required probability is $\\frac{0.09}{0.09+0.18}=\\frac{1}{3}\\approx0.333$.",
+    "shortcut_use": "Add the positive-result routes in Bayes’ denominator."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Box A is chosen with probability $0.6$ and box C with probability $0.4$. The probability of drawing a red ball is $0.2$ from A and $0.5$ from C. Given that the ball drawn is red, what is the probability that A was chosen?",
+    "options": {
+     "A": "$\\frac{3}{5}$",
+     "B": "$\\frac{3}{8}$",
+     "C": "$\\frac{1}{5}$",
+     "D": "$\\frac{3}{25}$"
+    },
+    "answer": "B",
+    "hints": [
+     "A red ball could have come from either box.",
+     "Find both routes that end in red, then use their sum as the denominator.",
+     "Set up $\\frac{0.6(0.2)}{0.6(0.2)+0.4(0.5)}$."
+    ],
+    "explanation": "The red routes have probabilities $0.6(0.2)=0.12$ and $0.4(0.5)=0.20$. Therefore $P(A\\mid\\mathrm{red})=\\frac{0.12}{0.12+0.20}=\\frac{3}{8}$.",
+    "shortcut_use": "Use the sum of the red routes as the denominator."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the one-line formula for $P(A\\mid B)$?",
+    "a": "$P(A\\mid B)=\\frac{P(A)P(B\\mid A)}{P(B)}$."
+   },
+   {
+    "q": "How do you find $P(B)$ from the routes?",
+    "a": "Add the probabilities of every mutually exclusive route that gives $B$."
+   },
+   {
+    "q": "What condition must hold before dividing by $P(B)$?",
+    "a": "$P(B)>0$."
+   }
+  ]
+ },
+ "SEM-S1-cumulative-distribution": {
+  "id": "SEM-S1-cumulative-distribution",
+  "hook": "Reading a discrete cumulative probability as a point probability gives the wrong answer. Differencing adjacent values avoids rebuilding the probability table.",
+  "when": "A question gives $F(x)=P(X\\le x)$ at the possible values of a discrete variable.",
+  "idea": "Use $P(X=x)=F(x)-F(x^-)$, where $F(x^-)$ is the cumulative probability just before $x$. Use $P(X>x)=1-F(x)$.",
+  "why": "For a discrete variable, the jump in the CDF at $x$ is exactly the probability at $x$. The complement of $X\\le x$ is $X>x$; these identities always hold.",
+  "steps": [
+   "Locate $F(x)$ and the value immediately before $x$.",
+   "Subtract to find $P(X=x)$, or subtract $F(x)$ from $1$ to find $P(X>x)$.",
+   "Check that the result lies between $0$ and $1$."
+  ],
+  "worked": {
+   "question": "A discrete variable takes values $1,2,3$. Its CDF is $F(1)=0.20$, $F(2)=0.65$, $F(3)=1$. Find $P(X=2)$ and $P(X>2)$.",
+   "long": "The probability table is $0.20,0.45,0.35$, since its entries sum to $1$. Read off $P(X=2)=0.45$ and $P(X>2)=0.35$.",
+   "short": "$P(X=2)=F(2)-F(1)=0.65-0.20=0.45$; $P(X>2)=1-F(2)=0.35$.",
+   "saving": "Finds each probability directly, without completing the table."
+  },
+  "pitfalls": [
+   "Using $F(2)$ itself for $P(X=2)$.",
+   "Including $X=2$ in $P(X>2)$.",
+   "Subtracting the next CDF value instead of the previous one."
+  ],
+  "check": "For a point probability, the CDF must rise by exactly that amount at the point.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A discrete variable takes values $0,1,2$. Given $F(0)=0.15$ and $F(1)=0.70$, find $P(X=1)$ as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.55",
+    "hints": [
+     "Look for the jump at $1$.",
+     "Subtract the preceding CDF value.",
+     "Set up $F(1)-F(0)$."
+    ],
+    "explanation": "The jump at $1$ is $F(1)-F(0)=0.70-0.15=0.55$.",
+    "shortcut_use": "Difference adjacent CDF values."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A discrete variable has $F(4)=0.82$. Find $P(X>4)$ as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.18",
+    "hints": [
+     "The event is strictly above $4$.",
+     "Use the complement of $X\\le4$.",
+     "Set up $1-F(4)$."
+    ],
+    "explanation": "$P(X>4)=1-F(4)=1-0.82=0.18$.",
+    "shortcut_use": "Complement the CDF value."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you find a point probability from a discrete CDF?",
+    "a": "Subtract the CDF value immediately before the point from the value at the point."
+   },
+   {
+    "q": "How do you find $P(X>x)$ from $F(x)$?",
+    "a": "Use $1-F(x)$."
+   }
+  ]
+ },
+ "SEM-S1-discrete-uniform-on": {
+  "id": "SEM-S1-discrete-uniform-on",
+  "hook": "Summing every value and squared deviation is slow when all the integers are equally likely.",
+  "when": "$X$ is equally likely to be any integer from $1$ through $n$.",
+  "idea": "Use $E(X)=\\frac{n+1}{2}$ and $\\mathrm{Var}(X)=\\frac{n^2-1}{12}$.",
+  "why": "The mean is the midpoint of the symmetric values $1$ through $n$; averaging their squared distances gives the variance formula. These formulas require equal probabilities for every integer in that range.",
+  "steps": [
+   "Identify the largest value $n$ and confirm equal probabilities.",
+   "Substitute $n$ into the required formula.",
+   "Check that the mean is the midpoint of $1$ and $n$."
+  ],
+  "worked": {
+   "question": "A fair six-sided die is numbered $1$ to $6$. Find its mean and variance.",
+   "long": "$E(X)=(1+2+3+4+5+6)/6=3.5$. Also $E(X^2)=(1+4+9+16+25+36)/6=91/6$, so $\\mathrm{Var}(X)=91/6-3.5^2=35/12$.",
+   "short": "With $n=6$, $E(X)=\\frac{6+1}{2}=3.5$ and $\\mathrm{Var}(X)=\\frac{6^2-1}{12}=\\frac{35}{12}$.",
+   "saving": "Avoids summing six values and six squares."
+  },
+  "pitfalls": [
+   "Using the formula when the outcomes are unequally likely.",
+   "Using $n^2/12$ and dropping the $-1$.",
+   "Taking $n$ to be the number of sides when the values do not run from $1$ to $n$."
+  ],
+  "check": "The mean must equal the midpoint of the smallest and largest values.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "$X$ is equally likely to be any integer from $1$ to $9$. Find $E(X)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "The outcomes are consecutive and equally likely.",
+     "Use the discrete uniform mean.",
+     "Set up $(9+1)/2$."
+    ],
+    "explanation": "$E(X)=\\frac{9+1}{2}=5$.",
+    "shortcut_use": "Apply the midpoint formula."
+   },
+   {
+    "kind": "numeric",
+    "stem": "$X$ is equally likely to be any integer from $1$ to $7$. Find $\\mathrm{Var}(X)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "The values fit the range $1$ through $n$.",
+     "Use the discrete uniform variance formula.",
+     "Set up $(7^2-1)/12$."
+    ],
+    "explanation": "$\\mathrm{Var}(X)=\\frac{7^2-1}{12}=4$.",
+    "shortcut_use": "Apply the variance formula."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the mean of a discrete uniform variable on $1$ through $n$?",
+    "a": "It is $\\frac{n+1}{2}$."
+   },
+   {
+    "q": "What is its variance?",
+    "a": "It is $\\frac{n^2-1}{12}$."
+   },
+   {
+    "q": "What condition must hold for these formulas?",
+    "a": "Every integer from $1$ through $n$ must have the same probability."
+   }
+  ]
+ },
+ "SEM-S1-fix-a-discrete-cdf-at-its-upper-endpoint": {
+  "id": "SEM-S1-fix-a-discrete-cdf-at-its-upper-endpoint",
+  "hook": "Differencing a CDF that still contains an unknown constant creates unnecessary algebra and can hide an invalid distribution.",
+  "when": "A discrete CDF contains an unknown constant and the largest possible value $m$ is given.",
+  "idea": "Set $F(m)=1$ first, then difference successive CDF values to obtain point probabilities.",
+  "why": "If $m$ is the largest possible value, $X\\le m$ is certain, so $F(m)=1$. This applies only when $m$ really is the upper endpoint of the variable.",
+  "steps": [
+   "Identify the largest possible value $m$.",
+   "Solve $F(m)=1$ for the constant.",
+   "Difference successive CDF values if point probabilities are needed.",
+   "Check that the CDF never decreases and that each difference is nonnegative."
+  ],
+  "worked": {
+   "question": "A variable takes values $1,2,3$ with $F(1)=a$, $F(2)=2a$, and $F(3)=4a$. Find $a$ and $P(X=2)$.",
+   "long": "Let the point probabilities be $p_1,p_2,p_3$. Then $p_1=a$, $p_1+p_2=2a$, $p_1+p_2+p_3=4a=1$. Thus $a=1/4$ and $p_2=1/4$.",
+   "short": "Since $3$ is the largest value, $F(3)=4a=1$, so $a=1/4$. Then $P(X=2)=F(2)-F(1)=2a-a=1/4$.",
+   "saving": "Fixes the constant before computing any differences."
+  },
+  "pitfalls": [
+   "Setting $F(m)$ to the last point probability instead of $1$.",
+   "Using an alleged upper endpoint when larger values are possible.",
+   "Failing to reject a CDF that decreases after substitution."
+  ],
+  "check": "After finding the constant, the final CDF value must be $1$ and all jumps must be nonnegative.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "$X$ takes values $0,1,2$, with $F(0)=k$, $F(1)=3k$, and $F(2)=5k$. Find $k$ as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.2",
+    "hints": [
+     "Identify the upper endpoint.",
+     "Set its CDF value to $1$.",
+     "Set up $5k=1$."
+    ],
+    "explanation": "Since $2$ is the largest value, $F(2)=5k=1$, giving $k=0.2$.",
+    "shortcut_use": "Set the endpoint CDF to $1$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "$X$ takes values $1,2,3$, with $F(1)=c$, $F(2)=2c$, and $F(3)=5c$. Find $P(X=3)$ as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.6",
+    "hints": [
+     "The largest possible value fixes the constant.",
+     "Then find the jump at $3$.",
+     "Set up $5c=1$ and $P(X=3)=F(3)-F(2)$."
+    ],
+    "explanation": "$F(3)=5c=1$ gives $c=0.2$. Hence $P(X=3)=5c-2c=3c=0.6$.",
+    "shortcut_use": "Fix the constant at the endpoint before differencing."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is $F(m)$ if $m$ is the largest possible value?",
+    "a": "$F(m)=1$."
+   },
+   {
+    "q": "What should you check after finding the constant in a discrete CDF?",
+    "a": "Check that the CDF is nondecreasing and all its successive differences are nonnegative."
+   }
+  ]
+ },
+ "SEM-S1-merge-equal-products-from-two-draws": {
+  "id": "SEM-S1-merge-equal-products-from-two-draws",
+  "hook": "Listing every ordered pair separately is slow, and identical products can be overlooked.",
+  "when": "Two independent draws are made with replacement, and the question asks for the distribution or probability of their product.",
+  "idea": "Each ordered pair $(x_i,x_j)$ has probability $p_ip_j$. Merge pairs with the same product: two off-diagonal orders contribute $2p_ip_j$, while a diagonal pair contributes $p_i^2$ once.",
+  "why": "Independence makes pair probabilities products. With replacement, both orders of distinct values are possible and have equal probability; a pair of equal values has only one order.",
+  "steps": [
+   "List the possible products.",
+   "For each product, group the ordered pairs that produce it.",
+   "Use $2p_ip_j$ for a pair of distinct values appearing in both orders, and $p_i^2$ for an equal pair.",
+   "Add contributions for any other pairs with the same product."
+  ],
+  "worked": {
+   "question": "A draw gives $1$ with probability $1/2$ and $2$ with probability $1/2$. Two independent draws are made with replacement. Find the distribution of their product $Z$.",
+   "long": "The ordered pairs $(1,1),(1,2),(2,1),(2,2)$ each have probability $1/4$. Their products are $1,2,2,4$, so the product probabilities are $1/4,1/2,1/4$.",
+   "short": "$P(Z=1)=(1/2)^2=1/4$, $P(Z=2)=2(1/2)(1/2)=1/2$, and $P(Z=4)=(1/2)^2=1/4$.",
+   "saving": "Counts the two orders of the mixed pair once each and the equal pairs once."
+  },
+  "pitfalls": [
+   "Doubling a diagonal pair such as $(2,2)$.",
+   "Forgetting the second order of two distinct draws.",
+   "Using $p_ip_j$ when the draws are not independent."
+  ],
+  "check": "The probabilities of all distinct products must sum to $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Each of two independent draws with replacement gives $1$ with probability $0.3$ or $3$ with probability $0.7$. Find the probability that their product is $3$ as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.42",
+    "hints": [
+     "The product comes from two different draw values.",
+     "Count both possible orders.",
+     "Set up $2(0.3)(0.7)$."
+    ],
+    "explanation": "The pairs $(1,3)$ and $(3,1)$ each have probability $(0.3)(0.7)$, so $P(Z=3)=2(0.3)(0.7)=0.42$.",
+    "shortcut_use": "Double the off-diagonal pair probability."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Each of two independent draws with replacement gives $2$ with probability $0.4$ or $5$ with probability $0.6$. Find the probability that their product is $25$ as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.36",
+    "hints": [
+     "Only equal values produce this product.",
+     "A diagonal pair occurs in one order.",
+     "Set up $(0.6)^2$."
+    ],
+    "explanation": "Only $(5,5)$ produces $25$, so $P(Z=25)=(0.6)^2=0.36$.",
+    "shortcut_use": "Count a diagonal pair once."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the probability of an ordered pair in two independent draws with replacement?",
+    "a": "It is the product $p_ip_j$ of the two draw probabilities."
+   },
+   {
+    "q": "When does an off-diagonal pair contribute $2p_ip_j$?",
+    "a": "When both orders of two distinct values are possible and give the required product."
+   },
+   {
+    "q": "How many times is a diagonal pair counted?",
+    "a": "Once, with probability $p_i^2$."
+   }
+  ]
+ },
+ "SEM-S1-sums-of-variables": {
+  "id": "SEM-S1-sums-of-variables",
+  "hook": "Computing a full distribution for a sum can waste time. A common slip is to subtract variances when the variable itself is subtracted.",
+  "when": "A question asks for the mean or variance of $X+Y$ or $X-Y$, especially when independence is stated.",
+  "idea": "$E(X+Y)=E(X)+E(Y)$ always. For independent $X,Y$, $\\mathrm{Var}(X+Y)=\\mathrm{Var}(X-Y)=\\mathrm{Var}(X)+\\mathrm{Var}(Y)$.",
+  "why": "Expectation is linear for any $X,Y$. For variance, independence removes the covariance term, and squaring a negative deviation makes the variance contribution positive.",
+  "steps": [
+   "Identify whether the expression is a sum or difference.",
+   "Combine means with the same sign as the expression.",
+   "For variance, confirm independence, then add the two variances.",
+   "Check that the variance is nonnegative."
+  ],
+  "worked": {
+   "question": "Independent variables $X$ and $Y$ have $E(X)=8$, $E(Y)=3$, $\\mathrm{Var}(X)=4$, and $\\mathrm{Var}(Y)=9$. Find $E(X-Y)$ and $\\mathrm{Var}(X-Y)$.",
+   "long": "$E(X-Y)=E(X)-E(Y)=8-3=5$. Expanding $E((X-Y-5)^2)$ gives $E((X-8)^2)+E((Y-3)^2)$ because independence makes the cross term zero, so the variance is $4+9=13$.",
+   "short": "Subtract the means: $8-3=5$. Add the variances: $4+9=13$.",
+   "saving": "Avoids expanding a squared expression and prevents subtracting variances."
+  },
+  "pitfalls": [
+   "Subtracting $\\mathrm{Var}(Y)$ for $X-Y$.",
+   "Adding variances without checking independence.",
+   "Adding means for $X-Y$ instead of subtracting them."
+  ],
+  "check": "For independent variables, the variance of either the sum or difference must be the sum of two nonnegative variances.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Independent variables $X,Y$ have $\\mathrm{Var}(X)=6$ and $\\mathrm{Var}(Y)=10$. Find $\\mathrm{Var}(X-Y)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "16",
+    "hints": [
+     "Independence is stated.",
+     "Variances add even for a difference.",
+     "Set up $6+10$."
+    ],
+    "explanation": "Independence gives $\\mathrm{Var}(X-Y)=\\mathrm{Var}(X)+\\mathrm{Var}(Y)=6+10=16$.",
+    "shortcut_use": "Add variances for an independent difference."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Variables $X,Y$ may be dependent. Given $E(X)=12$ and $E(Y)=7$, find $E(X+Y)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "19",
+    "hints": [
+     "This asks for a mean.",
+     "Expectation is linear without independence.",
+     "Set up $E(X)+E(Y)=12+7$."
+    ],
+    "explanation": "$E(X+Y)=E(X)+E(Y)=12+7=19$, whether or not the variables are independent.",
+    "shortcut_use": "Add expectations directly."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Does $E(X+Y)=E(X)+E(Y)$ require independence?",
+    "a": "No; expectation is linear for any $X,Y$."
+   },
+   {
+    "q": "When can you add variances for $X-Y$?",
+    "a": "You can add them when $X$ and $Y$ are independent."
+   },
+   {
+    "q": "For independent variables, what sign joins the variances in $\\mathrm{Var}(X-Y)$?",
+    "a": "A plus sign."
+   }
+  ]
+ },
+ "SEM-S1-use-a-joint-table-for-products-unless-independen": {
+  "id": "SEM-S1-use-a-joint-table-for-products-unless-independen",
+  "hook": "Multiplying separate means can give a wrong product expectation when the variables are dependent.",
+  "when": "A question asks for $E(XY)$ and gives either independence or a joint distribution.",
+  "idea": "If $X,Y$ are independent, use $E(XY)=E(X)E(Y)$. Otherwise, calculate $E(XY)=\\sum_{x,y}xyP(X=x,Y=y)$ from the joint probabilities.",
+  "why": "Independence lets each joint probability factor into the product of its marginal probabilities, which separates the sum. Without independence, that factorisation may fail; the joint sum always applies when the expectation exists.",
+  "steps": [
+   "Check whether independence is stated or proved.",
+   "If independent, multiply the two means.",
+   "Otherwise, multiply $xy$ by its joint probability for each outcome and add.",
+   "Check that the joint probabilities sum to $1$."
+  ],
+  "worked": {
+   "question": "$X$ and $Y$ each take values $0$ or $1$. Their joint probabilities are $P(0,0)=0.4$, $P(0,1)=0.1$, $P(1,0)=0.1$, and $P(1,1)=0.4$. Find $E(XY)$.",
+   "long": "The marginal means are $E(X)=E(Y)=0.5$. The variables are dependent because $P(1,1)=0.4$ differs from $P(X=1)P(Y=1)=0.25$. Sum all four products: $0(0.4)+0(0.1)+0(0.1)+1(0.4)=0.4$.",
+   "short": "Only the outcome $(1,1)$ has a nonzero product, so $E(XY)=1(0.4)=0.4$.",
+   "saving": "Uses the joint outcome that contributes, avoiding the false $0.5(0.5)$ shortcut."
+  },
+  "pitfalls": [
+   "Assuming independence merely because the marginal distributions match.",
+   "Multiplying $E(X)E(Y)$ for dependent variables.",
+   "Adding joint probabilities without multiplying by $xy$."
+  ],
+  "check": "For binary $0$–$1$ variables, $XY=1$ only when both equal $1$, so $E(XY)=P(X=1,Y=1)$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "$X,Y$ each take values $0$ or $1$. Their joint probabilities are $P(0,0)=0.3$, $P(0,1)=0.2$, $P(1,0)=0.1$, and $P(1,1)=0.4$. Find $E(XY)$ as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.4",
+    "hints": [
+     "A joint distribution is given.",
+     "Sum $xy$ times each joint probability.",
+     "Only the $(1,1)$ outcome has $xy\\ne0$."
+    ],
+    "explanation": "Only $(1,1)$ contributes, so $E(XY)=1(1)(0.4)=0.4$.",
+    "shortcut_use": "Read the contributing joint cell."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Independent variables $X,Y$ have $E(X)=3$ and $E(Y)=4$. Find $E(XY)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "12",
+    "hints": [
+     "Independence is stated.",
+     "Separate the product expectation into two means.",
+     "Set up $E(X)E(Y)=3(4)$."
+    ],
+    "explanation": "Independence gives $E(XY)=E(X)E(Y)=3(4)=12$.",
+    "shortcut_use": "Multiply means under independence."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When can you use $E(XY)=E(X)E(Y)$?",
+    "a": "When $X$ and $Y$ are independent."
+   },
+   {
+    "q": "How do you calculate $E(XY)$ without independence?",
+    "a": "Sum $xyP(X=x,Y=y)$ over the joint outcomes."
+   }
+  ]
+ },
+ "SEM-S1-68-95-99-7-rule": {
+  "id": "SEM-S1-68-95-99-7-rule",
+  "hook": "Exact normal probabilities take extra work when only a rough estimate or a sanity check is needed.",
+  "when": "A variable is normally distributed and the interval endpoints lie one, two or three standard deviations from its mean.",
+  "idea": "About $68\\%$, $95\\%$ and $99.7\\%$ lie within $\\mu\\pm\\sigma$, $\\mu\\pm2\\sigma$ and $\\mu\\pm3\\sigma$ respectively.",
+  "why": "These are approximate areas under a normal curve. They apply to a normal distribution; symmetry splits the area outside a centred interval equally between its two tails.",
+  "steps": [
+   "Find how many standard deviations each endpoint is from $\\mu$.",
+   "Match a centred interval to $1$, $2$ or $3$ standard deviations.",
+   "For a one-sided tail, subtract the central percentage from $100\\%$ and halve it.",
+   "Label the result as approximate."
+  ],
+  "worked": {
+   "question": "Heights are normally distributed with mean $170$ cm and standard deviation $5$ cm. Estimate the percentage between $160$ cm and $180$ cm.",
+   "long": "Standardise the endpoints: $(160-170)/5=-2$ and $(180-170)/5=2$. The normal area between these standardised values is approximately $0.95$.",
+   "short": "The endpoints are $\\mu\\pm2\\sigma$, so about $95\\%$ lie between them.",
+   "saving": "Gives a quick estimate without looking up two cumulative probabilities."
+  },
+  "pitfalls": [
+   "Treating $68\\%$, $95\\%$ or $99.7\\%$ as exact.",
+   "Using the rule for a distribution that is not normal.",
+   "Using the full outside area for just one tail."
+  ],
+  "check": "A wider centred interval must contain a larger percentage than a narrower one.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "$X$ is normally distributed with mean $50$ and standard deviation $4$. Using the $68$–$95$–$99.7$ rule, estimate the percentage with $46\\le X\\le54$. Give the percentage as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "68",
+    "hints": [
+     "Compare each endpoint with the mean.",
+     "Count the standard deviations to either endpoint.",
+     "The interval is $\\mu\\pm\\sigma$."
+    ],
+    "explanation": "$46=50-4$ and $54=50+4$, so the interval is $\\mu\\pm\\sigma$ and contains about $68\\%$.",
+    "shortcut_use": "Match a centred interval to one standard deviation."
+   },
+   {
+    "kind": "numeric",
+    "stem": "$X$ is normally distributed with mean $100$ and standard deviation $10$. Using the $68$–$95$–$99.7$ rule, estimate the percentage with $X>120$. Give the percentage as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2.5",
+    "hints": [
+     "Locate $120$ relative to the mean.",
+     "Use the central percentage within two standard deviations.",
+     "Subtract that percentage from $100\\%$, then take half."
+    ],
+    "explanation": "$120=100+2(10)$. About $95\\%$ lies within two standard deviations, leaving $5\\%$ outside; symmetry puts about $2.5\\%$ above $120$.",
+    "shortcut_use": "Halve the area outside the central two-standard-deviation interval."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What approximate percentages lie within one, two and three standard deviations of a normal mean?",
+    "a": "About $68\\%$, $95\\%$ and $99.7\\%$, respectively."
+   },
+   {
+    "q": "How do you estimate one tail beyond $\\mu+2\\sigma$?",
+    "a": "Subtract $95\\%$ from $100\\%$ and halve the result."
+   },
+   {
+    "q": "What condition is needed for the rule?",
+    "a": "The variable must be normally distributed."
+   }
+  ]
+ },
+ "SEM-S1-symmetric-distribution": {
+  "id": "SEM-S1-symmetric-distribution",
+  "hook": "Calculating the mean term by term wastes time when the distribution is symmetric. Using a guessed centre when the probabilities differ gives the wrong variance.",
+  "when": "Each value has a matching value equally far from a centre, and the two values have equal probabilities.",
+  "idea": "The mean is the centre $c$. Find the variance directly from $\\mathrm{Var}(X)=\\sum p(x)(x-c)^2$.",
+  "why": "When probabilities pair equally around $c$, their deviations cancel, so $E(X)=c$. The variance formula then uses squared distances from that mean.",
+  "steps": [
+   "Identify the centre $c$.",
+   "Check that probabilities match on both sides of $c$.",
+   "For variance, square each distance from $c$, multiply by its probability, and add."
+  ],
+  "worked": {
+   "question": "A random variable $X$ takes values $0,1,2,3,4$ with respective probabilities $0.1,0.2,0.4,0.2,0.1$. Find its variance.",
+   "long": "$E(X)=0(0.1)+1(0.2)+2(0.4)+3(0.2)+4(0.1)=2$. Also $E(X^2)=0+0.2+1.6+1.8+1.6=5.2$, so $\\mathrm{Var}(X)=5.2-2^2=1.2$.",
+   "short": "The probabilities pair around $c=2$. Thus $\\mathrm{Var}(X)=2(0.1)(2^2)+2(0.2)(1^2)=1.2$.",
+   "saving": "Skips the separate calculations of $E(X)$ and $E(X^2)$."
+  },
+  "pitfalls": [
+   "Symmetric values alone are insufficient: opposite values must have equal probabilities.",
+   "When combining a pair's variance contributions, include both probabilities."
+  ],
+  "check": "Variance must be non-negative; here its value is below the largest squared distance, $2^2=4$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A random variable $X$ takes values $2,4,6,8$ with respective probabilities $0.1,0.4,0.4,0.1$. Find $E(X)$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "Look for equal probabilities at equal distances from a centre.",
+     "The mean is that centre.",
+     "Find the midpoint of the two middle values."
+    ],
+    "explanation": "The probabilities match across the midpoint of $4$ and $6$, so symmetry gives $E(X)=\\frac{4+6}{2}=5$.",
+    "shortcut_use": "Read the mean from the centre of symmetry."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A random variable $X$ takes values $-3,-1,1,3$ with respective probabilities $0.125,0.375,0.375,0.125$. Find its variance as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "Check whether probabilities match across the middle of the values.",
+     "Use the centre as the mean, then square distances from it.",
+     "Combine the contributions from each pair of equally distant values."
+    ],
+    "explanation": "The probabilities pair around $c=0$. Hence $\\mathrm{Var}(X)=2(0.125)(3^2)+2(0.375)(1^2)=3$.",
+    "shortcut_use": "Use the centre directly in the variance sum."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When can you read the mean from the centre of a discrete distribution?",
+    "a": "When values equally far from the centre have equal probabilities."
+   },
+   {
+    "q": "How do you find variance once the centre $c$ is known?",
+    "a": "Add each probability multiplied by its squared distance from $c$."
+   }
+  ]
+ },
+ "SEM-S1-given-and-to-find-only": {
+  "id": "SEM-S1-given-and-to-find-only",
+  "hook": "Solving fully for both the mean and standard deviation creates unnecessary working when only the mean is required.",
+  "when": "Two probabilities give standard scores at different cutoffs, and the question asks only for $\\mu$.",
+  "idea": "If $z_a=\\frac{a-\\mu}{\\sigma}$ and $z_b=\\frac{b-\\mu}{\\sigma}$, eliminate $\\sigma$: $\\frac{a-\\mu}{b-\\mu}=\\frac{z_a}{z_b}$.",
+  "why": "Both cutoffs use the same mean and positive standard deviation for one normal variable. Dividing their standardised equations removes $\\sigma$ when $z_b\\ne0$ and $b\\ne\\mu$.",
+  "steps": [
+   "Convert each stated probability to its cutoff's standard score.",
+   "Write the ratio of the two standardised equations.",
+   "Solve the resulting equation for $\\mu$.",
+   "Check that the implied $\\sigma$ is positive."
+  ],
+  "worked": {
+   "question": "For $X$ normal, $P(X>60)=0.1587$ and $P(X<70)=0.9772$. Use $P(Z<1)=0.8413$ and $P(Z<2)=0.9772$. Find $\\mu$.",
+   "long": "$\\frac{60-\\mu}{\\sigma}=1$ and $\\frac{70-\\mu}{\\sigma}=2$. Subtracting gives $\\sigma=10$, then $\\mu=50$.",
+   "short": "$\\frac{60-\\mu}{70-\\mu}=\\frac{1}{2}$, so $120-2\\mu=70-\\mu$ and $\\mu=50$.",
+   "saving": "Finds the requested mean without first calculating $\\sigma$."
+  },
+  "pitfalls": [
+   "For $P(X>a)$, convert to the lower-tail probability before reading the standard score.",
+   "Do not divide by a zero standard score.",
+   "Reject a solution that implies $\\sigma\\le0$."
+  ],
+  "check": "The cutoffs are $10$ and $20$ above $50$, matching standard scores $1$ and $2$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $X$ normal, $P(X>24)=0.1587$ and $P(X<30)=0.9772$. Given $P(Z<1)=0.8413$ and $P(Z<2)=0.9772$, find $\\mu$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "18",
+    "hints": [
+     "Convert the upper-tail probability to a lower-tail probability.",
+     "The cutoffs have standard scores $1$ and $2$; take their equation ratio.",
+     "Set $\\frac{24-\\mu}{30-\\mu}=\\frac{1}{2}$."
+    ],
+    "explanation": "$\\frac{24-\\mu}{30-\\mu}=\\frac{1}{2}$ gives $48-2\\mu=30-\\mu$, so $\\mu=18$.",
+    "shortcut_use": "Eliminate $\\sigma$ by taking the ratio."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $Y$ normal, $P(Y>5)=0.1587$ and $P(Y<11)=0.9772$. Given $P(Z<1)=0.8413$ and $P(Z<2)=0.9772$, find the mean.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-1",
+    "hints": [
+     "The upper tail of $0.1587$ corresponds to a positive standard score.",
+     "Use standard scores $1$ and $2$ at the two cutoffs.",
+     "Set $\\frac{5-\\mu}{11-\\mu}=\\frac{1}{2}$."
+    ],
+    "explanation": "$\\frac{5-\\mu}{11-\\mu}=\\frac{1}{2}$ gives $10-2\\mu=11-\\mu$, so $\\mu=-1$.",
+    "shortcut_use": "Eliminate $\\sigma$ by taking the ratio."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What can be eliminated when only the mean is required from two normal cutoffs?",
+    "a": "Divide the standardised equations to eliminate the common standard deviation."
+   },
+   {
+    "q": "What sign must the implied standard deviation have?",
+    "a": "It must be positive."
+   }
+  ]
+ },
+ "SEM-S1-quartiles-of-a-normal": {
+  "id": "SEM-S1-quartiles-of-a-normal",
+  "hook": "Looking up both quartile standard scores and subtracting them repeats work.",
+  "when": "A normal variable's quartiles or interquartile range are given and $\\sigma$ is required.",
+  "idea": "$Q_1=\\mu-0.6745\\sigma$, $Q_3=\\mu+0.6745\\sigma$, so $\\sigma=\\frac{\\mathrm{IQR}}{1.349}$.",
+  "why": "For a normal distribution, the quartile standard scores are approximately $-0.6745$ and $0.6745$. Subtracting the quartiles cancels $\\mu$.",
+  "steps": [
+   "Find $\\mathrm{IQR}=Q_3-Q_1$ if needed.",
+   "Divide by $1.349$.",
+   "Check that $\\sigma$ is positive."
+  ],
+  "worked": {
+   "question": "A normal variable has lower quartile $12.55$ and upper quartile $25.205$. Using quartile standard scores $\\pm0.6745$, find $\\sigma$ to 3 significant figures.",
+   "long": "$25.205-12.55=(0.6745-(-0.6745))\\sigma=1.349\\sigma$, giving $\\sigma=9.38$ to 3 significant figures.",
+   "short": "$\\sigma=\\frac{25.205-12.55}{1.349}=9.38$ to 3 significant figures.",
+   "saving": "Uses the quartile spread directly; the mean is unnecessary."
+  },
+  "pitfalls": [
+   "Use $Q_3-Q_1$, not $Q_1-Q_3$.",
+   "The factor $1.349$ applies to a normal distribution.",
+   "The quartile standard scores are approximate, so do not claim excessive precision."
+  ],
+  "check": "$1.349\\times9.38\\approx12.65$, close to the given interquartile range of $12.655$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A normal variable has $Q_1=20$ and $Q_3=33.49$. Using $\\mathrm{IQR}=1.349\\sigma$, find $\\sigma$ to 3 significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10.0",
+    "hints": [
+     "The quartile gap is the interquartile range.",
+     "Divide that gap by $1.349$.",
+     "Calculate $\\frac{33.49-20}{1.349}$."
+    ],
+    "explanation": "$\\sigma=\\frac{33.49-20}{1.349}=10.0$ to 3 significant figures.",
+    "shortcut_use": "Convert the quartile gap directly to $\\sigma$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A normal variable has an interquartile range of $5.396$ cm. Using $\\mathrm{IQR}=1.349\\sigma$, find $\\sigma$ in cm to 3 significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.00",
+    "hints": [
+     "The interquartile range is already given.",
+     "Use the normal quartile factor.",
+     "Calculate $\\frac{5.396}{1.349}$."
+    ],
+    "explanation": "$\\sigma=\\frac{5.396}{1.349}=4.00$ cm to 3 significant figures.",
+    "shortcut_use": "Divide the given interquartile range by $1.349$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the approximate interquartile range of a normal variable in terms of $\\sigma$?",
+    "a": "It is approximately $1.349\\sigma$."
+   },
+   {
+    "q": "Why is the mean unnecessary when finding $\\sigma$ from normal quartiles?",
+    "a": "Subtracting the quartiles cancels the mean."
+   }
+  ]
+ },
+ "SEM-S1-separate-the-normal-model-from-the-sampling-mode": {
+  "id": "SEM-S1-separate-the-normal-model-from-the-sampling-mode",
+  "hook": "The normal tail probability describes one outcome; applying it twice without checking how the two outcomes are selected can give the wrong result.",
+  "when": "A normal cutoff is followed by a question about two attempts or two draws from a counted group.",
+  "idea": "First find $p=P(X>c)$. For two independent attempts use $p^2$; for two draws without replacement from $M$ successes among $N$, use $\\frac{M(M-1)}{N(N-1)}$.",
+  "why": "Independent attempts keep the success probability at $p$. Without replacement, the second success probability becomes $\\frac{M-1}{N-1}$ after the first success; use the model stated in the question.",
+  "steps": [
+   "Find the single-outcome probability above the cutoff.",
+   "Identify independent attempts or draws without replacement.",
+   "Apply the matching two-success formula.",
+   "Check that the result is no greater than the single-success probability."
+  ],
+  "worked": {
+   "question": "Scores are normal with mean $50$ and standard deviation $10$. Given $P(Z>1)=0.1587$, find the probability that two independent scores both exceed $60$.",
+   "long": "Each score exceeds $60$ when its standard score exceeds $1$. Multiplying the two independent probabilities gives $0.1587\\times0.1587=0.02518569$.",
+   "short": "$p=P(X>60)=0.1587$, so the probability is $p^2=0.02518569$.",
+   "saving": "Separates the normal calculation from the two-attempt calculation."
+  },
+  "pitfalls": [
+   "Do not square $p$ for draws without replacement from a counted group.",
+   "Do not use $\\frac{M(M-1)}{N(N-1)}$ unless $M$ and $N$ are counts.",
+   "For 'both', multiply the two relevant success probabilities."
+  ],
+  "check": "$0.02518569<0.1587$, as 'both exceed' is less likely than one exceedance.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A score $X$ is normal with mean $100$ and standard deviation $20$. Given $P(Z>1)=0.1587$, find the probability that two independent scores both exceed $120$, to 4 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.0252",
+    "hints": [
+     "Standardise the cutoff for one score.",
+     "Use the one-score upper-tail probability, then square it.",
+     "Set $p=P(Z>1)=0.1587$ and calculate $p^2$."
+    ],
+    "explanation": "The cutoff has standard score $1$, so $p=0.1587$. Independence gives $p^2=0.02518569\\approx0.0252$.",
+    "shortcut_use": "Square the single-score probability for independent attempts."
+   },
+   {
+    "kind": "numeric",
+    "stem": "In a group of $10$ students, $4$ have scores above a stated cutoff. Two students are drawn without replacement. Find the probability that both have scores above the cutoff, to 3 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.133",
+    "hints": [
+     "The question gives success and group counts.",
+     "Reduce both counts after the first successful draw.",
+     "Calculate $\\frac{4}{10}\\times\\frac{3}{9}$."
+    ],
+    "explanation": "Without replacement, the probability is $\\frac{4}{10}\\times\\frac{3}{9}=\\frac{2}{15}\\approx0.133$.",
+    "shortcut_use": "Use the counted-group formula for draws without replacement."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the probability of two independent exceedances if one has probability $p$?",
+    "a": "It is $p^2$."
+   },
+   {
+    "q": "What formula gives two successes without replacement from $M$ successes among $N$?",
+    "a": "Use $\\frac{M(M-1)}{N(N-1)}$."
+   }
+  ]
+ },
+ "SEM-S1-simplify-a-cutoff-containing-the-mean": {
+  "id": "SEM-S1-simplify-a-cutoff-containing-the-mean",
+  "hook": "Expanding two full standardisation equations can obscure a simple relation between the mean and standard deviation.",
+  "when": "A normal probability is stated at a cutoff such as $k\\mu$.",
+  "idea": "Rewrite $\\frac{k\\mu-\\mu}{\\sigma}=z$ as $(k-1)\\mu=z\\sigma$.",
+  "why": "For a normal variable with $\\sigma>0$, standardisation gives $z=\\frac{x-\\mu}{\\sigma}$. Substituting $x=k\\mu$ and collecting $\\mu$ gives the short relation.",
+  "steps": [
+   "Find the standard score $z$ for the probability at $k\\mu$.",
+   "Write $(k-1)\\mu=z\\sigma$.",
+   "Combine it with the other stated condition.",
+   "Check that the resulting $\\sigma$ is positive."
+  ],
+  "worked": {
+   "question": "Let $X$ be normal with mean $\\mu$ and standard deviation $\\sigma$. Given $P(X<2\\mu)=0.8413$, $P(X<30)=0.9772$, $P(Z<1)=0.8413$ and $P(Z<2)=0.9772$, find $\\mu$.",
+   "long": "$\\frac{2\\mu-\\mu}{\\sigma}=1$ and $\\frac{30-\\mu}{\\sigma}=2$. Thus $\\mu=\\sigma$ and $30-\\mu=2\\mu$, giving $\\mu=10$.",
+   "short": "$(2-1)\\mu=1\\sigma$, so $\\sigma=\\mu$. Then $30-\\mu=2\\sigma=2\\mu$, hence $\\mu=10$.",
+   "saving": "The first condition becomes a one-line relation."
+  },
+  "pitfalls": [
+   "Subtract $\\mu$ from the cutoff before simplifying: $k\\mu-\\mu=(k-1)\\mu$.",
+   "Match the probability to the correct sign of $z$.",
+   "Reject any result with $\\sigma\\le0$."
+  ],
+  "check": "With $\\mu=\\sigma=10$, the cutoffs $2\\mu=20$ and $30$ have standard scores $1$ and $2$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Let $X$ be normal. Given $P(X<2\\mu)=0.8413$, $P(X<18)=0.9772$, $P(Z<1)=0.8413$ and $P(Z<2)=0.9772$, find $\\mu$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "One cutoff is a multiple of the mean.",
+     "Turn its standardised equation into a relation between $\\mu$ and $\\sigma$.",
+     "Use $\\mu=\\sigma$ with $18-\\mu=2\\sigma$."
+    ],
+    "explanation": "$(2-1)\\mu=1\\sigma$ gives $\\sigma=\\mu$. Then $18-\\mu=2\\mu$, so $\\mu=6$.",
+    "shortcut_use": "Simplify the $2\\mu$ cutoff immediately."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Let $Y$ be normal. Given $P(Y<3\\mu)=0.9772$, $P(Y<20)=0.8413$, $P(Z<2)=0.9772$ and $P(Z<1)=0.8413$, find $\\mu$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "Start with the cutoff $3\\mu$.",
+     "Simplify $(3-1)\\mu=2\\sigma$.",
+     "Substitute $\\sigma=\\mu$ into $20-\\mu=\\sigma$."
+    ],
+    "explanation": "$(3-1)\\mu=2\\sigma$ gives $\\sigma=\\mu$. Then $20-\\mu=\\mu$, so $\\mu=10$.",
+    "shortcut_use": "Simplify the $3\\mu$ cutoff before combining conditions."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What does standardising a cutoff $k\\mu$ simplify to?",
+    "a": "It gives $(k-1)\\mu=z\\sigma$."
+   },
+   {
+    "q": "What condition must a calculated normal standard deviation satisfy?",
+    "a": "It must be positive."
+   }
+  ]
+ },
+ "SEM-S1-equal-opposite-tails-locate-the-mean": {
+  "id": "SEM-S1-equal-opposite-tails-locate-the-mean",
+  "hook": "Finding the mean from two tail probabilities can look like a standardisation problem. Here, a table and the standard deviation are unnecessary.",
+  "when": "A normal variable has $P(X<a)=P(X>b)$ with $a<b$.",
+  "idea": "Take the midpoint: $\\mu=\\frac{a+b}{2}$.",
+  "why": "A normal distribution is symmetric about its mean. When its lower tail below $a$ and upper tail above $b$ have equal probabilities, the two cut-offs are equally far from $\\mu$.",
+  "steps": [
+   "Identify the lower cut-off $a$ and upper cut-off $b$.",
+   "Calculate $\\frac{a+b}{2}$.",
+   "Check that the cut-offs are equally far from the result."
+  ],
+  "worked": {
+   "question": "The mass $X$ of a product is normally distributed, measured in g. Given $P(X<12)=P(X>28)$, find its mean in g.",
+   "long": "Symmetry gives $\\frac{12-\\mu}{\\sigma}=-\\frac{28-\\mu}{\\sigma}$. Solving gives $\\mu=20$ g.",
+   "short": "$\\mu=\\frac{12+28}{2}=20$ g.",
+   "saving": "The midpoint gives the mean without standardising or finding $\\sigma$."
+  },
+  "pitfalls": [
+   "Using the midpoint when the two opposite tail probabilities are unequal.",
+   "Averaging tail probabilities instead of the cut-offs.",
+   "Missing a negative sign when a cut-off is below zero."
+  ],
+  "check": "The answer must lie between $a$ and $b$, at equal distances from both.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A normally distributed filling mass $X$ is measured in g. If $P(X<48)=P(X>72)$, find its mean in g, to the nearest whole g.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "60",
+    "hints": [
+     "Look for equal probabilities in opposite tails.",
+     "Use the midpoint of the two cut-offs.",
+     "Set $\\mu=\\frac{a+b}{2}$ with $a=48$ and $b=72$."
+    ],
+    "explanation": "Equal opposite tails put the mean halfway between the cut-offs: $\\mu=\\frac{48+72}{2}=60$ g. The answer is 60.",
+    "shortcut_use": "Taking the midpoint of the cut-offs."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A normally distributed temperature $X$ is measured in °C. If $P(X<-7)=P(X>5)$, find its mean in °C, to the nearest whole degree.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-1",
+    "hints": [
+     "The two probabilities describe opposite tails.",
+     "The mean is halfway between their cut-offs.",
+     "Use $2\\mu=a+b$, keeping the sign of the lower cut-off."
+    ],
+    "explanation": "The equal opposite tails give $\\mu=\\frac{-7+5}{2}=-1$ °C. The answer is -1.",
+    "shortcut_use": "Taking the midpoint across zero."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the mean if a normal variable has equal tails below $a$ and above $b$?",
+    "a": "The mean is $\\frac{a+b}{2}$."
+   },
+   {
+    "q": "What condition makes the midpoint shortcut valid?",
+    "a": "The variable is normal and the two opposite tails have equal probabilities."
+   }
+  ]
+ },
+ "SEM-S1-name-both-variables-when-interpreting-correlatio": {
+  "id": "SEM-S1-name-both-variables-when-interpreting-correlatio",
+  "hook": "Writing only “negative correlation” leaves out what changes with what. It can also hide a reversal of the explanatory and response variables.",
+  "when": "A question gives a correlation coefficient and asks you to interpret it in a context with named explanatory and response variables.",
+  "idea": "State how the response tends to change as the explanatory variable increases, then give the direction and strength indicated by $r$.",
+  "why": "For a correlation coefficient describing a linear association between paired numerical variables, the sign of $r$ gives its direction and $|r|$ indicates its strength. The interpretation must follow the variables named in the question.",
+  "steps": [
+   "Identify the explanatory variable.",
+   "Identify the response variable.",
+   "Read the direction from the sign of $r$ and the strength from $|r|$.",
+   "Write one sentence naming both variables."
+  ],
+  "worked": {
+   "question": "For four tasks, practice time in hours and completion time in minutes are paired as $(1,9)$, $(2,7)$, $(3,5)$ and $(4,3)$. Taking practice time as explanatory, interpret their correlation coefficient $r=-1$.",
+   "long": "Compare the pairs: each extra hour of practice goes with a completion time that is $2$ minutes lower. The points follow an exact downward line.",
+   "short": "As practice time increases, completion time decreases in a perfect negative linear relationship.",
+   "saving": "Reading $r$ gives the direction and strength while the sentence keeps both variables in their stated roles."
+  },
+  "pitfalls": [
+   "Writing only “strong negative correlation” without naming either variable.",
+   "Reversing which variable is explanatory and which is the response.",
+   "Claiming that correlation proves one variable causes the other to change."
+  ],
+  "check": "For negative $r$, the sentence must say the response tends to decrease as the explanatory variable increases.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Across households, the correlation between outdoor temperature and daily heating energy use is $r=-0.86$. Outdoor temperature is the explanatory variable. Which interpretation of the linear association is justified?",
+    "options": {
+     "A": "As outdoor temperature increases, daily heating energy use tends to increase strongly.",
+     "B": "As outdoor temperature increases, daily heating energy use tends to decrease weakly.",
+     "C": "As outdoor temperature increases, daily heating energy use tends to decrease strongly.",
+     "D": "Higher outdoor temperature causes daily heating energy use to decrease."
+    },
+    "answer": "C",
+    "hints": [
+     "Identify the explanatory and response variables.",
+     "Use the sign of $r$ for direction and its magnitude for strength.",
+     "Begin “As outdoor temperature increases, daily heating energy use tends to ...” and describe a value of $r$ close to $-1$."
+    ],
+    "explanation": "The coefficient $r=-0.86$ indicates a strong negative linear association. As outdoor temperature increases, daily heating energy use tends to decrease strongly.",
+    "shortcut_use": "Reading direction and strength from $r$ before naming both variables."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Across garden plots, the correlation between daily sunshine hours and plant height is $r=0.18$. Sunshine hours is the explanatory variable. Which interpretation of the linear association is justified?",
+    "options": {
+     "A": "As sunshine hours increase, plant height tends to increase slightly.",
+     "B": "As sunshine hours increase, plant height tends to increase strongly.",
+     "C": "As sunshine hours increase, plant height tends to decrease slightly.",
+     "D": "More sunshine hours cause plants to grow taller."
+    },
+    "answer": "A",
+    "hints": [
+     "Name the explanatory variable and the response.",
+     "A positive $r$ gives the direction; a magnitude near zero gives the strength.",
+     "Begin “As sunshine hours increase, plant height tends to ...” and use a weak trend."
+    ],
+    "explanation": "The coefficient $r=0.18$ indicates a weak positive linear association. As sunshine hours increase, plant height tends to increase slightly.",
+    "shortcut_use": "Using the sign and magnitude of $r$ in a contextual sentence."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What must a contextual interpretation of correlation name?",
+    "a": "It must name the explanatory variable and how the response tends to change."
+   },
+   {
+    "q": "What do the sign and magnitude of $r$ tell you?",
+    "a": "The sign gives the direction of linear association, and the magnitude indicates its strength."
+   },
+   {
+    "q": "Does a correlation coefficient establish causation?",
+    "a": "No; it describes association."
+   }
+  ]
+ }
+}

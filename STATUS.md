@@ -1,5 +1,10 @@
 # Build status
 
+## v2.5.0 (2026-10-16) — done
+
+Shortcuts & Elegant Methods course: own lessons, own recall queue, rating filters; 869 entries, 443 generated lessons.
+Not yet: lessons for the rest of the rating-8 and lower entries (`bin/shortcuts gen run --min-score 8`), and a full `verify`.
+
 ## v2.4.5 (2026-10-15) — done
 
 Exact Claude usage for both windows (newer bundled Claude Code); 5-hour 80% cap.

@@ -1,0 +1,1304 @@
+{
+ "SEM-FP1-symmetric-sums-stop-solving-start-substituting": {
+  "id": "SEM-FP1-symmetric-sums-stop-solving-start-substituting",
+  "hook": "Solving a quadratic to find a symmetric expression creates extra algebra and possible sign errors.",
+  "when": "The question gives a quadratic and asks for an expression unchanged when its two roots are swapped.",
+  "idea": "Set $S=\\alpha+\\beta=-\\frac{b}{a}$ and $P=\\alpha\\beta=\\frac{c}{a}$; rewrite the target using $S$ and $P$.",
+  "why": "For the roots of $ax^2+bx+c=0$, these coefficient identities always hold when $a\\ne0$, by expanding $a(x-\\alpha)(x-\\beta)$.",
+  "steps": [
+   "Read $S$ and $P$ from the coefficients.",
+   "Rewrite the target in $S$ and $P$.",
+   "Substitute and simplify."
+  ],
+  "worked": {
+   "question": "The roots of $2x^2-5x+1=0$ are $\\alpha$ and $\\beta$. Find $\\alpha^2+\\beta^2$.",
+   "long": "The roots are $\\frac{5+\\sqrt{17}}{4}$ and $\\frac{5-\\sqrt{17}}{4}$. Squaring and adding gives $\\frac{21}{4}$.",
+   "short": "$S=\\frac52$ and $P=\\frac12$, so $\\alpha^2+\\beta^2=S^2-2P=\\frac{25}{4}-1=\\frac{21}{4}$.",
+   "saving": "Avoids finding and squaring two surds."
+  },
+  "pitfalls": [
+   "Using $\\frac{b}{a}$ instead of $-\\frac{b}{a}$ for the sum.",
+   "Using a reciprocal identity when $P=0$; a zero root has no reciprocal."
+  ],
+  "check": "Here $S^2-2P$ should be less than $S^2$ because $P>0$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The roots of $x^2-6x+5=0$ are $\\alpha$ and $\\beta$. Find $\\alpha^2+\\beta^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "26",
+    "hints": [
+     "The expression is unchanged if the roots swap.",
+     "Use the sum and product of the roots.",
+     "Set $S=6$, $P=5$ and calculate $S^2-2P$."
+    ],
+    "explanation": "$S=6$ and $P=5$, so $\\alpha^2+\\beta^2=S^2-2P=36-10=26$.",
+    "shortcut_use": "Replace the squared roots with $S^2-2P$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The non-zero roots of $2x^2+3x-2=0$ are $\\alpha$ and $\\beta$. Find $\\frac1\\alpha+\\frac1\\beta$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1.5",
+    "hints": [
+     "The target is a symmetric reciprocal expression.",
+     "Divide the root sum by the root product.",
+     "Use $S=-\\frac32$, $P=-1$ and calculate $\\frac{S}{P}$."
+    ],
+    "explanation": "$S=-\\frac32$ and $P=-1$, so $\\frac1\\alpha+\\frac1\\beta=\\frac{S}{P}=\\frac32=1.5$.",
+    "shortcut_use": "Replace the reciprocal sum with $S/P$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What are the sum and product of the roots of $ax^2+bx+c=0$?",
+    "a": "$\\alpha+\\beta=-\\frac{b}{a}$ and $\\alpha\\beta=\\frac{c}{a}$, provided $a\\ne0$."
+   },
+   {
+    "q": "How do you express $\\alpha^2+\\beta^2$ using the root sum and product?",
+    "a": "$\\alpha^2+\\beta^2=S^2-2P$."
+   }
+  ]
+ },
+ "SEM-FP1-read-a-transformation-matrix-straight-from-the-i": {
+  "id": "SEM-FP1-read-a-transformation-matrix-straight-from-the-i",
+  "hook": "Setting up four unknown matrix entries wastes time when the images of the basis vectors are already given.",
+  "when": "A linear transformation is specified by where it sends $(1,0)$ and $(0,1)$.",
+  "idea": "Put the image of $(1,0)$ in the first column and the image of $(0,1)$ in the second column.",
+  "why": "For a linear transformation represented by $A$, multiplying $A$ by each standard basis vector selects its corresponding column. This holds when coordinates are column vectors in the stated basis.",
+  "steps": [
+   "Read the image of $(1,0)$.",
+   "Write it as the first column.",
+   "Write the image of $(0,1)$ as the second column."
+  ],
+  "worked": {
+   "question": "A linear transformation maps $(1,0)$ to $(4,-1)$ and $(0,1)$ to $(2,3)$. Find its matrix using column vectors.",
+   "long": "Write $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$ and multiply by each basis vector to obtain $a=4$, $c=-1$, $b=2$, $d=3$.",
+   "short": "Use the two images as columns: $A=\\begin{pmatrix}4&2\\\\-1&3\\end{pmatrix}$.",
+   "saving": "Avoids introducing and solving for four entries."
+  },
+  "pitfalls": [
+   "Putting the two images in rows.",
+   "Reversing the images of $(1,0)$ and $(0,1)$."
+  ],
+  "check": "Multiply the matrix by each basis vector; its outputs must match the two stated images.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "A linear transformation maps $(1,0)$ to $(-2,5)$ and $(0,1)$ to $(3,1)$. Which matrix represents it using column vectors?",
+    "options": {
+     "A": "$\\begin{pmatrix}-2&5\\\\3&1\\end{pmatrix}$",
+     "B": "$\\begin{pmatrix}3&-2\\\\1&5\\end{pmatrix}$",
+     "C": "$\\begin{pmatrix}-2&3\\\\5&1\\end{pmatrix}$",
+     "D": "$\\begin{pmatrix}5&1\\\\-2&3\\end{pmatrix}$"
+    },
+    "answer": "C",
+    "hints": [
+     "The question gives images of the standard basis vectors.",
+     "Each image is a column of the matrix.",
+     "Place $(-2,5)$ first and $(3,1)$ second."
+    ],
+    "explanation": "The first image forms column one and the second forms column two, so the matrix is $\\begin{pmatrix}-2&3\\\\5&1\\end{pmatrix}$.",
+    "shortcut_use": "Write the basis images directly as columns."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A linear transformation maps $(1,0)$ to $(0,-4)$ and $(0,1)$ to $(2,0)$. Which matrix represents it using column vectors?",
+    "options": {
+     "A": "$\\begin{pmatrix}0&-4\\\\2&0\\end{pmatrix}$",
+     "B": "$\\begin{pmatrix}0&2\\\\-4&0\\end{pmatrix}$",
+     "C": "$\\begin{pmatrix}-4&0\\\\0&2\\end{pmatrix}$",
+     "D": "$\\begin{pmatrix}2&0\\\\0&-4\\end{pmatrix}$"
+    },
+    "answer": "B",
+    "hints": [
+     "The two given inputs are the standard basis vectors.",
+     "The first output belongs in the first column.",
+     "Place $(0,-4)$ beside $(2,0)$ as columns."
+    ],
+    "explanation": "Putting the images in order as columns gives $\\begin{pmatrix}0&2\\\\-4&0\\end{pmatrix}$.",
+    "shortcut_use": "Read the matrix columns from the two images."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which column of a transformation matrix is the image of $(1,0)$?",
+    "a": "The first column."
+   },
+   {
+    "q": "Why do basis images determine a linear transformation matrix?",
+    "a": "Multiplication by each standard basis vector selects one column."
+   }
+  ]
+ },
+ "SEM-FP1-factorise-before-expanding": {
+  "id": "SEM-FP1-factorise-before-expanding",
+  "hook": "Expanding a sum into a polynomial creates extra terms and makes the final factorisation harder to spot.",
+  "when": "A finite sum combines standard sums whose formulas share a factor such as $n(n+1)$.",
+  "idea": "Substitute the standard sum formulas, take out the shared factor immediately and simplify only the remaining bracket.",
+  "why": "The distributive law always holds; for sums from $r=1$ to a non-negative integer $n$, the standard formulas supply the common factor.",
+  "steps": [
+   "Split the sum into standard sums.",
+   "Substitute their formulas.",
+   "Factor out $n(n+1)$.",
+   "Simplify the bracket and leave the result factored."
+  ],
+  "worked": {
+   "question": "Find $\\sum_{r=1}^{n}(r^2+r)$ in factored form for a positive integer $n$.",
+   "long": "Add $\\frac{2n^3+3n^2+n}{6}$ and $\\frac{3n^2+3n}{6}$, then factor the resulting cubic.",
+   "short": "$n(n+1)\\left(\\frac{2n+1}{6}+\\frac12\\right)=\\frac{n(n+1)(n+2)}3$.",
+   "saving": "Keeps the common factor visible and avoids factoring a cubic afterwards."
+  },
+  "pitfalls": [
+   "Factoring $n(n+1)$ from only one term.",
+   "Adding $\\frac{2n+1}{6}+\\frac12$ without changing $\\frac12$ to sixths."
+  ],
+  "check": "Set $n=1$; the factored result must equal the first summand.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\sum_{r=1}^{4}(r^2+r)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "40",
+    "hints": [
+     "The summand splits into a square and a linear term.",
+     "Use both standard sum formulas and factor out $n(n+1)$.",
+     "Set $n=4$ in $n(n+1)\\left(\\frac{2n+1}{6}+\\frac12\\right)$."
+    ],
+    "explanation": "$n(n+1)\\left(\\frac{2n+1}{6}+\\frac12\\right)=\\frac{n(n+1)(n+2)}3$. At $n=4$, this is $\\frac{4(5)(6)}3=40$.",
+    "shortcut_use": "Factor $n(n+1)$ before simplifying."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\sum_{r=1}^{5}(r^2-r)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "40",
+    "hints": [
+     "The summand is a difference of standard sums.",
+     "Factor $n(n+1)$ from their formulas.",
+     "Set $n=5$ in $n(n+1)\\left(\\frac{2n+1}{6}-\\frac12\\right)$."
+    ],
+    "explanation": "$n(n+1)\\left(\\frac{2n+1}{6}-\\frac12\\right)=\\frac{n(n+1)(n-1)}3$. At $n=5$, this is $\\frac{5(6)(4)}3=40$.",
+    "shortcut_use": "Factor $n(n+1)$ before simplifying the difference."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What factor is shared by the formulas for $\\sum r$ and $\\sum r^2$?",
+    "a": "$n(n+1)$."
+   },
+   {
+    "q": "After taking out the shared factor, what should you simplify?",
+    "a": "Simplify the remaining bracket."
+   }
+  ]
+ },
+ "SEM-FP1-instant-closed-forms-worth-knowing": {
+  "id": "SEM-FP1-instant-closed-forms-worth-knowing",
+  "hook": "Re-deriving a familiar finite sum takes time and can introduce an indexing error.",
+  "when": "A sum from $r=1$ to $n$ matches a known pattern such as odd integers or $r(r+1)$.",
+  "idea": "Recognise and substitute the closed form: $\\sum_{r=1}^{n}(2r-1)=n^2$ and $\\sum_{r=1}^{n}r(r+1)=\\frac{n(n+1)(n+2)}3$.",
+  "why": "These formulas hold for every non-negative integer $n$: the odd-number sum follows from the arithmetic-series formula, and expanding $r(r+1)$ gives the standard sums of $r^2$ and $r$.",
+  "steps": [
+   "Identify the summand pattern.",
+   "Check that the limits run from $1$ to $n$.",
+   "Substitute $n$ into the matching closed form."
+  ],
+  "worked": {
+   "question": "Find $\\sum_{r=1}^{6}(2r-1)$.",
+   "long": "Add $1+3+5+7+9+11=36$.",
+   "short": "This is the first $6$ odd integers, so the sum is $6^2=36$.",
+   "saving": "Replaces six additions with one square."
+  },
+  "pitfalls": [
+   "Using $n^2$ when the sum starts somewhere other than $r=1$.",
+   "Matching $r(r-1)$ to the formula for $r(r+1)$."
+  ],
+  "check": "For an odd-number sum, the result must lie between $n$ and $n(2n-1)$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\sum_{r=1}^{8}(2r-1)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "64",
+    "hints": [
+     "The summand lists consecutive odd integers.",
+     "Use the closed form for the first $n$ odd integers.",
+     "Substitute $n=8$ into $n^2$."
+    ],
+    "explanation": "$\\sum_{r=1}^{n}(2r-1)=n^2$, so at $n=8$ the sum is $8^2=64$.",
+    "shortcut_use": "Recognise the odd-number closed form."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\sum_{r=1}^{4}r(r+1)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "40",
+    "hints": [
+     "The summand is a product of consecutive integers.",
+     "Use the closed form for $\\sum r(r+1)$.",
+     "Substitute $n=4$ into $\\frac{n(n+1)(n+2)}3$."
+    ],
+    "explanation": "$\\sum_{r=1}^{n}r(r+1)=\\frac{n(n+1)(n+2)}3$, so the sum is $\\frac{4(5)(6)}3=40$.",
+    "shortcut_use": "Recognise the $r(r+1)$ closed form."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the sum of the first $n$ odd integers?",
+    "a": "$n^2$."
+   },
+   {
+    "q": "What is $\\sum_{r=1}^{n}r(r+1)$?",
+    "a": "$\\frac{n(n+1)(n+2)}3$."
+   }
+  ]
+ },
+ "SEM-FP1-method-of-differences-recipe": {
+  "id": "SEM-FP1-method-of-differences-recipe",
+  "hook": "Adding every fraction separately hides cancellation and makes the final terms easy to miss.",
+  "when": "The summand has the form $\\frac1{r(r+k)}$ with a fixed positive integer $k$.",
+  "idea": "Split $\\frac1{r(r+k)}=\\frac1k\\left(\\frac1r-\\frac1{r+k}\\right)$, then cancel the middle terms.",
+  "why": "Combining the two fractions reproduces the summand for $r\\ne0,-k$. In a sum from $r=1$ to $n$, cancellation leaves the first and last $k$ terms when $n\\ge k$.",
+  "steps": [
+   "Split the fraction using the gap $k$.",
+   "Write the first and last few terms.",
+   "Cancel matching middle terms.",
+   "Keep the $k$ surviving terms at each end."
+  ],
+  "worked": {
+   "question": "Evaluate $\\sum_{r=1}^{4}\\frac1{r(r+2)}$.",
+   "long": "Add $\\frac13+\\frac18+\\frac1{15}+\\frac1{24}=\\frac{17}{30}$.",
+   "short": "$\\frac12\\left(1+\\frac12-\\frac15-\\frac16\\right)=\\frac{17}{30}$.",
+   "saving": "Cancels the middle fractions before finding a common denominator."
+  },
+  "pitfalls": [
+   "Omitting the factor $\\frac1k$.",
+   "Keeping only one term at each end when $k>1$.",
+   "Forgetting the minus sign on the final terms."
+  ],
+  "check": "Every summand is positive, so the result must be positive and less than the sum of the surviving positive terms.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\sum_{r=1}^{4}\\frac1{r(r+1)}$. Give your answer as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.8",
+    "hints": [
+     "The denominator has consecutive factors.",
+     "Split into two unit fractions and cancel.",
+     "Use $\\frac1{r(r+1)}=\\frac1r-\\frac1{r+1}$ and keep the end terms."
+    ],
+    "explanation": "The sum telescopes to $1-\\frac15=\\frac45=0.8$.",
+    "shortcut_use": "Cancel the middle terms after splitting."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\sum_{r=1}^{3}\\frac1{r(r+2)}$. Give your answer as a decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.525",
+    "hints": [
+     "The denominator factors differ by $2$.",
+     "Split with a factor of $\\frac12$ and retain two terms at each end.",
+     "Set up $\\frac12\\left(1+\\frac12-\\frac14-\\frac15\\right)$."
+    ],
+    "explanation": "The middle terms cancel, leaving $\\frac12\\left(1+\\frac12-\\frac14-\\frac15\\right)=\\frac{21}{40}=0.525$.",
+    "shortcut_use": "Keep two surviving terms at each end."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you split $\\frac1{r(r+k)}$?",
+    "a": "$\\frac1{r(r+k)}=\\frac1k\\left(\\frac1r-\\frac1{r+k}\\right)$."
+   },
+   {
+    "q": "For a gap of $k$, how many terms survive at each end when $n\\ge k$?",
+    "a": "$k$ terms survive at each end."
+   }
+  ]
+ },
+ "SEM-FP1-the-three-results-memorise-don-t-derive": {
+  "id": "SEM-FP1-the-three-results-memorise-don-t-derive",
+  "hook": "Repeated addition or re-derivation is slow for sums of consecutive powers.",
+  "when": "A sum runs from $r=1$ to $n$ and its summand is $r$, $r^2$ or $r^3$.",
+  "idea": "Use $\\sum r=\\frac{n(n+1)}2$, $\\sum r^2=\\frac{n(n+1)(2n+1)}6$ or $\\sum r^3=\\left(\\frac{n(n+1)}2\\right)^2$.",
+  "why": "For every non-negative integer $n$, these finite-sum identities hold; the square and cube formulas can be verified by induction, and the linear formula pairs terms from opposite ends.",
+  "steps": [
+   "Identify the power of $r$.",
+   "Check the limits are $1$ to $n$.",
+   "Substitute $n$ into the matching formula."
+  ],
+  "worked": {
+   "question": "Evaluate $\\sum_{r=1}^{5}r^3$.",
+   "long": "Add $1+8+27+64+125=225$.",
+   "short": "$\\left(\\frac{5(6)}2\\right)^2=15^2=225$.",
+   "saving": "Replaces five cubings and additions with one formula."
+  },
+  "pitfalls": [
+   "Squaring the formula for $\\sum r^2$ instead of the formula for $\\sum r$ when summing cubes.",
+   "Using $n$ as the number of terms when the lower limit is not $1$."
+  ],
+  "check": "For $n=1$, each formula must give $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\sum_{r=1}^{6}r^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "91",
+    "hints": [
+     "The summand is a square.",
+     "Use the square-sum formula.",
+     "Substitute $n=6$ into $\\frac{n(n+1)(2n+1)}6$."
+    ],
+    "explanation": "$\\sum_{r=1}^{6}r^2=\\frac{6(7)(13)}6=91$.",
+    "shortcut_use": "Substitute into the square-sum formula."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\sum_{r=1}^{4}r^3$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "100",
+    "hints": [
+     "The summand is a cube.",
+     "Square the formula for the sum of the first $n$ integers.",
+     "Substitute $n=4$ into $\\left(\\frac{n(n+1)}2\\right)^2$."
+    ],
+    "explanation": "$\\sum_{r=1}^{4}r^3=\\left(\\frac{4(5)}2\\right)^2=10^2=100$.",
+    "shortcut_use": "Use the cube-sum formula as the square of the linear sum."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is $\\sum_{r=1}^{n}r^2$?",
+    "a": "$\\frac{n(n+1)(2n+1)}6$."
+   },
+   {
+    "q": "How is $\\sum_{r=1}^{n}r^3$ related to $\\sum_{r=1}^{n}r$?",
+    "a": "The cube sum is the square of the linear sum."
+   }
+  ]
+ },
+ "SEM-FP1-divisibility-the-subtraction-trick": {
+  "id": "SEM-FP1-divisibility-the-subtraction-trick",
+  "hook": "Expanding an induction step around a large power can obscure the multiple needed for divisibility.",
+  "when": "An induction claim says an expression containing $a^n$ is divisible by $m$.",
+  "idea": "For $f(n)$, calculate $f(k+1)-a f(k)$, where $a$ is the base of the exponential, then write $f(k+1)=a f(k)+$ the remainder.",
+  "why": "Subtracting $a f(k)$ cancels the matching exponential terms. If $m$ divides the remainder and, by the induction hypothesis, $m$ divides $f(k)$, then $m$ divides $f(k+1)$; the base case must also hold.",
+  "steps": [
+   "Check the starting value is divisible by $m$.",
+   "Assume $m$ divides $f(k)$.",
+   "Calculate $f(k+1)-a f(k)$.",
+   "Show the remainder is divisible by $m$ and conclude for $k+1$."
+  ],
+  "worked": {
+   "question": "Prove by induction that $7^n-1$ is divisible by $6$ for every integer $n\\ge1$.",
+   "long": "For $n=1$, $7-1=6$. Assuming $7^k-1$ is divisible by $6$, rewrite $7^{k+1}-1=7(7^k-1)+6$.",
+   "short": "Set $f(n)=7^n-1$. The base case is $f(1)=6$, and $f(k+1)-7f(k)=6$. Hence $f(k+1)=7f(k)+6$ is divisible by $6$ under the induction hypothesis.",
+   "saving": "The subtraction directly exposes the multiple required for the induction step."
+  },
+  "pitfalls": [
+   "Showing only that the subtraction is divisible by $m$ while omitting the induction hypothesis.",
+   "For $2^{3n}$, multiplying $f(k)$ by $2$ instead of $2^3=8$.",
+   "Forgetting to check the base case."
+  ],
+  "check": "Test the starting value and one successor numerically before writing the general step.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Let $f(n)=4^n-1$. In the induction step, what is $f(k+1)-4f(k)$?",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "The exponential base is $4$.",
+     "Subtract $4f(k)$ to cancel the powers.",
+     "Expand $(4^{k+1}-1)-4(4^k-1)$."
+    ],
+    "explanation": "$f(k+1)-4f(k)=4^{k+1}-1-4^{k+1}+4=3$.",
+    "shortcut_use": "Subtract the base times the previous expression."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Let $f(n)=3^{2n}-1$. In the induction step, what is $f(k+1)-9f(k)$?",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "8",
+    "hints": [
+     "Increasing $n$ by one multiplies the power by $3^2$.",
+     "Subtract $9f(k)$ to cancel the powers.",
+     "Expand $(9\\cdot3^{2k}-1)-9(3^{2k}-1)$."
+    ],
+    "explanation": "$f(k+1)-9f(k)=9\\cdot3^{2k}-1-9\\cdot3^{2k}+9=8$.",
+    "shortcut_use": "Match the multiplier to the change in the exponent."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What do you subtract from $f(k+1)$ when its exponential base is $a$?",
+    "a": "Subtract $a f(k)$ to cancel the matching exponential terms."
+   },
+   {
+    "q": "What else is needed besides a divisible remainder in an induction proof?",
+    "a": "A valid base case and the induction hypothesis that $m$ divides $f(k)$."
+   }
+  ]
+ },
+ "SEM-FP1-inverse-of-in-one-line": {
+  "id": "SEM-FP1-inverse-of-in-one-line",
+  "hook": "Solving two pairs of simultaneous equations to find an inverse takes time and creates sign errors.",
+  "when": "You need the inverse of a two by two matrix with rows $(a,b)$ and $(c,d)$.",
+  "idea": "Find $ad-bc$. Swap $a$ and $d$, negate $b$ and $c$, then divide every entry by $ad-bc$.",
+  "why": "Multiplying the resulting matrix by the original gives the identity matrix when $ad-bc$ is non-zero. If $ad-bc=0$, there is no inverse.",
+  "steps": [
+   "Calculate $ad-bc$.",
+   "If it is zero, stop: there is no inverse.",
+   "Swap the diagonal entries and negate the other two entries.",
+   "Divide every entry by $ad-bc$."
+  ],
+  "worked": {
+   "question": "Find the inverse of the matrix whose first row is $(2,1)$ and second row is $(3,4)$.",
+   "long": "Solve $2x+y=1$ and $3x+4y=0$ for the first column, then $2x+y=0$ and $3x+4y=1$ for the second. The columns are $(\\frac{4}{5},-\\frac{3}{5})$ and $(-\\frac{1}{5},\\frac{2}{5})$.",
+   "short": "$ad-bc=2\\times4-1\\times3=5$. Swap $2$ and $4$, negate $1$ and $3$, and divide by $5$. The inverse has rows $(\\frac{4}{5},-\\frac{1}{5})$ and $(-\\frac{3}{5},\\frac{2}{5})$.",
+   "saving": "One determinant and four entry changes replace two equation solves."
+  },
+  "pitfalls": [
+   "Using $ad+bc$ as the determinant.",
+   "Negating the diagonal entries instead of the off-diagonal entries.",
+   "Dividing by zero when the determinant is zero."
+  ],
+  "check": "Multiply the original matrix by your inverse; the result must be the identity matrix.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A matrix has first row $(3,2)$ and second row $(1,1)$. What is the top right entry of its inverse?",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-2",
+    "hints": [
+     "The matrix has two rows and two columns.",
+     "Find its determinant, then use the original top right entry.",
+     "The requested entry is $\\frac{-b}{ad-bc}$; here $ad-bc=3\\times1-2\\times1$."
+    ],
+    "explanation": "$ad-bc=3\\times1-2\\times1=1$. The top right entry is $\\frac{-2}{1}=-2$.",
+    "shortcut_use": "Negate the off-diagonal entry and divide by the determinant."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A matrix has first row $(2,4)$ and second row $(1,2)$. Which statement is correct?",
+    "options": {
+     "A": "It has no inverse.",
+     "B": "Its inverse has rows $(2,-4)$ and $(-1,2)$.",
+     "C": "Its inverse has rows $(2,4)$ and $(1,2)$.",
+     "D": "Its inverse has rows $(-2,4)$ and $(1,-2)$."
+    },
+    "answer": "A",
+    "hints": [
+     "Check the determinant before changing any entries.",
+     "Calculate $ad-bc$.",
+     "For these rows, calculate $2\\times2-4\\times1$ and decide whether division is possible."
+    ],
+    "explanation": "$ad-bc=2\\times2-4\\times1=0$. Division by the determinant is impossible, so the matrix has no inverse.",
+    "shortcut_use": "Check the determinant before applying the entry changes."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What entry changes give the inverse of a two by two matrix?",
+    "a": "Swap the diagonal entries, negate the off-diagonal entries, and divide by the determinant."
+   },
+   {
+    "q": "When does a two by two matrix have no inverse?",
+    "a": "It has no inverse when $ad-bc=0$."
+   }
+  ]
+ },
+ "SEM-FP1-conjugate-pair-quadratic-build-in-5-seconds": {
+  "id": "SEM-FP1-conjugate-pair-quadratic-build-in-5-seconds",
+  "hook": "Expanding two complex factors takes time and invites sign errors.",
+  "when": "A real-coefficient quadratic has a root $c+di$.",
+  "idea": "Write $x^2-2cx+(c^2+d^2)=0$.",
+  "why": "For real coefficients, $c-di$ is also a root. Their sum is $2c$ and their product is $c^2+d^2$.",
+  "steps": [
+   "Read $c$ and $d$ from the root.",
+   "Write $-2c$ as the coefficient of $x$.",
+   "Write $c^2+d^2$ as the constant term."
+  ],
+  "worked": {
+   "question": "Find the monic real quadratic whose root is $4+3i$.",
+   "long": "Expand $(x-4-3i)(x-4+3i)$ to get $x^2-8x+25=0$.",
+   "short": "Here $c=4$ and $d=3$, so $x^2-2(4)x+(4^2+3^2)=x^2-8x+25=0$.",
+   "saving": "Avoids multiplying complex expressions."
+  },
+  "pitfalls": [
+   "Using $c^2-d^2$ for the constant term.",
+   "Forgetting the minus sign in $-2c$."
+  ],
+  "check": "The constant term must be non-negative because it is $c^2+d^2$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A monic real quadratic has root $5-2i$. What is its constant term? Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "29",
+    "hints": [
+     "The coefficients are real.",
+     "Use the product of the conjugate roots.",
+     "Calculate $5^2+2^2$."
+    ],
+    "explanation": "The constant term is $c^2+d^2=5^2+2^2=29$.",
+    "shortcut_use": "Use the conjugate-root product."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Which monic real quadratic has root $-1+4i$?",
+    "options": {
+     "A": "$x^2+2x+17=0$",
+     "B": "$x^2-2x+17=0$",
+     "C": "$x^2+2x-15=0$",
+     "D": "$x^2-2x-15=0$"
+    },
+    "answer": "A",
+    "hints": [
+     "A real quadratic also has the conjugate root.",
+     "Use $-2c$ and $c^2+d^2$.",
+     "Set $c=-1$ and $d=4$ in $x^2-2cx+(c^2+d^2)=0$."
+    ],
+    "explanation": "With $c=-1$ and $d=4$, the quadratic is $x^2-2(-1)x+((-1)^2+4^2)=x^2+2x+17=0$.",
+    "shortcut_use": "Build the coefficients from $c$ and $d$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What quadratic has roots $c+di$ and $c-di$?",
+    "a": "$x^2-2cx+(c^2+d^2)=0$."
+   },
+   {
+    "q": "Why does a non-real root of a real quadratic have a conjugate partner?",
+    "a": "Conjugating the equation leaves its real coefficients unchanged."
+   }
+  ]
+ },
+ "SEM-FP1-real-polynomial-one-complex-root-the-conjugate-i": {
+  "id": "SEM-FP1-real-polynomial-one-complex-root-the-conjugate-i",
+  "hook": "Dividing a cubic separately by complex linear factors creates unnecessary algebra.",
+  "when": "A cubic with real coefficients is given with one non-real root.",
+  "idea": "Pair the root with its conjugate, form their real quadratic factor, then divide the cubic once.",
+  "why": "Conjugating a polynomial equation with real coefficients shows that the conjugate is also a root. This requires the stated coefficients to be real.",
+  "steps": [
+   "Write the conjugate root.",
+   "Build the real quadratic from the pair.",
+   "Divide the cubic by that quadratic.",
+   "Solve the remaining linear factor."
+  ],
+  "worked": {
+   "question": "Find all roots of $x^3-7x^2+18x-20=0$, given that $2+i$ is a root.",
+   "long": "Divide successively by $x-(2+i)$ and $x-(2-i)$, then solve the final factor; the roots are $2+i$, $2-i$ and $3$.",
+   "short": "The conjugate is $2-i$, giving $x^2-4x+5$. Dividing once gives $x-3$, so the roots are $2+i$, $2-i$ and $3$.",
+   "saving": "Uses one division with real coefficients."
+  },
+  "pitfalls": [
+   "Assuming conjugate pairing when coefficients are not real.",
+   "Using $x^2-4x+3$ by subtracting $i^2$ incorrectly.",
+   "Forgetting to include both complex roots in the final answer."
+  ],
+  "check": "The roots sum to $7$, matching the negative coefficient of $x^2$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The real-coefficient cubic $x^3-6x^2+13x-10=0$ has root $1+2i$. What is its third root? Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "Pair the given root with its conjugate.",
+     "Add the known roots and use the cubic's root sum.",
+     "The sum of all three roots is $6$; the known pair sums to $2$."
+    ],
+    "explanation": "The conjugate root is $1-2i$. Their sum is $2$, while the cubic's roots sum to $6$, so the third root is $6-2=4$.",
+    "shortcut_use": "Use the conjugate pair and root sum."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A real-coefficient cubic has root $-2+3i$. Which quadratic factor follows?",
+    "options": {
+     "A": "$x^2+4x+13$",
+     "B": "$x^2-4x+13$",
+     "C": "$x^2+4x-5$",
+     "D": "$x^2-4x-5$"
+    },
+    "answer": "A",
+    "hints": [
+     "The conjugate is also a root.",
+     "Use the sum and product of the pair.",
+     "For $c=-2$ and $d=3$, write $x^2-2cx+(c^2+d^2)$."
+    ],
+    "explanation": "The pair is $-2+3i$ and $-2-3i$, so the factor is $x^2-2(-2)x+((-2)^2+3^2)=x^2+4x+13$.",
+    "shortcut_use": "Combine conjugates into one real factor."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When must a non-real root have its conjugate as another root?",
+    "a": "When the polynomial has real coefficients."
+   },
+   {
+    "q": "How do you find the remaining root of a real cubic after identifying a conjugate pair?",
+    "a": "Subtract the pair's sum from the sum of all three roots."
+   }
+  ]
+ },
+ "SEM-FP1-new-equation-from-the-old-substitute-don-t-recom": {
+  "id": "SEM-FP1-new-equation-from-the-old-substitute-don-t-recom",
+  "hook": "Finding the old roots first wastes work when every root receives the same shift.",
+  "when": "The required roots are each an old root plus a fixed number.",
+  "idea": "If $f(x)=0$ has roots $r$, then $f(x-k)=0$ has roots $r+k$.",
+  "why": "At $x=r+k$, the input to $f$ is $x-k=r$. This substitution works for any polynomial and any constant $k$.",
+  "steps": [
+   "Identify the shift $k$.",
+   "Replace every old $x$ by $x-k$.",
+   "Expand and simplify the new equation.",
+   "Check the direction of the shift."
+  ],
+  "worked": {
+   "question": "The roots of $x^2-5x+6=0$ are each increased by $4$. Find a monic equation with the new roots.",
+   "long": "The old roots are $2$ and $3$; the new roots are $6$ and $7$, giving $(x-6)(x-7)=x^2-13x+42=0$.",
+   "short": "Substitute $x-4$: $(x-4)^2-5(x-4)+6=x^2-13x+42=0$.",
+   "saving": "Avoids solving the old equation."
+  },
+  "pitfalls": [
+   "Using $f(x+k)$ when the roots increase by $k$.",
+   "Replacing only some occurrences of $x$.",
+   "Leaving the substituted expression unexpanded when coefficients are requested."
+  ],
+  "check": "Increasing two roots by $k$ increases their sum by $2k$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Every root of $x^2-8x+12=0$ is increased by $3$. What is the constant term of the new monic equation? Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "45",
+    "hints": [
+     "The roots are shifted upwards.",
+     "Replace $x$ by $x-3$.",
+     "Expand $(x-3)^2-8(x-3)+12$ and take its constant term."
+    ],
+    "explanation": "The new equation comes from $(x-3)^2-8(x-3)+12=x^2-14x+45$, so the constant term is $45$.",
+    "shortcut_use": "Substitute $x-3$ for the shift."
+   },
+   {
+    "kind": "mcq",
+    "stem": "The roots of $x^2+2x-3=0$ are each decreased by $2$. Which monic equation has the new roots?",
+    "options": {
+     "A": "$x^2+6x+5=0$",
+     "B": "$x^2-2x-3=0$",
+     "C": "$x^2+6x-3=0$",
+     "D": "$x^2-2x-7=0$"
+    },
+    "answer": "A",
+    "hints": [
+     "A downward root shift reverses the sign inside the function.",
+     "Use $f(x+2)$.",
+     "Expand $(x+2)^2+2(x+2)-3$."
+    ],
+    "explanation": "For roots decreased by $2$, use $f(x+2)=(x+2)^2+2(x+2)-3=x^2+6x+5$.",
+    "shortcut_use": "Substitute $x+2$ for the downward shift."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What substitution increases every root by $k$?",
+    "a": "Replace $x$ by $x-k$."
+   },
+   {
+    "q": "Why does $f(x-k)$ have a root at $r+k$ when $f(r)=0$?",
+    "a": "Substituting $x=r+k$ makes the input to $f$ equal to $r$. "
+   }
+  ]
+ },
+ "SEM-FP1-linear-interpolation-similar-triangles-one-line": {
+  "id": "SEM-FP1-linear-interpolation-similar-triangles-one-line",
+  "hook": "A drawn straight line and similar triangles add steps and make the distance ratio easy to reverse.",
+  "when": "Function values at two endpoints have opposite signs and a straight-line root estimate is required.",
+  "idea": "Use $x\\approx a+(b-a)\\frac{|f(a)|}{|f(a)|+|f(b)|}$.",
+  "why": "The line segment between the endpoint values crosses zero at that fraction of the interval. It approximates a continuous function's root when the function is close to linear across $[a,b]$; a sign change alone gives a bracket, not an accuracy guarantee.",
+  "steps": [
+   "Check the endpoint signs differ.",
+   "Find the interval width $b-a$.",
+   "Multiply it by $\\frac{|f(a)|}{|f(a)|+|f(b)|}$.",
+   "Add the result to $a$."
+  ],
+  "worked": {
+   "question": "A continuous function has $f(2)=-3$ and $f(5)=6$. Estimate a root by linear interpolation.",
+   "long": "Draw the line through $(2,-3)$ and $(5,6)$; its gradient is $3$, so its zero is at $x=3$.",
+   "short": "$x\\approx2+(5-2)\\frac{3}{3+6}=3$.",
+   "saving": "Avoids finding the line equation."
+  },
+  "pitfalls": [
+   "Reversing the endpoint magnitudes in the fraction.",
+   "Using signed values in the denominator.",
+   "Treating the estimate as exact for a curved function."
+  ],
+  "check": "The estimate should lie nearer the endpoint with smaller $|f|$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A continuous function has $f(1)=-2$ and $f(5)=6$. Estimate its root by linear interpolation. Give $x$ to 2 decimal places as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2.00",
+    "hints": [
+     "The endpoint values have opposite signs.",
+     "Use the magnitude at the left endpoint as the numerator.",
+     "Set up $1+(5-1)\\frac{2}{2+6}$."
+    ],
+    "explanation": "Linear interpolation gives $x\\approx1+4\\frac{2}{8}=2.00$.",
+    "shortcut_use": "Use the one-line interpolation fraction."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A continuous function has $f(4)=5$ and $f(10)=-1$. Which is its linear-interpolation root estimate?",
+    "options": {
+     "A": "$9$",
+     "B": "$5$",
+     "C": "$6$",
+     "D": "$11$"
+    },
+    "answer": "A",
+    "hints": [
+     "The smaller endpoint magnitude is at the right.",
+     "Measure the fraction of the interval from $4$.",
+     "Calculate $4+(10-4)\\frac{5}{5+1}$."
+    ],
+    "explanation": "The estimate is $4+6\\frac{5}{6}=9$, close to the right endpoint where $|f|$ is smaller.",
+    "shortcut_use": "Use endpoint magnitudes in the interpolation fraction."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What fraction of a sign-changing interval lies between $a$ and the linear-interpolation estimate?",
+    "a": "$\\frac{|f(a)|}{|f(a)|+|f(b)|}$. "
+   },
+   {
+    "q": "Which endpoint is the estimate nearer?",
+    "a": "The endpoint where $|f|$ is smaller."
+   }
+  ]
+ },
+ "SEM-FP1-newton-raphson": {
+  "id": "SEM-FP1-newton-raphson",
+  "hook": "Differentiating a square-root equation for every iteration costs time and invites an algebra slip.",
+  "when": "An iteration is needed to approximate $\\sqrt a$ from a positive starting value.",
+  "idea": "Use $x_{n+1}=\\frac{1}{2}\\left(x_n+\\frac{a}{x_n}\\right)$.",
+  "why": "Newton–Raphson applied to $f(x)=x^2-a$ simplifies to this formula. For $a>0$ and $x_n>0$, the division is defined and the positive iterates approach $\\sqrt a$.",
+  "steps": [
+   "Choose a positive starting value $x_0$.",
+   "Divide $a$ by the current value.",
+   "Average that quotient with the current value.",
+   "Repeat as required."
+  ],
+  "worked": {
+   "question": "Use one Newton–Raphson iteration to approximate $\\sqrt{10}$, starting at $x_0=3$.",
+   "long": "For $f(x)=x^2-10$, $f'(x)=2x$, so $x_1=3-\\frac{9-10}{6}=\\frac{19}{6}\\approx3.167$.",
+   "short": "$x_1=\\frac{1}{2}\\left(3+\\frac{10}{3}\\right)=\\frac{19}{6}\\approx3.167$.",
+   "saving": "Avoids differentiating and evaluating $f$."
+  },
+  "pitfalls": [
+   "Using a zero starting value, which makes $a/x_n$ undefined.",
+   "Forgetting to average the two terms.",
+   "Stopping after one iteration when the question asks for more."
+  ],
+  "check": "For $a>0$ and a positive starting value, the first iterate is at least $\\sqrt a$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Starting at $x_0=4$, use one square-root iteration to approximate $\\sqrt{18}$. Give $x_1$ to 2 decimal places as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.25",
+    "hints": [
+     "The starting value is positive.",
+     "Average the starting value with $18$ divided by it.",
+     "Set up $x_1=\\frac{1}{2}(4+18/4)$."
+    ],
+    "explanation": "$x_1=\\frac{1}{2}(4+18/4)=4.25$.",
+    "shortcut_use": "Use the square-root iteration directly."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Starting at $x_0=2$, what is the next square-root iterate for $\\sqrt{5}$?",
+    "options": {
+     "A": "$2.25$",
+     "B": "$2.5$",
+     "C": "$4.5$",
+     "D": "$1.25$"
+    },
+    "answer": "A",
+    "hints": [
+     "Use the formula for a positive square root.",
+     "Divide $5$ by the current iterate, then average.",
+     "Compute $\\frac{1}{2}(2+5/2)$."
+    ],
+    "explanation": "The next iterate is $\\frac{1}{2}(2+5/2)=2.25$.",
+    "shortcut_use": "Average $x_n$ and $a/x_n$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the Newton–Raphson iteration for $\\sqrt a$?",
+    "a": "$x_{n+1}=\\frac{1}{2}(x_n+a/x_n)$. "
+   },
+   {
+    "q": "What starting-value condition keeps this square-root iteration defined and aimed at the positive root?",
+    "a": "For $a>0$, start with $x_0>0$."
+   }
+  ]
+ },
+ "SEM-FP1-area-scale-factor": {
+  "id": "SEM-FP1-area-scale-factor",
+  "hook": "Transforming every vertex and recomputing a polygon's area is slow.",
+  "when": "A plane shape is transformed by a $2\\times2$ matrix and its new area is required.",
+  "idea": "Multiply the original area by $|\\det M|$.",
+  "why": "A linear transformation scales the signed area of every parallelogram by $\\det M$; taking the absolute value gives ordinary area. This holds for any plane region under the same linear transformation.",
+  "steps": [
+   "Find the determinant $ad-bc$.",
+   "Take its absolute value.",
+   "Multiply by the original area.",
+   "Use the determinant's sign only if orientation is asked about."
+  ],
+  "worked": {
+   "question": "A shape of area $12$ cm$^2$ is transformed by $M=\\begin{pmatrix}2&1\\\\0&-3\\end{pmatrix}$. Find its image area.",
+   "long": "For a rectangle of area $12$ cm$^2$ with sides $3$ cm and $4$ cm along the axes, transform its edge vectors; the parallelogram area is $|6\\times(-4)|=24$? This choice of edges gives $72$ cm$^2$.",
+   "short": "$\\det M=2(-3)-1(0)=-6$, so the image area is $|-6|\\times12=72$ cm$^2$.",
+   "saving": "Uses one determinant instead of transforming vertices."
+  },
+  "pitfalls": [
+   "Using a negative determinant as a negative physical area.",
+   "Using the determinant without taking its absolute value.",
+   "Assuming determinant $1$ means every length is preserved."
+  ],
+  "check": "A zero determinant must give zero image area.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A triangle of area $7$ cm$^2$ is transformed by $M=\\begin{pmatrix}3&0\\\\0&2\\end{pmatrix}$. Find its image area in cm$^2$ as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "42",
+    "hints": [
+     "Area scales by a determinant magnitude.",
+     "Find $3\\times2-0\\times0$.",
+     "Multiply the original area by $|\\det M|$."
+    ],
+    "explanation": "$|\\det M|=|3\\times2|=6$, so the image area is $6\\times7=42$ cm$^2$.",
+    "shortcut_use": "Multiply by the determinant magnitude."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A shape of area $9$ cm$^2$ is transformed by $M=\\begin{pmatrix}0&2\\\\1&0\\end{pmatrix}$. What is its image area and what happens to orientation?",
+    "options": {
+     "A": "$18$ cm$^2$, reversed",
+     "B": "$18$ cm$^2$, preserved",
+     "C": "$-18$ cm$^2$, reversed",
+     "D": "$9$ cm$^2$, preserved"
+    },
+    "answer": "A",
+    "hints": [
+     "The determinant is negative.",
+     "Take its magnitude for area.",
+     "Calculate $\\det M=0\\times0-2\\times1$, then scale $9$ cm$^2$."
+    ],
+    "explanation": "$\\det M=-2$, so area becomes $|-2|\\times9=18$ cm$^2$ and orientation is reversed.",
+    "shortcut_use": "Use the magnitude and sign of the determinant."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the area scale factor of a $2\\times2$ matrix?",
+    "a": "$|\\det M|$. "
+   },
+   {
+    "q": "What does a negative determinant mean for orientation?",
+    "a": "The transformation reverses orientation."
+   }
+  ]
+ },
+ "SEM-FP1-standard-matrices-2-2": {
+  "id": "SEM-FP1-standard-matrices-2-2",
+  "hook": "Deriving a rotation matrix from transformed basis vectors takes extra working.",
+  "when": "A question asks for a rotation anticlockwise about the origin in the plane.",
+  "idea": "Use $\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$.",
+  "why": "Its columns are the images of the unit vectors along the $x$- and $y$-axes. The formula holds for a rotation by $\\theta$ anticlockwise about the origin, with angles used consistently.",
+  "steps": [
+   "Read the anticlockwise angle $\\theta$.",
+   "Write $\\cos\\theta$ on the diagonal.",
+   "Write $-\\sin\\theta$ at top right and $\\sin\\theta$ at bottom left.",
+   "Apply the matrix to the column vector if an image point is needed."
+  ],
+  "worked": {
+   "question": "Rotate the point $(2,1)$ anticlockwise by $90^\\circ$ about the origin. Find its image.",
+   "long": "Follow the point around a quarter-turn: its new coordinates are $(-1,2)$.",
+   "short": "At $90^\\circ$, the matrix is $\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$; multiplying by $\\begin{pmatrix}2\\\\1\\end{pmatrix}$ gives $\\begin{pmatrix}-1\\\\2\\end{pmatrix}$.",
+   "saving": "Uses a standard matrix with fewer sign decisions."
+  },
+  "pitfalls": [
+   "Putting $\\sin\\theta$ rather than $-\\sin\\theta$ at top right.",
+   "Using the formula for a rotation about the origin when the centre differs.",
+   "Treating clockwise rotation as anticlockwise."
+  ],
+  "check": "The image should have the same distance from the origin.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Rotate $(3,4)$ anticlockwise by $90^\\circ$ about the origin. What is the image's $x$-coordinate? Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-4",
+    "hints": [
+     "A quarter-turn anticlockwise uses the standard rotation matrix.",
+     "At $90^\\circ$, $\\cos\\theta=0$ and $\\sin\\theta=1$.",
+     "The new $x$-coordinate is $0\\times3-1\\times4$."
+    ],
+    "explanation": "The rotation matrix gives new $x$-coordinate $0\\times3-1\\times4=-4$.",
+    "shortcut_use": "Apply the standard quarter-turn matrix."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Which matrix rotates points anticlockwise by $90^\\circ$ about the origin?",
+    "options": {
+     "A": "$\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$",
+     "B": "$\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}$",
+     "C": "$\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$",
+     "D": "$\\begin{pmatrix}-1&0\\\\0&-1\\end{pmatrix}$"
+    },
+    "answer": "A",
+    "hints": [
+     "Use the rotation matrix about the origin.",
+     "Substitute the sine and cosine of a quarter-turn.",
+     "Put $0$ on the diagonal, $-1$ at top right and $1$ at bottom left."
+    ],
+    "explanation": "With $\\cos90^\\circ=0$ and $\\sin90^\\circ=1$, the matrix is $\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$.",
+    "shortcut_use": "Substitute into the standard rotation matrix."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the matrix for an anticlockwise rotation by $\\theta$ about the origin?",
+    "a": "$\\begin{pmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{pmatrix}$. "
+   },
+   {
+    "q": "Where is the negative sine entry in the anticlockwise rotation matrix?",
+    "a": "It is at the top right."
+   }
+  ]
+ },
+ "SEM-FP1-shoelace-formula-polygons-fast": {
+  "id": "SEM-FP1-shoelace-formula-polygons-fast",
+  "hook": "Splitting an irregular polygon into triangles creates several area calculations and sign slips.",
+  "when": "All vertices of a simple polygon are given in order as coordinates.",
+  "idea": "Use $A=\\frac{1}{2}\\left|\\sum_{i=1}^{n}(x_i y_{i+1}-x_{i+1}y_i)\\right|$, returning to the first vertex after the last.",
+  "why": "Each cross-product term gives a signed triangle area against the origin; the signed areas combine to the polygon area. This holds when vertices follow the boundary in order, clockwise or anticlockwise.",
+  "steps": [
+   "List the vertices in boundary order and repeat the first.",
+   "Sum products down-right: $x_i y_{i+1}$.",
+   "Sum products down-left: $x_{i+1}y_i$.",
+   "Subtract, take the absolute value and halve."
+  ],
+  "worked": {
+   "question": "Find the area of the quadrilateral with vertices $(0,0)$, $(4,0)$, $(3,2)$ and $(0,2)$ in that order, in square units.",
+   "long": "Take the $4$ by $2$ rectangle and remove a right triangle of base $1$ and height $2$: $8-1=7$.",
+   "short": "Down-right sum $0+8+6+0=14$; down-left sum $0+0+0+0=0$. Hence $A=\\frac{1}{2}|14-0|=7$.",
+   "saving": "One repeated coordinate pattern handles the whole polygon."
+  },
+  "pitfalls": [
+   "Listing vertices out of boundary order.",
+   "Forgetting to pair the last vertex with the first.",
+   "Omitting the final absolute value or factor $\\frac{1}{2}$."
+  ],
+  "check": "The area cannot exceed the area of a bounding rectangle around the polygon.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the area of the triangle with vertices $(0,0)$, $(6,0)$ and $(2,3)$ in that order, in square units. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "9",
+    "hints": [
+     "The vertices are already in boundary order.",
+     "Repeat the first vertex and compare the diagonal sums.",
+     "Use $\\frac{1}{2}|0\\times0+6\\times3+2\\times0-(0\\times6+0\\times2+3\\times0)|$."
+    ],
+    "explanation": "The down-right sum is $18$ and the down-left sum is $0$, so $A=\\frac{1}{2}|18-0|=9$.",
+    "shortcut_use": "Use the shoelace diagonal sums."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Find the area of the quadrilateral with vertices $(1,1)$, $(1,4)$, $(5,4)$ and $(5,1)$ in that order, in square units.",
+    "options": {
+     "A": "$12$",
+     "B": "$24$",
+     "C": "$-12$",
+     "D": "$8$"
+    },
+    "answer": "A",
+    "hints": [
+     "The listed order is clockwise.",
+     "Use the absolute difference of the two diagonal sums.",
+     "The down-right sum is $1\\times4+1\\times4+5\\times1+5\\times1$; calculate the other sum and halve the absolute difference."
+    ],
+    "explanation": "The down-right sum is $18$ and the down-left sum is $42$, so $A=\\frac{1}{2}|18-42|=12$.",
+    "shortcut_use": "Take the absolute value of the shoelace sum."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What ordering is required for shoelace vertices?",
+    "a": "List them consecutively around the polygon boundary."
+   },
+   {
+    "q": "What two final operations turn the shoelace difference into ordinary area?",
+    "a": "Take its absolute value and divide by $2$. "
+   }
+  ]
+ },
+ "SEM-FP1-range-to": {
+  "id": "SEM-FP1-range-to",
+  "hook": "Reworking a series formula for a new starting index takes time and invites an off-by-one error.",
+  "when": "A sum starts at $r=a$ rather than $r=1$, and you have a formula for the sum from $r=1$ to $r=n$.",
+  "idea": "Use $\\sum_{r=a}^{b}f(r)=\\sum_{r=1}^{b}f(r)-\\sum_{r=1}^{a-1}f(r)$.",
+  "why": "The second sum removes exactly the terms before $r=a$ from the first. This always holds for a finite sum when $1\\le a\\le b$.",
+  "steps": [
+   "Write the known sum formula as $S(n)=\\sum_{r=1}^{n}f(r)$.",
+   "Calculate $S(b)$ and $S(a-1)$.",
+   "Subtract $S(b)-S(a-1)$.",
+   "Check that the first retained term has index $a$."
+  ],
+  "worked": {
+   "question": "Find $\\sum_{r=4}^{10}r^2$, given $\\sum_{r=1}^{n}r^2=\\frac{n(n+1)(2n+1)}{6}$.",
+   "long": "Add $4^2+5^2+6^2+7^2+8^2+9^2+10^2=371$.",
+   "short": "$S(10)-S(3)=\\frac{10(11)(21)}{6}-\\frac{3(4)(7)}{6}=385-14=371$.",
+   "saving": "Two formula substitutions replace seven squared terms; subtracting through $a-1$ keeps the $a$ term."
+  },
+  "pitfalls": [
+   "Subtracting $S(a)$ removes the required term at $r=a$.",
+   "Using $S(b-a+1)$ sums the wrong indices for a series such as $r^2$."
+  ],
+  "check": "The answer must exceed $10^2$ and be below $7\\times10^2$, since there are seven terms from $4^2$ to $10^2$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Given $\\sum_{r=1}^{n}r^2=\\frac{n(n+1)(2n+1)}{6}$, find $\\sum_{r=5}^{8}r^2$. Give the exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "174",
+    "hints": [
+     "The sum starts after $r=1$.",
+     "Subtract the sum ending just before $r=5$ from the sum ending at $r=8$.",
+     "Use $S(8)-S(4)$ with the given formula."
+    ],
+    "explanation": "$S(8)-S(4)=\\frac{8(9)(17)}{6}-\\frac{4(5)(9)}{6}=204-30=174$.",
+    "shortcut_use": "Subtract $S(a-1)$ from $S(b)$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Given $\\sum_{r=1}^{n}r=\\frac{n(n+1)}{2}$, find $\\sum_{r=12}^{30}r$. Give the exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "399",
+    "hints": [
+     "The first included index is $12$.",
+     "Remove all terms before that index.",
+     "Use $S(30)-S(11)$ with the given formula."
+    ],
+    "explanation": "$S(30)-S(11)=\\frac{30(31)}{2}-\\frac{11(12)}{2}=465-66=399$.",
+    "shortcut_use": "Remove the terms through $a-1$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you use a sum formula starting at $r=1$ to sum from $r=a$ to $r=b$?",
+    "a": "Calculate $S(b)-S(a-1)$."
+   },
+   {
+    "q": "Why is the subtracted sum $S(a-1)$ rather than $S(a)$?",
+    "a": "The term at $r=a$ must remain in the answer."
+   }
+  ]
+ },
+ "SEM-FP1-both-signs-of-a-determinant-s-magnitude": {
+  "id": "SEM-FP1-both-signs-of-a-determinant-s-magnitude",
+  "hook": "Solving only for a positive determinant can miss a valid matrix when the condition specifies its magnitude.",
+  "when": "A matrix contains an unknown and the question gives $|\\det M|=k$ for $k>0$.",
+  "idea": "Solve both $\\det M=k$ and $\\det M=-k$, then check each matrix in $|\\det M|=k$.",
+  "why": "The absolute value of a real number equals positive $k$ precisely when that number is $k$ or $-k$. This applies when $k>0$ and the condition is the absolute value of the determinant.",
+  "steps": [
+   "Find $\\det M$ as an expression in the unknown.",
+   "Set that expression equal to $k$ and to $-k$.",
+   "Solve both equations.",
+   "Substitute each result into $|\\det M|=k$."
+  ],
+  "worked": {
+   "question": "For $M=\\begin{pmatrix}x&2\\\\3&1\\end{pmatrix}$, find all real $x$ such that $|\\det M|=4$.",
+   "long": "Compute $\\det M=x-6$ and solve $|x-6|=4$ by considering $x-6\\ge0$ and $x-6<0$. This gives $x=10$ or $x=2$.",
+   "short": "Set $x-6=4$ or $x-6=-4$. Thus $x=10$ or $x=2$; both give $|\\det M|=4$.",
+   "saving": "The two determinant equations capture both signs without a separate sign-case analysis."
+  },
+  "pitfalls": [
+   "Solving only $\\det M=k$ and missing the negative-determinant solution.",
+   "Treating $|\\det M|=k$ as $\\det M=\\pm k$ but solving only one equation.",
+   "Failing to check the resulting values in the original absolute-value condition."
+  ],
+  "check": "For every proposed matrix, calculate the determinant and confirm its magnitude is $k$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Let $M=\\begin{pmatrix}t&1\\\\2&1\\end{pmatrix}$ and $|\\det M|=5$. One solution is $t=7$. Give the other value of $t$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-3",
+    "hints": [
+     "The determinant can have either sign.",
+     "Set the determinant equal to the negative magnitude to find the other value.",
+     "Use $\\det M=t-2$ and solve $t-2=-5$."
+    ],
+    "explanation": "$\\det M=t-2$. The other sign gives $t-2=-5$, so $t=-3$; its determinant is $-5$, whose magnitude is $5$.",
+    "shortcut_use": "Use the negative-determinant equation."
+   },
+   {
+    "kind": "mcq",
+    "stem": "For $N=\\begin{pmatrix}y&3\\\\1&2\\end{pmatrix}$, which set contains every real $y$ satisfying $|\\det N|=7$?",
+    "options": {
+     "A": "$\\{5,-2\\}$",
+     "B": "$\\{2,-5\\}$",
+     "C": "$\\{5\\}$",
+     "D": "$\\{10,-4\\}$"
+    },
+    "answer": "A",
+    "hints": [
+     "The condition specifies a determinant magnitude.",
+     "Write one equation for each possible sign.",
+     "Use $\\det N=2y-3$ and solve $2y-3=7$ and $2y-3=-7$."
+    ],
+    "explanation": "$\\det N=2y-3$. Solving $2y-3=7$ gives $y=5$, and solving $2y-3=-7$ gives $y=-2$. Both have determinant magnitude $7$, so the set is $\\{5,-2\\}$.",
+    "shortcut_use": "Solve both signs of the determinant."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What two equations follow from $|\\det M|=k$ when $k>0$?",
+    "a": "Solve $\\det M=k$ and $\\det M=-k$."
+   },
+   {
+    "q": "How do you check a value found from a determinant-magnitude condition?",
+    "a": "Substitute it into the matrix and confirm that $|\\det M|=k$."
+   }
+  ]
+ }
+}

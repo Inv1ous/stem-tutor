@@ -78,7 +78,7 @@ def latex_problems(pack: dict) -> list[str]:
     return list(dict.fromkeys(out))[:6]
 
 
-DEBRIS = re.compile("[\ufffd\u00a8\u0080-\u009f]")
+DEBRIS = re.compile("[\ufffd\u00a8\u0080-\u009f\x00-\x08\x0b\x0c\x0e-\x1f]")
 
 
 def debris_problems(pack: dict) -> list[str]:

@@ -1,0 +1,2851 @@
+{
+ "SEM-P1-discriminant-is-a-decision-tool": {
+  "id": "SEM-P1-discriminant-is-a-decision-tool",
+  "hook": "Solving a quadratic fully wastes time when you only need to know how many intersections there are.",
+  "when": "A question asks whether a line meets a curve twice, touches it, or misses it.",
+  "idea": "Put the equations equal and form $Ax^2+Bx+C=0$. Use $\\Delta=B^2-4AC$: positive means two intersections, zero means a tangent, and negative means none.",
+  "why": "The quadratic formula contains $\\sqrt{\\Delta}$, so real solutions exist according to the sign of $\\Delta$. This holds when the intersection equation is genuinely quadratic and intersections are sought over the real numbers.",
+  "steps": [
+   "Put the line and curve equations equal.",
+   "Collect terms as $Ax^2+Bx+C=0$.",
+   "Calculate $B^2-4AC$ and interpret its sign."
+  ],
+  "worked": {
+   "question": "For what value of $k$ is the line $y=2x+k$ tangent to the curve $y=x^2+1$?",
+   "long": "Set $x^2-2x+1-k=0$. Solving gives $x=1\\pm\\sqrt{k}$, so the roots coincide when $k=0$.",
+   "short": "For $x^2-2x+1-k=0$, $\\Delta=(-2)^2-4(1)(1-k)=4k$. A tangent requires $\\Delta=0$, giving $k=0$.",
+   "saving": "It avoids solving for both intersection coordinates."
+  },
+  "pitfalls": [
+   "Using the coefficients before collecting every term on one side.",
+   "Calling $\\Delta<0$ a tangent; it means no real intersection."
+  ],
+  "check": "Substitute the value of $k$ back: $x^2-2x+1=(x-1)^2$ has one repeated root.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For what value of $k$ is $y=4x+k$ tangent to $y=x^2+3$? Give $k$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$-1$",
+    "hints": [
+     "Tangency means one repeated intersection.",
+     "Set the equations equal and use zero discriminant.",
+     "For $x^2-4x+3-k=0$, set $(-4)^2-4(1)(3-k)=0$."
+    ],
+    "explanation": "$\\Delta=16-4(3-k)=4+4k$. Setting $\\Delta=0$ gives $k=-1$.",
+    "shortcut_use": "Set the intersection discriminant to zero."
+   },
+   {
+    "kind": "mcq",
+    "stem": "How many real intersections do $y=x^2+2x+5$ and $y=2x+1$ have?",
+    "options": {
+     "A": "Two",
+     "B": "One",
+     "C": "None",
+     "D": "Infinitely many"
+    },
+    "answer": "C",
+    "hints": [
+     "Look at the equation formed by putting the two expressions for $y$ equal.",
+     "Collect it as a quadratic and inspect the discriminant.",
+     "The intersection equation is $x^2+4=0$; calculate $0^2-4(1)(4)$."
+    ],
+    "explanation": "The intersection equation is $x^2+4=0$, with $\\Delta=0^2-4(1)(4)=-16<0$. There are no real intersections.",
+    "shortcut_use": "Read the number of intersections from the discriminant."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What discriminant condition makes a line tangent to a quadratic curve?",
+    "a": "The intersection quadratic has $\\Delta=0$."
+   },
+   {
+    "q": "What does a negative discriminant say about real intersections?",
+    "a": "There are no real intersections."
+   }
+  ]
+ },
+ "SEM-P1-keep-exact-values-until-the-last-line": {
+  "id": "SEM-P1-keep-exact-values-until-the-last-line",
+  "hook": "Rounding an intermediate surd or value of $\\pi$ can spoil an exact answer and shift a later decimal.",
+  "when": "The question requests an exact value, or its working contains fractions, surds or $\\pi$.",
+  "idea": "Carry exact expressions through every step; round only the final result if a decimal is requested.",
+  "why": "Exact fractions, surds and $\\pi$ retain their full value under algebraic operations. This applies while the given quantities are exact and no measurement rounding is required.",
+  "steps": [
+   "Keep fractions, surds and $\\pi$ in symbolic form.",
+   "Simplify the expression exactly.",
+   "Match the requested final form; round only if requested."
+  ],
+  "worked": {
+   "question": "A square has diagonal $2\\sqrt{2}$ cm. Find its area exactly, in cm$^2$.",
+   "long": "Approximating the diagonal as $2.83$ cm gives side about $2.00$ cm and area about $4.00$ cm$^2$, but this is only approximate.",
+   "short": "For side $s$, $s\\sqrt{2}=2\\sqrt{2}$, so $s=2$ cm and the exact area is $s^2=4$ cm$^2$.",
+   "saving": "It avoids rounding error and supplies the exact form requested."
+  },
+  "pitfalls": [
+   "Replacing $\\pi$ or a surd with a displayed decimal before the final line.",
+   "Giving a decimal when the question asks for an exact expression."
+  ],
+  "check": "Check whether the final answer is exact whenever the stem says ‘exactly’.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A right-angled triangle has perpendicular sides $\\sqrt{3}$ cm and $2\\sqrt{3}$ cm. Find its area exactly, in cm$^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$3$",
+    "hints": [
+     "Both side lengths are exact surds.",
+     "Keep the surds when multiplying for triangle area.",
+     "Use $A=\\frac{1}{2}(\\sqrt{3})(2\\sqrt{3})$."
+    ],
+    "explanation": "$A=\\frac{1}{2}(\\sqrt{3})(2\\sqrt{3})=3$ cm$^2$. The exact numerical answer is $3$.",
+    "shortcut_use": "Keep the surds exact until they simplify."
+   },
+   {
+    "kind": "short",
+    "stem": "A circle has radius $\\sqrt{5}$ cm. Give its area exactly, in cm$^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$5\\pi$",
+    "hints": [
+     "The radius and requested answer are exact.",
+     "Square the radius before considering a decimal for $\\pi$.",
+     "Use $A=\\pi(\\sqrt{5})^2$."
+    ],
+    "explanation": "$A=\\pi(\\sqrt{5})^2=5\\pi$ cm$^2$, so the exact expression is $5\\pi$.",
+    "shortcut_use": "Retain $\\pi$ and the surd symbolically."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When should an exact value be rounded?",
+    "a": "Only on the final line, if the question requests a decimal."
+   },
+   {
+    "q": "Is a decimal approximation an exact answer involving $\\pi$?",
+    "a": "No; retain $\\pi$ in the exact answer."
+   }
+  ]
+ },
+ "SEM-P1-quote-the-formula-before-the-numbers": {
+  "id": "SEM-P1-quote-the-formula-before-the-numbers",
+  "hook": "Putting numbers straight into a calculation makes a misplaced value or sign harder to spot.",
+  "when": "A question calls for a learned formula with several quantities to substitute.",
+  "idea": "Write the symbolic formula first, then put the numbers into the matching positions on a separate line.",
+  "why": "The symbolic line labels each role, so substitution can be checked against it. This works whenever the chosen formula applies to the quantities in the question.",
+  "steps": [
+   "Write the applicable symbolic formula.",
+   "Identify each quantity and its units.",
+   "Substitute each value in the matching position.",
+   "Calculate and check the result."
+  ],
+  "worked": {
+   "question": "A rectangle is $7$ cm long and $3$ cm wide. Find its area, in cm$^2$.",
+   "long": "Doing $7\\times3$ immediately gives $21$ cm$^2$, but the working does not show which values were used as length and width.",
+   "short": "Write $A=lw$, then $A=(7)(3)=21$ cm$^2$.",
+   "saving": "The separate substitution line makes the placement of each value visible."
+  },
+  "pitfalls": [
+   "Writing a formula that does not apply to the stated shape.",
+   "Switching a value into a different symbol's position during substitution."
+  ],
+  "check": "Match every substituted value to its symbol, then check that the final units fit the quantity.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A rectangle has length $8$ cm and width $5$ cm. Find its perimeter, in cm.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$26$",
+    "hints": [
+     "This asks for the distance around the rectangle.",
+     "Write the perimeter formula before substitution.",
+     "Use $P=2(l+w)$, then $P=2(8+5)$."
+    ],
+    "explanation": "Write $P=2(l+w)$, then substitute $P=2(8+5)=26$ cm. The numerical answer is $26$.",
+    "shortcut_use": "Use the symbolic formula as a substitution map."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A triangle has base $12$ cm and perpendicular height $7$ cm. Find its area, in cm$^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$42$",
+    "hints": [
+     "Use the stated perpendicular height.",
+     "Write the triangle area formula first.",
+     "Use $A=\\frac{1}{2}bh$, then $A=\\frac{1}{2}(12)(7)$."
+    ],
+    "explanation": "Write $A=\\frac{1}{2}bh$, then substitute $A=\\frac{1}{2}(12)(7)=42$ cm$^2$. The numerical answer is $42$.",
+    "shortcut_use": "Place base and height in the formula before calculating."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What should precede numerical substitution into a learned formula?",
+    "a": "Write the symbolic equation first."
+   },
+   {
+    "q": "How can a substitution line be checked?",
+    "a": "Check that each value occupies the position of its corresponding symbol."
+   }
+  ]
+ },
+ "SEM-P1-don-t-multiply-an-inequality-by-something-that-c": {
+  "id": "SEM-P1-don-t-multiply-an-inequality-by-something-that-c",
+  "hook": "Multiplying an inequality by an expression of unknown sign can reverse its direction without warning.",
+  "when": "A rational inequality has a denominator containing the variable.",
+  "idea": "Move everything to one side and use signs of factors, or multiply by the square of the denominator, which is positive wherever the expression is defined.",
+  "why": "Multiplication by a positive quantity preserves the inequality direction. The denominator's square is positive only where the original denominator is non-zero, so excluded values must stay excluded.",
+  "steps": [
+   "Note where the denominator is zero and exclude those values.",
+   "Move all terms to one side.",
+   "Factorise and use a sign diagram, or multiply by the denominator squared.",
+   "Read the solution intervals, preserving exclusions."
+  ],
+  "worked": {
+   "question": "Solve $\\frac{x-2}{x+1}>0$ for real $x$.",
+   "long": "A sign diagram around $x=-1$ and $x=2$ shows positive values for $x<-1$ and $x>2$.",
+   "short": "Since $(x+1)^2>0$ for $x\\ne-1$, multiply to get $(x-2)(x+1)>0$. The product is positive for $x<-1$ or $x>2$.",
+   "saving": "Squaring the denominator avoids splitting the inequality by its unknown sign."
+  },
+  "pitfalls": [
+   "Multiplying by $x+1$ without knowing its sign.",
+   "Including a value that makes the original denominator zero."
+  ],
+  "check": "Test one value in each proposed interval in the original fraction.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Solve $\\frac{x-3}{x-1}>0$ for real $x$. Give the solution as intervals.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x<1$ or $x>3$",
+    "hints": [
+     "The denominator changes sign and is zero at one value.",
+     "Exclude that value, then multiply by the denominator squared.",
+     "For $x\\ne1$, solve $(x-3)(x-1)>0$."
+    ],
+    "explanation": "For $x\\ne1$, $(x-1)^2>0$, so the inequality becomes $(x-3)(x-1)>0$. The factors have the same sign when $x<1$ or $x>3$.",
+    "shortcut_use": "Multiply by the positive denominator squared."
+   },
+   {
+    "kind": "short",
+    "stem": "Solve $\\frac{x+2}{x-4}\\le0$ for real $x$. Give the solution as an interval.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$-2\\le x<4$",
+    "hints": [
+     "One endpoint makes the numerator zero; the other makes the fraction undefined.",
+     "Multiply by the denominator squared where it is non-zero.",
+     "For $x\\ne4$, solve $(x+2)(x-4)\\le0$."
+    ],
+    "explanation": "For $x\\ne4$, multiplication by $(x-4)^2>0$ gives $(x+2)(x-4)\\le0$. The product is non-positive for $-2\\le x\\le4$, but $x=4$ is undefined. Thus $-2\\le x<4$.",
+    "shortcut_use": "Use the denominator squared while retaining its exclusion."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Why may the square of a non-zero denominator multiply both sides of an inequality?",
+    "a": "It is positive, so the inequality direction stays the same."
+   },
+   {
+    "q": "What must happen to values that make the original denominator zero?",
+    "a": "They must be excluded from the solution."
+   }
+  ]
+ },
+ "SEM-P1-factor-theorem": {
+  "id": "SEM-P1-factor-theorem",
+  "hook": "Polynomial division is unnecessary when you only need to test a proposed linear factor.",
+  "when": "A question asks whether $x-a$ or $px-q$ divides a polynomial, or asks you to find a simple factor.",
+  "idea": "$x-a$ is a factor of $f(x)$ exactly when $f(a)=0$. For $px-q$, test $f(\\frac{q}{p})$.",
+  "why": "Division by $x-a$ leaves remainder $f(a)$; zero remainder means exact divisibility. This holds for polynomials, with $p\\ne0$ for $px-q$.",
+  "steps": [
+   "Set the proposed linear factor to zero.",
+   "Substitute its root into $f(x)$.",
+   "If the value is zero, accept the factor; otherwise reject it."
+  ],
+  "worked": {
+   "question": "Show that $2x-1$ is a factor of $f(x)=2x^3-3x^2+1$.",
+   "long": "Division gives $f(x)=(2x-1)(x^2-x-1)$, with zero remainder.",
+   "short": "The factor's root is $x=\\frac{1}{2}$. Then $f(\\frac{1}{2})=\\frac{1}{4}-\\frac{3}{4}+1=0$, so $2x-1$ is a factor.",
+   "saving": "One substitution replaces polynomial division."
+  },
+  "pitfalls": [
+   "Testing $f(1)$ for the factor $2x-1$ instead of $f(\\frac{1}{2})$.",
+   "Treating a small non-zero value caused by rounded substitution as zero."
+  ],
+  "check": "Multiply the proposed factor by the quotient if a full factorisation is required.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Which expression is a factor of $f(x)=x^3-4x+3$?",
+    "options": {
+     "A": "$x-1$",
+     "B": "$x+1$",
+     "C": "$x-2$",
+     "D": "$2x-1$"
+    },
+    "answer": "A",
+    "hints": [
+     "Each proposed factor gives a value of $x$ to test.",
+     "Use the factor theorem.",
+     "Evaluate $f(1)$, $f(-1)$, $f(2)$ and $f(\\frac{1}{2})$."
+    ],
+    "explanation": "$f(1)=1-4+3=0$, so $x-1$ is a factor. The other proposed roots give non-zero values.",
+    "shortcut_use": "Test candidate roots by substitution."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For what exact value of $k$ is $x-2$ a factor of $f(x)=x^3+kx-6$?",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$-1$",
+    "hints": [
+     "The proposed factor is zero at $x=2$.",
+     "Apply the factor theorem to make the remainder zero.",
+     "Set $f(2)=2^3+2k-6=0$."
+    ],
+    "explanation": "For $x-2$ to be a factor, $f(2)=0$. Thus $8+2k-6=0$, so $k=-1$.",
+    "shortcut_use": "Set the value at the proposed root to zero."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What condition makes $x-a$ a factor of $f(x)$?",
+    "a": "$f(a)=0$."
+   },
+   {
+    "q": "What input tests whether $px-q$ is a factor?",
+    "a": "Test $x=\\frac{q}{p}$."
+   }
+  ]
+ },
+ "SEM-P1-quadratic-in-disguise": {
+  "id": "SEM-P1-quadratic-in-disguise",
+  "hook": "An equation can look higher degree or exponential even though one repeated expression makes it quadratic.",
+  "when": "You see a term that is the square of another term, such as $x^4$ with $x^2$, or $2^{2x}$ with $2^x$.",
+  "idea": "Set the repeated expression equal to $u$, solve the quadratic in $u$, then substitute back.",
+  "why": "If the equation has the form $At^2+Bt+C=0$, replacing $t$ by $u$ preserves its solutions before converting back. This holds where the chosen substitution is defined, and only values in its original range are valid.",
+  "steps": [
+   "Identify the repeated expression $t$.",
+   "Set $u=t$ and solve the quadratic in $u$.",
+   "Reject values outside the range of $t$.",
+   "Substitute back to find $x$."
+  ],
+  "worked": {
+   "question": "Solve $x^4-5x^2+4=0$ for real $x$.",
+   "long": "Factor directly: $(x^2-1)(x^2-4)=0$, then solve both quadratic factors to get $x=-2,-1,1,2$.",
+   "short": "Set $u=x^2$. Then $u^2-5u+4=(u-1)(u-4)=0$. Since $u=1$ or $4$, $x=-2,-1,1,2$.",
+   "saving": "It exposes an ordinary quadratic and makes the back-substitution explicit."
+  },
+  "pitfalls": [
+   "Stopping at the values of $u$ instead of solving for $x$.",
+   "Accepting $u<0$ when $u=x^2$ or $u=\\sqrt{x}$."
+  ],
+  "check": "Substitute each resulting $x$ into the original equation.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Solve $x^4-10x^2+9=0$ for real $x$. List all solutions.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x=-3,-1,1,3$",
+    "hints": [
+     "The $x^4$ term is the square of $x^2$.",
+     "Set $u=x^2$ and solve a quadratic.",
+     "Factor $u^2-10u+9=(u-1)(u-9)$, then solve $x^2=u$."
+    ],
+    "explanation": "Set $u=x^2$. Then $(u-1)(u-9)=0$, so $u=1$ or $u=9$. Back-substitution gives $x=-3,-1,1,3$.",
+    "shortcut_use": "Turn the quartic into a quadratic in $x^2$."
+   },
+   {
+    "kind": "short",
+    "stem": "Solve $x-5\\sqrt{x}+4=0$ for real $x$. List all solutions.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x=1,16$",
+    "hints": [
+     "The term $x$ is the square of $\\sqrt{x}$.",
+     "Set $u=\\sqrt{x}$ and keep its range in mind.",
+     "Solve $u^2-5u+4=0$ with $u\\ge0$, then use $x=u^2$."
+    ],
+    "explanation": "Set $u=\\sqrt{x}\\ge0$. Then $(u-1)(u-4)=0$, so $u=1$ or $u=4$. Hence $x=1,16$.",
+    "shortcut_use": "Use $u=\\sqrt{x}$ to expose the quadratic."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What substitution turns $x^4-5x^2+4$ into a quadratic?",
+    "a": "Set $u=x^2$."
+   },
+   {
+    "q": "What must be checked after solving the quadratic in $u$?",
+    "a": "Each value of $u$ must lie in the range of the original expression, then be converted back to $x$."
+   }
+  ]
+ },
+ "SEM-P1-quadratic-inequalities-by-sketch": {
+  "id": "SEM-P1-quadratic-inequalities-by-sketch",
+  "hook": "Algebraic manipulation of a quadratic inequality can hide which intervals actually satisfy it.",
+  "when": "An inequality has a quadratic expression on one side and zero on the other.",
+  "idea": "Find the roots, sketch whether the parabola opens upwards or downwards, then read where it lies above or below the $x$ axis.",
+  "why": "A quadratic's sign matches the graph's vertical position relative to the axis. This holds for a real quadratic with a non-zero leading coefficient; include roots only for non-strict inequalities.",
+  "steps": [
+   "Move every term to one side.",
+   "Solve the corresponding quadratic equation.",
+   "Use the leading coefficient to sketch the curve's direction.",
+   "Choose the intervals above or below the axis as requested."
+  ],
+  "worked": {
+   "question": "Solve $x^2-5x+6>0$ for real $x$.",
+   "long": "Factor $(x-2)(x-3)>0$ and examine the factor signs in each interval, giving $x<2$ or $x>3$.",
+   "short": "The roots are $2$ and $3$. The positive leading coefficient means the graph opens upwards, so it is above the axis outside the roots: $x<2$ or $x>3$.",
+   "saving": "The sketch shows the correct intervals without separate sign calculations."
+  },
+  "pitfalls": [
+   "Choosing the region between the roots for an upward-opening curve with $>0$.",
+   "Including roots when the inequality is strict."
+  ],
+  "check": "Test one simple value in a chosen interval in the original inequality.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Solve $x^2-7x+10\\le0$ for real $x$. Give the solution as an interval.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$2\\le x\\le5$",
+    "hints": [
+     "First locate where the quadratic is zero.",
+     "Use the upward-opening sketch to find where it is on or below the axis.",
+     "Factor as $(x-2)(x-5)$ and inspect the region between its roots."
+    ],
+    "explanation": "The roots are $2$ and $5$, and the parabola opens upwards. It is on or below the axis between them, so $2\\le x\\le5$.",
+    "shortcut_use": "Read the required interval from the parabola's shape."
+   },
+   {
+    "kind": "short",
+    "stem": "Solve $-x^2+4x+5>0$ for real $x$. Give the solution as an interval.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$-1<x<5$",
+    "hints": [
+     "Find the two points where the expression is zero.",
+     "The negative leading coefficient makes the parabola open downwards.",
+     "The roots are $-1$ and $5$; choose where the curve is above the axis."
+    ],
+    "explanation": "The roots are $-1$ and $5$. The parabola opens downwards, so it is above the axis between them: $-1<x<5$.",
+    "shortcut_use": "Use the downward-opening sketch to select the middle interval."
+   }
+  ],
+  "recall": [
+   {
+    "q": "For a positive-leading-coefficient quadratic with two roots, where is its graph above the axis?",
+    "a": "It is above the axis outside the roots."
+   },
+   {
+    "q": "When are roots included in the solution to a quadratic inequality?",
+    "a": "Include them for $\\le$ or $\\ge$, but not for strict inequalities."
+   }
+  ]
+ },
+ "SEM-P1-the-one-sixth-formula-parabola-and-chord": {
+  "id": "SEM-P1-the-one-sixth-formula-parabola-and-chord",
+  "hook": "Integrating the difference between two curves takes time, and reversing the subtraction gives a negative result.",
+  "when": "Find the area between a parabola and a line that meet at two distinct $x$-values, or between two parabolas that meet at two distinct $x$-values.",
+  "idea": "If the intersections are at $x=\\alpha$ and $x=\\beta$, with $\\beta>\\alpha$, use $A=\\frac{|a|(\\beta-\\alpha)^3}{6}$. For a parabola and a line, $a$ is the parabola's $x^2$ coefficient. For two parabolas, $a$ is the difference between their $x^2$ coefficients.",
+  "why": "The difference between the curves is $a(x-\\alpha)(x-\\beta)$; integrating its magnitude between the intersections gives the formula. It holds when the difference is quadratic and the two intersections are distinct.",
+  "steps": [
+   "Find the two intersection $x$-values.",
+   "Subtract the $x^2$ coefficients to get $a$.",
+   "Put the width $\\beta-\\alpha$ and $|a|$ into the formula."
+  ],
+  "worked": {
+   "question": "Find the area, in square units, bounded by $y=2x^2$ and $y=10x-8$.",
+   "long": "The curves meet at $x=1$ and $x=4$. Integrate the line minus the parabola: $\\int_1^4(10x-8-2x^2)\\,\\mathrm{d}x=9$.",
+   "short": "The intersection width is $4-1=3$ and $|a|=2$, so $A=\\frac{2(3)^3}{6}=9$ square units.",
+   "saving": "It replaces the integration and avoids choosing the wrong subtraction order."
+  },
+  "pitfalls": [
+   "Using one intersection instead of the distance between them.",
+   "For two parabolas, using one $x^2$ coefficient instead of their difference.",
+   "Omitting $|a|$ and reporting a negative area."
+  ],
+  "check": "Area must be positive; if the intersection width doubles while $a$ stays fixed, the area becomes eight times as large.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the area bounded by $y=3x^2$ and $y=9x$, in square units. Give the exact decimal value.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "13.5",
+    "hints": [
+     "This is a parabola and a line with two intersections.",
+     "Solve for the intersection $x$-values, then use their distance as the width.",
+     "From $3x^2=9x$, find the two roots and substitute their distance and $|a|=3$ into $A=\\frac{|a|(\\beta-\\alpha)^3}{6}$."
+    ],
+    "explanation": "The intersections satisfy $3x(x-3)=0$, so the width is $3$. Thus $A=\\frac{3(3)^3}{6}=13.5$ square units.",
+    "shortcut_use": "Use the one-sixth formula after finding the intersection width."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Find the area between $y=x^2$ and $y=3x^2-2x-4$ from their left intersection to their right intersection, in square units. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "9",
+    "hints": [
+     "The two curves are parabolas, so use the difference between their $x^2$ coefficients.",
+     "Set the equations equal and factor to find the intersection width.",
+     "The difference factors as $2(x+1)(x-2)$; use its roots and $|a|=2$ in $A=\\frac{|a|(\\beta-\\alpha)^3}{6}$."
+    ],
+    "explanation": "The difference is $2(x+1)(x-2)$, giving intersections at $x=-1$ and $x=2$. Their width is $3$, and $|a|=|3-1|=2$. Hence $A=\\frac{2(3)^3}{6}=9$ square units.",
+    "shortcut_use": "Use the difference of the leading coefficients in the one-sixth formula."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the area formula for a quadratic difference with intersections at $\\alpha$ and $\\beta$?",
+    "a": "$A=\\frac{|a|(\\beta-\\alpha)^3}{6}$, where $\\beta>\\alpha$."
+   },
+   {
+    "q": "Which coefficient is used when the area lies between two parabolas?",
+    "a": "Use the difference between their $x^2$ coefficients."
+   },
+   {
+    "q": "When does the one-sixth formula apply?",
+    "a": "It applies when the difference between the curves is quadratic and they have two distinct intersections."
+   }
+  ]
+ },
+ "SEM-P1-rationalise": {
+  "id": "SEM-P1-rationalise",
+  "hook": "Multiplying out a surd denominator term by term invites a sign error.",
+  "when": "A denominator has the form $a+\\sqrt b$.",
+  "idea": "Multiply by the conjugate: $\\frac1{a+\\sqrt b}=\\frac{a-\\sqrt b}{a^2-b}$.",
+  "why": "The cross terms cancel in $(a+\\sqrt b)(a-\\sqrt b)$. This form requires $b\\ge0$ and $a^2\\ne b$.",
+  "steps": [
+   "Write the conjugate $a-\\sqrt b$.",
+   "Multiply numerator and denominator by it.",
+   "Replace the denominator with $a^2-b$."
+  ],
+  "worked": {
+   "question": "Rationalise $\\frac1{3+\\sqrt2}$.",
+   "long": "Expand $(3+\\sqrt2)(3-\\sqrt2)=9-3\\sqrt2+3\\sqrt2-2=7$, giving $\\frac{3-\\sqrt2}{7}$.",
+   "short": "Use $a^2-b=3^2-2=7$: $\\frac1{3+\\sqrt2}=\\frac{3-\\sqrt2}{7}$.",
+   "saving": "Avoids expanding and cancelling both cross terms."
+  },
+  "pitfalls": [
+   "Using $a^2+b$ as the denominator.",
+   "Keeping the plus sign in the numerator."
+  ],
+  "check": "The result is positive and less than $\\frac13$, as the original fraction is.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Rationalise $\\frac1{4+\\sqrt3}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$\\frac{4-\\sqrt3}{13}$",
+    "hints": [
+     "Look for a sum with a surd in the denominator.",
+     "Multiply by its conjugate.",
+     "Use $a^2-b=4^2-3$ in the denominator."
+    ],
+    "explanation": "Multiply by $4-\\sqrt3$; the denominator is $4^2-3=13$, giving $\\frac{4-\\sqrt3}{13}$.",
+    "shortcut_use": "Replace the product of conjugates with $a^2-b$."
+   },
+   {
+    "kind": "short",
+    "stem": "Rationalise $\\frac1{5+\\sqrt7}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$\\frac{5-\\sqrt7}{18}$",
+    "hints": [
+     "The denominator matches $a+\\sqrt b$.",
+     "Use the conjugate in the numerator and denominator.",
+     "Set the denominator to $5^2-7$."
+    ],
+    "explanation": "Multiply by $5-\\sqrt7$; the denominator is $5^2-7=18$, so the result is $\\frac{5-\\sqrt7}{18}$.",
+    "shortcut_use": "Evaluate the denominator as a difference of squares."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What factor rationalises $a+\\sqrt b$?",
+    "a": "Multiply by its conjugate, $a-\\sqrt b$."
+   },
+   {
+    "q": "What denominator results from multiplying the conjugates?",
+    "a": "The denominator is $a^2-b$, provided it is non-zero."
+   }
+  ]
+ },
+ "SEM-P1-vertex-without-calculus": {
+  "id": "SEM-P1-vertex-without-calculus",
+  "hook": "Completing the square takes several lines, and the constant term is easy to miscalculate.",
+  "when": "A quadratic is given as $y=ax^2+bx+c$ and its turning point is needed.",
+  "idea": "The turning point is at $x=-\\frac b{2a}$, with value $y=c-\\frac{b^2}{4a}$.",
+  "why": "Completing the square gives $y=a(x+\\frac b{2a})^2+c-\\frac{b^2}{4a}$. This holds for every quadratic with $a\\ne0$.",
+  "steps": [
+   "Identify $a$, $b$ and $c$.",
+   "Calculate $x=-\\frac b{2a}$.",
+   "Calculate $y=c-\\frac{b^2}{4a}$."
+  ],
+  "worked": {
+   "question": "Find the turning point of $y=2x^2-8x+3$.",
+   "long": "Complete the square: $y=2(x-2)^2-5$, so the turning point is $(2,-5)$.",
+   "short": "$x=-\\frac{-8}{2(2)}=2$ and $y=3-\\frac{(-8)^2}{4(2)}=-5$; the point is $(2,-5)$.",
+   "saving": "Finds both coordinates without rearranging the quadratic."
+  },
+  "pitfalls": [
+   "Forgetting that $b$ may be negative.",
+   "Using $c-\\frac b{4a}$ instead of $c-\\frac{b^2}{4a}$."
+  ],
+  "check": "Substitute the turning point’s $x$ coordinate into the original quadratic to verify $y$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $y=x^2-6x+11$, find the minimum value of $y$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2",
+    "hints": [
+     "The expression is a quadratic with positive leading coefficient.",
+     "Use the turning-point value formula.",
+     "Set $a=1$, $b=-6$, $c=11$ in $c-\\frac{b^2}{4a}$."
+    ],
+    "explanation": "The minimum is $11-\\frac{(-6)^2}{4(1)}=2$.",
+    "shortcut_use": "Calculate the turning-point value directly."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $y=-2x^2+8x+1$, find the maximum value of $y$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "9",
+    "hints": [
+     "The negative leading coefficient makes the turning point a maximum.",
+     "Use $c-\\frac{b^2}{4a}$.",
+     "Substitute $a=-2$, $b=8$, $c=1$."
+    ],
+    "explanation": "The maximum is $1-\\frac{8^2}{4(-2)}=9$.",
+    "shortcut_use": "Find the maximum value without completing the square."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the turning point’s $x$ coordinate for $ax^2+bx+c$?",
+    "a": "It is $-\\frac b{2a}$ when $a\\ne0$."
+   },
+   {
+    "q": "What is the quadratic’s value at its turning point?",
+    "a": "It is $c-\\frac{b^2}{4a}$."
+   }
+  ]
+ },
+ "SEM-P1-shoelace-formula": {
+  "id": "SEM-P1-shoelace-formula",
+  "hook": "Finding a perpendicular height for an irregular triangle or polygon can take longer than finding its area.",
+  "when": "The vertices of a polygon are given as coordinates in boundary order.",
+  "idea": "Use $A=\\frac12\\left|\\sum(x_i y_{i+1}-x_{i+1}y_i)\\right|$, closing the list by repeating the first vertex.",
+  "why": "The signed cross-products add the oriented areas of triangles from the origin; taking the absolute value gives the area. This holds for a simple polygon whose vertices are listed in boundary order.",
+  "steps": [
+   "List the vertices in boundary order and repeat the first.",
+   "Add products $x_i y_{i+1}$.",
+   "Subtract products $x_{i+1}y_i$.",
+   "Halve the absolute difference."
+  ],
+  "worked": {
+   "question": "Find the area enclosed by the triangle with vertices $(1,1)$, $(5,1)$ and $(2,4)$, in that order, in square units.",
+   "long": "The horizontal base has length $4$ and the perpendicular height is $3$, so $A=\\frac12(4)(3)=6$.",
+   "short": "Downward sum $=1(1)+5(4)+2(1)=23$; upward sum $=1(5)+1(2)+4(1)=11$. Thus $A=\\frac12|23-11|=6$.",
+   "saving": "Uses coordinates directly, without constructing a height."
+  },
+  "pitfalls": [
+   "Listing vertices in an order that crosses the polygon.",
+   "Forgetting to repeat the first vertex at the end.",
+   "Omitting the absolute value or the factor $\\frac12$."
+  ],
+  "check": "Area cannot be negative; reversing vertex order should leave it unchanged.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the area of the triangle with vertices $(0,0)$, $(4,0)$ and $(1,3)$, in that order, in square units. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "The three vertices are already in boundary order.",
+     "Apply the shoelace sums and halve their difference.",
+     "The downward products include $4(3)$; the upward products are zero."
+    ],
+    "explanation": "The downward sum is $12$ and the upward sum is $0$, so $A=\\frac12|12-0|=6$.",
+    "shortcut_use": "Use cross-products directly from the coordinates."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Find the area of the quadrilateral with vertices $(0,0)$, $(3,0)$, $(3,2)$ and $(0,2)$, in that order, in square units. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "The vertices go around the boundary.",
+     "Repeat $(0,0)$ and form the two diagonal product sums.",
+     "The downward products include $3(2)$ and $3(2)$; calculate the upward sum."
+    ],
+    "explanation": "The downward sum is $12$ and the upward sum is $0$, so $A=\\frac12|12|=6$.",
+    "shortcut_use": "Halve the difference of the shoelace sums."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How must vertices be ordered for the shoelace formula?",
+    "a": "List them in order around the polygon’s boundary."
+   },
+   {
+    "q": "What two operations finish the shoelace calculation?",
+    "a": "Take the absolute difference of the product sums and divide by $2$."
+   }
+  ]
+ },
+ "SEM-P1-tangent-at-on": {
+  "id": "SEM-P1-tangent-at-on",
+  "hook": "Finding the radius gradient and then its negative reciprocal adds steps and can fail for a vertical radius.",
+  "when": "A point on $(x-a)^2+(y-b)^2=r^2$ is given and the tangent there is requested.",
+  "idea": "At $(x_1,y_1)$, write $(x-a)(x_1-a)+(y-b)(y_1-b)=r^2$.",
+  "why": "The radius vector from $(a,b)$ to $(x_1,y_1)$ is perpendicular to the tangent. The formula holds when $(x_1,y_1)$ lies on the circle and $r>0$.",
+  "steps": [
+   "Read the centre $(a,b)$ and radius squared $r^2$.",
+   "Find $x_1-a$ and $y_1-b$.",
+   "Substitute them into the tangent formula.",
+   "Simplify to a line equation."
+  ],
+  "worked": {
+   "question": "Find the tangent to $(x-1)^2+(y-2)^2=25$ at $(4,6)$.",
+   "long": "The radius gradient is $\\frac{6-2}{4-1}=\\frac43$, so the tangent gradient is $-\\frac34$. Then $y-6=-\\frac34(x-4)$, or $3x+4y=36$.",
+   "short": "$(x-1)(4-1)+(y-2)(6-2)=25$, so $3x+4y=36$.",
+   "saving": "Avoids calculating a gradient and handles vertical tangents too."
+  },
+  "pitfalls": [
+   "Using $(x_1,y_1)$ without subtracting the centre.",
+   "Applying the formula at a point that is not on the circle.",
+   "Putting $r$ on the right instead of $r^2$."
+  ],
+  "check": "The stated point must satisfy the resulting line.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Find the tangent to $(x-2)^2+(y-1)^2=9$ at $(5,1)$. Give an equation.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x=5$",
+    "hints": [
+     "The point lies directly to the right of the centre.",
+     "Use the radius offsets in the tangent formula.",
+     "Here $x_1-a=3$ and $y_1-b=0$."
+    ],
+    "explanation": "$3(x-2)+0(y-1)=9$, so the tangent is $x=5$.",
+    "shortcut_use": "Use the tangent formula despite the vertical tangent."
+   },
+   {
+    "kind": "short",
+    "stem": "Find the tangent to $(x+1)^2+(y-2)^2=10$ at $(0,5)$. Give an equation in the form $x+3y=c$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x+3y=15$",
+    "hints": [
+     "Read the centre as $(-1,2)$.",
+     "Find the two radius offsets at the given point.",
+     "Use offsets $1$ and $3$ in $(x-a)(x_1-a)+(y-b)(y_1-b)=r^2$."
+    ],
+    "explanation": "$(x+1)+3(y-2)=10$, which simplifies to $x+3y=15$.",
+    "shortcut_use": "Insert the radius offsets directly into the tangent equation."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the tangent equation at $(x_1,y_1)$ on a circle centred at $(a,b)$?",
+    "a": "It is $(x-a)(x_1-a)+(y-b)(y_1-b)=r^2$."
+   },
+   {
+    "q": "What must be checked before using the tangent formula?",
+    "a": "The given point must lie on the circle."
+   }
+  ]
+ },
+ "SEM-P1-compound-angle": {
+  "id": "SEM-P1-compound-angle",
+  "hook": "Solving for $x$ before listing all sine angles can miss roots when the bracket spans more than one cycle.",
+  "when": "An equation has the form $\\sin(ax+b)=k$ over a stated range of $x$.",
+  "idea": "Set $u=ax+b$, transform the full $x$ range into a $u$ range, find every sine solution there, then solve back for $x$.",
+  "why": "The substitution gives a one-to-one correspondence between allowed $x$ and $u$ when $a\\ne0$. Sine repeats every $360^\\circ$, so the transformed interval may contain extra solutions; real solutions require $|k|\\le1$.",
+  "steps": [
+   "Set $u=ax+b$ and transform both range endpoints.",
+   "Find all $u$ satisfying $\\sin u=k$ within that range.",
+   "Solve $u=ax+b$ for each $x$.",
+   "Check each $x$ lies in the original range."
+  ],
+  "worked": {
+   "question": "Solve $\\sin(2x+30^\\circ)=\\frac12$ for $0^\\circ\\le x\\le180^\\circ$.",
+   "long": "Use $\\sin u=\\frac12$ to list $u=30^\\circ,150^\\circ,390^\\circ$ in the relevant cycles, then solve $2x+30^\\circ=u$, giving $x=0^\\circ,60^\\circ,180^\\circ$.",
+   "short": "$u=2x+30^\\circ$ runs from $30^\\circ$ to $390^\\circ$. Its sine equals $\\frac12$ at $30^\\circ,150^\\circ,390^\\circ$, giving $x=0^\\circ,60^\\circ,180^\\circ$.",
+   "saving": "The bracket range makes the third root visible."
+  },
+  "pitfalls": [
+   "Searching only the original $x$ range for bracket angles.",
+   "Dropping a solution at an included endpoint.",
+   "Using a $360^\\circ$ repeat without checking whether it lies in the transformed range."
+  ],
+  "check": "Substitute each reported $x$ into the original sine equation.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Solve $\\sin(2x)=0$ for $0^\\circ\\le x\\le180^\\circ$. List all values of $x$ in degrees.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$0^\\circ,90^\\circ,180^\\circ$",
+    "hints": [
+     "The bracket spans a wider interval than $x$.",
+     "Set $u=2x$ and list every zero of sine in its range.",
+     "Here $0^\\circ\\le u\\le360^\\circ$; solve $u=0^\\circ,180^\\circ,360^\\circ$ for $x$."
+    ],
+    "explanation": "Since $u=2x$ covers $0^\\circ$ to $360^\\circ$, its sine vanishes at $u=0^\\circ,180^\\circ,360^\\circ$. Dividing by $2$ gives $x=0^\\circ,90^\\circ,180^\\circ$.",
+    "shortcut_use": "Enumerate bracket solutions in the transformed range."
+   },
+   {
+    "kind": "short",
+    "stem": "Solve $\\sin(x+30^\\circ)=\\frac12$ for $0^\\circ\\le x\\le360^\\circ$. List all values of $x$ in degrees.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$0^\\circ,120^\\circ,360^\\circ$",
+    "hints": [
+     "Shift the given range by $30^\\circ$.",
+     "List every angle with sine $\\frac12$ in the shifted range.",
+     "Use $30^\\circ\\le u\\le390^\\circ$ and then solve $x=u-30^\\circ$."
+    ],
+    "explanation": "In $30^\\circ\\le u\\le390^\\circ$, $\\sin u=\\frac12$ at $u=30^\\circ,150^\\circ,390^\\circ$. Subtracting $30^\\circ$ gives $x=0^\\circ,120^\\circ,360^\\circ$.",
+    "shortcut_use": "Use the shifted bracket range before back-solving."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which range should be written first for $\\sin(ax+b)=k$?",
+    "a": "Write the range of the whole bracket $ax+b$."
+   },
+   {
+    "q": "When do you solve back for $x$?",
+    "a": "After listing every valid angle for the whole bracket."
+   }
+  ]
+ },
+ "SEM-P1-exact-values-to-know-cold": {
+  "id": "SEM-P1-exact-values-to-know-cold",
+  "hook": "A calculator decimal hides exact surd values and can slow routine trigonometry.",
+  "when": "The angle is $0^\\circ$, $30^\\circ$, $45^\\circ$, $60^\\circ$ or $90^\\circ$.",
+  "idea": "In that order, $\\sin\\theta=\\frac{\\sqrt0}{2},\\frac{\\sqrt1}{2},\\frac{\\sqrt2}{2},\\frac{\\sqrt3}{2},\\frac{\\sqrt4}{2}$; cosine uses the reverse order, and tangent is sine divided by cosine where cosine is non-zero.",
+  "why": "These are the exact unit-circle ratios at the standard angles; the pattern holds for the five listed angles. Tangent is undefined at $90^\\circ$ because cosine is zero.",
+  "steps": [
+   "Locate the angle in the five-angle order.",
+   "Use its position for the sine square root.",
+   "Read cosine in reverse order.",
+   "Divide sine by cosine if tangent is needed and cosine is non-zero."
+  ],
+  "worked": {
+   "question": "Find the exact value of $\\tan60^\\circ$.",
+   "long": "From a $30^\\circ$–$60^\\circ$–$90^\\circ$ triangle, opposite over adjacent at $60^\\circ$ is $\\sqrt3$.",
+   "short": "$\\sin60^\\circ=\\frac{\\sqrt3}{2}$ and $\\cos60^\\circ=\\frac12$, so $\\tan60^\\circ=\\sqrt3$.",
+   "saving": "Recalls exact values without drawing a triangle."
+  },
+  "pitfalls": [
+   "Reading the cosine sequence in the same direction as sine.",
+   "Treating $\\tan90^\\circ$ as a number.",
+   "Using a decimal where an exact surd is requested."
+  ],
+  "check": "At $45^\\circ$, sine and cosine must match, so tangent is $1$.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Give the exact value of $\\cos30^\\circ$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$\\frac{\\sqrt3}{2}$",
+    "hints": [
+     "$30^\\circ$ is second in the standard-angle order.",
+     "Read cosine values in reverse square-root order.",
+     "The reverse numerator sequence is $\\sqrt4,\\sqrt3,\\sqrt2,\\sqrt1,\\sqrt0$."
+    ],
+    "explanation": "Cosine uses the reverse of the sine sequence, so $\\cos30^\\circ=\\frac{\\sqrt3}{2}$.",
+    "shortcut_use": "Read the reversed square-root sequence."
+   },
+   {
+    "kind": "short",
+    "stem": "Give the exact value of $\\tan30^\\circ$ with a rational denominator.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$\\frac{\\sqrt3}{3}$",
+    "hints": [
+     "Use the standard values for sine and cosine at $30^\\circ$.",
+     "Divide sine by cosine, then rationalise.",
+     "Start with $\\frac{1/2}{\\sqrt3/2}$ and multiply top and bottom by $\\sqrt3$."
+    ],
+    "explanation": "$\\tan30^\\circ=\\frac{1/2}{\\sqrt3/2}=\\frac1{\\sqrt3}=\\frac{\\sqrt3}{3}$.",
+    "shortcut_use": "Recall both exact ratios from the square-root pattern."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the sine numerator pattern from $0^\\circ$ to $90^\\circ$?",
+    "a": "It is $\\sqrt0,\\sqrt1,\\sqrt2,\\sqrt3,\\sqrt4$, each divided by $2$."
+   },
+   {
+    "q": "How is the cosine pattern obtained?",
+    "a": "Read the sine values in reverse order."
+   },
+   {
+    "q": "Why is $\\tan90^\\circ$ undefined?",
+    "a": "$\\cos90^\\circ=0$, so sine cannot be divided by cosine."
+   }
+  ]
+ },
+ "SEM-P1-principal-value-then-symmetries": {
+  "id": "SEM-P1-principal-value-then-symmetries",
+  "hook": "A calculator gives one angle; copying it alone often misses solutions in the required interval.",
+  "when": "Solve $\\sin\\theta=k$, $\\cos\\theta=k$ or $\\tan\\theta=k$ over a stated angle range.",
+  "idea": "Find a principal angle $\\theta_0$, then use sine’s $\\theta_0$ and $180^\\circ-\\theta_0$ with $360^\\circ$ repeats; cosine’s $\\pm\\theta_0$ with $360^\\circ$ repeats; or tangent’s $\\theta_0+180^\\circ n$ for integer $n$.",
+  "why": "Sine has supplementary-angle symmetry, cosine has reflection symmetry, and tangent repeats every $180^\\circ$. These patterns hold for real angles; sine and cosine need $|k|\\le1$, and all candidates must be restricted to the stated range.",
+  "steps": [
+   "Find the principal angle $\\theta_0$.",
+   "Generate symmetric angles using the relevant rule.",
+   "Add period repeats as needed.",
+   "Keep only angles in the stated range and remove duplicates."
+  ],
+  "worked": {
+   "question": "Solve $\\cos\\theta=\\frac12$ for $0^\\circ\\le\\theta<360^\\circ$.",
+   "long": "Inspect the unit circle: cosine is $\\frac12$ in the first and fourth quadrants, at $60^\\circ$ and $300^\\circ$.",
+   "short": "The principal angle is $60^\\circ$. Use $\\pm60^\\circ$ and a $360^\\circ$ repeat to get $60^\\circ$ and $300^\\circ$ in range.",
+   "saving": "Generates the second angle from symmetry instead of re-solving."
+  },
+  "pitfalls": [
+   "Stopping at the calculator’s principal value.",
+   "Using a $360^\\circ$ repeat for tangent instead of $180^\\circ$.",
+   "Including an endpoint excluded by a strict inequality."
+  ],
+  "check": "Substitute each angle into the trigonometric function and check the interval.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Solve $\\sin\\theta=\\frac12$ for $0^\\circ\\le\\theta<360^\\circ$. List the angles in degrees.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$30^\\circ,150^\\circ$",
+    "hints": [
+     "Start with the principal sine angle.",
+     "Use the supplementary-angle symmetry.",
+     "The principal angle is $30^\\circ$; form $180^\\circ-30^\\circ$."
+    ],
+    "explanation": "$\\sin30^\\circ=\\frac12$, and the supplementary angle is $180^\\circ-30^\\circ=150^\\circ$. Both lie in range.",
+    "shortcut_use": "Generate the second root by sine symmetry."
+   },
+   {
+    "kind": "short",
+    "stem": "Solve $\\tan\\theta=1$ for $0^\\circ\\le\\theta<360^\\circ$. List the angles in degrees.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$45^\\circ,225^\\circ$",
+    "hints": [
+     "Find the principal tangent angle.",
+     "Tangent repeats after $180^\\circ$.",
+     "Use $\\theta=45^\\circ+180^\\circ n$ and retain values in range."
+    ],
+    "explanation": "The principal angle is $45^\\circ$, and adding $180^\\circ$ gives $225^\\circ$; these are the two values in range.",
+    "shortcut_use": "Use tangent’s $180^\\circ$ period."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What second angle shares sine with principal angle $\\theta_0$?",
+    "a": "It is $180^\\circ-\\theta_0$, before considering full-turn repeats."
+   },
+   {
+    "q": "How do tangent solutions repeat?",
+    "a": "They occur at $\\theta_0+180^\\circ n$ for integer $n$."
+   },
+   {
+    "q": "What must be done after generating symmetric angles?",
+    "a": "Keep only distinct angles in the question’s stated range."
+   }
+  ]
+ },
+ "SEM-P1-pythagorean": {
+  "id": "SEM-P1-pythagorean",
+  "hook": "Expanding trigonometric expressions can hide a pair that adds to $1$.",
+  "when": "Look for $\\sin^2x+\\cos^2x$, or for $1+\\tan^2x$ when $\\sec x$ appears.",
+  "idea": "Replace $\\sin^2x+\\cos^2x$ by $1$. Where $\\cos x\\ne0$, replace $1+\\tan^2x$ by $\\sec^2x$.",
+  "why": "$\\sin^2x+\\cos^2x=1$ holds for every real $x$ by the unit circle. Dividing it by $\\cos^2x$ gives the tangent identity when $\\cos x\\ne0$.",
+  "steps": [
+   "Spot the complete squared pair.",
+   "Check that any denominator is non-zero.",
+   "Replace the pair and simplify."
+  ],
+  "worked": {
+   "question": "Simplify $7-3\\sin^2x-3\\cos^2x$.",
+   "long": "Use $\\cos^2x=1-\\sin^2x$, then expand and cancel the two $\\sin^2x$ terms to get $4$.",
+   "short": "Group the last two terms: $7-3(\\sin^2x+\\cos^2x)=7-3=4$.",
+   "saving": "One substitution replaces an expansion and cancellation."
+  },
+  "pitfalls": [
+   "Replacing $\\sin x+\\cos x$ by $1$; the identity requires squares.",
+   "Using $1+\\tan^2x=\\sec^2x$ where $\\cos x=0$."
+  ],
+  "check": "At $x=0$, the worked expression is $7-0-3=4$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the value of $12-5\\sin^2x-5\\cos^2x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "7",
+    "hints": [
+     "The squared sine and cosine terms have the same coefficient.",
+     "Factor that coefficient and use the Pythagorean identity.",
+     "Write the expression as $12-5(\\sin^2x+\\cos^2x)$."
+    ],
+    "explanation": "$\\sin^2x+\\cos^2x=1$, so $12-5(1)=7$.",
+    "shortcut_use": "Replace the squared pair by $1$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Given $\\cos x\\ne0$, find the value of $6(1+\\tan^2x)-6\\sec^2x+9$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "9",
+    "hints": [
+     "The expression contains $1+\\tan^2x$ and $\\sec^2x$.",
+     "Use their identity before doing any other algebra.",
+     "Rewrite the first term as $6\\sec^2x$."
+    ],
+    "explanation": "Since $\\cos x\\ne0$, $1+\\tan^2x=\\sec^2x$. The expression is $6\\sec^2x-6\\sec^2x+9=9$.",
+    "shortcut_use": "Replace $1+\\tan^2x$ by $\\sec^2x$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What squared sine and cosine pair equals $1$?",
+    "a": "$\\sin^2x+\\cos^2x=1$."
+   },
+   {
+    "q": "When can $1+\\tan^2x$ be replaced by $\\sec^2x$?",
+    "a": "When $\\cos x\\ne0$."
+   }
+  ]
+ },
+ "SEM-P1-optimisation-recipe": {
+  "id": "SEM-P1-optimisation-recipe",
+  "hook": "Differentiating a quantity with two free letters gives no single-variable stationary equation. The constraint removes one letter first.",
+  "when": "A question asks for a maximum or minimum while fixing a perimeter, total length, volume or other quantity.",
+  "idea": "Use the constraint to write the target quantity in one variable, solve $\\frac{dA}{dx}=0$, then test and interpret the result.",
+  "why": "The constraint restricts the allowed choices to one variable. An interior optimum of a differentiable function has zero derivative; the test and the allowed domain establish whether it is the requested optimum.",
+  "steps": [
+   "Use the constraint to remove one variable.",
+   "Write the target quantity and its allowed domain.",
+   "Differentiate and solve for stationary points.",
+   "Test them against the domain or endpoints.",
+   "Give the answer with units."
+  ],
+  "worked": {
+   "question": "A rectangle has perimeter $40$ cm. Find its maximum area.",
+   "long": "Write $A=xy$ and solve it together with $2x+2y=40$, then determine which dimensions maximise $A$.",
+   "short": "From $x+y=20$, $y=20-x$. Thus $A=20x-x^2$ for $0\\le x\\le20$. $\\frac{dA}{dx}=20-2x=0$ gives $x=10$, and the derivative changes from positive to negative there. The maximum area is $100$ cm$^2$.",
+   "saving": "The constraint gives a one-variable derivative immediately."
+  },
+  "pitfalls": [
+   "Differentiating $xy$ before using the constraint.",
+   "Stopping at $\\frac{dA}{dx}=0$ without testing whether it is a maximum or minimum.",
+   "Reporting a side length when the question asks for area."
+  ],
+  "check": "For the worked example, $x=9$ gives $A=99$ cm$^2$, below $100$ cm$^2$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A rectangle has perimeter $28$ cm. Find its maximum area in cm$^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "49",
+    "hints": [
+     "The fixed perimeter is the constraint.",
+     "Express one side in terms of the other, then differentiate area.",
+     "Let the sides be $x$ and $14-x$, so $A=x(14-x)$."
+    ],
+    "explanation": "$A=14x-x^2$ on $0\\le x\\le14$. Setting $\\frac{dA}{dx}=14-2x=0$ gives $x=7$; the derivative changes from positive to negative, so the maximum area is $7\\times7=49$.",
+    "shortcut_use": "Use the perimeter constraint to remove one side."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A rectangle has perimeter $36$ cm. Find the length of each side when its area is greatest, in cm.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "9",
+    "hints": [
+     "The perimeter fixes the sum of the two side lengths.",
+     "Write area using only one side length.",
+     "Use $y=18-x$ and differentiate $A=x(18-x)$."
+    ],
+    "explanation": "$A=18x-x^2$ on $0\\le x\\le18$. $\\frac{dA}{dx}=18-2x=0$ at $x=9$, where the derivative changes from positive to negative; $y=18-9=9$. Each side is $9$ cm.",
+    "shortcut_use": "Use the perimeter constraint before differentiating."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What comes before differentiating in a constrained optimisation question?",
+    "a": "Use the constraint to express the target quantity in one variable."
+   },
+   {
+    "q": "What must be checked after solving $\\frac{dA}{dx}=0$?",
+    "a": "Check the stationary point against the requested maximum or minimum and the allowed domain."
+   }
+  ]
+ },
+ "SEM-P1-tangent-and-normal": {
+  "id": "SEM-P1-tangent-and-normal",
+  "hook": "A correct derivative can still lead to the wrong line if the normal gradient is copied from the tangent.",
+  "when": "A question asks for a tangent or normal to $y=f(x)$ at a stated $x$ value, possibly through a named point.",
+  "idea": "Find $m=f'(x_1)$. The tangent has gradient $m$; if $m\\ne0$, the normal has gradient $-\\frac1m$. Use $y-y_1=m_{\\mathrm{line}}(x-x_1)$.",
+  "why": "The derivative gives the tangent gradient at a differentiable point. Perpendicular lines have gradients whose product is $-1$ when both gradients are finite and non-zero; a horizontal tangent has a vertical normal.",
+  "steps": [
+   "Find the point $(x_1,y_1)$ on the curve.",
+   "Differentiate and evaluate the tangent gradient.",
+   "Choose the tangent or normal gradient.",
+   "Substitute into point-gradient form, or put a named point into it."
+  ],
+  "worked": {
+   "question": "Find the normal to $y=x^2+1$ at $x=2$.",
+   "long": "Write $y=ax+b$, use perpendicular gradients to find $a$, then substitute the point on the curve to find $b$.",
+   "short": "The point is $(2,5)$ and the tangent gradient is $2x=4$. The normal gradient is $-\\frac14$, so $y-5=-\\frac14(x-2)$.",
+   "saving": "Point-gradient form avoids finding a separate intercept."
+  },
+  "pitfalls": [
+   "Using $m$ instead of $-1/m$ for the normal.",
+   "Using the stated $x$ value without calculating its $y$ value.",
+   "Applying $-1/m$ when $m=0$; that normal is vertical."
+  ],
+  "check": "For the worked normal, the gradients $4$ and $-\\frac14$ multiply to $-1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The curve is $y=x^2+3x$. At $x=1$, find the gradient of its normal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-0.2",
+    "hints": [
+     "The question asks for a normal, so start with the tangent derivative.",
+     "Evaluate the derivative at $x=1$, then take its negative reciprocal.",
+     "Use $\\frac{dy}{dx}=2x+3$ and $m_{\\mathrm{normal}}=-1/m_{\\mathrm{tangent}}$."
+    ],
+    "explanation": "The tangent gradient is $2(1)+3=5$, so the normal gradient is $-\\frac15=-0.2$.",
+    "shortcut_use": "Take the negative reciprocal of the derivative."
+   },
+   {
+    "kind": "short",
+    "stem": "Find the equation of the normal to $y=x^2$ at $x=1$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$y-1=-\\frac12(x-1)$",
+    "hints": [
+     "First locate the point on the curve.",
+     "Differentiate to get the tangent gradient, then find the normal gradient.",
+     "Use the point $(1,1)$ and $m_{\\mathrm{normal}}=-\\frac12$ in point-gradient form."
+    ],
+    "explanation": "At $x=1$, the point is $(1,1)$ and the tangent gradient is $2$. The normal gradient is $-\\frac12$, giving $y-1=-\\frac12(x-1)$.",
+    "shortcut_use": "Insert the normal gradient directly into point-gradient form."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How is the normal gradient found from a non-zero tangent gradient $m$?",
+    "a": "It is $-\\frac1m$."
+   },
+   {
+    "q": "What line form uses a known point and gradient directly?",
+    "a": "$y-y_1=m(x-x_1)$."
+   }
+  ]
+ },
+ "SEM-P1-power-rule": {
+  "id": "SEM-P1-power-rule",
+  "hook": "Fractions and roots can obscure a quick power-rule integral, and an indefinite integral can lose its constant.",
+  "when": "The integrand can be written as a sum of powers $x^n$.",
+  "idea": "Rewrite first, then integrate each term with $\\int x^n\\,dx=\\frac{x^{n+1}}{n+1}+c$ for $n\\ne-1$.",
+  "why": "Differentiating $\\frac{x^{n+1}}{n+1}$ gives $x^n$ when $n\\ne-1$. Any constant also differentiates to zero, so an indefinite integral needs $+c$.",
+  "steps": [
+   "Rewrite roots and reciprocals as powers.",
+   "Add $1$ to each exponent except $-1$.",
+   "Divide by each new exponent.",
+   "Add $+c$."
+  ],
+  "worked": {
+   "question": "Find $\\int(3\\sqrt x+2/x^2)\\,dx$ for $x>0$.",
+   "long": "Find an antiderivative of $3\\sqrt x$ and of $2/x^2$ separately, then combine them.",
+   "short": "Rewrite as $3x^{1/2}+2x^{-2}$. Integrating gives $2x^{3/2}-2x^{-1}+c$.",
+   "saving": "Powers make both terms follow the same rule."
+  },
+  "pitfalls": [
+   "Using the power rule for $x^{-1}$, where its denominator would be zero.",
+   "Subtracting $1$ from an exponent instead of adding $1$.",
+   "Omitting $+c$ from an indefinite integral."
+  ],
+  "check": "Differentiate the worked answer to recover $3\\sqrt x+2/x^2$.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "For $x>0$, find $\\int(4\\sqrt x+3/x^2)\\,dx$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$\\frac83x^{3/2}-3x^{-1}+c$",
+    "hints": [
+     "Both terms can be written as powers of $x$.",
+     "Add $1$ to each exponent and divide by the new exponent.",
+     "Integrate $4x^{1/2}+3x^{-2}$ term by term, then include a constant."
+    ],
+    "explanation": "$\\int4x^{1/2}\\,dx=\\frac83x^{3/2}$ and $\\int3x^{-2}\\,dx=-3x^{-1}$. Hence the answer is $\\frac83x^{3/2}-3x^{-1}+c$.",
+    "shortcut_use": "Rewrite the root and reciprocal as powers."
+   },
+   {
+    "kind": "short",
+    "stem": "For $x>0$, find $\\int\\frac{x^2+2}{x^2}\\,dx$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x-2x^{-1}+c$",
+    "hints": [
+     "The denominator divides each numerator term.",
+     "Split the fraction before integrating.",
+     "Integrate $1+2x^{-2}$ term by term and include a constant."
+    ],
+    "explanation": "$\\frac{x^2+2}{x^2}=1+2x^{-2}$. Its integral is $x-2x^{-1}+c$.",
+    "shortcut_use": "Split the quotient into powers before integrating."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the power rule for $\\int x^n\\,dx$?",
+    "a": "For $n\\ne-1$, it is $\\frac{x^{n+1}}{n+1}+c$."
+   },
+   {
+    "q": "Why does an indefinite integral include $+c$?",
+    "a": "Every constant differentiates to zero."
+   }
+  ]
+ },
+ "SEM-P1-quadratic-in-or": {
+  "id": "SEM-P1-quadratic-in-or",
+  "hook": "An equation containing both $\\sin x$ and $\\cos x$ is awkward to solve directly. Replacing the wrong term can leave both functions in place.",
+  "when": "One trigonometric function is squared and the other appears without a square.",
+  "idea": "Replace the squared term: use $\\sin^2x=1-\\cos^2x$ or $\\cos^2x=1-\\sin^2x$. Then solve a quadratic in one function.",
+  "why": "The identity $\\sin^2x+\\cos^2x=1$ holds for every real $x$. Keep only roots for which the resulting sine or cosine value lies between $-1$ and $1$, then use the stated interval.",
+  "steps": [
+   "Replace the squared trigonometric term.",
+   "Collect terms into a quadratic in the remaining function.",
+   "Solve and reject values outside $[-1,1]$.",
+   "Find every angle in the stated interval."
+  ],
+  "worked": {
+   "question": "Solve $2\\sin^2x+\\cos x-1=0$ for $0\\le x<2\\pi$.",
+   "long": "Write $\\sin^2x=(1-\\cos x)(1+\\cos x)$, expand, collect terms and factor.",
+   "short": "Substitute $\\sin^2x=1-\\cos^2x$: $2\\cos^2x-\\cos x-1=0$, so $(2\\cos x+1)(\\cos x-1)=0$. Thus $x=0,\\frac{2\\pi}{3},\\frac{4\\pi}{3}$.",
+   "saving": "The substitution gives one function immediately and avoids taking square roots with separate sign cases."
+  },
+  "pitfalls": [
+   "Replacing an unsquared term can leave both $\\sin x$ and $\\cos x$ in the equation.",
+   "Keeping a quadratic root outside $[-1,1]$.",
+   "Missing the second angle for a sine or cosine value within the interval."
+  ],
+  "check": "Substitute each angle into the original equation.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Solve $\\sin^2x+2\\cos x-1=0$ for $0\\le x<2\\pi$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$",
+    "hints": [
+     "The squared term is $\\sin^2x$.",
+     "Replace it so the equation contains only $\\cos x$.",
+     "Collect terms in $c=\\cos x$, solve the quadratic and check which values of $c$ are possible."
+    ],
+    "explanation": "$1-\\cos^2x+2\\cos x-1=0$ gives $\\cos x(2-\\cos x)=0$. Since $\\cos x=2$ is impossible, $\\cos x=0$, so $x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$.",
+    "shortcut_use": "Replace the squared sine term."
+   },
+   {
+    "kind": "numeric",
+    "stem": "How many solutions does $\\cos^2x+\\sin x-1=0$ have for $0\\le x<2\\pi$? Give an exact integer.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "The squared term is $\\cos^2x$.",
+     "Rewrite it in terms of $\\sin x$.",
+     "Set $s=\\sin x$, factor the resulting expression and count angles in the interval."
+    ],
+    "explanation": "$1-\\sin^2x+\\sin x-1=0$ gives $\\sin x(1-\\sin x)=0$. The solutions are $x=0,\\frac{\\pi}{2},\\pi$, so the answer is $3$.",
+    "shortcut_use": "Replace the squared cosine term."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which term should you replace in a quadratic involving both sine and cosine?",
+    "a": "Replace the squared term so that only one trigonometric function remains."
+   },
+   {
+    "q": "What range check follows solving the quadratic?",
+    "a": "A sine or cosine value must lie between $-1$ and $1$."
+   }
+  ]
+ },
+ "SEM-P1-power-rule-after-rewriting": {
+  "id": "SEM-P1-power-rule-after-rewriting",
+  "hook": "Roots and single-term denominators can hide powers of $x$. Differentiating before simplifying adds algebra and creates sign errors.",
+  "when": "The expression contains $\\sqrt{x}$, a reciprocal of a power of $x$, or a sum divided by one power of $x$.",
+  "idea": "Rewrite each term as a power of $x$, then apply $\\frac{d}{dx}x^n=nx^{n-1}$ term by term.",
+  "why": "Index laws turn these roots and denominators into equivalent powers. The power rule applies wherever those powers are defined and differentiable; for a denominator involving $\\sqrt{x}$, use $x>0$.",
+  "steps": [
+   "Split a sum over a single-term denominator.",
+   "Write roots as fractional powers and reciprocals as negative powers.",
+   "Apply the power rule to each term.",
+   "Substitute any requested value of $x$."
+  ],
+  "worked": {
+   "question": "For $x>0$, let $f(x)=\\frac{x^2+3}{\\sqrt{x}}$. Find $f'(4)$.",
+   "long": "The quotient rule gives $f'(x)=\\frac{2x\\sqrt{x}-(x^2+3)/(2\\sqrt{x})}{x}$. At $x=4$, this is $\\frac{16-19/4}{4}=\\frac{45}{16}$.",
+   "short": "Rewrite $f(x)=x^{3/2}+3x^{-1/2}$. Then $f'(x)=\\frac{3}{2}x^{1/2}-\\frac{3}{2}x^{-3/2}$, so $f'(4)=3-\\frac{3}{16}=\\frac{45}{16}$.",
+   "saving": "It avoids the quotient rule and keeps the negative exponent visible."
+  },
+  "pitfalls": [
+   "Dividing only one term of the numerator by the denominator.",
+   "Writing $1/\\sqrt{x}$ as $x^{1/2}$ instead of $x^{-1/2}$.",
+   "Applying the power rule at a point outside the expression's domain."
+  ],
+  "check": "Differentiate the original expression with the quotient rule at one allowed value and compare.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $x>0$, let $f(x)=\\frac{x+4}{\\sqrt{x}}$. Find $f'(4)$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0",
+    "hints": [
+     "The denominator is a single square root.",
+     "Divide both numerator terms by $\\sqrt{x}$ and write powers of $x$.",
+     "Differentiate the two power terms separately before substituting $x=4$."
+    ],
+    "explanation": "$f(x)=x^{1/2}+4x^{-1/2}$, so $f'(x)=\\frac{1}{2}x^{-1/2}-2x^{-3/2}$. Thus $f'(4)=\\frac{1}{4}-\\frac{2}{8}=0$.",
+    "shortcut_use": "Rewrite the quotient as two powers."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $x\\ne0$, let $g(x)=\\frac{x^2+1}{x^2}$. Find $g'(2)$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-0.25",
+    "hints": [
+     "Both numerator terms share the same denominator.",
+     "Divide each term by $x^2$.",
+     "Write the reciprocal as a negative power, differentiate, then substitute $x=2$."
+    ],
+    "explanation": "$g(x)=1+x^{-2}$, so $g'(x)=-2x^{-3}$. Hence $g'(2)=-\\frac{2}{8}=-0.25$.",
+    "shortcut_use": "Split the quotient before using the power rule."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you write $1/\\sqrt{x}$ as a power?",
+    "a": "It is $x^{-1/2}$."
+   },
+   {
+    "q": "What rule applies after rewriting a term as $x^n$?",
+    "a": "Its derivative is $nx^{n-1}$ wherever the term is defined and differentiable."
+   }
+  ]
+ },
+ "SEM-P1-show-a-mathematical-step-when-a-calculator-solve": {
+  "id": "SEM-P1-show-a-mathematical-step-when-a-calculator-solve",
+  "hook": "A calculator root alone does not show which equation was solved. It also makes a wrong or inapplicable root easy to miss.",
+  "when": "You obtain a quadratic root or numerical answer with a calculator after translating the question into an equation.",
+  "idea": "Show the equation from the question, then the equation or factorisation used to solve it. Substitute the reported root into the original relation.",
+  "why": "An equivalent equation connects the numerical root to the question, and substitution checks it. This works when the equations are equivalent over the permitted domain; also check restrictions such as positive lengths.",
+  "steps": [
+   "Write the relation given by the question.",
+   "Rearrange it to the equation being solved.",
+   "Report the suitable root and any domain restriction.",
+   "Substitute it into the original relation."
+  ],
+  "worked": {
+   "question": "A rectangle has width $w$ m, length $(w+3)$ m and area $40$ m$^2$. Find its width.",
+   "long": "Apply the quadratic formula to $w^2+3w-40=0$, then reject the negative root.",
+   "short": "Write $w(w+3)=40$, so $w^2+3w-40=0=(w+8)(w-5)$. Since $w>0$, $w=5$ m. Check: $5(5+3)=40$.",
+   "saving": "The displayed relation supports the root and the check catches an inapplicable length."
+  },
+  "pitfalls": [
+   "Reporting only a calculator result without the equation it solves.",
+   "Checking a rearranged equation while overlooking a restriction in the original question.",
+   "Substituting a rounded root and expecting the original equation to equal zero exactly."
+  ],
+  "check": "Put the reported root into the original relation, allowing for any stated rounding.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A rectangle has width $w$ m, length $(w+2)$ m and area $48$ m$^2$. Find its positive width in m as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "Area is width multiplied by length.",
+     "Write that relation, then rearrange it to a quadratic equal to zero.",
+     "Factor the quadratic, keep the positive width and check it in the area relation."
+    ],
+    "explanation": "$w(w+2)=48$ gives $w^2+2w-48=(w+8)(w-6)=0$. The positive width is $6$ m, and $6(6+2)=48$.",
+    "shortcut_use": "Show the area equation and check the chosen root."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A right-angled triangle has perpendicular sides $x$ cm and $(x+1)$ cm, and hypotenuse $5$ cm. Find the positive value of $x$ in cm as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "The three lengths satisfy Pythagoras' theorem.",
+     "Write the relation in $x$ and rearrange it to a quadratic.",
+     "Factor the simplified quadratic, reject any negative length and check in the original relation."
+    ],
+    "explanation": "$x^2+(x+1)^2=5^2$ gives $x^2+x-12=(x+4)(x-3)=0$. The positive value is $3$, and $3^2+4^2=5^2$.",
+    "shortcut_use": "Show the equation derived from Pythagoras and check the root."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What should accompany a calculator-found quadratic root?",
+    "a": "Write the equation solved and the substitution or factorisation connecting it to the question."
+   },
+   {
+    "q": "Where should you substitute a reported root to check it?",
+    "a": "Substitute it into the original relation and check any domain restriction."
+   }
+  ]
+ },
+ "SEM-P1-line-meets-circle": {
+  "id": "SEM-P1-line-meets-circle",
+  "hook": "Solving both intersection coordinates can waste time when the question asks only whether a line touches a circle.",
+  "when": "A line and circle are given, and you must decide whether they meet twice, touch, or do not meet.",
+  "idea": "Substitute the line equation into the circle equation. For the resulting quadratic, a discriminant of $0$ means the line touches the circle.",
+  "why": "Each real root gives an intersection point. This always holds for a line and circle: a repeated root gives one point of contact, two distinct real roots give two points, and no real roots give no intersection.",
+  "steps": [
+   "Substitute the line equation into the circle equation.",
+   "Collect terms as a quadratic.",
+   "Calculate $b^2-4ac$ and classify the intersections."
+  ],
+  "worked": {
+   "question": "Does the line $y=2$ touch, cut, or miss the circle $x^2+y^2=4$?",
+   "long": "Solving gives $x^2+4=4$, so $x=0$ and there is just one point, $(0,2)$.",
+   "short": "Substitution gives $x^2=0$. Its discriminant is $0$, so the line touches the circle.",
+   "saving": "You can classify the intersection without solving for coordinates."
+  },
+  "pitfalls": [
+   "A positive discriminant means two intersections, not a tangent.",
+   "Substitute the whole line expression before expanding.",
+   "A negative discriminant means no real intersection."
+  ],
+  "check": "A horizontal tangent to $x^2+y^2=4$ must have height $2$ or $-2$.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "How does the line $y=3$ meet the circle $x^2+y^2=9$?",
+    "options": {
+     "A": "It cuts the circle twice.",
+     "B": "It misses the circle.",
+     "C": "It touches the circle.",
+     "D": "It lies entirely on the circle."
+    },
+    "answer": "C",
+    "hints": [
+     "Substitution will produce a quadratic in $x$.",
+     "Classify it using its discriminant.",
+     "Substitute $y=3$ to obtain $x^2+9=9$."
+    ],
+    "explanation": "Substitution gives $x^2=0$, whose discriminant is $0$. The line touches the circle.",
+    "shortcut_use": "Use the discriminant to classify the intersection."
+   },
+   {
+    "kind": "mcq",
+    "stem": "How does the line $y=1$ meet the circle $x^2+y^2=4$?",
+    "options": {
+     "A": "It touches the circle.",
+     "B": "It misses the circle.",
+     "C": "It cuts the circle twice.",
+     "D": "It lies entirely on the circle."
+    },
+    "answer": "C",
+    "hints": [
+     "Substitute the constant value of $y$.",
+     "Check the sign of the resulting quadratic's discriminant.",
+     "Write the quadratic as $x^2-3=0$."
+    ],
+    "explanation": "Substitution gives $x^2-3=0$. Its discriminant is $12>0$, so the line cuts the circle twice.",
+    "shortcut_use": "Use the discriminant instead of finding both coordinates."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What discriminant shows that a line touches a circle?",
+    "a": "The quadratic formed by substitution has discriminant $0$."
+   },
+   {
+    "q": "What does a negative discriminant mean here?",
+    "a": "The line and circle have no real intersection."
+   }
+  ]
+ },
+ "SEM-P1-factorise-a-cubic-fast": {
+  "id": "SEM-P1-factorise-a-cubic-fast",
+  "hook": "Guessing three linear factors at once is easy to get wrong.",
+  "when": "A cubic has simple integer coefficients and a small trial value makes it zero.",
+  "idea": "Find one root $r$ by trial, divide by $x-r$, then factorise the quadratic quotient.",
+  "why": "If $f(r)=0$, the factor theorem guarantees that $x-r$ divides the cubic. This method works when a trial root is found; the remaining quadratic need not factorise further over the integers.",
+  "steps": [
+   "Try a small possible root $r$.",
+   "Check that $f(r)=0$.",
+   "Divide by $x-r$.",
+   "Factorise the quadratic quotient."
+  ],
+  "worked": {
+   "question": "Factorise $x^3-6x^2+11x-6$ completely.",
+   "long": "Expanding candidate products of three linear factors until the coefficients match gives $(x-1)(x-2)(x-3)$.",
+   "short": "$f(1)=1-6+11-6=0$. Dividing by $x-1$ gives $x^2-5x+6=(x-2)(x-3)$, so the cubic is $(x-1)(x-2)(x-3)$.",
+   "saving": "One verified root reduces the task to a quadratic."
+  },
+  "pitfalls": [
+   "If $r$ is a root, the factor is $x-r$, not $x+r$.",
+   "Keep a zero coefficient as a placeholder when dividing.",
+   "A failed trial value is not a factor."
+  ],
+  "check": "Expand the final factors and compare all coefficients.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Factorise $x^3-4x^2+x+6$ completely.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$(x+1)(x-2)(x-3)$",
+    "hints": [
+     "Try a small integer root.",
+     "Check $f(-1)$, then divide by its corresponding linear factor.",
+     "After dividing by $x+1$, factorise $x^2-5x+6$."
+    ],
+    "explanation": "$f(-1)=-1-4-1+6=0$, so $x+1$ is a factor. The quotient is $x^2-5x+6=(x-2)(x-3)$, giving $(x+1)(x-2)(x-3)$.",
+    "shortcut_use": "Use one trial root to reduce the cubic."
+   },
+   {
+    "kind": "short",
+    "stem": "Factorise $x^3+2x^2-5x-6$ completely.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$(x-2)(x+1)(x+3)$",
+    "hints": [
+     "Look for a small integer root.",
+     "Check $f(2)$ and divide by $x-2$ if it vanishes.",
+     "The quotient after division is $x^2+4x+3$."
+    ],
+    "explanation": "$f(2)=8+8-10-6=0$. Dividing by $x-2$ gives $x^2+4x+3=(x+1)(x+3)$, so the factorisation is $(x-2)(x+1)(x+3)$.",
+    "shortcut_use": "Use one trial root before factorising the quadratic."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What factor follows from a root $r$?",
+    "a": "If $f(r)=0$, then $x-r$ is a factor."
+   },
+   {
+    "q": "What do you factorise after dividing a cubic by one linear factor?",
+    "a": "Factorise the quadratic quotient."
+   }
+  ]
+ },
+ "SEM-P1-index-laws-collapse-a-product-of-different-bases": {
+  "id": "SEM-P1-index-laws-collapse-a-product-of-different-bases",
+  "hook": "Different-looking bases hide cancellations and invite exponent errors.",
+  "when": "Powers of numbers such as $2$, $4$, and $8$ appear together in a product or quotient.",
+  "idea": "Rewrite every base as a power of the same prime, then add exponents when multiplying and subtract them when dividing.",
+  "why": "The index laws $(p^m)^n=p^{mn}$ and $p^m/p^n=p^{m-n}$ hold for positive $p$ and real exponents. Rewriting powers of one prime exposes the shared base.",
+  "steps": [
+   "Rewrite each numerical base as a power of one prime.",
+   "Multiply exponents for powers of powers.",
+   "Add or subtract exponents according to the operation.",
+   "Simplify the final exponent."
+  ],
+  "worked": {
+   "question": "Simplify $\\frac{8^x}{2^{x+1}}$ as a power of $2$.",
+   "long": "Write $8^x$ as $2^x2^x2^x$, then cancel against $2^x2$ to get $2^{2x-1}$.",
+   "short": "$8^x=2^{3x}$, so $\\frac{8^x}{2^{x+1}}=2^{3x-(x+1)}=2^{2x-1}$.",
+   "saving": "Working in one base avoids repeated expansion and cancellation."
+  },
+  "pitfalls": [
+   "For a quotient, subtract the entire denominator exponent.",
+   "$(2^3)^x=2^{3x}$, not $2^{3+x}$.",
+   "Only combine exponents directly after the bases match."
+  ],
+  "check": "Set $x=1$ in both the original and simplified expressions.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Simplify $\\frac{4^x8^x}{2^{2x}}$ as a single power of $2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$2^{3x}$",
+    "hints": [
+     "The numerical bases are all powers of $2$.",
+     "Rewrite $4^x$ and $8^x$ with base $2$.",
+     "Combine the exponents as $2x+3x-2x$."
+    ],
+    "explanation": "$4^x=2^{2x}$ and $8^x=2^{3x}$. Hence $\\frac{4^x8^x}{2^{2x}}=2^{2x+3x-2x}=2^{3x}$.",
+    "shortcut_use": "Convert all bases to $2$ before combining exponents."
+   },
+   {
+    "kind": "short",
+    "stem": "Simplify $\\frac{27^x}{3^{x+2}}$ as a single power of $3$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$3^{2x-2}$",
+    "hints": [
+     "Both numerical bases can be expressed using $3$.",
+     "Rewrite $27^x$ with base $3$.",
+     "Subtract the denominator exponent with brackets: $3x-(x+2)$."
+    ],
+    "explanation": "$27^x=3^{3x}$, so $\\frac{27^x}{3^{x+2}}=3^{3x-(x+2)}=3^{2x-2}$.",
+    "shortcut_use": "Use a common prime base and subtract the whole denominator exponent."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the first move when bases such as $4$ and $8$ appear together?",
+    "a": "Rewrite them as powers of the same prime base."
+   },
+   {
+    "q": "What happens to exponents when powers with the same base are divided?",
+    "a": "Subtract the denominator exponent from the numerator exponent."
+   }
+  ]
+ },
+ "SEM-P1-maximise-minimise-a-quadratic-expression": {
+  "id": "SEM-P1-maximise-minimise-a-quadratic-expression",
+  "hook": "Differentiating a quadratic adds working when its turning point is all you need.",
+  "when": "An area, profit, or other quantity is given as a quadratic $ax^2+bx+c$ and its maximum or minimum is requested.",
+  "idea": "The turning point occurs at $x=-\\frac{b}{2a}$; substitute this value to find the maximum or minimum.",
+  "why": "Completing the square gives $ax^2+bx+c=a(x+\\frac{b}{2a})^2+c-\\frac{b^2}{4a}$. This holds for every quadratic with $a\\ne0$; $a>0$ gives a minimum and $a<0$ a maximum, provided the turning point lies in any stated domain.",
+  "steps": [
+   "Identify $a$ and $b$.",
+   "Calculate $x=-\\frac{b}{2a}$.",
+   "Check that $x$ is in the allowed domain.",
+   "Substitute it into the expression."
+  ],
+  "worked": {
+   "question": "For $0\\le x\\le10$, find the maximum value of $A=12x-x^2$.",
+   "long": "Differentiate: $\\frac{dA}{dx}=12-2x=0$ gives $x=6$, then $A=72-36=36$.",
+   "short": "$a=-1$ and $b=12$, so $x=-\\frac{12}{2(-1)}=6$. Thus $A=12(6)-6^2=36$.",
+   "saving": "The vertex formula replaces differentiation."
+  },
+  "pitfalls": [
+   "Use the coefficient of $x^2$ as $a$, including its sign.",
+   "The vertex's $x$-coordinate is not the maximum or minimum value itself.",
+   "If the vertex is outside a restricted domain, check the endpoints."
+  ],
+  "check": "Values equally far either side of the vertex should be equal.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $0\\le x\\le8$, find the maximum value of $P=-2x^2+16x+5$. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "37",
+    "hints": [
+     "The expression is a downward-opening quadratic.",
+     "Find its turning point using $x=-\\frac{b}{2a}$.",
+     "Use $a=-2$ and $b=16$, then substitute the turning-point value of $x$ into $P$."
+    ],
+    "explanation": "$x=-\\frac{16}{2(-2)}=4$, which lies in the domain. Then $P=-2(4)^2+16(4)+5=37$.",
+    "shortcut_use": "Use the vertex formula to locate the maximum."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For all real $x$, find the minimum value of $Q=3x^2-12x+7$. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-5",
+    "hints": [
+     "The positive coefficient of $x^2$ gives a minimum.",
+     "Find the turning-point value of $x$.",
+     "Use $x=-\\frac{-12}{2(3)}$, then evaluate $Q$."
+    ],
+    "explanation": "$x=-\\frac{-12}{2(3)}=2$. Thus the minimum is $Q=3(2)^2-12(2)+7=-5$.",
+    "shortcut_use": "Use the vertex formula instead of differentiation."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Where is the turning point of $ax^2+bx+c$?",
+    "a": "Its $x$-coordinate is $-\\frac{b}{2a}$, for $a\\ne0$."
+   },
+   {
+    "q": "When does the turning point give a minimum?",
+    "a": "It gives a minimum when $a>0$ and the point is in the allowed domain."
+   }
+  ]
+ },
+ "SEM-P1-remainder-theorem": {
+  "id": "SEM-P1-remainder-theorem",
+  "hook": "Polynomial division is unnecessary when only the remainder is asked for.",
+  "when": "A polynomial is divided by a linear expression such as $x-a$ or $px-q$.",
+  "idea": "The remainder on division by $x-a$ is $f(a)$; on division by $px-q$, it is $f(\\frac{q}{p})$.",
+  "why": "Writing $f(x)=(px-q)g(x)+R$ and setting $x=\\frac{q}{p}$ leaves $f(\\frac{q}{p})=R$. This holds for any polynomial and a linear divisor with $p\\ne0$.",
+  "steps": [
+   "Set the divisor equal to zero.",
+   "Solve for its root.",
+   "Substitute that root into $f$."
+  ],
+  "worked": {
+   "question": "Find the remainder when $f(x)=2x^3-3x+5$ is divided by $2x-1$.",
+   "long": "Division gives $f(x)=(2x-1)(x^2+\\frac{x}{2}-\\frac{5}{4})+\\frac{15}{4}$.",
+   "short": "The divisor is zero at $x=\\frac12$, so the remainder is $f(\\frac12)=\\frac14-\\frac32+5=\\frac{15}{4}$.",
+   "saving": "One substitution replaces polynomial division."
+  },
+  "pitfalls": [
+   "For $px-q$, substitute $\\frac{q}{p}$, not $q$.",
+   "A divisor $x+a$ has root $-a$.",
+   "Evaluate every term of the polynomial at the same value."
+  ],
+  "check": "Substitute the divisor's root into the division identity; the product term must vanish.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the remainder when $f(x)=x^3-2x+4$ is divided by $x-2$. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "8",
+    "hints": [
+     "The divisor is linear.",
+     "Find the value of $x$ that makes it zero.",
+     "Evaluate $f(2)=2^3-2(2)+4$."
+    ],
+    "explanation": "The divisor vanishes at $x=2$, so the remainder is $f(2)=8-4+4=8$.",
+    "shortcut_use": "Evaluate the polynomial at the divisor's root."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Find the remainder when $f(x)=4x^2+x-1$ is divided by $2x+1$. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-0.5",
+    "hints": [
+     "Set the linear divisor equal to zero.",
+     "Substitute its root into $f$.",
+     "Evaluate $4(-\\frac12)^2-\\frac12-1$."
+    ],
+    "explanation": "$2x+1=0$ at $x=-\\frac12$. The remainder is $f(-\\frac12)=1-\\frac12-1=-0.5$.",
+    "shortcut_use": "Use the root of $2x+1$ for direct evaluation."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the remainder on division by $x-a$?",
+    "a": "It is $f(a)$."
+   },
+   {
+    "q": "What value do you substitute for a divisor $px-q$?",
+    "a": "Substitute $x=\\frac{q}{p}$, where $p\\ne0$."
+   }
+  ]
+ },
+ "SEM-P1-simplify": {
+  "id": "SEM-P1-simplify",
+  "hook": "Pulling out small square factors one at a time creates extra steps and can leave a surd unfinished.",
+  "when": "A square root contains a whole number with a perfect-square factor.",
+  "idea": "Find the largest square factor $k^2$ of $n$, then write $\\sqrt{n}=k\\sqrt{n/k^2}$.",
+  "why": "For $n\\ge0$ and $k\\ge0$, $\\sqrt{k^2m}=k\\sqrt m$. Choosing the largest square factor leaves no square factor greater than $1$ inside the root.",
+  "steps": [
+   "Find the largest perfect square dividing $n$.",
+   "Write $n$ as that square times another whole number.",
+   "Take the square root of the square factor."
+  ],
+  "worked": {
+   "question": "Simplify $\\sqrt{72}$.",
+   "long": "$\\sqrt{72}=\\sqrt{4\\times18}=2\\sqrt{18}=2\\sqrt{9\\times2}=6\\sqrt2$.",
+   "short": "$72=36\\times2$, so $\\sqrt{72}=6\\sqrt2$.",
+   "saving": "The largest square factor finishes the simplification in one step."
+  },
+  "pitfalls": [
+   "$\\sqrt{a+b}$ cannot generally be split into $\\sqrt a+\\sqrt b$.",
+   "Check that the number left under the root has no square factor.",
+   "Take the square root of the extracted factor before placing it outside."
+  ],
+  "check": "Square the simplified expression to recover the original number.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Simplify $\\sqrt{98}$ fully.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$7\\sqrt2$",
+    "hints": [
+     "Look for a perfect-square factor of $98$.",
+     "Choose the largest such factor.",
+     "Write $98=49\\times2$ before taking the square root."
+    ],
+    "explanation": "$98=49\\times2$, so $\\sqrt{98}=\\sqrt{49}\\sqrt2=7\\sqrt2$.",
+    "shortcut_use": "Extract the largest square factor at once."
+   },
+   {
+    "kind": "short",
+    "stem": "Simplify $\\sqrt{180}$ fully.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$6\\sqrt5$",
+    "hints": [
+     "Find a square factor of $180$.",
+     "Use the largest square factor so the remaining surd is fully simplified.",
+     "Write $180=36\\times5$."
+    ],
+    "explanation": "$180=36\\times5$, so $\\sqrt{180}=\\sqrt{36}\\sqrt5=6\\sqrt5$.",
+    "shortcut_use": "Use the largest square factor in a single step."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which square factor should you extract first?",
+    "a": "Extract the largest perfect-square factor of the number under the root."
+   },
+   {
+    "q": "How can you check a simplified surd?",
+    "a": "Square it and check that it equals the original number."
+   }
+  ]
+ },
+ "SEM-P1-sum-and-product-of-roots": {
+  "id": "SEM-P1-sum-and-product-of-roots",
+  "hook": "Solving a whole quadratic can be excessive when one root is known and only the other root is needed.",
+  "when": "A quadratic $ax^2+bx+c=0$ gives one root, or asks for a missing coefficient from its roots.",
+  "idea": "For roots $\\alpha$ and $\\beta$, use $\\alpha+\\beta=-\\frac ba$ and $\\alpha\\beta=\\frac ca$. If one root is $r\\ne0$, the other is $\\frac{c}{ar}$.",
+  "why": "Expanding $a(x-\\alpha)(x-\\beta)$ gives $ax^2-a(\\alpha+\\beta)x+a\\alpha\\beta$. These relations hold for any quadratic with $a\\ne0$, including repeated or complex roots; using the product to divide by a known root requires that root to be nonzero.",
+  "steps": [
+   "Identify $a$, $b$, and $c$.",
+   "Choose the sum or product relation needed.",
+   "Substitute the known root.",
+   "Solve for the unknown root or coefficient."
+  ],
+  "worked": {
+   "question": "One root of $2x^2-7x+3=0$ is $3$. Find the other root.",
+   "long": "Factorise $2x^2-7x+3=(2x-1)(x-3)$, giving the other root $\\frac12$.",
+   "short": "The root product is $\\frac ca=\\frac32$. Divide by $3$ to get the other root $\\frac12$.",
+   "saving": "The product relation gives the root without factorising."
+  },
+  "pitfalls": [
+   "Keep the minus sign in the sum $-\\frac ba$.",
+   "Divide $c$ by $a$ before using the product.",
+   "Do not divide by a known root of $0$."
+  ],
+  "check": "Add or multiply the proposed roots and compare with $-\\frac ba$ or $\\frac ca$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "One root of $3x^2-10x+3=0$ is $3$. Find the other root as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.3333333333333333",
+    "hints": [
+     "Use the product of the roots.",
+     "Find $\\frac ca$ from the coefficients.",
+     "Divide $\\frac33$ by the known root $3$."
+    ],
+    "explanation": "The root product is $\\frac ca=\\frac33=1$. Dividing by the known root $3$ gives the other root $\\frac13$.",
+    "shortcut_use": "Use the root product instead of solving the quadratic."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The roots of $2x^2+bx+12=0$ are $2$ and $3$. Find $b$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-10",
+    "hints": [
+     "The two roots give their sum directly.",
+     "Use $\\alpha+\\beta=-\\frac ba$.",
+     "Set $2+3=-\\frac b2$ and solve."
+    ],
+    "explanation": "The roots sum to $2+3=5=-\\frac b2$, so $b=-10$.",
+    "shortcut_use": "Use the root sum to find the missing coefficient."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What are the sum and product of the roots of $ax^2+bx+c=0$?",
+    "a": "They are $-\\frac ba$ and $\\frac ca$, respectively."
+   },
+   {
+    "q": "When can you divide the root product by a known root?",
+    "a": "You can do so when the known root is nonzero."
+   }
+  ]
+ },
+ "SEM-P1-synthetic-division": {
+  "id": "SEM-P1-synthetic-division",
+  "hook": "Writing every subtraction line in polynomial division takes space and makes sign slips easy.",
+  "when": "A polynomial is being divided by $x-r$, especially after $r$ has been found as a root.",
+  "idea": "List the coefficients, bring down the first, then repeatedly multiply by $r$ and add. The last number is the remainder; the earlier numbers are the quotient coefficients.",
+  "why": "Synthetic division carries out the same coefficient operations as long division. It works for a polynomial divided by a monic linear expression $x-r$; missing powers must be represented by zero coefficients.",
+  "steps": [
+   "Write coefficients in descending power order, including zeros.",
+   "Bring down the leading coefficient.",
+   "Multiply by $r$ and add to the next coefficient; repeat.",
+   "Read the final number as the remainder and the others as the quotient."
+  ],
+  "worked": {
+   "question": "Divide $2x^3-3x^2-8x+12$ by $x-2$.",
+   "long": "Polynomial long division gives quotient $2x^2+x-6$ and remainder $0$.",
+   "short": "Use coefficients $2,-3,-8,12$ with $r=2$: bring down $2$, then obtain $-3+4=1$, $-8+2=-6$, and $12-12=0$. The quotient is $2x^2+x-6$.",
+   "saving": "Only multiplication and addition are needed."
+  },
+  "pitfalls": [
+   "For divisor $x+2$, use $r=-2$.",
+   "Insert $0$ for every missing power.",
+   "The final number is the remainder, not part of the quotient."
+  ],
+  "check": "Multiply the quotient by the divisor and add the remainder to recover the original polynomial.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Divide $x^3-4x^2+x+6$ by $x+1$. State the quotient and remainder.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "Quotient $x^2-5x+6$; remainder $0$.",
+    "hints": [
+     "The divisor has the form $x-r$.",
+     "Use $r=-1$ with the coefficients in descending order.",
+     "Start with $1,-4,1,6$; bring down $1$, then multiply by $-1$ and add repeatedly."
+    ],
+    "explanation": "Using $r=-1$ on coefficients $1,-4,1,6$ gives $1,-5,6,0$. The quotient is $x^2-5x+6$ and the remainder is $0$.",
+    "shortcut_use": "Use multiply-and-add synthetic division."
+   },
+   {
+    "kind": "short",
+    "stem": "Divide $x^3-5x+2$ by $x-2$. State the quotient and remainder.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "Quotient $x^2+2x-1$; remainder $0$.",
+    "hints": [
+     "There is a missing $x^2$ term.",
+     "Insert its zero coefficient and use $r=2$.",
+     "Apply multiply-and-add to $1,0,-5,2$."
+    ],
+    "explanation": "Using $r=2$ on coefficients $1,0,-5,2$ gives $1,2,-1,0$. The quotient is $x^2+2x-1$ and the remainder is $0$.",
+    "shortcut_use": "Insert the zero coefficient, then use synthetic division."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What number do you use in synthetic division by $x-r$?",
+    "a": "Use $r$."
+   },
+   {
+    "q": "What does the last number in synthetic division represent?",
+    "a": "It is the remainder."
+   },
+   {
+    "q": "What coefficient represents a missing power?",
+    "a": "Use a zero coefficient."
+   }
+  ]
+ },
+ "SEM-P1-angle-in-a-semicircle-is": {
+  "id": "SEM-P1-angle-in-a-semicircle-is",
+  "hook": "Finding a circle through the vertices of a right-angled triangle can lead to unnecessary circle equations.",
+  "when": "A triangle has a right angle at one vertex, and the question asks for the centre or diameter of its circumcircle.",
+  "idea": "The hypotenuse is the diameter, so its midpoint is the centre.",
+  "why": "This holds for a triangle with a right angle: the angle subtended by a diameter at the circumference is $90^\\circ$.",
+  "steps": [
+   "Identify the side opposite the right angle.",
+   "Treat its endpoints as the ends of a diameter.",
+   "Find their midpoint to get the centre."
+  ],
+  "worked": {
+   "question": "Triangle $ABC$ has $A=(0,0)$, $B=(6,0)$ and $C=(0,8)$. Find the centre of its circumcircle.",
+   "long": "Let the centre be $(h,k)$. Equal distances to $A$ and $B$ give $h=3$; equal distances to $A$ and $C$ give $k=4$.",
+   "short": "The right angle is at $A$, so $BC$ is a diameter. Its midpoint is $(3,4)$.",
+   "saving": "Avoids solving two equal-distance equations."
+  },
+  "pitfalls": [
+   "Using the midpoint of a leg instead of the hypotenuse.",
+   "Applying the rule when the stated angle is not a right angle."
+  ],
+  "check": "The proposed centre must be equally distant from all three vertices.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A right-angled triangle has vertices $(0,0)$, $(10,0)$ and $(0,6)$, with the right angle at $(0,0)$. What is the $x$-coordinate of its circumcentre?",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "Locate the side opposite the right angle.",
+     "Its midpoint is the circumcentre.",
+     "Average the $x$-coordinates of $(10,0)$ and $(0,6)$."
+    ],
+    "explanation": "The hypotenuse joins $(10,0)$ and $(0,6)$. Its midpoint has $x$-coordinate $\\frac{10+0}{2}=5$.",
+    "shortcut_use": "Use the hypotenuse midpoint."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A triangle has a right angle at $P=(2,1)$ and its other vertices are $Q=(8,1)$ and $R=(2,9)$. What is its circumcentre?",
+    "options": {
+     "A": "$(5,1)$",
+     "B": "$(2,5)$",
+     "C": "$(5,5)$",
+     "D": "$(4,4)$"
+    },
+    "answer": "C",
+    "hints": [
+     "The right angle identifies the hypotenuse.",
+     "Take the midpoint of the side opposite $P$.",
+     "Average the coordinates of $Q$ and $R$."
+    ],
+    "explanation": "$QR$ is the diameter, so its midpoint is $(\\frac{8+2}{2},\\frac{1+9}{2})=(5,5)$.",
+    "shortcut_use": "Use the hypotenuse midpoint."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which side of a right-angled triangle is its circumcircle's diameter?",
+    "a": "The hypotenuse."
+   },
+   {
+    "q": "Where is the circumcentre of a right-angled triangle?",
+    "a": "At the midpoint of the hypotenuse."
+   }
+  ]
+ },
+ "SEM-P1-perpendicular-bisector": {
+  "id": "SEM-P1-perpendicular-bisector",
+  "hook": "Finding a gradient and then a line equation adds steps to a locus question. A squared-distance equation gives the line directly.",
+  "when": "A point $P$ is equidistant from two fixed points $A$ and $B$.",
+  "idea": "Set $PA^2=PB^2$ and simplify; the squared-coordinate terms cancel.",
+  "why": "For real distances, $PA=PB$ is equivalent to $PA^2=PB^2$. This always gives the perpendicular bisector when $A$ and $B$ are distinct.",
+  "steps": [
+   "Write $P=(x,y)$.",
+   "Write the two squared distances.",
+   "Set them equal and cancel $x^2$ and $y^2$.",
+   "Rearrange into a line equation."
+  ],
+  "worked": {
+   "question": "Find the locus of points equidistant from $A=(1,2)$ and $B=(5,4)$.",
+   "long": "The midpoint is $(3,3)$ and the gradient of $AB$ is $\\frac{1}{2}$. The perpendicular gradient is $-2$, giving $y-3=-2(x-3)$, or $2x+y=9$.",
+   "short": "Set $(x-1)^2+(y-2)^2=(x-5)^2+(y-4)^2$. Cancelling and simplifying gives $2x+y=9$.",
+   "saving": "Avoids a separate gradient calculation."
+  },
+  "pitfalls": [
+   "Equating only the horizontal or vertical parts of the distances.",
+   "Dropping a sign when expanding $(x-a)^2$.",
+   "Using the negative reciprocal gradient when $AB$ is horizontal or vertical without handling the zero denominator."
+  ],
+  "check": "Substitute the midpoint of $AB$ into the locus equation.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Find the equation of the locus of points equidistant from $A=(0,0)$ and $B=(6,0)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x=3$",
+    "hints": [
+     "Equidistance identifies a perpendicular bisector.",
+     "Set the squared distances equal.",
+     "Use $x^2+y^2=(x-6)^2+y^2$."
+    ],
+    "explanation": "Cancel $y^2$ and $x^2$ in $x^2+y^2=(x-6)^2+y^2$. This gives $12x=36$, so $x=3$.",
+    "shortcut_use": "Equate squared distances."
+   },
+   {
+    "kind": "short",
+    "stem": "Find the equation of the locus of points equidistant from $A=(2,1)$ and $B=(2,7)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$y=4$",
+    "hints": [
+     "The two fixed points share an $x$-coordinate.",
+     "Equate squared distances.",
+     "Use $(x-2)^2+(y-1)^2=(x-2)^2+(y-7)^2$."
+    ],
+    "explanation": "The $(x-2)^2$ terms cancel. Expanding the remaining squares gives $12y=48$, so $y=4$.",
+    "shortcut_use": "Cancel common squared-distance terms."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What equation starts an equidistant-point locus?",
+    "a": "Set the two squared distances equal."
+   },
+   {
+    "q": "Why does the squared-distance equation become linear?",
+    "a": "The $x^2$ and $y^2$ terms cancel."
+   }
+  ]
+ },
+ "SEM-P1-entry": {
+  "id": "SEM-P1-entry",
+  "hook": "An equation mixing sine, cosine and tangent can look more complicated than it is.",
+  "when": "A trigonometric equation contains $\\tan x$ alongside $\\sin x$ or $\\cos x$.",
+  "idea": "Use $\\tan x=\\frac{\\sin x}{\\cos x}$ to put the equation in one form, or divide by $\\cos x$ when its zero case has been checked.",
+  "why": "The identity follows from the definitions of sine, cosine and tangent and holds where $\\cos x\\ne0$. Multiplying through by $\\cos x$ is valid on that same domain.",
+  "steps": [
+   "Note where $\\tan x$ is defined.",
+   "Replace $\\tan x$ with $\\frac{\\sin x}{\\cos x}$.",
+   "Simplify or multiply through by $\\cos x$.",
+   "Solve and check the original equation."
+  ],
+  "worked": {
+   "question": "Solve $\\tan x=2\\sin x$ for $0^\\circ\\le x<360^\\circ$.",
+   "long": "Check standard angles and test each candidate in the original equation: $x=0^\\circ$, $60^\\circ$, $180^\\circ$, $300^\\circ$.",
+   "short": "Replace tangent: $\\frac{\\sin x}{\\cos x}=2\\sin x$. Since $\\cos x\\ne0$, factor $\\sin x(1-2\\cos x)=0$. Thus $x=0^\\circ,60^\\circ,180^\\circ,300^\\circ$.",
+   "saving": "Turns a mixed-function equation into two familiar cases without dividing away $\\sin x=0$."
+  },
+  "pitfalls": [
+   "Using $\\tan x=\\frac{\\sin x}{\\cos x}$ at $\\cos x=0$.",
+   "Dividing by $\\sin x$ and losing its zero solutions.",
+   "Keeping solutions outside the stated interval."
+  ],
+  "check": "Substitute each proposed angle into the original equation.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Solve $\\tan x=\\sin x$ for $0^\\circ\\le x<360^\\circ$. Which set is complete?",
+    "options": {
+     "A": "$0^\\circ,180^\\circ$",
+     "B": "$90^\\circ,270^\\circ$",
+     "C": "$0^\\circ,90^\\circ,180^\\circ,270^\\circ$",
+     "D": "$0^\\circ$"
+    },
+    "answer": "A",
+    "hints": [
+     "Rewrite tangent using sine and cosine.",
+     "Keep the domain $\\cos x\\ne0$.",
+     "Factor the equation after multiplying by $\\cos x$."
+    ],
+    "explanation": "$\\frac{\\sin x}{\\cos x}=\\sin x$ gives $\\sin x(1-\\cos x)=0$, with $\\cos x\\ne0$. In the interval, the solutions are $0^\\circ$ and $180^\\circ$.",
+    "shortcut_use": "Replace tangent with a sine-cosine ratio."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $0^\\circ\\le x<360^\\circ$, how many solutions has $\\tan x=3\\sin x$? Give a bare integer.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "Rewrite the tangent term.",
+     "Factor after multiplying by $\\cos x$.",
+     "Use $\\sin x(1-3\\cos x)=0$ and count each branch in the interval."
+    ],
+    "explanation": "$\\frac{\\sin x}{\\cos x}=3\\sin x$ gives $\\sin x(1-3\\cos x)=0$. Sine is zero at two angles, and $\\cos x=\\frac{1}{3}$ at two more, giving $4$ solutions.",
+    "shortcut_use": "Replace tangent, then factor."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How is tangent written using sine and cosine?",
+    "a": "$\\tan x=\\frac{\\sin x}{\\cos x}$ where $\\cos x\\ne0$."
+   },
+   {
+    "q": "What must be checked before dividing a trig equation by $\\cos x$?",
+    "a": "Check whether $\\cos x=0$ is possible and whether it solves the original equation."
+   }
+  ]
+ },
+ "SEM-P1-never-divide-by-a-trig-function-that-can-be-zero": {
+  "id": "SEM-P1-never-divide-by-a-trig-function-that-can-be-zero",
+  "hook": "Dividing by a trig factor can silently remove a whole branch of solutions.",
+  "when": "A trigonometric equation has a common factor such as $\\sin x$ or $\\cos x$.",
+  "idea": "Factorise, then solve every zero-factor case separately.",
+  "why": "The zero-product rule always holds for real factors. Division by a factor is equivalent only when that factor is non-zero, so factorising preserves its zero solutions.",
+  "steps": [
+   "Move all terms to one side.",
+   "Factor out the common trig expression.",
+   "Set each factor equal to zero.",
+   "Keep solutions in the required interval."
+  ],
+  "worked": {
+   "question": "Solve $\\sin x=2\\sin x\\cos x$ for $0^\\circ\\le x<360^\\circ$.",
+   "long": "Check $\\sin x=0$ separately, giving $0^\\circ,180^\\circ$. For $\\sin x\\ne0$, divide to get $\\cos x=\\frac{1}{2}$, giving $60^\\circ,300^\\circ$.",
+   "short": "$\\sin x(1-2\\cos x)=0$, so $x=0^\\circ,60^\\circ,180^\\circ,300^\\circ$.",
+   "saving": "Keeps the two solutions that division by $\\sin x$ would lose."
+  },
+  "pitfalls": [
+   "Dividing by $\\sin x$ before checking $\\sin x=0$.",
+   "Solving only the common-factor branch.",
+   "Including an endpoint excluded by the interval."
+  ],
+  "check": "Substitute any solution from the zero-factor branch into the original equation.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Solve $\\sin x=\\sin x\\cos x$ for $0^\\circ\\le x<360^\\circ$. Which set is complete?",
+    "options": {
+     "A": "$0^\\circ$",
+     "B": "$0^\\circ,180^\\circ$",
+     "C": "$90^\\circ,270^\\circ$",
+     "D": "$0^\\circ,90^\\circ,180^\\circ$"
+    },
+    "answer": "B",
+    "hints": [
+     "A sine factor appears on both sides.",
+     "Move terms together and factor out $\\sin x$.",
+     "Solve $\\sin x(1-\\cos x)=0$ without dividing by sine."
+    ],
+    "explanation": "$\\sin x(1-\\cos x)=0$. The sine factor gives $0^\\circ,180^\\circ$; the cosine factor gives $0^\\circ$ again. The complete set is $0^\\circ,180^\\circ$.",
+    "shortcut_use": "Factor instead of dividing by sine."
+   },
+   {
+    "kind": "numeric",
+    "stem": "How many solutions has $\\cos x=2\\sin x\\cos x$ for $0^\\circ\\le x<360^\\circ$? Give a bare integer.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "Cosine is a common factor.",
+     "Factor before solving.",
+     "Use $\\cos x(1-2\\sin x)=0$ and count both branches."
+    ],
+    "explanation": "$\\cos x(1-2\\sin x)=0$. The cosine branch gives $90^\\circ,270^\\circ$, and $\\sin x=\\frac{1}{2}$ gives $30^\\circ,150^\\circ$: $4$ solutions.",
+    "shortcut_use": "Factor instead of dividing by cosine."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Why can dividing by $\\sin x$ lose roots?",
+    "a": "It removes every solution where $\\sin x=0$."
+   },
+   {
+    "q": "What should you do with a common trig factor?",
+    "a": "Factor it out and solve each zero-factor case."
+   }
+  ]
+ },
+ "SEM-P1-sine-rule": {
+  "id": "SEM-P1-sine-rule",
+  "hook": "Inverse sine can return one angle even when a second triangle fits the given sides.",
+  "when": "Two sides and an angle opposite one of them are given, especially $a,b,A$ with $a<b$.",
+  "idea": "Use $\\frac{a}{\\sin A}=\\frac{b}{\\sin B}$, then test both $B$ and $180^\\circ-B$.",
+  "why": "The sine rule holds in every non-degenerate triangle. Since $\\sin B=\\sin(180^\\circ-B)$, both angles can fit the same ratio, provided each leaves a positive third angle.",
+  "steps": [
+   "Calculate $\\sin B=\\frac{b\\sin A}{a}$.",
+   "Find the first possible $B$.",
+   "Test $180^\\circ-B$ as a second possibility.",
+   "Reject any choice with $A+B\\ge180^\\circ$."
+  ],
+  "worked": {
+   "question": "In triangle $ABC$, $a=6$ cm, $b=6\\sqrt{3}$ cm and $A=30^\\circ$. Find all possible values of $B$.",
+   "long": "Both $B=60^\\circ$ and $B=120^\\circ$ give the required sine ratio. Their remaining angles are $90^\\circ$ and $30^\\circ$, so both triangles work.",
+   "short": "$\\sin B=\\frac{6\\sqrt{3}\\sin30^\\circ}{6}=\\frac{\\sqrt{3}}{2}$. Thus $B=60^\\circ$ or $120^\\circ$; both pass $A+B<180^\\circ$.",
+   "saving": "Catches the second triangle that a single inverse-sine result misses."
+  },
+  "pitfalls": [
+   "Keeping only the first inverse-sine angle.",
+   "Accepting a second angle without checking $A+B<180^\\circ$.",
+   "Pairing a side with the wrong opposite angle."
+  ],
+  "check": "Each proposed angle must give a positive third angle and the same sine ratio.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "In triangle $ABC$, $a=5$ cm, $b=5\\sqrt{2}$ cm and $A=30^\\circ$. Give all possible values of $B$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$45^\\circ$ and $135^\\circ$",
+    "hints": [
+     "This is the two-side, opposite-angle case.",
+     "Find $\\sin B$ and test the supplementary angle.",
+     "Use $\\sin B=\\frac{5\\sqrt{2}\\sin30^\\circ}{5}$, then check $A+B<180^\\circ$."
+    ],
+    "explanation": "$\\sin B=\\frac{\\sqrt{2}}{2}$, giving $B=45^\\circ$ or $135^\\circ$. Both leave a positive third angle, so both are possible.",
+    "shortcut_use": "Test the supplementary sine-rule angle."
+   },
+   {
+    "kind": "mcq",
+    "stem": "In triangle $ABC$, $a=4$ cm, $b=8$ cm and $A=30^\\circ$. Which value of $B$ is possible?",
+    "options": {
+     "A": "$30^\\circ$ only",
+     "B": "$90^\\circ$ only",
+     "C": "$90^\\circ$ and another angle",
+     "D": "No triangle is possible"
+    },
+    "answer": "B",
+    "hints": [
+     "Use the sine rule to find $\\sin B$.",
+     "Check whether a distinct supplementary angle exists.",
+     "Calculate $\\sin B=\\frac{8\\sin30^\\circ}{4}$."
+    ],
+    "explanation": "$\\sin B=1$, so $B=90^\\circ$. Its supplementary angle is also $90^\\circ$, giving one possible value.",
+    "shortcut_use": "Check the supplementary-angle possibility."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What second angle shares the sine of $B$?",
+    "a": "$180^\\circ-B$."
+   },
+   {
+    "q": "What must a second sine-rule angle pass to form a triangle?",
+    "a": "It must satisfy $A+B<180^\\circ$."
+   }
+  ]
+ },
+ "SEM-P1-stationary-points": {
+  "id": "SEM-P1-stationary-points",
+  "hook": "A zero first derivative locates a stationary point but does not tell you whether it is a maximum or minimum.",
+  "when": "A question asks for stationary points or their nature.",
+  "idea": "Solve $f'(x)=0$; then use $f''(x)>0$ for a minimum and $f''(x)<0$ for a maximum. If $f''(x)=0$, inspect the sign of $f'$ on either side.",
+  "why": "At a stationary point of a twice differentiable function, the second-derivative test holds when $f''$ is non-zero: positive means the gradient increases through zero, and negative means it decreases through zero. A zero second derivative gives no conclusion.",
+  "steps": [
+   "Differentiate and solve $f'(x)=0$.",
+   "Substitute each $x$-value into $f(x)$.",
+   "Evaluate $f''$ at each point.",
+   "If $f''=0$, check the sign of $f'$ on both sides."
+  ],
+  "worked": {
+   "question": "Find and classify the stationary point of $f(x)=x^2-6x+5$.",
+   "long": "Complete the square: $f(x)=(x-3)^2-4$, so the vertex $(3,-4)$ is a minimum.",
+   "short": "$f'(x)=2x-6=0$ gives $x=3$ and $f(3)=-4$. Since $f''(x)=2>0$, $(3,-4)$ is a minimum.",
+   "saving": "The derivative method gives the point and its nature without completing the square."
+  },
+  "pitfalls": [
+   "Calling every stationary point a turning point.",
+   "Calling $f''=0$ a minimum or maximum without a sign check.",
+   "Reporting only the $x$-coordinate when the point is requested."
+  ],
+  "check": "For a claimed minimum, nearby function values should be higher.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $f(x)=x^2-8x+7$, find the $x$-coordinate of its stationary point. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "A stationary point has zero first derivative.",
+     "Differentiate the quadratic.",
+     "Solve $2x-8=0$."
+    ],
+    "explanation": "$f'(x)=2x-8$. Setting this to zero gives $x=4$; $f''(x)=2>0$, so it is a minimum.",
+    "shortcut_use": "Set the first derivative to zero."
+   },
+   {
+    "kind": "mcq",
+    "stem": "For $f(x)=-x^2+4x+1$, what is the nature of the stationary point at $x=2$?",
+    "options": {
+     "A": "Minimum",
+     "B": "Maximum",
+     "C": "Neither a maximum nor a minimum",
+     "D": "Cannot tell because the first derivative is zero"
+    },
+    "answer": "B",
+    "hints": [
+     "The second derivative decides the nature when non-zero.",
+     "Differentiate twice.",
+     "Evaluate $f''(x)$ for $f(x)=-x^2+4x+1$."
+    ],
+    "explanation": "$f''(x)=-2<0$, so the stationary point at $x=2$ is a maximum.",
+    "shortcut_use": "Apply the second-derivative sign test."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What equation finds stationary points?",
+    "a": "Solve $f'(x)=0$."
+   },
+   {
+    "q": "What does $f''>0$ mean at a stationary point?",
+    "a": "It is a local minimum."
+   },
+   {
+    "q": "What does $f''=0$ mean at a stationary point?",
+    "a": "The second-derivative test is inconclusive, so check the sign of $f'$ on either side."
+   }
+  ]
+ },
+ "SEM-P1-cast-via-the-graph-not-the-diagram": {
+  "id": "SEM-P1-cast-via-the-graph-not-the-diagram",
+  "hook": "Redrawing a quadrant diagram for every angle takes time and makes sign errors easy.",
+  "when": "An angle is written as $180-x$, $90-x$, $-x$ or $180+x$ degrees.",
+  "idea": "Use the graph symmetries directly: $\\sin(180-x)=\\sin x$, $\\cos(180-x)=-\\cos x$, $\\sin(-x)=-\\sin x$, $\\cos(-x)=\\cos x$, $\\sin(90-x)=\\cos x$, $\\cos(90-x)=\\sin x$, and $\\tan(180+x)=\\tan x$.",
+  "why": "The sine and cosine graphs have these reflection symmetries, and tangent repeats every $180$ degrees. The identities hold for angles measured in degrees; the tangent identity applies where tangent is defined.",
+  "steps": [
+   "Identify how the angle is related to $x$.",
+   "Apply the matching identity, keeping its sign.",
+   "Evaluate the simpler angle."
+  ],
+  "worked": {
+   "question": "Evaluate $\\sin 150+\\cos 120$, with angles in degrees.",
+   "long": "Using the reference angles separately gives $\\sin 150=\\frac{1}{2}$ and $\\cos 120=-\\frac{1}{2}$, so the sum is $0$.",
+   "short": "$\\sin(180-30)+\\cos(180-60)=\\sin 30-\\cos 60=\\frac{1}{2}-\\frac{1}{2}=0$.",
+   "saving": "The reflection identities supply both signs without a quadrant sketch."
+  },
+  "pitfalls": [
+   "Writing $\\cos(180-x)=\\cos x$ and losing the minus sign.",
+   "Treating $\\sin(-x)$ as positive.",
+   "Using a degree expression while the calculator is set to radians."
+  ],
+  "check": "For $x=0$, the reflection identities give $\\sin 180=0$ and $\\cos 180=-1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\tan 225$, with the angle in degrees. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1",
+    "hints": [
+     "Write the angle as $180+x$ degrees.",
+     "Use tangent's $180$ degree period.",
+     "Set up $\\tan(180+45)=\\tan 45$."
+    ],
+    "explanation": "$\\tan 225=\\tan(180+45)=\\tan 45=1$.",
+    "shortcut_use": "Remove a full $180$ degree period."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\cos 120+\\sin(-30)$, with angles in degrees. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-1",
+    "hints": [
+     "One angle is reflected from $180$ degrees; the other is negative.",
+     "Use $\\cos(180-x)$ and $\\sin(-x)$.",
+     "Set up $-\\cos 60-\\sin 30$."
+    ],
+    "explanation": "$\\cos 120+\\sin(-30)=-\\cos 60-\\sin 30=-\\frac{1}{2}-\\frac{1}{2}=-1$.",
+    "shortcut_use": "Apply the two sign identities before evaluating."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What happens to $\\cos x$ when its angle becomes $180-x$ degrees?",
+    "a": "Its sign changes: $\\cos(180-x)=-\\cos x$."
+   },
+   {
+    "q": "Which of sine and cosine changes sign when $x$ becomes $-x$?",
+    "a": "Sine changes sign; cosine does not."
+   },
+   {
+    "q": "When can you use $\\tan(180+x)=\\tan x$?",
+    "a": "Use it for angles in degrees wherever tangent is defined."
+   }
+  ]
+ },
+ "SEM-P1-cosine-rule": {
+  "id": "SEM-P1-cosine-rule",
+  "hook": "Solving the cosine rule for an angle can cost an extra algebra step. A positive cosine found by mistake can also hide an obtuse angle.",
+  "when": "Three sides of a triangle are given and you need the angle opposite one of them.",
+  "idea": "For angle $A$ opposite side $a$, use $\\cos A=\\frac{b^2+c^2-a^2}{2bc}$. If $a^2>b^2+c^2$, then $A$ is obtuse.",
+  "why": "Rearranging $a^2=b^2+c^2-2bc\\cos A$ gives the formula. In a non-degenerate triangle, $2bc$ is positive, so $a^2>b^2+c^2$ makes $\\cos A$ negative and $A$ obtuse.",
+  "steps": [
+   "Label the required angle $A$ and its opposite side $a$.",
+   "Compare $a^2$ with $b^2+c^2$ to predict the angle type.",
+   "Substitute into the rearranged cosine rule.",
+   "Find $A$ and check it matches the prediction."
+  ],
+  "worked": {
+   "question": "A triangle has sides $a=7$ cm, $b=3$ cm and $c=5$ cm. Find the angle $A$ opposite side $a$.",
+   "long": "$7^2=3^2+5^2-2(3)(5)\\cos A$, so $49=34-30\\cos A$, giving $\\cos A=-\\frac{1}{2}$ and $A=120$ degrees.",
+   "short": "$a^2=49>34=b^2+c^2$, so $A$ is obtuse. $\\cos A=\\frac{9+25-49}{30}=-\\frac{1}{2}$, hence $A=120$ degrees.",
+   "saving": "The rearranged formula removes an algebra step; the square comparison checks the angle type."
+  },
+  "pitfalls": [
+   "Putting a side adjacent to $A$ in the $a^2$ position.",
+   "Omitting the minus sign before $a^2$ in the numerator.",
+   "Giving an acute angle after finding $a^2>b^2+c^2$."
+  ],
+  "check": "Since $7$ cm is the longest side in the worked triangle, $A$ must be its largest angle; $120$ degrees is consistent.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A triangle has sides $a=7$ cm, $b=4$ cm and $c=5$ cm. Find angle $A$ opposite side $a$, in degrees to the nearest whole degree.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "102",
+    "hints": [
+     "The required angle is opposite the side of length $7$ cm.",
+     "Use the rearranged cosine rule, then find the angle.",
+     "Set up $\\cos A=\\frac{4^2+5^2-7^2}{2\\times4\\times5}$."
+    ],
+    "explanation": "$\\cos A=\\frac{16+25-49}{40}=-0.2$, so $A\\approx101.54$ degrees, or $102$ degrees to the nearest whole degree.",
+    "shortcut_use": "Substitute directly into the rearranged cosine rule."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A triangle has sides $a=9$ cm, $b=5$ cm and $c=6$ cm. Which description fits angle $A$ opposite side $a$?",
+    "options": {
+     "A": "$A$ is right.",
+     "B": "No triangle exists.",
+     "C": "$A$ is obtuse.",
+     "D": "$A$ is acute."
+    },
+    "answer": "C",
+    "hints": [
+     "Check that the three lengths form a triangle.",
+     "Compare $a^2$ with $b^2+c^2$.",
+     "Compare $9^2$ with $5^2+6^2$."
+    ],
+    "explanation": "$9<5+6$, so the triangle exists. Since $9^2=81>25+36=61$, $\\cos A$ is negative and $A$ is obtuse.",
+    "shortcut_use": "Compare squared sides to classify the angle."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the cosine rule rearranged for $\\cos A$?",
+    "a": "$\\cos A=\\frac{b^2+c^2-a^2}{2bc}$, where $a$ is opposite $A$."
+   },
+   {
+    "q": "When does the side comparison show that $A$ is obtuse?",
+    "a": "In a non-degenerate triangle, $A$ is obtuse when $a^2>b^2+c^2$."
+   }
+  ]
+ },
+ "SEM-P1-label-the-requested-object-and-units": {
+  "id": "SEM-P1-label-the-requested-object-and-units",
+  "hook": "A correct intermediate number can be mistaken for the requested answer, especially when a question asks for several different quantities.",
+  "when": "A multi-part geometry or calculus question asks for a named length, area, volume or line equation.",
+  "idea": "Finish by naming the requested object and giving its appropriate units: for example, $A=12\\,\\mathrm{cm}^2$. Check that length, area and volume units carry powers $1$, $2$ and $3$ respectively.",
+  "why": "The label identifies what was calculated, and the unit power follows from multiplying one, two or three lengths. This holds for geometric quantities measured with consistent length units.",
+  "steps": [
+   "Underline the quantity requested.",
+   "Calculate it, keeping track of the input length unit.",
+   "Write a final statement naming the quantity.",
+   "Check that the unit power matches length, area or volume."
+  ],
+  "worked": {
+   "question": "A rectangle measures $3$ cm by $4$ cm. Find its diagonal length $d$ and area $A$.",
+   "long": "Calculate $\\sqrt{3^2+4^2}=5$ and $3\\times4=12$, then leave the two numbers unlabelled.",
+   "short": "The diagonal is $d=\\sqrt{3^2+4^2}=5\\,\\mathrm{cm}$; the area is $A=3\\times4=12\\,\\mathrm{cm}^2$.",
+   "saving": "Labels and unit powers show immediately which number answers each request."
+  },
+  "pitfalls": [
+   "Giving $\\mathrm{cm}$ for an area instead of $\\mathrm{cm}^2$.",
+   "Leaving an intermediate value unlabelled when several values were calculated.",
+   "Writing only a gradient when the question asks for the line equation."
+  ],
+  "check": "Count the length factors in the calculation: one for length, two for area, three for volume.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "A rectangle measures $5$ cm by $8$ cm. Which final statement correctly gives its area $A$?",
+    "options": {
+     "A": "$A=40\\,\\mathrm{cm}^2$",
+     "B": "$A=40\\,\\mathrm{cm}$",
+     "C": "$A=13\\,\\mathrm{cm}^2$",
+     "D": "$A=40\\,\\mathrm{cm}^3$"
+    },
+    "answer": "A",
+    "hints": [
+     "The question asks for area.",
+     "Multiply the two side lengths and name $A$.",
+     "Use $A=5\\times8$ and square the centimetre unit."
+    ],
+    "explanation": "Area is the product of two lengths, so $A=5\\times8=40\\,\\mathrm{cm}^2$.",
+    "shortcut_use": "Label $A$ and check the squared unit."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A cuboid has length $2$ cm, width $3$ cm and height $4$ cm. Which final statement correctly gives its volume $V$?",
+    "options": {
+     "A": "$V=24\\,\\mathrm{cm}^2$",
+     "B": "$V=9\\,\\mathrm{cm}^3$",
+     "C": "$V=24\\,\\mathrm{cm}^3$",
+     "D": "$V=24\\,\\mathrm{cm}$"
+    },
+    "answer": "C",
+    "hints": [
+     "The requested object is volume.",
+     "Multiply all three lengths and name $V$.",
+     "Use $V=2\\times3\\times4$ and cube the centimetre unit."
+    ],
+    "explanation": "Volume is the product of three lengths, so $V=2\\times3\\times4=24\\,\\mathrm{cm}^3$.",
+    "shortcut_use": "Label $V$ and check the cubed unit."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How should the final line of a multi-part calculation identify an area?",
+    "a": "Write the area symbol, its value and squared units, such as $A=12\\,\\mathrm{cm}^2$."
+   },
+   {
+    "q": "What unit powers correspond to length, area and volume?",
+    "a": "They use length units to powers $1$, $2$ and $3$, respectively."
+   }
+  ]
+ }
+}

@@ -1,0 +1,1371 @@
+[
+ {
+  "id": "SEM-P2-disproof-by-counter-example",
+  "spec": "P2",
+  "section": "1. Proof",
+  "topic": "",
+  "title": "Disproof by counter-example",
+  "score": 6,
+  "origin": "base",
+  "body": "is one line: find one $n$ that breaks the claim. Try $n=0,1,2$, a negative, a prime, a large number."
+ },
+ {
+  "id": "SEM-P2-even-odd-bookkeeping",
+  "spec": "P2",
+  "section": "1. Proof",
+  "topic": "",
+  "title": "Even/odd bookkeeping",
+  "score": 6,
+  "origin": "base",
+  "body": "write even $=2k$, odd $=2k+1$. A square: odd$^2=4k(k+1)+1$, so **an odd square is always $1$ more than a multiple of $8$** (since $k(k+1)$ is even)."
+ },
+ {
+  "id": "SEM-P2-consecutive-integers",
+  "spec": "P2",
+  "section": "1. Proof",
+  "topic": "",
+  "title": "Consecutive integers",
+  "score": 6,
+  "origin": "base",
+  "body": "$n(n+1)$ is even; $n(n+1)(n+2)$ is a multiple of $6$; $(n-1)n(n+1)$ likewise."
+ },
+ {
+  "id": "SEM-P2-difference-of-squares",
+  "spec": "P2",
+  "section": "1. Proof",
+  "topic": "",
+  "title": "Difference of squares",
+  "score": 6,
+  "origin": "base",
+  "body": "$a^2-b^2=(a-b)(a+b)$ for proofs about differences of squares of consecutive numbers: $(n+1)^2-n^2=2n+1$."
+ },
+ {
+  "id": "SEM-P2-squares-are-never-or",
+  "spec": "P2",
+  "section": "1. Proof",
+  "topic": "",
+  "title": "Squares are never $\\equiv2$ or $3\\pmod 4$",
+  "score": 5,
+  "origin": "base",
+  "body": "; they are $\\equiv0$ or $1\\pmod 4$. They are $0,1,4\\pmod 8$ and $0,1,4,7\\pmod9$ (beyond spec: modular arithmetic)."
+ },
+ {
+  "id": "SEM-P2-proof-by-contradiction-template-irrationality",
+  "spec": "P2",
+  "section": "1. Proof",
+  "topic": "",
+  "title": "Proof by contradiction template (irrationality)",
+  "score": 7,
+  "origin": "base",
+  "body": "assume $\\sqrt2=\\dfrac pq$ in lowest terms, so $p^2=2q^2$, $p$ even, $p=2m$, $q^2=2m^2$, $q$ even — contradiction. Also works for \"there are infinitely many primes\"."
+ },
+ {
+  "id": "SEM-P2-proof-by-exhaustion",
+  "spec": "P2",
+  "section": "1. Proof",
+  "topic": "",
+  "title": "Proof by exhaustion",
+  "score": 5,
+  "origin": "base",
+  "body": "list the finite cases (e.g. $n=1,2,3,4$) and check each."
+ },
+ {
+  "id": "SEM-P2-to-show-a-quadratic-is-always-positive",
+  "spec": "P2",
+  "section": "1. Proof",
+  "topic": "",
+  "title": "To show a quadratic is always positive",
+  "score": 6,
+  "origin": "base",
+  "body": "complete the square or use $\\Delta<0$."
+ },
+ {
+  "id": "SEM-P2-cover-up-rule-linear-distinct-factors",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Partial fractions",
+  "title": "Cover-up rule (linear distinct factors)",
+  "score": 10,
+  "origin": "base",
+  "body": "For $\\dfrac{f(x)}{(x-a)(x-b)}=\\dfrac A{x-a}+\\dfrac B{x-b}$: $A=\\dfrac{f(a)}{a-b}$. Cover $(x-a)$, substitute $x=a$ into what is left. $B$ likewise. **Gives answers in seconds and avoids simultaneous equations.**"
+ },
+ {
+  "id": "SEM-P2-repeated-factor",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Partial fractions",
+  "title": "Repeated factor",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\dfrac{f(x)}{(x-a)^2(x-b)}=\\dfrac A{x-a}+\\dfrac B{(x-a)^2}+\\dfrac C{x-b}$: cover-up gives $B$ and $C$; $A$ from substituting any other value, or from the leading terms (compare $x^2$ coefficients)."
+ },
+ {
+  "id": "SEM-P2-improper-fraction-degree-top-bottom",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Partial fractions",
+  "title": "Improper fraction (degree top $\\ge$ bottom)",
+  "score": 8,
+  "origin": "base",
+  "body": "divide first; the quotient is a polynomial and the remainder is the proper fraction."
+ },
+ {
+  "id": "SEM-P2-quick-check",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Partial fractions",
+  "title": "Quick check",
+  "score": 6,
+  "origin": "base",
+  "body": "substitute $x=0$ (or $x=1$) into both sides."
+ },
+ {
+  "id": "SEM-P2-telescoping",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Partial fractions",
+  "title": "Telescoping",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\dfrac1{r(r+1)}=\\dfrac1r-\\dfrac1{r+1}$ and the general $\\dfrac1{(x-a)(x-b)}=\\dfrac1{a-b}\\left(\\dfrac1{x-b}-\\dfrac1{x-a}\\right)$."
+ },
+ {
+  "id": "SEM-P2-synthetic-division",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Algebraic division and graphs",
+  "title": "Synthetic division",
+  "score": 7,
+  "origin": "base",
+  "body": "for $(x-a)$ (see P1). **Equate coefficients** for $(x^2+bx+c)$ style division: set quotient $=px+q$ and match."
+ },
+ {
+  "id": "SEM-P2-modulus-graphs",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Algebraic division and graphs",
+  "title": "Modulus graphs",
+  "score": 8,
+  "origin": "base",
+  "body": "reflect the part below the axis. $|f(x)|=k$: solve $f=k$ and $f=-k$. $|f(x)|<k\\Leftrightarrow -k<f(x)<k$. $|x-a|<b\\Leftrightarrow a-b<x<a+b$ (\"distance from $a$ is less than $b$\")."
+ },
+ {
+  "id": "SEM-P2-two-modulus-equations",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Algebraic division and graphs",
+  "title": "Two-modulus equations",
+  "score": 7,
+  "origin": "base",
+  "body": "$|f|=|g|$: square both sides, or solve $f=\\pm g$."
+ },
+ {
+  "id": "SEM-P2-solving",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Algebraic division and graphs",
+  "title": "Solving $|ax+b|=cx+d$",
+  "score": 8,
+  "origin": "base",
+  "body": "sketch first, then solve the two linear cases and **check for extraneous roots** (need $cx+d\\ge0$)."
+ },
+ {
+  "id": "SEM-P2-composite-functions",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Algebraic division and graphs",
+  "title": "Composite functions",
+  "score": 7,
+  "origin": "base",
+  "body": "$fg(x)=f(g(x))$, apply $g$ first. **Domain of $fg$** is the inputs of $g$ whose outputs lie in the domain of $f$."
+ },
+ {
+  "id": "SEM-P2-inverse",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Algebraic division and graphs",
+  "title": "Inverse",
+  "score": 7,
+  "origin": "base",
+  "body": "swap $x\\leftrightarrow y$, solve. Graph is the reflection in $y=x$. **Domain of $f^{-1}$ = range of $f$.** Self-inverse functions satisfy $f(f(x))=x$ — e.g. $\\dfrac{ax+b}{cx-a}$ and $\\dfrac kx$."
+ },
+ {
+  "id": "SEM-P2-fixed-points-of-the-inverse",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Algebraic division and graphs",
+  "title": "Fixed points of the inverse",
+  "score": 7,
+  "origin": "base",
+  "body": "$f(x)=f^{-1}(x)$ where $f$ is increasing $\\Leftrightarrow f(x)=x$ (quicker than finding $f^{-1}$)."
+ },
+ {
+  "id": "SEM-P2-transformation",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Algebraic division and graphs",
+  "title": "Transformation $y=f(ax+b)$",
+  "score": 7,
+  "origin": "base",
+  "body": "translate $y=f(x)$ **left by $b$**, then stretch parallel to the $x$-axis by factor $\\dfrac1a$ (or stretch by $\\dfrac1a$ first, then translate left by $\\dfrac ba$)."
+ },
+ {
+  "id": "SEM-P2-positive-integer-powers",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Binomial expansion",
+  "title": "Positive integer powers",
+  "score": 7,
+  "origin": "base",
+  "body": "$(1+x)^n=1+nx+\\dfrac{n(n-1)}{2!}x^2+\\dfrac{n(n-1)(n-2)}{3!}x^3+\\dots$"
+ },
+ {
+  "id": "SEM-P2-entry",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Binomial expansion",
+  "title": "$(a+bx)^n=a^n\\left(1+\\dfrac bax\\right)^n$",
+  "score": 9,
+  "origin": "base",
+  "body": "Factor out $a^n$ **before** expanding; the validity condition is $|bx/a|<1$."
+ },
+ {
+  "id": "SEM-P2-fractional-negative",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Binomial expansion",
+  "title": "Fractional/negative $n$",
+  "score": 9,
+  "origin": "base",
+  "body": "valid only for $|x|<1$ (or $|bx/a|<1$). **Check this condition** — it is routinely examined."
+ },
+ {
+  "id": "SEM-P2-coefficient-of-one-term-only",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Binomial expansion",
+  "title": "Coefficient of one term only",
+  "score": 8,
+  "origin": "base",
+  "body": "use $\\binom nr a^{n-r}b^r$ directly; the exponent of $x$ is $r$."
+ },
+ {
+  "id": "SEM-P2-pascal-row",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Binomial expansion",
+  "title": "Pascal row",
+  "score": 6,
+  "origin": "base",
+  "body": "$1\\,4\\,6\\,4\\,1$, $1\\,5\\,10\\,10\\,5\\,1$, $1\\,6\\,15\\,20\\,15\\,6\\,1$."
+ },
+ {
+  "id": "SEM-P2-approximating-values",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Binomial expansion",
+  "title": "Approximating $\\sqrt[n]{\\cdot}$ values",
+  "score": 5,
+  "origin": "base",
+  "body": "write the number as $a(1+\\epsilon)$, e.g. $\\sqrt{101}=10\\sqrt{1.01}=10\\left(1+\\tfrac12(0.01)-\\tfrac18(0.01)^2\\dots\\right)$."
+ },
+ {
+  "id": "SEM-P2-standard-expansions",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Binomial expansion",
+  "title": "Standard expansions",
+  "score": 9,
+  "origin": "base",
+  "body": "$\\dfrac1{1-x}=1+x+x^2+\\dots$; $\\dfrac1{1+x}=1-x+x^2-\\dots$; $(1+x)^{-2}=1-2x+3x^2-4x^3\\dots$; $(1+x)^{1/2}=1+\\tfrac x2-\\tfrac{x^2}8+\\tfrac{x^3}{16}\\dots$; $(1+x)^{-1/2}=1-\\tfrac x2+\\tfrac{3x^2}8-\\tfrac{5x^3}{16}\\dots$."
+ },
+ {
+  "id": "SEM-P2-binomial-with-an-unknown-coefficient",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Binomial expansion",
+  "title": "Binomial with an unknown coefficient $k$",
+  "score": 6,
+  "origin": "base",
+  "body": "match the required $x^r$ coefficient and solve for $k$; write the equation in terms of $k$ first, don't substitute numbers early."
+ },
+ {
+  "id": "SEM-P2-sum-of-binomial-coefficients",
+  "spec": "P2",
+  "section": "2. Algebra and functions",
+  "topic": "Binomial expansion",
+  "title": "Sum of binomial coefficients",
+  "score": 5,
+  "origin": "base",
+  "body": "$=2^n$; alternating sum $=0$; $\\binom nr=\\binom n{n-r}$."
+ },
+ {
+  "id": "SEM-P2-parametric-to-cartesian",
+  "spec": "P2",
+  "section": "3. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Parametric to Cartesian",
+  "score": 8,
+  "origin": "base",
+  "body": "eliminate $t$. For $x=a\\cos t$, $y=b\\sin t$: $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}=1$ (ellipse). For $x=at^2$, $y=2at$: $y^2=4ax$."
+ },
+ {
+  "id": "SEM-P2-gradient",
+  "spec": "P2",
+  "section": "3. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Gradient",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\dfrac{dy}{dx}=\\dfrac{dy/dt}{dx/dt}$. **Normal** gradient $-\\dfrac{dx/dt}{dy/dt}$."
+ },
+ {
+  "id": "SEM-P2-circle-parametrics",
+  "spec": "P2",
+  "section": "3. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Circle parametrics",
+  "score": 6,
+  "origin": "base",
+  "body": "$x=a+r\\cos t$, $y=b+r\\sin t$."
+ },
+ {
+  "id": "SEM-P2-trig-identities-for-elimination",
+  "spec": "P2",
+  "section": "3. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Trig identities for elimination",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\cos^2+\\sin^2=1$, $\\sec^2=1+\\tan^2$, $\\cos2t=1-2\\sin^2t$. If both $x$ and $y$ involve $\\sin 2t$ and $\\cos t$, use double-angle first."
+ },
+ {
+  "id": "SEM-P2-intersection-of-curves-in-parametric-form",
+  "spec": "P2",
+  "section": "3. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Intersection of curves in parametric form",
+  "score": 5,
+  "origin": "base",
+  "body": "substitute the Cartesian equation of one into the parameter of the other."
+ },
+ {
+  "id": "SEM-P2-terms-equidistant-from-the-middle-average-to-the",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Arithmetic",
+  "title": "Terms equidistant from the middle average to the middle term",
+  "score": 6,
+  "origin": "base",
+  "body": "For an odd number of terms, $S=n\\times\\text{middle term}$."
+ },
+ {
+  "id": "SEM-P2-common-difference-from-two-terms",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Arithmetic",
+  "title": "Common difference from two terms",
+  "score": 7,
+  "origin": "base",
+  "body": "$d=\\dfrac{u_p-u_q}{p-q}$."
+ },
+ {
+  "id": "SEM-P2-sum-of-multiples-of-up-to",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Arithmetic",
+  "title": "Sum of multiples of $k$ up to $N$",
+  "score": 5,
+  "origin": "base",
+  "body": "number of terms $=\\lfloor N/k\\rfloor$, sum $=k\\cdot\\dfrac{m(m+1)}2$ with $m=\\lfloor N/k\\rfloor$. Multiples of 3 or 5 (inclusion–exclusion): add multiples of 3 and of 5, subtract multiples of 15."
+ },
+ {
+  "id": "SEM-P2-three-terms-in-ap",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Arithmetic",
+  "title": "Three terms in AP",
+  "score": 7,
+  "origin": "base",
+  "body": "write them as $a-d,\\,a,\\,a+d$ (sum is $3a$ immediately). For four terms $a-3d,a-d,a+d,a+3d$."
+ },
+ {
+  "id": "SEM-P2-form",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Arithmetic",
+  "title": "$S_n=An^2+Bn$ form",
+  "score": 6,
+  "origin": "base",
+  "body": "$d=2A$, $a=A+B$; $u_n=S_n-S_{n-1}$."
+ },
+ {
+  "id": "SEM-P2-three-terms-in-gp",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Geometric",
+  "title": "Three terms in GP",
+  "score": 8,
+  "origin": "base",
+  "body": "write them $\\dfrac ar,\\,a,\\,ar$ (product $=a^3$); the **middle term squared equals the product of the outer two**: $b^2=ac$."
+ },
+ {
+  "id": "SEM-P2-ratio-from-two-terms",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Geometric",
+  "title": "Ratio from two terms",
+  "score": 7,
+  "origin": "base",
+  "body": "$r^{p-q}=\\dfrac{u_p}{u_q}$."
+ },
+ {
+  "id": "SEM-P2-recurring-decimals",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Geometric",
+  "title": "Recurring decimals",
+  "score": 6,
+  "origin": "base",
+  "body": "$0.\\dot a=\\dfrac a9$, $0.\\dot a\\dot b=\\dfrac{ab}{99}$, $0.\\,x\\dot a=\\dfrac{xa-x}{90}$ (non-repeating digit then a repeating one: write as $x$ then the geometric tail)."
+ },
+ {
+  "id": "SEM-P2-geometric-sum-of-a-block-of-terms",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Geometric",
+  "title": "Geometric sum of a block of terms",
+  "score": 7,
+  "origin": "base",
+  "body": "first term $\\times\\dfrac{1-r^{\\text{number of terms}}}{1-r}$."
+ },
+ {
+  "id": "SEM-P2-convergence-to-a-target",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Geometric",
+  "title": "Convergence to a target",
+  "score": 7,
+  "origin": "base",
+  "body": "$|r|<1$. \"Sum exceeds $N$\" with $S_n=\\dfrac{a(1-r^n)}{1-r}$: solve for $r^n$ then take logs (flip the inequality when dividing by $\\ln r<0$)."
+ },
+ {
+  "id": "SEM-P2-compound-growth-decay-and-loans",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Geometric",
+  "title": "Compound growth/decay and loans",
+  "score": 5,
+  "origin": "base",
+  "body": "the balance after $n$ years with yearly deposit $d$ at multiplier $m$ is a GP: $d\\dfrac{m^n-1}{m-1}$ (first deposit gets $m^{n}$ or $m^{n-1}$ depending on timing — define it)."
+ },
+ {
+  "id": "SEM-P2-limit-of-a-convergent-recurrence",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Sigma and recurrences",
+  "title": "Limit of a convergent recurrence $u_{n+1}=f(u_n)$",
+  "score": 6,
+  "origin": "base",
+  "body": "set $L=f(L)$ and solve; reject the root outside the allowed range."
+ },
+ {
+  "id": "SEM-P2-periodic-sequences",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "Sigma and recurrences",
+  "title": "Periodic sequences",
+  "score": 5,
+  "origin": "base",
+  "body": "compute a few terms, find the period $p$, then $u_n=u_{n \\bmod p}$ and $S_n=\\lfloor n/p\\rfloor S_p+S_{n\\bmod p}$."
+ },
+ {
+  "id": "SEM-P2-three-laws",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Three laws",
+  "score": 10,
+  "origin": "base",
+  "body": "$\\log_ab+\\log_ac=\\log_a bc$; $\\log_ab-\\log_ac=\\log_a\\dfrac bc$; $k\\log_ab=\\log_ab^k$. **Also** $\\log_ab=\\dfrac{\\log_cb}{\\log_ca}$ and $\\log_ab=\\dfrac1{\\log_ba}$."
+ },
+ {
+  "id": "SEM-P2-change-of-base-shortcut",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Change of base shortcut",
+  "score": 8,
+  "origin": "base",
+  "body": "$a^{\\log_b c}=c^{\\log_b a}$ (swap base and argument); $\\log_{a^n}b^m=\\dfrac mn\\log_ab$."
+ },
+ {
+  "id": "SEM-P2-entry-2",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "$\\log_a1=0$, $\\log_aa=1$, $a^{\\log_ax}=x$",
+  "score": 7,
+  "origin": "base",
+  "body": "Convert $\\log_ax=y\\Leftrightarrow x=a^y$ at once."
+ },
+ {
+  "id": "SEM-P2-solve",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Solve $a^{f(x)}=b$",
+  "score": 9,
+  "origin": "base",
+  "body": "by taking logs: $f(x)=\\dfrac{\\ln b}{\\ln a}$ — write the exact form, then decimals at the end."
+ },
+ {
+  "id": "SEM-P2-equations-that-look-like-quadratics",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Equations that look like quadratics",
+  "score": 8,
+  "origin": "base",
+  "body": "$2^{2x}-5\\cdot2^x+4=0$: $u=2^x$. $\\ln$ equations: $(\\ln x)^2-\\ln x-2=0$: $u=\\ln x$."
+ },
+ {
+  "id": "SEM-P2-mixed-bases",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Mixed bases",
+  "score": 6,
+  "origin": "base",
+  "body": "put all logs in one base before collecting; $\\log_2x+\\log_4x=3$ gives $\\log_2x+\\tfrac12\\log_2x=3$."
+ },
+ {
+  "id": "SEM-P2-solve-2",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Solve $\\log_ax+\\log_a(x-k)=m$",
+  "score": 9,
+  "origin": "base",
+  "body": "combine, make the quadratic, **reject roots outside the domain** ($x>0$, $x-k>0$)."
+ },
+ {
+  "id": "SEM-P2-reduce-to-linear-to-find-constants",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Reduce to linear to find constants",
+  "score": 9,
+  "origin": "base",
+  "body": "$y=ab^x\\Rightarrow\\log y=\\log a+x\\log b$ (straight line, gradient $\\log b$, intercept $\\log a$). $y=ax^n\\Rightarrow\\log y=\\log a+n\\log x$ (plot $\\log y$ against $\\log x$; gradient $n$)."
+ },
+ {
+  "id": "SEM-P2-exponential-growth-decay",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Exponential growth/decay",
+  "score": 7,
+  "origin": "base",
+  "body": "$N=N_0e^{kt}$; doubling time $=\\dfrac{\\ln2}k$; half-life $=\\dfrac{\\ln2}{|k|}$. **Percentage change per time unit** $=e^k-1$."
+ },
+ {
+  "id": "SEM-P2-rule-of-72-approximation",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Rule of 72 (approximation)",
+  "score": 3,
+  "origin": "base",
+  "body": "doubling time $\\approx\\dfrac{72}{\\text{percentage rate}}$ years."
+ },
+ {
+  "id": "SEM-P2-large-powers-without-a-calculator",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Large powers without a calculator",
+  "score": 4,
+  "origin": "base",
+  "body": "$\\log_{10}2\\approx0.301$, $\\log_{10}3\\approx0.477$, $\\log_{10}7\\approx0.845$. Number of digits in $N$ is $\\lfloor\\log_{10}N\\rfloor+1$. First digit from the fractional part of the log."
+ },
+ {
+  "id": "SEM-P2-derivatives",
+  "spec": "P2",
+  "section": "5. Exponentials and logarithms",
+  "topic": "",
+  "title": "Derivatives",
+  "score": 9,
+  "origin": "base",
+  "body": "$\\dfrac d{dx}e^{kx}=ke^{kx}$, $\\dfrac d{dx}a^x=a^x\\ln a$, $\\dfrac d{dx}\\ln x=\\dfrac1x$, $\\dfrac d{dx}\\ln f(x)=\\dfrac{f'}{f}$ (**logarithmic derivative**)."
+ },
+ {
+  "id": "SEM-P2-addition-formulae",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Compound and double angles",
+  "title": "Addition formulae",
+  "score": 10,
+  "origin": "base",
+  "body": "$\\sin(A\\pm B)=\\sin A\\cos B\\pm\\cos A\\sin B$; $\\cos(A\\pm B)=\\cos A\\cos B\\mp\\sin A\\sin B$; $\\tan(A\\pm B)=\\dfrac{\\tan A\\pm\\tan B}{1\\mp\\tan A\\tan B}$."
+ },
+ {
+  "id": "SEM-P2-double-angles-three-versions-of",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Compound and double angles",
+  "title": "Double angles (three versions of $\\cos2A$)",
+  "score": 10,
+  "origin": "base",
+  "body": "$\\sin2A=2\\sin A\\cos A$; $\\cos2A=\\cos^2A-\\sin^2A=2\\cos^2A-1=1-2\\sin^2A$; $\\tan2A=\\dfrac{2\\tan A}{1-\\tan^2A}$."
+ },
+ {
+  "id": "SEM-P2-rearrange-for-powers",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Compound and double angles",
+  "title": "Rearrange for powers",
+  "score": 9,
+  "origin": "base",
+  "body": "$\\cos^2A=\\dfrac{1+\\cos2A}2$, $\\sin^2A=\\dfrac{1-\\cos2A}2$ — gold for integrating $\\cos^2$, $\\sin^2$."
+ },
+ {
+  "id": "SEM-P2-half-angle-tangent",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Compound and double angles",
+  "title": "Half-angle tangent",
+  "score": 6,
+  "origin": "base",
+  "body": "$t=\\tan\\dfrac\\theta2$: $\\sin\\theta=\\dfrac{2t}{1+t^2}$, $\\cos\\theta=\\dfrac{1-t^2}{1+t^2}$, $\\tan\\theta=\\dfrac{2t}{1-t^2}$ (beyond spec; turns $a\\sin\\theta+b\\cos\\theta=c$ into a quadratic)."
+ },
+ {
+  "id": "SEM-P2-triple-angle",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Compound and double angles",
+  "title": "Triple angle",
+  "score": 5,
+  "origin": "base",
+  "body": "$\\sin3A=3\\sin A-4\\sin^3A$; $\\cos3A=4\\cos^3A-3\\cos A$ (beyond spec but frequently proven in exams)."
+ },
+ {
+  "id": "SEM-P2-product-sum-and-sum-product-beyond-spec",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Compound and double angles",
+  "title": "Product → sum and sum → product (beyond spec)",
+  "score": 5,
+  "origin": "base",
+  "body": "$2\\sin A\\cos B=\\sin(A+B)+\\sin(A-B)$; $2\\cos A\\cos B=\\cos(A+B)+\\cos(A-B)$; $2\\sin A\\sin B=\\cos(A-B)-\\cos(A+B)$; $\\sin P+\\sin Q=2\\sin\\dfrac{P+Q}2\\cos\\dfrac{P-Q}2$; $\\cos P+\\cos Q=2\\cos\\dfrac{P+Q}2\\cos\\dfrac{P-Q}2$."
+ },
+ {
+  "id": "SEM-P2-entry-3",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Harmonic form",
+  "title": "$a\\sin x+b\\cos x=R\\sin(x+\\alpha)$",
+  "score": 10,
+  "origin": "base",
+  "body": "with $R=\\sqrt{a^2+b^2}$, $\\tan\\alpha=\\dfrac ba$ (**$\\cos\\alpha=\\dfrac aR$, $\\sin\\alpha=\\dfrac bR$: fix the quadrant**)."
+ },
+ {
+  "id": "SEM-P2-maximum-minimum",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Harmonic form",
+  "title": "Maximum $R$, minimum $-R$",
+  "score": 8,
+  "origin": "base",
+  "body": "Max occurs when $x+\\alpha=90^\\circ$. Equation $a\\sin x+b\\cos x=c$ has solutions iff $|c|\\le R$."
+ },
+ {
+  "id": "SEM-P2-alternatives",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Harmonic form",
+  "title": "Alternatives",
+  "score": 6,
+  "origin": "base",
+  "body": "$R\\cos(x-\\beta)$ with $\\tan\\beta=\\dfrac ab$. Choose the form that matches what the question wants."
+ },
+ {
+  "id": "SEM-P2-minimum-maximum-of",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Harmonic form",
+  "title": "Minimum/maximum of $\\dfrac1{k+a\\sin x+b\\cos x}$",
+  "score": 6,
+  "origin": "base",
+  "body": "from the harmonic form's extremes."
+ },
+ {
+  "id": "SEM-P2-exact-values-to-know",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Equations and exact values",
+  "title": "Exact values to know",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\sin15^\\circ=\\dfrac{\\sqrt6-\\sqrt2}4$, $\\cos15^\\circ=\\dfrac{\\sqrt6+\\sqrt2}4$, $\\tan15^\\circ=2-\\sqrt3$, $\\tan75^\\circ=2+\\sqrt3$."
+ },
+ {
+  "id": "SEM-P2-entry-4",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Equations and exact values",
+  "title": "$\\sin18^\\circ=\\dfrac{\\sqrt5-1}4$, $\\cos36^\\circ=\\dfrac{1+\\sqrt5}4$",
+  "score": 4,
+  "origin": "base",
+  "body": "(pentagon values, beyond spec)."
+ },
+ {
+  "id": "SEM-P2-equations-with-and",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Equations and exact values",
+  "title": "Equations with $\\sin2x$ and $\\sin x$",
+  "score": 8,
+  "origin": "base",
+  "body": "factorise $2\\sin x(\\cos x-\\dots)$; don't divide by $\\sin x$."
+ },
+ {
+  "id": "SEM-P2-reciprocals",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Equations and exact values",
+  "title": "Reciprocals",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\sec=\\dfrac1{\\cos}$, $\\operatorname{cosec}=\\dfrac1{\\sin}$, $\\cot=\\dfrac1{\\tan}$; $\\sec^2=1+\\tan^2$, $\\operatorname{cosec}^2=1+\\cot^2$."
+ },
+ {
+  "id": "SEM-P2-inverse-trig-ranges",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Equations and exact values",
+  "title": "Inverse trig ranges",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\arcsin\\in[-\\tfrac\\pi2,\\tfrac\\pi2]$, $\\arccos\\in[0,\\pi]$, $\\arctan\\in(-\\tfrac\\pi2,\\tfrac\\pi2)$. $\\arcsin x+\\arccos x=\\dfrac\\pi2$."
+ },
+ {
+  "id": "SEM-P2-small-angles",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Equations and exact values",
+  "title": "Small angles",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\sin\\theta\\approx\\theta$, $\\cos\\theta\\approx1-\\dfrac{\\theta^2}2$, $\\tan\\theta\\approx\\theta$ (radians). Used to simplify limits and approximations."
+ },
+ {
+  "id": "SEM-P2-radians",
+  "spec": "P2",
+  "section": "6. Trigonometry",
+  "topic": "Equations and exact values",
+  "title": "Radians",
+  "score": 7,
+  "origin": "base",
+  "body": "arc $=r\\theta$, sector $=\\tfrac12r^2\\theta$, segment $=\\tfrac12r^2(\\theta-\\sin\\theta)$. Convert: $\\times\\dfrac\\pi{180}$."
+ },
+ {
+  "id": "SEM-P2-chain-rule-fast",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Chain rule fast",
+  "score": 10,
+  "origin": "base",
+  "body": "differentiate the outside, keep the inside, multiply by the derivative of the inside. $\\dfrac d{dx}f(g(x))=f'(g(x))\\,g'(x)$. Linear inside: just multiply by its gradient."
+ },
+ {
+  "id": "SEM-P2-product-rule",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Product rule",
+  "score": 9,
+  "origin": "base",
+  "body": "$(uv)'=u'v+uv'$. **Quotient rule:** $\\left(\\dfrac uv\\right)'=\\dfrac{u'v-uv'}{v^2}$."
+ },
+ {
+  "id": "SEM-P2-reciprocal-of-a-function",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Reciprocal of a function",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\dfrac k{f}=kf^{-1}$, so $\\dfrac d{dx}\\dfrac k{f}=-\\dfrac{kf'}{f^2}$ with no quotient rule; $\\dfrac1{(2x+1)^3}=(2x+1)^{-3}$ is a plain chain rule."
+ },
+ {
+  "id": "SEM-P2-logarithmic-differentiation-products-powers",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Logarithmic differentiation (products/powers)",
+  "score": 6,
+  "origin": "base",
+  "body": "$y=x^x$, $y=\\dfrac{(x+1)^3(x-2)^2}{x^5}$: take $\\ln$ first: $\\dfrac{y'}y=\\dots$ (beyond spec at some levels)."
+ },
+ {
+  "id": "SEM-P2-differentiate",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Differentiate $a^x$",
+  "score": 7,
+  "origin": "base",
+  "body": "$a^x\\ln a$."
+ },
+ {
+  "id": "SEM-P2-standard-derivatives",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Standard derivatives",
+  "score": 10,
+  "origin": "base",
+  "body": "$(\\sin x)'=\\cos x$, $(\\cos x)'=-\\sin x$, $(\\tan x)'=\\sec^2x$, $(\\sec x)'=\\sec x\\tan x$, $(\\operatorname{cosec}x)'=-\\operatorname{cosec}x\\cot x$, $(\\cot x)'=-\\operatorname{cosec}^2x$, $(\\ln x)'=\\dfrac1x$, $(e^{kx})'=ke^{kx}$."
+ },
+ {
+  "id": "SEM-P2-implicit-differentiation",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Implicit differentiation",
+  "score": 9,
+  "origin": "base",
+  "body": "differentiate each term in $x$; every $y$-term gets $\\dfrac{dy}{dx}$ attached; collect, factor, divide. Example: $x^2+y^2=r^2\\Rightarrow\\dfrac{dy}{dx}=-\\dfrac xy$. $xy$ → $y+x\\dfrac{dy}{dx}$."
+ },
+ {
+  "id": "SEM-P2-parametric",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Parametric",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\dfrac{dy}{dx}=\\dfrac{\\dot y}{\\dot x}$; second derivative $\\dfrac{d^2y}{dx^2}=\\dfrac{d}{dt}\\left(\\dfrac{dy}{dx}\\right)\\Big/\\dfrac{dx}{dt}$ (not $\\ddot y/\\ddot x$)."
+ },
+ {
+  "id": "SEM-P2-inverse-derivative",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Inverse derivative",
+  "score": 5,
+  "origin": "base",
+  "body": "$\\dfrac{dx}{dy}=\\dfrac1{dy/dx}$."
+ },
+ {
+  "id": "SEM-P2-connected-rates",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Rules (and how to avoid them)",
+  "title": "Connected rates",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\dfrac{dA}{dt}=\\dfrac{dA}{dr}\\dfrac{dr}{dt}$. Quote the formula for the quantity first, differentiate with respect to the variable, then use the chain rule."
+ },
+ {
+  "id": "SEM-P2-gradient-of-the-inverse-at-a-point",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Applications",
+  "title": "Gradient of the inverse at a point",
+  "score": 5,
+  "origin": "base",
+  "body": "$(f^{-1})'(b)=\\dfrac1{f'(a)}$ where $f(a)=b$."
+ },
+ {
+  "id": "SEM-P2-stationary-point-nature",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Applications",
+  "title": "Stationary point nature",
+  "score": 7,
+  "origin": "base",
+  "body": "$f''$; if $f''=0$ use the sign of $f'$ either side."
+ },
+ {
+  "id": "SEM-P2-points-of-inflection",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Applications",
+  "title": "Points of inflection",
+  "score": 5,
+  "origin": "base",
+  "body": "$f''=0$ and $f''$ changes sign."
+ },
+ {
+  "id": "SEM-P2-newton-raphson",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Applications",
+  "title": "Newton–Raphson",
+  "score": 6,
+  "origin": "base",
+  "body": "$x_{n+1}=x_n-\\dfrac{f(x_n)}{f'(x_n)}$; $\\sqrt a$: $x_{n+1}=\\tfrac12\\left(x_n+\\dfrac a{x_n}\\right)$."
+ },
+ {
+  "id": "SEM-P2-fixed-point-iteration",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Applications",
+  "title": "Fixed-point iteration",
+  "score": 5,
+  "origin": "base",
+  "body": "write $f(x)=0$ as $x=g(x)$; converges when $|g'(x^*)|<1$: a **staircase** diagram when $0<g'<1$, a **cobweb** when $-1<g'<0$."
+ },
+ {
+  "id": "SEM-P2-small-changes",
+  "spec": "P2",
+  "section": "7. Differentiation",
+  "topic": "Applications",
+  "title": "Small changes",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\delta y\\approx\\dfrac{dy}{dx}\\,\\delta x$ — error propagation, percentage error: $\\dfrac{\\delta y}y\\approx n\\dfrac{\\delta x}x$ for $y\\propto x^n$."
+ },
+ {
+  "id": "SEM-P2-reverse-chain-rule-inside-is-linear",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Rules of thumb",
+  "title": "Reverse chain rule (inside is linear)",
+  "score": 9,
+  "origin": "base",
+  "body": "$\\int f(ax+b)\\,dx=\\dfrac1aF(ax+b)+c$. $\\int e^{kx}=\\dfrac{e^{kx}}k$; $\\int\\dfrac1{ax+b}=\\dfrac1a\\ln|ax+b|$; $\\int\\sin(kx)=-\\dfrac{\\cos kx}k$; $\\int\\cos(kx)=\\dfrac{\\sin kx}k$; $\\int\\sec^2(kx)=\\dfrac{\\tan kx}k$."
+ },
+ {
+  "id": "SEM-P2-the-derivative-is-on-top-recognition",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Rules of thumb",
+  "title": "\"The derivative is on top\" recognition",
+  "score": 9,
+  "origin": "base",
+  "body": "$\\int\\dfrac{f'(x)}{f(x)}dx=\\ln|f(x)|+c$; $\\int f'(x)\\,[f(x)]^n\\,dx=\\dfrac{[f(x)]^{n+1}}{n+1}+c$; $\\int f'(x)e^{f(x)}dx=e^{f(x)}+c$. Spot these before reaching for substitution."
+ },
+ {
+  "id": "SEM-P2-trig-powers",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Rules of thumb",
+  "title": "Trig powers",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\sin^2$ and $\\cos^2$ via double angle; $\\sin^3x=\\sin x(1-\\cos^2x)$ then substitute $u=\\cos x$ (**odd power: peel off one factor**); $\\tan^2=\\sec^2-1$; $\\sin x\\cos x=\\tfrac12\\sin2x$."
+ },
+ {
+  "id": "SEM-P2-products-of-sines-cosines",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Rules of thumb",
+  "title": "Products of sines/cosines",
+  "score": 6,
+  "origin": "base",
+  "body": "product-to-sum formulas (see §6)."
+ },
+ {
+  "id": "SEM-P2-typical-substitutions",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Substitution",
+  "title": "Typical substitutions",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\sqrt{ax+b}\\to u=\\sqrt{ax+b}$ (or $u^2=ax+b$); $\\sqrt{1-x^2}\\to x=\\sin\\theta$; $\\dfrac1{1+x^2}\\to x=\\tan\\theta$ so $\\int=\\arctan x$; $\\dfrac1{\\sqrt{1-x^2}}=\\arcsin x$ (beyond spec at some levels)."
+ },
+ {
+  "id": "SEM-P2-even-simpler-for-linear-over-root",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Substitution",
+  "title": "Even simpler for linear-over-root",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\int\\dfrac{x}{\\sqrt{x+1}}dx$: set $u=x+1$ so $x=u-1$."
+ },
+ {
+  "id": "SEM-P2-log-alone",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "By parts",
+  "title": "Log alone",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\int\\ln x\\,dx=x\\ln x-x+c$ ($u=\\ln x$, $dv=dx$)."
+ },
+ {
+  "id": "SEM-P2-cyclic-by-parts",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "By parts",
+  "title": "Cyclic by parts",
+  "score": 7,
+  "origin": "base",
+  "body": "($e^x\\sin x$): apply twice; the original reappears; solve for it: $\\int e^{ax}\\sin bx\\,dx=\\dfrac{e^{ax}(a\\sin bx-b\\cos bx)}{a^2+b^2}$ and $\\int e^{ax}\\cos bx\\,dx=\\dfrac{e^{ax}(a\\cos bx+b\\sin bx)}{a^2+b^2}$."
+ },
+ {
+  "id": "SEM-P2-tabular-di-method",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "By parts",
+  "title": "Tabular (DI) method",
+  "score": 8,
+  "origin": "base",
+  "body": "for $\\int x^n e^{kx}$, $\\int x^n\\sin kx$: differentiate $x^n$ down to zero, integrate the other factor repeatedly, alternate signs $+,-,+,\\dots$ and multiply diagonally. $\\int x^2e^{x}dx=e^{x}(x^2-2x+2)+c$."
+ },
+ {
+  "id": "SEM-P2-check",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "By parts",
+  "title": "Check",
+  "score": 5,
+  "origin": "base",
+  "body": "differentiate your result."
+ },
+ {
+  "id": "SEM-P2-area-between-curves",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Areas, volumes, differential equations",
+  "title": "Area between curves",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\int(\\text{top}-\\text{bottom})\\,dx$; the parabola/chord one-sixth shortcut $\\dfrac{|a|(\\beta-\\alpha)^3}6$ (see P1)."
+ },
+ {
+  "id": "SEM-P2-volume-of-revolution-about-the-axis",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Areas, volumes, differential equations",
+  "title": "Volume of revolution about the $x$-axis",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\pi\\int y^2\\,dx$; about the $y$-axis $\\pi\\int x^2\\,dy$. **Washer:** $\\pi\\int(R^2-r^2)\\,dx$."
+ },
+ {
+  "id": "SEM-P2-standard-volumes",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Areas, volumes, differential equations",
+  "title": "Standard volumes",
+  "score": 5,
+  "origin": "base",
+  "body": "sphere $\\tfrac43\\pi r^3$, cone $\\tfrac13\\pi r^2h$, frustum from the two-cone difference; the volume of a cap of height $h$ on a sphere radius $r$: $\\pi h^2\\left(r-\\dfrac h3\\right)$."
+ },
+ {
+  "id": "SEM-P2-separable-differential-equations",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Areas, volumes, differential equations",
+  "title": "Separable differential equations",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\dfrac{dy}{dx}=f(x)g(y)\\Rightarrow\\int\\dfrac1{g(y)}dy=\\int f(x)\\,dx$. **Add $+c$ on one side only; use the initial condition at once.** $\\dfrac{dy}{dx}=ky\\Rightarrow y=Ae^{kx}$."
+ },
+ {
+  "id": "SEM-P2-trapezium-rule",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Areas, volumes, differential equations",
+  "title": "Trapezium rule",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\tfrac h2[y_0+y_n+2\\sum y_i]$ (over/under: curve bending up ⇒ over). **Simpson's rule (beyond spec):** $\\dfrac h3\\left[y_0+y_n+4(\\text{odd})+2(\\text{even})\\right]$ with an **even number of strips**; exact for cubics."
+ },
+ {
+  "id": "SEM-P2-integral-of-a-modulus",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Areas, volumes, differential equations",
+  "title": "Integral of a modulus",
+  "score": 6,
+  "origin": "base",
+  "body": "split at the zero of the inside function."
+ },
+ {
+  "id": "SEM-P2-symmetric-limits",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Areas, volumes, differential equations",
+  "title": "Symmetric limits",
+  "score": 6,
+  "origin": "base",
+  "body": "odd function over $[-a,a]$ gives $0$; even gives twice the half."
+ },
+ {
+  "id": "SEM-P2-king-s-property-beyond-spec",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Areas, volumes, differential equations",
+  "title": "King's property (beyond spec)",
+  "score": 5,
+  "origin": "base",
+  "body": "$\\int_a^bf(x)\\,dx=\\int_a^bf(a+b-x)\\,dx$ — often turns $\\int_0^{\\pi/2}\\dfrac{\\sin x}{\\sin x+\\cos x}dx$ into $\\tfrac\\pi4$ by adding the two forms."
+ },
+ {
+  "id": "SEM-P2-famous-results-to-know",
+  "spec": "P2",
+  "section": "8. Integration",
+  "topic": "Areas, volumes, differential equations",
+  "title": "Famous results to know",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\int_0^{\\pi/2}\\sin^2x\\,dx=\\int_0^{\\pi/2}\\cos^2x\\,dx=\\dfrac\\pi4$; $\\int_0^1x^n\\,dx=\\dfrac1{n+1}$; $\\int_0^\\infty e^{-x}dx=1$."
+ },
+ {
+  "id": "SEM-P2-differentiate-any-integral-to-check-integrate-nu",
+  "spec": "P2",
+  "section": "9. Sanity checks",
+  "topic": "",
+  "title": "Differentiate any integral to check; integrate numerically (trapezium with 2 strips) to check definite integrals",
+  "score": 6,
+  "origin": "base",
+  "body": ""
+ },
+ {
+  "id": "SEM-P2-substitute",
+  "spec": "P2",
+  "section": "9. Sanity checks",
+  "topic": "",
+  "title": "Substitute $x=0,1$",
+  "score": 6,
+  "origin": "base",
+  "body": "to verify partial fractions and series."
+ },
+ {
+  "id": "SEM-P2-logs-and-exponents",
+  "spec": "P2",
+  "section": "9. Sanity checks",
+  "topic": "",
+  "title": "Logs and exponents",
+  "score": 6,
+  "origin": "base",
+  "body": "test with an easy value, e.g. $x=2$ in $\\log_2x$."
+ },
+ {
+  "id": "SEM-P2-trig",
+  "spec": "P2",
+  "section": "9. Sanity checks",
+  "topic": "",
+  "title": "Trig",
+  "score": 6,
+  "origin": "base",
+  "body": "check a special angle ($30^\\circ,45^\\circ$)."
+ },
+ {
+  "id": "SEM-P2-factor-out-a-supplied-intersection",
+  "spec": "P2",
+  "section": "1. Algebra and functions",
+  "topic": "",
+  "title": "Factor out a supplied intersection",
+  "score": 9,
+  "origin": "research",
+  "source": "WMA11 Jun 2023 examiner report Q10(a)",
+  "body": "If a line and a quadratic meet at a known $x=a$, form their difference $D(x)$ and divide by $x-a$; the remaining linear factor gives the second intersection without a quadratic formula. Check $D(a)=0$ before dividing and substitute the second root into both original equations."
+ },
+ {
+  "id": "SEM-P2-record-exclusions-before-clearing-denominators",
+  "spec": "P2",
+  "section": "1. Algebra and functions",
+  "topic": "",
+  "title": "Record exclusions before clearing denominators",
+  "score": 9,
+  "origin": "research",
+  "source": "derived",
+  "body": "For a rational equation, list every forbidden value from the original denominators before multiplying by a common denominator; cancellation can hide an excluded root. Check each candidate against those exclusions and the original equation, especially if a factor was cancelled."
+ },
+ {
+  "id": "SEM-P2-separate-a-coefficient-from-its-term",
+  "spec": "P2",
+  "section": "1. Algebra and functions",
+  "topic": "",
+  "title": "Separate a coefficient from its term",
+  "score": 8,
+  "origin": "research",
+  "source": "WMA12 Jan 2024 examiner report Q2",
+  "body": "In a binomial question asking for the coefficient of $x^r$, calculate the multiplier of $x^r$ and report that number alone; retain the $x^r$ factor only while locating the term. Check the question's wording before the final line."
+ },
+ {
+  "id": "SEM-P2-use-the-output-range-to-prune-a-composite-equati",
+  "spec": "P2",
+  "section": "1. Algebra and functions",
+  "topic": "",
+  "title": "Use the output range to prune a composite equation",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "When $f(g(x))=c$ has several algebraic candidates for $g(x)$, discard any outside the actual range of $g$ before solving for $x$. Check the domain of $f$ as well; for example, $g(x)=x^2$ cannot supply a negative intermediate value."
+ },
+ {
+  "id": "SEM-P2-horizontal-chord-from-its-half-length",
+  "spec": "P2",
+  "section": "2. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Horizontal chord from its half-length",
+  "score": 8,
+  "origin": "research",
+  "source": "WMA12 Jan 2024 examiner report Q3(b)",
+  "body": "For a horizontal chord of length $L$ in $(x-h)^2+(y-k)^2=r^2$, its endpoint has $|x-h|=L/2$, so $|y-k|=\\sqrt{r^2-(L/2)^2}$. Choose $y=k+\\cdots$ or $k-\\cdots$ from the diagram, and check $L\\le2r$."
+ },
+ {
+  "id": "SEM-P2-circle-radius-reality-check",
+  "spec": "P2",
+  "section": "2. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Circle radius reality check",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "In $x^2+y^2+2gx+2fy+c=0$, calculate $r^2=g^2+f^2-c$ before describing a real circle or tangent. Check $r^2>0$ for a genuine circle, $r^2=0$ for one point, and $r^2<0$ for no real locus."
+ },
+ {
+  "id": "SEM-P2-parametric-elimination-keeps-its-range",
+  "spec": "P2",
+  "section": "2. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Parametric elimination keeps its range",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "After eliminating $t$, carry the given parameter interval into restrictions on $x$ and $y$; $x=t^2$ with $t\\ge0$ gives $t=\\sqrt{x}$, not both square-root signs. Check one endpoint and the direction of travel against the Cartesian curve."
+ },
+ {
+  "id": "SEM-P2-convert-the-gradient-fully-to-the-parameter",
+  "spec": "P2",
+  "section": "2. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Convert the gradient fully to the parameter",
+  "score": 8,
+  "origin": "research",
+  "source": "WFM01 Jan 2024 examiner report Q3",
+  "body": "For a tangent or normal at parameter $t=u$, simplify $dy/dx$ into a function of $t$ and evaluate at $u$ before building the line. Check that the line passes through $(x(u),y(u))$ and that its gradient uses the same parameter value."
+ },
+ {
+  "id": "SEM-P2-arc-length-can-replace-the-sector-angle",
+  "spec": "P2",
+  "section": "2. Coordinate geometry and parametrics",
+  "topic": "",
+  "title": "Arc length can replace the sector angle",
+  "score": 7,
+  "origin": "research",
+  "source": "WMA11 Jan 2024 examiner report Q8",
+  "body": "If a sector's arc length $s$ and radius $r$ are known, use $A=\\tfrac12rs$ directly, since $s=r\\theta$ and $A=\\tfrac12r^2\\theta$ for radians. Check that $s$ is the curved arc, not the chord, and that the result has square units."
+ },
+ {
+  "id": "SEM-P2-restrict-the-harmonic-maximum-to-the-given-inter",
+  "spec": "P2",
+  "section": "3. Trigonometry",
+  "topic": "",
+  "title": "Restrict the harmonic maximum to the given interval",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "After writing $a\\sin x+b\\cos x=R\\sin(x+\\alpha)$, do not automatically claim the maximum on a restricted interval is $R$. Test the interval endpoints and every in-range point with $x+\\alpha=\\pi/2+2\\pi k$; the largest of those values is the required maximum."
+ },
+ {
+  "id": "SEM-P2-find-a-sinusoid-from-its-extremes",
+  "spec": "P2",
+  "section": "3. Trigonometry",
+  "topic": "",
+  "title": "Find a sinusoid from its extremes",
+  "score": 8,
+  "origin": "research",
+  "source": "WMA12 Jan 2024 examiner report Q9(ii)",
+  "body": "If a graph or context gives maximum $M$ and minimum $m$, set amplitude $R=(M-m)/2$ and midline $d=(M+m)/2$ before finding phase or period. Check that $d+R=M$ and $d-R=m$; this avoids solving for several coefficients at once."
+ },
+ {
+  "id": "SEM-P2-track-radians-through-derivatives",
+  "spec": "P2",
+  "section": "3. Trigonometry",
+  "topic": "",
+  "title": "Track radians through derivatives",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "Standard trig derivatives such as $d(\\sin x)/dx=\\cos x$ assume $x$ is measured in radians; convert degree data to radians before differentiating a trig model. Check that an angle of $180^\\circ$ enters as $\\pi$, while a final angle may be converted back if requested."
+ },
+ {
+  "id": "SEM-P2-read-the-first-indexed-term-not-the-displayed-mu",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "",
+  "title": "Read the first indexed term, not the displayed multiplier",
+  "score": 9,
+  "origin": "research",
+  "source": "WMA12 Jan 2024 examiner report Q5",
+  "body": "For $\\sum_{j=p}^{\\infty}aq^j$, substitute the actual starting index $p$ to get the first term before using $S_\\infty=\\text{first}/(1-q)$. Check the next term divided by the first equals $q$ and that $|q|<1$."
+ },
+ {
+  "id": "SEM-P2-count-gaps-rather-than-data-points",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "",
+  "title": "Count gaps rather than data points",
+  "score": 8,
+  "origin": "research",
+  "source": "WMA12 Jan 2024 examiner report Q4",
+  "body": "If a trapezium table has $m$ equally spaced ordinates, it has $m-1$ strips and width $h=(b-a)/(m-1)$. Check that the first and last $x$ values differ by exactly $(m-1)h$ before applying the weights."
+ },
+ {
+  "id": "SEM-P2-protect-the-interior-trapezium-sum-with-brackets",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "",
+  "title": "Protect the interior trapezium sum with brackets",
+  "score": 8,
+  "origin": "research",
+  "source": "WMA12 Jan 2024 examiner report Q4",
+  "body": "Write $T=\\tfrac h2[y_0+y_n+2(y_1+\\cdots+y_{n-1})]$ with a visible bracket around every interior ordinate before entering it into the calculator. Check that endpoints have weight $1$ and every interior value has weight $2$."
+ },
+ {
+  "id": "SEM-P2-delay-rounding-a-sequence-parameter",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "",
+  "title": "Delay rounding a sequence parameter",
+  "score": 8,
+  "origin": "research",
+  "source": "WMA12 Jan 2024 examiner report Q7",
+  "body": "When an AP or GP is used in later parts, retain the exact common difference or ratio and calculate later sums from it, not from a rounded intermediate decimal. Check the first two reconstructed terms against the original data."
+ },
+ {
+  "id": "SEM-P2-test-a-proposed-sum-by-finite-differences",
+  "spec": "P2",
+  "section": "4. Sequences and series",
+  "topic": "",
+  "title": "Test a proposed sum by finite differences",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "If $S_n$ is claimed to sum terms $u_1,\\ldots,u_n$, compute $S_n-S_{n-1}$ and see whether it simplifies to $u_n$. Also check $S_1=u_1$; these two tests detect an index shift without re-summing the series."
+ },
+ {
+  "id": "SEM-P2-differentiate-a-factorised-product-at-a-root",
+  "spec": "P2",
+  "section": "5. Differentiation and integration",
+  "topic": "",
+  "title": "Differentiate a factorised product at a root",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "If $f(x)=(x-a)g(x)$ and only the tangent gradient at $x=a$ is needed, use $f'(a)=g(a)$; all terms containing $x-a$ vanish. Check that $f(a)=0$ so the tangent passes through $(a,0)$."
+ },
+ {
+  "id": "SEM-P2-bound-an-area-before-calculating-it",
+  "spec": "P2",
+  "section": "5. Differentiation and integration",
+  "topic": "",
+  "title": "Bound an area before calculating it",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "If $a<b$ and $m\\le f(x)\\le M$ on $[a,b]$, then $m(b-a)\\le\\int_a^bf(x)\\,dx\\le M(b-a)$; for a positive integrand this gives an instant size check. Confirm the bounds really hold throughout the interval, not just at its endpoints."
+ }
+]

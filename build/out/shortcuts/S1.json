@@ -1,0 +1,982 @@
+[
+ {
+  "id": "SEM-S1-use-the-calculator-for",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Use the calculator for $\\bar x$, $\\sigma$, $\\sum x$, $\\sum x^2$",
+  "score": 10,
+  "origin": "base",
+  "body": "Enter data (with frequency column on). Read $\\bar x$, $\\sigma_x$ (population, the one S1 uses), $\\sum x$, $\\sum x^2$. Switch to 2-VAR for $S_{xy}$ values and the regression line directly."
+ },
+ {
+  "id": "SEM-S1-variance-and-standard-deviation",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Variance and standard deviation",
+  "score": 10,
+  "origin": "base",
+  "body": "$\\sigma^2=\\dfrac{\\sum x^2}n-\\bar x^2$ (the \"mean of squares minus square of mean\"). With frequencies, $\\sum fx^2/\\sum f-\\bar x^2$. $S_{xx}=\\sum x^2-\\dfrac{(\\sum x)^2}n=n\\sigma^2$."
+ },
+ {
+  "id": "SEM-S1-coding",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Coding",
+  "score": 10,
+  "origin": "base",
+  "body": "If $y=\\dfrac{x-a}b$ then $\\bar x=a+b\\bar y$ and $\\sigma_x=|b|\\,\\sigma_y$. Adding a constant changes the mean but **not** the standard deviation; multiplying scales both."
+ },
+ {
+  "id": "SEM-S1-combining-two-groups",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Combining two groups",
+  "score": 9,
+  "origin": "base",
+  "body": "Combined mean $=\\dfrac{n_1\\bar x_1+n_2\\bar x_2}{n_1+n_2}$. For combined variance get each group's $\\sum x^2=n(\\sigma^2+\\bar x^2)$, add them, divide by total $n$ and subtract the new mean squared."
+ },
+ {
+  "id": "SEM-S1-missing-observation",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Missing observation",
+  "score": 8,
+  "origin": "base",
+  "body": "Use the sum: new $\\sum x=n\\bar x-\\text{removed}+\\text{added}$; same for $\\sum x^2$. Never re-enter the whole data set."
+ },
+ {
+  "id": "SEM-S1-grouped-data",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Grouped data",
+  "score": 9,
+  "origin": "base",
+  "body": "Use class midpoints in the calculator with frequencies. Means and variances are **estimates**. **Median by interpolation:** $Q=L+\\dfrac{\\text{position}-\\text{cumulative frequency before}}{f}\\times\\text{width}$ with position $=\\dfrac n2$ (median), $\\dfrac n4$ ($Q_1$), $\\dfrac{3n}4$ ($Q_3$). Use the class boundaries (not the labels) for $L$ and width."
+ },
+ {
+  "id": "SEM-S1-histograms",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Histograms",
+  "score": 10,
+  "origin": "base",
+  "body": "Frequency density $=\\dfrac{\\text{frequency}}{\\text{class width}}$ and **area $\\propto$ frequency**. So when one bar is known (area $=$ frequency), every other frequency is area$\\times$(that scale). Bar heights from a given frequency: divide by the width."
+ },
+ {
+  "id": "SEM-S1-outliers",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Outliers",
+  "score": 9,
+  "origin": "base",
+  "body": "$x<Q_1-1.5\\,\\mathrm{IQR}$ or $x>Q_3+1.5\\,\\mathrm{IQR}$. Alternative given rule: beyond $\\bar x\\pm k\\sigma$ ($k$ stated). Say which rule you used, and **show the numerical limits**."
+ },
+ {
+  "id": "SEM-S1-skewness-from-quartiles",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Skewness from quartiles",
+  "score": 8,
+  "origin": "base",
+  "body": "$(Q_3-Q_2)-(Q_2-Q_1)>0$ positive skew, $<0$ negative; $0$ roughly symmetric. Mean $>$ median for positive skew. Quote the numbers."
+ },
+ {
+  "id": "SEM-S1-box-plot",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Box plot",
+  "score": 7,
+  "origin": "base",
+  "body": "Five values: min, $Q_1$, $Q_2$, $Q_3$, max, with outliers marked separately (whiskers stop at the last non-outlier). To compare two distributions say something about **a measure of location and a measure of spread**, in context."
+ },
+ {
+  "id": "SEM-S1-stem-and-leaf",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Stem-and-leaf",
+  "score": 6,
+  "origin": "base",
+  "body": "Always give a key ($2\\,|\\,3$ means $2.3$). The shape also gives the median by counting."
+ },
+ {
+  "id": "SEM-S1-percentiles-and-deciles",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Percentiles and deciles",
+  "score": 6,
+  "origin": "base",
+  "body": "position $\\dfrac{k}{100}n$; interpolate if grouped."
+ },
+ {
+  "id": "SEM-S1-interquartile-range-vs-standard-deviation",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Interquartile range vs standard deviation",
+  "score": 6,
+  "origin": "base",
+  "body": "IQR resists outliers; $\\sigma$ uses every value. Choose accordingly in \"which measure is better\" questions."
+ },
+ {
+  "id": "SEM-S1-mean-from-a-frequency-table-with-a-missing-value",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Mean from a frequency table with a missing value",
+  "score": 7,
+  "origin": "base",
+  "body": "set up $\\bar x=\\dfrac{\\sum fx}{\\sum f}$ with the unknown $f$ and solve the linear equation."
+ },
+ {
+  "id": "SEM-S1-range-mode-median-checks",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Range, mode, median checks",
+  "score": 5,
+  "origin": "base",
+  "body": "The median lies between the quartiles; the mean lies between min and max; $\\sigma\\le\\dfrac{\\text{range}}2$ (population SD $\\le$ half the range)."
+ },
+ {
+  "id": "SEM-S1-calculator-2-var-does-everything",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Calculator 2-VAR does everything",
+  "score": 10,
+  "origin": "base",
+  "body": "Gives $a$, $b$ and $r$ directly. Still show the working lines your paper requires."
+ },
+ {
+  "id": "SEM-S1-formulae-with-notation",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Formulae with $S$ notation",
+  "score": 10,
+  "origin": "base",
+  "body": "$$S_{xx}=\\sum x^2-\\frac{(\\sum x)^2}n,\\quad S_{yy}=\\sum y^2-\\frac{(\\sum y)^2}n,\\quad S_{xy}=\\sum xy-\\frac{\\sum x\\sum y}n,$$\n$$b=\\frac{S_{xy}}{S_{xx}},\\qquad a=\\bar y-b\\bar x,\\qquad r=\\frac{S_{xy}}{\\sqrt{S_{xx}S_{yy}}}.$$"
+ },
+ {
+  "id": "SEM-S1-the-line-passes-through",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "The line passes through $(\\bar x,\\bar y)$",
+  "score": 9,
+  "origin": "base",
+  "body": "So given the equation and $\\bar x$, you get $\\bar y$ (or the reverse) with no data. Two-point lines (e.g., the quartile points) can be found by the same logic."
+ },
+ {
+  "id": "SEM-S1-coding-and",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Coding and $r$",
+  "score": 9,
+  "origin": "base",
+  "body": "Adding constants or multiplying **both** variables by positive constants **does not change $r$**. Multiplying exactly one variable by a negative constant changes the **sign** of $r$. Regression gradient scales: if $y'=cy$, $x'=dx$ then $b'=\\dfrac cd\\,b$."
+ },
+ {
+  "id": "SEM-S1-interpreting-and",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Interpreting $b$ and $a$",
+  "score": 9,
+  "origin": "base",
+  "body": "\"For each extra unit of $x$, $y$ increases by $b$ on average.\" The intercept $a$ is the predicted $y$ at $x=0$ — **only meaningful if $x=0$ is in context**."
+ },
+ {
+  "id": "SEM-S1-interpolation-vs-extrapolation",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Interpolation vs extrapolation",
+  "score": 9,
+  "origin": "base",
+  "body": "Predictions inside the data range are reliable (interpolation); outside are not. Always comment."
+ },
+ {
+  "id": "SEM-S1-correlation-is-not-causation",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Correlation is not causation",
+  "score": 8,
+  "origin": "base",
+  "body": "a third factor may drive both. Quote context."
+ },
+ {
+  "id": "SEM-S1-which-variable-is",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Which variable is $x$?",
+  "score": 7,
+  "origin": "base",
+  "body": "The **explanatory** (controlled/independent) variable is $x$. Regression of $y$ on $x$ minimises vertical distances; do not rearrange it to predict $x$ from $y$."
+ },
+ {
+  "id": "SEM-S1-close-to",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "$r$ close to $\\pm1$",
+  "score": 7,
+  "origin": "base",
+  "body": "strong linear; near $0$: **no linear** correlation (there may still be a curve). A scatter diagram helps."
+ },
+ {
+  "id": "SEM-S1-hypothesis-type-comparison-with-critical-value",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Hypothesis-type comparison with critical value",
+  "score": 6,
+  "origin": "base",
+  "body": "(if given tables): $|r|>$ critical value means significant."
+ },
+ {
+  "id": "SEM-S1-residuals",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Residuals",
+  "score": 6,
+  "origin": "base",
+  "body": "residual $=y-\\hat y$; positive means the point is above the line. Sum of residuals is $0$."
+ },
+ {
+  "id": "SEM-S1-spearman-rank-beyond-spec",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Spearman rank (beyond spec)",
+  "score": 5,
+  "origin": "base",
+  "body": "$r_s=1-\\dfrac{6\\sum d^2}{n(n^2-1)}$ for ranks without ties."
+ },
+ {
+  "id": "SEM-S1-beyond-spec",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "$r^2$ (beyond spec)",
+  "score": 5,
+  "origin": "base",
+  "body": "the proportion of the variation in $y$ explained by the line."
+ },
+ {
+  "id": "SEM-S1-fill-a-venn-diagram-from-the-intersection-outwar",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Fill a Venn diagram from the intersection outward",
+  "score": 10,
+  "origin": "base",
+  "body": "Start with $A\\cap B$, then $A$-only $=P(A)-P(A\\cap B)$, $B$-only likewise, and outside $=1-P(A\\cup B)$. Every probability in the question becomes a number in a region."
+ },
+ {
+  "id": "SEM-S1-core-formulae",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Core formulae",
+  "score": 10,
+  "origin": "base",
+  "body": "$$P(A\\cup B)=P(A)+P(B)-P(A\\cap B),\\quad P(A\\mid B)=\\frac{P(A\\cap B)}{P(B)},\\quad P(A\\cap B)=P(A)P(B\\mid A).$$"
+ },
+ {
+  "id": "SEM-S1-independent",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Independent",
+  "score": 10,
+  "origin": "base",
+  "body": "$\\Leftrightarrow P(A\\cap B)=P(A)P(B)\\Leftrightarrow P(A\\mid B)=P(A)$. **Mutually exclusive** $\\Leftrightarrow P(A\\cap B)=0$. **A common error: mutually exclusive events with nonzero probabilities are never independent.**"
+ },
+ {
+  "id": "SEM-S1-at-least-one-none",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "\"At least one\" $=1-$ \"none\"",
+  "score": 10,
+  "origin": "base",
+  "body": "$P(\\ge1)=1-P(\\text{none})$; for independent attempts $1-(1-p)^n$."
+ },
+ {
+  "id": "SEM-S1-tree-diagrams",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Tree diagrams",
+  "score": 10,
+  "origin": "base",
+  "body": "**Multiply along branches, add across routes.** Without replacement, change the denominators on the second set of branches."
+ },
+ {
+  "id": "SEM-S1-de-morgan",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "De Morgan",
+  "score": 8,
+  "origin": "base",
+  "body": "$P(A'\\cap B')=1-P(A\\cup B)$; $P(A'\\cup B')=1-P(A\\cap B)$; $P(A\\cap B')=P(A)-P(A\\cap B)$."
+ },
+ {
+  "id": "SEM-S1-exactly-one-of",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Exactly one of $A,B$",
+  "score": 8,
+  "origin": "base",
+  "body": "$P(A)+P(B)-2P(A\\cap B)$."
+ },
+ {
+  "id": "SEM-S1-conditional-probability-by-restricting-the-sampl",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Conditional probability by restricting the sample space",
+  "score": 9,
+  "origin": "base",
+  "body": "\"given $B$\" means zoom into $B$'s region of the Venn diagram or tree and divide by its total."
+ },
+ {
+  "id": "SEM-S1-bayes-in-one-line",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Bayes in one line",
+  "score": 8,
+  "origin": "base",
+  "body": "$P(A\\mid B)=\\dfrac{P(A)P(B\\mid A)}{P(B)}$ with $P(B)$ from the tree (add the routes that give $B$)."
+ },
+ {
+  "id": "SEM-S1-sample-space-grid-for-two-dice-or-two-spinners",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Sample-space grid for two dice or two spinners",
+  "score": 8,
+  "origin": "base",
+  "body": "Count favourable cells over $36$; sums: $7$ has $6$ ways, $2$ and $12$ one way."
+ },
+ {
+  "id": "SEM-S1-combinations-for-choose-without-replacement",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Combinations for \"choose without replacement\"",
+  "score": 8,
+  "origin": "base",
+  "body": "(beyond spec in places): drawing $k$ of colour 1 from $a$ and $n-k$ of colour 2 from $b$: $\\dfrac{\\binom ak\\binom b{n-k}}{\\binom{a+b}n}$. Faster than a long tree."
+ },
+ {
+  "id": "SEM-S1-probabilities-that-sum-to-1",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Probabilities that sum to 1",
+  "score": 7,
+  "origin": "base",
+  "body": "use this to find an unknown $x$ in a table of probabilities; **each must be between 0 and 1**, so reject roots outside."
+ },
+ {
+  "id": "SEM-S1-finding-unknowns-from-two-conditions",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Finding unknowns from two conditions",
+  "score": 8,
+  "origin": "base",
+  "body": "e.g. independence gives a product equation, and the union gives a sum equation; solve the pair (quadratic)."
+ },
+ {
+  "id": "SEM-S1-geometric-type-first-success-on-trial",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Geometric-type \"first success on trial $n$\"",
+  "score": 6,
+  "origin": "base",
+  "body": "(beyond spec): $q^{n-1}p$."
+ },
+ {
+  "id": "SEM-S1-expected-number-of-successes-beyond-spec",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Expected number of successes (beyond spec)",
+  "score": 5,
+  "origin": "base",
+  "body": "$np$."
+ },
+ {
+  "id": "SEM-S1-binomial-beyond-spec",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Binomial (beyond spec)",
+  "score": 7,
+  "origin": "base",
+  "body": "$P(X=r)=\\binom nrp^rq^{n-r}$; calculator \"BinomialPD/CD\"."
+ },
+ {
+  "id": "SEM-S1-probability-always-in-so-check-every-result",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Probability always in $[0,1]$, so check every result",
+  "score": 6,
+  "origin": "base",
+  "body": ""
+ },
+ {
+  "id": "SEM-S1-distribution-table-checks",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Distribution table checks",
+  "score": 10,
+  "origin": "base",
+  "body": "$\\sum p=1$; **use this to find $k$** first."
+ },
+ {
+  "id": "SEM-S1-entry",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "$E(X)=\\sum xp$; $E(X^2)=\\sum x^2p$; $\\mathrm{Var}(X)=E(X^2)-[E(X)]^2$",
+  "score": 10,
+  "origin": "base",
+  "body": "The variance is **never negative**: if it is, you subtracted the wrong way."
+ },
+ {
+  "id": "SEM-S1-transformations",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Transformations",
+  "score": 10,
+  "origin": "base",
+  "body": "$E(aX+b)=aE(X)+b$; $\\mathrm{Var}(aX+b)=a^2\\mathrm{Var}(X)$; sd scales by $|a|$. The **$+b$ drops out of the variance**."
+ },
+ {
+  "id": "SEM-S1-entry-2",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "$E[g(X)]=\\sum g(x)p(x)$",
+  "score": 9,
+  "origin": "base",
+  "body": "apply the function to each value, not to $E(X)$. **$E(X^2)\\ne[E(X)]^2$.**"
+ },
+ {
+  "id": "SEM-S1-sums-of-variables",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Sums of variables",
+  "score": 8,
+  "origin": "base",
+  "body": "$E(X+Y)=E(X)+E(Y)$ always; $\\mathrm{Var}(X\\pm Y)=\\mathrm{Var}(X)+\\mathrm{Var}(Y)$ **only for independent**. Both **plus**, even for $X-Y$."
+ },
+ {
+  "id": "SEM-S1-unknown-in-a-table",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Unknown $a,b$ in a table",
+  "score": 9,
+  "origin": "base",
+  "body": "set up simultaneous equations from $\\sum p=1$ and the given $E(X)$ (or a given probability)."
+ },
+ {
+  "id": "SEM-S1-cumulative-distribution",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Cumulative distribution $F(x)=P(X\\le x)$",
+  "score": 8,
+  "origin": "base",
+  "body": "$P(X=x)=F(x)-F(x^-)$ (difference with the previous value). $P(X>x)=1-F(x)$."
+ },
+ {
+  "id": "SEM-S1-symmetric-distribution",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Symmetric distribution",
+  "score": 8,
+  "origin": "base",
+  "body": "mean is the centre, so no need to calculate $E(X)$ at all. Variance uses the squared distance from the centre."
+ },
+ {
+  "id": "SEM-S1-discrete-uniform-on",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Discrete uniform on $1,\\dots,n$",
+  "score": 8,
+  "origin": "base",
+  "body": "$E(X)=\\dfrac{n+1}2$, $\\mathrm{Var}(X)=\\dfrac{n^2-1}{12}$. For a fair die $E=3.5$, $\\mathrm{Var}=\\dfrac{35}{12}$."
+ },
+ {
+  "id": "SEM-S1-a-fair-game",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "A fair game",
+  "score": 7,
+  "origin": "base",
+  "body": "expected gain $=0$. Expected profit per play $=E(\\text{winnings})-\\text{stake}$."
+ },
+ {
+  "id": "SEM-S1-mode-vs-mean-vs-median",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Mode vs mean vs median",
+  "score": 6,
+  "origin": "base",
+  "body": "mode has the greatest probability; median is where cumulative probability crosses $0.5$."
+ },
+ {
+  "id": "SEM-S1-standard-deviation-of",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Standard deviation of $aX+b$",
+  "score": 7,
+  "origin": "base",
+  "body": "$|a|\\sigma$. Check units."
+ },
+ {
+  "id": "SEM-S1-linear-function-trick",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Linear function trick",
+  "score": 7,
+  "origin": "base",
+  "body": "if $Y=aX+b$ and you know $E(Y)$ and $\\mathrm{Var}(Y)$, invert to get $E(X)=\\dfrac{E(Y)-b}a$, $\\mathrm{Var}(X)=\\dfrac{\\mathrm{Var}(Y)}{a^2}$."
+ },
+ {
+  "id": "SEM-S1-expectation-of-a-count",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Expectation of a count",
+  "score": 6,
+  "origin": "base",
+  "body": "if each trial succeeds with probability $p$ the expected number is $np$ (beyond spec)."
+ },
+ {
+  "id": "SEM-S1-standardise",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Standardise",
+  "score": 10,
+  "origin": "base",
+  "body": "$Z=\\dfrac{X-\\mu}\\sigma\\sim N(0,1)$. **Sketch the bell, shade the area**, then read the table or use calculator \"Normal CD\"."
+ },
+ {
+  "id": "SEM-S1-symmetry",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Symmetry",
+  "score": 10,
+  "origin": "base",
+  "body": "$\\Phi(-z)=1-\\Phi(z)$; $P(Z>z)=1-\\Phi(z)$; $P(|Z|<z)=2\\Phi(z)-1$; $P(a<X<b)=\\Phi(z_b)-\\Phi(z_a)$."
+ },
+ {
+  "id": "SEM-S1-inverse-given-probability",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Inverse (given probability)",
+  "score": 10,
+  "origin": "base",
+  "body": "If $P(X<a)=p$ with $p>0.5$ then $z>0$; with $p<0.5$ then $z<0$ (use $-z_{1-p}$). Memorise the **percentage-point table**:\n\n| Upper tail | $z$ |\n|---|---|\n| $10\\%$ | $1.2816$ |\n| $5\\%$ | $1.6449$ |\n| $2.5\\%$ | $1.9600$ |\n| $1\\%$ | $2.3263$ |\n| $0.5\\%$ | $2.5758$ |\n| $25\\%$ | $0.6745$ |"
+ },
+ {
+  "id": "SEM-S1-two-unknowns",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Two unknowns $\\mu,\\sigma$",
+  "score": 10,
+  "origin": "base",
+  "body": "Standardise both conditions to get two **linear** equations: $\\dfrac{x_1-\\mu}\\sigma=z_1$, $\\dfrac{x_2-\\mu}\\sigma=z_2$. Subtract: $\\sigma=\\dfrac{x_2-x_1}{z_2-z_1}$, then back-substitute for $\\mu$. Mind the **signs of $z$**."
+ },
+ {
+  "id": "SEM-S1-quartiles-of-a-normal",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Quartiles of a normal",
+  "score": 8,
+  "origin": "base",
+  "body": "$Q_1=\\mu-0.6745\\sigma$, $Q_3=\\mu+0.6745\\sigma$, so $\\mathrm{IQR}=1.349\\sigma$. Handy when a question gives quartiles and asks for $\\sigma$."
+ },
+ {
+  "id": "SEM-S1-68-95-99-7-rule",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "68–95–99.7 rule",
+  "score": 8,
+  "origin": "base",
+  "body": "about $68\\%$ within $\\mu\\pm\\sigma$, $95\\%$ within $\\pm2\\sigma$, $99.7\\%$ within $\\pm3\\sigma$ — for sanity checks and quick estimates."
+ },
+ {
+  "id": "SEM-S1-given-and-to-find-only",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Given $P(X>a)$ and $P(X<b)$ to find $\\mu$ only",
+  "score": 8,
+  "origin": "base",
+  "body": "use the single standardised equation."
+ },
+ {
+  "id": "SEM-S1-same-mean-different-standard-deviation",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "\"Same mean, different standard deviation\"",
+  "score": 6,
+  "origin": "base",
+  "body": "sketch both curves; the larger-$\\sigma$ curve is wider and lower. A smaller $\\sigma$ puts more probability near the mean."
+ },
+ {
+  "id": "SEM-S1-normal-approximation-to-binomial-beyond-spec",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Normal approximation to binomial (beyond spec)",
+  "score": 7,
+  "origin": "base",
+  "body": "$X\\sim B(n,p)\\approx N(np,\\,npq)$ when $np>5$ and $nq>5$; **continuity correction**: $P(X\\le k)\\to P(Y<k+0.5)$, $P(X\\ge k)\\to P(Y>k-0.5)$."
+ },
+ {
+  "id": "SEM-S1-sums-of-independent-normals-beyond-spec",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Sums of independent normals (beyond spec)",
+  "score": 7,
+  "origin": "base",
+  "body": "$N(\\mu_1,\\sigma_1^2)\\pm N(\\mu_2,\\sigma_2^2)$: means add or subtract, **variances always add**."
+ },
+ {
+  "id": "SEM-S1-probability-of-an-exact-value-is",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Probability of an exact value is $0$",
+  "score": 6,
+  "origin": "base",
+  "body": "$P(X=a)=0$, so $<$ and $\\le$ are equivalent."
+ },
+ {
+  "id": "SEM-S1-working-with-proportions",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Working with proportions",
+  "score": 7,
+  "origin": "base",
+  "body": "a percentage of a population above $a$ is $P(X>a)\\times100$. Number expected in a sample of $n$: $n\\,P(\\cdot)$."
+ },
+ {
+  "id": "SEM-S1-fitting-a-normal-to-data",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Fitting a normal to data",
+  "score": 6,
+  "origin": "base",
+  "body": "take $\\mu=\\bar x$ and $\\sigma=s$, then compare predicted vs observed."
+ },
+ {
+  "id": "SEM-S1-rounding",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Rounding",
+  "score": 7,
+  "origin": "base",
+  "body": "carry at least 4 significant figures of $z$ and only round the final answer."
+ },
+ {
+  "id": "SEM-S1-advantages-and-limitations-of-a-model",
+  "spec": "S1",
+  "section": "6. Mathematical models",
+  "topic": "",
+  "title": "Advantages and limitations of a model",
+  "score": 6,
+  "origin": "base",
+  "body": "Typical phrases: \"simplifies a complex situation\", \"can make predictions\", \"may be refined\"; limitations: \"assumes independence\", \"assumes constant probability\", \"ignores outliers\", \"works only in the range of data\"."
+ },
+ {
+  "id": "SEM-S1-assumptions-for-a-normal-model",
+  "spec": "S1",
+  "section": "6. Mathematical models",
+  "topic": "",
+  "title": "Assumptions for a Normal model",
+  "score": 6,
+  "origin": "base",
+  "body": "continuous, symmetric, bell-shaped, unimodal. Check by comparing mean $\\approx$ median, or skewness."
+ },
+ {
+  "id": "SEM-S1-independence-assumption-and-why-it-may-fail",
+  "spec": "S1",
+  "section": "6. Mathematical models",
+  "topic": "",
+  "title": "Independence assumption (and why it may fail)",
+  "score": 6,
+  "origin": "base",
+  "body": "State **in context**."
+ },
+ {
+  "id": "SEM-S1-show-the-rounding-that-proves-a-printed-answer",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Show the rounding that proves a printed answer",
+  "score": 9,
+  "origin": "research",
+  "source": "Pearson WST01 Jan 2024 examiner report Q2(a)(ii)",
+  "body": "In a \"show that\" question, display the formula, exact or unrounded substitution, and a value with more figures than the printed result. Check that the displayed value actually rounds to that result; merely copying the printed answer does not establish it."
+ },
+ {
+  "id": "SEM-S1-count-a-fraction-of-a-grouped-class",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Count a fraction of a grouped class",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WST01 Jun 2022 examiner report Q3(c)",
+  "body": "If a threshold $t$ lies within class $[L,U)$ of frequency $f$, estimate the number below it in that class as $f(t-L)/(U-L)$, assuming uniform spread within the class. Add the complete lower classes and check the partial count lies from $0$ to $f$."
+ },
+ {
+  "id": "SEM-S1-interpolate-down-from-the-upper-boundary",
+  "spec": "S1",
+  "section": "1. Data: summary and representation",
+  "topic": "",
+  "title": "Interpolate down from the upper boundary",
+  "score": 7,
+  "origin": "research",
+  "source": "Pearson WST01 Jun 2022 examiner report Q3(b)",
+  "body": "If the desired rank $r$ is near the upper end of a class with upper boundary $U$, frequency $f$, width $w$, and cumulative frequency $C$ through the class, use $Q=U-(C-r)w/f$. Check it agrees with upward interpolation from the lower boundary."
+ },
+ {
+  "id": "SEM-S1-predict-a-change-using-only-the-gradient",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Predict a change using only the gradient",
+  "score": 9,
+  "origin": "research",
+  "source": "Pearson WST01 Jun 2022 examiner report Q2(f)",
+  "body": "For $\\hat y=a+bx$ with $b\\ne0$, a change $\\Delta y$ corresponds to $\\Delta x=\\Delta y/b$; the intercept cancels. Check units and the sign of $b$ before interpreting the direction of change."
+ },
+ {
+  "id": "SEM-S1-find-the-regression-slope-from-correlation-and-s",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Find the regression slope from correlation and spread",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "If $r,\\sigma_x,\\sigma_y$ are known and $\\sigma_x>0$, the $y$-on-$x$ slope is $b=r\\sigma_y/\\sigma_x$. Check that its sign matches $r$ and its units are response units per explanatory unit."
+ },
+ {
+  "id": "SEM-S1-enter-scaled-predictor-units-literally",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Enter scaled predictor units literally",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WST01 Jun 2022 examiner report Q2(e)",
+  "body": "If a regression's $x$ is measured in millions, seven million means $x=7$ in the equation. Check the resulting prediction against the scale and range of the original data, and state the output units."
+ },
+ {
+  "id": "SEM-S1-keep-the-full-gradient-when-finding-the-intercep",
+  "spec": "S1",
+  "section": "2. Correlation and regression",
+  "topic": "",
+  "title": "Keep the full gradient when finding the intercept",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WST01 Jan 2024 examiner report Q4(b)",
+  "body": "Compute $a=\\bar y-b\\bar x$ with the unrounded calculator value of $b$, then round the stated line as instructed. Check the displayed equation at $x=\\bar x$; it should give approximately $\\bar y$."
+ },
+ {
+  "id": "SEM-S1-check-every-denominator-in-sampling-without-repl",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Check every denominator in sampling without replacement",
+  "score": 9,
+  "origin": "research",
+  "source": "Pearson WST01 Jun 2022 examiner report Q3(d)",
+  "body": "For $k$ ordered draws from $N$ objects without replacement, denominators run $N(N-1)\\cdots(N-k+1)$, and a repeated-success numerator also decreases. A denominator fixed at $N$ would model replacement, so inspect that pattern before multiplying."
+ },
+ {
+  "id": "SEM-S1-make-stopping-outcomes-terminal-immediately",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Make stopping outcomes terminal immediately",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WST01 Jun 2022 examiner report Q5(f)",
+  "body": "In a game that ends on a specified result, draw no further branches after that result. Add the probabilities of all terminal leaves to check they total $1$."
+ },
+ {
+  "id": "SEM-S1-independence-extends-to-complements",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Independence extends to complements",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "If $A$ and $B$ are independent, then $P(A\\cap B')=P(A)[1-P(B)]$. Cross-check by subtracting $P(A\\cap B)$ from $P(A)$."
+ },
+ {
+  "id": "SEM-S1-keep-three-set-overlaps-once",
+  "spec": "S1",
+  "section": "3. Probability",
+  "topic": "",
+  "title": "Keep three-set overlaps once",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "For three events, use $P(A\\cup B\\cup C)=P(A)+P(B)+P(C)-P(A\\cap B)-P(A\\cap C)-P(B\\cap C)+P(A\\cap B\\cap C)$. Check a mutually exclusive pair has zero pair and triple intersection before substituting."
+ },
+ {
+  "id": "SEM-S1-use-a-joint-table-for-products-unless-independen",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Use a joint table for products unless independent",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "For independent $X,Y$, $E(XY)=E(X)E(Y)$; otherwise compute $\\sum_{x,y}xyP(X=x,Y=y)$ from the joint distribution. Check independence is stated or proved before multiplying separate means."
+ },
+ {
+  "id": "SEM-S1-merge-equal-products-from-two-draws",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Merge equal products from two draws",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WST01 Oct 2022 examiner report Q7(e,f)",
+  "body": "With two independent draws with replacement, ordered pair $(x_i,x_j)$ has probability $p_ip_j$; combine pairs that yield the same product. Off-diagonal pairs contribute $2p_ip_j$ when both orders are possible, but a diagonal pair contributes $p_i^2$ only once."
+ },
+ {
+  "id": "SEM-S1-fix-a-discrete-cdf-at-its-upper-endpoint",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Fix a discrete CDF at its upper endpoint",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WST01 Jan 2024 examiner report Q7(a,b)",
+  "body": "If the largest possible value is $m$, use $F(m)=1$ to find an unknown constant before differencing the CDF. Check that $F$ is nondecreasing and all successive differences are nonnegative."
+ },
+ {
+  "id": "SEM-S1-build-a-payoff-table-from-terminal-outcomes",
+  "spec": "S1",
+  "section": "4. Discrete random variables",
+  "topic": "",
+  "title": "Build a payoff table from terminal outcomes",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "List each game's terminal route with its probability and net gain, including the entry fee exactly once, then calculate $E(G)=\\sum g_ip_i$. Check route probabilities sum to $1$ before taking the expectation."
+ },
+ {
+  "id": "SEM-S1-solve-a-conditional-normal-quantile-by-cdf-arith",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Solve a conditional normal quantile by CDF arithmetic",
+  "score": 9,
+  "origin": "research",
+  "source": "Pearson WST01 Jun 2022 examiner report Q6(c)",
+  "body": "For $v<c$ and $P(X>v\\mid X<c)=q$, write $[F(c)-F(v)]/F(c)=q$, then find $F(v)=(1-q)F(c)$ and invert once. Check $v<c$ and $0<F(v)<F(c)$."
+ },
+ {
+  "id": "SEM-S1-equal-opposite-tails-locate-the-mean",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Equal opposite tails locate the mean",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "If $X$ is normal and $P(X<a)=P(X>b)$ with $a<b$, symmetry gives $\\mu=(a+b)/2$ without a table. Check that $a$ and $b$ are equally far from this mean."
+ },
+ {
+  "id": "SEM-S1-simplify-a-cutoff-containing-the-mean",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Simplify a cutoff containing the mean",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WST01 Jan 2024 examiner report Q8",
+  "body": "If a probability at cutoff $k\\mu$ gives $(k\\mu-\\mu)/\\sigma=z$, rewrite it at once as $(k-1)\\mu=z\\sigma$. Combine that short relation with the other condition and check $\\sigma>0$."
+ },
+ {
+  "id": "SEM-S1-separate-the-normal-model-from-the-sampling-mode",
+  "spec": "S1",
+  "section": "5. The Normal distribution",
+  "topic": "",
+  "title": "Separate the normal model from the sampling model",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WST01 Jan 2024 examiner report Q1(d)",
+  "body": "First calculate $p=P(X>c)$; for two independent attempts, both exceeding $c$ has probability $p^2$. For two draws without replacement from a counted group with $M$ successes among $N$, use $M(M-1)/[N(N-1)]$ instead; check which model the question states."
+ },
+ {
+  "id": "SEM-S1-name-both-variables-when-interpreting-correlatio",
+  "spec": "S1",
+  "section": "7. Fast checks",
+  "topic": "",
+  "title": "Name both variables when interpreting correlation",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WST01 Jun 2022 examiner report Q2(b)",
+  "body": "State how the named response tends to change as the named explanatory variable increases, including strength and direction. Check that the sentence describes a relationship in context rather than merely saying \"positive correlation\"."
+ }
+]

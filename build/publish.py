@@ -203,6 +203,7 @@ def publish(vault: Path) -> dict:
                     d.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(f, d)
                     copied += 1
+    n_shortcuts = publish_shortcuts(vault)
     engine = tutor / "engine"  # remote Cowork runs the engine inside the connected folder (device_bash)
     new, old = tutor / "engine.new", tutor / "engine.old"  # copied aside and swapped in: never half an engine
     shutil.rmtree(new, ignore_errors=True)
@@ -217,8 +218,18 @@ def publish(vault: Path) -> dict:
     launcher.chmod(0o755)
     store.write_text(packs / "CURRENT", version)  # flip last
     prune_versions(packs, version)
-    return {"version": version, "specs": len(specs), "packs": n_packs, "held": sorted(hold), "files_copied": copied}
+    return {"version": version, "specs": len(specs), "packs": n_packs, "held": sorted(hold), "files_copied": copied,
+            "shortcuts": n_shortcuts}
 
+
+
+def publish_shortcuts(vault: Path) -> int:
+    """The Shortcuts course's entries and lessons go to .tutor/shortcuts/course/; its settings, events and state are not touched."""
+    src, n = BUILD / "shortcuts", 0
+    for f in sorted([*src.glob("*.json"), *src.glob("lessons/*.json")]):
+        store.write_text(vault / ".tutor/shortcuts/course" / f.relative_to(src), f.read_text(encoding="utf-8"))
+        n += 1
+    return n
 
 
 def prune_versions(packs: Path, current: str) -> None:

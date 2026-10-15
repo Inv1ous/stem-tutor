@@ -1,0 +1,3692 @@
+{
+ "SEM-P2-three-laws": {
+  "id": "SEM-P2-three-laws",
+  "hook": "Expanding logarithms term by term can turn a short simplification into several lines of algebra.",
+  "when": "A sum, difference or multiple of logarithms has the same base.",
+  "idea": "Use $\\log_a b+\\log_a c=\\log_a(bc)$, $\\log_a b-\\log_a c=\\log_a\\frac{b}{c}$ and $k\\log_a b=\\log_a(b^k)$. For a new base, use $\\log_a b=\\frac{\\log_c b}{\\log_c a}$.",
+  "why": "Logarithms turn multiplication into addition and powers into multiplication. For real logarithms, every argument must be positive, each base must be positive and unequal to $1$, and the terms being combined must share a base.",
+  "steps": [
+   "Check the bases and arguments.",
+   "Move coefficients into powers.",
+   "Combine sums as products and differences as quotients.",
+   "Use change of base if a numerical value is needed."
+  ],
+  "worked": {
+   "question": "Simplify $2\\log_2 3+\\log_2 4-\\log_2 6$ and evaluate it.",
+   "long": "Use $\\log_2 4=2$ and $\\log_2 6=1+\\log_2 3$. The expression becomes $\\log_2 3+1$.",
+   "short": "Combine to get $\\log_2\\frac{3^2\\times4}{6}=\\log_2 6$.",
+   "saving": "One combined logarithm avoids rearranging individual values; $\\log_2 6=\\log_2 3+1$ checks agreement."
+  },
+  "pitfalls": [
+   "Combining logarithms with different bases without first changing base.",
+   "Writing a difference as the logarithm of a difference.",
+   "Ignoring the requirement that logarithm arguments are positive."
+  ],
+  "check": "Expand the combined logarithm back into the original terms.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\log_3 27+\\log_3 9-\\log_3 3$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "All three logarithms have the same base.",
+     "Combine the arguments using a product and quotient.",
+     "Write the expression as $\\log_3\\frac{27\\times9}{3}$."
+    ],
+    "explanation": "The laws give $\\log_3\\frac{27\\times9}{3}=\\log_3 81=4$.",
+    "shortcut_use": "Combine the three logarithms."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $2\\log_5 10-\\log_5 4$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2",
+    "hints": [
+     "The coefficient on the first logarithm is a power.",
+     "Combine the resulting difference as a quotient.",
+     "Use $\\log_5\\frac{10^2}{4}$."
+    ],
+    "explanation": "$2\\log_5 10-\\log_5 4=\\log_5\\frac{10^2}{4}=\\log_5 25=2$.",
+    "shortcut_use": "Move the coefficient into a power."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What does subtraction of same-base logarithms do to their arguments?",
+    "a": "It divides the arguments."
+   },
+   {
+    "q": "What conditions does a real logarithm need?",
+    "a": "Its argument and base must be positive, and its base cannot equal $1$."
+   },
+   {
+    "q": "How is $\\log_a b$ written using base $c$?",
+    "a": "It is $\\frac{\\log_c b}{\\log_c a}$."
+   }
+  ]
+ },
+ "SEM-P2-entry-3": {
+  "id": "SEM-P2-entry-3",
+  "hook": "Finding the maximum of a sine–cosine sum by differentiation takes extra working, and an inverse tangent alone can choose the wrong quadrant.",
+  "when": "An expression has the form $a\\sin x+b\\cos x$.",
+  "idea": "Write $a\\sin x+b\\cos x=R\\sin(x+\\alpha)$, where $R=\\sqrt{a^2+b^2}$, $\\cos\\alpha=\\frac{a}{R}$ and $\\sin\\alpha=\\frac{b}{R}$.",
+  "why": "Expanding $R\\sin(x+\\alpha)$ gives coefficients $R\\cos\\alpha$ and $R\\sin\\alpha$. This holds for all real $x$ and real $a,b$; if $a=b=0$, then $R=0$ and $\\alpha$ is arbitrary.",
+  "steps": [
+   "Find $R=\\sqrt{a^2+b^2}$.",
+   "Use the signs of $a$ and $b$ to choose the quadrant of $\\alpha$.",
+   "Find $\\alpha$ from its sine and cosine.",
+   "Write $R\\sin(x+\\alpha)$."
+  ],
+  "worked": {
+   "question": "Write $3\\sin x+4\\cos x$ as $R\\sin(x+\\alpha)$, with $0^\\circ\\le\\alpha<360^\\circ$; give $\\alpha$ to 1 decimal place.",
+   "long": "Expand $R\\sin(x+\\alpha)$ and solve $R\\cos\\alpha=3$ and $R\\sin\\alpha=4$ together.",
+   "short": "$R=\\sqrt{3^2+4^2}=5$. Both coefficients are positive, so $\\alpha$ is in the first quadrant; $\\tan\\alpha=\\frac{4}{3}$ gives $\\alpha\\approx53.1^\\circ$. Thus the form is $5\\sin(x+53.1^\\circ)$.",
+   "saving": "The coefficient lengths give $R$ immediately, while the signs fix the quadrant."
+  },
+  "pitfalls": [
+   "Using $\\tan\\alpha=\\frac{b}{a}$ alone when $a$ is negative.",
+   "Swapping $a$ and $b$ when matching coefficients.",
+   "Giving an angle in radians when the question uses degrees."
+  ],
+  "check": "Expanding the result must give the original sine and cosine coefficients.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $5\\sin x+12\\cos x=R\\sin(x+\\alpha)$ with $R>0$, find $R$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "13",
+    "hints": [
+     "Read the sine and cosine coefficients.",
+     "Square and add them to find $R^2$.",
+     "Use $R=\\sqrt{5^2+12^2}$."
+    ],
+    "explanation": "$R=\\sqrt{5^2+12^2}=13$.",
+    "shortcut_use": "Find $R$ from the coefficients."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $-3\\sin x+4\\cos x=R\\sin(x+\\alpha)$ with $R>0$ and $0^\\circ\\le\\alpha<360^\\circ$, find $\\alpha$ in degrees to 1 decimal place.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "126.9",
+    "hints": [
+     "The coefficients give the signs of $\\cos\\alpha$ and $\\sin\\alpha$.",
+     "Place $\\alpha$ in the quadrant with negative cosine and positive sine.",
+     "Use $R=5$, $\\cos\\alpha=-\\frac{3}{5}$ and $\\sin\\alpha=\\frac{4}{5}$."
+    ],
+    "explanation": "$R=\\sqrt{(-3)^2+4^2}=5$. Since $\\cos\\alpha=-\\frac{3}{5}$ and $\\sin\\alpha=\\frac{4}{5}$, $\\alpha$ is in the second quadrant and $\\alpha\\approx126.9^\\circ$.",
+    "shortcut_use": "Fix the quadrant from both coefficient signs."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How is $R$ found from $a\\sin x+b\\cos x$?",
+    "a": "$R=\\sqrt{a^2+b^2}$."
+   },
+   {
+    "q": "Why is $\\tan\\alpha=\\frac{b}{a}$ insufficient by itself?",
+    "a": "It does not distinguish angles in opposite quadrants."
+   }
+  ]
+ },
+ "SEM-P2-chain-rule-fast": {
+  "id": "SEM-P2-chain-rule-fast",
+  "hook": "Expanding a composite power before differentiating wastes time and invites algebra slips.",
+  "when": "A function sits inside another function, especially a power of a linear bracket.",
+  "idea": "Differentiate the outside, leave the inside in place, then multiply by the inside derivative: $\\frac{d}{dx}f(g(x))=f'(g(x))g'(x)$.",
+  "why": "A small change in $x$ changes the inner function, which then changes the outer function; the rates multiply. The rule holds where both relevant derivatives exist.",
+  "steps": [
+   "Identify the inner expression.",
+   "Differentiate the outer function with the inner expression unchanged.",
+   "Multiply by the derivative of the inner expression."
+  ],
+  "worked": {
+   "question": "Differentiate $(2x+3)^3$ with respect to $x$.",
+   "long": "Expand to $8x^3+36x^2+54x+27$, then differentiate to get $24x^2+72x+54$.",
+   "short": "Differentiate the cube and multiply by the bracket's gradient: $3(2x+3)^2\\times2=6(2x+3)^2$.",
+   "saving": "No expansion is needed; expanding the short answer reproduces the long answer."
+  },
+  "pitfalls": [
+   "Forgetting the derivative of the inner expression.",
+   "Differentiating the inner expression twice.",
+   "Treating a nonlinear inner expression as though its derivative were a constant gradient."
+  ],
+  "check": "For a linear inner expression, expand the derivative at one easy value of $x$ and compare.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $y=(3x-1)^4$, find $\\frac{dy}{dx}$ at $x=1$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "96",
+    "hints": [
+     "A power surrounds a linear bracket.",
+     "Differentiate the power and multiply by the bracket's gradient.",
+     "Use $\\frac{dy}{dx}=4(3x-1)^3\\times3$, then set $x=1$."
+    ],
+    "explanation": "$\\frac{dy}{dx}=12(3x-1)^3$, so at $x=1$ it is $12(2)^3=96$.",
+    "shortcut_use": "Multiply by the inner gradient."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $y=(x^2+1)^3$, find $\\frac{dy}{dx}$ at $x=2$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "300",
+    "hints": [
+     "The inner expression is $x^2+1$.",
+     "Multiply the outer derivative by the derivative of this inner expression.",
+     "Use $\\frac{dy}{dx}=3(x^2+1)^2(2x)$, then set $x=2$."
+    ],
+    "explanation": "$\\frac{dy}{dx}=3(x^2+1)^2(2x)$, so at $x=2$ it is $3(5)^2(4)=300$.",
+    "shortcut_use": "Multiply by the nonlinear inner derivative."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What factor completes the derivative of a composite function?",
+    "a": "The derivative of the inner function."
+   },
+   {
+    "q": "What condition does the chain rule need?",
+    "a": "The inner and outer functions must be differentiable at the relevant inputs."
+   }
+  ]
+ },
+ "SEM-P2-factor-out-a-supplied-intersection": {
+  "id": "SEM-P2-factor-out-a-supplied-intersection",
+  "hook": "The quadratic formula repeats work when one intersection is already given.",
+  "when": "A line and a quadratic meet at a supplied $x$-coordinate, and the question asks for the other intersection.",
+  "idea": "Subtract the two equations to form $D(x)=0$. If the supplied coordinate is $x=a$ and $D(a)=0$, factor out $x-a$; the remaining linear factor gives the other coordinate.",
+  "why": "At an intersection the two $y$-values are equal, so their difference is zero. The factor theorem makes $x-a$ a factor when $D(a)=0$; this requires the difference to be a quadratic and the supplied point to be a genuine intersection.",
+  "steps": [
+   "Subtract the line equation from the quadratic equation.",
+   "Check $D(a)=0$.",
+   "Divide $D(x)$ by $x-a$ and solve the remaining linear factor.",
+   "Substitute the new $x$-value into both original equations."
+  ],
+  "worked": {
+   "question": "The curves $y=x^2-x-2$ and $y=x+1$ meet at $x=3$. Find their other intersection.",
+   "long": "Set $x^2-x-2=x+1$, so $x^2-2x-3=0$. The quadratic formula gives $x=3$ or $x=-1$; at $x=-1$, $y=0$.",
+   "short": "$D(x)=x^2-2x-3$ and $D(3)=0$. Thus $D(x)=(x-3)(x+1)$, so the other intersection is $(-1,0)$.",
+   "saving": "Factoring the supplied root replaces the quadratic formula."
+  },
+  "pitfalls": [
+   "Dividing by $x-a$ before confirming $D(a)=0$.",
+   "Reporting only the second $x$-coordinate when a point is required.",
+   "Finding the second $y$-value from just one equation without checking the other."
+  ],
+  "check": "Substitute the second $x$-value into both original equations; the $y$-values must agree.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The curves $y=x^2+2x$ and $y=4x+3$ meet at $x=3$. Find the other $x$-coordinate as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-1",
+    "hints": [
+     "Subtract the line from the quadratic.",
+     "Use the supplied root as a factor.",
+     "Factor $x^2-2x-3$ by $x-3$."
+    ],
+    "explanation": "The difference is $D(x)=x^2-2x-3=(x-3)(x+1)$, so the other $x$-coordinate is $-1$.",
+    "shortcut_use": "Factor out the supplied root."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The curves $y=x^2-4x+1$ and $y=2x-7$ meet at $x=2$. Find the other $x$-coordinate as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "Form the difference of the two $y$-expressions.",
+     "Check that the supplied coordinate makes the difference zero.",
+     "Factor $x^2-6x+8$ by $x-2$."
+    ],
+    "explanation": "The difference is $D(x)=x^2-6x+8=(x-2)(x-4)$, so the other $x$-coordinate is $4$.",
+    "shortcut_use": "Factor out the supplied root."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What must be checked before dividing by $x-a$?",
+    "a": "Check that $D(a)=0$."
+   },
+   {
+    "q": "How do you confirm the second intersection?",
+    "a": "Substitute its $x$-coordinate into both original equations and compare the $y$-values."
+   }
+  ]
+ },
+ "SEM-P2-cover-up-rule-linear-distinct-factors": {
+  "id": "SEM-P2-cover-up-rule-linear-distinct-factors",
+  "hook": "Expanding the numerators creates simultaneous equations and an extra chance to lose a sign.",
+  "when": "A proper fraction has two distinct linear factors, such as $(x-a)(x-b)$, in its denominator.",
+  "idea": "For $\\frac{f(x)}{(x-a)(x-b)}=\\frac{A}{x-a}+\\frac{B}{x-b}$, use $A=\\frac{f(a)}{a-b}$ and $B=\\frac{f(b)}{b-a}$.",
+  "why": "Multiplying through by the denominator and setting $x=a$ removes the term containing $B$. This holds when $a$ and $b$ are distinct and the fraction is proper.",
+  "steps": [
+   "Identify $a$ and $b$ from the two factors.",
+   "Cover $x-a$ and substitute $x=a$ into what remains to find $A$.",
+   "Cover $x-b$ and substitute $x=b$ to find $B$."
+  ],
+  "worked": {
+   "question": "Write $\\frac{3x+5}{(x-1)(x+2)}$ as $\\frac{A}{x-1}+\\frac{B}{x+2}$.",
+   "long": "Expanding gives $A+B=3$ and $2A-B=5$, so $A=\\frac{8}{3}$ and $B=\\frac{1}{3}$.",
+   "short": "At $x=1$, $A=\\frac{3(1)+5}{1+2}=\\frac{8}{3}$. At $x=-2$, $B=\\frac{3(-2)+5}{-2-1}=\\frac{1}{3}$.",
+   "saving": "Two substitutions replace simultaneous equations."
+  },
+  "pitfalls": [
+   "Using the same denominator for both coefficients: $B$ uses $b-a$.",
+   "Applying cover-up before dividing when the numerator has degree at least two."
+  ],
+  "check": "Recombine the fractions and check that the numerator is the original $f(x)$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "In $\\frac{2x+7}{(x-2)(x+3)}=\\frac{A}{x-2}+\\frac{B}{x+3}$, find $A$. Give an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2.2",
+    "hints": [
+     "The factor beneath $A$ becomes zero at one value of $x$.",
+     "Cover $x-2$ and substitute that value.",
+     "Calculate $A=\\frac{2(2)+7}{2+3}$."
+    ],
+    "explanation": "Covering $x-2$ gives $A=\\frac{2(2)+7}{2+3}=\\frac{11}{5}=2.2$.",
+    "shortcut_use": "Substitute at the zero of $x-2$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "In $\\frac{4x-1}{(x+1)(x-3)}=\\frac{A}{x+1}+\\frac{B}{x-3}$, find $B$. Give an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2.75",
+    "hints": [
+     "The factor beneath $B$ becomes zero at one value of $x$.",
+     "Cover $x-3$ and substitute that value.",
+     "Calculate $B=\\frac{4(3)-1}{3+1}$."
+    ],
+    "explanation": "Covering $x-3$ gives $B=\\frac{4(3)-1}{3+1}=\\frac{11}{4}=2.75$.",
+    "shortcut_use": "Substitute at the zero of $x-3$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you find the coefficient of $\\frac{1}{x-a}$ by cover-up?",
+    "a": "Cover $x-a$ and substitute $x=a$ into what remains."
+   },
+   {
+    "q": "What condition is needed for the two linear-factor cover-up rule?",
+    "a": "The fraction must be proper and the two factors must be distinct."
+   }
+  ]
+ },
+ "SEM-P2-addition-formulae": {
+  "id": "SEM-P2-addition-formulae",
+  "hook": "Finding a compound angle first can turn one trigonometric value into several calculations.",
+  "when": "The required expression contains a sum or difference of two angles whose trigonometric values are known.",
+  "idea": "Use $\\sin(A+B)=\\sin A\\cos B+\\cos A\\sin B$, $\\sin(A-B)=\\sin A\\cos B-\\cos A\\sin B$, $\\cos(A+B)=\\cos A\\cos B-\\sin A\\sin B$, $\\cos(A-B)=\\cos A\\cos B+\\sin A\\sin B$, and $\\tan(A+B)=\\frac{\\tan A+\\tan B}{1-\\tan A\\tan B}$ or $\\tan(A-B)=\\frac{\\tan A-\\tan B}{1+\\tan A\\tan B}$.",
+  "why": "The sine and cosine identities hold for all real angles. The tangent forms also require both individual tangents and the resulting quotient to be defined.",
+  "steps": [
+   "Identify the two angles and whether they are added or subtracted.",
+   "Choose the identity for the required function.",
+   "Substitute known values, keeping the signs with their terms.",
+   "Simplify and check the sign against the angle range."
+  ],
+  "worked": {
+   "question": "Angles $A$ and $B$ are acute, with $\\sin A=\\frac{3}{5}$, $\\cos A=\\frac{4}{5}$, $\\sin B=\\frac{5}{13}$ and $\\cos B=\\frac{12}{13}$. Find $\\sin(A+B)$.",
+   "long": "First find $\\tan(A+B)=\\frac{56}{33}$. Since $A+B$ lies between $0$ and $\\pi$, a triangle with side lengths $33$, $56$ and $65$ gives $\\sin(A+B)=\\frac{56}{65}$.",
+   "short": "$\\sin(A+B)=\\frac{3}{5}\\frac{12}{13}+\\frac{4}{5}\\frac{5}{13}=\\frac{56}{65}$.",
+   "saving": "The sine formula gives the value directly and avoids a quadrant decision."
+  },
+  "pitfalls": [
+   "Using the cosine sign pattern for sine: the sign between sine terms matches the angle sign.",
+   "Using the tangent formula when its denominator is zero.",
+   "Assuming a square root gives the sign of sine or cosine without checking the angle range."
+  ],
+  "check": "A sine or cosine result must lie between $-1$ and $1$.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Angles $A$ and $B$ are acute, with $\\sin A=\\frac{3}{5}$, $\\cos A=\\frac{4}{5}$, $\\sin B=\\frac{5}{13}$ and $\\cos B=\\frac{12}{13}$. What is $\\sin(A-B)$?",
+    "options": {
+     "A": "$\\frac{56}{65}$",
+     "B": "$-\\frac{16}{65}$",
+     "C": "$\\frac{16}{65}$",
+     "D": "$\\frac{63}{65}$"
+    },
+    "answer": "C",
+    "hints": [
+     "The target is the sine of a difference.",
+     "Subtract $\\cos A\\sin B$ from $\\sin A\\cos B$.",
+     "Set up $\\frac{3}{5}\\frac{12}{13}-\\frac{4}{5}\\frac{5}{13}$."
+    ],
+    "explanation": "$\\sin(A-B)=\\frac{3}{5}\\frac{12}{13}-\\frac{4}{5}\\frac{5}{13}=\\frac{36-20}{65}=\\frac{16}{65}$.",
+    "shortcut_use": "Apply the sine difference identity directly."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Angles $A$ and $B$ are acute, with $\\tan A=\\frac{1}{4}$ and $\\tan B=\\frac{1}{2}$. What is $\\tan(A+B)$?",
+    "options": {
+     "A": "$\\frac{3}{4}$",
+     "B": "$\\frac{6}{7}$",
+     "C": "$\\frac{2}{7}$",
+     "D": "$-\\frac{6}{7}$"
+    },
+    "answer": "B",
+    "hints": [
+     "The target is the tangent of a sum.",
+     "Add the individual tangents in the numerator and subtract their product from $1$ in the denominator.",
+     "Set up $\\frac{\\frac{1}{4}+\\frac{1}{2}}{1-\\frac{1}{4}\\frac{1}{2}}$."
+    ],
+    "explanation": "$\\tan(A+B)=\\frac{\\frac{1}{4}+\\frac{1}{2}}{1-\\frac{1}{4}\\frac{1}{2}}=\\frac{\\frac{3}{4}}{\\frac{7}{8}}=\\frac{6}{7}$.",
+    "shortcut_use": "Apply the tangent sum identity directly."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is $\\sin(A-B)$ in terms of the individual angles?",
+    "a": "$\\sin(A-B)=\\sin A\\cos B-\\cos A\\sin B$."
+   },
+   {
+    "q": "What sign appears between the two products in $\\cos(A+B)$?",
+    "a": "A minus sign."
+   },
+   {
+    "q": "When is the tangent addition formula undefined?",
+    "a": "It is undefined if an individual tangent is undefined or its denominator is zero."
+   }
+  ]
+ },
+ "SEM-P2-double-angles-three-versions-of": {
+  "id": "SEM-P2-double-angles-three-versions-of",
+  "hook": "Finding a missing sine or cosine creates an unnecessary square root and a possible sign slip.",
+  "when": "A question asks for $\\cos 2A$ and gives either $\\sin A$ or $\\cos A$.",
+  "idea": "Choose the matching form: $\\cos 2A=1-2\\sin^2 A=2\\cos^2 A-1=\\cos^2 A-\\sin^2 A$.",
+  "why": "These identities follow from the cosine addition formula and $\\sin^2 A+\\cos^2 A=1$. They hold for every real angle $A$.",
+  "steps": [
+   "Note whether $\\sin A$ or $\\cos A$ is given.",
+   "Choose the form containing that value alone.",
+   "Square the given value before multiplying by $2$.",
+   "Check that the result lies between $-1$ and $1$."
+  ],
+  "worked": {
+   "question": "Angle $A$ is acute and $\\sin A=\\frac{3}{5}$. Find $\\cos 2A$.",
+   "long": "$\\cos A=\\frac{4}{5}$, so $\\cos 2A=\\cos^2 A-\\sin^2 A=\\frac{16}{25}-\\frac{9}{25}=\\frac{7}{25}$.",
+   "short": "$\\cos 2A=1-2\\sin^2 A=1-2\\left(\\frac{3}{5}\\right)^2=\\frac{7}{25}$.",
+   "saving": "No missing trigonometric value or square root is needed."
+  },
+  "pitfalls": [
+   "Using $1-2\\sin A$ instead of $1-2\\sin^2 A$.",
+   "Treating a negative $\\cos A$ as though its square were negative.",
+   "Choosing $2\\cos^2 A-1$ when only $\\sin A$ is given, then calculating $\\cos A$ unnecessarily."
+  ],
+  "check": "The answer must be between $-1$ and $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Given $\\cos A=0.8$, find $\\cos 2A$ as an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.28",
+    "hints": [
+     "You are given $\\cos A$ and asked for $\\cos 2A$.",
+     "Choose the double-angle form using cosine alone.",
+     "Calculate $2(0.8)^2-1$."
+    ],
+    "explanation": "$\\cos 2A=2\\cos^2 A-1=2(0.8)^2-1=0.28$.",
+    "shortcut_use": "Use $2\\cos^2 A-1$ without finding $\\sin A$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Given $\\cos A=-0.6$, find $\\cos 2A$ as an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-0.28",
+    "hints": [
+     "You are given a negative cosine value.",
+     "Use the cosine-only form and square before subtracting.",
+     "Calculate $2(-0.6)^2-1$."
+    ],
+    "explanation": "$\\cos 2A=2\\cos^2 A-1=2(-0.6)^2-1=-0.28$.",
+    "shortcut_use": "Square the given cosine in $2\\cos^2 A-1$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which form of $\\cos 2A$ uses only $\\sin A$?",
+    "a": "$\\cos 2A=1-2\\sin^2 A$."
+   },
+   {
+    "q": "Which form of $\\cos 2A$ uses only $\\cos A$?",
+    "a": "$\\cos 2A=2\\cos^2 A-1$."
+   },
+   {
+    "q": "For which real angles do the three forms of $\\cos 2A$ agree?",
+    "a": "They agree for every real angle."
+   }
+  ]
+ },
+ "SEM-P2-standard-derivatives": {
+  "id": "SEM-P2-standard-derivatives",
+  "hook": "Starting from first principles for familiar functions costs time; the signs of cosine and cotangent are easy to miss.",
+  "when": "An expression is a sum of constant multiples of standard trigonometric functions, $\\ln x$, or $e^{kx}$.",
+  "idea": "Differentiate term by term: $(\\sin x)'=\\cos x$, $(\\cos x)'=-\\sin x$, $(\\tan x)'=\\mathrm{sec}^2x$, $(\\mathrm{sec}x)'=\\mathrm{sec}x\\tan x$, $(\\mathrm{cosec}x)'=-\\mathrm{cosec}x\\mathrm{cot}x$, $(\\mathrm{cot}x)'=-\\mathrm{cosec}^2x$, $(\\ln x)'=\\frac{1}{x}$ and $(e^{kx})'=ke^{kx}$.",
+  "why": "These are standard derivatives, and differentiation distributes over sums and constant multiples. The angle $x$ must be in radians; each function must be defined at the point, and $x>0$ for $\\ln x$.",
+  "steps": [
+   "Split the expression into terms.",
+   "Apply the matching derivative to each term.",
+   "Keep each constant multiplier and the factor $k$ from $e^{kx}$.",
+   "Combine the results, then substitute any requested value."
+  ],
+  "worked": {
+   "question": "For $y=2\\sin x-3\\cos x+e^{2x}$, with $x$ in radians, find $y'(0)$.",
+   "long": "A difference quotient requires separate limits for the sine, cosine and exponential terms; evaluating them gives $2+0+2=4$.",
+   "short": "$y'=2\\cos x+3\\sin x+2e^{2x}$, so $y'(0)=2\\cos 0+3\\sin 0+2e^0=4$.",
+   "saving": "Known derivatives replace three limit calculations."
+  },
+  "pitfalls": [
+   "Differentiating $\\cos x$ as $\\sin x$ instead of $-\\sin x$.",
+   "Omitting the factor $k$ from the derivative of $e^{kx}$.",
+   "Using the trigonometric derivative rules with angles measured in degrees."
+  ],
+  "check": "Differentiate $e^{kx}$ once more mentally: its first derivative must retain $e^{kx}$ and gain a factor $k$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $y=5\\sin x+4\\cos x+e^{3x}$, with $x$ in radians, find $y'(0)$. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "8",
+    "hints": [
+     "Each term is a constant multiple of a standard function.",
+     "Differentiate term by term, including the factor from the exponential.",
+     "Substitute into $y'(0)=5\\cos 0-4\\sin 0+3e^0$."
+    ],
+    "explanation": "$y'=5\\cos x-4\\sin x+3e^{3x}$, so $y'(0)=5\\cos 0-4\\sin 0+3e^0=8$.",
+    "shortcut_use": "Apply standard derivatives term by term."
+   },
+   {
+    "kind": "mcq",
+    "stem": "For $y=\\ln x-2\\tan x+3e^{2x}$, with $x$ in radians, $x>0$ and $\\cos x$ non-zero, which expression is $y'$?",
+    "options": {
+     "A": "$\\frac{1}{x}+2\\mathrm{sec}^2x+6e^{2x}$",
+     "B": "$\\ln x-2\\mathrm{sec}^2x+6e^{2x}$",
+     "C": "$\\frac{1}{x}-2\\mathrm{sec}^2x+3e^{2x}$",
+     "D": "$\\frac{1}{x}-2\\mathrm{sec}^2x+6e^{2x}$"
+    },
+    "answer": "D",
+    "hints": [
+     "This is a sum of three standard functions.",
+     "Use the derivatives of $\\ln x$, $\\tan x$ and $e^{kx}$, retaining the constant multipliers.",
+     "Set up $y'=(\\ln x)'-2(\\tan x)'+3(e^{2x})'$."
+    ],
+    "explanation": "$(\\ln x)'=\\frac{1}{x}$, $(\\tan x)'=\\mathrm{sec}^2x$ and $(e^{2x})'=2e^{2x}$, so $y'=\\frac{1}{x}-2\\mathrm{sec}^2x+6e^{2x}$.",
+    "shortcut_use": "Match each term to its standard derivative."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the derivative of $\\cos x$ when $x$ is in radians?",
+    "a": "$-\\sin x$."
+   },
+   {
+    "q": "What is the derivative of $e^{kx}$?",
+    "a": "$ke^{kx}$."
+   },
+   {
+    "q": "What restriction applies when differentiating $\\ln x$ over the reals?",
+    "a": "$x$ must be positive."
+   }
+  ]
+ },
+ "SEM-P2-record-exclusions-before-clearing-denominators": {
+  "id": "SEM-P2-record-exclusions-before-clearing-denominators",
+  "hook": "Clearing denominators can produce a candidate that was undefined in the original equation.",
+  "when": "An equation contains fractions with expressions in the denominator.",
+  "idea": "Record every value that makes an original denominator zero before multiplying through. Reject those values after solving.",
+  "why": "Multiplying by a denominator is reversible only where that denominator is non-zero. This applies to every rational equation.",
+  "steps": [
+   "Set each original denominator equal to zero and record the exclusions.",
+   "Multiply through by a common denominator.",
+   "Solve the resulting equation.",
+   "Check candidates against the exclusions and the original equation."
+  ],
+  "worked": {
+   "question": "Solve $\\frac{x^2-4}{x-2}=x+2$ for real $x$.",
+   "long": "The left side is defined only for $x\\ne2$. For every other real $x$, it simplifies to $x+2$, so every real $x\\ne2$ works.",
+   "short": "Record $x\\ne2$ first. Clearing $x-2$ gives $x^2-4=(x+2)(x-2)$, an identity. Hence the solution is every real $x\\ne2$.",
+   "saving": "Recording the exclusion prevents the identity from admitting $x=2$."
+  },
+  "pitfalls": [
+   "Cancelling $x-2$ and then admitting $x=2$.",
+   "Checking candidates against the cleared equation alone."
+  ],
+  "check": "Substituting an excluded value into the original equation must give a zero denominator.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Solve $\\frac{x^2-9}{x-3}=x+3$ for real $x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "All real $x$ except $3$",
+    "hints": [
+     "Look at the original denominator.",
+     "Record its zero before cancelling.",
+     "For $x\\ne3$, factor $x^2-9=(x-3)(x+3)$."
+    ],
+    "explanation": "The original denominator excludes $x=3$. For every other real $x$, cancellation gives $x+3=x+3$, so the answer is all real $x$ except $3$.",
+    "shortcut_use": "Record the exclusion before cancellation."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Solve $\\frac{x^2-1}{x-1}=4$ for real $x$. Give the valid value of $x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "The original denominator rules out one value.",
+     "Factor the numerator, then cancel where permitted.",
+     "For $x\\ne1$, solve $x+1=4$."
+    ],
+    "explanation": "Record $x\\ne1$. For permitted values, $\\frac{(x-1)(x+1)}{x-1}=x+1$. Thus $x+1=4$, giving $x=3$, which satisfies the original equation. The answer is $3$.",
+    "shortcut_use": "Exclude the denominator's zero before simplifying."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When must denominator exclusions be recorded?",
+    "a": "Before clearing denominators or cancelling factors."
+   },
+   {
+    "q": "Why can clearing denominators add a false solution?",
+    "a": "Multiplication by a denominator is reversible only when that denominator is non-zero."
+   }
+  ]
+ },
+ "SEM-P2-standard-expansions": {
+  "id": "SEM-P2-standard-expansions",
+  "hook": "Recomputing several binomial coefficients costs time and invites sign errors.",
+  "when": "The bracket matches a standard form such as $(1+x)^{-1}$, $(1+x)^{-2}$ or $(1+x)^{1/2}$.",
+  "idea": "Use the known opening terms, then substitute the expression in place of $x$. For example, $(1+x)^{-2}=1-2x+3x^2-4x^3+\\dots$.",
+  "why": "These coefficients come from the binomial expansion. For the infinite series listed here, use $|x|<1$, or require the substituted expression to have magnitude below $1$.",
+  "steps": [
+   "Match the bracket and exponent to a standard expansion.",
+   "Replace its variable with the expression in the question.",
+   "Keep only the powers needed.",
+   "Check that the substituted expression has magnitude below $1$."
+  ],
+  "worked": {
+   "question": "Find the first three terms of $(1-2x)^{-2}$ in ascending powers of $x$, and state the interval of validity.",
+   "long": "The binomial coefficients give $1+(-2)(-2x)+\\frac{(-2)(-3)}{2}(-2x)^2=1+4x+12x^2$.",
+   "short": "In $1-2u+3u^2+\\dots$, put $u=-2x$. This gives $1+4x+12x^2+\\dots$, valid for $|x|<\\frac12$.",
+   "saving": "The memorised coefficients avoid repeated coefficient calculations."
+  },
+  "pitfalls": [
+   "Changing the sign of a coefficient without also substituting the signed expression.",
+   "Forgetting to square the full substituted expression in the quadratic term.",
+   "Applying $|x|<1$ after substituting $2x$."
+  ],
+  "check": "At $x=0$, the approximation must have constant term $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "What is the coefficient of $x^2$ in the expansion of $(1+3x)^{-2}$? Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "27",
+    "hints": [
+     "The power matches a standard expansion.",
+     "Use its quadratic coefficient with the full substituted expression.",
+     "Put $u=3x$ into $1-2u+3u^2+\\dots$."
+    ],
+    "explanation": "The quadratic term is $3(3x)^2=27x^2$. Therefore the coefficient is $27$.",
+    "shortcut_use": "Reuse the standard quadratic coefficient."
+   },
+   {
+    "kind": "numeric",
+    "stem": "What is the coefficient of $x^2$ in the expansion of $(1-4x)^{1/2}$? Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-2",
+    "hints": [
+     "Match the square-root expansion.",
+     "Substitute the whole signed expression into its quadratic term.",
+     "Use $(1+u)^{1/2}=1+\\frac{u}{2}-\\frac{u^2}{8}+\\dots$ with $u=-4x$."
+    ],
+    "explanation": "The quadratic term is $-\\frac{(-4x)^2}{8}=-2x^2$. Hence the coefficient is $-2$.",
+    "shortcut_use": "Substitute into the standard square-root expansion."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What are the first three terms of $(1+x)^{-2}$?",
+    "a": "$1-2x+3x^2$."
+   },
+   {
+    "q": "What is the quadratic term of $(1+x)^{1/2}$?",
+    "a": "$-\\frac{x^2}{8}$."
+   },
+   {
+    "q": "What condition applies after replacing $x$ by $u$ in these infinite expansions?",
+    "a": "$|u|<1$."
+   }
+  ]
+ },
+ "SEM-P2-reduce-to-linear-to-find-constants": {
+  "id": "SEM-P2-reduce-to-linear-to-find-constants",
+  "hook": "Fitting an exponential or power law directly hides the constants. Logs turn them into a straight-line gradient and intercept.",
+  "when": "The model is $y=ab^x$ or $y=ax^n$, with two data points or a straight-line log plot.",
+  "idea": "For $y=ab^x$, $\\ln y=\\ln a+x\\ln b$. For $y=ax^n$, $\\ln y=\\ln a+n\\ln x$.",
+  "why": "Log rules turn products into sums and powers into multipliers. These forms hold for the stated real logs when $y>0$, $a>0$, $b>0$, and, for the power-law form, $x>0$.",
+  "steps": [
+   "Choose $x$ or $\\ln x$ as the horizontal variable.",
+   "Take $\\ln y$ and identify the straight-line gradient.",
+   "Use the intercept to find $a$.",
+   "Use the gradient to find $b$ or $n$."
+  ],
+  "worked": {
+   "question": "A model is $y=ab^x$ with $a>0$ and $b>0$. It gives $y=6$ at $x=0$ and $y=24$ at $x=2$. Find $a$ and $b$.",
+   "long": "At $x=0$, $a=6$. At $x=2$, $6b^2=24$, so $b^2=4$ and the positive value is $b=2$.",
+   "short": "In $\\ln y=\\ln a+x\\ln b$, the intercept is $\\ln6$, so $a=6$. The gradient between the two points is $\\frac{\\ln24-\\ln6}{2}=\\ln2$, so $b=2$.",
+   "saving": "The log gradient identifies the growth factor from plotted data."
+  },
+  "pitfalls": [
+   "Reading the gradient of a $\\ln y$ versus $x$ plot as $b$ instead of $\\ln b$.",
+   "Using $\\ln x$ at $x\\le0$ in the power-law form."
+  ],
+  "check": "Substitute the recovered constants into both original data points.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A model $y=ab^x$, with $a>0$ and $b>0$, gives $y=5$ at $x=0$ and $y=45$ at $x=2$. Find $b$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "The model is exponential in $x$.",
+     "Use the gradient of $\\ln y$ against $x$.",
+     "Set $\\ln b=\\frac{\\ln45-\\ln5}{2}$."
+    ],
+    "explanation": "The log gradient is $\\ln b=\\frac{\\ln(45/5)}{2}=\\frac{\\ln9}{2}=\\ln3$. Since $b>0$, the answer is $3$.",
+    "shortcut_use": "Read $\\ln b$ from the straight-line gradient."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A model $y=ax^n$, with $a>0$ and $x>0$, gives $y=7$ at $x=1$ and $y=56$ at $x=2$. Find $n$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "The model is a power law.",
+     "The gradient of $\\ln y$ against $\\ln x$ is $n$.",
+     "Set $n=\\frac{\\ln56-\\ln7}{\\ln2-\\ln1}$."
+    ],
+    "explanation": "The log gradient is $n=\\frac{\\ln(56/7)}{\\ln2}=\\frac{\\ln8}{\\ln2}=3$. The answer is $3$.",
+    "shortcut_use": "Read the exponent from the log-log gradient."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the gradient of a $\\ln y$ against $x$ plot for $y=ab^x$?",
+    "a": "$\\ln b$."
+   },
+   {
+    "q": "What is the gradient of a $\\ln y$ against $\\ln x$ plot for $y=ax^n$?",
+    "a": "$n$."
+   }
+  ]
+ },
+ "SEM-P2-solve": {
+  "id": "SEM-P2-solve",
+  "hook": "An unknown in an exponent cannot be isolated by ordinary rearrangement. Early rounding of logs can also spoil the result.",
+  "when": "The equation can be written as $a^{f(x)}=b$.",
+  "idea": "Take natural logs to get $f(x)=\\frac{\\ln b}{\\ln a}$, then solve for $x$.",
+  "why": "The log power rule gives $\\ln(a^{f(x)})=f(x)\\ln a$. For real solutions this requires $a>0$, $a\\ne1$, and $b>0$.",
+  "steps": [
+   "Isolate $a^{f(x)}$.",
+   "Take $\\ln$ of both sides.",
+   "Write $f(x)=\\frac{\\ln b}{\\ln a}$.",
+   "Solve exactly, then round only if requested."
+  ],
+  "worked": {
+   "question": "Solve $3^{2x+1}=81$ for real $x$.",
+   "long": "Recognise $81=3^4$, so $2x+1=4$ and $x=\\frac32$.",
+   "short": "Take logs: $2x+1=\\frac{\\ln81}{\\ln3}=4$, giving $x=\\frac32$.",
+   "saving": "The log quotient also works when the right side is not an obvious power."
+  },
+  "pitfalls": [
+   "Writing $f(x)=\\frac{\\ln a}{\\ln b}$ with the quotient inverted.",
+   "Applying the formula with $a=1$, when $\\ln a=0$.",
+   "Rounding the log quotient before solving for $x$."
+  ],
+  "check": "Substitute the result back into the original exponential equation.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Solve $2^{x+2}=32$ for real $x$. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "The unknown is in the exponent.",
+     "Take logs and isolate the exponent.",
+     "Set $x+2=\\frac{\\ln32}{\\ln2}$."
+    ],
+    "explanation": "Taking logs gives $x+2=\\frac{\\ln32}{\\ln2}=5$. Therefore $x=3$. The answer is $3$.",
+    "shortcut_use": "Turn the exponential equation into an equation for its exponent."
+   },
+   {
+    "kind": "short",
+    "stem": "Solve $5^{2x-1}=7$ for real $x$. Give an exact expression.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$\\frac{1}{2}(1+\\frac{\\ln7}{\\ln5})$",
+    "hints": [
+     "The right side is positive, so logs can be taken.",
+     "Use the log quotient for the entire exponent.",
+     "Set $2x-1=\\frac{\\ln7}{\\ln5}$, then isolate $x$."
+    ],
+    "explanation": "Taking logs gives $2x-1=\\frac{\\ln7}{\\ln5}$. Adding $1$ and dividing by $2$ gives $x=\\frac{1}{2}(1+\\frac{\\ln7}{\\ln5})$.",
+    "shortcut_use": "Use the exact log quotient before rearranging."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you isolate $f(x)$ in $a^{f(x)}=b$?",
+    "a": "$f(x)=\\frac{\\ln b}{\\ln a}$."
+   },
+   {
+    "q": "What conditions make this real-log method valid?",
+    "a": "$a>0$, $a\\ne1$, and $b>0$."
+   }
+  ]
+ },
+ "SEM-P2-entry": {
+  "id": "SEM-P2-entry",
+  "hook": "Expanding directly can hide the constant factor and give every coefficient the wrong scale.",
+  "when": "A binomial has the form $(a+bx)^n$ with $a\\ne 0$.",
+  "idea": "Factor first: $(a+bx)^n=a^n(1+\\frac{b}{a}x)^n$. Then expand in powers of $\\frac{b}{a}x$.",
+  "why": "The factorisation is an algebraic identity wherever both sides are defined. For the infinite binomial expansion used here, $|bx/a|<1$.",
+  "steps": [
+   "Take out $a^n$.",
+   "Set the expansion term to $\\frac{b}{a}x$.",
+   "Find the required coefficient and multiply it by $a^n$.",
+   "Check $|bx/a|<1$."
+  ],
+  "worked": {
+   "question": "Find the coefficient of $x^2$ in the binomial expansion of $(2+4x)^{-2}$.",
+   "long": "Differentiate twice: the second derivative at $x=0$ is $6$, so the coefficient is $6/2=3$.",
+   "short": "$(2+4x)^{-2}=\\frac{1}{4}(1+2x)^{-2}$. The coefficient is $\\frac{1}{4}\\times\\frac{(-2)(-3)}{2}\\times 2^2=3$. The expansion requires $|x|<\\frac{1}{2}$.",
+   "saving": "Factoring exposes the expansion term and keeps the outer factor visible."
+  },
+  "pitfalls": [
+   "Using $bx$ as the expansion term instead of $\\frac{b}{a}x$.",
+   "Forgetting to multiply the coefficient by $a^n$.",
+   "Using the infinite expansion outside $|bx/a|<1$."
+  ],
+  "check": "The constant term must be $a^n$, found by setting $x=0$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the coefficient of $x^2$ in the binomial expansion of $(2+8x)^{-2}$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "12",
+    "hints": [
+     "The constant inside the bracket is not $1$.",
+     "Factor out its power before finding the $x^2$ term.",
+     "Write the expression as $\\frac{1}{4}(1+4x)^{-2}$, then use the second binomial coefficient."
+    ],
+    "explanation": "$(2+8x)^{-2}=\\frac{1}{4}(1+4x)^{-2}$, so the $x^2$ coefficient is $\\frac{1}{4}\\times\\frac{(-2)(-3)}{2}\\times 4^2=12$.",
+    "shortcut_use": "Factor out $a^n$ before expanding."
+   },
+   {
+    "kind": "numeric",
+    "stem": "What is the radius of convergence in $x$ of the binomial expansion of $(3-6x)^{-1}$? Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.5",
+    "hints": [
+     "The expansion condition applies to the term after factoring.",
+     "Divide the coefficient of $x$ by the constant term.",
+     "Use $|(-6/3)x|<1$ and find the positive boundary."
+    ],
+    "explanation": "$(3-6x)^{-1}=\\frac{1}{3}(1-2x)^{-1}$. The condition is $|2x|<1$, giving radius $0.5$.",
+    "shortcut_use": "Read the convergence condition from $bx/a$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What do you factor out of $(a+bx)^n$ before expanding?",
+    "a": "Factor out $a^n$."
+   },
+   {
+    "q": "What is the expansion term after factoring?",
+    "a": "It is $\\frac{b}{a}x$."
+   },
+   {
+    "q": "What condition is needed for this infinite binomial expansion?",
+    "a": "The condition is $|bx/a|<1$."
+   }
+  ]
+ },
+ "SEM-P2-fractional-negative": {
+  "id": "SEM-P2-fractional-negative",
+  "hook": "A fractional or negative power produces an infinite series. A few correct terms can still be used at an invalid value of $x$.",
+  "when": "The exponent in a binomial expansion is fractional or negative.",
+  "idea": "Expand using $1+nt+\\frac{n(n-1)}{2}t^2+\\cdots$, then check $|t|<1$. For $(a+bx)^n$, use $t=\\frac{b}{a}x$ after factoring.",
+  "why": "The infinite binomial series equals the binomial expression within its interval of convergence, $|t|<1$. Its end points are excluded by this check.",
+  "steps": [
+   "Rewrite the bracket in the form $1+t$.",
+   "Find the terms needed using the fractional or negative exponent.",
+   "Check $|t|<1$ before using the expansion at a value of $x$."
+  ],
+  "worked": {
+   "question": "Find the coefficient of $x^2$ in the binomial expansion of $(1+2x)^{-1/2}$, and state the condition on $x$.",
+   "long": "Differentiating twice gives a second derivative of $3$ at $x=0$; dividing by $2$ gives coefficient $1.5$.",
+   "short": "Here $t=2x$. The coefficient is $\\frac{(-1/2)(-3/2)}{2}\\times 2^2=1.5$, valid for $|2x|<1$, or $|x|<0.5$.",
+   "saving": "The binomial coefficient gives the term without repeated differentiation; the check catches values outside the interval."
+  },
+  "pitfalls": [
+   "Checking $|x|<1$ when the actual expansion term is $2x$ or another multiple of $x$.",
+   "Treating $|t|=1$ as satisfying the strict condition $|t|<1$.",
+   "Stopping at a correct coefficient without checking whether a requested substitution is valid."
+  ],
+  "check": "For an expansion in $1+t$, the magnitude of the term replacing $t$ must be below $1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the coefficient of $x^2$ in the binomial expansion of $(1+4x)^{-1/2}$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "The power is negative and fractional.",
+     "Use the $t^2$ coefficient with $t=4x$.",
+     "Calculate $\\frac{(-1/2)(-3/2)}{2}\\times 4^2$."
+    ],
+    "explanation": "The $t^2$ coefficient is $\\frac{(-1/2)(-3/2)}{2}=\\frac{3}{8}$. With $t=4x$, the $x^2$ coefficient is $\\frac{3}{8}\\times 4^2=6$.",
+    "shortcut_use": "Use the fractional binomial coefficient."
+   },
+   {
+    "kind": "numeric",
+    "stem": "What is the radius of convergence in $x$ of the binomial expansion of $(1-5x)^{1/2}$? Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.2",
+    "hints": [
+     "The exponent is fractional, so check the expansion term.",
+     "Apply $|t|<1$ with $t=-5x$.",
+     "Solve $|5x|<1$ for the positive boundary."
+    ],
+    "explanation": "Here $t=-5x$. The condition $|-5x|<1$ gives $|x|<0.2$, so the radius is $0.2$.",
+    "shortcut_use": "Check convergence using the full expansion term."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What condition applies to the binomial series for fractional or negative $n$?",
+    "a": "For $(1+t)^n$, use $|t|<1$."
+   },
+   {
+    "q": "What is $t$ for an expansion of $(a+bx)^n$?",
+    "a": "After factoring out $a^n$, $t=\\frac{b}{a}x$."
+   }
+  ]
+ },
+ "SEM-P2-read-the-first-indexed-term-not-the-displayed-mu": {
+  "id": "SEM-P2-read-the-first-indexed-term-not-the-displayed-mu",
+  "hook": "The multiplier before a summation is easy to mistake for its first term. That gives the wrong infinite sum.",
+  "when": "A geometric series is written as $\\sum_{j=p}^{\\infty}aq^j$ and its first index is $p$.",
+  "idea": "Substitute $j=p$ first. The first term is $aq^p$, so $S_{\\infty}=\\frac{aq^p}{1-q}$.",
+  "why": "Each term is $q$ times the preceding term. The infinite sum exists when $|q|<1$; then the usual geometric sum uses the actual first term.",
+  "steps": [
+   "Substitute $j=p$ to find the first term.",
+   "Check that the next term divided by the first is $q$.",
+   "Check $|q|<1$.",
+   "Divide the first term by $1-q$."
+  ],
+  "worked": {
+   "question": "Find $\\sum_{j=2}^{\\infty}6(1/2)^j$.",
+   "long": "Sum from $j=0$ and remove the terms at $j=0$ and $j=1$: $6(2-1-1/2)=3$.",
+   "short": "The first term is $6(1/2)^2=1.5$. Since $|1/2|<1$, the sum is $\\frac{1.5}{1-1/2}=3$.",
+   "saving": "Reading the starting index avoids treating $6$ as the first term."
+  },
+  "pitfalls": [
+   "Using $a$ as the first term when the series starts at $j=p$ rather than $j=0$.",
+   "Using $1+q$ in the denominator instead of $1-q$ for an alternating series.",
+   "Applying the infinite-sum formula when $|q|\\ge 1$."
+  ],
+  "check": "Calculate the first two terms explicitly; their ratio should be $q$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find $\\sum_{j=3}^{\\infty}16(1/2)^j$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "The series starts at $j=3$.",
+     "Substitute that index to find the first term.",
+     "Use first term $16(1/2)^3$ in $\\frac{\\mathrm{first}}{1-1/2}$."
+    ],
+    "explanation": "The first term is $16(1/2)^3=2$. The ratio is $1/2$, so the sum is $\\frac{2}{1-1/2}=4$.",
+    "shortcut_use": "Read the first term from the starting index."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Find $\\sum_{j=1}^{\\infty}12(-1/2)^j$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-4",
+    "hints": [
+     "The first indexed term has a negative sign.",
+     "Substitute $j=1$ and keep the ratio $q=-1/2$.",
+     "Use first term $12(-1/2)$ in $\\frac{\\mathrm{first}}{1-(-1/2)}$."
+    ],
+    "explanation": "The first term is $12(-1/2)=-6$ and the ratio is $-1/2$. Thus the sum is $\\frac{-6}{1-(-1/2)}=-4$.",
+    "shortcut_use": "Substitute the starting index before summing."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the first term of $\\sum_{j=p}^{\\infty}aq^j$?",
+    "a": "It is $aq^p$."
+   },
+   {
+    "q": "When does an infinite geometric sum exist?",
+    "a": "It exists when $|q|<1$."
+   },
+   {
+    "q": "What ratio should the second term have to the first?",
+    "a": "The second term divided by the first should be $q$."
+   }
+  ]
+ },
+ "SEM-P2-derivatives": {
+  "id": "SEM-P2-derivatives",
+  "hook": "Differentiating an exponential or logarithm by a longer chain-rule calculation adds places to lose a multiplier.",
+  "when": "The expression contains $e^{kx}$, $a^x$, $\\ln x$, or $\\ln f(x)$.",
+  "idea": "Use $\\frac{d}{dx}e^{kx}=ke^{kx}$, $\\frac{d}{dx}a^x=a^x\\ln a$, $\\frac{d}{dx}\\ln x=\\frac{1}{x}$, and $\\frac{d}{dx}\\ln f(x)=\\frac{f'(x)}{f(x)}$.",
+  "why": "These follow from the exponential and logarithm derivatives and the chain rule. For real logarithms, require $x>0$ or $f(x)>0$ and differentiable; for $a^x$, require $a>0$. The $e^{kx}$ rule holds for constant $k$.",
+  "steps": [
+   "Identify the exponential or logarithm form.",
+   "For $\\ln f(x)$, find $f'(x)$ and divide by $f(x)$.",
+   "For $e^{kx}$, multiply by $k$; for $a^x$, multiply by $\\ln a$.",
+   "Substitute any requested value after differentiating."
+  ],
+  "worked": {
+   "question": "Find the gradient of $y=\\ln(3x^2+1)$ at $x=2$.",
+   "long": "Set $u=3x^2+1$, then use $\\frac{dy}{du}=\\frac{1}{u}$ and $\\frac{du}{dx}=6x$. At $x=2$, the gradient is $\\frac{1}{13}\\times 12=\\frac{12}{13}$.",
+   "short": "Use $\\frac{f'}{f}$ directly: $\\frac{dy}{dx}=\\frac{6x}{3x^2+1}$. At $x=2$, this is $\\frac{12}{13}$. The logarithm's argument is positive.",
+   "saving": "The numerator comes straight from differentiating the argument, making a missing chain-rule factor easier to spot."
+  },
+  "pitfalls": [
+   "Writing the derivative of $\\ln f(x)$ as $\\frac{1}{f(x)}$ and omitting $f'(x)$.",
+   "Writing the derivative of $a^x$ as $a^x$ without $\\ln a$.",
+   "Using the real logarithm rule where its argument is not positive."
+  ],
+  "check": "For $\\ln f(x)$, check that the numerator is the derivative of the denominator.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the gradient of $y=\\ln(1+3x^2)$ at $x=1$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1.5",
+    "hints": [
+     "This is a logarithm of a function.",
+     "Use its argument's derivative over its argument.",
+     "Form $\\frac{6x}{1+3x^2}$ before substituting $x=1$."
+    ],
+    "explanation": "Using $\\frac{f'}{f}$ gives $\\frac{dy}{dx}=\\frac{6x}{1+3x^2}$. At $x=1$, the gradient is $\\frac{6}{4}=1.5$.",
+    "shortcut_use": "Use the logarithmic derivative $f'/f$."
+   },
+   {
+    "kind": "mcq",
+    "stem": "What is the gradient of $y=2^x+e^{3x}$ at $x=0$?",
+    "options": {
+     "A": "$3+2\\ln 2$",
+     "B": "$1+\\ln 2$",
+     "C": "$3+\\ln 2$",
+     "D": "$3+\\frac{1}{\\ln 2}$"
+    },
+    "answer": "C",
+    "hints": [
+     "The expression contains two different exponential forms.",
+     "Differentiate $2^x$ and $e^{3x}$ using their respective multipliers.",
+     "Write $\\frac{dy}{dx}=2^x\\ln 2+3e^{3x}$, then set $x=0$."
+    ],
+    "explanation": "The derivative is $2^x\\ln 2+3e^{3x}$. Since both exponential factors equal $1$ at $x=0$, the gradient is $3+\\ln 2$.",
+    "shortcut_use": "Apply the two exponential derivative rules directly."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the derivative of $\\ln f(x)$?",
+    "a": "It is $\\frac{f'(x)}{f(x)}$ where $f(x)>0$."
+   },
+   {
+    "q": "What multiplier appears when differentiating $a^x$?",
+    "a": "Multiply $a^x$ by $\\ln a$, with $a>0$."
+   },
+   {
+    "q": "What is the derivative of $e^{kx}$ for constant $k$?",
+    "a": "It is $ke^{kx}$."
+   }
+  ]
+ },
+ "SEM-P2-rearrange-for-powers": {
+  "id": "SEM-P2-rearrange-for-powers",
+  "hook": "A squared sine or cosine does not integrate like an ordinary sine or cosine.",
+  "when": "An integral contains $\\sin^2 A$ or $\\cos^2 A$, especially with $A$ linear in $x$.",
+  "idea": "Use $\\cos^2 A=\\frac{1+\\cos 2A}{2}$ or $\\sin^2 A=\\frac{1-\\cos 2A}{2}$ before integrating.",
+  "why": "These identities follow from the double-angle formula and hold for every real angle. If $A=ax+b$, integration of the cosine term also needs the factor $\\frac{1}{2a}$, with $a\\ne0$.",
+  "steps": [
+   "Replace the squared trig function with its double-angle form.",
+   "Split the integral into a constant term and a cosine term.",
+   "Integrate, accounting for the derivative of the angle.",
+   "Differentiate the result to check it."
+  ],
+  "worked": {
+   "question": "Find $\\int\\cos^2(2x)\\,dx$.",
+   "long": "Set $I=\\int\\cos^2(2x)\\,dx$. Integration by parts gives $I=\\frac{x}{2}+\\frac{\\sin(4x)}{8}+c$ after rearranging to isolate $I$.",
+   "short": "$\\cos^2(2x)=\\frac{1+\\cos(4x)}{2}$, so $I=\\frac{x}{2}+\\frac{\\sin(4x)}{8}+c$.",
+   "saving": "The identity avoids integration by parts and its rearrangement."
+  },
+  "pitfalls": [
+   "Using a plus sign for $\\sin^2 A$; it needs $1-\\cos 2A$.",
+   "Forgetting that doubling $2x$ gives $4x$.",
+   "Integrating $\\cos(4x)$ without dividing by $4$."
+  ],
+  "check": "Differentiate the antiderivative; its derivative should simplify to the original square.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Find $\\int\\sin^2 x\\,dx$; include the constant of integration.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$\\frac{x}{2}-\\frac{\\sin(2x)}{4}+c$",
+    "hints": [
+     "The integrand is a squared sine.",
+     "Rewrite it using the double-angle identity with a minus sign.",
+     "Integrate $\\frac{1-\\cos(2x)}{2}$ term by term."
+    ],
+    "explanation": "$\\sin^2 x=\\frac{1-\\cos(2x)}{2}$, so the integral is $\\frac{x}{2}-\\frac{\\sin(2x)}{4}+c$.",
+    "shortcut_use": "Replace the square using the double-angle identity."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\int_0^{\\pi/2}\\cos^2 x\\,dx$. Give the coefficient $q$ in the exact answer $q\\pi$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.25",
+    "hints": [
+     "The integrand is a squared cosine.",
+     "Use the double-angle form before integrating.",
+     "Integrate $\\frac{1+\\cos(2x)}{2}$ from $0$ to $\\pi/2$."
+    ],
+    "explanation": "The integral is $[\\frac{x}{2}+\\frac{\\sin(2x)}{4}]_0^{\\pi/2}=\\frac{\\pi}{4}$. Thus $q=0.25$.",
+    "shortcut_use": "Replace the square before evaluating the integral."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you rewrite $\\cos^2 A$ for integration?",
+    "a": "$\\cos^2 A=\\frac{1+\\cos 2A}{2}$."
+   },
+   {
+    "q": "How do you rewrite $\\sin^2 A$ for integration?",
+    "a": "$\\sin^2 A=\\frac{1-\\cos 2A}{2}$."
+   }
+  ]
+ },
+ "SEM-P2-implicit-differentiation": {
+  "id": "SEM-P2-implicit-differentiation",
+  "hook": "Rearranging an equation to make $y$ the subject can create awkward square roots or branches.",
+  "when": "A curve is given by an equation mixing $x$ and $y$, and you need its gradient.",
+  "idea": "Differentiate both sides with respect to $x$, treating $y$ as a function of $x$. Then collect and divide by the coefficient of $\\frac{dy}{dx}$.",
+  "why": "The chain rule gives $\\frac{d}{dx}(y^n)=ny^{n-1}\\frac{dy}{dx}$, and the product rule gives $\\frac{d}{dx}(xy)=y+x\\frac{dy}{dx}$. The method applies where $y$ is differentiable as a function of $x$; division also requires a nonzero coefficient of $\\frac{dy}{dx}$.",
+  "steps": [
+   "Differentiate every term with respect to $x$.",
+   "Attach $\\frac{dy}{dx}$ when differentiating a function of $y$.",
+   "Use the product rule for mixed products such as $xy$.",
+   "Collect the derivative terms, factor, and divide."
+  ],
+  "worked": {
+   "question": "For $x^2+y^2=25$, find the gradient where $x=3$ and $y=4$.",
+   "long": "On the branch through $(3,4)$, $y=\\sqrt{25-x^2}$. Differentiating gives $\\frac{dy}{dx}=\\frac{-x}{\\sqrt{25-x^2}}$, which is $-\\frac{3}{4}$ at $x=3$.",
+   "short": "$2x+2y\\frac{dy}{dx}=0$, so $\\frac{dy}{dx}=-\\frac{x}{y}=-\\frac{3}{4}$.",
+   "saving": "It avoids choosing and differentiating a square-root branch."
+  },
+  "pitfalls": [
+   "Differentiating $y^2$ as $2y$ without $\\frac{dy}{dx}$.",
+   "Differentiating $xy$ as $1$ or as $y$ alone.",
+   "Dividing by a coefficient that is zero at the point."
+  ],
+  "check": "For $x^2+y^2=r^2$ in the first quadrant, the gradient must be negative.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $x^2+y^2=25$, find $\\frac{dy}{dx}$ at $(4,3)$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-1.333",
+    "hints": [
+     "The equation gives $y$ implicitly.",
+     "Differentiate both squared terms with respect to $x$.",
+     "Use $2x+2y\\frac{dy}{dx}=0$ at $(4,3)$; give the answer to 4 significant figures."
+    ],
+    "explanation": "$\\frac{dy}{dx}=-\\frac{x}{y}=-\\frac{4}{3}$, which to 4 significant figures is $-1.333$.",
+    "shortcut_use": "Differentiate the implicit equation directly."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The curve $xy+y^2=6$ passes through $(2,2)$. Find $\\frac{dy}{dx}$ there as an exact decimal.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-0.3333333333333333",
+    "hints": [
+     "The term $xy$ needs the product rule.",
+     "Differentiate $xy$ as $y+x\\frac{dy}{dx}$.",
+     "Collect terms in $\\frac{dy}{dx}$ after differentiating $y+ (x+2y)\\frac{dy}{dx}=0$."
+    ],
+    "explanation": "Differentiation gives $y+(x+2y)\\frac{dy}{dx}=0$, so at $(2,2)$ the gradient is $-\\frac{2}{6}=-\\frac{1}{3}$, or $-0.3333333333333333$.",
+    "shortcut_use": "Collect the attached derivative terms."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is $\\frac{d}{dx}(y^2)$ when $y$ depends on $x$?",
+    "a": "$2y\\frac{dy}{dx}$."
+   },
+   {
+    "q": "What is $\\frac{d}{dx}(xy)$?",
+    "a": "$y+x\\frac{dy}{dx}$."
+   },
+   {
+    "q": "When can you divide to isolate $\\frac{dy}{dx}$?",
+    "a": "When its collected coefficient is nonzero."
+   }
+  ]
+ },
+ "SEM-P2-product-rule": {
+  "id": "SEM-P2-product-rule",
+  "hook": "Differentiating two changing factors as though they were one factor loses a term.",
+  "when": "The expression is a product $u(x)v(x)$ or a quotient $\\frac{u(x)}{v(x)}$ of differentiable functions.",
+  "idea": "For a product, $(uv)'=u'v+uv'$. For a quotient, $(\\frac{u}{v})'=\\frac{u'v-uv'}{v^2}$.",
+  "why": "Both rules follow from the limit definition of a derivative. They hold where $u$ and $v$ are differentiable; the quotient also requires $v\\ne0$.",
+  "steps": [
+   "Identify $u$ and $v$.",
+   "Find $u'$ and $v'$ separately.",
+   "Substitute into the product or quotient formula.",
+   "Simplify only after both derivative terms are present."
+  ],
+  "worked": {
+   "question": "Differentiate $y=\\frac{x^2+1}{x}$ for $x\\ne0$.",
+   "long": "Rewrite $y=x+\\frac{1}{x}$, then differentiate to obtain $\\frac{dy}{dx}=1-\\frac{1}{x^2}$.",
+   "short": "With $u=x^2+1$ and $v=x$, the quotient rule gives $\\frac{dy}{dx}=\\frac{(2x)x-(x^2+1)}{x^2}=1-\\frac{1}{x^2}$.",
+   "saving": "The formula works directly when the quotient is less easy to rearrange."
+  },
+  "pitfalls": [
+   "Using $u'v'$ for a product.",
+   "Reversing the numerator subtraction in the quotient rule.",
+   "Forgetting to square the denominator in the quotient rule."
+  ],
+  "check": "For the worked quotient, the derivative tends to $1$ as $|x|$ grows, matching $y=x+\\frac{1}{x}$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $y=x^2(x+3)$, find $\\frac{dy}{dx}$ at $x=2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "24",
+    "hints": [
+     "The expression is a product of two functions of $x$.",
+     "Differentiate one factor at a time and add the two terms.",
+     "Use $\\frac{dy}{dx}=2x(x+3)+x^2$ before substituting $x=2$."
+    ],
+    "explanation": "The product rule gives $\\frac{dy}{dx}=2x(x+3)+x^2$; at $x=2$, this is $4(5)+4=24$.",
+    "shortcut_use": "Apply the two-term product formula."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $y=\\frac{x+1}{x-1}$, find $\\frac{dy}{dx}$ at $x=3$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-0.5",
+    "hints": [
+     "The expression is a quotient.",
+     "Use the numerator derivative times denominator, minus numerator times denominator derivative.",
+     "Form $\\frac{(x-1)-(x+1)}{(x-1)^2}$ before substituting $x=3$."
+    ],
+    "explanation": "The quotient rule gives $\\frac{dy}{dx}=\\frac{(x-1)-(x+1)}{(x-1)^2}=\\frac{-2}{(x-1)^2}$. At $x=3$, the answer is $-0.5$.",
+    "shortcut_use": "Apply the quotient formula with the subtraction in order."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the product rule?",
+    "a": "$(uv)'=u'v+uv'$."
+   },
+   {
+    "q": "What is the quotient rule?",
+    "a": "$(\\frac{u}{v})'=\\frac{u'v-uv'}{v^2}$, where $v\\ne0$."
+   }
+  ]
+ },
+ "SEM-P2-reverse-chain-rule-inside-is-linear": {
+  "id": "SEM-P2-reverse-chain-rule-inside-is-linear",
+  "hook": "Integrating a familiar function with $ax+b$ inside often misses a factor of $\\frac{1}{a}$.",
+  "when": "The integrand has a known antiderivative with a linear inner expression $ax+b$.",
+  "idea": "If $F'=f$, then $\\int f(ax+b)\\,dx=\\frac{1}{a}F(ax+b)+c$.",
+  "why": "The chain rule gives $\\frac{d}{dx}F(ax+b)=a f(ax+b)$, so dividing by $a$ restores the required integrand. This holds when $a\\ne0$ and the relevant antiderivative is defined.",
+  "steps": [
+   "Identify the inner expression $ax+b$ and its gradient $a$.",
+   "Integrate the outer function as usual.",
+   "Replace its argument by $ax+b$ and divide by $a$.",
+   "Add $c$ and differentiate to check."
+  ],
+  "worked": {
+   "question": "Find $\\int\\cos(3x+1)\\,dx$.",
+   "long": "Let $u=3x+1$, so $du=3\\,dx$ and $dx=\\frac{1}{3}du$. Then the integral is $\\frac{1}{3}\\int\\cos u\\,du=\\frac{\\sin(3x+1)}{3}+c$.",
+   "short": "The inner gradient is $3$, so the integral is $\\frac{\\sin(3x+1)}{3}+c$.",
+   "saving": "It removes the written substitution while keeping its scale factor."
+  },
+  "pitfalls": [
+   "Multiplying by $a$ instead of dividing by it.",
+   "Forgetting the minus sign when integrating $\\sin(kx)$.",
+   "Writing $\\ln(ax+b)$ without an absolute value for a reciprocal linear function."
+  ],
+  "check": "Differentiate the proposed antiderivative; the inner gradient must cancel its divisor.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Find $\\int e^{4x-1}\\,dx$; include the constant of integration.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$\\frac{e^{4x-1}}{4}+c$",
+    "hints": [
+     "The exponent is linear in $x$.",
+     "Find the gradient of the exponent and divide by it.",
+     "Start with $e^{4x-1}$ as the antiderivative shape."
+    ],
+    "explanation": "The inner gradient is $4$, so $\\int e^{4x-1}\\,dx=\\frac{e^{4x-1}}{4}+c$.",
+    "shortcut_use": "Divide the familiar antiderivative by the inner gradient."
+   },
+   {
+    "kind": "short",
+    "stem": "Find $\\int\\frac{1}{2x+3}\\,dx$; include the constant of integration.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$\\frac{1}{2}\\ln|2x+3|+c$",
+    "hints": [
+     "The denominator is linear in $x$.",
+     "Use the logarithm antiderivative and divide by the inner gradient.",
+     "Start with $\\ln|2x+3|$ and account for the derivative of $2x+3$."
+    ],
+    "explanation": "The inner gradient is $2$, so $\\int\\frac{1}{2x+3}\\,dx=\\frac{1}{2}\\ln|2x+3|+c$.",
+    "shortcut_use": "Divide the logarithm antiderivative by the inner gradient."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What factor corrects $F(ax+b)$ when integrating $f(ax+b)$?",
+    "a": "Multiply by $\\frac{1}{a}$, with $a\\ne0$."
+   },
+   {
+    "q": "Why does the factor $\\frac{1}{a}$ appear?",
+    "a": "Differentiating $F(ax+b)$ produces an extra factor $a$."
+   }
+  ]
+ },
+ "SEM-P2-the-derivative-is-on-top-recognition": {
+  "id": "SEM-P2-the-derivative-is-on-top-recognition",
+  "hook": "A full substitution takes time when the derivative of the inner function is already present.",
+  "when": "The integrand contains $f'(x)$ multiplied by a power or exponential of $f(x)$, or divided by $f(x)$.",
+  "idea": "Recognise $\\int\\frac{f'}{f}\\,dx=\\ln|f|+c$, $\\int f'f^n\\,dx=\\frac{f^{n+1}}{n+1}+c$ for $n\\ne-1$, and $\\int f'e^f\\,dx=e^f+c$.",
+  "why": "Differentiating each proposed answer by the chain rule reproduces its integrand. This works where $f$ is differentiable; the logarithm form requires $f\\ne0$, and the power form requires $n\\ne-1$ on a domain where the power is defined.",
+  "steps": [
+   "Choose the inner function $f(x)$.",
+   "Check that its derivative appears as a factor, allowing for a constant multiple.",
+   "Apply the matching logarithm, power, or exponential form.",
+   "Differentiate to verify the factor."
+  ],
+  "worked": {
+   "question": "Find $\\int\\frac{2x}{x^2+3}\\,dx$.",
+   "long": "Let $u=x^2+3$, so $du=2x\\,dx$. Then $\\int\\frac{1}{u}\\,du=\\ln|u|+c=\\ln(x^2+3)+c$.",
+   "short": "The numerator $2x$ is the derivative of $x^2+3$, so the integral is $\\ln(x^2+3)+c$.",
+   "saving": "Recognition removes the written substitution and keeps the derivative factor in view."
+  },
+  "pitfalls": [
+   "Using $\\ln|f|$ when the numerator is not $f'$ or a constant multiple of it.",
+   "Using the power formula with $n=-1$; that case needs a logarithm.",
+   "Dropping a constant factor when the visible numerator differs from $f'$."
+  ],
+  "check": "Differentiate the answer; the chain rule must recreate the complete numerator.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Find $\\int 6x(x^2+1)^2\\,dx$; include the constant of integration.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$(x^2+1)^3+c$",
+    "hints": [
+     "The squared bracket has an inner function.",
+     "Compare the factor outside with the derivative of $x^2+1$.",
+     "Write $6x=3(2x)$ and apply the power form."
+    ],
+    "explanation": "For $f=x^2+1$, $f'=2x$ and $6x=3f'$. Thus the integral is $3\\frac{f^3}{3}+c=(x^2+1)^3+c$.",
+    "shortcut_use": "Match the outside factor to the inner derivative."
+   },
+   {
+    "kind": "short",
+    "stem": "Find $\\int 3x^2e^{x^3}\\,dx$; include the constant of integration.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$e^{x^3}+c$",
+    "hints": [
+     "The exponential has an inner function.",
+     "Differentiate its exponent and compare with the outside factor.",
+     "Take $f=x^3$ and use $f'=3x^2$ in the exponential form."
+    ],
+    "explanation": "With $f=x^3$, the outside factor is exactly $f'=3x^2$. Therefore $\\int f'e^f\\,dx=e^{x^3}+c$.",
+    "shortcut_use": "Recognise the derivative of the exponent outside."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the antiderivative of $\\frac{f'}{f}$ where $f\\ne0$?",
+    "a": "$\\ln|f|+c$."
+   },
+   {
+    "q": "What is the antiderivative of $f'f^n$ when $n\\ne-1$?",
+    "a": "$\\frac{f^{n+1}}{n+1}+c$."
+   },
+   {
+    "q": "What must you check before using these recognition forms?",
+    "a": "The derivative of the inner function must appear as a factor, possibly times a constant."
+   }
+  ]
+ },
+ "SEM-P2-separate-a-coefficient-from-its-term": {
+  "id": "SEM-P2-separate-a-coefficient-from-its-term",
+  "hook": "The multiplier and the whole term are easy to confuse in a binomial expansion.",
+  "when": "The question asks for the coefficient of a specified power of $x$.",
+  "idea": "Use the power of $x$ to find its term, then report only the multiplier.",
+  "why": "A coefficient is the number multiplying a given power of $x$. This distinction always holds by the meaning of coefficient.",
+  "steps": [
+   "Find the term containing the requested power.",
+   "Multiply its numerical factors.",
+   "Remove the $x$ factor if the question asks for the coefficient."
+  ],
+  "worked": {
+   "question": "Find the coefficient of $x^2$ in $(1+3x)^4$.",
+   "long": "Expand: $(1+3x)^4=1+12x+54x^2+108x^3+81x^4$. Read off $54$.",
+   "short": "The $x^2$ term is $\\frac{4!}{2!2!}(3x)^2=54x^2$, so the coefficient is $54$.",
+   "saving": "There is no need to expand every term, and the final answer omits $x^2$."
+  },
+  "pitfalls": [
+   "Giving $54x^2$ when asked for the coefficient.",
+   "Removing $x^2$ before locating the correct term."
+  ],
+  "check": "The reported coefficient should contain no $x$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the coefficient of $x^3$ in $(2+x)^4$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "8",
+    "hints": [
+     "Locate the term containing exactly $x^3$.",
+     "Use three factors of $x$ and one factor of $2$.",
+     "The term is $\\frac{4!}{3!1!}2x^3$; report its multiplier."
+    ],
+    "explanation": "The $x^3$ term is $\\frac{4!}{3!1!}2x^3=8x^3$. Its coefficient is $8$.",
+    "shortcut_use": "Drop the power of $x$ after identifying the term."
+   },
+   {
+    "kind": "mcq",
+    "stem": "What is the coefficient of $x^2$ in $(1-2x)^3$?",
+    "options": {
+     "A": "$-12$",
+     "B": "$12x^2$",
+     "C": "$12$",
+     "D": "$-8$"
+    },
+    "answer": "C",
+    "hints": [
+     "The requested term contains two factors of $-2x$.",
+     "Square the negative factor before reporting the multiplier.",
+     "Compute $\\frac{3!}{2!1!}(-2)^2$ and leave out $x^2$."
+    ],
+    "explanation": "The $x^2$ term is $\\frac{3!}{2!1!}(-2x)^2=12x^2$, so the coefficient is $12$.",
+    "shortcut_use": "Separate the coefficient from the complete term."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What should you report when asked for a coefficient?",
+    "a": "Report the multiplier of the specified power of $x$, without that power."
+   },
+   {
+    "q": "When should you retain the $x$ factor?",
+    "a": "Retain it while locating or writing the term."
+   }
+  ]
+ },
+ "SEM-P2-coefficient-of-one-term-only": {
+  "id": "SEM-P2-coefficient-of-one-term-only",
+  "hook": "A full binomial expansion wastes work when only one coefficient is needed.",
+  "when": "The expression has the form $(a+bx)^n$ and the question asks for the coefficient of $x^r$.",
+  "idea": "Go straight to the $x^r$ term: $\\frac{n!}{r!(n-r)!}a^{n-r}(bx)^r$.",
+  "why": "Each choice of $r$ factors supplying $bx$ gives the same term. The formula holds for a non-negative integer $n$ and an integer $r$ with $0\\le r\\le n$.",
+  "steps": [
+   "Identify $n$, $r$, $a$ and $b$.",
+   "Calculate $\\frac{n!}{r!(n-r)!}a^{n-r}b^r$.",
+   "Report the number as the coefficient."
+  ],
+  "worked": {
+   "question": "Find the coefficient of $x^3$ in $(2+3x)^5$.",
+   "long": "Expanding all terms gives $32+240x+720x^2+1080x^3+810x^4+243x^5$; read off $1080$.",
+   "short": "$\\frac{5!}{3!2!}2^2 3^3=10\\times4\\times27=1080$.",
+   "saving": "Only the requested term is calculated."
+  },
+  "pitfalls": [
+   "Using $a^r$ in place of $a^{n-r}$.",
+   "Forgetting the sign when $b$ is negative."
+  ],
+  "check": "The chosen term must contain exactly $r$ factors of $x$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the coefficient of $x^2$ in $(3+2x)^4$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "216",
+    "hints": [
+     "Only the term with two factors of $2x$ contributes.",
+     "Use the term formula with $n=4$ and $r=2$.",
+     "Calculate $\\frac{4!}{2!2!}3^2 2^2$."
+    ],
+    "explanation": "$\\frac{4!}{2!2!}3^2 2^2=6\\times9\\times4=216$, so the coefficient is $216$.",
+    "shortcut_use": "Calculate the $x^2$ term directly."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Find the coefficient of $x^3$ in $(1-2x)^5$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-80",
+    "hints": [
+     "Three factors of $-2x$ supply $x^3$.",
+     "Use $r=3$ in the term formula.",
+     "Calculate $\\frac{5!}{3!2!}1^2(-2)^3$."
+    ],
+    "explanation": "$\\frac{5!}{3!2!}1^2(-2)^3=10\\times(-8)=-80$, so the coefficient is $-80$.",
+    "shortcut_use": "Extract one binomial coefficient and its factors."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the coefficient of $x^r$ in $(a+bx)^n$?",
+    "a": "$\\frac{n!}{r!(n-r)!}a^{n-r}b^r$."
+   },
+   {
+    "q": "When does this finite binomial term formula apply?",
+    "a": "It applies when $n$ is a non-negative integer and $0\\le r\\le n$."
+   }
+  ]
+ },
+ "SEM-P2-improper-fraction-degree-top-bottom": {
+  "id": "SEM-P2-improper-fraction-degree-top-bottom",
+  "hook": "A partial fraction split starts in the wrong form if the numerator is at least as high degree as the denominator.",
+  "when": "A rational expression has numerator degree greater than or equal to denominator degree.",
+  "idea": "Divide first: $\\frac{P(x)}{Q(x)}=S(x)+\\frac{R(x)}{Q(x)}$, where the remainder $R(x)$ has lower degree than $Q(x)$.",
+  "why": "Polynomial division gives $P(x)=S(x)Q(x)+R(x)$. This holds wherever $Q(x)\\ne0$.",
+  "steps": [
+   "Compare the degrees of numerator and denominator.",
+   "Divide the numerator by the denominator.",
+   "Write the quotient plus the proper remainder fraction.",
+   "Split that proper fraction if required."
+  ],
+  "worked": {
+   "question": "Write $\\frac{x^2+3x+5}{x+1}$ as a polynomial plus a proper fraction.",
+   "long": "Set $x^2+3x+5=(Ax+B)(x+1)+C$. Comparing coefficients gives $A=1$, $B=2$ and $C=3$.",
+   "short": "Divide by $x+1$: the quotient is $x+2$ and the remainder is $3$, giving $x+2+\\frac{3}{x+1}$.",
+   "saving": "Division identifies the polynomial part and remainder in one pass."
+  },
+  "pitfalls": [
+   "Trying a proper fraction form before removing the polynomial part.",
+   "Forgetting that values making the denominator zero remain excluded."
+  ],
+  "check": "Multiply the result by the original denominator and recover the numerator.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Write $\\frac{x^2+5x+8}{x+2}$ as a polynomial plus a proper fraction, for $x\\ne-2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x+3+\\frac{2}{x+2}$",
+    "hints": [
+     "The numerator has higher degree.",
+     "Divide by $x+2$ first.",
+     "Find the quotient and remainder in $x^2+5x+8=(x+2)(x+3)+R$."
+    ],
+    "explanation": "$x^2+5x+8=(x+2)(x+3)+2$, so the expression is $x+3+\\frac{2}{x+2}$.",
+    "shortcut_use": "Divide before writing the proper fraction."
+   },
+   {
+    "kind": "short",
+    "stem": "Write $\\frac{2x^2+x+4}{x^2+1}$ as a constant plus a proper fraction, for real $x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$2+\\frac{x+2}{x^2+1}$",
+    "hints": [
+     "The numerator and denominator have equal degree.",
+     "Use their leading coefficients for the quotient.",
+     "Subtract $2(x^2+1)$ from the numerator to find the remainder."
+    ],
+    "explanation": "$2x^2+x+4=2(x^2+1)+(x+2)$, giving $2+\\frac{x+2}{x^2+1}$.",
+    "shortcut_use": "Take the quotient before handling the remainder."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the first step when a rational expression is improper?",
+    "a": "Divide the numerator by the denominator."
+   },
+   {
+    "q": "How does the remainder's degree compare with the denominator's?",
+    "a": "The remainder has lower degree than the denominator."
+   }
+  ]
+ },
+ "SEM-P2-modulus-graphs": {
+  "id": "SEM-P2-modulus-graphs",
+  "hook": "A modulus graph can hide negative values of the original function, making intersections easy to miss.",
+  "when": "A question contains $|f(x)|=k$, $|f(x)|<k$ or $|x-a|<b$.",
+  "idea": "For $k\\ge0$, solve $f(x)=k$ and $f(x)=-k$. For $k>0$, $|f(x)|<k$ means $-k<f(x)<k$.",
+  "why": "Absolute value is distance from zero, so it reflects negative outputs above the axis. The equality rule requires $k\\ge0$; the strict inequality needs $k>0$ to have solutions.",
+  "steps": [
+   "Check that the right-hand bound is non-negative.",
+   "For equality, solve both signed equations.",
+   "For a strict bound, place the inside expression between the negative and positive bounds.",
+   "Check endpoints for strict inequalities."
+  ],
+  "worked": {
+   "question": "Solve $|2x-3|<5$.",
+   "long": "Split at $x=\\frac{3}{2}$. On each side, remove the modulus with the appropriate sign and combine the intervals.",
+   "short": "$-5<2x-3<5$, so $-1<x<4$.",
+   "saving": "One double inequality replaces two cases."
+  },
+  "pitfalls": [
+   "Solving only the positive branch of $|f(x)|=k$.",
+   "Including endpoints when the inequality is strict.",
+   "Applying the two-branch equality rule when $k<0$; there are then no solutions."
+  ],
+  "check": "For a strict inequality, test one value inside and one outside the proposed interval.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Solve $|x-4|<3$ for real $x$. Give the solution as an interval inequality.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$1<x<7$",
+    "hints": [
+     "The modulus measures distance from $4$.",
+     "Put $x-4$ between $-3$ and $3$.",
+     "Add $4$ throughout $-3<x-4<3$."
+    ],
+    "explanation": "$-3<x-4<3$. Adding $4$ gives $1<x<7$.",
+    "shortcut_use": "Convert distance to a double inequality."
+   },
+   {
+    "kind": "short",
+    "stem": "Solve $|2x+1|=5$ for real $x$. Give both values of $x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x=-3$ or $x=2$",
+    "hints": [
+     "The modulus can hide a negative inside value.",
+     "Solve both signed equations.",
+     "Set $2x+1=5$ and $2x+1=-5$."
+    ],
+    "explanation": "$2x+1=5$ gives $x=2$, while $2x+1=-5$ gives $x=-3$. Thus $x=-3$ or $x=2$.",
+    "shortcut_use": "Replace the modulus equality with two signed equations."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you solve $|f(x)|=k$ when $k>0$?",
+    "a": "Solve $f(x)=k$ and $f(x)=-k$."
+   },
+   {
+    "q": "What does $|f(x)|<k$ become when $k>0$?",
+    "a": "$-k<f(x)<k$."
+   },
+   {
+    "q": "What happens to a graph where $f(x)<0$ when drawing $|f(x)|$?",
+    "a": "That part is reflected above the $x$ axis."
+   }
+  ]
+ },
+ "SEM-P2-repeated-factor": {
+  "id": "SEM-P2-repeated-factor",
+  "hook": "A repeated denominator factor needs two fraction terms; omitting one makes the decomposition fail.",
+  "when": "A proper rational expression has denominator $(x-a)^2(x-b)$, with $a\\ne b$.",
+  "idea": "Write $\\frac{f(x)}{(x-a)^2(x-b)}=\\frac{A}{x-a}+\\frac{B}{(x-a)^2}+\\frac{C}{x-b}$. Find $B$ at $x=a$, $C$ at $x=b$, then find $A$ using another value.",
+  "why": "After multiplying through by the denominator, substitution at $a$ or $b$ removes all but one term. This works when the fraction is proper and $a\\ne b$.",
+  "steps": [
+   "Write one term for each power of the repeated factor.",
+   "Multiply through by $(x-a)^2(x-b)$.",
+   "Substitute $x=a$ for $B$ and $x=b$ for $C$.",
+   "Substitute another allowed value for $A$."
+  ],
+  "worked": {
+   "question": "Decompose $\\frac{2x^2+1}{(x-1)^2(x+2)}$ into partial fractions.",
+   "long": "Expand $2x^2+1=A(x-1)(x+2)+B(x+2)+C(x-1)^2$ and compare coefficients to get $A=1$, $B=1$, $C=2$.",
+   "short": "At $x=1$, $3=3B$, so $B=1$. At $x=-2$, $9=9C$, so $C=1$. At $x=0$, $1=-2A+2B+C$, so $A=1$. Thus the result is $\\frac{1}{x-1}+\\frac{1}{(x-1)^2}+\\frac{1}{x+2}$.",
+   "saving": "Two substitutions isolate coefficients immediately."
+  },
+  "pitfalls": [
+   "Leaving out $\\frac{B}{(x-a)^2}$.",
+   "Trying to isolate $A$ by substituting $x=a$.",
+   "Using this proper-fraction form before polynomial division when the numerator has degree at least $3$."
+  ],
+  "check": "Combine the fractions over the original denominator and recover the numerator.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Decompose $\\frac{x+1}{(x-1)^2(x+1)}$ into the form $\\frac{A}{x-1}+\\frac{B}{(x-1)^2}+\\frac{C}{x+1}$. Give $A$, $B$ and $C$ in that order.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$0,1,0$",
+    "hints": [
+     "The repeated factor needs both powers in the setup.",
+     "Multiply through, then substitute $x=1$ and $x=-1$.",
+     "Use $x+1=A(x-1)(x+1)+B(x+1)+C(x-1)^2$."
+    ],
+    "explanation": "At $x=1$, $2=2B$, so $B=1$. At $x=-1$, $0=4C$, so $C=0$. At $x=0$, $1=-A+B+C$, so $A=0$. The values are $0,1,0$.",
+    "shortcut_use": "Isolate $B$ and $C$ by substitution."
+   },
+   {
+    "kind": "short",
+    "stem": "Decompose $\\frac{3x+1}{(x-2)^2(x+1)}$ into the form $\\frac{A}{x-2}+\\frac{B}{(x-2)^2}+\\frac{C}{x+1}$. Give $A$, $B$ and $C$ in that order.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$1,\\frac{7}{3},-1$",
+    "hints": [
+     "Use a separate term for each power of $x-2$.",
+     "Substitute $x=2$ for $B$ and $x=-1$ for $C$ after clearing denominators.",
+     "Use $3x+1=A(x-2)(x+1)+B(x+1)+C(x-2)^2$, then substitute $x=0$ for $A$."
+    ],
+    "explanation": "At $x=2$, $7=3B$, so $B=\\frac{7}{3}$. At $x=-1$, $-2=9C$, so $C=-\\frac{2}{9}$. At $x=0$, $1=-2A+B+4C$, giving $A=\\frac{2}{9}$. The values are $\\frac{2}{9},\\frac{7}{3},-\\frac{2}{9}$.",
+    "shortcut_use": "Use the factor zeros to isolate two coefficients."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which terms are needed for a repeated factor $(x-a)^2$?",
+    "a": "Include $\\frac{A}{x-a}$ and $\\frac{B}{(x-a)^2}$."
+   },
+   {
+    "q": "Which substitution isolates the coefficient of $\\frac{B}{(x-a)^2}$?",
+    "a": "Clear denominators and substitute $x=a$."
+   }
+  ]
+ },
+ "SEM-P2-solving": {
+  "id": "SEM-P2-solving",
+  "hook": "Splitting a modulus equation into two lines can produce a root that makes the right-hand side negative.",
+  "when": "The equation has the form $|ax+b|=cx+d$.",
+  "idea": "Solve $ax+b=cx+d$ and $ax+b=-(cx+d)$, then keep only roots with $cx+d\\ge0$.",
+  "why": "An absolute value is always non-negative, and $|u|=v$ means $u=v$ or $u=-v$ only when $v\\ge0$. This condition must hold at every retained root.",
+  "steps": [
+   "Sketch or note the non-negative side of the modulus.",
+   "Solve the positive and negative linear cases.",
+   "Substitute each candidate into $cx+d\\ge0$.",
+   "Check retained roots in the original equation."
+  ],
+  "worked": {
+   "question": "Solve $|2x-1|=x+2$.",
+   "long": "For $x\\ge\\frac{1}{2}$, solve $2x-1=x+2$ to get $x=3$. For $x<\\frac{1}{2}$, solve $1-2x=x+2$ to get $x=-\\frac{1}{3}$. Both satisfy their cases.",
+   "short": "Solve $2x-1=x+2$ and $2x-1=-(x+2)$, giving $x=3$ and $x=-\\frac{1}{3}$. Both make $x+2\\ge0$.",
+   "saving": "The two equations give candidates quickly; the sign check catches invalid ones."
+  },
+  "pitfalls": [
+   "Keeping a candidate where $cx+d<0$.",
+   "Changing the sign of only one term when forming the negative case."
+  ],
+  "check": "Substitute every retained value into the original equation.",
+  "practice": [
+   {
+    "kind": "short",
+    "stem": "Solve $|x-2|=2x+1$ for real $x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "$x=\\frac{1}{3}$",
+    "hints": [
+     "The right-hand side must be non-negative.",
+     "Solve both signed linear equations.",
+     "Use $x-2=2x+1$ and $x-2=-(2x+1)$, then test $2x+1\\ge0$."
+    ],
+    "explanation": "The cases give $x=-3$ and $x=\\frac{1}{3}$. At $x=-3$, $2x+1=-5$, so reject it. The solution is $x=\\frac{1}{3}$.",
+    "shortcut_use": "Generate two candidates and apply the sign check."
+   },
+   {
+    "kind": "short",
+    "stem": "Solve $|3x+1|=x-1$ for real $x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "No real solution",
+    "hints": [
+     "Any solution needs a non-negative right-hand side.",
+     "Solve both signed cases first.",
+     "Use $3x+1=x-1$ and $3x+1=-(x-1)$, then test whether $x-1\\ge0$."
+    ],
+    "explanation": "The cases give $x=-1$ and $x=0$. Both make $x-1<0$, so there is no real solution.",
+    "shortcut_use": "Reject both candidates using the right-hand sign."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What condition must a solution of $|ax+b|=cx+d$ satisfy?",
+    "a": "$cx+d\\ge0$."
+   },
+   {
+    "q": "What two equations produce candidate solutions?",
+    "a": "$ax+b=cx+d$ and $ax+b=-(cx+d)$."
+   }
+  ]
+ },
+ "SEM-P2-circle-radius-reality-check": {
+  "id": "SEM-P2-circle-radius-reality-check",
+  "hook": "Completing the square can appear to give a circle even when its squared radius is negative.",
+  "when": "A locus is written as $x^2+y^2+2gx+2fy+c=0$.",
+  "idea": "Calculate $r^2=g^2+f^2-c$ before describing the locus.",
+  "why": "Completing the square gives $(x+g)^2+(y+f)^2=g^2+f^2-c$. For real $x,y$, the left side is non-negative: $r^2>0$ is a genuine circle, $r^2=0$ is one point, and $r^2<0$ gives no real locus.",
+  "steps": [
+   "Read $g$, $f$ and $c$ from the equation.",
+   "Calculate $r^2=g^2+f^2-c$.",
+   "Classify the locus from the sign of $r^2$.",
+   "If $r^2>0$, use centre $(-g,-f)$ and radius $\\sqrt{r^2}$."
+  ],
+  "worked": {
+   "question": "Classify $x^2+y^2-4x+6y+4=0$ and give its centre and radius if it is a circle.",
+   "long": "Complete the square: $(x-2)^2+(y+3)^2=9$. It is a circle with centre $(2,-3)$ and radius $3$.",
+   "short": "$g=-2$, $f=3$, $c=4$, so $r^2=4+9-4=9>0$. The centre is $(2,-3)$ and the radius is $3$.",
+   "saving": "The sign of $r^2$ establishes whether a real circle exists before further work."
+  },
+  "pitfalls": [
+   "Calling $r^2=0$ a circle with positive radius.",
+   "Taking a real square root when $r^2<0$.",
+   "Reading $g$ and $f$ without halving the coefficients of $x$ and $y$."
+  ],
+  "check": "The computed $r^2$ must equal the right-hand side after completing the square.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Classify the real locus $x^2+y^2+2x-4y+7=0$.",
+    "options": {
+     "A": "A circle of radius $\\sqrt{2}$",
+     "B": "One point",
+     "C": "No real locus",
+     "D": "A circle of radius $2$"
+    },
+    "answer": "C",
+    "hints": [
+     "Check the squared radius before naming the locus.",
+     "Read $g$, $f$ and $c$ from the coefficients.",
+     "Calculate $r^2=1^2+(-2)^2-7$ and inspect its sign."
+    ],
+    "explanation": "$g=1$, $f=-2$, $c=7$, so $r^2=1+4-7=-2$. A sum of real squares cannot equal $-2$, so there is no real locus.",
+    "shortcut_use": "Classify directly from the sign of $r^2$."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Classify the real locus $x^2+y^2-6x+2y+10=0$.",
+    "options": {
+     "A": "One point, $(3,-1)$",
+     "B": "A circle with centre $(3,-1)$ and radius $1$",
+     "C": "No real locus",
+     "D": "One point, $(-3,1)$"
+    },
+    "answer": "A",
+    "hints": [
+     "The sign of the squared radius distinguishes a circle from a point.",
+     "Here $g=-3$ and $f=1$.",
+     "Calculate $r^2=(-3)^2+1^2-10$, then use centre $(-g,-f)$."
+    ],
+    "explanation": "$r^2=9+1-10=0$, so the locus is the single point at the centre, $(3,-1)$.",
+    "shortcut_use": "Use $r^2$ to identify the zero-radius case."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is $r^2$ for $x^2+y^2+2gx+2fy+c=0$?",
+    "a": "$r^2=g^2+f^2-c$."
+   },
+   {
+    "q": "What do the three possible signs of $r^2$ mean?",
+    "a": "Positive means a genuine circle, zero means one point, and negative means no real locus."
+   }
+  ]
+ },
+ "SEM-P2-convert-the-gradient-fully-to-the-parameter": {
+  "id": "SEM-P2-convert-the-gradient-fully-to-the-parameter",
+  "hook": "Substituting the parameter into separate derivatives can obscure the tangent gradient. A line built with a gradient from the wrong parameter value misses the required point.",
+  "when": "A tangent or normal is required at $t=u$ on a parametric curve.",
+  "idea": "Simplify $\\frac{dy}{dx}=\\frac{dy/dt}{dx/dt}$ as a function of $t$, then evaluate it at $t=u$ before writing the line.",
+  "why": "The tangent gradient comes from the derivatives at the same point. This holds when both derivatives exist and $dx/dt$ is non-zero at $t=u$; a normal also needs a non-zero tangent gradient.",
+  "steps": [
+   "Find $x(u)$ and $y(u)$.",
+   "Simplify $\\frac{dy}{dx}$ in terms of $t$.",
+   "Evaluate the gradient at $t=u$ and write the line through $(x(u),y(u))$.",
+   "For a normal, use the negative reciprocal gradient."
+  ],
+  "worked": {
+   "question": "The curve has $x=t^2+1$ and $y=t^3$. Find its tangent at $t=2$.",
+   "long": "At $t=2$, $dx/dt=4$ and $dy/dt=12$, so the gradient is $3$. The point is $(5,8)$, giving $y-8=3(x-5)$.",
+   "short": "$\\frac{dy}{dx}=\\frac{3t^2}{2t}=\\frac{3t}{2}$. At $t=2$, the gradient is $3$; through $(5,8)$, the tangent is $y=3x-7$.",
+   "saving": "A single gradient expression keeps the parameter value tied to the point."
+  },
+  "pitfalls": [
+   "Evaluating the gradient at one value of $t$ and the point at another.",
+   "Cancelling $t$ without checking whether $t=0$ is allowed.",
+   "Using the tangent gradient for a normal."
+  ],
+  "check": "Substitute $(5,8)$ into $y=3x-7$; both sides give $8$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $x=t^2+2$ and $y=t^3$, find the tangent gradient at $t=4$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "The curve is parametric and a gradient is needed at one value of $t$.",
+     "Form $\\frac{dy/dt}{dx/dt}$ and simplify before substituting.",
+     "Use $dx/dt=2t$ and $dy/dt=3t^2$, then set $t=4$."
+    ],
+    "explanation": "$\\frac{dy}{dx}=\\frac{3t^2}{2t}=\\frac{3t}{2}$, so at $t=4$ the gradient is $6$.",
+    "shortcut_use": "Simplify the gradient to a function of $t$ first."
+   },
+   {
+    "kind": "mcq",
+    "stem": "For $x=t^2+1$ and $y=t^3$, which is the tangent at $t=3$?",
+    "options": {
+     "A": "$y-27=3(x-10)$",
+     "B": "$y-27=\\frac{9}{2}(x-10)$",
+     "C": "$y-9=\\frac{9}{2}(x-10)$",
+     "D": "$y-27=-\\frac{2}{9}(x-10)$"
+    },
+    "answer": "B",
+    "hints": [
+     "Find the point and gradient using the same parameter value.",
+     "Simplify $\\frac{dy}{dx}$ before putting $t=3$.",
+     "The point is $(10,27)$ and the gradient is $\\frac{3t}{2}$ at $t=3$."
+    ],
+    "explanation": "$\\frac{dy}{dx}=\\frac{3t}{2}$ gives gradient $\\frac{9}{2}$ at $t=3$. Since the point is $(10,27)$, the tangent is $y-27=\\frac{9}{2}(x-10)$.",
+    "shortcut_use": "Evaluate the simplified gradient at the stated parameter."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When finding a parametric tangent at $t=u$, what should you evaluate before writing the line?",
+    "a": "Evaluate the simplified $\\frac{dy}{dx}$ at $t=u$ and find $(x(u),y(u))$."
+   },
+   {
+    "q": "What must be true for $\\frac{dy/dt}{dx/dt}$ to give a finite tangent gradient?",
+    "a": "Both derivatives must exist and $dx/dt$ must be non-zero at the point."
+   }
+  ]
+ },
+ "SEM-P2-horizontal-chord-from-its-half-length": {
+  "id": "SEM-P2-horizontal-chord-from-its-half-length",
+  "hook": "Solving the circle equation for both chord endpoints repeats the same calculation. The half-length gives their horizontal distance from the centre immediately.",
+  "when": "A horizontal chord of known length lies in a circle given by $(x-h)^2+(y-k)^2=r^2$.",
+  "idea": "For chord length $L$, use $|x-h|=L/2$, then $|y-k|=\\sqrt{r^2-(L/2)^2}$.",
+  "why": "A perpendicular from the circle's centre bisects a horizontal chord. This holds for a chord of a circle when $0\\le L\\le2r$; the question's location determines the sign of $y-k$.",
+  "steps": [
+   "Check $L\\le2r$.",
+   "Set the horizontal half-length to $L/2$.",
+   "Calculate $\\sqrt{r^2-(L/2)^2}$.",
+   "Add or subtract it from $k$ as specified by the chord's position."
+  ],
+  "worked": {
+   "question": "The circle is $(x-2)^2+(y-3)^2=25$. A horizontal chord has length $8$ and lies above the centre. Find its $y$-coordinate.",
+   "long": "Write its endpoints as $(2-s,y)$ and $(2+s,y)$. Their separation is $2s=8$, so $s=4$; then $16+(y-3)^2=25$, giving $y=6$ above the centre.",
+   "short": "The half-length is $4$, so $|y-3|=\\sqrt{25-16}=3$. Above the centre, $y=3+3=6$.",
+   "saving": "It avoids solving for two endpoints separately."
+  },
+  "pitfalls": [
+   "Using $L$ in the circle equation instead of $L/2$.",
+   "Choosing the wrong sign for a chord above or below the centre.",
+   "Continuing when $L>2r$, which gives no real chord."
+  ],
+  "check": "At $y=6$, the endpoints have $x=2\\pm4$, so their separation is $8$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "In $(x-1)^2+(y-4)^2=100$, a horizontal chord of length $16$ lies below the centre. Find its $y$-coordinate.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-2",
+    "hints": [
+     "A horizontal chord is bisected by the vertical line through the centre.",
+     "Use half the chord length as $|x-1|$.",
+     "Calculate $|y-4|=\\sqrt{100-(16/2)^2}$ and choose the lower sign."
+    ],
+    "explanation": "$|x-1|=8$, so $|y-4|=\\sqrt{100-64}=6$. Below the centre, $y=4-6=-2$.",
+    "shortcut_use": "Use the chord's half-length in the circle equation."
+   },
+   {
+    "kind": "mcq",
+    "stem": "The circle is $(x+2)^2+(y-1)^2=25$. A horizontal chord of length $6$ lies above the centre. What is its $y$-coordinate?",
+    "options": {
+     "A": "$5$",
+     "B": "$-3$",
+     "C": "$1+\\sqrt{16}$",
+     "D": "$1+\\sqrt{34}$"
+    },
+    "answer": "A",
+    "hints": [
+     "The chord length is twice the horizontal distance from its midpoint to an endpoint.",
+     "Put half the chord length into the circle equation.",
+     "Use $|y-1|=\\sqrt{25-3^2}$ and take the value above $1$."
+    ],
+    "explanation": "The half-length is $3$, so $|y-1|=\\sqrt{25-9}=4$. Above the centre, $y=1+4=5$.",
+    "shortcut_use": "Replace the horizontal offset with half the chord length."
+   }
+  ],
+  "recall": [
+   {
+    "q": "For a horizontal chord of length $L$, what is an endpoint's horizontal distance from the centre?",
+    "a": "It is $L/2$."
+   },
+   {
+    "q": "What condition must a chord length satisfy in a circle of radius $r$?",
+    "a": "It must satisfy $0\\le L\\le2r$."
+   }
+  ]
+ },
+ "SEM-P2-parametric-elimination-keeps-its-range": {
+  "id": "SEM-P2-parametric-elimination-keeps-its-range",
+  "hook": "Eliminating the parameter can produce an entire Cartesian curve when the given interval traces only part of it. A square root can also introduce an unwanted branch.",
+  "when": "A parametric curve includes a restriction on $t$, especially when $x=t^2$ or another expression is not one-to-one without that restriction.",
+  "idea": "Eliminate $t$ and carry its given interval into restrictions on $x$ and $y$; if $x=t^2$ and $t\\ge0$, use $t=\\sqrt{x}$.",
+  "why": "The parameter interval determines which points are traced. This holds whenever elimination would otherwise lose information about the allowed values or sign of $t$.",
+  "steps": [
+   "Solve for $t$ using its allowed sign or interval.",
+   "Substitute to get a Cartesian equation.",
+   "Translate the parameter endpoints into coordinate restrictions.",
+   "Check an endpoint and the direction traced as $t$ increases."
+  ],
+  "worked": {
+   "question": "For $x=t^2$ and $y=t+1$, with $0\\le t\\le3$, give the Cartesian equation and restrictions.",
+   "long": "From $t=y-1$, obtain $x=(y-1)^2$. The interval gives $1\\le y\\le4$ and $0\\le x\\le9$.",
+   "short": "Since $t\\ge0$, $t=\\sqrt{x}$, so $y=1+\\sqrt{x}$ for $0\\le x\\le9$. The curve runs from $(0,1)$ to $(9,4)$.",
+   "saving": "It excludes the lower square-root branch."
+  },
+  "pitfalls": [
+   "Writing $t=\\pm\\sqrt{x}$ when the given interval has $t\\ge0$.",
+   "Giving only the Cartesian equation and omitting the coordinate range.",
+   "Reversing the direction of travel between the endpoints."
+  ],
+  "check": "The endpoint $t=3$ must give $(9,4)$ and satisfy the restricted equation.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $x=t^2$ and $y=2t+1$, with $0\\le t\\le4$, find the greatest possible $y$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "9",
+    "hints": [
+     "The parameter interval limits the curve.",
+     "Use the endpoint that makes $t$ largest.",
+     "Substitute the upper endpoint into $y=2t+1$."
+    ],
+    "explanation": "For $0\\le t\\le4$, $y=2t+1$ increases with $t$. At $t=4$, its greatest value is $9$.",
+    "shortcut_use": "Carry the parameter endpoint into the coordinate range."
+   },
+   {
+    "kind": "mcq",
+    "stem": "For $x=t^2$ and $y=t-2$, with $0\\le t\\le5$, which Cartesian description gives exactly the traced curve?",
+    "options": {
+     "A": "$y=-2+\\sqrt{x}$, $0\\le x\\le25$",
+     "B": "$y=-2-\\sqrt{x}$, $0\\le x\\le25$",
+     "C": "$(y+2)^2=x$, with no restrictions",
+     "D": "$y=-2+\\sqrt{x}$, $x\\ge0$"
+    },
+    "answer": "A",
+    "hints": [
+     "The allowed parameter values have only one sign.",
+     "Solve $x=t^2$ using that sign.",
+     "Use $t=\\sqrt{x}$ and translate $0\\le t\\le5$ into an $x$ interval."
+    ],
+    "explanation": "Since $t\\ge0$, $t=\\sqrt{x}$, so $y=-2+\\sqrt{x}$. The upper endpoint gives $x=25$, hence $0\\le x\\le25$.",
+    "shortcut_use": "Keep the sign and range of $t$ during elimination."
+   }
+  ],
+  "recall": [
+   {
+    "q": "If $x=t^2$ and $t\\ge0$, which expression gives $t$?",
+    "a": "$t=\\sqrt{x}$."
+   },
+   {
+    "q": "What information can be lost when eliminating a parameter?",
+    "a": "The coordinate range, branch and direction traced by the given parameter interval."
+   }
+  ]
+ },
+ "SEM-P2-gradient": {
+  "id": "SEM-P2-gradient",
+  "hook": "A parametric curve may not give $y$ directly as a function of $x$. Eliminating the parameter just to differentiate can add algebra and sign slips.",
+  "when": "Both $x$ and $y$ are given in terms of $t$, and a tangent or normal gradient is required.",
+  "idea": "Use $\\frac{dy}{dx}=\\frac{dy/dt}{dx/dt}$; for a normal, use $-\\frac{dx/dt}{dy/dt}$.",
+  "why": "The chain rule gives the tangent ratio when the derivatives exist and $dx/dt\\ne0$. The normal formula is its negative reciprocal when $dy/dt\\ne0$ as well.",
+  "steps": [
+   "Differentiate $x$ and $y$ with respect to $t$.",
+   "Evaluate both derivatives at the stated parameter value.",
+   "Divide $dy/dt$ by $dx/dt$ for the tangent.",
+   "For a normal, take the negative reciprocal."
+  ],
+  "worked": {
+   "question": "For $x=t^2+1$ and $y=t^3$, find the normal gradient at $t=2$.",
+   "long": "At $t=2$, the point is $(5,8)$. Eliminating $t$ locally gives $y=(x-1)^{3/2}$, whose tangent gradient there is $3$; the normal gradient is $-\\frac{1}{3}$.",
+   "short": "$dx/dt=2t=4$ and $dy/dt=3t^2=12$, so the normal gradient is $-4/12=-\\frac{1}{3}$.",
+   "saving": "It avoids eliminating the parameter."
+  },
+  "pitfalls": [
+   "Reversing the tangent ratio.",
+   "Forgetting the negative sign in the normal gradient.",
+   "Using the normal formula where $dy/dt=0$ without checking the line's direction."
+  ],
+  "check": "The tangent gradient is $3$; multiplying it by the normal gradient gives $-1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $x=t^2+3$ and $y=t^3$, find the tangent gradient at $t=4$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "Both coordinates depend on $t$.",
+     "Divide $dy/dt$ by $dx/dt$.",
+     "Use $dy/dt=3t^2$ and $dx/dt=2t$ at $t=4$."
+    ],
+    "explanation": "$\\frac{dy}{dx}=\\frac{3t^2}{2t}=\\frac{3t}{2}$, which is $6$ at $t=4$.",
+    "shortcut_use": "Take the ratio of parametric derivatives."
+   },
+   {
+    "kind": "mcq",
+    "stem": "For $x=t^2+2$ and $y=t^3$, what is the normal gradient at $t=3$?",
+    "options": {
+     "A": "$-\\frac{2}{9}$",
+     "B": "$\\frac{2}{9}$",
+     "C": "$\\frac{9}{2}$",
+     "D": "$-\\frac{9}{2}$"
+    },
+    "answer": "A",
+    "hints": [
+     "A normal uses the negative reciprocal of the tangent gradient.",
+     "Use $-\\frac{dx/dt}{dy/dt}$.",
+     "At $t=3$, put $dx/dt=2t$ and $dy/dt=3t^2$ into that ratio."
+    ],
+    "explanation": "The normal gradient is $-\\frac{2t}{3t^2}=-\\frac{2}{3t}$, giving $-\\frac{2}{9}$ at $t=3$.",
+    "shortcut_use": "Use the normal derivative ratio directly."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you find a tangent gradient from $x(t)$ and $y(t)$?",
+    "a": "Use $\\frac{dy}{dx}=\\frac{dy/dt}{dx/dt}$ when $dx/dt\\ne0$."
+   },
+   {
+    "q": "What is the normal gradient in terms of parametric derivatives?",
+    "a": "It is $-\\frac{dx/dt}{dy/dt}$ when both derivative ratios are defined."
+   }
+  ]
+ },
+ "SEM-P2-parametric-to-cartesian": {
+  "id": "SEM-P2-parametric-to-cartesian",
+  "hook": "Solving explicitly for the parameter can introduce roots and unnecessary sign choices. Recognising a standard pair removes the parameter in one step.",
+  "when": "The coordinates have the form $x=a\\cos t$, $y=b\\sin t$, or $x=at^2$, $y=2at$.",
+  "idea": "Use $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$ for the trigonometric pair, and $y^2=4ax$ for the quadratic pair.",
+  "why": "The first identity follows from $\\cos^2t+\\sin^2t=1$; the second follows by squaring $y=2at$. Both require non-zero constants used in division. The Cartesian equation may include extra points if the parameter interval is restricted.",
+  "steps": [
+   "Identify which standard pair matches the coordinates.",
+   "Square and combine the coordinates to remove $t$.",
+   "State the resulting Cartesian equation.",
+   "If a parameter interval is given, retain its coordinate restrictions."
+  ],
+  "worked": {
+   "question": "For $x=3t^2$ and $y=6t$, with all real $t$, find the Cartesian equation.",
+   "long": "From $t=y/6$, substitute into $x=3t^2$ to get $x=3y^2/36=y^2/12$.",
+   "short": "Here $a=3$ and $y=2at$, so $y^2=4ax=12x$.",
+   "saving": "The recognised form avoids solving for $t$."
+  },
+  "pitfalls": [
+   "Writing $y^2=2ax$ instead of $4ax$.",
+   "Using the ellipse equation without squaring both coordinate ratios.",
+   "Ignoring a restricted parameter interval when describing the traced curve."
+  ],
+  "check": "At $t=1$, the point $(3,6)$ satisfies $6^2=12(3)$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $x=5t^2$ and $y=10t$, write the Cartesian equation as $y^2=Cx$. Find $C$ as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "20",
+    "hints": [
+     "The coordinates match the quadratic standard pair.",
+     "Identify $a$ in $x=at^2$ and $y=2at$.",
+     "Use $C=4a$ with $a=5$."
+    ],
+    "explanation": "The pair has $a=5$, so $y^2=4ax=20x$. Thus $C=20$.",
+    "shortcut_use": "Recognise $y^2=4ax$."
+   },
+   {
+    "kind": "mcq",
+    "stem": "For $x=4\\cos t$ and $y=3\\sin t$, with $0\\le t\\le2\\pi$, which Cartesian equation holds?",
+    "options": {
+     "A": "$\\frac{x^2}{16}+\\frac{y^2}{9}=1$",
+     "B": "$\\frac{x^2}{4}+\\frac{y^2}{3}=1$",
+     "C": "$\\frac{x^2}{9}+\\frac{y^2}{16}=1$",
+     "D": "$\\frac{x}{4}+\\frac{y}{3}=1$"
+    },
+    "answer": "A",
+    "hints": [
+     "The coordinates are scaled cosine and sine.",
+     "Divide each coordinate by its scale, then square.",
+     "Combine $(x/4)^2=\\cos^2t$ and $(y/3)^2=\\sin^2t$."
+    ],
+    "explanation": "$\\frac{x^2}{16}=\\cos^2t$ and $\\frac{y^2}{9}=\\sin^2t$. Their sum is $1$, so $\\frac{x^2}{16}+\\frac{y^2}{9}=1$.",
+    "shortcut_use": "Apply the sine and cosine square identity."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What Cartesian equation follows from $x=a\\cos t$ and $y=b\\sin t$?",
+    "a": "$\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$ for non-zero $a$ and $b$."
+   },
+   {
+    "q": "What Cartesian equation follows from $x=at^2$ and $y=2at$?",
+    "a": "$y^2=4ax$."
+   }
+  ]
+ },
+ "SEM-P2-find-a-sinusoid-from-its-extremes": {
+  "id": "SEM-P2-find-a-sinusoid-from-its-extremes",
+  "hook": "Finding amplitude and vertical shift by solving several equations takes extra algebra. The maximum and minimum reveal both directly.",
+  "when": "A sinusoidal model's maximum $M$ and minimum $m$ are given, and its amplitude or midline is needed.",
+  "idea": "Set amplitude $R=\\frac{M-m}{2}$ and midline $d=\\frac{M+m}{2}$.",
+  "why": "A sinusoid of the form $d+R\\sin(\\cdots)$ or $d+R\\cos(\\cdots)$ has extremes $d+R$ and $d-R$, provided both extremes are attained over the interval considered.",
+  "steps": [
+   "Read the maximum $M$ and minimum $m$.",
+   "Find $R=\\frac{M-m}{2}$.",
+   "Find $d=\\frac{M+m}{2}$.",
+   "Check $d+R=M$ and $d-R=m$."
+  ],
+  "worked": {
+   "question": "A sinusoidal temperature model reaches a maximum of $26$ °C and a minimum of $14$ °C over a full cycle. Find its amplitude and midline.",
+   "long": "Solve $d+R=26$ and $d-R=14$ simultaneously to obtain $d=20$ and $R=6$.",
+   "short": "$R=(26-14)/2=6$ °C and $d=(26+14)/2=20$ °C.",
+   "saving": "Two direct calculations replace simultaneous equations."
+  },
+  "pitfalls": [
+   "Taking the full range $M-m$ as the amplitude.",
+   "Using the minimum as the midline.",
+   "Applying the formula to observed values that are not the sinusoid's true extremes."
+  ],
+  "check": "$20+6=26$ and $20-6=14$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A sinusoid has a maximum of $17$ and a minimum of $-3$ over a full cycle. Find its amplitude as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "The maximum and minimum are the two extremes.",
+     "The amplitude is half their difference.",
+     "Calculate $\\frac{17-(-3)}{2}$."
+    ],
+    "explanation": "$R=\\frac{M-m}{2}=\\frac{17-(-3)}{2}=10$.",
+    "shortcut_use": "Take half the range."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A sinusoid reaches $32$ at its maximum and $8$ at its minimum over a full cycle. Which amplitude and midline are correct?",
+    "options": {
+     "A": "Amplitude $12$, midline $20$",
+     "B": "Amplitude $24$, midline $20$",
+     "C": "Amplitude $12$, midline $8$",
+     "D": "Amplitude $20$, midline $12$"
+    },
+    "answer": "A",
+    "hints": [
+     "The midline lies halfway between the extremes.",
+     "Find half the difference and half the sum.",
+     "Use $R=(32-8)/2$ and $d=(32+8)/2$."
+    ],
+    "explanation": "$R=(32-8)/2=12$ and $d=(32+8)/2=20$, so the pair is amplitude $12$, midline $20$.",
+    "shortcut_use": "Read amplitude and midline from the extremes."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you find amplitude from a sinusoid's maximum and minimum?",
+    "a": "The amplitude is half their difference, $R=\\frac{M-m}{2}$."
+   },
+   {
+    "q": "How do you find the midline from the extremes?",
+    "a": "The midline is their mean, $d=\\frac{M+m}{2}$."
+   }
+  ]
+ },
+ "SEM-P2-restrict-the-harmonic-maximum-to-the-given-inter": {
+  "id": "SEM-P2-restrict-the-harmonic-maximum-to-the-given-inter",
+  "hook": "The amplitude $R$ is an upper bound, but a short interval may miss every peak. Claiming $R$ without checking the interval can overstate the maximum.",
+  "when": "Find the maximum of $a\\sin x+b\\cos x$ on a stated, restricted interval.",
+  "idea": "Write $a\\sin x+b\\cos x=R\\sin(x+\\alpha)$. Compare both endpoints and every in-range point satisfying $x+\\alpha=\\pi/2+2\\pi k$.",
+  "why": "Sine reaches its maximum of $1$ at those peak arguments; on a closed interval, a continuous sinusoid's maximum occurs at an endpoint or an interior peak. This assumes $R>0$; if $R=0$, the expression is constantly zero.",
+  "steps": [
+   "Rewrite the expression as $R\\sin(x+\\alpha)$.",
+   "List both interval endpoints.",
+   "Find all in-range solutions of $x+\\alpha=\\pi/2+2\\pi k$.",
+   "Evaluate the expression at those points and take the largest value."
+  ],
+  "worked": {
+   "question": "Find the maximum of $3\\sin x+4\\cos x$ for $0\\le x\\le\\pi/6$.",
+   "long": "Differentiate: $3\\cos x-4\\sin x=0$ gives $\\tan x=3/4$, which lies beyond $\\pi/6$. Compare endpoints: $4$ at $0$ and $3/2+2\\sqrt{3}$ at $\\pi/6$, so the latter is the maximum.",
+   "short": "Write $3\\sin x+4\\cos x=5\\sin(x+\\alpha)$ with $\\sin\\alpha=4/5$ and $\\cos\\alpha=3/5$. The first peak requires $\\tan x=3/4$, outside $[0,\\pi/6]$. The larger endpoint is $3/2+2\\sqrt{3}$.",
+   "saving": "Checking whether the peak lies in the interval prevents the false answer $5$.﻿"
+  },
+  "pitfalls": [
+   "Claiming $R$ even when no peak lies in the interval.",
+   "Checking an interior peak but omitting the endpoints.",
+   "Using a peak equation for a minimum or missing a peak after a full turn."
+  ],
+  "check": "The restricted maximum must be at most $R$; here $3/2+2\\sqrt{3}<5$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the maximum of $3\\sin x+4\\cos x$ for $0\\le x\\le\\pi/6$. Give the result as a decimal to $3$ decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.964",
+    "hints": [
+     "The interval may not contain the full amplitude.",
+     "Check whether the harmonic peak is inside the interval, then compare endpoints.",
+     "The peak requires $\\tan x=3/4$; evaluate the expression at $x=0$ and $x=\\pi/6$."
+    ],
+    "explanation": "The peak at $\\tan x=3/4$ lies beyond $\\pi/6$. The endpoint values are $4$ and $3/2+2\\sqrt{3}\\approx4.964$, so the maximum to $3$ decimal places is $4.964$.",
+    "shortcut_use": "Reject the out-of-range peak and compare endpoints."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Find the maximum of $\\sin x+\\cos x$ for $0\\le x\\le\\pi/6$.",
+    "options": {
+     "A": "$\\frac{1+\\sqrt{3}}{2}$",
+     "B": "$\\sqrt{2}$",
+     "C": "$1$",
+     "D": "$\\frac{\\sqrt{3}-1}{2}$"
+    },
+    "answer": "A",
+    "hints": [
+     "The full amplitude is reached only if a peak lies in the interval.",
+     "Write the expression as $\\sqrt{2}\\sin(x+\\pi/4)$.",
+     "Its peak requires $x=\\pi/4$ modulo $2\\pi$; compare the two given endpoints."
+    ],
+    "explanation": "$\\sin x+\\cos x=\\sqrt{2}\\sin(x+\\pi/4)$ peaks at $x=\\pi/4$, outside the interval. The endpoint values are $1$ and $\\frac{1+\\sqrt{3}}{2}$, so the latter is the maximum.",
+    "shortcut_use": "Test the peak against the restricted interval."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When does $R\\sin(x+\\alpha)$ attain $R$?",
+    "a": "When $x+\\alpha=\\pi/2+2\\pi k$ for an integer $k$."
+   },
+   {
+    "q": "Which points must be tested for a harmonic maximum on a closed interval?",
+    "a": "Test both endpoints and every in-range sine peak."
+   }
+  ]
+ },
+ "SEM-P2-count-gaps-rather-than-data-points": {
+  "id": "SEM-P2-count-gaps-rather-than-data-points",
+  "hook": "Counting table entries as strips makes the step width too small. That wrong width scales the whole trapezium estimate.",
+  "when": "A trapezium-rule table has $m$ equally spaced ordinates from $x=a$ to $x=b$.",
+  "idea": "There are $m-1$ strips, so $h=\\frac{b-a}{m-1}$.",
+  "why": "Each strip is the gap between adjacent ordinates. This holds when the $m$ ordinates include both endpoints and are equally spaced.",
+  "steps": [
+   "Count the ordinates, including both endpoints.",
+   "Subtract one to get the number of strips.",
+   "Calculate $h=(b-a)/(m-1)$.",
+   "Check that $(m-1)h=b-a$, then apply trapezium weights."
+  ],
+  "worked": {
+   "question": "Five equally spaced ordinates from $x=0$ to $x=8$ have values $1,2,3,4,5$. Estimate the area beneath the curve by the trapezium rule.",
+   "long": "The table positions are $0,2,4,6,8$, making four trapezia. Their areas are $3,5,7,9$, totalling $24$.",
+   "short": "Five ordinates give four strips and $h=8/4=2$. The estimate is $\\frac{2}{2}[1+2(2+3+4)+5]=24$.",
+   "saving": "It prevents dividing the interval by five instead of four."
+  },
+  "pitfalls": [
+   "Using $h=(b-a)/m$.",
+   "Giving the first and last ordinates double weight.",
+   "Assuming equal spacing when the listed $x$ values are unequal."
+  ],
+  "check": "The four widths must total $8$: $4h=8$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Six equally spaced ordinates span $x=1$ to $x=11$. Find their spacing $h$ as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2",
+    "hints": [
+     "Count gaps between consecutive ordinates.",
+     "The strip count is one less than the ordinate count.",
+     "Use $h=(11-1)/(6-1)$."
+    ],
+    "explanation": "Six ordinates make five gaps, so $h=(11-1)/5=2$.",
+    "shortcut_use": "Count gaps before dividing the interval."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Four equally spaced ordinates from $x=0$ to $x=6$ have values $1,3,3,1$. What is the trapezium-rule estimate?",
+    "options": {
+     "A": "$14$",
+     "B": "$12$",
+     "C": "$16$",
+     "D": "$8$"
+    },
+    "answer": "A",
+    "hints": [
+     "Four ordinates make fewer than four strips.",
+     "Find $h$ from the three gaps.",
+     "Use $h=(6-0)/3$ and $\\frac{h}{2}[y_0+2y_1+2y_2+y_3]$."
+    ],
+    "explanation": "There are three strips, so $h=6/3=2$. The estimate is $\\frac{2}{2}[1+2(3)+2(3)+1]=14$.",
+    "shortcut_use": "Use three gaps for four ordinates."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How many strips do $m$ equally spaced ordinates form?",
+    "a": "They form $m-1$ strips."
+   },
+   {
+    "q": "What is the strip width from $a$ to $b$ with $m$ equally spaced ordinates?",
+    "a": "$h=\\frac{b-a}{m-1}$."
+   }
+  ]
+ },
+ "SEM-P2-delay-rounding-a-sequence-parameter": {
+  "id": "SEM-P2-delay-rounding-a-sequence-parameter",
+  "hook": "Rounding a common difference or ratio early can change a later sum. Keep it exact until the final answer.",
+  "when": "An AP or GP parameter found in one part is used to calculate terms or a sum in a later part.",
+  "idea": "Retain the common difference $d$ or ratio $r$ as a fraction or an exact expression throughout.",
+  "why": "AP terms satisfy $u_n=a+(n-1)d$, and GP terms satisfy $u_n=ar^{n-1}$. Substituting an exact parameter preserves the stated data; rounding it changes the sequence.",
+  "steps": [
+   "Find $d$ or $r$ exactly.",
+   "Check that it reconstructs the first two given terms.",
+   "Use the exact value in later terms or sums.",
+   "Round only the final answer, if required."
+  ],
+  "worked": {
+   "question": "An AP has first term $2$ and second term $\\frac{7}{3}$. Find the sum of its first $10$ terms.",
+   "long": "The difference is $\\frac{1}{3}$. Add $2+\\frac{7}{3}+\\cdots+5$ to get $35$.",
+   "short": "Keep $d=\\frac{1}{3}$. Then $S_{10}=\\frac{10}{2}[2(2)+9(\\frac{1}{3})]=35$.",
+   "saving": "Using $0.33$ for $d$ would give $34.85$."
+  },
+  "pitfalls": [
+   "Rounding $\\frac{1}{3}$ to $0.33$ before calculating the sum.",
+   "Checking only the first reconstructed term; it does not test the difference or ratio."
+  ],
+  "check": "Reconstruct the second term: $2+\\frac{1}{3}=\\frac{7}{3}$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "An AP begins $3,\\frac{10}{3},\\ldots$. Find the sum of its first $12$ terms.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "58",
+    "hints": [
+     "The first two terms give the common difference.",
+     "Keep that difference as a fraction.",
+     "Use $S_{12}=\\frac{12}{2}[2(3)+11d]$."
+    ],
+    "explanation": "$d=\\frac{10}{3}-3=\\frac{1}{3}$, so $S_{12}=6(6+\\frac{11}{3})=58$.",
+    "shortcut_use": "Keep $d$ exact in the sum formula."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A GP begins $2,\\frac{3}{2},\\ldots$. Find the sum of its first $3$ terms.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.625",
+    "hints": [
+     "The first two terms give the common ratio.",
+     "Keep the ratio as a fraction.",
+     "Calculate $2+2r+2r^2$."
+    ],
+    "explanation": "$r=\\frac{3}{4}$, so the sum is $2+\\frac{3}{2}+\\frac{9}{8}=4.625$.",
+    "shortcut_use": "Keep $r$ exact when finding the third term."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When should a sequence parameter be rounded?",
+    "a": "Only after all later terms and sums have been calculated."
+   },
+   {
+    "q": "How can you check a common difference or ratio?",
+    "a": "Use it to reconstruct the first two terms and compare them with the given terms."
+   }
+  ]
+ },
+ "SEM-P2-protect-the-interior-trapezium-sum-with-brackets": {
+  "id": "SEM-P2-protect-the-interior-trapezium-sum-with-brackets",
+  "hook": "A missing bracket can give an interior ordinate the wrong weight. That can spoil an otherwise correct trapezium estimate.",
+  "when": "A trapezium-rule question gives equally spaced ordinates from $y_0$ to $y_n$.",
+  "idea": "Write $T=\\frac{h}{2}[y_0+y_n+2(y_1+\\cdots+y_{n-1})]$ and bracket the complete interior sum.",
+  "why": "For equally spaced ordinates, each interior ordinate belongs to two trapezia, while each endpoint belongs to one. The formula holds when the spacing is the same $h$ throughout.",
+  "steps": [
+   "Find the common spacing $h$.",
+   "Add the endpoints once.",
+   "Add all interior ordinates inside brackets and double that sum.",
+   "Multiply the result by $\\frac{h}{2}$."
+  ],
+  "worked": {
+   "question": "At equally spaced points $0,1,2,3$ m, the ordinates are $2,5,4,3$ m. Estimate the area by the trapezium rule.",
+   "long": "Add the three trapezium areas: $\\frac{1}{2}(2+5)+\\frac{1}{2}(5+4)+\\frac{1}{2}(4+3)=11.5$ m$^2$.",
+   "short": "$T=\\frac{1}{2}[2+3+2(5+4)]=11.5$ m$^2$.",
+   "saving": "The bracket makes it clear that both $5$ and $4$ are doubled."
+  },
+  "pitfalls": [
+   "Writing $2(5)+4$ instead of $2(5+4)$.",
+   "Doubling an endpoint ordinate.",
+   "Using one value of $h$ when the points are unequally spaced."
+  ],
+  "check": "The weights should read $1,2,2,1$ across the four ordinates.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "At equally spaced points $0,2,4,6$ m, the ordinates are $1,3,5,2$ m. Use the trapezium rule to estimate the area, in m$^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "19",
+    "hints": [
+     "There are three equal intervals.",
+     "Bracket the two interior ordinates before doubling.",
+     "Set up $T=\\frac{2}{2}[1+2+2(3+5)]$."
+    ],
+    "explanation": "$T=\\frac{2}{2}[1+2+2(3+5)]=19$ m$^2$.",
+    "shortcut_use": "Double the bracketed interior sum."
+   },
+   {
+    "kind": "numeric",
+    "stem": "At equally spaced points $0,0.5,1,1.5$ m, the ordinates are $4,2,6,8$ m. Use the trapezium rule to estimate the area, in m$^2$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "7",
+    "hints": [
+     "The common interval width is $0.5$ m.",
+     "Give the endpoints weight $1$ and the interior ordinates weight $2$.",
+     "Set up $T=\\frac{0.5}{2}[4+8+2(2+6)]$."
+    ],
+    "explanation": "$T=\\frac{0.5}{2}[4+8+2(2+6)]=7$ m$^2$.",
+    "shortcut_use": "Bracket and double both interior ordinates."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What are the trapezium-rule weights for endpoints and interior ordinates?",
+    "a": "Endpoints have weight $1$ and interior ordinates have weight $2$."
+   },
+   {
+    "q": "When can one common $h$ be used in the bracketed trapezium formula?",
+    "a": "When all ordinate positions are equally spaced."
+   }
+  ]
+ },
+ "SEM-P2-three-terms-in-gp": {
+  "id": "SEM-P2-three-terms-in-gp",
+  "hook": "Solving separately for the first term and ratio adds algebra. The middle term gives a direct relation between the outer terms.",
+  "when": "Three consecutive terms of a GP are given, with one term unknown.",
+  "idea": "Write the terms as $\\frac{a}{r},a,ar$; equivalently, for consecutive terms $p,b,q$, use $b^2=pq$.",
+  "why": "For a GP with a non-zero common ratio $r$, $\\frac{a}{r}\\times ar=a^2$. Thus the middle term squared equals the product of the outer terms.",
+  "steps": [
+   "Identify the three consecutive terms in order.",
+   "Set the middle term squared equal to the product of the outer terms.",
+   "Solve for the unknown.",
+   "Check that the two consecutive ratios agree."
+  ],
+  "worked": {
+   "question": "The consecutive terms $3,6,k$ form a GP. Find $k$.",
+   "long": "The ratio is $6/3=2$, so $k=6(2)=12$.",
+   "short": "$6^2=3k$, so $k=12$.",
+   "saving": "One equation replaces a separate ratio calculation."
+  },
+  "pitfalls": [
+   "Using $b^2=pq$ for terms that are not consecutive.",
+   "Taking only the positive root when solving $b^2=pq$ for an unknown middle term.",
+   "Writing $a/r$ when $r=0$; that representation requires a non-zero ratio."
+  ],
+  "check": "The consecutive ratios in the example are $6/3=12/6=2$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The consecutive terms $5,k,20$ form a GP with a positive common ratio. Find $k$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "The unknown is the middle term of three consecutive GP terms.",
+     "Square the middle term and multiply the outer terms.",
+     "Set up $k^2=5(20)$, then use the positive ratio condition."
+    ],
+    "explanation": "$k^2=5(20)=100$. A positive ratio makes $k$ positive, so $k=10$.",
+    "shortcut_use": "Use middle term squared equals outer-term product."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The consecutive terms $4,-8,k$ form a GP. Find $k$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "16",
+    "hints": [
+     "The known middle term is negative.",
+     "Set its square equal to the product of the outer terms.",
+     "Set up $(-8)^2=4k$."
+    ],
+    "explanation": "$(-8)^2=4k$, so $k=16$.",
+    "shortcut_use": "Use the middle-square relation directly."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What relation holds for three consecutive GP terms $p,b,q$?",
+    "a": "$b^2=pq$."
+   },
+   {
+    "q": "How can three consecutive GP terms be centred on $a$?",
+    "a": "Write them as $\\frac{a}{r},a,ar$ for non-zero $r$. "
+   }
+  ]
+ },
+ "SEM-P2-differentiate-a-factorised-product-at-a-root": {
+  "id": "SEM-P2-differentiate-a-factorised-product-at-a-root",
+  "hook": "Expanding a product before differentiating creates unnecessary terms. At a known root, most product-rule terms vanish.",
+  "when": "A function is given as $f(x)=(x-a)g(x)$ and only the tangent gradient at $x=a$ is required.",
+  "idea": "Use $f'(a)=g(a)$.",
+  "why": "Where $g$ is differentiable at $a$, the product rule gives $f'(x)=g(x)+(x-a)g'(x)$; the second term is zero at $x=a$. Also $f(a)=0$.",
+  "steps": [
+   "Identify the factor $x-a$.",
+   "Evaluate the remaining factor $g(a)$.",
+   "Use it as the tangent gradient.",
+   "Use $(a,0)$ if the tangent equation is needed."
+  ],
+  "worked": {
+   "question": "For $f(x)=(x-2)(x^2+3x+1)$, find the gradient of the tangent at $x=2$.",
+   "long": "Expand to $x^3+x^2-5x-2$, then differentiate to $3x^2+2x-5$ and substitute $x=2$ to get $11$.",
+   "short": "$g(2)=2^2+3(2)+1=11$, so $f'(2)=11$.",
+   "saving": "It avoids expanding and collecting polynomial terms."
+  },
+  "pitfalls": [
+   "Using $g(a)$ when the factor is $k(x-a)$; the gradient is then $kg(a)$.",
+   "Assuming the tangent passes through $(a,0)$ without checking that $f(a)=0$.",
+   "Applying the result where $g$ is not differentiable at $a$."
+  ],
+  "check": "The point is $(2,0)$ because the factor $x-2$ vanishes there.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $f(x)=(x-3)(2x^2-x+4)$, find the tangent gradient at $x=3$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "19",
+    "hints": [
+     "The gradient is requested at the root of the first factor.",
+     "Evaluate the other factor at that root.",
+     "Calculate $2(3)^2-3+4$."
+    ],
+    "explanation": "The factor $x-3$ vanishes at $x=3$, so $f'(3)=2(3)^2-3+4=19$.",
+    "shortcut_use": "Evaluate $g(3)$ instead of expanding."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $f(x)=(x+1)(x^2-4x+2)$, find the tangent gradient at $x=-1$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "7",
+    "hints": [
+     "Rewrite the first factor as $x-(-1)$.",
+     "Evaluate the remaining factor at $-1$.",
+     "Calculate $(-1)^2-4(-1)+2$."
+    ],
+    "explanation": "$f'(-1)=(-1)^2-4(-1)+2=7$.",
+    "shortcut_use": "Evaluate the non-vanishing factor at the root."
+   }
+  ],
+  "recall": [
+   {
+    "q": "If $f(x)=(x-a)g(x)$, what is $f'(a)$?",
+    "a": "$f'(a)=g(a)$ when $g$ is differentiable at $a$."
+   },
+   {
+    "q": "Which point does the tangent at $x=a$ pass through?",
+    "a": "It passes through $(a,0)$. "
+   }
+  ]
+ },
+ "SEM-P2-equations-with-and": {
+  "id": "SEM-P2-equations-with-and",
+  "hook": "Dividing by $\\sin x$ can discard valid solutions. Factor first so every branch remains visible.",
+  "when": "A trigonometric equation has terms containing both $\\sin 2x$ and $\\sin x$.",
+  "idea": "Replace $\\sin 2x$ by $2\\sin x\\cos x$, then factor out $\\sin x$. Solve $\\sin x=0$ and the remaining factor separately.",
+  "why": "The identity $\\sin 2x=2\\sin x\\cos x$ holds for every real $x$. A product is zero when either factor is zero, including $\\sin x=0$.",
+  "steps": [
+   "Rewrite $\\sin 2x$ as $2\\sin x\\cos x$.",
+   "Move all terms to one side and factor out $\\sin x$.",
+   "Solve every factor equal to zero.",
+   "Keep only solutions in the stated interval."
+  ],
+  "worked": {
+   "question": "Solve $\\sin 2x=\\sin x$ for $0\\le x<360^\\circ$.",
+   "long": "For $\\sin x\\ne0$, divide to get $2\\cos x=1$, giving $60^\\circ$ and $300^\\circ$; separately check $\\sin x=0$, giving $0^\\circ$ and $180^\\circ$.",
+   "short": "$\\sin x(2\\cos x-1)=0$, so $x=0^\\circ,60^\\circ,180^\\circ,300^\\circ$.",
+   "saving": "Factoring retains the two solutions lost by division."
+  },
+  "pitfalls": [
+   "Dividing by $\\sin x$ before checking where it is zero.",
+   "Using $\\sin 2x=2\\sin x$ and dropping $\\cos x$.",
+   "Including the upper endpoint when the interval is $x<360^\\circ$."
+  ],
+  "check": "Substitute $x=0^\\circ$ into the original equation; both sides are zero.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Solve $\\sin 2x=0$ for $0\\le x<360^\\circ$.",
+    "options": {
+     "A": "$0^\\circ,90^\\circ,180^\\circ,270^\\circ$",
+     "B": "$90^\\circ,270^\\circ$",
+     "C": "$0^\\circ,180^\\circ$",
+     "D": "$0^\\circ,90^\\circ,180^\\circ,270^\\circ,360^\\circ$"
+    },
+    "answer": "A",
+    "hints": [
+     "Rewrite the double-angle sine as a product.",
+     "Set both $\\sin x$ and $\\cos x$ equal to zero.",
+     "Find their solutions on $0\\le x<360^\\circ$ and combine them."
+    ],
+    "explanation": "$2\\sin x\\cos x=0$. Thus $\\sin x=0$ gives $0^\\circ,180^\\circ$, and $\\cos x=0$ gives $90^\\circ,270^\\circ$. The solutions are $0^\\circ,90^\\circ,180^\\circ,270^\\circ$.",
+    "shortcut_use": "Factor instead of dividing by $\\sin x$."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Solve $\\sin 2x=-\\sin x$ for $0\\le x<360^\\circ$.",
+    "options": {
+     "A": "$0^\\circ,120^\\circ,180^\\circ,240^\\circ$",
+     "B": "$120^\\circ,240^\\circ$",
+     "C": "$0^\\circ,60^\\circ,180^\\circ,300^\\circ$",
+     "D": "$0^\\circ,120^\\circ,180^\\circ,240^\\circ,360^\\circ$"
+    },
+    "answer": "A",
+    "hints": [
+     "Move the right side to the left.",
+     "Factor out $\\sin x$.",
+     "Solve $\\sin x(2\\cos x+1)=0$ on the stated interval."
+    ],
+    "explanation": "$\\sin x(2\\cos x+1)=0$. The first factor gives $0^\\circ,180^\\circ$; $\\cos x=-\\frac{1}{2}$ gives $120^\\circ,240^\\circ$. The solutions are $0^\\circ,120^\\circ,180^\\circ,240^\\circ$.",
+    "shortcut_use": "Keep the $\\sin x=0$ branch when factoring."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Why should you avoid dividing a trigonometric equation by $\\sin x$?",
+    "a": "It discards solutions where $\\sin x=0$."
+   },
+   {
+    "q": "How do you factor an equation involving $\\sin 2x$ and $\\sin x$?",
+    "a": "Use $\\sin 2x=2\\sin x\\cos x$, then factor out $\\sin x$. "
+   }
+  ]
+ },
+ "SEM-P2-maximum-minimum": {
+  "id": "SEM-P2-maximum-minimum",
+  "hook": "Solving a sine-cosine equation can waste time when only its range or solvability is needed. The amplitude gives both immediately.",
+  "when": "An expression has the form $a\\sin x+b\\cos x$, especially when asked for its maximum, minimum or whether it can equal $c$.",
+  "idea": "Write $a\\sin x+b\\cos x=R\\sin(x+\\alpha)$, where $R=\\sqrt{a^2+b^2}$. The maximum is $R$, the minimum is $-R$, and equality to $c$ is possible exactly when $|c|\\le R$.",
+  "why": "For real $x$ over a full cycle, $\\sin(x+\\alpha)$ ranges from $-1$ to $1$. The stated extrema and solvability test follow for real $a,b$; on a restricted interval, an extremum may lie outside that interval.",
+  "steps": [
+   "Calculate $R=\\sqrt{a^2+b^2}$.",
+   "Use $R$ and $-R$ for the full-cycle extrema.",
+   "For $a\\sin x+b\\cos x=c$, compare $|c|$ with $R$.",
+   "If a location is needed, use $x+\\alpha=90^\\circ$ for a maximum, within the stated interval."
+  ],
+  "worked": {
+   "question": "For real $x$, find the maximum and minimum of $3\\sin x+4\\cos x$, and decide whether it can equal $6$.",
+   "long": "Differentiate and solve for stationary points, then evaluate the expression at them.",
+   "short": "$R=\\sqrt{3^2+4^2}=5$. The maximum is $5$, the minimum is $-5$, and $6$ is impossible because $|6|>5$.",
+   "saving": "One square root gives both extrema and the existence test."
+  },
+  "pitfalls": [
+   "Using $|a|+|b|$ as the amplitude instead of $\\sqrt{a^2+b^2}$.",
+   "Claiming the full-cycle maximum occurs in a restricted interval without checking it.",
+   "Using $x+\\alpha=90^\\circ$ for a minimum; that gives a maximum when $R>0$."
+  ],
+  "check": "The value of $a\\sin x+b\\cos x$ must lie between $-R$ and $R$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the maximum of $5\\sin x+12\\cos x$ over all real $x$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "13",
+    "hints": [
+     "This is a sine-cosine expression with one amplitude.",
+     "Calculate $R=\\sqrt{a^2+b^2}$.",
+     "Set up $R=\\sqrt{5^2+12^2}$."
+    ],
+    "explanation": "$R=\\sqrt{5^2+12^2}=13$, so the maximum is $13$.",
+    "shortcut_use": "Use the amplitude as the maximum."
+   },
+   {
+    "kind": "mcq",
+    "stem": "For real $x$, which equation can have a solution?",
+    "options": {
+     "A": "$6\\sin x+8\\cos x=10$",
+     "B": "$6\\sin x+8\\cos x=11$",
+     "C": "$6\\sin x+8\\cos x=-12$",
+     "D": "$6\\sin x+8\\cos x=10.5$"
+    },
+    "answer": "A",
+    "hints": [
+     "All four equations have the same left side.",
+     "Find its amplitude $R$.",
+     "Compare each right side's absolute value with $\\sqrt{6^2+8^2}$."
+    ],
+    "explanation": "$R=\\sqrt{6^2+8^2}=10$. An equation is possible exactly when the right side has absolute value at most $10$, so $6\\sin x+8\\cos x=10$ can have a solution.",
+    "shortcut_use": "Compare $|c|$ with the amplitude."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the amplitude of $a\\sin x+b\\cos x$?",
+    "a": "It is $R=\\sqrt{a^2+b^2}$."
+   },
+   {
+    "q": "When can $a\\sin x+b\\cos x=c$ have a real solution?",
+    "a": "Exactly when $|c|\\le\\sqrt{a^2+b^2}$."
+   },
+   {
+    "q": "What phase gives the maximum of $R\\sin(x+\\alpha)$ when $R>0$?",
+    "a": "$x+\\alpha=90^\\circ$ modulo $360^\\circ$. "
+   }
+  ]
+ },
+ "SEM-P2-equations-that-look-like-quadratics": {
+  "id": "SEM-P2-equations-that-look-like-quadratics",
+  "hook": "Repeated exponentials or logarithms can hide a quadratic. Treating each occurrence separately makes the equation harder to solve.",
+  "when": "Look for $a^{2x}$ alongside $a^x$, or $(\\ln x)^2$ alongside $\\ln x$.",
+  "idea": "Set $u=a^x$ or $u=\\ln x$, solve the quadratic in $u$, then convert each valid value back to $x$.",
+  "why": "This works because $a^{2x}=(a^x)^2$ for $a>0$, while $(\\ln x)^2$ is the square of the repeated logarithm when $x>0$. For the exponential equation, retain only $u>0$; for the logarithm equation, $u$ may be any real number.",
+  "steps": [
+   "Name the repeated expression $u$.",
+   "Rewrite and solve the quadratic in $u$.",
+   "Discard any $u\\le0$ if $u=a^x$.",
+   "Convert each remaining $u$ back to $x$."
+  ],
+  "worked": {
+   "question": "Find all real solutions of $3^{2x}-10\\times3^x+9=0$.",
+   "long": "Complete the square directly: $(3^x-5)^2=16$. Hence $3^x=1$ or $3^x=9$, giving $x=0$ or $x=2$.",
+   "short": "Set $u=3^x>0$. Then $u^2-10u+9=0$, so $u=1$ or $u=9$. Thus $x=0$ or $x=2$.",
+   "saving": "The substitution exposes an ordinary quadratic and keeps the positivity check visible."
+  },
+  "pitfalls": [
+   "Keeping a negative root for $u=a^x$, although an exponential is positive.",
+   "Reporting values of $u$ as though they were values of $x$.",
+   "Using $u=\\ln x$ without the domain condition $x>0$."
+  ],
+  "check": "Substitute each proposed $x$ into the original equation; both values must make it zero.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Find the sum of all real solutions of $2^{2x}-6\\times2^x+8=0$. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "The first term is the square of the repeated exponential.",
+     "Set $u=2^x$ and solve the quadratic.",
+     "Rewrite the equation as $u^2-6u+8=0$; convert each positive root back to $x$ before adding."
+    ],
+    "explanation": "With $u=2^x$, $(u-2)(u-4)=0$. Hence $2^x=2$ or $2^x=4$, so $x=1$ or $x=2$ and their sum is $3$.",
+    "shortcut_use": "Substitute $u=2^x$ to expose the quadratic."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Which pair gives all real solutions of $(\\ln x)^2-3\\ln x+2=0$?",
+    "options": {
+     "A": "$1$ and $2$",
+     "B": "$\\mathrm e^{-1}$ and $\\mathrm e^{-2}$",
+     "C": "$\\mathrm e$ and $\\mathrm e^2$",
+     "D": "$\\mathrm e^2$ only"
+    },
+    "answer": "C",
+    "hints": [
+     "The same logarithm appears once and squared.",
+     "Set $u=\\ln x$ and solve for $u$.",
+     "Use $u^2-3u+2=0$, then convert each root with $x=\\mathrm e^u$."
+    ],
+    "explanation": "Set $u=\\ln x$. Then $(u-1)(u-2)=0$, so $u=1$ or $u=2$. Therefore $x=\\mathrm e$ and $x=\\mathrm e^2$.",
+    "shortcut_use": "Substitute $u=\\ln x$ to expose the quadratic."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What substitution turns $a^{2x}$ and $a^x$ into quadratic terms?",
+    "a": "Set $u=a^x$, so $a^{2x}=u^2$."
+   },
+   {
+    "q": "Which roots of the quadratic must be rejected when $u=a^x$?",
+    "a": "Reject $u\\le0$ because $a^x>0$ for $a>0$."
+   },
+   {
+    "q": "What is the domain condition when substituting $u=\\ln x$?",
+    "a": "$x>0$."
+   }
+  ]
+ },
+ "SEM-P2-connected-rates": {
+  "id": "SEM-P2-connected-rates",
+  "hook": "Differentiating an area formula directly with respect to time can hide the changing radius. The chain rule keeps the two rates separate.",
+  "when": "A quantity is given in terms of a changing variable, but the question asks for its rate of change with time.",
+  "idea": "Write the quantity's formula first, then use $\\frac{dA}{dt}=\\frac{dA}{dr}\\frac{dr}{dt}$.",
+  "why": "This is the chain rule. It holds when $A$ is differentiable with respect to $r$ and $r$ is differentiable with respect to $t$.",
+  "steps": [
+   "Write $A$ in terms of $r$.",
+   "Find $\\frac{dA}{dr}$.",
+   "Multiply by $\\frac{dr}{dt}$ and substitute the stated value of $r$."
+  ],
+  "worked": {
+   "question": "A circle has radius $4$ cm and its radius is increasing at $0.5$ cm s$^{-1}$. Find the rate at which its area is increasing.",
+   "long": "Write $A(t)=\\pi(r(t))^2$ and differentiate with respect to $t$: $\\frac{dA}{dt}=2\\pi r\\frac{dr}{dt}=4\\pi$ cm$^2$ s$^{-1}$.",
+   "short": "From $A=\\pi r^2$, use $\\frac{dA}{dt}=(2\\pi r)\\frac{dr}{dt}=2\\pi(4)(0.5)=4\\pi$ cm$^2$ s$^{-1}$.",
+   "saving": "It makes the time-rate factor explicit, so it is harder to omit."
+  },
+  "pitfalls": [
+   "Using the diameter in a formula written for the radius.",
+   "Finding $\\frac{dA}{dr}$ but forgetting to multiply by $\\frac{dr}{dt}$."
+  ],
+  "check": "The units are cm$^2$ s$^{-1}$, and the answer is positive because the radius is increasing.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A circle has radius $3$ cm and its radius is increasing at $2$ cm s$^{-1}$. Find $\\frac{1}{\\pi}\\frac{dA}{dt}$, as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "12",
+    "hints": [
+     "The area depends on a changing radius.",
+     "Differentiate the area with respect to the radius, then multiply by the radius's time rate.",
+     "Set up $\\frac{1}{\\pi}\\frac{dA}{dt}=2r\\frac{dr}{dt}$ before substituting."
+    ],
+    "explanation": "The chain rule gives $\\frac{1}{\\pi}\\frac{dA}{dt}=2(3)(2)=12$.",
+    "shortcut_use": "Multiply the radius derivative by its time rate."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A circle has radius $5$ cm and its radius is decreasing at $0.4$ cm s$^{-1}$. Find $\\frac{1}{\\pi}\\frac{dA}{dt}$, as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-4",
+    "hints": [
+     "The radius is changing, and its rate has a sign.",
+     "Use the chain rule on $A=\\pi r^2$.",
+     "Set up $\\frac{1}{\\pi}\\frac{dA}{dt}=2r\\frac{dr}{dt}$ with a negative radius rate."
+    ],
+    "explanation": "Here $\\frac{dr}{dt}=-0.4$ cm s$^{-1}$, so $\\frac{1}{\\pi}\\frac{dA}{dt}=2(5)(-0.4)=-4$.",
+    "shortcut_use": "Carry the signed radius rate through the chain rule."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you obtain the time rate of a quantity given in terms of a changing radius?",
+    "a": "Differentiate the quantity with respect to the radius, then multiply by $\\frac{dr}{dt}$."
+   },
+   {
+    "q": "What condition is needed for the connected-rates chain rule?",
+    "a": "The quantity must be differentiable in the radius, and the radius must be differentiable in time."
+   }
+  ]
+ },
+ "SEM-P2-parametric": {
+  "id": "SEM-P2-parametric",
+  "hook": "Eliminating the parameter can create unnecessary algebra. Taking a second ratio of derivatives gives the wrong second derivative.",
+  "when": "Both $x$ and $y$ are given as functions of a parameter $t$, and a derivative with respect to $x$ is required.",
+  "idea": "Use $\\frac{dy}{dx}=\\frac{dy/dt}{dx/dt}$. For the second derivative, differentiate this result with respect to $t$, then divide by $dx/dt$.",
+  "why": "The chain rule gives $dy/dt=(dy/dx)(dx/dt)$. These formulas hold where the required derivatives exist and $dx/dt\\ne0$.",
+  "steps": [
+   "Differentiate $x$ and $y$ with respect to $t$.",
+   "Divide $dy/dt$ by $dx/dt$.",
+   "For $d^2y/dx^2$, differentiate that quotient with respect to $t$ and divide by $dx/dt$ again."
+  ],
+  "worked": {
+   "question": "The curve has $x=t^2+1$ and $y=t^3$. Find $\\frac{d^2y}{dx^2}$ at $t=2$.",
+   "long": "Eliminate $t$ near $t=2$: $y=(x-1)^{3/2}$. Then $\\frac{d^2y}{dx^2}=\\frac{3}{4\\sqrt{x-1}}=\\frac{3}{8}$ at $x=5$.",
+   "short": "$\\frac{dy}{dx}=\\frac{3t^2}{2t}=\\frac{3t}{2}$. Thus $\\frac{d^2y}{dx^2}=\\frac{3/2}{2t}=\\frac{3}{4t}=\\frac{3}{8}$ at $t=2$.",
+   "saving": "It avoids eliminating $t$ and prevents the false $\\frac{d^2y}{dx^2}=\\frac{d^2y/dt^2}{d^2x/dt^2}$ step."
+  },
+  "pitfalls": [
+   "Using the formula at a point where $dx/dt=0$.",
+   "Dividing the second $t$ derivatives to find $d^2y/dx^2$.",
+   "Forgetting the final division by $dx/dt$."
+  ],
+  "check": "At $t=2$, the local expression $\\frac{3}{4t}$ is positive and gives $\\frac{3}{8}$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $x=t^2+2$ and $y=t^3$, find $\\frac{dy}{dx}$ at $t=4$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "Both coordinates are functions of $t$.",
+     "Divide $dy/dt$ by $dx/dt$.",
+     "Set up $\\frac{dy}{dx}=\\frac{3t^2}{2t}$ before substituting."
+    ],
+    "explanation": "The parametric shortcut gives $\\frac{dy}{dx}=\\frac{3t^2}{2t}=\\frac{3t}{2}$; at $t=4$ this is $6$.",
+    "shortcut_use": "Divide the two first derivatives with respect to $t$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $x=t^2+1$ and $y=t^3$, find $\\frac{d^2y}{dx^2}$ at $t=3$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.25",
+    "hints": [
+     "A second derivative with respect to $x$ is needed.",
+     "First find $dy/dx$; then differentiate it with respect to $t$.",
+     "Set up $\\frac{d^2y}{dx^2}=\\frac{d}{dt}(\\frac{3t^2}{2t})\\big/2t$ before substituting."
+    ],
+    "explanation": "First $\\frac{dy}{dx}=\\frac{3t}{2}$. Divide its $t$ derivative by $dx/dt=2t$: $\\frac{d^2y}{dx^2}=\\frac{3}{4t}=0.25$ at $t=3$.",
+    "shortcut_use": "Divide the derivative of $dy/dx$ by $dx/dt$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How is $dy/dx$ found from a parametric curve?",
+    "a": "Divide $dy/dt$ by $dx/dt$ where $dx/dt\\ne0$."
+   },
+   {
+    "q": "How is $d^2y/dx^2$ found after obtaining $dy/dx$?",
+    "a": "Differentiate $dy/dx$ with respect to $t$, then divide by $dx/dt$."
+   }
+  ]
+ },
+ "SEM-P2-separable-differential-equations": {
+  "id": "SEM-P2-separable-differential-equations",
+  "hook": "Separating variables is quick, but duplicating the integration constant or delaying the initial condition can create avoidable algebra.",
+  "when": "The equation can be written as $dy/dx=f(x)g(y)$, especially $dy/dx=ky$.",
+  "idea": "Write $\\int\\frac{1}{g(y)}\\,dy=\\int f(x)\\,dx+c$. For $dy/dx=ky$, use $y=Ae^{kx}$ and find $A$ from the initial condition.",
+  "why": "The differential equation permits separation wherever division by $g(y)$ is valid. The exponential form holds for all solutions of $dy/dx=ky$, including $y=0$ when $A=0$.",
+  "steps": [
+   "Identify $f(x)$ and $g(y)$.",
+   "Separate and integrate, placing $+c$ on one side only.",
+   "Apply the initial condition immediately.",
+   "For $dy/dx=ky$, write the resulting exponential with its determined constant."
+  ],
+  "worked": {
+   "question": "Solve $\\frac{dy}{dx}=2y$ given $y=3$ at $x=0$, and find $y$ at $x=1$.",
+   "long": "For nonzero $y$, integrate $\\frac{1}{y}dy=2dx$ to obtain $\\ln|y|=2x+c$. The initial value gives $y=3e^{2x}$, so $y(1)=3e^2$.",
+   "short": "Use $y=Ae^{2x}$. At $x=0$, $A=3$, so $y(1)=3e^2$.",
+   "saving": "It avoids separate integration and immediate rearrangement of the logarithm."
+  },
+  "pitfalls": [
+   "Adding separate constants to both integrated sides.",
+   "Dividing by $y$ and then overlooking the zero solution.",
+   "Using the initial condition only after unnecessary algebra."
+  ],
+  "check": "At $x=0$, $3e^{2(0)}=3$, as required.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A function satisfies $\\frac{dy}{dx}=3y$ and $y=4$ at $x=0$. Find $y$ at $x=\\frac{\\ln 2}{3}$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "8",
+    "hints": [
+     "The rate is a constant multiple of $y$.",
+     "Use $y=Ae^{kx}$ and apply the initial condition.",
+     "Set up $y=4e^{3x}$, then substitute the given $x$."
+    ],
+    "explanation": "The exponential shortcut gives $y=4e^{3x}$. At $x=\\frac{\\ln 2}{3}$, $y=4e^{\\ln 2}=8$.",
+    "shortcut_use": "Write the exponential solution directly."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A function satisfies $\\frac{dy}{dx}=-2y$ and $y=10$ at $x=0$. Find $y$ at $x=\\frac{\\ln 2}{2}$. Give a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "The equation has the form $dy/dx=ky$.",
+     "Keep the negative sign in $k$ when writing the exponential.",
+     "Set up $y=10e^{-2x}$, then substitute the given $x$."
+    ],
+    "explanation": "The exponential shortcut gives $y=10e^{-2x}$. At $x=\\frac{\\ln 2}{2}$, $y=10e^{-\\ln 2}=5$.",
+    "shortcut_use": "Use $y=Ae^{kx}$ with the signed value of $k$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Where is the integration constant placed after separating variables?",
+    "a": "Place $+c$ on one side only."
+   },
+   {
+    "q": "What is the solution form for $dy/dx=ky$?",
+    "a": "The solution is $y=Ae^{kx}$, with $A$ set by the initial condition."
+   }
+  ]
+ },
+ "SEM-P2-tabular-di-method": {
+  "id": "SEM-P2-tabular-di-method",
+  "hook": "Repeated integration by parts makes sign errors likely when a polynomial is multiplied by an exponential or sine.",
+  "when": "The integrand is a polynomial times a factor that remains easy to integrate repeatedly.",
+  "idea": "Differentiate the polynomial down to zero, integrate the other factor repeatedly, then multiply diagonal pairs with alternating signs $+,-,+$.",
+  "why": "Each diagonal is one term from repeated integration by parts. The method holds when the needed derivatives and antiderivatives exist and the polynomial eventually differentiates to zero.",
+  "steps": [
+   "List successive derivatives of the polynomial through zero.",
+   "List successive antiderivatives of the other factor.",
+   "Multiply diagonal pairs, alternating $+,-,+$ signs.",
+   "Add the terms and the constant of integration."
+  ],
+  "worked": {
+   "question": "Find $\\int x^2e^{2x}\\,dx$.",
+   "long": "Integrate by parts twice: $\\int x^2e^{2x}\\,dx=\\frac{x^2e^{2x}}{2}-\\int xe^{2x}\\,dx=\\frac{x^2e^{2x}}{2}-\\frac{xe^{2x}}{2}+\\frac{e^{2x}}{4}+c$.",
+   "short": "Derivatives: $x^2,2x,2,0$. Antiderivatives: $\\frac{e^{2x}}{2},\\frac{e^{2x}}{4},\\frac{e^{2x}}{8}$. Diagonals with $+,-,+$ give $e^{2x}(\\frac{x^2}{2}-\\frac{x}{2}+\\frac{1}{4})+c$.",
+   "saving": "It organises both rounds of integration by parts and the alternating signs."
+  },
+  "pitfalls": [
+   "Failing to divide by $k$ each time $e^{kx}$ is integrated.",
+   "Stopping before the polynomial derivative reaches zero.",
+   "Starting the diagonal signs with a minus."
+  ],
+  "check": "Differentiating $e^{2x}(\\frac{x^2}{2}-\\frac{x}{2}+\\frac{1}{4})$ gives $x^2e^{2x}$.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Which is an antiderivative of $xe^x$?",
+    "options": {
+     "A": "$e^x(x+1)+c$",
+     "B": "$e^x(x-1)+c$",
+     "C": "$xe^x+c$",
+     "D": "$e^x(1-x)+c$"
+    },
+    "answer": "B",
+    "hints": [
+     "The polynomial becomes zero after two derivatives.",
+     "Integrate $e^x$ repeatedly and alternate the diagonal signs.",
+     "Use derivatives $x,1,0$ with signs $+,-$."
+    ],
+    "explanation": "The diagonals are $xe^x$ and $-e^x$, giving $e^x(x-1)+c$.",
+    "shortcut_use": "Take the two alternating diagonal products."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Which is an antiderivative of $x^2e^x$?",
+    "options": {
+     "A": "$e^x(x^2+2x+2)+c$",
+     "B": "$e^x(x^2-2x-2)+c$",
+     "C": "$e^x(x^2-2x+2)+c$",
+     "D": "$e^x(x^2-x+2)+c$"
+    },
+    "answer": "C",
+    "hints": [
+     "Differentiate the polynomial until it reaches zero.",
+     "Use one diagonal for each nonzero polynomial derivative.",
+     "Set up derivatives $x^2,2x,2,0$ and diagonal signs $+,-,+$."
+    ],
+    "explanation": "The diagonal products are $x^2e^x$, $-2xe^x$ and $+2e^x$, giving $e^x(x^2-2x+2)+c$.",
+    "shortcut_use": "Use all three alternating diagonal products."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which factor is differentiated in the tabular method for $\\int x^ne^{kx}\\,dx$?",
+    "a": "Differentiate the polynomial $x^n$ until it reaches zero."
+   },
+   {
+    "q": "What signs are assigned to successive diagonal products?",
+    "a": "They alternate $+,-,+$ from the first product."
+   }
+  ]
+ },
+ "SEM-P2-trig-powers": {
+  "id": "SEM-P2-trig-powers",
+  "hook": "Expanding a trigonometric power usually makes the integral harder. Its parity points to a shorter identity or substitution.",
+  "when": "An integral contains $\\sin^2x$, $\\cos^2x$, an odd power of sine, $\\tan^2x$, or $\\sin x\\cos x$.",
+  "idea": "For $\\sin^2x$, use $\\sin^2x=\\frac{1-\\cos 2x}{2}$. For an odd power such as $\\sin^3x$, peel off one $\\sin x$ and rewrite the rest using $\\cos^2x$.",
+  "why": "The identities hold for every real $x$. The odd-power substitution works because $d(\\cos x)/dx=-\\sin x$, matching the peeled-off factor.",
+  "steps": [
+   "Inspect the power and choose an identity.",
+   "For odd $\\sin^3x$, write $\\sin x(1-\\cos^2x)$.",
+   "Set $u=\\cos x$ and include the minus sign.",
+   "Integrate and, if needed, return to $x$."
+  ],
+  "worked": {
+   "question": "Find $\\int\\sin^3x\\,dx$.",
+   "long": "Use a reduction step: $\\int\\sin^3x\\,dx=-\\sin^2x\\cos x+2\\int\\sin x\\cos^2x\\,dx$, then simplify to an antiderivative.",
+   "short": "Write $\\sin^3x=\\sin x(1-\\cos^2x)$. With $u=\\cos x$, $du=-\\sin x\\,dx$, so the integral is $-\\int(1-u^2)\\,du=-\\cos x+\\frac{\\cos^3x}{3}+c$.",
+   "saving": "It turns the trig power into a polynomial integral and keeps the substitution sign visible."
+  },
+  "pitfalls": [
+   "Losing the minus sign from $du=-\\sin x\\,dx$.",
+   "Using $\\sin^2x=1-\\cos x$ instead of $1-\\cos^2x$.",
+   "Applying the odd-power substitution without peeling off one sine factor."
+  ],
+  "check": "Differentiate $-\\cos x+\\frac{\\cos^3x}{3}$ to recover $\\sin^3x$.",
+  "practice": [
+   {
+    "kind": "mcq",
+    "stem": "Which is an antiderivative of $\\sin^2x$?",
+    "options": {
+     "A": "$\\frac{x}{2}-\\frac{\\sin 2x}{4}+c$",
+     "B": "$\\frac{x}{2}+\\frac{\\sin 2x}{4}+c$",
+     "C": "$x-\\frac{\\sin 2x}{2}+c$",
+     "D": "$\\frac{x}{2}-\\frac{\\sin 2x}{2}+c$"
+    },
+    "answer": "A",
+    "hints": [
+     "The sine power is even.",
+     "Use the double-angle identity for $\\sin^2x$.",
+     "Set up $\\int\\frac{1-\\cos 2x}{2}\\,dx$."
+    ],
+    "explanation": "Use $\\sin^2x=\\frac{1-\\cos 2x}{2}$, then integrate to obtain $\\frac{x}{2}-\\frac{\\sin 2x}{4}+c$.",
+    "shortcut_use": "Replace the even sine power by its double-angle form."
+   },
+   {
+    "kind": "mcq",
+    "stem": "Which is an antiderivative of $\\sin^3x$?",
+    "options": {
+     "A": "$\\cos x-\\frac{\\cos^3x}{3}+c$",
+     "B": "$-\\cos x-\\frac{\\cos^3x}{3}+c$",
+     "C": "$-\\cos x+\\frac{\\cos^3x}{3}+c$",
+     "D": "$\\sin x-\\frac{\\sin^3x}{3}+c$"
+    },
+    "answer": "C",
+    "hints": [
+     "The sine power is odd.",
+     "Peel off one $\\sin x$ and convert the remaining square.",
+     "Set $u=\\cos x$ in $\\int\\sin x(1-\\cos^2x)\\,dx$, keeping $du=-\\sin x\\,dx$."
+    ],
+    "explanation": "Peeling off one sine gives $-\\int(1-u^2)\\,du$ with $u=\\cos x$. This yields $-\\cos x+\\frac{\\cos^3x}{3}+c$.",
+    "shortcut_use": "Peel off sine and substitute $u=\\cos x$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which identity simplifies $\\sin^2x$ before integration?",
+    "a": "Use $\\sin^2x=\\frac{1-\\cos 2x}{2}$."
+   },
+   {
+    "q": "What is the substitution pattern for $\\sin^3x$?",
+    "a": "Write it as $\\sin x(1-\\cos^2x)$ and set $u=\\cos x$."
+   }
+  ]
+ },
+ "SEM-P2-volume-of-revolution-about-the-axis": {
+  "id": "SEM-P2-volume-of-revolution-about-the-axis",
+  "hook": "Revolving a region requires cross-sectional area, not the original area under the curve. Squaring the wrong radius is a common slip.",
+  "when": "A region under a curve is rotated about the $x$-axis or $y$-axis, or a region between curves forms a hollow solid.",
+  "idea": "About the $x$-axis use $V=\\pi\\int y^2\\,dx$; about the $y$-axis use $V=\\pi\\int x^2\\,dy$. For a washer perpendicular to the $x$-axis, use $V=\\pi\\int(R^2-r^2)\\,dx$.",
+  "why": "Each thin cross-section is a disk of area $\\pi r^2$, or a washer of area $\\pi(R^2-r^2)$. The formulas hold when the stated radii describe each perpendicular cross-section over the integration interval.",
+  "steps": [
+   "Identify the rotation axis and a perpendicular slice.",
+   "Write its outer radius and, if present, inner radius.",
+   "Square the radii, subtract for a washer, and multiply by $\\pi$.",
+   "Integrate over the corresponding coordinate limits."
+  ],
+  "worked": {
+   "question": "The region between $y=2$ and $y=1$ for $0\\le x\\le3$ is rotated about the $x$-axis. Find its volume.",
+   "long": "At every $x$, subtract the inner disk area $\\pi(1)^2$ from the outer disk area $\\pi(2)^2$, then multiply the constant cross-section by length $3$: $3(4\\pi-\\pi)=9\\pi$.",
+   "short": "Use washers: $V=\\pi\\int_0^3(2^2-1^2)\\,dx=9\\pi$.",
+   "saving": "It puts the inner hole into one integral and avoids subtracting two separate volumes."
+  },
+  "pitfalls": [
+   "Integrating $y$ instead of $y^2$ for disks.",
+   "Using $(R-r)^2$ instead of $R^2-r^2$ for a washer.",
+   "Using $dx$ with the $y$-axis disk formula when the slices are specified by $y$."
+  ],
+  "check": "The cross-section is $3\\pi$ square units throughout a length of $3$, so the volume is $9\\pi$ cubic units.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "The region between $y=3$ and $y=1$ for $0\\le x\\le2$ is rotated about the $x$-axis. Find $V/\\pi$ as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "16",
+    "hints": [
+     "The rotation leaves a cylindrical hole.",
+     "Use outer radius squared minus inner radius squared.",
+     "Set up $V/\\pi=\\int_0^2(3^2-1^2)\\,dx$."
+    ],
+    "explanation": "The washer shortcut gives $V/\\pi=\\int_0^2(9-1)\\,dx=16$.",
+    "shortcut_use": "Subtract squared radii in one integral."
+   },
+   {
+    "kind": "numeric",
+    "stem": "The region between $x=2$ and the $y$-axis for $0\\le y\\le4$ is rotated about the $y$-axis. Find $V/\\pi$ as a bare number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "16",
+    "hints": [
+     "The slices perpendicular to the rotation axis are indexed by $y$.",
+     "Use the $y$-axis disk formula.",
+     "Set up $V/\\pi=\\int_0^4x^2\\,dy$ with $x=2$."
+    ],
+    "explanation": "The disk shortcut gives $V/\\pi=\\int_0^4 2^2\\,dy=16$.",
+    "shortcut_use": "Square the horizontal radius and integrate with respect to $y$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the disk formula for rotation about the $x$-axis?",
+    "a": "Use $V=\\pi\\int y^2\\,dx$ when $y$ gives the disk radius."
+   },
+   {
+    "q": "What cross-sectional area is used for a washer?",
+    "a": "Use $\\pi(R^2-r^2)$, with outer radius $R$ and inner radius $r$."
+   }
+  ]
+ },
+ "SEM-P2-typical-substitutions": {
+  "id": "SEM-P2-typical-substitutions",
+  "hook": "An unfamiliar square root or reciprocal can make an integral look harder than it is. Matching its form to a substitution exposes a simpler integral.",
+  "when": "Look for $\\sqrt{ax+b}$, $\\sqrt{1-x^2}$, or $\\frac{1}{1+x^2}$ in the integrand.",
+  "idea": "For $\\sqrt{ax+b}$, set $u=\\sqrt{ax+b}$. For $\\sqrt{1-x^2}$, set $x=\\sin\\theta$. For $\\frac{1}{1+x^2}$, use $x=\\tan\\theta$, giving $\\int\\frac{1}{1+x^2}\\,dx=\\tan^{-1}x+C$.",
+  "why": "The first substitution gives $u^2=ax+b$; the trig substitutions use $1-\\sin^2\\theta=\\cos^2\\theta$ and $1+\\tan^2\\theta=\\frac{1}{\\cos^2\\theta}$. Use the square-root substitutions only where their radicands are non-negative; take $a\\ne0$, and for $x=\\sin\\theta$ choose $-\\frac{\\pi}{2}\\le\\theta\\le\\frac{\\pi}{2}$ so $\\cos\\theta\\ge0$. The reciprocal identity holds for every real $x$.",
+  "steps": [
+   "Match the integrand to one of the three forms.",
+   "Make the matching substitution and replace $dx$.",
+   "For a definite integral, change both limits.",
+   "Integrate and evaluate."
+  ],
+  "worked": {
+   "question": "Evaluate $\\int_0^4\\sqrt{2x+1}\\,dx$.",
+   "long": "Reverse the chain rule: $\\int\\sqrt{2x+1}\\,dx=\\frac{(2x+1)^{3/2}}{3}+C$. At the limits this is $\\frac{27-1}{3}=\\frac{26}{3}$.",
+   "short": "Set $u=\\sqrt{2x+1}$, so $dx=u\\,du$ and the limits become $1$ and $3$. Then $\\int_1^3u^2\\,du=\\frac{27-1}{3}=\\frac{26}{3}$.",
+   "saving": "The substitution turns the radical into a power and makes the changed limits explicit."
+  },
+  "pitfalls": [
+   "Replacing $\\sqrt{1-x^2}$ with $\\cos\\theta$ without choosing a range where $\\cos\\theta\\ge0$.",
+   "Changing the integrand but leaving the original limits on a definite integral.",
+   "Using $\\tan^{-1}x$ for $\\frac{1}{a^2+x^2}$ without accounting for $a$."
+  ],
+  "check": "Differentiate the antiderivative to recover the original integrand.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\int_0^{7.5}\\sqrt{2x+1}\\,dx$. Give the exact value as a number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "21",
+    "hints": [
+     "The integrand contains a square root of a linear expression.",
+     "Set $u=\\sqrt{2x+1}$ and change the limits.",
+     "The new limits are $1$ and $4$; evaluate $\\int_1^4u^2\\,du$."
+    ],
+    "explanation": "With $u=\\sqrt{2x+1}$, $dx=u\\,du$ and the limits are $1$ and $4$. Thus $\\int_1^4u^2\\,du=\\frac{4^3-1^3}{3}=21$.",
+    "shortcut_use": "Substitute the square root as $u$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Evaluate $\\int_0^1\\frac{1}{1+x^2}\\,dx$. Give the answer as a decimal to $3$ significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.785",
+    "hints": [
+     "The denominator has the form $1+x^2$.",
+     "Use the $x=\\tan\\theta$ pattern, or its resulting antiderivative.",
+     "Evaluate $\\tan^{-1}x$ at the two limits."
+    ],
+    "explanation": "The reciprocal pattern gives $\\tan^{-1}(1)-\\tan^{-1}(0)=\\frac{\\pi}{4}\\approx0.785$ to $3$ significant figures.",
+    "shortcut_use": "Recognise the reciprocal as the derivative of $\\tan^{-1}x$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which substitution matches $\\sqrt{ax+b}$?",
+    "a": "Set $u=\\sqrt{ax+b}$, so $u^2=ax+b$."
+   },
+   {
+    "q": "Which substitution matches $\\sqrt{1-x^2}$, and what range keeps the root non-negative?",
+    "a": "Set $x=\\sin\\theta$ with $-\\frac{\\pi}{2}\\le\\theta\\le\\frac{\\pi}{2}$."
+   },
+   {
+    "q": "What is an antiderivative of $\\frac{1}{1+x^2}$ for real $x$?",
+    "a": "$\\tan^{-1}x+C$."
+   }
+  ]
+ }
+}

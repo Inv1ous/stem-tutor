@@ -1,0 +1,182 @@
+{
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "lessons"
+ ],
+ "properties": {
+  "lessons": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "id",
+     "hook",
+     "when",
+     "idea",
+     "why",
+     "steps",
+     "worked",
+     "pitfalls",
+     "check",
+     "practice",
+     "recall"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "hook": {
+      "type": "string"
+     },
+     "when": {
+      "type": "string"
+     },
+     "idea": {
+      "type": "string"
+     },
+     "why": {
+      "type": "string"
+     },
+     "steps": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "minItems": 2,
+      "maxItems": 5
+     },
+     "worked": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "question",
+       "long",
+       "short",
+       "saving"
+      ],
+      "properties": {
+       "question": {
+        "type": "string"
+       },
+       "long": {
+        "type": "string"
+       },
+       "short": {
+        "type": "string"
+       },
+       "saving": {
+        "type": "string"
+       }
+      }
+     },
+     "pitfalls": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "minItems": 1,
+      "maxItems": 3
+     },
+     "check": {
+      "type": "string"
+     },
+     "practice": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "kind",
+        "stem",
+        "options",
+        "answer",
+        "hints",
+        "explanation",
+        "shortcut_use"
+       ],
+       "properties": {
+        "kind": {
+         "type": "string",
+         "enum": [
+          "numeric",
+          "mcq",
+          "short"
+         ]
+        },
+        "stem": {
+         "type": "string"
+        },
+        "options": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "A",
+          "B",
+          "C",
+          "D"
+         ],
+         "properties": {
+          "A": {
+           "type": "string"
+          },
+          "B": {
+           "type": "string"
+          },
+          "C": {
+           "type": "string"
+          },
+          "D": {
+           "type": "string"
+          }
+         }
+        },
+        "answer": {
+         "type": "string"
+        },
+        "hints": {
+         "type": "array",
+         "items": {
+          "type": "string"
+         },
+         "minItems": 3,
+         "maxItems": 3
+        },
+        "explanation": {
+         "type": "string"
+        },
+        "shortcut_use": {
+         "type": "string"
+        }
+       }
+      },
+      "minItems": 2,
+      "maxItems": 2
+     },
+     "recall": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "q",
+        "a"
+       ],
+       "properties": {
+        "q": {
+         "type": "string"
+        },
+        "a": {
+         "type": "string"
+        }
+       }
+      },
+      "minItems": 2,
+      "maxItems": 3
+     }
+    }
+   }
+  }
+ }
+}

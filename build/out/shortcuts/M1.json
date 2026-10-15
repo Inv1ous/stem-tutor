@@ -1,0 +1,779 @@
+[
+ {
+  "id": "SEM-M1-pick-the-right-suvat-in-two-seconds",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Pick the right suvat in two seconds",
+  "score": 10,
+  "origin": "base",
+  "body": "Write the five letters $s,u,v,a,t$; tick the three you know and the one you want; pick the equation that **lacks the fifth**.\n\n| Missing | Use |\n|---|---|\n| $s$ | $v=u+at$ |\n| $v$ | $s=ut+\\tfrac12at^2$ |\n| $a$ | $s=\\tfrac12(u+v)t$ |\n| $t$ | $v^2=u^2+2as$ |\n| $u$ | $s=vt-\\tfrac12at^2$ |"
+ },
+ {
+  "id": "SEM-M1-average-velocity-trick",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Average velocity trick",
+  "score": 9,
+  "origin": "base",
+  "body": "For constant acceleration, average velocity is $\\tfrac12(u+v)$, so $s=\\tfrac12(u+v)t$. A particle slows from $20$ to $0$ in $5\\ \\mathrm s$: $s=\\tfrac12(20)(5)=50\\ \\mathrm m$, no $a$ needed."
+ },
+ {
+  "id": "SEM-M1-vertical-motion-is-symmetric",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Vertical motion is symmetric",
+  "score": 9,
+  "origin": "base",
+  "body": "Thrown up at $u$: time to top $=\\dfrac ug$, max height $=\\dfrac{u^2}{2g}$, **same speed at the same height going up and down**, total flight time (back to start) $=\\dfrac{2u}g$. Landing speed from height $h$ (dropped) $=\\sqrt{2gh}$."
+ },
+ {
+  "id": "SEM-M1-choose-up-as-positive-and-keep",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Choose \"up\" as positive and keep $a=-g$",
+  "score": 9,
+  "origin": "base",
+  "body": "A single equation covers the whole flight. A quadratic in $t$ gives two times: the up-pass and the down-pass."
+ },
+ {
+  "id": "SEM-M1-successive-equal-intervals-from-rest",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Successive equal intervals from rest",
+  "score": 8,
+  "origin": "base",
+  "body": "Distances covered in successive equal times are in the ratio $1:3:5:7:\\dots$ And $s\\propto t^2$."
+ },
+ {
+  "id": "SEM-M1-distance-in-the-th-second",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Distance in the $n$th second",
+  "score": 7,
+  "origin": "base",
+  "body": "$s_n=u+a\\left(n-\\tfrac12\\right)$ (velocity at the **midpoint** of that second). Difference of distances in consecutive equal intervals $T$: $\\Delta s=aT^2$ — find $a$ from two distances with no $u$."
+ },
+ {
+  "id": "SEM-M1-accelerate-then-decelerate-over-a-fixed-distance",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Accelerate then decelerate over a fixed distance",
+  "score": 8,
+  "origin": "base",
+  "body": "From rest to rest in distance $s$, accelerating at $a$ then decelerating at $b$: top speed $V^2=\\dfrac{2s\\,ab}{a+b}$, total time $T=\\sqrt{\\dfrac{2s(a+b)}{ab}}$. Check with $a=b$: $V^2=sa$, $T=2\\sqrt{s/a}$ ✓."
+ },
+ {
+  "id": "SEM-M1-v-t-graph-area-displacement-gradient-acceleratio",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "v–t graph: area $=$ displacement, gradient $=$ acceleration",
+  "score": 10,
+  "origin": "base",
+  "body": "Break the area into triangles and rectangles; a trapezium is $\\tfrac12(a+b)h$. **Total distance** counts areas below the axis as positive."
+ },
+ {
+  "id": "SEM-M1-trapezium-shortcut-for-a-three-stage-journey",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Trapezium shortcut for a three-stage journey",
+  "score": 9,
+  "origin": "base",
+  "body": "Times $t_1,t_2,t_3$ with top speed $V$: distance $=\\tfrac12V(T+t_2)$ where $T$ is total time and $t_2$ the constant-speed time (area of a trapezium: $\\tfrac12(\\text{parallel sides})\\times V$)."
+ },
+ {
+  "id": "SEM-M1-average-speed",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Average speed",
+  "score": 7,
+  "origin": "base",
+  "body": "$=\\dfrac{\\text{total distance}}{\\text{total time}}$, **not** the mean of speeds. Two equal distances at $v_1,v_2$: $\\dfrac{2v_1v_2}{v_1+v_2}$ (harmonic mean)."
+ },
+ {
+  "id": "SEM-M1-meeting-and-chase",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Meeting and chase",
+  "score": 9,
+  "origin": "base",
+  "body": "Write both displacements from a common origin and time-zero, then equate: $s_1(t)=s_2(t)$. If one starts later by $T$, use $(t-T)$. Meeting while moving in opposite directions: **sum of distances** = initial gap; same direction: **difference** = initial gap."
+ },
+ {
+  "id": "SEM-M1-relative-velocity",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Relative velocity",
+  "score": 8,
+  "origin": "base",
+  "body": "For two bodies moving along a line, relative speed $=|v_1-v_2|$ (same direction) or $v_1+v_2$ (towards each other). Time to catch up $=\\dfrac{\\text{gap}}{\\text{relative speed}}$ — no equations of motion needed."
+ },
+ {
+  "id": "SEM-M1-stopping-distance",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Stopping distance",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\dfrac{u^2}{2a}$; doubling speed quadruples it. Reaction time adds $u\\times t_r$."
+ },
+ {
+  "id": "SEM-M1-dropped-and-thrown-at-the-same-time",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Dropped and thrown at the same time",
+  "score": 6,
+  "origin": "base",
+  "body": "Relative acceleration is zero, so the gap between them changes at constant rate $u_1-u_2$."
+ },
+ {
+  "id": "SEM-M1-check-units-and-signs",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Check units and signs",
+  "score": 6,
+  "origin": "base",
+  "body": "A positive $s$ with negative $v$ at the end means \"gone up then fallen back past its start\": fine. A negative time is rejected."
+ },
+ {
+  "id": "SEM-M1-integrate-back-with-a-constant",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "With calculus",
+  "title": "$v=\\dfrac{ds}{dt}$, $a=\\dfrac{dv}{dt}$; integrate back with a constant",
+  "score": 9,
+  "origin": "base",
+  "body": "Use the starting condition ($t=0$, known $s$ or $v$) immediately to fix the constant."
+ },
+ {
+  "id": "SEM-M1-maximum-or-minimum-speed",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "With calculus",
+  "title": "Maximum or minimum speed",
+  "score": 8,
+  "origin": "base",
+  "body": "when $a=0$ (but check the endpoints)."
+ },
+ {
+  "id": "SEM-M1-displacement-vs-distance",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "With calculus",
+  "title": "Displacement vs distance",
+  "score": 9,
+  "origin": "base",
+  "body": "if the particle turns round, split at $v=0$ and add the magnitudes."
+ },
+ {
+  "id": "SEM-M1-particle-at-rest",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "With calculus",
+  "title": "Particle at rest",
+  "score": 8,
+  "origin": "base",
+  "body": "means $v=0$; **instantaneous** at a given time means substitute; **returns to start** means $s=0$ again.\n- **Power rule in time:** $\\int t^n=\\dfrac{t^{n+1}}{n+1}$; **definite** integral $\\int_{t_1}^{t_2}v\\,dt$ gives displacement."
+ },
+ {
+  "id": "SEM-M1-position-of-a-body-with-constant-velocity",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Position of a body with constant velocity",
+  "score": 10,
+  "origin": "base",
+  "body": "$\\mathbf r=\\mathbf r_0+\\mathbf vt$ . Two bodies meet when $\\mathbf r_A=\\mathbf r_B$ **at the same $t$**: equate the $\\mathbf i$ and $\\mathbf j$ parts and check both give the same $t$. If the times differ, they only cross paths."
+ },
+ {
+  "id": "SEM-M1-closest-approach",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Closest approach",
+  "score": 9,
+  "origin": "base",
+  "body": "Relative position $\\mathbf d(t)=\\mathbf d_0+\\mathbf vt$ where $\\mathbf v$ is the relative velocity. Minimise $|\\mathbf d|^2$: $t=-\\dfrac{\\mathbf d_0\\cdot\\mathbf v}{|\\mathbf v|^2}$, and the least distance is $\\dfrac{|d_{0x}v_y-d_{0y}v_x|}{|\\mathbf v|}$. Quicker than differentiating a quadratic."
+ },
+ {
+  "id": "SEM-M1-speed-and-bearing",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Speed and bearing",
+  "score": 9,
+  "origin": "base",
+  "body": "Speed $=\\sqrt{a^2+b^2}$ for $a\\mathbf i+b\\mathbf j$. Direction angle from east $\\theta=\\tan^{-1}\\dfrac ba$ (adjust quadrant). **Bearing $=90^\\circ-\\theta$** (mod $360^\\circ$), north is $000^\\circ$."
+ },
+ {
+  "id": "SEM-M1-unit-vector",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Unit vector",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\hat{\\mathbf a}=\\dfrac{\\mathbf a}{|\\mathbf a|}$. Vector of given magnitude $k$ in the direction of $\\mathbf a$: $k\\hat{\\mathbf a}$."
+ },
+ {
+  "id": "SEM-M1-parallel-vectors",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Parallel vectors",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\mathbf a=\\lambda\\mathbf b$, so $\\dfrac{a_x}{b_x}=\\dfrac{a_y}{b_y}$. **\"Moving parallel to $\\mathbf i+2\\mathbf j$\"**: components in ratio $1:2$."
+ },
+ {
+  "id": "SEM-M1-distance-between-two-position-vectors",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Distance between two position vectors",
+  "score": 7,
+  "origin": "base",
+  "body": "$|\\mathbf a-\\mathbf b|$. Midpoint: $\\dfrac{\\mathbf a+\\mathbf b}2$."
+ },
+ {
+  "id": "SEM-M1-pythagorean-angle-triples",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Pythagorean angle triples",
+  "score": 7,
+  "origin": "base",
+  "body": "$3\\!:\\!4\\!:\\!5$, $5\\!:\\!12\\!:\\!13$, $8\\!:\\!15\\!:\\!17$, $7\\!:\\!24\\!:\\!25$ let you replace $\\cos\\theta,\\sin\\theta$ by fractions without a calculator. \"$\\tan\\theta=\\tfrac34$\" means $\\sin\\theta=\\tfrac35$, $\\cos\\theta=\\tfrac45$."
+ },
+ {
+  "id": "SEM-M1-resolve-into-components",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Resolve into components",
+  "score": 10,
+  "origin": "base",
+  "body": "force $F$ at angle $\\theta$ to a direction has component $F\\cos\\theta$ along it and $F\\sin\\theta$ perpendicular. **Pick the angle to the axis you resolve along**, and sketch to check whether it's $\\cos$ or $\\sin$."
+ },
+ {
+  "id": "SEM-M1-resultant-of-two-forces-at-angle",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Resultant of two forces at angle $\\theta$",
+  "score": 7,
+  "origin": "base",
+  "body": "(beyond spec): $R=\\sqrt{F_1^2+F_2^2+2F_1F_2\\cos\\theta}$, and its angle with $F_1$ is $\\tan^{-1}\\dfrac{F_2\\sin\\theta}{F_1+F_2\\cos\\theta}$. Right angles: just Pythagoras."
+ },
+ {
+  "id": "SEM-M1-constant-velocity-change",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Constant velocity change",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\mathbf v=\\mathbf u+\\mathbf at$ works component by component, and so do all suvat equations (not $v^2=u^2+2as$ in vector form unless you use dot products)."
+ },
+ {
+  "id": "SEM-M1-newton-s-second-law-in-vectors",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Newton's second law in vectors",
+  "score": 8,
+  "origin": "base",
+  "body": "$\\mathbf F=m\\mathbf a$, so $\\mathbf a=\\dfrac{\\mathbf F}m$ and velocity after $t$ is $\\mathbf u+\\dfrac{\\mathbf F}mt$."
+ },
+ {
+  "id": "SEM-M1-lami-s-theorem-beyond-spec",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Lami's theorem (beyond spec)",
+  "score": 6,
+  "origin": "base",
+  "body": "three forces in equilibrium: $\\dfrac{F_1}{\\sin\\alpha}=\\dfrac{F_2}{\\sin\\beta}=\\dfrac{F_3}{\\sin\\gamma}$ where $\\alpha$ is the angle between $F_2$ and $F_3$ (opposite $F_1$). One line for a three-force triangle."
+ },
+ {
+  "id": "SEM-M1-triangle-of-forces",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Triangle of forces",
+  "score": 6,
+  "origin": "base",
+  "body": "three forces in equilibrium form a closed triangle: use sine/cosine rules."
+ },
+ {
+  "id": "SEM-M1-write-along-the-motion-and-equilibrium-across-it",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Write $F=ma$ along the motion and equilibrium across it",
+  "score": 10,
+  "origin": "base",
+  "body": "Resolve **in the direction of acceleration** (forces helping $-$ forces opposing $=ma$), and **perpendicular** with no acceleration (they balance)."
+ },
+ {
+  "id": "SEM-M1-connected-particles-treat-the-whole-system-first",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Connected particles: treat the whole system first",
+  "score": 10,
+  "origin": "base",
+  "body": "For two particles joined by a string moving together, $F_{\\text{net}}=(m_1+m_2)a$ gives $a$ immediately; then use **one** particle to find the tension. Internal tensions cancel."
+ },
+ {
+  "id": "SEM-M1-pulley-over-a-smooth-peg-hanging-masses",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Pulley over a smooth peg (hanging masses $m_1<m_2$)",
+  "score": 10,
+  "origin": "base",
+  "body": "$$a=\\frac{(m_2-m_1)g}{m_1+m_2},\\qquad T=\\frac{2m_1m_2g}{m_1+m_2}.$$\nCheck: $m_1=m_2\\Rightarrow a=0$, $T=mg$ ✓."
+ },
+ {
+  "id": "SEM-M1-particle-on-a-smooth-table-pulled-by-a-hanging-m",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Particle on a smooth table pulled by a hanging mass",
+  "score": 9,
+  "origin": "base",
+  "body": "$a=\\dfrac{m_2g}{m_1+m_2}$, $T=\\dfrac{m_1m_2g}{m_1+m_2}$. With friction $\\mu$ on the table: $a=\\dfrac{m_2g-\\mu m_1g}{m_1+m_2}$."
+ },
+ {
+  "id": "SEM-M1-rough-slope",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Rough slope",
+  "score": 10,
+  "origin": "base",
+  "body": "Resolve perpendicular: $R=mg\\cos\\theta$. Down the slope $a=g(\\sin\\theta-\\mu\\cos\\theta)$. **Equilibrium on the point of slipping:** $\\tan\\theta=\\mu$ (angle of friction). The coefficient $\\mu=\\tan\\theta$ is a one-line \"find $\\mu$\" question."
+ },
+ {
+  "id": "SEM-M1-smooth-slope",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Smooth slope",
+  "score": 9,
+  "origin": "base",
+  "body": "$a=g\\sin\\theta$ regardless of the mass. Speed at the bottom of a smooth slope of height $h$ is $\\sqrt{2gh}$ whatever the slope angle."
+ },
+ {
+  "id": "SEM-M1-friction-equality-only-in-limiting-equilibrium-o",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Friction: $F\\le\\mu R$, equality only in limiting equilibrium or while sliding",
+  "score": 10,
+  "origin": "base",
+  "body": "Static and not about to slip: $F$ equals whatever balances the other forces. **Always find $R$ first**, and remember a vertical component of the applied force changes $R$: pulling up at angle $\\alpha$: $R=mg-P\\sin\\alpha$; pushing down: $R=mg+P\\sin\\alpha$."
+ },
+ {
+  "id": "SEM-M1-best-angle-to-pull-a-block-beyond-spec",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Best angle to pull a block (beyond spec)",
+  "score": 6,
+  "origin": "base",
+  "body": "Minimum pulling force to move a block of weight $W$ on rough ground is at $\\tan\\alpha=\\mu$: $P_{\\min}=\\dfrac{\\mu W}{\\sqrt{1+\\mu^2}}$."
+ },
+ {
+  "id": "SEM-M1-lifts-apparent-weight",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Lifts (apparent weight)",
+  "score": 8,
+  "origin": "base",
+  "body": "Lift accelerating **upwards** at $a$: reaction $R=m(g+a)$; downwards: $R=m(g-a)$. Free fall: $R=0$ (\"weightless\")."
+ },
+ {
+  "id": "SEM-M1-string-goes-slack",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "String goes slack",
+  "score": 8,
+  "origin": "base",
+  "body": "When a hanging mass hits the floor, tension disappears: the other particle then decelerates (rough table) or moves at constant velocity (smooth). Find the speed at the moment of impact with suvat, then restart $F=ma$."
+ },
+ {
+  "id": "SEM-M1-tension-in-a-string-over-a-pulley-is-the-same-on",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Tension in a string over a pulley is the same on both sides",
+  "score": 7,
+  "origin": "base",
+  "body": "(light string, smooth pulley). A **light** rod or string has no mass, so the two end forces are equal."
+ },
+ {
+  "id": "SEM-M1-two-pulley-inclined-plus-hanging-mass",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Two-pulley/inclined plus hanging mass",
+  "score": 8,
+  "origin": "base",
+  "body": "write $F=ma$ **for each particle with a consistent positive direction along the string**, then add the equations to eliminate $T$."
+ },
+ {
+  "id": "SEM-M1-constant-force-from-a-velocity-change",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Constant force from a velocity change",
+  "score": 7,
+  "origin": "base",
+  "body": "$F=\\dfrac{m(v-u)}t$ (impulse–momentum). **Impulse $=Ft=mv-mu$** (vector; sign the directions)."
+ },
+ {
+  "id": "SEM-M1-collisions-momentum-conserved",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Collisions (momentum conserved)",
+  "score": 8,
+  "origin": "base",
+  "body": "$m_1u_1+m_2u_2=m_1v_1+m_2v_2$. Coalescing: $v=\\dfrac{m_1u_1+m_2u_2}{m_1+m_2}$. **Direction of an unknown velocity: assume positive and let the sign speak.**"
+ },
+ {
+  "id": "SEM-M1-restitution-beyond-spec",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Restitution (beyond spec)",
+  "score": 5,
+  "origin": "base",
+  "body": "speed of separation $=e\\times$ speed of approach."
+ },
+ {
+  "id": "SEM-M1-work-energy-beyond-spec",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Work–energy (beyond spec)",
+  "score": 7,
+  "origin": "base",
+  "body": "$\\tfrac12mv^2-\\tfrac12mu^2=$ net work. Great when the path is not straight and time doesn't matter: $v^2=u^2+2gh$ for a free fall of height $h$ regardless of the path on a smooth surface."
+ },
+ {
+  "id": "SEM-M1-power-beyond-spec",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Power (beyond spec)",
+  "score": 5,
+  "origin": "base",
+  "body": "$P=Fv$; at maximum speed driving force $=$ resistance."
+ },
+ {
+  "id": "SEM-M1-moments-around-the-point-that-kills-unknowns",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Moments around the point that kills unknowns",
+  "score": 10,
+  "origin": "base",
+  "body": "Take moments about the pivot where the unknown force acts, so its moment is zero. Moment $=$ force $\\times$ **perpendicular** distance."
+ },
+ {
+  "id": "SEM-M1-equilibrium-three-equations",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Equilibrium: three equations",
+  "score": 10,
+  "origin": "base",
+  "body": "Forces vertically, forces horizontally, moments about a point; **use the one that isolates the unknown**."
+ },
+ {
+  "id": "SEM-M1-tilting-condition",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Tilting condition",
+  "score": 9,
+  "origin": "base",
+  "body": "A beam is about to tilt about a support when the **reaction at the other support is zero**. Put $R=0$ and take moments about the pivot."
+ },
+ {
+  "id": "SEM-M1-uniform-beam",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Uniform beam",
+  "score": 9,
+  "origin": "base",
+  "body": "weight acts at the **midpoint** . A non-uniform one: weight at the centre of mass (given distance)."
+ },
+ {
+  "id": "SEM-M1-ladder-problems",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Ladder problems",
+  "score": 7,
+  "origin": "base",
+  "body": "Moments about the foot (kills friction and normal reaction there), vertical balance for friction with the ground: $F=\\mu R$ at limiting equilibrium; the wall reaction is horizontal if the wall is smooth."
+ },
+ {
+  "id": "SEM-M1-beam-with-a-person-or-particle-walking",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Beam with a person or particle walking",
+  "score": 7,
+  "origin": "base",
+  "body": "Find the extreme position by letting a reaction $\\to0$: gives the greatest distance before tilting."
+ },
+ {
+  "id": "SEM-M1-equal-and-opposite-moment-checks",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Equal and opposite moment checks",
+  "score": 6,
+  "origin": "base",
+  "body": "clockwise moments $=$ anticlockwise moments. If you get a negative reaction you've chosen the wrong direction or the beam has tilted."
+ },
+ {
+  "id": "SEM-M1-centre-of-mass-of-two-masses",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Centre of mass of two masses",
+  "score": 6,
+  "origin": "base",
+  "body": "$\\bar x=\\dfrac{m_1x_1+m_2x_2}{m_1+m_2}$ — equivalent to moments about the origin."
+ },
+ {
+  "id": "SEM-M1-light",
+  "spec": "M1",
+  "section": "5. Modelling vocabulary (worth marks)",
+  "topic": "",
+  "title": "\"Light\"",
+  "score": 6,
+  "origin": "base",
+  "body": "= mass negligible so tension is equal throughout. **\"Smooth\"** = no friction. **\"Inextensible\"** = same acceleration magnitude along the string. **\"Particle\"** = no size, no rotation. **\"Uniform\"** = mass evenly distributed so weight is at the midpoint. **\"Rough\"** = friction present.\n- **Modelling assumptions answer:** one clear sentence. \"Air resistance is negligible\", \"the rod is rigid\", \"the string doesn't stretch\", \"the pulley is smooth so the tension is the same on both sides\", \"$g$ is constant\"."
+ },
+ {
+  "id": "SEM-M1-reset-the-clock-when-the-motion-changes",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Reset the clock when the motion changes",
+  "score": 9,
+  "origin": "research",
+  "source": "Pearson WME01 Jan 2024 examiner report Q8(b)",
+  "body": "At an impact, break, or change of surface, record the current position and velocity, then start the next phase at local time $\\tau=0$. Recalculate $a$ for that phase; one suvat equation across the boundary works only if acceleration stays constant."
+ },
+ {
+  "id": "SEM-M1-screen-a-meeting-quadratic-before-solving",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Screen a meeting quadratic before solving",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "If equating two positions produces $At^2+Bt+C=0$ with $A\\ne0$, the discriminant $B^2-4AC$ tells you whether there are zero, one, or two real candidate meetings. Keep only nonnegative roots inside the time interval where both position formulae apply, and substitute back."
+ },
+ {
+  "id": "SEM-M1-time-spent-above-a-height",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Time spent above a height",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "For a vertical projection at speed $u$, solving $h=ut-\\tfrac12gt^2$ gives the duration above height $h$ as $2\\sqrt{u^2-2gh}/g$ when $0\\le h\\le u^2/(2g)$. It becomes zero at the maximum height, which checks the result."
+ },
+ {
+  "id": "SEM-M1-distinguish-a-velocity-graph-from-a-speed-graph",
+  "spec": "M1",
+  "section": "1. Kinematics in a straight line (suvat and graphs)",
+  "topic": "",
+  "title": "Distinguish a velocity graph from a speed graph",
+  "score": 7,
+  "origin": "research",
+  "source": "Pearson WME01 Jan 2024 examiner report Q6(d)",
+  "body": "With up positive, vertical velocity is the straight line $v=u-gt$, while speed is $|u-gt|$ and has a V-shaped graph. Reflect the negative part only for speed or total distance; check that the descending velocity still has gradient $-g$."
+ },
+ {
+  "id": "SEM-M1-name-the-axis-in-a-direction-answer",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Name the axis in a direction answer",
+  "score": 7,
+  "origin": "research",
+  "source": "Pearson WME01 Jun 2023 examiner report Q2(b)",
+  "body": "After finding an angle from vector components, write, for example, \"$\\theta$ above the positive $\\mathbf i$ direction\" and use the component signs to choose the quadrant. A bare $\\tan^{-1}(y/x)$ can give the wrong direction when $x<0$."
+ },
+ {
+  "id": "SEM-M1-compare-squared-distances",
+  "spec": "M1",
+  "section": "2. Vectors and 2D motion",
+  "topic": "",
+  "title": "Compare squared distances",
+  "score": 6,
+  "origin": "research",
+  "source": "derived",
+  "body": "If a question asks whether the least separation exceeds a nonnegative threshold $r$, compare $d_{\\min}^2$ with $r^2$ and skip the final square root. Check that the calculated closest-approach time lies in the allowed interval; otherwise use its nearest endpoint."
+ },
+ {
+  "id": "SEM-M1-use-the-force-diagram-as-an-equation-checklist",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Use the force diagram as an equation checklist",
+  "score": 9,
+  "origin": "research",
+  "source": "Pearson WME01 Jun 2023 examiner report Q7",
+  "body": "For each body, draw and label only forces acting on that body, then tick each arrow as it enters the appropriate $F=ma$ equation. Check that the mass multiplying $a$ belongs to the same body and that no weight or tension was silently omitted."
+ },
+ {
+  "id": "SEM-M1-recalculate-the-normal-reaction-for-oblique-forc",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Recalculate the normal reaction for oblique forces",
+  "score": 8,
+  "origin": "research",
+  "source": "Cambridge 9709 Jun 2024 examiner report Paper 42 Q5",
+  "body": "If a tension $T$ pulls at angle $\\phi$ above a plane inclined at $\\theta$, $R=mg\\cos\\theta-T\\sin\\phi$ while contact remains. Check $R\\ge0$ and use this value, rather than $mg\\cos\\theta$, in any friction limit."
+ },
+ {
+  "id": "SEM-M1-reverse-friction-after-a-turn",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Reverse friction after a turn",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WME01 Jan 2024 examiner report Q8(b)",
+  "body": "On a rough surface, label the actual direction of motion in each phase and make kinetic friction oppose it. After a reversal, form a new force equation; check that friction's arrow has reversed too."
+ },
+ {
+  "id": "SEM-M1-find-required-friction-before-testing-the-limit",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Find required friction before testing the limit",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "In equilibrium, solve the along-surface balance for signed $F_{\\rm req}$, then test $|F_{\\rm req}|\\le\\mu R$. Its sign gives the friction direction, and equality identifies the limiting case."
+ },
+ {
+  "id": "SEM-M1-one-string-distance-can-mean-different-vertical",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "One string distance can mean different vertical changes",
+  "score": 8,
+  "origin": "research",
+  "source": "Cambridge 9709 Jun 2024 examiner report Paper 42 Q7(b)",
+  "body": "With a taut, inextensible string, if one particle rises $x$ vertically while another moves $x$ along a plane at $\\theta$, their vertical changes are $x$ and $x\\sin\\theta$. For a vertical gap $H$ closing between them, check the geometry with $x+x\\sin\\theta=H$ before using suvat."
+ },
+ {
+  "id": "SEM-M1-choose-the-body-with-known-velocities-for-impuls",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Choose the body with known velocities for impulse",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WME01 Jun 2023 examiner report Q1(c)",
+  "body": "When impulse on a particle is requested, use $\\mathbf J=m(\\mathbf v-\\mathbf u)$ for the particle whose before and after velocities are given. Check that a requested magnitude is nonnegative and has units $\\mathrm{N\\,s}$ or $\\mathrm{kg\\,m\\,s^{-1}}$."
+ },
+ {
+  "id": "SEM-M1-separate-mass-from-weight-in-the-data-margin",
+  "spec": "M1",
+  "section": "3. Dynamics, connected particles and friction",
+  "topic": "",
+  "title": "Separate mass from weight in the data margin",
+  "score": 8,
+  "origin": "research",
+  "source": "Pearson WME01 Jun 2023 examiner report Q6",
+  "body": "Mark a given $m\\,\\mathrm{kg}$ as mass and $W\\,\\mathrm N$ as an already calculated weight; only the first needs multiplication by $g$. Check every force equation is in newtons, preventing an erroneous $Wg$."
+ },
+ {
+  "id": "SEM-M1-treat-two-support-reactions-as-load-shares",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Treat two support reactions as load shares",
+  "score": 8,
+  "origin": "research",
+  "source": "derived",
+  "body": "For vertical loads on a horizontal beam supported at $x=0,L$, let $W=\\sum W_i$ and $\\bar x=\\sum W_ix_i/W$; then $R_L=W\\bar x/L$ and $R_0=W-R_L$. Check $R_0+R_L=W$ and both reactions are nonnegative while both supports touch."
+ },
+ {
+  "id": "SEM-M1-cancel-only-after-writing-every-weight-moment",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Cancel $g$ only after writing every weight moment",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "When every term in a moments equation is a weight $m_i g$ times a distance, write those terms first and divide the entire equation by $g$. Check that no independent force in newtons was included before cancellation."
+ },
+ {
+  "id": "SEM-M1-locate-the-tipping-boundary-from-the-load-centre",
+  "spec": "M1",
+  "section": "4. Statics and moments",
+  "topic": "",
+  "title": "Locate the tipping boundary from the load centre",
+  "score": 7,
+  "origin": "research",
+  "source": "derived",
+  "body": "With only vertical loads and upward supports, the weighted position $\\bar x=\\sum W_ix_i/\\sum W_i$ must lie between the supports for both reactions to be nonnegative. At either support position the opposite reaction is zero, which checks a tilting calculation."
+ },
+ {
+  "id": "SEM-M1-keep-exact-trigonometric-ratios-until-the-end",
+  "spec": "M1",
+  "section": "6. Fast checks",
+  "topic": "",
+  "title": "Keep exact trigonometric ratios until the end",
+  "score": 8,
+  "origin": "research",
+  "source": "Cambridge 9709 Jun 2024 examiner report Paper 42 Q4",
+  "body": "If $\\tan\\theta=p/q$, use a right triangle to keep $\\sin\\theta=p/\\sqrt{p^2+q^2}$ and $\\cos\\theta=q/\\sqrt{p^2+q^2}$ rather than rounding $\\theta$ first. Check the final numerical answer with the paper's required significant figures."
+ },
+ {
+  "id": "SEM-M1-a-coefficient-of-friction-may-exceed-one",
+  "spec": "M1",
+  "section": "6. Fast checks",
+  "topic": "",
+  "title": "A coefficient of friction may exceed one",
+  "score": 6,
+  "origin": "research",
+  "body": "Since $\\mu=F_{\\max}/R$ is a force ratio, a calculated $\\mu>1$ is not automatically impossible. Substitute it into the limiting-friction and force equations instead of treating it like a probability. [src: Pearson 9MA0-32 Jun 2024 examiner report Q7(b)]\n\n# S1 Statistics"
+ }
+]

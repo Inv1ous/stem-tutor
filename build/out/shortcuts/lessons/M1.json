@@ -1,0 +1,3328 @@
+{
+ "SEM-M1-v-t-graph-area-displacement-gradient-acceleratio": {
+  "id": "SEM-M1-v-t-graph-area-displacement-gradient-acceleratio",
+  "hook": "Reading only the endpoint velocities misses the motion between them. Areas below the axis also cause sign slips.",
+  "when": "A velocity–time graph is described by straight segments, and the question asks for displacement, distance or acceleration.",
+  "idea": "Signed area under a velocity–time graph gives displacement; add the magnitudes of the areas for total distance. A straight segment has acceleration $\\frac{\\Delta v}{\\Delta t}$.",
+  "why": "Velocity is the rate of change of displacement, so its area over time gives displacement; the gradient gives the rate of change of velocity. These interpretations hold for a velocity–time graph, with the simple triangle and trapezium formulae applying to straight segments.",
+  "steps": [
+   "Mark where each segment meets the time axis.",
+   "Split the graph into triangles, rectangles or trapezia.",
+   "Add signed areas for displacement, or magnitudes for distance.",
+   "For acceleration, divide a segment’s velocity change by its time change."
+  ],
+  "worked": {
+   "question": "A particle’s velocity rises linearly from 0 to 6 m s$^{-1}$ over the first 2 s, then falls linearly to 0 over the next 3 s. Find its displacement and acceleration during the first 2 s.",
+   "long": "Average velocity is 3 m s$^{-1}$ on each segment, giving $3(2)+3(3)=15$ m; the first velocity change gives $6/2=3$ m s$^{-2}$.",
+   "short": "The two triangular areas give $\\frac{1}{2}(2)(6)+\\frac{1}{2}(3)(6)=15$ m. The first gradient is $\\frac{6-0}{2}=3$ m s$^{-2}$.",
+   "saving": "Area and gradient give both answers directly from the described graph."
+  },
+  "pitfalls": [
+   "Counting area below the axis as positive when finding displacement.",
+   "Using the height of a triangle as its area.",
+   "Taking $\\Delta t/\\Delta v$ for the gradient."
+  ],
+  "check": "A positive velocity throughout means displacement and total distance agree.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle’s velocity rises linearly from 0 to 8 m s$^{-1}$ in 3 s, then stays at 8 m s$^{-1}$ for 2 s. Find its displacement in m.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "28",
+    "hints": [
+     "Look for the area under the velocity–time graph.",
+     "Add a triangle and a rectangle.",
+     "Set up $\\frac{1}{2}(3)(8)+(2)(8)$."
+    ],
+    "explanation": "The triangle and rectangle have total area $\\frac{1}{2}(3)(8)+(2)(8)=28$ m, which is the displacement.",
+    "shortcut_use": "Adding simple areas under the graph."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A particle’s velocity falls linearly from 4 m s$^{-1}$ at 0 s to 0 at 2 s, then to $-4$ m s$^{-1}$ at 4 s. Find its total distance travelled in m.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "8",
+    "hints": [
+     "The graph crosses the time axis.",
+     "For distance, take the magnitude of each area.",
+     "Set up $\\frac{1}{2}(2)(4)+\\frac{1}{2}(2)(4)$."
+    ],
+    "explanation": "Add the magnitudes of the two triangular areas: $\\frac{1}{2}(2)(4)+\\frac{1}{2}(2)(4)=8$ m.",
+    "shortcut_use": "Counting area below the axis by magnitude."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What does signed area under a velocity–time graph give?",
+    "a": "It gives displacement."
+   },
+   {
+    "q": "How do you obtain total distance from a velocity–time graph?",
+    "a": "Add the magnitudes of all areas between the graph and the time axis."
+   },
+   {
+    "q": "What does the gradient of a velocity–time graph give?",
+    "a": "It gives acceleration."
+   }
+  ]
+ },
+ "SEM-M1-position-of-a-body-with-constant-velocity": {
+  "id": "SEM-M1-position-of-a-body-with-constant-velocity",
+  "hook": "Two paths can cross even though the bodies arrive at different times. Checking only one coordinate gives a false meeting.",
+  "when": "Two bodies have initial positions and constant velocities in two dimensions, and you must decide whether they meet.",
+  "idea": "Write $\\mathbf r=\\mathbf r_0+\\mathbf vt$ for each body. A meeting requires both position components to match at the same time $t$.",
+  "why": "At constant velocity, each position component changes linearly with time. Bodies meet only if their complete position vectors are equal at one common time, with time measured from the same starting instant.",
+  "steps": [
+   "Write each body’s position vector in terms of the same $t$.",
+   "Equate the $\\mathbf i$ components and solve for $t$.",
+   "Equate the $\\mathbf j$ components and solve for $t$.",
+   "Confirm the times agree and are within the stated motion interval."
+  ],
+  "worked": {
+   "question": "At $t=0$, body A is at $(0,0)$ m and moves at $(2,1)$ m s$^{-1}$. Body B is at $(6,0)$ m and moves at $(-1,1)$ m s$^{-1}$. Do they meet, and where?",
+   "long": "After 2 s, A has moved $(4,2)$ m to $(4,2)$ m, while B has moved $(-2,2)$ m to $(4,2)$ m.",
+   "short": "The horizontal equation is $2t=6-t$, giving $t=2$ s; the vertical equation is $t=t$. Both positions are then $(4,2)$ m.",
+   "saving": "Equating components finds the time directly and checks simultaneous arrival."
+  },
+  "pitfalls": [
+   "Solving for a crossing point without checking the time for each body.",
+   "Using different time origins in the two position equations.",
+   "Checking the $\\mathbf i$ component but ignoring the $\\mathbf j$ component."
+  ],
+  "check": "Substitute the candidate time into both position vectors; every component must agree.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "At $t=0$, A is at $(0,0)$ m and moves at $(3,2)$ m s$^{-1}$. B is at $(10,0)$ m and moves at $(1,2)$ m s$^{-1}$. After how many seconds do they meet? Give the time in s.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "Write both position vectors using the same time.",
+     "Equate the horizontal components, then check the vertical ones.",
+     "Set up $3t=10+t$ and compare $2t$ with $2t$."
+    ],
+    "explanation": "The horizontal positions match when $3t=10+t$, so $t=5$ s; the vertical positions are both $2t$, so they meet after 5 s.",
+    "shortcut_use": "Equating position components at one common time."
+   },
+   {
+    "kind": "mcq",
+    "stem": "At $t=0$, A is at $(0,0)$ m and moves at $(2,1)$ m s$^{-1}$. B is at $(6,-3)$ m and moves at $(-1,2)$ m s$^{-1}$. Which statement is correct?",
+    "options": {
+     "A": "They meet at $(4,2)$ m after 2 s.",
+     "B": "They cross paths at $(4,2)$ m but do not meet.",
+     "C": "They meet at $(6,3)$ m after 3 s.",
+     "D": "Their paths never cross."
+    },
+    "answer": "B",
+    "hints": [
+     "A shared point is insufficient for a meeting.",
+     "Compare the times from the horizontal and vertical position equations.",
+     "Set up $2t=6-t$ and $t=-3+2t$."
+    ],
+    "explanation": "The horizontal positions match at $t=2$ s, while the vertical positions match at $t=3$ s. The paths intersect at $(4,2)$ m, but the bodies do not meet.",
+    "shortcut_use": "Checking both components at the same time."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the position of a body moving at constant velocity?",
+    "a": "Its position is $\\mathbf r=\\mathbf r_0+\\mathbf vt$."
+   },
+   {
+    "q": "When do two bodies meet in two-dimensional motion?",
+    "a": "Both position components must agree at the same time."
+   }
+  ]
+ },
+ "SEM-M1-resolve-into-components": {
+  "id": "SEM-M1-resolve-into-components",
+  "hook": "A force diagram often gives an angle to one axis while the equation needs the other. Swapping sine and cosine changes the answer.",
+  "when": "A force acts at an angle to a stated direction and you need its component along or perpendicular to that direction.",
+  "idea": "For a force of magnitude $F$ at angle $\\theta$ to an axis, the component along that axis is $F\\cos\\theta$; the perpendicular component has magnitude $F\\sin\\theta$.",
+  "why": "The components form a right-angled triangle with $F$ as the hypotenuse. These formulae hold when $\\theta$ is measured from the axis named; choose signs from the force’s direction.",
+  "steps": [
+   "Sketch the force and the axis.",
+   "Mark the angle between them.",
+   "Use cosine along that axis and sine perpendicular.",
+   "Assign signs according to the chosen positive directions."
+  ],
+  "worked": {
+   "question": "A 20 N force acts at $30^\\circ$ above the horizontal. Find its vertical component.",
+   "long": "Use the complementary angle $60^\\circ$ to the vertical: $20\\cos60^\\circ=10$ N.",
+   "short": "The angle is measured from the horizontal, so the vertical component is $20\\sin30^\\circ=10$ N upward.",
+   "saving": "Choosing the function from the stated angle avoids redrawing a new angle."
+  },
+  "pitfalls": [
+   "Using cosine for an axis perpendicular to the stated angle.",
+   "Ignoring a negative sign when a component points opposite the chosen positive axis.",
+   "Using an angle to the slope as if it were an angle to the horizontal."
+  ],
+  "check": "Each component’s magnitude must be no greater than $F$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A 50 N force acts at $60^\\circ$ above the horizontal. Find its horizontal component in N.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "25",
+    "hints": [
+     "The stated angle is to the horizontal.",
+     "Use cosine for the component along the stated axis.",
+     "Set up $50\\cos60^\\circ$."
+    ],
+    "explanation": "The horizontal component is along the axis from which the angle is measured, so it is $50\\cos60^\\circ=25$ N.",
+    "shortcut_use": "Using cosine along the angle’s axis."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A 12 N force acts at $30^\\circ$ below the positive horizontal direction. Taking upward as positive, find its vertical component in N.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-6",
+    "hints": [
+     "The vertical axis is perpendicular to the stated horizontal angle.",
+     "Use sine for the magnitude of that component.",
+     "Set up $12\\sin30^\\circ$, then choose its sign from the force’s direction."
+    ],
+    "explanation": "The vertical magnitude is $12\\sin30^\\circ=6$ N. It points downwards, so the component is $-6$ N.",
+    "shortcut_use": "Using sine perpendicular to the angle’s axis."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which function gives the component along the axis from which an angle is measured?",
+    "a": "Use $F\\cos\\theta$."
+   },
+   {
+    "q": "How is the sign of a resolved component chosen?",
+    "a": "Its sign follows whether it points with or against the chosen positive direction."
+   }
+  ]
+ },
+ "SEM-M1-connected-particles-treat-the-whole-system-first": {
+  "id": "SEM-M1-connected-particles-treat-the-whole-system-first",
+  "hook": "Writing two force equations immediately creates an extra unknown tension. Treating the pair together removes it.",
+  "when": "Two particles are joined by a taut string, move with the same acceleration, and you need acceleration or tension.",
+  "idea": "For the two-particle system, use $F_{\\mathrm{net}}=(m_1+m_2)a$ with external forces only. Then apply $F=ma$ to one particle to find tension.",
+  "why": "The string pulls the particles with equal and opposite internal tensions, which cancel in the system equation. The method requires the particles to share an acceleration, as with a taut inextensible string.",
+  "steps": [
+   "Choose the direction of motion for each particle.",
+   "Add the external forces along the motion.",
+   "Divide the net external force by the total mass.",
+   "Use one particle’s force equation to find tension."
+  ],
+  "worked": {
+   "question": "A 2 kg particle and a 3 kg particle lie on a smooth horizontal surface, joined by a taut light string. A horizontal 15 N force pulls the 3 kg particle away from the 2 kg particle. Find their acceleration and the tension.",
+   "long": "For the 2 kg particle, $T=2a$. For the 3 kg particle, $15-T=3a$. Solving gives $a=3$ m s$^{-2}$ and $T=6$ N.",
+   "short": "For the pair, $15=(2+3)a$, so $a=3$ m s$^{-2}$. For the 2 kg particle, $T=2a=6$ N.",
+   "saving": "The system equation gives acceleration without carrying tension through both equations."
+  },
+  "pitfalls": [
+   "Including tension as an external force on the whole system.",
+   "Using total mass when finding tension from one particle.",
+   "Assuming equal acceleration if the string is slack."
+  ],
+  "check": "For the pulled particle, $15-6=3(3)$ N.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Two particles of masses 4 kg and 6 kg lie on a smooth horizontal surface, joined by a taut light string. A horizontal 30 N force pulls the 6 kg particle away from the 4 kg particle. Find their acceleration in m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3",
+    "hints": [
+     "Treat the particles as one system.",
+     "Internal tension cancels.",
+     "Set up $30=(4+6)a$."
+    ],
+    "explanation": "For the whole system, $30=(4+6)a$, giving $a=3$ m s$^{-2}$.",
+    "shortcut_use": "Cancelling tension in the whole-system equation."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Two particles of masses 2 kg and 5 kg lie on a smooth horizontal surface, joined by a taut light string. A horizontal 21 N force pulls the 5 kg particle away from the 2 kg particle. Find the tension in N.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "Find the shared acceleration from the whole system first.",
+     "Then use the force equation for the 2 kg particle.",
+     "Set up $21=(2+5)a$ and then $T=2a$."
+    ],
+    "explanation": "The system gives $a=\\frac{21}{2+5}=3$ m s$^{-2}$. The 2 kg particle is pulled only by tension, so $T=2a=6$ N.",
+    "shortcut_use": "Finding acceleration before tension."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Why does tension disappear from a two-particle system equation?",
+    "a": "The internal tensions are equal and opposite, so they cancel."
+   },
+   {
+    "q": "After finding the acceleration of a connected pair, how do you find tension?",
+    "a": "Apply $F=ma$ to one particle."
+   }
+  ]
+ },
+ "SEM-M1-friction-equality-only-in-limiting-equilibrium-o": {
+  "id": "SEM-M1-friction-equality-only-in-limiting-equilibrium-o",
+  "hook": "Setting friction equal to $\\mu R$ too early can give the wrong force. An angled pull also changes the normal reaction.",
+  "when": "A rough horizontal surface has an angled applied force, or a question says a body is stationary, about to slip or sliding.",
+  "idea": "Find $R$ first. For an upward pull $P$ at angle $\\alpha$, $R=mg-P\\sin\\alpha$; for a downward push, $R=mg+P\\sin\\alpha$. Static friction satisfies $F\\le\\mu R$; use $F=\\mu R$ at limiting equilibrium or while sliding.",
+  "why": "With no vertical acceleration, vertical forces balance to give $R$. Static friction adjusts to balance the horizontal force until its limiting value $\\mu R$; the equality applies at the limit or during sliding under the stated friction model.",
+  "steps": [
+   "Resolve forces perpendicular to the surface to find $R$.",
+   "Decide whether the body is stationary below the limit, about to slip or sliding.",
+   "For stationary motion below the limit, find friction from horizontal balance.",
+   "At the limit or while sliding, use $F=\\mu R$ with the appropriate direction."
+  ],
+  "worked": {
+   "question": "A 5 kg block rests on a rough horizontal surface. It is pulled by a 10 N force at $30^\\circ$ above the horizontal, and $\\mu=0.40$. Find the friction force. Use $g=9.81$ m s$^{-2}$.",
+   "long": "The vertical pull is $10\\sin30^\\circ=5$ N, so $R=49.05-5=44.05$ N and $\\mu R=17.62$ N. The horizontal pull is $10\\cos30^\\circ\\approx8.66$ N, which the available static friction can balance.",
+   "short": "Find $R=5(9.81)-10\\sin30^\\circ=44.05$ N. Since $10\\cos30^\\circ<0.40R$, the block can remain stationary and $F=10\\cos30^\\circ\\approx8.66$ N.",
+   "saving": "The limit check prevents using $17.62$ N as the actual friction."
+  },
+  "pitfalls": [
+   "Using $F=\\mu R$ for every stationary block.",
+   "Using $R=mg$ despite an angled pull or push.",
+   "Giving friction the same direction as the impending or actual sliding."
+  ],
+  "check": "For a stationary block, the friction found from horizontal balance must satisfy $F\\le\\mu R$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A 2 kg block is stationary on a rough horizontal surface. It is pulled by a 5 N force at $60^\\circ$ above the horizontal; $\\mu=0.30$. Find the friction force in N. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2.5",
+    "hints": [
+     "First account for the upward component in the normal reaction.",
+     "Check whether the horizontal pull is below the limiting friction.",
+     "Set up $R=2(9.81)-5\\sin60^\\circ$ and compare $5\\cos60^\\circ$ with $0.30R$."
+    ],
+    "explanation": "$R=2(9.81)-5\\sin60^\\circ\\approx15.29$ N, so $\\mu R\\approx4.59$ N exceeds the horizontal pull. Static friction balances that pull: $F=5\\cos60^\\circ=2.5$ N.",
+    "shortcut_use": "Using horizontal balance after checking the friction limit."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A 4 kg block on a rough horizontal surface is pushed by a 10 N force at $30^\\circ$ below the horizontal. It is sliding, with $\\mu=0.20$. Find the friction force in N to 2 decimal places. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "8.85",
+    "hints": [
+     "A downward push increases the normal reaction.",
+     "For sliding, use the stated friction equality.",
+     "Set up $F=0.20(4(9.81)+10\\sin30^\\circ)$."
+    ],
+    "explanation": "The reaction is $R=4(9.81)+10\\sin30^\\circ=44.24$ N. Since the block is sliding, $F=\\mu R=0.20(44.24)=8.848\\approx8.85$ N.",
+    "shortcut_use": "Using $F=\\mu R$ after adjusting the reaction."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When may friction be set equal to $\\mu R$?",
+    "a": "At limiting equilibrium or while the surfaces slide."
+   },
+   {
+    "q": "How does an upward angled pull affect $R$ on a horizontal surface?",
+    "a": "It reduces $R$ by the pull’s upward component."
+   },
+   {
+    "q": "How do you find static friction below its limit?",
+    "a": "Use force balance, then check it does not exceed $\\mu R$."
+   }
+  ]
+ },
+ "SEM-M1-pulley-over-a-smooth-peg-hanging-masses": {
+  "id": "SEM-M1-pulley-over-a-smooth-peg-hanging-masses",
+  "hook": "Solving two particle equations every time is slow and makes tension signs easy to mix up.",
+  "when": "Two hanging masses $m_1<m_2$ are joined by a light inextensible string over a smooth peg or pulley.",
+  "idea": "Use $a=\\frac{(m_2-m_1)g}{m_1+m_2}$ and $T=\\frac{2m_1m_2g}{m_1+m_2}$. The heavier mass accelerates downwards.",
+  "why": "Subtracting the two weight equations removes tension; substituting the resulting acceleration into either equation gives tension. The formulae require a light taut inextensible string, a smooth support and no other forces along the motion.",
+  "steps": [
+   "Identify the lighter and heavier masses.",
+   "Substitute both masses into the acceleration formula.",
+   "Substitute them into the tension formula if needed.",
+   "Check that acceleration points downwards for the heavier mass."
+  ],
+  "worked": {
+   "question": "Masses of 2 kg and 3 kg hang on either side of a smooth peg, joined by a light taut inextensible string. Find their acceleration and the tension. Use $g=9.81$ m s$^{-2}$.",
+   "long": "Equations $T-2g=2a$ and $3g-T=3a$ add to $g=5a$, so $a=1.962$ m s$^{-2}$; then $T=2(g+a)=23.544$ N.",
+   "short": "$a=\\frac{(3-2)(9.81)}{2+3}=1.962$ m s$^{-2}$ and $T=\\frac{2(2)(3)(9.81)}{2+3}=23.544$ N.",
+   "saving": "The formulae replace a simultaneous-equation calculation."
+  },
+  "pitfalls": [
+   "Using the mass difference in the tension denominator.",
+   "Taking the lighter mass as moving downwards.",
+   "Using the formulae when the string is slack or the support has friction."
+  ],
+  "check": "For equal masses, the formulae give $a=0$ and $T=mg$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Masses of 1 kg and 4 kg hang on either side of a smooth peg, joined by a light taut inextensible string. Find the acceleration magnitude in m s$^{-2}$ to 3 significant figures. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5.89",
+    "hints": [
+     "Identify the heavier and lighter masses.",
+     "Put their difference over their sum.",
+     "Set up $a=\\frac{(4-1)(9.81)}{4+1}$."
+    ],
+    "explanation": "$a=\\frac{(4-1)(9.81)}{4+1}=5.886\\approx5.89$ m s$^{-2}$.",
+    "shortcut_use": "Using the mass-difference acceleration formula."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Masses of 2 kg and 6 kg hang on either side of a smooth peg, joined by a light taut inextensible string. Find the tension in N to 2 decimal places. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "29.43",
+    "hints": [
+     "Both masses appear in the tension formula.",
+     "Use twice their product divided by their sum.",
+     "Set up $T=\\frac{2(2)(6)(9.81)}{2+6}$."
+    ],
+    "explanation": "$T=\\frac{2(2)(6)(9.81)}{2+6}=29.43$ N.",
+    "shortcut_use": "Using the direct tension formula."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which mass moves downwards in the two-mass smooth-peg model?",
+    "a": "The heavier mass moves downwards."
+   },
+   {
+    "q": "What is the direct formula for acceleration?",
+    "a": "$a=\\frac{(m_2-m_1)g}{m_1+m_2}$ for $m_2>m_1$."
+   },
+   {
+    "q": "What happens when the hanging masses are equal?",
+    "a": "Acceleration is zero and tension equals either weight."
+   }
+  ]
+ },
+ "SEM-M1-rough-slope": {
+  "id": "SEM-M1-rough-slope",
+  "hook": "A slope question can invite two full force equations when one resolved component or one limiting-angle relation is enough.",
+  "when": "A body is on a rough slope, especially if it slides down or is in equilibrium on the point of slipping down.",
+  "idea": "With no other force perpendicular to the slope, $R=mg\\cos\\theta$. If sliding down, $a=g(\\sin\\theta-\\mu\\cos\\theta)$. At limiting equilibrium before slipping down, $\\mu=\\tan\\theta$.",
+  "why": "The perpendicular weight component gives $R$; the downhill weight component is $mg\\sin\\theta$. While sliding, friction is $\\mu R$ uphill. At the threshold of slipping down, these components balance and $mg\\sin\\theta=\\mu mg\\cos\\theta$. The formulae require a straight slope, no other perpendicular force, and the stated sliding or limiting condition.",
+  "steps": [
+   "Resolve perpendicular to the slope to get $R$.",
+   "Identify whether the body is sliding down or just about to slip down.",
+   "For sliding, substitute into the downhill acceleration formula.",
+   "At the downhill slipping threshold, use $\\mu=\\tan\\theta$."
+  ],
+  "worked": {
+   "question": "A 2 kg block is in equilibrium on the point of slipping down a rough plane inclined at $30^\\circ$ to the horizontal. Find $\\mu$.",
+   "long": "$R=2g\\cos30^\\circ$ and limiting friction is $\\mu R$. Along the plane, $2g\\sin30^\\circ=\\mu(2g\\cos30^\\circ)$, so $\\mu=\\tan30^\\circ\\approx0.577$.",
+   "short": "At the downhill slipping threshold, $\\mu=\\tan30^\\circ\\approx0.577$.",
+   "saving": "The mass and $g$ cancel without separate numerical force calculations."
+  },
+  "pitfalls": [
+   "Using $\\mu=\\tan\\theta$ for a body merely at rest below limiting equilibrium.",
+   "Using $R=mg$ instead of $mg\\cos\\theta$.",
+   "Taking friction downhill when the body slides or tends to slip downhill."
+  ],
+  "check": "At $\\theta=0$, the downhill component vanishes and the threshold formula gives $\\mu=0$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A block is in equilibrium on the point of slipping down a rough plane inclined at $45^\\circ$ to the horizontal. Find the coefficient of friction.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1",
+    "hints": [
+     "The words indicate limiting equilibrium.",
+     "Use the direct angle relation.",
+     "Set up $\\mu=\\tan45^\\circ$."
+    ],
+    "explanation": "At the downhill slipping threshold, $\\mu=\\tan45^\\circ=1$.",
+    "shortcut_use": "Using the limiting-angle relation."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A block slides down a rough plane inclined at $30^\\circ$ to the horizontal with coefficient of friction $\\mu=\\frac{1}{\\sqrt{3}}$. Find its acceleration down the plane in m s$^{-2}$. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0",
+    "hints": [
+     "The block is sliding down, so friction acts uphill.",
+     "Use the downhill acceleration formula.",
+     "Set up $a=9.81(\\sin30^\\circ-\\frac{1}{\\sqrt{3}}\\cos30^\\circ)$."
+    ],
+    "explanation": "$a=g(\\sin30^\\circ-\\mu\\cos30^\\circ)=9.81(\\frac{1}{2}-\\frac{1}{\\sqrt{3}}\\frac{\\sqrt{3}}{2})=0$ m s$^{-2}$.",
+    "shortcut_use": "Using the direct downhill acceleration formula."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the normal reaction for a block on a slope with no other perpendicular force?",
+    "a": "$R=mg\\cos\\theta$."
+   },
+   {
+    "q": "When does $\\mu=\\tan\\theta$ apply?",
+    "a": "It applies at limiting equilibrium when the block is about to slip down the slope."
+   },
+   {
+    "q": "Which way does friction act when a block slides down a slope?",
+    "a": "It acts up the slope."
+   }
+  ]
+ },
+ "SEM-M1-pick-the-right-suvat-in-two-seconds": {
+  "id": "SEM-M1-pick-the-right-suvat-in-two-seconds",
+  "hook": "Trying equations at random wastes time and makes it easy to introduce a quantity you do not know.",
+  "when": "A straight-line motion question gives three of $s,u,v,a,t$, asks for a fourth, and states or implies constant acceleration.",
+  "idea": "Identify the fifth quantity, which is neither given nor wanted. Use the equation that omits it: omit $s$: $v=u+at$; omit $v$: $s=ut+\\frac{1}{2}at^2$; omit $a$: $s=\\frac{1}{2}(u+v)t$; omit $t$: $v^2=u^2+2as$; omit $u$: $s=vt-\\frac{1}{2}at^2$.",
+  "why": "These equations relate displacement, initial velocity, final velocity, acceleration and time for straight-line motion with constant acceleration. Choosing the equation without the unused quantity leaves only the given values and the unknown.",
+  "steps": [
+   "Write $s,u,v,a,t$.",
+   "Mark the three given quantities and the one wanted.",
+   "Find the unmarked quantity and choose the equation that omits it.",
+   "Substitute signed values and solve."
+  ],
+  "worked": {
+   "question": "A particle moves in a straight line with constant acceleration $3$ m s$^{-2}$. Its initial velocity is $4$ m s$^{-1}$. Find its displacement after $5$ s.",
+   "long": "First find $v=u+at=4+3(5)=19$ m s$^{-1}$. Then $s=\\frac{1}{2}(u+v)t=\\frac{1}{2}(4+19)(5)=57.5$ m.",
+   "short": "$v$ is unused, so $s=ut+\\frac{1}{2}at^2=4(5)+\\frac{1}{2}(3)(5)^2=57.5$ m.",
+   "saving": "One equation replaces two, with no intermediate velocity to carry through."
+  },
+  "pitfalls": [
+   "Using a suvat equation when acceleration changes during the interval.",
+   "Treating displacement or velocity as unsigned when the motion reverses direction.",
+   "Choosing an equation that contains an extra unknown."
+  ],
+  "check": "In the worked example, positive acceleration makes the displacement greater than $ut=20$ m.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle moves in a straight line with constant acceleration. Its velocity rises from $3$ m s$^{-1}$ to $7$ m s$^{-1}$ over a displacement of $10$ m. Find its acceleration in m s$^{-2}$, to $2$ significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2.0",
+    "hints": [
+     "Which one of $s,u,v,a,t$ is neither given nor wanted?",
+     "Choose the equation that omits $t$.",
+     "Rearrange $v^2=u^2+2as$ to $a=\\frac{v^2-u^2}{2s}$."
+    ],
+    "explanation": "Omit $t$: $a=\\frac{v^2-u^2}{2s}=\\frac{7^2-3^2}{2(10)}=2.0$ m s$^{-2}$.",
+    "shortcut_use": "Selecting the equation without $t$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A particle moves in a straight line with constant acceleration $-2$ m s$^{-2}$. Its velocity at the end of a $3$ s interval is $8$ m s$^{-1}$. Find its displacement during the interval in m, to $2$ significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "33",
+    "hints": [
+     "The initial velocity is the unused quantity.",
+     "Choose the displacement equation that omits $u$; keep the sign of $a$.",
+     "Substitute into $s=vt-\\frac{1}{2}at^2$ before simplifying."
+    ],
+    "explanation": "Omit $u$: $s=vt-\\frac{1}{2}at^2=8(3)-\\frac{1}{2}(-2)(3)^2=33$ m.",
+    "shortcut_use": "Selecting the equation without $u$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you choose a suvat equation from three given quantities and one wanted quantity?",
+    "a": "Use the equation that omits the fifth quantity."
+   },
+   {
+    "q": "Which suvat equation omits time?",
+    "a": "$v^2=u^2+2as$."
+   },
+   {
+    "q": "What condition must hold for these suvat equations?",
+    "a": "Acceleration must be constant during the straight-line motion."
+   }
+  ]
+ },
+ "SEM-M1-write-along-the-motion-and-equilibrium-across-it": {
+  "id": "SEM-M1-write-along-the-motion-and-equilibrium-across-it",
+  "hook": "Resolving every force into arbitrary axes creates extra signs to track. Axes along and across the motion give one acceleration equation and one balance equation.",
+  "when": "A particle accelerates along a known straight line, such as an inclined plane.",
+  "idea": "Along the acceleration, forces helping minus forces opposing equal $ma$. Perpendicular to it, the forces balance.",
+  "why": "Newton's second law applies separately in perpendicular directions. The cross-motion equation is zero only when acceleration across the chosen direction is zero.",
+  "steps": [
+   "Choose an axis along the acceleration and one perpendicular to it.",
+   "Resolve each force onto those axes.",
+   "Write $F_{\\mathrm{helping}}-F_{\\mathrm{opposing}}=ma$ along the motion.",
+   "Balance the perpendicular components."
+  ],
+  "worked": {
+   "question": "A 4 kg block slides down a smooth plane inclined at $30^\\circ$ to the horizontal. Find its acceleration and the normal reaction. Use $g=9.81$ m s$^{-2}$.",
+   "long": "Resolve every force horizontally and vertically, then solve the two simultaneous equations. This gives $a=9.81\\sin 30^\\circ=4.905$ m s$^{-2}$ and $R=4(9.81)\\cos 30^\\circ\\approx33.98$ N.",
+   "short": "Along the plane, $4(9.81)\\sin 30^\\circ=4a$, so $a=4.905$ m s$^{-2}$. Across it, $R=4(9.81)\\cos 30^\\circ\\approx33.98$ N.",
+   "saving": "Two direct equations replace simultaneous horizontal and vertical equations."
+  },
+  "pitfalls": [
+   "Putting the normal reaction in the equation along the plane.",
+   "Using $mg\\cos\\theta$ as the downhill component when $\\theta$ is the plane's angle to the horizontal.",
+   "Balancing the forces along a direction in which the block accelerates."
+  ],
+  "check": "On a smooth plane, the acceleration must lie between $0$ and $g$ for an angle between $0^\\circ$ and $90^\\circ$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A 2 kg block slides down a smooth plane inclined at $30^\\circ$ to the horizontal. With $g=9.81$ m s$^{-2}$, find its acceleration in m s$^{-2}$, to 3 significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.91",
+    "hints": [
+     "The acceleration is along the plane.",
+     "Resolve weight along that direction.",
+     "Use $2(9.81)\\sin 30^\\circ=2a$."
+    ],
+    "explanation": "Along the plane, $a=g\\sin 30^\\circ=4.905$ m s$^{-2}$, giving 4.91 to 3 significant figures.",
+    "shortcut_use": "Resolve along the acceleration."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A 5 kg block slides on a smooth plane inclined at $60^\\circ$ to the horizontal. With $g=9.81$ m s$^{-2}$, find the normal reaction in N, to 3 significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "24.5",
+    "hints": [
+     "The block has no acceleration perpendicular to the plane.",
+     "Balance the perpendicular forces.",
+     "Use $R=5(9.81)\\cos 60^\\circ$."
+    ],
+    "explanation": "Perpendicular to the plane, $R=mg\\cos 60^\\circ=24.525$ N, giving 24.5 to 3 significant figures.",
+    "shortcut_use": "Balance forces across the motion."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What equation applies along the acceleration?",
+    "a": "Forces helping minus forces opposing equal $ma$."
+   },
+   {
+    "q": "When may perpendicular forces be balanced?",
+    "a": "When acceleration in that perpendicular direction is zero."
+   }
+  ]
+ },
+ "SEM-M1-equilibrium-three-equations": {
+  "id": "SEM-M1-equilibrium-three-equations",
+  "hook": "Writing every equilibrium equation at once wastes work. The right equation may give the unknown immediately.",
+  "when": "A rigid body is at rest under horizontal and vertical forces, and perhaps forces with turning effects.",
+  "idea": "Use horizontal force balance, vertical force balance or moment balance about a point; choose the equation that isolates the required unknown.",
+  "why": "A rigid body in equilibrium has zero resultant force and zero resultant moment. These conditions hold when it remains at rest without turning.",
+  "steps": [
+   "Identify the required unknown.",
+   "Choose a force direction or moment point that removes other unknowns.",
+   "Write the chosen zero-resultant equation.",
+   "Solve, then use another equation only if needed."
+  ],
+  "worked": {
+   "question": "A horizontal 4 m uniform beam of weight 100 N rests on supports at its ends. A 50 N load is placed 1 m from the left end. Find the vertical reaction at the right support.",
+   "long": "Write vertical balance, $R_L+R_R=150$, then take moments about the left end: $4R_R=100(2)+50(1)$. Thus $R_R=62.5$ N.",
+   "short": "Take moments about the left end immediately: $4R_R=100(2)+50(1)$, so $R_R=62.5$ N.",
+   "saving": "The left reaction disappears, so no simultaneous equations are needed."
+  },
+  "pitfalls": [
+   "Using a force balance that contains two unknown reactions when one moment equation isolates the target.",
+   "Forgetting that the beam's weight acts at its midpoint.",
+   "Balancing forces while leaving a non-zero turning effect."
+  ],
+  "check": "The right reaction is less than the total 150 N load and positive.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A horizontal 6 m uniform beam of weight 120 N is supported at both ends. A 60 N load is placed 2 m from the left end. Find the right support reaction in N, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "80",
+    "hints": [
+     "The beam is in equilibrium.",
+     "Take moments about the left support.",
+     "Use $6R_R=120(3)+60(2)$."
+    ],
+    "explanation": "Moment balance about the left support gives $6R_R=480$, hence the right reaction is 80 N.",
+    "shortcut_use": "Choose the moment equation that isolates the right reaction."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A horizontal 5 m uniform beam of weight 80 N is supported at both ends. A 40 N load is placed 1 m from the right end. Find the left support reaction in N, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "48",
+    "hints": [
+     "The beam is in equilibrium.",
+     "Take moments about the right support.",
+     "Use $5R_L=80(2.5)+40(1)$."
+    ],
+    "explanation": "Moment balance about the right support gives $5R_L=240$, hence the left reaction is 48 N.",
+    "shortcut_use": "Choose the moment equation that removes the right reaction."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which three equilibrium equations are available in a plane?",
+    "a": "Balance horizontal forces, vertical forces and moments about a point."
+   },
+   {
+    "q": "How should you choose an equilibrium equation?",
+    "a": "Use the one that isolates the required unknown."
+   }
+  ]
+ },
+ "SEM-M1-moments-around-the-point-that-kills-unknowns": {
+  "id": "SEM-M1-moments-around-the-point-that-kills-unknowns",
+  "hook": "An unknown support force can clutter a moments equation. Taking moments at its point of action removes it.",
+  "when": "A body is in equilibrium and an unknown force acts at a known pivot or support.",
+  "idea": "Take moments about the point where the unwanted unknown acts; its perpendicular distance, and therefore its moment, is zero.",
+  "why": "A force's moment is its magnitude times its perpendicular distance from the chosen point. A force whose line of action passes through that point has zero moment; moment balance applies when the body has no angular acceleration.",
+  "steps": [
+   "Mark the point where the unwanted unknown acts.",
+   "Measure perpendicular distances from that point to the other force lines.",
+   "Equate clockwise and anticlockwise moments.",
+   "Solve for the required force."
+  ],
+  "worked": {
+   "question": "A horizontal 5 m uniform beam weighing 60 N is hinged at its left end. A vertical upward force acts at the right end and holds it in equilibrium. Find that force.",
+   "long": "Let the hinge's vertical reaction be $R$. Vertical balance gives $R+F=60$; moment balance gives $5F=60(2.5)$, so $F=30$ N and $R=30$ N.",
+   "short": "Take moments about the hinge: its reaction has zero moment. Thus $5F=60(2.5)$ and $F=30$ N.",
+   "saving": "The hinge reaction never enters the calculation."
+  },
+  "pitfalls": [
+   "Using the beam length instead of the perpendicular lever arm for an angled force.",
+   "Taking moments about a point off the unknown force's line of action.",
+   "Putting clockwise and anticlockwise moments on the same side with the same sign."
+  ],
+  "check": "For a uniform beam with only its weight and an end force, the end force should be half the weight.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A horizontal 4 m uniform beam weighing 80 N is hinged at its left end. A vertical upward force at the right end keeps it in equilibrium. Find the upward force in N, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "40",
+    "hints": [
+     "The hinge force acts at the left end.",
+     "Take moments about the hinge.",
+     "Use $4F=80(2)$."
+    ],
+    "explanation": "Taking moments about the hinge removes its reaction: $4F=160$, so the upward force is 40 N.",
+    "shortcut_use": "Take moments about the hinge."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A horizontal 6 m light beam is hinged at its left end. A 50 N downward load acts 2 m from the hinge. A vertical upward force at the right end keeps it in equilibrium. Find that force in N, to 3 significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "16.7",
+    "hints": [
+     "The hinge force has zero moment about the hinge.",
+     "Balance the moments of the load and end force.",
+     "Use $6F=50(2)$."
+    ],
+    "explanation": "About the hinge, $6F=100$, so $F=16.666\\ldots$ N and the required value is 16.7 N.",
+    "shortcut_use": "Eliminate the hinge force by the moment point."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Why does a force acting through the pivot have zero moment?",
+    "a": "Its perpendicular distance from the pivot is zero."
+   },
+   {
+    "q": "Which distance belongs in a moment calculation?",
+    "a": "The perpendicular distance from the pivot to the force's line of action."
+   }
+  ]
+ },
+ "SEM-M1-average-velocity-trick": {
+  "id": "SEM-M1-average-velocity-trick",
+  "hook": "Finding acceleration first adds an unnecessary step when initial velocity, final velocity and time are known.",
+  "when": "A particle moves in a straight line with constant acceleration, and $u$, $v$ and $t$ are given.",
+  "idea": "Use $s=\\frac{1}{2}(u+v)t$.",
+  "why": "With constant acceleration, velocity changes linearly with time, so its average is $\\frac{1}{2}(u+v)$. The result gives signed displacement when velocities are signed.",
+  "steps": [
+   "Check that acceleration is constant.",
+   "Give $u$ and $v$ signs on the same axis.",
+   "Average them.",
+   "Multiply by the elapsed time."
+  ],
+  "worked": {
+   "question": "A car slows uniformly from 24 m s$^{-1}$ to 8 m s$^{-1}$ in 4 s. Find its displacement in that time.",
+   "long": "Compute $a=(8-24)/4=-4$ m s$^{-2}$, then $s=24(4)+\\frac{1}{2}(-4)(4^2)=64$ m.",
+   "short": "$s=\\frac{1}{2}(24+8)(4)=64$ m.",
+   "saving": "One formula avoids calculating acceleration."
+  },
+  "pitfalls": [
+   "Using the formula when acceleration changes during the interval.",
+   "Confusing the signed displacement with distance after a change of direction.",
+   "Forgetting that $u$ and $v$ need a common positive direction."
+  ],
+  "check": "For motion without a turn, displacement divided by time should lie between $u$ and $v$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A train accelerates uniformly from 6 m s$^{-1}$ to 18 m s$^{-1}$ in 5 s. Find its displacement in m, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "60",
+    "hints": [
+     "Initial and final velocities and time are given.",
+     "Use their average velocity.",
+     "Set up $s=\\frac{1}{2}(6+18)(5)$."
+    ],
+    "explanation": "For constant acceleration, $s=\\frac{1}{2}(6+18)(5)=60$ m.",
+    "shortcut_use": "Average the endpoint velocities."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A cyclist slows uniformly from 15 m s$^{-1}$ to 3 m s$^{-1}$ in 6 s. Find the displacement in m, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "54",
+    "hints": [
+     "The slowing is uniform.",
+     "Average the two velocities.",
+     "Set up $s=\\frac{1}{2}(15+3)(6)$."
+    ],
+    "explanation": "For constant acceleration, $s=\\frac{1}{2}(15+3)(6)=54$ m.",
+    "shortcut_use": "Use average velocity without finding acceleration."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is average velocity under constant acceleration?",
+    "a": "It is $\\frac{1}{2}(u+v)$."
+   },
+   {
+    "q": "What condition is required for $s=\\frac{1}{2}(u+v)t$?",
+    "a": "Acceleration must be constant over the interval."
+   }
+  ]
+ },
+ "SEM-M1-choose-up-as-positive-and-keep": {
+  "id": "SEM-M1-choose-up-as-positive-and-keep",
+  "hook": "Changing the positive direction at the top of a flight invites sign errors. One upward-positive equation covers ascent and descent.",
+  "when": "A particle moves vertically under gravity and passes a height twice.",
+  "idea": "Choose upward as positive and use $s=ut-\\frac{1}{2}gt^2$ throughout. Two valid positive roots can represent the upward and downward passes.",
+  "why": "Gravity has constant downward acceleration, so $a=-g$ on an upward-positive axis throughout the flight, provided air resistance is neglected.",
+  "steps": [
+   "Set the launch point as $s=0$ and upward as positive.",
+   "Use $a=-g$ in $s=ut+\\frac{1}{2}at^2$.",
+   "Set $s$ to the target height and solve the quadratic.",
+   "Interpret the earlier and later positive times."
+  ],
+  "worked": {
+   "question": "A ball is thrown vertically upward at 20 m s$^{-1}$ from a point 15.095 m below a ledge. It moves under gravity without air resistance. At what times does it pass the ledge? Use $g=9.81$ m s$^{-2}$.",
+   "long": "Find the peak time $20/9.81$, then separately solve ascent and descent from the peak for the ledge height; the times are approximately 1.00 s and 3.08 s.",
+   "short": "Set $15.095=20t-4.905t^2$. This factors as $(t-1)(4.905t-15.095)=0$, giving $t=1.00$ s and $t\\approx3.08$ s.",
+   "saving": "One equation handles both passes without restarting at the peak."
+  },
+  "pitfalls": [
+   "Switching to $a=+g$ after the ball passes its highest point while keeping upward positive.",
+   "Discarding the later root when the question asks for both passes.",
+   "Treating a negative root as a time after launch."
+  ],
+  "check": "Substitute each time into $s=ut-\\frac{1}{2}gt^2$; both should give the stated height.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A ball is thrown vertically upward at 19.62 m s$^{-1}$. At what later time does it pass its launch height? Ignore air resistance and use $g=9.81$ m s$^{-2}$. Give the time in s, to 2 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.00",
+    "hints": [
+     "The launch height is $s=0$ at both passes.",
+     "Keep upward positive and solve one equation.",
+     "Set $0=19.62t-4.905t^2$ and select the non-zero root."
+    ],
+    "explanation": "With upward positive, $0=19.62t-4.905t^2=t(19.62-4.905t)$. The later pass is at 4.00 s.",
+    "shortcut_use": "Keep $a=-g$ for the whole flight."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A ball is thrown vertically upward at 14.715 m s$^{-1}$. At what later time is it 9.81 m above its launch point? Ignore air resistance and use $g=9.81$ m s$^{-2}$. Give the time in s, to 2 decimal places.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2.00",
+    "hints": [
+     "The specified height can be reached on both ascent and descent.",
+     "Keep one upward-positive displacement equation.",
+     "Set $9.81=14.715t-4.905t^2$ and select the later root."
+    ],
+    "explanation": "Dividing $9.81=14.715t-4.905t^2$ by $4.905$ gives $2=3t-t^2$, so $(t-1)(t-2)=0$. The later time is 2.00 s.",
+    "shortcut_use": "Use one quadratic for both passes."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What sign does gravitational acceleration have when upward is positive?",
+    "a": "It is $-g$ throughout the flight."
+   },
+   {
+    "q": "What can two positive roots of the height equation represent?",
+    "a": "They can be the upward and downward passes through the same height."
+   }
+  ]
+ },
+ "SEM-M1-displacement-vs-distance": {
+  "id": "SEM-M1-displacement-vs-distance",
+  "hook": "Subtracting final and initial positions misses travel made before a turn. The turning point separates the parts that must be added.",
+  "when": "A velocity expression changes sign during the stated interval and total distance is required.",
+  "idea": "Find each turn from $v=0$, then add the magnitudes of the displacements between successive endpoints.",
+  "why": "Displacement is signed change in position, while distance counts travel in either direction positively. Splitting at every direction change works when all zeros of velocity in the interval are found.",
+  "steps": [
+   "Solve $v(t)=0$ within the interval.",
+   "Evaluate position at each endpoint and turning time.",
+   "Find each successive change in position.",
+   "Add the absolute values."
+  ],
+  "worked": {
+   "question": "A particle moves along a line with position $s=t^2-4t$ metres for $0\\le t\\le5$ s. Find its total distance travelled.",
+   "long": "Since $v=2t-4$, it moves backward from $t=0$ to $t=2$, then forward to $t=5$. The first leg is 4 m and the second is 9 m, totalling 13 m.",
+   "short": "The turn is at $t=2$. Positions are $s(0)=0$, $s(2)=-4$, $s(5)=5$; distance $=|-4-0|+|5-(-4)|=13$ m.",
+   "saving": "Position differences at the turn prevent the 5 m net displacement being mistaken for distance."
+  },
+  "pitfalls": [
+   "Using $|s(5)-s(0)|$ when the particle turns.",
+   "Including a root of $v=0$ outside the given time interval.",
+   "Assuming every zero of velocity is a turn without checking for a sign change."
+  ],
+  "check": "Distance must be at least the magnitude of net displacement; here 13 m is at least 5 m.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle has position $s=t^2-6t$ metres for $0\\le t\\le7$ s. Find its total distance in m, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "25",
+    "hints": [
+     "The velocity may change sign.",
+     "Solve $v=2t-6=0$, then split the interval.",
+     "Evaluate $s(0)$, $s(3)$ and $s(7)$ before adding magnitudes."
+    ],
+    "explanation": "The turn is at $t=3$. Positions are $0$, $-9$ and $7$ m, so distance $=|-9|+|7-(-9)|=9+16=25$ m.",
+    "shortcut_use": "Split at the zero of velocity."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A particle has position $s=8t-t^2$ metres for $0\\le t\\le6$ s. Find its total distance in m, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "20",
+    "hints": [
+     "The velocity changes direction within the interval.",
+     "Find where $v=8-2t=0$.",
+     "Use the positions at $t=0$, the turn and $t=6$."
+    ],
+    "explanation": "The turn is at $t=4$. Positions are $0$, $16$ and $12$ m, so distance $=|16-0|+|12-16|=16+4=20$ m.",
+    "shortcut_use": "Add displacement magnitudes on either side of the turn."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you find a turning time from a position function?",
+    "a": "Differentiate to get velocity, then solve $v=0$ and check that its sign changes."
+   },
+   {
+    "q": "How is total distance found after a turn?",
+    "a": "Add the magnitudes of the displacements on each side of the turn."
+   }
+  ]
+ },
+ "SEM-M1-integrate-back-with-a-constant": {
+  "id": "SEM-M1-integrate-back-with-a-constant",
+  "hook": "Integration gives a family of motions. The starting condition fixes the one motion in the question.",
+  "when": "Acceleration or velocity is given as a function of time, together with an initial velocity or position.",
+  "idea": "Integrate $a=\\frac{dv}{dt}$ to get $v$, or $v=\\frac{ds}{dt}$ to get $s$, and use the known value at $t=0$ immediately to fix the constant.",
+  "why": "Differentiation removes an additive constant, so reversing it requires one known value for each integration. This holds where the given functions are integrable and the derivative relations describe the motion.",
+  "steps": [
+   "Integrate the given acceleration or velocity.",
+   "Include a constant.",
+   "Substitute the known starting value at $t=0$.",
+   "Use the resulting function to answer the question."
+  ],
+  "worked": {
+   "question": "A particle has acceleration $a=6t$ m s$^{-2}$ and initial velocity 4 m s$^{-1}$. Find its velocity at $t=3$ s.",
+   "long": "Integrate over the interval: $v(3)-v(0)=\\int_0^3 6t\\,dt=27$. Thus $v(3)=4+27=31$ m s$^{-1}$.",
+   "short": "Integrate once: $v=3t^2+C$. At $t=0$, $C=4$, so $v(3)=3(3^2)+4=31$ m s$^{-1}$.",
+   "saving": "Fixing $C$ at once makes the velocity formula ready for any later time."
+  },
+  "pitfalls": [
+   "Omitting the integration constant.",
+   "Using an initial position to fix the constant in a velocity equation.",
+   "Forgetting that a second integration introduces a second constant."
+  ],
+  "check": "Differentiate the result and confirm that it returns the given acceleration.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle has acceleration $a=4t$ m s$^{-2}$ and velocity 3 m s$^{-1}$ at $t=0$. Find its velocity at $t=2$ s in m s$^{-1}$, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "11",
+    "hints": [
+     "Acceleration is the derivative of velocity.",
+     "Integrate and apply the initial velocity.",
+     "Use $v=2t^2+C$ with $v(0)=3$."
+    ],
+    "explanation": "Integrating gives $v=2t^2+C$ and $v(0)=3$ gives $C=3$. Hence $v(2)=2(2^2)+3=11$ m s$^{-1}$.",
+    "shortcut_use": "Fix the integration constant immediately."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A particle has velocity $v=6t+2$ m s$^{-1}$ and position 5 m at $t=0$. Find its position at $t=3$ s in m, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "38",
+    "hints": [
+     "Velocity is the derivative of position.",
+     "Integrate velocity and apply the initial position.",
+     "Use $s=3t^2+2t+C$ with $s(0)=5$."
+    ],
+    "explanation": "Integrating gives $s=3t^2+2t+C$ and $s(0)=5$ gives $C=5$. Hence $s(3)=27+6+5=38$ m.",
+    "shortcut_use": "Fix the position constant at $t=0$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Why does integrating velocity require a constant?",
+    "a": "Differentiation removes any constant added to position."
+   },
+   {
+    "q": "How is the integration constant fixed?",
+    "a": "Substitute a known velocity or position at its stated time into the integrated function."
+   }
+  ]
+ },
+ "SEM-M1-meeting-and-chase": {
+  "id": "SEM-M1-meeting-and-chase",
+  "hook": "Separate start times and origins can make a chase equation look inconsistent. One clock and one position axis make meeting a single equality.",
+  "when": "Two particles meet, overtake or pass each other, especially when one starts later.",
+  "idea": "Write both positions from the same origin and time-zero, then solve $s_1(t)=s_2(t)$. For a start delayed by $T$, the moving time is $t-T$.",
+  "why": "Meeting means occupying the same position at the same time. This equality always holds on a common position axis; a delayed particle's motion formula applies only for $t\\ge T$.",
+  "steps": [
+   "Choose one origin, positive direction and time-zero.",
+   "Write each particle's position using the same time $t$.",
+   "For a delayed start, use $t-T$ in its motion term.",
+   "Equate positions and keep times within the motion interval."
+  ],
+  "worked": {
+   "question": "Cyclist A passes a marker at $t=0$ travelling at 4 m s$^{-1}$. Cyclist B passes the same marker 3 s later travelling in the same direction at 6 m s$^{-1}$. Both speeds remain constant. When does B catch A, measured from $t=0$?",
+   "long": "When B starts, A is 12 m ahead. B gains at 2 m s$^{-1}$, so the catch takes 6 s after B starts, or 9 s from $t=0$.",
+   "short": "From the marker, $s_A=4t$ and $s_B=6(t-3)$ for $t\\ge3$. Equating gives $4t=6t-18$, so $t=9$ s.",
+   "saving": "The delayed start is handled in the equation, avoiding a second clock."
+  },
+  "pitfalls": [
+   "Using $6t$ for a particle that starts at $t=3$.",
+   "Equating distances measured from different origins.",
+   "Accepting a solution earlier than the delayed start."
+  ],
+  "check": "At the meeting time, substitute into both position expressions; they must match.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "Runner A leaves a marker at $t=0$ at a constant 3 m s$^{-1}$. Runner B leaves the same marker 4 s later in the same direction at a constant 5 m s$^{-1}$. Find the meeting time in s measured from $t=0$, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "Use the same clock for both runners.",
+     "Give B a moving time of $t-4$.",
+     "Equate $3t=5(t-4)$ with $t\\ge4$."
+    ],
+    "explanation": "Common positions give $3t=5(t-4)$, so $3t=5t-20$ and $t=10$ s.",
+    "shortcut_use": "Use a common clock and the delayed time $t-4$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "Two particles are initially 90 m apart and move towards each other at constant speeds of 4 m s$^{-1}$ and 6 m s$^{-1}$. They start together. Find their meeting time in s, to the nearest whole number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "9",
+    "hints": [
+     "They move towards each other across one initial gap.",
+     "Their distances travelled add to the gap.",
+     "Set $4t+6t=90$."
+    ],
+    "explanation": "At meeting, their travelled distances sum to the 90 m gap: $4t+6t=90$, so $t=9$ s.",
+    "shortcut_use": "Sum distances for opposite-direction motion."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What must match when two particles meet?",
+    "a": "Their positions on one axis at the same time must be equal."
+   },
+   {
+    "q": "How is a start delayed by $T$ represented?",
+    "a": "Use $t-T$ as that particle's moving time for $t\\ge T$."
+   }
+  ]
+ },
+ "SEM-M1-reset-the-clock-when-the-motion-changes": {
+  "id": "SEM-M1-reset-the-clock-when-the-motion-changes",
+  "hook": "One suvat equation across a change in acceleration gives the wrong displacement. A new clock keeps each phase's initial velocity clear.",
+  "when": "The motion has an impact, a break, or a change of surface.",
+  "idea": "At the boundary, carry forward position and velocity, set the next phase's time to $\\tau=0$, and find its new acceleration.",
+  "why": "Each suvat equation requires constant acceleration throughout the interval to which it is applied. The acceleration may differ between phases.",
+  "steps": [
+   "Solve the first phase up to the boundary.",
+   "Record position and velocity there.",
+   "Set $\\tau=0$ and find the new acceleration.",
+   "Solve the next phase from those boundary values."
+  ],
+  "worked": {
+   "question": "A particle starts from rest and accelerates at $2$ m s$^{-2}$ for $3$ s. It then accelerates at $-1$ m s$^{-2}$ for $2$ s. Find its displacement from the start, in metres.",
+   "long": "The first displacement is $\\frac{1}{2}(2)(3^2)=9$ m. Its velocity is then $6$ m s$^{-1}$, so the second displacement is $6(2)+\\frac{1}{2}(-1)(2^2)=10$ m. Total: $19$ m.",
+   "short": "At the change, record $s=9$ m and $v=6$ m s$^{-1}$. Reset $\\tau=0$: $s=9+6\\tau+\\frac{1}{2}(-1)\\tau^2$. At $\\tau=2$ s, $s=19$ m.",
+   "saving": "It prevents the second acceleration being applied to the first phase."
+  },
+  "pitfalls": [
+   "Using the original elapsed time in the second phase.",
+   "Resetting the velocity to zero at the boundary.",
+   "Using the first acceleration after the change."
+  ],
+  "check": "The second displacement should be less than $6(2)=12$ m because acceleration is negative.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle starts from rest, accelerates at $3$ m s$^{-2}$ for $2$ s, then at $-2$ m s$^{-2}$ for $1$ s. Find its total displacement in m.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "11",
+    "hints": [
+     "There are two acceleration phases.",
+     "Find the velocity and displacement at the change, then reset time.",
+     "Use $s_1=\\frac{1}{2}(3)(2^2)$ and $s_2=v_1(1)+\\frac{1}{2}(-2)(1^2)$."
+    ],
+    "explanation": "At the boundary, $s_1=6$ m and $v_1=6$ m s$^{-1}$. With local time $\\tau=1$ s, $s_2=6(1)+\\frac{1}{2}(-2)(1^2)=5$ m, giving $11$ m.",
+    "shortcut_use": "Reset time at the change of acceleration."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A particle moving at $4$ m s$^{-1}$ accelerates at $1$ m s$^{-2}$ for $2$ s, then at $-3$ m s$^{-2}$ for $1$ s. Find its total displacement in m.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "13.5",
+    "hints": [
+     "The acceleration changes after $2$ s.",
+     "Carry the first phase's final velocity into the second phase.",
+     "Use $s_1=4(2)+\\frac{1}{2}(1)(2^2)$, then $s_2=v_1(1)+\\frac{1}{2}(-3)(1^2)$."
+    ],
+    "explanation": "The first phase gives $s_1=10$ m and $v_1=6$ m s$^{-1}$. Resetting time gives $s_2=6(1)+\\frac{1}{2}(-3)(1^2)=3.5$ m, so the total is $13.5$ m.",
+    "shortcut_use": "Carry boundary values into a new local-time equation."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What two quantities do you carry across a change in acceleration?",
+    "a": "Carry the position and velocity at the boundary."
+   },
+   {
+    "q": "When can one suvat equation span the whole motion?",
+    "a": "Only when acceleration is constant throughout that interval."
+   }
+  ]
+ },
+ "SEM-M1-trapezium-shortcut-for-a-three-stage-journey": {
+  "id": "SEM-M1-trapezium-shortcut-for-a-three-stage-journey",
+  "hook": "Adding three separate areas takes extra working and invites a missing half. The whole speed–time area is one trapezium.",
+  "when": "Speed rises linearly from zero to $V$, stays at $V$, then falls linearly to zero.",
+  "idea": "Distance is $\\frac{1}{2}V(T+t_2)$, where $T$ is total time and $t_2$ is time at constant speed.",
+  "why": "The speed–time graph is a trapezium with parallel time lengths $T$ and $t_2$ and height $V$. This holds for linear acceleration and deceleration with the stated zero start and end speeds.",
+  "steps": [
+   "Identify top speed $V$.",
+   "Find total time $T$ and constant-speed time $t_2$.",
+   "Calculate $\\frac{1}{2}V(T+t_2)$."
+  ],
+  "worked": {
+   "question": "A vehicle accelerates uniformly from rest to $20$ m s$^{-1}$ in $4$ s, travels at that speed for $6$ s, then decelerates uniformly to rest in $2$ s. Find the distance travelled.",
+   "long": "The three areas are $\\frac{1}{2}(4)(20)+6(20)+\\frac{1}{2}(2)(20)=40+120+20=180$ m.",
+   "short": "With $T=4+6+2=12$ s, distance $=\\frac{1}{2}(20)(12+6)=180$ m.",
+   "saving": "It replaces three area calculations with one."
+  },
+  "pitfalls": [
+   "Using $t_1+t_3$ in place of $t_2$.",
+   "Applying the formula when the initial or final speed is not zero.",
+   "Using a curved speed–time section as though it were linear."
+  ],
+  "check": "The distance must be below $VT$ and at least $Vt_2$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A train accelerates uniformly from rest to $15$ m s$^{-1}$ in $6$ s, stays at that speed for $8$ s, then decelerates uniformly to rest in $4$ s. Find the distance in m.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "195",
+    "hints": [
+     "The speed–time area forms a trapezium.",
+     "Add the three times to get $T$.",
+     "Use $\\frac{1}{2}V(T+t_2)$ with $V=15$ and $t_2=8$."
+    ],
+    "explanation": "Here $T=6+8+4=18$ s. The trapezium area is $\\frac{1}{2}(15)(18+8)=195$ m.",
+    "shortcut_use": "Take the whole speed–time area as one trapezium."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A cyclist accelerates uniformly from rest to $12$ m s$^{-1}$ in $3$ s, rides at that speed for $5$ s, then decelerates uniformly to rest in $7$ s. Find the distance in m.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "120",
+    "hints": [
+     "The unequal acceleration and deceleration times still form a trapezium.",
+     "Find the total time and retain the constant-speed time.",
+     "Use $\\frac{1}{2}(12)(T+5)$ with $T=3+5+7$."
+    ],
+    "explanation": "The total time is $15$ s, so the trapezium area is $\\frac{1}{2}(12)(15+5)=120$ m.",
+    "shortcut_use": "Use both parallel sides of the trapezium."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the three-stage trapezium distance formula?",
+    "a": "Distance is $\\frac{1}{2}V(T+t_2)$."
+   },
+   {
+    "q": "What motion makes the speed–time graph this trapezium?",
+    "a": "Speed rises linearly from zero, remains constant, then falls linearly to zero."
+   }
+  ]
+ },
+ "SEM-M1-vertical-motion-is-symmetric": {
+  "id": "SEM-M1-vertical-motion-is-symmetric",
+  "hook": "Solving separate upward and downward equations repeats work and can reverse a sign. Symmetry gives the return time and speed directly.",
+  "when": "A particle is thrown vertically upwards and returns to its launch height.",
+  "idea": "Time to the top is $\\frac{u}{g}$; return time is $\\frac{2u}{g}$; maximum rise is $\\frac{u^2}{2g}$. At any height reached twice, the speeds are equal.",
+  "why": "With constant downward gravitational acceleration and no resistance, the upward and downward parts between the same two heights mirror each other.",
+  "steps": [
+   "Take $u$ as the upward launch speed.",
+   "Find $\\frac{u}{g}$ for time to the top.",
+   "Double it for a return to launch height.",
+   "Use $\\frac{u^2}{2g}$ if maximum rise is needed."
+  ],
+  "worked": {
+   "question": "A ball is thrown vertically upwards at $19.62$ m s$^{-1}$. Neglect air resistance and use $g=9.81$ m s$^{-2}$. Find its maximum rise and the time until it returns to its launch height.",
+   "long": "At the top, $0=19.62-9.81t$ gives $t=2$ s, and $0=19.62^2-2(9.81)h$ gives $h=19.62$ m. Solving the displacement equation again gives a return time of $4$ s.",
+   "short": "The rise is $\\frac{19.62^2}{2(9.81)}=19.62$ m. The return time is $\\frac{2(19.62)}{9.81}=4$ s.",
+   "saving": "It avoids a second displacement equation for the return."
+  },
+  "pitfalls": [
+   "Doubling the time to the top when the landing height differs from the launch height.",
+   "Using symmetry when air resistance is significant.",
+   "Calling the downward velocity positive while still using upward as positive."
+  ],
+  "check": "On returning to launch height, the speed must equal the launch speed if resistance is neglected.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A ball is thrown vertically upwards at $9.81$ m s$^{-1}$ and returns to its launch height. Neglect air resistance and use $g=9.81$ m s$^{-2}$. Find the total flight time in s.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2",
+    "hints": [
+     "The ball returns to its starting height.",
+     "Double the time taken to reach the top.",
+     "Use $t=\\frac{2u}{g}$ with $u=9.81$."
+    ],
+    "explanation": "The return time is $\\frac{2u}{g}=\\frac{2(9.81)}{9.81}=2$ s.",
+    "shortcut_use": "Double the time to the top."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A stone is thrown vertically upwards at $14.715$ m s$^{-1}$. Neglect air resistance and use $g=9.81$ m s$^{-2}$. Find its maximum rise in m.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "11.03625",
+    "hints": [
+     "At maximum height, vertical speed is zero.",
+     "Use the direct maximum-rise formula.",
+     "Substitute into $h=\\frac{u^2}{2g}$."
+    ],
+    "explanation": "The maximum rise is $h=\\frac{14.715^2}{2(9.81)}=11.03625$ m.",
+    "shortcut_use": "Use the direct maximum-rise formula."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the time to the top for upward launch speed $u$?",
+    "a": "It is $\\frac{u}{g}$."
+   },
+   {
+    "q": "When is total flight time $\\frac{2u}{g}$?",
+    "a": "When the particle returns to launch height under constant gravity without resistance."
+   },
+   {
+    "q": "How do speeds compare at the same height on the way up and down?",
+    "a": "Their magnitudes are equal without resistance."
+   }
+  ]
+ },
+ "SEM-M1-speed-and-bearing": {
+  "id": "SEM-M1-speed-and-bearing",
+  "hook": "A direction angle measured from east is easily mistaken for a bearing. One conversion fixes the reference direction.",
+  "when": "Velocity is given as east and north components and the answer needs speed and bearing.",
+  "idea": "For east component $a$ and north component $b$, speed is $\\sqrt{a^2+b^2}$. Find the direction angle $\\theta$ from east with its correct quadrant, then bearing is $90^\\circ-\\theta$ modulo $360^\\circ$.",
+  "why": "East and north components are perpendicular, so Pythagoras gives speed. Bearings run clockwise from north; the conversion holds for any nonzero horizontal vector once the quadrant is correct.",
+  "steps": [
+   "Identify signed east and north components.",
+   "Calculate $\\sqrt{a^2+b^2}$.",
+   "Find the direction angle from east in the correct quadrant.",
+   "Convert to a three-figure bearing."
+  ],
+  "worked": {
+   "question": "A particle has velocity $3$ m s$^{-1}$ east and $4$ m s$^{-1}$ north. Find its speed and bearing to the nearest degree.",
+   "long": "A right triangle gives speed $\\sqrt{3^2+4^2}=5$ m s$^{-1}$. The angle clockwise from north is $\\tan^{-1}(3/4)\\approx37^\\circ$, so the bearing is $037^\\circ$.",
+   "short": "Speed is $5$ m s$^{-1}$. The angle from east is $\\theta=\\tan^{-1}(4/3)\\approx53^\\circ$; bearing $=90^\\circ-53^\\circ=037^\\circ$.",
+   "saving": "It converts an already-known direction angle without redrawing the triangle."
+  },
+  "pitfalls": [
+   "Reporting the angle from east as the bearing.",
+   "Ignoring a negative component and choosing the wrong quadrant.",
+   "Giving a bearing from south or anticlockwise from north."
+  ],
+  "check": "A north-east velocity must have a bearing between $000^\\circ$ and $090^\\circ$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle moves at $8$ m s$^{-1}$ east and $6$ m s$^{-1}$ north. Find its speed in m s$^{-1}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "The east and north components are perpendicular.",
+     "Use Pythagoras on the two components.",
+     "Calculate $\\sqrt{8^2+6^2}$."
+    ],
+    "explanation": "The speed is $\\sqrt{8^2+6^2}=10$ m s$^{-1}$.",
+    "shortcut_use": "Use the component speed formula."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A particle moves at $3$ m s$^{-1}$ west and $3$ m s$^{-1}$ north. What is its bearing?",
+    "options": {
+     "A": "$315^\\circ$",
+     "B": "$045^\\circ$",
+     "C": "$135^\\circ$",
+     "D": "$225^\\circ$"
+    },
+    "answer": "A",
+    "hints": [
+     "The velocity points north-west.",
+     "A bearing is measured clockwise from north.",
+     "The direction from east is $135^\\circ$; convert using $90^\\circ-\\theta$ modulo $360^\\circ$."
+    ],
+    "explanation": "The direction angle from east is $135^\\circ$, so the bearing is $90^\\circ-135^\\circ=-45^\\circ$, equivalent to $315^\\circ$.",
+    "shortcut_use": "Convert the direction angle from east to a bearing."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How is speed found from east and north components?",
+    "a": "Use $\\sqrt{a^2+b^2}$."
+   },
+   {
+    "q": "How do you convert an angle from east to a bearing?",
+    "a": "Use $90^\\circ-\\theta$ modulo $360^\\circ$, after choosing the correct quadrant."
+   }
+  ]
+ },
+ "SEM-M1-particle-on-a-smooth-table-pulled-by-a-hanging-m": {
+  "id": "SEM-M1-particle-on-a-smooth-table-pulled-by-a-hanging-m",
+  "hook": "Writing two force equations each time is slow, and tension can be cancelled incorrectly. Treat the connected masses as one system to find acceleration.",
+  "when": "One mass is on a horizontal table and a second hangs over a pulley on the same string.",
+  "idea": "For a smooth table, $a=\\frac{m_2g}{m_1+m_2}$ and $T=\\frac{m_1m_2g}{m_1+m_2}$. With friction coefficient $\\mu$ on the table and motion driven by the hanging mass, $a=\\frac{m_2g-\\mu m_1g}{m_1+m_2}$.",
+  "why": "Tension cancels when the two bodies' equations are added. These formulas require a light inextensible taut string, a smooth pulley, common acceleration, and the stated friction direction.",
+  "steps": [
+   "Label table mass $m_1$ and hanging mass $m_2$.",
+   "Check the surface and direction of motion.",
+   "Use the matching acceleration formula.",
+   "For a smooth table, find tension from $T=m_1a$."
+  ],
+  "worked": {
+   "question": "A $3$ kg particle on a smooth horizontal table is connected over a smooth pulley to a hanging $2$ kg particle by a light inextensible string. Find the acceleration and tension. Use $g=9.81$ m s$^{-2}$.",
+   "long": "The equations are $T=3a$ and $2(9.81)-T=2a$. Adding gives $a=19.62/5=3.924$ m s$^{-2}$, then $T=11.772$ N.",
+   "short": "Use $a=\\frac{2(9.81)}{3+2}=3.924$ m s$^{-2}$ and $T=\\frac{3(2)(9.81)}{3+2}=11.772$ N.",
+   "saving": "It gives both values without solving simultaneous equations again."
+  },
+  "pitfalls": [
+   "Dividing the hanging weight by the hanging mass alone.",
+   "Using the smooth-table tension formula when friction acts.",
+   "Subtracting friction when its direction does not oppose the assumed motion."
+  ],
+  "check": "For a smooth table, acceleration must be positive and less than $g$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A $4$ kg particle on a smooth horizontal table is connected over a smooth pulley to a hanging $1$ kg particle by a light inextensible string. Find the acceleration in m s$^{-2}$. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1.962",
+    "hints": [
+     "The hanging weight drives both masses.",
+     "Divide the driving force by the total mass.",
+     "Use $a=\\frac{m_2g}{m_1+m_2}$ with $m_1=4$ and $m_2=1$."
+    ],
+    "explanation": "The acceleration is $a=\\frac{1(9.81)}{4+1}=1.962$ m s$^{-2}$.",
+    "shortcut_use": "Use the whole-system acceleration formula."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A $2$ kg particle on a rough horizontal table is connected over a smooth pulley to a hanging $3$ kg particle by a light inextensible string. The coefficient of friction is $0.25$, and the hanging particle moves down. Find the acceleration in m s$^{-2}$, to 3 significant figures. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.91",
+    "hints": [
+     "Friction on the table particle opposes its motion.",
+     "Subtract friction from the hanging weight before dividing by total mass.",
+     "Use $a=\\frac{3g-0.25(2)g}{2+3}$."
+    ],
+    "explanation": "The net driving force is $3g-0.25(2)g=2.5g$. Thus $a=\\frac{2.5(9.81)}{5}=4.905\\approx4.91$ m s$^{-2}$.",
+    "shortcut_use": "Subtract friction in the whole-system formula."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What mass appears in the denominator of the connected-particle acceleration formula?",
+    "a": "The sum $m_1+m_2$ appears because both masses accelerate."
+   },
+   {
+    "q": "What happens to tension when the two bodies' force equations are added?",
+    "a": "The two tension terms cancel."
+   }
+  ]
+ },
+ "SEM-M1-smooth-slope": {
+  "id": "SEM-M1-smooth-slope",
+  "hook": "Resolving weight and carrying mass through every line is unnecessary. For a smooth slope, mass cancels immediately.",
+  "when": "A particle slides on a smooth straight slope, or starts from rest and reaches the bottom after descending height $h$.",
+  "idea": "Acceleration down the slope is $a=g\\sin\\theta$. From rest, speed after descending height $h$ is $v=\\sqrt{2gh}$.",
+  "why": "Along a smooth slope, the only force component is $mg\\sin\\theta$, so $m$ cancels from $F=ma$. The speed formula also requires constant gravity, no resistive work, and a start from rest.",
+  "steps": [
+   "Identify slope angle $\\theta$ or vertical drop $h$.",
+   "Use $g\\sin\\theta$ for acceleration.",
+   "If released from rest, use $\\sqrt{2gh}$ for speed after the drop."
+  ],
+  "worked": {
+   "question": "A particle is released from rest on a smooth straight slope at $30^\\circ$ to the horizontal. It descends a vertical height of $5$ m. Find its acceleration and speed after the descent. Use $g=9.81$ m s$^{-2}$.",
+   "long": "Along the slope, $mg\\sin30^\\circ=ma$, giving $a=4.905$ m s$^{-2}$. The slope distance is $5/\\sin30^\\circ=10$ m, so $v^2=2(4.905)(10)=98.1$ and $v\\approx9.90$ m s$^{-1}$.",
+   "short": "Use $a=9.81\\sin30^\\circ=4.905$ m s$^{-2}$ and $v=\\sqrt{2(9.81)(5)}=\\sqrt{98.1}\\approx9.90$ m s$^{-1}$.",
+   "saving": "It skips finding slope length when only the final speed is needed."
+  },
+  "pitfalls": [
+   "Using $g\\cos\\theta$ along a slope whose angle is measured from the horizontal.",
+   "Putting slope length in place of vertical height in $\\sqrt{2gh}$.",
+   "Using the speed formula with friction or a nonzero starting speed."
+  ],
+  "check": "Acceleration must lie between $0$ and $g$ for a slope angle between $0^\\circ$ and $90^\\circ$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle slides down a smooth straight slope at $30^\\circ$ to the horizontal. Find its acceleration in m s$^{-2}$. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.905",
+    "hints": [
+     "The surface is smooth and the angle is from the horizontal.",
+     "Use the component of gravity down the slope.",
+     "Calculate $g\\sin30^\\circ$."
+    ],
+    "explanation": "The acceleration is $a=g\\sin30^\\circ=9.81(0.5)=4.905$ m s$^{-2}$.",
+    "shortcut_use": "Use mass-independent slope acceleration."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A particle is released from rest and slides down a smooth slope through a vertical height of $4$ m. Find its speed at the bottom in m s$^{-1}$, to 3 significant figures. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "8.86",
+    "hints": [
+     "Only the vertical drop matters for the final speed.",
+     "Use the smooth-slope speed formula.",
+     "Calculate $\\sqrt{2gh}$ with $h=4$."
+    ],
+    "explanation": "The speed is $v=\\sqrt{2(9.81)(4)}=\\sqrt{78.48}\\approx8.86$ m s$^{-1}$.",
+    "shortcut_use": "Use vertical height directly for final speed."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is acceleration down a smooth slope at angle $\\theta$ to the horizontal?",
+    "a": "It is $g\\sin\\theta$."
+   },
+   {
+    "q": "What determines final speed after release from rest on a smooth slope?",
+    "a": "Only the vertical drop $h$ and $g$, through $\\sqrt{2gh}$."
+   }
+  ]
+ },
+ "SEM-M1-closest-approach": {
+  "id": "SEM-M1-closest-approach",
+  "hook": "Differentiating the separation squared works, but expanding the quadratic takes time and invites sign errors.",
+  "when": "Two objects have a stated relative position and a constant relative velocity, and you need their closest separation.",
+  "idea": "For initial relative position $(d_{0x},d_{0y})$ and relative velocity $(v_x,v_y)$, use $t_*=-\\frac{d_{0x}v_x+d_{0y}v_y}{v_x^2+v_y^2}$. The least distance over all time is $\\frac{|d_{0x}v_y-d_{0y}v_x|}{\\sqrt{v_x^2+v_y^2}}$.",
+  "why": "With constant relative velocity, the squared separation is a quadratic whose minimum occurs when the relative position is perpendicular to the relative velocity. The formulas require non-zero relative velocity. If only future times $t\\ge0$ count and $t_*<0$, the closest approach is at $t=0$.",
+  "steps": [
+   "Subtract the velocities to get the relative velocity.",
+   "Calculate $t_*$ from the initial relative position and relative velocity.",
+   "If time is restricted to $t\\ge0$, replace a negative $t_*$ with $0$.",
+   "At a positive $t_*$, use the least-distance formula; at $t=0$, use the initial separation."
+  ],
+  "worked": {
+   "question": "At $t=0$, the position of B relative to A is $(6,8)$ m and its constant velocity relative to A is $(-2,-1)$ m s$^{-1}$. For $t\\ge0$, find the time and distance of closest approach.",
+   "long": "The separation squared is $(6-2t)^2+(8-t)^2=100-40t+5t^2$. Differentiating gives $-40+10t=0$, so $t=4$ s. The separation is then $\\sqrt{(-2)^2+4^2}=\\sqrt{20}$ m.",
+   "short": "$t_*=-\\frac{6(-2)+8(-1)}{(-2)^2+(-1)^2}=4$ s. Since this is positive, the least distance is $\\frac{|6(-1)-8(-2)|}{\\sqrt{(-2)^2+(-1)^2}}=\\frac{10}{\\sqrt{5}}=2\\sqrt{5}$ m.",
+   "saving": "Avoids expanding and differentiating the separation quadratic."
+  },
+  "pitfalls": [
+   "Using one object's velocity instead of their relative velocity.",
+   "Using the perpendicular-distance formula when $t_*<0$ and only future times count.",
+   "Dividing by $v_x^2+v_y^2$ instead of its square root in the distance formula."
+  ],
+  "check": "At an interior minimum, the relative position at $t_*$ must have zero dot product with the relative velocity.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "At $t=0$, the position of B relative to A is $(3,4)$ m and its constant velocity relative to A is $(-1,-2)$ m s$^{-1}$. For $t\\ge0$, find the least separation in m, to $3$ significant figures.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.894",
+    "hints": [
+     "The relative position changes linearly with time.",
+     "Check that $t_*$ is positive, then use the least-distance formula.",
+     "Set up $\\frac{|3(-2)-4(-1)|}{\\sqrt{(-1)^2+(-2)^2}}$."
+    ],
+    "explanation": "$t_*=-\\frac{3(-1)+4(-2)}{(-1)^2+(-2)^2}=\\frac{11}{5}>0$. The shortcut gives $\\frac{|3(-2)-4(-1)|}{\\sqrt{(-1)^2+(-2)^2}}=\\frac{2}{\\sqrt{5}}=0.894$ m to $3$ significant figures.",
+    "shortcut_use": "Use the perpendicular-distance formula after checking $t_*$."
+   },
+   {
+    "kind": "numeric",
+    "stem": "At $t=0$, the position of B relative to A is $(3,4)$ m and its constant velocity relative to A is $(2,1)$ m s$^{-1}$. For $t\\ge0$, find the least separation in m, to the nearest whole metre.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "Only future times count.",
+     "Use the time shortcut first; check whether its result is in the allowed interval.",
+     "Set up $t_*=-\\frac{3(2)+4(1)}{2^2+1^2}$; if it is negative, use $\\sqrt{3^2+4^2}$."
+    ],
+    "explanation": "$t_*=-\\frac{3(2)+4(1)}{2^2+1^2}=-2$ s, which is outside $t\\ge0$. The closest allowed time is $t=0$, giving $\\sqrt{3^2+4^2}=5$ m.",
+    "shortcut_use": "Use $t_*$ to detect a boundary minimum."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What time gives closest approach when the relative velocity is constant and non-zero?",
+    "a": "$t_*=-\\frac{d_{0x}v_x+d_{0y}v_y}{v_x^2+v_y^2}$."
+   },
+   {
+    "q": "What changes if $t_*<0$ and only $t\\ge0$ is allowed?",
+    "a": "The least separation is the initial separation at $t=0$."
+   },
+   {
+    "q": "What geometric condition holds at an interior closest approach?",
+    "a": "The relative position is perpendicular to the relative velocity."
+   }
+  ]
+ },
+ "SEM-M1-use-the-force-diagram-as-an-equation-checklist": {
+  "id": "SEM-M1-use-the-force-diagram-as-an-equation-checklist",
+  "hook": "In connected-particle questions, it is easy to omit a weight or tension, or put one body's mass in another body's equation.",
+  "when": "A question has two or more bodies joined by a string, or several forces act on each body.",
+  "idea": "Draw a separate force diagram for each body. Tick each arrow as its signed component enters that body's $F=ma$ equation, then check that the mass beside $a$ belongs to that body.",
+  "why": "For each constant-mass body in an inertial frame, its resultant force equals its mass times its acceleration. The checklist works when the diagrams contain every force acting on each body. For the ideal string examples here, the bodies share an acceleration magnitude and the tension is the same throughout the string.",
+  "steps": [
+   "Draw and label the forces acting on each body separately.",
+   "Choose a positive direction for each body's motion.",
+   "Write one $F=ma$ equation per body, ticking each arrow as you include it.",
+   "Check each mass and solve the equations together."
+  ],
+  "worked": {
+   "question": "A $2$ kg block on a smooth horizontal table is joined by a light inextensible string over a smooth pulley to a hanging $3$ kg block. Find the acceleration and tension. Use $g=9.81$ m s$^{-2}$.",
+   "long": "Treating both blocks as one system gives $3g=(2+3)a$, so $a=5.886$ m s$^{-2}$. Returning to the table block gives $T=2a=11.772$ N.",
+   "short": "The table block has tension along its motion and weight and normal reaction vertically, giving $T=2a$ and $R=2g$. The hanging block has weight down and tension up, giving $3g-T=3a$. Every force is accounted for in its body's equations. Adding the motion equations gives $a=\\frac{3(9.81)}{5}=5.886$ m s$^{-2}$, then $T=11.772$ N.",
+   "saving": "The arrow check catches a missing tension or a mass attached to the wrong equation."
+  },
+  "pitfalls": [
+   "Putting the hanging block's weight into the table block's equation.",
+   "Using the combined mass in an equation for just one block.",
+   "Forgetting the normal reaction when checking all forces on the table block, even though it cancels the weight vertically."
+  ],
+  "check": "For a light string over a smooth pulley, substituting the result into each body's motion equation must give the same acceleration magnitude.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A $4$ kg block on a smooth horizontal table is joined by a light inextensible string over a smooth pulley to a hanging $1$ kg block. Find their acceleration in m s$^{-2}$, to $3$ significant figures. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1.96",
+    "hints": [
+     "Draw a separate force diagram for each block.",
+     "Tick the tension arrow in each block's motion equation.",
+     "For the table block, write $T=4a$; for the hanging block, write $g-T=a$."
+    ],
+    "explanation": "The diagrams give $T=4a$ for the table block and $g-T=a$ for the hanging block. Adding gives $9.81=5a$, so $a=1.96$ m s$^{-2}$ to $3$ significant figures.",
+    "shortcut_use": "Tick each force in its own body's equation."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A hanging $1$ kg mass and a hanging $4$ kg mass are joined by a light inextensible string over a smooth pulley. Find the string tension in N, to $3$ significant figures. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "15.7",
+    "hints": [
+     "Each mass has its own weight and an upward tension.",
+     "Choose downward as positive for the heavier mass and upward as positive for the lighter mass.",
+     "The diagram checklist gives $4g-T=4a$ and $T-g=a$; solve for $a$ before $T$."
+    ],
+    "explanation": "The checked equations are $4g-T=4a$ and $T-g=a$. Adding gives $3g=5a$, so $a=5.886$ m s$^{-2}$. Then $T=g+a=15.7$ N to $3$ significant figures.",
+    "shortcut_use": "Use each diagram to build and check its force equation."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which forces go on one body's force diagram?",
+    "a": "Only forces acting on that body."
+   },
+   {
+    "q": "How do the arrows become an equation?",
+    "a": "Tick each arrow as its signed component enters that body's $F=ma$ equation."
+   },
+   {
+    "q": "Which mass multiplies $a$ in a body's $F=ma$ equation?",
+    "a": "The mass of that same body."
+   }
+  ]
+ },
+ "SEM-M1-uniform-beam": {
+  "id": "SEM-M1-uniform-beam",
+  "hook": "A beam's weight has a moment arm even when its load is not drawn as a separate force. Placing it at the wrong point changes the moment balance.",
+  "when": "A moments question states that a beam is uniform, or gives the centre of mass of a non-uniform beam.",
+  "idea": "For a uniform beam, place its whole weight at its midpoint. For a non-uniform beam, place it at the stated centre of mass.",
+  "why": "In a uniform beam, mass is evenly distributed, so its centre of mass is at the midpoint. For a non-uniform beam, the centre of mass need not be at the midpoint; in static equilibrium, the beam's weight acts through its centre of mass.",
+  "steps": [
+   "Mark the beam's midpoint if it is uniform; otherwise mark the given centre of mass.",
+   "Put the whole beam weight at that point.",
+   "Measure its distance from the pivot and include its moment."
+  ],
+  "worked": {
+   "question": "A uniform horizontal beam of length $6$ m and weight $80$ N is pivoted at its left end. A downward load of $40$ N is placed $5$ m from that end. An upward force $F$ acts at the right end to hold the beam in equilibrium. Find $F$.",
+   "long": "Treat the beam as equally weighted small sections and add their moments; their combined moment equals $80(3)$ N m. Then $6F=80(3)+40(5)$, so $F=\\frac{220}{3}$ N.",
+   "short": "Place the beam's $80$ N weight at its midpoint, $3$ m from the pivot. Then $6F=80(3)+40(5)$, so $F=\\frac{220}{3}$ N.",
+   "saving": "Replaces a distributed weight with one force at the midpoint."
+  },
+  "pitfalls": [
+   "Putting a uniform beam's weight at an end rather than at its midpoint.",
+   "Using the midpoint for a non-uniform beam when its centre of mass is given elsewhere.",
+   "Measuring the weight's moment arm from a beam end instead of from the pivot."
+  ],
+  "check": "The loads give $440$ N m of clockwise moment, and $6\\left(\\frac{220}{3}\\right)=440$ N m anticlockwise.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A uniform horizontal beam of length $4$ m and weight $60$ N is pivoted at its left end. A downward load of $20$ N acts at the right end. An upward force $F$ acts at the right end to hold it in equilibrium. Find $F$, in N. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "50",
+    "hints": [
+     "The beam is uniform: where does its weight act?",
+     "Measure that point's distance from the left pivot.",
+     "Balance $4F$ against the beam's weight moment and the $20$ N load moment."
+    ],
+    "explanation": "The beam's weight acts $2$ m from the pivot. Thus $4F=60(2)+20(4)$, giving $F=50$ N. Answer: $50$.",
+    "shortcut_use": "Replace the beam's distributed weight by $60$ N at its midpoint."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A non-uniform horizontal beam of length $5$ m weighs $90$ N. Its centre of mass is $2$ m from its left end. It is pivoted at its left end, and an upward force at its right end holds it in equilibrium. Find the upward force, in N. Give an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "36",
+    "hints": [
+     "The beam is non-uniform, and its centre of mass is given.",
+     "Put the whole beam weight at that centre of mass.",
+     "Balance the upward force's $5$ m moment arm against the weight's $2$ m moment arm."
+    ],
+    "explanation": "Place the $90$ N weight at the given centre of mass, $2$ m from the pivot. Then $5F=90(2)$, so $F=36$ N. Answer: $36$.",
+    "shortcut_use": "Use the given centre of mass as the point where the weight acts."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Where does the weight of a uniform beam act?",
+    "a": "At its midpoint."
+   },
+   {
+    "q": "Where does the weight of a non-uniform beam act?",
+    "a": "At its centre of mass."
+   },
+   {
+    "q": "What distance gives the beam weight's moment arm?",
+    "a": "The perpendicular distance from the pivot to the weight's line of action."
+   }
+  ]
+ },
+ "SEM-M1-tilting-condition": {
+  "id": "SEM-M1-tilting-condition",
+  "hook": "Solving for both support reactions takes extra equations. The key slip is treating the beam as still supported at both points when it is just about to tilt.",
+  "when": "A beam is about to tilt about one support, and a load or its position is unknown.",
+  "idea": "Set the reaction at the other support to zero, then balance moments about the support that becomes the pivot.",
+  "why": "At the tipping threshold, the beam is still in equilibrium but has lost contact with the other support, so that support exerts no reaction. Moments about the pivot then balance.",
+  "steps": [
+   "Identify the support about which the beam will tilt.",
+   "Set the reaction at the other support to zero.",
+   "Take moments about the pivot, using each force’s perpendicular distance.",
+   "Solve for the unknown and check that the load is on the stated side of the pivot."
+  ],
+  "worked": {
+   "question": "A uniform horizontal beam is $8$ m long and weighs $100$ N. Supports are $1$ m and $5$ m from its left end. A load of weight $W$ is placed $7$ m from the left end. Find $W$ when the beam is about to tilt about the right support.",
+   "long": "Taking moments about the left support gives $4R_B=300+6W$. Vertical equilibrium gives $R_A=100+W-R_B=25-\\frac{W}{2}$. Setting $R_A=0$ gives $W=50$ N.",
+   "short": "The left reaction is zero. About the right support, $100(5-4)=W(7-5)$, so $W=50$ N.",
+   "saving": "One moment equation replaces solving for both reactions."
+  },
+  "pitfalls": [
+   "Setting the pivot support’s reaction to zero instead of the other support’s.",
+   "Using distances from the beam’s end instead of distances from the pivot.",
+   "Placing the beam’s weight at a support instead of at the centre of a uniform beam."
+  ],
+  "check": "At the threshold, the pivot reaction should equal the total downward force: $100+50=150$ N.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A uniform horizontal beam is $10$ m long and weighs $120$ N. Supports are $2$ m and $6$ m from its left end. A load is placed $9$ m from the left end. Find its weight, in N to the nearest newton, when the beam is about to tilt about the right support.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "40",
+    "hints": [
+     "The left support loses contact at the tipping threshold.",
+     "Take moments about the right support.",
+     "Set $W(9-6)=120(6-5)$."
+    ],
+    "explanation": "The left reaction is zero, so moments about the right support give $W(9-6)=120(6-5)$. Hence $W=40$ N. The answer is 40.",
+    "shortcut_use": "Set the left reaction to zero and take moments about the pivot."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A uniform horizontal beam is $12$ m long and weighs $180$ N. Supports are $2$ m and $8$ m from its left end. A $90$ N load is placed to the right of the right support. How far from the left end, in m to the nearest metre, must the load be placed for the beam to be about to tilt about the right support?",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "12",
+    "hints": [
+     "The left support reaction is zero at the threshold.",
+     "Balance moments about the support $8$ m from the left end.",
+     "If the load is $x$ m from the left end, set $90(x-8)=180(8-6)$."
+    ],
+    "explanation": "With zero reaction at the left support, moments about the right support give $90(x-8)=180(8-6)$. Thus $x-8=4$ and $x=12$ m from the left end. The answer is 12.",
+    "shortcut_use": "Use the zero reaction to balance moments about the pivot."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What happens to the other support’s reaction when a beam is about to tilt about one support?",
+    "a": "It becomes zero."
+   },
+   {
+    "q": "Where should you take moments at the tipping threshold?",
+    "a": "About the support that becomes the pivot."
+   },
+   {
+    "q": "What condition allows the moments to balance at the instant before tilting?",
+    "a": "The beam is still in equilibrium at the tipping threshold."
+   }
+  ]
+ },
+ "SEM-M1-accelerate-then-decelerate-over-a-fixed-distance": {
+  "id": "SEM-M1-accelerate-then-decelerate-over-a-fixed-distance",
+  "hook": "Solving for the distance and time of each stage separately creates extra unknowns.",
+  "when": "A particle starts and finishes at rest, accelerating at one constant rate and then decelerating at another over a fixed total distance.",
+  "idea": "For total distance $s$, acceleration $a$ and deceleration magnitude $b$, use $V^2=\\frac{2sab}{a+b}$ and $T=\\sqrt{\\frac{2s(a+b)}{ab}}$.",
+  "why": "With constant acceleration in each stage, the distances are $\\frac{V^2}{2a}$ and $\\frac{V^2}{2b}$; their sum is $s$. The stage times are $\\frac{V}{a}$ and $\\frac{V}{b}$.",
+  "steps": [
+   "Identify $s$, $a$ and the positive deceleration magnitude $b$.",
+   "Substitute into the formula for $V^2$.",
+   "Take the positive square root for $V$.",
+   "Use the formula for $T$, or add $\\frac{V}{a}+\\frac{V}{b}$."
+  ],
+  "worked": {
+   "question": "A car starts from rest, accelerates at $2$ m s$^{-2}$, then decelerates at $3$ m s$^{-2}$ to rest. It travels $60$ m in total. Find its top speed and total time.",
+   "long": "If the top speed is $V$, the distances are $\\frac{V^2}{4}$ and $\\frac{V^2}{6}$. Their sum is $60$, giving $V=12$ m s$^{-1}$. The times are $12/2=6$ s and $12/3=4$ s, giving $10$ s.",
+   "short": "$V^2=\\frac{2(60)(2)(3)}{2+3}=144$, so $V=12$ m s$^{-1}$. Also $T=\\sqrt{\\frac{2(60)(2+3)}{(2)(3)}}=10$ s.",
+   "saving": "Avoids introducing the distance of each stage."
+  },
+  "pitfalls": [
+   "Using a negative value for $b$; the formula uses the positive magnitude of deceleration.",
+   "Using the formula when a stage does not have constant acceleration.",
+   "Taking the negative square root for the top speed."
+  ],
+  "check": "If $a=b$, the formulas reduce to $V^2=sa$ and $T=2\\sqrt{s/a}$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle starts from rest, accelerates at $4$ m s$^{-2}$, then decelerates at $4$ m s$^{-2}$ to rest over $36$ m. Find the top speed in m s$^{-1}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "12",
+    "hints": [
+     "The motion is from rest to rest in two constant acceleration stages.",
+     "Use the formula for $V^2$ with positive $a$ and $b$.",
+     "Set up $V^2=\\frac{2(36)(4)(4)}{4+4}$."
+    ],
+    "explanation": "$V^2=\\frac{2(36)(4)(4)}{4+4}=144$, so the top speed is $12$ m s$^{-1}$. Equivalently, each stage covers $18$ m and $V^2=2(4)(18)=144$. Answer: $12$.",
+    "shortcut_use": "Direct calculation of the top speed from total distance"
+   },
+   {
+    "kind": "numeric",
+    "stem": "A particle starts from rest, accelerates at $3$ m s$^{-2}$, then decelerates at $6$ m s$^{-2}$ to rest over $81$ m. Find the total time in s.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "9",
+    "hints": [
+     "The stated distance covers both stages.",
+     "Use the total-time formula with $b$ as a positive magnitude.",
+     "Set up $T=\\sqrt{\\frac{2(81)(3+6)}{(3)(6)}}$."
+    ],
+    "explanation": "$T=\\sqrt{\\frac{2(81)(9)}{18}}=\\sqrt{81}=9$ s. Checking by stages gives $V^2=108$, then $V/3+V/6=V/2=9$ s. Answer: $9$.",
+    "shortcut_use": "Direct calculation of total time"
+   }
+  ],
+  "recall": [
+   {
+    "q": "What conditions allow the rest-to-rest distance formula?",
+    "a": "There must be one constant acceleration stage followed by one constant deceleration stage."
+   },
+   {
+    "q": "What sign should $b$ have in the formula?",
+    "a": "$b$ is the positive magnitude of the deceleration."
+   }
+  ]
+ },
+ "SEM-M1-particle-at-rest": {
+  "id": "SEM-M1-particle-at-rest",
+  "hook": "A particle can pass its starting point while still moving. Confusing position with velocity gives the wrong time.",
+  "when": "A question says a particle is at rest, asks for an instantaneous velocity, or says it returns to its starting point.",
+  "idea": "At rest means $v(t)=0$; returning to the starting point means displacement from the start is zero. Find displacement from velocity with $\\Delta s=\\int_{t_1}^{t_2}v(t)\\,dt$.",
+  "why": "These meanings follow from the definitions of velocity and displacement. The integral relation holds when $v(t)$ is integrable over the interval; for a power $t^n$ with $n\\ne-1$, $\\int t^n\\,dt=\\frac{t^{n+1}}{n+1}$ plus a constant.",
+  "steps": [
+   "Identify whether the question asks for rest, velocity at an instant, or return to the start.",
+   "For rest, solve $v(t)=0$; for an instant, substitute its time into $v(t)$.",
+   "For a return, integrate $v(t)$ from the start and set the displacement to zero.",
+   "Keep only times in the stated domain; exclude the initial time if the question asks when it returns."
+  ],
+  "worked": {
+   "question": "For $t\\ge0$ s, a particle has velocity $v(t)=6-2t$ m s$^{-1}$. When is it first at rest, and when does it first return to its starting point?",
+   "long": "Integrating gives displacement from the start $s(t)=6t-t^2$. Its derivative is $6-2t$. Rest occurs when the derivative is zero, at $t=3$ s. Solving $s(t)=0$ gives $t=0$ or $t=6$ s, so the return is at $6$ s.",
+   "short": "Set $6-2t=0$ for rest: $t=3$ s. For return, $\\int_0^t(6-2x)\\,dx=6t-t^2=0$; after the start, $t=6$ s.",
+   "saving": "Separates the velocity condition from the displacement condition."
+  },
+  "pitfalls": [
+   "Setting displacement to zero to find when the particle is at rest.",
+   "Using the initial time as the return time.",
+   "Treating an integral of velocity as distance travelled when velocity changes sign."
+  ],
+  "check": "At the rest time, substitute into $v(t)$; at a return time, check that displacement from the start is zero.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "For $t\\ge0$ s, a particle has velocity $v(t)=10-2t$ m s$^{-1}$. Find the first time it is at rest, in s.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "The wording asks for rest at an instant.",
+     "Set velocity equal to zero.",
+     "Solve $10-2t=0$ for a time in the stated domain."
+    ],
+    "explanation": "At rest, $v=0$, so $10-2t=0$ gives $t=5$ s. Integrating also gives $s=10t-t^2$, whose derivative vanishes at the same time. Answer: $5$.",
+    "shortcut_use": "Setting velocity directly to zero"
+   },
+   {
+    "kind": "numeric",
+    "stem": "For $t\\ge0$ s, a particle starts at a marked point with velocity $v(t)=8-4t$ m s$^{-1}$. Find its first return time after starting, in s.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "A return concerns displacement from the marked point.",
+     "Integrate velocity from the start and set the result to zero.",
+     "Solve $\\int_0^t(8-4x)\\,dx=8t-2t^2=0$, excluding the initial time."
+    ],
+    "explanation": "$\\Delta s=\\int_0^t(8-4x)\\,dx=8t-2t^2=2t(4-t)$. The positive root is $t=4$ s. Checking from the position function gives $s(4)=32-32=0$. Answer: $4$.",
+    "shortcut_use": "Using zero displacement for a return"
+   }
+  ],
+  "recall": [
+   {
+    "q": "What equation identifies an instant when a particle is at rest?",
+    "a": "Set its velocity $v(t)$ equal to zero."
+   },
+   {
+    "q": "What equation identifies a return to the starting point?",
+    "a": "Set the displacement from the start, $\\int_0^t v(x)\\,dx$, equal to zero."
+   }
+  ]
+ },
+ "SEM-M1-relative-velocity": {
+  "id": "SEM-M1-relative-velocity",
+  "hook": "Writing two position equations wastes time when only the gap between bodies matters.",
+  "when": "Two bodies move along the same line at constant speeds, and the question asks how fast their separation changes or when one catches the other.",
+  "idea": "For same-direction motion, relative speed is the difference between the speeds. For bodies moving towards each other, it is their sum. Time to meet is initial gap divided by closing speed.",
+  "why": "Subtracting the bodies' positions gives a gap that changes linearly. The time formula holds while both velocities remain constant and the gap is closing.",
+  "steps": [
+   "Identify the initial gap and each direction of motion.",
+   "Subtract speeds for same-direction closing, or add them for motion towards each other.",
+   "Divide the gap by the positive closing speed.",
+   "Check that the direction of motion actually reduces the gap."
+  ],
+  "worked": {
+   "question": "A car travelling at $20$ m s$^{-1}$ is $150$ m behind a car travelling in the same direction at $15$ m s$^{-1}$. Both speeds stay constant. When does the rear car catch the front car?",
+   "long": "Taking the rear car's initial position as zero, write $x_1=20t$ and $x_2=150+15t$. Equating them gives $5t=150$, so $t=30$ s.",
+   "short": "The closing speed is $20-15=5$ m s$^{-1}$, so $t=150/5=30$ s.",
+   "saving": "Avoids two position equations."
+  },
+  "pitfalls": [
+   "Adding speeds when both bodies move in the same direction.",
+   "Using gap divided by relative speed when the gap is increasing.",
+   "Applying a constant-speed calculation while either body accelerates."
+  ],
+  "check": "Closing speed multiplied by time must equal the initial gap.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A cyclist at $12$ m s$^{-1}$ is $90$ m behind another cyclist at $9$ m s$^{-1}$. Both ride in the same direction at constant speeds. Find the catch-up time in s.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "30",
+    "hints": [
+     "The cyclists move in the same direction.",
+     "Find how quickly the gap closes.",
+     "Divide $90$ m by the difference $12-9$ m s$^{-1}$."
+    ],
+    "explanation": "The closing speed is $12-9=3$ m s$^{-1}$, so the time is $90/3=30$ s. Position equations $12t=90+9t$ give the same result. Answer: $30$.",
+    "shortcut_use": "Dividing the gap by the speed difference"
+   },
+   {
+    "kind": "numeric",
+    "stem": "Two particles are $140$ m apart and move directly towards each other at constant speeds of $6$ m s$^{-1}$ and $8$ m s$^{-1}$. Find the meeting time in s.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "Both particles reduce the gap.",
+     "Add their speeds to get the closing speed.",
+     "Divide $140$ m by $6+8$ m s$^{-1}$."
+    ],
+    "explanation": "The closing speed is $6+8=14$ m s$^{-1}$, so the meeting time is $140/14=10$ s. Their separate distances are then $60$ m and $80$ m, totalling $140$ m. Answer: $10$.",
+    "shortcut_use": "Adding speeds before dividing the gap"
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you find closing speed for two bodies moving in the same direction?",
+    "a": "Subtract the slower speed from the faster speed when the faster body is behind."
+   },
+   {
+    "q": "When can initial gap divided by closing speed give meeting time?",
+    "a": "Both velocities must remain constant and the gap must be closing."
+   }
+  ]
+ },
+ "SEM-M1-successive-equal-intervals-from-rest": {
+  "id": "SEM-M1-successive-equal-intervals-from-rest",
+  "hook": "Repeated use of an equation of motion for every interval creates unnecessary arithmetic.",
+  "when": "A particle starts from rest with constant acceleration, and distances in successive equal time intervals are needed.",
+  "idea": "The interval distances follow $1:3:5:7:\\dots$. Distance from the start after time $t$ is proportional to $t^2$.",
+  "why": "From rest under constant acceleration, $s(t)=\\frac{1}{2}at^2$. The distance in the interval from $(n-1)h$ to $nh$ is $\\frac{1}{2}ah^2(2n-1)$, giving successive odd-number ratios when motion stays in one direction.",
+  "steps": [
+   "Confirm the particle starts from rest and acceleration is constant.",
+   "Number the equal intervals from $1$.",
+   "Use the odd-number multiplier $2n-1$ for interval $n$.",
+   "Scale the ratio using one known interval distance."
+  ],
+  "worked": {
+   "question": "A particle starts from rest and accelerates uniformly in one direction. It travels $5$ m in the first $2$ s. How far does it travel during the third $2$ s interval?",
+   "long": "From $5=\\frac{1}{2}a(2)^2$, $a=2.5$ m s$^{-2}$. The distance from $t=4$ s to $t=6$ s is $\\frac{1}{2}(2.5)(6^2-4^2)=25$ m.",
+   "short": "The third equal interval has multiplier $5$ compared with the first, so its distance is $5(5)=25$ m.",
+   "saving": "Avoids finding acceleration and subtracting two cumulative distances."
+  },
+  "pitfalls": [
+   "Using the odd-number ratio when the particle has an initial velocity.",
+   "Using unequal time intervals.",
+   "Using the ratio after acceleration changes."
+  ],
+  "check": "The third interval must cover five times the first interval's distance.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle starts from rest and accelerates uniformly in one direction. It travels $4$ m in the first $1$ s. How far does it travel during the fourth $1$ s interval, in m?",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "28",
+    "hints": [
+     "The time intervals are equal and motion starts from rest.",
+     "Use the odd-number ratio for the fourth interval.",
+     "Multiply the first interval's $4$ m by the fourth multiplier in $1:3:5:7$."
+    ],
+    "explanation": "The fourth interval is $7$ times the first, so its distance is $7(4)=28$ m. From $4=\\frac{1}{2}a(1)^2$, $a=8$ m s$^{-2}$; then $\\frac{1}{2}(8)(4^2-3^2)=28$ m. Answer: $28$.",
+    "shortcut_use": "Using the fourth odd-number multiplier"
+   },
+   {
+    "kind": "numeric",
+    "stem": "A particle starts from rest and accelerates uniformly in one direction. It travels $15$ m during the second $2$ s interval. How far does it travel during the first $2$ s interval, in m?",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "5",
+    "hints": [
+     "Compare successive intervals of the same length.",
+     "The first and second interval distances have ratio $1:3$.",
+     "The given $15$ m corresponds to the $3$ part of that ratio."
+    ],
+    "explanation": "The second interval covers three times the first, so the first covers $15/3=5$ m. By the long way, $15=\\frac{1}{2}a(4^2-2^2)=6a$, giving $a=2.5$ m s$^{-2}$ and first-interval distance $\\frac{1}{2}(2.5)(2^2)=5$ m. Answer: $5$.",
+    "shortcut_use": "Scaling the $1:3$ interval ratio backwards"
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the distance ratio for successive equal times from rest under constant acceleration?",
+    "a": "The distances are in the ratio $1:3:5:7:\\dots$."
+   },
+   {
+    "q": "What is the multiplier for interval $n$ compared with the first?",
+    "a": "It is $2n-1$."
+   }
+  ]
+ },
+ "SEM-M1-newton-s-second-law-in-vectors": {
+  "id": "SEM-M1-newton-s-second-law-in-vectors",
+  "hook": "Resolving a force into components and writing two motion equations is easy to muddle.",
+  "when": "A constant resultant force acts on a particle of known mass, and its velocity after a stated time is required.",
+  "idea": "Divide each component of the resultant force by mass to get acceleration, then use $\\mathbf{v}=\\mathbf{u}+\\frac{\\mathbf{F}}{m}t$.",
+  "why": "Newton's second law gives $\\mathbf{F}=m\\mathbf{a}$. If the resultant force and mass are constant, acceleration is constant, so the velocity change is $\\mathbf{a}t$.",
+  "steps": [
+   "Find the resultant force components, with signs.",
+   "Divide each component by the mass.",
+   "Multiply the acceleration components by time.",
+   "Add the result to the initial velocity components."
+  ],
+  "worked": {
+   "question": "A $2$ kg particle has initial velocity $(1,3)$ m s$^{-1}$. A constant resultant force $(4,-2)$ N acts for $3$ s. Find its final velocity.",
+   "long": "The acceleration components are $a_x=4/2=2$ and $a_y=-2/2=-1$ m s$^{-2}$. Separate equations give $v_x=1+2(3)=7$ and $v_y=3-1(3)=0$ m s$^{-1}$.",
+   "short": "$\\mathbf{v}=(1,3)+\\frac{3}{2}(4,-2)=(7,0)$ m s$^{-1}$.",
+   "saving": "Keeps both components in one calculation."
+  },
+  "pitfalls": [
+   "Using one applied force instead of the resultant force.",
+   "Forgetting to divide both force components by mass.",
+   "Changing the sign of a negative force component."
+  ],
+  "check": "The velocity change in each component must equal force component times time divided by mass.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A $3$ kg particle has initial velocity $(2,1)$ m s$^{-1}$. A constant resultant force $(6,9)$ N acts for $2$ s. Find the final horizontal velocity component in m s$^{-1}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6",
+    "hints": [
+     "Use the horizontal component of the resultant force.",
+     "Divide that force component by mass, then multiply by time.",
+     "Set up $v_x=2+\\frac{6}{3}(2)$."
+    ],
+    "explanation": "$v_x=2+\\frac{6}{3}(2)=6$ m s$^{-1}$. Separately, $a_x=2$ m s$^{-2}$ and $v_x=u_x+a_xt=2+2(2)=6$ m s$^{-1}$. Answer: $6$.",
+    "shortcut_use": "Using the horizontal component of $\\mathbf{F}t/m$"
+   },
+   {
+    "kind": "numeric",
+    "stem": "A $4$ kg particle has initial velocity $(3,5)$ m s$^{-1}$. A constant resultant force $(-8,4)$ N acts for $2$ s. Find the final vertical velocity component in m s$^{-1}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "7",
+    "hints": [
+     "The question asks for the vertical component only.",
+     "Use vertical force divided by mass for vertical acceleration.",
+     "Set up $v_y=5+\\frac{4}{4}(2)$."
+    ],
+    "explanation": "$v_y=5+\\frac{4}{4}(2)=7$ m s$^{-1}$. Separately, $a_y=1$ m s$^{-2}$ and $v_y=5+1(2)=7$ m s$^{-1}$. Answer: $7$.",
+    "shortcut_use": "Using the vertical component of $\\mathbf{F}t/m$"
+   }
+  ],
+  "recall": [
+   {
+    "q": "How do you get acceleration from a resultant force vector?",
+    "a": "Divide every force component by the particle's mass."
+   },
+   {
+    "q": "When does $\\mathbf{v}=\\mathbf{u}+\\mathbf{F}t/m$ hold?",
+    "a": "It holds when the resultant force and mass stay constant over the time interval."
+   }
+  ]
+ },
+ "SEM-M1-parallel-vectors": {
+  "id": "SEM-M1-parallel-vectors",
+  "hook": "Solving for a direction angle adds work when a component ratio already fixes the direction.",
+  "when": "A velocity or other vector is stated to be parallel to a given nonzero vector, often with one unknown component.",
+  "idea": "Parallel vectors are scalar multiples: $(a_x,a_y)=\\lambda(b_x,b_y)$. For a vector parallel to $(1,2)$, its components have ratio $1:2$.",
+  "why": "Being parallel means having the same or opposite line of direction, which is exactly the scalar-multiple condition. Component division is valid only when the denominator component is nonzero.",
+  "steps": [
+   "Write the given direction vector as components.",
+   "Set the unknown vector equal to a scalar multiple of it.",
+   "Match components to find the scalar or unknown component.",
+   "Check the resulting vectors are scalar multiples."
+  ],
+  "worked": {
+   "question": "A particle has velocity $(3,k)$ m s$^{-1}$, parallel to the direction $(1,2)$. Find $k$.",
+   "long": "The direction angle has tangent $2/1$. The velocity has tangent $k/3$, so $k/3=2$ and $k=6$.",
+   "short": "$(3,k)=3(1,2)$, so $k=6$ m s$^{-1}$.",
+   "saving": "Avoids trigonometry and its angle ambiguity."
+  },
+  "pitfalls": [
+   "Assuming parallel means the scalar must be positive; opposite directions are also parallel.",
+   "Dividing by a zero component.",
+   "Matching components in the wrong order."
+  ],
+  "check": "Substitute the result and identify one scalar that multiplies both components of the given vector.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A velocity $(5,k)$ m s$^{-1}$ is parallel to $(2,-3)$. Find $k$ in m s$^{-1}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-7.5",
+    "hints": [
+     "Parallel vectors are scalar multiples.",
+     "Find the multiplier from the first components.",
+     "Set $(5,k)=\\lambda(2,-3)$ and use $5=2\\lambda$."
+    ],
+    "explanation": "$\\lambda=5/2$, so $k=(-3)(5/2)=-7.5$ m s$^{-1}$. The component ratios $5/2$ and $(-7.5)/(-3)$ agree. Answer: $-7.5$.",
+    "shortcut_use": "Using a single scalar for both components"
+   },
+   {
+    "kind": "numeric",
+    "stem": "A vector $(k,9)$ is parallel to $(-2,3)$. Find $k$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-6",
+    "hints": [
+     "The second components reveal the scale.",
+     "Use that same scale for the first component.",
+     "Set $(k,9)=\\lambda(-2,3)$ and use $9=3\\lambda$."
+    ],
+    "explanation": "$\\lambda=3$, so $k=3(-2)=-6$. Checking, $(-6,9)=3(-2,3)$. Answer: $-6$.",
+    "shortcut_use": "Finding the scalar from the known component"
+   }
+  ],
+  "recall": [
+   {
+    "q": "What equation expresses that two vectors are parallel?",
+    "a": "One vector equals a scalar multiple of the other."
+   },
+   {
+    "q": "Must the scalar for parallel vectors be positive?",
+    "a": "No; a negative scalar gives the opposite direction along the same line."
+   }
+  ]
+ },
+ "SEM-M1-choose-the-body-with-known-velocities-for-impuls": {
+  "id": "SEM-M1-choose-the-body-with-known-velocities-for-impuls",
+  "hook": "Finding forces over a short interaction adds work when both velocities of the relevant particle are already known.",
+  "when": "An impulse is requested for a particle whose mass and velocities immediately before and after an interaction are given.",
+  "idea": "For that particle, use $\\mathbf{J}=m(\\mathbf{v}-\\mathbf{u})$. If a magnitude is requested, take the magnitude of the resulting vector.",
+  "why": "Impulse equals the change in momentum over the interaction. This holds for the net impulse on the chosen particle; an individual force's impulse needs any other impulses to be accounted for.",
+  "steps": [
+   "Choose the particle with known mass and before-and-after velocities.",
+   "Subtract initial velocity from final velocity component by component.",
+   "Multiply by mass to obtain the net impulse vector.",
+   "If asked for magnitude, find its nonnegative length."
+  ],
+  "worked": {
+   "question": "A $2$ kg particle has velocity $(3,1)$ m s$^{-1}$ immediately before an interaction and $(0,5)$ m s$^{-1}$ immediately after. Find the net impulse and its magnitude.",
+   "long": "Its momentum changes from $(6,2)$ to $(0,10)$ kg m s$^{-1}$. Subtracting gives $(-6,8)$ N s, whose magnitude is $\\sqrt{(-6)^2+8^2}=10$ N s.",
+   "short": "$\\mathbf{J}=2((0,5)-(3,1))=(-6,8)$ N s, with magnitude $\\sqrt{36+64}=10$ N s.",
+   "saving": "Uses the given velocities directly and keeps the impulse direction."
+  },
+  "pitfalls": [
+   "Subtracting final velocity from initial velocity, reversing the impulse direction.",
+   "Giving a negative value for an impulse magnitude.",
+   "Reporting the net impulse as one force's impulse when other impulses also act."
+  ],
+  "check": "The impulse vector must have the same direction as the change in velocity, and its magnitude must be nonnegative with units N s.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A $3$ kg particle changes velocity from $2$ m s$^{-1}$ to $-4$ m s$^{-1}$ along a line. Find the signed net impulse in N s, taking the initial positive direction as positive.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-18",
+    "hints": [
+     "Both velocities of the same particle are known.",
+     "Subtract initial velocity from final velocity.",
+     "Set up $J=3((-4)-2)$."
+    ],
+    "explanation": "$J=m(v-u)=3((-4)-2)=-18$ N s. Momentum changes from $6$ to $-12$ kg m s$^{-1}$, also giving $-12-6=-18$ N s. Answer: $-18$.",
+    "shortcut_use": "Calculating impulse as mass times velocity change"
+   },
+   {
+    "kind": "numeric",
+    "stem": "A $2$ kg particle changes velocity from $(1,2)$ m s$^{-1}$ to $(4,6)$ m s$^{-1}$. Find the magnitude of its net impulse in N s.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "The question asks for a magnitude, so the final result is nonnegative.",
+     "Find the impulse components from the velocity change.",
+     "Set up $\\mathbf{J}=2((4,6)-(1,2))$, then find its length."
+    ],
+    "explanation": "$\\mathbf{J}=2(3,4)=(6,8)$ N s, so its magnitude is $\\sqrt{6^2+8^2}=10$ N s. Subtracting momenta $(8,12)-(2,4)$ gives the same vector. Answer: $10$.",
+    "shortcut_use": "Taking the magnitude after applying $m(\\mathbf{v}-\\mathbf{u})$"
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the net impulse on a particle with known initial and final velocities?",
+    "a": "It is mass times final velocity minus initial velocity: $\\mathbf{J}=m(\\mathbf{v}-\\mathbf{u})$."
+   },
+   {
+    "q": "What sign and units should an impulse magnitude have?",
+    "a": "It is nonnegative and has units N s or kg m s$^{-1}$."
+   }
+  ]
+ },
+ "SEM-M1-maximum-or-minimum-speed": {
+  "id": "SEM-M1-maximum-or-minimum-speed",
+  "hook": "Solving $a=0$ finds an interior candidate, but it can miss the greatest speed at an endpoint or the least speed where the particle stops.",
+  "when": "You are given velocity $v(t)$ over a stated time interval and asked for maximum or minimum speed.",
+  "idea": "Compare $|v|$ at the endpoints, at every interior point where $a=0$, and at every interior point where $v=0$.",
+  "why": "For velocity continuous on a closed interval and differentiable inside it, an interior extremum of $|v|$ with $v\\ne0$ has $a=0$. Speed can also reach its minimum where $v=0$; endpoints must be checked.",
+  "steps": [
+   "Find the interval endpoints.",
+   "Solve $a=0$ and $v=0$ for times inside the interval.",
+   "Evaluate $|v|$ at those times and both endpoints.",
+   "Choose the largest or smallest value as asked."
+  ],
+  "worked": {
+   "question": "A particle has velocity $v(t)=4+6t-3t^2$ m s$^{-1}$ for $0\\le t\\le2$, where $t$ is in seconds. Find its maximum speed.",
+   "long": "Since $v$ stays positive, speed is $v$. Differentiating gives $a=6-6t$, positive before $t=1$ and negative after it, so speed rises then falls to a maximum of $7$ m s$^{-1}$.",
+   "short": "$a=6-6t=0$ at $t=1$. The speeds at $t=0,1,2$ are $4,7,4$ m s$^{-1}$, so the maximum is $7$ m s$^{-1}$.",
+   "saving": "Comparing candidates avoids a full increasing and decreasing sign analysis."
+  },
+  "pitfalls": [
+   "Checking $a=0$ but omitting the endpoints.",
+   "Comparing signed velocities instead of speeds $|v|$.",
+   "Missing a minimum speed of zero where $v=0$."
+  ],
+  "check": "Substitute the chosen time into $v(t)$ and take its absolute value; it must be at least as large as every other candidate for a maximum.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A particle has velocity $v(t)=3+8t-2t^2$ m s$^{-1}$ for $0\\le t\\le3$, with $t$ in seconds. Find its maximum speed in m s$^{-1}$ as an exact integer.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "11",
+    "hints": [
+     "The time interval has endpoints as well as possible interior candidates.",
+     "Find where $a=0$, then compare speeds.",
+     "Solve $8-4t=0$, then compare $|v(0)|$, $|v(t)|$ at that time, and $|v(3)|$."
+    ],
+    "explanation": "$a=8-4t=0$ gives $t=2$. The endpoint speeds are $|v(0)|=3$ and $|v(3)|=9$ m s$^{-1}$; at $t=2$, $|v(2)|=11$ m s$^{-1}$. The maximum is $11$ m s$^{-1}$.",
+    "shortcut_use": "Compare speeds at the stationary point and endpoints."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A particle has velocity $v(t)=5-3t$ m s$^{-1}$ for $0\\le t\\le4$, with $t$ in seconds. Find its maximum speed in m s$^{-1}$ as an exact integer.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "7",
+    "hints": [
+     "Speed is the magnitude of velocity, including after a change of direction.",
+     "Check the endpoint speeds when acceleration has no zero.",
+     "Compare $|5-3(0)|$ and $|5-3(4)|$."
+    ],
+    "explanation": "Acceleration is $-3$ m s$^{-2}$, so there is no interior $a=0$. The velocity passes through zero, which gives a minimum speed. The endpoint speeds are $5$ and $7$ m s$^{-1}$, so the maximum is $7$ m s$^{-1}$.",
+    "shortcut_use": "Compare absolute velocities at the endpoints."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which times must you check when finding maximum or minimum speed from differentiable $v(t)$ on a closed interval?",
+    "a": "Check both endpoints and every interior time where $a=0$ or $v=0$."
+   },
+   {
+    "q": "Why can $a=0$ alone miss a minimum speed?",
+    "a": "Speed can be zero where $v=0$, even if acceleration is nonzero."
+   },
+   {
+    "q": "What do you compare after finding candidate times?",
+    "a": "Compare the magnitudes $|v|$, rather than signed velocities."
+   }
+  ]
+ },
+ "SEM-M1-collisions-momentum-conserved": {
+  "id": "SEM-M1-collisions-momentum-conserved",
+  "hook": "Guessing an unknown direction can give the right speed with the wrong sign. Keep one positive direction throughout.",
+  "when": "Two particles collide, their masses and initial velocities are given, and a velocity after impact is required.",
+  "idea": "Use $m_1u_1+m_2u_2=m_1v_1+m_2v_2$. If they join, use $v=\\frac{m_1u_1+m_2u_2}{m_1+m_2}$.",
+  "why": "Total momentum is conserved during the collision when the external impulse on the two-particle system is negligible. Signed velocities account for opposite directions.",
+  "steps": [
+   "Choose a positive direction.",
+   "Give every known velocity a sign.",
+   "Apply conservation of momentum; use one final velocity if the particles join.",
+   "Interpret a negative result as motion opposite to the chosen direction."
+  ],
+  "worked": {
+   "question": "A 2 kg particle moves right at 5 m s$^{-1}$ and collides with a 3 kg particle moving left at 2 m s$^{-1}$. They join. Find their velocity, taking right as positive. Assume negligible external impulse.",
+   "long": "Write $2(5)+3(-2)=2v+3v$, so $5v=4$ and $v=0.8$ m s$^{-1}$.",
+   "short": "Use $v=\\frac{2(5)+3(-2)}{2+3}=0.8$ m s$^{-1}$, to the right.",
+   "saving": "The signed average gives the direction without a separate guess."
+  },
+  "pitfalls": [
+   "Using both initial speeds as positive when the particles move in opposite directions.",
+   "Dividing by one mass instead of the combined mass when the particles join."
+  ],
+  "check": "The final momentum is $5(0.8)=4$ kg m s$^{-1}$, matching the initial momentum.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A 1 kg particle moves right at 8 m s$^{-1}$ and joins a 3 kg particle moving left at 2 m s$^{-1}$. External impulse is negligible. Taking right as positive, find their velocity in m s$^{-1}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "0.5",
+    "hints": [
+     "The particles join, so they have one final velocity.",
+     "Use signed momenta and divide by the combined mass.",
+     "Set up $v=\\frac{1(8)+3(-2)}{1+3}$."
+    ],
+    "explanation": "$v=\\frac{8-6}{4}=0.5$ m s$^{-1}$.",
+    "shortcut_use": "Use the joined-particle formula."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A 2 kg particle moves right at 1 m s$^{-1}$ and joins a 1 kg particle moving left at 8 m s$^{-1}$. External impulse is negligible. Taking right as positive, find their velocity in m s$^{-1}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-2",
+    "hints": [
+     "The leftward velocity has a negative sign.",
+     "Divide the total signed momentum by the combined mass.",
+     "Set up $v=\\frac{2(1)+1(-8)}{2+1}$."
+    ],
+    "explanation": "$v=\\frac{2-8}{3}=-2$ m s$^{-1}$, so the joined particles move left.",
+    "shortcut_use": "Let the sign of the joined-particle formula give the direction."
+   }
+  ],
+  "recall": [
+   {
+    "q": "When is total momentum conserved in a collision?",
+    "a": "When the external impulse on the chosen system is negligible."
+   },
+   {
+    "q": "What does a negative calculated velocity mean?",
+    "a": "Motion opposite to the chosen positive direction."
+   }
+  ]
+ },
+ "SEM-M1-find-required-friction-before-testing-the-limit": {
+  "id": "SEM-M1-find-required-friction-before-testing-the-limit",
+  "hook": "Assuming friction is at its maximum can turn a valid equilibrium into a false limiting case.",
+  "when": "A rough surface is in equilibrium and the question asks whether it can remain at rest, or which way friction acts.",
+  "idea": "Solve the along-surface balance for signed $F_{\\mathrm{req}}$, then test $|F_{\\mathrm{req}}|\\le\\mu R$.",
+  "why": "Static friction supplies the force required for equilibrium, up to its limit $\\mu R$. This holds while contact remains and the stated coefficient of friction applies.",
+  "steps": [
+   "Choose a positive direction along the surface.",
+   "Solve equilibrium for signed $F_{\\mathrm{req}}$.",
+   "Find the normal reaction $R$.",
+   "Compare $|F_{\\mathrm{req}}|$ with $\\mu R$; use the sign for direction."
+  ],
+  "worked": {
+   "question": "A 4 kg block rests on a rough horizontal surface. A horizontal force of 10 N acts right. The coefficient of static friction is $0.3$ and $g=9.81$ m s$^{-2}$. Can the block remain at rest?",
+   "long": "Equilibrium needs 10 N of friction left. The reaction is $R=4(9.81)=39.24$ N, giving a maximum friction of $0.3(39.24)=11.772$ N. Since $10\\le11.772$, it can remain at rest.",
+   "short": "Taking right as positive, $10+F_{\\mathrm{req}}=0$ gives $F_{\\mathrm{req}}=-10$ N. Since $|F_{\\mathrm{req}}|=10\\le\\mu R=11.772$ N, equilibrium is possible.",
+   "saving": "The sign and limit are obtained in the right order."
+  },
+  "pitfalls": [
+   "Setting friction equal to $\\mu R$ before establishing a limiting case.",
+   "Comparing the signed value $F_{\\mathrm{req}}$ with $\\mu R$ instead of comparing its magnitude."
+  ],
+  "check": "The required 10 N left exactly balances the applied 10 N right.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A 5 kg block rests on a rough horizontal surface. A horizontal force of 12 N acts right. The coefficient of static friction is $0.4$ and $g=9.81$ m s$^{-2}$. Taking right as positive, find the signed friction required for equilibrium, in N.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "-12",
+    "hints": [
+     "The block is in equilibrium.",
+     "Balance forces along the surface before testing the limit.",
+     "Write $12+F_{\\mathrm{req}}=0$."
+    ],
+    "explanation": "$12+F_{\\mathrm{req}}=0$, so $F_{\\mathrm{req}}=-12$ N.",
+    "shortcut_use": "Solve for signed required friction first."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A 2 kg block is at rest on a rough horizontal surface. A 9 N horizontal force acts right. The coefficient of static friction is $0.5$ and $g=9.81$ m s$^{-2}$. Which statement is correct?",
+    "options": {
+     "A": "Friction is 9 N left; equilibrium is possible.",
+     "B": "Friction is 9.81 N left; the block is limiting.",
+     "C": "Friction is 9 N right; equilibrium is possible.",
+     "D": "Friction is 9 N left; equilibrium is impossible."
+    },
+    "answer": "A",
+    "hints": [
+     "Rest requires the horizontal forces to balance.",
+     "Find required friction, then compare it with $\\mu R$.",
+     "Required friction is 9 N left; compare 9 N with $0.5(2)(9.81)$ N."
+    ],
+    "explanation": "The required friction is 9 N left. Its limit is $0.5(2)(9.81)=9.81$ N, so equilibrium is possible with 9 N of friction left.",
+    "shortcut_use": "Compare required friction with its limit."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is tested against $\\mu R$?",
+    "a": "The magnitude of the friction required for equilibrium."
+   },
+   {
+    "q": "When does static friction equal $\\mu R$?",
+    "a": "At the limiting case."
+   }
+  ]
+ },
+ "SEM-M1-lifts-apparent-weight": {
+  "id": "SEM-M1-lifts-apparent-weight",
+  "hook": "The scale reading changes when the lift accelerates, even though the person's mass stays fixed.",
+  "when": "A person or object is supported in a lift with a stated vertical acceleration, and the normal reaction or scale reading is required.",
+  "idea": "For upward acceleration $a$, $R=m(g+a)$; for downward acceleration $a$, $R=m(g-a)$.",
+  "why": "The reaction and weight give the resultant vertical force $ma$. This holds while the object remains in contact with the lift floor; in free fall, $a=g$ downward and $R=0$.",
+  "steps": [
+   "Identify the acceleration direction.",
+   "Use $g+a$ for upward acceleration or $g-a$ for downward acceleration.",
+   "Multiply by the mass.",
+   "Check that the reaction is zero for free fall."
+  ],
+  "worked": {
+   "question": "A 60 kg passenger stands in a lift accelerating upwards at 1.2 m s$^{-2}$. Find the floor's reaction on the passenger. Use $g=9.81$ m s$^{-2}$.",
+   "long": "Take upwards as positive: $R-60(9.81)=60(1.2)$, so $R=660.6$ N.",
+   "short": "$R=60(9.81+1.2)=660.6$ N.",
+   "saving": "The direction rule avoids losing the sign of acceleration."
+  },
+  "pitfalls": [
+   "Using $m(g-a)$ for upward acceleration.",
+   "Calling $mg$ the scale reading while the lift accelerates."
+  ],
+  "check": "For upward acceleration, $R$ must exceed $mg$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A 50 kg passenger stands in a lift accelerating downwards at 1.81 m s$^{-2}$. Find the floor's reaction in N. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "400",
+    "hints": [
+     "The lift accelerates downwards.",
+     "Use $R=m(g-a)$.",
+     "Set up $R=50(9.81-1.81)$."
+    ],
+    "explanation": "$R=50(9.81-1.81)=400$ N.",
+    "shortcut_use": "Use the downward acceleration formula."
+   },
+   {
+    "kind": "numeric",
+    "stem": "An 80 kg passenger stands in a lift accelerating upwards at 0.19 m s$^{-2}$. Find the floor's reaction in N. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "800",
+    "hints": [
+     "Upward acceleration raises the reaction.",
+     "Use $R=m(g+a)$.",
+     "Set up $R=80(9.81+0.19)$."
+    ],
+    "explanation": "$R=80(9.81+0.19)=800$ N.",
+    "shortcut_use": "Use the upward acceleration formula."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What is the floor reaction for upward lift acceleration?",
+    "a": "$R=m(g+a)$ while contact remains."
+   },
+   {
+    "q": "What is the floor reaction in free fall?",
+    "a": "It is zero."
+   }
+  ]
+ },
+ "SEM-M1-one-string-distance-can-mean-different-vertical": {
+  "id": "SEM-M1-one-string-distance-can-mean-different-vertical",
+  "hook": "Equal travel along a string does not mean equal vertical travel. Treating plane distance as height gives the wrong meeting point.",
+  "when": "A taut string links a vertically moving particle to one on an inclined plane, and a vertical gap closes.",
+  "idea": "If both travel a string distance $x$, their vertical changes are $x$ and $x\\sin\\theta$. For a gap $H$ closing by both changes, $x+x\\sin\\theta=H$.",
+  "why": "A taut, inextensible string gives equal distances along the two paths; the plane particle's vertical change is the vertical component of its path. The gap equation requires both particles' vertical changes to close the gap.",
+  "steps": [
+   "Let $x$ be each particle's distance along its path.",
+   "Convert plane travel to vertical change $x\\sin\\theta$.",
+   "Write the vertical gap equation.",
+   "Only then use $x$ in any motion equation."
+  ],
+  "worked": {
+   "question": "A taut, inextensible string links a particle moving vertically upwards to one moving up a plane inclined at $30^\\circ$. Their vertical gap is 9 m, and both upward changes close it. How far does each travel along its path before they are level?",
+   "long": "The vertical changes are $x$ and $x\\sin30^\\circ=0.5x$. Their sum is 9 m, so $1.5x=9$ and $x=6$ m.",
+   "short": "$x=\\frac{H}{1+\\sin\\theta}=\\frac{9}{1+0.5}=6$ m.",
+   "saving": "The string distance is separated from the plane particle's height change."
+  },
+  "pitfalls": [
+   "Using $x$ as the plane particle's vertical change.",
+   "Adding the vertical changes when the geometry says one change widens the gap."
+  ],
+  "check": "The vertical changes, 6 m and 3 m, sum to the original 9 m gap.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A taut, inextensible string links a particle moving vertically upwards to one moving up a plane inclined at $30^\\circ$. Their vertical gap is 12 m, and both upward changes close it. How far does each travel along its path, in m, before they are level?",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "8",
+    "hints": [
+     "The two path distances are equal, but their vertical changes differ.",
+     "Use $x\\sin30^\\circ$ for the plane particle's height change.",
+     "Set up $x+x\\sin30^\\circ=12$."
+    ],
+    "explanation": "$x(1+\\sin30^\\circ)=12$, so $x=\\frac{12}{1+0.5}=8$ m.",
+    "shortcut_use": "Convert equal path distances into different vertical changes."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A taut, inextensible string links a particle moving vertically upwards to one moving up a plane inclined at $30^\\circ$. Their vertical gap is 6 m, and both upward changes close it. Find the plane particle's vertical change, in m, when they are level.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "2",
+    "hints": [
+     "First find the common distance along the paths.",
+     "Use $x+x\\sin30^\\circ=6$.",
+     "Then calculate the plane particle's height change as $x\\sin30^\\circ$."
+    ],
+    "explanation": "$x=\\frac{6}{1+0.5}=4$ m, so the plane particle rises $4\\sin30^\\circ=2$ m.",
+    "shortcut_use": "Use $x\\sin\\theta$ for the plane particle's vertical change."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How does a plane particle's vertical change relate to its travel $x$ on a plane inclined at $\\theta$?",
+    "a": "Its vertical change is $x\\sin\\theta$."
+   },
+   {
+    "q": "What does a taut, inextensible string equate here?",
+    "a": "It equates the particles' distances along their paths."
+   }
+  ]
+ },
+ "SEM-M1-recalculate-the-normal-reaction-for-oblique-forc": {
+  "id": "SEM-M1-recalculate-the-normal-reaction-for-oblique-forc",
+  "hook": "An upward pull reduces contact force, so using $mg\\cos\\theta$ can overstate the available friction.",
+  "when": "A tension acts at an angle above an inclined plane and the normal reaction or friction limit is needed.",
+  "idea": "Use $R=mg\\cos\\theta-T\\sin\\phi$, where $\\phi$ is the angle of the pull above the plane.",
+  "why": "Perpendicular acceleration is zero while the body remains in contact, and the pull's outward component reduces the normal reaction. Check $R\\ge0$ before using a contact friction limit.",
+  "steps": [
+   "Resolve weight into the plane: $mg\\cos\\theta$.",
+   "Resolve the pull away from the plane: $T\\sin\\phi$.",
+   "Subtract to find $R$.",
+   "Check $R\\ge0$ and use this $R$ in $\\mu R$."
+  ],
+  "worked": {
+   "question": "A 5 kg block is pulled by a 20 N force at $30^\\circ$ above a plane inclined at $60^\\circ$. Find the normal reaction while the block remains in contact. Use $g=9.81$ m s$^{-2}$.",
+   "long": "Resolve perpendicular to the plane: $R+20\\sin30^\\circ=5(9.81)\\cos60^\\circ$, so $R=14.525$ N.",
+   "short": "$R=5(9.81)\\cos60^\\circ-20\\sin30^\\circ=14.525$ N.",
+   "saving": "The pull's effect on the friction limit is included."
+  },
+  "pitfalls": [
+   "Using $R=mg\\cos\\theta$ despite the oblique pull.",
+   "Using $\\cos\\phi$ for the pull's perpendicular component when $\\phi$ is measured above the plane."
+  ],
+  "check": "The reaction is less than $mg\\cos\\theta$ because the pull lifts away from the plane.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A 4 kg block is pulled by a 10 N force at $30^\\circ$ above a plane inclined at $60^\\circ$. Find the normal reaction in N while contact remains. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "14.62",
+    "hints": [
+     "The pull has a component away from the plane.",
+     "Subtract that component from $mg\\cos\\theta$.",
+     "Set up $R=4(9.81)\\cos60^\\circ-10\\sin30^\\circ$."
+    ],
+    "explanation": "$R=19.62-5=14.62$ N.",
+    "shortcut_use": "Subtract the pull's perpendicular component."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A 2 kg block remains in contact with a plane inclined at $60^\\circ$. It is pulled with a 4 N force at $30^\\circ$ above the plane. If the coefficient of friction is $0.5$, find the friction limit in N. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "3.905",
+    "hints": [
+     "Find the reaction before the friction limit.",
+     "Use $R=mg\\cos\\theta-T\\sin\\phi$, then multiply by $\\mu$.",
+     "Set up $\\mu R=0.5(2(9.81)\\cos60^\\circ-4\\sin30^\\circ)$."
+    ],
+    "explanation": "$R=9.81-2=7.81$ N, so the friction limit is $0.5(7.81)=3.905$ N.",
+    "shortcut_use": "Use the corrected reaction in $\\mu R$."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How does a pull angled above a plane affect the normal reaction?",
+    "a": "It reduces the reaction by its perpendicular component $T\\sin\\phi$."
+   },
+   {
+    "q": "What reaction must be used in the friction limit?",
+    "a": "Use the reaction after resolving every perpendicular force."
+   }
+  ]
+ },
+ "SEM-M1-reverse-friction-after-a-turn": {
+  "id": "SEM-M1-reverse-friction-after-a-turn",
+  "hook": "A force equation copied across a turning point keeps friction pointing the wrong way.",
+  "when": "A particle moves on a rough surface, stops, then begins moving in the opposite direction.",
+  "idea": "Kinetic friction opposes the actual motion in each phase; after reversal, reverse its sign and write a new force equation.",
+  "why": "Kinetic friction acts opposite relative motion at the contact. This rule applies while the particle is sliding; at the instant it stops, determine whether it starts moving again before using a sliding-friction equation.",
+  "steps": [
+   "Label the motion direction before the turn.",
+   "Point friction against that motion.",
+   "After the turn, relabel the motion direction.",
+   "Reverse friction and write a new $F=ma$ equation."
+  ],
+  "worked": {
+   "question": "A 2 kg block slides up a rough plane inclined at $30^\\circ$, stops, then slides down. The coefficient of kinetic friction is $0.2$. Find its acceleration down the plane after reversal. Use $g=9.81$ m s$^{-2}$.",
+   "long": "After reversal, gravity's downslope component is $2(9.81)\\sin30^\\circ=9.81$ N. Friction acts upslope with magnitude $0.2(2)(9.81)\\cos30^\\circ\\approx3.398$ N. Thus $a=(9.81-3.398)/2\\approx3.21$ m s$^{-2}$ downslope.",
+   "short": "With down the plane positive after reversal, $a=g(\\sin30^\\circ-0.2\\cos30^\\circ)\\approx3.21$ m s$^{-2}$.",
+   "saving": "Relabelling the motion prevents the old friction sign being carried into the new phase."
+  },
+  "pitfalls": [
+   "Keeping friction down the plane after the block starts sliding down.",
+   "Using the post-turn equation before confirming that sliding resumes."
+  ],
+  "check": "Downslope acceleration is less than $g\\sin30^\\circ$ because friction acts upslope.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A block slides up a rough plane inclined at $30^\\circ$, stops, then slides down. The coefficient of kinetic friction is $0.1$. Find its acceleration down the plane after reversal, in m s$^{-2}$ to 3 significant figures. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.06",
+    "hints": [
+     "After reversal, the motion is down the plane.",
+     "Friction then acts up the plane.",
+     "Use $a=9.81(\\sin30^\\circ-0.1\\cos30^\\circ)$."
+    ],
+    "explanation": "$a=9.81(0.5-0.1\\cos30^\\circ)\\approx4.06$ m s$^{-2}$ down the plane.",
+    "shortcut_use": "Reverse friction's direction after the turn."
+   },
+   {
+    "kind": "mcq",
+    "stem": "A block slides right on a rough horizontal surface, stops, and then starts sliding left under a constant leftward force of 12 N. Kinetic friction has magnitude 4 N. Taking right as positive, what is the resultant force after reversal?",
+    "options": {
+     "A": "8 N to the left",
+     "B": "16 N to the left",
+     "C": "8 N to the right",
+     "D": "4 N to the right"
+    },
+    "answer": "A",
+    "hints": [
+     "The block is now moving left.",
+     "Kinetic friction therefore acts right.",
+     "Combine 12 N left with 4 N right."
+    ],
+    "explanation": "After reversal, friction is 4 N right, so the resultant is $12-4=8$ N left.",
+    "shortcut_use": "Reverse the friction arrow before combining forces."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which way does kinetic friction act after motion reverses?",
+    "a": "It acts opposite the new direction of motion."
+   },
+   {
+    "q": "What should you do with $F=ma$ after a turn?",
+    "a": "Write a new equation with friction's direction updated."
+   }
+  ]
+ },
+ "SEM-M1-separate-mass-from-weight-in-the-data-margin": {
+  "id": "SEM-M1-separate-mass-from-weight-in-the-data-margin",
+  "hook": "Multiplying a force already given in newtons by $g$ creates a large error that units expose.",
+  "when": "A mechanics question gives some quantities in kg and others in N.",
+  "idea": "Convert a mass $m$ in kg to weight $mg$ in N; use a stated weight $W$ in N directly.",
+  "why": "Weight is already a force, equal to $mg$ under the stated gravitational field. This unit distinction always holds; a force equation must contain forces in newtons.",
+  "steps": [
+   "Mark each kg value as mass.",
+   "Mark each N value as an existing force.",
+   "Multiply only masses by $g$ when weight is needed.",
+   "Check every term of the force equation has units of N."
+  ],
+  "worked": {
+   "question": "A 3 kg object hangs at rest from a vertical string. An additional downward force of 10 N acts on it. Find the tension. Use $g=9.81$ m s$^{-2}$.",
+   "long": "The object's weight is $3(9.81)=29.43$ N. Vertical balance gives $T=29.43+10=39.43$ N.",
+   "short": "Read 3 kg as mass and 10 N as an existing force: $T=3(9.81)+10=39.43$ N.",
+   "saving": "The 10 N force is not multiplied by $g$."
+  },
+  "pitfalls": [
+   "Multiplying a weight stated in N by $g$ again.",
+   "Adding a mass in kg directly to a force in N."
+  ],
+  "check": "Both terms in $T=mg+10$ are in N.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A 2 kg object hangs at rest from a vertical string. An additional downward force of 5 N acts on it. Find the tension in N. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "24.62",
+    "hints": [
+     "The 2 kg value is a mass; the 5 N value is already a force.",
+     "Convert only the mass to weight.",
+     "Use $T=2(9.81)+5$."
+    ],
+    "explanation": "$T=2(9.81)+5=24.62$ N.",
+    "shortcut_use": "Convert kg to N only once."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A box of mass 4 kg rests on a horizontal floor. An additional downward force of 15 N acts on it. Find the normal reaction in N. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "54.24",
+    "hints": [
+     "The floor supports both downward forces.",
+     "Convert the 4 kg mass to its weight; keep 15 N unchanged.",
+     "Use $R=4(9.81)+15$."
+    ],
+    "explanation": "$R=4(9.81)+15=54.24$ N.",
+    "shortcut_use": "Keep the given newton value as a force."
+   }
+  ],
+  "recall": [
+   {
+    "q": "Which given quantity needs multiplication by $g$: a mass in kg or a weight in N?",
+    "a": "Only the mass in kg."
+   },
+   {
+    "q": "What units must every term in a force balance have?",
+    "a": "Newtons."
+   }
+  ]
+ },
+ "SEM-M1-string-goes-slack": {
+  "id": "SEM-M1-string-goes-slack",
+  "hook": "Continuing the original tension after the hanging mass hits the floor gives the wrong motion for the other particle.",
+  "when": "A hanging particle reaches the floor while a linked particle is still moving, so the string can no longer pull it.",
+  "idea": "Find the speed at impact with suvat, then set tension to zero and restart $F=ma$ for the other particle.",
+  "why": "A slack string cannot exert tension. This applies after the hanging mass lands and the string remains slack; on a rough horizontal table the other particle decelerates, while on a smooth horizontal table it keeps constant velocity if no other horizontal force acts.",
+  "steps": [
+   "Use the first phase to find acceleration and speed at impact.",
+   "Treat that speed as the other particle's initial speed in the next phase.",
+   "Set tension to zero.",
+   "Write a new force equation and solve the later motion."
+  ],
+  "worked": {
+   "question": "A 1 kg block on a rough horizontal table is connected by a taut string over a smooth pulley to a hanging 1 kg mass. The coefficient of kinetic friction on the table is $0.2$. Released from rest, the hanging mass falls 2 m and hits the floor; the table block then continues until it stops. Find the table block's extra distance after impact. Use $g=9.81$ m s$^{-2}$.",
+   "long": "Before impact, the driving force is $9.81-0.2(9.81)=7.848$ N on 2 kg, so $a=3.924$ m s$^{-2}$ and $v^2=2(3.924)(2)=15.696$ m$^2$ s$^{-2}$. After impact, only friction acts horizontally: $a=-0.2(9.81)=-1.962$ m s$^{-2}$. Then $0=15.696+2(-1.962)s$, giving $s=4$ m.",
+   "short": "Find $v^2=15.696$ at impact. With tension gone, use $0=v^2-2(0.2g)s$ to get $s=4$ m.",
+   "saving": "Restarting the force equation removes tension at the correct instant."
+  },
+  "pitfalls": [
+   "Leaving tension in the force equation after the hanging mass reaches the floor.",
+   "Starting the second phase from rest instead of using the speed at impact."
+  ],
+  "check": "The extra distance is positive, and friction reduces the block's speed to zero.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A block moving at 6 m s$^{-1}$ on a rough horizontal table is linked by a string to a hanging mass. At that instant the hanging mass hits the floor and the string goes slack. The coefficient of kinetic friction is $0.3$. Find the block's extra distance before stopping, in m to 3 significant figures. Use $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "6.12",
+    "hints": [
+     "After impact, the string is slack.",
+     "Only kinetic friction slows the block horizontally.",
+     "Use $0=6^2-2(0.3)(9.81)s$."
+    ],
+    "explanation": "$s=\\frac{6^2}{2(0.3)(9.81)}\\approx6.12$ m.",
+    "shortcut_use": "Set tension to zero after impact."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A block moves at 4 m s$^{-1}$ on a smooth horizontal table when its linked hanging mass hits the floor and the string goes slack. No other horizontal force acts. Find the block's speed in m s$^{-1}$ two seconds later.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4",
+    "hints": [
+     "The string is slack after impact.",
+     "Find the horizontal resultant force on the smooth table.",
+     "With $T=0$ and no friction, use $a=0$ for the second phase."
+    ],
+    "explanation": "With tension gone and no horizontal force, $a=0$, so the speed remains 4 m s$^{-1}$.",
+    "shortcut_use": "Restart $F=ma$ with zero tension."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What happens to tension when the string goes slack?",
+    "a": "It becomes zero."
+   },
+   {
+    "q": "What speed starts the motion after the hanging mass hits the floor?",
+    "a": "The speed found at the instant of impact."
+   }
+  ]
+ },
+ "SEM-M1-two-pulley-inclined-plus-hanging-mass": {
+  "id": "SEM-M1-two-pulley-inclined-plus-hanging-mass",
+  "hook": "Solving separately for tension adds algebra and makes sign errors easier.",
+  "when": "Two particles are connected by a taut string, with one on an incline and the other hanging.",
+  "idea": "Write $F=ma$ for each particle using consistent positive directions along the string, then add the equations to eliminate the common tension $T$.",
+  "why": "For a light, inextensible string over a smooth pulley, both particles have the same acceleration magnitude and the tension is the same on each side. The two tension terms have opposite signs, so they cancel when the equations are added.",
+  "steps": [
+   "Choose one direction of motion and mark a consistent positive direction for each particle.",
+   "Resolve forces along the string and write $F=ma$ for each particle.",
+   "Add the equations to cancel $T$.",
+   "Divide by the total mass and check the sign of $a$."
+  ],
+  "worked": {
+   "question": "A 2 kg particle rests on a smooth $30^\\circ$ incline and is connected over a smooth pulley by a light, inextensible string to a hanging 3 kg particle. Find the acceleration in m s$^{-2}$. Take $g=9.81$ m s$^{-2}$.",
+   "long": "Taking the hanging particle downwards as positive, $3g-T=3a$ and $T-2g\\sin30^\\circ=2a$. Substitute $T=3g-3a$ into the second equation and solve to get $a=3.924$ m s$^{-2}$.",
+   "short": "Add the two equations: $3g-2g\\sin30^\\circ=5a$. Hence $a=(29.43-9.81)/5=3.924$ m s$^{-2}$.",
+   "saving": "Tension disappears before any substitution."
+  },
+  "pitfalls": [
+   "Using the same physical direction as positive for both particles, even though their motions along the string are linked in opposite directions.",
+   "Using the full weight of the particle on the incline instead of its component $mg\\sin\\theta$.",
+   "Cancelling tension when the pulley is not smooth or the string is not light."
+  ],
+  "check": "The positive result confirms that the hanging particle moves downwards as assumed.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A 1 kg particle on a smooth $30^\\circ$ incline is connected over a smooth pulley by a light, inextensible string to a hanging 2 kg particle. Taking the hanging particle downwards as positive, find the acceleration in m s$^{-2}$, to 3 significant figures. Take $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "4.91",
+    "hints": [
+     "The two particles share one acceleration magnitude.",
+     "Write an equation for each particle and add them.",
+     "Use $2g-g\\sin30^\\circ=(1+2)a$."
+    ],
+    "explanation": "Adding the equations cancels tension: $a=(2g-g\\sin30^\\circ)/3=4.905$ m s$^{-2}$, so the answer to 3 significant figures is $4.91$.",
+    "shortcut_use": "Add the two force equations to eliminate tension."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A 4 kg particle on a smooth $30^\\circ$ incline is connected over a smooth pulley by a light, inextensible string to a hanging 1 kg particle. Taking motion down the incline as positive for the 4 kg particle, find the acceleration in m s$^{-2}$, to 3 significant figures. Take $g=9.81$ m s$^{-2}$.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "1.96",
+    "hints": [
+     "The incline particle's weight component is the driving force in the stated direction.",
+     "Write both force equations in their linked positive directions and add them.",
+     "Use $4g\\sin30^\\circ-g=(4+1)a$."
+    ],
+    "explanation": "Adding cancels tension: $a=(4g\\sin30^\\circ-g)/5=1.962$ m s$^{-2}$, so the answer to 3 significant figures is $1.96$.",
+    "shortcut_use": "Add the two force equations to eliminate tension."
+   }
+  ],
+  "recall": [
+   {
+    "q": "What happens to tension when the two consistent force equations are added?",
+    "a": "The equal and opposite tension terms cancel."
+   },
+   {
+    "q": "What string and pulley conditions justify using one tension and one acceleration magnitude?",
+    "a": "The string is light, taut and inextensible, and the pulley is smooth."
+   }
+  ]
+ },
+ "SEM-M1-treat-two-support-reactions-as-load-shares": {
+  "id": "SEM-M1-treat-two-support-reactions-as-load-shares",
+  "hook": "Taking moments for several separate loads can clutter the working. Their combined position gives the same reaction in one step.",
+  "when": "A horizontal beam has vertical loads and two supports at $x=0$ and $x=L$.",
+  "idea": "Find $W=\\sum W_i$ and $\\bar x=\\sum W_ix_i/W$. Then $R_L=W\\bar x/L$ and $R_0=W-R_L$.",
+  "why": "For a beam in static equilibrium under vertical forces, the loads act in moments like a single weight $W$ at $\\bar x$. Taking moments about $x=0$ gives $R_LL=W\\bar x$. Both reactions must be nonnegative while both supports remain in contact.",
+  "steps": [
+   "Add the vertical loads to find $W$.",
+   "Find their weighted position $\\bar x$.",
+   "Calculate $R_L=W\\bar x/L$.",
+   "Calculate $R_0=W-R_L$ and check both reactions."
+  ],
+  "worked": {
+   "question": "A horizontal 2 m beam is supported at its ends. Its weight is negligible. A 30 N load acts 0.5 m from the left end and a 50 N load acts 1.5 m from the left end. Find both support reactions.",
+   "long": "Moments about the left end give $2R_L=30(0.5)+50(1.5)=90$, so $R_L=45$ N. Vertical equilibrium gives $R_0=80-45=35$ N.",
+   "short": "$W=80$ N and $\\bar x=[30(0.5)+50(1.5)]/80=1.125$ m. Thus $R_L=80(1.125)/2=45$ N and $R_0=80-45=35$ N.",
+   "saving": "The weighted position turns several loads into one equivalent load."
+  },
+  "pitfalls": [
+   "Using the ordinary average of load positions instead of weighting each position by its load.",
+   "Measuring some positions from the right end when $x=0$ is the left end.",
+   "Accepting a negative reaction while assuming both supports remain in contact."
+  ],
+  "check": "The reactions must add to $80$ N and each must be nonnegative.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "A horizontal 4 m beam of negligible weight is supported at its ends. Loads of 20 N and 40 N act 1 m and 3 m from the left end, respectively. Find the right support reaction in N, as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "35",
+    "hints": [
+     "The right reaction is the right support's share of the total load.",
+     "Find the load-weighted position measured from the left end.",
+     "Use $R_L=[20(1)+40(3)]/4$."
+    ],
+    "explanation": "The weighted load moment is $20(1)+40(3)=140$ N m, so $R_L=140/4=35$ N. The answer is $35$.",
+    "shortcut_use": "Divide the weighted load moment by the support spacing."
+   },
+   {
+    "kind": "numeric",
+    "stem": "A horizontal 5 m beam of negligible weight is supported at its ends. A 60 N load acts 1 m from the left end and a 40 N load acts 4 m from the left end. Find the left support reaction in N, as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "56",
+    "hints": [
+     "First find the right support's load share.",
+     "Divide the weighted load moment by the beam length, then subtract from the total load.",
+     "Use $R_0=(60+40)-[60(1)+40(4)]/5$."
+    ],
+    "explanation": "The right reaction is $[60(1)+40(4)]/5=44$ N. Therefore $R_0=100-44=56$ N. The answer is $56$.",
+    "shortcut_use": "Use the weighted position to find the right reaction first."
+   }
+  ],
+  "recall": [
+   {
+    "q": "How is the combined position of vertical loads found?",
+    "a": "$\\bar x=\\sum W_ix_i/\\sum W_i$."
+   },
+   {
+    "q": "How do you find the right reaction for supports at $0$ and $L$?",
+    "a": "Use $R_L=W\\bar x/L$."
+   },
+   {
+    "q": "What quick checks apply while both supports touch the beam?",
+    "a": "The reactions add to the total load and both are nonnegative."
+   }
+  ]
+ },
+ "SEM-M1-keep-exact-trigonometric-ratios-until-the-end": {
+  "id": "SEM-M1-keep-exact-trigonometric-ratios-until-the-end",
+  "hook": "Finding an angle and rounding it before resolving a force introduces avoidable error.",
+  "when": "A question gives $\\tan\\theta=p/q$ and later needs $\\sin\\theta$ or $\\cos\\theta$.",
+  "idea": "Use a right triangle: $\\sin\\theta=p/\\sqrt{p^2+q^2}$ and $\\cos\\theta=q/\\sqrt{p^2+q^2}$. Keep these ratios exact until the final answer.",
+  "why": "For an acute angle $\\theta$ in a right triangle, tangent is opposite over adjacent, and Pythagoras gives hypotenuse $\\sqrt{p^2+q^2}$. The ratios therefore hold for positive $p$ and $q$.",
+  "steps": [
+   "Read $p$ as the opposite side and $q$ as the adjacent side.",
+   "Find the hypotenuse $\\sqrt{p^2+q^2}$.",
+   "Use the required exact sine or cosine ratio.",
+   "Round only the final numerical answer."
+  ],
+  "worked": {
+   "question": "A 5 kg particle rests on a slope at an acute angle $\\theta$ to the horizontal, where $\\tan\\theta=3/4$. Find the component of its weight down the slope in N, to 3 significant figures. Take $g=9.81$ m s$^{-2}$.",
+   "long": "Find $\\theta\\approx36.87^\\circ$, then calculate $5g\\sin\\theta\\approx29.43$ N.",
+   "short": "The right triangle has sides $3$, $4$, $5$, so $\\sin\\theta=3/5$. The component is $5(9.81)(3/5)=29.43$ N, or $29.4$ N to 3 significant figures.",
+   "saving": "No rounded angle enters the force calculation."
+  },
+  "pitfalls": [
+   "Swapping opposite and adjacent, giving the cosine ratio for sine.",
+   "Using $p+q$ instead of $\\sqrt{p^2+q^2}$ for the hypotenuse.",
+   "Using these positive ratios without checking that the angle is acute."
+  ],
+  "check": "For an acute angle, each ratio is between $0$ and $1$, and $\\sin^2\\theta+\\cos^2\\theta=1$.",
+  "practice": [
+   {
+    "kind": "numeric",
+    "stem": "An acute angle $\\theta$ satisfies $\\tan\\theta=5/12$. Find $26\\sin\\theta$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "10",
+    "hints": [
+     "The tangent ratio gives two sides of a right triangle.",
+     "Find the hypotenuse before finding sine.",
+     "Use $26\\sin\\theta=26(5/\\sqrt{5^2+12^2})$."
+    ],
+    "explanation": "The hypotenuse is $13$, so $\\sin\\theta=5/13$. Hence $26\\sin\\theta=26(5/13)=10$. The answer is $10$.",
+    "shortcut_use": "Convert tangent directly to an exact sine ratio."
+   },
+   {
+    "kind": "numeric",
+    "stem": "An acute angle $\\theta$ satisfies $\\tan\\theta=8/15$. Find $51\\cos\\theta$ as an exact number.",
+    "options": {
+     "A": "",
+     "B": "",
+     "C": "",
+     "D": ""
+    },
+    "answer": "45",
+    "hints": [
+     "Tangent identifies the opposite and adjacent sides.",
+     "Find the hypotenuse, then use adjacent over hypotenuse.",
+     "Use $51\\cos\\theta=51(15/\\sqrt{8^2+15^2})$."
+    ],
+    "explanation": "The hypotenuse is $17$, so $\\cos\\theta=15/17$. Hence $51\\cos\\theta=51(15/17)=45$. The answer is $45$.",
+    "shortcut_use": "Convert tangent directly to an exact cosine ratio."
+   }
+  ],
+  "recall": [
+   {
+    "q": "If $\\tan\\theta=p/q$ for an acute angle, what is $\\sin\\theta$?",
+    "a": "$\\sin\\theta=p/\\sqrt{p^2+q^2}$."
+   },
+   {
+    "q": "If $\\tan\\theta=p/q$ for an acute angle, what is $\\cos\\theta$?",
+    "a": "$\\cos\\theta=q/\\sqrt{p^2+q^2}$."
+   },
+   {
+    "q": "When should the trigonometric calculation be rounded?",
+    "a": "Round only the final numerical answer."
+   }
+  ]
+ }
+}
