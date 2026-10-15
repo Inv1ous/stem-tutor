@@ -33,6 +33,22 @@ The restriction matters: when $n=-1$, the denominator would be zero, and this po
 > Substitute the point: $5=1-1+C$, so $C=5$.
 > Therefore $y=x^3-x^2+5$. Differentiating gives $3x^2-2x$, as required.
 
+> [!example]- Worked example: a quotient using only the power rule
+> Find $\int\frac{3x-1}{2x^3}\,dx$ for $x\ne0$.
+> Divide each numerator term by $2x^3$: $\frac{3x-1}{2x^3}=\frac32x^{-2}-\frac12x^{-3}$.
+> Both exponents are allowed. Raise each by one and divide by the new exponent:
+> $\int\frac{3x-1}{2x^3}\,dx=-\frac32x^{-1}+\frac14x^{-2}+C$.
+> Check by differentiation: $\frac{d}{dx}(-\frac32x^{-1}+\frac14x^{-2}+C)=\frac32x^{-2}-\frac12x^{-3}=\frac{3x-1}{2x^3}$.
+
+> [!example]- Faded practice
+> Find $\int\frac{4x+3}{2x^3}\,dx$ for $x\ne0$. The rewriting step is $2x^{-2}+\frac32x^{-3}$; finish the integration, include $C$, and differentiate to check.
+
+> [!answer]- Faded practice answer
+> $-2x^{-1}-\frac34x^{-2}+C$. Its derivative is $2x^{-2}+\frac32x^{-3}=\frac{4x+3}{2x^3}$.
+
+> [!warning] The excluded power needs a separate rule
+> The earlier quotient with denominator $2x^2$ contains $x^{-1}$. Its logarithm term uses the separately stated rule $\int x^{-1}\,dx=\ln|x|+C$, on an interval away from zero; it does not follow from the P1 power rule, whose stated outcome excludes $n=-1$. Never try to divide by $n+1=0$. The quotient above instead gives only allowed negative powers.
+
 ## Traps
 - **Trap:** Leave out $C$. **Why it's wrong:** Every constant has derivative zero. **Instead:** Include $C$ for every indefinite integral.
 - **Trap:** Keep the exponent the same. **Why it's wrong:** Differentiation would not return the original power. **Instead:** Increase it by one and divide by the new exponent.

@@ -1,0 +1,25 @@
+{
+ "summary": "Strengthen syllabus-level quotient integration and multi-step exam practice while clarifying the excluded power.",
+ "improvements": [
+  {
+   "kind": "clarification",
+   "where": "note, after the worked example; pack worked for P1-5.2",
+   "why": "The note's only quotient example introduces $\\ln|x|$ even though the stated P1 power rule excludes $n=-1$; learners need a fully worked quotient that stays within the power-rule outcome.",
+   "what": "Add a worked example such as $\\int (3x-1)/(2x^3)\\,dx$: divide each numerator term by $2x^3$, integrate the resulting negative powers, include $C$, and verify by differentiation. Add a faded variant. Explain that any $x^{-1}$ term in the existing syllabus example needs the separately stated logarithm rule and must not be handled by dividing by $n+1$."
+  },
+  {
+   "kind": "questions",
+   "where": "P1-5.2",
+   "why": "Only one existing item tests a quotient, and it uses the excluded $x^{-1}$ case; there is no negative-power quotient practice using only the P1 rule.",
+   "count": 2,
+   "what": "Add one expression item integrating a quotient that rewrites solely to powers with $n\\ne-1$, and one harder structured item requiring algebraic rewriting, integration, $C$, and a differentiation check. Include specific explanations and progressive hints."
+  },
+  {
+   "kind": "questions",
+   "where": "P1-5.1 and P1-5.2",
+   "why": "The bank has no Show that or Hence items despite these command words in the bundle, and the curve-recovery outcome has only one numeric item.",
+   "count": 2,
+   "what": "Add a linked multi-part exam-style question: Show that an antiderivative differentiates to the given polynomial, then hence use a supplied point to find the curve equation $y=f(x)$. Add a distinct item that asks for the curve equation from $f'(x)$ and a point, with method marks for integration, finding $C$, and the final equation."
+  }
+ ]
+}
