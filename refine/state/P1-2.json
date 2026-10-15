@@ -1,0 +1,149 @@
+{
+ "sub": "P1-2",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T23:03:52+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T22:02:43+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 2 improvements"
+  },
+  {
+   "t": "2026-10-15T22:49:04+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 2 cards"
+  },
+  {
+   "t": "2026-10-15T22:55:46+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "2 of 2 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T23:03:52+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 2 cards"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 11,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 20672,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:02:09+08:00",
+   "log": "refine/logs/P1-2.scout.1015-220209.log",
+   "out": "refine/logs/P1-2.scout.1015-220209.out.json",
+   "expects": "build/work/refine/P1-2.plan.json",
+   "finished": "2026-10-15T22:02:43+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 2,
+    "plan_path": "build/work/refine/P1-2.plan.json",
+    "notes": [
+     "Read the learner’s YMA01 c2.1.pdf, pp. 7–14, for straight-line equations and gradient conditions.",
+     "Checked Pearson’s official IAL Mathematics specification; it confirmed the chapter scope. The plan addresses the two teaching-card gaps reported by the gates."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 41839,
+   "provider": "claude",
+   "model": "opus/medium",
+   "rung": 1,
+   "started": "2026-10-15T22:47:00+08:00",
+   "log": "refine/logs/P1-2.refiner.1015-224700.log",
+   "out": "refine/logs/P1-2.refiner.1015-224700.out.json",
+   "finished": "2026-10-15T22:49:04+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 2,
+    "new_items": [],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 0.826
+  },
+  "solver": {
+   "pid": 43864,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:50:50+08:00",
+   "log": "refine/logs/P1-2.solver.1015-225050.log",
+   "out": "refine/logs/P1-2.solver.1015-225050.out.json",
+   "expects": "build/work/blind/P1-2.refine.answers.json",
+   "finished": "2026-10-15T22:51:09+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions in `build/work/blind/P1-2.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 43869,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:50:50+08:00",
+   "log": "refine/logs/P1-2.checker.1015-225050.log",
+   "out": "refine/logs/P1-2.checker.1015-225050.out.json",
+   "expects": "build/work/refine/P1-2.check.json",
+   "finished": "2026-10-15T22:52:23+08:00",
+   "exit": 0,
+   "report": {
+    "text": "**0 findings** · `build/work/refine/P1-2.check.json`\n\nThe two teaching cards added to P1-2 (gradient and equation of lines, and conditions for parallel/perpendicular lines) are mathematically correct, align with the bundle syllabus, and don't contradict the lesson note or pack content."
+   },
+   "ok": true,
+   "cost_usd": 0.124
+  }
+ },
+ "plan": {
+  "improvements": 2,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 0,
+   "clarification": 0,
+   "feature": 2,
+   "source_gap": 0
+  }
+ },
+ "maker": "claude",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 0,
+  "diagrams": 0,
+  "note_lines": 0,
+  "cards": 2,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T23:03:52+08:00"
+}
