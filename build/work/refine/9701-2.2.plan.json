@@ -1,0 +1,18 @@
+{
+ "summary": "Add guided practice for converting between molecule counts and constituent atom amounts.",
+ "improvements": [
+  {
+   "kind": "feature",
+   "where": "pack worked, 9701-2.2.1",
+   "why": "The note has a worked example, but the pack has no stepwise worked or faded version for tutoring the entity multiplier.",
+   "what": "Add a worked example with equation, substitution, entity check and a faded variant: calculate oxygen atoms from moles of $\\ce{CO2}$ molecules, then leave the atom multiplier step blank in a different molecule example. Preserve the existing note example and all current content."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-2.2.1",
+   "why": "Existing generated calculations go from amount to particle count; only one reverses a particle count, and none reverses a constituent-atom count to a molecule amount.",
+   "count": 1,
+   "what": "Add a numeric Calculate item giving the number of oxygen atoms in a sample of $\\ce{SO2}$ and asking for the amount of $\\ce{SO2}$ molecules in mol. Require division by two before division by $N_A$, with hints and an explanation that names both entities."
+  }
+ ]
+}
