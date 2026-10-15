@@ -21,6 +21,12 @@ $$
 A^{-1}=\frac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix},\qquad AA^{-1}=A^{-1}A=I.
 $$
 
+The **identity matrix** is $I=\begin{pmatrix}1&0\\0&1\end{pmatrix}$. Multiplication by an identity matrix leaves a conformable matrix unchanged: $IM=M$ when $M$ has two rows, and $MI=M$ when $M$ has two columns. For a $2\times2$ matrix, both products equal $M$.
+
+For the non-singular matrix $A$ in the inverse formula, row 1 of $A$ times column 1 of $A^{-1}$ gives $a\frac{d}{ad-bc}+b\frac{-c}{ad-bc}=\frac{ad-bc}{ad-bc}=1$, the top-left entry of $I$. A full inverse check must also show that the other diagonal entry is $1$ and both off-diagonal entries are $0$.
+
+*Source for the identity and inverse check: learner's library, SaveMyExams/YFM01 further-pure-1/YFM01 c5.1.pdf, pp.3 and 12. Parameter-determinant practice follows the method on pp.11–12; all added questions use original values. Method and accuracy marks are informed by [Pearson WFM01 October 2021 mark scheme, Q1(a), p.8](https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Exam-materials/WFM01_01_rms_20220113.pdf).*
+
 For two invertible matrices, $(AB)^{-1}=B^{-1}A^{-1}$. The order reverses because $AB(B^{-1}A^{-1})=A(BB^{-1})A^{-1}=I$.
 
 ## Method
@@ -47,3 +53,4 @@ For **Calculate** or **Find**, show the row-column products or the determinant s
 
 ## Links
 Builds on arithmetic and algebraic manipulation · Leads to matrix transformations and solving simultaneous equations with inverses.
+Leads to [[6 Transformations using matrices]]

@@ -1,0 +1,32 @@
+{
+ "summary": "Strengthen exam-style inverse and determinant practice and make the identity check explicit.",
+ "improvements": [
+  {
+   "kind": "questions",
+   "where": "FP1-5.5",
+   "why": "Existing inverse items usually request one entry; learners need practice finding and verifying an entire inverse.",
+   "count": 2,
+   "what": "One structured Find item for a full $2\\times2$ inverse with fractional entries and determinant working; one Verify item multiplying the proposed inverse by the original to obtain $I$. Give complete schemes and hints."
+  },
+  {
+   "kind": "questions",
+   "where": "FP1-5.4",
+   "why": "The determinant practice has only numeric evaluation and a fixed singular example; no unknown parameter is solved from a determinant condition.",
+   "count": 1,
+   "what": "Exam-style Find item: set $\\det A$ equal to a given value (or zero for singularity) for a $2\\times2$ matrix containing a parameter, solve the resulting linear equation, and justify the singular/non-singular conclusion."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the inverse formula in ## Key ideas",
+   "why": "The inverse check uses $I$ without defining its entries; the learner's YFM01 c5.1.pdf p.3 defines the $2\\times2$ identity explicitly.",
+   "source": "library: SaveMyExams/YFM01 further-pure-1/YFM01 c5.1.pdf p.3 and p.12",
+   "what": "Add $I=\\begin{pmatrix}1&0\\\\0&1\\end{pmatrix}$, explain that it leaves a conformable matrix unchanged under multiplication, and show one row-column check from $AA^{-1}=I$."
+  },
+  {
+   "kind": "feature",
+   "where": "note, ## Links",
+   "why": "The bundle records built successor 6 Transformations using matrices, but the note only names a topic in plain text.",
+   "what": "Append the exact allowed link [[6 Transformations using matrices]] on the Leads to line; keep existing wording."
+  }
+ ]
+}
