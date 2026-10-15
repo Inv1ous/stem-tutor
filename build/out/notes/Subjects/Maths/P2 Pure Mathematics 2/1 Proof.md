@@ -12,6 +12,14 @@ kcs: ["P2-1.1", "P2-1.2", "P2-1.3"]
 
 A **mathematical proof** is an argument whose conclusion follows from its assumptions. Start by stating the allowed values and any given facts. Explain why each step follows. End by stating exactly what has been established. A few correct examples may suggest a general result, but they do not prove it for every integer. Equally, a step cannot quietly narrow the domain: writing $n=2k$ assumes that $n$ is even, so it is not justified by the statement that $n$ is an integer alone.
 
+> [!example]- Worked example: a general proof
+> Show that $n(n+1)$ is even for every integer $n$.
+> Let $n$ be an arbitrary integer. Every integer is either even or odd.
+> If $n=2k$ for an integer $k$, then $n(n+1)=2[k(2k+1)]$.
+> If $n=2k+1$ for an integer $k$, then $n(n+1)=2[(2k+1)(k+1)]$.
+> In both cases the bracket is an integer, so the product is even. These cases cover every integer, including zero and negative integers; therefore $n(n+1)$ is even for every integer $n$.
+> Checking sample values cannot replace this general step: any finite sample leaves other integers untested.
+
 **Proof by exhaustion** means trying all possible cases. It works when the assumptions lead to a finite, complete list. For example, if $x$ and $y$ are *positive* odd integers less than 7, each must be in $\{1,3,5\}$. The unordered pairs are $(1,1),(1,3),(1,5),(3,3),(3,5),(5,5)$. Their sums are $2,4,6,6,8,10$, each divisible by 2. Swapping the numbers does not change a sum, but equal-value pairs must still be included. Thus every allowed pair has an even sum.
 
 The word *positive* matters. “Odd integers less than 7” also includes $-1,-3,-5,\ldots$, so $\{1,3,5\}$ is not an exhaustive list under those assumptions. You would need a general argument, such as writing odd integers as $2a+1$ and $2b+1$, to cover that infinite domain.

@@ -1,0 +1,25 @@
+{
+ "summary": "Add a complete general proof and fresh exam-style practice that transfers exhaustion and counterexample methods beyond the chapter's repeated examples.",
+ "improvements": [
+  {
+   "kind": "clarification",
+   "where": "note, after the first paragraph of ## Key ideas; pack worked for P2-1.1",
+   "why": "The chapter identifies justified steps but has no fully written general proof for an arbitrary integer; the existing questions mainly ask learners to recognise a valid argument.",
+   "what": "Add a concise worked proof that $n(n+1)$ is even for every integer $n$: let $n$ be arbitrary, split into even and odd cases or use the fact that consecutive integers include an even number, then state the universal conclusion. Explain why checking sample values cannot replace the general step. Preserve all existing text and examples."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-1.1 and P2-1.2",
+   "why": "The current proof-structure questions chiefly recognise or critique proofs, while exhaustion practice repeatedly uses the same set of odd numbers below 7.",
+   "count": 2,
+   "what": "Add one constructed, exam-style Show that item requiring a complete proof that $n(n+1)$ is even for an arbitrary integer, with marks for assumptions, justification and conclusion. Add one Prove by exhaustion item on a different explicitly finite domain, for example $n\\in{1,2,3,4}$ and $n^2+n$ even; require a complete case list and conclusion. Give three hints and explanations without putting the answer in the hints."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-1.3",
+   "why": "Every current counterexample exercise returns to $n^2-n+1$ and the same value $n=5$, so transfer to a new universal claim is untested.",
+   "count": 1,
+   "what": "Add an exam-style disproof question using a different false universal claim, such as 'for every positive integer $n$, $n^2+1$ is prime'; require an allowed input, exact evaluation, explicit factorisation (for example $n=3$ gives $10=2\\times5$), and a conclusion rejecting the claim. Include a markable rubric, explanation and three graduated hints."
+  }
+ ]
+}
