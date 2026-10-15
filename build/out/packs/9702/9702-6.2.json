@@ -148,6 +148,57 @@
     },
     "blank_from": 1
    }
+  },
+  {
+   "id": "we3",
+   "kc": "9702-6.2.2",
+   "problem": "A specimen is stretched slowly. Its force–extension graph is straight from the origin to 240 N at 8.0 mm, then curves to 300 N at 12.0 mm. The elastic limit is crossed during the later region. Calculate the approximate total work input, treating the later curve as a straight line between its endpoints. Explain whether the whole sum is recoverable elastic potential energy.",
+   "steps": [
+    {
+     "do": "Convert the extensions: $x_1=0.0080\\,\\mathrm{m}$, $x_2=0.0120\\,\\mathrm{m}$, so $\\Delta x=0.0040\\,\\mathrm{m}$.",
+     "why": "The trapezium width is the additional extension, and newtons times metres gives joules."
+    },
+    {
+     "do": "First region: $W_1=\\tfrac12F_1x_1=\\tfrac12(240)(0.0080)=0.96\\,\\mathrm{J}$.",
+     "why": "The straight graph from the origin encloses a triangle."
+    },
+    {
+     "do": "Later region: $W_2\\approx\\tfrac12(F_1+F_2)(x_2-x_1)=\\tfrac12(240+300)(0.0040)=1.08\\,\\mathrm{J}$.",
+     "why": "Replacing the curve by its endpoint chord makes the area a trapezium; this is an approximation."
+    },
+    {
+     "do": "Add both regions: $W=W_1+W_2\\approx0.96+1.08=2.04\\,\\mathrm{J}$ (about $2.0\\,\\mathrm{J}$ to two significant figures).",
+     "why": "Total work input is the entire loading area, including both regions.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": 2.04,
+       "unit": "J",
+       "sf_ok": [
+        2,
+        3
+       ]
+      }
+     }
+    },
+    {
+     "do": "Report total work input, not wholly recoverable elastic potential energy.",
+     "why": "The stated crossing of the elastic limit means plastic deformation occurs. Some work is not recovered on unloading; the loading graph alone does not determine the recoverable amount."
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "A specimen is stretched slowly. Its force–extension graph is straight from the origin to 180 N at 6.0 mm, then curves to 260 N at 9.0 mm, crossing the elastic limit. Calculate the approximate total work input from zero extension, treating the later curve as a straight line between its endpoints.",
+    "answer": {
+     "value": 1.2,
+     "unit": "J",
+     "sf_ok": [
+      2,
+      3
+     ]
+    },
+    "blank_from": 1
+   }
   }
  ],
  "items": [

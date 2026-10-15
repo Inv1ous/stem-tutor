@@ -1,0 +1,12 @@
+{
+ "summary": "Add a worked method for finding total work from a force–extension graph with more than one region.",
+ "improvements": [
+  {
+   "kind": "clarification",
+   "where": "note, after the existing Worked example in ## Method; add a corresponding worked example to the pack for 9702-6.2.2",
+   "why": "The note explains a single trapezium interval but never demonstrates summing areas when a graph changes shape; the library's p.6 example tests this, and syllabus outcome 9702-6.2.2 asks for work from the graph. The distinction matters when the later segment is plastic: report total work input, not all stored elastic energy.",
+   "source": "library: sources/library/SaveMyExams/9702 a-level-physics-cie-25/9702 c6.2.pdf pp.5–6 | https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf",
+   "what": "Add an original, brief two-segment numerical example: from zero to a stated point use a triangle, then from that point to a larger extension use a trapezium approximation with clearly supplied endpoint forces; convert millimetres to metres, sum both areas in joules, and explain that crossing the elastic limit prevents labelling the whole sum recoverable elastic potential energy. Paraphrase the source and keep all existing content."
+  }
+ ]
+}

@@ -1,0 +1,153 @@
+{
+ "sub": "9702-6.2",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T19:30:09+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T18:53:30+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 1 improvements"
+  },
+  {
+   "t": "2026-10-15T19:07:44+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 8 note_lines, 1 other"
+  },
+  {
+   "t": "2026-10-15T19:11:39+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "1 of 1 new questions agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-15T19:17:11+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-15T19:30:09+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 8 note_lines, 1 other (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 55,
+  "extra": 37,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 63868,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T18:52:20+08:00",
+   "log": "refine/logs/9702-6.2.scout.1015-185220.log",
+   "out": "refine/logs/9702-6.2.scout.1015-185220.out.json",
+   "expects": "build/work/refine/9702-6.2.plan.json",
+   "finished": "2026-10-15T18:53:30+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 1,
+    "plan_path": "build/work/refine/9702-6.2.plan.json",
+    "notes": [
+     "Read the learner’s Save My Exams 9702 c6.2.pdf, pp. 2–7; pp. 5–6 support the planned two-region graph example.",
+     "Checked the official Cambridge 9702 (2025–2027) syllabus for the chapter outcomes."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 70698,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T19:06:22+08:00",
+   "log": "refine/logs/9702-6.2.refiner.1015-190622.log",
+   "out": "refine/logs/9702-6.2.refiner.1015-190622.out.json",
+   "finished": "2026-10-15T19:07:44+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 1,
+    "new_items": [],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 72383,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T19:10:55+08:00",
+   "log": "refine/logs/9702-6.2.solver.1015-191055.log",
+   "out": "refine/logs/9702-6.2.solver.1015-191055.out.json",
+   "expects": "build/work/blind/9702-6.2.refine.answers.json",
+   "finished": "2026-10-15T19:11:13+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9702-6.2.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 74223,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T19:16:26+08:00",
+   "log": "refine/logs/9702-6.2.checker.1015-191626.log",
+   "out": "refine/logs/9702-6.2.checker.1015-191626.out.json",
+   "expects": "build/work/refine/9702-6.2.check.json",
+   "finished": "2026-10-15T19:16:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote `build/work/refine/9702-6.2.check.json`."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 1,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 0,
+   "clarification": 1,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 0,
+  "diagrams": 0,
+  "note_lines": 8,
+  "cards": 0,
+  "other": 1
+ },
+ "last_refined": "2026-10-15T19:30:09+08:00"
+}
