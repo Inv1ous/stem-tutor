@@ -36,6 +36,14 @@
    "refutation": "A double bond is one region of electron density around the central atom.",
    "contrast": "CO2 has two regions and is linear.",
    "source": "research"
+  },
+  {
+   "id": "m5",
+   "kc": "9701-3.5.2",
+   "statement": "All bent molecules have the same bond angle.",
+   "refutation": "Bent describes atom positions; the electron-region count and lone-pair count determine the angle prediction.",
+   "contrast": "$\\ce{O3}$ has three regions and an angle about $117°$; $\\ce{H2O}$ has four regions and an angle of $104.5°$.",
+   "source": "ER 9701 w22 P12 Q13"
   }
  ],
  "worked": [
@@ -1379,6 +1387,115 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "difficulty": 4,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "id": "9701-3.5-r01",
+   "kind": "structured",
+   "stem": "For the ion $\\ce{NH2-}$, (a) use valence electrons and the charge to deduce the numbers of bonding pairs and lone pairs on nitrogen, showing your electron count; (b) predict its molecular shape and approximate H–N–H angle by comparison with a syllabus example.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "N contributes five valence electrons, the two H atoms contribute two, and the negative charge adds one: $5+2+1=8$ electrons."
+    },
+    {
+     "mark": "A1",
+     "point": "Two N–H bonds use four electrons; the remaining four form two lone pairs on N. There are two bonding pairs and two lone pairs."
+    },
+    {
+     "mark": "B1",
+     "point": "Four electron regions give a roughly tetrahedral arrangement, but the atom positions give a bent (non-linear) ion."
+    },
+    {
+     "mark": "B1",
+     "point": "Predict about $105°$ (accept $104.5°$ by analogy with water); two lone pairs compress the angle below $109.5°$."
+    }
+   ],
+   "explanation": "The charge-adjusted valence total is $5+2+1=8$ electrons; two N–H bonds use four, leaving two lone pairs on nitrogen. Two bonding pairs and two lone pairs match water, so predict a bent ion with an angle of about $105°$.",
+   "hints": [
+    "Start with the outer-shell electron count of nitrogen and the electrons from hydrogen.",
+    "Decide whether the negative charge adds or removes an electron, then allocate two electrons to each bond.",
+    "Group the non-bonding electrons into pairs and match the resulting pattern to a syllabus example."
+   ]
+  },
+  {
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "difficulty": 4,
+   "command_word": "Predict",
+   "source": {
+    "type": "generated"
+   },
+   "id": "9701-3.5-r02",
+   "kind": "structured",
+   "stem": "The phosphonium ion, $\\ce{PH4+}$, has phosphorus as its central atom. (a) Use valence electrons and the charge to deduce the numbers of bonding pairs and lone pairs on phosphorus, showing your electron count. (b) Predict its molecular shape and approximate H–P–H angle.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "P contributes five valence electrons and four H atoms contribute four; the positive charge removes one: $5+4-1=8$ electrons."
+    },
+    {
+     "mark": "A1",
+     "point": "Four P–H bonds use all eight electrons, giving four bonding pairs and no lone pairs on P."
+    },
+    {
+     "mark": "B1",
+     "point": "Four bonding regions and no lone pairs give a tetrahedral ion."
+    },
+    {
+     "mark": "B1",
+     "point": "The predicted H–P–H angle is $109.5°$."
+    }
+   ],
+   "explanation": "The total is $5+4-1=8$ valence electrons, all used in four P–H bonding pairs, leaving no lone pair on phosphorus. Four bonding regions repel to tetrahedral positions, giving an angle of $109.5°$.",
+   "hints": [
+    "Find the group of phosphorus to determine its valence-electron contribution.",
+    "Include the electrons from hydrogen and adjust the total for a positive charge before assigning bonding electrons.",
+    "After allocating two electrons to each P–H bond, check for leftover electrons and choose the matching VSEPR arrangement."
+   ]
+  },
+  {
+   "kcs": [
+    "9701-3.5.2"
+   ],
+   "difficulty": 3,
+   "command_word": "Compare",
+   "source": {
+    "type": "generated"
+   },
+   "id": "9701-3.5-r03",
+   "kind": "mcq",
+   "stem": "In a Lewis structure of $\\ce{O3}$, the central oxygen has a single bond, a double bond and one lone pair. Compare its VSEPR prediction with $\\ce{H2O}$. Which statement is correct?",
+   "marks": 1,
+   "options": {
+    "A": "$\\ce{O3}$ has three central electron regions and an angle about $117°$; $\\ce{H2O}$ has four and an angle of $104.5°$.",
+    "B": "$\\ce{O3}$ has three central electron regions and $\\ce{H2O}$ has four, but both angles are $104.5°$ because both molecules are bent.",
+    "C": "Both have four central electron regions; ozone has an angle of $107°$ and water has an angle of $104.5°$.",
+    "D": "$\\ce{O3}$ has three central electron regions and an angle of $120°$; $\\ce{H2O}$ has four and an angle of $109.5°$ because lone pairs do not compress angles."
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m5",
+    "C": "m4",
+    "D": "m2"
+   },
+   "shuffle": true,
+   "explanation": "The single and double bonds in ozone count as two bonding regions; adding its lone pair gives three regions, so the angle is slightly below $120°$ (about $117°$). Water has two bonding regions and two lone pairs, giving four regions and $104.5°$; a shared bent shape does not imply equal angles. Counting the double bond twice wrongly assigns ozone four regions, while using ideal angles ignores lone-pair compression.",
+   "hints": [
+    "Distinguish the number of electron regions from the number of shared electron pairs.",
+    "Count each bond direction once, then add the central lone pairs for each molecule.",
+    "Choose the ideal arrangement for each region count before considering lone-pair compression."
+   ]
   }
  ],
  "flashcards": [
@@ -1450,7 +1567,7 @@
    "motivate": "You can predict an unfamiliar ion's shape without memorising it if you know how many bonds and lone pairs surround its central atom.",
    "establish": "For a molecule or ion analogous to the named examples, count bonding regions and lone pairs at its central atom, including charge when finding electrons. Match the count to a known VSEPR case, then state the molecular shape and bond angle. $\\ce{NH4+}$ and $\\ce{BH4-}$ each have four bonds and no central lone pair: tetrahedral, 109.5°. $\\ce{H3O+}$ has three bonds and one lone pair: pyramidal, approximately 107°. $\\ce{SCl2}$ has two bonds and two lone pairs: non-linear, approximately 104.5°. $\\ce{SO2}$ has two bonding regions and one lone pair: non-linear, with an angle slightly below 120°, not water's 104.5°. A multiple bond still counts as one region. In an octahedron, opposite bonds make 180° as well as adjacent bonds making 90°.",
    "connect": "Apply the VSEPR arrangements from 3.5.1 to ions formed by dative bonding, such as ammonium. Adding a bond can remove a lone pair and change the angle.",
-   "note": "- Find the central atom's bonding regions and lone pairs.\n- Match an analogous syllabus example.\n- State atom-defined shape and predicted angle.\n- Account for lone-pair compression and opposite bonds.",
+   "note": "- Find the central atom's bonding regions and lone pairs.\n- Match an analogous syllabus example.\n- State atom-defined shape and predicted angle.\n- Account for lone-pair compression and opposite bonds.\n- For $\\ce{NH2-}$: N supplies five electrons, two H supply two, and the negative charge adds one: $5+2+1=8$. Two N–H bonds use four electrons; four remain as two lone pairs. Two bonding regions plus two lone pairs give a bent ion, about $105°$ by analogy with water. Count multiple bonds as single regions; name shape from atom positions.",
    "self_explain": "Predict the shape and H–N–H angle of $\\ce{NH4+}$, then explain why it differs from $\\ce{NH3}$.",
    "discover": {
     "stem": "An ion has four bonds and no lone pair around its central atom. Which syllabus example matches it?",
