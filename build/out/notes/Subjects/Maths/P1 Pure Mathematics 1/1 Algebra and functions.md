@@ -21,6 +21,14 @@ kcs: ["P1-1.1", "P1-1.2", "P1-1.3", "P1-1.4", "P1-1.5", "P1-1.6", "P1-1.7", "P1-
 
 **Transformations of $y=f(x)$**: $y=f(x)+a$ is a translation by $\begin{pmatrix}0\\a\end{pmatrix}$ (up $a$); $y=f(x+a)$ is a translation by $\begin{pmatrix}-a\\0\end{pmatrix}$ (**left** $a$); $y=af(x)$ is a stretch parallel to the $y$-axis, scale factor $a$; $y=f(ax)$ is a stretch parallel to the $x$-axis, scale factor $\frac1a$.
 
+**Where each point goes (and what a negative $a$ does)**: under $y=af(x)$ the point $(x,y)$ moves to $(x,ay)$; under $y=f(ax)$, with $a\neq0$, it moves to $\left(\dfrac{x}{a},y\right)$. So for $a<0$ there is a reflection as well as a stretch: $y=af(x)$ is a stretch of scale factor $|a|$ parallel to the $y$-axis together with a reflection in the $x$-axis, and $y=f(ax)$ is a stretch of scale factor $\dfrac{1}{|a|}$ parallel to the $x$-axis together with a reflection in the $y$-axis. The cases $a=-1$ are the pure reflections: $y=-f(x)$ in the $x$-axis, $y=f(-x)$ in the $y$-axis.
+
+For a trigonometric graph, $y=f(ax)$ divides the period by $a$: $y=\sin x$ has period $360^\circ$, so $y=\sin 2x$ has period $180^\circ$ and its first maximum at $x=45^\circ$ instead of $x=90^\circ$.
+
+![[Assets/P1/P1-1-sine-stretch.svg]]
+
+Notice that $y=\sin 2x$ fits two complete cycles into the one cycle of $y=\sin x$: every $x$-coordinate has been halved, not doubled.
+
 ![[Assets/P1/P1-1-quadratic-vertex.svg]]
 
 ## Method
@@ -29,6 +37,14 @@ kcs: ["P1-1.1", "P1-1.2", "P1-1.3", "P1-1.4", "P1-1.5", "P1-1.6", "P1-1.7", "P1-
 3. **Simultaneous equations (linear + quadratic)**: make $y$ (or $x$) the subject of the linear equation, substitute into the quadratic, solve it, then substitute *each* root back into the linear equation to find its matching partner.
 4. **Quadratic or linear inequalities**: find the critical values (the roots), sketch the graph(s), then read the $x$-range straight off the sketch — outside the roots for an upward parabola that's $>0$, between them for $<0$ (the other way round if the parabola opens downward). For a fraction such as $\dfrac{a}{x}<b$, multiply both sides by $x^2$ (always positive, so the sign stays) to get $ax<bx^2$, $x\neq0$; multiplying by $x$ would fail when $x<0$.
 5. **Graphing a region**: dotted (dashed) boundary for a strict inequality, solid for $\le$ or $\ge$; shade the side of each line or curve that satisfies it, then find the overlap.
+
+> [!example]- Worked example: a fractional inequality
+> Solve $\dfrac{3}{x}\le2$.
+> Multiply both sides by $x^2$, which is positive for every $x\neq0$, so the inequality sign is unchanged: $3x\le2x^2$.
+> Collect on one side and factorise: $2x^2-3x\ge0\Rightarrow x(2x-3)\ge0$, with critical values $x=0$ and $x=\dfrac32$.
+> Read the upward parabola $y=x(2x-3)$: it is on or above the $x$-axis outside the roots, giving $x\le0$ or $x\ge\dfrac32$.
+> Now remove the excluded value: $x=0$ makes $\dfrac{3}{x}$ undefined, so the endpoint $0$ cannot be kept.
+> Solution: $x<0$ or $x\ge\dfrac32$. Check: $x=-1$ gives $-3\le2$ ✓, $x=2$ gives $1.5\le2$ ✓, $x=1$ gives $3\le2$ ✗ (and $1$ is not in the range).
 
 > [!example]- Worked example
 > Solve the simultaneous equations $y=x+2$ and $y=x^2-4$.
@@ -45,6 +61,10 @@ kcs: ["P1-1.1", "P1-1.2", "P1-1.3", "P1-1.4", "P1-1.5", "P1-1.6", "P1-1.7", "P1-
 - **Trap:** forgetting to reverse an inequality sign when multiplying or dividing both sides by a negative number. **Why it's wrong:** $-3x>12$ is true for $x=-5$, but $x>-4$ is not. **Instead:** reverse the sign, $x<-4$, or avoid the division by moving the $x$-term to the other side.
 
 ![[Assets/P1/P1-1-reciprocal-asymptotes.svg]]
+
+![[Assets/P1/P1-1-reciprocal-squared.svg]]
+
+Compare the two reciprocal curves: $y=k/x$ (above, $k>0$) has branches in opposite quadrants, while $y=k/x^2$ keeps **both** branches above the $x$-axis, because squaring makes the denominator positive whatever the sign of $x$. Both have the asymptotes $x=0$ and $y=0$, and both exclude $x=0$.
 
 ## Exam technique
 - *Show that* / *Hence*: every line of working must appear, and the *hence* step must build on the previous result rather than start a fresh method.

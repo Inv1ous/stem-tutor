@@ -1,0 +1,208 @@
+{
+ "sub": "P1-1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T23:20:22+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T10:10:22+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 6 improvements"
+  },
+  {
+   "t": "2026-10-15T22:10:00+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions, 2 diagrams, 13 note_lines, 2 cards, 1 other"
+  },
+  {
+   "t": "2026-10-15T22:46:59+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "2 of 2 new questions agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-15T22:55:46+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "1 checker findings"
+  },
+  {
+   "t": "2026-10-15T23:15:57+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-15T23:17:06+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-15T23:20:22+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions, 2 diagrams, 13 note_lines, 2 cards, 1 other"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 70,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "question P1-1-r02 hint 3",
+   "rule": "hint gives it away",
+   "evidence": "\"Set the whole angle equal to the angle whose sine is $1$: solve $ax=90^\\circ$.\" This directly states the complete solution method, leaving only arithmetic for the student to complete. For a templated question with variable $a$, the answer 90/a follows immediately from this hint.",
+   "suggested": "Reword hint 3 to guide without disclosing the equation to solve, e.g. \"What angle must the input equal for $\\sin(\\text{angle})$ to reach its maximum value of 1?\" or \"Write an equation: when is the input to sine equal to 90°?\"",
+   "status": "fixed",
+   "resolution": "fix: Reword hint 3 of P1-1-r02 so it guides without stating the equation: ask what angle the input of sine must equal for sine to reach its maximum. Touch nothing else."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "question P1-1-r02 hint 3",
+   "instruction": "Reword hint 3 of P1-1-r02 so it guides without stating the equation: ask what angle the input of sine must equal for sine to reach its maximum. Touch nothing else.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "scout": {
+   "pid": 44445,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T10:09:14+08:00",
+   "log": "refine/logs/P1-1.scout.1015-100914.log",
+   "out": "refine/logs/P1-1.scout.1015-100914.out.json",
+   "expects": "build/work/refine/P1-1.plan.json",
+   "finished": "2026-10-15T10:10:22+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 6,
+    "plan_path": "build/work/refine/P1-1.plan.json",
+    "notes": [
+     "All current gates pass.",
+     "The sources library returned no matches for this chapter."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 20473,
+   "provider": "claude",
+   "model": "opus/medium",
+   "rung": 1,
+   "started": "2026-10-15T22:01:39+08:00",
+   "log": "refine/logs/P1-1.refiner.1015-220139.log",
+   "out": "refine/logs/P1-1.refiner.1015-220139.out.json",
+   "finished": "2026-10-15T22:10:00+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 5,
+    "new_items": [
+     "P1-1-r01",
+     "P1-1-r02",
+     "P1-1-r03"
+    ],
+    "new_diagrams": [
+     "Assets/P1/P1-1-reciprocal-squared.svg",
+     "Assets/P1/P1-1-sine-stretch.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 4.129
+  },
+  "solver": {
+   "pid": 38475,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:39:40+08:00",
+   "log": "refine/logs/P1-1.solver.1015-223940.log",
+   "out": "refine/logs/P1-1.solver.1015-223940.out.json",
+   "expects": "build/work/blind/P1-1.refine.answers.json",
+   "finished": "2026-10-15T22:40:03+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions in [P1-1.refine.answers.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/blind/P1-1.refine.answers.json)."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 43862,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:50:50+08:00",
+   "log": "refine/logs/P1-1.checker.1015-225050.log",
+   "out": "refine/logs/P1-1.checker.1015-225050.out.json",
+   "expects": "build/work/refine/P1-1.check.json",
+   "finished": "2026-10-15T22:52:51+08:00",
+   "exit": 0,
+   "report": {
+    "text": "**1 finding** written to `/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor/build/work/refine/P1-1.check.json`\n\nThe refine for P1-1 has one issue: hint 3 of question P1-1-r02 gives away the complete solution method by directly stating \"solve ax=90°\". This leaves only arithmetic for the student, violating the \"hint gives it away\" rule. The hint should guide toward the method rather than state it explicitly.\n\nAll other items checked pass: the three new questions are correctly answered, the teaching cards align with the bundle's KC statements, the diagrams match required types, and the new note content (about transformations and inequality methods) is consistent with the existing chapter and bundle guidance."
+   },
+   "ok": true,
+   "cost_usd": 0.192
+  },
+  "fixer": {
+   "pid": 58428,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T23:16:16+08:00",
+   "log": "refine/logs/P1-1.fixer.1015-231616.log",
+   "out": "refine/logs/P1-1.fixer.1015-231616.out.json",
+   "finished": "2026-10-15T23:17:06+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 0.138
+  }
+ },
+ "plan": {
+  "improvements": 6,
+  "dropped": [],
+  "kinds": {
+   "diagram": 2,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 2,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "claude",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 3,
+  "diagrams": 2,
+  "note_lines": 13,
+  "cards": 2,
+  "other": 1
+ },
+ "last_refined": "2026-10-15T23:20:22+08:00"
+}

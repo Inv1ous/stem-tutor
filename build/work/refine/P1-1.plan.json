@@ -1,0 +1,43 @@
+{
+ "summary": "Add visual and worked coverage of curve families and transformations, plus focused practice on syllabus cases that the passing chapter treats only briefly.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the existing reciprocal-asymptotes diagram; embed the new asset",
+   "why": "P1-1.11 requires sketches of both $y=k/x$ and $y=k/x^2$, but the existing plot shows only $k/x$.",
+   "what": "function_plot of $y=6/x^2$ on both sides of $x=0$, with dashed asymptotes $x=0$ and $y=0$; label the positive branches and exclude $x=0$."
+  },
+  {
+   "kind": "diagram",
+   "where": "note, after the transformations paragraph in ## Key ideas; embed the new asset",
+   "why": "P1-1.12 asks learners to sketch $y=f(ax)$ for graphs including trigonometric functions, while the only transformation diagram shows a horizontal translation.",
+   "what": "function_plot comparing $y=\\sin x$ and $y=\\sin(2x)$ over one full original cycle, marking corresponding zeros and maxima to show horizontal scale factor $1/2$. Use an expression format supported by build/diagrams.py."
+  },
+  {
+   "kind": "questions",
+   "where": "P1-1.11 and P1-1.12",
+   "why": "The bank has reciprocal and cubic questions but no trigonometric graph sketch or transformation item, despite explicit syllabus guidance.",
+   "count": 2,
+   "what": "One exam-style Sketch or Interpret item on key features of a sine or cosine graph, and one item applying $y=f(ax)$ to a trig graph with period and key-point reasoning. Give full explanations and three hints."
+  },
+  {
+   "kind": "questions",
+   "where": "P1-1.2",
+   "why": "Surd practice rationalises only a single-root denominator; the syllabus asks for rationalising denominators more generally.",
+   "count": 1,
+   "what": "An exact-answer item rationalising a binomial surd denominator such as $1/(2+\\sqrt3)$ using its conjugate; explain why the product is rational."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Method, after the existing quadratic inequality step; and P1-1.7 teaching card",
+   "why": "The fractional inequality rule is stated but the exclusion $x\\neq0$ and its effect on the final solution set are not worked through.",
+   "what": "Add one short worked example of $a/x<b$ with $x^2$ multiplication, factorisation, sign/graph reading, and explicit removal of $x=0$; show interval endpoints carefully."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Key ideas, transformations; and P1-1.12 teaching card",
+   "why": "The current stretch statements give scale factor $a$ or $1/a$ without saying what happens when $a<0$.",
+   "what": "Add a compact point-mapping explanation for $y=af(x)$ and $y=f(ax)$ with $a\\neq0$, including reflection in the appropriate axis when $a<0$; retain the existing positive-$a$ rules."
+  }
+ ]
+}
