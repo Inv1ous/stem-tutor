@@ -1,0 +1,32 @@
+{
+ "summary": "Add practice for the specification's missing transformed-root cases, a fractional symmetric expression, and valid chapter navigation.",
+ "improvements": [
+  {
+   "kind": "source_gap",
+   "where": "note, after the transformation paragraph in ## Method; pack teaching card FP1-2.3",
+   "why": "Pearson's official FP1 2.3 guidance includes roots $1/\\alpha^2,1/\\beta^2$ and $\\alpha+2/\\beta,\\beta+2/\\alpha$; the present note instead develops $\\alpha+2/\\alpha,\\beta+2/\\beta$.",
+   "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf",
+   "what": "Add a clearly labelled official-specification example deriving $T=1/\\alpha^2+1/\\beta^2=(S^2-2P)/P^2$ and $U=1/P^2$ for inverse-square roots, then derive $T=S+2S/P$ and $U=P+2(\\alpha^2+\\beta^2)/P+4/P$ for $\\alpha+2/\\beta,\\beta+2/\\alpha$; require $P\\ne0$. Preserve existing content."
+  },
+  {
+   "kind": "questions",
+   "where": "FP1-2.3",
+   "why": "Only one current item forms a full new quadratic, and none tests the official cross-reciprocal or inverse-square transformations.",
+   "count": 3,
+   "what": "Add structured exam-style Find questions forming equations for roots $\\alpha^3,\\beta^3$; $1/\\alpha^2,1/\\beta^2$; and $\\alpha+2/\\beta,\\beta+2/\\alpha$. Use nontrivial original quadratics, exact coefficients, explicit $T,U$, denominator clearing, and answers checked algebraically."
+  },
+  {
+   "kind": "questions",
+   "where": "FP1-2.2",
+   "why": "Existing practice repeats square and cube sums but never simplifies a symmetric algebraic fraction; the learner's guide models this on pp. 4–5.",
+   "count": 1,
+   "what": "Add an exact-value exam-style item for $\\alpha/\\beta+\\beta/\\alpha=(S^2-2P)/P$, with $P\\ne0$, using a quadratic whose roots are awkward to solve. Include a distractor or rubric point for the mistaken $S^2/P$ result."
+  },
+  {
+   "kind": "feature",
+   "where": "note, ## Links",
+   "why": "Current links to [[Solving quadratic equations]] and [[Further algebra with polynomial roots]] fail the links gate; the bundle permits [[1 Algebra and functions]].",
+   "what": "Add a valid Builds on [[1 Algebra and functions]] link in the note and a brief sentence tying coefficient comparison to prior quadratic factorisation. Existing invalid links cannot be removed under this pass's add-only rule, so flag them for a later correction rather than claiming the gate will pass."
+  }
+ ]
+}

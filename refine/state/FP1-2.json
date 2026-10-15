@@ -1,0 +1,140 @@
+{
+ "sub": "FP1-2",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:14:40+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T21:17:49+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 4 improvements"
+  },
+  {
+   "t": "2026-10-15T21:33:07+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 4 questions, 7 note_lines, 1 cards"
+  },
+  {
+   "t": "2026-10-15T22:10:24+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "0 of 0 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:14:40+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 4 questions, 7 note_lines, 1 cards"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 22,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 1149,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:16:56+08:00",
+   "log": "refine/logs/FP1-2.scout.1015-211656.log",
+   "out": "refine/logs/FP1-2.scout.1015-211656.out.json",
+   "expects": "build/work/refine/FP1-2.plan.json",
+   "finished": "2026-10-15T21:17:49+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 4,
+    "plan_path": "build/work/refine/FP1-2.plan.json",
+    "notes": [
+     "Read the learner’s YFM01 c2.1.pdf, pp. 3–7; pp. 4–5 support practice with symmetric algebraic fractions.",
+     "Checked Pearson’s official FP1 specification; its cross-reciprocal and inverse-square examples are missing from the current practice.",
+     "The note has two invalid links. The plan adds a valid link, but the add-only rule prevents removing the invalid ones, so the links gate will still need a later correction."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 7566,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T21:29:32+08:00",
+   "log": "refine/logs/FP1-2.refiner.1015-212932.log",
+   "out": "refine/logs/FP1-2.refiner.1015-212932.out.json",
+   "finished": "2026-10-15T21:33:07+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 4,
+    "new_items": [
+     "FP1-2-r01",
+     "FP1-2-r02",
+     "FP1-2-r03",
+     "FP1-2-r04"
+    ],
+    "new_diagrams": [],
+    "not_done": [
+     "Preserved both inherited invalid links under the no-loss rule; added the valid link. All refine gates pass.",
+     "Replaced the plan’s incorrect cross-reciprocal product formula with the algebraically verified U=P+4+4/P."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 16023,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:52:25+08:00",
+   "log": "refine/logs/FP1-2.checker.1015-215225.log",
+   "out": "refine/logs/FP1-2.checker.1015-215225.out.json",
+   "expects": "build/work/refine/FP1-2.check.json",
+   "finished": "2026-10-15T21:52:47+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [FP1-2.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/FP1-2.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 4,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 0,
+   "feature": 1,
+   "source_gap": 1
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 4,
+  "diagrams": 0,
+  "note_lines": 7,
+  "cards": 1,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T22:14:40+08:00"
+}

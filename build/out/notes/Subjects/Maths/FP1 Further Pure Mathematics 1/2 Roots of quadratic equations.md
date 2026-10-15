@@ -30,6 +30,13 @@ To form a quadratic equation with new roots, call them $u$ and $v$. First find t
 
 For squared roots, $u=\alpha^2$ and $v=\beta^2$, so $T=S^2-2P$ and $U=P^2$. For cubed roots, $T=S^3-3PS$ and $U=P^3$. For reciprocal roots, $T=S/P$ and $U=1/P$. A less direct transformation can still be handled systematically. If $u=\alpha+2/\alpha$ and $v=\beta+2/\beta$, then $T=S+2S/P$ and $U=P+2(\alpha/\beta+\beta/\alpha)+4/P$. Replace $\alpha/\beta+\beta/\alpha$ by $(S^2-2P)/P$ to finish entirely in $S,P$.
 
+> [!example]- Official-specification examples: inverse squares and cross reciprocals
+> Let $S=\alpha+\beta$ and $P=\alpha\beta\ne0$. For roots $1/\alpha^2,1/\beta^2$, combining fractions gives $T=(\alpha^2+\beta^2)/(\alpha^2\beta^2)=(S^2-2P)/P^2$ and $U=1/(\alpha^2\beta^2)=1/P^2$.
+> For roots $\alpha+2/\beta,\beta+2/\alpha$, the sum is $T=S+2(1/\alpha+1/\beta)=S+2S/P$. Expanding the product gives $U=\alpha\beta+2+2+4/(\alpha\beta)=P+4+4/P$.
+> Here the cross terms are each 2; keep the denominator attached to the correct root. In either case form $x^2-Tx+U=0$ and clear denominators throughout.
+> These transformations appear in [Pearson's official FP1 specification, section 2.3, printed p.33](https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf).
+> For the underlying symmetric-fraction method, see the learner’s library: `sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c2.1.pdf`, pp.4–5.
+
 > [!example]- Worked example
 > The roots of $x^2-5x+6=0$ are $\alpha,\beta$. Form the quadratic with roots $\alpha^2,\beta^2$.
 > $S=5$ and $P=6$ from the coefficients.
@@ -47,3 +54,5 @@ For **Find** or **Calculate**, state $S$ and $P$, show the identity used and sim
 
 ## Links
 Builds on [[Solving quadratic equations]] · Leads to [[Further algebra with polynomial roots]]
+
+Builds on [[1 Algebra and functions]]. Expanding the factors of a quadratic and comparing coefficients extends the factorisation method from that chapter.
