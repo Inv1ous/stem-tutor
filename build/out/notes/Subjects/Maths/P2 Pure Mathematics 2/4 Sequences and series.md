@@ -17,6 +17,14 @@ A sequence is **increasing** when $u_{n+1}>u_n$ for every relevant $n$, and **de
 
 A **geometric sequence** has a constant ratio $r$: $u_n=ar^{n-1}$. Its finite sum is $S_n=a(1-r^n)/(1-r)$ for $r\ne1$; if $r=1$, then $S_n=na$. To prove the formula, subtract $rS_n$ from $S_n$: intermediate terms cancel and $(1-r)S_n=a(1-r^n)$. A sum to infinity exists only if $|r|<1$, when $r^n\to0$ and $S_\infty=a/(1-r)$. If a finite sum is given and the number of terms is unknown, rearrange to isolate $r^n$, then take logarithms; check the resulting $n$ meets the question's integer condition.
 
+> [!example]- Worked example: finding $n$ with logarithms
+> A geometric series has first term 5 and common ratio 1.1. Its first $n$ terms sum to 158.86 (2 d.p.). Find $n$.
+> Substitute into the finite sum formula: $158.86=\dfrac{5(1.1^n-1)}{1.1-1}=50(1.1^n-1)$.
+> Isolate the power: $1.1^n=1+\dfrac{158.86}{50}=4.1772$.
+> Take logarithms of each complete side, then divide:
+> $$n=\frac{\log 4.1772}{\log 1.1}=15.0.$$
+> Check: $n=15$ is a positive integer, as a number of terms must be. Never treat $\log(1.1^n-1)$ as $n\log 1.1 - \log 1$; logarithms do not distribute inside subtraction.
+
 For positive integer $n$, the **binomial expansion** is $(a+bx)^n=\sum_{r=0}^{n}\binom nr a^{n-r}(bx)^r$. Here $\binom nr={}^nC_r=n!/[r!(n-r)!]$, with $0!=1$. The coefficient of $x^r$ is $\binom nr a^{n-r}b^r$, and there are $n+1$ terms.
 
 ## Method

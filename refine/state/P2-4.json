@@ -1,0 +1,211 @@
+{
+ "sub": "P2-4",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T23:20:24+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T11:40:39+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 6 improvements"
+  },
+  {
+   "t": "2026-10-15T22:10:20+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 8 questions, 7 note_lines, 2 cards, 2 other"
+  },
+  {
+   "t": "2026-10-15T22:50:50+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "7 of 7 new questions agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-15T22:55:46+08:00",
+   "from": "check",
+   "to": "adjudicate",
+   "note": "1 checker findings"
+  },
+  {
+   "t": "2026-10-15T23:15:57+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-15T23:17:28+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-15T23:20:24+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 8 questions, 7 note_lines, 2 cards, 2 other"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 38,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "new lesson-note worked example, final check line",
+   "rule": "wrong definition",
+   "evidence": "Taking logarithms term by term, as in $\\log 50+\\log(1.1^n-1)$, loses the power and earns nothing.",
+   "suggested": "Remove this claim: the displayed sum is a valid application of the product rule; instead warn against splitting the logarithm of a difference or treating $\\log(1.1^n-1)$ as $n\\log(1.1)-\\log 1$.",
+   "status": "fixed",
+   "resolution": "fix: Remove only the false claim that splitting log 50 + log(1.1^n - 1) loses the power; instead warn against treating log(1.1^n - 1) as n log 1.1 minus log 1. Edit only this added line."
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "new lesson-note worked example, final check line",
+   "instruction": "Remove only the false claim that splitting log 50 + log(1.1^n - 1) loses the power; instead warn against treating log(1.1^n - 1) as n log 1.1 minus log 1. Edit only this added line.",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "scout": {
+   "pid": 77355,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T11:39:21+08:00",
+   "log": "refine/logs/P2-4.scout.1015-113921.log",
+   "out": "refine/logs/P2-4.scout.1015-113921.out.json",
+   "expects": "build/work/refine/P2-4.plan.json",
+   "finished": "2026-10-15T11:40:39+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 6,
+    "plan_path": "build/work/refine/P2-4.plan.json",
+    "notes": [
+     "The gates pass. The learner's sources library returned no matches for this chapter."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 22131,
+   "provider": "claude",
+   "model": "opus/medium",
+   "rung": 1,
+   "started": "2026-10-15T22:04:31+08:00",
+   "log": "refine/logs/P2-4.refiner.1015-220431.log",
+   "out": "refine/logs/P2-4.refiner.1015-220431.out.json",
+   "finished": "2026-10-15T22:10:20+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 6,
+    "new_items": [
+     "P2-4-r01",
+     "P2-4-r02",
+     "P2-4-r03",
+     "P2-4-r04",
+     "P2-4-r05",
+     "P2-4-r06",
+     "P2-4-r07",
+     "P2-4-r08"
+    ],
+    "new_diagrams": [],
+    "not_done": [
+     "Pre-existing note issue, not editable under the no-loss rule: the '## Links' line links [[5 Exponentials and logarithms]], a name absent from this bundle's 'Chapters you may link' list (allowed: [[7 Series]], [[6 Numerical methods]], [[4 Binomial expansion]], [[1 The Binomial and Poisson distributions]]). Reported rather than reworded.",
+     "No diagrams or figures were planned for this pass, so none were added (the pack's diagrams list stays empty)."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 1.941
+  },
+  "solver": {
+   "pid": 41850,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:47:00+08:00",
+   "log": "refine/logs/P2-4.solver.1015-224700.log",
+   "out": "refine/logs/P2-4.solver.1015-224700.out.json",
+   "expects": "build/work/blind/P2-4.refine.answers.json",
+   "finished": "2026-10-15T22:47:22+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 7 questions in `build/work/blind/P2-4.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 44542,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:51:14+08:00",
+   "log": "refine/logs/P2-4.checker.1015-225114.log",
+   "out": "refine/logs/P2-4.checker.1015-225114.out.json",
+   "expects": "build/work/refine/P2-4.check.json",
+   "finished": "2026-10-15T22:51:47+08:00",
+   "exit": 0,
+   "report": {
+    "text": "1 finding written to [P2-4.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/P2-4.check.json)."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 58433,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T23:16:16+08:00",
+   "log": "refine/logs/P2-4.fixer.1015-231616.log",
+   "out": "refine/logs/P2-4.fixer.1015-231616.out.json",
+   "finished": "2026-10-15T23:17:28+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 0.123
+  }
+ },
+ "plan": {
+  "improvements": 6,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 4,
+   "clarification": 1,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "claude",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 8,
+  "diagrams": 0,
+  "note_lines": 7,
+  "cards": 2,
+  "other": 2
+ },
+ "last_refined": "2026-10-15T23:20:24+08:00"
+}

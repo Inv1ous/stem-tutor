@@ -44,6 +44,22 @@
    "refutation": "They are combinations n!/[r!(n-r)!].",
    "contrast": "The power on the second term is r.",
    "source": "research"
+  },
+  {
+   "id": "m6",
+   "kc": "P2-4.3",
+   "statement": "Any sequence whose terms alternate in sign is periodic.",
+   "refutation": "Periodicity needs the values themselves to repeat: $u_{n+p}=u_n$ for a fixed positive integer $p$. In $u_n=(-1)^n n$ the signs alternate but the magnitudes $1,2,3,4,\\ldots$ never repeat, so no such $p$ exists.",
+   "contrast": "$u_n=(-1)^n\\cdot 3$ gives $-3,3,-3,3,\\ldots$, which repeats with period 2, while $u_n=(-1)^n n$ gives $-1,2,-3,4,\\ldots$, which is not periodic.",
+   "source": "research"
+  },
+  {
+   "id": "m7",
+   "kc": "P2-4.5",
+   "statement": "In the expansion of $(a-bx)^n$ the minus sign can be ignored while finding a coefficient.",
+   "refutation": "Writing $(a-bx)^n$ as $(a+(-b)x)^n$ shows the term in $x^r$ is $\\binom{n}{r} a^{n-r}(-b)^r x^r$, so the coefficient is negative when $r$ is odd and positive when $r$ is even.",
+   "contrast": "In $(2-3x)^5$ the coefficient of $x^2$ is $\\binom{5}{2}2^3(-3)^2=+720$, but the coefficient of $x^3$ is $\\binom{5}{3}2^2(-3)^3=-1080$.",
+   "source": "research"
   }
  ],
  "worked": [
@@ -1135,6 +1151,289 @@
     "Substitute the given values carefully.",
     "Check the term index and simplify."
    ]
+  },
+  {
+   "id": "P2-4-r01",
+   "kcs": [
+    "P2-4.3"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A sequence is defined by $u_1=4$, $u_2=1$, $u_3=-3$ and $u_{n+3}=u_n$ for all $n\\ge 1$. State the period of the sequence.",
+   "marks": 1,
+   "rubric": [
+    {
+     "point": "The period is 3.",
+     "keywords": [
+      [
+       "3",
+       "three"
+      ]
+     ]
+    }
+   ],
+   "explanation": "The defining relation returns the same value three places later, and no smaller fixed shift does so: $u_2\\ne u_1$ rules out a shift of 1 and $u_3\\ne u_1$ rules out a shift of 2. The least positive integer $p$ with $u_{n+p}=u_n$ for all $n$ is therefore 3.",
+   "hints": [
+    "The period is the length of the repeating block of values.",
+    "Write out the first six terms and find where the list starts over.",
+    "Read $u_{n+3}=u_n$ as a statement about how far apart equal terms are, then check that no shorter shift repeats the values."
+   ]
+  },
+  {
+   "id": "P2-4-r02",
+   "kcs": [
+    "P2-4.3"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "State",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which of these sequences, defined for $n\\ge 1$, is periodic?",
+   "options": {
+    "A": "$u_n=(-1)^n n$",
+    "B": "$u_n=(-1)^n\\cdot 3$",
+    "C": "$u_n=3-2n$",
+    "D": "$u_n=(-2)^n$"
+   },
+   "answer": "B",
+   "distractors": {
+    "A": "m6",
+    "D": "m6"
+   },
+   "shuffle": true,
+   "marks": 1,
+   "explanation": "The sequence $u_n=(-1)^n\\cdot 3$ gives $-3,3,-3,3,\\ldots$, so $u_{n+2}=u_n$ for every $n$ and the period is 2. The sequences $u_n=(-1)^n n$ and $u_n=(-2)^n$ alternate in sign, but their magnitudes grow ($1,2,3,4,\\ldots$ and $2,4,8,16,\\ldots$), so no fixed $p$ satisfies $u_{n+p}=u_n$; $u_n=3-2n$ decreases steadily.",
+   "hints": [
+    "Periodicity is about repeated values, not repeated signs.",
+    "Write out four terms of each option and ask whether the list ever starts over.",
+    "Apply the test $u_{n+p}=u_n$ for one fixed positive integer $p$ to each option in turn."
+   ]
+  },
+  {
+   "id": "P2-4-r03",
+   "kcs": [
+    "P2-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A geometric series has first term 18 and second term $-12$. Find its sum to infinity.",
+   "marks": 3,
+   "answer": {
+    "value": 10.8,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": [
+    {
+     "value": 54.0,
+     "misconception": "m4"
+    }
+   ],
+   "explanation": "The common ratio is $r=-12/18=-\\tfrac23$, and $|r|=\\tfrac23<1$, so the series converges. Then $S_\\infty=\\dfrac{a}{1-r}=\\dfrac{18}{1-(-2/3)}=\\dfrac{18}{5/3}=10.8$.",
+   "hints": [
+    "Divide the second term by the first to get the ratio, sign included.",
+    "Check that $|r|<1$, then use the sum-to-infinity formula.",
+    "Substitute the negative ratio into $a/(1-r)$ carefully: subtracting a negative ratio makes the denominator bigger than 1, not smaller."
+   ]
+  },
+  {
+   "id": "P2-4-r04",
+   "kcs": [
+    "P2-4.4"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A geometric series has first term 5 and common ratio 1.1. The sum of its first $n$ terms is 158.86, correct to 2 decimal places. Find the value of $n$.",
+   "marks": 4,
+   "answer": {
+    "value": 15.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3
+    ]
+   },
+   "explanation": "From $S_n=\\dfrac{a(r^n-1)}{r-1}$, $158.86=\\dfrac{5(1.1^n-1)}{0.1}=50(1.1^n-1)$, so $1.1^n=1+158.86/50=4.1772$. Taking logarithms of each complete side, $n=\\dfrac{\\log 4.1772}{\\log 1.1}=15.0$, a positive integer as the context requires.",
+   "hints": [
+    "Substitute into the finite geometric sum formula and treat the power as the unknown.",
+    "Rearrange until the power of the ratio stands alone on one side, then take logarithms.",
+    "Take the logarithm of each complete side, never term by term, then divide by $\\log r$; the result must come out as a positive whole number."
+   ]
+  },
+  {
+   "id": "P2-4-r05",
+   "kcs": [
+    "P2-4.2"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "An arithmetic series has first term $a$ and common difference $d$. Prove that the sum of its first $n$ terms is $S_n=\\frac n2\\left[2a+(n-1)d\\right]$.",
+   "marks": 4,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Writes the sum out in order: $S_n=a+(a+d)+\\cdots+[a+(n-2)d]+[a+(n-1)d]$."
+    },
+    {
+     "mark": "M1",
+     "point": "Writes the same sum reversed: $S_n=[a+(n-1)d]+[a+(n-2)d]+\\cdots+(a+d)+a$."
+    },
+    {
+     "mark": "A1",
+     "point": "Adds the two lines column by column: each of the $n$ columns totals $2a+(n-1)d$, so $2S_n=n\\left[2a+(n-1)d\\right]$."
+    },
+    {
+     "mark": "A1",
+     "point": "Divides by 2 to reach the printed result $S_n=\\frac n2\\left[2a+(n-1)d\\right]$."
+    }
+   ],
+   "explanation": "Reversing the series pairs the smallest term with the largest, the second smallest with the second largest, and so on, so each of the $n$ columns has the same total $2a+(n-1)d$. Adding the two lines gives $2S_n=n[2a+(n-1)d]$, and halving gives the result.",
+   "hints": [
+    "The proof needs the series written twice, the second time in a different order.",
+    "Add the two lines vertically and look at what each column contributes.",
+    "Line up term $k$ of the forward sum with term $k$ of the reversed sum, simplify one column, then say why every column is the same."
+   ]
+  },
+  {
+   "id": "P2-4-r06",
+   "kcs": [
+    "P2-4.4"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Prove",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A geometric series has first term $a$ and common ratio $r$. Prove that the sum of its first $n$ terms is $S_n=\\dfrac{a(1-r^n)}{1-r}$, and state the sum when $r=1$.",
+   "marks": 5,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Writes $S_n=a+ar+ar^2+\\cdots+ar^{n-1}$."
+    },
+    {
+     "mark": "M1",
+     "point": "Multiplies every term by $r$: $rS_n=ar+ar^2+\\cdots+ar^{n-1}+ar^n$."
+    },
+    {
+     "mark": "A1",
+     "point": "Subtracts the second line from the first: every term from $ar$ to $ar^{n-1}$ appears in both lines and cancels, leaving $S_n-rS_n=a-ar^n$."
+    },
+    {
+     "mark": "A1",
+     "point": "Factorises and divides: $(1-r)S_n=a(1-r^n)$, so $S_n=\\dfrac{a(1-r^n)}{1-r}$."
+    },
+    {
+     "mark": "B1",
+     "point": "States that dividing by $1-r$ needs $r\\ne 1$, and that if $r=1$ every term equals $a$, so $S_n=na$."
+    }
+   ],
+   "explanation": "Multiplying by $r$ shifts the list of terms one place along, so the two lines share every term except the first of $S_n$ and the last of $rS_n$; subtracting therefore leaves $a-ar^n$. Dividing by $1-r$ is only legitimate when $r\\ne 1$, and $r=1$ gives $n$ copies of $a$.",
+   "hints": [
+    "Two lines are needed: the sum itself and a multiple of that sum.",
+    "Multiplying by $r$ moves each term one place along, which is what makes the interior terms cancel on subtraction.",
+    "Write the two lines with equal powers aligned, subtract, then watch which factor you divide by and when that step is not allowed."
+   ]
+  },
+  {
+   "id": "P2-4-r07",
+   "kcs": [
+    "P2-4.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Find the coefficient of $x^3$ in the expansion of $(2-3x)^5$.",
+   "marks": 3,
+   "answer": {
+    "value": -1080.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4
+    ]
+   },
+   "distractors": [
+    {
+     "value": 1080.0,
+     "misconception": "m7"
+    },
+    {
+     "value": 720.0,
+     "misconception": "m5"
+    }
+   ],
+   "explanation": "Write $(2-3x)^5$ as $(2+(-3x))^5$; the term in $x^3$ is $\\binom{5}{3}2^{2}(-3x)^{3}$. Since $\\binom{5}{3}=10$ and $(-3)^3=-27$, the coefficient is $10\\times 4\\times(-27)=-1080$.",
+   "hints": [
+    "Treat the bracket as $(a+bx)^5$ with a negative value of $b$.",
+    "The term in $x^3$ uses $r=3$, so the power of $a$ remaining is $5-3$.",
+    "Evaluate the binomial coefficient, the power of 2 and the cube of the negative number separately, keeping the sign that an odd power produces."
+   ]
+  },
+  {
+   "id": "P2-4-r08",
+   "kcs": [
+    "P2-4.5"
+   ],
+   "kind": "numeric",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The expansion of $(3+2x)^7$ is written in ascending powers of $x$. Find the coefficient of the fifth term.",
+   "marks": 3,
+   "answer": {
+    "value": 15120.0,
+    "unit": "",
+    "sf_ok": [
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "distractors": [
+    {
+     "value": 6048.0
+    },
+    {
+     "value": 22680.0
+    }
+   ],
+   "explanation": "In ascending powers the terms use $r=0,1,2,\\ldots$ in turn, so the fifth term is the one with $r=4$: $\\binom{7}{4}3^{3}(2x)^{4}$. With $\\binom{7}{4}=35$ this gives $35\\times 27\\times 16=15120$, so the term is $15120x^4$.",
+   "hints": [
+    "The first term of an expansion in ascending powers is the one with no $x$ in it.",
+    "Match the position of the term to the value of $r$ before doing any arithmetic.",
+    "Count positions starting from $r=0$, then evaluate $\\binom{n}{r}a^{n-r}b^r$ for the $r$ you found."
+   ]
   }
  ],
  "flashcards": [
@@ -1173,6 +1472,17 @@
    "connect": "The same idea of finding a repeated pattern leads to geometric series, where each term is multiplied instead of increased by a fixed amount.",
    "note": "- Arithmetic: $u_n=a+(n-1)d$.\n- Finite sum: $S_n=\\frac n2[2a+(n-1)d]$.\n- $1+\\cdots+n=n(n+1)/2$.\n- $\\sum_{k=1}^n u_k$ adds the indexed terms.",
    "self_explain": "Explain why $n-1$, rather than $n$, differences separate the first and nth terms.",
+   "discover": {
+    "stem": "Write $S_n=a+(a+d)+\\cdots+[a+(n-1)d]$, and underneath it the same sum in reverse order. What does any one column of the two lines total?",
+    "options": {
+     "A": "$2a+(n-1)d$, the same for every column",
+     "B": "$a+nd$, the same for every column",
+     "C": "$2a+kd$, a different total for each column $k$",
+     "D": "$n(a+d)$, the same for every column"
+    },
+    "answer": "A",
+    "explanation": "Column $k$ holds $a+(k-1)d$ from the forward line and $a+(n-k)d$ from the reversed line. The copies of $d$ number $(k-1)+(n-k)=n-1$ whatever $k$ is, so every column totals $2a+(n-1)d$. Adding the $n$ identical columns gives $2S_n=n[2a+(n-1)d]$."
+   },
    "source": "pack"
   },
   "P2-4.3": {
@@ -1189,6 +1499,17 @@
    "connect": "Both arithmetic and geometric sum formulae come from manipulating the same finite series, but geometric sums use subtraction after multiplication.",
    "note": "- Geometric: $u_n=ar^{n-1}$.\n- $S_n=a(1-r^n)/(1-r)$ if $r\\ne1$.\n- $S_\\infty=a/(1-r)$ only for $|r|<1$.\n- Use logarithms to solve for an unknown $n$.",
    "self_explain": "Why does $r=-2$ fail the condition for a sum to infinity?",
+   "discover": {
+    "stem": "Take $S_n=a+ar+\\cdots+ar^{n-1}$ and subtract $rS_n=ar+ar^2+\\cdots+ar^n$ from it. Which terms survive on the right-hand side?",
+    "options": {
+     "A": "$a-ar^n$, because every term from $ar$ to $ar^{n-1}$ appears in both lines",
+     "B": "$a-ar^{n-1}$, because the last term of $S_n$ is removed",
+     "C": "$a+ar^n$, because subtracting changes the sign of the final term",
+     "D": "Nothing survives, because the two lines have the same terms"
+    },
+    "answer": "A",
+    "explanation": "Multiplying by $r$ shifts the list one place along, so the two lines share the terms $ar,ar^2,\\ldots,ar^{n-1}$ and those cancel. Only the first term of $S_n$ and the last term of $rS_n$ are unmatched, leaving $(1-r)S_n=a-ar^n$."
+   },
    "source": "pack"
   },
   "P2-4.5": {

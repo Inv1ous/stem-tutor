@@ -1,0 +1,45 @@
+{
+ "summary": "Add exam-style reasoning and varied practice for sequence behaviour, series proofs, convergence, logarithms and binomial terms.",
+ "improvements": [
+  {
+   "kind": "questions",
+   "where": "P2-4.3",
+   "why": "Existing questions only explain linear increasing or decreasing sequences; none tests periodicity or an alternating sequence whose magnitudes change.",
+   "count": 2,
+   "what": "Add one Explain or State item identifying the least period of a repeating sequence, and one misconception-based item distinguishing a genuinely periodic sequence from an alternating nonperiodic sequence. Require the fixed-period criterion in explanations."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-4.4",
+   "why": "Current geometric items use positive ratios and direct substitution; the syllabus explicitly requires $|r|<1$ and using logarithms to find $n$ from a finite sum.",
+   "count": 2,
+   "what": "Add a convergent negative-ratio sum-to-infinity item with a distractor based on ignoring the sign of $r$, and a multi-step finite-sum problem in which students isolate $r^n$, use logarithms and check that $n$ is a positive integer."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-4.2 and P2-4.4",
+   "why": "The note gives both sum-formula proofs, but the bank asks no Show that or Prove question.",
+   "count": 2,
+   "what": "Add one structured proof of the finite arithmetic sum by reversing and pairing, and one structured proof of the finite geometric sum by multiplying by $r$ and subtracting, including the $r=1$ exception. Give scheme points for the cancellation steps."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-4.5",
+   "why": "Every binomial item asks for a coefficient with a positive $x$ term; none tests a negative term or the position of a general term.",
+   "count": 2,
+   "what": "Add an exam-style coefficient question involving $(a-bx)^n$ and a term-selection question where the requested power of $x$ must be matched to $r$ before calculation. Include sign-error feedback."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the geometric paragraph in ## Key ideas",
+   "why": "The instruction to use logarithms to find $n$ skips the rearrangement and domain check a learner needs.",
+   "what": "Add a compact worked example using a finite geometric sum with given $S_n$, showing isolation of $r^n$, a logarithm step and verification that the resulting $n$ is a positive integer."
+  },
+  {
+   "kind": "feature",
+   "where": "pack teach cards for P2-4.2 and P2-4.4",
+   "why": "The proof guidance calls for understanding the cancellation, while the cards have self-explanation prompts but no discover questions.",
+   "what": "Add discover questions that lead students to compare paired arithmetic terms and to subtract $rS_n$ from $S_n$, with explanations of why the interior terms cancel."
+  }
+ ]
+}
