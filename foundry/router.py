@@ -271,7 +271,10 @@ def score(provider: str, windows: dict | None, cfg: dict, running: list[str], mo
             continue  # a cap on another model
         mins = MINUTES.get(name, 10080)
         over = w.get("resets") is not None and w["resets"] <= now  # the window has reset since it was read
-        top = min(100.0 - cfg["reserve"].get(provider, 0), (cfg.get("window_cap") or {}).get(provider, {}).get(name, 100.0))
+        cap = (cfg.get("window_cap") or {}).get(provider, {}).get(name, 100.0)
+        if isinstance(cap, dict):  # {"cap": 80, "until": epoch, "until_cap": 95}: a higher cap for the window now running
+            cap = cap.get("until_cap", cap["cap"]) if now < cap.get("until", 0) else cap["cap"]
+        top = min(100.0 - cfg["reserve"].get(provider, 0), cap)
         room = top - (0.0 if over else w["used"]) - pending * (7 if mins <= 300 else 1)
         if room <= 0:
             when = f" until {datetime.fromtimestamp(w['resets']):%a %H:%M}" if w.get("resets") and not over else ""

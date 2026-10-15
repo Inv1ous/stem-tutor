@@ -47,7 +47,16 @@ def fdy(tmp_path, monkeypatch):
         monkeypatch.delenv(name, raising=False)
     sys.path.insert(0, str(REPO / "foundry"))
     import foundry
-    return importlib.reload(foundry)
+    mod = importlib.reload(foundry)
+    real = mod.config
+
+    def neutral() -> dict:  # the learner's own pacing choices (a Codex reserve, a five-hour cap) are not under test
+        cfg = real()
+        cfg["reserve"]["codex"] = 0
+        cfg["window_cap"] = {}
+        return cfg
+    mod.config = neutral
+    return mod
 
 
 def usage(claude_week, codex_week, codex_now=10, claude_days=4.0, codex_days=4.0):
@@ -1086,7 +1095,7 @@ def test_a_speech_fault_never_stops_the_gates(fdy):
 
 def test_claude_is_closed_once_its_five_hours_pass_the_cap(fdy):
     cfg = fdy.config()
-    assert cfg["window_cap"]["claude"]["five_hour"] == 80
+    cfg["window_cap"] = {"claude": {"five_hour": 80}}
     week = {"used": 10.0, "resets": 4102444800}
     low = {"five_hour": {"used": 70.0, "resets": 4102444800}, "seven_day": week}
     high = {"five_hour": {"used": 81.0, "resets": 4102444800}, "seven_day": week}
@@ -1128,3 +1137,12 @@ def test_an_exact_reading_is_never_extrapolated(fdy):
     notes = {"claude": k}
     out = fdy.router.usage(notes, "codex", "claude", now=2.0) if False else None
     assert k["windows"]["five_hour"]["used"] == 48.0
+
+
+def test_the_five_hour_cap_can_be_higher_for_the_window_now_running(fdy):
+    cfg = fdy.config()
+    cfg["window_cap"] = {"claude": {"five_hour": {"cap": 80, "until": 2000, "until_cap": 95}}}
+    week = {"used": 10.0, "resets": 4102444800}
+    w = {"five_hour": {"used": 90.0, "resets": 4102444800}, "seven_day": week}
+    assert fdy.router.score("claude", w, cfg, [], now=1000)[0] is not None   # before the reset: up to 95
+    assert fdy.router.score("claude", w, cfg, [], now=3000)[0] is None       # after: 80

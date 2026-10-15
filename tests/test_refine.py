@@ -54,7 +54,16 @@ def rf(tmp_path, monkeypatch):
     import foundry
     importlib.reload(foundry)
     import refine
-    return importlib.reload(refine)
+    mod = importlib.reload(refine)
+    real = mod.config
+
+    def neutral() -> dict:  # the learner's own pacing choices (a Codex reserve, a five-hour cap) are not under test
+        cfg = real()
+        cfg["reserve"]["codex"] = 0
+        cfg["window_cap"] = {}
+        return cfg
+    mod.config = neutral
+    return mod
 
 
 def finished(rf, name, tries=150):

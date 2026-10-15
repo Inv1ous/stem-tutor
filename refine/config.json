@@ -4,7 +4,7 @@
   "claude": 4
  },
  "reserve": {
-  "codex": 0,
+  "codex": 30,
   "claude": 5
  },
  "web": [
@@ -198,7 +198,11 @@
  "commit_on_sign": true,
  "window_cap": {
   "claude": {
-   "five_hour": 80
+   "five_hour": {
+    "cap": 80,
+    "until": 1792075800,
+    "until_cap": 95
+   }
   }
  }
 }
