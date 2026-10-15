@@ -1,0 +1,24 @@
+{
+ "summary": "Add the missing visual explanation of wave direction and strengthen interpretation of graphs that do not identify wave type by shape alone.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after ## Key ideas",
+   "why": "The diagram gate fails, and outcome 9702-7.2.1 asks learners to compare oscillation with energy-transfer direction.",
+   "what": "Add a wave-type diagram using the supported wave type, with clear axis labels and accompanying note text that connects transverse displacement to the direction of travel; also describe longitudinal particle motion alongside it without implying the plotted vertical axis is physical vertical motion. Embed the rendered SVG."
+  },
+  {
+   "kind": "diagram",
+   "where": "note, in ## Method after the displacement-graph explanation",
+   "why": "Outcome 9702-7.2.2 explicitly requires graphical interpretation, while the current note has no graph. Cambridge 2025–2027 syllabus confirms this outcome.",
+   "what": "Add a graph_sketch of signed longitudinal particle displacement against distance, annotated at negative-slope compression and positive-slope rarefaction regions. Embed the SVG and explain that graph height denotes displacement along propagation, not upward particle motion."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-7.2.2",
+   "why": "The learner's Save My Exams 9702 c7.2.pdf pp.4–6 highlights that an unlabelled oscillation trace can represent either wave type; existing practice concentrates on known wave types and locating compression or particle motion.",
+   "count": 1,
+   "what": "Add a generated Explain or Justify item that gives a displacement–time graph but no direction of particle oscillation relative to energy transfer. Require the learner to state why the graph alone cannot classify the wave, then name the missing directional information."
+  }
+ ]
+}
