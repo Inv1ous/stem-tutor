@@ -23,6 +23,11 @@ The **resultant vector** is the single vector equivalent to two or more vectors 
 3. At constant velocity, use $\mathbf{v}=\Delta\mathbf{r}/\Delta t=(\mathbf{r}_2-\mathbf{r}_1)/\Delta t$. The displacement change has units m, and velocity has units $\mathrm{m\,s^{-1}}$.
 4. At constant acceleration, use $\mathbf{a}=\Delta\mathbf{v}/\Delta t=(\mathbf{v}_2-\mathbf{v}_1)/\Delta t$. Acceleration has units $\mathrm{m\,s^{-2}}$; a change in direction counts as a change in velocity even if speed stays constant.
 
+### Head-to-tail check
+Draw $\mathbf{a}=4\mathbf{i}+\mathbf{j}$ to scale. From its arrowhead, draw $\mathbf{b}=-2\mathbf{i}+3\mathbf{j}$ without changing its length or direction. Draw the resultant from the first arrow's tail to the second arrow's head. Check the net movement: $(4-2)\mathbf{i}+(1+3)\mathbf{j}=2\mathbf{i}+4\mathbf{j}$. The resultant's length is the direct start-to-finish distance; adding the two arrow lengths measures the bent route instead.
+
+*Sources for the added practice and walkthrough: Save My Exams, `sources/library/SaveMyExams/XMA01 mechanics-1/XMA01 c1.2.pdf`, pp.5–8 (bearings and resolving), and `sources/library/SaveMyExams/9702 a-level-physics-cie-25/9702 c1.4.pdf`, pp.7–8 (components); [OpenStax, University Physics §2.1](https://openstax.org/books/university-physics-volume-1/pages/2-1-scalars-and-vectors) supplies the head-to-tail construction detail missing from those extracted pages. Questions and walkthrough are original.*
+
 > [!example]- Worked example
 > A particle moves at constant velocity from $2\mathbf{i}-3\mathbf{j}$ m to $8\mathbf{i}+9\mathbf{j}$ m in 3 s. Find its velocity and speed.
 > First subtract the initial position from the final position:
@@ -41,3 +46,5 @@ For **Find** or **Calculate**, show the vector equation, the component substitut
 
 ## Links
 Builds on [[1 Mathematical models in mechanics]] · Leads to [[3 Motion in a straight line]]
+
+Correct chapter destination: [[3 Kinematics of a particle moving in a straight line]].

@@ -681,6 +681,155 @@
      ]
     }
    ]
+  },
+  {
+   "id": "M1-2-r01",
+   "kcs": [
+    "M1-2.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A displacement is $(-12\\mathbf{i}+5\\mathbf{j})\\,\\mathrm{m}$, where $\\mathbf{i}$ points east and $\\mathbf{j}$ points north. Find (a) its exact magnitude and (b) its three-figure bearing, to the nearest degree.",
+   "marks": 4,
+   "explanation": "Pythagoras gives $\\sqrt{(-12)^2+5^2}=13\\,\\mathrm{m}$. The displacement is west of north by $\\tan^{-1}(12/5)\\approx67.38^\\circ$, so its clockwise bearing from north is $360^\\circ-67.38^\\circ\\approx293^\\circ$.",
+   "hints": [
+    "Locate the compass quadrant using both component signs.",
+    "Use Pythagoras for magnitude and a right triangle for the angle from north.",
+    "Bearings are measured clockwise from north; account for the westward component."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Use $|\\mathbf{r}|=\\sqrt{(-12)^2+5^2}$."
+    },
+    {
+     "mark": "A1",
+     "point": "The magnitude is $13\\,\\mathrm{m}$."
+    },
+    {
+     "mark": "M1",
+     "point": "Use $360^\\circ-\\tan^{-1}(12/5)$ for the bearing."
+    },
+    {
+     "mark": "A1",
+     "point": "The three-figure bearing is $293^\\circ$."
+    }
+   ]
+  },
+  {
+   "id": "M1-2-r02",
+   "kcs": [
+    "M1-2.1"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A force of magnitude $12\\,\\mathrm{N}$ acts at $30^\\circ$ west of north. With $\\mathbf{i}$ east and $\\mathbf{j}$ north, find its signed vector components.",
+   "marks": 1,
+   "explanation": "The angle is measured from north, so the northward component is $12\\cos30^\\circ=6\\sqrt3\\,\\mathrm{N}$ and the westward component is $-12\\sin30^\\circ=-6\\,\\mathrm{N}$. The component pair with horizontal magnitude $6\\sqrt3$ swaps the adjacent and opposite sides; the other incorrect pairs reverse a required compass sign.",
+   "hints": [
+    "Sketch the force arrow and label north and east.",
+    "Identify the component adjacent to the angle measured from north.",
+    "Use sine for the opposite component, cosine for the adjacent component, then assign compass signs."
+   ],
+   "options": {
+    "A": "$(-6\\mathbf{i}+6\\sqrt3\\mathbf{j})\\,\\mathrm{N}$",
+    "B": "$(-6\\sqrt3\\mathbf{i}+6\\mathbf{j})\\,\\mathrm{N}$",
+    "C": "$(6\\mathbf{i}+6\\sqrt3\\mathbf{j})\\,\\mathrm{N}$",
+    "D": "$(-6\\mathbf{i}-6\\sqrt3\\mathbf{j})\\,\\mathrm{N}$"
+   },
+   "answer": "A",
+   "distractors": {
+    "B": "m3"
+   },
+   "shuffle": true
+  },
+  {
+   "id": "M1-2-r03",
+   "kcs": [
+    "M1-2.2"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle moves at constant velocity from position $(4\\mathbf{i}-7\\mathbf{j})\\,\\mathrm{m}$ to $(-8\\mathbf{i}+9\\mathbf{j})\\,\\mathrm{m}$ in $4\\,\\mathrm{s}$. Find (a) its complete velocity vector, (b) its speed and (c) its direction, measured anticlockwise from positive $\\mathbf{i}$, to the nearest degree.",
+   "marks": 6,
+   "explanation": "Subtracting positions gives $\\Delta\\mathbf{r}=(-12\\mathbf{i}+16\\mathbf{j})\\,\\mathrm{m}$, hence $\\mathbf{v}=(-3\\mathbf{i}+4\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$ and speed $5\\,\\mathrm{m\\,s^{-1}}$. The velocity is in quadrant II, so its direction is $180^\\circ-\\tan^{-1}(4/3)\\approx127^\\circ$ anticlockwise from positive $\\mathbf{i}$.",
+   "hints": [
+    "Use the change in position rather than the final position alone.",
+    "Divide each displacement component by the elapsed time; speed is the resulting vector magnitude.",
+    "Subtract initial coordinates with brackets, then use the velocity signs to choose the direction quadrant."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Use $\\mathbf{v}=(\\mathbf{r}_2-\\mathbf{r}_1)/4$."
+    },
+    {
+     "mark": "A1",
+     "point": "$\\mathbf{v}=(-3\\mathbf{i}+4\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$."
+    },
+    {
+     "mark": "M1",
+     "point": "Use speed $=\\sqrt{(-3)^2+4^2}$."
+    },
+    {
+     "mark": "A1",
+     "point": "Speed is $5\\,\\mathrm{m\\,s^{-1}}$."
+    },
+    {
+     "mark": "M1",
+     "point": "Use $180^\\circ-\\tan^{-1}(4/3)$ for quadrant II."
+    },
+    {
+     "mark": "A1",
+     "point": "Direction is $127^\\circ$ anticlockwise from positive $\\mathbf{i}$."
+    }
+   ]
+  },
+  {
+   "id": "M1-2-r04",
+   "kcs": [
+    "M1-2.2"
+   ],
+   "kind": "structured",
+   "difficulty": 3,
+   "command_word": "Show that",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "A particle has constant acceleration. Its velocity changes from $(-5\\mathbf{i}+7\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$ to $(7\\mathbf{i}-2\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$ in $3\\,\\mathrm{s}$. Show that its acceleration is $(4\\mathbf{i}-3\\mathbf{j})\\,\\mathrm{m\\,s^{-2}}$, showing the subtraction of each component.",
+   "marks": 3,
+   "explanation": "Use $\\mathbf{a}=(\\mathbf{v}-\\mathbf{u})/3$: the component changes are $7-(-5)=12$ and $-2-7=-9$. Dividing both by $3\\,\\mathrm{s}$ gives $\\mathbf{a}=(4\\mathbf{i}-3\\mathbf{j})\\,\\mathrm{m\\,s^{-2}}$.",
+   "hints": [
+    "Start from the vector definition of constant acceleration.",
+    "Subtract the entire initial velocity vector before dividing by time.",
+    "Write each change as final component minus initial component, retaining brackets around negative values."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "State $\\mathbf{a}=(\\mathbf{v}-\\mathbf{u})/\\Delta t$."
+    },
+    {
+     "mark": "A1",
+     "point": "Show $\\Delta\\mathbf{v}=[7-(-5)]\\mathbf{i}+(-2-7)\\mathbf{j}=(12\\mathbf{i}-9\\mathbf{j})\\,\\mathrm{m\\,s^{-1}}$."
+    },
+    {
+     "mark": "A1",
+     "point": "Show $\\mathbf{a}=\\frac{12}{3}\\mathbf{i}-\\frac{9}{3}\\mathbf{j}=(4\\mathbf{i}-3\\mathbf{j})\\,\\mathrm{m\\,s^{-2}}$."
+    }
+   ]
   }
  ],
  "flashcards": [],
