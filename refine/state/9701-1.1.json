@@ -1,0 +1,147 @@
+{
+ "sub": "9701-1.1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T08:21:14+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T08:15:56+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 1 improvements"
+  },
+  {
+   "t": "2026-10-15T08:18:45+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 7 cards"
+  },
+  {
+   "t": "2026-10-15T08:19:52+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "7 of 7 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T08:21:14+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 7 cards"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 79,
+  "extra": 24,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 86627,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T08:15:29+08:00",
+   "log": "refine/logs/9701-1.1.scout.1015-081529.log",
+   "out": "refine/logs/9701-1.1.scout.1015-081529.out.json",
+   "expects": "build/work/refine/9701-1.1.plan.json",
+   "finished": "2026-10-15T08:15:56+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 1,
+    "plan_path": "build/work/refine/9701-1.1.plan.json",
+    "notes": [
+     "The learner’s sources library is empty. The plan covers teaching cards for all seven outcomes flagged by the syllabus gate."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 87924,
+   "provider": "codex",
+   "model": "gpt-6-sol/medium",
+   "rung": 0,
+   "started": "2026-10-15T08:17:37+08:00",
+   "log": "refine/logs/9701-1.1.refiner.1015-081737.log",
+   "out": "refine/logs/9701-1.1.refiner.1015-081737.out.json",
+   "finished": "2026-10-15T08:18:45+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 7,
+    "new_items": [],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 88979,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T08:19:25+08:00",
+   "log": "refine/logs/9701-1.1.solver.1015-081925.log",
+   "out": "refine/logs/9701-1.1.solver.1015-081925.out.json",
+   "expects": "build/work/blind/9701-1.1.refine.answers.json",
+   "finished": "2026-10-15T08:19:41+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 7 questions to build/work/blind/9701-1.1.refine.answers.json"
+   },
+   "ok": true,
+   "cost_usd": 0.04
+  },
+  "checker": {
+   "pid": 88981,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T08:19:25+08:00",
+   "log": "refine/logs/9701-1.1.checker.1015-081925.log",
+   "out": "refine/logs/9701-1.1.checker.1015-081925.out.json",
+   "expects": "build/work/refine/9701-1.1.check.json",
+   "finished": "2026-10-15T08:19:40+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9701-1.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-1.1.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 1,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 0,
+   "clarification": 0,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 0,
+  "diagrams": 0,
+  "note_lines": 0,
+  "cards": 7,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T08:21:14+08:00"
+}
