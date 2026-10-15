@@ -25,10 +25,11 @@ from tutorlib import challenge_gen, grade, model
 from tutorlib.challenge_gen import generate_set
 from tutorlib.session import _display_answer
 
-from . import cards, prompts
+from . import cards, prompts, tts
 from .look import C
 from .panels import ChoicePanel, Composer, ContinuePanel, Panel, TickList, ValuePanel
-from .screens import AskScreen, ConfirmScreen, PickerScreen, bar, leave_asking_first
+from .screens import (READ_KEY, AskScreen, ConfirmScreen, PickerScreen, ReadAloud, bar, leave_asking_first,
+                      spoken_feedback, spoken_too)
 
 LEVEL = {lv["level"]: lv for lv in ch.LEVELS}
 KIND_TEXT = {"mcq": "multiple choice", "typed": "typed answer"}
@@ -201,12 +202,12 @@ class ChallengeChoice(ChoicePanel):
 
 
 # ============================ the screen ============================
-class ChallengeScreen(Screen):
+class ChallengeScreen(ReadAloud, Screen):
     BINDINGS = [Binding("ctrl+b", "leave", "Menu", priority=True), Binding("escape", "esc", "Back"),
                 Binding("alt+up", "scroll_log(-1)", show=False, priority=True),
                 Binding("alt+down", "scroll_log(1)", show=False, priority=True),
                 Binding("pageup", "scroll_log(-1)", show=False), Binding("pagedown", "scroll_log(1)", show=False),
-                Binding("question_mark", "app.help", "Help")]
+                Binding("question_mark", "app.help", "Help"), READ_KEY]
 
     def __init__(self) -> None:
         super().__init__()
@@ -306,6 +307,7 @@ class ChallengeScreen(Screen):
     def setup(self, note: str = "") -> None:
         self.phase, self.seed = "setup", random.randrange(1 << 30)
         self.fold()
+        self.readable_now("")
         self.set_class(True, "setup")
         if not self.ai_ok():
             note = (note + "\n" if note else "") + self.ai_problem()
@@ -541,6 +543,7 @@ class ChallengeScreen(Screen):
         head = [Text(self.first_note + "\n", style=C["dim"])] if getattr(self, "first_note", "") else []
         self.first_note = ""  # on the first question only
         self.say(cards.framed(Group(*head, cards.md(item["stem"])), C["question"], title, title_align="left"))
+        self.readable_now(item["stem"])  # ctrl+e reads the question; never by itself
         self.query_one("#log", VerticalScroll).scroll_home(animate=False)
         self.answer_panel()
         self.update_bar()
@@ -585,6 +588,7 @@ class ChallengeScreen(Screen):
                    "detail": None if idk else g.get("detail"), "answer": _display_answer(item),
                    "explanation": q.get("solution") or item.get("explanation", "")}
         card = self.say(cards.feedback(self.fb, data.get("your", "")))
+        self.readable_now(spoken_feedback(self.fb, data.get("your", "")), auto=True)
         log = self.query_one("#log", VerticalScroll)
         log.call_after_refresh(log.scroll_to_widget, card, top=True, animate=False)  # its verdict first, not its end
         self.after_answer()
@@ -601,7 +605,7 @@ class ChallengeScreen(Screen):
         buttons += [("why", "Explain this answer (AI)")] if self.ai_ok() else []
         buttons += [("remark", "Re-mark (AI)")] if self.can_remark() else []
         buttons += [] if last else [("stop", "Stop here (see score)")]
-        self.panel(ContinuePanel(buttons=buttons))
+        self.panel(ContinuePanel(buttons=buttons, read=self.can_read()))
         self.update_bar()
 
     @work(exclusive=True, group="ai")
@@ -610,9 +614,12 @@ class ChallengeScreen(Screen):
         fb, item = self.fb, self.set.questions[self.i]["item"]
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
         view = {"kind": item["kind"], "stem": item["stem"], "options": item.get("options")}
-        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=prompts.REMARK_MODEL)
+        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=prompts.REMARK_MODEL,
+                                            **spoken_too(self.app))
         if res:
             fb["remarked"] = True  # one re-mark an answer; a call that failed can be tried again
+            self.readable_now(["Re-marked: correct." if res.get("correct") is True else "Re-marked: the mark stands.",
+                               res.get("speech") or res.get("why", "")], auto=True)
         if res and res.get("correct") is True and self.set.regrade(self.i, res.get("why", "")):
             fb["correct"] = True
             self.say(cards.card("tutor", "Re-marked: correct ✓",
@@ -635,6 +642,10 @@ class ChallengeScreen(Screen):
             self.query_one("#log", VerticalScroll).scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
+        else:
+            buf = a.last.text or buf
+            w.update(cards.ai(buf))
+            self.readable_now(a.last.speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
 
     # ---------- summary ----------
     def summary(self) -> None:
@@ -654,6 +665,7 @@ class ChallengeScreen(Screen):
                 + cheer(best)
                 + (f"\n\n_{getattr(self, 'notes', '')}_" if getattr(self, "notes", "") else ""))
         self.say(cards.card("good" if s["correct"] else "plan", "Your score", body))
+        self.readable_now(body)
         self.panel(ContinuePanel(buttons=[("again", "Another set (same settings) ⏎"), ("change", "Change settings"),
                                           ("home", "Back to menu")]))
         self.update_bar()
@@ -668,6 +680,9 @@ class ChallengeScreen(Screen):
             self.mark(data)
             return
         button = data.get("button")
+        if button == "read":
+            self.action_read_aloud()
+            return
         if button not in ("why", "remark"):
             self.workers.cancel_group(self, "ai")  # an explanation still arriving stops: the next screen stays put
         if button == "resume":
@@ -698,6 +713,7 @@ class ChallengeScreen(Screen):
             self.begin()
 
     def action_esc(self) -> None:
+        self.hush()
         if self.phase == "generating":
             self.cancel()
             self.setup("Cancelled: nothing was saved.")

@@ -143,6 +143,28 @@ job itself. The prompt ends with the command that reports the job back.
   each chapter as slots free up, on whichever allowance has more left. The drafts are checked by the gates and wait,
   unpublished, for their blind solve.
 
+## Read-aloud audio (pre-generation)
+
+The tutor app reads explanations aloud with a local voice (Kokoro, set up once with `tutor tts setup`). Generating a line
+takes a moment, so a signed chapter's lines are made ahead of time:
+
+- **At sign-off.** After a chapter is signed and published, `foundry/pregen.py` starts a detached background process
+  (log `foundry/logs/<chapter>.speech.<time>.log`) that makes the audio of the chapter's cards, question stems,
+  explanations, hints and note paragraphs. It never blocks or fails the sign-off. When Kokoro is not set up the chapter's
+  history gets one note, `speech: not set up (run tutor tts setup)`, and only the script is written.
+- **The script.** `build/out/speech/<chapter>.json` (`{sub, voice, speed, lines: [{id, text, key, file}]}`) is written
+  every time, with or without Kokoro, so you can read what would be said and see the gaps.
+- **The audio.** `<vault>/.tutor/audio/<key>.wav`, where `key = tutorlib.speech.audio_key(text, voice, speed)`; voice and
+  speed come from the app's Settings (default `bf_emma`, 1.0). The app looks lines up by the same key. Files that exist are
+  never made again, so a stopped run carries on, and a changed line, voice or speed only makes what is new.
+- **By hand.** `foundry tts 9702-2.1 [more…] [--voice V] [--speed S]`, or `foundry tts --all` (every built chapter, one
+  after another, a progress line each). A full run takes a while and costs only local CPU, no allowance. `foundry tts
+  status` shows `Kokoro: ready / not set up` and, per chapter, lines, with audio, missing and gaps (all / partial / none).
+  `refine tts …` is the same command.
+- **Gaps.** A line whose maths has no sensible spoken form is listed on the board and in `coverage` (id and first
+  symbols). It is not a gate: fix it by adding a `speech` field next to the line with the words to say (the drafter and
+  refiner are told). Overrides are spoken as written and keyed by their own text.
+
 ## Seeing what's running
 
 - **Live screen:** `foundry watch` redraws every 5 seconds: both allowances, each chapter's stage, and every worker
@@ -166,7 +188,9 @@ job itself. The prompt ends with the command that reports the job back.
 | `foundry/schemas/*.json` | The report a drafter, fixer or tiebreak must return |
 | `foundry/state/<chapter>.json` | Each chapter's stage, maker, gate results, disputes, findings and fixes |
 | `foundry/usage.json` | The router's notes: the last readings, what has been learned about tiers (not in git) |
-| `foundry/logs/` | Worker logs |
+| `foundry/logs/` | Worker logs (and `*.speech.*.log`: the audio pre-generation) |
+| `foundry/pregen.py` | Read-aloud pre-generation, shared with refine (`foundry tts`) |
+| `build/out/speech/<chapter>.json` | Each chapter's spoken script, keys and gaps |
 | `build/PACK.md` | The quality bar and format every chapter must meet |
 
 ## The sources library

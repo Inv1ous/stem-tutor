@@ -21,6 +21,8 @@ blind compare), so nobody has to read a whole pack to know whether it is right.
   foundry.py queue <role> <subtopics…>    launch that role for each chapter as slots free up (run it detached)
   foundry.py wait [seconds]               return when no worker is running (default: up to 9 minutes)
   foundry.py coverage [--queue N|--json]  the whole syllabus against what is built; holes; what to build next
+  foundry.py tts <subtopic…|--all> [--voice V] [--speed S]   make the read-aloud audio now (local CPU only, no allowance)
+  foundry.py tts status                   per chapter: lines, with audio, missing, gaps; and whether Kokoro is set up
   foundry.py escalate <subtopic>          launch the adjudicator on the chapter's open items
   foundry.py install-skill                install /foundry (the manager loop on Sonnet, medium effort)
   foundry.py prompt <role> <subtopic> [--shard k]   a worker's prompt, to run by hand
@@ -68,6 +70,7 @@ sys.path.insert(0, str(REPO / "build"))
 sys.path.insert(0, str(REPO / "plugin/stem-tutor/skills/tutor/scripts"))
 sys.path.insert(0, str(HERE))
 import router  # noqa: E402
+import pregen  # noqa: E402  (read-aloud audio, shared with refine)
 from router import NAMES  # noqa: E402
 
 # every role is a headless worker; which allowance and which model does it is the router's choice (config.json)
@@ -206,6 +209,45 @@ def diagram_problems(pack: dict, graph: dict, note_text: str) -> list[str]:
     return out
 
 
+def glyph_problems(pack: dict, note_text: str) -> list[str]:
+    """Unsafe Unicode sub/superscript letters (Eₖ, vᵢₙᵢₜᵢₐₗ) in the pack's text or the note: the terminal draws them from
+    several fonts and the line wobbles. They belong in LaTeX ($E_k$). build/glyphs.py repairs them."""
+    import glyphs
+    return glyphs.data_problems(pack) + glyphs.problems(note_text)
+
+
+def repair_glyphs(sub: str) -> int:
+    """Rewrite the chapter's pack and note with every unsafe sub/superscript as LaTeX (glyphs.fix_text), keeping each
+    file's formatting. Returns how many strings changed."""
+    import glyphs
+    p = pack_path(sub)
+    if not p.exists():
+        return 0
+    n = glyphs.repair_file(p)
+    note = NOTES / json.loads(p.read_text()).get("note", "")
+    return n + (glyphs.repair_file(note) if note.is_file() else 0)
+
+
+def only_glyphs(g: dict) -> bool:
+    """The gates fail for the glyphs alone: nothing else needs a worker, so the repair is mechanical."""
+    return bool(g.get("glyphs")) and not g.get("ok") and not any(
+        g.get(k) for k in ("validator", "lint", "syllabus", "figures", "no_loss", "planned")) and g.get("pack") != "missing"
+
+
+def settle_glyphs(sub: str, gate, chapter_ctx) -> tuple[dict, int]:
+    """Run the gates; when the glyphs are the only thing failing, repair them (deterministic, no retry) and run the
+    gates again, noting `glyphs auto-fixed: N strings` in the chapter's history. → (gates, strings repaired)."""
+    g = gate(sub)
+    if not only_glyphs(g):
+        return g, 0
+    n = repair_glyphs(sub)
+    if n:
+        with chapter_ctx(sub) as st:
+            st["history"].append({"t": now(), "from": st["stage"], "to": st["stage"], "note": f"glyphs auto-fixed: {n} strings"})
+        g = gate(sub)
+    return g, n
+
+
 def gates(sub: str) -> dict:
     import validate_pack
     from tutorlib import lint
@@ -222,15 +264,16 @@ def gates(sub: str) -> dict:
     gaps = syllabus_gaps(sub, pack, graph, text)
     import library
     figures = (link_problems(text) + diagram_problems(pack, graph, text) + library.figure_problems(text, sub)) if note.is_file() else []
-    out = {"ok": not problems and not findings and not gaps and not figures, "validator": len(problems), "lint": len(findings),
-           "syllabus": len(gaps), "figures": len(figures), "items": len(pack.get("items", [])),
-           "extra": sum(it.get("tier") == "extra" for it in pack.get("items", []))}
-    if problems or findings or gaps or figures:  # enough for a worker to act on, capped so the board stays small
+    glyph_list = glyph_problems(pack, text)
+    out = {"ok": not problems and not findings and not gaps and not figures and not glyph_list, "validator": len(problems),
+           "lint": len(findings), "syllabus": len(gaps), "figures": len(figures), "glyphs": len(glyph_list),
+           "items": len(pack.get("items", [])), "extra": sum(it.get("tier") == "extra" for it in pack.get("items", []))}
+    if problems or findings or gaps or figures or glyph_list:  # enough for a worker to act on, capped so the board stays small
         out["first"] = [f"{e['rule']} {e['where']} {e.get('detail', '')}"[:160] for e in problems[:8]] + \
                        [f"lint {x.get('rule')} line {x.get('line')}: {x.get('message') or x.get('detail', '')}"[:160]
                         for x in findings[:4]] + \
                        [f"syllabus {e['rule']} {e['where']} {e['detail']}"[:160] for e in gaps[:8]] + \
-                       [f"figures {e}"[:200] for e in figures[:6]]
+                       [f"figures {e}"[:200] for e in figures[:6]] + [f"glyphs {e}"[:200] for e in glyph_list[:4]]
     return out
 
 
@@ -336,6 +379,7 @@ def coverage() -> dict:
             official = syllabus.official(g["spec"])
             problems = syllabus.audit(official, g) if official else [{"rule": "not-extracted", "where": g["spec"]}]
             out["audit"][g["spec"]] = [f"{e['rule']} {e['where']}" for e in problems]
+    out["speech_gaps"] = pregen.gaps_report()  # read-aloud lines with no spoken form (shown, never a gate)
     out["next"].sort(key=lambda sub: (ticked_off(sub), week.get(sub, 999), _natural(sub)))
     out["ticked_off"] = sum(map(ticked_off, out["next"]))
     return out
@@ -382,6 +426,7 @@ def cmd_coverage(args: list[str]) -> None:
     if bare:
         print(f"\nBuilt chapters with points a figure shows and no diagram ({len(bare)}; the next drafts get them, these "
               f"need a redraft to): {' '.join(bare)}")
+    pregen.print_gaps()
     n = int(args[args.index("--queue") + 1]) if "--queue" in args else 0
     print(f"\nStill to build: {len(c['next'])} chapters. Next in Almanac order"
           + (f" ({c['ticked_off']} you ticked off in the Almanac come last)" if c["ticked_off"] else "")
@@ -505,6 +550,7 @@ def cmd_board() -> None:
     oob = out_of_bounds()
     if oob:
         print(f"\n⚠ files changed outside the foundry's lanes: {', '.join(oob[:6])}")
+    pregen.print_gaps()
 
 
 def _tiebroken(st: dict) -> bool:
@@ -818,7 +864,7 @@ def cmd_normalise(subs: list[str]) -> None:
 
 def cmd_sign(sub: str) -> None:
     normalise_figures(sub)
-    g = gates(sub)
+    g, _ = settle_glyphs(sub, gates, chapter)
     with chapter(sub) as st:
         st["gates"] = g
         open_ = [d["id"] for d in st["disputes"] if d["status"] == "open"] + \
@@ -834,6 +880,18 @@ def cmd_sign(sub: str) -> None:
         raise SystemExit(f"{sub}: not ready (stage {stage}, gates {g}, open {open_})")
     hold(sub, None)
     release(sub)
+    speech_after_sign(sub)
+
+
+def speech_after_sign(sub: str, state=None, logs: Path | None = None) -> None:
+    """Read-aloud audio for the signed chapter, started in the background; never blocks or fails the sign-off."""
+    state = state or chapter
+
+    def note(text: str) -> None:
+        with state(sub) as st:
+            st["history"].append({"t": now(), "from": st["stage"], "to": st["stage"], "note": text})
+
+    pregen.hook(sub, logs or LOGS, note=note)
 
 
 def chapter_paths(sub: str) -> list[str]:
@@ -1156,7 +1214,7 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
         with chapter(sub) as st:
             st["extra_ids"] = restore_extras(sub, st.get("extra_ids", {}))
         merge_teach(sub)
-    g = gates(sub) if role in ("drafter", "fixer") else None  # only these two change the chapter
+    g = settle_glyphs(sub, gates, chapter)[0] if role in ("drafter", "fixer") else None  # only these two change the chapter
     wrote = True
     if job.get("expects"):
         f = ROOT / job["expects"]
@@ -1243,6 +1301,9 @@ def main(argv: list[str]) -> None:
         cmd_wait(*(float(x) for x in rest[:1]))
     elif cmd == "coverage":
         cmd_coverage(rest)
+    elif cmd == "tts":
+        if pregen.cli(rest):
+            sys.exit(1)
     elif cmd == "escalate":
         cmd_escalate(rest[0])
     elif cmd == "install-skill":

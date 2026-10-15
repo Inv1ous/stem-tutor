@@ -56,6 +56,8 @@ If the chapter already meets the bar, say so: an empty list is a good result.
 
 ## Write
 
+If your plan quotes maths, write sub/superscripts in LaTeX (`$E_k$`), never as Unicode letters (`Eₖ`).
+
 `build/work/refine/<subtopic>.plan.json`:
 
 ```json

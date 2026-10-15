@@ -58,6 +58,8 @@ than a poor one. The gate checks the source line and the file.
 
 - Write only these files: the pack JSON, the lesson note, `build/work/gen/<subtopic>*`,
   `build/work/teach/<subtopic>.json`, figures under `build/out/Assets/`, and the crops `build/library.py crop` writes. Never edit code, other chapters, `foundry/` or anything else. Never run git commands.
+- **Sub/superscripts are LaTeX, never Unicode letters.** Write `$E_k$`, `$v_{initial}$`, `$x^{2n}$`, `$K_p$`, `$\ce{H2O}$`; never `Eₖ`, `vᵢₙᵢₜᵢₐₗ` or `xⁿ⁺¹` typed as Unicode (the terminal draws those letters from several fonts and the line wobbles), and never a bare `^` or `_` outside `$…$` (`m s^-2` is the one allowed plain form). A gate (`glyphs`) fails the chapter on Unicode sub/superscript letters; `.venv/bin/python build/glyphs.py --write <file>` repairs them.
+- **Everything is read aloud by a local voice.** Write maths in LaTeX; where a line cannot be spoken sensibly (`foundry tts status` lists the gaps), add a `speech` field next to it with the words to say: on a question `"speech": "words for the stem"` or `{"stem": …, "explanation": …, "hint1": …}`, on a teaching card `"speech": {"note": …}`. Gaps are shown, never a gate.
 - Verify arithmetic with `.venv/bin/python` (sympy is installed) as you go, not in your head.
 - Past MCQs keep their original wording, options and letters; never present a past question as generated.
 - Work economically: write each file once, then make small targeted edits. Aim for at most 40 tool calls.

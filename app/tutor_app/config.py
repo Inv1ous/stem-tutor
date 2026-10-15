@@ -26,6 +26,10 @@ class Settings:
     open_obsidian: bool = True      # show Now.md in Obsidian when a session starts
     minutes: int = 40               # default session length
     theme: str = "classic"          # night, day or classic; `tutor look` sets night once Terminal is set up
+    tts_enabled: bool = False       # read aloud with Kokoro (tts.py); `tutor tts setup` switches it on
+    tts_auto: bool = False          # read explanations, feedback and AI replies as they appear
+    tts_voice: str = "bf_emma"      # a Kokoro voice (tts.VOICES)
+    tts_speed: float = 1.0          # 0.8 to 1.3
 
     @classmethod
     def load(cls, vault: Path) -> "Settings":
@@ -35,10 +39,17 @@ class Settings:
         except (OSError, ValueError):  # a damaged settings file falls back to defaults
             data = {}
         default = cls()
-        good = {k: v for k, v in (data if isinstance(data, dict) else {}).items()
+        data = data if isinstance(data, dict) else {}
+        if type(data.get("tts_speed")) is int:  # 1 written by hand is 1.0
+            data["tts_speed"] = float(data["tts_speed"])
+        good = {k: v for k, v in data.items()
                 if k in cls.__dataclass_fields__ and type(v) is type(getattr(default, k))}
         if good.get("theme") not in THEMES:
             good.pop("theme", None)
+        if "tts_speed" in good:
+            good["tts_speed"] = min(1.3, max(0.8, good["tts_speed"]))
+        if not good.get("tts_voice", "x").strip():
+            good.pop("tts_voice")
         return cls(**good)
 
     def save(self, vault: Path) -> None:

@@ -330,12 +330,16 @@ class ContinuePanel(Panel):
     """After an explanation: continue, explain differently, or ask."""
     BINDINGS = [Binding("enter", "go", "Continue", show=False)]
 
-    def __init__(self, prompt: str = "", buttons: list[tuple[str, str]] | None = None) -> None:
+    READ = ("read", "▸ Read aloud")  # added when reading aloud is set up and on (ctrl+e does the same)
+
+    def __init__(self, prompt: str = "", buttons: list[tuple[str, str]] | None = None, read: bool = False) -> None:
         super().__init__(classes="panel short")
         self.prompt = prompt
-        self.buttons = buttons if buttons is not None else [("continue", "Continue ⏎"),
-                                                            ("explain", "Explain differently (ctrl+r)"),
-                                                            ("ask", "Ask the tutor (ctrl+t)")]
+        self.buttons = list(buttons) if buttons is not None else [("continue", "Continue ⏎"),
+                                                                  ("explain", "Explain differently (ctrl+r)"),
+                                                                  ("ask", "Ask the tutor (ctrl+t)")]
+        if read and self.buttons:
+            self.buttons.append(self.READ)
 
     def rows(self) -> list[list[tuple[str, str]]]:
         """The buttons in as few rows as the window's width allows: a narrow one gets a second row, never a button

@@ -73,6 +73,13 @@ bin/refine watch                      # live screen
 Other commands mirror the foundry's: `next`, `usage`, `only`, `run <role> <chapter> [--on claude|codex]`,
 `dispatch`, `queue <role> <chapters…>`, `packet`, `resolve`, `escalate`, `gates`, `additions`, `sign`, `status`.
 
+**Read aloud.** A refine pass that is signed starts the same background pre-generation as the foundry's sign-off
+(`foundry/pregen.py`, log in `refine/logs/`), so the new questions, cards and note lines have audio ready; lines
+already made are kept. `bin/refine tts <chapters…|--all> [--voice V] [--speed S]` makes audio by hand (a full run takes a
+while and costs only local CPU, no allowance) and `bin/refine tts status` shows per chapter lines, audio, missing and
+gaps. `refine coverage` lists chapters with read-aloud gaps (not a gate: add a `speech` field next to the line). See
+the foundry README, "Read-aloud audio".
+
 In practice, type **`/refine`** in a Claude session (`/refine 9702-2.1`, `/refine all`, `/refine status`). Install
 the skill once (it writes `~/.claude/skills/refine/SKILL.md`, as `foundry install-skill` does for `/foundry`):
 

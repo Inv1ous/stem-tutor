@@ -24,6 +24,8 @@ The manager has decided what to change in this chapter. You make exactly those c
 
 ## Rules
 
+**Sub/superscripts are LaTeX, never Unicode letters.** Write `$E_k$`, `$v_{initial}$`, `$x^{2n}$`, `$K_p$`, `$\ce{H2O}$`; never `Eₖ`, `vᵢₙᵢₜᵢₐₗ` or `xⁿ⁺¹` typed as Unicode (the terminal draws those letters from several fonts and the line wobbles), and never a bare `^` or `_` outside `$…$` (`m s^-2` is the one allowed plain form). A gate (`glyphs`) fails the chapter on Unicode sub/superscript letters; `.venv/bin/python build/glyphs.py --write <file>` repairs them.
+
 Write only the pack JSON, its generator script, its lesson note, its teaching cards
 (`build/work/teach/<subtopic>.json`) and `build/work/mcq/overrides.json`. Never edit code, other chapters or `foundry/`.
 Never run git commands. Aim for at most 20 tool calls.

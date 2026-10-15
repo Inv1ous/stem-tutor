@@ -17,6 +17,7 @@ a `no-loss` gate proves nothing that was there before was removed or changed.
                                           tiebreak, fixer, adjudicator)
   refine.py dispatch <subtopic>           blind solvers for the NEW questions and the checker of the additions
   refine.py queue <role> <subtopics…>     start that role for each chapter as slots free up (run it detached)
+  refine.py tts <subtopic…|--all> | status   read-aloud audio (same as foundry tts): local CPU only, no allowance
   refine.py coverage                      which chapters were refined, when, how much; which still lack diagrams
   refine.py packet <subtopic>             open disputes and findings for the manager
   refine.py resolve <subtopic> <ref> keep|fix [instruction]
@@ -179,11 +180,21 @@ def _entry_problems(where: str, old: dict, new: dict, fixed: tuple = ()) -> list
     return out
 
 
+def _glyph_fixed(pack: dict, note: str) -> tuple[dict, str]:
+    """The chapter as build/glyphs.py writes it: a repair of unsafe Unicode sub/superscripts (Eₖ → $E_k$) is not a loss,
+    so both sides of the comparison are put through the very transformation (idempotent: fixed text stays as it is)."""
+    import glyphs
+    return glyphs.fix_data(pack)[0], "\n".join(glyphs.fix_text(line) for line in note.split("\n"))
+
+
 def no_loss(before: dict, pack: dict, note: str) -> list[str]:
     """What the refine pass removed or changed. `before` is the snapshot ({"pack", "note"}). Allowed: new items,
     worked examples, flashcards, misconceptions, diagrams, teach-card fields, note lines; an empty field of an existing
-    item filled in (an explanation an extra lacked). Everything else that was there must still be there, unchanged."""
-    old, out = before["pack"], []
+    item filled in (an explanation an extra lacked); a glyph repair (see _glyph_fixed). Everything else that was there
+    must still be there, unchanged."""
+    old, was_note = _glyph_fixed(before["pack"], before.get("note", ""))
+    pack, note = _glyph_fixed(pack, note)
+    before, out = {**before, "pack": old, "note": was_note}, []
     for key, val in old.items():
         if key in LISTS or key == "teach":
             continue
@@ -267,7 +278,7 @@ def plan_problems(sub: str, before: dict, pack: dict, plan: dict | None, note: s
 
 def gates(sub: str) -> dict:
     """The foundry's gates (validator, note lint, syllabus, figures: links + diagrams), then no-loss and the plan."""
-    g = fd.gates(sub)
+    g = fd.gates(sub)  # includes the glyphs gate
     before = snapshot(sub)
     if before is None or not pack_path(sub).exists():
         return {**g, "no_loss": 0, "planned": 0}
@@ -728,7 +739,7 @@ def cmd_gates(sub: str) -> dict:
 
 
 def cmd_sign(sub: str) -> None:
-    g = gates(sub)
+    g, _ = fd.settle_glyphs(sub, gates, chapter)
     with chapter(sub) as st:
         st["gates"] = g
         open_ = [d["id"] for d in st["disputes"] if d["status"] == "open"] + \
@@ -747,6 +758,7 @@ def cmd_sign(sub: str) -> None:
     if not ready:
         raise SystemExit(f"{sub}: not ready (stage {stage}, gates {g}, open {open_})")
     release(sub)
+    fd.speech_after_sign(sub, state=chapter, logs=LOGS)  # new audio for the additions, in the background
 
 
 def chapter_paths(sub: str) -> list[str]:
@@ -932,7 +944,7 @@ def cmd_collect(name: str, sub: str, out: str, code: str = "0") -> None:
     except OSError:
         said = ""
     limit = bool(facts.get("limit")) or (exit_code != 0 and any(w in said for w in router.LIMIT_WORDS))
-    g = gates(sub) if role in ("refiner", "fixer") and exit_code == 0 else None
+    g = fd.settle_glyphs(sub, gates, chapter)[0] if role in ("refiner", "fixer") and exit_code == 0 else None
     wrote = True
     if job.get("expects"):
         f = ROOT / job["expects"]
@@ -995,7 +1007,17 @@ def coverage() -> dict:
                 if not json.loads(pk.read_text()).get("diagrams"):
                     bare.append(s["id"])
     signed = signed_chapters()
-    return {"refined": refined, "never": [s for s in signed if s not in refined], "no_diagram": sorted(set(bare), key=fd._natural)}
+    import glyphs
+    wobbly = []  # chapters whose stored pack or note still has an unsafe Unicode sub/superscript (build/glyphs.py repairs)
+    for s in dict.fromkeys(signed + list(refined)):
+        pk = pack_path(s)
+        if pk.exists():
+            pack = json.loads(pk.read_text())
+            note = note_path(pack)
+            if glyphs.data_problems(pack) or (note.is_file() and glyphs.problems(note.read_text(encoding="utf-8"))):
+                wobbly.append(s)
+    return {"speech_gaps": fd.pregen.gaps_report(), "refined": refined, "never": [s for s in signed if s not in refined], "no_diagram": sorted(set(bare), key=fd._natural),
+            "glyphs": sorted(wobbly, key=fd._natural)}
 
 
 def cmd_coverage(args: list[str]) -> None:
@@ -1009,6 +1031,10 @@ def cmd_coverage(args: list[str]) -> None:
         print(f"{sub:<11} {r['stage']:<11} {r['passes']:<8} {_short_date(r['last']):<11} {added}")
     print(f"\nSigned chapters never refined ({len(c['never'])}): {' '.join(c['never'][:40])}"
           + (" …" if len(c["never"]) > 40 else ""))
+    if c["glyphs"]:
+        print(f"\nChapters with Unicode sub/superscript letters that wobble in the terminal ({len(c['glyphs'])}): "
+              f"{' '.join(c['glyphs'])}  (repair: .venv/bin/python build/glyphs.py --write)")
+    fd.pregen.print_gaps()
     if c["no_diagram"]:
         print(f"\nBuilt chapters with points a figure shows and no diagram yet ({len(c['no_diagram'])}): "
               f"{' '.join(c['no_diagram'])}")
@@ -1105,6 +1131,9 @@ def main(argv: list[str]) -> None:
         cmd_wait(*(float(x) for x in rest[:1]))
     elif cmd == "coverage":
         cmd_coverage(rest)
+    elif cmd == "tts":
+        if fd.pregen.cli(rest):
+            sys.exit(1)
     elif cmd == "collect":
         cmd_collect(*rest)
     elif cmd == "watch":

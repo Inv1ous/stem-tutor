@@ -37,6 +37,7 @@ def fdy(tmp_path, monkeypatch):
     monkeypatch.setenv("FOUNDRY_NOTIFY", "0")  # no Mac notifications from tests
     monkeypatch.setenv("FOUNDRY_PUBLISH", "0")  # never publish into the real vault from tests
     monkeypatch.setenv("FOUNDRY_COMMIT", "0")
+    monkeypatch.setenv("FOUNDRY_PREGEN", "0")  # no audio pre-generation (nor the learner's vault) from tests
     fake = str(REPO / "tests/fake_worker.py")
     monkeypatch.setenv("FOUNDRY_CODEX", fake)
     monkeypatch.setenv("FOUNDRY_CLAUDE", fake)
@@ -1012,3 +1013,51 @@ def test_the_foundry_counts_refines_running_jobs_and_will_not_take_a_chapter_it_
     (tmp_path / "refine/state" / "9702-2.1.json").write_text(json.dumps({"sub": "9702-2.1", "stage": "ready", "jobs": {}}))
     fdy.cmd_add(["9702-2.1"])
     assert "already on the board" in capsys.readouterr().out or (fdy.STATE / "9702-2.1.json").exists()
+
+
+# ---------------- sub/superscript glyphs: a gate, and a mechanical repair ----------------
+def put_glyphs(fdy, note_extra="", item_extra=""):
+    """Type Unicode sub/superscript letters into the chapter, as a drafter might: Eₖ in an item, vᵢₙᵢₜᵢₐₗ in the note."""
+    pack = json.loads(fdy.pack_path(SUB).read_text())
+    pack["items"][0]["explanation"] = (pack["items"][0].get("explanation") or "Because.") + item_extra
+    fdy.pack_path(SUB).write_text(json.dumps(pack, indent=1))
+    note = fdy.NOTES / pack["note"]
+    note.write_text(note.read_text() + note_extra)
+
+
+def test_the_gates_fail_on_unicode_sub_and_superscript_letters(fdy):
+    assert fdy.gates(SUB)["glyphs"] == 0
+    put_glyphs(fdy, "\nThe speed vᵢₙᵢₜᵢₐₗ is given.\n", " The energy Eₖ rises.")
+    g = fdy.gates(SUB)
+    assert not g["ok"] and g["glyphs"] == 2 and not (g["validator"] or g["lint"] or g["syllabus"] or g["figures"])
+    assert any(line.startswith("glyphs ") and "$E_k$" in line for line in g["first"])
+    put_glyphs(fdy, "\nSafe ones are fine: H₂O, m s⁻², 10⁻³, xⁿ, Cu²⁺.\n")  # these never fail the gate
+
+
+def test_a_chapter_that_fails_only_on_glyphs_is_repaired_without_a_retry(fdy):
+    fdy.cmd_add([SUB])
+    put_glyphs(fdy, "\nThe speed vᵢₙᵢₜᵢₐₗ is given.\n", " The energy Eₖ rises.")
+    before = fdy.pack_path(SUB).read_text()
+    g, n = fdy.settle_glyphs(SUB, fdy.gates, fdy.chapter)
+    assert n == 2 and g["ok"] and g["glyphs"] == 0
+    assert "$E_k$" in fdy.pack_path(SUB).read_text() and "Eₖ" not in fdy.pack_path(SUB).read_text()
+    assert before.count("\n") == fdy.pack_path(SUB).read_text().count("\n")  # the file's formatting is kept
+    note = (fdy.NOTES / json.loads(fdy.pack_path(SUB).read_text())["note"]).read_text()
+    assert "$v_{initial}$" in note
+    assert fdy.load(SUB)["history"][-1]["note"] == "glyphs auto-fixed: 2 strings"
+
+
+def test_the_glyph_repair_waits_when_something_else_also_fails(fdy):
+    fdy.cmd_add([SUB])
+    put_glyphs(fdy, "\nBroken maths: $\\frac{1}{2$ and Eₖ.\n")
+    g, n = fdy.settle_glyphs(SUB, fdy.gates, fdy.chapter)
+    assert n == 0 and not g["ok"] and g["glyphs"] and g["lint"]
+
+
+def test_sign_repairs_glyphs_itself(fdy):
+    fdy.cmd_add([SUB])
+    with fdy.chapter(SUB) as st:
+        st["stage"] = "sign"
+    put_glyphs(fdy, "\nEnergy Eₖ.\n")
+    fdy.cmd_sign(SUB)
+    assert fdy.load(SUB)["stage"] == "ready" and fdy.gates(SUB)["glyphs"] == 0

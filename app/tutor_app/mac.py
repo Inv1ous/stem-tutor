@@ -262,5 +262,5 @@ def doctor(vault: Path) -> list[tuple[bool, str, str]]:
         rows.append((True, f"Terminal interface library ready (textual {textual.__version__})", ""))
     except ImportError:
         rows.append((False, "Terminal interface library", "Run the installer again (bin/tutor --setup)."))
-    from . import setup_look
-    return rows + setup_look.doctor_rows(vault)
+    from . import setup_look, tts
+    return rows + tts.doctor_rows(vault) + setup_look.doctor_rows(vault)

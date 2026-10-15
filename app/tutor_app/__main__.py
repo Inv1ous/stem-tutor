@@ -1,4 +1,5 @@
-"""`tutor` — start the app.  `tutor doctor` — check everything is set up.  `tutor look` — set up the Terminal window."""
+"""`tutor` — start the app.  `tutor doctor` — check everything is set up.  `tutor look` — set up the Terminal window.
+`tutor tts setup|say|voices|doctor` — reading aloud with Kokoro."""
 from __future__ import annotations
 
 import argparse
@@ -11,8 +12,17 @@ from . import config, look, mac
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="tutor", description="STEM Tutor: study in the terminal, notes in Obsidian.")
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if argv[:1] == ["tts"]:  # `tutor tts setup | say "…" | voices | doctor`: its own options
+        from . import tts
+        rest, vault = argv[1:], None
+        if "--vault" in rest and rest.index("--vault") + 1 < len(rest):
+            i = rest.index("--vault")
+            vault, rest = Path(rest[i + 1]), rest[:i] + rest[i + 2:]
+        return tts.cli(rest, vault or config.vault_path())
     ap.add_argument("command", nargs="?", choices=["doctor", "look"],
-                    help="doctor = check the setup; look = set up macOS Terminal for the Night and Day looks (once)")
+                    help="doctor = check the setup; look = set up macOS Terminal for the Night and Day looks (once); "
+                         "tts = reading aloud (tutor tts setup | say | voices | doctor)")
     ap.add_argument("--undo", action="store_true", help="with look: back to the Classic look, and how to undo the rest")
     ap.add_argument("--device-colours", action="store_true",
                     help="with look: write the profiles' colours as plain numbers (if the window's edge shows)")

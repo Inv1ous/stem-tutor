@@ -1,5 +1,31 @@
 # Changelog
 
+## 2.4.0 — 2026-10-15
+
+Asked by the learner.
+
+- **Read aloud with Kokoro, locally.** `ctrl+e` reads what is on screen (explanations, feedback, AI replies, challenge
+  solutions) and stops on Next, Esc or leaving the screen; a "▸ Read aloud" button joins the feedback buttons; Settings
+  has read aloud, auto-read, voice (British `bf_emma` by default) and speed. Nothing is installed or downloaded until you
+  run `tutor tts setup` (it asks first: `kokoro-onnx` and two model files, about 354 MB from the project's GitHub
+  release; resumable, size-checked). `tutor tts say|voices|doctor` help you try it. Audio plays with `afplay`.
+- **Maths is spoken as words** (`tutorlib/speech.py`): `m s⁻²` "metres per second squared", `∫₀¹ x² dx` "the integral from
+  zero to one of x squared, d x", sums, products, limits, fractions, roots, Greek letters, chemical formulas and
+  equations, nuclides, units with correct plurals; never LaTeX, braces or carets. On all 87,253 strings of the built
+  content 10 could not be spoken (corrupted source characters). `speech_gaps` lists such lines.
+- **AI replies carry their own spoken version.** With read aloud on, the AI ends each on-the-spot comment (chat, explain,
+  judge, re-mark) with a hidden `[[SPEECH]]` line in plain words, or a `speech` field for one-shot comments; it is never
+  shown or saved, costs nothing when read aloud is off, and falls back to the local converter if the AI forgets it.
+- **The foundry and refine pre-generate the audio.** After a chapter is signed (and after a refine pass) the speech script
+  is written (`build/out/speech/<sub>.json`) and, when Kokoro is set up, the audio is made in the background into
+  `<vault>/.tutor/audio/`, so lessons play instantly. `bin/foundry tts <chapters|--all>`, `bin/refine tts ...` and
+  `tts status` fill or inspect it. A line that cannot be spoken can carry a `speech` override.
+- **Straight sub- and superscripts.** Subscript letters such as ₖ ᵢₙᵢₜᵢₐₗ are missing from Menlo and SF Mono, so the terminal
+  mixed fonts and the text wobbled. Unicode forms are now used only when every glyph is in the fonts (digits, signs,
+  brackets, ⁿ ⁱ); anything else is drawn linearly (`E_k`, `v_initial`, `e^(−kt)`, `x^(2n)`). 101 strings in existing
+  content that typed such glyphs directly were repaired (`build/glyphs.py`), and the foundry and refine gates catch and
+  repair them, so a writer that types one costs no retry.
+
 ## 2.3.0 — 2026-10-14
 
 Asked by the learner.

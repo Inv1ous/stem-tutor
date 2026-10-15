@@ -20,7 +20,7 @@ def shown(renderable, width: int = 80) -> str:
     (r"$^{35}_{17}\mathrm{Cl}^-$", "³⁵₁₇Cl⁻"), (r"$^{40}\mathrm{Ar}$", "⁴⁰Ar"),
     (r"$\mathrm{X}\to{}^{32}\mathrm{P}+{}^{1}_{1}\mathrm{p}$", "X → ³²P + ¹₁p"),
     (r"$\text{Cu}^{2+}$", "Cu²⁺"), (r"$\text{kJ mol}^{-1}$", "kJ mol⁻¹"),  # no brackets round a text group
-    (r"$\int_0^1 x^2\,dx$", "∫₀¹ x² dx"), (r"$\sum_{i=1}^n x_i$", "∑ᵢ₌₁ⁿ xᵢ"), (r"$\prod_{i=1}^{n} a_i$", "∏ᵢ₌₁ⁿ aᵢ"),
+    (r"$\int_0^1 x^2\,dx$", "∫₀¹ x² dx"), (r"$\sum_{i=1}^n x_i$", "∑_(i=1)^n x_i"), (r"$\prod_{i=1}^{n} a_i$", "∏_(i=1)^n a_i"),
     (r"$\binom{n}{r}$", "C(n,r)"),
     (r"$\begin{vmatrix}a&b\\c&d\end{vmatrix}$", "|a  b; c  d|"),
     (r"$f(x)=\begin{cases}1 & x>0\\0 & x\le0\end{cases}$", "f(x) = {1, x>0; 0, x≤0}"),
@@ -83,14 +83,14 @@ def test_a_card_with_no_body_is_just_its_title():
     (r"$\ce{[Fe(CN)6]^{3-}}$", "[Fe(CN)₆]³⁻"), (r"$\ce{[Fe(CN)6]3-}$", "[Fe(CN)₆]³⁻"),
     (r"$\ce{CH3-CH3}$", "CH₃-CH₃"), (r"$\ce{CH2=CH2}$", "CH₂=CH₂"), (r"$\ce{CuSO4.5H2O}$", "CuSO₄·5H₂O"),
     # sub- and superscripts together, and fractions with only the brackets they need
-    (r"$x_1^2$", "x₁²"), (r"$x_{n+1}$", "xₙ₊₁"), (r"$E_k$", "Eₖ"), (r"$v_y$", "v_y"), (r"$T_{1/2}$", "T½"),
+    (r"$x_1^2$", "x₁²"), (r"$x_{n+1}$", "x_(n+1)"), (r"$E_k$", "E_k"), (r"$v_y$", "v_y"), (r"$T_{1/2}$", "T½"),
     (r"$\frac{dy}{dx}$", "dy/dx"), (r"$\frac{d^2y}{dx^2}$", "d²y/dx²"), (r"$\frac{mv^2}{r}$", "mv²/r"),
     (r"$\frac{a+b}{c}$", "(a + b)/c"), (r"$\frac{1}{2a}$", "1/(2a)"), (r"$\frac{2}{7}$", "²⁄₇"), (r"$\frac12$", "½"),
     (r"$\frac{\sqrt{3}}{2}$", "√3/2"), (r"$\sqrt[3]{x}$", "∛x"), (r"$\sqrt[n]{x}$", "ⁿ√x"),
     (r"$\frac{\Delta s}{\Delta t}$", "Δs/Δt"), (r"$\frac{5}{\sqrt{3}}$", "5/√3"), (r"$\sqrt[5]{32}$", "⁵√32"),
     (r"$\sqrt{a^2+b^2}$", "√(a² + b²)"),
     # standard state ⦵ as in the pack titles, after any subscript
-    (r"$\Delta H^\ominus$", "ΔH⦵"), (r"$\Delta H_r^{\ominus}$", "ΔHᵣ⦵"), (r"$E^\ominus_{cell}$", "Ecell⦵"),
+    (r"$\Delta H^\ominus$", "ΔH⦵"), (r"$\Delta H_r^{\ominus}$", "ΔH_r⦵"), (r"$E^\ominus_{cell}$", "E_cell⦵"),
     # bold vectors, braces, function names without stray spaces, primes
     (r"$\mathbf{F}$", "𝐅"), (r"$\boldsymbol{a}$", "𝐚"), (r"$\{1,2\}$", "{1,2}"),
     (r"$\ln x$", "ln x"), (r"$\log_{10} x$", "log₁₀ x"), (r"$\sin(x)$", "sin(x)"), (r"$\sin^2\theta$", "sin² θ"),
@@ -125,7 +125,7 @@ def test_the_flatlatex_internals_we_refine_still_exist():
     (r"$\ce{H+} + \ce{OH-}$", "H⁺ + OH⁻"), (r"$\ce{N2 + 3H2 <=> 2NH3}$", "N₂ + 3H₂ ⇌ 2NH₃"),
     (r"$\ce{Cu^2+ + 2e- -> Cu}$", "Cu²⁺ + 2e⁻ → Cu"), (r"$\ce{CH2=CH2}$", "CH₂=CH₂"),
     (r"$\Delta G^\ominus=\Delta H^\ominus-T\Delta S^\ominus$", "ΔG⦵ = ΔH⦵ − TΔS⦵"),
-    (r"$\Delta H_r^\ominus=-114\,\text{kJ mol}^{-1}$", "ΔHᵣ⦵ = −114 kJ mol⁻¹"),
+    (r"$\Delta H_r^\ominus=-114\,\text{kJ mol}^{-1}$", "ΔH_r⦵ = −114 kJ mol⁻¹"),
     (r"$x\in\{1,2\}$", "x ∈ {1,2}"), (r"$A\iff B$", "A ⇔ B"), (r"$\mathrm{pH}=-\log_{10}[\ce{H+}]$", "pH = −log₁₀ [H⁺]"),
     (r"$\lim_{x\to0}\frac{\sin x}{x}=1$", "lim[x→0] (sin x)/x = 1"), (r"$\text{rate}=k[A]^2[B]$", "rate = k[A]²[B]"),
     (r"$x\rightarrow 0$", "x → 0"), (r"$f(x)=\begin{cases}x & x\ge0\\-x & x<0\end{cases}$", "f(x) = {x, x≥0; −x, x<0}"),
@@ -133,10 +133,10 @@ def test_the_flatlatex_internals_we_refine_still_exist():
     (r"$\begin{pmatrix}k&k-1\\2&3\end{pmatrix}$", "(k  k − 1; 2  3)"), (r"$20 \le t < 35$", "20 ≤ t < 35"),
     (r"$1, 2, \ldots, n$", "1,2,…,n"), (r"$\SI{3.0e-8}{m}$", "3.0e−8 m"),
     (r"$2.0\times10^{-3}\,\mathrm{mol\,dm^{-3}}$", "2.0 × 10⁻³ mol dm⁻³"), (r"$>5$", ">5"), (r"$\pm 2$", "±2"),
-    (r"$E_k=\tfrac12mv^2$", "Eₖ = ½mv²"), (r"$\text{well-known}$", "well-known"), (r"$|x-1|<2$", "|x − 1| < 2"),
+    (r"$E_k=\tfrac12mv^2$", "E_k = ½mv²"), (r"$\text{well-known}$", "well-known"), (r"$|x-1|<2$", "|x − 1| < 2"),
     (r"$1+2+\dots+n$", "1 + 2 + … + n"), (r"$x \ge -3$", "x ≥ −3"), (r"$e^{-\lambda t}$", "e^(−λt)"),
     (r"$M^{q+}$", "M^(q+)"), (r"$(x+)$", "(x+)"),
-    (r"$\int x\,dx$", "∫ x dx"), (r"$\sum_{x} P(X=x) = 1$", "∑ₓ P(X=x) = 1"), (r"$\oint^{b}_{a} f$", "∮ₐᵇ f"),
+    (r"$\int x\,dx$", "∫ x dx"), (r"$\sum_{x} P(X=x) = 1$", "∑_x P(X=x) = 1"), (r"$\oint^{b}_{a} f$", "∮_a^b f"),
     (r"$\int_0^{\pi} \sin x\,dx = 2$", "∫₀^π sin x dx = 2"),
 ])
 def test_maths_is_spaced_like_a_textbook(tex, want):
@@ -155,7 +155,7 @@ def test_pdf_leftovers_in_content_show_as_symbols_or_nothing():
 
 
 @pytest.mark.parametrize("tex,want", [  # found by an independent review of the new maths format
-    (r"$\int_0^\pi \sin x\,dx$", "∫₀^π sin x dx"), (r"$\sum_{n=0}^\infty a_n$", "∑ₙ₌₀^∞ aₙ"),  # unbraced \pi, \infty
+    (r"$\int_0^\pi \sin x\,dx$", "∫₀^π sin x dx"), (r"$\sum_{n=0}^\infty a_n$", "∑_(n=0)^∞ a_n"),  # unbraced \pi, \infty
     (r"$\ce{Na(g) -> Na+(g) + e-}$", "Na(g) → Na⁺(g) + e⁻"), (r"$\ce{Fe3+(aq)}$", "Fe³⁺(aq)"),  # charge, then state
     (r"$\ce{Mg-(g)}$", "Mg⁻(g)"),
     (r"$e^{x^2}$", "e^(x²)"), (r"$\int_1^{e^2} \frac{1}{x}\,dx$", "∫₁^(e²) 1/x dx"),  # (eˣ)² is another number
@@ -175,7 +175,7 @@ def test_review_findings_read_as_printed(tex, want):
     (r"$\int_0^\frac{\pi}{2}\sin x\,dx$", "∫₀^(π/2) sin x dx"), (r"$\int_0^\sqrt{2} x\,dx$", "∫₀^(√2) x dx"),
     (r"$\lim_{\delta x\to0}\frac{\delta y}{\delta x}$", "lim[δx→0] δy/δx"),
     (r"$\displaystyle\frac{a}{b}$", "a/b"), (r"$\lvert x\rvert$", "|x|"), (r"$\Big| x \Big|$", "|x|"),
-    (r"$\big(x\big)$", "(x)"), (r"$\det A$", "det A"), (r"$\sum\limits_{i=1}^{n} i$", "∑ᵢ₌₁ⁿ i"),
+    (r"$\big(x\big)$", "(x)"), (r"$\det A$", "det A"), (r"$\sum\limits_{i=1}^{n} i$", "∑_(i=1)^n i"),
 ])
 def test_second_review_findings_read_as_printed(tex, want):
     assert to_terminal(tex) == want
@@ -197,7 +197,7 @@ def test_brackets_and_symbols_without_a_flatlatex_name(tex, want):
 @pytest.mark.parametrize("tex,want", [  # an accent over one letter combines; over several it still reads
     (r"$\overrightarrow{AB}$", "→AB"), (r"$\vec{AB}$", "→AB"), (r"$\overleftarrow{AB}$", "←AB"),
     (r"$\overrightarrow{OA}+\overrightarrow{AB}=\overrightarrow{OB}$", "→OA + →AB = →OB"),
-    (r"$|\overrightarrow{AB}|=5$", "|→AB| = 5"), (r"$\vec{a}$", "a⃗"), (r"$\vec{F}_{net}$", "F⃗ₙₑₜ"),
+    (r"$|\overrightarrow{AB}|=5$", "|→AB| = 5"), (r"$\vec{a}$", "a⃗"), (r"$\vec{F}_{net}$", "F⃗_net"),
     (r"$\overline{AB}$", "A̅B̅"), (r"$\bar{AB}$", "A̅B̅"), (r"$\overline{x}$", "x̅"), (r"$\bar{x}$", "x̄"),
     (r"$\underline{AB}$", "A̲B̲"), (r"$\underline{a}$", "a̲"), (r"$\bar{z_1}\bar{z_2}$", "z̄₁z̄₂"),
     (r"$\overline{z_1 z_2}$", "z̅₁̅z̅₂̅"), (r"$\hat{\mathbf{n}}$", "𝐧̂"), (r"$\widehat{ABC}=90^\circ$", "∠ABC = 90°"),
@@ -222,24 +222,24 @@ def test_accent_edge_cases(tex, want):
     (r"$\ce{CH3CH2OH ->[conc. H2SO4] CH2=CH2 + H2O}$", "CH₃CH₂OH —conc. H₂SO₄→ CH₂=CH₂ + H₂O"),
     (r"$\ce{A ->[Ni][150 ^\circ C] B}$", "A —Ni, 150 °C→ B"),
     (r"$\ce{A <-> B}$", "A ⟷ B"), (r"$\ce{N2 + 3H2 <=>> 2NH3}$", "N₂ + 3H₂ ⇌ 2NH₃"),
-    (r"$\overset{a}{b}$", "bᵃ"), (r"$\underset{x}{\max}$", "maxₓ"),
+    (r"$\overset{a}{b}$", "b^a"), (r"$\underset{x}{\max}$", "max_x"),
 ])
 def test_labelled_arrows_read_in_one_line(tex, want):
     assert to_terminal(tex) == want
 
 
 @pytest.mark.parametrize("tex,want", [  # a subscript with no Unicode form: a short lowercase label on a capital joins
-    (r"$K_c$", "Kc"), (r"$K_w=[\ce{H+}][\ce{OH-}]$", "Kw = [H⁺][OH⁻]"), (r"$E_{cell}$", "Ecell"),
-    (r"$K_c=\frac{[C]^c[D]^d}{[A]^a[B]^b}$", "Kc = [C]ᶜ[D]ᵈ/([A]ᵃ[B]ᵇ)"), (r"$F_y=F\sin\theta$", "F_y = F sin θ"),
-    (r"$E^{\ominus}_{\text{cell}}$", "Ecell⦵"), (r"$\Delta H_f^\ominus$", "ΔHf⦵"), (r"$\Delta H_c^{\ominus}$", "ΔHc⦵"),
-    (r"$\Delta G^\ominus=-nFE^\ominus_{cell}$", "ΔG⦵ = −nFEcell⦵"), (r"$S_\infty=\frac{a}{1-r}$", "S∞ = a/(1 − r)"),
+    (r"$K_c$", "K_c"), (r"$K_w=[\ce{H+}][\ce{OH-}]$", "K_w = [H⁺][OH⁻]"), (r"$E_{cell}$", "E_cell"),
+    (r"$K_c=\frac{[C]^c[D]^d}{[A]^a[B]^b}$", "K_c = [C]^c[D]^d/([A]^a[B]^b)"), (r"$F_y=F\sin\theta$", "F_y = F sin θ"),
+    (r"$E^{\ominus}_{\text{cell}}$", "E_cell⦵"), (r"$\Delta H_f^\ominus$", "ΔH_f⦵"), (r"$\Delta H_c^{\ominus}$", "ΔH_c⦵"),
+    (r"$\Delta G^\ominus=-nFE^\ominus_{cell}$", "ΔG⦵ = −nFE_cell⦵"), (r"$S_\infty=\frac{a}{1-r}$", "S∞ = a/(1 − r)"),
     # otherwise the underscore stays: same case, a capital label, a coordinate (x, y, z), a long word
-    (r"$b=\frac{S_{xy}}{S_{xx}}$", "b = S_xy/Sₓₓ"), (r"$v_y$", "v_y"), (r"$N_A$", "N_A"), (r"$T_{\text{K}}$", "T_K"), (r"$\sum S_{products}$", "∑ S_products"),
+    (r"$b=\frac{S_{xy}}{S_{xx}}$", "b = S_xy/S_xx"), (r"$v_y$", "v_y"), (r"$N_A$", "N_A"), (r"$T_{\text{K}}$", "T_K"), (r"$\sum S_{products}$", "∑ S_products"),
     (r"$p_{\ce{NH3}}$", "p_NH₃"), (r"$\Delta_f H^\ominus$", "Δ_f H⦵"),
     # either way: a space before the next letter, and no brackets the subscript does not need
     (r"$k_B T$", "k_B T"), (r"$E=\frac{3}{2}k_B T$", "E = ³⁄₂k_B T"), (r"$v_y^2$", "v_y²"),
-    (r"$\sqrt{v^2-v_y^2}$", "√(v² − v_y²)"), (r"$\frac{1}{R_T}$", "1/R_T"), (r"$K_c^2$", "Kc²"),
-    (r"$K_p=\frac{p_C^2}{p_A p_B}$", "Kₚ = p_C²/(p_A p_B)"), (r"$^{x}_{y}\mathrm{A}$", "ˣ_yA"),
+    (r"$\sqrt{v^2-v_y^2}$", "√(v² − v_y²)"), (r"$\frac{1}{R_T}$", "1/R_T"), (r"$K_c^2$", "K_c²"),
+    (r"$K_p=\frac{p_C^2}{p_A p_B}$", "K_p = p_C²/(p_A p_B)"), (r"$^{x}_{y}\mathrm{A}$", "^x_y A"),
 ])
 def test_subscripts_without_a_unicode_form(tex, want):
     assert to_terminal(tex) == want
@@ -252,13 +252,96 @@ def test_subscripts_without_a_unicode_form(tex, want):
     (r"$\operatorname{arcosh} x$", "arcosh x"), (r"$\operatorname{Re}(z)$", "Re(z)"), (r"$\sech^2 x$", "sech² x"),
     (r"$\operatorname{arsinh}(x)$", "arsinh(x)"), (r"$\coth x$", "coth x"),
     (r"$z^* = x - iy$", "z* = x − iy"), (r"$zz^{*}=|z|^2$", "zz* = |z|²"),
-    (r"$\mathrm{pH}=\mathrm{p}K_a+\log\frac{[\ce{A-}]}{[\ce{HA}]}$", "pH = pKₐ + log [A⁻]/[HA]"),
-    (r"$K_a=\frac{[\ce{H+}][\ce{A-}]}{[\ce{HA}]}$", "Kₐ = [H⁺][A⁻]/[HA]"), (r"$\frac{P(A)}{P(B)}$", "P(A)/(P(B))"),
+    (r"$\mathrm{pH}=\mathrm{p}K_a+\log\frac{[\ce{A-}]}{[\ce{HA}]}$", "pH = pK_a + log [A⁻]/[HA]"),
+    (r"$K_a=\frac{[\ce{H+}][\ce{A-}]}{[\ce{HA}]}$", "K_a = [H⁺][A⁻]/[HA]"), (r"$\frac{P(A)}{P(B)}$", "P(A)/(P(B))"),
     (r"$\varepsilon = -N\frac{d\Phi}{dt}$", "ε = −N dΦ/dt"), (r"$F=\frac{dp}{dt}$", "F = dp/dt"),
     (r"$\abs{x}+\norm{\mathbf{v}}$", "|x| + ‖𝐯‖"), (r"$\dv{y}{x}$", "dy/dx"), (r"$\pdv{f}{x}$", "∂f/∂x"),
     (r"$\qty{9.81}{m.s^{-2}}$", "9.81 m.s⁻²"), (r"$\unit{kJ\,mol^{-1}}$", "kJ mol⁻¹"), (r"$\pu{-890 kJ mol-1}$", "−890 kJ mol⁻¹"),
     (r"$\boxed{x=2}$", "x = 2"), (r"$x\phantom{0}=1$", "x = 1"), (r"$\textcolor{red}{x}+\color{blue}y$", "x + y"),
-    (r"$10\textsuperscript{th}$", "10ᵗʰ"), ("$$\n\\chemfig{H-O-H}\n$$", "H-O-H"), (r"$\chemfig{CH_3-[:30]OH}$", "CH₃-OH"),
+    (r"$10\textsuperscript{th}$", "10^(th)"), ("$$\n\\chemfig{H-O-H}\n$$", "H-O-H"), (r"$\chemfig{CH_3-[:30]OH}$", "CH₃-OH"),
 ])
 def test_paper_maths_reads_as_printed(tex, want):
     assert to_terminal(tex) == want
+
+
+# --- sub/superscripts: only glyphs every terminal font draws are turned into Unicode; the rest are written linearly ---
+from pathlib import Path  # noqa: E402
+
+from tutor_app import texmath  # noqa: E402
+
+_REPO = Path(__file__).resolve().parents[2]
+
+
+@pytest.mark.parametrize("tex,want", [
+    (r"$v_{initial}$", "v_initial"), (r"$E_k$", "E_k"), (r"$x_{max}$", "x_max"), (r"$T_{1/2}$", "T½"),
+    (r"$x_{1/2}$", "x_(1/2)"), (r"$x_{n+1}$", "x_(n+1)"), (r"$a_{i,j}$", "a_(i,j)"), (r"$\beta_{max}$", "β_max"),
+    (r"$^{14}_{6}\mathrm{C}$", "¹⁴₆C"), (r"$10^{-3}$", "10⁻³"), (r"$10^{−3}$", "10⁻³"), (r"$\mathrm{m\,s^{-2}}$", "m s⁻²"),
+    (r"$e^{-kt}$", "e^(−kt)"), (r"$x^n$", "xⁿ"), (r"$x^i$", "xⁱ"), (r"$x^{2n}$", "x^(2n)"), (r"$x^a$", "x^a"),
+    (r"$2^{n+1}$", "2^(n+1)"), (r"$\mathrm{H_2O}$", "H₂O"), (r"$\ce{Cu^2+}$", "Cu²⁺"), (r"$\ce{SO4^{2-}}$", "SO₄²⁻"),
+    (r"$\int_0^1 x^2\,dx$", "∫₀¹ x² dx"), (r"$\sum_{i=1}^{n} i$", "∑_(i=1)^n i"), (r"$\sum_{i=1}^{10} i$", "∑_(i=1)^(10) i"),
+    (r"$\lim_{x\to0}f$", "lim[x→0] f"), (r"$\log_{10}x$", "log₁₀ x"), (r"$\log_b x$", "log_b x"),
+])
+def test_scripts_are_unicode_only_when_every_glyph_is_safe(tex, want):
+    assert to_terminal(tex) == want
+
+
+def test_units_in_plain_text_keep_their_safe_glyphs():
+    assert pretty_units("a = 9.8 m s^-2 and 10^-3") == "a = 9.8 m s⁻² and 10⁻³"
+
+
+def test_raw_unsafe_glyphs_typed_into_text_are_drawn_linearly():
+    assert to_terminal("Eₖ and vᵢₙᵢₜᵢₐₗ, Kₚ, xᵃ") == "E_k and v_initial, K_p, x^a"
+    assert to_terminal("H₂O, Cu²⁺, m s⁻², xⁿ stay") == "H₂O, Cu²⁺, m s⁻², xⁿ stay"
+    assert to_terminal("$Eₖ=\\tfrac12mv^2$") == "E_k = ½mv²"
+
+
+def test_a_card_never_draws_a_wobbly_glyph():
+    out = shown(cards.card("ai", "Tutor", r"The speed $v_{initial}$ and energy $E_k$ with $x_{n+1}$ and $T_{1/2}$."))
+    assert "v_initial" in out and "E_k" in out and "x_(n+1)" in out and "T½" in out
+    assert not [ch for ch in out if ch in texmath.UNSAFE_GLYPHS]
+
+
+def _cmaps():
+    fonttools = pytest.importorskip("fontTools.ttLib")
+    out = {"JuliaMono": set(fonttools.TTFont(_REPO / "app/tutor_app/fonts/JuliaMono-Regular.ttf").getBestCmap())}
+    menlo = Path("/System/Library/Fonts/Menlo.ttc")
+    if menlo.exists():
+        out["Menlo"] = set(fonttools.TTCollection(str(menlo)).fonts[0].getBestCmap())
+    sf = Path("/System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/SF-Mono-Regular.otf")
+    if sf.exists():
+        out["SF Mono"] = set(fonttools.TTFont(str(sf)).getBestCmap())
+    return out
+
+
+def test_the_safe_set_is_in_the_terminal_fonts_and_the_unsafe_glyphs_are_not_all_of_them():
+    fonts = _cmaps()
+    for name, cmap in fonts.items():
+        if name == "SF Mono":  # draws the superscripts; it has no subscripts at all, so those come from one fallback font
+            assert {ord(c) for c in texmath.SAFE_SUP} <= cmap, name
+        else:
+            assert {ord(c) for c in texmath.SAFE_GLYPHS} <= cmap, name
+    if "Menlo" in fonts:  # the very letters that made the text wobble: not in Menlo, so the terminal swaps fonts per glyph
+        missing = {c for c in "ₕₖₗₘₙₚₛₜ" if ord(c) not in fonts["Menlo"]}
+        assert missing == set("ₕₖₗₘₙₚₛₜ") and missing <= texmath.UNSAFE_GLYPHS
+
+
+def _strings(obj):
+    if isinstance(obj, str):
+        yield obj
+    elif isinstance(obj, list):
+        for x in obj:
+            yield from _strings(x)
+    elif isinstance(obj, dict):
+        for x in obj.values():
+            yield from _strings(x)
+
+
+def test_no_real_content_string_renders_with_an_unsafe_script_glyph():
+    import json
+    seen: set[str] = set()
+    for f in sorted((_REPO / "build/out/packs").rglob("*.json")):
+        seen.update(_strings(json.loads(f.read_text(encoding="utf-8"))))
+    for f in sorted((_REPO / "build/out/notes").rglob("*.md")):
+        seen.update(f.read_text(encoding="utf-8").split("\n\n"))
+    bad = [s[:80] for s in seen if any(c in texmath.UNSAFE_GLYPHS for c in to_terminal(s))]
+    assert not bad, bad[:5]

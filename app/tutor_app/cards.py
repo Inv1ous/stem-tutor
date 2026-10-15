@@ -10,7 +10,7 @@ from rich.panel import Panel
 from rich.text import Text
 
 from .look import C
-from .texmath import to_terminal
+from .texmath import linearize, to_terminal
 
 CONF = {1: "Guess", 2: "Unsure", 3: "Fairly sure", 4: "Certain"}
 
@@ -53,7 +53,7 @@ def question(view: dict) -> Panel:
     if view.get("image"):
         parts.append(Text("◆ This question has a figure: see Now in Obsidian (press o).", style=C["hint"]))
     if view.get("source"):
-        parts.append(Text(view["source"], style=C["dim"]))
+        parts.append(Text(linearize(view["source"]), style=C["dim"]))
     return framed(Group(*parts), C["question"], f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left")
 
 
@@ -87,7 +87,7 @@ def feedback(fb: dict, your: str) -> Panel:
 
 
 def you(text: str, title: str = "You") -> Panel:
-    return framed(Text(text), C["you"], f"[b]{title}[/b]", title_align="right")
+    return framed(Text(linearize(text)), C["you"], f"[b]{title}[/b]", title_align="right")
 
 
 def ai(text: str, title: str = "Tutor (AI)") -> Panel:
@@ -95,4 +95,4 @@ def ai(text: str, title: str = "Tutor (AI)") -> Panel:
 
 
 def note(text: str, kind: str = "dim") -> Text:
-    return Text(text, style=C[kind])
+    return Text(linearize(text), style=C[kind])

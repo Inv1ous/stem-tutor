@@ -7,8 +7,75 @@ import unicodedata
 
 BOLD = True  # \mathbf{F} as 𝐅 (Unicode maths bold); False shows a plain F
 
-_SUB = str.maketrans("0123456789+-=()", "₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎")
-_SUP = str.maketrans("0123456789+-=()n", "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ")
+# The SAFE SET of Unicode sub/superscripts: glyphs that Menlo and the bundled JuliaMono both draw (and, for the
+# superscripts, SF Mono too). Every other one (the subscript letters ₐₑₕᵢⱼₖₗₘₙₒₚᵣₛₜᵤᵥₓ, the superscript letters ᵃᵇᶜ…)
+# is missing from the common terminal fonts, so the terminal draws it from some other font and the line looks wobbly
+# (a different height and baseline for every glyph). Those are written linearly, on the baseline: E_k, e^(-kt).
+# tests/app/test_texmath.py proves the set against the fonts' cmaps.
+SAFE_SUB = "₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎"
+SAFE_SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿⁱ"
+SAFE_GLYPHS = frozenset(SAFE_SUB + SAFE_SUP)
+_SUB = str.maketrans("0123456789+-=()", SAFE_SUB)
+_SUP = str.maketrans("0123456789+-=()n", SAFE_SUP[:-1])
+_SUP_KEYS = "0123456789+-=()"  # a superscript group of these characters is drawn in Unicode; so is a lone n or i
+
+
+def _scripts() -> dict[str, tuple[str, str]]:
+    """Every Unicode sub/superscript character → ("sub"|"super", the ordinary character), from the Unicode database."""
+    out = {}
+    for cp in [0x00B2, 0x00B3, 0x00B9] + list(range(0x2070, 0x20A0)) + list(range(0x1D2C, 0x1D6B)) \
+            + list(range(0x1D9B, 0x1DC0)) + [0x02B0, 0x02B1, 0x02B2, 0x02B3, 0x02B4, 0x02B5, 0x02B6, 0x02B7, 0x02B8,
+                                              0x02E0, 0x02E1, 0x02E2, 0x02E3, 0x02E4, 0x2C7C, 0x2C7D, 0xA69C, 0xA69D]:
+        ch = chr(cp)
+        d = unicodedata.decomposition(ch)
+        m = re.match(r"<(sub|super)> ((?:[0-9A-F]{4,5} ?)+)$", d)
+        if m:
+            out[ch] = (m.group(1), "".join(chr(int(h, 16)) for h in m.group(2).split()))
+    return out
+
+
+SCRIPT_GLYPHS = _scripts()  # unsafe ones are SCRIPT_GLYPHS minus SAFE_GLYPHS
+UNSAFE_GLYPHS = frozenset(SCRIPT_GLYPHS) - SAFE_GLYPHS
+_FNSUB = "\ue010"  # in front of the subscript of a function name: lim[x→0], log₁₀, max_x
+_LIN = "\ue00f"  # in front of a superscript group that must be written linearly (the other limit of a ∑ has no Unicode form)
+_RUN = re.compile("[" + re.escape("".join(sorted(SCRIPT_GLYPHS))) + "]+")
+
+
+def sup_is_safe(b: str) -> bool:
+    """Whether a superscript group can be drawn with Unicode glyphs: digits and signs (x², 10⁻³), or a lone n or i."""
+    return b in ("n", "i") or (bool(b) and all(ch in _SUP_KEYS for ch in b))
+
+
+def sub_is_safe(b: str) -> bool:
+    return bool(b) and all(ch in _SUP_KEYS for ch in b)
+
+
+def linear(kind: str, body: str) -> str:
+    """The baseline form of a script: _k, _initial, _(n+1), ^n, ^(-kt)."""
+    mark = "_" if kind == "sub" else "^"
+    return mark + (body if re.fullmatch(r"[^\W\d_]+", body) and (kind == "sub" or len(body) == 1) else f"({body})")
+
+
+def run_parts(run: str) -> tuple[str, str]:
+    """A run of sub/superscript characters of one kind → (kind, the ordinary characters): ₙₑₜ → ("sub", "net")."""
+    kinds = {SCRIPT_GLYPHS[c][0] for c in run}
+    return ("sub" if kinds == {"sub"} else "super"), "".join(SCRIPT_GLYPHS[c][1] for c in run)
+
+
+def unsafe_runs(text: str) -> list[re.Match]:
+    """The runs of Unicode sub/superscripts in the text that contain a glyph outside the safe set (a run is a maximal
+    stretch of one kind: Eₖ, vᵢₙᵢₜᵢₐₗ, xᵃ²)."""
+    return [m for m in _RUN.finditer(text) if any(c in UNSAFE_GLYPHS for c in m.group(0))]
+
+
+def linearize(text: str) -> str:
+    """Raw unsafe Unicode sub/superscripts typed into text → the linear form on the baseline: Eₖ → E_k, xᵃ → x^a."""
+    def one(m: re.Match) -> str:
+        parts = [(kind, body) for kind, body in (run_parts(r.group(0)) for r in re.finditer(
+            "[" + re.escape("".join(c for c in SCRIPT_GLYPHS if SCRIPT_GLYPHS[c][0] == "sub")) + "]+|["
+            + re.escape("".join(c for c in SCRIPT_GLYPHS if SCRIPT_GLYPHS[c][0] == "super")) + "]+", m.group(0)))]
+        return "".join(linear(kind, body) for kind, body in parts)
+    return _RUN.sub(lambda m: one(m) if unsafe_runs(m.group(0)) else m.group(0), text)
 _TEXT_CMDS = (r"\\(?:mathrm|text|textrm|mathit|mathsf|operatorname|textbf|textit|mbox" + ("" if BOLD else "|mathbf")
               + r")\s*\{((?:[^{}]|\{[^{}]*\})*)\}")
 _GROUP = r"(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*"  # the inside of a {group}, up to two levels of braces deep
@@ -62,7 +129,11 @@ def _labelled(arrow: str, above: str | None, below: str | None, chem: bool = Fal
 
 def _no_label(expr: str) -> str:
     """The expression without its plain-text subscripts: what decides whether it needs brackets."""
-    return re.sub(_SUB_L + ".*?" + _SUB_R, "", expr)
+    while True:
+        shorter = re.sub(_SUB_L + "[^" + _SUB_L + _SUB_R + "]*" + _SUB_R, "", expr)
+        if shorter == expr:
+            return expr
+        expr = shorter
 
 
 def _chem(body: str) -> str:
@@ -84,8 +155,8 @@ def _chem(body: str) -> str:
 
 
 if flatlatex is not None:
-    _SUBSCRIPT = {**_data.subscript, "h": "ₕ", "k": "ₖ", "l": "ₗ", "m": "ₘ", "n": "ₙ", "p": "ₚ", "s": "ₛ", "t": "ₜ"}
-    _MODS = set(_SUBSCRIPT.values()) | set(_data.superscript.values()) | set("′″⦵")
+    _SUBSCRIPT = {k: v for k, v in _data.subscript.items() if v in SAFE_SUB}
+    _MODS = set(_data.subscript.values()) | set(_data.superscript.values()) | set(SAFE_SUB + SAFE_SUP) | set("′″⦵")
 
     def _simple(expr: str) -> bool:
         """One base character with only sub/superscripts or accents after it: x, x₁, F⃗, v_y (no brackets needed)."""
@@ -122,27 +193,35 @@ if flatlatex is not None:
             return not _simple(expr)
 
         def _converter__exponent(self, a, b):
+            force = b.startswith(_LIN)
+            b = b.lstrip(_LIN).replace("−", "-")
             a = a if _simple(a) else f"({a})"  # x₁²
             if b.strip() in ("*", "∗"):
                 return a + "*"  # the conjugate z*
-            if all(ch in _data.superscript for ch in b):
-                return a + "".join(_data.superscript[ch] for ch in b)
+            if not force and sup_is_safe(b):
+                return a + "".join(_data.superscript[ch] for ch in b)  # x², 10⁻³, xⁿ: glyphs every terminal font has
             many = sum(1 for ch in b if not unicodedata.combining(ch)) > 1
-            return a + "^" + (f"({b})" if many else b)  # e^(x²), not e^x² which reads as (eˣ)²
+            return a + _SUB_L + "^" + (f"({b})" if many else b) + _SUB_R  # e^(−kt), x^(2n), x^a; e^(x²), not e^x² which reads as (eˣ)²
 
         def _converter__indexed(self, a, b):
             a = a if _simple(a) else f"({a})"
-            if b == "1/2":
-                return a + "½"  # t½
-            if b and all(ch in _SUBSCRIPT for ch in b):
-                return a + "".join(_SUBSCRIPT[ch] for ch in b)
-            if b == "∞" or re.fullmatch(r"\w+", b):  # no Unicode form: a short label on a capital joins (Kc, Ecell,
-                # ΔHf, S∞); same-case, capital, coordinate and long subscripts keep the _ (v_y, N_A, F_y, S_products)
-                base = next((c for c in reversed(_no_label(a)) if not unicodedata.combining(c) and c not in _MODS), "")
-                joined = b == "∞" or (re.fullmatch(r"[a-w]{1,5}", b) and base.isupper()
-                                      and "GREEK" not in unicodedata.name(base, ""))
-                return a + _SUB_L + ("" if joined else "_") + b + _SUB_R
-            return a + f"[{b}]"  # lim[x→0]
+            b = b.replace("−", "-")
+            if b == "1/2" and a[-1:] in ("T", "t"):
+                return a + "½"  # t½, T½: a half-life
+            if sub_is_safe(b):
+                return a + "".join(_SUBSCRIPT[ch] for ch in b)  # x₁, H₂, x₍₁₎: glyphs every terminal font has
+            if b.startswith(_FNSUB):
+                b = b[1:]
+                if not b.isalnum() and not sub_is_safe(b):
+                    return a + f"[{b}]"  # lim[x→0]
+                if sub_is_safe(b):
+                    return a + "".join(_SUBSCRIPT[ch] for ch in b)
+            base = b
+            if b == "∞":
+                return a + _SUB_L + b + _SUB_R  # S∞
+            # no Unicode form: written on the baseline, a lone word as it is (E_k, v_initial, K_c), anything else in
+            # brackets (x_(n+1), x_(1/2), a_(2n)); never a mix of glyphs and fallback in one group
+            return a + _SUB_L + linear("sub", base) + _SUB_R
 
         def _converter__latexfun_frac(self, inputs):
             a, b = inputs
@@ -244,7 +323,7 @@ def _math(expr: str) -> str:
     e = re.sub(r"(?<=[A-Za-z)])''", "″", e)
     e = re.sub(r"(?<=[A-Za-z)])'", "′", e)
     e = re.sub(r"\\(" + _FUNCS + r")(?![A-Za-z])((?:\s*[\^_]\s*(?:\{[^{}]*\}|-?\d+|\w))*)",  # sin²θ, log₁₀, lim[x→0]
-               lambda m: _FN_START + m.group(1) + re.sub(r"\s*([\^_])\s*", r"\1", m.group(2)).strip() + _FN_END, e)
+               lambda m: _FN_START + m.group(1) + _fn_scripts(m.group(2)) + _FN_END, e)
     if _CONV is not None:
         try:
             return _tidy(_CONV.convert(e))
@@ -253,10 +332,18 @@ def _math(expr: str) -> str:
     return _tidy(re.sub(r"\\([A-Za-z]+)", r"\1", e).replace("{", "").replace("}", ""))
 
 
+def _fn_scripts(tail: str) -> str:
+    """The scripts after a function name, the subscripts marked: they stay [x→0] when they have no Unicode form."""
+    tail = re.sub(r"\s*([\^_])\s*", r"\1", tail).strip()
+    return re.sub(r"_(?:\{([^{}]*)\}|(-?\d+|\w))", lambda m: "_{" + _FNSUB + (m.group(1) if m.group(1) is not None else m.group(2)) + "}", tail)
+
+
 def _big_operator(m: re.Match) -> str:
     """∫ ∑ ∏ with their limits (below first, then above: ∫₀¹), and the small space a printed page leaves after them."""
     found = re.findall(r"([_^])\s*" + _ARG, m.group(2))
     limits = {side: arg if arg.startswith("{") else "{" + arg + "}" for side, arg in found}
+    if "_" in limits and "^" in limits and not sub_is_safe(limits["_"].strip("{} ")) and sup_is_safe(limits["^"].strip("{} ")):
+        limits["^"] = "{" + _LIN + limits["^"].strip("{}") + "}"  # ∑_(i=1)^n, not a ⁿ over a linear subscript
     below, above = ("{}_" + limits["_"] if "_" in limits else ""), ("{}^" + limits["^"] if "^" in limits else "")
     return f"\\{m.group(1)}{below}{above}" + r"\,"
 
@@ -289,6 +376,7 @@ def _tidy(text: str) -> str:
     depth: list[str] = []
     fracs: list[int] = []
     sub_after = False
+    in_label = 0  # inside a baseline script: x_(n+1) and e^(−kt) keep their signs tight
 
     def operand(k: int) -> bool:  # a bar closes (|x − 1|, |2|x| − 3|) when something stands before it: |−3| opens
         if k >= 0 and out[k] == "|":
@@ -323,8 +411,10 @@ def _tidy(text: str) -> str:
                 out.insert(start, "(")
                 out.append(")")
         elif ch == _SUB_L:  # k_B T, not k_BT; a nuclide's ˣ_yA stays tight
+            in_label += 1
             sub_after = bool(out) and out[-1].isalnum() and unicodedata.category(out[-1]) != "Lm"
         elif ch == _SUB_R:
+            in_label = max(0, in_label - 1)
             nxt = text[i + 1:i + 2]
             if sub_after and nxt.isalpha() and unicodedata.category(nxt) != "Lm":
                 out.append(" ")
@@ -335,7 +425,7 @@ def _tidy(text: str) -> str:
             nxt = text[i + 1:i + 2]
             if nxt and not nxt.isspace() and nxt not in ")]}," + _RBRACE and not (nxt == "(" and out and out[-1].isalpha()):
                 out.append(" ")
-        elif (ch in _REL or ch in _BIN) and not unicodedata.combining(text[i + 1:i + 2] or "x"):  # 1̅+̅x̅ stays one
+        elif (ch in _REL or ch in _BIN) and not in_label and not unicodedata.combining(text[i + 1:i + 2] or "x"):  # 1̅+̅x̅ stays one
             j = i + 1
             while j < len(text) and text[j] == " ":
                 j += 1
@@ -375,7 +465,7 @@ def to_terminal(text: str) -> str:
     text = re.sub(r"(?<!\\)\$(?!\s)((?:\\\$|[^$])+?)(?<![\s\\])\$(\d?)",  # prices are not maths: '$5 and $6', '$5-$6'
                   lambda m: m.group(0) if m.group(2) and not re.search(r"[\\^_{=]", m.group(1))
                   else _math(m.group(1)) + m.group(2), text, flags=re.S)
-    return pretty_units(text)
+    return linearize(pretty_units(text))  # raw unsafe glyphs a drafter typed (Eₖ) are drawn linearly too
 
 
 def pretty_units(text: str) -> str:

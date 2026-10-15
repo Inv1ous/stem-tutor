@@ -33,6 +33,18 @@ Rules:
 - Teach by building from what they already know: why it matters, how it could have been discovered, how it connects.
 - When they are stuck, ask one guiding question at a time rather than lecturing."""
 
+SPEECH_MARK = "[[SPEECH]]"
+SPEECH_RULE = f"""
+- Your reply is also read aloud. End EVERY reply with one last line that starts {SPEECH_MARK} followed by the same \
+reply rewritten as plain spoken English for a text-to-speech voice: no symbols, no LaTeX, no Markdown, no lists; \
+numbers, units, powers, subscripts, fractions, roots, integrals, sums and limits in words (x squared, ten to the minus \
+three, metres per second squared, the integral from nought to one of x squared d x, the sum from r equals one to n); \
+chemical formulae letter by letter (H two S O four); short sentences. Never put that line in a code block, and never \
+let it say anything the reply itself does not."""
+SPEECH_FIELD = ("Also return speech: everything you wrote for the student, rewritten as plain spoken English for a "
+                "text-to-speech voice (no symbols, LaTeX or Markdown; numbers, units, powers, integrals and sums in "
+                "words; short sentences).")
+
 LOGIN_HELP = ("The AI needs you to sign in once: open Terminal and run  claude auth login  "
               "(use your Claude account, the same one as the app). Everything else works without it.")
 
@@ -65,6 +77,44 @@ class Usage:
         self.output_tokens += int(u.get("output_tokens") or 0)
 
 
+def split_speech(text: str) -> tuple[str, str]:
+    """A whole reply → (what is shown, what is read aloud). Everything from the speech marker on is speech, never
+    shown; a code fence the marker left open is closed off (dropped)."""
+    shown, mark, speech = (text or "").partition(SPEECH_MARK)
+    if not mark:
+        return text or "", ""
+    shown = shown.rstrip()
+    if shown.count("```") % 2:  # the marker was put inside a code block: drop the fence it opened
+        shown = shown[:shown.rfind("```")].rstrip()
+    return shown, speech.replace("```", " ").strip()
+
+
+class SpeechFilter:
+    """The same split on a stream: `feed(chunk)` returns what may be shown now, holding back a piece that could be
+    the start of the marker (it can arrive split across chunks); `finish()` returns what was held back."""
+
+    def __init__(self) -> None:
+        self.held, self.speech, self.found = "", "", False
+
+    def feed(self, chunk: str) -> str:
+        if self.found:
+            self.speech += chunk
+            return ""
+        text = self.held + chunk
+        before, mark, after = text.partition(SPEECH_MARK)
+        if mark:
+            self.found, self.held, self.speech = True, "", after
+            return before
+        keep = next((n for n in range(min(len(SPEECH_MARK) - 1, len(text)), 0, -1)
+                     if SPEECH_MARK.startswith(text[-n:])), 0)
+        self.held = text[len(text) - keep:] if keep else ""
+        return text[:len(text) - keep] if keep else text
+
+    def finish(self) -> str:
+        out, self.held = self.held, ""
+        return "" if self.found else out
+
+
 @dataclass
 class Result:
     text: str = ""
@@ -72,14 +122,16 @@ class Result:
     status: str = "ready"  # ready | login | limit | error | off
     message: str = ""
     usage: dict = field(default_factory=dict)
+    speech: str = ""  # the reply as spoken English, when the AI was asked for it (read aloud on); "" otherwise
 
 
 class Claude:
     """A persistent streaming conversation. `stream(prompt)` yields text as it arrives; `last` holds the outcome."""
 
     def __init__(self, cwd: Path, model: str = "haiku", system: str = SYSTEM, binary: str | None = None,
-                 usage_file: Path | None = None):
+                 usage_file: Path | None = None, speech: bool = False):
         self.cwd, self.model, self.system = Path(cwd), model, system
+        self.speech = speech  # read aloud is on: replies end with a spoken version (costs nothing when off)
         self.binary = binary or os.environ.get("STEM_TUTOR_CLAUDE") or shutil.which("claude") or "claude"
         self.proc: asyncio.subprocess.Process | None = None
         self.status = "ready" if shutil.which(self.binary) or Path(self.binary).exists() else "off"
@@ -143,7 +195,7 @@ class Claude:
     async def _start(self) -> None:
         env = {**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"}
         self.proc = await asyncio.create_subprocess_exec(
-            self.binary, *LEAN, "--model", self.model, "--system-prompt", self.system,
+            self.binary, *LEAN, "--model", self.model, "--system-prompt", self.system + (SPEECH_RULE if self.speech else ""),
             "--input-format", "stream-json", "--output-format", "stream-json", "--include-partial-messages", "--verbose",
             cwd=str(self.cwd), env=env, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.DEVNULL, limit=4 * 1024 * 1024)
@@ -185,12 +237,17 @@ class Claude:
                 self.last = Result(ok=False, status="error", message="The AI process stopped; try again.")
                 return
             parts, finished = [], False
+            spoken = SpeechFilter()  # the spoken version at the end of a reply is never shown
             try:
                 async for piece in self._read(proc, parts):
-                    yield piece
+                    if (shown := spoken.feed(piece)):
+                        yield shown
+                if (tail := spoken.finish()):
+                    yield tail
                 finished = True
+                self.last.text, self.last.speech = split_speech(self.last.text)
             except asyncio.TimeoutError:
-                self.last = Result(ok=False, status="error", text="".join(parts),
+                self.last = Result(ok=False, status="error", text=split_speech("".join(parts))[0],
                                    message="The AI took too long to answer; try again.")
             finally:
                 if not finished:  # stopped mid-reply: the rest would leak into the next answer, so start fresh
@@ -273,14 +330,20 @@ class Claude:
         return self.last
 
     async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None,
-                       timeout: float = 120, system: str | None = None) -> tuple[dict | None, Result]:
+                       timeout: float = 120, system: str | None = None,
+                       speech: bool = False) -> tuple[dict | None, Result]:
         """A separate, memory-less call that must return JSON (judging an answer, writing a teach card). `timeout` is
         in seconds: a hard challenge question can take Opus several minutes. `system` replaces the tutor brief for
-        this call only (writing a challenge question needs its full worked solution, not a short nudge)."""
+        this call only (writing a challenge question needs its full worked solution, not a short nudge). `speech`:
+        an on-the-spot comment the learner may hear; with read aloud on, the reply carries a `speech` field too (in
+        the same call: no second request)."""
         if not self.available:
             return None, Result(ok=False, status=self.status, message=self.message or "AI unavailable")
         self._pending += 1
         try:
+            if speech and self.speech and schema:
+                schema = {**schema, "properties": {**schema.get("properties", {}), "speech": {"type": "string"}}}
+                prompt = f"{prompt}\n\n{SPEECH_FIELD}"
             return await self._one_shot(prompt, schema, model, timeout, system)
         finally:
             self._pending -= 1
@@ -323,7 +386,8 @@ class Claude:
         data = ev.get("structured_output")
         if data is None:
             data = first_json(ev.get("result", ""))
-        return data, Result(text=ev.get("result", ""), usage=usage)
+        speech = data.get("speech") if isinstance(data, dict) and isinstance(data.get("speech"), str) else ""
+        return data, Result(text=ev.get("result", ""), speech=speech.strip(), usage=usage)
 
 
 def first_json(text: str) -> dict | None:

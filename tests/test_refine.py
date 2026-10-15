@@ -38,6 +38,7 @@ def rf(tmp_path, monkeypatch):
     monkeypatch.setenv("FOUNDRY_NOTIFY", "0")
     monkeypatch.setenv("FOUNDRY_PUBLISH", "0")
     monkeypatch.setenv("FOUNDRY_COMMIT", "0")
+    monkeypatch.setenv("FOUNDRY_PREGEN", "0")  # no audio pre-generation (nor the learner's vault) from tests
     fake = str(REPO / "tests/fake_worker.py")
     monkeypatch.setenv("FOUNDRY_CODEX", fake)
     monkeypatch.setenv("FOUNDRY_CLAUDE", fake)
@@ -541,3 +542,50 @@ def test_a_figure_never_replaces_the_diagram_it_sits_beside(rf, tmp_path, monkey
     note.write_text(note.read_text().replace("Displacement", "Displacement and the diagram", 1))  # an edited line
     add_to_note(rf, crop("fig-a"))
     assert any(x.startswith("no-loss") for x in rf.gates(SUB)["first"])
+
+
+# ---------------- sub/superscript glyphs ----------------
+def old_chapter_with_glyphs(rf):
+    """A chapter signed before the glyph gate: Eₖ in an item's explanation and vᵢₙᵢₜᵢₐₗ in the note."""
+    pack = json.loads(rf.pack_path(SUB).read_text())
+    pack["items"][0]["explanation"] = "The energy Eₖ rises."
+    rf.pack_path(SUB).write_text(json.dumps(pack))
+    rf.note_path(pack).write_text(NOTE + "The speed vᵢₙᵢₜᵢₐₗ is given.\n")
+
+
+def test_no_loss_tolerates_exactly_the_glyph_repair(rf):
+    old_chapter_with_glyphs(rf)
+    rf.cmd_add([SUB])
+    before = rf.take_snapshot(SUB, 1)
+    pack = copy.deepcopy(before["pack"])
+    pack["items"][0]["explanation"] = "The energy $E_k$ rises."  # what glyphs.fix_text does to it
+    note = (NOTE + "The speed vᵢₙᵢₜᵢₐₗ is given.\n").replace("vᵢₙᵢₜᵢₐₗ", "$v_{initial}$")
+    assert rf.no_loss(before, pack, note) == []
+    assert rf.no_loss(before, before["pack"], before["note"]) == []  # left as it was is not a loss either
+    pack["items"][0]["explanation"] = "The energy rises."  # any other change is still caught
+    assert any("`explanation` was changed" in p for p in rf.no_loss(before, pack, note))
+    assert any("note: the line" in p for p in rf.no_loss(before, copy.deepcopy(before["pack"]), "something else\n"))
+
+
+def test_a_refine_that_leaves_glyphs_is_repaired_without_a_retry(rf):
+    old_chapter_with_glyphs(rf)
+    rf.cmd_add([SUB])
+    write_plan(rf, PLAN)
+    rf.take_snapshot(SUB, 1)
+    refine_additively(rf)
+    assert rf.fd.gates(SUB)["glyphs"] == 2
+    with rf.chapter(SUB) as st:
+        st["stage"] = "refine"
+    rf.cmd_collect("refiner", SUB, "-")
+    st = rf.load(SUB)
+    assert st["stage"] == "solve" and st["gates"]["ok"] and st["gates"]["glyphs"] == 0 and st["gates"]["no_loss"] == 0
+    assert any(h["note"] == "glyphs auto-fixed: 2 strings" for h in st["history"])
+    assert "$E_k$" in rf.pack_path(SUB).read_text()
+
+
+def test_coverage_names_chapters_whose_stored_content_still_wobbles(rf, capsys):
+    assert rf.coverage()["glyphs"] == []
+    old_chapter_with_glyphs(rf)
+    assert rf.coverage()["glyphs"] == [SUB]
+    rf.cmd_coverage([])
+    assert "wobble in the terminal (1): " + SUB in capsys.readouterr().out

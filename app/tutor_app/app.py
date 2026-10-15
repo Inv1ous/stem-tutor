@@ -11,7 +11,7 @@ from textual.binding import Binding
 from tutorlib import packs, store
 from tutorlib.session import Tutor
 
-from . import config, look, mac
+from . import config, look, mac, tts
 from .ai import Claude
 
 CSS = """
@@ -59,7 +59,7 @@ MarkdownH1 { content-align-horizontal: $markdown-h1-align; }
 #settings .row > Static { width: 1fr; }
 #settings Switch { border: none; padding: 0 1; margin-right: 1; }
 #settings Switch:focus { border: none; background: $accent 40%; }
-#settings #minutes { width: 10; background: $panel; }
+#settings #minutes, #settings #tts_speed { width: 10; background: $panel; }
 #settings #settings-hint { content-align: left middle; height: 100%; padding: 0 0 0 2; }
 #settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
@@ -71,7 +71,7 @@ SettingsScreen.flat #settings Switch.-on > .switch--slider { color: $success; }
 SettingsScreen.flat #settings Switch:focus { background: transparent; }
 SettingsScreen.flat #settings Switch:focus > .switch--slider { background: $block-cursor-background; }
 SettingsScreen.flat #settings .row:focus-within > Static { color: $accent; }
-SettingsScreen.flat #settings #minutes { background: $panel; }
+SettingsScreen.flat #settings #minutes, SettingsScreen.flat #settings #tts_speed { background: $panel; }
 SettingsScreen.short #settings .row { margin: 0; }
 SettingsScreen.short #settings #save { margin-top: 1; }
 HomeScreen.narrow #stats { display: none; }
@@ -113,6 +113,17 @@ class TutorApp(App):
         self.profile_missing = False
         self.profile_denied = False  # macOS refused the tutor control of Terminal: said once, then left alone
         self._locks = contextlib.ExitStack()
+        self.speaker = tts.Speaker(self.vault, lambda: self.settings, notify=self._notify_from_thread)
+
+    def _notify_from_thread(self, message: str) -> None:
+        """A one-line note from the reading-aloud thread (or from this one)."""
+        try:
+            self.call_from_thread(self.notify, message, timeout=6)
+        except RuntimeError:  # already on the app's own thread, or the app has stopped
+            try:
+                self.notify(message, timeout=6)
+            except Exception:  # noqa: BLE001 - a note is never worth a crash
+                pass
 
     def get_theme_variable_defaults(self) -> dict[str, str]:
         return look.CSS_DEFAULTS
@@ -139,7 +150,7 @@ class TutorApp(App):
             self.notify(f"The content file {path} is damaged, so that chapter is left out: {packs.REINSTALL}.",
                         severity="warning", timeout=15)
         self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
-                         usage_file=self.vault / ".tutor" / "ai_usage.json")
+                         usage_file=self.vault / ".tutor" / "ai_usage.json", speech=self.speech_wanted())
         import threading
 
         def warm() -> None:  # load the maths library in the background so the first algebra answer isn't slow
@@ -199,7 +210,12 @@ class TutorApp(App):
         else:
             self.pop_screen()
 
+    def speech_wanted(self) -> bool:
+        """Ask the AI for a spoken version of its replies only when it can be read aloud (no cost otherwise)."""
+        return bool(self.settings.tts_enabled and tts.available(self.vault))
+
     async def on_unmount(self) -> None:
+        self.speaker.close()
         if hasattr(self, "ai"):
             await self.ai.close()
         self._locks.close()
