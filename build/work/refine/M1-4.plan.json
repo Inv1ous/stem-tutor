@@ -1,0 +1,59 @@
+{
+ "summary": "Add the required incline force diagram, broaden exam practice across all four outcomes, and make impulse and changing-force methods explicit.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the inclined-plane paragraph in ## Key ideas",
+   "why": "The M1-4.2 syllabus point calls for motion on smooth or rough inclined planes, and the figure gate specifically requires a free_body diagram.",
+   "what": "Add a free_body diagram of a particle on an inclined plane, showing weight $mg$ vertically downward, normal reaction $R$ perpendicular to the plane, and friction $F$ opposing an explicitly stated upward motion. In the adjacent note text, explain the resolved components $mg\\sin\\theta$ down the plane and $mg\\cos\\theta$ into it; do not put the resolved components on the same force diagram as extra forces. Embed the requested SVG in the note."
+  },
+  {
+   "kind": "questions",
+   "where": "M1-4.2",
+   "why": "Only three items exist; none gives multi-phase motion or a rough incline, both explicit syllabus cases.",
+   "count": 2,
+   "what": "Add one structured exam item in which a connected particle hits the ground and the other continues in a new phase, and one rough-incline calculation requiring a correctly directed friction force and separate parallel/perpendicular equations."
+  },
+  {
+   "kind": "questions",
+   "where": "M1-4.3",
+   "why": "Only three items exist, with no exam-style collision item or reversal-sign distractor.",
+   "count": 2,
+   "what": "Add a multi-part direct-collision question using signed momentum and final direction, plus a misconception MCQ about impulse for a particle reversing velocity."
+  },
+  {
+   "kind": "questions",
+   "where": "M1-4.1",
+   "why": "The current set has no question resolving a resultant force into both $\\mathbf i$ and $\\mathbf j$ components or checking Newton's third-law bodies.",
+   "count": 2,
+   "what": "Add one vector $\\sum\\mathbf F=m\\mathbf a$ calculation with two components and one conceptual MCQ distinguishing a third-law pair from forces on one body."
+  },
+  {
+   "kind": "questions",
+   "where": "M1-4.4",
+   "why": "Only three items exist and the note's direction rule needs application when motion reverses or an applied force is oblique.",
+   "count": 2,
+   "what": "Add one rough-plane calculation that resolves an oblique applied force before finding $R$ and $F=\\mu R$, plus one misconception MCQ about the direction of friction for a sliding particle. Keep within the M1 moving-friction scope."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Key ideas and ## Method",
+   "why": "The note states $J=\\Delta p$ but omits $J=Ft$ for constant force and the impulse unit. The learner's M1 notes explain both on p.3.",
+   "source": "library: sources/library/SaveMyExams/XMA01 mechanics-1/XMA01 c3.4.pdf p.3",
+   "what": "Add the constant-force relation $J=Ft=m(v-u)$, with $\\mathrm{N\\,s}=\\mathrm{kg\\,m\\,s^{-1}}$, and a short signed-force or reversal example. Paraphrase the source."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the connected-particles worked example",
+   "why": "The method says to split phases when a particle hits the ground but never demonstrates the transition. Pearson explicitly includes a force changing after ground contact.",
+   "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf",
+   "what": "Add a concise two-phase worked example: find speed at contact, identify when the string slackens, then solve the remaining particle's motion with the new force balance. State why the old tension equation no longer applies."
+  },
+  {
+   "kind": "feature",
+   "where": "note, ## Links",
+   "why": "The bundle lists a direct successor chapter on statics, but the note gives no Leads to link.",
+   "what": "Append Leads to [[5 Statics of a particle]] using the bundle's exact note name."
+  }
+ ]
+}
