@@ -1,0 +1,19 @@
+{
+ "summary": "Make current direction and the carrier-count form of the drift equation easier to apply.",
+ "improvements": [
+  {
+   "kind": "clarification",
+   "where": "note, Key ideas, after the first paragraph",
+   "why": "The note says electron drift is opposite to conventional current but does not explicitly define the latter's direction; the learner's chapter contrasts both directions.",
+   "what": "Add a short explanation that conventional current follows the direction positive charge would move, from the positive terminal towards the negative terminal in the external circuit, while electrons in a metal drift in the opposite direction. Keep the distinction between carrier motion and current direction clear.",
+   "source": "library: SaveMyExams/9702 as-physics-cie-25/9702 c9.1.pdf pp.2, 6-7"
+  },
+  {
+   "kind": "clarification",
+   "where": "note, Method, after the existing worked example",
+   "why": "The method gives $I=Nqv/L$ when total carrier count is known, but the sole displayed drift example supplies $n$ and $A$ directly; the bundle's ER 9702 s21 P13 Q33 reports candidates multiplying by length instead of dividing.",
+   "what": "Add a compact worked example with total free-electron count $N$ in wire length $L$ and drift speed $v$, no supplied area. Show $n=N/(AL)$, cancel $A$ in $I=Anvq$, then calculate with $I=Nev/L$ and SI conversion. Add a check that increasing $L$ at fixed $N$ lowers the number density and current for fixed $v$.",
+   "source": "ER 9702 s21 P13 Q33; library: SaveMyExams/9702 as-physics-cie-25/9702 c9.1.pdf pp.7-8; https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf"
+  }
+ ]
+}
