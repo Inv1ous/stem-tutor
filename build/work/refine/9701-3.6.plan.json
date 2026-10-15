@@ -1,0 +1,24 @@
+{
+ "summary": "Add targeted comparison practice and a stepwise boiling-point example, while documenting why the automatic diagram suggestion does not fit this chemistry chapter.",
+ "improvements": [
+  {
+   "kind": "feature",
+   "where": "pack, diagrams_skipped",
+   "why": "The diagram gate suggests free_body for 9701-3.6.1, but a force diagram for a macroscopic body cannot depict hydrogen bonds or the open ice lattice; the supported diagram types cannot draw molecular structures.",
+   "what": "Set diagrams_skipped to a concise explanation of this limitation so the false-positive figure gate passes; keep the existing verbal explanation of the molecular arrangement."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-3.6.1 and 9701-3.6.4",
+   "why": "Practice is dominated by MCQs and short single-point answers, with little extended comparison of which interactions are overcome during melting or boiling.",
+   "count": 2,
+   "what": "Add one 4-mark Explain item comparing the melting of ice and silicon(IV) oxide, and one 4-mark Explain item linking hydrogen bonding in water to its relatively high surface tension and lower density of ice. Give separate markable points and hints."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the existing Worked example",
+   "why": "The current example states the answer but does not show the reusable reasoning chain from structure to intermolecular force to boiling point.",
+   "what": "Append a short stepwise worked comparison of ethanol and methoxymethane: identify the O–H donor in ethanol, distinguish the attractions between their own molecules, then connect stronger hydrogen bonding to more energy needed for boiling. Make clear that both still have London forces and neither loses covalent bonds on boiling."
+  }
+ ]
+}
