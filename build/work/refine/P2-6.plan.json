@@ -1,0 +1,32 @@
+{
+ "summary": "Add practice for the specification's squared-sine equation and make the quadratic branch checks and chapter links explicit.",
+ "improvements": [
+  {
+   "kind": "source_gap",
+   "where": "P2-6.2 teaching card and note, after ## Method",
+   "why": "Pearson's P2 specification gives $\\sin^2(x+\\pi/6)=1/2$ on $-\\pi\\le x<\\pi$; the bundle and current item i12 instead use unsquared sine, so the specified two-sign step has no worked treatment.",
+   "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf",
+   "what": "Add a worked walkthrough for the squared equation: set $u=x+\\pi/6$, transform the interval, take $\\sin u=\\pm1/\\sqrt{2}$, list all eligible $u$, then recover and check $x$. Keep existing i12 unchanged."
+  },
+  {
+   "kind": "questions",
+   "where": "P2-6.2",
+   "why": "No item tests the official squared-sine example; the existing unsquared item checks only one sign.",
+   "count": 2,
+   "what": "Add one exam-style Find item for $\\sin^2(x+\\pi/6)=1/2$ on $-\\pi\\le x<\\pi$, plus one misconception MCQ that distinguishes $\\sin u=\\pm\\sqrt{c}$ from $\\sin u=+\\sqrt{c}$ and handles endpoint membership."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Method, and P2-6.2 teaching card",
+   "why": "The library's quadratic-equations page explicitly checks whether each algebraic root is attainable, while the note says only to solve both branches.",
+   "source": "library: sources/library/SaveMyExams/YMA01 pure-2/YMA01 c6.1.pdf p.11",
+   "what": "After factorisation, check each proposed sine or cosine value lies in $[-1,1]$ before finding angles; discard impossible branches and explain why."
+  },
+  {
+   "kind": "feature",
+   "where": "note, ## Links",
+   "why": "The existing link text is not the bundle's exact Obsidian chapter names.",
+   "what": "Append working links using the bundle's exact names: Builds on [[3 Trigonometry]] and Leads to [[2 Trigonometry]]."
+  }
+ ]
+}

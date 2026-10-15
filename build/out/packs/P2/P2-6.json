@@ -527,6 +527,127 @@
     "Write the equation in one trig function.",
     "Check the specified domain and endpoints."
    ]
+  },
+  {
+   "kcs": [
+    "P2-6.2"
+   ],
+   "source": {
+    "type": "generated"
+   },
+   "command_word": "Find",
+   "id": "P2-6-r01",
+   "kind": "short",
+   "difficulty": 4,
+   "marks": 4,
+   "stem": "Find all exact solutions of $\\sin^2(x+\\pi/6)=1/2$ for $-\\pi\\le x<\\pi$. Show your working.",
+   "rubric": [
+    {
+     "point": "Set $u=x+\\pi/6$, giving $-5\\pi/6\\le u<7\\pi/6$.",
+     "keywords": [
+      [
+       "-5\\pi/6",
+       "-5pi/6"
+      ],
+      [
+       "7\\pi/6",
+       "7pi/6"
+      ]
+     ]
+    },
+    {
+     "point": "Take both square roots: $\\sin u=\\pm1/\\sqrt{2}$.",
+     "keywords": [
+      [
+       "\\pm",
+       "±",
+       "both",
+       "positive and negative"
+      ]
+     ]
+    },
+    {
+     "point": "List $u=-3\\pi/4,-\\pi/4,\\pi/4,3\\pi/4$.",
+     "keywords": [
+      [
+       "-3\\pi/4",
+       "-3pi/4"
+      ],
+      [
+       "-\\pi/4",
+       "-pi/4"
+      ],
+      [
+       "\\pi/4",
+       "pi/4"
+      ],
+      [
+       "3\\pi/4",
+       "3pi/4"
+      ]
+     ]
+    },
+    {
+     "point": "Subtract $\\pi/6$: $x=-11\\pi/12,-5\\pi/12,\\pi/12,7\\pi/12$, all in the original interval.",
+     "keywords": [
+      [
+       "-11\\pi/12",
+       "-11pi/12"
+      ],
+      [
+       "-5\\pi/12",
+       "-5pi/12"
+      ],
+      [
+       "\\pi/12",
+       "pi/12"
+      ],
+      [
+       "7\\pi/12",
+       "7pi/12"
+      ]
+     ]
+    }
+   ],
+   "explanation": "With $u=x+\\pi/6$, search $-5\\pi/6\\le u<7\\pi/6$ and retain both signs in $\\sin u=\\pm1/\\sqrt{2}$, giving $u=-3\\pi/4,-\\pi/4,\\pi/4,3\\pi/4$. Subtracting $\\pi/6$ gives $x=-11\\pi/12,-5\\pi/12,\\pi/12,7\\pi/12$; all four satisfy the equation and the original bounds.",
+   "hints": [
+    "A square hides the sign of the quantity being squared.",
+    "Use a new variable for the whole angle and transform both interval bounds.",
+    "Set $u=x+\\pi/6$; find a reference angle, then search every quadrant for both square-root branches."
+   ]
+  },
+  {
+   "kcs": [
+    "P2-6.2"
+   ],
+   "source": {
+    "type": "generated"
+   },
+   "command_word": "Find",
+   "id": "P2-6-r02",
+   "kind": "mcq",
+   "difficulty": 3,
+   "marks": 1,
+   "stem": "Find the complete solution set of $\\sin^2u=1/4$ for $-\\pi/6\\le u<11\\pi/6$.",
+   "options": {
+    "A": "$-\\pi/6,\\pi/6,5\\pi/6,7\\pi/6$",
+    "B": "$\\pi/6,5\\pi/6$",
+    "C": "$\\pi/6,5\\pi/6,7\\pi/6$",
+    "D": "$\\pi/6$"
+   },
+   "answer": "A",
+   "shuffle": true,
+   "distractors": {
+    "B": "m2",
+    "C": "m3",
+    "D": "m3"
+   },
+   "explanation": "Taking both roots gives $\\sin u=\\pm1/2$, so the complete set is $-\\pi/6,\\pi/6,5\\pi/6,7\\pi/6$: include $-\\pi/6$ and exclude $11\\pi/6$. Keeping only $\\pi/6,5\\pi/6$ loses the negative square-root branch; the three-angle set omits the included left endpoint, while $\\pi/6$ alone retains only the principal value.",
+   "hints": [
+    "Check what information is lost when a number is squared.",
+    "Find angles for each sign of the square root, using the sine graph.",
+    "Test the left and right endpoints separately against $\\le$ and $<$ before completing your list."
+   ]
   }
  ],
  "flashcards": [
@@ -555,9 +676,9 @@
   },
   "P2-6.2": {
    "motivate": "A calculator gives one angle, but an exam interval may contain several. Changing the angle, such as $2x+\\pi/6$, can also shift which solutions count.",
-   "establish": "To solve a simple trigonometric equation in a given interval, first simplify with an identity if needed. If the trig function contains $u=ax+b$, transform both bounds of the interval for $x$ into bounds for $u$. Find every $u$ using its reference angle, quadrant signs, and period: sine and cosine have period $2\\pi$ or $360^\\circ$; tangent has period $\\pi$ or $180^\\circ$. Convert back to $x$, honour strict and inclusive endpoints, and check in the original equation. For $6\\cos^2x+\\sin x-5=0$, use $\\cos^2x=1-\\sin^2x$ and factor $(3\\sin x+1)(2\\sin x-1)=0$; solve both sine equations.",
+   "establish": "To solve a simple trigonometric equation in a given interval, first simplify with an identity if needed. If the trig function contains $u=ax+b$, transform both bounds of the interval for $x$ into bounds for $u$. Find every $u$ using its reference angle, quadrant signs, and period: sine and cosine have period $2\\pi$ or $360^\\circ$; tangent has period $\\pi$ or $180^\\circ$. Convert back to $x$, honour strict and inclusive endpoints, and check in the original equation. For $6\\cos^2x+\\sin x-5=0$, use $\\cos^2x=1-\\sin^2x$ and factor $(3\\sin x+1)(2\\sin x-1)=0$; solve both sine equations.\nFor $\\sin^2(x+\\pi/6)=1/2$, let $u=x+\\pi/6$: $-5\\pi/6\\le u<7\\pi/6$. Both signs, $\\sin u=\\pm1/\\sqrt{2}$, give $u=-3\\pi/4,-\\pi/4,\\pi/4,3\\pi/4$. Subtract $\\pi/6$: $x=-11\\pi/12,-5\\pi/12,\\pi/12,7\\pi/12$. All satisfy the equation and original bounds.",
    "connect": "The interval and period determine how many solutions appear. The identity from the previous card handles equations containing both $\\sin x$ and $\\cos^2x$.",
-   "note": "- Transform the interval with the angle.\n- Use quadrants and periods to list every solution.\n- Undo the transformation and check endpoints.\n- For a quadratic in a trig function, solve every valid branch.",
+   "note": "- Transform the interval with the angle.\n- Use quadrants and periods to list every solution.\n- Undo the transformation and check endpoints.\n- For a quadratic in a trig function, solve every valid branch.\n- After factorisation, discard sine or cosine values outside $[-1,1]$: no real angle has such a value.",
    "self_explain": "Why does solving $\\tan 2x=1$ for $90^\\circ<x<270^\\circ$ require searching $180^\\circ<2x<540^\\circ$?",
    "source": "pack"
   }

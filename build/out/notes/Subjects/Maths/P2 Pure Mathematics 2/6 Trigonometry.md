@@ -19,6 +19,18 @@ Sine is positive in quadrants I and II; cosine in I and IV; tangent in I and III
 3. Find all angles in the transformed interval. Use a principal value, quadrant symmetry, and the correct period. List values at included endpoints and omit values at excluded endpoints.
 4. Reverse the substitution to obtain $x$, then substitute into the original equation and compare against the original interval.
 
+After factorisation, check every proposed sine or cosine value lies in $[-1,1]$ **before** finding angles. Discard values outside this range because no real angle can attain them. In step 1, both $1/2$ and $-1/3$ are valid, so both branches must be solved.
+
+> [!example]- Worked example: a squared sine
+> Find all exact solutions of $\sin^2(x+\pi/6)=1/2$ for $-\pi\le x<\pi$.
+> Let $u=x+\pi/6$. Adding $\pi/6$ to both bounds gives $-5\pi/6\le u<7\pi/6$.
+> Taking square roots gives $\sin u=\pm1/\sqrt{2}$; keeping only the positive root loses solutions.
+> The reference angle is $\pi/4$. Searching both signs in the transformed interval gives $u=-3\pi/4,-\pi/4,\pi/4,3\pi/4$.
+> Subtract $\pi/6$ from each: $x=-11\pi/12,-5\pi/12,\pi/12,7\pi/12$.
+> Each lies in $-\pi\le x<\pi$ and gives squared sine $1/2$ on substitution. At either original endpoint the squared sine is $1/4$, so neither adds a solution.
+
+Source notes: branch checking follows `sources/library/SaveMyExams/YMA01 pure-2/YMA01 c6.1.pdf`, p.11. The squared-sine example follows [Pearson's IAL Mathematics specification, P2 section 6.2, printed p.20 (PDF p.26)](https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf); the working is supplied here.
+
 > [!example]- Worked example
 > Find all solutions of $\tan 2x=1$ for $90^\circ<x<270^\circ$.
 > Put $u=2x$. Then $180^\circ<u<540^\circ$.
@@ -35,3 +47,5 @@ For **Find** and **Calculate**, show the identity or reference angle, all admiss
 
 ## Links
 Builds on 3.3 Trig function graphs and periodicity · Leads to later trigonometric modelling and calculus.
+
+Builds on [[3 Trigonometry]] · Leads to [[2 Trigonometry]].
