@@ -10,6 +10,11 @@ kcs: ["S1-4.1", "S1-4.2", "S1-4.3"]
 
 ## Key ideas
 
+![[Assets/S1/S1-4-scatter-regression.svg]]
+
+*Scatter diagram with a least-squares line for $(1,3),(2,6),(3,6),(4,8),(5,12)$.*
+The solid line $y=1+2x$ passes through the mean point $(3,7)$. The dashed segment shows a vertical residual: at $x=3$, observed $y=6$ differs from fitted $y=7$. Least squares minimises the sum of these squared vertical residuals.
+
 Put the **explanatory variable** on the horizontal axis and the **response variable** on the vertical axis. The explanatory variable is the input used to predict the response. A scatter diagram may show a positive trend, a negative trend, a curved pattern or no clear pattern. Check for unusual points before summarising it with a straight line.
 
 For the regression of $y$ on $x$, write $y=a+bx$, where $b$ is the gradient and $a$ is the vertical intercept. The least-squares method chooses the line that minimises the sum of the squared *vertical* residuals, $\sum(y_i-\hat y_i)^2$. Its gradient and intercept are

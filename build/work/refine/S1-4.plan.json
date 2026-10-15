@@ -1,0 +1,31 @@
+{
+ "summary": "Add a labelled scatter diagram, teaching cards for all three outcomes, and practice drawing and checking a fitted line.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after ## Key ideas; pack diagrams",
+   "why": "S1-4.1 explicitly includes scatter diagrams and may require drawing a regression line, but the chapter has no visual example.",
+   "what": "Use graph_sketch with separate single-point marker lines for a small positive-trend dataset, a solid fitted line, labelled explanatory $x$ and response $y$ axes, and an annotated mean point $(\\bar x,\\bar y)$. Explain that the line passes through the mean point and that residuals are vertical. Embed and caption the rendered SVG."
+  },
+  {
+   "kind": "feature",
+   "where": "pack teach for S1-4.1, S1-4.2 and S1-4.3",
+   "why": "The syllabus gate reports no teaching card for each of the three KCs.",
+   "what": "Add a complete teach card per KC with motivate, discover MCQ and explanation, establish, connect, note, self_explain and source. Let discoveries distinguish vertical from horizontal residuals, safe interpolation from extrapolation, and strong linear association from causation or a curved relationship. Keep each establishment aligned with the existing note and syllabus."
+  },
+  {
+   "kind": "questions",
+   "where": "S1-4.1",
+   "why": "The syllabus may require drawing the regression line on a scatter diagram, but existing items only ask for an equation or a point to plot.",
+   "count": 1,
+   "what": "Add one structured exam-style item that gives a small paired dataset or summary statistics and a coordinate grid/scatter plot, asks for the least-squares equation and how to draw its line through $(\\bar x,\\bar y)$ using a second calculated point, with mark scheme and three progressive hints."
+  },
+  {
+   "kind": "questions",
+   "where": "S1-4.1 and S1-4.2",
+   "why": "The command words Show that and Hence appear in the specification, but the chapter has no item that asks learners to use a supplied intermediate result.",
+   "count": 1,
+   "what": "Add one linked multi-part structured item: show that the regression gradient or equation equals a stated result from valid summary statistics, then hence predict a response for an explanatory value inside the stated observed range and interpret it in context. Award method marks for the full derivation and use of the prior result."
+  }
+ ]
+}

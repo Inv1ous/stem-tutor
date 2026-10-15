@@ -1,0 +1,154 @@
+{
+ "sub": "S1-4",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T23:16:19+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T08:49:24+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 4 improvements"
+  },
+  {
+   "t": "2026-10-15T11:48:13+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 2 questions, 1 diagrams, 3 note_lines, 3 cards"
+  },
+  {
+   "t": "2026-10-15T23:03:52+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "3 of 3 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T23:16:19+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 2 questions, 1 diagrams, 3 note_lines, 3 cards"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 20,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 5374,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T08:48:31+08:00",
+   "log": "refine/logs/S1-4.scout.1015-084831.log",
+   "out": "refine/logs/S1-4.scout.1015-084831.out.json",
+   "expects": "build/work/refine/S1-4.plan.json",
+   "finished": "2026-10-15T08:49:24+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 4,
+    "plan_path": "build/work/refine/S1-4.plan.json",
+    "notes": [
+     "The gates report missing teaching cards for all three outcomes.",
+     "The learner’s sources library returned no matched passages."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 79206,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T11:43:16+08:00",
+   "log": "refine/logs/S1-4.refiner.1015-114316.log",
+   "out": "refine/logs/S1-4.refiner.1015-114316.out.json",
+   "finished": "2026-10-15T11:48:13+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 4,
+    "new_items": [
+     "S1-4-r01",
+     "S1-4-r02"
+    ],
+    "new_diagrams": [
+     "Assets/S1/S1-4-scatter-regression.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 47730,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:57:24+08:00",
+   "log": "refine/logs/S1-4.solver.1015-225724.log",
+   "out": "refine/logs/S1-4.solver.1015-225724.out.json",
+   "expects": "build/work/blind/S1-4.refine.answers.json",
+   "finished": "2026-10-15T22:57:44+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 3 questions, wrote build/work/blind/S1-4.refine.answers.json"
+   },
+   "ok": true,
+   "cost_usd": 0.024
+  },
+  "checker": {
+   "pid": 47732,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:57:24+08:00",
+   "log": "refine/logs/S1-4.checker.1015-225724.log",
+   "out": "refine/logs/S1-4.checker.1015-225724.out.json",
+   "expects": "build/work/refine/S1-4.check.json",
+   "finished": "2026-10-15T22:58:48+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings in build/work/refine/S1-4.check.json\n\nAll additions pass the checker rules: calculations are correct, teaching cards are well-aligned with the bundle and note, no contradictions or off-syllabus content detected."
+   },
+   "ok": true,
+   "cost_usd": 0.131
+  }
+ },
+ "plan": {
+  "improvements": 4,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 0,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 2,
+  "diagrams": 1,
+  "note_lines": 3,
+  "cards": 3,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T23:16:19+08:00"
+}
