@@ -2693,6 +2693,103 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "kind": "structured",
+   "difficulty": 4,
+   "source": {
+    "type": "generated"
+   },
+   "id": "9701-5.1-r01",
+   "kcs": [
+    "9701-5.1.2"
+   ],
+   "command_word": "Sketch",
+   "stem": "A single-step reaction has reactants at $25$, products at $60$ and a peak at $120\\ \\mathrm{kJ\\,mol^{-1}}$ on the same enthalpy scale. (a) Sketch a reaction pathway diagram with labelled axes and levels. (b) Show and calculate the forward activation energy and signed enthalpy change. (c) Deduce whether the reaction is exothermic or endothermic.",
+   "marks": 6,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Vertical axis labelled enthalpy; horizontal axis labelled progress of reaction."
+    },
+    {
+     "mark": "B1",
+     "point": "Reactants at $25$ and products at $60\\ \\mathrm{kJ\\,mol^{-1}}$, with products higher."
+    },
+    {
+     "mark": "B1",
+     "point": "A curve rises from reactants to a single peak at $120\\ \\mathrm{kJ\\,mol^{-1}}$ then falls to products."
+    },
+    {
+     "mark": "A1",
+     "point": "Forward $E_a$ arrow from reactant level to peak; $120-25=95\\ \\mathrm{kJ\\,mol^{-1}}$."
+    },
+    {
+     "mark": "A1",
+     "point": "$\\Delta H$ arrow upwards from reactant level to product level; $60-25=+35\\ \\mathrm{kJ\\,mol^{-1}}$."
+    },
+    {
+     "mark": "B1",
+     "point": "Endothermic: products have higher enthalpy, so energy is absorbed overall."
+    }
+   ],
+   "explanation": "The forward barrier is measured from reactants to the peak, giving $95\\ \\mathrm{kJ\\,mol^{-1}}$. The product-minus-reactant difference is $+35\\ \\mathrm{kJ\\,mol^{-1}}$, so the reaction is endothermic.",
+   "hints": [
+    "Decide what each axis represents before drawing the curve.",
+    "Separate the gap to the peak from the gap to products.",
+    "Start both forward-energy arrows at the reactant level."
+   ]
+  },
+  {
+   "kind": "structured",
+   "difficulty": 4,
+   "source": {
+    "type": "generated"
+   },
+   "id": "9701-5.1-r02",
+   "kcs": [
+    "9701-5.1.7",
+    "9701-5.1.3"
+   ],
+   "command_word": "Calculate",
+   "stem": "A student mixes $40.0\\ \\mathrm{cm^3}$ of $1.00\\ \\mathrm{mol\\,dm^{-3}}$ hydrochloric acid with $60.0\\ \\mathrm{cm^3}$ of $1.00\\ \\mathrm{mol\\,dm^{-3}}$ sodium hydroxide. Both start at $21.0\\,^{\\circ}\\mathrm C$; the mixture reaches $26.5\\,^{\\circ}\\mathrm C$. The reaction is $\\ce{HCl(aq) + NaOH(aq) -> NaCl(aq) + H2O(l)}$. Assume additive volumes, density $1.00\\ \\mathrm{g\\,cm^{-3}}$, specific heat capacity $4.18\\ \\mathrm{J\\,g^{-1}\\,K^{-1}}$, no heat loss and negligible cup heat capacity. (a) Calculate heated mass and temperature rise. (b) Identify the limiting reagent and calculate water moles formed. (c) Calculate heat gained by the solution in joules, then enthalpy of neutralisation in $\\mathrm{kJ\\,mol^{-1}}$ of water, including its sign.",
+   "marks": 7,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "$m=(40.0+60.0)(1.00)=100\\ \\mathrm g$."
+    },
+    {
+     "mark": "B1",
+     "point": "$\\Delta T=26.5-21.0=5.5\\ \\mathrm K$."
+    },
+    {
+     "mark": "M1",
+     "point": "$n(\\ce{HCl})=1.00(0.0400)=0.0400\\ \\mathrm{mol}$; $n(\\ce{NaOH})=1.00(0.0600)=0.0600\\ \\mathrm{mol}$."
+    },
+    {
+     "mark": "A1",
+     "point": "HCl is limiting in the 1:1 reaction, so $0.0400\\ \\mathrm{mol}$ of water forms."
+    },
+    {
+     "mark": "M1",
+     "point": "$q_{\\mathrm{solution}}=100(4.18)(5.5)=2299\\ \\mathrm J$."
+    },
+    {
+     "mark": "M1",
+     "point": "Convert to $2.299\\ \\mathrm{kJ}$ and divide by $0.0400\\ \\mathrm{mol}$ of water."
+    },
+    {
+     "mark": "A1",
+     "point": "$\\Delta H_{neut}=-57.475\\ \\mathrm{kJ\\,mol^{-1}}$, accepted as $-57.5$ or $-57\\ \\mathrm{kJ\\,mol^{-1}}$; negative because the reaction releases heat."
+    }
+   ],
+   "explanation": "The full $100\\ \\mathrm g$ of solution gains $2299\\ \\mathrm J$. HCl limits water formation to $0.0400\\ \\mathrm{mol}$, so the reaction releases $2.299/0.0400=57.475\\ \\mathrm{kJ}$ per mole of water.",
+   "hints": [
+    "The thermometer measures the mixed solution, not just one reagent.",
+    "Use the balanced equation to compare reagent amounts before selecting the mole denominator.",
+    "Convert each volume to cubic decimetres for moles; keep heat in joules until the final unit conversion."
+   ]
   }
  ],
  "flashcards": [
@@ -2752,6 +2849,154 @@
     "ea_label": "activation energy",
     "dh_label": "enthalpy change"
    }
+  },
+  {
+   "file": "Assets/9701/9701-5.1-endothermic.svg",
+   "type": "energy_profile",
+   "params": {
+    "reactants": 20,
+    "products": 55,
+    "ea": 80,
+    "reactants_label": "reactants",
+    "products_label": "products",
+    "ea_label": "forward $E_a$",
+    "dh_label": "$\\Delta H > 0$"
+   }
   }
- ]
+ ],
+ "teach": {
+  "9701-5.1.1": {
+   "motivate": "A heat pad warms your hands. Which part loses energy when your hands gain it?",
+   "establish": "Enthalpy change is the heat transferred at constant pressure: $\\Delta H=H_{\\mathrm{products}}-H_{\\mathrm{reactants}}$. Exothermic reactions transfer energy from the reacting system to the surroundings; products have lower enthalpy and $\\Delta H<0$. Endothermic reactions absorb energy from the surroundings; products have higher enthalpy and $\\Delta H>0$. The sign describes the reacting system, not the surroundings.",
+   "connect": "These energy differences become the vertical separations in reaction pathway diagrams.",
+   "note": "- Exothermic: energy released to surroundings; $\\Delta H<0$.\n- Endothermic: energy absorbed from surroundings; $\\Delta H>0$.",
+   "self_explain": "Why does warming of the surroundings imply a negative reaction enthalpy?",
+   "discover": {
+    "stem": "A reaction warms the surrounding solution. Which description is correct?",
+    "options": {
+     "A": "Exothermic; positive enthalpy change.",
+     "B": "Endothermic; negative enthalpy change.",
+     "C": "Exothermic; negative enthalpy change.",
+     "D": "Endothermic; positive enthalpy change."
+    },
+    "answer": "C",
+    "explanation": "The solution gains energy because the reacting system loses it. Confusing those two systems reverses the sign."
+   },
+   "source": "pack"
+  },
+  "9701-5.1.2": {
+   "motivate": "A reaction can release energy overall and still need ignition. A pathway diagram separates the barrier from the overall change.",
+   "establish": "Label the vertical axis enthalpy and the horizontal axis progress of reaction. Draw reactants, a curve rising to a peak, and products. Products are below reactants for an exothermic reaction and above for an endothermic reaction. Forward activation energy $E_a$ is the vertical gap from reactants to the peak. $\\Delta H$ is products minus reactants: draw its arrow from reactant level to product level. Reverse activation energy is measured from products to the same peak. Do not use the peak when calculating the overall enthalpy change.",
+   "connect": "The sign learned for exothermic and endothermic reactions fixes the relative levels before you draw the barrier.",
+   "note": "- Axes: enthalpy against progress of reaction.\n- Forward $E_a$: peak minus reactants; $\\Delta H$: products minus reactants.",
+   "self_explain": "Why can an endothermic reaction have a forward activation energy larger than its enthalpy change?",
+   "discover": {
+    "stem": "Which gap gives forward activation energy?",
+    "options": {
+     "A": "Reactants to peak.",
+     "B": "Reactants to products.",
+     "C": "Products to peak.",
+     "D": "Zero enthalpy to peak."
+    },
+    "answer": "A",
+    "explanation": "The forward reaction starts at the reactant level, so its barrier is measured from there, not from products or an arbitrary zero."
+   },
+   "source": "pack"
+  },
+  "9701-5.1.3": {
+   "motivate": "An enthalpy value is only useful if you know the conditions and the amount of reaction it describes.",
+   "establish": "Standard conditions in this syllabus are $298\\ \\mathrm K$ and $101\\ \\mathrm{kPa}$, indicated by $\\ominus$. A standard state is the most stable physical form under those conditions. Enthalpy change of reaction, $\\Delta H_r$, refers to the stoichiometric amounts in the equation. Formation, $\\Delta H_f$, forms one mole of compound from its elements. Combustion, $\\Delta H_c$, completely burns one mole of substance in oxygen. Neutralisation, $\\Delta H_{neut}$, is the enthalpy change when an aqueous acid and aqueous alkali react to form one mole of water. Standard enthalpy changes require standard conditions and standard states; standard formation specifically starts from elements in their standard states. An element in its standard state has standard formation enthalpy zero.",
+   "connect": "The definition decides which mole amount belongs in the denominator of a calorimetry calculation.",
+   "note": "- Standard conditions: $298\\ \\mathrm K$, $101\\ \\mathrm{kPa}$; specify standard states.\n- Formation: one mole of compound from elements; combustion: one mole completely burned.\n- Neutralisation: one mole of water formed; reaction: equation as written.",
+   "self_explain": "Why can one mole of acid be the wrong basis for an enthalpy of neutralisation?",
+   "discover": {
+    "stem": "What fixes the mole basis for enthalpy of neutralisation?",
+    "options": {
+     "A": "One mole of acid, regardless of its formula.",
+     "B": "One mole of water formed.",
+     "C": "One mole of each reagent initially added.",
+     "D": "One mole of the salt formed."
+    },
+    "answer": "B",
+    "explanation": "Neutralisation enthalpy is per mole of water formed. An acid can supply more than one acidic proton, so acid moles need not equal water moles."
+   },
+   "source": "pack"
+  },
+  "9701-5.1.4": {
+   "motivate": "If breaking bonds requires energy, how can a chemical reaction heat its surroundings?",
+   "establish": "Breaking bonds absorbs energy because bonded atoms must be separated against their attraction. Making bonds releases energy as atoms enter a lower-energy bonded arrangement. Both processes contribute to a reaction. The reaction is exothermic when making product bonds releases more energy than breaking reactant bonds absorbs; it is endothermic when bond breaking requires more than bond making releases.",
+   "connect": "This energy balance gives the subtraction used in bond-energy calculations.",
+   "note": "- Bond breaking absorbs energy; bond making releases energy.\n- Compare the total energy absorbed and released to determine the reaction sign.",
+   "self_explain": "Why is it incorrect to say that a fuel releases heat by breaking its bonds?",
+   "discover": {
+    "stem": "Which explanation describes an exothermic reaction?",
+    "options": {
+     "A": "Breaking bonds releases more than making bonds absorbs.",
+     "B": "Only bond formation occurs.",
+     "C": "Breaking and forming bonds both release energy.",
+     "D": "Making bonds releases more than breaking bonds absorbs."
+    },
+    "answer": "D",
+    "explanation": "Bond breaking always requires energy. Net release occurs because bond formation releases the larger total, not because bond breaking releases heat."
+   },
+   "source": "pack"
+  },
+  "9701-5.1.5": {
+   "motivate": "A balanced equation tells you how many bonds contribute, not just which bond types occur.",
+   "establish": "Use the balanced equation to count every bond broken and formed. Bond energies are positive energies for breaking gaseous bonds. Multiply each bond energy by its bond count, add the broken-bond energies, then subtract the formed-bond total: $\\Delta H_r\\approx\\sum E(\\mathrm{broken})-\\sum E(\\mathrm{formed})$. For $\\ce{H2(g) + Cl2(g) -> 2HCl(g)}$, break one H–H and one Cl–Cl bond and form two H–Cl bonds. With energies $436$, $242$ and $431\\ \\mathrm{kJ\\,mol^{-1}}$, respectively, the estimate is $436+242-2(431)=-184\\ \\mathrm{kJ\\,mol^{-1}}$ for the equation as written.",
+   "connect": "Bond breaking and making explain the subtraction; average data explain why the result is an estimate.",
+   "note": "- Count bonds using the balanced equation.\n- $\\Delta H_r\\approx\\sum E(\\mathrm{broken})-\\sum E(\\mathrm{formed})$.",
+   "self_explain": "Why must the H–Cl energy be multiplied by two in this reaction?",
+   "discover": {
+    "stem": "For $\\ce{H2(g) + Cl2(g) -> 2HCl(g)}$, use H–H $436$, Cl–Cl $242$, H–Cl $431\\ \\mathrm{kJ\\,mol^{-1}}$. Which estimate is correct?",
+    "options": {
+     "A": "$-184\\ \\mathrm{kJ\\,mol^{-1}}$",
+     "B": "$+184\\ \\mathrm{kJ\\,mol^{-1}}$",
+     "C": "$+1540\\ \\mathrm{kJ\\,mol^{-1}}$",
+     "D": "$+247\\ \\mathrm{kJ\\,mol^{-1}}$"
+    },
+    "answer": "A",
+    "explanation": "Subtract twice the H–Cl energy from the sum for H–H and Cl–Cl. Reversing the subtraction, adding both totals, or counting only one H–Cl bond gives the alternatives."
+   },
+   "source": "pack"
+  },
+  "9701-5.1.6": {
+   "motivate": "Why can a correct bond-energy calculation disagree with a measured reaction enthalpy?",
+   "establish": "An exact bond dissociation enthalpy belongs to a specified bond-breaking process in a specified gaseous species, such as splitting gaseous hydrogen molecules into gaseous atoms. An average bond energy is a mean; a tabulated value commonly averages a bond type over different gaseous compounds. Molecular environment affects bond energy, so the same bond type need not have the same value everywhere. Successive bond dissociations in methane also differ: the mean C–H energy in methane is one quarter of its total gaseous atomisation enthalpy, not simply the first dissociation energy. Here exact means specific to a process, not free from experimental uncertainty.",
+   "connect": "Average values make bond-energy calculations useful estimates rather than guaranteed experimental results.",
+   "note": "- Exact bond dissociation enthalpy: a specified gaseous bond-breaking process.\n- Average bond energies represent means; molecular environment matters.",
+   "self_explain": "Why is the first C–H bond dissociation in methane not necessarily equal to its mean C–H bond energy?",
+   "discover": {
+    "stem": "Which statement about a tabulated average C–H bond energy is correct?",
+    "options": {
+     "A": "It is exact for every C–H bond.",
+     "B": "It is always the first methane bond dissociation energy.",
+     "C": "It averages values and may differ from a particular bond dissociation enthalpy.",
+     "D": "It is negative because breaking bonds releases energy."
+    },
+    "answer": "C",
+    "explanation": "An average need not match any particular bond-breaking process; the surrounding molecular structure affects the energy required."
+   },
+   "source": "pack"
+  },
+  "9701-5.1.7": {
+   "motivate": "A thermometer measures the solution, while the question asks about the reacting chemicals. Keep their energy transfers separate.",
+   "establish": "Find the total mass of heated water or solution, using density and combined volume when appropriate. Calculate $\\Delta T=T_{\\mathrm{final}}-T_{\\mathrm{initial}}$ and $q_{\\mathrm{solution}}=mc\\Delta T$ in joules. Calculate initial reactant moles and compare them using the balanced equation to identify the limiting reactant. Use the amount actually reacted on the requested mole basis; for neutralisation use moles of water formed. If heat loss and the calorimeter heat capacity are negligible, $q_{\\mathrm{reaction}}=-q_{\\mathrm{solution}}$. Hence $\\Delta H=-q_{\\mathrm{solution}}/(1000n)$ in $\\mathrm{kJ\\,mol^{-1}}$. A rise in solution temperature means a negative reaction enthalpy.",
+   "connect": "Standard enthalpy definitions determine the mole basis; exothermic energy transfer determines the minus sign.",
+   "note": "- Use total heated solution mass in $q=mc\\Delta T$.\n- Find limiting moles and the requested mole basis.\n- $\\Delta H=-q/(1000n)$ in $\\mathrm{kJ\\,mol^{-1}}$ when $q$ is in joules.",
+   "self_explain": "Why do you include excess reagent solution in the heated mass but not count excess reagent as reacted moles?",
+   "discover": {
+    "stem": "Two solutions react in an insulated cup. Which mass belongs in the heat calculation for their temperature rise?",
+    "options": {
+     "A": "Only the limiting solute mass.",
+     "B": "The total mass of the mixed solution.",
+     "C": "Only the acid solution mass.",
+     "D": "Only the excess solute mass."
+    },
+    "answer": "B",
+    "explanation": "Both solutions undergo the measured temperature change. Limiting-reactant moles determine the reacted amount, but do not replace the total heated mass."
+   },
+   "source": "pack"
+  }
+ }
 }

@@ -1,0 +1,30 @@
+{
+ "summary": "Add the missing teaching sequence, an endothermic pathway, and focused calorimetry practice.",
+ "improvements": [
+  {
+   "kind": "feature",
+   "where": "pack teach, 9701-5.1.1 through 9701-5.1.7",
+   "why": "The syllabus gate reports no teaching card for all seven outcomes, so lesson mode lacks its motivate, discover, establish, connect, note and self-explanation sequence.",
+   "what": "Add one complete, accurate teaching card per KC, each with a misconception-sensitive discover MCQ; use the definitions, diagrams and worked methods already in the pack and note."
+  },
+  {
+   "kind": "diagram",
+   "where": "note, after the existing exothermic profile in ## Key ideas",
+   "why": "9701-5.1.2 asks learners to construct and interpret pathway diagrams, but the only drawn example is exothermic.",
+   "what": "Add an energy_profile for an endothermic reaction, with products above reactants and clear forward activation-energy and positive $\\Delta H$ labels; add a sentence comparing the two profiles."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the bond-energy worked example",
+   "why": "The method gives $q=mc\\Delta T$ and $\\Delta H=-q/n$ but the note never works an experimental enthalpy calculation from measurements.",
+   "what": "Add a compact worked calorimetry example: use total heated solution mass, calculate $\\Delta T$ and $q$ in joules, determine the limiting reactant and the correct mole basis, then convert to $\\mathrm{kJ\\,mol^{-1}}$ with the reaction sign. Include the one-mole-of-water basis if neutralisation is used."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-5.1.2 and 9701-5.1.7",
+   "why": "Core practice has short numerical and MCQ items, but no written sketch of an endothermic profile or multistep experimental enthalpy problem.",
+   "count": 2,
+   "what": "Add one exam-style structured sketch/interpret item assessing reactant and product levels, $E_a$ and signed $\\Delta H$; add one structured calorimetry item assessing heated mass, limiting moles, joule-to-kilojoule conversion and sign, with hints and mark schemes."
+  }
+ ]
+}
