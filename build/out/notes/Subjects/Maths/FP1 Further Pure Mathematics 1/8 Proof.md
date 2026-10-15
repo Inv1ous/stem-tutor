@@ -31,6 +31,12 @@ For a series, the crucial line is $S_{k+1}=S_k+a_{k+1}$. For example, if $S_k=\f
 > The next expression is $3^{2(k+1)+1}+1=9(3^{2k+1}+1)-8=4(9q-2)$.
 > Since $9q-2$ is an integer, the next expression is divisible by $4$. The result follows by induction.
 
+The same two moves settle any divisibility claim, whatever the numbers. Pearson's own specification and teaching guidance for this topic also set $3^{2n}+11$ divisible by $4$, and treat divisibility as the hardest of the four induction settings. Here the base case is $3^{2}+11=20=4\times5$. Assume $3^{2k}+11=4q$ for an integer $q$. Raising $n$ by one multiplies the power by $9$, so
+
+$$3^{2(k+1)}+11=9\times3^{2k}+11=9\left(3^{2k}+11\right)-88=4(9q-22).$$
+
+The quotient is the integer $9q-22$, so the next expression is divisible by $4$ and the result follows by induction. Name that quotient: a line saying "which is a multiple of $4$" without it leaves the accuracy mark unearned.
+
 For a recurrence, start with the given relation. If $u_{n+1}=3u_n+4$, $u_1=1$, and the proposed general term is $u_n=3^n-2$, check $u_1=3^1-2=1$. Under the hypothesis $u_k=3^k-2$, obtain $u_{k+1}=3(3^k-2)+4=3^{k+1}-2$. This is the required next term.
 
 For matrix powers, equality means equality of every entry. With $A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$, the proposed form is $A^n=\begin{pmatrix}1&n\\0&1\end{pmatrix}$. At $n=0$, both sides are $I$. Assuming the form for $A^k$, multiplication gives $A^{k+1}=A^kA=\begin{pmatrix}1&k+1\\0&1\end{pmatrix}$. This proves the pattern, rather than merely observing it in small powers.
@@ -44,6 +50,11 @@ For matrix powers, equality means equality of every entry. With $A=\begin{pmatri
 ## Exam technique
 
 For **Show that** and **Prove**, show the base case, the hypothesis, the algebraic transition and the final conclusion. In a sum, display the new term. In a matrix product, display enough multiplication to check all entries. Use “for arbitrary $k$” so your step is general, and finish with the exact range in the question.
+
+Learn one conclusion sentence and reuse it, changing only the start value: "The statement is true for $n=n_0$, and if it is true for $n=k$ then it is true for $n=k+1$; therefore it is true for all integers $n\geq n_0$ by mathematical induction." With $n_0=1$ the last clause becomes "for all $n\in\mathbb{Z}^{+}$". Your revision guide flags this as a mark-bearing step: a conclusion that does not mention both the base case and the implication can lose the final mark.
+
+> [!warning] Common mistake
+> Stopping at the correct algebra. A step that ends with $\frac16(k+1)(k+2)(4k+3)$ or $4(9q-22)$ and no sentence has not yet said what has been proved. Write the two clauses (base case true, $P(k)\Rightarrow P(k+1)$) and the range.
 
 ## Links
 

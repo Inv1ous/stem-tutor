@@ -1,0 +1,156 @@
+{
+ "sub": "FP1-8",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:50:47+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T21:57:24+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 4 improvements"
+  },
+  {
+   "t": "2026-10-15T22:39:32+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 4 questions, 6 note_lines, 1 other"
+  },
+  {
+   "t": "2026-10-15T22:46:58+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "1 of 1 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:50:47+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 4 questions, 6 note_lines, 1 other"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 20,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 18058,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:56:26+08:00",
+   "log": "refine/logs/FP1-8.scout.1015-215626.log",
+   "out": "refine/logs/FP1-8.scout.1015-215626.out.json",
+   "expects": "build/work/refine/FP1-8.plan.json",
+   "finished": "2026-10-15T21:57:24+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 4,
+    "plan_path": "build/work/refine/FP1-8.plan.json",
+    "notes": [
+     "Read the learner’s YFM01 c7.1.pdf pages 2–3 and 11; used its guidance on the induction conclusion. Checked Pearson’s official FP1 specification and teaching guidance for a divisibility example absent from the chapter.",
+     "The gates report two invalid existing chapter links. The scout role permits additions only, so the plan leaves those links for a separate correction."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 35382,
+   "provider": "claude",
+   "model": "opus/medium",
+   "rung": 1,
+   "started": "2026-10-15T22:33:04+08:00",
+   "log": "refine/logs/FP1-8.refiner.1015-223304.log",
+   "out": "refine/logs/FP1-8.refiner.1015-223304.out.json",
+   "finished": "2026-10-15T22:39:32+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 4,
+    "new_items": [
+     "FP1-8-r01",
+     "FP1-8-r02",
+     "FP1-8-r03",
+     "FP1-8-r04"
+    ],
+    "new_diagrams": [],
+    "not_done": [
+     "Pre-existing broken links on the note's final line ([[7 Summing simple finite series]], [[5 Multiplying matrices together]]; bundle allows only [[7 Series]] and [[5 Matrix algebra integration]]) were left as they are: correcting them would edit an existing line, which the no-loss rule forbids. With the snapshot present the figures gate scores them as inherited (0), but they still need a non-additive fix."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 2.187
+  },
+  "solver": {
+   "pid": 38365,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:39:39+08:00",
+   "log": "refine/logs/FP1-8.solver.1015-223939.log",
+   "out": "refine/logs/FP1-8.solver.1015-223939.out.json",
+   "expects": "build/work/blind/FP1-8.refine.answers.json",
+   "finished": "2026-10-15T22:39:58+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/FP1-8.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 38370,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:39:39+08:00",
+   "log": "refine/logs/FP1-8.checker.1015-223939.log",
+   "out": "refine/logs/FP1-8.checker.1015-223939.out.json",
+   "expects": "build/work/refine/FP1-8.check.json",
+   "finished": "2026-10-15T22:41:16+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote build/work/refine/FP1-8.check.json"
+   },
+   "ok": true,
+   "cost_usd": 0.148
+  }
+ },
+ "plan": {
+  "improvements": 4,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 1,
+   "feature": 1,
+   "source_gap": 1
+  }
+ },
+ "maker": "claude",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 4,
+  "diagrams": 0,
+  "note_lines": 6,
+  "cards": 0,
+  "other": 1
+ },
+ "last_refined": "2026-10-15T22:50:47+08:00"
+}

@@ -1,0 +1,32 @@
+{
+ "summary": "Add proof-step practice and an official-specification example to strengthen the four induction settings.",
+ "improvements": [
+  {
+   "kind": "questions",
+   "where": "FP1-8.1",
+   "why": "Most existing non-structured items only calculate a value from an already proved formula; learners need to construct the induction step.",
+   "count": 4,
+   "what": "Add one exam-style Prove or Show that item in each setting, using fresh expressions: a summation requiring the next summand, a divisibility claim requiring an integer quotient, a recurrence requiring substitution of $u_k$, and a non-triangular matrix power requiring all four entries. Avoid duplicating the four existing structured proofs."
+  },
+  {
+   "kind": "feature",
+   "where": "pack worked, FP1-8.1",
+   "why": "The four existing faded versions ask only for numerical evaluation, so none rehearses a partially completed proof.",
+   "what": "Add one worked proof with a faded version whose blank starts at the key $k$ to $k+1$ transition and whose answer checks the resulting expression; retain all existing worked examples."
+  },
+  {
+   "kind": "source_gap",
+   "where": "note, after the divisibility worked example",
+   "why": "Pearson's official FP1 8.1 guidance uses $3^{2n}+11$ divisible by $4$, a distinct divisibility form absent from the chapter; its teaching guidance says divisibility is typically the most challenging induction setting.",
+   "source": "https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf | https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Teaching-and-Learning-Materials/ial-further-pure-1-final.pdf",
+   "what": "Add a concise second divisibility transition for $3^{2n}+11$: from $3^{2k}+11=4q$, derive $3^{2(k+1)}+11=9(3^{2k}+11)-88=4(9q-22)$, and explicitly identify the integer quotient. Paraphrase the sources."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, Exam technique",
+   "why": "The learner's revision guide highlights the final conclusion as a mark-bearing step; the current note gives a general reminder but no reusable sentence for an arbitrary start index.",
+   "source": "library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c7.1.pdf p.2-3",
+   "what": "Add a short model conclusion: having verified $P(n_0)$ and proved $P(k)\\Rightarrow P(k+1)$ for arbitrary $k\\geq n_0$, conclude $P(n)$ for all integers $n\\geq n_0$."
+  }
+ ]
+}
