@@ -1,0 +1,18 @@
+{
+ "summary": "Add the missing distinction between error and uncertainty and give learners open-response practice with uncertainty in a difference.",
+ "improvements": [
+  {
+   "kind": "clarification",
+   "where": "note, ## Key ideas before Percentage uncertainty",
+   "why": "The note opens by treating error and uncertainty as interchangeable, but learners need to distinguish an unknown measurement error from an estimated uncertainty interval before combining uncertainties.",
+   "what": "Add a short definition and one numerical example: error is the difference between a reading and the true value, whereas an uncertainty is an estimated interval reported as measured value $\\pm$ absolute uncertainty. Explain that repeated readings can be used to estimate uncertainty from half the range, without claiming that this removes systematic error. Add a matching flashcard if useful."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-1.3.3",
+   "why": "The only generated difference item is an MCQ; learners have no open-response practice that requires showing both the absolute uncertainty in a difference and its percentage relative to that difference.",
+   "count": 2,
+   "what": "Add one numeric Calculate item and one structured Determine item involving an extension found by subtracting two measured lengths. Require the absolute uncertainties to add, then divide by the calculated extension for percentage uncertainty; make the distractor or rubric address using one original reading as the percentage base."
+  }
+ ]
+}
