@@ -252,6 +252,170 @@
     "unit": "",
     "exact": true
    }
+  },
+  {
+   "id": "P2-2-r01",
+   "kcs": [
+    "P2-2.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Show that",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Let $f(x)=2x^3+x^2-13x+6$. (a) Show that $2x-1$ is a factor of $f(x)$, giving the full substitution. (b) Hence use algebraic division to find the quadratic quotient and factorise $f(x)$ completely. Show your division working.",
+   "marks": 6,
+   "explanation": "The full substitution is $f(1/2)=2(1/2)^3+(1/2)^2-13(1/2)+6=1/4+1/4-13/2+6=0$, proving the factor by the Factor Theorem. Successive subtraction of $(2x-1)x^2$, $(2x-1)x$ and $(2x-1)(-6)$ leaves $2x^2-13x+6$, then $-12x+6$, then zero, giving quotient $x^2+x-6$. Thus $f(x)=(2x-1)(x+3)(x-2)$.",
+   "hints": [
+    "Which input makes the proposed factor vanish?",
+    "Evaluate the cubic at that input, then divide by the proposed factor and factorise the quotient.",
+    "Begin division by dividing the leading term $2x^3$ by $2x$, then multiply back and subtract."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "(a) Substitute $x=1/2$ into all terms: $2(1/2)^3+(1/2)^2-13(1/2)+6$."
+    },
+    {
+     "mark": "A1",
+     "point": "Obtain $1/4+1/4-13/2+6=0$ and conclude that $2x-1$ is a factor by the Factor Theorem."
+    },
+    {
+     "mark": "M1",
+     "point": "(b) Attempt algebraic division by $2x-1$: subtract $(2x-1)x^2$ to leave $2x^2-13x+6$, then continue dividing and subtracting (or equivalent coefficient matching)."
+    },
+    {
+     "mark": "A1",
+     "point": "Obtain quotient $x^2+x-6$ with remainder zero."
+    },
+    {
+     "mark": "M1",
+     "point": "Factorise the quadratic quotient using two numbers with product $-6$ and sum $1$."
+    },
+    {
+     "mark": "A1",
+     "point": "State the complete factorisation $f(x)=(2x-1)(x+3)(x-2)$."
+    }
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "P2-2-r02",
+   "kcs": [
+    "P2-2.1"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Show that",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Let $g(x)=6x^3+x^2-5x-2$. (a) Show that $3x+2$ is a factor of $g(x)$, giving the full substitution. (b) Hence use algebraic division to find the quadratic quotient and factorise $g(x)$ completely. Show your division working.",
+   "marks": 6,
+   "explanation": "Substitution gives $g(-2/3)=6(-2/3)^3+(-2/3)^2-5(-2/3)-2=-16/9+4/9+10/3-2=0$, so $3x+2$ is a factor. In division, subtracting $(3x+2)(2x^2)$ leaves $-3x^2-5x-2$, then subtracting $(3x+2)(-x)$ leaves $-3x-2$, and subtracting $(3x+2)(-1)$ leaves zero. The quotient is $2x^2-x-1=(2x+1)(x-1)$, so $g(x)=(3x+2)(2x+1)(x-1)$.",
+   "hints": [
+    "Check the sign of the input that makes the proposed factor zero.",
+    "After proving a zero remainder, divide by the proposed factor and split the middle term of the quadratic quotient.",
+    "Begin division with $6x^3\\div 3x$; subtract the resulting multiple of the whole divisor before continuing."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "(a) Substitute $x=-2/3$ into all terms: $6(-2/3)^3+(-2/3)^2-5(-2/3)-2$."
+    },
+    {
+     "mark": "A1",
+     "point": "Show $-16/9+4/9+10/3-2=0$ and conclude that $3x+2$ is a factor by the Factor Theorem."
+    },
+    {
+     "mark": "M1",
+     "point": "(b) Attempt algebraic division by $3x+2$: subtract $(3x+2)(2x^2)$ to leave $-3x^2-5x-2$, then continue dividing and subtracting (or equivalent coefficient matching)."
+    },
+    {
+     "mark": "A1",
+     "point": "Obtain quotient $2x^2-x-1$ with remainder zero."
+    },
+    {
+     "mark": "M1",
+     "point": "Attempt to factorise the quotient, for example by writing $2x^2-2x+x-1$ and grouping."
+    },
+    {
+     "mark": "A1",
+     "point": "State the complete factorisation $g(x)=(3x+2)(2x+1)(x-1)$."
+    }
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "P2-2-r03",
+   "kcs": [
+    "P2-2.1"
+   ],
+   "kind": "structured",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "The polynomial $f(x)=2x^3+kx^2-3x+1$ has factor $2x-1$. Find $k$, showing the equation obtained from the Factor Theorem.",
+   "marks": 3,
+   "explanation": "The divisor vanishes at $x=1/2$, and a factor requires zero remainder, so $2(1/2)^3+k(1/2)^2-3(1/2)+1=0$. This simplifies to $(k-1)/4=0$, giving $k=1$; the right-hand side is zero because a factor, rather than a nonzero remainder, was specified.",
+   "hints": [
+    "A stated factor tells you the value of the remainder.",
+    "Set the linear factor equal to zero, substitute that input into the polynomial and set the result equal to zero.",
+    "Keep the coefficient term as $k(1/2)^2$ when you substitute, then collect the constant terms."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Use the Factor Theorem at $x=1/2$ to form $2(1/2)^3+k(1/2)^2-3(1/2)+1=0$."
+    },
+    {
+     "mark": "A1",
+     "point": "Simplify correctly to $k/4-1/4=0$."
+    },
+    {
+     "mark": "A1",
+     "point": "Find $k=1$."
+    }
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "P2-2-r04",
+   "kcs": [
+    "P2-2.1"
+   ],
+   "kind": "structured",
+   "difficulty": 3,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "When $h(x)=3x^3+kx^2-2x+4$ is divided by $3x+2$, the remainder is $5$. Find the exact value of $k$, showing the equation obtained from the Remainder Theorem.",
+   "marks": 3,
+   "explanation": "The divisor vanishes at $x=-2/3$, so the Remainder Theorem gives $3(-2/3)^3+k(-2/3)^2-2(-2/3)+4=5$. Simplifying gives $-8/9+4k/9+4/3+4=5$, hence $4k+40=45$ and $k=5/4$. Setting this expression equal to zero would incorrectly impose a factor condition; the given remainder is nonzero.",
+   "hints": [
+    "Use the zero of the divisor, paying attention to its plus sign.",
+    "Evaluate the polynomial at that input and equate it to the stated remainder, rather than to zero.",
+    "Write $3(-2/3)^3+k(-2/3)^2-2(-2/3)+4=5$ and clear denominators before solving."
+   ],
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Use $x=-2/3$ and form $3(-2/3)^3+k(-2/3)^2-2(-2/3)+4=5$."
+    },
+    {
+     "mark": "A1",
+     "point": "Simplify to $4k/9+40/9=5$, or $4k+40=45$."
+    },
+    {
+     "mark": "A1",
+     "point": "Find the exact value $k=5/4$."
+    }
+   ],
+   "shuffle": true
   }
  ],
  "flashcards": [

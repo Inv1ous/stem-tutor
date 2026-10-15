@@ -39,3 +39,5 @@ For **Show that** a linear expression is a factor, display its zero and the full
 
 ## Links
 Builds on [[1 Algebra and functions]] · Leads to later work with polynomial equations.
+
+<!-- Refinement practice sources: sources/library/SaveMyExams/YMA01 pure-2/YMA01 c2.1.pdf, PDF pp.9–10 and 24–25 (remainder and coefficient methods); Pearson Edexcel WMA12/01R June 2024 mark scheme, Q9(c), PDF p.22 (method/accuracy allocation for division and quadratic quotient): https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Mathematics/2018/Exam-materials/wma12-01r-rms-20240815.pdf. All four added questions are original. -->
