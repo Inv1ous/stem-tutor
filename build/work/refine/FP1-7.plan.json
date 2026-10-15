@@ -1,0 +1,12 @@
+{
+ "summary": "Add a small set of linked exam-style practice on symbolic finite sums and the command word Hence; the existing explanations and examples already cover the core method.",
+ "improvements": [
+  {
+   "kind": "questions",
+   "where": "FP1-7.1 items",
+   "why": "The bank has ten items, but only one asks for an algebraic result in $n$ and none uses the specified command word Hence.",
+   "count": 2,
+   "what": "Add a linked structured exam question: first show the formula for $\\sum_{r=1}^{n}r(r+2)$ with full method marks, then hence find an exact value of $\\sum_{r=a}^{b}r(r+2)$ by subtracting the result at $a-1$ from the result at $b$. Also add an independent expression or structured item for a general polynomial summand such as $\\sum_{r=1}^{n}(3r^2-r)$, requiring the student to expand or split the sum and simplify an expression in $n$. Give exact verified answers, three progressive hints, and distinct explanations."
+  }
+ ]
+}

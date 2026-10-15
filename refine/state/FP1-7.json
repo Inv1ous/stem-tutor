@@ -1,0 +1,133 @@
+{
+ "sub": "FP1-7",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:33:02+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T10:06:57+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 1 improvements"
+  },
+  {
+   "t": "2026-10-15T21:58:58+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 2 questions, 1 note_lines"
+  },
+  {
+   "t": "2026-10-15T22:29:30+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "0 of 0 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:33:02+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 2 questions, 1 note_lines"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 12,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 42472,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T10:06:00+08:00",
+   "log": "refine/logs/FP1-7.scout.1015-100600.log",
+   "out": "refine/logs/FP1-7.scout.1015-100600.out.json",
+   "expects": "build/work/refine/FP1-7.plan.json",
+   "finished": "2026-10-15T10:06:57+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 1,
+    "plan_path": "build/work/refine/FP1-7.plan.json",
+    "notes": [
+     "The plan adds two questions: linked “Hence” practice and a symbolic polynomial sum. Current gates pass. The learner’s library returned no matching passages."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 17832,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T21:56:09+08:00",
+   "log": "refine/logs/FP1-7.refiner.1015-215609.log",
+   "out": "refine/logs/FP1-7.refiner.1015-215609.out.json",
+   "finished": "2026-10-15T21:58:58+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 1,
+    "new_items": [
+     "FP1-7-r01",
+     "FP1-7-r02"
+    ],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 27025,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:14:41+08:00",
+   "log": "refine/logs/FP1-7.checker.1015-221441.log",
+   "out": "refine/logs/FP1-7.checker.1015-221441.out.json",
+   "expects": "build/work/refine/FP1-7.check.json",
+   "finished": "2026-10-15T22:15:12+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [FP1-7.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/FP1-7.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 1,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 2,
+  "diagrams": 0,
+  "note_lines": 1,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T22:33:02+08:00"
+}

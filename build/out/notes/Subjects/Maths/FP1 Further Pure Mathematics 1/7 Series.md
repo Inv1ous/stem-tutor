@@ -54,3 +54,5 @@ For **Find** or **Calculate**, state the relevant formula, show the substitution
 
 ## Links
 Builds on [[4 Sequences and series]] in P2 · Leads to polynomial sums and later uses of sigma notation.
+
+<!-- Refinement practice sources: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c6.1.pdf, pp. 2–5 and 8 (limits, standard sums and polynomial combinations). External command-word cross-check: OCR, A/AS Level Mathematics Command Words, p. 1, https://www.ocr.org.uk/Images/533967-a-level-maths-command-words-poster-a4-size.pdf (Hence and Show that); consistent with this chapter bundle. Questions are original. -->
