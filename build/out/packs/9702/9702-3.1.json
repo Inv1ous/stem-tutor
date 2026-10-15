@@ -3402,6 +3402,147 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "source": {
+    "type": "generated"
+   },
+   "shuffle": true,
+   "id": "9702-3.1-r01",
+   "command_word": "Describe",
+   "stem": "A trolley is moving right along a level road while braking. There is no driving force, and the only horizontal force is a resistive force. The trolley has no vertical acceleration. Describe all the forces acting on the trolley, giving each name and direction, and state the direction of its acceleration.",
+   "marks": 4,
+   "rubric": [
+    {
+     "point": "Weight (gravitational force) acts vertically downwards.",
+     "keywords": [
+      [
+       "weight",
+       "gravitational force",
+       "gravity"
+      ],
+      [
+       "down"
+      ]
+     ]
+    },
+    {
+     "point": "Normal reaction from the road acts vertically upwards.",
+     "keywords": [
+      [
+       "normal",
+       "reaction",
+       "support"
+      ],
+      [
+       "up"
+      ]
+     ]
+    },
+    {
+     "point": "Resistive force acts horizontally to the left.",
+     "keywords": [
+      [
+       "resist",
+       "friction",
+       "braking"
+      ],
+      [
+       "left"
+      ]
+     ]
+    },
+    {
+     "point": "Acceleration is to the left.",
+     "keywords": [
+      [
+       "acceleration",
+       "accelerates"
+      ],
+      [
+       "left"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Weight acts downwards and the normal reaction acts upwards; these balance because there is no vertical acceleration. The only horizontal force is resistance to the left, so the resultant force and acceleration are leftward even while the trolley moves right.",
+   "hints": [
+    "Choose the trolley as the body and consider its interactions with its surroundings.",
+    "Separate vertical and horizontal forces, using the stated conditions for each direction.",
+    "Use the resultant force in Newton’s second law to decide the acceleration direction."
+   ]
+  },
+  {
+   "kcs": [
+    "9702-3.1.2"
+   ],
+   "kind": "short",
+   "difficulty": 2,
+   "source": {
+    "type": "generated"
+   },
+   "shuffle": true,
+   "id": "9702-3.1-r02",
+   "command_word": "Explain",
+   "stem": "A trolley is moving to the right while the resultant force on it acts to the left. Explain why it can have a leftward acceleration while still moving right, distinguishing velocity from acceleration and describing what happens to its speed at this instant.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "By Newton’s second law, acceleration is leftward because it is in the direction of the resultant force.",
+     "keywords": [
+      [
+       "resultant",
+       "net force"
+      ],
+      [
+       "acceleration",
+       "accelerates"
+      ],
+      [
+       "left",
+       "same direction"
+      ]
+     ]
+    },
+    {
+     "point": "Velocity describes motion; acceleration is the rate of change of velocity, so their directions need not match.",
+     "keywords": [
+      [
+       "velocity"
+      ],
+      [
+       "rate of change",
+       "change in velocity",
+       "changing velocity"
+      ]
+     ]
+    },
+    {
+     "point": "The trolley slows down while moving right because acceleration is opposite to velocity.",
+     "keywords": [
+      [
+       "slows",
+       "slowing",
+       "speed decreases",
+       "decreasing speed"
+      ],
+      [
+       "opposite"
+      ]
+     ]
+    }
+   ],
+   "explanation": "For positive mass, Newton’s second law gives acceleration in the direction of the resultant force: left. Velocity is still rightward, but acceleration describes how velocity changes, so this opposite acceleration reduces the speed rather than reversing the motion instantly.",
+   "hints": [
+    "Separate the direction of motion from the direction in which motion is changing.",
+    "Recall which quantity Newton’s second law relates to the resultant force.",
+    "Choose right as positive and consider how a small velocity change affects the existing velocity."
+   ]
   }
  ],
  "flashcards": [
@@ -3448,7 +3589,38 @@
    "back": "The force on an object due to a gravitational field; $W=mg$."
   }
  ],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/9702/9702-3.1-trolley-free-body.svg",
+   "type": "free_body",
+   "params": {
+    "body": "box",
+    "incline_deg": 0,
+    "forces": [
+     {
+      "label": "Driving\nforce",
+      "angle": 0,
+      "length": 1.5
+     },
+     {
+      "label": "Resistive\nforce",
+      "angle": 180,
+      "length": 0.8
+     },
+     {
+      "label": "Normal reaction",
+      "angle": 90,
+      "length": 1.3
+     },
+     {
+      "label": "Weight",
+      "angle": 270,
+      "length": 1.3
+     }
+    ]
+   }
+  }
+ ],
  "teach": {
   "9702-3.1.1": {
    "motivate": "Why does a loaded trolley respond less to the same push than an empty one?",
