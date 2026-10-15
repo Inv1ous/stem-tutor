@@ -1,0 +1,24 @@
+{
+ "summary": "Add interactive cycle teaching and a fully worked combustion route, then test construction of a labelled cycle.",
+ "improvements": [
+  {
+   "kind": "feature",
+   "where": "pack teaching cards for 9701-5.2.1 and 9701-5.2.2",
+   "why": "The syllabus gate reports no teaching card for either outcome; existing worked examples and questions do not guide discovery of a cycle.",
+   "what": "Add one teaching card per KC, each with a discover question. For 9701-5.2.1 ask learners to choose identical initial and final states and infer why the two signed routes agree; for 9701-5.2.2 ask them to reverse or scale arrows and predict the effect on $\\Delta H$ before calculating. Keep both aligned with existing misconceptions."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the existing Worked example",
+   "why": "The note explains combustion cycles but its only worked example uses formation enthalpies; learners never see the subtraction direction carried through a complete combustion route.",
+   "what": "Add a compact worked example finding $\\Delta H_f^\\ominus(\\ce{CH3OH(l)})$ from combustion enthalpies of $\\ce{C(s)}$, $\\ce{H2(g)}$ and $\\ce{CH3OH(l)}$ (bundle MCQ 9701_s25_12_q6). Write the balanced formation equation, show both routes to $\\ce{CO2(g) + 2H2O(l)}$, include coefficients and signed substitution, and check the result is $-240\\ \\mathrm{kJ\\,mol^{-1}}$. Paraphrase rather than copy the MCQ."
+  },
+  {
+   "kind": "questions",
+   "where": "9701-5.2.1",
+   "why": "Most current items ask for an MCQ choice or a number; only one short item asks for an explanation, and none requires learners to construct and label a complete cycle as the syllabus states.",
+   "count": 1,
+   "what": "Add a structured exam-style question asking for balanced equations, physical states, a labelled common endpoint, signed arrows and a calculated unknown enthalpy from two supplied combustion changes. Mark cycle construction explicitly, and provide three progressive hints and a checked explanation."
+  }
+ ]
+}

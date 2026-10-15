@@ -1229,6 +1229,69 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "id": "9701-5.2-r01",
+   "kcs": [
+    "9701-5.2.1",
+    "9701-5.2.2"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Determine",
+   "source": {
+    "type": "generated"
+   },
+   "shuffle": true,
+   "stem": "The standard enthalpies of combustion of graphite, $\\ce{C(s)}$, and carbon monoxide, $\\ce{CO(g)}$, are $-393.5$ and $-283.0\\ \\mathrm{kJ\\,mol^{-1}}$, respectively. Determine the enthalpy change for $\\ce{2C(s) + O2(g) -> 2CO(g)}$. (a) Write balanced combustion equations for one mole of each fuel, with physical states. (b) Construct a complete labelled Hess cycle for the target reaction: include sufficient oxygen at both upper nodes, a common endpoint, arrow directions and signed enthalpy labels. (c) Use the cycle to calculate the unknown enthalpy change per mole of reaction as written.",
+   "marks": 7,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "$\\ce{C(s) + O2(g) -> CO2(g)}$."
+    },
+    {
+     "mark": "B1",
+     "point": "$\\ce{CO(g) + 1/2O2(g) -> CO2(g)}$."
+    },
+    {
+     "mark": "B1",
+     "point": "Upper nodes are $\\ce{2C(s) + 2O2(g)}$ and $\\ce{2CO(g) + O2(g)}$, linked left to right by the target arrow labelled $\\Delta H$."
+    },
+    {
+     "mark": "B1",
+     "point": "Both upper nodes connect to the common endpoint $\\ce{2CO2(g)}$."
+    },
+    {
+     "mark": "B1",
+     "point": "Downward arrows are labelled $2(-393.5)=-787.0$ from the carbon node and $2(-283.0)=-566.0$ from the carbon monoxide node, in $\\mathrm{kJ\\,mol^{-1}}$ of reaction as written; accept reversed arrows with reversed signs."
+    },
+    {
+     "mark": "M1",
+     "point": "Equate routes: $\\Delta H+2(-283.0)=2(-393.5)$, or an equivalent signed sum."
+    },
+    {
+     "mark": "A1",
+     "point": "$\\Delta H=-221.0\\ \\mathrm{kJ\\,mol^{-1}}$ for the reaction as written.",
+     "check": {
+      "kind": "numeric",
+      "answer": {
+       "value": -221.0,
+       "unit": "kJ mol^-1",
+       "sf_ok": [
+        3,
+        4
+       ]
+      }
+     }
+    }
+   ],
+   "explanation": "Both routes begin with $\\ce{2C(s) + 2O2(g)}$ and end with $\\ce{2CO2(g)}$; the indirect route passes through $\\ce{2CO(g) + O2(g)}$. The combustion arrows are $-787.0$ and $-566.0\\ \\mathrm{kJ\\,mol^{-1}}$, so $\\Delta H=-787.0-(-566.0)=-221.0\\ \\mathrm{kJ\\,mol^{-1}}$ for the target equation.",
+   "hints": [
+    "Identify the complete combustion product of each fuel and check its physical state.",
+    "Use the target coefficients to scale each combustion equation, then include enough oxygen to make both routes reach the same endpoint.",
+    "Equate direct combustion of the starting mixture with the target enthalpy plus combustion of its products; keep each combustion value signed."
+   ]
   }
  ],
  "flashcards": [
@@ -1251,5 +1314,45 @@
    "back": "$\\Delta H\\approx\\sum E(\\text{bonds broken})-\\sum E(\\text{bonds formed})$ for gaseous species."
   }
  ],
- "diagrams": []
+ "diagrams": [],
+ "teach": {
+  "9701-5.2.1": {
+   "motivate": "A reaction may be difficult to measure directly. Two measurable routes can still reveal its enthalpy change if their starting and finishing states match.",
+   "discover": {
+    "stem": "You compare a direct route with a route through an intermediate. Which comparison allows Hess’s law to equate their signed enthalpy totals?",
+    "options": {
+     "A": "Both start and finish with identical substances, amounts, physical states, temperature and pressure.",
+     "B": "Both finish with the same substances, but one produces liquid water and the other water vapour.",
+     "C": "Both start with the same substances, but one uses twice the amount.",
+     "D": "Both share endpoints, but reversed arrows retain their original enthalpy signs."
+    },
+    "answer": "A",
+    "explanation": "Enthalpy depends on the state, so identical endpoints give identical total changes. Different amounts or physical states change an endpoint; reversing an arrow requires reversing its sign."
+   },
+   "establish": "Hess’s law states that the enthalpy change of a reaction is independent of the route taken, provided initial and final conditions are the same. First balance the target equation and include physical states. Choose common starting and finishing states, including any oxygen needed for combustion. Draw the direct arrow and an alternative route through an intermediate. Label each arrow with its signed enthalpy change. For $A\\to B\\to C$ and $A\\to C$, write $\\Delta H_{AC}=\\Delta H_{AB}+\\Delta H_{BC}$. If you travel against an arrow, change its sign. This prevents the sign error in m1.",
+   "connect": "Formation cycles share elements in their standard states; combustion cycles share complete combustion products. Both implement the same endpoint rule.",
+   "note": "- Balance every equation and match amounts, states and conditions at shared endpoints.\n- Add signed changes along routes; reverse the sign when reversing an arrow.",
+   "self_explain": "Why does replacing liquid water with water vapour at one endpoint prevent you from equating the two route totals without another step?",
+   "source": "pack"
+  },
+  "9701-5.2.2": {
+   "motivate": "Once the cycle is balanced, the calculation is bookkeeping: every reversal changes a sign and every coefficient scales an energy change.",
+   "discover": {
+    "stem": "For $\\ce{H2(g) + 1/2O2(g) -> H2O(l)}$, $\\Delta H=-286\\ \\mathrm{kJ\\,mol^{-1}}$. Before calculating, predict the sign and size when the arrow is reversed and the entire equation doubled. Which value follows?",
+    "options": {
+     "A": "$+572\\ \\mathrm{kJ\\,mol^{-1}}$",
+     "B": "$-572\\ \\mathrm{kJ\\,mol^{-1}}$",
+     "C": "$+286\\ \\mathrm{kJ\\,mol^{-1}}$",
+     "D": "$-286\\ \\mathrm{kJ\\,mol^{-1}}$"
+    },
+    "answer": "A",
+    "explanation": "Reversal changes the sign and doubling doubles the magnitude: $-2(-286)=+572\\ \\mathrm{kJ\\,mol^{-1}}$. B misses reversal (m1), C misses scaling (m2), and D misses both."
+   },
+   "establish": "Write the target equation first. Reverse and scale supplied equations until their sum gives exactly that equation, cancelling intermediates. Apply the same operations to their enthalpy changes before adding. For combustion routes, $\\Delta H_r+\\sum\\Delta H_c(\\text{products})=\\sum\\Delta H_c(\\text{reactants})$, with coefficients included and identical final products. Subtract the product combustion total to isolate the unknown. This avoids m1 and m2. For a bond-energy cycle, first break gaseous reactants into atoms, then form gaseous products: broken minus formed. Include any necessary phase-change steps; average bond energies give an estimate.",
+   "connect": "The cycle supplies an indirect enthalpy change when the target cannot be measured directly. Matching states is just as important for bond-energy routes as for combustion routes.",
+   "note": "- Reverse equation: reverse the enthalpy sign; scale equation: scale its enthalpy.\n- Cancel intermediates before adding signed values and giving the unit.\n- Bond energies require gaseous species; breaking absorbs and forming releases energy.",
+   "self_explain": "Why must a coefficient multiply the enthalpy as well as the chemical equation, and why does reversing a combustion arrow make its contribution positive?",
+   "source": "pack"
+  }
+ }
 }
