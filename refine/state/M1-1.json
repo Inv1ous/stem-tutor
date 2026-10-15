@@ -1,0 +1,155 @@
+{
+ "sub": "M1-1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:46:58+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T13:01:48+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 1 improvements"
+  },
+  {
+   "t": "2026-10-15T22:00:20+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions"
+  },
+  {
+   "t": "2026-10-15T22:39:39+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "1 of 1 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:46:58+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 18,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 3420,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T13:00:49+08:00",
+   "log": "refine/logs/M1-1.scout.1015-130049.log",
+   "out": "refine/logs/M1-1.scout.1015-130049.out.json",
+   "expects": "build/work/refine/M1-1.plan.json",
+   "finished": "2026-10-15T13:01:48+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 1,
+    "plan_path": "build/work/refine/M1-1.plan.json",
+    "notes": [
+     "The learner's sources library returned no matches or files.",
+     "The gate flags an existing incorrect chapter link; an additive refine pass cannot replace it."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 18310,
+   "provider": "claude",
+   "model": "opus/medium",
+   "rung": 1,
+   "started": "2026-10-15T21:56:44+08:00",
+   "log": "refine/logs/M1-1.refiner.1015-215644.log",
+   "out": "refine/logs/M1-1.refiner.1015-215644.out.json",
+   "finished": "2026-10-15T22:00:20+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 1,
+    "new_items": [
+     "M1-1-r01",
+     "M1-1-r02",
+     "M1-1-r03"
+    ],
+    "new_diagrams": [],
+    "not_done": [
+     "Gate failure '[[3 Kinematics]] is not a chapter note' left in place: it is on the note's pre-existing final line 48, which the no-loss rule forbids editing, and the suggested replacement '[[3 Kinematics of a particle moving in a straight line]]' is not in this bundle's permitted link list. With the snapshot present, refine.py gates now counts it as an inherited link problem and the figures gate reads 0, but the broken link still needs a non-additive fix."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true,
+   "cost_usd": 1.216
+  },
+  "solver": {
+   "pid": 35384,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:33:04+08:00",
+   "log": "refine/logs/M1-1.solver.1015-223304.log",
+   "out": "refine/logs/M1-1.solver.1015-223304.out.json",
+   "expects": "build/work/blind/M1-1.refine.answers.json",
+   "finished": "2026-10-15T22:33:19+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/M1-1.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 35386,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T22:33:04+08:00",
+   "log": "refine/logs/M1-1.checker.1015-223304.log",
+   "out": "refine/logs/M1-1.checker.1015-223304.out.json",
+   "expects": "build/work/refine/M1-1.check.json",
+   "finished": "2026-10-15T22:34:36+08:00",
+   "exit": 0,
+   "report": {
+    "text": "I've completed the refine check for M1-1. Here's my analysis:\n\n**Questions reviewed:** M1-1-r01, M1-1-r02, M1-1-r03 (3 short/MCQ questions added)\n\n**Rule-by-rule assessment:**\n\n1. **Hint gives it away** ✓ – Hints are guiding prompts, not answers\n2. **Wrong definition** ✓ – All definitions align with the note and pack (particle keeps mass but negligible dimensions; smooth removes friction not normal reaction; uniform means weight at midpoint; rigid means no deformation)\n3. **Two right options** ✓ – MCQ has only one correct answer (A); B, C, D all directly contradict the model\n4. **Wrong constant** ✓ – No constants used\n5. **Note contradicts pack** ✓ – All explanations consistent with both sources\n6. **Off syllabus** ✓ – All test M1-1.1 (mechanical models and their assumptions)\n7. **Outcome not taught or tested** ✓ – The note and existing pack questions teach these models; new questions deepen understanding through application\n8. **Copied text** ✓ – All stems, rubrics and explanations appear original\n9. **Bad link** ✓ – No [[...]] links used\n\n**0 findings** – M1-1.check.json written"
+   },
+   "ok": true,
+   "cost_usd": 0.1
+  }
+ },
+ "plan": {
+  "improvements": 1,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "claude",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 3,
+  "diagrams": 0,
+  "note_lines": 0,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T22:46:58+08:00"
+}
