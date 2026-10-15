@@ -1,0 +1,31 @@
+{
+ "summary": "Add visual reasoning and multi-step practice for perpendicular lever arms and couple torque while preserving the passing chapter.",
+ "improvements": [
+  {
+   "kind": "clarification",
+   "where": "note, after ## Key ideas",
+   "why": "The note asks learners to imagine the force line and shortest distance, but gives no visual for the geometry that examiner reports identify as difficult.",
+   "what": "Add a compact labelled text diagram or table comparing a radial distance, the force's line of action, and the perpendicular lever arm for an inclined uniform sign; explain that its weight acts at the midpoint and that the horizontal lever arm for angle $\\theta$ to the vertical is $(L/2)\\sin\\theta$. Use an additional worked sign example with equation, substitution and units. Do not request an SVG type that cannot show this geometry."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-4.1.1 and 9702-4.1.2",
+   "why": "The generated moment calculations are all one-mark numeric items; none requires a marked sequence for locating a uniform object's centre of gravity, projecting the lever arm and stating rotational sense.",
+   "count": 2,
+   "what": "Add two original structured questions: an inclined uniform sign hinged along its upper edge, and a slanted force on a lever. Award separate marks for locating the centre or drawing the force line, finding the perpendicular distance, calculating the moment in N m, and giving its sense. Use distinct values from the existing MCQs."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the couple paragraph in ## Key ideas",
+   "why": "The note states pivot independence without showing why, and the Nov 2019 examiner comment identifies confusion between a couple and unequal forces with a nonzero resultant.",
+   "what": "Add a short derivation using two equal opposite forces each a distance $d/2$ from a midpoint: the moments have the same sense and sum to $F(d/2)+F(d/2)=Fd$. Contrast this with unequal opposite forces, which leave a resultant force and are not a couple."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-4.1.3 and 9702-4.1.4",
+   "why": "Couple practice is dominated by recognition MCQs and one-mark torque calculations; it gives little multi-mark explanation of zero resultant force and the full separation.",
+   "count": 2,
+   "what": "Add one structured question asking learners to justify whether a described pair is a couple from magnitudes, directions and separate parallel lines, then calculate torque and sense; add one short explanation question asking why two $Fd/2$ moments add to $Fd$ and why the result is independent of pivot."
+  }
+ ]
+}
