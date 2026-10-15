@@ -20,7 +20,18 @@ $$
 $$
 An anticlockwise rotation through angle $\theta$ about $(0,0)$ has matrix $\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}$. A clockwise turn uses a negative angle. At $90^\circ$ anticlockwise, $(1,0)^T$ becomes $(0,1)^T$, a useful sign check.
 
+The rotated basis images are $(1,0)^T\mapsto(\cos\theta,\sin\theta)^T$ and $(0,1)^T\mapsto(\cos(90^\circ+\theta),\sin(90^\circ+\theta))^T=(-\sin\theta,\cos\theta)^T$. Put these images in the first and second columns respectively: the second basis vector starts a quarter-turn ahead, fixing the minus sign in the top-right entry.
+
 A stretch parallel to the $x$-axis by factor $a$ has matrix $\begin{pmatrix}a&0\\0&1\end{pmatrix}$; parallel to the $y$-axis by factor $b$, use $\begin{pmatrix}1&0\\0&b\end{pmatrix}$. An enlargement about $(0,0)$ by real nonzero scale factor $k$ is $kI=\begin{pmatrix}k&0\\0&k\end{pmatrix}$. A negative $k$ puts the image on the opposite side of the origin.
+
+### Why the determinant measures area
+For $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$, the unit square has images of its vertices $0$, $u=(a,c)^T$, $u+v$ and $v=(b,d)^T$. These form a parallelogram with ordered sides $u,v$: its signed area is $ad-bc$ and its actual area is $|ad-bc|$. Since the original square has area $1$, this gives the area scale factor.
+
+For $A=\begin{pmatrix}2&1\\0&-1\end{pmatrix}$, the vertices become $(0,0)$, $(2,0)$, $(3,-1)$ and $(1,-1)$. The base is $2$ and perpendicular height $1$, so the area is $2$, while $\det A=-2$: traversing the vertices now goes clockwise rather than anticlockwise. The negative sign records reversed orientation, not negative area.
+
+For $B=\begin{pmatrix}1&2\\2&4\end{pmatrix}$, the basis images $(1,2)^T$ and $(2,4)^T$ are parallel. The square collapses to a line segment on $y=2x$, with area $0$ and $\det B=0$; different starting points share images, so no inverse exists.
+
+*Sources for these clarifications and practice methods: learner library, `sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c5.2.pdf`, pp.2–3, 5, 8–10, 13. The signed-area interpretation is supported by [TU Delft, Determinants as areas or volumes, §5.1.2](https://interactivetextbooks.tudelft.nl/linear-algebra/Chapter5/DeterminantsGeometric.html). Examples and questions here are original.*
 
 ## Method
 1. Write each single-transformation matrix and test it on a simple vector.

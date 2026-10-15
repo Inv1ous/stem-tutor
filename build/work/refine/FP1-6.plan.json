@@ -1,0 +1,31 @@
+{
+ "summary": "Add full-solution practice and two geometric explanations where the current chapter relies heavily on single-entry calculations.",
+ "improvements": [
+  {
+   "kind": "questions",
+   "where": "FP1-6.2 and FP1-6.3",
+   "why": "Existing items mostly ask for one coordinate; learners need to construct and identify complete matrices, including a rotation through a non-special angle and a noncommuting combination.",
+   "count": 4,
+   "what": "Add two structured Find items for complete single-transformation matrices and images, and two structured Find or Show that items for complete products, equivalent geometric transformations, and evidence that reversing the order changes the result. Include worked mark schemes, hints, and misconception-linked distractors where suitable."
+  },
+  {
+   "kind": "questions",
+   "where": "FP1-6.1 and FP1-6.4",
+   "why": "Basis-image and determinant items seldom require a full explanation or a multi-step argument; Explain, Hence and Verify are absent.",
+   "count": 4,
+   "what": "Add a basis-image reconstruction with a general vector, a justification of why the two images determine every image, an area-scale and invertibility question for a negative or zero determinant, and a multi-part inverse-of-composition item. Use structured or short rubrics where reasoning is the assessed skill."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after ## Key ideas",
+   "why": "The note states that the determinant scales area but does not show the unit-square reason or distinguish a negative sign from area magnitude visually or algebraically.",
+   "what": "Add a concise unit-square example: the images of the basis vectors span a parallelogram with signed area $ad-bc$ and actual area $|ad-bc|$; use one orientation-reversing matrix and one singular matrix to explain the two cases."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the rotation formula in ## Key ideas",
+   "why": "The arbitrary-angle rotation matrix appears without showing how its columns come from the rotated basis vectors.",
+   "what": "Add the images $(1,0)^T\\mapsto(\\cos\\theta,\\sin\\theta)^T$ and $(0,1)^T\\mapsto(-\\sin\\theta,\\cos\\theta)^T$ and explain that placing these as columns fixes the signs in the formula."
+  }
+ ]
+}
