@@ -1,0 +1,31 @@
+{
+ "summary": "Add the missing acceleration–time interpretation and make signed graph areas and the equation derivation visible to learners.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "note, after the existing velocity–time graph in ## Key ideas",
+   "why": "Outcome 9702-2.1.3 requires displacement from a velocity–time graph, but the current shaded graph stays above zero; the note's negative-area rule has no visual example.",
+   "what": "Add a graph_sketch with velocity crossing the time axis and distinct positive and negative shaded regions, labelled as signed displacement; put a short adjacent example that subtracts the region below zero for net displacement and adds magnitudes for total distance."
+  },
+  {
+   "kind": "source_gap",
+   "where": "note, ## Key ideas, Graphs; teaching card 9702-2.1.2",
+   "why": "The graph section does not explain what area on an acceleration–time graph means, though outcome 9702-2.1.2 covers graphical representation of acceleration.",
+   "source": "library: sources/library/SaveMyExams/9702 a-level-physics-cie-25/9702 c2.1.pdf p.8; https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf",
+   "what": "Add a concise acceleration–time graph explanation: height gives acceleration, a horizontal line gives constant acceleration, and signed area over a time interval gives change in velocity. Include a tiny numerical example with units; paraphrase the library source."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, ## Key ideas, Equations of motion",
+   "why": "Outcome 9702-2.1.6 says derive the equations, while the current note only names eliminations after listing them.",
+   "what": "Add the intermediate algebra from $a=(v-u)/t$ and $s=\tfrac12(u+v)t$ to $s=ut+\tfrac12at^2$ and $v^2=u^2+2as$, making the uniform-acceleration assumption explicit."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-2.1.2 and 9702-2.1.3",
+   "why": "The current graph practice has no generated task that combines an acceleration–time area with a velocity–time graph crossing zero.",
+   "count": 2,
+   "what": "One Determine item uses the signed area under an acceleration–time graph to find final velocity; one multi-step Determine item uses regions above and below a velocity–time axis to compare net displacement with distance. Give worked explanations, three hints, and misconception distractors where relevant."
+  }
+ ]
+}

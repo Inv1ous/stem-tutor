@@ -1,0 +1,199 @@
+{
+ "sub": "9702-2.1",
+ "stage": "ready",
+ "pass": 2,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:10:23+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T18:19:58+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T18:36:52+08:00",
+   "from": "refine",
+   "to": "refine",
+   "note": "refiner finished but gates are not clean: ['syllabus command-word item 9702-2.1-i20 Derive is not a command word of this syllabus', 'syllabus command-word item 9702-2.1-i24 Derive is not a command word of this syllabus']"
+  },
+  {
+   "t": "2026-10-15T18:38:27+08:00",
+   "from": "refine",
+   "to": "refine",
+   "note": "refiner finished but gates are not clean: ['syllabus command-word item 9702-2.1-i20 Derive is not a command word of this syllabus', 'syllabus command-word item 9702-2.1-i24 Derive is not a command word of this syllabus']"
+  },
+  {
+   "t": "2026-10-15T18:42:38+08:00",
+   "from": "refine",
+   "to": "refine",
+   "note": "refiner finished but gates are not clean: ['syllabus command-word item 9702-2.1-i20 Derive is not a command word of this syllabus', 'syllabus command-word item 9702-2.1-i24 Derive is not a command word of this syllabus']"
+  },
+  {
+   "t": "2026-10-15T18:42:50+08:00",
+   "from": "refine",
+   "to": "ready",
+   "note": "given up after 3 attempts left the gates red: ['syllabus command-word item 9702-2.1-i20 Derive is not a command word of this syllabus', 'syllabus command-word item 9702-2.1-i24 Derive is not a command word ; additions dropped"
+  },
+  {
+   "t": "2026-10-15T20:21:58+08:00",
+   "from": "ready",
+   "to": "plan",
+   "note": "pass 2"
+  },
+  {
+   "t": "2026-10-15T21:11:33+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 4 improvements"
+  },
+  {
+   "t": "2026-10-15T21:26:32+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 2 questions, 1 diagrams, 11 note_lines, 1 cards"
+  },
+  {
+   "t": "2026-10-15T21:27:51+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "2 of 2 new questions agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-15T21:52:25+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:10:23+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 2 questions, 1 diagrams, 11 note_lines, 1 cards"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 138,
+  "extra": 82,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 98515,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:10:18+08:00",
+   "log": "refine/logs/9702-2.1.scout.1015-211018.log",
+   "out": "refine/logs/9702-2.1.scout.1015-211018.out.json",
+   "expects": "build/work/refine/9702-2.1.plan.json",
+   "finished": "2026-10-15T21:11:33+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 4,
+    "plan_path": "build/work/refine/9702-2.1.plan.json",
+    "notes": [
+     "Read the learner’s Save My Exams PDF, 9702 c2.1.pdf pp. 8 and 21; p. 8 supports the acceleration–time graph addition.",
+     "Checked the official Cambridge 9702 syllabus for 2025–2027. The plan file is valid JSON."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 4377,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T21:22:44+08:00",
+   "log": "refine/logs/9702-2.1.refiner.1015-212244.log",
+   "out": "refine/logs/9702-2.1.refiner.1015-212244.out.json",
+   "finished": "2026-10-15T21:26:32+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 4,
+    "new_items": [
+     "9702-2.1-r01",
+     "9702-2.1-r02"
+    ],
+    "new_diagrams": [
+     "Assets/9702/9702-2.1-signed-areas.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 6027,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:26:37+08:00",
+   "log": "refine/logs/9702-2.1.solver.1015-212637.log",
+   "out": "refine/logs/9702-2.1.solver.1015-212637.out.json",
+   "expects": "build/work/blind/9702-2.1.refine.answers.json",
+   "finished": "2026-10-15T21:26:58+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions in `build/work/blind/9702-2.1.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 7198,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T21:28:46+08:00",
+   "log": "refine/logs/9702-2.1.checker.1015-212846.log",
+   "out": "refine/logs/9702-2.1.checker.1015-212846.out.json",
+   "expects": "build/work/refine/9702-2.1.check.json",
+   "finished": "2026-10-15T21:29:17+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9702-2.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9702-2.1.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 4,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 1,
+   "clarification": 1,
+   "feature": 0,
+   "source_gap": 1
+  }
+ },
+ "maker": "codex",
+ "abandoned": {
+  "at": "2026-10-15T18:42:50+08:00",
+  "pass": 1,
+  "why": "['syllabus command-word item 9702-2.1-i20 Derive is not a command word of this syllabus', 'syllabus command-word item 9702-2.1-i24 Derive is not a command word of this syllabus']"
+ },
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 2,
+  "diagrams": 1,
+  "note_lines": 11,
+  "cards": 1,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T22:10:23+08:00"
+}
