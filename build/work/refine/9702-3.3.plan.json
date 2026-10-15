@@ -1,0 +1,17 @@
+{
+ "summary": "Add guided two-dimensional collision reasoning and an elastic-collision worked example to complement the existing one-dimensional sticking example.",
+ "improvements": [
+  {
+   "kind": "clarification",
+   "where": "note, after ## Method",
+   "why": "Outcome 9702-3.3.2 explicitly requires two-dimensional interactions, but the note's only worked example is a one-dimensional sticking collision; ER 9702 w23 P22 Q4 reports missing mass factors and wrong sine/cosine components.",
+   "what": "Add a compact worked two-dimensional collision: define positive $x$ along the incident motion and positive $y$ above it, write $p_x$ and $p_y$ conservation equations before and after with a mass multiplying every velocity component, use opposite signs for the two outgoing $y$ components, then solve for an unknown speed or angle and check the $y$ components cancel. Use fresh values rather than repeat an existing item. Explain which angle makes sine or cosine the perpendicular component."
+  },
+  {
+   "kind": "feature",
+   "where": "pack, worked examples and note, after the existing worked example",
+   "why": "The pack has faded worked examples for sticking and opposing-ball momentum, but none that combines momentum with the relative-speed equation for an elastic collision, a distinct method required by 9702-3.3.3.",
+   "what": "Add one fully checked elastic head-on worked example and a faded variant. Start with a signed momentum equation, use $u_1-u_2=v_2-v_1$ as the independent second equation, solve both final velocities, and verify that total kinetic energy before and after agrees. In the note, give a brief matching example or reference to the new method, with the separation speed formed from both final velocities."
+  }
+ ]
+}

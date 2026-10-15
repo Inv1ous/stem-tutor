@@ -1,0 +1,148 @@
+{
+ "sub": "9702-3.3",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T19:05:37+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T18:44:56+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 2 improvements"
+  },
+  {
+   "t": "2026-10-15T18:59:54+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 21 note_lines, 1 other"
+  },
+  {
+   "t": "2026-10-15T19:02:09+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "1 of 1 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T19:05:37+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 21 note_lines, 1 other (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 61,
+  "extra": 36,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 60145,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T18:43:45+08:00",
+   "log": "refine/logs/9702-3.3.scout.1015-184345.log",
+   "out": "refine/logs/9702-3.3.scout.1015-184345.out.json",
+   "expects": "build/work/refine/9702-3.3.plan.json",
+   "finished": "2026-10-15T18:44:56+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 2,
+    "plan_path": "build/work/refine/9702-3.3.plan.json",
+    "notes": [
+     "Read learner PDF sources/library/SaveMyExams/9702 a-level-physics-cie-25/9702 c3.3.pdf, pp. 2 and 8–9; it supports signed momentum and the elastic collision rule.",
+     "Checked the official Cambridge 9702 2025–2027 syllabus for the two-dimensional and elastic-collision requirements: https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf",
+     "The existing gates pass; the plan file is valid JSON."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 66128,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T18:57:31+08:00",
+   "log": "refine/logs/9702-3.3.refiner.1015-185731.log",
+   "out": "refine/logs/9702-3.3.refiner.1015-185731.out.json",
+   "finished": "2026-10-15T18:59:54+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 2,
+    "new_items": [],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 67811,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T19:01:33+08:00",
+   "log": "refine/logs/9702-3.3.solver.1015-190133.log",
+   "out": "refine/logs/9702-3.3.solver.1015-190133.out.json",
+   "expects": "build/work/blind/9702-3.3.refine.answers.json",
+   "finished": "2026-10-15T19:01:49+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 1 question in `build/work/blind/9702-3.3.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 67816,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T19:01:33+08:00",
+   "log": "refine/logs/9702-3.3.checker.1015-190133.log",
+   "out": "refine/logs/9702-3.3.checker.1015-190133.out.json",
+   "expects": "build/work/refine/9702-3.3.check.json",
+   "finished": "2026-10-15T19:01:59+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9702-3.3.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9702-3.3.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 2,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 0,
+   "clarification": 1,
+   "feature": 1,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 0,
+  "diagrams": 0,
+  "note_lines": 21,
+  "cards": 0,
+  "other": 1
+ },
+ "last_refined": "2026-10-15T19:05:37+08:00"
+}
