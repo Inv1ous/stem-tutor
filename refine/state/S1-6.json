@@ -1,0 +1,168 @@
+{
+ "sub": "S1-6",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T23:16:22+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T23:02:44+08:00",
+   "from": "plan",
+   "to": "plan",
+   "note": "scout finished but gates are not clean: [\"sources the learner's library has 3 pages for this chapter (listed under 'Library hits' in the bundle) and you did not open it: run `.venv/bin/python build/library.py for <chapter>` and `text <pdf> --\"]"
+  },
+  {
+   "t": "2026-10-15T23:02:59+08:00",
+   "from": "plan",
+   "to": "plan",
+   "note": "scout finished but gates are not clean: [\"sources the learner's library has 3 pages for this chapter (listed under 'Library hits' in the bundle) and you did not open it: run `.venv/bin/python build/library.py for <chapter>` and `text <pdf> --\"]"
+  },
+  {
+   "t": "2026-10-15T23:05:10+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T23:12:40+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions, 1 diagrams, 3 note_lines"
+  },
+  {
+   "t": "2026-10-15T23:15:41+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "2 of 2 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T23:16:22+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions, 1 diagrams, 3 note_lines"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 10,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 52414,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T23:03:53+08:00",
+   "log": "refine/logs/S1-6.scout.1015-230353.log",
+   "out": "refine/logs/S1-6.scout.1015-230353.out.json",
+   "expects": "build/work/refine/S1-6.plan.json",
+   "finished": "2026-10-15T23:05:10+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 3,
+    "plan_path": "build/work/refine/S1-6.plan.json",
+    "notes": [
+     "Opened learner library: sources/library/SaveMyExams/YMA01 statistics-2/YMA01 c1.3.pdf, pp. 3–4 and 17–18. Its continuous-distribution material supports the note’s point that an exact value has zero probability; it added no missing Normal-specific content.",
+     "Checked Pearson’s official International A Level Mathematics specification for Normal notation and cumulative-function scope: https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Mathematics/2018/Specification-and-Sample-Assessment/international-a-level-maths-spec.pdf",
+     "Current gates report one missing density_panels diagram. The plan JSON passed validation."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 54848,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T23:08:36+08:00",
+   "log": "refine/logs/S1-6.refiner.1015-230836.log",
+   "out": "refine/logs/S1-6.refiner.1015-230836.out.json",
+   "finished": "2026-10-15T23:12:40+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 3,
+    "new_items": [
+     "S1-6-r01",
+     "S1-6-r02",
+     "S1-6-r03"
+    ],
+    "new_diagrams": [
+     "Assets/S1/S1-6-normal-spread.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 56744,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T23:12:56+08:00",
+   "log": "refine/logs/S1-6.solver.1015-231256.log",
+   "out": "refine/logs/S1-6.solver.1015-231256.out.json",
+   "expects": "build/work/blind/S1-6.refine.answers.json",
+   "finished": "2026-10-15T23:13:24+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions. Wrote build/work/blind/S1-6.refine.answers.json."
+   },
+   "ok": true,
+   "cost_usd": 0.039
+  },
+  "checker": {
+   "pid": 56764,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T23:12:56+08:00",
+   "log": "refine/logs/S1-6.checker.1015-231256.log",
+   "out": "refine/logs/S1-6.checker.1015-231256.out.json",
+   "expects": "build/work/refine/S1-6.check.json",
+   "finished": "2026-10-15T23:14:29+08:00",
+   "exit": 0,
+   "report": {
+    "text": "**0 findings.** All additions for S1-6 passed the refine checker rules. The three new questions (S1-6-r01, r02, r03) have mathematically correct answers with hints that guide without revealing final values. The diagram and note explanation are properly sourced, with no contradictions to the pack or bundle.\n\nFile: `build/work/refine/S1-6.check.json`"
+   },
+   "ok": true,
+   "cost_usd": 0.106
+  }
+ },
+ "plan": {
+  "improvements": 3,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 3,
+  "diagrams": 1,
+  "note_lines": 3,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T23:16:22+08:00"
+}

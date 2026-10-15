@@ -9,6 +9,12 @@ kcs: ["S1-6.1"]
 > A Normal distribution models a continuous quantity with a symmetric, bell-shaped curve. Its mean locates the centre, its variance controls the spread, and standard Normal tables give areas to the left of a chosen value.
 
 ## Key ideas
+
+![[Assets/S1/S1-6-normal-spread.svg]]
+
+Both curves are symmetric about $0$, where mean, median and mode coincide. The panels use the same scales: larger variance produces a wider, lower curve. Each complete curve has total area $1$; the tails continue beyond the displayed range.
+
+Source context: continuous-density areas in the learner’s `sources/library/SaveMyExams/YMA01 statistics-2/YMA01 c1.3.pdf`, PDF p.3; the Normal-specific rendering formula and centre properties are checked against [NIST’s Normal distribution reference](https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm). The density formula is not required for this syllabus.
 Write $X\sim N(\mu,\sigma^2)$: the mean is $\mu$, the variance is $\sigma^2$, and the standard deviation is the positive value $\sigma$. The curve is symmetric about $x=\mu$. Its total area is $1$, with half on either side of the mean. Probabilities are areas under the curve, so $P(X=a)=0$ for any single exact value $a$. Consequently $P(X<a)=P(X\leq a)$.
 
 The standard Normal variable is $Z\sim N(0,1)$. Convert a value of $X$ by standardising:

@@ -1,0 +1,25 @@
+{
+ "summary": "Add the required Normal density diagram and broaden practice to upper tails, percentiles and parameter recovery.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "pack diagrams and note, after ## Key ideas",
+   "why": "The S1-6.1 diagram gate requires density_panels; the note describes symmetry and spread but has no visual model.",
+   "what": "Use density_panels with two labelled Normal curves sharing mean 0 but different standard deviations, for example expressions exp(-x*x/2)/sqrt(2*pi) and exp(-x*x/8)/(2*sqrt(2*pi)) over -6 to 6. Mark centres and explain in the note that both are symmetric with total area 1 while larger variance makes a wider, lower curve. Embed the rendered SVG."
+  },
+  {
+   "kind": "questions",
+   "where": "S1-6.1",
+   "why": "The seven items include a left tail, interval, lower-tail percentile and symmetric two-equation problem, but no direct upper-tail calculation or upper-tail inverse percentile.",
+   "count": 2,
+   "what": "Add one Find numeric item requiring a right-tail complement after standardisation and one multi-step Find item reversing a stated upper-tail probability to a cutoff; include tailored three-stage hints, worked explanations and misconception m1 distractors."
+  },
+  {
+   "kind": "questions",
+   "where": "S1-6.1",
+   "why": "The note advises how to handle Show that, but no current item asks that command word; the only unknown-parameter item uses symmetric $z$ values.",
+   "count": 1,
+   "what": "Add an exam-style Show that structured item using two unequal cumulative probabilities to form and solve simultaneous equations for $\\mu$ and positive $\\sigma$, with the target stated and every algebraic step markable."
+  }
+ ]
+}
