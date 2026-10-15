@@ -1,0 +1,26 @@
+{
+ "summary": "Extend the strong falling-body chapter with a horizontal resistive-force case and parachute-deployment reasoning.",
+ "improvements": [
+  {
+   "kind": "clarification",
+   "where": "note, after ## Key ideas",
+   "why": "Outcome 9702-3.2.3 says objects moving against a resistive force may reach a terminal constant velocity; the note explains only falling bodies, while the learner's source gives a car driven against friction.",
+   "source": "library: sources/library/SaveMyExams/9702 a-level-physics-cie-25/9702 c3.2.pdf pp.2-4 | https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf",
+   "what": "Add a concise horizontal-motion comparison: driving force greater than friction means acceleration, equal forces mean constant velocity, and smaller driving force means deceleration. Include $F_\\mathrm{res}=F_\\mathrm{drive}-F_\\mathrm{friction}$ and a brief numerical example based on a car, paraphrased from the library."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-3.2.1 and 9702-3.2.3",
+   "why": "The main bank has one horizontal friction calculation and no item requiring an explanation of the three driving-force regimes.",
+   "count": 2,
+   "what": "One Explain structured item comparing acceleration, constant velocity and deceleration for a car as driving force changes relative to friction; one Predict item about a car reaching a constant maximum speed as resistive force grows. Give markable force-resultant reasoning and hints."
+  },
+  {
+   "kind": "questions",
+   "where": "9702-3.2.2",
+   "why": "The existing main items focus on drag growing during a fall; parachute opening reverses the force imbalance and exposes the common confusion between upward acceleration and upward motion.",
+   "count": 2,
+   "what": "One Explain structured item and one graph-based Sketch item for a skydiver opening a parachute while descending: drag temporarily exceeds weight, acceleration is upward while velocity remains downward, then a lower terminal downward velocity is reached. Keep graph qualitative and use permitted command words."
+  }
+ ]
+}
