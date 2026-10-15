@@ -1,0 +1,157 @@
+{
+ "sub": "9701-10.1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T08:24:23+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T08:19:14+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 6 improvements"
+  },
+  {
+   "t": "2026-10-15T08:20:42+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 6 questions"
+  },
+  {
+   "t": "2026-10-15T08:23:59+08:00",
+   "from": "solve",
+   "to": "sign",
+   "note": "6 of 6 new questions agreed, 0 disputed; 0 checker findings"
+  },
+  {
+   "t": "2026-10-15T08:24:23+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 6 questions"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 118,
+  "extra": 73,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 87934,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 0,
+   "started": "2026-10-15T08:17:38+08:00",
+   "log": "refine/logs/9701-10.1.scout.1015-081738.log",
+   "out": "refine/logs/9701-10.1.scout.1015-081738.out.json",
+   "expects": "build/work/refine/9701-10.1.plan.json",
+   "finished": "2026-10-15T08:19:14+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 6,
+    "plan_path": "build/work/refine/9701-10.1.plan.json",
+    "notes": [
+     "Gates (validator, lint, syllabus, links, figures) are all clean; no diagram_hints suggestion and the library is empty, so no diagram/figure/source_gap entries were planned.",
+     "The one real gap found: despite 6 well-sourced misconceptions and 112 items, zero items have a non-empty `distractors` map — plan adds one MCQ per misconception (m1–m6) with a distractor explicitly mapped to it.",
+     "KC 9701-10.1.4 (trends) has 15 items but none drawn from genuine past papers among the curated 12 'p' items, even though the bundle tags w25_13_q19, w23_13_q19 and w24_12_q21 to it; the refiner may want to swap one in later, but this round only adds the misconception MCQ for it."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 0.764
+  },
+  "refiner": {
+   "pid": 89400,
+   "provider": "codex",
+   "model": "gpt-6-sol/medium",
+   "rung": 0,
+   "started": "2026-10-15T08:19:52+08:00",
+   "log": "refine/logs/9701-10.1.refiner.1015-081952.log",
+   "out": "refine/logs/9701-10.1.refiner.1015-081952.out.json",
+   "finished": "2026-10-15T08:20:42+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 6,
+    "new_items": [
+     "9701-10.1-r01",
+     "9701-10.1-r02",
+     "9701-10.1-r03",
+     "9701-10.1-r04",
+     "9701-10.1-r05",
+     "9701-10.1-r06"
+    ],
+    "new_diagrams": [],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 90280,
+   "provider": "claude",
+   "model": "haiku",
+   "rung": 0,
+   "started": "2026-10-15T08:21:15+08:00",
+   "log": "refine/logs/9701-10.1.solver.1015-082115.log",
+   "out": "refine/logs/9701-10.1.solver.1015-082115.out.json",
+   "expects": "build/work/blind/9701-10.1.refine.answers.json",
+   "finished": "2026-10-15T08:21:43+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 6 questions, wrote build/work/blind/9701-10.1.refine.answers.json"
+   },
+   "ok": true,
+   "cost_usd": 0.037
+  },
+  "checker": {
+   "pid": 90282,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T08:21:15+08:00",
+   "log": "refine/logs/9701-10.1.checker.1015-082115.log",
+   "out": "refine/logs/9701-10.1.checker.1015-082115.out.json",
+   "expects": "build/work/refine/9701-10.1.check.json",
+   "finished": "2026-10-15T08:21:37+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [9701-10.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-10.1.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 6,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 0,
+   "questions": 6,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 6,
+  "diagrams": 0,
+  "note_lines": 0,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T08:24:23+08:00"
+}
