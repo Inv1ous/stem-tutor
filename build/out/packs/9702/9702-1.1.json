@@ -1496,6 +1496,139 @@
    "marks": 1,
    "tier": "extra",
    "explanation": null
+  },
+  {
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "difficulty": 3,
+   "source": {
+    "type": "generated"
+   },
+   "kind": "mcq",
+   "command_word": "Identify",
+   "stem": "A roughly cubic storage box is about $20\\ \\mathrm{cm}$ across. Identify the proposed volume whose cube root gives a plausible side length.",
+   "options": {
+    "A": "$8\\ \\mathrm{cm^3}$",
+    "B": "$800\\ \\mathrm{cm^3}$",
+    "C": "$8000\\ \\mathrm{cm^3}$",
+    "D": "$80000\\ \\mathrm{cm^3}$"
+   },
+   "answer": "C",
+   "marks": 1,
+   "shuffle": true,
+   "distractors": {
+    "A": "m5",
+    "B": "m5",
+    "D": "m5"
+   },
+   "explanation": "The cube roots give side lengths of approximately $2$, $9.3$, $20$ and $43\\ \\mathrm{cm}$ respectively. Only $8000\\ \\mathrm{cm^3}$ matches the stated size; the other powers of ten imply a box that is too small or too large.",
+   "hints": [
+    "Picture the box and the length of one edge.",
+    "Work backwards from each proposed volume to the size of a cube.",
+    "Use the inverse of cubing, retaining the corresponding length unit."
+   ],
+   "id": "9702-1.1-r01"
+  },
+  {
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "difficulty": 3,
+   "source": {
+    "type": "generated"
+   },
+   "kind": "short",
+   "command_word": "Suggest",
+   "stem": "A student proposes a volume for a roughly spherical fruit but does not recognise the volume unit well enough to judge its size. Suggest how to check whether the estimate is plausible using the fruit itself as a reference.",
+   "marks": 3,
+   "rubric": [
+    {
+     "point": "Express the proposed volume in a familiar cubic length unit, such as cubic centimetres.",
+     "keywords": [
+      [
+       "convert",
+       "express",
+       "write"
+      ],
+      [
+       "cubic centimetres",
+       "cubic centimeters",
+       "cm",
+       "cubic metres",
+       "cubic meters"
+      ]
+     ]
+    },
+    {
+     "point": "Take the cube root to obtain a characteristic length (or calculate the spherical diameter from the volume).",
+     "keywords": [
+      [
+       "cube root",
+       "cube-root",
+       "third root",
+       "diameter from",
+       "diameter using"
+      ]
+     ]
+    },
+    {
+     "point": "Compare the inferred length with the observed size of the fruit, allowing for its shape.",
+     "keywords": [
+      [
+       "compare",
+       "comparison"
+      ],
+      [
+       "fruit",
+       "observed",
+       "actual",
+       "known"
+      ]
+     ]
+    }
+   ],
+   "explanation": "Express the volume in $\\mathrm{cm^3}$ and take its cube root to get a characteristic length in centimetres, then compare with the fruit. For a sphere this length is not exactly the diameter: $d=(6V/\\pi)^{1/3}$ gives the diameter if a closer check is needed.",
+   "hints": [
+    "Think of a feature of the fruit that you can judge by eye.",
+    "Choose units that let you compare a calculated size with the object.",
+    "For a cube, volume is side length multiplied by itself three times; consider reversing that relationship."
+   ],
+   "id": "9702-1.1-r02"
+  },
+  {
+   "kcs": [
+    "9702-1.1.2"
+   ],
+   "difficulty": 3,
+   "source": {
+    "type": "generated"
+   },
+   "kind": "structured",
+   "command_word": "Suggest",
+   "stem": "Suggest a reasonable order of magnitude and an SI base unit for each row. Write the order of magnitude as a power of ten; assume an ordinary small passenger car, ordinary printer paper and a resting adult.\n\n| Quantity | Order of magnitude | SI base unit |\n|---|---|---|\n| Mass of the car | … | … |\n| Thickness of one sheet | … | … |\n| Time between successive heartbeats | … | … |",
+   "marks": 3,
+   "scheme": [
+    {
+     "mark": "B1",
+     "point": "Car mass: $10^3$ and kg."
+    },
+    {
+     "mark": "B1",
+     "point": "Paper thickness: $10^{-4}$ and m."
+    },
+    {
+     "mark": "B1",
+     "point": "Time between heartbeats: $10^0$ and s."
+    }
+   ],
+   "explanation": "A small car has a mass around $1000\\ \\mathrm{kg}$, and a paper sheet is roughly $0.1\\ \\mathrm{mm}=10^{-4}\\ \\mathrm{m}$ thick. A resting pulse of about 75 beats per minute gives $60/75=0.8\\ \\mathrm{s}$ between beats, of order $10^0\\ \\mathrm{s}$.",
+   "hints": [
+    "Use familiar objects or experiences to set a rough scale for each row.",
+    "Choose the base unit first, then express a typical value in that unit.",
+    "For the time row, convert a pulse counted over a minute into a time per beat; for thickness, check the prefix conversion."
+   ],
+   "id": "9702-1.1-r03"
   }
  ],
  "flashcards": [
