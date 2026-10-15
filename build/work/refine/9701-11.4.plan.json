@@ -1,0 +1,19 @@
+{
+ "summary": "The chapter already meets the bar (coverage, misconceptions and worked example are solid); add only the discover questions the teach cards lack.",
+ "improvements": [
+  {
+   "kind": "feature",
+   "where": "pack, teach.9701-11.4.1.discover",
+   "kc": "9701-11.4.1",
+   "why": "PACK.md's lesson flow is motivate → discover → establish → connect → note, but this card has no discover question (teach_cards.py's optional field is unused)",
+   "what": "An MCQ asked before the explanation: given Cl2 + cold NaOH -> NaCl + NaClO + H2O, ask what must be true of chlorine's oxidation number for this to be a single-element redox reaction, with one correct option (it both rises and falls) and distractors for 'only rises', 'only falls' and 'stays at 0', each with a 1-2 sentence explanation."
+  },
+  {
+   "kind": "feature",
+   "where": "pack, teach.9701-11.4.2.discover",
+   "kc": "9701-11.4.2",
+   "why": "Same lesson-flow field missing on the second teach card; the misconception m3 (chloride kills bacteria) is a natural discover hook before establishing the real species",
+   "what": "An MCQ asked before the explanation: which species formed when chlorine dissolves in water is responsible for killing bacteria, with chloride as the tempting wrong answer (mapped to m3) and HOCl/ClO- as the correct pairing, each option with a short explanation."
+  }
+ ]
+}

@@ -1004,6 +1004,17 @@
    "establish": "Cold aqueous sodium hydroxide reacts as $\\ce{Cl2 + 2NaOH -> NaCl + NaClO + H2O}$: chlorine changes from 0 in $\\ce{Cl2}$ to -1 in chloride and +1 in chlorate(I), $\\ce{ClO-}$. Hot aqueous sodium hydroxide reacts as $\\ce{3Cl2 + 6NaOH -> 5NaCl + NaClO3 + 3H2O}$: chlorine changes from 0 to -1 in chloride and +5 in chlorate(V), $\\ce{ClO3-}$. In each reaction, chlorine is both oxidised and reduced. Oxidation and reduction of the same element in the same reaction is disproportionation.",
    "connect": "Use oxidation numbers rather than product names alone: cold alkali gives +1, hot alkali gives +5, and both also give chloride at -1. The hot equation's 5:1 product ratio balances the oxidation-number changes.",
    "note": "- Cold aqueous $\\ce{NaOH}$: $\\ce{Cl2 + 2NaOH -> NaCl + NaClO + H2O}$.\n- Hot aqueous $\\ce{NaOH}$: $\\ce{3Cl2 + 6NaOH -> 5NaCl + NaClO3 + 3H2O}$.\n- Chlorine: 0 to -1 and +1 (cold), or 0 to -1 and +5 (hot).\n- Both are disproportionation: chlorine is oxidised and reduced.",
+   "discover": {
+    "stem": "Cold aqueous sodium hydroxide reacts with chlorine: $\\ce{Cl2 + 2NaOH -> NaCl + NaClO + H2O}$. Chlorine is the only element whose oxidation number changes. What must happen to it?",
+    "options": {
+     "A": "It rises in one product and falls in the other",
+     "B": "It only rises, from 0 to +1",
+     "C": "It only falls, from 0 to -1",
+     "D": "It stays at 0 in both products"
+    },
+    "answer": "A",
+    "explanation": "A is correct: chlorine goes from 0 in $\\ce{Cl2}$ to +1 in $\\ce{NaClO}$ and to -1 in $\\ce{NaCl}$, so it is oxidised and reduced in the same reaction, which is disproportionation. B ignores the chloride product, and with no other element changing there would be nothing to accept the electrons. C ignores the chlorate(I) product, so nothing would release the electrons. D is wrong because chlorine is 0 only in the element $\\ce{Cl2}$; bonded to $\\ce{Na}$ at +1 or $\\ce{O}$ at -2 it cannot stay at 0."
+   },
    "self_explain": "In the hot-alkali reaction, identify the chlorine species that is reduced and the one that is oxidised, and state their oxidation numbers.",
    "source": "pack"
   },
@@ -1012,6 +1023,20 @@
    "establish": "Chlorine reacts with water: $\\ce{Cl2(g) + H2O(l) <=> HCl(aq) + HOCl(aq)}$. Hypochlorous acid dissociates: $\\ce{HOCl(aq) <=> H+(aq) + ClO-(aq)}$. The active species $\\ce{HOCl}$ and $\\ce{ClO-}$ kill bacteria. Chlorine has oxidation number +1 in both: hydrogen is +1 and oxygen -2 in $\\ce{HOCl}$, while the total charge of $\\ce{ClO-}$ is -1. Chloride, $\\ce{Cl-}$, is also formed but is not the active species named for disinfection.",
    "connect": "This is another chlorine disproportionation: chlorine starts at 0, then appears at -1 in chloride and +1 in $\\ce{HOCl}$. The +1 species can also appear as $\\ce{ClO-}$ through acid dissociation.",
    "note": "- $\\ce{Cl2 + H2O <=> HCl + HOCl}$.\n- $\\ce{HOCl <=> H+ + ClO-}$.\n- $\\ce{HOCl}$ and $\\ce{ClO-}$ kill bacteria; chlorine is +1 in both.",
+   "discover": {
+    "stem": "Chlorine is added to drinking water to kill bacteria. Which species, formed when chlorine reacts with the water, do the killing?",
+    "options": {
+     "A": "$\\ce{HOCl}$ and $\\ce{ClO-}$",
+     "B": "$\\ce{Cl-}$, from the hydrochloric acid formed",
+     "C": "Dissolved $\\ce{Cl2}$ molecules only",
+     "D": "$\\ce{H+}$, from the acids formed"
+    },
+    "answer": "A",
+    "explanation": "A is correct: $\\ce{Cl2 + H2O <=> HCl + HOCl}$ and $\\ce{HOCl <=> H+ + ClO-}$, so hypochlorous acid and the chlorate(I) ion are the active species, with chlorine at +1 in both. B is the common error: chloride is formed, but it is the unreactive ion found in table salt. C is wrong because most added chlorine reacts with the water rather than staying as $\\ce{Cl2}$. D is wrong because the trace of acid formed is not what disinfects.",
+    "distractors": {
+     "B": "m3"
+    }
+   },
    "self_explain": "Write the two equations that lead from added chlorine to the two active species, then explain why chlorine is +1 in $\\ce{ClO-}$.",
    "source": "pack"
   }
