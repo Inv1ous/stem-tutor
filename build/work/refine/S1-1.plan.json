@@ -1,0 +1,11 @@
+{
+ "summary": "Add a discovery-led teaching card for the modelling cycle, the chapter's only failing coverage gate.",
+ "improvements": [
+  {
+   "kind": "feature",
+   "where": "pack teach.S1-1.1",
+   "why": "The syllabus gate reports no teaching card for S1-1.1; the note and questions already cover the factual content, misconceptions, worked practice and modelling cycle.",
+   "what": "Add a complete teaching card with motivate, discover, establish, connect, note, self_explain and source fields. Use a fair-die prediction versus observed counts as the discover MCQ: ask what to do when results differ modestly from a prediction, with distractors for rejecting the model after any difference, claiming a perfect model, and ignoring assumptions. Establish the cycle of stating assumptions, predicting, comparing with chance variation, and refining only when evidence suggests poor fit. Connect population, sample and random variable to that cycle. Keep the explanations and self-explanation prompt in context, and add only new content."
+  }
+ ]
+}
