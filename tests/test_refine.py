@@ -589,3 +589,11 @@ def test_coverage_names_chapters_whose_stored_content_still_wobbles(rf, capsys):
     assert rf.coverage()["glyphs"] == [SUB]
     rf.cmd_coverage([])
     assert "wobble in the terminal (1): " + SUB in capsys.readouterr().out
+
+
+def test_a_running_refine_job_is_counted_once_not_twice(rf):
+    """The foundry's count includes refine's jobs; refine adding its own on top halved the slots it could use."""
+    rf.cmd_add([SUB])
+    with rf.chapter(SUB) as st:
+        st["jobs"]["scout"] = {"provider": "codex", "pid": os.getpid(), "started": rf.now()}
+    assert rf._busy().get("codex", []).count("scout") == 1

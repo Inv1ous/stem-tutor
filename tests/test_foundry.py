@@ -1003,7 +1003,7 @@ def test_web_roles_get_search_and_the_others_do_not(fdy, monkeypatch):
 
 
 def test_the_foundry_counts_refines_running_jobs_and_will_not_take_a_chapter_it_is_working_on(fdy, tmp_path, monkeypatch, capsys):
-    monkeypatch.setattr(fdy, "REPO", tmp_path)
+    monkeypatch.setattr(fdy, "ROOT", tmp_path)
     (tmp_path / "refine/state").mkdir(parents=True)
     (tmp_path / "refine/state" / "9702-2.1.json").write_text(json.dumps({"sub": "9702-2.1", "stage": "refine", "jobs": {}}))
     assert [r["sub"] for r in fdy._refine_chapters()] == ["9702-2.1"]

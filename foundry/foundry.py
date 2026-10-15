@@ -263,7 +263,9 @@ def gates(sub: str) -> dict:
     findings = lint.lint(text) if note.is_file() else [{"rule": "note", "detail": "missing"}]
     gaps = syllabus_gaps(sub, pack, graph, text)
     import library
+    import content_checks
     figures = (link_problems(text) + diagram_problems(pack, graph, text) + library.figure_problems(text, sub)) if note.is_file() else []
+    figures += content_checks.letter_problems(pack) + content_checks.latex_problems(pack)
     glyph_list = glyph_problems(pack, text)
     out = {"ok": not problems and not findings and not gaps and not figures and not glyph_list, "validator": len(problems),
            "lint": len(findings), "syllabus": len(gaps), "figures": len(figures), "glyphs": len(glyph_list),
@@ -489,7 +491,7 @@ def _busy() -> dict[str, list[str]]:
 def _refine_chapters() -> list[dict]:
     """The refine system's chapters (refine/state), read-only: what it is running counts against the same slots."""
     out = []
-    for f in sorted((REPO / "refine/state").glob("*.json")) if (REPO / "refine/state").is_dir() else []:
+    for f in sorted((ROOT / "refine/state").glob("*.json")) if (ROOT / "refine/state").is_dir() else []:
         try:
             out.append(json.loads(f.read_text()))
         except ValueError:

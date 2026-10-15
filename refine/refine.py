@@ -112,12 +112,9 @@ def chapters() -> list[dict]:
 
 
 def _busy() -> dict[str, list[str]]:
-    """Jobs running now on each allowance: the refine system's AND the foundry's, so the two never oversubscribe."""
-    out = fd._busy()
-    for st in chapters():
-        for name in _running(st):
-            out.setdefault(st["jobs"][name].get("provider", "codex"), []).append(name)
-    return out
+    """Jobs running now on each allowance: the refine system's AND the foundry's, so the two never oversubscribe.
+    The foundry's own count already includes refine's (it reads refine/state), so it is used as it is."""
+    return fd._busy()
 
 
 # ---------------- the snapshot and the no-loss gate ----------------
@@ -276,6 +273,27 @@ def plan_problems(sub: str, before: dict, pack: dict, plan: dict | None, note: s
     return out
 
 
+def _inherited(g: dict, sub: str, before: dict, pack: dict, note: Path) -> None:
+    """What the chapter already had is not the refiner's to fix: it may only add. A link whose title was reworded, or the
+    lack of a diagram, was there before the pass (publishing resolves the first; the plan decides the second), so only
+    NEW link problems, a requested diagram that is not embedded, and figure problems count in the figures gate."""
+    import content_checks
+    import library
+    if not note.is_file():
+        return
+    text = note.read_text(encoding="utf-8")
+    graph = json.loads((fd.SPECS / fd.spec_of(sub) / "graph.json").read_text())
+    old_links = set(fd.link_problems(before.get("note", "")))
+    figs = [x for x in fd.link_problems(text) if x not in old_links] + \
+           [x for x in fd.diagram_problems(pack, graph, text) if not x.startswith("no diagram")] + \
+           library.figure_problems(text, sub) + content_checks.letter_problems(pack) + content_checks.latex_problems(pack)
+    first = [x for x in g.get("first", []) if not x.startswith("figures ")] + [f"figures {x}"[:200] for x in figs[:6]]
+    g.update(figures=len(figs), first=first)
+    g["ok"] = not (g.get("validator") or g.get("lint") or g.get("syllabus") or g.get("glyphs") or figs)
+    if not first:
+        g.pop("first", None)
+
+
 def gates(sub: str) -> dict:
     """The foundry's gates (validator, note lint, syllabus, figures: links + diagrams), then no-loss and the plan."""
     g = fd.gates(sub)  # includes the glyphs gate
@@ -284,6 +302,7 @@ def gates(sub: str) -> dict:
         return {**g, "no_loss": 0, "planned": 0}
     pack = json.loads(pack_path(sub).read_text())
     note = note_path(pack)
+    _inherited(g, sub, before, pack, note)
     lost = no_loss(before, pack, note.read_text(encoding="utf-8") if note.is_file() else "")
     try:
         plan = json.loads(plan_path(sub).read_text())

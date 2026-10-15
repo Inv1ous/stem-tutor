@@ -164,3 +164,16 @@ def test_template_distractors_never_equal_the_answer():
                 clash.append((it["id"], inst["params"]))
                 break
     assert not clash, clash
+
+
+def test_the_gate_helpers_use_the_same_letter_rule_and_find_the_faults_in_a_pack():
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "build"))
+    import content_checks
+    assert content_checks.LETTER_REF.pattern == LETTER_REF.pattern
+    pack = {"items": [{"id": "x-r01", "kind": "mcq", "shuffle": True, "explanation": "Because option B ignores the charge.",
+                       "hints": ["Think about the charge."]},
+                      {"id": "x-p01", "kind": "mcq", "shuffle": True, "source": {"type": "past"}, "explanation": "The answer is B."}],
+            "misconceptions": []}
+    assert len(content_checks.letter_problems(pack)) == 1 and "x-r01" in content_checks.letter_problems(pack)[0]
+    assert content_checks.latex_problems({"note": "fine $x^2$", "q": "plain"}) == []

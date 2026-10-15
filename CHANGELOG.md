@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.4.1 — 2026-10-15
+
+Found on the first real `/refine all` run.
+
+- **Refine used half its slots.** The foundry's running-job count already includes refine's jobs (since 2.2.0), and refine
+  added its own on top, so 2 running workers were counted as 4 and the next ones waited (`refine._busy` now uses the foundry's
+  count as it is).
+- **Refine could not finish old chapters.** The links-and-diagrams gate (2.1.5) failed chapters whose notes already had a
+  reworded link (`[[3.4 Chemical bonding]]`) or no diagram, but the refiner may only add, so it looped and spent allowance.
+  In refine the gate now counts only NEW link problems, a requested diagram that is not embedded, and figure problems;
+  what was there before is left to publishing (which resolves the links) and to the scout's plan.
+- The foundry looks for refine's board under the foundry root, so tests no longer read the real refine state.
+
 ## 2.4.0 — 2026-10-15
 
 Asked by the learner.
