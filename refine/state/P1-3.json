@@ -1,0 +1,164 @@
+{
+ "sub": "P1-3",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T22:14:43+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T10:50:04+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 5 improvements"
+  },
+  {
+   "t": "2026-10-15T11:33:17+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 5 questions, 3 diagrams, 12 note_lines, 2 other"
+  },
+  {
+   "t": "2026-10-15T13:19:18+08:00",
+   "from": "solve",
+   "to": "check",
+   "note": "2 of 2 new questions agreed, 0 disputed; waiting for the checker"
+  },
+  {
+   "t": "2026-10-15T22:10:35+08:00",
+   "from": "check",
+   "to": "sign",
+   "note": "0 checker findings"
+  },
+  {
+   "t": "2026-10-15T22:14:43+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 5 questions, 3 diagrams, 12 note_lines, 2 other"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 24,
+  "extra": 0,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [],
+ "fixes": [],
+ "jobs": {
+  "scout": {
+   "pid": 59211,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T10:48:44+08:00",
+   "log": "refine/logs/P1-3.scout.1015-104844.log",
+   "out": "refine/logs/P1-3.scout.1015-104844.out.json",
+   "expects": "build/work/refine/P1-3.plan.json",
+   "finished": "2026-10-15T10:50:04+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 5,
+    "plan_path": "build/work/refine/P1-3.plan.json",
+    "notes": [
+     "The gates found a missing graph diagram for P1-3.3.",
+     "The learner's sources library returned no chapter matches or files, so no PDF figure was planned.",
+     "The plan JSON was validated."
+    ]
+   },
+   "ok": true
+  },
+  "refiner": {
+   "pid": 74823,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T11:28:55+08:00",
+   "log": "refine/logs/P1-3.refiner.1015-112855.log",
+   "out": "refine/logs/P1-3.refiner.1015-112855.out.json",
+   "finished": "2026-10-15T11:33:17+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 5,
+    "new_items": [
+     "P1-3-r01",
+     "P1-3-r02",
+     "P1-3-r03",
+     "P1-3-r04",
+     "P1-3-r05"
+    ],
+    "new_diagrams": [
+     "Assets/P1/P1-3-sine.svg",
+     "Assets/P1/P1-3-cosine.svg",
+     "Assets/P1/P1-3-tangent.svg"
+    ],
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 10021,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T13:17:48+08:00",
+   "log": "refine/logs/P1-3.solver.1015-131748.log",
+   "out": "refine/logs/P1-3.solver.1015-131748.out.json",
+   "expects": "build/work/blind/P1-3.refine.answers.json",
+   "finished": "2026-10-15T13:18:31+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 2 questions in `build/work/blind/P1-3.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 20681,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T22:02:09+08:00",
+   "log": "refine/logs/P1-3.checker.1015-220209.log",
+   "out": "refine/logs/P1-3.checker.1015-220209.out.json",
+   "expects": "build/work/refine/P1-3.check.json",
+   "finished": "2026-10-15T22:02:41+08:00",
+   "exit": 0,
+   "report": {
+    "text": "0 findings. Wrote [P1-3.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/P1-3.check.json)."
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 5,
+  "dropped": [],
+  "kinds": {
+   "diagram": 1,
+   "figure": 0,
+   "questions": 2,
+   "clarification": 2,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": false,
+ "last_additions": {
+  "questions": 5,
+  "diagrams": 3,
+  "note_lines": 12,
+  "cards": 0,
+  "other": 2
+ },
+ "last_refined": "2026-10-15T22:14:43+08:00"
+}

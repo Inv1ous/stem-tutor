@@ -18,7 +18,19 @@ One **radian** is the central angle subtended by an arc whose length equals the 
 
 The **sine graph** starts at $(0,0)$ and rises; the **cosine graph** starts at $(0,1)$. Both have amplitude 1, range $[-1,1]$ and period $2\pi$. Sine is odd, $\sin(-x)=-\sin x$; cosine is even, $\cos(-x)=\cos x$. The **tangent graph** passes through the origin, has period $\pi$, and has vertical asymptotes at $x=\pi/2+k\pi$ for integer $k$. Tangent is also odd.
 
+![[Assets/P1/P1-3-sine.svg]]
+![[Assets/P1/P1-3-cosine.svg]]
+![[Assets/P1/P1-3-tangent.svg]]
+
+Notice the labelled radian positions: sine and cosine repeat every $2\pi$, while tangent repeats every $\pi$. Cosine has reflection symmetry about the $y$-axis; sine and tangent have rotational symmetry of order 2 about the origin. The dashed tangent lines are asymptotes, not part of the curve.
+
 In $y=a\sin(bx+c)$, amplitude is $|a|$ and period is $2\pi/|b|$. A positive $c$ shifts the graph left by $c/b$ when $b>0$. Thus $y=3\sin x$ has amplitude 3; $y=\sin(x+\pi/6)$ is shifted left $\pi/6$; and $y=\sin2x$ has period $\pi$. Read horizontal changes from the whole argument, not from the isolated constant.
+
+
+> [!example]- Worked example: a horizontal shift
+> For $y=\sin(x+\pi/6)$, set the whole argument to $0,\pi/2,\pi,3\pi/2,2\pi$.
+> Subtract $\pi/6$ to obtain $x=-\pi/6,\pi/3,5\pi/6,4\pi/3,11\pi/6$ with corresponding $y$ values $0,1,0,-1,0$.
+> Plot these five points and join with a smooth sine curve. The shift is left by $\pi/6$, and the period remains $2\pi$: solving for $x$ prevents a sign error.
 
 ## Method
 
@@ -32,6 +44,11 @@ In $y=a\sin(bx+c)$, amplitude is $|a|$ and period is $2\pi/|b|$. A positive $c$ 
 > Use the cosine rule: $c^2=5^2+7^2-2(5)(7)\cos60^\circ=39$, so $c=\sqrt{39}$.
 > Use the included angle for area: $\frac12(5)(7)\sin60^\circ=35\sqrt3/4$.
 > Both answers are exact; rounding early would lose exactness.
+
+> [!example]- Worked example: two possible triangles
+> Let $A=30^\circ$, $a=5$ and $b=8$, with sides opposite matching angles. The sine rule gives $\sin B=8\sin30^\circ/5=0.8$.
+> The candidates are $B=53.1^\circ$ and $126.9^\circ$; the corresponding third angles are $C=96.9^\circ$ and $23.1^\circ$ (1 decimal place).
+> Both third angles are positive, and both candidates satisfy $B>A$, agreeing with $b>a$. Using unrounded angles, the remaining sides are $c=9.93$ or $3.93$ (3 s.f.); each lies between $8-5$ and $8+5$. Both triangles are valid.
 
 ## Traps
 

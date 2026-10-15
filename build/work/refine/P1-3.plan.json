@@ -1,0 +1,37 @@
+{
+ "summary": "Add the missing trigonometric graph diagram and deepen written practice and worked methods for ambiguous triangles and graph transformations.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "pack diagrams and note, after the trig graphs paragraph in ## Key ideas",
+   "why": "The figures gate requires a graph for P1-3.3, and learners need visible intercepts, extrema, periods and tangent asymptotes for Sketch questions.",
+   "what": "Add and embed a graph_sketch comparing $y=\\sin x$, $y=\\cos x$ and $y=\\tan x$ over a labelled radian interval, with the tangent branches and asymptotes clearly distinguished; if one plot is too crowded, use up to three separate graph_sketch diagrams, one per function. Label key points and state what symmetry and period to notice in adjacent note text."
+  },
+  {
+   "kind": "questions",
+   "where": "P1-3.3",
+   "why": "All current graph items are multiple choice and use Find or State; none asks the syllabus command Sketch or checks a labelled curve.",
+   "count": 2,
+   "what": "Add structured Sketch items: one for $y=\\sin(2x)$ over $0\\leq x\\leq 2\\pi$ with labelled zeros, extrema and period; one for $y=\\tan x$ over $-\\pi\\leq x\\leq\\pi$ with zeros, period and vertical asymptotes. Give explicit mark schemes and three non-answer hints each."
+  },
+  {
+   "kind": "questions",
+   "where": "P1-3.1 and P1-3.2",
+   "why": "The triangle and radian outcomes have only multiple-choice practice, so students never show a method or justify an ambiguous-case decision.",
+   "count": 3,
+   "what": "Add two structured triangle questions, including one ambiguous sine-rule case requiring both possible angles and a reason for accepting or rejecting each, and one combining cosine rule with $\\frac12ab\\sin C$; add one multi-step radian question combining arc length and sector area after converting a degree angle. Use the bundle's Find, Calculate or Explain command words and award method marks."
+  },
+  {
+   "kind": "clarification",
+   "where": "pack worked and note, after the existing worked example",
+   "why": "The only triangle worked example uses the cosine rule; the note tells students to test a supplementary sine-rule angle but never demonstrates the full check.",
+   "what": "Add a complete ambiguous-case worked example with a faded version: pair the known opposite side and angle, solve for sine of the unknown angle, calculate the principal and supplementary candidates, check each against the angle sum and side information, then state the valid triangles. Add a compact corresponding example to the note."
+  },
+  {
+   "kind": "clarification",
+   "where": "pack worked and note, graph transformations section",
+   "why": "The existing P1-3.3 worked example only computes a period, leaving the phase shift and actual sketching steps unstated.",
+   "what": "Add a worked and faded example for $y=\\sin(x+\\pi/6)$ or a similar horizontal shift: find transformed key points by setting the whole argument to $0,\\pi/2,\\pi,3\\pi/2,2\\pi$, place them on the $x$ axis, and identify the shift and period. In the note, show how this avoids mistaking the sign of the shift."
+  }
+ ]
+}
