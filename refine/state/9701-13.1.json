@@ -1,0 +1,231 @@
+{
+ "sub": "9701-13.1",
+ "stage": "ready",
+ "pass": 1,
+ "refined": 1,
+ "created": "2026-10-15T08:15:29+08:00",
+ "updated": "2026-10-15T09:59:51+08:00",
+ "history": [
+  {
+   "t": "2026-10-15T08:55:27+08:00",
+   "from": "plan",
+   "to": "refine",
+   "note": "plan: 3 improvements"
+  },
+  {
+   "t": "2026-10-15T08:59:56+08:00",
+   "from": "refine",
+   "to": "refine",
+   "note": "refiner finished but gates are not clean: ['figures [[2.3 Amount of substance]] is not a chapter note']"
+  },
+  {
+   "t": "2026-10-15T09:04:27+08:00",
+   "from": "refine",
+   "to": "refine",
+   "note": "refiner finished but gates are not clean: ['figures [[2.3 Amount of substance]] is not a chapter note']"
+  },
+  {
+   "t": "2026-10-15T09:36:19+08:00",
+   "from": "refine",
+   "to": "solve",
+   "note": "refined: 3 questions, 3 note_lines"
+  },
+  {
+   "t": "2026-10-15T09:37:15+08:00",
+   "from": "solve",
+   "to": "adjudicate",
+   "note": "3 of 3 new questions agreed, 0 disputed; 2 checker findings"
+  },
+  {
+   "t": "2026-10-15T09:55:02+08:00",
+   "from": "adjudicate",
+   "to": "fix",
+   "note": "manager decided"
+  },
+  {
+   "t": "2026-10-15T09:59:15+08:00",
+   "from": "fix",
+   "to": "sign",
+   "note": "fixed; 1 fixes applied"
+  },
+  {
+   "t": "2026-10-15T09:59:51+08:00",
+   "from": "sign",
+   "to": "ready",
+   "note": "refined: 3 questions, 3 note_lines (checked only by its own family)"
+  }
+ ],
+ "gates": {
+  "ok": true,
+  "validator": 0,
+  "lint": 0,
+  "syllabus": 0,
+  "figures": 0,
+  "glyphs": 0,
+  "items": 62,
+  "extra": 11,
+  "no_loss": 0,
+  "planned": 0
+ },
+ "disputes": [],
+ "findings": [
+  {
+   "ref": "lesson note added figure link",
+   "rule": "9. Bad link",
+   "evidence": "![[Assets/9701/9701-13-1-fig-locants.png]]",
+   "suggested": "Add the referenced figure asset at this path or replace the embed with a valid chapter figure link.",
+   "status": "closed",
+   "resolution": "keep: The PNG exists at build/out/assets/9701/9701-13-1-fig-locants.png with provenance; build/library.py resolves Assets embeds there and build/publish.py publishes this directory to Assets. The inspected image correctly illustrates locants 3 versus 4 for 3-methylhexane."
+  },
+  {
+   "ref": "item 9701-13.1-r03 stem",
+   "rule": "6. Off syllabus",
+   "evidence": "Ethanol, $\\ce{CH3CH2OH}$, and methoxymethane, $\\ce{CH3OCH3}$, both have molecular formula $\\ce{C2H6O}$. Deduce which statement about their boiling points is correct.",
+   "suggested": "Use two compounds from the chapter's stated functional-group classes to test how the functional group affects physical properties.",
+   "status": "fixed",
+   "resolution": "fix: The original key A is chemically correct, but ethers are outside the stated functional-group classes. In added item 9701-13.1-r03 replace exactly the following fields, preserving all other fields: {\"stem\": \"Ethanoic acid, $\\\\ce{CH3COOH}$, and methyl methanoate, $\\\\ce{HCOOCH3}$, both have molecular formula $\\\\ce{C2H4O2}$. Deduce which statement about their boiling points is correct.\", \"options\": {\"A\": \"Ethanoic acid has the higher boiling point, because its carboxyl group allows hydrogen bonding between its molecules.\", \"B\": \"The two boiling points are the same, because the compounds have the same molecular formula.\", \"C\": \"Methyl methanoate has the higher boiling point, because its ester group allows hydrogen bonding between its own molecules.\", \"D\": \"Methyl methanoate has the higher boiling point, because it has the larger relative molecular mass.\"}, \"answer\": \"A\", \"explanation\": \"Ethanoic acid is a carboxylic acid and methyl methanoate is an ester. Both contain polar bonds, but only ethanoic acid has an O-H bond and can form hydrogen bonds between its own molecules. These stronger intermolecular attractions give ethanoic acid the higher boiling point. A shared molecular formula does not imply identical physical properties, so B is wrong. Methyl methanoate has no O-H bond and cannot hydrogen-bond to itself, so C is wrong. The two compounds have the same molecular formula and therefore the same relative molecular mass, so D is wrong.\", \"hints\": [\"Identify the carboxylic acid group and the ester group.\", \"Compare the intermolecular forces in the two pure substances.\", \"Which compound has a hydrogen atom bonded directly to oxygen and can form hydrogen bonds between its own molecules?\"]}"
+  }
+ ],
+ "fixes": [
+  {
+   "ref": "item 9701-13.1-r03 stem",
+   "instruction": "The original key A is chemically correct, but ethers are outside the stated functional-group classes. In added item 9701-13.1-r03 replace exactly the following fields, preserving all other fields: {\"stem\": \"Ethanoic acid, $\\\\ce{CH3COOH}$, and methyl methanoate, $\\\\ce{HCOOCH3}$, both have molecular formula $\\\\ce{C2H4O2}$. Deduce which statement about their boiling points is correct.\", \"options\": {\"A\": \"Ethanoic acid has the higher boiling point, because its carboxyl group allows hydrogen bonding between its molecules.\", \"B\": \"The two boiling points are the same, because the compounds have the same molecular formula.\", \"C\": \"Methyl methanoate has the higher boiling point, because its ester group allows hydrogen bonding between its own molecules.\", \"D\": \"Methyl methanoate has the higher boiling point, because it has the larger relative molecular mass.\"}, \"answer\": \"A\", \"explanation\": \"Ethanoic acid is a carboxylic acid and methyl methanoate is an ester. Both contain polar bonds, but only ethanoic acid has an O-H bond and can form hydrogen bonds between its own molecules. These stronger intermolecular attractions give ethanoic acid the higher boiling point. A shared molecular formula does not imply identical physical properties, so B is wrong. Methyl methanoate has no O-H bond and cannot hydrogen-bond to itself, so C is wrong. The two compounds have the same molecular formula and therefore the same relative molecular mass, so D is wrong.\", \"hints\": [\"Identify the carboxylic acid group and the ester group.\", \"Compare the intermolecular forces in the two pure substances.\", \"Which compound has a hydrogen atom bonded directly to oxygen and can form hydrogen bonds between its own molecules?\"]}",
+   "status": "done"
+  }
+ ],
+ "jobs": {
+  "scout": {
+   "pid": 5128,
+   "provider": "claude",
+   "model": "sonnet/low",
+   "rung": 0,
+   "started": "2026-10-15T08:48:17+08:00",
+   "log": "refine/logs/9701-13.1.scout.1015-084817.log",
+   "out": "refine/logs/9701-13.1.scout.1015-084817.out.json",
+   "expects": "build/work/refine/9701-13.1.plan.json",
+   "finished": "2026-10-15T08:55:27+08:00",
+   "exit": 0,
+   "report": {
+    "improvements": 3,
+    "plan_path": "build/work/refine/9701-13.1.plan.json",
+    "notes": [
+     "The note's Links line points to [[2.3 Amount of substance]], but the actual chapter file is '2.3 Formulas.md' — this is a pre-existing broken link (gates already fail on it) unrelated to my additions; the refiner cannot fix it under add-only rules, so it needs separate attention.",
+     "Figure source is sources/library/SaveMyExams/9701 a-level-chemistry-cie-25/9701 c13.1.pdf, page 9 — the crop at box [0.08,0.13,0.65,0.40] isolates just the numbering diagram, not the surrounding bullet text.",
+     "No diagram_hints suggestions were returned for this subtopic, and no misconception-mapped distractor exists yet for m2 outside 13.1.3's plain recall items, so the new MCQ there should explicitly key a distractor to m2's id."
+    ]
+   },
+   "ok": true,
+   "cost_usd": 1.207
+  },
+  "refiner": {
+   "pid": 26525,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 1,
+   "started": "2026-10-15T09:35:15+08:00",
+   "log": "refine/logs/9701-13.1.refiner.1015-093515.log",
+   "out": "refine/logs/9701-13.1.refiner.1015-093515.out.json",
+   "finished": "2026-10-15T09:36:19+08:00",
+   "exit": 0,
+   "report": {
+    "applied": 0,
+    "new_items": [],
+    "new_diagrams": [],
+    "not_done": [
+     "No edits needed: planned additions already exist and all gates pass. Original [[2.3 Amount of substance]] link preserved under the no-loss rule; inherited link errors are excluded by the refiner gate."
+    ],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  },
+  "solver": {
+   "pid": 27317,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T09:36:28+08:00",
+   "log": "refine/logs/9701-13.1.solver.1015-093628.log",
+   "out": "refine/logs/9701-13.1.solver.1015-093628.out.json",
+   "expects": "build/work/blind/9701-13.1.refine.answers.json",
+   "finished": "2026-10-15T09:36:46+08:00",
+   "exit": 0,
+   "report": {
+    "text": "Answered 3 questions in `build/work/blind/9701-13.1.refine.answers.json`."
+   },
+   "ok": true
+  },
+  "checker": {
+   "pid": 27322,
+   "provider": "codex",
+   "model": "gpt-6-sol/low",
+   "rung": 0,
+   "started": "2026-10-15T09:36:28+08:00",
+   "log": "refine/logs/9701-13.1.checker.1015-093628.log",
+   "out": "refine/logs/9701-13.1.checker.1015-093628.out.json",
+   "expects": "build/work/refine/9701-13.1.check.json",
+   "finished": "2026-10-15T09:37:08+08:00",
+   "exit": 0,
+   "report": {
+    "text": "2 findings written to [9701-13.1.check.json](/Users/sora/Miscellaneous/02%20Education/~~%20AI%20Workflow/stem-tutor/build/work/refine/9701-13.1.check.json)."
+   },
+   "ok": true
+  },
+  "adjudicator": {
+   "pid": 37520,
+   "provider": "codex",
+   "model": "gpt-6-astra/medium",
+   "rung": 0,
+   "started": "2026-10-15T09:54:04+08:00",
+   "log": "refine/logs/9701-13.1.adjudicator.1015-095404.log",
+   "out": "refine/logs/9701-13.1.adjudicator.1015-095404.out.json",
+   "finished": "2026-10-15T09:55:11+08:00",
+   "exit": 0,
+   "report": {
+    "text": "lesson note added figure link keep: Asset exists and publishes to the correct path.\nitem 9701-13.1-r03 stem fix: Replace ether comparison with ethanoic acid and methyl methanoate; answer A."
+   },
+   "ok": true
+  },
+  "fixer": {
+   "pid": 38347,
+   "provider": "codex",
+   "model": "gpt-6-luna/low",
+   "rung": 0,
+   "started": "2026-10-15T09:57:23+08:00",
+   "log": "refine/logs/9701-13.1.fixer.1015-095723.log",
+   "out": "refine/logs/9701-13.1.fixer.1015-095723.out.json",
+   "finished": "2026-10-15T09:59:15+08:00",
+   "exit": 0,
+   "report": {
+    "fixed": 1,
+    "not_done": [],
+    "validator_ok": true,
+    "lint_ok": true
+   },
+   "ok": true
+  }
+ },
+ "plan": {
+  "improvements": 3,
+  "dropped": [],
+  "kinds": {
+   "diagram": 0,
+   "figure": 1,
+   "questions": 2,
+   "clarification": 0,
+   "feature": 0,
+   "source_gap": 0
+  }
+ },
+ "maker": "codex",
+ "checked": true,
+ "same_family": true,
+ "last_additions": {
+  "questions": 3,
+  "diagrams": 0,
+  "note_lines": 3,
+  "cards": 0,
+  "other": 0
+ },
+ "last_refined": "2026-10-15T09:59:51+08:00"
+}
