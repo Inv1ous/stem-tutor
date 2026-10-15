@@ -1,0 +1,31 @@
+{
+ "summary": "Add the required curve diagram, deepen general-point tangent practice, and repair the lesson links.",
+ "improvements": [
+  {
+   "kind": "diagram",
+   "where": "pack diagrams and note, after ## Method",
+   "why": "The FP1-4.4 diagram gate requires a function_plot, and the lesson has no visual for the tangent and normal method.",
+   "what": "Use function_plot for $y=9/x$ on separate negative and positive domains, with both coordinate axes as asymptotes and the point $(3,3)$ marked. Embed it beside the existing tangent and normal worked example; explain that the tangent gradient there is $-1$ and the normal gradient is $1$."
+  },
+  {
+   "kind": "clarification",
+   "where": "note, after the existing worked example; pack worked",
+   "why": "The current worked tangent uses only a fixed point, while the learner's revision guide models a tangent or normal at a general parametric point (YFM01 c4.1.pdf pp.10–11).",
+   "source": "library: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf pp.10–11",
+   "what": "Add a distinct worked example with faded version for the normal to $y^2=4ax$ at $(at^2,2at)$, $t\ne0$: implicit differentiation gives tangent gradient $1/t$, so normal gradient $-t$ and $y-2at=-t(x-at^2)$. State the $t=0$ vertex exception separately. Paraphrase the source."
+  },
+  {
+   "kind": "questions",
+   "where": "FP1-4.4",
+   "why": "Existing items mainly calculate a gradient or identify a fixed-point line; none asks for a symbolic line at the general point.",
+   "count": 2,
+   "what": "Add one difficulty-4 Show that or Find structured item deriving the normal equation at $(at^2,2at)$ from Cartesian differentiation, and one difficulty-4 item finding a tangent or normal to $xy=c^2$ at $(ct,c/t)$ for nonzero $t$. Include a negative parameter case and exact algebraic answers; do not require parametric differentiation."
+  },
+  {
+   "kind": "feature",
+   "where": "note, ## Links",
+   "why": "The current three wiki links fail the links gate because their titles are not the chapter names in the bundle.",
+   "what": "Since existing text may only be added to, append a new Builds on line linking [[1 Algebra and functions]], [[2 Coordinate geometry in the (x, y) plane]], and [[4 Differentiation]], and a Leads to line linking [[2 Further coordinate systems]]. Flag the stale links as requiring a gate-compatible resolution without rewording existing text."
+  }
+ ]
+}

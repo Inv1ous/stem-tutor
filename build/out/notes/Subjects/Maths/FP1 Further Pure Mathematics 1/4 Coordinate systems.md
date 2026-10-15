@@ -27,6 +27,27 @@ A **parabola** is the locus of points equidistant from a fixed **focus** and a f
 > Its perpendicular normal has gradient $1$, so $y-3=x-3$, or $y=x$.
 > Both lines pass through $(3,3)$, which also satisfies $xy=9$.
 
+
+![[Assets/FP1/FP1-4-hyperbola.svg]]
+The two branches of $y=9/x$ approach the coordinate axes as asymptotes. At the marked point $(3,3)$, the tangent gradient is $-1$ and the normal gradient is $1$, as in the example above.
+
+> [!example]- Worked example: normal at a general parabola point
+> Find the normal to $y^2=4ax$ at $P=(at^2,2at)$, where $a\ne0$ and $t\ne0$.
+> Differentiate the Cartesian equation: $2y\,dy/dx=4a$, so $dy/dx=2a/y$.
+> At $P$, the tangent gradient is $2a/(2at)=1/t$, hence the normal gradient is $-t$.
+> Point-gradient form gives $y-2at=-t(x-at^2)$, or $y+tx=at^3+2at$.
+> This works for negative $t$ too: use the signed $y$ coordinate rather than assuming the positive square-root branch.
+> At $t=0$, division by $t$ is invalid. The vertex tangent is $x=0$ and its normal is $y=0$.
+
+> [!example]- Complete the method
+> For $y^2=8x$ and $t=-1$, start with $2y\,dy/dx=8$. Find the point, the normal gradient and the normal equation.
+
+> [!success]- Faded example answer
+> Here $a=2$, so the point is $(2,-4)$. The tangent gradient is $-1$, the normal gradient is $1$, and $y+4=x-2$, giving $y=x-6$.
+
+*Method reference: sources/library/SaveMyExams/YFM01 further-pure-1/YFM01 c4.1.pdf, pp.10–11; example and practice written afresh.*
+The signed-branch treatment uses implicit differentiation, as illustrated for a lower-branch parabola point in [Wai Yan Pong, Calculus Single Variable, §1.2.2](https://math.csudh.edu/~pong/calc/compute_der.html).
+
 ## Traps
 - **Trap:** Sketch $y^2=4ax$ as an upward-opening curve. **Why it's wrong:** Squaring $y$ gives symmetry above and below the $x$-axis. **Instead:** Check the sign of $a$ to decide whether it opens right or left.
 - **Trap:** Put the directrix at $x=a$. **Why it's wrong:** That is the focus's $x$ coordinate. **Instead:** Put the directrix at $x=-a$, opposite the focus across the vertex.
@@ -37,3 +58,6 @@ For **Show that**, begin with the focus and directrix distances or the two param
 
 ## Links
 Builds on [[P1 Sketching curves]] and [[P1 Equations of straight lines]] · Leads to [[FP1 Further coordinate geometry]]
+
+Builds on [[1 Algebra and functions]] · [[2 Coordinate geometry in the (x, y) plane]] · [[4 Differentiation]]
+Leads to [[2 Further coordinate systems]]

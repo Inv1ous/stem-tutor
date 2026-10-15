@@ -118,6 +118,37 @@
      "why": "Equal distances define the parabola."
     }
    ]
+  },
+  {
+   "id": "we3",
+   "kc": "FP1-4.4",
+   "problem": "Find the normal to $y^2=4ax$ at $(at^2,2at)$ for $a\\ne0$, $t\\ne0$, and describe the vertex exception.",
+   "steps": [
+    {
+     "do": "Differentiate the Cartesian equation: $2y\\,dy/dx=4a$, so $dy/dx=2a/y$ for $y\\ne0$.",
+     "why": "The chain rule accounts for the dependence of $y$ on $x$."
+    },
+    {
+     "do": "At $(at^2,2at)$, the tangent gradient is $2a/(2at)=1/t$.",
+     "why": "Substitution is valid for $a\\ne0$ and $t\\ne0$; it preserves the sign when $t<0$."
+    },
+    {
+     "do": "The normal gradient is $-t$, so $y-2at=-t(x-at^2)$, or $y+tx=at^3+2at$.",
+     "why": "Use the negative reciprocal and the point of contact."
+    },
+    {
+     "do": "At $t=0$, the tangent is $x=0$ and the normal is $y=0$.",
+     "why": "The gradient $1/t$ is unavailable at the vertex, so use the vertical tangent and its horizontal perpendicular."
+    }
+   ],
+   "faded": {
+    "id": "we3f",
+    "problem": "Find the normal to $y^2=8x$ at the point with parameter $t=-1$. Start with $2y\\,dy/dx=8$, then complete the substitution and line equation. Give $y$ as an expression in $x$.",
+    "answer": {
+     "expr": "x-6"
+    },
+    "blank_from": 1
+   }
   }
  ],
  "items": [
@@ -883,6 +914,100 @@
      ]
     }
    ]
+  },
+  {
+   "kcs": [
+    "FP1-4.4"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "shuffle": true,
+   "id": "FP1-4-r01",
+   "stem": "For $a\\ne0$, the point $P=(at^2,2at)$ lies on $y^2=4ax$. (a) For $t\\ne0$, find the equation of the normal at $P$ by differentiating the Cartesian equation. Give your answer in the form $y+tx=\\cdots$. (b) State the tangent and normal at $t=0$, explaining why this case needs separate treatment.",
+   "marks": 6,
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Differentiate to obtain $2y\\,dy/dx=4a$."
+    },
+    {
+     "mark": "A1",
+     "point": "At $P$, the tangent gradient is $2a/(2at)=1/t$."
+    },
+    {
+     "mark": "M1",
+     "point": "Take the negative reciprocal to obtain normal gradient $-t$ and use the point $P$."
+    },
+    {
+     "mark": "A1",
+     "point": "$y-2at=-t(x-at^2)$, hence $y+tx=at^3+2at$."
+    },
+    {
+     "mark": "B1",
+     "point": "At $t=0$ the point is the vertex and $2a/y$ is undefined; the tangent is vertical, $x=0$."
+    },
+    {
+     "mark": "B1",
+     "point": "The vertex normal is horizontal, $y=0$."
+    }
+   ],
+   "explanation": "Cartesian differentiation gives tangent gradient $1/t$ at $P$ when $t\\ne0$, so the normal gradient is $-t$ and point-gradient form gives $y+tx=at^3+2at$. At the vertex the tangent is vertical and the normal horizontal; the division by $t$ used in the derivation is invalid there.",
+   "hints": [
+    "Differentiate the Cartesian relation, treating $y$ as a function of $x$.",
+    "Substitute the coordinates of $P$, then use perpendicular gradients and point-gradient form.",
+    "Identify the denominator that vanishes at the vertex, and use the curve’s geometry for that case."
+   ]
+  },
+  {
+   "kcs": [
+    "FP1-4.4"
+   ],
+   "kind": "structured",
+   "difficulty": 4,
+   "command_word": "Find",
+   "source": {
+    "type": "generated"
+   },
+   "shuffle": true,
+   "id": "FP1-4-r02",
+   "stem": "For $c\\ne0$ and $t\\ne0$, $P=(ct,c/t)$ lies on $xy=c^2$. (a) Find the equation of the normal at $P$ by differentiating the Cartesian equation. (b) Find its exact equation when $c=3$ and $t=-2$, in the form $y=mx+b$.",
+   "marks": 6,
+   "scheme": [
+    {
+     "mark": "M1",
+     "point": "Differentiate $xy=c^2$ to obtain $y+x\\,dy/dx=0$."
+    },
+    {
+     "mark": "A1",
+     "point": "At $P$, $dy/dx=-(c/t)/(ct)=-1/t^2$."
+    },
+    {
+     "mark": "M1",
+     "point": "The normal gradient is $t^2$; use point-gradient form through $(ct,c/t)$."
+    },
+    {
+     "mark": "A1",
+     "point": "The normal is $y-c/t=t^2(x-ct)$."
+    },
+    {
+     "mark": "B1",
+     "point": "For $c=3$, $t=-2$, the point is $(-6,-3/2)$ and normal gradient is $4$."
+    },
+    {
+     "mark": "A1",
+     "point": "$y+3/2=4(x+6)$, so $y=4x+45/2$."
+    }
+   ],
+   "explanation": "The Cartesian derivative at $P$ is $-1/t^2$, so the normal gradient is $t^2$ and its equation is $y-c/t=t^2(x-ct)$. With $c=3$ and $t=-2$, the point is $(-6,-3/2)$, giving $y=4x+45/2$; the negative parameter changes the coordinates but leaves the normal gradient positive.",
+   "hints": [
+    "Use the product rule on the Cartesian equation before substituting coordinates.",
+    "Use the negative reciprocal of the tangent gradient and keep $t$ symbolic in point-gradient form.",
+    "For the numerical case, evaluate both coordinates with their signs and keep the fraction exact."
+   ]
   }
  ],
  "flashcards": [
@@ -911,7 +1036,59 @@
    "back": "For $y^2=4ax$, $dy/dx=2a/y$ where $y\\ne0$; for $xy=c^2$, $dy/dx=-c^2/x^2$."
   }
  ],
- "diagrams": [],
+ "diagrams": [
+  {
+   "file": "Assets/FP1/FP1-4-hyperbola.svg",
+   "type": "function_plot",
+   "params": {
+    "functions": [
+     {
+      "expr": "9/x",
+      "domain": [
+       -9,
+       -0.75
+      ],
+      "label": "$y=9/x$, $x<0$"
+     },
+     {
+      "expr": "9/x",
+      "domain": [
+       0.75,
+       9
+      ],
+      "label": "$y=9/x$, $x>0$"
+     }
+    ],
+    "asymptotes": {
+     "x": [
+      0
+     ],
+     "y": [
+      0
+     ]
+    },
+    "points": [
+     {
+      "xy": [
+       3,
+       3
+      ],
+      "label": "(3, 3)"
+     }
+    ],
+    "xlim": [
+     -10,
+     10
+    ],
+    "ylim": [
+     -10,
+     10
+    ],
+    "xlabel": "x",
+    "ylabel": "y"
+   }
+  }
+ ],
  "teach": {
   "FP1-4.1": {
    "motivate": "A curve equation lets you check points and sketch its shape without plotting a long table. Two standard curves here are the parabola and rectangular hyperbola.",
