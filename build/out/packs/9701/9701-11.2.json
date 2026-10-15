@@ -38,7 +38,35 @@
    "source": "ER 9701 w20 P21 Q4"
   }
  ],
- "worked": [],
+ "worked": [
+  {
+   "id": "we1",
+   "kc": "9701-11.2.3",
+   "problem": "Compare the thermal stabilities of hydrogen bromide and hydrogen iodide, explaining the difference using bond strengths.",
+   "steps": [
+    {
+     "do": "The H–Br covalent bond is stronger than the H–I covalent bond.",
+     "why": "The larger iodine atom forms a longer, weaker bond to hydrogen than bromine does."
+    },
+    {
+     "do": "More energy is needed to break H–Br than H–I during decomposition on heating.",
+     "why": "Thermal stability depends on how readily the H–X bond can be broken."
+    },
+    {
+     "do": "Therefore HBr is more thermally stable than HI; HI decomposes more readily on heating.",
+     "why": "The compound with the stronger H–X bond resists thermal decomposition more."
+    }
+   ],
+   "faded": {
+    "id": "we1f",
+    "problem": "Explain which is more thermally stable, hydrogen chloride or hydrogen bromide. Compare H–Cl and H–Br bond strengths, then connect bond breaking to decomposition on heating. Enter the formula of the more stable compound.",
+    "answer": {
+     "expr": "HCl"
+    },
+    "blank_from": 1
+   }
+  }
+ ],
  "items": [
   {
    "id": "9701-11.2-p01",
@@ -983,6 +1011,68 @@
    "marks": 1,
    "tier": "extra",
    "explanation": "B is correct: bromine is a weaker oxidising agent than chlorine and cannot oxidise chloride ions. A is incorrect because silver bromide is cream, not white. C is incorrect because fluorine atoms gain electrons to form anions, not cations. D is incorrect because iodide ions are stronger reducing agents than chloride ions."
+  },
+  {
+   "id": "9701-11.2-r01",
+   "kcs": [
+    "9701-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Identify",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which row correctly describes how the four halogens react with hydrogen to form hydrogen halides?",
+   "options": {
+    "A": "Fluorine: explosive in the dark; chlorine: rapid in light; bromine: requires heating; iodine: slow and reversible on heating.",
+    "B": "Fluorine, chlorine, bromine and iodine: all react equally vigorously and explosively in the dark.",
+    "C": "Fluorine: slow and reversible on heating; chlorine: requires heating; bromine: rapid in light; iodine: explosive in the dark.",
+    "D": "Fluorine: explosive in the dark; chlorine: requires heating; bromine: rapid in light; iodine: slow and reversible on heating."
+   },
+   "answer": "A",
+   "marks": 1,
+   "distractors": {
+    "B": "m3"
+   },
+   "shuffle": true,
+   "explanation": "The reaction with hydrogen becomes generally less vigorous down Group 17. Fluorine reacts explosively even in the dark; chlorine reacts rapidly in light; bromine needs heating; iodine reacts slowly and reversibly on heating. Equal vigour ignores this trend.",
+   "hints": [
+    "Order the halogens by oxidising power.",
+    "Compare whether light or heat is needed as you move down the group.",
+    "Check the two endpoints before deciding which row fits all four."
+   ]
+  },
+  {
+   "id": "9701-11.2-r02",
+   "kcs": [
+    "9701-11.2.2"
+   ],
+   "kind": "mcq",
+   "difficulty": 3,
+   "command_word": "Contrast",
+   "source": {
+    "type": "generated"
+   },
+   "stem": "Which statement correctly contrasts the reactions of chlorine and iodine with hydrogen?",
+   "options": {
+    "A": "Chlorine reacts rapidly in light, whereas iodine reacts slowly and reversibly on heating.",
+    "B": "Chlorine reacts slowly and reversibly on heating, whereas iodine reacts rapidly in light.",
+    "C": "Both react equally rapidly in light.",
+    "D": "Chlorine requires heating, whereas iodine reacts explosively in the dark."
+   },
+   "answer": "A",
+   "marks": 1,
+   "distractors": {
+    "C": "m3"
+   },
+   "shuffle": true,
+   "explanation": "Light greatly speeds the hydrogen–chlorine reaction, whereas hydrogen and iodine react slowly and reversibly when heated. The two reactions differ in both conditions and vigour; they are not equally rapid.",
+   "hints": [
+    "Recall how reaction vigour changes down Group 17.",
+    "Think separately about the light dependence of one reaction and the need to heat the other.",
+    "Eliminate statements that make the iodine reaction rapid or explosive."
+   ]
   }
  ],
  "flashcards": [
