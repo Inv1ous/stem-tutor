@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.1 (2026-10-16) — done
+
+Home menu line wrapping (hanging indent, shorter labels).
+
 ## v2.5.0 (2026-10-16) — done
 
 Shortcuts & Elegant Methods course: own lessons, own recall queue, rating filters; 869 entries, 443 generated lessons.

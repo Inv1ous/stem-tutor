@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.5.1 — 2026-10-16
+
+- **The home menu wraps properly.** A line too long for the menu now breaks at a word with the next row indented under the
+  words, not under the icon, and is re-wrapped when the window is resized (`HomeScreen._fill_menu`). The long lines were
+  shortened so each fits on one row in the usual window: "Shortcuts and elegant methods (5 new)", "Test prep: check and fix a
+  chapter". Test: `tests/app/test_menu_wrap.py`.
+
 ## 2.5.0 — 2026-10-16
 
 Asked by the learner: a course in "Shortcuts & Elegant Methods" that cuts slips on long questions and complex ideas, with a

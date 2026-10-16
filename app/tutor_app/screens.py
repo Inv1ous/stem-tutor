@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import re
+import textwrap
 import time
 from datetime import date, datetime, timedelta
 
@@ -143,6 +144,22 @@ class HomeScreen(Screen):
 
     def on_resize(self) -> None:
         self._fit()
+        self.call_after_refresh(self._fill_menu)  # the menu's width is known once the new layout is done
+
+    def _fill_menu(self) -> None:
+        """Put the menu lines in, each wrapped to the menu's width with the words under the words, not under the icon."""
+        items = getattr(self, "_menu_items", None)
+        if not items:
+            return
+        menu = self.query_one("#menu", OptionList)
+        width = max(24, menu.size.width - 6) if menu.size.width else 46  # border, padding and the option's own gutter
+        was = menu.get_option_at_index(menu.highlighted).id if menu.highlighted is not None else None
+        menu.clear_options()
+        for key, label in items:
+            menu.add_option(Option(textwrap.fill(label, width, subsequent_indent="   ", break_long_words=False,
+                                                 break_on_hyphens=False), id=key))
+        ids = [key for key, _ in items]
+        menu.highlighted = ids.index(was) if was in ids else 0  # back where you were, not at the top
 
     def _fit(self) -> None:
         """A narrow window drops the side box and gives the menu the width; a short one drops the banner."""
@@ -209,8 +226,6 @@ class HomeScreen(Screen):
         due = model.due_kcs(t.state, now)
         self.query_one("#banner", Static).update(look.banner())  # in the colours of the look just chosen
         menu = self.query_one("#menu", OptionList)
-        was = menu.get_option_at_index(menu.highlighted).id if menu.highlighted is not None else None
-        menu.clear_options()
         items = []
         if t.session:
             s = t.session
@@ -222,7 +237,7 @@ class HomeScreen(Screen):
                   ("learn", "◆  Learn a topic (lesson)"),
                   ("review", f"↻  Review what's due ({len(due)})"),
                   ("weak", f"✚  Fix my weak spots ({len(insights.weak_spots(t))})"),
-                  ("test", "◎  Test prep: check a chapter, fix what's weak"),
+                  ("test", "◎  Test prep: check and fix a chapter"),
                   ("long", "✎  Long questions (typed or iPad)"),
                   ("blurt", "»  Blurt: write everything you remember"),
                   ("challenge", "⚑  Challenge: hard calculation questions"),
@@ -232,10 +247,8 @@ class HomeScreen(Screen):
                   ("progress", "▤  My progress"),
                   ("obsidian", "▣  Open my notes in Obsidian"),
                   ("settings", "≡  Settings"), ("help", "?  How it works"), ("quit", "×  Quit")]
-        for key, label in items:
-            menu.add_option(Option(label, id=key))
-        ids = [key for key, _ in items]
-        menu.highlighted = ids.index(was) if was in ids else 0  # back where you were, not at the top
+        self._menu_items = items
+        self._fill_menu()
         menu.focus()
         self.query_one("#stats-text", Static).update(self.stats_text(now, due))
         glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {len(due)} due", style=C["soft"])
@@ -245,13 +258,13 @@ class HomeScreen(Screen):
 
     def _shortcut_lines(self) -> list[tuple[str, str]]:
         """The two Shortcuts & Elegant Methods lines, with counts once the course has been published to the vault."""
-        learn, recall = "↯  Shortcuts: learn quicker methods", "↯  Shortcut recall"
+        learn, recall = "↯  Shortcuts and elegant methods", "↯  Shortcut recall"
         try:
             vault = self.app.tutor.vault
             if (vault.tutor / "shortcuts" / "course").exists():
                 from tutorlib import shortcuts
                 course = shortcuts.Course(vault)
-                learn += f" ({len(course.next_lessons())} new today)"
+                learn += f" ({len(course.next_lessons())} new)"
                 recall += f" ({len(course.due())} due)"
         except Exception:  # noqa: BLE001 - a damaged course file never keeps the menu from showing
             pass

@@ -93,7 +93,7 @@ def test_menu_shows_both_lines_with_counts(tmp_path, monkeypatch):
 
     async def steps(pilot):
         labels = menu_labels(app)
-        assert labels["shortcuts"].endswith("(1 new today)") or "new today" in labels["shortcuts"]
+        assert "(1 new)" in labels["shortcuts"]
         assert "Shortcut recall (1 due)" in labels["shortcut_recall"]
     run(app, steps)
 
