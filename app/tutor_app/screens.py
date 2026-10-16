@@ -421,45 +421,235 @@ class HomeScreen(Screen):
 
 
 # ============================ Topic picker ============================
+def _natural(text: str) -> list:
+    """Sort key that puts 9701-1.2 before 9701-1.10."""
+    return [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", text)]
+
+
+SEARCH_WORDS = {"chem": "chemistry chem", "phys": "physics phys", "math": "maths math mathematics"}
+
+
 class PickerScreen(ModalScreen):
-    BINDINGS = [Binding("escape", "dismiss(None)", "Back"), Binding("ctrl+s", "go", show=False)]
+    """Choose a subtopic (or, for a test, several). Grouped under their topics, a Recent group first, and a search box:
+    type anywhere in the list to search, / jumps to the box, [ and ] jump between topics, ctrl+a ticks what is shown."""
+    BINDINGS = [Binding("escape", "back", "Back"), Binding("ctrl+s", "go", show=False),
+                Binding("slash", "search", show=False), Binding("right_square_bracket", "jump(1)", show=False),
+                Binding("left_square_bracket", "jump(-1)", show=False), Binding("ctrl+a", "tick_shown", show=False, priority=True),
+                Binding("ctrl+d", "untick_all", show=False, priority=True), Binding("space", "tick", show=False)]
 
     def __init__(self, mode: str) -> None:
         super().__init__()
         self.mode = mode
+        self.ticked: set[str] = set()
+        self.needle = ""
 
-    def compose(self) -> ComposeResult:
+    # ---------- data ----------
+    def _prepare(self) -> None:
         t = self.app.tutor
-        built = sorted(s for s in t.packs.subtopics if t.packs.pack(s))
+        self.built = [s for s in t.packs.subtopics if t.packs.pack(s)]
+        self.info: dict[str, dict] = {}
+        for sub in self.built:
+            kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
+            days = [t.state["kcs"].get(k, {}).get("last_review_day") for k in kcs]
+            self.info[sub] = {"sec": sum(views.kc_status(t.state, k) == "secure" for k in kcs), "n": len(kcs),
+                              "last": max((d for d in days if d), default=""),
+                              "topic": t.packs.subtopics[sub].get("topic", "")}
+        order = {tid: i for i, tid in enumerate(t.packs.topics)}
+        self.groups: dict[str, list[str]] = {}
+        for sub in sorted(self.built, key=lambda x: (order.get(self.info[x]["topic"], 99), _natural(x))):
+            self.groups.setdefault(self.info[sub]["topic"], []).append(sub)
+        self.hay = {}
+        for sub in self.built:
+            topic = t.packs.topics.get(self.info[sub]["topic"], {})
+            self.hay[sub] = " ".join([sub, t.packs.subtopics[sub]["title"], topic.get("title", ""), topic.get("spec", ""),
+                                      topic.get("level", ""), SEARCH_WORDS.get(topic.get("subject", ""), ""),
+                                      self.info[sub]["topic"]]).lower().replace("-", " ")
+
+    def _topic_label(self, tid: str) -> str:
+        t = self.app.tutor
+        topic = t.packs.topics.get(tid, {})
+        if topic.get("subject") in ("chem", "phys"):
+            n = tid.split("-")[-1]
+            return f"{'Chemistry' if topic['subject'] == 'chem' else 'Physics'} {topic['spec']} · {n}. {topic.get('title', tid)}" \
+                   + (f" ({topic['level']})" if topic.get("level") else "")
+        return f"Maths · {tid} {topic.get('title', '')}".strip()
+
+    def _row(self, sub: str) -> Text:
+        i, t = self.info[sub], self.app.tutor
+        line = Text()
+        if self.mode == "test":
+            line.append("[x] " if sub in self.ticked else "[ ] ", style=C["ok"] if sub in self.ticked else C["dim"])
+        done = i["n"] and i["sec"] == i["n"]
+        line.append(f"{sub:<9} ", style=C["text"])
+        line.append(bar(i["sec"], i["n"], 8), style=C["ok"] if done else C["soft"] if i["sec"] else C["dim"])
+        line.append(f" {i['sec']}/{i['n']}  ", style=C["muted"])
+        line.append(t.packs.subtopics[sub]["title"], style=C["dim"] if done else C["text"])
+        return line
+
+    def _matches(self, sub: str) -> bool:
+        words = self.needle.lower().replace("-", " ").split()
+        return all(w in self.hay[sub] for w in words)
+
+    # ---------- screen ----------
+    def compose(self) -> ComposeResult:
+        self._prepare()
         with Vertical(id="picker"):
             if self.mode == "test":
-                yield Static("Tick the subtopics the test covers: space to tick, Tab to Start (or ctrl+s), Esc to go back.", classes="hint")
-                yield TickList(*[Selection(self._label(s), s) for s in built], id="subs")
-                yield Button("Start test prep", id="go", variant="primary")
+                yield Static("Tick the subtopics the test covers: space to tick, ctrl+a ticks all shown, Tab to Start "
+                             "(or ctrl+s), Esc to go back.", classes="hint")
             else:
                 ask = {"lesson": "Which subtopic do you want to learn?",
                        "long": "Which subtopic do you want to practise with long questions?",
                        "blurt": "Pick a subtopic to blurt on."}.get(self.mode, "Which subtopic do you want to study?")
                 yield Static(f"{ask} (⏎ to choose, Esc to go back)", classes="hint")
-                yield OptionList(*[Option(self._label(s), id=s) for s in built], id="subs")
+            yield Input(placeholder="Search: a word, a code (9702-3, P1) …  or just start typing", id="find", compact=True, select_on_focus=False)
+            yield Static(id="found", classes="hint")
+            yield OptionList(id="subs")
+            if self.mode == "test":
+                yield Button("Start test prep", id="go", variant="primary")
 
-    def _label(self, sub: str) -> str:
-        t = self.app.tutor
-        kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
-        sec = sum(views.kc_status(t.state, k) == "secure" for k in kcs)
-        return f"{sub:<9} {bar(sec, len(kcs), 8)} {t.packs.subtopics[sub]['title']}"
+    def on_mount(self) -> None:
+        self.fill()
+        self.query_one("#subs", OptionList).focus()
+        self.call_after_refresh(self._fit)
+
+    def on_resize(self) -> None:
+        self.call_after_refresh(self._fit)
+
+    def _fit(self) -> None:
+        """The list takes what the window leaves after the hints, the search box and (a test) the Start button, so the
+        button is never pushed off the bottom of a short window."""
+        try:
+            rows = self.app.size.height
+            fixed = sum(w.outer_size.height for w in self.query("#picker > .hint, #picker > Input, #picker > Button"))
+            self.query_one("#subs", OptionList).styles.max_height = max(4, int(rows * 0.9) - 4 - fixed)
+        except Exception:  # noqa: BLE001 - a layout hiccup never keeps the picker from opening
+            pass
+
+    def fill(self, keep: str | None = None) -> None:
+        """Put the rows in for what is typed: topic headings, their subtopics, a Recent group first when nothing is typed."""
+        box = self.query_one("#subs", OptionList)
+        was = keep or (box.get_option_at_index(box.highlighted).id if box.highlighted is not None else None)
+        box.clear_options()
+        shown, rows = 0, []
+        if not self.needle:
+            recent = sorted((s for s in self.built if self.info[s]["last"]), key=lambda s: self.info[s]["last"], reverse=True)[:4]
+            if recent:
+                rows.append(Option(Text("↻ Recent", style=f"bold {C['plan']}"), id="h:recent", disabled=True))
+                rows += [Option(self._row(s), id=f"recent:{s}") for s in recent]
+        for tid, subs in self.groups.items():
+            keep_subs = [s for s in subs if self._matches(s)]
+            if not keep_subs:
+                continue
+            rows.append(Option(Text(self._topic_label(tid), style=f"bold {C['plan']}"), id=f"h:{tid}", disabled=True))
+            rows += [Option(self._row(s), id=s) for s in keep_subs]
+            shown += len(keep_subs)
+        if not shown:
+            rows = [Option(Text(f"Nothing matches “{self.needle}”. Esc clears the search.", style=C["dim"]), id="none", disabled=True)]
+        box.add_options(rows)
+        ids = [o.id for o in rows]
+        pick = was if was in ids else next((o.id for o in rows if not o.disabled), None)
+        box.highlighted = ids.index(pick) if pick in ids else None
+        total = len(self.built)
+        ticks = f" · {len(self.ticked)} ticked" if self.mode == "test" else ""
+        self.query_one("#found", Static).update(
+            (f"{shown} of {total} subtopics" if self.needle else f"{total} subtopics") + ticks
+            + ("" if self.needle else " · type to search · [ ] jump between topics"))
+
+    @on(Input.Changed, "#find")
+    def typed(self, event: Input.Changed) -> None:
+        self.needle = event.value.strip()
+        self.fill()
+
+    @on(Input.Submitted, "#find")
+    def entered(self) -> None:
+        """Enter in the search box: take the first match (a test: tick it and go to the list)."""
+        box = self.query_one("#subs", OptionList)
+        first = next((o for o in (box.get_option_at_index(i) for i in range(box.option_count)) if not o.disabled), None)
+        if first is None:
+            return
+        if self.mode == "test":
+            self.toggle(first.id)
+            box.focus()
+        else:
+            self.dismiss([self._sub(first.id)])
+
+    def on_key(self, event) -> None:
+        """Typing in the list starts a search: no need to click the box first."""
+        if (isinstance(self.focused, OptionList) and event.character and event.character.isprintable()
+                and event.character not in " /[]"):
+            box = self.query_one("#find", Input)
+            box.focus()
+            box.value += event.character
+            box.cursor_position = len(box.value)
+            event.stop()
+        elif isinstance(self.focused, Input) and event.key in ("down", "tab") and event.key == "down":
+            self.query_one("#subs", OptionList).focus()
+            event.stop()
+
+    @staticmethod
+    def _sub(option_id: str) -> str:
+        return option_id.split(":", 1)[1] if option_id.startswith("recent:") else option_id
+
+    def toggle(self, option_id: str) -> None:
+        sub = self._sub(option_id)
+        self.ticked ^= {sub}
+        self.fill(keep=option_id)
 
     @on(OptionList.OptionSelected, "#subs")
     def chose(self, event: OptionList.OptionSelected) -> None:
-        self.dismiss([event.option.id])
+        if self.mode == "test":
+            self.toggle(event.option.id)
+        else:
+            self.dismiss([self._sub(event.option.id)])
+
+    # ---------- actions ----------
+    def action_back(self) -> None:
+        if self.needle:  # the first Esc clears the search, the next goes back
+            box = self.query_one("#find", Input)
+            box.value = ""
+            self.query_one("#subs", OptionList).focus()
+        else:
+            self.dismiss(None)
+
+    def action_search(self) -> None:
+        self.query_one("#find", Input).focus()
+
+    def action_jump(self, step: int) -> None:
+        """Move to the first subtopic of the next (or previous) topic."""
+        box = self.query_one("#subs", OptionList)
+        opts = [box.get_option_at_index(i) for i in range(box.option_count)]
+        heads = [i for i, o in enumerate(opts) if str(o.id).startswith("h:")]
+        here = box.highlighted or 0
+        target = next((h for h in heads if h > here), None) if step > 0 else next((h for h in reversed(heads) if h < here - 1), None)
+        if target is not None and target + 1 < len(opts):
+            box.highlighted = target + 1
+        elif step < 0 and heads:
+            box.highlighted = heads[0] + 1
+
+    def action_tick(self) -> None:
+        if self.mode != "test" or not isinstance(self.focused, OptionList):
+            return
+        box = self.query_one("#subs", OptionList)
+        if box.highlighted is not None and not box.get_option_at_index(box.highlighted).disabled:
+            self.toggle(box.get_option_at_index(box.highlighted).id)
+
+    def action_tick_shown(self) -> None:
+        if self.mode == "test":
+            self.ticked |= {s for subs in self.groups.values() for s in subs if self._matches(s)}
+            self.fill()
+
+    def action_untick_all(self) -> None:
+        if self.mode == "test":
+            self.ticked.clear()
+            self.fill()
 
     @on(Button.Pressed, "#go")
     def action_go(self) -> None:
         if self.mode != "test":
             return
-        chosen = list(self.query_one("#subs", SelectionList).selected)
-        if chosen:
-            self.dismiss(chosen)
+        if self.ticked:
+            self.dismiss(sorted(self.ticked, key=_natural))
         else:
             self.app.notify("Tick at least one subtopic (space), then Start.", timeout=5)
 
@@ -1394,6 +1584,10 @@ was said earlier (after you answer) · **ctrl+e** read aloud what is on screen, 
 `tutor tts setup`) · **ctrl+b** or **ctrl+q** save and go back to the menu. These work even while
 you are typing; when you are not typing, **t e h o** do the same. **alt+↑ alt+↓** scroll a long question or
 explanation, even while you type.
+
+Choosing a topic: **just start typing** to search (a word, or a code such as 9702-3 or P1), **/** jumps to the search box,
+**[** and **]** jump between topics, **Esc** clears the search and then goes back; in test prep **space** ticks, **ctrl+a**
+ticks everything shown, **ctrl+d** clears.
 
 Typing: **⏎** sends a short answer · **ctrl+j** starts a new line · **ctrl+s** submits a long answer or a blurt.
 

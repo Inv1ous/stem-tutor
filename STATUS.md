@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.4 (2026-10-16) — done
+
+Searchable, grouped subtopic pickers (and the Challenge chapter list).
+
 ## v2.5.3 (2026-10-16) — done
 
 Almanac shows each objective's progress and the live session; session pushes as you answer.

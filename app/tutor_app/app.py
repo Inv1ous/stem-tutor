@@ -80,6 +80,8 @@ HomeScreen.narrow #menu { width: 1fr; }
 HomeScreen.short #banner { display: none; }
 SessionScreen.answer-only #log, ChallengeScreen.answer-only #log { display: none; }
 SessionScreen.answer-only #panel, ChallengeScreen.answer-only #panel { height: 1fr; max-height: 100%; }
+#picker #subs { height: auto; max-height: 60vh; }
+#picker #find { margin: 0 0 0 0; }
 ChallengeScreen.setup #log { display: none; }
 ChallengeScreen.setup #panel { height: 1fr; max-height: 100%; }
 ShortcutsScreen #panel, ShortcutRecallScreen #panel { height: auto; max-height: 50%; }

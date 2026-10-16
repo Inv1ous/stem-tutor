@@ -15,7 +15,7 @@ from textual import on, work
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Vertical, VerticalScroll
-from textual.screen import Screen
+from textual.screen import ModalScreen, Screen
 from textual.widgets import Button, Footer, Input, OptionList, SelectionList, Static
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
@@ -28,7 +28,7 @@ from tutorlib.session import _display_answer
 from . import cards, prompts, tts
 from .look import C
 from .panels import ChoicePanel, Composer, ContinuePanel, Panel, TickList, ValuePanel
-from .screens import (READ_KEY, AskScreen, ConfirmScreen, PickerScreen, ReadAloud, bar, leave_asking_first,
+from .screens import (READ_KEY, AskScreen, ConfirmScreen, ReadAloud, bar, leave_asking_first,
                       spoken_feedback, spoken_too)
 
 LEVEL = {lv["level"]: lv for lv in ch.LEVELS}
@@ -127,37 +127,103 @@ class SetupPanel(Panel):
         self.query_one("#settings", SettingsList).focus()
 
 
-class TopicScreen(PickerScreen):
-    """Tick the chapters; the earlier chapters they build on come in by themselves."""
+class TopicScreen(ModalScreen):
+    """Tick the chapters; the earlier chapters they build on come in by themselves. A search box narrows the list (type
+    anywhere in it); what is ticked stays ticked while the list changes."""
+    BINDINGS = [Binding("escape", "back", "Back"), Binding("ctrl+s", "go", show=False),
+                Binding("slash", "search", show=False)]
 
     def __init__(self, chosen: list[str]) -> None:
-        super().__init__("challenge")
-        self.chosen = chosen
+        super().__init__()
+        self.picked: set[str] = set(chosen)
+        self.rows: list[dict] = []
+        self.needle = ""
+        self.in_view: set[str] = set()
+        self.filling = False
 
     def compose(self) -> ComposeResult:
-        rows = ch.topic_choices(self.app.tutor.packs)
+        self.rows = ch.topic_choices(self.app.tutor.packs)
         with Vertical(id="picker"):
             yield Static("Tick the chapters (space), then ctrl+s or Done. Earlier chapters they build on are "
-                         "included by themselves. Esc cancels.", classes="hint")
-            yield TickList(*[Selection(escape(f"{SUBJECT.get(r['spec'], 'Maths'):<5} {r['id']}  {r['title']}"
-                                              + ("" if r["built"] else "  (no questions built yet)")),
-                                       r["id"], r["id"] in self.chosen) for r in rows], id="subs")
+                         "included by themselves. Type to search · Esc cancels.", classes="hint")
+            yield Input(placeholder="Search: a word, a code (9702-3, P1) …  or just start typing", id="find", compact=True,
+                        select_on_focus=False)
+            yield TickList(id="subs")
             yield Static(id="scope", classes="hint")
             yield Button("Done", id="done", variant="primary")
 
     def on_mount(self) -> None:
+        self.fill()
+        self.query_one("#subs", SelectionList).focus()
+        self.call_after_refresh(self._fit)
+
+    def on_resize(self) -> None:
+        self.call_after_refresh(self._fit)
+
+    def _fit(self) -> None:
+        try:
+            fixed = sum(w.outer_size.height for w in self.query("#picker > .hint, #picker > Input, #picker > Button"))
+            self.query_one("#subs", SelectionList).styles.max_height = max(4, int(self.app.size.height * 0.9) - 4 - fixed)
+        except Exception:  # noqa: BLE001 - a layout hiccup never keeps the list from opening
+            pass
+
+    def _hay(self, r: dict) -> str:
+        subject = {"9701": "chemistry chem", "9702": "physics phys"}.get(r["spec"], "maths math mathematics")
+        return f"{r['id']} {r['title']} {r['spec']} {subject}".lower().replace("-", " ")
+
+    def fill(self) -> None:
+        words = self.needle.lower().replace("-", " ").split()
+        box = self.query_one("#subs", SelectionList)
+        self.filling = True
+        box.clear_options()
+        shown = [r for r in self.rows if all(w in self._hay(r) for w in words)]
+        box.add_options([Selection(escape(f"{SUBJECT.get(r['spec'], 'Maths'):<5} {r['id']}  {r['title']}"
+                                          + ("" if r["built"] else "  (no questions built yet)")),
+                                   r["id"], r["id"] in self.picked) for r in shown])
+        self.in_view = {r["id"] for r in shown}
+        box.highlighted = 0 if shown else None
+        self.filling = False
         self.show_scope()
+
+    @on(Input.Changed, "#find")
+    def typed(self, event: Input.Changed) -> None:
+        self.needle = event.value.strip()
+        self.fill()
+
+    def on_key(self, event) -> None:
+        if (isinstance(self.focused, SelectionList) and event.character and event.character.isprintable()
+                and event.character not in " /"):
+            box = self.query_one("#find", Input)
+            box.focus()
+            box.value += event.character
+            box.cursor_position = len(box.value)
+            event.stop()
+        elif isinstance(self.focused, Input) and event.key == "down":
+            self.query_one("#subs", SelectionList).focus()
+            event.stop()
 
     @on(SelectionList.SelectedChanged, "#subs")
     def show_scope(self) -> None:
-        picked = list(self.query_one("#subs", SelectionList).selected)
-        self.query_one("#scope", Static).update(ch.scope_summary(self.app.tutor.packs, picked))
+        if not self.filling:  # ticks changed by the learner: what is in view replaces its share of the whole
+            self.picked = (self.picked - self.in_view) | set(self.query_one("#subs", SelectionList).selected)
+        self.query_one("#scope", Static).update(
+            ch.scope_summary(self.app.tutor.packs, sorted(self.picked))
+            + (f"  ·  {len(self.in_view)} of {len(self.rows)} shown" if self.needle else ""))
+
+    def action_back(self) -> None:
+        if self.needle:
+            self.query_one("#find", Input).value = ""
+            self.query_one("#subs", SelectionList).focus()
+        else:
+            self.dismiss(None)
+
+    def action_search(self) -> None:
+        self.query_one("#find", Input).focus()
 
     @on(Button.Pressed, "#done")
     def action_go(self) -> None:
-        picked = list(self.query_one("#subs", SelectionList).selected)
-        if picked:
-            self.dismiss(picked)
+        if self.picked:
+            self.dismiss(sorted(self.picked))
         else:
             self.app.notify("Tick at least one chapter (space), then Done.", timeout=5)
 

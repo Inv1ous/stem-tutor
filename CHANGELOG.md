@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.5.4 — 2026-10-16
+
+Asked by the learner: the subtopic and topic pickers were hard to search; finding one chapter meant scrolling all the way down.
+
+- **The picker (Learn, Long questions, Blurt, Test prep)** now has a search box and groups. Subtopics sit under their topic
+  headings (Chemistry 9701 · 1. Atomic structure; Maths · P1 Pure Mathematics 1), in natural order (1.2 before 1.10), with a
+  "↻ Recent" group first. Just start typing to search (a word in a title, a topic or subject, or a code such as `9702-3`
+  or `P1`; every word must match); `/` jumps to the box, `[` and `]` jump between topics, Esc clears the search and then goes
+  back, ⏎ in the box takes the first match. In test prep space ticks, ctrl+a ticks everything shown, ctrl+d clears, and
+  ticks stay while the search changes. The list shrinks to leave room, so the Start button is never pushed off a short window.
+- **The Challenge chapter list** has the same search and keeps its ticks while the list is narrowed.
+  Tests: `tests/app/test_picker.py`.
+
 ## 2.5.3 — 2026-10-16
 
 Asked by the learner: two full runs of Today's plan (Almanac week 7) changed nothing in the Almanac's tick list.
