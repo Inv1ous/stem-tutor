@@ -245,3 +245,41 @@ def test_the_bars_of_the_folder_rows_line_up_whatever_the_names(tmp_path, monkey
             starts.add(min(line.index(ch) for ch in "█░" if ch in line))
         assert len(starts) == 1, starts  # the bar starts in the same column on every row
     run(app, steps, size=(100, 40))
+
+
+def test_no_folder_name_is_cut_off_at_the_usual_picker_width(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        app.push_screen(PickerScreen("lesson"))
+        await pilot.pause()
+        await pilot.press("enter")
+        await pilot.pause()
+        app.tutor.packs.topics["9701-1"]["title"] = "Physical quantities and units"
+        app.tutor.packs.topics["9701-2"]["title"] = "Forces, density and pressure"
+        app.screen.fill()
+        await pilot.pause()
+        box = app.screen.query_one("#subs")
+        shown = [str(box.get_option_at_index(i).prompt) for i in range(box.option_count)]
+        assert any("1. Physical quantities and units (AS)" in line for line in shown)  # in full: no …
+        assert any("2. Forces, density and pressure (AS) " in line for line in shown)
+        assert not any("…" in line for line in shown)
+    run(app, steps, size=(100, 40))
+
+
+def test_the_home_screens_topic_titles_wrap_instead_of_being_cut(tmp_path, monkeypatch):
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        home = app.screen
+        sub = next(iter(app.tutor.packs.subtopics))
+        long = "Relative atomic mass and the mole with a title far too long for the side box to hold on one line"
+        app.tutor.packs.subtopics[sub]["title"] = long
+        home._draw_stats()
+        await pilot.pause()
+        text = home.query_one("#stats-text").content if hasattr(home.query_one("#stats-text"), "content") else None
+        plain = str(text) if text is not None else str(home.query_one("#stats-text").render())
+        flat = " ".join(line.strip() for line in plain.splitlines())
+        assert "far too long for the side box to hold on one line" in flat.replace("  ", " ")  # every word is still there
+        assert "…" not in plain
+    run(app, steps, size=(100, 40), many=False)

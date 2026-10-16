@@ -145,6 +145,14 @@ class HomeScreen(Screen):
     def on_resize(self) -> None:
         self._fit()
         self.call_after_refresh(self._fill_menu)  # the menu's width is known once the new layout is done
+        self.call_after_refresh(self._draw_stats)  # and so is the side box's: its titles wrap to it
+
+    def _draw_stats(self) -> None:
+        try:
+            now = self.app.tutor.now()
+            self.query_one("#stats-text", Static).update(self.stats_text(now, model.due_kcs(self.app.tutor.state, now)))
+        except Exception:  # noqa: BLE001 - the side box is a courtesy; a redraw never breaks the screen
+            pass
 
     def _fill_menu(self) -> None:
         """Put the menu lines in, each wrapped to the menu's width with the words under the words, not under the icon."""
@@ -251,6 +259,7 @@ class HomeScreen(Screen):
         self._fill_menu()
         menu.focus()
         self.query_one("#stats-text", Static).update(self.stats_text(now, due))
+        self.call_after_refresh(self._draw_stats)  # again once the box has its width: the titles wrap to it
         glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {len(due)} due", style=C["soft"])
         if (exam := self.next_exam(now)):
             glance.append(f" · ⧗ {exam}", style=C["plan"])
@@ -319,14 +328,21 @@ class HomeScreen(Screen):
             out.append("△ Your Almanac has changed since the tutor read it: ask Claude Code to refresh the plan.\n\n",
                        style=C["hint"])
         out.append("Your topics\n", style="bold")
+        # a title that does not fit goes on to the next line, under itself, instead of being cut off
+        width = max(36, self.query_one("#stats-text", Static).size.width or 46)
+        lead = 9 + 1 + 8 + 8  # id, space, bar, " 12/12  "
         for sub in sorted(s for s in t.packs.subtopics if t.packs.pack(s)):
             kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
             sec = sum(views.kc_status(t.state, k) == "secure" for k in kcs)
             started = any(views.kc_status(t.state, k) != "new" for k in kcs)
             colour = C["ok"] if sec == len(kcs) else C["soft"] if started else C["dim"]
-            out.append(f"{sub:<9}", style=C["text"])
-            out.append(bar(sec, len(kcs), 10), style=colour)
-            out.append(f" {sec}/{len(kcs)} {t.packs.subtopics[sub]['title'][:26]}\n", style=C["muted"])
+            lines = textwrap.wrap(t.packs.subtopics[sub]["title"], max(12, width - lead), break_long_words=True) or [""]
+            out.append(f"{sub:<9} ", style=C["text"])
+            out.append(bar(sec, len(kcs), 8), style=colour)
+            out.append(f" {f'{sec}/{len(kcs)}':<6}", style=C["muted"])
+            out.append(lines[0] + "\n", style=C["muted"])
+            for more in lines[1:]:
+                out.append(" " * lead + more + "\n", style=C["muted"])
         a = app.ai
         state = ("on" if a.available else {"login": "sign-in needed", "limit": "paused (limit)",
                                            "off": "not installed"}.get(a.status, a.status)) if app.settings.ai else "off"
@@ -525,7 +541,7 @@ class PickerScreen(ModalScreen):
         sec, n = sum(self.info[s]["sec"] for s in subs), sum(self.info[s]["n"] for s in subs)
         line = self._mark(subs)
         line.append("▸ ", style=C["plan"])
-        line.append(f"{name:<{width}}", style=f"bold {C['text']}")
+        line.append(f"{name:<{width}} ", style=f"bold {C['text']}")  # a space before the bar, even for the longest
         line.append(bar(sec, n, 8), style=C["ok"] if n and sec == n else C["soft"] if sec else C["dim"])
         line.append(f" {sec}/{n} ideas · {len(subs)} subtopic{'s' if len(subs) != 1 else ''}", style=C["muted"])
         return line
@@ -604,7 +620,8 @@ class PickerScreen(ModalScreen):
                                disabled=True)]
         elif folders := self._folders(self.path):
             # one name column for the whole list, as wide as the longest name the window allows, so the bars line up
-            room = max(14, (box.size.width or 80) - 6 - (4 if self.mode == "test" else 0) - 2 - 9 - 30)
+            # the row's other parts: tick box, ▸, a space, the 8-cell bar and "999/999 ideas · 99 subtopics"
+            room = max(14, (box.size.width or 80) - (4 if self.mode == "test" else 0) - 2 - 2 - 1 - 8 - 28)
             width = min(max(len(name) for _, name in folders), room)
             rows = [Option(self._folder_row(self.path + [key], name, width), id="dir:" + "/".join(self.path + [key]))
                     for key, name in folders]

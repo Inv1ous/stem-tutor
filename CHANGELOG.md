@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.5.7 — 2026-10-16
+
+- **Nothing is cut off.** In the picker the progress bar moved right, so a chapter name like "1. Physical quantities and units
+  (AS)" shows in full (the name column keeps all the room the row can spare; "…" only on a really narrow window). On the
+  home screen's "Your topics" a title too long for the side box wraps onto the next line under itself, with the bars and
+  counts in their own columns, instead of ending mid-word; it is drawn again when the window is resized.
+
 ## 2.5.6 — 2026-10-16
 
 - **Folder rows in the picker line up.** The name column was a fixed 34 characters, so a long chapter name pushed its bar out of

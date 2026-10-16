@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.7 (2026-10-16) — done
+
+Picker names in full; home topic titles wrap.
+
 ## v2.5.6 (2026-10-16) — done
 
 Picker folder rows aligned.
