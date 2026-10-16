@@ -78,6 +78,8 @@ HomeScreen.narrow #stats { display: none; }
 HomeScreen.narrow #glance { display: block; }
 HomeScreen.narrow #menu { width: 1fr; }
 HomeScreen.short #banner { display: none; }
+SessionScreen.answer-only #log, ChallengeScreen.answer-only #log { display: none; }
+SessionScreen.answer-only #panel, ChallengeScreen.answer-only #panel { height: 1fr; max-height: 100%; }
 ChallengeScreen.setup #log { display: none; }
 ChallengeScreen.setup #panel { height: 1fr; max-height: 100%; }
 ShortcutsScreen #panel, ShortcutRecallScreen #panel { height: auto; max-height: 50%; }
@@ -100,7 +102,9 @@ class TutorApp(App):
     CSS = CSS
     ENABLE_COMMAND_PALETTE = False
     BINDINGS = [Binding("ctrl+c", "smart_quit", "Quit", show=False),
-                Binding("ctrl+q", "smart_quit", "Quit", show=False, priority=True)]
+                Binding("ctrl+q", "smart_quit", "Quit", show=False, priority=True),
+                Binding("ctrl+k", "answer_only", "Answer only", show=False, priority=True),
+                Binding("f3", "answer_only", "Answer only", show=False)]
 
     def __init__(self, vault: Path | None = None, claude_binary: str | None = None, open_obsidian: bool | None = None,
                  seed: int | None = None):
@@ -225,6 +229,23 @@ class TutorApp(App):
         if hasattr(self, "ai"):
             await self.ai.close()
         self._locks.close()
+
+    def apply_answer_only(self, screen=None) -> None:
+        """Show only the answer box (the question is read in Obsidian, beside this window) or the whole screen again."""
+        for each in [screen] if screen else self.screen_stack:  # a pop-up over a session leaves the session's view alone
+            each.set_class(self.settings.answer_only, "answer-only")
+
+    def action_answer_only(self) -> None:
+        self.settings.answer_only = not self.settings.answer_only
+        try:
+            self.settings.save(self.vault)
+        except OSError:
+            pass  # the view still changes; it is just not remembered
+        self.apply_answer_only()
+        on = self.settings.answer_only
+        here = any(x.__class__.__name__ in ("SessionScreen", "ChallengeScreen") for x in self.screen_stack)
+        self.notify(("Answer-only view on: ctrl+k brings the question back." if on else "Question shown again.")
+                    + ("" if here else " It applies in sessions and challenges."), timeout=4)
 
     def action_help(self) -> None:
         from .screens import HelpScreen

@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.2 (2026-10-16) — done
+
+Answer-only view (ctrl+k / F3).
+
 ## v2.5.1 (2026-10-16) — done
 
 Home menu line wrapping (hanging indent, shorter labels).

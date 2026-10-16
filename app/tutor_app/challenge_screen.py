@@ -258,6 +258,7 @@ class ChallengeScreen(ReadAloud, Screen):
                 + (a.message or "Check that Claude Code is installed and signed in (claude auth login)."))
 
     def on_mount(self) -> None:
+        self.app.apply_answer_only(self)
         self.cfg = ch.load_config(self.vault, self.packs)
         self.set_interval(1, self.update_bar)
         try:

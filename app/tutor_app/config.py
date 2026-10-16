@@ -25,6 +25,7 @@ class Settings:
     own_words_feedback: bool = True  # AI comments on your "in your own words" answers
     open_obsidian: bool = True      # show Now.md in Obsidian when a session starts
     minutes: int = 40               # default session length
+    answer_only: bool = False       # sessions and challenges show only the answer box (ctrl+k); the question is in Obsidian
     theme: str = "classic"          # night, day or classic; `tutor look` sets night once Terminal is set up
     tts_enabled: bool = False       # read aloud with Kokoro (tts.py); `tutor tts setup` switches it on
     tts_auto: bool = False          # read explanations, feedback and AI replies as they appear

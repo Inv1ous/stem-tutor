@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.5.2 — 2026-10-16
+
+- **Answer-only view.** For a window beside Obsidian (the question is on the Now page): **ctrl+k** (or **F3**) hides the question
+  and the earlier log in a session or a challenge and gives the answer box the whole window; press it again to bring them
+  back. It is remembered (`answer_only` in Settings, a switch there too), and applies to the next session. Help lists it.
+  Tests: `tests/app/test_answer_only.py`.
+
 ## 2.5.1 — 2026-10-16
 
 - **The home menu wraps properly.** A line too long for the menu now breaks at a word with the next row indented under the

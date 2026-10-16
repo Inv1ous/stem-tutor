@@ -549,6 +549,7 @@ class SessionScreen(ReadAloud, Screen):
                                 f"Carrying on your {t.session['mode']} session: {t.session.get('answered', 0)} answered so far."))
         if self.app.settings.open_obsidian:
             mac.open_in_obsidian(self.app.vault, "Now")
+        self.app.apply_answer_only(self)
         self.set_interval(1, self.update_bar)
         self.advance()
 
@@ -1386,7 +1387,8 @@ class HelpScreen(ModalScreen):
 **↑ ↓** move · **⏎** choose / continue · **A–D** pick an option · **0** I don't know · **1–4** confidence
 (1 guess, 2 unsure, 3 fairly sure, 4 certain) · **space** tick a box
 
-**ctrl+t** ask the tutor (AI) · **ctrl+r** explain this idea again, differently (AI) · **ctrl+g** hint (not on
+**ctrl+k** (or **F3**) answer-only view: hides the question and shows just the answer box, for a window beside
+Obsidian; press it again to bring the question back · **ctrl+t** ask the tutor (AI) · **ctrl+r** explain this idea again, differently (AI) · **ctrl+g** hint (not on
 no-hints checks) · **ctrl+o** show the current question or explanation in Obsidian · **ctrl+l** bring back what
 was said earlier (after you answer) · **ctrl+e** read aloud what is on screen, and again stops it (once set up:
 `tutor tts setup`) · **ctrl+b** or **ctrl+q** save and go back to the menu. These work even while
@@ -1433,7 +1435,8 @@ class SettingsScreen(ModalScreen):
             yield Static("Settings (saved in your tutor folder)", classes="title")
             for key, label in (("ai", "AI tutor (asking, explaining, judging written answers)"),
                                ("own_words_feedback", "AI comments on your 'in your own words' answers"),
-                               ("open_obsidian", "Show Now in Obsidian when a session starts")):
+                               ("open_obsidian", "Show Now in Obsidian when a session starts"),
+                               ("answer_only", "Answer-only view: hide the question here, show just the answer box (ctrl+k)")):
                 with Horizontal(classes="row"):
                     yield Switch(value=getattr(s, key), id=key)
                     yield Static(label)
@@ -1480,7 +1483,7 @@ class SettingsScreen(ModalScreen):
     def save(self) -> None:
         s = self.app.settings
         old_speech = s.tts_enabled
-        for key in ("ai", "own_words_feedback", "open_obsidian", "tts_enabled", "tts_auto"):
+        for key in ("ai", "own_words_feedback", "open_obsidian", "answer_only", "tts_enabled", "tts_auto"):
             setattr(s, key, self.query_one(f"#{key}", Switch).value)
         s.tts_voice = str(self.query_one("#tts_voice", Select).value)
         try:
@@ -1510,4 +1513,5 @@ class SettingsScreen(ModalScreen):
             self.run_worker(self.app.ai.reset(), group="reset")
         if s.theme != old_theme:
             look.apply(self.app, s.theme)  # the menu underneath redraws in it as this closes
+        self.app.apply_answer_only()
         self.dismiss(None)
