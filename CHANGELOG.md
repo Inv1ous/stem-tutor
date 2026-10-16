@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.5.6 — 2026-10-16
+
+- **Folder rows in the picker line up.** The name column was a fixed 34 characters, so a long chapter name pushed its bar out of
+  line (Physics: "5. Work, energy and power (AS)" against "1. Physical quantities and units (AS)"). The name column is now as
+  wide as the longest name in the folder (a narrower window shortens names with …), and is drawn again when the window is
+  resized.
+
 ## 2.5.5 — 2026-10-16
 
 - **The topic picker is folders.** Chemistry, Physics and Maths at the top; each opens into a folder per chapter (Chemistry and

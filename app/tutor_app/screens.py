@@ -519,12 +519,13 @@ class PickerScreen(ModalScreen):
         line.append(t.packs.subtopics[sub]["title"], style=C["dim"] if done else C["text"])
         return line
 
-    def _folder_row(self, path: list[str], name: str) -> Text:
+    def _folder_row(self, path: list[str], name: str, width: int = 34) -> Text:
         subs = self._under(path)
+        name = name if len(name) <= width else name[:max(1, width - 1)] + "…"
         sec, n = sum(self.info[s]["sec"] for s in subs), sum(self.info[s]["n"] for s in subs)
         line = self._mark(subs)
         line.append("▸ ", style=C["plan"])
-        line.append(f"{name:<34}", style=f"bold {C['text']}")
+        line.append(f"{name:<{width}}", style=f"bold {C['text']}")
         line.append(bar(sec, n, 8), style=C["ok"] if n and sec == n else C["soft"] if sec else C["dim"])
         line.append(f" {sec}/{n} ideas · {len(subs)} subtopic{'s' if len(subs) != 1 else ''}", style=C["muted"])
         return line
@@ -570,8 +571,13 @@ class PickerScreen(ModalScreen):
 
     def _fit(self) -> None:
         """The list takes what the window leaves after the hints, the search box and (a test) the Start button, so the
-        button is never pushed off the bottom of a short window."""
+        button is never pushed off the bottom of a short window; a new width draws the folder rows again to fit it."""
         try:
+            width = self.query_one("#subs", OptionList).size.width
+            if width != getattr(self, "_drawn_at", width):
+                self._drawn_at = width
+                self.fill()
+            self._drawn_at = width
             fixed = sum(w.outer_size.height for w in self.query("#picker > .hint, #picker > Input, #picker > Button"))
             self.query_one("#subs", OptionList).styles.max_height = max(4, int(self.app.size.height * 0.9) - 4 - fixed)
         except Exception:  # noqa: BLE001 - a layout hiccup never keeps the picker from opening
@@ -597,7 +603,10 @@ class PickerScreen(ModalScreen):
                 rows = [Option(Text(f"Nothing matches “{self.needle}”. Esc clears the search.", style=C["dim"]), id="none",
                                disabled=True)]
         elif folders := self._folders(self.path):
-            rows = [Option(self._folder_row(self.path + [key], name), id="dir:" + "/".join(self.path + [key]))
+            # one name column for the whole list, as wide as the longest name the window allows, so the bars line up
+            room = max(14, (box.size.width or 80) - 6 - (4 if self.mode == "test" else 0) - 2 - 9 - 30)
+            width = min(max(len(name) for _, name in folders), room)
+            rows = [Option(self._folder_row(self.path + [key], name, width), id="dir:" + "/".join(self.path + [key]))
                     for key, name in folders]
             shown = len(self._under(self.path))
         else:

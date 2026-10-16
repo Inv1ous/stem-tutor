@@ -224,3 +224,24 @@ def test_the_challenge_chapter_list_searches_and_keeps_its_ticks(tmp_path, monke
         await pilot.pause()
         assert len(chosen) == 1 and len(chosen[0]) == 1
     run(app, steps, many=False)
+
+
+def test_the_bars_of_the_folder_rows_line_up_whatever_the_names(tmp_path, monkeypatch):
+    """Long chapter names pushed some bars out of line: one name column for the whole list."""
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        app.push_screen(PickerScreen("lesson"))
+        await pilot.pause()
+        await pilot.press("enter")  # Chemistry: its chapters
+        await pilot.pause()
+        app.tutor.packs.topics["9701-2"]["title"] = "Atoms, molecules and stoichiometry with a very long name indeed"
+        app.screen.fill()
+        await pilot.pause()
+        box = app.screen.query_one("#subs")
+        starts = set()
+        for i in range(box.option_count):
+            line = str(box.get_option_at_index(i).prompt)
+            starts.add(min(line.index(ch) for ch in "█░" if ch in line))
+        assert len(starts) == 1, starts  # the bar starts in the same column on every row
+    run(app, steps, size=(100, 40))

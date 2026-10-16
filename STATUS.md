@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.6 (2026-10-16) — done
+
+Picker folder rows aligned.
+
 ## v2.5.5 (2026-10-16) — done
 
 Topic picker as folders (subject > chapter/module > subtopic), no Recent group.
