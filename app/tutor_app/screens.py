@@ -427,14 +427,17 @@ def _natural(text: str) -> list:
 
 
 SEARCH_WORDS = {"chem": "chemistry chem", "phys": "physics phys", "math": "maths math mathematics"}
+SUBJECT_FOLDERS = (("chem", "Chemistry 9701"), ("phys", "Physics 9702"), ("math", "Maths"))
 
 
 class PickerScreen(ModalScreen):
-    """Choose a subtopic (or, for a test, several). Grouped under their topics, a Recent group first, and a search box:
-    type anywhere in the list to search, / jumps to the box, [ and ] jump between topics, ctrl+a ticks what is shown."""
+    """Choose a subtopic (or, for a test, several), as folders: Chemistry, Physics, Maths, each holding a folder per chapter
+    (Maths: per module) with the subtopics inside. ⏎ opens a folder, Esc or ← goes up. Typing searches everything at once; Esc clears the search first.
+    In a test, space on a folder ticks everything in it, ctrl+a everything shown, ctrl+d clears."""
     BINDINGS = [Binding("escape", "back", "Back"), Binding("ctrl+s", "go", show=False),
                 Binding("slash", "search", show=False), Binding("right_square_bracket", "jump(1)", show=False),
-                Binding("left_square_bracket", "jump(-1)", show=False), Binding("ctrl+a", "tick_shown", show=False, priority=True),
+                Binding("left_square_bracket", "jump(-1)", show=False), Binding("left", "up", show=False),
+                Binding("backspace", "up", show=False), Binding("ctrl+a", "tick_shown", show=False, priority=True),
                 Binding("ctrl+d", "untick_all", show=False, priority=True), Binding("space", "tick", show=False)]
 
     def __init__(self, mode: str) -> None:
@@ -442,6 +445,8 @@ class PickerScreen(ModalScreen):
         self.mode = mode
         self.ticked: set[str] = set()
         self.needle = ""
+        self.path: list[str] = []
+        self.floor = 0  # folders opened for you when there was only one: Esc does not go back into them
 
     # ---------- data ----------
     def _prepare(self) -> None:
@@ -450,10 +455,9 @@ class PickerScreen(ModalScreen):
         self.info: dict[str, dict] = {}
         for sub in self.built:
             kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
-            days = [t.state["kcs"].get(k, {}).get("last_review_day") for k in kcs]
+            topic = t.packs.subtopics[sub].get("topic", "")
             self.info[sub] = {"sec": sum(views.kc_status(t.state, k) == "secure" for k in kcs), "n": len(kcs),
-                              "last": max((d for d in days if d), default=""),
-                              "topic": t.packs.subtopics[sub].get("topic", "")}
+                              "topic": topic, "subject": t.packs.topics.get(topic, {}).get("subject", "math")}
         order = {tid: i for i, tid in enumerate(t.packs.topics)}
         self.groups: dict[str, list[str]] = {}
         for sub in sorted(self.built, key=lambda x: (order.get(self.info[x]["topic"], 99), _natural(x))):
@@ -462,23 +466,52 @@ class PickerScreen(ModalScreen):
         for sub in self.built:
             topic = t.packs.topics.get(self.info[sub]["topic"], {})
             self.hay[sub] = " ".join([sub, t.packs.subtopics[sub]["title"], topic.get("title", ""), topic.get("spec", ""),
-                                      topic.get("level", ""), SEARCH_WORDS.get(topic.get("subject", ""), ""),
+                                      topic.get("level", ""), SEARCH_WORDS.get(self.info[sub]["subject"], ""),
                                       self.info[sub]["topic"]]).lower().replace("-", " ")
+        self.path = []
+        while len(kids := self._folders(self.path)) == 1:  # one folder only: open it, nothing to choose
+            self.path.append(kids[0][0])
+        self.floor = len(self.path)
+
+    def _under(self, path: list[str]) -> list[str]:
+        """Every subtopic inside a folder, in order."""
+        subs = [s for subs in self.groups.values() for s in subs]
+        if not path:
+            return subs
+        subs = [s for s in subs if self.info[s]["subject"] == path[0]]
+        return [s for s in subs if self.info[s]["topic"] == path[1]] if len(path) > 1 else subs
+
+    def _folders(self, path: list[str]) -> list[tuple[str, str]]:
+        """The folders in a folder: (key, name). Subjects at the top, each subject's chapters under it (Chemistry and
+        Physics topics, Maths modules), subtopics inside those: nothing deeper."""
+        if not path:
+            return [(k, name) for k, name in SUBJECT_FOLDERS if self._under([k])]
+        if len(path) == 1:
+            return [(tid, self._chapter_name(tid)) for tid in self.groups if self.info[self.groups[tid][0]]["subject"] == path[0]]
+        return []
+
+    def _chapter_name(self, tid: str) -> str:
+        topic = self.app.tutor.packs.topics.get(tid, {})
+        if topic.get("subject") in ("chem", "phys"):
+            return self._topic_label(tid)
+        return f"{tid}  {topic.get('title', '')}".strip()
 
     def _topic_label(self, tid: str) -> str:
-        t = self.app.tutor
-        topic = t.packs.topics.get(tid, {})
+        topic = self.app.tutor.packs.topics.get(tid, {})
         if topic.get("subject") in ("chem", "phys"):
-            n = tid.split("-")[-1]
-            return f"{'Chemistry' if topic['subject'] == 'chem' else 'Physics'} {topic['spec']} · {n}. {topic.get('title', tid)}" \
-                   + (f" ({topic['level']})" if topic.get("level") else "")
+            return f"{tid.split('-')[-1]}. {topic.get('title', tid)}" + (f" ({topic['level']})" if topic.get("level") else "")
         return f"Maths · {tid} {topic.get('title', '')}".strip()
+
+    def _mark(self, subs: list[str]) -> Text:
+        if self.mode != "test":
+            return Text()
+        n = sum(s in self.ticked for s in subs)
+        return Text("[x] " if subs and n == len(subs) else "[-] " if n else "[ ] ",
+                    style=C["ok"] if n else C["dim"])
 
     def _row(self, sub: str) -> Text:
         i, t = self.info[sub], self.app.tutor
-        line = Text()
-        if self.mode == "test":
-            line.append("[x] " if sub in self.ticked else "[ ] ", style=C["ok"] if sub in self.ticked else C["dim"])
+        line = self._mark([sub])
         done = i["n"] and i["sec"] == i["n"]
         line.append(f"{sub:<9} ", style=C["text"])
         line.append(bar(i["sec"], i["n"], 8), style=C["ok"] if done else C["soft"] if i["sec"] else C["dim"])
@@ -486,23 +519,42 @@ class PickerScreen(ModalScreen):
         line.append(t.packs.subtopics[sub]["title"], style=C["dim"] if done else C["text"])
         return line
 
+    def _folder_row(self, path: list[str], name: str) -> Text:
+        subs = self._under(path)
+        sec, n = sum(self.info[s]["sec"] for s in subs), sum(self.info[s]["n"] for s in subs)
+        line = self._mark(subs)
+        line.append("▸ ", style=C["plan"])
+        line.append(f"{name:<34}", style=f"bold {C['text']}")
+        line.append(bar(sec, n, 8), style=C["ok"] if n and sec == n else C["soft"] if sec else C["dim"])
+        line.append(f" {sec}/{n} ideas · {len(subs)} subtopic{'s' if len(subs) != 1 else ''}", style=C["muted"])
+        return line
+
     def _matches(self, sub: str) -> bool:
         words = self.needle.lower().replace("-", " ").split()
         return all(w in self.hay[sub] for w in words)
+
+    def _crumb(self) -> str:
+        names = dict(SUBJECT_FOLDERS)
+        parts = [{"lesson": "Learn", "long": "Long questions", "blurt": "Blurt", "test": "Test prep"}.get(self.mode, "Topics")]
+        if self.path:
+            parts.append(names.get(self.path[0], self.path[0]))
+            parts += [self._chapter_name(tid) for tid in self.path[1:]]
+        return " › ".join(parts)
 
     # ---------- screen ----------
     def compose(self) -> ComposeResult:
         self._prepare()
         with Vertical(id="picker"):
             if self.mode == "test":
-                yield Static("Tick the subtopics the test covers: space to tick, ctrl+a ticks all shown, Tab to Start "
-                             "(or ctrl+s), Esc to go back.", classes="hint")
+                yield Static("Tick the subtopics the test covers: space to tick (on a folder: all in it), ctrl+a ticks all "
+                             "shown, Tab to Start (or ctrl+s), Esc to go back.", classes="hint")
             else:
                 ask = {"lesson": "Which subtopic do you want to learn?",
                        "long": "Which subtopic do you want to practise with long questions?",
                        "blurt": "Pick a subtopic to blurt on."}.get(self.mode, "Which subtopic do you want to study?")
-                yield Static(f"{ask} (⏎ to choose, Esc to go back)", classes="hint")
-            yield Input(placeholder="Search: a word, a code (9702-3, P1) …  or just start typing", id="find", compact=True, select_on_focus=False)
+                yield Static(f"{ask} (⏎ to choose or open a folder, Esc to go back)", classes="hint")
+            yield Input(placeholder="Search everything: a word, a code (9702-3, P1) …  or just start typing", id="find",
+                        compact=True, select_on_focus=False)
             yield Static(id="found", classes="hint")
             yield OptionList(id="subs")
             if self.mode == "test":
@@ -520,41 +572,46 @@ class PickerScreen(ModalScreen):
         """The list takes what the window leaves after the hints, the search box and (a test) the Start button, so the
         button is never pushed off the bottom of a short window."""
         try:
-            rows = self.app.size.height
             fixed = sum(w.outer_size.height for w in self.query("#picker > .hint, #picker > Input, #picker > Button"))
-            self.query_one("#subs", OptionList).styles.max_height = max(4, int(rows * 0.9) - 4 - fixed)
+            self.query_one("#subs", OptionList).styles.max_height = max(4, int(self.app.size.height * 0.9) - 4 - fixed)
         except Exception:  # noqa: BLE001 - a layout hiccup never keeps the picker from opening
             pass
 
     def fill(self, keep: str | None = None) -> None:
-        """Put the rows in for what is typed: topic headings, their subtopics, a Recent group first when nothing is typed."""
+        """Put the rows in: what matches the search (grouped by topic), or the folder you are in."""
         box = self.query_one("#subs", OptionList)
         was = keep or (box.get_option_at_index(box.highlighted).id if box.highlighted is not None else None)
         box.clear_options()
-        shown, rows = 0, []
-        if not self.needle:
-            recent = sorted((s for s in self.built if self.info[s]["last"]), key=lambda s: self.info[s]["last"], reverse=True)[:4]
-            if recent:
-                rows.append(Option(Text("↻ Recent", style=f"bold {C['plan']}"), id="h:recent", disabled=True))
-                rows += [Option(self._row(s), id=f"recent:{s}") for s in recent]
-        for tid, subs in self.groups.items():
-            keep_subs = [s for s in subs if self._matches(s)]
-            if not keep_subs:
-                continue
-            rows.append(Option(Text(self._topic_label(tid), style=f"bold {C['plan']}"), id=f"h:{tid}", disabled=True))
-            rows += [Option(self._row(s), id=s) for s in keep_subs]
-            shown += len(keep_subs)
-        if not shown:
-            rows = [Option(Text(f"Nothing matches “{self.needle}”. Esc clears the search.", style=C["dim"]), id="none", disabled=True)]
+        rows: list[Option] = []
+        shown = 0
+        if self.needle:
+            for tid, subs in self.groups.items():
+                hits = [s for s in subs if self._matches(s)]
+                if hits:
+                    subject = dict(SUBJECT_FOLDERS).get(self.info[hits[0]]["subject"], "")
+                    head = (f"{subject} · " if self.info[hits[0]]["subject"] != "math" else "") + self._topic_label(tid)
+                    rows.append(Option(Text(head, style=f"bold {C['plan']}"), id=f"h:{tid}", disabled=True))
+                    rows += [Option(self._row(s), id=s) for s in hits]
+                    shown += len(hits)
+            if not shown:
+                rows = [Option(Text(f"Nothing matches “{self.needle}”. Esc clears the search.", style=C["dim"]), id="none",
+                               disabled=True)]
+        elif folders := self._folders(self.path):
+            rows = [Option(self._folder_row(self.path + [key], name), id="dir:" + "/".join(self.path + [key]))
+                    for key, name in folders]
+            shown = len(self._under(self.path))
+        else:
+            rows = [Option(self._row(sub), id=sub) for sub in self._under(self.path)]
+            shown = len(rows)
         box.add_options(rows)
         ids = [o.id for o in rows]
         pick = was if was in ids else next((o.id for o in rows if not o.disabled), None)
         box.highlighted = ids.index(pick) if pick in ids else None
-        total = len(self.built)
+        where = f"{len(self.built)} subtopics · {shown} match" if self.needle else self._crumb()
         ticks = f" · {len(self.ticked)} ticked" if self.mode == "test" else ""
+        keys = " · type to search · ⏎ open · Esc up" if not self.needle and not self.path else ""
         self.query_one("#found", Static).update(
-            (f"{shown} of {total} subtopics" if self.needle else f"{total} subtopics") + ticks
-            + ("" if self.needle else " · type to search · [ ] jump between topics"))
+            (f"Search: {shown} of {len(self.built)} subtopics" if self.needle else where) + ticks + keys)
 
     @on(Input.Changed, "#find")
     def typed(self, event: Input.Changed) -> None:
@@ -572,7 +629,7 @@ class PickerScreen(ModalScreen):
             self.toggle(first.id)
             box.focus()
         else:
-            self.dismiss([self._sub(first.id)])
+            self.dismiss([first.id])
 
     def on_key(self, event) -> None:
         """Typing in the list starts a search: no need to click the box first."""
@@ -583,32 +640,51 @@ class PickerScreen(ModalScreen):
             box.value += event.character
             box.cursor_position = len(box.value)
             event.stop()
-        elif isinstance(self.focused, Input) and event.key in ("down", "tab") and event.key == "down":
+        elif isinstance(self.focused, Input) and event.key == "down":
             self.query_one("#subs", OptionList).focus()
             event.stop()
 
-    @staticmethod
-    def _sub(option_id: str) -> str:
-        return option_id.split(":", 1)[1] if option_id.startswith("recent:") else option_id
+    def _ids_of(self, option_id: str) -> list[str]:
+        """The subtopics an option stands for: itself, or everything inside a folder."""
+        return self._under(option_id[4:].split("/")) if option_id.startswith("dir:") else [option_id]
 
     def toggle(self, option_id: str) -> None:
-        sub = self._sub(option_id)
-        self.ticked ^= {sub}
+        subs = self._ids_of(option_id)
+        if all(s in self.ticked for s in subs):
+            self.ticked -= set(subs)
+        else:
+            self.ticked |= set(subs)
         self.fill(keep=option_id)
+
+    def open(self, option_id: str) -> None:
+        self.path = option_id[4:].split("/")
+        self.fill()
 
     @on(OptionList.OptionSelected, "#subs")
     def chose(self, event: OptionList.OptionSelected) -> None:
-        if self.mode == "test":
-            self.toggle(event.option.id)
+        oid = str(event.option.id)
+        if oid.startswith("dir:"):
+            self.open(oid)
+        elif self.mode == "test":
+            self.toggle(oid)
         else:
-            self.dismiss([self._sub(event.option.id)])
+            self.dismiss([oid])
 
     # ---------- actions ----------
+    def action_up(self) -> None:
+        """Up one folder (not into the one that was opened for you, and not while typing a search)."""
+        if isinstance(self.focused, Input) or self.needle or len(self.path) <= self.floor:
+            return
+        came = "dir:" + "/".join(self.path)
+        self.path = self.path[:-1]
+        self.fill(keep=came)
+
     def action_back(self) -> None:
-        if self.needle:  # the first Esc clears the search, the next goes back
-            box = self.query_one("#find", Input)
-            box.value = ""
+        if self.needle:  # the first Esc clears the search, then up a folder, then out
+            self.query_one("#find", Input).value = ""
             self.query_one("#subs", OptionList).focus()
+        elif len(self.path) > self.floor:
+            self.action_up()
         else:
             self.dismiss(None)
 
@@ -632,11 +708,11 @@ class PickerScreen(ModalScreen):
             return
         box = self.query_one("#subs", OptionList)
         if box.highlighted is not None and not box.get_option_at_index(box.highlighted).disabled:
-            self.toggle(box.get_option_at_index(box.highlighted).id)
+            self.toggle(str(box.get_option_at_index(box.highlighted).id))
 
     def action_tick_shown(self) -> None:
         if self.mode == "test":
-            self.ticked |= {s for subs in self.groups.values() for s in subs if self._matches(s)}
+            self.ticked |= {s for s in (self.built if self.needle else self._under(self.path)) if not self.needle or self._matches(s)}
             self.fill()
 
     def action_untick_all(self) -> None:
@@ -1585,9 +1661,10 @@ was said earlier (after you answer) · **ctrl+e** read aloud what is on screen, 
 you are typing; when you are not typing, **t e h o** do the same. **alt+↑ alt+↓** scroll a long question or
 explanation, even while you type.
 
-Choosing a topic: **just start typing** to search (a word, or a code such as 9702-3 or P1), **/** jumps to the search box,
-**[** and **]** jump between topics, **Esc** clears the search and then goes back; in test prep **space** ticks, **ctrl+a**
-ticks everything shown, **ctrl+d** clears.
+Choosing a topic: folders for **Chemistry**, **Physics** and **Maths**, each holding a folder per chapter (Maths: per
+module) with the subtopics inside. **⏎** opens a folder, **Esc** or **←** goes up. **Just start typing** to search every
+folder at once (a word, or a code such as 9702-3 or P1; Esc clears it). In test prep **space** ticks (on a folder: all in it),
+**ctrl+a** ticks everything shown, **ctrl+d** clears.
 
 Typing: **⏎** sends a short answer · **ctrl+j** starts a new line · **ctrl+s** submits a long answer or a blurt.
 

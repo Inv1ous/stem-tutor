@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.5.5 — 2026-10-16
+
+- **The topic picker is folders.** Chemistry, Physics and Maths at the top; each opens into a folder per chapter (Chemistry and
+  Physics topics, Maths modules P1, P2, M1, S1 ...) and a chapter into its subtopics, nothing deeper. ⏎ opens, Esc or ←
+  goes up (back onto the folder you came out of), Esc at the top leaves. A subject or chapter with only one folder opens
+  by itself. Search still looks through everything at once (Esc clears it and returns to the folder you were in). In test
+  prep space on a folder ticks everything in it (`[x]`, `[-]` partly, `[ ]`), ctrl+a ticks everything shown. The "Recent"
+  group is gone. Tests: `tests/app/test_picker.py`.
+
 ## 2.5.4 — 2026-10-16
 
 Asked by the learner: the subtopic and topic pickers were hard to search; finding one chapter meant scrolling all the way down.

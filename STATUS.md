@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.5 (2026-10-16) — done
+
+Topic picker as folders (subject > chapter/module > subtopic), no Recent group.
+
 ## v2.5.4 (2026-10-16) — done
 
 Searchable, grouped subtopic pickers (and the Challenge chapter list).
