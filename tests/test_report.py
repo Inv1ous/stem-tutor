@@ -265,3 +265,26 @@ def test_an_idea_dropped_from_the_packs_does_not_stop_the_brief(tmp_path):
     report.brief(t)
     report.today_note(t)
     assert "9702-9.9.9" not in str(t.start("autopilot", minutes=50)["blocks"])
+
+
+def test_the_almanac_shows_how_far_each_objective_is_and_what_the_session_is_doing(tutor, tmp_path):
+    """Asked by the learner: two full runs of Today's plan changed nothing in the Almanac. A review or a gate ticks
+    only once most of its ideas are secure, so what is done so far is shown, and so is the session under way."""
+    planner = tmp_path / "A-Levels.html"
+    planner.write_text("<html></html>")
+    tutor.packs.plan["source_path"] = str(planner)
+    before = report.almanac_payload(tutor)
+    assert "session" not in before and before["today"]["answers"] == 0
+    prog = before["progress"]["5-phys1"]
+    assert prog["of"] >= 1 and prog["secure"] == 0 and prog["tried"] == 0 and prog["done"] is False
+    assert prog["new"] is True and prog["next"] and prog["bysub"]
+    _study(tutor, wrong=False)  # an answer counts at once: tried, even before it is secure
+    mid = report.almanac_payload(tutor)
+    assert mid["progress"]["5-phys1"]["tried"] >= 1 and mid["today"]["answers"] >= 1 and mid["today"]["ideas"] >= 1
+    tutor.start("lesson", 30, ["9702-2.1"])  # the session pushes by itself: the page is told while it is happening
+    live = json.loads((tmp_path / "A-Levels.tutor.js").read_text()[len("window.TUTOR_SYNC = "):].rstrip().rstrip(";"))
+    assert live["session"]["mode"] == "lesson" and live["session"]["answered"] == 0
+    assert live["stamp"] != before["stamp"]
+    tutor.end()  # and is told when it stops
+    after = json.loads((tmp_path / "A-Levels.tutor.js").read_text()[len("window.TUTOR_SYNC = "):].rstrip().rstrip(";"))
+    assert "session" not in after

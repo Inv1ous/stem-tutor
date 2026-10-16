@@ -9,6 +9,7 @@ import copy
 import math
 import random
 import re
+import time
 import uuid
 from datetime import datetime
 
@@ -119,7 +120,23 @@ class Tutor(LessonMixin):
         model.apply(self.state, e)
         self._dirty = True
         self._save()
+        if event.get("type") in ("answer", "session_start"):
+            self._sync_almanac(force=event["type"] == "session_start")
         return e
+
+    def _sync_almanac(self, force: bool = False) -> None:
+        """Tell the Almanac what is happening as it happens (the page reads the file every half minute): the session
+        under way, today's totals and each objective's progress. At most every ten seconds; never raises, and writes
+        nothing when the planner file is not on this machine."""
+        try:
+            now = time.monotonic()
+            if not force and now - getattr(self, "_almanac_at", -99) < 10:
+                return
+            self._almanac_at = now
+            from . import report
+            report.almanac_push(self)
+        except Exception:  # noqa: BLE001 - the Almanac is a courtesy; it never stops a lesson
+            pass
 
     # ---------- Obsidian views ----------
     def _lesson_log(self) -> views.LessonLog | None:
@@ -244,6 +261,7 @@ class Tutor(LessonMixin):
         recent = sorted((str(f.relative_to(self.vault.root)) for f in (self.vault.root / "Lessons").glob("*.md")),
                         reverse=True) if (self.vault.root / "Lessons").exists() else []
         views.write_home(self.vault.root, self.packs, self.state, self.now(), recent)
+        self._sync_almanac(force=True)  # the session is over: the Almanac stops saying "live"
         return summary
 
     # ---------- presenting ----------
@@ -750,6 +768,7 @@ class Tutor(LessonMixin):
             g = {**g, "correct": False}
         s["answered"] += 1
         s["correct"] += 1 if g["correct"] else 0
+        self._sync_almanac()
         if p["block"] == "bracket":
             blk = s["blocks"][p["block_idx"]]
             rec = blk["st"][blk.get("asked_for", {}).get(p["item"], p["kcs"][0])]

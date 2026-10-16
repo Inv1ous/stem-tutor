@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.5.3 — 2026-10-16
+
+Asked by the learner: two full runs of Today's plan (Almanac week 7) changed nothing in the Almanac's tick list.
+
+- **Why nothing ticked.** Week 7 holds review and gate objectives. A review ticks only when most of the ideas it covers are
+  *secure* (right on two different days), in every subject: 3 of 28 chemistry ideas had been tried, none secure, and one
+  day cannot make an idea secure. Nothing showed how far each objective was, so it looked as if nothing counted.
+- **The Almanac now shows the part that is done** (`policy.progress`, `report.almanac_payload`, `build/almanac_link.js`).
+  Under each objective: a bar and "31 of 52 ideas secure (60%) · 75% needed in each subject · Maths 12/20, Chemistry 8/18
+  · 4 right once, waiting for a second day · 12 not tried yet · next: ...". A new-material objective says "6 of 10 ideas
+  learned". The tick itself still follows the same rule (all or nothing).
+- **What you are doing now.** A line above this week's objectives: "Live: Today's plan · 12 min · 5 answered (4 right). On
+  screen: ... Covered: ... Today: 44 answers, 36 right, 26 ideas over 2 sessions." The session pushes to the Almanac as you
+  answer (at most every ten seconds, at its start and at its end), no longer only when you return to the menu; it reads
+  "Last seen" once pushes stop and "No session running" afterwards.
+- The page was re-linked (`build/almanac_link.py`, `plan.py`, `publish.py`; a copy of the page is in `.backup/`). The
+  display never touches the page's own ticks and an error in it cannot stop the page.
+
 ## 2.5.2 — 2026-10-16
 
 - **Answer-only view.** For a window beside Obsidian (the question is on the Now page): **ctrl+k** (or **F3**) hides the question

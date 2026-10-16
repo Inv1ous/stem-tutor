@@ -456,6 +456,27 @@ def _retro(tutor, events: list[dict], week: int) -> dict | None:
     return {"broke": broke, "fix": fix or "Nothing stood out: keep the reviews up."}
 
 
+def _live_session(tutor, events: list[dict]) -> dict:
+    """What the learner is doing now and has done today, for the Almanac's live line: the open session (mode, minutes,
+    answers, the ideas on screen and those covered), and today's totals across every session."""
+    now, s = tutor.now(), tutor.session
+    today = now.date().isoformat()
+    mine = [e for e in events if e["type"] == "answer" and e["ts"][:10] == today]
+    title = lambda k: tutor.packs.kc(k)["title"] if k in tutor.packs.kcs else k  # noqa: E731
+    out: dict = {"today": {"answers": len(mine), "right": sum(model.counts_as_right(e["grade"]) for e in mine),
+                           "ideas": len({k for e in mine for k in e["kcs"]}),
+                           "sessions": len({e.get("session") for e in mine if e.get("session")})}}
+    if s:
+        started = datetime.fromisoformat(s["started"])
+        shown = [k for p in (s.get("presented") or {}).values() for k in p.get("kcs", [])]
+        out["session"] = {"mode": s.get("mode"), "minutes": max(0, round((now - started).total_seconds() / 60)),
+                          "answered": s.get("answered", 0), "correct": s.get("correct", 0),
+                          "now": [title(k) for k in dict.fromkeys(shown)][:3],
+                          "covered": [title(k) for k in s.get("kcs_answered", [])][-8:],
+                          "updated": int(now.timestamp())}
+    return out
+
+
 def almanac_payload(tutor) -> dict:
     """Everything the tutor can fill in for the Almanac: the objectives it has seen finished, a colour for every
     syllabus topic, mark-bank scores, the days studied, mistakes by family, the retrospective for this week and the
@@ -473,7 +494,9 @@ def almanac_payload(tutor) -> dict:
             "wall": {day: 1 for day in sorted({e["ts"][:10] for e in events if e["type"] == "answer"})},
             "err": {k: v for k, v in sorted(err.items()) if v > 0},
             "retro": {str(w): r for w in (week - 1, week) if w >= 1 and (r := _retro(tutor, events, w))},
-            "stage": sum(now.date().isoformat() >= day for day in STAGES_FROM)}
+            "stage": sum(now.date().isoformat() >= day for day in STAGES_FROM),
+            "progress": policy.progress(p.plan, s, p, range(max(1, week - 1), week + 3)),
+            **_live_session(tutor, events)}
     stamp = hashlib.sha1(json.dumps(body, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12]
     return {"stamp": stamp, "at": now.isoformat(timespec="minutes"), **body}
 

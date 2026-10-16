@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.3 (2026-10-16) — done
+
+Almanac shows each objective's progress and the live session; session pushes as you answer.
+
 ## v2.5.2 (2026-10-16) — done
 
 Answer-only view (ctrl+k / F3).

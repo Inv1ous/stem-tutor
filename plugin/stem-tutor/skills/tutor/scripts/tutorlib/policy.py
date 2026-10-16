@@ -134,6 +134,42 @@ def earned(plan: dict, state: dict, packs) -> frozenset:
     return frozenset(out)
 
 
+def progress(plan: dict, state: dict, packs, weeks=None) -> dict[str, dict]:
+    """How far each objective is, by the same rules `earned` ticks by, so the Almanac can show the part that is done:
+    {objective id: {"new": a NEW objective, "of": ideas, "secure": ideas that count, "tried": ideas answered at all, "waiting": ideas right on one day so far (a review wants two), "need": the share a tick
+    asks for, "bysub": {subject: [secure, of]}, "next": up to three ideas still to do, "done": ticked by `earned`}}.
+    An objective that names no ideas (a practical, a paper routine) has no entry: it stays the learner's own tick."""
+    out: dict[str, dict] = {}
+    for w, objectives in plan.get("weeks", {}).items():
+        if weeks is not None and int(w) not in weeks:
+            continue
+        for o in objectives:
+            kcs = [k for k in about(o, plan) if k in packs.kcs]
+            if not o.get("id") or not kcs:
+                continue
+            new = o.get("type", "NEW") == "NEW"
+            if new:
+                need = 1.0
+                ok = {k: bool(state["kcs"].get(k, {}).get("succ_days")) for k in kcs}
+            else:
+                m = _NEED.search(o.get("done", ""))
+                need = min(1.0, max(0.5, int(m[1]) / int(m[2]) if m[1] else int(m[3]) / 100)) if m else 1.0
+                ok = {k: k in state["kcs"] and model.is_mastered(state["kcs"][k]) for k in kcs}
+            tried = [k for k in kcs if state["kcs"].get(k, {}).get("n")]
+            bysub: dict[str, list[int]] = {}
+            for k in kcs:
+                row = bysub.setdefault(packs.kc(k)["subject"], [0, 0])
+                row[0] += ok[k]
+                row[1] += 1
+            left = sorted((k for k in kcs if not ok[k]), key=lambda k: (k not in tried, kcs.index(k)))
+            out[o["id"]] = {"new": new, "of": len(kcs), "secure": sum(ok.values()), "tried": len(tried), "need": round(need, 2),
+                            "bysub": bysub, "next": [packs.kc(k)["title"] for k in left[:3]],
+                            "waiting": sum(1 for k in kcs if not ok[k] and len(state["kcs"].get(k, {}).get("succ_days", [])) == 1),
+                            "done": all(sum(ok[k] for k in kcs if packs.kc(k)["subject"] == sub) >= need * n
+                                        for sub, (_, n) in bysub.items())}
+    return out
+
+
 def rag(state: dict, packs, claimed_kcs=()) -> dict[str, str]:
     """A colour for every topic in the Almanac's syllabus section (each CAIE topic, each maths unit), from what the
     answers show. Green: at least 80% of the topic's ideas are secure. Red: nothing in it has been shown yet and

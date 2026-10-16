@@ -107,3 +107,27 @@ def test_the_page_loads_the_tutors_file_saves_and_redraws(tmp_path):
     assert S["done"] == {} and calls == ["every 30000"]
     S, calls = run_block(tmp_path, reset=True)  # "Reset everything" does not bring the tutor's ticks straight back
     assert S["done"] == {} and S["rag"] == {} and S["tutor"]["stamp"] == "s1"
+
+
+@pytest.mark.skipif(not shutil.which("node"), reason="needs Node to run the page's script")
+def test_the_page_words_each_objectives_progress_and_the_live_session():
+    js = (REPO / "build/almanac_link.js").read_text()
+    code = (js + """
+const part = tutorProgressText({new: false, of: 52, secure: 31, tried: 40, need: 0.75, bysub: {math: [12, 20], chem: [8, 18]},
+                                next: ["Moles"], done: false});
+const done = tutorProgressText({new: true, of: 5, secure: 5, tried: 5, need: 1, bysub: {math: [5, 5]}, next: [], done: true});
+const live = tutorLiveText({session: {mode: "autopilot", minutes: 12, answered: 5, correct: 4, now: ["Moles"], covered: ["SUVAT"],
+                                      updated: 1000}, today: {answers: 9, right: 7, ideas: 6, sessions: 2}}, 1100);
+const stale = tutorLiveText({session: {mode: "review", minutes: 3, answered: 0, correct: 0, now: [], covered: [], updated: 1000},
+                             today: {answers: 0, right: 0, ideas: 0, sessions: 0}}, 9000);
+const none = tutorLiveText({today: {answers: 1, right: 1, ideas: 1, sessions: 1}}, 5);
+console.log(JSON.stringify([part, done, live, stale, none]));""")
+    part, done, live, stale, none = json.loads(subprocess.run(["node", "-e", code], capture_output=True, text=True,
+                                                              check=True).stdout)
+    assert part.startswith("31 of 52 ideas secure (60%) · 75% needed in each subject · Maths 12/20, Chemistry 8/18")
+    assert "12 not tried yet" in part and part.endswith("next: Moles")
+    assert done == "Done: the tutor has ticked this (5 of 5 ideas learned)."
+    assert live.startswith("Live: Today's plan · 12 min · 5 answered (4 right). On screen: Moles. Covered: SUVAT.")
+    assert "Today: 9 answers, 7 right, 6 ideas over 2 sessions." in live
+    assert stale.startswith("Last seen: Review") and "On screen" not in stale  # pushes stopped: not "live" any more
+    assert none == "No session running. Today: 1 answer, 1 right, 1 idea."
