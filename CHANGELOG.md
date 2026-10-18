@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.5.8 — 2026-10-18
+
+- **A worked example waits at its answer.** Revealing the last step used to send you straight on to the next question, so
+  the answer could not be read. Now the last step stays on screen with "That was the last step. Read it through, then
+  continue." and a Continue button (⏎), plus Explain differently and Ask. Test: `tests/app/test_worked.py`.
+
 ## 2.5.7 — 2026-10-16
 
 - **Nothing is cut off.** In the picker the progress bar moved right, so a chapter name like "1. Physical quantities and units

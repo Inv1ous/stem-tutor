@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.8 (2026-10-18) — done
+
+Worked example waits at its last step.
+
 ## v2.5.7 (2026-10-16) — done
 
 Picker names in full; home topic titles wrap.

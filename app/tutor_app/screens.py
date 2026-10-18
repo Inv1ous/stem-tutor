@@ -1038,6 +1038,8 @@ class SessionScreen(ReadAloud, Screen):
             self.say(cards.card("tutor", f"Step {data['step']}", f"{st['do']}\n\n_{st.get('why', '')}_"))
             self.readable_now([f"Step {data['step']}.", st["do"], st.get("why", "")])
             self.respond({"step": data["step"]})
+            if data["step"] >= len(self.act["steps"]):  # the last step is the answer: wait for the learner, do not move on
+                self.panel(ContinuePanel("That was the last step. Read it through, then continue.", read=self.can_read()))
         elif kind in ("worked", "walkthrough") and data.get("done"):
             self.respond({"done": True})
             self.advance()

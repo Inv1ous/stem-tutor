@@ -434,9 +434,7 @@ class WorkedPanel(Panel):
         self.post_message(self.Done({"step": self.i, "guess": event.value.strip()}, self))
         event.composer.text = ""
         self.i += 1
-        if self.i > self.total:
-            self.finish({"done": True})
-        else:
+        if self.i <= self.total:  # after the last step the screen puts up Continue: the answer stays to be read
             self.query_one(".hint", Static).update(self._label())
 
 
