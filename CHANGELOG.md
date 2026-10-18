@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.10 — 2026-10-18
+
+- **Voice loudness.** Settings (F2) has "Voice loudness (10 to 100 %)" and a **▸ Hear it** button: it says a short line at the
+  loudness typed, before you save it, so it can be judged by ear (it works even with reading aloud switched off, once Kokoro
+  is set up). Saved as `tts_volume`; every reading, the lessons' auto-read and `tutor tts say` play at it
+  (`afplay -v`; 100 % plays exactly as before). Never below 10 %, so it cannot go silent by accident.
+  Tests in `tests/app/test_tts.py`.
+
 ## 2.5.9 — 2026-10-18
 
 - **The question stays on the Now page after its answer.** Obsidian's Now.md showed only the verdict ("Q3 — not quite", the

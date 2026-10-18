@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.10 (2026-10-18) — done
+
+Voice loudness setting with a Hear it button.
+
 ## v2.5.9 (2026-10-18) — done
 
 Now.md keeps the question above its verdict.

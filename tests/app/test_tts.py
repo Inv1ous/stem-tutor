@@ -36,14 +36,16 @@ class FakeEngine:
 
 class FakePlayer:
     def __init__(self):
-        self.played, self.stops, self._on = [], 0, False
+        self.played, self.stops, self._on, self.volumes = [], 0, False, []
+        self.volume = None  # the Speaker gives a real player its settings; this one only records what it is told
 
     @property
     def playing(self):
         return self._on
 
-    def play(self, path):
+    def play(self, path, volume=None):
         self.played.append(Path(path))
+        self.volumes.append(volume)
         self._on = True
         return True
 
@@ -649,3 +651,82 @@ def test_the_app_and_the_chapter_script_agree_on_the_key(tmp_path):
     tts.set_engine(FakeEngine())
     path = tts.ensure_audio(pack["teach"]["k1"]["establish"], "bf_emma", 1.0, folder)
     assert path.name == f"{speech.audio_key(line['text'], 'bf_emma', 1.0)}.wav"
+
+
+# ---------------- loudness ----------------
+def test_the_player_plays_quieter_with_afplays_volume_flag(tmp_path):
+    """Asked by the learner: the voice was too loud. `afplay -v` takes 1 as recorded and less as quieter."""
+    fake = tmp_path / "afplay"
+    out = tmp_path / "argv.txt"
+    fake.write_text(f"#!/bin/sh\necho \"$@\" >> {out}\n")
+    fake.chmod(0o755)
+    p = tts.Player(binary=str(fake), volume=lambda: 0.4)
+    assert p.play(tmp_path / "a.wav")
+    p.wait()
+    assert p.play(tmp_path / "b.wav", volume=0.25)  # a sample at a loudness not saved: it wins over the setting
+    p.wait()
+    full = tts.Player(binary=str(fake), volume=lambda: 1.0)
+    assert full.play(tmp_path / "c.wav")  # as recorded: no flag at all, as before
+    full.wait()
+    wild = tts.Player(binary=str(fake), volume=lambda: 0.0)
+    wild.play(tmp_path / "d.wav")  # never silent by accident: not under 10 %
+    wild.wait()
+    time.sleep(0.2)
+    lines = out.read_text().splitlines()
+    assert lines[0].startswith("-v 0.4 ") and lines[1].startswith("-v 0.25 ")
+    assert lines[2].startswith(str(tmp_path / "c.wav")[:5]) and "-v" not in lines[2]
+    assert lines[3].startswith("-v 0.1 ")
+
+
+def test_the_loudness_setting_is_saved_clamped_and_read_back(tmp_path):
+    (tmp_path / ".tutor").mkdir()
+    config.Settings(tts_volume=0.4).save(tmp_path)
+    assert config.Settings.load(tmp_path).tts_volume == 0.4
+    (tmp_path / ".tutor/app_settings.json").write_text(json.dumps({"tts_volume": 5.0}))
+    assert config.Settings.load(tmp_path).tts_volume == 1.0
+    (tmp_path / ".tutor/app_settings.json").write_text(json.dumps({"tts_volume": 0.0}))
+    assert config.Settings.load(tmp_path).tts_volume == 0.1
+    (tmp_path / ".tutor/app_settings.json").write_text(json.dumps({"tts_volume": 1}))
+    assert config.Settings.load(tmp_path).tts_volume == 1.0 and config.Settings().tts_volume == 1.0
+
+
+def test_a_sample_plays_once_at_the_loudness_asked_and_the_next_line_goes_back_to_the_setting(tmp_path):
+    tts.set_engine(FakeEngine())
+    sp, player, s = _speaker(tmp_path, enabled=False)  # reading aloud is off: the sample still plays
+    assert sp.sample(0.3)
+    assert sp.wait_idle()
+    time.sleep(0.05)
+    assert player.volumes == [0.3]
+    s.tts_enabled = True
+    assert sp.say("A normal line.")
+    assert sp.wait_idle()
+    time.sleep(0.05)
+    assert player.volumes == [0.3, None]  # the real Player then asks the settings
+    sp.close()
+
+
+def test_settings_has_a_loudness_box_and_a_button_to_hear_it_before_saving(tmp_path, monkeypatch):
+    from textual.widgets import Input
+    app, v, player = _tts_app(tmp_path, monkeypatch, enabled=True)
+    heard = []
+    monkeypatch.setattr(app.speaker, "sample", lambda volume, *a, **k: heard.append(volume) or True)
+
+    async def steps(pilot):
+        app.action_settings()
+        await pilot.pause()
+        scr = app.screen
+        box = scr.query_one("#tts_volume", Input)
+        assert box.value == "100"
+        box.value = "35"
+        scr.query_one("#tts_test").press()
+        await pilot.pause()
+        assert heard == [0.35] and config.Settings.load(v).tts_volume == 1.0  # heard, not saved yet
+        box.value = "abc"
+        scr.query_one("#tts_test").press()
+        await pilot.pause()
+        assert heard == [0.35]  # not a number: nothing played
+        box.value = "35"
+        scr.query_one("#save").press()
+        await pilot.pause()
+        assert config.Settings.load(v).tts_volume == 0.35 and app.settings.tts_volume == 0.35
+    _run(app, (60, 24), steps)

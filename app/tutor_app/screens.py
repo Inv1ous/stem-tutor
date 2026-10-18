@@ -1760,6 +1760,10 @@ class SettingsScreen(ModalScreen):
             with Horizontal(classes="row"):
                 yield Static("Reading speed (0.8 to 1.3)")
                 yield Input(f"{s.tts_speed:g}", id="tts_speed", type="number", compact=True)
+            with Horizontal(classes="row"):
+                yield Static("Voice loudness (10 to 100 %)")
+                yield Input(f"{round(s.tts_volume * 100)}", id="tts_volume", type="integer", compact=True)
+                yield Button("▸ Hear it", id="tts_test", compact=True)
             with Horizontal(classes="row", id="save-row"):  # docked: Save and its hint stay in view in a short window
                 yield Button("Save", id="save", variant="primary")
                 yield Static("Save to apply · Esc cancels", id="settings-hint", classes="hint")
@@ -1778,6 +1782,24 @@ class SettingsScreen(ModalScreen):
         self.set_class(bool(C["frame"]), "flat")  # Night and Day: a quieter switch, the same width when focused
         self.query_one("#save", Button).compact = short
 
+    def _typed_volume(self) -> float | None:
+        """The loudness typed in the box, as a fraction (10 to 100 % allowed); None when it is not a number."""
+        try:
+            percent = int(self.query_one("#tts_volume", Input).value)
+        except ValueError:
+            return None
+        return min(1.0, max(0.1, percent / 100))
+
+    @on(Button.Pressed, "#tts_test")
+    def hear_it(self) -> None:
+        """Say a short line at the loudness typed, before saving it, so it can be judged by ear."""
+        volume = self._typed_volume()
+        if volume is None:
+            self.app.notify("Type a loudness from 10 to 100 first.", timeout=5)
+            return
+        if self.app.speaker.sample(volume):
+            self.app.notify(f"Playing at {round(volume * 100)} %.", timeout=3)
+
     @on(Button.Pressed, "#save")
     def save(self) -> None:
         s = self.app.settings
@@ -1790,6 +1812,8 @@ class SettingsScreen(ModalScreen):
                                                            float(self.query_one("#tts_speed", Input).value))), 2)
         except ValueError:  # blank: the speed you had stays
             pass
+        if (volume := self._typed_volume()) is not None:
+            s.tts_volume = round(volume, 2)  # blank or not a number: the loudness you had stays
         old_model, typed = s.model, self.query_one("#minutes", Input).value.strip()
         s.model = str(self.query_one("#model", Select).value)
         old_theme, s.theme = s.theme, str(self.query_one("#theme", Select).value)

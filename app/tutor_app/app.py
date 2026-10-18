@@ -59,7 +59,7 @@ MarkdownH1 { content-align-horizontal: $markdown-h1-align; }
 #settings .row > Static { width: 1fr; }
 #settings Switch { border: none; padding: 0 1; margin-right: 1; }
 #settings Switch:focus { border: none; background: $accent 40%; }
-#settings #minutes, #settings #tts_speed { width: 10; background: $panel; }
+#settings #minutes, #settings #tts_speed, #settings #tts_volume { width: 10; background: $panel; }
 #settings #settings-hint { content-align: left middle; height: 100%; padding: 0 0 0 2; }
 #settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
@@ -71,7 +71,7 @@ SettingsScreen.flat #settings Switch.-on > .switch--slider { color: $success; }
 SettingsScreen.flat #settings Switch:focus { background: transparent; }
 SettingsScreen.flat #settings Switch:focus > .switch--slider { background: $block-cursor-background; }
 SettingsScreen.flat #settings .row:focus-within > Static { color: $accent; }
-SettingsScreen.flat #settings #minutes, SettingsScreen.flat #settings #tts_speed { background: $panel; }
+SettingsScreen.flat #settings #minutes, SettingsScreen.flat #settings #tts_speed, SettingsScreen.flat #settings #tts_volume { background: $panel; }
 SettingsScreen.short #settings .row { margin: 0; }
 SettingsScreen.short #settings #save { margin-top: 1; }
 HomeScreen.narrow #stats { display: none; }

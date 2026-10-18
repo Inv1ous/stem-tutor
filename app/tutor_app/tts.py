@@ -38,6 +38,8 @@ DEFAULT_VOICE = "bf_emma"
 VOICES = {"bf_emma": "Emma (British)", "bf_isabella": "Isabella (British)", "bm_george": "George (British)",
           "bm_lewis": "Lewis (British)", "af_heart": "Heart (American)", "am_michael": "Michael (American)"}
 SPEED_RANGE = (0.8, 1.3)
+VOLUME_RANGE = (0.1, 1.0)  # a fraction of the voice's own loudness; 1.0 is how it comes out of the file
+SAMPLE_LINE = "This is how loud the voice will be. Is that comfortable?"
 CHUNK_CHARS = 350   # well under Kokoro's 510 phoneme tokens a call
 PAUSE_SECONDS = 0.25  # between chunks
 AI_SPEECH_LIMIT = 900  # characters of an AI reply read automatically; ctrl+e reads it all
@@ -292,9 +294,11 @@ def join_wavs(paths: Sequence[Path], out_path: Path, pause: float = PAUSE_SECOND
 class Player:
     """One sound at a time through macOS `afplay` (no extra library). Never raises."""
 
-    def __init__(self, binary: str | None = None, on_missing: Callable[[str], None] | None = None) -> None:
+    def __init__(self, binary: str | None = None, on_missing: Callable[[str], None] | None = None,
+                 volume: Callable[[], float] | None = None) -> None:
         self.binary = binary or shutil.which("afplay")
         self.on_missing = on_missing
+        self.volume = volume  # the loudness to play at (a fraction: 1.0 as recorded), asked for at each play
         self.proc: subprocess.Popen | None = None
         self._told = False
         self._lock = threading.Lock()
@@ -303,7 +307,7 @@ class Player:
     def playing(self) -> bool:
         return self.proc is not None and self.proc.poll() is None
 
-    def play(self, path: Path) -> bool:
+    def play(self, path: Path, volume: float | None = None) -> bool:
         self.stop()
         if not self.binary:
             if not self._told and self.on_missing:
@@ -312,7 +316,10 @@ class Player:
             return False
         with self._lock:
             try:
-                self.proc = subprocess.Popen([self.binary, str(path)], stdin=subprocess.DEVNULL,
+                level = volume if volume is not None else (self.volume() if self.volume else 1.0)
+                level = min(VOLUME_RANGE[1], max(VOLUME_RANGE[0], float(1.0 if level is None else level)))
+                loud = ["-v", f"{level:g}"] if level < 1.0 else []  # `afplay -v`: 1 is as recorded, less is quieter
+                self.proc = subprocess.Popen([self.binary, *loud, str(path)], stdin=subprocess.DEVNULL,
                                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             except OSError:
                 self.proc = None
@@ -349,6 +356,9 @@ class Speaker:
                  notify: Callable[[str], None] | None = None) -> None:
         self.vault, self.settings, self.notify = Path(vault), settings, notify
         self.player = player or Player(on_missing=self._say_once)
+        if getattr(self.player, "volume", False) is None:  # a real player: it asks the settings each time it plays
+            self.player.volume = lambda: float(getattr(self.settings(), "tts_volume", 1.0) or 1.0)
+        self._once_volume: float | None = None  # a sample played at a loudness not saved yet
         self.audio_dir = audio_dir(self.vault)
         self.live_dir = self.audio_dir / "live"  # lines made on the spot (AI replies): the newest LIVE_KEEP kept
         self._gen = 0
@@ -398,6 +408,24 @@ class Speaker:
         with self._cond:  # under the lock: a line already made can't start playing after this
             self._gen += 1
             self._pending = (self._gen, parts, limit)
+            self._once_volume = None
+            self.player.stop()
+            self._cond.notify()
+            if self._thread is None or not self._thread.is_alive():
+                self._thread = threading.Thread(target=self._run, name="tts-speaker", daemon=True)
+                self._thread.start()
+        return True
+
+    def sample(self, volume: float, text: str = SAMPLE_LINE) -> bool:
+        """Say a short line at this loudness (not saved), so it can be judged before choosing it. Works whether or not
+        reading aloud is switched on, as long as it is set up."""
+        if self._closed or not available(self.vault):
+            self._say_once(SETUP_HINT)
+            return False
+        with self._cond:
+            self._gen += 1
+            self._pending = (self._gen, [text], None)
+            self._once_volume = min(VOLUME_RANGE[1], max(VOLUME_RANGE[0], float(volume)))
             self.player.stop()
             self._cond.notify()
             if self._thread is None or not self._thread.is_alive():
@@ -436,6 +464,7 @@ class Speaker:
                     return
                 gen, raw, limit = self._pending
                 self._pending, self._working = None, gen
+                once, self._once_volume = self._once_volume, None
             try:
                 path = self._audio(raw, limit)
             except Exception as e:  # noqa: BLE001 - the reading thread must never die or reach the screen
@@ -444,7 +473,7 @@ class Speaker:
             with self._cond:
                 self._working = None
                 if path is not None and gen == self._gen and not self._closed:
-                    self.player.play(path)
+                    self.player.play(path) if once is None else self.player.play(path, volume=once)
 
     def _audio(self, parts: list[str], limit: int | None) -> Path | None:
         s = self.settings()
@@ -654,7 +683,7 @@ def cli(args: list[str], vault: Path | None = None) -> int:
     if path is None:
         print("Nothing to read.")
         return 1
-    player = Player(on_missing=print)
+    player = Player(on_missing=print, volume=lambda: s.tts_volume)
     if player.play(path):
         player.wait()
     return 0

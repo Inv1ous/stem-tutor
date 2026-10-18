@@ -31,6 +31,7 @@ class Settings:
     tts_auto: bool = False          # read explanations, feedback and AI replies as they appear
     tts_voice: str = "bf_emma"      # a Kokoro voice (tts.VOICES)
     tts_speed: float = 1.0          # 0.8 to 1.3
+    tts_volume: float = 1.0         # how loud, 0.1 to 1.0 of the voice as recorded (Settings: 10 to 100 %)
 
     @classmethod
     def load(cls, vault: Path) -> "Settings":
@@ -41,14 +42,17 @@ class Settings:
             data = {}
         default = cls()
         data = data if isinstance(data, dict) else {}
-        if type(data.get("tts_speed")) is int:  # 1 written by hand is 1.0
-            data["tts_speed"] = float(data["tts_speed"])
+        for key in ("tts_speed", "tts_volume"):
+            if type(data.get(key)) is int:  # 1 written by hand is 1.0
+                data[key] = float(data[key])
         good = {k: v for k, v in data.items()
                 if k in cls.__dataclass_fields__ and type(v) is type(getattr(default, k))}
         if good.get("theme") not in THEMES:
             good.pop("theme", None)
         if "tts_speed" in good:
             good["tts_speed"] = min(1.3, max(0.8, good["tts_speed"]))
+        if "tts_volume" in good:
+            good["tts_volume"] = min(1.0, max(0.1, good["tts_volume"]))
         if not good.get("tts_voice", "x").strip():
             good.pop("tts_voice")
         return cls(**good)
