@@ -255,6 +255,25 @@ def test_now_note_mirrors_open_items_with_images_then_feedback(tutor):
     tutor.answer(f"{n}{inst['answer']}3")
     now = (tutor.vault.root / "Now.md").read_text()
     assert f"Q{n} — correct" in now
+    # Asked by the learner: the question stays on the page once the answer is revealed, above its verdict
+    assert "Which quantity is a vector?" in now and "![[Assets/mcq/x.png]]" in now
+    assert now.index("Which quantity is a vector?") < now.index(f"Q{n} — correct")
+
+
+def test_now_keeps_the_question_after_a_wrong_answer_too(tutor):
+    tutor.start("autopilot", minutes=50)
+    item = dict(tutor.packs.items_for("9702-2.1.1")[0], id="q-wrong")
+    tutor.session["blocks"][0] = {"kind": "practice", "kcs": ["9702-2.1.1"], "i": 0}  # a missed idea comes back later
+    tutor._questions(tutor.session["blocks"][0], 0, [item])
+    n = max(int(k) for k in tutor.session["presented"])
+    inst = tutor.session["presented"][str(n)]["inst"]
+    wrong = next(k for k in "ABCD" if k != inst["answer"])
+    tutor.answer(f"{n}{wrong}3")
+    now = (tutor.vault.root / "Now.md").read_text()
+    assert "not quite" in now and "Which quantity is a vector?" in now  # the stem and its options, and the explanation
+    assert now.index("Which quantity is a vector?") < now.index("not quite")
+    assert "**A.**" in now  # the options are still there to read the right answer against
+    assert tutor.session["presented"] == {}  # nothing is open: this is the answered question, kept for reading
 
 
 def test_audit_log_records_presentations_and_answers_with_turn(tutor, monkeypatch):

@@ -156,6 +156,9 @@ class Tutor(LessonMixin):
             return
         blocks = []
         for fb in s.get("last_feedback", []):
+            asked = next((q for q in reversed(s.get("recent", [])) if q.get("n") == fb.get("n") and q.get("stem")), None)
+            if asked:  # the question stays above its verdict, so the answer can be read against it
+                blocks.append(views.question_block({**asked, "kind": asked.get("kind", ""), "marks": asked.get("marks", 1)}))
             kind = "success" if fb.get("correct") else "failure"
             body = (f"Answer: {fb.get('answer', '')}" + (f"\nExam point: {fb['detail']}" if fb.get("detail") else "")
                     + (f"\n\n{fb['explanation']}" if fb.get("explanation") else ""))
@@ -811,7 +814,11 @@ class Tutor(LessonMixin):
               "needs_judgement": g["needs_judgement"], "detail": None if r["kind"] == "idk" else g.get("detail")}
         s.setdefault("recent", []).append({**{k: fb[k] for k in ("n", "event", "correct", "partial", "detail", "response",
                                                                  "answer", "explanation")},
-                                           "stem": inst.get("stem", ""), "options": inst.get("options")})
+                                           "stem": inst.get("stem", ""), "options": inst.get("options"),
+                                           "image": inst.get("image"), "kind": inst["kind"], "marks": inst.get("marks", 1),
+                                           "unassisted": p.get("unassisted"),
+                                           **({"source": inst["source"].get("ref")}
+                                              if inst.get("source", {}).get("type") == "past" else {})})
         del s["recent"][:-4]  # the last few marked questions: what the AI tutor can be asked about
         if inst.get("tier") == "extra":
             fb["official_key_only"] = True

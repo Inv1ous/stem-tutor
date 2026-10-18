@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.9 (2026-10-18) — done
+
+Now.md keeps the question above its verdict.
+
 ## v2.5.8 (2026-10-18) — done
 
 Worked example waits at its last step.

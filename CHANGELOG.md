@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.5.9 — 2026-10-18
+
+- **The question stays on the Now page after its answer.** Obsidian's Now.md showed only the verdict ("Q3 — not quite", the
+  answer, the explanation) once a question was answered: the question itself was gone. Now the question (its text, image and
+  options, as it was asked) stays above its verdict, right or wrong, so the answer can be read against it. Tests in
+  `tests/test_session.py`.
+
 ## 2.5.8 — 2026-10-18
 
 - **A worked example waits at its answer.** Revealing the last step used to send you straight on to the next question, so
