@@ -644,7 +644,8 @@ def test_the_home_screen_shows_this_weeks_almanac_plan_and_starts_it(tmp_path, m
             today = (v / "Today.md").read_text()  # the plan is in Obsidian before any session
             assert "Almanac week 5" in today and f"Suggested {app.settings.minutes}-minute session" in today
             menu = home.query_one("#menu")
-            assert menu.get_option_at_index(0).id == "today"
+            assert [menu.get_option_at_index(i).id for i in range(menu.option_count)
+                    if not menu.get_option_at_index(i).disabled][0] == "today"  # after the "Studied today" line, which is no choice
             home._start("today")
             await pilot.pause()
             assert app.screen.__class__.__name__ == "SessionScreen"

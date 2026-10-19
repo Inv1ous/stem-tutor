@@ -311,6 +311,7 @@ class ChallengeChoice(ChoicePanel):
 
 # ============================ the screen ============================
 class ChallengeScreen(ReadAloud, Screen):
+    studies = True
     BINDINGS = [Binding("ctrl+b", "leave", "Menu", priority=True), Binding("escape", "esc", "Back"),
                 Binding("alt+up", "scroll_log(-1)", show=False, priority=True),
                 Binding("alt+down", "scroll_log(1)", show=False, priority=True),

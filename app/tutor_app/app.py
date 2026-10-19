@@ -2,9 +2,11 @@
 from __future__ import annotations
 
 import contextlib
+import time
 import random
 from pathlib import Path
 
+from textual import events
 from textual.app import App
 from textual.binding import Binding
 
@@ -182,6 +184,8 @@ class TutorApp(App):
             self.notify(f"Imported from your iPad inbox: {', '.join(imported)}")
         from .screens import HomeScreen
         self.push_screen(HomeScreen())
+        self._tick_at, self._last_input = time.monotonic(), time.monotonic()
+        self.set_interval(1, self._study_tick)  # session time: see tutorlib/clock.py
         if self.profile_missing:
             self.notify(mac.LOOK_HELP, timeout=15)
         if self.profile_denied:
@@ -226,7 +230,45 @@ class TutorApp(App):
         """Ask the AI for a spoken version of its replies only when it can be read aloud (no cost otherwise)."""
         return bool(self.settings.tts_enabled and tts.available(self.vault))
 
+    IDLE_LIMIT = 180  # seconds without a key or the mouse after which a study screen stops counting as time studied
+    FLUSH_EVERY = 10  # seconds between writes of the study clock
+
+    async def on_event(self, event) -> None:
+        if isinstance(event, (events.Key, events.MouseDown, events.MouseScrollDown, events.MouseScrollUp)):
+            self._last_input = time.monotonic()
+        await super().on_event(event)
+
+    def studying(self) -> bool:
+        """A study screen is open (the lesson, challenge, blurt, chat, shortcuts), perhaps with a pop-up over it."""
+        from textual.screen import ModalScreen
+        stack = list(self.screen_stack)
+        while stack and isinstance(stack[-1], ModalScreen) and not getattr(stack[-1], "studies", False):
+            stack.pop()  # a pop-up over a study screen (ask the tutor, a hint) is still studying
+        return bool(stack) and bool(getattr(stack[-1], "studies", False))
+
+    def _study_tick(self, now: float | None = None) -> None:
+        """Every second: while a study screen is open and the learner is there, add the time to today's total and to the
+        session's. The terminal being closed counts nothing; neither does a stretch with no key (see IDLE_LIMIT) or a
+        computer asleep (a gap of more than two seconds between ticks is not counted)."""
+        now = time.monotonic() if now is None else now
+        gap, self._tick_at = now - self._tick_at, now
+        tutor = getattr(self, "tutor", None)
+        if tutor is None or not (0 < gap <= 2.5) or now - self._last_input > self.IDLE_LIMIT or not self.studying():
+            return
+        clock = tutor.study_clock
+        clock.add(tutor.now().date().isoformat(), gap, (tutor.session or {}).get("id") if self.session_counts() else None)
+        self._since_flush = getattr(self, "_since_flush", 0.0) + gap
+        if self._since_flush >= self.FLUSH_EVERY:
+            self._since_flush = 0.0
+            clock.flush()
+
+    def session_counts(self) -> bool:
+        """Only the lesson screen's time goes to the open session; the other study screens count for the day alone."""
+        return getattr(self.screen, "study_session", False) or any(getattr(x, "study_session", False) for x in self.screen_stack)
+
     async def on_unmount(self) -> None:
+        if hasattr(self, "tutor"):
+            self.tutor.study_clock.flush()
         self.speaker.close()
         if hasattr(self, "ai"):
             await self.ai.close()

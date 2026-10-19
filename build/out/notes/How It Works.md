@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.5.13_
+_Version 2.5.14_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -10,6 +10,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
 > [!example] New in 2.5 (the latest changes)
+> - **True time and session time, and time studied today** (2.5.14): the bar in a lesson shows **◷ true** time (the wall clock from when the session began: it keeps running while the terminal is closed) and **◔ session** time (what you really spent on the screen: it stops while the terminal is closed, and after three minutes with no key). The summary, the lesson record and the session note in Obsidian show both. The menu has a line **Studied today** (all study screens added up, with how many sessions), the home side box and, in a short window, the one-line summary show it too, and so does **Today**.
 > - **Every list of topics is grouped and in order** (2.5.13): Chemistry, Physics and Maths, each under its chapters (Maths: modules) with the subtopics in order (1.2 before 1.10) and a total for each subject. This applies to the home screen's *Your topics*, *My progress*, the Challenge chapter list (which also searches and ticks all shown), and in Obsidian the **Home** page (a table per subject, a bold row per chapter), the **Mistakes** journal's order and *Content not built yet* on **Today**.
 > - **Much faster AI, using far less of your limit** (2.5.12): the AI no longer "thinks" at length before marking or answering. Checking a long answer went from about 55 seconds to about 7 (same verdict), a short mark from about 9 seconds to under 3, and each uses about a tenth of the allowance it did. The conversation's process is started ahead of time, so a new idea doesn't wait for it. Challenge questions and re-marks still think first, where it matters.
 > - **Shortcuts & Elegant Methods** (2.5.0): a whole course of ranked shortcuts for cutting slips on long questions and complex ideas, with its own spaced recall, separate from the syllabus. See section 6c.
@@ -240,6 +241,7 @@ When new chapters have been added since you opened the tutor, the menu tells you
 
 | Choice | What it does |
 |---|---|
+| **Studied today** | A line at the top, not a choice: how long you have really spent on the study screens today (lessons, reviews, tests, blurts, Challenge, Shortcuts and the chat), and how many sessions. In a short window it moves into the one-line summary under the banner. |
 | **Resume** | Only appears if you left a session unfinished. Carries on where you stopped. |
 | **Today's plan** | The tutor decides for you: ideas due for review first, then a quick check of ideas you have ticked in your Almanac but never answered here, then the next topics from your Almanac in week order (earlier weeks you haven't done come first, and it carries on past the calendar week when you are ahead), then mixed practice and a short exit check. Topics without questions yet are skipped. |
 | **Learn a topic** | A full lesson on one subtopic: a quick check of what you know, a plan you agree to, then each idea taught step by step. You choose the subtopic from **folders**: Chemistry, Physics, Maths (each into its chapters, Maths into its modules); just start typing to search all of them at once, **[** and **]** jump between chapters, **Esc** or **←** goes up. |

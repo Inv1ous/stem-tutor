@@ -14,6 +14,7 @@ import uuid
 from datetime import datetime
 
 from . import almanac, diagnose, grade, model, policy, views
+from .clock import StudyClock, fmt
 from .lesson import LessonMixin
 from .packs import DamagedContent, Packs, instantiate
 from .store import Vault, read_json, write_json
@@ -42,6 +43,7 @@ class Tutor(LessonMixin):
             # two writes): recompute everything from your history
             self.state = self._fold()
             self._dirty = True
+        self.study_clock = StudyClock(vault)  # time spent studying: the app counts it, `end` reports it
         self._last_mark: dict | None = None  # the answer just marked and the session before it: see regrade
         self.session = self._read_state(self.session_path)
         self._recover()
@@ -283,13 +285,17 @@ class Tutor(LessonMixin):
             return {"session": None, "answered": 0, "correct": 0, "accuracy": None, "kcs_learned": [],
                     "unanswered": 0, "abandoned": abandoned}
         s = self.session
+        self.study_clock.flush()
+        true_s = max(0, round((self.now() - datetime.fromisoformat(s["started"])).total_seconds())) if s.get("started") else 0
         summary = {"session": s.get("id"), "answered": s.get("answered", 0), "correct": s.get("correct", 0),
                    "accuracy": round(s["correct"] / s["answered"], 2) if s.get("answered") else None,
                    "kcs_learned": s.get("kcs_learned", []), "unanswered": len(s.get("presented", {})),
-                   "abandoned": abandoned}
+                   "abandoned": abandoned, "active_seconds": round(self.study_clock.session(s.get("id"))), "true_seconds": true_s}
         self.log({"type": "session_end", **summary})
         if (log := self._lesson_log()) and not abandoned:
-            log.tutor(f"Answered {summary['answered']}, correct {summary['correct']}"
+            log.tutor(f"Time: {fmt(summary['active_seconds'])} on the screen (session time), {fmt(summary['true_seconds'])} "
+                      f"from start to finish (true time).\n\n"
+                      f"Answered {summary['answered']}, correct {summary['correct']}"
                       + (f"; learned: {', '.join(self.packs.kcs[k]['title'] for k in summary['kcs_learned'] if k in self.packs.kcs)}"
                          if summary["kcs_learned"] else "") + ".", title="Session summary")
         kcs = [k for p in s.get("presented", {}).values() for k in p.get("kcs", [])] + summary["kcs_learned"] \

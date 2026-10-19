@@ -78,7 +78,7 @@ def events(v):
 def syllabus_files(v):
     return {str(p.relative_to(v)): p.read_bytes() for p in (v / ".tutor").rglob("*")
             if p.is_file() and "shortcuts" not in p.parts and "packs" not in p.parts and p.name != "ai_usage.json"
-            and "lock" not in p.name}
+            and "lock" not in p.name and p.name != "time.json"}  # the study clock is time, not learning
 
 
 def card(scr):

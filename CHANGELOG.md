@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.5.14 — 2026-10-19
+
+Asked by the learner: a true time and a session time for every study session, and the time studied for the day in the menu.
+
+- **True time and session time** (`tutorlib/clock.py`, `TutorApp._study_tick`). The bar in a lesson shows **◷ 1:04:05 true**, the wall clock
+  since the session began (it keeps running while the terminal is closed, as the old single clock did), and **◔ 09:31 session**, the time
+  really spent on the screen: counted a second at a time while a study screen is open and the learner is there. It stops while the
+  terminal is closed, after three minutes with no key or mouse (`IDLE_LIMIT`) and across a computer's sleep. A resumed session
+  carries its session time on. Kept in `.tutor/state/time.json` (written every ten seconds and at the end).
+- **Shown everywhere a session is:** the summary (session time, true time, studied today), the lesson record's "Session summary", the
+  session note in Obsidian (`**Time:** … (session time) · … (true time)`), and `session_end` events (`active_seconds`, `true_seconds`).
+- **Time studied today:** a line at the top of the menu (all study screens added up, with the number of sessions), in the home side
+  box, in the one-line summary of a short or narrow window (the menu line needs a window 32 rows tall), and on the **Today** page. The
+  lesson, tests, reviews, blurt, Challenge, Shortcuts and the chat count; the menu, settings and help do not. Tests:
+  `tests/test_study_clock.py`, `tests/app/test_study_time.py`, `tests/test_report.py`.
+
 ## 2.5.13 — 2026-10-19
 
 Asked by the learner: every list that showed all the topics as one bundle (no order, no formatting) should be grouped and easy to read.

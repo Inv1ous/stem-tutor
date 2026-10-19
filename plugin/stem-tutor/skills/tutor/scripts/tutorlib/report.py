@@ -8,7 +8,7 @@ from collections import Counter
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
-from . import almanac, experiments, model, policy, views
+from . import almanac, clock, experiments, model, policy, views
 from .packs import _fill
 from .store import read_json, write_json
 from .store import write_text as _write_text
@@ -159,6 +159,10 @@ def session_note(tutor, session_id: str) -> str:
              f"# Session {ts:%Y-%m-%d %H:%M} · {start['mode'] if start else ''}", "",
              "| Answered | Correct | Accuracy | KCs taught |", "|---|---|---|---|",
              f"| {len(answers)} | {correct} | {acc} | {', '.join(learned) or '–'} |", ""]
+    end = next((e for e in reversed(evs) if e["type"] == "session_end" and "active_seconds" in e), None)
+    if end:  # session time (really on the screen) and true time (the wall clock from start to finish)
+        lines[-1:] = ["", f"**Time:** {clock.fmt(end['active_seconds'])} on the screen (session time) · "
+                          f"{clock.fmt(end['true_seconds'])} from start to finish (true time)", ""]
     for i, a in enumerate(answers, 1):
         g = a["grade"]
         kind = "success" if model.counts_as_right(g) else "failure"
@@ -193,6 +197,8 @@ def today_note(tutor, minutes: int = 50) -> str:
     focus = policy.focus_week(p.plan, s, ticked, now)
     blocks = policy.plan_session(s, p, now, minutes, ticked=ticked)
     lines = [f"# Today · {now:%a %d %b %Y} · Almanac week {week}", ""]
+    if (studied := tutor.study_clock.today(now.date().isoformat())) >= 60:
+        lines += [f"Studied today so far: **{clock.fmt(studied)}** (time spent on the study screens).", ""]
     ns = _next_sitting(p.plan, now)
     if ns:
         lines += [f"Next sitting: **{ns['label']}** in {ns['days']} days ({ns['date']}).", ""]

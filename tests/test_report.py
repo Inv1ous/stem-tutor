@@ -296,3 +296,26 @@ def test_todays_content_not_built_yet_is_listed_by_subject_and_chapter(tutor, mo
     text = (tutor.vault.root / report.today_note(tutor)).read_text()
     assert "## Content not built yet" in text and "**Physics 9702**" in text and "**Other**" in text
     assert "Content not built yet for:" not in text and "zz-odd" in text
+
+
+def test_the_session_summary_has_session_time_and_true_time(tutor):
+    """The engine reports both when a session ends: time on the screen (what the app counted) and the wall clock from start."""
+    from datetime import timedelta
+    tutor.start("autopilot", minutes=30)
+    sid = tutor.session["id"]
+    tutor.study_clock.add(tutor.now().date().isoformat(), 600, sid)  # ten minutes on the screen
+    later = T0 + timedelta(minutes=45)  # and the terminal sat closed for a while: 45 minutes from start to finish
+    tutor._now = lambda: later
+    summary = tutor.end()
+    assert summary["active_seconds"] == 600 and summary["true_seconds"] == 45 * 60
+    notes = [f.read_text() for f in (tutor.vault.root / "Lessons").glob("*.md")]
+    assert any("(session time)" in n and "(true time)" in n for n in notes)
+    sessions = report.session_note(tutor, sid)
+    assert "**Time:** 10 min on the screen (session time) · 45 min from start to finish (true time)" in \
+        (tutor.vault.root / sessions).read_text()
+
+
+def test_today_says_how_long_you_have_studied(tutor):
+    tutor.study_clock.add(T0.date().isoformat(), 75 * 60, "x")
+    text = (tutor.vault.root / report.today_note(tutor)).read_text()
+    assert "Studied today so far: **1 h 15 min**" in text

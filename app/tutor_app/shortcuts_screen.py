@@ -316,6 +316,7 @@ class ShortcutSettingsScreen(Screen):
 
 # ============================ the shared screen frame ============================
 class _CourseScreen(ReadAloud, Screen):
+    studies = True
     BINDINGS = [Binding("ctrl+b", "leave", "Menu", priority=True), Binding("escape", "back", "Back"),
                 Binding("enter", "advance", "Next", show=False), Binding("space", "advance", show=False),
                 Binding("left", "back_step", show=False), Binding("s", "settings", "Settings"),

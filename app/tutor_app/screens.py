@@ -16,7 +16,7 @@ from textual.widgets import Button, Footer, Input, Markdown, OptionList, Select,
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
-from tutorlib import almanac, insights, model, policy, report, views
+from tutorlib import almanac, clock, insights, model, policy, report, views
 from tutorlib.lesson import GOALS
 
 from . import ai as ai_mod
@@ -159,15 +159,18 @@ class HomeScreen(Screen):
         items = getattr(self, "_menu_items", None)
         if not items:
             return
+        # a short window has no room for the time line: the one-line summary and the side box say it there
+        items = [i for i in items if i[0] != "time" or self.app.size.height >= 32]
         menu = self.query_one("#menu", OptionList)
         width = max(24, menu.size.width - 6) if menu.size.width else 46  # border, padding and the option's own gutter
         was = menu.get_option_at_index(menu.highlighted).id if menu.highlighted is not None else None
         menu.clear_options()
         for key, label in items:
             menu.add_option(Option(textwrap.fill(label, width, subsequent_indent="   ", break_long_words=False,
-                                                 break_on_hyphens=False), id=key))
+                                                 break_on_hyphens=False), id=key, disabled=key == "time"))  # a line to read
         ids = [key for key, _ in items]
-        menu.highlighted = ids.index(was) if was in ids else 0  # back where you were, not at the top
+        first = next((i for i, (key, _) in enumerate(items) if key != "time"), 0)
+        menu.highlighted = ids.index(was) if was in ids else first  # back where you were, not at the top
 
     def _fit(self) -> None:
         """A narrow window drops the side box and gives the menu the width; a short one drops the banner."""
@@ -241,6 +244,10 @@ class HomeScreen(Screen):
                                     f"({s.get('answered', 0)} answered)"))
         week = policy.focus_week(t.packs.plan, t.state, t.ticks(), now) if t.packs.plan.get("weeks") else 0
         shortcut_lines = self._shortcut_lines()
+        studied = t.study_clock.today(now.date().isoformat())
+        sessions_today = t.study_clock.sessions_on(now.date().isoformat())
+        items.insert(0, ("time", f"◔  Studied today: {clock.fmt(studied)}"
+                                 + (f" · {sessions_today} session{'s' if sessions_today != 1 else ''}" if sessions_today else "")))
         items += [("today", f"★  Today's plan{f' (Almanac week {week})' if week else ''}"),
                   ("learn", "◆  Learn a topic (lesson)"),
                   ("review", f"↻  Review what's due ({len(due)})"),
@@ -260,7 +267,7 @@ class HomeScreen(Screen):
         menu.focus()
         self.query_one("#stats-text", Static).update(self.stats_text(now, due))
         self.call_after_refresh(self._draw_stats)  # again once the box has its width: the titles wrap to it
-        glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {len(due)} due", style=C["soft"])
+        glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {len(due)} due · ◔ {clock.fmt(studied)} today", style=C["soft"])
         if (exam := self.next_exam(now)):
             glance.append(f" · ⧗ {exam}", style=C["plan"])
         self.query_one("#glance", Static).update(glance)
@@ -297,7 +304,8 @@ class HomeScreen(Screen):
         t = app.tutor
         out = Text()
         out.append(f"{now:%A %d %B}\n", style=f"bold {C['banner']}")
-        out.append(f"✶ {self.streak(now)}-day streak   ↻ {len(due)} due\n\n", style=C["soft"])
+        out.append(f"✶ {self.streak(now)}-day streak   ↻ {len(due)} due\n", style=C["soft"])
+        out.append(f"◔ Studied today: {clock.fmt(t.study_clock.today(now.date().isoformat()))}\n\n", style=C["soft"])
         if (exam := self.next_exam(now)):
             out.append(f"⧗ {exam}\n\n", style=C["plan"])
         ticked = t.ticks()
@@ -772,6 +780,9 @@ class PickerScreen(ModalScreen):
 
 # ============================ Session ============================
 class SessionScreen(ReadAloud, Screen):
+    studies = True  # its time is counted as time studied (TutorApp._study_tick), and kept for the session
+    study_session = True
+
     # first in the footer: how to get out and how to get help, so a narrow window still shows them
     BINDINGS = [Binding("ctrl+b", "leave", "Menu", priority=True), Binding("question_mark", "app.help", "Help"),
                 Binding("ctrl+t", "ask", "Ask", priority=True), Binding("ctrl+g", "hint", "Hint", priority=True),
@@ -867,7 +878,8 @@ class SessionScreen(ReadAloud, Screen):
         s = t.session or {}
         sub = s.get("subtopic")
         title = to_terminal(t.packs.subtopics.get(sub, {}).get("title", "")) if sub else ""
-        mins, secs = divmod(int(time.monotonic() - self.started), 60)
+        true_s = time.monotonic() - self.started  # the wall clock since the session began: runs while the terminal is closed
+        active_s = t.study_clock.session(s.get("id"))  # what was really spent on this screen
         a = self.app.ai
         ai_state = "AI ●" if (self.app.settings.ai and a.available) else "AI ○"
         mode = {"lesson": "Lesson", "review": "Review", "test": "Test prep", "long": "Long questions"}.get(
@@ -877,7 +889,8 @@ class SessionScreen(ReadAloud, Screen):
         head, tail = Text(), Text()
         head.append(" STEM Tutor ", style=f"bold {C['badge_fg']} on {C['badge_bg']}")
         head.append(f" {title + ' · ' if title else ''}{mode} ", style="bold")
-        tail.append(f" ◷ {mins:02d}:{secs:02d} ", style=C["plan"])
+        tail.append(f" ◷ {clock.fmt(true_s, True)} true ", style=C["plan"])
+        tail.append(f" ◔ {clock.fmt(active_s, True)} session ", style=C["plan"])
         tail.append(f" ✓ {s.get('correct', 0)}/{s.get('answered', 0)} ", style=C["good"])
         tail.append(f" {ai_state} {use} ", style=C["ai"])
         if head.cell_len + tail.cell_len <= width:
@@ -1416,7 +1429,11 @@ class SummaryScreen(ModalScreen):
         learned = "\n".join(f"- ✓ {t.packs.kcs[k]['title']}" for k in s.get("kcs_learned", []) if k in t.packs.kcs)
         due = model.due_kcs(t.state, t.now() + timedelta(days=1))
         a = self.app.ai
+        today = t.study_clock.today(t.now().date().isoformat())
         text = (f"# Session done ✓\n\n**Answered:** {s['answered']}  ·  **Correct:** {s['correct']}  ·  **Accuracy:** {acc}\n\n"
+                + (f"**Session time:** {clock.fmt(s['active_seconds'], True)} on the screen  ·  **True time:** "
+                   f"{clock.fmt(s['true_seconds'], True)} from start to finish  ·  **Studied today:** {clock.fmt(today)}\n\n"
+                   if "active_seconds" in s else "")
                 + (f"## Learned today\n{learned}\n\n" if learned else "")
                 + f"**Due for review by tomorrow:** {len(due)} idea(s)\n\n"
                 + f"**AI replies this session:** {a.session.replies}\n\n"
@@ -1472,6 +1489,8 @@ class ChatPanel(TextPanel):
 
 
 class ChatScreen(ReadAloud, Screen):
+    studies = True
+
     """Free chat with the tutor from the menu."""
     BINDINGS = [Binding("escape", "leave", "Back to menu"), READ_KEY]
 
@@ -1645,6 +1664,8 @@ class ProgressScreen(Screen):
 
 
 class BlurtScreen(ReadAloud, Screen):
+    studies = True
+
     """Free recall: write everything you remember, then see what you left out."""
     BINDINGS = [Binding("ctrl+s", "submit", "Check my blurt"), Binding("escape", "leave", "Back"), READ_KEY]
 

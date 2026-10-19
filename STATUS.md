@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.14 (2026-10-19) — done
+
+True time + session time (active, idle-aware) for each session; time studied today in the menu, side box, summary, Today.
+
 ## v2.5.13 (2026-10-19) — done
 
 All topic lists grouped (subject > chapter > subtopic) and in natural order: home side box, My progress, Challenge chapters, vault Home, Mistakes, Today.
