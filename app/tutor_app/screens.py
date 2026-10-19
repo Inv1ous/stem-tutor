@@ -328,21 +328,35 @@ class HomeScreen(Screen):
             out.append("△ Your Almanac has changed since the tutor read it: ask Claude Code to refresh the plan.\n\n",
                        style=C["hint"])
         out.append("Your topics\n", style="bold")
-        # a title that does not fit goes on to the next line, under itself, instead of being cut off
+        # grouped: a heading for each subject (with its total) and chapter, subtopics under it in order; a title that does
+        # not fit goes on to the next line, under itself, instead of being cut off
         width = max(36, self.query_one("#stats-text", Static).size.width or 46)
-        lead = 9 + 1 + 8 + 8  # id, space, bar, " 12/12  "
-        for sub in sorted(s for s in t.packs.subtopics if t.packs.pack(s)):
-            kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
-            sec = sum(views.kc_status(t.state, k) == "secure" for k in kcs)
-            started = any(views.kc_status(t.state, k) != "new" for k in kcs)
-            colour = C["ok"] if sec == len(kcs) else C["soft"] if started else C["dim"]
-            lines = textwrap.wrap(t.packs.subtopics[sub]["title"], max(12, width - lead), break_long_words=True) or [""]
-            out.append(f"{sub:<9} ", style=C["text"])
-            out.append(bar(sec, len(kcs), 8), style=colour)
-            out.append(f" {f'{sec}/{len(kcs)}':<6}", style=C["muted"])
-            out.append(lines[0] + "\n", style=C["muted"])
-            for more in lines[1:]:
-                out.append(" " * lead + more + "\n", style=C["muted"])
+        lead = 2 + 9 + 1 + 6 + 7  # indent, id, space, bar, " 12/12 "
+        for group in views.subtopic_groups(t.packs):
+            ideas = [k for k, v in t.packs.kcs.items() if t.packs.subtopics.get(v["subtopic"], {}).get("topic") in
+                     {c["id"] for c in group["chapters"]}]
+            sure = sum(views.kc_status(t.state, k) == "secure" for k in ideas)
+            out.append(f"\n{group['name']}", style=f"bold {C['banner']}")
+            out.append(f"  {sure}/{len(ideas)} ideas secure\n", style=C["muted"])
+            for chapter in group["chapters"]:
+                kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] in chapter["subs"]]
+                done = sum(views.kc_status(t.state, k) == "secure" for k in kcs)
+                for i, line in enumerate(textwrap.wrap(chapter["name"], max(14, width - 9), break_long_words=True) or [""]):
+                    out.append(f"{'▸ ' if i == 0 else '  '}{line}", style=f"bold {C['plan']}")
+                    out.append(f"  {done}/{len(kcs)}\n" if i == 0 and len(chapter["name"]) <= width - 9 else "\n",
+                               style=C["muted"])
+                for sub in chapter["subs"]:
+                    kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
+                    sec = sum(views.kc_status(t.state, k) == "secure" for k in kcs)
+                    started = any(views.kc_status(t.state, k) != "new" for k in kcs)
+                    colour = C["ok"] if sec == len(kcs) else C["soft"] if started else C["dim"]
+                    lines = textwrap.wrap(t.packs.subtopics[sub]["title"], max(12, width - lead), break_long_words=True) or [""]
+                    out.append(f"  {sub:<9} ", style=C["text"])
+                    out.append(bar(sec, len(kcs), 6), style=colour)
+                    out.append(f" {f'{sec}/{len(kcs)}':<6}", style=C["muted"])
+                    out.append(lines[0] + "\n", style=C["muted"])
+                    for more in lines[1:]:
+                        out.append(" " * lead + more + "\n", style=C["muted"])
         a = app.ai
         state = ("on" if a.available else {"login": "sign-in needed", "limit": "paused (limit)",
                                            "off": "not installed"}.get(a.status, a.status)) if app.settings.ai else "off"
@@ -1601,12 +1615,16 @@ class ProgressScreen(Screen):
         tips = profile.advice(p)
         rows += ["## What the tutor has noticed", ""] + ([f"- {x}" for x in tips] or
                                                         ["- Nothing definite yet: patterns show up after a few sessions."])
-        rows += ["", "## Topics", "", "| Subtopic | Secure | Learning | Gaps |", "|---|---|---|---|"]
-        for sub in sorted(s for s in t.packs.subtopics if t.packs.pack(s)):
-            kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
-            st = [views.kc_status(t.state, k) for k in kcs]
-            rows.append(f"| {sub} {t.packs.subtopics[sub]['title']} | {st.count('secure')}/{len(kcs)} | "
-                        f"{st.count('learning')} | {st.count('gap')} |")
+        rows += ["", "## Topics"]
+        for group in views.subtopic_groups(t.packs):  # a table for each subject, a bold row for each chapter
+            rows += ["", f"### {group['name']}", "", "| Subtopic | Secure | Learning | Gaps |", "|---|---|---|---|"]
+            for chapter in group["chapters"]:
+                rows.append(f"| **{chapter['name']}** | | | |")
+                for sub in chapter["subs"]:
+                    kcs = [k for k, v in t.packs.kcs.items() if v["subtopic"] == sub]
+                    st = [views.kc_status(t.state, k) for k in kcs]
+                    rows.append(f"| {sub} {t.packs.subtopics[sub]['title']} | {st.count('secure')}/{len(kcs)} | "
+                                f"{st.count('learning')} | {st.count('gap')} |")
         cal = p["calibration"]
         if cal["levels"]:
             rows += ["", "## How sure vs how right", "", "| You said | Answers | Right |", "|---|---|---|"]

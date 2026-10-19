@@ -21,6 +21,7 @@ from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
 from tutorlib import challenge as ch
+from tutorlib import views
 from tutorlib import challenge_gen, grade, model
 from tutorlib.challenge_gen import generate_set
 from tutorlib.session import _display_answer
@@ -128,33 +129,35 @@ class SetupPanel(Panel):
 
 
 class TopicScreen(ModalScreen):
-    """Tick the chapters; the earlier chapters they build on come in by themselves. A search box narrows the list (type
-    anywhere in it); what is ticked stays ticked while the list changes."""
+    """Tick the chapters; the earlier chapters they build on come in by themselves. Listed as Chemistry, Physics and Maths,
+    each under its chapters (Maths: modules) with the subtopics in order. A search box narrows the list (type anywhere in
+    it); what is ticked stays ticked while the list changes."""
     BINDINGS = [Binding("escape", "back", "Back"), Binding("ctrl+s", "go", show=False),
-                Binding("slash", "search", show=False)]
+                Binding("slash", "search", show=False), Binding("space", "tick", show=False),
+                Binding("ctrl+a", "tick_shown", show=False, priority=True),
+                Binding("ctrl+d", "untick_all", show=False, priority=True)]
 
     def __init__(self, chosen: list[str]) -> None:
         super().__init__()
         self.picked: set[str] = set(chosen)
-        self.rows: list[dict] = []
+        self.rows: dict[str, dict] = {}
         self.needle = ""
-        self.in_view: set[str] = set()
-        self.filling = False
+        self.in_view: list[str] = []
 
     def compose(self) -> ComposeResult:
-        self.rows = ch.topic_choices(self.app.tutor.packs)
+        self.rows = {r["id"]: r for r in ch.topic_choices(self.app.tutor.packs)}
         with Vertical(id="picker"):
             yield Static("Tick the chapters (space), then ctrl+s or Done. Earlier chapters they build on are "
-                         "included by themselves. Type to search · Esc cancels.", classes="hint")
+                         "included by themselves. Type to search · ctrl+a ticks all shown · Esc cancels.", classes="hint")
             yield Input(placeholder="Search: a word, a code (9702-3, P1) …  or just start typing", id="find", compact=True,
                         select_on_focus=False)
-            yield TickList(id="subs")
+            yield OptionList(id="subs")
             yield Static(id="scope", classes="hint")
             yield Button("Done", id="done", variant="primary")
 
     def on_mount(self) -> None:
         self.fill()
-        self.query_one("#subs", SelectionList).focus()
+        self.query_one("#subs", OptionList).focus()
         self.call_after_refresh(self._fit)
 
     def on_resize(self) -> None:
@@ -163,26 +166,46 @@ class TopicScreen(ModalScreen):
     def _fit(self) -> None:
         try:
             fixed = sum(w.outer_size.height for w in self.query("#picker > .hint, #picker > Input, #picker > Button"))
-            self.query_one("#subs", SelectionList).styles.max_height = max(4, int(self.app.size.height * 0.9) - 4 - fixed)
+            self.query_one("#subs", OptionList).styles.max_height = max(4, int(self.app.size.height * 0.9) - 4 - fixed)
         except Exception:  # noqa: BLE001 - a layout hiccup never keeps the list from opening
             pass
 
     def _hay(self, r: dict) -> str:
         subject = {"9701": "chemistry chem", "9702": "physics phys"}.get(r["spec"], "maths math mathematics")
-        return f"{r['id']} {r['title']} {r['spec']} {subject}".lower().replace("-", " ")
+        topic = self.app.tutor.packs.topics.get(self.app.tutor.packs.subtopics.get(r["id"], {}).get("topic", ""), {})
+        return f"{r['id']} {r['title']} {r['spec']} {subject} {topic.get('title', '')}".lower().replace("-", " ")
 
-    def fill(self) -> None:
+    def _row(self, r: dict) -> Text:
+        on = r["id"] in self.picked
+        line = Text("[x] " if on else "[ ] ", style=C["ok"] if on else C["dim"])
+        line.append(f"{r['id']:<9} ", style=C["text"])
+        line.append(r["title"], style=C["text"] if r["built"] else C["dim"])
+        if not r["built"]:
+            line.append("  (no questions built yet)", style=C["dim"])
+        return line
+
+    def fill(self, keep: str | None = None) -> None:
         words = self.needle.lower().replace("-", " ").split()
-        box = self.query_one("#subs", SelectionList)
-        self.filling = True
+        box = self.query_one("#subs", OptionList)
+        was = keep or (box.get_option_at_index(box.highlighted).id if box.highlighted is not None else None)
         box.clear_options()
-        shown = [r for r in self.rows if all(w in self._hay(r) for w in words)]
-        box.add_options([Selection(escape(f"{SUBJECT.get(r['spec'], 'Maths'):<5} {r['id']}  {r['title']}"
-                                          + ("" if r["built"] else "  (no questions built yet)")),
-                                   r["id"], r["id"] in self.picked) for r in shown])
-        self.in_view = {r["id"] for r in shown}
-        box.highlighted = 0 if shown else None
-        self.filling = False
+        shown = [i for i, r in self.rows.items() if all(w in self._hay(r) for w in words)]
+        packs = self.app.tutor.packs
+        options: list[Option] = []
+        for group in views.subtopic_groups(packs, shown):  # subject, then its chapters, then the subtopics in order
+            options.append(Option(Text(group["name"], style=f"bold {C['banner']}"), id=f"s:{group['subject']}", disabled=True))
+            for chapter in group["chapters"]:
+                options.append(Option(Text("  ▸ " + chapter["name"], style=f"bold {C['plan']}"), id=f"c:{chapter['id']}",
+                                      disabled=True))
+                options += [Option(self._row(self.rows[sub]), id=sub) for sub in chapter["subs"]]
+        if not options:
+            options = [Option(Text(f"Nothing matches “{self.needle}”. Esc clears the search.", style=C["dim"]), id="none",
+                              disabled=True)]
+        self.in_view = [o.id for o in options if not o.disabled]
+        box.add_options(options)
+        ids = [o.id for o in options]
+        pick = was if was in ids else (self.in_view[0] if self.in_view else None)
+        box.highlighted = ids.index(pick) if pick in ids else None
         self.show_scope()
 
     @on(Input.Changed, "#find")
@@ -191,7 +214,7 @@ class TopicScreen(ModalScreen):
         self.fill()
 
     def on_key(self, event) -> None:
-        if (isinstance(self.focused, SelectionList) and event.character and event.character.isprintable()
+        if (isinstance(self.focused, OptionList) and event.character and event.character.isprintable()
                 and event.character not in " /"):
             box = self.query_one("#find", Input)
             box.focus()
@@ -199,21 +222,40 @@ class TopicScreen(ModalScreen):
             box.cursor_position = len(box.value)
             event.stop()
         elif isinstance(self.focused, Input) and event.key == "down":
-            self.query_one("#subs", SelectionList).focus()
+            self.query_one("#subs", OptionList).focus()
             event.stop()
 
-    @on(SelectionList.SelectedChanged, "#subs")
+    def toggle(self, sub: str) -> None:
+        self.picked ^= {sub}
+        self.fill(keep=sub)
+
+    @on(OptionList.OptionSelected, "#subs")
+    def chose(self, event: OptionList.OptionSelected) -> None:
+        self.toggle(str(event.option.id))
+
     def show_scope(self) -> None:
-        if not self.filling:  # ticks changed by the learner: what is in view replaces its share of the whole
-            self.picked = (self.picked - self.in_view) | set(self.query_one("#subs", SelectionList).selected)
         self.query_one("#scope", Static).update(
             ch.scope_summary(self.app.tutor.packs, sorted(self.picked))
             + (f"  ·  {len(self.in_view)} of {len(self.rows)} shown" if self.needle else ""))
 
+    def action_tick(self) -> None:
+        box = self.query_one("#subs", OptionList)
+        if isinstance(self.focused, OptionList) and box.highlighted is not None \
+                and not box.get_option_at_index(box.highlighted).disabled:
+            self.toggle(str(box.get_option_at_index(box.highlighted).id))
+
+    def action_tick_shown(self) -> None:
+        self.picked |= set(self.in_view)
+        self.fill()
+
+    def action_untick_all(self) -> None:
+        self.picked.clear()
+        self.fill()
+
     def action_back(self) -> None:
         if self.needle:
             self.query_one("#find", Input).value = ""
-            self.query_one("#subs", SelectionList).focus()
+            self.query_one("#subs", OptionList).focus()
         else:
             self.dismiss(None)
 
@@ -223,7 +265,7 @@ class TopicScreen(ModalScreen):
     @on(Button.Pressed, "#done")
     def action_go(self) -> None:
         if self.picked:
-            self.dismiss(sorted(self.picked))
+            self.dismiss(sorted(self.picked, key=views.natural))
         else:
             self.app.notify("Tick at least one chapter (space), then Done.", timeout=5)
 

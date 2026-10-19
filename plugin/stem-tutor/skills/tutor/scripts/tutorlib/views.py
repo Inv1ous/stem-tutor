@@ -196,6 +196,39 @@ class LessonLog:
 
 
 # ---------------- Now.md ----------------
+def natural(text: str) -> list:
+    """Sort key that puts 9701-1.2 before 9701-1.10 (a plain sort puts 1.10 right after 1.1)."""
+    return [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", str(text))]
+
+
+SUBJECT_NAMES = {"chem": "Chemistry 9701", "phys": "Physics 9702", "math": "Maths"}
+
+
+def chapter_name(packs, tid: str) -> str:
+    """"3. Chemical bonding (AS)" for a Chemistry or Physics topic, "P1  Pure Mathematics 1" for a Maths module."""
+    topic = packs.topics.get(tid, {})
+    if topic.get("subject") in ("chem", "phys"):
+        return f"{tid.split('-')[-1]}. {topic.get('title', tid)}" + (f" ({topic['level']})" if topic.get("level") else "")
+    return f"{tid}  {topic.get('title', '')}".strip()
+
+
+def subtopic_groups(packs, subs=None) -> list[dict]:
+    """Subtopics as they should be listed: Chemistry, Physics, Maths; under each its chapters (Maths: modules) in syllabus
+    order, and each chapter's subtopics in natural order. [{"subject", "name", "chapters": [{"id", "name", "subs"}]}].
+    `subs`: only these (default: every subtopic that has a question pack)."""
+    subs = list(subs) if subs is not None else [s for s in packs.subtopics if packs.pack(s)]
+    order = {tid: i for i, tid in enumerate(packs.topics)}
+    by_chapter: dict[str, list[str]] = {}
+    for sub in sorted(subs, key=lambda x: (order.get(packs.subtopics.get(x, {}).get("topic", ""), 99), natural(x))):
+        by_chapter.setdefault(packs.subtopics.get(sub, {}).get("topic", ""), []).append(sub)
+    out: dict[str, dict] = {}
+    for tid, chapter in by_chapter.items():
+        subject = packs.topics.get(tid, {}).get("subject", "math")
+        group = out.setdefault(subject, {"subject": subject, "name": SUBJECT_NAMES.get(subject, subject), "chapters": []})
+        group["chapters"].append({"id": tid, "name": chapter_name(packs, tid), "subs": chapter})
+    return [out[k] for k in ("chem", "phys", "math") if k in out] + [v for k, v in out.items() if k not in SUBJECT_NAMES]
+
+
 def write_now(root: Path, header: str, blocks: list[str], notes: str | None = None) -> str:
     parts = ["# Now", f"_{header}_", ""] + [b.rstrip() + "\n" for b in blocks if b]
     if notes:
@@ -222,18 +255,23 @@ def write_home(root: Path, packs, state: dict, now: datetime, recent: list[str] 
              f"**Reviews due:** {len(due)} · **Ideas secure:** "
              f"{sum(kc_status(state, k) == 'secure' for k in state['kcs'])}", "",
              "Start the tutor: double-click **Start Tutor.command** in this folder, or type `tutor` in Terminal. "
-             "New here? Read [[How It Works]].", "", "## Your subjects", "",
-             "| Subtopic | Progress | Notes |", "|---|---|---|"]
-    built = sorted(s for s in packs.subtopics if packs.pack(s))
-    for sub in built:
-        kcs = [k for k, v in packs.kcs.items() if v["subtopic"] == sub]
-        secure = sum(kc_status(state, k) == "secure" for k in kcs)
-        started = sum(kc_status(state, k) != "new" for k in kcs)
-        bar = "█" * round(8 * secure / max(1, len(kcs))) + "░" * (8 - round(8 * secure / max(1, len(kcs))))
-        link = notes_rel(packs, sub).removesuffix(".md")
-        notes = f"[[{link}\\|My notes]]" if (root / notes_rel(packs, sub)).exists() else "–"
-        lines.append(f"| {sub} {packs.subtopics[sub]['title']} | `{bar}` {secure}/{len(kcs)}"
-                     f"{' (started)' if started and not secure else ''} | {notes} |")
+             "New here? Read [[How It Works]].", "", "## Your subjects"]
+    for group in subtopic_groups(packs):  # a table for each subject, a bold row for each chapter, subtopics in order
+        sec_all = [kc_status(state, k) == "secure" for k, v in packs.kcs.items()
+                   if packs.subtopics.get(v["subtopic"], {}).get("topic") in {c["id"] for c in group["chapters"]}]
+        lines += ["", f"### {group['name']} · {sum(sec_all)}/{len(sec_all)} ideas secure", "",
+                  "| Subtopic | Progress | Notes |", "|---|---|---|"]
+        for chapter in group["chapters"]:
+            lines.append(f"| **{chapter['name']}** | | |")
+            for sub in chapter["subs"]:
+                kcs = [k for k, v in packs.kcs.items() if v["subtopic"] == sub]
+                secure = sum(kc_status(state, k) == "secure" for k in kcs)
+                started = sum(kc_status(state, k) != "new" for k in kcs)
+                bar = "█" * round(8 * secure / max(1, len(kcs))) + "░" * (8 - round(8 * secure / max(1, len(kcs))))
+                link = notes_rel(packs, sub).removesuffix(".md")
+                notes = f"[[{link}\\|My notes]]" if (root / notes_rel(packs, sub)).exists() else "–"
+                lines.append(f"| {sub} {packs.subtopics[sub]['title']} | `{bar}` {secure}/{len(kcs)}"
+                             f"{' (started)' if started and not secure else ''} | {notes} |")
     if recent:
         lines += ["", "## Recent lessons", ""] + [f"- [[{r.removesuffix('.md')}]]" for r in recent[:8]]
     return _write(root, "Home.md", "\n".join(lines) + "\n")

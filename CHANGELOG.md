@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.5.13 — 2026-10-19
+
+Asked by the learner: every list that showed all the topics as one bundle (no order, no formatting) should be grouped and easy to read.
+
+- **One grouping everywhere** (`views.subtopic_groups`, `chapter_name`, `natural`): Chemistry 9701, Physics 9702, Maths; under each its
+  chapters (Maths: modules) in syllabus order, and each chapter's subtopics in natural order (1.2 before 1.10; a plain sort put
+  1.10 after 1.1).
+- **Terminal:** the home side box's *Your topics* has a heading per subject (with its ideas-secure total) and per chapter (with its
+  count); *My progress* has a table per subject with a bold row per chapter; the **Challenge** chapter list is grouped the same way (subject
+  and chapter headings, `[x]` ticks, search, **ctrl+a** ticks everything shown, **ctrl+d** clears) instead of one run of rows.
+- **Obsidian:** the vault's **Home** page has a table per subject (with its ideas-secure total) and a bold row per chapter; the
+  **Mistakes** journal lists subtopics in that order; **Today**'s "content not built yet" is a list by subject and chapter, not a
+  comma run. Tests: `tests/test_topic_lists.py`, `tests/app/test_picker.py`, `tests/test_report.py`.
+
 ## 2.5.12 — 2026-10-19
 
 Asked by the learner: 20-30 s waits on every long question, slow AI replies in general, and not to use up their limit.

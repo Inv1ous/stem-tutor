@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.5.12_
+_Version 2.5.13_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -10,6 +10,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
 > [!example] New in 2.5 (the latest changes)
+> - **Every list of topics is grouped and in order** (2.5.13): Chemistry, Physics and Maths, each under its chapters (Maths: modules) with the subtopics in order (1.2 before 1.10) and a total for each subject. This applies to the home screen's *Your topics*, *My progress*, the Challenge chapter list (which also searches and ticks all shown), and in Obsidian the **Home** page (a table per subject, a bold row per chapter), the **Mistakes** journal's order and *Content not built yet* on **Today**.
 > - **Much faster AI, using far less of your limit** (2.5.12): the AI no longer "thinks" at length before marking or answering. Checking a long answer went from about 55 seconds to about 7 (same verdict), a short mark from about 9 seconds to under 3, and each uses about a tenth of the allowance it did. The conversation's process is started ahead of time, so a new idea doesn't wait for it. Challenge questions and re-marks still think first, where it matters.
 > - **Shortcuts & Elegant Methods** (2.5.0): a whole course of ranked shortcuts for cutting slips on long questions and complex ideas, with its own spaced recall, separate from the syllabus. See section 6c.
 > - **Everything the terminal shows is on Now too** (2.5.11): your question to the AI, its reply, an explanation again, hints and notices appear on the Now page, so with the **answer-only view** on you never have to switch it off to read a reply. Outside a lesson, the free chat is the Now page. The question also stays above its verdict after you answer (2.5.9).

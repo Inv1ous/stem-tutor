@@ -288,3 +288,11 @@ def test_the_almanac_shows_how_far_each_objective_is_and_what_the_session_is_doi
     tutor.end()  # and is told when it stops
     after = json.loads((tmp_path / "A-Levels.tutor.js").read_text()[len("window.TUTOR_SYNC = "):].rstrip().rstrip(";"))
     assert "session" not in after
+
+
+def test_todays_content_not_built_yet_is_listed_by_subject_and_chapter(tutor, monkeypatch):
+    from tutorlib import policy, report
+    monkeypatch.setattr(policy, "missing_packs", lambda packs, now: ["9702-2.1", "zz-odd"])
+    text = (tutor.vault.root / report.today_note(tutor)).read_text()
+    assert "## Content not built yet" in text and "**Physics 9702**" in text and "**Other**" in text
+    assert "Content not built yet for:" not in text and "zz-odd" in text

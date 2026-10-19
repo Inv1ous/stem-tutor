@@ -8,7 +8,7 @@ from collections import Counter
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
-from . import almanac, experiments, model, policy
+from . import almanac, experiments, model, policy, views
 from .packs import _fill
 from .store import read_json, write_json
 from .store import write_text as _write_text
@@ -215,8 +215,13 @@ def today_note(tutor, minutes: int = 50) -> str:
         if o.get("done"):
             lines.append(f"  - Done when: {o['done']}")
     missing = policy.missing_packs(p, now)
-    if missing:
-        lines += ["", f"Content not built yet for: {', '.join(missing)} (ask Claude Code to build the next batch)."]
+    if missing:  # by subject and chapter, in order, not one run-on line
+        lines += ["", "## Content not built yet", "", "_Ask Claude Code to build the next batch._", ""]
+        for g in views.subtopic_groups(p, [m for m in missing if m in p.subtopics]):
+            lines.append(f"**{g['name']}**")
+            lines += [f"- {c['name']}: {', '.join(c['subs'])}" for c in g["chapters"]]
+        if other := sorted((m for m in missing if m not in p.subtopics), key=views.natural):
+            lines += ["**Other**", f"- {', '.join(other)}"]
     return _write(tutor, "Today.md", "\n".join(lines) + "\n")
 
 
@@ -369,7 +374,9 @@ def mistakes_note(tutor) -> str:
     n = sum(len(v) for v in groups.values())
     L = ["# Mistake journal", "_Every question you got wrong or didn't know, newest first, with the right answer. "
          "Updated after each session._", "", f"{_n(n, 'mistake')} · {fixed} put right since." if n else "No mistakes yet."]
-    for sub in sorted(groups, key=lambda x: (x == "Past papers", x)):
+    rank = {sub: (i, j) for i, g in enumerate(views.subtopic_groups(tutor.packs, [x for x in groups if x in tutor.packs.subtopics]))
+            for j, sub in enumerate(sub for c in g["chapters"] for sub in c["subs"])}  # Chemistry, Physics, Maths; in order
+    for sub in sorted(groups, key=lambda x: (x == "Past papers", rank.get(x, (99, 0)), views.natural(x))):
         title = tutor.packs.subtopics.get(sub, {}).get("title", "")
         L += ["", f"## {sub} {title}".rstrip(), ""] + [line for entry in groups[sub] for line in entry]
     return _write(tutor, "Mistakes.md", "\n".join(L) + "\n")

@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.13 (2026-10-19) — done
+
+All topic lists grouped (subject > chapter > subtopic) and in natural order: home side box, My progress, Challenge chapters, vault Home, Mistakes, Today.
+
 ## v2.5.12 (2026-10-19) — done
 
 Faster, cheaper AI: no long thinking for marking and replies (long-answer check 55 s → 7 s), one-turn JSON, pre-started conversation.

@@ -202,7 +202,7 @@ def test_the_start_button_stays_inside_the_window_however_short_it_is(tmp_path, 
         run(app, steps, size)
 
 
-def test_the_challenge_chapter_list_searches_and_keeps_its_ticks(tmp_path, monkeypatch):
+def test_the_challenge_chapter_list_is_grouped_searches_and_keeps_its_ticks(tmp_path, monkeypatch):
     from tutor_app.challenge_screen import TopicScreen
     app, v = app_for(tmp_path, monkeypatch)
     chosen = []
@@ -211,18 +211,45 @@ def test_the_challenge_chapter_list_searches_and_keeps_its_ticks(tmp_path, monke
         app.push_screen(TopicScreen([]), chosen.append)
         await pilot.pause()
         box = app.screen.query_one("#subs")
-        n = box.option_count
+        opts = [(box.get_option_at_index(i).id, box.get_option_at_index(i).disabled) for i in range(box.option_count)]
+        assert opts[0][1] and opts[0][0].startswith("s:") and opts[1][1] and opts[1][0].startswith("c:")  # subject, chapter
+        n = len([1 for _, d in opts if not d])
         assert n >= 1
         await pilot.press("space")  # the first chapter is ticked
         await pilot.press("z", "z", "z", "z")  # a search that finds nothing keeps what is ticked
         await pilot.pause()
-        assert app.screen.query_one("#subs").option_count == 0
+        assert app.screen.in_view == []
         await pilot.press("escape")
         await pilot.pause()
-        assert app.screen.query_one("#subs").option_count == n
+        assert len(app.screen.in_view) == n
         await pilot.press("ctrl+s")
         await pilot.pause()
         assert len(chosen) == 1 and len(chosen[0]) == 1
+    run(app, steps, many=False)
+
+
+def test_the_challenge_list_has_subjects_chapters_and_subtopics_in_order(tmp_path, monkeypatch):
+    from tutor_app.challenge_screen import TopicScreen
+    app, v = app_for(tmp_path, monkeypatch)
+    chosen = []
+
+    async def steps(pilot):
+        crowd(app)
+        for sub, info in app.tutor.packs.subtopics.items():
+            app.tutor.packs.kcs[f"{sub}.1"].update(spec=info["spec"], statement="x", prereqs=[])
+        app.push_screen(TopicScreen([]), chosen.append)
+        await pilot.pause()
+        box = app.screen.query_one("#subs")
+        got = [box.get_option_at_index(i).id for i in range(box.option_count)]
+        heads = [i for i in got if i[:2] in ("s:", "c:")]
+        assert heads == ["s:chem", "c:9701-1", "c:9701-2", "s:phys", "c:9702-1", "s:math", "c:P1", "c:M1"]
+        chem = [i for i in got if i.startswith("9701-1.")]
+        assert chem[:3] == ["9701-1.1", "9701-1.2", "9701-1.3"] and chem[-1] == "9701-1.12"  # 1.10 after 1.9
+        await pilot.press("ctrl+a")  # everything shown
+        await pilot.pause()
+        await pilot.press("ctrl+s")
+        await pilot.pause()
+        assert len(chosen[0]) == 20 and chosen[0][:2] == ["9701-1.1", "9701-1.2"]
     run(app, steps, many=False)
 
 
@@ -283,3 +310,39 @@ def test_the_home_screens_topic_titles_wrap_instead_of_being_cut(tmp_path, monke
         assert "far too long for the side box to hold on one line" in flat.replace("  ", " ")  # every word is still there
         assert "…" not in plain
     run(app, steps, size=(100, 40), many=False)
+
+
+def test_the_home_screens_topics_are_grouped_by_subject_and_chapter_in_order(tmp_path, monkeypatch):
+    """Asked by the learner: every list of all the topics was one bundle with no order. Chemistry, Physics, Maths; under each its
+    chapters; the subtopics in natural order (1.2 before 1.10)."""
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        home = app.screen
+        home._draw_stats()
+        await pilot.pause()
+        text = str(home.query_one("#stats-text").content if hasattr(home.query_one("#stats-text"), "content")
+                   else home.query_one("#stats-text").render())
+        order = [text.index(x) for x in ("Chemistry 9701", "1. Atomic structure (AS)", "9701-1.2 ", "9701-1.10",
+                                         "2. Atoms and moles (AS)", "Physics 9702", "Physical quantities", "Maths",
+                                         "P1  Pure Mathematics 1", "M1  Mechanics 1")]
+        assert order == sorted(order), order
+        assert text.index("9701-1.2 ") < text.index("9701-1.10")  # natural order, not 1.1, 1.10, 1.11, 1.12, 1.2
+        assert "ideas secure" in text
+    run(app, steps, size=(100, 60))
+
+
+def test_my_progress_has_a_table_for_each_subject_with_a_row_for_each_chapter(tmp_path, monkeypatch):
+    from textual.widgets import Markdown
+    from tutor_app.screens import ProgressScreen
+    app, v = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        app.push_screen(ProgressScreen())
+        await pilot.pause()
+        source = app.screen.query_one(Markdown).source
+        assert "### Chemistry 9701" in source and "### Physics 9702" in source and "### Maths" in source
+        assert source.index("### Chemistry 9701") < source.index("### Physics 9702") < source.index("### Maths")
+        assert "| **1. Atomic structure (AS)** |" in source and "| **P1  Pure Mathematics 1** |" in source
+        assert source.index("9701-1.2 ") < source.index("9701-1.10 ")
+    run(app, steps, size=(100, 60))
