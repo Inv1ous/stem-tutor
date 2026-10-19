@@ -360,3 +360,63 @@ def test_a_one_shot_can_bring_its_own_system_prompt(tmp_path, monkeypatch):
     first, second = (json.loads(line) for line in (tmp_path / "argv.log").read_text().splitlines())
     assert first[first.index("--system-prompt") + 1] == "You write questions."
     assert second[second.index("--system-prompt") + 1] == ai.SYSTEM and c.system == ai.SYSTEM
+
+
+# ---------------- speed (asked by the learner: 20-30 s waits on a long question, slow replies) ----------------
+NO_THINK = json.dumps({"alwaysThinkingEnabled": False})
+
+
+def _argvs(tmp_path):
+    return [json.loads(line) for line in (tmp_path / "argv.log").read_text().splitlines()]
+
+
+def test_marking_answers_straight_away_in_one_turn_without_thinking(tmp_path, monkeypatch):
+    """Measured on the real CLI: thinking first was ~700 output tokens and 7-9 s for a 50-token mark; the schema mode
+    adds a second turn. Without either: ~55 tokens, ~1.3 s, and about a tenth of the usage."""
+    c = make(tmp_path, monkeypatch)
+    schema = {"type": "object", "properties": {"points": {"type": "array"}, "feedback": {"type": "string"}},
+              "required": ["points", "feedback"]}
+    data, res = asyncio.run(c.one_shot("mark this", schema=schema))
+    argv = _argvs(tmp_path)
+    assert len(argv) == 1 and "--json-schema" not in argv[0]  # one call, one turn
+    assert argv[0][argv[0].index("--settings") + 1] == NO_THINK
+    assert res.ok and data["feedback"] == "Good." and data["points"]
+
+
+def test_a_reply_without_the_json_asked_for_gets_one_schema_checked_try(tmp_path, monkeypatch):
+    c = make(tmp_path, monkeypatch)
+    schema = {"type": "object", "properties": {"verdict": {"type": "string"}}, "required": ["verdict"]}
+    data, res = asyncio.run(c.one_shot("mark this", schema=schema))
+    argv = _argvs(tmp_path)
+    assert len(argv) == 2 and "--json-schema" not in argv[0] and "--json-schema" in argv[1]
+
+
+def test_a_challenge_question_or_a_re_mark_still_thinks(tmp_path, monkeypatch):
+    c = make(tmp_path, monkeypatch)
+    asyncio.run(c.one_shot("write a hard question", schema={"type": "object", "properties": {}}, think=True))
+    argv = _argvs(tmp_path)[-1]
+    assert "--json-schema" in argv and NO_THINK not in argv
+
+
+def test_the_conversation_does_not_think_and_its_next_process_is_started_ahead(tmp_path, monkeypatch):
+    c = make(tmp_path, monkeypatch)
+
+    async def go():
+        async for _ in c.stream("hello"):
+            pass
+        first = c.proc
+        await c.reset()  # a new idea: a fresh process, started now rather than when the learner next asks
+        await asyncio.sleep(0.3)
+        warmed = c.proc
+        await c.close()
+        return first, warmed
+    first, warmed = asyncio.run(go())
+    argv = _argvs(tmp_path)
+    assert argv[0][argv[0].index("--settings") + 1] == NO_THINK
+    assert warmed is not None and warmed is not first and len(argv) == 2  # started, and nothing sent to it yet
+    assert c.proc is None  # closed: no process left behind
+
+
+def test_first_json_reads_latex_written_with_one_backslash():
+    got = ai.first_json('```json\n{"why": "uses $\\theta$ and \\frac{1}{2}, and $\\,$"}\n```')
+    assert got == {"why": "uses $\\theta$ and \\frac{1}{2}, and $\\,$"}

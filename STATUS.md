@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.12 (2026-10-19) — done
+
+Faster, cheaper AI: no long thinking for marking and replies (long-answer check 55 s → 7 s), one-turn JSON, pre-started conversation.
+
 ## v2.5.11 (2026-10-19) — done
 
 Now mirrors the terminal (AI replies, questions asked, hints, notices); guide and all update logs brought up to date, with a test that keeps them so.

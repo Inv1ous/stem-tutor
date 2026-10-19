@@ -296,7 +296,7 @@ def test_remark_by_ai_counts_a_typed_answer_right(tmp_path, monkeypatch):
         await pilot.pause()
         seen = []
 
-        async def one_shot(prompt, schema=None, model=None, timeout=120):
+        async def one_shot(prompt, schema=None, model=None, timeout=120, think=False):
             seen.append((prompt, model))
             return {"correct": True, "why": "900 cm is 9.0 m."}, None
         monkeypatch.setattr(app.ai, "one_shot", one_shot)

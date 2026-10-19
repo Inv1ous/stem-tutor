@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.5.12 — 2026-10-19
+
+Asked by the learner: 20-30 s waits on every long question, slow AI replies in general, and not to use up their limit.
+
+- **The AI answers without thinking at length first** (`ai.NO_THINKING`: `--settings {"alwaysThinkingEnabled": false}`).
+  Measured on the real CLI with Haiku: checking a 7-point long answer took 55 s and 7,149 output tokens before, 6.7 s and
+  403 tokens after, with the same verdict on every point; a short mark went from ~9 s / ~700 tokens to ~2.8 s / ~55. Usage
+  falls with it (output tokens dominate). Writing a challenge question and a re-mark still think (`one_shot(think=True)`).
+- **Marking returns its JSON in one turn.** `--json-schema` makes the CLI answer through a tool and then reply (two turns);
+  the JSON is now asked for in words and read from the reply (`json_instruction`, `complete`), with one schema-checked try
+  only when it is missing or incomplete. LaTeX written with one backslash in that JSON is read correctly (`first_json`).
+- **The conversation's process starts ahead.** When a new idea resets the AI, the next process is started at once
+  (`Claude.warm`), so Claude Code's start-up (1-2 s) is over before the learner asks. It costs nothing until a message is sent.
+  Tests in `tests/app/test_ai.py`; the fake `claude` now answers like the real one (JSON in the text without a schema).
+
 ## 2.5.11 — 2026-10-19
 
 Asked by the learner: what the terminal shows should also be on the Now page (with the answer-only view on, an AI reply or an

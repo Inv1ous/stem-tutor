@@ -22,9 +22,16 @@ if "stream-json" not in sys.argv:  # one-shot
     if "teaching card" in prompt:
         data = {"motivate": "Why.", "establish": "Idea $x^2$.", "connect": "Builds on A.", "note": "- n1\n- n2",
                 "self_explain": "Explain it?"}
-    if "--json-schema" in sys.argv and "speech" in json.loads(sys.argv[sys.argv.index("--json-schema") + 1]).get("properties", {}):
+    if os.environ.get("FAKE_CLAUDE_LOG"):
+        with open(os.environ["FAKE_CLAUDE_LOG"] + ".prompt", "a") as f:
+            f.write(json.dumps(prompt) + "\n")
+    if "--json-schema" in sys.argv:  # the CLI's schema mode: the JSON comes back as structured_output
+        if "speech" in json.loads(sys.argv[sys.argv.index("--json-schema") + 1]).get("properties", {}):
+            data["speech"] = "Spoken feedback: x squared."
+        out({"type": "result", "is_error": False, "result": "ok", "structured_output": data, "usage": usage}); sys.exit(0)
+    if '"speech"' in prompt:  # asked for in words: the JSON is the reply's text, as a real model writes it
         data["speech"] = "Spoken feedback: x squared."
-    out({"type": "result", "is_error": False, "result": "ok", "structured_output": data, "usage": usage}); sys.exit(0)
+    out({"type": "result", "is_error": False, "result": "```json\n" + json.dumps(data) + "\n```", "usage": usage}); sys.exit(0)
 
 out({"type": "system", "subtype": "init", "tools": [], "model": "claude-haiku"})
 turn = 0

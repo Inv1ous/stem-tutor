@@ -22,6 +22,10 @@ from tutorlib.units import SUPERSCRIPT
 
 LEAN = ["-p", "--safe-mode", "--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "",
         "--tools", "", "--no-session-persistence"]
+# Claude thinks before it answers unless told not to: for a tutor's nudge or marking an answer against its scheme that is
+# most of the wait (measured: ~700 output tokens and 7-9 s for a 50-token reply; ~55 tokens and 1.3 s without) and most of
+# the usage. Writing a challenge question or a re-mark still thinks (`think=True`).
+NO_THINKING = ["--settings", json.dumps({"alwaysThinkingEnabled": False})]
 
 SYSTEM = """You are a patient, exact A-Level tutor (CAIE 9701 Chemistry, CAIE 9702 Physics, Edexcel IAL Mathematics) \
 inside a terminal study app. The student is 17, studying in Hong Kong. Write British English.
@@ -195,13 +199,27 @@ class Claude:
     async def _start(self) -> None:
         env = {**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"}
         self.proc = await asyncio.create_subprocess_exec(
-            self.binary, *LEAN, "--model", self.model, "--system-prompt", self.system + (SPEECH_RULE if self.speech else ""),
+            self.binary, *LEAN, *NO_THINKING, "--model", self.model,
+            "--system-prompt", self.system + (SPEECH_RULE if self.speech else ""),
             "--input-format", "stream-json", "--output-format", "stream-json", "--include-partial-messages", "--verbose",
             cwd=str(self.cwd), env=env, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.DEVNULL, limit=4 * 1024 * 1024)
 
-    async def reset(self) -> None:
-        """Forget the conversation (e.g. a new idea starts): the next message opens a fresh process."""
+    async def warm(self) -> None:
+        """Start the conversation's process now, before it is needed: Claude Code takes a second or two to start, and
+        that is then over before the learner asks. Costs nothing until a message is sent."""
+        if self.status == "off" or getattr(self, "_closed", False):
+            return
+        async with self._lock:
+            if self.proc is None or self.proc.returncode is not None:
+                try:
+                    await self._start()
+                except OSError:
+                    self.proc = None
+
+    async def reset(self, warm: bool = True) -> None:
+        """Forget the conversation (e.g. a new idea starts): a fresh process takes over, started at once so the
+        next question does not wait for it."""
         proc, self.proc = self.proc, None
         if proc and proc.returncode is None:
             try:
@@ -210,9 +228,12 @@ class Claude:
                 await asyncio.wait_for(proc.wait(), 3)
             except (asyncio.TimeoutError, ProcessLookupError, BrokenPipeError, ConnectionResetError):
                 proc.kill()
+        if warm and self.available:
+            self._warming = asyncio.ensure_future(self.warm())
 
     async def close(self) -> None:
-        await self.reset()
+        self._closed = True
+        await self.reset(warm=False)
 
     async def stream(self, prompt: str) -> AsyncIterator[str]:
         if self.status == "off":
@@ -331,12 +352,14 @@ class Claude:
 
     async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None,
                        timeout: float = 120, system: str | None = None,
-                       speech: bool = False) -> tuple[dict | None, Result]:
+                       speech: bool = False, think: bool = False) -> tuple[dict | None, Result]:
         """A separate, memory-less call that must return JSON (judging an answer, writing a teach card). `timeout` is
         in seconds: a hard challenge question can take Opus several minutes. `system` replaces the tutor brief for
         this call only (writing a challenge question needs its full worked solution, not a short nudge). `speech`:
         an on-the-spot comment the learner may hear; with read aloud on, the reply carries a `speech` field too (in
-        the same call: no second request)."""
+        the same call: no second request). `think`: let the model think first (slower, more usage) — for writing a
+        challenge question or a re-mark; marking, nudges and cards answer straight away and return their JSON in one
+        turn (a schema-checked second try only if that JSON is missing or incomplete)."""
         if not self.available:
             return None, Result(ok=False, status=self.status, message=self.message or "AI unavailable")
         self._pending += 1
@@ -344,14 +367,22 @@ class Claude:
             if speech and self.speech and schema:
                 schema = {**schema, "properties": {**schema.get("properties", {}), "speech": {"type": "string"}}}
                 prompt = f"{prompt}\n\n{SPEECH_FIELD}"
-            return await self._one_shot(prompt, schema, model, timeout, system)
+            if schema and not think:
+                data, res = await self._one_shot(f"{prompt}\n\n{json_instruction(schema)}", None, model, timeout,
+                                                 system, think=False)
+                if res.ok and complete(data, schema):
+                    return data, res
+                if not res.ok and res.status in ("login", "limit"):
+                    return data, res
+            return await self._one_shot(prompt, schema, model, timeout, system, think=think)
         finally:
             self._pending -= 1
 
     async def _one_shot(self, prompt: str, schema: dict | None, model: str | None,
-                        timeout: float = 120, system: str | None = None) -> tuple[dict | None, Result]:
-        args = [*LEAN, "--model", model or self.model, "--system-prompt", system or self.system,
-                "--output-format", "json"]
+                        timeout: float = 120, system: str | None = None,
+                        think: bool = True) -> tuple[dict | None, Result]:
+        args = [*LEAN, *([] if think else NO_THINKING), "--model", model or self.model,
+                "--system-prompt", system or self.system, "--output-format", "json"]
         if schema:
             args += ["--json-schema", json.dumps(schema)]
         try:
@@ -390,7 +421,46 @@ class Claude:
         return data, Result(text=ev.get("result", ""), speech=speech.strip(), usage=usage)
 
 
+def json_instruction(schema: dict) -> str:
+    """Asking for the JSON in words: one turn, where `--json-schema` takes two (a tool call, then a reply)."""
+    return ("Reply with ONLY one JSON object (no code fence, no other text) that matches this JSON schema. Inside JSON "
+            "strings write every LaTeX backslash twice ($\\\\frac{1}{2}$).\n" + json.dumps(schema, ensure_ascii=False))
+
+
+def complete(data, schema: dict) -> bool:
+    """The reply has every field the schema requires, each of the right basic type."""
+    if not isinstance(data, dict):
+        return False
+    kinds = {"string": str, "boolean": bool, "array": list, "object": dict, "integer": int, "number": (int, float)}
+    props = schema.get("properties", {})
+    for key in schema.get("required", list(props)):
+        if key not in data:
+            return False
+        want = kinds.get((props.get(key) or {}).get("type"))
+        if want and not isinstance(data[key], want):
+            return False
+    return True
+
+
+_CONTROL = re.compile(r"[\x08\x0c]|[\t\r](?=[A-Za-z])")  # a LaTeX backslash read as an escape: \frac -> form feed + "rac"
+
+
+def _unescape_latex(x):
+    if isinstance(x, str):
+        return _CONTROL.sub(lambda m: {"\x08": "\\b", "\x0c": "\\f", "\t": "\\t", "\r": "\\r"}[m.group(0)], x)
+    if isinstance(x, dict):
+        return {k: _unescape_latex(v) for k, v in x.items()}
+    if isinstance(x, list):
+        return [_unescape_latex(v) for v in x]
+    return x
+
+
 def first_json(text: str) -> dict | None:
+    found = _first_json(text)
+    return _unescape_latex(found) if found is not None else None
+
+
+def _first_json(text: str) -> dict | None:
     start = text.find("{")
     while start != -1:
         depth = 0
@@ -400,7 +470,10 @@ def first_json(text: str) -> dict | None:
                 try:
                     return json.loads(text[start:i + 1])
                 except json.JSONDecodeError:
-                    break
+                    try:  # LaTeX written with one backslash (`\theta`, `\,`) is not valid JSON: double the odd ones
+                        return json.loads(re.sub(r'\\(?!["\\/bfnrtu])', r"\\\\", text[start:i + 1]))
+                    except json.JSONDecodeError:
+                        break
         start = text.find("{", start + 1)
     return None
 

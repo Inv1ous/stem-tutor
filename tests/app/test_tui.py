@@ -952,7 +952,7 @@ def test_an_answer_marked_wrong_can_be_re_marked_by_the_ai(tmp_path, monkeypatch
     app, v = app_for(tmp_path, monkeypatch)
     asked = []
 
-    async def second_marker(prompt, schema=None, model=None):
+    async def second_marker(prompt, schema=None, model=None, think=False):
         asked.append((prompt, model))
         return {"correct": True, "why": "The same quantity."}, ai_mod.Result()
 
@@ -995,7 +995,7 @@ def test_when_the_mark_stands_the_reason_is_asked_after(tmp_path, monkeypatch):
     from tutor_app.screens import SessionScreen
     app, v = app_for(tmp_path, monkeypatch)
 
-    async def second_marker(prompt, schema=None, model=None):
+    async def second_marker(prompt, schema=None, model=None, think=False):
         return {"correct": False, "why": "42 m is not the distance."}, ai_mod.Result()
 
     async def go():

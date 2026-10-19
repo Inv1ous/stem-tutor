@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.5.11_
+_Version 2.5.12_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -10,6 +10,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
 > [!example] New in 2.5 (the latest changes)
+> - **Much faster AI, using far less of your limit** (2.5.12): the AI no longer "thinks" at length before marking or answering. Checking a long answer went from about 55 seconds to about 7 (same verdict), a short mark from about 9 seconds to under 3, and each uses about a tenth of the allowance it did. The conversation's process is started ahead of time, so a new idea doesn't wait for it. Challenge questions and re-marks still think first, where it matters.
 > - **Shortcuts & Elegant Methods** (2.5.0): a whole course of ranked shortcuts for cutting slips on long questions and complex ideas, with its own spaced recall, separate from the syllabus. See section 6c.
 > - **Everything the terminal shows is on Now too** (2.5.11): your question to the AI, its reply, an explanation again, hints and notices appear on the Now page, so with the **answer-only view** on you never have to switch it off to read a reply. Outside a lesson, the free chat is the Now page. The question also stays above its verdict after you answer (2.5.9).
 > - **Answer-only view** (2.5.2): **ctrl+k** (or **F3**) hides the question in the terminal and gives the answer box the whole window, for a Terminal beside Obsidian. Press it again to bring the question back. Settings has a switch too.
@@ -500,7 +501,7 @@ The AI (Claude, on your normal Claude subscription) is only used when it genuine
 - writing a teaching card for an idea that doesn't have one yet (done once, then saved);
 - a short **summary of your profile**, only when you press **a** on *What the tutor knows about you*.
 
-It runs quietly in the background, so the Claude app doesn't need to be open. It uses the small, fast **Haiku** model by default, sends only the few lines it needs each time, and starts a fresh, short conversation for every new idea and every new part of a session. Each request stays small.
+It runs quietly in the background, so the Claude app doesn't need to be open. It uses the small, fast **Haiku** model by default, sends only the few lines it needs each time, and starts a fresh, short conversation for every new idea and every new part of a session. Each request stays small. It answers straight away rather than thinking at length first (that was most of the wait and most of the usage); only writing a challenge question and a re-mark think first. Marking returns its verdict in a single step, and the next conversation is started before you need it.
 
 **The top bar** shows `AI ●` (on) or `AI ○` (off), plus how many AI replies and tokens this session used.
 

@@ -414,17 +414,15 @@ def test_the_spoken_version_is_asked_for_only_when_reading_is_on(tmp_path, monke
 def test_one_shot_comments_carry_a_speech_field_only_when_asked_and_on(tmp_path, monkeypatch):
     schema = {"type": "object", "properties": {"feedback": {"type": "string"}}}
     c = _claude(tmp_path, monkeypatch, "ok", speech=True)
+    prompts_sent = lambda: [json.loads(line) for line in (tmp_path / "argv.log.prompt").read_text().splitlines()]  # noqa: E731
     data, res = asyncio.run(c.one_shot("mark this", schema=schema, speech=True))
-    sent = json.loads(json.loads((tmp_path / "argv.log").read_text().splitlines()[-1])[-1])
-    assert "speech" in sent["properties"] and "speech" not in sent.get("required", [])
-    assert res.speech == "Spoken feedback: x squared." and schema["properties"].keys() == {"feedback"}
+    assert '"speech"' in prompts_sent()[-1] and res.speech == "Spoken feedback: x squared."
+    assert schema["properties"].keys() == {"feedback"}  # the caller's schema is left as it was
     data, res = asyncio.run(c.one_shot("write a teaching card", schema=schema))  # not a comment: no extra field
-    argv = json.loads((tmp_path / "argv.log").read_text().splitlines()[-1])
-    assert "speech" not in argv[argv.index("--json-schema") + 1] and res.speech == ""
+    assert '"speech"' not in prompts_sent()[-1] and res.speech == ""
     c.speech = False
     asyncio.run(c.one_shot("mark this", schema=schema, speech=True))
-    argv = json.loads((tmp_path / "argv.log").read_text().splitlines()[-1])
-    assert "speech" not in argv[argv.index("--json-schema") + 1]
+    assert '"speech"' not in prompts_sent()[-1]
 
 
 # ---------------- in the app ----------------

@@ -539,7 +539,9 @@ class ChallengeScreen(ReadAloud, Screen):
         """What the generator calls: one memory-less AI reply as a dict, or None (failed, timed out, unreadable).
         A model that declines raises challenge_gen.Refused, and the generator hands that call to the other model."""
         one_shot, system = self.app.ai.one_shot, challenge_gen.GEN_SYSTEM
-        if "system" in inspect.signature(one_shot).parameters:
+        if "think" in inspect.signature(one_shot).parameters:  # a hard question is worth the model thinking first
+            data, res = await one_shot(prompt, schema=schema, model=model_name, timeout=timeout, system=system, think=True)
+        elif "system" in inspect.signature(one_shot).parameters:
             data, res = await one_shot(prompt, schema=schema, model=model_name, timeout=timeout, system=system)
         else:  # an older Claude wrapper: the instructions go in front of the prompt
             data, res = await one_shot(f"{system}\n\n{prompt}", schema=schema, model=model_name, timeout=timeout)
@@ -681,7 +683,7 @@ class ChallengeScreen(ReadAloud, Screen):
         fb, item = self.fb, self.set.questions[self.i]["item"]
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
         view = {"kind": item["kind"], "stem": item["stem"], "options": item.get("options")}
-        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=prompts.REMARK_MODEL,
+        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=prompts.REMARK_MODEL, think=True,
                                             **spoken_too(self.app))
         if res:
             fb["remarked"] = True  # one re-mark an answer; a call that failed can be tried again

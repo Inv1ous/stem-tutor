@@ -1223,7 +1223,7 @@ class SessionScreen(ReadAloud, Screen):
         an answer key can be wrong; if the AI examiner finds the answer right, it counts as right from then on."""
         fb, view = self.last_fb, self.view or {}
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
-        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=prompts.REMARK_MODEL,
+        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=prompts.REMARK_MODEL, think=True,
                                             **spoken_too(self.app))
         if res:
             fb["remarked"] = True  # one re-mark an answer; a call that failed can be tried again
