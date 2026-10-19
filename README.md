@@ -1,6 +1,6 @@
 # STEM Tutor
 
-Version **2.5.10** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
+Version **2.5.11** — see `CHANGELOG.md`; the evidence behind each feature is in `docs/RESEARCH.md`.
 
 A-Level study system (CAIE 9701/9702, Edexcel IAL Maths/Further Maths): a terminal app for studying, an Obsidian
 vault for reading, and a pure-Python engine that does the teaching logic without AI.
@@ -15,7 +15,11 @@ vault for reading, and a pure-Python engine that does the teaching logic without
 | `plugin/stem-tutor/` | the older Cowork plugin (still works; the terminal app is now primary) |
 | `build/` | content pipeline: specs → graphs → packs (drafted, blind-solved, adjudicated), teach cards, publish to the vault |
 | `foundry/` | content foundry: chapters built by headless Claude and Codex workers, split between the two allowances as they run down (`foundry/README.md`) |
+| `refine/` | refine system: improves chapters already built, adding only (diagrams, questions, clarifications), on both allowances (`bin/refine`, the `/refine` skill) |
+| `sources/` | your PDF library (`sources/library/`, searched by `build/library.py`) and the shortcut notes (`sources/shortcuts/`) the Shortcuts course is made from |
 | `bugwatch/` | live two-agent bug hunt (Codex spots, Claude fixes; `bugwatch/README.md`) |
+| `docs/` | `SHORTCUTS_COURSE.md` (the Shortcuts & Elegant Methods course: data, lessons, its own recall queue), `RESEARCH.md` |
+| `bin/` | `tutor` (launcher: `tutor`, `tutor doctor`, `tutor look`, `tutor tts setup`), `foundry`, `refine`, `shortcuts` (parse, generate lessons, publish) |
 | `bin/tutor` | launcher (`tutor`, `tutor doctor`, `tutor look`, `tutor --setup`) |
 | `tests/` | pytest (engine) and `tests/app/` (AI client with a fake `claude`, Textual pilot tests) |
 

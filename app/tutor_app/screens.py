@@ -1046,6 +1046,7 @@ class SessionScreen(ReadAloud, Screen):
         elif kind == "own_words":
             if data.get("text"):
                 self.say(cards.you(data["text"]))
+                self.tutor.show("you", data["text"], "In your own words")
                 self.respond({"text": data["text"]})
                 if self.app.settings.own_words_feedback and self.ai_ok():
                     self.panel(ContinuePanel("The tutor is reading your explanation…", buttons=[]))
@@ -1183,6 +1184,7 @@ class SessionScreen(ReadAloud, Screen):
         text = data.get("text", "")
         self.long_text = text
         self.say(cards.you(text))
+        self.tutor.show("you", text, "Your working")
         if (log := self.tutor._lesson_log()):  # the transcript keeps your working, even if you leave before marking
             log.you(f"Working for Q{self.view['n']}:\n\n{text}")
         sch = self.tutor.scheme(self.view["n"])
@@ -1233,12 +1235,15 @@ class SessionScreen(ReadAloud, Screen):
             self.followups = ["break"] if self.last_fb.get("break_suggested") else []  # nothing was missed
             self.say(cards.card("tutor", "Re-marked: correct ✓",
                                 f"{res.get('why', '')}\n\nIt now counts as right in your record."))
+            self.tutor.show("ai", f"{res.get('why', '')}\n\nIt now counts as right in your record.", "Re-marked: correct ✓")
         elif res:
             self.say(cards.card("hint", "Re-marked: the mark stands", res.get("why", "")))
+            self.tutor.show("ai", res.get("why", ""), "Re-marked: the mark stands")
             if (log := self.tutor._lesson_log()):
                 log.tutor(res.get("why", ""), title=f"Q{fb.get('n')} re-marked: the mark stands")
         else:
             self.say(cards.card("hint", "AI check unavailable", r.message or "Try again later."))
+            self.tutor.show("notice", r.message or "Try again later.", "AI check unavailable")
         self.update_bar()
         self.next_followup()
 
@@ -1251,11 +1256,13 @@ class SessionScreen(ReadAloud, Screen):
             a = self.app.ai
             msg = a.message or ("AI is switched off in Settings." if not self.app.settings.ai else "AI is unavailable.")
             self.say(cards.card("hint", "AI help is off", msg))
+            self.tutor.show("notice", msg, "AI help is off")
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
             return
         if (help_ := self.tutor.ai_help(given=False)).get("refused"):  # not allowed while a no-help check is open
             self.say(cards.card("hint", "No help on this one", help_["refused"]))
+            self.tutor.show("notice", help_["refused"], "No help on this one")
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
             return
@@ -1281,6 +1288,7 @@ class SessionScreen(ReadAloud, Screen):
             speech = ""
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
+            self.tutor.show("notice", a.last.message, "AI paused")
         else:
             w.update(cards.ai(buf))
             self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
@@ -1288,6 +1296,7 @@ class SessionScreen(ReadAloud, Screen):
                 self.tutor.ai_help()  # help that reached you counts as a hint on every open question
             if (log := self.tutor._lesson_log()):
                 log.tutor(buf, title="Tutor (AI)")
+            self.tutor.show("notice" if withheld else "ai", buf, "Held back" if withheld else "Tutor (AI)")  # and on Now
         self.update_bar()
         if then_continue:
             self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎"), ("ask", "Ask the tutor (ctrl+t)")],
@@ -1320,11 +1329,13 @@ class SessionScreen(ReadAloud, Screen):
                 self.say(cards.you(q))
                 if (log := self.tutor._lesson_log()):
                     log.you(q)
+                self.tutor.show("you", q, "You asked")
                 self.stream(prompts.ask(self.tutor, q, self.kc))
         self.app.push_screen(AskScreen(), got)
 
     def action_explain(self) -> None:
         if self.kc:
+            self.tutor.show("you", "Explain this idea again, a different way.", "You asked")
             self.stream(prompts.explain_again(self.tutor, self.kc))
 
     def action_hint(self) -> None:
@@ -1458,6 +1469,7 @@ class ChatScreen(ReadAloud, Screen):
         yield Footer()
 
     def on_mount(self) -> None:
+        self.app.tutor.clear_chat()  # a new chat: the Now page starts it afresh
         self.run_worker(self.app.ai.reset(), group="reset")  # chat never inherits a lesson's context
 
     def action_leave(self) -> None:
@@ -1471,6 +1483,7 @@ class ChatScreen(ReadAloud, Screen):
         q = event.data.get("text", "")
         log = self.query_one("#log", VerticalScroll)
         log.mount(Static(cards.you(q), classes="entry"))
+        self.app.tutor.show("you", q, "You asked")
         self.hush()
         self.reply(q)
 
@@ -1480,6 +1493,7 @@ class ChatScreen(ReadAloud, Screen):
         log = self.query_one("#log", VerticalScroll)
         if not (self.app.settings.ai and a.available):
             log.mount(Static(cards.card("hint", "AI help is off", a.message or "Switch AI on in Settings."), classes="entry"))
+            self.app.tutor.show("notice", a.message or "Switch AI on in Settings.", "AI help is off")
             return
         w = Static(cards.ai("…"), classes="entry")
         log.mount(w)
@@ -1490,9 +1504,11 @@ class ChatScreen(ReadAloud, Screen):
             log.scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
+            self.app.tutor.show("notice", a.last.message, "AI paused")
         else:
             buf = a.last.text or buf
             w.update(cards.ai(buf))
+            self.app.tutor.show("ai", buf, "Tutor (AI)")
             self.readable_now(a.last.speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
 
 
@@ -1693,6 +1709,8 @@ Choosing a topic: folders for **Chemistry**, **Physics** and **Maths**, each hol
 module) with the subtopics inside. **⏎** opens a folder, **Esc** or **←** goes up. **Just start typing** to search every
 folder at once (a word, or a code such as 9702-3 or P1; Esc clears it). In test prep **space** ticks (on a folder: all in it),
 **ctrl+a** ticks everything shown, **ctrl+d** clears.
+
+What the terminal shows is on the **Now** page in Obsidian too: your questions to the AI, its replies, hints.
 
 Typing: **⏎** sends a short answer · **ctrl+j** starts a new line · **ctrl+s** submits a long answer or a blurt.
 

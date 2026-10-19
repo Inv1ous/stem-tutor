@@ -1011,3 +1011,47 @@ def test_rebuild_reads_the_log_once(tutor, monkeypatch):
     monkeypatch.setattr(tutor.vault, "events", lambda: reads.append(1) or real())
     out = tutor.rebuild()
     assert out["events"] >= 1 and len(reads) == 1
+
+
+def test_now_shows_what_the_terminal_shows_an_ai_reply_a_question_asked_and_a_hint(tutor):
+    """Asked by the learner: with the terminal's question hidden (answer-only), an AI reply or an explanation only showed in the
+    terminal, so the view had to be switched back to read it. They are on the Now page as well."""
+    tutor.start("autopilot", minutes=50)
+    item = dict(tutor.packs.items_for("9702-2.1.1")[0], id="q-thread")
+    tutor._questions({"kind": "practice"}, 0, [item])
+    n = max(int(k) for k in tutor.session["presented"])
+    now = lambda: (tutor.vault.root / "Now.md").read_text()  # noqa: E731
+    tutor.show("you", "Why is velocity a vector?", "You asked")
+    tutor.show("ai", "Because it has a **direction** as well as a size.", "Tutor (AI)")
+    text = now()
+    assert "You asked" in text and "Why is velocity a vector?" in text and "Because it has a **direction**" in text
+    assert text.index("Which quantity is a vector?") < text.index("You asked") < text.index("Tutor (AI)")  # in order
+    tutor.hint(n)
+    assert "Hint 1 for Q" in now()
+    assert tutor.session["thread"][-1]["kind"] == "hint"
+    inst = tutor.session["presented"][str(n)]["inst"]
+    tutor.answer(f"{n}{inst['answer']}3")  # answering keeps what was said: the reply is read against the verdict
+    assert "Because it has a **direction**" in now() and f"Q{n} — correct" in now()
+
+
+def test_the_thread_starts_afresh_with_the_next_question_and_is_capped(tutor):
+    tutor.start("autopilot", minutes=50)
+    for i in range(12):
+        tutor.show("ai", f"reply {i}", "Tutor (AI)")
+    assert [t["text"] for t in tutor.session["thread"]] == [f"reply {i}" for i in range(4, 12)]  # the last eight
+    item = dict(tutor.packs.items_for("9702-2.1.1")[0], id="q-next")
+    tutor._questions({"kind": "practice"}, 0, [item])
+    assert "reply 11" not in (tutor.vault.root / "Now.md").read_text()  # a new question: its own page
+    assert tutor.session.get("thread") in (None, [])
+
+
+def test_outside_a_session_the_chat_is_the_now_page(tutor):
+    assert tutor.session is None
+    tutor.show("you", "What is a mole?", "You asked")
+    tutor.show("ai", "A mole is $6.02\\times10^{23}$ particles.", "Tutor (AI)")
+    text = (tutor.vault.root / "Now.md").read_text()
+    assert "Chat" in text and "What is a mole?" in text and "6.02" in text and "No session running" not in text
+    tutor.clear_chat()
+    tutor.show("notice", " ", "x")  # nothing to show: the page does not change
+    tutor.start("autopilot", minutes=30)
+    assert "What is a mole?" not in (tutor.vault.root / "Now.md").read_text()  # a session's page is its own

@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.11 (2026-10-19) — done
+
+Now mirrors the terminal (AI replies, questions asked, hints, notices); guide and all update logs brought up to date, with a test that keeps them so.
+
 ## v2.5.10 (2026-10-18) — done
 
 Voice loudness setting with a Hear it button.

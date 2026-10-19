@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.4.3_
+_Version 2.5.11_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -8,6 +8,17 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 
 > [!tip] The short version
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
+
+> [!example] New in 2.5 (the latest changes)
+> - **Shortcuts & Elegant Methods** (2.5.0): a whole course of ranked shortcuts for cutting slips on long questions and complex ideas, with its own spaced recall, separate from the syllabus. See section 6c.
+> - **Everything the terminal shows is on Now too** (2.5.11): your question to the AI, its reply, an explanation again, hints and notices appear on the Now page, so with the **answer-only view** on you never have to switch it off to read a reply. Outside a lesson, the free chat is the Now page. The question also stays above its verdict after you answer (2.5.9).
+> - **Answer-only view** (2.5.2): **ctrl+k** (or **F3**) hides the question in the terminal and gives the answer box the whole window, for a Terminal beside Obsidian. Press it again to bring the question back. Settings has a switch too.
+> - **Pick a topic from folders** (2.5.4 to 2.5.7): Chemistry, Physics and Maths, each opening into its chapters (Maths: its modules) and then the subtopics. Just start typing to search everything at once; names are never cut off.
+> - **The Almanac shows progress** (2.5.3): under each objective, how many of its ideas are done and what is next; a line above says what you are doing right now and what today has added. A review ticks only when its ideas are secure (right on two different days), so this is how you see the part that is done.
+> - **A worked example waits at its last step** (2.5.8): the answer stays until you press Continue.
+> - **Voice loudness** (2.5.10): Settings has a loudness box and a **Hear it** button to try it before saving.
+> - **Home menu lines wrap** neatly (2.5.1), and **Your topics** titles wrap instead of being cut off (2.5.7).
+> - Behind the scenes (2.4.4, 2.4.5): the content builders accept real exam command words (Estimate, Derive), catch characters lost from past-paper PDFs, and read your Claude usage exactly.
 
 > [!example] New in 2.4.0
 > - **A voice that reads to you.** Run `tutor tts setup` once (it asks before downloading about 354 MB), then press **ctrl+e** to hear the explanation on screen. Maths is read in words ("x squared", "the integral from zero to one of…"). Turn on auto-read and pick a voice in Settings.
@@ -163,6 +174,8 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 - **Subjects**: complete reference notes for every subtopic, and **My Notes**, which grow as you learn (section 9).
 
 **Practise and remember**
+- **Shortcuts & Elegant Methods**: a course of ranked methods that cut slips and time on long questions, with worked examples, practice and a recall queue of its own (section 6c).
+- **Challenge mode**: hard calculation questions written for you, easiest to extreme (section 6b).
 - **Spaced reviews** timed to just before you would forget, most at risk first, topics mixed, sharper as exams get close, with second chances in the same session (section 7).
 - **Fix my weak spots**: active misconceptions, gaps and ideas you keep getting wrong, re-taught and practised (section 3).
 - **Test prep** for a school test on the chapters you choose (section 7).
@@ -179,8 +192,11 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 - **Mistake journal**: every question you got wrong, with the right answer (section 9).
 - **Week in review** every week (section 9), and **My progress** for a quick look at your topics (section 3).
 
+**Read aloud**
+- Hear any explanation, feedback or AI reply (**ctrl+e**, once set up with `tutor tts setup`), with maths read in words; choose the voice, speed and **loudness** in Settings and try it with **Hear it**.
+
 **AI help (optional)**
-- Ask anything (**ctrl+t**), have an idea explained another way (**ctrl+r**), hints (**ctrl+g**), a talk-through when you're stuck, and feedback on your own words (sections 11 to 13).
+- Ask anything (**ctrl+t**), have an idea explained another way (**ctrl+r**), hints (**ctrl+g**), a talk-through when you're stuck, and feedback on your own words (sections 11 to 13). Everything it says is on the **Now** page as well as in the terminal (section 9).
 
 **Behind the scenes**
 - **Nothing is lost**: every answer is saved the moment you give it, and an unfinished session can be resumed (sections 3 and 15).
@@ -224,12 +240,15 @@ When new chapters have been added since you opened the tutor, the menu tells you
 |---|---|
 | **Resume** | Only appears if you left a session unfinished. Carries on where you stopped. |
 | **Today's plan** | The tutor decides for you: ideas due for review first, then a quick check of ideas you have ticked in your Almanac but never answered here, then the next topics from your Almanac in week order (earlier weeks you haven't done come first, and it carries on past the calendar week when you are ahead), then mixed practice and a short exit check. Topics without questions yet are skipped. |
-| **Learn a topic** | A full lesson on one subtopic: a quick check of what you know, a plan you agree to, then each idea taught step by step. |
+| **Learn a topic** | A full lesson on one subtopic: a quick check of what you know, a plan you agree to, then each idea taught step by step. You choose the subtopic from **folders**: Chemistry, Physics, Maths (each into its chapters, Maths into its modules); just start typing to search all of them at once, **[** and **]** jump between chapters, **Esc** or **←** goes up. |
 | **Review what's due** | Mixed questions on ideas that are due to be refreshed (section 7). If nothing is due it tells you, instead of starting an empty session. |
 | **Fix my weak spots** | A session on what's weak right now: ideas with a misconception still active, gaps found by blurts, test prep or checks, and ideas you keep getting wrong. Each is re-taught (a misconception head-on, with a contrasting example), then practised with fresh questions. The number shows how many there are. |
-| **Test prep** | For a school test: one question on every point of the chapters you choose, then it fixes only what you got wrong. |
+| **Test prep** | For a school test: one question on every point of the chapters you choose (tick a whole folder with space; **ctrl+a** ticks everything shown), then it fixes only what you got wrong. |
 | **Long questions** | Exam-style long questions. You write the answer, then mark it against the real mark scheme. |
 | **Blurt** | Write down everything you remember about a subtopic. The tutor shows what you left out (section 6). |
+| **Challenge** | Hard calculation questions written for you, from warm-up to extreme (section 6b). |
+| **Shortcuts and elegant methods** | Learn the next shortcuts, with a worked example and practice for each (section 6c). The number is how many new ones today. |
+| **Shortcut recall** | The shortcuts you have learned that are due to be recalled: a queue of its own, apart from your syllabus reviews. The number is how many are due. |
 | **Ask the tutor anything** | A free chat with the AI tutor. |
 | **What the tutor knows about you** | Everything the tutor has worked out about you, with the evidence, how sure it is, and what it changed because of it (section 8). |
 | **My progress** | A quick look: how secure each topic is, how sure vs how right, and your habits. |
@@ -256,6 +275,8 @@ A tick covers the syllabus section the objective refers to. A few ideas from sec
 - **The wall**: every day you answered a question. **Error families**: your mistakes by kind, added to any you count yourself. **This week's retrospective**: what broke and the fix, written from the week's answers; one you write or edit yourself is kept.
 - **The mark bank**: marked past papers, and for Paper 1 of Chemistry and Physics a paper equivalent from your last 40 past-paper multiple-choice answers. Scores you type yourself are kept.
 - **The paper stage**, moved on by the calendar as the Almanac's own stage notes say.
+
+- **Progress and what you are doing now.** Under each objective the Almanac shows a bar and a line such as *31 of 52 ideas secure (60%) · 75% needed in each subject · 4 right once, waiting for a second day · next: …*, so work towards a review that cannot tick yet is visible. Above this week's objectives a line says what you are doing right now (the session, the minutes, how many you have answered, what is on screen) and what today has added; it reads *Last seen* if the tutor has stopped and *No session running* afterwards.
 
 Exam dates you enter in the Almanac's *Statement of entry* reach the tutor with your next Export, and its countdowns and exam readiness follow them.
 
@@ -324,6 +345,21 @@ Choose **Challenge: hard calculation questions** on the menu. It writes a set of
 - **Keys:** ↑↓ ⏎ in the list, ← → to change a value, Tab for the words box, **Esc** to go back or cancel writing, **alt+↑/↓** to scroll a long question, **ctrl+b** to the menu. Stopped sets are closed; an unfinished one is offered to continue.
 - Your answers are kept in the vault's `.tutor/challenge` folder. They never change your mastery, reviews or Almanac.
 
+## 6c. Shortcuts & Elegant Methods
+
+A course for **accuracy on long questions and complex ideas**: ranked shortcuts, each with a *trigger* (how to recognise it), the *shortcut*, why it holds, a worked example of the long way against the short way, pitfalls, a quick check, practice and recall cards. It covers Physics, Chemistry and the Maths modules, and it is **not part of the syllabus**: its lessons, its reviews and its history are separate from everything else.
+
+- **Shortcuts and elegant methods** on the menu walks the next shortcuts one card at a time (**⏎** shows the next part), ends each with practice questions (**ctrl+g** gives a hint), then you rate how well you grasped it, 1 to 4.
+- **Shortcut recall** brings back the ones you have learned just before you would forget, with a question, the answer when you reveal it, and a rating. Its schedule is its own: it never changes your syllabus reviews.
+- **Choose what to learn** with **s** on either screen: the lowest and highest rating (each shortcut is scored out of 10 for how useful it is), which subjects, AS or A Level, section words, whether to include the extra ones the research found, the order (best first or by section), how many new ones a day, whether to show only the ones with a full lesson, and what recall covers.
+- Some shortcuts have a full written lesson; the others are taught from their own text until one is written.
+
+---
+
+## 6d. Reading the question and the reply on Now
+
+With the **answer-only view** (**ctrl+k** or **F3**) the terminal shows only the answer box; the question is on the **Now** page in Obsidian. Whatever you ask the AI, and everything it says back (an answer, an explanation again, a hint, a notice), is on the Now page too, under the question, so you can read it there without switching the view back. It clears when the next question or step starts; during a lesson the question you answered stays above its verdict.
+
 ## 7. Reviews, memory and "secure"
 
 Everyone forgets. The tutor uses the method behind Anki's modern scheduler, called **FSRS**, to predict when *you* are about to forget each idea, and asks about it just before that.
@@ -376,7 +412,7 @@ There are no "learning styles" here. The research is clear that they don't help.
 
 | Page / folder | What it is |
 |---|---|
-| **Now** | Whatever is in front of you right now, in full: the question (with its diagram, if any) or the explanation, with proper maths. Your notes for the topic are shown underneath. Keep this open beside the Terminal. |
+| **Now** | Whatever is in front of you right now, in full: the question (with its diagram, if any) or the explanation, with proper maths. After you answer, the question stays above its verdict (right or wrong, the answer and why). What you ask the AI and everything it says back, hints and notices appear under it, the same as in the terminal; outside a lesson the free chat is the page. Your notes for the topic are shown underneath. Keep this open beside the Terminal. |
 | **My Notes** | Your notes, one page per subtopic, **built as you learn**. Each idea gets a short summary, your own words and a "Watch out" list of the mistakes *you* made. At the top is a coloured map of the topic. If you re-learn an idea, your earlier words and mistakes are kept. |
 | **Lessons** | A full record of every session and blurt: explanations, every question (shown before you answer, never with the answer), your answers and the feedback. |
 | **Home** | A dashboard: progress per subtopic, reviews due, and links to your notes and recent lessons. |
@@ -409,6 +445,8 @@ These work **everywhere, even while you are typing an answer**:
 | **ctrl+r** | Explain this idea again, a different way (AI) |
 | **ctrl+g** | Hint (not allowed on no-hints checks) |
 | **ctrl+o** | Show the current question or explanation in Obsidian |
+| **ctrl+e** | Read aloud what is on screen (once set up with `tutor tts setup`); again stops it |
+| **ctrl+k** or **F3** | Answer-only view: hide the question in the terminal and show just the answer box (the question is on Now); again brings it back |
 | **ctrl+b** or **ctrl+q** | Save and go back to the menu (you can resume later). On the menu, ctrl+q quits. |
 
 Answering and moving around:
@@ -427,6 +465,8 @@ Answering and moving around:
 | **ctrl+s** | Submit a long answer or a blurt |
 | **?** | Help · **F2** Settings (from the menu) |
 
+Choosing a topic: **⏎** opens a folder or chooses a subtopic, **Esc** or **←** goes up, **just start typing** to search every folder at once (a word, or a code such as `9702-3` or `P1`; **Esc** clears it), **/** jumps to the search box, **[** and **]** jump between chapters. In test prep **space** ticks (on a folder: everything in it), **ctrl+a** ticks everything shown, **ctrl+d** clears.
+
 When you are **not** typing, the single letters **t e h o** do the same as ctrl+t, ctrl+r, ctrl+g and ctrl+o.
 
 ---
@@ -440,6 +480,9 @@ When you are **not** typing, the single letters **t e h o** do the same as ctrl+
 | **Show Now in Obsidian** | Whether Obsidian jumps to the Now page when a session starts. |
 | **Model** | **Haiku** (default: fast and cheapest) or **Sonnet** (clearer explanations, but uses about three times more of your Claude limit). |
 | **Session length** | How long a session aims to be, 40 minutes by default. |
+| **Answer-only view** | Hide the question in the terminal and show just the answer box (ctrl+k does the same, any time). |
+| **Read aloud, Voice, Reading speed** | Turn reading aloud on, choose the voice and its speed (set up once with `tutor tts setup`). |
+| **Voice loudness** | How loud the voice is, 10 to 100 %. **▸ Hear it** plays a short line at the loudness typed, before you save. |
 
 ---
 

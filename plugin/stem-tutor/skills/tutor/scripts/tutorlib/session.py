@@ -145,12 +145,51 @@ class Tutor(LessonMixin):
 
     def _set_now(self, activity: dict | None = None) -> None:
         if self.session is not None:
+            if activity and activity.get("activity") != "feedback":  # a new question or step: its own page
+                key = f"{activity.get('activity')}:{activity.get('kc')}:{','.join(sorted(self.session.get('presented', {})))}"
+                if key != self.session.get("thread_key"):
+                    self.session["thread_key"] = key
+                    self.session.pop("thread", None)
             self.session["now"] = activity
             self.session.pop("last_feedback", None) if activity and activity.get("activity") != "feedback" else None
+
+    THREAD_KEEP = 8
+    THREAD_KIND = {"you": "quote", "ai": "tip", "hint": "tip", "notice": "info"}
+
+    def show(self, kind: str, text: str, title: str = "") -> None:
+        """Put on the Now page what the terminal has just shown: an AI reply, the question the learner asked, a hint, a
+        notice. They stay (the last few) until the next question or step, so the page can be read without the terminal.
+        `kind`: you, ai, hint or notice. Outside a session (the free chat) they make up the page. Never raises."""
+        try:
+            if not (text or "").strip():
+                return
+            item = {"kind": kind, "title": title, "text": text.strip()}
+            if self.session is None:
+                self._chat = (getattr(self, "_chat", []) + [item])[-self.THREAD_KEEP:]
+                self._write_now()
+                return
+            s = self.session
+            s["thread"] = (s.get("thread") or []) + [item]
+            del s["thread"][:-self.THREAD_KEEP]
+            self._save()
+        except OSError:  # the Now page cannot be written: the terminal has it anyway
+            pass
+
+    def clear_chat(self) -> None:
+        self._chat = []
+
+    def _thread_blocks(self, items: list[dict]) -> list[str]:
+        return [views.callout(self.THREAD_KIND.get(t["kind"], "note"),
+                              t.get("title") or {"you": "You", "ai": "Tutor (AI)", "hint": "Hint"}.get(t["kind"], ""), t["text"])
+                for t in items]
 
     def _write_now(self) -> None:
         s = self.session
         if not s:
+            chat = getattr(self, "_chat", [])
+            if chat:
+                views.write_now(self.vault.root, f"Chat · {self.now():%H:%M}", self._thread_blocks(chat))
+                return
             views.write_now(self.vault.root, f"No session running · {self.now():%H:%M}",
                             ["Start the tutor to begin. Your last lessons are in the Lessons folder."])
             return
@@ -190,6 +229,7 @@ class Tutor(LessonMixin):
             blocks.append(views.callout("tip", act.get("title", ""), act.get("prompt") or act.get("say", "")))
         for n in sorted(s.get("presented", {}), key=int):
             blocks.append(views.question_block(self._view(int(n))))
+        blocks += self._thread_blocks(s.get("thread", []))  # what was asked and answered since: as in the terminal
         sub = s.get("subtopic")
         notes = views.notes_rel(self.packs, sub) if sub and (self.vault.root / views.notes_rel(self.packs, sub)).exists() else None
         title = self.packs.subtopics.get(sub, {}).get("title", "") if sub else ""
@@ -918,7 +958,7 @@ class Tutor(LessonMixin):
                                            for st in wk["steps"]][:3] or GENERIC_HINTS
         p["hint_level"] = min(p["hint_level"] + 1, len(hints))
         p["hinted"] = True
-        self._save()
+        self.show("hint", hints[p["hint_level"] - 1], f"Hint {p['hint_level']} for Q{n}")
         return {"n": n, "level": p["hint_level"], "hint": hints[p["hint_level"] - 1],
                 "say": "Give only this hint, in your words; do not add the next step."}
 

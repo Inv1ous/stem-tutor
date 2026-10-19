@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.5.11 — 2026-10-19
+
+Asked by the learner: what the terminal shows should also be on the Now page (with the answer-only view on, an AI reply or an
+explanation was only in the terminal), and the update logs were not showing the changes.
+
+- **Now mirrors the terminal.** What the learner asks the AI, everything it replies (an answer, an explanation again, an own-words
+  comment, a re-mark), hints and notices ("AI help is off", "No help on this one", a reply held back) are on the Now page, under
+  the question, in order (`Tutor.show`, kept for the last eight; cleared when the next question or step starts; a
+  session's `thread`). Outside a lesson the free chat is the Now page. Tests: `tests/test_session.py`,
+  `tests/app/test_now_mirror.py`.
+- **The update logs are up to date, and kept so.** The guide in the vault (`How It Works`, still on 2.4.3) now names this version,
+  has a "New in 2.5" note for every change since 2.4.3, and covers the Shortcuts course (new section 6c), answer-only
+  view, the folder picker, the Almanac's progress and live line, voice loudness and the new keys and settings.
+  `tests/test_release_notes.py` fails until CHANGELOG, STATUS, README, the plugin manifest and the guide all name the
+  app's version, so a release cannot leave one behind.
+
 ## 2.5.10 — 2026-10-18
 
 - **Voice loudness.** Settings (F2) has "Voice loudness (10 to 100 %)" and a **▸ Hear it** button: it says a short line at the
