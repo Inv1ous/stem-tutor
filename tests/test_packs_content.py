@@ -186,3 +186,39 @@ def test_characters_lost_in_a_pdf_copy_are_found():
     bad = {"items": [{"stem": "¨H = −197 kJ"}, {"stem": "a � b"}], "note": "fine ΔH"}
     assert len(content_checks.debris_problems(bad)) == 2
     assert content_checks.debris_problems({"note": "ΔH and Σ and ÷"}) == []
+
+
+def test_a_stacked_fraction_the_pdf_broke_is_repaired_and_found():
+    """Asked by the learner: an answer read `PbS + 1 ₂ ¹ O₂ → SO₂ + PbO` — the fraction 1½, its numerator and denominator
+    stacked, read in the wrong order with no slash, came out of the past-paper PDF like that."""
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "build"))
+    import content_checks as cc
+    assert cc.tidy_script_text("PbS + 1 ₂ ¹ O₂ → SO₂ + PbO") == "PbS + 1½O₂ → SO₂ + PbO"
+    assert cc.tidy_script_text("PbS + 2 ₂ ¹ O₂ → SO₃") == "PbS + 2½O₂ → SO₃"
+    assert cc.tidy_script_text("Na(s) + ₄ ¹ O₂(g) → ₂ ¹ Na₂O(s)") == "Na(s) + ¼O₂(g) → ½Na₂O(s)"
+    assert cc.tidy_script_text("a ₃ ² b") == "a ⅔ b" and cc.tidy_script_text("a ₇ ³ b") == "a 3/7 b"
+    assert cc.tidy_script_text("SO₄ ²⁻ and Cr₂O₇ ²⁻ and m₁u₁ ²") == "SO₄²⁻ and Cr₂O₇²⁻ and m₁u₁²"  # charges and squares: no stray space
+    for fine in ("H₂O", "VO₂²⁺", "10² m", "Mg²⁺ ions", "Na₂O ⁺", "1½O₂", "x₂ ¹"):
+        assert cc.tidy_script_text(fine) in (fine, "x₂¹") or fine == "x₂ ¹"
+    assert cc.stacked_problems({"options": {"C": "PbS + 1 ₂ ¹ O₂ → SO₂ + PbO"}}) and not cc.stacked_problems(
+        {"options": {"C": "PbS + 1½O₂ → SO₂ + PbO", "D": "SO₄²⁻"}})
+
+
+def test_no_pack_in_the_repo_has_a_broken_fraction_or_charge_space():
+    import glob
+    import json
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "build"))
+    import content_checks as cc
+    bad = []
+    for f in glob.glob(str(Path(__file__).resolve().parents[1] / "build/out/packs/*/*.json")):
+        try:
+            pack = json.loads(Path(f).read_text(encoding="utf8"))
+        except ValueError:
+            continue
+        if isinstance(pack, dict) and (found := cc.stacked_problems(pack)):
+            bad.append((Path(f).name, found[0]))
+    assert not bad, bad

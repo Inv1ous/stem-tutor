@@ -89,3 +89,32 @@ def debris_problems(pack: dict) -> list[str]:
         if m := DEBRIS.search(s):
             out.append(f"lost character {m.group(0)!r} (a PDF copy fault; write the real symbol): " + s[max(0, m.start() - 30):m.end() + 30].replace("\n", " "))
     return list(dict.fromkeys(out))[:6]
+
+
+# ---- stacked fractions and loose spaces that PDF extraction leaves in chemical and physical formulae ----
+_SUBS, _SUPS = "₀₁₂₃₄₅₆₇₈₉", "⁰¹²³⁴⁵⁶⁷⁸⁹"
+_FRACTION = re.compile(r"(?<![A-Za-z)\]₀-₉⁰¹²³⁴⁵⁶⁷⁸⁹])([₀-₉]+)\s?([⁰¹²³⁴⁵⁶⁷⁸⁹]+)(?![⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻])")
+_VULGAR = {(1, 2): "½", (1, 3): "⅓", (2, 3): "⅔", (1, 4): "¼", (3, 4): "¾", (1, 5): "⅕", (1, 6): "⅙", (1, 8): "⅛"}
+
+
+def _fraction(m: "re.Match[str]") -> str:
+    den, num = int(m.group(1).translate(str.maketrans(_SUBS, "0123456789"))), int(m.group(2).translate(str.maketrans(_SUPS, "0123456789")))
+    return _VULGAR.get((num, den), f"{num}/{den}")
+
+
+def tidy_script_text(text: str) -> str:
+    """Repair what PDF extraction does to a stacked fraction and to charges: `PbS + 1 ₂ ¹ O₂` (the numerator above the
+    denominator, read in the wrong order, no slash) becomes `PbS + 1½O₂`, and `SO₄ ²⁻` loses its stray space."""
+    text = re.sub(r"(?<=\d) (?=[₀-₉]+\s?[⁰¹²³⁴⁵⁶⁷⁸⁹]+(?![⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻]))", "", text)  # a mixed number: 1 ½
+    text = _FRACTION.sub(_fraction, text)
+    text = re.sub(r"(?<=[½⅓⅔¼¾⅕⅙⅛]) (?=[A-Z(])", "", text)  # 1½ O₂ -> 1½O₂, as 2O₂ is written
+    return re.sub(r"(?<=[₀-₉]) (?=[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻])", "", text)  # SO₄ ²⁻ -> SO₄²⁻ ; m₁u₁ ² -> m₁u₁²
+
+
+def stacked_problems(pack: dict) -> list[str]:
+    """Text that still has a stacked fraction or a stray space inside a formula (see `tidy_script_text`): rewrite it."""
+    out = []
+    for s in _strings(pack):
+        if tidy_script_text(s) != s:
+            out.append("a fraction or charge the PDF broke: " + s[:80].replace("\n", " "))
+    return list(dict.fromkeys(out))[:6]

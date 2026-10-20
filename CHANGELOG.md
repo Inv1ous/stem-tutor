@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.5.16 — 2026-10-20
+
+Asked by the learner: an answer read `PbS + 1 ₂ ¹ O₂ → SO₂ + PbO` — what is this? It is the fraction 1½ in the past-paper PDF
+(numerator stacked over denominator, no slash) that the question miner read as a subscript and a superscript, in the wrong order.
+
+- **Stacked fractions repaired** (`content_checks.tidy_script_text`): `1 ₂ ¹ O₂` → `1½O₂`, `₄ ¹ O₂` → `¼O₂`, `₂ ¹ Na₂O` → `½Na₂O`
+  (vulgar fractions where one exists, `n/d` otherwise). Fixed in 14 chapter packs (9701 2.3, 3.5, 3.7, 5.1, 6.1, 7.1, 7.2, 10.1, 11.4, 12.1,
+  14.2; 9702 3.3, 5.2, 9.1) and the four mined MCQ banks. Charges lost their stray space too: `SO₄ ²⁻` → `SO₄²⁻`,
+  `NH₄ ⁺` → `NH₄⁺`, `m₁u₁ ²` → `m₁u₁²`. Legitimate formulas (`H₂O`, `VO₂²⁺`, `10²`) are untouched.
+- **It cannot come back**: `content_checks.stacked_problems` now runs in the foundry gates and in the refine inherited-fault check, so a
+  chapter with such a fault is sent back for repair; the miner (`build/mine_mcq.py`) tidies its own output; a test fails if any pack in the
+  repo still has one.
+
 ## 2.5.15 — 2026-10-20
 
 Asked by the learner: the AI's explanation and "ask the tutor" should have all the context of the session (diagram past-paper

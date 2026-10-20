@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.16 (2026-10-20) — done
+
+Broken stacked fractions and charge spaces from the PDF (`PbS + 1 ₂ ¹ O₂`) repaired in 14 packs + MCQ banks; new gate keeps them out.
+
 ## v2.5.15 (2026-10-20) — done
 
 AI gets the whole question in focus (source, marks, answer) and its diagram as an image; per-mode model + thinking in Settings (marking, explaining, asking; default Haiku, no thinking).

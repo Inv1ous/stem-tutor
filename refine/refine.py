@@ -286,7 +286,7 @@ def _inherited(g: dict, sub: str, before: dict, pack: dict, note: Path) -> None:
     old_links = set(fd.link_problems(before.get("note", "")))
     figs = [x for x in fd.link_problems(text) if x not in old_links] + \
            [x for x in fd.diagram_problems(pack, graph, text) if not x.startswith("no diagram")] + \
-           library.figure_problems(text, sub) + content_checks.letter_problems(pack) + content_checks.latex_problems(pack) + content_checks.debris_problems(pack)
+           library.figure_problems(text, sub) + content_checks.letter_problems(pack) + content_checks.latex_problems(pack) + content_checks.debris_problems(pack) + content_checks.stacked_problems(pack)
     first = [x for x in g.get("first", []) if not x.startswith("figures ")] + [f"figures {x}"[:200] for x in figs[:6]]
     g.update(figures=len(figs), first=first)
     g["ok"] = not (g.get("validator") or g.get("lint") or g.get("syllabus") or g.get("glyphs") or figs)

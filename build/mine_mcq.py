@@ -15,6 +15,9 @@ from pathlib import Path
 
 import pymupdf
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from content_checks import tidy_script_text  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 PAPERS, WORK, ASSETS = ROOT / "sources/papers", ROOT / "build/work/mcq", ROOT / "build/out/assets/mcq"
 SYMBOL = {0xB4: "×", 0x6D: "μ", 0x6C: "λ", 0x71: "θ", 0x44: "Δ", 0x57: "Ω", 0x70: "π", 0xB0: "°", 0xB1: "±",
@@ -69,7 +72,7 @@ def _line_text(line) -> tuple[str, bool]:
                 ok &= set(core) <= SUBOK
                 t = core.translate(SUB)
         parts.append(t)
-    return re.sub(r"\s+", " ", "".join(parts)).strip(), ok
+    return tidy_script_text(re.sub(r"\s+", " ", "".join(parts)).strip()), ok  # a stacked fraction (½) is not left broken
 
 
 def _key(ms: Path) -> dict[int, str]:

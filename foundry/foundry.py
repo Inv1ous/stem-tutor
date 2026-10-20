@@ -276,7 +276,7 @@ def gates(sub: str) -> dict:
     import library
     import content_checks
     figures = (link_problems(text) + diagram_problems(pack, graph, text) + library.figure_problems(text, sub)) if note.is_file() else []
-    figures += content_checks.letter_problems(pack) + content_checks.latex_problems(pack) + content_checks.debris_problems(pack)
+    figures += content_checks.letter_problems(pack) + content_checks.latex_problems(pack) + content_checks.debris_problems(pack) + content_checks.stacked_problems(pack)
     figures += speech_problems(sub)
     glyph_list = glyph_problems(pack, text)
     out = {"ok": not problems and not findings and not gaps and not figures and not glyph_list, "validator": len(problems),
