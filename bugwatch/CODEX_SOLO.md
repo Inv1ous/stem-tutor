@@ -7,7 +7,7 @@ FIRST read: $R/bugwatch/README.md, $R/bugwatch/SCOPE.md, $R/bugwatch/FIXES.md, $
 HARD RULES (same as the live watch)
 1. Writable files: ONLY $R/bugwatch/codex/BUGS.md (bugs) and $R/bugwatch/codex/QOL.md (ideas), APPEND only, quoted heredoc (cat >> … <<'EOF'). Nothing else in the repo: no fixes, formatters, git add/commit/checkout/stash/reset, installs.
 2. Never touch the real vault "$R/../STEM Tutor". Scratch vault: bash "$R/bugwatch/sandbox.sh". Scratch scripts: /tmp/bugwatch-scratch/.
-3. Never start the foundry, refine, shortcuts generation, `claude` or `codex` processes: they spend the learner's allowances.
+3. Never start the foundry, refine, shortcuts generation, or the `claude` / `codex` CLIs: they spend the learner's allowances. (Spawning `bug_hunter` agents with your agent tool is allowed; see SUBAGENTS.)
 4. Tests only through bash "$R/bugwatch/check.sh" [pytest args].
 5. Format: BUGS.md exactly as its header says (python3 "$R/bugwatch/bugs.py" --check must pass). QOL.md as its header says. Grep both logs and FIXES.md before adding: no duplicates, nothing already FIXED/REJECTED/DEFERRED.
 
@@ -22,6 +22,13 @@ SWEEPS (newest code first; it has had the least eyes). After each, append one SW
  6. The guide build/out/notes/"How It Works.md" versus the code: every claim it makes about keys, settings, time, recall, shortcuts.
  7. Lead to chase: empty folders "$R/AI" and "$R/Workflow/stem-tutor" appeared at the repo root on Oct 1 10:25. Some script split the path ".../~~ AI Workflow/..." at its spaces. Find which one (unquoted variable, shlex, argv join) and log it.
  Then go round again, deeper, on whichever area had findings.
+
+SUBAGENTS (use them): you are the coordinator; hunters do the sweeps in parallel.
+ - Run the baseline yourself first and log it as the first SWEEP line.
+ - Spawn the custom agent `bug_hunter` (.codex/agents/bug-hunter.toml: gpt-6-sol, medium), at most 4 at once, one per sweep area below, each with a unique NAME (app-ai, almanac, engine, content, publish, guide, paths) and the area's full text. If `bug_hunter` is not offered, spawn a plain agent with model gpt-6-sol, reasoning medium, and give it the developer_instructions from that file.
+ - You alone append to BUGS.md and QOL.md: replace B-??? / Q-??? with the next free numbers, drop duplicates, add the hunter's SWEEP line, then run python3 "$R/bugwatch/bugs.py" --check.
+ - Reproduce every P0 and P1 yourself before logging it (you are the stronger model); downgrade or drop what does not hold. Re-solve yourself any answer key a hunter disputes.
+ - When a hunter returns, start the next area. After all seven, a second round on the areas that had findings, with fresh hunters told what round one found.
 
 QOL: while you sweep, log friction for a student in a hurry in QOL.md (too many keys for a common action, a slow screen, unclear text, a setting that is hard to find, AI calls that could be cheaper). Ideas only, small ones first.
 
