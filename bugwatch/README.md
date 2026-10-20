@@ -105,7 +105,7 @@ short summary at the bottom of `FIXES.md` (`- HH:MM SESSION-END · fixed N, reje
 
 ## Solo (overnight) watch: Codex spots now, Claude fixes later
 
-When Claude's allowance is spent, Codex runs alone. Paste into Codex (working folder: the repo):
+When Claude's allowance is spent, Codex runs alone. Start a NEW Codex thread whose folder is the repo (`stem-tutor`, not `~~ AI Workflow`: only then does Codex load `.codex/agents/bug-hunter.toml`), then paste:
 `Read bugwatch/CODEX_SOLO.md and follow it exactly.`
-It appends bugs to `codex/BUGS.md` and quality-of-life ideas to `codex/QOL.md`. After the reset, start Claude in the repo and say:
+Hunters post each bug (visual ones too, with a screenshot in `codex/shots/`) and each quality-of-life idea the moment they prove it, through `post.py`; watch them arrive with `python3 bugwatch/bugs.py --watch`. After the reset, start Claude in the repo and say:
 `Read bugwatch/README.md and bugwatch/SCOPE.md, then run the bug-fix loop on everything unseen in codex/BUGS.md; then triage codex/QOL.md.`

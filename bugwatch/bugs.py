@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Live board for the bug hunt: every finding in codex/BUGS.md with its latest status from FIXES.md.
+"""Live board for the bug hunt: every finding in codex/BUGS.md with its latest status from FIXES.md, then the
+quality-of-life ideas in codex/QOL.md and the latest sweep lines.
 
   python bugwatch/bugs.py              open findings (not FIXED/VERIFIED/REJECTED/DUPLICATE/DEFERRED)
   python bugwatch/bugs.py --all        everything
@@ -18,7 +19,7 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-BUGS, FIXES = HERE / "codex" / "BUGS.md", HERE / "FIXES.md"
+BUGS, FIXES, QOL = HERE / "codex" / "BUGS.md", HERE / "FIXES.md", HERE / "codex" / "QOL.md"
 HEAD = re.compile(r"^### (B-\d+) · (P[0-3]) · ([^·]+?) · (.+)$")
 LOG = re.compile(r"^- (\d\d:\d\d) (SWEEP|VERIFIED|REOPEN|REPLY)\b ?(B-\d+)?")
 FIX = re.compile(r"^- (\d\d:\d\d) (?:(B-\d+) (CONFIRMED|FIXED|REJECTED|DUPLICATE|DEFERRED|NEEDS-INFO)\b|LAST-READ (B-\d+))")
@@ -116,6 +117,13 @@ def render(args) -> str:
     out.append(" · ".join(f"{k.lower()} {v}" for k, v in sorted(counts.items())) or "no findings yet")
     if problems:
         out.append(f"{len(problems)} format problem(s): run with --check")
+    ideas = [(n, l) for n, l in lines_outside_fences(QOL) if re.match(r"### Q-\d+ · ", l)]
+    if ideas:
+        out += ["", f"QUALITY OF LIFE ({len(ideas)})"]
+        out += [f"{l[4:].split(' · ')[0]:<6} {' · '.join(l[4:].split(' · ')[1:])[:100]}" for _, l in ideas[-12:]]
+    sweeps = [l for _, l in lines_outside_fences(BUGS) if re.match(r"- \d\d:\d\d (SWEEP|REPLY)\b", l)]
+    if sweeps:
+        out += ["", "LATEST ACTIVITY"] + [l[2:][:118] for l in sweeps[-4:]]
     return "\n".join(out)
 
 

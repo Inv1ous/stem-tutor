@@ -5,7 +5,7 @@ R="/Users/sora/Miscellaneous/02 Education/~~ AI Workflow/stem-tutor"   (define R
 FIRST read: $R/bugwatch/README.md, $R/bugwatch/SCOPE.md, $R/bugwatch/FIXES.md, $R/bugwatch/codex/BUGS.md, $R/bugwatch/codex/QOL.md, then the top of $R/CHANGELOG.md (2.4.x to 2.5.16: what changed since the last watch). Baseline: bash "$R/bugwatch/check.sh" tests -q --ignore=tests/test_tts.py --deselect tests/test_speech.py   (about 5 minutes).
 
 HARD RULES (same as the live watch)
-1. Writable files: ONLY $R/bugwatch/codex/BUGS.md (bugs) and $R/bugwatch/codex/QOL.md (ideas), APPEND only, quoted heredoc (cat >> … <<'EOF'). Nothing else in the repo: no fixes, formatters, git add/commit/checkout/stash/reset, installs.
+1. Post ONLY through  python3 "$R/bugwatch/post.py" bug|qol < entry.md  and  python3 "$R/bugwatch/post.py" line "SWEEP · …"  (it numbers and appends safely while hunters post at the same time; never append to the logs by hand). Screenshots go in $R/bugwatch/codex/shots/. Nothing else in the repo: no fixes, formatters, git add/commit/checkout/stash/reset, installs.
 2. Never touch the real vault "$R/../STEM Tutor". Scratch vault: bash "$R/bugwatch/sandbox.sh". Scratch scripts: /tmp/bugwatch-scratch/.
 3. Never start the foundry, refine, shortcuts generation, or the `claude` / `codex` CLIs: they spend the learner's allowances. (Spawning `bug_hunter` agents with your agent tool is allowed; see SUBAGENTS.)
 4. Tests only through bash "$R/bugwatch/check.sh" [pytest args].
@@ -20,15 +20,16 @@ SWEEPS (newest code first; it has had the least eyes). After each, append one SW
  4. Content as the learner sees it: run build/content_checks.py checks over build/out/packs/*/*.json and look for faults no gate catches (answer key vs explanation disagreeing, an MCQ whose right option is not in options, units/sig-fig mismatches, unspeakable speech lines, broken $LaTeX$, spaced formulas like "Cl ₂" / "Cl O₃⁻" — count those, one P3 entry). For answer keys: re-solve at most 30 past-paper MCQs blind, chosen across chapters; log only disagreements you are sure of, with your working.
  5. Publish pipeline: build/publish.py (versions, held packs, pruning, note links), build/mine_mcq.py.
  6. The guide build/out/notes/"How It Works.md" versus the code: every claim it makes about keys, settings, time, recall, shortcuts.
- 7. Lead to chase: empty folders "$R/AI" and "$R/Workflow/stem-tutor" appeared at the repo root on Oct 1 10:25. Some script split the path ".../~~ AI Workflow/..." at its spaces. Find which one (unquoted variable, shlex, argv join) and log it.
+ 7. VISUAL: drive the app in the sandbox with a Textual pilot (see tests/app/test_tui.py; fake Claude in tests/app/fake_claude.py) at 80x24, 100x30 and 140x46, through every screen: home and its side box, menu, Today's plan, a lesson card, a question before and after marking, answer-only view, ask-the-tutor pop-up, topic pickers (folders, search), settings (model, thinking, voice loudness), Shortcuts course and its recall, Challenge, session summary. Save each as an SVG in $R/bugwatch/codex/shots/ and read it for text cut off, labels wrapping, misaligned or overlapping boxes, empty panels, unreadable colours, a resize that leaves junk. Also open the Obsidian notes the app writes in the sandbox vault (Now.md, Today, Home, a chapter note): broken Markdown, raw $LaTeX$, callouts that do not render, links to missing notes. Post each as "[visual]".
+ 8. Lead to chase: empty folders "$R/AI" and "$R/Workflow/stem-tutor" appeared at the repo root on Oct 1 10:25. Some script split the path ".../~~ AI Workflow/..." at its spaces. Find which one (unquoted variable, shlex, argv join) and log it.
  Then go round again, deeper, on whichever area had findings.
 
 SUBAGENTS (use them): you are the coordinator; hunters do the sweeps in parallel.
- - Run the baseline yourself first and log it as the first SWEEP line.
- - Spawn the custom agent `bug_hunter` (.codex/agents/bug-hunter.toml: gpt-6-sol, medium), at most 4 at once, one per sweep area below, each with a unique NAME (app-ai, almanac, engine, content, publish, guide, paths) and the area's full text. If `bug_hunter` is not offered, spawn a plain agent with model gpt-6-sol, reasoning medium, and give it the developer_instructions from that file.
- - You alone append to BUGS.md and QOL.md: replace B-??? / Q-??? with the next free numbers, drop duplicates, add the hunter's SWEEP line, then run python3 "$R/bugwatch/bugs.py" --check.
- - Reproduce every P0 and P1 yourself before logging it (you are the stronger model); downgrade or drop what does not hold. Re-solve yourself any answer key a hunter disputes.
- - When a hunter returns, start the next area. After all seven, a second round on the areas that had findings, with fresh hunters told what round one found.
+ - Start the baseline in the background and spawn the first hunters straight away (do not wait for it); post its SWEEP line when it ends.
+ - Spawn the custom agent `bug_hunter` (.codex/agents/bug-hunter.toml: gpt-6-sol, medium), at most 4 at once, one per sweep area below, each with a unique NAME (app-ai, almanac, engine, content, publish, guide, visual, paths) and the area's full text. If `bug_hunter` is not offered, spawn a plain agent with model gpt-6-sol, reasoning medium, and give it the developer_instructions from that file.
+ - Hunters post each finding themselves the moment it is proved (post.py), so the learner sees them live on  python3 bugwatch/bugs.py --watch . Find your own bugs too while they work, posting the same way.
+ - Re-check every P0 and P1 a hunter posted (you are the stronger model) and post the verdict:  post.py line "REPLY B-041 · coordinator: reproduced" or "REPLY B-041 · coordinator: could not reproduce, because …; really P2". Re-solve yourself any answer key a hunter disputes. Every 30 minutes run python3 "$R/bugwatch/bugs.py" --check.
+ - When a hunter returns, start the next area. After all eight, a second round on the areas that had findings, with fresh hunters told what round one found.
 
 QOL: while you sweep, log friction for a student in a hurry in QOL.md (too many keys for a common action, a slow screen, unclear text, a setting that is hard to find, AI calls that could be cheaper). Ideas only, small ones first.
 
