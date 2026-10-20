@@ -65,6 +65,7 @@ MarkdownH1 { content-align-horizontal: $markdown-h1-align; }
 #settings #settings-hint { content-align: left middle; height: 100%; padding: 0 0 0 2; }
 #settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
+#settings .ai-row > Select { width: 34; }
 #glance { display: none; height: 1; margin-top: 1; padding: 0 4; text-wrap: nowrap; text-overflow: ellipsis; }
 #settings #save-row { dock: bottom; }
 SettingsScreen.flat #settings Switch { padding: 0; margin-right: 3; background: transparent; }
@@ -165,6 +166,7 @@ class TutorApp(App):
                         severity="warning", timeout=15)
         self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json", speech=self.speech_wanted())
+        self.ai.model, self.ai.think = self.settings.ai_for("ask")  # the conversation started ahead is the one asked most
         import threading
 
         def warm() -> None:  # load the maths library in the background so the first algebra answer isn't slow

@@ -1077,7 +1077,7 @@ class SessionScreen(ReadAloud, Screen):
                 self.respond({"text": data["text"]})
                 if self.app.settings.own_words_feedback and self.ai_ok():
                     self.panel(ContinuePanel("The tutor is reading your explanation…", buttons=[]))
-                    self.stream(prompts.own_words(self.tutor, self.kc, data["text"]), then_continue=True)
+                    self.stream(prompts.own_words(self.tutor, self.kc, data["text"]), then_continue=True, mode="explain")
                     return
             else:
                 self.respond({})
@@ -1103,7 +1103,7 @@ class SessionScreen(ReadAloud, Screen):
             self.action_ask()
         elif data.get("button") == "why":
             self.stream(prompts.ask(self.tutor, "Explain clearly why the answer to the question just marked is right, "
-                                    "and what the common wrong answer gets wrong.", self.kc))
+                                    "and what the common wrong answer gets wrong.", self.kc), mode="explain")
         elif data.get("button") == "remark":
             self.remark()
         elif data.get("button") in ("next", "continue"):
@@ -1170,8 +1170,9 @@ class SessionScreen(ReadAloud, Screen):
         points = pending.get("rubric", [])
         if self.ai_ok():
             self.panel(ContinuePanel("Checking your wording against the mark points…", buttons=[]))
+            model, think = self.app.settings.ai_for("mark")
             res, _ = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, data.get("your", "")),
-                                                schema=prompts.JUDGE, **spoken_too(self.app))
+                                                schema=prompts.JUDGE, model=model, think=think, **spoken_too(self.app))
             if res and res.get("points"):
                 met = sum(1 for p in res["points"] if p.get("met"))
                 score = met / max(1, len(points))
@@ -1228,8 +1229,9 @@ class SessionScreen(ReadAloud, Screen):
     async def ai_check_long(self, data: dict) -> None:
         self.panel(ContinuePanel("The AI examiner is marking your answer…", buttons=[]))
         points = [f"{p.get('mark', '')} {p.get('point', '')}" for p in self.scheme]
+        model, think = self.app.settings.ai_for("mark")
         res, r = await self.app.ai.one_shot(prompts.judge(self.view.get("stem", ""), points, self.long_text),
-                                            schema=prompts.JUDGE, **spoken_too(self.app))
+                                            schema=prompts.JUDGE, model=model, think=think, **spoken_too(self.app))
         if not res:  # give the tick list back, with your ticks, so you can still mark it yourself
             self.say(cards.card("hint", "AI check unavailable", r.message or "Mark it yourself."))
             self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s to submit.", data["ticked"],
@@ -1278,7 +1280,7 @@ class SessionScreen(ReadAloud, Screen):
     def ai_ok(self) -> bool:
         return self.app.settings.ai and self.app.ai.available
 
-    def stream(self, prompt: str, then_continue: bool = False) -> None:
+    def stream(self, prompt: str, then_continue: bool = False, mode: str = "ask") -> None:
         if not self.ai_ok():
             a = self.app.ai
             msg = a.message or ("AI is switched off in Settings." if not self.app.settings.ai else "AI is unavailable.")
@@ -1293,16 +1295,17 @@ class SessionScreen(ReadAloud, Screen):
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
             return
-        self._stream(prompt, then_continue)
+        self._stream(prompt, then_continue, mode)
 
     @work(exclusive=True, group="ai")
-    async def _stream(self, prompt: str, then_continue: bool) -> None:
+    async def _stream(self, prompt: str, then_continue: bool, mode: str = "ask") -> None:
         a = self.app.ai
         w = self.say(cards.ai("…"))
         buf = ""
         # guard every open question (normally just the one on screen; a session begun in the chat may hold more)
         keys = [prompts.key_of(self.tutor, int(n)) for n in (self.tutor.session or {}).get("presented", {})]
-        async for chunk in a.stream(prompt):
+        model, think = self.app.settings.ai_for(mode)  # chosen in Settings for this kind of help
+        async for chunk in a.stream(prompt, image=prompts.focus_image(self.tutor), model=model, think=think):
             buf += chunk
             if not keys:
                 w.update(cards.ai(buf))
@@ -1363,7 +1366,7 @@ class SessionScreen(ReadAloud, Screen):
     def action_explain(self) -> None:
         if self.kc:
             self.tutor.show("you", "Explain this idea again, a different way.", "You asked")
-            self.stream(prompts.explain_again(self.tutor, self.kc))
+            self.stream(prompts.explain_again(self.tutor, self.kc), mode="explain")
 
     def action_hint(self) -> None:
         if not self.view:
@@ -1531,7 +1534,8 @@ class ChatScreen(ReadAloud, Screen):
         w = Static(cards.ai("…"), classes="entry")
         log.mount(w)
         buf = ""
-        async for chunk in a.stream(prompts.ask(self.app.tutor, q, None)):  # with the last questions answered
+        model, think = self.app.settings.ai_for("ask")
+        async for chunk in a.stream(prompts.ask(self.app.tutor, q, None), model=model, think=think):  # with the last questions answered
             buf += chunk
             w.update(cards.ai(buf))
             log.scroll_end(animate=False)
@@ -1782,6 +1786,10 @@ The full plain-English guide is **How It Works** in Obsidian (press **o** now).
         mac.open_in_obsidian(self.app.vault, "How It Works", background=False)
 
 
+MODEL_CHOICES = [("Model: Haiku (fast, least usage)", "haiku"), ("Model: Sonnet (clearer, ~3x)", "sonnet"),
+                 ("Model: Opus (strongest, ~5x)", "opus")]
+
+
 class SettingsScreen(ModalScreen):
     BINDINGS = [Binding("escape", "dismiss(None)", "Close")]
 
@@ -1796,9 +1804,15 @@ class SettingsScreen(ModalScreen):
                 with Horizontal(classes="row"):
                     yield Switch(value=getattr(s, key), id=key)
                     yield Static(label)
-            with Horizontal(classes="row"):
-                yield Select([("Model: Haiku (cheapest, fast)", "haiku"), ("Model: Sonnet (clearer, ~3x usage)", "sonnet")],
-                             value=s.model, id="model", allow_blank=False, compact=True)
+            yield Static("AI for each kind of help: the model, and whether it thinks first. Haiku without thinking "
+                         "is fastest and uses least of your limit; Sonnet about 3x, Opus about 5x; thinking first is "
+                         "slower and can use several times as much again.", classes="hint")
+            for mode, label in (("mark", "Marking answers"), ("explain", "Explaining"), ("ask", "Ask the tutor")):
+                model, think = s.ai_for(mode)
+                with Horizontal(classes="row ai-row"):
+                    yield Switch(value=think, id=f"ai_{mode}_think")
+                    yield Static(f"{label}: think first")
+                    yield Select(MODEL_CHOICES, value=model, id=f"ai_{mode}_model", allow_blank=False, compact=True)
             with Horizontal(classes="row"):
                 yield Select([(f"Look: {look.LABELS[name]}", name) for name in config.THEMES],
                              value=s.theme, id="theme", allow_blank=False, compact=True)
@@ -1872,7 +1886,10 @@ class SettingsScreen(ModalScreen):
         if (volume := self._typed_volume()) is not None:
             s.tts_volume = round(volume, 2)  # blank or not a number: the loudness you had stays
         old_model, typed = s.model, self.query_one("#minutes", Input).value.strip()
-        s.model = str(self.query_one("#model", Select).value)
+        for mode in config.AI_MODES:
+            setattr(s, f"ai_{mode}_model", str(self.query_one(f"#ai_{mode}_model", Select).value))
+            setattr(s, f"ai_{mode}_think", self.query_one(f"#ai_{mode}_think", Switch).value)
+        s.model = s.ai_explain_model  # the general choice, for what has no row of its own (teaching cards, the profile summary)
         old_theme, s.theme = s.theme, str(self.query_one("#theme", Select).value)
         try:
             s.minutes = min(180, max(5, int(typed)))
@@ -1882,7 +1899,7 @@ class SettingsScreen(ModalScreen):
             self.app.notify(f"Session length set to {s.minutes} minutes"
                             + (" (5 to 180)." if str(s.minutes) != typed else "."), timeout=5)
         s.save(self.app.vault)
-        self.app.ai.model = s.model
+        self.app.ai.model, self.app.ai.think = s.ai_for("ask")  # the conversation started ahead is the one asked most
         speech = self.app.speech_wanted()
         if s.tts_enabled and not old_speech and not tts.available(self.app.vault):
             self.app.notify(tts.SETUP_HINT, timeout=8)

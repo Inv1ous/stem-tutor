@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.5.15 — 2026-10-20
+
+Asked by the learner: the AI's explanation and "ask the tutor" should have all the context of the session (diagram past-paper
+questions had to be copied out to get a sensible answer); and a choice of model and thinking, for marking, explaining and asking,
+kept cheap on a limited weekly allowance.
+
+- **The question in front of the learner, in full** (`prompts.context`, `focus`, `_source`): the open question's whole stem (up to
+  1,500 characters, was 400), its options, its source (past paper and question), its marks and that it has a diagram; once
+  marked, the same in full with the answer given, the verdict, the right answer and the explanation ("Just marked, on screen
+  now"); and the session's subtopic.
+- **The diagram itself** (`prompts.focus_image`, `Claude.stream(image=…)`): the question's picture goes to the AI as an image
+  (checked on the real CLI: Haiku read a wave-direction diagram's options correctly). Only when there is one and the learner
+  asks, and once per conversation (it stays in the conversation's memory), so a follow-up costs nothing extra.
+- **Model and thinking per kind of help** (Settings; `Settings.ai_for`): marking (the AI examiner), explaining (explain again,
+  why it is right, own-words comments, Challenge explanations) and asking (ctrl+t, talking it through, the chat), each with Haiku,
+  Sonnet or Opus and a "think first" switch. All default to Haiku without thinking (the cheapest). Each (model, thinking) keeps
+  its own conversation (`Claude.procs`), so switching between asking and explaining does not restart either. A re-mark keeps
+  Sonnet with thinking. A hand-edited settings file with an unknown model falls back to the general one.
+  Tests: `tests/app/test_ai_context.py`, `tests/app/test_ai.py`.
+
 ## 2.5.14 — 2026-10-19
 
 Asked by the learner: a true time and a session time for every study session, and the time studied for the day in the menu.

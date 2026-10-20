@@ -1,6 +1,8 @@
 """Small, grounded prompts. Each carries a compact CONTEXT packet (~300 tokens) instead of whole notes."""
 from __future__ import annotations
 
+from pathlib import Path
+
 from tutorlib import lesson
 from tutorlib.session import _display_answer
 
@@ -32,18 +34,56 @@ def _on_screen(act: dict) -> str | None:
     return None
 
 
-def _marked(q: dict) -> str:
+def _source(item: dict) -> str:
+    """"(past paper: CAIE 9702 · Jun 2024 · P11 · Q28; 1 mark; has a diagram)" — what kind of question it is."""
+    bits = []
+    src = item.get("source")
+    ref = src.get("ref") if isinstance(src, dict) else src if isinstance(src, str) else None
+    if ref:
+        bits.append(f"past paper: {ref}")
+    if item.get("marks"):
+        bits.append(f"{item['marks']} mark{'s' if item['marks'] != 1 else ''}")
+    if item.get("image"):
+        bits.append("has a diagram (the image is attached)")
+    return f" ({'; '.join(bits)})" if bits else ""
+
+
+def _marked(q: dict, full: bool = False) -> str:
     verdict = ("correct" if q.get("correct") else
                f"right value but a mark lost ({q['detail']})" if q.get("partial") and q.get("detail") else "wrong")
-    return (f"{_clip(q.get('stem', ''), 300)}{_options(q.get('options'))} They answered: "
-            f"{_clip(str(q.get('response')), 200)} ({verdict}); the answer is {q.get('answer')}. "
-            f"{_clip(q.get('explanation') or '', 300)}").strip()
+    return (f"{_clip(q.get('stem', ''), 1500 if full else 300)}{_options(q.get('options'))}{_source(q)} They answered: "
+            f"{_clip(str(q.get('response')), 400 if full else 200)} ({verdict}); the answer is {q.get('answer')}. "
+            f"{_clip(q.get('explanation') or '', 800 if full else 300)}").strip()
+
+
+def focus(tutor) -> dict | None:
+    """The question the learner is looking at: the open one on screen (the last, if several), or else the one just marked."""
+    s = tutor.session or {}
+    if s.get("presented"):
+        n, p = max(s["presented"].items(), key=lambda x: int(x[0]))
+        return {"n": int(n), "open": True, **p["inst"], "source": (p["inst"].get("source") or {}).get("ref")
+                if isinstance(p["inst"].get("source"), dict) else p["inst"].get("source")}
+    if s.get("recent"):
+        return {**s["recent"][-1], "open": False}
+    return None
+
+
+def focus_image(tutor) -> "Path | None":
+    """The diagram of the question in focus, as a file the AI can be shown (a past-paper diagram question is unanswerable
+    from its text alone: the labels come out of the PDF as loose words)."""
+    q = focus(tutor)
+    rel = (q or {}).get("image")
+    if not rel:
+        return None
+    path = tutor.vault.root / rel
+    return path if path.is_file() else None
 
 
 def context(tutor, kc: str | None = None) -> str:
-    """What the AI is told: the syllabus point, the step on screen, each open question (answers withheld) and the
-    last few questions marked, so "why was that wrong?" or "what is the full answer here?" can be answered. With no
-    session running (the menu's chat), the last questions answered stand in."""
+    """What the AI is told: the syllabus point, the step on screen, the question in front of the learner in full (open ones
+    with their answers withheld; with its source, marks and diagram), and the last few questions marked, so "why was
+    that wrong?", "what does the graph show?" or "what is the full answer here?" can be answered without the learner
+    having to copy the question out. With no session running (the menu's chat), the last questions answered stand in."""
     s = tutor.session or {}
     lines = ["CONTEXT"]
     if kc and kc in tutor.packs.kcs:
@@ -51,14 +91,20 @@ def context(tutor, kc: str | None = None) -> str:
         card = lesson.teach_card(tutor, kc)
         lines += [f"Syllabus point ({k['spec']} {kc}): {k['title']} — {k['statement']}",
                   f"What they were taught: {_clip(card.get('establish', ''), 700)}"]
+    if sub := s.get("subtopic"):
+        lines.append(f"Session: {s.get('mode', '')} on {sub} {tutor.packs.subtopics.get(sub, {}).get('title', '')}".strip())
     if (step := _on_screen(s.get("now") or {})):
         lines.append(step)
     for n, p in sorted(s.get("presented", {}).items(), key=lambda x: int(x[0])):
         inst = p["inst"]
-        lines.append(f"OPEN question {n} (do not reveal its answer): {_clip(inst.get('stem', ''), 400)}"
-                     f"{_options(inst.get('options'))}")
+        lines.append(f"OPEN question {n}, on screen now (do not reveal its answer): {_clip(inst.get('stem', ''), 1500)}"
+                     f"{_options(inst.get('options'))}{_source(inst)}")
     if tutor.session:
-        lines += [f"Marked earlier in this session, Q{q['n']}: {_marked(q)}" for q in s.get("recent", [])[-3:]]
+        recent = s.get("recent", [])[-3:]
+        for i, q in enumerate(recent):
+            last = i == len(recent) - 1 and not s.get("presented")
+            lines.append(f"{'Just marked, on screen now' if last else 'Marked earlier in this session'}, Q{q['n']}: "
+                         f"{_marked(q, full=last)}")
     else:
         from tutorlib import model, report
         for e in [e for e in tutor.vault.events() if e["type"] == "answer"][-3:]:

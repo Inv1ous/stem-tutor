@@ -226,7 +226,7 @@ def test_the_tutor_is_told_what_you_answered_and_why_a_mark_was_lost(tmp_path):
     n = t._present(item, block="practice", phase=None)["n"]
     t.answer(f"{n} = 4.0 ~3")
     told = prompts.context(t)
-    assert f"Marked earlier in this session, Q{n}: " in told
+    assert f"Just marked, on screen now, Q{n}: " in told  # the question just marked is the one in focus, given in full
     assert "They answered: 4.0 (right value but a mark lost (missing unit)); the answer is 4.00 m s-2." in told
     m = t._present(item, block="practice", phase=None)["n"]
     t.answer(f"{m}?")
@@ -420,3 +420,52 @@ def test_the_conversation_does_not_think_and_its_next_process_is_started_ahead(t
 def test_first_json_reads_latex_written_with_one_backslash():
     got = ai.first_json('```json\n{"why": "uses $\\theta$ and \\frac{1}{2}, and $\\,$"}\n```')
     assert got == {"why": "uses $\\theta$ and \\frac{1}{2}, and $\\,$"}
+
+
+# ---------------- context and per-mode choices (asked by the learner: the AI lacked the question, above all a diagram) ------
+def _msgs(tmp_path):
+    return [json.loads(line) for line in (tmp_path / "argv.log.msgs").read_text().splitlines()]
+
+
+def test_a_diagram_goes_to_the_conversation_once_and_is_remembered_after(tmp_path, monkeypatch):
+    c = make(tmp_path, monkeypatch)
+    img = tmp_path / "q28.png"
+    img.write_bytes(b"\x89PNG\r\n\x1a\nfake")
+
+    async def go():
+        for prompt in ("what does point 2 do?", "and point 3?"):
+            async for _ in c.stream(prompt, image=img):
+                pass
+        await c.close()
+    asyncio.run(go())
+    assert _msgs(tmp_path) == [["image", "text"], "text"]  # the image once; the conversation keeps it
+
+
+def test_each_choice_of_model_and_thinking_has_its_own_conversation(tmp_path, monkeypatch):
+    c = make(tmp_path, monkeypatch)
+
+    async def go():
+        async for _ in c.stream("explain", model="sonnet", think=True):
+            pass
+        async for _ in c.stream("ask", model="haiku", think=False):
+            pass
+        async for _ in c.stream("explain again", model="sonnet", think=True):
+            pass
+        n = len(c.procs)
+        await c.close()
+        return n
+    assert asyncio.run(go()) == 2  # two conversations kept, neither restarted when the other is used
+    argv = _argvs(tmp_path)
+    assert len(argv) == 2
+    sonnet = next(a for a in argv if a[a.index("--model") + 1] == "sonnet")
+    haiku = next(a for a in argv if a[a.index("--model") + 1] == "haiku")
+    assert sonnet[sonnet.index("--settings") + 1] == json.dumps({"alwaysThinkingEnabled": True})
+    assert haiku[haiku.index("--settings") + 1] == NO_THINK
+
+
+def test_marking_can_think_when_chosen(tmp_path, monkeypatch):
+    c = make(tmp_path, monkeypatch)
+    schema = {"type": "object", "properties": {"feedback": {"type": "string"}}, "required": ["feedback"]}
+    asyncio.run(c.one_shot("mark this", schema=schema, model="opus", think=True))
+    argv = _argvs(tmp_path)[-1]
+    assert argv[argv.index("--model") + 1] == "opus" and json.dumps({"alwaysThinkingEnabled": True}) in argv

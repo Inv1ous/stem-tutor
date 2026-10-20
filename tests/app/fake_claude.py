@@ -39,6 +39,11 @@ for line in sys.stdin:
     msg = json.loads(line)
     turn += 1
     text = msg["message"]["content"]
+    if os.environ.get("FAKE_CLAUDE_LOG"):  # what each message carried: text, or an image and text
+        with open(os.environ["FAKE_CLAUDE_LOG"] + ".msgs", "a") as f:
+            f.write(json.dumps([b.get("type") for b in text] if isinstance(text, list) else "text") + "\n")
+    if isinstance(text, list):  # an image and the question: the question is the text block
+        text = next(b["text"] for b in text if b.get("type") == "text")
     if mode == "login":
         out({"type": "result", "is_error": True, "result": "Failed to authenticate: OAuth session expired and could not be refreshed"}); continue
     if mode == "limit":

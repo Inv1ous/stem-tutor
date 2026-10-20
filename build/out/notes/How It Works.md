@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.5.14_
+_Version 2.5.15_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -10,6 +10,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
 > [!example] New in 2.5 (the latest changes)
+> - **The AI sees the question you are on, diagram included** (2.5.15): asking the tutor, explaining again and "why is that right?" now send the whole question in front of you (not just its first lines), where it comes from (the past paper), its marks, what you answered and the right answer once marked, and the **diagram itself** as a picture, so you no longer have to copy a diagram question out. The picture goes once per conversation, so asking again costs no more. **Settings** now chooses the **model** (Haiku, Sonnet or Opus) and whether it **thinks first**, separately for marking, explaining and asking; everything starts on Haiku without thinking, the cheapest.
 > - **True time and session time, and time studied today** (2.5.14): the bar in a lesson shows **◷ true** time (the wall clock from when the session began: it keeps running while the terminal is closed) and **◔ session** time (what you really spent on the screen: it stops while the terminal is closed, and after three minutes with no key). The summary, the lesson record and the session note in Obsidian show both. The menu has a line **Studied today** (all study screens added up, with how many sessions), the home side box and, in a short window, the one-line summary show it too, and so does **Today**.
 > - **Every list of topics is grouped and in order** (2.5.13): Chemistry, Physics and Maths, each under its chapters (Maths: modules) with the subtopics in order (1.2 before 1.10) and a total for each subject. This applies to the home screen's *Your topics*, *My progress*, the Challenge chapter list (which also searches and ticks all shown), and in Obsidian the **Home** page (a table per subject, a bold row per chapter), the **Mistakes** journal's order and *Content not built yet* on **Today**.
 > - **Much faster AI, using far less of your limit** (2.5.12): the AI no longer "thinks" at length before marking or answering. Checking a long answer went from about 55 seconds to about 7 (same verdict), a short mark from about 9 seconds to under 3, and each uses about a tenth of the allowance it did. The conversation's process is started ahead of time, so a new idea doesn't wait for it. Challenge questions and re-marks still think first, where it matters.
@@ -482,7 +483,7 @@ When you are **not** typing, the single letters **t e h o** do the same as ctrl+
 | **AI tutor** | Turn AI help on or off completely. |
 | **AI comments on your own words** | Short feedback on your "in your own words" answers (on by default). |
 | **Show Now in Obsidian** | Whether Obsidian jumps to the Now page when a session starts. |
-| **Model** | **Haiku** (default: fast and cheapest) or **Sonnet** (clearer explanations, but uses about three times more of your Claude limit). |
+| **AI: marking answers / explaining / ask the tutor** | For each kind of help: the **model** — **Haiku** (default: fast, least of your limit), **Sonnet** (clearer, about three times the usage) or **Opus** (strongest, about five times) — and a **think first** switch (off by default: thinking first is slower and can use several times as much again). Marking is the AI examiner for written and long answers; explaining covers *explain another way*, *why is that right?*, comments on your own words and Challenge explanations; asking covers ctrl+t, talking it through and the chat. A re-mark always uses Sonnet and thinks, and Challenge questions are written with the model you choose there. |
 | **Session length** | How long a session aims to be, 40 minutes by default. |
 | **Answer-only view** | Hide the question in the terminal and show just the answer box (ctrl+k does the same, any time). |
 | **Read aloud, Voice, Reading speed** | Turn reading aloud on, choose the voice and its speed (set up once with `tutor tts setup`). |

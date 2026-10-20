@@ -148,8 +148,9 @@ def test_settings_label_the_model_show_an_editable_minutes_box_and_say_how_to_ap
         app.action_settings()
         await pilot.pause()
         scr = app.screen
-        model = scr.query_one("#model", Select)
-        assert all(label.startswith("Model: ") for label, _ in model._options)
+        for mode in ("mark", "explain", "ask"):  # a model for each kind of help, each labelled as one
+            model = scr.query_one(f"#ai_{mode}_model", Select)
+            assert all(label.startswith("Model: ") for label, _ in model._options)
         box, minutes = scr.query_one("#settings"), scr.query_one("#minutes")
         assert minutes.styles.background != box.styles.background  # a box to type in, not loose text
         scr.query_one("#save").focus()

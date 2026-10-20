@@ -26,6 +26,8 @@ LEAN = ["-p", "--safe-mode", "--disable-slash-commands", "--strict-mcp-config", 
 # most of the wait (measured: ~700 output tokens and 7-9 s for a 50-token reply; ~55 tokens and 1.3 s without) and most of
 # the usage. Writing a challenge question or a re-mark still thinks (`think=True`).
 NO_THINKING = ["--settings", json.dumps({"alwaysThinkingEnabled": False})]
+THINKING = ["--settings", json.dumps({"alwaysThinkingEnabled": True})]  # chosen in Settings: slower, far more usage
+MEDIA = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".gif": "image/gif", ".webp": "image/webp"}
 
 SYSTEM = """You are a patient, exact A-Level tutor (CAIE 9701 Chemistry, CAIE 9702 Physics, Edexcel IAL Mathematics) \
 inside a terminal study app. The student is 17, studying in Hong Kong. Write British English.
@@ -135,9 +137,13 @@ class Claude:
     def __init__(self, cwd: Path, model: str = "haiku", system: str = SYSTEM, binary: str | None = None,
                  usage_file: Path | None = None, speech: bool = False):
         self.cwd, self.model, self.system = Path(cwd), model, system
+        self.think = False  # the default conversation's thinking (Settings chooses per mode: marking, explaining, asking)
         self.speech = speech  # read aloud is on: replies end with a spoken version (costs nothing when off)
         self.binary = binary or os.environ.get("STEM_TUTOR_CLAUDE") or shutil.which("claude") or "claude"
-        self.proc: asyncio.subprocess.Process | None = None
+        # one conversation per (model, thinking): explaining and asking can use different ones without restarting
+        self.key: tuple[str, bool] = (model, False)
+        self.procs: dict[tuple[str, bool], asyncio.subprocess.Process] = {}
+        self._shown: dict[tuple[str, bool], set[str]] = {}  # images a conversation has already been shown
         self.status = "ready" if shutil.which(self.binary) or Path(self.binary).exists() else "off"
         self.message = "" if self.status != "off" else "Claude Code is not installed, so AI help is off."
         self.session = Usage()
@@ -196,10 +202,25 @@ class Claude:
         self.blocked_until = until
 
     # ---------------- process ----------------
+    @property
+    def proc(self) -> asyncio.subprocess.Process | None:
+        """The conversation in use now (the model and thinking last asked for)."""
+        return self.procs.get(self.key)
+
+    @proc.setter
+    def proc(self, value) -> None:
+        if value is None:
+            self.procs.pop(self.key, None)
+            self._shown.pop(self.key, None)
+        else:
+            self.procs[self.key] = value
+
     async def _start(self) -> None:
         env = {**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"}
+        model, think = self.key
+        self._shown[self.key] = set()
         self.proc = await asyncio.create_subprocess_exec(
-            self.binary, *LEAN, *NO_THINKING, "--model", self.model,
+            self.binary, *LEAN, *(THINKING if think else NO_THINKING), "--model", model,
             "--system-prompt", self.system + (SPEECH_RULE if self.speech else ""),
             "--input-format", "stream-json", "--output-format", "stream-json", "--include-partial-messages", "--verbose",
             cwd=str(self.cwd), env=env, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
@@ -218,16 +239,17 @@ class Claude:
                     self.proc = None
 
     async def reset(self, warm: bool = True) -> None:
-        """Forget the conversation (e.g. a new idea starts): a fresh process takes over, started at once so the
+        """Forget the conversations (e.g. a new idea starts): a fresh process takes over, started at once so the
         next question does not wait for it."""
-        proc, self.proc = self.proc, None
-        if proc and proc.returncode is None:
-            try:
-                if proc.stdin:
-                    proc.stdin.close()
-                await asyncio.wait_for(proc.wait(), 3)
-            except (asyncio.TimeoutError, ProcessLookupError, BrokenPipeError, ConnectionResetError):
-                proc.kill()
+        procs, self.procs, self._shown = list(self.procs.values()), {}, {}
+        for proc in procs:
+            if proc and proc.returncode is None:
+                try:
+                    if proc.stdin:
+                        proc.stdin.close()
+                    await asyncio.wait_for(proc.wait(), 3)
+                except (asyncio.TimeoutError, ProcessLookupError, BrokenPipeError, ConnectionResetError):
+                    proc.kill()
         if warm and self.available:
             self._warming = asyncio.ensure_future(self.warm())
 
@@ -235,11 +257,15 @@ class Claude:
         self._closed = True
         await self.reset(warm=False)
 
-    async def stream(self, prompt: str) -> AsyncIterator[str]:
+    async def stream(self, prompt: str, image: Path | None = None, model: str | None = None,
+                     think: bool | None = None) -> AsyncIterator[str]:
+        """Send `prompt` (with `image`, a diagram, the first time this conversation sees it) and yield the reply as it
+        comes. `model`/`think`: the conversation to use (Settings chooses them per mode); default, the app's own."""
         if self.status == "off":
             self.last = Result(ok=False, status="off", message=self.message)
             return
         async with self._lock:
+            self.key = (model or self.model, self.think if think is None else bool(think))
             if self.proc is None or self.proc.returncode is not None:
                 try:
                     await self._start()
@@ -249,7 +275,18 @@ class Claude:
                     return
             proc = self.proc
             assert proc is not None and proc.stdin is not None and proc.stdout is not None
-            msg = {"type": "user", "message": {"role": "user", "content": prompt}}
+            content: str | list = prompt
+            shown = self._shown.setdefault(self.key, set())
+            if image is not None and str(image) not in shown and Path(image).suffix.lower() in MEDIA:
+                try:  # once per conversation: it stays in the conversation's memory after that
+                    import base64
+                    data = base64.b64encode(Path(image).read_bytes()).decode()
+                    content = [{"type": "image", "source": {"type": "base64", "media_type": MEDIA[Path(image).suffix.lower()],
+                                                            "data": data}}, {"type": "text", "text": prompt}]
+                    shown.add(str(image))
+                except OSError:
+                    content = prompt
+            msg = {"type": "user", "message": {"role": "user", "content": content}}
             try:
                 proc.stdin.write((json.dumps(msg) + "\n").encode())
                 await proc.stdin.drain()
@@ -381,7 +418,7 @@ class Claude:
     async def _one_shot(self, prompt: str, schema: dict | None, model: str | None,
                         timeout: float = 120, system: str | None = None,
                         think: bool = True) -> tuple[dict | None, Result]:
-        args = [*LEAN, *([] if think else NO_THINKING), "--model", model or self.model,
+        args = [*LEAN, *(THINKING if think else NO_THINKING), "--model", model or self.model,
                 "--system-prompt", system or self.system, "--output-format", "json"]
         if schema:
             args += ["--json-schema", json.dumps(schema)]

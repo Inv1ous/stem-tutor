@@ -355,7 +355,7 @@ def test_ai_replies_are_guarded_for_every_open_question(tmp_path, monkeypatch): 
             scr.submit({"entry": f"{scr.view['n']}?", "your": "I don't know"})  # answer the one on screen
             await pilot.pause()
 
-            async def fake_stream(prompt):
+            async def fake_stream(prompt, **kw):
                 app.ai.last = ai_mod.Result(text=leak)
                 yield leak
             monkeypatch.setattr(app.ai, "stream", fake_stream)
@@ -376,7 +376,7 @@ def test_asking_the_ai_is_refused_during_a_no_help_check(tmp_path, monkeypatch):
     app, v = app_for(tmp_path, monkeypatch)
     calls = []
 
-    async def fake_stream(prompt):
+    async def fake_stream(prompt, **kw):
         calls.append(prompt)
         yield "Think about the units."
 
@@ -416,7 +416,7 @@ def test_only_help_that_arrives_counts_as_a_hint(tmp_path, monkeypatch):  # B-03
             key = prompts.key_of(t, scr.view["n"])[0]
 
             def reply(result, text=""):
-                async def fake_stream(prompt):
+                async def fake_stream(prompt, **kw):
                     app.ai.last = result
                     for chunk in [text] if text else []:
                         yield chunk
@@ -448,7 +448,7 @@ def test_a_marked_answer_can_be_asked_about_before_the_next_no_help_question(tmp
     app, v = app_for(tmp_path, monkeypatch)
     calls = []
 
-    async def fake_stream(prompt):
+    async def fake_stream(prompt, **kw):
         calls.append(prompt)
         yield "Because velocity has a direction."
 
@@ -469,7 +469,7 @@ def test_a_marked_answer_can_be_asked_about_before_the_next_no_help_question(tmp
             app.screen.query_one("#q").text = "Why is that the answer?"
             await pilot.press("enter")
             await pilot.pause(0.2)
-            assert len(calls) == 1 and f"Marked earlier in this session, Q{first}" in calls[0]
+            assert len(calls) == 1 and f"Just marked, on screen now, Q{first}" in calls[0]
             assert "OPEN question" not in calls[0]  # the tutor is told nothing about a question you have not seen
             await app.ai.close()
     asyncio.run(go())

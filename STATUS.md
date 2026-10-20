@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.15 (2026-10-20) — done
+
+AI gets the whole question in focus (source, marks, answer) and its diagram as an image; per-mode model + thinking in Settings (marking, explaining, asking; default Haiku, no thinking).
+
 ## v2.5.14 (2026-10-19) — done
 
 True time + session time (active, idle-aware) for each session; time studied today in the menu, side box, summary, Today.

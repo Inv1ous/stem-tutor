@@ -628,7 +628,7 @@ def test_next_stops_an_explanation_still_arriving(tmp_path, monkeypatch):
     fake_generator(monkeypatch, questions=[mcq(1), mcq(2)])
     stopped = []
 
-    async def stream(prompt):
+    async def stream(prompt, **kw):
         try:
             yield "Part one"
             await asyncio.sleep(30)
