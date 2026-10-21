@@ -1,7 +1,8 @@
 """Obsidian views the engine writes as you study (no AI needed).
 
 - `Now.md`             what is on screen now, in full (question with figure, or the explanation), plus your notes
-- `Lessons/<…>.md`     the whole session, mirrored live (questions appear before you answer, never with the key)
+- `Lessons/<day>/<…>.md`  the whole session, mirrored live (questions appear before you answer, never with the key);
+                       one folder for each day: `Lessons/2026-10-21/0939 Lesson - Electronegativity and bonding.md`
 - `My Notes/<…>.md`    concise notes for a subtopic that grow one idea at a time as you learn it, with a progress map
 - `Home.md`            dashboard: progress per subtopic, reviews due, recent sessions
 """
@@ -140,6 +141,74 @@ def refresh_status(root: Path, packs, state: dict, subtopic: str) -> str | None:
 
 
 # ---------------- lesson log (live mirror of the session) ----------------
+_FLAT_LESSON = re.compile(r"^(\d{4}-\d{2}-\d{2}) (\d{4} .+\.md)$")  # Lessons/2026-10-04 1539 Lesson - Stress and strain.md
+
+
+def lesson_rel(root: Path, rel: str) -> str:
+    """Where a lesson log is now. Logs began life in one flat list (`Lessons/2026-10-04 1539 …`) and now sit in a folder for
+    their day (`Lessons/2026-10-04/1539 …`): a session saved before the move still finds its log after it."""
+    if (root / rel).exists():
+        return rel
+    m = _FLAT_LESSON.match(Path(rel).name)
+    if m and Path(rel).parent.name == "Lessons":
+        moved = f"Lessons/{m[1]}/{m[2]}"
+        if (root / moved).exists():
+            return moved
+    return rel
+
+
+def organise_lessons(root: Path) -> list[tuple[str, str]]:
+    """Move the old flat lesson logs into a folder for each day, and point the links to them at the new places. Never
+    overwrites: a log whose new name is taken stays where it is. Returns [(old path, new path)] of what moved; the list is
+    also kept in `.tutor/backups/lessons-moved-<date>.txt`, so a move can be undone."""
+    folder = root / "Lessons"
+    moved: list[tuple[str, str]] = []
+    for f in sorted(folder.glob("*.md")) if folder.is_dir() else []:
+        m = _FLAT_LESSON.match(f.name)
+        if not m:
+            continue
+        target = folder / m[1] / m[2]
+        if target.exists():
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        f.rename(target)
+        moved.append((f.relative_to(root).as_posix(), target.relative_to(root).as_posix()))
+    if not moved:
+        return moved
+    names = {old.removesuffix(".md"): new.removesuffix(".md") for old, new in moved}
+    for note in root.rglob("*.md"):  # the notes that link to a log: Home.md, and any a learner wrote
+        if any(p.startswith(".") for p in note.relative_to(root).parts) or note.relative_to(root).parts[0] == "Lessons":
+            continue
+        try:
+            text = note.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            continue
+        if "[[Lessons/" not in text:
+            continue
+        fixed = re.sub(r"\[\[(Lessons/[^\]|#\\]+)", lambda m: "[[" + names.get(m[1], m[1]), text)
+        if fixed != text:
+            write_text(note, fixed)
+    log = root / ".tutor" / "backups" / f"lessons-moved-{datetime.now():%Y-%m-%d-%H%M%S}.txt"
+    write_text(log, "\n".join(f"{old} -> {new}" for old, new in moved) + "\n")
+    return moved
+
+
+def recent_lessons(root: Path) -> list[str]:
+    """Every lesson log, newest first, as paths from the vault's top (flat or in a day's folder)."""
+    folder = root / "Lessons"
+    return sorted((f.relative_to(root).as_posix() for f in folder.rglob("*.md")), key=lambda r: _sort_key(r),
+                  reverse=True) if folder.is_dir() else []
+
+
+def _sort_key(rel: str) -> str:
+    """Date and time first, whether the log is `Lessons/2026-10-04 1539 name.md` or `Lessons/2026-10-04/1539 name.md`."""
+    p = Path(rel)
+    return f"{p.parent.name} {p.name}" if _FLAT_DAY.match(p.parent.name) else p.name
+
+
+_FLAT_DAY = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
 class LessonLog:
     def __init__(self, root: Path, rel: str):
         self.root, self.rel = root, rel
@@ -148,7 +217,7 @@ class LessonLog:
     def create(cls, root: Path, title: str, now: datetime, header: str = "", name: str | None = None) -> "LessonLog":
         # the file is named after `name` (the title by default), cut short: a name over 255 bytes cannot be saved
         short = _safe(name or title).encode()[:120].decode(errors="ignore").strip()
-        stem, k = f"Lessons/{now:%Y-%m-%d %H%M} {short}", 1
+        stem, k = f"Lessons/{now:%Y-%m-%d}/{now:%H%M} {short}", 1
         rel = f"{stem}.md"
         while (root / rel).exists():  # the same lesson restarted within the minute: never overwrite the first log
             k += 1

@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.5.16_
+_Version 2.5.17_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -10,6 +10,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
 > [!example] New in 2.5 (the latest changes)
+> - **Your text size stays, and Lessons are split by day** (2.5.17): make the text bigger or smaller in Terminal with **⌘+** and **⌘−** and the tutor remembers it for next time (**⌘0** goes back to the normal size). The **Lessons** folder now has a folder for each day, e.g. `Lessons/2026-10-21/0939 Lesson - Electronegativity and bonding`; the old logs were moved into their days.
 > - **Fractions and charges read properly** (2.5.16): a few past-paper answers had a fraction broken in copying (`PbS + 1 ₂ ¹ O₂` for PbS + 1½O₂) or a stray space in a charge (`SO₄ ²⁻`). They are fixed in the chapters, and a new check keeps them out of future ones.
 > - **The AI sees the question you are on, diagram included** (2.5.15): asking the tutor, explaining again and "why is that right?" now send the whole question in front of you (not just its first lines), where it comes from (the past paper), its marks, what you answered and the right answer once marked, and the **diagram itself** as a picture, so you no longer have to copy a diagram question out. The picture goes once per conversation, so asking again costs no more. **Settings** now chooses the **model** (Haiku, Sonnet or Opus) and whether it **thinks first**, separately for marking, explaining and asking; everything starts on Haiku without thinking, the cheapest.
 > - **True time and session time, and time studied today** (2.5.14): the bar in a lesson shows **◷ true** time (the wall clock from when the session began: it keeps running while the terminal is closed) and **◔ session** time (what you really spent on the screen: it stops while the terminal is closed, and after three minutes with no key). The summary, the lesson record and the session note in Obsidian show both. The menu has a line **Studied today** (all study screens added up, with how many sessions), the home side box and, in a short window, the one-line summary show it too, and so does **Today**.
@@ -420,7 +421,7 @@ There are no "learning styles" here. The research is clear that they don't help.
 |---|---|
 | **Now** | Whatever is in front of you right now, in full: the question (with its diagram, if any) or the explanation, with proper maths. After you answer, the question stays above its verdict (right or wrong, the answer and why). What you ask the AI and everything it says back, hints and notices appear under it, the same as in the terminal; outside a lesson the free chat is the page. Your notes for the topic are shown underneath. Keep this open beside the Terminal. |
 | **My Notes** | Your notes, one page per subtopic, **built as you learn**. Each idea gets a short summary, your own words and a "Watch out" list of the mistakes *you* made. At the top is a coloured map of the topic. If you re-learn an idea, your earlier words and mistakes are kept. |
-| **Lessons** | A full record of every session and blurt: explanations, every question (shown before you answer, never with the answer), your answers and the feedback. |
+| **Lessons** | A full record of every session and blurt, in a folder for each day: explanations, every question (shown before you answer, never with the answer), your answers and the feedback. |
 | **Home** | A dashboard: progress per subtopic, reviews due, and links to your notes and recent lessons. |
 | **Subjects** | Complete reference notes for each subtopic, written in advance and checked. Read these whenever you want the whole topic in one place. |
 | **Profile** | What the tutor knows about you (section 8). Refreshed after each session. |

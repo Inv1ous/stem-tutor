@@ -116,6 +116,8 @@ def apply(app, name: str) -> None:
             status, was = mac.switch_terminal_profile(app.tty, TERMINAL_PROFILES[name])
             if status == "ok" and app.tty_profile is None:
                 app.tty_profile = was
+            if status == "ok":
+                app.settle_font_size()  # the new profile brought its own text size: put the learner's back
             if status == "missing" and name != "classic":
                 app.call_from_thread(app.notify, mac.LOOK_HELP, timeout=15)
             if status == "denied" and not app.profile_denied:  # said once: asking again changes nothing

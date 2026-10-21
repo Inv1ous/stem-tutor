@@ -38,6 +38,7 @@ class Settings:
     minutes: int = 40               # default session length
     answer_only: bool = False       # sessions and challenges show only the answer box (ctrl+k); the question is in Obsidian
     theme: str = "classic"          # night, day or classic; `tutor look` sets night once Terminal is set up
+    font_size: int = 0              # the Terminal tab's text size in points, as set with ⌘+ and ⌘−; 0 = the profile's own
     tts_enabled: bool = False       # read aloud with Kokoro (tts.py); `tutor tts setup` switches it on
     tts_auto: bool = False          # read explanations, feedback and AI replies as they appear
     tts_voice: str = "bf_emma"      # a Kokoro voice (tts.VOICES)
@@ -60,6 +61,8 @@ class Settings:
                 if k in cls.__dataclass_fields__ and type(v) is type(getattr(default, k))}
         if good.get("theme") not in THEMES:
             good.pop("theme", None)
+        if "font_size" in good and good["font_size"] and not 6 <= good["font_size"] <= 96:
+            good.pop("font_size")  # not a size any terminal uses: keep the profile's
         if "tts_speed" in good:
             good["tts_speed"] = min(1.3, max(0.8, good["tts_speed"]))
         if "tts_volume" in good:

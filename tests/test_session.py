@@ -425,7 +425,7 @@ def test_lesson_grows_my_notes_with_own_words_and_mistakes(tutor):
 def test_lesson_log_never_shows_a_key_before_the_answer(tutor):
     tutor.start("lesson", minutes=40, focus=["9702-2.1"])
     _drive_lesson(tutor)
-    log = next((tutor.vault.root / "Lessons").glob("*.md")).read_text()
+    log = next((tutor.vault.root / "Lessons").rglob("*.md")).read_text()
     blocks = log.split("\n\n")
     questions = [b for b in blocks if b.startswith("> [!question] Q")]
     assert questions and not any("Correct answer" in b for b in questions)

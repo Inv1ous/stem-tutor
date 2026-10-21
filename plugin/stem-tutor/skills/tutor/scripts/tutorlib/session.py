@@ -143,7 +143,7 @@ class Tutor(LessonMixin):
     # ---------- Obsidian views ----------
     def _lesson_log(self) -> views.LessonLog | None:
         rel = (self.session or {}).get("log")
-        return views.LessonLog(self.vault.root, rel) if rel else None
+        return views.LessonLog(self.vault.root, views.lesson_rel(self.vault.root, rel)) if rel else None
 
     def _set_now(self, activity: dict | None = None) -> None:
         if self.session is not None:
@@ -193,7 +193,7 @@ class Tutor(LessonMixin):
                 views.write_now(self.vault.root, f"Chat · {self.now():%H:%M}", self._thread_blocks(chat))
                 return
             views.write_now(self.vault.root, f"No session running · {self.now():%H:%M}",
-                            ["Start the tutor to begin. Your last lessons are in the Lessons folder."])
+                            ["Start the tutor to begin. Your last lessons are in the Lessons folder, a folder for each day."])
             return
         blocks = []
         for fb in s.get("last_feedback", []):
@@ -307,9 +307,7 @@ class Tutor(LessonMixin):
         self._save()
         for sub in touched:
             views.refresh_status(self.vault.root, self.packs, self.state, sub)
-        recent = sorted((str(f.relative_to(self.vault.root)) for f in (self.vault.root / "Lessons").glob("*.md")),
-                        reverse=True) if (self.vault.root / "Lessons").exists() else []
-        views.write_home(self.vault.root, self.packs, self.state, self.now(), recent)
+        views.write_home(self.vault.root, self.packs, self.state, self.now(), views.recent_lessons(self.vault.root))
         self._sync_almanac(force=True)  # the session is over: the Almanac stops saying "live"
         return summary
 

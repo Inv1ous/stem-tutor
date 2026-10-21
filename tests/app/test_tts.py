@@ -579,7 +579,7 @@ def test_the_session_log_never_keeps_the_spoken_version(tmp_path, monkeypatch):
         await _settle(app, pilot)
         assert "x squared" in scr.readable and "[[" not in scr.readable
     _run(app, (100, 30), steps)
-    for f in list((v / "Lessons").glob("*.md")) + [v / "Now.md"]:
+    for f in list((v / "Lessons").rglob("*.md")) + [v / "Now.md"]:
         assert "SPEECH" not in f.read_text()
 
 

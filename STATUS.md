@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.17 (2026-10-21) — done
+
+Terminal text size (⌘+/⌘−) remembered across starts and look changes; Lessons split into a folder for each day (old logs moved once).
+
 ## v2.5.16 (2026-10-20) — done
 
 Broken stacked fractions and charge spaces from the PDF (`PbS + 1 ₂ ¹ O₂`) repaired in 14 packs + MCQ banks; new gate keeps them out.

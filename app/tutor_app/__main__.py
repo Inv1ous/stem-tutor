@@ -49,10 +49,12 @@ def main(argv: list[str] | None = None) -> int:
         status, app.tty_profile = mac.switch_terminal_profile(app.tty, look.TERMINAL_PROFILES[app.settings.theme])
         app.profile_missing = status == "missing"
         app.profile_denied = status == "denied"
+    app.settle_font_size()  # the text size the learner chose last time (⌘+ / ⌘−), which the profile switch just reset
     print(f"\x1b]0;{app.TITLE}\x07", end="", flush=True)  # name the terminal window: a terminal shows what it is told
     try:
         app.run()
     finally:
+        app.remember_font_size()  # before the tab gets its old profile back, and with it that profile's size
         print("\x1b]0;\x07", end="", flush=True)  # hand the title back
         if app.tty_profile:  # and the tab its own profile, as it was before the tutor
             mac.switch_terminal_profile(app.tty, app.tty_profile)

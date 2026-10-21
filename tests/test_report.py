@@ -308,7 +308,7 @@ def test_the_session_summary_has_session_time_and_true_time(tutor):
     tutor._now = lambda: later
     summary = tutor.end()
     assert summary["active_seconds"] == 600 and summary["true_seconds"] == 45 * 60
-    notes = [f.read_text() for f in (tutor.vault.root / "Lessons").glob("*.md")]
+    notes = [f.read_text() for f in (tutor.vault.root / "Lessons").rglob("*.md")]
     assert any("(session time)" in n and "(true time)" in n for n in notes)
     sessions = report.session_note(tutor, sid)
     assert "**Time:** 10 min on the screen (session time) · 45 min from start to finish (true time)" in \

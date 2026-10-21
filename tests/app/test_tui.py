@@ -88,7 +88,7 @@ def test_home_menu_and_a_whole_lesson_by_keyboard(tmp_path, monkeypatch):
             assert "summary" in seen and "ChoosePanel" in seen and "TickPanel" in seen
             assert app.screen.__class__.__name__ == "HomeScreen"
     asyncio.run(go())
-    assert (v / "Now.md").exists() and list((v / "Lessons").glob("*.md")) and list((v / "My Notes").rglob("*.md"))
+    assert (v / "Now.md").exists() and list((v / "Lessons").rglob("*.md")) and list((v / "My Notes").rglob("*.md"))
 
 
 def test_chat_streams_an_ai_reply(tmp_path, monkeypatch):

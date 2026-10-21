@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.5.17 — 2026-10-21
+
+Asked by the learner: the text size had to be set again every time the tutor was started; and the Lessons folder should be
+organised by date instead of one long list.
+
+- **The text size stays** (`TutorApp.settle_font_size`, `remember_font_size`, `mac.terminal_font_size`): ⌘+ and ⌘− change one
+  Terminal tab's size and nothing else, and the tutor switches the tab to its look's profile at the start (and back at the end),
+  which brought the profile's size every time. The size is now kept in the settings (`font_size`, 0 = the profile's own), set
+  again on the tab right after the profile switch (at the start, and when the look is changed in Settings), and saved when
+  the tutor closes and every 15 seconds meanwhile (a window closed with its red button cannot be asked at the end). ⌘0 forgets it.
+  Only in Terminal; in any other terminal the font is that terminal's own to set.
+- **Lessons in a folder for each day** (`views.LessonLog.create`, `organise_lessons`, `lesson_rel`, `recent_lessons`): a lesson,
+  review, weak-spots or blurt log is now `Lessons/2026-10-21/0939 Lesson - Electronegativity and bonding.md`. The 47 logs already
+  there are moved into their days the next time the tutor starts (nothing is overwritten; Home's links follow; what moved is
+  listed in `.tutor/backups/lessons-moved-<time>.txt` so it can be undone). A session saved before the move keeps writing to its
+  log in the new place.
+
 ## 2.5.16 — 2026-10-20
 
 Asked by the learner: an answer read `PbS + 1 ₂ ¹ O₂ → SO₂ + PbO` — what is this? It is the fraction 1½ in the past-paper PDF

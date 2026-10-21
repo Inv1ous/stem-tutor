@@ -36,6 +36,19 @@ SWITCH_PROFILE = """on run argv
     end tell
     return "no tab"
 end run"""
+FONT_SIZE = """on run argv
+    tell application "Terminal"
+        repeat with w in windows
+            repeat with t in tabs of w
+                if tty of t is (item 1 of argv) then
+                    if (count of argv) > 1 then set font size of current settings of t to ((item 2 of argv) as integer)
+                    return font size of current settings of t
+                end if
+            end repeat
+        end repeat
+    end tell
+    return "no tab"
+end run"""
 LOOK_HELP = ("This look's Terminal window isn't set up yet, so its edges keep the old colours. In Terminal run:  "
              "tutor look   (once; it backs up your Terminal settings first). Or choose Classic in Settings (F2).")
 AUTOMATION_HELP = ("macOS has not allowed the tutor to switch this window's profile, so its edges keep the old colours. "
@@ -69,6 +82,21 @@ def switch_terminal_profile(tty: str | None, name: str) -> tuple[str, str | None
         return "denied", None
     status, _, was = done.stdout.strip().partition("\n")
     return status, (was.strip() or None)
+
+
+def terminal_font_size(tty: str | None, set_to: int | None = None) -> int | None:
+    """The text size, in points, of the Terminal tab on `tty` (after setting it to `set_to` when that is given); None when
+    the tab cannot be asked. ⌘+ and ⌘− change one tab's size and nothing else: not the profile, so the next window, and
+    this one after the tutor puts its profile back, start from the profile's size again."""
+    if not tty or os.environ.get("TERM_PROGRAM") != "Apple_Terminal":
+        return None
+    args = ["osascript", "-", tty] + ([str(int(set_to))] if set_to else [])
+    try:
+        done = subprocess.run(args, input=FONT_SIZE, capture_output=True, text=True, timeout=10)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    size = done.stdout.strip()
+    return int(size) if size.isdigit() else None
 
 
 def wants_truecolor(env, theme: str) -> bool:

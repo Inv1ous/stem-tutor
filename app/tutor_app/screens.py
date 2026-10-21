@@ -203,10 +203,8 @@ class HomeScreen(Screen):
         app = self.app
         self._fit()
         self._read_almanac()
-        lessons = app.vault / "Lessons"
-        views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(),
-                         sorted((str(f.relative_to(app.vault)) for f in lessons.glob("*.md")), reverse=True)
-                         if lessons.exists() else [])
+        views.organise_lessons(app.vault)  # lesson logs from before the day folders: moved into them, once
+        views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(), views.recent_lessons(app.vault))
         report.today_note(app.tutor, app.settings.minutes)  # Today.md: this week's plan and what's due
         if (week := self._week_in_review()):
             app.notify(f"Your week in review is ready: {week} in Obsidian.", timeout=10)
@@ -446,9 +444,7 @@ class HomeScreen(Screen):
         elif key == "progress":
             app.push_screen(ProgressScreen())
         elif key == "obsidian":
-            views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(),
-                             sorted((str(f.relative_to(app.vault)) for f in (app.vault / "Lessons").glob("*.md")),
-                                    reverse=True) if (app.vault / "Lessons").exists() else [])
+            views.write_home(app.vault, app.tutor.packs, app.tutor.state, app.tutor.now(), views.recent_lessons(app.vault))
             mac.open_in_obsidian(app.vault, "Home", background=False)
         elif key == "settings":
             app.action_settings()
@@ -1775,7 +1771,7 @@ the ratings, subjects, level, sections and how many new ones a day. Neither affe
 
 # Where to look
 Keep **Obsidian** open beside this window on **Now** (the current question in full, with figures) — your
-**My Notes** for the topic grow underneath as you learn. Every session is saved in **Lessons**.
+**My Notes** for the topic grow underneath as you learn. Every session is saved in **Lessons**, a folder for each day.
 
 The full plain-English guide is **How It Works** in Obsidian (press **o** now).
 """

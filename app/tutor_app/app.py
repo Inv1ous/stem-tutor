@@ -2,8 +2,9 @@
 from __future__ import annotations
 
 import contextlib
-import time
 import random
+import threading
+import time
 from pathlib import Path
 
 from textual import events
@@ -125,10 +126,39 @@ class TutorApp(App):
         self.seed = seed
         self.tty: str | None = None  # the macOS Terminal tab, whose profile follows the look
         self.tty_profile: str | None = None  # the tab's profile before the tutor changed it: put back on exit
+        self.font_base: int | None = None  # the tab's text size as its profile has it: the learner's own is measured from it
+        self.font_lock = threading.Lock()  # a profile switch and a look at the size must not interleave (see settle_font_size)
         self.profile_missing = False
         self.profile_denied = False  # macOS refused the tutor control of Terminal: said once, then left alone
         self._locks = contextlib.ExitStack()
         self.speaker = tts.Speaker(self.vault, lambda: self.settings, notify=self._notify_from_thread)
+
+    def settle_font_size(self) -> None:
+        """Put the text size the learner chose back on the Terminal tab. A tab's profile brings its own size every time the
+        tutor switches to it (at the start, and when the look changes), so a ⌘+ or ⌘− is lost; the size is kept in the
+        settings (`remember_font_size`) and set again here, after the switch. `font_base` is the profile's size."""
+        with self.font_lock:
+            self.font_base = mac.terminal_font_size(self.tty)
+            if self.font_base and (want := self.settings.font_size) and want != self.font_base:
+                mac.terminal_font_size(self.tty, want)
+
+    def remember_font_size(self) -> None:
+        """Keep the tab's text size in the settings when it is not the profile's (and forget it when it is: ⌘0)."""
+        with self.font_lock:
+            size = mac.terminal_font_size(self.tty) if self.tty and self.font_base else None
+            if not size:
+                return
+            keep = 0 if size == self.font_base else size
+            if keep != self.settings.font_size:
+                self.settings.font_size = keep
+                try:
+                    self.settings.save(self.vault)
+                except OSError:
+                    pass
+
+    def _remember_font_tick(self) -> None:
+        if self.tty and self.font_base:
+            self.run_worker(self.remember_font_size, thread=True, group="terminal-font", exclusive=True)
 
     def _notify_from_thread(self, message: str) -> None:
         """A one-line note from the reading-aloud thread (or from this one)."""
@@ -167,8 +197,6 @@ class TutorApp(App):
         self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json", speech=self.speech_wanted())
         self.ai.model, self.ai.think = self.settings.ai_for("ask")  # the conversation started ahead is the one asked most
-        import threading
-
         def warm() -> None:  # load the maths library in the background so the first algebra answer isn't slow
             try:
                 from tutorlib import deps
@@ -188,6 +216,7 @@ class TutorApp(App):
         self.push_screen(HomeScreen())
         self._tick_at, self._last_input = time.monotonic(), time.monotonic()
         self.set_interval(1, self._study_tick)  # session time: see tutorlib/clock.py
+        self.set_interval(15, self._remember_font_tick)  # a closed window cannot be asked at the end: keep the size meanwhile
         if self.profile_missing:
             self.notify(mac.LOOK_HELP, timeout=15)
         if self.profile_denied:
