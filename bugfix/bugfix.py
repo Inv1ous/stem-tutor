@@ -59,7 +59,7 @@ CODEX = os.environ.get("BUGFIX_CODEX") or os.environ.get("FOUNDRY_CODEX") or shu
 
 HEAD = re.compile(r"^### (B-\d+) · (P[0-3]) · ([^·]+?) · (.+)$")
 VERDICT = re.compile(r"^- \d\d:\d\d (B-\d+) (CONFIRMED|FIXED|REJECTED|DUPLICATE|DEFERRED|NEEDS-INFO)\b")
-DONE = {"FIXED", "VERIFIED", "REJECTED", "DUPLICATE", "DEFERRED"}
+DONE = {"FIXED", "VERIFIED", "REJECTED", "DUPLICATE", "DEFERRED"}  # the board's REOPENED is open
 LIVE = ("fixing", "gating", "reviewing", "scribing")
 # what a fixer may never change: the release notes and versions (the scribe's), the bug watch's own logs, the test set-up
 FORBIDDEN = ("CHANGELOG.md", "STATUS.md", "README.md", "plugin/stem-tutor/.claude-plugin/plugin.json",
@@ -114,15 +114,17 @@ def history(job: dict, note: str) -> None:
 
 # ---------------- findings ----------------
 def statuses() -> dict[str, str]:
-    """The latest verdict for each finding: Claude's in FIXES.md, and Codex's VERIFIED / REOPEN in BUGS.md."""
-    out: dict[str, str] = {}
-    for line in FIXES.read_text(encoding="utf-8").splitlines() if FIXES.exists() else []:
-        if m := VERDICT.match(line):
-            out[m[1]] = m[2]
-    for line in BUGS.read_text(encoding="utf-8").splitlines() if BUGS.exists() else []:
-        if m := re.match(r"^- \d\d:\d\d (VERIFIED|REOPEN) (B-\d+)", line):
-            out[m[2]] = "OPEN" if m[1] == "REOPEN" else ("VERIFIED" if out.get(m[2]) == "FIXED" else out.get(m[2], "OPEN"))
-    return out
+    """Each finding's status exactly as the bug watch's own board has it (bugwatch/bugs.py): Claude's verdicts in
+    FIXES.md and Codex's VERIFIED / REOPEN in BUGS.md, taken in time order. Reading the two files one after the other
+    instead put an old REOPEN after the fix that answered it, so findings fixed and verified long ago (B-001, B-012,
+    B-014) came back as open and were sent to fixers again."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("bugwatch_board", REPO / "bugwatch/bugs.py")
+    board = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(board)
+    board.BUGS, board.FIXES = BUGS, FIXES
+    found, events, _, _ = board.load()
+    return {b: board.status_of(b, events) for b in found}
 
 
 def findings() -> dict[str, dict]:

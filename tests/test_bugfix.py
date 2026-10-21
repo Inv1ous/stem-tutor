@@ -113,6 +113,19 @@ def test_findings_are_read_with_their_replies_and_statuses(bf):
     assert bf.climb("gpt-6-sol/high") == "gpt-6-astra/medium" and bf.climb("gpt-6-astra/xhigh") == "gpt-6-astra/xhigh"
 
 
+def test_a_finding_fixed_after_it_was_reopened_is_not_sent_to_a_fixer_again(bf):
+    """Asked by the learner: B-001 was fixed and verified, yet came back in the plan. A REOPEN answered by a later fix
+    and a VERIFIED is closed, as the bug watch's own board says; one reopened after its last fix is open."""
+    bf, repo = bf
+    with open(repo / "bugwatch/codex/BUGS.md", "a") as f:
+        f.write("- 16:55 REOPEN B-003 · still wrong\n- 17:00 VERIFIED B-003 · fine now\n- 18:00 REOPEN B-001 · again\n")
+    with open(repo / "bugwatch/FIXES.md", "a") as f:
+        f.write("- 16:59 B-003 FIXED · second fix\n")
+    every = bf.findings()
+    assert every["B-003"]["status"] == "VERIFIED" and every["B-001"]["status"] == "REOPENED"
+    assert [b["id"] for b in bf.open_findings()] == ["B-001", "B-002"]
+
+
 def test_a_job_goes_from_finding_to_merged_fix_with_its_verdicts_in_fixes(bf):
     bf, repo = bf
     bf.cmd_plan(["--suggested"])
