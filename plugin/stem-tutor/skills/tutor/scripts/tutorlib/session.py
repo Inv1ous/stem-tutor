@@ -38,9 +38,10 @@ class Tutor(LessonMixin):
         self.session_path = vault.tutor / "state" / "session.json"
         self.state = self._read_state(self.state_path)
         if (not self.state or self.state.get("model_version") != model.MODEL_VERSION
-                or self.state.get("last_event") != vault.last_event_id()):
+                or self.state.get("last_event") != vault.last_event_id()
+                or self.state.get("conflict_copies", {}) != vault.conflict_copies()):
             # a new model version, or the log moved on after this state was saved (the app stopped between the
-            # two writes): recompute everything from your history
+            # two writes), or a sync copy brought older events: recompute everything from your history
             self.state = self._fold()
             self._dirty = True
         self.study_clock = StudyClock(vault)  # time spent studying: the app counts it, `end` reports it
@@ -104,6 +105,9 @@ class Tutor(LessonMixin):
 
     def _fold(self) -> dict:
         s = model.new_state()
+        # Note copies before replay, so a sync arriving during replay is noticed again at the next start.
+        if copies := self.vault.conflict_copies():
+            s["conflict_copies"] = copies
         for e in self.vault.events():
             model.apply(s, e)
         return s
@@ -240,6 +244,8 @@ class Tutor(LessonMixin):
 
     def rebuild(self) -> dict:
         self.state, n = model.new_state(), 0
+        if copies := self.vault.conflict_copies():
+            self.state["conflict_copies"] = copies
         for e in self.vault.events():  # one pass over the log: fold and count together
             model.apply(self.state, e)
             n += 1

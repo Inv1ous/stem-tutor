@@ -84,7 +84,18 @@ def write_text(path: Path, text: str) -> bool:
     try:
         os.replace(tmp, path)
     except OSError:  # some mounts refuse replacing a file: write in place instead
-        path.write_text(text, encoding="utf-8")
+        previous = path.read_bytes() if path.exists() else None
+        try:
+            path.write_text(text, encoding="utf-8")
+        except OSError:
+            # A cut-short fallback must not leave the learner's own words truncated. If restoring also fails,
+            # keep the complete temporary copy so the note is still recoverable.
+            if previous is not None:
+                try:
+                    path.write_bytes(previous)
+                except OSError:
+                    pass
+            raise
         try:
             tmp.unlink()
         except OSError:
@@ -126,6 +137,11 @@ class Vault:
         """The monthly files ("2026-09.jsonl") and their iCloud conflict copies ("2026-09 2.jsonl"), oldest first."""
         folder = self.tutor / "events"
         return sorted(folder.glob(EVENT_FILES)) if folder.exists() else []
+
+    def conflict_copies(self) -> dict[str, str]:
+        """Contents of sync copies: an older event in one can change progress without moving the last event id."""
+        return {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in self._event_files()
+                if path.name != f"{path.name[:7]}.jsonl"}
 
     def _read_events(self, paths: list[Path], bad_lines: list[str]) -> list[dict]:
         """The events in these files, each once: month by month, each file in the order it was written."""
