@@ -15,7 +15,7 @@ from . import deps
 MASTERY_THETA = 0.8
 CONF_P = {1: 0.25, 2: 0.5, 3: 0.75, 4: 0.95}
 SUCCESS = 0.75
-MODEL_VERSION = "1.1.1"  # bump when the fold changes; saved states from older versions are rebuilt from events once
+MODEL_VERSION = "1.1.2"  # bump when the fold changes; saved states from older versions are rebuilt from events once
 SLIP_DAMPING = 0.5  # a likely slip (fast miss on an item you almost always get) moves θ half as much
 
 
@@ -45,6 +45,7 @@ def new_state() -> dict:
         "items_seen": {},
         "answers": {},
         "experiments": {},
+        "session_days": {},  # the days each open session has answered on: they become study days when it ends
     }
 
 
@@ -130,7 +131,9 @@ def _apply_answer(state: dict, e: dict) -> None:
     day = when.date().isoformat()
     g = e["grade"]
     score = g["score"] * (0.7 if e.get("hinted") else 1.0)
-    success = g["score"] >= SUCCESS and not e.get("hinted")
+    # 3 of 4 self-marked scheme points is not a right answer: a success day and a Good review need the mark the
+    # session reports, not a high enough score
+    success = counts_as_right(g) and not e.get("hinted")
     subject = e.get("subject", "misc")
     expected = []
     for kc in e["kcs"]:
@@ -158,7 +161,7 @@ def _apply_answer(state: dict, e: dict) -> None:
         if g.get("error"):
             _count(k["errors"], g["error"])
         if k["last_review_day"] != day:
-            assisted = bool(e.get("hinted")) and g["score"] >= SUCCESS
+            assisted = bool(e.get("hinted")) and counts_as_right(g)
             _review(state, kc, success, when, subject, fsrs_rating(success, e.get("conf"), prior_days, assisted),
                      e.get("retention"))
     for kc in e.get("credit", []):
@@ -200,6 +203,8 @@ def _apply_answer(state: dict, e: dict) -> None:
     hour[1] += 1 if right else 0
     hour[2] += exp_p
     state["items_seen"][e["item"]] = e["ts"]
+    if (days := state.setdefault("session_days", {}).get(e.get("session"))) is not None and day not in days:
+        days.append(day)
     if e.get("id"):
         state["answers"][e["id"]] = {"subject": subject, "error": g.get("error"), "kcs": e["kcs"]}
         if len(state["answers"]) > 600:  # only recent answers can still be tagged; keep the state file small
@@ -242,11 +247,16 @@ def apply(state: dict, e: dict) -> dict:
             k["fsrs"]["due"] = datetime.fromisoformat(e["due"]).astimezone(timezone.utc).isoformat()
     elif kind == "session_start":
         state["traits"]["sessions"] += 1
+        if e.get("session"):
+            open_days = state.setdefault("session_days", {})
+            open_days[e["session"]] = []
+            for old in list(open_days)[:-20]:  # a session that never ended (the app was lost) is not kept for ever
+                del open_days[old]
     elif kind == "session_end":
-        day = e["ts"][:10]
-        days = state.setdefault("study_days", [])
-        if e.get("answered") and not e.get("abandoned") and day not in days:
-            days.append(day)
+        # a session that runs past midnight was studying on the days it answered on as well as the day it ended
+        answered_on = state.setdefault("session_days", {}).pop(e.get("session"), [])
+        if e.get("answered") and not e.get("abandoned"):
+            state["study_days"] = sorted({*state.setdefault("study_days", []), *answered_on, e["ts"][:10]})
     elif kind == "blurt":  # free recall: ideas left out come due now; totals feed the profile
         for kc in e.get("missed", []):
             k = state["kcs"].get(kc)
