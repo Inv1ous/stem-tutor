@@ -215,6 +215,7 @@ def test_the_same_job_runs_on_claude_with_its_tier_mapped_and_its_report_read_fr
     bf.cmd_step()
     job = settle(bf)["J01"]
     assert job["stage"] == "review" and job["provider"] == "claude", job["history"]
-    assert job["report"]["verdicts"][0]["fix"] == "removed it (opus)"
+    mapped = bf.tier(bf.config()["claude_tiers"]["gpt-6-astra/high"])[0]  # whatever config.json maps it to today
+    assert job["report"]["verdicts"][0]["fix"] == f"removed it ({mapped})"
     bf.cmd_step()
     assert settle(bf)["J01"]["stage"] == "ready"
