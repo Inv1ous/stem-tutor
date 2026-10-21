@@ -28,7 +28,7 @@ in its root. The engineer who designed this code will judge your work against `b
   Such edits are thrown away and the job comes back to you.
 - Touch the learner's real vault (`../STEM Tutor`, or anything outside this worktree except /tmp). Run the foundry,
   refine, publish, the `claude` or `codex` CLIs, or anything that uses the network.
-- Leave scratch files in the worktree: put probes in /tmp.
+- Leave scratch files in the code folders: put probes in /tmp or in .scratch/ (removed automatically).
 
 ## Your report (the JSON schema you are given)
 One verdict per finding: `id`; `verdict` FIXED, REJECTED, DEFERRED or DUPLICATE; `cause` (one sentence: what was

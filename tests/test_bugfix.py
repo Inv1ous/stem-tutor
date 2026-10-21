@@ -67,6 +67,24 @@ Path(out).write_text(json.dumps(report))
 '''
 
 
+FAKE_CLAUDE = r'''#!/usr/bin/env python3
+import json, os, sys
+from pathlib import Path
+a = sys.argv[1:]
+prompt, model = a[a.index("-p") + 1], a[a.index("--model") + 1]
+if "FIXER" in prompt:
+    Path("calc.py").write_text("def add(a, b):\n    return a + b\n")
+    Path("tests").mkdir(exist_ok=True)
+    Path("tests/test_bf_j01.py").write_text("def test_add():\n    assert True\n")
+    report = {"verdicts": [{"id": "B-001", "verdict": "FIXED", "cause": "an extra + 1", "fix": f"removed it ({model})",
+                            "reason": "", "test": "tests/test_bf_j01.py::test_add"}], "decisions": [], "notes": ""}
+else:
+    report = {"approve": True, "summary": "fine", "per_bug": [], "findings": []}
+print(json.dumps({"type": "rate_limit_event", "rate_limit_info": {"unifiedWindows": {"five_hour": {"utilization": 0.3}}}}))
+print(json.dumps({"type": "result", "result": "", "structured_output": report, "total_cost_usd": 0.1}))
+'''
+
+
 def git(cwd, *args):
     return subprocess.run(["git", "-C", str(cwd), *args], capture_output=True, text=True, check=True).stdout
 
@@ -84,8 +102,11 @@ def bf(tmp_path, monkeypatch):
     fake = tmp_path / "codex"
     fake.write_text(FAKE)  # not the venv's python in the shebang: its path has spaces
     fake.chmod(0o755)
+    claude = tmp_path / "claude"  # answers as `claude -p --output-format stream-json --json-schema` does
+    claude.write_text(FAKE_CLAUDE)
+    claude.chmod(0o755)
     for k, v in {"BUGFIX_REPO": repo, "BUGFIX_STATE": tmp_path / "state", "BUGFIX_WORKTREES": tmp_path / "wt",
-                 "BUGFIX_CODEX": fake, "BUGFIX_TEST_CMD": "true", "BUGFIX_NOTIFY": "0", "BUGFIX_PUBLISH": "0",
+                 "BUGFIX_CODEX": fake, "BUGFIX_CLAUDE": tmp_path / "claude", "BUGFIX_PROVIDER": "codex", "BUGFIX_TEST_CMD": "true", "BUGFIX_NOTIFY": "0", "BUGFIX_PUBLISH": "0",
                  "GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@t", "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@t"}.items():
         monkeypatch.setenv(k, str(v))
     monkeypatch.syspath_prepend(str(REPO / "bugfix"))
@@ -184,3 +205,16 @@ def test_the_manager_can_send_a_job_back_and_close_a_finding_without_a_job(bf):
     bf.cmd_close("B-002", "DEFERRED", "needs the new layout first")
     assert "B-002 DEFERRED · needs the new layout first" in (repo / "bugwatch/FIXES.md").read_text()
     assert [b["id"] for b in bf.open_findings()] == []  # B-001 is in a job, B-002 is closed
+
+
+def test_the_same_job_runs_on_claude_with_its_tier_mapped_and_its_report_read_from_the_output(bf, monkeypatch):
+    """A Claude-only session: the job keeps its Codex tier and runs on the Claude model config.json maps it to."""
+    bf, repo = bf
+    monkeypatch.setenv("BUGFIX_PROVIDER", "claude")
+    bf.cmd_plan(["B-001"])  # P0: gpt-6-astra/high, which is Opus at medium effort on Claude
+    bf.cmd_step()
+    job = settle(bf)["J01"]
+    assert job["stage"] == "review" and job["provider"] == "claude", job["history"]
+    assert job["report"]["verdicts"][0]["fix"] == "removed it (opus)"
+    bf.cmd_step()
+    assert settle(bf)["J01"]["stage"] == "ready"

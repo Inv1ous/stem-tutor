@@ -56,6 +56,11 @@ BUGS, FIXES = TARGET / "bugwatch/codex/BUGS.md", TARGET / "bugwatch/FIXES.md"
 PY = str(REPO / ".venv/bin/python")
 CODEX = os.environ.get("BUGFIX_CODEX") or os.environ.get("FOUNDRY_CODEX") or shutil.which("codex") or \
     "/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex"
+CLAUDE = os.environ.get("BUGFIX_CLAUDE") or os.environ.get("FOUNDRY_CLAUDE") or shutil.which("claude") or "claude"
+# Claude workers: lean (none of the learner's plugins, skills, hooks or servers), as in the foundry
+LEAN = ["--output-format", "stream-json", "--verbose", "--safe-mode", "--disable-slash-commands", "--strict-mcp-config",
+        "--setting-sources", "", "--no-session-persistence"]
+READ_BASH = ["Bash(git diff *)", "Bash(git log *)", "Bash(git show *)", "Bash(git status *)", "Bash(ls *)"]
 
 HEAD = re.compile(r"^### (B-\d+) · (P[0-3]) · ([^·]+?) · (.+)$")
 VERDICT = re.compile(r"^- \d\d:\d\d (B-\d+) (CONFIRMED|FIXED|REJECTED|DUPLICATE|DEFERRED|NEEDS-INFO)\b")
@@ -77,7 +82,9 @@ APP_TESTS = ["-m", "pytest", "tests/app", "-q", "-rf", "--tb=line", "-p", "no:ca
 
 
 def config() -> dict:
-    return json.loads((HERE / "config.json").read_text())
+    cfg = json.loads((HERE / "config.json").read_text())
+    cfg["provider"] = os.environ.get("BUGFIX_PROVIDER") or cfg.get("provider", "codex")  # tests pin it: never a real worker
+    return cfg
 
 
 def now() -> str:
@@ -321,20 +328,32 @@ def launch(jid: str, role: str) -> None:
             text = job["model"]
         else:
             wt, text = Path(job["worktree"]), job["review"]
-        model, effort = tier(text)
+        provider = config().get("provider", "codex")
+        model, effort = tier(config()["claude_tiers"].get(text, text) if provider == "claude" else text)
         LOGS.mkdir(parents=True, exist_ok=True)
         stem = f"{jid}.{role}.r{job['round']}.{datetime.now():%m%d-%H%M%S}"
         log, out = LOGS / f"{stem}.log", LOGS / f"{stem}.json"
         prompt = role_prompt(job, role)
-        worker = [CODEX, "exec", "-m", model, "-c", f'model_reasoning_effort="{effort}"', "-c", 'approval_policy="never"',
-                  "-s", "workspace-write" if role == "fixer" else "read-only", "-C", str(wt), "--color", "never",
-                  "--output-schema", str(HERE / "schemas" / f"{role}.json"), "-o", str(out), prompt]
+        schema = HERE / "schemas" / f"{role}.json"
+        if provider == "claude":  # its report is in its own output (the log): collect reads it from there
+            out = log
+            worker = [CLAUDE, "-p", prompt, "--model", model, "--effort", effort, *LEAN,
+                      "--tools", "Read,Write,Edit,Bash,Glob,Grep" if role == "fixer" else "Read,Bash,Glob,Grep",
+                      "--permission-mode", "acceptEdits" if role == "fixer" else "default",
+                      "--allowedTools", *(["Bash(.venv/bin/python *)"] if role == "fixer" else []), *READ_BASH,
+                      "--json-schema", schema.read_text()]
+        else:
+            worker = [CODEX, "exec", "-m", model, "-c", f'model_reasoning_effort="{effort}"', "-c", 'approval_policy="never"',
+                      "-s", "workspace-write" if role == "fixer" else "read-only", "-C", str(wt), "--color", "never",
+                      "--output-schema", str(schema), "-o", str(out), prompt]
         then = [PY, str(HERE / "bugfix.py"), "collect", jid, role, str(out)]
         shell = (f"{shlex.join(worker)} < /dev/null > {shlex.quote(str(log))} 2>&1; "
                  f"{shlex.join(then)} $? >> {shlex.quote(str(log))} 2>&1")
         proc = subprocess.Popen(["/bin/sh", "-c", shell], cwd=wt, start_new_session=True, stdout=subprocess.DEVNULL,
-                                stderr=subprocess.DEVNULL, env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"})
-        job.update(stage="fixing" if role == "fixer" else "reviewing", pid=proc.pid, log=str(log), started=now())
+                                stderr=subprocess.DEVNULL, env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1",
+                                                                "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"})
+        job.update(stage="fixing" if role == "fixer" else "reviewing", pid=proc.pid, log=str(log), started=now(),
+                   provider=provider)
         history(job, f"{role} started on {model}/{effort}")
     print(f"{jid}: {role} on {model}/{effort} · log {log.name}")
 
@@ -433,10 +452,17 @@ def run_tests(wt: Path, paths: list[str]) -> dict:
 
 
 def cmd_collect(jid: str, role: str, out_file: str, code: str) -> None:
-    try:
-        report = json.loads(Path(out_file).read_text())
-    except (OSError, ValueError):
-        report = None
+    if out_file.endswith(".log"):  # a Claude worker: its report and the allowance it was told about are in its output
+        sys.path.insert(0, str(REPO / "foundry"))
+        import router
+        facts = router.claude_log(Path(out_file))
+        report = facts["report"] if facts["report"] and "text" not in facts["report"] else None
+        note_claude(facts.get("windows") or {})
+    else:
+        try:
+            report = json.loads(Path(out_file).read_text())
+        except (OSError, ValueError):
+            report = None
     if role == "scribe":
         with state() as st:
             st["release_report"], st["release_stage"] = report, "written" if report else "failed"
@@ -515,24 +541,51 @@ def route_review(jid: str, report: dict | None, code: int) -> None:
 
 
 # ---------------- the loop ----------------
-def codex_used() -> float | None:
-    """Codex's weekly percentage used (read at most every two minutes; asking costs nothing)."""
+def used_now() -> float | None:
+    """How much of the provider's allowance is used: Codex's week, or the fuller of Claude's two windows (5 hours and
+    the week). Read at most every two minutes."""
+    provider = config().get("provider", "codex")
     cache = STATE_DIR / "usage.json"
     try:
         c = json.loads(cache.read_text())
-        if time.time() - c["at"] < 120:
+        if time.time() - c["at"] < 120 and c.get("provider") == provider:
             return c["used"]
     except (OSError, ValueError, KeyError):
         pass
-    if os.environ.get("BUGFIX_CODEX"):  # tests and fakes: nothing to ask
+    if os.environ.get("BUGFIX_CODEX") or os.environ.get("BUGFIX_CLAUDE"):  # tests and fakes: nothing to ask
         return None
     sys.path.insert(0, str(REPO / "foundry"))
     import router
-    w = router.codex_usage(CODEX) or {}
-    used = max([w[k]["used"] for k in ("seven_day", "limit") if k in w] or [-1.0])
+    if provider == "claude":
+        import foundry as fd  # the foundry keeps the readings of both allowances (foundry/usage.json)
+        with fd.notes() as n:
+            w = router.usage(n, fd.CODEX, fd.CLAUDE).get("claude") or {}
+        keys = ("five_hour", "seven_day", "limit")
+    else:
+        w, keys = router.codex_usage(CODEX) or {}, ("seven_day", "limit")
+    used = max([w[k]["used"] for k in keys if k in w] or [-1.0])
     STATE_DIR.mkdir(parents=True, exist_ok=True)
-    cache.write_text(json.dumps({"at": time.time(), "used": used, "windows": w}))
+    cache.write_text(json.dumps({"at": time.time(), "used": used, "provider": provider, "windows": w}))
     return used if used >= 0 else None
+
+
+def note_claude(windows: dict) -> None:
+    """A Claude worker is told exactly how much of both windows is used: keep it for the next reading."""
+    if not windows or os.environ.get("BUGFIX_CLAUDE"):
+        return
+    sys.path.insert(0, str(REPO / "foundry"))
+    import foundry as fd
+    import router
+    with fd.notes() as n:
+        k = n.setdefault("claude", {})
+        for name, w in windows.items():
+            router._reading(k, name, w["used"], w.get("resets"), time.time(), w.get("exact", False))
+    (STATE_DIR / "usage.json").unlink(missing_ok=True)
+
+
+def stop_at() -> float:
+    cfg = config()
+    return cfg["stop"][cfg.get("provider", "codex")]
 
 
 def reap(st: dict) -> None:
@@ -550,9 +603,9 @@ def cmd_step() -> None:
     cfg = config()
     with state() as st:
         reap(st)
-    used = codex_used()
-    if used is not None and used >= 100 - cfg["reserve"]:
-        print(f"Codex week {used:.0f}% used (keeping {cfg['reserve']}%): no new workers")
+    used = used_now()
+    if used is not None and used >= stop_at():
+        print(f"{cfg.get('provider', 'codex').title()} {used:.0f}% used (stop at {stop_at():.0f}%): no new workers")
         cmd_board()
         return
     jobs = peek()["jobs"]
@@ -802,9 +855,9 @@ def notify(text: str) -> None:
 
 
 def cmd_usage() -> None:
-    used = codex_used()
-    print(f"Codex week {used:.0f}% used; new workers stop at {100 - config()['reserve']}%" if used is not None
-          else "Codex allowance not known")
+    provider, used = config().get("provider", "codex"), used_now()
+    print(f"{provider.title()} {used:.0f}% used; new workers stop at {stop_at():.0f}%" if used is not None
+          else f"{provider.title()} allowance not known")
 
 
 def cmd_watch(every: float = 10) -> None:
