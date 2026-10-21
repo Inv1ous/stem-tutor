@@ -51,7 +51,9 @@ def _check_constants(expr: str, spec: str, where: str, out: list) -> None:
 def _check_answer(ans: dict, where: str, out: list, need_value: bool = True) -> None:
     if "expr" in ans:
         try:
-            grade._sympy()[1](ans["expr"])
+            for side in grade._sides(ans["expr"]):
+                if side is not None:
+                    grade._sympy()[1](side)
         except Exception as exc:  # noqa: BLE001 - any parse failure is a content error
             out.append(_e("expression", where, str(exc)[:80]))
         return

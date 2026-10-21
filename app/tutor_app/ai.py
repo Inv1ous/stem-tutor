@@ -560,7 +560,8 @@ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
         clean = re.sub(r"[*_`$\\]", "", opt).strip().lower()
         return len(clean) > 6 and clean in text.lower()
     if kind == "expression":
-        if len(flat := _flat(key)) >= 4 and flat in _flat(reply):
+        # An equation key still gives away the answer when only its right side is shown.
+        if len(flat := _flat(grade._sides(key)[1])) >= 4 and flat in _flat(reply):
             return True
         for part in re.split(r"=|\bis\b|:", reply)[1:]:  # each right-hand side, in any equivalent form
             try:
