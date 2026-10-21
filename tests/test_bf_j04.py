@@ -61,8 +61,8 @@ def refuse_replace(src: Path, dst: Path) -> None:
     raise OSError("This mount refuses replacing a file")
 
 
-def test_an_interrupted_fallback_restores_the_learners_note(tmp_path, monkeypatch):
-    """B-142 (bug watch): a failed in-place write must not leave My working truncated."""
+def test_a_refused_replacement_leaves_the_learners_note_untouched(tmp_path, monkeypatch):
+    """B-142 (bug watch): don't risk an interrupted in-place write of My working."""
     note = tmp_path / "scratch.md"
     note.write_text(NOTE, encoding="utf-8")
     real_write = Path.write_text
@@ -75,13 +75,13 @@ def test_an_interrupted_fallback_restores_the_learners_note(tmp_path, monkeypatc
 
     monkeypatch.setattr(store.os, "replace", refuse_replace)
     monkeypatch.setattr(Path, "write_text", interrupted)
-    with pytest.raises(OSError, match="Interrupted write"):
+    with pytest.raises(OSError, match="refuses replacing"):
         store.write_text(note, NOTE.replace("old status", "new status"))
     assert note.read_text(encoding="utf-8") == NOTE
 
 
-def test_a_failed_restore_keeps_a_complete_recoverable_note(tmp_path, monkeypatch):
-    """B-142 (bug watch): if storage keeps failing, retain the complete temporary copy."""
+def test_failed_writes_leave_the_learners_note_readable(tmp_path, monkeypatch):
+    """B-142 (bug watch): failed writes and restoration must leave the visible note intact."""
     note = tmp_path / "scratch.md"
     note.write_text(NOTE, encoding="utf-8")
     updated = NOTE.replace("old status", "new status")
@@ -101,15 +101,19 @@ def test_a_failed_restore_keeps_a_complete_recoverable_note(tmp_path, monkeypatc
     monkeypatch.setattr(Path, "write_bytes", failed_restore)
     with pytest.raises(OSError):
         store.write_text(note, updated)
+    assert note.read_text(encoding="utf-8") == NOTE
     assert any(p.read_text(encoding="utf-8") == updated for p in tmp_path.glob(".*.tmp"))
 
 
-def test_a_successful_fallback_saves_the_complete_note(tmp_path, monkeypatch):
-    """B-142 (bug watch): mounts refusing replacement can still save complete notes."""
+def test_a_refused_replacement_can_be_retried_without_losing_the_learners_note(tmp_path, monkeypatch):
+    """B-142 (bug watch): refuse unsafe writes even when in-place writing would work."""
     note = tmp_path / "scratch.md"
     note.write_text(NOTE, encoding="utf-8")
     updated = NOTE.replace("old status", "new status")
-    monkeypatch.setattr(store.os, "replace", refuse_replace)
+    with monkeypatch.context() as patch:
+        patch.setattr(store.os, "replace", refuse_replace)
+        with pytest.raises(OSError, match="refuses replacing"):
+            store.write_text(note, updated)
+        assert note.read_text(encoding="utf-8") == NOTE
     assert store.write_text(note, updated)
     assert note.read_text(encoding="utf-8") == updated
-    assert not list(tmp_path.glob(".*.tmp"))

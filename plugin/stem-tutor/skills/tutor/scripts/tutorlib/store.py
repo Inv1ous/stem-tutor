@@ -71,7 +71,7 @@ def write_json(path: Path, data, indent: int | None = 1) -> None:
 
 
 def write_text(path: Path, text: str) -> bool:
-    """Atomic write (temp file + rename, in-place fallback); skips the write when nothing changed."""
+    """Atomic write (temp file + rename); skips the write when nothing changed."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -81,25 +81,8 @@ def write_text(path: Path, text: str) -> bool:
         pass
     tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex[:8]}.tmp")
     tmp.write_text(text, encoding="utf-8")
-    try:
-        os.replace(tmp, path)
-    except OSError:  # some mounts refuse replacing a file: write in place instead
-        previous = path.read_bytes() if path.exists() else None
-        try:
-            path.write_text(text, encoding="utf-8")
-        except OSError:
-            # A cut-short fallback must not leave the learner's own words truncated. If restoring also fails,
-            # keep the complete temporary copy so the note is still recoverable.
-            if previous is not None:
-                try:
-                    path.write_bytes(previous)
-                except OSError:
-                    pass
-            raise
-        try:
-            tmp.unlink()
-        except OSError:
-            pass
+    # If replacement is refused, leave the original intact: an in-place write and its restoration can both fail.
+    os.replace(tmp, path)
     return True
 
 
