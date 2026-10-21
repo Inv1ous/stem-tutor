@@ -71,7 +71,7 @@ def write_json(path: Path, data, indent: int | None = 1) -> None:
 
 
 def write_text(path: Path, text: str) -> bool:
-    """Atomic write (temp file + rename, in-place fallback); skips the write when nothing changed."""
+    """Atomic write (temp file + rename); skips the write when nothing changed."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -81,14 +81,8 @@ def write_text(path: Path, text: str) -> bool:
         pass
     tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex[:8]}.tmp")
     tmp.write_text(text, encoding="utf-8")
-    try:
-        os.replace(tmp, path)
-    except OSError:  # some mounts refuse replacing a file: write in place instead
-        path.write_text(text, encoding="utf-8")
-        try:
-            tmp.unlink()
-        except OSError:
-            pass
+    # If replacement is refused, leave the original intact: an in-place write and its restoration can both fail.
+    os.replace(tmp, path)
     return True
 
 
@@ -126,6 +120,11 @@ class Vault:
         """The monthly files ("2026-09.jsonl") and their iCloud conflict copies ("2026-09 2.jsonl"), oldest first."""
         folder = self.tutor / "events"
         return sorted(folder.glob(EVENT_FILES)) if folder.exists() else []
+
+    def conflict_copies(self) -> dict[str, str]:
+        """Contents of sync copies: an older event in one can change progress without moving the last event id."""
+        return {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in self._event_files()
+                if path.name != f"{path.name[:7]}.jsonl"}
 
     def _read_events(self, paths: list[Path], bad_lines: list[str]) -> list[dict]:
         """The events in these files, each once: month by month, each file in the order it was written."""
