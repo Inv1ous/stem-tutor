@@ -151,7 +151,8 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
 
 
 # Supporting data (percentage abundances or a Normal percentage point) does not make the answer a percentage.
-_PERCENT = r"(?:percent(?:age)?\b(?!\s+points?\b)|per\s+cent\b)"
+# A question may ask with the symbol ("Calculate the % yield", "what % of"); data writes it on a number ("25%").
+_PERCENT = r"(?:percent(?:age)?\b(?!\s+points?\b)|per\s+cent\b|%)"
 _ASKS_PERCENT = re.compile(
     rf"\b(?:calculate|find|determine|work out|state|give|estimate|what(?: is)?)\s+(?:(?:the|a|an)\s+)?{_PERCENT}"
     rf"|\b(?:give|express|write|state|report)\s+(?:(?:your|the)\s+(?:answer|result)\s+)?(?:as an?|in)\s+{_PERCENT}", re.I)

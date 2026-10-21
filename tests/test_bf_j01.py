@@ -32,6 +32,7 @@ def test_a_percentage_in_the_given_data_does_not_make_the_answer_a_percentage(sp
     "A sample contains 25% of isotope A. Find its relative atomic mass.",
     "The abundance is given as a percentage. Calculate the relative atomic mass.",
     "The abundances in percent are 25 and 75. Find the relative atomic mass.",
+    "The yield is 25% by mass. Calculate the mass of the product.",
 ])
 def test_asking_for_a_value_using_percentages_does_not_allow_a_percent_sign(stem):
     """B-042 (bug watch): the requested quantity, not a later mention, sets the unit."""
@@ -46,6 +47,10 @@ def test_asking_for_a_value_using_percentages_does_not_allow_a_percent_sign(stem
     "What percentage of the sample remains?",
     "Calculate the yield. Give your answer as a percentage.",
     "Express the result in percent.",
+    "Calculate the % yield of the reaction.",
+    "What % of the sample remains?",
+    "Determine the % by mass of carbon in the compound.",
+    "Find the composition. Give your answer as a %.",
 ])
 def test_an_answer_requested_as_a_percentage_still_accepts_the_percent_sign(stem):
     """B-042 (bug watch): genuine percentage answers keep their optional sign."""
