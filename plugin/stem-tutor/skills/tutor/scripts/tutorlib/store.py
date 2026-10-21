@@ -37,6 +37,10 @@ class Locked(Exception):
     pass
 
 
+class Changed(Exception):
+    """A file was saved by someone else (Obsidian, say) after it was read and before this write could land."""
+
+
 def find_vault(globs: list[str] | None = None) -> Path:
     env = os.environ.get("STEM_TUTOR_VAULT")
     if env and (Path(env) / ".tutor" / "config.json").exists():
@@ -70,20 +74,48 @@ def write_json(path: Path, data, indent: int | None = 1) -> None:
                                 separators=None if indent else (",", ":")))
 
 
-def write_text(path: Path, text: str) -> bool:
-    """Atomic write (temp file + rename); skips the write when nothing changed."""
+_UNCHECKED = object()
+
+
+def write_text(path: Path, text: str, expect=_UNCHECKED) -> bool:
+    """Atomic write (temp file + rename); skips the write when nothing changed.
+
+    `expect`, if given, is the text the caller read before building `text` (`None`: there was no file). If the file
+    no longer holds `expect`, someone else saved it in between: nothing is written and `Changed` is raised, so the
+    caller can redo its edit on that save instead of overwriting it."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     try:
-        if path.exists() and path.read_text(encoding="utf-8") == text:
-            return False
+        current = path.read_text(encoding="utf-8") if path.exists() else None
     except (OSError, ValueError):  # unreadable or torn (not valid UTF-8): just replace it
-        pass
+        current = _UNCHECKED
+    if expect is _UNCHECKED and current == text:
+        return False
+    if expect is not _UNCHECKED and current != expect:
+        raise Changed(str(path))
     tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex[:8]}.tmp")
     tmp.write_text(text, encoding="utf-8")
     # If replacement is refused, leave the original intact: an in-place write and its restoration can both fail.
     os.replace(tmp, path)
     return True
+
+
+def edit_text(path: Path, edit, tries: int = 5) -> bool:
+    """Change a file somebody else may be saving too, such as a note open in Obsidian. `edit` is given the text as
+    it is now (`None`: there is no file) and returns the new text, or `None` to leave the file alone. If the file
+    was saved after `edit` read it, `edit` runs again on that save, so what the other writer saved is kept. True
+    when the file was written."""
+    path = Path(path)
+    for _ in range(tries):
+        before = path.read_text(encoding="utf-8") if path.exists() else None
+        text = edit(before)
+        if text is None:
+            return False
+        try:
+            return write_text(path, text, expect=before)
+        except Changed:
+            continue
+    return False  # saved again every time: leave it; the next change to this file starts from it
 
 
 class Vault:

@@ -13,7 +13,7 @@ from datetime import datetime
 from pathlib import Path
 
 from . import model
-from .store import write_text
+from .store import edit_text, write_text
 
 STATUS = {"secure": "✅", "learning": "🟡", "gap": "🔴", "new": "⚪"}
 _MAP_CLASS = {"secure": "done", "learning": "learning", "gap": "gap", "new": "todo"}
@@ -92,38 +92,52 @@ def concept_map(packs, state: dict, subtopic: str, current: str | None = None) -
     return "\n".join(lines)
 
 
+def _merge_words(earlier: str, new: str | None) -> str:
+    """Your earlier words, then what you wrote this time; a paragraph you wrote before is not added twice."""
+    paragraphs = lambda t: [p.strip() for p in re.split(r"\n[ \t]*\n", t or "") if p.strip()]  # noqa: E731
+    seen = {" ".join(p.split()) for p in paragraphs(earlier)}
+    added = [p for p in paragraphs(new) if " ".join(p.split()) not in seen]
+    return earlier + "\n\n" + "\n\n".join(added) if added else earlier
+
+
 def notes_update(root: Path, packs, state: dict, subtopic: str, current: str | None = None,
                  node: dict | None = None) -> str:
     """Refresh the map; when `node` is given ({kc, note, own_words, mistakes}), add or update that idea's section."""
     rel = notes_rel(packs, subtopic)
-    path = root / rel
     st = packs.subtopics[subtopic]
-    text = path.read_text(encoding="utf-8") if path.exists() else (
-        f"---\nsubtopic: {subtopic}\n---\n# {subtopic} {st['title']}\n\n"
-        "_These notes grow as you learn. Anything you add outside the grey markers is kept._\n")
     kcs = [k for k, v in packs.kcs.items() if v["subtopic"] == subtopic]
     done = sum(kc_status(state, k) == "secure" for k in kcs)
-    text = upsert(text, "map", f"> [!info] Progress: {done}/{len(kcs)} ideas secure\n\n"
-                  + concept_map(packs, state, subtopic, current))
-    if node:
-        kc = node["kc"]
-        if (old := _block(f"node {kc}").search(text)):  # re-taught: keep what you wrote before, merge mistakes
-            prev = old.group(0)
-            # a blank line inside the callout is a bare ">", so paragraphs after the first are kept too
-            if not node.get("own_words") and (w := re.search(r"> \[!quote\] In your words\n((?:>(?: .*)?\n?)+)", prev)):
-                node = {**node, "own_words": "\n".join(l[2:] for l in w.group(1).rstrip("\n").split("\n"))}
-            if (m := re.search(r"> \[!warning\] Watch out \(your mistakes\)\n((?:> - .*\n?)+)", prev)):
-                earlier = [l[4:] for l in m.group(1).rstrip("\n").split("\n")]
-                node = {**node, "mistakes": list(dict.fromkeys(earlier + list(node.get("mistakes") or [])))}
-        body = [f"## {STATUS[kc_status(state, kc)]} {packs.kcs[kc]['title']}", "", node.get("note", "").strip(), ""]
-        if node.get("own_words"):
-            body += [callout("quote", "In your words", node["own_words"]), ""]
-        if node.get("mistakes"):
-            body += [callout("warning", "Watch out (your mistakes)", "\n".join(f"- {m}" for m in node["mistakes"])), ""]
-        order = [k for k in kcs if _block(f"node {k}").search(text)] + [kc]
-        prev = next((k for k in reversed(order[:-1]) if kcs.index(k) < kcs.index(kc)), None) if kc in kcs else None
-        text = upsert(text, f"node {kc}", "\n".join(body), after=f"node {prev}" if prev else "map")
-    return _write(root, rel, text)
+
+    def edit(text: str | None) -> str:
+        if text is None:
+            text = (f"---\nsubtopic: {subtopic}\n---\n# {subtopic} {st['title']}\n\n"
+                    "_These notes grow as you learn. Anything you add outside the grey markers is kept._\n")
+        text = upsert(text, "map", f"> [!info] Progress: {done}/{len(kcs)} ideas secure\n\n"
+                      + concept_map(packs, state, subtopic, current))
+        if node:
+            kc, new = node["kc"], node
+            if (old := _block(f"node {kc}").search(text)):  # re-taught: keep what you wrote before, merge mistakes
+                prev = old.group(0)
+                # a blank line inside the callout is a bare ">", so paragraphs after the first are kept too
+                if (w := re.search(r"> \[!quote\] In your words\n((?:>(?: .*)?\n?)+)", prev)):
+                    earlier = "\n".join(l[2:] for l in w.group(1).rstrip("\n").split("\n"))
+                    new = {**new, "own_words": _merge_words(earlier, new.get("own_words"))}
+                if (m := re.search(r"> \[!warning\] Watch out \(your mistakes\)\n((?:> - .*\n?)+)", prev)):
+                    earlier = [l[4:] for l in m.group(1).rstrip("\n").split("\n")]
+                    new = {**new, "mistakes": list(dict.fromkeys(earlier + list(new.get("mistakes") or [])))}
+            body = [f"## {STATUS[kc_status(state, kc)]} {packs.kcs[kc]['title']}", "", new.get("note", "").strip(), ""]
+            if new.get("own_words"):
+                body += [callout("quote", "In your words", new["own_words"]), ""]
+            if new.get("mistakes"):
+                body += [callout("warning", "Watch out (your mistakes)", "\n".join(f"- {m}" for m in new["mistakes"])), ""]
+            order = [k for k in kcs if _block(f"node {k}").search(text)] + [kc]
+            prev = next((k for k in reversed(order[:-1]) if kcs.index(k) < kcs.index(kc)), None) if kc in kcs else None
+            text = upsert(text, f"node {kc}", "\n".join(body), after=f"node {prev}" if prev else "map")
+        return text
+
+    # the learner may save this page in Obsidian at any moment: the edit is redone on their save, never over it
+    edit_text(root / rel, edit)
+    return rel
 
 
 def refresh_status(root: Path, packs, state: dict, subtopic: str) -> str | None:
@@ -131,12 +145,17 @@ def refresh_status(root: Path, packs, state: dict, subtopic: str) -> str | None:
     path = root / notes_rel(packs, subtopic)
     if not path.exists():
         return None
-    text = path.read_text(encoding="utf-8")
-    for k in [k for k, v in packs.kcs.items() if v["subtopic"] == subtopic]:
-        if m := _block(f"node {k}").search(text):
-            block = re.sub(r"^## \S+ ", f"## {STATUS[kc_status(state, k)]} ", m.group(0), count=1, flags=re.M)
-            text = text[:m.start()] + block + text[m.end():]
-    write_text(path, text)
+
+    def remark(text: str | None) -> str | None:
+        if text is None:  # deleted meanwhile: nothing to remark
+            return None
+        for k in [k for k, v in packs.kcs.items() if v["subtopic"] == subtopic]:
+            if m := _block(f"node {k}").search(text):
+                block = re.sub(r"^## \S+ ", f"## {STATUS[kc_status(state, k)]} ", m.group(0), count=1, flags=re.M)
+                text = text[:m.start()] + block + text[m.end():]
+        return text
+
+    edit_text(path, remark)
     return notes_update(root, packs, state, subtopic)
 
 
