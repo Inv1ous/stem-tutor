@@ -75,6 +75,7 @@ class Tutor(LessonMixin):
             s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "partial", "detail", "response", "answer",
                                                          "explanation")} for fb in done]
             s["now"] = {"activity": "feedback"}
+            self._sync_almanac(force=True)
 
     def refresh_content(self) -> list[str]:
         """Between sessions, switch to newly published content: returns the titles of chapters that arrived."""
@@ -119,17 +120,21 @@ class Tutor(LessonMixin):
 
     def log(self, event: dict) -> dict:
         e = self.vault.append_event(event, now=self.now())
-        model.apply(self.state, e)
+        if e["type"] == "regrade":
+            # A re-mark changes an earlier answer: refold before saving a cache that claims to include it.
+            self.state = self._fold()
+        else:
+            model.apply(self.state, e)
         self._dirty = True
         self._save()
-        if event.get("type") in ("answer", "session_start"):
-            self._sync_almanac(force=event["type"] == "session_start")
+        if event.get("type") in ("paper_result", "session_start"):
+            self._sync_almanac(force=True)
         return e
 
     def _sync_almanac(self, force: bool = False) -> None:
         """Tell the Almanac what is happening as it happens (the page reads the file every half minute): the session
-        under way, today's totals and each objective's progress. At most every ten seconds; never raises, and writes
-        nothing when the planner file is not on this machine."""
+        under way, today's totals and each objective's progress. At most every ten seconds unless forced after a
+        completed action; never raises, and writes nothing when the planner file is not on this machine."""
         try:
             now = time.monotonic()
             if not force and now - getattr(self, "_almanac_at", -99) < 10:
@@ -701,6 +706,8 @@ class Tutor(LessonMixin):
                                   for fb in done]
             s["now"] = {"activity": "feedback"}
         self._save()
+        if done:  # the learner may pause here: send the finished session even inside the throttle window
+            self._sync_almanac(force=True)
         return {"results": results, "remaining": len(s["presented"])}
 
     def _typical_seconds(self, subject: str | None) -> float | None:
@@ -748,7 +755,6 @@ class Tutor(LessonMixin):
         last, self._last_mark = self._last_mark, None
         self.log({"type": "regrade", "target": event_id, "item": answer["item"], "by": by, "why": why,
                   "grade": dict(RIGHT)})
-        self.rebuild()
         s, fb = self.session, None
         if s and s.get("id") == answer.get("session"):
             if last and last["event"] == event_id:
@@ -771,6 +777,7 @@ class Tutor(LessonMixin):
             if (log := self._lesson_log()):
                 log.tutor(why, title=f"Q{answer['n']} re-marked: correct ✓")
             self._save()
+        self._sync_almanac(force=True)
         return {"ok": True, **({"feedback": fb} if fb else {})}
 
     def _record(self, key: str, p: dict, r: dict, g: dict) -> dict:
@@ -815,7 +822,6 @@ class Tutor(LessonMixin):
             g = {**g, "correct": False}
         s["answered"] += 1
         s["correct"] += 1 if g["correct"] else 0
-        self._sync_almanac()
         if p["block"] == "bracket":
             blk = s["blocks"][p["block_idx"]]
             rec = blk["st"][blk.get("asked_for", {}).get(p["item"], p["kcs"][0])]
