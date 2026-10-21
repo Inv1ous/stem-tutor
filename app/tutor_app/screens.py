@@ -1088,6 +1088,9 @@ class SessionScreen(ReadAloud, Screen):
                                  done_label="I'm ready to move on"))
         elif self.chatting and data.get("text"):
             self.say(cards.you(data["text"]))
+            if (log := self.tutor._lesson_log()):
+                log.you(data["text"])
+            self.tutor.show("you", data["text"], "You")
             self.stream(f"{prompts.context(self.tutor, self.kc)}\n\nSTUDENT: {data['text']}")
         elif self.chatting and (data.get("done") or data.get("skip")):
             self.chatting = False
@@ -1522,27 +1525,45 @@ class ChatScreen(ReadAloud, Screen):
     @work(exclusive=True)
     async def reply(self, q: str) -> None:
         a = self.app.ai
+        t = self.app.tutor
         log = self.query_one("#log", VerticalScroll)
         if not (self.app.settings.ai and a.available):
             log.mount(Static(cards.card("hint", "AI help is off", a.message or "Switch AI on in Settings."), classes="entry"))
             self.app.tutor.show("notice", a.message or "Switch AI on in Settings.", "AI help is off")
+            log.scroll_end(animate=False)
+            return
+        if (help_ := t.ai_help(given=False)).get("refused"):
+            log.mount(Static(cards.card("hint", "No help on this one", help_["refused"]), classes="entry"))
+            t.show("notice", help_["refused"], "No help on this one")
+            log.scroll_end(animate=False)
             return
         w = Static(cards.ai("…"), classes="entry")
         log.mount(w)
         buf = ""
+        # A paused session keeps its answer guard, including while a reply is streaming.
+        keys = [prompts.key_of(t, int(n)) for n in (t.session or {}).get("presented", {})]
         model, think = self.app.settings.ai_for("ask")
         async for chunk in a.stream(prompts.ask(self.app.tutor, q, None), model=model, think=think):  # with the last questions answered
             buf += chunk
-            w.update(cards.ai(buf))
-            log.scroll_end(animate=False)
+            if not keys:
+                w.update(cards.ai(buf))
+                log.scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
             self.app.tutor.show("notice", a.last.message, "AI paused")
         else:
             buf = a.last.text or buf
+            speech = a.last.speech
+            withheld = any(ai_mod.leaks(buf, *k) or (speech and ai_mod.leaks(speech, *k)) for k in keys)
+            if withheld:
+                buf = "I can't give that away while the question is open. Answer first and I'll explain."
+                speech = ""
             w.update(cards.ai(buf))
-            self.app.tutor.show("ai", buf, "Tutor (AI)")
-            self.readable_now(a.last.speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
+            if buf and not withheld:
+                t.ai_help()
+            t.show("notice" if withheld else "ai", buf, "Held back" if withheld else "Tutor (AI)")
+            self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
+        log.scroll_end(animate=False)
 
 
 class InsightsScreen(Screen):
