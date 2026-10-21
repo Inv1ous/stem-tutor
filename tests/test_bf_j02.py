@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import json
 import random
 from datetime import datetime
@@ -27,6 +28,22 @@ def test_the_suvat_derivation_requires_the_requested_subject(text, score):
     result = grade.grade_item(item, {"kind": "value", "value": text})
     assert result["score"] == score
     assert result["correct"] is bool(score)
+
+
+def test_rebuilding_the_kinematics_pack_keeps_the_suvat_subject():
+    """B-059: the pack is generated, so a key fixed only in the JSON comes back on the next rebuild."""
+    root = Path(__file__).resolve().parents[1]
+    source = ast.parse((root / "build/work/gen/gen_9702_2_1.py").read_text())
+    calls = [n for n in ast.walk(source) if isinstance(n, ast.Call) and getattr(n.func, "id", "") == "gen"
+             and n.args and getattr(n.args[0], "value", None) == 24]
+    assert len(calls) == 1
+    answer = ast.literal_eval(next(k.value for k in calls[0].keywords if k.arg == "answer"))
+
+    item = _published("9702", "9702-2.1", "9702-2.1-i24")
+    assert answer["expr"] == item["answer"]["expr"]
+    item["answer"] = answer
+    assert grade.grade_item(item, {"kind": "value", "value": "v=u^2+2as"})["score"] == 0
+    assert grade.grade_item(item, {"kind": "value", "value": "v^2=u^2+2as"})["score"] == 1
 
 
 def test_an_equation_key_can_pass_content_validation(monkeypatch):

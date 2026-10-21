@@ -310,7 +310,8 @@ generated = [
  gen(24, [K[6]], 5, "Derive", "For uniform acceleration $a$, use $v=u+at$ and $s=\\tfrac12(u+v)t$ to eliminate $t$ and write $v^2$ in terms of $u$, $a$ and $s$.",
   "From $v=u+at$, $t=(v-u)/a$. Then $s=\\tfrac12(u+v)(v-u)/a=(v^2-u^2)/(2a)$, so $v^2=u^2+2as$.",
   ["You need an equation with no $t$: make $t$ the subject of one equation.", "Substitute $t=(v-u)/a$ into $s=\\tfrac12(u+v)t$.", "Look for a difference of two squares in the product $(u+v)(v-u)$."],
-  kind="expression", answer={"expr": "u**2 + 2*a*s"}, marks=3),
+  # the key keeps the subject: without "v^2 =" the grader accepted v=u^2+2as for full marks (B-059)
+  kind="expression", answer={"expr": "v^2 = u**2 + 2*a*s"}, marks=3),
  gen(25, [K[6], K[7]], 2, "Identify", "A car accelerates uniformly. Its initial velocity, final velocity and displacement are known and its acceleration is required. Which equation should be used, because the time is neither given nor asked for?",
   "The equation with no $t$ is $v^2=u^2+2as$, which links exactly the four quantities in the question. The other equations all contain $t$.",
   ["List the quantities you know and the one you want.", "Only one of the four equations does not contain the time $t$.", "Which of $s$, $u$, $v$, $a$ and $t$ is missing from your list of knowns and unknowns? Rule out every option that contains it."],
