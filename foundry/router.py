@@ -236,8 +236,9 @@ def usage(notes: dict, codex: str, claude: str, now: float | None = None) -> dic
         for name, w in cached.items():
             if at > k.get("windows", {}).get(name, {}).get("at", 0):
                 _reading(k, name, w["used"], w["resets"], at)
-        newest = max([w.get("at", 0) for w in k.get("windows", {}).values()] + [k.get("probed", 0)])
-        if now - newest > PROBE_EVERY:  # other sessions use this allowance too: an old figure is a wrong one
+        # the stalest window decides: Claude Code's cache may keep refreshing the week alone while the 5 hours go stale
+        stalest = min([w.get("at", 0) for w in k.get("windows", {}).values()] or [0])
+        if now - max(stalest, k.get("probed", 0)) > PROBE_EVERY:  # other sessions use this allowance too: an old figure is a wrong one
             k["probed"] = now
             for name, w in claude_probe(claude)["windows"].items():
                 _reading(k, name, w["used"], w.get("resets"), now, w.get("exact", False))
