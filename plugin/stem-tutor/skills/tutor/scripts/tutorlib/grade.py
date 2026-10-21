@@ -150,9 +150,16 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
     return value, unit, sf, digits
 
 
+# Supporting data (percentage abundances or a Normal percentage point) does not make the answer a percentage.
+_PERCENT = r"(?:percent(?:age)?\b(?!\s+points?\b)|per\s+cent\b)"
+_ASKS_PERCENT = re.compile(
+    rf"\b(?:calculate|find|determine|work out|state|give|estimate|what(?: is)?)\s+(?:(?:the|a|an)\s+)?{_PERCENT}"
+    rf"|\b(?:give|express|write|state|report)\s+(?:(?:your|the)\s+(?:answer|result)\s+)?(?:as an?|in)\s+{_PERCENT}", re.I)
+
+
 def _unit_on_plain_number(item: dict, unit: str) -> bool:
     """A unit typed on an answer that is a plain number; "%" is fine only where the question asks for a percentage."""
-    return bool(unit) and not (unit == "%" and re.search(r"percent|%", item.get("stem") or "", re.I))
+    return bool(unit) and not (unit == "%" and _ASKS_PERCENT.search(item.get("stem") or ""))
 
 
 def value_problem(item: dict, text: str) -> str | None:
@@ -285,6 +292,9 @@ def _grade_numeric(item, resp):
         exact = _close(value, target, 1e-9)
         if allowed and sf is not None and sf not in allowed and _figures_count(item, allowed, sf, exact):
             notation = notation or f"{sf} s.f. (want {'/'.join(map(str, allowed))})"
+        elif allowed and digits is None and (len(allowed) == 1 or _STATES_FIGURES.search(item.get("stem") or "")):
+            # A fraction has no written figure count; unlike trailing zeros, it cannot meet a fixed count.
+            notation = notation or f"a fraction (want {'/'.join(map(str, allowed))} s.f.)"
         if notation:
             return _result(True, 0.5, "NOTATION", detail=notation)
         return _result(True, 1.0, detail=spelling)
