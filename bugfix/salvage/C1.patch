@@ -1,0 +1,745 @@
+# Unfinished, unreviewed attempt (stopped mid-way) for: B-063 B-046 B-066 B-079 B-108 B-068 B-132 B-139 B-133 B-084 B-105 B-103 B-106 B-090
+diff --git a/app/tutor_app/screens.py b/app/tutor_app/screens.py
+index 2b3d40b..ad84c72 100644
+--- a/app/tutor_app/screens.py
++++ b/app/tutor_app/screens.py
+@@ -984,7 +984,8 @@ class SessionScreen(ReadAloud, Screen):
+         if say:
+             self.say(cards.note(say, "dim"))
+         card = self.say(cards.question(view))
+-        self.readable_now(view.get("stem", ""))  # ctrl+e reads the question; it is never read by itself
++        # ctrl+e reads the question; it is never read by itself. A diagram can't be spoken: its authored words are
++        self.readable_now(view.get("speech") or view.get("stem", ""))
+         self.query_one("#log", VerticalScroll).call_after_refresh(self._show_top, card)  # after say's scroll_end
+         self.answer_panel(view)
+ 
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/anki.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/anki.py
+index 9f939ba..c309a7e 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/anki.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/anki.py
+@@ -52,8 +52,12 @@ def export(tutor) -> dict:
+     new_ids = []
+     for subtopic in sorted({packs.kc(kc)["subtopic"] for kc, k in state["kcs"].items() if k["n"] > 0 and kc in packs.kcs}):
+         pack = packs.pack(subtopic) or {}
++        seen: dict[str, int] = {}
+         for card in pack.get("flashcards", []):
+             kc, uid = card["kc"], f"{subtopic}:{card['id']}"  # packs reuse fc1, fc2…: the pack makes an id unique
++            seen[uid] = seen.get(uid, 0) + 1
++            if seen[uid] > 1:  # a pack that gives two cards one id: the later ones are numbered, so no two share a GUID
++                uid += f"#{seen[uid]}"  # (counted by place in the pack, so a card keeps its id whatever else was exported)
+             if uid in done or state["kcs"].get(kc, {}).get("n", 0) == 0 or card.get("in_anki"):
+                 continue
+             meta = packs.kc(kc)
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/insights.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/insights.py
+index 3e8810f..5721c38 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/insights.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/insights.py
+@@ -207,14 +207,27 @@ def _habits(prof: dict, state: dict) -> dict:
+                  "Short sessions on most days beat long ones now and then (spacing).", days, certainty(days, 7))
+ 
+ 
++def tagged_errors(evs: list[dict]) -> dict[str, str]:
++    """Why the learner says each answer went wrong (their latest tag on it), by answer id. The Mistakes finding and the
++    Almanac count these, so everything else that names a cause must read it the same way (see `error_of`)."""
++    return {e["target"]: e["error"] for e in evs if e.get("type") == "tag"}
++
++
++def error_of(answer: dict, tags: dict[str, str]) -> str | None:
++    """What cost an answer its marks: the learner's own tag if they gave one, else the grader's diagnosis."""
++    return tags.get(answer.get("id")) or answer["grade"].get("error")
++
++
+ def _recorded(state: dict, evs: list[dict]) -> dict:
+     answers = [e for e in evs if e["type"] == "answer"]
+     days = sorted(e["ts"][:10] for e in answers)
+-    return {"answers": len(answers), "sessions": sum(e["type"] == "session_start" for e in evs),
++    tags = tagged_errors(evs)
++    return {"answers": len(answers),
++            "sessions": len({e["session"] for e in answers if e.get("session")}),  # those answered in: not every one begun
+             "study_days": len(state.get("study_days", [])),
+             "confidence_ratings": sum(e.get("conf") is not None for e in answers),
+             "hinted": sum(bool(e.get("hinted")) for e in answers),
+-            "mistakes_classified": sum(bool(e["grade"].get("error")) for e in answers),
++            "mistakes_classified": sum(bool(error_of(e, tags)) for e in answers),
+             "misconceptions_spotted": sum(bool(e["grade"].get("misconception")) for e in answers),
+             "blurts": sum(e["type"] == "blurt" for e in evs), "papers": sum(e["type"] == "paper_result" for e in evs),
+             "first": days[0] if days else None, "latest": days[-1] if days else None}
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/report.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/report.py
+index 5294c47..2f98920 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/report.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/report.py
+@@ -350,7 +350,8 @@ def _rebuilt_key(tutor, e: dict) -> str | None:
+ def mistakes_note(tutor) -> str:
+     """Every question answered wrong or not known, by subtopic, newest first, with the right answer."""
+     from . import insights
+-    answers = [e for e in tutor.vault.events() if e["type"] == "answer"]
++    events = list(tutor.vault.events())
++    answers, tags = [e for e in events if e["type"] == "answer"], insights.tagged_errors(events)
+     right_later: set[str] = set()
+     groups: dict[str, list[list[str]]] = {}
+     fixed = 0
+@@ -366,9 +367,10 @@ def mistakes_note(tutor) -> str:
+                 [f"- **{day}** · {paper} Q{q}: {e['response']} marks" + (" · ✓ full marks since" if since else "")])
+             continue
+         g, kc = e["grade"], (e.get("kcs") or [""])[0]
++        cause = insights.error_of(e, tags)  # the learner's own tag if they gave one: the profile counts it so too
+         why = ("didn't know" if e.get("response") == "don't know"
+                else f"misconception: “{insights._mis_text(tutor.packs, kc, g['misconception'])}”" if g.get("misconception")
+-               else insights.MISTAKES.get(g.get("error") or "", "wrong answer"))
++               else insights.MISTAKES.get(cause or "", "wrong answer"))
+         stem = e.get("stem") or _item_stem(tutor, e["item"], e.get("params"))
+         key = e.get("key") or _rebuilt_key(tutor, e)
+         you = str(e.get("response", "")).replace("`", "'")
+@@ -456,8 +458,10 @@ def _retro(tutor, events: list[dict], week: int) -> dict | None:
+     answers = [e for e in events if e["type"] == "answer" and start.isoformat() <= e["ts"][:10] < end.isoformat()]
+     if not answers:
+         return None
++    from . import insights
+     right = sum(model.counts_as_right(e["grade"]) for e in answers)
+-    kinds = Counter(_errfam(e["grade"]["error"], e.get("subject") or "") for e in answers if e["grade"].get("error"))
++    tags = insights.tagged_errors(events)  # the learner's own reason for a miss, as the payload's mistakes count it
++    kinds = Counter(_errfam(code, e.get("subject") or "") for e in answers if (code := insights.error_of(e, tags)))
+     missed = Counter(k for e in answers if not model.counts_as_right(e["grade"]) for k in e["kcs"])
+     weakest = [f"{tutor.packs.kc(k)['title']} ({n})" for k, n in missed.most_common(3) if k in tutor.packs.kcs]
+     gaps = [tutor.packs.kc(k)["title"] for k in tutor.state["gaps"] if k in tutor.packs.kcs][:3]
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py
+index 873d365..95a1586 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py
+@@ -9,7 +9,6 @@ import copy
+ import math
+ import random
+ import re
+-import time
+ import uuid
+ from datetime import datetime
+ 
+@@ -59,12 +58,20 @@ class Tutor(LessonMixin):
+     def _recover(self) -> None:
+         """An answer is logged before the session is saved. If the app stopped in between, the question is still
+         open here though the log holds its answer: close it, so it is not asked and recorded a second time, and do
+-        to the session what marking it did (a sweep's result, a relearn, a node's check), as a re-mark redoes it."""
++        to the session what marking it did (a sweep's result, a relearn, a node's check), as a re-mark redoes it.
++        The end of a session is logged before the session is closed, so a stop in between leaves a session the log
++        says is over: it is closed here, not offered again to resume."""
+         s = self.session
+-        if not s or not s.get("presented"):
++        if not s:
++            return
++        events = list(self.vault.events())
++        if any(e["type"] == "session_end" and e.get("session") == s.get("id") for e in events):
++            self._close(s)
++            return
++        if not s.get("presented"):
+             return
+         done = []
+-        for e in list(self.vault.events()):
++        for e in events:
+             n = str(e.get("n"))
+             if e["type"] == "answer" and e.get("session") == s["id"] and s["presented"].get(n, {}).get("item") == e["item"]:
+                 p = s["presented"][n]
+@@ -119,22 +126,24 @@ class Tutor(LessonMixin):
+ 
+     def log(self, event: dict) -> dict:
+         e = self.vault.append_event(event, now=self.now())
+-        model.apply(self.state, e)
++        if e["type"] != "regrade":
++            model.apply(self.state, e)
++        # else: a re-mark is not folded in as it arrives. Replay reads it into the answer it overturns (see
++        # Vault.events), so the state is rebuilt from the log instead (see regrade). Until then it must not claim to
++        # have seen the re-mark: a stop in between would pass for a state that never counted it, and be trusted.
+         self._dirty = True
+         self._save()
+-        if event.get("type") in ("answer", "session_start"):
+-            self._sync_almanac(force=event["type"] == "session_start")
++        if event.get("type") == "session_start":
++            self._sync_almanac()
+         return e
+ 
+-    def _sync_almanac(self, force: bool = False) -> None:
++    def _sync_almanac(self) -> None:
+         """Tell the Almanac what is happening as it happens (the page reads the file every half minute): the session
+-        under way, today's totals and each objective's progress. At most every ten seconds; never raises, and writes
+-        nothing when the planner file is not on this machine."""
++        under way, today's totals and each objective's progress. Called once an action is complete (a session begun
++        or ended, a batch of answers marked, an answer re-marked), so it says how things stand after it, and never
++        held back for the last change to go missing. Never raises, and writes nothing when the planner file is not on
++        this machine."""
+         try:
+-            now = time.monotonic()
+-            if not force and now - getattr(self, "_almanac_at", -99) < 10:
+-                return
+-            self._almanac_at = now
+             from . import report
+             report.almanac_push(self)
+         except Exception:  # noqa: BLE001 - the Almanac is a courtesy; it never stops a lesson
+@@ -179,6 +188,11 @@ class Tutor(LessonMixin):
+ 
+     def clear_chat(self) -> None:
+         self._chat = []
++        if self.session is None and (self.vault.root / "Now.md").exists():  # the page must not keep the old chat
++            try:
++                self._write_now()
++            except OSError:  # the terminal starts the new chat anyway
++                pass
+ 
+     def _thread_blocks(self, items: list[dict]) -> list[str]:
+         return [views.callout(self.THREAD_KIND.get(t["kind"], "note"),
+@@ -200,11 +214,12 @@ class Tutor(LessonMixin):
+             asked = next((q for q in reversed(s.get("recent", [])) if q.get("n") == fb.get("n") and q.get("stem")), None)
+             if asked:  # the question stays above its verdict, so the answer can be read against it
+                 blocks.append(views.question_block({**asked, "kind": asked.get("kind", ""), "marks": asked.get("marks", 1)}))
+-            kind = "success" if fb.get("correct") else "failure"
++            unknown = fb.get("response") == "don't know"  # a chosen "I don't know" is not an attempt that missed
++            kind = "success" if fb.get("correct") else "question" if unknown else "failure"
+             body = (f"Answer: {fb.get('answer', '')}" + (f"\nExam point: {fb['detail']}" if fb.get("detail") else "")
+                     + (f"\n\n{fb['explanation']}" if fb.get("explanation") else ""))
+             verdict = ("correct ✓" if fb.get("correct") else "right value, a mark lost ✗" if fb.get("partial")
+-                       else "not quite ✗")
++                       else "I don't know" if unknown else "not quite ✗")
+             blocks.append(views.callout(kind, f"Q{fb['n']} — {verdict}", body))
+         act = s.get("now") or {}
+         kind = act.get("activity")
+@@ -298,18 +313,30 @@ class Tutor(LessonMixin):
+                       f"Answered {summary['answered']}, correct {summary['correct']}"
+                       + (f"; learned: {', '.join(self.packs.kcs[k]['title'] for k in summary['kcs_learned'] if k in self.packs.kcs)}"
+                          if summary["kcs_learned"] else "") + ".", title="Session summary")
+-        kcs = [k for p in s.get("presented", {}).values() for k in p.get("kcs", [])] + summary["kcs_learned"] \
++        if error := self._close(s):
++            summary["notes_error"] = error  # after the event: the log records the end, not the notes it could not write
++        return summary
++
++    def _close(self, s: dict) -> str | None:
++        """The session is over, as its `session_end` in the log says: drop it, and bring the notes and the Almanac up
++        to date. Also what a restart does for a session whose end reached the log but not the save. The notes are
++        views of the log, so one that cannot be written does not undo the end: why is returned, for the caller to say."""
++        kcs = [k for p in s.get("presented", {}).values() for k in p.get("kcs", [])] + s.get("kcs_learned", []) \
+             + s.get("kcs_answered", [])  # answered questions have left `presented`: a review changes mastery too
+         touched = {self.packs.kcs[k]["subtopic"] for k in kcs if k in self.packs.kcs}
+         if s.get("subtopic"):
+             touched.add(s["subtopic"])
+         self.session = None
+-        self._save()
+-        for sub in touched:
+-            views.refresh_status(self.vault.root, self.packs, self.state, sub)
+-        views.write_home(self.vault.root, self.packs, self.state, self.now(), views.recent_lessons(self.vault.root))
+-        self._sync_almanac(force=True)  # the session is over: the Almanac stops saying "live"
+-        return summary
++        error = None
++        try:
++            self._save()
++            for sub in touched:
++                views.refresh_status(self.vault.root, self.packs, self.state, sub)
++            views.write_home(self.vault.root, self.packs, self.state, self.now(), views.recent_lessons(self.vault.root))
++        except OSError as exc:
++            error = str(exc) or type(exc).__name__
++        self._sync_almanac()  # the session is over: the Almanac stops saying "live"
++        return error
+ 
+     # ---------- presenting ----------
+     def _present(self, item: dict, block: str, phase: str | None, unassisted: bool = False,
+@@ -355,6 +382,8 @@ class Tutor(LessonMixin):
+             v["source"] = inst["source"].get("ref")
+         if inst["kind"] == "structured":
+             v["scheme_points"] = len(inst.get("scheme", []))
++        if spoken := _spoken_stem(inst):
++            v["speech"] = spoken
+         return v
+ 
+     def _pick(self, kc: str, target: float, kinds=("mcq", "numeric", "expression", "short")) -> dict | None:
+@@ -701,6 +730,8 @@ class Tutor(LessonMixin):
+                                   for fb in done]
+             s["now"] = {"activity": "feedback"}
+         self._save()
++        if done:
++            self._sync_almanac()  # only now: the session counts and the open questions are as the page should show them
+         return {"results": results, "remaining": len(s["presented"])}
+ 
+     def _typical_seconds(self, subject: str | None) -> float | None:
+@@ -771,6 +802,7 @@ class Tutor(LessonMixin):
+             if (log := self._lesson_log()):
+                 log.tutor(why, title=f"Q{answer['n']} re-marked: correct ✓")
+             self._save()
++        self._sync_almanac()  # the colours, the mistakes and today's right answers have changed
+         return {"ok": True, **({"feedback": fb} if fb else {})}
+ 
+     def _record(self, key: str, p: dict, r: dict, g: dict) -> dict:
+@@ -815,7 +847,6 @@ class Tutor(LessonMixin):
+             g = {**g, "correct": False}
+         s["answered"] += 1
+         s["correct"] += 1 if g["correct"] else 0
+-        self._sync_almanac()
+         if p["block"] == "bracket":
+             blk = s["blocks"][p["block_idx"]]
+             rec = blk["st"][blk.get("asked_for", {}).get(p["item"], p["kcs"][0])]
+@@ -872,8 +903,8 @@ class Tutor(LessonMixin):
+             fb["misconception"] = self.packs.misconception(self.packs.kc(p["kcs"][0])["subtopic"], g["misconception"])
+         your = ("?" if r["kind"] == "idk" else f"{r['value']}" if r["kind"] != "points" else
+                 "points " + ",".join(map(str, r["value"]))) + (f" (confidence {r['conf']})" if r.get("conf") else "")
+-        if not redo and (log := self._lesson_log()):
+-            log.answer(fb, your)
++        if (log := self._lesson_log()) and not (redo and _noted(log, fb["n"])):
++            log.answer(fb, your)  # a recovered answer may never have reached the notes; a re-marked one is there
+         if p["block"] == "node" and p["phase"] == "check" and p["block_idx"] is not None:
+             self._node_check_result(s["blocks"][p["block_idx"]], g, fb, "?" if r["kind"] == "idk" else str(r["value"]))
+         if r.get("conf") and r["conf"] >= 3 and not g["correct"]:
+@@ -946,6 +977,7 @@ class Tutor(LessonMixin):
+                 per_kc.setdefault(k, []).append(frac)
+         total, maximum = sum(v[0] for q, v in got.items() if q in qmap), sum(v[1] for q, v in got.items() if q in qmap)
+         self.log({"type": "paper_result", "paper": paper_id, "score": total, "max": maximum, "session": sid})
++        self._sync_almanac()
+         weakest = sorted(({"kc": k, "score": round(sum(v) / len(v), 2)} for k, v in per_kc.items()), key=lambda x: x["score"])
+         whole = max(paper.get("marks") or 0, maximum)  # a paper marked in part is not full marks
+         return {"paper": paper_id, "score": total, "max": maximum, "partial": maximum < whole,
+@@ -981,6 +1013,32 @@ class Tutor(LessonMixin):
+         return {"ok": True}
+ 
+ 
++def _noted(log: views.LessonLog, n: int) -> bool:
++    """Is question n's verdict already in the lesson record? (Its title is "Qn — correct ✓", "Qn — I don't know"…)"""
++    try:
++        text = (log.root / log.rel).read_text(encoding="utf-8")
++    except (OSError, ValueError):
++        return False
++    return re.search(rf"^> \[![a-z]+\] Q{n} — ", text, re.M) is not None
++
++
++def _spoken_stem(inst: dict) -> str | None:
++    """The words an author wrote for reading a question aloud where its stem cannot be spoken (a diagram or schematic),
++    when they are safe to give before the answer: not blank, not a template with its numbers still to draw, and not
++    spelling out the right answer. `speech` may hold {"stem": …, "explanation": …}: only the stem part is the question."""
++    speech = inst.get("speech")
++    text = speech.get("stem") if isinstance(speech, dict) else speech
++    if not isinstance(text, str) or not text.strip() or "[[" in text:
++        return None
++    try:
++        key = _display_answer(inst)
++    except (KeyError, TypeError, ValueError):  # an answer that cannot be shown cannot be checked: say nothing
++        return None
++    plain = lambda t: " ".join(re.sub(r"[*_`$\\]", "", t).lower().split())  # noqa: E731
++    key = plain(key.partition(": ")[2] if inst["kind"] == "mcq" else key)  # a choice: its text, not its letter
++    return None if len(key) > 6 and key in plain(text) else text.strip()
++
++
+ def _teach_text(act: dict) -> str:
+     return act.get("outline", "") + "".join(f"\n- Trap: {m}" for m in act.get("misconceptions", []))
+ 
+diff --git a/tests/test_bw_session.py b/tests/test_bw_session.py
+new file mode 100644
+index 0000000..e8bcfb2
+--- /dev/null
++++ b/tests/test_bw_session.py
+@@ -0,0 +1,413 @@
++"""Bug-watch batch C1: the session engine and its reports (B-063 B-046 B-066 B-079 B-108 B-068 B-132 B-139 B-133
++B-084 B-105 B-103 B-106 B-090). Each test is named for the finding it pins."""
++import json
++import random
++import sqlite3
++import zipfile
++from datetime import datetime
++
++import pytest
++
++from fixtures import make_vault
++from tutorlib import anki, insights, report, session, store, views
++
++T0 = datetime.fromisoformat("2026-09-29T17:00:00+08:00")  # Almanac week 5
++
++
++class Clock:
++    def __init__(self, t):
++        self.t = t
++
++    def __call__(self):
++        return self.t
++
++
++@pytest.fixture
++def tutor(tmp_path):
++    clock = Clock(T0)
++    t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=clock)
++    t.clock = clock
++    return t
++
++
++def _restart(tutor):
++    t = session.Tutor(tutor.vault, rng=random.Random(0), now=tutor.clock)
++    t.clock = tutor.clock
++    return t
++
++
++def _stop(*a, **kw):
++    raise RuntimeError("the app stopped here")
++
++
++def _mcq(tutor, block="practice"):
++    """Put the first multiple-choice question of the fixture pack on screen; returns its number."""
++    item = next(i for i in tutor.packs.items_for("9702-2.1.1") if i["kind"] == "mcq")
++    return tutor._present(item, block=block, phase=None)["n"]
++
++
++def _wrong(tutor, n):
++    inst = tutor.session["presented"][str(n)]["inst"]
++    return f"{n}{next(k for k in inst['options'] if k != inst['answer'])}3"
++
++
++def _right(tutor, n):
++    inst = tutor.session["presented"][str(n)]["inst"]
++    if inst["kind"] == "mcq":
++        return f"{n}{inst['answer']}3"
++    return f"{n} = {inst['answer']['value']:.3g} {inst['answer'].get('unit', '')} ~3"
++
++
++def _planner(tutor, tmp_path):
++    """Point the tutor at a planner file on 'this machine', so the Almanac sync file is written."""
++    planner = tmp_path / "A-Levels.html"
++    planner.write_text("<html></html>")
++    tutor.packs.plan["source_path"] = str(planner)
++    return tmp_path / "A-Levels.tutor.js"
++
++
++def _synced(path):
++    return json.loads(path.read_text()[len("window.TUTOR_SYNC = "):].rstrip().rstrip(";"))
++
++
++# ---------- B-063: a stop during a re-mark ----------
++def test_B063_a_stop_between_the_re_mark_and_the_rebuild_does_not_leave_the_wrong_grade_trusted(tutor, monkeypatch):
++    item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")  # 4.00 m s-2
++    tutor.start("long", minutes=20, focus=["9702-2.1.4"])
++    n = tutor._present(item, block="practice", phase=None)["n"]
++    fb = tutor.answer(f"{n} = 4.0 metres per second squared ~3")["results"][0]
++    assert not fb["correct"] and not tutor.state["kcs"]["9702-2.1.4"]["succ_days"]
++    monkeypatch.setattr(tutor, "rebuild", _stop)  # the re-mark is in the log; the state is not rebuilt from it
++    with pytest.raises(RuntimeError):
++        tutor.regrade(fb["event"], "the same acceleration, with the unit in words")
++    t = _restart(tutor)
++    assert t.state["kcs"]["9702-2.1.4"]["succ_days"] == ["2026-09-29"]  # the log says right: so does the state
++    assert t.state == t._fold()
++    assert _restart(t).state == t.state  # and it is rebuilt once, not at every start
++
++
++# ---------- B-046 / B-066: the Almanac is told after the work is done ----------
++def test_B046_the_almanac_file_shows_the_answer_just_marked_even_within_ten_seconds_of_the_last_push(tutor, tmp_path):
++    sync = _planner(tutor, tmp_path)
++    tutor.start("test", minutes=40, focus=["9702-2.1"])  # pushes at once: the answers below come within ten seconds
++    first = _mcq(tutor)
++    second = _mcq(tutor)
++    tutor.answer(_right(tutor, first))
++    live = _synced(sync)["session"]
++    assert (live["answered"], live["correct"]) == (1, 1)
++    assert len(tutor.session["presented"]) == 1  # one question is still open: it, not the marked one, is on screen
++    tutor.answer(_wrong(tutor, second))
++    live = _synced(sync)["session"]
++    assert (live["answered"], live["correct"]) == (2, 1) and live["now"] == []
++
++
++def test_B066_a_re_mark_pushes_the_corrected_counts_to_the_almanac(tutor, tmp_path):
++    sync = _planner(tutor, tmp_path)
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    n = _mcq(tutor)
++    fb = tutor.answer(f"{n}?")["results"][0]  # "don't know": a recall miss
++    sent = _synced(sync)
++    assert sent["today"]["right"] == 0 and sent["err"] == {"Could not recall": 1}
++    assert tutor.regrade(fb["event"], "the learner did know it")["ok"]
++    sent = _synced(sync)
++    assert sent["today"]["right"] == 1 and sent["err"] == {}
++    assert sent["session"]["correct"] == 1 and sent["stamp"] == report.almanac_payload(tutor)["stamp"]
++
++
++# ---------- B-079: a stop while a session is ending ----------
++def test_B079_a_session_whose_end_reached_the_log_is_not_reopened_by_a_restart(tutor, monkeypatch):
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    n = _mcq(tutor)
++    tutor.answer(_right(tutor, n))
++    log = tutor.log
++
++    def log_then_stop(event):
++        out = log(event)
++        if event["type"] == "session_end":
++            _stop()  # the end is in the log and the session saved as it was: the app stops before closing it
++        return out
++
++    monkeypatch.setattr(tutor, "log", log_then_stop)
++    with pytest.raises(RuntimeError):
++        tutor.end()
++    assert tutor.session_path.read_text() != "null"
++    t = _restart(tutor)
++    assert t.session is None and t.next()["activity"] == "no_session"
++    assert t.session_path.read_text().strip() == "null"  # closed on disk too, so the next start finds nothing to resume
++    t.end()  # ending again records nothing more
++    assert len([e for e in t.vault.events() if e["type"] == "session_end"]) == 1
++    assert _restart(t).session is None
++
++
++def test_B079_a_session_still_open_is_resumed_as_before(tutor):
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    n = _mcq(tutor)
++    tutor.answer(_right(tutor, n))
++    t = _restart(tutor)
++    assert t.session and t.session["id"] == tutor.session["id"] and t.session["answered"] == 1
++
++
++# ---------- B-139: a failed Home note write after the end ----------
++def test_B139_a_home_note_that_cannot_be_written_does_not_hide_the_summary(tutor, monkeypatch):
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    n = _mcq(tutor)
++    tutor.answer(_right(tutor, n))
++
++    def refuse(*a, **kw):
++        raise PermissionError("Home.md is read-only")
++
++    monkeypatch.setattr(views, "write_home", refuse)
++    summary = tutor.end()  # the end stands: it is in the log, and the summary is the learner's
++    assert (summary["answered"], summary["correct"]) == (1, 1) and "read-only" in summary["notes_error"]
++    assert tutor.session is None and len([e for e in tutor.vault.events() if e["type"] == "session_end"]) == 1
++    assert tutor.end()["answered"] == 0  # nothing left to end
++
++
++# ---------- B-108: the authored speech of a question ----------
++def _spoken_item(tutor, speech, kind="mcq", **extra):
++    base = next(i for i in tutor.packs.items_for("9702-2.1.1") if i["kind"] == kind)
++    return {**base, "id": "q-speech", "speech": speech, **extra}
++
++
++def test_B108_a_questions_authored_speech_reaches_the_view_the_app_reads_aloud(tutor):
++    tutor.start("review", minutes=10)
++    words = "Two waves meet. At P a crest meets a crest. At Q a crest meets a trough. Which is which?"
++    view = tutor._present(_spoken_item(tutor, words), block="practice", phase=None)
++    assert view["speech"] == words and view["stem"]  # the stem stays: it is what is shown
++
++
++def test_B108_only_the_stem_part_of_a_speech_dictionary_is_shown_before_the_answer(tutor):
++    tutor.start("review", minutes=10)
++    speech = {"stem": "Read the labels on each wavefront.", "explanation": "Displacement has direction.", "hint1": "Look."}
++    view = tutor._present(_spoken_item(tutor, speech), block="practice", phase=None)
++    assert view["speech"] == "Read the labels on each wavefront." and "explanation" not in str(view)
++
++
++def test_B108_a_speech_that_gives_the_answer_away_is_not_offered(tutor):
++    tutor.start("review", minutes=10)
++    item = _spoken_item(tutor, "")
++    inst_answer = item["options"][item["answer"]]
++    leaky = _spoken_item(tutor, f"Which quantity is a vector? It is {inst_answer.upper()}.")
++    assert "speech" not in tutor._present(leaky, block="practice", phase=None)
++    assert "speech" not in tutor._present(_spoken_item(tutor, "  "), block="practice", phase=None)
++    assert "speech" not in tutor._present(_spoken_item(tutor, "Draw [[t]] seconds."), block="practice", phase=None)
++
++
++def test_B108_a_question_without_speech_is_unchanged(tutor):
++    tutor.start("review", minutes=10)
++    item = next(i for i in tutor.packs.items_for("9702-2.1.1") if i["kind"] == "mcq")
++    assert "speech" not in tutor._present(item, block="practice", phase=None)
++
++
++def test_B108_the_session_screen_reads_the_speech_when_a_question_has_one():
++    pytest.importorskip("textual")
++    from types import SimpleNamespace
++    from tutor_app.screens import SessionScreen
++
++    class Screen:
++        def __init__(self):
++            self.read = None
++
++        def fold(self):
++            pass
++
++        def say(self, renderable):
++            return renderable
++
++        def readable_now(self, text, **kw):
++            self.read = text
++
++        def query_one(self, *a, **kw):
++            return SimpleNamespace(call_after_refresh=lambda *x, **y: None)
++
++        def answer_panel(self, view):
++            pass
++
++        def _show_top(self, card):
++            pass
++
++    base = {"n": 1, "kind": "mcq", "stem": "Identify the interference.\n\n```text\nP  Q\n```", "options": {"A": "x"}}
++    scr = Screen()
++    SessionScreen.ask_question(scr, {**base, "speech": "At P a crest meets a crest."})
++    assert scr.read == "At P a crest meets a crest."
++    SessionScreen.ask_question(scr, base)
++    assert scr.read == base["stem"]
++
++
++# ---------- B-068: a new free chat starts with a fresh Now page ----------
++def test_B068_clearing_the_chat_clears_the_now_page(tutor):
++    now = tutor.vault.root / "Now.md"
++    tutor.show("you", "What is a mole?", "You asked")
++    tutor.show("ai", "A mole is a number of particles.", "Tutor (AI)")
++    assert "What is a mole?" in now.read_text()
++    tutor.clear_chat()
++    text = now.read_text()
++    assert "What is a mole?" not in text and "A mole is" not in text and "No session running" in text
++
++
++def test_B068_clearing_the_chat_does_not_touch_a_session_page(tutor):
++    tutor.start("review", minutes=10)
++    n = _mcq(tutor)
++    tutor._save()
++    before = (tutor.vault.root / "Now.md").read_text()
++    tutor.clear_chat()
++    assert (tutor.vault.root / "Now.md").read_text() == before and f"Q{n}" in before
++
++
++# ---------- B-132: a recovered answer is in the lesson record ----------
++def _lesson_text(tutor):
++    log = tutor._lesson_log()
++    return (log.root / log.rel).read_text()
++
++
++def test_B132_an_answer_recovered_from_the_log_gets_its_verdict_in_the_lesson_record_once(tutor, monkeypatch):
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    first, second = tutor.next()["items"]
++    monkeypatch.setattr(tutor, "_save", _stop)  # the answer reaches the log, then the app stops
++    with pytest.raises(RuntimeError):
++        tutor.answer(_right(tutor, first["n"]))
++    assert f"Q{first['n']} — " not in _lesson_text(tutor)
++    t = _restart(tutor)
++    text = _lesson_text(t)
++    assert text.count(f"Q{first['n']} — correct ✓") == 1 and "Your answer:" in text
++    assert text.count(f"Q{first['n']} — ") == 1
++    again = _lesson_text(_restart(t))  # recovering again adds nothing
++    assert again.count(f"Q{first['n']} — ") == 1
++    t.answer(_right(t, second["n"]))
++    assert _lesson_text(t).index(f"Q{first['n']} — ") < _lesson_text(t).index(f"Q{second['n']} — ")
++
++
++def test_B132_an_answer_already_in_the_lesson_record_is_not_written_again_on_recovery(tutor):
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    act = tutor.next()
++    before = tutor.session_path.read_text()  # the session as saved before the answers were marked
++    tutor.answer(", ".join(_right(tutor, q["n"]) for q in act["items"]))
++    tutor.session_path.write_text(before)  # the app stopped after the notes were written, before the save
++    t = _restart(tutor)
++    for q in act["items"]:
++        assert _lesson_text(t).count(f"Q{q['n']} — correct ✓") == 1
++
++
++def test_B132_a_re_mark_does_not_add_a_second_verdict_for_the_same_answer(tutor):
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    n = _mcq(tutor)
++    fb = tutor.answer(_wrong(tutor, n))["results"][0]
++    assert tutor.regrade(fb["event"], "right after all")["ok"]
++    text = _lesson_text(tutor)
++    assert text.count(f"Q{n} — incorrect") == 1 and text.count(f"Q{n} re-marked: correct") == 1
++
++
++# ---------- B-133: "I don't know" on the Now page ----------
++def test_B133_now_calls_a_deliberate_dont_know_by_that_name(tutor):
++    tutor.start("review", minutes=10)
++    n = _mcq(tutor)
++    tutor.answer(f"{n}?")
++    now = (tutor.vault.root / "Now.md").read_text()
++    assert f"Q{n} — I don't know" in now and "not quite" not in now
++    lesson = _lesson_text(tutor)
++    assert f"Q{n} — I don't know" in lesson  # the Lesson record already says it so
++
++
++def test_B133_a_wrong_answer_is_still_not_quite_on_now(tutor):
++    tutor.start("review", minutes=10)
++    n = _mcq(tutor)
++    tutor.answer(_wrong(tutor, n))
++    assert f"Q{n} — not quite ✗" in (tutor.vault.root / "Now.md").read_text()
++
++
++# ---------- B-084 / B-105 / B-106: the learner's own error tag ----------
++def _miss_and_tag(tutor, code):
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    n = _mcq(tutor)
++    fb = tutor.answer(_wrong(tutor, n))["results"][0]
++    assert tutor.tag(fb["event"], code)["ok"]
++    return fb
++
++
++def test_B084_the_mistake_journal_uses_the_category_the_learner_chose(tutor):
++    fb = _miss_and_tag(tutor, "SLIP")
++    journal = (tutor.vault.root / report.mistakes_note(tutor)).read_text()
++    assert "careless slips" in journal and "wrong answer" not in journal
++    assert tutor.tag(fb["event"], "MISREAD")["ok"]  # the later choice replaces the earlier one
++    journal = (tutor.vault.root / report.mistakes_note(tutor)).read_text()
++    assert "misreading the question" in journal and "careless slips" not in journal
++
++
++def test_B084_a_miss_nobody_tagged_keeps_the_graders_own_reason(tutor):
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    n = _mcq(tutor)
++    tutor.answer(_wrong(tutor, n))
++    assert "wrong answer" in (tutor.vault.root / report.mistakes_note(tutor)).read_text()
++
++
++def test_B105_the_weekly_retrospective_follows_the_learners_tag(tutor):
++    _miss_and_tag(tutor, "MISREAD")
++    retro = report.almanac_payload(tutor)["retro"]["5"]
++    assert "Misread the question ×1" in retro["broke"]
++    assert retro["fix"] == report.ADVICE["Misread the question"]
++    assert report.almanac_payload(tutor)["err"] == {"Misread the question": 1}  # as the same payload counts it
++
++
++def test_B106_the_profile_counts_a_tagged_mistake_as_sorted_by_kind(tutor):
++    _miss_and_tag(tutor, "MISREAD")
++    f = insights.findings(tutor)
++    mistakes = next(i for i in f["items"] if i["area"] == "Mistakes")
++    assert f["recorded"]["mistakes_classified"] == 1 == mistakes["n"]
++    assert "1 mistake sorted by kind" in report.insights_markdown(tutor)
++
++
++def test_B106_a_second_tag_on_one_answer_is_still_one_mistake(tutor):
++    fb = _miss_and_tag(tutor, "MISREAD")
++    tutor.tag(fb["event"], "SLIP")
++    f = insights.findings(tutor)
++    assert f["recorded"]["mistakes_classified"] == 1 == next(i for i in f["items"] if i["area"] == "Mistakes")["n"]
++
++
++def test_B106_a_re_marked_answer_is_no_mistake_in_either_count(tutor):
++    fb = _miss_and_tag(tutor, "MISREAD")
++    tutor.regrade(fb["event"], "right after all")
++    f = insights.findings(tutor)
++    assert f["recorded"]["mistakes_classified"] == 0 == next(i for i in f["items"] if i["area"] == "Mistakes")["n"]
++
++
++# ---------- B-103: sessions among the recorded answers ----------
++def test_B103_the_profile_counts_the_sessions_the_answers_were_given_in(tutor):
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    tutor.end()  # a session left without answering
++    tutor.start("test", minutes=40, focus=["9702-2.1"])
++    n = _mcq(tutor)
++    tutor.answer(_right(tutor, n))
++    tutor.end()
++    r = insights.findings(tutor)["recorded"]
++    assert (r["answers"], r["sessions"]) == (1, 1)
++    assert "**1** answer in 1 session over 1 study day" in report.insights_markdown(tutor)
++
++
++# ---------- B-090: two flashcards that share an id ----------
++def _notes(path):
++    with zipfile.ZipFile(path) as z:
++        z.extract("collection.anki2", path.parent / "x")
++    con = sqlite3.connect(path.parent / "x" / "collection.anki2")
++    rows = con.execute("select guid, flds from notes").fetchall()
++    con.close()
++    return rows
++
++
++def test_B090_two_different_cards_with_one_id_in_a_pack_get_two_guids(tmp_path):
++    from fixtures import PACK
++    root = make_vault(tmp_path)
++    pack = {**PACK, "flashcards": [
++        {"id": "fc1", "kc": "9702-2.1.1", "front": "What represents a cell?", "back": "Long line, short line."},
++        {"id": "fc1", "kc": "9702-2.1.1", "front": "What represents a resistor?", "back": "A rectangle."},
++        {"id": "fc3", "kc": "9702-2.1.1", "front": "Define e.m.f.", "back": "Energy per unit charge."}]}
++    (root / ".tutor/packs/v1/specs/9702/packs/9702-2.1.json").write_text(json.dumps(pack))
++    t = session.Tutor(store.Vault(root), rng=random.Random(0), now=lambda: T0)
++    t.log({"type": "answer", "item": "x", "kcs": ["9702-2.1.1"], "subject": "phys", "difficulty": 3, "conf": 3,
++           "hinted": False, "marks": 1, "grade": {"correct": True, "score": 1.0, "error": None, "misconception": None}})
++    out = anki.export(t)
++    rows = _notes(t.vault.root / out["path"])
++    assert out["cards"] == 3 and len(rows) == 3 and len({g for g, _ in rows}) == 3
++    first = dict((f.split("\x1f")[0], g) for g, f in rows)
++    assert first["What represents a cell?"] == anki.guid("9702-2.1:fc1")  # the first keeps the id it always had
++    assert anki.export(t)["cards"] == 0  # all three are recorded as exported: none again
++    assert _notes(t.vault.root / out["path"])  # and the package is still there to import

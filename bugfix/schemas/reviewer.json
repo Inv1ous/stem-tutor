@@ -1,0 +1,73 @@
+{
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "approve",
+  "summary",
+  "per_bug",
+  "findings"
+ ],
+ "properties": {
+  "approve": {
+   "type": "boolean"
+  },
+  "summary": {
+   "type": "string"
+  },
+  "per_bug": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "id",
+     "ok",
+     "note"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "ok": {
+      "type": "boolean"
+     },
+     "note": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "findings": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "severity",
+     "file",
+     "problem",
+     "fix"
+    ],
+    "properties": {
+     "severity": {
+      "type": "string",
+      "enum": [
+       "blocker",
+       "major",
+       "minor"
+      ]
+     },
+     "file": {
+      "type": "string"
+     },
+     "problem": {
+      "type": "string"
+     },
+     "fix": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ }
+}

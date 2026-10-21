@@ -1,0 +1,303 @@
+# Unfinished, unreviewed attempt (stopped mid-way) for: B-135 B-076 B-088 B-086 B-134 B-043 B-058 B-061 B-071 B-101 B-040 B-087 B-119 B-123 B-055 B-136
+diff --git a/app/tutor_app/cards.py b/app/tutor_app/cards.py
+index 0aa6327..db50ec0 100644
+--- a/app/tutor_app/cards.py
++++ b/app/tutor_app/cards.py
+@@ -3,10 +3,13 @@ from __future__ import annotations
+ 
+ import re
+ 
++from rich import box
+ from rich.console import Group
+-from rich.markdown import Markdown
++from rich.markdown import Markdown, TableElement
+ from rich.markup import escape
++from rich.measure import Measurement
+ from rich.panel import Panel
++from rich.table import Table
+ from rich.text import Text
+ 
+ from .look import C
+@@ -15,10 +18,50 @@ from .texmath import linearize, to_terminal
+ CONF = {1: "Guess", 2: "Unsure", 3: "Fairly sure", 4: "Certain"}
+ 
+ 
++class _Table(TableElement):
++    """A Markdown table that keeps every value whole. Rich fits a table that is too wide for the card by wrapping its
++    cells, and a value with a thousands space ("1 451") comes out as "1" above "451". Here a column never wraps; a table
++    too wide for the card is cut into pieces, as many columns across as fit, each with its own headings."""
++
++    def table(self, heads: list, rows: list, columns: range, wrap: bool = False) -> Table:
++        table = Table(box=box.SIMPLE, pad_edge=False, style="markdown.table.border", show_edge=True,
++                      collapse_padding=True)
++        for i in columns:
++            head = heads[i].copy()
++            head.stylize("markdown.table.header")
++            table.add_column(head, no_wrap=not wrap)
++        for row in rows:
++            table.add_row(*[row[i] for i in columns])
++        return table
++
++    def __rich_console__(self, console, options):
++        heads = [c.content for c in self.header.row.cells] if self.header and self.header.row else []
++        rows = [[c.content for c in r.cells] + [Text()] * (len(heads) - len(r.cells))
++                for r in (self.body.rows if self.body else [])]
++        room = options.max_width
++
++        def width(columns: range) -> int:  # as wide as it would be on one line, whatever the card allows
++            return Measurement.get(console, options.update(max_width=10_000), self.table(heads, rows, columns)).maximum
++
++        pieces, start = [], 0
++        while start < len(heads):
++            end = start + 1
++            while end < len(heads) and width(range(start, end + 1)) <= room:
++                end += 1
++            pieces.append(range(start, end))
++            start = end
++        for columns in pieces:
++            yield self.table(heads, rows, columns, wrap=width(columns) > room)  # one column wider than the card must wrap
++
++
++class _Markdown(Markdown):
++    elements = {**Markdown.elements, "table_open": _Table}
++
++
+ def md(text: str) -> Markdown:
+     """A single line break stays a break (a table typed as lines is not one run-on line), except mid-sentence."""
+-    return Markdown(re.sub(r"(?<=\S)\n(?=[^\n])(?!(?<=[a-z,]\n)[a-z])", "  \n", to_terminal(text or "")),
+-                    hyperlinks=False)
++    return _Markdown(re.sub(r"(?<=\S)\n(?=[^\n])(?!(?<=[a-z,]\n)[a-z])", "  \n", to_terminal(text or "")),
++                     hyperlinks=False)
+ 
+ 
+ def literal(text: str) -> str:
+@@ -26,18 +69,49 @@ def literal(text: str) -> str:
+     return re.sub(r"([\\`*_$])", r"\\\1", to_terminal(text))
+ 
+ 
+-def framed(body, colour: str, title: str, **kw) -> Panel:
++class Ink(Text):
++    """Text in one of the palette's roles, coloured when it is drawn rather than when it was made (see Framed)."""
++
++    def __init__(self, text: str = "", role: str = "text") -> None:
++        super().__init__(text, style=C[role])
++        self.role = role
++
++    def __rich_console__(self, console, options):
++        self.style = C[self.role]
++        return super().__rich_console__(console, options)
++
++
++class Framed(Panel):
+     """A transcript card. Classic draws the whole frame in the card's colour; Night and Day draw a quiet frame and
+-    give the title the card's colour."""
+-    if C["frame"]:
+-        return Panel(body, title=Text.from_markup(title, style=colour), border_style=C["frame"], padding=(0, 1), **kw)
+-    return Panel(body, title=title, border_style=colour, padding=(0, 1), **kw)
++    give the title the card's colour. `role` names the card's colour in the palette (C), looked up each time the card
++    is drawn: a card made in Night and still on screen when the look changes to Day would otherwise keep Night's pale
++    titles on Day's paper."""
++
++    def __init__(self, body, role: str, title: str, subtitle: str | None = None, **kw) -> None:
++        self.role, self.markup, self.words = role, title, subtitle
++        super().__init__(body, padding=(0, 1), **kw)
++        self.paint()
++
++    def paint(self) -> None:
++        colour = C.get(self.role, self.role)  # a role of the palette, or a colour of its own
++        if C["frame"]:
++            self.title, self.border_style = Text.from_markup(self.markup, style=colour), C["frame"]
++            # Rich draws a plain subtitle in the frame's quiet grey: too faint to read
++            self.subtitle = Ink(self.words, "dim") if self.words else None
++        else:
++            self.title, self.border_style, self.subtitle = self.markup, colour, self.words
++
++    def __rich_console__(self, console, options):
++        self.paint()
++        return super().__rich_console__(console, options)
++
++
++def framed(body, role: str, title: str, **kw) -> Panel:
++    return Framed(body, role, title, **kw)
+ 
+ 
+ def card(kind: str, title: str, body: str = "", subtitle: str | None = None) -> Panel:
+-    if subtitle and C["frame"]:  # Rich draws a plain subtitle in the frame's quiet grey: too faint to read
+-        subtitle = Text(subtitle, style=C["dim"])
+-    return framed(md(body) if body else Group(), C[kind], f"[b]{escape(to_terminal(title))}[/b]", title_align="left",
++    return framed(md(body) if body else Group(), kind, f"[b]{escape(to_terminal(title))}[/b]", title_align="left",
+                   subtitle=subtitle, subtitle_align="right")
+ 
+ 
+@@ -49,12 +123,12 @@ def question(view: dict) -> Panel:
+         tags.append("no hints")
+     parts = [md(view.get("stem", ""))]
+     if view.get("options") and kind != "mcq":  # MCQ options are listed in the answer panel below
+-        parts.append(Text("\n".join(f"  {k}  {to_terminal(v)}" for k, v in view["options"].items()), style=C["text"]))
++        parts.append(Ink("\n".join(f"  {k}  {to_terminal(v)}" for k, v in view["options"].items()), "text"))
+     if view.get("image"):
+-        parts.append(Text("◆ This question has a figure: see Now in Obsidian (press o).", style=C["hint"]))
++        parts.append(Ink("◆ This question has a figure: see Now in Obsidian (press o).", "hint"))
+     if view.get("source"):
+-        parts.append(Text(linearize(view["source"]), style=C["dim"]))
+-    return framed(Group(*parts), C["question"], f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left")
++        parts.append(Ink(linearize(view["source"]), "dim"))
++    return framed(Group(*parts), "question", f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left")
+ 
+ 
+ def feedback(fb: dict, your: str) -> Panel:
+@@ -63,7 +137,7 @@ def feedback(fb: dict, your: str) -> Panel:
+     partial = fb.get("partial")
+     title = ("I don't know — here's the answer" if dont_know else "Correct ✓" if ok else
+              "Right value, but a mark lost ✗" if partial else "Not quite ✗")
+-    style = C["good"] if ok else (C["hint"] if dont_know or partial else C["bad"])
++    style = "good" if ok else ("hint" if dont_know or partial else "bad")
+     body = [f"**Your answer:** {literal(your)}  ", f"**Answer:** {literal(str(fb.get('answer', '')))}  "]
+     if fb.get("detail"):
+         body.append(f"**Exam point:** {fb['detail']}  ")
+@@ -87,12 +161,12 @@ def feedback(fb: dict, your: str) -> Panel:
+ 
+ 
+ def you(text: str, title: str = "You") -> Panel:
+-    return framed(Text(linearize(text)), C["you"], f"[b]{title}[/b]", title_align="right")
++    return framed(Text(linearize(text)), "you", f"[b]{title}[/b]", title_align="right")
+ 
+ 
+ def ai(text: str, title: str = "Tutor (AI)") -> Panel:
+-    return framed(md(text or "…"), C["ai"], f"[b]{title}[/b]", title_align="left")
++    return framed(md(text or "…"), "ai", f"[b]{title}[/b]", title_align="left")
+ 
+ 
+ def note(text: str, kind: str = "dim") -> Text:
+-    return Text(linearize(text), style=C[kind])
++    return Ink(linearize(text), kind)
+diff --git a/app/tutor_app/challenge_screen.py b/app/tutor_app/challenge_screen.py
+index 08ffd3b..dea6b75 100644
+--- a/app/tutor_app/challenge_screen.py
++++ b/app/tutor_app/challenge_screen.py
+@@ -576,7 +576,7 @@ class ChallengeScreen(ReadAloud, Screen):
+                     f"syllabus." if done < total else "Putting the set together…", style=C["muted"])
+         if last:
+             body.append(f"\nLast: {last}", style=C["dim"])
+-        return cards.framed(body, C["plan"], "[b]Progress[/b]", title_align="left")
++        return cards.framed(body, "plan", "[b]Progress[/b]", title_align="left")
+ 
+     async def ask(self, prompt: str, schema: dict, model_name: str, timeout: float = 300) -> dict | None:
+         """What the generator calls: one memory-less AI reply as a dict, or None (failed, timed out, unreadable).
+@@ -652,9 +652,9 @@ class ChallengeScreen(ReadAloud, Screen):
+             w.display = False  # the last feedback goes: the new question stands alone
+         title = (f"[b]Q{i + 1}[/b] of {len(self.set.questions)} · {escape(level_text(q))}"  # the rest is in the bar
+                  + (f" · by {q['model'].title()}" if q.get("model") and q["model"] != self.set.cfg.get("model") else ""))
+-        head = [Text(self.first_note + "\n", style=C["dim"])] if getattr(self, "first_note", "") else []
++        head = [cards.Ink(self.first_note + "\n", "dim")] if getattr(self, "first_note", "") else []
+         self.first_note = ""  # on the first question only
+-        self.say(cards.framed(Group(*head, cards.md(item["stem"])), C["question"], title, title_align="left"))
++        self.say(cards.framed(Group(*head, cards.md(item["stem"])), "question", title, title_align="left"))
+         self.readable_now(item["stem"])  # ctrl+e reads the question; never by itself
+         self.query_one("#log", VerticalScroll).scroll_home(animate=False)
+         self.answer_panel()
+diff --git a/app/tutor_app/panels.py b/app/tutor_app/panels.py
+index 5176c8c..57dd85f 100644
+--- a/app/tutor_app/panels.py
++++ b/app/tutor_app/panels.py
+@@ -59,6 +59,7 @@ class Confidence(OptionList):
+ 
+     def __init__(self) -> None:
+         super().__init__(*[Option(f"{i}  {CONF[i]}", id=str(i)) for i in (1, 2, 3, 4)], id="conf")
++        self.highlighted = None  # a level is chosen by 1–4 or ↑↓ then ⏎, never by a ⏎ that was already on its way (see ChoicePanel)
+ 
+     def action_pick(self, i: int) -> None:
+         self.highlighted = i - 1
+@@ -115,7 +116,12 @@ class ChoicePanel(Panel):
+     def compose(self) -> ComposeResult:
+         yield _hint(f"Q{self.n}: choose with ↑↓ and ⏎ (or press A–D).  0 = I don't know.  Full question: Now in Obsidian (o).")
+         opts = [Option(_lettered(k, to_terminal(v)), id=k) for k, v in self.options.items()]
+-        yield OptionList(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
++        choices = OptionList(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
++        # Nothing is highlighted yet. A ⏎ held down from "Next" repeats into the question that Next brought up, and with
++        # the first option lit it would answer A (then, in the same way, a confidence) before the question was read.
++        # A letter, or ↑↓ to move and then ⏎, is the learner's own choice.
++        choices.highlighted = None
++        yield choices
+         yield Composer(placeholder="✎ optional note (Tab)", id="note", compact=True)  # its ⏎: back to the list
+ 
+     def action_letter(self, letter: str) -> None:
+diff --git a/tests/app/test_bw_widgets.py b/tests/app/test_bw_widgets.py
+new file mode 100644
+index 0000000..e435979
+--- /dev/null
++++ b/tests/app/test_bw_widgets.py
+@@ -0,0 +1,73 @@
++"""Bug-watch fixes in the widgets: answer panels, cards, the app shell, Challenge, the Shortcuts course screens, the Mac
++helpers. One test (or a few) for each finding, named for it."""
++import asyncio
++import json
++import time
++from datetime import datetime, timedelta, timezone
++
++import pytest
++from textual.widgets import Button, Input, OptionList
++
++from test_qol import _menu, _session, run
++from test_tui import app_for
++from tutor_app import cards, look
++from tutor_app.panels import ChoicePanel, Composer, Confidence, ContinuePanel, ReflectPanel, TextPanel, TickPanel, ValuePanel
++
++
++def answers(app):
++    return [e for e in app.tutor.vault.events() if e["type"] == "answer"]
++
++
++def panel_of(scr):
++    return next(iter(scr.query("#panel > *")), None)
++
++
++# ---------------------------------------------------------------- B-135
++def test_b135_a_held_enter_does_not_answer_the_next_question(tmp_path, monkeypatch):
++    """⏎ held down from "Next" repeats into the question Next brought up: it must not pick option A, and then a
++    confidence, for a question nobody has read."""
++    app, v = app_for(tmp_path, monkeypatch)
++
++    async def steps(pilot):
++        scr = await _session(app, pilot)
++        assert isinstance(panel_of(scr), ChoicePanel)
++        await pilot.press("a", "1")  # Q1, answered on purpose
++        await pilot.pause(0.3)
++        for _ in range(4):  # past the "why did you miss it?" panel, if A was wrong, to Next
++            if isinstance(panel_of(scr), ReflectPanel):
++                await pilot.press("escape")
++                await pilot.pause(0.2)
++        assert isinstance(panel_of(scr), ContinuePanel) and len(answers(app)) == 1
++        await pilot.press("enter", "enter", "enter", "enter")  # a key held down: Next, then the repeats
++        await pilot.pause(0.5)
++        q2 = panel_of(scr)
++        assert isinstance(q2, ChoicePanel) and q2.choice is None  # Q2 is up, and unanswered
++        assert len(answers(app)) == 1
++        assert not q2.query(Confidence)  # no confidence step either
++        await pilot.press("down", "enter")  # a deliberate pick still works: move to A, choose it
++        await pilot.pause(0.3)
++        assert q2.choice == "A" and q2.query(Confidence)
++        await pilot.press("enter", "enter")  # and the confidence list asks for a move or a number too
++        await pilot.pause(0.3)
++        assert len(answers(app)) == 1
++        await pilot.press("3")
++        await pilot.pause(0.3)
++        assert len(answers(app)) == 2
++    run(app, (100, 30), steps)
++
++
++def test_b135_a_letter_or_a_number_still_answers_at_once(tmp_path, monkeypatch):
++    app, v = app_for(tmp_path, monkeypatch)
++
++    async def steps(pilot):
++        scr = await _session(app, pilot)
++        choices = scr.query_one("#choices", OptionList)
++        assert choices.highlighted is None  # nothing lit for a ⏎ to take
++        await pilot.press("b")
++        await pilot.pause(0.2)
++        conf = scr.query_one(Confidence)
++        assert conf.highlighted is None
++        await pilot.press("4")
++        await pilot.pause(0.3)
++        assert [a["response"] for a in answers(app)] == ["B"] and answers(app)[0]["conf"] == 4
++    run(app, (100, 30), steps)

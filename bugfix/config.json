@@ -1,0 +1,15 @@
+{
+ "max_parallel": 4,
+ "reserve": 5,
+ "group_size": 3,
+ "rounds": 3,
+ "scribe": "gpt-6-sol/high",
+ "ladder": ["gpt-6-sol/medium", "gpt-6-sol/high", "gpt-6-astra/medium", "gpt-6-astra/high", "gpt-6-astra/xhigh"],
+ "suggest": {
+  "P0": {"fix": "gpt-6-astra/high", "review": "gpt-6-astra/xhigh"},
+  "P1": {"fix": "gpt-6-astra/medium", "review": "gpt-6-astra/high"},
+  "ui": {"fix": "gpt-6-astra/medium", "review": "gpt-6-astra/high"},
+  "P2": {"fix": "gpt-6-sol/high", "review": "gpt-6-astra/medium"},
+  "P3": {"fix": "gpt-6-sol/medium", "review": "gpt-6-astra/medium"}
+ }
+}

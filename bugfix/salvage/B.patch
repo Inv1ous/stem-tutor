@@ -1,0 +1,416 @@
+# Unfinished, unreviewed attempt (stopped mid-way) for: B-072 B-074 B-045 B-083 B-082 B-075 B-081 B-080
+diff --git a/app/tutor_app/ai.py b/app/tutor_app/ai.py
+index 302c41a..34e675f 100644
+--- a/app/tutor_app/ai.py
++++ b/app/tutor_app/ai.py
+@@ -18,7 +18,7 @@ from pathlib import Path
+ from typing import AsyncIterator
+ 
+ from tutorlib import grade
+-from tutorlib.units import SUPERSCRIPT
++from tutorlib.units import SUPERSCRIPT, parse_unit
+ 
+ LEAN = ["-p", "--safe-mode", "--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "",
+         "--tools", "", "--no-session-persistence"]
+@@ -152,6 +152,9 @@ class Claude:
+         self.last = Result()
+         self._lock = asyncio.Lock()
+         self._pending = 0  # one-shot calls in flight, counted against the daily cap before they finish
++        self._closed = False  # the app is quitting: nothing may start a process any more
++        self._warming: asyncio.Future | None = None  # the warm-up the last reset asked for
++        self._gen = 0  # counts resets: a process started before one belongs to a conversation that has been forgotten
+ 
+     # ---------------- daily usage (kept in the vault so it survives restarts) ----------------
+     def today(self) -> dict:
+@@ -215,46 +218,66 @@ class Claude:
+         else:
+             self.procs[self.key] = value
+ 
+-    async def _start(self) -> None:
++    async def _start(self) -> asyncio.subprocess.Process:
++        """Start a process for the conversation in use. It becomes that conversation's, unless a reset ran while it
++        was starting (the reset saw no process to forget): that conversation is over, so the process is only handed
++        back, for whoever asked for it to finish with and then `_stop`. Nothing is sent to the next session through it."""
++        gen, key = self._gen, self.key
+         env = {**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"}
+-        model, think = self.key
+-        self._shown[self.key] = set()
+-        self.proc = await asyncio.create_subprocess_exec(
++        model, think = key
++        proc = await asyncio.create_subprocess_exec(
+             self.binary, *LEAN, *(THINKING if think else NO_THINKING), "--model", model,
+             "--system-prompt", self.system + (SPEECH_RULE if self.speech else ""),
+             "--input-format", "stream-json", "--output-format", "stream-json", "--include-partial-messages", "--verbose",
+             cwd=str(self.cwd), env=env, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
+             stderr=asyncio.subprocess.DEVNULL, limit=4 * 1024 * 1024)
++        if gen == self._gen:
++            self.procs[key] = proc
++            self._shown[key] = set()
++        return proc
++
++    async def _stop(self, proc) -> None:
++        """End a process: close its input so it finishes what it is saying and exits, and kill it if it will not."""
++        if proc and proc.returncode is None:
++            try:
++                if proc.stdin:
++                    proc.stdin.close()
++                await asyncio.wait_for(proc.wait(), 3)
++            except (asyncio.TimeoutError, ProcessLookupError, BrokenPipeError, ConnectionResetError):
++                proc.kill()
+ 
+     async def warm(self) -> None:
+         """Start the conversation's process now, before it is needed: Claude Code takes a second or two to start, and
+         that is then over before the learner asks. Costs nothing until a message is sent."""
+-        if self.status == "off" or getattr(self, "_closed", False):
++        if self.status == "off" or self._closed:
+             return
+         async with self._lock:
++            if self._closed:  # the app quit while this waited its turn: close() has already cleaned up
++                return
+             if self.proc is None or self.proc.returncode is not None:
+                 try:
+-                    await self._start()
++                    proc = await self._start()
+                 except OSError:
+                     self.proc = None
++                else:
++                    if self.procs.get(self.key) is not proc:  # a reset ran while it started: not wanted any more
++                        await self._stop(proc)
+ 
+     async def reset(self, warm: bool = True) -> None:
+         """Forget the conversations (e.g. a new idea starts): a fresh process takes over, started at once so the
+         next question does not wait for it."""
++        self._gen += 1  # at once, before any wait: a process still starting is then known to be too late
+         procs, self.procs, self._shown = list(self.procs.values()), {}, {}
+         for proc in procs:
+-            if proc and proc.returncode is None:
+-                try:
+-                    if proc.stdin:
+-                        proc.stdin.close()
+-                    await asyncio.wait_for(proc.wait(), 3)
+-                except (asyncio.TimeoutError, ProcessLookupError, BrokenPipeError, ConnectionResetError):
+-                    proc.kill()
+-        if warm and self.available:
++            await self._stop(proc)
++        if warm and self.available and not self._closed:
+             self._warming = asyncio.ensure_future(self.warm())
+ 
+     async def close(self) -> None:
+         self._closed = True
++        if self._warming is not None and not self._warming.done():
++            self._warming.cancel()  # still waiting for its turn: it must not start a process after this
++            await asyncio.gather(self._warming, return_exceptions=True)
+         await self.reset(warm=False)
+ 
+     async def stream(self, prompt: str, image: Path | None = None, model: str | None = None,
+@@ -266,50 +289,56 @@ class Claude:
+             return
+         async with self._lock:
+             self.key = (model or self.model, self.think if think is None else bool(think))
+-            if self.proc is None or self.proc.returncode is not None:
++            proc = self.proc
++            if proc is None or proc.returncode is not None:
+                 try:
+-                    await self._start()
++                    proc = await self._start()
+                 except OSError:  # not executable, or gone since the check: an error result, never a crash
+                     self.proc = None
+                     self.last = Result(ok=False, status="error", message="Claude Code could not be started.")
+                     return
+-            proc = self.proc
+-            assert proc is not None and proc.stdin is not None and proc.stdout is not None
+-            content: str | list = prompt
+-            shown = self._shown.setdefault(self.key, set())
+-            if image is not None and str(image) not in shown and Path(image).suffix.lower() in MEDIA:
+-                try:  # once per conversation: it stays in the conversation's memory after that
+-                    import base64
+-                    data = base64.b64encode(Path(image).read_bytes()).decode()
+-                    content = [{"type": "image", "source": {"type": "base64", "media_type": MEDIA[Path(image).suffix.lower()],
+-                                                            "data": data}}, {"type": "text", "text": prompt}]
+-                    shown.add(str(image))
+-                except OSError:
+-                    content = prompt
+-            msg = {"type": "user", "message": {"role": "user", "content": content}}
+-            try:
+-                proc.stdin.write((json.dumps(msg) + "\n").encode())
+-                await proc.stdin.drain()
+-            except (BrokenPipeError, ConnectionResetError):
+-                self.proc = None
+-                self.last = Result(ok=False, status="error", message="The AI process stopped; try again.")
+-                return
+-            parts, finished = [], False
+-            spoken = SpeechFilter()  # the spoken version at the end of a reply is never shown
++            # a reset that ran while the process started left it out of `procs`: this reply is the last it serves
++            stale = self.procs.get(self.key) is not proc
+             try:
+-                async for piece in self._read(proc, parts):
+-                    if (shown := spoken.feed(piece)):
+-                        yield shown
+-                if (tail := spoken.finish()):
+-                    yield tail
+-                finished = True
+-                self.last.text, self.last.speech = split_speech(self.last.text)
+-            except asyncio.TimeoutError:
+-                self.last = Result(ok=False, status="error", text=split_speech("".join(parts))[0],
+-                                   message="The AI took too long to answer; try again.")
++                assert proc is not None and proc.stdin is not None and proc.stdout is not None
++                content: str | list = prompt
++                shown = self._shown.setdefault(self.key, set())
++                if image is not None and str(image) not in shown and Path(image).suffix.lower() in MEDIA:
++                    try:  # once per conversation: it stays in the conversation's memory after that
++                        import base64
++                        data = base64.b64encode(Path(image).read_bytes()).decode()
++                        content = [{"type": "image", "source": {"type": "base64", "media_type": MEDIA[Path(image).suffix.lower()],
++                                                                "data": data}}, {"type": "text", "text": prompt}]
++                        shown.add(str(image))
++                    except OSError:
++                        content = prompt
++                msg = {"type": "user", "message": {"role": "user", "content": content}}
++                try:
++                    proc.stdin.write((json.dumps(msg) + "\n").encode())
++                    await proc.stdin.drain()
++                except (BrokenPipeError, ConnectionResetError):
++                    self.proc = None
++                    self.last = Result(ok=False, status="error", message="The AI process stopped; try again.")
++                    return
++                parts, finished = [], False
++                spoken = SpeechFilter()  # the spoken version at the end of a reply is never shown
++                try:
++                    async for piece in self._read(proc, parts):
++                        if (shown := spoken.feed(piece)):
++                            yield shown
++                    if (tail := spoken.finish()):
++                        yield tail
++                    finished = True
++                    self.last.text, self.last.speech = split_speech(self.last.text)
++                except asyncio.TimeoutError:
++                    self.last = Result(ok=False, status="error", text=split_speech("".join(parts))[0],
++                                       message="The AI took too long to answer; try again.")
++                finally:
++                    if not finished:  # stopped mid-reply: the rest would leak into the next answer, so start fresh
++                        await self.reset()
+             finally:
+-                if not finished:  # stopped mid-reply: the rest would leak into the next answer, so start fresh
+-                    await self.reset()
++                if stale:  # its conversation was forgotten: the process must not outlive this reply or serve the next
++                    await self._stop(proc)
+ 
+     async def _read(self, proc, parts: list) -> AsyncIterator[str]:
+         """Read one reply's events up to its result (sets self.last)."""
+@@ -515,23 +544,45 @@ def _first_json(text: str) -> dict | None:
+     return None
+ 
+ 
+-_NUMBER = re.compile(r"(?P<pow>\b10\s*\^\s*[({]?\s*(?P<p>[+-]?\d+))|(?P<num>-?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
++_NUMBER = re.compile(r"(?P<pow>\b10\s*\^\s*[({]?\s*(?P<p>[+-]?\d+))|(?P<num>-?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:/\d+)?"
+                      r"(?:\s*(?:[eE][+-]?\d+|(?:[x×*·]|\\times)\s*10\s*\^?\s*[({]?\s*[+-]?\d+))?|-?\.\d+)")
+ _SUPERSCRIPTS = re.compile(r"[⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
++_DASHES = str.maketrans({c: "-" for c in "−–‒‐‑﹣－"})  # every kind of minus sign, as the marking reads them
++# A number that only labels something is not a value: "Step 1", "Q4", "H2O", "v2", "the 3rd", a list's "1. Draw it".
++_LABEL = re.compile(r"\b(?:steps?|stages?|parts?|questions?|hints?|lines?|equations?|eq(?:n|ns|s)?|figures?|fig|"
++                    r"tables?|graphs?|diagrams?|cases?|methods?|rules?|laws?|statements?|examples?|sections?|pages?)"
++                    r"\s*\.?\s*\(?$", re.I)
++_ORDINAL = re.compile(r"(?:st|nd|rd|th)\b")
++_LIST_ITEM = re.compile(r"^[ \t]*(?:[-•]\s*)?\(?(\d{1,2})[.)][ \t]+\S", re.M)
++
++
++def _unit_after(s: str, end: int) -> str:
++    """The few words after a number, up to the end of its clause: what may be its unit ("kN", "m s-1")."""
++    clause = re.split(r"[;,:!?\n)\]]|\.(?:\s|$)", s[end:end + 80])[0]
++    return " ".join(clause.split()[:6])
+ 
+ 
+ def _numbers(text: str):
+-    """Every number written in `text`, with its significant figures and the digits it was written to, as the marking
+-    reads them (both None for a bare power of ten): 1000, 1,000, 1.0 × 10^3, 1e3, 10^3, 4.2 × 10⁻³."""
+-    for m in _NUMBER.finditer(grade.plain_powers(text).replace("−", "-")):
++    """Every number written in `text` as a value, with its significant figures, the digits it was written to (both
++    None for a bare power of ten), the words after it (its unit, perhaps) and the words before it, as the marking
++    reads them: 1000, 1,000, 1.0 × 10^3, 1e3, 10^3, 4.2 × 10⁻³. A number that only labels something is no value and
++    is left out."""
++    s = grade.plain_powers(text).translate(_DASHES)
++    items = {m.start(1) for m in _LIST_ITEM.finditer(s)}
++    for m in _NUMBER.finditer(s):
++        start = m.start()
++        if (start in items or (start and s[start - 1].isalpha()) or _ORDINAL.match(s, m.end())
++                or _LABEL.search(s[:start])):
++            continue
++        before, after = s[max(0, start - 40):start], _unit_after(s, m.end())
+         if m["pow"]:
+-            yield 10.0 ** int(m["p"]), None, None
++            yield 10.0 ** int(m["p"]), None, None, after, before
+             continue
+         try:
+             value, _, sf, digits = grade._parse(m["num"])
+         except grade.ParseError:
+             continue
+-        yield value, sf, digits
++        yield value, sf, digits, after, before
+ 
+ 
+ def _flat(text: str) -> str:
+@@ -540,25 +591,129 @@ def _flat(text: str) -> str:
+     return re.sub(r"[\s*$\\{}·×]", "", text)
+ 
+ 
++def _plain_latex(text: str) -> str:
++    r"""A reply's LaTeX as plain text, for reading numbers off it: $0.4\,\mathrm{kN}$ and 3.0 \times 10^3 read as
++    0.4 kN and 3.0 × 10^3."""
++    text = re.sub(r"\\(?:mathrm|text|textrm|mathbf|operatorname)\s*\{([^{}]*)\}", r"\1", text)
++    text = re.sub(r"\\times(?![A-Za-z])", "×", text).replace(r"\cdot", "·")
++    return re.sub(r"[_`$\\]|\*\*", "", re.sub(r"\\[,;: !]|~", " ", text))
++
++
++_STATES = (r"(?:\b(?:is|are|was|were|be|equals?|equal\s+to|gives?|gave|makes?|forms?|gets?|becomes?|means?|"
++           r"comes?\s+to|called|answer|option|choice|therefore|thus|hence|so|then|it'?s|that'?s)\b|[=:→⇒])")
++_FILLER = r"(?:(?:about|around|roughly|approximately|exactly|just|only|simply|actually|the|an?)\s+|[~≈]\s*)*"
++_STATING = re.compile(_STATES + r"\s*" + _FILLER + r"\+?$", re.I)  # before a value that is being stated, not just mentioned
++_CALLED_RIGHT = re.compile(r"(?:\S+\s+)?(?:is|are)\s+(?:correct|right|the\s+(?:answer|one|result|value))", re.I)
++
++
++def _states(text: str, targets: list[float], unit: str, tol: float, true: float | None = None, allowed=None,
++            stated: bool = False) -> bool:
++    """Whether `text` writes any of the `targets` as a number: within `tol` of one, in the answer's `unit` or in
++    another unit of the same kind (0.4 kN for 400 N), or, given the `true` value, rounded the way the marking accepts.
++    With `stated`, only a number the reply asserts counts ("it is 1", "= 1", "1 is the answer", or the reply is just
++    1): a small number is also all over an ordinary hint."""
++    bare = len(text.split()) <= 2
++    for v, sf, digits, after, before in _numbers(text):
++        if stated and not (bare or _STATING.search(before) or _CALLED_RIGHT.match(after)):
++            continue
++        values = [v]
++        if unit and after:
++            try:
++                values += [v * f for f in grade.unit_readings(after, unit)[0]]
++            except (ValueError, ArithmeticError):
++                pass
++        for x in values:
++            if any(abs(x - t) <= max(abs(t) * tol, 1e-12) for t in targets):
++                return True
++            if true is not None and grade.rounding_of(x, true, sf, digits, allowed):
++                return True
++    return False
++
++
++def _letter(letter: str) -> str:
++    """An option's letter as a pattern, in either case: "the answer is b". A lone "a" is also the English article, so a
++    small a counts only where it cannot be one: ending a clause, or before a verb ("option a is correct")."""
++    if letter.upper() != "A":
++        return rf"{re.escape(letter)}(?![A-Za-z0-9])"
++    return r"(?:(?-i:A)\b|(?-i:a)(?=\s*(?:[.,;:!?)\]]|$)|\s+(?:is|was|would|must|should|has|looks|seems)\b))"
++
++
++_SCRIPT_DIGITS = str.maketrans("₀₁₂₃₄₅₆₇₈₉₊₋⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻", "0123456789+-0123456789+-")
++
++
++def _fold(text: str) -> str:
++    r"""Text as plain lower case to compare: H₂SO₄, H2SO4 and $\ce{H2SO4}$ all read h2so4."""
++    text = re.sub(r"\\(?:ce|mathrm|text|textrm|mathbf)\s*\{", "", text).translate(_SCRIPT_DIGITS)
++    text = re.sub(r"\s*([=+\-−×÷/<>])\s*", r"\1", re.sub(r"[$\\{}_^*`]", "", text).lower())  # x = 3 reads x=3
++    return re.sub(r"\s+", " ", text).strip()
++
++
++def _quantity(option: str) -> tuple[float, str] | None:
++    """An option that is a plain number with a unit if any (6, -1, 1.5, 48.0 g): its value and unit. An orbital such
++    as 4s is no quantity."""
++    if re.fullmatch(r"[+\-−–]?[\d.,]+[A-Za-zμ]+", option):
++        return None
++    try:
++        value, unit, _ = grade.parse_quantity(option)
++        if unit:
++            parse_unit(unit)
++    except (ValueError, ArithmeticError):  # no number, or words after it that are no unit ("3 only", "10 X")
++        return None
++    return value, unit
++
++
++def _option_stated(option: str, reply: str) -> bool:
++    """Whether a reply writes out the right option's own text. A long one anywhere in the reply. A short one (a number,
++    a symbol, a short formula or word) only where it is being stated (is 1, = BaO), since an ordinary hint is full of
++    small numbers and symbols; a number counts in any unit of its kind (0.048 kg for 48 g)."""
++    plain = re.sub(r"[*_`$\\]", "", option).strip()
++    if len(plain) > 6 and plain.lower() in re.sub(r"[*_`$\\]", "", reply).lower():
++        return True
++    if (q := _quantity(plain)):
++        return _states(_plain_latex(reply), [q[0]], q[1], 1e-9, stated=True)
++    if not (opt := _fold(option)):
++        return False
++    said, word = _fold(reply), re.escape(opt)
++    if re.fullmatch(rf"\W*{word}\W*", said):  # the reply is just that
++        return True
++    here = rf"(?<![\w.]){word}(?!\w|\.\w)"  # CuSO4 in CuSO4.5H2O is another substance
++    return bool(re.search(here if len(opt) > 6 else _STATES + r"\s*" + _FILLER + here, said))
++
++
++def _scheme_stated(reply: str, key: str, kind: str) -> bool:
++    """Whether a reply writes out a mark point of a written answer word for word, or the whole answer, or is nothing
++    but a point. The points are the key's, one after another; a structured question's start with the mark's code (B1,
++    M1). A few words are not enough: a short phrase is also an ordinary term."""
++    def words(text: str) -> str:
++        return re.sub(r"[\W_]+", " ", _fold(text)).strip()
++    said = words(reply)
++    points = [re.sub(r"^[A-Z]{1,2}\d\s+", "", p) if kind == "structured" else p for p in key.split("; ")]
++    for w in map(words, points + [" ".join(points)]):
++        if w and (said == w or (len(w) >= 20 and len(w.split()) >= 4 and f" {w} " in f" {said} ")):
++            return True
++    return False
++
++
+ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
+-    """True when a reply gives away an open question's answer (letter, option text, expression or final value).
++    """True when a reply gives away an open question's answer (letter, option text, expression, final value or mark
++    point). Hints, step numbers and the numbers of the question itself get through.
+ 
+     `answer` is a numeric question's own answer: with it, a number counts at any precision the marking would accept,
+-    not only near the rounded key that is shown (a key shown as 3.8 has the true value 3.75)."""
++    not only near the rounded key that is shown (a key shown as 3.8 has the true value 3.75), and in any unit of the
++    same kind (0.4 kN for 400 N)."""
+     if not key:
+         return False
+     text = re.sub(r"[*_`$\\]", "", reply)
+     if kind == "mcq":
+         letter, _, opt = key.partition(": ")
+-        L = f"(?-i:{re.escape(letter)})"  # the capital letter itself: "it is a vector" is not option A
+-        pats = [rf"\b(answer|option|choice|it)\s*(is|would be|must be|=|:)\s*\(?{L}\b",
++        L = _letter(letter)
++        pats = [rf"\b(answer|option|choice|it)\s*(is|would be|must be|=|:)\s*\(?{L}",
+                 rf"\b\(?{L}\)?\s+is\s+(correct|right|the answer)",
+                 rf"\b(option|choice|letter)\s*\(?{L}\)?(?![A-Za-z0-9])",
+                 rf"^\W*\(?{L}\)?\s*(?:[.):\-–—]|$)"]  # the reply is, or starts by labelling, the letter
+         if any(re.search(p, text.strip(), re.I) for p in pats):
+             return True
+-        clean = re.sub(r"[*_`$\\]", "", opt).strip().lower()
+-        return len(clean) > 6 and clean in text.lower()
++        return bool(opt.strip()) and _option_stated(opt, reply)
+     if kind == "expression":
+         if len(flat := _flat(key)) >= 4 and flat in _flat(reply):
+             return True
+@@ -569,11 +724,15 @@ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
+             except Exception:  # noqa: BLE001 - prose is not maths
+                 continue
+         return False
++    if kind in ("short", "structured"):
++        return _scheme_stated(reply, key, kind)
+     if kind != "numeric":
+         return False
+-    targets = []
++    targets, unit = [], (answer or {}).get("unit") or ""
+     try:
+-        targets.append(grade.parse_quantity(key)[0])
++        value, key_unit, _ = grade.parse_quantity(key)
++        targets.append(value)
++        unit = unit or key_unit
+     except grade.ParseError:
+         pass
+     true = (answer or {}).get("value")
+@@ -581,9 +740,4 @@ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
+         targets.append(true)
+     rounded_ok = true is not None and not answer.get("exact")  # as marked: right when rounded at its own digits
+     allowed = (answer or {}).get("sf_ok") or [(answer or {}).get("sf")]
+-    for v, sf, digits in _numbers(text):
+-        if any(abs(v - t) <= max(abs(t) * 0.01, 1e-12) for t in targets):
+-            return True
+-        if rounded_ok and grade.rounding_of(v, true, sf, digits, allowed):
+-            return True
+-    return False
++    return _states(_plain_latex(reply), targets, unit, 0.01, true if rounded_ok else None, allowed)

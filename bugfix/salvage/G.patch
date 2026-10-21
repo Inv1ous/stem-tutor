@@ -1,0 +1,314 @@
+# Unfinished, unreviewed attempt (stopped mid-way) for: B-052 B-117 B-118 B-122 B-124 B-125 B-073 B-048 B-056 B-060
+diff --git a/build/publish.py b/build/publish.py
+index 5978360..cbbaca8 100644
+--- a/build/publish.py
++++ b/build/publish.py
+@@ -138,10 +138,77 @@ def link_notes(text: str, names: set[str], where: dict[str, list[str]] | None =
+     return WIKILINK.sub(fix, text)
+ 
+ 
++def held_note_paths(hold: dict, packs: Path, notes: Path) -> set[str]:
++    """The notes (relative to the notes folder) of the held subtopics, which stay out of the vault. A pack file names its
++    note; with no pack file yet (an unfinished build) the note is found by its chapter number inside the subject's folder,
++    "Subjects/9702 Physics/…/11.2 Fundamental particles.md" for 9702-11.2 or "Subjects/Maths/M1 …/5 …md" for M1-5, so an
++    unreviewed note never goes out just because its pack is missing (B-124)."""
++    held = set()
++    for sub in hold:
++        spec, _, chapter = sub.partition("-")
++        pack = next(iter(packs.glob(f"*/{sub}.json")), None)
++        if pack is not None:
++            held.add(json.loads(pack.read_text())["note"])
++            continue
++        for f in notes.rglob("*.md"):
++            rel = f.relative_to(notes)
++            if f.name.startswith(chapter + " ") and any(part.startswith(spec + " ") for part in rel.parts[:-1]):
++                held.add(str(rel))
++    return held
++
++
++def asset_refs(packs: Path, notes: Path, hold: dict, held_notes: set[str]) -> dict[str, str]:
++    """Every picture a published pack or note points at, as {Assets/…: where it is used}."""
++    refs: dict[str, str] = {}
++    for pk in sorted(packs.glob("*/*.json")):
++        if pk.stem in hold:
++            continue
++        pack = json.loads(pk.read_text())
++        for it in pack.get("items", []):
++            if it.get("image"):
++                refs.setdefault(it["image"], f"{it['id']} in {pk.name}")
++        for d in pack.get("diagrams", []):
++            if d.get("file"):
++                refs.setdefault(d["file"], f"a diagram in {pk.name}")
++    for f in sorted(notes.rglob("*.md")):
++        if str(f.relative_to(notes)) not in held_notes:
++            for m in re.finditer(r"!\[\[([^\]|#]+)", f.read_text(encoding="utf-8")):
++                if m.group(1).strip().startswith("Assets/"):
++                    refs.setdefault(m.group(1).strip(), f"the note {f.name}")
++    return refs
++
++
++def missing_assets(refs: dict[str, str], vault: Path) -> list[str]:
++    """The pictures that are neither in the build's Assets folders nor already in the vault."""
++    out = []
++    for ref, where in refs.items():
++        inside = ref.split("/", 1)[1] if "/" in ref else ref
++        if not any((BUILD / d / inside).is_file() for d in ("Assets", "assets")) and not (vault / ref).is_file():
++            out.append(f"{ref} ({where})")
++    return out
++
++
++def _move(staged: Path, dest: Path) -> None:
++    """Put a staged file in its place: a rename, or a copy where the folder refuses a rename (as `store.write_text` does)."""
++    dest.parent.mkdir(parents=True, exist_ok=True)
++    try:
++        os.replace(staged, dest)
++    except OSError:
++        shutil.copy2(staged, dest)
++        staged.unlink()
++
++
+ def publish(vault: Path) -> dict:
+     missing = [n for n in ("specs", "plan.json", "notes") if not (BUILD / n).exists()]
+     if missing:  # checked before the vault is touched
+         raise SystemExit(f"publish: the build has no {', '.join(missing)} in {BUILD}; build it first")
++    hold_f = BUILD / "packs" / "HOLD.json"  # subtopics whose review is unfinished stay out of the vault
++    hold = json.loads(hold_f.read_text()) if hold_f.exists() else {}
++    held_notes = held_note_paths(hold, BUILD / "packs", BUILD / "notes")
++    if lost := missing_assets(asset_refs(BUILD / "packs", BUILD / "notes", hold, held_notes), vault):
++        # a question or note that points at a picture nobody built would go live with a broken image
++        raise SystemExit(f"publish: {len(lost)} picture(s) the build refers to are missing; nothing was published:\n  "
++                         + "\n  ".join(lost[:10]))
+     tutor = vault / ".tutor"
+     for f in FOLDERS:
+         (vault / f).mkdir(parents=True, exist_ok=True)
+@@ -154,61 +221,72 @@ def publish(vault: Path) -> dict:
+     versions = sorted(int(p.name[1:]) for p in packs.glob("v*") if p.name[1:].isdigit())
+     version = f"v{(versions[-1] + 1) if versions else 1}"
+     target = packs / f".{version}.tmp"  # built aside and renamed once whole, so a crash leaves no half version
+-    shutil.rmtree(target, ignore_errors=True)
++    stage = packs / f".{version}.stage"  # the notes, pictures and engine, made ready aside before any is put in place
++    engine = tutor / "engine"  # remote Cowork runs the engine inside the connected folder (device_bash)
++    new, old = tutor / "engine.new", tutor / "engine.old"  # copied aside and swapped in: never half an engine
++    for leftover in (target, stage, new, old):
++        shutil.rmtree(leftover, ignore_errors=True)
+     specs = sorted(p.name for p in (BUILD / "specs").iterdir() if (p / "graph.json").exists())
+-    hold_f = BUILD / "packs" / "HOLD.json"  # subtopics whose review is unfinished stay out of the vault
+-    hold = json.loads(hold_f.read_text()) if hold_f.exists() else {}
+-    held_notes = {json.loads(pk.read_text())["note"] for pk in (BUILD / "packs").glob("*/*.json") if pk.stem in hold}
+     n_packs = 0
+-    for spec in specs:
+-        (target / "specs" / spec / "packs").mkdir(parents=True, exist_ok=True)
+-        shutil.copy2(BUILD / "specs" / spec / "graph.json", target / "specs" / spec / "graph.json")
+-        for pk in sorted((BUILD / "packs" / spec).glob("*.json")) if (BUILD / "packs" / spec).exists() else []:
+-            if pk.stem in hold:
++    try:
++        for spec in specs:
++            (target / "specs" / spec / "packs").mkdir(parents=True, exist_ok=True)
++            shutil.copy2(BUILD / "specs" / spec / "graph.json", target / "specs" / spec / "graph.json")
++            for pk in sorted((BUILD / "packs" / spec).glob("*.json")) if (BUILD / "packs" / spec).exists() else []:
++                if pk.stem in hold:
++                    continue
++                shutil.copy2(pk, target / "specs" / spec / "packs" / pk.name)
++                n_packs += 1
++        shutil.copy2(BUILD / "plan.json", target / "plan.json")
++        papers = BUILD / "papers.json"
++        store.write_text(target / "papers.json", papers.read_text() if papers.exists() else json.dumps({"papers": []}))
++        store.write_text(target / "manifest.json", json.dumps({"version": version, "specs": specs, "packs": n_packs}, indent=1))
++        names = {f.stem for f in (BUILD / "notes").rglob("*.md") if str(f.relative_to(BUILD / "notes")) not in held_notes} \
++            | {f.stem for f in vault.rglob("*.md")}
++        where: dict[str, list[str]] = {}
++        for f in (BUILD / "notes").rglob("*.md"):
++            rel = f.relative_to(BUILD / "notes")
++            if str(rel) not in held_notes:
++                where.setdefault(f.stem, []).append(rel.parent.as_posix())
++        # Everything that can fail (reading a note, copying a picture, copying the engine) happens here, aside. If it does,
++        # nothing in the vault has changed yet: the notes you see still match the pack that is active (B-122).
++        ready: dict[Path, Path] = {}  # where it goes in the vault -> its copy made ready in the stage folder
++        # (Assets and assets are one folder on a Mac: a file seen twice is made ready once)
++        for src_root, dest in ((BUILD / "notes", vault), (BUILD / "Assets", vault / "Assets"),
++                               (BUILD / "assets", vault / "Assets"), (BUILD / "Papers", vault / "Papers")):
++            if not src_root.exists():
+                 continue
+-            shutil.copy2(pk, target / "specs" / spec / "packs" / pk.name)
+-            n_packs += 1
+-    shutil.copy2(BUILD / "plan.json", target / "plan.json")
+-    papers = BUILD / "papers.json"
+-    store.write_text(target / "papers.json", papers.read_text() if papers.exists() else json.dumps({"papers": []}))
+-    store.write_text(target / "manifest.json", json.dumps({"version": version, "specs": specs, "packs": n_packs}, indent=1))
++            for f in src_root.rglob("*"):
++                if f.is_file() and not f.name.startswith(".DS_") \
++                        and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
++                    d = dest / f.relative_to(src_root)
++                    made = stage / d.relative_to(vault)
++                    if src_root == BUILD / "notes" and f.suffix == ".md":  # links follow what is published
++                        text = fix_tags(link_notes(f.read_text(encoding="utf-8"), names, where,
++                                                   f.relative_to(src_root).parent.as_posix()))
++                        # a note you edited in the vault (newer than the build's) is kept
++                        if not d.exists() or (d.stat().st_mtime <= f.stat().st_mtime
++                                              and d.read_text(encoding="utf-8") != text):
++                            made.parent.mkdir(parents=True, exist_ok=True)
++                            made.write_text(text, encoding="utf-8")
++                            os.utime(made, (f.stat().st_atime, f.stat().st_mtime))
++                            ready[d] = made
++                    elif not d.exists() or d.stat().st_mtime < f.stat().st_mtime:
++                        made.parent.mkdir(parents=True, exist_ok=True)
++                        shutil.copy2(f, made)
++                        ready[d] = made
++        course = shortcuts_course(vault)
++        shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", new, ignore=shutil.ignore_patterns("__pycache__"))
++    except BaseException:  # nothing was put in place: clear the aside copies and leave the vault as it was
++        for leftover in (target, stage, new):
++            shutil.rmtree(leftover, ignore_errors=True)
++        raise
++    for d, made in ready.items():
++        _move(made, d)
++    shutil.rmtree(stage, ignore_errors=True)
++    for d, text in course:
++        store.write_text(d, text)
+     os.replace(target, packs / version)
+-    names = {f.stem for f in (BUILD / "notes").rglob("*.md") if str(f.relative_to(BUILD / "notes")) not in held_notes} \
+-        | {f.stem for f in vault.rglob("*.md")}
+-    where: dict[str, list[str]] = {}
+-    for f in (BUILD / "notes").rglob("*.md"):
+-        rel = f.relative_to(BUILD / "notes")
+-        if str(rel) not in held_notes:
+-            where.setdefault(f.stem, []).append(rel.parent.as_posix())
+-    copied = 0
+-    for src_root, dest in ((BUILD / "notes", vault), (BUILD / "Assets", vault / "Assets"),
+-                           (BUILD / "assets", vault / "Assets"), (BUILD / "Papers", vault / "Papers")):
+-        if not src_root.exists():
+-            continue
+-        for f in src_root.rglob("*"):
+-            if f.is_file() and not f.name.startswith(".DS_") \
+-                    and not (src_root == BUILD / "notes" and str(f.relative_to(src_root)) in held_notes):
+-                d = dest / f.relative_to(src_root)
+-                if src_root == BUILD / "notes" and f.suffix == ".md":  # links follow what is published
+-                    text = fix_tags(link_notes(f.read_text(encoding="utf-8"), names, where,
+-                                               f.relative_to(src_root).parent.as_posix()))
+-                    # a note you edited in the vault (newer than the build's) is kept
+-                    if not d.exists() or (d.stat().st_mtime <= f.stat().st_mtime
+-                                          and d.read_text(encoding="utf-8") != text):
+-                        d.parent.mkdir(parents=True, exist_ok=True)
+-                        d.write_text(text, encoding="utf-8")
+-                        os.utime(d, (f.stat().st_atime, f.stat().st_mtime))
+-                        copied += 1
+-                elif not d.exists() or d.stat().st_mtime < f.stat().st_mtime:
+-                    d.parent.mkdir(parents=True, exist_ok=True)
+-                    shutil.copy2(f, d)
+-                    copied += 1
+-    n_shortcuts = publish_shortcuts(vault)
+-    engine = tutor / "engine"  # remote Cowork runs the engine inside the connected folder (device_bash)
+-    new, old = tutor / "engine.new", tutor / "engine.old"  # copied aside and swapped in: never half an engine
+-    shutil.rmtree(new, ignore_errors=True)
+-    shutil.rmtree(old, ignore_errors=True)
+-    shutil.copytree(ROOT / "plugin/stem-tutor/skills/tutor/scripts", new, ignore=shutil.ignore_patterns("__pycache__"))
+     if engine.exists():
+         os.replace(engine, old)
+     os.replace(new, engine)
+@@ -218,18 +296,15 @@ def publish(vault: Path) -> dict:
+     launcher.chmod(0o755)
+     store.write_text(packs / "CURRENT", version)  # flip last
+     prune_versions(packs, version)
+-    return {"version": version, "specs": len(specs), "packs": n_packs, "held": sorted(hold), "files_copied": copied,
+-            "shortcuts": n_shortcuts}
+-
++    return {"version": version, "specs": len(specs), "packs": n_packs, "held": sorted(hold), "files_copied": len(ready),
++            "shortcuts": len(course)}
+ 
+ 
+-def publish_shortcuts(vault: Path) -> int:
+-    """The Shortcuts course's entries and lessons go to .tutor/shortcuts/course/; its settings, events and state are not touched."""
+-    src, n = BUILD / "shortcuts", 0
+-    for f in sorted([*src.glob("*.json"), *src.glob("lessons/*.json")]):
+-        store.write_text(vault / ".tutor/shortcuts/course" / f.relative_to(src), f.read_text(encoding="utf-8"))
+-        n += 1
+-    return n
++def shortcuts_course(vault: Path) -> list[tuple[Path, str]]:
++    """The Shortcuts course's entries and lessons, read and ready to go to .tutor/shortcuts/course/ as (path, text)."""
++    src = BUILD / "shortcuts"
++    return [(vault / ".tutor/shortcuts/course" / f.relative_to(src), f.read_text(encoding="utf-8"))
++            for f in sorted([*src.glob("*.json"), *src.glob("lessons/*.json")])]
+ 
+ 
+ def prune_versions(packs: Path, current: str) -> None:
+diff --git a/foundry/foundry.py b/foundry/foundry.py
+index 7bbb2d6..41ab896 100644
+--- a/foundry/foundry.py
++++ b/foundry/foundry.py
+@@ -61,6 +61,11 @@ PACKS, SPECS, NOTES = ROOT / "build/out/packs", ROOT / "build/out/specs", ROOT /
+ BLIND, WORK = ROOT / "build/work/blind", ROOT / "build/work/foundry"
+ HOLD = PACKS / "HOLD.json"
+ PY = str(REPO / ".venv/bin/python")
++# The repository's folder name has spaces. A worker told that path in plain words once typed it into `mkdir -p` escaped in one
++# place and not in the other, and the shell made the empty folders AI/ and Workflow/stem-tutor/... inside the repository
++# (B-060). Workers start in the repository root, so they are told to use paths relative to it and never given the absolute one.
++WORKDIR_HINT = ("You start in the repository root: use paths relative to it. If you ever need its absolute path in a shell "
++                "command, put the whole path in quotes, because the folder name has spaces.")
+ CODEX = os.environ.get("FOUNDRY_CODEX") or shutil.which("codex") or \
+     "/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex"
+ CLAUDE = os.environ.get("FOUNDRY_CLAUDE") or shutil.which("claude") or "claude"
+@@ -978,7 +983,7 @@ def cmd_status(sub: str) -> None:
+ def role_prompt(role: str, sub: str, shard: int | None = None) -> str:
+     """Short on purpose: the worker reads the long instructions itself (its tokens, not the manager's)."""
+     st = load(sub)
+-    lines = [f"You are the foundry {role} for chapter {sub}. Working directory: {REPO}.",
++    lines = [f"You are the foundry {role} for chapter {sub}. {WORKDIR_HINT}",
+              f"Read foundry/roles/{role}.md and follow it exactly."]
+     if role in ("solver", "tiebreak"):  # blind roles get their questions file only, never the paths of the keys
+         re_ = "recheck." if role == "solver" and st["stage"] == "recheck" else ""
+diff --git a/foundry/roles/checker.md b/foundry/roles/checker.md
+index 5a63b90..af9089e 100644
+--- a/foundry/roles/checker.md
++++ b/foundry/roles/checker.md
+@@ -34,7 +34,9 @@ Do not report style, wording preferences, missing extras, or anything you cannot
+                "evidence": "the exact quoted text", "fix": "one-line suggestion"}]}
+ ```
+ 
+-Write `{"findings": []}` when everything passes. Write nothing else, anywhere.
++Write `{"findings": []}` when everything passes. Write nothing else, anywhere. Use the file-writing tool with that
++relative path (it makes the folder); do not type the repository's absolute path into a shell command, its folder name
++has spaces.
+ 
+ **Sources.** The learner's own PDF library (textbooks, notes, mark schemes, worksheets) is searchable:
+ `.venv/bin/python build/library.py for <subtopic>`, then `search "<terms>"` and `text <pdf> --pages a-b`. Use it for
+diff --git a/foundry/skill/SKILL.md b/foundry/skill/SKILL.md
+index ef8f4c6..364ee15 100644
+--- a/foundry/skill/SKILL.md
++++ b/foundry/skill/SKILL.md
+@@ -10,7 +10,8 @@ You are the manager of the STEM Tutor content foundry for this turn, running on
+ are headless processes that the foundry starts itself, split between the learner's Claude and Codex allowances; the
+ adjudicator is one of them, on call for the decisions the manager's instructions say you must not make alone.
+ 
+-Repository: `{REPO}`. Run every command from there.
++Repository: `{REPO}`. Run every command from there. The folder name has spaces, so give the workers and any subagent
++relative paths (`build/work/foundry/…`), and put the whole absolute path in quotes if a shell command must have it.
+ 
+ 1. Read `foundry/roles/manager.md` in that repository and follow it exactly. It says how to run the loop, how to
+    judge what reaches you, and when to call the adjudicator.
+diff --git a/refine/refine.py b/refine/refine.py
+index e6d6715..9cfba00 100644
+--- a/refine/refine.py
++++ b/refine/refine.py
+@@ -863,7 +863,7 @@ def cmd_status(sub: str) -> None:
+ # ---------------- workers ----------------
+ def role_prompt(role: str, sub: str, shard: int | None = None) -> str:
+     st = load(sub)
+-    lines = [f"You are the refine {role} for chapter {sub}. Working directory: {REPO}.",
++    lines = [f"You are the refine {role} for chapter {sub}. {fd.WORKDIR_HINT}",
+              f"Read refine/roles/{role}.md and follow it exactly."]
+     if role in ("solver", "tiebreak"):  # blind: the questions file only, never a path to the keys
+         re_ = _pfx(st) if role == "solver" else PFX
+diff --git a/refine/skill/SKILL.md b/refine/skill/SKILL.md
+index 9a3ca53..738518e 100644
+--- a/refine/skill/SKILL.md
++++ b/refine/skill/SKILL.md
+@@ -10,7 +10,8 @@ You are the manager of the STEM Tutor refine system for this turn, running on So
+ are headless processes that the refine system starts itself, split between the learner's Claude and Codex
+ allowances (shared with the foundry).
+ 
+-Repository: `{REPO}`. Run every command from there.
++Repository: `{REPO}`. Run every command from there. The folder name has spaces, so give the workers and any subagent
++relative paths (`build/work/foundry/…`), and put the whole absolute path in quotes if a shell command must have it.
+ 
+ 1. Read `refine/roles/manager.md` in that repository and follow it exactly.
+ 2. What was asked: $ARGUMENTS

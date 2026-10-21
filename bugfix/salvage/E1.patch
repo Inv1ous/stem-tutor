@@ -1,0 +1,343 @@
+# Unfinished, unreviewed attempt (stopped mid-way) for: B-051 B-095 B-065 B-078 B-097 B-098 B-104 B-107 B-121 B-053 B-111 B-120 B-130 B-138 B-049
+diff --git a/app/tutor_app/screens.py b/app/tutor_app/screens.py
+index 2b3d40b..89516fa 100644
+--- a/app/tutor_app/screens.py
++++ b/app/tutor_app/screens.py
+@@ -1088,6 +1088,9 @@ class SessionScreen(ReadAloud, Screen):
+                                  done_label="I'm ready to move on"))
+         elif self.chatting and data.get("text"):
+             self.say(cards.you(data["text"]))
++            if (log := self.tutor._lesson_log()):  # the transcript keeps both sides of the talk, not only the tutor's
++                log.you(data["text"])
++            self.tutor.show("you", data["text"], "You replied")
+             self.stream(f"{prompts.context(self.tutor, self.kc)}\n\nSTUDENT: {data['text']}")
+         elif self.chatting and (data.get("done") or data.get("skip")):
+             self.chatting = False
+@@ -1299,7 +1302,8 @@ class SessionScreen(ReadAloud, Screen):
+         w = self.say(cards.ai("…"))
+         buf = ""
+         # guard every open question (normally just the one on screen; a session begun in the chat may hold more)
+-        keys = [prompts.key_of(self.tutor, int(n)) for n in (self.tutor.session or {}).get("presented", {})]
++        asked = list((self.tutor.session or {}).get("presented", {}))  # what this reply is about, even if it is late
++        keys = [prompts.key_of(self.tutor, int(n)) for n in asked]
+         model, think = self.app.settings.ai_for(mode)  # chosen in Settings for this kind of help
+         async for chunk in a.stream(prompt, image=prompts.focus_image(self.tutor), model=model, think=think):
+             buf += chunk
+@@ -1319,7 +1323,9 @@ class SessionScreen(ReadAloud, Screen):
+             w.update(cards.ai(buf))
+             self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
+             if buf and not withheld:
+-                self.tutor.ai_help()  # help that reached you counts as a hint on every open question
++                # help that reached you counts as a hint on the questions it was asked about: a reply that comes late,
++                # after you have answered and moved on, must not take the credit of the question you are on now
++                self.tutor.ai_help(only=asked)
+             if (log := self.tutor._lesson_log()):
+                 log.tutor(buf, title="Tutor (AI)")
+             self.tutor.show("notice" if withheld else "ai", buf, "Held back" if withheld else "Tutor (AI)")  # and on Now
+@@ -1522,27 +1528,45 @@ class ChatScreen(ReadAloud, Screen):
+     @work(exclusive=True)
+     async def reply(self, q: str) -> None:
+         a = self.app.ai
++        tutor = self.app.tutor
+         log = self.query_one("#log", VerticalScroll)
+         if not (self.app.settings.ai and a.available):
+             log.mount(Static(cards.card("hint", "AI help is off", a.message or "Switch AI on in Settings."), classes="entry"))
+-            self.app.tutor.show("notice", a.message or "Switch AI on in Settings.", "AI help is off")
++            tutor.show("notice", a.message or "Switch AI on in Settings.", "AI help is off")
+             return
++        # A session left for the menu may still have a question waiting for its answer. The chat is another way to ask the
++        # AI, so it keeps the session screen's rules: nothing during a no-help check, an open question's answer is never
++        # given away, and help that reaches the learner counts as a hint on it.
++        if (help_ := tutor.ai_help(given=False)).get("refused"):
++            log.mount(Static(cards.card("hint", "No help on this one", help_["refused"]), classes="entry"))
++            tutor.show("notice", help_["refused"], "No help on this one")
++            return
++        asked = list((tutor.session or {}).get("presented", {}))
++        keys = [prompts.key_of(tutor, int(n)) for n in asked]
+         w = Static(cards.ai("…"), classes="entry")
+         log.mount(w)
+         buf = ""
+         model, think = self.app.settings.ai_for("ask")
+-        async for chunk in a.stream(prompts.ask(self.app.tutor, q, None), model=model, think=think):  # with the last questions answered
++        async for chunk in a.stream(prompts.ask(tutor, q, None), model=model, think=think):  # with the last questions answered
+             buf += chunk
+-            w.update(cards.ai(buf))
+-            log.scroll_end(animate=False)
++            if not keys:  # with a question open the reply waits to be checked before anyone reads it
++                w.update(cards.ai(buf))
++                log.scroll_end(animate=False)
+         if not a.last.ok:
+             w.update(cards.card("hint", "AI paused", a.last.message))
+-            self.app.tutor.show("notice", a.last.message, "AI paused")
++            tutor.show("notice", a.last.message, "AI paused")
+         else:
+             buf = a.last.text or buf
++            speech = a.last.speech
++            withheld = any(ai_mod.leaks(buf, *k) or (speech and ai_mod.leaks(speech, *k)) for k in keys)
++            if withheld:
++                buf = "I can't give that away while your question is still open. Resume it and answer first, and then I'll explain."
++                speech = ""
+             w.update(cards.ai(buf))
+-            self.app.tutor.show("ai", buf, "Tutor (AI)")
+-            self.readable_now(a.last.speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
++            if not withheld:
++                tutor.ai_help(only=asked)  # help that reached you counts as a hint on the questions open when you asked
++            tutor.show("notice" if withheld else "ai", buf, "Held back" if withheld else "Tutor (AI)")
++            self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
+ 
+ 
+ class InsightsScreen(Screen):
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py
+index 873d365..9aca634 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py
+@@ -966,17 +966,20 @@ class Tutor(LessonMixin):
+         return {"n": n, "level": p["hint_level"], "hint": hints[p["hint_level"] - 1],
+                 "say": "Give only this hint, in your words; do not add the next step."}
+ 
+-    def ai_help(self, given: bool = True) -> dict:
++    def ai_help(self, given: bool = True, only: list[str] | None = None) -> dict:
+         """The learner is asking the AI tutor. While a no-help check (exit ticket, retest, challenge) is open it is
+         refused; otherwise every open question counts as hinted, as with hint(): help is help, whoever gives it.
+-        `given=False` only asks whether help is allowed: a reply that never reaches the learner is no help."""
++        `given=False` only asks whether help is allowed: a reply that never reaches the learner is no help.
++        `only`: the numbers of the questions the reply was about; one that arrives after the learner has answered and
++        moved on must not mark the question they are on now."""
+         open_ = (self.session or {}).get("presented", {})
+         if any(p["unassisted"] for p in open_.values()):
+             return {"refused": "This is a no-help check: answer it first, then ask me anything."}
+         if given:
+-            for p in open_.values():
++            hinted = [p for n, p in open_.items() if only is None or n in only]
++            for p in hinted:
+                 p["hinted"] = True
+-            if open_:
++            if hinted:
+                 self._save()
+         return {"ok": True}
+ 
+diff --git a/tests/app/test_bw_screens.py b/tests/app/test_bw_screens.py
+new file mode 100644
+index 0000000..016fd88
+--- /dev/null
++++ b/tests/app/test_bw_screens.py
+@@ -0,0 +1,219 @@
++"""Bug-watch batch E1: the main screens (menu, topic picker, the study session, chat, summary, settings).
++
++Each test names the finding it pins (B-nnn, from bugwatch/codex/BUGS.md)."""
++from __future__ import annotations
++
++import asyncio
++import io
++from datetime import timedelta
++
++from rich.console import Console
++from textual.widgets import Button, Switch
++
++from test_picker import crowd, ids
++from test_tui import _menu, app_for
++from tutor_app import ai as ai_mod
++from tutor_app import prompts
++from tutor_app.panels import (ChoicePanel, Composer, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel,
++                              TickPanel, ValuePanel)
++from tutor_app.screens import ChatScreen, HomeScreen, PickerScreen, SessionScreen, SummaryScreen
++
++SHORT = {"id": "s1", "kcs": ["9702-2.1.1"], "kind": "short", "difficulty": 3, "marks": 2, "stem": "Define displacement.",
++         "rubric": [{"point": "distance", "keywords": [["distance"]]}, {"point": "direction", "keywords": [["direction"]]}]}
++MCQ = {"id": "9702-2.1-i01", "kcs": ["9702-2.1.1"], "kind": "mcq", "difficulty": 2, "marks": 1,
++       "stem": "Which quantity is a vector?", "options": {"A": "distance", "B": "displacement", "C": "speed", "D": "time"},
++       "answer": "B"}
++
++
++def run(app, steps, size=(120, 40)):
++    async def go():
++        async with app.run_test(size=size) as pilot:
++            await pilot.pause()
++            await steps(pilot)
++            await app.ai.close()
++    asyncio.run(go())
++
++
++def words(widget, width: int = 110) -> str:
++    console = Console(width=width, color_system=None, record=True, file=io.StringIO())
++    console.print(widget.content)
++    return console.export_text()
++
++
++def said(screen) -> str:
++    """Everything the log of a screen shows, as plain text."""
++    return "\n".join(words(w) for w in screen.query("#log .entry"))
++
++
++def stub_stream(app, monkeypatch, text, calls=None):
++    async def fake_stream(prompt, **kw):
++        if calls is not None:
++            calls.append(prompt)
++        app.ai.last = ai_mod.Result(text=text)
++        yield text
++    monkeypatch.setattr(app.ai, "stream", fake_stream)
++
++
++async def pause_session(app, pilot, mode):
++    """A session whose first question is open, left for the menu with ctrl+b."""
++    scr = SessionScreen({"mode": mode, "minutes": 40, "focus": ["9702-2.1"]} if mode != "autopilot"
++                        else {"mode": mode, "minutes": 50})
++    app.push_screen(scr)
++    await pilot.pause()
++    n = scr.view["n"]
++    await pilot.press("ctrl+b")
++    await pilot.pause()
++    assert app.screen.__class__.__name__ == "HomeScreen" and str(n) in app.tutor.session["presented"]
++    return n
++
++
++async def ask_in_menu_chat(app, pilot, question):
++    _menu(app, "chat")
++    await pilot.press("enter")
++    await pilot.pause()
++    assert isinstance(app.screen, ChatScreen)
++    app.screen.query_one("#text").text = question
++    await pilot.press("enter")
++    await app.workers.wait_for_complete()
++    await pilot.pause()
++
++
++async def open_short(app, pilot, ai: bool):
++    """A two-point short question open in a session, ready to be answered."""
++    app.settings.ai = ai
++    t = app.tutor
++    t.start("review", minutes=10)
++    n = t._present(SHORT, block="practice", phase=None)["n"]
++    await app.push_screen(SessionScreen(None))
++    await pilot.pause()
++    return app.screen, n
++
++
++async def answer_short(pilot, text="how far it moved"):
++    await pilot.press(*text, "enter")
++    await pilot.pause()
++    await pilot.press("3")
++    await pilot.pause()
++
++
++async def open_long(app, pilot):
++    menu = app.screen.query_one("#menu")
++    menu.highlighted = [o.id for o in menu.options].index("long")
++    await pilot.press("enter")
++    await pilot.pause()
++    await pilot.press("enter")  # the only subtopic
++    await pilot.pause()
++    assert isinstance(app.screen.query_one("#panel > *"), LongPanel)
++    return app.screen
++
++
++def events(app, kind="answer"):
++    return [e for e in app.tutor.vault.events() if e["type"] == kind]
++
++
++# ---------------------------------------------------------------- B-051
++def test_the_menu_chat_gives_no_answer_away_while_a_question_is_open(tmp_path, monkeypatch):  # B-051
++    app, v = app_for(tmp_path, monkeypatch)
++
++    async def steps(pilot):
++        n = await pause_session(app, pilot, "autopilot")  # an assisted question: help is allowed, the answer is not
++        t = app.tutor
++        key = prompts.key_of(t, n)[0]
++        leak = f"The answer is {key}."
++        stub_stream(app, monkeypatch, leak)
++        await ask_in_menu_chat(app, pilot, f"What is the answer to question {n}?")
++        assert leak not in said(app.screen) and leak not in (v / "Now.md").read_text()
++        assert "can't give that away" in said(app.screen)
++        assert not t.session["presented"][str(n)]["hinted"]  # nothing useful reached the learner: still their own answer
++    run(app, steps)
++
++
++def test_the_menu_chat_is_refused_during_a_no_help_check(tmp_path, monkeypatch):  # B-051
++    app, v = app_for(tmp_path, monkeypatch)
++    calls = []
++
++    async def steps(pilot):
++        n = await pause_session(app, pilot, "test")
++        assert app.tutor.session["presented"][str(n)]["unassisted"]
++        stub_stream(app, monkeypatch, "Think about the units.", calls)
++        await ask_in_menu_chat(app, pilot, "Can I have a hint?")
++        assert calls == [] and "No help on this one" in said(app.screen)
++        assert not app.tutor.session["presented"][str(n)]["hinted"]
++    run(app, steps)
++
++
++def test_menu_chat_help_that_arrives_counts_as_a_hint_and_a_plain_chat_is_unchanged(tmp_path, monkeypatch):  # B-051
++    app, v = app_for(tmp_path, monkeypatch)
++
++    async def steps(pilot):
++        n = await pause_session(app, pilot, "autopilot")
++        stub_stream(app, monkeypatch, "Think about direction.")
++        await ask_in_menu_chat(app, pilot, "Give me a nudge")
++        assert "Think about direction." in said(app.screen)
++        assert app.tutor.session["presented"][str(n)]["hinted"]  # help is help, whoever gives it
++        await pilot.press("escape")
++        await pilot.pause()
++        app.tutor.end(abandoned=True)  # no session: the chat is the free chat it always was
++        stub_stream(app, monkeypatch, "A vector has a direction.")
++        await ask_in_menu_chat(app, pilot, "What is a vector?")
++        assert "A vector has a direction." in said(app.screen)
++    run(app, steps)
++
++
++# ---------------------------------------------------------------- B-095
++def test_replies_typed_in_the_stuck_chat_are_kept_in_the_lesson_and_on_now(tmp_path, monkeypatch):  # B-095
++    app, v = app_for(tmp_path, monkeypatch)
++
++    async def steps(pilot):
++        scr = SessionScreen({"mode": "autopilot", "minutes": 50})
++        app.push_screen(scr)
++        await pilot.pause()
++        stub_stream(app, monkeypatch, "Good. What about the direction?")
++        scr.chatting = True
++        scr.panel(TextPanel("Reply to the tutor", done_label="I'm ready to move on"))
++        await pilot.pause()
++        scr.panel_done(Panel.Done({"text": "I think it is only the size"}, scr.showing))
++        await app.workers.wait_for_complete()
++        await pilot.pause()
++        log = (v / app.tutor._lesson_log().rel).read_text()
++        assert "I think it is only the size" in log and "What about the direction?" in log
++        assert any(i["kind"] == "you" and "only the size" in i["text"] for i in app.tutor.session["thread"])
++    run(app, steps)
++
++
++# ---------------------------------------------------------------- B-065
++def test_a_late_ai_reply_marks_only_the_question_it_was_asked_about(tmp_path, monkeypatch):  # B-065
++    app, v = app_for(tmp_path, monkeypatch)
++
++    async def steps(pilot):
++        scr = SessionScreen({"mode": "autopilot", "minutes": 50})  # opens with a pretest: hints are allowed
++        app.push_screen(scr)
++        await pilot.pause()
++        t = app.tutor
++        first = scr.view["n"]
++        release = asyncio.Event()
++
++        async def slow_stream(prompt, **kw):
++            await release.wait()
++            app.ai.last = ai_mod.Result(text="Think about direction.")
++            yield "Think about direction."
++        monkeypatch.setattr(app.ai, "stream", slow_stream)
++        scr.stream("Give me a hint")  # the reply is still on its way ...
++        await pilot.pause()
++        scr.submit({"entry": f"{first}?", "your": "I don't know"})  # ... when the learner answers and moves on
++        for _ in range(12):
++            await pilot.pause()
++            if any(int(k) != first for k in t.session["presented"]):
++                break
++            panel = scr.showing
++            if isinstance(panel, ReflectPanel):
++                await pilot.press("escape")
++            else:
++                next(iter(panel.query("Button"))).press()
++        second = next(k for k in t.session["presented"] if int(k) != first)
++        assert not t.session["presented"][second]["hinted"]
++        release.set()
++        await app.workers.wait_for_complete()
++        await pilot.pause()
++        assert not t.session["presented"][second]["hinted"]  # help for Q1 does not take Q2's independent credit
++    run(app, steps)

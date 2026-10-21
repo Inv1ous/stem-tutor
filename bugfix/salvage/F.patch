@@ -1,0 +1,713 @@
+# Unfinished, unreviewed attempt (stopped mid-way) for: B-112 B-113 B-116 B-128 B-114 B-115 B-126 B-127
+diff --git a/app/tutor_app/tts.py b/app/tutor_app/tts.py
+index 98457fa..eabf57f 100644
+--- a/app/tutor_app/tts.py
++++ b/app/tutor_app/tts.py
+@@ -488,11 +488,15 @@ class Speaker:
+                 return None
+             paths.append(path)
+         if len(paths) <= 1:
+-            return paths[0] if paths else None
+-        joined = self.live_dir / f"{key_for(' | '.join(texts), voice, speed)}.wav"
+-        if not joined.is_file():
+-            join_wavs(paths, joined)
+-        return joined
++            result = paths[0] if paths else None
++        else:
++            result = self.live_dir / f"{key_for(' | '.join(texts), voice, speed)}.wav"
++            if not result.is_file():
++                join_wavs(paths, result)
++        # tidy up only now: pruning while the parts were still being made could delete an older part (a verdict
++        # like "Correct." reused from the cache) before it was joined
++        self._prune(keep=[*paths, result] if result is not None else paths)
++        return result
+ 
+     def _one(self, text: str, voice: str, speed: float) -> Path | None:
+         key = key_for(text, voice, speed)
+@@ -500,18 +504,23 @@ class Speaker:
+             if (folder / f"{key}.wav").is_file():
+                 return folder / f"{key}.wav"
+         try:
+-            path = synthesize(text, self.live_dir / f"{key}.wav", voice, speed, vault=self.vault)
++            return synthesize(text, self.live_dir / f"{key}.wav", voice, speed, vault=self.vault)
+         except TTSUnavailable as e:
+             self._say_once(str(e))
+             return None
+-        self._prune()
+-        return path
+ 
+-    def _prune(self) -> None:
++    def _prune(self, keep: Sequence[Path] = ()) -> None:
++        """Delete the oldest live lines beyond LIVE_KEEP, never the ones in `keep` (the reading being prepared)."""
+         try:
++            protected = {Path(p) for p in keep}
+             files = sorted(self.live_dir.glob("*.wav"), key=lambda p: p.stat().st_mtime)
+-            for old in files[:-self.LIVE_KEEP]:
+-                old.unlink(missing_ok=True)
++            excess = len(files) - self.LIVE_KEEP
++            for old in files:
++                if excess <= 0:
++                    break
++                if old not in protected:
++                    old.unlink(missing_ok=True)
++                    excess -= 1
+         except OSError:
+             pass
+ 
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/speech.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/speech.py
+index f396537..6e97b2f 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/speech.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/speech.py
+@@ -13,8 +13,8 @@ speakable(text)             Markdown-ish chapter text (prose, ``$..$`` / ``$$..$
+ speech_gaps(text)           The symbols / commands that had no natural spoken form (the output used a
+                             fallback for them).  A content gate requires this to be empty, or the item
+                             to carry a ``speech`` override.
+-for_tts(text)               speakable(text) followed by the PRONOUNCE word list.  This is what is sent
+-                            to the synthesiser.
++for_tts(text)               speakable(text) followed by the PRONOUNCE word list and the letter A
++                            respelling ("Option A" -> "Option eh").  This is what is sent to the synthesiser.
+ audio_key(text, voice, speed)   The audio cache key (see its docstring); shared by the app and the
+                             foundry / refine pre-generator.
+ script_for_chapter(pack, note_text)   The chapter's speakable lines for pre-generation.
+@@ -34,7 +34,8 @@ Known limits (documented, not hidden)
+ -------------------------------------
+ * Which words Kokoro mispronounces is not verified here, so PRONOUNCE is empty.
+ * A lone lower-case "a" (the variable) is spoken as "a" and a synthesiser may read it as the article.
+-* Tables are dropped; code blocks are dropped; embeds and images are dropped.
++* Code blocks are dropped; embeds and images are dropped.  A table is read cell by cell, each cell after its
++  column heading ("score, three"), except in a note's paragraphs (note_paragraphs), which leave tables out.
+ """
+ from __future__ import annotations
+ 
+@@ -2305,8 +2306,10 @@ _ABBREV = [  # (regex, replacement); applied to prose before anything else
+     (re.compile(r"\bFigs\.\s?(?=\d)"), "figures "),
+     (re.compile(r"\beqn?s?\.\s?(?=\d)", re.I), "equation "),
+     (re.compile(r"\bNo\.\s?(?=\d)"), "number "),
+-    (re.compile(r"\bp\.d\.(?=\W|$)"), "potential difference"),
+-    (re.compile(r"\be\.m\.f\.?"), "E M F"),
++    # p.d. / e.m.f., plural (p.d.s, e.m.f.s) and at the start of a sentence (P.d., E.m.f.) as well
++    (re.compile(r"\bp\.d\.(s?)(?=\W|$)", re.I),
++     lambda m: ("Potential" if m.group()[0] == "P" else "potential") + (" differences" if m.group(1) else " difference")),
++    (re.compile(r"\be\.m\.f(?:\.(s)(?![A-Za-z])|\.?)", re.I), lambda m: "E M F" + ("'s" if m.group(1) else "")),
+     (re.compile(r"\br\.m\.s\.?"), "R M S"),
+     (re.compile(r"\ba\.c\.(?=\W|$)"), "A C"),
+     (re.compile(r"\bd\.c\.(?=\W|$)"), "D C"),
+@@ -2900,6 +2903,45 @@ def _script_letters(m: "re.Match[str]") -> str:
+     return (" to the " if sup else " sub ") + words + " "
+ 
+ 
++# Operators typed as plain characters in prose (no $ maths).  Left alone they are mangled by the punctuation
++# clean-up later: an arrow becomes "is greater than", a spaced minus becomes a pause, a times sign the letter x.
++_ASCII_ARROWS = (  # longest first; the words match the unicode arrows in _UNI_WORDS
++    (re.compile(r"<-{1,2}>"), "goes both ways"),
++    (re.compile(r"<={1,2}>"), "is in equilibrium with"),
++    (re.compile(r"-{2,}>"), "yields"),
++    (re.compile(r"->"), "gives"),
++    (re.compile(r"={1,2}>"), "implies"),
++)
++_RE_SPACED_DASH = re.compile(r"(?<=[\w)]) [-–] (?=[\w(]|\.\d)")
++_RE_TIMES_X = re.compile(r"(?<=[\d)])\s+x\s+(?=\.?\d|\()")
++# a negative charge written after its number, "the 2- charge", "a 2- ion", "a charge of 2-."
++_RE_NEG_CHARGE = re.compile(r"(?<![\w.+\-−–])(\d{1,2})[-−–](?=[.,;:!?)\]]|\s*$|\s+(?:charge|ions?|anions?|species)\b)")
++
++
++def _subtractions(s: str) -> str:
++    """A spaced hyphen or en dash between operands is "minus" when it is arithmetic: between numbers
++    (131 - 53 = 78; an en dash only inside an equation, since "10 – 20" is a range) or between anything in a
++    sentence holding an equals sign (electrons = protons - charge).  Elsewhere it stays a sentence dash."""
++    def sub(m: "re.Match[str]") -> str:
++        left, right = s[m.start() - 1], s[m.end()]
++        if m.group() == " - " and (left.isdigit() or left == ")") and (right.isdigit() or right in "(."):
++            return " minus "
++        start = max(s.rfind(". ", 0, m.start()), s.rfind("\n", 0, m.start()))
++        end = s.find(". ", m.end())
++        return " minus " if "=" in s[start + 1:len(s) if end < 0 else end] else m.group()
++
++    return _RE_SPACED_DASH.sub(sub, s)
++
++
++def _ascii_operators(s: str) -> str:
++    for pat, words in _ASCII_ARROWS:
++        s = pat.sub(" " + words + " ", s)
++    s = _subtractions(s)
++    # 2.42 x 24.0: multiplication between numbers is the times sign, so the 3 x 10^5 reading still applies
++    s = _RE_TIMES_X.sub(" × ", s)
++    return _RE_NEG_CHARGE.sub(lambda m: " " + number_words(m.group(1)) + " minus ", s)
++
++
+ def _prose_impl(s: str) -> str:
+     s = _repair(s)
+     s = _RE_SUPLET.sub(_script_letters, s)
+@@ -2915,6 +2957,7 @@ def _prose_impl(s: str) -> str:
+     s = re.sub(r"\b97(?:01|02|09)\b|\b9231\b", lambda m: _digits(m.group()), s)
+     for pat, rep in _ABBREV:
+         s = pat.sub(rep, s)
++    s = _ascii_operators(s)
+     # electrons before numbers: 2e⁻ -> two electrons
+     s = re.sub(r"(?<![A-Za-z])(\d*)\s?e[⁻−](?![A-Za-z⁰¹²³⁴⁵⁶⁷⁸⁹])", lambda m: (" " + (number_words(m.group(1)) + " electrons " if m.group(1) and m.group(1) != "1" else "an electron ")), s)
+     s = _RE_WORD_PREFIX.sub(lambda m: _plain_year(m, s), s)
+@@ -3012,10 +3055,40 @@ def _strip_emphasis(line: str) -> str:
+     return line
+ 
+ 
+-def _blocks(text: str, skip_links: bool = False) -> list[str]:
++def _table_cells(line: str) -> list[str]:
++    inner = line.strip().strip("|")
++    return [c.strip().replace("\\|", "|") for c in re.split(r"(?<!\\)\|", inner)]
++
++
++def _blank_cell(cell: str) -> bool:
++    """Empty, or only a placeholder ("…", "-") for the learner to fill in: nothing to say."""
++    return not cell.strip(" \t.…–—-_")
++
++
++def _table_paragraphs(lines: list[str]) -> list[str]:
++    """A Markdown table as spoken lines, one per cell: "column heading, cell" (the heading as a pair with every
++    cell, so a frequency table is heard as class interval then count, and a list of readings as its quantity then
++    its value).  A cell with nothing in it is skipped; without a heading row the cells are read as they come."""
++    rows = [_table_cells(ln) for ln in lines if not _RE_TABLE_SEP.match(ln)]
++    head: list[str] = []
++    if len(lines) > 1 and _RE_TABLE_SEP.match(lines[1]):
++        head, rows = rows[0], rows[1:]
++    if not rows:  # a heading row and nothing under it: say the headings
++        rows, head = [head], []
++    out = []
++    for row in rows:
++        for j, cell in enumerate(row):
++            heading = head[j] if j < len(head) else ""
++            if not _blank_cell(cell):
++                out.append(cell if _blank_cell(heading) else f"{heading}, {cell}")
++    return out
++
++
++def _blocks(text: str, skip_links: bool = False, tables: bool = True) -> list[str]:
+     """Markdown-ish text -> a list of raw paragraph strings (maths still as $..$ spans).
+ 
+-    With skip_links the "Links" section (navigation to other notes) is left out."""
++    With skip_links the "Links" section (navigation to other notes) is left out.  Tables are read cell by cell
++    (see _table_paragraphs) unless tables is False."""
+     text = _RE_FRONT.sub("", text.replace("\r\n", "\n").replace("\r", "\n"), count=1)
+     text = _RE_COMMENT.sub("", text)
+     text = _RE_EMBED.sub("", text)
+@@ -3026,6 +3099,7 @@ def _blocks(text: str, skip_links: bool = False) -> list[str]:
+     cur: list[str] = []
+     in_fence = False
+     in_links = False
++    table: list[str] = []
+ 
+     def flush():
+         nonlocal cur
+@@ -3033,22 +3107,33 @@ def _blocks(text: str, skip_links: bool = False) -> list[str]:
+             paras.append(_join_lines(cur))
+         cur = []
+ 
++    def flush_table():
++        nonlocal table
++        if table and tables and not in_links:
++            paras.extend(_table_paragraphs(table))
++        table = []
++
+     for raw in text.split("\n"):
+         if _RE_FENCE.match(raw):
+             in_fence = not in_fence
+             flush()
++            flush_table()
+             continue
+         if in_fence:
+             continue
+         line = raw.rstrip()
++        is_table = bool(_RE_TABLE_ROW.match(line) or _RE_TABLE_SEP.match(line) and "|" in line)
++        if not is_table:
++            flush_table()
+         if not line.strip():
+             flush()
+             continue
+         if _RE_HR.match(line) and not _RE_BULLET.match(line + " x"):
+             flush()
+             continue
+-        if _RE_TABLE_ROW.match(line) or _RE_TABLE_SEP.match(line) and "|" in line:
++        if is_table:
+             flush()
++            table.append(line)
+             continue
+         mc = _RE_CALLOUT.match(line)
+         if mc:
+@@ -3077,6 +3162,7 @@ def _blocks(text: str, skip_links: bool = False) -> list[str]:
+             continue
+         cur.append(line.strip())
+     flush()
++    flush_table()
+     return [p for p in (x.strip() for x in paras) if p]
+ 
+ 
+@@ -3186,12 +3272,47 @@ def speech_gaps(text: str) -> list[str]:
+ 
+ 
+ def for_tts(text: str) -> str:
+-    """speakable(text) with the PRONOUNCE respellings applied: the string to hand to the synthesiser."""
++    """speakable(text) with the PRONOUNCE respellings and the letter A applied: the string to hand to the synthesiser."""
+     out = speakable(text)
+     return _pronounce(out)
+ 
+ 
++# A capital A on its own, "Option A", "Point A", "A to B": the synthesiser's phonemiser (espeak-ng) reads it as
++# the article (a schwa) whenever a word like is / to / and / of follows it, and says the letter only at the end of
++# a clause.  Written "eh" it comes out as the letter's name in every position (checked on the phonemiser's output,
++# not by listening).
++_LETTER_A = "eh"
++_RE_LETTER_A = re.compile(r"(?<![\w'’-])A(?![\w'’-])(?=(?:\s+(?P<next>[A-Za-z]+))?)")
++# after a clause-initial A these words make it the letter ("A is correct", "A to B", "A reverses the counts"),
++# not the article ("A charge moves")
++_AFTER_LETTER_A = {
++    "is", "are", "was", "were", "be", "to", "and", "or", "of", "in", "on", "at", "by", "with", "from", "has", "have",
++    "had", "then", "as", "but", "can", "will", "would", "must", "should", "does", "did", "if", "when", "so", "for",
++    "not", "equals", "gives", "yields", "goes", "implies", "tends", "comes",
++    # what a wrong-answer explanation says about an option: "A reverses the counts", "A wrongly ..."
++    "reverses", "uses", "counts", "confuses", "misses", "ignores", "fails", "means", "omits", "includes", "represents",
++    "depicts", "overlooks", "assigns", "contains", "remains", "restricts", "treats", "halves", "puts", "shows", "takes",
++    "applies", "forms", "swaps", "adds", "subtracts", "multiplies", "divides", "predicts", "suggests", "describes",
++    "starts", "stays", "wrongly", "incorrectly", "correctly",
++}
++
++
++def _letter_a(out: str) -> str:
++    """Capital A as the letter -> "eh".  In the middle of a clause a capital A can only be the letter.  At the start
++    of a sentence or clause it is the article ("A charge moves", "A common trap") unless a word that cannot follow
++    an article comes next ("A is correct", "A to B") or nothing does ("A.")."""
++    def sub(m: "re.Match[str]") -> str:
++        nxt = m.group("next") or ""
++        before = out[:m.start()].rstrip()
++        if before and before[-1] not in ".?!,":
++            return _LETTER_A
++        return _LETTER_A if (not nxt or nxt in _AFTER_LETTER_A or nxt in ("Level", "Levels")) else m.group()
++
++    return _RE_LETTER_A.sub(sub, out)
++
++
+ def _pronounce(out: str) -> str:
++    out = _letter_a(out)
+     if not PRONOUNCE or not out:
+         return out
+     for word, respell in PRONOUNCE.items():
+@@ -3229,17 +3350,17 @@ def audio_key(speech_text: str, voice: str, speed: float) -> str:
+ _CARD_FIELDS = ("motivate", "establish", "connect", "note", "self_explain", "discover")
+ 
+ 
+-def _blocks_masked(text: str, skip_links: bool = False):
++def _blocks_masked(text: str, skip_links: bool = False, tables: bool = True):
+     """Mask the maths first (a display block may span lines), then split into paragraphs."""
+     text = _RE_FRONT.sub("", text.replace("\r\n", "\n").replace("\r", "\n"), count=1)
+     text = re.sub(r"```.*?```|~~~.*?~~~", "\n", text, flags=re.S)
+     masked, spans = _mask_math(text)
+-    return _blocks(masked, skip_links=skip_links), spans
++    return _blocks(masked, skip_links=skip_links, tables=tables), spans
+ 
+ 
+ def note_paragraphs(note_text: str) -> list[str]:
+     """The paragraphs of a note that are spoken: front matter, tables, code, embeds and the Links section are left out."""
+-    paras, spans = _blocks_masked(_repair(note_text or ""), skip_links=True)
++    paras, spans = _blocks_masked(_repair(note_text or ""), skip_links=True, tables=False)
+     return [re.sub(r"[\U000F0000-\U000FFFFF]", lambda m: spans[ord(m.group()) - _PH0][2], p) for p in paras]
+ 
+ 
+diff --git a/tests/app/test_bw_tts.py b/tests/app/test_bw_tts.py
+new file mode 100644
+index 0000000..f6dfb0d
+--- /dev/null
++++ b/tests/app/test_bw_tts.py
+@@ -0,0 +1,121 @@
++"""Bug-watch batch F, app side: the read-aloud cache (B-127) and the words the voice is given (tts.spoken).
++Hermetic like test_tts.py: a fake engine and a fake player; nothing is installed, downloaded or played."""
++import os
++import threading
++import time
++import wave
++from pathlib import Path
++
++import pytest
++
++from tutor_app import config, tts
++
++
++class FakeEngine:
++    def __init__(self):
++        self.calls = []
++
++    def create(self, text, voice, speed, lang):
++        self.calls.append(text)
++        return [0.5, -0.5, 0.0] * 80, 24000
++
++
++class FakePlayer:
++    def __init__(self):
++        self.played, self.volume = [], None
++
++    playing = False
++
++    def play(self, path, volume=None):
++        self.played.append(Path(path))
++        return True
++
++    def stop(self):
++        pass
++
++
++@pytest.fixture(autouse=True)
++def hermetic(tmp_path, monkeypatch):
++    monkeypatch.setenv("STEM_TUTOR_TTS_DIR", str(tmp_path / "tts-models"))
++    monkeypatch.setattr(tts, "installed", lambda: False)
++    tts.set_engine(None)
++    yield
++    tts.set_engine(None)
++
++
++def speaker(tmp_path, keep=None):
++    s = config.Settings(tts_enabled=True, tts_auto=True)
++    return tts.Speaker(tmp_path / "vault", lambda: s, player=FakePlayer()), s
++
++
++def nframes(path: Path) -> int:
++    with wave.open(str(path)) as w:
++        return w.getnframes()
++
++
++# ---------------- B-127: pruning must not delete a part of the reading being prepared ----------------
++def test_a_cached_part_survives_the_pruning_that_a_new_part_triggers(tmp_path, monkeypatch):
++    monkeypatch.setattr(tts.Speaker, "LIVE_KEEP", 6)
++    tts.set_engine(FakeEngine())
++    sp, s = speaker(tmp_path)
++    # the cache is full, and the verdict "Correct." (reused from an earlier answer) is the oldest line in it
++    verdict = tts.synthesize(tts.spoken("Correct."), sp.live_dir / f"{tts.key_for(tts.spoken('Correct.'), s.tts_voice, s.tts_speed)}.wav",
++                             s.tts_voice, s.tts_speed)
++    old = time.time() - 10_000
++    os.utime(verdict, (old, old))
++    for i in range(sp.LIVE_KEEP - 1):
++        filler = sp.live_dir / f"{i:040x}.wav"
++        filler.write_bytes(b"RIFF")
++        os.utime(filler, (old + 100 + i, old + 100 + i))
++    assert len(list(sp.live_dir.glob("*.wav"))) == sp.LIVE_KEEP
++
++    joined = sp._audio(["Correct.", "A newly requested explanation."], None)  # used to raise FileNotFoundError
++
++    assert joined is not None and joined.is_file()
++    assert nframes(joined) > 2 * nframes(verdict)  # both parts and the pause are in it
++    assert verdict.is_file()  # the reused part is still cached for the next reading
++    left = list(sp.live_dir.glob("*.wav"))
++    assert len(left) == sp.LIVE_KEEP  # and the cache is back at its cap, the oldest fillers having gone
++    assert not (sp.live_dir / f"{0:040x}.wav").exists() and joined in left
++
++
++def test_a_reading_that_fits_leaves_the_cache_alone(tmp_path):
++    tts.set_engine(FakeEngine())
++    sp, _ = speaker(tmp_path)
++    path = sp._audio(["First line.", "Second line."], None)
++    assert path.is_file() and len(list(sp.live_dir.glob("*.wav"))) == 3  # two parts and the joined line
++
++
++def test_say_plays_a_multipart_reading_when_the_cache_is_full(tmp_path, monkeypatch):
++    monkeypatch.setattr(tts.Speaker, "LIVE_KEEP", 3)
++    tts.set_engine(FakeEngine())
++    sp, s = speaker(tmp_path)
++    sp.say(["Correct.", "The first explanation."])
++    assert sp.wait_idle() and sp.player.played
++    time.sleep(0.05)
++    sp.say(["Correct.", "A different explanation."])  # "Correct." is now the oldest cached line, the cap is reached
++    assert sp.wait_idle()
++    time.sleep(0.05)
++    assert len(sp.player.played) == 2 and all(p.is_file() for p in sp.player.played[-1:])
++    sp.close()
++
++
++# ---------------- the words the voice is given (tutor_app.tts.spoken) ----------------
++@pytest.mark.parametrize("raw,words", [
++    ("Neutrons = 131 - 53 = 78", "Neutrons equals one hundred and thirty one minus fifty three equals seventy eight."),
++    ("2CO + 2NO -> 2CO2 + N2", "two C O plus two N O gives two C O two plus N two."),
++    ("2.42 x 24.0 = 58.08", "two point four two times twenty four point zero equals fifty eight point zero eight."),
++    ("the 2- charge means two extra electrons", "the two minus charge means two extra electrons."),
++    ("Option A is correct.", "Option eh is correct."),
++    ("Compare the p.d.s across two equal series resistors.", "Compare the potential differences across two equal series resistors."),
++])
++def test_spoken_gives_the_standard_exam_wording(raw, words):
++    assert tts.spoken(raw) == words
++
++
++def test_a_multipart_feedback_reads_the_table_in_the_stem_and_the_letter_in_the_answer():
++    from tutor_app.screens import spoken_feedback
++    parts = spoken_feedback({"correct": False, "answer": "A: P reinforcement; Q cancellation.", "explanation": "Option A is correct."}, "B")
++    assert [tts.spoken(p) for p in parts] == [
++        "Not quite. The answer is eh, P reinforcement, Q cancellation.", "Option eh is correct."]
++    assert tts.spoken("| t | 1 | 2 |\n|---|---|---|\n| Frequency | 8 | 12 |") == "t, Frequency. one, eight. two, twelve."
+diff --git a/tests/test_bw_speech.py b/tests/test_bw_speech.py
+new file mode 100644
+index 0000000..6b49c5d
+--- /dev/null
++++ b/tests/test_bw_speech.py
+@@ -0,0 +1,242 @@
++"""Bug-watch batch F: how maths, chemistry and labels are turned into spoken words (tutorlib/speech.py).
++
++Each test pins one finding from the bug watch (B-112 .. B-116, B-126, B-128).  They are quick and need no speech engine."""
++import json
++from pathlib import Path
++
++import pytest
++
++from tutorlib.speech import for_tts, note_paragraphs, script_for_chapter, speakable
++
++BUILD = Path(__file__).resolve().parents[1] / "build" / "out"
++
++
++def say(text: str) -> str:
++    """speakable() without the final full stop."""
++    out = speakable(text)
++    assert out == "" or out[-1] in ".?!", out
++    return out[:-1] if out else out
++
++
++def tts(text: str) -> str:
++    """for_tts() (what the synthesiser is given) without the final full stop."""
++    out = for_tts(text)
++    return out[:-1] if out[-1:] in (".", "?", "!") else out
++
++
++def published_item(spec: str, sub: str, item_id: str) -> dict:
++    path = BUILD / "packs" / spec / f"{sub}.json"
++    if not path.is_file():
++        pytest.skip("no published packs in this checkout")
++    return next(it for it in json.loads(path.read_text(encoding="utf-8"))["items"] if it["id"] == item_id)
++
++
++# ---------------- B-112: a spaced minus is subtraction, not a pause ----------------
++@pytest.mark.parametrize("text,words", [
++    ("131 - 53 = 78", "one hundred and thirty one minus fifty three equals seventy eight"),
++    ("16 - 2 = 14", "sixteen minus two equals fourteen"),
++    ("5 + 4 - 1 = 8", "five plus four minus one equals eight"),
++    ("(3 + 4) - 2 = 5", "three plus four, minus two equals five"),  # the brackets are a pause either side
++    ("Neutrons = 60 - 26", "Neutrons equals sixty minus twenty six"),
++    ("0.150 - 0.030 = 0.120 mol", "zero point one five zero minus zero point zero three zero equals zero point one two zero moles"),
++    ("electrons = protons - size of charge", "electrons equals protons minus size of charge"),
++    ("19.2 – 7.2 = 12 m", "nineteen point two minus seven point two equals twelve metres"),  # en dash, inside an equation
++])
++def test_spaced_minus_in_prose_is_said_minus(text, words):
++    assert say(text) == words
++
++
++@pytest.mark.parametrize("text", [
++    "the answer – which is odd – is 3",   # a sentence dash
++    "range 10 – 20 cm",                    # an en-dash range
++    "x - y",                               # no number, no equation: left as it was
++])
++def test_a_sentence_dash_or_range_is_not_turned_into_minus(text):
++    assert "minus" not in say(text)
++
++
++def test_the_published_subtraction_explanation_keeps_its_minus():
++    spoken = for_tts(published_item("9701", "9701-1.1", "9701-1.1-p07")["explanation"])
++    assert "one hundred and thirty one minus fifty three equals seventy eight" in spoken
++    assert "fifty three plus one equals fifty four" in spoken
++
++
++# ---------------- B-113: an arrow typed as characters is a reaction arrow ----------------
++def test_ascii_reaction_arrow_says_gives_not_greater_than():
++    out = say("2CO + 2NO -> 2CO2 + N2")
++    assert out == "two C O plus two N O gives two C O two plus N two"
++    assert "greater than" not in out
++
++
++@pytest.mark.parametrize("text,word", [
++    ("A --> B", "yields"), ("A -> B", "gives"), ("A <=> B", "is in equilibrium with"), ("A <-> B", "goes both ways"),
++    ("p => q", "implies"),
++])
++def test_other_typed_arrows(text, word):
++    out = say(text)
++    assert word in out and "greater" not in out and "less than" not in out and "equals" not in out
++
++
++def test_comparisons_are_still_comparisons():
++    assert say("x > 3 and y < 4") == "x is greater than three and y is less than four"
++    assert say("x ≥ 3") == "x is greater than or equal to three"
++
++
++def test_the_published_catalytic_converter_explanation_has_no_false_inequality():
++    spoken = for_tts(published_item("9701", "9701-2.4", "9701-2.4-x029")["explanation"])
++    assert "two C O plus two N O gives two C O two plus N two" in spoken
++    assert "greater than" not in spoken
++
++
++# ---------------- B-114: numeric multiplication is "times" ----------------
++@pytest.mark.parametrize("text,words", [
++    ("2.42 x 24.0 = 58.08", "two point four two times twenty four point zero equals fifty eight point zero eight"),
++    ("6 + 3 x 8", "six plus three times eight"),
++    ("0.100 x 28.0 = 2.8 g", "zero point one zero zero times twenty eight point zero equals two point eight grams"),
++    ("2 x 3 x 4", "two times three times four"),
++    ("(1 + 2) x (3 + 4)", "one plus two, times, three plus four"),
++])
++def test_ascii_x_between_numbers_is_times(text, words):
++    assert say(text) == words
++
++
++def test_times_ten_to_a_power_still_reads_as_one_number():
++    assert say("5 x 10^3") == say("5 × 10^3") == "five times ten to the three"
++    assert say("3.0 x 10^5 m") == "three point zero times ten to the five metres"
++
++
++@pytest.mark.parametrize("text", ["a x b", "the x axis", "x and y", "plot x against y", "3 x y"])
++def test_the_letter_x_stays_a_letter_outside_numbers(text):
++    assert "times" not in say(text)
++
++
++# ---------------- B-115: a negative charge keeps its minus ----------------
++@pytest.mark.parametrize("text,words", [
++    ("the 2- charge means two extra electrons", "the two minus charge means two extra electrons"),
++    ("a 2- ion", "a two minus ion"),
++    ("a charge of 2-.", "a charge of two minus"),
++    ("a 2+ ion", "a two plus ion"),
++])
++def test_numeric_charge_after_its_number(text, words):
++    assert say(text) == words
++
++
++@pytest.mark.parametrize("text", ["2- and 3-methylbutane", "2-chloropropane", "pages 2-3", "O2- and S2-"])
++def test_a_hyphen_that_is_not_a_charge_gains_no_minus(text):
++    assert "minus" not in say(text)
++
++
++# ---------------- B-116: the letter A in a label is the letter, not the article ----------------
++@pytest.mark.parametrize("text,words", [
++    ("Option A", "Option eh"),
++    ("Point A is on the graph.", "Point eh is on the graph"),
++    ("A to B", "eh to B"),
++    ("A", "eh"),
++    ("The answer is A", "The answer is eh"),
++    ("Option A is correct, B is not.", "Option eh is correct, B is not"),
++    ("A: P reinforcement; Q cancellation.", "eh, P reinforcement, Q cancellation"),
++    ("Options A and C subtract an electron.", "Options eh and C subtract an electron"),
++    ("A reverses the counts.", "eh reverses the counts"),
++    ("an A level student", "an eh level student"),
++    ("N A is the Avogadro constant", "N eh is the Avogadro constant"),
++])
++def test_capital_a_as_a_letter_is_respelled_for_the_voice(text, words):
++    assert tts(text) == words
++
++
++@pytest.mark.parametrize("text", ["A charge moves.", "A common trap: thinking so.", "A force acts on the block.",
++                                  "Not quite. A uniform field is steady."])
++def test_the_article_a_is_left_alone(text):
++    assert "eh" not in for_tts(text)
++
++
++def test_amperes_are_still_amperes_and_the_written_text_is_unchanged():
++    assert say("2 A") == "two amperes" and "eh" not in for_tts("2 A")
++    assert speakable("Option A is correct.") == "Option A is correct."  # only what is sent to the voice is respelled
++
++
++def test_authors_speech_overrides_get_the_letter_too():
++    pack = {"items": [{"id": "i1", "kind": "mcq", "stem": "Where is point A?", "speech": "Point A is at the origin."}]}
++    assert {ln["id"]: ln["text"] for ln in script_for_chapter(pack, "")}["item:i1:stem"] == "Point eh is at the origin."
++
++
++def test_the_published_point_labels_are_respelled():
++    spoken = for_tts(published_item("9702", "9702-9.2", "9702-9.2-r01")["stem"])
++    assert "Point eh is at a potential of four volts" in spoken and "eh to B or B to eh" in spoken
++
++
++# ---------------- B-126: electrical abbreviations, plural and capitalised ----------------
++@pytest.mark.parametrize("text,words", [
++    ("Compare the p.d.s across two equal series resistors.", "Compare the potential differences across two equal series resistors"),
++    ("The p.d. across each resistor is equal.", "The potential difference across each resistor is equal"),
++    ("P.d. across a component", "Potential difference across a component"),
++    ("E.m.f. is energy supplied.", "E M F is energy supplied"),
++    ("Two e.m.f.s in series", "Two E M F's in series"),
++    ("the e.m.f. of the cell", "the E M F of the cell"),
++])
++def test_p_d_and_e_m_f_in_every_form(text, words):
++    assert say(text) == words
++
++
++def test_the_published_p_d_s_question_is_spoken_in_words():
++    spoken = for_tts(published_item("9702", "9702-10.3", "9702-10.3-i05")["stem"])
++    assert spoken == "Compare the potential differences across two equal series resistors."
++
++
++# ---------------- B-128: a table the question needs is read ----------------
++FREQUENCY_STEM = ("The table shows the delivery times, $t$ minutes, for 40 parcels.\n\n"
++                  "| $t$ (min) | $10\\le t<20$ | $20\\le t<25$ | $25\\le t<40$ | $40\\le t<60$ |\n"
++                  "|---|---|---|---|---|\n| Frequency | 8 | 12 | 12 | 8 |\n\n"
++                  "Use linear interpolation to estimate the upper quartile, $Q_3$.")
++
++
++def test_a_frequency_table_is_read_class_by_class_in_place():
++    out = speakable(FREQUENCY_STEM)
++    intro, rest = out.split(" t, min, Frequency. ")
++    assert intro == "The table shows the delivery times, t minutes, for forty parcels."
++    classes = rest.split(" Use linear interpolation")[0].rstrip(".").split(". ")
++    assert classes == [
++        "ten is less than or equal to t is less than twenty, eight",
++        "twenty is less than or equal to t is less than twenty five, twelve",
++        "twenty five is less than or equal to t is less than forty, twelve",
++        "forty is less than or equal to t is less than sixty, eight",
++    ]
++    assert out.endswith("Use linear interpolation to estimate the upper quartile, Q three.")
++
++
++def test_every_published_frequency_table_keeps_its_counts():
++    for item_id, counts in [("S1-2-i13", ["eight", "twelve", "twelve", "eight"]),
++                            ("S1-2-i15", ["five", "nine", "twelve", "ten", "four"]),
++                            ("S1-2-r03", ["twenty", "thirty", "thirty five", "fifteen"])]:
++        spoken = for_tts(published_item("S1", "S1-2", item_id)["stem"])
++        assert "less than or equal to t is less than" in spoken, item_id
++        for count in counts:
++            assert f", {count}." in spoken, (item_id, count)
++
++
++def test_a_table_with_a_column_of_values_reads_each_row_under_its_headings():
++    stem = "| Applied force / $\\mathrm{N}$ | Pointer reading / $\\mathrm{mm}$ |\n| --- | --- |\n| 0 | 12.40 |\n| 5.0 | 12.65 |"
++    out = say(stem)
++    assert out.count("Applied force") == 2 and out.count("Pointer reading") == 2
++    assert out.endswith("Pointer reading / millimetres, twelve point six five")
++    assert "five point zero" in out and "twelve point four zero" in out
++
++
++def test_empty_cells_and_blanks_to_fill_in_are_skipped():
++    stem = "| species | protons | neutrons |\n|---|---|---|\n| $^{35}_{17}\\mathrm{Cl}^{-}$ | | |\n| Mg | … | - |"
++    out = say(stem)
++    assert "protons" not in out and "neutrons" not in out and out.endswith("species, magnesium") and "…" not in out
++
++
++def test_a_table_without_a_heading_row_and_a_heading_only_table():
++    assert say("| 1 | 2 |\n| 3 | 4 |") == "one. two. three. four"
++    assert say("| a | b |\n|---|---|") == "a. b"
++
++
++def test_a_table_ends_where_the_text_goes_on():
++    assert say("Before.\n\n| a | b |\n|---|---|\n| 1 | 2 |\nAfter it.") == "Before. a, one. b, two. After it"
++
++
++def test_a_notes_paragraphs_still_leave_tables_out():
++    note = "# Title\nIntro.\n\n| a | b |\n|---|---|\n| 1 | 2 |\n\nOutro."
++    assert note_paragraphs(note) == ["Title", "Intro.", "Outro."]
+diff --git a/tests/test_speech.py b/tests/test_speech.py
+index bac722e..8626ec4 100644
+--- a/tests/test_speech.py
++++ b/tests/test_speech.py
+@@ -415,7 +415,9 @@ def test_markdown_structure():
+            "| a | b |\n|---|---|\n| 1 | 2 |\n\n```python\nx = 1\n```\n![[diagram.png]]\n"
+            "- **Bold** item; _emph_ and *italic* with `code`.\n1. First\n2. Second\n")
+     out = speakable(src)
+-    assert out == "Title. In one breath. Body with x squared. Bold item, emph and italic with code. First. Second."
++    # the table is read, cell by cell, in its place (it used to be dropped: B-128)
++    assert out == ("Title. In one breath. Body with x squared. a, one. b, two. "
++                   "Bold item, emph and italic with code. First. Second.")
+ 
+ 
+ def test_wiki_links_embeds_and_links():
+@@ -429,8 +431,8 @@ def test_callout_without_marker_and_emphasis():
+     assert "!" not in say("> [!example]- Worked example\n> text") and "[" not in say("> [!example]- Worked example\n> text")
+ 
+ 
+-def test_tables_and_code_are_dropped():
+-    assert speakable("| a | b |\n|---|---|\n| 1 | 2 |") == ""
++def test_code_is_dropped_and_tables_are_read():
++    assert speakable("| a | b |\n|---|---|\n| 1 | 2 |") == "a, one. b, two."
+     assert speakable("```\nraw = 1\n```") == ""
+     assert say("Before\n\n```py\nx\n```\n\nAfter") == "Before. After"
+ 

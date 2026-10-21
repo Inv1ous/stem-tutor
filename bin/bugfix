@@ -1,0 +1,4 @@
+#!/bin/sh
+# Run the bug-fix system from any folder: bugfix triage | plan | step | wait | board | packet | accept | reject | release …
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+exec "$ROOT/.venv/bin/python" "$ROOT/bugfix/bugfix.py" "$@"

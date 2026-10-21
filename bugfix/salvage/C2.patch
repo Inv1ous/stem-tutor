@@ -1,0 +1,739 @@
+# Unfinished, unreviewed attempt (stopped mid-way) for: B-067 B-091 B-070 B-142 B-077 B-092
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/model.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/model.py
+index 0d2abfe..8180370 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/model.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/model.py
+@@ -15,7 +15,7 @@ from . import deps
+ MASTERY_THETA = 0.8
+ CONF_P = {1: 0.25, 2: 0.5, 3: 0.75, 4: 0.95}
+ SUCCESS = 0.75
+-MODEL_VERSION = "1.1.1"  # bump when the fold changes; saved states from older versions are rebuilt from events once
++MODEL_VERSION = "1.1.2"  # bump when the fold changes; saved states from older versions are rebuilt from events once
+ SLIP_DAMPING = 0.5  # a likely slip (fast miss on an item you almost always get) moves θ half as much
+ 
+ 
+@@ -24,8 +24,11 @@ def p_correct(theta: float, difficulty: int) -> float:
+     return 1 / (1 + math.exp(-(theta - b)))
+ 
+ 
+-def new_state() -> dict:
+-    return {
++def new_state(conflict_copies: dict | None = None) -> dict:
++    """An empty learner state. `conflict_copies`: the sync copies of the event log ({file name: size}) that the events folded
++    into it were read from; a state is rebuilt when they change, since an older event inside a copy would not move
++    `last_event`."""
++    state = {
+         "kcs": {},
+         "traits": {
+             "calibration": {"n": 0, "sum_conf": 0.0, "sum_acc": 0.0, "sum_brier": 0.0, "high_conf_errors": 0},
+@@ -45,7 +48,11 @@ def new_state() -> dict:
+         "items_seen": {},
+         "answers": {},
+         "experiments": {},
++        "session_days": {},  # the days each open session has answered on: they count as study days once it ends
+     }
++    if conflict_copies:
++        state["conflict_copies"] = conflict_copies
++    return state
+ 
+ 
+ def _new_kc() -> dict:
+@@ -130,7 +137,7 @@ def _apply_answer(state: dict, e: dict) -> None:
+     day = when.date().isoformat()
+     g = e["grade"]
+     score = g["score"] * (0.7 if e.get("hinted") else 1.0)
+-    success = g["score"] >= SUCCESS and not e.get("hinted")
++    success = counts_as_right(g) and not e.get("hinted")  # 3 of 4 self-marked points is no right answer, as the session says
+     subject = e.get("subject", "misc")
+     expected = []
+     for kc in e["kcs"]:
+@@ -158,7 +165,7 @@ def _apply_answer(state: dict, e: dict) -> None:
+         if g.get("error"):
+             _count(k["errors"], g["error"])
+         if k["last_review_day"] != day:
+-            assisted = bool(e.get("hinted")) and g["score"] >= SUCCESS
++            assisted = bool(e.get("hinted")) and counts_as_right(g)
+             _review(state, kc, success, when, subject, fsrs_rating(success, e.get("conf"), prior_days, assisted),
+                      e.get("retention"))
+     for kc in e.get("credit", []):
+@@ -200,6 +207,8 @@ def _apply_answer(state: dict, e: dict) -> None:
+     hour[1] += 1 if right else 0
+     hour[2] += exp_p
+     state["items_seen"][e["item"]] = e["ts"]
++    if (days := state.setdefault("session_days", {}).get(e.get("session"))) is not None and day not in days:
++        days.append(day)
+     if e.get("id"):
+         state["answers"][e["id"]] = {"subject": subject, "error": g.get("error"), "kcs": e["kcs"]}
+         if len(state["answers"]) > 600:  # only recent answers can still be tagged; keep the state file small
+@@ -242,11 +251,16 @@ def apply(state: dict, e: dict) -> dict:
+             k["fsrs"]["due"] = datetime.fromisoformat(e["due"]).astimezone(timezone.utc).isoformat()
+     elif kind == "session_start":
+         state["traits"]["sessions"] += 1
++        if e.get("session"):
++            open_days = state.setdefault("session_days", {})
++            open_days[e["session"]] = []
++            for old in list(open_days)[:-20]:  # a session that never ended (the app was lost) is not kept for ever
++                del open_days[old]
+     elif kind == "session_end":
+-        day = e["ts"][:10]
+-        days = state.setdefault("study_days", [])
+-        if e.get("answered") and not e.get("abandoned") and day not in days:
+-            days.append(day)
++        # a session that runs past midnight studied on the day of its answers as well as the day it ended
++        answered_on = state.setdefault("session_days", {}).pop(e.get("session"), [])
++        if e.get("answered") and not e.get("abandoned"):
++            state["study_days"] = sorted({*state.setdefault("study_days", []), *answered_on, e["ts"][:10]})
+     elif kind == "blurt":  # free recall: ideas left out come due now; totals feed the profile
+         for kc in e.get("missed", []):
+             k = state["kcs"].get(kc)
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py
+index 873d365..3250edf 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/session.py
+@@ -38,9 +38,11 @@ class Tutor(LessonMixin):
+         self.session_path = vault.tutor / "state" / "session.json"
+         self.state = self._read_state(self.state_path)
+         if (not self.state or self.state.get("model_version") != model.MODEL_VERSION
+-                or self.state.get("last_event") != vault.last_event_id()):
+-            # a new model version, or the log moved on after this state was saved (the app stopped between the
+-            # two writes): recompute everything from your history
++                or self.state.get("last_event") != vault.last_event_id()
++                or self.state.get("conflict_copies", {}) != vault.conflict_copies()):
++            # a new model version, the log moved on after this state was saved (the app stopped between the two
++            # writes), or a sync copy of the log arrived or changed (its events may be older than the newest one
++            # here): recompute everything from your history
+             self.state = self._fold()
+             self._dirty = True
+         self.study_clock = StudyClock(vault)  # time spent studying: the app counts it, `end` reports it
+@@ -103,7 +105,8 @@ class Tutor(LessonMixin):
+         return self._now()
+ 
+     def _fold(self) -> dict:
+-        s = model.new_state()
++        # the sync copies are noted before the log is read: one that lands meanwhile is folded in at the next start
++        s = model.new_state(self.vault.conflict_copies())
+         for e in self.vault.events():
+             model.apply(s, e)
+         return s
+@@ -239,7 +242,7 @@ class Tutor(LessonMixin):
+                         blocks or ["Working…"], notes)
+ 
+     def rebuild(self) -> dict:
+-        self.state, n = model.new_state(), 0
++        self.state, n = model.new_state(self.vault.conflict_copies()), 0
+         for e in self.vault.events():  # one pass over the log: fold and count together
+             model.apply(self.state, e)
+             n += 1
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/store.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/store.py
+index 67ab96a..89765bd 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/store.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/store.py
+@@ -6,6 +6,7 @@ import hashlib
+ import heapq
+ import json
+ import os
++import re
+ import tempfile
+ import time
+ import uuid
+@@ -23,6 +24,7 @@ MOUNT_GLOBS = [
+ 
+ DEFAULT_TZ = "Asia/Hong_Kong"
+ EVENT_FILES ="[0-9][0-9][0-9][0-9]-[0-9][0-9]*.jsonl"  # monthly logs and their conflict copies, nothing else
++_MONTH_FILE = re.compile(r"^\d{4}-\d{2}\.jsonl$")  # a monthly log itself; anything else EVENT_FILES finds is a sync copy
+ 
+ 
+ class VaultNotFound(Exception):
+@@ -37,6 +39,10 @@ class Locked(Exception):
+     pass
+ 
+ 
++class Changed(Exception):
++    """A file was saved by someone else (Obsidian, for a note) after it was read and before it could be written back."""
++
++
+ def find_vault(globs: list[str] | None = None) -> Path:
+     env = os.environ.get("STEM_TUTOR_VAULT")
+     if env and (Path(env) / ".tutor" / "config.json").exists():
+@@ -70,8 +76,29 @@ def write_json(path: Path, data, indent: int | None = 1) -> None:
+                                 separators=None if indent else (",", ":")))
+ 
+ 
+-def write_text(path: Path, text: str) -> bool:
+-    """Atomic write (temp file + rename, in-place fallback); skips the write when nothing changed."""
++_ANY = object()
++
++
++def _read_or_none(path: Path) -> str | None:
++    try:
++        return path.read_text(encoding="utf-8")
++    except FileNotFoundError:
++        return None
++
++
++def _drop(tmp: Path) -> None:
++    try:
++        tmp.unlink()
++    except OSError:  # deleting may be forbidden: a stray temp file is harmless
++        pass
++
++
++def write_text(path: Path, text: str, expect=_ANY) -> bool:
++    """Atomic write (temp file + rename, in-place fallback); skips the write when nothing changed.
++
++    `expect` is the text the caller read and built `text` from (None: there was no file). If the file is no longer that, someone
++    saved it in between: nothing is written and `Changed` is raised, so the caller can redo its change on their save instead
++    of erasing it. The check is the last thing done before the rename."""
+     path = Path(path)
+     path.parent.mkdir(parents=True, exist_ok=True)
+     try:
+@@ -81,17 +108,54 @@ def write_text(path: Path, text: str) -> bool:
+         pass
+     tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex[:8]}.tmp")
+     tmp.write_text(text, encoding="utf-8")
++    if expect is not _ANY:
++        try:
++            changed = _read_or_none(path) != expect
++        except (OSError, ValueError):
++            changed = True
++        if changed:
++            _drop(tmp)
++            raise Changed(str(path))
+     try:
+         os.replace(tmp, path)
+     except OSError:  # some mounts refuse replacing a file: write in place instead
+-        path.write_text(text, encoding="utf-8")
+         try:
+-            tmp.unlink()
++            before = path.read_bytes()
++        except OSError:
++            before = None
++        try:
++            path.write_text(text, encoding="utf-8")
+         except OSError:
+-            pass
++            # cut short (disk full, the mount dropped): a half-written note would lose what the learner had written in it.
++            # Put back what was there; if even that fails, the temp file still holds the whole new text
++            if before is not None:
++                try:
++                    path.write_bytes(before)
++                    _drop(tmp)
++                except OSError:
++                    pass
++            raise
++        _drop(tmp)
+     return True
+ 
+ 
++def edit_text(path: Path, edit, tries: int = 5) -> bool:
++    """Change a file somebody else may be saving too, such as a note open in Obsidian. `edit` is given the text as it is now (None:
++    there is no file) and returns the new text, or None to leave the file alone. If the file was saved after `edit` read it, `edit`
++    runs again on that save, so what the other writer saved is kept. True when the file was written."""
++    path = Path(path)
++    for _ in range(tries):
++        before = _read_or_none(path)
++        text = edit(before)
++        if text is None:
++            return False
++        try:
++            return write_text(path, text, expect=before)
++        except Changed:
++            continue
++    return False  # saved again each time: leave their text as it is; the next change to this file is made on it
++
++
+ class Vault:
+     def __init__(self, root: Path):
+         self.root = Path(root)
+@@ -122,6 +186,11 @@ class Vault:
+             f.write((("\n" if torn else "") + json.dumps(event, ensure_ascii=False) + "\n").encode("utf-8"))
+         return event
+ 
++    def conflict_copies(self) -> dict[str, int]:
++        """The sync copies of the event log ("2026-09 2.jsonl") and their sizes. A copy brings in events dated before the log's
++        newest one, which `last_event_id` cannot see; a state records the copies it was built from, and is rebuilt when they change."""
++        return {p.name: p.stat().st_size for p in self._event_files() if not _MONTH_FILE.match(p.name)}
++
+     def _event_files(self) -> list[Path]:
+         """The monthly files ("2026-09.jsonl") and their iCloud conflict copies ("2026-09 2.jsonl"), oldest first."""
+         folder = self.tutor / "events"
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/views.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/views.py
+index 2057020..d172833 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/views.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/views.py
+@@ -13,7 +13,7 @@ from datetime import datetime
+ from pathlib import Path
+ 
+ from . import model
+-from .store import write_text
++from .store import edit_text, write_text
+ 
+ STATUS = {"secure": "✅", "learning": "🟡", "gap": "🔴", "new": "⚪"}
+ _MAP_CLASS = {"secure": "done", "learning": "learning", "gap": "gap", "new": "todo"}
+@@ -92,38 +92,52 @@ def concept_map(packs, state: dict, subtopic: str, current: str | None = None) -
+     return "\n".join(lines)
+ 
+ 
++def _merge_words(earlier: str, new: str | None) -> str:
++    """Your earlier words, then what you wrote this time; a paragraph you wrote before is not added twice."""
++    paragraphs = lambda t: [p.strip() for p in re.split(r"\n[ \t]*\n", t or "") if p.strip()]  # noqa: E731
++    seen = {" ".join(p.split()) for p in paragraphs(earlier)}
++    added = [p for p in paragraphs(new) if " ".join(p.split()) not in seen]
++    return earlier + "\n\n" + "\n\n".join(added) if added else earlier
++
++
+ def notes_update(root: Path, packs, state: dict, subtopic: str, current: str | None = None,
+                  node: dict | None = None) -> str:
+     """Refresh the map; when `node` is given ({kc, note, own_words, mistakes}), add or update that idea's section."""
+     rel = notes_rel(packs, subtopic)
+-    path = root / rel
+     st = packs.subtopics[subtopic]
+-    text = path.read_text(encoding="utf-8") if path.exists() else (
+-        f"---\nsubtopic: {subtopic}\n---\n# {subtopic} {st['title']}\n\n"
+-        "_These notes grow as you learn. Anything you add outside the grey markers is kept._\n")
+     kcs = [k for k, v in packs.kcs.items() if v["subtopic"] == subtopic]
+     done = sum(kc_status(state, k) == "secure" for k in kcs)
+-    text = upsert(text, "map", f"> [!info] Progress: {done}/{len(kcs)} ideas secure\n\n"
+-                  + concept_map(packs, state, subtopic, current))
+-    if node:
+-        kc = node["kc"]
+-        if (old := _block(f"node {kc}").search(text)):  # re-taught: keep what you wrote before, merge mistakes
+-            prev = old.group(0)
+-            # a blank line inside the callout is a bare ">", so paragraphs after the first are kept too
+-            if not node.get("own_words") and (w := re.search(r"> \[!quote\] In your words\n((?:>(?: .*)?\n?)+)", prev)):
+-                node = {**node, "own_words": "\n".join(l[2:] for l in w.group(1).rstrip("\n").split("\n"))}
+-            if (m := re.search(r"> \[!warning\] Watch out \(your mistakes\)\n((?:> - .*\n?)+)", prev)):
+-                earlier = [l[4:] for l in m.group(1).rstrip("\n").split("\n")]
+-                node = {**node, "mistakes": list(dict.fromkeys(earlier + list(node.get("mistakes") or [])))}
+-        body = [f"## {STATUS[kc_status(state, kc)]} {packs.kcs[kc]['title']}", "", node.get("note", "").strip(), ""]
+-        if node.get("own_words"):
+-            body += [callout("quote", "In your words", node["own_words"]), ""]
+-        if node.get("mistakes"):
+-            body += [callout("warning", "Watch out (your mistakes)", "\n".join(f"- {m}" for m in node["mistakes"])), ""]
+-        order = [k for k in kcs if _block(f"node {k}").search(text)] + [kc]
+-        prev = next((k for k in reversed(order[:-1]) if kcs.index(k) < kcs.index(kc)), None) if kc in kcs else None
+-        text = upsert(text, f"node {kc}", "\n".join(body), after=f"node {prev}" if prev else "map")
+-    return _write(root, rel, text)
++
++    def edit(text: str | None) -> str:
++        if text is None:
++            text = (f"---\nsubtopic: {subtopic}\n---\n# {subtopic} {st['title']}\n\n"
++                    "_These notes grow as you learn. Anything you add outside the grey markers is kept._\n")
++        text = upsert(text, "map", f"> [!info] Progress: {done}/{len(kcs)} ideas secure\n\n"
++                      + concept_map(packs, state, subtopic, current))
++        if node:
++            kc, new = node["kc"], node
++            if (old := _block(f"node {kc}").search(text)):  # re-taught: keep what you wrote before, merge mistakes
++                prev = old.group(0)
++                # a blank line inside the callout is a bare ">", so paragraphs after the first are kept too
++                if (w := re.search(r"> \[!quote\] In your words\n((?:>(?: .*)?\n?)+)", prev)):
++                    earlier = "\n".join(l[2:] for l in w.group(1).rstrip("\n").split("\n"))
++                    new = {**new, "own_words": _merge_words(earlier, new.get("own_words"))}
++                if (m := re.search(r"> \[!warning\] Watch out \(your mistakes\)\n((?:> - .*\n?)+)", prev)):
++                    earlier = [l[4:] for l in m.group(1).rstrip("\n").split("\n")]
++                    new = {**new, "mistakes": list(dict.fromkeys(earlier + list(new.get("mistakes") or [])))}
++            body = [f"## {STATUS[kc_status(state, kc)]} {packs.kcs[kc]['title']}", "", new.get("note", "").strip(), ""]
++            if new.get("own_words"):
++                body += [callout("quote", "In your words", new["own_words"]), ""]
++            if new.get("mistakes"):
++                body += [callout("warning", "Watch out (your mistakes)", "\n".join(f"- {m}" for m in new["mistakes"])), ""]
++            order = [k for k in kcs if _block(f"node {k}").search(text)] + [kc]
++            prev = next((k for k in reversed(order[:-1]) if kcs.index(k) < kcs.index(kc)), None) if kc in kcs else None
++            text = upsert(text, f"node {kc}", "\n".join(body), after=f"node {prev}" if prev else "map")
++        return text
++
++    # the learner may save this page in Obsidian at any moment: the change is made again on their save, never over it
++    edit_text(root / rel, edit)
++    return rel
+ 
+ 
+ def refresh_status(root: Path, packs, state: dict, subtopic: str) -> str | None:
+@@ -131,12 +145,17 @@ def refresh_status(root: Path, packs, state: dict, subtopic: str) -> str | None:
+     path = root / notes_rel(packs, subtopic)
+     if not path.exists():
+         return None
+-    text = path.read_text(encoding="utf-8")
+-    for k in [k for k, v in packs.kcs.items() if v["subtopic"] == subtopic]:
+-        if m := _block(f"node {k}").search(text):
+-            block = re.sub(r"^## \S+ ", f"## {STATUS[kc_status(state, k)]} ", m.group(0), count=1, flags=re.M)
+-            text = text[:m.start()] + block + text[m.end():]
+-    write_text(path, text)
++
++    def remark(text: str | None) -> str | None:
++        if text is None:  # deleted meanwhile
++            return None
++        for k in [k for k, v in packs.kcs.items() if v["subtopic"] == subtopic]:
++            if m := _block(f"node {k}").search(text):
++                block = re.sub(r"^## \S+ ", f"## {STATUS[kc_status(state, k)]} ", m.group(0), count=1, flags=re.M)
++                text = text[:m.start()] + block + text[m.end():]
++        return text
++
++    edit_text(path, remark)
+     return notes_update(root, packs, state, subtopic)
+ 
+ 
+diff --git a/tests/test_bw_model_store.py b/tests/test_bw_model_store.py
+new file mode 100644
+index 0000000..fca73ed
+--- /dev/null
++++ b/tests/test_bw_model_store.py
+@@ -0,0 +1,359 @@
++"""Bug-watch batch C2: the learning model, the stored log and the notes the engine writes.
++
++B-067 a part-marked answer is not a successful day · B-091 a session past midnight counts the day of its answers ·
++B-070 an older event synced in a conflict copy reaches the state · B-142 a cut-short in-place write keeps the old file ·
++B-077 re-teaching keeps your earlier words in My Notes · B-092 a refresh never overwrites a save made while it worked.
++"""
++import json
++import random
++from datetime import datetime, timedelta
++from pathlib import Path
++
++import pytest
++
++from fixtures import make_vault
++from tutorlib import grade, model, profile, session, store, views
++
++T0 = datetime.fromisoformat("2026-09-29T17:00:00+08:00")
++KC = "9702-2.1.1"
++SUB = "9702-2.1"
++
++
++@pytest.fixture
++def tutor(tmp_path):
++    return session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=lambda: T0)
++
++
++def restart(t):
++    return session.Tutor(t.vault, rng=random.Random(0), now=lambda: T0)
++
++
++def answer(ts=T0, correct=True, score=1.0, kc=KC, item=None, session_id=None, **extra):
++    return {"type": "answer", "ts": ts.isoformat(), "kcs": [kc], "subject": "phys", "difficulty": 3, "conf": 3,
++            "hinted": False, "item": item or f"i{ts.timestamp()}", "marks": 4, "seconds": 30, "pos": 0,
++            "grade": {"correct": correct, "score": score, "error": None, "misconception": None},
++            **({"session": session_id} if session_id else {}), **extra}
++
++
++def fold(events):
++    s = model.new_state()
++    for e in events:
++        model.apply(s, e)
++    return s
++
++
++# ---------------- B-067 ----------------
++def test_three_of_four_self_marked_points_is_not_a_successful_day():  # B-067
++    item = {"kind": "structured", "scheme": [{"mark": f"M{i}", "point": "p"} for i in range(1, 5)]}
++    partial = grade.grade_item(item, {"kind": "points", "value": [1, 2, 3]})
++    assert partial["correct"] is False and partial["score"] == 0.75  # the session reports this answer as wrong
++    s = fold([answer(ts=T0 + timedelta(days=d), item=f"p{d}", correct=False, score=0.75) for d in range(20)])
++    k = s["kcs"][KC]
++    assert k["succ_days"] == [] and k["last_rating"] == "again"
++    assert k["theta"] >= model.MASTERY_THETA  # the marks it did earn still raise ability
++    assert not model.is_mastered(k)  # but twenty days of near-misses are not mastery
++
++
++def test_full_marks_on_two_days_still_masters_the_idea():  # B-067, the other side of it
++    item = {"kind": "structured", "scheme": [{"mark": f"M{i}", "point": "p"} for i in range(1, 5)]}
++    full = grade.grade_item(item, {"kind": "points", "value": [1, 2, 3, 4]})
++    assert full["correct"] is True and full["score"] == 1.0
++    s = fold([answer(ts=T0 + timedelta(days=d), item=f"f{d}") for d in range(6)])
++    assert len(s["kcs"][KC]["succ_days"]) == 6 and model.is_mastered(s["kcs"][KC])
++
++
++def test_a_hinted_part_marked_answer_is_not_rated_as_a_right_answer_with_help():  # B-067
++    s = fold([answer(correct=False, score=0.75, hinted=True)])
++    assert s["kcs"][KC]["last_rating"] == "again" and s["kcs"][KC]["succ_days"] == []
++
++
++# ---------------- B-091 ----------------
++def end_of(session_id, ts, answered=1, abandoned=False):
++    return {"type": "session_end", "ts": ts.isoformat(), "session": session_id, "answered": answered,
++            "abandoned": abandoned}
++
++
++def start_of(session_id, ts):
++    return {"type": "session_start", "ts": ts.isoformat(), "session": session_id}
++
++
++NIGHT = datetime.fromisoformat("2026-10-20T23:50:00+08:00")
++
++
++def test_a_session_across_midnight_counts_the_day_of_its_answer_and_the_day_it_ended():  # B-091
++    s = fold([start_of("s1", NIGHT), answer(ts=NIGHT + timedelta(minutes=5), session_id="s1"),
++              end_of("s1", NIGHT + timedelta(minutes=15))])  # answered 23:55 on the 20th, ended 00:05 on the 21st
++    assert s["study_days"] == ["2026-10-20", "2026-10-21"]
++    assert s["session_days"] == {}  # nothing is kept once the session is over
++    assert json.loads(json.dumps(s)) == s
++
++
++def test_the_streak_includes_the_day_of_a_late_night_answer(tutor):  # B-091
++    s = fold([start_of("s1", NIGHT), answer(ts=NIGHT + timedelta(minutes=5), session_id="s1"),
++              end_of("s1", NIGHT + timedelta(minutes=15))])
++    evening = datetime.fromisoformat("2026-10-20T23:58:00+08:00")
++    assert profile.summary(s, tutor.packs, evening)["habits"]["streak"] == 1  # was 0: the 20th was not a study day
++    assert profile.summary(s, tutor.packs, evening + timedelta(minutes=10))["habits"]["streak"] == 2
++
++
++def test_an_abandoned_or_answerless_session_across_midnight_still_earns_no_day():  # B-091
++    s = fold([start_of("s1", NIGHT), answer(ts=NIGHT + timedelta(minutes=5), session_id="s1"),
++              end_of("s1", NIGHT + timedelta(minutes=15), abandoned=True),
++              start_of("s2", NIGHT), end_of("s2", NIGHT + timedelta(minutes=15), answered=0)])
++    assert s["study_days"] == [] and s["session_days"] == {}
++
++
++def test_one_sessions_answer_days_do_not_leak_into_another():  # B-091
++    s = fold([start_of("s1", NIGHT), answer(ts=NIGHT + timedelta(minutes=5), session_id="s1"),
++              end_of("s1", NIGHT + timedelta(minutes=6), abandoned=True),
++              start_of("s2", NIGHT + timedelta(days=3)), answer(ts=NIGHT + timedelta(days=3), session_id="s2"),
++              end_of("s2", NIGHT + timedelta(days=3, minutes=5))])
++    assert s["study_days"] == ["2026-10-23"]
++
++
++def test_paper_answers_and_unfinished_sessions_leave_nothing_behind():  # B-091
++    s = fold([answer(session_id="paper-1a2b3c")] + [start_of(f"s{i}", T0 + timedelta(hours=i)) for i in range(40)])
++    assert "paper-1a2b3c" not in s["session_days"] and len(s["session_days"]) <= 20
++
++
++def test_a_real_session_that_runs_past_midnight_counts_both_days(tmp_path):  # B-091
++    clock = {"t": datetime.fromisoformat("2026-10-20T23:50:00+08:00")}
++    t = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0), now=lambda: clock["t"])
++    t.start("autopilot", minutes=50)
++    item = next(i for i in t.packs.items_for(KC) if i["kind"] == "mcq")
++    clock["t"] += timedelta(minutes=5)
++    n = t._present(item, block="review", phase=None)["n"]
++    t.answer(f"{n}{t.session['presented'][str(n)]['inst']['answer']}3")
++    clock["t"] += timedelta(minutes=10)
++    t.end()
++    assert t.state["study_days"] == ["2026-10-20", "2026-10-21"]
++    assert t.state == t._fold() == restart(t).state
++
++
++# ---------------- B-070 ----------------
++def test_an_older_event_synced_in_a_conflict_copy_reaches_the_saved_state(tutor):  # B-070
++    tutor.log(answer(ts=T0, item="here"))
++    newest = tutor.vault.last_event_id()
++    older = {"id": "fromphone", **answer(ts=T0 - timedelta(days=10), item="there")}
++    (tutor.vault.tutor / "events" / "2026-09 2.jsonl").write_text(json.dumps(older) + "\n")
++    assert tutor.vault.last_event_id() == newest  # the newest event is still the same one: only the copy has changed
++    t = restart(tutor)
++    assert t.state["kcs"][KC]["n"] == 2 and t.state == t._fold()
++
++
++def test_a_sync_copy_forces_one_rebuild_not_one_per_start(tutor, monkeypatch):  # B-070
++    tutor.log(answer(ts=T0, item="here"))
++    copy = tutor.vault.tutor / "events" / "2026-09 2.jsonl"
++    copy.write_text(json.dumps({"id": "fromphone", **answer(ts=T0 - timedelta(days=10), item="there")}) + "\n")
++    t = restart(tutor)
++    t._save()  # as the next command that changes anything does
++    folds = []
++    monkeypatch.setattr(session.Tutor, "_fold", lambda self: folds.append(1) or {})
++    assert restart(t).state == t.state and not folds
++    with open(copy, "a") as f:  # the copy grows (another device synced again): read again
++        f.write(json.dumps({"id": "later", **answer(ts=T0 - timedelta(days=5), item="more")}) + "\n")
++    restart(t)
++    assert folds == [1]
++
++
++def test_a_copy_of_an_older_month_is_noticed_too(tutor):  # B-070
++    tutor.log(answer(ts=T0, item="here"))
++    (tutor.vault.tutor / "events" / "2026-08 2.jsonl").write_text(
++        json.dumps({"id": "old", **answer(ts=T0 - timedelta(days=60), item="august")}) + "\n")
++    assert restart(tutor).state["kcs"][KC]["n"] == 2
++
++
++def test_only_sync_copies_are_listed_as_conflict_copies(tutor):  # B-070
++    tutor.log(answer(ts=T0))
++    folder = tutor.vault.tutor / "events"
++    assert tutor.vault.conflict_copies() == {}
++    (folder / "2026-09 2.jsonl").write_text("12345")
++    (folder / "notes.jsonl").write_text("not a log")
++    assert tutor.vault.conflict_copies() == {"2026-09 2.jsonl": 5}
++
++
++def test_a_state_without_sync_copies_is_the_same_as_before():  # B-070
++    assert "conflict_copies" not in model.new_state() and model.new_state({"a": 1})["conflict_copies"] == {"a": 1}
++
++
++# ---------------- B-142 ----------------
++NOTE = ("# Scratch note\n\n<!-- stem-tutor:status -->\nold status\n<!-- /stem-tutor:status -->\n\n"
++        "## My working\nvelocity = displacement / time\n")
++
++
++def _mount_that_refuses_replacing(monkeypatch, note, keep=20):
++    """os.replace refuses (the documented fallback); the write in place then stops after `keep` characters."""
++    def refuse(src, dst):
++        raise OSError("this mount refuses replacing a file")
++
++    real = Path.write_text
++
++    def cut(self, text, *a, **k):
++        if self == note:
++            real(self, text[:keep], *a, **k)
++            raise OSError("disk full")
++        return real(self, text, *a, **k)
++
++    monkeypatch.setattr(store.os, "replace", refuse)
++    monkeypatch.setattr(Path, "write_text", cut)
++
++
++def test_a_cut_short_write_in_place_leaves_the_old_note_not_a_torn_one(tmp_path, monkeypatch):  # B-142
++    note = tmp_path / "My Notes" / "scratch.md"
++    note.parent.mkdir()
++    note.write_text(NOTE, encoding="utf-8")
++    _mount_that_refuses_replacing(monkeypatch, note)
++    with pytest.raises(OSError):
++        store.write_text(note, NOTE.replace("old status", "new status"))
++    monkeypatch.undo()
++    assert note.read_text(encoding="utf-8") == NOTE  # the learner's paragraph is still there
++    assert not list(note.parent.glob(".*.tmp"))
++
++
++def test_if_even_the_old_note_cannot_be_put_back_the_temp_copy_keeps_the_new_text(tmp_path, monkeypatch):  # B-142
++    note = tmp_path / "scratch.md"
++    note.write_text(NOTE, encoding="utf-8")
++    _mount_that_refuses_replacing(monkeypatch, note)
++    monkeypatch.setattr(Path, "write_bytes", lambda self, data: (_ for _ in ()).throw(OSError("still full")))
++    new = NOTE.replace("old status", "new status")
++    with pytest.raises(OSError):
++        store.write_text(note, new)
++    monkeypatch.undo()
++    (tmp,) = tmp_path.glob(".scratch.md.*.tmp")
++    assert tmp.read_text(encoding="utf-8") == new
++
++
++def test_a_write_in_place_that_works_still_replaces_the_note_and_cleans_up(tmp_path, monkeypatch):  # B-142
++    note = tmp_path / "scratch.md"
++    note.write_text(NOTE, encoding="utf-8")
++    monkeypatch.setattr(store.os, "replace", lambda src, dst: (_ for _ in ()).throw(OSError("refused")))
++    assert store.write_text(note, "fresh") is True
++    monkeypatch.undo()
++    assert note.read_text(encoding="utf-8") == "fresh" and not list(tmp_path.glob(".*.tmp"))
++
++
++# ---------------- B-077 ----------------
++def notes_text(t):
++    return (t.vault.root / views.notes_rel(t.packs, SUB)).read_text(encoding="utf-8")
++
++
++def teach(t, words, mistakes=None):
++    return views.notes_update(t.vault.root, t.packs, t.state, SUB,
++                              node={"kc": KC, "note": "- n", "own_words": words, "mistakes": mistakes})
++
++
++def test_re_teaching_with_new_words_keeps_the_earlier_words(tutor):  # B-077
++    teach(tutor, "My first insight: displacement has direction.")
++    teach(tutor, "My second insight: slope gives velocity.")
++    text = notes_text(tutor)
++    assert "My first insight" in text and "My second insight" in text
++    assert text.index("My first insight") < text.index("My second insight")
++    assert text.count("[!quote] In your words") == 1  # one callout, the words in the order they were written
++
++
++def test_words_kept_through_several_re_teachings_and_not_repeated(tutor):  # B-077
++    teach(tutor, "FIRST PARAGRAPH\n\nSECOND PARAGRAPH")
++    teach(tutor, "FIRST PARAGRAPH\n\nSECOND PARAGRAPH")  # the same words again
++    teach(tutor, "SECOND  PARAGRAPH\n\nA NEW PARAGRAPH")  # one of them again, one new
++    teach(tutor, None)
++    text = notes_text(tutor)
++    assert text.count("FIRST PARAGRAPH") == 1 and text.count("SECOND PARAGRAPH") == 1 and text.count("A NEW PARAGRAPH") == 1
++    assert text.index("FIRST PARAGRAPH") < text.index("SECOND PARAGRAPH") < text.index("A NEW PARAGRAPH")
++
++
++def test_a_short_new_entry_is_not_taken_for_a_repeat_of_longer_old_words(tutor):  # B-077
++    teach(tutor, "Yes, displacement is a vector because it has direction.")
++    teach(tutor, "Yes")
++    assert "\n> Yes\n" in notes_text(tutor)
++
++
++def test_earlier_words_and_mistakes_are_both_kept_when_both_are_new(tutor):  # B-077
++    teach(tutor, "first words", ["Trap one"])
++    teach(tutor, "second words", ["Trap two"])
++    text = notes_text(tutor)
++    assert "first words" in text and "second words" in text and "- Trap one" in text and "- Trap two" in text
++
++
++# ---------------- B-092 ----------------
++def an_editor_saves_before_the_tutor_writes(monkeypatch, path, times):
++    """An Obsidian save that lands after the tutor read the note and before it writes it back, `times` times."""
++    real, saved = store.write_text, []
++
++    def racing(p, text, *a, **k):
++        if Path(p) == path and len(saved) < times:
++            saved.append(f"## My latest working {len(saved) + 1}\nVelocity is displacement divided by time ({len(saved) + 1}).")
++            path.write_text(path.read_text(encoding="utf-8") + "\n" + saved[-1] + "\n", encoding="utf-8")
++        return real(p, text, *a, **k)
++
++    monkeypatch.setattr(store, "write_text", racing)
++    monkeypatch.setattr(views, "write_text", racing)
++    return saved
++
++
++def test_a_save_made_while_the_notes_are_refreshed_is_not_erased(tutor, monkeypatch):  # B-092
++    teach(tutor, "my words")
++    path = tutor.vault.root / views.notes_rel(tutor.packs, SUB)
++    saved = an_editor_saves_before_the_tutor_writes(monkeypatch, path, 1)
++    views.notes_update(tutor.vault.root, tutor.packs, tutor.state, SUB, current=KC)  # a map refresh
++    text = path.read_text(encoding="utf-8")
++    assert saved and saved[0] in text and "my words" in text
++    assert ":::now" in text  # and the refresh itself still happened
++
++
++def test_a_save_made_while_a_taught_idea_is_added_is_not_erased(tutor, monkeypatch):  # B-092
++    teach(tutor, "first words")
++    path = tutor.vault.root / views.notes_rel(tutor.packs, SUB)
++    saved = an_editor_saves_before_the_tutor_writes(monkeypatch, path, 2)  # even two saves in a row
++    teach(tutor, "second words")
++    text = path.read_text(encoding="utf-8")
++    assert all(s in text for s in saved) and len(saved) == 2
++    assert "first words" in text and "second words" in text
++
++
++def test_a_save_made_while_the_idea_headings_are_re_marked_is_not_erased(tutor, monkeypatch):  # B-092
++    teach(tutor, "my words")
++    path = tutor.vault.root / views.notes_rel(tutor.packs, SUB)
++    tutor.state["kcs"][KC] = {**model._new_kc(), "n": 3, "theta": 1.0, "succ_days": ["2026-09-01", "2026-09-05"]}
++    saved = an_editor_saves_before_the_tutor_writes(monkeypatch, path, 2)
++    views.refresh_status(tutor.vault.root, tutor.packs, tutor.state, SUB)
++    text = path.read_text(encoding="utf-8")
++    assert len(saved) == 2 and all(s in text for s in saved)
++    assert "## ✅ " in text  # the heading was re-marked as well
++
++
++def test_an_editor_that_keeps_saving_never_loses_a_word(tutor, monkeypatch):  # B-092
++    teach(tutor, "my words")
++    path = tutor.vault.root / views.notes_rel(tutor.packs, SUB)
++    saved = an_editor_saves_before_the_tutor_writes(monkeypatch, path, 99)
++    teach(tutor, "more words")  # the tutor gives up after a few tries rather than write over a save
++    text = path.read_text(encoding="utf-8")
++    assert saved and all(s in text for s in saved) and "my words" in text
++
++
++def test_a_note_the_learner_creates_while_the_tutor_is_about_to_create_it_is_kept(tutor, monkeypatch):  # B-092
++    path = tutor.vault.root / views.notes_rel(tutor.packs, SUB)
++    real = store.write_text
++
++    def racing(p, text, *a, **k):
++        if Path(p) == path and not path.exists():
++            path.parent.mkdir(parents=True, exist_ok=True)
++            path.write_text("# My own page\n\nI made this by hand.\n", encoding="utf-8")
++        return real(p, text, *a, **k)
++
++    monkeypatch.setattr(store, "write_text", racing)
++    teach(tutor, "my words")
++    text = path.read_text(encoding="utf-8")
++    assert "I made this by hand." in text and "my words" in text
++
++
++def test_write_text_refuses_to_replace_a_file_that_changed_since_it_was_read(tmp_path):  # B-092
++    p = tmp_path / "note.md"
++    p.write_text("as read", encoding="utf-8")
++    p.write_text("as saved by the editor", encoding="utf-8")
++    with pytest.raises(store.Changed):
++        store.write_text(p, "tutor's version", expect="as read")
++    assert p.read_text(encoding="utf-8") == "as saved by the editor" and not list(tmp_path.glob(".*.tmp"))
++    assert store.write_text(p, "tutor's version", expect="as saved by the editor") is True
++    assert store.write_text(tmp_path / "new.md", "x", expect=None) is True
++    with pytest.raises(store.Changed):
++        store.write_text(tmp_path / "new.md", "y", expect=None)  # it exists now

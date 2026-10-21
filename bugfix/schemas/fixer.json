@@ -1,0 +1,61 @@
+{
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "verdicts",
+  "decisions",
+  "notes"
+ ],
+ "properties": {
+  "verdicts": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "id",
+     "verdict",
+     "cause",
+     "fix",
+     "reason",
+     "test"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "verdict": {
+      "type": "string",
+      "enum": [
+       "FIXED",
+       "REJECTED",
+       "DEFERRED",
+       "DUPLICATE"
+      ]
+     },
+     "cause": {
+      "type": "string"
+     },
+     "fix": {
+      "type": "string"
+     },
+     "reason": {
+      "type": "string"
+     },
+     "test": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "decisions": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "notes": {
+   "type": "string"
+  }
+ }
+}

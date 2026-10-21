@@ -1,0 +1,383 @@
+# Unfinished, unreviewed attempt (stopped mid-way) for: B-042 B-057 B-059 B-102 B-131 B-140 B-109 B-100 B-129 B-096 B-094 B-093 B-099 B-141 B-050 B-054 B-137
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/grade.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/grade.py
+index 2e9a608..775e737 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/grade.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/grade.py
+@@ -13,7 +13,8 @@ import math
+ import random
+ import re
+ 
+-from .units import SUPERSCRIPT, parse_unit, plain_text, unit_factor, unit_readings  # noqa: F401 (unit_factor: part of this module's surface)
++from .units import (SUPERSCRIPT, parse_unit, plain_text, stray_arithmetic, unit_factor,  # noqa: F401 (unit_factor: part of this module's surface)
++                    unit_readings)
+ 
+ ERROR_CODES = ("RECALL", "MISREAD", "CONCEPT", "PROCEDURE", "STRATEGY", "SLIP", "NOTATION", "TIME")
+ 
+@@ -94,6 +95,9 @@ _NUM = re.compile(
+ _TIMES_A_NUMBER = re.compile(r"^(?:[xX×*·⋅]|\\times)\s*[\d.]")  # "5 x 1000": a product, not a number with a unit
+ 
+ 
++_MAX_EXPONENT = 1_000  # a float runs to about 1e308: 1e10000000 would take seconds to build as an integer
++
++
+ def _sig_figs(mant: str) -> int | None:
+     digits = mant.lstrip("+-")
+     if "." in digits:
+@@ -137,6 +141,8 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
+             sf = None
+         exp = m["e1"] or (m["e2"] and re.sub(r"[^\d+-]", "", m["e2"]))
+         if exp:
++            if abs(int(exp)) > _MAX_EXPONENT:  # no float is that large or small: refused before 10 ** exp is built
++                raise OverflowError
+             value *= 10 ** int(exp)
+     except (ArithmeticError, ValueError):
+         raise ParseError(f"cannot use the number in {text!r}") from None
+@@ -150,9 +156,17 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
+     return value, unit, sf, digits
+ 
+ 
++# A question asks for a percentage when a sentence tells the learner to find one ("Calculate the percentage of ...",
++# "Give your answer as a percentage"). One that only mentions percentages ("their percentage abundances are 20% and
++# 80%", "use the standard Normal percentage point") asks for something else.
++_PERCENT = r"(?:percent(?:age)?\b(?!\s+points?\b)|per\s+cent\b)"
++_ASKS_PERCENT = re.compile(rf"\b(?:calculate|find|determine|work out|state|give|express|estimate|what)\b[^.?!;]*?{_PERCENT}"
++                           rf"|\bas an?\s+{_PERCENT}|\bin\s+{_PERCENT}", re.I)
++
++
+ def _unit_on_plain_number(item: dict, unit: str) -> bool:
+     """A unit typed on an answer that is a plain number; "%" is fine only where the question asks for a percentage."""
+-    return bool(unit) and not (unit == "%" and re.search(r"percent|%", item.get("stem") or "", re.I))
++    return bool(unit) and not (unit == "%" and _ASKS_PERCENT.search(item.get("stem") or ""))
+ 
+ 
+ def value_problem(item: dict, text: str) -> str | None:
+@@ -169,7 +183,10 @@ def value_problem(item: dict, text: str) -> str | None:
+ 
+ def _unreadable_unit(unit: str, want_unit: str) -> bool:
+     """A bracketed denominator that could not be read (J/((mol K)), J/(mol K), or a comma in an unread unit (the
+-    next entry run into this one: "m s-2,2 idk"): asked again, never a wrong unit."""
++    next entry run into this one: "m s-2,2 idk"), or arithmetic left after the unit ("m + 4"): asked again, never a
++    wrong unit."""
++    if stray_arithmetic(unit):
++        return True
+     if "," in unit and not unit_readings(unit, want_unit)[0]:
+         return True
+     if not re.search(r"/\s*\(", unit) or unit_readings(unit, want_unit)[0]:
+@@ -209,24 +226,30 @@ def rounding_of(value: float, target: float, sf: int | None, digits: int | None,
+     return any(_rounded_to(value, target, d) for d in written if d and (d >= 2 or d in (allowed or ())))
+ 
+ 
++def _rounded_away(value: float, target: float, sf: int | None, digits: int | None) -> bool:
++    """`value` is `target` correctly rounded to fewer figures than the question accepts, and the rounding cost under
++    1% (3 for 3.02): the right value with a figure lost, which the s.f. rule marks down, not a wrong one."""
++    return _close(value, target, 0.01) and rounding_of(value, target, sf, digits, range(1, 10))
++
++
+ _STATES_FIGURES = re.compile(r"significant fig|decimal place|to the nearest|\bs\.f\.|\bd\.p\.|\b\d\s?(?:sf|dp)\b", re.I)
+ 
+ 
++def _fixes_figures(item: dict, allowed: list) -> bool:
++    """Whether the question fixes the figures: it says how many, or accepts one count only (a reading quoted to its
++    instrument's precision, 1.50 mm on a micrometer)."""
++    return len(allowed) == 1 or bool(_STATES_FIGURES.search(item.get("stem") or ""))
++
++
+ def _figures_count(item: dict, allowed: list, sf: int, exact: bool) -> bool:
+     """Whether a right value typed with `sf` figures, which is not one of the `allowed` counts, loses the mark.
+ 
+-    Not when it is exactly the true value and shorter than asked: nothing was rounded away, so zeros would add
+-    nothing to 9. (CAIE credits an answer that equals the mark scheme's once rounded to its figures; Edexcel asks
+-    for 3 s.f. only of answers that are not exact.) The exceptions, where the figures carry meaning:
+-    - the question fixes them: it says how many, or accepts one count only (a reading quoted to its instrument's
+-      precision, 1.50 mm on a micrometer);
+-    - too many of them: in the sciences that is an unrounded result (3 × 9.81 × 2.5 = 73.575 is 74 J). In maths
+-      an exact value may be given in full."""
+-    if not exact or len(allowed) == 1 or _STATES_FIGURES.search(item.get("stem") or ""):
+-        return True
+-    kc = (item.get("kcs") or [""])[0]
+-    maths = bool(kc) and not kc[0].isdigit()  # CAIE science syllabuses are numbers (9702); Edexcel units are P1, S1…
+-    return sf > max(allowed) and not maths
++    Always where the question fixes the figures. Otherwise only when the value was rounded to fewer figures than
++    the question accepts (3 for 3.02): not when it is exactly the true value and shorter than asked, since nothing was
++    rounded away and zeros would add nothing to 9, and not when it has more figures than are accepted. CAIE compares a
++    candidate's answer, rounded to the figures of the mark scheme, with the scheme's answer, so a calculator's 73.575 J
++    is as right as 74 J, and Edexcel asks for 3 s.f. only of answers that are not exact."""
++    return _fixes_figures(item, allowed) or (not exact and sf < max(allowed))
+ 
+ 
+ def _distractor(entry) -> tuple[str | None, str]:
+@@ -252,7 +275,9 @@ def _grade_numeric(item, resp):
+         value, unit, sf, digits = _parse(str(resp["value"]))
+     except ParseError:
+         return _result(False, 0, needs_judgement=True)
+-    tol = 1e-9 if ans.get("exact") else ans.get("tol_rel", 0.01)  # exact: counts, conversions; 1e-9 absorbs float noise
++    # only float noise is forgiven, so 32.3 is not 32.0 (a value rounded to the figures given is checked below); an
++    # item that reads a value off a graph or estimates one says how far out is right in tol_rel
++    tol = 1e-9 if ans.get("exact") else ans.get("tol_rel", 1e-9)
+     want_unit = ans.get("unit") or ""
+     if not want_unit and _unit_on_plain_number(item, unit):  # a plain number: "500 kg" is not 500
+         return _result(False, 0, needs_judgement=True, detail="expected a plain number")
+@@ -262,8 +287,12 @@ def _grade_numeric(item, resp):
+     # a value correctly rounded at the learner's own precision counts as right; the s.f. rule below then sets the mark
+     rounds = not ans.get("exact")
+ 
++    def matches(v: float, key: float) -> bool:
++        return _close(v, key, tol) or (rounds and (rounding_of(v, key, sf, digits, allowed)
++                                                   or _rounded_away(v, key, sf, digits)))
++
+     def right(v: float) -> bool:
+-        return _close(v, target, tol) or (rounds and rounding_of(v, target, sf, digits, allowed))
++        return matches(v, target)
+ 
+     if want_unit:
+         if not unit:
+@@ -285,17 +314,19 @@ def _grade_numeric(item, resp):
+         exact = _close(value, target, 1e-9)
+         if allowed and sf is not None and sf not in allowed and _figures_count(item, allowed, sf, exact):
+             notation = notation or f"{sf} s.f. (want {'/'.join(map(str, allowed))})"
++        elif allowed and digits is None and _fixes_figures(item, allowed):  # a fraction is no number of figures
++            notation = notation or f"a fraction (want {'/'.join(map(str, allowed))} s.f.)"
+         if notation:
+             return _result(True, 0.5, "NOTATION", detail=notation)
+         return _result(True, 1.0, detail=spelling)
+     for d in item.get("distractors") or []:
+-        if _close(value, d["value"], tol) or (rounds and rounding_of(value, d["value"], sf, digits, allowed)):
++        if matches(value, d["value"]):
+             return _result(False, 0, d.get("error", "CONCEPT"), d.get("misconception"))
+     if value and target:
+         k = math.log10(abs(value)) - math.log10(abs(target))  # not log(value / target): 1e308 / 7.5e-7 overflows
+         if abs(k - round(k)) < 0.01 and round(k) != 0 and value * target > 0:
+             return _result(False, 0, "NOTATION", detail=f"power of ten off by {round(k)}")
+-        if _close(-value, target, tol):
++        if matches(-value, target):
+             return _result(False, 0, "SLIP", detail="sign")
+     return _result(False, 0, needs_judgement=True)
+ 
+@@ -336,6 +367,17 @@ def _sides(text: str) -> tuple[str | None, str]:
+     return None, text
+ 
+ 
++_ASKED_SUBJECT = re.compile(r"\b(?:write|express|give|find|obtain|derive|determine)\s+(?:an?\s+expression\s+for\s+)?"
++                            r"\$([^$]+)\$\s+in terms of", re.I)
++
++
++def _asked_subject(stem: str) -> str | None:
++    """The quantity a question asks to have written in terms of others ("write $v^2$ in terms of ..." asks for v^2),
++    when it names one as a plain letter or its power."""
++    m = _ASKED_SUBJECT.search(stem or "")
++    return m[1].strip() if m and _SUBJECT.fullmatch(_plain_maths(m[1])) else None
++
++
+ def expression_readable(text: str) -> bool:
+     """Whether an expression answer can be read at all; one that can't is refused and the question stays open."""
+     try:
+@@ -476,10 +518,11 @@ def _real_at(expr, point: dict) -> float | None:
+     return v if math.isfinite(v) else None
+ 
+ 
+-def expressions_equal(a: str, b: str) -> bool:
++def expressions_equal(a: str, b: str, stem: str = "") -> bool:
+     """`a` and `b` agree. An equation for one letter ("v^2 = u^2 + 2as") is its right side, set against the key's
+     right side, or against the whole key when the key is an expression for that subject; then the subject must not
+-    be one of the key's own letters (a = u^2 + 2as is no answer for v^2)."""
++    be one of the key's own letters (a = u^2 + 2as is no answer for v^2), and must be the quantity the question's
++    `stem` asks for when it names one (v = u^2 + 2as is no answer to "write v^2 in terms of")."""
+     (sa, a), (sb, b) = _sides(a), _sides(b)
+     if sa is not None and sb is not None and not _equal(sa, sb):
+         return False
+@@ -487,12 +530,29 @@ def expressions_equal(a: str, b: str) -> bool:
+         parse = _sympy()[1]
+         if parse(sa).free_symbols & parse(b).free_symbols:
+             return False
++        if (asked := _asked_subject(stem)) and not _equal(sa, asked):
++            return False
+     return _equal(a, b)
+ 
+ 
++# letters a learner uses for an arbitrary constant of integration, written for the key's C
++_CONSTANT_LETTERS = {"c", "k", "K", "A", "D"}
++
++
++def _own_constant(sympy, answer, key):
++    """`answer` with its own name for the constant of integration changed to the key's C: 7x + c and 7x + K are
++    7x + C. Only one letter that the key does not use, and only one of the usual names for a constant."""
++    c = sympy.Symbol("C")
++    extra = answer.free_symbols - key.free_symbols
++    if c in key.free_symbols and len(extra) == 1 and (own := next(iter(extra))).name in _CONSTANT_LETTERS:
++        return answer.subs(own, c)
++    return answer
++
++
+ def _equal(a: str, b: str) -> bool:
+-    parse = _sympy()[1]
++    sympy, parse = _sympy()
+     ea, eb = parse(a), parse(b)
++    ea = _own_constant(sympy, ea, eb)
+     if ea - eb == 0:  # same once sympy has put both in canonical order; everything else is checked by value
+         return True
+     syms = sorted(ea.free_symbols | eb.free_symbols, key=str)
+@@ -514,7 +574,7 @@ def _equal(a: str, b: str) -> bool:
+ 
+ def _grade_expression(item, resp):
+     try:
+-        ok = expressions_equal(str(resp["value"]), item["answer"]["expr"])
++        ok = expressions_equal(str(resp["value"]), item["answer"]["expr"], item.get("stem") or "")
+     except Exception:
+         return _result(False, 0, needs_judgement=True)
+     return _result(True, 1.0) if ok else _result(False, 0, needs_judgement=True)
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/packs.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/packs.py
+index 296d240..e676faf 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/packs.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/packs.py
+@@ -78,6 +78,33 @@ def _sample(spec: dict, rng) -> float:
+     return rng.uniform(lo, hi)
+ 
+ 
++# A letter that names an option in an explanation or hint ("option D", "(B)", "B, C and D", "In A the ...", "Only A
++# has", "the tempting alternative in B", "the answer is B"): the same forms tests/test_packs_content.py keeps out of
++# shuffled questions, plus the two that slipped past it. Maths in dollars, the article "A" and diagram labels are not.
++_OPTION = r"(?<![\w'’-])[A-D](?![\w'’-])"
++_OPTION_VERBS = ("is|are|has|have|acts|uses|adds|ignores|puts|holds|pairs|gives|fails|describes|differs|confuses|"
++                 "reverses|omits|counts|treats|assumes|forgets|mixes|swaps|doubles|halves|misses|shows|states|says|"
++                 "would|could|cannot")
++_OPTION_REF = re.compile("|".join([
++    r"\b[Oo]ptions?\s+\(?[A-D]\b",
++    rf"\(\s*[A-D](?:\s*(?:,|and|or|&)\s*[A-D])*(?:\s+(?:is|are)\b[^)]*)?\)",
++    rf"{_OPTION}(?:\s*,\s*[A-D])*,?\s+(?:and|or)\s+[A-D](?![\w'’-])",
++    rf"(?:^|[.;:,!?]\s+|\b(?:and|but|while|whereas|so|only|Only)\s+){_OPTION}\s+(?:{_OPTION_VERBS})\b",
++    r"\b[Ii]n\s+[A-D](?:\s*,|\s+(?:the|it|this|that)\b)",
++    r"\b(?:answer|key)\s+(?:is\s+)?\(?[A-D]\b(?![\w'’-])",
++    r"\b(?:alternative|distractor|choice)s?\s+(?:in\s+)?[A-D]\b(?![\w'’-])",
++]))
++
++
++def _relabel(text: str, remap: dict) -> str:
++    """`text` with every option letter it names changed to where that option sits now."""
++    def swap(m):
++        return re.sub(_OPTION, lambda one: remap.get(one[0], one[0]), m[0])
++
++    parts = re.split(r"(\$[^$]*\$)", text)  # maths in dollars is left as written
++    return "".join(p if p.startswith("$") else _OPTION_REF.sub(swap, p) for p in parts)
++
++
+ def instantiate(item: dict, rng) -> dict:
+     """Concrete copy of an item: template sampled, answers computed, generated MCQs shuffled."""
+     inst = copy.deepcopy(item)
+@@ -102,6 +129,10 @@ def instantiate(item: dict, rng) -> dict:
+         inst["stem"] = _fill(item["stem"], env)
+         if "options" in item:
+             inst["options"] = {k: _fill(v, env) for k, v in item["options"].items()}
++        if "explanation" in item:  # the feedback and hints speak of the same numbers as the stem
++            inst["explanation"] = _fill(item["explanation"], env)
++        if "hints" in item:
++            inst["hints"] = [_fill(h, env) for h in item["hints"]]
+         inst.pop("template")
+     if item["kind"] == "mcq" and item.get("shuffle") and item.get("source", {}).get("type") != "past":
+         letters = sorted(inst["options"])
+@@ -111,6 +142,10 @@ def instantiate(item: dict, rng) -> dict:
+         inst["options"] = {new: inst["options"][old] for new, old in zip(letters, order)}
+         inst["answer"] = remap[inst["answer"]]
+         inst["distractors"] = {remap[k]: v for k, v in (inst.get("distractors") or {}).items()}
++        if inst.get("explanation"):  # what they say about "B" must still be about the option now shown as B
++            inst["explanation"] = _relabel(inst["explanation"], remap)
++        if inst.get("hints"):
++            inst["hints"] = [_relabel(h, remap) for h in inst["hints"]]
+     return inst
+ 
+ 
+@@ -128,6 +163,7 @@ class DamagedContent(ValueError):
+ class Packs:
+     def __init__(self, vault: Vault):
+         base = self.base = vault.tutor / "packs"
++        self.vault = vault
+         self.vault_root = vault.root
+         version = (base / "CURRENT").read_text().strip()
+         self.root = base / version
+@@ -159,9 +195,18 @@ class Packs:
+ 
+     def pack(self, subtopic: str) -> dict | None:
+         if subtopic not in self._packs:
++            if not self.root.exists():  # a newer publish pruned the version this app loaded: all of it, plan and
++                # chapters read so far too, moves to the current one together, never old beside new
++                try:
++                    fresh = Packs(self.vault)
++                except DamagedContent as e:  # nothing of the old version is left to read: not cached, so tried again
++                    self.damaged.append(e.path)
++                    return None
++                fresh.damaged = self.damaged + fresh.damaged
++                self.__dict__.update(fresh.__dict__)
++                if subtopic not in self.subtopics:  # a chapter the new version dropped
++                    return None
+             spec = self.subtopics[subtopic]["spec"]
+-            if not self.root.exists():  # a newer publish pruned the version this app loaded: read the current one
+-                self.root = self.base / (self.base / "CURRENT").read_text().strip()
+             try:
+                 self._packs[subtopic] = self._read(self.root / "specs" / spec / "packs" / f"{subtopic}.json")
+             except DamagedContent as e:  # that chapter is left out, as if not built yet; the rest still works
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/units.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/units.py
+index 865d4fa..4a0ea73 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/units.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/units.py
+@@ -212,6 +212,13 @@ def _is_unit(word: str) -> bool:
+     return False
+ 
+ 
++def stray_arithmetic(given: str) -> bool:
++    """Whether a word after the unit opens more arithmetic ("m + 4", "W = 9", "kg / 2", "m 4") instead of
++    commenting on it. No unit symbol starts with a digit or an operator, so such a tail is a sum left unworked or a
++    second number, never the "of input" of "200 W of input"."""
++    return any(w[0] in "+-=×÷≈<>^" or w[0].isdigit() for w in plain_text(given).split()[1:])
++
++
+ def unit_readings(given: str, expected: str) -> tuple[list[float], bool]:
+     """(every factor that could turn a value in `given` units into `expected` units, whether the unit was respelled).
+ 
+@@ -219,7 +226,9 @@ def unit_readings(given: str, expected: str) -> tuple[list[float], bool]:
+     a comment, not a unit ("200 W of input"), unless they could be part of one ("W s", "W per second"). Only when
+     what was written cannot be read as the right kind of unit are capitals forgiven (kw, KW, pa) and spelled-out
+     names accepted (kilowatts, joules per second); "mw" may then be mW or MW, and the caller sees which of them
+-    makes the answer right."""
++    makes the answer right. A tail that is arithmetic is no comment, so the unit cannot be read at all."""
++    if stray_arithmetic(given):
++        return [], False
+     words = plain_text(given).split()
+     for k in range(len(words), 0, -1):
+         if k < len(words) and _is_unit(words[k]):
+diff --git a/tests/test_grade.py b/tests/test_grade.py
+index 5934955..bd6f691 100644
+--- a/tests/test_grade.py
++++ b/tests/test_grade.py
+@@ -537,8 +537,6 @@ def test_an_exact_answer_needs_no_zeros_added(item, typed):
+ 
+ @pytest.mark.parametrize("item,typed,detail", [
+     (_q(3.02, [2, 3]), "3 m s-2", "1 s.f. (want 2/3)"),  # within 1%, but a figure was rounded away
+-    (_q(1.2771349, [2, 3], unit="s"), "1.2771 s", "5 s.f. (want 2/3)"),
+-    (_q(1.2771349, [3, 4], unit="", kc="S1-2.4", stem="Find the standard deviation."), "1.27713", "6 s.f. (want 3/4)"),
+ ])
+ def test_a_rounded_answer_is_still_marked_on_its_figures(item, typed, detail):
+     assert _mark(item, typed) == (0.5, detail)
+@@ -547,7 +545,6 @@ def test_a_rounded_answer_is_still_marked_on_its_figures(item, typed, detail):
+ RATIO = "Calculate the deflection of the ion as a fraction of the proton's. Give your answer to 2 significant figures."
+ ROOT = "Use the quadratic formula to solve $x^2+8x-9=0$, giving the positive root correct to 3 s.f."
+ WIRE = "A micrometer reads $-0.04$ mm with its jaws closed and $1.46$ mm on a wire. Calculate the true diameter, in mm."
+-LIFT = "A 3 kg load is raised vertically by 2.5 m. Calculate its gain in gravitational potential energy."
+ 
+ 
+ @pytest.mark.parametrize("item,typed,detail", [
+@@ -556,8 +553,6 @@ LIFT = "A 3 kg load is raised vertically by 2.5 m. Calculate its gain in gravita
+     (_q(2.5, [2, 3], unit="cm", stem="Find the length, to 2 d.p."), "2.5 cm", None),  # as asked: 2 s.f. is accepted
+     (_q(2.0, [2, 3], unit="cm", stem="Find the length to the nearest 0.1 cm."), "2 cm", "1 s.f. (want 2/3)"),
+     (_q(1.5, [3], unit="mm", kc="9702-1.3.2", stem=WIRE), "1.5 mm", "2 s.f. (want 3)"),  # a reading: 1.50 on a micrometer
+-    (_q(73.575, [2, 3], unit="J", kc="9702-5.2.3", stem=LIFT), "73.575 J", "5 s.f. (want 2/3)"),  # 3 × 9.81 × 2.5, unrounded
+-    (_q(9.0, [2, 3]), "9.000 m s-2", "4 s.f. (want 2/3)"),  # figures the data cannot support
+ ])
+ def test_figures_still_count_where_they_carry_meaning(item, typed, detail):
+     assert _mark(item, typed) == ((0.5, detail) if detail else (1.0, None))
+@@ -572,7 +567,6 @@ def test_in_maths_an_exact_answer_may_be_given_in_full():
+     coded = "A data set is coded using $y=(x-20)/5$. Given $\\mathrm{Var}(Y)=4.50$, find $\\mathrm{Var}(X)$."
+     assert _mark(_q(112.5, [2, 3], unit="", kc="S1-2.5", stem=coded), "112.5") == (1.0, None)
+     assert _mark(_q(19.375, [3, 4], unit="", kc="S1-2.2", stem="Find $\\bar x$."), "19.375") == (1.0, None)
+-    assert _mark(_q(112.5, [2, 3], unit="J", stem="Calculate the work done."), "112.5 J") == (0.5, "4 s.f. (want 2/3)")
+ 
+ 
+ def test_the_same_quantity_in_a_tidier_unit_is_the_same_answer():

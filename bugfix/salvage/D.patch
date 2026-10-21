@@ -1,0 +1,651 @@
+# Unfinished, unreviewed attempt (stopped mid-way) for: B-047 B-069 B-085 B-044 B-064 B-041 B-089 B-062
+diff --git a/bugwatch/sandbox.sh b/bugwatch/sandbox.sh
+index 8ed0c61..74f4ce1 100755
+--- a/bugwatch/sandbox.sh
++++ b/bugwatch/sandbox.sh
+@@ -14,8 +14,24 @@ case "$PARENT/$NAME" in
+ esac
+ rm -rf "$OUT" && mkdir -p "$OUT/mnt/STEM Tutor" || exit 1
+ PYTHONDONTWRITEBYTECODE=1 "$ROOT/.venv/bin/python" "$ROOT/build/publish.py" --vault "$OUT/mnt/STEM Tutor" >/dev/null || exit 1
++# The published plan names the learner's real Almanac (source_path), and a session writes its sync file
++# (A-Levels.tutor.js) beside that planner, so a scratch session would overwrite the real one. Cut the path out
++# of the scratch copy of the plan.
++PYTHONDONTWRITEBYTECODE=1 "$ROOT/.venv/bin/python" - "$OUT/mnt/STEM Tutor/.tutor/packs" <<'PY' || exit 1
++import json
++import sys
++from pathlib import Path
++
++packs = Path(sys.argv[1])
++plan = packs / (packs / "CURRENT").read_text().strip() / "plan.json"
++data = json.loads(plan.read_text(encoding="utf-8"))
++for key in ("source_path", "source_sha256"):
++    data.pop(key, None)
++plan.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
++PY
+ cat <<EOF
+ Scratch vault ready: $OUT/mnt/STEM Tutor   (safe to change or delete; rerun this script for a fresh one)
++Its plan has no path to your real Almanac, so no session here writes beside it.
+ 
+ R="$ROOT"
+ export PYTHONDONTWRITEBYTECODE=1
+diff --git a/build/almanac_link.js b/build/almanac_link.js
+index f5892dd..f13cb77 100644
+--- a/build/almanac_link.js
++++ b/build/almanac_link.js
+@@ -1,21 +1,39 @@
+ /* STEM Tutor sync. The tutor writes __FILE__ beside this page. This merges what it knows into the planner's own
+    state: objectives it has seen you finish, a colour for every syllabus topic, paper scores, study days, mistake
+    counts, the week's retrospective and the paper stage. What you tick, type or write yourself is kept. */
++/* tutor.done lists the ticks the tutor put there and that still stand: the engine reads it to tell them from yours.
++   A tick you take away is no longer the tutor's, so it leaves tutor.done (and a tick you give back is then yours).
++   tutor.seen lists every objective the tutor has offered, whoever ticked it, so it is never offered twice. */
++function tutorReconcile(S) {
++  const t = S && S.tutor;
++  if (!t || !t.done) return false;
++  let changed = false;
++  for (const id of Object.keys(t.done))
++    if (!(S.done || {})[id]) { (t.seen = t.seen || {})[id] = 1; delete t.done[id]; changed = true; }
++  return changed;
++}
+ function tutorMerge(S, T) {
+   if (!T || !T.stamp || (S.tutor && S.tutor.stamp === T.stamp)) return false;
+-  const mine = S.tutor = S.tutor || {}, added = {};
++  const mine = S.tutor = S.tutor || {}, added = {}, offered = {};
+   for (const key of ["done", "rag", "scores", "wall", "retro", "err"]) S[key] = S[key] || {};
+-  for (const id of Object.keys(T.done || {}))  /* a tick is added once: one you take away stays off */
+-    if (!S.done[id] && !(mine.done || {})[id]) S.done[id] = added[id] = 1;
++  tutorReconcile(S);
++  for (const id of Object.keys(T.done || {})) {  /* a tick is added once: one you take away stays off */
++    if (!S.done[id] && !(mine.seen || {})[id]) S.done[id] = added[id] = 1;
+     else if (mine.stamp && !mine.done && S.done[id]) added[id] = 1;  /* merged before the tutor kept count */
++    offered[id] = 1;  /* also when you had ticked it first: take that tick away and it stays away */
++  }
+   Object.assign(S.rag, T.rag || {});  /* every colour is the tutor's: it goes by your answers */
+   Object.assign(S.wall, T.wall || {});
+   for (const [k, v] of Object.entries(T.scores || {})) {  /* a score you typed yourself is left alone */
+     const cur = S.scores[k];
+     if (cur === undefined || cur === "" || cur === (mine.scores || {})[k]) S.scores[k] = v;
+   }
+-  for (const [f, n] of Object.entries(T.err || {}))  /* add only what is new since the last merge */
+-    S.err[f] = Math.max(0, (S.err[f] || 0) + n - ((mine.err || {})[f] || 0));
++  /* add only what is new since the last merge. A family the tutor no longer lists (a mistake put right) is zero for it
++     now: its old count comes off, and the counts you entered yourself stay */
++  for (const f of new Set([...Object.keys(T.err || {}), ...Object.keys(mine.err || {})])) {
++    const n = Math.max(0, (S.err[f] || 0) + ((T.err || {})[f] || 0) - ((mine.err || {})[f] || 0));
++    if (n) S.err[f] = n; else delete S.err[f];
++  }
+   for (const [w, r] of Object.entries(T.retro || {})) {  /* a retrospective you wrote or edited is left alone */
+     const cur = S.retro[w], old = (mine.retro || {})[w];
+     if (!cur || (old && cur.broke === old.broke && cur.fix === old.fix)) S.retro[w] = r;
+@@ -24,6 +42,7 @@ function tutorMerge(S, T) {
+   if (Number.isInteger(T.stage) && (mine.stage === undefined || S.stage === mine.stage)) S.stage = T.stage;
+   Object.assign(mine, { stamp: T.stamp, at: T.at, scores: T.scores || {}, err: T.err || {},
+                         retro: Object.assign({}, mine.retro, T.retro), done: Object.assign({}, mine.done, added),
++                        seen: Object.assign({}, mine.seen, mine.done, offered),
+                         stage: Number.isInteger(T.stage) ? T.stage : mine.stage });
+   return true;
+ }
+@@ -97,6 +116,7 @@ if (typeof document !== "undefined") (function () {
+   let kept = S.tutor;  /* what the tutor last merged: "Reset everything" must not bring it straight back */
+   function pull() {
+     kept = S.tutor || kept;
++    if (tutorReconcile(S)) save();  /* a tick you took away is not the tutor's, even before its next update */
+     const el = document.createElement("script");
+     el.src = "__FILE__?" + Date.now();
+     el.onload = () => {
+@@ -118,7 +138,11 @@ if (typeof document !== "undefined") (function () {
+     new MutationObserver(() => {
+       if (queued) return;
+       queued = true;
+-      requestAnimationFrame(() => { queued = false; tutorDecorate(window.TUTOR_SYNC); });
++      requestAnimationFrame(() => {
++        queued = false;
++        if (tutorReconcile(S)) save();  /* so a tick you give back straight away is already yours */
++        tutorDecorate(window.TUTOR_SYNC);
++      });
+     }).observe(document.body, { childList: true, subtree: true });
+   pull();
+   setInterval(pull, 30000);  /* every pull redraws the progress too: "live" turns to "last seen" when pushes stop */
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/almanac.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/almanac.py
+index 681273f..37405e9 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/almanac.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/almanac.py
+@@ -7,6 +7,8 @@ the tutor gives back to the planner is in report.py (`almanac_push`).
+ from __future__ import annotations
+ 
+ import re
++import tempfile
++from datetime import date
+ from pathlib import Path
+ 
+ from .store import read_json
+@@ -30,7 +32,8 @@ def _state(root: Path) -> dict:
+ 
+ def ticks(root: Path) -> frozenset[str]:
+     """Ids of the objectives the learner ticked in the Almanac. Ticks the tutor put there itself (kept apart in the
+-    page's `tutor.done`) are not the learner's claims: whether those still count is the tutor's to decide."""
++    page's `tutor.done`, which lists only those still standing: the page drops an id from it when the learner takes
++    the tick away) are not the learner's claims: whether those still count is the tutor's to decide."""
+     state = _state(root)
+     done, tutor = state.get("done"), state.get("tutor")
+     theirs = tutor.get("done") if isinstance(tutor, dict) else None
+@@ -38,18 +41,56 @@ def ticks(root: Path) -> frozenset[str]:
+     return frozenset(k for k, v in done.items() if v and k not in theirs) if isinstance(done, dict) else frozenset()
+ 
+ 
++def _is_day(text: str) -> bool:
++    """A real calendar day written YYYY-MM-DD. The shape alone lets "2027-02-30" through, and the first countdown
++    that reads it would stop."""
++    if not re.fullmatch(r"\d{4}-\d\d-\d\d", text):
++        return False
++    try:
++        date.fromisoformat(text)
++    except ValueError:
++        return False
++    return True
++
++
+ def exam_dates(root: Path) -> dict[int, str]:
+-    """Exam dates entered in the Almanac's statement of entry, by the paper's place in its list."""
++    """Exam dates entered in the Almanac's statement of entry, by the paper's place in its list. A damaged export
++    does not stop the tutor: a date that is not a real day is left out."""
+     dates = _state(root).get("dates")
+     return {int(k): v for k, v in (dates.items() if isinstance(dates, dict) else [])
+-            if str(k).isdigit() and isinstance(v, str) and re.fullmatch(r"\d{4}-\d\d-\d\d", v)}
++            if str(k).isdigit() and isinstance(v, str) and _is_day(v)}
+ 
+ 
+ def apply_dates(plan: dict, dates: dict[int, str]) -> None:
+-    """Put those dates into the plan, so countdowns and exam readiness follow what the learner entered."""
++    """Put those dates into the plan, so countdowns and exam readiness follow what the learner entered. The newest
++    export is the whole truth: a date an earlier export had and this one lacks goes back to what the plan itself says
++    (each overridden paper keeps that as `date_in_plan`), so the running plan matches one freshly loaded."""
+     papers = plan.get("papers") or []
+-    for i, day in dates.items():
+-        if i < len(papers):
+-            papers[i]["date"] = day
+-    if dates and papers:
++    moved = False
++    for i, paper in enumerate(papers):
++        if i in dates:
++            paper.setdefault("date_in_plan", paper.get("date"))
++            paper["date"], moved = dates[i], True
++        elif "date_in_plan" in paper:
++            paper["date"], moved = paper.pop("date_in_plan"), True
++    if moved:
+         plan["sittings"] = {f"{p['short']} ({p['code'].split('/')[0]})": p["date"] for p in papers if p.get("date")}
++
++
++def _in_temp(path: Path) -> bool:
++    """Whether a path is inside the machine's temporary folder (where tests and scratch vaults live)."""
++    here = Path(path).resolve()
++    return any(here.is_relative_to(Path(t).resolve()) for t in {tempfile.gettempdir(), "/tmp"})
++
++
++def sync_file(plan: dict, vault_root: Path) -> Path | None:
++    """Where the tutor leaves what it knows for the Almanac page: `<planner>.tutor.js` beside the planner file the plan
++    was built from (`source_path`). None when that planner is not on this machine, and when this vault is a throwaway
++    copy (a test, a scratch vault, anything in the temporary folder) of a plan that points at a planner outside it:
++    published plans carry the learner's real path, and a copy must never write beside the real Almanac."""
++    src = plan.get("source_path")
++    if not src or not Path(src).is_file():
++        return None
++    if _in_temp(vault_root) and not _in_temp(Path(src)):
++        return None
++    return Path(src).with_suffix(".tutor.js")
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/policy.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/policy.py
+index 665f440..cc66714 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/policy.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/policy.py
+@@ -55,10 +55,17 @@ def current_week(plan: dict, now: datetime) -> int:
+ 
+ 
+ # ---------------- ticks in the Almanac ----------------
++def is_setup(objective: dict) -> bool:
++    """A task of the learner's own routine (set up the error log and the notebooks). Its "done when" line names things
++    the tutor never sees, and the idea the planner filed it under is only the syllabus section it sits in, so
++    knowing that idea says nothing about the task: only the learner's own tick finishes it."""
++    return objective.get("verb") == "Set up"
++
++
+ def is_done(objective: dict, state: dict, ticked: frozenset = frozenset()) -> bool:
+     """Ticked in the Almanac, or every idea in it is secure here."""
+     kcs = objective.get("kcs", [])
+-    return objective.get("id") in ticked or (bool(kcs) and all(
++    return objective.get("id") in ticked or (bool(kcs) and not is_setup(objective) and all(
+         kc in state["kcs"] and model.is_mastered(state["kcs"][kc]) for kc in kcs))
+ 
+ 
+@@ -91,6 +98,8 @@ _NEED = re.compile(r"≥\s*(\d+)\s*/\s*(\d+)|≥\s*(\d+)(?:-\d+)?\s*%")
+ def about(objective: dict, plan: dict) -> list[str]:
+     """The ideas an objective is about: its own, or for a review, check or gate that names weeks ("D28 review of week
+     1 content", "check of weeks 1-3") or a phase ("Phase I gate"), the ideas first taught in those weeks."""
++    if is_setup(objective):  # the idea filed under it is not what it asks for
++        return []
+     own = [k for k in objective.get("kcs", []) if k not in objective.get("outside", [])]
+     title, span = objective.get("title", ""), None
+     if own:
+@@ -112,7 +121,7 @@ def earned(plan: dict, state: dict, packs) -> frozenset:
+     Learning an objective counts once each of its ideas has been answered right without help. A review, check or gate
+     counts when the ideas it covers are secure (right on two different days): all of them, or in every subject the
+     share its "done when" line asks for. What the tutor cannot see into (practicals, paper routines, anything that
+-    names no ideas) is left to the learner's own tick."""
++    names no ideas, setting up the learner's own routine) is left to the learner's own tick."""
+     out = set()
+     for objectives in plan.get("weeks", {}).values():
+         for o in objectives:
+@@ -393,9 +402,8 @@ def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "a
+         chosen = set(learn) | {k for b in blocks for k in b.get("kcs", [])}
+         pool = [kc for kc, k in state["kcs"].items()
+                 if k["n"] > 0 and not model.is_mastered(k) and kc not in chosen and kc in packs.kcs and packs.items_for(kc)]
+-        pool.sort(key=lambda kc: packs.kc(kc)["subtopic"])
+         count = max(0, int(max(0, minutes - used) / 3))
+-        interleaved = pool[0::2] + pool[1::2]
++        interleaved = review_order(state, packs, now, pool)  # most at risk first, one idea from each subtopic in turn
+         if interleaved and count:
+             blocks.append({"kind": "practice", "kcs": interleaved[:count]})
+     exit_kcs = learn[:3] or [k for b in blocks for k in b.get("kcs", [])][:3]
+diff --git a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/report.py b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/report.py
+index 5294c47..67239c2 100644
+--- a/plugin/stem-tutor/skills/tutor/scripts/tutorlib/report.py
++++ b/plugin/stem-tutor/skills/tutor/scripts/tutorlib/report.py
+@@ -6,7 +6,6 @@ import json
+ import re
+ from collections import Counter
+ from datetime import date, datetime, timedelta
+-from pathlib import Path
+ 
+ from . import almanac, clock, experiments, model, policy, views
+ from .packs import _fill
+@@ -517,10 +516,10 @@ def almanac_payload(tutor) -> dict:
+ def almanac_push(tutor) -> str | None:
+     """Write what the tutor knows where the Almanac page picks it up: `<planner>.tutor.js` beside the planner file.
+     The page merges it when it opens and every half minute after (build/almanac_link.py puts that into the page).
+-    Nothing is written when the planner is not on this machine."""
+-    src = tutor.packs.plan.get("source_path")
+-    if not src or not Path(src).is_file():
++    Nothing is written when the planner is not on this machine, or when this vault is a scratch copy of a plan that
++    points at the learner's real planner (`almanac.sync_file`)."""
++    target = almanac.sync_file(tutor.packs.plan, tutor.vault.root)
++    if target is None:
+         return None
+-    target = Path(src).with_suffix(".tutor.js")
+     _write_text(target, "window.TUTOR_SYNC = " + json.dumps(almanac_payload(tutor), ensure_ascii=False, indent=1) + ";\n")
+     return str(target)
+diff --git a/tests/test_almanac_link.py b/tests/test_almanac_link.py
+index 243cb05..1a250c4 100644
+--- a/tests/test_almanac_link.py
++++ b/tests/test_almanac_link.py
+@@ -65,7 +65,8 @@ def test_a_stage_or_tick_the_learner_changed_is_not_put_back():
+     del S["done"]["6-phys1"]
+     S, _ = merged(S, {**first, "stamp": "b", "done": {**first["done"], "7-phys1": 1}, "stage": 2})
+     assert S["stage"] == 3 and S["done"] == {"5-phys1": 1, "7-phys1": 1}
+-    assert S["tutor"]["done"] == {"5-phys1": 1, "6-phys1": 1, "7-phys1": 1}
++    assert S["tutor"]["done"] == {"5-phys1": 1, "7-phys1": 1}  # the tick the learner took away is no longer the tutor's
++    assert S["tutor"]["seen"] == {"5-phys1": 1, "6-phys1": 1, "7-phys1": 1}  # but it was offered, so it is not offered again
+ 
+ 
+ @pytest.mark.skipif(not shutil.which("node"), reason="needs Node to run the page's script")
+diff --git a/tests/test_bw_almanac.py b/tests/test_bw_almanac.py
+new file mode 100644
+index 0000000..7e3cd40
+--- /dev/null
++++ b/tests/test_bw_almanac.py
+@@ -0,0 +1,357 @@
++"""Bug-watch batch D: the Almanac sync (B-044 B-047 B-064 B-069 B-085), auto-ticks (B-041), which ideas practice picks
++(B-089) and a scratch vault never writing outside itself (B-062)."""
++import json
++import os
++import random
++import shutil
++import subprocess
++import sys
++import tempfile
++from datetime import datetime, timedelta
++from pathlib import Path
++
++import pytest
++
++from fixtures import make_vault
++from tutorlib import almanac, model, policy, report, session, store
++
++REPO = Path(__file__).resolve().parents[1]
++JS = (REPO / "build/almanac_link.js").read_text()
++T0 = datetime.fromisoformat("2026-09-29T17:00:00+08:00")  # Almanac week 5
++needs_node = pytest.mark.skipif(not shutil.which("node"), reason="needs Node to run the page's script")
++
++
++class Clock:
++    def __init__(self, t):
++        self.t = t
++
++    def __call__(self):
++        return self.t
++
++
++def make_tutor(tmp_path, plan_extra=None):
++    """A tutor over the small test vault; `plan_extra` goes into its published plan before it opens."""
++    root = make_vault(tmp_path)
++    if plan_extra:
++        plan_file = next((root / ".tutor/packs").glob("v*/plan.json"))
++        plan_file.write_text(json.dumps({**json.loads(plan_file.read_text()), **plan_extra}))
++    return session.Tutor(store.Vault(root), rng=random.Random(0), now=Clock(T0))
++
++
++@pytest.fixture
++def tutor(tmp_path):
++    return make_tutor(tmp_path)
++
++
++def export(root, state, when=None):
++    """The progress file the Almanac's Export button leaves in the vault's Almanac folder."""
++    folder = Path(root) / "Almanac"
++    folder.mkdir(parents=True, exist_ok=True)
++    path = folder / f"almanac-progress-{len(list(folder.iterdir())) + 1}.json"
++    path.write_text(json.dumps(state))
++    stamp = (when or datetime.now()).timestamp()
++    os.utime(path, (stamp, stamp))
++    return path
++
++
++def ticks_of(root, state):
++    """What the tutor reads as the learner's own ticks from an export of that planner state."""
++    export(root, state)
++    return almanac.ticks(root)
++
++
++def page(code):
++    """Run the page's sync script in Node, then `code`, which prints one JSON value."""
++    out = subprocess.run(["node", "-e", JS + "\n" + code], capture_output=True, text=True, check=True).stdout
++    return json.loads(out)
++
++
++def merged(state, *updates):
++    """The planner state after the tutor's updates are merged into it one after another."""
++    return page(f"const S = {json.dumps(state)}; for (const T of {json.dumps(updates)}) tutorMerge(S, T);"
++                "\nconsole.log(JSON.stringify(S));")
++
++
++def blank(**extra):
++    return {"done": {}, "rag": {}, "scores": {}, "wall": {}, "retro": {}, "err": {}, **extra}
++
++
++# ---------- B-044 and B-047: whose tick is it ----------
++@needs_node
++def test_a_tick_the_learner_made_first_stays_off_once_they_take_it_away():
++    """B-044: the tutor earned an objective the learner had ticked already; unticked, a later update ticked it again."""
++    S = merged(blank(done={"5-phys1": 1}), {"stamp": "a", "done": {"5-phys1": 1}})
++    assert S["done"] == {"5-phys1": 1} and S["tutor"]["done"] == {}  # their own tick: not recorded as the tutor's
++    del S["done"]["5-phys1"]  # the learner takes it away
++    S = merged(S, {"stamp": "b", "done": {"5-phys1": 1}}, {"stamp": "c", "done": {"5-phys1": 1}})
++    assert S["done"] == {}  # and it stays away
++
++
++@needs_node
++def test_a_tick_the_learner_takes_away_and_gives_back_is_theirs_again(tmp_path):
++    """B-047: after the learner's own tick, the engine must see the claim even though the tutor once earned it."""
++    S = merged(blank(), {"stamp": "a", "done": {"5-phys1": 1}})
++    assert S["done"] == {"5-phys1": 1} and S["tutor"]["done"] == {"5-phys1": 1}
++    assert ticks_of(tmp_path / "tutors", S) == frozenset()  # the tutor's own tick: not a claim
++    del S["done"]["5-phys1"]
++    S = merged(S, {"stamp": "b", "done": {"5-phys1": 1}})  # the page notices the tick is off
++    assert S["done"] == {} and S["tutor"]["done"] == {}
++    S["done"]["5-phys1"] = 1  # the learner ticks it again
++    S = merged(S, {"stamp": "c", "done": {"5-phys1": 1}})
++    assert S["done"] == {"5-phys1": 1} and S["tutor"]["done"] == {}  # still theirs after the next update
++    assert ticks_of(tmp_path / "theirs", S) == {"5-phys1"}  # and the tutor counts it
++    # a tutor tick that no longer holds up is not turned into the learner's claim by someone leaving it alone
++    S = merged(blank(), {"stamp": "a", "done": {"5-phys1": 1}}, {"stamp": "b", "done": {}})
++    assert ticks_of(tmp_path / "left", S) == frozenset()
++
++
++def run_page(tmp_path, state, payload, observer=False):
++    """The whole block as the page runs it, from a planner state already holding the tutor's earlier update. With
++    `observer`, the page redraws (the stand-in for its MutationObserver fires) as the learner unticks and re-ticks."""
++    (tmp_path / "A-Levels.tutor.js").write_text("window.TUTOR_SYNC = " + json.dumps(payload) + ";\n")
++    block = JS.replace("__FILE__", "A-Levels.tutor.js")
++    head = f"""
++const fs = require("fs"), vm = require("vm"), calls = [];
++global.window = global;
++global.S = {json.dumps(state)};
++global.save = () => calls.push("save"); global.renderAll = () => calls.push("render"); global.toast = m => calls.push(m);
++global.setInterval = () => {{}};
++global.requestAnimationFrame = fn => fn();
++if ({json.dumps(observer)}) global.MutationObserver = class {{ constructor(fn) {{ global.mutated = fn; }} observe() {{}} }};
++global.document = {{ getElementById: () => null, body: {{}}, activeElement: {{ tagName: "BODY" }}, createElement: () => ({{ remove() {{}} }}),
++  head: {{ appendChild(el) {{ vm.runInThisContext(fs.readFileSync({json.dumps(str(tmp_path))} + "/" + el.src.split("?")[0], "utf8")); el.onload(); }} }} }};
++"""
++    tail = ('\ndelete S.done["5-phys1"]; mutated(); S.done["5-phys1"] = 1; mutated();\n' if observer else "") \
++        + "\nconsole.log(JSON.stringify([S, calls]));"
++    out = subprocess.run(["node", "-e", head + block + tail], capture_output=True, text=True, check=True).stdout
++    return json.loads(out)
++
++
++@needs_node
++def test_the_page_drops_a_tick_from_the_tutors_the_moment_it_is_taken_away(tmp_path):
++    """B-047: not only when the tutor next writes (it may not for days): at each pull, and at once on a redraw."""
++    tutors = {"stamp": "s1", "done": {"5-phys1": 1}, "seen": {}}  # what the page holds after the tutor's update
++    S, calls = run_page(tmp_path, blank(tutor=tutors), {"stamp": "s1", "done": {"5-phys1": 1}})  # taken away since
++    assert S["done"] == {} and S["tutor"]["done"] == {} and S["tutor"]["seen"] == {"5-phys1": 1}
++    assert calls[0] == "save"  # kept straight away
++    S, calls = run_page(tmp_path, blank(done={"5-phys1": 1}, tutor=tutors), {"stamp": "s1"})  # nobody touched it
++    assert S["tutor"]["done"] == {"5-phys1": 1} and "save" not in calls
++    # taken away, then ticked again before the next pull: the redraw in between is what tells them apart
++    S, calls = run_page(tmp_path, blank(done={"5-phys1": 1}, tutor=tutors), {"stamp": "s1"}, observer=True)
++    assert S["done"] == {"5-phys1": 1} and S["tutor"]["done"] == {} and S["tutor"]["seen"] == {"5-phys1": 1}
++    assert calls.count("save") == 1
++
++
++@needs_node
++def test_ticks_the_tutor_added_before_it_kept_a_record_of_offers_are_not_put_back():
++    """A planner state from before `tutor.seen`: ticks the tutor listed and the learner took away stay away."""
++    old = blank(done={"1-math1": 1}, tutor={"stamp": "old", "done": {"5-phys1": 1, "6-phys1": 1}})
++    S = merged(old, {"stamp": "new", "done": {"5-phys1": 1, "6-phys1": 1}})
++    assert S["done"] == {"1-math1": 1}
++    assert S["tutor"]["done"] == {} and S["tutor"]["seen"] == {"5-phys1": 1, "6-phys1": 1}
++
++
++# ---------- B-064: a mistake put right ----------
++@needs_node
++def test_a_mistake_the_tutor_puts_right_comes_off_the_almanacs_count():
++    S = merged(blank(), {"stamp": "first", "err": {"Wrong method": 1, "Algebra slip": 2}},
++               {"stamp": "corrected", "err": {"Algebra slip": 2}})  # the one wrong answer was regraded
++    assert S["err"] == {"Algebra slip": 2} and S["tutor"]["err"] == {"Algebra slip": 2}
++    # the counts the learner entered themselves stay, whatever the tutor takes back
++    S = merged(blank(err={"Wrong method": 2}), {"stamp": "a", "err": {"Wrong method": 1}}, {"stamp": "b", "err": {}})
++    assert S["err"] == {"Wrong method": 2}
++    S = merged(blank(err={"Wrong method": 2}), {"stamp": "a", "err": {"Wrong method": 3}},
++               {"stamp": "b", "err": {"Wrong method": 1}}, {"stamp": "c", "err": {}})
++    assert S["err"] == {"Wrong method": 2}
++    # a count the learner lowered by hand never goes below nothing
++    S = merged(blank(), {"stamp": "a", "err": {"Wrong method": 2}})
++    S["err"]["Wrong method"] = 1
++    S = merged(S, {"stamp": "b", "err": {}})
++    assert S["err"] == {}
++
++
++# ---------- B-069 and B-085: exam dates ----------
++def test_a_date_that_is_not_a_real_day_is_ignored(tmp_path):
++    export(tmp_path, {"dates": {"0": "2027-02-30", "1": "2027-05-20", "2": "2027-13-01", "3": "2027-5-2",
++                                "4": "٢٠٢٧-٠٥-٢٠", "5": "0000-01-01", "6": 7}})
++    assert almanac.exam_dates(tmp_path) == {1: "2027-05-20"}
++
++
++def test_a_damaged_exam_date_does_not_stop_todays_plan(tmp_path):
++    """B-069: the plan on the home screen reads every sitting; one impossible date used to end it with an error."""
++    papers = [{"code": "9702/22", "short": "AS", "date": None}, {"code": "9702/42", "short": "A2", "date": None}]
++    tutor = make_tutor(tmp_path, {"papers": papers, "sittings": {}})
++    export(tutor.vault.root, {"dates": {"0": "2027-02-30", "1": "2028-05-20"}})
++    tutor.read_almanac()
++    assert tutor.packs.plan["sittings"] == {"A2 (9702)": "2028-05-20"} and tutor.packs.plan["papers"][0]["date"] is None
++    assert report.today_note(tutor)  # written, not an error
++
++
++PAPERS = [{"code": "9702/22", "short": "AS", "date": None}, {"code": "9702/42", "short": "A2", "date": "2028-05-15"},
++          {"code": "9701/22", "short": "Chem", "date": None}]
++PLAN_DATES = {"papers": PAPERS, "sittings": {"A2 (9702)": "2028-05-15"}}
++
++
++def test_a_date_removed_from_the_export_stops_counting_in_the_running_tutor(tmp_path):
++    """B-085: the running plan must agree with one freshly loaded for the same newest export."""
++    tutor = make_tutor(tmp_path, PLAN_DATES)
++    root, now = tutor.vault.root, datetime.now()
++    export(root, {"dates": {"0": "2027-05-20", "1": "2028-06-01"}}, now - timedelta(hours=2))
++    tutor.read_almanac()
++    assert [p["date"] for p in tutor.packs.plan["papers"]] == ["2027-05-20", "2028-06-01", None]
++    assert tutor.packs.plan["sittings"] == {"AS (9702)": "2027-05-20", "A2 (9702)": "2028-06-01"}
++    for newest in ({"dates": {"1": "2028-06-01"}}, {"dates": {"1": "2028-06-02"}}, {"dates": {}}, {}):
++        export(root, newest, datetime.now() + timedelta(minutes=len(list((root / "Almanac").iterdir()))))
++        tutor.read_almanac()
++        fresh = session.Tutor(store.Vault(root), rng=random.Random(0), now=Clock(T0))
++        assert tutor.packs.plan == fresh.packs.plan  # papers, sittings and nothing left over
++    assert [p["date"] for p in tutor.packs.plan["papers"]] == [None, "2028-05-15", None]  # the plan's own again
++    assert tutor.packs.plan["sittings"] == {"A2 (9702)": "2028-05-15"}
++
++
++def test_apply_dates_restores_the_plans_own_dates():
++    plan = {"papers": [dict(p) for p in PAPERS], "sittings": dict(PLAN_DATES["sittings"])}
++    almanac.apply_dates(plan, {0: "2027-05-20", 1: "2028-06-01"})
++    almanac.apply_dates(plan, {0: "2027-05-21"})  # one date changed, one removed
++    assert [p["date"] for p in plan["papers"]] == ["2027-05-21", "2028-05-15", None]
++    assert plan["sittings"] == {"AS (9702)": "2027-05-21", "A2 (9702)": "2028-05-15"}
++    almanac.apply_dates(plan, {})
++    assert plan == {"papers": PAPERS, "sittings": PLAN_DATES["sittings"]}
++
++
++# ---------- B-041: an auto-tick marks only what was done ----------
++SETUP = {"id": "1-math2", "subject": "phys", "verb": "Set up", "type": "REVISE", "priority": "A",
++         "title": "S1 error log and the D0/D7/D28/D84 retrieval system",
++         "done": "one notebook per unit; first 15 baseline questions logged with error family tagged",
++         "kcs": ["9702-2.1.1"]}
++
++
++def know(tutor, kc, days=("2026-09-25", "2026-09-28")):
++    k = tutor.state["kcs"].setdefault(kc, model._new_kc())
++    k.update(n=len(days), theta=1.0, succ_days=list(days))
++
++
++def test_a_setup_task_is_not_ticked_for_knowing_the_idea_it_is_filed_under(tutor):
++    plan = tutor.packs.plan
++    plan["weeks"]["1"] = [SETUP, {**SETUP, "id": "1-math3", "verb": "Revise", "title": "Review of the first idea"}]
++    know(tutor, "9702-2.1.1")
++    earned, progress = policy.earned(plan, tutor.state, tutor.packs), policy.progress(plan, tutor.state, tutor.packs)
++    assert "1-math3" in earned and "1-math2" not in earned  # a real review is, the error-log task is not
++    assert "1-math3" in progress and "1-math2" not in progress
++    assert not policy.is_done(SETUP, tutor.state) and policy.is_done(SETUP, tutor.state, frozenset({"1-math2"}))
++    assert "1-math2" not in tutor.ticks() and "1-math2" not in report.almanac_payload(tutor)["done"]
++
++
++def test_a_setup_task_the_learner_ticks_is_done(tutor):
++    tutor.packs.plan["weeks"]["1"] = [SETUP]
++    export(tutor.vault.root, {"done": {"1-math2": 1}})
++    assert "1-math2" in tutor.ticks()
++
++
++# ---------- B-089: practice reaches every subtopic ----------
++def ans(kc, ts, subject="chem"):
++    return {"type": "answer", "ts": ts.isoformat(), "item": f"{kc}-i1", "kcs": [kc], "subject": subject,
++            "difficulty": 3, "conf": 3, "hinted": False, "seconds": None, "marks": 1,
++            "grade": {"correct": False, "score": 0.0, "error": None, "misconception": None}, "credit": [], "pos": 0}
++
++
++def weak_ideas(tutor, subtopics, per=2, when=T0):
++    """Ideas of `subtopics`, each answered wrong at `when`; returns their ids."""
++    kcs = []
++    for s in subtopics:
++        for j in range(1, per + 1):
++            kc = f"9701-{s}.1.{j}"
++            tutor.packs.kcs[kc] = {"id": kc, "subtopic": f"9701-{s}.1", "spec": "9701", "subject": "chem", "level": "AS",
++                                   "title": kc, "type": "conceptual", "prereqs": []}
++            model.apply(tutor.state, ans(kc, when + timedelta(seconds=len(kcs))))
++            kcs.append(kc)
++    tutor.packs.items_for = lambda kc: [{"id": kc}]
++    return kcs
++
++
++def practice_of(tutor, now=T0 + timedelta(minutes=1), minutes=30):
++    blocks = policy.plan_session(tutor.state, tutor.packs, now, minutes, "repair")
++    return next(b["kcs"] for b in blocks if b["kind"] == "practice")
++
++
++def subtopic_of(tutor, kcs):
++    return [tutor.packs.kc(k)["subtopic"] for k in kcs]
++
++
++def test_practice_takes_one_idea_from_each_subtopic_before_a_second_from_any(tutor):
++    """B-089: ten slots used to go to the first few subtopics, several ideas each."""
++    weak_ideas(tutor, range(1, 21), per=3)
++    subs = subtopic_of(tutor, practice_of(tutor))
++    assert len(subs) == 10 and len(set(subs)) == 10
++
++
++def test_practice_goes_to_the_ideas_most_at_risk_not_the_earliest_chapters(tutor):
++    """The ideas not seen for weeks have the lowest chance of being recalled: they come first, wherever they sit."""
++    stale = weak_ideas(tutor, range(11, 21), when=T0 - timedelta(days=30))
++    weak_ideas(tutor, range(1, 11), when=T0 - timedelta(minutes=5))  # early chapters, answered just now
++    chosen = practice_of(tutor)
++    assert len(chosen) == 10 and set(chosen) <= set(stale)
++
++
++def test_practising_an_idea_lets_the_others_in_next_time(tutor):
++    kcs = weak_ideas(tutor, range(1, 21), per=1)
++    first = practice_of(tutor)
++    tomorrow = T0 + timedelta(days=1)
++    for i, kc in enumerate(first):  # they are practised the next day (the first answer of a day is what reschedules)
++        model.apply(tutor.state, ans(kc, tomorrow + timedelta(seconds=i)))
++    again = practice_of(tutor, tomorrow + timedelta(minutes=5))
++    assert len(again) == 10 and not set(again) & set(first) and set(first + again) == set(kcs)
++
++
++# ---------- B-062: a scratch vault never writes beside the real Almanac ----------
++OUTSIDE = Path(__file__).resolve()  # a file that exists outside the temporary folder, standing in for the real planner
++
++
++@pytest.mark.skipif(almanac._in_temp(OUTSIDE), reason="the repo itself is in the temporary folder")
++def test_a_scratch_vault_never_writes_a_sync_file_beside_a_planner_outside_it(tutor, monkeypatch):
++    written = []
++    monkeypatch.setattr(report, "_write_text", lambda path, text: written.append(str(path)))
++    tutor.packs.plan["source_path"] = str(OUTSIDE)  # what every published plan carries: the learner's own planner
++    assert almanac.sync_file(tutor.packs.plan, tutor.vault.root) is None
++    assert report.almanac_push(tutor) is None
++    tutor.start("learn", minutes=20, focus=["9702-2.1.1"])  # a session start syncs the Almanac; so does each answer
++    tutor._sync_almanac(force=True)
++    assert written == []
++    # the learner's real vault (not in the temporary folder) does write beside its planner
++    real = OUTSIDE.parent / "STEM Tutor"
++    assert almanac.sync_file(tutor.packs.plan, real) == OUTSIDE.with_suffix(".tutor.js")
++
++
++def test_a_planner_beside_the_scratch_vault_still_gets_its_sync_file(tutor, tmp_path):
++    planner = tmp_path / "A-Levels.html"
++    planner.write_text("<html></html>")
++    tutor.packs.plan["source_path"] = str(planner)
++    assert report.almanac_push(tutor) == str(tmp_path / "A-Levels.tutor.js")
++    assert (tmp_path / "A-Levels.tutor.js").read_text().startswith("window.TUTOR_SYNC = ")
++
++
++@pytest.mark.skipif(not shutil.which("bash") or not os.access("/tmp", os.W_OK), reason="needs bash and /tmp")
++def test_the_bugwatch_sandbox_publishes_a_plan_without_the_learners_planner_path():
++    """B-062: sandbox.sh copies the build's plan, whose source_path is the real Almanac, into the scratch vault."""
++    fake = Path(tempfile.mkdtemp(dir="/tmp", prefix="bw-sandbox-test-"))  # the script only builds inside /tmp
++    try:
++        (fake / "bugwatch").mkdir()
++        shutil.copy(REPO / "bugwatch/sandbox.sh", fake / "bugwatch/sandbox.sh")
++        (fake / "build").mkdir()
++        (fake / "build/publish.py").write_text(
++            "import argparse, json\nfrom pathlib import Path\n"
++            "ap = argparse.ArgumentParser(); ap.add_argument('--vault'); a = ap.parse_args()\n"
++            "v = Path(a.vault) / '.tutor/packs/v1'; v.mkdir(parents=True)\n"
++            "(v.parent / 'CURRENT').write_text('v1')\n"
++            "(v / 'plan.json').write_text(json.dumps({'source': 'A-Levels.html', 'source_path': '/real/A-Levels.html',"
++            " 'source_sha256': 'abc', 'weeks': {'1': []}}))\n")
++        (fake / ".venv/bin").mkdir(parents=True)
++        (fake / ".venv/bin/python").symlink_to(sys.executable)
++        done = subprocess.run(["bash", str(fake / "bugwatch/sandbox.sh"), str(fake / "scratch")],
++                              capture_output=True, text=True)
++        assert done.returncode == 0, done.stderr
++        plan = json.loads((fake / "scratch/mnt/STEM Tutor/.tutor/packs/v1/plan.json").read_text())
++        assert "source_path" not in plan and "source_sha256" not in plan
++        assert plan["source"] == "A-Levels.html" and plan["weeks"] == {"1": []}  # nothing else is lost
++    finally:
++        shutil.rmtree(fake, ignore_errors=True)
