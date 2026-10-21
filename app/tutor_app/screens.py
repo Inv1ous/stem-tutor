@@ -1530,10 +1530,12 @@ class ChatScreen(ReadAloud, Screen):
         if not (self.app.settings.ai and a.available):
             log.mount(Static(cards.card("hint", "AI help is off", a.message or "Switch AI on in Settings."), classes="entry"))
             self.app.tutor.show("notice", a.message or "Switch AI on in Settings.", "AI help is off")
+            log.scroll_end(animate=False)
             return
         if (help_ := t.ai_help(given=False)).get("refused"):
             log.mount(Static(cards.card("hint", "No help on this one", help_["refused"]), classes="entry"))
             t.show("notice", help_["refused"], "No help on this one")
+            log.scroll_end(animate=False)
             return
         w = Static(cards.ai("…"), classes="entry")
         log.mount(w)
@@ -1561,6 +1563,7 @@ class ChatScreen(ReadAloud, Screen):
                 t.ai_help()
             t.show("notice" if withheld else "ai", buf, "Held back" if withheld else "Tutor (AI)")
             self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
+        log.scroll_end(animate=False)
 
 
 class InsightsScreen(Screen):

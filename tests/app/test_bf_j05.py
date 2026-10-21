@@ -6,7 +6,7 @@ import io
 import pytest
 from rich.console import Console
 
-from test_tui import app_for
+from test_tui import app_for, shot
 from tutor_app import ai, prompts
 from tutor_app.panels import Composer, ContinuePanel, TextPanel
 from tutor_app.screens import ChatScreen, SessionScreen
@@ -110,6 +110,46 @@ def test_menu_chat_guards_answers_and_counts_only_delivered_help(tmp_path, monke
                 assert hint in shown and hint in now
             else:
                 assert "Sign in first." in shown and "Sign in first." in now
+            await app.ai.close()
+
+    asyncio.run(go())
+
+
+@pytest.mark.parametrize("size", [(80, 24), (100, 30), (140, 46)])
+@pytest.mark.parametrize("reply_kind", ["hint", "answer", "failure", "refused", "off"])
+def test_paused_chat_keeps_the_latest_reply_in_view(tmp_path, monkeypatch, size, reply_kind):
+    """B-051 review: final replies, errors and refusals stay visible after the answer guard."""
+    app, _ = app_for(tmp_path, monkeypatch)
+
+    async def go():
+        async with app.run_test(size=size) as pilot:
+            await pilot.pause()
+            n, _ = await paused_chat(app, pilot, unassisted=reply_kind == "refused")
+            reply = "Think about the units."
+            if reply_kind == "answer":
+                reply = f"The answer is {prompts.key_of(app.tutor, n)[0]}."
+
+            async def fake_stream(prompt, **kwargs):
+                app.ai.last = (ai.Result(ok=False, status="login", message="Sign in first.")
+                               if reply_kind == "failure" else ai.Result(text=reply))
+                yield reply
+
+            monkeypatch.setattr(app.ai, "stream", fake_stream)
+            app.settings.ai = reply_kind != "off"
+            # A long pasted question puts the reply below even the tallest viewport.
+            app.screen.query_one(Composer).text = "Please check my steps:\n" + "First I list the units.\n" * 50
+            await pilot.press("enter")
+            await pilot.pause()
+            await app.workers.wait_for_complete()
+            await pilot.pause()
+            expected = {"hint": reply, "answer": "I can't give that away", "failure": "Sign in first.",
+                        "refused": "No help on this one", "off": "AI help is off"}[reply_kind]
+            assert expected in chat_text(app.screen)
+            await shot(pilot, f"j05-chat-{reply_kind}-{size[0]}x{size[1]}")
+            log = app.screen.query_one("#log")
+            latest = log.query(".entry").last()
+            assert log.max_scroll_y > 0
+            assert log.scrollable_content_region.contains_region(latest.region)
             await app.ai.close()
 
     asyncio.run(go())
