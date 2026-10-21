@@ -14,8 +14,23 @@ case "$PARENT/$NAME" in
 esac
 rm -rf "$OUT" && mkdir -p "$OUT/mnt/STEM Tutor" || exit 1
 PYTHONDONTWRITEBYTECODE=1 "$ROOT/.venv/bin/python" "$ROOT/build/publish.py" --vault "$OUT/mnt/STEM Tutor" >/dev/null || exit 1
+# A published plan points at the real Almanac; scratch sessions must not overwrite its sync sidecar.
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$ROOT/plugin/stem-tutor/skills/tutor/scripts" \
+  "$ROOT/.venv/bin/python" - "$OUT/mnt/STEM Tutor/.tutor/packs" <<'PY' || exit 1
+import sys
+from pathlib import Path
+from tutorlib import store
+
+packs = Path(sys.argv[1])
+plan = packs / (packs / "CURRENT").read_text().strip() / "plan.json"
+data = store.read_json(plan)
+for key in ("source_path", "source_sha256"):
+    data.pop(key, None)
+store.write_json(plan, data)
+PY
 cat <<EOF
 Scratch vault ready: $OUT/mnt/STEM Tutor   (safe to change or delete; rerun this script for a fresh one)
+Almanac sync is disabled in this scratch plan.
 
 R="$ROOT"
 export PYTHONDONTWRITEBYTECODE=1
