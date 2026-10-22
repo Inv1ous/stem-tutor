@@ -524,7 +524,7 @@ def _equal(a: str, b: str, *, integration: bool = False) -> bool:
 
 def _grade_expression(item, resp):
     try:
-        integration = bool(re.search(r"\\int\b|∫|\bintegrat(?:e|ion)\b|\bantiderivative\b", item.get("stem") or "", re.I))
+        integration = bool(re.search(r"\\int\b|∫|\bintegra(?:te|tion|l)\b|\bantiderivative\b", item.get("stem") or "", re.I))
         ok = expressions_equal(str(resp["value"]), item["answer"]["expr"], integration=integration)
     except Exception:
         return _result(False, 0, needs_judgement=True)

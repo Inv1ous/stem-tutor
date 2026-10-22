@@ -125,3 +125,11 @@ def test_extra_figures_must_still_round_to_an_accepted_science_answer():
     # 18/7 rounds to 2.6 or 2.57; this rounds to 2.5 or 2.55.
     result = grade.grade_item(item, {"kind": "value", "value": "2.5499 A"})
     assert not result["correct"] and result["score"] == 0
+
+
+def test_find_the_indefinite_integral_accepts_any_constant_letter():
+    """B-102: Edexcel's usual wording, "the indefinite integral", names neither "integrate" nor ∫."""
+    item = {"id": "x", "kind": "expression", "stem": "Find the indefinite integral of $2x$.", "answer": {"expr": "x**2 + C"},
+            "kcs": ["P2-1.1"]}
+    assert grade.grade_item(item, {"kind": "value", "value": "x^2 + k"})["score"] == 1
+    assert grade.grade_item(item, {"kind": "value", "value": "x^2 + k*x"})["score"] == 0
