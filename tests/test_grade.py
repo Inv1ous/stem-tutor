@@ -537,11 +537,11 @@ def test_an_exact_answer_needs_no_zeros_added(item, typed):
 
 @pytest.mark.parametrize("item,typed,detail", [
     (_q(3.02, [2, 3]), "3 m s-2", "1 s.f. (want 2/3)"),  # within 1%, but a figure was rounded away
-    (_q(1.2771349, [2, 3], unit="s"), "1.2771 s", "5 s.f. (want 2/3)"),
+    (_q(1.2771349, [2, 3], unit="s"), "1.2771 s", None),  # B-131: extra science figures keep credit
     (_q(1.2771349, [3, 4], unit="", kc="S1-2.4", stem="Find the standard deviation."), "1.27713", "6 s.f. (want 3/4)"),
 ])
 def test_a_rounded_answer_is_still_marked_on_its_figures(item, typed, detail):
-    assert _mark(item, typed) == (0.5, detail)
+    assert _mark(item, typed) == ((0.5, detail) if detail else (1.0, None))
 
 
 RATIO = "Calculate the deflection of the ion as a fraction of the proton's. Give your answer to 2 significant figures."
@@ -556,8 +556,8 @@ LIFT = "A 3 kg load is raised vertically by 2.5 m. Calculate its gain in gravita
     (_q(2.5, [2, 3], unit="cm", stem="Find the length, to 2 d.p."), "2.5 cm", None),  # as asked: 2 s.f. is accepted
     (_q(2.0, [2, 3], unit="cm", stem="Find the length to the nearest 0.1 cm."), "2 cm", "1 s.f. (want 2/3)"),
     (_q(1.5, [3], unit="mm", kc="9702-1.3.2", stem=WIRE), "1.5 mm", "2 s.f. (want 3)"),  # a reading: 1.50 on a micrometer
-    (_q(73.575, [2, 3], unit="J", kc="9702-5.2.3", stem=LIFT), "73.575 J", "5 s.f. (want 2/3)"),  # 3 × 9.81 × 2.5, unrounded
-    (_q(9.0, [2, 3]), "9.000 m s-2", "4 s.f. (want 2/3)"),  # figures the data cannot support
+    (_q(73.575, [2, 3], unit="J", kc="9702-5.2.3", stem=LIFT), "73.575 J", None),  # B-131: correct unrounded calculation
+    (_q(9.0, [2, 3]), "9.000 m s-2", None),  # no prescribed precision
 ])
 def test_figures_still_count_where_they_carry_meaning(item, typed, detail):
     assert _mark(item, typed) == ((0.5, detail) if detail else (1.0, None))
@@ -572,7 +572,7 @@ def test_in_maths_an_exact_answer_may_be_given_in_full():
     coded = "A data set is coded using $y=(x-20)/5$. Given $\\mathrm{Var}(Y)=4.50$, find $\\mathrm{Var}(X)$."
     assert _mark(_q(112.5, [2, 3], unit="", kc="S1-2.5", stem=coded), "112.5") == (1.0, None)
     assert _mark(_q(19.375, [3, 4], unit="", kc="S1-2.2", stem="Find $\\bar x$."), "19.375") == (1.0, None)
-    assert _mark(_q(112.5, [2, 3], unit="J", stem="Calculate the work done."), "112.5 J") == (0.5, "4 s.f. (want 2/3)")
+    assert _mark(_q(112.5, [2, 3], unit="J", stem="Calculate the work done."), "112.5 J") == (1.0, None)
 
 
 def test_the_same_quantity_in_a_tidier_unit_is_the_same_answer():

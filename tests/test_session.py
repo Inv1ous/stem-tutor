@@ -754,7 +754,10 @@ def test_shown_answer_typed_back_earns_full_marks(value, answer):
 
 def test_answer_shown_after_a_mark_lost_for_sig_figs_has_the_figures_wanted(tutor):
     tutor.start("long", minutes=20, focus=["9702-2.1.4"])
-    item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")  # 4.0 m s-2, 2 or 3 s.f.
+    item = next(i for i in tutor.packs.items_for("9702-2.1.4") if i["id"] == "9702-2.1-i03")
+    # B-131: extra figures lose credit only when precision is prescribed.
+    item = {**item, "stem": item["stem"] + " Give your answer to 3 significant figures.",
+            "answer": {**item["answer"], "sf_ok": [3]}}
     n = tutor._present(item, block="practice", phase=None)["n"]
     r = tutor.answer(f"{n} = 4.0000 m s-2 ~3")["results"][0]
     assert r["partial"] and "5 s.f." in r["detail"] and r["answer"] == "4.00 m s-2"

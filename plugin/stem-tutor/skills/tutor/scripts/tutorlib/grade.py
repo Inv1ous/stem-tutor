@@ -223,18 +223,14 @@ _STATES_FIGURES = re.compile(r"significant fig|decimal place|to the nearest|\bs\
 def _figures_count(item: dict, allowed: list, sf: int, exact: bool) -> bool:
     """Whether a right value typed with `sf` figures, which is not one of the `allowed` counts, loses the mark.
 
-    Not when it is exactly the true value and shorter than asked: nothing was rounded away, so zeros would add
-    nothing to 9. (CAIE credits an answer that equals the mark scheme's once rounded to its figures; Edexcel asks
-    for 3 s.f. only of answers that are not exact.) The exceptions, where the figures carry meaning:
-    - the question fixes them: it says how many, or accepts one count only (a reading quoted to its instrument's
-      precision, 1.50 mm on a micrometer);
-    - too many of them: in the sciences that is an unrounded result (3 × 9.81 × 2.5 = 73.575 is 74 J). In maths
-      an exact value may be given in full."""
-    if not exact or len(allowed) == 1 or _STATES_FIGURES.search(item.get("stem") or ""):
+    Exact values need no padding with zeros. CAIE also accepts correct calculations with extra figures unless
+    the question fixes the precision. A single accepted count still fixes an instrument reading's precision
+    (1.50 mm on a micrometer). Edexcel's existing rule for inexact answers is unchanged."""
+    if len(allowed) == 1 or _STATES_FIGURES.search(item.get("stem") or ""):
         return True
     kc = (item.get("kcs") or [""])[0]
     maths = bool(kc) and not kc[0].isdigit()  # CAIE science syllabuses are numbers (9702); Edexcel units are P1, S1…
-    return sf > max(allowed) and not maths
+    return not exact and (sf < max(allowed) or maths)
 
 
 def _distractor(entry) -> tuple[str | None, str]:
@@ -271,7 +267,13 @@ def _grade_numeric(item, resp):
     rounds = not ans.get("exact")
 
     def right(v: float) -> bool:
-        return _close(v, target, tol) or (rounds and rounding_of(v, target, sf, digits, allowed))
+        value_ok = _close(v, target, tol) or (rounds and rounding_of(v, target, sf, digits, allowed))
+        if rounds and "tol_rel" not in ans and allowed and sf is not None and sf > max(allowed) \
+                and not _figures_count(item, allowed, sf, False):
+            # Extra science figures earn credit when they round to the scheme, not merely when within 1%.
+            return value_ok and (_close(v, target, 1e-9) or any(
+                _rounded_to(float(f"{v:.{d}g}"), target, d) for d in allowed))
+        return value_ok
 
     if want_unit:
         if not unit:
@@ -487,7 +489,7 @@ def _real_at(expr, point: dict) -> float | None:
     return v if math.isfinite(v) else None
 
 
-def expressions_equal(a: str, b: str) -> bool:
+def expressions_equal(a: str, b: str, *, integration: bool = False) -> bool:
     """`a` and `b` agree. An equation for one letter ("v^2 = u^2 + 2as") is its right side, set against the key's
     right side, or against the whole key when the key is an expression for that subject; then the subject must not
     be one of the key's own letters (a = u^2 + 2as is no answer for v^2)."""
@@ -498,12 +500,20 @@ def expressions_equal(a: str, b: str) -> bool:
         parse = _sympy()[1]
         if parse(sa).free_symbols & parse(b).free_symbols:
             return False
-    return _equal(a, b)
+    return _equal(a, b, integration=integration)
 
 
-def _equal(a: str, b: str) -> bool:
-    parse = _sympy()[1]
+def _equal(a: str, b: str, *, integration: bool = False) -> bool:
+    sympy, parse = _sympy()
     ea, eb = parse(a), parse(b)
+    if integration:
+        # An additive constant may have another name. Never rename physical quantities or a factor of x.
+        constant = sympy.Symbol("C")
+        extra = ea.free_symbols - eb.free_symbols
+        if constant in eb.args and len(extra) == 1:
+            own = next(iter(extra))
+            if len(own.name) == 1 and own in ea.args:
+                ea = ea.subs(own, constant)
     if ea - eb == 0:  # same once sympy has put both in canonical order; everything else is checked by value
         return True
     syms = sorted(ea.free_symbols | eb.free_symbols, key=str)
@@ -525,7 +535,8 @@ def _equal(a: str, b: str) -> bool:
 
 def _grade_expression(item, resp):
     try:
-        ok = expressions_equal(str(resp["value"]), item["answer"]["expr"])
+        integration = bool(re.search(r"\\int\b|∫|\bintegra(?:te|tion|l)\b|\bantiderivative\b", item.get("stem") or "", re.I))
+        ok = expressions_equal(str(resp["value"]), item["answer"]["expr"], integration=integration)
     except Exception:
         return _result(False, 0, needs_judgement=True)
     return _result(True, 1.0) if ok else _result(False, 0, needs_judgement=True)
