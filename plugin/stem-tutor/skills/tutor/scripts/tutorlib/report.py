@@ -524,6 +524,12 @@ def almanac_payload(tutor) -> dict:
     return {"stamp": stamp, "at": now.isoformat(timespec="minutes"), **body}
 
 
+def _in_temp(path: Path) -> bool:
+    import tempfile
+    roots = {Path(tempfile.gettempdir()).resolve(), Path("/tmp").resolve(), Path("/private/tmp").resolve()}
+    return any(r == p or r in p.parents for p in [Path(path).resolve()] for r in roots)
+
+
 def almanac_push(tutor) -> str | None:
     """Write what the tutor knows where the Almanac page picks it up: `<planner>.tutor.js` beside the planner file.
     The page merges it when it opens and every half minute after (build/almanac_link.py puts that into the page).
@@ -531,6 +537,8 @@ def almanac_push(tutor) -> str | None:
     src = tutor.packs.plan.get("source_path")
     if not src or not Path(src).is_file():
         return None
+    if _in_temp(tutor.vault.root) and not _in_temp(Path(src)):
+        return None  # a scratch vault (a copy made in /tmp for trying things) never writes beside the real planner (B-062)
     target = Path(src).with_suffix(".tutor.js")
     _write_text(target, "window.TUTOR_SYNC = " + json.dumps(almanac_payload(tutor), ensure_ascii=False, indent=1) + ";\n")
     return str(target)
