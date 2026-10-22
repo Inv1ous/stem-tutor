@@ -256,18 +256,25 @@ def _grade_numeric(item, resp):
         value, unit, sf, digits = _parse(str(resp["value"]))
     except ParseError:
         return _result(False, 0, needs_judgement=True)
-    tol = 1e-9 if ans.get("exact") else ans.get("tol_rel", 0.01)  # exact: counts, conversions; 1e-9 absorbs float noise
+    allowed = ans.get("sf_ok") or ([ans["sf"]] if ans.get("sf") else None)
+    # How far from the key a value may be and still be right, besides being a correct rounding of it (B-140): exact
+    # (counts, conversions) and a precision the question sets allow float noise only; a tolerance the item names is
+    # used as it is; otherwise 0.1%, the drift of rounding midway through a calculation. A 1% window let 32.3 pass
+    # for 2 × 16.0 = 32.0.
+    prescribed = bool(allowed) and (len(allowed) == 1 or bool(_STATES_FIGURES.search(item.get("stem") or "")))
+    tol = 1e-9 if ans.get("exact") or (prescribed and "tol_rel" not in ans) else ans.get("tol_rel", 0.001)
     want_unit = ans.get("unit") or ""
     if not want_unit and _unit_on_plain_number(item, unit):  # a plain number: "500 kg" is not 500
         return _result(False, 0, needs_judgement=True, detail="expected a plain number")
     notation = spelling = None
     target = ans["value"]
-    allowed = ans.get("sf_ok") or ([ans["sf"]] if ans.get("sf") else None)
     # a value correctly rounded at the learner's own precision counts as right; the s.f. rule below then sets the mark
     rounds = not ans.get("exact")
 
     def right(v: float) -> bool:
-        value_ok = _close(v, target, tol) or (rounds and rounding_of(v, target, sf, digits, allowed))
+        value_ok = _close(v, target, tol) or (rounds and rounding_of(v, target, sf, digits, allowed)) or (
+            # too few figures ("3" for 3.02) is still the right value, marked down below for its figures: never full marks
+            rounds and allowed and sf is not None and sf < min(allowed) and _close(v, target, 0.01))
         if rounds and "tol_rel" not in ans and allowed and sf is not None and sf > max(allowed) \
                 and not _figures_count(item, allowed, sf, False):
             # Extra science figures earn credit when they round to the scheme, not merely when within 1%.

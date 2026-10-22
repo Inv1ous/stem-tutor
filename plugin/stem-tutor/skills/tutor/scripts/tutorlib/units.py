@@ -212,6 +212,9 @@ def _is_unit(word: str) -> bool:
     return False
 
 
+_ARITHMETIC = re.compile(r"^[-+−×*/÷=^]|[-+−×*/÷=^]\s*\d")  # words after a unit that carry on calculating
+
+
 def unit_readings(given: str, expected: str) -> tuple[list[float], bool]:
     """(every factor that could turn a value in `given` units into `expected` units, whether the unit was respelled).
 
@@ -224,6 +227,8 @@ def unit_readings(given: str, expected: str) -> tuple[list[float], bool]:
     for k in range(len(words), 0, -1):
         if k < len(words) and _is_unit(words[k]):
             continue
+        if k < len(words) and _ARITHMETIC.search(" ".join(words[k:])):
+            return [], False  # "39.8 m + 4" is a sum, not 39.8 m with a comment (B-100)
         head = " ".join(words[:k])
         f = unit_factor(head, expected)
         if f is not None:

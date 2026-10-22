@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.20 (2026-10-22) — done
+
+All 12 bug-watch P0s fixed (marking, pack precision settings, AI leak guard, My Notes safety); awaiting independent VERIFIED.
+
 ## v2.5.19 (2026-10-22) — done
 
 18 of 19 bug-watch QoL items: real explanations for 18 past-paper MCQs, broken PDF text handled, read-aloud starts sooner, AI warm-up right, notes and screens.

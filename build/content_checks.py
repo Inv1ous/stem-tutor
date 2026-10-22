@@ -112,6 +112,27 @@ def tidy_script_text(text: str) -> str:
     return re.sub(r"(?<=[₀-₉]) (?=[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻])", "", text)  # SO₄ ²⁻ -> SO₄²⁻ ; m₁u₁ ² -> m₁u₁²
 
 
+_FIGURES_ASKED = re.compile(r"(?:correct to|to|answer to|in)\s+(\d|one|two|three|four|five)\s+(?:s\.f\.|sf\b|significant fig)", re.I)
+_EXACT_ASKED = re.compile(r"exact|fraction|simplest form|in terms of|surd", re.I)
+
+
+def precision_problems(pack: dict) -> list[str]:
+    """A numeric answer whose settings disagree with what its question asks: "to 3 s.f." with 4 figures also accepted
+    (B-099), or an exact-only key on a question that neither asks for an exact form nor refuses the roundings it lists
+    (B-141). The grader marks by the settings, so they must say what the question says."""
+    out, words = [], {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5}
+    for it in pack.get("items", []):
+        ans = it.get("answer") if isinstance(it.get("answer"), dict) else None
+        if it.get("kind") != "numeric" or not ans:
+            continue
+        allowed = ans.get("sf_ok") or ([ans["sf"]] if ans.get("sf") else None)
+        if (m := _FIGURES_ASKED.search(it.get("stem") or "")) and allowed and allowed != [int(words.get(m[1].lower(), m[1]))]:
+            out.append(f"{it.get('id')}: the question asks for {m[1]} s.f. but the answer accepts {allowed}")
+        if ans.get("exact") and len(ans.get("sf_ok") or []) > 1 and not _EXACT_ASKED.search(it.get("stem") or ""):
+            out.append(f"{it.get('id')}: exact-only, yet it lists roundings {ans['sf_ok']} and the question asks for no exact form")
+    return out
+
+
 def stacked_problems(pack: dict) -> list[str]:
     """Text that still has a stacked fraction or a stray space inside a formula (see `tidy_script_text`): rewrite it."""
     out = []

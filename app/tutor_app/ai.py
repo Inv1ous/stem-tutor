@@ -554,14 +554,24 @@ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
     if kind == "mcq":
         letter, _, opt = key.partition(": ")
         L = f"(?-i:{re.escape(letter)})"  # the capital letter itself: "it is a vector" is not option A
-        pats = [rf"\b(answer|option|choice|it)\s*(is|would be|must be|=|:)\s*\(?{L}\b",
-                rf"\b\(?{L}\)?\s+is\s+(correct|right|the answer)",
-                rf"\b(option|choice|letter)\s*\(?{L}\)?(?![A-Za-z0-9])",
+        any_case = re.escape(letter)  # where the words can only be naming an option, "b" is option B too (B-072)
+        pats = [rf"\b(answer|option|choice)\s*(is|would be|must be|=|:)\s*\(?{any_case}\b",
+                rf"\bit\s*(is|would be|must be|=|:)\s*\(?{L}\b",
+                rf"\b\(?{any_case}\)?\s+is\s+(correct|right|the answer)",
+                rf"\b(option|choice|letter)\s*\(?{any_case}\)?(?![A-Za-z0-9])",
                 rf"^\W*\(?{L}\)?\s*(?:[.):\-–—]|$)"]  # the reply is, or starts by labelling, the letter
         if any(re.search(p, text.strip(), re.I) for p in pats):
             return True
         clean = re.sub(r"[*_`$\\]", "", opt).strip().lower()
-        return len(clean) > 6 and clean in text.lower()
+        if len(clean) > 6:
+            return clean in text.lower()
+        # a short option ("1", "6 N") gives the answer away when it is given as the answer, not when it is merely
+        # mentioned: "the y-intercept is 1" (B-072)
+        return bool(clean) and bool(re.search(rf"(?:\b(?:is|are|equals|gives|be)|=|:)\s*(?:just\s+|exactly\s+)?"
+                                              rf"{re.escape(clean)}(?!\w|\.\d)", text.lower()))
+    if kind == "short":  # the model answer itself, word for word (B-072)
+        said, model = " ".join(text.lower().split()), " ".join(re.sub(r"[*_`$\\]", "", key).lower().split()).rstrip(".")
+        return len(model) > 12 and model in said
     if kind == "expression":
         # An equation key still gives away the answer when only its right side is shown.
         if len(flat := _flat(grade._sides(key)[1])) >= 4 and flat in _flat(reply):
@@ -590,4 +600,25 @@ def leaks(reply: str, key: str, kind: str, answer: dict | None = None) -> bool:
             return True
         if rounded_ok and grade.rounding_of(v, true, sf, digits, allowed):
             return True
+    want = (answer or {}).get("unit")
+    if want:  # the same answer in another unit the marking accepts: 0.4 kN for 400 N (B-074)
+        from tutorlib.units import unit_readings
+        for v, unit in _quantities(text):
+            factors, _ = unit_readings(unit, want)
+            if any(abs(v * f - t) <= max(abs(t) * 0.01, 1e-12) for f in factors for t in targets):
+                return True
     return False
+
+
+def _quantities(text: str):
+    """Each number written with the words after it that may be its unit: (value, "kN of force")."""
+    plain = grade.plain_powers(text).replace("−", "-")
+    for m in _NUMBER.finditer(plain):
+        rest = re.match(r"\s*([A-Za-zµΩ°][^\s,;]*(?:\s+(?:per\s+)?[A-Za-zµΩ][^\s,;]*)?)", plain[m.end():]) if m["num"] else None
+        if not rest:
+            continue
+        try:
+            value = grade._parse(m["num"])[0]
+        except grade.ParseError:
+            continue
+        yield value, rest[1].rstrip(".")

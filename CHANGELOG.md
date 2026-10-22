@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.5.20 — 2026-10-22
+
+Every P0 (most serious) finding of the bug watch fixed: 12, by Claude (two of them reviewed and merged from the bug-fix
+system's Codex work, the rest made here). Waiting for an independent check (VERIFIED) by a second model.
+
+- **Marking that matches the exam** (B-140, B-131, B-057, B-059, B-102, B-100): a wrong value within 1% of the answer no
+  longer earns full marks (32.3 for 2 × 16.0 = 32.0); only a correct rounding does, or 0.1% of drift where the question sets
+  no precision; an answer with too few figures keeps its half mark. A correct unrounded science answer keeps full marks
+  unless the question fixes the figures. A SUVAT derivation needs the right subject (v² =, not v =). An integration constant
+  may have any letter ("the indefinite integral" counts as integration). "39.8 m + 4" is a sum, not 39.8 m.
+- **Pack settings that match the questions** (B-141, B-099, B-093): 18 probability questions accept their listed 2 and 3 s.f.
+  roundings; 8 questions asking for 3 (or 2, or 4) s.f. accept and show exactly that; an uncertainty question no longer asks for
+  working the marking cannot see. A new content check (`content_checks.precision_problems`) keeps these out of every chapter.
+- **The AI never gives the answer away first** (B-072, B-074): a short correct option ("1", "6 N") given as the answer, an
+  option letter in lower case ("the answer is b"), a model short answer word for word, and the answer in another unit
+  (0.4 kN for 400 N) are now held back while the question is open.
+- **Your own words are safe in My Notes** (B-077, B-092): re-teaching an idea adds your new words to your earlier ones instead
+  of replacing them, and a refresh never overwrites a note you have just saved in Obsidian: the edit is redone on your save.
+
 ## 2.5.19 — 2026-10-22
 
 The bug watch's quality-of-life list (bugwatch/codex/QOL.md), done by Claude: 18 of 19, one declined.

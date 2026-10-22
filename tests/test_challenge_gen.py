@@ -123,7 +123,7 @@ def test_agrees_marks_the_blind_solve_with_the_real_grader():
     assert not cg.agrees(q, {"answer": wrong}) and not cg.agrees(q, {"answer": ""}) and not cg.agrees(q, {})
 
 
-@pytest.mark.parametrize("said, ok", [("18 J", True), ("18.1 J", True), ("17.95", True), ("0.018 kJ", True),
+@pytest.mark.parametrize("said, ok", [("18 J", True), ("18.1 J", False), ("17.95", False), ("0.018 kJ", True),  # B-140: 18 exactly
                                       ("18 N", False), ("17 J", False), ("1.8e1 J", True), ("idk", False)])
 def test_agrees_on_typed_answers_uses_the_tolerance_and_units(said, ok):
     q = cg.to_item(raw_typed(), TYPED, SCOPE, random.Random(0))
