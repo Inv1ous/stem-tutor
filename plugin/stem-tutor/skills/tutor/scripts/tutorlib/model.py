@@ -15,7 +15,7 @@ from . import deps
 MASTERY_THETA = 0.8
 CONF_P = {1: 0.25, 2: 0.5, 3: 0.75, 4: 0.95}
 SUCCESS = 0.75
-MODEL_VERSION = "1.1.2"  # bump when the fold changes; saved states from older versions are rebuilt from events once
+MODEL_VERSION = "1.1.3"  # bump when the fold changes; saved states from older versions are rebuilt from events once
 SLIP_DAMPING = 0.5  # a likely slip (fast miss on an item you almost always get) moves θ half as much
 
 
@@ -269,7 +269,8 @@ def apply(state: dict, e: dict) -> dict:
         b[1] += len(e.get("recalled", []))
         b[2] += len(e.get("recalled", [])) + len(e.get("missed", []))
     elif kind == "anki_export":
-        state.setdefault("anki_exported", []).extend(e["cards"])
+        state.setdefault("anki_exported", []).extend(c for c in e["cards"] if c not in state["anki_exported"])
+        state.setdefault("anki_hashes", {}).update(e.get("hashes") or {})  # what each card said when it was exported
         state["anki_last"] = e["ts"]
     elif kind.startswith("exp_"):
         from . import experiments

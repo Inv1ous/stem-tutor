@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.19 (2026-10-22) — done
+
+18 of 19 bug-watch QoL items: real explanations for 18 past-paper MCQs, broken PDF text handled, read-aloud starts sooner, AI warm-up right, notes and screens.
+
 ## v2.5.18 (2026-10-22) — done
 
 Text size: ⌥+/⌥−/⌥0 kept at once, a ⌘ zoom matched exactly at the next start; 14 bug-watch fixes (marking, progress, screens, Almanac, sandbox safety).

@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.5.18_
+_Version 2.5.19_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -10,6 +10,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
 > [!example] New in 2.5 (the latest changes)
+> - **Smaller things that add up** (2.5.19): reading aloud starts sooner and keeps up when you move on; feedback shows **3 of 4 marks** instead of just "not quite", and the summary shows your marks; past-paper explanations on equilibrium and rates now show the working; questions the PDF copied badly point you to the picture; **Home** links every topic to its explanation; the **Mistake journal** keeps the whole question; topic search finds plain spellings such as "Bronsted". Reading speed now goes from 0.7 to 1.5.
 > - **Text size that stays** (2.5.18): press **⌥+** / **⌥−** in the tutor (Option with plus or minus; **⌥0** for normal), or set it in **Settings › Text size**. It is kept the moment you change it. Terminal's own **⌘+** / **⌘−** still works: the tutor cannot see that zoom while it runs, but it measures the text when you quit and starts next time at exactly that size.
 > - **Fourteen fixes from the bug watch** (2.5.18): fairer marking of percentages and significant figures, progress that counts only fully right answers, nothing lost after an interrupted save or a sync, and chats and the Almanac that keep up.
 > - **Lessons are split by day** (2.5.17): the **Lessons** folder has a folder for each day, e.g. `Lessons/2026-10-21/0939 Lesson - Electronegativity and bonding`; the old logs were moved into their days.

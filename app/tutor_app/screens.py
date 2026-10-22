@@ -153,6 +153,15 @@ class HomeScreen(Screen):
             self.query_one("#stats-text", Static).update(self.stats_text(now, model.due_kcs(self.app.tutor.state, now)))
         except Exception:  # noqa: BLE001 - the side box is a courtesy; a redraw never breaks the screen
             pass
+        self.call_after_refresh(self._scroll_cue)
+
+    def _scroll_cue(self) -> None:
+        """When the side box holds more than fits (Your topics, the chapters), say on its frame how to reach it (Q-008)."""
+        try:
+            box = self.query_one("#stats", VerticalScroll)
+            box.border_subtitle = "Tab · PgDn for your topics" if box.max_scroll_y > 0 else ""
+        except Exception:  # noqa: BLE001 - a courtesy, as above
+            pass
 
     def _fill_menu(self) -> None:
         """Put the menu lines in, each wrapped to the menu's width with the words under the words, not under the icon."""
@@ -264,6 +273,7 @@ class HomeScreen(Screen):
         self._fill_menu()
         menu.focus()
         self.query_one("#stats-text", Static).update(self.stats_text(now, due))
+        self.call_after_refresh(self._scroll_cue)
         self.call_after_refresh(self._draw_stats)  # again once the box has its width: the titles wrap to it
         glance = Text(f"✶ {self.streak(now)}-day streak · ↻ {len(due)} due · ◔ {clock.fmt(studied)} today", style=C["soft"])
         if (exam := self.next_exam(now)):
@@ -464,6 +474,15 @@ SEARCH_WORDS = {"chem": "chemistry chem", "phys": "physics phys", "math": "maths
 SUBJECT_FOLDERS = (("chem", "Chemistry 9701"), ("phys", "Physics 9702"), ("math", "Maths"))
 
 
+def searchable(text: str) -> str:
+    """Text as a topic search compares it: lower case, hyphens as spaces, curly apostrophes straight, accents dropped,
+    so "Bronsted" finds Brønsted and "Hess's" finds Hess’s (Q-018). Greek letters stay as they are."""
+    import unicodedata
+    text = text.lower().replace("-", " ").translate(str.maketrans({"’": "'", "‘": "'", "ʼ": "'", "ø": "o", "æ": "ae",
+                                                                   "ß": "ss", "–": " ", "—": " "}))
+    return "".join(c for c in unicodedata.normalize("NFKD", text) if not unicodedata.combining(c))
+
+
 class PickerScreen(ModalScreen):
     """Choose a subtopic (or, for a test, several), as folders: Chemistry, Physics, Maths, each holding a folder per chapter
     (Maths: per module) with the subtopics inside. ⏎ opens a folder, Esc or ← goes up. Typing searches everything at once; Esc clears the search first.
@@ -499,9 +518,9 @@ class PickerScreen(ModalScreen):
         self.hay = {}
         for sub in self.built:
             topic = t.packs.topics.get(self.info[sub]["topic"], {})
-            self.hay[sub] = " ".join([sub, t.packs.subtopics[sub]["title"], topic.get("title", ""), topic.get("spec", ""),
-                                      topic.get("level", ""), SEARCH_WORDS.get(self.info[sub]["subject"], ""),
-                                      self.info[sub]["topic"]]).lower().replace("-", " ")
+            self.hay[sub] = searchable(" ".join([sub, t.packs.subtopics[sub]["title"], topic.get("title", ""),
+                                                 topic.get("spec", ""), topic.get("level", ""),
+                                                 SEARCH_WORDS.get(self.info[sub]["subject"], ""), self.info[sub]["topic"]]))
         self.path = []
         while len(kids := self._folders(self.path)) == 1:  # one folder only: open it, nothing to choose
             self.path.append(kids[0][0])
@@ -565,8 +584,7 @@ class PickerScreen(ModalScreen):
         return line
 
     def _matches(self, sub: str) -> bool:
-        words = self.needle.lower().replace("-", " ").split()
-        return all(w in self.hay[sub] for w in words)
+        return all(w in self.hay[sub] for w in searchable(self.needle).split())
 
     def _crumb(self) -> str:
         names = dict(SUBJECT_FOLDERS)
@@ -1003,7 +1021,10 @@ class SessionScreen(ReadAloud, Screen):
         checking = model.knobs(self.tutor.state)["checking_routine"]
         self.hint_armed = False
         if view["kind"] == "mcq":
-            self.panel(ChoicePanel(view["n"], view.get("options")))
+            options = view.get("options")
+            if (bad := view.get("garbled")) and options:  # a choice that did not copy: read it in the picture (Q-009)
+                options = {k: "(in the picture)" if k in bad.get("options", []) else v for k, v in options.items()}
+            self.panel(ChoicePanel(view["n"], options))
         elif view["kind"] == "structured":
             self.panel(LongPanel(view["n"], checking=checking))
         else:
@@ -1304,10 +1325,10 @@ class SessionScreen(ReadAloud, Screen):
         # guard every open question (normally just the one on screen; a session begun in the chat may hold more)
         keys = [prompts.key_of(self.tutor, int(n)) for n in (self.tutor.session or {}).get("presented", {})]
         model, think = self.app.settings.ai_for(mode)  # chosen in Settings for this kind of help
+        live = cards.Live(w)
         async for chunk in a.stream(prompt, image=prompts.focus_image(self.tutor), model=model, think=think):
             buf += chunk
-            if not keys:
-                w.update(cards.ai(buf))
+            if not keys and live.update(buf):
                 self.query_one("#log", VerticalScroll).scroll_end(animate=False)
         speech = a.last.speech if a.last.ok else ""
         buf = (a.last.text or buf) if a.last.ok else buf  # whole and tidy: a code fence the spoken line opened is gone
@@ -1432,7 +1453,9 @@ class SummaryScreen(ModalScreen):
         due = model.due_kcs(t.state, t.now() + timedelta(days=1))
         a = self.app.ai
         today = t.study_clock.today(t.now().date().isoformat())
-        text = (f"# Session done ✓\n\n**Answered:** {s['answered']}  ·  **Correct:** {s['correct']}  ·  **Accuracy:** {acc}\n\n"
+        earned, total = s.get("marks") or (0, 0)
+        marks = f"  ·  **Marks:** {earned:g} of {total}" if total else ""  # what an examiner would give (Q-017)
+        text = (f"# Session done ✓\n\n**Answered:** {s['answered']}  ·  **Fully right:** {s['correct']} ({acc}){marks}\n\n"
                 + (f"**Session time:** {clock.fmt(s['active_seconds'], True)} on the screen  ·  **True time:** "
                    f"{clock.fmt(s['true_seconds'], True)} from start to finish  ·  **Studied today:** {clock.fmt(today)}\n\n"
                    if "active_seconds" in s else "")
@@ -1543,10 +1566,10 @@ class ChatScreen(ReadAloud, Screen):
         # A paused session keeps its answer guard, including while a reply is streaming.
         keys = [prompts.key_of(t, int(n)) for n in (t.session or {}).get("presented", {})]
         model, think = self.app.settings.ai_for("ask")
+        live = cards.Live(w)
         async for chunk in a.stream(prompts.ask(self.app.tutor, q, None), model=model, think=think):  # with the last questions answered
             buf += chunk
-            if not keys:
-                w.update(cards.ai(buf))
+            if not keys and live.update(buf):
                 log.scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
@@ -1852,7 +1875,7 @@ class SettingsScreen(ModalScreen):
                              + ([] if s.tts_voice in tts.VOICES else [(f"Voice: {s.tts_voice}", s.tts_voice)]),
                              value=s.tts_voice, id="tts_voice", allow_blank=False, compact=True)
             with Horizontal(classes="row"):
-                yield Static("Reading speed (0.8 to 1.3)")
+                yield Static(f"Reading speed ({tts.SPEED_RANGE[0]:g} to {tts.SPEED_RANGE[1]:g})")
                 yield Input(f"{s.tts_speed:g}", id="tts_speed", type="number", compact=True)
             with Horizontal(classes="row"):
                 yield Static("Voice loudness (10 to 100 %)")
@@ -1897,7 +1920,7 @@ class SettingsScreen(ModalScreen):
     @on(Button.Pressed, "#save")
     def save(self) -> None:
         s = self.app.settings
-        old_speech = s.tts_enabled
+        old_speech, old_ai = s.tts_enabled, s.ai
         for key in ("ai", "own_words_feedback", "open_obsidian", "answer_only", "tts_enabled", "tts_auto"):
             setattr(s, key, self.query_one(f"#{key}", Switch).value)
         s.tts_voice = str(self.query_one("#tts_voice", Select).value)
@@ -1931,6 +1954,8 @@ class SettingsScreen(ModalScreen):
             self.app.notify(tts.SETUP_HINT, timeout=8)
         if not s.tts_enabled:
             self.app.speaker.stop()
+        if s.ai and not old_ai:
+            self.run_worker(self.app.ai.warm(), group="reset")  # switched on: start the conversation ahead now
         if s.model != old_model or speech != self.app.ai.speech:
             self.app.ai.speech = speech  # the spoken version is asked for in the brief: a fresh process takes it
             self.run_worker(self.app.ai.reset(), group="reset")

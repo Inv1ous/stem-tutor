@@ -37,7 +37,7 @@ PACKAGES = ["kokoro-onnx", "soundfile"]
 DEFAULT_VOICE = "bf_emma"
 VOICES = {"bf_emma": "Emma (British)", "bf_isabella": "Isabella (British)", "bm_george": "George (British)",
           "bm_lewis": "Lewis (British)", "af_heart": "Heart (American)", "am_michael": "Michael (American)"}
-SPEED_RANGE = (0.8, 1.3)
+SPEED_RANGE = (0.7, 1.5)  # Kokoro stays clear across this; config.Settings.load clamps to the same (Q-010)
 VOLUME_RANGE = (0.1, 1.0)  # a fraction of the voice's own loudness; 1.0 is how it comes out of the file
 SAMPLE_LINE = "This is how loud the voice will be. Is that comfortable?"
 CHUNK_CHARS = 350   # well under Kokoro's 510 phoneme tokens a call
@@ -267,29 +267,6 @@ def ensure_audio(raw_text: str, voice: str = DEFAULT_VOICE, speed: float = 1.0,
         return None
 
 
-def join_wavs(paths: Sequence[Path], out_path: Path, pause: float = PAUSE_SECONDS * 2) -> Path:
-    """Several WAVs of the same kind (Kokoro's: mono 16-bit 24 kHz) → one, with a short pause between, atomically."""
-    frames, params = [], None
-    for i, p in enumerate(paths):
-        with wave.open(str(p), "rb") as w:
-            params = params or w.getparams()
-            if i:
-                frames.append(b"\0" * params.sampwidth * params.nchannels * int(params.framerate * pause))
-            frames.append(w.readframes(w.getnframes()))
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = out_path.with_name(f".{out_path.name}.{os.getpid()}.{threading.get_ident()}.tmp")
-    try:
-        with wave.open(str(tmp), "wb") as w:
-            w.setnchannels(params.nchannels)
-            w.setsampwidth(params.sampwidth)
-            w.setframerate(params.framerate)
-            w.writeframes(b"".join(frames))
-        os.replace(tmp, out_path)
-    finally:
-        tmp.unlink(missing_ok=True)
-    return out_path
-
-
 # ---------------- playing ----------------
 class Player:
     """One sound at a time through macOS `afplay` (no extra library). Never raises."""
@@ -327,17 +304,25 @@ class Player:
         return True
 
     def stop(self) -> None:
+        """Stop the sound now. Waiting for `afplay` to end (up to a second) happens off the caller's thread: a key that
+        stops or starts a reading never waits on it (Q-013)."""
         with self._lock:
             proc, self.proc = self.proc, None
         if proc is not None and proc.poll() is None:
             try:
                 proc.terminate()
-                proc.wait(timeout=1)
-            except (OSError, subprocess.TimeoutExpired):
+            except OSError:
+                return
+
+            def reap() -> None:
                 try:
-                    proc.kill()
-                except OSError:
-                    pass
+                    proc.wait(timeout=1)
+                except subprocess.TimeoutExpired:
+                    try:
+                        proc.kill()
+                    except OSError:
+                        pass
+            threading.Thread(target=reap, name="tts-reap", daemon=True).start()
 
     def wait(self) -> None:
         proc = self.proc
@@ -466,39 +451,71 @@ class Speaker:
                 self._pending, self._working = None, gen
                 once, self._once_volume = self._once_volume, None
             try:
-                path = self._audio(raw, limit)
+                first = True
+                for path, pause in self._segments(raw, limit, gen):
+                    if not self._play_next(path, 0.0 if first else pause, gen, once):
+                        break
+                    first = False
             except Exception as e:  # noqa: BLE001 - the reading thread must never die or reach the screen
-                path = None
                 self._say_once(f"Couldn't read that aloud ({type(e).__name__}).")
             with self._cond:
-                self._working = None
-                if path is not None and gen == self._gen and not self._closed:
-                    self.player.play(path) if once is None else self.player.play(path, volume=once)
+                if self._working == gen:
+                    self._working = None
 
-    def _audio(self, parts: list[str], limit: int | None) -> Path | None:
+    def _stale(self, gen: int) -> bool:
+        with self._cond:
+            return gen != self._gen or self._closed
+
+    def _play_next(self, path: Path, pause: float, gen: int, once: float | None) -> bool:
+        """Play one segment of a reading once the one before has finished. False when a newer line or a stop came first."""
+        while self.player.playing:
+            if self._stale(gen):
+                return False
+            time.sleep(0.05)
+        if pause:
+            time.sleep(pause)
+        with self._cond:  # under the lock: a stop() can't fall between this check and the play
+            if gen != self._gen or self._closed:
+                return False
+            self.player.play(path) if once is None else self.player.play(path, volume=once)
+        return True
+
+    def _segments(self, parts: list[str], limit: int | None, gen: int):
+        """The reading's audio, one ready segment at a time, so the first plays while the rest is made (Q-011): each
+        part found (pre-generated or made before) or made now; a long part not made before is made a chunk at a time.
+        A newer line or a stop leaves the rest unmade (Q-003). Yields (path, pause before it)."""
         s = self.settings()
         voice = getattr(s, "tts_voice", DEFAULT_VOICE) or DEFAULT_VOICE
         speed = float(getattr(s, "tts_speed", 1.0) or 1.0)
         texts = [t for t in (spoken(p) for p in parts) if t]
         if len(texts) == 1 and limit:
             texts = [clip(texts[0], limit)]
-        paths = []
         for text in texts:
-            if (path := self._one(text, voice, speed)) is None:
-                return None
-            paths.append(path)
-        if len(paths) <= 1:
-            return paths[0] if paths else None
-        joined = self.live_dir / f"{key_for(' | '.join(texts), voice, speed)}.wav"
-        if not joined.is_file():
-            join_wavs(paths, joined)
-        return joined
+            pieces = [text] if self._found(key_for(text, voice, speed)) else chunks(text) or [text]
+            for i, piece in enumerate(pieces):
+                if self._stale(gen):
+                    return
+                if (path := self._one(piece, voice, speed)) is None:
+                    return
+                yield path, PAUSE_SECONDS * (1 if i else 2)
+
+    def _found(self, key: str) -> Path | None:
+        """The audio already made for this key (the pre-generated line first); a live one counts as just used (Q-012)."""
+        for folder in (self.audio_dir, self.live_dir):
+            path = folder / f"{key}.wav"
+            if path.is_file():
+                if folder == self.live_dir:
+                    try:
+                        os.utime(path)  # kept by use, not by age: the newest LIVE_KEEP used lines stay
+                    except OSError:
+                        pass
+                return path
+        return None
 
     def _one(self, text: str, voice: str, speed: float) -> Path | None:
         key = key_for(text, voice, speed)
-        for folder in (self.audio_dir, self.live_dir):  # the pre-generated line first: it plays at once
-            if (folder / f"{key}.wav").is_file():
-                return folder / f"{key}.wav"
+        if found := self._found(key):
+            return found
         try:
             path = synthesize(text, self.live_dir / f"{key}.wav", voice, speed, vault=self.vault)
         except TTSUnavailable as e:

@@ -152,6 +152,7 @@ class Claude:
         self.last = Result()
         self._lock = asyncio.Lock()
         self._pending = 0  # one-shot calls in flight, counted against the daily cap before they finish
+        self.wanted = lambda: True  # the app's AI switch (Settings): when off, no process is started ahead (Q-015)
 
     # ---------------- daily usage (kept in the vault so it survives restarts) ----------------
     def today(self) -> dict:
@@ -229,9 +230,11 @@ class Claude:
     async def warm(self) -> None:
         """Start the conversation's process now, before it is needed: Claude Code takes a second or two to start, and
         that is then over before the learner asks. Costs nothing until a message is sent."""
-        if self.status == "off" or getattr(self, "_closed", False):
+        if self.status == "off" or getattr(self, "_closed", False) or not self.wanted():
             return
         async with self._lock:
+            # the conversation asked for next is the default one (Settings' "Ask"), whatever a stream used last (Q-002)
+            self.key = (self.model, self.think)
             if self.proc is None or self.proc.returncode is not None:
                 try:
                     await self._start()

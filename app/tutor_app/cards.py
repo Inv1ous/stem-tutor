@@ -48,9 +48,14 @@ def question(view: dict) -> Panel:
     if view.get("unassisted"):
         tags.append("no hints")
     parts = [md(view.get("stem", ""))]
+    if (bad := view.get("garbled")) and view.get("image"):  # some text did not copy from the paper; the picture is whole
+        from tutorlib.views import unreadable
+        parts = [md(unreadable(view.get("stem", "")))] if bad.get("stem") else parts
+        parts.append(Text("◆ Part of this question did not copy from the paper" + (" (□)" if bad.get("stem") else "")
+                          + ": the picture in Now is exact (press o).", style=C["hint"]))
     if view.get("options") and kind != "mcq":  # MCQ options are listed in the answer panel below
         parts.append(Text("\n".join(f"  {k}  {to_terminal(v)}" for k, v in view["options"].items()), style=C["text"]))
-    if view.get("image"):
+    if view.get("image") and not view.get("garbled"):
         parts.append(Text("◆ This question has a figure: see Now in Obsidian (press o).", style=C["hint"]))
     if view.get("source"):
         parts.append(Text(linearize(view["source"]), style=C["dim"]))
@@ -61,8 +66,11 @@ def feedback(fb: dict, your: str) -> Panel:
     ok = fb.get("correct")
     dont_know = your.strip() in ("?", "I don't know")
     partial = fb.get("partial")
+    marks, score = fb.get("marks") or 1, fb.get("score") or 0
+    earned = round(score * marks)
     title = ("I don't know — here's the answer" if dont_know else "Correct ✓" if ok else
-             "Right value, but a mark lost ✗" if partial else "Not quite ✗")
+             "Right value, but a mark lost ✗" if partial else
+             f"{earned} of {marks} marks ✗" if marks > 1 and 0 < earned < marks else "Not quite ✗")  # Q-017
     style = C["good"] if ok else (C["hint"] if dont_know or partial else C["bad"])
     body = [f"**Your answer:** {literal(your)}  ", f"**Answer:** {literal(str(fb.get('answer', '')))}  "]
     if fb.get("detail"):
@@ -92,6 +100,23 @@ def you(text: str, title: str = "You") -> Panel:
 
 def ai(text: str, title: str = "Tutor (AI)") -> Panel:
     return framed(md(text or "…"), C["ai"], f"[b]{title}[/b]", title_align="left")
+
+
+class Live:
+    """A streaming AI reply's card, redrawn at most every `every` seconds. Each redraw parses the whole reply again
+    (Markdown and maths), so redrawing on every chunk made a long reply cost seconds of CPU (Q-004); the caller draws
+    the finished reply in full once it ends."""
+
+    def __init__(self, widget, every: float = 0.15):
+        self.widget, self.every, self.at = widget, every, 0.0
+
+    def update(self, text: str) -> bool:
+        import time
+        if time.monotonic() - self.at < self.every:
+            return False
+        self.widget.update(ai(text))
+        self.at = time.monotonic()
+        return True
 
 
 def note(text: str, kind: str = "dim") -> Text:

@@ -40,7 +40,8 @@ def export(tutor) -> dict:
     import genanki
 
     state, packs = tutor.state, tutor.packs
-    done = set(state.get("anki_exported", []))
+    done, sent = set(state.get("anki_exported", [])), state.get("anki_hashes", {})
+    hashes: dict[str, str] = {}
     model = genanki.Model(
         MODEL_ID, "STEM Tutor card",
         fields=[{"name": "Front"}, {"name": "Back"}, {"name": "KC"}, {"name": "Source"}],
@@ -54,8 +55,14 @@ def export(tutor) -> dict:
         pack = packs.pack(subtopic) or {}
         for card in pack.get("flashcards", []):
             kc, uid = card["kc"], f"{subtopic}:{card['id']}"  # packs reuse fc1, fc2…: the pack makes an id unique
-            if uid in done or state["kcs"].get(kc, {}).get("n", 0) == 0 or card.get("in_anki"):
+            if state["kcs"].get(kc, {}).get("n", 0) == 0 or card.get("in_anki"):
                 continue
+            h = card_hash(card)
+            if uid in done and sent.get(uid, h) == h:  # exported, and not corrected since (Q-019)
+                if uid not in sent:
+                    hashes[uid] = h  # exported before fingerprints were kept: this is what it says now
+                continue
+            hashes[uid] = h  # new, or corrected: sent again under the same GUID, so Anki updates the note it has
             meta = packs.kc(kc)
             topic = next((t for t in packs.subtopics.values() if t["id"] == subtopic), {})
             name = f"STEM Tutor::{meta['spec']}::{topic.get('title', subtopic)}"
@@ -65,6 +72,8 @@ def export(tutor) -> dict:
                                        tags=["stem-tutor", meta["spec"], kc.replace(".", "_")]))
             new_ids.append(uid)
     if not new_ids:
+        if hashes:  # no file to make, but the fingerprints of cards exported before are worth keeping
+            tutor.log({"type": "anki_export", "cards": [], "path": None, "hashes": hashes})
         return {"cards": 0, "path": None}
     now = tutor.now()
     stem, k = f"Anki/STEM Tutor {now:%Y-%m-%d %H%M}", 1
@@ -75,5 +84,12 @@ def export(tutor) -> dict:
     out = tutor.vault.root / rel
     out.parent.mkdir(parents=True, exist_ok=True)
     genanki.Package(list(decks.values())).write_to_file(str(out))
-    tutor.log({"type": "anki_export", "cards": new_ids, "path": rel})
-    return {"cards": len(new_ids), "path": rel, "decks": sorted(decks)}
+    tutor.log({"type": "anki_export", "cards": new_ids, "path": rel, "hashes": hashes})
+    return {"cards": len(new_ids), "path": rel, "decks": sorted(decks),
+            "updated": sum(1 for uid in new_ids if uid in done)}
+
+
+def card_hash(card: dict) -> str:
+    """What a card says (front, back, source), as a short fingerprint: a correction changes it."""
+    import hashlib
+    return hashlib.sha1("\x1f".join(str(card.get(k, "")) for k in ("front", "back", "source")).encode()).hexdigest()[:12]

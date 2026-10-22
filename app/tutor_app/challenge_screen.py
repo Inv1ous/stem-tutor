@@ -748,11 +748,12 @@ class ChallengeScreen(ReadAloud, Screen):
         w = self.say(cards.ai("…"))
         buf = ""
         model, think = self.app.settings.ai_for("explain")
+        live = cards.Live(w)
         async for chunk in a.stream(prompts.challenge_explain(q["item"], q.get("solution", ""), self.fb["answer"],
                                                               self.fb["response"]), model=model, think=think):
             buf += chunk
-            w.update(cards.ai(buf))
-            self.query_one("#log", VerticalScroll).scroll_end(animate=False)
+            if live.update(buf):
+                self.query_one("#log", VerticalScroll).scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
         else:

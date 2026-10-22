@@ -19,6 +19,7 @@ def vault_path() -> Path:
 
 
 AI_MODELS = ("haiku", "sonnet", "opus")
+SPEED_RANGE = (0.7, 1.5)  # reading aloud: the same as tts.SPEED_RANGE (tts imports the engine; this file must not)
 AI_MODES = ("mark", "explain", "ask")
 
 
@@ -43,7 +44,7 @@ class Settings:
     tts_enabled: bool = False       # read aloud with Kokoro (tts.py); `tutor tts setup` switches it on
     tts_auto: bool = False          # read explanations, feedback and AI replies as they appear
     tts_voice: str = "bf_emma"      # a Kokoro voice (tts.VOICES)
-    tts_speed: float = 1.0          # 0.8 to 1.3
+    tts_speed: float = 1.0          # 0.7 to 1.5
     tts_volume: float = 1.0         # how loud, 0.1 to 1.0 of the voice as recorded (Settings: 10 to 100 %)
 
     @classmethod
@@ -65,7 +66,7 @@ class Settings:
         if "font_size" in good and good["font_size"] and not 6 <= good["font_size"] <= 96:
             good.pop("font_size")  # not a size any terminal uses: keep the profile's
         if "tts_speed" in good:
-            good["tts_speed"] = min(1.3, max(0.8, good["tts_speed"]))
+            good["tts_speed"] = min(SPEED_RANGE[1], max(SPEED_RANGE[0], good["tts_speed"]))
         if "tts_volume" in good:
             good["tts_volume"] = min(1.0, max(0.1, good["tts_volume"]))
         if not good.get("tts_voice", "x").strip():

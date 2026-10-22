@@ -1,5 +1,30 @@
 # Changelog
 
+## 2.5.19 — 2026-10-22
+
+The bug watch's quality-of-life list (bugwatch/codex/QOL.md), done by Claude: 18 of 19, one declined.
+
+- **Explanations that explain** (Q-001): 18 past-paper questions on equilibrium (9701-7.1) and rates (9701-8.1) said only
+  "the official key follows the equilibrium rule in the stem" or similar. Each now gives the deciding rule or working (the
+  ICE amounts, the 2 : 1 ratio, the moles of gas) and why the tempting wrong choice fails.
+- **Past-paper text the PDF broke** (Q-009): a space that came out as control character 3 is a space again (23 questions
+  readable again; repaired at the miner too, so it cannot come back). Where a symbol was lost for good and the question has a
+  scan, the terminal shows the question with □ for the lost symbol and points to the picture, a broken choice reads "(in the
+  picture)", and Now shows the scan first with the broken text folded under "may be wrong".
+- **Read aloud** (Q-003, Q-010, Q-011, Q-012, Q-013): a reading in parts starts as soon as its first part is ready (a long new
+  line after its first chunk) instead of after all of it is made; moving on drops the rest unmade; a line replayed often stays
+  in the cache; stopping never waits on the player; reading speed now 0.7 to 1.5.
+- **AI** (Q-002, Q-004, Q-015): the conversation started ahead is the one "Ask" will use; with AI switched off nothing is started
+  at all; a streaming reply is redrawn a few times a second instead of on every chunk (seconds of CPU on a long reply).
+- **Notes** (Q-006, Q-007, Q-016, Q-019): Home links each subtopic to its explanation; the Mistake journal keeps the whole
+  question and its choices folded under the preview; the week's report reads the log once (about 15 times faster on a long
+  history); a corrected Anki card is exported again under its own id, so Anki updates it.
+- **Screens** (Q-005, Q-008, Q-017, Q-018): Home appears before the iPad inbox is copied; the side box says "Tab · PgDn for your
+  topics" when they are below its edge; feedback says "3 of 4 marks" and the summary shows marks as well as fully right
+  questions; topic search finds "Bronsted" and "Hess's".
+- **Declined** (Q-014, resending a question's context only when it changes): Claude caches an unchanged prompt start, so the
+  saving is small, and a conversation that restarts would lose the question.
+
 ## 2.5.18 — 2026-10-22
 
 Reported by the learner: the text size still had to be set again after quitting. And the first fixes from the bug

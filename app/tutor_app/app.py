@@ -234,6 +234,16 @@ class TutorApp(App):
             pass
         return cell
 
+    def _import_inbox(self) -> None:
+        """Bring the iPad's new PDFs and pictures into the vault (copied, then moved aside there), and say what came."""
+        try:
+            imported = mac.import_ipad_inbox(self.vault, config.ICLOUD_INBOX)
+        except OSError:  # macOS privacy settings can block iCloud Drive: start anyway and say how to allow it
+            self.call_from_thread(self.notify, mac.INBOX_HELP, severity="warning", timeout=15)
+            return
+        if imported:
+            self.call_from_thread(self.notify, f"Imported from your iPad inbox: {', '.join(imported)}")
+
     def _notify_from_thread(self, message: str) -> None:
         """A one-line note from the reading-aloud thread (or from this one)."""
         try:
@@ -271,6 +281,7 @@ class TutorApp(App):
         self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json", speech=self.speech_wanted())
         self.ai.model, self.ai.think = self.settings.ai_for("ask")  # the conversation started ahead is the one asked most
+        self.ai.wanted = lambda: self.settings.ai  # AI switched off: nothing is started ahead
         def warm() -> None:  # load the maths library in the background so the first algebra answer isn't slow
             try:
                 from tutorlib import deps
@@ -279,15 +290,9 @@ class TutorApp(App):
             except Exception:
                 pass
         threading.Thread(target=warm, daemon=True).start()
-        try:
-            imported = mac.import_ipad_inbox(self.vault, config.ICLOUD_INBOX)
-        except OSError:  # macOS privacy settings can block iCloud Drive: start anyway and say how to allow it
-            imported = []
-            self.notify(mac.INBOX_HELP, severity="warning", timeout=15)
-        if imported:
-            self.notify(f"Imported from your iPad inbox: {', '.join(imported)}")
         from .screens import HomeScreen
         self.push_screen(HomeScreen())
+        self.run_worker(self._import_inbox, thread=True, group="inbox")  # Home first: a big iPad file copies behind it (Q-005)
         self._tick_at, self._last_input = time.monotonic(), time.monotonic()
         self.set_interval(1, self._study_tick)  # session time: see tutorlib/clock.py
         if self.profile_missing:

@@ -125,7 +125,7 @@ def test_speed_is_kept_in_range_and_american_voices_speak_american(tmp_path):
     eng = FakeEngine()
     tts.set_engine(eng)
     tts.synthesize("Hello.", tmp_path / "x.wav", voice="af_heart", speed=3)
-    assert eng.calls[0][2:] == (1.3, "en-us")
+    assert eng.calls[0][2:] == (tts.SPEED_RANGE[1], "en-us")
 
 
 def test_not_set_up_is_a_plain_message(tmp_path):
@@ -265,7 +265,7 @@ def test_settings_keep_the_reading_choices(tmp_path):
     (tmp_path / ".tutor/app_settings.json").write_text(json.dumps({"tts_speed": 1, "tts_voice": ""}))
     assert config.Settings.load(tmp_path).tts_speed == 1.0 and config.Settings.load(tmp_path).tts_voice == "bf_emma"
     (tmp_path / ".tutor/app_settings.json").write_text(json.dumps({"tts_speed": 9.0}))
-    assert config.Settings.load(tmp_path).tts_speed == 1.3
+    assert config.Settings.load(tmp_path).tts_speed == tts.SPEED_RANGE[1] == config.SPEED_RANGE[1]
     assert config.Settings().tts_enabled is False  # off until set up
 
 
@@ -600,11 +600,11 @@ def test_settings_rows_for_reading_save_and_fit_60_by_24(tmp_path, monkeypatch):
             assert label.region.right <= box.region.right
             sw.value = True
         scr.query_one("#tts_voice", Select).value = "bm_lewis"
-        scr.query_one("#tts_speed", Input).value = "1.5"
+        scr.query_one("#tts_speed", Input).value = "1.9"
         scr.query_one("#save").press()
         await pilot.pause()
         s = config.Settings.load(v)
-        assert (s.tts_enabled, s.tts_auto, s.tts_voice, s.tts_speed) == (True, True, "bm_lewis", 1.3)
+        assert (s.tts_enabled, s.tts_auto, s.tts_voice, s.tts_speed) == (True, True, "bm_lewis", tts.SPEED_RANGE[1])
         assert app.ai.speech is True  # replies now carry a spoken version
     _run(app, (60, 24), steps)
 
@@ -619,7 +619,8 @@ def test_help_names_the_read_aloud_key(tmp_path, monkeypatch):
     _run(app, (100, 30), steps)
 
 
-def test_a_line_in_parts_uses_each_pre_generated_part_and_joins_them(tmp_path):
+def test_a_line_in_parts_plays_each_part_in_turn_and_the_first_without_waiting_for_the_rest(tmp_path):
+    """Q-011: the parts used to be made and joined before anything played; now the first plays as soon as it is ready."""
     eng = FakeEngine()
     tts.set_engine(eng)
     sp, player, s = _speaker(tmp_path)
@@ -627,13 +628,95 @@ def test_a_line_in_parts_uses_each_pre_generated_part_and_joins_them(tmp_path):
     pre = tts.ensure_audio(explanation, s.tts_voice, s.tts_speed, sp.audio_dir)  # what the foundry would write
     made = len(eng.calls)
     sp.say(["Correct. The answer is 6 N.", explanation])
+    deadline = time.monotonic() + 3
+    while len(player.played) < 1 and time.monotonic() < deadline:
+        time.sleep(0.01)
+    assert len(player.played) == 1 and player.played[0].parent == sp.live_dir  # the verdict, made now, plays first
+    assert sp.active  # the rest is still to come
+    player._on = False  # the verdict has finished
+    while len(player.played) < 2 and time.monotonic() < deadline:
+        time.sleep(0.01)
+    assert player.played[1] == pre and len(eng.calls) == made + 1  # then the pre-generated part, not made again
     assert sp.wait_idle()
-    time.sleep(0.05)
-    assert len(eng.calls) == made + 1 and "Correct" in eng.calls[-1][0]  # only the verdict was made now
-    (out,) = player.played
-    assert out.parent == sp.live_dir and pre.is_file()
-    assert frames(out)[3] == 240 + 240 * made + int(24000 * tts.PAUSE_SECONDS * 2)
     sp.close()
+
+
+def test_a_stop_leaves_the_rest_of_a_long_reading_unmade(tmp_path):
+    """Q-003: moving on used to finish making every part of the old reading before the new one could start."""
+    gate = threading.Event()
+    eng = FakeEngine(gate=gate)
+    tts.set_engine(eng)
+    sp, player, _ = _speaker(tmp_path)
+    sp.say(["Part one.", "Part two.", "Part three."])
+    time.sleep(0.05)
+    sp.stop()
+    gate.set()
+    assert sp.wait_idle()
+    assert len(eng.calls) == 1 and player.played == []  # only the part already being made was finished
+    sp.close()
+
+
+def finish(sp, player, seconds=3.0):
+    """Let each segment of the reading end (the fake player plays until told it has finished) until none is left."""
+    end = time.monotonic() + seconds
+    while time.monotonic() < end and not sp.wait_idle(0.05):
+        player._on = False
+    assert sp.wait_idle(0.1)
+
+
+def test_a_long_new_line_starts_after_its_first_chunk(tmp_path):
+    """Q-011: a long line not made before is made a chunk at a time, each kept for a replay."""
+    eng = FakeEngine()
+    tts.set_engine(eng)
+    sp, player, _ = _speaker(tmp_path)
+    text = " ".join(f"This is sentence {i} of a long explanation." for i in range(30))
+    sp.say(text)
+    deadline = time.monotonic() + 3
+    while not player.played and time.monotonic() < deadline:
+        time.sleep(0.01)
+    calls = len(tts.chunks(tts.spoken(text)))
+    assert calls > 2 and len(player.played) == 1 and len(eng.calls) < calls  # playing long before every chunk is made
+    while len(eng.calls) < calls and time.monotonic() < deadline:  # the next chunk is made while the first plays
+        player._on = False
+        time.sleep(0.02)
+    finish(sp, player)
+    assert len(eng.calls) == calls and len(player.played) == calls  # every chunk played, in turn
+    sp.say(text)  # a replay: every chunk found, nothing made again
+    finish(sp, player)
+    assert len(eng.calls) == calls and len(player.played) == 2 * calls
+    sp.close()
+
+
+def test_a_line_played_again_is_kept_over_older_unused_ones(tmp_path, monkeypatch):
+    """Q-012: the live cache kept the newest files, so a line replayed often could be thrown out first."""
+    eng = FakeEngine()
+    tts.set_engine(eng)
+    sp, player, _ = _speaker(tmp_path)
+    monkeypatch.setattr(tts.Speaker, "LIVE_KEEP", 3)
+
+    def say(line):
+        sp.say(line)
+        assert sp.wait_idle()
+        player._on = False
+        time.sleep(0.02)
+    for line in ("Hot line.", "Two.", "Three."):
+        say(line)
+    say("Hot line.")  # replayed: now the most recently used
+    made = len(eng.calls)
+    say("Four.")  # the oldest unused one goes, not the hot one
+    say("Hot line.")
+    assert len(eng.calls) == made + 1  # only "Four." was made
+    assert len(list(sp.live_dir.glob("*.wav"))) == 3
+    sp.close()
+
+
+def test_stopping_the_player_never_waits_for_afplay(tmp_path):
+    """Q-013: stopping waited up to a second for afplay to end, on the thread of the key that was pressed."""
+    p = tts.Player(binary="/bin/sleep")
+    assert p.play("5")
+    t0 = time.monotonic()
+    p.stop()
+    assert time.monotonic() - t0 < 0.1 and not p.playing
 
 
 def test_the_app_and_the_chapter_script_agree_on_the_key(tmp_path):

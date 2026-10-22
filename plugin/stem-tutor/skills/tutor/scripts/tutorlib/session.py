@@ -301,7 +301,8 @@ class Tutor(LessonMixin):
         summary = {"session": s.get("id"), "answered": s.get("answered", 0), "correct": s.get("correct", 0),
                    "accuracy": round(s["correct"] / s["answered"], 2) if s.get("answered") else None,
                    "kcs_learned": s.get("kcs_learned", []), "unanswered": len(s.get("presented", {})),
-                   "abandoned": abandoned, "active_seconds": round(self.study_clock.session(s.get("id"))), "true_seconds": true_s}
+                   "abandoned": abandoned, "active_seconds": round(self.study_clock.session(s.get("id"))), "true_seconds": true_s,
+                   "marks": [s.get("marks_earned", 0), s.get("marks_total", 0)]}
         self.log({"type": "session_end", **summary})
         if (log := self._lesson_log()) and not abandoned:
             log.tutor(f"Time: {fmt(summary['active_seconds'])} on the screen (session time), {fmt(summary['true_seconds'])} "
@@ -366,6 +367,10 @@ class Tutor(LessonMixin):
             v["source"] = inst["source"].get("ref")
         if inst["kind"] == "structured":
             v["scheme_points"] = len(inst.get("scheme", []))
+        if v.get("image"):  # a scan of the whole question: broken text read from it gives way to the picture (Q-009)
+            bad = [k for k, o in (v.get("options") or {}).items() if views.garbled(o)]
+            if bad or views.garbled(v.get("stem", "")):
+                v["garbled"] = {"stem": views.garbled(v.get("stem", "")), "options": bad}
         return v
 
     def _pick(self, kc: str, target: float, kinds=("mcq", "numeric", "expression", "short")) -> dict | None:
@@ -828,6 +833,8 @@ class Tutor(LessonMixin):
             g = {**g, "correct": False}
         s["answered"] += 1
         s["correct"] += 1 if g["correct"] else 0
+        s["marks_total"] = s.get("marks_total", 0) + p["marks"]  # exam marks as well as whole questions (Q-017)
+        s["marks_earned"] = round(s.get("marks_earned", 0) + g["score"] * p["marks"], 2)
         if p["block"] == "bracket":
             blk = s["blocks"][p["block_idx"]]
             rec = blk["st"][blk.get("asked_for", {}).get(p["item"], p["kcs"][0])]
@@ -865,6 +872,7 @@ class Tutor(LessonMixin):
                     all(e.get(k) == v for k, v in score.items()) for e in self.vault.events())):
                 self.log(score)
         fb = {"n": int(key), "event": ev["id"], "correct": g["correct"], "partial": partial, "score": g["score"],
+              "marks": p["marks"],
               "error_code": g["error"], "response": ev["response"],
               "answer": _display_answer(inst), "explanation": inst.get("explanation"),
               "needs_judgement": g["needs_judgement"], "detail": None if r["kind"] == "idk" else g.get("detail")}

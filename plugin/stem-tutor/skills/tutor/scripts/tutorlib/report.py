@@ -311,6 +311,15 @@ def profile_note(tutor) -> str:
     return _write(tutor, "Profile.md", insights_markdown(tutor, load_ai_summary(tutor)))
 
 
+def _full_question(stem: str, options: dict | None) -> list[str]:
+    """The whole question, folded under the one-line preview, when the preview leaves something out: the numbered
+    statements of a "which are correct" question, a long first line, or the choices (Q-007)."""
+    if stem.startswith("(item ") or (_clip_math(stem) == stem.strip() and not options):
+        return []
+    body = stem.strip().splitlines() + ([""] + [f"**{k}** {v}" for k, v in options.items()] if options else [])
+    return ["  > [!question]- The whole question"] + [f"  > {line}" if line.strip() else "  >" for line in body]
+
+
 def _clip_math(text: str, n: int = 160) -> str:
     """First line, at most n characters, never cutting a $…$ formula in half."""
     lines = (text or "").strip().splitlines()
@@ -376,6 +385,7 @@ def mistakes_note(tutor) -> str:
         groups.setdefault(sub, []).append(
             [f"- **{day}** · {why}" + (" · ✓ right since" if since else ""),
              f"  - Question: {_clip_math(stem) if not stem.startswith('(item ') else 'not recorded'}",
+             *_full_question(stem, (_pack_item(tutor, e["item"]) or {}).get("options")),
              f"  - You: `{you}` · Right answer: {note_answer(key) if key else 'not recorded'}"])
     n = sum(len(v) for v in groups.values())
     L = ["# Mistake journal", "_Every question you got wrong or didn't know, newest first, with the right answer. "

@@ -105,6 +105,7 @@ def _fraction(m: "re.Match[str]") -> str:
 def tidy_script_text(text: str) -> str:
     """Repair what PDF extraction does to a stacked fraction and to charges: `PbS + 1 ₂ ¹ O₂` (the numerator above the
     denominator, read in the wrong order, no slash) becomes `PbS + 1½O₂`, and `SO₄ ²⁻` loses its stray space."""
+    text = text.replace("\x03", " ")  # a past-paper font's space came out as the control character 3 (Q-009)
     text = re.sub(r"(?<=\d) (?=[₀-₉]+\s?[⁰¹²³⁴⁵⁶⁷⁸⁹]+(?![⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻]))", "", text)  # a mixed number: 1 ½
     text = _FRACTION.sub(_fraction, text)
     text = re.sub(r"(?<=[½⅓⅔¼¾⅕⅙⅛]) (?=[A-Z(])", "", text)  # 1½ O₂ -> 1½O₂, as 2O₂ is written

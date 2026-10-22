@@ -305,16 +305,43 @@ def write_now(root: Path, header: str, blocks: list[str], notes: str | None = No
     return _write(root, "Now.md", "\n".join(parts))
 
 
+_SHIFTED = {"concentration", "time", "temperature", "volume", "pressure", "rate", "energy", "mass", "reaction",
+            "enthalpy", "current", "voltage", "distance", "velocity", "force", "length", "amount"}
+
+
+def garbled(text: str) -> bool:
+    """Text a past-paper PDF gave up wrongly: a symbol that came out as a control character (a tick, an arrow, a
+    minus sign), or a font whose letters came out three places on ("FRQFHQWUDWLRQ" for concentration)."""
+    if any(ord(c) < 32 and c not in "\n\r\t" for c in text or ""):
+        return True
+    back = str.maketrans({chr(65 + i): chr(97 + (i - 3) % 26) for i in range(26)})
+    return any(w.translate(back) in _SHIFTED for w in re.findall(r"\b[A-Z]{4,}\b", text or ""))
+
+
+def unreadable(text: str) -> str:
+    """For showing: each symbol the paper lost (a control character) as □, so the rest still reads."""
+    return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "□", text or "")
+
+
 def question_block(view: dict) -> str:
+    if view.get("garbled") and view.get("image"):  # the scan is readable and the text is not: the scan first (Q-009)
+        text = [unreadable(view.get("stem", ""))] + ([""] + [f"**{k}.** {unreadable(v)}" for k, v in view["options"].items()]
+                                                      if view.get("options") else [])
+        body = ["The question is in the picture.", "", f"![[{view['image']}]]", "",
+                "> [!warning]- The text read from the paper may be wrong"] + [f"> {line}" if line else ">" for line in text]
+        return callout("question", f"Q{view['n']} · {_tags(view)}", "\n".join(body))
     body = [view.get("stem", "")]
     if view.get("image"):
         body += ["", f"![[{view['image']}]]"]
     if view.get("options"):
         body += [""] + [f"**{k}.** {v}" for k, v in view["options"].items()]
-    tags = " · ".join(t for t in (view.get("kind", "").upper(), view.get("source"),
+    return callout("question", f"Q{view['n']} · {_tags(view)}", "\n".join(body))
+
+
+def _tags(view: dict) -> str:
+    return " · ".join(t for t in (view.get("kind", "").upper(), view.get("source"),
                                   f"{view.get('marks', 1)} mark" + ("s" if view.get("marks", 1) != 1 else ""),
                                   "no hints" if view.get("unassisted") else "") if t)
-    return callout("question", f"Q{view['n']} · {tags}", "\n".join(body))
 
 
 # ---------------- Home.md ----------------
@@ -339,7 +366,11 @@ def write_home(root: Path, packs, state: dict, now: datetime, recent: list[str] 
                 bar = "█" * round(8 * secure / max(1, len(kcs))) + "░" * (8 - round(8 * secure / max(1, len(kcs))))
                 link = notes_rel(packs, sub).removesuffix(".md")
                 notes = f"[[{link}\\|My notes]]" if (root / notes_rel(packs, sub)).exists() else "–"
-                lines.append(f"| {sub} {packs.subtopics[sub]['title']} | `{bar}` {secure}/{len(kcs)}"
+                label = f"{sub} {packs.subtopics[sub]['title']}"
+                ref = (packs.pack(sub) or {}).get("note") or ""
+                if ref and (root / ref).is_file():  # the subtopic's explanation, open from Home before any notes exist (Q-006)
+                    label = f"[[{ref.removesuffix('.md')}\\|{label}]]"
+                lines.append(f"| {label} | `{bar}` {secure}/{len(kcs)}"
                              f"{' (started)' if started and not secure else ''} | {notes} |")
     if recent:
         lines += ["", "## Recent lessons", ""] + [f"- [[{r.removesuffix('.md')}]]" for r in recent[:8]]

@@ -312,10 +312,11 @@ def weak_spots(tutor) -> list[dict]:
 
 
 # ---------------- week report ----------------
-def state_at(tutor, when: datetime) -> dict:
-    """The learner state as it was just before `when` (the event log replayed up to it)."""
+def state_at(tutor, when: datetime, events: list | None = None) -> dict:
+    """The learner state as it was just before `when` (the event log replayed up to it). `events`: the log already
+    read, in its order, so a report that needs several states reads the file once (Q-016)."""
     s = model.new_state()
-    for e in tutor.vault.events():
+    for e in events if events is not None else tutor.vault.events():
         if datetime.fromisoformat(e["ts"]) < when:
             model.apply(s, e)
     return s
@@ -346,7 +347,7 @@ def week_report(tutor, monday: date) -> dict:
     week, prev = within(start, end), within(before, start)
     answers, earlier = [e for e in week if e["type"] == "answer"], [e for e in prev if e["type"] == "answer"]
     rate = lambda es: sum(model.counts_as_right(e["grade"]) for e in es) / len(es) if es else None  # noqa: E731
-    s0, s1 = state_at(tutor, start), state_at(tutor, end)
+    s0, s1 = state_at(tutor, start, evs), state_at(tutor, end, evs)
     secured = sorted(k for k, v in s1["kcs"].items()
                      if model.is_mastered(v) and not (k in s0["kcs"] and model.is_mastered(s0["kcs"][k])))
     raised = {(kc, e["grade"]["misconception"]) for e in answers if e["grade"].get("misconception") for kc in e["kcs"]}
