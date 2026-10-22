@@ -1757,6 +1757,9 @@ class HelpScreen(ModalScreen):
 **↑ ↓** move · **⏎** choose / continue · **A–D** pick an option · **0** I don't know · **1–4** confidence
 (1 guess, 2 unsure, 3 fairly sure, 4 certain) · **space** tick a box
 
+**⌥+** / **⌥−** text bigger or smaller, **⌥0** normal size: kept for next time (Terminal's own ⌘+ / ⌘− zoom cannot
+be read while the tutor runs, so it is only guessed when you quit).
+
 **ctrl+k** (or **F3**) answer-only view: hides the question and shows just the answer box, for a window beside
 Obsidian; press it again to bring the question back · **ctrl+t** ask the tutor (AI) · **ctrl+r** explain this idea again, differently (AI) · **ctrl+g** hint (not on
 no-hints checks) · **ctrl+o** show the current question or explanation in Obsidian · **ctrl+l** bring back what
@@ -1833,6 +1836,9 @@ class SettingsScreen(ModalScreen):
             with Horizontal(classes="row"):
                 yield Select([(f"Look: {look.LABELS[name]}", name) for name in config.THEMES],
                              value=s.theme, id="theme", allow_blank=False, compact=True)
+            with Horizontal(classes="row"):
+                yield Static("Text size (points; ⌥+ ⌥− anywhere, ⌥0 normal)")
+                yield Input(str(self.app.text_size() or ""), id="font_size", type="integer", compact=True)
             with Horizontal(classes="row"):
                 yield Static("Session length (minutes, 5 to 180)")
                 yield Input(str(s.minutes), id="minutes", type="integer", compact=True)
@@ -1916,6 +1922,9 @@ class SettingsScreen(ModalScreen):
             self.app.notify(f"Session length set to {s.minutes} minutes"
                             + (" (5 to 180)." if str(s.minutes) != typed else "."), timeout=5)
         s.save(self.app.vault)
+        typed_size = self.query_one("#font_size", Input).value.strip()
+        if typed_size.isdigit() and self.app.font_base and int(typed_size) != self.app.text_size():
+            self.app.set_text_size(int(typed_size))  # applied on the tab and kept at once
         self.app.ai.model, self.app.ai.think = s.ai_for("ask")  # the conversation started ahead is the one asked most
         speech = self.app.speech_wanted()
         if s.tts_enabled and not old_speech and not tts.available(self.app.vault):

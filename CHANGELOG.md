@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.5.18 — 2026-10-22
+
+Reported by the learner: the text size still had to be set again after quitting. And the first fixes from the bug
+watch, made by the new bug-fix system (`bin/bugfix`, `/bugfix`).
+
+- **Text size, kept for real** (`TutorApp.set_text_size`, `action_text_size`, `note_zoom`, `match_zoom`; `mac.cell_size`).
+  2.5.17 read the size back with AppleScript, but Terminal's ⌘+ / ⌘− is a zoom AppleScript never sees (measured: it kept
+  reporting the profile's 11 pt through every press), so nothing was ever saved. Now: **⌥+ / ⌥− / ⌥0** in the tutor (or
+  Settings › Text size) set the size on the Terminal tab and save it the moment it changes. A ⌘ zoom is still caught:
+  the character cell is measured from Terminal itself (CSI 14 t / 18 t) at the start and at quit, and the zoomed height is
+  matched exactly at the next start, one point at a time as ⌘+ steps, in the new unzoomed window (heights do not grow
+  evenly, so a ratio alone was a point off). Checked end to end in Terminal.
+- **Marking**: a "%" is accepted only where the question asks for a percentage (B-042); a fraction does not meet a
+  required number of significant figures (B-057).
+- **Progress**: partly self-marked answers no longer count as right days towards mastery (B-067); a session across
+  midnight counts both days (B-091); a re-mark interrupted midway no longer leaves a wrong grade (B-063); an event after a
+  torn write, and an older event synced from another device, are no longer lost (B-012, B-070); a refused save never
+  truncates a note (B-142).
+- **Screens and the Almanac**: the menu chat keeps the latest reply in view and never shows a paused question's answer
+  (B-051); replies typed in a lesson's stuck chat are saved (B-095); failed AI marking gives the tick list back (B-014);
+  the Almanac's live panel follows each answer and re-marks (B-046, B-066).
+- **Safety**: the bug watch's scratch vault can no longer write the real Almanac sync file or pull files from the iPad
+  inbox and Downloads (B-062).
+
 ## 2.5.17 — 2026-10-21
 
 Asked by the learner: the text size had to be set again every time the tutor was started; and the Lessons folder should be

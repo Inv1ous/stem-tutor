@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.18 (2026-10-22) — done
+
+Text size: ⌥+/⌥−/⌥0 kept at once, a ⌘ zoom matched exactly at the next start; 14 bug-watch fixes (marking, progress, screens, Almanac, sandbox safety).
+
 ## v2.5.17 (2026-10-21) — done
 
 Terminal text size (⌘+/⌘−) remembered across starts and look changes; Lessons split into a folder for each day (old logs moved once).

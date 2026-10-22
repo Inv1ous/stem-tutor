@@ -110,7 +110,13 @@ class TutorApp(App):
     BINDINGS = [Binding("ctrl+c", "smart_quit", "Quit", show=False),
                 Binding("ctrl+q", "smart_quit", "Quit", show=False, priority=True),
                 Binding("ctrl+k", "answer_only", "Answer only", show=False, priority=True),
-                Binding("f3", "answer_only", "Answer only", show=False)]
+                Binding("f3", "answer_only", "Answer only", show=False),
+                # ⌥+ ⌥− ⌥0: Option on its own types ≠ – º, and with "Use Option as Meta" it sends alt+…; both work
+                Binding("alt+equals_sign,not_equal_to,alt+plus,plus_minus_sign", "text_size(1)", "Bigger text",
+                        show=False, priority=True),
+                Binding("alt+minus,en_dash", "text_size(-1)", "Smaller text", show=False, priority=True),
+                Binding("alt+0,º", "text_size(0)", "Normal text size", show=False, priority=True)]
+    FONT_RANGE = (8, 36)  # points: smaller is unreadable, larger leaves too few lines for a question
 
     def __init__(self, vault: Path | None = None, claude_binary: str | None = None, open_obsidian: bool | None = None,
                  seed: int | None = None):
@@ -127,7 +133,9 @@ class TutorApp(App):
         self.tty: str | None = None  # the macOS Terminal tab, whose profile follows the look
         self.tty_profile: str | None = None  # the tab's profile before the tutor changed it: put back on exit
         self.font_base: int | None = None  # the tab's text size as its profile has it: the learner's own is measured from it
-        self.font_lock = threading.Lock()  # a profile switch and a look at the size must not interleave (see settle_font_size)
+        self.font_lock = threading.Lock()  # a profile switch and a size change must not interleave (see settle_font_size)
+        self.font_changed = False  # the learner set the size with ⌥+ / ⌥− this time (then a ⌘ zoom cannot be measured)
+        self.zoom_kept: int | None = None  # the size a ⌘ zoom last time was matched to at this start: said once
         self.profile_missing = False
         self.profile_denied = False  # macOS refused the tutor control of Terminal: said once, then left alone
         self._locks = contextlib.ExitStack()
@@ -135,30 +143,96 @@ class TutorApp(App):
 
     def settle_font_size(self) -> None:
         """Put the text size the learner chose back on the Terminal tab. A tab's profile brings its own size every time the
-        tutor switches to it (at the start, and when the look changes), so a ⌘+ or ⌘− is lost; the size is kept in the
-        settings (`remember_font_size`) and set again here, after the switch. `font_base` is the profile's size."""
+        tutor switches to it (at the start, and when the look changes); the size is kept in the settings and set again
+        here, after the switch. `font_base` is the profile's size."""
         with self.font_lock:
             self.font_base = mac.terminal_font_size(self.tty)
             if self.font_base and (want := self.settings.font_size) and want != self.font_base:
                 mac.terminal_font_size(self.tty, want)
 
-    def remember_font_size(self) -> None:
-        """Keep the tab's text size in the settings when it is not the profile's (and forget it when it is: ⌘0)."""
-        with self.font_lock:
-            size = mac.terminal_font_size(self.tty) if self.tty and self.font_base else None
-            if not size:
-                return
-            keep = 0 if size == self.font_base else size
-            if keep != self.settings.font_size:
-                self.settings.font_size = keep
-                try:
-                    self.settings.save(self.vault)
-                except OSError:
-                    pass
+    def text_size(self) -> int | None:
+        """The text size in points now: the learner's, or the look's own."""
+        return self.settings.font_size or self.font_base
 
-    def _remember_font_tick(self) -> None:
-        if self.tty and self.font_base:
-            self.run_worker(self.remember_font_size, thread=True, group="terminal-font", exclusive=True)
+    def set_text_size(self, size: int) -> None:
+        """Set the Terminal tab's text size and keep it at once (so a window closed with its red button loses nothing)."""
+        size = min(self.FONT_RANGE[1], max(self.FONT_RANGE[0], size))
+        self.settings.font_size = 0 if size == self.font_base else size
+        self.font_changed = True
+        try:
+            self.settings.save(self.vault)
+        except OSError:
+            pass  # it still changes; it is just not remembered
+
+        def apply() -> None:
+            with self.font_lock:
+                mac.terminal_font_size(self.tty, size)
+        self.run_worker(apply, thread=True, group="terminal-font", exclusive=True)
+
+    def action_text_size(self, step: int) -> None:
+        """⌥+ / ⌥− / ⌥0: the text bigger, smaller, or the look's normal size. Terminal's own ⌘+ and ⌘− zoom cannot be
+        read by the tutor while it runs (only measured when it ends: `note_zoom`), so these are the keys it keeps exactly."""
+        if not (self.tty and self.font_base):
+            self.notify("Text size works in the macOS Terminal window the tutor opens.", timeout=5)
+            return
+        self.set_text_size(self.font_base if step == 0 else self.text_size() + step)
+        size = self.text_size()
+        self.notify(f"Text size {size} pt" + (" (normal)" if size == self.font_base else " · ⌥0 for normal"), timeout=3)
+
+    def note_zoom(self, before: tuple[float, float] | None, after: tuple[float, float] | None) -> None:
+        """At the end: if the text was zoomed with ⌘+ / ⌘−, keep it. The zoom cannot be read, only seen in the character
+        cell (mac.cell_size, measured at the start and now). Character height does not grow evenly with the size (in
+        Terminal 12 to 13 pt is twice the step of 13 to 14), so the size is guessed here and the height kept, for the
+        next start to match exactly in a window with no zoom (`match_zoom`)."""
+        if not (before and after and self.font_base) or self.font_changed or abs(after[1] - before[1]) < 0.3:
+            return
+        size = min(self.FONT_RANGE[1], max(self.FONT_RANGE[0], round(self.text_size() * after[1] / before[1])))
+        self.settings.font_size = 0 if size == self.font_base else size
+        self.settings.font_zoom_cell = round(after[1], 3)
+        try:
+            self.settings.save(self.vault)
+        except OSError:
+            pass
+
+    def match_zoom(self, cell: tuple[float, float] | None, measure, settle: float = 0.25) -> tuple[float, float] | None:
+        """At the start, before the app's screen: last time ended zoomed, so step the size (one point at a time, as ⌘+
+        does) until the character height is the one measured then. A window still zoomed with ⌘ shows no size the tutor
+        sets: then nothing can be matched, and the height is kept for a later start. Returns the cell as it is now."""
+        target = self.settings.font_zoom_cell
+        if not (target and cell and self.font_base):
+            return cell
+
+        def try_size(size: int) -> tuple[float, float] | None:
+            mac.terminal_font_size(self.tty, size)
+            time.sleep(settle)
+            return measure()
+        size = self.text_size()
+        probe = size + (1 if size < self.FONT_RANGE[1] else -1)
+        seen = try_size(probe)  # does a size set here show at all?
+        if not seen or abs(seen[1] - cell[1]) < 0.01:
+            mac.terminal_font_size(self.tty, size)  # still zoomed with ⌘ (or not measurable): try again next time
+            return cell
+        if abs(seen[1] - target) < abs(cell[1] - target):
+            size, cell = probe, seen
+        else:
+            cell = try_size(size) or cell
+        for _ in range(8):  # one point at a time towards the height, stopping at the nearest
+            if abs(cell[1] - target) < 0.05:
+                break
+            nxt = min(self.FONT_RANGE[1], max(self.FONT_RANGE[0], size + (1 if cell[1] < target else -1)))
+            now = try_size(nxt) if nxt != size else None
+            if not now or abs(now[1] - target) >= abs(cell[1] - target):
+                mac.terminal_font_size(self.tty, size)  # passed it: the one before was nearer
+                break
+            size, cell = nxt, now
+        self.settings.font_size = 0 if size == self.font_base else size
+        self.settings.font_zoom_cell = 0.0
+        self.zoom_kept = size
+        try:
+            self.settings.save(self.vault)
+        except OSError:
+            pass
+        return cell
 
     def _notify_from_thread(self, message: str) -> None:
         """A one-line note from the reading-aloud thread (or from this one)."""
@@ -216,11 +290,13 @@ class TutorApp(App):
         self.push_screen(HomeScreen())
         self._tick_at, self._last_input = time.monotonic(), time.monotonic()
         self.set_interval(1, self._study_tick)  # session time: see tutorlib/clock.py
-        self.set_interval(15, self._remember_font_tick)  # a closed window cannot be asked at the end: keep the size meanwhile
         if self.profile_missing:
             self.notify(mac.LOOK_HELP, timeout=15)
         if self.profile_denied:
             self.notify(mac.AUTOMATION_HELP, timeout=15)
+        if self.zoom_kept:  # last time ended zoomed with ⌘+ / ⌘−: say once what was kept
+            self.notify(f"Your ⌘+ / ⌘− text size from last time is kept: {self.zoom_kept} pt. ⌥+ and ⌥− change it here "
+                        "and keep it at once.", timeout=10)
         if self.size.width < 90 or self.size.height < 28:
             self.notify("Tip: make this window bigger (or full-screen) for the best view.", timeout=8)
 

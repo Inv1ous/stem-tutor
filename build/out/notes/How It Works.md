@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.5.17_
+_Version 2.5.18_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -10,7 +10,9 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
 > [!example] New in 2.5 (the latest changes)
-> - **Your text size stays, and Lessons are split by day** (2.5.17): make the text bigger or smaller in Terminal with **⌘+** and **⌘−** and the tutor remembers it for next time (**⌘0** goes back to the normal size). The **Lessons** folder now has a folder for each day, e.g. `Lessons/2026-10-21/0939 Lesson - Electronegativity and bonding`; the old logs were moved into their days.
+> - **Text size that stays** (2.5.18): press **⌥+** / **⌥−** in the tutor (Option with plus or minus; **⌥0** for normal), or set it in **Settings › Text size**. It is kept the moment you change it. Terminal's own **⌘+** / **⌘−** still works: the tutor cannot see that zoom while it runs, but it measures the text when you quit and starts next time at exactly that size.
+> - **Fourteen fixes from the bug watch** (2.5.18): fairer marking of percentages and significant figures, progress that counts only fully right answers, nothing lost after an interrupted save or a sync, and chats and the Almanac that keep up.
+> - **Lessons are split by day** (2.5.17): the **Lessons** folder has a folder for each day, e.g. `Lessons/2026-10-21/0939 Lesson - Electronegativity and bonding`; the old logs were moved into their days.
 > - **Fractions and charges read properly** (2.5.16): a few past-paper answers had a fraction broken in copying (`PbS + 1 ₂ ¹ O₂` for PbS + 1½O₂) or a stray space in a charge (`SO₄ ²⁻`). They are fixed in the chapters, and a new check keeps them out of future ones.
 > - **The AI sees the question you are on, diagram included** (2.5.15): asking the tutor, explaining again and "why is that right?" now send the whole question in front of you (not just its first lines), where it comes from (the past paper), its marks, what you answered and the right answer once marked, and the **diagram itself** as a picture, so you no longer have to copy a diagram question out. The picture goes once per conversation, so asking again costs no more. **Settings** now chooses the **model** (Haiku, Sonnet or Opus) and whether it **thinks first**, separately for marking, explaining and asking; everything starts on Haiku without thinking, the cheapest.
 > - **True time and session time, and time studied today** (2.5.14): the bar in a lesson shows **◷ true** time (the wall clock from when the session began: it keeps running while the terminal is closed) and **◔ session** time (what you really spent on the screen: it stops while the terminal is closed, and after three minutes with no key). The summary, the lesson record and the session note in Obsidian show both. The menu has a line **Studied today** (all study screens added up, with how many sessions), the home side box and, in a short window, the one-line summary show it too, and so does **Today**.

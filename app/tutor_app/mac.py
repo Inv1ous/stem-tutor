@@ -99,6 +99,50 @@ def terminal_font_size(tty: str | None, set_to: int | None = None) -> int | None
     return int(size) if size.isdigit() else None
 
 
+def cell_size() -> tuple[float, float] | None:
+    """One character cell's width and height in points, asked of Terminal itself: the text area's size (CSI 14 t)
+    over its columns and rows (CSI 18 t). ⌘+ and ⌘− zoom the text without changing the font size Terminal reports to
+    AppleScript, but they do change this. Only while the app's own screen is not running (the answers arrive as typed
+    input). None when it cannot be asked."""
+    if os.environ.get("TERM_PROGRAM") != "Apple_Terminal":
+        return None
+    import select
+    import termios
+    import time
+    import tty
+    try:
+        fd = os.open("/dev/tty", os.O_RDWR)
+    except OSError:
+        return None
+    answers = []
+    try:
+        old = termios.tcgetattr(fd)
+        tty.setraw(fd)
+        try:
+            for query in (14, 18):
+                os.write(fd, f"\x1b[{query}t".encode())
+                buf, end = b"", time.monotonic() + 1.0
+                while time.monotonic() < end and not re.search(rb"\[\d+;\d+;\d+t", buf):
+                    if select.select([fd], [], [], 0.1)[0]:
+                        buf += os.read(fd, 64)
+                answers.append(buf)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old)
+    except (OSError, termios.error):
+        return None
+    finally:
+        os.close(fd)
+    return cell_from(*answers)
+
+
+def cell_from(text_area: bytes, grid: bytes) -> tuple[float, float] | None:
+    """(width, height) of a cell from Terminal's two answers: ESC[4;height;widtht and ESC[8;rows;columnst."""
+    a, g = re.search(rb"\x1b\[4;(\d+);(\d+)t", text_area), re.search(rb"\x1b\[8;(\d+);(\d+)t", grid)
+    if not (a and g) or not int(g[1]) or not int(g[2]):
+        return None
+    return int(a[2]) / int(g[2]), int(a[1]) / int(g[1])
+
+
 def wants_truecolor(env, theme: str) -> bool:
     """macOS Terminal has drawn 24-bit colour since macOS 26 (build 470) without saying so, and the app then falls back
     to 256 colours. Night and Day are drawn in their real colours; Classic keeps what it always had."""

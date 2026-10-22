@@ -38,7 +38,8 @@ class Settings:
     minutes: int = 40               # default session length
     answer_only: bool = False       # sessions and challenges show only the answer box (ctrl+k); the question is in Obsidian
     theme: str = "classic"          # night, day or classic; `tutor look` sets night once Terminal is set up
-    font_size: int = 0              # the Terminal tab's text size in points, as set with ⌘+ and ⌘−; 0 = the profile's own
+    font_size: int = 0              # the Terminal tab's text size in points (⌥+ / ⌥− in the tutor); 0 = the profile's own
+    font_zoom_cell: float = 0.0     # last time ended zoomed with ⌘+ / ⌘−: the character height measured, matched at the next start
     tts_enabled: bool = False       # read aloud with Kokoro (tts.py); `tutor tts setup` switches it on
     tts_auto: bool = False          # read explanations, feedback and AI replies as they appear
     tts_voice: str = "bf_emma"      # a Kokoro voice (tts.VOICES)
@@ -54,7 +55,7 @@ class Settings:
             data = {}
         default = cls()
         data = data if isinstance(data, dict) else {}
-        for key in ("tts_speed", "tts_volume"):
+        for key in ("tts_speed", "tts_volume", "font_zoom_cell"):
             if type(data.get(key)) is int:  # 1 written by hand is 1.0
                 data[key] = float(data[key])
         good = {k: v for k, v in data.items()
