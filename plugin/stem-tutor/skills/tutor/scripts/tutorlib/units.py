@@ -212,7 +212,7 @@ def _is_unit(word: str) -> bool:
     return False
 
 
-_ARITHMETIC = re.compile(r"^[-+−×*/÷=^]|[-+−×*/÷=^]\s*\d")  # words after a unit that carry on calculating
+_ARITHMETIC = re.compile(r"^[-+−×*/÷=^]|[-+−×*/÷=^]\s*\d|(?:^|\s)[xX]\s*\d")  # words after a unit that carry on calculating (x 2)
 
 
 def unit_readings(given: str, expected: str) -> tuple[list[float], bool]:
@@ -223,6 +223,8 @@ def unit_readings(given: str, expected: str) -> tuple[list[float], bool]:
     what was written cannot be read as the right kind of unit are capitals forgiven (kw, KW, pa) and spelled-out
     names accepted (kilowatts, joules per second); "mw" may then be mW or MW, and the caller sees which of them
     makes the answer right."""
+    if re.search(r"[*/×÷]\s*\d", plain_text(given)):  # "m * 3": a product or quotient, not a compound unit
+        return [], False
     words = plain_text(given).split()
     for k in range(len(words), 0, -1):
         if k < len(words) and _is_unit(words[k]):

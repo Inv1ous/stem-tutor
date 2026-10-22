@@ -44,7 +44,8 @@ def test_too_few_figures_is_still_the_right_value_marked_down_and_drift_is_forgi
 
 
 @pytest.mark.parametrize("typed,right", [("39.8 m", True), ("40 m", True), ("39.8 m of height", True),
-                                         ("39.8 m + 4", False), ("39.8 m = 9", False), ("39.8 m - 1", False)])
+                                         ("39.8 m + 4", False), ("39.8 m = 9", False), ("39.8 m - 1", False),
+                                         ("39.8 m * 3", False), ("39.8 m / 2", False), ("39.8 m x 2", False), ("39.8 m X 2", False), ("39.8 m x2", False)])  # the letter x too
 def test_a_sum_after_the_unit_is_not_a_comment(typed, right):
     """B-100: "39.8 m + 4" was read as 39.8 m with a comment and earned full marks."""
     assert (score(published("9702", "9702-5.1", "9702-5.1-r03"), typed) == 1.0) is right
