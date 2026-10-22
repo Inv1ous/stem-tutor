@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Live board for the bug hunt: every finding in codex/BUGS.md with its latest status from FIXES.md, then the
-quality-of-life ideas in codex/QOL.md and the latest sweep lines.
+quality-of-life ideas in codex/QOL.md still open (all of them with --all; one is closed by `- HH:MM Q-005 DONE · …` or
+DECLINED in FIXES.md) and the latest sweep lines.
 
   python bugwatch/bugs.py              open findings (not FIXED/VERIFIED/REJECTED/DUPLICATE/DEFERRED)
   python bugwatch/bugs.py --all        everything
@@ -23,6 +24,7 @@ BUGS, FIXES, QOL = HERE / "codex" / "BUGS.md", HERE / "FIXES.md", HERE / "codex"
 HEAD = re.compile(r"^### (B-\d+) · (P[0-3]) · ([^·]+?) · (.+)$")
 LOG = re.compile(r"^- (\d\d:\d\d) (SWEEP|VERIFIED|REOPEN|REPLY)\b ?(B-\d+)?")
 FIX = re.compile(r"^- (\d\d:\d\d) (?:(B-\d+) (CONFIRMED|FIXED|REJECTED|DUPLICATE|DEFERRED|NEEDS-INFO)\b|LAST-READ (B-\d+))")
+QOL_DONE = re.compile(r"^- \d\d:\d\d (Q-\d+) (DONE|DECLINED)\b")
 REQUIRED = ("Found", "Where", "Repro", "Expected", "Actual", "Impact")
 DONE = {"FIXED", "VERIFIED", "REJECTED", "DUPLICATE", "DEFERRED"}
 COLOUR = {"P0": "\033[1;31m", "P1": "\033[33m", "P2": "\033[36m", "P3": "\033[2m"}
@@ -117,10 +119,13 @@ def render(args) -> str:
     out.append(" · ".join(f"{k.lower()} {v}" for k, v in sorted(counts.items())) or "no findings yet")
     if problems:
         out.append(f"{len(problems)} format problem(s): run with --check")
-    ideas = [(n, l) for n, l in lines_outside_fences(QOL) if re.match(r"### Q-\d+ · ", l)]
-    if ideas:
-        out += ["", f"QUALITY OF LIFE ({len(ideas)})"]
-        out += [f"{l[4:].split(' · ')[0]:<6} {' · '.join(l[4:].split(' · ')[1:])[:100]}" for _, l in ideas[-12:]]
+    ideas = [l[4:].split(" · ", 1) for _, l in lines_outside_fences(QOL) if re.match(r"### Q-\d+ · ", l)]
+    if ideas:  # an idea is open until FIXES.md gives it a verdict: `- HH:MM Q-005 DONE · …` (or DECLINED)
+        verdict = {m[1]: m[2] for _, l in lines_outside_fences(FIXES) if (m := QOL_DONE.match(l))}
+        shown = ideas if args.all else [i for i in ideas if i[0] not in verdict]
+        n_open = sum(i[0] not in verdict for i in ideas)
+        out += ["", f"QUALITY OF LIFE ({n_open} open of {len(ideas)})"]
+        out += [f"{q:<6} {verdict.get(q, 'OPEN'):<9} {rest[:94]}" for q, rest in shown]
     sweeps = [l for _, l in lines_outside_fences(BUGS) if re.match(r"- \d\d:\d\d (SWEEP|REPLY)\b", l)]
     if sweeps:
         out += ["", "LATEST ACTIVITY"] + [l[2:][:118] for l in sweeps[-4:]]
