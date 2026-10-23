@@ -81,9 +81,21 @@ def _key(ms: Path) -> dict[int, str]:
     return {int(n): a for n, a in re.findall(r"(?m)^\s*(\d{1,2})\s*\n\s*([A-D])\s*\n\s*1\s*$", text)}
 
 
+def _shared_options(doc: pymupdf.Document) -> dict[str, str] | None:
+    """Keep the Section B response table even on pages where it is not repeated."""
+    options = {"A": "1, 2 and 3 are correct", "B": "1 and 2 only are correct",
+               "C": "2 and 3 only are correct", "D": "1 only is correct"}
+    table = "The responses A to D should be selected on the basis of A B C D " + " ".join(options.values())
+    for page in doc:
+        if table in " ".join(page.get_text().split()):
+            return options
+    return None
+
+
 def mine_paper(qp: Path, ms: Path, code: str) -> list[dict]:
     key = _key(ms)
     doc = pymupdf.open(qp)
+    shared = _shared_options(doc) if code == "9701" else None
     anchors = []  # (page, y, n)
     want = 1
     for pno, page in enumerate(doc):
@@ -100,13 +112,16 @@ def mine_paper(qp: Path, ms: Path, code: str) -> list[dict]:
     for i, (pno, y0, n) in enumerate(anchors):
         page = doc[pno]
         nxt = anchors[i + 1] if i + 1 < len(anchors) else None
-        y1 = nxt[1] - 4 if nxt and nxt[0] == pno else 770
-        rect = pymupdf.Rect(40, y0 - 4, page.rect.width - 40, y1)
+        y1 = nxt[1] - 4 if nxt and nxt[0] == pno else page.rect.height
+        # Graph endpoints cross the old side margins; answer rows can extend below y=770.
+        rect = pymupdf.Rect(0, y0 - 4, page.rect.width, y1)
         lines, ok, opts, cur = [], True, {}, None
         blocks = page.get_text("dict", clip=rect)["blocks"]
         for b in blocks:  # copyright notice below the last question: keep it out of the crop too
-            if BOILER.search(" ".join(s["text"] for ln in b.get("lines", []) for s in ln["spans"])) and b["bbox"][1] > y0 + 20:
+            btext = " ".join(s["text"] for ln in b.get("lines", []) for s in ln["spans"]).strip()
+            if (BOILER.search(btext) or FOOTER.match(btext)) and b["bbox"][1] > y0 + 20:
                 rect.y1 = min(rect.y1, b["bbox"][1] - 2)
+        blocks = page.get_text("dict", clip=rect)["blocks"]
         for b in blocks:
             btext = " ".join(s["text"] for ln in b.get("lines", []) for s in ln["spans"])
             if BOILER.search(btext) or FOOTER.match(btext.strip()):
@@ -135,6 +150,8 @@ def mine_paper(qp: Path, ms: Path, code: str) -> list[dict]:
         images = [im for im in page.get_image_info() if pymupdf.Rect(im["bbox"]).intersects(rect)]
         tabular = len(opts) < 4 or any(not v for v in opts.values())
         figure = bool(drawings or images) or tabular or not ok
+        if shared and 31 <= n <= 40:
+            opts = shared.copy()
         qid = f"{stem}_q{n}"
         crop = None
         if figure:
