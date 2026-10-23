@@ -65,7 +65,8 @@ def test_a_stage_or_tick_the_learner_changed_is_not_put_back():
     del S["done"]["6-phys1"]
     S, _ = merged(S, {**first, "stamp": "b", "done": {**first["done"], "7-phys1": 1}, "stage": 2})
     assert S["stage"] == 3 and S["done"] == {"5-phys1": 1, "7-phys1": 1}
-    assert S["tutor"]["done"] == {"5-phys1": 1, "6-phys1": 1, "7-phys1": 1}
+    assert S["tutor"]["done"] == {"5-phys1": 1, "7-phys1": 1}
+    assert S["tutor"]["seen"]["6-phys1"] == 1  # remember the offer without claiming a later learner tick
 
 
 @pytest.mark.skipif(not shutil.which("node"), reason="needs Node to run the page's script")

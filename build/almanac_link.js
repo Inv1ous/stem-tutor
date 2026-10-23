@@ -1,8 +1,22 @@
 /* STEM Tutor sync. The tutor writes __FILE__ beside this page. This merges what it knows into the planner's own
    state: objectives it has seen you finish, a colour for every syllabus topic, paper scores, study days, mistake
    counts, the week's retrospective and the paper stage. What you tick, type or write yourself is kept. */
+function tutorReconcile(S) {
+  const mine = S.tutor;
+  if (!mine || !mine.done) return false;
+  let changed = false;
+  for (const id of Object.keys(mine.done))
+    if (!(S.done || {})[id]) {
+      /* Once taken away, a tick the learner gives back is theirs. Never offer it again. */
+      (mine.seen = mine.seen || {})[id] = 1;
+      delete mine.done[id];
+      changed = true;
+    }
+  return changed;
+}
 function tutorMerge(S, T) {
-  if (!T || !T.stamp || (S.tutor && S.tutor.stamp === T.stamp)) return false;
+  const changed = tutorReconcile(S);
+  if (!T || !T.stamp || (S.tutor && S.tutor.stamp === T.stamp)) return changed;
   const mine = S.tutor = S.tutor || {}, added = {};
   for (const key of ["done", "rag", "scores", "wall", "retro", "err"]) S[key] = S[key] || {};
   for (const id of Object.keys(T.done || {}))  /* a tick is added once: one you take away stays off */
@@ -98,6 +112,7 @@ function tutorDraw(T) {
 if (typeof document !== "undefined") (function () {
   let kept = S.tutor;  /* what the tutor last merged: "Reset everything" must not bring it straight back */
   function pull() {
+    if (tutorReconcile(S)) save();
     kept = S.tutor || kept;
     const el = document.createElement("script");
     el.src = "__FILE__?" + Date.now();
@@ -118,6 +133,7 @@ if (typeof document !== "undefined") (function () {
   let queued = false;  /* the page redraws its lists often: put the progress back after each redraw */
   if (typeof MutationObserver !== "undefined" && document.body)
     new MutationObserver(() => {
+      if (tutorReconcile(S)) save();
       if (queued) return;
       queued = true;
       requestAnimationFrame(() => { queued = false; tutorDecorate(window.TUTOR_SYNC); });
