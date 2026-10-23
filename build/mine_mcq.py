@@ -16,7 +16,7 @@ from pathlib import Path
 import pymupdf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from content_checks import tidy_script_text  # noqa: E402
+from content_checks import DEBRIS, tidy_script_text  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 PAPERS, WORK, ASSETS = ROOT / "sources/papers", ROOT / "build/work/mcq", ROOT / "build/out/assets/mcq"
@@ -36,7 +36,8 @@ SUBOK = set("0123456789+-–−=()aehklmnopstx ")
 
 
 def _glyphs(span) -> tuple[str, bool]:
-    ok, out = True, []
+    # Shifted PDF fonts can yield controls instead of digits: keep a source crop.
+    ok, out = not bool(DEBRIS.search(span["text"])), []
     for ch in span["text"]:
         cp = ord(ch)
         if 0xF000 <= cp <= 0xF0FF:
