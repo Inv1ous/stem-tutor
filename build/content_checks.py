@@ -109,6 +109,11 @@ def tidy_script_text(text: str) -> str:
     text = text.replace("\x03", " ")  # a past-paper font's space came out as the control character 3 (Q-009)
     text = re.sub(r"(?<=\d) (?=[₀-₉]+\s?[⁰¹²³⁴⁵⁶⁷⁸⁹]+(?![⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻]))", "", text)  # a mixed number: 1 ½
     text = _FRACTION.sub(_fraction, text)
+    # the numerator read first, then the denominator, with no superscript: `1 ₂ FL₁`, `– ¹ ₂ gT²` are halves
+    text = re.sub(r"(?<![\w.⁰¹²³⁴⁵⁶⁷⁸⁹₀-₉])[1¹] ([₂-₉])(?![₀-₉⁰¹²³⁴⁵⁶⁷⁸⁹])",
+                  lambda m: _VULGAR.get((1, int(m.group(1).translate(str.maketrans(_SUBS, "0123456789")))),
+                                        m.group(0)), text)
+    text = re.sub(r"(?<=[½⅓⅔¼¾⅕⅙⅛]) \. (?=\S)", "", text)  # ½ . λ: the fraction bar's dot -> ½λ
     text = re.sub(r"(?<=[½⅓⅔¼¾⅕⅙⅛]) (?=[A-Z(])", "", text)  # 1½ O₂ -> 1½O₂, as 2O₂ is written
     return re.sub(r"(?<=[₀-₉]) (?=[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻])", "", text)  # SO₄ ²⁻ -> SO₄²⁻ ; m₁u₁ ² -> m₁u₁²
 

@@ -223,3 +223,14 @@ def test_no_pack_in_the_repo_has_a_broken_fraction_or_charge_space():
         if isinstance(pack, dict) and (found := cc.stacked_problems(pack)):
             bad.append((Path(f).name, found[0]))
     assert not bad, bad
+
+
+def test_a_half_read_numerator_first_is_repaired():
+    """Asked by the learner: options read `1 ₂ FL¹` and `1 ₂ F(L¹ – L⁰)` — a half whose 1 came out before its 2, with
+    no superscript, which the rule for `1 ₂ ¹` missed."""
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "build"))
+    import content_checks as cc
+    assert cc.tidy_script_text("1 ₂ Fr") == "½Fr" and cc.tidy_script_text("– ¹ ₂ gT²") == "– ½ gT²"
+    assert cc.tidy_script_text("the path difference is ¹ ₂ . λ") == "the path difference is ½λ"
+    assert cc.tidy_script_text("x₁ ₂") == "x₁ ₂" and cc.tidy_script_text("11 ₂") == "11 ₂"  # not a fraction
