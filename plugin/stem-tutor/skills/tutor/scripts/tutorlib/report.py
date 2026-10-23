@@ -8,7 +8,7 @@ from collections import Counter
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
-from . import almanac, clock, experiments, model, policy, views
+from . import almanac, clock, experiments, grade, model, policy, views
 from .packs import _fill
 from .store import read_json, write_json
 from .store import write_text as _write_text
@@ -356,10 +356,17 @@ def _rebuilt_key(tutor, e: dict) -> str | None:
         return None
 
 
+def _error_tags(events: list[dict]) -> dict[str, str]:
+    """Reports use the learner's latest reason, without changing the original grader diagnosis."""
+    return {e["target"]: e["error"] for e in events
+            if e["type"] == "tag" and e.get("error") in grade.ERROR_CODES}
+
+
 def mistakes_note(tutor) -> str:
     """Every question answered wrong or not known, by subtopic, newest first, with the right answer."""
     from . import insights
-    answers = [e for e in tutor.vault.events() if e["type"] == "answer"]
+    events = list(tutor.vault.events())
+    answers, tags = [e for e in events if e["type"] == "answer"], _error_tags(events)
     right_later: set[str] = set()
     groups: dict[str, list[list[str]]] = {}
     fixed = 0
@@ -375,7 +382,9 @@ def mistakes_note(tutor) -> str:
                 [f"- **{day}** · {paper} Q{q}: {e['response']} marks" + (" · ✓ full marks since" if since else "")])
             continue
         g, kc = e["grade"], (e.get("kcs") or [""])[0]
-        why = ("didn't know" if e.get("response") == "don't know"
+        tag = tags.get(e.get("id"))
+        why = (insights.MISTAKES.get(tag, ERRFAM.get(tag, "wrong answer")) if tag
+               else "didn't know" if e.get("response") == "don't know"
                else f"misconception: “{insights._mis_text(tutor.packs, kc, g['misconception'])}”" if g.get("misconception")
                else insights.MISTAKES.get(g.get("error") or "", "wrong answer"))
         stem = e.get("stem") or _item_stem(tutor, e["item"], e.get("params"))
@@ -467,7 +476,9 @@ def _retro(tutor, events: list[dict], week: int) -> dict | None:
     if not answers:
         return None
     right = sum(model.counts_as_right(e["grade"]) for e in answers)
-    kinds = Counter(_errfam(e["grade"]["error"], e.get("subject") or "") for e in answers if e["grade"].get("error"))
+    tags = _error_tags(events)  # a later correction still describes the week the answer was given
+    kinds = Counter(_errfam(error, e.get("subject") or "") for e in answers
+                    if (error := tags.get(e.get("id"), e["grade"].get("error"))))
     missed = Counter(k for e in answers if not model.counts_as_right(e["grade"]) for k in e["kcs"])
     weakest = [f"{tutor.packs.kc(k)['title']} ({n})" for k, n in missed.most_common(3) if k in tutor.packs.kcs]
     gaps = [tutor.packs.kc(k)["title"] for k in tutor.state["gaps"] if k in tutor.packs.kcs][:3]
