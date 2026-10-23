@@ -5,7 +5,6 @@ the syllabus model, sessions and reviews are never touched."""
 from __future__ import annotations
 
 import random
-import re
 from datetime import datetime, timezone
 
 from rich.text import Text
@@ -19,6 +18,7 @@ from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
 from tutorlib import shortcuts as sc
+from tutorlib.grade import ParseError, parse_quantity
 
 from .look import C
 from .panels import TickList
@@ -44,8 +44,12 @@ def items(v) -> list[str]:
 
 
 def number(s) -> float | None:
-    m = re.search(r"[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?", str(s).replace(",", "").replace("−", "-"))
-    return float(m.group(0)) if m else None
+    # Read the whole value: a fraction is not just its numerator.
+    try:
+        value, unit, _ = parse_quantity(str(s))
+    except ParseError:
+        return None
+    return value if not unit else None
 
 
 def numeric_ok(given: str, answer) -> bool:
@@ -381,10 +385,18 @@ class _CourseScreen(ReadAloud, Screen):
 
     # ---------- keys ----------
     def action_leave(self) -> None:
-        self.app.pop_screen()
+        if not any(w.value.strip() for w in self.query(".sc-input")):
+            self.app.pop_screen()
+            return
+
+        def decided(choice: str | None) -> None:
+            if choice == "leave" and self.is_current:
+                self.app.pop_screen()
+        self.app.push_screen(ConfirmScreen("Leave? Your typed answer will be lost.",
+                                            [("leave", "Leave"), ("stay", "Keep writing")]), decided)
 
     def action_back(self) -> None:
-        self.app.pop_screen()
+        self.action_leave()
 
     def action_back_step(self) -> None:
         pass
@@ -395,11 +407,17 @@ class _CourseScreen(ReadAloud, Screen):
     def action_settings(self) -> None:
         if self.course is None:
             self.new_course()
+        self.settings_before = self.course.cfg.copy()
         self.app.push_screen(ShortcutSettingsScreen(self.course), self.settings_closed)
 
     def settings_closed(self, _=None) -> None:
-        self.new_course()
-        self.restart()
+        if self.course.cfg == self.settings_before:
+            return
+        if self.phase in ("start", "empty"):
+            self.restart()
+        else:
+            # The current queue includes work already done and possibly a typed answer.
+            self.app.notify("Settings saved. They apply to your next set of shortcuts.", timeout=6)
 
     def restart(self) -> None:
         raise NotImplementedError
@@ -558,7 +576,7 @@ class ShortcutsScreen(_CourseScreen):
         if self.phase == "reveal" and self.shown > 1:
             self.action_back_step()
         else:
-            self.app.pop_screen()
+            self.action_leave()
 
     # ---------- practice ----------
     def start_practice(self) -> None:
