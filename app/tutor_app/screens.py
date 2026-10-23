@@ -1882,7 +1882,7 @@ class SettingsScreen(ModalScreen):
                 yield Select([(f"Look: {look.LABELS[name]}", name) for name in config.THEMES],
                              value=s.theme, id="theme", allow_blank=False, compact=True)
             with Horizontal(classes="row"):
-                yield Static("Text size (points; ⌥+ ⌥− anywhere, ⌥0 normal)")
+                yield Static("Text size (points; ⌥+ ⌥− ⌥0 anywhere)")
                 yield Input(str(self.app.text_size() or ""), id="font_size", type="integer", compact=True)
             with Horizontal(classes="row"):
                 yield Static("Session length (minutes, 5 to 180)")

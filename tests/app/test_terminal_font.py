@@ -182,3 +182,19 @@ def test_the_settings_row_sets_the_size(tmp_path, monkeypatch):
         await pilot.pause()
     run(app, steps)
     assert tab.size == 16 and config.Settings.load(v).font_size == 16
+
+
+def test_the_text_size_row_in_settings_reads_on_one_line_at_every_size(tmp_path, monkeypatch):
+    """Reported by the learner: the row's label stood one letter per line, its box having no width of its own."""
+    from textual.widgets import Input, Static
+    for size in ((80, 24), (100, 30), (140, 46)):
+        app, v = app_for(tmp_path / f"{size[0]}", monkeypatch)
+
+        async def steps(pilot, size=size):
+            await pilot.press("f2")
+            await pilot.pause()
+            box = app.screen.query_one("#font_size", Input)
+            label = box.parent.query_one(Static)
+            assert box.size.width <= 12, size
+            assert label.size.height == 1 and label.size.width >= 20, (size, label.size)
+        run(app, steps)
