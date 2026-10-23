@@ -342,6 +342,39 @@ def unreadable(text: str) -> str:
     return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "□", text or "")
 
 
+SEE_PICTURE = "(see the picture)"
+
+
+def _label_line(line: str) -> bool:
+    """A line copied out of a diagram or table, not a sentence: a word or three, no closing punctuation, no equation."""
+    line = line.strip()
+    words = [w for w in line.split() if re.search(r"\w", w)]  # "hydrogen gas / cm³" is three words
+    return bool(line) and len(line) <= 24 and len(words) <= 3 and not re.search(r"[.?!:;,]$|[→⇌=]", line)
+
+
+def figure_text(stem: str) -> tuple[str, list[str]]:
+    """A past-paper stem with what the PDF copied out of its diagram or table (labels, axis names, table cells: three
+    short lines or more in a row) set aside: (the sentences, with "(see the picture)" where the figure was; the lines
+    set aside). Only for a question shown with a scan of the whole of it, where the picture has all of this, readable."""
+    kept, aside, run = [], [], []
+
+    def close() -> None:
+        if len(run) >= 3:
+            kept.append(SEE_PICTURE)
+            aside.extend(run)
+        else:
+            kept.extend(run)
+        run.clear()
+    for line in (stem or "").split("\n"):
+        if _label_line(line):
+            run.append(line)
+        else:
+            close()
+            kept.append(line)
+    close()
+    return "\n".join(kept), aside
+
+
 def question_block(view: dict) -> str:
     if view.get("garbled") and view.get("image"):  # the scan is readable and the text is not: the scan first (Q-009)
         text = [unreadable(view.get("stem", ""))] + ([""] + [f"**{k}.** {unreadable(v)}" for k, v in view["options"].items()]
@@ -354,6 +387,8 @@ def question_block(view: dict) -> str:
         body += ["", f"![[{view['image']}]]"]
     if view.get("options"):
         body += [""] + [f"**{k}.** {v}" for k, v in view["options"].items()]
+    if view.get("figure_text"):  # what the PDF copied out of the figure, kept but out of the way (Q-009)
+        body += ["", "> [!note]- Text read from the picture"] + [f"> {line}" for line in view["figure_text"]]
     return callout("question", f"Q{view['n']} · {_tags(view)}", "\n".join(body))
 
 

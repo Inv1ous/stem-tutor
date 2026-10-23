@@ -126,3 +126,29 @@ def test_a_scanned_question_with_broken_text_shows_the_scan_first_and_folds_the_
     assert "> > [!warning]- The text read from the paper may be wrong" in block and "x □ y" in block
     t.session["presented"]["1"]["inst"]["options"] = {"A": "clean", "B": "text"}
     assert "garbled" not in t._view(1)  # clean text: shown as always
+
+
+def test_labels_and_table_cells_copied_out_of_a_figure_give_way_to_the_picture(tmp_path):
+    """Q-009, reported again by the learner: a past-paper question showed its diagram's labels (force, extension, 00,
+    stretching, contraction, rubber, cord, weight) as lines of the question, under a scan that shows them properly."""
+    stem = ("A rubber cord hangs from a rigid support. A weight attached to its lower end is gradually\n"
+            "increased from zero, and then gradually reduced to zero.\nforce\nextension\n00\nstretching\ncontraction\n"
+            "rubber\ncord\nweight\nThe force–extension curve for contraction is below the force–extension curve for "
+            "stretching.\nWhat does the shaded area between the curves represent?")
+    text, aside = views.figure_text(stem)
+    assert "(see the picture)" in text and "stretching\ncontraction" not in text
+    assert aside == ["force", "extension", "00", "stretching", "contraction", "rubber", "cord", "weight"]
+    assert text.startswith("A rubber cord") and text.endswith("represent?")
+    table = "Recorded every 30 s.\ntime / s\ntotal volume of\nhydrogen gas / cm³\n0\n0\n30\n64\nWhat is P – Q?"
+    assert views.figure_text(table)[0] == "Recorded every 30 s.\n(see the picture)\nWhat is P – Q?"
+    assert views.figure_text("Two lines only.\nreaction X\n2NOBr →2NO + Br₂\nWhich?")[1] == []  # equations and short runs stay
+    t = tutor_at(make_vault(tmp_path))
+    inst = {"kind": "mcq", "stem": stem, "image": "Assets/mcq/9702_w19_12_q19.png", "marks": 1,
+            "options": {"A": "elastic potential energy", "B": "thermal energy"}, "source": {"type": "past", "ref": "P12 Q19"}}
+    t.session = {"presented": {"1": {"unassisted": False, "inst": inst}}}
+    view = t._view(1)
+    assert "(see the picture)" in view["stem"] and view["figure_text"][0] == "force"
+    block = views.question_block(view)
+    assert "> > [!note]- Text read from the picture" in block and "stretching\n> contraction" not in block
+    inst["source"] = {"type": "generated"}  # only past-paper scans: a generated figure's text is the question's own
+    assert "figure_text" not in t._view(1)

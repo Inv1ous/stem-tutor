@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.5.21 — 2026-10-23
+
+Reported by the learner: a past-paper question still showed its diagram's labels as lines of the question (Q-009 had
+dealt only with broken characters). And what the independent verification pass of the P0 fixes found.
+
+- **The figure's words stay in the figure** (`views.figure_text`, Q-009): in 1,133 past-paper questions shown with a scan of the
+  whole question, the PDF had copied a diagram's labels or a table's cells into the question as lines of their own (force,
+  extension, 00, stretching, contraction…). Runs of three or more such lines now read "(see the picture)", in the terminal,
+  on Now and in the lesson log; the copied text is kept, folded under "Text read from the picture". Sentences, equations
+  and short runs are untouched; the AI tutor still gets the full text.
+- **"39.8 m x 2" is not 39.8 m** (B-100, reopened by the verifier): the letter x, `*` and `/` after a unit now refuse the
+  answer as `+`, `-` and `=` already did; checked on all 182 unit-bearing published questions.
+- **A copied vault never writes to the real Almanac** (B-062, hardened by the verifier): a vault in a temporary folder that
+  still names the real planner no longer writes beside it; the real vault syncs as before.
+- All 39 P0 findings of the bug watch are now VERIFIED by a second model.
+
 ## 2.5.20 — 2026-10-22
 
 Every P0 (most serious) finding of the bug watch fixed: 12, by Claude (two of them reviewed and merged from the bug-fix

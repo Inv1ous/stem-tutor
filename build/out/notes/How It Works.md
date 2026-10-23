@@ -1,6 +1,6 @@
 # How STEM Tutor works
 
-_Version 2.5.20_
+_Version 2.5.21_
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
@@ -10,6 +10,7 @@ It is built around how memory actually works. It teaches one idea at a time, mak
 > Double-click **Start Tutor.command** in this folder. Put the Terminal window on the left and Obsidian on the right, showing **Now**. Choose **Today's plan** (or "Learn a topic") and follow the prompts. Press **?** at any time for help.
 
 > [!example] New in 2.5 (the latest changes)
+> - **Past-paper questions read cleanly** (2.5.21): the labels of a diagram or the cells of a table that the paper's PDF scattered through the question now show as **(see the picture)**; the picture in **Now** has them where they belong, and the copied text is folded underneath if you want it.
 > - **Fairer, stricter marking** (2.5.20): a wrong value close to the answer is no longer marked right, a correct answer with extra figures keeps its marks unless the question fixes them, rounded probabilities count, and questions that say "to 3 s.f." mean exactly that. The AI tutor now holds back the answer in every form (a short option, another unit) until you have tried, and your own words in **My Notes** are never lost when an idea is taught again or when you save the note yourself.
 > - **Smaller things that add up** (2.5.19): reading aloud starts sooner and keeps up when you move on; feedback shows **3 of 4 marks** instead of just "not quite", and the summary shows your marks; past-paper explanations on equilibrium and rates now show the working; questions the PDF copied badly point you to the picture; **Home** links every topic to its explanation; the **Mistake journal** keeps the whole question; topic search finds plain spellings such as "Bronsted". Reading speed now goes from 0.7 to 1.5.
 > - **Text size that stays** (2.5.18): press **⌥+** / **⌥−** in the tutor (Option with plus or minus; **⌥0** for normal), or set it in **Settings › Text size**. It is kept the moment you change it. Terminal's own **⌘+** / **⌘−** still works: the tutor cannot see that zoom while it runs, but it measures the text when you quit and starts next time at exactly that size.

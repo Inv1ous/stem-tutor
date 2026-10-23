@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.21 (2026-10-23) — done
+
+Diagram labels and table cells copied into 1,133 past-paper stems give way to the scan; B-100 and B-062 hardened; all 39 P0s VERIFIED.
+
 ## v2.5.20 (2026-10-22) — done
 
 All 12 bug-watch P0s fixed (marking, pack precision settings, AI leak guard, My Notes safety); awaiting independent VERIFIED.

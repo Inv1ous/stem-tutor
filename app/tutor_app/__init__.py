@@ -1,2 +1,2 @@
 """STEM Tutor terminal app."""
-__version__ = "2.5.20"
+__version__ = "2.5.21"

@@ -367,6 +367,12 @@ class Tutor(LessonMixin):
             v["source"] = inst["source"].get("ref")
         if inst["kind"] == "structured":
             v["scheme_points"] = len(inst.get("scheme", []))
+        if v.get("image") and inst.get("source", {}).get("type") == "past":
+            # a scan of the whole past-paper question: labels and table cells the PDF copied out of its figure are
+            # set aside for the picture, which shows them as they should be read (Q-009)
+            v["stem"], aside = views.figure_text(v.get("stem", ""))
+            if aside:
+                v["figure_text"] = aside
         if v.get("image"):  # a scan of the whole question: broken text read from it gives way to the picture (Q-009)
             bad = [k for k, o in (v.get("options") or {}).items() if views.garbled(o)]
             if bad or views.garbled(v.get("stem", "")):
