@@ -488,8 +488,22 @@ def cmd_collect(jid: str, role: str, out_file: str, code: str) -> None:
     notify(f"bugfix {jid}: {role} finished · {peek()['jobs'][jid]['stage']}")
 
 
+def busy_model(job: dict) -> bool:
+    """The worker never started work: the model was at capacity (OpenAI's side). Not the job's fault: no round lost."""
+    try:
+        return "at capacity" in Path(job.get("log") or "").read_text(errors="ignore")[-4000:]
+    except OSError:
+        return False
+
+
 def gate_and_route(jid: str, report: dict | None, code: int) -> None:
     job = peek()["jobs"][jid]
+    if report is None and busy_model(job):
+        with state() as st:
+            j = st["jobs"][jid]
+            j["stage"], j["pid"] = "fix", None
+            history(j, "the model was at capacity: the same round starts again")
+        return
     keep, bad = commit(job, report)
     wt = Path(job["worktree"])
     every = git("diff", "--name-only", f"{job['base']}..HEAD", cwd=wt).stdout.split()
@@ -535,7 +549,7 @@ def route_review(jid: str, report: dict | None, code: int) -> None:
         job["review_report"] = report
         if not report or code:
             job["stage"] = "review"  # the reviewer failed: run it again
-            job["review_fail"] = job.get("review_fail", 0) + 1
+            job["review_fail"] = job.get("review_fail", 0) + (0 if busy_model(job) else 1)
             if job["review_fail"] >= 2:
                 job["stage"] = "stuck"
             history(job, f"reviewer ended without a report (exit {code})")
