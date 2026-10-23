@@ -1156,7 +1156,10 @@ class SessionScreen(ReadAloud, Screen):
                 log.you(f"Note on Q{view.get('n')}: {data['note']}")
         self.say(cards.feedback(r, data.get("your", "")))
         self.readable_now(spoken_feedback(r, data.get("your", "")), auto=True)
-        self.last_fb = r
+        self.finish_feedback(r)
+
+    def finish_feedback(self, r: dict, written: bool = False) -> None:
+        self.last_fb = {**r, "written": written}
         self.followups = (["reflect"] if r.get("reflect") else []) + (["break"] if r.get("break_suggested") else [])
         self.next_followup()
 
@@ -1164,7 +1167,7 @@ class SessionScreen(ReadAloud, Screen):
         """Whether the answer just marked can go to the AI examiner: one you gave (not "I don't know"), which the
         program marked wrong or docked a mark, and which has not been re-marked."""
         fb = getattr(self, "last_fb", None) or {}
-        return bool(self.ai_ok() and fb.get("event") and not fb.get("correct") and not fb.get("remarked")
+        return bool(self.ai_ok() and fb.get("event") and not fb.get("correct") and not fb.get("remarked") and not fb.get("written")
                     and fb.get("response") != "don't know"
                     and (self.view or {}).get("kind") in ("mcq", "numeric", "expression", "short"))
 
@@ -1181,6 +1184,8 @@ class SessionScreen(ReadAloud, Screen):
         else:
             buttons = [("next", "Next ⏎")] + ([("why", "Explain this answer (AI)")] if self.ai_ok() else []) + \
                       ([("remark", "Re-mark (AI)")] if self.can_remark() else []) + [("ask", "Ask the tutor (ctrl+t)")]
+            if (getattr(self, "last_fb", None) or {}).get("written"):
+                buttons = [("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")]
             self.panel(ContinuePanel(buttons=buttons, read=self.can_read()))
 
     # ---------- written answers ----------
@@ -1202,8 +1207,7 @@ class SessionScreen(ReadAloud, Screen):
                     f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}" for p in res["points"])).strip()
                 self.say(cards.feedback(fb, data.get("your", "")))
                 self.readable_now(spoken_feedback(fb, data.get("your", ""), res.get("speech") or None), auto=True)
-                self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")],
-                                         read=self.can_read()))
+                self.finish_feedback(fb, written=True)
                 return
         self.pending_short = (n, data, max(1, len(points)))
         self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ctrl+s, or ⏎ on Done.",
@@ -1216,7 +1220,7 @@ class SessionScreen(ReadAloud, Screen):
             out = self.tutor.answer(d["entry"], judge={n: len(data["ticked"]) / total})
             self.say(cards.feedback(out["results"][0], d.get("your", "")))
             self.readable_now(spoken_feedback(out["results"][0], d.get("your", "")), auto=True)
-            self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")]))
+            self.finish_feedback(out["results"][0], written=True)
             return
         n = self.view["n"]
         if data.get("button") == "ai":
@@ -1226,7 +1230,7 @@ class SessionScreen(ReadAloud, Screen):
         fb = out["results"][0]
         self.say(cards.feedback(fb, f"{len(data['ticked'])} mark point(s) claimed"))
         self.readable_now(spoken_feedback(fb), auto=True)
-        self.panel(ContinuePanel(buttons=[("next", "Next ⏎"), ("ask", "Ask the tutor (ctrl+t)")]))
+        self.finish_feedback(fb, written=True)
 
     def long_written(self, data: dict) -> None:
         text = data.get("text", "")
@@ -1263,7 +1267,7 @@ class SessionScreen(ReadAloud, Screen):
         self.readable_now(res.get("speech") or f"{res.get('feedback', '')}\n\n{verdict}", auto=True,
                           limit=tts.AI_SPEECH_LIMIT)
         met = {str(self.scheme[i]["i"]) for i, p in enumerate(res.get("points", [])) if p.get("met") and i < len(self.scheme)}
-        ticked = sorted(set(data["ticked"]) | met) if data["ticked"] else sorted(met)
+        ticked = sorted(met)
         self.mark_panel("Adjust if you disagree, then ctrl+s to submit.", ticked, [("mine", "Submit ⏎")])
 
     @work(exclusive=True, group="judge")
@@ -1323,12 +1327,15 @@ class SessionScreen(ReadAloud, Screen):
         w = self.say(cards.ai("…"))
         buf = ""
         # guard every open question (normally just the one on screen; a session begun in the chat may hold more)
-        keys = [prompts.key_of(self.tutor, int(n)) for n in (self.tutor.session or {}).get("presented", {})]
+        session, act = self.tutor.session, self.act
+        numbers = tuple((session or {}).get("presented", {}))
+        log = self.tutor._lesson_log()
+        keys = [prompts.key_of(self.tutor, int(n)) for n in numbers]
         model, think = self.app.settings.ai_for(mode)  # chosen in Settings for this kind of help
         live = cards.Live(w)
         async for chunk in a.stream(prompt, image=prompts.focus_image(self.tutor), model=model, think=think):
             buf += chunk
-            if not keys and live.update(buf):
+            if not keys and self.act is act and self.tutor.session is session and live.update(buf):
                 self.query_one("#log", VerticalScroll).scroll_end(animate=False)
         speech = a.last.speech if a.last.ok else ""
         buf = (a.last.text or buf) if a.last.ok else buf  # whole and tidy: a code fence the spoken line opened is gone
@@ -1336,6 +1343,15 @@ class SessionScreen(ReadAloud, Screen):
         if withheld:
             buf = "I can't give that away while the question is open. Try a hint (h), or answer first and I'll explain."
             speech = ""
+        # A reply to an earlier question stays in its transcript, never on the new question.
+        if self.tutor.session is not session or self.act is not act or tuple((self.tutor.session or {}).get("presented", {})) != numbers:
+            w.update(cards.ai(buf))
+            w.display = False
+            if a.last.ok and log:
+                title = "Tutor (AI)" + (" · Q" + ", Q".join(numbers) if numbers else " · earlier activity")
+                log.tutor(buf, title=title)
+            self.update_bar()
+            return
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
             self.tutor.show("notice", a.last.message, "AI paused")
