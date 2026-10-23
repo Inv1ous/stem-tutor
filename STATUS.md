@@ -1,5 +1,9 @@
 # Build status
 
+## v2.5.22 (2026-10-23) — done
+
+Merged bug-watch fixes: fairer marking, reliable answers and study days, safer notes, clearer screens and speech, repaired questions, and an Almanac that follows corrections.
+
 ## v2.5.21 (2026-10-23) — done
 
 Diagram labels and table cells copied into 1,133 past-paper stems give way to the scan; B-100 and B-062 hardened; all 39 P0s VERIFIED.

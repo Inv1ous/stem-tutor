@@ -1,5 +1,53 @@
 # Changelog
 
+## 2.5.22 — 2026-10-23
+
+The merged fixes from the bug watch make marking fairer and keep answers, progress, notes and the Almanac in step with
+what you do.
+
+- **Marking — numbers and units** (B-042, B-057, B-131, B-109, B-003): a percentage in the question's background no
+  longer makes `%` a valid unit for a plain number; questions that actually ask for a percentage, including “% yield”,
+  still accept it. A fraction no longer escapes a stated significant-figure requirement, while a correct unrounded
+  science answer keeps its marks when no precision is fixed. An extreme power is refused promptly rather than stalling,
+  and an oversized unit power earns a wrong-unit mark rather than an error.
+- **Marking — equations and exact answers** (B-059, B-102, B-040): a rebuilt SUVAT question still requires the right
+  subject, so an expression without `v² =` cannot earn full marks. A valid integral can use another letter for its
+  constant. Shortcut practice now accepts equivalent fractions and the requested unit, but an exact answer must still
+  have the right value.
+- **Marking — written answers** (B-014, B-078, B-097, B-098): if AI marking fails or returns a faulty list of mark
+  points, you get the self-marking ticks back instead of being stuck or awarded a duplicate point. When it succeeds,
+  only the points the examiner approved are selected, and short-answer feedback still offers its reflection or break
+  prompt.
+- **The AI tutor and chats** (B-051, B-065, B-083, B-095): the latest menu-chat reply stays in view without revealing a
+  paused question's answer. A late reply stays with the question it answered instead of making the next question look
+  hinted; resetting during start-up clears the old conversation. A reply you type in a stuck lesson chat is kept in the
+  transcript and on Now.
+- **Sessions and progress** (B-012, B-070, B-142, B-063, B-067, B-091, B-079): an answer after a torn save and an older
+  answer synced from another device are included in progress; a refused note save leaves the original text intact. An
+  interrupted re-mark keeps the corrected grade, a partly self-marked answer no longer counts as a fully successful day
+  or mastery, and a session spanning midnight counts both study days. Ending a session cannot reopen it after an
+  interruption.
+- **Sessions and progress — notes and reports** (B-077, B-092, B-068, B-084, B-105): teaching an idea again adds your
+  new words to the old ones, and a My Notes refresh works around a simultaneous Obsidian save instead of erasing it.
+  Reopening free chat clears its old conversation from Now. The Mistake journal and Almanac weekly review use the latest
+  error category you chose after marking.
+- **Screens and practice** (B-104, B-121, B-053, B-111, B-087, B-119, B-089): starting another lesson now offers Resume,
+  Abandon or Cancel even before your first answer; leaving a submitted short answer asks before discarding it. The
+  chapter-jump keys work inside chapter folders, and the summary says reviews are due “in the next 24 hours”. Shortcut
+  practice asks before discarding a typed answer, closing its settings keeps your place, and practice mixes later
+  subtopics into its choices.
+- **Read aloud** (B-107, B-108): multiple-choice reading now includes the labelled options, and diagram questions use
+  their written speech description when one exists instead of reading dictionary keys or missing the description.
+- **Question content** (B-056, B-073, B-050, B-052, B-117, B-118): unreadable chemistry text, flattened fractions and
+  exponents, and broken binomial symbols have been repaired and kept in the generated packs. Multi-statement questions
+  keep their A–D response tables even when printed on another page; physics graph and page-bottom pictures now include
+  the full answer choices.
+- **The Almanac** (B-062, B-046, B-066, B-041, B-044, B-064, B-047, B-069, B-085): scratch sessions use scratch storage
+  rather than the real sync file. The live panel follows completed answers and re-marks; setup tasks are not ticked
+  merely because related ideas are secure. A tick you remove stays removed, you can reclaim a tick the tutor once owned,
+  and corrected mistakes leave the count. Invalid exported dates are refused, and removing an exported exam date
+  restores the published date in a running tutor.
+
 ## 2.5.21 — 2026-10-23
 
 Reported by the learner: a past-paper question still showed its diagram's labels as lines of the question (Q-009 had
