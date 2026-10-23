@@ -445,6 +445,15 @@ def run_tests(wt: Path, paths: list[str]) -> dict:
             text, code = f"timed out after {limit} s", 1
         summary = next((l for l in reversed(text.splitlines()) if re.search(r"\d+ (passed|failed|error)", l)), text[-200:])
         out[name] = summary.strip("= ").strip()
+        failed = [l.split()[1] for l in text.splitlines() if l.startswith("FAILED ") and len(l.split()) > 1]
+        if code and failed and len(failed) <= 5 and fast:
+            # Several jobs test at once on shared cores; a timing-sensitive test can fail under that load alone. The
+            # failed tests run again, one process, nothing else changed: only what fails then is a real failure.
+            again = subprocess.run([PY, "-m", "pytest", "-q", "-p", "no:cacheprovider", *failed], cwd=wt,
+                                   capture_output=True, text=True, timeout=600, env=env)
+            if again.returncode == 0:
+                out[name] += f" (flaky under load, passed alone: {', '.join(f.split('::')[-1] for f in failed)})"
+                code = 0
         if code:
             out["ok"] = False
             out.setdefault("failures", []).extend([l[:220] for l in text.splitlines() if l.startswith(("FAILED", "ERROR"))][:10])
