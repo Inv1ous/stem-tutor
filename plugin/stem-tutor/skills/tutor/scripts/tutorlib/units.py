@@ -145,15 +145,16 @@ def parse_unit(text: str) -> list[tuple[float, tuple]]:
     return options
 
 
-_DEGREES = {"deg", "degs", "degree", "degrees"}
+_NAMED_UNITS = {"deg": "°", "degs": "°", "degree": "°", "degrees": "°",
+                "celsius": "°C", "degree celsius": "°C", "degrees celsius": "°C"}
 _MOLARITY = _d(m=-3, mol=1)
 
 
 def unit_factor(given: str, expected: str) -> float | None:
     """Multiply a value in `given` units by this to express it in `expected` units."""
     given, expected = plain_text(given), plain_text(expected)
-    if given.strip().lower() in _DEGREES:
-        given = "°"
+    given = _NAMED_UNITS.get(given.strip().lower(), given)
+    expected = _NAMED_UNITS.get(expected.strip().lower(), expected)
     if given.strip() == "M":  # molar, read so only where the answer is a concentration: never mega-anything
         try:
             if any(d == _MOLARITY for _f, d in parse_unit(expected)):
@@ -184,6 +185,20 @@ PREFIX_WORDS = {"giga": "G", "mega": "M", "kilo": "k", "deci": "d", "centi": "c"
                 "nano": "n", "pico": "p"}
 _WORD = re.compile("^(" + "|".join(PREFIX_WORDS) + ")?(" + "|".join(sorted(WORDS, key=len, reverse=True)) + ")s?$")
 _JOINS = {"per", "square", "squared", "cubic", "cubed"}  # words that belong to a unit: never a comment after it
+
+
+def unit_symbols(text: str) -> str:
+    """Read requested unit names as symbols: 'ohms' means Ω, not ohm times seconds. Keep symbols' capitals."""
+    parts = []
+    for raw in text.translate(SUPERSCRIPT).split():
+        token = TOKEN.match(raw)
+        word = _WORD.match(token[1].lower()) if token else None
+        if word:
+            raw = PREFIX_WORDS.get(word[1], "") + WORDS[word[2]] + raw[len(token[1]):]
+        elif raw.lower() == "per":
+            raw = "/"
+        parts.append(raw)
+    return " ".join(parts)
 
 
 def _respelled(text: str) -> list[str]:
@@ -217,19 +232,19 @@ def _is_unit(word: str) -> bool:
 _ARITHMETIC = re.compile(r"^[-+−×*/÷=^]|[-+−×*/÷=^]\s*\d|(?:^|\s)[xX]\s*\d")  # words after a unit that carry on calculating (x 2)
 
 
-def unit_readings(given: str, expected: str) -> tuple[list[float], bool]:
+def unit_readings(given: str, expected: str, *, allow_comments: bool = True) -> tuple[list[float], bool]:
     """(every factor that could turn a value in `given` units into `expected` units, whether the unit was respelled).
 
     The unit as written comes first: 1.5 kW for an answer in W is simply the same answer. Words after the unit are
     a comment, not a unit ("200 W of input"), unless they could be part of one ("W s", "W per second"). Only when
     what was written cannot be read as the right kind of unit are capitals forgiven (kw, KW, pa) and spelled-out
     names accepted (kilowatts, joules per second); "mw" may then be mW or MW, and the caller sees which of them
-    makes the answer right."""
+    makes the answer right. Shortcut practice requires the whole answer, so it disables comment removal."""
     if re.search(r"[*/×÷]\s*\d", plain_text(given)):  # "m * 3": a product or quotient, not a compound unit
         return [], False
     words = plain_text(given).split()
     for k in range(len(words), 0, -1):
-        if k < len(words) and _is_unit(words[k]):
+        if k < len(words) and (not allow_comments or _is_unit(words[k])):
             continue
         if k < len(words) and _ARITHMETIC.search(" ".join(words[k:])):
             return [], False  # "39.8 m + 4" is a sum, not 39.8 m with a comment (B-100)

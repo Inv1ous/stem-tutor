@@ -4,6 +4,7 @@ All the learner's state is the course's own (tutorlib.shortcuts: settings, event
 the syllabus model, sessions and reviews are never touched."""
 from __future__ import annotations
 
+import math
 import random
 import re
 from datetime import datetime, timezone
@@ -19,6 +20,8 @@ from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
 from tutorlib import shortcuts as sc
+from tutorlib.grade import ParseError, parse_quantity
+from tutorlib.units import parse_unit, unit_factor, unit_readings, unit_symbols
 
 from .look import C
 from .panels import TickList
@@ -43,18 +46,50 @@ def items(v) -> list[str]:
     return [t for t in (txt(x) for x in v) if t] if isinstance(v, (list, tuple)) else ([txt(v)] if txt(v) else [])
 
 
-def number(s) -> float | None:
-    m = re.search(r"[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?", str(s).replace(",", "").replace("−", "-"))
-    return float(m.group(0)) if m else None
+def number(s, expected_unit: str = "") -> float | None:
+    # Read the whole value: a fraction is not just its numerator.
+    try:
+        value, unit, _ = parse_quantity(str(s))
+    except ParseError:
+        return None
+    if not unit:
+        return value
+    factors = unit_readings(unit, expected_unit, allow_comments=False)[0] if expected_unit else []
+    return value * factors[0] if factors else None
 
 
-def numeric_ok(given: str, answer) -> bool:
-    """Right when the strings match, or the numbers are within 1% of each other."""
+def numeric_ok(given: str, answer, stem: str = "") -> bool:
+    """Compare whole quantities; exact questions allow only floating-point rounding, others allow 1%."""
     if str(given).strip().lower() == str(answer).strip().lower():
         return True
-    a, b = number(given), number(answer)
+    # Read units from the request, not data such as "Evaluate tan 225, with the angle in degrees".
+    request = " ".join(sentence for sentence in re.split(r"(?<=[.?!])\s+", txt(stem)) if re.search(
+        r"\b(?:find|calculate|determine|give|state|express|estimate|what|write|convert|how far|how much|how fast)\b",
+        sentence, re.I))
+    expected_unit = ""
+    # 'In medium 2 in m' asks for metres; each 'in' can begin the requested unit.
+    for match in re.finditer(r"\bin\s+([^.,;?]+?)(?=\s+(?:in|to|as|measured|using|between)\b|[.,;?]|$)", request):
+        candidate = unit_symbols(match[1].strip())
+        # Degrees and Celsius are recognised units, but are not part of SI unit algebra.
+        if unit_factor(candidate, "°") is None and unit_factor(candidate, "°C") is None:
+            try:
+                parse_unit(candidate)
+            except (ValueError, ArithmeticError):
+                continue
+        expected_unit = candidate
+    a, b = number(given, expected_unit), number(txt(answer), expected_unit)
     if a is None or b is None:
-        return False
+        # A unit the tutor cannot read (pc, arcsec) is compared as written: the same unit, or none, and the number decides.
+        # One it can read that did not fit, or a unit with another number in it ("25 N or 30 N"), is wrong.
+        try:
+            (a, ua, _), (b, ub, _) = parse_quantity(str(given)), parse_quantity(txt(answer))
+        except ParseError:
+            return False
+        if ua and (re.search(r"\d", ua) or (ua.lower() != (ub or "").lower() and (unit_factor(ua, ua) is not None
+                                                                                  or ub or expected_unit))):
+            return False  # the learner's unit is not the answer's: another quantity, or another number with it
+    if re.search(r"\bexact(?:ly)?\b", stem, re.I):
+        return math.isclose(a, b, rel_tol=1e-12, abs_tol=0.0)
     return abs(a - b) <= 0.01 * abs(b) if b else abs(a) < 1e-9
 
 
@@ -381,10 +416,18 @@ class _CourseScreen(ReadAloud, Screen):
 
     # ---------- keys ----------
     def action_leave(self) -> None:
-        self.app.pop_screen()
+        if not any(w.value.strip() for w in self.query(".sc-input")):
+            self.app.pop_screen()
+            return
+
+        def decided(choice: str | None) -> None:
+            if choice == "leave" and self.is_current:
+                self.app.pop_screen()
+        self.app.push_screen(ConfirmScreen("Leave? Your typed answer will be lost.",
+                                            [("leave", "Leave"), ("stay", "Keep writing")]), decided)
 
     def action_back(self) -> None:
-        self.app.pop_screen()
+        self.action_leave()
 
     def action_back_step(self) -> None:
         pass
@@ -395,11 +438,17 @@ class _CourseScreen(ReadAloud, Screen):
     def action_settings(self) -> None:
         if self.course is None:
             self.new_course()
+        self.settings_before = self.course.cfg.copy()
         self.app.push_screen(ShortcutSettingsScreen(self.course), self.settings_closed)
 
     def settings_closed(self, _=None) -> None:
-        self.new_course()
-        self.restart()
+        if self.course.cfg == self.settings_before:
+            return
+        if self.phase in ("start", "empty"):
+            self.restart()
+        else:
+            # The current queue includes work already done and possibly a typed answer.
+            self.app.notify("Settings saved. They apply to your next set of shortcuts.", timeout=6)
 
     def restart(self) -> None:
         raise NotImplementedError
@@ -558,7 +607,7 @@ class ShortcutsScreen(_CourseScreen):
         if self.phase == "reveal" and self.shown > 1:
             self.action_back_step()
         else:
-            self.app.pop_screen()
+            self.action_leave()
 
     # ---------- practice ----------
     def start_practice(self) -> None:
@@ -615,7 +664,7 @@ class ShortcutsScreen(_CourseScreen):
             return
         p = self.prac[self.pi]
         if self.kind == "numeric":
-            self.finish_practice(numeric_ok(given, p["answer"]), given)
+            self.finish_practice(numeric_ok(given, p["answer"], p["stem"]), given)
         else:
             self.phase = "self-mark"
             self.show_question(self.answer_text(p, given, None))

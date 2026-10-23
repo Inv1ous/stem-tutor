@@ -271,7 +271,7 @@ def test_filters_change_what_appears_and_settings_persist(tmp_path, monkeypatch)
 
 
 def test_helpers_numeric_tolerance_and_missing_lesson_fields():
-    assert ss.numeric_ok("9.05", "9.0") and ss.numeric_ok("9.0 m", "9.0") and not ss.numeric_ok("9.5", "9.0")
+    assert ss.numeric_ok("9.05", "9.0") and not ss.numeric_ok("9.0 m", "9.0") and not ss.numeric_ok("9.5", "9.0")
     assert ss.numeric_ok("abc", "ABC") and not ss.numeric_ok("x", "9.0")
     assert ss.sections_of({"title": "t", "body": "B"}) == [("The idea", ss.Text("B"))]
     odd = {"body": "b", "lesson": {"steps": "one", "worked": "no", "pitfalls": None, "practice": "no"}}
