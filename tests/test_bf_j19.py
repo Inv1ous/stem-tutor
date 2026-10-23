@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import ast
 import json
+import runpy
+import shutil
 import sys
 from pathlib import Path
 
@@ -51,6 +53,30 @@ def test_fraction_options_keep_the_source_numerators_and_denominators(kc: str, s
 def test_charge_to_mass_equation_keeps_its_division() -> None:
     """B-073: the charge-to-mass definition must not reverse or flatten the ratio."""
     assert 'r = (charge on particle)/(mass of particle)' in item_for('9702-11.1', 'p01')['stem']
+
+
+def test_charge_to_mass_equation_survives_regenerating_the_bundle_and_pack(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """B-073: rebuilding p01 must preserve charge divided by mass from its inputs."""
+    import bundle
+
+    for relative in ['build/out/specs/9702/graph.json', 'build/work/mcq/9702.tagged.json',
+                     'build/work/mcq/overrides.json', 'build/work/gen/9702-11.1.py']:
+        target = tmp_path / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / relative, target)
+    monkeypatch.setattr(bundle, 'ROOT', tmp_path)
+    monkeypatch.setattr(bundle, 'OUT', tmp_path / 'build/work/bundles')
+    # Local library and examiner-report searches are unrelated to the equation.
+    monkeypatch.setattr(bundle, '_library_lines', lambda subtopic: [])
+    monkeypatch.setattr(bundle.er_excerpts, 'excerpts', lambda *args: [])
+    bundle.bundle('9702-11.1')
+    runpy.run_path(str(tmp_path / 'build/work/gen/9702-11.1.py'))
+
+    rebuilt = json.loads((tmp_path / 'build/out/packs/9702/9702-11.1.json').read_text())
+    question = next(it for it in rebuilt['items'] if it['id'] == '9702-11.1-p01')
+    original = item_for('9702-11.1', 'p01')
+    assert 'r = (charge on particle)/(mass of particle)' in question['stem']
+    assert question == original
 
 
 @pytest.mark.parametrize('options', [

@@ -123,7 +123,11 @@ def _mcqs(spec: str, kcs: set[str]) -> list[dict]:
     f = ROOT / f"build/work/mcq/{spec}.tagged.json"
     if not f.exists():
         return []
-    return [m for m in json.loads(f.read_text()) if set(m.get("kcs") or []) & kcs and not m.get("off_syllabus")]
+    corrections = f.parent / "overrides.json"
+    fixes = json.loads(corrections.read_text()) if corrections.exists() else {}
+    # Drafted questions need the same extraction repairs as extra practice.
+    bank = [{**m, **fixes.get(m["id"], {})} for m in json.loads(f.read_text())]
+    return [m for m in bank if set(m.get("kcs") or []) & kcs and not m.get("off_syllabus")]
 
 
 def bundle(subtopic: str) -> Path:
