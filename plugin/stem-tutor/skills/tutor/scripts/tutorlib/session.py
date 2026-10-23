@@ -106,7 +106,7 @@ class Tutor(LessonMixin):
 
     def read_almanac(self) -> None:
         """Take from the Almanac what only it knows: the exam dates entered in its statement of entry."""
-        almanac.apply_dates(self.packs.plan, almanac.exam_dates(self.vault.root))
+        almanac.apply_dates(self.packs.plan, almanac.exam_dates(self.vault.root), self.packs.plan_dates)
 
     # ---------- persistence ----------
     def now(self) -> datetime:

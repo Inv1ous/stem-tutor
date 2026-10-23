@@ -134,6 +134,8 @@ class Packs:
         self.damaged: list[str] = []  # chapter packs left out because they could not be read
         self.manifest = self._read(self.root / "manifest.json") or {}
         self.plan = self._read(self.root / "plan.json") or {}
+        # Keep the published dates so removing an Almanac override restores them until the next publication.
+        self.plan_dates = {k: copy.deepcopy(self.plan[k]) for k in ("papers", "sittings") if k in self.plan}
         self.kcs: dict[str, dict] = {}
         self.subtopics: dict[str, dict] = {}
         self.topics: dict[str, dict] = {}

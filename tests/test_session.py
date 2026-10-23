@@ -929,7 +929,7 @@ def test_every_syllabus_topic_gets_a_colour_from_what_the_answers_show(tutor):
 def test_exam_dates_entered_in_the_almanac_replace_the_plans(tutor):
     import json
     plan = tutor.packs.plan
-    plan["papers"] = [{"code": "9702/22", "short": "AS", "date": None}]
+    tutor.packs.plan_dates["papers"] = [{"code": "9702/22", "short": "AS", "date": None}]
     (tutor.vault.root / "Almanac").mkdir()
     (tutor.vault.root / "Almanac/almanac-progress-2026-09-29.json").write_text(
         json.dumps({"dates": {"0": "2027-05-20", "7": "2027-06-01", "x": "soon"}}))

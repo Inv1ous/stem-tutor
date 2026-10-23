@@ -7,6 +7,8 @@ the tutor gives back to the planner is in report.py (`almanac_push`).
 from __future__ import annotations
 
 import re
+from copy import deepcopy
+from datetime import date
 from pathlib import Path
 
 from .store import read_json
@@ -41,12 +43,27 @@ def ticks(root: Path) -> frozenset[str]:
 def exam_dates(root: Path) -> dict[int, str]:
     """Exam dates entered in the Almanac's statement of entry, by the paper's place in its list."""
     dates = _state(root).get("dates")
-    return {int(k): v for k, v in (dates.items() if isinstance(dates, dict) else [])
-            if str(k).isdigit() and isinstance(v, str) and re.fullmatch(r"\d{4}-\d\d-\d\d", v)}
+    valid = {}
+    for k, v in (dates.items() if isinstance(dates, dict) else []):
+        if not (str(k).isdigit() and isinstance(v, str) and re.fullmatch(r"\d{4}-\d\d-\d\d", v)):
+            continue
+        try:
+            date.fromisoformat(v)
+        except ValueError:
+            continue
+        valid[int(k)] = v
+    return valid
 
 
-def apply_dates(plan: dict, dates: dict[int, str]) -> None:
+def apply_dates(plan: dict, dates: dict[int, str], original: dict | None = None) -> None:
     """Put those dates into the plan, so countdowns and exam readiness follow what the learner entered."""
+    if original is not None:
+        # A removed override restores the published date, including an undated paper.
+        for key in ("papers", "sittings"):
+            if key in original:
+                plan[key] = deepcopy(original[key])
+            else:
+                plan.pop(key, None)
     papers = plan.get("papers") or []
     for i, day in dates.items():
         if i < len(papers):
