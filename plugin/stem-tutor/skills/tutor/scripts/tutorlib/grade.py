@@ -137,7 +137,8 @@ def _parse(text: str) -> tuple[float, str, int | None, int | None]:
             sf = None
         exp = m["e1"] or (m["e2"] and re.sub(r"[^\d+-]", "", m["e2"]))
         if exp:
-            value *= 10 ** int(exp)
+            # A float overflows promptly; an integer power such as 10**10000000 stalls answer handling.
+            value *= 10.0 ** int(exp)
     except (ArithmeticError, ValueError):
         raise ParseError(f"cannot use the number in {text!r}") from None
     if not math.isfinite(value):
