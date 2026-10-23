@@ -19,7 +19,7 @@ from .lesson import LessonMixin
 from .packs import DamagedContent, Packs, instantiate
 from .store import Vault, read_json, write_json
 
-PUBLIC = ("kind", "stem", "speech", "options", "marks", "command_word", "image")
+PUBLIC = ("kind", "stem", "options", "marks", "command_word", "image")
 GENERIC_HINTS = [
     "Re-read the command word and underline what is given and what is asked.",
     "Which principle or equation links the given quantities to the unknown?",
@@ -376,6 +376,12 @@ class Tutor(LessonMixin):
         p = self.session["presented"][str(n)]
         inst = p["inst"]
         v = {"n": n, **{k: inst[k] for k in PUBLIC if inst.get(k) is not None}, "unassisted": p["unassisted"]}
+        # Speech dictionaries also hold explanations and hints, which stay private before an attempt.
+        speech = inst.get("speech")
+        if isinstance(speech, dict):
+            speech = speech.get("stem")
+        if isinstance(speech, str) and speech:
+            v["speech"] = speech
         if inst.get("source", {}).get("type") == "past":
             v["source"] = inst["source"].get("ref")
         if inst["kind"] == "structured":

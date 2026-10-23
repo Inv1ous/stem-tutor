@@ -4,15 +4,24 @@ import asyncio
 import json
 from pathlib import Path
 
+import pytest
+
 from test_tui import app_for
 from tutor_app.screens import ChatScreen, SessionScreen
 
 
-def test_a_diagram_question_reads_its_authored_description(tmp_path, monkeypatch):
+@pytest.mark.parametrize("override", ["string", "dictionary", "missing_stem", "empty_stem"])
+def test_a_diagram_question_reads_its_authored_description(tmp_path, monkeypatch, override):
     """B-108: the safe diagram description reaches Ctrl+E without revealing the key."""
     app, vault = app_for(tmp_path, monkeypatch)
     pack = json.loads((Path(__file__).resolve().parents[2] / "build/out/packs/9702/9702-8.3.json").read_text())
     item = next(q for q in pack["items"] if q["id"] == "9702-8.3-r02")
+    narration = item["speech"]
+    if override != "string":
+        item["speech"] = {"explanation": "Private spoken answer.", "hint1": "Private spoken hint."}
+        if override != "missing_stem":
+            item["speech"]["stem"] = narration if override == "dictionary" else ""
+    expected = narration if override in ("string", "dictionary") else item["stem"]
 
     async def go() -> None:
         async with app.run_test() as pilot:
@@ -23,7 +32,7 @@ def test_a_diagram_question_reads_its_authored_description(tmp_path, monkeypatch
             view = app.tutor._present(item, "practice", None)
             scr.ask_question(view)
             await pilot.pause()
-            assert scr.readable == item["speech"]
+            assert scr.readable == expected
             assert view["stem"] == item["stem"]
             assert not {"answer", "explanation", "distractors"} & view.keys()
             assert "constructive" not in scr.readable.lower()

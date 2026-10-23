@@ -4,8 +4,24 @@ import random
 
 import pytest
 
-from fixtures import make_vault
+from fixtures import PACK, make_vault
 from tutorlib import session, store
+
+
+@pytest.mark.parametrize("stem", ["Describe the diagram aloud.", "", None])
+def test_question_speech_keeps_explanation_and_hint_overrides_private(tmp_path, stem):
+    """B-108: only the stem override may leave the engine before an attempt."""
+    tutor = session.Tutor(store.Vault(make_vault(tmp_path)), rng=random.Random(0))
+    tutor.start("test", focus=["9702-2.1"])
+    speech = {"explanation": "Private spoken answer.", "hint1": "Private spoken hint."}
+    if stem is not None:
+        speech["stem"] = stem
+    item = {**PACK["items"][0], "speech": speech}
+    view = tutor._present(item, "practice", None)
+    assert view.get("speech", "") == (stem or "")
+    assert "Private spoken" not in str(view)
+    assert not {"answer", "explanation", "hints"} & view.keys()
+    assert tutor.session["presented"][str(view["n"])]["inst"]["speech"] == speech
 
 
 @pytest.mark.parametrize("pending", [False, True])
