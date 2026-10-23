@@ -55,10 +55,15 @@ def current_week(plan: dict, now: datetime) -> int:
 
 
 # ---------------- ticks in the Almanac ----------------
+def is_setup(objective: dict) -> bool:
+    """Knowing an attached idea cannot prove the learner set up notebooks or an error log."""
+    return objective.get("verb") == "Set up"
+
+
 def is_done(objective: dict, state: dict, ticked: frozenset = frozenset()) -> bool:
     """Ticked in the Almanac, or every idea in it is secure here."""
     kcs = objective.get("kcs", [])
-    return objective.get("id") in ticked or (bool(kcs) and all(
+    return objective.get("id") in ticked or (bool(kcs) and not is_setup(objective) and all(
         kc in state["kcs"] and model.is_mastered(state["kcs"][kc]) for kc in kcs))
 
 
@@ -112,12 +117,12 @@ def earned(plan: dict, state: dict, packs) -> frozenset:
     Learning an objective counts once each of its ideas has been answered right without help. A review, check or gate
     counts when the ideas it covers are secure (right on two different days): all of them, or in every subject the
     share its "done when" line asks for. What the tutor cannot see into (practicals, paper routines, anything that
-    names no ideas) is left to the learner's own tick."""
+    names no ideas, setting up notebooks or an error log) is left to the learner's own tick."""
     out = set()
     for objectives in plan.get("weeks", {}).values():
         for o in objectives:
             kcs = [k for k in about(o, plan) if k in packs.kcs]
-            if not o.get("id") or not kcs:
+            if not o.get("id") or not kcs or is_setup(o):
                 continue
             if o.get("type", "NEW") == "NEW":
                 done = all(state["kcs"].get(k, {}).get("succ_days") for k in kcs)
@@ -138,14 +143,14 @@ def progress(plan: dict, state: dict, packs, weeks=None) -> dict[str, dict]:
     """How far each objective is, by the same rules `earned` ticks by, so the Almanac can show the part that is done:
     {objective id: {"new": a NEW objective, "of": ideas, "secure": ideas that count, "tried": ideas answered at all, "waiting": ideas right on one day so far (a review wants two), "need": the share a tick
     asks for, "bysub": {subject: [secure, of]}, "next": up to three ideas still to do, "done": ticked by `earned`}}.
-    An objective that names no ideas (a practical, a paper routine) has no entry: it stays the learner's own tick."""
+    An objective that names no ideas, or sets up a routine, has no entry: it stays the learner's own tick."""
     out: dict[str, dict] = {}
     for w, objectives in plan.get("weeks", {}).items():
         if weeks is not None and int(w) not in weeks:
             continue
         for o in objectives:
             kcs = [k for k in about(o, plan) if k in packs.kcs]
-            if not o.get("id") or not kcs:
+            if not o.get("id") or not kcs or is_setup(o):
                 continue
             new = o.get("type", "NEW") == "NEW"
             if new:
@@ -393,9 +398,8 @@ def plan_session(state: dict, packs, now: datetime, minutes: int, mode: str = "a
         chosen = set(learn) | {k for b in blocks for k in b.get("kcs", [])}
         pool = [kc for kc, k in state["kcs"].items()
                 if k["n"] > 0 and not model.is_mastered(k) and kc not in chosen and kc in packs.kcs and packs.items_for(kc)]
-        pool.sort(key=lambda kc: packs.kc(kc)["subtopic"])
         count = max(0, int(max(0, minutes - used) / 3))
-        interleaved = pool[0::2] + pool[1::2]
+        interleaved = review_order(state, packs, now, pool)
         if interleaved and count:
             blocks.append({"kind": "practice", "kcs": interleaved[:count]})
     exit_kcs = learn[:3] or [k for b in blocks for k in b.get("kcs", [])][:3]
