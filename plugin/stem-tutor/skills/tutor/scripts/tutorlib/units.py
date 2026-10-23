@@ -207,6 +207,8 @@ def _is_unit(word: str) -> bool:
         try:
             parse_unit(text)
             return True
+        except ArithmeticError:
+            return True  # km9999 is still a unit, never a comment to discard after a correct unit (B-003)
         except ValueError:
             pass
     return False
