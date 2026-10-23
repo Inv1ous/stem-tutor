@@ -36,7 +36,7 @@ def _shuffled(it):
 
 # ---------- option letters in shuffled MCQs ----------
 _VERBS = ("is|are|has|have|uses|adds|ignores|puts|holds|pairs|gives|fails|describes|differs|confuses|reverses|omits|"
-          "counts|treats|assumes|forgets|mixes|swaps|doubles|halves|misses|shows|states|says|would|could|cannot")
+          "counts|treats|assumes|forgets|mixes|swaps|doubles|halves|misses|shows|states|says|would|could|cannot|acts")
 _LETTER = r"(?<![\w'’-])[A-D](?![\w'’-])"
 LETTER_REF = re.compile("|".join([
     r"\b[Oo]ptions?\s+\(?[A-D]\b",                                             # option D, options B and C
@@ -45,6 +45,7 @@ LETTER_REF = re.compile("|".join([
     rf"(?:^|[.;:,!?]\s+|\b(?:and|but|while|whereas|so)\s+){_LETTER}\s+(?:{_VERBS})\b",  # ... and D ignores the charge
     rf"\b[Ii]n\s+[A-D](?:\s*,|\s+(?:the|it|this|that)\b)",                    # In A the 3d ...; in C, 4s ...
     r"\b(?:answer|key)\s+(?:is\s+)?\(?[A-D]\b(?![\w'’-])",                    # the answer is B
+    rf"\b[Oo]nly\s+{_LETTER}",                                               # Only A has zero resultant (B-129)
 ]))
 
 

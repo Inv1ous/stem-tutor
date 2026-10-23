@@ -387,7 +387,7 @@ class HomeScreen(Screen):
         key = event.option.id
         app = self.app
         s = app.tutor.session
-        if key in ("today", "learn", "review", "weak", "test", "long", "blurt") and s and s.get("answered"):
+        if key in ("today", "learn", "review", "weak", "test", "long", "blurt") and s:  # even before an answer (B-104)
             def decided(choice: str | None) -> None:
                 if choice == "resume":
                     app.push_screen(SessionScreen(None))
@@ -1005,7 +1005,10 @@ class SessionScreen(ReadAloud, Screen):
         if say:
             self.say(cards.note(say, "dim"))
         card = self.say(cards.question(view))
-        self.readable_now(view.get("speech") or view.get("stem", ""))  # ctrl+e reads the question; it is never read by itself
+        parts = [view.get("speech") or view.get("stem", "")]
+        if view.get("kind") == "mcq":  # the choices are part of the question (B-107); never the key
+            parts += [f"Option {k}: {v}" for k, v in (view.get("options") or {}).items()]
+        self.readable_now(parts)  # ctrl+e reads the question; it is never read by itself
         self.query_one("#log", VerticalScroll).call_after_refresh(self._show_top, card)  # after say's scroll_end
         self.answer_panel(view)
 
@@ -1203,7 +1206,7 @@ class SessionScreen(ReadAloud, Screen):
             model, think = self.app.settings.ai_for("mark")
             res, _ = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, data.get("your", "")),
                                                 schema=prompts.JUDGE, model=model, think=think, **spoken_too(self.app))
-            if res and res.get("points"):
+            if ai_mod.matches_points(res, points):
                 met = sum(1 for p in res["points"] if p.get("met"))
                 score = met / max(1, len(points))
                 out = self.tutor.answer(data["entry"], judge={n: score})
@@ -1261,7 +1264,7 @@ class SessionScreen(ReadAloud, Screen):
         model, think = self.app.settings.ai_for("mark")
         res, r = await self.app.ai.one_shot(prompts.judge(self.view.get("stem", ""), points, self.long_text),
                                             schema=prompts.JUDGE, model=model, think=think, **spoken_too(self.app))
-        if not res:  # give the tick list back, with your ticks, so you can still mark it yourself
+        if not ai_mod.matches_points(res, points):  # give the tick list back, with your ticks, so you can still mark it yourself
             self.say(cards.card("hint", "AI check unavailable", r.message or "Mark it yourself."))
             self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s to submit.", data["ticked"],
                             [("mine", "Submit my marks ⏎")])

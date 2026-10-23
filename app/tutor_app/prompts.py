@@ -145,7 +145,8 @@ def judge(stem: str, points: list[str], answer: str) -> str:
     return (f"Mark this A-Level answer strictly against the mark points, the way a Cambridge/Edexcel examiner would.\n"
             f"QUESTION: {stem}\nMARK POINTS:\n{listed}\nSTUDENT ANSWER: {answer}\n\n"
             "Return JSON: {\"points\": [{\"point\": <text>, \"met\": true|false, \"why\": <short>}], "
-            "\"feedback\": <one or two sentences>}. A point is met only if its idea is clearly present.")
+            "\"feedback\": <one or two sentences>}. Return exactly one row per mark point, in the given order, "
+            "copying its text exactly (without the list number). A point is met only if its idea is clearly present.")
 
 
 PROFILE = {"type": "object", "properties": {"summary": {"type": "string"}}, "required": ["summary"]}

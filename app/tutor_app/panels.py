@@ -46,7 +46,21 @@ def _hint(text: str) -> Static:
     return Static(text, classes="hint")
 
 
-class Confidence(OptionList):
+class Settling(OptionList):
+    """An option list that ignores ⏎ for a moment after it appears. A held or doubled ⏎ meant for the screen before
+    (Next, then key repeat) otherwise answered the new question with its first option and confidence 1, unread (B-135).
+    The letter and number keys still pick at once: they are never meant for anything else."""
+    SETTLE = 0.4  # seconds: longer than a double press or the key repeat delay, shorter than reading the options
+
+    def on_mount(self) -> None:
+        self.shown = time.monotonic()
+
+    def action_select(self) -> None:
+        if time.monotonic() - self.shown >= self.SETTLE:
+            super().action_select()
+
+
+class Confidence(Settling):
     """How sure are you? 1–4. Esc goes back to change your answer."""
     BINDINGS = [Binding(str(i), f"pick({i})", show=False) for i in range(1, 5)] + \
                [Binding("escape", "back", "Change answer", show=False)]  # the hint says it: the footer has no room at 60
@@ -62,7 +76,7 @@ class Confidence(OptionList):
 
     def action_pick(self, i: int) -> None:
         self.highlighted = i - 1
-        self.action_select()
+        OptionList.action_select(self)  # a number key is a choice, never a stray ⏎
 
 
 class Composer(TextArea):
@@ -115,7 +129,7 @@ class ChoicePanel(Panel):
     def compose(self) -> ComposeResult:
         yield _hint(f"Q{self.n}: choose with ↑↓ and ⏎ (or press A–D).  0 = I don't know.  Full question: Now in Obsidian (o).")
         opts = [Option(_lettered(k, to_terminal(v)), id=k) for k, v in self.options.items()]
-        yield OptionList(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
+        yield Settling(*opts, Option("[i]I don't know[/i]", id=DONT_KNOW), id="choices")
         yield Composer(placeholder="✎ optional note (Tab)", id="note", compact=True)  # its ⏎: back to the list
 
     def action_letter(self, letter: str) -> None:

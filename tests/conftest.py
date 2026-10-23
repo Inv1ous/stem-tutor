@@ -30,3 +30,14 @@ def _no_worker_checks_in_tests(monkeypatch, tmp_path):
     monkeypatch.setenv("FOUNDRY_EVIDENCE", "0")
     monkeypatch.setenv("FOUNDRY_PREFLIGHT", "0")
     monkeypatch.setenv("FOUNDRY_CLAUDE_APPS", str(tmp_path / "no-claude-apps"))  # never the app's real Claude Code
+
+
+@pytest.fixture(autouse=True)
+def _options_take_enter_at_once(monkeypatch):
+    """A pilot presses ⏎ the instant a question appears; the app waits a moment for a real learner's held ⏎ to pass
+    (B-135). Its own test puts the wait back."""
+    try:
+        from tutor_app import panels
+    except ImportError:
+        return
+    monkeypatch.setattr(panels.Settling, "SETTLE", 0)

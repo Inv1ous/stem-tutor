@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 _VERBS = ("is|are|has|have|uses|adds|ignores|puts|holds|pairs|gives|fails|describes|differs|confuses|reverses|omits|"
-          "counts|treats|assumes|forgets|mixes|swaps|doubles|halves|misses|shows|states|says|would|could|cannot")
+          "counts|treats|assumes|forgets|mixes|swaps|doubles|halves|misses|shows|states|says|would|could|cannot|acts")
 _LETTER = r"(?<![\w'’-])[A-D](?![\w'’-])"
 LETTER_REF = re.compile("|".join([
     r"\b[Oo]ptions?\s+\(?[A-D]\b",                                             # option D, options B and C
@@ -22,6 +22,7 @@ LETTER_REF = re.compile("|".join([
     rf"(?:^|[.;:,!?]\s+|\b(?:and|but|while|whereas|so)\s+){_LETTER}\s+(?:{_VERBS})\b",  # ... and D ignores the charge
     rf"\b[Ii]n\s+[A-D](?:\s*,|\s+(?:the|it|this|that)\b)",                    # In A the 3d ...; in C, 4s ...
     r"\b(?:answer|key)\s+(?:is\s+)?\(?[A-D]\b(?![\w'’-])",                    # the answer is B
+    rf"\b[Oo]nly\s+{_LETTER}",                                               # Only A has zero resultant (B-129)
 ]))
 
 
@@ -140,3 +141,16 @@ def stacked_problems(pack: dict) -> list[str]:
         if tidy_script_text(s) != s:
             out.append("a fraction or charge the PDF broke: " + s[:80].replace("\n", " "))
     return list(dict.fromkeys(out))[:6]
+
+
+def id_problems(pack: dict) -> list[str]:
+    """Two items or two flashcards with one id: the learner's answers and Anki notes are kept by id, so the second would
+    overwrite the first (B-090: two circuit-symbol cards shared `fc1` and one Anki GUID)."""
+    out = []
+    for field in ("items", "flashcards"):
+        seen = set()
+        for x in pack.get(field) or []:
+            if x.get("id") in seen:
+                out.append(f"two {field} share the id {x['id']}: give the newer one an unused id")
+            seen.add(x.get("id"))
+    return out

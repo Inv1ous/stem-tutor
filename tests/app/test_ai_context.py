@@ -77,7 +77,7 @@ def test_marking_uses_the_marking_choice(tmp_path, monkeypatch):
 
     async def fake_one_shot(prompt, schema=None, model=None, think=False, **kw):
         seen.append((model, think))
-        return {"points": [{"point": "p", "met": True, "why": "ok"}], "feedback": "Good."}, None
+        return {"points": [{"point": "[1] has direction", "met": True, "why": "ok"}], "feedback": "Good."}, None
 
     async def steps(pilot):
         app.settings.ai_mark_model, app.settings.ai_mark_think = "sonnet", True

@@ -471,6 +471,19 @@ def json_instruction(schema: dict) -> str:
             "strings write every LaTeX backslash twice ($\\\\frac{1}{2}$).\n" + json.dumps(schema, ensure_ascii=False))
 
 
+def _point_words(text: str) -> str:
+    return re.sub(r"\W+", " ", re.sub(r"^\s*\d+[.)]\s*", "", text)).strip().lower()
+
+
+def matches_points(data, points: list[str]) -> bool:
+    """The examiner gave one row per mark point, in order, each naming its point. Two met rows for one point once
+    scored a missing point as earned (B-098); a reply that does not line up is set aside and the learner marks it."""
+    rows = data.get("points") if isinstance(data, dict) else None
+    return bool(points) and isinstance(rows, list) and len(rows) == len(points) and all(
+        isinstance(row, dict) and isinstance(row.get("met"), bool)
+        and _point_words(str(row.get("point", ""))) == _point_words(point) for row, point in zip(rows, points))
+
+
 def complete(data, schema: dict) -> bool:
     """The reply has every field the schema requires, each of the right basic type."""
     if not isinstance(data, dict):

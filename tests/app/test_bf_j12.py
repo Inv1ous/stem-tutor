@@ -32,14 +32,14 @@ def test_a_diagram_question_reads_its_authored_description(tmp_path, monkeypatch
             view = app.tutor._present(item, "practice", None)
             scr.ask_question(view)
             await pilot.pause()
-            assert scr.readable == expected
+            assert scr.readable_parts[0] == expected  # then the choices (B-107)
             assert view["stem"] == item["stem"]
             assert not {"answer", "explanation", "distractors"} & view.keys()
             assert "constructive" not in scr.readable.lower()
             assert "destructive" not in scr.readable.lower()
             fallback = {**view, "speech": ""}
             scr.ask_question(fallback)
-            assert scr.readable == item["stem"]
+            assert scr.readable_parts[0] == item["stem"]
             await app.ai.close()
     asyncio.run(go())
 

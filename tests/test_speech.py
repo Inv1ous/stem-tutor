@@ -415,7 +415,7 @@ def test_markdown_structure():
            "| a | b |\n|---|---|\n| 1 | 2 |\n\n```python\nx = 1\n```\n![[diagram.png]]\n"
            "- **Bold** item; _emph_ and *italic* with `code`.\n1. First\n2. Second\n")
     out = speakable(src)
-    assert out == "Title. In one breath. Body with x squared. Bold item, emph and italic with code. First. Second."
+    assert out == "Title. In one breath. Body with x squared. a, b. one, two. Bold item, emph and italic with code. First. Second."
 
 
 def test_wiki_links_embeds_and_links():
@@ -429,8 +429,8 @@ def test_callout_without_marker_and_emphasis():
     assert "!" not in say("> [!example]- Worked example\n> text") and "[" not in say("> [!example]- Worked example\n> text")
 
 
-def test_tables_and_code_are_dropped():
-    assert speakable("| a | b |\n|---|---|\n| 1 | 2 |") == ""
+def test_tables_are_read_row_by_row_and_code_is_dropped():
+    assert speakable("| a | b |\n|---|---|\n| 1 | 2 |") == "a, b. one, two."  # a question may need its table (B-128)
     assert speakable("```\nraw = 1\n```") == ""
     assert say("Before\n\n```py\nx\n```\n\nAfter") == "Before. After"
 

@@ -50,7 +50,8 @@ def test_the_examiner_replaces_overgenerous_ticks(tmp_path, monkeypatch):
     app, _ = app_for(tmp_path, monkeypatch)
 
     async def examiner(*args, **kwargs):
-        return {"points": [{"met": False}, {"met": False}]}, ai_mod.Result()
+        return {"points": [{"point": f"{p.get('mark', '')} {p.get('point', '')}", "met": False}
+                           for p in app.screen.scheme]}, ai_mod.Result()  # one row per point, named (B-098)
 
     async def go():
         async with app.run_test() as pilot:

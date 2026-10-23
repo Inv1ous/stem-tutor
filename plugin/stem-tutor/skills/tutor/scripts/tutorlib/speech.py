@@ -2803,6 +2803,7 @@ _STATE_ONE = {"s": "solid", "l": "liquid", "g": "gas", "aq": "aqueous"}
 
 def _symbols_pass(s: str) -> str:
     s = re.sub(r"[ \t]+", " ", s)
+    s = re.sub(r"\s*(?:-->|->|=>)\s*", " gives ", s)  # an ASCII reaction arrow, spoken as → is: never "is greater than" (B-113)
     s = s.replace("“", "").replace("”", "").replace("‘", "").replace("’", "'").replace('"', "")
     s = re.sub(r"(?<![A-Za-z])([A-Za-z])'(?![A-Za-z])", r"\1 prime ", s)
     s = re.sub(r"(?<![A-Za-z])'|'(?![A-Za-z])", " ", s)
@@ -3012,7 +3013,7 @@ def _strip_emphasis(line: str) -> str:
     return line
 
 
-def _blocks(text: str, skip_links: bool = False) -> list[str]:
+def _blocks(text: str, skip_links: bool = False, tables: bool = False) -> list[str]:
     """Markdown-ish text -> a list of raw paragraph strings (maths still as $..$ spans).
 
     With skip_links the "Links" section (navigation to other notes) is left out."""
@@ -3049,6 +3050,10 @@ def _blocks(text: str, skip_links: bool = False) -> list[str]:
             continue
         if _RE_TABLE_ROW.match(line) or _RE_TABLE_SEP.match(line) and "|" in line:
             flush()
+            if tables and not _RE_TABLE_SEP.match(line):  # a question's table is its data: read each row (B-128)
+                cells = [c.strip() for c in line.strip().strip("|").split("|")]
+                if any(cells):
+                    paras.append(", ".join(c for c in cells if c) + ".")
             continue
         mc = _RE_CALLOUT.match(line)
         if mc:
@@ -3137,7 +3142,10 @@ def _convert(text: str) -> tuple[str, tuple[str, ...]]:
     _TLS.gaps = []
     try:
         pieces = []
-        paras, spans = _blocks_masked(_repair(text))
+        # between numbers or single-letter quantities a spaced dash is subtraction (131 - 53 = 78): the true minus
+        # sign, read "minus" further on; elsewhere it stays a dash, a pause (B-112)
+        text = re.sub(r"(?:(?<=\d)|(?<=\))|(?<=\b[A-Za-z]))\s[-–]\s(?=\d|\(|[A-Za-z]\b)", " − ", text)
+        paras, spans = _blocks_masked(_repair(text), tables=True)  # a note's own tables are left out (note_paragraphs)
         for p in paras:
             w = _paragraph(p, spans)
             if w:
@@ -3191,7 +3199,19 @@ def for_tts(text: str) -> str:
     return _pronounce(out)
 
 
+_A_ARTICLE_NEXT = re.compile(r"\s+(?!(?:to|and|or|is|was|has|at|in|on|from|then|equals|plus|minus|gives|by|of)\b)[a-z]")
+
+
+def _letter_a(out: str) -> str:
+    """A capital A that names something (option A, point A, A to B, "the answer is A,") is the letter, said "ay"; one
+    that starts a noun ("A charge") is the article and stays (B-116)."""
+    def say(m: "re.Match[str]") -> str:
+        return m.group(0) if _A_ARTICLE_NEXT.match(out, m.end()) else "ay"
+    return re.sub(r"(?<![A-Za-z'])A(?![A-Za-z'])", say, out)
+
+
 def _pronounce(out: str) -> str:
+    out = _letter_a(out)
     if not PRONOUNCE or not out:
         return out
     for word, respell in PRONOUNCE.items():
@@ -3229,12 +3249,12 @@ def audio_key(speech_text: str, voice: str, speed: float) -> str:
 _CARD_FIELDS = ("motivate", "establish", "connect", "note", "self_explain", "discover")
 
 
-def _blocks_masked(text: str, skip_links: bool = False):
+def _blocks_masked(text: str, skip_links: bool = False, tables: bool = False):
     """Mask the maths first (a display block may span lines), then split into paragraphs."""
     text = _RE_FRONT.sub("", text.replace("\r\n", "\n").replace("\r", "\n"), count=1)
     text = re.sub(r"```.*?```|~~~.*?~~~", "\n", text, flags=re.S)
     masked, spans = _mask_math(text)
-    return _blocks(masked, skip_links=skip_links), spans
+    return _blocks(masked, skip_links=skip_links, tables=tables), spans
 
 
 def note_paragraphs(note_text: str) -> list[str]:
