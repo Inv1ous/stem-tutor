@@ -62,10 +62,18 @@ class Tutor(LessonMixin):
         open here though the log holds its answer: close it, so it is not asked and recorded a second time, and do
         to the session what marking it did (a sweep's result, a relearn, a node's check), as a re-mark redoes it."""
         s = self.session
-        if not s or not s.get("presented"):
+        if not s:
+            return
+        events = list(self.vault.events())
+        # The end event can be saved before the active session is cleared.
+        if any(e["type"] == "session_end" and e.get("session") == s["id"] for e in events):
+            self.session = None
+            self._save()
+            return
+        if not s.get("presented"):
             return
         done = []
-        for e in list(self.vault.events()):
+        for e in events:
             n = str(e.get("n"))
             if e["type"] == "answer" and e.get("session") == s["id"] and s["presented"].get(n, {}).get("item") == e["item"]:
                 p = s["presented"][n]
@@ -188,6 +196,11 @@ class Tutor(LessonMixin):
 
     def clear_chat(self) -> None:
         self._chat = []
+        try:
+            views.write_now(self.vault.root, f"Chat · {self.now():%H:%M}",
+                            ["Type a question in the tutor to begin."])
+        except OSError:  # as with chat replies, a failed mirror must not stop the terminal
+            pass
 
     def _thread_blocks(self, items: list[dict]) -> list[str]:
         return [views.callout(self.THREAD_KIND.get(t["kind"], "note"),
@@ -363,6 +376,12 @@ class Tutor(LessonMixin):
         p = self.session["presented"][str(n)]
         inst = p["inst"]
         v = {"n": n, **{k: inst[k] for k in PUBLIC if inst.get(k) is not None}, "unassisted": p["unassisted"]}
+        # Speech dictionaries also hold explanations and hints, which stay private before an attempt.
+        speech = inst.get("speech")
+        if isinstance(speech, dict):
+            speech = speech.get("stem")
+        if isinstance(speech, str) and speech:
+            v["speech"] = speech
         if inst.get("source", {}).get("type") == "past":
             v["source"] = inst["source"].get("ref")
         if inst["kind"] == "structured":
