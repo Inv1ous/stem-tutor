@@ -187,6 +187,20 @@ _WORD = re.compile("^(" + "|".join(PREFIX_WORDS) + ")?(" + "|".join(sorted(WORDS
 _JOINS = {"per", "square", "squared", "cubic", "cubed"}  # words that belong to a unit: never a comment after it
 
 
+def unit_symbols(text: str) -> str:
+    """Read requested unit names as symbols: 'ohms' means Ω, not ohm times seconds. Keep symbols' capitals."""
+    parts = []
+    for raw in text.translate(SUPERSCRIPT).split():
+        token = TOKEN.match(raw)
+        word = _WORD.match(token[1].lower()) if token else None
+        if word:
+            raw = PREFIX_WORDS.get(word[1], "") + WORDS[word[2]] + raw[len(token[1]):]
+        elif raw.lower() == "per":
+            raw = "/"
+        parts.append(raw)
+    return " ".join(parts)
+
+
 def _respelled(text: str) -> list[str]:
     """Other ways to read a unit as typed: "kw" and "KW" as kW, "kilowatts" as kW, "mw" as mW or MW, "per" as /."""
     options = [""]

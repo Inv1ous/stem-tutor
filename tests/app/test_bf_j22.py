@@ -66,12 +66,43 @@ def test_force_practice_accepts_the_requested_unit_only(tmp_path, monkeypatch, g
     ('9702', 'mixing-thermal-equilibrium', '40 degrees Celsius', True),
     ('9702', 'mixing-thermal-equilibrium', '40 K', False),
     ('9702', 'mixing-thermal-equilibrium', '40 C', False),
+    ('9702', 'i-v-graphs', '30 Ω', True),
+    ('9702', 'i-v-graphs', '30 ohms', True),
+    ('9702', 'i-v-graphs', '30 Ω s', False),
+    ('9702', 'check-refraction-with-an-invariant-ratio', '0.60 m', True),
+    ('9702', 'check-refraction-with-an-invariant-ratio', '60 cm', True),
+    ('9702', 'check-refraction-with-an-invariant-ratio', '0.60 s', False),
 ])
 def test_published_practice_accepts_formatted_keys_and_requested_units(tmp_path, monkeypatch, spec, ident, given, right):
     """B-040: published maths keys and equivalent unit names must not cost a correct answer."""
     app, v = app_for(tmp_path, monkeypatch)
     path = Path(__file__).resolve().parents[2] / f'build/out/shortcuts/lessons/{spec}.json'
     lesson = json.loads(path.read_text())[f'SEM-{spec}-{ident}']
+    publish(v, lessons={'SEM-9702-a': lesson})
+
+    async def steps(pilot):
+        scr = await open_from_menu(pilot, app, 'shortcuts', 'ShortcutsScreen')
+        scr.act('start')
+        await pilot.pause()
+        scr.start_practice()
+        await pilot.pause()
+        scr.query_one(Input).value = given
+        await pilot.press('enter')
+        await pilot.pause()
+        assert ('Correct.' if right else 'Not quite.') in card(scr)
+        assert events(v)[-1]['rating'] == (3 if right else 1)
+    run(app, steps)
+
+
+@pytest.mark.parametrize(('given', 'right'), [
+    ('1/3', True), ('2/6', True), ('100/300', True), ('0.3333333333333333', True),
+    ('100/301', False), ('100/299', False), ('0.333', False), ('0.33', False),
+])
+def test_exact_root_practice_accepts_equivalent_values_but_not_nearby_answers(tmp_path, monkeypatch, given, right):
+    """B-040: a question asking for an exact root cannot use a percentage tolerance."""
+    app, v = app_for(tmp_path, monkeypatch)
+    path = Path(__file__).resolve().parents[2] / 'build/out/shortcuts/lessons/P1.json'
+    lesson = json.loads(path.read_text())['SEM-P1-sum-and-product-of-roots']
     publish(v, lessons={'SEM-9702-a': lesson})
 
     async def steps(pilot):
@@ -106,6 +137,10 @@ def test_practice_uses_the_requested_unit_not_the_input_angle_unit(spec, ident, 
     ('Find the displacement in m. Give a bare number.', '1/3 m', '0.3333333333333333', True),
     ('A 25 N force acts on a 25 kg block. Find the coefficient of friction.', '1 N', '1', False),
     ('A particle moves in vacuum. Find its speed in m s$^{-1}$.', '3 vacuum', '3', False),
+    ('Find the maximum rise in metres, to 2 significant figures.', '10 m', '10', True),
+    ('Find the slope in seconds per metre.', '-2 s/m', '-2', True),
+    ('Find the current in mA.', '0.025 A', '25', True),
+    ('Find the current in mA.', '25 MA', '25', False),
 ])
 def test_practice_units_follow_the_requested_quantity(stem, given, answer, right):
     """B-040: validate compound units without treating data units or prose as the answer unit."""

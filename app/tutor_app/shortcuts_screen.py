@@ -4,6 +4,7 @@ All the learner's state is the course's own (tutorlib.shortcuts: settings, event
 the syllabus model, sessions and reviews are never touched."""
 from __future__ import annotations
 
+import math
 import random
 import re
 from datetime import datetime, timezone
@@ -20,7 +21,7 @@ from textual.widgets.selection_list import Selection
 
 from tutorlib import shortcuts as sc
 from tutorlib.grade import ParseError, parse_quantity
-from tutorlib.units import parse_unit, unit_factor, unit_readings
+from tutorlib.units import parse_unit, unit_factor, unit_readings, unit_symbols
 
 from .look import C
 from .panels import TickList
@@ -58,7 +59,7 @@ def number(s, expected_unit: str = "") -> float | None:
 
 
 def numeric_ok(given: str, answer, stem: str = "") -> bool:
-    """Right when the strings match, or the numbers are within 1% of each other."""
+    """Compare whole quantities; exact questions allow only floating-point rounding, others allow 1%."""
     if str(given).strip().lower() == str(answer).strip().lower():
         return True
     # Read units from the request, not data such as "Evaluate tan 225, with the angle in degrees".
@@ -66,8 +67,9 @@ def numeric_ok(given: str, answer, stem: str = "") -> bool:
         r"\b(?:find|calculate|determine|give|state|express|estimate|what|write|convert|how far|how much|how fast)\b",
         sentence, re.I))
     expected_unit = ""
-    for match in re.finditer(r"\bin\s+([^.,;?]+?)(?=\s+(?:to|as|measured|using|between)\b|[.,;?]|$)", request):
-        candidate = match[1].strip()
+    # 'In medium 2 in m' asks for metres; each 'in' can begin the requested unit.
+    for match in re.finditer(r"\bin\s+([^.,;?]+?)(?=\s+(?:in|to|as|measured|using|between)\b|[.,;?]|$)", request):
+        candidate = unit_symbols(match[1].strip())
         # Degrees and Celsius are recognised units, but are not part of SI unit algebra.
         if unit_factor(candidate, "°") is None and unit_factor(candidate, "°C") is None:
             try:
@@ -78,6 +80,8 @@ def numeric_ok(given: str, answer, stem: str = "") -> bool:
     a, b = number(given, expected_unit), number(txt(answer), expected_unit)
     if a is None or b is None:
         return False
+    if re.search(r"\bexact\b", stem, re.I):
+        return math.isclose(a, b, rel_tol=1e-12, abs_tol=0.0)
     return abs(a - b) <= 0.01 * abs(b) if b else abs(a) < 1e-9
 
 
