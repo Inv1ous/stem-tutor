@@ -238,3 +238,17 @@ def test_settings_preserves_recall_question_and_visit_total(tmp_path, monkeypatc
         await pilot.pause()
         assert 'You recalled 2 shortcuts' in card(scr)
     run(app, steps)
+
+
+@pytest.mark.parametrize("given,answer,stem,right", [
+    ("5 pc", "5 pc", "Find the distance to the star in parsecs.", True),
+    ("5", "5 pc", "Find the distance to the star in parsecs.", True),
+    ("5 ly", "5 pc", "Find the distance to the star in parsecs.", False),
+    ("0.125 arcsec", "0.125 arcsec", "Find the parallax angle.", True),
+    ("3.01", "3", "The area is exactly what?", False),
+    ("1.21 mm", "1.2 mm", "Find the extension exactly.", False),
+    ("1.2 mm", "1.2 mm", "Find the extension exactly.", True),
+])
+def test_units_the_tutor_does_not_read_and_exactly_worded_questions(given, answer, stem, right):
+    """B-040, the manager's round: astronomy units were refused, and "exactly" was not read as exact."""
+    assert numeric_ok(given, answer, stem) is right

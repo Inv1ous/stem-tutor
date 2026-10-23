@@ -79,8 +79,16 @@ def numeric_ok(given: str, answer, stem: str = "") -> bool:
         expected_unit = candidate
     a, b = number(given, expected_unit), number(txt(answer), expected_unit)
     if a is None or b is None:
-        return False
-    if re.search(r"\bexact\b", stem, re.I):
+        # A unit the tutor cannot read (pc, arcsec) is compared as written: the same unit, or none, and the number decides.
+        # One it can read that did not fit, or a unit with another number in it ("25 N or 30 N"), is wrong.
+        try:
+            (a, ua, _), (b, ub, _) = parse_quantity(str(given)), parse_quantity(txt(answer))
+        except ParseError:
+            return False
+        if ua and (re.search(r"\d", ua) or (ua.lower() != (ub or "").lower() and (unit_factor(ua, ua) is not None
+                                                                                  or ub or expected_unit))):
+            return False  # the learner's unit is not the answer's: another quantity, or another number with it
+    if re.search(r"\bexact(?:ly)?\b", stem, re.I):
         return math.isclose(a, b, rel_tol=1e-12, abs_tol=0.0)
     return abs(a - b) <= 0.01 * abs(b) if b else abs(a) < 1e-9
 
