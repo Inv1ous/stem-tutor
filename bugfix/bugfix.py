@@ -502,7 +502,8 @@ def gate_and_route(jid: str, report: dict | None, code: int) -> None:
         with state() as st:
             j = st["jobs"][jid]
             j["stage"], j["pid"] = "fix", None
-            history(j, "the model was at capacity: the same round starts again")
+            j["model"] = config().get("at_capacity", {}).get(j["model"], j["model"])  # its stand-in, if one is named
+            history(j, f"the model was at capacity: the same round starts again on {j['model']}")
         return
     keep, bad = commit(job, report)
     wt = Path(job["worktree"])
@@ -549,6 +550,8 @@ def route_review(jid: str, report: dict | None, code: int) -> None:
         job["review_report"] = report
         if not report or code:
             job["stage"] = "review"  # the reviewer failed: run it again
+            if busy_model(job):
+                job["review"] = config().get("at_capacity", {}).get(job["review"], job["review"])
             job["review_fail"] = job.get("review_fail", 0) + (0 if busy_model(job) else 1)
             if job["review_fail"] >= 2:
                 job["stage"] = "stuck"

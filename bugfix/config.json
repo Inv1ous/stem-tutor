@@ -1,5 +1,5 @@
 {
- "max_parallel": 3,
+ "max_parallel": 4,
  "group_size": 3,
  "rounds": 3,
  "scribe": "gpt-6-sol/high",
@@ -33,9 +33,9 @@
   }
  },
  "test_workers": 4,
- "provider": "claude",
+ "provider": "codex",
  "stop": {
-  "codex": 80,
+  "codex": 30,
   "claude": 58
  },
  "claude_tiers": {
@@ -44,5 +44,10 @@
   "gpt-6-astra/medium": "sonnet/high",
   "gpt-6-astra/high": "sonnet/high",
   "gpt-6-astra/xhigh": "opus/medium"
+ },
+ "at_capacity": {
+  "gpt-6-astra/high": "gpt-6.1-sol/high",
+  "gpt-6-astra/xhigh": "gpt-6.1-sol/xhigh",
+  "gpt-6-astra/medium": "gpt-6.1-sol/medium"
  }
 }
