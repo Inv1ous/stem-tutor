@@ -257,30 +257,14 @@ class LessonLog:
     def you(self, text: str) -> None:
         self.add(callout("quote", "You", text))
 
-    def question(self, view: dict, label: str = "") -> None:
-        body = [view.get("stem", "")]
-        if view.get("image"):
-            body += ["", f"![[{view['image']}]]"]
-        if view.get("options"):
-            body += [""] + [f"**{k}.** {v}" for k, v in view["options"].items()]
-        tags = " · ".join(t for t in (view.get("kind", "").upper(), view.get("source"), label,
-                                      "no hints" if view.get("unassisted") else "") if t)
-        self.add(callout("question", f"Q{view['n']} · {tags}", "\n".join(body)))
+    def card(self, role: str, title: str, body: str = "") -> None:
+        self.add(card_block(role, title, body))
+
+    def question(self, view: dict) -> None:
+        self.add(question_block(view))  # as Now shows it, so the record reads the same
 
     def answer(self, fb: dict, your: str) -> None:
-        dont_know = your.strip() in ("?", "don't know")
-        kind = "question" if dont_know else ("success" if fb.get("correct") else "failure")
-        title = f"Q{fb['n']} — " + ("I don't know" if dont_know else "correct ✓" if fb.get("correct") else
-                                    "right value, a mark lost ✗" if fb.get("partial") else "incorrect ✗")
-        body = [f"Your answer: {your}", f"Correct answer: {fb.get('answer', '')}"]
-        if fb.get("detail"):
-            body.append(f"Exam point: {fb['detail']}")
-        if fb.get("explanation"):
-            body += ["", fb["explanation"]]
-        mis = fb.get("misconception")
-        if mis:
-            body += ["", f"**Trap:** {mis.get('statement', '')}", mis.get("refutation", "")]
-        self.add(callout(kind, title, "\n".join(body)))
+        self.card(*feedback_card(fb, your))
 
 
 # ---------------- Now.md ----------------
@@ -390,6 +374,81 @@ def question_block(view: dict) -> str:
     if view.get("figure_text"):  # what the PDF copied out of the figure, kept but out of the way (Q-009)
         body += ["", "> [!note]- Text read from the picture"] + [f"> {line}" for line in view["figure_text"]]
     return callout("question", f"Q{view['n']} · {_tags(view)}", "\n".join(body))
+
+
+# One wording for each card, so the terminal, Now and the lesson log say the same thing. A card is (role, title, body):
+# the role is the terminal's colour (look.C) and picks the callout here.
+CALLOUT = {"tutor": "abstract", "plan": "abstract", "hint": "warning", "good": "success", "bad": "failure",
+           "you": "quote", "ai": "tip", "notice": "info", "question": "question", "example": "example"}
+DONT_KNOW = ("?", "i don't know", "don't know")
+
+
+def card_block(role: str, title: str, body: str = "") -> str:
+    if role == "note":  # a quiet line under the cards, as the terminal prints it
+        return f"*{body.strip()}*"
+    return callout(CALLOUT.get(role, "note"), title, body)
+
+
+def feedback_card(fb: dict, your: str, esc=lambda s: s) -> tuple[str, str, str]:
+    """A marked answer: what you gave, the answer, the exam point, the explanation and every note that goes with it.
+    `esc` keeps typed text as typed where the terminal's Markdown would read it as formatting."""
+    ok, partial = fb.get("correct"), fb.get("partial")
+    dont_know = your.strip().lower() in DONT_KNOW
+    marks, score = fb.get("marks") or 1, fb.get("score") or 0
+    earned = round(score * marks)
+    verdict = ("I don't know — here's the answer" if dont_know else "Correct ✓" if ok else
+               "Right value, but a mark lost ✗" if partial else
+               f"{earned} of {marks} marks ✗" if marks > 1 and 0 < earned < marks else "Not quite ✗")  # Q-017
+    role = "good" if ok else "hint" if dont_know or partial else "bad"
+    body = [f"**Your answer:** {esc(your)}", f"**Answer:** {esc(str(fb.get('answer', '')))}"]
+    if fb.get("detail"):
+        body.append(f"**Exam point:** {fb['detail']}")
+    if fb.get("explanation"):
+        body += ["", fb["explanation"]]
+    mis = fb.get("misconception")
+    if mis:
+        body += ["", f"**Trap:** {mis.get('statement', '')}", mis.get("refutation", "")]
+        if mis.get("contrast"):
+            body.append(f"_Compare:_ {mis['contrast']}")
+    if fb.get("official_key_only") and not fb.get("explanation"):
+        body += ["", fb.get("examiner") or "Past-paper question: official answer only (the 'Explain this answer' "
+                                             "button asks the AI tutor why)."]
+    if fb.get("hypercorrect"):
+        body += ["", "⚑ You were confident but wrong: this is the best moment to fix the idea. Ask why (t)."]
+    if fb.get("calibration_note"):
+        body += ["", f"◔ {fb['calibration_note']}"]
+    if fb.get("relearn"):
+        body += ["", "↻ This idea will come back in a few questions, so you can get it right before you finish."]
+    return role, f"Q{fb['n']} — {verdict}", "\n".join(body)
+
+
+def activity_cards(act: dict) -> list[tuple[str, str, str]]:
+    """The cards a lesson step puts on screen (a worked example: the problem, then each step shown so far)."""
+    kind = act.get("activity")
+    if kind == "explain":
+        return [("tutor", act.get("title", ""), act.get("text", ""))]
+    if kind == "teach":
+        traps = "\n".join(f"- Trap: {m}" for m in act.get("misconceptions", []))
+        return [("tutor", act.get("kc_title", ""), act.get("outline", "") + (f"\n\n{traps}" if traps else ""))]
+    if kind == "choose":
+        return [("plan", act["question"], "\n".join(f"- {v}" for v in act["options"].values()))]
+    if kind == "plan":
+        nodes = "\n".join(f"- {'✓ you know: ' if n['known'] else ''}{n['title']}" for n in act["nodes"])
+        return [("plan", f"Plan: {act['title']}", f"{act['approach']}\n\n{nodes}")]
+    if kind in ("worked", "walkthrough"):
+        out = [("tutor", "Worked example", act.get("problem") or "Walk through it step by step.")]
+        return out + [("tutor", f"Step {i}", f"{st['do']}\n\n_{st.get('why', '')}_")
+                      for i, st in enumerate(act["steps"][:act.get("revealed", 0)], 1)]
+    if kind == "refute":
+        m = act["misconceptions"][0]
+        m = m if isinstance(m, dict) else {"statement": m}
+        return [("hint", f"Trap: {m.get('statement', '')}",
+                 m.get("refutation", "") + (f"\n\n_Compare:_ {m['contrast']}" if m.get("contrast") else ""))]
+    if kind == "own_words":
+        return [("tutor", "In your own words", act["prompt"])]
+    if kind == "stuck":
+        return [("hint", "Not clicked yet", act["say"])]
+    return []
 
 
 def _tags(view: dict) -> str:

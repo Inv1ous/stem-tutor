@@ -80,9 +80,8 @@ class Tutor(LessonMixin):
                 kind = "idk" if e["response"] == "don't know" else _expected_kind(p["inst"]["kind"])[0]
                 done.append(self._mark(n, p, {"kind": kind, "value": e["response"], "conf": e.get("conf")},
                                        {**e["grade"], "needs_judgement": False}, redo=e))
-        if done:
-            s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "partial", "detail", "response", "answer",
-                                                         "explanation")} for fb in done]
+        if done:  # marked before the last save was lost: the log has them, Now gets them back
+            s["thread"] = (s.get("thread") or []) + [self._feedback_item(fb, fb["your"]) for fb in done]
             s["now"] = {"activity": "feedback"}
             self._sync_almanac(force=True)
 
@@ -163,33 +162,54 @@ class Tutor(LessonMixin):
         return views.LessonLog(self.vault.root, views.lesson_rel(self.vault.root, rel)) if rel else None
 
     def _set_now(self, activity: dict | None = None) -> None:
-        if self.session is not None:
-            if activity and activity.get("activity") != "feedback":  # a new question or step: its own page
-                key = f"{activity.get('activity')}:{activity.get('kc')}:{','.join(sorted(self.session.get('presented', {})))}"
-                if key != self.session.get("thread_key"):
-                    self.session["thread_key"] = key
-                    self.session.pop("thread", None)
-            self.session["now"] = activity
-            self.session.pop("last_feedback", None) if activity and activity.get("activity") != "feedback" else None
+        """A new question or step. Now shows what the terminal shows: everything since the terminal last cleared its
+        log, which it does for a new question (answered from memory) and for "in your own words"."""
+        s = self.session
+        if s is None or not activity or activity.get("activity") == "feedback":
+            return
+        kind = activity["activity"]
+        key = (f"{kind}:{activity.get('kc')}:{activity.get('part') or activity.get('title') or ''}:"
+               f"{','.join(sorted(s.get('presented', {}), key=int))}")
+        s["now"] = activity
+        if key == s.get("thread_key"):  # the same step, moved on (a worked step revealed): its card grows
+            for item in reversed(s.get("thread") or []):
+                if item.get("kind") == "step":
+                    item["act"] = activity
+                    break
+            return
+        s["thread_key"] = key
+        if kind in ("questions", "own_words"):
+            s["thread"] = []
+        if kind == "questions":  # the question was logged when it was opened
+            s["thread"] += [{"kind": "question", "view": self._view(int(n))} for n in sorted(s["presented"], key=int)]
+        elif views.activity_cards(activity):
+            self._post({"kind": "step", "act": activity})
 
-    THREAD_KEEP = 8
-    THREAD_KIND = {"you": "quote", "ai": "tip", "hint": "tip", "notice": "info"}
+    CHAT_KEEP = 50
 
-    def show(self, kind: str, text: str, title: str = "") -> None:
-        """Put on the Now page what the terminal has just shown: an AI reply, the question the learner asked, a hint, a
-        notice. They stay (the last few) until the next question or step, so the page can be read without the terminal.
-        `kind`: you, ai, hint or notice. Outside a session (the free chat) they make up the page. Never raises."""
+    def _post(self, item: dict) -> None:
+        """A card for Now and the lesson log at once, so the two say what the terminal said."""
+        s = self.session
+        s["thread"] = (s.get("thread") or []) + [item]
+        if (log := self._lesson_log()):
+            log.add("\n\n".join(self._thread_blocks([item])))
+
+    def show(self, kind: str, text: str, title: str = "", log: bool = True) -> None:
+        """Put on Now, and in the lesson log, a card the terminal has just shown: an AI reply, what the learner typed, a
+        hint, a notice. `kind` is the card's colour role (you, ai, hint, tutor, good, bad, note, notice). `log`: False
+        when the log has it already. Outside a session (the free chat) they make up the page. Never raises."""
         try:
             if not (text or "").strip():
                 return
             item = {"kind": kind, "title": title, "text": text.strip()}
             if self.session is None:
-                self._chat = (getattr(self, "_chat", []) + [item])[-self.THREAD_KEEP:]
+                self._chat = (getattr(self, "_chat", []) + [item])[-self.CHAT_KEEP:]
                 self._write_now()
                 return
-            s = self.session
-            s["thread"] = (s.get("thread") or []) + [item]
-            del s["thread"][:-self.THREAD_KEEP]
+            if log:
+                self._post(item)
+            else:
+                self.session["thread"] = (self.session.get("thread") or []) + [item]
             self._save()
         except OSError:  # the Now page cannot be written: the terminal has it anyway
             pass
@@ -203,9 +223,18 @@ class Tutor(LessonMixin):
             pass
 
     def _thread_blocks(self, items: list[dict]) -> list[str]:
-        return [views.callout(self.THREAD_KIND.get(t["kind"], "note"),
-                              t.get("title") or {"you": "You", "ai": "Tutor (AI)", "hint": "Hint"}.get(t["kind"], ""), t["text"])
-                for t in items]
+        out = []
+        for t in items:
+            if t["kind"] == "question":
+                out.append(views.question_block(t["view"]))
+            elif t["kind"] == "step":
+                out += [views.card_block(*c) for c in views.activity_cards(t["act"])]
+                if t["act"].get("activity") == "plan" and t["act"].get("map"):  # the map the terminal points to
+                    out.append(t["act"]["map"])
+            else:
+                out.append(views.card_block(t["kind"], t.get("title") or {"you": "You", "ai": "Tutor (AI)"}.get(t["kind"], ""),
+                                            t["text"]))
+        return out
 
     def _write_now(self) -> None:
         s = self.session
@@ -217,43 +246,14 @@ class Tutor(LessonMixin):
             views.write_now(self.vault.root, f"No session running · {self.now():%H:%M}",
                             ["Start the tutor to begin. Your last lessons are in the Lessons folder, a folder for each day."])
             return
-        blocks = []
-        for fb in s.get("last_feedback", []):
-            asked = next((q for q in reversed(s.get("recent", [])) if q.get("n") == fb.get("n") and q.get("stem")), None)
-            if asked:  # the question stays above its verdict, so the answer can be read against it
-                blocks.append(views.question_block({**asked, "kind": asked.get("kind", ""), "marks": asked.get("marks", 1)}))
-            kind = "success" if fb.get("correct") else "failure"
-            body = (f"Answer: {fb.get('answer', '')}" + (f"\nExam point: {fb['detail']}" if fb.get("detail") else "")
-                    + (f"\n\n{fb['explanation']}" if fb.get("explanation") else ""))
-            verdict = ("correct ✓" if fb.get("correct") else "right value, a mark lost ✗" if fb.get("partial")
-                       else "not quite ✗")
-            blocks.append(views.callout(kind, f"Q{fb['n']} — {verdict}", body))
-        act = s.get("now") or {}
-        kind = act.get("activity")
-        if kind == "explain":
-            blocks.append(views.callout("abstract", act["title"], act["text"]))
-        elif kind == "teach":
-            blocks.append(views.callout("abstract", act["kc_title"], _teach_text(act)))
-        elif kind == "plan":
-            ticks = "\n".join(f"- [{' ' if n['kc'] in act['default_teach'] else 'x'}] {n['title']}" for n in act["nodes"])
-            blocks.append(views.callout("abstract", f"Plan: {act['title']}", act["approach"]) + "\n\n" + act["map"]
-                          + "\n\n" + ticks)
-        elif kind == "choose":
-            blocks.append(views.callout("question", act["question"],
-                                        "\n".join(f"- {v}" for v in act["options"].values())))
-        elif kind == "worked":
-            shown = act.get("revealed", 0)
-            steps = "\n".join(f"{i}. {st['do']}" for i, st in enumerate(act["steps"][:shown], 1))
-            blocks.append(views.callout("example", "Worked example", act["problem"] + ("\n\n" + steps if steps else "")))
-        elif kind == "refute":
-            m = act["misconceptions"][0]
-            blocks.append(views.callout("warning", "Trap: " + m["statement"],
-                                        m.get("refutation", "") + ("\n\n" + m["contrast"] if m.get("contrast") else "")))
-        elif kind in ("own_words", "stuck"):
-            blocks.append(views.callout("tip", act.get("title", ""), act.get("prompt") or act.get("say", "")))
-        for n in sorted(s.get("presented", {}), key=int):
-            blocks.append(views.question_block(self._view(int(n))))
-        blocks += self._thread_blocks(s.get("thread", []))  # what was asked and answered since: as in the terminal
+        thread = s.get("thread") or []
+        lead = []  # a page kept by an older version has no cards for the open question or the step: show them first
+        if not any(t["kind"] == "step" for t in thread) and views.activity_cards(s.get("now") or {}):
+            lead.append({"kind": "step", "act": s["now"]})
+        shown = {t["view"]["n"] for t in thread if t["kind"] == "question"}
+        lead += [{"kind": "question", "view": self._view(int(n))} for n in sorted(s.get("presented", {}), key=int)
+                 if int(n) not in shown]
+        blocks = self._thread_blocks(lead + thread)  # what the terminal shows, in its order
         sub = s.get("subtopic")
         notes = views.notes_rel(self.packs, sub) if sub and (self.vault.root / views.notes_rel(self.packs, sub)).exists() else None
         title = self.packs.subtopics.get(sub, {}).get("title", "") if sub else ""
@@ -358,7 +358,7 @@ class Tutor(LessonMixin):
         self.session["presented"][n] = p
         self._audit("present", int(n), p["inst"])
         if (log := self._lesson_log()):
-            log.question(self._view(int(n)), label=p["phase"] or "")
+            log.question(self._view(int(n)))
         return self._view(int(n))
 
     def _audit(self, event: str, n: int, inst: dict) -> None:
@@ -621,8 +621,6 @@ class Tutor(LessonMixin):
                        "statement": meta.get("statement"), "method": b["method"], "card": policy.METHOD_CARDS[b["method"]],
                        "note": pack.get("note", ""), "outline": pack.get("outline", ""), "block_idx": idx,
                        "misconceptions": [m["statement"] for m in pack.get("misconceptions", []) if m["kc"] == kc]}
-                if (log := self._lesson_log()):
-                    log.tutor(_teach_text(act), title=act["kc_title"])
                 return self._await(act)
             if phase == "worked":
                 wk = (self.packs.worked_for(kc) or [None])[0]
@@ -647,9 +645,6 @@ class Tutor(LessonMixin):
                 mis = [m for m in pack.get("misconceptions", [])
                        if m["id"] in self.state["kcs"].get(kc, {}).get("active_misconceptions", [])]
                 if mis:
-                    if (log := self._lesson_log()):
-                        log.add(views.callout("warning", "Trap: " + mis[0]["statement"], mis[0].get("refutation", "")
-                                              + ("\n\n" + mis[0]["contrast"] if mis[0].get("contrast") else "")))
                     return self._await({"activity": "refute", "block": "learn", "kc": kc, "block_idx": idx,
                                         "card": policy.METHOD_CARDS["refutation"], "misconceptions": mis})
             if phase == "probe":
@@ -679,11 +674,15 @@ class Tutor(LessonMixin):
         return None
 
     # ---------- answers ----------
-    def answer(self, text: str, judge: dict | None = None) -> dict:
+    def answer(self, text: str, judge: dict | None = None, your: dict | None = None,
+               explanation: dict | None = None) -> dict:
+        """Mark answers. `your`: {n: the answer as the screen showed it}, so Now and the log quote it the same way;
+        `explanation`: {n: the AI examiner's verdict}, which then stands in for the item's own explanation."""
         s = self.session
         if not s:
             return {"ok": False, "error": "no active session", "fix": "engine command: session start"}
         judge = {int(k): v for k, v in (judge or {}).items()}
+        your, explanation = {int(k): v for k, v in (your or {}).items()}, {int(k): v for k, v in (explanation or {}).items()}
         results = []
         for r in grade.parse_responses(text):
             key = str(r["n"])
@@ -737,14 +736,22 @@ class Tutor(LessonMixin):
                 continue
             results.append(self._record(key, p, r, g))
         done = [fb for fb in results if fb.get("event")]
+        for fb in done:
+            if fb["n"] in explanation:
+                fb["explanation"] = explanation[fb["n"]]
+            fb["your"] = your.get(fb["n"]) or fb["your"]
+            self._post(self._feedback_item(fb, fb["your"]))
         if done:
-            s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "partial", "detail", "response", "answer", "explanation")}
-                                  for fb in done]
             s["now"] = {"activity": "feedback"}
         self._save()
         if done:  # the learner may pause here: send the finished session even inside the throttle window
             self._sync_almanac(force=True)
         return {"results": results, "remaining": len(s["presented"])}
+
+    @staticmethod
+    def _feedback_item(fb: dict, your: str) -> dict:
+        role, title, body = views.feedback_card(fb, your)
+        return {"kind": role, "title": title, "text": body}
 
     def _typical_seconds(self, subject: str | None) -> float | None:
         sec, marks = self.state["traits"]["time"].get(subject or "", [0.0, 0])
@@ -757,13 +764,19 @@ class Tutor(LessonMixin):
         self.log({"type": "blurt", "subtopic": subtopic, "recalled": res["recalled"], "missed": res["missed"],
                   "words": res["words"]})
         title = self.packs.subtopics.get(subtopic, {}).get("title", subtopic)
+        n, total = len(res["recalled"]), len(res["ideas"])
+        res["cards"] = [("you", "You wrote", text),  # beside what it is checked against
+                        ("good" if n == total else "hint", f"You recalled {n} of {total} ideas",
+                         "Ideas you left out are now due for review, so they come up next time.")]
+        res["cards"] += [("good" if v["recalled"] else "bad", f"{'✓' if v['recalled'] else '✗'} {v['title']}",
+                          "You remembered this." if v["recalled"] else  # a line, not an empty box under the title
+                          lesson.teach_card(self, kc).get("note", "") or "You left this out.")
+                         for kc, v in res["ideas"].items()]
         log = views.LessonLog.create(self.vault.root, f"Blurt - {title}", self.now())
-        log.you(text)
-        body = [f"Recalled {len(res['recalled'])} of {len(res['ideas'])} ideas."]
-        for kc, v in res["ideas"].items():
-            body.append(f"- {'✅' if v['recalled'] else '❌'} **{v['title']}**"
-                        + ("" if v["recalled"] else f": {' '.join(lesson.teach_card(self, kc).get('note', '').split())[:240]}"))
-        log.tutor("\n".join(body), title="What you remembered")
+        for c in res["cards"]:  # the terminal draws these same cards
+            log.card(*c)
+        if self.session is None:  # Now shows them too, as it shows the screen
+            views.write_now(self.vault.root, f"Blurt · {title} · {self.now():%H:%M}", [views.card_block(*c) for c in res["cards"]])
         res["log"] = log.rel
         return res
 
@@ -803,15 +816,13 @@ class Tutor(LessonMixin):
                         s[k] = v
                 fb = self._mark(last["key"], s["presented"][last["key"]], last["r"],
                                 {**RIGHT, "needs_judgement": False}, redo=answer)
-                s["last_feedback"] = [{k: fb.get(k) for k in ("n", "correct", "partial", "detail", "response", "answer",
-                                                             "explanation")}]
             else:  # an earlier answer: the session keeps its course; its score and what the AI tutor is shown change
                 s["correct"] = s.get("correct", 0) + 1
-                for q in s.get("recent", []) + s.get("last_feedback", []):
+                for q in s.get("recent", []):
                     if q.get("n") == answer.get("n"):
                         q.update(correct=True, partial=False, detail=None)
-            if (log := self._lesson_log()):
-                log.tutor(why, title=f"Q{answer['n']} re-marked: correct ✓")
+            if (log := self._lesson_log()):  # as the terminal says it
+                log.card("tutor", "Re-marked: correct ✓", f"{why}\n\nIt now counts as right in your record.")
             self._save()
         self._sync_almanac(force=True)
         return {"ok": True, **({"feedback": fb} if fb else {})}
@@ -917,8 +928,7 @@ class Tutor(LessonMixin):
             fb["misconception"] = self.packs.misconception(self.packs.kc(p["kcs"][0])["subtopic"], g["misconception"])
         your = ("?" if r["kind"] == "idk" else f"{r['value']}" if r["kind"] != "points" else
                 "points " + ",".join(map(str, r["value"]))) + (f" (confidence {r['conf']})" if r.get("conf") else "")
-        if not redo and (log := self._lesson_log()):
-            log.answer(fb, your)
+        fb["your"] = your  # Now and the log quote it when answer() posts the card, with everything below added
         if p["block"] == "node" and p["phase"] == "check" and p["block_idx"] is not None:
             self._node_check_result(s["blocks"][p["block_idx"]], g, fb, "?" if r["kind"] == "idk" else str(r["value"]))
         if r.get("conf") and r["conf"] >= 3 and not g["correct"]:
@@ -1024,10 +1034,6 @@ class Tutor(LessonMixin):
             if open_:
                 self._save()
         return {"ok": True}
-
-
-def _teach_text(act: dict) -> str:
-    return act.get("outline", "") + "".join(f"\n- Trap: {m}" for m in act.get("misconceptions", []))
 
 
 RIGHT = {"correct": True, "score": 1.0, "error": None, "misconception": None}  # the grade a re-mark gives

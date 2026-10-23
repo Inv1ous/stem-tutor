@@ -92,7 +92,8 @@ def test_starting_another_lesson_offers_to_resume_one_not_yet_answered(tmp_path,
             assert app.screen.__class__.__name__ == "ConfirmScreen"
             await pilot.press("enter")  # resume
             await pilot.pause()
-            assert app.tutor.session == old
+            resumed = {k: v for k, v in app.tutor.session.items() if k != "thread"}  # Now adds "Welcome back"
+            assert resumed == {k: v for k, v in old.items() if k != "thread"}
     asyncio.run(go())
 
 

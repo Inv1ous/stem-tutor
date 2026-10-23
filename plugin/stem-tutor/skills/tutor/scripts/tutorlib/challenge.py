@@ -450,6 +450,7 @@ class ChallengeSet:
         self.questions: list[dict] = []
         self.answers: list[dict] = []
         self.closed = False
+        self.log: str | None = None  # the set's lesson log in Lessons/, made when its first question is shown
         if set_id:
             data = read_json(self.path)
             if data is None:
@@ -464,6 +465,7 @@ class ChallengeSet:
             self.answers = [a for a in data["answers"] if isinstance(a, dict) and isinstance(a.get("index"), int)
                             and 0 <= a["index"] < n and isinstance(a.get("grade"), dict)]  # a damaged answer is dropped
             self.closed = bool(data.get("closed"))
+            self.log = data.get("log") if isinstance(data.get("log"), str) else None
 
     @property
     def path(self):
@@ -519,7 +521,7 @@ class ChallengeSet:
     def _save(self) -> None:
         write_json(self.path, {"id": self.id, "created": self.created, "cfg": self.cfg,
                                "questions": self.questions, "answers": self.answers,
-                               **({"closed": True} if self.closed else {})})
+                               **({"closed": True} if self.closed else {}), **({"log": self.log} if self.log else {})})
 
     def _answer(self, index: int) -> dict | None:
         return next((a for a in self.answers if a["index"] == index), None)

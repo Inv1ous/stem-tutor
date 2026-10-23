@@ -339,16 +339,36 @@ class ChallengeScreen(ReadAloud, Screen):
     def vault(self):
         return self.app.tutor.vault
 
-    def say(self, renderable) -> Static:
+    def say(self, renderable, mirror: str | None = "both") -> Static:
+        """Print a card, and the same card on Now and in the set's lesson log. `mirror`: "now" for Now alone, None for
+        a card mirrored by hand (the question, the verdict, a reply still streaming in)."""
         w = Static(renderable, classes="entry")
         log = self.query_one("#log", VerticalScroll)
         log.mount(w)
         log.scroll_end(animate=False)
+        if mirror and (c := getattr(renderable, "card", None)):
+            self.mirror(views.card_block(*c), log=mirror == "both")
         return w
+
+    def mirror(self, block: str, log: bool = True) -> None:
+        """Now shows this screen's cards since the last question; the set's lesson log keeps them all. With answer-only
+        on, Obsidian is where the question and its verdict are read, so it says what the terminal says."""
+        self.page = getattr(self, "page", []) + [block]
+        root, now = self.vault.root, self.app.tutor.now()
+        try:
+            views.write_now(root, f"Challenge · {now:%H:%M}", self.page)
+            if log and self.set:
+                if not self.set.log:
+                    self.set.log = views.LessonLog.create(root, "Challenge", now).rel
+                    self.set._save()
+                views.LessonLog(root, views.lesson_rel(root, self.set.log)).add(block)
+        except OSError:  # Obsidian's copy cannot be written: the terminal has it anyway
+            pass
 
     def fold(self) -> None:
         for w in self.query("#log > .entry"):
             w.remove()
+        self.page = []
 
     def panel(self, widget) -> None:
         box = self.query_one("#panel", Container)
@@ -379,9 +399,9 @@ class ChallengeScreen(ReadAloud, Screen):
             return
         self.set = left
         done, n = left.summary()["answered"], len(left.questions)
-        self.say(cards.card("plan", "You have an unfinished set",
+        self.say(cards.card("plan", "You have an unfinished set",  # Now only: the set's log goes on where it was
                             f"{n} questions on {', '.join(left.cfg.get('topics', [])) or 'your topics'}; "
-                            f"{done} answered so far."))
+                            f"{done} answered so far."), mirror="now")
         self.panel(ContinuePanel(buttons=[("resume", f"Continue your set ({done} of {n} done) ⏎"),
                                           ("new", "New set"), ("home", "Back to menu")]))
         self.update_bar()
@@ -650,11 +670,16 @@ class ChallengeScreen(ReadAloud, Screen):
         item = q["item"]
         for w in self.query("#log > .entry"):
             w.display = False  # the last feedback goes: the new question stands alone
+        self.page = []
         title = (f"[b]Q{i + 1}[/b] of {len(self.set.questions)} · {escape(level_text(q))}"  # the rest is in the bar
                  + (f" · by {q['model'].title()}" if q.get("model") and q["model"] != self.set.cfg.get("model") else ""))
         head = [Text(self.first_note + "\n", style=C["dim"])] if getattr(self, "first_note", "") else []
+        body = ([f"*{self.first_note}*", ""] if head else []) + [item["stem"]]
+        if item.get("options"):  # the choices are in the answer panel below; Obsidian lists them with the question
+            body += [""] + [f"**{k}.** {v}" for k, v in item["options"].items()]
         self.first_note = ""  # on the first question only
         self.say(cards.framed(Group(*head, cards.md(item["stem"])), C["question"], title, title_align="left"))
+        self.mirror(views.callout("question", f"Q{i + 1} of {len(self.set.questions)} · {level_text(q)}", "\n".join(body)))
         self.readable_now(item["stem"])  # ctrl+e reads the question; never by itself
         self.query_one("#log", VerticalScroll).scroll_home(animate=False)
         self.answer_panel()
@@ -700,6 +725,7 @@ class ChallengeScreen(ReadAloud, Screen):
                    "detail": None if idk else g.get("detail"), "answer": _display_answer(item),
                    "explanation": q.get("solution") or item.get("explanation", "")}
         card = self.say(cards.feedback(self.fb, data.get("your", "")))
+        self.mirror(views.card_block(*views.feedback_card(self.fb, data.get("your", ""))))
         self.readable_now(spoken_feedback(self.fb, data.get("your", "")), auto=True)
         log = self.query_one("#log", VerticalScroll)
         log.call_after_refresh(log.scroll_to_widget, card, top=True, animate=False)  # its verdict first, not its end
@@ -745,7 +771,7 @@ class ChallengeScreen(ReadAloud, Screen):
     @work(exclusive=True, group="ai")
     async def explain(self) -> None:
         a, q = self.app.ai, self.set.questions[self.i]
-        w = self.say(cards.ai("…"))
+        w = self.say(cards.ai("…"), mirror=None)  # mirrored whole once it ends
         buf = ""
         model, think = self.app.settings.ai_for("explain")
         live = cards.Live(w)
@@ -756,9 +782,11 @@ class ChallengeScreen(ReadAloud, Screen):
                 self.query_one("#log", VerticalScroll).scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
+            self.mirror(views.card_block("hint", "AI paused", a.last.message))
         else:
             buf = a.last.text or buf
             w.update(cards.ai(buf))
+            self.mirror(views.card_block("ai", "Tutor (AI)", buf))
             self.readable_now(a.last.speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
 
     # ---------- summary ----------

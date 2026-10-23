@@ -116,9 +116,8 @@ class LessonMixin:
         if kind in ("worked", "walkthrough") and data.get("step") is not None and not data.get("done"):
             i = int(data["step"])
             act["revealed"] = max(act.get("revealed", 0), i)
-            if (log := self._lesson_log()) and 1 <= i <= len(act["steps"]):
-                st = act["steps"][i - 1]
-                log.tutor(f"{st['do']}\n\n_{st['why']}_", title=f"Step {i}")
+            if (log := self._lesson_log()) and 1 <= i <= len(act["steps"]):  # Now redraws the example with it
+                log.card(*views.activity_cards(act)[i])
             self._set_now(act)
             self._save()
             return {"ok": True, "revealed": act["revealed"]}
@@ -182,8 +181,6 @@ class LessonMixin:
                "map": views.concept_map(self.packs, self.state, sub) if sub else "",
                "nodes": [{"kc": k, "title": self.packs.kcs[k]["title"], "known": k in known} for k in kcs],
                "nodes_all": kcs, "default_teach": teach}
-        if (log := self._lesson_log()):
-            log.tutor(approach + "\n\n" + act["map"], title="Plan")
         return self._await(act)
 
     def _step_node(self, b: dict, idx: int) -> dict | None:
@@ -235,8 +232,6 @@ class LessonMixin:
                 wk = self.packs.worked_for(kc)[0]
                 act = {"activity": "worked", "block": "node", "kc": kc, "problem": wk["problem"], "steps": wk["steps"],
                        "block_idx": idx, "say": "Predict each step before you reveal it."}
-                if (log := self._lesson_log()):
-                    log.tutor(wk["problem"], title="Worked example")
                 return self._await(act)
             if phase == "faded":
                 wk = self.packs.worked_for(kc)[0]
@@ -256,9 +251,6 @@ class LessonMixin:
                 if mis:
                     act = {"activity": "refute", "block_idx": idx, "kc": kc, "misconceptions": [mis],
                            "card": policy.METHOD_CARDS["refutation"]}
-                    if (log := self._lesson_log()):
-                        log.tutor(f"**Trap:** {mis['statement']}\n\n{mis.get('refutation', '')}\n\n"
-                                  f"{mis.get('contrast', '')}", title="Fixing the trap")
                     return self._await(act)
                 if self.packs.worked_for(kc) and "worked" not in b["phases"][:b["i"] - 1]:
                     b["phases"].insert(b["i"], "worked")
@@ -276,8 +268,6 @@ class LessonMixin:
         return None
 
     def _explain(self, idx: int, kc: str, title: str, text: str, part: str) -> dict:
-        if (log := self._lesson_log()):
-            log.tutor(text, title=title)
         return self._await({"activity": "explain", "block_idx": idx, "kc": kc, "part": part, "title": title,
                             "text": text})
 

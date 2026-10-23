@@ -254,10 +254,10 @@ def test_now_note_mirrors_open_items_with_images_then_feedback(tutor):
     inst = tutor.session["presented"][str(n)]["inst"]
     tutor.answer(f"{n}{inst['answer']}3")
     now = (tutor.vault.root / "Now.md").read_text()
-    assert f"Q{n} — correct" in now
+    assert f"Q{n} — Correct ✓" in now
     # Asked by the learner: the question stays on the page once the answer is revealed, above its verdict
     assert "Which quantity is a vector?" in now and "![[Assets/mcq/x.png]]" in now
-    assert now.index("Which quantity is a vector?") < now.index(f"Q{n} — correct")
+    assert now.index("Which quantity is a vector?") < now.index(f"Q{n} — Correct ✓")
 
 
 def test_now_keeps_the_question_after_a_wrong_answer_too(tutor):
@@ -270,8 +270,8 @@ def test_now_keeps_the_question_after_a_wrong_answer_too(tutor):
     wrong = next(k for k in "ABCD" if k != inst["answer"])
     tutor.answer(f"{n}{wrong}3")
     now = (tutor.vault.root / "Now.md").read_text()
-    assert "not quite" in now and "Which quantity is a vector?" in now  # the stem and its options, and the explanation
-    assert now.index("Which quantity is a vector?") < now.index("not quite")
+    assert "Not quite" in now and "Which quantity is a vector?" in now  # the stem and its options, and the explanation
+    assert now.index("Which quantity is a vector?") < now.index("Not quite")
     assert "**A.**" in now  # the options are still there to read the right answer against
     assert tutor.session["presented"] == {}  # nothing is open: this is the answered question, kept for reading
 
@@ -636,6 +636,11 @@ def test_a_retest_score_that_reached_the_log_but_no_save_is_logged_once(tutor, m
     assert experiments.retests_due(again.state, again.clock.t) == []
 
 
+def _verdicts(session: dict) -> list[str]:
+    """The titles of the marked-answer cards on the Now page."""
+    return [t["title"] for t in session.get("thread", []) if t["kind"] in ("good", "bad", "hint") and " — " in t["title"]]
+
+
 @pytest.mark.parametrize("dont_know", [True, False])
 def test_an_answer_recovered_from_the_log_does_what_marking_it_did(tutor, dont_know):
     tutor.start("test", minutes=50, focus=["9702-2.1"])
@@ -652,8 +657,7 @@ def test_an_answer_recovered_from_the_log_does_what_marking_it_did(tutor, dont_k
     for k in ("blocks", "presented", "answered", "correct", "kcs_answered", "retest", "reflections"):
         assert t.session.get(k) == live.get(k), k
     assert [q["event"] for q in t.session["recent"]] == [q["event"] for q in live["recent"]]
-    assert [(fb["n"], fb["correct"]) for fb in t.session["last_feedback"]] == [
-        (fb["n"], fb["correct"]) for fb in live["last_feedback"]]
+    assert _verdicts(t.session) == _verdicts(live)
     assert t.state == t._fold()
     again = _restart(t)  # recovering twice changes nothing more
     assert again.session["answered"] == t.session["answered"] and again.session["blocks"] == t.session["blocks"]
@@ -668,7 +672,7 @@ def test_a_stop_after_the_state_was_saved_does_not_reopen_the_question(tutor, mo
         _answer_all(tutor, {"items": [first]}, good=False)
     t = _restart(tutor)
     assert list(t.session["presented"]) == [str(second["n"])] and (t.session["answered"], t.session["correct"]) == (1, 0)
-    assert [(fb["n"], fb["correct"]) for fb in t.session["last_feedback"]] == [(first["n"], False)]  # shown in Now
+    assert [title.split(" — ")[0] for title in _verdicts(t.session)] == [f"Q{first['n']}"]  # shown in Now
     assert t.state == t._fold()
 
 
@@ -791,8 +795,8 @@ def test_a_lost_mark_is_explained_in_now_and_in_the_lesson_log(tutor):
     n = tutor._present(item, block="practice", phase=None)["n"]
     tutor.answer(f"{n} = 4.0 ~3")
     for text in ((tutor.vault.root / "Now.md").read_text(), (tutor.vault.root / tutor.session["log"]).read_text()):
-        assert f"Q{n} — right value, a mark lost ✗" in text and "Exam point: missing unit" in text
-        assert "incorrect" not in text and "not quite" not in text
+        assert f"Q{n} — Right value, but a mark lost ✗" in text and "**Exam point:** missing unit" in text
+        assert "incorrect" not in text and "Not quite" not in text
 
 
 # ---------- the Almanac: ticks, and being ahead of it ----------
@@ -1034,18 +1038,18 @@ def test_now_shows_what_the_terminal_shows_an_ai_reply_a_question_asked_and_a_hi
     assert tutor.session["thread"][-1]["kind"] == "hint"
     inst = tutor.session["presented"][str(n)]["inst"]
     tutor.answer(f"{n}{inst['answer']}3")  # answering keeps what was said: the reply is read against the verdict
-    assert "Because it has a **direction**" in now() and f"Q{n} — correct" in now()
+    assert "Because it has a **direction**" in now() and f"Q{n} — Correct ✓" in now()
 
 
-def test_the_thread_starts_afresh_with_the_next_question_and_is_capped(tutor):
+def test_the_thread_starts_afresh_with_the_next_question_and_keeps_all_until_then(tutor):
     tutor.start("autopilot", minutes=50)
     for i in range(12):
         tutor.show("ai", f"reply {i}", "Tutor (AI)")
-    assert [t["text"] for t in tutor.session["thread"]] == [f"reply {i}" for i in range(4, 12)]  # the last eight
+    assert [t["text"] for t in tutor.session["thread"]] == [f"reply {i}" for i in range(12)]  # as the terminal keeps them
     item = dict(tutor.packs.items_for("9702-2.1.1")[0], id="q-next")
     tutor._questions({"kind": "practice"}, 0, [item])
     assert "reply 11" not in (tutor.vault.root / "Now.md").read_text()  # a new question: its own page
-    assert tutor.session.get("thread") in (None, [])
+    assert [t["kind"] for t in tutor.session["thread"]] == ["question"]
 
 
 def test_outside_a_session_the_chat_is_the_now_page(tutor):

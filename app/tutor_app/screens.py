@@ -830,11 +830,17 @@ class SessionScreen(ReadAloud, Screen):
     def tutor(self):
         return self.app.tutor
 
-    def say(self, renderable) -> Static:
+    def say(self, renderable, mirror: str | None = "both") -> Static:
+        """Print a card, and put the same card on Now and in the lesson log (Obsidian reads as the terminal does, also
+        with answer-only on). `mirror`: "now" when the engine has logged it already, None for the cards the engine
+        draws itself (questions, marked answers, lesson steps) or a reply still streaming in."""
         w = Static(renderable, classes="entry")
         log = self.query_one("#log", VerticalScroll)
         log.mount(w)
         log.scroll_end(animate=False)
+        if mirror and (c := getattr(renderable, "card", None)):
+            role, title, body = c
+            self.tutor.show(role, body, title, log=mirror == "both")
         return w
 
     def fold(self) -> None:
@@ -949,46 +955,38 @@ class SessionScreen(ReadAloud, Screen):
         if kind in ("questions", "awaiting"):
             self.ask_question(act["items"][0], act.get("say"))
         elif kind in ("explain", "teach"):
-            title = act.get("title") or act.get("kc_title", "")
-            text = act.get("text") or act.get("outline", "")
-            spoken = [text]  # the card's own text alone: its pre-generated audio is found by it
+            spoken = [act.get("text") or act.get("outline", "")]  # the card's own text alone: its pre-generated audio is found by it
             if kind == "teach" and act.get("misconceptions"):
-                text += "\n\n" + "\n".join(f"- Trap: {m}" for m in act["misconceptions"])
                 spoken += [f"A common trap: {m}." for m in act["misconceptions"]]
-            self.say(cards.card("tutor", title, text, subtitle="second look" if act.get("part") == "fix" else None))
+            self.say_step(act, subtitle="second look" if act.get("part") == "fix" else None)
             self.readable_now(spoken, auto=True)
             self.panel(ContinuePanel(read=self.can_read()))
         elif kind == "choose":
-            self.say(cards.card("plan", act["question"], ""))
+            self.say(cards.card("plan", act["question"], ""), mirror=None)  # its choices are in the panel below
             self.panel(ChoosePanel("Pick how you want to learn this (↑↓ and ⏎)", act["options"]))
         elif kind == "plan":
-            lines = [act["approach"], ""] + [f"- {'✓ you know: ' if n['known'] else ''}{n['title']}" for n in act["nodes"]]
-            self.say(cards.card("plan", f"Plan: {act['title']}", "\n".join(lines),
-                                subtitle="the concept map is in Obsidian → Now"))
+            self.say_step(act, subtitle="the concept map is in Obsidian → Now")
             self.prepare_cards(act["default_teach"])  # AI teaching cards (if needed) start while you read the plan
             self.panel(TickPanel("Ticked ideas will be taught (space to change). Then ctrl+s, or ⏎ on Start.",
                                  [(n["title"], n["kc"], n["kc"] in act["default_teach"]) for n in act["nodes"]],
                                  [("start", "Start lesson ⏎")]))
         elif kind in ("worked", "walkthrough"):
-            self.say(cards.card("tutor", "Worked example", act.get("problem") or "Walk through it step by step."))
-            for i, st in enumerate(act["steps"][:act.get("revealed", 0)], 1):  # steps already seen before a resume
-                self.say(cards.card("tutor", f"Step {i}", f"{st['do']}\n\n_{st.get('why', '')}_"))
+            self.say_step(act)  # with the steps already seen before a resume
             self.readable = act.get("problem") or ""
             self.panel(WorkedPanel(len(act["steps"]), start=act.get("revealed", 0) + 1))
         elif kind == "refute":
             m = act["misconceptions"][0]
             m = m if isinstance(m, dict) else {"statement": m}
-            self.say(cards.card("hint", f"Trap: {m.get('statement', '')}",
-                                f"{m.get('refutation', '')}\n\n{('_Compare:_ ' + m['contrast']) if m.get('contrast') else ''}"))
+            self.say_step(act)
             self.readable_now([f"A common trap: {m.get('statement', '')}.", m.get("refutation", ""),
                                m.get("contrast") or ""], auto=True)
             self.panel(ContinuePanel(read=self.can_read()))
         elif kind == "own_words":
             self.fold()
-            self.say(cards.card("tutor", "In your own words", act["prompt"]))
+            self.say_step(act)
             self.panel(TextPanel("One or two sentences. Esc to skip.", done_label=None))
         elif kind == "stuck":
-            self.say(cards.card("hint", "Not clicked yet", act["say"]))
+            self.say_step(act)
             self.readable_now(act["say"], auto=True)
             buttons = [("continue", "Move on ⏎")] + ([("talk", "Talk it through with the tutor (AI)")]
                                                      if self.ai_ok() else [])
@@ -999,12 +997,17 @@ class SessionScreen(ReadAloud, Screen):
             self.say(cards.card("bad", "Unexpected step", str(act)))
             self.panel(ContinuePanel(buttons=[("home", "Back to menu ⏎")]))
 
+    def say_step(self, act: dict, subtitle: str | None = None) -> None:
+        """A lesson step's cards, in the words the engine puts on Now and in the log (views.activity_cards)."""
+        for i, (role, title, body) in enumerate(views.activity_cards(act)):
+            self.say(cards.card(role, title, body, subtitle=subtitle if i == 0 else None), mirror=None)
+
     def ask_question(self, view: dict, say: str | None = None) -> None:
         self.view = view
         self.fold()
-        if say:
+        card = self.say(cards.question(view), mirror=None)
+        if say:  # under the question, where Now and the log have it
             self.say(cards.note(say, "dim"))
-        card = self.say(cards.question(view))
         parts = [view.get("speech") or view.get("stem", "")]
         if view.get("kind") == "mcq":  # the choices are part of the question (B-107); never the key
             parts += [f"Option {k}: {v}" for k, v in (view.get("options") or {}).items()]
@@ -1074,7 +1077,7 @@ class SessionScreen(ReadAloud, Screen):
         if "entry" in data:
             self.submit(data)
         elif kind == "choose":
-            self.say(cards.you(GOALS.get(data["choice"], data["choice"])))
+            self.say(cards.you(GOALS.get(data["choice"], data["choice"])), mirror="now")
             self.respond({"choice": data["choice"]})
             self.advance()
         elif kind == "plan":
@@ -1085,9 +1088,9 @@ class SessionScreen(ReadAloud, Screen):
             st = self.act["steps"][data["step"] - 1]
             if data.get("guess"):
                 self.say(cards.you(data["guess"]))
-            self.say(cards.card("tutor", f"Step {data['step']}", f"{st['do']}\n\n_{st.get('why', '')}_"))
+            self.respond({"step": data["step"]})  # the engine logs the step and redraws the example on Now
+            self.say(cards.card(*views.activity_cards({**self.act, "revealed": data["step"]})[data["step"]]), mirror=None)
             self.readable_now([f"Step {data['step']}.", st["do"], st.get("why", "")])
-            self.respond({"step": data["step"]})
             if data["step"] >= len(self.act["steps"]):  # the last step is the answer: wait for the learner, do not move on
                 self.panel(ContinuePanel("That was the last step. Read it through, then continue.", read=self.can_read()))
         elif kind in ("worked", "walkthrough") and data.get("done"):
@@ -1095,8 +1098,7 @@ class SessionScreen(ReadAloud, Screen):
             self.advance()
         elif kind == "own_words":
             if data.get("text"):
-                self.say(cards.you(data["text"]))
-                self.tutor.show("you", data["text"], "In your own words")
+                self.say(cards.you(data["text"]), mirror="now")
                 self.respond({"text": data["text"]})
                 if self.app.settings.own_words_feedback and self.ai_ok():
                     self.panel(ContinuePanel("The tutor is reading your explanation…", buttons=[]))
@@ -1115,9 +1117,6 @@ class SessionScreen(ReadAloud, Screen):
                                  done_label="I'm ready to move on"))
         elif self.chatting and data.get("text"):
             self.say(cards.you(data["text"]))
-            if (log := self.tutor._lesson_log()):
-                log.you(data["text"])
-            self.tutor.show("you", data["text"], "You")
             self.stream(f"{prompts.context(self.tutor, self.kc)}\n\nSTUDENT: {data['text']}")
         elif self.chatting and (data.get("done") or data.get("skip")):
             self.chatting = False
@@ -1141,7 +1140,7 @@ class SessionScreen(ReadAloud, Screen):
     def submit(self, data: dict) -> None:
         t = self.tutor
         view = self.view or {}
-        out = t.answer(data["entry"])
+        out = t.answer(data["entry"], your={view.get("n"): data.get("your", "")})
         if out.get("ok") is False:
             self.app.notify(out["error"], severity="error")
             return
@@ -1153,15 +1152,13 @@ class SessionScreen(ReadAloud, Screen):
             self.app.notify(r["error"], severity="warning", timeout=6)
             self.answer_panel(view)
             return
+        if data.get("note"):  # before the verdict, in Now and the log as well
+            self.say(cards.you("✎ " + data["note"], f"Note on Q{view.get('n')}"))
         if r.get("pending_judgement"):
             # Keep the answer protected before the worker starts, and until marking finishes.
             self.pending_short = (view["n"], data, max(1, len(r.get("rubric", []))))
             self.judge_short(view, data, r)
             return
-        if data.get("note"):
-            self.say(cards.you("✎ " + data["note"]))
-            if (log := t._lesson_log()):
-                log.you(f"Note on Q{view.get('n')}: {data['note']}")
         self.say(cards.feedback(r, data.get("your", "")))
         self.readable_now(spoken_feedback(r, data.get("your", "")), auto=True)
         self.finish_feedback(r)
@@ -1209,11 +1206,12 @@ class SessionScreen(ReadAloud, Screen):
             if ai_mod.matches_points(res, points):
                 met = sum(1 for p in res["points"] if p.get("met"))
                 score = met / max(1, len(points))
-                out = self.tutor.answer(data["entry"], judge={n: score})
+                verdict = (res.get("feedback", "") + "\n\n" + "\n".join(
+                    f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}" for p in res["points"])).strip()
+                out = self.tutor.answer(data["entry"], judge={n: score}, your={n: data.get("your", "")},
+                                        explanation={n: verdict})  # Now and the log carry the examiner's verdict too
                 fb = out["results"][0]
                 self.pending_short = None
-                fb["explanation"] = (res.get("feedback", "") + "\n\n" + "\n".join(
-                    f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}" for p in res["points"])).strip()
                 self.say(cards.feedback(fb, data.get("your", "")))
                 self.readable_now(spoken_feedback(fb, data.get("your", ""), res.get("speech") or None), auto=True)
                 self.finish_feedback(fb, written=True)
@@ -1225,7 +1223,7 @@ class SessionScreen(ReadAloud, Screen):
         if getattr(self, "pending_short", None):
             n, d, total = self.pending_short
             self.pending_short = None
-            out = self.tutor.answer(d["entry"], judge={n: len(data["ticked"]) / total})
+            out = self.tutor.answer(d["entry"], judge={n: len(data["ticked"]) / total}, your={n: d.get("your", "")})
             self.say(cards.feedback(out["results"][0], d.get("your", "")))
             self.readable_now(spoken_feedback(out["results"][0], d.get("your", "")), auto=True)
             self.finish_feedback(out["results"][0], written=True)
@@ -1234,19 +1232,17 @@ class SessionScreen(ReadAloud, Screen):
         if data.get("button") == "ai":
             self.ai_check_long(data)
             return
-        out = self.tutor.answer(f"{n} pts=" + ",".join(data["ticked"]) if data["ticked"] else f"{n} pts=")
+        claimed = f"{len(data['ticked'])} mark point(s) claimed"
+        out = self.tutor.answer(f"{n} pts=" + ",".join(data["ticked"]) if data["ticked"] else f"{n} pts=", your={n: claimed})
         fb = out["results"][0]
-        self.say(cards.feedback(fb, f"{len(data['ticked'])} mark point(s) claimed"))
+        self.say(cards.feedback(fb, claimed))
         self.readable_now(spoken_feedback(fb), auto=True)
         self.finish_feedback(fb, written=True)
 
     def long_written(self, data: dict) -> None:
         text = data.get("text", "")
         self.long_text = text
-        self.say(cards.you(text))
-        self.tutor.show("you", text, "Your working")
-        if (log := self.tutor._lesson_log()):  # the transcript keeps your working, even if you leave before marking
-            log.you(f"Working for Q{self.view['n']}:\n\n{text}")
+        self.say(cards.you(text, f"Your working for Q{self.view['n']}"))  # kept in the log, even if you leave before marking
         sch = self.tutor.scheme(self.view["n"])
         self.scheme = sch.get("scheme", [])
         buttons = [("mine", "Submit my marks ⏎")] + ([("ai", "Ask the AI examiner to check")] if self.ai_ok() else [])
@@ -1294,17 +1290,12 @@ class SessionScreen(ReadAloud, Screen):
         if out.get("ok"):
             self.last_fb = {**(out.get("feedback") or {**fb, "correct": True, "partial": False}), "remarked": True}
             self.followups = ["break"] if self.last_fb.get("break_suggested") else []  # nothing was missed
-            self.say(cards.card("tutor", "Re-marked: correct ✓",
-                                f"{res.get('why', '')}\n\nIt now counts as right in your record."))
-            self.tutor.show("ai", f"{res.get('why', '')}\n\nIt now counts as right in your record.", "Re-marked: correct ✓")
+            self.say(cards.card("tutor", "Re-marked: correct ✓",  # the engine logged it in these words
+                                f"{res.get('why', '')}\n\nIt now counts as right in your record."), mirror="now")
         elif res:
             self.say(cards.card("hint", "Re-marked: the mark stands", res.get("why", "")))
-            self.tutor.show("ai", res.get("why", ""), "Re-marked: the mark stands")
-            if (log := self.tutor._lesson_log()):
-                log.tutor(res.get("why", ""), title=f"Q{fb.get('n')} re-marked: the mark stands")
         else:
             self.say(cards.card("hint", "AI check unavailable", r.message or "Try again later."))
-            self.tutor.show("notice", r.message or "Try again later.", "AI check unavailable")
         self.update_bar()
         self.next_followup()
 
@@ -1317,13 +1308,11 @@ class SessionScreen(ReadAloud, Screen):
             a = self.app.ai
             msg = a.message or ("AI is switched off in Settings." if not self.app.settings.ai else "AI is unavailable.")
             self.say(cards.card("hint", "AI help is off", msg))
-            self.tutor.show("notice", msg, "AI help is off")
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
             return
         if (help_ := self.tutor.ai_help(given=False)).get("refused"):  # not allowed while a no-help check is open
             self.say(cards.card("hint", "No help on this one", help_["refused"]))
-            self.tutor.show("notice", help_["refused"], "No help on this one")
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
             return
@@ -1332,7 +1321,7 @@ class SessionScreen(ReadAloud, Screen):
     @work(exclusive=True, group="ai")
     async def _stream(self, prompt: str, then_continue: bool, mode: str = "ask") -> None:
         a = self.app.ai
-        w = self.say(cards.ai("…"))
+        w = self.say(cards.ai("…"), mirror=None)  # Now and the log get the whole reply once it ends
         buf = ""
         # guard every open question (normally just the one on screen; a session begun in the chat may hold more)
         session, act = self.tutor.session, self.act
@@ -1362,15 +1351,13 @@ class SessionScreen(ReadAloud, Screen):
             return
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
-            self.tutor.show("notice", a.last.message, "AI paused")
+            self.tutor.show("hint", a.last.message, "AI paused")
         else:
             w.update(cards.ai(buf))
             self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
             if buf and not withheld:
                 self.tutor.ai_help()  # help that reached you counts as a hint on every open question
-            if (log := self.tutor._lesson_log()):
-                log.tutor(buf, title="Tutor (AI)")
-            self.tutor.show("notice" if withheld else "ai", buf, "Held back" if withheld else "Tutor (AI)")  # and on Now
+            self.tutor.show("ai", buf, "Tutor (AI)")  # the card as drawn: Now and the log
         self.update_bar()
         if then_continue:
             self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎"), ("ask", "Ask the tutor (ctrl+t)")],
@@ -1401,15 +1388,12 @@ class SessionScreen(ReadAloud, Screen):
         def got(q: str | None) -> None:
             if q:
                 self.say(cards.you(q))
-                if (log := self.tutor._lesson_log()):
-                    log.you(q)
-                self.tutor.show("you", q, "You asked")
                 self.stream(prompts.ask(self.tutor, q, self.kc))
         self.app.push_screen(AskScreen(), got)
 
     def action_explain(self) -> None:
         if self.kc:
-            self.tutor.show("you", "Explain this idea again, a different way.", "You asked")
+            self.say(cards.you("Explain this idea again, a different way."))
             self.stream(prompts.explain_again(self.tutor, self.kc), mode="explain")
 
     def action_hint(self) -> None:
@@ -1427,7 +1411,8 @@ class SessionScreen(ReadAloud, Screen):
         if "refused" in h or h.get("error"):
             self.app.notify(h.get("refused") or h.get("error"), severity="warning")
         else:
-            self.say(cards.card("hint", f"Hint {h.get('level', '')}", h.get("hint", "")))
+            self.say(cards.card("hint", f"Hint {h.get('level', '')} for Q{self.view['n']}", h.get("hint", "")),
+                     mirror=None)  # the engine put it on Now and in the log
             self.readable_now(h.get("hint", ""))  # ctrl+e reads it
 
     def action_obsidian(self) -> None:
@@ -1566,7 +1551,7 @@ class ChatScreen(ReadAloud, Screen):
         q = event.data.get("text", "")
         log = self.query_one("#log", VerticalScroll)
         log.mount(Static(cards.you(q), classes="entry"))
-        self.app.tutor.show("you", q, "You asked")
+        self.app.tutor.show("you", q, "You")  # each card here goes to Now as drawn
         self.hush()
         self.reply(q)
 
@@ -1577,12 +1562,12 @@ class ChatScreen(ReadAloud, Screen):
         log = self.query_one("#log", VerticalScroll)
         if not (self.app.settings.ai and a.available):
             log.mount(Static(cards.card("hint", "AI help is off", a.message or "Switch AI on in Settings."), classes="entry"))
-            self.app.tutor.show("notice", a.message or "Switch AI on in Settings.", "AI help is off")
+            self.app.tutor.show("hint", a.message or "Switch AI on in Settings.", "AI help is off")
             log.scroll_end(animate=False)
             return
         if (help_ := t.ai_help(given=False)).get("refused"):
             log.mount(Static(cards.card("hint", "No help on this one", help_["refused"]), classes="entry"))
-            t.show("notice", help_["refused"], "No help on this one")
+            t.show("hint", help_["refused"], "No help on this one")
             log.scroll_end(animate=False)
             return
         w = Static(cards.ai("…"), classes="entry")
@@ -1598,7 +1583,7 @@ class ChatScreen(ReadAloud, Screen):
                 log.scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
-            self.app.tutor.show("notice", a.last.message, "AI paused")
+            self.app.tutor.show("hint", a.last.message, "AI paused")
         else:
             buf = a.last.text or buf
             speech = a.last.speech
@@ -1609,7 +1594,7 @@ class ChatScreen(ReadAloud, Screen):
             w.update(cards.ai(buf))
             if buf and not withheld:
                 t.ai_help()
-            t.show("notice" if withheld else "ai", buf, "Held back" if withheld else "Tutor (AI)")
+            t.show("ai", buf, "Tutor (AI)")
             self.readable_now(speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)
         log.scroll_end(animate=False)
 
@@ -1766,7 +1751,6 @@ class BlurtScreen(ReadAloud, Screen):
     @on(Button.Pressed, "#check")
     def action_submit(self) -> None:
         from textual.widgets import TextArea
-        from tutorlib import lesson
         boxes = self.query("#blurt")
         text = boxes.first(TextArea).text.strip() if boxes else ""
         if not text or getattr(self, "checked", False):  # a second ctrl+s or click while the box is going: once only
@@ -1777,15 +1761,8 @@ class BlurtScreen(ReadAloud, Screen):
         res = t.blurt(self.subtopic, text)
         log = self.query_one("#log", VerticalScroll)
         n, total = len(res["recalled"]), len(res["ideas"])
-        log.mount(Static(cards.you(text, "You wrote"), classes="entry"))  # beside what it is checked against
-        log.mount(Static(cards.card("good" if n == total else "hint", f"You recalled {n} of {total} ideas",
-                                    "Ideas you left out are now due for review, so they come up next time."),
-                         classes="entry"))
-        for kc, v in res["ideas"].items():
-            note = ("You remembered this." if v["recalled"] else  # a line, not an empty box under the title
-                    lesson.teach_card(t, kc).get("note", "") or "You left this out.")
-            log.mount(Static(cards.card("good" if v["recalled"] else "bad",
-                                        f"{'✓' if v['recalled'] else '✗'} {v['title']}", note), classes="entry"))
+        for role, title, body in res["cards"]:  # the cards the lesson log and Now have
+            log.mount(Static(cards.you(body, title) if role == "you" else cards.card(role, title, body), classes="entry"))
         log.scroll_end(animate=False)
         left_out = [v["title"] for v in res["ideas"].values() if not v["recalled"]]
         self.readable_now(f"You recalled {n} of {total} ideas."

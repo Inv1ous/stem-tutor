@@ -66,6 +66,6 @@ def test_an_ai_reply_in_a_lesson_is_on_the_now_page_even_with_answer_only_on(tmp
                     break
             await pilot.pause(0.3)
             now = (v / "Now.md").read_text()
-            assert "You asked" in now and "why" in now and app.ai.last.text in now
+            assert "> [!quote] You\n> why" in now and app.ai.last.text in now  # the card as the terminal draws it
             await app.ai.close()
     asyncio.run(go())

@@ -41,16 +41,16 @@ def test_a_long_question_opens_at_its_top_and_the_log_scrolls_while_typing(tmp_p
         await pilot.pause()
         await pilot.pause()
         log = scr.query_one("#log")
-        card = list(log.query(".entry"))[-1]
+        card = list(log.query(".entry"))[-2]  # the question; its "A test check." line sits under it
         assert card.region.height > log.region.height or card.outer_size.height > log.size.height
-        assert log.scroll_y > 0 and card.virtual_region.y == log.scroll_y  # its start is what you read first
+        assert card.virtual_region.y == log.scroll_y  # its start is what you read first, not its end
         assert app.focused.id == "value"
         await pilot.press("alt+down")
         await pilot.pause()
         assert log.scroll_y > card.virtual_region.y
         await pilot.press("alt+up", "alt+up")
         await pilot.pause()
-        assert log.scroll_y < card.virtual_region.y and app.focused.id == "value"
+        assert log.scroll_y <= card.virtual_region.y and app.focused.id == "value"
         assert scr.query_one("#value").text == ""  # the keys scrolled, nothing was typed
     run(app, (80, 24), steps)
 

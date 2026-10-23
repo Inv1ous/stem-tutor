@@ -105,7 +105,7 @@ def test_menu_chat_guards_answers_and_counts_only_delivered_help(tmp_path, monke
             assert answer not in app.screen.readable
             assert p["hinted"] is (reply_kind == "hint")
             if reply_kind in ("answer", "speech"):
-                assert "Held back" in now
+                assert "I can't give that away while the question is open." in now  # as the terminal shows it
             elif reply_kind == "hint":
                 assert hint in shown and hint in now
             else:
