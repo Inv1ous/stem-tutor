@@ -33,9 +33,9 @@ def bar(done: int, total: int, width: int = 12) -> str:
     return "█" * fill + "░" * (width - fill)
 
 
-def leave_asking_first(screen: Screen, boxes: str, typed: str = "answer") -> None:
+def leave_asking_first(screen: Screen, boxes: str, typed: str = "answer", unsaved: bool = False) -> None:
     """Back to the previous screen, but not over something typed without asking: it would be lost."""
-    if not any(w.text.strip() for w in screen.query(boxes)):
+    if not unsaved and not any(w.text.strip() for w in screen.query(boxes)):
         screen.app.pop_screen()
         return
 
@@ -757,6 +757,9 @@ class PickerScreen(ModalScreen):
         """Move to the first subtopic of the next (or previous) topic."""
         box = self.query_one("#subs", OptionList)
         opts = [box.get_option_at_index(i) for i in range(box.option_count)]
+        if not self.needle and len(self.path) == 1 and opts:
+            box.highlighted = max(0, min(len(opts) - 1, (box.highlighted or 0) + step))
+            return
         heads = [i for i, o in enumerate(opts) if str(o.id).startswith("h:")]
         here = box.highlighted or 0
         target = next((h for h in heads if h > here), None) if step > 0 else next((h for h in reversed(heads) if h < here - 1), None)
@@ -1148,6 +1151,8 @@ class SessionScreen(ReadAloud, Screen):
             self.answer_panel(view)
             return
         if r.get("pending_judgement"):
+            # Keep the answer protected before the worker starts, and until marking finishes.
+            self.pending_short = (view["n"], data, max(1, len(r.get("rubric", []))))
             self.judge_short(view, data, r)
             return
         if data.get("note"):
@@ -1203,13 +1208,13 @@ class SessionScreen(ReadAloud, Screen):
                 score = met / max(1, len(points))
                 out = self.tutor.answer(data["entry"], judge={n: score})
                 fb = out["results"][0]
+                self.pending_short = None
                 fb["explanation"] = (res.get("feedback", "") + "\n\n" + "\n".join(
                     f"- {'✓' if p.get('met') else '✗'} {p.get('point', '')}" for p in res["points"])).strip()
                 self.say(cards.feedback(fb, data.get("your", "")))
                 self.readable_now(spoken_feedback(fb, data.get("your", ""), res.get("speech") or None), auto=True)
                 self.finish_feedback(fb, written=True)
                 return
-        self.pending_short = (n, data, max(1, len(points)))
         self.panel(TickPanel("Mark yourself: tick each point your answer really contains (space), then ctrl+s, or ⏎ on Done.",
                              [(p, str(i), False) for i, p in enumerate(points)], [("self", "Done ⏎")]))
 
@@ -1426,7 +1431,8 @@ class SessionScreen(ReadAloud, Screen):
         mac.open_in_obsidian(self.app.vault, "Now", background=False)
 
     def action_leave(self) -> None:
-        leave_asking_first(self, "#panel TextArea")
+        pending = bool(getattr(self, "pending_short", None))
+        leave_asking_first(self, "#panel TextArea", "answer and mark choices" if pending else "answer", unsaved=pending)
 
     def action_esc(self) -> None:
         """Esc means "back" everywhere else; here a panel may use it (change an answer, skip), and leaving is ctrl+b."""
@@ -1476,7 +1482,7 @@ class SummaryScreen(ModalScreen):
                    f"{clock.fmt(s['true_seconds'], True)} from start to finish  ·  **Studied today:** {clock.fmt(today)}\n\n"
                    if "active_seconds" in s else "")
                 + (f"## Learned today\n{learned}\n\n" if learned else "")
-                + f"**Due for review by tomorrow:** {len(due)} idea(s)\n\n"
+                + f"**Due for review in the next 24 hours:** {len(due)} idea(s)\n\n"
                 + f"**AI replies this session:** {a.session.replies}\n\n"
                 + (f"**New Anki cards ({(s.get('week') or {})['anki']['cards']}):** double-click "
                    f"`{(s.get('week') or {})['anki']['path']}` in the tutor folder to import them.\n\n"
