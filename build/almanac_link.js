@@ -6,7 +6,7 @@ function tutorMerge(S, T) {
   const mine = S.tutor = S.tutor || {}, added = {};
   for (const key of ["done", "rag", "scores", "wall", "retro", "err"]) S[key] = S[key] || {};
   for (const id of Object.keys(T.done || {}))  /* a tick is added once: one you take away stays off */
-    if (!S.done[id] && !(mine.done || {})[id]) S.done[id] = added[id] = 1;
+    if (!S.done[id] && !(mine.done || {})[id] && !(mine.seen || {})[id]) S.done[id] = added[id] = 1;
     else if (mine.stamp && !mine.done && S.done[id]) added[id] = 1;  /* merged before the tutor kept count */
   Object.assign(S.rag, T.rag || {});  /* every colour is the tutor's: it goes by your answers */
   Object.assign(S.wall, T.wall || {});
@@ -14,8 +14,9 @@ function tutorMerge(S, T) {
     const cur = S.scores[k];
     if (cur === undefined || cur === "" || cur === (mine.scores || {})[k]) S.scores[k] = v;
   }
-  for (const [f, n] of Object.entries(T.err || {}))  /* add only what is new since the last merge */
-    S.err[f] = Math.max(0, (S.err[f] || 0) + n - ((mine.err || {})[f] || 0));
+  /* an omitted family is now zero: remove its old tutor count, keeping the learner's own counts */
+  for (const f of new Set([...Object.keys(T.err || {}), ...Object.keys(mine.err || {})]))
+    S.err[f] = Math.max(0, (S.err[f] || 0) + ((T.err || {})[f] || 0) - ((mine.err || {})[f] || 0));
   for (const [w, r] of Object.entries(T.retro || {})) {  /* a retrospective you wrote or edited is left alone */
     const cur = S.retro[w], old = (mine.retro || {})[w];
     if (!cur || (old && cur.broke === old.broke && cur.fix === old.fix)) S.retro[w] = r;
@@ -24,6 +25,7 @@ function tutorMerge(S, T) {
   if (Number.isInteger(T.stage) && (mine.stage === undefined || S.stage === mine.stage)) S.stage = T.stage;
   Object.assign(mine, { stamp: T.stamp, at: T.at, scores: T.scores || {}, err: T.err || {},
                         retro: Object.assign({}, mine.retro, T.retro), done: Object.assign({}, mine.done, added),
+                        seen: Object.assign({}, mine.seen, T.done),  /* remember offers without claiming the learner's ticks */
                         stage: Number.isInteger(T.stage) ? T.stage : mine.stage });
   return true;
 }
