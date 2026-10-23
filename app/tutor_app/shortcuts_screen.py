@@ -5,6 +5,7 @@ the syllabus model, sessions and reviews are never touched."""
 from __future__ import annotations
 
 import random
+import re
 from datetime import datetime, timezone
 
 from rich.text import Text
@@ -19,6 +20,7 @@ from textual.widgets.selection_list import Selection
 
 from tutorlib import shortcuts as sc
 from tutorlib.grade import ParseError, parse_quantity
+from tutorlib.units import parse_unit, unit_factor
 
 from .look import C
 from .panels import TickList
@@ -43,20 +45,32 @@ def items(v) -> list[str]:
     return [t for t in (txt(x) for x in v) if t] if isinstance(v, (list, tuple)) else ([txt(v)] if txt(v) else [])
 
 
-def number(s) -> float | None:
+def number(s, expected_unit: str = "") -> float | None:
     # Read the whole value: a fraction is not just its numerator.
     try:
         value, unit, _ = parse_quantity(str(s))
     except ParseError:
         return None
-    return value if not unit else None
+    if not unit:
+        return value
+    factor = unit_factor(unit, expected_unit) if expected_unit else None
+    return value * factor if factor is not None else None
 
 
-def numeric_ok(given: str, answer) -> bool:
+def numeric_ok(given: str, answer, stem: str = "") -> bool:
     """Right when the strings match, or the numbers are within 1% of each other."""
     if str(given).strip().lower() == str(answer).strip().lower():
         return True
-    a, b = number(given), number(answer)
+    # Shortcut keys are bare numbers; the question names the unit with "in N", for example.
+    expected_unit = ""
+    for match in re.finditer(r"\bin\s+([^.,;?]+?)(?=\s+(?:to|as|measured|using)\b|[.,;?]|$)", txt(stem)):
+        candidate = match[1].strip()
+        try:
+            parse_unit(candidate)
+        except (ValueError, ArithmeticError):
+            continue
+        expected_unit = candidate
+    a, b = number(given, expected_unit), number(answer, expected_unit)
     if a is None or b is None:
         return False
     return abs(a - b) <= 0.01 * abs(b) if b else abs(a) < 1e-9
@@ -633,7 +647,7 @@ class ShortcutsScreen(_CourseScreen):
             return
         p = self.prac[self.pi]
         if self.kind == "numeric":
-            self.finish_practice(numeric_ok(given, p["answer"]), given)
+            self.finish_practice(numeric_ok(given, p["answer"], p["stem"]), given)
         else:
             self.phase = "self-mark"
             self.show_question(self.answer_text(p, given, None))
