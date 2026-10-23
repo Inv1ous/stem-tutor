@@ -1002,7 +1002,7 @@ class SessionScreen(ReadAloud, Screen):
         if say:
             self.say(cards.note(say, "dim"))
         card = self.say(cards.question(view))
-        self.readable_now(view.get("stem", ""))  # ctrl+e reads the question; it is never read by itself
+        self.readable_now(view.get("speech") or view.get("stem", ""))  # ctrl+e reads the question; it is never read by itself
         self.query_one("#log", VerticalScroll).call_after_refresh(self._show_top, card)  # after say's scroll_end
         self.answer_panel(view)
 
