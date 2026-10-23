@@ -151,6 +151,7 @@ class Claude:
         self.limits: dict = {}  # the plan's limits as Claude itself last named them to this app
         self.last = Result()
         self._lock = asyncio.Lock()
+        self._start_lock = asyncio.Lock()  # reset must also forget a process that is still starting
         self._pending = 0  # one-shot calls in flight, counted against the daily cap before they finish
         self.wanted = lambda: True  # the app's AI switch (Settings): when off, no process is started ahead (Q-015)
 
@@ -217,15 +218,16 @@ class Claude:
             self.procs[self.key] = value
 
     async def _start(self) -> None:
-        env = {**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"}
-        model, think = self.key
-        self._shown[self.key] = set()
-        self.proc = await asyncio.create_subprocess_exec(
-            self.binary, *LEAN, *(THINKING if think else NO_THINKING), "--model", model,
-            "--system-prompt", self.system + (SPEECH_RULE if self.speech else ""),
-            "--input-format", "stream-json", "--output-format", "stream-json", "--include-partial-messages", "--verbose",
-            cwd=str(self.cwd), env=env, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.DEVNULL, limit=4 * 1024 * 1024)
+        async with self._start_lock:
+            env = {**os.environ, "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"}
+            model, think = self.key
+            self._shown[self.key] = set()
+            self.proc = await asyncio.create_subprocess_exec(
+                self.binary, *LEAN, *(THINKING if think else NO_THINKING), "--model", model,
+                "--system-prompt", self.system + (SPEECH_RULE if self.speech else ""),
+                "--input-format", "stream-json", "--output-format", "stream-json", "--include-partial-messages", "--verbose",
+                cwd=str(self.cwd), env=env, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.DEVNULL, limit=4 * 1024 * 1024)
 
     async def warm(self) -> None:
         """Start the conversation's process now, before it is needed: Claude Code takes a second or two to start, and
@@ -244,7 +246,9 @@ class Claude:
     async def reset(self, warm: bool = True) -> None:
         """Forget the conversations (e.g. a new idea starts): a fresh process takes over, started at once so the
         next question does not wait for it."""
-        procs, self.procs, self._shown = list(self.procs.values()), {}, {}
+        # A reply can call reset while holding _lock, so only wait for startup here.
+        async with self._start_lock:
+            procs, self.procs, self._shown = list(self.procs.values()), {}, {}
         for proc in procs:
             if proc and proc.returncode is None:
                 try:
