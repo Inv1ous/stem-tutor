@@ -33,7 +33,7 @@ worked(K[0],'Find $x_4$ if $x_1=2$ and $x_{n+1}=3x_n-1$.',[('Start with $x_1=2$.
 # Arithmetic
 for n in [6,10,14]: num(K[1],f'Find the {n}th term of the arithmetic sequence with first term 7 and difference 3.',7+(n-1)*3,'Use $u_n=a+(n-1)d$.')
 for n in [5,8,12]: num(K[1],f'Find the sum of the first {n} terms of $4,7,10,\ldots$.',n*(2*4+(n-1)*3)/2,'Use $S_n=n[2a+(n-1)d]/2$.',3)
-worked(K[1],'Find the sum of the first 12 terms of $4,7,10,\ldots$.',[('Identify $a=4$, $d=3$, $n=12$.','The difference is constant.'),('Use $S_n=\frac n2[2a+(n-1)d]$.','This follows by pairing the series forwards and backwards.'),('Calculate $S_{12}=246$.','Substitute and simplify.')],'Find the sum of the first 8 terms of the arithmetic sequence $4,7,10,\\ldots$.',116)
+worked(K[1],'Find the sum of the first 12 terms of $4,7,10,\ldots$.',[('Identify $a=4$, $d=3$, $n=12$.','The difference is constant.'),('Use $S_n=\\frac{n}{2}[2a+(n-1)d]$.','This follows by pairing the series forwards and backwards.'),('Calculate $S_{12}=246$.','Substitute and simplify.')],'Find the sum of the first 8 terms of the arithmetic sequence $4,7,10,\\ldots$.',116)
 # Behaviour
 for a,d in [(-10,2),(8,-3),(-5,1),(12,-2)]:
  label='increasing' if d>0 else 'decreasing'
@@ -50,8 +50,8 @@ worked(K[3],'Find the sum of the first 5 terms of $3,6,12,\ldots$.',[('Identify 
 from math import comb
 for n,r,a,b in [(4,2,1,2),(5,3,2,1),(6,2,1,3),(4,3,3,2),(7,2,2,1),(5,1,1,4)]:
  c=comb(n,r)*a**(n-r)*b**r
- num(K[4],f'Find the coefficient of $x^{r}$ in $({a}+{b}x)^{n}$.',c,'The coefficient is $\binom nr a^{n-r}b^r$.',3 if r>1 else 2)
-worked(K[4],'Find the coefficient of $x^2$ in $(1+2x)^4$.',[('Select the $r=2$ term: $\binom42 1^2(2x)^2$.','The power of $x$ identifies the term.'),('Calculate $\binom42=6$ and $2^2=4$.','Use $\binom nr=n!/[r!(n-r)!]$.'),('The coefficient is $24$.','Multiply the factors.')],'Find the coefficient of $x^2$ in $(1+3x)^4$.',comb(4,2)*3**2)
+ num(K[4],f'Find the coefficient of $x^{r}$ in $({a}+{b}x)^{n}$.',c,'The coefficient is $\\binom{n}{r}a^{n-r}b^r$.',3 if r>1 else 2)
+worked(K[4],'Find the coefficient of $x^2$ in $(1+2x)^4$.',[('Select the $r=2$ term: $\\binom{4}{2} 1^2(2x)^2$.','The power of $x$ identifies the term.'),('Calculate $\\binom{4}{2}=6$ and $2^2=4$.','Use $\\binom{n}{r}=n!/[r!(n-r)!]$.'),('The coefficient is $24$.','Multiply the factors.')],'Find the coefficient of $x^2$ in $(1+3x)^4$.',comb(4,2)*3**2)
 # Manager-requested assessment items are appended to preserve existing item order.
 pack['items'].extend([
  {'id':'P2-4-i31','kcs':['P2-4.2'],'kind':'short','difficulty':3,'command_word':'Prove','source':{'type':'generated'},'stem':'An arithmetic sequence has first term $a$ and common difference $d$. Prove that the sum of its first $n$ terms is $S_n=\\frac n2[2a+(n-1)d]$.','marks':3,'rubric':[{'point':'Write $S_n=a+(a+d)+\\cdots+[a+(n-1)d]$ and the same sum in reverse order.','keywords':[['reverse','backwards']]},{'point':'Add corresponding terms: all $n$ pairs equal $2a+(n-1)d$, so $2S_n=n[2a+(n-1)d]$.','keywords':[['pair','pairs'],['2S','2 S']]},{'point':'Divide by 2 to obtain $S_n=\\frac n2[2a+(n-1)d]$.','keywords':[['divide','2']]}],'explanation':'Writing the series forwards and backwards and adding gives $n$ identical pairs, each $2a+(n-1)d$. Hence $2S_n=n[2a+(n-1)d]$; divide by 2.','hints':['Write the sum in both orders.','Add matching terms.','Count the pairs and divide by 2.']},

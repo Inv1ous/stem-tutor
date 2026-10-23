@@ -191,7 +191,8 @@ def _validate(pack: dict, graph: dict, min_variants: int, out: list[dict]) -> No
             if not isinstance(opts, dict) or sorted(opts) != ["A", "B", "C", "D"] or it.get("answer") not in opts:
                 out.append(_e("mcq-answer", where, "options A-D and answer among them"))
             # with a figure the options are in the figure: their text may be only its labels, alike
-            elif not it.get("image") and len({" ".join(str(v).split()) for v in opts.values()}) < len(opts):
+            # PDF fractions can collapse to products: "4.0 Fv" and "4.0Fv" are the same choice.
+            elif not it.get("image") and len({"".join(str(v).split()) for v in opts.values()}) < len(opts):
                 out.append(_e("mcq-options", where, "two options say the same"))
             for letter, d in (it.get("distractors") or {}).items():
                 mid = d.get("misconception") if isinstance(d, dict) else d
