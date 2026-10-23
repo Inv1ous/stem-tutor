@@ -20,7 +20,7 @@ from textual.widgets.selection_list import Selection
 
 from tutorlib import shortcuts as sc
 from tutorlib.grade import ParseError, parse_quantity
-from tutorlib.units import parse_unit, unit_factor
+from tutorlib.units import parse_unit, unit_factor, unit_readings
 
 from .look import C
 from .panels import TickList
@@ -53,24 +53,29 @@ def number(s, expected_unit: str = "") -> float | None:
         return None
     if not unit:
         return value
-    factor = unit_factor(unit, expected_unit) if expected_unit else None
-    return value * factor if factor is not None else None
+    factors = unit_readings(unit, expected_unit, allow_comments=False)[0] if expected_unit else []
+    return value * factors[0] if factors else None
 
 
 def numeric_ok(given: str, answer, stem: str = "") -> bool:
     """Right when the strings match, or the numbers are within 1% of each other."""
     if str(given).strip().lower() == str(answer).strip().lower():
         return True
-    # Shortcut keys are bare numbers; the question names the unit with "in N", for example.
+    # Read units from the request, not data such as "Evaluate tan 225, with the angle in degrees".
+    request = " ".join(sentence for sentence in re.split(r"(?<=[.?!])\s+", txt(stem)) if re.search(
+        r"\b(?:find|calculate|determine|give|state|express|estimate|what|write|convert|how far|how much|how fast)\b",
+        sentence, re.I))
     expected_unit = ""
-    for match in re.finditer(r"\bin\s+([^.,;?]+?)(?=\s+(?:to|as|measured|using)\b|[.,;?]|$)", txt(stem)):
+    for match in re.finditer(r"\bin\s+([^.,;?]+?)(?=\s+(?:to|as|measured|using|between)\b|[.,;?]|$)", request):
         candidate = match[1].strip()
-        try:
-            parse_unit(candidate)
-        except (ValueError, ArithmeticError):
-            continue
+        # Degrees and Celsius are recognised units, but are not part of SI unit algebra.
+        if unit_factor(candidate, "°") is None and unit_factor(candidate, "°C") is None:
+            try:
+                parse_unit(candidate)
+            except (ValueError, ArithmeticError):
+                continue
         expected_unit = candidate
-    a, b = number(given, expected_unit), number(answer, expected_unit)
+    a, b = number(given, expected_unit), number(txt(answer), expected_unit)
     if a is None or b is None:
         return False
     return abs(a - b) <= 0.01 * abs(b) if b else abs(a) < 1e-9

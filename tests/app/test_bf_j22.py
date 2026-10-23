@@ -27,6 +27,7 @@ def test_numeric_practice_marks_the_whole_answer(given, answer, right):
 @pytest.mark.parametrize(('given', 'right'), [
     ('25 N', True), ('25 kg', False), ('25', True),
     ('0.025 kN', True), ('25 kN', False), ('25 N or 30 N', False),
+    ('25 newtons', True), ('25 kilograms', False), ('25 newtons or 30 newtons', False),
 ])
 def test_force_practice_accepts_the_requested_unit_only(tmp_path, monkeypatch, given, right):
     """B-040: the published force question accepts newtons, not kilograms."""
@@ -47,6 +48,55 @@ def test_force_practice_accepts_the_requested_unit_only(tmp_path, monkeypatch, g
         assert ('Correct.' if right else 'Not quite.') in card(scr)
         assert events(v)[-1]['rating'] == (3 if right else 1)
     run(app, steps)
+
+
+@pytest.mark.parametrize(('spec', 'ident', 'given', 'right'), [
+    ('P1', 'discriminant-is-a-decision-tool', '-1', True),
+    ('P1', 'discriminant-is-a-decision-tool', '1', False),
+    ('P1', 'keep-exact-values-until-the-last-line', '3', True),
+    ('P1', 'keep-exact-values-until-the-last-line', '3 cm^2', True),
+    ('P1', 'keep-exact-values-until-the-last-line', '3 cm', False),
+    ('P1', 'sum-and-product-of-roots', '1/3', True),
+    ('9702', 'heating', '500000', True),
+    ('P1', 'cosine-rule', '102 degrees', True),
+    ('P1', 'cosine-rule', '102°', True),
+    ('P1', 'cosine-rule', '102 radians', False),
+    ('P1', 'cosine-rule', '102 degrees or 103 degrees', False),
+    ('9702', 'mixing-thermal-equilibrium', '40 °C', True),
+    ('9702', 'mixing-thermal-equilibrium', '40 degrees Celsius', True),
+    ('9702', 'mixing-thermal-equilibrium', '40 K', False),
+    ('9702', 'mixing-thermal-equilibrium', '40 C', False),
+])
+def test_published_practice_accepts_formatted_keys_and_requested_units(tmp_path, monkeypatch, spec, ident, given, right):
+    """B-040: published maths keys and equivalent unit names must not cost a correct answer."""
+    app, v = app_for(tmp_path, monkeypatch)
+    path = Path(__file__).resolve().parents[2] / f'build/out/shortcuts/lessons/{spec}.json'
+    lesson = json.loads(path.read_text())[f'SEM-{spec}-{ident}']
+    publish(v, lessons={'SEM-9702-a': lesson})
+
+    async def steps(pilot):
+        scr = await open_from_menu(pilot, app, 'shortcuts', 'ShortcutsScreen')
+        scr.act('start')
+        await pilot.pause()
+        scr.start_practice()
+        await pilot.pause()
+        scr.query_one(Input).value = given
+        await pilot.press('enter')
+        await pilot.pause()
+        assert ('Correct.' if right else 'Not quite.') in card(scr)
+        assert events(v)[-1]['rating'] == (3 if right else 1)
+    run(app, steps)
+
+
+@pytest.mark.parametrize(('spec', 'ident', 'index', 'given', 'right'), [
+    ('P1', 'cast-via-the-graph-not-the-diagram', 0, '1 degrees', False),
+    ('9702', 'phase-difference', 1, '135 degrees', True),
+])
+def test_practice_uses_the_requested_unit_not_the_input_angle_unit(spec, ident, index, given, right):
+    """B-040: an angle has degrees; a trigonometric ratio does not inherit its input's unit."""
+    path = Path(__file__).resolve().parents[2] / f'build/out/shortcuts/lessons/{spec}.json'
+    practice = json.loads(path.read_text())[f'SEM-{spec}-{ident}']['practice'][index]
+    assert numeric_ok(given, practice['answer'], practice['stem']) is right
 
 
 @pytest.mark.parametrize(('stem', 'given', 'answer', 'right'), [
