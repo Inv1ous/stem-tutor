@@ -260,7 +260,7 @@ else:  # pragma: no cover
 
 
 @functools.lru_cache(maxsize=4096)
-def _math(expr: str) -> str:
+def _math(expr: str, *, converter=None, strict: bool = False) -> str | None:
     e = expr
     e = re.sub(r"\\ce\s*\{((?:[^{}]|\{[^{}]*\})*)\}", lambda m: _chem(m.group(1)), e)
     e = re.sub(r"\\chemfig\s*\{(" + _GROUP + r")\}", lambda m: _chem(re.sub(r"\[[^\]]*\]", "", m.group(1))), e)  # H-O-H
@@ -324,11 +324,17 @@ def _math(expr: str) -> str:
     e = re.sub(r"(?<=[A-Za-z)])'", "′", e)
     e = re.sub(r"\\(" + _FUNCS + r")(?![A-Za-z])((?:\s*[\^_]\s*(?:\{[^{}]*\}|-?\d+|\w))*)",  # sin²θ, log₁₀, lim[x→0]
                lambda m: _FN_START + m.group(1) + _fn_scripts(m.group(2)) + _FN_END, e)
-    if _CONV is not None:
+    active_converter = _CONV if converter is None else converter
+    if active_converter is not None:
         try:
-            return _tidy(_CONV.convert(e))
+            converted = active_converter.convert(e)
+            if strict and "\\" in converted:
+                return None
+            return _tidy(converted)
         except Exception:
             pass
+    if strict:
+        return None
     return _tidy(re.sub(r"\\([A-Za-z]+)", r"\1", e).replace("{", "").replace("}", ""))
 
 

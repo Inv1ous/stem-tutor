@@ -1,0 +1,6748 @@
+{
+  "status": "Inventory of installed implementation; registration does not prove every expression renders correctly.",
+  "date": "2026-10-25",
+  "sources": {
+    "converter": "app/tutor_app/texmath.py",
+    "dependency": "flatlatex==0.15",
+    "font": "app/tutor_app/fonts/JuliaMono-Regular.ttf",
+    "font_sha256": "40a07da0d1601215eb6b89312eb44128a3e2f36675d3e1f518264bd391fc7023"
+  },
+  "registered_command_count": 407,
+  "registered_commands": [
+    "\\ ",
+    "\\'",
+    "\\,",
+    "\\;",
+    "\\AA",
+    "\\Box",
+    "\\Bumpeq",
+    "\\Cap",
+    "\\Cup",
+    "\\Delta",
+    "\\Downarrow",
+    "\\Finv",
+    "\\Gamma",
+    "\\Im",
+    "\\Lambda",
+    "\\Leftarrow",
+    "\\Leftrightarrow",
+    "\\Lleftarrow",
+    "\\Longleftarrow",
+    "\\Longleftrightarrow",
+    "\\Longrightarrow",
+    "\\Lsh",
+    "\\Omega",
+    "\\P",
+    "\\Phi",
+    "\\Pi",
+    "\\Psi",
+    "\\Re",
+    "\\Rightarrow",
+    "\\Rsh",
+    "\\S",
+    "\\Sigma",
+    "\\Subset",
+    "\\Supset",
+    "\\Theta",
+    "\\Uparrow",
+    "\\Updownarrow",
+    "\\Vdash",
+    "\\Vvdash",
+    "\\Xi",
+    "\\\\",
+    "\\^",
+    "\\_",
+    "\\`",
+    "\\acute",
+    "\\aleph",
+    "\\alpha",
+    "\\amalg",
+    "\\angle",
+    "\\angstrom",
+    "\\approx",
+    "\\approxeq",
+    "\\ast",
+    "\\asymp",
+    "\\backsim",
+    "\\backsimeq",
+    "\\backslash",
+    "\\bar",
+    "\\barwedge",
+    "\\bb",
+    "\\bcancel",
+    "\\because",
+    "\\beta",
+    "\\beth",
+    "\\between",
+    "\\bf",
+    "\\bigcap",
+    "\\bigcup",
+    "\\bigvee",
+    "\\bigwedge",
+    "\\binom",
+    "\\blacksquare",
+    "\\bmod",
+    "\\bot",
+    "\\bowtie",
+    "\\boxdot",
+    "\\boxminus",
+    "\\boxplus",
+    "\\boxtimes",
+    "\\breve",
+    "\\bullet",
+    "\\bumpeq",
+    "\\cal",
+    "\\cancel",
+    "\\cap",
+    "\\cbrt",
+    "\\cdot",
+    "\\cdotp",
+    "\\cdots",
+    "\\check",
+    "\\checkmark",
+    "\\chi",
+    "\\circ",
+    "\\circeq",
+    "\\circlearrowleft",
+    "\\circlearrowright",
+    "\\circledast",
+    "\\circledcirc",
+    "\\circleddash",
+    "\\clubsuit",
+    "\\colon",
+    "\\complement",
+    "\\cong",
+    "\\cup",
+    "\\curlyeqprec",
+    "\\curlyeqsucc",
+    "\\curlyvee",
+    "\\curlywedge",
+    "\\curvearrowleft",
+    "\\curvearrowright",
+    "\\dag",
+    "\\dagger",
+    "\\daleth",
+    "\\dashleftarrow",
+    "\\dashrightarrow",
+    "\\dashv",
+    "\\ddag",
+    "\\ddagger",
+    "\\ddot",
+    "\\ddots",
+    "\\ddotsup",
+    "\\defeq",
+    "\\delta",
+    "\\diamond",
+    "\\diamondsuit",
+    "\\div",
+    "\\divideontimes",
+    "\\dot",
+    "\\doteq",
+    "\\doteqdot",
+    "\\dotplus",
+    "\\dots",
+    "\\downarrow",
+    "\\downdownarrows",
+    "\\downharpoonleft",
+    "\\downharpoonright",
+    "\\ell",
+    "\\emptyset",
+    "\\epsilon",
+    "\\eqcirc",
+    "\\eqslantgtr",
+    "\\eqslantless",
+    "\\equiv",
+    "\\eta",
+    "\\exists",
+    "\\fallingdotseq",
+    "\\flat",
+    "\\forall",
+    "\\frac",
+    "\\frak",
+    "\\gamma",
+    "\\geq",
+    "\\geqq",
+    "\\geqslant",
+    "\\gg",
+    "\\ggg",
+    "\\gimel",
+    "\\gneqq",
+    "\\gnsim",
+    "\\grave",
+    "\\gtrdot",
+    "\\gtreqless",
+    "\\gtrless",
+    "\\gtrsim",
+    "\\hat",
+    "\\hbar",
+    "\\heartsuit",
+    "\\hookleftarrow",
+    "\\hookrightarrow",
+    "\\iff",
+    "\\iiint",
+    "\\iint",
+    "\\imath",
+    "\\impliedby",
+    "\\implies",
+    "\\in",
+    "\\infty",
+    "\\int",
+    "\\intercal",
+    "\\iota",
+    "\\it",
+    "\\jmath",
+    "\\kappa",
+    "\\lVert",
+    "\\lambda",
+    "\\land",
+    "\\langle",
+    "\\lceil",
+    "\\leadsto",
+    "\\leftarrow",
+    "\\leftarrowtail",
+    "\\leftharpoondown",
+    "\\leftharpoonup",
+    "\\leftleftarrows",
+    "\\leftrightarrow",
+    "\\leftrightarrows",
+    "\\leftrightharpoons",
+    "\\leftrightsquigarrow",
+    "\\leftthreetimes",
+    "\\leq",
+    "\\leqq",
+    "\\leqslant",
+    "\\lessdot",
+    "\\lesseqgtr",
+    "\\lessgtr",
+    "\\lesssim",
+    "\\lfloor",
+    "\\lhd",
+    "\\ll",
+    "\\lll",
+    "\\lneqq",
+    "\\lnot",
+    "\\lnsim",
+    "\\longleftarrow",
+    "\\longleftrightarrow",
+    "\\longrightarrow",
+    "\\looparrowleft",
+    "\\looparrowright",
+    "\\lor",
+    "\\ltimes",
+    "\\mapsto",
+    "\\mathbb",
+    "\\mathbf",
+    "\\mathcal",
+    "\\mathfrak",
+    "\\mathit",
+    "\\mathmono",
+    "\\mathring",
+    "\\measuredangle",
+    "\\mho",
+    "\\micro",
+    "\\mid",
+    "\\models",
+    "\\mono",
+    "\\mp",
+    "\\mu",
+    "\\multimap",
+    "\\multimapdotbothA",
+    "\\multimapdotbothB",
+    "\\nLeftarrow",
+    "\\nLeftrightarrow",
+    "\\nRightarrow",
+    "\\nVdash",
+    "\\nabla",
+    "\\natural",
+    "\\ncong",
+    "\\nearrow",
+    "\\neg",
+    "\\neq",
+    "\\nexists",
+    "\\ngeq",
+    "\\ngtr",
+    "\\ni",
+    "\\nleftarrow",
+    "\\nleftrightarrow",
+    "\\nleq",
+    "\\nless",
+    "\\nmid",
+    "\\not",
+    "\\notin",
+    "\\nparallel",
+    "\\nprec",
+    "\\nrightarrow",
+    "\\nsim",
+    "\\nsubseteq",
+    "\\nsucc",
+    "\\nsupseteq",
+    "\\ntriangleleft",
+    "\\ntrianglelefteq",
+    "\\ntriangleright",
+    "\\ntrianglerighteq",
+    "\\nu",
+    "\\nvDash",
+    "\\nvdash",
+    "\\nwarrow",
+    "\\odot",
+    "\\ohm",
+    "\\oiiint",
+    "\\oiint",
+    "\\oint",
+    "\\omega",
+    "\\ominus",
+    "\\oplus",
+    "\\oslash",
+    "\\otimes",
+    "\\overleftarrow",
+    "\\overline",
+    "\\overrightarrow",
+    "\\parallel",
+    "\\partial",
+    "\\perp",
+    "\\perthousand",
+    "\\phi",
+    "\\pi",
+    "\\pitchfork",
+    "\\pm",
+    "\\pmod",
+    "\\pounds",
+    "\\prec",
+    "\\preccurlyeq",
+    "\\precnsim",
+    "\\precsim",
+    "\\prime",
+    "\\prod",
+    "\\propto",
+    "\\psi",
+    "\\qdrt",
+    "\\qquad",
+    "\\quad",
+    "\\rVert",
+    "\\rangle",
+    "\\rceil",
+    "\\rfloor",
+    "\\rhd",
+    "\\rho",
+    "\\rightarrow",
+    "\\rightarrowtail",
+    "\\rightharpoondown",
+    "\\rightharpoonup",
+    "\\rightleftarrows",
+    "\\rightleftharpoons",
+    "\\rightrightarrows",
+    "\\rightsquigarrow",
+    "\\rightthreetimes",
+    "\\risingdotseq",
+    "\\rtimes",
+    "\\searrow",
+    "\\setminus",
+    "\\sharp",
+    "\\sigma",
+    "\\sim",
+    "\\simeq",
+    "\\sout",
+    "\\spadesuit",
+    "\\sphericalangle",
+    "\\sqcap",
+    "\\sqcup",
+    "\\sqrt",
+    "\\sqsubset",
+    "\\sqsubseteq",
+    "\\sqsupset",
+    "\\sqsupseteq",
+    "\\square",
+    "\\star",
+    "\\subset",
+    "\\subseteq",
+    "\\subsetneq",
+    "\\succ",
+    "\\succcurlyeq",
+    "\\succnsim",
+    "\\succsim",
+    "\\sum",
+    "\\supset",
+    "\\supseteq",
+    "\\supsetneq",
+    "\\surd",
+    "\\swarrow",
+    "\\tau",
+    "\\textdegree",
+    "\\textmu",
+    "\\textperthousand",
+    "\\therefore",
+    "\\theta",
+    "\\tilde",
+    "\\times",
+    "\\top",
+    "\\triangle",
+    "\\triangleq",
+    "\\twoheadleftarrow",
+    "\\twoheadrightarrow",
+    "\\underline",
+    "\\unlhd",
+    "\\unrhd",
+    "\\uparrow",
+    "\\updownarrow",
+    "\\upharpoonleft",
+    "\\upharpoonright",
+    "\\uplus",
+    "\\upmu",
+    "\\upsilon",
+    "\\upuparrows",
+    "\\vDash",
+    "\\varclubsuit",
+    "\\vardiamondsuit",
+    "\\varepsilon",
+    "\\varheartsuit",
+    "\\varnothing",
+    "\\varphi",
+    "\\varpi",
+    "\\varrho",
+    "\\varsigma",
+    "\\varspadesuit",
+    "\\vartheta",
+    "\\vdash",
+    "\\vdots",
+    "\\vec",
+    "\\vee",
+    "\\veebar",
+    "\\wedge",
+    "\\widehat",
+    "\\widetilde",
+    "\\wp",
+    "\\wr",
+    "\\xcancel",
+    "\\xi",
+    "\\zeta",
+    "\\|"
+  ],
+  "symbols": {
+    "\\_": "_",
+    "\\|": "‖",
+    "\\lVert": "‖",
+    "\\rVert": "‖",
+    "\\\\": "\\",
+    "\\aleph": "ℵ",
+    "\\alpha": "α",
+    "\\amalg": "∐",
+    "\\angle": "∠",
+    "\\approx": "≈",
+    "\\approxeq": "≊",
+    "\\ast": "∗",
+    "\\asymp": "≍",
+    "\\backsim": "∽",
+    "\\backsimeq": "⋍",
+    "\\backslash": "\\",
+    "\\barwedge": "⊼",
+    "\\because": "∵",
+    "\\beta": "β",
+    "\\beth": "ℶ",
+    "\\between": "≬",
+    "\\bigcap": "⋂",
+    "\\bigcup": "⋃",
+    "\\bigvee": "⋁",
+    "\\bigwedge": "⋀",
+    "\\blacksquare": "∎",
+    "\\bot": "⊤",
+    "\\bowtie": "⋈",
+    "\\boxdot": "⊡",
+    "\\boxminus": "⊟",
+    "\\boxplus": "⊞",
+    "\\boxtimes": "⊠",
+    "\\bullet": "•",
+    "\\bumpeq": "≏",
+    "\\Bumpeq": "≎",
+    "\\cap": "∩",
+    "\\Cap": "⋒",
+    "\\cdot": "·",
+    "\\cdots": "⋯",
+    "\\chi": "χ",
+    "\\circ": "∘",
+    "\\circeq": "≗",
+    "\\circlearrowleft": "↺",
+    "\\circlearrowright": "↻",
+    "\\circledast": "⊛",
+    "\\circledcirc": "⊚",
+    "\\circleddash": "⊝",
+    "\\clubsuit": "♣",
+    "\\varclubsuit": "♧",
+    "\\complement": "∁",
+    "\\cong": "≅",
+    "\\cup": "∪",
+    "\\Cup": "⋓",
+    "\\curlyeqprec": "⋞",
+    "\\curlyeqsucc": "⋟",
+    "\\curlyvee": "⋎",
+    "\\curlywedge": "⋏",
+    "\\curvearrowleft": "↶",
+    "\\curvearrowright": "↷",
+    "\\dag": "†",
+    "\\daleth": "ℸ",
+    "\\dashleftarrow": "⇠",
+    "\\dashrightarrow": "⇢",
+    "\\dashv": "⊣",
+    "\\ddag": "‡",
+    "\\ddots": "⋱",
+    "\\ddotsup": "⋰",
+    "\\defeq": "≝",
+    "\\delta": "δ",
+    "\\Delta": "Δ",
+    "\\diamond": "⋄",
+    "\\diamondsuit": "♢",
+    "\\vardiamondsuit": "♦",
+    "\\div": "÷",
+    "\\divideontimes": "⋇",
+    "\\doteq": "≐",
+    "\\doteqdot": "≑",
+    "\\dotplus": "∔",
+    "\\dots": "…",
+    "\\downarrow": "↓",
+    "\\Downarrow": "⇓",
+    "\\downdownarrows": "⇊",
+    "\\downharpoonleft": "⇃",
+    "\\downharpoonright": "⇂",
+    "\\ell": "ℓ",
+    "\\emptyset": "∅",
+    "\\epsilon": "ϵ",
+    "\\eqcirc": "≖",
+    "\\eqslantgtr": "⋝",
+    "\\eqslantless": "⋜",
+    "\\equiv": "≡",
+    "\\eta": "η",
+    "\\exists": "∃",
+    "\\fallingdotseq": "≒",
+    "\\Finv": "Ⅎ",
+    "\\flat": "♭",
+    "\\forall": "∀",
+    "\\gamma": "γ",
+    "\\Gamma": "Γ",
+    "\\geq": "≥",
+    "\\geqq": "≧",
+    "\\gg": "≫",
+    "\\ggg": "⋙",
+    "\\gimel": "ℷ",
+    "\\gneqq": "≩",
+    "\\gnsim": "⋧",
+    "\\gtrdot": "⋗",
+    "\\gtreqless": "⋛",
+    "\\gtrless": "≷",
+    "\\gtrsim": "≳",
+    "\\hbar": "ℏ",
+    "\\heartsuit": "♡",
+    "\\varheartsuit": "♥",
+    "\\hookleftarrow": "↩",
+    "\\hookrightarrow": "↪",
+    "\\iiint": "∭",
+    "\\iint": "∬",
+    "\\Im": "ℑ",
+    "\\in": "∈",
+    "\\infty": "∞",
+    "\\int": "∫",
+    "\\intercal": "⊺",
+    "\\iota": "ι",
+    "\\kappa": "κ",
+    "\\lambda": "λ",
+    "\\Lambda": "Λ",
+    "\\leadsto": "↝",
+    "\\leftarrow": "←",
+    "\\Leftarrow": "⇐",
+    "\\leftarrowtail": "↢",
+    "\\leftharpoondown": "↽",
+    "\\leftharpoonup": "↼",
+    "\\leftleftarrows": "⇇",
+    "\\leftrightarrow": "↔",
+    "\\Leftrightarrow": "⇔",
+    "\\leftrightarrows": "⇆",
+    "\\leftrightharpoons": "⇋",
+    "\\leftrightsquigarrow": "↭",
+    "\\leftthreetimes": "⋋",
+    "\\leq": "≤",
+    "\\leqq": "≦",
+    "\\lessdot": "⋖",
+    "\\lesseqgtr": "⋚",
+    "\\lessgtr": "≶",
+    "\\lesssim": "≲",
+    "\\lhd": "⊲",
+    "\\ll": "≪",
+    "\\Lleftarrow": "⇚",
+    "\\lll": "⋘",
+    "\\lneqq": "≨",
+    "\\lnot": "¬",
+    "\\neg": "¬",
+    "\\lnsim": "⋦",
+    "\\looparrowleft": "↫",
+    "\\looparrowright": "↬",
+    "\\Lsh": "↰",
+    "\\ltimes": "⋉",
+    "\\mapsto": "↦",
+    "\\measuredangle": "∡",
+    "\\mho": "℧",
+    "\\mid": "∣",
+    "\\models": "⊨",
+    "\\mp": "∓",
+    "\\multimap": "⊸",
+    "\\multimapdotbothA": "⊶",
+    "\\multimapdotbothB": "⊷",
+    "\\mu": "μ",
+    "\\nabla": "∇",
+    "\\natural": "♮",
+    "\\ncong": "≇",
+    "\\nearrow": "↗",
+    "\\neq": "≠",
+    "\\nexists": "∄",
+    "\\ngeq": "≱",
+    "\\ngtr": "≯",
+    "\\ni": "∋",
+    "\\nleftarrow": "↚",
+    "\\nLeftarrow": "⇍",
+    "\\nleftrightarrow": "↮",
+    "\\nLeftrightarrow": "⇎",
+    "\\nleq": "≰",
+    "\\nless": "≮",
+    "\\nmid": "∤",
+    "\\notin": "∉",
+    "\\nparallel": "∦",
+    "\\nprec": "⊁",
+    "\\nrightarrow": "↛",
+    "\\nRightarrow": "⇏",
+    "\\nsim": "≁",
+    "\\nsubseteq": "⊈",
+    "\\nsucc": "⊀",
+    "\\nsupseteq": "⊉",
+    "\\ntriangleleft": "⋪",
+    "\\ntrianglelefteq": "⋬",
+    "\\ntriangleright": "⋫",
+    "\\ntrianglerighteq": "⋭",
+    "\\nu": "ν",
+    "\\nvdash": "⊬",
+    "\\nvDash": "⊭",
+    "\\nVdash": "⊯",
+    "\\nwarrow": "↖",
+    "\\odot": "⊙",
+    "\\oiiint": "∰",
+    "\\oiint": "∯",
+    "\\oint": "∮",
+    "\\omega": "ω",
+    "\\Omega": "Ω",
+    "\\ominus": "⊖",
+    "\\oplus": "⊕",
+    "\\oslash": "⊘",
+    "\\otimes": "⊗",
+    "\\P": "¶",
+    "\\parallel": "∥",
+    "\\partial": "∂",
+    "\\perp": "⊥",
+    "\\phi": "φ",
+    "\\Phi": "Φ",
+    "\\pitchfork": "⋔",
+    "\\pi": "π",
+    "\\Pi": "Π",
+    "\\pm": "±",
+    "\\pounds": "£",
+    "\\prec": "≺",
+    "\\preccurlyeq": "≼",
+    "\\precnsim": "⋨",
+    "\\precsim": "≾",
+    "\\prod": "∏",
+    "\\propto": "∝",
+    "\\psi": "ψ",
+    "\\Psi": "Ψ",
+    "\\Re": "ℜ",
+    "\\rhd": "⊳",
+    "\\rho": "ρ",
+    "\\rightarrow": "→",
+    "\\Rightarrow": "⇒",
+    "\\rightarrowtail": "↣",
+    "\\rightharpoondown": "⇁",
+    "\\rightharpoonup": "⇀",
+    "\\rightleftarrows": "⇄",
+    "\\rightleftharpoons": "⇌",
+    "\\rightrightarrows": "⇉",
+    "\\rightsquigarrow": "⇝",
+    "\\rightthreetimes": "⋌",
+    "\\risingdotseq": "≓",
+    "\\Rsh": "↱",
+    "\\rtimes": "⋊",
+    "\\S": "§",
+    "\\searrow": "↘",
+    "\\swarrow": "↙",
+    "\\setminus": "∖",
+    "\\sharp": "♯",
+    "\\sigma": "σ",
+    "\\Sigma": "Σ",
+    "\\sim": "∼",
+    "\\simeq": "≃",
+    "\\spadesuit": "♠",
+    "\\varspadesuit": "♤",
+    "\\sphericalangle": "∢",
+    "\\sqcap": "⊓",
+    "\\sqcup": "⊔",
+    "\\sqsubset": "⊏",
+    "\\sqsubseteq": "⊑",
+    "\\sqsupset": "⊐",
+    "\\sqsupseteq": "⊒",
+    "\\star": "⋆",
+    "\\subset": "⊂",
+    "\\Subset": "⋐",
+    "\\subseteq": "⊆",
+    "\\subsetneq": "⊊",
+    "\\succ": "≻",
+    "\\succcurlyeq": "≽",
+    "\\succnsim": "⋩",
+    "\\succsim": "≿",
+    "\\sum": "∑",
+    "\\supset": "⊃",
+    "\\Supset": "⋑",
+    "\\supseteq": "⊇",
+    "\\supsetneq": "⊋",
+    "\\surd": "√",
+    "\\tau": "τ",
+    "\\therefore": "∴",
+    "\\theta": "θ",
+    "\\Theta": "Θ",
+    "\\times": "×",
+    "\\triangleq": "≜",
+    "\\twoheadleftarrow": "↞",
+    "\\twoheadrightarrow": "↠",
+    "\\unlhd": "⊴",
+    "\\unrhd": "⊵",
+    "\\uparrow": "↑",
+    "\\Uparrow": "⇑",
+    "\\updownarrow": "↕",
+    "\\Updownarrow": "⇕",
+    "\\upharpoonleft": "↿",
+    "\\upharpoonright": "↾",
+    "\\uplus": "⊎",
+    "\\upsilon": "υ",
+    "\\upuparrows": "⇈",
+    "\\varepsilon": "ε",
+    "\\varphi": "ϕ",
+    "\\varpi": "ϖ",
+    "\\varrho": "ϱ",
+    "\\varsigma": "ς",
+    "\\vartheta": "ϑ",
+    "\\vdash": "⊢",
+    "\\vDash": "⊧",
+    "\\Vdash": "⊩",
+    "\\vdots": "⋮",
+    "\\vee": "∨",
+    "\\veebar": "⊻",
+    "\\Vvdash": "⊪",
+    "\\wedge": "∧",
+    "\\wp": "℘",
+    "\\wr": "≀",
+    "\\xi": "ξ",
+    "\\Xi": "Ξ",
+    "\\zeta": "ζ",
+    "\\ ": " ",
+    "\\,": " ",
+    "\\;": "  ",
+    "\\quad": "   ",
+    "\\qquad": "    "
+  },
+  "custom_symbols": {
+    "\\iff": "⇔",
+    "\\implies": "⇒",
+    "\\impliedby": "⇐",
+    "\\prime": "′",
+    "\\longrightarrow": "→",
+    "\\longleftarrow": "←",
+    "\\Longrightarrow": "⇒",
+    "\\Longleftarrow": "⇐",
+    "\\Longleftrightarrow": "⇔",
+    "\\leftrightarrow": "⟷",
+    "\\longleftrightarrow": "⟷",
+    "\\langle": "⟨",
+    "\\rangle": "⟩",
+    "\\lceil": "⌈",
+    "\\rceil": "⌉",
+    "\\lfloor": "⌊",
+    "\\rfloor": "⌋",
+    "\\triangle": "△",
+    "\\varnothing": "∅",
+    "\\leqslant": "≤",
+    "\\geqslant": "≥",
+    "\\land": "∧",
+    "\\lor": "∨",
+    "\\imath": "ı",
+    "\\jmath": "ȷ",
+    "\\dagger": "†",
+    "\\ddagger": "‡",
+    "\\top": "⊤",
+    "\\square": "□",
+    "\\Box": "□",
+    "\\checkmark": "✓",
+    "\\bmod": " mod ",
+    "\\textmu": "μ",
+    "\\upmu": "μ",
+    "\\micro": "μ",
+    "\\ohm": "Ω",
+    "\\textdegree": "°",
+    "\\perthousand": "‰",
+    "\\textperthousand": "‰",
+    "\\AA": "Å",
+    "\\angstrom": "Å",
+    "\\cdotp": "·"
+  },
+  "alphabets": {
+    "bb": {
+      "A": "𝔸",
+      "B": "𝔹",
+      "C": "ℂ",
+      "D": "𝔻",
+      "E": "𝔼",
+      "F": "𝔽",
+      "G": "𝔾",
+      "H": "ℍ",
+      "I": "𝕀",
+      "J": "𝕁",
+      "K": "𝕂",
+      "L": "𝕃",
+      "M": "𝕄",
+      "N": "ℕ",
+      "O": "𝕆",
+      "P": "ℙ",
+      "Q": "ℚ",
+      "R": "ℝ",
+      "S": "𝕊",
+      "T": "𝕋",
+      "U": "𝕌",
+      "V": "𝕍",
+      "W": "𝕎",
+      "X": "𝕏",
+      "Y": "𝕐",
+      "Z": "ℤ",
+      "a": "𝕒",
+      "b": "𝕓",
+      "c": "𝕔",
+      "d": "𝕕",
+      "e": "𝕖",
+      "f": "𝕗",
+      "g": "𝕘",
+      "h": "𝕙",
+      "i": "𝕚",
+      "j": "𝕛",
+      "k": "𝕜",
+      "l": "𝕝",
+      "m": "𝕞",
+      "n": "𝕟",
+      "o": "𝕠",
+      "p": "𝕡",
+      "q": "𝕢",
+      "r": "𝕣",
+      "s": "𝕤",
+      "t": "𝕥",
+      "u": "𝕦",
+      "v": "𝕧",
+      "w": "𝕨",
+      "x": "𝕩",
+      "y": "𝕪",
+      "z": "𝕫",
+      "0": "𝟘",
+      "1": "𝟙",
+      "2": "𝟚",
+      "3": "𝟛",
+      "4": "𝟜",
+      "5": "𝟝",
+      "6": "𝟞",
+      "7": "𝟟",
+      "8": "𝟠",
+      "9": "𝟡"
+    },
+    "bf": {
+      "A": "𝐀",
+      "B": "𝐁",
+      "C": "𝐂",
+      "D": "𝐃",
+      "E": "𝐄",
+      "F": "𝐅",
+      "G": "𝐆",
+      "H": "𝐇",
+      "I": "𝐈",
+      "J": "𝐉",
+      "K": "𝐊",
+      "L": "𝐋",
+      "M": "𝐌",
+      "N": "𝐍",
+      "O": "𝐎",
+      "P": "𝐏",
+      "Q": "𝐐",
+      "R": "𝐑",
+      "S": "𝐒",
+      "T": "𝐓",
+      "U": "𝐔",
+      "V": "𝐕",
+      "W": "𝐖",
+      "X": "𝐗",
+      "Y": "𝐘",
+      "Z": "𝐙",
+      "a": "𝐚",
+      "b": "𝐛",
+      "c": "𝐜",
+      "d": "𝐝",
+      "e": "𝐞",
+      "f": "𝐟",
+      "g": "𝐠",
+      "h": "𝐡",
+      "i": "𝐢",
+      "j": "𝐣",
+      "k": "𝐤",
+      "l": "𝐥",
+      "m": "𝐦",
+      "n": "𝐧",
+      "o": "𝐨",
+      "p": "𝐩",
+      "q": "𝐪",
+      "r": "𝐫",
+      "s": "𝐬",
+      "t": "𝐭",
+      "u": "𝐮",
+      "v": "𝐯",
+      "w": "𝐰",
+      "x": "𝐱",
+      "y": "𝐲",
+      "z": "𝐳",
+      "Α": "𝚨",
+      "Β": "𝚩",
+      "Γ": "𝚪",
+      "Δ": "𝚫",
+      "Ε": "𝚬",
+      "Ζ": "𝚭",
+      "Η": "𝚮",
+      "Θ": "𝚯",
+      "Ι": "𝚰",
+      "Κ": "𝚱",
+      "Λ": "𝚲",
+      "Μ": "𝚳",
+      "Ν": "𝚴",
+      "Ξ": "𝚵",
+      "Ο": "𝚶",
+      "Π": "𝚷",
+      "Ρ": "𝚸",
+      "ϴ": "𝚹",
+      "Σ": "𝚺",
+      "Τ": "𝚻",
+      "Υ": "𝚼",
+      "Φ": "𝚽",
+      "Χ": "𝚾",
+      "Ψ": "𝚿",
+      "Ω": "𝛀",
+      "∇": "𝛁",
+      "α": "𝛂",
+      "β": "𝛃",
+      "γ": "𝛄",
+      "δ": "𝛅",
+      "ε": "𝛆",
+      "ζ": "𝛇",
+      "η": "𝛈",
+      "θ": "𝛉",
+      "ι": "𝛊",
+      "κ": "𝛋",
+      "λ": "𝛌",
+      "μ": "𝛍",
+      "ν": "𝛎",
+      "ξ": "𝛏",
+      "ο": "𝛐",
+      "π": "𝛑",
+      "ρ": "𝛒",
+      "ς": "𝛓",
+      "σ": "𝛔",
+      "τ": "𝛕",
+      "υ": "𝛖",
+      "φ": "𝛗",
+      "χ": "𝛘",
+      "ψ": "𝛙",
+      "ω": "𝛚",
+      "∂": "𝛛",
+      "ϵ": "𝛜",
+      "ϑ": "𝛝",
+      "ϰ": "𝛞",
+      "ϕ": "𝛟",
+      "ϱ": "𝛠",
+      "ϖ": "𝛡",
+      "0": "𝟎",
+      "1": "𝟏",
+      "2": "𝟐",
+      "3": "𝟑",
+      "4": "𝟒",
+      "5": "𝟓",
+      "6": "𝟔",
+      "7": "𝟕",
+      "8": "𝟖",
+      "9": "𝟗"
+    },
+    "cal": {
+      "A": "𝓐",
+      "B": "𝓑",
+      "C": "𝓒",
+      "D": "𝓓",
+      "E": "𝓔",
+      "F": "𝓕",
+      "G": "𝓖",
+      "H": "𝓗",
+      "I": "𝓘",
+      "J": "𝓙",
+      "K": "𝓚",
+      "L": "𝓛",
+      "M": "𝓜",
+      "N": "𝓝",
+      "O": "𝓞",
+      "P": "𝓟",
+      "Q": "𝓠",
+      "R": "𝓡",
+      "S": "𝓢",
+      "T": "𝓣",
+      "U": "𝓤",
+      "V": "𝓥",
+      "W": "𝓦",
+      "X": "𝓧",
+      "Y": "𝓨",
+      "Z": "𝓩",
+      "a": "𝓪",
+      "b": "𝓫",
+      "c": "𝓬",
+      "d": "𝓭",
+      "e": "𝓮",
+      "f": "𝓯",
+      "g": "𝓰",
+      "h": "𝓱",
+      "i": "𝓲",
+      "j": "𝓳",
+      "k": "𝓴",
+      "l": "𝓵",
+      "m": "𝓶",
+      "n": "𝓷",
+      "o": "𝓸",
+      "p": "𝓹",
+      "q": "𝓺",
+      "r": "𝓻",
+      "s": "𝓼",
+      "t": "𝓽",
+      "u": "𝓾",
+      "v": "𝓿",
+      "w": "𝔀",
+      "x": "𝔁",
+      "y": "𝔂",
+      "z": "𝔃"
+    },
+    "frak": {
+      "A": "𝔄",
+      "B": "𝔅",
+      "C": "ℭ",
+      "D": "𝔇",
+      "E": "𝔈",
+      "F": "𝔉",
+      "G": "𝔊",
+      "H": "ℌ",
+      "I": "ℑ",
+      "J": "𝔍",
+      "K": "𝔎",
+      "L": "𝔏",
+      "M": "𝔐",
+      "N": "𝔑",
+      "O": "𝔒",
+      "P": "𝔓",
+      "Q": "𝔔",
+      "R": "ℜ",
+      "S": "𝔖",
+      "T": "𝔗",
+      "U": "𝔘",
+      "V": "𝔙",
+      "W": "𝔚",
+      "X": "𝔛",
+      "Y": "𝔜",
+      "Z": "ℨ",
+      "a": "𝔞",
+      "b": "𝔟",
+      "c": "𝔠",
+      "d": "𝔡",
+      "e": "𝔢",
+      "f": "𝔣",
+      "g": "𝔤",
+      "h": "𝔥",
+      "i": "𝔦",
+      "j": "𝔧",
+      "k": "𝔨",
+      "l": "𝔩",
+      "m": "𝔪",
+      "n": "𝔫",
+      "o": "𝔬",
+      "p": "𝔭",
+      "q": "𝔮",
+      "r": "𝔯",
+      "s": "𝔰",
+      "t": "𝔱",
+      "u": "𝔲",
+      "v": "𝔳",
+      "w": "𝔴",
+      "x": "𝔵",
+      "y": "𝔶",
+      "z": "𝔷"
+    },
+    "it": {
+      "A": "𝐴",
+      "B": "𝐵",
+      "C": "𝐶",
+      "D": "𝐷",
+      "E": "𝐸",
+      "F": "𝐹",
+      "G": "𝐺",
+      "H": "𝐻",
+      "I": "𝐼",
+      "J": "𝐽",
+      "K": "𝐾",
+      "L": "𝐿",
+      "M": "𝑀",
+      "N": "𝑁",
+      "O": "𝑂",
+      "P": "𝑃",
+      "Q": "𝑄",
+      "R": "𝑅",
+      "S": "𝑆",
+      "T": "𝑇",
+      "U": "𝑈",
+      "V": "𝑉",
+      "W": "𝑊",
+      "X": "𝑋",
+      "Y": "𝑌",
+      "Z": "𝑍",
+      "a": "𝑎",
+      "b": "𝑏",
+      "c": "𝑐",
+      "d": "𝑑",
+      "e": "𝑒",
+      "f": "𝑓",
+      "g": "𝑔",
+      "h": "ℎ",
+      "i": "𝑖",
+      "j": "𝑗",
+      "k": "𝑘",
+      "l": "𝑙",
+      "m": "𝑚",
+      "n": "𝑛",
+      "o": "𝑜",
+      "p": "𝑝",
+      "q": "𝑞",
+      "r": "𝑟",
+      "s": "𝑠",
+      "t": "𝑡",
+      "u": "𝑢",
+      "v": "𝑣",
+      "w": "𝑤",
+      "x": "𝑥",
+      "y": "𝑦",
+      "z": "𝑧",
+      "Α": "𝛢",
+      "Β": "𝛣",
+      "Γ": "𝛤",
+      "Δ": "𝛥",
+      "Ε": "𝛦",
+      "Ζ": "𝛧",
+      "Η": "𝛨",
+      "Θ": "𝛩",
+      "Ι": "𝛪",
+      "Κ": "𝛫",
+      "Λ": "𝛬",
+      "Μ": "𝛭",
+      "Ν": "𝛮",
+      "Ξ": "𝛯",
+      "Ο": "𝛰",
+      "Π": "𝛱",
+      "Ρ": "𝛲",
+      "ϴ": "𝛳",
+      "Σ": "𝛴",
+      "Τ": "𝛵",
+      "Υ": "𝛶",
+      "Φ": "𝛷",
+      "Χ": "𝛸",
+      "Ψ": "𝛹",
+      "Ω": "𝛺",
+      "∇": "𝛻",
+      "α": "𝛼",
+      "β": "𝛽",
+      "γ": "𝛾",
+      "δ": "𝛿",
+      "ε": "𝜀",
+      "ζ": "𝜁",
+      "η": "𝜂",
+      "θ": "𝜃",
+      "ι": "𝜄",
+      "κ": "𝜅",
+      "λ": "𝜆",
+      "μ": "𝜇",
+      "ν": "𝜈",
+      "ξ": "𝜉",
+      "ο": "𝜊",
+      "π": "𝜋",
+      "ρ": "𝜌",
+      "ς": "𝜍",
+      "σ": "𝜎",
+      "τ": "𝜏",
+      "υ": "𝜐",
+      "φ": "𝜑",
+      "χ": "𝜒",
+      "ψ": "𝜓",
+      "ω": "𝜔",
+      "∂": "𝜕",
+      "ϵ": "𝜖",
+      "ϑ": "𝜗",
+      "ϰ": "𝜘",
+      "ϕ": "𝜙",
+      "ϱ": "𝜚",
+      "ϖ": "𝜛"
+    },
+    "mono": {
+      "A": "𝙰",
+      "B": "𝙱",
+      "C": "𝙲",
+      "D": "𝙳",
+      "E": "𝙴",
+      "F": "𝙵",
+      "G": "𝙶",
+      "H": "𝙷",
+      "I": "𝙸",
+      "J": "𝙹",
+      "K": "𝙺",
+      "L": "𝙻",
+      "M": "𝙼",
+      "N": "𝙽",
+      "O": "𝙾",
+      "P": "𝙿",
+      "Q": "𝚀",
+      "R": "𝚁",
+      "S": "𝚂",
+      "T": "𝚃",
+      "U": "𝚄",
+      "V": "𝚅",
+      "W": "𝚆",
+      "X": "𝚇",
+      "Y": "𝚈",
+      "Z": "𝚉",
+      "a": "𝚊",
+      "b": "𝚋",
+      "c": "𝚌",
+      "d": "𝚍",
+      "e": "𝚎",
+      "f": "𝚏",
+      "g": "𝚐",
+      "h": "𝚑",
+      "i": "𝚒",
+      "j": "𝚓",
+      "k": "𝚔",
+      "l": "𝚕",
+      "m": "𝚖",
+      "n": "𝚗",
+      "o": "𝚘",
+      "p": "𝚙",
+      "q": "𝚚",
+      "r": "𝚛",
+      "s": "𝚜",
+      "t": "𝚝",
+      "u": "𝚞",
+      "v": "𝚟",
+      "w": "𝚠",
+      "x": "𝚡",
+      "y": "𝚢",
+      "z": "𝚣",
+      "0": "𝟶",
+      "1": "𝟷",
+      "2": "𝟸",
+      "3": "𝟹",
+      "4": "𝟺",
+      "5": "𝟻",
+      "6": "𝟼",
+      "7": "𝟽",
+      "8": "𝟾",
+      "9": "𝟿"
+    }
+  },
+  "dependency_script_maps": {
+    "subscript": {
+      "0": "₀",
+      "1": "₁",
+      "2": "₂",
+      "3": "₃",
+      "4": "₄",
+      "5": "₅",
+      "6": "₆",
+      "7": "₇",
+      "8": "₈",
+      "9": "₉",
+      "+": "₊",
+      "-": "₋",
+      "=": "₌",
+      "(": "₍",
+      ")": "₎",
+      "a": "ₐ",
+      "e": "ₑ",
+      "i": "ᵢ",
+      "j": "ⱼ",
+      "o": "ₒ",
+      "r": "ᵣ",
+      "u": "ᵤ",
+      "v": "ᵥ",
+      "x": "ₓ",
+      "β": "ᵦ",
+      "γ": "ᵧ",
+      "ρ": "ᵨ",
+      "φ": "ᵩ",
+      "χ": "ᵪ"
+    },
+    "superscript": {
+      "0": "⁰",
+      "1": "¹",
+      "2": "²",
+      "3": "³",
+      "4": "⁴",
+      "5": "⁵",
+      "6": "⁶",
+      "7": "⁷",
+      "8": "⁸",
+      "9": "⁹",
+      "+": "⁺",
+      "-": "⁻",
+      "=": "⁼",
+      "(": "⁽",
+      ")": "⁾",
+      "a": "ᵃ",
+      "b": "ᵇ",
+      "c": "ᶜ",
+      "d": "ᵈ",
+      "e": "ᵉ",
+      "f": "ᶠ",
+      "g": "ᵍ",
+      "h": "ʰ",
+      "i": "ⁱ",
+      "j": "ʲ",
+      "k": "ᵏ",
+      "l": "ˡ",
+      "m": "ᵐ",
+      "n": "ⁿ",
+      "o": "ᵒ",
+      "p": "ᵖ",
+      "r": "ʳ",
+      "s": "ˢ",
+      "t": "ᵗ",
+      "u": "ᵘ",
+      "v": "ᵛ",
+      "w": "ʷ",
+      "x": "ˣ",
+      "y": "ʸ",
+      "z": "ᶻ",
+      "A": "ᴬ",
+      "B": "ᴮ",
+      "D": "ᴰ",
+      "E": "ᴱ",
+      "G": "ᴳ",
+      "H": "ᴴ",
+      "I": "ᴵ",
+      "J": "ᴶ",
+      "K": "ᴷ",
+      "L": "ᴸ",
+      "M": "ᴹ",
+      "N": "ᴺ",
+      "O": "ᴼ",
+      "P": "ᴾ",
+      "R": "ᴿ",
+      "T": "ᵀ",
+      "U": "ᵁ",
+      "V": "ⱽ",
+      "W": "ᵂ",
+      "α": "ᵅ",
+      "β": "ᵝ",
+      "γ": "ᵞ",
+      "δ": "ᵟ",
+      "∊": "ᵋ",
+      "θ": "ᶿ",
+      "ι": "ᶥ",
+      "Φ": "ᶲ",
+      "φ": "ᵠ",
+      "χ": "ᵡ"
+    }
+  },
+  "current_safe_scripts": {
+    "subscript": "₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎",
+    "superscript": "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿⁱ"
+  },
+  "combining_accents": {
+    "\\hat": [
+      "̂",
+      "hat"
+    ],
+    "\\grave": [
+      "̀",
+      "grave"
+    ],
+    "\\dot": [
+      "̇",
+      "dot"
+    ],
+    "\\not": [
+      "̸",
+      "not"
+    ],
+    "\\overrightarrow": [
+      "⃗",
+      "overrightarrow"
+    ],
+    "\\overline": [
+      "̅",
+      "overline"
+    ],
+    "\\tilde": [
+      "̃",
+      "tilde"
+    ],
+    "\\bar": [
+      "̄",
+      "bar"
+    ],
+    "\\acute": [
+      "́",
+      "acute"
+    ],
+    "\\ddot": [
+      "̈",
+      "ddot"
+    ],
+    "\\overleftarrow": [
+      "⃖",
+      "overleftarrow"
+    ],
+    "\\check": [
+      "̌",
+      "check"
+    ],
+    "\\vec": [
+      "⃗",
+      "vec"
+    ],
+    "\\underline": [
+      "̲",
+      "underline"
+    ]
+  },
+  "known_fractions": {
+    "1/2": "½",
+    "1/3": "⅓",
+    "2/3": "⅔",
+    "1/4": "¼",
+    "3/4": "¾",
+    "1/5": "⅕",
+    "2/5": "⅖",
+    "3/5": "⅗",
+    "4/5": "⅘",
+    "1/6": "⅙",
+    "5/6": "⅚",
+    "1/7": "⅐",
+    "1/8": "⅛",
+    "3/8": "⅜",
+    "5/8": "⅝",
+    "7/8": "⅞",
+    "1/9": "⅑"
+  },
+  "current_preprocessed_environments": [
+    "matrix",
+    "pmatrix",
+    "bmatrix",
+    "vmatrix",
+    "Vmatrix",
+    "Bmatrix",
+    "cases"
+  ],
+  "observed_defects": [
+    "\\bot maps to U+22A4 rather than U+22A5",
+    "\\mathit is flattened but \\it uses italic alphabet",
+    "aligned environments are unsupported",
+    "maths preprocessing also changes literal code"
+  ],
+  "mapped_non_ascii_glyphs": [
+    {
+      "character": "£",
+      "codepoint": "U+00A3",
+      "name": "POUND SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "§",
+      "codepoint": "U+00A7",
+      "name": "SECTION SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "¬",
+      "codepoint": "U+00AC",
+      "name": "NOT SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "°",
+      "codepoint": "U+00B0",
+      "name": "DEGREE SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "±",
+      "codepoint": "U+00B1",
+      "name": "PLUS-MINUS SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "²",
+      "codepoint": "U+00B2",
+      "name": "SUPERSCRIPT TWO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "³",
+      "codepoint": "U+00B3",
+      "name": "SUPERSCRIPT THREE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "¶",
+      "codepoint": "U+00B6",
+      "name": "PILCROW SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "·",
+      "codepoint": "U+00B7",
+      "name": "MIDDLE DOT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "¹",
+      "codepoint": "U+00B9",
+      "name": "SUPERSCRIPT ONE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Å",
+      "codepoint": "U+00C5",
+      "name": "LATIN CAPITAL LETTER A WITH RING ABOVE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "×",
+      "codepoint": "U+00D7",
+      "name": "MULTIPLICATION SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "÷",
+      "codepoint": "U+00F7",
+      "name": "DIVISION SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ı",
+      "codepoint": "U+0131",
+      "name": "LATIN SMALL LETTER DOTLESS I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ȷ",
+      "codepoint": "U+0237",
+      "name": "LATIN SMALL LETTER DOTLESS J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ʰ",
+      "codepoint": "U+02B0",
+      "name": "MODIFIER LETTER SMALL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ʲ",
+      "codepoint": "U+02B2",
+      "name": "MODIFIER LETTER SMALL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ʳ",
+      "codepoint": "U+02B3",
+      "name": "MODIFIER LETTER SMALL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ʷ",
+      "codepoint": "U+02B7",
+      "name": "MODIFIER LETTER SMALL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ʸ",
+      "codepoint": "U+02B8",
+      "name": "MODIFIER LETTER SMALL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ˡ",
+      "codepoint": "U+02E1",
+      "name": "MODIFIER LETTER SMALL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ˢ",
+      "codepoint": "U+02E2",
+      "name": "MODIFIER LETTER SMALL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ˣ",
+      "codepoint": "U+02E3",
+      "name": "MODIFIER LETTER SMALL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Γ",
+      "codepoint": "U+0393",
+      "name": "GREEK CAPITAL LETTER GAMMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Δ",
+      "codepoint": "U+0394",
+      "name": "GREEK CAPITAL LETTER DELTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Θ",
+      "codepoint": "U+0398",
+      "name": "GREEK CAPITAL LETTER THETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Λ",
+      "codepoint": "U+039B",
+      "name": "GREEK CAPITAL LETTER LAMDA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Ξ",
+      "codepoint": "U+039E",
+      "name": "GREEK CAPITAL LETTER XI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Π",
+      "codepoint": "U+03A0",
+      "name": "GREEK CAPITAL LETTER PI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Σ",
+      "codepoint": "U+03A3",
+      "name": "GREEK CAPITAL LETTER SIGMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Φ",
+      "codepoint": "U+03A6",
+      "name": "GREEK CAPITAL LETTER PHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Ψ",
+      "codepoint": "U+03A8",
+      "name": "GREEK CAPITAL LETTER PSI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Ω",
+      "codepoint": "U+03A9",
+      "name": "GREEK CAPITAL LETTER OMEGA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "α",
+      "codepoint": "U+03B1",
+      "name": "GREEK SMALL LETTER ALPHA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "β",
+      "codepoint": "U+03B2",
+      "name": "GREEK SMALL LETTER BETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "γ",
+      "codepoint": "U+03B3",
+      "name": "GREEK SMALL LETTER GAMMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "δ",
+      "codepoint": "U+03B4",
+      "name": "GREEK SMALL LETTER DELTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ε",
+      "codepoint": "U+03B5",
+      "name": "GREEK SMALL LETTER EPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ζ",
+      "codepoint": "U+03B6",
+      "name": "GREEK SMALL LETTER ZETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "η",
+      "codepoint": "U+03B7",
+      "name": "GREEK SMALL LETTER ETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "θ",
+      "codepoint": "U+03B8",
+      "name": "GREEK SMALL LETTER THETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ι",
+      "codepoint": "U+03B9",
+      "name": "GREEK SMALL LETTER IOTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "κ",
+      "codepoint": "U+03BA",
+      "name": "GREEK SMALL LETTER KAPPA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "λ",
+      "codepoint": "U+03BB",
+      "name": "GREEK SMALL LETTER LAMDA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "μ",
+      "codepoint": "U+03BC",
+      "name": "GREEK SMALL LETTER MU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ν",
+      "codepoint": "U+03BD",
+      "name": "GREEK SMALL LETTER NU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ξ",
+      "codepoint": "U+03BE",
+      "name": "GREEK SMALL LETTER XI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "π",
+      "codepoint": "U+03C0",
+      "name": "GREEK SMALL LETTER PI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ρ",
+      "codepoint": "U+03C1",
+      "name": "GREEK SMALL LETTER RHO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ς",
+      "codepoint": "U+03C2",
+      "name": "GREEK SMALL LETTER FINAL SIGMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "σ",
+      "codepoint": "U+03C3",
+      "name": "GREEK SMALL LETTER SIGMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "τ",
+      "codepoint": "U+03C4",
+      "name": "GREEK SMALL LETTER TAU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "υ",
+      "codepoint": "U+03C5",
+      "name": "GREEK SMALL LETTER UPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "φ",
+      "codepoint": "U+03C6",
+      "name": "GREEK SMALL LETTER PHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "χ",
+      "codepoint": "U+03C7",
+      "name": "GREEK SMALL LETTER CHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ψ",
+      "codepoint": "U+03C8",
+      "name": "GREEK SMALL LETTER PSI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ω",
+      "codepoint": "U+03C9",
+      "name": "GREEK SMALL LETTER OMEGA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ϑ",
+      "codepoint": "U+03D1",
+      "name": "GREEK THETA SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ϕ",
+      "codepoint": "U+03D5",
+      "name": "GREEK PHI SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ϖ",
+      "codepoint": "U+03D6",
+      "name": "GREEK PI SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ϱ",
+      "codepoint": "U+03F1",
+      "name": "GREEK RHO SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ϵ",
+      "codepoint": "U+03F5",
+      "name": "GREEK LUNATE EPSILON SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴬ",
+      "codepoint": "U+1D2C",
+      "name": "MODIFIER LETTER CAPITAL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴮ",
+      "codepoint": "U+1D2E",
+      "name": "MODIFIER LETTER CAPITAL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴰ",
+      "codepoint": "U+1D30",
+      "name": "MODIFIER LETTER CAPITAL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴱ",
+      "codepoint": "U+1D31",
+      "name": "MODIFIER LETTER CAPITAL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴳ",
+      "codepoint": "U+1D33",
+      "name": "MODIFIER LETTER CAPITAL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴴ",
+      "codepoint": "U+1D34",
+      "name": "MODIFIER LETTER CAPITAL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴵ",
+      "codepoint": "U+1D35",
+      "name": "MODIFIER LETTER CAPITAL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴶ",
+      "codepoint": "U+1D36",
+      "name": "MODIFIER LETTER CAPITAL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴷ",
+      "codepoint": "U+1D37",
+      "name": "MODIFIER LETTER CAPITAL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴸ",
+      "codepoint": "U+1D38",
+      "name": "MODIFIER LETTER CAPITAL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴹ",
+      "codepoint": "U+1D39",
+      "name": "MODIFIER LETTER CAPITAL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴺ",
+      "codepoint": "U+1D3A",
+      "name": "MODIFIER LETTER CAPITAL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴼ",
+      "codepoint": "U+1D3C",
+      "name": "MODIFIER LETTER CAPITAL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴾ",
+      "codepoint": "U+1D3E",
+      "name": "MODIFIER LETTER CAPITAL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᴿ",
+      "codepoint": "U+1D3F",
+      "name": "MODIFIER LETTER CAPITAL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵀ",
+      "codepoint": "U+1D40",
+      "name": "MODIFIER LETTER CAPITAL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵁ",
+      "codepoint": "U+1D41",
+      "name": "MODIFIER LETTER CAPITAL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵂ",
+      "codepoint": "U+1D42",
+      "name": "MODIFIER LETTER CAPITAL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵃ",
+      "codepoint": "U+1D43",
+      "name": "MODIFIER LETTER SMALL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵅ",
+      "codepoint": "U+1D45",
+      "name": "MODIFIER LETTER SMALL ALPHA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵇ",
+      "codepoint": "U+1D47",
+      "name": "MODIFIER LETTER SMALL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵈ",
+      "codepoint": "U+1D48",
+      "name": "MODIFIER LETTER SMALL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵉ",
+      "codepoint": "U+1D49",
+      "name": "MODIFIER LETTER SMALL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵋ",
+      "codepoint": "U+1D4B",
+      "name": "MODIFIER LETTER SMALL OPEN E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵍ",
+      "codepoint": "U+1D4D",
+      "name": "MODIFIER LETTER SMALL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵏ",
+      "codepoint": "U+1D4F",
+      "name": "MODIFIER LETTER SMALL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵐ",
+      "codepoint": "U+1D50",
+      "name": "MODIFIER LETTER SMALL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵒ",
+      "codepoint": "U+1D52",
+      "name": "MODIFIER LETTER SMALL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵖ",
+      "codepoint": "U+1D56",
+      "name": "MODIFIER LETTER SMALL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵗ",
+      "codepoint": "U+1D57",
+      "name": "MODIFIER LETTER SMALL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵘ",
+      "codepoint": "U+1D58",
+      "name": "MODIFIER LETTER SMALL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵛ",
+      "codepoint": "U+1D5B",
+      "name": "MODIFIER LETTER SMALL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵝ",
+      "codepoint": "U+1D5D",
+      "name": "MODIFIER LETTER SMALL BETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵞ",
+      "codepoint": "U+1D5E",
+      "name": "MODIFIER LETTER SMALL GREEK GAMMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵟ",
+      "codepoint": "U+1D5F",
+      "name": "MODIFIER LETTER SMALL DELTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵠ",
+      "codepoint": "U+1D60",
+      "name": "MODIFIER LETTER SMALL GREEK PHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵡ",
+      "codepoint": "U+1D61",
+      "name": "MODIFIER LETTER SMALL CHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵢ",
+      "codepoint": "U+1D62",
+      "name": "LATIN SUBSCRIPT SMALL LETTER I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵣ",
+      "codepoint": "U+1D63",
+      "name": "LATIN SUBSCRIPT SMALL LETTER R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵤ",
+      "codepoint": "U+1D64",
+      "name": "LATIN SUBSCRIPT SMALL LETTER U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵥ",
+      "codepoint": "U+1D65",
+      "name": "LATIN SUBSCRIPT SMALL LETTER V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵦ",
+      "codepoint": "U+1D66",
+      "name": "GREEK SUBSCRIPT SMALL LETTER BETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵧ",
+      "codepoint": "U+1D67",
+      "name": "GREEK SUBSCRIPT SMALL LETTER GAMMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵨ",
+      "codepoint": "U+1D68",
+      "name": "GREEK SUBSCRIPT SMALL LETTER RHO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵩ",
+      "codepoint": "U+1D69",
+      "name": "GREEK SUBSCRIPT SMALL LETTER PHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᵪ",
+      "codepoint": "U+1D6A",
+      "name": "GREEK SUBSCRIPT SMALL LETTER CHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᶜ",
+      "codepoint": "U+1D9C",
+      "name": "MODIFIER LETTER SMALL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᶠ",
+      "codepoint": "U+1DA0",
+      "name": "MODIFIER LETTER SMALL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᶥ",
+      "codepoint": "U+1DA5",
+      "name": "MODIFIER LETTER SMALL IOTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᶲ",
+      "codepoint": "U+1DB2",
+      "name": "MODIFIER LETTER SMALL PHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᶻ",
+      "codepoint": "U+1DBB",
+      "name": "MODIFIER LETTER SMALL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ᶿ",
+      "codepoint": "U+1DBF",
+      "name": "MODIFIER LETTER SMALL THETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "‖",
+      "codepoint": "U+2016",
+      "name": "DOUBLE VERTICAL LINE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "†",
+      "codepoint": "U+2020",
+      "name": "DAGGER",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "‡",
+      "codepoint": "U+2021",
+      "name": "DOUBLE DAGGER",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "•",
+      "codepoint": "U+2022",
+      "name": "BULLET",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "…",
+      "codepoint": "U+2026",
+      "name": "HORIZONTAL ELLIPSIS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "‰",
+      "codepoint": "U+2030",
+      "name": "PER MILLE SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "′",
+      "codepoint": "U+2032",
+      "name": "PRIME",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁰",
+      "codepoint": "U+2070",
+      "name": "SUPERSCRIPT ZERO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ⁱ",
+      "codepoint": "U+2071",
+      "name": "SUPERSCRIPT LATIN SMALL LETTER I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁴",
+      "codepoint": "U+2074",
+      "name": "SUPERSCRIPT FOUR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁵",
+      "codepoint": "U+2075",
+      "name": "SUPERSCRIPT FIVE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁶",
+      "codepoint": "U+2076",
+      "name": "SUPERSCRIPT SIX",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁷",
+      "codepoint": "U+2077",
+      "name": "SUPERSCRIPT SEVEN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁸",
+      "codepoint": "U+2078",
+      "name": "SUPERSCRIPT EIGHT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁹",
+      "codepoint": "U+2079",
+      "name": "SUPERSCRIPT NINE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁺",
+      "codepoint": "U+207A",
+      "name": "SUPERSCRIPT PLUS SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁻",
+      "codepoint": "U+207B",
+      "name": "SUPERSCRIPT MINUS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁼",
+      "codepoint": "U+207C",
+      "name": "SUPERSCRIPT EQUALS SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁽",
+      "codepoint": "U+207D",
+      "name": "SUPERSCRIPT LEFT PARENTHESIS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⁾",
+      "codepoint": "U+207E",
+      "name": "SUPERSCRIPT RIGHT PARENTHESIS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ⁿ",
+      "codepoint": "U+207F",
+      "name": "SUPERSCRIPT LATIN SMALL LETTER N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₀",
+      "codepoint": "U+2080",
+      "name": "SUBSCRIPT ZERO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₁",
+      "codepoint": "U+2081",
+      "name": "SUBSCRIPT ONE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₂",
+      "codepoint": "U+2082",
+      "name": "SUBSCRIPT TWO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₃",
+      "codepoint": "U+2083",
+      "name": "SUBSCRIPT THREE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₄",
+      "codepoint": "U+2084",
+      "name": "SUBSCRIPT FOUR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₅",
+      "codepoint": "U+2085",
+      "name": "SUBSCRIPT FIVE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₆",
+      "codepoint": "U+2086",
+      "name": "SUBSCRIPT SIX",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₇",
+      "codepoint": "U+2087",
+      "name": "SUBSCRIPT SEVEN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₈",
+      "codepoint": "U+2088",
+      "name": "SUBSCRIPT EIGHT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₉",
+      "codepoint": "U+2089",
+      "name": "SUBSCRIPT NINE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₊",
+      "codepoint": "U+208A",
+      "name": "SUBSCRIPT PLUS SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₋",
+      "codepoint": "U+208B",
+      "name": "SUBSCRIPT MINUS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₌",
+      "codepoint": "U+208C",
+      "name": "SUBSCRIPT EQUALS SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₍",
+      "codepoint": "U+208D",
+      "name": "SUBSCRIPT LEFT PARENTHESIS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "₎",
+      "codepoint": "U+208E",
+      "name": "SUBSCRIPT RIGHT PARENTHESIS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ₐ",
+      "codepoint": "U+2090",
+      "name": "LATIN SUBSCRIPT SMALL LETTER A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ₑ",
+      "codepoint": "U+2091",
+      "name": "LATIN SUBSCRIPT SMALL LETTER E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ₒ",
+      "codepoint": "U+2092",
+      "name": "LATIN SUBSCRIPT SMALL LETTER O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ₓ",
+      "codepoint": "U+2093",
+      "name": "LATIN SUBSCRIPT SMALL LETTER X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℂ",
+      "codepoint": "U+2102",
+      "name": "DOUBLE-STRUCK CAPITAL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℌ",
+      "codepoint": "U+210C",
+      "name": "BLACK-LETTER CAPITAL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℍ",
+      "codepoint": "U+210D",
+      "name": "DOUBLE-STRUCK CAPITAL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℎ",
+      "codepoint": "U+210E",
+      "name": "PLANCK CONSTANT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℏ",
+      "codepoint": "U+210F",
+      "name": "PLANCK CONSTANT OVER TWO PI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℑ",
+      "codepoint": "U+2111",
+      "name": "BLACK-LETTER CAPITAL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℓ",
+      "codepoint": "U+2113",
+      "name": "SCRIPT SMALL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℕ",
+      "codepoint": "U+2115",
+      "name": "DOUBLE-STRUCK CAPITAL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "℘",
+      "codepoint": "U+2118",
+      "name": "SCRIPT CAPITAL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℙ",
+      "codepoint": "U+2119",
+      "name": "DOUBLE-STRUCK CAPITAL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℚ",
+      "codepoint": "U+211A",
+      "name": "DOUBLE-STRUCK CAPITAL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℜ",
+      "codepoint": "U+211C",
+      "name": "BLACK-LETTER CAPITAL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℝ",
+      "codepoint": "U+211D",
+      "name": "DOUBLE-STRUCK CAPITAL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℤ",
+      "codepoint": "U+2124",
+      "name": "DOUBLE-STRUCK CAPITAL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "℧",
+      "codepoint": "U+2127",
+      "name": "INVERTED OHM SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℨ",
+      "codepoint": "U+2128",
+      "name": "BLACK-LETTER CAPITAL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℭ",
+      "codepoint": "U+212D",
+      "name": "BLACK-LETTER CAPITAL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "Ⅎ",
+      "codepoint": "U+2132",
+      "name": "TURNED CAPITAL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℵ",
+      "codepoint": "U+2135",
+      "name": "ALEF SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℶ",
+      "codepoint": "U+2136",
+      "name": "BET SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℷ",
+      "codepoint": "U+2137",
+      "name": "GIMEL SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ℸ",
+      "codepoint": "U+2138",
+      "name": "DALET SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "←",
+      "codepoint": "U+2190",
+      "name": "LEFTWARDS ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↑",
+      "codepoint": "U+2191",
+      "name": "UPWARDS ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "→",
+      "codepoint": "U+2192",
+      "name": "RIGHTWARDS ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↓",
+      "codepoint": "U+2193",
+      "name": "DOWNWARDS ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↔",
+      "codepoint": "U+2194",
+      "name": "LEFT RIGHT ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↕",
+      "codepoint": "U+2195",
+      "name": "UP DOWN ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↖",
+      "codepoint": "U+2196",
+      "name": "NORTH WEST ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↗",
+      "codepoint": "U+2197",
+      "name": "NORTH EAST ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↘",
+      "codepoint": "U+2198",
+      "name": "SOUTH EAST ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↙",
+      "codepoint": "U+2199",
+      "name": "SOUTH WEST ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↚",
+      "codepoint": "U+219A",
+      "name": "LEFTWARDS ARROW WITH STROKE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↛",
+      "codepoint": "U+219B",
+      "name": "RIGHTWARDS ARROW WITH STROKE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↝",
+      "codepoint": "U+219D",
+      "name": "RIGHTWARDS WAVE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↞",
+      "codepoint": "U+219E",
+      "name": "LEFTWARDS TWO HEADED ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↠",
+      "codepoint": "U+21A0",
+      "name": "RIGHTWARDS TWO HEADED ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↢",
+      "codepoint": "U+21A2",
+      "name": "LEFTWARDS ARROW WITH TAIL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↣",
+      "codepoint": "U+21A3",
+      "name": "RIGHTWARDS ARROW WITH TAIL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↦",
+      "codepoint": "U+21A6",
+      "name": "RIGHTWARDS ARROW FROM BAR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↩",
+      "codepoint": "U+21A9",
+      "name": "LEFTWARDS ARROW WITH HOOK",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↪",
+      "codepoint": "U+21AA",
+      "name": "RIGHTWARDS ARROW WITH HOOK",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↫",
+      "codepoint": "U+21AB",
+      "name": "LEFTWARDS ARROW WITH LOOP",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↬",
+      "codepoint": "U+21AC",
+      "name": "RIGHTWARDS ARROW WITH LOOP",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↭",
+      "codepoint": "U+21AD",
+      "name": "LEFT RIGHT WAVE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↮",
+      "codepoint": "U+21AE",
+      "name": "LEFT RIGHT ARROW WITH STROKE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↰",
+      "codepoint": "U+21B0",
+      "name": "UPWARDS ARROW WITH TIP LEFTWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↱",
+      "codepoint": "U+21B1",
+      "name": "UPWARDS ARROW WITH TIP RIGHTWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↶",
+      "codepoint": "U+21B6",
+      "name": "ANTICLOCKWISE TOP SEMICIRCLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↷",
+      "codepoint": "U+21B7",
+      "name": "CLOCKWISE TOP SEMICIRCLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↺",
+      "codepoint": "U+21BA",
+      "name": "ANTICLOCKWISE OPEN CIRCLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↻",
+      "codepoint": "U+21BB",
+      "name": "CLOCKWISE OPEN CIRCLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↼",
+      "codepoint": "U+21BC",
+      "name": "LEFTWARDS HARPOON WITH BARB UPWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↽",
+      "codepoint": "U+21BD",
+      "name": "LEFTWARDS HARPOON WITH BARB DOWNWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↾",
+      "codepoint": "U+21BE",
+      "name": "UPWARDS HARPOON WITH BARB RIGHTWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "↿",
+      "codepoint": "U+21BF",
+      "name": "UPWARDS HARPOON WITH BARB LEFTWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇀",
+      "codepoint": "U+21C0",
+      "name": "RIGHTWARDS HARPOON WITH BARB UPWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇁",
+      "codepoint": "U+21C1",
+      "name": "RIGHTWARDS HARPOON WITH BARB DOWNWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇂",
+      "codepoint": "U+21C2",
+      "name": "DOWNWARDS HARPOON WITH BARB RIGHTWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇃",
+      "codepoint": "U+21C3",
+      "name": "DOWNWARDS HARPOON WITH BARB LEFTWARDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇄",
+      "codepoint": "U+21C4",
+      "name": "RIGHTWARDS ARROW OVER LEFTWARDS ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇆",
+      "codepoint": "U+21C6",
+      "name": "LEFTWARDS ARROW OVER RIGHTWARDS ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇇",
+      "codepoint": "U+21C7",
+      "name": "LEFTWARDS PAIRED ARROWS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇈",
+      "codepoint": "U+21C8",
+      "name": "UPWARDS PAIRED ARROWS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇉",
+      "codepoint": "U+21C9",
+      "name": "RIGHTWARDS PAIRED ARROWS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇊",
+      "codepoint": "U+21CA",
+      "name": "DOWNWARDS PAIRED ARROWS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇋",
+      "codepoint": "U+21CB",
+      "name": "LEFTWARDS HARPOON OVER RIGHTWARDS HARPOON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇌",
+      "codepoint": "U+21CC",
+      "name": "RIGHTWARDS HARPOON OVER LEFTWARDS HARPOON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇍",
+      "codepoint": "U+21CD",
+      "name": "LEFTWARDS DOUBLE ARROW WITH STROKE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇎",
+      "codepoint": "U+21CE",
+      "name": "LEFT RIGHT DOUBLE ARROW WITH STROKE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇏",
+      "codepoint": "U+21CF",
+      "name": "RIGHTWARDS DOUBLE ARROW WITH STROKE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇐",
+      "codepoint": "U+21D0",
+      "name": "LEFTWARDS DOUBLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇑",
+      "codepoint": "U+21D1",
+      "name": "UPWARDS DOUBLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇒",
+      "codepoint": "U+21D2",
+      "name": "RIGHTWARDS DOUBLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇓",
+      "codepoint": "U+21D3",
+      "name": "DOWNWARDS DOUBLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇔",
+      "codepoint": "U+21D4",
+      "name": "LEFT RIGHT DOUBLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇕",
+      "codepoint": "U+21D5",
+      "name": "UP DOWN DOUBLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇚",
+      "codepoint": "U+21DA",
+      "name": "LEFTWARDS TRIPLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇝",
+      "codepoint": "U+21DD",
+      "name": "RIGHTWARDS SQUIGGLE ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇠",
+      "codepoint": "U+21E0",
+      "name": "LEFTWARDS DASHED ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⇢",
+      "codepoint": "U+21E2",
+      "name": "RIGHTWARDS DASHED ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∀",
+      "codepoint": "U+2200",
+      "name": "FOR ALL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∁",
+      "codepoint": "U+2201",
+      "name": "COMPLEMENT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∂",
+      "codepoint": "U+2202",
+      "name": "PARTIAL DIFFERENTIAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∃",
+      "codepoint": "U+2203",
+      "name": "THERE EXISTS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∄",
+      "codepoint": "U+2204",
+      "name": "THERE DOES NOT EXIST",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∅",
+      "codepoint": "U+2205",
+      "name": "EMPTY SET",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∇",
+      "codepoint": "U+2207",
+      "name": "NABLA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∈",
+      "codepoint": "U+2208",
+      "name": "ELEMENT OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∉",
+      "codepoint": "U+2209",
+      "name": "NOT AN ELEMENT OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∋",
+      "codepoint": "U+220B",
+      "name": "CONTAINS AS MEMBER",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∎",
+      "codepoint": "U+220E",
+      "name": "END OF PROOF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∏",
+      "codepoint": "U+220F",
+      "name": "N-ARY PRODUCT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∐",
+      "codepoint": "U+2210",
+      "name": "N-ARY COPRODUCT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∑",
+      "codepoint": "U+2211",
+      "name": "N-ARY SUMMATION",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∓",
+      "codepoint": "U+2213",
+      "name": "MINUS-OR-PLUS SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∔",
+      "codepoint": "U+2214",
+      "name": "DOT PLUS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∖",
+      "codepoint": "U+2216",
+      "name": "SET MINUS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∗",
+      "codepoint": "U+2217",
+      "name": "ASTERISK OPERATOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∘",
+      "codepoint": "U+2218",
+      "name": "RING OPERATOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "√",
+      "codepoint": "U+221A",
+      "name": "SQUARE ROOT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∝",
+      "codepoint": "U+221D",
+      "name": "PROPORTIONAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∞",
+      "codepoint": "U+221E",
+      "name": "INFINITY",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∠",
+      "codepoint": "U+2220",
+      "name": "ANGLE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∡",
+      "codepoint": "U+2221",
+      "name": "MEASURED ANGLE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∢",
+      "codepoint": "U+2222",
+      "name": "SPHERICAL ANGLE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∣",
+      "codepoint": "U+2223",
+      "name": "DIVIDES",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∤",
+      "codepoint": "U+2224",
+      "name": "DOES NOT DIVIDE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∥",
+      "codepoint": "U+2225",
+      "name": "PARALLEL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∦",
+      "codepoint": "U+2226",
+      "name": "NOT PARALLEL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∧",
+      "codepoint": "U+2227",
+      "name": "LOGICAL AND",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∨",
+      "codepoint": "U+2228",
+      "name": "LOGICAL OR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∩",
+      "codepoint": "U+2229",
+      "name": "INTERSECTION",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∪",
+      "codepoint": "U+222A",
+      "name": "UNION",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∫",
+      "codepoint": "U+222B",
+      "name": "INTEGRAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∬",
+      "codepoint": "U+222C",
+      "name": "DOUBLE INTEGRAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∭",
+      "codepoint": "U+222D",
+      "name": "TRIPLE INTEGRAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∮",
+      "codepoint": "U+222E",
+      "name": "CONTOUR INTEGRAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∯",
+      "codepoint": "U+222F",
+      "name": "SURFACE INTEGRAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∰",
+      "codepoint": "U+2230",
+      "name": "VOLUME INTEGRAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∴",
+      "codepoint": "U+2234",
+      "name": "THEREFORE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∵",
+      "codepoint": "U+2235",
+      "name": "BECAUSE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∼",
+      "codepoint": "U+223C",
+      "name": "TILDE OPERATOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "∽",
+      "codepoint": "U+223D",
+      "name": "REVERSED TILDE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≀",
+      "codepoint": "U+2240",
+      "name": "WREATH PRODUCT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≁",
+      "codepoint": "U+2241",
+      "name": "NOT TILDE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≃",
+      "codepoint": "U+2243",
+      "name": "ASYMPTOTICALLY EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≅",
+      "codepoint": "U+2245",
+      "name": "APPROXIMATELY EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≇",
+      "codepoint": "U+2247",
+      "name": "NEITHER APPROXIMATELY NOR ACTUALLY EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≈",
+      "codepoint": "U+2248",
+      "name": "ALMOST EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≊",
+      "codepoint": "U+224A",
+      "name": "ALMOST EQUAL OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≍",
+      "codepoint": "U+224D",
+      "name": "EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≎",
+      "codepoint": "U+224E",
+      "name": "GEOMETRICALLY EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≏",
+      "codepoint": "U+224F",
+      "name": "DIFFERENCE BETWEEN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≐",
+      "codepoint": "U+2250",
+      "name": "APPROACHES THE LIMIT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≑",
+      "codepoint": "U+2251",
+      "name": "GEOMETRICALLY EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≒",
+      "codepoint": "U+2252",
+      "name": "APPROXIMATELY EQUAL TO OR THE IMAGE OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≓",
+      "codepoint": "U+2253",
+      "name": "IMAGE OF OR APPROXIMATELY EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≖",
+      "codepoint": "U+2256",
+      "name": "RING IN EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≗",
+      "codepoint": "U+2257",
+      "name": "RING EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≜",
+      "codepoint": "U+225C",
+      "name": "DELTA EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≝",
+      "codepoint": "U+225D",
+      "name": "EQUAL TO BY DEFINITION",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≠",
+      "codepoint": "U+2260",
+      "name": "NOT EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≡",
+      "codepoint": "U+2261",
+      "name": "IDENTICAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≤",
+      "codepoint": "U+2264",
+      "name": "LESS-THAN OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≥",
+      "codepoint": "U+2265",
+      "name": "GREATER-THAN OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≦",
+      "codepoint": "U+2266",
+      "name": "LESS-THAN OVER EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≧",
+      "codepoint": "U+2267",
+      "name": "GREATER-THAN OVER EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≨",
+      "codepoint": "U+2268",
+      "name": "LESS-THAN BUT NOT EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≩",
+      "codepoint": "U+2269",
+      "name": "GREATER-THAN BUT NOT EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≪",
+      "codepoint": "U+226A",
+      "name": "MUCH LESS-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≫",
+      "codepoint": "U+226B",
+      "name": "MUCH GREATER-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≬",
+      "codepoint": "U+226C",
+      "name": "BETWEEN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≮",
+      "codepoint": "U+226E",
+      "name": "NOT LESS-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≯",
+      "codepoint": "U+226F",
+      "name": "NOT GREATER-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≰",
+      "codepoint": "U+2270",
+      "name": "NEITHER LESS-THAN NOR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≱",
+      "codepoint": "U+2271",
+      "name": "NEITHER GREATER-THAN NOR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≲",
+      "codepoint": "U+2272",
+      "name": "LESS-THAN OR EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≳",
+      "codepoint": "U+2273",
+      "name": "GREATER-THAN OR EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≶",
+      "codepoint": "U+2276",
+      "name": "LESS-THAN OR GREATER-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≷",
+      "codepoint": "U+2277",
+      "name": "GREATER-THAN OR LESS-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≺",
+      "codepoint": "U+227A",
+      "name": "PRECEDES",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≻",
+      "codepoint": "U+227B",
+      "name": "SUCCEEDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≼",
+      "codepoint": "U+227C",
+      "name": "PRECEDES OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≽",
+      "codepoint": "U+227D",
+      "name": "SUCCEEDS OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≾",
+      "codepoint": "U+227E",
+      "name": "PRECEDES OR EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "≿",
+      "codepoint": "U+227F",
+      "name": "SUCCEEDS OR EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊀",
+      "codepoint": "U+2280",
+      "name": "DOES NOT PRECEDE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊁",
+      "codepoint": "U+2281",
+      "name": "DOES NOT SUCCEED",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊂",
+      "codepoint": "U+2282",
+      "name": "SUBSET OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊃",
+      "codepoint": "U+2283",
+      "name": "SUPERSET OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊆",
+      "codepoint": "U+2286",
+      "name": "SUBSET OF OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊇",
+      "codepoint": "U+2287",
+      "name": "SUPERSET OF OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊈",
+      "codepoint": "U+2288",
+      "name": "NEITHER A SUBSET OF NOR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊉",
+      "codepoint": "U+2289",
+      "name": "NEITHER A SUPERSET OF NOR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊊",
+      "codepoint": "U+228A",
+      "name": "SUBSET OF WITH NOT EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊋",
+      "codepoint": "U+228B",
+      "name": "SUPERSET OF WITH NOT EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊎",
+      "codepoint": "U+228E",
+      "name": "MULTISET UNION",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊏",
+      "codepoint": "U+228F",
+      "name": "SQUARE IMAGE OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊐",
+      "codepoint": "U+2290",
+      "name": "SQUARE ORIGINAL OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊑",
+      "codepoint": "U+2291",
+      "name": "SQUARE IMAGE OF OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊒",
+      "codepoint": "U+2292",
+      "name": "SQUARE ORIGINAL OF OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊓",
+      "codepoint": "U+2293",
+      "name": "SQUARE CAP",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊔",
+      "codepoint": "U+2294",
+      "name": "SQUARE CUP",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊕",
+      "codepoint": "U+2295",
+      "name": "CIRCLED PLUS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊖",
+      "codepoint": "U+2296",
+      "name": "CIRCLED MINUS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊗",
+      "codepoint": "U+2297",
+      "name": "CIRCLED TIMES",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊘",
+      "codepoint": "U+2298",
+      "name": "CIRCLED DIVISION SLASH",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊙",
+      "codepoint": "U+2299",
+      "name": "CIRCLED DOT OPERATOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊚",
+      "codepoint": "U+229A",
+      "name": "CIRCLED RING OPERATOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊛",
+      "codepoint": "U+229B",
+      "name": "CIRCLED ASTERISK OPERATOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊝",
+      "codepoint": "U+229D",
+      "name": "CIRCLED DASH",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊞",
+      "codepoint": "U+229E",
+      "name": "SQUARED PLUS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊟",
+      "codepoint": "U+229F",
+      "name": "SQUARED MINUS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊠",
+      "codepoint": "U+22A0",
+      "name": "SQUARED TIMES",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊡",
+      "codepoint": "U+22A1",
+      "name": "SQUARED DOT OPERATOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊢",
+      "codepoint": "U+22A2",
+      "name": "RIGHT TACK",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊣",
+      "codepoint": "U+22A3",
+      "name": "LEFT TACK",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊤",
+      "codepoint": "U+22A4",
+      "name": "DOWN TACK",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊥",
+      "codepoint": "U+22A5",
+      "name": "UP TACK",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊧",
+      "codepoint": "U+22A7",
+      "name": "MODELS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊨",
+      "codepoint": "U+22A8",
+      "name": "TRUE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊩",
+      "codepoint": "U+22A9",
+      "name": "FORCES",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊪",
+      "codepoint": "U+22AA",
+      "name": "TRIPLE VERTICAL BAR RIGHT TURNSTILE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊬",
+      "codepoint": "U+22AC",
+      "name": "DOES NOT PROVE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊭",
+      "codepoint": "U+22AD",
+      "name": "NOT TRUE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊯",
+      "codepoint": "U+22AF",
+      "name": "NEGATED DOUBLE VERTICAL BAR DOUBLE RIGHT TURNSTILE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊲",
+      "codepoint": "U+22B2",
+      "name": "NORMAL SUBGROUP OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊳",
+      "codepoint": "U+22B3",
+      "name": "CONTAINS AS NORMAL SUBGROUP",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊴",
+      "codepoint": "U+22B4",
+      "name": "NORMAL SUBGROUP OF OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊵",
+      "codepoint": "U+22B5",
+      "name": "CONTAINS AS NORMAL SUBGROUP OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊶",
+      "codepoint": "U+22B6",
+      "name": "ORIGINAL OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊷",
+      "codepoint": "U+22B7",
+      "name": "IMAGE OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊸",
+      "codepoint": "U+22B8",
+      "name": "MULTIMAP",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊺",
+      "codepoint": "U+22BA",
+      "name": "INTERCALATE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊻",
+      "codepoint": "U+22BB",
+      "name": "XOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⊼",
+      "codepoint": "U+22BC",
+      "name": "NAND",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋀",
+      "codepoint": "U+22C0",
+      "name": "N-ARY LOGICAL AND",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋁",
+      "codepoint": "U+22C1",
+      "name": "N-ARY LOGICAL OR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋂",
+      "codepoint": "U+22C2",
+      "name": "N-ARY INTERSECTION",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋃",
+      "codepoint": "U+22C3",
+      "name": "N-ARY UNION",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋄",
+      "codepoint": "U+22C4",
+      "name": "DIAMOND OPERATOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋆",
+      "codepoint": "U+22C6",
+      "name": "STAR OPERATOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋇",
+      "codepoint": "U+22C7",
+      "name": "DIVISION TIMES",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋈",
+      "codepoint": "U+22C8",
+      "name": "BOWTIE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋉",
+      "codepoint": "U+22C9",
+      "name": "LEFT NORMAL FACTOR SEMIDIRECT PRODUCT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋊",
+      "codepoint": "U+22CA",
+      "name": "RIGHT NORMAL FACTOR SEMIDIRECT PRODUCT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋋",
+      "codepoint": "U+22CB",
+      "name": "LEFT SEMIDIRECT PRODUCT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋌",
+      "codepoint": "U+22CC",
+      "name": "RIGHT SEMIDIRECT PRODUCT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋍",
+      "codepoint": "U+22CD",
+      "name": "REVERSED TILDE EQUALS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋎",
+      "codepoint": "U+22CE",
+      "name": "CURLY LOGICAL OR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋏",
+      "codepoint": "U+22CF",
+      "name": "CURLY LOGICAL AND",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋐",
+      "codepoint": "U+22D0",
+      "name": "DOUBLE SUBSET",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋑",
+      "codepoint": "U+22D1",
+      "name": "DOUBLE SUPERSET",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋒",
+      "codepoint": "U+22D2",
+      "name": "DOUBLE INTERSECTION",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋓",
+      "codepoint": "U+22D3",
+      "name": "DOUBLE UNION",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋔",
+      "codepoint": "U+22D4",
+      "name": "PITCHFORK",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋖",
+      "codepoint": "U+22D6",
+      "name": "LESS-THAN WITH DOT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋗",
+      "codepoint": "U+22D7",
+      "name": "GREATER-THAN WITH DOT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋘",
+      "codepoint": "U+22D8",
+      "name": "VERY MUCH LESS-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋙",
+      "codepoint": "U+22D9",
+      "name": "VERY MUCH GREATER-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋚",
+      "codepoint": "U+22DA",
+      "name": "LESS-THAN EQUAL TO OR GREATER-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋛",
+      "codepoint": "U+22DB",
+      "name": "GREATER-THAN EQUAL TO OR LESS-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋜",
+      "codepoint": "U+22DC",
+      "name": "EQUAL TO OR LESS-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋝",
+      "codepoint": "U+22DD",
+      "name": "EQUAL TO OR GREATER-THAN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋞",
+      "codepoint": "U+22DE",
+      "name": "EQUAL TO OR PRECEDES",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋟",
+      "codepoint": "U+22DF",
+      "name": "EQUAL TO OR SUCCEEDS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋦",
+      "codepoint": "U+22E6",
+      "name": "LESS-THAN BUT NOT EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋧",
+      "codepoint": "U+22E7",
+      "name": "GREATER-THAN BUT NOT EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋨",
+      "codepoint": "U+22E8",
+      "name": "PRECEDES BUT NOT EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋩",
+      "codepoint": "U+22E9",
+      "name": "SUCCEEDS BUT NOT EQUIVALENT TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋪",
+      "codepoint": "U+22EA",
+      "name": "NOT NORMAL SUBGROUP OF",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋫",
+      "codepoint": "U+22EB",
+      "name": "DOES NOT CONTAIN AS NORMAL SUBGROUP",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋬",
+      "codepoint": "U+22EC",
+      "name": "NOT NORMAL SUBGROUP OF OR EQUAL TO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋭",
+      "codepoint": "U+22ED",
+      "name": "DOES NOT CONTAIN AS NORMAL SUBGROUP OR EQUAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋮",
+      "codepoint": "U+22EE",
+      "name": "VERTICAL ELLIPSIS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋯",
+      "codepoint": "U+22EF",
+      "name": "MIDLINE HORIZONTAL ELLIPSIS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋰",
+      "codepoint": "U+22F0",
+      "name": "UP RIGHT DIAGONAL ELLIPSIS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⋱",
+      "codepoint": "U+22F1",
+      "name": "DOWN RIGHT DIAGONAL ELLIPSIS",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⌈",
+      "codepoint": "U+2308",
+      "name": "LEFT CEILING",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⌉",
+      "codepoint": "U+2309",
+      "name": "RIGHT CEILING",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⌊",
+      "codepoint": "U+230A",
+      "name": "LEFT FLOOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⌋",
+      "codepoint": "U+230B",
+      "name": "RIGHT FLOOR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "□",
+      "codepoint": "U+25A1",
+      "name": "WHITE SQUARE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "△",
+      "codepoint": "U+25B3",
+      "name": "WHITE UP-POINTING TRIANGLE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♠",
+      "codepoint": "U+2660",
+      "name": "BLACK SPADE SUIT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♡",
+      "codepoint": "U+2661",
+      "name": "WHITE HEART SUIT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♢",
+      "codepoint": "U+2662",
+      "name": "WHITE DIAMOND SUIT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♣",
+      "codepoint": "U+2663",
+      "name": "BLACK CLUB SUIT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♤",
+      "codepoint": "U+2664",
+      "name": "WHITE SPADE SUIT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♥",
+      "codepoint": "U+2665",
+      "name": "BLACK HEART SUIT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♦",
+      "codepoint": "U+2666",
+      "name": "BLACK DIAMOND SUIT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♧",
+      "codepoint": "U+2667",
+      "name": "WHITE CLUB SUIT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♭",
+      "codepoint": "U+266D",
+      "name": "MUSIC FLAT SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♮",
+      "codepoint": "U+266E",
+      "name": "MUSIC NATURAL SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "♯",
+      "codepoint": "U+266F",
+      "name": "MUSIC SHARP SIGN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "✓",
+      "codepoint": "U+2713",
+      "name": "CHECK MARK",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⟨",
+      "codepoint": "U+27E8",
+      "name": "MATHEMATICAL LEFT ANGLE BRACKET",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⟩",
+      "codepoint": "U+27E9",
+      "name": "MATHEMATICAL RIGHT ANGLE BRACKET",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "⟷",
+      "codepoint": "U+27F7",
+      "name": "LONG LEFT RIGHT ARROW",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ⱼ",
+      "codepoint": "U+2C7C",
+      "name": "LATIN SUBSCRIPT SMALL LETTER J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "ⱽ",
+      "codepoint": "U+2C7D",
+      "name": "MODIFIER LETTER CAPITAL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐀",
+      "codepoint": "U+1D400",
+      "name": "MATHEMATICAL BOLD CAPITAL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐁",
+      "codepoint": "U+1D401",
+      "name": "MATHEMATICAL BOLD CAPITAL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐂",
+      "codepoint": "U+1D402",
+      "name": "MATHEMATICAL BOLD CAPITAL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐃",
+      "codepoint": "U+1D403",
+      "name": "MATHEMATICAL BOLD CAPITAL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐄",
+      "codepoint": "U+1D404",
+      "name": "MATHEMATICAL BOLD CAPITAL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐅",
+      "codepoint": "U+1D405",
+      "name": "MATHEMATICAL BOLD CAPITAL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐆",
+      "codepoint": "U+1D406",
+      "name": "MATHEMATICAL BOLD CAPITAL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐇",
+      "codepoint": "U+1D407",
+      "name": "MATHEMATICAL BOLD CAPITAL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐈",
+      "codepoint": "U+1D408",
+      "name": "MATHEMATICAL BOLD CAPITAL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐉",
+      "codepoint": "U+1D409",
+      "name": "MATHEMATICAL BOLD CAPITAL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐊",
+      "codepoint": "U+1D40A",
+      "name": "MATHEMATICAL BOLD CAPITAL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐋",
+      "codepoint": "U+1D40B",
+      "name": "MATHEMATICAL BOLD CAPITAL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐌",
+      "codepoint": "U+1D40C",
+      "name": "MATHEMATICAL BOLD CAPITAL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐍",
+      "codepoint": "U+1D40D",
+      "name": "MATHEMATICAL BOLD CAPITAL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐎",
+      "codepoint": "U+1D40E",
+      "name": "MATHEMATICAL BOLD CAPITAL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐏",
+      "codepoint": "U+1D40F",
+      "name": "MATHEMATICAL BOLD CAPITAL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐐",
+      "codepoint": "U+1D410",
+      "name": "MATHEMATICAL BOLD CAPITAL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐑",
+      "codepoint": "U+1D411",
+      "name": "MATHEMATICAL BOLD CAPITAL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐒",
+      "codepoint": "U+1D412",
+      "name": "MATHEMATICAL BOLD CAPITAL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐓",
+      "codepoint": "U+1D413",
+      "name": "MATHEMATICAL BOLD CAPITAL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐔",
+      "codepoint": "U+1D414",
+      "name": "MATHEMATICAL BOLD CAPITAL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐕",
+      "codepoint": "U+1D415",
+      "name": "MATHEMATICAL BOLD CAPITAL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐖",
+      "codepoint": "U+1D416",
+      "name": "MATHEMATICAL BOLD CAPITAL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐗",
+      "codepoint": "U+1D417",
+      "name": "MATHEMATICAL BOLD CAPITAL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐘",
+      "codepoint": "U+1D418",
+      "name": "MATHEMATICAL BOLD CAPITAL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐙",
+      "codepoint": "U+1D419",
+      "name": "MATHEMATICAL BOLD CAPITAL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐚",
+      "codepoint": "U+1D41A",
+      "name": "MATHEMATICAL BOLD SMALL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐛",
+      "codepoint": "U+1D41B",
+      "name": "MATHEMATICAL BOLD SMALL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐜",
+      "codepoint": "U+1D41C",
+      "name": "MATHEMATICAL BOLD SMALL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐝",
+      "codepoint": "U+1D41D",
+      "name": "MATHEMATICAL BOLD SMALL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐞",
+      "codepoint": "U+1D41E",
+      "name": "MATHEMATICAL BOLD SMALL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐟",
+      "codepoint": "U+1D41F",
+      "name": "MATHEMATICAL BOLD SMALL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐠",
+      "codepoint": "U+1D420",
+      "name": "MATHEMATICAL BOLD SMALL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐡",
+      "codepoint": "U+1D421",
+      "name": "MATHEMATICAL BOLD SMALL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐢",
+      "codepoint": "U+1D422",
+      "name": "MATHEMATICAL BOLD SMALL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐣",
+      "codepoint": "U+1D423",
+      "name": "MATHEMATICAL BOLD SMALL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐤",
+      "codepoint": "U+1D424",
+      "name": "MATHEMATICAL BOLD SMALL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐥",
+      "codepoint": "U+1D425",
+      "name": "MATHEMATICAL BOLD SMALL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐦",
+      "codepoint": "U+1D426",
+      "name": "MATHEMATICAL BOLD SMALL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐧",
+      "codepoint": "U+1D427",
+      "name": "MATHEMATICAL BOLD SMALL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐨",
+      "codepoint": "U+1D428",
+      "name": "MATHEMATICAL BOLD SMALL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐩",
+      "codepoint": "U+1D429",
+      "name": "MATHEMATICAL BOLD SMALL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐪",
+      "codepoint": "U+1D42A",
+      "name": "MATHEMATICAL BOLD SMALL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐫",
+      "codepoint": "U+1D42B",
+      "name": "MATHEMATICAL BOLD SMALL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐬",
+      "codepoint": "U+1D42C",
+      "name": "MATHEMATICAL BOLD SMALL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐭",
+      "codepoint": "U+1D42D",
+      "name": "MATHEMATICAL BOLD SMALL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐮",
+      "codepoint": "U+1D42E",
+      "name": "MATHEMATICAL BOLD SMALL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐯",
+      "codepoint": "U+1D42F",
+      "name": "MATHEMATICAL BOLD SMALL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐰",
+      "codepoint": "U+1D430",
+      "name": "MATHEMATICAL BOLD SMALL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐱",
+      "codepoint": "U+1D431",
+      "name": "MATHEMATICAL BOLD SMALL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐲",
+      "codepoint": "U+1D432",
+      "name": "MATHEMATICAL BOLD SMALL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐳",
+      "codepoint": "U+1D433",
+      "name": "MATHEMATICAL BOLD SMALL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐴",
+      "codepoint": "U+1D434",
+      "name": "MATHEMATICAL ITALIC CAPITAL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐵",
+      "codepoint": "U+1D435",
+      "name": "MATHEMATICAL ITALIC CAPITAL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐶",
+      "codepoint": "U+1D436",
+      "name": "MATHEMATICAL ITALIC CAPITAL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐷",
+      "codepoint": "U+1D437",
+      "name": "MATHEMATICAL ITALIC CAPITAL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐸",
+      "codepoint": "U+1D438",
+      "name": "MATHEMATICAL ITALIC CAPITAL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐹",
+      "codepoint": "U+1D439",
+      "name": "MATHEMATICAL ITALIC CAPITAL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐺",
+      "codepoint": "U+1D43A",
+      "name": "MATHEMATICAL ITALIC CAPITAL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐻",
+      "codepoint": "U+1D43B",
+      "name": "MATHEMATICAL ITALIC CAPITAL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐼",
+      "codepoint": "U+1D43C",
+      "name": "MATHEMATICAL ITALIC CAPITAL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐽",
+      "codepoint": "U+1D43D",
+      "name": "MATHEMATICAL ITALIC CAPITAL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐾",
+      "codepoint": "U+1D43E",
+      "name": "MATHEMATICAL ITALIC CAPITAL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝐿",
+      "codepoint": "U+1D43F",
+      "name": "MATHEMATICAL ITALIC CAPITAL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑀",
+      "codepoint": "U+1D440",
+      "name": "MATHEMATICAL ITALIC CAPITAL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑁",
+      "codepoint": "U+1D441",
+      "name": "MATHEMATICAL ITALIC CAPITAL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑂",
+      "codepoint": "U+1D442",
+      "name": "MATHEMATICAL ITALIC CAPITAL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑃",
+      "codepoint": "U+1D443",
+      "name": "MATHEMATICAL ITALIC CAPITAL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑄",
+      "codepoint": "U+1D444",
+      "name": "MATHEMATICAL ITALIC CAPITAL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑅",
+      "codepoint": "U+1D445",
+      "name": "MATHEMATICAL ITALIC CAPITAL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑆",
+      "codepoint": "U+1D446",
+      "name": "MATHEMATICAL ITALIC CAPITAL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑇",
+      "codepoint": "U+1D447",
+      "name": "MATHEMATICAL ITALIC CAPITAL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑈",
+      "codepoint": "U+1D448",
+      "name": "MATHEMATICAL ITALIC CAPITAL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑉",
+      "codepoint": "U+1D449",
+      "name": "MATHEMATICAL ITALIC CAPITAL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑊",
+      "codepoint": "U+1D44A",
+      "name": "MATHEMATICAL ITALIC CAPITAL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑋",
+      "codepoint": "U+1D44B",
+      "name": "MATHEMATICAL ITALIC CAPITAL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑌",
+      "codepoint": "U+1D44C",
+      "name": "MATHEMATICAL ITALIC CAPITAL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑍",
+      "codepoint": "U+1D44D",
+      "name": "MATHEMATICAL ITALIC CAPITAL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑎",
+      "codepoint": "U+1D44E",
+      "name": "MATHEMATICAL ITALIC SMALL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑏",
+      "codepoint": "U+1D44F",
+      "name": "MATHEMATICAL ITALIC SMALL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑐",
+      "codepoint": "U+1D450",
+      "name": "MATHEMATICAL ITALIC SMALL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑑",
+      "codepoint": "U+1D451",
+      "name": "MATHEMATICAL ITALIC SMALL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑒",
+      "codepoint": "U+1D452",
+      "name": "MATHEMATICAL ITALIC SMALL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑓",
+      "codepoint": "U+1D453",
+      "name": "MATHEMATICAL ITALIC SMALL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑔",
+      "codepoint": "U+1D454",
+      "name": "MATHEMATICAL ITALIC SMALL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑖",
+      "codepoint": "U+1D456",
+      "name": "MATHEMATICAL ITALIC SMALL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑗",
+      "codepoint": "U+1D457",
+      "name": "MATHEMATICAL ITALIC SMALL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑘",
+      "codepoint": "U+1D458",
+      "name": "MATHEMATICAL ITALIC SMALL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑙",
+      "codepoint": "U+1D459",
+      "name": "MATHEMATICAL ITALIC SMALL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑚",
+      "codepoint": "U+1D45A",
+      "name": "MATHEMATICAL ITALIC SMALL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑛",
+      "codepoint": "U+1D45B",
+      "name": "MATHEMATICAL ITALIC SMALL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑜",
+      "codepoint": "U+1D45C",
+      "name": "MATHEMATICAL ITALIC SMALL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑝",
+      "codepoint": "U+1D45D",
+      "name": "MATHEMATICAL ITALIC SMALL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑞",
+      "codepoint": "U+1D45E",
+      "name": "MATHEMATICAL ITALIC SMALL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑟",
+      "codepoint": "U+1D45F",
+      "name": "MATHEMATICAL ITALIC SMALL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑠",
+      "codepoint": "U+1D460",
+      "name": "MATHEMATICAL ITALIC SMALL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑡",
+      "codepoint": "U+1D461",
+      "name": "MATHEMATICAL ITALIC SMALL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑢",
+      "codepoint": "U+1D462",
+      "name": "MATHEMATICAL ITALIC SMALL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑣",
+      "codepoint": "U+1D463",
+      "name": "MATHEMATICAL ITALIC SMALL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑤",
+      "codepoint": "U+1D464",
+      "name": "MATHEMATICAL ITALIC SMALL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑥",
+      "codepoint": "U+1D465",
+      "name": "MATHEMATICAL ITALIC SMALL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑦",
+      "codepoint": "U+1D466",
+      "name": "MATHEMATICAL ITALIC SMALL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝑧",
+      "codepoint": "U+1D467",
+      "name": "MATHEMATICAL ITALIC SMALL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓐",
+      "codepoint": "U+1D4D0",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓑",
+      "codepoint": "U+1D4D1",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓒",
+      "codepoint": "U+1D4D2",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓓",
+      "codepoint": "U+1D4D3",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓔",
+      "codepoint": "U+1D4D4",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓕",
+      "codepoint": "U+1D4D5",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓖",
+      "codepoint": "U+1D4D6",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓗",
+      "codepoint": "U+1D4D7",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓘",
+      "codepoint": "U+1D4D8",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓙",
+      "codepoint": "U+1D4D9",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓚",
+      "codepoint": "U+1D4DA",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓛",
+      "codepoint": "U+1D4DB",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓜",
+      "codepoint": "U+1D4DC",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓝",
+      "codepoint": "U+1D4DD",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓞",
+      "codepoint": "U+1D4DE",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓟",
+      "codepoint": "U+1D4DF",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓠",
+      "codepoint": "U+1D4E0",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓡",
+      "codepoint": "U+1D4E1",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓢",
+      "codepoint": "U+1D4E2",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓣",
+      "codepoint": "U+1D4E3",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓤",
+      "codepoint": "U+1D4E4",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓥",
+      "codepoint": "U+1D4E5",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓦",
+      "codepoint": "U+1D4E6",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓧",
+      "codepoint": "U+1D4E7",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓨",
+      "codepoint": "U+1D4E8",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓩",
+      "codepoint": "U+1D4E9",
+      "name": "MATHEMATICAL BOLD SCRIPT CAPITAL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓪",
+      "codepoint": "U+1D4EA",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓫",
+      "codepoint": "U+1D4EB",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓬",
+      "codepoint": "U+1D4EC",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓭",
+      "codepoint": "U+1D4ED",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓮",
+      "codepoint": "U+1D4EE",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓯",
+      "codepoint": "U+1D4EF",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓰",
+      "codepoint": "U+1D4F0",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓱",
+      "codepoint": "U+1D4F1",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓲",
+      "codepoint": "U+1D4F2",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓳",
+      "codepoint": "U+1D4F3",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓴",
+      "codepoint": "U+1D4F4",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓵",
+      "codepoint": "U+1D4F5",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓶",
+      "codepoint": "U+1D4F6",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓷",
+      "codepoint": "U+1D4F7",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓸",
+      "codepoint": "U+1D4F8",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓹",
+      "codepoint": "U+1D4F9",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓺",
+      "codepoint": "U+1D4FA",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓻",
+      "codepoint": "U+1D4FB",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓼",
+      "codepoint": "U+1D4FC",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓽",
+      "codepoint": "U+1D4FD",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓾",
+      "codepoint": "U+1D4FE",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝓿",
+      "codepoint": "U+1D4FF",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔀",
+      "codepoint": "U+1D500",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔁",
+      "codepoint": "U+1D501",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔂",
+      "codepoint": "U+1D502",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔃",
+      "codepoint": "U+1D503",
+      "name": "MATHEMATICAL BOLD SCRIPT SMALL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔄",
+      "codepoint": "U+1D504",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔅",
+      "codepoint": "U+1D505",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔇",
+      "codepoint": "U+1D507",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔈",
+      "codepoint": "U+1D508",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔉",
+      "codepoint": "U+1D509",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔊",
+      "codepoint": "U+1D50A",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔍",
+      "codepoint": "U+1D50D",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔎",
+      "codepoint": "U+1D50E",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔏",
+      "codepoint": "U+1D50F",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔐",
+      "codepoint": "U+1D510",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔑",
+      "codepoint": "U+1D511",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔒",
+      "codepoint": "U+1D512",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔓",
+      "codepoint": "U+1D513",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔔",
+      "codepoint": "U+1D514",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔖",
+      "codepoint": "U+1D516",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔗",
+      "codepoint": "U+1D517",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔘",
+      "codepoint": "U+1D518",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔙",
+      "codepoint": "U+1D519",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔚",
+      "codepoint": "U+1D51A",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔛",
+      "codepoint": "U+1D51B",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔜",
+      "codepoint": "U+1D51C",
+      "name": "MATHEMATICAL FRAKTUR CAPITAL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔞",
+      "codepoint": "U+1D51E",
+      "name": "MATHEMATICAL FRAKTUR SMALL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔟",
+      "codepoint": "U+1D51F",
+      "name": "MATHEMATICAL FRAKTUR SMALL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔠",
+      "codepoint": "U+1D520",
+      "name": "MATHEMATICAL FRAKTUR SMALL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔡",
+      "codepoint": "U+1D521",
+      "name": "MATHEMATICAL FRAKTUR SMALL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔢",
+      "codepoint": "U+1D522",
+      "name": "MATHEMATICAL FRAKTUR SMALL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔣",
+      "codepoint": "U+1D523",
+      "name": "MATHEMATICAL FRAKTUR SMALL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔤",
+      "codepoint": "U+1D524",
+      "name": "MATHEMATICAL FRAKTUR SMALL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔥",
+      "codepoint": "U+1D525",
+      "name": "MATHEMATICAL FRAKTUR SMALL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔦",
+      "codepoint": "U+1D526",
+      "name": "MATHEMATICAL FRAKTUR SMALL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔧",
+      "codepoint": "U+1D527",
+      "name": "MATHEMATICAL FRAKTUR SMALL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔨",
+      "codepoint": "U+1D528",
+      "name": "MATHEMATICAL FRAKTUR SMALL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔩",
+      "codepoint": "U+1D529",
+      "name": "MATHEMATICAL FRAKTUR SMALL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔪",
+      "codepoint": "U+1D52A",
+      "name": "MATHEMATICAL FRAKTUR SMALL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔫",
+      "codepoint": "U+1D52B",
+      "name": "MATHEMATICAL FRAKTUR SMALL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔬",
+      "codepoint": "U+1D52C",
+      "name": "MATHEMATICAL FRAKTUR SMALL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔭",
+      "codepoint": "U+1D52D",
+      "name": "MATHEMATICAL FRAKTUR SMALL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔮",
+      "codepoint": "U+1D52E",
+      "name": "MATHEMATICAL FRAKTUR SMALL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔯",
+      "codepoint": "U+1D52F",
+      "name": "MATHEMATICAL FRAKTUR SMALL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔰",
+      "codepoint": "U+1D530",
+      "name": "MATHEMATICAL FRAKTUR SMALL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔱",
+      "codepoint": "U+1D531",
+      "name": "MATHEMATICAL FRAKTUR SMALL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔲",
+      "codepoint": "U+1D532",
+      "name": "MATHEMATICAL FRAKTUR SMALL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔳",
+      "codepoint": "U+1D533",
+      "name": "MATHEMATICAL FRAKTUR SMALL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔴",
+      "codepoint": "U+1D534",
+      "name": "MATHEMATICAL FRAKTUR SMALL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔵",
+      "codepoint": "U+1D535",
+      "name": "MATHEMATICAL FRAKTUR SMALL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔶",
+      "codepoint": "U+1D536",
+      "name": "MATHEMATICAL FRAKTUR SMALL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔷",
+      "codepoint": "U+1D537",
+      "name": "MATHEMATICAL FRAKTUR SMALL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔸",
+      "codepoint": "U+1D538",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔹",
+      "codepoint": "U+1D539",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔻",
+      "codepoint": "U+1D53B",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔼",
+      "codepoint": "U+1D53C",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔽",
+      "codepoint": "U+1D53D",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝔾",
+      "codepoint": "U+1D53E",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕀",
+      "codepoint": "U+1D540",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕁",
+      "codepoint": "U+1D541",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕂",
+      "codepoint": "U+1D542",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕃",
+      "codepoint": "U+1D543",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕄",
+      "codepoint": "U+1D544",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕆",
+      "codepoint": "U+1D546",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕊",
+      "codepoint": "U+1D54A",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕋",
+      "codepoint": "U+1D54B",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕌",
+      "codepoint": "U+1D54C",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕍",
+      "codepoint": "U+1D54D",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕎",
+      "codepoint": "U+1D54E",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕏",
+      "codepoint": "U+1D54F",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕐",
+      "codepoint": "U+1D550",
+      "name": "MATHEMATICAL DOUBLE-STRUCK CAPITAL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕒",
+      "codepoint": "U+1D552",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕓",
+      "codepoint": "U+1D553",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕔",
+      "codepoint": "U+1D554",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕕",
+      "codepoint": "U+1D555",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕖",
+      "codepoint": "U+1D556",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕗",
+      "codepoint": "U+1D557",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕘",
+      "codepoint": "U+1D558",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕙",
+      "codepoint": "U+1D559",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕚",
+      "codepoint": "U+1D55A",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕛",
+      "codepoint": "U+1D55B",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕜",
+      "codepoint": "U+1D55C",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕝",
+      "codepoint": "U+1D55D",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕞",
+      "codepoint": "U+1D55E",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕟",
+      "codepoint": "U+1D55F",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕠",
+      "codepoint": "U+1D560",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕡",
+      "codepoint": "U+1D561",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕢",
+      "codepoint": "U+1D562",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕣",
+      "codepoint": "U+1D563",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕤",
+      "codepoint": "U+1D564",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕥",
+      "codepoint": "U+1D565",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕦",
+      "codepoint": "U+1D566",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕧",
+      "codepoint": "U+1D567",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕨",
+      "codepoint": "U+1D568",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕩",
+      "codepoint": "U+1D569",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕪",
+      "codepoint": "U+1D56A",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝕫",
+      "codepoint": "U+1D56B",
+      "name": "MATHEMATICAL DOUBLE-STRUCK SMALL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙰",
+      "codepoint": "U+1D670",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙱",
+      "codepoint": "U+1D671",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙲",
+      "codepoint": "U+1D672",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙳",
+      "codepoint": "U+1D673",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙴",
+      "codepoint": "U+1D674",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙵",
+      "codepoint": "U+1D675",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙶",
+      "codepoint": "U+1D676",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙷",
+      "codepoint": "U+1D677",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙸",
+      "codepoint": "U+1D678",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙹",
+      "codepoint": "U+1D679",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙺",
+      "codepoint": "U+1D67A",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙻",
+      "codepoint": "U+1D67B",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙼",
+      "codepoint": "U+1D67C",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙽",
+      "codepoint": "U+1D67D",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙾",
+      "codepoint": "U+1D67E",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝙿",
+      "codepoint": "U+1D67F",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚀",
+      "codepoint": "U+1D680",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚁",
+      "codepoint": "U+1D681",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚂",
+      "codepoint": "U+1D682",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚃",
+      "codepoint": "U+1D683",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚄",
+      "codepoint": "U+1D684",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚅",
+      "codepoint": "U+1D685",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚆",
+      "codepoint": "U+1D686",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚇",
+      "codepoint": "U+1D687",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚈",
+      "codepoint": "U+1D688",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚉",
+      "codepoint": "U+1D689",
+      "name": "MATHEMATICAL MONOSPACE CAPITAL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚊",
+      "codepoint": "U+1D68A",
+      "name": "MATHEMATICAL MONOSPACE SMALL A",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚋",
+      "codepoint": "U+1D68B",
+      "name": "MATHEMATICAL MONOSPACE SMALL B",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚌",
+      "codepoint": "U+1D68C",
+      "name": "MATHEMATICAL MONOSPACE SMALL C",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚍",
+      "codepoint": "U+1D68D",
+      "name": "MATHEMATICAL MONOSPACE SMALL D",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚎",
+      "codepoint": "U+1D68E",
+      "name": "MATHEMATICAL MONOSPACE SMALL E",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚏",
+      "codepoint": "U+1D68F",
+      "name": "MATHEMATICAL MONOSPACE SMALL F",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚐",
+      "codepoint": "U+1D690",
+      "name": "MATHEMATICAL MONOSPACE SMALL G",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚑",
+      "codepoint": "U+1D691",
+      "name": "MATHEMATICAL MONOSPACE SMALL H",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚒",
+      "codepoint": "U+1D692",
+      "name": "MATHEMATICAL MONOSPACE SMALL I",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚓",
+      "codepoint": "U+1D693",
+      "name": "MATHEMATICAL MONOSPACE SMALL J",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚔",
+      "codepoint": "U+1D694",
+      "name": "MATHEMATICAL MONOSPACE SMALL K",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚕",
+      "codepoint": "U+1D695",
+      "name": "MATHEMATICAL MONOSPACE SMALL L",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚖",
+      "codepoint": "U+1D696",
+      "name": "MATHEMATICAL MONOSPACE SMALL M",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚗",
+      "codepoint": "U+1D697",
+      "name": "MATHEMATICAL MONOSPACE SMALL N",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚘",
+      "codepoint": "U+1D698",
+      "name": "MATHEMATICAL MONOSPACE SMALL O",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚙",
+      "codepoint": "U+1D699",
+      "name": "MATHEMATICAL MONOSPACE SMALL P",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚚",
+      "codepoint": "U+1D69A",
+      "name": "MATHEMATICAL MONOSPACE SMALL Q",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚛",
+      "codepoint": "U+1D69B",
+      "name": "MATHEMATICAL MONOSPACE SMALL R",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚜",
+      "codepoint": "U+1D69C",
+      "name": "MATHEMATICAL MONOSPACE SMALL S",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚝",
+      "codepoint": "U+1D69D",
+      "name": "MATHEMATICAL MONOSPACE SMALL T",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚞",
+      "codepoint": "U+1D69E",
+      "name": "MATHEMATICAL MONOSPACE SMALL U",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚟",
+      "codepoint": "U+1D69F",
+      "name": "MATHEMATICAL MONOSPACE SMALL V",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚠",
+      "codepoint": "U+1D6A0",
+      "name": "MATHEMATICAL MONOSPACE SMALL W",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚡",
+      "codepoint": "U+1D6A1",
+      "name": "MATHEMATICAL MONOSPACE SMALL X",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚢",
+      "codepoint": "U+1D6A2",
+      "name": "MATHEMATICAL MONOSPACE SMALL Y",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚣",
+      "codepoint": "U+1D6A3",
+      "name": "MATHEMATICAL MONOSPACE SMALL Z",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚨",
+      "codepoint": "U+1D6A8",
+      "name": "MATHEMATICAL BOLD CAPITAL ALPHA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚩",
+      "codepoint": "U+1D6A9",
+      "name": "MATHEMATICAL BOLD CAPITAL BETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚪",
+      "codepoint": "U+1D6AA",
+      "name": "MATHEMATICAL BOLD CAPITAL GAMMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚫",
+      "codepoint": "U+1D6AB",
+      "name": "MATHEMATICAL BOLD CAPITAL DELTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚬",
+      "codepoint": "U+1D6AC",
+      "name": "MATHEMATICAL BOLD CAPITAL EPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚭",
+      "codepoint": "U+1D6AD",
+      "name": "MATHEMATICAL BOLD CAPITAL ZETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚮",
+      "codepoint": "U+1D6AE",
+      "name": "MATHEMATICAL BOLD CAPITAL ETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚯",
+      "codepoint": "U+1D6AF",
+      "name": "MATHEMATICAL BOLD CAPITAL THETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚰",
+      "codepoint": "U+1D6B0",
+      "name": "MATHEMATICAL BOLD CAPITAL IOTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚱",
+      "codepoint": "U+1D6B1",
+      "name": "MATHEMATICAL BOLD CAPITAL KAPPA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚲",
+      "codepoint": "U+1D6B2",
+      "name": "MATHEMATICAL BOLD CAPITAL LAMDA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚳",
+      "codepoint": "U+1D6B3",
+      "name": "MATHEMATICAL BOLD CAPITAL MU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚴",
+      "codepoint": "U+1D6B4",
+      "name": "MATHEMATICAL BOLD CAPITAL NU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚵",
+      "codepoint": "U+1D6B5",
+      "name": "MATHEMATICAL BOLD CAPITAL XI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚶",
+      "codepoint": "U+1D6B6",
+      "name": "MATHEMATICAL BOLD CAPITAL OMICRON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚷",
+      "codepoint": "U+1D6B7",
+      "name": "MATHEMATICAL BOLD CAPITAL PI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚸",
+      "codepoint": "U+1D6B8",
+      "name": "MATHEMATICAL BOLD CAPITAL RHO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚹",
+      "codepoint": "U+1D6B9",
+      "name": "MATHEMATICAL BOLD CAPITAL THETA SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚺",
+      "codepoint": "U+1D6BA",
+      "name": "MATHEMATICAL BOLD CAPITAL SIGMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚻",
+      "codepoint": "U+1D6BB",
+      "name": "MATHEMATICAL BOLD CAPITAL TAU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚼",
+      "codepoint": "U+1D6BC",
+      "name": "MATHEMATICAL BOLD CAPITAL UPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚽",
+      "codepoint": "U+1D6BD",
+      "name": "MATHEMATICAL BOLD CAPITAL PHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚾",
+      "codepoint": "U+1D6BE",
+      "name": "MATHEMATICAL BOLD CAPITAL CHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝚿",
+      "codepoint": "U+1D6BF",
+      "name": "MATHEMATICAL BOLD CAPITAL PSI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛀",
+      "codepoint": "U+1D6C0",
+      "name": "MATHEMATICAL BOLD CAPITAL OMEGA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛁",
+      "codepoint": "U+1D6C1",
+      "name": "MATHEMATICAL BOLD NABLA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛂",
+      "codepoint": "U+1D6C2",
+      "name": "MATHEMATICAL BOLD SMALL ALPHA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛃",
+      "codepoint": "U+1D6C3",
+      "name": "MATHEMATICAL BOLD SMALL BETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛄",
+      "codepoint": "U+1D6C4",
+      "name": "MATHEMATICAL BOLD SMALL GAMMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛅",
+      "codepoint": "U+1D6C5",
+      "name": "MATHEMATICAL BOLD SMALL DELTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛆",
+      "codepoint": "U+1D6C6",
+      "name": "MATHEMATICAL BOLD SMALL EPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛇",
+      "codepoint": "U+1D6C7",
+      "name": "MATHEMATICAL BOLD SMALL ZETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛈",
+      "codepoint": "U+1D6C8",
+      "name": "MATHEMATICAL BOLD SMALL ETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛉",
+      "codepoint": "U+1D6C9",
+      "name": "MATHEMATICAL BOLD SMALL THETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛊",
+      "codepoint": "U+1D6CA",
+      "name": "MATHEMATICAL BOLD SMALL IOTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛋",
+      "codepoint": "U+1D6CB",
+      "name": "MATHEMATICAL BOLD SMALL KAPPA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛌",
+      "codepoint": "U+1D6CC",
+      "name": "MATHEMATICAL BOLD SMALL LAMDA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛍",
+      "codepoint": "U+1D6CD",
+      "name": "MATHEMATICAL BOLD SMALL MU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛎",
+      "codepoint": "U+1D6CE",
+      "name": "MATHEMATICAL BOLD SMALL NU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛏",
+      "codepoint": "U+1D6CF",
+      "name": "MATHEMATICAL BOLD SMALL XI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛐",
+      "codepoint": "U+1D6D0",
+      "name": "MATHEMATICAL BOLD SMALL OMICRON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛑",
+      "codepoint": "U+1D6D1",
+      "name": "MATHEMATICAL BOLD SMALL PI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛒",
+      "codepoint": "U+1D6D2",
+      "name": "MATHEMATICAL BOLD SMALL RHO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛓",
+      "codepoint": "U+1D6D3",
+      "name": "MATHEMATICAL BOLD SMALL FINAL SIGMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛔",
+      "codepoint": "U+1D6D4",
+      "name": "MATHEMATICAL BOLD SMALL SIGMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛕",
+      "codepoint": "U+1D6D5",
+      "name": "MATHEMATICAL BOLD SMALL TAU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛖",
+      "codepoint": "U+1D6D6",
+      "name": "MATHEMATICAL BOLD SMALL UPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛗",
+      "codepoint": "U+1D6D7",
+      "name": "MATHEMATICAL BOLD SMALL PHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛘",
+      "codepoint": "U+1D6D8",
+      "name": "MATHEMATICAL BOLD SMALL CHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛙",
+      "codepoint": "U+1D6D9",
+      "name": "MATHEMATICAL BOLD SMALL PSI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛚",
+      "codepoint": "U+1D6DA",
+      "name": "MATHEMATICAL BOLD SMALL OMEGA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛛",
+      "codepoint": "U+1D6DB",
+      "name": "MATHEMATICAL BOLD PARTIAL DIFFERENTIAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛜",
+      "codepoint": "U+1D6DC",
+      "name": "MATHEMATICAL BOLD EPSILON SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛝",
+      "codepoint": "U+1D6DD",
+      "name": "MATHEMATICAL BOLD THETA SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛞",
+      "codepoint": "U+1D6DE",
+      "name": "MATHEMATICAL BOLD KAPPA SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛟",
+      "codepoint": "U+1D6DF",
+      "name": "MATHEMATICAL BOLD PHI SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛠",
+      "codepoint": "U+1D6E0",
+      "name": "MATHEMATICAL BOLD RHO SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛡",
+      "codepoint": "U+1D6E1",
+      "name": "MATHEMATICAL BOLD PI SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛢",
+      "codepoint": "U+1D6E2",
+      "name": "MATHEMATICAL ITALIC CAPITAL ALPHA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛣",
+      "codepoint": "U+1D6E3",
+      "name": "MATHEMATICAL ITALIC CAPITAL BETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛤",
+      "codepoint": "U+1D6E4",
+      "name": "MATHEMATICAL ITALIC CAPITAL GAMMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛥",
+      "codepoint": "U+1D6E5",
+      "name": "MATHEMATICAL ITALIC CAPITAL DELTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛦",
+      "codepoint": "U+1D6E6",
+      "name": "MATHEMATICAL ITALIC CAPITAL EPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛧",
+      "codepoint": "U+1D6E7",
+      "name": "MATHEMATICAL ITALIC CAPITAL ZETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛨",
+      "codepoint": "U+1D6E8",
+      "name": "MATHEMATICAL ITALIC CAPITAL ETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛩",
+      "codepoint": "U+1D6E9",
+      "name": "MATHEMATICAL ITALIC CAPITAL THETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛪",
+      "codepoint": "U+1D6EA",
+      "name": "MATHEMATICAL ITALIC CAPITAL IOTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛫",
+      "codepoint": "U+1D6EB",
+      "name": "MATHEMATICAL ITALIC CAPITAL KAPPA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛬",
+      "codepoint": "U+1D6EC",
+      "name": "MATHEMATICAL ITALIC CAPITAL LAMDA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛭",
+      "codepoint": "U+1D6ED",
+      "name": "MATHEMATICAL ITALIC CAPITAL MU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛮",
+      "codepoint": "U+1D6EE",
+      "name": "MATHEMATICAL ITALIC CAPITAL NU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛯",
+      "codepoint": "U+1D6EF",
+      "name": "MATHEMATICAL ITALIC CAPITAL XI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛰",
+      "codepoint": "U+1D6F0",
+      "name": "MATHEMATICAL ITALIC CAPITAL OMICRON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛱",
+      "codepoint": "U+1D6F1",
+      "name": "MATHEMATICAL ITALIC CAPITAL PI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛲",
+      "codepoint": "U+1D6F2",
+      "name": "MATHEMATICAL ITALIC CAPITAL RHO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛳",
+      "codepoint": "U+1D6F3",
+      "name": "MATHEMATICAL ITALIC CAPITAL THETA SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛴",
+      "codepoint": "U+1D6F4",
+      "name": "MATHEMATICAL ITALIC CAPITAL SIGMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛵",
+      "codepoint": "U+1D6F5",
+      "name": "MATHEMATICAL ITALIC CAPITAL TAU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛶",
+      "codepoint": "U+1D6F6",
+      "name": "MATHEMATICAL ITALIC CAPITAL UPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛷",
+      "codepoint": "U+1D6F7",
+      "name": "MATHEMATICAL ITALIC CAPITAL PHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛸",
+      "codepoint": "U+1D6F8",
+      "name": "MATHEMATICAL ITALIC CAPITAL CHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛹",
+      "codepoint": "U+1D6F9",
+      "name": "MATHEMATICAL ITALIC CAPITAL PSI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛺",
+      "codepoint": "U+1D6FA",
+      "name": "MATHEMATICAL ITALIC CAPITAL OMEGA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛻",
+      "codepoint": "U+1D6FB",
+      "name": "MATHEMATICAL ITALIC NABLA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛼",
+      "codepoint": "U+1D6FC",
+      "name": "MATHEMATICAL ITALIC SMALL ALPHA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛽",
+      "codepoint": "U+1D6FD",
+      "name": "MATHEMATICAL ITALIC SMALL BETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛾",
+      "codepoint": "U+1D6FE",
+      "name": "MATHEMATICAL ITALIC SMALL GAMMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝛿",
+      "codepoint": "U+1D6FF",
+      "name": "MATHEMATICAL ITALIC SMALL DELTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜀",
+      "codepoint": "U+1D700",
+      "name": "MATHEMATICAL ITALIC SMALL EPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜁",
+      "codepoint": "U+1D701",
+      "name": "MATHEMATICAL ITALIC SMALL ZETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜂",
+      "codepoint": "U+1D702",
+      "name": "MATHEMATICAL ITALIC SMALL ETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜃",
+      "codepoint": "U+1D703",
+      "name": "MATHEMATICAL ITALIC SMALL THETA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜄",
+      "codepoint": "U+1D704",
+      "name": "MATHEMATICAL ITALIC SMALL IOTA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜅",
+      "codepoint": "U+1D705",
+      "name": "MATHEMATICAL ITALIC SMALL KAPPA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜆",
+      "codepoint": "U+1D706",
+      "name": "MATHEMATICAL ITALIC SMALL LAMDA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜇",
+      "codepoint": "U+1D707",
+      "name": "MATHEMATICAL ITALIC SMALL MU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜈",
+      "codepoint": "U+1D708",
+      "name": "MATHEMATICAL ITALIC SMALL NU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜉",
+      "codepoint": "U+1D709",
+      "name": "MATHEMATICAL ITALIC SMALL XI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜊",
+      "codepoint": "U+1D70A",
+      "name": "MATHEMATICAL ITALIC SMALL OMICRON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜋",
+      "codepoint": "U+1D70B",
+      "name": "MATHEMATICAL ITALIC SMALL PI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜌",
+      "codepoint": "U+1D70C",
+      "name": "MATHEMATICAL ITALIC SMALL RHO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜍",
+      "codepoint": "U+1D70D",
+      "name": "MATHEMATICAL ITALIC SMALL FINAL SIGMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜎",
+      "codepoint": "U+1D70E",
+      "name": "MATHEMATICAL ITALIC SMALL SIGMA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜏",
+      "codepoint": "U+1D70F",
+      "name": "MATHEMATICAL ITALIC SMALL TAU",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜐",
+      "codepoint": "U+1D710",
+      "name": "MATHEMATICAL ITALIC SMALL UPSILON",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜑",
+      "codepoint": "U+1D711",
+      "name": "MATHEMATICAL ITALIC SMALL PHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜒",
+      "codepoint": "U+1D712",
+      "name": "MATHEMATICAL ITALIC SMALL CHI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜓",
+      "codepoint": "U+1D713",
+      "name": "MATHEMATICAL ITALIC SMALL PSI",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜔",
+      "codepoint": "U+1D714",
+      "name": "MATHEMATICAL ITALIC SMALL OMEGA",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜕",
+      "codepoint": "U+1D715",
+      "name": "MATHEMATICAL ITALIC PARTIAL DIFFERENTIAL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜖",
+      "codepoint": "U+1D716",
+      "name": "MATHEMATICAL ITALIC EPSILON SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜗",
+      "codepoint": "U+1D717",
+      "name": "MATHEMATICAL ITALIC THETA SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜘",
+      "codepoint": "U+1D718",
+      "name": "MATHEMATICAL ITALIC KAPPA SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜙",
+      "codepoint": "U+1D719",
+      "name": "MATHEMATICAL ITALIC PHI SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜚",
+      "codepoint": "U+1D71A",
+      "name": "MATHEMATICAL ITALIC RHO SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝜛",
+      "codepoint": "U+1D71B",
+      "name": "MATHEMATICAL ITALIC PI SYMBOL",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟎",
+      "codepoint": "U+1D7CE",
+      "name": "MATHEMATICAL BOLD DIGIT ZERO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟏",
+      "codepoint": "U+1D7CF",
+      "name": "MATHEMATICAL BOLD DIGIT ONE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟐",
+      "codepoint": "U+1D7D0",
+      "name": "MATHEMATICAL BOLD DIGIT TWO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟑",
+      "codepoint": "U+1D7D1",
+      "name": "MATHEMATICAL BOLD DIGIT THREE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟒",
+      "codepoint": "U+1D7D2",
+      "name": "MATHEMATICAL BOLD DIGIT FOUR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟓",
+      "codepoint": "U+1D7D3",
+      "name": "MATHEMATICAL BOLD DIGIT FIVE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟔",
+      "codepoint": "U+1D7D4",
+      "name": "MATHEMATICAL BOLD DIGIT SIX",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟕",
+      "codepoint": "U+1D7D5",
+      "name": "MATHEMATICAL BOLD DIGIT SEVEN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟖",
+      "codepoint": "U+1D7D6",
+      "name": "MATHEMATICAL BOLD DIGIT EIGHT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟗",
+      "codepoint": "U+1D7D7",
+      "name": "MATHEMATICAL BOLD DIGIT NINE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟘",
+      "codepoint": "U+1D7D8",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT ZERO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟙",
+      "codepoint": "U+1D7D9",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT ONE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟚",
+      "codepoint": "U+1D7DA",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT TWO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟛",
+      "codepoint": "U+1D7DB",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT THREE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟜",
+      "codepoint": "U+1D7DC",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT FOUR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟝",
+      "codepoint": "U+1D7DD",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT FIVE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟞",
+      "codepoint": "U+1D7DE",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT SIX",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟟",
+      "codepoint": "U+1D7DF",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT SEVEN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟠",
+      "codepoint": "U+1D7E0",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT EIGHT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟡",
+      "codepoint": "U+1D7E1",
+      "name": "MATHEMATICAL DOUBLE-STRUCK DIGIT NINE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟶",
+      "codepoint": "U+1D7F6",
+      "name": "MATHEMATICAL MONOSPACE DIGIT ZERO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟷",
+      "codepoint": "U+1D7F7",
+      "name": "MATHEMATICAL MONOSPACE DIGIT ONE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟸",
+      "codepoint": "U+1D7F8",
+      "name": "MATHEMATICAL MONOSPACE DIGIT TWO",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟹",
+      "codepoint": "U+1D7F9",
+      "name": "MATHEMATICAL MONOSPACE DIGIT THREE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟺",
+      "codepoint": "U+1D7FA",
+      "name": "MATHEMATICAL MONOSPACE DIGIT FOUR",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟻",
+      "codepoint": "U+1D7FB",
+      "name": "MATHEMATICAL MONOSPACE DIGIT FIVE",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟼",
+      "codepoint": "U+1D7FC",
+      "name": "MATHEMATICAL MONOSPACE DIGIT SIX",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟽",
+      "codepoint": "U+1D7FD",
+      "name": "MATHEMATICAL MONOSPACE DIGIT SEVEN",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟾",
+      "codepoint": "U+1D7FE",
+      "name": "MATHEMATICAL MONOSPACE DIGIT EIGHT",
+      "in_bundled_juliamono": true
+    },
+    {
+      "character": "𝟿",
+      "codepoint": "U+1D7FF",
+      "name": "MATHEMATICAL MONOSPACE DIGIT NINE",
+      "in_bundled_juliamono": true
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "status": "skipped",
+  "reason": "Initial GET /api/ps found an existing resident gpt-oss:20b runner; skipped to avoid disturbing other work.",
+  "recorded_at_utc": "2026-10-25T07:17:40.048281+00:00",
+  "completed_at_utc": "2026-10-25T07:17:40.063324+00:00",
+  "protocol": {
+    "host": "127.0.0.1",
+    "port": 11434,
+    "resident_check": {
+      "method": "GET",
+      "path": "/api/ps",
+      "timeout_seconds": 10,
+      "result": {
+        "models": [
+          {
+            "name": "gpt-oss:20b",
+            "model": "gpt-oss:20b",
+            "size": 12743815986,
+            "digest": "f38aa0c53da5f8c49d08c43a99df24ff53167fe68e24664a7777288e7656fdfe",
+            "details": {
+              "parent_model": "",
+              "format": "gguf",
+              "family": "gpt-oss",
+              "families": [
+                "gpt-oss"
+              ],
+              "parameter_size": "20.9B",
+              "quantization_level": "MXFP4"
+            },
+            "expires_at": "2026-10-25T15:45:51.630909+08:00",
+            "size_vram": 12743815986,
+            "context_length": 8192,
+            "runner": "llamacpp"
+          }
+        ]
+      }
+    },
+    "version_check": {
+      "method": "GET",
+      "path": "/api/version",
+      "timeout_seconds": 10,
+      "result": {
+        "version": "0.40.11"
+      }
+    },
+    "cloud_requests": 0,
+    "preload_requests": 0,
+    "generation_requests": 0,
+    "unload_requests": 0,
+    "models_downloaded": 0
+  },
+  "planned_check": {
+    "adapter": "app/tutor_app/local_ai.py",
+    "model": "ollama:gemma4:26b-a4b-it-qat",
+    "prompt": "Calculate 3 + 4. Return only the requested JSON object.",
+    "system": "Answer the synthetic arithmetic question briefly and accurately.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "answer": {
+          "type": "integer",
+          "const": 7
+        }
+      },
+      "required": [
+        "answer"
+      ],
+      "additionalProperties": false
+    },
+    "think": false,
+    "sampling_overrides": null,
+    "token_limit_override": null,
+    "request_timeout_seconds": 120
+  },
+  "source": {
+    "adapter": "app/tutor_app/local_ai.py",
+    "sha256": "edb13c957fc7dc1eced83105131ed69cfc68569684ca44dd48249928b40cf076",
+    "versioned_preload_handler": "https://github.com/ollama/ollama/blob/v0.40.11/server/routes.go#L3210-L3229",
+    "versioned_ready_ack": "https://github.com/ollama/ollama/blob/v0.40.11/server/sched.go#L785-L805"
+  },
+  "measurements": {
+    "preload_start_utc": null,
+    "preload_finish_utc": null,
+    "preload_acknowledgement": null,
+    "load_seconds": null,
+    "total_seconds": null,
+    "first_token_seconds": null,
+    "preload_seconds": null,
+    "preload_count": null,
+    "content": null,
+    "answer_check": null
+  },
+  "cleanup": {
+    "started_with_empty_residency": false,
+    "benchmark_owned_runner": false,
+    "action": "none; existing runner and external service left alone"
+  },
+  "limitations": [
+    "No live readiness or latency conclusion is available because the residency guard skipped the benchmark.",
+    "The artifact creation timestamps are not inference or initial residency-check timings."
+  ]
+}

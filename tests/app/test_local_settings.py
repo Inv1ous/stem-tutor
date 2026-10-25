@@ -62,6 +62,7 @@ def test_open_settings_detect_ssd_insertion_and_removal_and_preserve_unsaved_clo
     present = []
     monkeypatch.setattr(screens, "local_models", SimpleNamespace(
         LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks,
+        thinking_levels=local_models.thinking_levels, thinking_value=local_models.thinking_value,
         available_models=lambda: tuple(present)), raising=False)
     app, vault = app_for(tmp_path, monkeypatch)
 
@@ -99,7 +100,8 @@ def test_open_settings_detect_ssd_insertion_and_removal_and_preserve_unsaved_clo
 
 def test_disconnected_saved_local_model_shows_unavailable_without_changing_settings_on_cancel(tmp_path, monkeypatch):
     monkeypatch.setattr(screens, "local_models", SimpleNamespace(
-        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks, available_models=lambda: ()), raising=False)
+        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks,
+        thinking_levels=local_models.thinking_levels, thinking_value=local_models.thinking_value, available_models=lambda: ()), raising=False)
     app, _ = app_for(tmp_path, monkeypatch)
 
     async def steps(pilot):
@@ -117,7 +119,8 @@ def test_disconnected_saved_local_model_shows_unavailable_without_changing_setti
 
 def test_unrelated_settings_save_keeps_all_disconnected_local_preferences(tmp_path, monkeypatch):
     monkeypatch.setattr(screens, "local_models", SimpleNamespace(
-        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks, available_models=lambda: ()), raising=False)
+        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks,
+        thinking_levels=local_models.thinking_levels, thinking_value=local_models.thinking_value, available_models=lambda: ()), raising=False)
     app, vault = app_for(tmp_path, monkeypatch)
 
     async def steps(pilot):
@@ -142,6 +145,7 @@ def test_reconnect_restores_local_selection_unless_cloud_was_explicitly_selected
     present = list(LOCAL_MODELS)
     monkeypatch.setattr(screens, "local_models", SimpleNamespace(
         LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks,
+        thinking_levels=local_models.thinking_levels, thinking_value=local_models.thinking_value,
         available_models=lambda: tuple(present)), raising=False)
     app, vault = app_for(tmp_path, monkeypatch)
 

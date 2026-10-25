@@ -61,7 +61,17 @@ def _cached_card(tutor, kc: str) -> dict | None:
     except (ValueError, OSError):
         return None
     whole = isinstance(card, dict) and all(isinstance(card.get(f), str) for f in ("motivate", "establish", "note"))
-    return card if whole else None
+    return _visual_card(tutor, {**card, "source": "ai"}) if whole else None
+
+
+def _visual_card(tutor, card: dict) -> dict:
+    """Copy only AI-written teaching prose at consumption; cached machine fields stay exact."""
+    if card.get("source") != "ai":
+        return card
+    changed = {field: tutor.ai_visual(card[field])
+               for field in ("motivate", "establish", "connect", "note", "self_explain")
+               if isinstance(card.get(field), str)}
+    return {**card, **changed} if any(card[field] != text for field, text in changed.items()) else card
 
 
 def offline_card(packs, kc: str) -> dict:
@@ -91,6 +101,7 @@ class LessonMixin:
         state: dict
         vault: Any
         rng: Any
+        ai_visual: Any
 
         def _save(self) -> None: ...
         def _set_now(self, activity: dict | None = None) -> None: ...
@@ -206,12 +217,14 @@ class LessonMixin:
                 + ([] if quick else ["own_words"]) + ["done"]))
             if (sub := self.packs.kcs[kc]["subtopic"]):
                 views.notes_update(self.vault.root, self.packs, self.state, sub, current=kc)
-        card, title = b["card"], self.packs.kcs[kc]["title"]
+        card = b["card"] = _visual_card(self, b["card"])
+        title = self.packs.kcs[kc]["title"]
+        ai_source = card.get("source") == "ai"
         while b["i"] < len(b["phases"]):
             phase = b["phases"][b["i"]]
             b["i"] += 1
             if phase == "motivate":
-                return self._explain(idx, kc, "Why this matters", card["motivate"], part="motivate")
+                return self._explain(idx, kc, "Why this matters", card["motivate"], part="motivate", ai_source=ai_source)
             if phase == "challenge":  # problem-first: attempt a harder question before being taught
                 it = self._pick(kc, 0.3)
                 if it and (act := self._questions(b, idx, [it], phase="challenge", unassisted=True)):
@@ -227,7 +240,7 @@ class LessonMixin:
                     return act
             if phase == "establish":
                 text = card["establish"] + ("\n\n**How it connects:** " + card["connect"] if card.get("connect") else "")
-                return self._explain(idx, kc, title, text, part="establish")
+                return self._explain(idx, kc, title, text, part="establish", ai_source=ai_source)
             if phase == "worked":
                 wk = self.packs.worked_for(kc)[0]
                 act = {"activity": "worked", "block": "node", "kc": kc, "problem": wk["problem"], "steps": wk["steps"],
@@ -255,21 +268,22 @@ class LessonMixin:
                 if self.packs.worked_for(kc) and "worked" not in b["phases"][:b["i"] - 1]:
                     b["phases"].insert(b["i"], "worked")
                     continue
-                return self._explain(idx, kc, "Let's look at that again", card["establish"], part="fix")
+                return self._explain(idx, kc, "Let's look at that again", card["establish"], part="fix", ai_source=ai_source)
             if phase == "stuck":
                 return self._await({"activity": "stuck", "block_idx": idx, "kc": kc, "title": title,
                                     "say": "This idea hasn't clicked yet. It is saved as a gap and will come back. "
                                            "Talk it through with the tutor now, or move on."})
             if phase == "own_words":
                 return self._await({"activity": "own_words", "block_idx": idx, "kc": kc, "title": title,
-                                    "prompt": card.get("self_explain") or f"In your own words: {title.lower()}?"})
+                                    "prompt": card.get("self_explain") or f"In your own words: {title.lower()}?",
+                                    **({"ai_source": True} if ai_source and card.get("self_explain") else {})})
             if phase == "done":
                 self._node_done(b)
         return None
 
-    def _explain(self, idx: int, kc: str, title: str, text: str, part: str) -> dict:
+    def _explain(self, idx: int, kc: str, title: str, text: str, part: str, *, ai_source: bool = False) -> dict:
         return self._await({"activity": "explain", "block_idx": idx, "kc": kc, "part": part, "title": title,
-                            "text": text})
+                            "text": text, **({"ai_source": True} if ai_source else {})})
 
     def _node_check_result(self, b: dict, g: dict, fb: dict, your: str) -> None:
         """Called from _record for a node's check: a miss adds a fix step and one more check; a second miss is a gap."""

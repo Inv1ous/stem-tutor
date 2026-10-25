@@ -14,7 +14,7 @@ from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen, Screen
-from textual.widgets import Button, Footer, Input, Markdown, OptionList, Select, SelectionList, Static, Switch
+from textual.widgets import Button, Collapsible, Footer, Input, Markdown, OptionList, Select, SelectionList, Static, Switch
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 
@@ -28,6 +28,7 @@ from .look import C
 from .panels import (ChoicePanel, ChoosePanel, Composer, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel,
                      TickList, TickPanel, ValuePanel, WorkedPanel)
 from .texmath import to_terminal
+from .output_format import normalise_visual, terminal_visual
 
 
 def bar(done: int, total: int, width: int = 12) -> str:
@@ -74,7 +75,8 @@ def image_for_local(tutor, model: str) -> dict:
 
 class LocalActivity:
     """Honest, terminal-only activity for a local request; Claude keeps its existing display."""
-    PHASES = {"preparing": "Preparing local model…", "queued": "Waiting for another local request…",
+    PHASES = {"preparing": "Preparing local model…", "loading": "Loading local model…",
+              "queued": "Waiting for another local request…",
               "waiting": "Waiting for local model…", "thinking": "Thinking…", "generating": "Generating reply…",
               "reading_image": "Reading question image…", "searching": "Searching the web…",
               "done": "Finishing reply…", "error": "Local request stopped."}
@@ -129,14 +131,14 @@ class LocalActivity:
         self.at = time.monotonic()
         status = self.status(initial)
         if self.text and self.auxiliary is None:
-            self.widget.update(cards.ai(self.text, subtitle=status))
+            self.widget.update(cards.ai(self.text, subtitle=status, partial=True))
         else:
             self.spinner.update(text=Text(status, style=C["muted"]))
             target = self.auxiliary if self.auxiliary is not None else self.widget
             target.update(cards.framed(self.spinner, C["ai"],
                                        local_models.LOCAL_MODELS[self.model], title_align="left"))
             if self.text:
-                self.widget.update(cards.ai(self.text))  # the transcript stays hidden in answer-only view
+                self.widget.update(cards.ai(self.text, partial=True))  # hidden in answer-only view
 
     def update(self, text: str) -> bool:
         if not self.local:
@@ -995,7 +997,8 @@ class SessionScreen(ReadAloud, Screen):
         self.app.apply_answer_only(self)
         self.set_interval(1, self.update_bar)
         self.advance()
-        self.app.prepare_local_ai("mark" if (t.session or {}).get("mode") == "long" else "explain")
+        if not self.view or self.view.get("kind") not in ("short", "structured"):
+            self.app.prepare_local_ai("mark" if (t.session or {}).get("mode") == "long" else "explain")
 
     def bar_text(self, width: int) -> Text:
         """The top bar: what this session is, then how it is going (time, score, AI use, what is left of the week's
@@ -1112,12 +1115,13 @@ class SessionScreen(ReadAloud, Screen):
     def say_step(self, act: dict, subtitle: str | None = None) -> None:
         """A lesson step's cards, in the words the engine puts on Now and in the log (views.activity_cards)."""
         for i, (role, title, body) in enumerate(views.activity_cards(act)):
-            self.say(cards.card(role, title, body, subtitle=subtitle if i == 0 else None), mirror=None)
+            self.say(cards.card(role, title, body, subtitle=subtitle if i == 0 else None,
+                                ai_output=bool(act.get("ai_source"))), mirror=None)
 
     def ask_question(self, view: dict, say: str | None = None) -> None:
         self.view = view
-        if view.get("image"):
-            self.call_after_refresh(self._prepare_question_image, view)
+        if view.get("image") or view.get("kind") in ("short", "structured"):
+            self.call_after_refresh(self._prepare_question, view)
         self.fold()
         card = self.say(cards.question(view), mirror=None)
         if say:  # under the question, where Now and the log have it
@@ -1129,16 +1133,24 @@ class SessionScreen(ReadAloud, Screen):
         self.query_one("#log", VerticalScroll).call_after_refresh(self._show_top, card)  # after say's scroll_end
         self.answer_panel(view)
 
-    def _prepare_question_image(self, view: dict) -> None:
-        """Observe an image once while the learner reads, without preparing a question already replaced."""
+    def _prepare_question(self, view: dict) -> None:
+        """Prepare written marking or an image once while the learner reads the current question."""
         key = ((self.tutor.session or {}).get("id"), view.get("n"), view.get("image"))
-        if not self.is_current or self.view is not view or key == getattr(self, "_prepared_image", None):
+        if not self.is_current or self.view is not view or key == getattr(self, "_prepared_question", None):
+            return
+        if view.get("kind") in ("short", "structured"):
+            model = self.app.settings.ai_for("mark")[0]
+            if local_models.is_local(model) and self.app.ai_available("mark"):
+                self._prepared_question = key
+                self.app.prepare_local_ai("mark")
+                return
+        if not view.get("image"):
             return
         for mode in ("mark", "ask"):
             model = self.app.settings.ai_for(mode)[0]
             if (local_models.is_local(model) and not local_models.supports_vision(model)
                     and self.app.ai_available(mode)):
-                self._prepared_image = key
+                self._prepared_question = key
                 self.app.prepare_local_ai(mode)
                 return
 
@@ -1342,7 +1354,7 @@ class SessionScreen(ReadAloud, Screen):
                                         explanation={n: verdict})  # Now and the log carry the examiner's verdict too
                 fb = out["results"][0]
                 self.pending_short = None
-                self.say(cards.feedback(fb, data.get("your", "")))
+                self.say(cards.feedback(fb, data.get("your", ""), ai_output=True))
                 self.readable_now(spoken_feedback(fb, data.get("your", ""), res.get("speech") or None), auto=True)
                 self.finish_feedback(fb, written=True)
                 return
@@ -1413,9 +1425,10 @@ class SessionScreen(ReadAloud, Screen):
         an answer key can be wrong; if the AI examiner finds the answer right, it counts as right from then on."""
         fb, view = self.last_fb, self.view or {}
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
-        selected = self.app.settings.ai_for("mark")[0]
+        selected, selected_think = self.app.settings.ai_for("mark")
         model = selected if local_models.is_local(selected) or codex_models.is_codex(selected) else prompts.REMARK_MODEL
-        think = local_models.supports_thinking(model) if local_models.is_local(model) else True
+        think = (selected_think if local_models.thinking_levels(model) and self.app.settings.ai_mark_effort else
+                 local_models.supports_thinking(model)) if local_models.is_local(model) else True
         with LocalActivity(self, model, task="Checking the marking"):
             res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=model, think=think,
                                                 **spoken_too(self.app), **image_for_local(self.tutor, model))
@@ -1428,9 +1441,9 @@ class SessionScreen(ReadAloud, Screen):
             self.last_fb = {**(out.get("feedback") or {**fb, "correct": True, "partial": False}), "remarked": True}
             self.followups = ["break"] if self.last_fb.get("break_suggested") else []  # nothing was missed
             self.say(cards.card("tutor", "Re-marked: correct ✓",  # the engine logged it in these words
-                                f"{res.get('why', '')}\n\nIt now counts as right in your record."), mirror="now")
+                                f"{res.get('why', '')}\n\nIt now counts as right in your record.", ai_output=True), mirror="now")
         elif res:
-            self.say(cards.card("hint", "Re-marked: the mark stands", res.get("why", "")))
+            self.say(cards.card("hint", "Re-marked: the mark stands", res.get("why", ""), ai_output=True))
         else:
             self.say(cards.card("hint", "AI check unavailable", r.message or "Try again later."))
         self.update_bar()
@@ -1479,6 +1492,7 @@ class SessionScreen(ReadAloud, Screen):
         if withheld:
             buf = "I can't give that away while the question is open. Try a hint (h), or answer first and I'll explain."
             speech = ""
+        buf = normalise_visual(buf)
         # A reply to an earlier question stays in its transcript, never on the new question.
         if self.tutor.session is not session or self.act is not act or tuple((self.tutor.session or {}).get("presented", {})) != numbers:
             w.update(cards.ai(buf))
@@ -1658,10 +1672,17 @@ class AskScreen(ModalScreen):
 
     def on_mount(self) -> None:
         self.query_one("#q", Composer).focus()
+        self.app.prepare_local_ai("ask")
+
+    def on_unmount(self) -> None:
+        self.app.stop_local_preload(self)
 
     @on(Composer.Submitted, "#q")
     def sent(self, event: Composer.Submitted) -> None:
-        self.dismiss(event.value.strip() or None)
+        question = event.value.strip()
+        if question and getattr(self.app, "_preload_owner", None) is self:
+            self.app._preload_owner = self.app.screen_stack[-2]  # the session now owns its requested preparation
+        self.dismiss(question or None)
 
 
 class ChatPanel(TextPanel):
@@ -1684,8 +1705,23 @@ class ChatScreen(ReadAloud, Screen):
 
     def on_mount(self) -> None:
         self.app.tutor.clear_chat()  # a new chat: the Now page starts it afresh
-        self.run_worker(self.app.ai.reset(), group="reset")  # chat never inherits a lesson's context
-        self.app.prepare_local_ai("ask")
+        self._chat_ready = False
+        self._chat_reset_done = asyncio.Event()
+        self.run_worker(self._reset_chat(), group="reset")
+
+    async def _reset_chat(self) -> None:
+        try:
+            await self.app.ai.reset()  # finish revoking the old conversation before starting a new preload
+            self._chat_ready = True
+            if self.is_current:
+                self.app.prepare_local_ai("ask")
+        finally:
+            self._chat_reset_done.set()
+
+    def on_screen_resume(self) -> None:
+        if (getattr(self, "_chat_ready", False) and self.is_current
+                and getattr(self.app, "_preload_owner", None) is not self):
+            self.app.prepare_local_ai("ask")  # Settings and other pop-ups suspend this screen's preparation
 
     def action_leave(self) -> None:
         leave_asking_first(self, "#panel Composer", "question")  # Esc and ctrl+q: not over a question half typed
@@ -1725,6 +1761,10 @@ class ChatScreen(ReadAloud, Screen):
         keys = [prompts.key_of(t, int(n)) for n in (t.session or {}).get("presented", {})]
         model, think = self.app.settings.ai_for("ask")
         with LocalActivity(self, model, w) as live:
+            if local_models.is_local(model):
+                await self._chat_reset_done.wait()  # cancelling one reply must not cancel the shared reset
+                if not self._chat_ready or self not in self.app.screen_stack:
+                    raise asyncio.CancelledError
             async for chunk in a.stream(prompts.ask(self.app.tutor, q, None), model=model, think=think,
                                          **({"web_query": q, "image": prompts.focus_image(t)}
                                             if local_models.is_local(model) else {})):
@@ -1741,6 +1781,7 @@ class ChatScreen(ReadAloud, Screen):
             if withheld:
                 buf = "I can't give that away while the question is open. Answer first and I'll explain."
                 speech = ""
+            buf = normalise_visual(buf)
             w.update(cards.ai(buf))
             if buf and not withheld:
                 t.ai_help()
@@ -1762,7 +1803,17 @@ class InsightsScreen(Screen):
 
     def _text(self) -> str:
         t = self.app.tutor
-        return (self._for_terminal(report.insights_markdown(t, report.load_ai_summary(t))) + "\n---\n\n**a** asks the "
+        summary = report.load_ai_summary(t)
+        # Keep the AI section out of the authored report's common-font converter.
+        marker = "STEMTUTORVISUALSUMMARY"
+        report_text = report.insights_markdown(t, {**summary, "text": marker} if summary else None)
+        while marker in report.insights_markdown(t):
+            marker += "X"
+            report_text = report.insights_markdown(t, {**summary, "text": marker} if summary else None)
+        rendered = self._for_terminal(report_text)
+        if summary:
+            rendered = rendered.replace(marker, terminal_visual(summary["text"]).replace("\n", "\n> "))
+        return (rendered + "\n---\n\n**a** asks the "
                 "AI tutor to explain this in a few lines (one reply from today's allowance) · **o** opens it in "
                 "Obsidian · **m** your mistake journal · **w** your latest week in review · **Esc** back")
 
@@ -1998,6 +2049,8 @@ class SettingsScreen(ModalScreen):
         s = self.app.settings
         self._local_models = local_models.available_models()
         self._selected_models = {mode: s.ai_for(mode)[0] for mode in config.AI_MODES}
+        self._efforts = {mode: getattr(s, f"ai_{mode}_effort") for mode in config.AI_MODES}
+        self._strength_models, self._strength_values = {}, {}
         self._requested_preset = presets.matching({mode: s.ai_for(mode) for mode in config.AI_MODES})
         self._applied_preset = self._requested_preset
         choices = self._model_choices()
@@ -2020,18 +2073,22 @@ class SettingsScreen(ModalScreen):
                 yield Button("Apply", id="apply-preset", compact=True)
             yield Static("", id="preset-status", classes="hint")
             yield Static("", id="preset-preview", classes="hint")
-            yield Static("AI for each kind of help: the model, and whether it thinks first. Haiku without thinking "
-                         "is fastest and uses least of your limit; Sonnet about 3x, Opus about 5x; thinking first is "
-                         "slower and can use several times as much again. Local models appear while your LocalAI SSD "
-                         "is connected; they use this Mac's RAM and no Claude allowance. ChatGPT choices use your "
-                         "Codex sign-in and ChatGPT limits; think first selects high reasoning, otherwise low. "
-                         "GPT-OSS also uses low/high reasoning. DeepSeek R1 and Liquid LFM2.5 always think first. "
-                         "Local thinking can take much longer before the first answer appears.", classes="hint")
+            with Collapsible(title="Model guide", collapsed=True, collapsed_symbol="▸", expanded_symbol="▾",
+                             id="model-guide"):
+                yield Static("AI for each kind of help: the model, and whether it thinks first. Haiku without thinking "
+                             "is fastest and uses least of your limit; Sonnet about 3x, Opus about 5x; thinking first is "
+                             "slower and can use several times as much again. Local models appear while your LocalAI SSD "
+                             "is connected; they use this Mac's RAM and no Claude allowance. ChatGPT choices use your "
+                             "Codex sign-in and ChatGPT limits; think first selects high reasoning, otherwise low. "
+                             "GPT-OSS offers Low, Medium and High reasoning; Qwen 27B offers Off, Low, Medium and "
+                             "Maximum (xhigh). DeepSeek R1 and Liquid LFM2.5 always think first. "
+                             "Local thinking can take much longer before the first answer appears.", classes="hint")
             for mode, label in (("mark", "Marking answers"), ("explain", "Explaining"), ("ask", "Ask the tutor")):
                 model, think = s.ai_for(mode)
-                with Horizontal(classes="row ai-row"):
-                    yield Switch(value=think, id=f"ai_{mode}_think")
-                    yield Static(f"{label}: think first")
+                with Horizontal(classes="row ai-row task-row"):
+                    yield Switch(value=getattr(s, f"ai_{mode}_think"), id=f"ai_{mode}_think")
+                    yield Select([("Low", "low")], id=f"ai_{mode}_effort", allow_blank=False, compact=True, classes="strength")
+                    yield Static(f"{label}: think first", id=f"ai_{mode}_label")
                     yield Select(choices, value=model if model in available else Select.NULL,
                                  prompt="Model: keep saved model" if model in available else "Model: reconnect LocalAI SSD",
                                  id=f"ai_{mode}_model", allow_blank=True, compact=True)
@@ -2074,9 +2131,9 @@ class SettingsScreen(ModalScreen):
 
     def on_mount(self) -> None:
         self._fit()
-        self._task_snapshot = self._task_choices()
         for mode in config.AI_MODES:
             self._update_thinking(mode)
+        self._task_snapshot = self._task_choices()
         self._update_preset_preview()
         self._update_preset_status()
         self.query_one("#ai", Switch).focus()  # the first setting, not the scrolling box around them
@@ -2090,8 +2147,10 @@ class SettingsScreen(ModalScreen):
         selected = self.query_one(f"#ai_{mode}_model", Select).value
         return self._selected_models[mode] if selected is Select.NULL else str(selected)
 
-    def _task_choices(self) -> dict[str, tuple[str, bool]]:
-        return {mode: (self._selected_model(mode), self.query_one(f"#ai_{mode}_think", Switch).value)
+    def _task_choices(self) -> dict[str, tuple[str, bool | str]]:
+        return {mode: (self._selected_model(mode), self._efforts[mode]
+                       if local_models.thinking_levels(self._selected_model(mode)) and self._efforts[mode]
+                       else self.query_one(f"#ai_{mode}_think", Switch).value)
                 for mode in config.AI_MODES}
 
     def _update_thinking(self, mode: str, chosen: bool = False) -> None:
@@ -2099,6 +2158,25 @@ class SettingsScreen(ModalScreen):
         supported = not local_models.is_local(model) or local_models.supports_thinking(model)
         required = local_models.always_thinks(model)
         thinking = self.query_one(f"#ai_{mode}_think", Switch)
+        strength = self.query_one(f"#ai_{mode}_effort", Select)
+        levels = local_models.thinking_levels(model)
+        thinking.display, strength.display = not levels, bool(levels)
+        label = {"mark": "Marking answers", "explain": "Explaining", "ask": "Ask the tutor"}[mode]
+        if levels and self.app.size.width < 76:
+            label = {"mark": "Marking", "explain": "Explaining", "ask": "Ask tutor"}[mode]
+        else:
+            label = f"{label}:" if levels else f"{label}: think first"
+        self.query_one(f"#ai_{mode}_label", Static).update(label)
+        if levels:
+            if self._strength_models.get(mode) != model:
+                strength.set_options([("Maximum" if level == "xhigh" else level.title(), level) for level in levels])
+                self._strength_models[mode] = model
+            effort = self._efforts[mode]
+            value = local_models.thinking_value(model, effort if effort in levels else thinking.value)
+            self._strength_values[mode] = "off" if value is False else value
+            strength.value = self._strength_values[mode]
+            strength.tooltip = ("Reasoning strength. Maximum uses native xhigh and can take several minutes on this Mac."
+                                if model == "ollama:qwen3.8:27b" else "Native reasoning strength: Low, Medium or High.")
         if required:
             thinking.value = True
         elif chosen and not supported:
@@ -2135,10 +2213,16 @@ class SettingsScreen(ModalScreen):
             thinking = f"thinking {'on' if think else 'off'}"
             if local_models.is_local(model) and not local_models.supports_thinking(model):
                 thinking = "thinking unavailable" + (" (saved on)" if think else "")
-            elif codex_models.is_codex(model) or model == "ollama:gpt-oss:20b":
+            elif local_models.thinking_levels(model):
+                value = local_models.thinking_value(model, think)
+                name = "off" if value is False else "maximum (xhigh)" if value == "xhigh" else value
+                thinking = f"{name} reasoning"
+            elif codex_models.is_codex(model):
                 thinking = f"{'high' if think else 'low'} reasoning"
             text += f"\n{label}: {presets.model_label(model)} · {thinking}"
-        self.query_one("#preset-preview", Static).update(text)
+        preview = self.query_one("#preset-preview", Static)
+        preview.update(text)
+        preview.display = self._requested_preset != self._applied_preset or bool(preset and not enabled)
 
     def _refresh_presets(self) -> None:
         selected = self.query_one("#ai_preset", Select)
@@ -2163,13 +2247,22 @@ class SettingsScreen(ModalScreen):
     @on(Switch.Changed)
     def task_choice_changed(self, event) -> None:
         if not hasattr(self, "_task_snapshot") or event.control.id not in {
-                f"ai_{mode}_{field}" for mode in config.AI_MODES for field in ("model", "think")}:
+                f"ai_{mode}_{field}" for mode in config.AI_MODES for field in ("model", "think", "effort")}:
             return
         if isinstance(event, Select.Changed) and event.value != event.select.value:
             return
-        if isinstance(event, Select.Changed):
+        if isinstance(event, Select.Changed) and event.control.id.endswith("_model"):
             mode = next(mode for mode in config.AI_MODES if event.control.id == f"ai_{mode}_model")
-            self._update_thinking(mode, chosen=self._selected_model(mode) != self._task_snapshot[mode][0])
+            chosen = self._selected_model(mode) != self._task_snapshot[mode][0]
+            if chosen:
+                self._efforts[mode] = ""
+            self._update_thinking(mode, chosen=chosen)
+        elif isinstance(event, Select.Changed):
+            mode = next(mode for mode in config.AI_MODES if event.control.id == f"ai_{mode}_effort")
+            if (not local_models.thinking_levels(self._selected_model(mode)) or event.value is Select.NULL
+                    or event.value == self._strength_values.get(mode)):
+                return
+            self._efforts[mode] = self._strength_values[mode] = str(event.value)
         else:
             mode = next(mode for mode in config.AI_MODES if event.control.id == f"ai_{mode}_think")
             self._update_thinking(mode)
@@ -2194,11 +2287,14 @@ class SettingsScreen(ModalScreen):
             model, think = preset.ai_for(mode)
             self._selected_models[mode] = model
             self.query_one(f"#ai_{mode}_model", Select).value = model
-            self.query_one(f"#ai_{mode}_think", Switch).value = think
+            self._efforts[mode] = think if isinstance(think, str) else ""
+            if isinstance(think, bool):
+                self.query_one(f"#ai_{mode}_think", Switch).value = think
             self._update_thinking(mode, chosen=True)
         self._task_snapshot = self._task_choices()
         self._applied_preset = self._requested_preset
         self._update_preset_status()
+        self._update_preset_preview()
 
     def _refresh_models(self) -> None:
         """A drive can arrive after launch; unchanged options leave the open dropdown and focus alone."""
@@ -2220,11 +2316,16 @@ class SettingsScreen(ModalScreen):
 
     def on_resize(self) -> None:
         self._fit()
+        if hasattr(self, "_task_snapshot"):
+            for mode in config.AI_MODES:
+                self._update_thinking(mode)
 
     def _fit(self) -> None:
         """A short window gets tighter rows and a one-line Save, so everything fits and Save is never cut off."""
         short = self.app.size.height < 30
         self.set_class(short, "short")
+        self.set_class(self.app.size.width >= 100, "wide")
+        self.set_class(self.app.size.width < 76, "narrow")
         self.set_class(bool(C["frame"]), "flat")  # Night and Day: a quieter switch, the same width when focused
         self.query_one("#save", Button).compact = short
 
@@ -2266,6 +2367,7 @@ class SettingsScreen(ModalScreen):
         for mode in config.AI_MODES:
             setattr(s, f"ai_{mode}_model", self._selected_model(mode))
             setattr(s, f"ai_{mode}_think", self.query_one(f"#ai_{mode}_think", Switch).value)
+            setattr(s, f"ai_{mode}_effort", self._efforts[mode])
         s.model = s.ai_explain_model  # the general choice, for what has no row of its own (teaching cards, the profile summary)
         old_theme, s.theme = s.theme, str(self.query_one("#theme", Select).value)
         try:

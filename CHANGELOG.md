@@ -2,8 +2,42 @@
 
 ## Unreleased
 
-- **AI presets:** preview and apply two Claude, two ChatGPT and four local setups in Settings. Presets change only
-  marking, explaining and asking models and their thinking switches; Save keeps the choices and Esc cancels them.
+- **Native MLX and reasoning strengths:** verify MLX for Gemma 26B, E4B, Qwen 27B and GPT-OSS. Add an isolated SSD
+  GPT worker, finite Harmony headers, single-use preload ownership and native local strength selectors. Preserve
+  original models and cloud presets/settings. Gemma's lossless compatibility adapter preserves tensor values and mixed
+  precision. Five local presets include Medium reasoning. Publish measured timings and quality failures.
+- **Safe AI rendering:** reject unsafe decoded local reply controls before display/history; keep speech separate.
+  Residual terminal controls use labelled, JSON-escaped exact-source fallback after known mathematical escape recovery.
+- **Local conversation reliability:** recent lesson context no longer restricts a new topic in local Ask. An explicit
+  reply/speech transport streams decoded prose while preserving requested literal JSON and code; invalid envelopes
+  cannot become successful history. Known JSON escape mistakes are recovered only inside mathematical spans.
+  Terminal statistics separate observed thinking time, reasoning timeouts explain the existing limit, and Qwen27B's
+  thinking tooltip identifies maximum `xhigh` effort. Model thinking, sampling, precision, cloud routes and structured
+  marking instructions are preserved. Live diagnostics distinguish successful transport from factual answer quality.
+- **Quieter Settings:** widen the modal and model selectors on larger terminals, hide repeated details for the
+  applied preset and keep the model guide collapsed until opened. Pending previews and SSD reconnect information
+  remain visible; the existing Apply, Save and Cancel behaviour is preserved.
+- **Consistent STEM replies:** local, Claude and ChatGPT tutoring share a visual-writing standard, short paragraphs,
+  numbered calculation steps, clear list gaps and mathematical formatting. AI terminal cards use semantic italic
+  variables, upright units/functions, complete Unicode scripts and scope-preserving calculus, fractions and roots;
+  Obsidian retains its typeset source. Protected code, links, currency, percentages, learner text, speech and machine
+  grading fields remain literal. Incomplete maths is buffered during streaming; unsupported expressions receive a
+  labelled exact-source fallback. Cached AI prose is formatted on consumption without rewriting cache files.
+- **Free-chat preload:** “Ask the tutor anything” prepares the selected local Ask model after its conversation reset
+  and restores preparation after Settings. Early or repeated Send and leaving during startup preserve cancellation
+  ownership without invalidating the new preload or launching model work after departure.
+- **Required local readiness:** every generating request, including image helpers and context retries, waits for an
+  acknowledged empty preload with matching model/load settings. Preload failures, reset, cancellation and exhausted
+  deadlines before dispatch prevent the prompt from being sent. Written questions prepare Mark while the learner
+  reads. Cached answers bypass the runner, and terminal statistics show request-time preload duration. Cloud providers
+  are unchanged.
+- **Local response latency:** prepare the selected Ask model while the session composer is open; retain preparation
+  on send and cancel it on dismissal. Overlap native text OCR and explicit web retrieval with model loading while
+  keeping generative image helpers sequential. Structured timing now includes preparation and reply-cache queue
+  waits. Research and exploratory preload evidence distinguish earlier loading from faster generation. Claude and
+  ChatGPT routing, model choices, prompts, thinking, sampling and precision are unchanged.
+- **AI presets:** preview and apply two Claude, two ChatGPT and five local setups in Settings. Presets change only
+  marking, explaining and asking models and their thinking choices; Save keeps the choices and Esc cancels them.
 - **Small STEM models:** add manifest-backed choices for Qwen 2B/4B, Gemma E2B/E4B, Ministral 3B, Phi-4-mini,
   GPT-OSS 20B, Granite Vision, DeepSeek R1 8B/14B, Llama 3.1 8B, Liquid LFM2.5 8B and a community MiMo V2.6 9B.
   Diagnostic tests favour Gemma

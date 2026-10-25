@@ -241,7 +241,7 @@ def load_ai_summary(tutor) -> dict | None:
     except (ValueError, OSError):  # torn by a crash mid-write: the profile goes out without it
         return None
     ok = isinstance(ai, dict) and isinstance(ai.get("text"), str) and isinstance(ai.get("at"), str)
-    return ai if ok else None
+    return {**ai, "text": tutor.ai_visual(ai["text"])} if ok else None
 
 
 def _pct(x: float | None) -> str:

@@ -16,6 +16,7 @@ from tutorlib.session import Tutor
 
 from . import config, look, mac, resources, tts
 from .ai import Result
+from .output_format import normalise_visual
 from .tutor_ai import TutorAI
 
 CSS = """
@@ -59,6 +60,7 @@ PickerScreen, AskScreen, SummaryScreen, HelpScreen, SettingsScreen, ConfirmScree
 #summary-hint { dock: bottom; }
 #help MarkdownH1 { margin: 1 0 0 0; }
 MarkdownH1 { content-align-horizontal: $markdown-h1-align; }
+SettingsScreen #settings { width: 112; }
 #settings .row { height: auto; margin: 0 0 1 0; }
 #settings .row > Static { width: 1fr; }
 #settings Switch { border: none; padding: 0 1; margin-right: 1; }
@@ -68,6 +70,18 @@ MarkdownH1 { content-align-horizontal: $markdown-h1-align; }
 #settings .row > Button { margin: 0; }
 #settings .title { text-style: bold; color: $accent; margin-bottom: 1; }
 #settings .ai-row > Select { width: 34; }
+SettingsScreen.wide #settings .ai-row > Select { width: 42; }
+#settings .ai-row > Select.strength { width: 12; margin-right: 1; }
+SettingsScreen.wide #settings .ai-row > Select.strength { width: 12; }
+#settings .task-row > Static { margin-right: 1; }
+SettingsScreen.narrow #settings .task-row > Select { width: 26; }
+SettingsScreen.narrow #settings .task-row > Select.strength { width: 11; }
+#settings #model-guide { background: transparent; border: none; padding: 0; margin: 0; }
+#settings #model-guide:focus-within { background-tint: transparent; }
+#settings #model-guide > CollapsibleTitle { color: $text-muted; text-style: none; }
+#settings #model-guide > CollapsibleTitle:focus {
+  color: $block-cursor-foreground; background: $block-cursor-background; text-style: $block-cursor-text-style; }
+#settings #model-guide > Contents { padding: 0; margin: 0; }
 #glance { display: none; height: 1; margin-top: 1; padding: 0 4; text-wrap: nowrap; text-overflow: ellipsis; }
 #settings #save-row { dock: bottom; }
 SettingsScreen.flat #settings Switch { padding: 0; margin-right: 3; background: transparent; }
@@ -270,7 +284,8 @@ class TutorApp(App):
             self.exit(message="Another STEM Tutor window is already open. Use that one (or close it first).")
             return
         try:
-            self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None, one_at_a_time=True)
+            self.tutor = Tutor(v, rng=random.Random(self.seed) if self.seed is not None else None,
+                               one_at_a_time=True, ai_visual=normalise_visual)
         except packs.DamagedContent as e:
             self.exit(return_code=1, message=str(e))
             return
@@ -398,9 +413,14 @@ class TutorApp(App):
             self.notify(f"{label} · answer reused{vision}.",
                         title="Local AI performance", timeout=6)
             return
-        text = (f"{label} · {p.get('tokens_per_second', 0):.1f} tok/s · "
-                f"first {p.get('first_token_seconds') or 0:.1f}s · total {p.get('total_seconds', 0):.1f}s · "
-                f"load {p.get('load_seconds', 0):.1f}s · {p.get('output_tokens', 0)} tokens{vision}")
+        pieces = [label]
+        for key, pattern in (("tokens_per_second", "{:.1f} tok/s"), ("first_token_seconds", "first {:.1f}s"),
+                             ("total_seconds", "total {:.1f}s"), ("load_seconds", "load {:.1f}s"),
+                             ("preload_seconds", "preload {:.1f}s"), ("thinking_seconds", "thinking {:.1f}s"),
+                             ("output_tokens", "{} tokens")):
+            if p.get(key) is not None:
+                pieces.append(pattern.format(p[key]))
+        text = " · ".join(pieces) + vision
         logs = self.screen.query("#log")
         if logs and logs.first().display:
             logs.first().mount(Static(Text(text, style=look.C["dim"]), classes="entry local-performance"))

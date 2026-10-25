@@ -1,0 +1,1094 @@
+{
+  "date": "2026-10-25",
+  "hardware": {
+    "chip": "Apple M4",
+    "memory_bytes": 25769803776
+  },
+  "runtime": "Ollama 0.40.11",
+  "method": "Sequential local requests; no cloud inference. Native sampling/weights/precision/thinking preserved. Diagnostic deadline150seconds; productionchatdeadline300seconds. Hidden reasoning counted but never retained.",
+  "limitations": [
+    "Single stochastic sample per case; not a ranking or statistical performance study.",
+    "Baseline/candidate phases ask the same broad question. Final verification uses the broad question for all nonthinking cases and E4Bthinking; Gemma26/Qwen27thinking use an explicitly labelled focused alkane question.",
+    "Final verification overlapped CPU-only test workers, so its timing is not a quiet-machine speed estimate. The separate single-model quiet reuse probe has no pytest workers.",
+    "Schema and prompt correctness do not establish chemistry accuracy. Content reviews remain separate from transport success."
+  ],
+  "source_sha256": {
+    "ai.py": "2927b07a4cad0bd31cc8a2c287cc89a085cb4ce3f8e89bccce1fea737b9cffdb",
+    "local_ai.py": "43229221dd822a7e0eb96191cfb9d7a0b7848eccca2157afb631e5dcb2bf63e2",
+    "local_chat.py": "7ec36b0f6f447bf6f1a43192ab2f717c456ade9d641e532d8a9866fce8ec487a",
+    "local_reply.py": "898dfd8f714b87e27b4f1e73a2576191357dbfd40c179f9c11daf85a96ca3364",
+    "output_format.py": "94d064c89cfac4e21d263b98fbfee6bbaf63fe5267ed119a5d0e497722a24124",
+    "stem_math.py": "be799008253b97b922d7cb873a00c0b8d7e2e80a8e94b915cd7089443a34e4ae"
+  },
+  "models": {
+    "gemma4:e4b": {
+      "manifest_sha256": "0314351184bcfc7f88ba25bdaec896325ed6adcc5371674a988be35cd120101d",
+      "config_digest": "sha256:5863900006bf2fb16612ffef4c07a878d4b675d6e95efab8f50e477b92dbe2bf",
+      "model_format": "safetensors",
+      "renderer": "gemma4",
+      "parser": "gemma4",
+      "file_type": "",
+      "total_layer_bytes": 9462047876
+    },
+    "gemma4:26b-a4b-it-qat": {
+      "manifest_sha256": "5e56c800fcac818de724528a3350ed3e1df2a54ca56542796630e981db769ff8",
+      "config_digest": "sha256:bf53cc9c5c5831ed4af3d7ec18240425462e0bf8c58940c6921eaba0856949f1",
+      "model_format": "gguf",
+      "renderer": "gemma4",
+      "parser": "gemma4",
+      "file_type": "Q4_0",
+      "total_layer_bytes": 15634200302
+    },
+    "qwen3.8:27b": {
+      "manifest_sha256": "b3f6f186092bf21a84c443c0e8c5069a8e4accb2b6b7a7b20baf9180d0ff0f11",
+      "config_digest": "sha256:25a98d24af806ec8c25c21df601953c6a42f154dfcd8637bc82ec581f1c849aa",
+      "model_format": "safetensors",
+      "renderer": "qwen3.8",
+      "parser": "qwen3.5",
+      "file_type": "nvfp4",
+      "total_layer_bytes": 18174973829
+    }
+  },
+  "phases": {
+    "baseline": {
+      "scope": "bounded local diagnostic, one request per mode/package, no sampling or token-limit overrides",
+      "question": "What are the formulaes we need to know for 9701 organic chemistry",
+      "prompt": "CONTEXT\nSession: review on 9701-1.1 Atomic structure\nJust marked, on screen now, Q6: Compare the ionic radii of Na+ and Mg2+. They answered Mg2+ (correct); the answer is Mg2+.\n\nSTUDENT ASKS: What are the formulaes we need to know for 9701 organic chemistry",
+      "system_sha256": "11c1b966e56a7db36dd6c02fb9bda851c8146d8e7e3362989bf027f263d4fe16",
+      "measurements": [
+        {
+          "model": "ollama:gemma4:e4b",
+          "think": false,
+          "started_utc": "2026-10-25T10:40:38Z",
+          "thinking_chars": 0,
+          "thinking_events": 0,
+          "first_signal_seconds": 13.712674167007208,
+          "first_visible_seconds": 13.712674167007208,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 165,
+            "eval_duration": 3295037458,
+            "prompt_eval_count": 520,
+            "prompt_eval_duration": 941369000,
+            "load_duration": 347709,
+            "total_duration": 4238974917
+          },
+          "wall_seconds": 16.950004458019976,
+          "ok": true,
+          "message": "",
+          "response": "For CAIE 9701 Chemistry, the focus for the *Atomic Structure* module you're currently on is less about complex formulas and more about conceptual understanding of particle arrangements.\n\nYou need the definitions and relationships, not necessarily derived equations. Think about:\n\n*   **Atomic Number ($Z$):** Defines the number of protons.\n*   **Mass Number ($A$):** Protons plus neutrons ($A = Z + N$).\n*   **Ionic Radius:** The size change upon ionisation, which is directly related to the number of protons and electron shielding.\n\nTo compare ionic radii like $\\text{Na}^+$ and $\\text{Mg}^{2+}$, the key concept is the *effective nuclear charge* compared to the number of electron shells. Does that help frame the comparison?",
+          "performance": {
+            "model": "ollama:gemma4:e4b",
+            "total_seconds": 16.95010962500237,
+            "engine_seconds": 4.238974917,
+            "retry_count": 0,
+            "preload_seconds": 12.709709834016394,
+            "preload_count": 1,
+            "load_seconds": 0.000347709,
+            "prompt_seconds": 0.941369,
+            "generation_seconds": 3.295037458,
+            "input_tokens": 520,
+            "output_tokens": 165,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 50.07530327140822,
+            "first_token_seconds": 13.712937582982704
+          }
+        },
+        {
+          "model": "ollama:gemma4:e4b",
+          "think": true,
+          "started_utc": "2026-10-25T10:40:55Z",
+          "thinking_chars": 1449,
+          "thinking_events": 317,
+          "first_signal_seconds": 1.7293520829989575,
+          "first_visible_seconds": 7.0514141250168905,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 546,
+            "eval_duration": 9421425458,
+            "prompt_eval_count": 522,
+            "prompt_eval_duration": 939228958,
+            "load_duration": 483875,
+            "total_duration": 10362327917
+          },
+          "wall_seconds": 10.364191333006602,
+          "ok": true,
+          "message": "",
+          "response": "It is important to note that Q6 dealt with 9701, which is Inorganic Chemistry (Atomic Structure), not Organic Chemistry.\n\nFor the topic of ionic size, you primarily need to understand the *principles* rather than specific complex formulas. The core idea relates to the balance between effective nuclear charge and electron shielding.\n\nThe relevant principles are:\n*   **Effective Nuclear Charge ($Z_{\\text{eff}}$):** This determines the attractive force on the outer electrons.\n*   **Inter-electronic Repulsion:** As negative charge increases (e.g., going from $1+$ to $2+$), the repulsion increases, which generally counteracts the nuclear charge.\n*   **Ionic Radius:** It is defined by the distance from the nucleus to the outermost negative charge (in an ion).\n\nDo you remember how the number of electrons and the number of protons relate to the size of an ion?",
+          "performance": {
+            "model": "ollama:gemma4:e4b",
+            "total_seconds": 10.36423562496202,
+            "engine_seconds": 10.362327917,
+            "retry_count": 0,
+            "preload_seconds": 0.0009977089939638972,
+            "preload_count": 1,
+            "load_seconds": 0.000483875,
+            "prompt_seconds": 0.939228958,
+            "generation_seconds": 9.421425458,
+            "input_tokens": 522,
+            "output_tokens": 546,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 57.9530138442454,
+            "first_token_seconds": 7.051585791981779
+          }
+        },
+        {
+          "model": "ollama:gemma4:26b-a4b-it-qat",
+          "think": false,
+          "started_utc": "2026-10-25T10:41:06Z",
+          "thinking_chars": 0,
+          "thinking_events": 0,
+          "first_signal_seconds": 21.39398799999617,
+          "first_visible_seconds": 21.39398799999617,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 178,
+            "eval_duration": 5121820000,
+            "prompt_eval_count": 524,
+            "prompt_eval_duration": 1534570000,
+            "load_duration": 6099250,
+            "total_duration": 6686279333
+          },
+          "wall_seconds": 26.517522625043057,
+          "ok": true,
+          "message": "",
+          "response": "It is better to focus on **functional group structures** rather than a list of formulas. In Organic Chemistry, you must be able to draw the structural formulae for various families.\n\nYou need to master:\n*   **Alkanes, Alkenes, and Alkynes:** Identifying single, double, and triple $C-C$ bonds.\n*   **Alcohols and Phenols:** Drawing the $-OH$ group attached to saturated or aromatic rings.\n*   **Carbonyl compounds:** Recognising the $C=O$ bond in aldehydes and ketones.\n*   **Carboxylic acids and Esters:** Understanding the structure of $-COOH$ and the $-COO-$ linkage.\n*   **Amines and Amides:** Identifying the nitrogen-containing groups.\n\nWould you like to start by practicing how to draw the structure of a specific functional group?",
+          "performance": {
+            "model": "ollama:gemma4:26b-a4b-it-qat",
+            "total_seconds": 26.517128084029537,
+            "engine_seconds": 6.686279333,
+            "retry_count": 0,
+            "preload_seconds": 19.824578082945663,
+            "preload_count": 1,
+            "load_seconds": 0.00609925,
+            "prompt_seconds": 1.53457,
+            "generation_seconds": 5.12182,
+            "input_tokens": 524,
+            "output_tokens": 178,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 34.75327129809326,
+            "first_token_seconds": 21.394113834016025
+          }
+        },
+        {
+          "model": "ollama:gemma4:26b-a4b-it-qat",
+          "think": true,
+          "started_utc": "2026-10-25T10:41:32Z",
+          "thinking_chars": 6526,
+          "thinking_events": 1512,
+          "first_signal_seconds": 1.664154916012194,
+          "first_visible_seconds": 53.47658329101978,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 1893,
+            "eval_duration": 57070747000,
+            "prompt_eval_count": 522,
+            "prompt_eval_duration": 1505337000,
+            "load_duration": 371000,
+            "total_duration": 58646550333
+          },
+          "wall_seconds": 58.650068457995076,
+          "ok": true,
+          "message": "",
+          "response": "In CAIE 9701 organic chemistry, you won't use mathematical formulae like in Physics. Instead, you must master **general formulae** for homologous series and the structural patterns of functional groups.\n\nKey examples include:\n* Alkanes: $C_nH_{2n+2}$\n* Alkenes: $C_nH_{2n}$\n* Alcohols: $C_nH_{2n+1}OH$\n* Carboxylic acids: $C_nH_{2n+1}COOH$\n\nYou also need to represent these molecules using structural, displayed, and skeletal formulae to clearly show every atom and bond.\n\nSince we just covered how electrons are transferred in atomic structure, are you currently moving into how those same electrons form single or double bonds in organic chains?",
+          "performance": {
+            "model": "ollama:gemma4:26b-a4b-it-qat",
+            "total_seconds": 58.64989887503907,
+            "engine_seconds": 58.646550333,
+            "retry_count": 0,
+            "preload_seconds": 0.0017617919947952032,
+            "preload_count": 1,
+            "load_seconds": 0.000371,
+            "prompt_seconds": 1.505337,
+            "generation_seconds": 57.070747,
+            "input_tokens": 522,
+            "output_tokens": 1893,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 33.16935732416469,
+            "first_token_seconds": 53.47679791704286
+          }
+        },
+        {
+          "model": "ollama:qwen3.8:27b",
+          "think": false,
+          "started_utc": "2026-10-25T10:42:31Z",
+          "thinking_chars": 0,
+          "thinking_events": 0,
+          "first_signal_seconds": 43.1135279579903,
+          "first_visible_seconds": 43.1135279579903,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 246,
+            "eval_duration": 21757861417,
+            "prompt_eval_count": 520,
+            "prompt_eval_duration": 19022594292,
+            "load_duration": 697667,
+            "total_duration": 40783416792
+          },
+          "wall_seconds": 64.24143991695018,
+          "ok": true,
+          "message": "",
+          "response": "To compare the ionic radii of $\\text{Na}^+$ and $\\text{Mg}^{2+}$, note that they are isoelectronic (10 electrons). The cation with the greater nuclear charge exerts a stronger pull on the electron cloud, resulting in a smaller radius. Hence, $\\text{Mg}^{2+} < \\text{Na}^+$.\n\nRegarding 9701 organic chemistry, there are no single \"formulae\" like in Physics. Instead, you must memorise:\n\n-   **Functional groups:** Structure and name for alkanes, alkenes, alcohols, haloalkanes, carboxylic acids, etc.\n-   **Reactions:** Reagents and conditions for major transformations (e.g., hydration, oxidation, hydrolysis).\n-   **Structural isomers:** Recognising chain, positional, and functional group isomers.\n-   **Homologous series:** General formulae, e.g. $C_n H_{2n+2}$ for alkanes.\n\nAre you currently revising a specific section, such as reaction mechanisms or identification of functional groups?",
+          "performance": {
+            "model": "ollama:qwen3.8:27b",
+            "total_seconds": 64.24123024998698,
+            "engine_seconds": 40.783416792,
+            "retry_count": 0,
+            "preload_seconds": 23.4545707909856,
+            "preload_count": 1,
+            "load_seconds": 0.000697667,
+            "prompt_seconds": 19.022594292,
+            "generation_seconds": 21.757861417,
+            "input_tokens": 520,
+            "output_tokens": 246,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 11.306258243183478,
+            "first_token_seconds": 43.11369624995859
+          }
+        },
+        {
+          "model": "ollama:qwen3.8:27b",
+          "think": true,
+          "started_utc": "2026-10-25T10:43:35Z",
+          "thinking_chars": 2732,
+          "thinking_events": 719,
+          "first_signal_seconds": 0.39048058399930596,
+          "first_visible_seconds": 103.75969533401076,
+          "wall_seconds": 150.00528341700556,
+          "ok": false,
+          "message": "The local AI took too long to answer; try again.",
+          "response": "Quick nudge: you're mid-session on 1.1, so park that thought for later – but I'll list them so you have the list.\n\n9701 organic has very few *numerical* formulae; most of the mark comes from reagents, conditions and structures. The quantitative ones:\n\n- **General formulae** for homologous series: alkanes $C_nH_{2n+2}$, alkenes/cycloalkanes $C_nH_{2n}$, alkynes $C_nH_{2n-2}$, carboxylic acids $C_nH_{2n}O_2$.\n- **Degree of unsaturation (IHD):** $\\text{IHD}=\\dfrac{2C+2-H-X+N}{2}$, used with mass-spec / IR data.\n- **Combustion:** $C_xH_y+\\left(x+\\tfrac{y}{4}\\right)O_2\\rightarrow xCO_2+\\tfrac{y}{2}H_2O$.\n- **% yield** and **atom economy** (9701 §3/§8): $\\%\\,\\text{yield}=\\dfrac{\\text{actual}}{\\text{theoretical}}\\times100$; $\\",
+          "performance": {}
+        }
+      ],
+      "deadline_seconds": 150,
+      "hidden_reasoning_policy": "counts/times only; reasoning is not stored"
+    },
+    "transport_and_context_candidate": {
+      "scope": "bounded local diagnostic, one request per mode/package, no sampling or token-limit overrides",
+      "question": "What are the formulaes we need to know for 9701 organic chemistry",
+      "prompt": "CONTEXT\nSession: review on 9701-1.1 Atomic structure\nJust marked, on screen now, Q6: Compare the ionic radii of Na+ and Mg2+. They answered Mg2+ (correct); the answer is Mg2+.\n\nSTUDENT ASKS: What are the formulaes we need to know for 9701 organic chemistry",
+      "system_sha256": "11c1b966e56a7db36dd6c02fb9bda851c8146d8e7e3362989bf027f263d4fe16",
+      "measurements": [
+        {
+          "effective_system_sha256": "6b799dc1b8925823c8038c56f9b32357227a89e3aff8a2e6a8702f4695ef2a76",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:gemma4:e4b",
+          "think": false,
+          "started_utc": "2026-10-25T10:48:08Z",
+          "thinking_chars": 0,
+          "thinking_events": 0,
+          "first_signal_seconds": 13.331640042015351,
+          "first_visible_seconds": 13.331640042015351,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 272,
+            "eval_duration": 5710338750,
+            "prompt_eval_count": 697,
+            "prompt_eval_duration": 1264082625,
+            "load_duration": 327833,
+            "total_duration": 6977053625
+          },
+          "wall_seconds": 18.98572175001027,
+          "ok": true,
+          "message": "",
+          "response": "For 9701 (Chemistry), the main focus shifts from core atomic structure to bonding, reactions, and organic chemistry. The key formulae you need relate to stoichiometry and kinetics.\n\nIn chemical calculations, you will repeatedly use the molar mass ($M$) to convert between mass, moles ($n$), and volume ($V$).\n\n*   $n = \\frac{\text{mass}}{\text{Molar Mass}}$\n*   $M = \frac{\text{relative atomic mass}}{\text{moles per mole (i.e., 1 mol)}}$\n\nWhen dealing with gases (like in rate laws or gas volumes), the Ideal Gas Equation is crucial:\n\n$$PV = nRT$$\n\nThis links Pressure ($P$), Volume ($V$), moles ($n$), and the gas constant ($R$) and temperature ($T$).\n\nIf you are looking specifically at kinetics (reaction rates), you need the integrated rate laws, such as for first-order reactions: $\\ln[A]_t - \\ln[A]_0 = -kt$.\n\nTo get a handle on organic chemistry, start by remembering the general structural elements, like the functional groups, as the formulae here are often more conceptual than strictly mathematical.",
+          "performance": {
+            "model": "ollama:gemma4:e4b",
+            "total_seconds": 18.985828707984183,
+            "engine_seconds": 6.977053625,
+            "retry_count": 0,
+            "preload_seconds": 12.007393500010949,
+            "preload_count": 1,
+            "load_seconds": 0.000327833,
+            "thinking_seconds": 0,
+            "prompt_seconds": 1.264082625,
+            "generation_seconds": 5.71033875,
+            "input_tokens": 697,
+            "output_tokens": 272,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 47.63290093779463,
+            "first_token_seconds": 13.440401458006818
+          }
+        },
+        {
+          "effective_system_sha256": "6b799dc1b8925823c8038c56f9b32357227a89e3aff8a2e6a8702f4695ef2a76",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:gemma4:e4b",
+          "think": true,
+          "started_utc": "2026-10-25T10:48:27Z",
+          "thinking_chars": 2605,
+          "thinking_events": 559,
+          "first_signal_seconds": 2.3179848750005476,
+          "first_visible_seconds": 12.646047582966276,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 822,
+            "eval_duration": 15115431083,
+            "prompt_eval_count": 699,
+            "prompt_eval_duration": 1251856667,
+            "load_duration": 627375,
+            "total_duration": 16369774333
+          },
+          "wall_seconds": 16.371727374964394,
+          "ok": true,
+          "message": "",
+          "response": "In Organic Chemistry (9701), the concept of a 'formula' is less about complex calculations and more about understanding molecular structure and functional groups. While physical chemistry uses equations like $E=mc^2$, organic chemistry focuses on symbolic representations and reaction mechanisms. \n\nInstead of formulas, you need to know the structures of common functional groups: \n*   Alcohols ($\text{R-OH}$): Hydroxyl group attached to a saturated carbon. \n*   Carboxylic Acids ($\text{R-COOH}$): Contains a carboxyl group ($\text{COOH}$). \n*   Amines ($\text{R-NH}_2$): Contains an amino group. \n\nUnderstanding these structural formulas helps predict reactions. Can you give an example of a small molecule and tell me which functional group it contains? This connects structure to chemical behaviour.\n",
+          "performance": {
+            "model": "ollama:gemma4:e4b",
+            "total_seconds": 16.371799541986547,
+            "engine_seconds": 16.369774333,
+            "retry_count": 0,
+            "preload_seconds": 0.0009985830402001739,
+            "preload_count": 1,
+            "load_seconds": 0.000627375,
+            "thinking_seconds": 10.328061625012197,
+            "prompt_seconds": 1.251856667,
+            "generation_seconds": 15.115431083,
+            "input_tokens": 699,
+            "output_tokens": 822,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 54.381512210027914,
+            "first_token_seconds": 12.734057374997064
+          }
+        },
+        {
+          "effective_system_sha256": "6b799dc1b8925823c8038c56f9b32357227a89e3aff8a2e6a8702f4695ef2a76",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:gemma4:26b-a4b-it-qat",
+          "think": false,
+          "started_utc": "2026-10-25T10:48:43Z",
+          "thinking_chars": 0,
+          "thinking_events": 0,
+          "first_signal_seconds": 21.872776374977548,
+          "first_visible_seconds": 21.872776374977548,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 208,
+            "eval_duration": 6208733000,
+            "prompt_eval_count": 701,
+            "prompt_eval_duration": 2095496999,
+            "load_duration": 1383708,
+            "total_duration": 8321076500
+          },
+          "wall_seconds": 28.082569999969564,
+          "ok": true,
+          "message": "",
+          "response": "Organic chemistry in 9701 is less about memorising mathematical formulae and more about mastering **functional group structures** and **reaction mechanisms**. \n\nInstead of equations, you must be able to draw and name molecules using IUPAC nomenclature. Focus on these structural patterns:\n\n*   **Alkanes/Alkenes/Alkynes**: Carbon-carbon single, double, or triple bonds.\n*   **Oxygen-containing groups**: Hydroxyl (-OH), Carbonyl (C=O), Carboxyl (-COOH), and Ether (C-O-C) groups.\n*   **Nitrogen groups**: Amines ($-NH_{2}$) and Amides ($-CONH_{2}$).\n\nYou will also need to use dot-and-cross diagrams to show covalent bonding and curly arrows to represent the movement of electron pairs during nucleophilic or electrophilic attacks.\n\nWhich functional group do you find hardest to draw?",
+          "performance": {
+            "model": "ollama:gemma4:26b-a4b-it-qat",
+            "total_seconds": 28.08243962499546,
+            "engine_seconds": 8.3210765,
+            "retry_count": 0,
+            "preload_seconds": 19.75962625001557,
+            "preload_count": 1,
+            "load_seconds": 0.001383708,
+            "thinking_seconds": 0,
+            "prompt_seconds": 2.095496999,
+            "generation_seconds": 6.208733,
+            "input_tokens": 701,
+            "output_tokens": 208,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 33.50119903690496,
+            "first_token_seconds": 22.07421254098881
+          }
+        },
+        {
+          "effective_system_sha256": "6b799dc1b8925823c8038c56f9b32357227a89e3aff8a2e6a8702f4695ef2a76",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:gemma4:26b-a4b-it-qat",
+          "think": true,
+          "started_utc": "2026-10-25T10:49:11Z",
+          "thinking_chars": 14367,
+          "thinking_events": 3175,
+          "first_signal_seconds": 2.3024566670064814,
+          "first_visible_seconds": null,
+          "wall_seconds": 150.00229533400852,
+          "ok": false,
+          "message": "The local model was still thinking when the chat time limit expired. Think first can take minutes on this Mac. Switch it off for routine questions, or choose a faster model.",
+          "response": "",
+          "performance": {}
+        },
+        {
+          "effective_system_sha256": "6b799dc1b8925823c8038c56f9b32357227a89e3aff8a2e6a8702f4695ef2a76",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:qwen3.8:27b",
+          "think": false,
+          "started_utc": "2026-10-25T10:51:41Z",
+          "thinking_chars": 0,
+          "thinking_events": 0,
+          "first_signal_seconds": 51.982179415994324,
+          "first_visible_seconds": 51.982179415994324,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 98,
+            "eval_duration": 14457220042,
+            "prompt_eval_count": 697,
+            "prompt_eval_duration": 26334607125,
+            "load_duration": 293958,
+            "total_duration": 40794664000
+          },
+          "wall_seconds": 65.44804062502226,
+          "ok": true,
+          "message": "",
+          "response": "The key equations for 9701 organic chemistry are the molar mass formula $M_r = \\sum A_r$ and percentage yield $= \\frac{\\text{actual yield}}{\\text{theoretical yield}} \\times 100$. For stoichiometry, always use $\\text{amount} = \\frac{\\text{mass}}{M_r}$. Remember to balance the equation first to determine mole ratios.",
+          "performance": {
+            "model": "ollama:qwen3.8:27b",
+            "total_seconds": 65.44929358398076,
+            "engine_seconds": 40.794664,
+            "retry_count": 0,
+            "preload_seconds": 24.649183249974158,
+            "preload_count": 1,
+            "load_seconds": 0.000293958,
+            "thinking_seconds": 0,
+            "prompt_seconds": 26.334607125,
+            "generation_seconds": 14.457220042,
+            "input_tokens": 697,
+            "output_tokens": 98,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 6.778619936287749,
+            "first_token_seconds": 52.50687320897123
+          }
+        },
+        {
+          "effective_system_sha256": "6b799dc1b8925823c8038c56f9b32357227a89e3aff8a2e6a8702f4695ef2a76",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:qwen3.8:27b",
+          "think": true,
+          "started_utc": "2026-10-25T10:52:47Z",
+          "thinking_chars": 2411,
+          "thinking_events": 628,
+          "first_signal_seconds": 0.5348444170085713,
+          "first_visible_seconds": 117.40316695900401,
+          "wall_seconds": 150.00434316700557,
+          "ok": false,
+          "message": "The local AI took too long to answer; try again.",
+          "response": "Good news: 9701 organic chemistry is far less formula-heavy than physical or inorganic. You mostly need **general molecular formulae** for the homologous series:\n\n- Alkanes: $C_nH_{2n+2}$\n- Alkenes / cycloalkanes: $C_nH_{2n}$\n- Alkynes: $C_nH_{2n-2}$\n- Haloalkanes, alcohols, aldehydes, ketones, carboxylic acids: one functional group replaces part of the alkane skeleton, so you can derive the formula from $C_nH_{2n+2}$.\n\nThe one true \"calculation\" formula is **degree of unsaturation**:\n\n$$\\text{DoU} = \\frac{2C + 2 - H +",
+          "performance": {}
+        }
+      ],
+      "deadline_seconds": 150,
+      "hidden_reasoning_policy": "counts/times only; reasoning is not stored"
+    },
+    "final_verification": {
+      "scope": "final local verification: original broad organic question with thinking off on all three and on for E4B; focused alkane formula sanity check with thinking on for Gemma26/Qwen27. No ranking or causal speed claim; no sampling or token-limit overrides.",
+      "question": "What are the formulaes we need to know for 9701 organic chemistry",
+      "prompt": "CONTEXT\nSession: review on 9701-1.1 Atomic structure\nJust marked, on screen now, Q6: Compare the ionic radii of Na+ and Mg2+. They answered Mg2+ (correct); the answer is Mg2+.\n\nSTUDENT ASKS: What are the formulaes we need to know for 9701 organic chemistry",
+      "system_sha256": "11c1b966e56a7db36dd6c02fb9bda851c8146d8e7e3362989bf027f263d4fe16",
+      "measurements": [
+        {
+          "request_prompt": "CONTEXT\nSession: review on 9701-1.1 Atomic structure\nJust marked, on screen now, Q6: Compare the ionic radii of Na+ and Mg2+. They answered Mg2+ (correct); the answer is Mg2+.\n\nSTUDENT ASKS: What are the formulaes we need to know for 9701 organic chemistry",
+          "effective_system_sha256": "337b62e075370086fe3180cc50da6f5a8f22c087b271ff544c806bb42a49f915",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:gemma4:e4b",
+          "think": false,
+          "started_utc": "2026-10-25T10:57:41Z",
+          "thinking_chars": 0,
+          "thinking_events": 0,
+          "first_signal_seconds": 14.309927834023256,
+          "first_visible_seconds": 14.309927834023256,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 186,
+            "eval_duration": 3886094834,
+            "prompt_eval_count": 751,
+            "prompt_eval_duration": 1364198375,
+            "load_duration": 321792,
+            "total_duration": 5252744709
+          },
+          "wall_seconds": 18.14114950003568,
+          "ok": true,
+          "message": "",
+          "response": "For 9701 Organic Chemistry, the core formulae are less about quantitative equations and more about structural concepts and reaction mechanisms.\n\nKey concepts include:\n*   **Isomerism:** Understanding structural and stereoisomers.\n*   **Bonding:** Drawing and interpreting structures (e.g., $\\sigma$ and $\\pi$ bonds).\n*   **Reactions:** Knowledge of functional group transformations (e.g., oxidation, substitution).\n\nWe use terms like:\n*   *Degree of saturation* (related to the number of $\\pi$ bonds).\n*   *Molecular weight* (which requires knowledge of atomic masses).\n\nSince you are asking about organic chemistry formulae, are you more interested in nomenclature (naming compounds) or perhaps specific reaction mechanisms like $S_N1$ or $S_N2$?",
+          "performance": {
+            "model": "ollama:gemma4:e4b",
+            "total_seconds": 18.141259249998257,
+            "engine_seconds": 5.252744709,
+            "retry_count": 0,
+            "preload_seconds": 12.887050749966875,
+            "preload_count": 1,
+            "load_seconds": 0.000321792,
+            "thinking_seconds": 0,
+            "prompt_seconds": 1.364198375,
+            "generation_seconds": 3.886094834,
+            "input_tokens": 751,
+            "output_tokens": 186,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 47.862959589318145,
+            "first_token_seconds": 14.417924959037919
+          },
+          "canonical_visual": "For 9701 Organic Chemistry, the core formulae are less about quantitative equations and more about structural concepts and reaction mechanisms.\n\nKey concepts include:\n\n- **Isomerism:** Understanding structural and stereoisomers.\n\n- **Bonding:** Drawing and interpreting structures (e.g., $\\sigma$ and $\\pi$ bonds).\n\n- **Reactions:** Knowledge of functional group transformations (e.g., oxidation, substitution).\n\nWe use terms like:\n\n- *Degree of saturation* (related to the number of $\\pi$ bonds).\n\n- *Molecular weight* (which requires knowledge of atomic masses).\n\nSince you are asking about organic chemistry formulae, are you more interested in nomenclature (naming compounds) or perhaps specific reaction mechanisms like $S_N1$ or $S_N2$?",
+          "terminal_visual": "For 9701 Organic Chemistry, the core formulae are less about quantitative equations and more about structural concepts and reaction mechanisms.\n\nKey concepts include:\n\n- **Isomerism:** Understanding structural and stereoisomers.\n\n- **Bonding:** Drawing and interpreting structures (e.g., 𝜎 and π bonds).\n\n- **Reactions:** Knowledge of functional group transformations (e.g., oxidation, substitution).\n\nWe use terms like:\n\n- *Degree of saturation* (related to the number of π bonds).\n\n- *Molecular weight* (which requires knowledge of atomic masses).\n\nSince you are asking about organic chemistry formulae, are you more interested in nomenclature (naming compounds) or perhaps specific reaction mechanisms like 𝑆\\[index: 𝑁\\]1 or 𝑆\\[index: 𝑁\\]2?"
+        },
+        {
+          "request_prompt": "CONTEXT\nSession: review on 9701-1.1 Atomic structure\nJust marked, on screen now, Q6: Compare the ionic radii of Na+ and Mg2+. They answered Mg2+ (correct); the answer is Mg2+.\n\nSTUDENT ASKS: What are the formulaes we need to know for 9701 organic chemistry",
+          "effective_system_sha256": "337b62e075370086fe3180cc50da6f5a8f22c087b271ff544c806bb42a49f915",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:gemma4:e4b",
+          "think": true,
+          "started_utc": "2026-10-25T10:57:59Z",
+          "thinking_chars": 1745,
+          "thinking_events": 385,
+          "first_signal_seconds": 2.5374181660008617,
+          "first_visible_seconds": 10.025507665995974,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 641,
+            "eval_duration": 13241167625,
+            "prompt_eval_count": 753,
+            "prompt_eval_duration": 1387510167,
+            "load_duration": 1263250,
+            "total_duration": 14633575500
+          },
+          "wall_seconds": 14.636142708011903,
+          "ok": true,
+          "message": "",
+          "response": "The formulas in organic chemistry are less about numerical calculations and more about structural representations and reaction mechanisms. You need to know functional group formulas and the rules governing their transformation.\n\nKey concepts you must know include:\n*   **Nomenclature Rules:** How to name compounds based on their chain length and functional groups (e.g., alkanes, alkenes, alcohols).\n*   **Structure Formulas:** The basic representations, like $R-COOH$ (carboxylic acid) or $R-OH$ (alcohol).\n*   **Reaction Schemes:** The generalized reactants and products for major reactions, such as oxidation ($\text{RCH}_2\text{OH} \to \text{RCOOH}$) or substitution ($\text{R-X} \to \text{R-Y}$).\n\nInstead of memorising every equation, focus on understanding how bond types (C-C single, double) influence reactivity, which ties back to the structure we studied in inorganic chemistry.",
+          "performance": {
+            "model": "ollama:gemma4:e4b",
+            "total_seconds": 14.636027291999198,
+            "engine_seconds": 14.6335755,
+            "retry_count": 0,
+            "preload_seconds": 0.0010810839594341815,
+            "preload_count": 1,
+            "load_seconds": 0.00126325,
+            "thinking_seconds": 7.4880887910258025,
+            "prompt_seconds": 1.387510167,
+            "generation_seconds": 13.241167625,
+            "input_tokens": 753,
+            "output_tokens": 641,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 48.409628074623825,
+            "first_token_seconds": 10.144316124962643
+          },
+          "canonical_visual": "The formulas in organic chemistry are less about numerical calculations and more about structural representations and reaction mechanisms. You need to know functional group formulas and the rules governing their transformation.\n\nKey concepts you must know include:\n\n- **Nomenclature Rules:** How to name compounds based on their chain length and functional groups (e.g., alkanes, alkenes, alcohols).\n\n- **Structure Formulas:** The basic representations, like $R-COOH$ (carboxylic acid) or $R-OH$ (alcohol).\n\n- **Reaction Schemes:** The generalized reactants and products for major reactions, such as oxidation ($\\text{RCH}_2\\text{OH} \to \\text{RCOOH}$) or substitution ($\\text{R-X} \to \\text{R-Y}$).\n\nInstead of memorising every equation, focus on understanding how bond types (C-C single, double) influence reactivity, which ties back to the structure we studied in inorganic chemistry.",
+          "terminal_visual": "The formulas in organic chemistry are less about numerical calculations and more about structural representations and reaction mechanisms. You need to know functional group formulas and the rules governing their transformation.\n\nKey concepts you must know include:\n\n- **Nomenclature Rules:** How to name compounds based on their chain length and functional groups (e.g., alkanes, alkenes, alcohols).\n\n- **Structure Formulas:** The basic representations, like 𝑅 − 𝐶𝑂𝑂𝐻 (carboxylic acid) or 𝑅 − 𝑂𝐻 (alcohol).\n\n- **Reaction Schemes:** The generalized reactants and products for major reactions, such as oxidation ((RCH)₂OH\t𝑜RCOOH) or substitution (R-X\t𝑜R-Y).\n\nInstead of memorising every equation, focus on understanding how bond types (C-C single, double) influence reactivity, which ties back to the structure we studied in inorganic chemistry."
+        },
+        {
+          "request_prompt": "CONTEXT\nSession: review on 9701-1.1 Atomic structure\nJust marked, on screen now, Q6: Compare the ionic radii of Na+ and Mg2+. They answered Mg2+ (correct); the answer is Mg2+.\n\nSTUDENT ASKS: What are the formulaes we need to know for 9701 organic chemistry",
+          "effective_system_sha256": "337b62e075370086fe3180cc50da6f5a8f22c087b271ff544c806bb42a49f915",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:gemma4:26b-a4b-it-qat",
+          "think": false,
+          "started_utc": "2026-10-25T10:58:14Z",
+          "thinking_chars": 0,
+          "thinking_events": 0,
+          "first_signal_seconds": 22.361757416976616,
+          "first_visible_seconds": 22.361757416976616,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 117,
+            "eval_duration": 3776668000,
+            "prompt_eval_count": 755,
+            "prompt_eval_duration": 2272472000,
+            "load_duration": 5912375,
+            "total_duration": 6077932209
+          },
+          "wall_seconds": 26.138386167003773,
+          "ok": true,
+          "message": "",
+          "response": "Organic chemistry is less about a single list of formulae and more about mastering functional group structures and the mechanisms that drive them. You will need to be proficient with: \n\n*   **General formulae**: e.g., $C_nH_{2n+2}$ for alkanes or $C_nH_{2n}O$ for carboxylic acids.\n*   **Structural representations**: Be comfortable drawing skeletal, displayed, and condensed structural formulae.\n*   **Reaction mechanisms**: You must be able to draw ",
+          "performance": {
+            "model": "ollama:gemma4:26b-a4b-it-qat",
+            "total_seconds": 26.138494083017576,
+            "engine_seconds": 6.077932209,
+            "retry_count": 0,
+            "preload_seconds": 20.056764540961012,
+            "preload_count": 1,
+            "load_seconds": 0.005912375,
+            "thinking_seconds": 0,
+            "prompt_seconds": 2.272472,
+            "generation_seconds": 3.776668,
+            "input_tokens": 755,
+            "output_tokens": 117,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 30.979688974514044,
+            "first_token_seconds": 22.488811333023477
+          },
+          "canonical_visual": "Organic chemistry is less about a single list of formulae and more about mastering functional group structures and the mechanisms that drive them. You will need to be proficient with: \n\n- **General formulae**: e.g., $C_nH_{2n+2}$ for alkanes or $C_nH_{2n}O$ for carboxylic acids.\n\n- **Structural representations**: Be comfortable drawing skeletal, displayed, and condensed structural formulae.\n\n- **Reaction mechanisms**: You must be able to draw ",
+          "terminal_visual": "Organic chemistry is less about a single list of formulae and more about mastering functional group structures and the mechanisms that drive them. You will need to be proficient with: \n\n- **General formulae**: e.g., 𝐶ₙ𝐻₂ₙ₊₂ for alkanes or 𝐶ₙ𝐻₂ₙ𝑂 for carboxylic acids.\n\n- **Structural representations**: Be comfortable drawing skeletal, displayed, and condensed structural formulae.\n\n- **Reaction mechanisms**: You must be able to draw "
+        },
+        {
+          "request_prompt": "CONTEXT\nSession: review on 9701-1.1 Atomic structure\nJust marked, on screen now, Q6: Compare the ionic radii of Na+ and Mg2+. They answered Mg2+ (correct); the answer is Mg2+.\n\nSTUDENT ASKS: Which general formula represents acyclic alkanes? Answer in one sentence.",
+          "effective_system_sha256": "337b62e075370086fe3180cc50da6f5a8f22c087b271ff544c806bb42a49f915",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:gemma4:26b-a4b-it-qat",
+          "think": true,
+          "started_utc": "2026-10-25T10:58:40Z",
+          "thinking_chars": 3465,
+          "thinking_events": 844,
+          "first_signal_seconds": 2.7799838749924675,
+          "first_visible_seconds": 44.19072275003418,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 1019,
+            "eval_duration": 42774065000,
+            "prompt_eval_count": 750,
+            "prompt_eval_duration": 2539620000,
+            "load_duration": 400500,
+            "total_duration": 45462377334
+          },
+          "wall_seconds": 45.479412375018,
+          "ok": true,
+          "message": "",
+          "response": "The general formula for acyclic alkanes is $C_nH_{2n+2}$.",
+          "performance": {
+            "model": "ollama:gemma4:26b-a4b-it-qat",
+            "total_seconds": 45.478347458003554,
+            "engine_seconds": 45.462377334,
+            "retry_count": 0,
+            "preload_seconds": 0.0014923749840818346,
+            "preload_count": 1,
+            "load_seconds": 0.0004005,
+            "thinking_seconds": 41.41074637498241,
+            "prompt_seconds": 2.53962,
+            "generation_seconds": 42.774065,
+            "input_tokens": 750,
+            "output_tokens": 1019,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 23.822846858253943,
+            "first_token_seconds": 44.4573775830213
+          },
+          "canonical_visual": "The general formula for acyclic alkanes is $C_nH_{2n+2}$.",
+          "terminal_visual": "The general formula for acyclic alkanes is 𝐶ₙ𝐻₂ₙ₊₂."
+        },
+        {
+          "request_prompt": "CONTEXT\nSession: review on 9701-1.1 Atomic structure\nJust marked, on screen now, Q6: Compare the ionic radii of Na+ and Mg2+. They answered Mg2+ (correct); the answer is Mg2+.\n\nSTUDENT ASKS: What are the formulaes we need to know for 9701 organic chemistry",
+          "effective_system_sha256": "337b62e075370086fe3180cc50da6f5a8f22c087b271ff544c806bb42a49f915",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:qwen3.8:27b",
+          "think": false,
+          "started_utc": "2026-10-25T10:59:26Z",
+          "thinking_chars": 0,
+          "thinking_events": 0,
+          "first_signal_seconds": 78.16512258298462,
+          "first_visible_seconds": 78.16512258298462,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 140,
+            "eval_duration": 30703472291,
+            "prompt_eval_count": 751,
+            "prompt_eval_duration": 49732757292,
+            "load_duration": 2579208,
+            "total_duration": 80444962167
+          },
+          "wall_seconds": 107.23211095802253,
+          "ok": true,
+          "message": "",
+          "response": "For 9701 Organic, there are no specific calculation formulae to memorise. Instead, you must know the general formulae for homologous series:\n\n1. Alkanes: $C_n H_{2n+2}$\n2. Alkenes: $C_n H_{2n}$\n3. Alkynes: $C_n H_{2n-2}$\n\nYou also need to understand functional groups (e.g. $-OH$, $-COOH$) and use displayed/structural formulae to show bonding. Focus on recognising structural isomers and applying these patterns to name compounds.",
+          "performance": {
+            "model": "ollama:qwen3.8:27b",
+            "total_seconds": 107.23227249999763,
+            "engine_seconds": 80.444962167,
+            "retry_count": 0,
+            "preload_seconds": 26.77882474998478,
+            "preload_count": 1,
+            "load_seconds": 0.002579208,
+            "thinking_seconds": 0,
+            "prompt_seconds": 49.732757292,
+            "generation_seconds": 30.703472291,
+            "input_tokens": 751,
+            "output_tokens": 140,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 4.559744861203783,
+            "first_token_seconds": 78.73397775000194
+          },
+          "canonical_visual": "For 9701 Organic, there are no specific calculation formulae to memorise. Instead, you must know the general formulae for homologous series:\n\n1. Alkanes: $C_n H_{2n+2}$\n\n2. Alkenes: $C_n H_{2n}$\n\n3. Alkynes: $C_n H_{2n-2}$\n\nYou also need to understand functional groups (e.g. $-OH$, $-COOH$) and use displayed/structural formulae to show bonding. Focus on recognising structural isomers and applying these patterns to name compounds.",
+          "terminal_visual": "For 9701 Organic, there are no specific calculation formulae to memorise. Instead, you must know the general formulae for homologous series:\n\n1. Alkanes: 𝐶ₙ𝐻₂ₙ₊₂\n\n2. Alkenes: 𝐶ₙ𝐻₂ₙ\n\n3. Alkynes: 𝐶ₙ𝐻₂ₙ₋₂\n\nYou also need to understand functional groups (e.g. −𝑂𝐻, −𝐶𝑂𝑂𝐻) and use displayed/structural formulae to show bonding. Focus on recognising structural isomers and applying these patterns to name compounds."
+        },
+        {
+          "request_prompt": "CONTEXT\nSession: review on 9701-1.1 Atomic structure\nJust marked, on screen now, Q6: Compare the ionic radii of Na+ and Mg2+. They answered Mg2+ (correct); the answer is Mg2+.\n\nSTUDENT ASKS: Which general formula represents acyclic alkanes? Answer in one sentence.",
+          "effective_system_sha256": "337b62e075370086fe3180cc50da6f5a8f22c087b271ff544c806bb42a49f915",
+          "format": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reply"
+            ],
+            "additionalProperties": false
+          },
+          "model": "ollama:qwen3.8:27b",
+          "think": true,
+          "started_utc": "2026-10-25T11:01:13Z",
+          "thinking_chars": 665,
+          "thinking_events": 152,
+          "first_signal_seconds": 65.12990733300103,
+          "first_visible_seconds": 92.53380383300828,
+          "done_reason": "stop",
+          "counters": {
+            "eval_count": 197,
+            "eval_duration": 33589260875,
+            "prompt_eval_count": 747,
+            "prompt_eval_duration": 26300626458,
+            "load_duration": 606292,
+            "total_duration": 59893027958
+          },
+          "wall_seconds": 97.58288608299335,
+          "ok": true,
+          "message": "",
+          "response": "The general formula for acyclic alkanes is $\\text{C}_n\\text{H}_{2n+2}$.",
+          "performance": {
+            "model": "ollama:qwen3.8:27b",
+            "total_seconds": 97.5829313339782,
+            "engine_seconds": 59.893027958,
+            "retry_count": 0,
+            "preload_seconds": 37.679305624973495,
+            "preload_count": 1,
+            "load_seconds": 0.000606292,
+            "thinking_seconds": 27.403916874958668,
+            "prompt_seconds": 26.300626458,
+            "generation_seconds": 33.589260875,
+            "input_tokens": 747,
+            "output_tokens": 197,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 5.864969781059524,
+            "first_token_seconds": 93.46626824996201
+          },
+          "canonical_visual": "The general formula for acyclic alkanes is $\\text{C}_n\\text{H}_{2n+2}$.",
+          "terminal_visual": "The general formula for acyclic alkanes is CₙH₂ₙ₊₂."
+        }
+      ],
+      "deadline_seconds": 150,
+      "hidden_reasoning_policy": "counts/times only; reasoning is not stored"
+    },
+    "quiet_qwen_reuse": {
+      "scope": "one quiet single-model preload/reuse check; no pytest workers running; no causal benchmark claim",
+      "measurements": [
+        {
+          "phase": "first_preload",
+          "before_ps": null,
+          "ok": true,
+          "message": "",
+          "wall_seconds": 24.56144600000698,
+          "after_ps": {
+            "models": [
+              {
+                "name": "qwen3.8:27b",
+                "model": "qwen3.8:27b",
+                "size": 18254909240,
+                "digest": "47951e4a666180bc2aedfc93c169472f2de783696fe196efbf063f5730ecf163",
+                "details": {
+                  "parent_model": "",
+                  "format": "safetensors",
+                  "family": "",
+                  "families": null,
+                  "parameter_size": "",
+                  "quantization_level": "nvfp4"
+                },
+                "expires_at": "2026-10-25T19:19:41.21607+08:00",
+                "size_vram": 18254909240,
+                "context_length": 4096,
+                "runner": "mlx"
+              }
+            ]
+          }
+        },
+        {
+          "phase": "second_preload",
+          "before_ps": {
+            "models": [
+              {
+                "name": "qwen3.8:27b",
+                "model": "qwen3.8:27b",
+                "size": 18254909240,
+                "digest": "47951e4a666180bc2aedfc93c169472f2de783696fe196efbf063f5730ecf163",
+                "details": {
+                  "parent_model": "",
+                  "format": "safetensors",
+                  "family": "",
+                  "families": null,
+                  "parameter_size": "",
+                  "quantization_level": "nvfp4"
+                },
+                "expires_at": "2026-10-25T19:19:41.21607+08:00",
+                "size_vram": 18254909240,
+                "context_length": 4096,
+                "runner": "mlx"
+              }
+            ]
+          },
+          "ok": true,
+          "message": "",
+          "wall_seconds": 0.0012842919677495956,
+          "after_ps": {
+            "models": [
+              {
+                "name": "qwen3.8:27b",
+                "model": "qwen3.8:27b",
+                "size": 18254909240,
+                "digest": "47951e4a666180bc2aedfc93c169472f2de783696fe196efbf063f5730ecf163",
+                "details": {
+                  "parent_model": "",
+                  "format": "safetensors",
+                  "family": "",
+                  "families": null,
+                  "parameter_size": "",
+                  "quantization_level": "nvfp4"
+                },
+                "expires_at": "2026-10-25T19:19:41.225981+08:00",
+                "size_vram": 18254909240,
+                "context_length": 4096,
+                "runner": "mlx"
+              }
+            ]
+          }
+        },
+        {
+          "phase": "chat",
+          "before_ps": {
+            "models": [
+              {
+                "name": "qwen3.8:27b",
+                "model": "qwen3.8:27b",
+                "size": 18254909240,
+                "digest": "47951e4a666180bc2aedfc93c169472f2de783696fe196efbf063f5730ecf163",
+                "details": {
+                  "parent_model": "",
+                  "format": "safetensors",
+                  "family": "",
+                  "families": null,
+                  "parameter_size": "",
+                  "quantization_level": "nvfp4"
+                },
+                "expires_at": "2026-10-25T19:19:41.225981+08:00",
+                "size_vram": 18254909240,
+                "context_length": 4096,
+                "runner": "mlx"
+              }
+            ]
+          },
+          "ok": true,
+          "message": "",
+          "response": "The general formula for acyclic alkanes is $\\text{C}_n\\text{H}_{2n+2}$.",
+          "performance": {
+            "model": "ollama:qwen3.8:27b",
+            "total_seconds": 25.991480833967216,
+            "engine_seconds": 25.989172833,
+            "retry_count": 0,
+            "preload_seconds": 0.0007714999956078827,
+            "preload_count": 1,
+            "load_seconds": 0.000470875,
+            "thinking_seconds": 0,
+            "prompt_seconds": 22.452256,
+            "generation_seconds": 3.534518625,
+            "input_tokens": 707,
+            "output_tokens": 33,
+            "cached_input_tokens": 0,
+            "tokens_per_second": 9.33649062324576,
+            "first_token_seconds": 23.662511458969675
+          },
+          "wall_seconds": 25.992571874987334,
+          "after_ps": {
+            "models": [
+              {
+                "name": "qwen3.8:27b",
+                "model": "qwen3.8:27b",
+                "size": 18526752488,
+                "digest": "47951e4a666180bc2aedfc93c169472f2de783696fe196efbf063f5730ecf163",
+                "details": {
+                  "parent_model": "",
+                  "format": "safetensors",
+                  "family": "",
+                  "families": null,
+                  "parameter_size": "",
+                  "quantization_level": "nvfp4"
+                },
+                "expires_at": "2026-10-25T19:20:07.219441+08:00",
+                "size_vram": 18526752488,
+                "context_length": 4096,
+                "runner": "mlx"
+              }
+            ]
+          }
+        },
+        {
+          "phase": "post_reset_preload",
+          "before_ps": {
+            "models": [
+              {
+                "name": "qwen3.8:27b",
+                "model": "qwen3.8:27b",
+                "size": 18526752488,
+                "digest": "47951e4a666180bc2aedfc93c169472f2de783696fe196efbf063f5730ecf163",
+                "details": {
+                  "parent_model": "",
+                  "format": "safetensors",
+                  "family": "",
+                  "families": null,
+                  "parameter_size": "",
+                  "quantization_level": "nvfp4"
+                },
+                "expires_at": "2026-10-25T19:20:07.219441+08:00",
+                "size_vram": 18526752488,
+                "context_length": 4096,
+                "runner": "mlx"
+              }
+            ]
+          },
+          "ok": true,
+          "message": "",
+          "wall_seconds": 0.0014760419726371765,
+          "after_ps": {
+            "models": [
+              {
+                "name": "qwen3.8:27b",
+                "model": "qwen3.8:27b",
+                "size": 18526752488,
+                "digest": "47951e4a666180bc2aedfc93c169472f2de783696fe196efbf063f5730ecf163",
+                "details": {
+                  "parent_model": "",
+                  "format": "safetensors",
+                  "family": "",
+                  "families": null,
+                  "parameter_size": "",
+                  "quantization_level": "nvfp4"
+                },
+                "expires_at": "2026-10-25T19:20:07.236781+08:00",
+                "size_vram": 18526752488,
+                "context_length": 4096,
+                "runner": "mlx"
+              }
+            ]
+          }
+        }
+      ],
+      "initial_ps": null,
+      "final_ps": null
+    }
+  },
+  "content_review": {
+    "reviewer": "manual",
+    "assessments": [
+      "E4B no longer refuses only because the recent lesson is unrelated, but its broad replies are incomplete as revision lists.",
+      "Gemma26 nonthinking final reply contains a chemical error: it gives C_nH_(2n)O for carboxylic acids; saturated acyclic monocarboxylic acids require two oxygen atoms. This response is not accepted as a verified revision list.",
+      "Qwen27 nonthinking final reply includes three homologous-series formulae, but this is not a complete audit of the 9701 syllabus.",
+      "Both focused thinking sanity replies correctly state C_nH_(2n+2) for acyclic alkanes."
+    ],
+    "counterexample_source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C64197"
+  }
+}

@@ -56,32 +56,70 @@ def test_cloud_presets_stay_provider_only_with_thinking_off(name, model):
 
 @pytest.mark.parametrize("name,model,think", [
     ("local_fast", "ollama:gemma4:e4b", False),
-    ("local_precise", "ollama:gemma4:26b-a4b-it-qat", False),
-    ("local_reasoning", "ollama:gpt-oss:20b", False),
-    ("local_deep", "ollama:gpt-oss:20b", True),
+    ("local_precise", "ollama:gemma4:26b-tutor-mlx", False),
+    ("local_reasoning", "mlx:gpt-oss:20b", "low"),
+    ("local_medium", "mlx:gpt-oss:20b", "medium"),
+    ("local_deep", "mlx:gpt-oss:20b", "high"),
 ])
 def test_curated_local_presets_keep_strong_marking_and_explicit_tutor_thinking(name, model, think):
     presets = presets_module()
     preset = presets.PRESETS[name]
     assert preset.provider == "local"
-    assert preset.ai_for("mark") == ("ollama:gemma4:26b-a4b-it-qat", False)
+    assert preset.ai_for("mark") == ("ollama:gemma4:26b-tutor-mlx", False)
     assert [preset.ai_for(mode) for mode in ("explain", "ask")] == [(model, think)] * 2
     assert not presets.is_available(name, ())
-    assert presets.is_available(name, ("ollama:gemma4:26b-a4b-it-qat", model))
-    if model != "ollama:gemma4:26b-a4b-it-qat":
+    assert presets.is_available(name, ("ollama:gemma4:26b-tutor-mlx", model))
+    if model != "ollama:gemma4:26b-tutor-mlx":
         assert not presets.is_available(name, (model,))
 
 
-def test_preset_catalogue_has_two_per_cloud_provider_and_four_local_setups():
+def test_preset_catalogue_has_two_per_cloud_provider_and_five_local_setups():
     presets = presets_module()
-    assert len(presets.PRESETS) == 8
+    assert len(presets.PRESETS) == 9
     assert [preset.provider for preset in presets.PRESETS.values()].count("claude") == 2
     assert [preset.provider for preset in presets.PRESETS.values()].count("chatgpt") == 2
-    assert [preset.provider for preset in presets.PRESETS.values()].count("local") == 4
+    assert [preset.provider for preset in presets.PRESETS.values()].count("local") == 5
     for preset in presets.PRESETS.values():
         assert all(model in config.AI_MODELS for model in preset.required_models)
         if preset.provider == "local":
             assert all(local_models.is_local(model) for model in preset.required_models)
+
+
+def test_medium_preset_previews_then_applies_and_saves_explicit_task_strengths(tmp_path, monkeypatch):
+    monkeypatch.setattr(local_models, "available_models", lambda: tuple(local_models.LOCAL_MODELS))
+    app, vault = app_for(tmp_path, monkeypatch)
+
+    async def steps(pilot):
+        app.action_settings()
+        await pilot.pause()
+        screen = app.screen
+        selected = screen.query_one("#ai_preset", Select)
+        assert "local_medium" in [value for _, value in selected._options]
+        selected.value = "local_medium"
+        await pilot.pause()
+        preview = str(screen.query_one("#preset-preview", Static).content)
+        assert "Gemma 4 26B (local MLX)" in preview and "GPT-OSS 20B (local MLX; text only)" in preview
+        assert "Explaining: GPT-OSS 20B (local MLX; text only) · medium reasoning" in preview
+        assert "Ask the tutor: GPT-OSS 20B (local MLX; text only) · medium reasoning" in preview
+        assert app.settings.ai_for("ask") == ("haiku", False)
+        assert screen.query_one("#ai_ask_model", Select).value == "haiku"
+        screen.query_one("#apply-preset", Button).press()
+        await pilot.pause()
+        assert screen.query_one("#ai_mark_model", Select).value == "ollama:gemma4:26b-tutor-mlx"
+        assert screen.query_one("#ai_mark_think", Switch).value is False
+        for mode in ("explain", "ask"):
+            assert screen.query_one(f"#ai_{mode}_model", Select).value == "mlx:gpt-oss:20b"
+            assert screen.query_one(f"#ai_{mode}_effort", Select).value == "medium"
+        assert selected.value == "local_medium"
+        assert app.settings.ai_for("ask") == ("haiku", False)
+        screen.query_one("#save", Button).press()
+        await pilot.pause()
+        saved = config.Settings.load(vault)
+        choices = {mode: saved.ai_for(mode) for mode in config.AI_MODES}
+        assert choices == {"mark": ("ollama:gemma4:26b-tutor-mlx", False),
+                           "explain": ("mlx:gpt-oss:20b", "medium"), "ask": ("mlx:gpt-oss:20b", "medium")}
+        assert presets_module().matching(choices) == "local_medium"
+    run(app, steps)
 
 
 def test_preview_then_apply_changes_only_task_rows_until_save(tmp_path, monkeypatch):

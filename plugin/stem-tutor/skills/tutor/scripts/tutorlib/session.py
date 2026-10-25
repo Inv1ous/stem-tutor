@@ -11,6 +11,7 @@ import random
 import re
 import time
 import uuid
+from collections.abc import Callable
 from datetime import datetime
 
 from . import almanac, diagnose, grade, model, policy, views
@@ -28,8 +29,10 @@ GENERIC_HINTS = [
 
 
 class Tutor(LessonMixin):
-    def __init__(self, vault: Vault, rng: random.Random | None = None, now=None, one_at_a_time: bool = False):
+    def __init__(self, vault: Vault, rng: random.Random | None = None, now=None, one_at_a_time: bool = False,
+                 ai_visual: Callable[[str], str] | None = None):
         self.vault = vault
+        self.ai_visual = ai_visual or (lambda text: text)
         self.one_at_a_time = one_at_a_time  # the terminal app shows a batch one question at a time; the chat shows it whole
         self.packs = Packs(vault)
         self.rng = rng or random.Random()

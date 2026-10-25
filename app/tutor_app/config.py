@@ -6,7 +6,7 @@ import os
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from .local_models import DEFAULT_VISION_MODEL, LOCAL_MODELS, is_image_helper
+from .local_models import DEFAULT_VISION_MODEL, LOCAL_MODELS, is_image_helper, thinking_levels, thinking_value
 from .codex_models import CODEX_MODELS
 
 REPO = Path(__file__).resolve().parents[2]
@@ -34,10 +34,13 @@ class Settings:
     # per mode: which model, and whether it thinks first (slower, several times the usage). "" = `model`, no thinking
     ai_mark_model: str = ""         # marking written and long answers (the AI examiner)
     ai_mark_think: bool = False
+    ai_mark_effort: str = ""        # native local strength; blank keeps the saved boolean behavior
     ai_explain_model: str = ""      # explain another way, why the answer is right, comments on your own words
     ai_explain_think: bool = False
+    ai_explain_effort: str = ""
     ai_ask_model: str = ""          # ask the tutor (ctrl+t), talking it through, the chat
     ai_ask_think: bool = False
+    ai_ask_effort: str = ""
     usage_display: str = "weekly"   # the terminal's resource indicator: weekly Claude allowance, system RAM, or both
     local_web: bool = True          # retrieve sources for explicit web requests or questions needing fresh information
     local_vision_model: str = DEFAULT_VISION_MODEL  # literal Mac OCR for text-only models; geometry stays unknown
@@ -87,11 +90,19 @@ class Settings:
         for mode in AI_MODES:  # a model the app does not offer (a typo by hand) falls back to the general one
             if good.get(f"ai_{mode}_model") not in ("", *AI_MODELS):
                 good.pop(f"ai_{mode}_model", None)
+            model = good.get(f"ai_{mode}_model") or good.get("model", default.model)
+            effort = good.get(f"ai_{mode}_effort", "")
+            levels = thinking_levels(model)
+            if effort and (effort not in ("off", "low", "medium", "high", "xhigh") or levels and effort not in levels):
+                good.pop(f"ai_{mode}_effort", None)
         return cls(**good)
 
-    def ai_for(self, mode: str) -> tuple[str, bool]:
+    def ai_for(self, mode: str) -> tuple[str, bool | str]:
         """(model, think) for one kind of AI help: mark, explain or ask."""
-        return (getattr(self, f"ai_{mode}_model", "") or self.model, bool(getattr(self, f"ai_{mode}_think", False)))
+        model = getattr(self, f"ai_{mode}_model", "") or self.model
+        effort = getattr(self, f"ai_{mode}_effort", "")
+        think = bool(getattr(self, f"ai_{mode}_think", False))
+        return model, thinking_value(model, effort) if effort and thinking_levels(model) else think
 
     def save(self, vault: Path) -> None:
         from tutorlib.store import write_text

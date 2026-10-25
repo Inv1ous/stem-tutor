@@ -28,6 +28,7 @@ from tutorlib.session import _display_answer
 
 from . import cards, codex_models, local_models, prompts, tts
 from .look import C
+from .output_format import normalise_visual
 from .panels import ChoicePanel, Composer, ContinuePanel, Panel, TickList, ValuePanel
 from .screens import (READ_KEY, AskScreen, ConfirmScreen, LocalActivity, ReadAloud, bar, leave_asking_first,
                       spoken_feedback, spoken_too)
@@ -756,10 +757,11 @@ class ChallengeScreen(ReadAloud, Screen):
         fb, item = self.fb, self.set.questions[self.i]["item"]
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
         view = {"kind": item["kind"], "stem": item["stem"], "options": item.get("options")}
-        selected = self.app.settings.ai_for("mark")[0]
+        selected, selected_think = self.app.settings.ai_for("mark")
         model = selected if local_models.is_local(selected) or codex_models.is_codex(selected) else prompts.REMARK_MODEL
         image = self.app.vault / item["image"] if item.get("image") and local_models.is_local(model) else None
-        think = not local_models.is_local(model) or local_models.supports_thinking(model)
+        think = (selected_think if local_models.thinking_levels(model) and self.app.settings.ai_mark_effort else
+                 local_models.supports_thinking(model)) if local_models.is_local(model) else True
         with LocalActivity(self, model, task="Checking the marking"):
             res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=model, think=think,
                                                 **({"image": image} if image is not None else {}),
@@ -771,9 +773,9 @@ class ChallengeScreen(ReadAloud, Screen):
         if res and res.get("correct") is True and self.set.regrade(self.i, res.get("why", "")):
             fb["correct"] = True
             self.say(cards.card("tutor", "Re-marked: correct ✓",
-                                f"{res.get('why', '')}\n\nIt now counts as right in this set's score."))
+                                f"{res.get('why', '')}\n\nIt now counts as right in this set's score.", ai_output=True))
         elif res:
-            self.say(cards.card("hint", "Re-marked: the mark stands", res.get("why", "")))
+            self.say(cards.card("hint", "Re-marked: the mark stands", res.get("why", ""), ai_output=True))
         else:
             self.say(cards.card("hint", "AI check unavailable", r.message or "Try again later."))
         self.after_answer()
@@ -797,6 +799,7 @@ class ChallengeScreen(ReadAloud, Screen):
             self.mirror(views.card_block("hint", "AI paused", a.last.message))
         else:
             buf = a.last.text or buf
+            buf = normalise_visual(buf)
             w.update(cards.ai(buf))
             self.mirror(views.card_block("ai", "Tutor (AI)", buf))
             self.readable_now(a.last.speech or buf, auto=True, limit=tts.AI_SPEECH_LIMIT)

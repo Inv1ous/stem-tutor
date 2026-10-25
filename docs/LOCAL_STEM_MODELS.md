@@ -2,13 +2,14 @@
 
 Measured on 25 October 2026 on this learner's M4 MacBook Air, 24 GiB unified RAM, with Ollama 0.40.11.
 All downloaded weights and manifests are in `/Volumes/External SSD TB4/LocalAI`; the original three models remain installed.
-Thirteen new packages bring the installed and selectable total to sixteen, with about 113 GiB of SSD space remaining.
+Thirteen additional packages originally brought the total to sixteen models. Two explicit MLX Gemma/GPT choices now
+coexist with their originals. See [MLX models and local strengths](LOCAL_MLX_COMPARISON.md) for current measurements.
 
 ## Choose a setup
 
 Open Settings with F2, select an AI preset, inspect the three task rows, press **Apply**, then **Save**.
 Apply changes only the open dialog. Esc cancels. Presets change exactly the marking, explaining and asking models
-and their three thinking switches. They do not change web access, session length, resource display or other settings.
+and their three thinking choices. They do not change web access, session length, resource display or other settings.
 Manual task edits show Custom. Local presets require every model they select to be installed on the connected SSD.
 
 | Preset | Marking | Explaining and asking | Thinking |
@@ -17,14 +18,16 @@ Manual task edits show Custom. Local presets require every model they select to 
 | Claude: balanced | Sonnet | Sonnet | Off |
 | ChatGPT: fast | GPT-6-Luna | GPT-6-Luna | Low |
 | ChatGPT: strong | GPT-6.1-Sol | GPT-6.1-Sol | Low |
-| Local: careful marking | Gemma 4 26B | Gemma 4 26B | Off |
-| Local: fast tutoring | Gemma 4 26B | Gemma 4 E4B | Off |
-| Local: text reasoning | Gemma 4 26B | GPT-OSS 20B | Marking off; tutoring low |
-| Local: extended reasoning | Gemma 4 26B | GPT-OSS 20B | Marking off; tutoring high |
+| Local: careful marking | Gemma 4 26B MLX | Gemma 4 26B MLX | Off |
+| Local: fast tutoring | Gemma 4 26B MLX | Gemma 4 E4B MLX | Off |
+| Local: text reasoning | Gemma 4 26B MLX | GPT-OSS 20B MLX | Marking off; tutoring low |
+| Local: medium reasoning | Gemma 4 26B MLX | GPT-OSS 20B MLX | Marking off; tutoring medium |
+| Local: extended reasoning | Gemma 4 26B MLX | GPT-OSS 20B MLX | Marking off; tutoring high |
 
 Start with **Local: careful marking** for a steady session without model switches. Choose **Local: fast tutoring**
 for frequent explanations. GPT-OSS is a useful text reasoning alternative, with the image limitations below.
-High GPT-OSS reasoning has not been timed in this audit and can take substantially longer.
+The original audit below did not time High GPT reasoning. The later [MLX comparison](LOCAL_MLX_COMPARISON.md)
+includes Low/Medium/High and confirms substantially longer High responses.
 Claude and ChatGPT keep their existing provider paths and limits; local preparation is not run for their requests.
 
 ## First candidate audit

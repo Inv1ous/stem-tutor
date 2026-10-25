@@ -4,21 +4,50 @@ from __future__ import annotations
 import re
 
 from rich.console import Group
-from rich.markdown import Markdown
+from rich.markdown import ListElement, Markdown
 from rich.markup import escape
 from rich.panel import Panel
 from rich.text import Text
+from rich.segment import Segment
 
 from tutorlib.views import feedback_card
 
 from .look import C
 from .texmath import linearize, to_terminal
+from .output_format import normalise_visual, terminal_visual
 
 CONF = {1: "Guess", 2: "Unsure", 3: "Fairly sure", 4: "Certain"}
 
 
-def md(text: str) -> Markdown:
+class _SpacedList(ListElement):
+    """Rich collapses loose Markdown lists; AI steps keep a visible reading gap."""
+
+    def __rich_console__(self, console, options):
+        number = self.list_start or 1
+        for index, item in enumerate(self.items):
+            if index:
+                yield Segment("\n")
+            if self.list_type == "bullet_list_open":
+                yield from item.render_bullet(console, options)
+            else:
+                yield from item.render_number(console, options, number + index, number + len(self.items))
+
+
+class _AIMarkdown(Markdown):
+    elements = {**Markdown.elements, "bullet_list_open": _SpacedList, "ordered_list_open": _SpacedList}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for block in self.parsed:
+            for token in block.children or ():
+                if token.type == "softbreak":
+                    token.type = "hardbreak"
+
+
+def md(text: str, *, ai_output: bool = False, partial: bool = False) -> Markdown:
     """A single line break stays a break (a table typed as lines is not one run-on line), except mid-sentence."""
+    if ai_output:
+        return _AIMarkdown(terminal_visual(text or "", partial=partial), hyperlinks=False)
     return Markdown(re.sub(r"(?<=\S)\n(?=[^\n])(?!(?<=[a-z,]\n)[a-z])", "  \n", to_terminal(text or "")),
                     hyperlinks=False)
 
@@ -42,10 +71,11 @@ def _carries(panel, role: str, title: str, body: str):
     return panel
 
 
-def card(kind: str, title: str, body: str = "", subtitle: str | None = None) -> Panel:
+def card(kind: str, title: str, body: str = "", subtitle: str | None = None, *, ai_output: bool = False) -> Panel:
     if subtitle and C["frame"]:  # Rich draws a plain subtitle in the frame's quiet grey: too faint to read
         subtitle = Text(subtitle, style=C["dim"])
-    return _carries(framed(md(body) if body else Group(), C[kind], f"[b]{escape(to_terminal(title))}[/b]",
+    body = normalise_visual(body) if ai_output else body
+    return _carries(framed(md(body, ai_output=ai_output) if body else Group(), C[kind], f"[b]{escape(to_terminal(title))}[/b]",
                            title_align="left", subtitle=subtitle, subtitle_align="right"), kind, title, body)
 
 
@@ -70,19 +100,20 @@ def question(view: dict) -> Panel:
     return framed(Group(*parts), C["question"], f"[b]Q{n}[/b] · {escape(' · '.join(tags))}", title_align="left")
 
 
-def feedback(fb: dict, your: str) -> Panel:
+def feedback(fb: dict, your: str, *, ai_output: bool = False) -> Panel:
     role, title, body = feedback_card(fb, your, esc=literal)  # the wording Now and the lesson log use too
-    return framed(md(body), C[role], f"[b]{escape(title)}[/b]", title_align="left")
+    return framed(md(body, ai_output=ai_output), C[role], f"[b]{escape(title)}[/b]", title_align="left")
 
 
 def you(text: str, title: str = "You") -> Panel:
     return _carries(framed(Text(linearize(text)), C["you"], f"[b]{title}[/b]", title_align="right"), "you", title, text)
 
 
-def ai(text: str, title: str = "Tutor (AI)", subtitle: str | None = None) -> Panel:
+def ai(text: str, title: str = "Tutor (AI)", subtitle: str | None = None, *, partial: bool = False) -> Panel:
     details = {"subtitle": Text(subtitle, style=C["muted"]), "subtitle_align": "right"} if subtitle else {}
-    return _carries(framed(md(text or "…"), C["ai"], f"[b]{title}[/b]", title_align="left", **details),
-                    "ai", title, text)
+    canonical = normalise_visual(text, partial=partial)
+    return _carries(framed(md(canonical or "…", ai_output=True, partial=partial), C["ai"],
+                           f"[b]{title}[/b]", title_align="left", **details), "ai", title, canonical)
 
 
 class Live:
@@ -97,7 +128,7 @@ class Live:
         import time
         if time.monotonic() - self.at < self.every:
             return False
-        self.widget.update(ai(text))
+        self.widget.update(ai(text, partial=True))
         self.at = time.monotonic()
         return True
 

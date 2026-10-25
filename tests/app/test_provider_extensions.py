@@ -96,7 +96,11 @@ def test_local_search_sends_only_question_and_adds_real_source_links(tmp_path, m
     async def go():
         client = tutor_ai.TutorAI(tmp_path, binary='/missing/claude', model=MODEL)
         queries, prompts = [], []
-        async def events(payload, timeout, path):
+        async def events(payload, timeout, path='/api/chat'):
+            if path == '/api/chat':
+                assert payload['messages'] == []  # empty preload shares this transport with search
+                yield {'done': True, 'done_reason': 'load'}
+                return
             queries.append(payload['query'])
             yield {'results': [{'title': 'Official syllabus', 'url': 'https://www.cambridgeinternational.org/',
                                 'content': 'Published syllabus details.'}]}
@@ -124,7 +128,11 @@ def test_reset_during_web_lookup_never_dispatches_old_question(tmp_path, monkeyp
     async def go():
         client = tutor_ai.TutorAI(tmp_path, binary='/missing/claude', model=MODEL)
         started, finish, calls = asyncio.Event(), asyncio.Event(), []
-        async def events(payload, timeout, path):
+        async def events(payload, timeout, path='/api/chat'):
+            if path == '/api/chat':
+                assert payload['messages'] == []
+                yield {'done': True, 'done_reason': 'load'}
+                return
             started.set()
             await finish.wait()
             yield {'results': [{'title': 'Official', 'url': 'https://example.org/', 'content': 'Fresh evidence.'}]}

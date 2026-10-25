@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 
 from .codex_models import CODEX_MODELS
-from .local_models import LOCAL_MODELS
+from .local_models import LOCAL_MODELS, is_local, thinking_key
 
 
 @dataclass(frozen=True)
@@ -10,11 +10,11 @@ class Preset:
     label: str
     description: str
     provider: str
-    mark: tuple[str, bool]
-    explain: tuple[str, bool]
-    ask: tuple[str, bool]
+    mark: tuple[str, bool | str]
+    explain: tuple[str, bool | str]
+    ask: tuple[str, bool | str]
 
-    def ai_for(self, mode: str) -> tuple[str, bool]:
+    def ai_for(self, mode: str) -> tuple[str, bool | str]:
         return getattr(self, mode)
 
     @property
@@ -33,20 +33,25 @@ PRESETS = {
                              ("codex:gpt-6.1-sol", False), ("codex:gpt-6.1-sol", False), ("codex:gpt-6.1-sol", False)),
     "local_fast": Preset("Local: fast tutoring",
                          "Gemma 26B marks; Gemma E4B tutors with thinking off. Switching models adds loading time.",
-                         "local", ("ollama:gemma4:26b-a4b-it-qat", False), ("ollama:gemma4:e4b", False),
+                         "local", ("ollama:gemma4:26b-tutor-mlx", False), ("ollama:gemma4:e4b", False),
                          ("ollama:gemma4:e4b", False)),
     "local_precise": Preset("Local: careful marking",
-                            "Recommended all-round setup: Gemma 26B for every task, thinking off. One model avoids switching.",
-                            "local", ("ollama:gemma4:26b-a4b-it-qat", False),
-                            ("ollama:gemma4:26b-a4b-it-qat", False), ("ollama:gemma4:26b-a4b-it-qat", False)),
+                            "Gemma 26B MLX for every task, thinking off. One model avoids switching.",
+                            "local", ("ollama:gemma4:26b-tutor-mlx", False),
+                            ("ollama:gemma4:26b-tutor-mlx", False), ("ollama:gemma4:26b-tutor-mlx", False)),
     "local_reasoning": Preset("Local: text reasoning",
                               "Gemma 26B marks; GPT-OSS tutors at low reasoning. Switching adds loading time; OCR cannot read geometry.",
-                              "local", ("ollama:gemma4:26b-a4b-it-qat", False), ("ollama:gpt-oss:20b", False),
-                              ("ollama:gpt-oss:20b", False)),
+                              "local", ("ollama:gemma4:26b-tutor-mlx", False), ("mlx:gpt-oss:20b", "low"),
+                              ("mlx:gpt-oss:20b", "low")),
+    "local_medium": Preset("Local: medium reasoning",
+                           "Gemma 26B MLX marks with thinking off; GPT-OSS 20B MLX tutors at medium reasoning. "
+                           "Switching adds loading time; GPT-OSS is text only and OCR cannot read geometry.",
+                           "local", ("ollama:gemma4:26b-tutor-mlx", False), ("mlx:gpt-oss:20b", "medium"),
+                           ("mlx:gpt-oss:20b", "medium")),
     "local_deep": Preset("Local: extended reasoning",
-                         "Gemma 26B marks; GPT-OSS tutors at high reasoning. Switching adds loading time; high effort is unbenchmarked.",
-                         "local", ("ollama:gemma4:26b-a4b-it-qat", False), ("ollama:gpt-oss:20b", True),
-                         ("ollama:gpt-oss:20b", True)),
+                         "Gemma 26B marks; GPT-OSS tutors at high reasoning. Switching adds loading time; high effort can take minutes.",
+                         "local", ("ollama:gemma4:26b-tutor-mlx", False), ("mlx:gpt-oss:20b", "high"),
+                         ("mlx:gpt-oss:20b", "high")),
 }
 
 
@@ -59,9 +64,12 @@ def available(connected: tuple[str, ...]) -> list[str]:
     return [name for name in PRESETS if is_available(name, connected)]
 
 
-def matching(choices: dict[str, tuple[str, bool]]) -> str:
+def matching(choices: dict[str, tuple[str, bool | str]]) -> str:
+    def identity(choice):
+        model, value = choice
+        return model, thinking_key(model, value) if is_local(model) else value
     for name, preset in PRESETS.items():
-        if all(choices[mode] == preset.ai_for(mode) for mode in ("mark", "explain", "ask")):
+        if all(identity(choices[mode]) == identity(preset.ai_for(mode)) for mode in ("mark", "explain", "ask")):
             return name
     return "custom"
 

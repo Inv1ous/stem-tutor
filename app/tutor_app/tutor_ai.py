@@ -4,18 +4,19 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import time
-from contextlib import aclosing
+from contextlib import aclosing, asynccontextmanager, nullcontext
 from pathlib import Path
 from typing import AsyncIterator, Callable
 
 from . import codex_models, local_models
-from .ai import Claude, Result
+from .ai import Claude, Result, VISUAL_BRIEF
 from .codex_ai import CodexAI
-from .local_ai import LocalAI
+from .local_ai import LocalAI, LocalError
 from .local_reuse import LocalReplies, reply_key
 from .local_web import LocalWeb, search_query
 from .local_vision import LocalVision, VisionError
 from .local_ocr import NativeOCR
+from .output_fields import normalise_fields, visual_fields
 
 
 class TutorAI(Claude):
@@ -121,6 +122,28 @@ class TutorAI(Claude):
         if local is not None:
             await local.close()
 
+    @asynccontextmanager
+    async def _loading_during(self, model: str, timeout: float = 120):
+        """Start an owned preload only when uncached independent work can hide it."""
+        local = self.local
+        deadline = time.monotonic() + timeout
+        loading = None
+
+        def start_loading() -> bool:
+            nonlocal loading
+            if loading is None and not local._lock.locked():
+                loading = asyncio.create_task(local.warm(model, timeout=max(.001, deadline - time.monotonic())))
+            return loading is not None
+
+        try:
+            yield start_loading
+            if loading is not None:
+                await loading
+        finally:
+            if loading is not None:
+                loading.cancel()
+                await asyncio.gather(loading, return_exceptions=True)
+
     async def _observe_image(self, image: Path | bytes, model: str, timeout: float = 60):
         helper = self.local_vision_model
         native = helper == local_models.DEFAULT_VISION_MODEL
@@ -133,17 +156,24 @@ class TutorAI(Claude):
             self._ocr = NativeOCR()
         if self._vision is None:
             self._vision = LocalVision()
-        self._observing[model] = self._observing.get(model, 0) + 1
-        try:
-            describe = self._ocr.describe_image if native else local.describe_image
-            observed = await self._vision.describe(image, model=helper, describe=describe, timeout=timeout)
-            if local._generation != generation or self._local is not local or local._closed:
-                raise asyncio.CancelledError
-            return observed
-        finally:
-            self._observing[model] -= 1
-            if not self._observing[model]:
-                del self._observing[model]
+        load_started = False
+        async with self._loading_during(model, timeout) if native else nullcontext() as start_loading:
+            async def describe_native(*args, **kwargs):
+                nonlocal load_started
+                load_started = start_loading()  # LocalVision calls this only on an exact observation cache miss.
+                return await self._ocr.describe_image(*args, **kwargs)
+
+            self._observing[model] = self._observing.get(model, 0) + 1
+            try:
+                describe = describe_native if native else local.describe_image
+                observed = await self._vision.describe(image, model=helper, describe=describe, timeout=timeout)
+            finally:
+                self._observing[model] -= 1
+                if not self._observing[model]:
+                    del self._observing[model]
+        if local._generation != generation or self._local is not local or local._closed:
+            raise asyncio.CancelledError
+        return observed, load_started
 
     async def prepare_local(self, model: str, image: Path | None = None) -> None:
         """Observe a text model's diagram while the learner reads, then leave its tutor model loaded."""
@@ -151,9 +181,11 @@ class TutorAI(Claude):
             return
         if image is not None and not local_models.supports_vision(model):
             try:
-                await self._observe_image(image, model)
+                _, load_started = await self._observe_image(image, model)
             except VisionError:
                 return  # a requested answer will report the actionable image error
+            if load_started:
+                return  # native OCR already overlapped the same model's preload
         await self.warm(model=model)
 
     @staticmethod
@@ -161,12 +193,9 @@ class TutorAI(Claude):
         if observed is None or not result.ok:
             return
         result.performance.update(observed.performance)
-        result.performance["total_seconds"] = result.performance.get("total_seconds", 0) + observed.seconds
-        if result.performance.get("first_token_seconds") is not None:
-            result.performance["first_token_seconds"] += observed.seconds
 
     async def stream(self, prompt: str, image: Path | None = None, model: str | None = None,
-                     think: bool | None = None, web_query: str | None = None) -> AsyncIterator[str]:
+                     think: bool | str | None = None, web_query: str | None = None) -> AsyncIterator[str]:
         chosen = model or self.model
         if codex_models.is_codex(chosen):
             if self._local is not None:
@@ -187,37 +216,51 @@ class TutorAI(Claude):
                 async for chunk in reply:
                     yield chunk
             return
+        started = time.monotonic()
         self.on_request(chosen)
         if not self.available_for(chosen):
+            if chosen == "mlx:gpt-oss:20b" and self._local is not None:
+                await self._local._release_mlx()
             self.last = Result(ok=False, status="off", message=self.problem_for(chosen))
             return
         local = self.local
+        try:
+            selected_think = self.think if think is None else think
+            effort = local._effort(chosen, selected_think)
+            think = selected_think if effort is None else effort
+        except LocalError as exc:
+            self.last = local._failure(exc)
+            return
         local.speech = self.speech
         generation = local._generation
         self.last = Result(ok=False, status="error", message="The local reply was cancelled; try again.")
         observed = None
         if image is not None and not local_models.supports_vision(chosen):
             try:
-                observed = await self._observe_image(image, chosen)
+                observed, _ = await self._observe_image(image, chosen)
                 prompt += "\n\n" + observed.context
                 image = None
             except VisionError as exc:
                 self.last = Result(ok=False, status="error", message=str(exc))
                 return
-        web, searched = None, time.monotonic()
+        web, searched = None, 0
         if self.local_web and web_query and (query := search_query(web_query)):
             if self._web is None:
                 self._web = LocalWeb()
             self._searching.add(chosen)
             try:
-                web = await self._web.lookup(query, local._events)
+                async with self._loading_during(chosen) as start_loading:
+                    start_loading()
+                    search_started = time.monotonic()
+                    web = await self._web.lookup(query, local._events)
+                    searched = time.monotonic() - search_started
                 prompt += "\n\n" + web.context
             finally:
                 self._searching.discard(chosen)
             if local._generation != generation or self._local is not local or local._closed:
                 self.last = Result(ok=False, status="error", message="The local conversation was reset; try again.")
                 return
-        searched = time.monotonic() - searched if web is not None else 0
+        prepared = time.monotonic() - started
         try:
             async with aclosing(local.stream(prompt, image=image, model=chosen,
                                               think=self.think if think is None else think)) as reply:
@@ -227,37 +270,49 @@ class TutorAI(Claude):
             self.last = local.last
         if self.last.ok:
             self._with_vision_performance(self.last, observed)
+            self.last.performance["total_seconds"] = max(self.last.performance.get("total_seconds", 0),
+                                                        time.monotonic() - started)
+            if self.last.performance.get("first_token_seconds") is not None:
+                self.last.performance["first_token_seconds"] += prepared
             if web is not None:
                 footer = web.footer()
                 self.last.text += footer
                 if footer:
                     yield footer
                 self.last.performance["search_seconds"] = searched
-                self.last.performance["total_seconds"] = self.last.performance.get("total_seconds", 0) + searched
-                if self.last.performance.get("first_token_seconds") is not None:
-                    self.last.performance["first_token_seconds"] += searched
             self.on_result(self.last)
 
     async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None,
                        timeout: float = 120, system: str | None = None,
-                       speech: bool = False, think: bool = False, image: Path | None = None) -> tuple[dict | None, Result]:
+                       speech: bool = False, think: bool | str = False, image: Path | None = None) -> tuple[dict | None, Result]:
         chosen = model or self.model
+        if system and visual_fields(schema) and VISUAL_BRIEF not in system:
+            system = f"{system}\n\n{VISUAL_BRIEF}"
         if image is not None and not local_models.is_local(chosen):
             return None, Result(ok=False, status="error", message="Diagram input for this marking request requires a local model.")
         if codex_models.is_codex(chosen):
             if self._local is not None:
                 self.on_request(chosen)
-            return await self.codex.one_shot(prompt, schema=schema, model=chosen, timeout=timeout,
-                                              system=system, speech=speech, think=think)
+            data, result = await self.codex.one_shot(prompt, schema=schema, model=chosen, timeout=timeout,
+                                                    system=system, speech=speech, think=think)
+            return normalise_fields(data, schema) if result.ok else data, result
         if not local_models.is_local(chosen):
             if self._local is not None:
                 self.on_request(chosen)
-            return await super().one_shot(prompt, schema=schema, model=model, timeout=timeout,
-                                          system=system, speech=speech, think=think)
+            data, result = await super().one_shot(prompt, schema=schema, model=model, timeout=timeout,
+                                                system=system, speech=speech, think=think)
+            return normalise_fields(data, schema) if result.ok else data, result
         self.on_request(chosen)
         if not self.available_for(chosen):
+            if chosen == "mlx:gpt-oss:20b" and self._local is not None:
+                await self._local._release_mlx()
             return None, Result(ok=False, status="off", message=self.problem_for(chosen))
         local = self.local
+        try:
+            effort = local_models.thinking_key(chosen, think)
+            local._effort(chosen, think)
+        except (ValueError, LocalError) as exc:
+            return None, local._failure(LocalError(str(exc)))
         local.speech = self.speech
         observed, pixels, image_hash = None, None, None
         started = time.monotonic()
@@ -266,7 +321,7 @@ class TutorAI(Claude):
                 pixels = image.read_bytes()
                 image_hash = hashlib.sha256(pixels).hexdigest()
                 if not local_models.supports_vision(chosen):
-                    observed = await self._observe_image(pixels, chosen, min(60, timeout))
+                    observed, _ = await self._observe_image(pixels, chosen, min(60, timeout))
                     prompt += "\n\n" + observed.context
                     pixels = None
             except (OSError, VisionError) as exc:
@@ -281,13 +336,19 @@ class TutorAI(Claude):
         if self._replies is None:
             self._replies = LocalReplies()
         key = reply_key(prompt=prompt, schema=schema, model=chosen, system=system or self.system,
-                        speech=bool(speech and self.speech), think=think, image=image_hash,
+                        speech=bool(speech and self.speech), think=effort, image=image_hash,
                         vision_model=observed.model if observed is not None else None)
         try:
             data, result = await self._replies.run(key, answer, remaining)
         except asyncio.TimeoutError as exc:
             return None, local._failure(exc)
         if result.ok:
+            data = normalise_fields(data, schema)
             self._with_vision_performance(result, observed)
+            elapsed = time.monotonic() - started
+            extra = max(0, elapsed - result.performance.get("total_seconds", 0))
+            if result.performance.get("first_token_seconds") is not None:
+                result.performance["first_token_seconds"] += extra
+            result.performance["total_seconds"] = max(result.performance.get("total_seconds", 0), elapsed)
             self.on_result(result)
         return data, result

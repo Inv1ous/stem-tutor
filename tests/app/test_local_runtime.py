@@ -30,8 +30,59 @@ def event(text="", done=False, **extra):
     return {"model": "qwen3.5:9b", "message": {"role": "assistant", "content": text}, "done": done, **extra}
 
 
+def chat_wire_events(payload, reply):
+    """Adapt legacy answer fixtures to chat's envelope while retaining streaming boundaries."""
+    schema = payload.get("format")
+    properties = schema.get("properties", {}) if isinstance(schema, dict) else {}
+    if "reply" not in properties:
+        return reply
+    pieces = []
+    for item in reply:
+        if item == "wait":
+            continue
+        if not isinstance(item, dict) or not isinstance(item.get("message", {}), dict):
+            return reply
+        content = item.get("message", {}).get("content", "")
+        if not isinstance(content, str):
+            return reply
+        pieces.append(content)
+    text = "".join(pieces)
+    if not text:
+        return reply  # Preserve reasoning-only exhaustion and empty-response fixtures.
+    try:
+        structured = json.loads(text)
+    except ValueError:
+        structured = None
+    if isinstance(structured, dict) and "reply" in structured:
+        return reply
+    answer, marker, speech = text.partition("[[SPEECH]]")
+    if "speech" not in properties:
+        answer, marker, speech = text, "", ""
+    encoded, offset, opened = [], 0, False
+    for item in reply:
+        if item == "wait":
+            encoded.append(item)
+            continue
+        message = item.get("message", {})
+        content = message.get("content", "")
+        visible = answer[offset:offset + len(content)]
+        offset += len(content)
+        wire = ""
+        if content and not opened:
+            wire, opened = '{"reply":"', True
+        wire += json.dumps(visible, ensure_ascii=False)[1:-1]
+        if item.get("done") and opened:
+            wire += '"'
+            if "speech" in properties:
+                wire += ',"speech":' + json.dumps(speech.strip() if marker else "", ensure_ascii=False)
+            wire += "}"
+        encoded.append({**item, "message": {**message, "content": wire}})
+    return encoded
+
+
 @asynccontextmanager
-async def server(monkeypatch, replies, *, chunked=True, paths=None):
+async def server(monkeypatch, replies, *, chunked=True, paths=None, record_preloads=False, raw_chat=False):
+    """Script generation traffic; optionally record automatically acknowledged preload traffic too."""
     requests, closed, tasks = [], asyncio.Event(), set()
 
     async def handle(reader, writer):
@@ -43,10 +94,17 @@ async def server(monkeypatch, replies, *, chunked=True, paths=None):
                 paths.append(header.split(b"\r\n", 1)[0].decode())
             headers = dict(line.split(b": ", 1) for line in header.split(b"\r\n")[1:] if b": " in line)
             payload = json.loads(await reader.readexactly(int(headers[b"Content-Length"])))
-            requests.append(payload)
-            reply = replies.pop(0)
+            if header.split(b"\r\n", 1)[0] == b"POST /api/chat HTTP/1.1" and payload.get("messages") == []:
+                if record_preloads:
+                    requests.append(payload)
+                reply = [event(done=True, done_reason="load")]
+            else:
+                requests.append(payload)
+                reply = replies.pop(0)
             if callable(reply):
                 reply = reply(payload)
+            if not isinstance(reply, int) and not raw_chat:
+                reply = chat_wire_events(payload, reply)
             if isinstance(reply, int):
                 body = b'{"error":"model is not installed"}'
                 writer.write(f"HTTP/1.1 {reply} Error\r\nContent-Length: {len(body)}\r\n\r\n".encode() + body)
@@ -113,7 +171,7 @@ def test_stream_speech_and_performance_stay_outside_answer(models, monkeypatch):
             assert result.usage == {}
             assert requests[0]["model"] == "qwen3.5:9b" and requests[0]["think"] is True
             assert "Tutor brief" in requests[0]["messages"][0]["content"]
-            assert "[[SPEECH]]" in requests[0]["messages"][0]["content"]
+            assert requests[0]["format"]["properties"]["speech"] == {"type": "string"}
     asyncio.run(go())
 
 
@@ -178,7 +236,7 @@ def test_native_image_failure_never_becomes_a_successful_text_only_request(model
         monkeypatch.setattr(type(image), "read_bytes", unreadable)
 
     async def go():
-        async with server(monkeypatch, [[event("text-only fallback", done=True)]]) as (requests, _):
+        async with server(monkeypatch, [[event("text-only fallback", done=True)]], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             assert [part async for part in client.stream("read this diagram", image=image, model=MODEL)] == []
             assert not client.last.ok and "image" in client.last.message.lower()
@@ -190,7 +248,7 @@ def test_native_image_failure_never_becomes_a_successful_text_only_request(model
 @pytest.mark.parametrize("operation", ["one_shot", "describe_image"])
 def test_empty_image_bytes_never_reach_local_inference(models, monkeypatch, operation):
     async def go():
-        async with server(monkeypatch, [[event('{"diagram":"fallback"}', done=True)]]) as (requests, _):
+        async with server(monkeypatch, [[event('{"diagram":"fallback"}', done=True)]], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             if operation == "describe_image":
                 data, result = await client.describe_image(b"", "read", schema={}, model=MODEL, timeout=1,
@@ -314,7 +372,7 @@ def test_unsupported_thinking_is_actionable_and_never_silently_disabled(models, 
     install_model(models, model)
 
     async def go():
-        async with server(monkeypatch, []) as (requests, _):
+        async with server(monkeypatch, [], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             if operation == "stream":
                 assert [part async for part in client.stream("help", model=model, think=True)] == []
@@ -329,7 +387,7 @@ def test_unsupported_thinking_is_actionable_and_never_silently_disabled(models, 
 
 def test_describe_image_uses_the_inference_queue_deadline(models, monkeypatch):
     async def go():
-        async with server(monkeypatch, []) as (requests, _):
+        async with server(monkeypatch, [], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             await client._lock.acquire()
             try:
@@ -347,7 +405,7 @@ def test_describe_image_never_sends_an_image_to_a_text_only_model(models, monkey
     install_model(models, model)
 
     async def go():
-        async with server(monkeypatch, []) as (requests, _):
+        async with server(monkeypatch, [], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             data, result = await client.describe_image(b"image", "read", schema={}, model=model, timeout=.1,
                                                         system="transcribe")
@@ -362,17 +420,20 @@ def test_gpt_oss_uses_named_effort_and_preserves_low_during_context_retry(models
 
     async def go():
         exhausted = {"message": {"thinking": "private", "content": ""}, "done": True, "done_reason": "length"}
-        async with server(monkeypatch, [[event(done=True)], [exhausted],
+        async with server(monkeypatch, [[exhausted],
                                         [event('{"feedback":"Good."}', done=True)],
-                                        [event("reply", done=True)]]) as (requests, _):
+                                        [event("reply", done=True)]], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             assert (await client.warm(model)).ok
             data, result = await client.one_shot("mark", model=model, think=False)
             assert data == {"feedback": "Good."} and result.ok
             assert [part async for part in client.stream("help", model=model, think=True)] == ["reply"]
-            assert "think" not in requests[0] and requests[0]["messages"] == []
-            assert [request["think"] for request in requests[1:]] == ["low", "low", "high"]
-            assert [request["options"]["num_ctx"] for request in requests[1:3]] == [8192, 16384]
+            preloads = [request for request in requests if not request["messages"]]
+            generations = [request for request in requests if request["messages"]]
+            assert all("think" not in request for request in preloads)
+            assert [request["think"] for request in generations] == ["low", "low", "high"]
+            assert [request["options"]["num_ctx"] for request in generations[:2]] == [8192, 16384]
+            assert [request["options"]["num_ctx"] for request in preloads] == [8192, 8192, 16384, 16384]
             await client.close()
     asyncio.run(go())
 
@@ -436,7 +497,7 @@ def test_removed_ssd_never_sends_request(models, monkeypatch):
     models.rename(models.with_name("unplugged"))
 
     async def go():
-        async with server(monkeypatch, []) as (requests, _):
+        async with server(monkeypatch, [], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             assert [x async for x in client.stream("help", model=MODEL)] == []
             assert not client.last.ok and "SSD" in client.last.message and requests == []
@@ -498,8 +559,11 @@ Path(os.environ["FAKE_OLLAMA_LOG"]).write_text(json.dumps({"args": sys.argv[1:],
 async def handle(reader, writer):
     header = await reader.readuntil(b"\\r\\n\\r\\n")
     size = int(next(x.split(b":", 1)[1] for x in header.split(b"\\r\\n") if x.startswith(b"Content-Length:")))
-    await reader.readexactly(size)
-    body = b'{"message":{"content":"local"},"done":true}\\n'
+    payload = json.loads(await reader.readexactly(size))
+    response = {"message": {"content": json.dumps({"reply": "local"})}, "done": True}
+    if payload["messages"] == []:
+        response = {"message": {"content": ""}, "done": True, "done_reason": "load"}
+    body = (json.dumps(response) + "\\n").encode()
     writer.write(f"HTTP/1.1 200 OK\\r\\nContent-Length: {len(body)}\\r\\n\\r\\n".encode() + body)
     await writer.drain()
     writer.close()
@@ -689,8 +753,8 @@ def test_cancel_during_service_launch_keeps_process_owned_until_close(models, mo
                                              ("ollama:qwen3.8:27b", "10m")])
 def test_preload_preserves_reply_history_and_sets_model_keepalive(models, monkeypatch, model, keep_alive):
     async def go():
-        async with server(monkeypatch, [[event(done=True)], [event("reply", done=True)],
-                                        [event('{"feedback":"Good."}', done=True)]]) as (requests, _):
+        async with server(monkeypatch, [[event("reply", done=True)],
+                                        [event('{"feedback":"Good."}', done=True)]], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             original = client.last
             result = await client.warm(model)
@@ -700,11 +764,13 @@ def test_preload_preserves_reply_history_and_sets_model_keepalive(models, monkey
                         "stream": False, "keep_alive": keep_alive}
             if model == "ollama:gemma4:26b-a4b-it-qat":
                 expected["options"] = {"num_ctx": 8192}
-            assert requests[0] == expected
+            assert requests == [expected]
             assert [x async for x in client.stream("help", model=model)] == ["reply"]
             data, result = await client.one_shot("mark", model=model)
             assert data == {"feedback": "Good."} and result.ok
-            assert len(requests[1]["messages"]) == 2
+            generations = [request for request in requests if request["messages"]]
+            assert len(generations) == 2 and all(len(request["messages"]) == 2 for request in generations)
+            assert [request for request in requests if not request["messages"]] == [expected] * 3
             assert all(request["keep_alive"] == keep_alive for request in requests)
             expected_options = {"num_ctx": 8192} if model == "ollama:gemma4:26b-a4b-it-qat" else None
             assert all(request.get("options") == expected_options for request in requests)
@@ -715,20 +781,20 @@ def test_preload_preserves_reply_history_and_sets_model_keepalive(models, monkey
 def test_one_shot_waits_for_stream_and_preload_uses_same_queue(models, monkeypatch):
     async def go():
         async with server(monkeypatch, [[event("reply"), event(done=True)],
-                                        [event('{"feedback":"Good."}', done=True)],
-                                        [event(done=True)]]) as (requests, _):
+                                        [event('{"feedback":"Good."}', done=True)]], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             stream = client.stream("help", model=MODEL)
             assert await anext(stream) == "reply"
             shot = asyncio.create_task(client.one_shot("mark", model=MODEL))
             warm = asyncio.create_task(client.warm(MODEL))
             await asyncio.sleep(0.02)
-            assert len(requests) == 1 and not shot.done() and not warm.done()
+            assert len(requests) == 2 and not shot.done() and not warm.done()
             assert [x async for x in stream] == []
             data, result = await shot
             assert data == {"feedback": "Good."} and result.ok
             assert (await warm).ok
-            assert requests[1]["messages"][-1]["content"] == "mark" and requests[2]["messages"] == []
+            assert [bool(request["messages"]) for request in requests] == [False, True, False, True, False]
+            assert requests[3]["messages"][-1]["content"] == "mark"
             await client.close()
     asyncio.run(go())
 
@@ -736,7 +802,7 @@ def test_one_shot_waits_for_stream_and_preload_uses_same_queue(models, monkeypat
 @pytest.mark.parametrize("operation", ["one_shot", "warm"])
 def test_request_deadline_includes_waiting_for_inference_queue(models, monkeypatch, operation):
     async def go():
-        async with server(monkeypatch, []) as (requests, _):
+        async with server(monkeypatch, [], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             await client._lock.acquire()
             call = client.one_shot("help", model=MODEL, timeout=0.02) if operation == "one_shot" else client.warm(MODEL, timeout=0.02)
@@ -758,7 +824,7 @@ def test_request_deadline_includes_waiting_for_inference_queue(models, monkeypat
 def test_cancel_queued_one_shot_does_not_unlock_an_active_stream(models, monkeypatch):
     async def go():
         async with server(monkeypatch, [[event("reply"), event(done=True)],
-                                        [event('{"feedback":"Good."}', done=True)]]) as (requests, _):
+                                        [event('{"feedback":"Good."}', done=True)]], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             stream = client.stream("help", model=MODEL)
             assert await anext(stream) == "reply"
@@ -767,7 +833,7 @@ def test_cancel_queued_one_shot_does_not_unlock_an_active_stream(models, monkeyp
             task.cancel()
             with pytest.raises(asyncio.CancelledError):
                 await task
-            assert client._lock.locked() and len(requests) == 1
+            assert client._lock.locked() and len(requests) == 2
             assert [x async for x in stream] == []
             data, result = await client.one_shot("mark", model=MODEL)
             assert data == {"feedback": "Good."} and result.ok
@@ -780,7 +846,7 @@ def test_reset_revokes_previously_queued_work_without_launch_or_result_mutation(
     from tutor_app.ai import Result
 
     async def go():
-        async with server(monkeypatch, [[event('{"feedback":"fresh"}', done=True)]]) as (requests, _):
+        async with server(monkeypatch, [[event('{"feedback":"fresh"}', done=True)]], record_preloads=True) as (requests, _):
             client = local_ai.LocalAI("brief")
             previous = client.last = Result(text="active result")
             await client._lock.acquire()
@@ -949,7 +1015,7 @@ def test_progress_marks_a_different_model_waiting_in_queue(models, monkeypatch):
     other = "ollama:gemma4:26b-a4b-it-qat"
 
     async def go():
-        async with server(monkeypatch, [[event("Visible"), event(done=True)], [event(done=True)]]) as _:
+        async with server(monkeypatch, [[event("Visible"), event(done=True)]]) as _:
             client = local_ai.LocalAI("brief")
             stream = client.stream("Help", model=MODEL)
             assert await anext(stream) == "Visible"
@@ -989,7 +1055,11 @@ def test_same_model_queued_request_gets_fresh_progress_when_it_starts(models, mo
             if len(calls) == 1:
                 preload_started.set()
                 await release.wait()
-            yield event('{"feedback":"Good."}' if payload["messages"] else "", done=True)
+            if payload["messages"]:
+                reply = event('{"feedback":"Good."}', done=True)
+                yield chat_wire_events(payload, [reply])[0]
+            else:
+                yield event(done=True, done_reason="load")
 
         monkeypatch.setattr(client, "_events", events)
         preload = asyncio.create_task(client.warm(MODEL))
