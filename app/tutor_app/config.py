@@ -6,7 +6,8 @@ import os
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from .local_models import LOCAL_MODELS
+from .local_models import DEFAULT_VISION_MODEL, LOCAL_MODELS, is_image_helper
+from .codex_models import CODEX_MODELS
 
 REPO = Path(__file__).resolve().parents[2]
 DEFAULT_VAULT = REPO.parent / "STEM Tutor"
@@ -20,7 +21,7 @@ def vault_path() -> Path:
     return Path(os.environ.get("STEM_TUTOR_VAULT") or DEFAULT_VAULT)
 
 
-AI_MODELS = ("haiku", "sonnet", "opus", *LOCAL_MODELS)
+AI_MODELS = ("haiku", "sonnet", "opus", *LOCAL_MODELS, *CODEX_MODELS)
 USAGE_DISPLAYS = ("weekly", "ram", "both")
 SPEED_RANGE = (0.7, 1.5)  # reading aloud: the same as tts.SPEED_RANGE (tts imports the engine; this file must not)
 AI_MODES = ("mark", "explain", "ask")
@@ -38,6 +39,8 @@ class Settings:
     ai_ask_model: str = ""          # ask the tutor (ctrl+t), talking it through, the chat
     ai_ask_think: bool = False
     usage_display: str = "weekly"   # the terminal's resource indicator: weekly Claude allowance, system RAM, or both
+    local_web: bool = True          # retrieve sources for explicit web requests or questions needing fresh information
+    local_vision_model: str = DEFAULT_VISION_MODEL  # literal Mac OCR for text-only models; geometry stays unknown
     own_words_feedback: bool = True  # AI comments on your "in your own words" answers
     open_obsidian: bool = True      # show Now.md in Obsidian when a session starts
     minutes: int = 40               # default session length
@@ -69,6 +72,8 @@ class Settings:
             good.pop("theme", None)
         if good.get("usage_display") not in USAGE_DISPLAYS:
             good.pop("usage_display", None)
+        if not is_image_helper(good.get("local_vision_model")):
+            good.pop("local_vision_model", None)
         if "font_size" in good and good["font_size"] and not 6 <= good["font_size"] <= 96:
             good.pop("font_size")  # not a size any terminal uses: keep the profile's
         if "tts_speed" in good:

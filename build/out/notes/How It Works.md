@@ -12,6 +12,14 @@ _Version 2.6.0_
 > **Resource indicator** can show weekly Claude usage, system RAM, or both. Saving Settings only announces the session
 > length when you change it. New challenge questions retain their own Sonnet/Opus selector.
 
+> [!tip] Local progress and ChatGPT choices
+> Local replies now show preparation, thinking and elapsed time while you wait. Gemma reserves room for the answer
+> after thinking, and identical structured replies can be reused without another generation. The Ollama window can
+> stay closed: the tutor starts its background service when needed. Settings also offers ChatGPT models through your
+> existing Codex sign-in (`codex login`). These use your ChatGPT/Codex allowance, separately from Claude.
+> **Local AI: web sources when needed** looks up explicit requests and fresh information using only your typed
+> question, not your lesson context or grades. It needs internet access and Ollama sign-in; switch it off for offline work.
+
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
 It is built around how memory actually works. It teaches one idea at a time, makes you *recall* things instead of re-reading them, brings each idea back just before you would forget it, and keeps track of what works best for **you**.
@@ -509,11 +517,12 @@ When you are **not** typing, the single letters **t e h o** do the same as ctrl+
 
 ---
 
-## 13. The AI, and your Claude usage limit
+## 13. The AI models and your usage limits
 
 Most of the tutor needs **no AI at all**: choosing questions, marking multiple choice and numbers, scheduling reviews, the lessons' explanations (written in advance and checked), blurt checking, your notes, profile and records. That's why it's quick and cheap.
 
-The AI (Claude, on your normal Claude subscription) is only used when it genuinely helps:
+AI is only used when it helps. Choose Claude, an installed local model, or ChatGPT separately for marking,
+explaining and asking in Settings:
 
 - when you **ask a question** (ctrl+t) or chat from the menu;
 - when you ask for an idea **explained a different way** (ctrl+r), or for a past-paper answer to be explained;
@@ -523,9 +532,44 @@ The AI (Claude, on your normal Claude subscription) is only used when it genuine
 - writing a teaching card for an idea that doesn't have one yet (done once, then saved);
 - a short **summary of your profile**, only when you press **a** on *What the tutor knows about you*.
 
-It runs quietly in the background, so the Claude app doesn't need to be open. It uses the small, fast **Haiku** model by default, sends only the few lines it needs each time, and starts a fresh, short conversation for every new idea and every new part of a session. Each request stays small. It answers straight away rather than thinking at length first (that was most of the wait and most of the usage); only writing a challenge question and a re-mark think first. Marking returns its verdict in a single step, and the next conversation is started before you need it.
+Claude runs quietly in the background, so its app doesn't need to be open. The default remains the small, fast
+**Haiku** model. It sends the context it needs and starts a fresh conversation for every new idea and each new part
+of a session. Use the Think first switches when you want more reasoning; thinking can add a substantial wait.
 
-**The top bar** shows `AI ●` (on) or `AI ○` (off), plus how many AI replies and tokens this session used.
+Local models run on this Mac. Keep the LocalAI SSD connected, but the Ollama app window can stay closed. The next
+task's model loads while you read or type. Keeping one model selected avoids the cost of switching models. An
+animated status shows whether it is preparing, waiting, thinking or generating. Gemma has extra context space so
+thinking does not fill the whole window before its answer. Thinking remains your choice, and can still take minutes.
+Identical successful structured requests can be reused for ten minutes in the same session; new questions and
+streaming conversations are not replaced with cached answers. Progress and performance stay out of your notes.
+
+Settings offers eight **AI presets**: two Claude, two ChatGPT and four local setups. Select one, read the preview,
+press **Apply**, then **Save**. Esc cancels. A preset changes only the three models and their Think first switches;
+your session length, web setting and other preferences stay as you set them. Manual changes show Custom.
+Start with **Local: careful marking** for Gemma 26B throughout, avoiding model reloads. **Local: fast tutoring** uses
+Gemma E4B for explaining and asking, with Gemma 26B marking. The two text reasoning presets use GPT-OSS for tutoring
+at low or high reasoning; high reasoning can add a long wait. All four local presets keep Gemma 26B marking.
+Other downloaded families remain in the individual selectors for experiments. DeepSeek R1 and Liquid LFM2.5
+always think first, so their switches stay on. DeepSeek distills can spend minutes reasoning even on this Mac's GPU.
+
+Text-only local models receive literal text read from images by this Mac. Repeated images can reuse that text while
+you study. Text recognition can miss labels and units, and cannot read graph geometry: choose a native vision model
+or explain the diagram when geometry matters. The first use may take longer while the on-device helper starts.
+No image is sent to a cloud model by this helper. Missing images and failed reading produce a visible error.
+
+The optional local web setting searches only when your typed question asks for web sources or fresh information.
+Normal syllabus explanations and marking stay offline. Search uses Ollama's hosted search service, takes a short
+bounded excerpt from each source and adds source links. It does not send the lesson packet, grades or profile.
+If search is unavailable, the tutor asks the model to tell you it could not verify current facts.
+
+ChatGPT choices use the existing Codex CLI sign-in and your ChatGPT/Codex allowance. Run `codex login` if needed.
+For these choices, Think first means high reasoning; switching it off means low reasoning. Replies arrive in
+completed message blocks. The tutor keeps its own history and does not give the model access to your project files
+or tools. Selecting ChatGPT does not use Claude or fall back to a billed API key.
+
+**The top bar** shows `AI ●` (on) or `AI ○` (off). Claude's reply/token counters and weekly allowance apply only to
+Claude. Local performance appears separately in the terminal. Settings can replace the weekly indicator with system
+RAM usage or show both. ChatGPT uses its own subscription allowance.
 
 - If your **Claude limit is reached**, the tutor says when it resets, carries on without AI, and turns AI back on by itself after that time.
 - If it says you need to **sign in**, type `claude auth login` in Terminal once. The tutor tries again a few minutes later by itself.

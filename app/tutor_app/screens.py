@@ -1,12 +1,14 @@
 """Screens: Home, topic picker, the study session, summary, and small pop-ups (ask, help, settings)."""
 from __future__ import annotations
 
+import asyncio
 import re
 import textwrap
 import time
 from datetime import date, datetime, timedelta
 
 from rich.text import Text
+from rich.spinner import Spinner
 from textual import on, work
 from textual.app import ComposeResult
 from textual.binding import Binding
@@ -20,7 +22,7 @@ from tutorlib import almanac, clock, insights, model, policy, report, views
 from tutorlib.lesson import GOALS
 
 from . import ai as ai_mod
-from . import cards, config, local_models, look, mac, prompts, tts
+from . import cards, codex_models, config, local_models, look, mac, presets, prompts, tts
 from . import __version__
 from .look import C
 from .panels import (ChoicePanel, ChoosePanel, Composer, ContinuePanel, LongPanel, Panel, ReflectPanel, TextPanel,
@@ -63,6 +65,100 @@ def spoken_feedback(fb: dict, your: str = "", explanation: str | None = None) ->
 def spoken_too(app) -> dict:
     """one_shot's keyword for an on-the-spot comment: with read aloud on, the same reply carries a spoken version."""
     return {"speech": True} if getattr(getattr(app, "ai", None), "speech", False) else {}
+
+
+def image_for_local(tutor, model: str) -> dict:
+    """Only local structured marking accepts the focused question's diagram."""
+    return {"image": prompts.focus_image(tutor)} if local_models.is_local(model) else {}
+
+
+class LocalActivity:
+    """Honest, terminal-only activity for a local request; Claude keeps its existing display."""
+    PHASES = {"preparing": "Preparing local model…", "queued": "Waiting for another local request…",
+              "waiting": "Waiting for local model…", "thinking": "Thinking…", "generating": "Generating reply…",
+              "reading_image": "Reading question image…", "searching": "Searching the web…",
+              "done": "Finishing reply…", "error": "Local request stopped."}
+
+    def __init__(self, screen: Screen, model: str | None, widget: Static | None = None, task: str = ""):
+        self.screen, self.model, self.widget, self.task = screen, model, widget, task
+        self.auxiliary = None  # answer-only hides the transcript; status still sits above the answer panel
+        self.local, self.owns_widget = local_models.is_local(model), widget is None
+        self.started, self.at, self.text, self.timer = time.monotonic(), 0.0, "", None
+        self.live = cards.Live(widget) if widget is not None else None
+        self.spinner = Spinner("dots", style=C["ai"])
+
+    def __enter__(self):
+        if not self.local:
+            return self
+        logs = self.screen.query("#log")
+        hidden_log = bool(logs and not logs.first().display)
+        if self.widget is None:
+            self.widget = Static(classes="entry local-progress")
+            if hidden_log:
+                self.screen.mount(self.widget, before=self.screen.query_one("#panel"))
+            elif logs:
+                logs.first().mount(self.widget)
+                logs.first().scroll_end(animate=False)
+            elif (profile := self.screen.query("#insights")):
+                profile.first().parent.mount(self.widget, before=profile.first())
+                self.screen.call_after_refresh(self.widget.scroll_visible, animate=False)
+            else:
+                self.widget = None
+                return self
+        elif hidden_log:
+            self.auxiliary = Static(classes="local-progress")
+            self.screen.mount(self.auxiliary, before=self.screen.query_one("#panel"))
+        self.widget.add_class("local-progress")
+        self._draw(initial=True)
+        self.timer = self.screen.set_interval(0.2, self._draw)
+        return self
+
+    def status(self, initial: bool = False) -> str:
+        state = {} if initial else getattr(self.screen.app.ai, "progress_for", lambda model: {})(self.model)
+        if state.get("started", self.started) < self.started:
+            state = {}  # an earlier preload or reply must not supply this request's status
+        phase = "preparing" if initial else state.get("phase", "waiting")
+        text = f"{self.PHASES.get(phase, self.PHASES['waiting'])} · {int(time.monotonic() - self.started)}s elapsed"
+        if state.get("tokens", 0) > 0:
+            text += f" · {state['tokens']} tokens"
+        return f"{self.task} · {text}" if self.task else text
+
+    def _draw(self, initial: bool = False) -> None:
+        if self.widget is None:
+            return
+        self.at = time.monotonic()
+        status = self.status(initial)
+        if self.text and self.auxiliary is None:
+            self.widget.update(cards.ai(self.text, subtitle=status))
+        else:
+            self.spinner.update(text=Text(status, style=C["muted"]))
+            target = self.auxiliary if self.auxiliary is not None else self.widget
+            target.update(cards.framed(self.spinner, C["ai"],
+                                       local_models.LOCAL_MODELS[self.model], title_align="left"))
+            if self.text:
+                self.widget.update(cards.ai(self.text))  # the transcript stays hidden in answer-only view
+
+    def update(self, text: str) -> bool:
+        if not self.local:
+            return self.live.update(text)
+        self.text = text
+        if time.monotonic() - self.at < 0.15:
+            return False
+        self._draw()
+        return True
+
+    def __exit__(self, kind, error, traceback) -> None:
+        if self.timer is not None:
+            self.timer.stop()
+        if not self.local or self.widget is None:
+            return
+        self.widget.remove_class("local-progress")
+        if self.auxiliary is not None:
+            self.auxiliary.remove()
+        if self.owns_widget:
+            self.widget.remove()
+        elif kind is not None and issubclass(kind, asyncio.CancelledError):
+            self.widget.update(cards.card("hint", "Local AI stopped", "The local request was cancelled."))
 
 
 class ReadAloud:
@@ -1020,6 +1116,8 @@ class SessionScreen(ReadAloud, Screen):
 
     def ask_question(self, view: dict, say: str | None = None) -> None:
         self.view = view
+        if view.get("image"):
+            self.call_after_refresh(self._prepare_question_image, view)
         self.fold()
         card = self.say(cards.question(view), mirror=None)
         if say:  # under the question, where Now and the log have it
@@ -1030,6 +1128,19 @@ class SessionScreen(ReadAloud, Screen):
         self.readable_now(parts)  # ctrl+e reads the question; it is never read by itself
         self.query_one("#log", VerticalScroll).call_after_refresh(self._show_top, card)  # after say's scroll_end
         self.answer_panel(view)
+
+    def _prepare_question_image(self, view: dict) -> None:
+        """Observe an image once while the learner reads, without preparing a question already replaced."""
+        key = ((self.tutor.session or {}).get("id"), view.get("n"), view.get("image"))
+        if not self.is_current or self.view is not view or key == getattr(self, "_prepared_image", None):
+            return
+        for mode in ("mark", "ask"):
+            model = self.app.settings.ai_for(mode)[0]
+            if (local_models.is_local(model) and not local_models.supports_vision(model)
+                    and self.app.ai_available(mode)):
+                self._prepared_image = key
+                self.app.prepare_local_ai(mode)
+                return
 
     def _show_top(self, card: Static) -> None:
         """A question taller than the log opens at its start, not its end (alt+↑ alt+↓ scroll the rest)."""
@@ -1217,8 +1328,11 @@ class SessionScreen(ReadAloud, Screen):
         if self.ai_ok("mark"):
             self.panel(ContinuePanel("Checking your wording against the mark points…", buttons=[]))
             model, think = self.app.settings.ai_for("mark")
-            res, _ = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, data.get("your", "")),
-                                                schema=prompts.JUDGE, model=model, think=think, **spoken_too(self.app))
+            schema = prompts.local_judge_schema(points) if local_models.is_local(model) else prompts.JUDGE
+            with LocalActivity(self, model, task="Marking answer"):
+                res, _ = await self.app.ai.one_shot(prompts.judge(view.get("stem", ""), points, data.get("your", "")),
+                                                    schema=schema, model=model, think=think,
+                                                    **spoken_too(self.app), **image_for_local(self.tutor, model))
             if ai_mod.matches_points(res, points):
                 met = sum(1 for p in res["points"] if p.get("met"))
                 score = met / max(1, len(points))
@@ -1274,8 +1388,11 @@ class SessionScreen(ReadAloud, Screen):
         self.panel(ContinuePanel("The AI examiner is marking your answer…", buttons=[]))
         points = [f"{p.get('mark', '')} {p.get('point', '')}" for p in self.scheme]
         model, think = self.app.settings.ai_for("mark")
-        res, r = await self.app.ai.one_shot(prompts.judge(self.view.get("stem", ""), points, self.long_text),
-                                            schema=prompts.JUDGE, model=model, think=think, **spoken_too(self.app))
+        schema = prompts.local_judge_schema(points) if local_models.is_local(model) else prompts.JUDGE
+        with LocalActivity(self, model, task="Marking answer"):
+            res, r = await self.app.ai.one_shot(prompts.judge(self.view.get("stem", ""), points, self.long_text),
+                                                schema=schema, model=model, think=think,
+                                                **spoken_too(self.app), **image_for_local(self.tutor, model))
         if not ai_mod.matches_points(res, points):  # give the tick list back, with your ticks, so you can still mark it yourself
             self.say(cards.card("hint", "AI check unavailable", r.message or "Mark it yourself."))
             self.mark_panel("Tick every mark point your answer earns (space), then ctrl+s to submit.", data["ticked"],
@@ -1297,9 +1414,11 @@ class SessionScreen(ReadAloud, Screen):
         fb, view = self.last_fb, self.view or {}
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
         selected = self.app.settings.ai_for("mark")[0]
-        model = selected if local_models.is_local(selected) else prompts.REMARK_MODEL
-        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=model, think=True,
-                                            **spoken_too(self.app))
+        model = selected if local_models.is_local(selected) or codex_models.is_codex(selected) else prompts.REMARK_MODEL
+        think = local_models.supports_thinking(model) if local_models.is_local(model) else True
+        with LocalActivity(self, model, task="Checking the marking"):
+            res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=model, think=think,
+                                                **spoken_too(self.app), **image_for_local(self.tutor, model))
         if res:
             fb["remarked"] = True  # one re-mark an answer; a call that failed can be tried again
             self.readable_now(["Re-marked: correct." if res.get("correct") is True else "Re-marked: the mark stands.",
@@ -1321,7 +1440,7 @@ class SessionScreen(ReadAloud, Screen):
     def ai_ok(self, mode: str = "explain") -> bool:
         return self.app.ai_available(mode)
 
-    def stream(self, prompt: str, then_continue: bool = False, mode: str = "ask") -> None:
+    def stream(self, prompt: str, then_continue: bool = False, mode: str = "ask", web_query: str | None = None) -> None:
         if not self.ai_ok(mode):
             a = self.app.ai
             msg = (a.problem_for(self.app.settings.ai_for(mode)[0]) if self.app.settings.ai
@@ -1335,10 +1454,10 @@ class SessionScreen(ReadAloud, Screen):
             if then_continue:
                 self.panel(ContinuePanel(buttons=[("continue", "Continue ⏎")]))
             return
-        self._stream(prompt, then_continue, mode)
+        self._stream(prompt, then_continue, mode, web_query)
 
     @work(exclusive=True, group="ai")
-    async def _stream(self, prompt: str, then_continue: bool, mode: str = "ask") -> None:
+    async def _stream(self, prompt: str, then_continue: bool, mode: str = "ask", web_query: str | None = None) -> None:
         a = self.app.ai
         w = self.say(cards.ai("…"), mirror=None)  # Now and the log get the whole reply once it ends
         buf = ""
@@ -1348,11 +1467,12 @@ class SessionScreen(ReadAloud, Screen):
         log = self.tutor._lesson_log()
         keys = [prompts.key_of(self.tutor, int(n)) for n in numbers]
         model, think = self.app.settings.ai_for(mode)  # chosen in Settings for this kind of help
-        live = cards.Live(w)
-        async for chunk in a.stream(prompt, image=prompts.focus_image(self.tutor), model=model, think=think):
-            buf += chunk
-            if not keys and self.act is act and self.tutor.session is session and live.update(buf):
-                self.query_one("#log", VerticalScroll).scroll_end(animate=False)
+        with LocalActivity(self, model, w) as live:
+            async for chunk in a.stream(prompt, image=prompts.focus_image(self.tutor), model=model, think=think,
+                                         **({"web_query": web_query} if local_models.is_local(model) and web_query else {})):
+                buf += chunk
+                if not keys and self.act is act and self.tutor.session is session and live.update(buf):
+                    self.query_one("#log", VerticalScroll).scroll_end(animate=False)
         speech = a.last.speech if a.last.ok else ""
         buf = (a.last.text or buf) if a.last.ok else buf  # whole and tidy: a code fence the spoken line opened is gone
         withheld = any(ai_mod.leaks(buf, *k) or (speech and ai_mod.leaks(speech, *k)) for k in keys)
@@ -1394,12 +1514,13 @@ class SessionScreen(ReadAloud, Screen):
         import json
         for kc in kcs:
             model, think = self.app.settings.ai_for("explain")
-            if not local_models.is_local(model):
+            if not local_models.is_local(model) and not codex_models.is_codex(model):
                 think = False  # Claude cards keep their original fast, non-thinking default.
-                if not local_models.is_local(self.app.ai.model):
+                if not local_models.is_local(self.app.ai.model) and not codex_models.is_codex(self.app.ai.model):
                     model = None  # the original call uses the client's default (Ask) model
-            data, _ = await self.app.ai.one_shot(prompts.teach_card(self.tutor, kc), schema=prompts.CARD,
-                                                model=model, think=think)
+            with LocalActivity(self, model, task="Writing teaching notes"):
+                data, _ = await self.app.ai.one_shot(prompts.teach_card(self.tutor, kc), schema=prompts.CARD,
+                                                    model=model, think=think)
             if data and all(data.get(f) for f in ("motivate", "establish", "note")):
                 p = self.app.vault / ".tutor" / "cache" / "teach" / f"{kc}.json"
                 try:
@@ -1413,7 +1534,7 @@ class SessionScreen(ReadAloud, Screen):
         def got(q: str | None) -> None:
             if q:
                 self.say(cards.you(q))
-                self.stream(prompts.ask(self.tutor, q, self.kc))
+                self.stream(prompts.ask(self.tutor, q, self.kc), web_query=q)
         self.app.push_screen(AskScreen(), got)
 
     def action_explain(self) -> None:
@@ -1603,11 +1724,13 @@ class ChatScreen(ReadAloud, Screen):
         # A paused session keeps its answer guard, including while a reply is streaming.
         keys = [prompts.key_of(t, int(n)) for n in (t.session or {}).get("presented", {})]
         model, think = self.app.settings.ai_for("ask")
-        live = cards.Live(w)
-        async for chunk in a.stream(prompts.ask(self.app.tutor, q, None), model=model, think=think):  # with the last questions answered
-            buf += chunk
-            if not keys and live.update(buf):
-                log.scroll_end(animate=False)
+        with LocalActivity(self, model, w) as live:
+            async for chunk in a.stream(prompts.ask(self.app.tutor, q, None), model=model, think=think,
+                                         **({"web_query": q, "image": prompts.focus_image(t)}
+                                            if local_models.is_local(model) else {})):
+                buf += chunk
+                if not keys and live.update(buf):
+                    log.scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
             self.app.tutor.show("hint", a.last.message, "AI paused")
@@ -1682,11 +1805,14 @@ class InsightsScreen(Screen):
     async def _summarise(self) -> None:
         from tutorlib.store import write_json
         t = self.app.tutor
-        model = self.app.settings.ai_for("explain")[0]
-        if not local_models.is_local(model) and not local_models.is_local(self.app.ai.model):
-            model = None  # Claude summaries keep the same default model as before local AI was added.
-        data, res = await self.app.ai.one_shot(prompts.profile_summary(report.insights_markdown(t)),
-                                               schema=prompts.PROFILE, model=model)
+        model, think = self.app.settings.ai_for("explain")
+        if not local_models.is_local(model) and not codex_models.is_codex(model):
+            think = False
+            if not local_models.is_local(self.app.ai.model) and not codex_models.is_codex(self.app.ai.model):
+                model = None  # Claude summaries keep their original default model and non-thinking behaviour.
+        with LocalActivity(self, model, task="Explaining your profile"):
+            data, res = await self.app.ai.one_shot(prompts.profile_summary(report.insights_markdown(t)),
+                                                   schema=prompts.PROFILE, model=model, think=think)
         if not (data and data.get("summary")):
             self.app.notify(res.message or "The AI tutor couldn't write a summary just now.", severity="warning")
             return
@@ -1872,6 +1998,8 @@ class SettingsScreen(ModalScreen):
         s = self.app.settings
         self._local_models = local_models.available_models()
         self._selected_models = {mode: s.ai_for(mode)[0] for mode in config.AI_MODES}
+        self._requested_preset = presets.matching({mode: s.ai_for(mode) for mode in config.AI_MODES})
+        self._applied_preset = self._requested_preset
         choices = self._model_choices()
         available = {value for _, value in choices}
         with VerticalScroll(id="settings"):  # a short window scrolls to Save instead of cutting it off
@@ -1883,10 +2011,22 @@ class SettingsScreen(ModalScreen):
                 with Horizontal(classes="row"):
                     yield Switch(value=getattr(s, key), id=key)
                     yield Static(label)
+            with Horizontal(classes="row ai-row"):
+                yield Static("AI preset")
+                yield Select(self._preset_choices(), value=self._requested_preset
+                             if self._requested_preset in self._available_presets() else Select.NULL,
+                             prompt="Choose a preset" if self._requested_preset in self._available_presets()
+                             else "Reconnect LocalAI SSD", id="ai_preset", allow_blank=True, compact=True)
+                yield Button("Apply", id="apply-preset", compact=True)
+            yield Static("", id="preset-status", classes="hint")
+            yield Static("", id="preset-preview", classes="hint")
             yield Static("AI for each kind of help: the model, and whether it thinks first. Haiku without thinking "
                          "is fastest and uses least of your limit; Sonnet about 3x, Opus about 5x; thinking first is "
                          "slower and can use several times as much again. Local models appear while your LocalAI SSD "
-                         "is connected; they use this Mac's RAM and no Claude allowance.", classes="hint")
+                         "is connected; they use this Mac's RAM and no Claude allowance. ChatGPT choices use your "
+                         "Codex sign-in and ChatGPT limits; think first selects high reasoning, otherwise low. "
+                         "GPT-OSS also uses low/high reasoning. DeepSeek R1 and Liquid LFM2.5 always think first. "
+                         "Local thinking can take much longer before the first answer appears.", classes="hint")
             for mode, label in (("mark", "Marking answers"), ("explain", "Explaining"), ("ask", "Ask the tutor")):
                 model, think = s.ai_for(mode)
                 with Horizontal(classes="row ai-row"):
@@ -1895,6 +2035,9 @@ class SettingsScreen(ModalScreen):
                     yield Select(choices, value=model if model in available else Select.NULL,
                                  prompt="Model: keep saved model" if model in available else "Model: reconnect LocalAI SSD",
                                  id=f"ai_{mode}_model", allow_blank=True, compact=True)
+            with Horizontal(classes="row"):
+                yield Switch(value=s.local_web, id="local_web")
+                yield Static("Local AI: web sources when needed (sends only your question to search)")
             with Horizontal(classes="row ai-row"):
                 yield Static("Resource indicator")
                 yield Select([("Weekly usage", "weekly"), ("RAM usage", "ram"),
@@ -1931,15 +2074,131 @@ class SettingsScreen(ModalScreen):
 
     def on_mount(self) -> None:
         self._fit()
+        self._task_snapshot = self._task_choices()
+        for mode in config.AI_MODES:
+            self._update_thinking(mode)
+        self._update_preset_preview()
+        self._update_preset_status()
         self.query_one("#ai", Switch).focus()  # the first setting, not the scrolling box around them
         self.set_interval(1, self._refresh_models)
 
     def _model_choices(self) -> list[tuple[str, str]]:
-        return MODEL_CHOICES + [(f"Model: {local_models.LOCAL_MODELS[name]}", name) for name in self._local_models]
+        return (MODEL_CHOICES + [(f"Model: {local_models.LOCAL_MODELS[name]}", name) for name in self._local_models]
+                + [(f"Model: {label}", name) for name, label in codex_models.CODEX_MODELS.items()])
 
     def _selected_model(self, mode: str) -> str:
         selected = self.query_one(f"#ai_{mode}_model", Select).value
         return self._selected_models[mode] if selected is Select.NULL else str(selected)
+
+    def _task_choices(self) -> dict[str, tuple[str, bool]]:
+        return {mode: (self._selected_model(mode), self.query_one(f"#ai_{mode}_think", Switch).value)
+                for mode in config.AI_MODES}
+
+    def _update_thinking(self, mode: str, chosen: bool = False) -> None:
+        model = self._selected_model(mode)
+        supported = not local_models.is_local(model) or local_models.supports_thinking(model)
+        required = local_models.always_thinks(model)
+        thinking = self.query_one(f"#ai_{mode}_think", Switch)
+        if required:
+            thinking.value = True
+        elif chosen and not supported:
+            thinking.value = False  # opening Settings or saving another field never rewrites an old choice
+        thinking.disabled = required or not supported and not thinking.value
+        thinking.tooltip = ("This model always thinks before answering." if required else None if supported else
+                            "This model has no thinking mode. You can turn off a saved On choice.")
+
+    def _available_presets(self) -> list[str]:
+        return ["custom", *presets.available(self._local_models)]
+
+    def _preset_choices(self) -> list[tuple[str, str]]:
+        return [("Custom task choices", "custom"),
+                *[(presets.PRESETS[name].label, name) for name in presets.available(self._local_models)]]
+
+    def _update_preset_status(self) -> None:
+        label = presets.PRESETS[self._applied_preset].label if self._applied_preset in presets.PRESETS else "Custom"
+        self.query_one("#preset-status", Static).update(f"Current AI setup: {label}. Save keeps it.")
+
+    def _update_preset_preview(self) -> None:
+        preset = presets.PRESETS.get(self._requested_preset)
+        enabled = bool(preset and presets.is_available(self._requested_preset, self._local_models))
+        self.query_one("#apply-preset", Button).disabled = not enabled
+        if preset is None:
+            text = "Choose a preset to preview it. Apply changes these AI choices; Save keeps them."
+            choices = self._task_choices()
+        else:
+            text = "Preview only. Apply sets task choices; Save keeps them.\n" + preset.description
+            choices = {mode: preset.ai_for(mode) for mode in config.AI_MODES}
+            if not enabled:
+                text = "Reconnect LocalAI SSD: this preset needs every listed local model. " + text
+        for mode, label in (("mark", "Marking"), ("explain", "Explaining"), ("ask", "Ask the tutor")):
+            model, think = choices[mode]
+            thinking = f"thinking {'on' if think else 'off'}"
+            if local_models.is_local(model) and not local_models.supports_thinking(model):
+                thinking = "thinking unavailable" + (" (saved on)" if think else "")
+            elif codex_models.is_codex(model) or model == "ollama:gpt-oss:20b":
+                thinking = f"{'high' if think else 'low'} reasoning"
+            text += f"\n{label}: {presets.model_label(model)} · {thinking}"
+        self.query_one("#preset-preview", Static).update(text)
+
+    def _refresh_presets(self) -> None:
+        selected = self.query_one("#ai_preset", Select)
+        available = self._requested_preset in self._available_presets()
+        selected.prompt = "Choose a preset" if available else "Reconnect LocalAI SSD"
+        selected.set_options(self._preset_choices())
+        selected.value = self._requested_preset if available else Select.NULL
+        self._update_preset_preview()
+
+    @on(Select.Changed, "#ai_preset")
+    def preset_selected(self, event: Select.Changed) -> None:
+        if not hasattr(self, "_task_snapshot") or event.value != event.select.value:
+            return
+        if event.value is not Select.NULL:
+            self._requested_preset = str(event.value)
+        elif self._requested_preset in self._available_presets():
+            self._requested_preset = "custom"
+            event.select.value = "custom"
+        self._update_preset_preview()
+
+    @on(Select.Changed)
+    @on(Switch.Changed)
+    def task_choice_changed(self, event) -> None:
+        if not hasattr(self, "_task_snapshot") or event.control.id not in {
+                f"ai_{mode}_{field}" for mode in config.AI_MODES for field in ("model", "think")}:
+            return
+        if isinstance(event, Select.Changed) and event.value != event.select.value:
+            return
+        if isinstance(event, Select.Changed):
+            mode = next(mode for mode in config.AI_MODES if event.control.id == f"ai_{mode}_model")
+            self._update_thinking(mode, chosen=self._selected_model(mode) != self._task_snapshot[mode][0])
+        else:
+            mode = next(mode for mode in config.AI_MODES if event.control.id == f"ai_{mode}_think")
+            self._update_thinking(mode)
+        choices = self._task_choices()
+        if choices == self._task_snapshot:
+            return  # mounting, applying and SSD refreshes also emit selection events
+        self._task_snapshot = choices
+        self._applied_preset = self._requested_preset = "custom"
+        self.query_one("#ai_preset", Select).value = "custom"
+        self._update_preset_preview()
+        self._update_preset_status()
+
+    @on(Button.Pressed, "#apply-preset")
+    def apply_preset(self) -> None:
+        self._refresh_models()  # recheck a drive removed immediately before Apply
+        if (self._requested_preset not in presets.PRESETS
+                or not presets.is_available(self._requested_preset, self._local_models)):
+            self._update_preset_preview()
+            return
+        preset = presets.PRESETS[self._requested_preset]
+        for mode in config.AI_MODES:
+            model, think = preset.ai_for(mode)
+            self._selected_models[mode] = model
+            self.query_one(f"#ai_{mode}_model", Select).value = model
+            self.query_one(f"#ai_{mode}_think", Switch).value = think
+            self._update_thinking(mode, chosen=True)
+        self._task_snapshot = self._task_choices()
+        self._applied_preset = self._requested_preset
+        self._update_preset_status()
 
     def _refresh_models(self) -> None:
         """A drive can arrive after launch; unchanged options leave the open dropdown and focus alone."""
@@ -1956,6 +2215,8 @@ class SettingsScreen(ModalScreen):
             select.prompt = "Model: keep saved model" if selected in valid else "Model: reconnect LocalAI SSD"
             select.set_options(choices)
             select.value = selected if selected in valid else Select.NULL
+            self._update_thinking(mode)
+        self._refresh_presets()
 
     def on_resize(self) -> None:
         self._fit()
@@ -1990,7 +2251,7 @@ class SettingsScreen(ModalScreen):
         self._refresh_models()  # reflect a drive removed just before Save, keeping the chosen local model
         s = self.app.settings
         old_speech, old_ai = s.tts_enabled, s.ai
-        for key in ("ai", "own_words_feedback", "open_obsidian", "answer_only", "tts_enabled", "tts_auto"):
+        for key in ("ai", "own_words_feedback", "open_obsidian", "answer_only", "tts_enabled", "tts_auto", "local_web"):
             setattr(s, key, self.query_one(f"#{key}", Switch).value)
         s.tts_voice = str(self.query_one("#tts_voice", Select).value)
         s.usage_display = str(self.query_one("#usage_display", Select).value)
@@ -2020,6 +2281,7 @@ class SettingsScreen(ModalScreen):
         if typed_size.isdigit() and self.app.font_base and int(typed_size) != self.app.text_size():
             self.app.set_text_size(int(typed_size))  # applied on the tab and kept at once
         self.app.ai.model, self.app.ai.think = s.ai_for("ask")  # the conversation started ahead is the one asked most
+        self.app.ai.local_web = s.local_web
         if not s.ai or not any(local_models.is_local(s.ai_for(mode)[0]) for mode in config.AI_MODES):
             self.app.stop_local_preload()
             self.app.run_worker(self.app.ai.release_local(), group="local-release")

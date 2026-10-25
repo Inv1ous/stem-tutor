@@ -1,0 +1,717 @@
+{
+  "date": "2026-10-25",
+  "hardware": "MacBook Air M4, 24 GiB unified RAM",
+  "ollama": "0.40.11",
+  "limitations": "Small synthetic diagnostic sample, not universal educational accuracy. Accepted cases require semantics plus exact point identity/order; Gemma 26B all twelve ordered flag vectors were manually correct, four baseline labels rewritten. Cold switching, image preparation, web and contention are additional latency.",
+  "installed_candidates": [
+    {
+      "model": "qwen3.5:2b",
+      "layer_bytes": 3117603745,
+      "runner": "mlx",
+      "format": "safetensors",
+      "details": {
+        "format": "safetensors",
+        "family": "qwen3_5",
+        "families": null,
+        "parameter_size": "2.2B",
+        "quantization_level": "mxfp8",
+        "runner": "mlx"
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "thinking",
+        "tools"
+      ]
+    },
+    {
+      "model": "qwen3.5:4b",
+      "layer_bytes": 3973455737,
+      "runner": "mlx",
+      "format": "safetensors",
+      "details": {
+        "format": "safetensors",
+        "family": "qwen3_5",
+        "families": null,
+        "parameter_size": "4.5B",
+        "quantization_level": "nvfp4",
+        "runner": "mlx"
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "thinking",
+        "tools"
+      ]
+    },
+    {
+      "model": "gemma4:e2b",
+      "layer_bytes": 7477041191,
+      "runner": "mlx",
+      "format": "safetensors",
+      "details": {
+        "format": "safetensors",
+        "family": "gemma4",
+        "families": null,
+        "parameter_size": "5.2B",
+        "quantization_level": "nvfp4",
+        "runner": "mlx"
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "audio",
+        "tools",
+        "thinking"
+      ]
+    },
+    {
+      "model": "gemma4:e4b",
+      "layer_bytes": 9462047876,
+      "runner": "mlx",
+      "format": "safetensors",
+      "details": {
+        "format": "safetensors",
+        "family": "gemma4",
+        "families": null,
+        "parameter_size": "8.1B",
+        "quantization_level": "nvfp4",
+        "runner": "mlx"
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "audio",
+        "tools",
+        "thinking"
+      ]
+    },
+    {
+      "model": "ministral-3:3b",
+      "layer_bytes": 2953841152,
+      "runner": "llamacpp",
+      "format": "gguf",
+      "details": {
+        "format": "gguf",
+        "family": "mistral3",
+        "families": [
+          "mistral3"
+        ],
+        "parameter_size": "3.8B",
+        "quantization_level": "Q4_K_M"
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools"
+      ]
+    },
+    {
+      "model": "phi4-mini:3.8b",
+      "layer_bytes": 2491877074,
+      "runner": "llamacpp",
+      "format": "gguf",
+      "details": {
+        "format": "gguf",
+        "family": "phi3",
+        "families": [
+          "phi3"
+        ],
+        "parameter_size": "3.8B",
+        "quantization_level": "Q4_K_M"
+      },
+      "capabilities": [
+        "completion",
+        "tools"
+      ]
+    },
+    {
+      "model": "gpt-oss:20b",
+      "layer_bytes": 13793442478,
+      "runner": "llamacpp",
+      "format": "gguf",
+      "details": {
+        "format": "gguf",
+        "family": "gpt-oss",
+        "families": [
+          "gpt-oss"
+        ],
+        "parameter_size": "20.9B",
+        "quantization_level": "MXFP4",
+        "runner": "llamacpp"
+      },
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ]
+    },
+    {
+      "model": "granite3.2-vision:2b",
+      "layer_bytes": 2437853224,
+      "runner": "llamacpp",
+      "format": "gguf",
+      "details": {
+        "format": "gguf",
+        "family": "granite",
+        "families": [
+          "granite",
+          "clip"
+        ],
+        "parameter_size": "2.5B",
+        "quantization_level": "Q4_K_M"
+      },
+      "capabilities": [
+        "tools",
+        "completion",
+        "vision"
+      ]
+    }
+  ],
+  "manifest_fingerprints": [
+    {
+      "model": "qwen3.5:2b",
+      "manifest_sha256": "8a230d7333ad1d13bf1afab0d170382b40ad95e6a50f48b1ff650d96a1651861"
+    },
+    {
+      "model": "qwen3.5:4b",
+      "manifest_sha256": "3b6225ff07117608fdd54a729806671494c57980272eab2b7e7dd2b972423c1c"
+    },
+    {
+      "model": "gemma4:e2b",
+      "manifest_sha256": "4b893f18d8d684c37055525725f7eba749ea2a3b1a2b89224edc27a1c6a8cd50"
+    },
+    {
+      "model": "gemma4:e4b",
+      "manifest_sha256": "0314351184bcfc7f88ba25bdaec896325ed6adcc5371674a988be35cd120101d"
+    },
+    {
+      "model": "ministral-3:3b",
+      "manifest_sha256": "1814c22fd82af275b2aa88073a99ba71c9030a11b7449571d407a4594d68034e"
+    },
+    {
+      "model": "phi4-mini:3.8b",
+      "manifest_sha256": "b9db5daa27583d278796ac1fceaa934d09d09b3688a82e5889d089535b8c7a38"
+    },
+    {
+      "model": "gpt-oss:20b",
+      "manifest_sha256": "a0b38d0b19f7c5dd3589e5e6598edfed41c81969d73f9e4774011c1328e9dad8"
+    },
+    {
+      "model": "granite3.2-vision:2b",
+      "manifest_sha256": "6205ba131a3026971964521f99c35e8054cfb5094c8b1812335c7a2b7e3d4d63"
+    },
+    {
+      "model": "gemma4:26b-a4b-it-qat",
+      "manifest_sha256": "5e56c800fcac818de724528a3350ed3e1df2a54ca56542796630e981db769ff8"
+    }
+  ],
+  "baseline": [
+    {
+      "model": "gemma4:e4b",
+      "runner": "mlx",
+      "format": "safetensors",
+      "quantization": "nvfp4",
+      "capabilities": [
+        "completion",
+        "vision",
+        "audio",
+        "tools",
+        "thinking"
+      ],
+      "cold_mark_seconds": 16.424104875011835,
+      "warm_mark_correct": 11,
+      "warm_mark_total": 12,
+      "warm_mark_median_seconds": 4.236812020506477,
+      "warm_mark_max_seconds": 5.120945832983125,
+      "warm_mark_under_15s": 12,
+      "false_positive_points": 1,
+      "tutor_under_40s": 3,
+      "tutor_max_seconds": 6.882397625013255,
+      "aligned_mark_cases": 12
+    },
+    {
+      "model": "gemma4:26b-a4b-it-qat",
+      "runner": null,
+      "format": "gguf",
+      "quantization": "Q4_0",
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "cold_mark_seconds": 24.886350042012054,
+      "warm_mark_correct": 8,
+      "warm_mark_total": 12,
+      "warm_mark_median_seconds": 9.864478687493829,
+      "warm_mark_max_seconds": 14.202862709003966,
+      "warm_mark_under_15s": 12,
+      "false_positive_points": 0,
+      "tutor_under_40s": 3,
+      "tutor_max_seconds": 9.927882541960571,
+      "aligned_mark_cases": 8
+    },
+    {
+      "model": "gpt-oss:20b",
+      "runner": "llamacpp",
+      "format": "gguf",
+      "quantization": "MXFP4",
+      "capabilities": [
+        "completion",
+        "tools",
+        "thinking"
+      ],
+      "cold_mark_seconds": 29.92535933299223,
+      "warm_mark_correct": 10,
+      "warm_mark_total": 12,
+      "warm_mark_median_seconds": 7.2712836244900245,
+      "warm_mark_max_seconds": 10.29628995899111,
+      "warm_mark_under_15s": 12,
+      "false_positive_points": 0,
+      "tutor_under_40s": 3,
+      "tutor_max_seconds": 10.877482292009518,
+      "aligned_mark_cases": 11
+    },
+    {
+      "model": "ministral-3:3b",
+      "runner": null,
+      "format": "gguf",
+      "quantization": "Q4_K_M",
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools"
+      ],
+      "cold_mark_seconds": 10.6507853330113,
+      "warm_mark_correct": 3,
+      "warm_mark_total": 12,
+      "warm_mark_median_seconds": 5.327002937498037,
+      "warm_mark_max_seconds": 6.9428415420115925,
+      "warm_mark_under_15s": 12,
+      "false_positive_points": 2,
+      "tutor_under_40s": 3,
+      "tutor_max_seconds": 7.683501499996055,
+      "aligned_mark_cases": 5
+    },
+    {
+      "model": "phi4-mini:3.8b",
+      "runner": null,
+      "format": "gguf",
+      "quantization": "Q4_K_M",
+      "capabilities": [
+        "completion",
+        "tools"
+      ],
+      "cold_mark_seconds": 13.248501333990134,
+      "warm_mark_correct": 8,
+      "warm_mark_total": 12,
+      "warm_mark_median_seconds": 8.363702041504439,
+      "warm_mark_max_seconds": 9.543110375001561,
+      "warm_mark_under_15s": 12,
+      "false_positive_points": 5,
+      "tutor_under_40s": 3,
+      "tutor_max_seconds": 14.53958949999651,
+      "aligned_mark_cases": 12
+    },
+    {
+      "model": "qwen3.5:4b",
+      "runner": "mlx",
+      "format": "safetensors",
+      "quantization": "nvfp4",
+      "capabilities": [
+        "completion",
+        "vision",
+        "thinking",
+        "tools"
+      ],
+      "cold_mark_seconds": 24.26731175003806,
+      "warm_mark_correct": 8,
+      "warm_mark_total": 12,
+      "warm_mark_median_seconds": 11.084876895998605,
+      "warm_mark_max_seconds": 15.376166875008494,
+      "warm_mark_under_15s": 11,
+      "false_positive_points": 1,
+      "tutor_under_40s": 3,
+      "tutor_max_seconds": 16.053145666024648,
+      "aligned_mark_cases": 12
+    },
+    {
+      "model": "qwen3.5:2b",
+      "runner": "mlx",
+      "format": "safetensors",
+      "quantization": "mxfp8",
+      "capabilities": [
+        "completion",
+        "vision",
+        "thinking",
+        "tools"
+      ],
+      "cold_mark_seconds": 17.42557395802578,
+      "warm_mark_correct": 4,
+      "warm_mark_total": 12,
+      "warm_mark_median_seconds": 9.091310270508984,
+      "warm_mark_max_seconds": 20.49137204204453,
+      "warm_mark_under_15s": 11,
+      "false_positive_points": 4,
+      "tutor_under_40s": 3,
+      "tutor_max_seconds": 25.463246749946848,
+      "aligned_mark_cases": 11
+    },
+    {
+      "model": "gemma4:e2b",
+      "runner": "mlx",
+      "format": "safetensors",
+      "quantization": "nvfp4",
+      "capabilities": [
+        "completion",
+        "vision",
+        "audio",
+        "tools",
+        "thinking"
+      ],
+      "cold_mark_seconds": 13.689836959005333,
+      "warm_mark_correct": 5,
+      "warm_mark_total": 12,
+      "warm_mark_median_seconds": 2.070385979488492,
+      "warm_mark_max_seconds": 4.337683958990965,
+      "warm_mark_under_15s": 12,
+      "false_positive_points": 0,
+      "tutor_under_40s": 3,
+      "tutor_max_seconds": 0.9374198750010692,
+      "aligned_mark_cases": 6
+    }
+  ],
+  "manual_quality_audit": {
+    "phi4-mini:3.8b": {
+      "marking": "Reject as a recommended grader: 8/12 exact cases; five false-positive mark points. It invented claims in the student answer and misapplied the chain rule.",
+      "tutoring": "Generally explains the three concepts, but the negative-gradient answer inaccurately calls x squared strictly positive for every real x, and exceeds the existing word target."
+    },
+    "qwen3.5:2b": {
+      "marking": "Reject as a recommended grader: 4/12 exact cases; four false-positive points and one point-alignment failure.",
+      "tutoring": "Reject for the tested calculus explanation: it invents y=-x^2, falsely claims the slope of x^2 is always positive, and contradicts itself over more than 500 words. Other short explanations do not repair this failure."
+    },
+    "qwen3.5:4b": {
+      "marking": "8/12 exact non-thinking cases; one false-positive point and several unjustified method-mark deductions. Prefer a stronger model for automatic grading.",
+      "tutoring": "The three main concepts are mostly explained, but it calls CAIE 9701 Physics, misreads an incorrect acceleration unit as missing units, and corrects itself mid-sentence on the negative-gradient example. Several answers exceed the existing 120-word target. Less damaging than 2B, but not a demonstrated quality default."
+    },
+    "gpt-oss:20b": {
+      "marking": "10/12 accepted exact cases; zero false-positive points. One missing row caused the safe alignment guard to reject a result; one correct Newton point was under-awarded.",
+      "tutoring": "Generally useful, but the catalyst explanation conflates the ratio of actual forward/reverse reaction rates with the equilibrium constant. Actual rates are equal at equilibrium; rate constants and concentration ratios must be distinguished. It also uses LaTeX parenthesis/bracket delimiters despite the existing dollar-delimiter instruction."
+    },
+    "gemma4:26b-a4b-it-qat": {
+      "marking": "All twelve ordered met-flag vectors are correct on manual inspection, with zero false-positive points. Only eight cases pass the current exact label-identity guard: four correct ordered labels are rewritten as equivalent LaTeX fractions or scientific notation. This is an operational schema/identity-format failure, not four wrong marking decisions. Preserve the guard and consider const per-point schema constraints locally.",
+      "manually_verified_ordered_flag_cases": 12,
+      "current_guard_accepted_cases": 8
+    },
+    "gemma4:e4b": {
+      "marking": "11/12 exact baseline cases, including one unsupported Newton-law point. The final production enum/count schema passed that same targeted case on replay, but the original error remains evidence of variability.",
+      "tutoring": "All three tested concepts were explained sensibly and quickly. Appropriate fast tutoring candidate with the usual limitations of this small diagnostic sample.",
+      "vision": "Failed both geometry scans; correct text or ticks did not imply reliable geometry."
+    },
+    "gemma4:e2b": {
+      "marking": "Extra or duplicated invented mark rows caused multiple safe rejections; one chain-rule marking explanation incorrectly replaced the coefficient 12 with 4. Do not blindly truncate the extra rows.",
+      "tutoring": "The negative-gradient explanation incorrectly says x squared decreases as x decreases at the negative x example. Extreme speed does not establish useful correctness."
+    },
+    "ministral-3:3b": {
+      "marking": "3/12 accepted exact baseline cases, with nine ordered flag vectors matching on manual review. Several copied point labels were changed or replaced by student text, and two unsupported points were awarded on incorrect answers.",
+      "tutoring": "Fast and often useful, but the equilibrium explanation incorrectly defines equilibrium yield as a reactant/product ratio. Not selected as a precision grader.",
+      "vision": "Failed the geometry gate."
+    }
+  },
+  "baseline_protocol": "Eight models; one cold marking request, twelve warm correct/incorrect marking cases, three full tutoring cases each. Production SYSTEM/context/JUDGE; context 8192; no output cap; native sampling. Thinking off where supported, omitted where unsupported; GPT-OSS low. Original JUDGE baseline, final enum/count calibrations separate.",
+  "new_installed_total": 13,
+  "installed_and_selectable_total": 16,
+  "ssd_free_gib": 113.4,
+  "family_expansion": {
+    "completed_synthetic_calls": 30,
+    "protocol": "Final production enum/count marking schema, native sampling, 8192 context, no output cap. DeepSeek and Liquid explicit true; Llama non-thinking; MiMo true and false controls separate. Slow DeepSeek gates intentionally partial; unattempted cases excluded. Initial Llama/Liquid timing overlapped inactive model residency and downloads. Later runs one resident model, full GPU.",
+    "installed_candidates": [
+      {
+        "model": "deepseek-r1:8b",
+        "manifest_sha256": "74d96b7535b833f204302c98c133fd534ca29704757387c3e99511a7fa563756",
+        "all_layer_files_on_ssd": true,
+        "layer_bytes": 5225376417,
+        "runner": null,
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen3",
+          "families": [
+            "qwen3"
+          ],
+          "parameter_size": "8.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "capabilities": [
+          "tools",
+          "thinking",
+          "completion"
+        ],
+        "thinking": null,
+        "template_source": "gguf_chat_template",
+        "renderer": null,
+        "parser": null,
+        "provenance": "official Ollama library"
+      },
+      {
+        "model": "deepseek-r1:14b",
+        "manifest_sha256": "8041a2c71908d90cfa3af7966ed51f151a0c2bc334d115238f90e9c0df298573",
+        "all_layer_files_on_ssd": true,
+        "layer_bytes": 8988112578,
+        "runner": null,
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen2",
+          "families": [
+            "qwen2"
+          ],
+          "parameter_size": "14.8B",
+          "quantization_level": "Q4_K_M"
+        },
+        "capabilities": [
+          "tools",
+          "thinking",
+          "completion"
+        ],
+        "thinking": null,
+        "template_source": "gguf_chat_template",
+        "renderer": null,
+        "parser": null,
+        "provenance": "official Ollama library"
+      },
+      {
+        "model": "llama3.1:8b",
+        "manifest_sha256": "3fc95d284915704cf140b825abf5150af0d32fde95f55c081c9602d49d4547c0",
+        "all_layer_files_on_ssd": true,
+        "layer_bytes": 4920753699,
+        "runner": null,
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "llama",
+          "families": [
+            "llama"
+          ],
+          "parameter_size": "8.0B",
+          "quantization_level": "Q4_K_M"
+        },
+        "capabilities": [
+          "completion",
+          "tools"
+        ],
+        "thinking": null,
+        "template_source": "go_template",
+        "renderer": null,
+        "parser": null,
+        "provenance": "official Ollama library"
+      },
+      {
+        "model": "lfm2.5:8b",
+        "manifest_sha256": "ebb9764869ce40b64c7a84b2020e9f1e3e4f8d2b9271bfadaa95cf60257f694f",
+        "all_layer_files_on_ssd": true,
+        "layer_bytes": 5156075754,
+        "runner": null,
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "lfm2moe",
+          "families": [
+            "lfm2moe"
+          ],
+          "parameter_size": "8.5B",
+          "quantization_level": "Q4_K_M"
+        },
+        "capabilities": [
+          "completion",
+          "tools",
+          "thinking"
+        ],
+        "thinking": {
+          "values": [
+            false
+          ],
+          "default": false
+        },
+        "template_source": "renderer_parser",
+        "renderer": "lfm2",
+        "parser": "lfm2-thinking",
+        "provenance": "official Ollama library"
+      },
+      {
+        "model": "maternion/mimo-v2.6:9b-instruct-q4_K_M",
+        "manifest_sha256": "3f442cd6d269c3b9a71aa3c0dfb91ffcaa47b39bcd99aead9bb17369dc28909c",
+        "all_layer_files_on_ssd": true,
+        "layer_bytes": 6547272393,
+        "runner": null,
+        "details": {
+          "parent_model": "mimo-v2.6-9b-q4_K_M.gguf",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "9.0B",
+          "quantization_level": "Q4_K_M"
+        },
+        "capabilities": [
+          "tools",
+          "thinking",
+          "completion",
+          "vision"
+        ],
+        "thinking": null,
+        "template_source": "gguf_chat_template",
+        "renderer": null,
+        "parser": null,
+        "provenance": "community maternion, XiaomiMiMo original"
+      }
+    ],
+    "measurements": {
+      "llama3.1:8b": {
+        "model": "llama3.1:8b",
+        "protocol": "phase2-production-enum-count-schema",
+        "reasoning_mode": "non-thinking",
+        "mark_attempted": 6,
+        "mark_intended": 6,
+        "mark_correct": 3,
+        "false_positive_points": 2,
+        "first_mark_including_load_seconds": 21.0439264170127,
+        "subsequent_mark_median_seconds": 16.014500666991808,
+        "subsequent_mark_max_seconds": 18.351284082978964,
+        "tutor_attempted": 2,
+        "tutor_seconds": [
+          10.17834895796841,
+          12.07590033300221
+        ],
+        "triage_reason": null,
+        "preset_promoted": false
+      },
+      "lfm2.5:8b": {
+        "model": "lfm2.5:8b",
+        "protocol": "phase2-production-enum-count-schema",
+        "reasoning_mode": "default omitted (unsafe parser)",
+        "mark_attempted": 6,
+        "mark_intended": 6,
+        "mark_correct": 1,
+        "false_positive_points": 5,
+        "first_mark_including_load_seconds": 17.108795665961225,
+        "subsequent_mark_median_seconds": 6.7662516250275075,
+        "subsequent_mark_max_seconds": 6.897390459023882,
+        "tutor_attempted": 2,
+        "tutor_seconds": [
+          22.89018116699299,
+          45.514500999997836
+        ],
+        "triage_reason": null,
+        "preset_promoted": false,
+        "verified_explicit_true_control": {
+          "tutor_seconds": 24.076726583007257,
+          "grade_seconds": 26.277642583998386,
+          "grade_flags": [
+            true,
+            true
+          ],
+          "expected": [
+            true,
+            false
+          ],
+          "raw_tag_leak": false
+        }
+      },
+      "deepseek-r1:8b": {
+        "model": "deepseek-r1:8b",
+        "protocol": "phase2-production-enum-count-schema",
+        "reasoning_mode": "true, always reasoning",
+        "mark_attempted": 3,
+        "mark_intended": 6,
+        "mark_correct": 3,
+        "false_positive_points": 0,
+        "first_mark_including_load_seconds": 113.96194266702514,
+        "subsequent_mark_median_seconds": 106.43226989600225,
+        "subsequent_mark_max_seconds": 109.49146774999099,
+        "tutor_attempted": 1,
+        "tutor_seconds": [
+          41.694878624984995
+        ],
+        "triage_reason": "slow_marks",
+        "preset_promoted": false
+      },
+      "deepseek-r1:14b": {
+        "model": "deepseek-r1:14b",
+        "protocol": "phase2-production-enum-count-schema",
+        "reasoning_mode": "true, always reasoning",
+        "mark_attempted": 2,
+        "mark_intended": 6,
+        "mark_correct": 2,
+        "false_positive_points": 0,
+        "first_mark_including_load_seconds": 82.78977895801654,
+        "subsequent_mark_median_seconds": 96.18991504202131,
+        "subsequent_mark_max_seconds": 96.18991504202131,
+        "tutor_attempted": 1,
+        "tutor_seconds": [
+          95.52307591598947
+        ],
+        "triage_reason": "slow_marks",
+        "preset_promoted": false
+      },
+      "maternion/mimo-v2.6:9b-instruct-q4_K_M": {
+        "model": "maternion/mimo-v2.6:9b-instruct-q4_K_M",
+        "community_provenance": true,
+        "protocol": "finite compatibility only, not a ranking benchmark",
+        "tutor_true_seconds": 48.95687541703228,
+        "one_mark_true_seconds": 39.740790833951905,
+        "one_mark_true_flags": [
+          false,
+          false
+        ],
+        "one_mark_expected": [
+          false,
+          false
+        ],
+        "vision_routing_true_seconds": 88.09742087498307,
+        "tutor_false_seconds": 7.89677908300655,
+        "false_hidden_thinking_chars": 0,
+        "boolean_thinking_control_verified": true,
+        "vision_accuracy_note": "Question recognized but requested table arrows omitted; routing success does not prove OCR/geometry reliability.",
+        "tutor_false_quality_note": "Final unit correct but calculated velocity/seconds per second explanations are misleading.",
+        "preset_promoted": false
+      }
+    },
+    "manual_quality_audit": {
+      "llama3.1:8b": {
+        "grade_gate": "3/6 exact case decisions; 2 false-positive points. Reject as grader.",
+        "tutor": "Incorrectly says y=x² is always increasing; reject tutoring recommendation. Unit answer initially repeats wrong m/s before correction.",
+        "preset_recommendation": false
+      },
+      "lfm2.5:8b": {
+        "default_gate": "1/6; 5 false-positive points; omitted think leaks literal reasoning tags in tutor content. Default is not runtime-compatible.",
+        "explicit_true": "Proper reasoning separation for tutor and JSON. Unit tutor is correct. Probability still wrongly awarded both points for5/8×5/8, so no grader recommendation.",
+        "preset_recommendation": false,
+        "requires_explicit_think_true": true
+      },
+      "deepseek-r1:8b": {
+        "partial_gate": "3/3 attempted cases correct; 2 maths and1 correct physics case. Other cases untested; no overall examiner-quality claim.",
+        "tutor": "Unit reasoning mainly correct, uses guiding questions; unnecessary straight-line qualifier for velocity.",
+        "latency": "103–114s true grading;41.69s tutor. Too slow to replace existing fast presets.",
+        "false_control": "Still generates separated reasoning;43.48s duration is stochastic, not an off mode.",
+        "preset_recommendation": false
+      },
+      "deepseek-r1:14b": {
+        "partial_gate": "2/2 maths cases correct. No chemistry or physics grading result; remaining cases skipped for latency.",
+        "tutor": "Correct acceleration unit explanation and second-derivative interpretation.",
+        "latency": "82.79/96.19s true grading;95.52s tutor. Manual slow reasoning choice only.",
+        "preset_recommendation": false
+      },
+      "maternion/mimo-v2.6:9b-instruct-q4_K_M": {
+        "compatibility": "True chat, exact-row JSON, native PNG routing and false chat all completed without blank/raw-thought output.",
+        "true_tutor": "Correct unit derivation and final m/s².",
+        "one_true_grade": "Incorrect Newton response correctly gets[FF], one case only.",
+        "false_tutor": "Correct final unit; misleading calculated velocity and seconds per second wording.",
+        "vision": "Question and slopes recognized, requested table arrows omitted. No geometry-helper reliability claim.",
+        "preset_recommendation": false
+      }
+    }
+  }
+}

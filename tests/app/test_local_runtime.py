@@ -3,6 +3,7 @@ import asyncio
 import base64
 import json
 import socket
+import time
 from contextlib import asynccontextmanager
 
 import pytest
@@ -30,7 +31,7 @@ def event(text="", done=False, **extra):
 
 
 @asynccontextmanager
-async def server(monkeypatch, replies, *, chunked=True):
+async def server(monkeypatch, replies, *, chunked=True, paths=None):
     requests, closed, tasks = [], asyncio.Event(), set()
 
     async def handle(reader, writer):
@@ -38,10 +39,14 @@ async def server(monkeypatch, replies, *, chunked=True):
         tasks.add(task)
         try:
             header = await reader.readuntil(b"\r\n\r\n")
+            if paths is not None:
+                paths.append(header.split(b"\r\n", 1)[0].decode())
             headers = dict(line.split(b": ", 1) for line in header.split(b"\r\n")[1:] if b": " in line)
             payload = json.loads(await reader.readexactly(int(headers[b"Content-Length"])))
             requests.append(payload)
             reply = replies.pop(0)
+            if callable(reply):
+                reply = reply(payload)
             if isinstance(reply, int):
                 body = b'{"error":"model is not installed"}'
                 writer.write(f"HTTP/1.1 {reply} Error\r\nContent-Length: {len(body)}\r\n\r\n".encode() + body)
@@ -134,6 +139,97 @@ def test_history_images_and_reset_do_not_cross_models_or_thinking(models, monkey
     asyncio.run(go())
 
 
+def test_image_edits_and_returning_to_an_earlier_image_send_current_exact_bytes(models, monkeypatch, tmp_path):
+    image, other = tmp_path / "diagram.png", tmp_path / "other.png"
+    image.write_bytes(b"original image")
+    other.write_bytes(b"original image")
+
+    async def go():
+        async with server(monkeypatch, [[event("reply", done=True)]] * 6) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            for path, contents in ((image, b"original image"), (image, b"original image"),
+                                   (image, b"edited image"), (image, b"original image"),
+                                   (other, b"original image"), (image, b"original image")):
+                path.write_bytes(contents)
+                _ = [part async for part in client.stream("describe the current image", image=path, model=MODEL)]
+                assert client.last.ok
+            await client.close()
+            original = [base64.b64encode(b"original image").decode()]
+            edited = [base64.b64encode(b"edited image").decode()]
+            assert requests[0]["messages"][-1]["images"] == original
+            assert "images" not in requests[1]["messages"][-1]
+            assert requests[2]["messages"][-1].get("images") == edited
+            assert all(requests[index]["messages"][-1].get("images") == original for index in (3, 4, 5))
+            assert requests[2]["messages"][1]["images"] == original  # earlier turns retain their actual pixels
+    asyncio.run(go())
+
+
+@pytest.mark.parametrize("problem", ["missing", "empty", "unreadable", "unsupported"])
+def test_native_image_failure_never_becomes_a_successful_text_only_request(models, monkeypatch, tmp_path, problem):
+    image = tmp_path / ("diagram.svg" if problem == "unsupported" else "diagram.png")
+    if problem != "missing":
+        image.write_bytes(b"" if problem == "empty" else b"pixels")
+    if problem == "unreadable":
+        read = type(image).read_bytes
+        def unreadable(path):
+            if path == image:
+                raise OSError("unreadable image")
+            return read(path)
+        monkeypatch.setattr(type(image), "read_bytes", unreadable)
+
+    async def go():
+        async with server(monkeypatch, [[event("text-only fallback", done=True)]]) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            assert [part async for part in client.stream("read this diagram", image=image, model=MODEL)] == []
+            assert not client.last.ok and "image" in client.last.message.lower()
+            assert requests == [] and client._history == {}
+            await client.close()
+    asyncio.run(go())
+
+
+@pytest.mark.parametrize("operation", ["one_shot", "describe_image"])
+def test_empty_image_bytes_never_reach_local_inference(models, monkeypatch, operation):
+    async def go():
+        async with server(monkeypatch, [[event('{"diagram":"fallback"}', done=True)]]) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            if operation == "describe_image":
+                data, result = await client.describe_image(b"", "read", schema={}, model=MODEL, timeout=1,
+                                                            system="transcribe")
+            else:
+                data, result = await client.one_shot("read", model=MODEL, image=b"")
+            assert data is None and not result.ok and "image" in result.message.lower()
+            assert requests == []
+            await client.close()
+    asyncio.run(go())
+
+
+@pytest.mark.parametrize("operation", ["stream", "one_shot"])
+def test_local_performance_includes_waiting_for_model_queue_but_preserves_engine_counters(models, monkeypatch, operation):
+    async def go():
+        reply = event('{"feedback":"Good."}', done=True, total_duration=2_000_000,
+                      eval_count=5, eval_duration=1_000_000)
+        async with server(monkeypatch, [[reply]]) as _:
+            client = local_ai.LocalAI("brief")
+            await client._lock.acquire()
+            async def invoke():
+                if operation == "stream":
+                    _ = [part async for part in client.stream("help", model=MODEL)]
+                    return client.last
+                return (await client.one_shot("mark", model=MODEL))[1]
+            started = time.monotonic()
+            task = asyncio.create_task(invoke())
+            await asyncio.sleep(.03)
+            client._lock.release()
+            result = await task
+            wall = time.monotonic() - started
+            assert result.ok and result.performance["first_token_seconds"] >= .02
+            assert result.performance["total_seconds"] >= wall - .005
+            assert result.performance["engine_seconds"] == .002
+            assert result.performance["tokens_per_second"] == 5000
+            await client.close()
+    asyncio.run(go())
+
+
 def test_one_shot_uses_schema_system_and_speech_without_conversation_history(models, monkeypatch):
     schema = {"type": "object", "properties": {"feedback": {"type": "string"}}, "required": ["feedback"]}
 
@@ -147,6 +243,156 @@ def test_one_shot_uses_schema_system_and_speech_without_conversation_history(mod
             assert requests[0]["format"]["properties"]["speech"] == {"type": "string"}
             assert requests[0]["messages"][0]["content"] == "examiner"
             assert len(requests[0]["messages"]) == 2
+    asyncio.run(go())
+
+
+def test_describe_image_sends_exact_bytes_without_history_speech_or_last_mutation(models, monkeypatch):
+    schema = {"type": "object", "properties": {"diagram": {"type": "string"}}, "required": ["diagram"]}
+
+    async def go():
+        async with server(monkeypatch, [[event("earlier", done=True)],
+                                        [event('{"diagram":"axis t / s; labels A B C D"}', done=True)],
+                                        [event("later", done=True)]]) as (requests, _):
+            client = local_ai.LocalAI("private tutor brief", speech=True)
+            _ = [part async for part in client.stream("private earlier question", model=MODEL)]
+            previous, history = client.last, list(client._history.values())[0][:]
+            data, result = await client.describe_image(b"\x89PNG exact bytes", "read the entire image", schema=schema,
+                                                        model=MODEL, timeout=2, system="transcribe visible labels")
+            assert result.ok and data["diagram"] == "axis t / s; labels A B C D" and not result.speech
+            assert client.last is previous and list(client._history.values())[0] == history
+            assert requests[1]["messages"] == [{"role": "system", "content": "transcribe visible labels"},
+                {"role": "user", "content": requests[1]["messages"][1]["content"],
+                 "images": [base64.b64encode(b"\x89PNG exact bytes").decode()]}]
+            assert "read the entire image" in requests[1]["messages"][1]["content"]
+            assert "private" not in str(requests[1]) and "speech" not in requests[1]["format"]["properties"]
+            assert requests[1]["think"] is False
+            _ = [part async for part in client.stream("next", model=MODEL)]
+            assert len(requests[2]["messages"]) == 4 and "images" not in requests[2]["messages"][-1]
+            await client.close()
+    asyncio.run(go())
+
+
+def test_optional_image_keeps_legacy_one_shot_override_compatible(models, monkeypatch):
+    from tutor_app.ai import Result
+
+    async def go():
+        client = local_ai.LocalAI("brief")
+        async def old_override(prompt, schema, model, timeout, system, speech, think):
+            return {"feedback": "Good."}, Result()
+        monkeypatch.setattr(client, "_one_shot", old_override)
+        data, result = await client.one_shot("mark", model=MODEL)
+        assert result.ok and data == {"feedback": "Good."}
+        await client.close()
+    asyncio.run(go())
+
+
+def install_model(root, model):
+    path = root / "manifests/registry.ollama.ai/library" / model.removeprefix("ollama:").replace(":", "/")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text('{"schemaVersion":2}')
+
+
+@pytest.mark.parametrize("model", ["ollama:phi4-mini:3.8b", "ollama:ministral-3:3b"])
+def test_non_thinking_models_omit_think_from_stream_and_structured_payload(models, monkeypatch, model):
+    install_model(models, model)
+
+    async def go():
+        async with server(monkeypatch, [[event("reply", done=True)],
+                                        [event('{"feedback":"Good."}', done=True)]]) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            assert [part async for part in client.stream("help", model=model, think=False)] == ["reply"]
+            data, result = await client.one_shot("mark", model=model, think=False)
+            assert data == {"feedback": "Good."} and result.ok
+            assert all("think" not in request and request["options"] == {"num_ctx": 8192} for request in requests)
+            await client.close()
+    asyncio.run(go())
+
+
+@pytest.mark.parametrize("model", ["ollama:phi4-mini:3.8b", "ollama:ministral-3:3b"])
+@pytest.mark.parametrize("operation", ["stream", "one_shot"])
+def test_unsupported_thinking_is_actionable_and_never_silently_disabled(models, monkeypatch, model, operation):
+    install_model(models, model)
+
+    async def go():
+        async with server(monkeypatch, []) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            if operation == "stream":
+                assert [part async for part in client.stream("help", model=model, think=True)] == []
+                result = client.last
+            else:
+                data, result = await client.one_shot("mark", model=model, think=True)
+                assert data is None
+            assert not result.ok and "Think first" in result.message and requests == []
+            await client.close()
+    asyncio.run(go())
+
+
+def test_describe_image_uses_the_inference_queue_deadline(models, monkeypatch):
+    async def go():
+        async with server(monkeypatch, []) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            await client._lock.acquire()
+            try:
+                data, result = await client.describe_image(b"image", "read", schema={}, model=MODEL, timeout=.01,
+                                                            system="transcribe")
+                assert data is None and not result.ok and "long" in result.message and requests == []
+            finally:
+                client._lock.release()
+                await client.close()
+    asyncio.run(go())
+
+
+def test_describe_image_never_sends_an_image_to_a_text_only_model(models, monkeypatch):
+    model = "ollama:phi4-mini:3.8b"
+    install_model(models, model)
+
+    async def go():
+        async with server(monkeypatch, []) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            data, result = await client.describe_image(b"image", "read", schema={}, model=model, timeout=.1,
+                                                        system="transcribe")
+            assert data is None and not result.ok and "vision" in result.message and requests == []
+            await client.close()
+    asyncio.run(go())
+
+
+def test_gpt_oss_uses_named_effort_and_preserves_low_during_context_retry(models, monkeypatch):
+    model = "ollama:gpt-oss:20b"
+    install_model(models, model)
+
+    async def go():
+        exhausted = {"message": {"thinking": "private", "content": ""}, "done": True, "done_reason": "length"}
+        async with server(monkeypatch, [[event(done=True)], [exhausted],
+                                        [event('{"feedback":"Good."}', done=True)],
+                                        [event("reply", done=True)]]) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            assert (await client.warm(model)).ok
+            data, result = await client.one_shot("mark", model=model, think=False)
+            assert data == {"feedback": "Good."} and result.ok
+            assert [part async for part in client.stream("help", model=model, think=True)] == ["reply"]
+            assert "think" not in requests[0] and requests[0]["messages"] == []
+            assert [request["think"] for request in requests[1:]] == ["low", "low", "high"]
+            assert [request["options"]["num_ctx"] for request in requests[1:3]] == [8192, 16384]
+            await client.close()
+    asyncio.run(go())
+
+
+@pytest.mark.parametrize("think", [False, True])
+@pytest.mark.parametrize("model", ["ollama:lfm2.5:8b", "ollama:deepseek-r1:8b", "ollama:deepseek-r1:14b"])
+def test_reasoning_models_always_request_parsed_thinking_for_stream_and_json(models, monkeypatch, think, model):
+    install_model(models, model)
+
+    async def go():
+        hidden = {"message": {"thinking": "private reasoning", "content": ""}, "done": False}
+        async with server(monkeypatch, [[hidden, event("final reply", done=True)],
+                                        [hidden, event('{"feedback":"Good."}', done=True)]]) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            assert [part async for part in client.stream("help", model=model, think=think)] == ["final reply"]
+            assert client.last.ok and "private" not in client.last.text
+            data, result = await client.one_shot("mark", model=model, think=think)
+            assert data == {"feedback": "Good."} and result.ok and "private" not in result.text
+            assert [request["think"] for request in requests] == [True, True]
+            await client.close()
     asyncio.run(go())
 
 
@@ -239,7 +485,8 @@ def test_reset_closes_an_active_reply_and_forgets_history(models, monkeypatch):
     asyncio.run(go())
 
 
-def test_owned_service_uses_ssd_loopback_and_stops_on_close(models, monkeypatch, tmp_path):
+@pytest.mark.parametrize("web,setting,expected_cloud", [(False, "0", "1"), (True, None, "0"), (True, "1", "1")])
+def test_owned_service_uses_ssd_loopback_and_stops_on_close(models, monkeypatch, tmp_path, web, setting, expected_cloud):
     log = tmp_path / "service.json"
     binary = tmp_path / "ollama"
     binary.write_text('''#!/usr/bin/env python3
@@ -269,9 +516,14 @@ asyncio.run(main())
     monkeypatch.setattr(local_ai, "PORT", port)
     monkeypatch.setattr(local_ai.shutil, "which", lambda _: str(binary))
     monkeypatch.setenv("FAKE_OLLAMA_LOG", str(log))
+    if setting is None:
+        monkeypatch.delenv("OLLAMA_NO_CLOUD", raising=False)
+    else:
+        monkeypatch.setenv("OLLAMA_NO_CLOUD", setting)
 
     async def go():
         client = local_ai.LocalAI("brief")
+        client.web_enabled = web
         assert [x async for x in client.stream("start", model=MODEL)] == ["local"]
         process = client._owned
         assert process is not None and process.returncode is None
@@ -279,7 +531,7 @@ asyncio.run(main())
         assert process.returncode is not None
     asyncio.run(go())
     assert json.loads(log.read_text()) == {"args": ["serve"], "models": str(models),
-                                           "host": f"127.0.0.1:{port}", "cloud": "1", "loaded": "1", "parallel": "1"}
+                                           "host": f"127.0.0.1:{port}", "cloud": expected_cloud, "loaded": "1", "parallel": "1"}
 
 
 def test_close_preserves_existing_service(models, monkeypatch):
@@ -444,14 +696,18 @@ def test_preload_preserves_reply_history_and_sets_model_keepalive(models, monkey
             result = await client.warm(model)
             assert result.ok and result.text == "" and result.performance == {}
             assert client.last is original
-            assert requests[0] == {"model": model.removeprefix("ollama:"), "messages": [],
-                                    "stream": False, "keep_alive": keep_alive}
+            expected = {"model": model.removeprefix("ollama:"), "messages": [],
+                        "stream": False, "keep_alive": keep_alive}
+            if model == "ollama:gemma4:26b-a4b-it-qat":
+                expected["options"] = {"num_ctx": 8192}
+            assert requests[0] == expected
             assert [x async for x in client.stream("help", model=model)] == ["reply"]
             data, result = await client.one_shot("mark", model=model)
             assert data == {"feedback": "Good."} and result.ok
             assert len(requests[1]["messages"]) == 2
             assert all(request["keep_alive"] == keep_alive for request in requests)
-            assert all("options" not in request for request in requests)
+            expected_options = {"num_ctx": 8192} if model == "ollama:gemma4:26b-a4b-it-qat" else None
+            assert all(request.get("options") == expected_options for request in requests)
             await client.close()
     asyncio.run(go())
 
@@ -519,6 +775,43 @@ def test_cancel_queued_one_shot_does_not_unlock_an_active_stream(models, monkeyp
     asyncio.run(go())
 
 
+@pytest.mark.parametrize("operation", ["stream", "one_shot", "describe_image", "warm"])
+def test_reset_revokes_previously_queued_work_without_launch_or_result_mutation(models, monkeypatch, operation):
+    from tutor_app.ai import Result
+
+    async def go():
+        async with server(monkeypatch, [[event('{"feedback":"fresh"}', done=True)]]) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            previous = client.last = Result(text="active result")
+            await client._lock.acquire()
+            async def invoke():
+                if operation == "stream":
+                    return [part async for part in client.stream("old", model=MODEL)]
+                if operation == "one_shot":
+                    return await client.one_shot("old", model=MODEL)
+                if operation == "describe_image":
+                    return await client.describe_image(b"old image", "old", schema={}, model=MODEL, timeout=1,
+                                                        system="transcribe")
+                return await client.warm(MODEL)
+            queued = asyncio.create_task(invoke())
+            for _ in range(5):
+                await asyncio.sleep(0)
+            await client.reset()
+            client._lock.release()
+            try:
+                with pytest.raises(asyncio.CancelledError):
+                    await queued
+                assert requests == [] and client.last is previous
+                assert client._active_model is None and not client._lock.locked()
+                data, result = await client.one_shot("new", model=MODEL)
+                assert data == {"feedback": "fresh"} and result.ok
+            finally:
+                queued.cancel()
+                await asyncio.gather(queued, return_exceptions=True)
+                await client.close()
+    asyncio.run(go())
+
+
 def test_cancelled_shutdown_kills_and_reaps_owned_service():
     async def go():
         class Process:
@@ -551,4 +844,173 @@ def test_cancelled_shutdown_kills_and_reaps_owned_service():
             await closing
         assert process.returncode == -9 and process.reaped
         assert client._owned is None
+    asyncio.run(go())
+
+
+def test_gemma_thinking_has_context_room_for_the_final_answer(models, monkeypatch):
+    model = "ollama:gemma4:26b-a4b-it-qat"
+
+    def answer(payload):
+        if payload.get("options", {}).get("num_ctx", 4096) < 8192:
+            return [{"message": {"thinking": "Private model reasoning", "content": ""}, "done": True,
+                     "done_reason": "length", "prompt_eval_count": 3082, "eval_count": 1014}]
+        return [event("Velocity has magnitude and direction.", done=True, eval_count=20)]
+
+    async def go():
+        async with server(monkeypatch, [answer]) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            assert "".join([x async for x in client.stream("Explain velocity", model=model, think=True)]) == "Velocity has magnitude and direction."
+            assert client.last.ok and requests[0]["think"] is True
+            assert requests[0]["options"] == {"num_ctx": 8192}
+            await client.close()
+    asyncio.run(go())
+
+
+@pytest.mark.parametrize("operation", ["stream", "one_shot"])
+def test_reasoning_only_context_exhaustion_retries_with_more_room_without_leaking(models, monkeypatch, operation):
+    model = "ollama:gemma4:26b-a4b-it-qat"
+    exhausted = {"message": {"thinking": "Private model reasoning", "content": ""}, "done": True,
+                 "done_reason": "length", "prompt_eval_count": 7000, "eval_count": 1192,
+                 "total_duration": 5_000_000_000, "load_duration": 1_000_000_000,
+                 "eval_duration": 4_000_000_000, "prompt_eval_cached_count": 100}
+    text = '{"feedback":"Good."}' if operation == "one_shot" else "A useful hint."
+
+    async def go():
+        async with server(monkeypatch, [[exhausted], [event(text, done=True, eval_count=10,
+                                                        total_duration=2_000_000_000, eval_duration=1_000_000_000,
+                                                        prompt_eval_count=7000, prompt_eval_cached_count=200)]]) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            if operation == "stream":
+                assert "".join([x async for x in client.stream("Help", model=model, think=True)]) == text
+                result = client.last
+            else:
+                data, result = await client.one_shot("Mark", model=model, think=True)
+                assert data == {"feedback": "Good."}
+            assert result.ok and "Private model reasoning" not in result.text
+            assert result.performance["total_seconds"] == 7
+            assert result.performance["load_seconds"] == 1
+            assert result.performance["generation_seconds"] == 5
+            assert result.performance["input_tokens"] == 14000 and result.performance["output_tokens"] == 1202
+            assert result.performance["cached_input_tokens"] == 300 and result.performance["retry_count"] == 1
+            assert [request["options"]["num_ctx"] for request in requests] == [8192, 16384]
+            assert requests[0]["messages"] == requests[1]["messages"] and all(request["think"] is True for request in requests)
+            await client.close()
+    asyncio.run(go())
+
+
+def test_context_retry_is_bounded_and_does_not_commit_reasoning(models, monkeypatch):
+    model = "ollama:gemma4:26b-a4b-it-qat"
+    exhausted = {"message": {"thinking": "Private model reasoning", "content": ""}, "done": True, "done_reason": "length"}
+
+    async def go():
+        async with server(monkeypatch, [[exhausted], [exhausted], [event("New answer", done=True)]]) as (requests, _):
+            client = local_ai.LocalAI("brief")
+            assert [x async for x in client.stream("Help", model=model, think=True)] == []
+            assert not client.last.ok and "context" in client.last.message
+            assert [x async for x in client.stream("Next", model=model, think=True)] == ["New answer"]
+            assert len(requests) == 3 and len(requests[-1]["messages"]) == 2
+            await client.close()
+    asyncio.run(go())
+
+
+def test_progress_reports_hidden_thinking_without_exposing_it(models, monkeypatch):
+    async def go():
+        async with server(monkeypatch, [[{"message": {"thinking": "Private model reasoning", "content": ""}, "done": False}, "wait"],
+                                        [event("Visible"), event(done=True, eval_count=12)]]) as _:
+            client = local_ai.LocalAI("brief")
+
+            async def collect():
+                return [x async for x in client.stream("Help", model=MODEL, think=True)]
+
+            task = asyncio.create_task(collect())
+            for _ in range(100):
+                if client.progress_for(MODEL).get("phase") == "thinking":
+                    break
+                await asyncio.sleep(0.005)
+            progress = client.progress_for(MODEL)
+            assert progress["phase"] == "thinking" and isinstance(progress["started"], float)
+            assert "Private" not in str(progress) and "tokens" not in progress
+            progress["phase"] = "wrong"
+            assert client.progress_for(MODEL)["phase"] == "thinking"
+            task.cancel()
+            with pytest.raises(asyncio.CancelledError):
+                await task
+            assert client.progress_for(MODEL)["phase"] == "error"
+            stream = client.stream("Next", model=MODEL)
+            assert await anext(stream) == "Visible"
+            assert client.progress_for(MODEL)["phase"] == "generating"
+            assert [x async for x in stream] == []
+            assert client.progress_for(MODEL)["phase"] == "done" and client.progress_for(MODEL)["tokens"] == 12
+            await client.close()
+    asyncio.run(go())
+
+
+def test_progress_marks_a_different_model_waiting_in_queue(models, monkeypatch):
+    other = "ollama:gemma4:26b-a4b-it-qat"
+
+    async def go():
+        async with server(monkeypatch, [[event("Visible"), event(done=True)], [event(done=True)]]) as _:
+            client = local_ai.LocalAI("brief")
+            stream = client.stream("Help", model=MODEL)
+            assert await anext(stream) == "Visible"
+            warm = asyncio.create_task(client.warm(other))
+            await asyncio.sleep(0.01)
+            assert client.progress_for(other)["phase"] == "queued"
+            assert client.progress_for(MODEL)["phase"] == "generating"
+            assert [x async for x in stream] == []
+            assert (await warm).ok
+            assert client.progress_for(other)["phase"] == "done"
+            await client.close()
+    asyncio.run(go())
+
+
+def test_transport_supports_explicit_local_api_path(monkeypatch):
+    async def go():
+        paths = []
+        async with server(monkeypatch, [[{"results": []}]], paths=paths) as _:
+            client = local_ai.LocalAI("brief")
+            result = [item async for item in client._events({"query": "synthetic query"}, 1,
+                                                           path="/api/experimental/web_search")]
+            assert result == [{"results": []}] and paths == ["POST /api/experimental/web_search HTTP/1.1"]
+            assert client.progress_for(MODEL) == {}
+            await client.close()
+    asyncio.run(go())
+
+
+@pytest.mark.parametrize("operation", ["stream", "one_shot", "warm"])
+def test_same_model_queued_request_gets_fresh_progress_when_it_starts(models, monkeypatch, operation):
+    async def go():
+        client = local_ai.LocalAI("brief")
+        preload_started, release = asyncio.Event(), asyncio.Event()
+        calls = []
+
+        async def events(payload, timeout):
+            calls.append(payload)
+            if len(calls) == 1:
+                preload_started.set()
+                await release.wait()
+            yield event('{"feedback":"Good."}' if payload["messages"] else "", done=True)
+
+        monkeypatch.setattr(client, "_events", events)
+        preload = asyncio.create_task(client.warm(MODEL))
+        await preload_started.wait()
+        earlier = client.progress_for(MODEL)
+        requested = time.monotonic()
+
+        async def next_request():
+            if operation == "stream":
+                return [part async for part in client.stream("Help", model=MODEL)]
+            if operation == "one_shot":
+                return await client.one_shot("Mark", model=MODEL)
+            return await client.warm(MODEL)
+
+        next_ = asyncio.create_task(next_request())
+        await asyncio.sleep(0.01)
+        assert client.progress_for(MODEL) == earlier  # a queued request must not overwrite the active preload
+        release.set()
+        await preload
+        await next_
+        assert client.progress_for(MODEL)["started"] >= requested
+        assert client.progress_for(MODEL)["phase"] == "done"
+        await client.close()
     asyncio.run(go())

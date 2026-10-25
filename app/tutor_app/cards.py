@@ -79,8 +79,10 @@ def you(text: str, title: str = "You") -> Panel:
     return _carries(framed(Text(linearize(text)), C["you"], f"[b]{title}[/b]", title_align="right"), "you", title, text)
 
 
-def ai(text: str, title: str = "Tutor (AI)") -> Panel:
-    return _carries(framed(md(text or "…"), C["ai"], f"[b]{title}[/b]", title_align="left"), "ai", title, text)
+def ai(text: str, title: str = "Tutor (AI)", subtitle: str | None = None) -> Panel:
+    details = {"subtitle": Text(subtitle, style=C["muted"]), "subtitle_align": "right"} if subtitle else {}
+    return _carries(framed(md(text or "…"), C["ai"], f"[b]{title}[/b]", title_align="left", **details),
+                    "ai", title, text)
 
 
 class Live:

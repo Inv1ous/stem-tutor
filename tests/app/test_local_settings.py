@@ -8,6 +8,7 @@ from textual.widgets import Button, Input, Select
 
 from test_tui import app_for
 from tutor_app import config, local_models, screens
+from tutor_app.codex_models import CODEX_MODELS
 
 
 LOCAL_MODELS = {
@@ -24,6 +25,14 @@ def run(app, steps):
             await steps(pilot)
             await app.ai.close()
     asyncio.run(go())
+
+
+async def wait_for(pilot, condition):
+    for _ in range(40):
+        await pilot.pause(0.1)
+        if condition():
+            return
+    assert condition(), "Settings did not detect the model availability change."
 
 
 def test_settings_preserve_known_local_models_when_the_ssd_is_disconnected(tmp_path):
@@ -52,7 +61,7 @@ def test_usage_display_loads_only_supported_choices(tmp_path, saved, want):
 def test_open_settings_detect_ssd_insertion_and_removal_and_preserve_unsaved_cloud_choice(tmp_path, monkeypatch):
     present = []
     monkeypatch.setattr(screens, "local_models", SimpleNamespace(
-        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local,
+        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks,
         available_models=lambda: tuple(present)), raising=False)
     app, vault = app_for(tmp_path, monkeypatch)
 
@@ -62,11 +71,11 @@ def test_open_settings_detect_ssd_insertion_and_removal_and_preserve_unsaved_clo
         screen = app.screen
         ask = screen.query_one("#ai_ask_model", Select)
         explain = screen.query_one("#ai_explain_model", Select)
-        assert [value for _, value in ask._options if value is not Select.NULL] == ["haiku", "sonnet", "opus"]
+        assert [value for _, value in ask._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *CODEX_MODELS]
         ask.value = "sonnet"
         present[:] = LOCAL_MODELS
-        await pilot.pause(1.15)
-        assert [value for _, value in ask._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *LOCAL_MODELS]
+        await wait_for(pilot, lambda: "ollama:qwen3.5:9b" in [value for _, value in ask._options])
+        assert [value for _, value in ask._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *LOCAL_MODELS, *CODEX_MODELS]
         assert ask.value == "sonnet"
         explain.value = "ollama:qwen3.5:9b"
         ask.focus()
@@ -75,8 +84,8 @@ def test_open_settings_detect_ssd_insertion_and_removal_and_preserve_unsaved_clo
         assert ask.expanded and explain.value == "ollama:qwen3.5:9b"
         ask.expanded = False
         present.clear()
-        await pilot.pause(1.15)
-        assert [value for _, value in explain._options if value is not Select.NULL] == ["haiku", "sonnet", "opus"]
+        await wait_for(pilot, lambda: "ollama:qwen3.5:9b" not in [value for _, value in explain._options])
+        assert [value for _, value in explain._options if value is not Select.NULL] == ["haiku", "sonnet", "opus", *CODEX_MODELS]
         assert explain.value is Select.NULL and ask.value == "sonnet"
         assert "reconnect" in explain.prompt.lower()
         screen.query_one("#usage_display", Select).value = "ram"
@@ -90,7 +99,7 @@ def test_open_settings_detect_ssd_insertion_and_removal_and_preserve_unsaved_clo
 
 def test_disconnected_saved_local_model_shows_unavailable_without_changing_settings_on_cancel(tmp_path, monkeypatch):
     monkeypatch.setattr(screens, "local_models", SimpleNamespace(
-        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, available_models=lambda: ()), raising=False)
+        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks, available_models=lambda: ()), raising=False)
     app, _ = app_for(tmp_path, monkeypatch)
 
     async def steps(pilot):
@@ -108,7 +117,7 @@ def test_disconnected_saved_local_model_shows_unavailable_without_changing_setti
 
 def test_unrelated_settings_save_keeps_all_disconnected_local_preferences(tmp_path, monkeypatch):
     monkeypatch.setattr(screens, "local_models", SimpleNamespace(
-        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, available_models=lambda: ()), raising=False)
+        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks, available_models=lambda: ()), raising=False)
     app, vault = app_for(tmp_path, monkeypatch)
 
     async def steps(pilot):
@@ -132,7 +141,7 @@ def test_unrelated_settings_save_keeps_all_disconnected_local_preferences(tmp_pa
 def test_reconnect_restores_local_selection_unless_cloud_was_explicitly_selected(tmp_path, monkeypatch):
     present = list(LOCAL_MODELS)
     monkeypatch.setattr(screens, "local_models", SimpleNamespace(
-        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local,
+        LOCAL_MODELS=LOCAL_MODELS, is_local=local_models.is_local, supports_thinking=local_models.supports_thinking, always_thinks=local_models.always_thinks,
         available_models=lambda: tuple(present)), raising=False)
     app, vault = app_for(tmp_path, monkeypatch)
 
@@ -142,16 +151,16 @@ def test_reconnect_restores_local_selection_unless_cloud_was_explicitly_selected
         await pilot.pause()
         ask = app.screen.query_one("#ai_ask_model", Select)
         present.clear()
-        await pilot.pause(1.15)
+        await wait_for(pilot, lambda: ask.value is Select.NULL)
         assert ask.value is Select.NULL
         present[:] = LOCAL_MODELS
-        await pilot.pause(1.15)
+        await wait_for(pilot, lambda: ask.value == "ollama:qwen3.8:27b")
         assert ask.value == "ollama:qwen3.8:27b"
         present.clear()
-        await pilot.pause(1.15)
+        await wait_for(pilot, lambda: ask.value is Select.NULL)
         ask.value = "opus"  # Explicitly replacing the unavailable local choice must stick.
         present[:] = LOCAL_MODELS
-        await pilot.pause(1.15)
+        await wait_for(pilot, lambda: "ollama:qwen3.8:27b" in [value for _, value in ask._options])
         assert ask.value == "opus"
         app.screen.query_one("#save", Button).press()
         await pilot.pause()

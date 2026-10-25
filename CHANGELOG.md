@@ -1,5 +1,33 @@
 # Changelog
 
+## Unreleased
+
+- **AI presets:** preview and apply two Claude, two ChatGPT and four local setups in Settings. Presets change only
+  marking, explaining and asking models and their thinking switches; Save keeps the choices and Esc cancels them.
+- **Small STEM models:** add manifest-backed choices for Qwen 2B/4B, Gemma E2B/E4B, Ministral 3B, Phi-4-mini,
+  GPT-OSS 20B, Granite Vision, DeepSeek R1 8B/14B, Llama 3.1 8B, Liquid LFM2.5 8B and a community MiMo V2.6 9B.
+  Diagnostic tests favour Gemma
+  E4B for fast tutoring and existing Gemma 26B for marking. DeepSeek R1 and Liquid show reasoning fixed on,
+  reflecting their installed templates rather than offering a misleading off switch.
+  Published measurements distinguish cold loads, warm responses, grading errors and formatting rejections.
+- **Local images:** text-only models use cached on-device text OCR with explicit uncertainty and no inferred graph
+  geometry. Native models keep the image. Missing images and failed extraction are visible errors. Preparation yields
+  to requested work, resets invalidate stale jobs, and terminal timing includes image work and queue waits.
+- **Local marking:** constrain copied rubric labels and row count in the local JSON schema while preserving the
+  existing identity/order guard. Claude and ChatGPT retain their original schema and provider behavior.
+- **Local replies:** Gemma reserves answer space after reasoning, fixing a reproduced empty reply when a 4,096-token
+  context filled before the answer. Reasoning-only exhaustion receives one larger-context retry; retry measurements
+  include both attempts. Thinking, sampling, precision and weights remain unchanged.
+- **Visible activity:** local tutoring shows an animated stage and elapsed time immediately, including during hidden
+  reasoning, structured marking and answer-only view. Progress stays out of notes, speech and answer text.
+- **Less repeated work:** identical successful structured local replies are reused within a bounded session cache.
+  Queued duplicates share work; resets, cancellation, model settings and schemas remain isolated.
+- **ChatGPT:** marking, explaining, asking and re-marking can use the installed Codex catalogue's GPT models through
+  the existing ChatGPT sign-in. Requests use an isolated, read-only process with no API-billing fallback or Claude usage.
+- **Local web sources:** optional targeted lookup uses the signed-in Ollama search service. Only a separate typed
+  question is searched; bounded excerpts and real source links accompany the local answer. Routine syllabus work
+  remains offline, and unavailable searches do not become verified current facts.
+
 ## 2.6.0 — 2026-10-25
 
 - **Local tutoring:** choose the installed Qwen 3.5 9B, Gemma 4 26B, or Qwen 3.8 27B model separately for marking,

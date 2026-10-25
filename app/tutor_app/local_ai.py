@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import asyncio
 import base64
+import hashlib
 import json
 import os
 import shutil
@@ -32,7 +33,7 @@ class LocalAI:
         self.system, self.speech = system, speech
         self.last = Result()
         self._history: dict[tuple[str, bool, bool], list[dict]] = {}
-        self._shown: dict[tuple[str, bool, bool], set[str]] = {}
+        self._shown: dict[tuple[str, bool, bool], tuple[str, str]] = {}
         self._lock = asyncio.Lock()
         self._service_lock = asyncio.Lock()
         self._writers: set[asyncio.StreamWriter] = set()
@@ -40,6 +41,40 @@ class LocalAI:
         self._starting: asyncio.Task | None = None
         self._generation = 0
         self._closed = False
+        self.web_enabled = False
+        self._progress: dict[str, dict] = {}
+        self._active_model: str | None = None
+        self._contexts: dict[str, int] = {}
+
+    def progress_for(self, model: str) -> dict:
+        """Only public phase and exact API counters; hidden reasoning is never retained or exposed."""
+        return dict(self._progress.get(model, {}))
+
+    def _phase(self, model: str | None, phase: str, **values) -> None:
+        if local_models.is_local(model):
+            self._progress[model] = {**self._progress.get(model, {"started": time.monotonic()}),
+                                     "phase": phase, **values}
+
+    def _queued_phase(self, model: str | None) -> None:
+        if model != self._active_model and local_models.is_local(model):
+            self._progress[model] = {"phase": "queued", "started": time.monotonic()}
+
+    def _started_phase(self, model: str | None) -> None:
+        if local_models.is_local(model):
+            self._progress[model] = {"phase": "preparing", "started": time.monotonic()}
+
+    def _with_context(self, payload: dict, model: str) -> dict:
+        if "think" in payload and isinstance(payload["think"], bool):
+            effort = local_models.thinking_value(model, payload["think"])
+            if effort is None:
+                if payload["think"]:
+                    raise LocalError("This local model does not support Think first. Switch it off in Settings, "
+                                     "or choose a model that supports thinking.")
+                payload = {key: value for key, value in payload.items() if key != "think"}
+            else:
+                payload = {**payload, "think": effort}
+        context = self._contexts.get(model, local_models.CONTEXT_LENGTH.get(model))
+        return {**payload, "options": {**payload.get("options", {}), "num_ctx": context}} if context else payload
 
     @staticmethod
     def _decode(line: bytes) -> dict:
@@ -91,7 +126,8 @@ class LocalAI:
                 if not binary:
                     raise LocalError("Ollama is not installed. Install Ollama, then try the local model again.")
                 env = {**os.environ, "OLLAMA_MODELS": str(local_models.ROOT), "OLLAMA_HOST": f"{HOST}:{PORT}",
-                       "OLLAMA_NO_CLOUD": "1", "OLLAMA_MAX_LOADED_MODELS": "1", "OLLAMA_NUM_PARALLEL": "1"}
+                       "OLLAMA_NO_CLOUD": os.environ.get("OLLAMA_NO_CLOUD", "0") if self.web_enabled else "1",
+                       "OLLAMA_MAX_LOADED_MODELS": "1", "OLLAMA_NUM_PARALLEL": "1"}
                 if self._starting is None or self._starting.done():
                     self._starting = asyncio.create_task(self._start_service(binary, env))
                 started = await asyncio.wait_for(asyncio.shield(self._starting),
@@ -127,7 +163,7 @@ class LocalAI:
             await self._stop_owned()
         return True
 
-    async def _events(self, payload: dict, timeout: float) -> AsyncIterator[dict]:
+    async def _events(self, payload: dict, timeout: float, path: str = "/api/chat") -> AsyncIterator[dict]:
         """Read NDJSON independently of HTTP chunk boundaries; closing this generator closes its socket."""
         deadline = time.monotonic() + timeout
         reader, writer = await self._connect(deadline)
@@ -162,7 +198,7 @@ class LocalAI:
 
         try:
             data = json.dumps(payload).encode()
-            writer.write((f"POST /api/chat HTTP/1.1\r\nHost: {HOST}:{PORT}\r\nContent-Type: application/json\r\n"
+            writer.write((f"POST {path} HTTP/1.1\r\nHost: {HOST}:{PORT}\r\nContent-Type: application/json\r\n"
                           f"Content-Length: {len(data)}\r\nConnection: close\r\n\r\n").encode() + data)
             await read(writer.drain())
             header = (await read(reader.readuntil(b"\r\n\r\n"))).decode("latin-1")
@@ -198,13 +234,58 @@ class LocalAI:
             except OSError:
                 pass
 
+    async def _chat_events(self, payload: dict, timeout: float, model: str) -> AsyncIterator[dict]:
+        """Leave room for the answer after thinking; retry a context-exhausted empty Gemma reply once."""
+        started = time.monotonic()
+        deadline = started + timeout
+        spent: dict[str, int | float] = {}
+        counters = ("total_duration", "load_duration", "prompt_eval_duration", "eval_duration",
+                    "prompt_eval_count", "prompt_eval_cached_count", "eval_count")
+        payload = self._with_context(payload, model)
+        for attempt in range(2):
+            visible, reasoned, retry = False, False, False
+            self._phase(model, "waiting")
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise asyncio.TimeoutError
+            async with aclosing(self._events(payload, remaining)) as events:
+                async for event in events:
+                    message = event.get("message") or {}
+                    if message.get("thinking"):
+                        reasoned = True
+                        self._phase(model, "thinking")
+                    if message.get("content"):
+                        visible = visible or bool(message["content"].strip())
+                        self._phase(model, "generating")
+                    if event.get("done") and not visible and reasoned and event.get("done_reason") == "length":
+                        context = (payload.get("options") or {}).get("num_ctx", 0)
+                        maximum = local_models.MAX_CONTEXT_LENGTH.get(model, 0)
+                        if attempt == 0 and context and context < maximum:
+                            spent = {key: spent.get(key, 0) + (event.get(key) or 0) for key in counters}
+                            self._contexts[model] = min(context * 2, maximum)
+                            payload = self._with_context(payload, model)
+                            self._phase(model, "preparing")
+                            retry = True
+                            break
+                        raise LocalError("The local AI filled its context while thinking. Start a fresh chat, then try again.")
+                    if event.get("done"):
+                        event = {**event, **{key: spent.get(key, 0) + (event.get(key) or 0) for key in counters},
+                                 "_retry_count": attempt, "_elapsed_seconds": time.monotonic() - started}
+                    if isinstance(event.get("eval_count"), int):
+                        self._phase(model, self.progress_for(model).get("phase", "waiting"), tokens=event["eval_count"])
+                    yield event
+            if not retry:
+                return
+
     @staticmethod
     def _performance(event: dict, model: str, first_token: float | None) -> dict:
         def seconds(key):
             return max(0, event.get(key) or 0) / 1_000_000_000
         duration = seconds("eval_duration")
         count = event.get("eval_count") or 0
-        return {"model": model, "total_seconds": seconds("total_duration"), "load_seconds": seconds("load_duration"),
+        return {"model": model, "total_seconds": max(seconds("total_duration"), event.get("_elapsed_seconds") or 0),
+                "engine_seconds": seconds("total_duration"), "retry_count": event.get("_retry_count", 0),
+                "load_seconds": seconds("load_duration"),
                 "prompt_seconds": seconds("prompt_eval_duration"), "generation_seconds": duration,
                 "input_tokens": event.get("prompt_eval_count") or 0, "output_tokens": count,
                 "cached_input_tokens": event.get("prompt_eval_cached_count") or 0,
@@ -221,26 +302,42 @@ class LocalAI:
     async def stream(self, prompt: str, image: Path | None = None, model: str | None = None,
                      think: bool = False) -> AsyncIterator[str]:
         from .ai import MEDIA, Result, SPEECH_RULE, SpeechFilter, split_speech
+        started = time.monotonic()
+        generation = self._generation
+        self._queued_phase(model)
         async with self._lock:
-            parts, started, first, finished = [], time.monotonic(), None, False
+            if generation != self._generation:
+                raise asyncio.CancelledError
+            self._active_model = model
+            self._started_phase(model)
+            parts, first, finished = [], None, False
             self.last = Result(ok=False, status="error", message="The local reply was cancelled; try again.")
             spoken = SpeechFilter()
-            generation = self._generation
             try:
                 name = self._check(model)
                 key = (model, bool(think), self.speech)
                 history = self._history.get(key, [])
                 user = {"role": "user", "content": prompt}
-                shown = self._shown.get(key, set())
-                if image is not None and str(image) not in shown and image.suffix.lower() in MEDIA:
+                image_key = None
+                if image is not None:
+                    if not local_models.supports_vision(model):
+                        raise LocalError("This local model cannot read images. Choose a model with native vision "
+                                         "or an available local vision helper.")
+                    if image.suffix.lower() not in MEDIA:
+                        raise LocalError("The question image format is unsupported. Use PNG, JPEG, GIF or WebP.")
                     try:
-                        user["images"] = [base64.b64encode(image.read_bytes()).decode()]
-                    except OSError:
-                        pass  # the question's text still reaches the tutor if its optional diagram cannot be read
+                        pixels = image.read_bytes()
+                    except OSError as exc:
+                        raise LocalError("The question image could not be read. Restore the image file, then retry.") from exc
+                    if not pixels:
+                        raise LocalError("The question image is empty. Restore the image file, then retry.")
+                    image_key = (str(image), hashlib.sha256(pixels).hexdigest())
+                    if self._shown.get(key) != image_key:
+                        user["images"] = [base64.b64encode(pixels).decode()]
                 payload = {"model": name, "stream": True, "think": bool(think), "keep_alive": local_models.KEEP_ALIVE[model],
                            "messages": [{"role": "system", "content": self.system + (SPEECH_RULE if self.speech else "")},
                                         *history, user]}
-                async with aclosing(self._events(payload, 300)) as events:
+                async with aclosing(self._chat_events(payload, 300, model)) as events:
                     async for event in events:
                         if event.get("error"):
                             raise LocalError(f"Ollama: {event['error']}")
@@ -258,12 +355,14 @@ class LocalAI:
                             text, speech = split_speech("".join(parts))
                             if not text.strip():
                                 raise LocalError("The local AI returned an empty reply; try again.")
-                            self.last = Result(text=text, speech=speech,
-                                               performance=self._performance(event, model, first))
+                            performance = self._performance(event, model, first)
+                            performance["total_seconds"] = max(performance["total_seconds"], time.monotonic() - started)
+                            self.last = Result(text=text, speech=speech, performance=performance)
                             self._history[key] = [*history, user, {"role": "assistant", "content": "".join(parts)}]
                             if "images" in user:
-                                self._shown.setdefault(key, set()).add(str(image))
+                                self._shown[key] = image_key
                             finished = True
+                            self._phase(model, "done")
                             break
                 if not finished:
                     raise LocalError("Ollama ended the reply early; try again.")
@@ -276,33 +375,60 @@ class LocalAI:
                 if not finished:
                     # Neither a partial user turn nor its partial assistant reply is committed to memory.
                     self.last.ok = False
+                    self._phase(model, "error")
+                self._active_model = None
 
     async def one_shot(self, prompt: str, schema: dict | None = None, model: str | None = None,
                        timeout: float = 120, system: str | None = None,
-                       speech: bool = False, think: bool = False):
+                       speech: bool = False, think: bool = False, image: bytes | None = None):
         started = time.monotonic()
         try:
             self._check(model)
-            async with self._queued(timeout) as remaining:
+            async with self._queued(timeout, model) as remaining:
                 waited = time.monotonic() - started
-                data, result = await self._one_shot(prompt, schema, model, remaining, system, speech, think)
-                if result.ok and result.performance.get("first_token_seconds") is not None:
-                    result.performance["first_token_seconds"] += waited
+                data, result = await self._one_shot(prompt, schema, model, remaining, system, speech, think,
+                                                   **({"image": image} if image is not None else {}))
+                if result.ok and result.performance:
+                    result.performance["total_seconds"] = max(result.performance.get("total_seconds", 0),
+                                                               time.monotonic() - started)
+                    if result.performance.get("first_token_seconds") is not None:
+                        result.performance["first_token_seconds"] += waited
                 return data, result
         except (asyncio.TimeoutError, LocalError) as exc:
             return None, self._failure(exc)
 
+    async def describe_image(self, image: bytes, prompt: str, *, schema: dict, model: str,
+                             timeout: float, system: str):
+        """Extract visible image data without tutor history, speech, thinking or shared reply changes."""
+        return await self.one_shot(prompt, schema=schema, model=model, timeout=timeout, system=system,
+                                   speech=False, think=False, image=image)
+
     @asynccontextmanager
-    async def _queued(self, timeout: float):
+    async def _queued(self, timeout: float, model: str | None = None):
         """Keep one inference or preload active; time spent waiting belongs to the caller's deadline."""
         deadline = time.monotonic() + timeout
-        await asyncio.wait_for(self._lock.acquire(), max(0.001, timeout))
+        generation = self._generation
+        self._queued_phase(model)
+        try:
+            await asyncio.wait_for(self._lock.acquire(), max(0.001, timeout))
+        except BaseException:
+            if model != self._active_model:
+                self._phase(model, "error")
+            raise
+        if generation != self._generation:
+            self._lock.release()
+            raise asyncio.CancelledError
+        self._active_model = model
+        self._started_phase(model)
         try:
             remaining = deadline - time.monotonic()
             if remaining <= 0:
                 raise asyncio.TimeoutError
             yield remaining
         finally:
+            if self.progress_for(model).get("phase") not in ("done", "error"):
+                self._phase(model, "error")
+            self._active_model = None
             self._lock.release()
 
     async def warm(self, model: str, timeout: float = 120):
@@ -310,15 +436,17 @@ class LocalAI:
         from .ai import Result
         try:
             self._check(model)
-            async with self._queued(timeout) as remaining:
+            async with self._queued(timeout, model) as remaining:
                 name = self._check(model)
                 payload = {"model": name, "messages": [], "stream": False, "keep_alive": local_models.KEEP_ALIVE[model]}
+                payload = self._with_context(payload, model)
                 async with aclosing(self._events(payload, remaining)) as events:
                     async for event in events:
                         if event.get("error"):
                             raise LocalError(f"Ollama: {event['error']}")
                         if event.get("done"):
                             self._check(model)
+                            self._phase(model, "done")
                             return Result()
                 raise LocalError("Ollama ended the preload early; try again.")
         except (OSError, ValueError, asyncio.IncompleteReadError, asyncio.LimitOverrunError,
@@ -326,7 +454,7 @@ class LocalAI:
             return self._failure(exc)
 
     async def _one_shot(self, prompt: str, schema: dict | None, model: str | None,
-                        timeout: float, system: str | None, speech: bool, think: bool):
+                        timeout: float, system: str | None, speech: bool, think: bool, image: bytes | None = None):
         from .ai import Result, SPEECH_FIELD, complete, first_json, json_instruction
         started, first, parts = time.monotonic(), None, []
         try:
@@ -336,12 +464,20 @@ class LocalAI:
                 prompt += f"\n\n{SPEECH_FIELD}"
             if schema:
                 prompt += f"\n\n{json_instruction(schema)}"
+            user = {"role": "user", "content": prompt}
+            if image is not None:
+                if not image:
+                    raise LocalError("The question image is empty. Restore the image file, then retry.")
+                if not local_models.supports_vision(model):
+                    raise LocalError("This local model cannot read images. Choose a model with native vision "
+                                     "or an available local vision helper.")
+                user["images"] = [base64.b64encode(image).decode()]
             payload = {"model": name, "stream": True, "think": bool(think), "keep_alive": local_models.KEEP_ALIVE[model],
                        "messages": [{"role": "system", "content": system or self.system},
-                                    {"role": "user", "content": prompt}]}
+                                    user]}
             if schema:
                 payload["format"] = schema
-            async with aclosing(self._events(payload, timeout)) as events:
+            async with aclosing(self._chat_events(payload, timeout, model)) as events:
                 async for event in events:
                     if event.get("error"):
                         raise LocalError(f"Ollama: {event['error']}")
@@ -359,6 +495,7 @@ class LocalAI:
                         spoken = data.get("speech", "")
                         result = Result(text=text, speech=spoken.strip() if isinstance(spoken, str) else "",
                                         performance=self._performance(event, model, first))
+                        self._phase(model, "done")
                         return data, result
             raise LocalError("Ollama ended the reply early; try again.")
         except (OSError, ValueError, asyncio.IncompleteReadError, asyncio.LimitOverrunError,

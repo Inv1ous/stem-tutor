@@ -140,6 +140,17 @@ JUDGE = {"type": "object", "properties": {
     "feedback": {"type": "string"}}, "required": ["points", "feedback"]}
 
 
+def local_judge_schema(points: list[str]) -> dict:
+    """Constrain local copies of mark-point text; the host still checks every row and its order."""
+    from copy import deepcopy
+
+    schema = deepcopy(JUDGE)
+    array = schema["properties"]["points"]
+    array["minItems"] = array["maxItems"] = len(points)
+    array["items"]["properties"]["point"]["enum"] = list(dict.fromkeys(points))
+    return schema
+
+
 def judge(stem: str, points: list[str], answer: str) -> str:
     listed = "\n".join(f"{i}. {p}" for i, p in enumerate(points, 1))
     return (f"Mark this A-Level answer strictly against the mark points, the way a Cambridge/Edexcel examiner would.\n"

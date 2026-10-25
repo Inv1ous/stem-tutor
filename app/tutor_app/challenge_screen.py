@@ -26,10 +26,10 @@ from tutorlib import challenge_gen, grade, model
 from tutorlib.challenge_gen import generate_set
 from tutorlib.session import _display_answer
 
-from . import cards, local_models, prompts, tts
+from . import cards, codex_models, local_models, prompts, tts
 from .look import C
 from .panels import ChoicePanel, Composer, ContinuePanel, Panel, TickList, ValuePanel
-from .screens import (READ_KEY, AskScreen, ConfirmScreen, ReadAloud, bar, leave_asking_first,
+from .screens import (READ_KEY, AskScreen, ConfirmScreen, LocalActivity, ReadAloud, bar, leave_asking_first,
                       spoken_feedback, spoken_too)
 
 LEVEL = {lv["level"]: lv for lv in ch.LEVELS}
@@ -605,12 +605,13 @@ class ChallengeScreen(ReadAloud, Screen):
         """What the generator calls: one memory-less AI reply as a dict, or None (failed, timed out, unreadable).
         A model that declines raises challenge_gen.Refused, and the generator hands that call to the other model."""
         one_shot, system = self.app.ai.one_shot, challenge_gen.GEN_SYSTEM
-        if "think" in inspect.signature(one_shot).parameters:  # a hard question is worth the model thinking first
-            data, res = await one_shot(prompt, schema=schema, model=model_name, timeout=timeout, system=system, think=True)
-        elif "system" in inspect.signature(one_shot).parameters:
-            data, res = await one_shot(prompt, schema=schema, model=model_name, timeout=timeout, system=system)
-        else:  # an older Claude wrapper: the instructions go in front of the prompt
-            data, res = await one_shot(f"{system}\n\n{prompt}", schema=schema, model=model_name, timeout=timeout)
+        with LocalActivity(self, model_name, task="Writing your set"):
+            if "think" in inspect.signature(one_shot).parameters:  # a hard question is worth the model thinking first
+                data, res = await one_shot(prompt, schema=schema, model=model_name, timeout=timeout, system=system, think=True)
+            elif "system" in inspect.signature(one_shot).parameters:
+                data, res = await one_shot(prompt, schema=schema, model=model_name, timeout=timeout, system=system)
+            else:  # an older Claude wrapper: the instructions go in front of the prompt
+                data, res = await one_shot(f"{system}\n\n{prompt}", schema=schema, model=model_name, timeout=timeout)
         if data is None and "safeguards flagged" in (getattr(res, "message", "") or ""):
             raise challenge_gen.Refused(res.message)
         return data
@@ -756,9 +757,13 @@ class ChallengeScreen(ReadAloud, Screen):
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
         view = {"kind": item["kind"], "stem": item["stem"], "options": item.get("options")}
         selected = self.app.settings.ai_for("mark")[0]
-        model = selected if local_models.is_local(selected) else prompts.REMARK_MODEL
-        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=model, think=True,
-                                            **spoken_too(self.app))
+        model = selected if local_models.is_local(selected) or codex_models.is_codex(selected) else prompts.REMARK_MODEL
+        image = self.app.vault / item["image"] if item.get("image") and local_models.is_local(model) else None
+        think = not local_models.is_local(model) or local_models.supports_thinking(model)
+        with LocalActivity(self, model, task="Checking the marking"):
+            res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=model, think=think,
+                                                **({"image": image} if image is not None else {}),
+                                                **spoken_too(self.app))
         if res:
             fb["remarked"] = True  # one re-mark an answer; a call that failed can be tried again
             self.readable_now(["Re-marked: correct." if res.get("correct") is True else "Re-marked: the mark stands.",
@@ -779,12 +784,14 @@ class ChallengeScreen(ReadAloud, Screen):
         w = self.say(cards.ai("…"), mirror=None)  # mirrored whole once it ends
         buf = ""
         model, think = self.app.settings.ai_for("explain")
-        live = cards.Live(w)
-        async for chunk in a.stream(prompts.challenge_explain(q["item"], q.get("solution", ""), self.fb["answer"],
-                                                              self.fb["response"]), model=model, think=think):
-            buf += chunk
-            if live.update(buf):
-                self.query_one("#log", VerticalScroll).scroll_end(animate=False)
+        image = self.app.vault / q["item"]["image"] if q["item"].get("image") and local_models.is_local(model) else None
+        with LocalActivity(self, model, w) as live:
+            async for chunk in a.stream(prompts.challenge_explain(q["item"], q.get("solution", ""), self.fb["answer"],
+                                                                  self.fb["response"]), model=model, think=think,
+                                         **({"image": image} if image is not None else {})):
+                buf += chunk
+                if live.update(buf):
+                    self.query_one("#log", VerticalScroll).scroll_end(animate=False)
         if not a.last.ok:
             w.update(cards.card("hint", "AI paused", a.last.message))
             self.mirror(views.card_block("hint", "AI paused", a.last.message))

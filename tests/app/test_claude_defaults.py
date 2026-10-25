@@ -5,7 +5,7 @@ import pytest
 from textual.widgets import Button
 
 from test_tui import app_for
-from tutor_app import ai, prompts
+from tutor_app import ai, codex_models, local_models, prompts
 from tutor_app.screens import InsightsScreen, SessionScreen
 
 
@@ -15,6 +15,8 @@ from tutor_app.screens import InsightsScreen, SessionScreen
     ("opus", "sonnet", None, False),
     ("haiku", "ollama:qwen3.5:9b", "ollama:qwen3.5:9b", True),
     ("ollama:qwen3.5:9b", "sonnet", "sonnet", False),
+    ("haiku", "codex:gpt-6.1-sol", "codex:gpt-6.1-sol", True),
+    ("codex:gpt-6.1-sol", "sonnet", "sonnet", False),
 ])
 def test_cards_and_profiles_preserve_cloud_defaults(tmp_path, monkeypatch, ask, explain, want_model, want_think):
     app, _ = app_for(tmp_path, monkeypatch)
@@ -46,7 +48,8 @@ def test_cards_and_profiles_preserve_cloud_defaults(tmp_path, monkeypatch, ask, 
             await pilot.pause()
             seen.clear()
             await app.screen._summarise().wait()
-            assert seen == [(prompts.PROFILE, want_model, False)]
+            profile_think = want_think if local_models.is_local(want_model) or codex_models.is_codex(want_model) else False
+            assert seen == [(prompts.PROFILE, want_model, profile_think)]
             await app.ai.close()
 
     asyncio.run(go())

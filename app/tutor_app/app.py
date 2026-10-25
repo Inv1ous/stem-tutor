@@ -282,6 +282,8 @@ class TutorApp(App):
         self.ai = TutorAI(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json", speech=self.speech_wanted())
         self.ai.model, self.ai.think = self.settings.ai_for("ask")  # the conversation started ahead is the one asked most
+        self.ai.local_web = self.settings.local_web
+        self.ai.local_vision_model = self.settings.local_vision_model
         self.ai.wanted = lambda: self.settings.ai  # AI switched off: nothing is started ahead
         self.ai.on_result = self.show_local_performance
         self.ai.on_request = self.prioritise_ai_request
@@ -338,7 +340,10 @@ class TutorApp(App):
         if is_local(model) and self.ai_available(mode):
             self._preload_owner = self.screen
             self._preload_model = model
-            self.run_worker(self.ai.warm(model=model), group="local-preload", exclusive=True)
+            from . import prompts
+            from .local_models import supports_vision
+            image = prompts.focus_image(self.tutor) if not supports_vision(model) else None
+            self.run_worker(self.ai.prepare_local(model, image=image), group="local-preload", exclusive=True)
 
     def prioritise_ai_request(self, model: str) -> None:
         """An answer the learner asked for takes priority over loading a different model ahead."""
@@ -385,9 +390,17 @@ class TutorApp(App):
         if not p:
             return
         label = LOCAL_MODELS.get(p.get("model"), "Local AI")
+        vision = ""
+        if p.get("vision_model"):
+            vision = (" · image observations reused" if p.get("vision_cached") else
+                      f" · image helper {p.get('vision_seconds', 0):.1f}s, {p.get('vision_output_tokens', 0)} tokens")
+        if p.get("cached_reply"):
+            self.notify(f"{label} · answer reused{vision}.",
+                        title="Local AI performance", timeout=6)
+            return
         text = (f"{label} · {p.get('tokens_per_second', 0):.1f} tok/s · "
                 f"first {p.get('first_token_seconds') or 0:.1f}s · total {p.get('total_seconds', 0):.1f}s · "
-                f"load {p.get('load_seconds', 0):.1f}s · {p.get('output_tokens', 0)} tokens")
+                f"load {p.get('load_seconds', 0):.1f}s · {p.get('output_tokens', 0)} tokens{vision}")
         logs = self.screen.query("#log")
         if logs and logs.first().display:
             logs.first().mount(Static(Text(text, style=look.C["dim"]), classes="entry local-performance"))
