@@ -14,8 +14,9 @@ from textual.binding import Binding
 from tutorlib import packs, store
 from tutorlib.session import Tutor
 
-from . import config, look, mac, tts
-from .ai import Claude
+from . import config, look, mac, resources, tts
+from .ai import Result
+from .tutor_ai import TutorAI
 
 CSS = """
 Screen { background: $background; }
@@ -278,10 +279,12 @@ class TutorApp(App):
         for path in self.tutor.packs.damaged:
             self.notify(f"The content file {path} is damaged, so that chapter is left out: {packs.REINSTALL}.",
                         severity="warning", timeout=15)
-        self.ai = Claude(self.vault, model=self.settings.model, binary=self.claude_binary,
+        self.ai = TutorAI(self.vault, model=self.settings.model, binary=self.claude_binary,
                          usage_file=self.vault / ".tutor" / "ai_usage.json", speech=self.speech_wanted())
         self.ai.model, self.ai.think = self.settings.ai_for("ask")  # the conversation started ahead is the one asked most
         self.ai.wanted = lambda: self.settings.ai  # AI switched off: nothing is started ahead
+        self.ai.on_result = self.show_local_performance
+        self.ai.on_request = self.prioritise_ai_request
         def warm() -> None:  # load the maths library in the background so the first algebra answer isn't slow
             try:
                 from tutorlib import deps
@@ -322,6 +325,75 @@ class TutorApp(App):
             note = mac.claude_limits(config.CLAUDE_STATE)
             self._claude_note = (time.monotonic(), note)
         return note
+
+    def ai_available(self, mode: str = "ask") -> bool:
+        return bool(self.settings.ai and self.ai.available_for(self.settings.ai_for(mode)[0]))
+
+    def prepare_local_ai(self, mode: str) -> None:
+        """Load only the next task's local model while the learner reads or types."""
+        from .local_models import is_local
+
+        self.stop_local_preload()
+        model = self.settings.ai_for(mode)[0]
+        if is_local(model) and self.ai_available(mode):
+            self._preload_owner = self.screen
+            self._preload_model = model
+            self.run_worker(self.ai.warm(model=model), group="local-preload", exclusive=True)
+
+    def prioritise_ai_request(self, model: str) -> None:
+        """An answer the learner asked for takes priority over loading a different model ahead."""
+        if model != getattr(self, "_preload_model", None):
+            self.stop_local_preload()
+
+    def stop_local_preload(self, owner: object | None = None) -> None:
+        if owner is not None and owner is not getattr(self, "_preload_owner", None):
+            return
+        self.workers.cancel_group(self, "local-preload")
+        self._preload_owner = None
+        self._preload_model = None
+
+    def ram_status(self) -> str:
+        """Read RAM off the UI thread, at most once every two seconds while it is shown."""
+        at, text = getattr(self, "_ram_reading", (0.0, "RAM …"))
+        if time.monotonic() - at > 2 and not getattr(self, "_ram_pending", False):
+            self._ram_pending = True
+
+            def sample() -> None:
+                try:
+                    self._ram_reading = (time.monotonic(), resources.ram_text())
+                finally:
+                    self._ram_pending = False
+            self.run_worker(sample, thread=True, group="ram")
+        return text
+
+    def usage_status(self) -> str:
+        display = self.settings.usage_display
+        pieces = []
+        if display in ("weekly", "both"):
+            pieces.append(self.ai.limits_text(self.claude_note()))
+        if display in ("ram", "both"):
+            pieces.append(self.ram_status())
+        return " · ".join(piece for piece in pieces if piece)
+
+    def show_local_performance(self, result: Result) -> None:
+        """A separate terminal widget: no tutor.show(), card metadata, speech, or Obsidian mirror."""
+        from rich.text import Text
+        from textual.widgets import Static
+        from .local_models import LOCAL_MODELS
+
+        p = result.performance
+        if not p:
+            return
+        label = LOCAL_MODELS.get(p.get("model"), "Local AI")
+        text = (f"{label} · {p.get('tokens_per_second', 0):.1f} tok/s · "
+                f"first {p.get('first_token_seconds') or 0:.1f}s · total {p.get('total_seconds', 0):.1f}s · "
+                f"load {p.get('load_seconds', 0):.1f}s · {p.get('output_tokens', 0)} tokens")
+        logs = self.screen.query("#log")
+        if logs and logs.first().display:
+            logs.first().mount(Static(Text(text, style=look.C["dim"]), classes="entry local-performance"))
+            logs.first().scroll_end(animate=False)
+        else:
+            self.notify(text, title="Local AI performance", timeout=10)
 
     def action_smart_quit(self) -> None:
         """ctrl+q / ctrl+c: on the menu it quits; anywhere else it saves and goes back a screen, asking first if

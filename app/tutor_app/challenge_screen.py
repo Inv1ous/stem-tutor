@@ -26,7 +26,7 @@ from tutorlib import challenge_gen, grade, model
 from tutorlib.challenge_gen import generate_set
 from tutorlib.session import _display_answer
 
-from . import cards, prompts, tts
+from . import cards, local_models, prompts, tts
 from .look import C
 from .panels import ChoicePanel, Composer, ContinuePanel, Panel, TickList, ValuePanel
 from .screens import (READ_KEY, AskScreen, ConfirmScreen, ReadAloud, bar, leave_asking_first,
@@ -376,8 +376,11 @@ class ChallengeScreen(ReadAloud, Screen):
         box.mount(widget)
         self.showing = widget
 
-    def ai_ok(self) -> bool:
-        return bool(self.app.settings.ai and self.app.ai.available)
+    def ai_ok(self, mode: str | None = None) -> bool:
+        if mode:
+            return self.app.ai_available(mode)
+        # New challenge questions have their own explicit Sonnet/Opus selector.
+        return bool(self.app.settings.ai and self.app.ai.available_for(self.cfg.get("model", "sonnet")))
 
     def ai_problem(self) -> str:
         a = self.app.ai
@@ -632,7 +635,7 @@ class ChallengeScreen(ReadAloud, Screen):
         questions, skipped = out.get("questions") or [], out.get("skipped") or []
         why = out.get("error") or (skipped[0].get("reason") if skipped else "") or "no reason given"
         if not questions:
-            more = "" if self.app.ai.available else f" {self.ai_problem()}"
+            more = "" if self.ai_ok() else f" {self.ai_problem()}"
             self.set_class(True, "setup")
             self.setup(f"No questions came out of that run ({why}). Nothing was saved: try again, perhaps with a "
                        f"lower hardest level.{more}")
@@ -733,14 +736,14 @@ class ChallengeScreen(ReadAloud, Screen):
 
     def can_remark(self) -> bool:
         fb = self.fb or {}
-        return bool(self.ai_ok() and fb and not fb["correct"] and not fb.get("remarked")
+        return bool(self.ai_ok("mark") and fb and not fb["correct"] and not fb.get("remarked")
                     and fb["response"] != "don't know"
                     and self.set.questions[self.i]["item"]["kind"] in ("numeric", "expression"))
 
     def after_answer(self) -> None:
         last = self.i + 1 >= len(self.set.questions)
         buttons = [("finish", "See your score ⏎") if last else ("next", "Next ⏎")]
-        buttons += [("why", "Explain this answer (AI)")] if self.ai_ok() else []
+        buttons += [("why", "Explain this answer (AI)")] if self.ai_ok("explain") else []
         buttons += [("remark", "Re-mark (AI)")] if self.can_remark() else []
         buttons += [] if last else [("stop", "Stop here (see score)")]
         self.panel(ContinuePanel(buttons=buttons, read=self.can_read()))
@@ -752,7 +755,9 @@ class ChallengeScreen(ReadAloud, Screen):
         fb, item = self.fb, self.set.questions[self.i]["item"]
         self.panel(ContinuePanel("The AI examiner is checking the marking…", buttons=[]))
         view = {"kind": item["kind"], "stem": item["stem"], "options": item.get("options")}
-        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=prompts.REMARK_MODEL, think=True,
+        selected = self.app.settings.ai_for("mark")[0]
+        model = selected if local_models.is_local(selected) else prompts.REMARK_MODEL
+        res, r = await self.app.ai.one_shot(prompts.remark(view, fb), schema=prompts.REMARK, model=model, think=True,
                                             **spoken_too(self.app))
         if res:
             fb["remarked"] = True  # one re-mark an answer; a call that failed can be tried again

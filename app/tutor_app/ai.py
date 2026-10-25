@@ -129,6 +129,7 @@ class Result:
     message: str = ""
     usage: dict = field(default_factory=dict)
     speech: str = ""  # the reply as spoken English, when the AI was asked for it (read aloud on); "" otherwise
+    performance: dict = field(default_factory=dict)  # local runtime measurements; never part of the reply or notes
 
 
 class Claude:
@@ -190,6 +191,9 @@ class Claude:
         if self.status in ("login", "limit") and datetime.now() >= getattr(self, "blocked_until", datetime.max):
             self.status, self.message = "ready", ""  # try again: you may have signed in, or the limit reset
         return self.status == "ready"
+
+    def available_for(self, model: str) -> bool:
+        return self.available
 
     def _block(self, status: str, text: str) -> None:
         now = datetime.now()
@@ -404,7 +408,7 @@ class Claude:
         the same call: no second request). `think`: let the model think first (slower, more usage) — for writing a
         challenge question or a re-mark; marking, nudges and cards answer straight away and return their JSON in one
         turn (a schema-checked second try only if that JSON is missing or incomplete)."""
-        if not self.available:
+        if not self.available_for(model or self.model):
             return None, Result(ok=False, status=self.status, message=self.message or "AI unavailable")
         self._pending += 1
         try:

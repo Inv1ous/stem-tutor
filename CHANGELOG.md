@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.6.0 — 2026-10-25
+
+- **Local tutoring:** choose the installed Qwen 3.5 9B, Gemma 4 26B, or Qwen 3.8 27B model separately for marking,
+  explaining, and asking. Settings detects the LocalAI SSD arriving or leaving while the app is open. Disconnected
+  local choices remain saved; a local request never falls back to Claude.
+- **Local runtime:** use Ollama over loopback, with cancellable streaming, diagrams, spoken replies, structured
+  marking, and separate conversation histories. The tutor can start its own service using the SSD and releases that
+  service on exit. Only one model is loaded at a time in a tutor-owned service.
+- **Resource indicator:** choose weekly Claude usage, system RAM, or both in Settings.
+- **Speed and memory:** preload the next task's model, keep models warm for a duration suited to their size, and run
+  local requests one at a time. A requested answer takes priority over preloading a different model. Existing MLX,
+  speculative decoding, and Flash Attention settings are preserved; weights and quality-related settings are unchanged.
+- **Performance information:** local responses show tokens per second, first-token time, total time, load time, and
+  output tokens in the terminal only. Notes, speech, and Claude usage counters exclude these measurements.
+- **Claude compatibility:** Claude keeps its original model and thinking defaults, retries, conversations, and usage
+  tracking. Local clients are created only when needed; selecting Claude for every task releases the tutor's local service.
+- **Settings:** saving unchanged session length no longer shows a session-length notification.
+
 ## 2.5.22 — 2026-10-23
 
 The merged fixes from the bug watch make marking fairer and keep answers, progress, notes and the Almanac in step with

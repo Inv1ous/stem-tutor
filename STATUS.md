@@ -1,5 +1,10 @@
 # Build status
 
+## v2.6.0 (2026-10-25) — done
+
+Local Ollama tutoring on the LocalAI SSD; live model choices, optional system RAM indicator, terminal-only performance
+statistics, and session-length notifications only when the length changes. Verification is recorded in the release plan.
+
 ## v2.5.22 (2026-10-23) — done
 
 Merged bug-watch fixes: fairer marking, reliable answers and study days, safer notes, clearer screens and speech, repaired questions, and an Almanac that follows corrections.

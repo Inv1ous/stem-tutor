@@ -1,0 +1,775 @@
+{
+  "date": "2026-10-25",
+  "hardware": {
+    "computer": "MacBook Air",
+    "chip": "Apple M4",
+    "cpu_cores": 10,
+    "gpu_cores": 10,
+    "memory_gb": 24
+  },
+  "runtime": "Ollama 0.40.11",
+  "protocol": {
+    "seed": 417,
+    "think": false,
+    "benchmark_num_predict": 220,
+    "production_token_limit_changed": false,
+    "numeric_expectations": {
+      "acceleration": 4,
+      "work": 60,
+      "energy": 9
+    },
+    "quality_scope": "Checks JSON and three numeric fields only. It does not validate explanations or general tutoring quality.",
+    "ordering": "Sequential baseline phase, then sequential preloaded phase; no randomized/interleaved comparison.",
+    "exclusions": "Exclude capped or invalid JSON rows from warm summary medians."
+  },
+  "baseline_program": "import asyncio, json, os, time\nfrom pathlib import Path\nfrom tutor_app.local_ai import LocalAI\nfrom tutor_app.ai import SYSTEM\n\nOUT = Path('/tmp/stem-tutor-v260-bench/results.jsonl')\nSCHEMA = {'type':'object', 'properties': {\n    'acceleration':{'type':'number'}, 'work':{'type':'number'}, 'energy':{'type':'number'},\n    'explanation':{'type':'string'}}, 'required':['acceleration','work','energy','explanation']}\nCONTEXT = '''A car moves in a straight line, starting at4 metres per second and reaching16 metres per second in3seconds.\nA constant force of12newtons moves a body5metres in the force direction. A2kilogram object moves at3metres per second.\nUse acceleration=(final speed-initial speed)/time, work=force*distance, kinetic energy=mass*speed squared/2.\nForces cause acceleration; net zero force means constant velocity. Work transfers energy. Units: acceleration m/s2,\nwork joules and energy joules. A force perpendicular to displacement does no work. Mass differs from weight.\n'''\nPROMPT = 'Reference notes:\\n' + CONTEXT * 4 + '''\\nUsing the values above, calculate acceleration, work, and energy.\nReturn only JSON with those numeric fields and an explanation of the three calculations in70to90words.\n'''\n\nasync def run(client, model, label, options):\n    payload={'model':model.removeprefix('ollama:'),'messages':[{'role':'system','content':SYSTEM},\n        {'role':'user','content':PROMPT}], 'stream':True,'think':False,'format':SCHEMA,\n        'options':{'seed':417,'num_predict':220,**options},'keep_alive':'10m'}\n    started=time.monotonic(); first=None; text=''; final={}\n    async for event in client._events(payload,300):\n        if event.get('error'): raise RuntimeError(event['error'])\n        piece=(event.get('message') or {}).get('content') or ''\n        if piece:\n            if first is None: first=time.monotonic()-started\n            text+=piece\n        if event.get('done'): final=event; break\n    try:\n        parsed=json.loads(text)\n        correct=all(parsed.get(k)==v for k,v in {'acceleration':4,'work':60,'energy':9}.items())\n    except ValueError: correct=False\n    row={'model':model,'label':label,'options':options,'first_seconds':first,\n         'wall_seconds':time.monotonic()-started,'quality_check':correct,'text':text,\n         'performance':client._performance(final,model,first)}\n    with OUT.open('a') as f: f.write(json.dumps(row)+'\\n')\n    print(json.dumps({k:v for k,v in row.items() if k!='text'}),flush=True)\n\nasync def main():\n    for model in ('ollama:qwen3.5:9b','ollama:gemma4:26b-a4b-it-qat','ollama:qwen3.8:27b'):\n        client=LocalAI(SYSTEM)\n        try:\n            await run(client,model,'cold-default',{})\n            await run(client,model,'warm-default-1',{})\n            await run(client,model,'warm-default-2',{})\n            if 'gemma' in model:\n                for batch in (128,256,1024):\n                    await run(client,model,f'batch-{batch}-1',{'num_batch':batch})\n                    await run(client,model,f'batch-{batch}-2',{'num_batch':batch})\n        except Exception as exc:\n            print(json.dumps({'model':model,'error':str(exc)}),flush=True)\n        finally: await client.close()\n\nasyncio.run(main())\n",
+  "preload_program": "import asyncio, json, os, time\nfrom pathlib import Path\nfrom tutor_app.local_ai import LocalAI\nfrom tutor_app.ai import SYSTEM\nfrom tutor_app.local_models import KEEP_ALIVE\n\nOUT = Path('/tmp/stem-tutor-v260-bench/results.jsonl')\nSCHEMA = {'type':'object', 'properties': {\n    'acceleration':{'type':'number'}, 'work':{'type':'number'}, 'energy':{'type':'number'},\n    'explanation':{'type':'string'}}, 'required':['acceleration','work','energy','explanation']}\nCONTEXT = '''A car moves in a straight line, starting at4 metres per second and reaching16 metres per second in3seconds.\nA constant force of12newtons moves a body5metres in the force direction. A2kilogram object moves at3metres per second.\nUse acceleration=(final speed-initial speed)/time, work=force*distance, kinetic energy=mass*speed squared/2.\nForces cause acceleration; net zero force means constant velocity. Work transfers energy. Units: acceleration m/s2,\nwork joules and energy joules. A force perpendicular to displacement does no work. Mass differs from weight.\n'''\nPROMPT = 'Reference notes:\\n' + CONTEXT * 4 + '''\\nUsing the values above, calculate acceleration, work, and energy.\nReturn only JSON with those numeric fields and an explanation of the three calculations in70to90words.\n'''\n\nasync def run(client, model, label, options):\n    payload={'model':model.removeprefix('ollama:'),'messages':[{'role':'system','content':SYSTEM},\n        {'role':'user','content':PROMPT}], 'stream':True,'think':False,'format':SCHEMA,\n        'options':{'seed':417,'num_predict':220,**options},'keep_alive':KEEP_ALIVE[model]}\n    started=time.monotonic(); first=None; text=''; final={}\n    async for event in client._events(payload,300):\n        if event.get('error'): raise RuntimeError(event['error'])\n        piece=(event.get('message') or {}).get('content') or ''\n        if piece:\n            if first is None: first=time.monotonic()-started\n            text+=piece\n        if event.get('done'): final=event; break\n    try:\n        parsed=json.loads(text)\n        correct=all(parsed.get(k)==v for k,v in {'acceleration':4,'work':60,'energy':9}.items())\n    except ValueError: correct=False\n    row={'model':model,'label':label,'options':options,'first_seconds':first,\n         'wall_seconds':time.monotonic()-started,'quality_check':correct,'text':text,\n         'performance':client._performance(final,model,first)}\n    with OUT.open('a') as f: f.write(json.dumps(row)+'\\n')\n    print(json.dumps({k:v for k,v in row.items() if k!='text'}),flush=True)\n\nasync def main():\n    for model in ('ollama:qwen3.5:9b','ollama:gemma4:26b-a4b-it-qat','ollama:qwen3.8:27b'):\n        client=LocalAI(SYSTEM)\n        try:\n            started=time.monotonic()\n            result=await client.warm(model, timeout=180)\n            print(json.dumps({'model':model,'label':'production-preload','ok':result.ok,\n                              'message':result.message,'seconds':time.monotonic()-started}),flush=True)\n            if not result.ok: continue\n            await run(client,model,'preloaded-first',{})\n            for trial in range(1,6):\n                await run(client,model,f'production-warm-{trial}',{})\n        except Exception as exc:\n            print(json.dumps({'model':model,'error':str(exc)}),flush=True)\n        finally: await client.close()\n\nasyncio.run(main())\n",
+  "preloads": [
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "production-preload",
+      "ok": true,
+      "message": "",
+      "seconds": 8.944173792027868
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "production-preload",
+      "ok": true,
+      "message": "",
+      "seconds": 23.452710333978757
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "production-preload",
+      "ok": true,
+      "message": "",
+      "seconds": 23.275498708011582
+    }
+  ],
+  "results": [
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "cold-default",
+      "options": {},
+      "first_seconds": 13.5254532090039,
+      "wall_seconds": 18.815317875007167,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9\n  ,\"explanation\": \"First, acceleration is change in velocity over time: (16-4)/3 = 4 m/s\u00b2. Second, work is force times distance in the direction of motion: 12 \u00d7 5 = 60 J. Third, kinetic energy is half mass times speed squared: 0.5 \u00d7 2 \u00d7 3\u00b2 = 9 J. These link force, motion and stored energy as defined by your notes.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.5:9b",
+        "total_seconds": 18.643346209,
+        "load_seconds": 8.510166292,
+        "prompt_seconds": 4.602195708,
+        "generation_seconds": 5.528848625,
+        "input_tokens": 780,
+        "output_tokens": 125,
+        "tokens_per_second": 22.608685547074458,
+        "first_token_seconds": 13.5254532090039
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "warm-default-1",
+      "options": {},
+      "first_seconds": 0.16580416698707268,
+      "wall_seconds": 5.515988457947969,
+      "text": "{\n\"acceleration\": 4.0,\n\"work\": 60.0,\n\"energy\": 9.0\n,\n\"explanation\": \"Acceleration is $(16-4)/3=4\\text{ m/s}^2$, showing how force changes velocity. Work equals $12\\times5=60\\text{ J}$, representing energy transferred by the constant force along the displacement. Kinetic energy is $\\frac{1}{2}\\times2\\times3^2=9\\text{ J}$, illustrating the energy held by the moving mass due to its speed.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.5:9b",
+        "total_seconds": 5.514886,
+        "load_seconds": 0.009966,
+        "prompt_seconds": 0.053488875,
+        "generation_seconds": 5.450186583,
+        "input_tokens": 780,
+        "output_tokens": 132,
+        "tokens_per_second": 24.219354326644343,
+        "first_token_seconds": 0.16580416698707268
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "warm-default-2",
+      "options": {},
+      "first_seconds": 0.10263849998591468,
+      "wall_seconds": 6.6997391659533605,
+      "text": "{\n  \"acceleration\": 4.0,\n  \"work\": 60,\n  \"energy\": 9.0\n  ,\"explanation\": \"First, acceleration is found using $a=(16-4)/3$, yielding $4\\text{ m/s}^2$. Second, work done by the constant force is $W=12 \\times 5$, giving $60\\text{ J}$ since displacement aligns with force. Third, kinetic energy for the $2\\text{ kg}$ object moving at $3\\text{ m/s}$ is $E_k=(2 \\times 3^2)/2$, resulting in $9\\text{ J}$. These demonstrate how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.5:9b",
+        "total_seconds": 6.698923958,
+        "load_seconds": 0.003052208,
+        "prompt_seconds": 7.083e-06,
+        "generation_seconds": 6.694289167,
+        "input_tokens": 780,
+        "output_tokens": 161,
+        "tokens_per_second": 24.0503503782988,
+        "first_token_seconds": 0.10263849998591468
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "cold-default",
+      "options": {},
+      "first_seconds": 68.83688524999889,
+      "wall_seconds": 74.38936324999668,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 74.164701125,
+        "load_seconds": 65.918669834,
+        "prompt_seconds": 2.66008,
+        "generation_seconds": 5.552556,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "tokens_per_second": 29.716044286631238,
+        "first_token_seconds": 68.83688524999889
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "warm-default-1",
+      "options": {},
+      "first_seconds": 0.3071313750115223,
+      "wall_seconds": 5.986676916014403,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 5.97484425,
+        "load_seconds": 0.017156125,
+        "prompt_seconds": 0.25458,
+        "generation_seconds": 5.679256,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "tokens_per_second": 29.053101321722426,
+        "first_token_seconds": 0.3071313750115223
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "warm-default-2",
+      "options": {},
+      "first_seconds": 0.23684833297738805,
+      "wall_seconds": 5.639445166976657,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 5.638152833,
+        "load_seconds": 0.001038167,
+        "prompt_seconds": 0.216104,
+        "generation_seconds": 5.402284,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "tokens_per_second": 30.542637151249362,
+        "first_token_seconds": 0.23684833297738805
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "batch-128-1",
+      "options": {
+        "num_batch": 128
+      },
+      "first_seconds": 63.16393624996999,
+      "wall_seconds": 68.30475945799844,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 68.302712542,
+        "load_seconds": 59.07030925,
+        "prompt_seconds": 4.066754,
+        "generation_seconds": 5.14094,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "tokens_per_second": 32.09529774710462,
+        "first_token_seconds": 63.16393624996999
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "batch-128-2",
+      "options": {
+        "num_batch": 128
+      },
+      "first_seconds": 0.2682450409629382,
+      "wall_seconds": 5.409056457981933,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 5.403063875,
+        "load_seconds": 0.008701375,
+        "prompt_seconds": 0.230067,
+        "generation_seconds": 5.140299,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "tokens_per_second": 32.0993000601716,
+        "first_token_seconds": 0.2682450409629382
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "batch-256-1",
+      "options": {
+        "num_batch": 256
+      },
+      "first_seconds": 49.877114000031725,
+      "wall_seconds": 55.675213834038004,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by two. All values are expressed in standard SI units.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 55.672458708,
+        "load_seconds": 45.676674541,
+        "prompt_seconds": 4.173928,
+        "generation_seconds": 5.798886,
+        "input_tokens": 786,
+        "output_tokens": 162,
+        "tokens_per_second": 27.93640019824497,
+        "first_token_seconds": 49.877114000031725
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "batch-256-2",
+      "options": {
+        "num_batch": 256
+      },
+      "first_seconds": 0.24153320799814537,
+      "wall_seconds": 6.232958290958777,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by two. All values are expressed in standard SI units.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 6.228958541,
+        "load_seconds": 0.008872333,
+        "prompt_seconds": 0.202785,
+        "generation_seconds": 5.990987,
+        "input_tokens": 786,
+        "output_tokens": 162,
+        "tokens_per_second": 27.040619517284885,
+        "first_token_seconds": 0.24153320799814537
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "batch-1024-1",
+      "options": {
+        "num_batch": 1024
+      },
+      "first_seconds": 29.599887625023257,
+      "wall_seconds": 37.15358920901781,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 37.150863209,
+        "load_seconds": 27.146855584,
+        "prompt_seconds": 2.430966,
+        "generation_seconds": 7.549538,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "tokens_per_second": 21.855642027366443,
+        "first_token_seconds": 29.599887625023257
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "batch-1024-2",
+      "options": {
+        "num_batch": 1024
+      },
+      "first_seconds": 0.430058584024664,
+      "wall_seconds": 7.936082916974556,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 7.914421625,
+        "load_seconds": 0.01375975,
+        "prompt_seconds": 0.353824,
+        "generation_seconds": 7.184305,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "tokens_per_second": 22.96673095031461,
+        "first_token_seconds": 0.430058584024664
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "cold-default",
+      "options": {},
+      "first_seconds": 103.3116489170352,
+      "wall_seconds": 147.10016670898767,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"Acceleration is found using the car's change in speed over time: $(16 - 4) \\\\text{ m s}^{-1} / 3 \\\\text{ s} = 4 \\\\text{ m s}^{-2}$. Work calculates energy transfer when force and displacement align: $12 \\\\text{ N} \\\\times 5 \\\\text{ m} = 60 \\\\text{ J}$. Kinetic energy depends on mass and velocity squared: $(2 \\\\text{ kg} \\\\times 3^2 \\\\text{ m}^2 \\\\text{ s}^{-2}) / 2 = 9 \\\\text{ J}$. These formulas connect forces to motion and energy states.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.8:27b",
+        "total_seconds": 145.634701083,
+        "load_seconds": 52.941067208,
+        "prompt_seconds": 47.70762475,
+        "generation_seconds": 44.977922417,
+        "input_tokens": 780,
+        "output_tokens": 183,
+        "tokens_per_second": 4.068662805350758,
+        "first_token_seconds": 103.3116489170352
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "warm-default-1",
+      "options": {},
+      "first_seconds": 1.8960190839716233,
+      "wall_seconds": 39.11158024996985,
+      "text": "{\n  \"acceleration\": 4.0,\n  \"work\": 60.0,\n  \"energy\": 9.0,\n  \"explanation\": \"Acceleration is change in velocity over time: $4$ m/s divided by $3$ s gives $4$ m/s\u00b2. Work done equals force times distance: $12$ N over $5$ m yields $60$ J. Kinetic energy uses mass and speed: half of $2$ kg times $3$ m/s squared equals $9$ J. These formulas link motion, force, and energy transfer, fundamental to dynamics.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.8:27b",
+        "total_seconds": 39.085345167,
+        "load_seconds": 0.076928458,
+        "prompt_seconds": 1.392091458,
+        "generation_seconds": 37.542436792,
+        "input_tokens": 780,
+        "output_tokens": 135,
+        "tokens_per_second": 3.5959306730128784,
+        "first_token_seconds": 1.8960190839716233
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "warm-default-2",
+      "options": {},
+      "first_seconds": 0.839789749996271,
+      "wall_seconds": 38.08746962499572,
+      "text": "{\n  \"acceleration\": 4.0,\n  \"work\": 60.0,\n  \"energy\": 9.0,\n  \"explanation\": \"Acceleration is found using $a = (v - u) / t$, giving $(16 - 4) / 3 = 4.0 \\text{ m/s}^2$. Work calculates energy transfer via $W = Fd$, so $12 \\times 5 = 60 \\text{ J}$. Kinetic energy uses $E_k = \\frac{1}{2}mv^2$, resulting in $0.5 \\times 2 \\times 3^2 = 9.0 \\text{ J}$. These demonstrate how forces cause acceleration and transfer energy, with perpendicular forces doing no work.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.8:27b",
+        "total_seconds": 38.076849166,
+        "load_seconds": 0.016115416,
+        "prompt_seconds": 0.000390667,
+        "generation_seconds": 38.00583325,
+        "input_tokens": 780,
+        "output_tokens": 174,
+        "tokens_per_second": 4.578244577758336,
+        "first_token_seconds": 0.839789749996271
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "preloaded-first",
+      "options": {},
+      "first_seconds": 6.855753249954432,
+      "wall_seconds": 14.347668458009139,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9\n  ,\"explanation\": \"Acceleration is found using $a = \\frac{16-4}{3}$, yielding $4\\text{ m s}^{-2}$. Work done equals force times distance: $12 \\times 5 = 60\\text{ J}$, representing energy transfer. Kinetic energy for the $2\\text{ kg}$ object is $\\frac{1}{2} \\times 2 \\times 3^2 = 9\\text{ J}$. These values link force to motion changes and stored energy.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.5:9b",
+        "total_seconds": 14.346974375,
+        "load_seconds": 0.000324958,
+        "prompt_seconds": 6.600376167,
+        "generation_seconds": 7.74422975,
+        "input_tokens": 780,
+        "output_tokens": 145,
+        "cached_input_tokens": 0,
+        "tokens_per_second": 18.72361805898127,
+        "first_token_seconds": 6.855753249954432
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "production-warm-1",
+      "options": {},
+      "first_seconds": 0.1875530420220457,
+      "wall_seconds": 8.10492366697872,
+      "text": "{\n  \"acceleration\": 4.0,\n  \"work\": 60.0,\n  \"energy\": 9.0\n  ,\n  \"explanation\": \"First, acceleration is found using the formula $a = \\frac{v_f - v_i}{t}$: $(16 - 4) / 3$ gives $4.0\\text{ m/s}^2$. Second, work done equals force multiplied by distance in the direction of motion, so $12 \\times 5$ yields $60\\text{ J}$. Finally, kinetic energy uses $\\frac{1}{2}mv^2$: half of two times three squared ($3^2=9$) results in $9.0\\text{ J}$.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.5:9b",
+        "total_seconds": 8.103756166,
+        "load_seconds": 0.007278125,
+        "prompt_seconds": 0.090384375,
+        "generation_seconds": 8.003754292,
+        "input_tokens": 780,
+        "output_tokens": 168,
+        "cached_input_tokens": 775,
+        "tokens_per_second": 20.99014960615685,
+        "first_token_seconds": 0.1875530420220457
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "production-warm-2",
+      "options": {},
+      "first_seconds": 0.10326475003967062,
+      "wall_seconds": 6.905805875023361,
+      "text": "{\n  \"acceleration\": 4.0,\n  \"work\": 60.0,\n  \"energy\": 9.0\n, \"explanation\": \"Acceleration is change in speed over time: (16 - 4)/3 = 4 m/s\u00b2. Work is force times distance: 12 \u00d7 5 = 60 J. Kinetic energy is half mass times velocity squared: \u00bd \u00d7 2 \u00d7 3\u00b2 = 9 J. These link force, motion and energy as per standard definitions.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.5:9b",
+        "total_seconds": 6.90500625,
+        "load_seconds": 0.002813167,
+        "prompt_seconds": 7.333e-06,
+        "generation_seconds": 6.900322458,
+        "input_tokens": 780,
+        "output_tokens": 118,
+        "cached_input_tokens": 779,
+        "tokens_per_second": 17.100650109937224,
+        "first_token_seconds": 0.10326475003967062
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "production-warm-3",
+      "options": {},
+      "first_seconds": 0.10613104200456291,
+      "wall_seconds": 8.225970375002362,
+      "text": "{\n  \"acceleration\": 4.0,\n  \"work\": 60.0,\n  \"energy\": 9.0\n  , \"explanation\": \"Acceleration is found using $a = \\frac{16 - 4}{3} = 4\\text{ m/s}^2$. Work done equals force times distance: $W = 12 \\times 5 = 60\\text{ J}$. Kinetic energy for the $2\\text{ kg}$ object is $\\frac{1}{2}mv^2 = \\frac{1}{2}(2)(3^2) = 9\\text{ J}$. Note that acceleration requires a net force, work transfers energy to an object, and kinetic energy depends on mass and speed squared.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.5:9b",
+        "total_seconds": 8.225145875,
+        "load_seconds": 0.009216291,
+        "prompt_seconds": 1.1542e-05,
+        "generation_seconds": 8.213864667,
+        "input_tokens": 780,
+        "output_tokens": 171,
+        "cached_input_tokens": 779,
+        "tokens_per_second": 20.818458415441047,
+        "first_token_seconds": 0.10613104200456291
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "production-warm-4",
+      "options": {},
+      "first_seconds": 0.10948599997209385,
+      "wall_seconds": 8.187904458958656,
+      "text": "{\n  \"acceleration\": 4.0,\n  \"work\": 60.0,\n  \"energy\": 9.0,\n  \"explanation\": \"Acceleration is change in velocity over time: $(16-4)/3 = 4 \\text{ m/s}^2$. Work equals force times distance: $12 \\times 5 = 60 \\text{ J}$. Kinetic energy uses mass and speed: $2 \\times 3^2 / 2 = 9 \\text{ J}$. These link Newton's Second Law, work-energy principle, and motion formulas directly.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.5:9b",
+        "total_seconds": 8.186927541,
+        "load_seconds": 0.010418416,
+        "prompt_seconds": 9.333e-06,
+        "generation_seconds": 8.174700583,
+        "input_tokens": 780,
+        "output_tokens": 136,
+        "cached_input_tokens": 779,
+        "tokens_per_second": 16.636694961381682,
+        "first_token_seconds": 0.10948599997209385
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.5:9b",
+      "label": "production-warm-5",
+      "options": {},
+      "first_seconds": 0.1412568329833448,
+      "wall_seconds": 8.72125662502367,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9\n  ,\n  \"explanation\": \"Acceleration is $ (16-4)/3 = 4 \\text{ m s}^{-2} $. Work done is force times distance: $ 12 \\times 5 = 60 \\text{ J} $. Kinetic energy for the $ 2 \\text{ kg} $ object is $ 2 \\times 3^2 / 2 = 9 \\text{ J} $. These definitions link motion to forces and energy transfer, a core A-Level concept. Note that work depends on force direction relative to displacement.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.5:9b",
+        "total_seconds": 8.720367416,
+        "load_seconds": 0.007045916,
+        "prompt_seconds": 1.225e-05,
+        "generation_seconds": 8.710993416,
+        "input_tokens": 780,
+        "output_tokens": 150,
+        "cached_input_tokens": 779,
+        "tokens_per_second": 17.219620407987687,
+        "first_token_seconds": 0.1412568329833448
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "preloaded-first",
+      "options": {},
+      "first_seconds": 3.6389677920378745,
+      "wall_seconds": 10.297383333032485,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 10.296643417,
+        "load_seconds": 0.000353583,
+        "prompt_seconds": 3.625288,
+        "generation_seconds": 6.65676,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "cached_input_tokens": 0,
+        "tokens_per_second": 24.786833234186,
+        "first_token_seconds": 3.6389677920378745
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "production-warm-1",
+      "options": {},
+      "first_seconds": 0.22732708300463855,
+      "wall_seconds": 6.535439083003439,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 6.534336708,
+        "load_seconds": 0.001075666,
+        "prompt_seconds": 0.216791,
+        "generation_seconds": 6.30801,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "cached_input_tokens": 781,
+        "tokens_per_second": 26.15721915469379,
+        "first_token_seconds": 0.22732708300463855
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "production-warm-2",
+      "options": {},
+      "first_seconds": 0.19886337500065565,
+      "wall_seconds": 6.53068904200336,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 6.528894542,
+        "load_seconds": 0.00227025,
+        "prompt_seconds": 0.184297,
+        "generation_seconds": 6.325697,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "cached_input_tokens": 781,
+        "tokens_per_second": 26.084082117749237,
+        "first_token_seconds": 0.19886337500065565
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "production-warm-3",
+      "options": {},
+      "first_seconds": 0.3470404170220718,
+      "wall_seconds": 7.091510416998062,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 7.088346875,
+        "load_seconds": 0.002289584,
+        "prompt_seconds": 0.310563,
+        "generation_seconds": 6.752703,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "cached_input_tokens": 781,
+        "tokens_per_second": 24.434659720707394,
+        "first_token_seconds": 0.3470404170220718
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "production-warm-4",
+      "options": {},
+      "first_seconds": 0.19473624997772276,
+      "wall_seconds": 6.63086725003086,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 6.629493209,
+        "load_seconds": 0.001134084,
+        "prompt_seconds": 0.182599,
+        "generation_seconds": 6.436297,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "cached_input_tokens": 781,
+        "tokens_per_second": 25.635858631135264,
+        "first_token_seconds": 0.19473624997772276
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:gemma4:26b-a4b-it-qat",
+      "label": "production-warm-5",
+      "options": {},
+      "first_seconds": 0.19130062498152256,
+      "wall_seconds": 6.884601666009985,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"To find acceleration, I subtracted the initial speed of $4\\text{ m/s}$ from the final speed of $16\\text{ m/s}$ and divided by the $3\\text{ s}$ interval. For work, I multiplied the constant force of $12\\text{ N}$ by the $5\\text{ m}$ displacement in the direction of the force. Finally, I calculated kinetic energy by squaring the $3\\text{ m/s}$ velocity, multiplying by the $2\\text{ kg}$ mass, and dividing by $2$. These values represent how forces change motion and transfer energy.\"\n}",
+      "performance": {
+        "model": "ollama:gemma4:26b-a4b-it-qat",
+        "total_seconds": 6.883296417,
+        "load_seconds": 0.000959958,
+        "prompt_seconds": 0.181707,
+        "generation_seconds": 6.693394,
+        "input_tokens": 786,
+        "output_tokens": 165,
+        "cached_input_tokens": 781,
+        "tokens_per_second": 24.651170990382457,
+        "first_token_seconds": 0.19130062498152256
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "preloaded-first",
+      "options": {},
+      "first_seconds": 40.1671493339818,
+      "wall_seconds": 60.74385191698093,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"Acceleration is the rate of change of velocity: $(16 - 4) / 3 = 4 \\\\, \\\\text{m s}^{-2}$. Work done transfers energy via force over distance: $12 \\\\times 5 = 60 \\\\, \\\\text{J}$. Kinetic energy is the energy of motion: $0.5 \\\\times 2 \\\\times 3^2 = 9 \\\\, \\\\text{J}$. Note that a force perpendicular to displacement does no work, and mass differs from weight.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.8:27b",
+        "total_seconds": 60.743022791,
+        "load_seconds": 0.000277541,
+        "prompt_seconds": 38.735200459,
+        "generation_seconds": 22.0055085,
+        "input_tokens": 780,
+        "output_tokens": 149,
+        "cached_input_tokens": 0,
+        "tokens_per_second": 6.771031898672098,
+        "first_token_seconds": 40.1671493339818
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "production-warm-1",
+      "options": {},
+      "first_seconds": 0.9019826670410112,
+      "wall_seconds": 34.54208350001136,
+      "text": "{\n  \"acceleration\": 4.0,\n  \"work\": 60.0,\n  \"energy\": 9.0,\n  \"explanation\": \"To find acceleration, use the formula $a = (v-u)/t$. Substituting $16\\\\,\\\\mathrm{m\\\\,s^{-1}}$, $4\\\\,\\\\mathrm{m\\\\,s^{-1}}$, and $3\\\\,\\\\mathrm{s}$ gives $12/3 = 4\\\\,\\\\mathrm{m\\\\,s^{-2}}$. Work is $W = Fd$, so $12\\\\,\\\\mathrm{N} \\\\times 5\\\\,\\\\mathrm{m} = 60\\\\,\\\\mathrm{J}$. This energy transfer increases the object's kinetic energy. Finally, kinetic energy is $E_k = \\\\frac{1}{2}mv^2$. For a $2\\\\,\\\\mathrm{kg}$ mass at $3\\\\,\\\\mathrm{m\\\\,s^{-1}}",
+      "performance": {
+        "model": "ollama:qwen3.8:27b",
+        "total_seconds": 34.534224625,
+        "load_seconds": 0.009032292,
+        "prompt_seconds": 0.440776125,
+        "generation_seconds": 34.081010458,
+        "input_tokens": 780,
+        "output_tokens": 220,
+        "cached_input_tokens": 775,
+        "tokens_per_second": 6.455207666777331,
+        "first_token_seconds": 0.9019826670410112
+      },
+      "numeric_schema_check": false,
+      "benchmark_cap_reached": true
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "production-warm-2",
+      "options": {},
+      "first_seconds": 1.2453647080110386,
+      "wall_seconds": 24.938937750004698,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"Acceleration is change in velocity over time: $(16 - 4)/3 = 4 \\text{ m/s}^2$. Work is force times distance: $12 \\times 5 = 60 \\text{ J}$. Kinetic energy uses mass and speed: $\\frac{1}{2} \\times 2 \\times 3^2 = 9 \\text{ J}$. These illustrate core mechanics: forces change motion, doing work transfers energy, and kinetic energy depends on mass and velocity squared. Units are consistent throughout.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.8:27b",
+        "total_seconds": 24.933799125,
+        "load_seconds": 0.012091291,
+        "prompt_seconds": 2.0167e-05,
+        "generation_seconds": 24.879487708,
+        "input_tokens": 780,
+        "output_tokens": 150,
+        "cached_input_tokens": 779,
+        "tokens_per_second": 6.029063048262344,
+        "first_token_seconds": 1.2453647080110386
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "production-warm-3",
+      "options": {},
+      "first_seconds": 0.6496342910104431,
+      "wall_seconds": 32.9118757499964,
+      "text": "{\n  \"acceleration\": 4.0,\n  \"work\": 60.0,\n  \"energy\": 9.0,\n  \"explanation\": \"Acceleration is change in velocity over time: $(16-4)/3 = 4 \\text{ m/s}^2$. Work done by a constant force is force times displacement: $12 \\times 5 = 60 \\text{ J}$. Kinetic energy depends on mass and speed: $\\frac{1}{2} \\times 2 \\times 3^2 = 9 \\text{ J}$. These distinct calculations illustrate how forces produce motion, transfer energy through work, and store it as kinetic energy in moving masses.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.8:27b",
+        "total_seconds": 32.902536708,
+        "load_seconds": 0.036516333,
+        "prompt_seconds": 0.022629791,
+        "generation_seconds": 32.804342333,
+        "input_tokens": 780,
+        "output_tokens": 156,
+        "cached_input_tokens": 779,
+        "tokens_per_second": 4.755467993122044,
+        "first_token_seconds": 0.6496342910104431
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "production-warm-4",
+      "options": {},
+      "first_seconds": 0.77934795798501,
+      "wall_seconds": 32.41970066598151,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"Acceleration is change in speed over time: $(16-4)/3 = 4 \\\\text{ m/s}^2$. Work is force times distance in the direction of the force: $12 \\\\times 5 = 60 \\\\text{ J}$. Kinetic energy is half mass times speed squared: $0.5 \\\\times 2 \\\\times 3^2 = 9 \\\\text{ J}$. Notice units: acceleration in $\\\\text{m/s}^2$, energy and work in joules. These three quantities link forces, motion, and energy transfer, core ideas in Mechanics. If a force acts perpendicular to motion, work is zero\u2014check the direction before applying formulas.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.8:27b",
+        "total_seconds": 32.399170958,
+        "load_seconds": 0.070050583,
+        "prompt_seconds": 2.3292e-05,
+        "generation_seconds": 32.248153167,
+        "input_tokens": 780,
+        "output_tokens": 183,
+        "cached_input_tokens": 779,
+        "tokens_per_second": 5.674743575308572,
+        "first_token_seconds": 0.77934795798501
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    },
+    {
+      "model": "ollama:qwen3.8:27b",
+      "label": "production-warm-5",
+      "options": {},
+      "first_seconds": 0.6076464580255561,
+      "wall_seconds": 27.89363050000975,
+      "text": "{\n  \"acceleration\": 4,\n  \"work\": 60,\n  \"energy\": 9,\n  \"explanation\": \"Acceleration is calculated by dividing the change in speed (12 m/s) by time (3 s), yielding 4 m/s\u00b2. Work equals force times displacement: 12 N multiplied by 5 m gives 60 J. Kinetic energy uses mass times speed squared, divided by two. For a 2 kg mass at 3 m/s, this is $\\\\frac{2 \\\\times 3^2}{2}$, resulting in 9 J. These formulas connect motion changes to force and energy transfer.\"\n}",
+      "performance": {
+        "model": "ollama:qwen3.8:27b",
+        "total_seconds": 27.87497175,
+        "load_seconds": 0.073498166,
+        "prompt_seconds": 0.000108875,
+        "generation_seconds": 27.715260541,
+        "input_tokens": 780,
+        "output_tokens": 144,
+        "cached_input_tokens": 779,
+        "tokens_per_second": 5.195693534505172,
+        "first_token_seconds": 0.6076464580255561
+      },
+      "numeric_schema_check": true,
+      "benchmark_cap_reached": false
+    }
+  ]
+}

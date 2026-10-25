@@ -1,6 +1,16 @@
 # How STEM Tutor works
 
-_Version 2.5.22_
+_Version 2.6.0_
+
+> [!example] New in 2.6
+> Plug in the LocalAI SSD to choose **Qwen 3.5 9B**, **Gemma 4 26B**, or **Qwen 3.8 27B** in Settings (F2). The lists
+> update while Settings is open. Choose a model separately for marking, explaining, and asking. Local replies use
+> this Mac's RAM and no Claude allowance; disconnected local choices stay saved until you choose another model.
+> Ollama starts automatically when needed. Local replies show speed and timing in the terminal only.
+> The next task's model loads while you read or type and stays warm between questions. One model runs at a time to
+> limit memory pressure; switching models needs another load. The installed weights and thinking choices stay the same.
+> **Resource indicator** can show weekly Claude usage, system RAM, or both. Saving Settings only announces the session
+> length when you change it. New challenge questions retain their own Sonnet/Opus selector.
 
 STEM Tutor is your personal A-Level tutor for **CAIE Physics (9702)**, **CAIE Chemistry (9701)** and **Edexcel IAL Maths and Further Maths**. You work with it in a **Terminal window**. Everything worth keeping is written into **Obsidian** (this vault) as you go: the question in front of you, notes that grow as you learn, and a record of every session.
 
